@@ -334,7 +334,8 @@ public:
           gamma(1.0), interpolator(CUBIC),
           optimizeReferenceImage(0),
           featherWidth(10),
-          remapAcceleration(MAX_SPEEDUP)
+          remapAcceleration(MAX_SPEEDUP),
+          blendMode(WEIGHTED_BLEND)
         {};
 
     void reset()
@@ -353,6 +354,7 @@ public:
             featherWidth = 10;
             outputFormat = JPEG;
             remapAcceleration = MAX_SPEEDUP;
+            blendMode = WEIGHTED_BLEND;
         }
     virtual ~PanoramaOptions() {};
 
@@ -405,6 +407,7 @@ public:
     unsigned int featherWidth;
 
     PTStitcherAcceleration remapAcceleration;
+    BlendingMechanism blendMode;
 
 private:
     static const std::string fileformatNames[];
