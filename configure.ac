@@ -2,7 +2,7 @@ dnl                                               -*- Autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5)
-AC_INIT([hugin], [0.4], [pablo.dangelo@web.de])
+AC_INIT([hugin], [0.5], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
 AC_CONFIG_HEADER([src/include/config.h])
