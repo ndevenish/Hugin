@@ -405,8 +405,11 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     DEBUG_ASSERT(imgctrlpanel);
     wxSize sz = imgctrlpanel->GetSize();
     DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
     imgctrlpanel->Clear();
-
+#else
+    imgctrlpanel->ClearBackground();
+#endif
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
     const wxImage * img = ImageCache::getInstance().getSmallImage(
