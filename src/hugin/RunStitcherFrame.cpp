@@ -51,7 +51,7 @@ BEGIN_EVENT_TABLE(RunStitcherFrame, wxFrame)
 END_EVENT_TABLE()
 
 RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
-                                   Panorama * pano,
+                                   const Panorama * pano,
                                    const PanoramaOptions & options,
                                    bool editScript)
     : m_pid(-1),

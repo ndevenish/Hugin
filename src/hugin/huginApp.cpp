@@ -90,7 +90,7 @@ bool huginApp::OnInit()
     locale.AddCatalogLookupPathPrefix(wxT("po"));
 //    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    DEBUG_INFO((wxString)"add locale path: " + INSTALL_LOCALE_DIR)
+    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
     // add path from config file
     if (config->HasEntry(wxT("locale_path"))){
         locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
@@ -131,6 +131,8 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("image_center.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("nona_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("ptstitcher_panel.xrc"));
 //    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_list_frame.xrc"));

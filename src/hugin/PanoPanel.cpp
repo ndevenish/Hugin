@@ -45,45 +45,26 @@
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/MyProgressDialog.h"
+#include "hugin/PTStitcherPanel.h"
+#include "hugin/NonaStitcherPanel.h"
 
 using namespace PT;
 using namespace std;
 using namespace utils;
 
-// image preview
-extern wxBitmap *p_img;
-extern ImgPreview *canvas;
-
-//------------------------------------------------------------------------------
-
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::FitParent )
 
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
-    EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
     EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
     EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
-    EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
-    EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
-    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChangedSpin)
-    EVT_SPINCTRL(XRCID("pano_spin_feather_width"), PanoPanel::OnFeatherWidthChanged)
-    EVT_SPINCTRL(XRCID("pano_jpeg_quality"), PanoPanel::OnSetQuality)
-
-// TODO remove
-//    EVT_COMBOBOX ( XRCID("pano_val_preview_width"),PanoPanel::PreviewWidthChanged )
-//    EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
-//    EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::AutoPreviewChanged )
-//  EVT_CHECKBOX ( XRCID("pano_cb_auto_optimize"),PanoPanel::autoOptimize )
-//    EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
-//                                               PanoPanel::PanoviewerEnabled )
-    EVT_CHOICE   ( XRCID("pano_choice_format_final"),PanoPanel::FileFormatChanged)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
-//    EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
+    EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
 END_EVENT_TABLE()
 
 
@@ -91,7 +72,7 @@ END_EVENT_TABLE()
 PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
       pano(*pano),
-      updatesDisabled(false)
+      updatesDisabled(false), m_Stitcher(0)
 {
 //    opt = new PanoramaOptions();
 
@@ -109,51 +90,12 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_VFOVSpin);
     m_VFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_InterpolatorChoice = XRCCTRL(*this, "pano_choice_interpolator",
-                                   wxChoice);
-    DEBUG_ASSERT(m_InterpolatorChoice);
-    m_GammaText = XRCCTRL(*this, "pano_val_gamma" ,wxTextCtrl);
-    DEBUG_ASSERT(m_GammaText);
-    m_GammaText->PushEventHandler(new TextKillFocusHandler(this));
-
-    m_ColorCorrModeChoice = XRCCTRL(*this, "pano_choice_color_corr_mode",
-                                    wxChoice);
-    DEBUG_ASSERT(m_ColorCorrModeChoice);
-    m_ColorCorrRefSpin = XRCCTRL(*this, "pano_spin_color_corr_reference",
-                                 wxSpinCtrl);
-    DEBUG_ASSERT(m_ColorCorrRefSpin);
-    m_ColorCorrRefSpin->Disable();
-    m_ColorCorrRefSpin->PushEventHandler(new TextKillFocusHandler(this));
-
-    m_FeatherWidthSpin = XRCCTRL(*this, "pano_spin_feather_width",
-                                 wxSpinCtrl);
-    DEBUG_ASSERT(m_FeatherWidthSpin);
-    m_FeatherWidthSpin->PushEventHandler(new TextKillFocusHandler(this));
-
-// TODO remove
-#if 0
-    m_PreviewWidthCombo = XRCCTRL(*this, "pano_val_preview_width", wxComboBox);
-    DEBUG_ASSERT(m_PreviewWidthCombo);
-    m_AutoPreviewCB = XRCCTRL(*this, "pano_cb_auto_preview", wxCheckBox);
-    DEBUG_ASSERT(m_AutoPreviewCB);
-    m_PreviewPanoviewerCB = XRCCTRL(*this, "pano_cb_panoviewer_enabled", wxCheckBox);
-    DEBUG_ASSERT(m_PreviewPanoviewerCB);
-    m_PreviewButton = XRCCTRL(*this, "pano_button_preview", wxButton);
-    DEBUG_ASSERT(m_PreviewButton);
-#endif
 
     m_WidthTxt = XRCCTRL(*this, "pano_val_width", wxTextCtrl);
     DEBUG_ASSERT(m_WidthTxt);
     m_WidthTxt->PushEventHandler(new TextKillFocusHandler(this));
 
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
-    m_FormatChoice = XRCCTRL(*this, "pano_choice_format_final", wxChoice);
-    DEBUG_ASSERT(m_FormatChoice);
-    m_JPEGQualitySpin = XRCCTRL(*this, "pano_jpeg_quality", wxSpinCtrl);
-    DEBUG_ASSERT(m_JPEGQualitySpin);
-    m_JPEGQualitySpin->PushEventHandler(new TextKillFocusHandler(this));
-    m_editScriptCB = XRCCTRL(*this, "pano_edit_script", wxCheckBox);
-    DEBUG_ASSERT(m_editScriptCB);
     m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
     DEBUG_ASSERT(m_StitcherChoice);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
@@ -162,6 +104,17 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     // observe the panorama
     pano->addObserver (this);
 
+    // setup the stitcher
+    int t = wxConfigBase::Get()->Read("Stitcher/DefaultStitcher",0l);
+    m_StitcherChoice->SetSelection(t);
+
+    // trigger creation of apropriate stitcher control, if
+    // not already happend.
+    if (! m_Stitcher) {
+        wxCommandEvent dummy;
+        StitcherChanged(dummy);
+    }
+
     DEBUG_TRACE("")
 }
 
@@ -169,6 +122,8 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 PanoPanel::~PanoPanel(void)
 {
     DEBUG_TRACE("dtor");
+    wxConfigBase::Get()->Write("Stitcher/DefaultStitcher",m_StitcherChoice->GetSelection());
+
     // FIXME. why does the crash at exit?
 //    m_HFOVSpin->PopEventHandler(false);
 //    m_VFOVSpin->PopEventHandler(false);
@@ -189,29 +144,7 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 
 void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
-    unsigned int nImages = pano.getNrOfImages();
 
-    if (nImages < 1) {
-        // disable some controls
-        m_ColorCorrModeChoice->Disable();
-// TODO remove
-//        m_PreviewButton->Disable();
-        m_StitchButton->Disable();
-        m_ColorCorrRefSpin->Disable();
-    } else {
-        m_ColorCorrModeChoice->Enable();
-//        m_PreviewButton->Enable();
-        m_StitchButton->Enable();
-    }
-
-    int maximg = ((int)nImages) -1;
-    // set spinctrl limits
-    if (opt.colorCorrection != PanoramaOptions::NONE) {
-        m_ColorCorrRefSpin->Enable();
-        m_ColorCorrRefSpin->SetRange(0, maximg);
-    } else {
-        m_ColorCorrRefSpin->Disable();
-    }
     switch (opt.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
         m_HFOVSpin->SetRange(1,179);
@@ -231,23 +164,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_HFOVSpin->SetValue((int)opt.HFOV);
     m_VFOVSpin->SetValue((int)opt.VFOV);
 
-    m_InterpolatorChoice->SetSelection(opt.interpolator);
-    m_GammaText->SetValue(wxString::Format ("%.2f", opt.gamma));
-    m_ColorCorrModeChoice->SetSelection(opt.colorCorrection);
-    m_ColorCorrRefSpin->SetValue(opt.colorReferenceImage);
-
     m_WidthTxt->SetValue(wxString::Format("%d", opt.width));
     m_HeightStaticText->SetLabel(wxString::Format("%d", opt.getHeight()));
-    m_FormatChoice->SetSelection((int)opt.outputFormat);
-
-    if (opt.outputFormat == PanoramaOptions::JPEG) {
-        m_JPEGQualitySpin->Enable();
-    } else {
-        m_JPEGQualitySpin->Disable();
-    }
-    m_JPEGQualitySpin->SetValue(opt.quality);
-
-    m_FeatherWidthSpin->SetValue(opt.featherWidth);
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -266,31 +184,6 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
     DEBUG_DEBUG ("Projection changed: "  << lt << ":" << Ip )
-}
-
-void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
-{
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    //Interpolator from PanoramaMemento.h
-    int lt = m_InterpolatorChoice->GetSelection();
-    wxString Ip;
-    switch ( lt ) {
-    case PanoramaOptions::CUBIC:             Ip = _("Bicubic"); break;
-    case PanoramaOptions::SPLINE_16:         Ip = _("Spline 16"); break;
-    case PanoramaOptions::SPLINE_36:         Ip = _("Spline 36"); break;
-    case PanoramaOptions::SINC_256:          Ip = _("Sinc 256"); break;
-    case PanoramaOptions::SPLINE_64:         Ip = _("Spline 64"); break;
-    case PanoramaOptions::BILINEAR:          Ip = _("Bilinear"); break;
-    case PanoramaOptions::NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
-    case PanoramaOptions::SINC_1024:         Ip = _("Sinc 1024"); break;
-    }
-
-    opt.interpolator = (PanoramaOptions::Interpolator) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-    DEBUG_DEBUG ("Interpolator changed to: " << Ip )
 }
 
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
@@ -365,90 +258,6 @@ void PanoPanel::VFOVChangedSpin ( wxSpinEvent & e )
     }
 }
 
-void PanoPanel::GammaChanged ( wxCommandEvent & e )
-{
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    double val;
-    wxString text = m_GammaText->GetValue();
-    if (text.ToDouble( &val )) {
-        opt.gamma = val;
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
-            );
-        DEBUG_DEBUG( val );
-    } else {
-        wxLogError(_("gamma must be a number"));
-    }
-}
-
-void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
-{
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    int colorCorrection = m_ColorCorrModeChoice->GetSelection();
-    wxString text = m_ColorCorrModeChoice->GetString(colorCorrection);
-
-    int refImage = m_ColorCorrRefSpin->GetValue();
-    opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
-    DEBUG_ASSERT(refImage >= 0 && refImage < (int)pano.getNrOfImages());
-    opt.colorReferenceImage = (unsigned int) refImage;
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-
-    DEBUG_INFO(text <<" with: " << refImage);
-}
-
-void PanoPanel::ColourModeChangedSpin ( wxSpinEvent & e )
-{
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    int colorCorrection = m_ColorCorrModeChoice->GetSelection();
-    wxString text = m_ColorCorrModeChoice->GetString(colorCorrection);
-
-    int refImage = m_ColorCorrRefSpin->GetValue();
-    opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
-    DEBUG_ASSERT(refImage >= 0 && refImage < (int)pano.getNrOfImages());
-    opt.colorReferenceImage = (unsigned int) refImage;
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-
-    DEBUG_INFO(text <<" with: " << refImage);
-}
-
-// TODO remove
-#if 0
-void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
-{
-    if (updatesDisabled) return;
-    DEBUG_ERROR("preview not implemented");
-    PanoramaOptions opt = pano.getOptions();
-    long previewWidth;
-    if (m_PreviewWidthCombo->GetValue().ToLong(&previewWidth)) {
-        DEBUG_INFO ( ": " << previewWidth );
-    } else {
-        wxLogError(_("preview width must be a number"));
-    }
-}
-#endif
-
-
-void PanoPanel::FileFormatChanged ( wxCommandEvent & e )
-{
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    int format = m_FormatChoice->GetSelection();
-
-    opt.outputFormat = (PanoramaOptions::FileFormat) format;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-    DEBUG_INFO ( PanoramaOptions::getFormatName(opt.outputFormat));
-}
 
 void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
@@ -467,19 +276,33 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
     }
 }
 
-// TODO remove
-#if 0
-void PanoPanel::AutoPreviewChanged (wxCommandEvent & e)
+void PanoPanel::StitcherChanged(wxCommandEvent & e)
 {
-    wxLogError("preview not implemented");
-}
+    int stitcher = m_StitcherChoice->GetSelection();
+    DEBUG_DEBUG("changing stitcher to " << stitcher);
 
-void PanoPanel::PanoviewerEnabled(wxCommandEvent & e)
-{
-    if (updatesDisabled) return;
-    wxLogError("preview not implemented");
+    // PTStitcher
+    if (m_Stitcher) {
+        m_Stitcher->Destroy();
+    }
+    switch (stitcher) {
+    case 0:
+        m_Stitcher = new PTStitcherPanel(this, pano);
+        break;
+    case 1:
+        m_Stitcher = new NonaStitcherPanel(this, pano);
+        break;
+    default:
+        DEBUG_FATAL("Unknown Stitcher selecte, XRC file might be invalid");
+        return;
+    }
+    // show the new stitcher
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("pano_stitcher_unknown"),
+               m_Stitcher );
+    // redo layout.
+//    Layout();
 }
-#endif
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 {
@@ -497,6 +320,7 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
 
 }
+
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
@@ -537,115 +361,10 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
         std::ofstream script(dlg.GetPath());
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
-
-        int s = m_StitcherChoice->GetSelection();
-        DEBUG_ASSERT(s >=0 && s <= PTSTITCHER);
-        StitchingEngine stitcher((StitchingEngine)s);
-        switch (stitcher) {
-        case NONA:
-        {
-            std::string basename;
-            // strip any extension from output file
-            std::string::size_type idx = opt.outfile.rfind('.');
-            if (idx != std::string::npos) {
-                basename = opt.outfile.substr(0, idx);
-            }
-            MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-
-            std::string format = "jpg";
-            switch(opt.outputFormat) {
-                // flat formats.. do the stitching
-            case PanoramaOptions::JPEG:
-                format = "jpg";
-                break;
-            case PanoramaOptions::PNG:
-                format = "png";
-                break;
-            case PanoramaOptions::TIFF:
-                format = "tif";
-                break;
-
-                // mulilayer formats, without blended masks
-            case PanoramaOptions::TIFF_m:
-                format = "tif";
-                break;
-            case PanoramaOptions::TIFF_multilayer:
-                format = "tif";
-                break;
-
-                // multilayer, with blend masks.
-            case PanoramaOptions::TIFF_mask:
-                format = "tif";
-                break;
-            case PanoramaOptions::TIFF_multilayer_mask:
-                format = "tif";
-                break;
-            default:
-                wxMessageBox(_("file format not supported by builtin stitcher\ntry the PTStitcher engine"),_("Nona warning"),wxICON_ERROR);
-                format = "jpg";
-                return;
-            }
-
-            try {
-                // stitch panorama
-                PT::stitchPanorama(pano, opt,
-                                   pdisp, basename);
-            } catch (std::exception & e) {
-                DEBUG_FATAL(_("error during stitching:") << e.what());
-                return;
-            }
-        }
-        break;
-        case PTSTITCHER:
-        {
-            // work around a bug in PTStitcher, which doesn't
-            // allow multilayer tif files to end with .tif
-            if ( ( opt.outputFormat == PanoramaOptions::TIFF_m
-                   || opt.outputFormat == PanoramaOptions::TIFF_mask
-                ) &&
-                 (
-                     opt.outfile.substr(opt.outfile.size()-4) == ".tif"
-                     || opt.outfile.substr(opt.outfile.size()-4) == ".TIF"
-                     )
-                )
-            {
-                opt.outfile = opt.outfile.substr(0, opt.outfile.size()-4);
-            }
-            new RunStitcherFrame(this, &pano, opt, m_editScriptCB->IsChecked());
-        }
-        }
+        m_Stitcher->Stitch(pano, opt);
     }
 }
 
-void PanoPanel::OnSetQuality(wxSpinEvent & e)
-{
-    PanoramaOptions opt = pano.getOptions();
-
-    opt.quality = m_JPEGQualitySpin->GetValue();
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-}
-
-void PanoPanel::OnFeatherWidthChanged(wxSpinEvent & e)
-{
-    PanoramaOptions opt = pano.getOptions();
-
-    opt.featherWidth = m_FeatherWidthSpin->GetValue();
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-}
-
-// TODO remove
-#if 0
-void PanoPanel::DoPreview (wxCommandEvent & e)
-{
-    wxLogError("preview not implemented");
-}
-#endif
 
 void PanoPanel::FitParent( wxSizeEvent & e )
 {
@@ -653,6 +372,6 @@ void PanoPanel::FitParent( wxSizeEvent & e )
     Layout();
     wxSize new_size = e.GetSize();
 //    this->SetSize(new_size);
-//    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
+    XRCCTRL(*this, "panorama_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }

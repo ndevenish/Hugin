@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 /** @file PanoPanel.h
  *
- *  @author Kai-Uwe Behrmann <web@tiscali.de>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  $Id$
  *
@@ -21,14 +21,15 @@
  *
  */
 
-#ifndef _PANOPANEL_H
-#define _PANOPANEL_H
+#ifndef _NONASTITCHERPANEL_H
+#define _NONASTITCHERPANEL_H
 
 
 #include "wx/frame.h"
 #include "wx/spinbutt.h"
 
-#include "hugin/MainFrame.h"
+#include "hugin/StitcherPanel.h"
+//#include "hugin/MainFrame.h"
 
 //using namespace PT;
 class PanoDialog;
@@ -37,18 +38,15 @@ class wxTextCtrl;
 class wxChoice;
 class wxComboBox;
 
-class StitcherPanel;
-
-/** Define the pano edit panel
+/** Define the nona stitcher options panel
  *
- *  - it is for the settings of the final panorama.
- *    Maybe here goes the preview to.
+ *  - This window will contain the stitcher specific options.
  */
-class PanoPanel: public wxPanel, public PT::PanoramaObserver
+class NonaStitcherPanel: public StitcherPanel, public PT::PanoramaObserver
 {
 public:
-    PanoPanel(wxWindow *parent, PT::Panorama * pano);
-    virtual ~PanoPanel(void) ;
+    NonaStitcherPanel(wxWindow *parent, PT::Panorama & pano);
+    virtual ~NonaStitcherPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *
@@ -75,14 +73,6 @@ public:
 
  private:
 
-    /// the supported stitching engines
-    enum StitchingEngine { NONA=0, PTSTITCHER };
-
-    /// the supported defaults
-    enum StitchingPresets { PROFILE_CUSTOM =0 , PROFILE_JPEG=0,
-                            PROFILE_DRAFT_JPEG, PROFILE_TIFF,
-                            PROFILE_LAYER_TIFF, PROFILE_LAYER_PSD };
-
     // resize if the notebook page changes size
     void FitParent(wxSizeEvent & e);
 
@@ -90,53 +80,32 @@ public:
     void UpdateDisplay(const PT::PanoramaOptions & opt);
 
     // apply changes to the model. (gui values -> Panorama)
-    void HFOVChanged(wxCommandEvent & e);
-    void HFOVChangedSpin(wxSpinEvent & e);
-    void VFOVChanged(wxCommandEvent & e );
-    void VFOVChangedSpin(wxSpinEvent & e);
-    void ProjectionChanged(wxCommandEvent & e);
-    void StitcherChanged(wxCommandEvent & e);
+    void InterpolatorChanged(wxCommandEvent & e);
+    void OnSetQuality(wxSpinEvent & e);
 
-    void WidthChanged(wxCommandEvent & e);
+    void FileFormatChanged(wxCommandEvent & e);
 
     // actions
-    void DoStitch(wxCommandEvent & e);
-// TODO remove
-//    void DoPreview(wxCommandEvent & e);
-    void DoCalcFOV(wxCommandEvent & e);
-
-    /** set the highest sensible width
-     *
-     *  calculate average pixel density of each image
-     *  and use the highest one to calculate the width
-     *
-     */
-    void DoCalcOptimalWidth(wxCommandEvent & e);
-
+    virtual void Stitch(const PT::Panorama & pano,
+                        const PT::PanoramaOptions & opts);
 
     // the model
-    Panorama &pano;
+    PT::Panorama &pano;
 
     // don't listen to input on gui elements during
     // updating the gui from the model, to prevent recursion,
     // because the gui might report changes as well.
     bool updatesDisabled;
-    PanoramaOptions m_oldOpt;
+    PT::PanoramaOptions m_oldOpt;
     double m_oldVFOV;
 
-    // control of this frame
-    wxChoice    * m_ProjectionChoice;
-    wxSpinCtrl  * m_HFOVSpin;
-    wxSpinCtrl  * m_VFOVSpin;
+    wxChoice    * m_InterpolatorChoice;
 
     wxTextCtrl  * m_WidthTxt;
-    wxStaticText *m_HeightStaticText;
-    wxChoice    * m_StitcherChoice;
-    wxButton    * m_StitchButton;
-
-    StitcherPanel * m_Stitcher;
+    wxChoice    * m_FormatChoice;
+    wxSpinCtrl  * m_JPEGQualitySpin;
 
     DECLARE_EVENT_TABLE()
 };
 
-#endif // _PANOPANEL_H
+#endif // _NONASTITCHERPANEL_H
