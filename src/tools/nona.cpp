@@ -27,13 +27,15 @@
 #include <fstream>
 #include <sstream>
 
-#include <vigra/impex.hxx>
 #include <vigra/error.hxx>
+#include <vigra_impex2/impex.hxx>
 
 #include <unistd.h>
 
 #include "panoinc.h"
 #include "PT/Stitcher.h"
+
+#include <tiff.h>
 
 using namespace vigra;
 using namespace PT;
@@ -93,6 +95,10 @@ int main(int argc, char *argv[])
     }
 
     const char * scriptFile = argv[optind];
+
+
+    // suppress tiff warnings
+    TIFFSetWarningHandler(0);
 
     utils::StreamMultiProgressDisplay pdisp(cout);
     //utils::MultiProgressDisplay pdisp;

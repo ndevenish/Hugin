@@ -67,8 +67,7 @@ static void usage(const char * name)
          << "     -o number   # overlap between image in percent, default: 50." << endl
          << "                   doesn't need to be precise, 10 or 20% higher than" << endl
          << "                   the actual overlap might even work better" << endl
-         << "     -v number   # HFOV of images, in degrees, Used for images that do" << endl
-         << "                   not provide this information in the EXIF header" << endl
+         << "     -v number   # HFOV of images, in degrees" << endl
          << "                   default: 40" << endl
          << "     -s number   # feature tracker window width and height, default: sqrt(w_overlap*h*/2500)" << endl
          << "                   increase if not enough points are tracked. " << endl
@@ -76,7 +75,7 @@ static void usage(const char * name)
 //         << "     -f          # do an additional correlation pass on the detected features, default: no" << endl;
 }
 
-void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama & pano, double defaultHFOV)
+void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama & pano, double defaultHFOV, bool forcedHFOV)
 {
     // load image
     vigra::ImageImportInfo info(filename.c_str());
@@ -112,7 +111,7 @@ void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama
     }
     std::string ext = filename.substr( idx+1 );
 
-    if (utils::tolower(ext) == "jpg") {
+    if (! forcedHFOV && utils::tolower(ext) == "jpg") {
         // try to read exif data from jpeg files.
         lens.readEXIF(filename);
     }
@@ -151,7 +150,7 @@ int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "hn:o:v:s:";
+    const char * optstring = "bckhn:o:v:f:s:";
     int c;
 
     opterr = 0;
@@ -159,9 +158,13 @@ int main(int argc, char *argv[])
     int nFeatures = 100;
     double overlapFactor = 0.5;
     double defaultHFOV = 40;
+	bool forcedHFOV = false;
     int defaultKLTWindowSize = -1;
     bool closedPanorama = false;
     bool doFinetune = false;
+	double featherWidth = 10;
+	bool correctColor = false;
+	bool correctBrightness = false;
 
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
@@ -179,6 +182,16 @@ int main(int argc, char *argv[])
             break;
         case 'v':
             defaultHFOV = atof(optarg);
+			forcedHFOV = true;
+            break;
+        case 'f':
+            featherWidth = atof(optarg);
+            break;
+        case 'b':
+            correctBrightness = true;
+            break;
+        case 'k':
+            correctColor = true;
             break;
         case 'c':
             closedPanorama = true;
@@ -213,10 +226,12 @@ int main(int argc, char *argv[])
     BImage *firstImg = new BImage();
     BImage *secondImg = new BImage();
 
-    loadAndAddImage(*firstImg, imgNames[0], pano, defaultHFOV);
+    loadAndAddImage(*firstImg, imgNames[0], pano, defaultHFOV, forcedHFOV);
     // update the defaultHFOV with the hfov from the first image, might
     // contain the EXIF HFOV
-    defaultHFOV = const_map_get(pano.getImageVariables(0),"v").getValue();
+	if (! forcedHFOV) {
+    	defaultHFOV = const_map_get(pano.getImageVariables(0),"v").getValue();
+	}
 
     // assume that the images are taken from left to right
 
@@ -268,7 +283,7 @@ int main(int argc, char *argv[])
         nPairs = nImages;
     }
     for (unsigned int pair=0; pair< nPairs; pair++) {
-        loadAndAddImage(*secondImg, imgNames[(pair+1)%nImages], pano, defaultHFOV);
+        loadAndAddImage(*secondImg, imgNames[(pair+1)%nImages], pano, defaultHFOV, forcedHFOV);
         // estimate translation between images, using phase correlation
         // could be optimized by keeping fft of one image
 
@@ -405,5 +420,30 @@ int main(int argc, char *argv[])
             optvec[i].insert("r");
         }
     }
-    pano.printOptimizerScript(of, optvec, pano.getOptions());
+	
+	// calc optimal width for output image
+    int nImgs = pano.getNrOfImages();
+    double pixelDensity=0;
+    for (int i=0; i<nImgs; i++) {
+        const PanoImage & img = pano.getImage(i);
+        const VariableMap & var = pano.getImageVariables(i);
+        double density = img.getWidth() / const_map_get(var,"v").getValue();
+        if (density > pixelDensity) {
+            pixelDensity = density;
+        }
+    }
+    opts.width = (int) (pixelDensity * opts.HFOV);
+	
+	opts.featherWidth = (int) featherWidth;
+	
+	if (correctColor && correctBrightness) {
+		opts.colorCorrection = PanoramaOptions::BRIGHTNESS_COLOR;
+	} else if (correctColor) {
+		opts.colorCorrection = PanoramaOptions::COLOR;
+	} else if (correctBrightness) {
+		opts.colorCorrection = PanoramaOptions::BRIGHTNESS;
+	}
+	opts.colorReferenceImage = opts.optimizeReferenceImage;
+	
+    pano.printOptimizerScript(of, optvec, opts);
 }
