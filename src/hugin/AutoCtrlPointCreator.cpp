@@ -33,6 +33,7 @@
 
 #include "PT/Panorama.h"
 
+#include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
@@ -295,7 +296,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace("%p", tmp);
     autopanoArgs.Replace("%i", imgFiles.c_str());
 
-    wxString tempdir = wxConfigBase::Get()->Read("tempDir","");
+    wxString tempdir = huginApp::Get()->GetWorkDir();
     autopanoArgs.Replace("%d", tempdir);
     wxString cmd;
     cmd.Printf("%s %s", autopanoExe.c_str(), autopanoArgs.c_str());

@@ -62,10 +62,10 @@ huginApp::~huginApp()
 bool huginApp::OnInit()
 {
     SetAppName("hugin");
-    
+
     wxString m_huginPath;
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
-    
+
     // DEBUG_INFO( GetAppName().c_str() )
     // DEBUG_INFO( wxFileName::GetCwd().c_str() )
     // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
@@ -258,3 +258,17 @@ int huginApp::OnExit()
     DEBUG_TRACE("");
     return wxApp::OnExit();
 }
+
+huginApp * huginApp::Get()
+{
+    if (m_this) {
+        return m_this;
+    } else {
+        DEBUG_FATAL("huginApp not yet created");
+        DEBUG_ASSERT(m_this);
+        return 0;
+    }
+}
+
+
+huginApp * huginApp::m_this = 0;

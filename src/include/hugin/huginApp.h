@@ -59,6 +59,14 @@ public:
     /** just for testing purposes */
     virtual int OnExit();
 
+    /// hack.. kind of a pseudo singleton...
+    static huginApp * Get();
+    
+    wxString GetWorkDir()
+    {
+        return m_workDir;
+    }
+
     /** create a default config.
      *
      *  Might be useful to initialize the .huginrc
@@ -76,6 +84,9 @@ private:
     wxString m_workDir;
 
     MainFrame * frame;
+
+    // self
+    static huginApp * m_this;
 
     // the model
     Panorama pano;
