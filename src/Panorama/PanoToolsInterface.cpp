@@ -263,16 +263,18 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
                     pano.getImageVariables(imgNr),
                     pano.getLens(img.getLensNr()).projectionFormat,
                     Diff2D(dest.width, dest.getHeight()),
-                    dest.projectionFormat, dest.HFOV);
+                    dest.projectionFormat, dest.HFOV,
+                    srcSize);
 }
 
 
 void Transform::createTransform(const Diff2D & srcSize,
-                                const VariableMap & srcVars,
+                                VariableMap srcVars,
                                 Lens::LensProjectionFormat srcProj,
                                 const Diff2D &destSize,
                                 PanoramaOptions::ProjectionFormat destProj,
-                                double destHFOV)
+                                double destHFOV,
+                                const Diff2D & originalSrcSize)
 {
     m_srcTX = destSize.x/2.0;
     m_srcTY = destSize.y/2.0;
@@ -280,6 +282,14 @@ void Transform::createTransform(const Diff2D & srcSize,
     m_destTX = srcSize.x/2.0;
     m_destTY = srcSize.y/2.0;
 
+    // adjust parameters dependant on the image size.
+    if (originalSrcSize.x != 0 && originalSrcSize.y != 0) {
+        double rx = srcSize.x / (double)originalSrcSize.x;
+        double ry = srcSize.y / (double)originalSrcSize.y;
+        map_get(srcVars,"d").setValue( map_get(srcVars,"d").getValue() * rx );
+        map_get(srcVars,"e").setValue( map_get(srcVars,"e").getValue() * ry );
+    }
+    
     updatePTData(srcSize, srcVars, srcProj,
                  destSize, destProj, destHFOV);
     // create the actual stack
@@ -288,7 +298,7 @@ void Transform::createTransform(const Diff2D & srcSize,
 
 
 void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
-                                const PanoramaOptions & dest, Diff2D srcSize)
+                                   const PanoramaOptions & dest, Diff2D srcSize)
 {
     const PanoImage & img = pano.getImage(imgNr);
     if (srcSize.x == 0 && srcSize.y == 0) {
@@ -299,21 +309,32 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
                        pano.getImageVariables(imgNr),
                        pano.getLens(img.getLensNr()).projectionFormat,
                        Diff2D(dest.width, dest.getHeight()),
-                       dest.projectionFormat, dest.HFOV);
+                       dest.projectionFormat, dest.HFOV,
+                       srcSize);
 }
 
 void Transform::createInvTransform(const Diff2D & srcSize,
-                                   const VariableMap & srcVars,
+                                   VariableMap srcVars,
                                    Lens::LensProjectionFormat srcProj,
                                    const Diff2D & destSize,
                                    PanoramaOptions::ProjectionFormat destProj,
-                                   double destHFOV)
+                                   double destHFOV,
+                                   const Diff2D & originalSrcSize)
 {
     m_srcTX = srcSize.x/2.0;
     m_srcTY = srcSize.y/2.0;
 
     m_destTX = destSize.x/2.0;
     m_destTY = destSize.y/2.0;
+    
+    // adjust parameters dependant on the image size.
+    if (originalSrcSize.x != 0 && originalSrcSize.y != 0) {
+        double rx = srcSize.x / (double)originalSrcSize.x;
+        double ry = srcSize.y / (double)originalSrcSize.y;
+        map_get(srcVars,"d").setValue( map_get(srcVars,"d").getValue() * rx );
+        map_get(srcVars,"e").setValue( map_get(srcVars,"e").getValue() * ry );
+    }
+    
     updatePTData(srcSize, srcVars, srcProj,
                  destSize, destProj, destHFOV);
     // create the actual stack

@@ -92,11 +92,12 @@ public:
      *  8. shear image
      */
     void createTransform(const vigra::Diff2D & srcSize,
-                         const PT::VariableMap & srcVars,
+                         PT::VariableMap srcVars,
                          PT::Lens::LensProjectionFormat srcProj,
                          const vigra::Diff2D &destSize,
                          PT::PanoramaOptions::ProjectionFormat destProj,
-                         double destHFOV);
+                         double destHFOV,
+                         const vigra::Diff2D & origSrcSize);
 
     /** create pano -> img transform */
     void createTransform(const PT::Panorama & pano, unsigned int imgNr,
@@ -104,13 +105,30 @@ public:
                          vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
 
-    /** create image->pano transformation */
+    /** create image->pano transformation 
+     *
+     *  @param srcSize size of input image
+     *  @param variables of input image
+     *  @param srcProj projection of the image
+     *  @param destSize  output panorama size  
+     *  @param destProj  panorama projection
+     *  @param destHFOV  HFOV of panorama
+     *  @param origSrcSize  original input image size, 0,0 if the same
+     *                      as srcSize.
+     *
+     *  origSrcSize is needed, because the @p variables are only
+     *  valid for the original input size. To transform a smaller
+     *  image, like a preview image, the parameters have to be adjusted.
+     *  The origial image size, for which @p variables are valid needs
+     *  to be know for this.
+     */
     void createInvTransform(const vigra::Diff2D & srcSize,
-                            const PT::VariableMap & srcVars,
+                            PT::VariableMap srcVars,
                             PT::Lens::LensProjectionFormat srcProj,
                             const vigra::Diff2D & destSize,
                             PT::PanoramaOptions::ProjectionFormat destProj,
-                            double destHFOV);
+                            double destHFOV,
+                            const vigra::Diff2D & origSrcSize);
 
     /** create image->pano transformation */
     void createInvTransform(const PT::Panorama & pano, unsigned int imgNr,

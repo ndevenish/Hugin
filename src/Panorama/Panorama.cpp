@@ -341,7 +341,7 @@ FDiff2D Panorama::calcFOV() const
                              state.variables[i],
                              getLens(state.images[i].getLensNr()).projectionFormat,
                              Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
-                             360);
+                             360, Diff2D(w,h));
         FDiff2D ul;
         FDiff2D lr;
         // outline of this image in final panorama
@@ -902,7 +902,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             p++;
             DEBUG_DEBUG("parsing point " << pnr << " (idx:" << p << "): " << line.substr(p));
             double err = -1;
-            
+
             utils::stringToDouble(line.substr(p), err);
             (*pointIt).error = err;
             DEBUG_DEBUG("read CP distance " << (*pointIt).error);

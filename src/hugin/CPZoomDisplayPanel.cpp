@@ -68,12 +68,12 @@ CPZoomDisplayPanel::~CPZoomDisplayPanel()
 void CPZoomDisplayPanel::updateInternal()
 {
     DEBUG_TRACE("image: "<< m_imgNr << " point: " << m_point);
-    
+
     wxConfigBase * config = wxConfigBase::Get();
     double zoom = 1.0;
     config->Read("/CPZoomDisplay/Zoom",&zoom);
     config->Write("/CPZoomDisplay/Zoom",zoom);
-    
+
     const PanoImage & img = m_pano.getImage(m_imgNr);
     string imageFilename = img.getFilename();
     // get source image from image cache
@@ -103,11 +103,12 @@ void CPZoomDisplayPanel::updateInternal()
     // create inverse transform, from image to pano (undistorted patch)
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
-                                       vars,
-                                       m_pano.getLens(img.getLensNr()).projectionFormat,
-                                       Diff2D(360,180),
-                                       PanoramaOptions::EQUIRECTANGULAR,
-                                       360);
+                                      vars,
+                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      Diff2D(360,180),
+                                      PanoramaOptions::EQUIRECTANGULAR,
+                                      360,
+                                      srcSize);
 
     //
     // calculate yaw and pitch of the image point, by using the inverse
@@ -119,7 +120,7 @@ void CPZoomDisplayPanel::updateInternal()
 
     double yaw2, pitch2;
     FDiff2D point2(m_point.x - srcSize.x/2, srcSize.y/2.0 - m_point.y);
-    m_t_img2center.transform(yaw2, pitch2, 
+    m_t_img2center.transform(yaw2, pitch2,
                              point2.x, point2.y);
     DEBUG_DEBUG("pixels 2: " << point2 << " -> " << yaw2 << " " << pitch2);
 
@@ -145,7 +146,8 @@ void CPZoomDisplayPanel::updateInternal()
                                       m_pano.getLens(img.getLensNr()).projectionFormat,
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
-                                      360);
+                                      360,
+                                      srcSize);
 
     // now we have to know how many degrees a pixel is, so
     // that we can remap to a sensible size.
@@ -173,7 +175,7 @@ void CPZoomDisplayPanel::updateInternal()
 
     // allow an external scale factor as well.
     hfov = hfov/zoom;
-    
+
     if (hfov > 90) {
         // limit hfov to something halfway sensible.. to avoid a crash..
         hfov=90;
@@ -187,7 +189,8 @@ void CPZoomDisplayPanel::updateInternal()
                                    m_pano.getLens(img.getLensNr()).projectionFormat,
                                    wSize,
                                    PanoramaOptions::RECTILINEAR,
-                                   hfov);
+                                   hfov,
+                                   srcSize);
 
 
     // create inverse transform, from image to pano (undistorted patch)
@@ -197,7 +200,8 @@ void CPZoomDisplayPanel::updateInternal()
                                       m_pano.getLens(img.getLensNr()).projectionFormat,
                                       wSize,
                                       PanoramaOptions::RECTILINEAR,
-                                      hfov);
+                                      hfov,
+                                      srcSize);
 
     // create remapped image.
     wxImage undistorted(wSize.x, wSize.y);
@@ -285,5 +289,5 @@ void CPZoomDisplayPanel::OnLMB(wxMouseEvent & e)
     ipos.x = x;
     ipos.y = y;
     DEBUG_DEBUG("zoomed: " << mpos << " -> " << ipos);
-    
+
 }
