@@ -554,6 +554,7 @@ void Panorama::changeFinished()
     for(it = observers.begin(); it != observers.end(); ++it) {
         (*it)->panoramaChanged(*this);
     }
+    DEBUG_TRACE("")
 }
 
 
