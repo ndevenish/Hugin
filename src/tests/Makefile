@@ -55,8 +55,8 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags)
-LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
+CFLAGS += $(VIGRA_CFLAGS)
+LFLAGS += -lpanorama -ljhead -lcommon -lpano12 $(VIGRA_LFLAGS)
 
 # ====================================================================
 # The applications that should be build in this directory.
@@ -65,14 +65,22 @@ LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lpano12 $(
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1
+APPS = 1 3
 
 # App 1
 
-APP_1_BIN = phase_correlate
-APP_1_OBJ = phasecorrelation.o
+APP_1_BIN = impex_mask
+APP_1_OBJ = impex_mask.o
+APP_1_LFLAGS = -lvigra_impex2 $(LFLAGS)
 
-APP_1_LFLAGS = $(LFLAGS) -lfftw
+APP_3_BIN = 8to16bit
+APP_3_OBJ = convert_types.o
+APP_3_LFLAGS = -l vigra_impex2 $(LFLAGS)
+
+APP_2_BIN = phase_correlate
+APP_2_OBJ = phasecorrelation.o
+
+APP_2_LFLAGS = $(LFLAGS) -lfftw
 endif
 
 
@@ -82,7 +90,7 @@ endif
 # ====================================================================
 
 
-TESTS = 1 2 3 4 5
+TESTS = 6
 
 # Defaults
 
@@ -115,6 +123,11 @@ TEST_5_BIN = interpolator
 TEST_5_OBJ = interpolator.o
 TEST_5_CFLAGS = $(TEST_CFLAGS)
 TEST_5_LFLAGS = $(TEST_LFLAGS)
+
+TEST_6_BIN = vigra_ext
+TEST_6_OBJ = vigra_ext.o
+TEST_6_CFLAGS = $(TEST_CFLAGS)
+TEST_6_LFLAGS = $(TEST_LFLAGS) -lvigra_impex2
 
 
 # ====================================================================

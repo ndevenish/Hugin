@@ -54,7 +54,6 @@ using namespace utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::FitParent )
-
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )

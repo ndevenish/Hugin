@@ -37,7 +37,7 @@
               <object class="sizeritem">
                 <object class="wxCheckBox" name="nona_check_enblend">
                   <label>Soft Blending (requires enblend)</label>
-                  <tooltip>Use the external enblend program for seamless blending, requires &quot;Multiple TIFF&quot; or &quot;Multilayer TIFF&quot; output.</tooltip>
+                  <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
                 </object>
               </object>
               <object class="sizeritem">

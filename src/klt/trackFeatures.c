@@ -74,9 +74,9 @@ static void _computeIntensityDifference(
   int width, int height,  /* size of window */
   _FloatWindow imgdiff)   /* output */
 {
-  register int hw = width/2, hh = height/2;
+  int hw = width/2, hh = height/2;
   float g1, g2;
-  register int i, j;
+  int i, j;
 
   /* Compute values */
   for (j = -hh ; j <= hh ; j++)

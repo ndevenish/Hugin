@@ -54,11 +54,7 @@ public:
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    void SetAutoUpdate(bool enabled)
-        {
-            m_autoPreview = enabled;
-            updatePreview();
-        }
+    void SetAutoUpdate(bool enabled);
 
     // forces an update of all images.
     void ForceUpdate();

@@ -104,6 +104,7 @@ public:
     wxTextCtrl  * m_WidthTxt;
     wxChoice    * m_FormatChoice;
     wxSpinCtrl  * m_JPEGQualitySpin;
+    wxCheckBox  * m_EnblendCheckBox;
 
     DECLARE_EVENT_TABLE()
 };

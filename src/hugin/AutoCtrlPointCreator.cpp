@@ -84,11 +84,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     // create suitable command line..
 
 #ifdef __WXMSW__
+    DEBUG_ERROR("automatch does not work under windows yet");
     wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
     if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(this,_("Select autopano.exe (>= V 1.03"),
-                         "", "autopano.exe",
-                         "Executables (*.exe)|*.exe",
+        wxFileDialog dlg(this,_("Select startscript for autopano-sift"),
+                         "", "autopano-complete",
+                         "Executables (*.bat)|*.bat",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();

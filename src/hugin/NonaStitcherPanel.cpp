@@ -83,6 +83,9 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
     DEBUG_ASSERT(m_JPEGQualitySpin);
     m_JPEGQualitySpin->PushEventHandler(new TextKillFocusHandler(this));
 
+    m_EnblendCheckBox = XRCCTRL(*this, "nona_check_enblend", wxCheckBox);
+    DEBUG_ASSERT(m_EnblendCheckBox);
+
     // observe the panorama
     pano.addObserver (this);
 
@@ -144,6 +147,13 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
         m_JPEGQualitySpin->Disable();
     }
     m_JPEGQualitySpin->SetValue(opt.quality);
+
+    if (opt.outputFormat == PanoramaOptions::TIFF) {
+        // enable enblend
+        m_EnblendCheckBox->Enable();
+    } else {
+        m_EnblendCheckBox->Disable();
+    }
 }
 
 
@@ -197,14 +207,72 @@ void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
 }
 
 void NonaStitcherPanel::Stitch( const Panorama & pano,
-                                const PanoramaOptions & opts)
+                                const PanoramaOptions & options)
 {
     MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
+    PanoramaOptions opts = options;
+
+    bool enblend = m_EnblendCheckBox->IsChecked();
+    string output = opts.outfile;
     try {
+        if (enblend) {
+            // output must be set to TIFF
+            DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF);
+            // set output to multiple tiff.
+            // hope the next enblend will also contain multilayer support
+            opts.outputFormat = PanoramaOptions::TIFF_m;
+            // the temporary filename.
+            output = "enblend_input";
+        }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
-                           pdisp, opts.outfile);
+                           pdisp, output);
+
+        if (enblend) {
+            wxConfigBase* config = wxConfigBase::Get();
+#ifdef __WXMSW__
+            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend.exe");
+            if (!wxFile::Exists(enblendExe)){
+                wxFileDialog dlg(this,_("Select enblend.exe"),
+                                 "", "enblend.exe",
+                                 "Executables (*.exe)|*.exe",
+                                 wxOPEN, wxDefaultPosition);
+                if (dlg.ShowModal() == wxID_OK) {
+                    enblendExe = dlg.GetPath();
+                    config->Write("/Enblend/EnblendExe",stitcherExe);
+                } else {
+                    wxLogError(_("No PTStitcher.exe selected"));
+                }
+            }
+#else
+            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
+#endif
+            
+            // call enblend, and create the right output file
+            // I hope this works correctly with filenames that contain
+            // spaces
+
+            string cmd(enblendExe.c_str());
+            if (opts.HFOV == 360.0) {
+                // blend over the border
+                cmd.append(" -v -w -o ");
+            } else {
+                cmd.append(" -v -o ");
+            }
+
+            cmd.append(opts.outfile).append(" ");
+
+            unsigned int nImg = pano.getNrOfImages();
+            char imgname[256];
+            for(unsigned int i = 0; i < nImg; i++)
+            {
+                snprintf(imgname,256,"%s%03d.tif", output.c_str(), i);
+                cmd.append(" ").append(imgname);
+            }
+            DEBUG_DEBUG("enblend cmdline: " << cmd);
+            wxShell(cmd.c_str());
+        }
     } catch (std::exception & e) {
         DEBUG_FATAL(_("error during stitching:") << e.what());
         return;
@@ -228,6 +296,6 @@ void NonaStitcherPanel::FitParent( wxSizeEvent & e )
 //    Layout();
     wxSize new_size = e.GetSize();
 //    this->SetSize(new_size);
-//    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
+    XRCCTRL(*this, "nona_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }
