@@ -120,6 +120,10 @@ public:
 
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
+    
+    // load a project
+    void LoadProjectFile(const wxString & filename);
+
 
 private:
 

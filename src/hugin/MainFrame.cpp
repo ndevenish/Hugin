@@ -409,6 +409,31 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 
 }
 
+void MainFrame::LoadProjectFile(const wxString & filename)
+{
+    DEBUG_TRACE("");
+    // remove old images from cache
+    ImageCache::getInstance().flush();
+    wxFileName fname(filename);
+    wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+    std::ifstream file(filename.c_str());
+    if (file.good()) {
+        wxBusyCursor();
+        GlobalCmdHist::getInstance().addCommand(
+            new LoadPTProjectCmd(pano,file, path.c_str())
+            );
+        DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
+        opt_panel->setOptimizeVector(pano.getOptimizeVector());
+        SetStatusText(_("Project opened"));
+        config->Write("actualPath", path);  // remember for later
+    } else {
+        DEBUG_ERROR("Could not open file " << filename);
+    }
+}
+
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");

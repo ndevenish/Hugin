@@ -160,7 +160,8 @@ bool huginApp::OnInit()
     SetTopWindow(frame);
 
 
-    config->Write( "startDir", wxFileName::GetCwd() );
+    wxString cwd = wxFileName::GetCwd();
+    config->Write( "startDir", cwd );
 
     m_workDir = config->Read("tempDir","");
     // FIXME, make secure against some symlink attacks
@@ -199,6 +200,12 @@ bool huginApp::OnInit()
     // show the frame.
     frame->Show(TRUE);
 
+    // TODO: check if we need to load images.
+    if (argc == 2) {
+        wxString filename(cwd);
+        filename.append(wxFileName::GetPathSeparator()).append(argv[1]);
+        frame->LoadProjectFile(filename);
+    }
     DEBUG_TRACE("");
     return true;
 }
