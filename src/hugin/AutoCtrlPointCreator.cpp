@@ -126,6 +126,15 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace("%i", imgFiles.c_str());
     wxString cmd;
     cmd.Printf("%s %s",quoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
+#ifdef __WXMSW__    
+    if (cmd.size() > 1950) {
+        wxMessageBox(_("Can not call autopano with a command line > 2000 characters.\n"
+                       "This is a windows limitation\n"
+                       "Please select less images, or place the images in a folder with\n"
+                       "a shorter pathname"), _("Too many images selected"));
+        return;
+    }
+#endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
     // run autopano in an own output window
     wxShell(cmd);
