@@ -253,7 +253,7 @@ double distLine(int N0, int N1){
 // Levenberg-Marquardt function measuring the quality of the fit in fvec[]
 
 // taken from adjust.c of pano tools by H. Dersch.
-// removed GUI stuff, and replaced with out ProgressDisplay interface
+// removed GUI stuff, and replaced with ProgressDisplay interface
 int fcnPano2(int m,int n, double * x, double * fvec, int * iflag)
 /*
 int fcnPano2(m, n, x, fvec, iflag)
