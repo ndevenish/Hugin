@@ -30,6 +30,7 @@
 #include "wx/dnd.h"
 
 #include <PT/ImageTransforms.h>
+#include <hugin/ImageCache.h>
 
 class wxImage;
 
@@ -40,7 +41,6 @@ class wxImage;
 class PreviewPanel : public wxPanel, public PT::PanoramaObserver
 {
     typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
-    typedef std::vector<RemappedImage *> RemappedVector;
 public:
 
     /** ctor.
@@ -88,7 +88,6 @@ private:
 
     PT::UIntSet m_displayedImages;
 
-    RemappedVector m_remapped;
     wxBitmap * m_panoBitmap;
     // currently updating the preview.
 
@@ -96,6 +95,9 @@ private:
 
     // panorama options
     PT::PanoramaOptions opts;
+    
+    // cache for remapped images
+    SmallRemappedImageCache m_remapCache;
 
     wxWindow * parentWindow;
 

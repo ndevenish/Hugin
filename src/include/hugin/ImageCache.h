@@ -30,156 +30,9 @@
 #include <wx/image.h>
 #include <vigra/stdimage.hxx>
 
-#if 0
+#include <PT/ImageTransforms.h>
 
-// BUG: all the smartpointer/ref counting is not used currently.
-//      maybe I'll fix it in the future, if I find a way how it
-//      should work.
 
-template <typename SUBJECT>
-class Observer
-{
-public:
-    virtual ~Observer()
-        { }
-    virtual void notify(SUBJECT & subject) = 0;
-};
-
-/** reference counting class.
- *
- *  Its sole purpose is to count references and
- *  notify a listener if the reference count
- *  goes to 1. (This indicates that only one
- *  object is in use. Usually the Observer will be the owner
- *  of that subject.
- *
- *  A Observer will be notified, the subject can
- *  be given here as well, since sometimes it is not
- *  convienet to notify about a change in CountNotifier.
- */
-template <typename SUBJECT>
-class RefCountNotifier
-{
-public:
-    RefCountNotifier(Observer<SUBJECT> & observer)
-        : count(0), observer(observer)
-        { };
-
-    virtual void addRef(SUBJECT &subj)
-        {
-            count++;
-            DEBUG_DEBUG("Cnt notifier: addRef on " << std::hex << &subj << " count: " << count);
-        }
-    virtual void removeRef(SUBJECT &subj)
-        {
-            count--;
-            if (count == 1) {
-                observer.notify(subj);
-            }
-            DEBUG_DEBUG("Cnt notifier removeRef on " << std::hex << &subj << " count: " << count);
-        }
-    // for debugging
-    int getCount()
-        { return count; }
-private:
-    int count;
-    Observer<SUBJECT> &observer;
-};
-
-/** a special kind of reference counting smart pointer.
- *
- *  This class will call a handler function
- *  if its use count goes back to one. This is particulary
- *  useful for wxImages and ImageCache. The ImageCache is
- *  notified whenever the usecount drops to 1. It can then
- *  decide to deallocate the image (or not, depending on the
- *  the free memory).
- *
- */
-template <typename T, typename REFCOUNTER>
-class RefCountPtr
-{
-public:
-    /** construct a null RefCountPtr */
-    RefCountPtr()
-        : refCounter(0), ptr(0)
-        { }
-
-    /** construct a new NotifyPtr.
-     */
-    RefCountPtr(T * ptr, REFCOUNTER * refCount)
-        : refCounter(refCount), ptr(ptr)
-        {
-            refCounter->addRef(*ptr);
-        }
-
-    /** Copy constructor.
-     */
-    RefCountPtr(const RefCountPtr<T, REFCOUNTER> & rhs)
-        {
-            DEBUG_DEBUG("RefCountPtr copy constructor for 0x"
-                        << std::hex << ptr << " = 0x" << std::hex << rhs.ptr);
-            if (ptr) {
-                refCounter->removeRef(*ptr);
-            }
-            refCounter = rhs.refCounter;
-            ptr = rhs.ptr;
-            if (ptr) {
-                refCounter->addRef(*ptr);
-            }
-        }
-    /** destructor. Decreases reference count
-     */
-    ~RefCountPtr()
-        {
-            if (ptr) {
-                refCounter->removeRef(*ptr);
-            }
-        }
-
-    /** assignment operator for assigment from other smart pointers
-     */
-    RefCountPtr & operator=(const RefCountPtr<T, REFCOUNTER> & rhs)
-        {
-            if (ptr) {
-                refCounter->removeRef(*ptr);
-            }
-            refCounter = rhs.refCounter;
-            ptr = rhs.ptr;
-            if (ptr) {
-                refCounter->addRef(*ptr);
-            }
-            return *this;
-        }
-
-    /** assigment pointer for assignment from a T.
-     *
-     *  It can only be used to release the smart pointer (reset it to 0)
-     */
-    RefCountPtr & operator=(const T * rhs)
-        {
-            assert(rhs == 0);
-            if (ptr) {
-                refCounter->removeRef(&ptr);
-            }
-            ptr = 0;
-            refCounter = 0;
-        }
-
-    /** dereference ptr */
-    T * operator->() const
-        { return ptr; }
-    T & operator*() const
-        { return *ptr; }
-
-private:
-    REFCOUNTER * refCounter;
-    T *ptr;
-};
-
-#endif
-
-//typedef RefCountPtr<wxImage, RefCountNotifier<wxImage> > ImagePtr;
 typedef wxImage * ImagePtr;
 
 
@@ -297,5 +150,39 @@ private:
     // our progress display
     utils::MultiProgressDisplay * m_progress;
 };
+
+
+/** class to cache remapped images, loaded from the hugin small
+ *  image cache.
+ *
+ *  This is meant to be used by the preview stitcher.
+ */
+class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::BRGBImage, 
+                                vigra::BImage>
+{
+    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> MRemappedImage;
+public:
+    virtual ~SmallRemappedImageCache();
+
+    virtual
+    MRemappedImage &
+    operator()(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
+               unsigned int imgNr, utils::MultiProgressDisplay & progress);
+
+    /** nop
+     */
+    virtual void release() {};
+    
+    /** invalidates all images */
+    void invalidate();
+    
+    /** invalidate a specific image */
+    void invalidate(unsigned int imgNr);
+
+protected:
+    std::map<unsigned int, MRemappedImage*> m_images;
+};
+
+
 
 #endif // _IMAGECACHE_H

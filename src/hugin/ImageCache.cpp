@@ -28,8 +28,9 @@
 
 #include "panoinc.h"
 
+#include <vigra/basicimage.hxx>
 #include <vigra/basicimageview.hxx>
-
+#include <vigra/rgbvalue.hxx>
 #include "vigra_ext/Pyramid.h"
 
 #include "hugin/ImageCache.h"
@@ -38,6 +39,7 @@ using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
 using namespace utils;
+using namespace PT;
 
 ImageCache * ImageCache::instance = 0;
 
@@ -288,6 +290,64 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
         }
         // we have found our image
         return *img;
+    }
+}
+
+
+SmallRemappedImageCache::~SmallRemappedImageCache()
+{
+    invalidate();
+}
+
+SmallRemappedImageCache::MRemappedImage &
+SmallRemappedImageCache::operator()(const PT::Panorama & pano,
+                                    const PT::PanoramaOptions & opts,
+                                    unsigned int imgNr,
+                                    utils::MultiProgressDisplay & progress)
+{
+    // return old image, if already in cache
+        if (set_contains(m_images, imgNr)) {
+            return *m_images[imgNr];
+        }
+
+        // remap image
+
+        // load image
+        const PanoImage & img = pano.getImage(imgNr);
+        wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+        // image view
+        BasicImageView<RGBValue<unsigned char> > srcImg((RGBValue<unsigned char> *)src->GetData(),
+                                                        src->GetWidth(),
+                                                        src->GetHeight());
+        // mask image
+        BImage srcAlpha(src->GetWidth(), src->GetHeight(), 255);
+
+        MRemappedImage *remapped = new RemappedPanoImage<BRGBImage, BImage>;
+        remapped->remapImage(pano, opts,
+                             srcImageRange(srcImg),
+                             srcImage(srcAlpha),
+                             imgNr, progress);
+        m_images[imgNr] = remapped;
+        return *remapped;
+    }
+
+
+void SmallRemappedImageCache::invalidate()
+{
+    for(std::map<unsigned int, MRemappedImage*>::iterator it = m_images.begin();
+        it != m_images.end(); ++it)
+    {
+        delete (*it).second;
+    }
+    // remove all images
+    m_images.clear();
+}
+
+void SmallRemappedImageCache::invalidate(unsigned int imgNr)
+{
+    if (set_contains(m_images, imgNr)) {
+        delete (m_images[imgNr]);
+        m_images.erase(imgNr);
     }
 }
 

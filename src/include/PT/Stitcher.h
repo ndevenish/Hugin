@@ -48,58 +48,6 @@
 
 namespace PT{
 
-/** functor to create a remapped image */
-template <typename ImageType, typename AlphaType>
-class SingleImageRemapper
-{
-public:
-    /** create a remapped pano image */
-    virtual
-    RemappedPanoImage<ImageType, AlphaType> *
-    operator()(const Panorama & pano,
-               const PanoramaOptions & opts,
-               int imgNr, utils::MultiProgressDisplay & progress) = 0;
-};
-
-/** functor to create a remapped image */
-template <typename ImageType, typename AlphaType>
-class FileRemapper : public SingleImageRemapper<ImageType, AlphaType>
-{
-public:
-    /** create a remapped pano image.
-     *
-     *  load the file from disk, and remap in memory
-     */
-    virtual
-    RemappedPanoImage<ImageType, AlphaType> *
-    operator()(const Panorama & pano, const PanoramaOptions & opts,
-             int imgNr, utils::MultiProgressDisplay & progress)
-    {
-        // load image
-        const PT::PanoImage & img = pano.getImage(imgNr);
-        vigra::ImageImportInfo info(img.getFilename().c_str());
-        // create an image of the right size
-        ImageType srcImg(info.width(), info.height());
-        AlphaType srcAlpha(info.width(), info.height(), 1);
-
-        // import the image just read
-        progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
-
-        // import with alpha channel
-        vigra::importImageAlpha(info, vigra::destImage(srcImg),
-                                       vigra::destImage(srcAlpha));
-
-        progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
-	
-        RemappedPanoImage<ImageType, AlphaType> * remapped
-            = new RemappedPanoImage<ImageType, AlphaType>;
-        remapped->remapImage(pano, opts,
-                             vigra::srcImageRange(srcImg),
-                             vigra::srcImage(srcAlpha),
-                             imgNr, progress);
-        return remapped;
-    }
-};
 
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
@@ -145,7 +93,7 @@ class MultiImageRemapper : public Stitcher<ImageType, AlphaType>
 public:
 
     typedef Stitcher<ImageType, AlphaType> Base;
-    
+
     MultiImageRemapper(const PT::Panorama & pano,
 		       utils::MultiProgressDisplay & progress)
 	: Stitcher<ImageType,AlphaType>(pano, progress)
@@ -178,11 +126,12 @@ public:
 	     it != images.end(); ++it)
 	{
             // get a remapped image.
-	    RemappedPanoImage<ImageType, AlphaType> * remapped;
+	    RemappedPanoImage<ImageType, AlphaType> &
             remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
 	
-            saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
-            delete remapped;
+            saveRemapped(remapped, *it, Base::m_pano.getNrOfImages(), opts);
+            // free remapped image
+            remapper.release();
 
             runningImgNr++;
         }
@@ -382,13 +331,14 @@ public:
 	     it != images.end(); ++it)
 	{
             // get a remapped image.
-	    RemappedPanoImage<ImageType, AlphaType> * remapped;
+	    RemappedPanoImage<ImageType, AlphaType> &
             remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
 
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
-	    blend(*remapped, pano, alpha, panoROI);
-            delete remapped;
+	    blend(remapped, pano, alpha, panoROI);
+            // free remapped image
+            remapper.release();
 	}
     }
 

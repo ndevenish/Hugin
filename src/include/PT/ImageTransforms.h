@@ -896,14 +896,95 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
     }
 }
 
-
-
-
 template <class T, int nr>
 void fillVector(T vec[3], T &val, int len)
 {
     for (int i=0; i<len; i++) vec[i] = val;
 }
+
+
+
+/** functor to create a remapped image */
+template <typename ImageType, typename AlphaType>
+class SingleImageRemapper
+{
+public:
+    /** create a remapped pano image. It stays valid
+     *  until operator() is called again, or the
+     *  remapper object is destroyed.
+     *
+     *  the image can be deleted explicitly
+     *  with the the release() function
+     */
+    virtual
+    RemappedPanoImage<ImageType, AlphaType> &
+    operator()(const Panorama & pano,
+               const PanoramaOptions & opts,
+               unsigned int imgNr, utils::MultiProgressDisplay & progress) = 0;
+
+    virtual void
+    release() = 0;
+};
+
+/** functor to create a remapped image */
+template <typename ImageType, typename AlphaType>
+class FileRemapper : public SingleImageRemapper<ImageType, AlphaType>
+{
+public:
+    FileRemapper()
+        : m_remapped(0) { };
+
+    virtual ~FileRemapper()
+    {
+        release();
+    }
+
+    /** create a remapped pano image.
+     *
+     *  load the file from disk, and remap in memory
+     */
+    virtual
+    RemappedPanoImage<ImageType, AlphaType> &
+    operator()(const Panorama & pano, const PanoramaOptions & opts,
+             unsigned int imgNr, utils::MultiProgressDisplay & progress)
+    {
+        // release old image.
+	release();
+
+        // load image
+        const PT::PanoImage & img = pano.getImage(imgNr);
+        vigra::ImageImportInfo info(img.getFilename().c_str());
+        // create an image of the right size
+        ImageType srcImg(info.width(), info.height());
+        AlphaType srcAlpha(info.width(), info.height(), 1);
+
+        // import the image just read
+        progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
+
+        // import with alpha channel
+        vigra::importImageAlpha(info, vigra::destImage(srcImg),
+                                       vigra::destImage(srcAlpha));
+
+        progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
+        m_remapped = new RemappedPanoImage<ImageType, AlphaType>;
+        m_remapped->remapImage(pano, opts,
+                             vigra::srcImageRange(srcImg),
+                             vigra::srcImage(srcAlpha),
+                             imgNr, progress);
+        return *m_remapped;
+    }
+
+    virtual
+    void release()
+    {
+        if (m_remapped) {
+            delete m_remapped;
+        }
+    }
+protected:
+    RemappedPanoImage<ImageType, AlphaType> * m_remapped;
+};
+
 
 }; // namespace
 
