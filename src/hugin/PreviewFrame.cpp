@@ -38,7 +38,7 @@
 #include <wx/config.h>
 
 #include "hugin/PreviewFrame.h"
-
+#include "hugin/huginApp.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "common/utils.h"
@@ -125,6 +125,10 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     topsizer->SetSizeHints( this );
     SetSizer( topsizer );
 
+    // set the minimize icon
+    SetIcon(wxIcon(g_MainFrame->GetXRCPath() + "/data/icon.xpm", wxBITMAP_TYPE_XPM));
+     
+    
     m_pano.addObserver(this);
 
     wxConfigBase * config = wxConfigBase::Get();
