@@ -102,22 +102,29 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   5);       // border width
 
 
-    m_VFOVSlider = new wxSlider(this, -1, 0,
+    m_VFOVSlider = new wxSlider(this, -1, 1,
                                 1, 180,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_VERTICAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
                                 "VFOV");
+    m_VFOVSlider->SetLineSize(2);
+    m_VFOVSlider->SetPageSize(10);
+    m_VFOVSlider->SetTickFreq(5,0);
     m_VFOVSlider->SetToolTip(_("drag to change the vertical field of view"));
 
     flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
 
-    m_HFOVSlider = new wxSlider(this, -1, 0,
+    m_HFOVSlider = new wxSlider(this, -1, 1,
                                 1, 360,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_HORIZONTAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
                                 "HFOV");
+    m_HFOVSlider->SetPageSize(10);
+    m_HFOVSlider->SetLineSize(2);
+    m_HFOVSlider->SetTickFreq(5,0);
+
     m_HFOVSlider->SetToolTip(_("drag to change the horizontal field of view"));
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
