@@ -26,6 +26,7 @@
 
 #include <cassert>
 #include <vector>
+#include <set>
 #include <sstream>
 
 #include "common/utils.h"
@@ -51,10 +52,14 @@ class PanoramaObserver
 public:
     virtual ~PanoramaObserver()
         { };
-    virtual void panoramaChanged(Panorama &pano) = 0;
-    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr) = 0;
-    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr) = 0;
-    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr) = 0;
+    virtual void panoramaChanged(Panorama &pano) 
+        { DEBUG_TRACE(""); };
+    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr)
+        { DEBUG_TRACE(""); };
+    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr)
+        { DEBUG_TRACE(""); };
+    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr)
+        { DEBUG_TRACE(""); };
 };
 
 
@@ -112,7 +117,7 @@ public:
 
     /** ctor.
      */
-    Panorama(PanoramaObserver * o = 0);
+    Panorama();
 
     /** dtor.
      */
@@ -128,8 +133,26 @@ public:
      *
      *  only one handler is possible, this will overwrite the old handler
      */
-    void setObserver(PanoramaObserver * o)
-        { observer = o; }
+//    void setObserver(PanoramaObserver * o)
+//        { observer = o; }
+    
+    /** add a panorama observer.
+     *
+     *  It will recieve all change messages.
+     *  An observer can only be added once. if its added twice,
+     *  the second addObserver() will have no effect.
+     */
+    void addObserver(PanoramaObserver *o);
+    
+    /** remove a panorama observer.
+     *
+     *  Observers must be removed before they are destroyed,
+     *  else Panorama will try to notify them after they have been
+     *  destroyed
+     *
+     *  @return true if observer was known, false otherwise.
+     */
+    bool removeObserver(PanoramaObserver *observer);
 
     // query interface, used by the view to get information about
     // the panorama.
@@ -348,10 +371,9 @@ private:
 
     /// this indicates that there are unsav
     bool dirty;
-    PanoramaObserver * observer;
 
     PanoramaMemento state;
-
+    std::set<PanoramaObserver *> observers;
 };
 
 } // namespace

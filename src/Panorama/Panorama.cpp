@@ -84,12 +84,11 @@ bool PT::readVar(Variable & var, const std::string & line)
 //=========================================================================
 
 
-Panorama::Panorama(PanoramaObserver * o)
+Panorama::Panorama()
     : currentProcess(NO_PROCESS),
       optimizerExe("PTOptimizer"),
       stitcherExe("PTStitcher"),
-      PTScriptFile("PT_script.txt"),
-      observer(o)
+      PTScriptFile("PT_script.txt")
 {
     cerr << "Panorama obj created" << endl;
 /*
@@ -551,8 +550,9 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
 void Panorama::changeFinished()
 {
     DEBUG_DEBUG("Panorama changed");
-    if (observer) {
-        observer->panoramaChanged(*this);
+    std::set<PanoramaObserver *>::iterator it;
+    for(it = observers.begin(); it != observers.end(); ++it) {
+        (*it)->panoramaChanged(*this);
     }
 }
 
@@ -654,4 +654,14 @@ PanoramaMemento Panorama::getMemento(void) const
 void Panorama::setOptions(const PanoramaOptions & opt)
 {
     state.options = opt;
+}
+
+void Panorama::addObserver(PanoramaObserver * o)
+{
+    observers.insert(o);
+}
+
+bool Panorama::removeObserver(PanoramaObserver * o)
+{
+    return observers.erase(o) > 0;
 }
