@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Manuel de Hugin</title>
+<!--#include virtual="/ssi/css.html"-->
+</head>
+<body>
+
+<!--#include virtual="/ssi/menu.html"-->
+<div class="content">
+<h1>Manuel de Hugin</h1>
+
+<p>Inteface graphique facile &agrave; utiliser pour les <a href="http://www.path.unimelb.edu.au/~dersch/">Panorama Tools</a>.</p>
+
+<p>Hugin supporte actuellement la majorit&eacute; des fonctionnalit&eacute;s des
+ &laquo;&nbsp;panorama tools&nbsp;&raquo; et peut &ecirc;tre utilis&eacute; pour
+ cr&eacute;er diff&eacute;rents types d'images panoramiques.</p>
+
+<h2>Introduction</h2>
+
+<p> Ceci est le manuel de r&eacute;f&eacute;rence (Ah, la bonne blague,.... ;-) de Hugin.
+ Il ne couvre pas la cr&eacute;ation de panoramas en g&eacute;n&eacute;ral mais essaie
+ de documenter les raccourcis clavier et d'autres choses qui ne sont pas &eacute;videntes
+ lorsqu'on contemple l'interface pour la premi&egrave;re fois.</p>
+
+<p>
+  La <a href="http://hugin.sf.net">page d'accueil de Hugin</a> contient des informations
+  plus g&eacute;n&eacute;rales et quelques tutoriaux.
+</p>
+
+<h2>Cr&eacute;dits</h2>
+<ul>
+<li>D&eacute;veloppement principal&nbsp;: Pablo d'Angelo &lt;pablo&#64;mathematik.uni-ulm.de&gt;</li>
+<li>D&eacute;veloppement additionnel&nbsp;: Kai-Uwe Behrmann</li>
+<li>Tutoriels et paquets rpm&nbsp;: Bruno Postle</li>
+</ul>
+
+<p>Merci &agrave; tous les abonn&eacute;s &agrave; la liste de diffusion ptx pour leurs nombreuses id&eacute;es
+int&eacute;ressantes et pour les tests.</p>
+
+<h2>REMARQUE IMPORTANTE CONCERNANT UN BOGUE</h2>
+<p>
+	Actuellement, les changements dans les champs de texte doivent
+	&ecirc;tre confirm&eacute;s en pressant la touche &laquo;&nbsp;Entr&eacute;e&nbsp;&raquo; ou
+	en s&eacute;lectionnant un autre &eacute;l&eacute;ment de l'interface graphique 
+	(en pressant la touche de tablulation ou cliquant quelque part 
+	ailleurs). Malheureusement, sur certaines plate-forme, seules
+	certaines de ces m&eacute;thode fonctionnent.
+</p>
+
+<h2>Fen&ecirc;tre Principale</h2>
+
+<p> 
+	Cette fen&ecirc;tre consiste en une barre d'outils qui permet 
+   un acc&egrave;s rapide &agrave; certaines fonctions importantes. Elle 
+   comporte aussi les onglets Images, Appareil photo et objectif,
+   Points de Contr&ocirc;le, Optimiseur et Assembleur qui seront d&eacute;taill&eacute;s
+   plus loin.
+</p>
+
+<h3>Onglet Images</h3>
+
+<p>
+	Des images peuvent &ecirc;tre ajout&eacute;e soit en utilisant le bouton
+	<b>Ajouter</b>, soit par glisser-d&eacute;poser. Pour modifier l'orientation
+	d'une ou plusieurs images, s&eacute;lectionnez-les dans la liste &agrave; gauche. 
+	L'image sera alors affich&eacute;e dans la zone d'aper&ccedil;u et son orientation
+	(les valeurs selon les axes de lacet, tangage et roulis) pourront
+	&ecirc;tre &eacute;dit&eacute;es sur la gauche.
+</p>
+
+<p>
+	Il est possible de s&eacute;lectionner plusieurs images en m&ecirc;me temps. Les
+	changements seront alors appliqu&eacute;s &agrave; toutes les images s&eacute;lectionn&eacute;es.
+</p>
+
+<h3>Onglet appareil photo et objectif</h3>
+<p>
+	L'onglet appareil photo et objectif ressemble &agrave; l'onglet des images 
+	sauf que les param&egrave;tres de l'objectif pourront y &ecirc;tre &eacute;dit&eacute;s.
+	Comme dans l'onglet des images, on peut utiliser des s&eacute;lections multiples
+	pour modifier les param&egrave;tres de plusieurs images.
+</p>
+
+<p>
+	Actuellement, un seul objectif est support&eacute;. L'id&eacute;e est que
+	l'objectif d&eacute;crit le processus qui a &eacute;t&eacute; utilis&eacute; pour cr&eacute;er
+	l'image. Les param&egrave;tres les plus importants sont le 
+	<b>type d'objectif</b> et le <b>HFOV</b> (angle de champ horizontal).
+	Hugin va lire les donn&eacute;es EXIF dans les fichiers JPEG cr&eacute;&eacute;s par les
+	appareils photo num&eacute;riques ce qui fait que normalement, cette donn&eacute;e
+	est remplie correctement.
+</p>
+
+<p>
+	Les photographes n'utilisent pas un HFOV en degr&eacute;s mais plut&ocirc;t
+	la distance focale. On peut saisir la distance focale qui sera alors convertie
+	en HFOV en degr&eacute;s tel que requis par l'outil de panorama.
+	La distance focale utilis&eacute;e est la focale &eacute;quivalente d'un appareil
+	argentique 35mm.
+</p>
+
+<p>
+	Les images sont habituellement plus ou moins affect&eacute;es de distorsion.
+	On peut le voir plus particuli&egrave;rement s'il y a de longues lignes 
+	droites pr&egrave;s des bords de l'image, elle ne sont habituellement pas
+	strictement rectilignes mais incurv&eacute;es. Les param&egrave;tres <b>a</b>,
+	<b>b</b> et <b>c</b> sont utilis&eacute;s pour supprimer cette distorsion.
+	Ils sont appliqu&eacute;s de mani&egrave;re radiale &agrave; partir du centre
+	de l'image, qui peut &ecirc;tre d&eacute;plac&eacute; en modifiant les
+	param&egrave;tres <b>d</b> et <b>e</b>.
+</p>
+
+<p>
+	Lors de l'acquisition des images, il est possible que les param&egrave;tres
+	changent et donc qu'ils ne soient pas les m&ecirc;mes pour chacune des images.
+	Il peut y avoir de nombreuses raisons &agrave; cela, l'une d'entre-elles peut 
+	&ecirc;tre un scanner qui coupe davantage de pixels d'un cot&eacute; de l'image
+	que de l'autre. Les autres param&egrave;tres restent identiques, par 
+	exemple, les param&egrave;tres a, b et c (si la focale du zoom et la mise au
+	point pour ces images restent identiques).
+  </p>
+<p>
+  La case &agrave; cocher <b>h&eacute;rit&eacute;</b> signifie que ce param&egrave;tre
+  ne varie pas entre les diff&eacute;rentes images qui ont &eacute;t&eacute; prises
+  avec ces param&egrave;tres d'objectif. Si un param&egrave;tres est h&eacute;rit&eacute;
+  il est forc&eacute; &agrave; la m&ecirc;me valeur pour toutes les images.
+  Lorsque les param&egrave;tres h&eacute;rit&eacute;s sont optimis&eacute;s, il sont
+  conserv&eacute;s identiques pour toutes les images alors que les param&egrave;tres
+  qui ne sont pas h&eacute;rit&eacute;s peuvent prendre des valeurs sp&eacute;cifiques
+  pour chacune des images.
+</p>
+
+<h3>Onglet des points de contr&ocirc;le</h3>
+
+<p>
+	Les points de contr&ocirc;le sont sans doute une des choses les plus importantes
+	pour l'utilisation des outils de panorama.
+</p>
+
+<p>
+	Cet onglet consiste en deux zones d'affichage d'images et de barres
+	s&eacute;lection pour passer d'une image &agrave; l'autre afin de les &eacute;diter.
+	Le bas de cette fen&ecirc;tre contient une liste o&ugrave; les points peuvent &ecirc;tre
+	s&eacute;lectionn&eacute;s et un certain nombre de champs pour modifier un point
+	pr&eacute;alablement s&eacute;lectionn&eacute;. Les points peuvent aussi &ecirc;tre
+	s&eacute;lectionn&eacute;s en les cliquant ou en les glissant dans les images.
+	Il est possible d'effectuer un zoom de fa&ccedil;on &agrave; afficher l'image en entier.
+</p>
+
+<p>
+	L'ajout de points de contr&ocirc;le se fait en cliquant d'abord &agrave; l'int&eacute;rieur
+	d'une des images pour s&eacute;lectionner un point et ensuite dans l'autre image.
+	Si <b>ajout automatique</b> n'a pas &eacute;t&eacute; s&eacute;lectionn&eacute;,
+	les points peuvent &ecirc;tre d&eacute;plac&eacute;s en cliquant &agrave; un autre
+	endroit dans les images. Il sont ajout&eacute;s &agrave; la liste des points de
+	contr&ocirc;le en pressant le <b>bouton droit de la souris</b>. Si vous pressez
+	le bouton droit de la souris alors qu'un seul point est s&eacute;lectionn&eacute;,
+	la s&eacute;lection de ce point est abandonn&eacute;e. <b>ajout automatique</b>
+	ajoute le point de contr&ocirc;le d&egrave;s que les deux points ont &eacute;t&eacute;
+	sp&eacute;cifi&eacute;s.
+</p>
+
+<p>
+	La cr&eacute;ation d'un point de contr&ocirc;le est influenc&eacute;e par les case &agrave;
+	cocher suivantes&nbsp;:
+</p>
+  <ul>
+    <li> <b>ajustement pr&eacute;cis automatique</b>&nbsp;: Hugin vous aide &agrave; trouver le
+    	second point en le recherchant dans la zone de recherche (mat&eacute;rialis&eacute;e
+    	par un rectangle autour du curseur). &Ccedil;a ne fonctionne pas toujours mais c'est
+    	fiable dans la plupart des cas si la distorsion des images n'est pas trop importante.
+    	Vous pouvez l'essayer et jouer avec.
+    </li>
+    <li> <b>ajout automatique</b>&nbsp;: un point de contr&ocirc;le est automatiquement ajout&eacute;
+    	lorsque les deux points sont connus. Vous n'aurez pas le temps d'affiner la s&eacute;lection
+    	avant d'ajouter le point.
+    </li>
+    <li> <b>estimation automatique</b>&nbsp;: essaie d'estimer la position du second point &agrave;
+    	partir de  la valeur de la translation entre les deux images. C'est tr&egrave;s brutal
+    	et ne fonctionne probablement que pour les panoramas &agrave; une seule rang&eacute;e
+    	cr&eacute;&eacute;s &agrave; partir d'images rectilin&eacute;aires.
+    </li>
+  </ul>
+
+<p>
+	Tous ces indicateurs peuvent &ecirc;tre combin&eacute;s. Typiquement j'utilise 
+	&agrave; la fois <b>ajustement pr&eacute;cis automatique</b> et <b>estimation automatique</b>.
+	Ensuite, Hugin s&eacute;lectionne habituellement automatiquement le second point 
+	correctement. Bon, c'est uniquement pour des panoramas ne comportant qu'une
+	seule rang&eacute;e...
+</p>
+
+<p>
+	Les images sont affect&eacute;e d'un facteur d'agrandissement, le premier clic 
+	effectue un zoom temporaire &agrave; 100% pour vous permettre d'ajuster votre
+	s&eacute;lection. Remarquez que seul le second clic va d&eacute;marrer l'estimation
+	automatique.
+</p>
+
+<p>
+	Le bouton <b>ajustement pr&eacute;cis</b> peut &ecirc;tre utilis&eacute; pour trouver une
+	meilleure position pour le point de l'image de droite correspondant &agrave; un point
+	d&eacute;j&agrave; s&eacute;lectionn&eacute;. Au contraire de l'<b>ajustement pr&eacute;cis
+	automatique</b>, il n'effectuera la recherche que dans une tr&egrave;s petite zone autour du
+	point. Cette fonction est particuli&egrave;rement utile si vous avez d&eacute;plac&eacute;
+	les deux points manuellement mais que vous d&eacute;sirez avoir des points de contr&ocirc;le
+	qui soient ajust&eacute; pr&eacute;cis&eacute;ment.
+</p>
+
+<p>
+	Pressez le <b>bouton du milieu de la souris</b> pour d&eacute;placer l'image. Si vous pressez
+	la <b>touche majuscule</b> en la d&eacute;pla&ccedil;ant, les deux images vont se
+	d&eacute;placer en m&ecirc;me temps.
+</p>
+
+<p>
+  Cette fen&ecirc;tre autorise certains raccourcis clavier&nbsp;:
+</p>
+
+  <table summary="">
+    <tr> <th> Touche </th> <th> Fonction </th> </tr>
+    <tr> <td> a </td> <td> ajouter un nouveau point s&eacute;lectionn&eacute; dans les deux images
+    si <b>ajout automatique</b> n'est pas actif. </td> </tr>
+    <tr> <td> touches de curseur </td> <td> faire d&eacute;filer l'image qui se trouve sous
+    le curseur de la souris. </td> </tr>
+    <tr> <td> majuscule + touche curseur </td> <td> faire d&eacute;filer les deux images
+    en m&ecirc;me temps. </td> </tr>
+    <tr> <td> f </td> <td> ajuster pr&eacute;cis&eacute;ment la paire de points de contr&ocirc;le
+    actuellement s&eacute;lectionn&eacute;e. Identique au bouton <b>ajustement pr&eacute;cis</b>.
+     </td> </tr>
+    <tr> <td> Suppr </td> <td> Supprimer le point de contr&ocirc;le actuellement
+    s&eacute;lectionn&eacute;. </td> </tr>
+    <tr> <td> 0 </td> <td> ajuster le zoom &agrave; la taille de la fen&ecirc;tre. </td> </tr>
+    <tr> <td> 1 </td> <td> vue &agrave; 100%. </td> </tr>
+  </table>
+
+  <table summary="">
+    <tr> <th> Fonction de la souris </th> <th> Fonction </th> </tr>
+    <tr>
+      <td> touche Ctrl + d&eacute;placement de la souris </td>
+      <td> Faire d&eacute;filer l'image sous le curseur. </td>
+    </tr>
+    <tr>
+      <td> touche majuscule + d&eacute;placement de la souris </td>
+      <td> Faire d&eacute;filer les deux images. </td>
+    </tr>
+    <tr>
+      <td> bouton de gauche </td>
+      <td> Utiliser le bouton de gauche pour s&eacute;lectionner de nouveaux points ou pour
+      d&eacute;placer des points existants.
+      </td>
+    </tr>
+    <tr>
+      <td> bouton droit de la souris </td>
+      <td> Ajouter un point de contr&ocirc;le si <b>ajout automatique</b> n'est pas valid&eacute;. </td>
+    </tr>
+    <tr>
+      <td> bouton du milieu de la souris </td>
+      <td> faire d&eacute;filer l'image qui se trouve sous le curseur. </td>
+    </tr>
+    <tr>
+      <td> majuscule + bouton du milieu de la souris </td>
+      <td> Faire d&eacute;filer les deux images. </td>
+    </tr>
+  </table>
+
+
+<h3>Onglet Optimiseur</h3>
+<p>
+	L'optimiseur d&eacute;place les images afin de les mettre dans la bonne position
+	pour qu'elles puissent &ecirc;tre assembl&eacute;es en un panorama o&ugrave; les
+	jonctions seront invisibles.
+</p>
+
+<p>
+	Pour s&eacute;lectionner ce que l'optimiseur doit essayer d'estimer, faites votre
+	choix dans la liste d&eacute;roulante <b>Optimiser</b> puis cliquez le bouton
+	<b>Optimiser maintenant&nbsp;!</b>.
+
+  Si vous s&eacute;lectionnez les &laquo;&nbsp;param&egrave;tres personnalis&eacute;s&nbsp;&raquo;,
+  vous pouvez changer
+</p>
+
+<h3>Onglet Assembleur</h3>
+<p>
+	Des options concernant le panorama de sortie peuvent &ecirc;tre
+	fix&eacute;es ici. 
+
+	FIXME, encore des choses &agrave; &eacute;crire...
+</p>
+
+<hr/>
+<p>
+Ce document a &eacute;t&eacute; &eacute;crit par Pablo d'Angelo <a href="mailto:pablo.dangelo&#64;web.de">&lt;pablo.dangelo&#64;web.de&gt;</a>
+</p>
+
+<!--#include virtual="/ssi/homelink.html"-->
+
+</div>
+</body>
+</html>

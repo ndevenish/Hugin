@@ -1,3 +1,178 @@
+2005-02-02 19:16  dwilkins42
+
+	* m4/ax_check_panotools.m4, src/hugin/MainFrame.cpp,
+	  src/hugin/PreferencesDialog.cpp: Allow hugin to be compiled with
+	  older versions of panotools
+
+2005-02-02 12:31  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Fix FAQ fallback
+
+2005-02-02 12:14  dwilkins42
+
+	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update
+	  translations (new strings)
+
+2005-02-02 12:08  dwilkins42
+
+	* src/hugin/: MainFrame.cpp, PreferencesDialog.cpp: Don't add
+	  images already added when using time series.
+
+2005-02-02 11:55  dwilkins42
+
+	* src/hugin/xrc/data/FAQ.html: Fix FAQ grammar and links
+
+2005-02-02 00:26  dangelo
+
+	* src/: Hugin.sln, nona_gui/nona_gui.vcproj, hugin/hugin.vcproj:
+	  more updates in the MSVC build system
+
+2005-02-02 00:25  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: added unicode compatible strings
+
+2005-02-02 00:19  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: hfov calculation works with
+	  portrait and landscape images
+
+2005-02-01 23:57  dangelo
+
+	* utils/hugin.nsi: added nona & prepared for beta2
+
+2005-02-01 23:53  dangelo
+
+	* src/tools/: nona.cpp, nona.vcproj: updated help text and added
+	  MSCV project
+
+2005-02-01 22:28  dwilkins42
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/xrc/pref_dialog.xrc,
+	  include/hugin/PreferencesDialog.h: Add panotools info to the
+	  preferences dialog
+
+2005-02-01 15:05  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Add support for multi-lingual 'about'
+	  dialog
+
+2005-02-01 13:45  dwilkins42
+
+	* src/hugin/: xrc/data/tips_fr-UTF8.txt, MainFrame.cpp: Ensure
+	  non-ansi characters in tips and FAQ display correctly
+
+2005-02-01 07:50  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Only make path absolute if it is
+	  currently relative
+
+2005-02-01 07:11  dwilkins42
+
+	* AUTHORS, src/hugin/MainFrame.cpp, src/hugin/po/de.po,
+	  src/hugin/po/fr.po, src/hugin/po/hugin.pot, src/hugin/po/it.po,
+	  src/hugin/po/pl.po, src/hugin/xrc/main_menu.xrc,
+	  src/hugin/xrc/data/FAQ.html: Spelling corrections
+
+2005-02-01 01:22  dangelo
+
+	* src/nona_gui/nona_gui.vcproj: project file to build nona_gui with
+	  msvc
+
+2005-02-01 00:52  dangelo
+
+	* AUTHORS, README_WINDOWS, src/Hugin.sln, src/hugin/hugin.vcproj,
+	  src/nona_gui/nona_gui.cpp, utils/hugin.nsi: updates for windows
+	  build
+
+2005-02-01 00:46  dangelo
+
+	* src/hugin/xrc/data/about.htm: increased version to 0.5 beta1
+
+2005-02-01 00:42  dangelo
+
+	* src/nona_gui/po/de.po: updated german translation
+
+2005-01-31 22:25  dwilkins42
+
+	* m4/ax_wxwin.m4: Stupid typo on my part
+
+2005-01-31 21:12  dwilkins42
+
+	* src/hugin/po/fr.po: Updated french translation
+
+2005-01-31 20:32  dwilkins42
+
+	* src/hugin/xrc/data/tips_fr.txt: French Tips of the day
+
+2005-01-31 09:39  dangelo
+
+	* src/: hugin/MainFrame.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/hugin.vcproj, hugin/po/de.po, hugin/po/fr.po,
+	  hugin/po/it.po, hugin/po/pl.po, include/PT/ImageTransforms.h,
+	  include/PT/RemappedPanoImage.h, include/PT/Stitcher.h: added
+	  "English" to language choice compiles on MSCV code to write
+	  distance maps during remapping (not enabled)
+
+2005-01-30 21:03  dwilkins42
+
+	* src/hugin/: MainFrame.cpp, po/POTFILES.in, po/de.po, po/fr.po,
+	  po/hugin.pot, po/it.po, po/pl.po, xrc/data/tips.txt: Tip
+	  translations do not work - Each language now has it's own tips
+	  file (tips_<lang>.txt)
+
+2005-01-29 16:40  dangelo
+
+	* src/hugin/po/: POTFILES.in, de.po, fr.po, hugin.pot, it.po,
+	  pl.po: updated po files
+
+2005-01-29 02:09  dangelo
+
+	* src/hugin/po/de.po: split log tool bar texts into two rows,
+	  toolbar fits onto the screen again ;)
+
+2005-01-29 02:07  dangelo
+
+	* src/hugin/xrc/data/tips.txt: added some dots ;)
+
+2005-01-29 01:56  dangelo
+
+	* src/hugin/xrc/data/tips.txt: updated tips
+
+2005-01-28 23:22  dangelo
+
+	* src/hugin/xrc/data/Makefile.am: install tips.txt file during make
+	  install
+
+2005-01-28 23:13  dangelo
+
+	* src/hugin/xrc/: cp_list_frame.xrc, pref_dialog.xrc: re added
+	  window close title bar icons, that where missing with wxWindows
+	  2.5.2 and gtk 2
+
+2005-01-28 23:12  dangelo
+
+	* src/hugin/xrc/main_menu.xrc: removed obselete menu entries
+
+2005-01-28 23:11  dangelo
+
+	* src/hugin/po/: fr.po, pl.po: removed obselete entries for
+	  lens_dialog.xrc
+
+2005-01-28 23:10  dangelo
+
+	* src/hugin/po/de.po: Updated german translation, should be a bit
+	  better now.  Man, translating is harder than I thought.
+
+2005-01-28 22:04  dwilkins42
+
+	* ChangeLog, src/hugin/MainFrame.cpp, src/hugin/huginApp.cpp,
+	  src/hugin/po/POTFILES.in, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po,
+	  src/hugin/xrc/main_menu.xrc, src/hugin/xrc/data/tips.txt,
+	  src/include/hugin/MainFrame.h, src/tools/Makefile.am: Add tip of
+	  the day support. Tips can be translated. More tips required
+	  though :-)
+
 2005-01-28 02:22  dangelo
 
 	* src/hugin/xrc/lens_dialog.xrc: removed obselete lens dialog
@@ -2869,44 +3044,4 @@
 	  include/PT/PTOptimise.h: Improved pairwise optimisation, uses all
 	  optimised neighbouring images as anchor during optimisation
 	  traversal
-
-2004-02-03 11:40  dangelo
-
-	* INSTALL, src/hugin/ImagesPanel.cpp: disabled obselete SIFT
-	  matching in hugin, waiting for alexandre's version
-
-2004-02-03 10:22  dangelo
-
-	* src/: .cvsignore, Panorama/ImageGraph.cpp,
-	  Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
-	  include/PT/PTOptimise.h, include/PT/PanoToolsInterface.h,
-	  include/PT/Panorama.h, tests/.cvsignore, tools/autooptimiser.cpp:
-	  added a "autooptimiser" test program, to test the pairwise
-	  registration of existing projects. will be part of the future
-	  autooptimize function of hugin.
-
-2004-02-02 10:35  dangelo
-
-	* src/Panorama/ImageGraph.cpp: trying the boost (www.boost.org
-	  graph stuff), instead of my selfwritten routines in
-	  common/graph.h
-
-2004-02-02 10:33  dangelo
-
-	* src/: include/vigra_ext/PointMatching.h, tools/Makefile,
-	  tools/panosifter.cpp, vigra_ext/PointMatching.cpp,
-	  Panorama/Makefile, Panorama/PTOptimise.cpp,
-	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
-	  hugin/CPEditorPanel.cpp, hugin/CPListFrame.cpp,
-	  hugin/ImagesPanel.cpp, hugin/MainFrame.cpp,
-	  hugin/xrc/images_panel.xrc, include/PT/ImageGraph.h,
-	  include/PT/PTOptimise.h, include/PT/PanoToolsInterface.h,
-	  include/PT/SimpleStitcher.h, include/PT/tiffUtils.h,
-	  include/common/utils.h, include/hugin/ImagesPanel.h,
-	  include/hugin/MainFrame.h: update to my current state. lots of
-	  incomplete changes & additions
-
-2004-02-01 19:57  beku
-
-	* src/include/PT/tiffUtils.h: - fixed writing of unassoc alpha tag
 

@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Questions Fr&eacute;quentes de Hugin</title>
+<!--#include virtual="/ssi/css.html"-->
+</head>
+<body>
+<!--#include virtual="/ssi/menu.html"-->
+<div class="content">
+<h1>Questions Fréquentes de Hugin</h1>
+
+<p><strong>Ce document contient des r&eacute;ponses &agrave; des questions que les utilisateurs ont pos&eacute; sur la <a href="http://www.email-lists.org/mailman/listinfo/ptx">liste de diffusion Ptx</a> ou ailleurs.</strong></p>
+
+<p>
+  Ces r&eacute;ponses se rapportent &agrave; des pr&eacute;-versions relativement r&eacute;centes de Hugin.
+</p>
+
+<p>
+  Ceci est la FAQ de Hugin, elle contient plus particuli&egrave;rement des r&eacute;ponses
+  sp&eacute;cifiques &agrave; Hugin.
+  <br><br>
+   FAQ g&eacute;n&eacute;rale des &laquo;&nbsp;Panorama
+  Tools&nbsp;&raquo;&nbsp;:
+</p>
+<ul>
+  <li>
+    <a href="http://www.path.unimelb.edu.au/~dersch/FAQ.html">FAQ des Panorama Tools</a> de Helmut Dersch.
+  </li>
+</ul>
+
+
+<h2><a name="top"> Questions </a> </h2>
+
+<h3> Questions g&eacute;n&eacute;rales</h3>
+
+<ul>
+  <li>
+    <a href="#g_mac">Peut-on utiliser Hugin avec un MAC&nbsp;?</a>
+  </li>
+  <li>
+    <a href="#g_enblend_fail">Enblend 2.1 ne fonctionne-t-il pas avec Hugin (Windows seulement)&nbsp;?</a>
+  </li>
+  <li>
+  	<a href="#g_locale_fr_fail">J'ai s&eacute;lectionn&eacute; la langue fran&ccedil;aise et
+  	Hugin signale qu'il ne trouve pas fr_FR, comment faire&nbsp;?</a>
+  </li>
+</ul>
+
+
+<h3> S&eacute;lection des points de contr&ocirc;le </h3>
+<ul>
+  <li>
+    <a href="#cp_add">Comment ajouter des points de contr&ocirc;le&nbsp;?</a>
+  </li>
+  <li>
+    <a href="#cp_scroll">Comment faire d&eacute;filer les deux images simultan&eacute;ment&nbsp;?</a>
+  </li>
+</ul>
+
+<h3> Probl&egrave;mes courants rencontr&eacute;s lors de la cr&eacute;ation d'un panorama</h3>
+<ul>
+  <li>
+    <a href="#problems_curvedhorizon">Dans mon panorama, l'horizon est incurv&eacute;, comment le rendre
+    droit&nbsp;?</a>
+  </li>
+  <li>
+    <a href="#problems_circledpano">Lors de l'optimisation d'un panorama sur 360 degr&eacute;s,
+    j'obtiens un cercle &agrave; la place d'un champ de vision &agrave; 360 degr&eacute;s. Comment
+    faire pour que Hugin le reconnaisse comme un panorama &agrave; 360 degr&eacute;s&nbsp;?</a>
+  </li>
+  <li>
+    <a href="#problmes_blackblends">Il y a des bandes noirs entre deux images, comment les supprimer&nbsp;?</a>
+  </li>
+</ul>
+
+
+<h3> Post-traitement des panoramas </h3>
+<ul>
+  <li>
+    <a href="#pano_gimp_layers">Comment cr&eacute;er un panorama avec des calques alors que Gimp ne sait
+    pas lire des fichiers PSD&nbsp;?</a>
+  </li>
+</ul>
+
+<h2> R&eacute;ponses </h2>
+
+<h3> Questions g&eacute;n&eacute;rales </h3>
+
+<h4><a href="#top" name="g_mac">Peut-on utiliser Hugin avec un MAC&nbsp;?</a></h4>
+<p>
+  Bien qu'il ne devrait pas &ecirc;tre difficile de cr&eacute;er une version pour un Macintosh,
+  aucun des d&eacute;veloppeurs principaux n'utilise de Macintosh. Nous attendons de connaitre un
+  utilisateur de Mac avec des connaissances suffisantes pour effectuer les modifications (mineures)
+  n&eacute;cessaires dans Hugin et les pano tools.
+</p>
+
+<h4><a href="#top" name="g_enblend_fail">Enblend 2.1 ne fonctionne-t-il pas avec Hugin (Windows seulement)&nbsp;?</a></h4>
+<p>
+  Enblend 2.1 ne peut pas lire les fichiers TIFF cr&eacute;&eacute;s par Hugin ou Nona.
+</p>
+<p>
+  L'ex&eacute;cutable windows d'Enblend 2.1 n'a pas &eacute;t&eacute; compil&eacute; avec le support
+  des fichiers TIFF compress&eacute;s tels que les produit Nona. En attendant une nouvelle version
+  des auteurs d'Enblend, j'ai cr&eacute;&eacute; une version avec le support complet de TIFF, vous
+  pouvez la <a href="http://hugin.sourceforge.net/snapshots/windows/enblend-2.1.1_win32.zip">t&eacute;l&eacute;charger d'ici</a>
+</p>
+
+<h4><a href="#top" name="g_locale_fr_fail">J'ai s&eacute;lectionn&eacute; la langue fran&ccedil;aise et
+  	Hugin signale qu'il ne trouve pas fr_FR, comment faire&nbsp;?</a></h4>
+<p>
+	Lorsque vous avez s&eacute;lectionn&eacute; la langue fran&ccedil;aise dans les
+	pr&eacute;f&eacute;rences, vous obtenez un message d'erreur&nbsp;: &laquo;&nbsp;Cannot set
+	locale to 'fr_FR'.&nbsp;&raquo;. Vous utilisez probablement la locale ISO-8859-15 (fr_FR@euro).
+	Ceci est une limitation des <i>wxWidgets</i>, il y a deux moyens pour contourner ce probl&egrave;me&nbsp;:
+<ul>
+	<li>
+		Soit vous s&eacute;lectionnez &laquo;&nbsp;langue par d&eacute;faut du
+		syst&egrave;me&nbsp;&raquo; dans les pr&eacute;f&eacute;rences de Hugin.
+	</li>
+	<li>
+		Soit vous g&eacute;n&eacute;rez &eacute;galement sur votre syst&egrave;me
+		la locale ISO-8859-1, m&ecirc;me si vous ne l'utilisez pas par d&eacute;faut.<br><br>
+		Il vous suffit d'ajouter en fin de votre fichier /etc/locale.gen la ligne
+		suivante&nbsp;:<br>
+		<pre>fr_FR ISO-8859-1</pre>
+		puis de lancer la commande <b>locale-gen</b>.
+	</li>
+</ul>
+</p>
+<h3> S&eacute;lection des points de contr&ocirc;le </h3>
+
+<h4><a href="#top" name="cp_add">Comment ajouter des points de contr&ocirc;le&nbsp;?</a></h4>
+
+<p>
+  L'&eacute;diteur de points de contr&ocirc;le est assez puissant mais son utilisation n'est pas
+  forc&eacute;ment &eacute;vidente &agrave; premi&egrave;re vue. Voici quelques indications sur la
+  mani&egrave;re dont les d&eacute;veloppeurs utilisent l'&eacute;cran des points de contr&ocirc;le&nbsp;
+</p>
+
+<ol>
+  <li>
+    <p> S&eacute;lection des points de cotr&ocirc;le dans le mode <b>100%</b>. </p>
+    <p>
+    Cette m&eacute;thode n&eacute;cessite de faire d&eacute;filer l'image si des images de grandes
+    dimensions sont utilis&eacute;es. Dans ce cas, vous pourrez utiliser la valeur de zoom <b>ajuster &agrave; la
+    fen&ecirc;tre</b>. Allez dans l'onglet des points de contr&ocirc;le et utilisez les
+    param&egrave;tres suivants&nbsp;:
+    </p>
+<pre>Zoom&nbsp;: 100%
+ [X] Ajustement pr&eacute;cis automatique
+ [X] Ajout automatique
+ [X] Estimation automatique</pre>
+    <ul>
+      <li> Cliquez sur un &eacute;l&eacute;ment remarquable de l'image de gauche.
+        Si la paire d'image contient d&eacute;j&agrave; des points de contr&ocirc;le, Hugin
+        va essayer de s&eacute;lectionner le point dans l'autre image.       
+      </li>
+      <li> Si c'est le premier point de cette paire d'images, cliquez sur un &eacute;l&eacute;ment
+      semblable dans l'image de droite.<br>
+      Sinon, le second point est plac&eacute; et ajust&eacute;
+      pr&eacute;cis&eacute;ment automatiquement.
+      </li>
+      <li> Si vous n'&ecirc;tes pas satisfait de ce positionnement, les deux points peuvent &ecirc;tre
+      d&eacute;plac&eacute;s en les glissant vers une meilleure position.<br>
+      Pressez la touche &laquo;&nbsp;f&nbsp;&raquo; pour ajuster pr&eacute;cis&eacute;ment le
+      point &agrave; l'int&eacute;rieur d'une petite zone.
+      </li>
+    </ul>
+  </li>
+
+
+  <li>
+    <p> S&eacute;lection de points dans le mode <b>ajuster &agrave; la fen&ecirc;tre</b>. </p>
+    <p>
+    	J'utilise ce mode si j'ai besoin de placer des points sur une image de grande taille.
+    	Allez dans l'onglet des points de contr&ocirc;le et utlisez les param&egrave;tres uivants&nbsp;:
+    </p>
+<pre>Zoom&nbsp;: ajuster &agrave; la fen&ecirc;tre
+ [X] Ajustement pr&eacute;cis automatique
+ [ ] Ajout automatique
+ [X] Estimation automatique</pre>
+    <ul>
+      <li> Cliquez sur l'image de gauche. L'image est affich&eacute;e dans une vue &agrave; 100%. </li>
+      <li> A l'int&eacute;rieur de la vue d&eacute;taill&eacute;e, cliquez un &eacute;l&eacute;ment
+      remarquable. Si la paire d'images contient d&eacute;j&agrave; des points de contr&ocirc;le,
+      Hugin va essayer de placer le point dans l'autre image.
+      </li>
+      <li> Si c'est le premire point de cette paire d'images, cliquez dans l'image de droite un
+      &eacute;l&eacute;ment semblable. Le point est alors plac&eacute; et ajust&eacute;
+      pr&eacute;cis&eacute;ment automatiquement.
+      </li>
+      <li> Si vous n'&ecirc;tes pas satisfait de ce placement, les deux points peuvent &ecirc;tre
+      d&eacute;palc&eacute;s en cliquant &agrave; la position d&eacute;sir&eacute;e. D&eacute;placez
+      le point &agrave; proximit&eacute; de l'&eacute;l&eacute;ment d&eacute;sir&eacute; et pressez
+      la touche &laquo;&nbsp;f&nbsp;&raquo; pour ajuster pr&eacute;cis&eacute;ment ce point.
+      </li>
+      <li> Lorsque les points se trouvent sur le m&ecirc;me &eacute;l&eacute;ment, pressez le bouton droit
+      de la souris ou pressez la touche &laquo;&nbsp;a&nbsp;&raquo; pour ajouter la paire de points de
+      contr&ocirc;le. Ils seront alors affich&eacute;s dans la liste en bas des images.
+      </li>
+    </ul>
+    <br/>
+  </li>
+</ol>
+
+<h4><a href="#top" name="cp_scroll">Comment faire d&eacute;filer les deux images simultan&eacute;ment&nbsp;?</a></h4>
+<p>
+	Essayez de presser la touche majuscule tout en d&eacute;pla&ccedil;ant la souris. La touche
+	&laquo;&nbsp;Ctrl&nbsp;&raquo; ou le bouton du milieu de la souris peuvnet &ecirc;tre utilis&eacute;s
+	pour ne d&eacute;placer que l'image qui se trouve sous le curseur de la souris.
+</p>
+
+
+<h3> Probl&egrave;mes courants rencontr&eacute;s lors de la cr&eacute;ation d'un panorama</h3>
+<h4><a href="#top" name="problems_curvedhorizon">Dans mon panorama, l'horizon est incurv&eacute;, comment le rendre droit&nbsp;?</a></h4>
+<p>
+	Si le panorama semble correct mais que l'horizon est incurv&eacute;, il y a deux 
+	moyens d'am&eacute;liorer l'image et de rendre l'horizon droit. Premi&egrave;rement, 
+	essayez d'optimiser la vue en s&eacute;lectionnant &laquo;&nbsp;les positions et la vue&nbsp;&raquo;
+	comme mode d'optimisation et en lan&ccedil;ant ensuite l'optimiseur. En cliquant sur
+	&laquo;&nbsp;calculer l'angle de champ&nbsp;&raquo; dans l'onglet &laquo;&nbsp;Assembleur&nbsp;&raquo;
+	et en affichant ensuite l'aper&ccedil;u vous pouvez v&eacute;rifier que l'image est
+	am&eacute;lior&eacute;e.
+<br><br>
+	S'il est encore incurv&eacute;, vous devrez alors ajouter des points de contr&ocirc;le de guide
+	horizontal depuis l'onglet &laquo;&nbsp;Points de contr&ocirc;le&nbsp;&raquo;. Ce qui fonctionne
+	le mieux pour moi est de s&eacute;lectionner la premi&egrave;re image dans la partie gauche de la
+	fen&ecirc;tre et l'image suivante dans la partie droite, exactement comme pour l'ajout de points
+	de contr&ocirc;le ordinaires. Ajoutez ensuite un point de contr&ocirc;le quelque part dans la partie
+	gauche de l'image de gauche, o&ugrave; se trouve l'horizon. Dans l'image de droite, s&eacute;lectionnez
+	un point de l'horizon dans la partie droite de l'image. Une fois ce point ajout&eacute;, changez
+	son type dans la liste en dessous pour &laquo;&nbsp;ligne horizontale&nbsp;&raquo;, comme vous
+	pouvez le voir sur l'image ci-dessous (les cercles rouges dans les parties gauche/droite des image
+	de gauche et de droite). Vous pouvez d&eacute;valider les fonctions d'ajout automatique et 
+	d'estimation automatique pour effectuer cette op&eacute;ration pour &eacute;viter des dialogues
+	envahissants lorsque vous ajoutez ces points-guides (ce que j'ai oubli&eacute; de faire sur les
+	captures d'&eacute;cran).
+	<center><img src="horiz-guide.jpg" alt="Capture d'&eacute;cran de Hugin affichant une ligne guide
+	horizontale entre deux images" ></center>
+	<br>
+	Ensuite, d&eacute;calez vous d'une image vers la droite et refaites la m&ecirc;me chose. Pour
+	certaines images avec beaucoup d'immeubles vous devrez deviner o&ugrave; se trouve l'horizon,
+	ne vous en faites pas, vous n'avez pas besoin d'&ecirc;tre tr&egrave;s pr&eacute;cis (et beaucoup
+	de gens peuvent deviner o&ugrave; se trouve l'horizon sans le voir, ce doit &ecirc;tre une
+	r&egrave;gle de l'&eacute;volution des esp&egrave;ces ;-).
+	<br><br>
+	Apr&egrave;s ceci, lancez l'optimiseur avec les param&egrave;tres &laquo;&nbsp;les positions et la
+	vue&laquo;&nbsp;&raquo;, mettez &agrave; jour l'aper&ccedil;u et v&eacute;rifiez le r&eacute;sultat.
+	Pour les panoramas qui ont davantage qu'une seule rang&eacute;e d'images, vous n'avez en
+	g&eacute;n&eacute;ral &agrave; fixez les guides horizontaux que pour une seule ligne.
+</p>
+<h4><a href="#top" name="problems_circledpano">Lors de l'optimisation d'un panorama sur 360 degr&eacute;s,
+    j'obtiens un cercle &agrave; la place d'un champ de vision &agrave; 360 degr&eacute;s. Comment
+    faire pour que Hugin le reconnaisse comme un panorama &agrave; 360 degr&eacute;s&nbsp;?</a></h4>
+<p>
+Pour certains panoramas sur 360 degr&eacute;s, vous pouvez rencontrer une optimisation telle que celle-ci&nbsp;:
+<center><img src="problem-circle.jpg" alt="panorama sur 360 degr&eacute;s incorrectemeent optimis&eacute; sous la forme d'images dispos&eacute;e en cercle"></center>
+<br>
+	Ce n'est pas un bogue, c'est une fonctionnalit&eacute; ;-) Comme les panorama tools
+	peuvent prendre en compte des images ayant n'importe quelle orientation, une fois
+	que l'optimiseur a trouv&eacute; un minimum local fort il peut lui &ecirc;tre impossible d'en
+	sortir. La fa&ccedil;on de l'&eacute;viter est de de guider l'optimiseur en lui donnant
+	des estimations grossi&egrave;res pour les valeurs de lacet (comme l'a signal&eacute; <a href="http://www.postle.net/">Bruno Postle</a>). Pour ce faire, comptez combien d'images se trouvent sur
+	une ligne horizontale. Pour des images avec un angle de champ de 40 degr&eacute;s, ce peut
+	&ecirc;tre de 10 &agrave; 12 images, parfois davantage. Divisez alors 360 par ce nombre, par
+	exemple si nous supposons que vous avez 12 vues sur une m&ecirc;me ligne horizontale, nous
+	avons alors 360 / 12 = 30. Dans l'onglet &laquo;&nbsp;Images&nbsp;&raquo;, entrez la valeur
+	du lacet dans l'ordre croissant. Attention de bien le faire dans l'ordre correct, par exemple,
+	si vous avez pris vos photos de gauche &agrave; droite ajoutez simplement 30 &agrave; chaque
+	valeur du lacet en commen&ccedil;ant par 0 pour la premi&egrave;re image, ensuite 30, 60, 90,
+	etc. Il n'est pas n&eacute;cessaire d'utiliser tr&egrave;s exactement cette valeur, &ccedil;a
+	permet juste d'&eacute;viter &agrave; l'optimiseur de rester bloqu&eacute; sur un minimum local
+	dont il ne sait pas sortir. Si vous avez plusieurs lignes horizontales, vous pouvez le faire
+	aussi pour les autres lignes maintenant ou essayer sans et le faire plus tard en cas d'&eacute;chec.
+	Assurez-vous d'avoir enregistr&eacute; votre fichier .pto avant de lancer l'otpimisation.
+<br><br>
+Effectuez maintenant l'optimisation en utilisant &laquo;&nbsp;les param&egrave;tres 
+personnalis&eacute;s ci-dessous&nbsp;&raquo; et remettez &agrave; z&eacute;ro les
+valeurs d'optimisation de tangage, de roulis et de vue. Dans la bo&icirc;te 
+&laquo;&nbsp;lacet&nbsp;&raquo; choisissez n'importe quelle vue sauf la premi&egrave;re.
+Lancez l'optimisation. Vous devriez obtenir alors une premi&egrave;re estimation &agrave;
+peu pr&egrave;s satisfaisante que vous pouvez v&eacute;rifier dans l'onglet de
+l'aper&ccedil;u apr&egrave;s en avoir demand&eacute; la mise &agrave; jour. &Agrave;
+partir de cette estimation grossi&egrave;re, vous pouvez appliquer maintenant une
+optimisation normale avec &laquo;&nbsp;les positions et la vue&nbsp;&raquo;
+<br><br>
+S'il y a encore quelques cercles, vous pouvez tenter d'optimiser aussi le tangage.
+</p>
+<h4><a href="#top" name="problmes_blackblends">Il y a des bandes noires entre
+deux images, comment les supprimer&nbsp;?</a></h4>
+<p>
+	S'il y a des zones noires visibles entre deux images source dans l'image finale
+	mais qu'elles ne sont pas visibles dans l'aper&ccedil;u, la raison la plus probable est
+	que le fondu s'est fait avec l'arri&egrave;re-plan noir. Ceci se produit lorsque deux
+	images se chevauchent l&eacute;g&egrave;rement et que la largeur de la transition est
+	fix&eacute;e &agrave; une valeur plus grande que le recouvrement. La raison en est que
+	la transition douce (&laquo;&nbsp;feathering&nbsp;&raquo;) se fait &agrave; l'int&eacute;rieur
+	des limites de l'image jusqu'&agrave; la valeur indiqu&eacute;e dans la &laquo;&nbsp;Largeur
+	de	transition&nbsp;&raquo;. S'il n'y a pas de recouvrement &agrave; l'int&eacute;rieur de cette
+	zone, la transition se fait entre le fond noir et l'image ce qui fait transpara&icirc;tre
+	le fond noir au travers de l'image et &agrave; l'int&eacute;rieur de celle-ci. Pour changer
+	&ccedil;a, vous pouvez soit&nbsp;: (a) diminuer la largeur de la zone de transition de
+	fa&ccedil;on &agrave; ce qu'elle soit inf&eacute;rieure &agrave; la largeur de la zone de
+	recouvrement, soit (b) augmenter la largeur de la zone de recouvrement des deux images. Alors
+	qu'il est toujours possible d'appliquer (a) quelque soit la valeur du recouvrement, (b) doit
+	&ecirc;tre pris en compte au moment de la prise de vue.
+</p>
+
+
+<h3> Panorama Postprocessing </h3>
+<h4><a href="#top" name="pano_gimp_layers">Je voudrais utiliser The Gimp pour travailler les raccords de mes images mais Gimp ne sait pas lire les fichiers PSD&nbsp;?</a></h4>
+<p>
+  Malheureusement, <a href="http://www.gimp.org">The GIMP</a> ne sait pas lire les fichier PSD
+  cr&eacute;es par PTSTitcher et les sorties TIFF multiples sont encombrantes &agrave; utiliser.
+  Il y a deux possibilit&eacute;s pour pallier &agrave; ce probl&egrave;me&nbsp;:
+</p>
+  <ol>
+    <li>
+      <p>
+      	Utilisez mon assembleur exp&eacute;rimental Nona de fa&ccedil;on &agrave; produire
+      	des fichiers au format TIFF multiples. Malheureusement je n'ai pas
+      	encore r&eacute;ussi &agrave; compiler un .exe pour Windows mais Alexandre
+      	travaille sur ce sujet. Suivez la proc&eacute;dure suivante&nbsp;: 
+      </p>
+      <ul>
+        <li>
+        <p>Utilisez Hugin pour cr&eacute;er le projet de panorama et choisissez
+        &laquo;&nbsp;TIFF multiples avec masques&nbsp;&raquo; comme format de sortie.
+        Enregistrez ce projet et lancez Nona en ligne de commande&nbsp;:
+        </p>
+      <pre>$ nona projet_pano.pto multi_calques</pre>
+        </li>
+      </ul>
+      <p>
+      	Cette commande va produire un fichier multi_calques.tif qui
+      	contient toutes les images reformat&eacute;es, retaill&eacute;es &agrave; leur contours.
+      	Ceci permet d'&eacute;conomiser beaucoup de place en comparaison avec un fichier
+      	de sortie &laquo;&nbsp;traditionnel&nbsp;&raquo; avec calques de PTStitcher o&ugrave;
+      	tous les calques ont la taille du panorama final.
+      </p>
+      <p>
+      	Malheureusement, The Gimp dans ses versions 1.2 et 1.3 ne supporte pas
+      	les fichiers TIFF mulitcalques. Vous devrez t&eacute;l&eacute;charger et compiler
+      	un <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=859181&amp;group_id=77506&amp;atid=550443">greffon tiff &agrave; jour</a>.
+        Il a &eacute;t&eacute; test&eacute; avec GIMP 1.2 et GIMP 1.3.22.
+      </p>
+    </li>
+
+    <li>
+      <p>
+      	Si c'est trop compliqu&eacute; ou si vous avez besoin de fonctions de PSTItcher
+      	 qui ne sont pas support&eacute;es par Nona, vous pouvez aussi utiliser 
+      	<a href="http://www.vierpi.de/tif2xcf.html">tif2xcf</a> pour combiner
+      	plusieurs sorties TIFF en un fichier XCF multicalques.
+      </p>
+      <p>
+      	Important&nbsp;: PTSTitcher ne cr&eacute;&eacute; pas les fichiers de sortie si le nom du
+      	fichier contient l'extension .tif. Ne pr&eacute;cisez donc que la racine du
+      	nom, sans l'extension.       
+      </p>
+      <p>
+      	Malheureusement, ceci gaspille &eacute;norm&eacute;ment de m&eacute;moire parce qu'il
+      	enregistre chaque image reformat&eacute;e (Ndt&nbsp;: remapp&eacute;e) dans un
+      	calque qui a la taille du panorama final.
+        </p>
+    </li>
+  </ol>
+
+
+<!--#include virtual="/ssi/homelink.html"-->
+
+</div> </body> </html>
