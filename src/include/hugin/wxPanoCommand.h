@@ -83,7 +83,7 @@ public:
                     // well.
                     if ((l.getRatio() == lens.getRatio()) &&
                         (l.isLandscape == lens.isLandscape) &&
-                        (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) )
+                        (const_map_get(l.variables,"v").getValue() - const_map_get(lens.variables,"v").getValue() < 0.002) )
                     {
                         matchingLensNr= lnr;
                     }
@@ -95,7 +95,7 @@ public:
 
                 VariableMap vars;
                 fillVariableMap(vars);
-                
+
                 DEBUG_ASSERT(matchingLensNr >= 0);
                 PanoImage img(filename, width, height, (unsigned int) matchingLensNr);
                 pano.addImage(img, vars);
