@@ -119,6 +119,7 @@ public:
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
     void setImage (const wxImage & img);
+    
     /// control point inside this image
     void setCtrlPoints(const std::vector<wxPoint> & points);
 

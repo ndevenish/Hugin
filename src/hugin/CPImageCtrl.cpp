@@ -129,21 +129,13 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     if (scaleFactor != 1.0) {
         dc.SetUserScale(scaleFactor, scaleFactor);
     }
+    
+    // draw image (FIXME, redraw only visible regions.)
     if (bitmap) {
         dc.DrawBitmap(*bitmap,0,0);
-    } else {
-        wxCoord w,h;
-        dc.GetTextExtent("Error: no image loaded", &w, &h);
-        dc.Clear();
-        for (wxCoord x = 0; x < GetSize().GetWidth(); x += w + 10) {
-            for (wxCoord y = 0; y < GetSize().GetHeight(); y += h +5 ) {
-                dc.DrawText("Error: no image loaded",x,y);
-            }
-        }
     }
     dc.SetUserScale(1.0,1.0);
 
-    // draw image here (FIXME, redraw only visible regions.)
     // draw known points.
     int i=0;
     vector<wxPoint>::const_iterator it;
@@ -206,8 +198,8 @@ void CPImageCtrl::setImage(const wxImage & img)
     //SetVirtualSizeHints(-1,-1,img.GetWidth(), img.GetHeight());
 //    SetVirtualSizeHints(bitmap->GetWidth(),bitmap->GetHeight(),bitmap->GetWidth(), bitmap->GetHeight());
     SetScrollbars(16, 16, bitmap->GetWidth()/16 ,bitmap->GetHeight()/16 );
-    wxClientDC dc (this);
-    PrepareDC(dc);
+    // redraw
+    Refresh();
 }
 
 
@@ -216,7 +208,6 @@ void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
     points = cps;
     // update view
     update();
-
 }
 
 
@@ -227,11 +218,11 @@ void CPImageCtrl::clearNewPoint()
 }
 
 
-
 void CPImageCtrl::selectPoint(unsigned int nr)
 {
     selectedPointNr = nr;
 }
+
 
 CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int & pointNr) const
 {
@@ -416,7 +407,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
 void CPImageCtrl::update()
 {
     Refresh(FALSE);
-    DEBUG_DEBUG("redraw display");
+//    DEBUG_DEBUG("redraw display");
 }
 
 bool CPImageCtrl::emit(CPEvent & ev)

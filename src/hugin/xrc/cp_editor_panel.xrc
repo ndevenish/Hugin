@@ -42,10 +42,10 @@
         <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
-        <object class="wxListBox">
-          <content/>
+        <object class="wxListCtrl" name="cp_editor_cp_list">
+          <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
         </object>
-        <option>2</option>
+        <option>4</option>
         <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">

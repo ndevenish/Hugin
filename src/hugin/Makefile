@@ -55,7 +55,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags) -I../ $(INCL_RESOURCES_FLAG) -O2
+CFLAGS += $(shell wx-config --cxxflags) -I../ $(INCL_RESOURCES_FLAG)
 LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
 
 # ====================================================================

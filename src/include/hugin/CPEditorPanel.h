@@ -42,6 +42,7 @@ class CPEvent;
 class wxTabView;
 class wxNotebook;
 class wxNotebookEvent;
+class wxListCtrl;
 
 namespace vigra {
     struct CorrelationResult;
@@ -71,14 +72,14 @@ public:
     void setRightImage(unsigned int imgNr);
 
     void SetPano(PT::Panorama * panorama)
-        { pano = panorama; };
+        { m_pano = panorama; };
 
     /** called when the panorama changes and we should
      *  update our display
      */
     void panoramaChanged(PT::Panorama &pano);
-    void ImagesAdded(PT::Panorama &pano, int added);
-    void ImagesRemoved(PT::Panorama &pano, int removed[512]);
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+
 
     /** Select a point.
      *
@@ -89,6 +90,7 @@ public:
 private:
 
     /** updates the display after another image has been selected.
+     *  updates control points, and other widgets
      */
     void UpdateDisplay();
 
@@ -113,17 +115,24 @@ private:
     void OnCPEvent(CPEvent &ev);
     void OnLeftImgChange(wxNotebookEvent & e);
     void OnRightImgChange(wxNotebookEvent & e);
+    void OnCPListSelect(wxListEvent & e);
 
 
     // GUI controls
     wxNotebook *m_leftTabs, *m_rightTabs;
     CPImageCtrl *m_leftImg, *m_rightImg;
+    wxListCtrl *m_cpList;
+    
+    wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
+    wxChoice *m_cpModeChoice;
 
     // my data
-    PT::Panorama * pano;
+    PT::Panorama * m_pano;
     // the current images
-    unsigned int leftImage;
-    unsigned int rightImage;
+    unsigned int m_leftImageNr;
+    unsigned int m_rightImageNr;
+    std::string m_leftFile, m_rightFile;
+    bool m_listenToPageChange;
 
     wxPoint newPoint;
     enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
@@ -134,7 +143,7 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
-
+    
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
 };
