@@ -682,9 +682,30 @@ time_t ReadJpegTime(const char* filename)
     return stamp;
 }
 
+WX_DECLARE_STRING_HASH_MAP(time_t, StringToPointerHash);
+
+struct sortbytime
+{
+    sortbytime(map<string, time_t> & h)
+        : m_time(h)
+    { }
+    
+    bool operator()(const std::string & s1, const std::string & s2) 
+    {
+        time_t t1 = m_time[s1];
+        time_t t2 = m_time[s2];
+        return t1 < t2;
+    }
+
+    map<string, time_t> & m_time;
+};
+
+
 void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     DEBUG_TRACE("");
+
+    int maxtimediff = wxConfigBase::Get()->Read("CaptureTimeSpan", HUGIN_CAPTURE_TIMESPAN);
 
     // If no images already loaded, offer user a chance to pick one.
     int images = pano.getNrOfImages();
@@ -698,7 +719,6 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     DEBUG_TRACE("seeking similarly timed images");
 
     // Collect potential image-mates.
-    WX_DECLARE_STRING_HASH_MAP(time_t, StringToPointerHash);
     StringToPointerHash filenames;
     while (images)
     {
@@ -727,13 +747,16 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
     // For each globbed or loaded file,
     StringToPointerHash::iterator found;
+    std::map<std::string, time_t> timeMap;
     for (found = filenames.begin(); found != filenames.end(); found++)
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
         time_t stamp = ReadJpegTime(file.c_str());
-        if (stamp)
+        if (stamp) {
             filenames[file] = stamp;
+            timeMap[file.c_str()] = stamp;
+        }
     }
 
     //TODO: sorting the filenames keys by timestamp would be useful
@@ -764,9 +787,8 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                     continue;
 
                 // If it is within threshold time,
-                //TODO: user preference, adjustable threshold?
                 time_t stamp = filenames[file];
-                if (abs(pledge - stamp) < 60)
+                if (abs(pledge - stamp) < maxtimediff)
                 {
                     // Load this file, and remember it.
                     DEBUG_TRACE("Recruited " << recruit.c_str());
@@ -781,6 +803,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
             }
         }
     } while (changed);
+
+    // sort files by date
+    sortbytime spred(timeMap);
+    sort(filesv.begin(), filesv.end(), spred);
 
     // Load all of the named files.
     wxBusyCursor();
@@ -896,8 +922,11 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     stopAngle=DEG_TO_RAD(stopAngle);
     int nSteps = cfg->Read("/Finetune/RotationSteps", HUGIN_FT_ROTATION_STEPS);
 
-    double threshold=HUGIN_FT_CORR_THRESHOLD;
-    cfg->Read("/Finetune/CorrThreshold", &threshold, HUGIN_FT_CORR_THRESHOLD);
+    double corrThresh=HUGIN_FT_CORR_THRESHOLD;
+    cfg->Read("/Finetune/CorrThreshold", &corrThresh, HUGIN_FT_CORR_THRESHOLD);
+    double curvThresh = HUGIN_FT_CURV_THRESHOLD;
+    wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&curvThresh,
+                              HUGIN_FT_CURV_THRESHOLD);
 
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
@@ -926,13 +955,16 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     long sWidth = templWidth + wxConfigBase::Get()->Read(
                         "/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
                     vigra_ext::CorrelationResult res;
+                    vigra::Diff2D roundP1(roundi(cps[*it].x1), roundi(cps[*it].y1));
+                    vigra::Diff2D roundP2(roundi(cps[*it].x2), roundi(cps[*it].y2));
+
                     if (rotatingFinetune) {
                         res = vigra_ext::PointFineTuneRotSearch(
                             templImg,
-                            vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
+                            roundP1,
                             templWidth,
                             searchImg,
-                            vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
+                            roundP2,
                             sWidth,
                             startAngle, stopAngle, nSteps
                             );
@@ -940,24 +972,37 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     } else {
                         res = vigra_ext::PointFineTune(
                             templImg,
-                            vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
+                            roundP1,
                             templWidth,
                             searchImg,
-                            vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
+                            roundP2,
                             sWidth
                             );
 
                     }
-                    if (res.maxi > threshold) {
+                    // invert curvature. we always assume its a maxima, the curvature there is negative
+                    // however, we allow the user to specify a positive threshold, so we need to
+                    // invert it
+                    res.curv.x = - res.curv.x;
+                    res.curv.y = - res.curv.y;
+
+                    if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
+                    {
+                        // Bad correlation result.
+                        nBad++;
+                        if (res.maxi >= corrThresh) {
+                            cps[*it].error = 0;
+                        }
+                        cps[*it].error = res.maxi;
+                        DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
+                    } else {
                         nGood++;
                         // only update if a good correlation was found
+                        cps[*it].x1 = roundP1.x;
+                        cps[*it].y1 = roundP1.y;
                         cps[*it].x2 = res.maxpos.x;
                         cps[*it].y2 = res.maxpos.y;
                         cps[*it].error = res.maxi;
-                    } else {
-                        nBad++;
-                        cps[*it].error = res.maxi;
-                        DEBUG_DEBUG("low correlation:" << res.maxi);
                     }
                 }
                 unsigned int rm = *it;
@@ -973,9 +1018,11 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     result.Printf(_("%d points fine-tuned, %d points not updated due to low correlation\n\n"
                     "Hint: The errors of the fine-tuned points have been set to the, correlation coefficient\n"
                     "Problematic point can be spotted (just after fine-tune, before optimizing)\n"
-                    "by an error <= %f.\n"
+                    "by an error <= %.3f.\n"
+                    "The error of points without a well defined peak (typically in regions with uniform color)\n"
+                    "will be set to 0\n\n"
                     "Use the Control Point list (F3) to see all point of the current project\n"),
-                  nGood, nBad, threshold);
+                  nGood, nBad, corrThresh);
     wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points
     GlobalCmdHist::getInstance().addCommand(
