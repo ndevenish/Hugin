@@ -34,6 +34,7 @@
 
 #include <algorithm>
 #include <utility>
+#include <functional>
 
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
@@ -49,10 +50,23 @@ struct compareError
         { return p1.second.error < p2.second.error; }
 };
 
+// sort helper function
+struct compareErrorGreater
+{
+    bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
+        { return p1.second.error > p2.second.error; }
+};
+
 struct compareImg1Nr
 {
     bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
         { return p1.second.image1Nr < p2.second.image1Nr; }
+};
+
+struct compareImg1NrGreater
+{
+    bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
+        { return p1.second.image1Nr > p2.second.image1Nr; }
 };
 
 struct compareImg2Nr
@@ -61,10 +75,22 @@ struct compareImg2Nr
         { return p1.second.image2Nr < p2.second.image2Nr; }
 };
 
+struct compareImg2NrGreater
+{
+    bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
+        { return p1.second.image2Nr > p2.second.image2Nr; }
+};
+
 struct compareMode
 {
     bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
         { return p1.second.mode < p2.second.mode; }
+};
+
+struct compareModeGreater
+{
+    bool operator()(const pair<int, ControlPoint> &p1, const pair<int, ControlPoint> &p2)
+        { return p1.second.mode > p2.second.mode; }
 };
 
 BEGIN_EVENT_TABLE(CPListFrame, wxFrame)
@@ -75,7 +101,8 @@ END_EVENT_TABLE()
 
 
 CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
-    : m_mainFrame(parent), m_pano(pano),m_verbose(false)
+    : m_mainFrame(parent), m_pano(pano),m_verbose(false), 
+    m_sortCol(0), m_sortAscend(true)
 {
     DEBUG_TRACE("");
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("cp_list_frame"));
@@ -147,13 +174,10 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     // update existing items
     if ( nrCP >= nrItems ) {
         for (int i=0; i < (int) nrCP; i++) {
-            const ControlPoint & p = cpv[i];
             if (i >= (int) nrItems) {
                 // create item
                 m_list->InsertItem(i, wxString::Format("%d",i));
             }
-            SetCPItem(i,p);
-            m_list->SetItemData(i,i);
         }
         // force a nice size
         int nrCol = m_verbose ? 9 : 5;
@@ -161,7 +185,8 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
             m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
         }
     }
-//    m_list->Show();
+    // update list.
+    updateList();
 }
 
 void CPListFrame::SetCPItem(int i, const ControlPoint & p)
@@ -208,12 +233,8 @@ void CPListFrame::OnCPListSelect(wxListEvent & ev)
     }
 }
 
-
-void CPListFrame::OnCPListHeaderClick(wxListEvent & e)
+void CPListFrame::updateList()
 {
-    // do the sorting here
-    // wxListCtrl has a horrible interface
-
     const CPVector & cps = m_pano.getCtrlPoints();
     int nrCP = cps.size();
 
@@ -222,33 +243,62 @@ void CPListFrame::OnCPListHeaderClick(wxListEvent & e)
     for (int i=0; i < nrCP; ++i) {
         cpv[i] = make_pair(i,cps[i]);
     }
-    int col = e.GetColumn();
     int colLeftImg = 1;
     int colRightImg = 4;
     int colMode = 7;
     int colError = 8;
-    
+
     if (!m_verbose) {
         colRightImg = 2;
         colMode = 3;
         colError = 4;
     }
-                      
-    DEBUG_TRACE("sorting column " << col);
-    if (col == colLeftImg) {
-        sort(cpv.begin(),cpv.end(), compareImg1Nr());
-    } else if (col == colRightImg) {
-        sort(cpv.begin(),cpv.end(), compareImg2Nr());
-    } else if (col == colMode) {
-        sort(cpv.begin(),cpv.end(), compareMode());
-    } else if (col == colError) {
+
+    DEBUG_TRACE("sorting column " << m_sortCol);
+    if (m_sortCol == colLeftImg) {
+        if (m_sortAscend) {
+            sort(cpv.begin(),cpv.end(), compareImg1Nr());
+        } else {
+            sort(cpv.begin(),cpv.end(), compareImg1NrGreater());
+        }
+    } else if (m_sortCol == colRightImg) {
+        if (m_sortAscend) {
+            sort(cpv.begin(),cpv.end(), compareImg2Nr());
+        } else {
+            sort(cpv.begin(),cpv.end(), compareImg2NrGreater());
+        }
+    } else if (m_sortCol == colMode) {
+        if (m_sortAscend) {
+            sort(cpv.begin(),cpv.end(), compareMode());
+        } else {
+            sort(cpv.begin(),cpv.end(), compareModeGreater());
+        }
+    } else if (m_sortCol == colError) {
+        if (m_sortAscend) {
             sort(cpv.begin(),cpv.end(), compareError());
+        } else {
+            sort(cpv.begin(),cpv.end(), compareErrorGreater());
+        }
     }
-        
+
     for (int i=0; i < (int) nrCP; i++) {
         SetCPItem(i,cpv[i].second);
         m_list->SetItemData(i, cpv[i].first);
     }
+}
+
+void CPListFrame::OnCPListHeaderClick(wxListEvent & e)
+{
+    // do the sorting here
+    // wxListCtrl has a horrible interface
+    int newCol = e.GetColumn();
+    if (m_sortCol == newCol) {
+        m_sortAscend = ! m_sortAscend;
+    } else {
+        m_sortCol = newCol;
+        m_sortAscend = true;
+    }
+    updateList();
 }
 
 void CPListFrame::OnClose(wxCloseEvent& event)

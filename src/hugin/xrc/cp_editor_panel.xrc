@@ -19,7 +19,7 @@
             <minsize>1,15</minsize>
           </object>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
         <border>5</border>
       </object>
       <object class="sizeritem">
@@ -28,13 +28,13 @@
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_left_img"/>
             <option>1</option>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_right_img"/>
             <option>1</option>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxRIGHT|wxEXPAND</flag>
             <border>5</border>
           </object>
         </object>

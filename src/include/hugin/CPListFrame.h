@@ -56,6 +56,7 @@ private:
     void OnCPListSelect(wxListEvent & e);
     void OnCPListHeaderClick(wxListEvent & e);
 
+    void updateList();
 
     void OnClose(wxCloseEvent& event);
 
@@ -65,6 +66,11 @@ private:
 
     // show point coordinates?
     bool m_verbose;
+    
+    // current sorting column
+    int m_sortCol;
+    
+    bool m_sortAscend;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
