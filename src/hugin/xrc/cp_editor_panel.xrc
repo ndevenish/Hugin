@@ -43,17 +43,62 @@
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
+          <orient>wxVERTICAL</orient>
           <object class="sizeritem">
             <object class="wxBoxSizer">
-              <orient>wxVERTICAL</orient>
+              <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxListCtrl" name="cp_editor_cp_list">
-                  <style>wxLC_REPORT|wxLC_SINGLE_SEL</style>
+                  <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
                 </object>
                 <option>4</option>
                 <flag>wxEXPAND</flag>
               </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Zoom:</label>
+                            </object>
+                            <flag>wxALIGN_CENTRE</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxComboBox" name="cp_editor_zoom_box">
+                              <content>
+                                <item>100%</item>
+                                <item>fit to window</item>
+                                <item>200%</item>
+                                <item>150%</item>
+                                <item>75%</item>
+                                <item>50%</item>
+                                <item>25%</item>
+                              </content>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="cp_editor_fine_tune_check">
+                      <label>auto fine tune</label>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxBoxSizer">
                   <orient>wxHORIZONTAL</orient>
@@ -95,6 +140,12 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="cp_editor_y2"/>
                   </object>
+                </object>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       <label>mode:</label>
@@ -108,50 +159,20 @@
                         <item>vertical line</item>
                         <item>horizontal line</item>
                       </content>
+                      <style></style>
                     </object>
+                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                   </object>
                 </object>
-                <flag>wxEXPAND</flag>
-                <border>5</border>
+                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
               </object>
+              <cols>2</cols>
+              <rows>2</rows>
+              <growablecols>0</growablecols>
+              <growablerows>1</growablerows>
             </object>
-            <option>1</option>
             <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxHORIZONTAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxStaticText">
-                      <label>Zoom:</label>
-                    </object>
-                    <flag>wxALIGN_CENTRE</flag>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxComboBox" name="cp_editor_zoom_box">
-                      <content>
-                        <item>100%</item>
-                        <item>fit to window</item>
-                        <item>200%</item>
-                        <item>150%</item>
-                        <item>75%</item>
-                        <item>50%</item>
-                        <item>25%</item>
-                      </content>
-                      <selection>0</selection>
-                    </object>
-                  </object>
-                </object>
-              </object>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                  <label>auto fine tune</label>
-                </object>
-              </object>
-              <orient>wxVERTICAL</orient>
-            </object>
+            <border>5</border>
           </object>
         </object>
         <option>4</option>
