@@ -87,15 +87,15 @@ void ImageCache::softFlush()
     long hysteresis = wxConfigBase::Get()->Read("/ImageCache/hysteresis",25 * 1024 * 1024l);
 
     long purgeToSize = upperBound + hysteresis;
-    
+
     // calculate used memory
     long imgMem = 0;
-    
+
     std::map<std::string, ImagePtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
         imgMem += imgIt->second->GetWidth() * imgIt->second->GetHeight() * 3;
     }
-    
+
     long pyrMem = 0;
     std::map<std::string, BImage*>::iterator pyrIt;
     for(pyrIt=pyrImages.begin(); pyrIt != pyrImages.end(); pyrIt++) {
@@ -112,17 +112,17 @@ void ImageCache::softFlush()
         long purgeAmount = usedMem - upperBound;
         long purgedMem = 0;
         // remove images from cache, first the grey level image,
-        // then the full size images an the 
+        // then the full size images an the
 
         while (purgeAmount > purgedMem) {
             if (pyrImages.size() > 0) {
                 BImage * imgPtr = (*(pyrImages.begin())).second;
-                purgedMem -= imgPtr->width() * imgPtr->height();
+                purgedMem += imgPtr->width() * imgPtr->height();
                 delete imgPtr;
                 pyrImages.erase(pyrImages.begin());
             } else if (images.size() > 0) {
                 ImagePtr imgPtr = (*(images.begin())).second;
-                purgedMem -= imgPtr->GetWidth() * imgPtr->GetHeight() * 3;
+                purgedMem += imgPtr->GetWidth() * imgPtr->GetHeight() * 3;
                 delete imgPtr;
                 images.erase(images.begin());
             } else {
