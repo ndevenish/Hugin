@@ -185,7 +185,16 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     
     wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
     // run autopano in an own output window
+
+#ifdef unix
+    DEBUG_DEBUG("using system() to execute autopano-sift");
+    int ret = system(cmd);
+    if (ret == -1) {
+	perror("system() failed");
+    }
+#else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
+#endif
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"));
@@ -277,7 +286,15 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     
     wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
     // run autopano in an own output window
+#ifdef unix
+    DEBUG_DEBUG("using system() to execute autopano");
+    int ret = system(cmd);
+    if (ret == -1) {
+	perror("system() failed");
+    }
+#else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
+#endif
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"));

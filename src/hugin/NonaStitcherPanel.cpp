@@ -295,7 +295,16 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #endif
             {
                 wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
+#ifdef unix
+		DEBUG_DEBUG("using system() to execute enblend");
+		int ret = system(args);
+		if (ret == -1) {
+		    perror("system() failed");
+		}
+#else
                 int ret = wxExecute(args, wxEXEC_SYNC);
+#endif
+		DEBUG_NOTICE("enblend returned with: " << ret);
 
                 if (ret == -1) {
                     wxMessageBox( _("Could not execute command: ") + args, _("wxExecute Error"));
