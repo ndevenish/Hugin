@@ -55,6 +55,10 @@ huginApp::~huginApp()
 {
 }
 
+// here goes and comes configuration
+wxConfigBase* config = new wxConfig ( "hugin",
+			"hugin Team", ".huginrc", "huginrc",
+			 wxCONFIG_USE_LOCAL_FILE );
 
 bool huginApp::OnInit()
 {
@@ -63,10 +67,6 @@ bool huginApp::OnInit()
     DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
 
 
-    // here goes and comes configuration
-    wxConfigBase *config = new wxConfig ( GetAppName().c_str(),
-			"hugin Team", ".huginrc", "huginrc",
-			 wxCONFIG_USE_LOCAL_FILE );
     // set as global config, so that other parts of hugin and wxWindows
     // controls can use it easily
     wxConfigBase::Set(config);
@@ -75,8 +75,11 @@ bool huginApp::OnInit()
     DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
     config->SetRecordDefaults(TRUE);
     
-    if ( config->IsRecordingDefaults() )
-      DEBUG_INFO((wxString)"writes in config: " + config->GetNumberOfEntries());
+    if ( config->IsRecordingDefaults() ) {
+      char e_dbg[128] = "writes in config: "; 
+      sprintf ( e_dbg ,"%s %d\n", e_dbg, config->GetNumberOfEntries() );
+      DEBUG_INFO(e_dbg);
+    }
     config->Flush();
 
     // initialize i18n
@@ -142,7 +145,7 @@ bool huginApp::OnInit()
     MainFrame *frame = new MainFrame();
 
     // show the frame.
-    frame->Show(TRUE);
+//    frame->Show(TRUE);
 
     return true;
 }
