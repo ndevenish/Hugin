@@ -1,0 +1,619 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ben & Leslie Allfree">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (WinNT; I) [Netscape]">
+   <title>PanoImage</title>
+</head>
+<body>
+
+<center>
+<h3>
+wxWindows Panorama Viewer Component</h3></center>
+
+<p><br><b>News:</b>
+<ul>
+<li>
+4/12/00 - Release of version 4.0</li>
+
+<li>
+4/11/00 - Release of version 3.3</li>
+
+<li>
+4/11/00 - Incomplete archive fixed</li>
+
+<li>
+4/10/00 - Curious finding fixed, version 3.2 released</li>
+
+<li>
+4/10/00 - Curious finding</li>
+
+<li>
+4/10/00 - Release of version 3.1</li>
+
+<li>
+4/9/00 - Release of version 3.0</li>
+
+<li>
+4/8/00 - Release of version 2.0</li>
+
+<li>
+4/6/00 - Release of version 1.0</li>
+</ul>
+
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+PanoViewer, v4.0</h3>
+<b><i>Version 4.0 of the PanoViewer class is a landmark version -- it provides
+the underlying framework for the first "release quality" panorama viewer
+made from <a href="http://www.wxwindows.org">wxWindows</a>. A special thank-you
+is deserved for these kind individuals: Julian Smart for his continued
+support; Guillermo Rodriguez Garcia for his wxWindows coding advice; Helmut
+Dersch for his <a href="http://www.fh-furtwangen.de/~dersch/">Panorama
+Tools</a> library.</i></b><b></b>
+<p><b>Download:</b>
+<br><a href="source33.zip">Source</a> (~30K, without sample panorama)
+<br><a href="binary33.zip">Win32 binary</a> (~600K, without sample panorama)
+<br><a href="pano.jpg">Sample Panorama</a> (~80K)
+<p><b>What's new:</b>
+<ul>
+<li>
+Major refinements in the relationship between speed and image quality.
+An elegant framework has been established which allows the user to set
+the quality of the image in a way where lower quality is used only during
+panning and zooming. Higher quality (i.e., no scaling, best interpolation)
+is still used when the image is sitting still.</li>
+
+<li>
+Dummy application framework fleshed out a little more. Ability to load
+files from disk, move into and out of&nbsp; full-screen mode, and set some
+viewing preferences.</li>
+
+<li>
+<b>API changes: </b>Multithreaded extraction engine replaced with single-threaded
+extraction engine, many classes and functions removed to simplify the "core
+competency" of the PanoViewer component. The multithreading will go down
+to a lower level, splitting the panoramic transformation function into
+threads. In other words, the predictive approach is out, and the just-in-time
+multithreaded approach is in.</li>
+
+<li>
+Mystery crashes seem to no longer be present. I really think it was due
+to my first attempt at multithreaded programming.</li>
+
+<li>
+Control icon (found in the lower-left-hand corder in full screen mode)
+now attaches to a menu. This allows menu events to be sent back to the
+main application to handle requests. Right now, the <b>View</b> menu gets
+attached.</li>
+</ul>
+<b>Problems:</b>
+<ul>
+<li>
+<b>Frame rate speed:</b> Slowly improving.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+Add mouse cursor states (6-directional arrows and one still bullet)</li>
+
+<li>
+<b>Parallelization:</b> Change Helmut's code to be multithreaded to see
+if that yields better results than my previous predictive approach.</li>
+
+<li>
+<b>wxLIVID or wxMM inclusion:</b> The LivePicture viewer can play .WAV
+files and show MPEG movies, distorted for perspective and everything. Pretty
+neat. We should see if wxWin is fast enough for that (I think it is).</li>
+
+<li>
+<b>Hotspot links to other panos</b></li>
+
+<li>
+<b>User/Automatic configuration:</b> <b>PanoImage</b> would time itself
+and auto configure its pan and zoom rates to be speedy, if jerky, on the
+system. Other configurations would detect the number of processors and
+automatically parallelize. Users could also adjust the pan and zoom settings
+through a dialog. To make the panorama viewer easy to use, there needs
+to be a single slider which adjusts image quality, panning speed, and mouse
+responsiveness. Somehow, it all needs to be rolled into one setting. I'll
+think more about that.</li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+PanoViewer, v3.3</h3>
+<b>Download:</b>
+<br><a href="source33.zip">Source</a> (~30K, without sample panorama)
+<br>Win32 binary (~600K, without sample panorama) (<b>offline</b>)
+<br><a href="pano.jpg">Sample Panorama</a> (~80K)
+<p><b>What's new:</b>
+<ul>
+<li>
+<b>FYI:</b> The slow loading time is not due to the PanoViewer class. It
+is an artifact of the dummy application insisting on having all images
+loaded before the main frame is shown. A real application would not do
+this.</li>
+
+<li>
+Bilinear transformations (the good kind) have been implemented again. You
+will notice that when you stop panning, the view softens slightly because
+when panning stops, the program switches to a better interpolator.</li>
+
+<li>
+Changed mouse functionality a bit. Now, simply clicking on the panorama
+won't make it start moving. Instead of considering the center of the panorama
+as the origin from which to judge mouse movement, it chooses the mouse
+position of the initial click down. This also lead to the discovery that
+the wxWindows documentation incorrectly states that wxMouseEvent::GetX()
+and GetY() report absolute coordinates -- they report relative coordinates.</li>
+
+<li>
+<b>A great speed improvement!</b> There is now a "quality" slider in the
+options dialog which basically sets a zoom factor. I can now get full-screen
+pano viewing, even if it is quite chunky.</li>
+</ul>
+<b>Problems:</b>
+<ul>
+<li>
+<b>Frame rate speed:</b> Slowly improving.</li>
+
+<li>
+<b>Mystery crashes:</b> I still have not quite gotten the hang of the wxThread
+class, I guess, because I get mystery crashes every once in a while. <b>gdb</b>
+doesn't help, and there are no error messages given. It could have to do
+with memory allocation problems, but the problem is too intermittent for
+me to solve now. It also crashes sometimes when it exits. Now that the
+scaling is implemented, it crashes during window resizes...sometimes! We'll
+have to get to the bottom of these.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+Add mouse cursor states (6-directional arrows and one still bullet)</li>
+
+<li>
+<b>Parallelization:</b> Change Helmut's code to be multithreaded to see
+if that yields better results than my previous predictive approach.</li>
+
+<li>
+<b>wxLIVID or wxMM inclusion:</b> The LivePicture viewer can play .WAV
+files and show MPEG movies, distorted for perspective and everything. Pretty
+neat. We should see if wxWin is fast enough for that (I think it is).</li>
+
+<li>
+<b>Hotspot links to other panos</b></li>
+
+<li>
+<b>User/Automatic configuration:</b> <b>PanoImage</b> would time itself
+and auto configure its pan and zoom rates to be speedy, if jerky, on the
+system. Other configurations would detect the number of processors and
+automatically parallelize. Users could also adjust the pan and zoom settings
+through a dialog.</li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+Curious finding fixed -- Version 3.2</h3>
+<b>Download:</b>
+<br><a href="control.bmp">control.bmp</a> (~2K)
+<p>Those of you who downloaded version 3.2 probably noticed that control.bmp
+was not included. Sorry :) Remember also that you will need a sample panorama.
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+Curious finding fixed -- Version 3.2</h3>
+<b>Download:</b>
+<br><a href="source32.zip">Source</a> (~30K, without sample panorama)
+<br><a href="binary32.zip">Win32 binary</a> (~600K, without sample panorama)
+<br><a href="pano.jpg">Sample Panorama</a> (~80K)
+<p><b>What's new:</b>
+<ul>
+<li>
+My curious finding has been solved. <b>ClientToScreen()</b> accurately
+reports x and y positions when x=y=0. The docs are wrong or misleading.</li>
+
+<li>
+Dummy application set to 4 PanoViewer objects to demonstrate proof of concept.</li>
+
+<li>
+Little control graphic added. Clicking on it displays options dialog. Try
+out the panning speed adjuster. It really seemed to help the panoramas
+feel faster when it was tweaked just right.</li>
+
+<li>
+PanoViewer changed from <b>wxPanel</b> to <b>wxControl</b> base because
+I have always meant for it to be a control.</li>
+
+<li>
+Mouse acceleration algorithm refined -- even more responsive and smooth
+now</li>
+
+<li>
+Added controls to slow the frame rate to the worst (longest) one recorded
+to see if this was better than limiting the frame rate to the average speed
+recorded. It wasn't, so I kept the frame rate limit to the average but
+left the function in for other uses, later.</li>
+
+<li>
+Guillermo and I have started discussion about adding a wxDC::DrawImage()
+function which could be optimized for specific platforms. According to
+my table, this process currently takes about 200ms for a 1000x1000</li>
+</ul>
+<b>Problems:</b>
+<ul>
+<li>
+<b>Frame rate speed:</b> Slowly improving.</li>
+
+<li>
+<b>Mystery crashes:</b> I still have not quite gotten the hang of the wxThread
+class, I guess, because I get mystery crashes every once in a while. <b>gdb</b>
+doesn't help, and there are no error messages given. It could have to do
+with memory allocation problems, but the problem is too intermittent for
+me to solve now.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+Add mouse cursor states (6-directional arrows and one still bullet)</li>
+
+<li>
+<b>Parallelization:</b> Change Helmut's code to be multithreaded to see
+if that yields better results than my previous predictive approach.</li>
+
+<li>
+<b>wxLIVID or wxMM inclusion:</b> The LivePicture viewer can play .WAV
+files and show MPEG movies, distorted for perspective and everything. Pretty
+neat. We should see if wxWin is fast enough for that (I think it is).</li>
+
+<li>
+<b>Hotspot links to other panos</b></li>
+
+<li>
+<b>User/Automatic configuration:</b> <b>PanoImage</b> would time itself
+and auto configure its pan and zoom rates to be speedy, if jerky, on the
+system. Other configurations would detect the number of processors and
+automatically parallelize. Users could also adjust the pan and zoom settings
+through a dialog.</li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+Curious finding - what am I doing wrong?</h3>
+<b>Download:</b>
+<br><a href="paneltest.zip">Source</a> (~2K)
+<p><b>What is it:</b>
+<p>While testing instantiation of multiple PanoViewer objects, I found
+some odd behavior when multiple <b>wxControl</b> objects are placed on
+a <b>wxPanel</b> within a <b>wxFrame</b>. The relative coordinates of each
+control is properly reported, but the <b>ClientToScreen()</b> function
+reports erroneous values sometimes. The control placed at wxPoint(0,0)
+is correctly reported, but all others seem to be incorrectly reported.
+Download the source and try it yourself :) You will see that the upper-left-hand
+control has a bottom pixel value of, say, 160 in absolute coordinates as
+reported by the mouse. Now, moving down to the top of the lower-left-hand
+control, which is no only 10 pixels lower, reports an absolute Y of 278,
+even though the mouse absolute Y value is 178 -- 100 pixels less.
+<p><b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+wxWindows Panorama viewer component, v3.1</h3>
+<b>Download:</b>
+<br><a href="source31.zip">Source</a> (~30K, without sample panorama)
+<br>Win32 binary (~600K, without sample panorama) (<b>offline</b>)
+<br><a href="pano.jpg">Sample Panorama</a> (~80K)
+<p><b>What's new:</b>
+<ul>
+<li>
+Tests were run to see where speed bottlenecks were. The following was found
+based on a 1000x1000 panorama:</li>
+</ul>
+
+<table BORDER COLS=4 WIDTH="100%" >
+<tr>
+<td></td>
+
+<td><b>Test 1</b></td>
+
+<td><b>Test 2</b></td>
+
+<td><b>Test 3</b></td>
+</tr>
+
+<tr>
+<td><b>Extraction</b></td>
+
+<td>1016ms</td>
+
+<td>984</td>
+
+<td>1000</td>
+</tr>
+
+<tr>
+<td><b>Conversion</b></td>
+
+<td>156</td>
+
+<td>156</td>
+
+<td>156</td>
+</tr>
+
+<tr>
+<td><b>Blit</b></td>
+
+<td>32</td>
+
+<td>31</td>
+
+<td>31</td>
+</tr>
+</table>
+
+<blockquote>Clearly, the extraction process takes the bulk of the time.
+For a high resolution panorama, less than 1 fps is laughable. After some
+optimization and further tests, I was able to isolate one function call
+which took over 500ms of the 1000ms time. I inlined this function using
+a #define and that reduced the total average ms to 875, which is an 8.75%
+speed improvement in the extraction, or about 7% overall. Although intermediate
+binary versions are offline, I will keep the original online so everyone
+can see how far the viewer has come at each stage!
+<p>I am trying to work with Helmut to get this routine the fastest it can
+be. I believe extraction can be as fast as 275ms. I am not opposed to writing
+the function in assembly language, if necessary.
+<p><b><i>I would appreciate reports from anybody about their CPU speed,
+compiler, architecture, OS, and estimated fps at the default size.</i></b></blockquote>
+
+<p><br><b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<p>
+<hr ALIGN=LEFT WIDTH="80%">
+<h3>
+wxWindows Panorama viewer component, v3.0</h3>
+<b>Download:</b>
+<br><a href="source30.zip">Source</a> (~30K, without sample panorama)
+<br>Win32 binary (~600K, without sample panorama) (<b>offline</b>)
+<br><a href="pano.jpg">Sample Panorama</a> (~80K)
+<p><b>What's new:</b>
+<ul>
+<li>
+<b>FYI:</b> You can choose a panorama of your own to view, so long as its
+named 'pano.jpg'</li>
+
+<li>
+<b>FYI:</b> To clarify, of this project is to create a wxWindows <i>component</i>,
+not an application. Perhaps that will come later. Future plans involving
+an application are not being addressed now.</li>
+
+<li>
+<b>FYI:</b> Major version numbers indicate incompatible changes in API
+or major changes in internal functionality, whereas minor numbers indicate
+compatible improvements.</li>
+
+<li>
+<b>Frame rate timing:</b> The extractor class now calculates the average
+amount of time in ms taken to extract a frame so that the viewer class
+can delay the display of a frame that was calculated in parallel and is
+ready "early".</li>
+
+<li>
+<b>Parallelization:</b> Further tests have proven the performance increase
+of the predictive parallel approach is negligible, and in fact slower during
+normal use. A single thread performs better than two threads for most cases.
+This sad news leaves few options but to parallelize the transformation
+functions. As I said earlier, I did not want to touch the transformation
+functions, to maintain compatibility, but it looks as though I must. Julian
+Smart recommended changing the transformation functions to deal directly
+with <b>wxImage</b> data, which I have done, and the performance increase
+was again negligible. I'm almost certain now that the poor frame rate performance
+is caused by the <b>wxImage</b> to <b>wxBitmap</b> conversion, or perhaps
+during the process of blitting.</li>
+</ul>
+<b>Problems:</b>
+<ul>
+<li>
+<b>Frame rate speed:</b> I am in the process of working with others to
+improve the frame rate. My next idea is to try drawing directly to a wxDC
+from the transformation functions.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+<b>Parallelization:</b> Change Helmut's code to be multithreaded to see
+if that yields better results than my previous predictive approach.</li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<h3>
+
+<hr ALIGN=LEFT WIDTH="80%"></h3>
+
+<h3>
+wxWindows Panorama viewer component, v2.0.</h3>
+<b>Download:</b>
+<br><a href="source20.zip">Source</a>
+<br>Win32 binary (~600K) (now with JPEG sample pano) (<b>offline</b>)
+<p><b>What's new:</b>
+<ul>
+<li>
+<b>Parallelization.</b> A first attempt at multi-threaded support has arrived!
+It's a very exciting day for me, as it is my first multi-threaded application,
+ever (but not my first parallel application). It actually feels slower
+than the single-threaded version because the appearance of frames are not
+evenly spaced, so two appear at once and then there is a more than normal
+lag until it processes a third frame. I invented a predictive parallel
+approach where the next view is predicted based on previous views requested.
+When a view is requested, the next one is predicted and computation is
+started. This technique can use only two threads because of the one-frame
+look ahead. Further extrapolation is easy to do, though increasingly inaccurate.</li>
+
+<li>
+<b>Mouse support fixed.</b> Thanks to a few comments of advice, <b>CaptureMouse()</b>
+was added, which helped a lot. A new acceleration routine was implemented,
+which feels better than the first one.</li>
+
+<li>
+<b>Options dialog started:</b> The options dialog has one slider now which
+adjusts mouse/pan acceleration according to my acceleration algorithm.
+More options will follow.</li>
+
+<li>
+<b>Further encapsulation:</b> It's now shamefully easy to incorporate the
+panorama class into your own applications. Multithreading and other low-level
+stuff is completely hidden, but can be adjusted through built-in options
+dialogs.</li>
+</ul>
+<b>Problems:</b>
+<ul>
+<li>
+<b>Frame rate speed: </b>The image speed problems mentioned in version
+1.0 persist. Although there were some recommendations about caching bitmaps
+to save on conversion, such techniques will not work for this case. It
+seems that the only option for more speed is to write platform-dependent
+code. However, I am quite optimistic about frame rate improvements because
+the other Windows viewer that uses Helmut's code is not _that_ much faster,
+and I have only a 233MHz processor.</li>
+
+<li>
+<b>Mystery crashes:</b> I still have not quite gotten the hang of the wxThread
+class, I guess, because I get mystery crashes every once in a while. <b>gdb</b>
+doesn't help, and there are no error messages given. It could have to do
+with memory allocation problems, but the problem is too intermittent for
+me to solve now.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+<b>Parallelization:</b> Adjust the timing on my predictive approach and
+continue to work with Helmut to achieve finer grained parallel processing.</li>
+
+<li>
+<b>User/Automatic configuration:</b> I still like the idea of auto-caliberation
+of panning speed. Basically, the inputs are the number of processors and
+the speed of processors. At opposite extremes are jerky panning and smooth
+panning. If a steady rate of motion is the idea (i.e., be able to pan 360
+in 1 second), then smoothness must be compromised. It seems to me that
+it will always be the case that users prefer responsiveness to extremely
+smooth panning.</li>
+
+<li>
+<b>Better mouse control:</b> I am now considering a logarithmic panning
+acceleration algorithm which levels off as the user moves the mouse to
+the edge or beyond the edge of the panorama window.</li>
+
+<li>
+<b>MDI panos</b>: I would like to see just how many panoramas I can display
+at once using my class.</li>
+
+<li>
+<b>Multiple panos, single panel, layout constraints</b>: Almost like the
+security TV screens which are divided into sections. This, however, you
+can enlarge when you desire.</li>
+
+<li>
+<b>Netscape plugin: </b>I think it's possible</li>
+
+<li>
+<b>wxLIVID or wxMM inclusion:</b> The LivePicture viewer can play .WAV
+files and show MPEG movies, distorted and everything. Pretty neat. We should
+see if wxWin is fast enough for that (I think it is).</li>
+
+<li>
+<b>Hotspot links to other panos</b></li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+<h3>
+
+<hr ALIGN=LEFT WIDTH="80%"></h3>
+
+<h3>
+wxWindows Panorama viewer component, v1.0.</h3>
+<b>Download:</b>
+<br><a href="../../../../source.zip">Source</a>
+<br><a href="../../../../binary.zip">Win32 binary (~600K)</a>
+<br>&nbsp;
+<p><b>What is it:</b>
+<br>This is a self-contained panorama viewer class for wxWindows. As my
+skeleton app demonstrates, it is used like any other wxWindows object.
+Its back end is made with code from Helmut Dersch's <a href="http://www.fh-furtwangen.de/~dersch/">Panorama
+Tools Viewer for Xwindows</a>.
+<p><b>Rational:</b>
+<br>The wxWindows <b>PanoImage</b> class was made to encapsulate Helmut's
+C code to give it a C++ interface. I wanted an easy way for wxWindows developers
+to include a panorama viewer in their applications. After programming so
+long in C++, I have started taking certain things like initialization for
+granted. Hemlut's code does not self-initialize, but my <b>PanoImage</b>
+class does it automatically so users no longer have to worry about correct
+initialization. Helmut's code also makes liberal use of pointers, which
+has also been hidden from wxWindows developers.
+<p><b>Implementation:</b>
+<br>I did not make any significant modifications to Helmut's code because
+I wanted to allow him flexibility to improve the library according to his
+plans. Instead, I made a <b>PanoImage</b> class, which is derived from
+a <b>wxPanel</b>. This class insulates Helmut's code from wxWindows as
+much as possible and allows wxWindows users to use data structures which
+are familiar to them. The <b>PanoImage</b> class knows how to respond to
+mouse movements, keyboard presses, and screen redraws. Of course, it can
+also do everything a <b>wxPanel</b> can do.
+<p><b>Problems:</b>
+<ul>
+<li>
+To my knowledge, there is no way to directly access <b>wxBitmap</b> data
+in a platform-independent way, only <b>wxImage</b> data. Thus, manipulations
+must be performed on a <b>wxImage</b> which is subsequently converted to
+a <b>wxBitmap</b> for display. This conversion takes time. To make matters
+worse, Helmut's library uses a 4-byte RGB format, while <b>wxImage</b>
+uses a 3-byte format, so an additional 32- to 24-bit conversion must take
+place. These conversions significantly slow down screen updates.</li>
+
+<li>
+Panning is limited in two ways. First, there is apparently no way to continually
+receive mouse update events unless the mouse is moving. It is not enough
+to be holding down the button, so users must hold down the button and constantly
+move the mouse in order to pan around. Second, When the mouse leaves the
+<b>PanoImage</b>
+client area, mouse events are no longer processed, even if the button is
+being held down. This means users can not move the mouse beyond the image
+border and continue to pan.</li>
+</ul>
+<b>Future plans:</b>
+<ul>
+<li>
+<b>Parallelization:</b> I've been anxious for quite some time to help Helmut
+parallelize his algorithms. Now, I am tempted to use the <b>wxThread</b>
+model, but that means trying to combine more C with C++. It seems that
+Helmut is partial to C, so I'm not sure how he would respond to the idea
+of using a C++ toolkit to complete the Parallelization. I am reluctant
+to touch Helmut's library without his approval because I want to make sure
+I don't interfere with Panorama Tools development. I would rather build
+a framework around what he has. Given this circumstance, there is still
+room to parallelize the <b>PanoImage</b> object. One method is to do predictive
+processing by preparing the next likely panorama frame in a separate thread
+while the current is being displayed.</li>
+
+<li>
+<b>User/Automatic configuration:</b> <b>PanoImage</b> would time itself
+and auto configure its pan and zoom rates to be speedy, if jerky, on the
+system. Other configurations would detect the number of processors and
+automatically parallelize. Users could also adjust the pan and zoom settings
+through a dialog.</li>
+
+<li>
+<b>Better mouse control:</b> The mouse panning control was written in about
+5 minutes. I think I need to spend more time on that aspect.</li>
+</ul>
+<b>Feedback:</b>
+<br>Feedback and improvements can be sent to <a href="mailto:benles@bldigital.com">benles@bldigital.com</a>
+</body>
+</html>

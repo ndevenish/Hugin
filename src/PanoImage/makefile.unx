@@ -1,0 +1,34 @@
+#
+# File:         makefile.g95
+# Author:       Julian Smart
+# Created:      1999
+# Updated:
+# Copyright:    (c) Julian Smart, 1999
+#
+# Makefile for wxWindows sample (Cygwin/Mingw32).
+
+CC = gcc
+CC_ARGS = -O2 -Wall -g
+
+PROGRAM = panoviewer
+UTILS = ../Panorama/.obj/utils.o
+
+OBJECTS = $(PROGRAM).o
+OBJECTS = panoviewerapp.o panoviewextractor.o panoviewer.o panolib.o printerror.o mainframe.o client.o $(UTILS)
+
+# implementation
+
+.SUFFIXES:	.o .cpp
+
+.cpp.o :
+	$(CC) $(CC_ARGS) -c `wx-config --cflags` -o $@ $<
+
+all:    $(PROGRAM)
+
+$(PROGRAM):	$(OBJECTS)
+	$(CC) -o $(PROGRAM) $(OBJECTS) `wx-config --libs`
+
+clean: 
+	rm -f *.o $(PROGRAM)
+
+
