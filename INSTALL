@@ -21,17 +21,15 @@ REQUIRED LIBRARIES/PACKAGES:
     and compile and install xrc from there.
 
  - Panorama tools. Please DO NOT USE the versions from the original site.
-   I'm using the version maintained by Max Lyons, which includes several
-   important bugfixes. Other versions might work as well, have not been
-   tested by the developers.
-
+   I'm using the version maintaned on sourceforge, http://panotools.sf.net
+   
    Download it from:
-   http://www.tawbaware.com/maxlyons/pano12ml.htm (windows binary and sourcecode)
+   http://www.photocreations.ca/panotools/index.html (windows builds)
    or
    http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
    see below if you want to compile the panorama tools yourself.
 
- - make, version 3.8 or higher. (only needed for compiliation)
+ - make, 
  - boost, get it from www.boost.org (only needed for compilation)
  - gcc (tested with 3.2, 2.95 might also work)
 
@@ -40,7 +38,10 @@ COMPILATION:
 These are the instructions for linux. see the WINDOWS_COMPILE.txt
 if you compile on windows.
 
+If you use the CVS source, please read HACKING before continuing
+
 do the following in the hugin directory:
+$ ./
 $ ./configure
 $ make
 $ make install
