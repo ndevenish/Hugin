@@ -30,6 +30,7 @@
 #include "hugin/ImageCache.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/MainFrame.h"
+#include "hugin/ImageProcessing.h"
 
 using namespace PT;
 using namespace std;
