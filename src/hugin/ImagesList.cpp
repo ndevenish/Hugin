@@ -87,6 +87,8 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
+    Freeze();
+
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrItems = GetItemCount();
 
@@ -103,6 +105,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrItems) {
                 // create new item.
+                DEBUG_DEBUG("creating " << *it);
                 CreateItem(*it);
 
                 wxBitmap small;
@@ -110,6 +113,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 m_smallIcons->Add(small);
             } else {
                 // update existing item
+                DEBUG_DEBUG("updating item" << *it);
                 UpdateItem(*it);
 
                 wxBitmap small;
@@ -125,6 +129,8 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         if ( GetColumnWidth(j) < 40 )
             SetColumnWidth(j, 40);
     }
+    
+    Thaw();
 }
 
 void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size)
@@ -153,6 +159,7 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
 
 void ImagesList::CreateItem(unsigned int imgNr)
 {
+    DEBUG_DEBUG("creating item " << imgNr);
     // create the new row
     InsertItem ( imgNr, wxString::Format("%d",imgNr), imgNr );
     UpdateItem(imgNr);
@@ -214,7 +221,8 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
 
 void ImagesListImage::UpdateItem(unsigned int imgNr)
 {
-    DEBUG_DEBUG("update image list item" << imgNr);
+    DEBUG_DEBUG("update image list item " << imgNr);
+    DEBUG_ASSERT((int)imgNr < GetItemCount());
     const PanoImage & img = pano.getImage(imgNr);
     wxFileName fn(img.getFilename().c_str());
     VariableMap var = pano.getImageVariables(imgNr);

@@ -42,7 +42,7 @@ class CPEvent : public wxCommandEvent
     DECLARE_DYNAMIC_CLASS(CPEvent)
 
     enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK, SCROLLED };
-    
+
 public:
     CPEvent( );
     /// create a specific CPEvent
@@ -167,7 +167,7 @@ public:
      *
      */
     void showSearchArea(bool show=true);
-        
+
     void showTemplateArea(bool show=true);
 
     /// get the new point
@@ -183,6 +183,7 @@ protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
+    void OnKey(wxKeyEvent & e);
     void OnKeyUp(wxKeyEvent & e);
     void OnKeyDown(wxKeyEvent & e);
     void OnMouseLeave(wxMouseEvent & e);

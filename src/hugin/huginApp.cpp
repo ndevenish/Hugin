@@ -74,15 +74,17 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
+    SetAppName("hugin");
 //    DEBUG_INFO( GetAppName().c_str() )
 //    DEBUG_INFO( wxFileName::GetCwd().c_str() )
 //    DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
 
 
     // here goes and comes configuration
-    wxConfigBase* config = new wxConfig ( "hugin",
-			"hugin Team", ".huginrc", "huginrc",
-			 wxCONFIG_USE_LOCAL_FILE );
+    wxConfigBase * config = wxConfigBase::Get();
+//    wxConfigBase* config = new wxConfig ( "hugin",
+//			"hugin Team", ".huginrc", "huginrc",
+//			 wxCONFIG_USE_LOCAL_FILE );
 
     // set as global config, so that other parts of hugin and wxWindows
     // controls can use it easily
@@ -170,28 +172,23 @@ bool huginApp::OnInit()
     SetTopWindow(frame);
 
 
-    wxString wrkDir = config->Read("tempDir","");
-    // create temporary directory.
     config->Write( "startDir", wxFileName::GetCwd() );
+    
+    m_workDir = config->Read("tempDir","");
+    // FIXME, make secure against some symlink attacks
+    // get a temp dir
 #ifdef __unix__
-    // create a temporary directory
     char * dir;
-    if (wrkDir == "") {
-        DEBUG_INFO("No tempdir specified, using system default");
-        dir = tempnam(0,"hugin");
-    } else {
-        dir = tempnam(wrkDir.c_str(), "");
+    if (m_workDir == "") {
+        m_workDir == "/tmp";
     }
-    m_workDir = dir;
-    free(dir);
 #elif __WXMSW__
-    if (wrkDir == "") {
+    if (m_wrkDir == "") {
         /* added by Yili Zhao */
         char buffer[255];
         GetTempPath(255, buffer);
-        wrkDir = buffer;
+        m_workDir = buffer;
     }
-    m_workDir = wrkDir;
 #else
     DEBUG_ERROR("don't know how to find the temp dir on mac");
     m_workDir = "";

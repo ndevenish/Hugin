@@ -109,7 +109,7 @@
                       <object class="sizeritem">
                         <object class="wxButton" name="cp_editor_finetune_button">
                           <label>Fine Tune</label>
-                          <tooltip>does a local fine tune, on already existing points.</tooltip>
+                          <tooltip>tries to optimize the currently active point.</tooltip>
                         </object>
                         <flag>wxLEFT|wxRIGHT</flag>
                         <border>5</border>

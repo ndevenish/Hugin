@@ -1,2 +1,9 @@
 Makefile.depend
 imageproc
+panorama
+panotools
+stitch_result.jpg
+photo.jpg
+stitch_result.jpg
+.kdbgrc.panorama
+.kdbgrc.panotools

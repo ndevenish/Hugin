@@ -33,6 +33,8 @@
 
 #include "PT/Panorama.h"
 #include "hugin/OptimizePanel.h"
+#include "common/utils.h"
+
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -54,7 +56,7 @@ public:
         : pano(p)
         { }
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
-        
+
 private:
     PT::Panorama & pano;
 };
@@ -68,7 +70,7 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::ProgressDisplay
 {
 public:
 
@@ -101,6 +103,16 @@ public:
 
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
+    
+    // called when a progress message should be displayed
+    /** receive notification about progress
+     *
+     *  @param msg message text
+     *  @param progress optional progress indicator (0-100)
+     */
+    virtual void progressMessage(const std::string & msg,
+                                 int progress=-1);
+
 
 private:
 
@@ -129,7 +141,7 @@ private:
     CPEditorPanel * cpe;
     OptimizePanel * opt_panel;
     PanoPanel * pano_panel;
-    
+
     // flying windows
     PreviewFrame * preview_frame;
     CPListFrame * cp_frame;
@@ -142,6 +154,10 @@ private:
 
     // filename of the current project
     wxString m_filename;
+    
+    // data prefix
+    wxString m_xrcPrefix;
+
 
     // self
     MainFrame* GetFrame(void);

@@ -38,6 +38,7 @@
 //#include <wx/imagpng.h>             // for about html
 #include <wx/wxhtml.h>              // for about html
 #include <wx/listctrl.h>            // wxListCtrl
+#include <wx/splash.h>
 
 #include <fstream>
 
@@ -55,6 +56,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
+
 #include "PT/Panorama.h"
 
 
@@ -72,7 +74,7 @@ using namespace PT;
 /** file drag and drop handler method */
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
-    
+
     // FIXME check for Images / project files
     DEBUG_TRACE("OnDropFiles");
     std::vector<std::string> filesv;
@@ -122,6 +124,32 @@ END_EVENT_TABLE()
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : pano(pano)
 {
+    wxConfigBase* config = wxConfigBase::Get();
+    if ( wxFile::Exists("xrc/data/splash.png") ) {
+        DEBUG_INFO("using local xrc files");
+        wxString currentDir = wxFileName::GetCwd();
+        m_xrcPrefix = currentDir + "/xrc/";
+    } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
+        DEBUG_INFO("using installed xrc files");
+        m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
+    } else {
+        DEBUG_INFO("using xrc prefix from config")
+        m_xrcPrefix = config->Read("xrc_path") + wxT("/");
+    }
+
+    wxBitmap bitmap;
+    wxSplashScreen* splash = 0;
+    if (bitmap.LoadFile(m_xrcPrefix + "data/splash.png", wxBITMAP_TYPE_PNG))
+    {
+        splash = new wxSplashScreen(bitmap,
+                                                    wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
+                                                    6000, NULL, -1, wxDefaultPosition, wxDefaultSize,
+                                                    wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+    } else {
+        DEBUG_ERROR("splash image not found");
+    }
+    wxYield();
+  
     DEBUG_TRACE("");
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -150,7 +178,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     m_notebook = XRCCTRL(*this, "controls_notebook", wxNotebook);
     DEBUG_ASSERT(m_notebook);
-    
+
     // the lens_panel, see as well images_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
                                 wxDefaultSize, &pano);
@@ -207,7 +235,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
 
     // remember the last size from config
-    wxConfigBase* config = wxConfigBase::Get();
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
     if (w != -1) {
@@ -222,7 +249,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // show the frame.
 //    Show(TRUE);
-
+    
+    // set progress display for image cache.
+    ImageCache::getInstance().setProgressDisplay(this);
+    
+    delete splash;
+    
     DEBUG_TRACE("");
 }
 
@@ -289,7 +321,7 @@ void MainFrame::OnExit(wxCloseEvent & e)
             // just quit
         }
         }
-    }   
+    }
     ImageCache::getInstance().flush();
     //Close(TRUE);
     this->Destroy();
@@ -364,6 +396,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         // open project.
         std::ifstream file(filename.c_str());
         if (file.good()) {
+            wxBusyCursor();
             GlobalCmdHist::getInstance().addCommand(
                 new LoadPTProjectCmd(pano,file, prefix)
                 );
@@ -421,22 +454,20 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         wxArrayString Filenames;
         dlg->GetPaths(Pathnames);
         dlg->GetFilenames(Filenames);
-        e_stat = _("Adding images: ");
 
         // e safe the current path to config
         config->Write("actualPath", dlg->GetDirectory());  // remember for later
+        
+        std::vector<std::string> filesv;
+        for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
+            filesv.push_back(Pathnames[i].c_str());
+        }
 
         // we got some images to add.
-        if (Pathnames.GetCount() > 0) {
+        if (filesv.size() > 0) {
             // use a Command to ensure proper undo and updating of GUI
             // parts
-            std::vector<std::string> filesv;
-            for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-                filesv.push_back(Pathnames[i].c_str());
-                // fill the statusline
-                e_stat.append(wxString::Format("%s ", Filenames[i].c_str()));
-            }
-            SetStatusText( e_stat, 0);
+            wxBusyCursor();
             GlobalCmdHist::getInstance().addCommand(
                 new wxAddImagesCmd(pano,filesv)
                 );
@@ -522,7 +553,7 @@ void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
-        DEBUG_TRACE("");
+    DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
     dlg.ShowModal();
@@ -584,3 +615,17 @@ MainFrame* MainFrame::GetFrame(void)
 //    MainFrame* dummy( parent);//, -1, wxDefaultPosition, wxDefaultPosition);
     return this;
 }
+
+
+void MainFrame::progressMessage(const std::string & msg,
+                                int progress)
+{
+    SetStatusText(msg.c_str());
+    if (progress >= 0) {
+        SetStatusText(wxString::Format("%d%%",progress),1);
+    } else {
+        SetStatusText("",1);
+    }
+    wxYield();
+}
+

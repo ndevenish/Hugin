@@ -944,10 +944,13 @@ void Panorama::setOptions(const PanoramaOptions & opt)
     double maxv = 0;
     switch (state.options.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
-        maxh = 180;
-        maxv = 180;
+        maxh = 179;
+        maxv = 179;
         break;
     case PanoramaOptions::CYLINDRICAL:
+        maxh = 360;
+        maxv = 179;
+        break;
     case PanoramaOptions::EQUIRECTANGULAR:
         maxh = 360;
         maxv = 180;

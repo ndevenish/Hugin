@@ -173,6 +173,8 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
+    m_PreviewPanel->panoramaImagesChanged(pano,changed);
+    
     bool dirty = false;
 
     unsigned int nrImages = pano.getNrOfImages();

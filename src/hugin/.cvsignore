@@ -2,3 +2,5 @@
 CPEditorTest
 hugin
 Makefile.depend
+hugin.desktop
+.kdbgrc.hugin

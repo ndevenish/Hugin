@@ -195,7 +195,7 @@ CPEditorPanel::~CPEditorPanel()
     //m_x2Text->PopEventHandler();
     //m_y2Text->PopEventHandler();
     //delete m_tkf;
-    
+
     wxConfigBase::Get()->Write("/CPEditorPanel/autoAdd", m_autoAddCB->IsChecked() ? 1 : 0);
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -503,7 +503,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
             if (m_fineTuneCB->IsChecked()) {
                 g_MainFrame->SetStatusText("searching similar point...",0);
                 wxPoint newPoint = otherImg->getNewPoint();
-                
+
                 long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
                 const PanoImage & img = m_pano->getImage(thisImgNr);
                 double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
@@ -654,6 +654,7 @@ bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
                                  unsigned int dstImgNr,
                                  CorrelationResult & res)
 {
+    wxBusyCursor();
     DEBUG_TRACE("FindTemplate(): tmpl img nr: " << tmplImgNr << " corr src: "
                 << dstImgNr);
     if (region.GetWidth() < 1 || region.GetHeight() < 1) {
@@ -940,14 +941,17 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItemState( selectedCP,
                                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
         m_cpList->EnsureVisible(selectedCP);
+        m_selectedPoint = selectedCP;
+    } else {
+        m_selectedPoint = UINT_MAX;
     }
+
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
 /*    for (int i=0; i<7; i++) {
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
     }*/
     m_cpList->Show();
     // clear selectedPoint marker
-    m_selectedPoint = selectedCP;
 }
 
 void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
@@ -1097,6 +1101,9 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         GlobalCmdHist::getInstance().addCommand(
             new PT::RemoveCtrlPointCmd(*m_pano,pNr)
             );
+    } else if (e.m_keyCode == 't') {
+        wxCommandEvent dummy;
+        OnFineTuneButton(dummy);
     } else {
         e.Skip();
     }
@@ -1325,9 +1332,9 @@ void CPEditorPanel::FineTuneSelectedPoint()
     DEBUG_DEBUG(" selected Point: " << m_selectedPoint);
     if (m_selectedPoint == UINT_MAX) return;
     DEBUG_ASSERT(m_selectedPoint < currentPoints.size());
-                 
+
     ControlPoint cp = currentPoints[m_selectedPoint].second;
-        
+
     long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
     long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
     FDiff2D result;
@@ -1338,7 +1345,7 @@ void CPEditorPanel::FineTuneSelectedPoint()
                                  Diff2D((int) round(cp.x2), (int) round(cp.y2)),
                                  sWidth,
                                  result);
-    
+
     g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
 
     wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
@@ -1359,7 +1366,7 @@ void CPEditorPanel::FineTuneSelectedPoint()
     }
     cp.x2 = result.x;
     cp.y2 = result.y;
-    
+
     // if point was mirrored, reverse before setting it.
     if (set_contains(mirroredPoints, m_selectedPoint)) {
         cp.mirror();
@@ -1372,7 +1379,7 @@ void CPEditorPanel::FineTuneSelectedPoint()
 
 void CPEditorPanel::FineTuneNewPoint()
 {
-        
+
     long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
     long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
     wxPoint left = m_leftImg->getNewPoint();

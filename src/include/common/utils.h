@@ -115,7 +115,7 @@ namespace utils
         return result;
 
     }; // lexical cast
-    
+
     /** The progress display is used to report progress to another
      *  part of the program.
      *
@@ -126,7 +126,7 @@ namespace utils
     class ProgressDisplay
     {
     public:
-        virtual ~ProgressDisplay();
+        virtual ~ProgressDisplay() {};
         /** receive notification about progress
          *
          *  @param msg message text
@@ -135,13 +135,13 @@ namespace utils
         virtual void progressMessage(const std::string & msg,
                                      int progress=-1) = 0;
     };
-    
+
     // print progress to cout.
     class CoutProgressDisplay : public ProgressDisplay
     {
     public:
         virtual ~CoutProgressDisplay();
-        
+
         /** receive notification about progress
          *
          *  @param msg message text
@@ -152,7 +152,7 @@ namespace utils
                 if (msg == last_msg && progress != -1) {
                     // just print the progress
                     if (progress != -1) {
-                        std::cout << "\r" << msg << ": " 
+                        std::cout << "\r" << msg << ": "
                                   << progress << "%" << std::flush;
                     }
                 } else {
@@ -164,11 +164,11 @@ namespace utils
                     last_msg = msg;
                 }
             }
-        
+
     private:
         std::string last_msg;
     };
-    
+
 
 } // namespace
 

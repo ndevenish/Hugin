@@ -84,7 +84,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_stitcher_frame"));
     assert(ok);
 
-    
+
     m_stitcherStatus = XRCCTRL(*this, "stitcher_status", wxStaticText);
     assert(m_stitcherStatus);
     m_stitcherProgress = XRCCTRL(*this, "stitcher_progress", wxGauge);
@@ -119,8 +119,10 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     std::string script(script_stream.str());
     if (editScript) {
         // open a text dialog with an editor inside
-        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "script_edit_dialog");
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "edit_script_dialog");
+        DEBUG_ASSERT(edit_dlg);
         wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
+        DEBUG_ASSERT(txtCtrl);
         txtCtrl->SetValue(script.c_str());
 
         if (edit_dlg->ShowModal() == wxID_OK) {

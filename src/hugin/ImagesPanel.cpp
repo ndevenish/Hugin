@@ -112,9 +112,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
-    
+
     // FIXME crashes.. don't know why
-/*    
+/*
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler();

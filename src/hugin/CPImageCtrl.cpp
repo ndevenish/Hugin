@@ -118,6 +118,7 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
     EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
     EVT_SIZE(CPImageCtrl::OnSize)
+    EVT_CHAR(CPImageCtrl::OnKey)
     EVT_KEY_UP(CPImageCtrl::OnKeyUp)
     EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
     EVT_LEAVE_WINDOW(CPImageCtrl::OnMouseLeave)
@@ -657,6 +658,13 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
             setScale(0);
         }
     }
+}
+
+void CPImageCtrl::OnKey(wxKeyEvent & e)
+{
+    DEBUG_DEBUG("forwarding key " << e.m_keyCode);
+    // forward all keys to our parent
+    GetParent()->GetEventHandler()->ProcessEvent(e);
 }
 
 void CPImageCtrl::OnKeyUp(wxKeyEvent & e)

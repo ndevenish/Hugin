@@ -75,7 +75,6 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
     parentWindow(parent)
 {
     DEBUG_TRACE("");
-    pano->addObserver(this);
 }
 
 PreviewPanel::~PreviewPanel()
@@ -87,7 +86,6 @@ PreviewPanel::~PreviewPanel()
     {
         delete *it;
     }
-    pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
 
@@ -207,7 +205,7 @@ void PreviewPanel::updatePreview()
             timg.SetMaskColour(0,0,0);
             // convert to a drawable bitmap, lets hope that the mask
             // is transfered
-            DEBUG_ASSERT(m_remappedBitmaps.size() > *it);
+            DEBUG_ASSERT(*it < m_remappedBitmaps.size());
             *(m_remappedBitmaps[*it]) = timg.ConvertToBitmap();
             dirty = true;
             UIntSet::iterator tit = it;
