@@ -231,7 +231,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
     }
 #ifdef __WXMSW__
-    if (cmd.size() > 1950) {
+    if (autopanoArgs.size() > 1930) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
                      wxCANCEL | wxICON_ERROR );
