@@ -201,21 +201,24 @@ void PreviewPanel::updatePreview()
 
     // create images
     wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
-    vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
-    BImage alpha(m_panoImgSize);
-    // the empty panorama roi
-    ROI<Diff2D> panoROI;
-    DEBUG_DEBUG("about to stitch images");
-    if (m_displayedImages.size() > 0) {
-        if (seaming) {
-            WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-            stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
-        } else {
-            WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-            stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+    try {
+        vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
+        BImage alpha(m_panoImgSize);
+        // the empty panorama roi
+        ROI<Diff2D> panoROI;
+        DEBUG_DEBUG("about to stitch images");
+        if (m_displayedImages.size() > 0) {
+            if (seaming) {
+                WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+            } else {
+                WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+            }
         }
+    } catch (std::exception & e) {
+        wxMessageBox("Error during Stitching", e.what());
     }
-
     if (m_panoBitmap) {
         delete m_panoBitmap;
     }

@@ -23,6 +23,8 @@
  *
  */
 
+#include <vigra/stdimage.hxx>
+
 #include <PT/Stitcher.h>
 
 using namespace std;
