@@ -857,10 +857,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     unsigned int nrTabs = m_leftTabs->GetPageCount();
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
 
-    // try to remove some images.
-    DEBUG_DEBUG("calling soft purge")
+    // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
-    
     
     // add tab bar entries, if needed
     if (nrTabs < nrImages) {

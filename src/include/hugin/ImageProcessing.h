@@ -38,6 +38,7 @@
 #include "hugin/wxVigraImage.h"
 #include "hugin/ImageCache.h"
 #include "common/utils.h"
+#include "common/math.h"
 
 class wxImage;
 
@@ -83,7 +84,7 @@ struct NormalizeToUChar
  *  if min == max == 0, then min & max are calculated from the image.
  */
 template<typename Image>
-bool saveScaledImage(const Image &img, 
+bool saveScaledImage(const Image &img,
                      const std::string & filename,
                      typename Image::PixelType min = 0,
                      typename Image::PixelType max = 0
@@ -405,16 +406,6 @@ CorrelationResult correlateImage_new(SrcIterator sul, SrcIterator slr, SrcAccess
 
 
 
-struct FDiff2D
-{
-    FDiff2D()
-        : x(0), y(0)
-        { }
-    FDiff2D(float x, float y)
-        : x(x), y(y)
-        { }
-    float x,y;
-};
 
 // a subpixel correlation result
 struct SubPixelCorrelationResult

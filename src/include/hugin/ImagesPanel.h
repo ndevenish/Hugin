@@ -90,7 +90,8 @@ private:
 
     void OnOptAnchorChanged(wxCommandEvent & e);
     void OnColorAnchorChanged(wxCommandEvent &e );
-    
+    void OnSelectAnchorPosition(wxCommandEvent & e);
+
     /** gui -> pano
      *
      *  usually for events to set the new pano state
@@ -123,7 +124,7 @@ private:
     ImagesListImage* images_list;
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
-
+    wxButton * m_setAnchorOrientButton;
     TextKillFocusHandler * m_tkf;
 
     DECLARE_EVENT_TABLE()

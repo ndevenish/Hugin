@@ -110,12 +110,11 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(m_tkf);
-/*
     XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(m_tkf);
-*/
+
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -189,7 +188,7 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 
     double hfov = const_map_get(imgvars,"v").getValue();
     // update focal length
-    double focal_length = 16.0/tan(hfov/360*M_PI);
+    double focal_length = 18.0/tan(hfov/360*M_PI);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
         doubleToString(focal_length).c_str());
 
@@ -241,9 +240,9 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
         }
         // this command is complicated and need the different lenses
         // conversion factors, FIXME change for multiple lenses
-        int first = *(selected.begin());
-        double factor = pano.getLens(pano.getImage(first).getLensNr()).focalLengthConversionFactor;
-        double focalLength35mm = val * factor;
+//        int first = *(selected.begin());
+//        double factor = pano.getLens(pano.getImage(first).getLensNr()).focalLengthConversionFactor;
+        double focalLength35mm = val;
         double HFOV = 2.0 * atan((36/2) / focalLength35mm) * 180/M_PI;
         Variable var("v",HFOV);
         GlobalCmdHist::getInstance().addCommand(

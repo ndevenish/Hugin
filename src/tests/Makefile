@@ -64,7 +64,7 @@ LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_uni
 # ====================================================================
 
 
-TESTS = 1 2 3
+TESTS = 1 2 3 4
 
 # Defaults
 
@@ -85,6 +85,11 @@ TEST_2_LFLAGS = $(TEST_LFLAGS)
 
 TEST_3_BIN = panotools
 TEST_3_OBJ = panotools.o
+TEST_3_CFLAGS = $(TEST_CFLAGS)
+TEST_3_LFLAGS = $(TEST_LFLAGS) -lpano12
+
+TEST_3_BIN = transforms
+TEST_3_OBJ = transforms.o
 TEST_3_CFLAGS = $(TEST_CFLAGS)
 TEST_3_LFLAGS = $(TEST_LFLAGS) -lpano12
 

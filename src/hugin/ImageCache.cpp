@@ -115,18 +115,31 @@ void ImageCache::softFlush()
         // then the full size images an the
 
         while (purgeAmount > purgedMem) {
+            
+            bool deleted = false;
             if (pyrImages.size() > 0) {
                 BImage * imgPtr = (*(pyrImages.begin())).second;
                 purgedMem += imgPtr->width() * imgPtr->height();
                 delete imgPtr;
                 pyrImages.erase(pyrImages.begin());
+                deleted = true;
             } else if (images.size() > 0) {
-                ImagePtr imgPtr = (*(images.begin())).second;
-                purgedMem += imgPtr->GetWidth() * imgPtr->GetHeight() * 3;
-                delete imgPtr;
-                images.erase(images.begin());
-            } else {
-                DEBUG_ERROR("Purged all images, but image cache not empty");
+                // only remove full size images.
+                for (map<string, ImagePtr>::iterator it = images.begin();
+                     it != images.end();
+                     ++it)
+                {
+                    if (it->first.substr(it->first.size()-6) != "_small") {
+                        purgedMem += it->second->GetWidth() * it->second->GetHeight() * 3;
+                        delete it->second;
+                        images.erase(it);
+                        deleted = true;
+                        break;
+                    }
+                }
+            } 
+            if (!deleted) {
+                DEBUG_WARN("Purged all not preview images, but ImageCache still to big");
                 break;
             }
         }
@@ -134,7 +147,7 @@ void ImageCache::softFlush()
             wxString::Format(_("Purged %d MB from image cache. Current cache usage: %d MB"),
                              purgedMem>>20, (usedMem - purgedMem)>>20
                 ).c_str(),0);
-        DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB used: " << ((usedMem - purgedMem)>>20) << " MB");
+        DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB");
     }
 }
 
@@ -148,8 +161,11 @@ ImageCache & ImageCache::getInstance()
 }
 
 
+
 ImagePtr ImageCache::getImage(const std::string & filename)
 {
+//    softFlush();
+    
     std::map<std::string, wxImage *>::iterator it;
     it = images.find(filename);
     if (it != images.end()) {
@@ -172,6 +188,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
 
 ImagePtr ImageCache::getImageSmall(const std::string & filename)
 {
+//    softFlush();
     std::map<std::string, wxImage *>::iterator it;
     // "_small" is only used internally
     string name = filename + string("_small");
@@ -204,6 +221,7 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
 const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                                                   int level)
 {
+//    softFlush();
     DEBUG_TRACE(filename << " level:" << level);
     std::map<std::string, vigra::BImage *>::iterator it;
     PyramidKey key(filename,level);

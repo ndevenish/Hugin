@@ -33,11 +33,13 @@
 #include "hugin/ImageProcessing.h"
 #include "PT/Panorama.h"
 #include "hugin/PanoToolsInterface.h"
+#include "PT/Transforms.h"
 
 using namespace boost::unit_test_framework;
 
 using namespace vigra;
 using namespace PT;
+using namespace PT::TRANSFORM;
 
 void stitch_test()
 {
@@ -84,6 +86,7 @@ init_unit_test_suite( int, char** )
 
   test_suite* test= BOOST_TEST_SUITE( "panotool interfaces tests" );
   test->add(BOOST_TEST_CASE(&stitch_test));
+  test->add(BOOST_TEST_CASE(&transforms_test));
   return test;
 }
 

@@ -56,6 +56,7 @@ void TextKillFocusHandler::OnKillFocus(wxFocusEvent & e)
     // create a text changed event
     // need to get id of the eve
     wxCommandEvent cmdEvt(wxEVT_COMMAND_TEXT_ENTER, e.m_id);
-    m_parent->ProcessEvent(cmdEvt );
+    cmdEvt.m_eventObject = e.m_eventObject;
+    m_parent->ProcessEvent(cmdEvt);
     e.Skip();
 }

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PreviewPanel.h
+/** @file ImageOrientationPanel.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -21,83 +21,86 @@
  *
  */
 
-#ifndef _PREVIEWPANEL_H
-#define _PREVIEWPANEL_H
+#ifndef _IMAGE_ORIENTATION_PANEL_H
+#define _IMAGE_ORIENTATION_PANEL_H
 
 #include "wx/frame.h"
 #include "wx/dnd.h"
 
 #include "PT/Panorama.h"
-
-extern "C" {
-#include <pano12/panorama.h>
-}
+#include "PT/PanoToolsInterface.h"
+#include "PT/Transforms.h"
+#include "hugin/ImageProcessing.h"
 
 class wxImage;
 
-/** A preview panel that renders the pictures using the panotools library
+/** Select image orientation
  *
- *  Lets hope this works out fine..
  */
-class PreviewPanel : public wxPanel, public PT::PanoramaObserver
+class ImageOrientationPanel : public wxPanel, public PT::PanoramaObserver
 {
 public:
 
     /** ctor.
      */
-    PreviewPanel(wxWindow *parent, PT::Panorama * pano );
+    ImageOrientationPanel(wxFrame *parent, PT::Panorama * pano);
 
     /** dtor.
      */
-    virtual ~PreviewPanel();
+    virtual ~ImageOrientationPanel();
 
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    void SetAutoUpdate(bool enabled)
-        {
-            m_autoPreview = enabled;
-            updatePreview();
-        }
-
-    // forces an update of all images.
-    void ForceUpdate();
-
-    // select which images should be shown.
-    void SetDisplayedImages(const PT::UIntSet &images);
-
 private:
+    void updateDisplay();
 
-    // draw the preview directly onto the canvas
-    void DrawPreview(wxDC & dc);
+    void UpdateYawPitch(wxPoint p);
+    void InitRollChange(wxPoint p);
+    void UpdateRoll(wxPoint p);
 
-    // remaps the images, called automatically if autopreview is enabled.
-    void updatePreview();
+    // update transformation on change
+    void updateTransforms();
 
+
+    // draw the image and guides
+    void DrawImage(wxDC & dc);
 
     /** recalculate panorama to fit the panel */
     void OnResize(wxSizeEvent & e);
     void OnDraw(wxPaintEvent & event);
     void OnMouse(wxMouseEvent & e);
-    void OnUpdatePreview(wxCommandEvent & e);
 
+    // rescale the bitmap to fit the window
+    void ScaleBitmap();
     /** the model */
     PT::Panorama &pano;
 
-    bool m_autoPreview;
-
     wxSize m_panoImgSize;
 
-    PT::UIntSet m_displayedImages;
+    wxBitmap m_bitmap;
 
-    // a single image, we just show the first picture (layer) for now
-    std::vector<wxBitmap *> m_remappedBitmaps;
-    PT::UIntSet m_dirtyImgs;
+    wxFrame * parentWindow;
 
-    // panorama options
-    PT::PanoramaOptions opts;
+    unsigned int m_refImgNr;
+    wxSize m_imageSize;
+    double m_scaleFactor;
+    PT::VariableMap m_vars;
 
-    wxWindow * parentWindow;
+    PTools::Transform m_transform;
+    PTools::Transform m_invTransform;
+    
+    PT::TRANSFORM::CartToImg m_tCartToImg;
+    PT::TRANSFORM::ImgToCart m_tImgToCart;
+
+    int m_offsetX;
+    int m_offsetY;
+    FDiff2D m_origin;
+    double m_roll_start;
+    double m_roll_display_start;
+
+    enum EditState { NONE, SELECT_POINT, ROTATE };
+    EditState m_state;
 
     DECLARE_EVENT_TABLE()
 };

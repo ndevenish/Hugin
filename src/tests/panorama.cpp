@@ -92,7 +92,7 @@ void SimplePanoTest()
     AddLensCmd lcmd(pano, lens);
     lcmd.execute();
 
-    BOOST_CHECK_EQUAL(obs.imgUpdates, 0);
+    BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK(obs.changedImages.size() == 0);
     obs.reset();
@@ -114,6 +114,8 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK(obs.changedImages.size() == 7);
+    BOOST_CHECK(const_map_get(pano.getLens(0).variables, "a").isLinked());
+    BOOST_CHECK(!const_map_get(pano.getLens(0).variables, "d").isLinked());
     obs.reset();
 
     // test variable change routines.
@@ -145,7 +147,7 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 5);
     obs.reset();
 
-    // SetVariableCommand, change a unlinked lens variable, in two images
+    // SetVariableCommand, change a linked lens variable, in two images
     Variable lav("a",-0.2);
     cimgs.clear();
     cimgs.insert(1);
@@ -155,22 +157,23 @@ void SimplePanoTest()
     pcmd3.execute();
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
-    BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 2);
-    BOOST_CHECK(! const_map_get(pano.getLens(0).variables, "a").isLinked());
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"a").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 6);
+    BOOST_CHECK(const_map_get(pano.getLens(0).variables, "b").isLinked());
+    BOOST_CHECK(const_map_get(pano.getLens(0).variables, "a").isLinked());
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"a").getValue(), -0.2);
     BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"a").getValue(), -0.2);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"a").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"a").getValue(), -0.2);
     BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"a").getValue(), -0.2);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"a").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"a").getValue(), -0.2);
     obs.reset();
 
     /// change a lens variable in the Lens itself
+    /// c is not linked
     LensVariable lenscv("c",-0.4);
-    lenscv.setLinked();
     LensVarMap lensvarm;
 
     lensvarm.insert(make_pair("c", lenscv));
-    lensvarm.insert(make_pair("a", LensVariable("a",0.1)));
+    lensvarm.insert(make_pair("a", LensVariable("a",0.1,true)));
 
     SetLensVariableCmd pcmd4(pano, 0, lensvarm);
     pcmd4.execute();
@@ -192,9 +195,9 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"a").getValue(), 0.1);
 
     BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"a").getValue(), 0.1);
-    BOOST_CHECK(!const_map_get(pano.getLens(0).variables,"a").isLinked());
+    BOOST_CHECK(const_map_get(pano.getLens(0).variables,"a").isLinked());
     BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"c").getValue(), -0.4);
-    BOOST_CHECK(const_map_get(pano.getLens(0).variables,"c").isLinked());
+    BOOST_CHECK(! const_map_get(pano.getLens(0).variables,"c").isLinked());
     obs.reset();
 
 
@@ -267,7 +270,7 @@ void SimplePanoTest()
     obs.reset();
 
     /// change a image lens variable in first Lens
-    Variable lbVar("b",-4.0);
+    Variable lbVar("c",-4.0);
     cimgs.clear();
     cimgs.insert(1);
     cimgs.insert(5);
@@ -277,15 +280,16 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 2);
     obs.reset();
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"b").getValue(), -4.0);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"b").getValue(), -4.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"c").getValue(), 0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"c").getValue(), -4.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"c").getValue(), 0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"c").getValue(), 0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"c").getValue(), -4.0);
 
-    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(1).variables,"b").getValue(), -0.01);
+    // c is not a linked variable!
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(1).variables,"c").getValue(), 0);
 
 
     /// change the image part of a linked lens variable

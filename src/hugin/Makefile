@@ -110,6 +110,8 @@ APP_1_OBJ = \
 	    RunStitcherFrame.o \
 	    CPListFrame.o \
 	    TextKillFocusHandler.o \
+	    ImageOrientationPanel.o \
+	    ImageOrientationFrame.o \
             $(RES_O)
 
 ifeq ($(PLATFORM),win32)

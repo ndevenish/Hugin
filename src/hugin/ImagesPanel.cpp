@@ -50,6 +50,7 @@
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/ImageOrientationFrame.h"
 //#include "hugin/PreviewPanel.h"
 #include "PT/Panorama.h"
 
@@ -71,6 +72,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
+    EVT_BUTTON     ( XRCID("images_set_orientation_button"), ImagesPanel::OnSelectAnchorPosition)
     EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
@@ -98,9 +100,10 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
     DEBUG_ASSERT(m_optAnchorButton);
 
+    m_setAnchorOrientButton = XRCCTRL(*this, "images_set_orientation_button", wxButton);
+    DEBUG_ASSERT(m_setAnchorOrientButton);
     m_colorAnchorButton = XRCCTRL(*this, "images_color_anchor_button", wxButton);
     DEBUG_ASSERT(m_colorAnchorButton);
-
     // Image Preview
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
@@ -143,6 +146,13 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
+    // update text field if selected
+    const UIntSet & selected = images_list->GetSelected();
+    if (selected.size() == 1 && set_contains(_imgNr, *(selected.begin())))
+    {
+        ShowImgParameters( *(selected.begin()) );
+    }
+   
     DEBUG_TRACE("");
 }
 
@@ -221,6 +231,16 @@ void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
     }
 }
 
+void ImagesPanel::OnSelectAnchorPosition(wxCommandEvent & e)
+{
+    // first, change anchor
+    OnOptAnchorChanged(e);
+
+    // open a frame to show the image
+    ImageOrientationFrame * t = new ImageOrientationFrame(this, pano);
+    t->Show();
+}
+
 void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
 {
     const UIntSet & sel = images_list->GetSelected();
@@ -251,12 +271,14 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // single selection, show its parameters
             ShowImgParameters(imgNr);
             m_optAnchorButton->Enable();
+            m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
         } else {
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
             m_optAnchorButton->Disable();
+            m_setAnchorOrientButton->Disable();
             m_colorAnchorButton->Disable();
         }
     }
@@ -274,6 +296,7 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->SetBitmap(wxNullBitmap);
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
+    m_setAnchorOrientButton->Disable();
 }
 
 void ImagesPanel::EnableImageCtrls()

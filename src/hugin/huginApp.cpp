@@ -156,6 +156,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_script_dialog.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_stitcher_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("anchor_orientation.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));

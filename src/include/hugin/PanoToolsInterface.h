@@ -26,90 +26,11 @@
 
 #include <PT/Panorama.h>
 #include <PT/PanoramaMemento.h>
-
-extern "C" {
-#include <pano12/panorama.h>
-#include <pano12/filter.h>
-}
-
-// remove fu'*!%$# min & max macros, that come from some windows include
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
+#include <PT/PanoToolsInterface.h>
 
 class wxImage;
 
-/** mainly consists of wrapper around the pano tools library,
- *  to assist in ressource management and to provide a
- *  nicer interface.
- *
- *  It can be used to feed data from our model directly into the
- *  panotools library
- */
 namespace PTools {
-
-
-template <class T, int nr>
-void fillVector(T vec[3], T &val, int len)
-{
-    for (int i=0; i<len; i++) vec[i] = val;
-}
-
-
-/** set an output image, with properties from @p opts,
- *  that points to the bitmap data of @p imgData
- */
-void setDestImage(Image & image, wxImage & imgData, const PT::PanoramaOptions & opts);
-
-/** fills @p image with a complete input image, including distortion
- *  correction parameters if @p correctDistortions is set.
- */
-void setFullImage(Image & image, wxImage & imgData, const PT::VariableMap & vars,
-                  const PT::Lens::LensProjectionFormat format,
-                  bool correctDistortions);
-
-// internal function, used by setFullImage() to set the distortion parameters
-void initCPrefs(cPrefs & p, const PT::VariableMap &vars);
-
-/** create an empty aPrefs structure, suitable for transforming
- *  a input picture into an output picture.
- *
- *  the input/output pictures must be specified with: setAdjustSrcImg()
- *  and setAdjustDestImg()
- */
-void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
-
-/** set a new input image for inserting into the panorama.
- */
-void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
-                     wxImage & src, const PT::VariableMap & vars,
-                     const PT::Lens::LensProjectionFormat format,
-                     bool correctDistortions);
-
-/** set a new output image for the panorama */
-void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
-                      wxImage & dest,
-                      const PT::PanoramaOptions & opts);
-
-
-void freeTrform(TrformStr & trf);
-
-
-/** prepare a Trform struct for the adjust operation, image -> pano
- *  see use createAdjustPrefs(), setAdjustSrcImg() and setAdjustDestImg()
- *  to specify the images and transformation options
- */
-void createAdjustTrform(TrformStr & trf);
-
-/** free the resources associated with a TrformStr.
- *   createAdjustTrform() must have been used to create @p trf
- */
-void freeTrform(TrformStr & trf);
-
 
 /** Stitch a Panorama into an output image
  *
@@ -132,72 +53,6 @@ bool mapImage(wxImage & dest, const PT::Panorama & pano,
               unsigned imgNr, const PT::PanoramaOptions & opts,
               bool correctLensDistortion = true);
 
-
-#if 0
-/** wrapper for the image struct */
-class PTools::PImage
-{
-public:
-
-    /** constructor for output images */
-    PImage(wxImage & imgData);
-
-    /** constructor for input images */
-    PImage(wxImage & imgData,
-           const PT::VariableMap & srcVars,
-           PT::Lens::LensProjectionFormat format,
-           bool correctDistortions = false);
-
-    // init cPrefs struct without correction
-    void initCPrefs(cPrefs & p)
-        {
-            p.magic = 20;
-            p.radial = 0;
-            p.vertical = 0;
-            p.horizontal = 0;
-            p.shear = 0;
-            p.resize = 0;
-            p.luminance = 0;
-            p.cutFrame = 0;
-            p.fourier = 0;
-        }
-
-    // init cPrefs struct with correction values
-    void initCPrefs(cPrefs & p, const PT::VariableMap &vars);
-
-    ::Image image;
-};
-
-
-
-/** Object wrapper around TrformStr.
- *
- *  for automatic resource management
- *
- */
-class Transform
-{
-public:
-    Transform(const PT::Panorama & pano, unsigned int srcImgNr,
-              wxImage & sImg);
-
-    ~Transform()
-        { delete srcImg; }
-
-    /** remap the source image into a panorama */
-    bool remap(wxImage & dest, const PT::PanoramaOptions & opts);
-
-private:
-    void init(wxImage & srcImg, const PT::VariableMap & vars,
-         PT::Lens::LensProjectionFormat srcProj);
-
-    TrformStr  trf;
-
-private:
-    PImage * srcImg;
-};
-
-#endif
 
 } // namespace
 
