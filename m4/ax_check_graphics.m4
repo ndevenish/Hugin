@@ -47,7 +47,7 @@ then
   failed=0;
   passed=0;
   ZLIB_OLD_LDFLAGS=$LDFLAGS
-  ZLIB_OLD_CPPFLAGS=$LDFLAGS
+  ZLIB_OLD_CPPFLAGS=$CPPFLAGS
   if test "x$ZLIB_HOME" != 'x'
   then
     LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
@@ -143,7 +143,7 @@ then
   failed=0;
   passed=0;
   PNG_OLD_LDFLAGS=$LDFLAGS
-  PNG_OLD_CPPFLAGS=$LDFLAGS
+  PNG_OLD_CPPFLAGS=$CPPFLAGS
   if test "x$PNG_HOME" != 'x'
   then
     LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
@@ -235,7 +235,7 @@ then
   failed=0;
   passed=0;
   JPEG_OLD_LDFLAGS=$LDFLAGS
-  JPEG_OLD_CPPFLAGS=$LDFLAGS
+  JPEG_OLD_CPPFLAGS=$CPPFLAGS
   if test "x$JPEG_HOME" != 'x'
   then
     LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
@@ -354,7 +354,7 @@ then
   failed=0;
   passed=0;
   TIFF_OLD_LDFLAGS=$LDFLAGS
-  TIFF_OLD_CPPFLAGS=$LDFLAGS
+  TIFF_OLD_CPPFLAGS=$CPPFLAGS
   if test "x$TIFF_HOME" != 'x'
   then
     LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
