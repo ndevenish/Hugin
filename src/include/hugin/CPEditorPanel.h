@@ -196,6 +196,19 @@ private:
     };
     // used to change the point selection state
     void changeState(CPCreationState newState);
+    
+    /** estimate and set point in other image */
+    void estimateAndAddOtherPoint(const wxPoint & p, 
+                                  bool left,
+                                  CPImageCtrl * thisImg, 
+                                  unsigned int thisImgNr, 
+                                  CPCreationState THIS_POINT,
+                                  CPCreationState THIS_POINT_RETRY,
+                                  CPImageCtrl * otherImg, 
+                                  unsigned int otherImgNr,
+                                  CPCreationState OTHER_POINT,
+                                  CPCreationState OTHER_POINT_RETRY);
+
 
     CPCreationState cpCreationState;
 

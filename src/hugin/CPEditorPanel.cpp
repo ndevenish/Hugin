@@ -298,6 +298,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 
         break;
     }
+    // currently not emitted by CPImageCtrl
     case CPEvent::REGION_SELECTED:
     {
         changeState(NO_POINT);
@@ -393,7 +394,15 @@ void CPEditorPanel::CreateNewPoint()
     point.image2Nr = m_rightImageNr;
     point.x2 = p2.x;
     point.y2 = p2.y;
-    point.mode = PT::ControlPoint::X_Y;
+    if (point.image1Nr == point.image2Nr) {
+        if ( abs(p1.x - p2.x) > abs(p1.y - p2.y)) {
+            point.mode = PT::ControlPoint::Y;
+        } else {
+            point.mode = PT::ControlPoint::X;
+        }
+    } else {
+        point.mode = PT::ControlPoint::X_Y;
+    }
 
     changeState(NO_POINT);
 
@@ -465,6 +474,94 @@ unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
 }
 
 
+void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
+                                             bool left,
+                                             CPImageCtrl * thisImg, 
+                                             unsigned int thisImgNr, 
+                                             CPCreationState THIS_POINT,
+                                             CPCreationState THIS_POINT_RETRY,
+                                             CPImageCtrl * otherImg, 
+                                             unsigned int otherImgNr,
+                                             CPCreationState OTHER_POINT,
+                                             CPCreationState OTHER_POINT_RETRY)
+{
+//    DEBUG_DEBUG("automatically estimating point in other window");
+    FDiff2D op;
+    op = EstimatePoint(FDiff2D(p.x, p.y), left);
+    // check if point is in image.
+    const PanoImage & pImg = m_pano->getImage(otherImgNr);
+    if (p.x < (int) pImg.getWidth() && p.x >= 0
+        && p.y < (int) pImg.getHeight() && p.y >= 0)
+    {
+        otherImg->setNewPoint(wxPoint((int) round(op.x), (int) round(op.y)));
+        // if fine tune is checked, run a fine tune session as well.
+        // hmm probably there should be another separate function for this..
+        if (m_fineTuneCB->IsChecked()) {
+            MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
+            wxPoint newPoint = otherImg->getNewPoint();
+            
+            long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
+            const PanoImage & img = m_pano->getImage(thisImgNr);
+            double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+            int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
+            FDiff2D p2;
+            double xcorr = PointFineTune(thisImgNr,
+                                         Diff2D(p.x, p.y),
+                                         templWidth,
+                                         otherImgNr,
+                                         Diff2D(newPoint.x, newPoint.y),
+                                         sWidth,
+                                         p2);
+            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
+            wxPoint corrPoint((int)round(p2.x),
+                              (int)round(p2.y) );
+            double thresh = utils::lexical_cast<double>(str);
+            if (xcorr < thresh) {
+                // low xcorr
+                // zoom to 100 percent. & set second stage
+                // to abandon finetune this time.
+                otherImg->setScale(1);
+                otherImg->setNewPoint(corrPoint);
+                otherImg->update();
+                // Bad correlation result.
+                int answer = wxMessageBox(
+                    wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
+                    "Low correlation",
+                    wxYES_NO|wxICON_QUESTION, this);
+                if (answer == wxNO) {
+                    changeState(THIS_POINT_RETRY);
+                    otherImg->clearNewPoint();
+                    return;
+                } else {
+                    changeState(BOTH_POINTS_SELECTED);
+                }
+            } else {
+                // show point & zoom in if auto add is not set
+                if (!m_autoAddCB->IsChecked()) {
+                    otherImg->setScale(1);
+                    otherImg->setNewPoint(corrPoint);
+                    changeState(BOTH_POINTS_SELECTED);
+                } else {
+                    // add point
+                    otherImg->setNewPoint(corrPoint);
+                    CreateNewPoint();
+                }
+            }
+            MainFrame::Get()->SetStatusText(wxString::Format(_("found corrosponding point, mean xcorr coefficient: %f"),xcorr),0);
+        } else {
+            // no fine tune, set 100% scale and set both points to selected
+            otherImg->setScale(1);
+            changeState(BOTH_POINTS_SELECTED);
+        }
+            
+    } else {
+        // estimate was outside of image
+        // do nothing special
+        wxBell();
+        MainFrame::Get()->SetStatusText(_("Estimated point outside image"),0);
+    }
+}
+
 void CPEditorPanel::NewPointChange(wxPoint p, bool left)
 {
     DEBUG_TRACE("");
@@ -501,82 +598,24 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
         if (thisImg->getScale() < 1) {
             thisImg->setScale(1);
             thisImg->showPosition(p.x,p.y);
+        } else {
+            // run auto estimate procedure?
+            if (estimate && currentPoints.size() > 0) {
+                estimateAndAddOtherPoint(p, left,
+                                         thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
+                                         otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
+            };
         }
 
     } else if (cpCreationState == OTHER_POINT_RETRY) {
         thisImg->showPosition(p.x,p.y);
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p.x,p.y);
+        
         if (estimate && currentPoints.size() > 0) {
-            DEBUG_DEBUG("automatically estimating point in other window")
-            FDiff2D op = EstimatePoint(FDiff2D(p.x, p.y), left);
-            // check if point is in image.
-            const PanoImage & pImg = m_pano->getImage(otherImgNr);
-            if (p.x < (int) pImg.getWidth() && p.x >= 0
-                && p.y < (int) pImg.getHeight() && p.y >= 0)
-            {
-                otherImg->setNewPoint(wxPoint((int) round(op.x), (int) round(op.y)));
-                // if fine tune is checked, run a fine tune session as well.
-                // hmm probably there should be another separate function for this..
-                if (m_fineTuneCB->IsChecked()) {
-                    MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
-                    wxPoint newPoint = otherImg->getNewPoint();
-
-                    long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
-                    const PanoImage & img = m_pano->getImage(thisImgNr);
-                    double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
-                    int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
-                    FDiff2D p2;
-                    double xcorr = PointFineTune(thisImgNr,
-                                                 Diff2D(p.x, p.y),
-                                                 templWidth,
-                                                 otherImgNr,
-                                                 Diff2D(newPoint.x, newPoint.y),
-                                                 sWidth,
-                                                 p2);
-                    wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-                    wxPoint corrPoint((int)round(p2.x),
-                                      (int)round(p2.y) );
-                    double thresh = utils::lexical_cast<double>(str);
-                    if (xcorr < thresh) {
-                        // low xcorr
-                        // zoom to 100 percent. & set second stage
-                        // to abandon finetune this time.
-                        otherImg->setScale(1);
-                        otherImg->setNewPoint(corrPoint);
-                        otherImg->update();
-                        // Bad correlation result.
-                        int answer = wxMessageBox(
-                            wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
-                            "Low correlation",
-                            wxYES_NO|wxICON_QUESTION, this);
-                        if (answer == wxNO) {
-                            changeState(THIS_POINT_RETRY);
-                            otherImg->clearNewPoint();
-                            return;
-                        } else {
-                            changeState(BOTH_POINTS_SELECTED);
-                        }
-                    } else {
-                        // show point & zoom in if auto add is not set
-                        if (!m_autoAddCB->IsChecked()) {
-                            otherImg->setScale(1);
-                            otherImg->setNewPoint(corrPoint);
-                            changeState(BOTH_POINTS_SELECTED);
-                        } else {
-                            // add point
-                            CreateNewPoint();
-                        }
-
-                    }
-                    MainFrame::Get()->SetStatusText(wxString::Format(_("found corrosponding point, mean xcorr coefficient: %f"),xcorr),0);
-                }
-            } else {
-                // estimate was outside of image
-                // do nothing special
-                wxBell();
-                MainFrame::Get()->SetStatusText(_("Estimated point outside image"),0);
-            }
+            estimateAndAddOtherPoint(p, left,
+                                     thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
+                                     otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
         }
     } else if (cpCreationState == OTHER_POINT || cpCreationState == THIS_POINT_RETRY) {
         FDiff2D p2;
