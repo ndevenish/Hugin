@@ -25,6 +25,8 @@
 #define _MAINFRAME_H
 
 
+#include <vector>
+#include <set>
 #include "wx/frame.h"
 #include "wx/dnd.h"
 #include "wx/listctrl.h"
@@ -72,7 +74,8 @@ public:
      *  pattern.
      *
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
+// virtual void panoramaChanged(PT::Panorama &pano);
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     /** file drag and drop handler method */
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);

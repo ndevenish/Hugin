@@ -162,13 +162,11 @@ MainFrame::~MainFrame()
     DEBUG_TRACE("");
 }
 
-void MainFrame::panoramaChanged(PT::Panorama &panorama)
+//void MainFrame::panoramaChanged(PT::Panorama &panorama)
+void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & imgNr)
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
-    // they subscribe themself to the panorama now.
-//    cpe->panoramaChanged(pano);
-//    images_panel->panoramaChanged (pano);
 }
 
 

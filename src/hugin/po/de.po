@@ -372,11 +372,11 @@ msgid "Preview (source image)"
 msgstr "Vorschau (Bildquelle)"
 
 #: ../ptopengui.cpp:472
-msgid "Lens type:"
-msgstr "Objektivart:"
+msgid "Lens type"
+msgstr "Objektivart"
 
 #: ../ptopengui.cpp:473
-msgid "Lens type"
+msgid "Lens type:"
 msgstr "Objektivart"
 
 #: ../ptopengui.cpp:478
@@ -455,7 +455,7 @@ msgid "Calculated field of view"
 msgstr "berechnetes Bildwinkel"
 
 #: ../ptopengui.cpp:545
-msgid "Focal lenght:"
+msgid "Focal length"
 msgstr "Brennweite"
 
 #: ../ptopengui.cpp:549

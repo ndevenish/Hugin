@@ -70,7 +70,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      *  
      *  @todo   react on different update signals more special
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
+//    virtual void panoramaChanged(PT::Panorama &pano);
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
  private:
     // event handlers

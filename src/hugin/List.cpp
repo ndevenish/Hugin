@@ -88,10 +88,12 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
     } else {
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 80 );
-      InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_LEFT, 80 );
-      InsertColumn( 4, _("a"), wxLIST_FORMAT_LEFT, 20 );
-      InsertColumn( 5, _("b"), wxLIST_FORMAT_LEFT, 20 );
-      InsertColumn( 6, _("c"), wxLIST_FORMAT_LEFT, 20 );
+      InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
+      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 20 );
+      InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 20 );
+      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 20 );
+      InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 20 );
+      InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 20 );
       DEBUG_INFO( " else _layout" )
     }
 
@@ -113,10 +115,12 @@ List::~List(void)
 }
 
 
-void List::panoramaChanged (PT::Panorama &pano)
+//void List::panoramaChanged (PT::Panorama &pano) {}
+
+void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)       
 {
     DEBUG_TRACE("");
-    DeleteAllItems() ; // very radical
+    DeleteAllItems() ;
     DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 
     // start the loop for every selected filename
@@ -129,6 +133,7 @@ void List::panoramaChanged (PT::Panorama &pano)
         char Nr[8] ;
         sprintf(Nr ,"%d", i + 1);
         InsertItem ( i, Nr, i );
+        EnsureVisible(i);
         DEBUG_INFO( " icon at Item:" << wxString::Format("%d", i) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
         SetItem ( i, 1, fn.GetFullName() );
         if ( list_layout == images_layout ) {
@@ -142,17 +147,14 @@ void List::panoramaChanged (PT::Panorama &pano)
         } else {
           sprintf(Nr, "empty" );
           SetItem ( i, 2, Nr );
-          sprintf(Nr, "%d", image->GetWidth() );
-          //SetItem ( i, 3, Nr );
-          sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
-          //SetItem ( i, 4, Nr );
+//          sprintf(Nr, "%d", pano.getImage(i)->Lens.projectionFormat );
+          SetItem ( i, 3, Nr );
+//          sprintf(Nr, "%f", pano.getImage(i)->Lens.HFOV );
+          SetItem ( i, 4, Nr );
         DEBUG_INFO( " else _layout" )
         }
         SetColumnWidth(0, wxLIST_AUTOSIZE);
         SetColumnWidth(1, wxLIST_AUTOSIZE);
-        SetColumnWidth(2, wxLIST_AUTOSIZE);
-        SetColumnWidth(3, wxLIST_AUTOSIZE);
-        SetColumnWidth(4, wxLIST_AUTOSIZE);
 //        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
 
     }
@@ -178,9 +180,8 @@ void List::panoramaChanged (PT::Panorama &pano)
 void List::Change ( wxMouseEvent & e )
 {
 //    DEBUG_TRACE ("")
-    wxPoint pos = e.GetPosition();
     int flags = wxLIST_HITTEST_ONITEM;
-    long item = HitTest( pos,  flags);
+    long item = HitTest( e.GetPosition(),  flags);
 //    frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
     
     if ( item != -1 && item != prevItem ) {
@@ -191,32 +192,15 @@ void List::Change ( wxMouseEvent & e )
 
         // right image preview
         wxImage r_img;
-        // left list control big icon
-        wxImage b_img;
-        // left list control icon
-        wxImage i_img;
         if ( s_img->GetHeight() > s_img->GetWidth() ) {
           r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
                                       (float)s_img->GetHeight()*128.0),
                                 128);
-          b_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*64.0),
-                                64);
-          i_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*20.0),
-                                20);
         } else {
           r_img = s_img->Scale( 128,
                                 (int)((float)s_img->GetHeight()/
                                       (float)s_img->GetWidth()*128.0));
-          b_img = r_img.Scale( 64,
-                                (int)((float)r_img.GetHeight()/
-                                      (float)r_img.GetWidth()*64.0));
-          i_img = r_img.Scale( 20,
-                                (int)((float)r_img.GetHeight()/
-                                      (float)r_img.GetWidth()*20.0));
         }
-
         delete p_img;
         p_img = new wxBitmap( r_img.ConvertToBitmap() );
         canvas->Refresh();

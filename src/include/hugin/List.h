@@ -56,10 +56,11 @@ class List: public wxListCtrl, public PT::PanoramaObserver
     ~List(void) ;
 
     /** receive the update signal and start an check.
-     *
-     *  @todo   change the update behaviour
      */
-    virtual void panoramaChanged(PT::Panorama &pano);
+//    virtual void panoramaChanged(PT::Panorama &pano);
+    /** receive the update signal and start an check.
+     */
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
  private:
     // event handlers

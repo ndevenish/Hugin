@@ -83,12 +83,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
                wxT("images_list_unknown"),
                images_list );
 //               cpe );
-    DEBUG_TRACE("");
-//    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
-//    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
-//    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
-//    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-//    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
 
     // Image Preview
 
@@ -121,7 +115,8 @@ ImagesPanel::~ImagesPanel(void)
 }
 
 
-void ImagesPanel::panoramaChanged (PT::Panorama &pano)
+//void ImagesPanel::panoramaChanged (PT::Panorama &pano)
+void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
     DEBUG_TRACE("");
     img_icons->RemoveAll();
