@@ -29,8 +29,8 @@
 
 #include <math.h>
 
-#include "vigra/accessor.hxx"
-#include "vigra/diff2d.hxx"
+#include <vigra/accessor.hxx>
+#include <vigra/diff2d.hxx>
 
 // Some locally needed math functions
 
@@ -93,7 +93,7 @@ struct interp_bilin
 
     void calc_coeff(double x, double * w) const
         {
-            w[1] = x+0.5;
+            w[1] = x;
             w[0] = 1.0-x;
         }
 };
@@ -119,7 +119,7 @@ struct interp_spline16
 {
     // size of neighbourhood
     static const int size = 4;
-    
+
     /** initialize weights for given @p x */
     void calc_coeff(double x, double * w) const
         {
@@ -170,7 +170,7 @@ struct interp_spline64
             w[3] = (( 49.0/41.0 * x - 6387.0/2911.0) * x -    3.0/2911.0) * x + 1.0;
             w[2] = ((-24.0/41.0 * x + 4032.0/2911.0) * x - 2328.0/2911.0) * x;
             w[1] = ((  6.0/41.0 * x - 1008.0/2911.0) * x +  582.0/2911.0) * x;
-            w[0] = ((- 1.0/41.0 * x +  168.0/2911.0) * x -   97.0/2911.0) * x;            
+            w[0] = ((- 1.0/41.0 * x +  168.0/2911.0) * x -   97.0/2911.0) * x;
         }
 };
 
@@ -180,7 +180,7 @@ struct interp_sinc
 {
     // size of neighbourhood
     static const int size = size_;
-    
+
     /** initialize weights for given offset @p x */
     void calc_coeff(double x, double * w) const
         {
@@ -255,7 +255,7 @@ public:
 
     /** Interpolate the data item at a non-integer position @p x, @p y
      *
-     *  be careful, no bounds checking is done here. take 
+     *  be careful, no bounds checking is done here. take
      *  INTERPOLATOR::size into accout before iterating over the
      *  picture.
      *
@@ -274,12 +274,13 @@ public:
         double wy[INTERPOLATOR::size];
 
         // promote value_type for multiplication
-        typename vigra::NumericTraits<value_type>::RealPromote ret;
+        typename vigra::NumericTraits<value_type>::RealPromote 
+            ret (vigra::NumericTraits<value_type>::zero());
         
         // calculate interpolation coefficients
         inter_x.calc_coeff(dx, wx);
         inter_y.calc_coeff(dy, wy);
-      
+
         ITERATOR ys(i + vigra::Diff2D(ix - inter_x.size/2 + 1,
                                       iy - inter_y.size/2 + 1));
         for(int y = 0; y < inter_y.size; ++y, ++ys.y) {
@@ -289,8 +290,8 @@ public:
             }
         }
         return vigra::detail::RequiresExplicitCast<value_type>::cast(ret);
-    }        
-    
+    }
+
 private:
     ACCESSOR a_;
     INTERPOLATOR inter_x, inter_y;
