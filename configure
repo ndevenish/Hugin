@@ -112,6 +112,7 @@ open(CONF,">src/makefiles/config.mk");
 
 while (<CONF_T>) {
     s/__PREFIX__/$prefix/g;
+    s/__ETC_PREFIX__/\/etc/g;
     s/__EXTRA_CFLAGS__/$EXTRA_CFLAGS/g;
     s/__WXWIN_CFLAGS__/$WXWIN_CFLAGS/g;
     s/__WXWIN_LFLAGS__/$WXWIN_LFLAGS/g;
