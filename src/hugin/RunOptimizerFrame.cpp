@@ -30,6 +30,7 @@
 #include "panoinc.h"
 #include "common/wxPlatform.h"
 
+#include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/huginApp.h"
@@ -114,6 +115,20 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
             config->Write(wxT("/PanoTools/PTOptimizerExe"),optimizerExe);
         } else {
             wxLogError(_("No PTOptimizer.exe selected"));
+        }
+    }
+#elif (defined __WXMAC__)
+    wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE));
+    if (!wxFile::Exists(optimizerExe)){
+        wxFileDialog dlg(this,_("Select PTOptimizer"),
+                         wxT(""), optimizerExe,
+                         wxT("Any Files |*"),
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            optimizerExe = dlg.GetPath();
+            config->Write(wxT("/PanoTools/PTOptimizerExe"),optimizerExe);
+        } else {
+            wxLogError(_("No PTOptimizer selected"));
         }
     }
 #else
