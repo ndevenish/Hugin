@@ -89,21 +89,21 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     void LensChanged ( wxListEvent & e );
 
     // event handlers
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void LensTypeChanged (wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void HFOVChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void focalLengthChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void aChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void bChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void cChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void dChanged(wxCommandEvent & e);
-    /**  selfexplainiing */
+    /**  selfexplaining */
     void eChanged(wxCommandEvent & e);
  private:
 
@@ -112,16 +112,16 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
 
     // the Lens actually selected
     int lens;
-    int image;
+    int lensEdit_RefImg;
 
     /** event -> pano
      *
      *  usually for events to set the new pano state
-     *
-     *  @param  type  "HFOV", "a", "b" ...
-     *  @param  var   the new value
      */
-    void ChangePano ( std::string type, double var );
+    void ChangePano ( );
+    /** With this flag we decide to create a new Lens or not.*/
+    bool lensGui_dirty;
+
     /**  holds the images just in work
       *  in conjunction with SetImages()
       */
@@ -184,7 +184,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     // the Lens actually selected
     int lens;
-    int image;
+    int lensEdit_RefImg;
 
     DECLARE_EVENT_TABLE()
 };

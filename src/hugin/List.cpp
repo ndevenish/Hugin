@@ -127,6 +127,7 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
     for ( int i = 0 ; i < 512 ; i++ )
       imgNr[i] = 0;
 
+    DEBUG_TRACE("end");
 }
 
 
@@ -144,6 +145,7 @@ List::~List(void)
 
 void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)       
 {
+    DEBUG_TRACE("");
 
     DeleteAllItems() ;
 //    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
@@ -158,7 +160,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         // fill in the table
         char Nr[128] ;
         std::string number;
-        sprintf(Nr ,"%d", i + 1);
+        sprintf(Nr ,"%d", i);
         InsertItem ( i, Nr, i );
         EnsureVisible(i);
         DEBUG_INFO( " icon at Item: " << i << "/" <<  pano.getNrOfImages() )
@@ -244,16 +246,19 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
 bool List::selectItemVeto( wxListEvent & e )
 {
+    DEBUG_TRACE("");
     if ( selectItems ) {
       itemSelected (e);
     }
 
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+    DEBUG_TRACE("end");
     return TRUE;
 }
 
 void List::itemSelected ( wxListEvent & e )
 {
+    DEBUG_TRACE("");
     // prepare an status message
     std::string e_msg ( _("images(") );
     char Nr[8];
@@ -284,6 +289,7 @@ void List::itemSelected ( wxListEvent & e )
     }
     // let others recieve the event too
     e.Skip(true);
+    DEBUG_TRACE("end");
 }
 
 void List::Change ( wxMouseEvent & e )

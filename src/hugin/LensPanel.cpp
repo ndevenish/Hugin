@@ -51,6 +51,7 @@
 #include "PT/Panorama.h"
 
 using namespace PT;
+using namespace utils;
 
 // Image Icons
 extern wxImageList * img_icons;
@@ -68,18 +69,24 @@ ImgPreview * lens_canvas;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
-//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
     EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
-/*    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensPanel::LensTypeChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensPanel::HFOVChanged )
-    EVT_TEXT_ENTER ( XRCID("lensval_focalLength"),LensPanel::focalLengthChanged)
-    EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensPanel::aChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensPanel::bChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::cChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::dChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )*/
 END_EVENT_TABLE()
 
+// The lens of the pano for reading - the local edit_Lens is for writing.
+#define EDIT_LENS pano.getLens (pano.getImage(lensEdit_RefImg).getLens())
+
+#define SET_WXTEXTCTRL_TEXT( xrc_name , variable_name )                        \
+{                                                                              \
+    std::string number;                                                        \
+    if ( ( wxString::Format ("%f", EDIT_LENS.variable_name) != "nan" ) &&      \
+         ( EDIT_LENS.variable_name != 0.0 ) ) {                                \
+      number =        doubleToString ( EDIT_LENS.variable_name );              \
+      XRCCTRL(*this, xrc_name, wxTextCtrl)->SetValue( number.c_str() );        \
+    } else {                                                                   \
+      XRCCTRL(*this, xrc_name, wxTextCtrl)->SetValue( "" ) ;                   \
+    }                                                                          \
+    DEBUG_INFO( xrc_name << " = " << number);                                  \
+}
 
 // Define a constructor for the Lenses Panel
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
@@ -124,16 +131,17 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 
 void LensPanel::LensChanged ( wxListEvent & e )
 {
-    image = e.GetIndex();
+    DEBUG_TRACE("");
+    lensEdit_RefImg = e.GetIndex();
 
-    lens_edit->LensChanged ( e );
-    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", image) );
+    lens_edit->SetImages ( e );
+    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", lensEdit_RefImg) );
 }
 
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(LensEdit, wxWindow) //wxEvtHandler)
-//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
+    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensEdit::SetImages )
 //    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
     EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensEdit::LensTypeChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensEdit::HFOVChanged )
@@ -165,6 +173,7 @@ LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/
 
     edit_Lens = new Lens ();
     AddLensCmd ( *pano, *edit_Lens );
+    lensGui_dirty = FALSE;
     // FIXME with no image in pano hugin crashes
     DEBUG_INFO ( wxString::Format ("Lensesnumber: %d", pano->getNrOfLenses()) )
 
@@ -185,110 +194,142 @@ LensEdit::~LensEdit(void)
 
 void LensEdit::LensChanged ( wxListEvent & e )
 {
-
-    
-    image = e.GetIndex();
-
-    // FIXME should get a bottom to update
-//    edit_Lens->readEXIF( pano.getImage(image).getFilename().c_str() );
-
-    // FIXME support separate lenses
-//    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
-
-    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
-                   edit_Lens->projectionFormat
-           );
-
-    updateHFOV();
-
-    if ( edit_Lens->a != 0 )
-      XRCCTRL(*this, "lens_val_a", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->a )
-           );
-
-    if ( edit_Lens->b != 0 )
-      XRCCTRL(*this, "lens_val_b", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->b )
-           );
-
-    if ( edit_Lens->c != 0 )
-      XRCCTRL(*this, "lens_val_c", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->c )
-           );
-
-    if ( edit_Lens->d != 0 )
-      XRCCTRL(*this, "lens_val_d", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->d )
-           );
-    if ( edit_Lens->e != 0 )
-      XRCCTRL(*this, "lens_val_e", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->e )
-           );
-
-
-
-    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", image) );
 }
 
 void LensEdit::updateHFOV()
 {
     DEBUG_TRACE("");
-    wxString number;
 
-    if ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) {
-      number = number.Format ( "%f", edit_Lens->HFOV );
-      while ( number.Right(1) == "0" ) {
-        number.RemoveLast ();
-      }
-      if ( number.Right(1) == "," )
-        number.RemoveLast ();
-      if ( number.Right(1) == "." )
-        number.RemoveLast ();
-      XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number );
-    }
+/*    if ( ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) && 
+         ( edit_Lens->HFOV != 0.0 ) ) {
+      number =        doubleToString (
+                        pano.getLens (pano.getImage(lensEdit_RefImg).getLens()).
+                 HFOV );
+      XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number.c_str() );*/
+    SET_WXTEXTCTRL_TEXT( "lens_val_HFOV" , HFOV )
+//    }
 
-    if ( edit_Lens->focalLength != 0 ) {
-      number = number.Format ( "%f", edit_Lens->focalLength * edit_Lens->focalLengthConversionFactor );
-      while ( number.Right(1) == "0" ) {
-        number.RemoveLast ();
-      }
-      if ( number.Right(1) == "," )
-        number.RemoveLast ();
-      if ( number.Right(1) == "." )
-        number.RemoveLast ();
-      XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue( number );
+    std::string number;
+    if ( EDIT_LENS.focalLength != 0 ) {
+      number = doubleToString ( EDIT_LENS.  focalLength *
+                                EDIT_LENS.  focalLengthConversionFactor  );
+      XRCCTRL(*this, "lens_val_focalLength",
+                      wxTextCtrl)->SetValue( number.c_str() );
+    } else {
+      XRCCTRL(*this, "lens_val_focalLength",
+                      wxTextCtrl)->SetValue( "" );
     }
 }
 
 
 void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-/*    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
-                   pano.getLens(pano.getImage(image).getLens()).projectionFormat
-           );*/
     int lt = XRCCTRL(*this, "lens_type_combobox", wxComboBox)->GetSelection();
-    DEBUG_INFO ( wxString::Format ("image %d Lenstype %d",image, lt) )
+    DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d Lenstype %d",lensEdit_RefImg, lt) )
+}
+
+void LensEdit::ChangePano ( )
+{
+    DEBUG_TRACE( "lensGui_dirty = " << lensGui_dirty )
+    if ( lensGui_dirty ) {
+/**
+ *   - Look if a lens is not needed anywhere else and erase it eventually.
+ *   - Check if a lens is elsewhere needed and create a new lens, copy edit_lens *     to the new one, assign it to pano and set all edited images to new lens.
+ *   - Reset the lensGui_dirty flag.
+ */
+      int eraseLensNr[512]; eraseLensNr[0] = 0;
+      unsigned int notSelImgNr[512]; notSelImgNr[0] = 0;
+      bool new_Lens = FALSE;
+      DEBUG_INFO( "new_Lens = " << new_Lens )
+      for ( unsigned int all_img = 0 
+            ; all_img < (unsigned int) pano.getNrOfImages() ; all_img++ ) {
+        bool selected_image = FALSE;
+        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+          // Are You in the group of selected images?
+          if ( imgNr[i] == all_img ) 
+            selected_image = TRUE;
+        }
+        if ( !selected_image ) { // But we ask for not selected - indirect.
+            notSelImgNr[0]++;      // increase the number of not selected images
+            notSelImgNr[notSelImgNr[0]] = all_img; // add the image number
+        }
+      }
+      // ask for no longer needed lenses to erase
+      for ( unsigned int i = 1 ; i <= imgNr[0] ; i++ ) {
+        bool erase_Lens = TRUE;
+        for ( unsigned int j = 1; notSelImgNr[0] >= j ; j++ ) {
+            // is this lens inside of imgNr in notSelImgNr too
+            if ( pano.getImage(notSelImgNr[j]).getLens() ==
+                 pano.getImage(imgNr[i]).getLens() )
+              erase_Lens = FALSE;
+        }
+        if ( erase_Lens ) {
+          // Now we can simply erase, the images get theyre new lenses later.
+          DEBUG_INFO( "will removeLens  " << pano.getImage(imgNr[i]).getLens() << " of " << pano.getNrOfLenses() )
+//          pano.removeLens(imgNr[i]); // FIXME ?????
+//          eraseLensNr[0] += 1;
+//          eraseLensNr[eraseLensNr[0]] = pano.getImage(imgNr[i]).getLens();
+        }
+      }
+      // create a new lens?
+      for ( unsigned int j = 1; notSelImgNr[0] >= j ; j++ ) {
+        // Is the new lens in the group of the not selected images?
+        if ( pano.getImage(lensEdit_RefImg).getLens() ==
+             pano.getImage(notSelImgNr[j]).getLens() )
+          new_Lens = TRUE; 
+      }
+      DEBUG_INFO( "new_Lens = " << new_Lens )
+      unsigned int lensNr;
+      // set the edit_lens
+      if ( new_Lens ) {
+        delete edit_Lens;
+        lensNr = pano.addLens (EDIT_LENS); // lensEdit_RefImg must be set before
+        // Now create an new reference lens from the lensEdit_RefImg image.
+        edit_Lens = new Lens(EDIT_LENS);
+      } 
+      // All list images get the new lens assigned.
+      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        pano.setLens (imgNr[i], lensNr);
+      }
+
+      // FIXME should get a bottom to update
+      edit_Lens->readEXIF(pano.getImage(lensEdit_RefImg).getFilename().c_str());
+    }
+
+
+    // FIXME support separate lenses
+//      EDIT_LENS->update ( pano.getLens(pano.getImage(lensEdit_RefImg).getLens()) );
+
+    DEBUG_INFO ( "hier is item: " << wxString::Format("%d",lensEdit_RefImg) );
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(lensEdit_RefImg).getLens(),*edit_Lens )
+         );
+
+    lensGui_dirty = FALSE;
+    DEBUG_TRACE( "" )
 }
 
 
+
+// Here we change the pano.
 void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
+    DEBUG_TRACE ("")
     // uses enum LensProjectionFormat from PanoramaMemento.h
     int var = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
     edit_Lens->projectionFormat = (LensProjectionFormat) (var);
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
-//    int image = images_list2->GetSelectedImage();
-    DEBUG_INFO ( wxString::Format ("image %d lens %d Lenstype %d",image,pano.getImage(image).getLens(),var) )
+//    int lensEdit_RefImg = images_list2->GetSelectedImage();
+    DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d lens %d Lenstype %d",lensEdit_RefImg,pano.getImage(lensEdit_RefImg).getLens(),var) )
 }
 
 void LensEdit::HFOVChanged ( wxCommandEvent & e )
 {
+    DEBUG_TRACE ("")
     // FIXME beautify this function and write a macro
     double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->GetValue();
@@ -298,15 +339,12 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
     edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
     edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
-    updateHFOV();
+//    updateHFOV();
 
-//    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
+//    edit_Lens->update ( pano.getLens(pano.getImage(lensEdit_RefImg).getLens()) );
 
     DEBUG_TRACE ("")
 }
@@ -323,12 +361,9 @@ void LensEdit::focalLengthChanged ( wxCommandEvent & e )
                          * edit_Lens->focalLengthConversionFactor))  
                       * 180/M_PI;
 
-    updateHFOV();
+//    updateHFOV();
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
@@ -342,10 +377,7 @@ void LensEdit::aChanged ( wxCommandEvent & e )
 
     edit_Lens->a = *var;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
@@ -359,10 +391,7 @@ void LensEdit::bChanged ( wxCommandEvent & e )
 
     edit_Lens->b = *var;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
@@ -376,10 +405,7 @@ void LensEdit::cChanged ( wxCommandEvent & e )
 
     edit_Lens->c = *var;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
@@ -393,10 +419,7 @@ void LensEdit::dChanged ( wxCommandEvent & e )
 
     edit_Lens->d = *var;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
@@ -410,54 +433,62 @@ void LensEdit::eChanged ( wxCommandEvent & e )
 
     edit_Lens->e = *var;
 
-    // We take the last selected images lens as undo object for all others.
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
-        );
+    ChangePano ();
 
     delete var;
     DEBUG_TRACE ("")
 }
 
+// This function is called whenever the images, which shall be edited, changes.
 void LensEdit::SetImages ( wxListEvent & e )
 {
     DEBUG_TRACE("");
+    // One image is our prefered image.
+    lensEdit_RefImg = e.GetIndex();
 
-    // get the list to read from
-    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
+    // set the values from the mainly focused image lens.
+    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection( EDIT_LENS.
+                                         projectionFormat  );
+    updateHFOV();
+    SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
+    SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
+    SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
+    SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
+    SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
 
     // prepare an status message
     wxString e_msg;
-    int sel_I = lst->GetSelectedItemCount();
+    DEBUG_TRACE("");
+    int sel_I = images_list2->GetSelectedItemCount();
+    DEBUG_TRACE("");
     if ( sel_I == 1 )
       e_msg = _("Remove image:   ");
     else
       e_msg = _("Remove images:   ");
 
     imgNr[0] = 0;             // reset
+    DEBUG_TRACE("");
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
 //      DEBUG_INFO( wxString::Format("now test if removing item %d/%d",Nr,pano.getNrOfImages()) );
-      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+    DEBUG_TRACE("");
+      if ( images_list2->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
 //    DEBUG_TRACE("");
-        e_msg += "  " + lst->GetItemText(Nr);
+        e_msg += "  " + images_list2->GetItemText(Nr);
         imgNr[0] += 1;
         imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
       }
     }
 
-    // values to set
-    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-      XRCCTRL(*this, "images_list_roll", wxSlider)  ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .roll.getValue() );
-      XRCCTRL(*this, "images_list_pitch", wxSlider) ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .pitch.getValue() * -1 );
-      XRCCTRL(*this, "images_list_yaw", wxSlider)   ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .yaw.getValue() );
-    }
+    DEBUG_TRACE("");
+    /**  - Look if we may need a new lens.
+      *   - If so set the lensGui_dirty flag for later remembering.
+      */
+    if ( images_list2->GetSelectedItemCount() != (int) pano.getNrOfImages() )
+      lensGui_dirty = TRUE;
 
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
-//    DEBUG_TRACE("");
+    DEBUG_TRACE("");
 }
 
 
