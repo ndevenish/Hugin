@@ -64,7 +64,9 @@ void AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
             getParam(point.x2, line, "X");
             getParam(point.y1, line, "y");
             getParam(point.y2, line, "Y");
-            getParam(t, line, "t");
+            if (!getParam(t, line, "t")) {
+                t = 0;
+            }
             point.mode = (ControlPoint::OptimizeMode) t;
             ctrlPoints.push_back(point);
         } else {
