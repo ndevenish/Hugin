@@ -490,6 +490,12 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 	m_c_list->Disable();
 	m_d_list->Disable();
 	m_e_list->Disable();
+        XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
     } else {
 	m_yaw_list->Enable();
 	m_pitch_list->Enable();
@@ -500,5 +506,11 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 	m_c_list->Enable();
 	m_d_list->Enable();
 	m_e_list->Enable();
+        XRCCTRL(*this, "opt_yaw_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_roll_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_pitch_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_yaw_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_roll_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
     }
 }
