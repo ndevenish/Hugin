@@ -28,6 +28,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
+#ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifndef WIN32
 #include <dlfcn.h>
 #else
@@ -38,6 +39,7 @@ extern "C" {
 #include <pano12/version.h>
 #include <pano12/queryfeature.h>
 }
+#endif
 
 #include "common/wxPlatform.h"
 
@@ -257,14 +259,17 @@ void PreferencesDialog::EnableRotationCtrls(bool enable)
     XRCCTRL(*this, "prefs_ft_rot_panel", wxPanel)->Enable(enable);
 }
 
+#ifdef HAVE_PANO12_QUERYFEATURE_H
 typedef int (*PROC_QF)			(int ,char** ,Tp12FeatureType* );
 typedef int (*PROC_QFNUM)		(void);
 typedef int (*PROC_QFINT)		(const char *, int *); 
 typedef int (*PROC_QFDOUBLE)	(const char *, double *);
 typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
+#endif
 
 bool PreferencesDialog::GetPanoVersion()
 {
+#ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifdef __WXMSW__
 	HINSTANCE		hDll		= NULL;
 #else
@@ -417,6 +422,9 @@ cleanup:
   } else {
 	return false;
   }
+#else // HAVE_PANO12_QUERYFEATURE_H
+  return false;
+#endif
 }
 
 void PreferencesDialog::UpdateDisplayData()

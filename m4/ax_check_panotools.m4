@@ -53,6 +53,7 @@ if test "x$with_pano" != 'xno' ; then
     AC_LANG_SAVE
     AC_LANG_C
     AC_CHECK_HEADER(pano12/panorama.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    AC_CHECK_HEADERS(pano12/queryfeature.h,AC_MSG_RESULT(panotools query functions enabled),AC_MSG_RESULT(panotools query functions disabled),)
     AC_CHECK_LIB(pano12,fcnPano,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
     AC_LANG_RESTORE
     LDFLAGS="$PANO_OLD_LDFLAGS"

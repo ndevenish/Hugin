@@ -711,11 +711,9 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
     // If no images already loaded, offer user a chance to pick one.
     int images = pano.getNrOfImages();
-	DEBUG_TRACE("Number of images: " << images);
     if (!images) {
         OnAddImages(event);
         images = pano.getNrOfImages();
-		DEBUG_TRACE("No images: " << images);
         if (!images)
             return;
     }
@@ -922,7 +920,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
     wxDialog dlg;
 	wxString strFile;
 	wxString langCode;
-	bool bFAQExists=false;
+	bool bFAQExists = false;
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
 
