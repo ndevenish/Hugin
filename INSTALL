@@ -1,7 +1,7 @@
 Overview:
 
-These are UNIX only instructions, windows instructions will follow once
-hugin is usable on windows.
+These are UNIX only instructions, but they might also work with a proper mingw or
+cygwin system, that has support for all the needed requirements.
 
 hugin uses the following libraries. make sure that they are completely
 installed (including dev packages)
@@ -34,6 +34,8 @@ REQUIRED LIBRARIES/PACKAGES:
  - make, version 3.8 or higher. (only needed for compiliation)
  - boost, get it from www.boost.org (only needed for compilation)
  - vigra, get it from http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
+   IMPORTANT: Apply the patch in the patch/ directory.
+   
  - gcc (tested with 3.2, 2.95 might also work)
 
 COMPILATION:
