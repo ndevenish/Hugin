@@ -393,7 +393,7 @@ namespace vigra_impex2
                 xs = ys.rowIterator();
                 scanline = static_cast< DstValueType * >
                     (enc->currentScanlineOfBand(b));
-                std::cerr << "b= " << b << std::endl;
+//                std::cerr << "b= " << b << std::endl;
                 for( size_type x = 0; x < width; ++x, ++xs ) {
                     *scanline = a.getComponent( xs, b );
                     scanline += enc->getOffset();
