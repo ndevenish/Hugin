@@ -464,6 +464,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     // indicate lines that should be skipped for whatever reason
     bool skipNextLine = false;
 
+    bool PTGUIScriptFile = false;
+    
     // PTGui lens line detected
     bool PTGUILensLine = false;
 
@@ -573,25 +575,27 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         case 'v':
         {
             DEBUG_DEBUG("v line: " << line);
-            if (firstOptVecParse) {
-                int nImg = max(iImgInfo.size(), oImgInfo.size());
-                DEBUG_DEBUG("nImg: " << nImg);
-                optvec = OptimizeVector(nImg);
-                firstOptVecParse = false;
-            }
-            std::stringstream optstream;
-            optstream << line.substr(1);
-            string var;
-            while (!(optstream >> std::ws).eof()) {
-                optstream >> var;
-                if (var.length() == 1) {
-                    // special case for PTGUI
-                    var += "0";
+            if (!PTGUIScriptFile) {
+                if (firstOptVecParse) {
+                    int nImg = max(iImgInfo.size(), oImgInfo.size());
+                    DEBUG_DEBUG("nImg: " << nImg);
+                    optvec = OptimizeVector(nImg);
+                    firstOptVecParse = false;
                 }
-                unsigned int nr = utils::lexical_cast<unsigned int>(var.substr(1));
-                DEBUG_ASSERT(nr < optvec.size());
-                optvec[nr].insert(var.substr(0,1));
-                DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << var[0] << " image:" << nr);
+                std::stringstream optstream;
+                optstream << line.substr(1);
+                string var;
+                while (!(optstream >> std::ws).eof()) {
+                    optstream >> var;
+                    if (var.length() == 1) {
+                        // special case for PTGUI
+                        var += "0";
+                    }
+                    unsigned int nr = utils::lexical_cast<unsigned int>(var.substr(1));
+                    DEBUG_ASSERT(nr < optvec.size());
+                    optvec[nr].insert(var.substr(0,1));
+                    DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << var[0] << " image:" << nr);
+                }
             }
             break;
         }
@@ -611,6 +615,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 t = 0;
             }
 
+            if (PTGUIScriptFile) {
+                point.image1Nr -=1;
+                point.image2Nr -=1;
+            }
             point.mode = (ControlPoint::OptimizeMode) t;
             ctrlPoints.push_back(point);
             state = P_CP;
@@ -676,6 +684,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
             if (line.substr(0,12) == "#-dummyimage") {
                 PTGUILensLine = true;
+                PTGUIScriptFile = true;
             }
 
             // parse our special options
@@ -696,10 +705,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         // create lens with dummy info
         Lens l;
         l.isLandscape = PTGUILens.width > PTGUILens.height;
-        for (char * v = ImgInfo::varnames; *v != 0; v++) {
-            std::string name;
-            name = *v;
-            map_get(l.variables, name).setValue(PTGUILens.vars[*v]);
+        for (char **v = Lens::variableNames; *v != 0; v++) {
+            map_get(l.variables, *v).setValue(PTGUILens.vars[**v]);
         }
         lenses.push_back(l);
     }
