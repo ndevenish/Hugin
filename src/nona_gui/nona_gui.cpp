@@ -24,7 +24,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 #include "panoinc_WX.h"
 #include <wx/cmdline.h>
 

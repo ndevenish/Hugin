@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="hugin"
+	RootNamespace="hugin"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -232,7 +233,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib wxxrc.lib pano12.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib pano12.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -304,7 +305,7 @@
 				AdditionalLibraryDirectories=""
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
+				ProgramDatabaseFile=".\Debug Unicode/xmldemo.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -384,8 +385,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Installing to temporary folder"
-				CommandLine="vc_hugin_inst.bat"
-				ExcludedFromBuild="TRUE"/>
+				CommandLine="$(SolutionDir)\hugin_msvc_install.bat"
+				ExcludedFromBuild="FALSE"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

@@ -1,25 +1,24 @@
 Main author:
    Pablo d'Angelo <pablo.dangelo@web.de>
 Authors:
-   Alexandre Jenny                              sift algorithm
    Kai-Uwe Behrmann <ku.b@gmx.de>               gui, panoviewer adds
-   Doug Wilkins                                 packaging, translation
-                                                compilation fixes
-   Bruno Postle                                 packaging, layout
-   Luca Vascon                                  splash screen
+   Ed Halley                                    gui, documentation
+   Douglas Wilkins                                 packaging, translation
+                                                bugfixes fixes
+   Bruno Postle                                 packaging, website,
+                                                documentation
+   Luca Vascon                                  splash screen, icons
 
-   Stan Birchfield                              KLT Feature Tracker
-   Lyndon Hill                                  phase correlation.
-
+Translators
    Marek Januszewski <spec@webtech.pl>          polish translation
+   Jean-Luc Coulon				frensh translation
+
+Panoglview was written by Fabial Wetzel
 
 This package also includes a code from
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
 and
 jhead: http://www.sentex.net/~mwandel/jhead/
-
-
-Some icons were taken from the BlueCurve theme package
 
 
 Thanks to the following people:
