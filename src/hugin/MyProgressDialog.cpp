@@ -41,12 +41,12 @@ void MyProgressDialog::updateProgressDisplay()
     {
         wxString cMsg;
         if (it->getProgress() > 0) {
-            cMsg.Printf("%s: %s [%3.0f%%]\n",
+            cMsg.Printf(wxT("%s: %s [%3.0f%%]\n"),
                         it->getShortMessage().c_str(),
                         it->getMessage().c_str(),
                         100 * it->getProgress());
         } else {
-            cMsg.Printf("%s %s\n",it->getShortMessage().c_str(),
+            cMsg.Printf(wxT("%s %s\n"),it->getShortMessage().c_str(),
                         it->getMessage().c_str());
         }
         // append to main message

@@ -136,23 +136,23 @@ public:
                 unsigned int nImg = pano.getNrOfImages();
                 wxString basedir;
                 for (unsigned int i = 0; i < nImg; i++) {
-                    wxFileName fname(pano.getImage(i).getFilename().c_str());
+                    wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
                     while (! fname.FileExists()){
                         wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), wxT("Image file not found"));
 
-                        if (basedir == "") {
+                        if (basedir == wxT("")) {
                             basedir = fname.GetPath();
                         }
                         // open file dialog
-                        wxString wildcard ("Image files (*.jpg)|*.jpg;*.JPG|"
-                                           "Image files (*.png)|*.png;*.PNG|"
-                                           "Image files (*.tif)|*.tif;*.TIF|"
-                                           "All files (*.*)|*.*");
+                        wxString wildcard (wxT("Image files (*.jpg)|*.jpg;*.JPG|")
+                                           wxT("Image files (*.png)|*.png;*.PNG|")
+                                           wxT("Image files (*.tif)|*.tif;*.TIF|")
+                                           wxT("All files (*.*)|*.*"));
                         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                          basedir, fname.GetName(),
                                          wildcard, wxOPEN, wxDefaultPosition);
                         if (dlg.ShowModal() == wxID_OK) {
-                            pano.setImageFilename(i, dlg.GetPath().c_str());
+                            pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str());
                             // save used path
                             basedir = dlg.GetDirectory();
                         }

@@ -247,8 +247,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     switch(editState) {
     case SELECT_REGION:
         dc.SetLogicalFunction(wxINVERT);
-        dc.SetPen(wxPen("WHITE", 1, wxSOLID));
-        dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
         dc.DrawRectangle(scale(region.GetLeft()),
                     scale(region.GetTop()),
                     scale(region.GetWidth()),
@@ -262,8 +262,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 #endif
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
-            dc.SetPen(wxPen("RED", 1, wxSOLID));
-            dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+            dc.SetPen(wxPen(wxT("RED"), 1, wxSOLID));
+            dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
             wxPoint upperLeft = roundP(scale(newPoint - FDiff2D(m_templateRectWidth, m_templateRectWidth)));
             int width = scale(m_templateRectWidth);
 
@@ -281,8 +281,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
     if (m_showSearchArea && m_mousePos.x != -1){
         dc.SetLogicalFunction(wxINVERT);
-        dc.SetPen(wxPen("WHITE", 1, wxSOLID));
-        dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
 
         FDiff2D upperLeft = scale(m_mousePos - FDiff2D(m_searchRectWidth, m_searchRectWidth));
         int width = scale(m_searchRectWidth);
@@ -303,12 +303,12 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & point, const wxColor & co
         f = 1;
     }
 
-    dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+    dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
     dc.SetPen(wxPen(color, 2, wxSOLID));
     dc.DrawCircle(roundP(scale(point)), roundi(6*f));
-    dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
+    dc.SetPen(wxPen(wxT("BLACK"), roundi(1*f), wxSOLID));
     dc.DrawCircle(roundP(scale(point)), roundi(7*f));
-    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
 //    dc.DrawCircle(scale(point), 4);
 }
 
@@ -320,12 +320,12 @@ void CPImageCtrl::drawHighlightPoint(wxDC & dc, const FDiff2D & point, const wxC
         f = 1;
     }
 
-    dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+    dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
     dc.SetPen(wxPen(color, 3, wxSOLID));
     dc.DrawCircle(roundP(scale(point)), roundi(7*f));
-    dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
+    dc.SetPen(wxPen(wxT("BLACK"), roundi(1*f), wxSOLID));
     dc.DrawCircle(roundP(scale(point)), roundi(8*f));
-    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
 //    dc.DrawCircle(scale(point), 4);
 }
 

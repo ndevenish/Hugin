@@ -28,6 +28,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
+#include "common/wxPlatform.h"
 #include "hugin/ImagesList.h"
 #include "hugin/ImageCache.h"
 
@@ -240,7 +241,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     DEBUG_DEBUG("update image list item " << imgNr);
     DEBUG_ASSERT((int)imgNr < GetItemCount());
     const PanoImage & img = pano.getImage(imgNr);
-    wxFileName fn(img.getFilename().c_str());
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
     VariableMap var = pano.getImageVariables(imgNr);
 
 //    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
@@ -248,9 +249,9 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getWidth()));
     SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getHeight()));
-    SetItem(imgNr, 4, doubleToString(map_get(var,"y").getValue(),m_degDigits).c_str());
-    SetItem(imgNr, 5, doubleToString( map_get(var,"p").getValue(),m_degDigits).c_str());
-    SetItem(imgNr, 6, doubleToString( map_get(var,"r").getValue(),m_degDigits).c_str());
+    SetItem(imgNr, 4, doubleTowxString(map_get(var,"y").getValue(),m_degDigits));
+    SetItem(imgNr, 5, doubleTowxString( map_get(var,"p").getValue(),m_degDigits));
+    SetItem(imgNr, 6, doubleTowxString( map_get(var,"r").getValue(),m_degDigits));
     char flags[] = "--";
     if (pano.getOptions().optimizeReferenceImage == imgNr) {
         flags[0]='A';
@@ -290,7 +291,7 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
 void ImagesListLens::UpdateItem(unsigned int imgNr)
 {
     const PanoImage & img = pano.getImage(imgNr);
-    wxFileName fn(img.getFilename().c_str());
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format(wxT("%d"),img.getLensNr()));
 
@@ -305,13 +306,13 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     case Lens::EQUIRECTANGULAR_LENS: ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
-    SetItem(imgNr, 4, doubleToString( map_get(var, "v").getValue(),m_degDigits).c_str());
-    SetItem(imgNr, 5, doubleToString( map_get(var, "a").getValue(),m_distDigits).c_str());
-    SetItem(imgNr, 6, doubleToString( map_get(var, "b").getValue(),m_distDigits).c_str());
-    SetItem(imgNr, 7, doubleToString( map_get(var, "c").getValue(),m_distDigits).c_str());
-    SetItem(imgNr, 8, doubleToString( map_get(var, "d").getValue(),m_pixelDigits).c_str());
-    SetItem(imgNr, 9, doubleToString( map_get(var, "e").getValue(),m_pixelDigits).c_str());
-    SetItem(imgNr, 10, doubleToString( map_get(var, "g").getValue(),m_distDigits).c_str());
-    SetItem(imgNr, 11, doubleToString( map_get(var, "t").getValue(),m_distDigits).c_str());
+    SetItem(imgNr, 4, doubleTowxString( map_get(var, "v").getValue(),m_degDigits));
+    SetItem(imgNr, 5, doubleTowxString( map_get(var, "a").getValue(),m_distDigits));
+    SetItem(imgNr, 6, doubleTowxString( map_get(var, "b").getValue(),m_distDigits));
+    SetItem(imgNr, 7, doubleTowxString( map_get(var, "c").getValue(),m_distDigits));
+    SetItem(imgNr, 8, doubleTowxString( map_get(var, "d").getValue(),m_pixelDigits));
+    SetItem(imgNr, 9, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
+    SetItem(imgNr, 10, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
+    SetItem(imgNr, 11, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
 }
 

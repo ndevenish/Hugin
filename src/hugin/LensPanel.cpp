@@ -34,6 +34,7 @@
 
 #include <algorithm>
 
+#include "common/wxPlatform.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
@@ -49,6 +50,17 @@
 using namespace PT;
 using namespace utils;
 using namespace std;
+
+#define m_XRCID(str_id) \
+    wxXmlResource::GetXRCID(str_id)
+    
+#ifdef __WXDEBUG__
+#define m_XRCCTRL(window, id, type) \
+    (wxDynamicCast((window).FindWindow(m_XRCID(id)), type))
+#else
+#define m_XRCCTRL(window, id, type) \
+    ((type*)((window).FindWindow(m_XRCID(id))))
+#endif
 
 //------------------------------------------------------------------------------
 
@@ -189,22 +201,22 @@ void LensPanel::UpdateLensDisplay ()
         {
             ndigits = m_pixelDigits;
         }
-        XRCCTRL(*this, wxString("lens_val_").append(*varname), wxTextCtrl)->SetValue(
-            doubleToString(const_map_get(imgvars,*varname).getValue(),ndigits).c_str());
+        m_XRCCTRL(*this, wxString("lens_val_").append(wxString(*varname, *wxConvCurrent)), wxTextCtrl)->SetValue(
+            doubleTowxString(const_map_get(imgvars,*varname).getValue(),ndigits));
         bool linked = const_map_get(lens.variables, *varname).isLinked();
-        XRCCTRL(*this, wxString("lens_inherit_").append(*varname), wxCheckBox)->SetValue(linked);
+        m_XRCCTRL(*this, wxString("lens_inherit_").append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
     }
 
     double HFOV = const_map_get(imgvars,"v").getValue();
     // update focal length
     double focal_length = lens.calcFocalLength(HFOV);
-    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
-        doubleToString(focal_length,m_distDigitsEdit).c_str());
+    m_XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
+        doubleTowxString(focal_length,m_distDigitsEdit));
 
     // update focal length factor
     double focal_length_factor = lens.getFLFactor();
-    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
-        doubleToString(focal_length_factor,m_distDigitsEdit).c_str());
+    m_XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
+        doubleTowxString(focal_length_factor,m_distDigitsEdit));
 
 
     DEBUG_TRACE("");
@@ -338,10 +350,10 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
             // not reachable
             DEBUG_ASSERT(0);
         }
-        std::string ctrl_name("lens_val_");
-        ctrl_name.append(varname);
+        wxString ctrl_name(wxT("lens_val_"));
+        ctrl_name.append(wxString(varname.c_str(), *wxConvCurrent));
         double val;
-        wxString text = XRCCTRL(*this, ctrl_name.c_str(), wxTextCtrl)->GetValue();
+        wxString text = m_XRCCTRL(*this, ctrl_name, wxTextCtrl)->GetValue();
         DEBUG_DEBUG("setting variable " << varname << " to " << text);
         if (!str2double(text, val)){
             return;
@@ -379,9 +391,9 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
             DEBUG_ASSERT(0);
         }
 
-        std::string ctrl_name("lens_inherit_");
-        ctrl_name.append(varname);
-        bool inherit = XRCCTRL(*this, ctrl_name.c_str(), wxCheckBox)->IsChecked();
+        wxString ctrl_name(wxT("lens_inherit_"));
+        ctrl_name.append(wxString(varname.c_str(), *wxConvCurrent));
+        bool inherit = m_XRCCTRL(*this, ctrl_name, wxCheckBox)->IsChecked();
         for (UIntSet::iterator it = m_selectedLenses.begin();
              it != m_selectedLenses.end(); ++it)
         {
@@ -534,7 +546,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 tmpLenses.insert(lensNr);
                 Lens lens = pano.getLens(lensNr);
                 // check file extension
-                wxFileName file(pano.getImage(imgNr).getFilename().c_str());
+                wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
@@ -568,9 +580,9 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
         wxString fname;
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
-                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), "",
-                         "Lens Project Files (*.ini)|*.ini|"
-                         "All files (*.*)|*.*",
+                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
+                         _("Lens Project Files (*.ini)|*.ini|"
+                         "All files (*.*)|*.*"),
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
@@ -619,9 +631,9 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         wxString fname;
         wxFileDialog dlg(this,
                          _("Load lens parameters"),
-                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), "",
-                         "Lens Project Files (*.ini)|*.ini|"
-                         "All files (*.*)|*.*",
+                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
+                         _("Lens Project Files (*.ini)|*.ini|"
+                         "All files (*.*)|*.*"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
@@ -630,7 +642,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
             {
-                wxFileConfig cfg("hugin lens file","",fname);
+                wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
                 int integer=0;
                 double d;
                 cfg.Read(wxT("Lens/type"), &integer);

@@ -32,13 +32,14 @@
 #include <utility>
 #include <functional>
 
-
+#include "common/wxPlatform.h"
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
 
 using namespace PT;
 using namespace std;
+using namespace utils;
 
 class DelKeyHandler: public wxEvtHandler
 {
@@ -545,7 +546,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
 
 
     wxString t=wxGetTextFromUser(_("Enter minimum control point error.\nAll point with a higher error will be selected"), _("Select Control Points"),
-                                 utils::doubleToString(threshold,2).c_str());
+                                 doubleTowxString(threshold,2));
     if (t == wxT("")) {
         // do not select anything
         return;
@@ -554,7 +555,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
     while (!t.ToDouble(&threshold)) {
         wxMessageBox(_("Error: please enter a valid number."), _("Could not read number"), wxICON_ERROR);
         t=wxGetTextFromUser(_("Enter minimum control point error.\nAll point with a higher error will be selected"), _("Select Control Points"),
-                            utils::doubleToString(threshold,2).c_str());
+                            utils::doubleTowxString(threshold,2));
     }
 
     m_list->Freeze();

@@ -288,7 +288,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 
     switch (ev.getMode()) {
     case CPEvent::NONE:
-        text = "NONE";
+        text = wxT("NONE");
         break;
     case CPEvent::NEW_POINT_CHANGED:
         NewPointChange(ev.getPoint(),left);
@@ -569,7 +569,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                                       sWidth,
                                       corrPoint);
             } catch (std::exception & e) {
-                wxMessageBox(e.what(), _("Error during Fine-tune"));
+                wxMessageBox(wxString (e.what(), *wxConvCurrent), _("Error during Fine-tune"));
             }
             if (! corrOk) {
                 // just set point, PointFineTune already complained
@@ -683,7 +683,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                                            sWidth,
                                            corrRes);
                 } catch (std::exception & e) {
-                    wxMessageBox(e.what(), _("Error during Fine-tune"));
+                    wxMessageBox(wxString (e.what(), *wxConvCurrent), _("Error during Fine-tune"));
                 }
 
                 if (! corrOk) {

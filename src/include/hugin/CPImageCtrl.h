@@ -104,7 +104,7 @@ public:
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = wxHSCROLL | wxVSCROLL,
-                const wxString& name="CPImageCtrl");
+                const wxString& name=wxT("CPImageCtrl"));
 
 
     CPImageCtrl()
@@ -114,7 +114,7 @@ public:
     /** dtor.
      */
     ~CPImageCtrl();
-    
+
     /// associate a zoomed display with this image
     void SetZoomView(CPZoomDisplayPanel * display);
 
@@ -204,7 +204,7 @@ protected:
 
     // rescale image
     void rescaleImage();
-    
+
     /// update display of zoomed point
     void updateZoomed();
 
@@ -360,7 +360,7 @@ private:
     CPEditorPanel * m_editPanel;
 
     CPZoomDisplayPanel * m_zoomDisplay;
-    
+
     DECLARE_EVENT_TABLE();
 };
 

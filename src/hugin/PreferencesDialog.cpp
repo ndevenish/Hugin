@@ -29,6 +29,7 @@
 #include "panoinc.h"
 
 
+#include "common/wxPlatform.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
 
@@ -156,11 +157,11 @@ void PreferencesDialog::UpdateDisplayData()
 
     d=HUGIN_FT_CORR_THRESHOLD;
     cfg->Read(wxT("/Finetune/CorrThreshold"), &d, HUGIN_FT_CORR_THRESHOLD);
-    tstr = utils::doubleToString(d).c_str();
+    tstr = utils::doubleTowxString(d);
     MY_STR_VAL("prefs_ft_CorrThreshold", tstr);
 
     cfg->Read(wxT("/Finetune/CurvThreshold"), &d, HUGIN_FT_CURV_THRESHOLD);
-    tstr = utils::doubleToString(d).c_str();
+    tstr = utils::doubleTowxString(d);
     MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
 
     bool t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
@@ -191,7 +192,7 @@ void PreferencesDialog::UpdateDisplayData()
 
     // tempdir
     MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
-    
+
     // show druid
     MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID));
 
@@ -261,8 +262,8 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
     // druid
     cfg->Write(wxT("/PreviewFrame/showDruid"), MY_G_BOOL_VAL("prefs_misc_showDruid"));
-    
-    
+
+
     /////
     /// AUTOPANO
     cfg->Write(wxT("/AutoPano/Type"),MY_G_CHOICE_VAL("prefs_AutoPanoType"));

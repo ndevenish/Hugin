@@ -33,6 +33,7 @@
 
 #include "PT/Stitcher.h"
 
+#include "common/wxPlatform.h"
 #include "hugin/config_defaults.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
@@ -232,7 +233,7 @@ void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
 void NonaStitcherPanel::Stitch( const Panorama & pano,
                                 const PanoramaOptions & options)
 {
-    MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+    MyProgressDialog pdisp(_("Stitching Panorama"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     PanoramaOptions opts = options;
     DEBUG_DEBUG("Stitching to " << opts.outfile);
@@ -255,11 +256,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"),HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE));
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend.exe"),
-                                 "", "enblend.exe",
-                                 "Executables (*.exe)|*.exe",
+                                 wxT(""), wxT("enblend.exe"),
+                                 wxT("Executables (*.exe)|*.exe"),
                                  wxOPEN, wxDefaultPosition);
                 if (dlg.ShowModal() == wxID_OK) {
                     enblendExe = dlg.GetPath();
@@ -269,11 +270,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 }
             }
 #elif defined (__WXMAC__)
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend commandline tool"),
-                                 "", "",
-                                 "Any Files |*",
+                                 wxT(""), wxT(""),
+                                 wxT("Any Files |*"),
                                  wxOPEN, wxDefaultPosition);
                 if (dlg.ShowModal() == wxID_OK) {
                     enblendExe = dlg.GetPath();
@@ -283,32 +284,32 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 }
             }
 #else
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
 #endif
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
 
-            wxString args(config->Read(wxT("/Enblend/EnblendArgs"), HUGIN_ENBLEND_ARGS));
+            wxString args(config->Read(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS)));
             if (opts.HFOV == 360.0) {
                 // blend over the border
-                args.append(" -w");
+                args.append(wxT(" -w"));
             }
-            args.append(" -o ");
-            wxString quoted((output + ".tif").c_str());
-            quoted = utils::quoteFilename(quoted);
+            args.append(wxT(" -o "));
+            wxString quoted((output + ".tif").c_str(), *wxConvCurrent);
+            quoted = utils::wxQuoteFilename(quoted);
             args.append(quoted);
 
             unsigned int nImg = pano.getNrOfImages();
             for(unsigned int i = 0; i < nImg; i++)
             {
-                quoted.Printf("%s%04d.tif", output.c_str(), i);
-                quoted = utils::quoteFilename(quoted);
-		args.append(" ");
+                quoted.Printf(wxT("%s%04d.tif"), output.c_str(), i);
+                quoted = utils::wxQuoteFilename(quoted);
+		args.append(wxT(" "));
                 args.append(quoted);
             }
 
-            wxString cmdline = enblendExe + " " + args;
+            wxString cmdline = enblendExe + wxT(" ") + args;
             DEBUG_INFO("enblend cmdline:" << cmdline.c_str());
 #ifdef __WXMSW__
             if (cmdline.size() > 1950) {
@@ -323,7 +324,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
 #ifdef unix
 		DEBUG_DEBUG("using system() to execute enblend");
-		int ret = system(cmdline);
+		int ret = system(cmdline.mb_str());
 		if (ret == -1) {
 		    DEBUG_ERROR("Could not execute enblend, system() failed" << strerror(errno));
 		} else {
@@ -337,16 +338,21 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 memset(&siStartupInfo, 0, sizeof(siStartupInfo));
                 memset(&piProcessInfo, 0, sizeof(piProcessInfo));
                 siStartupInfo.cb = sizeof(siStartupInfo);
-                char * cmdline_c = (char *) cmdline.c_str();
-                char * exe_c = (char *) enblendExe.c_str();
-                int ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE, 
-                                        IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL, 
+#ifdef wxUSE_UNICODE
+                WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
+                WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
+#else //ANSI
+                char * cmdline_c = (char*) cmdline.mb_str();
+                char * exe_c = (char*) enblendExe.mb_str();
+#endif
+                int ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
+                                        IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
                                         NULL, &siStartupInfo, &piProcessInfo);
                 if (ret) {
                     ret = 0;
                 } else {
                     ret = -1;
-                    wxMessageBox(("Could not execute command: ") + args  , _("CreateProcess Error"));
+                    wxMessageBox(_("Could not execute command: ") + args  , _("CreateProcess Error"));
                 }
 #else
                 int ret = wxExecute(cmdline, wxEXEC_SYNC);

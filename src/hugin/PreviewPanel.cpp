@@ -239,7 +239,7 @@ void PreviewPanel::updatePreview()
         }
     } catch (std::exception & e) {
         DEBUG_ERROR("error during stitching: " << e.what());
-        wxMessageBox(e.what(), _("Error during Stitching"));
+        wxMessageBox(wxString(e.what(), *wxConvCurrent), _("Error during Stitching"));
     }
     if (m_panoBitmap) {
         delete m_panoBitmap;
@@ -286,8 +286,8 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     dc.SetClippingRegion(offsetX, offsetY,
                          m_panoImgSize.x, m_panoImgSize.y);
 
-    dc.SetPen(wxPen("BLACK",1,wxSOLID));
-    dc.SetBrush(wxBrush("BLACK",wxSOLID));
+    dc.SetPen(wxPen(wxT("BLACK"),1,wxSOLID));
+    dc.SetBrush(wxBrush(wxT("BLACK"),wxSOLID));
     dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.x, m_panoImgSize.y);
 
 
@@ -303,7 +303,7 @@ void PreviewPanel::DrawPreview(wxDC & dc)
              it != m_displayedImages.end();
              ++it)
         {
-            dc.SetPen(wxPen("GREY", 1, wxSOLID));
+            dc.SetPen(wxPen(wxT("GREY"), 1, wxSOLID));
             DrawOutline(m_remapped[*it]->getOutline(), dc, offsetX, offsetY);
         }
     }
@@ -314,7 +314,7 @@ void PreviewPanel::DrawPreview(wxDC & dc)
 
 
     // draw center lines over display
-    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
     dc.SetLogicalFunction(wxINVERT);
     dc.DrawLine(offsetX + w/2, offsetY,
                 offsetX + w/2, offsetY + h);

@@ -281,7 +281,7 @@ void importAndConvertGrayAlphaImage(const ImageImportInfo & info,
     // copy image to output
     transformImageIf(tmp.upperLeft(), tmp.lowerRight(),
                      VectorComponentAccessor<SrcPixelType>(0),
-                     tmp.upperLeft(), 
+                     tmp.upperLeft(),
                      VectorComponentAccessor<SrcPixelType>(1),
                      dest.first, RedAccessor<DestPixelType>(),
                      linearIntensityTransform<DestComponentType>(scale));
@@ -321,15 +321,15 @@ void importAndConvertAlphaImage(const ImageImportInfo & info,
     ScaleType scale = vigra::NumericTraits<DestComponentType>::one()/s;
 
     std::cerr << " import scale factor: " << scale << std::endl;
-    
+
     // copy image to output
-    vigra::transformImageIf(tmp.upperLeft(), 
+    vigra::transformImageIf(tmp.upperLeft(),
                             tmp.lowerRight(),
                             VectorComponentAccessor<SrcPixelType>(0),
-                            
+
                             tmp.upperLeft(),
                             VectorComponentAccessor<SrcPixelType>(3),
-                            
+
                             dest.first, RedAccessor<DestPixelType>(),
                             linearIntensityTransform<DestComponentType>(scale));
 
@@ -340,7 +340,7 @@ void importAndConvertAlphaImage(const ImageImportInfo & info,
                      dest.first,
                      GreenAccessor<DestPixelType>(),
                      linearIntensityTransform<DestComponentType>(scale));
-    
+
     transformImageIf(tmp.upperLeft(), tmp.lowerRight(),
                      VectorComponentAccessor<SrcPixelType>(2),
                      tmp.upperLeft(),
@@ -361,8 +361,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            char *str = wxT("Loading image");
-            m_progress->pushTask(ProgressTask(wxString::Format(wxT("%s %s"),str,utils::stripPath(filename).c_str()).c_str(), "", 0));
+            m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Loading image %s"),utils::stripPath(filename).c_str()).mb_str(), "", 0));
         }
 #if 1
         // load images with VIGRA impex, and scale to 8 bit
@@ -456,7 +455,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             } else {
                 DEBUG_FATAL("Unsupported pixel type: " << pixelType);
             }
-            
+
         } else {
             DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported.");
         }
@@ -487,7 +486,7 @@ ImagePtr ImageCache::getSmallImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->pushTask(ProgressTask(_("Scaling image"), utils::stripPath(filename).c_str(), 0));
+            m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Scaling image %s"),utils::stripPath(filename).c_str()).mb_str(), "", 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         ImagePtr image = getImage(filename);
@@ -543,7 +542,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     img = new vigra::BImage(srcImg->GetWidth(), srcImg->GetHeight());
                     DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
                     if (m_progress) {
-                      m_progress->pushTask(ProgressTask("creating grayscale",filename.c_str(), 0));
+        	      m_progress->pushTask(ProgressTask(wxString::Format(_("Creating grayscale %s"),filename.c_str()).mb_str(), "", 0));
                     }
                     BasicImageView<RGBValue<unsigned char> > src((RGBValue<unsigned char> *)srcImg->GetData(),
                                                                  srcImg->GetWidth(),
@@ -561,7 +560,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
                     assert(img);
                     if (m_progress) {
-                        m_progress->pushTask(ProgressTask(wxString::Format(wxT("Creating pyramid image for %s, level %d"),filename.c_str(), key.level).c_str(),"",0));
+                        m_progress->pushTask(ProgressTask(wxString::Format(_("Creating pyramid image for %s, level %d"),filename.c_str(), key.level).mb_str(),"",0));
                     }
                     BImage *smallImg = new BImage();
                     reduceToNextLevel(*img, *smallImg);

@@ -491,12 +491,12 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
     // file format
     wxFileDialog dlg(this,_("Create panorama image"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                     "", "",
+                     wxT(""), wxT(""),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
         wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-        opt.outfile = dlg.GetPath().c_str();
+        opt.outfile = dlg.GetPath().mb_str();
         m_Stitcher->Stitch(pano, opt);
     }
 }

@@ -195,7 +195,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
         }
 
         // draw horizontal "line"
-        dc.SetPen(wxPen("WHITE", 2, wxSOLID));
+        dc.SetPen(wxPen(wxT("WHITE"), 2, wxSOLID));
         dc.SetLogicalFunction(wxINVERT);
 
         const int nSteps = 20;
@@ -234,7 +234,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
         stepwidth = hfov/nSteps;
         DEBUG_DEBUG("begin pitch: " << bpitch << " end pitch" << bpitch + nSteps*stepwidth);
 
-        dc.SetPen(wxPen("RED", 2, wxSOLID));
+        dc.SetPen(wxPen(wxT("RED"), 2, wxSOLID));
         dc.SetLogicalFunction(wxXOR);
         m_transform.transform(old_pos,FDiff2D(0, bpitch));
         m_tCartToImg(old_pos,old_pos);

@@ -432,7 +432,7 @@ void CPZoomDisplayPanel::OnDraw(wxDC & dc)
     // draw crosshair over bitmap
     int mx = m_bitmap.GetWidth() / 2 + 1;
     int my = m_bitmap.GetHeight() / 2 + 1;
-    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
     dc.SetLogicalFunction(wxINVERT);
     dc.DrawLine(mx, 0,
                 mx, m_bitmap.GetHeight());

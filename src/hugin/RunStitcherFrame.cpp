@@ -28,6 +28,7 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include "common/wxPlatform.h"
 
 #include "hugin/CommandHistory.h"
 #include "hugin/RunStitcherFrame.h"
@@ -76,8 +77,8 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT("PTStitcher.exe"));
     if (!wxFile::Exists(stitcherExe)){
         wxFileDialog dlg(this,_("Select PTStitcher.exe"),
-        "", "PTStitcher.exe",
-        "Executables (*.exe)|*.exe",
+        wxT(""), wxT("PTStitcher.exe"),
+        _("Executables (*.exe)|*.exe"),
         wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             stitcherExe = dlg.GetPath();
@@ -100,10 +101,10 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         DEBUG_ASSERT(edit_dlg);
         wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
         DEBUG_ASSERT(txtCtrl);
-        txtCtrl->SetValue(script.c_str());
+        txtCtrl->SetValue(wxString(script.c_str(), *wxConvCurrent));
 
         if (edit_dlg->ShowModal() == wxID_OK) {
-            script = txtCtrl->GetValue();
+            script = txtCtrl->GetValue().mb_str();
         } else {
             script = script_stream.str();
         }
@@ -113,16 +114,16 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 
     // start PTStitcher process
 
-    std::ofstream scriptfile(PTScriptFile.c_str());
+    std::ofstream scriptfile(PTScriptFile.mb_str());
     if (!scriptfile.good()) {
         DEBUG_FATAL("could not open/create PTScript file");
     }
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd = stitcherExe + wxT(" -o ") + quoteFilename(wxString(options.outfile.c_str())) + wxT(" ") + quoteFilename(PTScriptFile);
+    wxString cmd = stitcherExe + wxT(" -o ") + wxQuoteFilename(wxString(options.outfile.c_str(), *wxConvCurrent)) + wxT(" ") + wxQuoteFilename(PTScriptFile);
 
-    DEBUG_INFO("Executing cmd: " << cmd);
+    DEBUG_INFO("Executing cmd: " << cmd.mb_str());
 
     // create our process
     m_process = new wxProcess(this);

@@ -142,8 +142,8 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
-                         "", "Autopano-SIFT-Cmdline.vbs",
-                         "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
+                         wxT(""), wxT("Autopano-SIFT-Cmdline.vbs"),
+                         _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
@@ -193,7 +193,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
     autopanoArgs.Replace(wxT("%p"), tmp);
-    autopanoArgs.Replace(wxT("%i"), imgFiles.c_str());
+    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
 #ifdef __WXMSW__
     if (cmd.size() > 1950) {
@@ -213,7 +213,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     int ret = 0;
 #ifdef unix
     DEBUG_DEBUG("using system() to execute autopano-sift");
-    ret = system(cmd);
+    ret = system(cmd.mb_str());
     if (ret == -1) {
 	perror("system() failed");
     } else {
@@ -222,9 +222,13 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 #elif WIN32
     wxFileName tname(autopanoExe);
     wxString ext = tname.GetExt();
-    if (ext == "vbs") {
+    if (ext == wxT("vbs")) {
         // this is a script.. execute it with ShellExecute
-        char * exe_c = (char *)autopanoExe.c_str();
+#ifdef wxUSE_UNICODE
+        WCHAR * exe_c = (WCHAR *)autopanoExe.wc_str();
+#else //ANSI
+        char * exe_c = autopanoExe.mb_str();
+#endif
         SHELLEXECUTEINFO seinfo;
         memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
         seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -264,7 +268,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     }
     // read and update control points
-    readUpdatedControlPoints(ptofile.c_str(), pano);
+    readUpdatedControlPoints(ptofile.mb_str(), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
@@ -279,8 +283,8 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
-                         "", "autopano.exe",
-                         "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
+                         wxT(""), wxT("autopano.exe"),
+                         _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
@@ -316,7 +320,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString tmp;
     tmp.Printf(wxT("%d"), nFeatures);
     autopanoArgs.Replace(wxT("%p"), tmp);
-    autopanoArgs.Replace(wxT("%i"), imgFiles.c_str());
+    autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
 
     wxString tempdir = huginApp::Get()->GetWorkDir();
     autopanoArgs.Replace(wxT("%d"), tempdir);
@@ -338,7 +342,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     // run autopano in an own output window
 #ifdef unix
     DEBUG_DEBUG("using system() to execute autopano");
-    int ret = system(cmd);
+    int ret = system(cmd.mb_str());
     if (ret == -1) {
 	perror("system() failed");
     } else {
@@ -370,7 +374,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     }
     // read and update control points
-    readUpdatedControlPoints(ptofile.c_str(), pano);
+    readUpdatedControlPoints(ptofile.mb_str(), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

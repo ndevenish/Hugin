@@ -82,7 +82,7 @@ bool huginApp::OnInit()
     // DEBUG_INFO( GetAppName().c_str() )
     // DEBUG_INFO( wxFileName::GetCwd().c_str() )
     // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
-    DEBUG_INFO( "hugin path:" << m_huginPath.c_str() )
+    DEBUG_INFO( "hugin path:" << m_huginPath.mb_str() )
 
 
     // here goes and comes configuration
@@ -221,9 +221,13 @@ bool huginApp::OnInit()
     // get a temp dir
 #ifdef __WXMSW__
     DEBUG_DEBUG("figuring out windows temp dir");
-    if (m_workDir == "") {
+    if (m_workDir == wxT("")) {
         /* added by Yili Zhao */
-        char buffer[255];
+#ifdef wxUSE_UNICODE
+        WCHAR buffer[MAX_PATH];
+#else //ANSI
+        char buffer[MAX_PATH];
+#endif
         GetTempPath(255, buffer);
         m_workDir = buffer;
     }
@@ -238,16 +242,16 @@ bool huginApp::OnInit()
     }
 #endif
 
-    DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
     if (!wxFileName::DirExists(m_workDir)) {
-        DEBUG_DEBUG("creating temp dir: " << m_workDir);
+        DEBUG_DEBUG("creating temp dir: " << m_workDir.mb_str());
         if (!wxMkdir(m_workDir)) {
-            DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
+            DEBUG_ERROR("Tempdir could not be created: " << m_workDir.mb_str());
         }
     }
     if (!wxSetWorkingDirectory(m_workDir)) {
-        DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
+        DEBUG_ERROR("could not change to temp. dir: " << m_workDir.mb_str());
     }
+    DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str());
 
     // show the frame.
     frame->Show(TRUE);

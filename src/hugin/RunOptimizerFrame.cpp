@@ -28,6 +28,7 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include "common/wxPlatform.h"
 
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"
@@ -79,10 +80,10 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
         // open a text dialog with an editor inside
         wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("edit_script_dialog"));
         wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
-        txtCtrl->SetValue(script.c_str());
+        txtCtrl->SetValue(wxString(script.c_str(), *wxConvCurrent));
 
         if (edit_dlg->ShowModal() == wxID_OK) {
-            script = txtCtrl->GetValue();
+            script = txtCtrl->GetValue().mb_str();
         } else {
             script = script_stream.str();
         }
@@ -96,8 +97,8 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"),wxT("PTOptimizer.exe"));
     if (!wxFile::Exists(optimizerExe)){
         wxFileDialog dlg(this,_("Select PTOptimizer"),
-        "", "PTOptimizer.exe",
-        "Executables (*.exe)|*.exe",
+        wxT(""), wxT("PTOptimizer.exe"),
+        _("Executables (*.exe)|*.exe"),
         wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             optimizerExe = dlg.GetPath();
@@ -111,13 +112,13 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 #endif
     wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt"));
 
-    std::ofstream scriptfile(PTScriptFile.c_str());
+    std::ofstream scriptfile(PTScriptFile.mb_str());
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd(optimizerExe + wxT(" ") + quoteFilename(PTScriptFile));
+    wxString cmd(optimizerExe + wxT(" ") + wxQuoteFilename(PTScriptFile));
 
-    DEBUG_INFO("Executing cmd: " << cmd);
+    DEBUG_INFO("Executing cmd: " << cmd.mb_str());
 
     // create our process
     m_process = new wxProcess(this);
@@ -179,13 +180,13 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     //
     while ( m_process->IsInputOpened() && m_process->IsInputAvailable() ){
         line = m_in->ReadLine();
-        DEBUG_DEBUG("read line: " << line);
+        DEBUG_DEBUG("read line: " << line.mb_str());
 
         // Strategy 2
         wxRegEx reStrat(wxT("^Strategy ([0-9]+)"));
         if (reStrat.Matches(line)) {
             wxString t = reStrat.GetMatch(line, 1);
-            DEBUG_DEBUG("Stragegy matched: " << t.c_str());
+            DEBUG_DEBUG("Stragegy matched: " << t.mb_str());
             t.ToLong(&strategy);
             DEBUG_DEBUG("Stragegy matched (number): " << strategy);
         } else {
@@ -202,8 +203,8 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
             titeration.ToLong(&iteration);
             tdistance.ToDouble(&diff);
             DEBUG_DEBUG("iteration: " << iteration << "  distance: " << diff);
-            DEBUG_DEBUG("iteration line matched: " << reLine.GetMatch(line,0)
-                        << " iteration:" << reLine.GetMatch(line, 1));
+            DEBUG_DEBUG("iteration line matched: " << reLine.GetMatch(line,0).mb_str()
+                        << " iteration:" << reLine.GetMatch(line, 1).mb_str());
         } else {
 //            DEBUG_DEBUG("Not a iteration line");
         }

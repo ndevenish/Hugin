@@ -71,21 +71,25 @@ struct DruidHint
             this->graphic = graphic;
             this->brief = brief;
             this->text = text;
-            DEBUG_TRACE( "Adding DruidHint \"" << name << "\"..." );
+            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str() << "\"..." );
             PanoDruid::DefineHint(this);
 	}
     virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
         { return FALSE; }
     int rank;
-    const wxChar* name;
-    const wxChar* graphic;
-    const wxChar* brief;
-    const wxChar* text;
+    // const wxChar* name;
+    // const wxChar* graphic;
+    // const wxChar* brief;
+    // const wxChar* text;
+    wxString name;
+    wxString graphic;
+    wxString brief;
+    wxString text;
 };
 
 #define NEW_HINT(rank,name,graphic,brief,text) \
     struct hint##name : public DruidHint { \
-        hint##name() : DruidHint(rank, #name, graphic, brief, text) { ; } \
+        hint##name() : DruidHint(rank, wxT(#name), graphic, brief, text) { ; } \
     int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
 
 #define END_HINT(name) \

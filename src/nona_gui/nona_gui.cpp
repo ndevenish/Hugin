@@ -119,11 +119,11 @@ bool nonaApp::OnInit()
         // ask for project file
         wxFileDialog dlg(0,_("Specify project source project file"),
                          wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                         "", "",
+                         wxT(""), wxT(""),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            scriptFile = dlg.GetPath().c_str();
+            scriptFile = dlg.GetPath().mb_str();
         } else {
             usage(argv[0]);
             return 1;
@@ -132,7 +132,7 @@ bool nonaApp::OnInit()
         scriptFile = argv[optind];
     }
 
-    wxFileName fname(scriptFile.c_str());
+    wxFileName fname(wxString(scriptFile.c_str(), *wxConvCurrent));
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
 
@@ -140,11 +140,11 @@ bool nonaApp::OnInit()
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
                          wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                         "", "",
+                         wxT(""), wxT(""),
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            basename = dlg.GetPath().c_str();
+            basename = dlg.GetPath().mb_str();
         } else {
             usage(argv[0]);
             return 1;
@@ -162,16 +162,16 @@ bool nonaApp::OnInit()
     if (prjfile.bad()) {
         ostringstream error;
         error << _("could not open script : ") << scriptFile << std::endl;
-        wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
+        wxMessageBox(wxString(error.str().c_str(), *wxConvCurrent) , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
     }
-    if (newPano.loadPTScript(prjfile, path.c_str())) {
+    if (newPano.loadPTScript(prjfile, path.mb_str())) {
         pano.setMemento(newPano);
     } else {
         ostringstream error;
         error << _("error while parsing panos tool script: ") << scriptFile << std::endl;
 
-        wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
+        wxMessageBox(wxString(error.str().c_str(), *wxConvCurrent) , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
     }
 
@@ -217,7 +217,7 @@ void nonaApp::usage(const wxChar * name)
          << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
          << std::endl
          << "Usage: " << name  << " -o output project_file" << std::endl;
-    wxMessageBox(o.str().c_str(), _("Error using standalone stitcher"));
+    wxMessageBox(wxString(o.str().c_str(), *wxConvCurrent), _("Error using standalone stitcher"));
 }
 
 
