@@ -46,8 +46,22 @@ typedef std::vector<unsigned int> UIntVector;
 /// helper functions for parsing a script line
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
 
+#if 0
 template <class T>
 bool getParam(T & value, const std::string & line, const std::string & name)
+{
+    std::string s;
+    if (!getPTParam(s, line, name)) {
+        return false;
+    }
+    std::istringstream is(s);
+    is >> value;
+    return true;
+}
+#endif
+
+template <class T>
+bool getIntParam(T & value, const std::string & line, const std::string & name)
 {
     std::string s;
     if (!getPTParam(s, line, name)) {
@@ -62,6 +76,8 @@ bool readVar(Variable & var, int & link, const std::string & line);
 
 bool getPTStringParam(std::string & output, const std::string & line,
 	              const std::string & parameter);
+
+bool getDoubleParam(double & d, const std::string & line, const std::string & name);
 
 bool getPTDoubleParam(double & value, int & link,
                       const std::string & line, const std::string & var);
@@ -362,8 +378,8 @@ public:
      *  and the Lens, if it was only used by this image.
      */
     void removeImage(unsigned int nr);
-    
-    /** set a new image filename 
+
+    /** set a new image filename
      *
      *  It is assumed that it is of the same size
      *  as the old image.

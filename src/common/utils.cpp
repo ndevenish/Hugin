@@ -119,6 +119,7 @@ bool utils::stringToDouble(std::string str, double & dest)
     double res=0;
     // set numeric locale to C, for correct number output
     char * old_locale = setlocale(LC_NUMERIC,NULL);
+    old_locale = strdup(old_locale);
     setlocale(LC_NUMERIC,"C");
 
     // replace all kommas with points, independant of the locale..
@@ -134,6 +135,7 @@ bool utils::stringToDouble(std::string str, double & dest)
 
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
 
     if (pe == p) {
         // conversion failed.

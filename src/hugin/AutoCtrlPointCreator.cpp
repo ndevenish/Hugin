@@ -31,6 +31,7 @@
 
 #include "PT/Panorama.h"
 
+#include "hugin/config_defaults.h"
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
 
@@ -56,15 +57,15 @@ void AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
         if (line.size() > 0 && line[0] == 'c') {
             int t;
             ControlPoint point;
-            getParam(point.image1Nr, line, "n");
+            getIntParam(point.image1Nr, line, "n");
             point.image1Nr = imgMapping[point.image1Nr];
-            getParam(point.image2Nr, line, "N");
+            getIntParam(point.image2Nr, line, "N");
             point.image2Nr = imgMapping[point.image2Nr];
-            getParam(point.x1, line, "x");
-            getParam(point.x2, line, "X");
-            getParam(point.y1, line, "y");
-            getParam(point.y2, line, "Y");
-            if (!getParam(t, line, "t")) {
+            getDoubleParam(point.x1, line, "x");
+            getDoubleParam(point.x2, line, "X");
+            getDoubleParam(point.y1, line, "y");
+            getDoubleParam(point.y2, line, "Y");
+            if (!getIntParam(t, line, "t")) {
                 t = 0;
             }
             point.mode = (ControlPoint::OptimizeMode) t;
@@ -118,7 +119,7 @@ void AutoCtrlPointCreator::automatch(Panorama & pano,
 	    break;
 	}
 	default:
-	    DEBUG_ERROR("Invalid autopano type, delete registry if needed");
+	    DEBUG_ERROR("Invalid autopano type");
     }
     wxConfigBase::Get()->Write("/AutoPano/Type",t);
 
@@ -130,7 +131,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     // create suitable command line..
 
 #ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe", HUGIN_APSIFT_EXE);
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
                          "", "Autopano-SIFT-Cmdline.vbs",
@@ -145,7 +146,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
 #elif defined (__WXMAC__)
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe", HUGIN_APSIFT_EXE);
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano-sift frontend script"),
                          "", "",
@@ -161,10 +162,11 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #else
     // autopano should be in the path on linux
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","autopano-complete.sh");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe",HUGIN_APSIFT_EXE);
 #endif
 
-    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoSift/Args"," -o %o -p %p %i");
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoSift/Args",
+                                                      HUGIN_APSIFT_ARGS);
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number
@@ -244,7 +246,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
                               int nFeatures)
 {
 #ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe","");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe", HUGIN_APKOLOR_EXE);
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
                          "", "autopano.exe",
@@ -260,11 +262,12 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #else
     // todo: selection of autopano on linux..
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe","autopano");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe",HUGIN_APKOLOR_EXE);
 #endif
 
     // write default autopano.kolor.com flags
-    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoKolor/Args"," /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i");
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoKolor/Args",
+                                                      HUGIN_APKOLOR_ARGS);
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number

@@ -134,6 +134,15 @@ bool PT::getPTStringParam(std::string & output, const std::string & line, const 
     return true;
 }
 
+bool PT::getDoubleParam(double & d, const std::string & line, const std::string & name)
+{
+    std::string s;
+    if (!getPTParam(s, line, name)) {
+        return false;
+    }
+    return stringToDouble(s, d);
+}
+
 bool PT::getPTDoubleParam(double & value, int & link,
                       const std::string & line, const std::string & var)
 {

@@ -61,6 +61,8 @@
 #include <wx/txtstrm.h>
 #include <wx/statline.h>
 #include <wx/regex.h>
+#include <wx/valtext.h>
+#include <wx/valgen.h>
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
