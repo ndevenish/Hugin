@@ -31,6 +31,7 @@
 #include <set>
 #include <iterator>
 #include <algorithm>
+#include <locale.h>
 
 #include <stdio.h>
 #include <math.h>

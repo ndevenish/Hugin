@@ -27,6 +27,7 @@
 #include <iostream>
 
 #include <math.h>
+#include <locale.h>
 
 #include <PT/PanoramaMemento.h>
 
@@ -435,7 +436,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     // set numeric locale to C, for correct number output
     char * old_locale = setlocale(LC_NUMERIC,NULL);
     setlocale(LC_NUMERIC,"C");
-#endif    
+#endif
     PTParseState state;
     string line;
 
@@ -537,7 +538,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 // reset locale
                 setlocale(LC_NUMERIC,old_locale);
 #endif
-               
+
                 return false;
             }
             DEBUG_ASSERT(link == -1);
@@ -547,7 +548,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 // reset locale
                 setlocale(LC_NUMERIC,old_locale);
 #endif
-                
+
                 return false;
             }
             DEBUG_ASSERT(link == -1);
@@ -565,7 +566,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 // reset locale
                 setlocale(LC_NUMERIC,old_locale);
 #endif
-                    
+
                     return false;
                 }
                 if (link !=-1) {
