@@ -53,6 +53,7 @@ public:
 
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
+    void updatePanoDruid();
 
 protected:
     void OnClose(wxCloseEvent& e);
@@ -65,7 +66,7 @@ protected:
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
     void OnChangeFOV(wxCommandEvent & e);
-
+	
 private:
 
     PT::Panorama & m_pano;
@@ -79,6 +80,12 @@ private:
 //    wxCheckBox * m_autoCB;
 
     wxStaticBoxSizer * m_ToggleButtonSizer;
+
+	int m_druid;
+    wxBitmap m_PanoDruidGraphic;
+    wxStaticBoxSizer * m_PanoDruidSizer;
+	wxStaticBitmap * m_PanoDruidBitmap;
+	wxStaticText * m_PanoDruidText;
 
     std::vector<wxToggleButton *> m_ToggleButtons;
 

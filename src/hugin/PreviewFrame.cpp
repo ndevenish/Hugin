@@ -85,11 +85,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
         wxHORIZONTAL);
-
     topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 1);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
-
     flexSizer->AddGrowableCol(0);
     flexSizer->AddGrowableRow(0);
     
@@ -151,7 +149,18 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
-    
+
+	m_druid = -1;
+    m_PanoDruidSizer = new wxStaticBoxSizer(
+        new wxStaticBox(this, -1, _("the Panorama druid")),
+        wxHORIZONTAL);
+    topsizer->Add(m_PanoDruidSizer, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 1);
+	m_PanoDruidBitmap = new wxStaticBitmap(this, -1, m_PanoDruidGraphic, wxPoint(0,0));
+	m_PanoDruidText = new wxStaticText(this, -1, _(""), wxPoint(0,0));
+	m_PanoDruidSizer->Add(m_PanoDruidBitmap, 0, wxADJUST_MINSIZE);
+	m_PanoDruidSizer->Add(m_PanoDruidText, 1, wxADJUST_MINSIZE);
+	updatePanoDruid();
+
     // add a status bar
     CreateStatusBar(2);
     int widths[2] = {-1, 150};
@@ -208,7 +217,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue((int) round(opts.HFOV));
     m_VFOVSlider->SetValue((int) round(opts.VFOV));
-    
+	updatePanoDruid();
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -264,6 +273,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
+		updatePanoDruid();
     }
 }
 
@@ -311,6 +321,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
+	updatePanoDruid();
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
@@ -327,6 +338,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
     m_PreviewPanel->ForceUpdate();
+	updatePanoDruid();
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
@@ -369,3 +381,141 @@ void PreviewFrame::OnChangeFOV(wxCommandEvent & e)
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );
 }
+
+//////////////////////////////////////////////////////////////////////////////
+
+// The Panorama Druid is a set of tiered heuristics and advice on how to
+// improve the current panorama.
+
+struct advocation
+{
+	const wxChar* name;
+	const wxChar* graphic;
+	const wxChar* brief;
+	const wxChar* text;
+};
+
+static struct advocation _advice[] =
+{
+	{ "ERROR", "druid.images.128.png", // "ERROR" must be at index 0
+	  _("The druid has no advice at this time."), _("") },
+
+	{ "READY", "druid.stitch.128.png",
+	  _("The druid finds no problems with your panorama."),
+	  _("Stitch your final image now, and then use an image editor\n"
+		"such as the GNU Image Manipulation Program (the GIMP)\n"
+		"to add any finishing touches.") },
+
+	{ "NO IMAGES", "druid.images.128.png",
+	  _("To get started, add some image files."),
+	  _("You can add any number of images using the Images tab.") },
+
+	{ "ONE IMAGE", "druid.images.128.png",
+	  _("Add at least one more image."),
+	  _("You should have at least two files listed in the Images tab.") },
+
+	{ "LOW HFOV", "druid.lenses.128.png",
+	  _("The Horizontal Field of View (HFOV) may be too low."),
+	  _("Check that the focal lengths and/or hfov figures\n"
+		"for each image are correct for the camera settings.\n"
+		"Then calculate the visible field of view again.\n"
+		"HFOV is measured in degrees of arc, usually between\n"
+		"5 and 120 degrees per image unless using specialized\n"
+		"lenses.") },
+
+	{ "HUGE FINAL", "druid.stitch.128.png",
+	  _("Warning:  current stitch has huge dimensions."),
+	  _("Very large pixel dimensions are currently entered.\n"
+		"Some computers may take an excessively long time\n"
+		"to render such a large final image.\n"
+		"For best results, use the automatic Calc button on\n"
+		"the Panorama Options tab to determine the\n"
+		"pixel dimensions which will give the best quality.") },
+
+	{ "UNSAVED", "druid.stitch.128.png",
+	  _("Warning:  you haven't saved the current project."),
+	  _("While everything else seems to be ready to stitch,\n"
+		"don't forget to save your project file so you can\n"
+		"experiment or adjust the settings later.") },
+
+	{ NULL, NULL, _("") }
+};
+
+int findAdvocation(const wxChar* name)
+{
+	//REVIEW: boneheaded linear search for matching advocation name
+	int i = 0;
+	wxString sought = name;
+	while (_advice[i].name && !sought.IsSameAs(_advice[i].name))
+		i++;
+	// fallback on "ERROR" if not found
+	if (!_advice[i].name)
+		return 0;
+	return i;
+}
+
+void PreviewFrame::updatePanoDruid()
+{
+    DEBUG_TRACE("updatePanoDruid() checking for any heuristics");
+    const PanoramaOptions & opts = m_pano.getOptions();
+
+	int advice = 0;
+
+	// image count issues
+	if (!advice && 0 == m_pano.getNrOfImages())
+		advice = findAdvocation("NO IMAGES");
+	if (!advice && 1 == m_pano.getNrOfImages())
+		advice = findAdvocation("ONE IMAGE");
+
+	// image arrangement issues
+	//TODO: all images have the same center
+
+	// camera/lens issues
+	if (!advice && opts.HFOV <= 2.0)
+		advice = findAdvocation("LOW HFOV");
+
+	// control point issues
+	//TODO: no vertical or horizontal control points
+
+	// optimization issues
+	//TODO: no variables are marked to be optimized
+	//TODO: all variables are marked to be optimized
+	//TODO: optimizing for different projection from final
+
+	// output dimension issues
+	unsigned long threshold = 100000000L; //REVIEW: calc input images and/or memory
+	if (!advice && ((unsigned long)opts.width * opts.getHeight() >= threshold))
+		advice = findAdvocation("HUGE FINAL");
+
+	// projection choice issues
+	//TODO: above 90 hfov, above 5 images, but rectlinear projection
+
+	// output format issues
+
+	//TODO: unsaved project
+
+	// reward: no known issues found
+	if (!advice)
+		advice = findAdvocation("READY");
+
+	DEBUG_INFO( "updatePanoDruid() found \"" << _advice[advice].name << "\"" );
+
+	// set the controls to contain the appropriate text
+	if (m_druid != advice)
+	{
+		DEBUG_INFO( "updatePanoDruid() updating the visuals" );
+
+		wxString full = _advice[advice].brief;
+		full += '\n';
+		full += _advice[advice].text;
+		m_PanoDruidText->SetLabel(full);
+		m_PanoDruidGraphic.LoadFile(MainFrame::Get()->GetXRCPath() +
+									"/data/" + _advice[advice].graphic,
+									wxBITMAP_TYPE_PNG);
+		m_PanoDruidBitmap->SetBitmap(m_PanoDruidGraphic);
+		m_druid = advice;
+		m_PanoDruidSizer->Layout();
+		Layout();
+	}
+}
+
