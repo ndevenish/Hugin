@@ -71,7 +71,7 @@ if ($debug) {
     $EXTRA_CFLAGS="$EXTRA_CFLAGS -O2";
 }
 
-print "checking for xrc extension of wxwin.";
+print "checking for xrc extension of wxwin.\n";
 my $XRC_LFLAGS;
 if ($platform eq "win32") {
     $XRC_LFLAGS="-lwx_msw_xrc-2.4";
@@ -79,7 +79,24 @@ if ($platform eq "win32") {
     $XRC_LFLAGS="-lwx_gtk_xrc-2.4";
 }
 
-print "\n\nConfiguration summary for hugin:\n";
+# check for external vigra
+my $VIGRA_VERSION=`vigra-config --version`;
+my $VIGRA_LFLAGS="";
+my $VIGRA_CFLAGS="-I../foreign/vigra";
+my $HAS_FULL_VIGRA=undef;
+if ($VIGRA_VERSION) {
+    print "Found external vigra library, version $VIGRA_VERSION\n";
+    $VIGRA_LFLAGS=`vigra-config --libs`;
+    # hack, strip system includes dirs.. they break stuff..
+    $VIGRA_LFLAGS =~ s:-L/usr/lib ::;
+    $VIGRA_CFLAGS=`vigra-config --cppflags`;
+    $VIGRA_CFLAGS =~ s:-I/usr/include ::;
+    $HAS_FULL_VIGRA=1;
+} else {
+    print "No external vigra library found, utils/stitcher will not be compiled\n";
+}
+
+print "\nConfiguration summary for hugin:\n";
 print "  platform: $platform\n";
 print "  prefix: $prefix\n";
 if ($debug) {
@@ -100,6 +117,9 @@ while (<CONF_T>) {
     s/__WXWIN_LFLAGS__/$WXWIN_LFLAGS/g;
     s/__XRC_LFLAGS__/$XRC_LFLAGS/g;
     s/__PLATFORM__/$platform/g;
+    s/__HAS_FULL_VIGRA__/$HAS_FULL_VIGRA/g;
+    s/__VIGRA_CFLAGS__/$VIGRA_CFLAGS/g;
+    s/__VIGRA_LFLAGS__/$VIGRA_LFLAGS/g;
     print CONF;
 }
 close (CONF_T);
