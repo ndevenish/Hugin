@@ -267,7 +267,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 // blend over the border
                 args.append(" -w");
             }
-            args.append(" -o ");
+            args.append(" -v -o ");
             wxString quoted((output + ".tif").c_str());
             quoted = utils::quoteFilename(quoted);
             args.append(quoted).append(" ");
