@@ -27,6 +27,7 @@
 
 #include <string>
 #include <vector>
+#include <math.h>
 
 #include "PT/PanoImage.h"
 
@@ -207,7 +208,7 @@ public:
           x2(0),y2(0),
           error(0), mode(X_Y)
         { };
-    
+
 //    ControlPoint(Panorama & pano, const QDomNode & node);
     ControlPoint(unsigned int img1, double sX, double sY,
                  unsigned int img2, double dX, double dY,

@@ -24,6 +24,8 @@
 #ifndef _COMMAND_H
 #define _COMMAND_H
 
+#include <string>
+
 /** Base class for all panorama commands.
  *
  *  see command pattern.

@@ -36,6 +36,9 @@
 #include <functional>
 #include <utility>
 
+// the extensions are automatically included on gcc 2.95...
+#if __GNUC__ != 2
+
 template<class _Pair>
 struct select1st : public std::unary_function<_Pair,
   typename _Pair::first_type> {
@@ -73,6 +76,7 @@ compose1(const _Operation1& __fn1, const _Operation2& __fn2)
   return unary_compose<_Operation1,_Operation2>(__fn1, __fn2);
 }
 
+#endif
 
 //
 template<typename _Container>

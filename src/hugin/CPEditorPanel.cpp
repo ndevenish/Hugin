@@ -132,7 +132,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
-    
+
     // observe the panorama
     pano->addObserver(this);
 }
@@ -384,9 +384,8 @@ bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
     // FIXME use a threshold set by the user, or calculate a sensible one.
     if (res.max > 0.7) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 

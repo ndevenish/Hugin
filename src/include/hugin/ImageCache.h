@@ -25,12 +25,12 @@
 #define _IMAGECACHE_H
 
 #include <map>
-#include <ios>
+//#include <ios>
 #include <wx/image.h>
 #include "common/utils.h"
 
 // BUG: all the smartpointer/ref counting is not used currently.
-//      maybe I'll fix it in the future, if I find a way how it 
+//      maybe I'll fix it in the future, if I find a way how it
 //      should work.
 
 template <typename SUBJECT>
