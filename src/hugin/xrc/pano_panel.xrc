@@ -197,7 +197,6 @@
                       <tooltip>calculate highest sensible width. (uses every image pixel)</tooltip>
                     </object>
                     <flag>wxADJUST_MINSIZE</flag>
-                    <minsize></minsize>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -229,11 +228,11 @@
                         <item>PNG</item>
                         <item>TIFF</item>
                         <item>multiple TIFF</item>
-                        <item>multiple TIFF, no mask</item>
+                        <item>multiple TIFF, mask</item>
                         <item>PICT</item>
                         <item>PSD</item>
-                        <item>PSD_m</item>
-                        <item>PSD_nomask</item>
+                        <item>multiple PSD</item>
+                        <item>multiple PSD, mask</item>
                         <item>PAN</item>
                         <item>IVR</item>
                         <item>IVR_java</item>
@@ -243,7 +242,7 @@
                       <selection>2</selection>
                     </object>
                     <option>1</option>
-                    <flag>wxEXPAND</flag>
+                    <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
                   </object>
                   <vgap>5</vgap>
                   <hgap>5</hgap>

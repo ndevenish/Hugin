@@ -95,9 +95,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     // Image Preview
 
-    DEBUG_TRACE("");
-//    wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
-
+    // converts KILL_FOCUS events to usable TEXT_ENTER events
+    m_tkf = new TextKillFocusHandler(this);
+    
+    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PushEventHandler(m_tkf);
+    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(m_tkf);
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(m_tkf);
+    
     wxListEvent ev;
     ListSelectionChanged(ev);
     pano->addObserver(this);
@@ -108,6 +112,11 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
+    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler();
+    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler();
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler();
+    delete(m_tkf);
+    
     pano.removeObserver(this);
     delete images_list;
     DEBUG_TRACE("dtor end");

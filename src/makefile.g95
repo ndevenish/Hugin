@@ -32,6 +32,7 @@ OBJECTS = Panorama/PanoImage.o  \
           hugin/Server.o \
           hugin/huginApp.o \
           hugin/wxVigraImage.o \
+          hugin/TextKillFocusHandler.o \
           jhead/exif.o  \
           jhead/jpgfile.o
 

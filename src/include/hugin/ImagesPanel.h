@@ -32,6 +32,7 @@
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
 #include "hugin/ImagesList.h"
+#include "hugin/TextKillFocusHandler.h"
 
 using namespace PT;
 
@@ -118,6 +119,8 @@ private:
     /** pointer to the list control */
     ImagesListImage* images_list;
 
+    TextKillFocusHandler * m_tkf;
+
     DECLARE_EVENT_TABLE()
 };
 
@@ -147,6 +150,7 @@ class ImgPreview: public wxScrolledWindow
 
     /** the model */
     Panorama &pano;
+    
 
     DECLARE_EVENT_TABLE()
 };

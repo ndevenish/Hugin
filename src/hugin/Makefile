@@ -109,6 +109,7 @@ APP_1_OBJ = \
 	    RunOptimizerFrame.o \
 	    RunStitcherFrame.o \
 	    CPListFrame.o \
+	    TextKillFocusHandler.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS) -lpano12
