@@ -1065,7 +1065,7 @@ void MainFrame::updateProgressDisplay()
 #ifdef __WXMSW__
     UpdateWindow(NULL);
 #else
-    wxYield(true);
+    wxYield();
 #endif
 }
 

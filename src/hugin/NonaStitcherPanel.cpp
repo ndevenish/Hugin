@@ -322,7 +322,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             {
                 wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
 #ifdef unix
-        wxString cmdline = enblend_exe + wxT(" ") + args;
+        wxString cmdline = enblendExe + wxT(" ") + args;
 		DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
 		int ret = system(cmdline.mb_str());
 		if (ret == -1) {
