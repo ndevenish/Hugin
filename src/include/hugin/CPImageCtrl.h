@@ -209,7 +209,10 @@ private:
 
     wxBitmap bitmap;
     std::string imageFilename;
+    // size of displayed (probably scaled) image
     wxSize imageSize;
+    // size of real image
+    wxSize m_realSize;
 
     std::vector<wxPoint> points;
 

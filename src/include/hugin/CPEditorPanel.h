@@ -161,8 +161,13 @@ private:
     void OnNextImg(wxCommandEvent & e);
 
     void OnFineTuneButton(wxCommandEvent & e);
-    void FineTuneSelectedPoint();
-    void FineTuneNewPoint();
+    void FineTuneSelectedPoint(bool left);
+    void FineTuneNewPoint(bool left);
+    // local fine tune.
+    FDiff2D LocalFineTunePoint(unsigned int srcNr, 
+                               const vigra::Diff2D & srcPnt,
+                               unsigned int moveNr,
+                               const vigra::Diff2D & movePnt);
 
     // experimental corner detector.
     void OnAutoCreateCP();

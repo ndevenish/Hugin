@@ -290,6 +290,7 @@ void CPImageCtrl::rescaleImage()
     // rescale image
     wxImage * img = ImageCache::getInstance().getImage(imageFilename);
     imageSize = wxSize(img->GetWidth(), img->GetHeight());
+    m_realSize = imageSize;
     if (fitToWindow) {
         scaleFactor = calcAutoScaleFactor(imageSize);
     }
@@ -394,26 +395,27 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
                            &mpos.x, & mpos.y);
     bool doUpdate = false;
     mpos = invScale(mpos);
+//    DEBUG_DEBUG(" pos:" << mpos.x << ", " << mpos.y);
     if (mouse->LeftIsDown()) {
         switch(editState) {
         case NO_SELECTION:
             DEBUG_ERROR("mouse down movement without selection, in NO_SELECTION state!");
             break;
         case KNOWN_POINT_SELECTED:
-            if (mpos.x >= 0 && mpos.x <= imageSize.GetWidth()){
+            if (mpos.x >= 0 && mpos.x <= m_realSize.GetWidth()){
                 points[selectedPointNr].x = mpos.x;
             } else if (mpos.x < 0) {
                 points[selectedPointNr].x = 0;
-            } else if (mpos.x > imageSize.GetWidth()) {
-                points[selectedPointNr].x = imageSize.GetWidth();
+            } else if (mpos.x > m_realSize.GetWidth()) {
+                points[selectedPointNr].x = m_realSize.GetWidth();
             }
 
-            if (mpos.y >= 0 && mpos.y <= imageSize.GetHeight()){
+            if (mpos.y >= 0 && mpos.y <= m_realSize.GetHeight()){
                 points[selectedPointNr].y = mpos.y;
             } else if (mpos.y < 0) {
                 points[selectedPointNr].y = 0;
-            } else if (mpos.y > imageSize.GetHeight()) {
-                points[selectedPointNr].y = imageSize.GetHeight();
+            } else if (mpos.y > m_realSize.GetHeight()) {
+                points[selectedPointNr].y = m_realSize.GetHeight();
             }
             // emit a notify event here.
             //
@@ -675,7 +677,7 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 
 void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
-    DEBUG_DEBUG("forwarding key " << e.m_keyCode 
+    DEBUG_DEBUG("forwarding key " << e.m_keyCode
                 << " origin: id:" << e.m_id << " obj: "
                 << e.GetEventObject());
     // forward all keys to our parent

@@ -174,7 +174,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_ASSERT(m_autoAddCB);
     m_fineTuneCB = XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox);
     DEBUG_ASSERT(m_fineTuneCB);
-    
+
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
@@ -241,7 +241,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         changeState(NO_POINT);
         UpdateDisplay();
     }
-    
+
 }
 
 
@@ -476,10 +476,10 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
     CPCreationState THIS_POINT_RETRY = LEFT_POINT_RETRY;
     CPCreationState OTHER_POINT = RIGHT_POINT;
     CPCreationState OTHER_POINT_RETRY = RIGHT_POINT_RETRY;
-    
+
     bool estimate = m_estimateCB->IsChecked();
-        
-   
+
+
 
     if (!left) {
         thisImg = m_rightImg;
@@ -512,7 +512,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
             // check if point is in image.
             const PanoImage & pImg = m_pano->getImage(otherImgNr);
             if (p.x < (int) pImg.getWidth() && p.x >= 0
-                && p.y < (int) pImg.getHeight() && p.y >= 0) 
+                && p.y < (int) pImg.getHeight() && p.y >= 0)
             {
                 otherImg->setNewPoint(wxPoint((int) round(op.x), (int) round(op.y)));
                 // if fine tune is checked, run a fine tune session as well.
@@ -520,7 +520,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
                 if (m_fineTuneCB->IsChecked()) {
                     MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
                     wxPoint newPoint = otherImg->getNewPoint();
-                    
+
                     long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
                     const PanoImage & img = m_pano->getImage(thisImgNr);
                     double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
@@ -795,7 +795,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     if (subjPoint.x > (int) img.getWidth()) subjPoint.x = img.getWidth()-1;
     if (subjPoint.y < 0) subjPoint.y = 0;
     if (subjPoint.y > (int) img.getHeight()) subjPoint.x = img.getHeight()-1;
-    
+
     Diff2D searchUL(subjPoint.x - swidth, subjPoint.y - swidth);
     Diff2D searchLR(subjPoint.x + swidth, subjPoint.y + swidth);
     // clip search window
@@ -1204,7 +1204,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                 // jump to right point
                 wxPoint lp = m_leftImg->getNewPoint();
                 FDiff2D t = EstimatePoint(FDiff2D(lp.x, lp.y), true);
-                m_rightImg->showPosition((int) round(t.x), 
+                m_rightImg->showPosition((int) round(t.x),
                                          (int) round(t.y), true);
             } else if (cpCreationState == RIGHT_POINT) {
                 // jump to left point
@@ -1219,7 +1219,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     if (cpCreationState == LEFT_POINT ||
                         cpCreationState == RIGHT_POINT_RETRY ||
                         cpCreationState == LEFT_POINT_RETRY ||
-                        cpCreationState == BOTH_POINTS_SELECTED) 
+                        cpCreationState == BOTH_POINTS_SELECTED)
                     {
                         wxPoint p = m_leftImg->getNewPoint();
                         FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
@@ -1232,7 +1232,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     if (cpCreationState == RIGHT_POINT ||
                         cpCreationState == RIGHT_POINT_RETRY ||
                         cpCreationState == LEFT_POINT_RETRY ||
-                        cpCreationState == BOTH_POINTS_SELECTED) 
+                        cpCreationState == BOTH_POINTS_SELECTED)
                     {
                         wxPoint p = m_rightImg->getNewPoint();
                         FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
@@ -1253,8 +1253,12 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         wxCommandEvent dummy;
         OnNextImg(dummy);
     } else if (e.GetKeyCode() == 'f') {
-        wxCommandEvent dummy;
-        OnFineTuneButton(dummy);
+        bool left =  e.GetEventObject() == m_leftImg;
+        if (cpCreationState == NO_POINT) {
+            FineTuneSelectedPoint(left);
+        } else {
+            FineTuneNewPoint(left);
+        }
     } else {
         e.Skip();
     }
@@ -1473,14 +1477,35 @@ void CPEditorPanel::OnNextImg(wxCommandEvent & e)
 void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 {
     if (cpCreationState == NO_POINT) {
-        FineTuneSelectedPoint();
+        FineTuneSelectedPoint(false);
     } else if (BOTH_POINTS_SELECTED) {
-        FineTuneNewPoint();
+        FineTuneNewPoint(false);
     }
 }
 
 
-void CPEditorPanel::FineTuneSelectedPoint()
+FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr, 
+                                          const Diff2D & srcPnt,
+                                          unsigned int moveNr,
+                                          const Diff2D & movePnt)
+{
+    long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
+    long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
+    FDiff2D result;
+    double xcorr = PointFineTune(srcNr,
+		                 srcPnt,
+                                 templWidth,
+				 moveNr,
+				 movePnt,
+                                 sWidth,
+                                 result);
+
+    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+
+    return result;
+}
+
+void CPEditorPanel::FineTuneSelectedPoint(bool left)
 {
     DEBUG_DEBUG(" selected Point: " << m_selectedPoint);
     if (m_selectedPoint == UINT_MAX) return;
@@ -1488,37 +1513,26 @@ void CPEditorPanel::FineTuneSelectedPoint()
 
     ControlPoint cp = currentPoints[m_selectedPoint].second;
 
-    long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
-    long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
-    FDiff2D result;
-    double xcorr = PointFineTune(cp.image1Nr,
-                                 Diff2D((int) round(cp.x1), (int) round(cp.y1)),
-                                 templWidth,
-                                 cp.image2Nr,
-                                 Diff2D((int) round(cp.x2), (int) round(cp.y2)),
-                                 sWidth,
-                                 result);
-
-    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-
-    wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-    double thresh = utils::lexical_cast<double>(str);
-    if (xcorr < thresh) {
-        // low xcorr
-        m_rightImg->setNewPoint(wxPoint((int)round(result.x),
-                                      (int)round(result.y)));
-        // Bad correlation result.
-        int answer = wxMessageBox(
-            wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
-            "Low correlation",
-            wxYES_NO|wxICON_QUESTION, this);
-        m_rightImg->clearNewPoint();
-        if (answer == wxNO) {
-            return;
-        }
+    unsigned int srcNr = cp.image1Nr;
+    unsigned int moveNr = cp.image2Nr;
+    Diff2D srcPnt((int) round(cp.x1), (int) round(cp.y1));
+    Diff2D movePnt((int) round(cp.x2), (int) round(cp.y2));
+    if (left) {
+        srcNr = cp.image2Nr;
+        moveNr = cp.image1Nr;
+	srcPnt = Diff2D((int) round(cp.x2), (int) round(cp.y2));
+	movePnt = Diff2D((int) round(cp.x1), (int) round(cp.y1));
     }
-    cp.x2 = result.x;
-    cp.y2 = result.y;
+
+    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
+
+    if (left) {
+       cp.x1 = result.x;
+       cp.y1 = result.y;
+    } else {
+       cp.x2 = result.x;
+       cp.y2 = result.y;
+    }
 
     // if point was mirrored, reverse before setting it.
     if (set_contains(mirroredPoints, m_selectedPoint)) {
@@ -1530,57 +1544,54 @@ void CPEditorPanel::FineTuneSelectedPoint()
 }
 
 
-void CPEditorPanel::FineTuneNewPoint()
+void CPEditorPanel::FineTuneNewPoint(bool left)
 {
+    wxPoint leftP = m_leftImg->getNewPoint();
+    wxPoint rightP = m_rightImg->getNewPoint();
 
-    long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
-    long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
-    wxPoint left = m_leftImg->getNewPoint();
-    wxPoint right = m_rightImg->getNewPoint();
-    FDiff2D result;
-    double xcorr = PointFineTune(m_leftImageNr,
-                                 Diff2D(left.x, left.y),
-                                 templWidth,
-                                 m_rightImageNr,
-                                 Diff2D(right.x, right.y),
-                                 sWidth,
-                                 result);
-    wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-    double thresh = utils::lexical_cast<double>(str);
-    if (xcorr < thresh) {
-        // low xcorr
-        m_rightImg->setNewPoint(wxPoint((int)round(result.x),
-                                      (int)round(result.y)));
-        // Bad correlation result.
-        wxMessageBox(
-            wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong."),  xcorr, thresh),
-            "Low correlation",
-            wxOK, this);
+    unsigned int srcNr = m_leftImageNr;
+    Diff2D srcPnt(leftP.x, leftP.y);
+    unsigned int moveNr = m_rightImageNr;
+    Diff2D movePnt(rightP.x, rightP.y);
+    if (left) {
+        srcNr = m_rightImageNr;
+	srcPnt = Diff2D(rightP.x, rightP.y);
+        moveNr = m_leftImageNr;
+	movePnt = Diff2D(leftP.x, leftP.y);
     }
-    m_rightImg->setNewPoint(wxPoint((int) round(result.x),
-                                    (int) round(result.y)));
-    m_rightImg->update();
+
+    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
+
+    if (left) {
+        m_leftImg->setNewPoint(wxPoint((int) round(result.x),
+                                        (int) round(result.y)));
+        m_leftImg->update();
+        
+    } else {
+        m_rightImg->setNewPoint(wxPoint((int) round(result.x),
+                                        (int) round(result.y)));
+        m_rightImg->update();
+    }
 }
 
 
-FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left) 
+FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
-    
+
     FDiff2D t;
     if (currentPoints.size() == 0) {
         DEBUG_WARN("Cannot estimate position without at least one point");
         return FDiff2D(0,0);
     }
-    
+
     for (vector<CPoint>::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it) {
         t.x += it->second.x2 - it->second.x1;
         t.y += it->second.y2 - it->second.y1;
     }
     t.x /= currentPoints.size();
     t.y /= currentPoints.size();
-    DEBUG_DEBUG("estimated translation: x: " << t.x << " y: " << t.y); 
-    
+    DEBUG_DEBUG("estimated translation: x: " << t.x << " y: " << t.y);
+
     if (left) {
         t.x += p.x;
         t.y += p.y;
