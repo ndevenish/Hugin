@@ -200,7 +200,9 @@ void Lens::setFLFactor(double factor)
     // the ratio is determined by the size of our image.
     sensorHeight = d / sqrt(sensorRatio*sensorRatio +1);
     sensorWidth = sensorHeight * sensorRatio;
-    DEBUG_DEBUG("factor: " << factor << "ratio: " << sensorRatio << " --> New sensor size: " << sensorWidth << "," << sensorHeight)
+    DEBUG_DEBUG("factor: " << factor << "ratio: " << sensorRatio << " --> New sensor size: " << sensorWidth << "," << sensorHeight);
+    
+    // FIXME: calculate new HFOV.
 }
 
 

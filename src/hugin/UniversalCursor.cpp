@@ -123,7 +123,7 @@ UniversalCursor::UniversalCursor(const wxImage & image)
     unsigned char * bits = new unsigned char [imagebitcount];
     unsigned char * maskBits = new unsigned char [imagebitcount];
 
-    int i,j, i8; 
+    int i,j, i8;
 //    unsigned char c;
     unsigned char cMask;
     for (i=0; i<imagebitcount; i++)
@@ -241,7 +241,7 @@ UniversalCursor::UniversalCursor(const wxImage & image)
 
 #else
 
-wxUniversalCursor::wxUniversalCursor(const wxImage & img)
+UniversalCursor::UniversalCursor(const wxImage & img)
     : wxCursor(img)
 {
 

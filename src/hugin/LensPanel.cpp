@@ -156,9 +156,6 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
     const Lens & lens = pano.getLens(m_editLensNr);
     const VariableMap & imgvars = pano.getImageVariables(m_editImageNr);
 
-    // FIXME should get a bottom to update
-//    edit_Lens->readEXIF(pano.getImage(lensEdit_ReferenceImage).getFilename().c_str());
-
     // update gui
     int guiPF = XRCCTRL(*this, "lens_val_projectionFormat",
                       wxComboBox)->GetSelection();
@@ -272,8 +269,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
         }
 
         UIntSet lensNrs;
-        // this command is complicated and need the different lenses
-        // conversion factors, FIXME change for multiple lenses
+
         for (UIntSet::const_iterator it=selected.begin(); it != selected.end();
              ++it)
         {

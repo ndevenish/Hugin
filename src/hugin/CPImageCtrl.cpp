@@ -132,7 +132,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 {
 
     wxString filename;
-#ifdef __WXMSW__
+#if defined(__WXMSW__) || defined(__WXMAC__)
     m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #else
     int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/cursorType",0l);
@@ -287,7 +287,7 @@ void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & co
     if (f < 1) {
         f = 1;
     }
-    
+
     dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
     dc.SetPen(wxPen(color, 2, wxSOLID));
     dc.DrawCircle(scale(point), roundi(6*f));
