@@ -24,10 +24,6 @@
 #ifndef _CPLISTFRAME_H
 #define _CPLISTFRAME_H
 
-#include "wx/frame.h"
-#include "wx/listbase.h"
-
-class wxListCtrl;
 class MainFrame;
 
 

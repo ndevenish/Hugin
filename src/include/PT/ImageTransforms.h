@@ -37,6 +37,7 @@
 #include <vigra/impexalpha.hxx>
 
 #include <PT/Panorama.h>
+
 #include <PT/PanoToolsInterface.h>
 #include <common/math.h>
 
@@ -263,7 +264,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
 
     vigra::Diff2D srcSize = src.second - src.first;
     // FIXME: use d & e here.
-    vigra::Diff2D srcMiddle = srcSize / 2;
+//    vigra::Diff2D srcMiddle = srcSize / 2;
 
 //    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
 

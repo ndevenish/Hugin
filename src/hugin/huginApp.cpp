@@ -179,6 +179,7 @@ bool huginApp::OnInit()
 #endif
 
     DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
+    config->Write("tempDir",m_workDir);
     if (!wxFileName::DirExists(m_workDir)) {
         DEBUG_DEBUG("creating temp dir: " << m_workDir);
         if (!wxMkdir(m_workDir)) {

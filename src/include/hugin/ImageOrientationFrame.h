@@ -24,8 +24,6 @@
 #ifndef _IMAGEORIENTATIONFRAME_H
 #define _IMAGEORIENTATIONFRAME_H
 
-#include "wx/frame.h"
-
 #include <PT/Panorama.h>
 
 class wxListCtrl;

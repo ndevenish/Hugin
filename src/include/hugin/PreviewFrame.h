@@ -24,7 +24,6 @@
 #ifndef _PREVIEWFRAME_H
 #define _PREVIEWFRAME_H
 
-#include <wx/frame.h>
 #include "hugin/PanoDruid.h"
 
 class PreviewPanel;

@@ -33,7 +33,8 @@
 #include "platform.h"
 
 #ifdef __WXMSW__
-#include <wx/log.h>
+// has to be included before!
+//#include <wx/log.h>
 #endif
 
 // misc utility functions / macros

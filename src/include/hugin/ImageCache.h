@@ -27,11 +27,9 @@
 #include <map>
 
 #include <common/utils.h>
-#include <wx/image.h>
 #include <vigra/stdimage.hxx>
 
 #include <PT/ImageTransforms.h>
-
 
 typedef wxImage * ImagePtr;
 

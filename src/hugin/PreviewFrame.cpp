@@ -28,7 +28,6 @@
 #define USE_TOGGLE_BUTTON 1
 
 #include "panoinc_WX.h"
-#include <wx/tglbtn.h>
 
 #include "panoinc.h"
 

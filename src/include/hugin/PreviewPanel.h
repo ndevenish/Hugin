@@ -26,9 +26,6 @@
 
 #include <vector>
 
-#include "wx/frame.h"
-#include "wx/dnd.h"
-
 #include <PT/ImageTransforms.h>
 #include <hugin/ImageCache.h>
 

@@ -56,11 +56,15 @@
 #include <wx/helphtml.h>
 #include <wx/html/htmlwin.h>
 #include <wx/progdlg.h>
+#include <wx/dnd.h>
+#include <wx/tglbtn.h>
+#include <wx/txtstrm.h>
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
 #include <wx/msw/winundef.h>
 #undef DIFFERENCE
+#undef FindWindow
 #endif
 
 #endif

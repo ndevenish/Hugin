@@ -39,6 +39,13 @@ extern "C" {
     #include <pano12/filter.h>
 }
 
+// remove stupid #defines from the evil windows.h
+#ifdef __WXMSW__
+#include <wx/msw/winundef.h>
+#undef DIFFERENCE
+#endif
+
+
 class wxImage;
 
 namespace vigra

@@ -36,12 +36,12 @@
 #include <utility>
 #include <string>
 
-#include "wx/panel.h"
-
 #include <PT/Panorama.h>
 
+#include "CPImageCtrl.h"
 
 // forward declarations
+/*
 class CPImageCtrl;
 class CPEvent;
 class wxTabView;
@@ -49,6 +49,7 @@ class wxNotebook;
 class wxNotebookEvent;
 class wxListEvent;
 class wxListCtrl;
+*/
 
 namespace vigra {
     class Diff2D;

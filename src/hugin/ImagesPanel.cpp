@@ -196,7 +196,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     long nFeatures = XRCCTRL(*this, "images_points_per_overlap"
                             , wxSpinCtrl)->GetValue();
 
-    AutoPanoSift matcher;
+    AutoCtrlPointCreator matcher;
     matcher.automatch(pano, selImg, nFeatures);
 };
 

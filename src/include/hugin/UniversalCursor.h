@@ -24,9 +24,6 @@
 #ifndef _UNIVERSALCURSOR_H
 #define _UNIVERSALCURSOR_H
 
-#include "wx/cursor.h"
-
-
 class wxImage;
 
 /** a proper cursor abstraction.

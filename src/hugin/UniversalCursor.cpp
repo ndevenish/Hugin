@@ -72,6 +72,7 @@ using namespace std;
 
 #if defined(__WXMSW__)
 
+#if 0
 /** @BUG this is a bad hack! take from the private msw/cursor.c file
  *
  */
@@ -159,6 +160,7 @@ UniversalCursor::UniversalCursor(const wxImage & image)
     delete [] bits ;
     delete [] maskBits;
 }
+#endif
 
 #elif defined(__WXGTK__)
 

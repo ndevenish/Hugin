@@ -31,9 +31,6 @@
 #include "common/utils.h"
 #include "PT/Panorama.h"
 
-#include "wx/frame.h"
-#include "wx/dnd.h"
-#include "wx/listctrl.h"
 #include "hugin/OptimizePanel.h"
 
 using namespace PT;

@@ -25,7 +25,6 @@
 #define _HUGINAPP_H
 
 #include "config.h"
-#include <wx/app.h>
 
 #include "hugin/MainFrame.h"
 

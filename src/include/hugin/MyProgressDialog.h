@@ -27,7 +27,6 @@
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
-#include <wx/progdlg.h>
 #include "common/utils.h"
 
 /** wxProgressDialog with interface for my progress dialog

@@ -33,6 +33,7 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
 
+
 // more standard includes if needed
 #include <algorithm>
 #include <float.h>

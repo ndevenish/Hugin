@@ -25,7 +25,6 @@
 #define _STITCHERPANEL_H
 
 #include "PT/Panorama.h"
-#include "wx/frame.h"
 
 /** base class for a stitcher property page
  *  and associated stitch function.

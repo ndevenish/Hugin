@@ -24,8 +24,6 @@
 #ifndef _IMAGE_ORIENTATION_PANEL_H
 #define _IMAGE_ORIENTATION_PANEL_H
 
-#include "wx/frame.h"
-#include "wx/dnd.h"
 #include "PT/Transforms.h"
 #include "hugin/ImageProcessing.h"
 

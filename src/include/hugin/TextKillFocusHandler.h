@@ -25,8 +25,6 @@
 #define _TEXTKILLFOCUSHANDLER_H
 
 
-#include <wx/event.h>
-
 /** Handle EVT_KILL_FOCUS and convert it to a EVT_TEXT_ENTER event
  *
  *  This is needed to be notified of changes to a wxTextCtrl when

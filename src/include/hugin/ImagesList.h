@@ -27,10 +27,6 @@
 #define _IMAGESLIST_H
 
 
-#include "wx/frame.h"
-#include "wx/dnd.h"
-#include "wx/listctrl.h"
-
 #include "PT/Panorama.h"
 //#include "hugin/MainFrame.h"
 

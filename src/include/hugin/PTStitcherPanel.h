@@ -24,10 +24,6 @@
 #ifndef _PTSTITCHERPANEL_H
 #define _PTSTITCHERPANEL_H
 
-
-#include "wx/frame.h"
-#include "wx/spinbutt.h"
-
 #include "hugin/StitcherPanel.h"
 //#include "hugin/MainFrame.h"
 

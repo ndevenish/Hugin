@@ -24,8 +24,6 @@
 #ifndef _IMAGECENTER_H
 #define _IMAGECENTER_H
 
-#include "wx/frame.h"
-
 class CenterCanvas;
 
 /** adjustment dialog

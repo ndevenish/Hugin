@@ -26,12 +26,6 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
-#include "wx/notebook.h"
-#include "wx/listctrl.h"
-#include "wx/process.h"
-#include "wx/txtstrm.h"
-#include "wx/dialog.h"
-#include "wx/file.h"
 
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"

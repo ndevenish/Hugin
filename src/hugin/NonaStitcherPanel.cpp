@@ -254,10 +254,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     wxLogError(_("No enblend.exe selected"));
                 }
             }
+            wxString args(enblendExe);
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
-#endif
             wxString args(quoteFilename(enblendExe));
+#endif
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces

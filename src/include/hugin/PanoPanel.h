@@ -24,10 +24,6 @@
 #ifndef _PANOPANEL_H
 #define _PANOPANEL_H
 
-
-#include "wx/frame.h"
-#include "wx/spinbutt.h"
-
 #include "hugin/MainFrame.h"
 
 //using namespace PT;

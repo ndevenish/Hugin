@@ -26,9 +26,6 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/spinctrl.h>
-#include <wx/imaglist.h>
 
 #include "hugin/ImagesList.h"
 #include "hugin/config.h"

@@ -24,10 +24,6 @@
 #ifndef _NONASTITCHERPANEL_H
 #define _NONASTITCHERPANEL_H
 
-
-#include "wx/frame.h"
-#include "wx/spinbutt.h"
-
 #include "hugin/StitcherPanel.h"
 //#include "hugin/MainFrame.h"
 

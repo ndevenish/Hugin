@@ -24,8 +24,6 @@
 #ifndef _RUNSTITCHERFRAME_H
 #define _RUNSTITCHERFRAME_H
 
-#include <wx/string.h>
-
 namespace PT {
     class Panorama;
 }
