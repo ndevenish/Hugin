@@ -83,8 +83,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	// set this smaller than one button at least or scrolling will not work
-    m_ButtonPanel->SetSize(wxSize(5, 5));
+	// set this width smaller than one button at least or scrolling will not work
+    m_ButtonPanel->SetSize(wxSize(20, 42));
 	m_ButtonPanel->SetScrollRate(10, 10);
     m_ButtonSizer = new wxBoxSizer(wxHORIZONTAL);
     m_ButtonPanel->SetAutoLayout(true);
@@ -342,6 +342,8 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
+				wxFileName tFilename(wxString (pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+				but->SetToolTip(tFilename.GetFullName());
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
                 // HACK.. set fixed width. that should work
@@ -349,12 +351,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // breaks on wxWin 2.5
                 but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
-				{
-				  wxSize m_tbSize = m_ButtonSizer->GetSize();
-				  // leave space for the scroll bar
-				  m_tbSize.SetHeight(sz.GetHeight() + 15);
-				  m_ButtonPanel->SetMinSize(m_tbSize);
-                }
 				m_ButtonSizer->Add(but,
                                          0,
                                          wxLEFT | wxADJUST_MINSIZE,
@@ -369,9 +365,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
 		Layout();
 		DEBUG_TRACE("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
-		DEBUG_TRACE("New m_ButtonPanel min width: " << (m_ButtonPanel->GetMinSize()).GetWidth());
 		DEBUG_TRACE("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
-		DEBUG_TRACE("New m_ButtonPanel min Height: " << (m_ButtonPanel->GetMinSize()).GetHeight());
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
