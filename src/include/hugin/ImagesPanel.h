@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
-/** @file MainFrame.h
+/** @file ImagesPanel.h
  *
- *  @author Pablo d'Angelo <pablo.dangelo@web.de>
+ *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
  *  $Id$
  *
@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef _MAINFRAME_H
-#define _MAINFRAME_H
+#ifndef _IMAGESPANEL_H
+#define _IMAGESPANEL_H
 
 
 #include "wx/frame.h"
@@ -34,28 +34,17 @@ using namespace PT;
 
 // forward declarations, to save the #include statements
 class CPEditorPanel;
+
+// Define a new area
 class ImgPreview;
-class ImagesPanel;
 
-/** The main window frame.
- *
- *  It contains the menu & statusbar and a big notebook with
- *  the different tabs. It also holds the Panorama model.
- *
- *  it therefor also hold operations that determine the lifecycle
- *  of the panorama object (new, open, save, quit).
- */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public wxFileDropTarget
+// Define the first panel - the one for image selection into Panorama
+class ImagesPanel: public wxPanel
 {
-public:
-
-    /** ctor.
-     */
-    MainFrame(wxWindow* parent=(wxWindow *)NULL);
-
-    /** dtor.
-     */
-    virtual ~MainFrame();
+ public:
+    ImagesPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
+                 Panorama * pano );
+    ~ImagesPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *
@@ -74,26 +63,10 @@ public:
      */
     virtual void panoramaChanged(PT::Panorama &pano);
 
-    /** file drag and drop handler method */
-    bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
-private:
-
+ private:
     // event handlers
-    void OnExit(wxCommandEvent & e);
-    void OnAbout(wxCommandEvent & e);
-    void OnUndo(wxCommandEvent & e);
-    void OnRedo(wxCommandEvent & e);
-    void OnSaveProject(wxCommandEvent & e);
-    void OnLoadProject(wxCommandEvent & e);
-    void OnNewProject(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
-    void OnTextEdit(wxCommandEvent & e);
-    void UpdatePanels(wxCommandEvent & e);
-
-
-    ImagesPanel * images_panel;
-    CPEditorPanel * cpe;
 
     // the model
     Panorama pano;
@@ -101,8 +74,23 @@ private:
     // Image Preview
     ImgPreview *canvas;
 
+    // pointer to the list control
+    wxListCtrl* images_list;
+
     DECLARE_EVENT_TABLE()
 };
 
+//------------------------------------------------------------------------------
 
-#endif // _MAINFRAME_H
+// Define a new canvas which can receive some events
+class ImgPreview: public wxScrolledWindow
+{
+ public:
+    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size);
+    ~ImgPreview(void) ;
+
+    void OnDraw(wxDC& dc);
+    //void OnPaint(wxPaintEvent& event);
+};
+
+#endif // _IMAGESPANEL_H

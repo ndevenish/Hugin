@@ -43,6 +43,7 @@
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "PT/Panorama.h"
@@ -74,7 +75,7 @@ END_EVENT_TABLE()
 // change this variable definition
 //wxTextCtrl *itemProjTextMemo;
 // image preview
-wxBitmap *p_img = (wxBitmap *) NULL;
+//wxBitmap *p_img = (wxBitmap *) NULL;
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent)
@@ -97,59 +98,40 @@ MainFrame::MainFrame(wxWindow* parent)
                wxT("images_panel_unknown"),
                wxXmlResource::Get()->LoadPanel (this, wxT("images_panel")) );
 
-  DEBUG_INFO(__FUNCTION__)
-    wxListCtrl* images_list;
-    images_list = XRCCTRL(*this, "images_list", wxListCtrl);
-
-    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_LEFT, 25 );
-    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
-    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_LEFT, 60 );
-    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_LEFT, 60 );
-    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_LEFT, 30 );
-
-    // (2) Insert some items into the listctrl
-/*    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(0,wxT("0"),0);
-    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(0,1,"Todd Hope");
-    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(1,wxT("1"),0);
-    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(1,1,"Kim Wynd");
-    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(2,wxT("2"),0);
-    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(2,1,"Leon Li");
-*/
+    // finish the images_panel
+    images_panel = new ImagesPanel( this, wxDefaultPosition,
+                                                 wxDefaultSize, &pano);
 
     // create the custom widget referenced by the main_frame XRC
+    DEBUG_INFO(__FUNCTION__)
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
+    DEBUG_INFO(__FUNCTION__)
+
     // set the minimize icon
     SetIcon(wxICON(gui));
+    DEBUG_INFO(__FUNCTION__)
 
     // set ourselfs as our dnd handler
     // lets hope wxwindows doesn't try to delete the drop handlers
     SetDropTarget(this);
+    DEBUG_INFO(__FUNCTION__)
 
     // create a status bar
     // I hope that we can also add other widget (like a
     // progress dialog to the status bar
     CreateStatusBar(1);
     SetStatusText("Started");
+    DEBUG_INFO(__FUNCTION__)
 
     // observe the panorama
     pano.setObserver(this);
-
-    // Image Preview
-  DEBUG_INFO(__FUNCTION__)
-    //p_img = new wxBitmap( 128, 128 );
-    wxPanel * img_p = XRCCTRL(*this, "img_preview_unknown", wxPanel);
-//    wxPaintDC dc (img_p);
-//    dc = dc_;
-//    dc.SetPen(* wxRED_PEN);
-//    dc.DrawLine(45, 0, 45, 100);
-
-    canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
+    DEBUG_INFO(__FUNCTION__)
 
     // show the frame.
     Show(TRUE);
-  DEBUG_INFO(__FUNCTION__)
+    DEBUG_INFO(__FUNCTION__)
 }
 
 MainFrame::~MainFrame()
@@ -162,6 +144,7 @@ void MainFrame::panoramaChanged(PT::Panorama &panorama)
     DEBUG_TRACE("panoramaChanged");
     assert(&pano == &panorama);
     cpe->panoramaChanged(pano);
+    images_panel->panoramaChanged (pano);
 }
 
 
@@ -283,8 +266,6 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
         "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
     if (dlg->ShowModal() == wxID_OK) {
-      // get the list to write to
-      wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
       // get the selections
       wxArrayString Filenames;
       wxArrayString Pathnames;
@@ -293,65 +274,20 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
 
       // we got some images to add.
-      if (Filenames.GetCount() > 0) {
+      if (Pathnames.GetCount() > 0) {
           // use a Command to ensure proper undo and updating of GUI
           // parts
           std::vector<std::string> filesv;
-          for (unsigned int i=0; i< Filenames.GetCount(); i++) {
-              filesv.push_back(Filenames[i].c_str());
+          for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
+              filesv.push_back(Pathnames[i].c_str());
+              // fill the statusline
+              sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
           }
           GlobalCmdHist::getInstance().addCommand(
               new PT::AddImagesCmd(pano,filesv)
               );
       }
-
-      // remember the added images;
-      // FIXME: do not update the view here.
-      // the panorama should will call panoramaChanged or
-      // panoramaImageAdded whenever an image has been added
-      //
-      // other parts that might add images do not know what needs
-      // to be updated.
-      int added ( pano.getNrOfImages() );
-      // start the loop for every selected filename
-      for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
-        // fill in the table
-        DEBUG_INFO(__FUNCTION__)
-        char Nr[8] ;
-        sprintf(Nr ,"%d", pano.getNrOfImages()+1);
-        lst->InsertItem ( pano.getNrOfImages(), Nr );
-        lst->SetItem ( pano.getNrOfImages(), 1, Filenames[i] );
-        wxImage img (Pathnames[i]);
-        sprintf(Nr, "%d", img.GetHeight() );
-        lst->SetItem ( pano.getNrOfImages(), 2, Nr );
-        sprintf(Nr, "%d", img.GetWidth() );
-        lst->SetItem ( pano.getNrOfImages(), 3, Nr );
-        sprintf(Nr, "%d", img.GetImageCount (Pathnames[i]) );
-        lst->SetItem ( pano.getNrOfImages(), 4, Nr );
-
-        // preview first selected image
-        if ( i == 0 ) { // taking only the first one
-          wxImage s_img;
-          if ( img.GetHeight() > img.GetWidth() ) {
-            s_img = img.Scale(
-                 (int)((float)img.GetWidth()/(float)img.GetHeight()*128.0),128);
-          } else {
-            s_img = img.Scale(
-                 128,(int)((float)img.GetHeight()/(float)img.GetWidth()*128.0));
-          }
-          delete p_img;
-          p_img = new wxBitmap(s_img);
-        }
-
-        sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
-        added++;
-        DEBUG_INFO(__FUNCTION__)
-      }
       SetStatusText( e_stat, 0);
-
-      // update CP panel
-      // do not call this by hand. the pano will do this!
-//      cpe->ImagesAdded(pano, added);
 
       // d There we are now?
       wxString str;
@@ -363,7 +299,6 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       // nothing to open
       SetStatusText( _("Add Image: cancel"));
     }
-    canvas->Refresh();
     // f restore the path previous this dialog
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
@@ -391,6 +326,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     removed[0] = 0;
     int i (0);
     // for each selected item remove the entry from list and pano
+    std::vector<std::string> filesv;
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
         i++;
@@ -467,7 +403,7 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 /*BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
     EVT_PAINT(ImgPreview::OnPaint)
 END_EVENT_TABLE()
-*/
+
 // Define a constructor for my canvas
 ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
  wxScrolledWindow(parent, -1, pos, size)
@@ -494,8 +430,11 @@ void ImgPreview::OnDraw(wxDC & dc)
     dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
       0, 0, wxCOPY, TRUE);
 
+    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE); 
+
     DEBUG_INFO(__FUNCTION__)
     memDC.SelectObject(wxNullBitmap);
   }
 }
+*/
 

@@ -84,8 +84,15 @@ APPS = 1
 # App 1
 
 APP_1_BIN = hugin
-APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o \
-            ImageCache.o CommandHistory.o $(RES_O)
+APP_1_OBJ = huginApp.o \
+            MainFrame.o \
+            CPImageCtrl.o \
+            CPEditorPanel.o \
+            ImagesPanel.o \
+            ImageCache.o \
+            CommandHistory.o \
+            $(RES_O)
+
 APP_1_LFLAGS = $(LFLAGS)
 
 # ====================================================================
@@ -115,7 +122,8 @@ TEST_1_LFLAGS = $(TEST_LFLAGS)
 # ====================================================================
 
 #INCL_RESOURCES_FLAG = -D_INCLUDE_UI_RESOURCES
-RESOURCES = xrc/*.xrc xrc/data/about.htm
+RESOURCES = xrc/*.xrc \
+            xrc/data/about.htm
 
 ifdef INCL_RESOURCES_FLAG
 RES_O = resource.o
