@@ -102,12 +102,12 @@ ImgCenter::ImgCenter(wxWindow *parent)
     m_autocenter_cb = new wxCheckBox(this, ID_CB_AUTOCENTER, _("Always center Crop on d,e"));
     buttonSizer->Add(m_autocenter_cb);
 
-    wxButton * but_OK = new wxButton(this, wxID_OK);
+    wxButton * but_OK = new wxButton(this, wxID_OK,_("Ok"));
     buttonSizer->Add(but_OK);
 
 
 
-    wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL);
+    wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL, _("Cancel"));
     buttonSizer->Add(but_CANCEL);
 
     topsizer->Add(buttonSizer,
