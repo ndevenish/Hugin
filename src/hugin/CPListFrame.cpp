@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -398,7 +399,7 @@ void CPListFrame::updateList()
 
     // sort by number, else the updating will shuffle the selected points..
     // it seems that the list is traversed in order it is visible on screen
-    
+
     m_sortCol = 0;
     m_sortAscend = true;
     SortList();
@@ -417,7 +418,7 @@ void CPListFrame::updateList()
         cpv[i] = make_pair(i,cps[i]);
     }
 #endif
-    
+
     m_sortCol = sortCol;
     m_sortAscend = sortAscend;
     SortList();

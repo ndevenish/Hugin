@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
@@ -60,7 +61,7 @@ void transforms_test()
                             vars, Lens::RECTILINEAR,
                             Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
                             360);
-    
+
     SpaceTransform invTrans;
     PTools::Transform ptInvTrans;
     invTrans.createInvTransform(Diff2D(width, height),

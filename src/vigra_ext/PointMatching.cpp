@@ -25,6 +25,7 @@
  */
 
 
+#include <config.h>
 #include "vigra_ext/PointMatching.h"
 
 #include "common/utils.h"

@@ -1,7 +1,7 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
 
-INCLUDES = -I${top_srcdir}/src/foreign
+INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign
 AM_CXXFLAGS = $(JPEG_FLAG) $(PNG_FLAG) $(TIFF_FLAG)
 
 noinst_LTLIBRARIES = libvigra_impex.la

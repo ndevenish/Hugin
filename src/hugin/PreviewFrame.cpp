@@ -30,6 +30,8 @@
 #define USE_TOGGLE_BUTTON 1
 #endif
 
+#include <config.h>
+
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -135,34 +137,34 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
-    
+
     wxStaticBoxSizer * blendModeSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("Preview Options")),
         wxHORIZONTAL);
-    
+
     blendModeSizer->Add(new wxStaticText(this, -1, _("Blend mode:")),
                         0,        // not vertically strechable
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
-    
+
     m_choices[0] = _("normal");
     m_choices[1] = _("difference");
     m_choices[2] = _("seams");
-    
+
     int oldMode = wxConfigBase::Get()->Read("/PreviewFrame/blendMode", 0l);
     DEBUG_ASSERT(oldMode >= 0 && oldMode < 3);
     m_BlendModeChoice = new wxChoice(this, -1,
                                      wxDefaultPosition, wxDefaultSize,
                                      3, m_choices);
     m_BlendModeChoice->SetSelection((PreviewPanel::BlendMode) oldMode);
-    
+
     blendModeSizer->Add(m_BlendModeChoice,
                         0,
                         wxALL | wxALIGN_CENTER_VERTICAL,
                         5);
-    
+
     topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
-    
+
 
     wxConfigBase * config = wxConfigBase::Get();
     long showDruid = config->Read("/PreviewFrame/showDruid",1l);
@@ -477,7 +479,7 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
     } else {
         DEBUG_WARN("wxChoice event from unknown object received");
     }
-        
+
 }
 
 //////////////////////////////////////////////////////////////////////////////

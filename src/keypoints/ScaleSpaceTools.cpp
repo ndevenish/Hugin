@@ -10,6 +10,8 @@
  *
  */
 
+#include <config.h>
+
 #include "keypoints/ScaleSpace.h"
 
 void OrientationVector::AddOrientation( float rad_angle, float value )

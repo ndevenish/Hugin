@@ -2,10 +2,11 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <26-Mai-2004 17:12:23 pablo@svalbart>
+// Last change: Time-stamp: <27-Okt-2004 19:05:03 pablo@svalbart>
 //
 //
 
+#include <config.h>
 #include <stdio.h>
 #include <math.h>
 //#include <setjmp.h>
@@ -141,7 +142,7 @@ bool PanoImage::readImageInformation()
 //  width = image->GetWidth();
 //  height = image->GetHeight();
 
-  
+
   try {
       // find another platform independant way to read the image info..
       Magick::Image img;
@@ -153,7 +154,7 @@ bool PanoImage::readImageInformation()
                    << ": " << e.what());
       return false;
   }
-  
+
 //  isLandscape = (width > height);
   return true;
 }

@@ -20,6 +20,7 @@
 /*                                                                      */
 /************************************************************************/
 
+#include <config.h>
 #include <fstream>
 #include <stdexcept>
 #include <vector>

@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include <fstream>
 
 #include "PT/PTOptimise.h"

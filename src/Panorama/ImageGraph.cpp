@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include <PT/ImageGraph.h>
 
 #include <vigra_ext/ImageTransforms.h>
@@ -77,7 +78,7 @@ struct OverlapSizeCounter
     OverlapSizeCounter()
 	: count(0)
     { }
-    
+
     template<typename PIXEL>
     void operator()(PIXEL const & img1, PIXEL const & img2)
     {
@@ -87,8 +88,8 @@ struct OverlapSizeCounter
     }
 
     int getCount()
-    { 
-	return count; 
+    {
+	return count;
     }
 
     int count;

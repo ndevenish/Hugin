@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 #include "common/graph.h"
 
 using namespace utils;

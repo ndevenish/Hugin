@@ -5,7 +5,7 @@ AC_PREREQ(2.5)
 AC_INIT([hugin], [0.4], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
-AC_CONFIG_HEADER([src/hugin/config.h])
+AC_CONFIG_HEADER([src/include/config.h])
 AM_INIT_AUTOMAKE([no-define dist-bzip2 dist-zip])
 
 dnl By default, do not create shared libraries
@@ -180,9 +180,9 @@ else
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
 fi	
 
-dnl  
+dnl
 dnl Remove extraneous spaces from output variables (aesthetic)
-dnl  
+dnl
 CC=`echo $CC | sed -e 's/  */ /g'`
 CFLAGS=`echo $CFLAGS | sed -e 's/  */ /g'`
 CPPFLAGS=`echo $CPPFLAGS | sed -e 's/  */ /g'`

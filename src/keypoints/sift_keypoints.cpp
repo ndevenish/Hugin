@@ -17,6 +17,8 @@
  * For more information, see the LICENSE file supplied with the distribution.
  */
 
+#include <config.h>
+
 #include <math.h>
 #include <iostream>
 #include <queue>

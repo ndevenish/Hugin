@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
@@ -39,7 +40,7 @@ void test_quote()
     string a("normal,string");
     string a_(quoteString(a));
     BOOST_CHECK_EQUAL(a, a_);
-    
+
     string b("test  space");
     string b_(quoteString(b));
     string bq("test\\ \\ space");

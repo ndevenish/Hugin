@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 //Mac bundle code by Ippei
 #ifdef __WXMAC__
 #include <CFBundle.h>

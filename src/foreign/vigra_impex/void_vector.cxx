@@ -20,7 +20,10 @@
 /*                                                                      */
 /************************************************************************/
 
+#include <config.h>
+
 #include "void_vector.hxx"
+
 
 namespace vigra
 {

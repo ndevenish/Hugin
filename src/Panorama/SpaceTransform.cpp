@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include <math.h>
 
 #include "common/utils.h"

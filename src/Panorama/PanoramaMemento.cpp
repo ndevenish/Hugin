@@ -26,6 +26,7 @@
 
 
 
+#include <config.h>
 #include <jhead/jhead.h>
 
 #include <common/utils.h>

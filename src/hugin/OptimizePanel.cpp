@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -276,35 +277,35 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         } else {
             m_v_list->SetString(i,wxString::Format("%d",nr));
         }
-        
+
         const LensVariable & a = const_map_get(lens.variables,"a");
         if (a.isLinked()) {
             m_a_list->SetString(i,wxString::Format("%d (%.3f)",i, a.getValue()));
         } else {
             m_a_list->SetString(i,wxString::Format("%d",nr));
         }
-        
+
         const LensVariable & b = const_map_get(lens.variables,"b");
         if (b.isLinked()) {
             m_b_list->SetString(i,wxString::Format("%d (%.3f)",i, b.getValue()));
         } else {
             m_b_list->SetString(i,wxString::Format("%d",nr));
         }
-        
+
         const LensVariable & c = const_map_get(lens.variables,"c");
         if (c.isLinked()) {
             m_c_list->SetString(i,wxString::Format("%d (%.3f)",i, c.getValue()));
         } else {
             m_c_list->SetString(i,wxString::Format("%d",nr));
         }
-        
+
         const LensVariable & d = const_map_get(lens.variables,"d");
         if (d.isLinked()) {
             m_d_list->SetString(i,wxString::Format("%d (%.1f)",i, d.getValue()));
         } else {
             m_d_list->SetString(i,wxString::Format("%d",nr));
         }
-        
+
         const LensVariable & e = const_map_get(lens.variables,"e");
         if (e.isLinked()) {
             m_e_list->SetString(i,wxString::Format("%d (%.1f)",i, e.getValue()));
@@ -312,7 +313,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
             m_e_list->SetString(i,wxString::Format("%d",nr));
         }
     }
-    
+
     // update automatic checkmarks
     wxCommandEvent dummy;
     dummy.m_commandInt = m_mode_cb->GetSelection();

@@ -10,6 +10,8 @@
  *
  */
 
+#include <config.h>
+
 #include "keypoints/ScaleSpace.h"
 
 // ====================================================

@@ -5,7 +5,7 @@
  *  @brief a simple program to undistort images using the zhang model,
  *         see CamChecker for a calibration program.
  *         http://www.loper.org/~matt/CamChecker/CamChecker_docs/html/index.html
- *         
+ *
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -27,6 +27,7 @@
  *
  */
 
+#include <config.h>
 #include <fstream>
 #include <sstream>
 

@@ -25,6 +25,7 @@
  */
 
 
+#include <config.h>
 #include "panoinc_WX.h"
 
 #include "hugin/MyProgressDialog.h"

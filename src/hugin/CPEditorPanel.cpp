@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 #include "panoinc_WX.h"
 // hugin's
 #include "hugin/huginApp.h"

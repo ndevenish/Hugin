@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -172,7 +173,7 @@ void PreferencesDialog::UpdateDisplayData()
 
     MY_SPIN_VAL("prefs_ft_RotationSteps", cfg->Read("/Finetune/RotationSteps",
                                             HUGIN_FT_ROTATION_STEPS));
-    
+
     /////
     /// MISC
 
@@ -183,7 +184,7 @@ void PreferencesDialog::UpdateDisplayData()
     // cursor setting
     mem = cfg->Read("/CPImageCtrl/CursorType", HUGIN_CP_CURSOR);
     MY_SPIN_VAL("prefs_cp_CursorType", mem);
-    
+
     // tempdir
     MY_STR_VAL("prefs_misc_tempdir", cfg->Read("tempDir",""));
 
@@ -192,7 +193,7 @@ void PreferencesDialog::UpdateDisplayData()
 
     // active autopano
     MY_CHOICE_VAL("prefs_AutoPanoType", cfg->Read("/AutoPano/Type", HUGIN_AP_TYPE));
-    
+
     // Autopano-SIFT
     MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read("/AutoPanoSift/AutopanoExe",
                                                   HUGIN_APSIFT_EXE));
@@ -205,15 +206,15 @@ void PreferencesDialog::UpdateDisplayData()
     MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read("/AutoPanoKolor/AutopanoArgs",
                                                    HUGIN_APKOLOR_ARGS));
 
-    
+
     /////
     /// ENBLEND
     MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read("/Enblend/EnblendExe",
                                                      HUGIN_ENBLEND_EXE));
     MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read("/Enblend/EnblendArgs",
                                                       HUGIN_ENBLEND_ARGS));
-    
-    
+
+
 }
 
 void PreferencesDialog::UpdateConfigData()
@@ -246,7 +247,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write("/CPImageCtrl/CursorType", MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write("tempDir",MY_G_STR_VAL("prefs_misc_tempdir"));
-    
+
     /////
     /// AUTOPANO
     cfg->Write("/AutoPano/Type",MY_G_CHOICE_VAL("prefs_AutoPanoType"));
@@ -256,8 +257,8 @@ void PreferencesDialog::UpdateConfigData()
 
     cfg->Write("/AutoPanoKolor/AutopanoExe",MY_G_STR_VAL("prefs_AutoPanoKolorExe"));
     cfg->Write("/AutoPanoKolor/AutopanoArgs",MY_G_STR_VAL("prefs_AutoPanoKolorArgs"));
-    
-    
+
+
     /////
     /// ENBLEND
     cfg->Write("/Enblend/EnblendExe", MY_G_STR_VAL("prefs_enblend_EnblendExe"));

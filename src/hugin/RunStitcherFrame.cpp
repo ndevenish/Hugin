@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -266,7 +268,7 @@ void RunStitcherFrame::OnProcessTerm(wxProcessEvent& event)
 #else
     Show();
 #endif
-    
+
     if (event.GetExitCode() != 0) {
         wxMessageBox(_("Stitching failed\nPTStitcher exited with nonzero error code."),
                      _("Error executing PTStitcher.exe"), wxICON_ERROR | wxOK);

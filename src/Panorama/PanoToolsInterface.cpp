@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 //#include "panoinc.h"
 
 #include "common/utils.h"

@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "panoinc.h"
 #include "PT/SimpleStitcher.h"
 #include "PT/PhaseCorrelation.h"
@@ -66,17 +67,17 @@ int main(int argc, char *argv[])
         usage(argv[0]);
         return 1;
     }
-  
+
     BImage first;
     loadBImage(first,argv[1]);
     BImage second;
     loadBImage(second, argv[2]);
-  
+
     // create fftw plans, they are the same for all images
     fftwnd_plan fftw_p, fftw_pinv;
     fftw_p    = fftw2d_create_plan(first.width(), first.height(), FFTW_FORWARD, FFTW_ESTIMATE);
     fftw_pinv = fftw2d_create_plan(first.width(), first.height(), FFTW_BACKWARD, FFTW_ESTIMATE);
-  
+
 
     FDiff2D transl = PT::phaseCorrelation(srcImageRange(first),
                                           srcImageRange(second),

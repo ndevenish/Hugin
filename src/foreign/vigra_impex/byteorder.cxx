@@ -1,3 +1,4 @@
+#include <config.h>
 #include <algorithm>
 #include <stdexcept>
 #include "byteorder.hxx"

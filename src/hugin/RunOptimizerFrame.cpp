@@ -24,6 +24,8 @@
  *
  */
 
+#include <config.h>
+
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -178,7 +180,7 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     while ( m_process->IsInputOpened() && m_process->IsInputAvailable() ){
         line = m_in->ReadLine();
         DEBUG_DEBUG("read line: " << line);
-        
+
         // Strategy 2
         wxRegEx reStrat("^Strategy ([0-9]+)");
         if (reStrat.Matches(line)) {
@@ -189,7 +191,7 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         } else {
 //            DEBUG_DEBUG("not a strategy line");
         }
-        
+
         // after 1 iteration(s):          1.52168682328884
         wxRegEx reLine("after +([0-9]*) +iter.*:[\t ]*([0-9,.]+) ");
         if ( reLine.Matches(line) )

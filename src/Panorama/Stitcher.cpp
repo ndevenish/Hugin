@@ -23,6 +23,7 @@
  *
  */
 
+#include <config.h>
 #include <vigra/windows.h>
 #include <vigra/stdimage.hxx>
 

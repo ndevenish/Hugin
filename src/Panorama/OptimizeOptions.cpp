@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "OptimizeOptions.h"
 
 OptimizeOptions::OptimizeOptions()

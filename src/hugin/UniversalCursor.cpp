@@ -28,6 +28,7 @@
  */
 
 // standard wx include
+#include <config.h>
 #include "panoinc_WX.h"
 
 #include "common/utils.h"

@@ -25,6 +25,7 @@
  */
 
 // standard wx include
+#include <config.h>
 #include "panoinc_WX.h"
 
 // standard hugin include

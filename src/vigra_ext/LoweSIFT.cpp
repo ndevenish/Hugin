@@ -24,6 +24,7 @@
  *
  */
 
+#include <config.h>
 #include "vigra_ext/LoweSIFT.h"
 
 using namespace vigra_ext;

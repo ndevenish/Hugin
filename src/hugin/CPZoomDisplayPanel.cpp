@@ -25,6 +25,7 @@
  */
 
 // standard wx include
+#include <config.h>
 #include "panoinc_WX.h"
 
 // standard hugin include
@@ -67,7 +68,7 @@ CPZoomDisplayPanel::~CPZoomDisplayPanel()
 #if 0
 void CPZoomDisplayPanel::updateInternalOptim()
 {
-    
+
     DEBUG_TRACE("image: "<< m_imgNr << " point: " << m_point);
 
     wxConfigBase * config = wxConfigBase::Get();
