@@ -376,7 +376,7 @@ public:
 	ImageType pano(opts.width, opts.getHeight());
 	AlphaType panoMask(opts.width, opts.getHeight());
 
-        stitch(opts, imgSet, vigra::srcImageRange(pano), vigra::maskImage(panoMask));
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask));
 	
         std::string outputfile;
 	// save the remapped image
@@ -460,8 +460,8 @@ public:
 	// copy mask
 	vigra::copyImageIf(vigra::srcImageRange(blendImageMask), vigra::maskImage(blendImageMask), panoMask);
     }
-    
-    
+
+
     /** blend \p img into \p pano, using \p alpha mask and \p panoROI
      *
      *  updates \p pano, \p alpha and \p panoROI
