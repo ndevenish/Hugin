@@ -109,6 +109,14 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
+#if wxCHECK_VERSION(2,5,3)
+    m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
+    DEBUG_ASSERT(m_pano_ctrls);
+    m_pano_ctrls->SetSizeHints(20, 20);
+    m_pano_ctrls->FitInside();
+    m_pano_ctrls->SetScrollRate(10, 10);
+#endif
+
     // observe the panorama
     pano->addObserver (this);
 

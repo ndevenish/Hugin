@@ -5,7 +5,7 @@
       <object class="sizeritem">
         <object class="unknown" name="images_list_unknown"/>
         <option>1</option>
-        <flag>wxALL|wxEXPAND|wxGROW</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE|wxGROW</flag>
         <border>5</border>
         <minsize>295,-1</minsize>
       </object>
@@ -24,7 +24,7 @@
                       <label>Add individual images...</label>
                       <tooltip>load one or more photos for this project</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -32,7 +32,7 @@
                       <label>Add time-series of images...</label>
                       <tooltip>load a set of photos taken at the same time</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -41,7 +41,7 @@
                       <enabled>0</enabled>
                       <tooltip>load all photos stored in the same subdirectory</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -49,12 +49,12 @@
                       <label>Remove this image</label>
                       <tooltip>dismiss the current photo from this project</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -67,7 +67,7 @@
                       <style></style>
                       <tooltip>use currently selected image as anchor image. That is, do not optimize the (complete) position of this image.</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -75,14 +75,14 @@
                       <label>Adjust the anchor spot...</label>
                       <tooltip>opens a window to select the anchor orientation graphically</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticLine">
                       <style>wxLI_HORIZONTAL</style>
                     </object>
-                    <flag>wxEXPAND</flag>
+                    <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="images_color_anchor_button">
@@ -90,16 +90,16 @@
                       <enabled>0</enabled>
                       <tooltip>use the currently selected images as color correction anchor image</tooltip>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
@@ -125,25 +125,25 @@
                   <label>Create Ctrl Points</label>
                   <tooltip>Run external autopano program on the selected images</tooltip>
                 </object>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticLine">
                   <style>wxLI_VERTICAL</style>
                 </object>
-                <flag>wxEXPAND</flag>
+                <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxButton" name="images_remove_cp">
                   <label>Remove Points</label>
                   <tooltip>Remove control points connecting the selected images</tooltip>
                 </object>
-                <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxEXPAND</flag>
+            <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
@@ -164,7 +164,7 @@
                       <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set yaw for selected image(s)</tooltip>
                     </object>
-                    <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                    <flag>wxRIGHT|wxEXPAND|wxADJUST_MINSIZE|wxGROW</flag>
                     <minsize>55,20</minsize>
                   </object>
                   <object class="sizeritem">
@@ -179,7 +179,7 @@
                       <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set pitch for selected image(s)</tooltip>
                     </object>
-                    <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                    <flag>wxRIGHT|wxEXPAND|wxADJUST_MINSIZE|wxGROW</flag>
                     <minsize>55,20</minsize>
                   </object>
                   <object class="sizeritem">
@@ -194,7 +194,7 @@
                       <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set roll for selected image(s)</tooltip>
                     </object>
-                    <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                    <flag>wxRIGHT|wxEXPAND|wxADJUST_MINSIZE|wxGROW</flag>
                     <border>5</border>
                     <minsize>55,20</minsize>
                   </object>
@@ -203,15 +203,15 @@
                       <label>Reset</label>
                       <tooltip>Reset position of selected image(s)</tooltip>
                     </object>
-                    <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                 </object>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE|wxGROW</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
@@ -226,16 +226,16 @@
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
             </object>
             <option>1</option>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
       </object>
       <orient>wxHORIZONTAL</orient>
     </object>

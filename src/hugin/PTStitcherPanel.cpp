@@ -459,7 +459,11 @@ void PTStitcherPanel::OnFeatherWidthChanged(wxSpinEvent & e)
 
 void PTStitcherPanel::FitParent( wxSizeEvent & e )
 {
+#if wxCHECK_VERSION(2,5,3)
+    wxSize size = GetClientSize();
+#else
     wxSize size = GetSize();
+#endif
     DEBUG_INFO( "after  layout:" << size.GetWidth() <<"x"<< size.GetHeight());
     size = GetAdjustedBestSize();
     DEBUG_INFO( "after  layout a:" << size.GetWidth() <<"x"<< size.GetHeight());

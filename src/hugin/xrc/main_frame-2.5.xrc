@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="main_frame">
+    <title>Hugin - Panorama Tools Frontend</title>
+    <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxMAXIMIZE_BOX</style>
+    <centered>1</centered>
+    <object class="wxFlexGridSizer">
+      <cols>1</cols>
+      <rows>0</rows>
+      <vgap>0</vgap>
+      <hgap>0</hgap>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+      <object class="sizeritem">
+        <option>1</option>
+        <flag>wxALL|wxGROW</flag>
+        <border>5</border>
+        <object class="wxNotebook" name="controls_notebook">
+          <usenotebooksizer>1</usenotebooksizer>
+          <object class="notebookpage">
+            <label>Images</label>
+            <object class="unknown" name="images_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Camera and Lens</label>
+            <object class="unknown" name="lens_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Control Points</label>
+            <object class="unknown" name="cp_editor_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Optimizer</label>
+            <object class="unknown" name="optimizer_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Stitcher</label>
+            <object class="unknown" name="panorama_panel_unknown"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</resource>

@@ -249,7 +249,7 @@ void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
 
 void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
 {
-	DEBUG_TRACE("Panotools Details Requested:\n" << m_PTDetails.mb_str());
+	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str());
 	wxMessageDialog dlg(this, m_PTDetails, _("Panotools details"), wxOK);
 	dlg.ShowModal();
 }
@@ -563,11 +563,10 @@ void PreferencesDialog::UpdateConfigData()
     // locale
     // language
     wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-	DEBUG_TRACE("Language Selection ID: " << (long)((int) lang->GetClientData(lang->GetSelection())));
+	DEBUG_INFO("Language Selection ID: " << (long)((int) lang->GetClientData(lang->GetSelection())));
 	// DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str());
-	DEBUG_TRACE("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
-	DEBUG_TRACE("Current Language ID: " << huginApp::Get()->GetLocale().GetLanguage());
-	DEBUG_TRACE("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
+	DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
+	DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
 
     cfg->Write(wxT("language"), (long)((int) lang->GetClientData(lang->GetSelection())));
     // cursor

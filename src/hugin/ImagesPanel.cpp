@@ -86,7 +86,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_TRACE("");
 
     wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
-    DEBUG_TRACE("");
 
     images_list = new ImagesListImage (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
@@ -104,6 +103,18 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_ASSERT(m_matchingButton);
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
+
+#if wxCHECK_VERSION(2,5,3)
+    m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
+    DEBUG_ASSERT(m_img_ctrls);
+    m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
+    DEBUG_ASSERT(m_img_splitter);
+
+    m_img_ctrls->FitInside();
+    m_img_ctrls->SetScrollRate(10, 10);
+    m_img_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300));
+    m_img_splitter->SetMinimumPaneSize(20);
+#endif
 
     // Image Preview
 
@@ -132,6 +143,13 @@ ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
 
+#if wxCHECK_VERSION(2,5,3)
+	int sashPos;
+	sashPos = m_img_splitter->GetSashPosition();
+    DEBUG_INFO("Image panel sash pos: " << sashPos);
+    wxConfigBase::Get()->Write(wxT("/ImageFrame/sashPos"), sashPos);
+#endif
+
     // FIXME crashes.. don't know why
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
@@ -146,9 +164,21 @@ ImagesPanel::~ImagesPanel(void)
 
 void ImagesPanel::FitParent( wxSizeEvent & e )
 {
+#if wxCHECK_VERSION(2,5,3)
+    int winWidth, winHeight;
+    GetClientSize(&winWidth, &winHeight);
+    // winHeight -= ConvertDialogToPixels(wxPoint(0, 30)).y;   // sizes of tabs and toolbar
+    XRCCTRL(*this, "images_panel", wxPanel)->SetSize (winWidth, winHeight);
+    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
+    m_img_splitter->SetSize( winWidth, winHeight );
+    m_img_splitter->GetWindow2()->GetSize(&winWidth, &winHeight);
+    DEBUG_INFO( "image controls: " << winWidth <<"x"<< winHeight );
+    m_img_ctrls->SetSize(winWidth, winHeight);
+#else
     wxSize new_size = GetSize();
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+#endif
 }
 
 

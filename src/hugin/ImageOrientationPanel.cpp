@@ -335,11 +335,11 @@ void ImageOrientationPanel::UpdateRoll(wxPoint p)
     double angle = atan2(diff.y, diff.x);
 
     double alpha = m_roll_display_start - angle;
-    DEBUG_TRACE("abs angle: " << RAD_TO_DEG(angle) << " diff: " << RAD_TO_DEG(alpha));
+    DEBUG_INFO("abs angle: " << RAD_TO_DEG(angle) << " diff: " << RAD_TO_DEG(alpha));
     double roll = m_roll_start + RAD_TO_DEG(alpha);
     map_get(m_vars,"r").setValue(roll);
 
-    DEBUG_TRACE("diff: " << diff.x << "," << diff.y << " -> roll: " << roll);
+    DEBUG_INFO("diff: " << diff.x << "," << diff.y << " -> roll: " << roll);
     updateTransforms();
     updateDisplay();
 

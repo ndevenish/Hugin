@@ -174,6 +174,14 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
+#if wxCHECK_VERSION(2,5,3)
+    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
+	DEBUG_ASSERT(m_cp_ctrls);
+	m_cp_ctrls->SetSizeHints(20, 20);
+	m_cp_ctrls->FitInside();
+	m_cp_ctrls->SetScrollRate(10, 10);
+#endif
+
     // apply selection from xrc file
     wxCommandEvent dummy;
     dummy.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();

@@ -129,7 +129,12 @@ private:
 
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;
-
+	
+#if wxCHECK_VERSION(2,5,3)
+	wxScrolledWindow *m_img_ctrls;
+	wxSplitterWindow *m_img_splitter;
+#endif
+	
     int m_degDigits;
 
     DECLARE_EVENT_TABLE()

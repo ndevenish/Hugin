@@ -71,7 +71,7 @@ ImgCenter::~ImgCenter(void)
 
 void ImgCenter::FitParent( wxSizeEvent & e )
 {
-    wxSize new_size = GetSize();
+    wxSize new_size = GetClientSize();
     XRCCTRL(*this, "image_center_dialog", wxPanel)->SetSize ( new_size );
     c_canvas->SetSize (XRCCTRL(*this, "image_center_view", wxPanel)->GetSize());
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );

@@ -193,17 +193,10 @@ bool huginApp::OnInit()
     /* end: Mac code by Ippei*/
 #endif
 
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_frame.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("image_center.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("nona_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("ptstitcher_panel.xrc"));
-//    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_list_frame.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_script_dialog.xrc"));
@@ -216,6 +209,22 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("keyboard_help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pref_dialog.xrc"));
+#if wxCHECK_VERSION(2,5,3)
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel-2.5.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel-2.5.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel-2.5.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_frame-2.5.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_panel-2.5.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel-2.5.xrc"));
+#else
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
+#endif
+
 #endif
 
     // create main frame

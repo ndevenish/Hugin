@@ -54,11 +54,11 @@
               <tooltip>execute the PTStitcher engine</tooltip>
             </object>
             <option>0</option>
-            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
         <border>5</border>
       </object>
       <object class="spacer">
@@ -92,12 +92,12 @@
                     <object class="wxButton" name="pano_button_calc_fov">
                       <label> Calculate Field of View </label>
                     </object>
-                    <flag>wxALIGN_RIGHT</flag>
+                    <flag>wxALIGN_RIGHT|wxADJUST_MINSIZE</flag>
                   </object>
                   <object class="spacer">
                     <size>0,0</size>
                     <option>1</option>
-                    <flag>wxEXPAND</flag>
+                    <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -116,11 +116,11 @@
                   <growablecols>3</growablecols>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
@@ -162,14 +162,14 @@
                   <label>Calculate Optimal Size</label>
                   <tooltip>calculate highest sensible width. (uses every image pixel)</tooltip>
                 </object>
-                <flag>wxALIGN_RIGHT</flag>
+                <flag>wxALIGN_RIGHT|wxADJUST_MINSIZE</flag>
               </object>
               <object class="spacer">
                 <size>0,0</size>
                 <option>1</option>
               </object>
             </object>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
@@ -203,7 +203,7 @@
               <object class="sizeritem">
                 <object class="unknown" name="pano_stitcher_unknown"/>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>

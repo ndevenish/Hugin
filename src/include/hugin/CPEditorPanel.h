@@ -237,6 +237,9 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
+#if wxCHECK_VERSION(2,5,3)
+	wxScrolledWindow *m_cp_ctrls;
+#endif
 
     // my data
     PT::Panorama * m_pano;

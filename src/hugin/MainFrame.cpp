@@ -187,7 +187,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #else
     m_xrcPrefix = m_xrcPrefix + wxT("/");
 #endif
-    DEBUG_TRACE("XRC prefix set to: " << m_xrcPrefix.mb_str());
+    DEBUG_INFO("XRC prefix set to: " << m_xrcPrefix.mb_str());
 
     /* start: Mac bundle code by Ippei*/
 #ifdef __WXMAC__
@@ -346,6 +346,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // observe the panorama
     pano.addObserver(this);
 
+    // Set sizing characteristics
+#if wxCHECK_VERSION(2,5,3)
+    SetSizeHints(600,400);
+#endif
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
     if (maximized) {
         this->Maximize();
@@ -620,7 +624,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
       dlg.SetFilterIndex(2);
     else if (img_ext == wxT("all"))
       dlg.SetFilterIndex(3);
-    DEBUG_TRACE ( "Image extention: " << img_ext.mb_str() )
+    DEBUG_INFO ( "Image extention: " << img_ext.mb_str() )
 
     // call the file dialog
     if (dlg.ShowModal() == wxID_OK) {
@@ -652,7 +656,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         SetStatusText( _("Add Image: cancel"));
     }
 
-    DEBUG_TRACE ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
+    DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
     // save the image extension
     switch ( dlg.GetFilterIndex() ) {
       case 0: config->Write(wxT("lastImageType"), wxT("jpg")); break;
@@ -745,7 +749,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         }
     }
 
-    DEBUG_TRACE("found " << filenames.size() <<
+    DEBUG_INFO("found " << filenames.size() <<
                 " candidate files to search.");
 
     // For each globbed or loaded file,
@@ -842,7 +846,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
     //if the language is not default, load custom About file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	DEBUG_INFO("Lang Code: " << langCode.mb_str());
 	if(langCode != wxString(wxT("en")))
 	{
 		strFile = m_xrcPrefix + wxT("data/about_") + langCode + wxT(".htm");
@@ -896,8 +900,8 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
     //if the language is not default, load custom tip file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
-	DEBUG_TRACE("Tip index: " << nValue);
+	DEBUG_INFO("Lang Code: " << langCode.mb_str());
+	DEBUG_INFO("Tip index: " << nValue);
 	if(langCode != wxString(wxT("en")))
 	{
 #ifdef UNICODE
@@ -911,13 +915,13 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 	if(!bTipsExist)
 		strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
 	
-	DEBUG_TRACE("Reading tips from " << strFile.mb_str());
+	DEBUG_INFO("Reading tips from " << strFile.mb_str());
 	wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
 	bShowAtStartup = wxShowTip(this, tipProvider);
 
 	//store startup preferences
 	nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
-	DEBUG_TRACE("Writing tip index: " << nValue);
+	DEBUG_INFO("Writing tip index: " << nValue);
     config->Write(wxT("/MainFrame/ShowStartTip"), nValue);
 	delete tipProvider;
 }
@@ -934,7 +938,7 @@ void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	DEBUG_INFO("Lang Code: " << langCode.mb_str());
 	if(langCode != wxString(wxT("en")))
 	{
 		strFile = m_xrcPrefix + wxT("data/keyboard_") + langCode + wxT(".html");
@@ -944,7 +948,7 @@ void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 	if(!bKBDExists)
 		strFile = m_xrcPrefix + wxT("data/keyboard.html");  //load default file
 
-	DEBUG_TRACE("Using keyboard help: " << strFile.mb_str());
+	DEBUG_INFO("Using keyboard help: " << strFile.mb_str());
     XRCCTRL(dlg,"keyboard_help_html",wxHtmlWindow)->LoadPage(strFile);
 
     dlg.ShowModal();
@@ -962,7 +966,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
 
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	DEBUG_INFO("Lang Code: " << langCode.mb_str());
 	if(langCode != wxString(wxT("en")))
 	{
 		strFile = m_xrcPrefix + wxT("data/FAQ_") + langCode + wxT(".html");

@@ -84,8 +84,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
-    m_ButtonPanel->SetSizeHints(-1, 42);
-	m_ButtonPanel->SetScrollRate(10, 10);
+    m_ButtonPanel->SetSizeHints(20, 42);
+	//Horizontal scroll bars only
+	m_ButtonPanel->SetScrollRate(10, 0);
     m_ButtonSizer = new wxBoxSizer(wxHORIZONTAL);
     m_ButtonPanel->SetAutoLayout(true);
 	m_ButtonPanel->SetSizer(m_ButtonSizer);
@@ -93,8 +94,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
         wxHORIZONTAL);
-	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND, 0);
-    topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 1);
+	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
+    topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 1);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -363,10 +364,10 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
     if (dirty) {
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
-		Layout();
-		DEBUG_TRACE("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
-		DEBUG_TRACE("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
-        DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
+		// Layout();
+		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
+		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
+        DEBUG_INFO("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
         if (m_druid) m_druid->Update(m_pano);

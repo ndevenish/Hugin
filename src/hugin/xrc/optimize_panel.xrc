@@ -38,11 +38,11 @@
               <tooltip>execute the PTOptimizer engine</tooltip>
             </object>
             <option>0</option>
-            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
         <border>5</border>
       </object>
       <object class="spacer">
@@ -71,7 +71,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -81,14 +81,14 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <object class="wxButton" name="opt_yaw_select">
                           <label>select</label>
                         </object>
-                        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_HORIZONTAL|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                       <object class="sizeritem">
                         <object class="wxButton" name="opt_yaw_clear">
                           <label>clear</label>
                         </object>
-                        <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                        <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                     </object>
@@ -96,7 +96,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -108,7 +108,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -118,14 +118,14 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <object class="wxButton" name="opt_pitch_select">
                           <label>select</label>
                         </object>
-                        <flag>wxLEFT|wxRIGHT</flag>
+                        <flag>wxLEFT|wxRIGHT|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                       <object class="sizeritem">
                         <object class="wxButton" name="opt_pitch_clear">
                           <label>clear</label>
                         </object>
-                        <flag>wxRIGHT</flag>
+                        <flag>wxRIGHT|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                     </object>
@@ -133,7 +133,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -145,7 +145,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -155,14 +155,14 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <object class="wxButton" name="opt_roll_select">
                           <label>select</label>
                         </object>
-                        <flag>wxLEFT|wxRIGHT</flag>
+                        <flag>wxLEFT|wxRIGHT|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                       <object class="sizeritem">
                         <object class="wxButton" name="opt_roll_clear">
                           <label>clear</label>
                         </object>
-                        <flag>wxRIGHT</flag>
+                        <flag>wxRIGHT|wxADJUST_MINSIZE</flag>
                         <border>5</border>
                       </object>
                     </object>
@@ -170,14 +170,14 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <orient>wxHORIZONTAL</orient>
               <label>Image Orientation</label>
             </object>
             <option>2</option>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>8</border>
           </object>
           <object class="sizeritem">
@@ -193,13 +193,13 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -211,13 +211,13 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -229,13 +229,13 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -247,13 +247,13 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -265,13 +265,13 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -283,18 +283,18 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <content/>
                     </object>
                     <option>1</option>
-                    <flag>wxALL|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>5</border>
               </object>
             </object>
             <option>1</option>
-            <flag>wxALL|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>8</border>
           </object>
           <object class="sizeritem">
@@ -306,7 +306,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
           </object>
         </object>
         <option>1</option>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
         <border>5</border>
       </object>
     </object>

@@ -140,6 +140,10 @@ public:
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
 
+#if wxCHECK_VERSION(2,5,3)
+	wxScrolledWindow *m_pano_ctrls;
+#endif
+
     StitcherPanel * m_Stitcher;
 
     DECLARE_EVENT_TABLE()
