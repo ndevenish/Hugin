@@ -3,22 +3,23 @@
 !define HUGIN_VERSION "0.4 beta"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 !define HAVE_MINGW
-!define NEW_INTERFACE
+;!define HUGIN_ALLINONE
 
-!ifdef NEW_INTERFACE
 ;--------------------------------
 ;Include Modern UI
 
   !include "MUI.nsh"
-
-!endif
 
 ;--------------------------------
 
 # [Installer Attributes]
 
 Name "${DISPLAY_NAME}"
+!ifdef HUGIN_ALLINONE
+OutFile "hugin-0.4_beta_allinone_setup.exe"
+!else
 OutFile "hugin-0.4_beta_setup.exe"
+!endif
 Caption "${DISPLAY_NAME}"
 
 # [Licence Attributes]
@@ -95,7 +96,20 @@ Section "Hugin program files"
   File "libpng12.dll"
   File "libtiff3.dll"
   File "zlib1.dll"
+  File "panoglview.exe"
   
+!ifdef HUGIN_ALLINONE
+  File "pano12.dll"
+  File "PTStitcher.exe"
+  File "PTOptimizer.exe"
+  File "autopano.exe"
+  File "enblend.exe"
+  WriteRegStr HKCU "Software\hugin\AutoPanoKolor" "AutopanoExe" "$INSTDIR\autopano.exe"
+  WriteRegStr HKCU "Software\hugin\Enblend" "EnblendExe" "$INSTDIR\enblend.exe"
+  WriteRegStr HKCU "Software\hugin\Panotools" "PTStitcherExe" "$INSTDIR\PTStitcher.exe"
+  WriteRegStr HKCU "Software\hugin\Panotools" "PTOptimizerExe" "$INSTDIR\PTOptimizer.exe"
+!endif
+
   SetOutPath "$INSTDIR\locale"
   File /r "locale\*"
   SetOutPath "$INSTDIR\xrc"
@@ -133,6 +147,7 @@ exists:
   CreateDirectory "$0\Hugin"
   SetOutPath $INSTDIR
   CreateShortCut "$0\Hugin\Hugin.lnk" "$INSTDIR\hugin.exe"
+  CreateShortCut "$0\Hugin\PanoGLView.lnk" "$INSTDIR\panoglview.exe"
   CreateShortCut "$0\Hugin\Uninstall Hugin.lnk" "$INSTDIR\uninstall.exe"
 SectionEnd
 
@@ -174,8 +189,17 @@ Section "Uninstall"
   Delete "$INSTDIR\libpng12.dll"
   Delete "$INSTDIR\libtiff3.dll"
   Delete "$INSTDIR\zlib1.dll"
+  Delete "$INSTDIR\panoglview.exe"
   Delete "$INSTDIR\uninstall.exe"
     
+!ifdef HUGIN_ALLINONE
+  Delete "$INSTDIR\pano12.dll"
+  Delete "$INSTDIR\PTStitcher.exe"
+  Delete "$INSTDIR\PTOptimizer.exe"
+  Delete "$INSTDIR\autopano.exe"
+  Delete "$INSTDIR\enblend.exe"
+!endif
+
   RMDir /r "$INSTDIR\locale"
   RMDir /r "$INSTDIR\xrc"
 
@@ -224,4 +248,3 @@ Function un.RefreshShellIcons
 FunctionEnd
 
 ;--------------------------------
-
