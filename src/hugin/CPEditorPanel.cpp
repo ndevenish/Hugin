@@ -300,7 +300,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::POINT_CHANGED:
     {
         DEBUG_DEBUG("move point("<< nr << ")");
-        if (nr < currentPoints.size()) {
+        if (nr >= currentPoints.size()) {
+            DEBUG_ERROR("invalid point number while moving point")
             return;
         }
         ControlPoint cp = currentPoints[nr].second;
@@ -316,6 +317,10 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         if (set_contains(mirroredPoints, nr)) {
             cp.mirror();
         }
+        
+        DEBUG_DEBUG("changing point to: " << cp.x1 << "," << cp.y1
+                    << "  " << cp.x2 << "," << cp.y2);
+        
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
             );
@@ -470,10 +475,10 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     m_selectedPoint = LVpointNr;
 
     const ControlPoint & p = currentPoints[LVpointNr].second;
-    m_x1Text->SetValue(wxString::Format("%.1f",p.x1));
-    m_y1Text->SetValue(wxString::Format("%.1f",p.y1));
-    m_x2Text->SetValue(wxString::Format("%.1f",p.x2));
-    m_y2Text->SetValue(wxString::Format("%.1f",p.y2));
+    m_x1Text->SetValue(wxString::Format("%.2f",p.x1));
+    m_y1Text->SetValue(wxString::Format("%.2f",p.y1));
+    m_x2Text->SetValue(wxString::Format("%.2f",p.x2));
+    m_y2Text->SetValue(wxString::Format("%.2f",p.y2));
     m_cpModeChoice->SetSelection(p.mode);
     m_leftImg->selectPoint(LVpointNr);
     m_rightImg->selectPoint(LVpointNr);
@@ -690,8 +695,9 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     wxMessageBox(e.what(), _("Error during Finetune"));
                 }
 
-                wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-                double thresh = utils::lexical_cast<double>(str);
+                double thresh=0.8;
+                thresh = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold", &thresh, 0.8);
+
                 if (xcorr < thresh) {
                     // low xcorr
                     // zoom to 100 percent. & set second stage
@@ -1111,10 +1117,10 @@ void CPEditorPanel::UpdateDisplay()
         const ControlPoint & p = currentPoints[i].second;
         DEBUG_DEBUG("inserting LVItem " << i);
         m_cpList->InsertItem(i,wxString::Format("%d",currentPoints[i].first));
-        m_cpList->SetItem(i,1,wxString::Format("%.1f",p.x1));
-        m_cpList->SetItem(i,2,wxString::Format("%.1f",p.y1));
-        m_cpList->SetItem(i,3,wxString::Format("%.1f",p.x2));
-        m_cpList->SetItem(i,4,wxString::Format("%.1f",p.y2));
+        m_cpList->SetItem(i,1,wxString::Format("%.2f",p.x1));
+        m_cpList->SetItem(i,2,wxString::Format("%.2f",p.y1));
+        m_cpList->SetItem(i,3,wxString::Format("%.2f",p.x2));
+        m_cpList->SetItem(i,4,wxString::Format("%.2f",p.y2));
         wxString mode;
         switch (p.mode) {
         case ControlPoint::X_Y:
@@ -1127,7 +1133,7 @@ void CPEditorPanel::UpdateDisplay()
             mode = _("horiz. Line");
         }
         m_cpList->SetItem(i,5,mode);
-        m_cpList->SetItem(i,6,wxString::Format("%.1f",p.error));
+        m_cpList->SetItem(i,6,wxString::Format("%.2f",p.error));
     }
     if ( selectedCP < (unsigned int) m_cpList->GetItemCount() ) { // sets an old selection again
         m_cpList->SetItemState( selectedCP,
@@ -1137,10 +1143,10 @@ void CPEditorPanel::UpdateDisplay()
         EnablePointEdit(true);
 
         const ControlPoint & p = currentPoints[m_selectedPoint].second;
-        m_x1Text->SetValue(wxString::Format("%.1f",p.x1));
-        m_y1Text->SetValue(wxString::Format("%.1f",p.y1));
-        m_x2Text->SetValue(wxString::Format("%.1f",p.x2));
-        m_y2Text->SetValue(wxString::Format("%.1f",p.y2));
+        m_x1Text->SetValue(wxString::Format("%.2f",p.x1));
+        m_y1Text->SetValue(wxString::Format("%.2f",p.y1));
+        m_x2Text->SetValue(wxString::Format("%.2f",p.x2));
+        m_y2Text->SetValue(wxString::Format("%.2f",p.y2));
         m_cpModeChoice->SetSelection(p.mode);
         m_leftImg->selectPoint(m_selectedPoint);
         m_rightImg->selectPoint(m_selectedPoint);
