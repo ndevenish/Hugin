@@ -39,8 +39,12 @@
 #endif
 
 // MainFrame
-extern    MainFrame * frame;
 // wxSocketServer
+
+// pointer to the main frame.. mainly used to set the status bar
+// messages. 
+extern MainFrame * g_MainFrame;
+
 extern    Server * server;
 
 
@@ -63,6 +67,9 @@ public:
     /** pseudo constructor. with the ability to fail gracefully.
      */
     virtual bool OnInit();
+    
+    /** just for testing purposes */
+    virtual int OnExit();
 
     /** create a default config.
      *
@@ -79,6 +86,13 @@ private:
 
     /** temporary working directory */
     wxString m_workDir;
+
+    MainFrame * frame;
+    
+    // the model
+    Panorama pano;
+
+
 };
 
 DECLARE_APP(huginApp)
