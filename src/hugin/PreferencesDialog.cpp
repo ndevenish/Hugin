@@ -203,7 +203,7 @@ void PreferencesDialog::UpdateDisplayData()
     // Autopano
     MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read("/AutoPanoKolor/AutopanoExe",
                                                   HUGIN_APKOLOR_EXE));
-    MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read("/AutoPanoKolor/AutopanoArgs",
+    MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read("/AutoPanoKolor/Args",
                                                    HUGIN_APKOLOR_ARGS));
 
 
@@ -253,10 +253,10 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write("/AutoPano/Type",MY_G_CHOICE_VAL("prefs_AutoPanoType"));
 
     cfg->Write("/AutoPanoSift/AutopanoExe",MY_G_STR_VAL("prefs_AutoPanoSIFTExe"));
-    cfg->Write("/AutoPanoSift/AutopanoArgs",MY_G_STR_VAL("prefs_AutoPanoSIFTArgs"));
+    cfg->Write("/AutoPanoSift/Args",MY_G_STR_VAL("prefs_AutoPanoSIFTArgs"));
 
     cfg->Write("/AutoPanoKolor/AutopanoExe",MY_G_STR_VAL("prefs_AutoPanoKolorExe"));
-    cfg->Write("/AutoPanoKolor/AutopanoArgs",MY_G_STR_VAL("prefs_AutoPanoKolorArgs"));
+    cfg->Write("/AutoPanoKolor/Args",MY_G_STR_VAL("prefs_AutoPanoKolorArgs"));
 
 
     /////
