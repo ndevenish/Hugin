@@ -1,4 +1,117 @@
-2004-10-12 06:27:02  dangelo  (dangelo)
+
+2004-10-14 06:41:13  dangelo  (dangelo)
+
+	* src/Panorama/Panorama.cpp: do not produce empty v lines in
+	PTOptimizer scripts
+
+	* src/hugin/ImageCenter.cpp, src/hugin/ImagesList.cpp,
+	src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
+	src/hugin/MainFrame.cpp, src/hugin/NonaStitcherPanel.cpp,
+	src/hugin/PTStitcherPanel.cpp, src/hugin/PanoPanel.cpp: include
+	new hugin/config.h file
+
+2004-10-13 16:53:09  dwilkins42  (dwilkins42)
+
+	* src/hugin/po/hugin.pot, src/hugin/po/de.po: Updated translations
+
+	* configure.ac: get the contact address right
+
+	* src/keypoints/.cvsignore, src/tools/.cvsignore: Update
+	.cvsignore
+
+	* src/include/vigra_ext/PointMatching.h: random_sample is only
+	available if gcc is used to compile or you have the STLport
+	Library installed
+
+	* .cvsignore, src/hugin/.cvsignore, src/hugin/xrc/Makefile,
+	src/hugin/xrc/data/Makefile: Remove last Makefiles and update
+	.cvsignore files
+
+	* m4/ax_boost_unit_test_framework.m4: Remove
+	m4/ax_boost_unit_test_framework.m4 (replaced by ax_rs_boost.m4)
+
+	* m4/ac_cxx_namespaces.m4: Remove m4/ac_cxx_namespaces.m4
+	(replaced by ax_cxx_namespaces.m4 for naming consistency)
+
+	* m4/ChangeLog: Remove m4/ChangeLog from CVS as it is generated
+	by gettext
+
+	* ABOUT-NLS: Remove ABOUT-NLS from CVS as it is generated
+	by gettext
+
+	* .cvsignore: Add .cvsignore for top directory
+
+	* src/hugin/.cvsignore, src/hugin/po/.cvsignore,
+	src/nona_gui/po/.cvsignore, ChangeLog, m4/.cvsignore: Add
+	ChangeLog. Update .cvsignore files for additional generated files
+
+	* bootstrap: Really make sure gettextize does not change anything
+
+	* src/hugin/PreviewFrame.cpp, src/hugin/PanoDruid.cpp: In the
+	po format, the empty string is reserved and has a special use
+
+2004-10-13 06:36:27  dangelo  (dangelo)
+
+	* bootstrap: also works with gettext 0.12.1
+
+2004-10-12 19:54:00  dangelo  (dangelo)
+
+	* src/Makefile.am: more automake stuff
+
+	* src/nona_gui/po/LINGUAS, src/nona_gui/po/Makevars,
+	src/nona_gui/po/POTFILES.in, src/nona_gui/po/de.po,
+	src/nona_gui/po/nona_gui.pot: more automake files
+
+	* src/hugin/po/Makefile: removed obselete makefile
+
+	* src/nona_gui/po/.cvsignore: po directory seems to be needed
+	by bootstrap
+
+	* m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
+	m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
+	m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
+	m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
+	m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
+	m4/xsize.m4: removed system .m4 macros
+
+	* src/tools/Makefile.am, src/vigra_ext/.cvsignore,
+	src/vigra_ext/Makefile, src/vigra_ext/Makefile.am,
+	src/keypoints/Makefile.am, src/klt/.cvsignore, src/klt/Makefile,
+	src/klt/Makefile.am, src/nona_gui/.cvsignore,
+	src/nona_gui/Makefile, src/nona_gui/Makefile.am,
+	src/tools/.cvsignore, src/tools/Makefile, src/jhead/.cvsignore,
+	src/jhead/Makefile, src/jhead/Makefile.am,
+	src/keypoints/.cvsignore, src/keypoints/Makefile,
+	src/hugin/xrc/data/.cvsignore, src/hugin/xrc/data/Makefile.am,
+	src/include/vigra_ext/.cvsignore, src/hugin/Makefile,
+	src/hugin/Makefile.am, src/hugin/po/.cvsignore,
+	src/hugin/po/LINGUAS, src/hugin/po/Makevars,
+	src/hugin/po/POTFILES.in, src/hugin/po/de.po,
+	src/hugin/po/hugin.pot, src/hugin/xrc/.cvsignore,
+	src/hugin/xrc/Makefile.am, src/common/.cvsignore,
+	src/common/Makefile, src/common/Makefile.am,
+	src/foreign/.cvsignore, src/foreign/Makefile,
+	src/foreign/Makefile.am, src/foreign/vigra_impex/.cvsignore,
+	src/foreign/vigra_impex/Makefile,
+	src/foreign/vigra_impex/Makefile.am, src/hugin/.cvsignore,
+	src/PanoImage/.cvsignore, src/Panorama/.cvsignore,
+	src/Panorama/Makefile, src/Panorama/Makefile.am,
+	m4/.cvsignore, m4/ChangeLog, m4/ac_cxx_namespaces.m4,
+	m4/ax_boost_unit_test_framework.m4, m4/ax_check_graphics.m4,
+	m4/ax_check_panotools.m4, m4/ax_check_wx_gtk.m4,
+	m4/ax_cxx_namespaces.m4, m4/ax_fftw.m4, m4/ax_gtk-2.0.m4,
+	m4/ax_gtk.m4, m4/ax_rs_boost.m4, m4/ax_wxwin.m4,
+	m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
+	m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
+	m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
+	m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
+	m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
+	m4/xsize.m4, src/.cvsignore, src/Makefile, ABOUT-NLS, HACKING,
+	NEWS, bootstrap, configure.ac: really added automake stuff..
 
 	* configure: removed configure, it is created from configure.ac
 
@@ -2073,58 +2186,6 @@
 	* src/hugin/ImageCache.cpp, src/hugin/po/de.po,
 	src/hugin/xrc/images_panel.xrc, src/hugin/xrc/pano_panel.xrc:
 	- deutsch update - Panorama tab layout
-
-2003-10-13 22:06:43  dangelo  (dangelo)
-
-	* src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	 src/hugin/MainFrame.cpp, src/hugin/PreviewFrame.cpp,
-	 src/hugin/PreviewPanel.cpp, src/hugin/Server.cpp,
-	 src/hugin/huginApp.cpp, src/hugin/xrc/images_panel.xrc,
-	 src/hugin/xrc/preview_frame.xrc, src/include/hugin/MainFrame.h,
-	 src/include/hugin/PreviewFrame.h, src/include/hugin/huginApp.h:
-	 - replaced global g_MainFrame variable with a static Get()
-	 function - added sliders to changes hfov/vfov to preview window
-
-	* src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp:
-	compile fixes for gcc 2.95
-
-	* src/include/hugin/MainFrame.h: ups, forgot include dir
-
-	* src/hugin/PreviewFrame.cpp: icon for preview panel
-
-	* src/hugin/xrc/data/gui.xpm, src/hugin/MainFrame.cpp: removed
-	obselete icon
-
-	* src/hugin/MainFrame.cpp, src/hugin/xrc/data/icon.xpm: icon
-	and splash screen change
-
-	* src/hugin/xrc/pano_panel.xrc: fixed pano panel layout on windows
-
-	* src/hugin/PanoPanel.cpp, src/hugin/huginApp.cpp: fixed spin
-	ctrl update (hopefully, not tested)
-
-2003-10-12 13:47:09  dangelo  (dangelo)
-
-	* src/hugin/MainFrame.cpp, src/hugin/huginApp.cpp: fixes for
-	windows compilation
-
-	* src/include/hugin/config.h.tmpl: - increase version number
-
-	* src/Panorama/Panorama.cpp, src/hugin/.cvsignore,
-	src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/ImagesPanel.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/PreviewFrame.cpp,
-	src/hugin/PreviewPanel.cpp, src/hugin/RunStitcherFrame.cpp,
-	src/hugin/huginApp.cpp, src/hugin/xrc/cp_editor_panel.xrc,
-	src/hugin/xrc/data/about.htm, src/hugin/xrc/data/splash.png,
-	src/include/common/utils.h, src/include/hugin/CPImageCtrl.h,
-	src/include/hugin/MainFrame.h, src/tests/.cvsignore,
-	src/tools/.cvsignore: many small bugfixes.  - several crashes
-	after project new fixed - fixed fov limits for rectilinear
-	and cylindrical
-
-	- added splash screen - fixed recursive temp dir creation -
-	fine tune on existing points possible - some more stuff..
 
 
 Back to main page </>

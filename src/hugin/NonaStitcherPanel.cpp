@@ -266,7 +266,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     enblendExe = dlg.GetPath();
                     config->Write("/Enblend/EnblendExe",enblendExe);
                 } else {
-                    wxLogError(_("No enblend commndline tool selected"));
+                    wxLogError(_("No enblend commandline tool selected"));
                 }
             }
             wxString args(enblendExe);
