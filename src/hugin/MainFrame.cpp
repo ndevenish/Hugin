@@ -269,7 +269,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     // To get users path we do following:
     // a get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    // b store current path 
+    // b store current path
     wxString current;
     current = wxFileName::GetCwd();
     DEBUG_INFO ( (wxString)"get Path: " + wxFileName::GetCwd().c_str() )
@@ -292,7 +292,26 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       dlg->GetPaths(Pathnames);
       sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
 
+      // we got some images to add.
+      if (Filenames.GetCount() > 0) {
+          // use a Command to ensure proper undo and updating of GUI
+          // parts
+          std::vector<std::string> filesv;
+          for (unsigned int i=0; i< Filenames.GetCount(); i++) {
+              filesv.push_back(Filenames[i].c_str());
+          }
+          GlobalCmdHist::getInstance().addCommand(
+              new PT::AddImagesCmd(pano,filesv)
+              );
+      }
+
       // remember the added images;
+      // FIXME: do not update the view here.
+      // the panorama should will call panoramaChanged or
+      // panoramaImageAdded whenever an image has been added
+      //
+      // other parts that might add images do not know what needs
+      // to be updated.
       int added ( pano.getNrOfImages() );
       // start the loop for every selected filename
       for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
@@ -324,8 +343,6 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
           p_img = new wxBitmap(s_img);
         }
 
-        // tell pano about the new image
-        pano.addImage( Pathnames[i].c_str() );
         sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
         added++;
         DEBUG_INFO(__FUNCTION__)
@@ -333,7 +350,8 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       SetStatusText( e_stat, 0);
 
       // update CP panel
-      cpe->ImagesAdded(pano, added);
+      // do not call this by hand. the pano will do this!
+//      cpe->ImagesAdded(pano, added);
 
       // d There we are now?
       wxString str;
@@ -369,7 +387,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
       e_msg = _("Remove images:   ");
 
     // storing the erased image numbers
-    int removed[512]; 
+    int removed[512];
     removed[0] = 0;
     int i (0);
     // for each selected item remove the entry from list and pano
@@ -377,8 +395,11 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
         i++;
         e_msg += "  " + lst->GetItemText(Nr);
-        pano.removeImage(Nr);
-        lst->DeleteItem(Nr);
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::AddImagesCmd(pano,filesv)
+            );
+// FIXME no updates here. they should go to panoramaChanged()
+//        lst->DeleteItem(Nr);
         removed[i] = i;
         removed[0]++;
         DEBUG_INFO(__FUNCTION__ << " will remove " << wxString::Format("%d",i) << ". " << wxString::Format("%d",Nr) << "|" << wxString::Format("%d",removed[0]) )
@@ -389,8 +410,10 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
       SetStatusText( _("Nothing selected"), 0);
     else {
       DEBUG_INFO(__FUNCTION__)
-      cpe->ImagesRemoved(pano, removed);
+// FIXME, shoule be notified by Panorama.
+//      cpe->ImagesRemoved(pano, removed);
       SetStatusText( e_msg, 0);
+// FIXME update the list in panoramaImageRemoved()
       for ( int Nr = 1 ; Nr <= (int)pano.getNrOfImages() ; Nr++ ) {
         // update the list
         char Nr_c[8] ;
@@ -421,8 +444,8 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 }
 
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
-{   // Maybe this can be invoced by the Panorama::Changed() or 
-    // something like this. So no everytime update would be needed. 
+{   // Maybe this can be invoced by the Panorama::Changed() or
+    // something like this. So no everytime update would be needed.
     DEBUG_INFO(__FUNCTION__)
 }
 

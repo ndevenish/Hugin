@@ -52,6 +52,9 @@ public:
     virtual ~PanoramaObserver()
         { };
     virtual void panoramaChanged(Panorama &pano) = 0;
+    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr) = 0;
+    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr) = 0;
+    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr) = 0;
 };
 
 

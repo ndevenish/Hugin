@@ -97,8 +97,7 @@ void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy
 wxImageIterator
 wxImageUpperLeft(wxImage & img)
 {
-    wxImageIterator it((vigra::RGBValue<unsigned char> *)img.GetData(), img.GetWidth());
-    return it;
+    return wxImageIterator((vigra::RGBValue<unsigned char> *)img.GetData(), img.GetWidth());
 }
 
 wxImageIterator
@@ -435,8 +434,13 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
             DEBUG_DEBUG("adding tab " << img);
             // ugly.. but needed since we have to add something
             // to wxNotebook to get the TabBar...
-            wxNotebook * t1= new wxNotebook(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
-            wxNotebook * t2= new wxNotebook(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+            // to beku: this are dummy child windows that will never
+            // be displayed.  the just exist to fool wxNotebook, so
+            // that it will add another tab to its tabbar.
+            //
+            // wxTabCtrl is windows/mac only, so we cant use that.
+            wxWindow * t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+            wxWindow * t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             if (!m_leftTabs->AddPage(t1, wxString::Format("%d",img))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
             }
@@ -462,10 +466,10 @@ void CPEditorPanel::ImagesAdded(PT::Panorama &pano, int added)
     unsigned int nrTabs = m_leftTabs->GetPageCount();
     // ugly.. but needed since we have to add something
     // to wxNotebook to get the TabBar...
-    wxNotebook* t1= new wxNotebook(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
-    wxNotebook* t2= new wxNotebook(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+    wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+    wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
     // update tab buttons
-    DEBUG_TRACE("panoramChanged() images:" << nrImages
+    DEBUG_TRACE("panoramaImagedAdded() images:" << nrImages
                 << " tabs:" << nrTabs);
     for (unsigned int img = nrTabs; img < nrImages; ++img) {
         DEBUG_DEBUG("adding tab " << img);
