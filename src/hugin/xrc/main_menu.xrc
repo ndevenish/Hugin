@@ -103,6 +103,10 @@
         <accel>F1</accel>
         <help>Some information on the different buttons and so on.</help>
       </object>
+      <object class="wxMenuItem" name="action_show_shortcuts">
+        <label>&amp;Keyboard Shortcuts</label>
+        <help>keyboard shortcuts</help>
+      </object>
     </object>
   </object>
 </resource>

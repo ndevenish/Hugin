@@ -1204,15 +1204,17 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
             new PT::RemoveCtrlPointCmd(*m_pano,pNr)
             );
     } else if (e.m_keyCode == '0') {
-//        wxCommandEvent dummy;
-//        dummy.SetInt(1);
-//        OnZoom(dummy);
+        wxCommandEvent dummy;
+        dummy.SetInt(1);
+        OnZoom(dummy);
         XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(1);
     } else if (e.m_keyCode == '1') {
-//        wxCommandEvent dummy;
-//        dummy.SetInt(0);
-//        OnZoom(dummy);
+        wxCommandEvent dummy;
+        dummy.SetInt(0);
+        OnZoom(dummy);
         XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(0);
+
+#if 0
     } else if (e.m_keyCode == 'p') {
         // only estimate when there are control points.
         if (currentPoints.size() > 0) {
@@ -1260,6 +1262,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         } else {
 	    wxLogError(_("Cannot estimate image position without control points"));
 	}
+#endif
+
     } else if (e.ControlDown() && e.GetKeyCode() == WXK_LEFT) {
         // move to next
         wxCommandEvent dummy;

@@ -128,6 +128,7 @@ private:
     void OnUserQuit(wxCommandEvent & e);
     void OnAbout(wxCommandEvent & e);
     void OnHelp(wxCommandEvent & e);
+    void OnKeyboardHelp(wxCommandEvent & e);
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);

@@ -398,7 +398,8 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     bool doUpdate = false;
     mpos = invScale(mpos);
 //    DEBUG_DEBUG(" pos:" << mpos.x << ", " << mpos.y);
-    if (mouse.LeftIsDown()) {
+    // only if the shift key is not pressed.
+    if (mouse.LeftIsDown() && ! mouse.ShiftDown()) {
         switch(editState) {
         case NO_SELECTION:
             DEBUG_ERROR("mouse down movement without selection, in NO_SELECTION state!");
@@ -443,22 +444,24 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             break;
         }
     }
-    if (mouse.MiddleIsDown() ) {  // scrolling with the mouse
-      if (m_mouseScrollPos != mouse.GetPosition()) {
-          wxPoint delta = mouse.GetPosition() - m_mouseScrollPos;
-          double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
+
+    if (mouse.MiddleIsDown() || mouse.ShiftDown() || mouse.m_controlDown ) {
+        // scrolling with the mouse
+        if (m_mouseScrollPos != mouse.GetPosition()) {
+            wxPoint delta = mouse.GetPosition() - m_mouseScrollPos;
+            double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
 //          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
-	  delta.x = (int) (delta.x * speed);
-	  delta.y = (int) (delta.y * speed);
-	  ScrollDelta(delta);
-	  if (mouse.ShiftDown()) {
-              // emit scroll event, so that other window can be scrolled
-              // as well.
-	      CPEvent e(this, CPEvent::SCROLLED, delta);
-	      emit(e);
-	  }
-	  m_mouseScrollPos = mouse.GetPosition();
-      }
+            delta.x = (int) (delta.x * speed);
+            delta.y = (int) (delta.y * speed);
+            ScrollDelta(delta);
+            if (mouse.ShiftDown()) {
+                // emit scroll event, so that other window can be scrolled
+                // as well.
+                CPEvent e(this, CPEvent::SCROLLED, delta);
+                emit(e);
+            }
+            m_mouseScrollPos = mouse.GetPosition();
+        }
     }
 
 //    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
@@ -682,12 +685,49 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 
 void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
-    DEBUG_DEBUG("forwarding key " << e.m_keyCode
-                << " origin: id:" << e.m_id << " obj: "
-                << e.GetEventObject());
-    // forward all keys to our parent
-    //GetParent()->GetEventHandler()->ProcessEvent(e);
-    m_editPanel->GetEventHandler()->ProcessEvent(e);
+    wxPoint delta(0,0);
+    switch (e.m_keyCode) {
+    case WXK_LEFT:
+        delta.x = -1;
+        break;
+    case WXK_UP:
+        delta.y = -1;
+        break;
+    case WXK_RIGHT:
+        delta.x = 1;
+        break;
+    case WXK_DOWN:
+        delta.y = 1;
+        break;
+    default:
+        break;
+    }
+    if (delta.x != 0 || delta.y != 0) {
+        // move to the left
+        double speed = (double) GetClientSize().GetWidth()/10;
+        delta.x = (int) (delta.x * speed);
+        delta.y = (int) (delta.y * speed);
+        ScrollDelta(delta);
+        if (e.ShiftDown()) {
+            // emit scroll event, so that other window can be scrolled
+            // as well.
+            CPEvent e(this, CPEvent::SCROLLED, delta);
+            emit(e);
+        }
+    } else if (e.m_keyCode == 'a') {
+        DEBUG_DEBUG("adding point with a key, faking right click");
+        // faking right mouse button with "a"
+        // set right up event
+        CPEvent ev(this, CPEvent::RIGHT_CLICK, wxPoint(0,0));
+        emit(ev);
+    } else {
+        DEBUG_DEBUG("forwarding key " << e.m_keyCode
+                    << " origin: id:" << e.m_id << " obj: "
+                    << e.GetEventObject());
+        // forward all keys to our parent
+        //GetParent()->GetEventHandler()->ProcessEvent(e);
+        m_editPanel->GetEventHandler()->ProcessEvent(e);
+    }
 }
 
 void CPImageCtrl::OnKeyUp(wxKeyEvent & e)
@@ -718,6 +758,10 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
         e.Skip();
     }
 #endif
+    if (e.m_keyCode == WXK_SHIFT || e.m_keyCode == WXK_CONTROL) {
+        DEBUG_DEBUG("shift or control down, reseting scoll position");
+        m_mouseScrollPos = e.GetPosition();
+    }
 
     e.Skip();
 }

@@ -532,6 +532,20 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
         std::ofstream script(dlg.GetPath());
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
+        
+        // work around a bug in PTStitcher...
+        if ( ( opt.outputFormat == PanoramaOptions::TIFF_m 
+               || opt.outputFormat == PanoramaOptions::TIFF_mask
+             ) &&
+             (
+               opt.outfile.substr(opt.outfile.size()-4) == ".tif"
+               || opt.outfile.substr(opt.outfile.size()-4) == ".TIF"
+             )
+           )
+        {
+            opt.outfile = opt.outfile.substr(0, opt.outfile.size()-4);
+        }
+        
         new RunStitcherFrame(this, &pano, opt, m_editScriptCB->IsChecked());
     }
 }

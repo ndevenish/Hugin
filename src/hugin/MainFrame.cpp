@@ -81,6 +81,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
+    EVT_MENU(XRCID("action_show_shortcuts"),  MainFrame::OnKeyboardHelp)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
@@ -732,6 +733,14 @@ void MainFrame::OnHelp(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
+    dlg.ShowModal();
+}
+
+void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("keyboard_help_dlg"));
     dlg.ShowModal();
 }
 
