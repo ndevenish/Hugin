@@ -123,7 +123,7 @@ createBRGBATiffImage(RGBImageIterator upperleft, RGBImageIterator lowerright,
             RGBImageIterator xs(ys);
             BImageIterator xa(ya);
 
-            for(int x=0; x<w; ++x, ++xs.x, pr+=4, pg+=4, pb+=4, ++xa.x)
+            for(int x=0; x<w; ++x, ++xs.x, pr+=4, pg+=4, pb+=4, alpha+=4, ++xa.x)
             {
                 *pr = a.red(xs);
                 *pg = a.green(xs);
