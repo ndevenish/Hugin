@@ -311,6 +311,10 @@ namespace vigra_impex2 {
         }
         if ( photometric == PHOTOMETRIC_RGB )
         {
+	    if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
+	        // file probably lacks the extra_samples tag
+		extra_samples_per_pixel = samples_per_pixel - 3;
+	    }
             if ( samples_per_pixel - extra_samples_per_pixel != 3 )
                 vigra_fail("TIFFDecoderImpl::init():"
                            " Photometric tag does not fit the number of"
@@ -404,7 +408,7 @@ namespace vigra_impex2 {
 */
         // other fields
         uint16 u16value;
-        float unitLength = 0;
+        float unitLength = 1;
         if (TIFFGetField( tiff, TIFFTAG_RESOLUTIONUNIT, &u16value )) {
             switch (u16value) {
             case RESUNIT_NONE:
@@ -431,7 +435,7 @@ namespace vigra_impex2 {
         }
 
         // XPosition
-        if (TIFFGetField( tiff, TIFFTAG_YPOSITION, &fvalue )) {
+        if (TIFFGetField( tiff, TIFFTAG_XPOSITION, &fvalue )) {
             fvalue = fvalue / unitLength;
             position.x = (int)floor(fvalue + 0.5);
         }
