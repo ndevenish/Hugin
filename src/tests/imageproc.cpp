@@ -27,6 +27,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
+#include "panoinc.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageProcessing.h"
 
@@ -47,7 +48,7 @@ void image_proc_test()
   Diff2D templWidth(11,11);
   Diff2D templSize(templWidth.x * 2 + 1, templWidth.y * 2 + 1);
   BImage templ(templSize);
-  copyImage(subject.upperLeft() + point - templWidth, 
+  copyImage(subject.upperLeft() + point - templWidth,
             subject.upperLeft() + point + templWidth + Diff2D(1,1),
             subject.accessor(),
             templ.upperLeft(),
@@ -65,11 +66,11 @@ void image_proc_test()
                        templ.accessor(),
                        -templWidth,
                        templWidth);
-  
+
   BOOST_CHECK(res.pos == point);
-  BOOST_CHECK_CLOSE(res.max,1.0,1e-3);
+  BOOST_CHECK_CLOSE(res.maxi,1.0,1e-3);
   saveScaledImage(result,"result_corr.png", -1, 1) ;
-  BOOST_CHECK_CLOSE(res.max, (double)result[point], 1e-6);
+  BOOST_CHECK_CLOSE(res.maxi, (double)result[point], 1e-6);
 
   /*
   // check subpixel correlation
@@ -92,7 +93,7 @@ void image_proc_test()
                                  RGBToGrayAccessor<RGBValue<unsigned char> >()),
                    destImage(templ));
   result.init(1);
-  res.max = -1;
+  res.maxi = -1;
   res = correlateImage(subject.upperLeft(),
                        subject.lowerRight(),
                        subject.accessor(),
@@ -104,10 +105,10 @@ void image_proc_test()
                        templ.size() - Diff2D(1,1)
     );
   BOOST_CHECK(res.pos == point);
-  BOOST_CHECK_CLOSE(res.max,1.0,1e-3);
-  std::cout << "result difference: " << 1.0 - res.max << std::endl;
+  BOOST_CHECK_CLOSE(res.maxi,1.0,1e-3);
+  std::cout << "result difference: " << 1.0 - res.maxi << std::endl;
   saveScaledImage(result, "result_corr_2.png", -2, 1);
-  BOOST_CHECK_CLOSE(res.max, (double)result[point], 1e-6);
+  BOOST_CHECK_CLOSE(res.maxi, (double)result[point], 1e-6);
 
 
 }

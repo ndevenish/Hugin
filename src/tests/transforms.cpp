@@ -27,13 +27,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
-#include "common/utils.h"
-#include "common/stl_utils.h"
-#include "hugin/ImageCache.h"
-#include "hugin/ImageProcessing.h"
-#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
-#include "PT/Transforms.h"
+#include "panoinc.h"
 
 using namespace boost::unit_test_framework;
 
@@ -131,7 +125,7 @@ void transform_img_test()
 {
     const int w=10;
     const int h=10;
-        
+
     VariableMap vars;
     fillVariableMap(vars);
     map_get(vars,"v").setValue(50.0);
@@ -141,7 +135,7 @@ void transform_img_test()
     map_get(vars,"d").setValue(0.0);
     map_get(vars,"e").setValue(0.0);
 
-    
+
     PTools::Transform trans;
     trans.createTransform(Diff2D(2*w, 2*h),
                           vars, Lens::RECTILINEAR,
@@ -172,8 +166,6 @@ void transform_img_test()
 test_suite*
 init_unit_test_suite( int, char** )
 {
-  wxInitAllImageHandlers();
-
   test_suite* test= BOOST_TEST_SUITE( "transformation routine tests" );
   test->add(BOOST_TEST_CASE(&transforms_test));
   test->add(BOOST_TEST_CASE(&transform_img_test));

@@ -29,14 +29,10 @@
 
 #include <fstream>
 
-#include "common/utils.h"
-#include "common/stl_utils.h"
+#include "panoinc.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageProcessing.h"
-#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
 #include "hugin/PanoToolsInterface.h"
-#include "PT/Transforms.h"
 
 using namespace boost::unit_test_framework;
 
@@ -134,13 +130,18 @@ void remap_test()
     if (lrInt.x >= w) lrInt.x = w -1;
     if (lrInt.y >= h) lrInt.y = h -1;
 
+    FImage emptyDist(1,1);
     // remap image with that transform
     PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
                            destIterRange(wxImageUpperLeft(output)+ulInt,
                                          wxImageUpperLeft(output)+lrInt),
                            ulInt,
-                           transf);
+                           transf,
+                           destIterRange(emptyDist.upperLeft(),
+                                         emptyDist.upperLeft()),
+                           interp_bilin()
+        );
     DEBUG_TRACE("own end stitching");
 
 

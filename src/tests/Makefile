@@ -55,8 +55,9 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags) 
-LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_unit_test_framework
+CFLAGS += $(shell wx-config --cxxflags)
+LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_unit_test_framework -lpano12 $(VIGRA_LFLAGS)
+
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you
@@ -64,7 +65,7 @@ LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_uni
 # ====================================================================
 
 
-TESTS = 1 2 3 4
+TESTS = 1 2 3 4 5
 
 # Defaults
 
@@ -86,12 +87,17 @@ TEST_2_LFLAGS = $(TEST_LFLAGS)
 TEST_3_BIN = panotools
 TEST_3_OBJ = panotools.o
 TEST_3_CFLAGS = $(TEST_CFLAGS)
-TEST_3_LFLAGS = $(TEST_LFLAGS) -lpano12
+TEST_3_LFLAGS = $(TEST_LFLAGS)
 
 TEST_4_BIN = transforms
 TEST_4_OBJ = transforms.o
 TEST_4_CFLAGS = $(TEST_CFLAGS)
-TEST_4_LFLAGS = $(TEST_LFLAGS) -lpano12
+TEST_4_LFLAGS = $(TEST_LFLAGS)
+
+TEST_5_BIN = interpolator
+TEST_5_OBJ = interpolator.o
+TEST_5_CFLAGS = $(TEST_CFLAGS)
+TEST_5_LFLAGS = $(TEST_LFLAGS)
 
 
 # ====================================================================
