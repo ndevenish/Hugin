@@ -2,6 +2,10 @@ ABOUT-NLS
 aclocal.m4
 autom4te.cache
 config
+config.log
+config.status
 configure
+libtool
+Makefile
 Makefile.in
 po
