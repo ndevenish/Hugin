@@ -21,3 +21,27 @@ src/hugin/PTStitcherPanel.cpp
 src/hugin/CPFineTuneFrame.cpp
 src/include/hugin/MyProgressDialog.h
 
+# XRC resource files
+src/hugin/xrc/about.xrs
+src/hugin/xrc/anchor_orientation.xrs
+src/hugin/xrc/cp_editor_panel.xrs
+src/hugin/xrc/cp_list_frame.xrs
+src/hugin/xrc/edit_script_dialog.xrs
+src/hugin/xrc/edit_text.xrs
+src/hugin/xrc/help.xrs
+src/hugin/xrc/image_center.xrs
+src/hugin/xrc/images_panel.xrs
+src/hugin/xrc/keyboard_help.xrs
+src/hugin/xrc/lens_dialog.xrs
+src/hugin/xrc/lens_panel.xrs
+src/hugin/xrc/main_frame.xrs
+src/hugin/xrc/main_menubar.xrs
+src/hugin/xrc/main_menu.xrs
+src/hugin/xrc/main_tool.xrs
+src/hugin/xrc/nona_panel.xrs
+src/hugin/xrc/optimize_panel.xrs
+src/hugin/xrc/pano_panel.xrs
+src/hugin/xrc/preview_frame.xrs
+src/hugin/xrc/ptstitcher_panel.xrs
+src/hugin/xrc/run_optimizer_frame.xrs
+src/hugin/xrc/run_stitcher_frame.xrs

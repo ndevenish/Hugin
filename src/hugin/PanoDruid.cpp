@@ -76,7 +76,7 @@ NEW_HINT(20, HUGE_FINAL, "druid.stitch.128.png",
          _("Very large pixel dimensions are currently entered.\n"
            "Some computers may take an excessively long time\n"
            "to render such a large final image.\n"
-           "For best results, use the automatic Calc buttons on\n"
+           "For best results, use the automatic Calc button on\n"
            "the Panorama Options tab to determine the\n"
            "pixel dimensions which will give the best quality."))
 {
