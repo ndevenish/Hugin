@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-16 18:12+0200\n"
+"POT-Creation-Date: 2004-10-20 08:19+0200\n"
 "PO-Revision-Date: 2004-10-16 03:58+0200\n"
 "Last-Translator: Pablo dAngelo <pablo.dangelo@web.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -273,7 +273,7 @@ msgstr "Kontrollpunkte löschen"
 msgid "Not a jpeg file"
 msgstr "Kein JPEG Bild"
 
-#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:575
+#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:576
 msgid "Please select an image and try again"
 msgstr "Bitte Bild auswählen und erneut versuchen"
 
@@ -281,11 +281,11 @@ msgstr "Bitte Bild auswählen und erneut versuchen"
 msgid "Save lens parameters file"
 msgstr "Objektivparameter speichern"
 
-#: src/hugin/LensPanel.cpp:590
+#: src/hugin/LensPanel.cpp:591
 msgid "Load lens parameters"
 msgstr "Objektivparameter laden"
 
-#: src/hugin/MainFrame.cpp:407
+#: src/hugin/MainFrame.cpp:433
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -293,71 +293,71 @@ msgstr ""
 "Das Panorama wurde verändert\n"
 "Änderungen speichern?"
 
-#: src/hugin/MainFrame.cpp:407
+#: src/hugin/MainFrame.cpp:433
 msgid "Save Panorama?"
 msgstr "Speichere Panorama"
 
-#: src/hugin/MainFrame.cpp:422
+#: src/hugin/MainFrame.cpp:448
 #, fuzzy
 msgid "forced close"
 msgstr "für Fortgeschrittene"
 
-#: src/hugin/MainFrame.cpp:453
+#: src/hugin/MainFrame.cpp:479
 #, fuzzy, c-format
 msgid "saved project %s"
 msgstr "Projekt Speichern unter"
 
-#: src/hugin/MainFrame.cpp:462
+#: src/hugin/MainFrame.cpp:488
 #, fuzzy
 msgid "Save project file"
 msgstr "Speichere Projekt"
 
-#: src/hugin/MainFrame.cpp:478
+#: src/hugin/MainFrame.cpp:504
 #, fuzzy
 msgid "Save PTSticher script file"
 msgstr "PTStitcher Anweisungen bearbeiten"
 
-#: src/hugin/MainFrame.cpp:504
+#: src/hugin/MainFrame.cpp:530
 #, fuzzy
 msgid "Open project:   "
 msgstr "Öffne Projekt"
 
-#: src/hugin/MainFrame.cpp:516
+#: src/hugin/MainFrame.cpp:542
 #, fuzzy
 msgid "Project opened"
 msgstr "Projektdatei"
 
-#: src/hugin/MainFrame.cpp:520
+#: src/hugin/MainFrame.cpp:546
 #, fuzzy
 msgid "Error opening project:   "
 msgstr "Öffne Projekt"
 
-#: src/hugin/MainFrame.cpp:538
+#: src/hugin/MainFrame.cpp:564
 msgid "Open project file"
 msgstr "Öffne Projekt Datei"
 
-#: src/hugin/MainFrame.cpp:549
+#: src/hugin/MainFrame.cpp:575
 msgid "Open project: cancel"
 msgstr "Öffne Projekt: Abbrechen"
 
-#: src/hugin/MainFrame.cpp:575
+#: src/hugin/MainFrame.cpp:601
 msgid "Add images"
 msgstr "neue Bilder"
 
-#: src/hugin/MainFrame.cpp:619
+#: src/hugin/MainFrame.cpp:645
 msgid "Add Image: cancel"
 msgstr "neue Bilder: abgebrochen"
 
-#: src/hugin/MainFrame.cpp:801
+#: src/hugin/MainFrame.cpp:827
 msgid "hugin - FAQ"
 msgstr "hugin - Häufig gestellte Fragen"
 
-#: src/hugin/MainFrame.cpp:864
+#: src/hugin/MainFrame.cpp:890
 #, fuzzy
 msgid "Fine-tuning all points"
 msgstr "Feiner Kontrollpunkt"
 
-#: src/hugin/MainFrame.cpp:934
+#: src/hugin/MainFrame.cpp:960
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -378,7 +378,7 @@ msgstr ""
 "Nach der nächsten Optimierung werden wieder die Kontrollpunktfehler "
 "dargestellt.\n"
 
-#: src/hugin/MainFrame.cpp:940
+#: src/hugin/MainFrame.cpp:966
 #, fuzzy
 msgid "Fine-tune result"
 msgstr "Feiner Kontrollpunkt"
@@ -1319,8 +1319,8 @@ msgstr "Horizontaler Bildwinkel (v)"
 #: src/hugin/xrc/lens_dialog.xrs:40 src/hugin/xrc/lens_dialog.xrs:44
 #: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel.xrs:25
 #: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
-#: src/hugin/xrc/lens_panel.xrs:33 src/hugin/xrc/lens_panel.xrs:35
-#: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel.xrs:43
+#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel.xrs:42
 #, fuzzy
 msgid "Inherit"
 msgstr "Höhe"
@@ -1371,7 +1371,7 @@ msgstr ""
 msgid "Image shift"
 msgstr ""
 
-#: src/hugin/xrc/lens_dialog.xrs:38 src/hugin/xrc/lens_panel.xrs:32
+#: src/hugin/xrc/lens_dialog.xrs:38 src/hugin/xrc/lens_panel.xrs:31
 msgid "horizontal (d):"
 msgstr ""
 
@@ -1379,7 +1379,7 @@ msgstr ""
 msgid "image shift horizontal (d)"
 msgstr ""
 
-#: src/hugin/xrc/lens_dialog.xrs:42 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/xrc/lens_dialog.xrs:42 src/hugin/xrc/lens_panel.xrs:33
 msgid "vertical (e):"
 msgstr ""
 
@@ -1434,62 +1434,58 @@ msgstr ""
 msgid "Image Center Shift"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:31
-msgid "(usually for film scanning only)"
-msgstr ""
-
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/preview_frame.xrs:2
+#: src/hugin/xrc/lens_panel.xrs:35 src/hugin/xrc/preview_frame.xrs:2
 #: src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:37
+#: src/hugin/xrc/lens_panel.xrs:36
 msgid "center image shifting it with d and e"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:38
+#: src/hugin/xrc/lens_panel.xrs:37
 msgid "Camera and Lens Information"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:39
+#: src/hugin/xrc/lens_panel.xrs:38
 msgid "Image Shearing"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:40
+#: src/hugin/xrc/lens_panel.xrs:39
 msgid "horizontal (g):"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:42
+#: src/hugin/xrc/lens_panel.xrs:41
 msgid "vertical (t):"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:44
+#: src/hugin/xrc/lens_panel.xrs:43
 msgid "Lens management"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:45
+#: src/hugin/xrc/lens_panel.xrs:44
 msgid "Load"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:46
+#: src/hugin/xrc/lens_panel.xrs:45
 #, fuzzy
 msgid "Load lens parameters from a file"
 msgstr "Objektivparameter speichern"
 
-#: src/hugin/xrc/lens_panel.xrs:47 src/hugin/xrc/main_tool.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:48
+#: src/hugin/xrc/lens_panel.xrs:47
 #, fuzzy
 msgid "Save lens parameters to an file"
 msgstr "Objektivparameter speichern"
 
-#: src/hugin/xrc/lens_panel.xrs:49
+#: src/hugin/xrc/lens_panel.xrs:48
 msgid "Load EXIF"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:50
+#: src/hugin/xrc/lens_panel.xrs:49
 msgid "Try to read HFOV from the EXIF data"
 msgstr ""
 

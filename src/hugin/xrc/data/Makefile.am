@@ -10,12 +10,17 @@ XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 
 xrcdatadir = @datadir@/hugin/xrc/data
 
-all-local:
-	datalist='$(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES)'; \
-	for p in $$datalist; do \
-	    if test -e `basename $$p`; then :; else \
+
+all-local: stamp-data
+
+stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES)
+	for p in $?; do \
+	    if test -e `basename $$p` ; then :; else \
 		( $(LN_S) $$p ) ; \
 	    fi; \
 	done
-							
+	@echo "touch stamp-data"
+	@echo timestamp > stamp-dataT
+	@mv stamp-dataT stamp-data
+
 dist_xrcdata_DATA = $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES)
