@@ -389,8 +389,6 @@ void PTStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
         opt.outputFormat = PanoramaOptions::JPEG;
     }
 
-
-    opt.outputFormat = (PanoramaOptions::FileFormat) format;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
