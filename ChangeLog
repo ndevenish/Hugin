@@ -1,3 +1,50 @@
+2004-10-30 22:42  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Fix typo
+
+2004-10-30 22:24  dwilkins42
+
+	* src/hugin/huginApp.cpp: Remove debug
+
+2004-10-30 22:21  dwilkins42
+
+	* src/hugin/: MainFrame.cpp, huginApp.cpp: Allow hugin to be
+	  invoked from current directory with path prefix
+
+2004-10-30 19:44  dwilkins42
+
+	* utils/hugin.nsi: Add NSIS installer script
+
+2004-10-30 18:45  dwilkins42
+
+	* src/: foreign/vigra_impex/Makefile.am, hugin/xrc/Makefile.am,
+	  hugin/xrc/data/Makefile.am: Fix typos
+
+2004-10-29 20:25  dwilkins42
+
+	* src/hugin/xrc/: Makefile.am, data/Makefile.am: Make sure that
+	  data is installed in the right place when compiling using mingw
+
+2004-10-29 20:23  dwilkins42
+
+	* src/foreign/vigra_impex/Makefile.am: Add link flags required by
+	  mingw
+
+2004-10-29 18:56  dangelo
+
+	* src/hugin/ImageCache.cpp: support 8, 16, 32, float, double images
+	  inside hugin. Accept Gray and RGB image with or without alpha
+	  channel. Images are converted to 8 bit during loading.  The 8 bit
+	  images are only used for the preview images inside hugin.
+
+2004-10-29 13:47  dwilkins42
+
+	* ChangeLog, configure.ac, src/hugin/Makefile.am,
+	  src/hugin/xrc/Makefile.am, src/hugin/xrc/data/Makefile.am,
+	  src/include/.cvsignore, src/nona_gui/Makefile.am: Install xrc and
+	  data in the same directory as hugin when compiling using mingw on
+	  win32
+
 2004-10-29 08:27  dangelo
 
 	* src/hugin/PreferencesDialog.cpp: more typos fixed. Autopano-sift
@@ -2879,9 +2926,4 @@
 	  you on any steps or parameters you may have forgotten.  Currently
 	  very limited, but will be extending this to add more smarts in
 	  the future.  Comments welcome.
-
-2003-10-29 14:45  speare
-
-	* src/hugin/RunOptimizerFrame.cpp: Added a wxGetApp().Yield() to
-	  resize the RunOptimizer to show live numbers.
 
