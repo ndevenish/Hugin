@@ -1,3 +1,28 @@
+2004-10-24 14:34  dwilkins42
+
+	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update
+	  translations
+
+2004-10-24 14:30  dwilkins42
+
+	* src/: Panorama/Makefile.am, hugin/Makefile.am,
+	  nona_gui/Makefile.am: Improve windows build support
+
+2004-10-24 14:21  dwilkins42
+
+	* m4/ax_wxwin.m4, src/include/panoinc_WX.h: Add support for
+	  wxWidgets 2.5.3
+
+2004-10-23 07:36  dwilkins42
+
+	* src/hugin/PanoDruid.cpp: Ensure PanoDruid hints are also
+	  translated
+
+2004-10-23 06:57  dwilkins42
+
+	* ChangeLog, m4/ax_check_graphics.m4: Allow for case where library
+	  location is specified in commandline
+
 2004-10-22 22:12  dwilkins42
 
 	* src/hugin/po/fr.po: Updated french translation
@@ -2817,9 +2842,4 @@
 	  estimate function to CPEditorPanel - some more keyboard shortcuts
 	  for CPEditorPanel: ctrl-left, ctrl-right,f,p,del - added more
 	  toolbar entries - specify feather width
-
-2003-10-22 22:33  beku
-
-	* src/hugin/: ImageCache.cpp, po/de.po, xrc/images_panel.xrc,
-	  xrc/pano_panel.xrc: - deutsch update - Panorama tab layout
 
