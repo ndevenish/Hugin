@@ -7,4 +7,4 @@ dist-hook:
 	rm -rf `find $(distdir)/PanoImage $(distdir)/include $(distdir)/dox $(distdir)/Doxyfile $(distdir)/tests -name CVS`
 	rm -rf `find $(distdir)/PanoImage $(distdir)/include $(distdir)/dox $(distdir)/Doxyfile $(distdir)/tests -name .cvsignore`
 
-EXTRA_DIST = PanoImage include dox Doxyfile tests hugin.rc Hugin.sln compile-mingw.sh makefile.g95
+EXTRA_DIST = include dox Doxyfile tests hugin.rc Hugin.sln compile-mingw.sh makefile.g95
