@@ -27,7 +27,9 @@
 #include <map>
 //#include <ios>
 #include <wx/image.h>
+#include "vigra/stdimage.hxx"
 #include "common/utils.h"
+
 
 // BUG: all the smartpointer/ref counting is not used currently.
 //      maybe I'll fix it in the future, if I find a way how it
@@ -186,7 +188,7 @@ typedef wxImage * ImagePtr;
  *  @todo: possibility to store derived images as well
  *         (pyramid images etc)?
  */
-class ImageCache : public Observer<wxImage>
+class ImageCache
 {
 public:
     /** dtor.
@@ -214,8 +216,21 @@ public:
      */
     ImagePtr getImageSmall(const std::string & filename);
 
-    /** ?  */
-    virtual void notify(wxImage & subject);
+    /** get a pyramid image.
+     *
+     *  A image pyramid is a image in multiple resolutions.
+     *  Usually it is used to accelerate image processing, by using
+     *  small resolutions first. they are properly low pass filtered,
+     *  so no undersampling occurs (it would if one just takes
+     *  every level^2 pixel instead).
+     *
+     *  @param filename of source image
+     *  @param level of pyramid. height and width are calculated as
+     *         follows: height/(level^2), width/(level^1)
+     *
+     */
+    const vigra::BImage & getPyramidImage(const std::string & filename,
+                                          int level);
 
 private:
     /** ctor. private, nobody execpt us can create an instance.
@@ -225,6 +240,17 @@ private:
     static ImageCache * instance;
 
     std::map<std::string, ImagePtr> images;
+
+    // key for your pyramid map.
+    struct PyramidKey{
+        PyramidKey(const std::string & str, int lv)
+            : filename(str), level(lv) { }
+        std::string toString()
+            { return filename + utils::lexical_cast<std::string>(level); }
+        std::string filename;
+        int level;
+    };
+    std::map<std::string, vigra::BImage *> pyrImages;
 };
 
 #endif // _IMAGECACHE_H

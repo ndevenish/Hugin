@@ -44,8 +44,10 @@ class wxNotebook;
 class wxNotebookEvent;
 class wxListCtrl;
 
+struct CorrelationResult;
+
 namespace vigra {
-    struct CorrelationResult;
+    struct Diff2D;
 }
 
 /** control point editor panel.
@@ -108,7 +110,13 @@ private:
     void CreateNewPointRight(wxPoint p);
 
     /// search for region in destImg
-    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, vigra::CorrelationResult & res);
+    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
+
+    bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
+                                      const vigra::Diff2D &tmplPoint,
+                                      unsigned int subjImgNr,
+                                      const vigra::Diff2D &subjPoint,
+                                      vigra::Diff2D & tunedPos);
 
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
@@ -116,13 +124,14 @@ private:
     void OnLeftImgChange(wxNotebookEvent & e);
     void OnRightImgChange(wxNotebookEvent & e);
     void OnCPListSelect(wxListEvent & e);
+    void OnZoom(wxCommandEvent & e);
 
 
     // GUI controls
     wxNotebook *m_leftTabs, *m_rightTabs;
     CPImageCtrl *m_leftImg, *m_rightImg;
     wxListCtrl *m_cpList;
-    
+
     wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
     wxChoice *m_cpModeChoice;
 
@@ -143,7 +152,7 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
-    
+
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
 };

@@ -109,7 +109,7 @@ public:
 
 
     CPImageCtrl()
-        : bitmap(0), drawNewPoint(false), scaleFactor(1)
+        : drawNewPoint(false), scaleFactor(1),fitToWindow(false)
         { }
 
     /** dtor.
@@ -118,8 +118,8 @@ public:
 
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
-    void setImage (const wxImage & img);
-    
+    void setImage (const std::string & filename);
+
     /// control point inside this image
     void setCtrlPoints(const std::vector<wxPoint> & points);
 
@@ -137,17 +137,37 @@ public:
 //    virtual wxSize GetBestSize() const
 //        { return DoGetBestSize(); }
 
+    /** set the scaling factor for cp display.
+     *
+     *  @param factor zoom factor, 0 means fit to window.
+     */
+    void setScale(double factor);
+
+    /** Show point @p x, @p y
+     *
+     *  Scrolls the windows so that x,y is shown in the center
+     */
+    void CPImageCtrl::showPosition(int x, int y);
+
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
     void OnDraw(wxDC& dc);
+    void OnSize(wxSizeEvent & e);
 
     /// helper func to emit a region
     bool emit(CPEvent & ev);
 
+    /// get scale factor (calculates factor when fit to window is active)
+    double getScaleFactor() const;
+
+    /// calculate new scale factor for this image
+    double calcAutoScaleFactor(wxSize size);
 
 private:
 
-    wxBitmap *bitmap;
+    wxBitmap bitmap;
+    std::string imageFilename;
+    wxSize imageSize;
 
     std::vector<wxPoint> points;
 
@@ -155,7 +175,7 @@ private:
     void update();
 
     int scale(int x) const
-        {  return (int) (x * scaleFactor + 0.5); }
+        {  return (int) (x * getScaleFactor() + 0.5); }
     wxPoint scale(const wxPoint & p) const
         {
             wxPoint r;
@@ -165,7 +185,7 @@ private:
         }
 
     int invScale(int x) const
-        {  return (int) (x / scaleFactor + 0.5); }
+        {  return (int) (x / getScaleFactor() + 0.5); }
 
     wxPoint invScale(const wxPoint & p) const
         {
@@ -230,6 +250,7 @@ private:
     // colors for the different points
     std::vector<wxColour> pointColors;
     double scaleFactor;
+    bool fitToWindow;
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point
