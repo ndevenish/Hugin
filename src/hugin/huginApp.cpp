@@ -241,11 +241,10 @@ bool huginApp::OnInit()
 
     // TODO: check if we need to load images.
     if (argc == 2) {
-        if (wxIsAbsolutePath(argv[1])) {
-            wxString filename(argv[1]);
-        } else {
-            wxString filename(cwd);
-            filename.append(wxFileName::GetPathSeparator()).append(argv[1]);
+        wxString filename(argv[1]);
+        if (! wxIsAbsolutePath(filename)) {
+            filename.Prepend(wxFileName::GetPathSeparator());
+            filename.Prepend(cwd);
         }
         frame->LoadProjectFile(filename);
     }
