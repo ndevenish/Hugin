@@ -95,6 +95,9 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
     int previewWidth;
     int Width;
+    int Height;
+
+    wxDialog * preview_dlg;
 
     DECLARE_EVENT_TABLE()
 };

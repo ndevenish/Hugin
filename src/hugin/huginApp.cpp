@@ -36,17 +36,16 @@
 #endif
 
 #include <wx/config.h>              // wx config classes for all systems
-#include "wx/image.h"               // wxImage
-#include "wx/xrc/xmlres.h"          // XRC XML resouces
+#include <wx/image.h>               // wxImage
+#include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/filename.h>            // files and dirs
 #include <wx/file.h>
-
-#include "hugin/MainFrame.h"
 
 #include "hugin/huginApp.h"
 
 
 MainFrame * frame;
+Server * server;
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
@@ -145,12 +144,16 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_dialog.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("about.xrc"));
 #endif
+
+    // create an wxSocketServer for commmunication with panopreview
+    server = new Server();
 
     // create main frame
     frame = new MainFrame();

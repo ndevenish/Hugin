@@ -27,6 +27,9 @@
 #include "config.h"
 #include <wx/app.h>
 
+#include "hugin/MainFrame.h"
+#include "hugin/Server.h"
+
 /** Resources Definition
  *
  */
@@ -35,8 +38,10 @@
   void InitXmlResource();
 #endif
 
-    // MainFrame
+// MainFrame
 extern    MainFrame * frame;
+// wxSocketServer
+extern    Server * server;
 
 
 /** The application class for hugin.

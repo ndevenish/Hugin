@@ -47,6 +47,7 @@
 //#include "hugin/List.h"
 //#include "hugin/LensPanel.h"
 //#include "hugin/ImagesPanel.h"
+#include "hugin/CPImageCtrl.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -232,6 +233,37 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         new PT::StitchCmd( pano, *opt )
         );
 
+    
+    wxString viewer ( "panoviewer " );
+    viewer += opt->outfile.c_str();
+
+    DEBUG_INFO ( "command = " << viewer )
+    if ( frame->viewer_run == false ) {
+      wxExecute( viewer, FALSE /* sync */);
+//      wxSleep (2);
+      frame->viewer_run = true;
+      DEBUG_INFO ( "viewer_run = " << frame->viewer_run )
+    };
+
+    DEBUG_INFO ( "viewer_run = " << frame->viewer_run )
+    // Hopefully panoViewer has stared; send him the name of our image
+    server->SendFilename( (wxString) opt->outfile.c_str() );
+
+/*    if ( !preview_dlg ) {
+        wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
+    DEBUG_INFO ( "" )
+//        preview_dlg = XRCCTRL(*this, "pano_dlg_preview", wxDialog);
+    DEBUG_INFO ( "" )
+        CPImageCtrl * preview_win = new CPImageCtrl(this);
+    DEBUG_INFO ( ": " << opt->width )
+//        wxXmlResource::Get()->AttachUnknownControl(wxT("pano_preview_unknown"),
+//                                               preview_win);
+    DEBUG_INFO ( "" )
+        preview_dlg->ShowModal();
+    DEBUG_INFO ( "" )
+    }*/
+
+
     DEBUG_INFO ( "" )
 }
 // --
@@ -281,7 +313,7 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
 
-    DEBUG_INFO ( ": " << *val )
+    DEBUG_INFO ( ": " << *val << " " << Width )
     delete val;
 }
 
@@ -293,7 +325,7 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_height", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
-    opt->height = (int) *val;
+    opt->height = Height = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
@@ -335,6 +367,7 @@ void PanoPanel::JpegPChanged ( wxCommandEvent & e )
 void PanoPanel::Stitch ( wxCommandEvent & e )
 {
     opt->width = Width;
+    opt->height = Height;
     PT::SetPanoOptionsCmd( pano, *opt );
 #ifdef unix
     DEBUG_INFO ( "unix" )
@@ -345,7 +378,8 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, *opt )
         );
-    DEBUG_INFO ( ": " )
+
+    DEBUG_INFO ( ": " << Width )
 }
 
 //------------------------------------------------------------------------------
