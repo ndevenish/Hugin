@@ -29,20 +29,24 @@
 
 // misc utility functions / macros
 
+#ifdef __GNUC__
+#define DEBUG_CLASS_NAME __CLASS__
+#endif
+
 // debug trace
-#define DEBUG_TRACE(msg) { std::cerr << "TRACE " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_TRACE(msg) { std::cerr << "TRACE " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // low level debug info
-#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // informational debug message,
-#define DEBUG_INFO(msg) { std::cerr << "INFO " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_INFO(msg) { std::cerr << "INFO " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE: " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::cerr << "WARN: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_WARN(msg) { std::cerr << "WARN: " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << utils::CurrentTime() << " " << __func__ << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 
 namespace utils
 {
