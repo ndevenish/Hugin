@@ -33,7 +33,7 @@
 #include <unistd.h>
 
 #include "panoinc.h"
-#include "PT/SimpleStitcher.h"
+#include "PT/Stitcher.h"
 
 #include <wx/app.h>
 
@@ -93,7 +93,7 @@ nonaApp::~nonaApp()
 
 bool nonaApp::OnInit()
 {
-    SetAppName("nona");
+    SetAppName("nona_gui");
 
     // parse arguments
     const char * optstring = "ho:";
@@ -137,41 +137,22 @@ bool nonaApp::OnInit()
     PanoramaMemento newPano;
     ifstream prjfile(scriptFile);
     if (prjfile.bad()) {
-        cerr << "could not open script : " << scriptFile << endl;
-        return false;
+        ostringstream error;
+        error << _("could not open script : ") << scriptFile << endl;
+        wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
+        exit(1);
     }
     if (newPano.loadPTScript(prjfile)) {
         pano.setMemento(newPano);
     } else {
-        cerr << "error while parsing panos tool script: " << scriptFile << endl;
-        return false;
+        ostringstream error;
+        error << _("error while parsing panos tool script: ") << scriptFile << endl; 
+
+        wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
+        exit(1);
     }
 
     PanoramaOptions  opts = pano.getOptions();
-
-    string format = "jpg";
-    bool savePartial = false;
-    switch(opts.outputFormat) {
-    case PanoramaOptions::JPEG:
-        format = "jpg";
-        break;
-    case PanoramaOptions::PNG:
-        format = "png";
-        break;
-    case PanoramaOptions::TIFF:
-        format = "tif";
-        break;
-    case PanoramaOptions::TIFF_m:
-        format = "tif";
-        savePartial = true;
-        break;
-    case PanoramaOptions::TIFF_mask:
-        format = "tif";
-        break;
-    default:
-        DEBUG_ERROR("unsupported file format, using jpeg");
-        format = "jpg";
-    }
 
     // check for some options
 
@@ -180,14 +161,15 @@ bool nonaApp::OnInit()
 
     cout << "output image size: " << w << "x" << h << endl;
 
+    DEBUG_DEBUG("output basename: " << basename);
+
     try {
-        BRGBImage dest;
         // stitch panorama
-        PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                 pdisp, basename, format, savePartial);
+        PT::stitchPanorama(pano, opts,
+                           pdisp, basename);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;
-        return false;
+        return 1;
     }
 
     return false;
