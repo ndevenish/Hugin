@@ -141,6 +141,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
 //    }
     if (m_autoPreview) {
+        DEBUG_DEBUG("updating preview after image change");
         updatePreview();
     }
 }
@@ -148,7 +149,9 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
 {
     m_displayedImages = imgs;
-    updatePreview();
+    if (m_autoPreview) {
+        updatePreview();
+    }
 }
 
 void PreviewPanel::ForceUpdate()
@@ -161,6 +164,13 @@ void PreviewPanel::ForceUpdate()
     updatePreview();
 }
 
+void PreviewPanel::SetAutoUpdate(bool enabled)
+{
+    m_autoPreview = enabled;
+    if (enabled) {
+        updatePreview();
+    }
+}
 
 void PreviewPanel::updatePreview()
 {
@@ -208,12 +218,17 @@ void PreviewPanel::updatePreview()
         ROI<Diff2D> panoROI;
         DEBUG_DEBUG("about to stitch images");
         if (m_displayedImages.size() > 0) {
+            FileRemapper<BRGBImage, BImage> m;
             if (seaming) {
                 WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-                stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+                stitcher.stitch(opts, m_displayedImages,
+                                destImageRange(panoImg), destImage(alpha),
+                                m);
             } else {
                 WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
-                stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+                stitcher.stitch(opts, m_displayedImages, 
+                                destImageRange(panoImg), destImage(alpha),
+                                m);
             }
         }
     } catch (std::exception & e) {

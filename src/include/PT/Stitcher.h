@@ -44,10 +44,63 @@
 #include <vigra_ext/blend.h>
 
 #include <PT/ImageTransforms.h>
+#include <PT/Panorama.h>
 
 
 namespace PT{
 
+/** functor to create a remapped image */
+template <typename ImageType, typename AlphaType>
+class SingleImageRemapper
+{
+public:
+    /** create a remapped pano image */
+    virtual
+    RemappedPanoImage<ImageType, AlphaType> *
+    operator()(const Panorama & pano,
+               const PanoramaOptions & opts,
+               int imgNr, utils::MultiProgressDisplay & progress) = 0;
+};
+
+/** functor to create a remapped image */
+template <typename ImageType, typename AlphaType>
+class FileRemapper : public SingleImageRemapper<ImageType, AlphaType>
+{
+public:
+    /** create a remapped pano image.
+     *
+     *  load the file from disk, and remap in memory
+     */
+    virtual
+    RemappedPanoImage<ImageType, AlphaType> *
+    operator()(const Panorama & pano, const PanoramaOptions & opts,
+             int imgNr, utils::MultiProgressDisplay & progress)
+    {
+        // load image
+        const PT::PanoImage & img = pano.getImage(imgNr);
+        vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
+        // create an image of the right size
+        ImageType srcImg(info.width(), info.height());
+        AlphaType srcAlpha(info.width(), info.height(), 1);
+
+        // import the image just read
+        progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
+
+        // import with alpha channel
+        vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
+                                       vigra::destImage(srcAlpha));
+
+        progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
+	
+        RemappedPanoImage<ImageType, AlphaType> * remapped
+            = new RemappedPanoImage<ImageType, AlphaType>;
+        remapped->remapImage(pano, opts,
+                             vigra::srcImageRange(srcImg),
+                             vigra::srcImage(srcAlpha),
+                             imgNr, progress);
+        return remapped;
+    }
+};
 
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
@@ -57,6 +110,7 @@ void estimateBlendingOrder(const PT::Panorama & pano, PT::UIntSet images,
 			   std::vector<unsigned int> & blendOrder);
 
 /** implements a stitching algorithm */
+template <typename ImageType, typename AlphaType>
 class Stitcher
 {
 public:
@@ -70,7 +124,9 @@ public:
      *
      *  The filename can be specified with and without extension
      */
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images, const std::string & file) = 0;
+    virtual void stitch(const PT::PanoramaOptions & opts,
+                        PT::UIntSet & images, const std::string & file,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper) = 0;
 
 
     //    template<typename ImgIter, typename ImgAccessor>
@@ -85,12 +141,12 @@ protected:
 
 /** remap a set of images, and store the individual remapped files. */
 template <typename ImageType, typename AlphaType>
-class MultiImageRemapper : public Stitcher
+class MultiImageRemapper : public Stitcher<ImageType, AlphaType>
 {
 public:
     MultiImageRemapper(const PT::Panorama & pano,
 		       utils::MultiProgressDisplay & progress)
-	: Stitcher(pano, progress)
+	: Stitcher<ImageType,AlphaType>(pano, progress)
     {
     }
 
@@ -98,7 +154,9 @@ public:
     {
     }
 
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images, const std::string & basename)
+    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images,
+                        const std::string & basename,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
 	DEBUG_ASSERT(opts.outputFormat == PT::PanoramaOptions::TIFF_multilayer
 		     || opts.outputFormat == PT::PanoramaOptions::TIFF_m);
@@ -117,30 +175,12 @@ public:
 	for (UIntSet::const_iterator it = images.begin();
 	     it != images.end(); ++it)
 	{
-
-	    // load image
-	    const PT::PanoImage & img = m_pano.getImage(*it);
-	    vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
-            // create an image of the right size
-	    ImageType srcImg(info.width(), info.height());
-            AlphaType srcAlpha(info.width(), info.height(), 1);
-
-	    // import the image just read
-	    m_progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
-
-            // import with alpha channel
-            vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
-                             vigra::destImage(srcAlpha));
-
-	    m_progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
+            // get a remapped image.
+	    RemappedPanoImage<ImageType, AlphaType> * remapped;
+            remapped = remapper(m_pano, opts, *it, m_progress);
 	
-	    RemappedPanoImage<ImageType, AlphaType> remapped;
-	    remapped.remapImage(m_pano, opts,
-                                vigra::srcImageRange(srcImg),
-                                vigra::srcImage(srcAlpha),
-                                *it, m_progress);
-	
-            saveRemapped(remapped, *it, m_pano.getNrOfImages(), opts);
+            saveRemapped(*remapped, *it, m_pano.getNrOfImages(), opts);
+            delete remapped;
 
             runningImgNr++;
         }
@@ -305,12 +345,12 @@ struct CalcMaskUnion
 
 
 template <typename ImageType, typename AlphaType>
-class WeightedStitcher : public Stitcher
+class WeightedStitcher : public Stitcher<ImageType, AlphaType>
 {
 public:
     WeightedStitcher(const PT::Panorama & pano,
 		     utils::MultiProgressDisplay & progress)
-	: Stitcher(pano, progress)
+	: Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
 
@@ -318,11 +358,12 @@ public:
              class AlphaIter, class AlphaAccessor>
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
                         vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
-                        std::pair<AlphaIter, AlphaAccessor> alpha)
+                        std::pair<AlphaIter, AlphaAccessor> alpha,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
 	std::vector<unsigned int> images;
 	// calculate stitching order
-	estimateBlendingOrder(m_pano, imgSet, images);	
+	estimateBlendingOrder(m_pano, imgSet, images);
 
 	unsigned int nImg = images.size();
 
@@ -334,41 +375,20 @@ public:
 	for (UIntVector::const_iterator it = images.begin();
 	     it != images.end(); ++it)
 	{
-	    // load image
-	    const PT::PanoImage & img = m_pano.getImage(*it);
-	    vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
-            // create an image of the right size
-	    ImageType srcImg(info.width(), info.height());
-            AlphaType srcAlpha(info.width(), info.height(), 1);
+            // get a remapped image.
+	    RemappedPanoImage<ImageType, AlphaType> * remapped;
+            remapped = remapper(m_pano, opts, *it, m_progress);
 
-	    // import the image just read
-	    m_progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
-
-            // import with alpha channel
-            vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
-                                           vigra::destImage(srcAlpha));
-
-#ifdef DEBUG
-            // testing stuff.
-            vigra_impex2::exportImage(srcImageRange(srcImg), vigra_impex2::ImageExportInfo("test_image_loaded.tif"));
-            vigra_impex2::exportImage(srcImageRange(srcAlpha), vigra_impex2::ImageExportInfo("test_alpha_loaded.tif"));
-#endif
-	
-	    m_progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
-	
-	    RemappedPanoImage<ImageType, AlphaType> remapped;
-	    remapped.remapImage(m_pano, opts,
-                                vigra::srcImageRange(srcImg),
-                                vigra::srcImage(srcAlpha),
-                                *it, m_progress);
-
-	    m_progress.setMessage("blending " + utils::stripPath(img.getFilename()));
+	    m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
-	    blend(remapped, pano, alpha, panoROI);
+	    blend(*remapped, pano, alpha, panoROI);
+            delete remapped;
 	}
     }
 
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet, const std::string & filename)
+    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        const std::string & filename,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
         std::string basename = utils::stripExtension(filename);
 
@@ -376,7 +396,7 @@ public:
 	ImageType pano(opts.width, opts.getHeight());
 	AlphaType panoMask(opts.width, opts.getHeight());
 
-        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask));
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
 	
         std::string outputfile;
 	// save the remapped image

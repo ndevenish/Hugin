@@ -166,13 +166,21 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     } else {
         if (m_progress) {
             char *str = wxT("Loading image");
-            m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,filename.c_str()).c_str(), "", 0));
+            m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,utils::stripPath(filename).c_str()).c_str(), "", 0));
         }
-        // Fixme, delete
+#if 0
+        // load images with VIGRA impex, and scale to 8 bit
+        ImageImportInfo info(filename.c_str());
+        if (info.numBands() < 3) {
+            // greyscale image
+        }
+#else
+        // use wx for image loading
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
             DEBUG_ERROR("Can't load image: " << filename);
         }
+#endif
         if (m_progress) {
             m_progress->popTask();
         }
@@ -192,7 +200,7 @@ ImagePtr ImageCache::getSmallImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->pushTask(ProgressTask(_("Scaling image"), filename.c_str(), 0));
+            m_progress->pushTask(ProgressTask(_("Scaling image"), utils::stripPath(filename).c_str(), 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         ImagePtr image = getImage(filename);

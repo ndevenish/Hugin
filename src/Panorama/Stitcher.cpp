@@ -47,36 +47,43 @@ static void stitchPanoIntern(const PT::Panorama & pano,
 	imgs.insert(i);
     }
 
+    FileRemapper<ImageType, AlphaType> m;
     // determine stitching output
     switch (opts.outputFormat) {
     case PT::PanoramaOptions::JPEG:
 	{
 	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename);
+	    stitcher.stitch(opts, imgs, basename,
+//                            SingleImageRemapper<ImageType, AlphaType>());
+                            m);
 	    break;
 	}
     case PT::PanoramaOptions::PNG:
 	{
 	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename);
+	    stitcher.stitch(opts, imgs, basename,
+                            m);
 	    break;
 	}
     case PT::PanoramaOptions::TIFF:
 	{
 	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename);
+	    stitcher.stitch(opts, imgs, basename,
+                            m);
 	    break;
 	}
     case PT::PanoramaOptions::TIFF_m:
         {
 	    MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename);
+	    stitcher.stitch(opts, imgs, basename,
+                            m);
 	    break;
         }
     case PT::PanoramaOptions::TIFF_multilayer:
 	{
 	    TiffMultiLayerRemapper<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename);
+	    stitcher.stitch(opts, imgs, basename,
+                            m);
 	    break;
 	}
     case PT::PanoramaOptions::TIFF_mask:

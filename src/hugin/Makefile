@@ -49,7 +49,8 @@ SUBDIRS = xrc po
 # Files that should be considered while creating the dependencies
 # ====================================================================
 
-DEPEND_FILES = *.cpp
+#DEPEND_FILES = *.cpp
+DEPEND_FILES =
 
 # ====================================================================
 # special compiler and linker flags for this directory
@@ -90,6 +91,7 @@ APP_1_BIN = hugin
 APP_1_OBJ = \
             huginApp.o \
 	    ImagesList.o \
+	    AutoCtrlPointCreator.o \
             Server.o \
             MainFrame.o \
             CPImageCtrl.o \
@@ -99,6 +101,8 @@ APP_1_OBJ = \
             ImageCache.o \
             CommandHistory.o \
             PanoPanel.o \
+	    NonaStitcherPanel.o \
+	    PTStitcherPanel.o \
 	    PreviewFrame.o \
 	    PreviewPanel.o \
 	    ImageCenter.o \
