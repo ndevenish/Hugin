@@ -45,6 +45,7 @@
 
 #include "hugin/MyProgressDialog.h"
 
+#include <tiffio.h>
 
 using namespace vigra;
 using namespace PT;
@@ -82,6 +83,9 @@ private:
 
 nonaApp::nonaApp()
 {
+    // suppress tiff warnings
+    TIFFSetWarningHandler(0);
+    
     DEBUG_TRACE("ctor");
 }
 
@@ -146,7 +150,7 @@ bool nonaApp::OnInit()
         pano.setMemento(newPano);
     } else {
         ostringstream error;
-        error << _("error while parsing panos tool script: ") << scriptFile << endl; 
+        error << _("error while parsing panos tool script: ") << scriptFile << endl;
 
         wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);

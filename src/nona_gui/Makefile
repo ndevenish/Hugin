@@ -57,7 +57,7 @@ DEPEND_FILES = *.cpp
 
 CFLAGS += $(WXWIN_CFLAGS) $(VIGRA_CFLAGS)
 LFLAGS += $(WXWIN_LFLAGS)  -lhuginwxutils -lpanorama \
-           -ljhead -lcommon -lvigra_ext ${VIGRA_LFLAGS}
+           -ljhead -lcommon -lvigra_ext -lvigra_impex2 ${VIGRA_LFLAGS}
 
 # ====================================================================
 # The applications that should be build in this directory.
