@@ -557,8 +557,8 @@ void PTools::setOptVars(optVars & opt, const std::set<std::string> & optvars)
     opt.c       = set_contains(optvars,"c") ? 1 : 0;
     opt.d       = set_contains(optvars,"d") ? 1 : 0;
     opt.e       = set_contains(optvars,"e") ? 1 : 0;
-    opt.shear_x = set_contains(optvars,"f") ? 1 : 0;
-    opt.shear_y = set_contains(optvars,"g") ? 1 : 0;
+    opt.shear_x = set_contains(optvars,"g") ? 1 : 0;
+    opt.shear_y = set_contains(optvars,"t") ? 1 : 0;
 }
 
 PTools::AlignInfoWrap::AlignInfoWrap()
@@ -767,7 +767,7 @@ const PT::CPVector & PTools::AlignInfoWrap::getCtrlPoints()
 {
     if (gl.cpt) {
         for (int i = 0; i < gl.numPts; i++) {
-            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i)); 
+            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i));
 //            res[i] = ControlPoint(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
 //                                  gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].mode[];
         }

@@ -272,6 +272,8 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     InsertColumn( 7, _("c"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 8, _("d"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 9, _("e"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 10, _("g"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 11, _("t"), wxLIST_FORMAT_RIGHT, 40 );
 
 }
 
@@ -287,9 +289,9 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     wxString ps;
     switch ( (int) lens.  projectionFormat  ) {
     case Lens::RECTILINEAR:          ps << _("Normal (rectlinear)"); break;
-    case Lens::PANORAMIC:            ps << _("Panoramic"); break;
-    case Lens::CIRCULAR_FISHEYE:     ps << _("Circular"); break;
-    case Lens::FULL_FRAME_FISHEYE:   ps << _("Full frame"); break;
+    case Lens::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
+    case Lens::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
+    case Lens::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
     case Lens::EQUIRECTANGULAR_LENS: ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
@@ -299,5 +301,7 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 7, doubleToString( map_get(var, "c").getValue()).c_str());
     SetItem(imgNr, 8, doubleToString( map_get(var, "d").getValue()).c_str());
     SetItem(imgNr, 9, doubleToString( map_get(var, "e").getValue()).c_str());
+    SetItem(imgNr, 10, doubleToString( map_get(var, "g").getValue()).c_str());
+    SetItem(imgNr, 11, doubleToString( map_get(var, "t").getValue()).c_str());
 }
 

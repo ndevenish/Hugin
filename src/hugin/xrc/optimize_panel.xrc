@@ -17,7 +17,7 @@
           <object class="sizeritem">
             <object class="wxChoice" name="optimize_panel_mode">
               <content>
-                <item>Positions (smart optimize)</item>
+                <item>Positions (pairwise optim., starting from anchor)</item>
                 <item>Positions (y,p,r)</item>
                 <item>Positions and View (y,p,r,v)</item>
                 <item>Positions and Barrel Distortion (y,p,r,b)</item>

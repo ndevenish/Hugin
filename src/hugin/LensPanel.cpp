@@ -67,6 +67,8 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::OnVarChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_g"), LensPanel::OnVarChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_t"), LensPanel::OnVarChanged )
     EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_a"), LensPanel::OnVarInheritChanged )
@@ -74,6 +76,8 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_CHECKBOX ( XRCID("lens_inherit_c"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_d"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_e"), LensPanel::OnVarInheritChanged )
+    EVT_CHECKBOX ( XRCID("lens_inherit_g"), LensPanel::OnVarInheritChanged )
+    EVT_CHECKBOX ( XRCID("lens_inherit_t"), LensPanel::OnVarInheritChanged )
 END_EVENT_TABLE()
 
 // Define a constructor for the Lenses Panel
@@ -104,6 +108,8 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     // dummy to disable controls
     wxListEvent ev;
@@ -304,6 +310,10 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
             varname = "d";
         } else if (e.m_id == XRCID("lens_val_e")) {
             varname = "e";
+        } else if (e.m_id == XRCID("lens_val_g")) {
+            varname = "g";
+        } else if (e.m_id == XRCID("lens_val_t")) {
+            varname = "t";
         } else if (e.m_id == XRCID("lens_val_v")) {
             varname = "v";
         } else {
@@ -342,6 +352,10 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
             varname = "d";
         } else if (e.m_id == XRCID("lens_inherit_e")) {
             varname = "e";
+        } else if (e.m_id == XRCID("lens_inherit_g")) {
+            varname = "g";
+        } else if (e.m_id == XRCID("lens_inherit_t")) {
+            varname = "t";
         } else if (e.m_id == XRCID("lens_inherit_v")) {
             varname = "v";
         } else {
@@ -400,12 +414,16 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_d", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_e", wxTextCtrl)->Disable();
+        XRCCTRL(*this, "lens_val_g", wxTextCtrl)->Disable();
+        XRCCTRL(*this, "lens_val_t", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Disable();
+        XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Disable();
+        XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Disable();
     } else {
         // one or more images selected
         if (XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Enable()) {
@@ -418,12 +436,16 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_d", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_e", wxTextCtrl)->Enable();
+            XRCCTRL(*this, "lens_val_g", wxTextCtrl)->Enable();
+            XRCCTRL(*this, "lens_val_t", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Enable();
+            XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Enable();
+            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Enable();
         }
 
         if (sel.size() == 1) {
@@ -441,12 +463,16 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_d", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_e", wxTextCtrl)->Clear();
+            XRCCTRL(*this, "lens_val_g", wxTextCtrl)->Clear();
+            XRCCTRL(*this, "lens_val_t", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Clear();
+            XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Clear();
+            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Clear();
         }
     }
 }

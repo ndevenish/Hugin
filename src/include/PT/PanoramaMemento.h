@@ -48,22 +48,6 @@ public:
         : name(name), value(val)
         { };
     virtual ~Variable() {};
-#if 0
-    bool operator==(const Variable & o) const
-        {
-            if (linked) {
-                return (name == o.name &&
-                        value == o.value &&
-                        linkImage == o.linkImage &&
-                        linked == o.linked);
-            } else {
-                return (name == o.name &&
-                        value == o.value &&
-                        linked == o.linked);
-
-            }
-        }
-#endif
 
     /// print this variable
     virtual std::ostream & print(std::ostream & o) const;
@@ -123,39 +107,6 @@ void fillVariableMap(VariableMap & vars);
 
 /** print a variable map to \p o */
 void printVariableMap(std::ostream & o, const VariableMap & vars);
-
-#if 0
-/// variables of an image
-class ImageVariables
-{
-public:
-    ImageVariables()
-        : roll("r"), pitch("p"), yaw("y"), HFOV("v"),
-          a("a"), b("b"), c("c"),d("d"),e("e")
-        { };
-
-#if 0
-    bool operator==(const ImageVariables & o) const
-        { return ( roll == o.roll &&
-                   pitch == o.pitch &&
-                   yaw == o.yaw &&
-                   HFOV == o.HFOV &&
-                   a == o.a &&
-                   b == o.b &&
-                   c == o.c &&
-                   d == o.d &&
-                   e == o.e);
-        }
-#endif
-
-    void updateValues(const ImageVariables & vars);
-
-    std::ostream & print(std::ostream & o, bool printLinks = true) const;
-
-    Variable roll, pitch, yaw, HFOV, a, b, c, d, e;
-};
-
-#endif
 
 class Lens {
 

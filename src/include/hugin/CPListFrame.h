@@ -47,6 +47,9 @@ public:
     virtual ~CPListFrame();
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+    /** Delete the selected points */
+    void DeleteSelected();
+
 private:
 
     void SetCPItem(int i, const PT::ControlPoint & p);

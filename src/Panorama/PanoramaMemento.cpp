@@ -50,6 +50,8 @@ void PT::fillVariableMap(VariableMap & vars)
     vars.insert(pair<const char*, Variable>("c",Variable("c",0)));
     vars.insert(pair<const char*, Variable>("d",Variable("d",0)));
     vars.insert(pair<const char*, Variable>("e",Variable("e",0)));
+    vars.insert(pair<const char*, Variable>("g",Variable("g",0)));
+    vars.insert(pair<const char*, Variable>("t",Variable("t",0)));
 };
 
 
@@ -73,46 +75,6 @@ std::ostream & LensVariable::printLink(std::ostream & o,
     return o << name << "=" << linkImage;
 }
 
-#if 0
-std::ostream & ImageVariables::print(std::ostream & o, bool printLinks) const
-{
-    for (const_iterator it = begin()
-    yaw.print(o, printLinks) << " ";
-    roll.print(o, printLinks) << " ";
-    pitch.print(o, printLinks) << " ";
-    HFOV.print(o, printLinks) << " ";
-    a.print(o, printLinks) << " ";
-    b.print(o, printLinks) << " ";
-    c.print(o, printLinks) << " ";
-    d.print(o, printLinks) << " ";
-    e.print(o, printLinks);
-    return o;
-};
-#endif
-
-#if 0
-void ImageVariables::updateValues(const ImageVariables & vars)
-{
-    yaw.setValue(vars.yaw.getValue());
-    roll.setValue(vars.roll.getValue());
-    pitch.setValue(vars.pitch.getValue());
-    HFOV.setValue(vars.HFOV.getValue());
-    a.setValue(vars.a.getValue());
-    b.setValue(vars.b.getValue());
-    c.setValue(vars.c.getValue());
-    d.setValue(vars.d.getValue());
-    e.setValue(vars.e.getValue());
-}
-
-#endif
-
-
-/*
-QString PT::getAttrib(QDomNamedNodeMap map, QString name)
-{
-    return map.namedItem(name).nodeValue();
-}
-*/
 
 //=========================================================================
 //=========================================================================
@@ -131,45 +93,11 @@ Lens::Lens()
     variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("d",LensVariable("d", 0.0)));
     variables.insert(pair<const char*, LensVariable>("e",LensVariable("e", 0.0)));
+    variables.insert(pair<const char*, LensVariable>("g",LensVariable("g", 0.0)));
+    variables.insert(pair<const char*, LensVariable>("t",LensVariable("t", 0.0)));
 }
 
-char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", 0};
-
-#if 0
-void Lens::toXML(std::ostream & o)
-{
-    o << "<lens type=\"" << prjToString(projection) << "\">" << endl
-      << root.setAttribute("focal_length", focalLength)
-      << root.setAttribute("focal_length_conv_factor", focalLengthConversionFactor)
-      << root.setAttribute("HFOV", HFOV)
-      << "<distortion a=\"" << a
-      << "\" b=\"" << b
-      << "\" c=\"" << c
-      << "\" d=\"" << d
-      << "\" e=\"" << e << "\"/>" << endl;
-}
-
-
-void Lens::setFromXML(const QDomNode & node)
-{
-    DEBUG_DEBUG("LensSettings::setFromXML");
-    Q_ASSERT(node.nodeName() == "lens");
-    QDomNamedNodeMap attr = node.attributes();
-    projectionFormat = (ProjectionFormat) getAttrib(attr, "projection").toUInt();
-    focalLength = getAttrib(attr, "focal_length").toDouble();
-    focalLengthConversionFactor = getAttrib(attr, "focal_length_conv_factor").toDouble();
-    HFOV = getAttrib(attr, "HFOV").toDouble();
-    a = getAttrib(attr, "a").toDouble();
-    b = getAttrib(attr, "b").toDouble();
-    c = getAttrib(attr, "c").toDouble();
-    d = getAttrib(attr, "d").toDouble();
-    e = getAttrib(attr, "e").toDouble();
-    exifFocalLength = getAttrib(attr, "exif_focal_length").toDouble();
-    exifFocalLengthConversionFactor = getAttrib(attr, "exif_focal_length_conv_factor").toDouble();
-    exifHFOV = getAttrib(attr, "exif_HFOV").toDouble();
-}
-#endif
-
+char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 0};
 
 bool Lens::readEXIF(const std::string & filename)
 {
@@ -307,38 +235,6 @@ ControlPoint::ControlPoint(Panorama & pano, const QDomNode & node)
 #endif
 
 
-#if 0
-QDomNode ControlPoint::toXML(QDomDocument & doc) const
-{
-    QDomElement elem = doc.createElement("control_point");
-    elem.setAttribute("image1", image1->getNr());
-    elem.setAttribute("x1", x1);
-    elem.setAttribute("y1", y1);
-    elem.setAttribute("image2", image2->getNr());
-    elem.setAttribute("x2", x2);
-    elem.setAttribute("y2", y2);
-    elem.setAttribute("mode", mode);
-    elem.setAttribute("distance",error);
-    return elem;
-}
-
-void ControlPoint::setFromXML(const QDomNode & elem, Panorama & pano)
-{
-    DEBUG_DEBUG("ControlPoint::setFromXML");
-    Q_ASSERT(elem.nodeName() == "control_point");
-    QDomNamedNodeMap attrs = elem.attributes();
-    image1 = pano.getImage(getAttrib(attrs,"image1").toUInt());
-    x1 = getAttrib(attrs,"x1").toUInt();
-    y1 = getAttrib(attrs,"y1").toUInt();
-    image2 = pano.getImage(getAttrib(attrs,"image2").toUInt());
-    x2 = getAttrib(attrs,"x2").toUInt();
-    y2 = getAttrib(attrs,"y2").toUInt();
-    error = getAttrib(attrs,"distance").toDouble();
-    mode = (OptimizeMode) getAttrib(attrs, "mode").toUInt();
-}
-
-#endif
-
 void ControlPoint::mirror()
 {
     unsigned int ti;
@@ -358,47 +254,6 @@ const std::string & ControlPoint::getModeName(OptimizeMode mode) const
 
 //=========================================================================
 //=========================================================================
-
-
-#if 0
-QDomNode PanoramaOptions::toXML(QDomDocument & doc) const
-{
-    QDomElement elem = doc.createElement("output");
-    elem.setAttribute("projection", projectionFormat);
-    elem.setAttribute("HFOV", HFOV);
-    elem.setAttribute("width", width);
-    elem.setAttribute("height", height);
-    elem.setAttribute("output", outfile);
-    elem.setAttribute("format", outputFormat);
-    elem.setAttribute("jpg_quality", quality);
-    elem.setAttribute("progressive", progressive);
-    elem.setAttribute("color_correction", colorCorrection);
-    elem.setAttribute("color_ref_image", colorReferenceImage);
-    elem.setAttribute("gamma", gamma);
-    elem.setAttribute("interpolator", interpolator);
-    return elem;
-}
-
-void PanoramaOptions::setFromXML(const QDomNode & elem)
-{
-    DEBUG_DEBUG("PanoramaOptions::setFromXML");
-    Q_ASSERT(elem.nodeName() == "output");
-    QDomNamedNodeMap attrs = elem.attributes();
-    projectionFormat = (ProjectionFormat)getAttrib(attrs,"projection").toUInt();
-    HFOV = getAttrib(attrs,"HFOV").toDouble();
-    width = getAttrib(attrs,"width").toUInt();
-    height = getAttrib(attrs,"height").toUInt();
-    outfile = getAttrib(attrs,"output");
-    outputFormat = getAttrib(attrs,"format");
-    quality = getAttrib(attrs,"jpg_quality").toUInt();
-    progressive = getAttrib(attrs,"height").toUInt() != 0;
-    colorCorrection = (ColorCorrection) getAttrib(attrs, "color_correction").toUInt();
-    colorReferenceImage = getAttrib(attrs, "color_ref_image").toUInt();
-    gamma = getAttrib(attrs, "gamma").toDouble();
-    interpolator = (Interpolator) getAttrib(attrs, "interpolator").toUInt();
-}
-
-#endif
 
 const std::string & PanoramaOptions::getFormatName(FileFormat f)
 {
@@ -497,18 +352,18 @@ struct ImgInfo
 {
 public:
     ImgInfo()
-      : a(0), b(0), c(0), d(0), e(0), f(0), g(0),
-        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lf(-2),
+      : a(0), b(0), c(0), d(0), e(0), g(0), t(0),
+        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
         r(0), p(0), y(0),
         lr(-2), lp(-2), ly(-2),
         blend_radius(0), width(-1), height(-1)
     {
-    
+
     }
-    
+
     ImgInfo(const string & line)
-      : a(0), b(0), c(0), d(0), e(0), f(0), g(0),
-        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lf(-2),
+      : a(0), b(0), c(0), d(0), e(0), g(0), t(0),
+        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
         r(0), p(0), y(0),
         lr(-2), lp(-2), ly(-2),
         blend_radius(0), width(-1), height(-1)
@@ -519,28 +374,28 @@ public:
         getPTDoubleParam(c, lc, line, "c");
         getPTDoubleParam(d, ld, line, "d");
         getPTDoubleParam(e, le, line, "e");
-        getPTDoubleParam(f, lf, line, "f");
         getPTDoubleParam(g, lg, line, "g");
-        
+        getPTDoubleParam(t, lt, line, "t");
+
         getPTDoubleParam(r, lr, line, "r");
         getPTDoubleParam(p, lp, line, "p");
         getPTDoubleParam(y, ly, line, "y");
 
-        getParam(blend_radius, line, "u");        
+        getParam(blend_radius, line, "u");
 
         getPTStringParam(filename,line,"n");
         getParam(width, line, "w");
         getParam(height, line, "h");
     }
-    
+
     string filename;
-    double a,b,c,d,e,f,g;
-    int la,lb,lc,ld,le,lf,lg;
+    double a,b,c,d,e,g,t;
+    int la,lb,lc,ld,le,lg,lt;
     double r,p,y;
     int lr,lp,ly;
     int blend_radius;
     int width, height;
-    
+
 };
 
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
@@ -727,7 +582,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 e = line.find_first_of("\"",b);
                 string nextFilename = line.substr(b,e-b);
                 DEBUG_DEBUG("next filename " << nextFilename);
-                
+
                 ImgInfo info;
                 info.width  = nextWidth;
                 info.height = nextHeight;
@@ -746,13 +601,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             break;
         }
-        
+
         } // case
     }
-    
-    
+
+
     // assemble images & lenses from the information read before..
-/*    
+/*
     // ugly hack to load PTGui script files
     if (ptGUIDummyImage) {
         DEBUG_DEBUG("loading default PTGUI line: " << line);
@@ -774,16 +629,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             ptGUIDummyImage = false;
             break;
         }
-*/        
+*/
 
 
     // merge image info from the 3 different lines...
     // i lines are the main reference.
 
-    int nImgs = iImgInfo.size(); 
+    int nImgs = iImgInfo.size();
     int nOLines = oImgInfo.size();
     int nCLines = cImgInfo.size();
-    
+
     if (nImgs < nOLines) {
         // no, or less i lines found. scrap i lines.
         DEBUG_DEBUG("throwing away " << nImgs << " i lines");
@@ -793,84 +648,98 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     if (nOLines < nImgs) {
         oImgInfo = iImgInfo;
     }
-    
+
     // merge into i lines.
     for (int i=0; i < nImgs; i++) {
-        
+
         // move parameters from o lines -> i (only if it isn't given in the
         // i lines. or it is linked on the o lines)
 
-        if (iImgInfo[i].la != -2 || iImgInfo[i].la == -1 && oImgInfo[i].la >=0) {
+        if (iImgInfo[i].la == -2 && oImgInfo[i].la != -2 || iImgInfo[i].la == -1 && oImgInfo[i].la >=0) {
+            DEBUG_DEBUG("a: o -> i");
             iImgInfo[i].a = oImgInfo[i].a;
             iImgInfo[i].la = oImgInfo[i].la;
         }
 
-        if (iImgInfo[i].lb != -2 || iImgInfo[i].lb == -1 && oImgInfo[i].lb >=0) {
+        if (iImgInfo[i].lb == -2 && oImgInfo[i].lb != -2 || iImgInfo[i].lb == -1 && oImgInfo[i].lb >=0) {
+            DEBUG_DEBUG("b: o -> i");
             iImgInfo[i].b = oImgInfo[i].b;
             iImgInfo[i].lb = oImgInfo[i].lb;
         }
 
-        if (iImgInfo[i].lc != -2 || iImgInfo[i].lc == -1 && oImgInfo[i].lc >=0) {
+        if (iImgInfo[i].lc == -2 && oImgInfo[i].lc != -2 || iImgInfo[i].lc == -1 && oImgInfo[i].lc >=0) {
+            DEBUG_DEBUG("c: o -> i");
             iImgInfo[i].c = oImgInfo[i].c;
             iImgInfo[i].lc = oImgInfo[i].lc;
         }
 
-        if (iImgInfo[i].ld != -2 || iImgInfo[i].ld == -1 && oImgInfo[i].ld >=0) {
+        if (iImgInfo[i].ld == -2 && oImgInfo[i].ld != -2 || iImgInfo[i].ld == -1 && oImgInfo[i].ld >=0) {
+            DEBUG_DEBUG("d: o -> i");
             iImgInfo[i].d = oImgInfo[i].d;
             iImgInfo[i].ld = oImgInfo[i].ld;
         }
 
-        if (iImgInfo[i].le != -2 || iImgInfo[i].le == -1 && oImgInfo[i].le >=0) {
+        if (iImgInfo[i].le == -2 && oImgInfo[i].le != -2 || iImgInfo[i].le == -1 && oImgInfo[i].le >=0) {
+            DEBUG_DEBUG("e: o -> i");
             iImgInfo[i].e = oImgInfo[i].e;
             iImgInfo[i].le = oImgInfo[i].le;
         }
 
-        if (iImgInfo[i].lf != -2 || iImgInfo[i].lf == -1 && oImgInfo[i].lf >=0) {
-            iImgInfo[i].f = oImgInfo[i].f;
-            iImgInfo[i].lf = oImgInfo[i].lf;
-        }
-
-        if (iImgInfo[i].lg != -2 || iImgInfo[i].lg == -1 && oImgInfo[i].lg >=0) {
+        if (iImgInfo[i].lg == -2 && oImgInfo[i].lg != -2 || iImgInfo[i].lg == -1 && oImgInfo[i].lg >=0) {
+            DEBUG_DEBUG("g: o -> i");
             iImgInfo[i].g = oImgInfo[i].g;
             iImgInfo[i].lg = oImgInfo[i].lg;
         }
 
-        if (iImgInfo[i].lr != -2 || iImgInfo[i].lr == -1 && oImgInfo[i].lr >=0) {
+        if (iImgInfo[i].lt == -2 && oImgInfo[i].lt != -2 || iImgInfo[i].lt == -1 && oImgInfo[i].lt >=0) {
+            DEBUG_DEBUG("t: o -> i");
+            iImgInfo[i].t = oImgInfo[i].t;
+            iImgInfo[i].lt = oImgInfo[i].lt;
+        }
+
+        if (iImgInfo[i].lr == -2 && oImgInfo[i].lr != -2 || iImgInfo[i].lr == -1 && oImgInfo[i].lr >=0) {
+            DEBUG_DEBUG("r: o -> i");
             iImgInfo[i].r = oImgInfo[i].r;
             iImgInfo[i].lr = oImgInfo[i].lr;
         }
 
-        if (iImgInfo[i].lp != -2 || iImgInfo[i].lp == -1 && oImgInfo[i].lp >=0) {
+        if (iImgInfo[i].lp == -2 && oImgInfo[i].lp != -2 || iImgInfo[i].lp == -1 && oImgInfo[i].lp >=0) {
+            DEBUG_DEBUG("p: o -> i");
             iImgInfo[i].p = oImgInfo[i].p;
             iImgInfo[i].lp = oImgInfo[i].lp;
         }
 
-        if (iImgInfo[i].ly != -2 || iImgInfo[i].ly == -1 && oImgInfo[i].ly >=0) {
+        if (iImgInfo[i].ly == -2 && oImgInfo[i].ly != -2 || iImgInfo[i].ly == -1 && oImgInfo[i].ly >=0) {
+            DEBUG_DEBUG("y: o -> i");
             iImgInfo[i].y = oImgInfo[i].y;
             iImgInfo[i].ly = oImgInfo[i].ly;
         }
 
         if (iImgInfo[i].filename == "" && oImgInfo[i].filename != "") {
-            iImgInfo[i].filename = oImgInfo[i].filename;   
+            DEBUG_DEBUG("filename: o -> i");
+            iImgInfo[i].filename = oImgInfo[i].filename;
         }
-        
+
         if (iImgInfo[i].width <= 0 && oImgInfo[i].width > 0) {
-            iImgInfo[i].width = oImgInfo[i].width;   
+            DEBUG_DEBUG("width: o -> i");
+            iImgInfo[i].width = oImgInfo[i].width;
         }
         if (iImgInfo[i].height <= 0 && oImgInfo[i].height > 0) {
-            iImgInfo[i].height = oImgInfo[i].height;   
+            DEBUG_DEBUG("height: o -> i");
+            iImgInfo[i].height = oImgInfo[i].height;
         }
-        
+
         if (nCLines == nImgs) {
             // img file & size in clines
             if (cImgInfo[i].filename != "" && cImgInfo[i].width > 0) {
+                DEBUG_DEBUG("filename, width, height: c -> i");
                 iImgInfo[i].filename = cImgInfo[i].filename;
                 iImgInfo[i].width = cImgInfo[i].width;
                 iImgInfo[i].height = cImgInfo[i].height;
             }
         }
     }
-    
+
     // create stuff.
     for (int i=0; i < nImgs; i++) {
 
@@ -899,7 +768,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         map_get(vars,"a").setValue(iImgInfo[i].a);
         DEBUG_ASSERT(link <0  || iImgInfo[i].la < 0 || link == iImgInfo[i].la);
         if (iImgInfo[i].la >= 0) {
+            DEBUG_DEBUG("a linked: " <<  iImgInfo[i].la << " " << link);
             link = iImgInfo[i].la;
+        } else {
+            DEBUG_DEBUG("a not linked");
         }
 
         map_get(vars,"b").setValue(iImgInfo[i].b);
@@ -926,20 +798,21 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             link = iImgInfo[i].le;
         }
 
-#if 0        
-        map_get(vars,"f").setValue(iImgInfo[i].f);
-        DEBUG_ASSERT(link <0 || iImgInfo[i].lf < 0 || link == iImgInfo[i].lf);
-        link = iImgInfo[i].lf;
-
         map_get(vars,"g").setValue(iImgInfo[i].g);
         DEBUG_ASSERT(link <0 || iImgInfo[i].lg < 0 || link == iImgInfo[i].lg);
-        link = iImgInfo[i].lg;
-        
-#endif 
-        
+        if (iImgInfo[i].lg >= 0) {
+            link = iImgInfo[i].lg;
+        }
+
+        map_get(vars,"t").setValue(iImgInfo[i].t);
+        DEBUG_ASSERT(link <0 || iImgInfo[i].lt < 0 || link == iImgInfo[i].lt);
+        if (iImgInfo[i].lt >= 0) {
+            link = iImgInfo[i].lt;
+        }
+
         int width = iImgInfo[i].width;
         int height = iImgInfo[i].height;
-        
+
         string file = iImgInfo[i].filename;
         // add prefix if only a relative path.
 #ifdef WIN32
@@ -961,7 +834,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             it != l.variables.end();
             ++it)
         {
-            
+
             DEBUG_DEBUG("reading variable " << it->first << " link:" << link );
             if (link >=0) {
                 // linked variable
@@ -1009,13 +882,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
         }
         variables.push_back(vars);
-    
-    
+
+
         DEBUG_DEBUG("lensNr after scanning " << lensNr);
         int lensProjInt;
         getParam(lensProjInt, line, "f");
         l.projectionFormat = (Lens::LensProjectionFormat) lensProjInt;
-    
+
         if (lensNr != -1) {
     //                lensNr = images[anchorImage].getLensNr();
             if (l.projectionFormat != lenses[lensNr].projectionFormat) {
@@ -1027,7 +900,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 return false;
             }
         }
-    
+
         if (lensNr == -1) {
             if (width > height) {
                 l.setRatio(((double)width)/height);
@@ -1046,21 +919,21 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             // check if the ratio is equal
         }
-    
+
         DEBUG_ASSERT(lensNr >= 0);
         DEBUG_DEBUG("adding image with lens " << lensNr);
         images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
-    
+
         ImageOptions opts = images.back().getOptions();
         opts.featherWidth == (unsigned int) iImgInfo[i].blend_radius;
         images.back().setOptions(opts);
     }
-    
-    // set dummy optimize vector 
-    
+
+    // set dummy optimize vector
+
     return true;
 }
-        
+
 bool PanoramaMemento::loadPTScript2(std::istream &i, const std::string &prefix)
 {
     DEBUG_TRACE("");

@@ -33,9 +33,39 @@
 
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
+#include "hugin/CommandHistory.h"
 
 using namespace PT;
 using namespace std;
+
+class DelKeyHandler: public wxEvtHandler
+{
+public:
+    DelKeyHandler(CPListFrame & list)
+        : m_list(list)
+        {
+        }
+    
+    void OnKey(wxKeyEvent & e)
+        {
+            if (e.m_keyCode == WXK_DELETE) {
+                m_list.DeleteSelected();
+            } else {
+                e.Skip();
+            }
+        }
+    
+private:
+    CPListFrame & m_list;
+
+    DECLARE_EVENT_TABLE()
+   
+};
+
+BEGIN_EVENT_TABLE(DelKeyHandler, wxEvtHandler)
+    EVT_CHAR(DelKeyHandler::OnKey)
+END_EVENT_TABLE()
+
 
 // sort helper function
 struct compareError
@@ -131,6 +161,8 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     if (w != -1) {
         SetClientSize(w,h);
     }
+
+    m_list->PushEventHandler(new DelKeyHandler(*this));
 
     m_list->Show();
     // observe the panorama
@@ -309,30 +341,30 @@ void CPListFrame::OnClose(wxCloseEvent& event)
     }
 }
 
-#if 0
-void CPListFrame::OnKey(wxKeyEvent & e)
+void CPListFrame::DeleteSelected()
 {
-    DEBUG_DEBUG("key " << e.m_keyCode
-                << " origin: id:" << e.m_id << " obj: "
-                << e.GetEventObject());
-    if (e.m_keyCode == WXK_DELETE){
-        DEBUG_DEBUG("Delete pressed");
-        // find selected point
-        long item = -1;
-        item = m_cpList->GetNextItem(item,
-                                     wxLIST_NEXT_ALL,
-                                     wxLIST_STATE_SELECTED);
-        // no selected item.
-        if (item == -1) {
-            wxBell();
-            return;
-        }
-        unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
-        DEBUG_DEBUG("about to delete point " << pNr);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveCtrlPointCmd(*m_pano,pNr)
-            );
+    DEBUG_DEBUG("Delete pressed");
+    // find selected point
+    long item = -1;
+    item = m_list->GetNextItem(item,
+                               wxLIST_NEXT_ALL,
+                               wxLIST_STATE_SELECTED);
+    // no selected item.
+    if (item == -1) {
+        wxBell();
+        return;
     }
-}
+    int cp = m_list->GetItemData(item);
+    DEBUG_DEBUG("about to delete point " << cp);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveCtrlPointCmd(m_pano,(unsigned int) cp)
+        );
 
-#endif
+    item = m_list->GetNextItem(-1,
+                               wxLIST_NEXT_ALL,
+                               wxLIST_STATE_SELECTED);
+    if (item >=0) {
+        int cp = m_list->GetItemData(item);
+        m_mainFrame->ShowCtrlPoint((unsigned int) cp);
+    }   
+}

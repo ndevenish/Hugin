@@ -297,7 +297,7 @@ void calcBorderPoints(vigra::Diff2D srcSize,
         if (lr.y < sy) lr.y = sy;
         *result = FDiff2D((float)sx, (float) sy);
     }
-    x = srcSize.x;
+    x = srcSize.x-1;
     for (y=0; y<srcSize.y ; y++) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
@@ -307,7 +307,7 @@ void calcBorderPoints(vigra::Diff2D srcSize,
         if (lr.y < sy) lr.y = sy;
         *result = FDiff2D((float)sx, (float) sy);
     }
-    y = srcSize.y;
+    y = srcSize.y-1;
     for (x=srcSize.x-1; x>0 ; --x) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);

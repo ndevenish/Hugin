@@ -181,8 +181,10 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     //
     while ( m_process->IsInputOpened() && m_process->IsInputAvailable() ){
         line = m_in->ReadLine();
+        DEBUG_DEBUG("read line: " << line);
         wxString rest;
         if (!line.StartsWith("after ", &rest)) {
+            DEBUG_DEBUG("unknown line: " << line);
             continue;
         }
         bool ok;

@@ -827,8 +827,8 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
                         << " pitch " << map_get(*varIt, "p").getValue()
                         << " roll " << map_get(*varIt, "r").getValue());
             // read lens variables
-            char *varchars[] = { "v","a","b","c","d","e", NULL };
-            for (char **c = varchars; *c != 0; ++c) {
+            
+            for (char **c = Lens::variableNames; *c != 0; ++c) {
                 Variable & curVar = map_get(*varIt, *c);
                 if (!readVar(curVar, link, line)) {
                     DEBUG_ERROR("Could not read "<< *c << " at script line " << lineNr);

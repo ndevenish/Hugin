@@ -27,9 +27,9 @@
                 <object class="wxComboBox" name="lens_val_projectionFormat">
                   <content>
                     <item>Normal (rectlinear)</item>
-                    <item>Panoramic</item>
-                    <item>Circular</item>
-                    <item>Full frame</item>
+                    <item>Panoramic (cylindrical)</item>
+                    <item>Circular fisheye</item>
+                    <item>Full frame fisheye</item>
                     <item>Equirectangular</item>
                   </content>
                   <selection>0</selection>
@@ -219,8 +219,6 @@
                     <object class="wxCheckBox" name="lens_inherit_d">
                       <label>Inherit</label>
                       <style></style>
-                      <enabled>0</enabled>
-                      <tooltip>pano tools optimisation for linked &quot;d&quot; does not work </tooltip>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                   </object>
@@ -239,8 +237,6 @@
                   <object class="sizeritem">
                     <object class="wxCheckBox" name="lens_inherit_e">
                       <label>Inherit</label>
-                      <enabled>0</enabled>
-                      <tooltip>pano tools optimisation for linked &quot;e&quot; does not work</tooltip>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                   </object>
@@ -265,6 +261,61 @@
           </object>
           <label>Camera and Lens Information</label>
           <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <label>Image Shearing</label>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>horizontal (g):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_g">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_g">
+                      <label>Inherit</label>
+                      <style></style>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>vertical (t):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_t">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_t">
+                      <label>Inherit</label>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>0</growablecols>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>4</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <border>5</border>
+          </object>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>
