@@ -115,8 +115,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_empty.LoadFile(MainFrame::Get()->GetXRCPath() +
                      "/data/" "druid.images.128.png",
                      wxBITMAP_TYPE_PNG);
-    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
-        SetBitmap(m_empty);
+    wxStaticBitmap * bmp = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
+    DEBUG_ASSERT(bmp);
+    bmp->SetBitmap(m_empty);
 
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -399,10 +400,13 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     // a new image is set, else it will keep the old size..
     // however, I'm not sure how this should be done with wxWindows
 
+    // get size from parent panel (its just there, to provide the size..
+    wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
+    DEBUG_ASSERT(imgctrlpanel);
+    wxSize sz = imgctrlpanel->GetSize();
 
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
-    wxSize sz = imgctrl->GetSize();
     const wxImage * img = ImageCache::getInstance().getSmallImage(
         pano.getImage(imgNr).getFilename());
 

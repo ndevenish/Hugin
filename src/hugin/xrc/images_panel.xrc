@@ -219,9 +219,11 @@
               <label>This Image</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticBitmap" name="images_selected_image">
-                  <bitmap>data/druid.images.128.png</bitmap>
-                  <style></style>
+                <object class="wxPanel" name="images_selected_image_panel">
+                  <object class="wxStaticBitmap" name="images_selected_image">
+                    <bitmap>data/druid.images.128.png</bitmap>
+                    <style></style>
+                  </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
