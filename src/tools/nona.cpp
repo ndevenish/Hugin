@@ -30,6 +30,8 @@
 #include <vigra/impex.hxx>
 #include <vigra/error.hxx>
 
+#include <unistd.h>
+
 #include "panoinc.h"
 #include "PT/SimpleStitcher.h"
 
@@ -37,28 +39,57 @@ using namespace vigra;
 using namespace PT;
 using namespace std;
 
-static void usage(char * name)
+static void usage(const char * name)
 {
-    cerr << name << ": stitch a panorama image, with bilinear interpolation" << endl
+    cerr << name << ": stitch a panorama image" << endl
          << endl
          << " It uses the transform function from PanoTools, the stitching itself" << endl
-         << " is quite simple, no seam feathering is done. Seams are placed" << endl
+         << " is quite simple, no seam feathering is done." << endl
+         << " all interpolators of panotools are supported" << endl
          << endl
-         << "Usage: " << name  << " hugin_project outputimageprefix" << endl;
+         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << endl
+         << endl
+         << "Usage: " << name  << " -o output project_file" << endl;
 }
 
 int main(int argc, char *argv[])
 {
-    if (argc != 3) {
+
+    // parse arguments
+    const char * optstring = "ho:";
+    int c;
+
+    opterr = 0;
+
+    string basename;
+
+    while ((c = getopt (argc, argv, optstring)) != -1)
+        switch (c) {
+        case 'o':
+            basename = optarg;
+            break;
+        case '?':
+        case 'h':
+            usage(argv[0]);
+            return 1;
+        default:
+            abort ();
+        }
+
+    if (basename == "" || argc - optind <1) {
         usage(argv[0]);
-        exit(1);
+        return 1;
     }
 
-    utils::CoutProgressDisplay pdisp;
+    // strip any extension from output file
+    std::string::size_type idx = basename.rfind('.');
+    if (idx != std::string::npos) {
+        basename = basename.substr(0, idx);
+    }
+    
+    const char * scriptFile = argv[optind];
 
-    char * scriptFile = argv[1];
-    // output settings
-    string basename(argv[2]);
+    utils::CoutProgressDisplay pdisp;
 
     Panorama pano;
     PanoramaMemento newPano;
