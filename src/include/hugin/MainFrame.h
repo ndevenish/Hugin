@@ -60,6 +60,7 @@ private:
     void OnSave(wxCommandEvent & e);
     void OnLoad(wxCommandEvent & e);
     void OnNew(wxCommandEvent & e);
+    void OnTextEdit(wxCommandEvent & e);
 
     CPEditorPanel * cpe;
     // the model
