@@ -114,8 +114,10 @@ public:
 	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << endl);
 
 	// create an image with the right size..
-	vigra::Diff2D ulInt(utils::roundi(ulFloat.x), utils::roundi(ulFloat.y));
-	vigra::Diff2D lrInt(utils::roundi(lrFloat.x), utils::roundi(lrFloat.y));
+	vigra::Diff2D ulInt(static_cast<int>(floor(ulFloat.x)),
+                            static_cast<int>(floor(ulFloat.y)));
+	vigra::Diff2D lrInt(static_cast<int>(ceil(lrFloat.x)), 
+                            static_cast<int>(ceil(lrFloat.y)));
         DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
                     << lrInt - ulInt);
 
