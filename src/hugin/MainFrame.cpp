@@ -318,7 +318,25 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     if (y != -1) {
         SetSize(x,y,w,h);
     }
+#elif defined(__WXMAC__)
+    //size
+    int w = config->Read("MainFrame/width",-1l);
+    int h = config->Read("MainFrame/height",-1l);
+    if (w != -1) {
+        SetClientSize(w,h);
+    } else {
+        Fit();
+    }
+    //position
+    int x = config->Read("MainFrame/positionX",-1l);
+    int y = config->Read("MainFrame/positionY",-1l);
+    if ( y != -1) {
+        Move(x, y);
+    } else {
+        Move(0, 44);
+    }
 #else
+    
     // remember the last size from config
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
@@ -367,8 +385,16 @@ MainFrame::~MainFrame()
 
     config->Write("/MainFrame/positionX", sz.x);
     config->Write("/MainFrame/positionY", sz.y);
+#elif defined(__WXMAC__)
+    //size
+    wxSize sz = GetClientSize();
+    config->Write("/MainFrame/width", sz.GetWidth());
+    config->Write("/MainFrame/height", sz.GetHeight());
+    //position    
+    wxPoint ps = GetPosition();
+    config->Write("/MainFrame/positionX", ps.x);
+    config->Write("/MainFrame/positionY", ps.y);
 #else
-
     // Saves only the size of the window.
     // the position is more problematic, since it might
     // not include a title, making the window move down
