@@ -57,6 +57,18 @@ while (<CONF_T>) {
 close (CONF_T);
 close (CONF);
 
+print "Creating src/include/hugin/config.h\n";
+open(CONF_T,"<src/include/hugin/config.h.tmpl");
+open(CONF,">src/include/hugin/config.h");
+
+while (<CONF_T>) {
+    s/__PREFIX__/$prefix/g;
+    print CONF;
+}
+close (CONF_T);
+close (CONF);
+
+
 print <<EOT
 
 Configuration finished.
