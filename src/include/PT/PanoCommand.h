@@ -166,8 +166,8 @@ namespace PT {
         virtual void execute()
             {
                 PanoCommand::execute();
-                for (UIntSet::iterator it = imgNrs.begin();
-                     it != imgNrs.end(); ++it) 
+                for (UIntSet::reverse_iterator it = imgNrs.rbegin();
+                     it != imgNrs.rend(); ++it) 
                 {
                     pano.removeImage(*it);
                 }
