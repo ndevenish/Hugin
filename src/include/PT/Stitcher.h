@@ -806,17 +806,15 @@ private:
 
 /** stitch a panorama
  *
- * @todo seam calculation?
- * @todo move seam calculation into a separate class/function?
  * @todo vignetting correction
  * @todo do not keep complete output image in memory
- * @todo proper handling for 16 bit images etc.
  *
  */
 void stitchPanorama(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
 		    utils::MultiProgressDisplay & progress,
-		    const std::string & basename);
+		    const std::string & basename,
+            const PT::UIntSet & usedImgs);
 
 
 } // namespace PT

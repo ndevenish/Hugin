@@ -41,15 +41,11 @@ template<typename ImageType, typename AlphaType>
 static void stitchPanoIntern(const PT::Panorama & pano,
                           const PT::PanoramaOptions & opts,
                           utils::MultiProgressDisplay & progress,
-                          const std::string & basename)
+                          const std::string & basename,
+                          PT::UIntSet imgs)
 {
     //    typedef
     //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
-
-    UIntSet imgs;
-    for (unsigned int i=0; i< pano.getNrOfImages(); i++) {
-	imgs.insert(i);
-    }
 
     FileRemapper<ImageType, AlphaType> m;
     // determine stitching output
@@ -189,8 +185,9 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
  */
 void PT::stitchPanorama(const PT::Panorama & pano,
                         const PT::PanoramaOptions & opts,
-			utils::MultiProgressDisplay & progress,
-			const std::string & basename)
+			            utils::MultiProgressDisplay & progress,
+			            const std::string & basename,
+                        const PT::UIntSet & usedImgs)
 {
     // probe the first image to determine a suitable image type for stitching
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
@@ -225,38 +222,38 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     // stitch the pano with a suitable image type
     if (bands == 1 || bands == 2 && extraBands == 1) {
         if (strcmp(pixelType, "UINT8") == 0 ) {
-            stitchPanoIntern<BImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<BImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "INT16") == 0 ) {
-            stitchPanoIntern<SImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<SImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "UINT16") == 0 ) {
-            stitchPanoIntern<USImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<USImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "UINT32") == 0 ) {
-            stitchPanoIntern<UIImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<UIImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "INT32") == 0 ) {
-            stitchPanoIntern<IImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<IImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-            stitchPanoIntern<DImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<DImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else {
             DEBUG_FATAL("Unsupported pixel type: " << pixelType);
             return;
         }
     } else if (bands == 3 || bands == 4 && extraBands == 1) {
         if (strcmp(pixelType, "UINT8") == 0 ) {
-            stitchPanoIntern<BRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<BRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "INT16") == 0 ) {
-            stitchPanoIntern<SRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<SRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "UINT16") == 0 ) {
-            stitchPanoIntern<USRGBImage, BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<USRGBImage, BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "INT32") == 0 ) {
-            stitchPanoIntern<IRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<IRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "UINT32") == 0 ) {
-            stitchPanoIntern<UIRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<UIRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-            stitchPanoIntern<DRGBImage,BImage>(pano, opts, progress, basename);
+            stitchPanoIntern<DRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
         } else {
             DEBUG_FATAL("Unsupported pixel type: " << pixelType);
             return;

@@ -323,8 +323,7 @@ public:
      *  better transform all images, and get the alpha channel for free!
      *
      *  this is a hack!
-     *  @BUG doesn't take the interpolator size into accout, so usually the border
-     *       will be several pixels smaller.
+
      */
     void calcAlpha(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
 		   unsigned int imgNr)
@@ -410,7 +409,7 @@ public:
 		    utils::MultiProgressDisplay & progress)
     {
         DEBUG_TRACE("Image: " << imgNr);
-	setPanoImage(pano, imgNr, opts);
+        setPanoImage(pano, imgNr, opts);
 
 //        std::ostringstream msg;
 //        msg <<"remapping image "  << imgNr;
@@ -433,27 +432,27 @@ public:
     template <class ImgIter, class ImgAccessor,
               class AlphaIter, class AlphaAccessor>
     void remapImage(const PT::Panorama & pano,
-		    const PT::PanoramaOptions & opts,
+                    const PT::PanoramaOptions & opts,
                     vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                     std::pair<AlphaIter, AlphaAccessor> alphaImg,
-		    unsigned int imgNr,
-		    utils::MultiProgressDisplay & progress)
+                    unsigned int imgNr,
+                    utils::MultiProgressDisplay & progress)
     {
         DEBUG_TRACE("Image: " << imgNr);
-	setPanoImage(pano, imgNr, opts);
+        setPanoImage(pano, imgNr, opts);
 
-	PTools::Transform transf;
+        PTools::Transform transf;
         vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
-	transf.createTransform(pano, imgNr, opts, srcImgSize);
+        transf.createTransform(pano, imgNr, opts, srcImgSize);
 
-	transformImageAlpha(srcImg,
-                            alphaImg,
-			    destImageRange(Base::m_image),
-			    destImage(Base::m_mask),
-			    Base::boundingBox().upperLeft(),
-			    transf,
-			    opts.interpolator,
-			    progress);
+        transformImageAlpha(srcImg,
+                        alphaImg,
+                        destImageRange(Base::m_image),
+                        destImage(Base::m_mask),
+                        Base::boundingBox().upperLeft(),
+                        transf,
+                        opts.interpolator,
+                        progress);
     }
 
 

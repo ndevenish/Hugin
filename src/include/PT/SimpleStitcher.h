@@ -31,7 +31,7 @@
 
 #include <vigra/impex.hxx>
 
-#include <PT/SpaceTransform.h>
+//#include <PT/SpaceTransform.h>
 #include <PT/tiffUtils.h>
 
 namespace PT{
