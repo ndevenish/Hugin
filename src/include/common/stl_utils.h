@@ -29,8 +29,8 @@
  */
 
 
-#ifndef _STL_UTILS_H
-#define _STL_UTILS_H
+#ifndef __STL_UTILS_H
+#define __STL_UTILS_H
 
 
 #include <functional>

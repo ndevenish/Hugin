@@ -30,27 +30,32 @@
 #include <iostream>
 #include <vigra/basicimage.hxx>
 
-// a simple vector class...
-struct FDiff2D
+/** namespace for various math utils */
+namespace utils
 {
-    FDiff2D()
+
+// a simple point class
+template <class T>
+struct TDiff2D
+{
+    TDiff2D()
         : x(0), y(0)
         { }
-    FDiff2D(float x, float y)
+    TDiff2D(T x, T y)
         : x(x), y(y)
         { }
-    FDiff2D(const vigra::Diff2D &d)
+    TDiff2D(const vigra::Diff2D &d)
         : x(d.x), y(d.y)
         { }
 
-    FDiff2D operator+(FDiff2D rhs) const
+    TDiff2D operator+(TDiff2D rhs) const
         {
-            return FDiff2D (x+rhs.x, y+rhs.y);
+            return TDiff2D (x+rhs.x, y+rhs.y);
         }
 
-    FDiff2D operator-(FDiff2D rhs) const
+    TDiff2D operator-(TDiff2D rhs) const
         {
-            return FDiff2D (x-rhs.x, y-rhs.y);
+            return TDiff2D (x-rhs.x, y-rhs.y);
         }
 
     vigra::Diff2D toDiff2D() const
@@ -61,11 +66,6 @@ struct FDiff2D
 
     double x,y;
 };
-
-inline std::ostream & operator<<(std::ostream & o, const FDiff2D & d)
-{
-    return o << "( " << d.x << " " << d.y << " )";
-}
 
 /** clip a point to fit int [min, max]
  *  does not do a mathematical clipping, just sets p.x and p.y
@@ -79,5 +79,50 @@ void simpleClipPoint(T & p, const T & min, const T & max)
     if (p.y < min.y) p.y = min.y;
     if (p.y > max.y) p.y = max.y;
 }
+
+
+/** calculate Euclidean distance between two vectors.
+ */
+template <class InputIterator1, class InputIterator2>
+double euclid_dist(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2)
+{
+    typename InputIterator1::value_type res = 0;
+    InputIterator1 i(first1);
+    while (i != last1) {
+        double a = *i;
+        double b = *(first2 + (i - first1));
+        res = res + a*a + b*b;
+        ++i;
+    }
+    return sqrt(res);
+}
+
+/** calculate Euclidean distance between two vectors.
+ */
+template <class InputIterator1, class InputIterator2, class T>
+T sqr_dist(InputIterator1 first1, InputIterator1 last1,
+                     InputIterator2 first2, T res)
+{
+    InputIterator1 i(first1);
+    while (i != last1) {
+        T a = (T)(*i) - (T) (*(first2 + (i - first1)));
+        res = res + a*a;
+        ++i;
+    }
+    return res;
+}
+
+
+} // namespace
+
+typedef utils::TDiff2D<double> FDiff2D;
+
+template <class T>
+inline std::ostream & operator<<(std::ostream & o, const utils::TDiff2D<T> & d)
+{
+    return o << "( " << d.x << " " << d.y << " )";
+}
+
 
 #endif // MY_MATH_H
