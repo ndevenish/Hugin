@@ -10,7 +10,7 @@
  *
  */
 
-#include "keypoints/ScaleSpace.h"
+#include "ScaleSpace.h"
 
 // ====================================================
 // Init this Scale Space
@@ -117,7 +117,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
         new_heigth = dogs[s](new_x, new_y) + 0.5 * dpos.Dot( dDog );
 
         // pruning small peak
-        if ( fabs(new_heigth)< PEAK_THRESH )
+        if ( fabs(new_heigth)< PEAK_LIMIT )
             return;
 
 		// pruning big edge response
@@ -125,7 +125,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
         if ( egdetest > sqr(R_EDGE +1)/R_EDGE )
             return;
 		
-		// some other cases -> col
+		// some overflow cases -> leave
         if ( fabs(dpos.x) > 1.5f )
             return;
         if ( fabs(dpos.y) > 1.5f )
@@ -135,7 +135,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
 
 		// make the moves
         moved = false;
-        if ( dpos.x > 0.6 )
+        if ( dpos.x > 0.5 )
         {
             if ( new_x < dimX - EXT )
             {
@@ -143,7 +143,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
                 moved = true;
             }
         }
-        if ( dpos.x < -0.6 )
+        if ( dpos.x < -0.5 )
         {
             if (new_x > EXT)
             {
@@ -151,7 +151,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
                 moved = true;
             }
         }
-        if ( dpos.y > 0.6 )
+        if ( dpos.y > 0.5 )
         {	
             if ( new_y < dimY - EXT )
             {
@@ -159,7 +159,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
                 moved = true;
             }
         }
-        if ( dpos.y < -0.6 )
+        if ( dpos.y < -0.5 )
         {
             if (new_y > EXT )
             {
@@ -365,7 +365,6 @@ void ScaleSpace::ComputeFeature( float x, float y, float s, Keypoint & key )
     for (int n = 0 ; n < FVSIZE ; n++)
     {
         int intval = (int) ( fv.FVFloat[n] * 512.0);
-        //assert (intval >= 0);
         if (intval > 255)
             intval = 255;
         key.FVBytes[n] = (unsigned char) intval;
@@ -379,7 +378,7 @@ bool ScaleSpace::CheckForMinMax( int x, int y, const FImage & im0, const FImage 
     double val = im1(x, y);
 
     // peak threshold
-    if ( fabs(val) < PEAK_THRESH )
+    if ( fabs(val) < PEAK_LIMIT )
         return false;
 
     // verify for max or min
