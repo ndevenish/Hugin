@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-24 19:02+0200\n"
-"PO-Revision-Date: 2004-11-15 09:49-0500\n"
+"POT-Creation-Date: 2004-11-24 20:13+0200\n"
+"PO-Revision-Date: 2004-11-24 13:12-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,18 +67,20 @@ msgstr "Wybierz autopano-sift skrypt interfejsu"
 #: src/hugin/AutoCtrlPointCreator.cpp:197
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
-msgstr ""
+msgstr "Proszê u¿yæ albo %namefile albo %i linii poleceñ autopano-sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:198
 #: src/hugin/AutoCtrlPointCreator.cpp:203
 msgid "Error in Autopano command"
-msgstr ""
+msgstr "B³±d w poleceniu autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:202
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
+"Proszê u¿yæ  %namefile lub %i by podaæ nazwê plików wej¶ciowych dla autopano-"
+"sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:235
 #: src/hugin/AutoCtrlPointCreator.cpp:363
@@ -250,14 +252,14 @@ msgstr ""
 "zakrzywienie: %0.3f %0.3f "
 
 #: src/hugin/CPEditorPanel.cpp:808
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No similar point found.\n"
 "correlation coefficient: %.3f (should be > %.3f)\n"
 "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
 msgstr ""
 "Nie znaleziono podobnego punktu.\n"
-"wspó³czynnik korelacji: %.3f, (powininen byæ < %.3f)\n"
+"wspó³czynnik korelacji: %.3f (powininen byæ < %.3f)\n"
 "szczyt zakrzywienia: (%.3f, %.3f), ( powinien byæ > %.3f)"
 
 #: src/hugin/CPEditorPanel.cpp:810
@@ -694,10 +696,12 @@ msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
 msgstr ""
+"Nie mo¿na by³o uruchomiæ enblenda, system() zwróci³ b³±d: \n"
+"Polecenie by³o :"
 
 #: src/hugin/NonaStitcherPanel.cpp:329
 msgid "Error returned was :"
-msgstr ""
+msgstr "Zwrócono b³±d :"
 
 #: src/hugin/NonaStitcherPanel.cpp:356
 msgid "CreateProcess Error"
@@ -896,44 +900,40 @@ msgid "Create panorama image"
 msgstr "Utwórz zdjêcie panoramiczne"
 
 #: src/hugin/PreferencesDialog.cpp:85
-#, fuzzy
 msgid "Select one"
-msgstr "Wybierz autopano"
+msgstr "Wybierz jedno"
 
 #: src/hugin/PreferencesDialog.cpp:86
 msgid "System default"
-msgstr ""
+msgstr "Domy¶lny systemu"
 
 #: src/hugin/PreferencesDialog.cpp:87
 msgid "German"
-msgstr ""
+msgstr "Niemiecki"
 
 #: src/hugin/PreferencesDialog.cpp:88
 msgid "French"
-msgstr ""
+msgstr "Francuski"
 
 #: src/hugin/PreferencesDialog.cpp:89
-#, fuzzy
 msgid "Polish"
-msgstr "Punkty"
+msgstr "Polski"
 
 #: src/hugin/PreferencesDialog.cpp:90
 msgid "Italian"
-msgstr ""
+msgstr "W³oski"
 
 #: src/hugin/PreferencesDialog.cpp:150
-#, fuzzy
 msgid "Select PTStitcher"
-msgstr "Wybierz PTStitcher.exe"
+msgstr "Wybierz PTStitcher"
 
 #: src/hugin/PreferencesDialog.cpp:166 src/hugin/RunOptimizerFrame.cpp:99
 msgid "Select PTOptimizer"
 msgstr "Wybierz PTOptimizer"
 
 #: src/hugin/PreferencesDialog.cpp:182
-#, fuzzy
 msgid "Select Enblend"
-msgstr "Wybierz enblend.exe"
+msgstr "Wybierz Enblend"
 
 #: src/hugin/PreferencesDialog.cpp:198 src/hugin/PreferencesDialog.cpp:214
 #: src/hugin/xrc/pref_dialog.xrs:47
@@ -2097,11 +2097,11 @@ msgstr "Zmienne optymalizacji u¿ytkownika"
 #: src/hugin/xrc/optimize_panel.xrs:13
 #, fuzzy
 msgid ""
-"Any variables below which are marked [x] will be optimized. Variables which "
-"are cleared [ ] will act as references or anchors."
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
 msgstr ""
-"Wszystkie zmienne zaznaczone [x] bêd± zoptymalizowane.\n"
-"Zmienne niezaznaczone [ ] bêd± oddzia³ywaæ jako referencje lub odniesienia."
+"Wszystkie zmienne zaznaczone [x] bêd± zoptymalizowane. Zmienne niezaznaczone "
+"[ ] bêd± oddzia³ywaæ jako referencje lub odniesienia."
 
 #: src/hugin/xrc/optimize_panel.xrs:14
 msgid "yaw (y):"
@@ -2470,7 +2470,7 @@ msgid "Autopano:"
 msgstr "Autopano:"
 
 #: src/hugin/xrc/pref_dialog.xrs:58
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "following patterns will be subsituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -2481,7 +2481,8 @@ msgstr ""
 "poni¿sze parametry zostan± zast±pione przed urochomieniem:\n"
 "%o  -- plik projektu (0.oto zostanie dodane je¶li u¿yjesz Autopano)\n"
 "%p  -- ilo¶æ punktów kontrolnych dla ka¿dej pary\n"
-"%i  -- pliki zdjêæ"
+"%i  -- pliki zdjêæ\n"
+"%namefile -- plik zawieraj±cy nazwy plików zdjêæ"
 
 #: src/hugin/xrc/pref_dialog.xrs:59
 msgid "Enblend"

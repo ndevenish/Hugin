@@ -1,3 +1,19 @@
+2004-11-24 19:26  dwilkins42
+
+	* src/hugin/po/: POTFILES.in, de.po, fr.po, hugin.pot, it.po,
+	  pl.po: Add preferences dialog to translations
+
+2004-11-21 12:06  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: busy cursor while finetuning
+
+2004-11-19 22:31  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po,
+	  src/nona_gui/po/de.po, src/nona_gui/po/nona_gui.pot,
+	  src/nona_gui/po/pl.po: Update translations and ChangeLog
+
 2004-11-19 22:19  dwilkins42
 
 	* src/include/vigra_ext/tiffUtils.h: Write out a slightly better
@@ -3093,62 +3109,4 @@
 2003-11-25 14:45  dangelo
 
 	* src/tools/stitcher.cpp: catch more generic std::exception
-
-2003-11-24 09:24  dangelo
-
-	* src/include/: PT/SimpleStitcher.h, common/utils.h: removed one
-	  cassert to much.. added one in utils.h
-
-2003-11-23 15:33  dangelo
-
-	* src/: hugin/huginApp.cpp, include/PT/Panorama.h,
-	  include/hugin/MainFrame.h: some more include reodering
-
-2003-11-23 15:32  dangelo
-
-	* README: mentioned stitcher in readme
-
-2003-11-23 15:06  dangelo
-
-	* src/: tools/stitcher.cpp, include/hugin/ImageProcessing.h,
-	  include/PT/PanoToolsInterface.h, include/PT/SimpleStitcher.h: -
-	  need to include vigra headers before all other stuff on windows
-
-2003-11-23 14:56  dangelo
-
-	* configure, src/include/PT/PanoramaMemento.h,
-	  src/include/PT/SimpleStitcher.h, src/include/common/utils.h,
-	  src/tools/stitcher.cpp: - show low level debug only if compiled
-	  with -DDEBUG - cosmetic improvements to stitcher
-	  (ProgressDisplay) - fixed undef warnings in configure script
-
-2003-11-23 02:01  dangelo
-
-	* src/include/PT/SimpleStitcher.h: removed white background that I
-	  needed for debugging
-
-2003-11-23 01:55  dangelo
-
-	* src/hugin/: Makefile, PreviewPanel.cpp: vigra & stitching changes
-
-2003-11-23 01:54  dangelo
-
-	* src/include/PT/SimpleStitcher.h: new stitcher function
-
-2003-11-23 01:52  dangelo
-
-	* src/: Panorama/Makefile, include/PT/PanoToolsInterface.h,
-	  include/common/math.h, tools/Makefile, tools/stitcher.cpp: new
-	  stitching routines (for standalone stitcher)
-
-2003-11-23 01:51  dangelo
-
-	* configure, src/foreign/vigra/README,
-	  src/makefiles/config.mk.tmpl: moved vigra to new directory
-
-2003-11-21 00:15  dangelo
-
-	* src/include/hugin/wxPanoCommand.h: - while adding images, check
-	  if lenses match, and	 create new lenses if ratio or hfov doesn't
-	  fit	existing ones.
 

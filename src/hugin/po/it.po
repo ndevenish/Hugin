@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-24 19:02+0200\n"
+"POT-Creation-Date: 2004-11-24 20:13+0200\n"
 "PO-Revision-Date: 2004-10-18 09:03+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.net.il>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -1968,8 +1968,8 @@ msgstr ""
 
 #: src/hugin/xrc/optimize_panel.xrs:13
 msgid ""
-"Any variables below which are marked [x] will be optimized. Variables which "
-"are cleared [ ] will act as references or anchors."
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
 msgstr ""
 
 #: src/hugin/xrc/optimize_panel.xrs:14

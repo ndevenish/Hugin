@@ -113,7 +113,7 @@ createScalarATiffImage(ImageIterator upperleft, ImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
     TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleformat);
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
-    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, h);
+    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, 1);
 
     // for alpha stuff, do not uses premultilied data
     // We do not want to throw away data by premultiplying
@@ -175,7 +175,7 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
     TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleformat);
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
-    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, h);
+    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, 1);
 		      
     // for alpha stuff, do not uses premultilied data
     // We do not want to throw away data & accuracy by premultiplying
