@@ -118,6 +118,8 @@ private:
     /** show a bigger thumbnail */
     void ShowImage(unsigned int imgNr);
 
+    /** bitmap with default image */
+    wxBitmap m_empty;
 
     /** pointer to the list control */
     ImagesListImage* images_list;
