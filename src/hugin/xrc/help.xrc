@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxDialog" name="help_dlg">
-    <title>About</title>
+    <title>Hugin Reference</title>
     <centered>1</centered>
     <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
     <object class="wxFlexGridSizer">

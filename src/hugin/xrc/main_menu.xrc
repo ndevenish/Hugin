@@ -107,6 +107,10 @@
         <label>&amp;Keyboard Shortcuts</label>
         <help>keyboard shortcuts</help>
       </object>
+      <object class="wxMenuItem" name="action_show_faq">
+        <label>&amp;FAQ</label>
+        <help>Frequently Asked Questions</help>
+      </object>
     </object>
   </object>
 </resource>
