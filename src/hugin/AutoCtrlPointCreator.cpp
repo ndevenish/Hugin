@@ -268,7 +268,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     }
     // read and update control points
-    readUpdatedControlPoints(ptofile.mb_str(), pano);
+    readUpdatedControlPoints((const char *)ptofile.mb_str(), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
@@ -374,7 +374,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     }
     // read and update control points
-    readUpdatedControlPoints(ptofile.mb_str(), pano);
+    readUpdatedControlPoints((const char *)ptofile.mb_str(), pano);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

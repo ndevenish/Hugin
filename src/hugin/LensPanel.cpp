@@ -201,21 +201,21 @@ void LensPanel::UpdateLensDisplay ()
         {
             ndigits = m_pixelDigits;
         }
-        m_XRCCTRL(*this, wxString("lens_val_").append(wxString(*varname, *wxConvCurrent)), wxTextCtrl)->SetValue(
+        m_XRCCTRL(*this, wxString(wxT("lens_val_")).append(wxString(*varname, *wxConvCurrent)), wxTextCtrl)->SetValue(
             doubleTowxString(const_map_get(imgvars,*varname).getValue(),ndigits));
         bool linked = const_map_get(lens.variables, *varname).isLinked();
-        m_XRCCTRL(*this, wxString("lens_inherit_").append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
+        m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
     }
 
     double HFOV = const_map_get(imgvars,"v").getValue();
     // update focal length
     double focal_length = lens.calcFocalLength(HFOV);
-    m_XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
+    m_XRCCTRL(*this, wxT("lens_val_focalLength"), wxTextCtrl)->SetValue(
         doubleTowxString(focal_length,m_distDigitsEdit));
 
     // update focal length factor
     double focal_length_factor = lens.getFLFactor();
-    m_XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
+    m_XRCCTRL(*this, wxT("lens_val_flFactor"), wxTextCtrl)->SetValue(
         doubleTowxString(focal_length_factor,m_distDigitsEdit));
 
 

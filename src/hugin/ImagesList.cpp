@@ -252,7 +252,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 4, doubleTowxString(map_get(var,"y").getValue(),m_degDigits));
     SetItem(imgNr, 5, doubleTowxString( map_get(var,"p").getValue(),m_degDigits));
     SetItem(imgNr, 6, doubleTowxString( map_get(var,"r").getValue(),m_degDigits));
-    char flags[] = "--";
+    wxChar flags[] = wxT("--");
     if (pano.getOptions().optimizeReferenceImage == imgNr) {
         flags[0]='A';
     }

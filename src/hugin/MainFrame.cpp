@@ -100,7 +100,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            filesv.push_back(filenames[i].mb_str());
+            filesv.push_back((const char *)filenames[i].mb_str());
         }
     }
     GlobalCmdHist::getInstance().addCommand(
@@ -535,7 +535,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     if (file.good()) {
         wxBusyCursor();
         GlobalCmdHist::getInstance().addCommand(
-            new wxLoadPTProjectCmd(pano,file, path.mb_str())
+            new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str())
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
@@ -634,7 +634,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-            filesv.push_back(Pathnames[i].mb_str());
+            filesv.push_back((const char *)Pathnames[i].mb_str());
         }
 
         // we got some images to add.
@@ -755,7 +755,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         time_t stamp = ReadJpegTime(file.mb_str());
         if (stamp) {
             filenames[file] = stamp;
-            timeMap[file.mb_str()] = stamp;
+            timeMap[(const char *)file.mb_str()] = stamp;
         }
     }
 
@@ -782,7 +782,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 --images;
                 const PanoImage& image = pano.getImage(images);
                 std::string filename = image.getFilename();
-                wxString file = filename.c_str();
+                wxString file(filename.c_str(), *wxConvCurrent);
                 if (file == recruit)
                     continue;
 
@@ -930,8 +930,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-
-    pdisp.pushTask(ProgressTask(_("Finetuning"),"",1.0/unoptimized.size()));
+    
+    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning"), *wxConvCurrent).mb_str(),"",1.0/unoptimized.size()));
 
     // do not process the control points in random order,
     // but walk from image to image, to reduce image reloading
