@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-18 18:04+0200\n"
+"POT-Creation-Date: 2004-11-24 19:02+0200\n"
 "PO-Revision-Date: 2004-10-16 03:58+0200\n"
 "Last-Translator: Pablo dAngelo <pablo.dangelo@web.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -50,7 +50,9 @@ msgstr ""
 msgid "Select autopano program / frontend script"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/RunOptimizerFrame.cpp:101
+#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:153
+#: src/hugin/PreferencesDialog.cpp:169 src/hugin/PreferencesDialog.cpp:185
+#: src/hugin/PreferencesDialog.cpp:201 src/hugin/RunOptimizerFrame.cpp:101
 #: src/hugin/RunStitcherFrame.cpp:81
 msgid "Executables (*.exe)|*.exe"
 msgstr ""
@@ -161,7 +163,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "automat. Punktsuche"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319
+#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:217
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr ""
 
@@ -878,6 +880,51 @@ msgstr ""
 msgid "Create panorama image"
 msgstr "Setze als Ankerbild"
 
+#: src/hugin/PreferencesDialog.cpp:85
+#, fuzzy
+msgid "Select one"
+msgstr "Abstand"
+
+#: src/hugin/PreferencesDialog.cpp:86
+msgid "System default"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:87
+msgid "German"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:88
+msgid "French"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:89
+msgid "Polish"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:90
+msgid "Italian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:150
+#, fuzzy
+msgid "Select PTStitcher"
+msgstr "PTStitcher Anweisungen bearbeiten"
+
+#: src/hugin/PreferencesDialog.cpp:166 src/hugin/RunOptimizerFrame.cpp:99
+#, fuzzy
+msgid "Select PTOptimizer"
+msgstr "Optimieren"
+
+#: src/hugin/PreferencesDialog.cpp:182
+msgid "Select Enblend"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:198 src/hugin/PreferencesDialog.cpp:214
+#: src/hugin/xrc/pref_dialog.xrs:47
+#, fuzzy
+msgid "Select Autopano"
+msgstr "Abstand"
+
 #: src/hugin/PreviewFrame.cpp:74
 #, fuzzy
 msgid "Panorama preview"
@@ -999,11 +1046,6 @@ msgstr ""
 #, fuzzy
 msgid "PTStitcher note"
 msgstr "PTStitcher Anweisungen bearbeiten"
-
-#: src/hugin/RunOptimizerFrame.cpp:99
-#, fuzzy
-msgid "Select PTOptimizer"
-msgstr "Optimieren"
 
 #: src/hugin/RunOptimizerFrame.cpp:107
 #, fuzzy
@@ -2088,8 +2130,8 @@ msgstr ""
 
 #: src/hugin/xrc/optimize_panel.xrs:13
 msgid ""
-"Any variables below which are marked [x] will be optimized.\n"
-"Variables which are cleared [ ] will act as references or anchors."
+"Any variables below which are marked [x] will be optimized. Variables which "
+"are cleared [ ] will act as references or anchors."
 msgstr ""
 
 #: src/hugin/xrc/optimize_panel.xrs:14
@@ -2451,11 +2493,6 @@ msgstr ""
 #, fuzzy
 msgid "Autopano"
 msgstr "letze Optimierungsergebnisse"
-
-#: src/hugin/xrc/pref_dialog.xrs:47
-#, fuzzy
-msgid "Select Autopano"
-msgstr "Abstand"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Autopano (by A. Jenny)"

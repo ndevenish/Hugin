@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-18 18:04+0200\n"
+"POT-Creation-Date: 2004-11-24 19:02+0200\n"
 "PO-Revision-Date: 2004-11-15 09:49-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -47,7 +47,9 @@ msgstr "Wybierz typ autopano"
 msgid "Select autopano program / frontend script"
 msgstr "Wybierz program autopano / skrypt interfejsu"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/RunOptimizerFrame.cpp:101
+#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:153
+#: src/hugin/PreferencesDialog.cpp:169 src/hugin/PreferencesDialog.cpp:185
+#: src/hugin/PreferencesDialog.cpp:201 src/hugin/RunOptimizerFrame.cpp:101
 #: src/hugin/RunStitcherFrame.cpp:81
 msgid "Executables (*.exe)|*.exe"
 msgstr "Pliki wykonywalne (*.exe)|*.exe"
@@ -167,7 +169,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "autopano nie powiod³o siê"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319
+#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:217
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Pliki wykonywalne (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -893,6 +895,51 @@ msgstr "szeroko¶æ powinna byæ liczb± wiêksz± od 0"
 msgid "Create panorama image"
 msgstr "Utwórz zdjêcie panoramiczne"
 
+#: src/hugin/PreferencesDialog.cpp:85
+#, fuzzy
+msgid "Select one"
+msgstr "Wybierz autopano"
+
+#: src/hugin/PreferencesDialog.cpp:86
+msgid "System default"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:87
+msgid "German"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:88
+msgid "French"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:89
+#, fuzzy
+msgid "Polish"
+msgstr "Punkty"
+
+#: src/hugin/PreferencesDialog.cpp:90
+msgid "Italian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:150
+#, fuzzy
+msgid "Select PTStitcher"
+msgstr "Wybierz PTStitcher.exe"
+
+#: src/hugin/PreferencesDialog.cpp:166 src/hugin/RunOptimizerFrame.cpp:99
+msgid "Select PTOptimizer"
+msgstr "Wybierz PTOptimizer"
+
+#: src/hugin/PreferencesDialog.cpp:182
+#, fuzzy
+msgid "Select Enblend"
+msgstr "Wybierz enblend.exe"
+
+#: src/hugin/PreferencesDialog.cpp:198 src/hugin/PreferencesDialog.cpp:214
+#: src/hugin/xrc/pref_dialog.xrs:47
+msgid "Select Autopano"
+msgstr "Wybierz autopano"
+
 #: src/hugin/PreviewFrame.cpp:74
 msgid "Panorama preview"
 msgstr "Podgl±d panoramy"
@@ -1003,10 +1050,6 @@ msgstr "PTStitcher.exe nie ma mo¿liwo¶ci tworzy QTVR w Windowsie i Linuksie"
 #: src/hugin/PTStitcherPanel.cpp:428
 msgid "PTStitcher note"
 msgstr "uwaga PTStitcher'a"
-
-#: src/hugin/RunOptimizerFrame.cpp:99
-msgid "Select PTOptimizer"
-msgstr "Wybierz PTOptimizer"
 
 #: src/hugin/RunOptimizerFrame.cpp:107
 msgid "No PTOptimizer.exe selected"
@@ -2052,9 +2095,10 @@ msgid "Custom Optimization Variables"
 msgstr "Zmienne optymalizacji u¿ytkownika"
 
 #: src/hugin/xrc/optimize_panel.xrs:13
+#, fuzzy
 msgid ""
-"Any variables below which are marked [x] will be optimized.\n"
-"Variables which are cleared [ ] will act as references or anchors."
+"Any variables below which are marked [x] will be optimized. Variables which "
+"are cleared [ ] will act as references or anchors."
 msgstr ""
 "Wszystkie zmienne zaznaczone [x] bêd± zoptymalizowane.\n"
 "Zmienne niezaznaczone [ ] bêd± oddzia³ywaæ jako referencje lub odniesienia."
@@ -2400,10 +2444,6 @@ msgstr "Poka¿ asystenta (wymaga restartu hugin'a)"
 #: src/hugin/xrc/pref_dialog.xrs:46 src/hugin/xrc/pref_dialog.xrs:54
 msgid "Autopano"
 msgstr "Autopano"
-
-#: src/hugin/xrc/pref_dialog.xrs:47
-msgid "Select Autopano"
-msgstr "Wybierz autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Autopano (by A. Jenny)"

@@ -17,6 +17,7 @@ src/hugin/MyProgressDialog.cpp
 src/hugin/NonaStitcherPanel.cpp
 src/hugin/PanoDruid.cpp
 src/hugin/PanoPanel.cpp
+src/hugin/PreferencesDialog.cpp
 src/hugin/PreviewFrame.cpp
 src/hugin/PreviewPanel.cpp
 src/hugin/PTStitcherPanel.cpp
