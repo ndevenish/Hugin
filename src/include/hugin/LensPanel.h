@@ -92,6 +92,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     /**  for all other variables */
     void OnVarInheritChanged(wxCommandEvent & e);
 
+    /** try to read exif data from a file */
+    void OnReadExif(wxCommandEvent & e);
+    
     /** save the current lens parameters to a simple ini file */
     void OnSaveLensParameters(wxCommandEvent & e);
 
