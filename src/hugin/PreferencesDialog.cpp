@@ -91,6 +91,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     // add languages to choice
     lang_choice->Append(_("Select one"), (void *) huginApp::Get()->GetLocale().GetLanguage());
     lang_choice->Append(_("System default"), (void *) wxLANGUAGE_DEFAULT);
+    lang_choice->Append(_("English"), (void *) wxLANGUAGE_ENGLISH);
     lang_choice->Append(_("German"), (void *) wxLANGUAGE_GERMAN);
     lang_choice->Append(_("French"), (void *) wxLANGUAGE_FRENCH);
     lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);

@@ -170,13 +170,19 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         DEBUG_INFO("using xrc prefix from config")
         m_xrcPrefix = config->Read(wxT("xrc_path"));
     }
+#ifndef __WXMSW__
+    // MakeAbsolute creates an invalid path out of a perfectly valid,
+    // absolute path under windows.  Observed with wxWindows 2.4.2.
+    // do not try to transform into an absolute path under windows.
+    // (hugin is started with an absolute path there anyway).
 	{
-	  // make sure the path is absolute to avoid problems if the cwd is changed
-	  wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
-  	  fn.MakeAbsolute();
-	  m_xrcPrefix = fn.GetPath() + wxT("/");
-	  DEBUG_TRACE("XRC prefix set to: " << m_xrcPrefix.mb_str());
+    // make sure the path is absolute to avoid problems if the cwd is changed
+    wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
+    fn.MakeAbsolute();
 	}
+#endif
+    m_xrcPrefix = m_xrcPrefix + wxT("/");
+    DEBUG_TRACE("XRC prefix set to: " << m_xrcPrefix.mb_str());
 
     /* start: Mac bundle code by Ippei*/
 #ifdef __WXMAC__
@@ -847,7 +853,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
 	DEBUG_TRACE("Tip index: " << nValue);
-	if(langCode != wxString("en"))
+	if(langCode != wxString(wxT("en")))
 	{
 		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT(".txt");
 		if(wxFile::Exists(strFile))

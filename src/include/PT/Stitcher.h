@@ -26,6 +26,7 @@
 #ifndef _STITCHER_H
 #define _STITCHER_H
 
+
 #include <sstream>
 #include <iomanip>
 #include <vector>
@@ -46,6 +47,8 @@
 #include <PT/Panorama.h>
 #include <PT/RemappedPanoImage.h>
 
+// calculate distance image for multi file output
+#define STITCHER_CALC_DIST_IMG 0
 
 namespace PT{
 
@@ -213,6 +216,26 @@ public:
                                             tiff);
             TIFFFlush(tiff);
             TIFFClose(tiff);
+
+#if STITCHER_CALC_DIST_IMG
+            vigra::USImage distImg;
+            remapped.calcDistMap(Base::m_pano, opts, imgNr, distImg);
+
+            vigra::USImage distFull(opts.width, opts.getHeight());
+            vigra::copyImage(srcImageRange(distImg),
+                             vigra_ext::applyRect(remapped.boundingBox(),
+                                                  destImage(distFull)));
+
+
+            std::ostringstream filename2;
+            filename2 << m_basename << "_dist_" << std::setfill('0') << std::setw(4) << imgNr << ".tif";
+
+            vigra::ImageExportInfo exinfo(filename2.str().c_str());
+            exinfo.setXResolution(150);
+            exinfo.setYResolution(150);
+            vigra::exportImage(srcImageRange(distFull), exinfo);
+#endif
+
             break;
         }
         default:

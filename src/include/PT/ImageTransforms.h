@@ -403,6 +403,89 @@ public:
 	Base::m_ROI.setCorners(ulInt,lrInt);
     }
 
+    /** calculate distance map. pixels contain distance from image center
+     */
+    template<class DistImgType>
+    void calcDistMap(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
+		          unsigned int imgNr, DistImgType & img)
+    {
+        setPanoImage(pano, imgNr, opts);
+        vigra::Diff2D srcSize(pano.getImage(imgNr).getWidth(),
+            pano.getImage(imgNr).getHeight());
+        img.resize(Base::m_ROI.size());
+        // calculate the alpha channel,
+        int xstart = Base::m_ROI.getUL().x;
+        int xend   = Base::m_ROI.getLR().x;
+        int ystart = Base::m_ROI.getUL().y;
+        int yend   = Base::m_ROI.getLR().y;
+
+        // hack.. doesn't belong here..
+        int interpolHalfWidth=0;
+        switch (opts.interpolator) {
+            case PT::PanoramaOptions::CUBIC:
+                interpolHalfWidth = vigra_ext::interp_cubic::size/2;
+                break;
+            case PT::PanoramaOptions::SPLINE_16:
+                interpolHalfWidth = vigra_ext::interp_spline16::size/2;
+                break;
+            case PT::PanoramaOptions::SPLINE_36:
+                interpolHalfWidth = vigra_ext::interp_spline36::size/2;
+                break;
+            case PT::PanoramaOptions::SPLINE_64:
+                interpolHalfWidth = vigra_ext::interp_spline64::size/2;
+                break;
+            case PT::PanoramaOptions::SINC_256:
+                interpolHalfWidth = vigra_ext::interp_sinc<8>::size/2;
+                break;
+            case PT::PanoramaOptions::BILINEAR:
+                interpolHalfWidth = vigra_ext::interp_bilin::size/2;
+                break;
+            case PT::PanoramaOptions::NEAREST_NEIGHBOUR:
+                interpolHalfWidth = vigra_ext::interp_nearest::size/2;
+                break;
+            case PT::PanoramaOptions::SINC_1024:
+                interpolHalfWidth = vigra_ext::interp_sinc<32>::size/2;
+                break;
+        }
+
+
+        PTools::Transform transf;
+	
+    	transf.createTransform(pano, imgNr, opts, srcSize);
+
+        vigra::Diff2D srcMiddle = srcSize / 2;
+
+	    // create dist y iterator
+	    typename DistImgType::Iterator yalpha(img.upperLeft());
+	    // loop over the image and transform
+	    for(int y=ystart; y < yend; ++y, ++yalpha.y)
+	    {
+	        // create x iterators
+            typename AlphaImage::Iterator xalpha(yalpha);
+            for(int x=xstart; x < xend; ++x, ++xalpha.x)
+            {
+                double sx,sy;
+                transf.transformImgCoord(sx,sy,x,y);
+                // make sure that the interpolator doesn't
+                // access pixels outside.. Should we introduce
+                // some sort of border treatment?
+                if (sx < interpolHalfWidth -1
+                    || sx > srcSize.x - interpolHalfWidth - 1
+                    || sy < interpolHalfWidth - 1
+                    || sy > srcSize.y-interpolHalfWidth - 1)
+                {
+                    *xalpha = 0;
+                    // nothing..
+                } else {
+                    double mx = sx - srcMiddle.x;
+                    double my = sy - srcMiddle.y;
+                    *xalpha = sqrt(mx*mx + my*my);
+                }
+            }
+        }
+    }
+
+
     /** calculate only the alpha channel.
      *  works for arbitrary transforms, with holes and so on,
      *  but is very crude and slow (remapps all image pixels...)
