@@ -404,6 +404,8 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
     DEBUG_ASSERT(imgctrlpanel);
     wxSize sz = imgctrlpanel->GetSize();
+    DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
+    imgctrlpanel->Clear();
 
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
@@ -424,6 +426,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
         w = (int) (h * iRatio);
     }
     wxImage scaled = img->Scale(w,h);
+    imgctrl->SetSize(w,h);
     imgctrl->SetBitmap(wxBitmap(scaled));
 }
 
