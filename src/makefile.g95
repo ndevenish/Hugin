@@ -16,7 +16,6 @@ OBJECTS = Panorama/PanoImage.o  \
           hugin/ImagesList.o \
           hugin/CPImageCtrl.o \
           hugin/CommandHistory.o \
-          hugin/Events.o \
           hugin/ImageCache.o \
           hugin/ImageProcessing.o \
           hugin/ImagesPanel.o \
@@ -32,7 +31,7 @@ OBJECTS = Panorama/PanoImage.o  \
           jhead/jpgfile.o
 
 EXTRAINC = -I$(WXDIR)/contrib/include -Iinclude
-EXTRALIBS = -lwxxrc 
+EXTRALIBS = -lwxxrc
 
 include $(WXDIR)/src/makeprog.g95
 
