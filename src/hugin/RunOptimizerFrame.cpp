@@ -159,6 +159,11 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
 #endif
 }
 
+RunOptimizerFrame::~RunOptimizerFrame()
+{
+    DEBUG_TRACE("dtor");
+    DEBUG_TRACE("dtor end");
+}
 
 void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
 {
@@ -228,7 +233,7 @@ void RunOptimizerFrame::OnApply(wxCommandEvent & e)
 
 void RunOptimizerFrame::OnClose(wxCloseEvent& event)
 {
-    DEBUG_DEBUG("");
+    DEBUG_TRACE("");
     if ( m_process )
     {
         // we're not interested in getting the process termination notification
@@ -245,28 +250,6 @@ void RunOptimizerFrame::OnClose(wxCloseEvent& event)
 
     event.Skip();
 }
-
-#if 0
-void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
-{
-    DEBUG_TRACE("");
-    m_timer.Stop();
-    delete m_process;
-    m_process = NULL;
-
-    wxLogWarning(_T("The other process has terminated, closing"));
-
-    // wxMessageBox hangs the program!
-    if (wxMessageBox("commit changes", _("Optimize result"),wxYES_NO) == wxID_OK){
-        DEBUG_DEBUG("commit");
-    }
-
-    DEBUG_DEBUG("before close");
-    Close();
-    DEBUG_DEBUG("after close");
-}
-#endif
-
 
 
 void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
@@ -289,19 +272,34 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     m_pano->readOptimizerOutput(m_vars,m_cps);
 
     // calculate average cp distance
-    double dist = 0;
+    double mean_error = 0;
+    double squared_error = 0;
+    double max_error = 0;
     CPVector::iterator it;
     for (it = m_cps.begin() ; it != m_cps.end(); it++) {
-        dist += (*it).error;
+        mean_error += (*it).error;
+        squared_error += (*it).error * (*it).error;
+        if ((*it).error > max_error) {
+            max_error = (*it).error;
+        }
     }
-    dist = dist / m_cps.size();
+    mean_error = mean_error / m_cps.size();
+    double std_dev = sqrt(squared_error/m_cps.size());
+
 
     wxString msg;
     msg.Printf(_("Optimizer run finished.\n"
-                 "average control point distance: %f\n\n"
-                 "Apply the changes?"), dist);
+                 "Results:\n"
+                 "  average control point distance: %f\n"
+                 "  standart deviation: %f\n"
+                 "  maximum: %f\n\n"
+                 "Apply the changes?"),
+               mean_error, std_dev, max_error);
 
     m_optimizer_result_text->SetLabel(msg);
+
+    Layout();
+    Fit();
 
     DEBUG_DEBUG("before del process");
     delete m_process;

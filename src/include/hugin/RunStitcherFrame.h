@@ -47,6 +47,8 @@ public:
                      PT::Panorama * pano,
                      const PT::PanoramaOptions & options);
 
+    ~RunStitcherFrame();
+
     void OnProcessTerm(wxProcessEvent& event);
 
 protected:

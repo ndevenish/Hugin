@@ -9,12 +9,12 @@
           <object class="sizeritem">
             <object class="wxNotebook" name="cp_editor_left_tab"/>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxADJUST_MINSIZE</flag>
           </object>
           <object class="sizeritem">
             <object class="wxNotebook" name="cp_editor_right_tab"/>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxADJUST_MINSIZE</flag>
           </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>

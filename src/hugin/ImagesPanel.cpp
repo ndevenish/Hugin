@@ -105,9 +105,10 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
 ImagesPanel::~ImagesPanel(void)
 {
+    DEBUG_TRACE("dtor");
     pano.removeObserver(this);
     delete images_list;
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor end");
 }
 
 void ImagesPanel::FitParent( wxSizeEvent & e )

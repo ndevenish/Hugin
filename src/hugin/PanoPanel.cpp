@@ -148,8 +148,9 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 
 PanoPanel::~PanoPanel(void)
 {
+    DEBUG_TRACE("dtor");
     pano.removeObserver(this);
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor end");
 }
 
 

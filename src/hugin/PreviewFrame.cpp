@@ -82,8 +82,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBoxSizer *ctrlSizer = new wxBoxSizer( wxHORIZONTAL );
 
-    wxCheckBox *cbox = new wxCheckBox(this, -1, _("auto update"));
-    ctrlSizer->Add(cbox,
+    m_autoCB = new wxCheckBox(this, -1, _("auto update"));
+    ctrlSizer->Add(m_autoCB,
                   0,        // not horizontally stretchable
                   wxCENTER |
                   wxALL,    // draw border all around
@@ -101,20 +101,35 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     // don't allow frame to get smaller than what the sizers tell it and also set
     topsizer->Add(ctrlSizer, 0, wxEXPAND, 0);
 
+
     // the initial size as calculated by the sizers
     topsizer->SetSizeHints( this );
     SetSizer( topsizer );
 
     m_pano.addObserver(this);
 
-    long aup = wxConfigBase::Get()->Read("/Preview/autoUpdate",0l);
+    wxConfigBase * config = wxConfigBase::Get();
+    long w = config->Read("/PreviewFrame/width",-1);
+    long h = config->Read("/PreviewFrame/height",-1);
+    if (w != -1) {
+        SetClientSize(w,h);
+    }
+
+    long aup = config->Read("/PreviewFrame/autoUpdate",0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
-    cbox->SetValue(aup != 0);
+    m_autoCB->SetValue(aup != 0);
 }
 
 PreviewFrame::~PreviewFrame()
 {
+    DEBUG_TRACE("dtor writing config");
+    wxSize sz = GetClientSize();
+    wxConfigBase * config = wxConfigBase::Get();
+    config->Write("/PreviewFrame/width",sz.GetWidth());
+    config->Write("/PreviewFrame/height",sz.GetWidth());
+    config->Write("/PreviewFrame/autoUpdate", (m_autoCB->IsChecked() ? 1l: 0l));
     m_pano.removeObserver(this);
+    DEBUG_TRACE("dtor end");
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -129,7 +144,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     // remove items for nonexisting images
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
-        DEBUG_DEBUG("Deleting remapped wxImage" << i);
         m_ToggleButtonSizer->Remove(m_ToggleButtons[i]);
         delete m_ToggleButtons[i];
         m_ToggleButtons.pop_back();
@@ -188,17 +202,19 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 
 void PreviewFrame::OnClose(wxCloseEvent& event)
 {
+    DEBUG_TRACE("OnClose")
     // do not close, just hide if we're not forced
     if (event.CanVeto()) {
         event.Veto();
         Hide();
+        DEBUG_DEBUG("hiding");
+    } else {
+        DEBUG_DEBUG("closing");
     }
 }
 
 void PreviewFrame::OnAutoPreviewToggle(wxCommandEvent & e)
 {
-    wxConfigBase::Get()->Write("/Preview/autoUpdate",
-                               (e.IsChecked() ? 1l: 0l));
     m_PreviewPanel->SetAutoUpdate(e.IsChecked());
 }
 

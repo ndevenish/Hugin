@@ -54,19 +54,19 @@ IMPLEMENT_APP(huginApp)
 
 huginApp::huginApp()
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("ctor");
 }
 
 huginApp::~huginApp()
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor");
     // delete temporary dir
     if (!wxRmdir(m_workDir)) {
         DEBUG_ERROR("Could not remove temporary directory");
     }
 
 //    delete frame;
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor end");
 }
 
 bool huginApp::OnInit()
@@ -146,6 +146,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
 //    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_list_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_stitcher_frame.xrc"));
@@ -186,7 +187,7 @@ bool huginApp::OnInit()
 //        DEBUG_INFO("before normalize: " << dir.GetFullPath());
 //        dir.Normalize();
 //        wrkDir = dir.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
-//        DEBUG_INFO("after normalize: " << wrkDir);        
+//        DEBUG_INFO("after normalize: " << wrkDir);
 //        DEBUG_INFO("No tempdir specified, using " << wrkDir );
 
         wrkDir = "c:\temp\hugin";
@@ -204,10 +205,6 @@ bool huginApp::OnInit()
     if (!wxSetWorkingDirectory(m_workDir)) {
         DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
     }
-
-    // remember the last size from config
-    frame->SetSize(config->Read("MainFrameSize_x",600l),
-                   config->Read("MainFrameSize_y",400l));
 
     // show the frame.
     frame->Show(TRUE);

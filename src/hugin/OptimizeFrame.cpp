@@ -47,6 +47,7 @@
 #include "wx/listctrl.h"
 #include "wx/process.h"
 #include "wx/txtstrm.h"
+#include <wx/config.h>
 
 #include "hugin/OptimizeFrame.h"
 
@@ -61,7 +62,6 @@
 
 using namespace std;
 using namespace PT;
-
 
 
 //============================================================================
@@ -93,14 +93,26 @@ OptimizeFrame::OptimizeFrame(wxWindow * parent, PT::Panorama * pano)
     m_roll_list = XRCCTRL(*this, "optimizer_roll_list", wxCheckListBox);
     m_lens_list = XRCCTRL(*this, "optimizer_lens_list", wxCheckListBox);
 
+    wxConfigBase * config = wxConfigBase::Get();
+    long w = config->Read("/OptimizerFrame/width",-1);
+    long h = config->Read("/OptimizerFrame/height",-1);
+    if (w != -1) {
+        SetClientSize(w,h);
+    }
+
     // observe the panorama
     m_pano->addObserver(this);
 }
 
 OptimizeFrame::~OptimizeFrame()
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor, writing config");
+    wxSize sz = GetClientSize();
+    wxConfigBase * config = wxConfigBase::Get();
+    config->Write("/OptimizerFrame/width",sz.GetWidth());
+    config->Write("/OptimizerFrame/height",sz.GetWidth());
     m_pano->removeObserver(this);
+    DEBUG_TRACE("dtor end");
 }
 
 void OptimizeFrame::OnOptimizeButton(wxCommandEvent & e)
@@ -254,9 +266,13 @@ void OptimizeFrame::runOptimizer(const OptimizeVector & optvars, const PanoramaO
 
 void OptimizeFrame::OnClose(wxCloseEvent& event)
 {
+    DEBUG_TRACE("OnClose");
     // do not close, just hide if we're not forced
     if (event.CanVeto()) {
         event.Veto();
         Hide();
+        DEBUG_DEBUG("Hiding");
+    } else {
+        DEBUG_DEBUG("Closing");
     }
 }

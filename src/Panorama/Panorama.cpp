@@ -169,8 +169,10 @@ Panorama::Panorama()
 
 Panorama::~Panorama()
 {
+    DEBUG_TRACE("dtor");
     reset();
     changeFinished();
+    DEBUG_TRACE("dtor about to finish");
 }
 
 

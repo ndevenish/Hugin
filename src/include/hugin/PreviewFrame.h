@@ -59,20 +59,21 @@ protected:
     void OnChangeDisplayedImgs(wxCommandEvent & e);
     void OnAutoPreviewToggle(wxCommandEvent & e);
     void OnUpdateButton(wxCommandEvent& event);
-    
+
 private:
 
     PT::Panorama & m_pano;
-    
+
     PreviewPanel * m_PreviewPanel;
     wxButton * m_updatePreview;
-    
+    wxCheckBox * m_autoCB;
+
     wxStaticBoxSizer * m_ToggleButtonSizer;
-    
+
     std::vector<wxToggleButton *> m_ToggleButtons;
-    
+
     PT::UIntSet m_displayedImgs;
-    
+
     DECLARE_EVENT_TABLE()
 };
 

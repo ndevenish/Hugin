@@ -42,6 +42,7 @@ class ImgPreview;
 class ImagesPanel;
 class PanoPanel;
 class PreviewFrame;
+class CPListFrame;
 //class OptimizeFrame;
 
 
@@ -86,6 +87,9 @@ public:
     /** file drag and drop handler method */
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
+    // called when a control point in CPListFrame is selected
+    void ShowCtrlPoint(unsigned int cpNr);
+
 private:
 
     // event handlers
@@ -101,9 +105,9 @@ private:
     void OnTextEdit(wxCommandEvent & e);
     void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
+    void OnToggleCPFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);
-
 
     // tab panels
     ImagesPanel* images_panel;
@@ -114,7 +118,7 @@ private:
     // flying windows
     OptimizeFrame * opt_frame;
     PreviewFrame * preview_frame;
-
+    CPListFrame * cp_frame;
 
     // the model
     Panorama pano;

@@ -107,6 +107,7 @@ APP_1_OBJ = \
 	    OptimizeFrame.o \
 	    RunOptimizerFrame.o \
 	    RunStitcherFrame.o \
+	    CPListFrame.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS) -lpano12

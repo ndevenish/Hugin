@@ -156,6 +156,11 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 #endif
 }
 
+RunStitcherFrame::~RunStitcherFrame()
+{
+    DEBUG_TRACE("dtor");
+    DEBUG_TRACE("dtor end");
+}
 
 void RunStitcherFrame::OnTimer(wxTimerEvent & e)
 {
@@ -179,13 +184,13 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
     while ( m_process->IsInputOpened() && m_process->IsInputAvailable() ){
         // read data from stream
         line = m_in->ReadWord();
-        DEBUG_DEBUG("parsing line >" << line << "<");
+//        DEBUG_DEBUG("parsing line >" << line << "<");
         if (line.size() == 7) {
             // only percentage.
             size_t len = line.size();
             wxString number = line.substr(len -3);
             number.Trim(false);
-            DEBUG_DEBUG("number read: >>>>>>>>>" << number << "<<<<<<<<<<<");
+//            DEBUG_DEBUG("number read: >>>>>>>>>" << number << "<<<<<<<<<<<");
             bool ok = number.ToLong(&m_percent);
             assert(ok);
         } else if ( line.size() > 7) {
@@ -197,12 +202,12 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
             size_t len = line.size();
             wxString number = line.substr(len-3);
             number.Trim(false);
-            DEBUG_DEBUG("number read: >>>>>>>" << number << "<<<<<<<");
+//            DEBUG_DEBUG("number read: >>>>>>>" << number << "<<<<<<<");
             bool ok = number.ToLong(&m_percent);
             assert(ok);
         }
     }
-    DEBUG_DEBUG("operation: " << m_description << " progress:" << m_percent << "%");
+//    DEBUG_DEBUG("operation: " << m_description << " progress:" << m_percent << "%");
     m_stitcherStatus->SetLabel(m_description);
     m_stitcherProgress->SetValue(m_percent);
 }

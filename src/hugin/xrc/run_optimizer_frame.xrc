@@ -6,9 +6,10 @@
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxStaticText" name="optimizer_status">
-          <label>blind text.. blind text.. blind text.. blind text.. blind text...</label>
+          <label></label>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>5</border>
       </object>
       <label>Optimizing</label>
       <object class="sizeritem">
@@ -17,14 +18,11 @@
       </object>
       <object class="sizeritem">
         <object class="wxStaticText" name="optimizer_result_text">
-          <label>Optimizer running...
-
-Use Stop to stop optimization, for
-example when the average control point
-distance doesn't lower anymore.</label>
+          <label></label>
         </object>
         <option>1</option>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>5</border>
       </object>
       <object class="sizeritem">
         <object class="wxStaticLine"/>
@@ -52,6 +50,8 @@ distance doesn't lower anymore.</label>
             <flag>wxEXPAND</flag>
           </object>
         </object>
+        <flag>wxALL</flag>
+        <border>5</border>
       </object>
     </object>
   </object>

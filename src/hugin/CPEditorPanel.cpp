@@ -149,15 +149,14 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     // load our settings from the configuration
 
-    m_templSize = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",6);
-    m_templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
 }
 
 
 CPEditorPanel::~CPEditorPanel()
 {
-    DEBUG_TRACE("");
-    m_pano->addObserver(this);
+    DEBUG_TRACE("dtor");
+    m_pano->removeObserver(this);
+    DEBUG_TRACE("dtor end");
 }
 
 
@@ -166,7 +165,9 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
     DEBUG_TRACE("image " << imgNr);
     if (m_leftImageNr != imgNr) {
         m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
-        m_leftTabs->SetSelection(imgNr);
+        if (m_leftTabs->GetSelection() != (int) imgNr) {
+            m_leftTabs->SetSelection(imgNr);
+        }
         m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         UpdateDisplay();
@@ -181,7 +182,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         // set the new image
         m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
         // select tab
-        m_rightTabs->SetSelection(imgNr);
+        if (m_rightTabs->GetSelection() != (int) imgNr) {
+            m_rightTabs->SetSelection(imgNr);
+        }
         m_rightImageNr = imgNr;
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
@@ -308,7 +311,6 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     }
     m_selectedPoint = LVpointNr;
 
-    m_cpList->SetItemState(LVpointNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
     const ControlPoint & p = currentPoints[LVpointNr].second;
     m_x1Text->SetValue(wxString::Format("%.1f",p.x1));
     m_y1Text->SetValue(wxString::Format("%.1f",p.y1));
@@ -317,6 +319,8 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     m_cpModeChoice->SetSelection(p.mode);
     m_leftImg->selectPoint(LVpointNr);
     m_rightImg->selectPoint(LVpointNr);
+    m_cpList->SetItemState(LVpointNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+    m_cpList->EnsureVisible(LVpointNr);
 
 }
 
@@ -362,7 +366,8 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
         cpCreationState = FIRST_POINT;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
             int width = m_pano->getImage(m_rightImageNr).getWidth();
-            int swidth = (int) (width * m_templSearchAreaPercent / 200);
+            int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+            int swidth = (int) (width * templSearchAreaPercent / 200);
             m_rightImg->showSearchArea(swidth);
         }
     case FIRST_POINT:
@@ -418,7 +423,8 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
         // show search area
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
             int width = m_pano->getImage(m_leftImageNr).getWidth();
-            int swidth = (int) (width * m_templSearchAreaPercent / 200);
+            int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+            int swidth = (int) (width * templSearchAreaPercent / 200);
             m_leftImg->showSearchArea(swidth);
         }
     case SECOND_POINT:
@@ -510,13 +516,16 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
                 << subjImgNr);
 
+    long templSize = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
+    long templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+
     const PanoImage & img = m_pano->getImage(subjImgNr);
 
     const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
         img.getFilename(),0);
 
     // FIXME user configurable search window?
-    int swidth = (int) (subjImg.width() * m_templSearchAreaPercent / 200);
+    int swidth = (int) (subjImg.width() * templSearchAreaPercent / 200);
     DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
     Diff2D searchUL(subjPoint.x - swidth, subjPoint.y - swidth);
     Diff2D searchLR(subjPoint.x + swidth, subjPoint.y + swidth);
@@ -532,7 +541,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
     // make template size user configurable as well?
-    int templWidth = m_templSize/2;
+    int templWidth = templSize/2;
     Diff2D tmplUL(-templWidth, -templWidth);
     Diff2D tmplLR(templWidth, templWidth);
     // clip template
@@ -583,7 +592,11 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     if (nrTabs < nrImages) {
         for (unsigned int i=nrTabs; i < nrImages; i++) {
             wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+            t1->SetSize(0,0);
+            t1->SetSizeHints(0,0,0,0);
             wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+            t2->SetSize(0,0);
+            t2->SetSizeHints(0,0,0,0);
             // update tab buttons
             if (!m_leftTabs->AddPage(t1, wxString::Format("%d",i))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
@@ -715,7 +728,7 @@ void CPEditorPanel::UpdateDisplay()
     m_rightImg->setCtrlPoints(right);
 
     // put these control points into our listview.
-    int selectedCP = 0;
+    int selectedCP = INT_MAX;
     for ( int i=0; i < m_cpList->GetItemCount() ; i++ ) {
       if ( m_cpList->GetItemState( i, wxLIST_STATE_SELECTED ) ) {
         selectedCP = i;            // remembers the old selection
@@ -726,6 +739,7 @@ void CPEditorPanel::UpdateDisplay()
 
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
         const ControlPoint & p = currentPoints[i].second;
+        DEBUG_DEBUG("inserting LVItem " << i);
         m_cpList->InsertItem(i,wxString::Format("%d",currentPoints[i].first));
         m_cpList->SetItem(i,1,wxString::Format("%.1f",p.x1));
         m_cpList->SetItem(i,2,wxString::Format("%.1f",p.y1));
@@ -744,11 +758,11 @@ void CPEditorPanel::UpdateDisplay()
             mode = _("horiz. Line");
         }
         m_cpList->SetItem(i,5,mode);
-        m_cpList->SetItem(i,6,wxString::Format("%f",p.error));
+        m_cpList->SetItem(i,6,wxString::Format("%.1f",p.error));
     }
     if ( selectedCP <= m_cpList->GetItemCount() ) // sets an old selection again
-      m_cpList->SetItemState( selectedCP,
-                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
+        m_cpList->SetItemState( selectedCP,
+                                wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
 /*    for (int i=0; i<7; i++) {
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
@@ -926,4 +940,14 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::RemoveCtrlPointCmd(*m_pano,pNr )
         );
+}
+
+// show a global control point
+void CPEditorPanel::ShowControlPoint(unsigned int cpNr)
+{
+    const ControlPoint & p = m_pano->getCtrlPoint(cpNr);
+    setLeftImage(p.image1Nr);
+    setRightImage(p.image2Nr);
+
+    SelectGlobalPoint(cpNr);
 }

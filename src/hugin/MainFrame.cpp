@@ -54,6 +54,7 @@
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/CPListFrame.h"
 #include "PT/Panorama.h"
 
 
@@ -80,6 +81,10 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("ID_SHOW_OPTIMIZE_FRAME"),MainFrame::OnToggleOptimizeFrame)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
+
+    EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnToggleCPFrame)
+    EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnToggleCPFrame)
+
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
@@ -152,6 +157,8 @@ MainFrame::MainFrame(wxWindow* parent)
 
     preview_frame = new PreviewFrame(this, pano);
 
+    cp_frame = new CPListFrame(this, pano);
+
     // set the minimize icon
     SetIcon(wxICON(gui));
 
@@ -172,6 +179,17 @@ MainFrame::MainFrame(wxWindow* parent)
     // observe the panorama
     pano.addObserver(this);
 
+
+    // remember the last size from config
+    wxConfigBase* config = wxConfigBase::Get();
+    int w = config->Read("MainFrame/width",-1l);
+    int h = config->Read("MainFrame/height",-1l);
+    if (w != -1) {
+        SetClientSize(w,h);
+    } else {
+        Fit();
+    }
+
     // optimize settings
 //    optset = new OptimizeVector();
 
@@ -184,11 +202,10 @@ MainFrame::MainFrame(wxWindow* parent)
 
 MainFrame::~MainFrame()
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor");
 //    delete cpe;
-    DEBUG_TRACE("");
 //    delete images_panel;
-    DEBUG_TRACE("");
+    DEBUG_DEBUG("removing observer");
     pano.removeObserver(this);
 
     // get the global config object
@@ -200,13 +217,14 @@ MainFrame::~MainFrame()
     // on every start of hugin, because setPosition sets
     // the upper left title bar position (at least in kwm)
     // netscape navigator had the same problem..
-    config->Write("MainFrameSize_x", GetRect().width);
-    config->Write("MainFrameSize_y", GetRect().height);
+    wxSize sz = GetClientSize();
+    config->Write("/MainFrame/width", sz.GetWidth());
+    config->Write("/MainFrame/height", sz.GetHeight());
     DEBUG_INFO( "saved last size and position" )
 
     config->Flush();
 
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor end");
 }
 
 
@@ -470,6 +488,13 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
     preview_frame->Raise();
 }
 
+void MainFrame::OnToggleCPFrame(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    cp_frame->Show();
+    cp_frame->Raise();
+}
+
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
@@ -483,11 +508,15 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     GlobalCmdHist::getInstance().redo();
 }
 
+void MainFrame::ShowCtrlPoint(unsigned int cpNr)
+{
+    DEBUG_DEBUG("Showing control point " << cpNr);
+    cpe->ShowControlPoint(cpNr);
+}
+
 MainFrame* MainFrame::GetFrame(void)
 {
     DEBUG_TRACE("");
 //    MainFrame* dummy( parent);//, -1, wxDefaultPosition, wxDefaultPosition);
     return this;
 }
-
-

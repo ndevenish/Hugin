@@ -89,7 +89,7 @@ END_EVENT_TABLE()
 
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano)
+      pano(*pano), m_editImageNr(0)
 {
     DEBUG_TRACE("ctor");
     pano->addObserver(this);
@@ -110,11 +110,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
 LensPanel::~LensPanel(void)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor");
     pano.removeObserver(this);
-    // not sure if this is needed.
-//    delete images_list;
-    DEBUG_TRACE("");
+    DEBUG_TRACE("dtor about to finish");
 }
 
 void LensPanel::FitParent( wxSizeEvent & e )

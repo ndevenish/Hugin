@@ -88,8 +88,6 @@ END_DECLARE_EVENT_TYPES()
                             (CPEventFunction) & func, \
                             (wxObject *) NULL ),
 
-// End of MyEvent.h
-
 
 /** brief description.
  *
@@ -109,7 +107,7 @@ public:
 
 
     CPImageCtrl()
-        : drawNewPoint(false), scaleFactor(1),fitToWindow(false)
+        : scaleFactor(1),fitToWindow(false)
         { }
 
     /** dtor.
@@ -148,13 +146,13 @@ public:
      *  Scrolls the windows so that x,y is shown in the center
      */
     void CPImageCtrl::showPosition(int x, int y);
-    
+
     /** show the search area rectangle
      *
      */
     void showSearchArea(int width)
         { m_showSearchArea = true; m_searchRectWidth = width; }
-    
+
     void hideSearchArea()
         { m_showSearchArea = false ; update(); }
 
@@ -208,7 +206,6 @@ private:
     unsigned int selectedPointNr;
     // valid during MOVE_POINT and CREATE_POINT
     wxPoint point;
-    bool drawNewPoint;
     wxPoint newPoint;
 
     // only valid during SELECT_REGION
@@ -218,13 +215,21 @@ private:
 
     /**  state machine for selection process:
      *
+     *   format of this list:
+     *    - current state name
+     *        - possible next state
+     *          - conditions for next state
+     *
      *   states:
+     *
+     *    - NO_IMAGE
+     *        - NO_SELECTION
+     *          - an image has been inserted
+     *
      *    - NO_SELECTION nothing selected
      *        - KNOWN_POINT_SELECTED
      *          - mouse down on known point
      *          - set from outside
-     *        - NEW_POINT_SELECTED
-     *          - mouse down on new point (if one exists)
      *        - REGION
      *          - mouse down on unidentifed field
      *
@@ -233,8 +238,8 @@ private:
      *       clients are notified about the movement, points can also
      *       be switched.
      *
-     *        - NEW_POINT_SELECTED
-     *          - mouse down on new point (if one exists)
+     *        - KNOWN_POINT_SELECTED
+     *          - selection of another point
      *        - REGION
      *          - mouse down on unidentifed field
      *
@@ -253,7 +258,7 @@ private:
      *          - mouse down on free space
      *
      */
-    enum EditorState {NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION};
+    enum EditorState {NO_IMAGE=0, NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION};
     EditorState editState;
 
     // colors for the different points

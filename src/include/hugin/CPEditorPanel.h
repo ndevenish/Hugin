@@ -91,9 +91,18 @@ public:
 
     /** Select a point.
      *
-     *  This should highlight it in the listview and on the pictures
+     *  This should highlight it in the listview and on the pictures.
+     *
+     *  Does not change the pictures. The control point must be on the
+     *  two existing images
      */
     void SelectGlobalPoint(unsigned int globalNr);
+    
+    /** show a control point
+     *
+     *  show control point @p cpNr and the corrosponding images
+     */
+    void ShowControlPoint(unsigned int cpNr);
 
 private:
 
@@ -171,11 +180,6 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
-
-    // template size
-    long m_templSize;
-    // template search area divider ( search size imgWidth/m_templSearchDivisor
-    double m_templSearchAreaPercent;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

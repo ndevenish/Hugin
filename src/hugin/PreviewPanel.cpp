@@ -79,12 +79,14 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
 
 PreviewPanel::~PreviewPanel()
 {
+    DEBUG_TRACE("dtor");
     for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
          it != m_remappedBitmaps.end();
          ++it)
     {
         delete *it;
     }
+    DEBUG_TRACE("dtor end");
 }
 
 void PreviewPanel::panoramaChanged(Panorama &pano)
@@ -175,7 +177,7 @@ void PreviewPanel::updatePreview()
 
     double ratioPano = finalWidth / finalHeight;
     double ratioPanel = m_panoImgSize.GetWidth() / m_panoImgSize.GetHeight();
-    
+
     if (ratioPano < ratioPanel) {
         // panel is wider than pano
         m_panoImgSize.SetWidth((int) (m_panoImgSize.GetHeight() * ratioPano));
@@ -183,7 +185,7 @@ void PreviewPanel::updatePreview()
         // panel is taller than pano
         m_panoImgSize.SetHeight((int)(m_panoImgSize.GetWidth() / ratioPano));
     }
-    
+
     wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
     UIntSet::iterator it = m_dirtyImgs.begin();
@@ -223,7 +225,7 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
 
     int offsetX = 0;
     int offsetY = 0;
-    
+
     wxSize sz = GetClientSize();
     if (sz.GetWidth() > m_panoImgSize.GetWidth()) {
         offsetX = (sz.GetWidth() - m_panoImgSize.GetWidth()) / 2;
@@ -231,7 +233,7 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
     if (sz.GetHeight() > m_panoImgSize.GetHeight()) {
         offsetY = (sz.GetHeight() - m_panoImgSize.GetHeight()) / 2;
     }
-    
+
     DEBUG_TRACE("redrawing preview Panel");
 
     dc.SetPen(wxPen("BLACK",1,wxSOLID));

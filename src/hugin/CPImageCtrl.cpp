@@ -113,7 +113,7 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
                          long style,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
-      drawNewPoint(false), scaleFactor(1), fitToWindow(false),
+      scaleFactor(1), fitToWindow(false),
       m_showSearchArea(false), m_searchRectWidth(10)
 {
     SetCursor(wxCursor(wxCURSOR_BULLSEYE));
@@ -137,14 +137,15 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
 
 CPImageCtrl::~CPImageCtrl()
 {
-    DEBUG_TRACE("")
+    DEBUG_TRACE("dtor");
+    DEBUG_TRACE("dtor end");
 }
 
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
     // draw image (FIXME, redraw only visible regions.)
-    if (imageFilename != "") {
+    if (editState != NO_IMAGE) {
         dc.DrawBitmap(bitmap,0,0);
     }
 
@@ -159,11 +160,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         }
         i++;
     }
-
+/*
     if (drawNewPoint) {
         drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
     }
-
+*/
     switch(editState) {
     case SELECT_REGION:
         dc.SetLogicalFunction(wxINVERT);
@@ -175,10 +176,12 @@ void CPImageCtrl::OnDraw(wxDC & dc)
                     scale(region.GetHeight()));
         break;
     case NEW_POINT_SELECTED:
+        drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
         break;
     case KNOWN_POINT_SELECTED:
         break;
     case NO_SELECTION:
+    case NO_IMAGE:
         break;
     }
 
@@ -186,7 +189,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.SetLogicalFunction(wxINVERT);
         dc.SetPen(wxPen("WHITE", 1, wxSOLID));
         dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
-        
+
 //        DEBUG_DEBUG("drawing rect with width " << 2*width);
         wxPoint upperLeft = scale(m_mousePos - wxPoint(m_searchRectWidth, m_searchRectWidth));
         int width = scale(m_searchRectWidth);
@@ -235,13 +238,15 @@ void CPImageCtrl::setImage(const std::string & file)
                                 scale(imageSize.GetHeight())).ConvertToBitmap();
             DEBUG_DEBUG("rescaling finished");
         }
+        editState = NO_SELECTION;
+        SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
+        SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
     } else {
-        wxImage empty;
-        bitmap = empty.ConvertToBitmap();
+        editState = NO_IMAGE;
+        bitmap = wxBitmap();
+        SetSizeHints(0,0,0,0,1,1);
     }
     // FIXME update size & relayout dialog
-    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
-    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
 //    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
 //    SetVirtualSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight());
     //SetVirtualSizeHints(-1,-1,img.GetWidth(), img.GetHeight());
@@ -263,7 +268,6 @@ void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
 void CPImageCtrl::clearNewPoint()
 {
     editState = NO_SELECTION;
-    drawNewPoint = false;
     update();
 }
 
@@ -303,16 +307,17 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int 
         }
     }
 
-    if (drawNewPoint &&
-        p.x < newPoint.x + 4 &&
+    return NEW_POINT_SELECTED;
+/*
+    if (p.x < newPoint.x + 4 &&
         p.x > newPoint.x - 4 &&
         p.y < newPoint.y + 4 &&
         p.y > newPoint.y - 4)
     {
-        return NEW_POINT_SELECTED;
-    } else {
-        return SELECT_REGION;
+//    } else {
+//        return SELECT_REGION;
     }
+*/
 }
 
 
@@ -350,7 +355,9 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             // do more intelligent updating here?
             doUpdate = true;
             break;
+            // not possible.
         case NEW_POINT_SELECTED:
+            DEBUG_DEBUG("WARNING: mouse move in new point state")
             newPoint = mpos;
             //emit(newPointMoved(newPoint));
             doUpdate = true;
@@ -359,8 +366,10 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             region.SetWidth(mpos.x - region.x);
             region.SetHeight(mpos.y - region.y);
             // do more intelligent updating here?
-            drawNewPoint = false;
             doUpdate = true;
+            break;
+        case NO_IMAGE:
+            break;
         }
     }
     if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
@@ -383,8 +392,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
 
     // draw a rectangle
 
-    if ((editState == NO_SELECTION || editState == NEW_POINT_SELECTED)
-        && m_showSearchArea)
+    if (editState == NO_SELECTION && m_showSearchArea)
     {
         DEBUG_DEBUG("enabled search area")
         doUpdate = true;
@@ -419,6 +427,7 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
     if (mouse->LeftDown()) {
         // we can always select a new point
         if (clickState == KNOWN_POINT_SELECTED) {
+            DEBUG_DEBUG("click on point: " << selPointNr);
             if (selectedPointNr != selPointNr) {
                 selectedPointNr = selPointNr;
                 point = points[selectedPointNr];
@@ -426,11 +435,9 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
                 // FIXME emit(pointSelected(selectedPointNr));
             }
         } else if (clickState == NEW_POINT_SELECTED) {
-            drawNewPoint = true;
-            newPoint = mpos;
-            editState = NEW_POINT_SELECTED;
-        } else if (clickState == SELECT_REGION) {
+            DEBUG_DEBUG("click on new space, select region/new point");
             editState = SELECT_REGION;
+            newPoint = mpos;
             region.x = mpos.x;
             region.y = mpos.y;
         } else {
@@ -471,6 +478,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
             DEBUG_WARN("mouse release without selection");
             break;
         case KNOWN_POINT_SELECTED:
+            DEBUG_DEBUG("mouse release with known point " << selectedPointNr);
             if (point != points[selectedPointNr]) {
                 CPEvent e( this, selectedPointNr, points[selectedPointNr]);
                 emit(e);
@@ -479,7 +487,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
             break;
         case NEW_POINT_SELECTED:
         {
-            assert(drawNewPoint);
+//            assert(drawNewPoint);
             DEBUG_DEBUG("new Point changed (event fire): x:" << mpos.x << " y:" << mpos.y);
             // fire the wxWin event
             CPEvent e( this, newPoint);
@@ -490,8 +498,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
         case SELECT_REGION:
             if (region.GetPosition() == mpos) {
                 // create a new point.
-                drawNewPoint = true;
-                editState = KNOWN_POINT_SELECTED;
+                editState = NEW_POINT_SELECTED;
                 newPoint = mpos;
                 DEBUG_DEBUG("new Point changed: x:" << mpos.x << " y:" << mpos.y);
                 //emit(newPointChanged(newPoint));
@@ -513,6 +520,10 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
                 emit(e);
                 update();
             }
+            break;
+        case NO_IMAGE:
+            break;
+
         }
         DEBUG_DEBUG("ImageDisplay: mouse release, state change: " << oldState
                     << " -> " << editState);
