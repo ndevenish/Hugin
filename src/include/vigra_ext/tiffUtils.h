@@ -61,9 +61,16 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     const float dpi = 150;
     // create a new directory for our image
     // hopefully I didn't forget too much stuff..
-    TIFFCreateDirectory (tiff);
+    // TIFF tag reference at http://www.awaresystems.be/imaging/tiff/tifftags.html
+    
+    // FIXME: Should not create a new directory unless this is a new layer since TIFFOpen
+    //        already creates a new directory and this breaks some windows builds. 
+    //        Maybe move the create into the multilayer stuff
+    //        or write a createMultiTiffDirectory?
+    //TIFFCreateDirectory (tiff);
 
     // set page
+    // FIXME: Also only needed for multilayer images
     TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
     TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)page, (unsigned short)nImg);
 
@@ -80,6 +87,8 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     TIFFSetField (tiff, TIFFTAG_PAGENAME, pagename.c_str() );
     //
     TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "stitched with hugin");
+    // FIXME: what should this be set to? 
+    TIFFSetField(tiff, TIFFTAG_COMPRESSION, COMPRESSION_ADOBE_DEFLATE);
 }
 
 
@@ -104,6 +113,7 @@ createScalarATiffImage(ImageIterator upperleft, ImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
     TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleformat);
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, h);
 
     // for alpha stuff, do not uses premultilied data
     // We do not want to throw away data by premultiplying
@@ -165,8 +175,8 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
     TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleformat);
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
-    TIFFSetField(tiff, TIFFTAG_COMPRESSION, COMPRESSION_ADOBE_DEFLATE);
-
+    TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, h);
+		      
     // for alpha stuff, do not uses premultilied data
     // We do not want to throw away data & accuracy by premultiplying
     uint16 nextra_samples = 1;
