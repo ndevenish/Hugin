@@ -144,8 +144,6 @@ if test "x$have_pano" != xyes; then
     ])
 fi
 
-AC_PATH_FFTW
-
 AX_CHECK_BOOST_TEST
 if test "x$have_boost" != xyes; then
     AC_MSG_ERROR([
@@ -296,8 +294,6 @@ echo "  WX_CXXFLAGS    = $WX_CXXFLAGS"
 echo "  WX_LIBS        = $WX_LIBS"
 echo "  GTK_CFLAGS     = $GTK_CFLAGS"
 echo "  GTK_LIBS       = $GTK_LIBS"
-echo "  FFTW_INCLUDES  = $FFTW_INCLUDES"
-echo "  FFTW_LDFLAGS   = $FFTW_LDFLAGS"
 echo "  BOOST_VERSION  = $BOOST_VERSION"
 echo "  BOOST_CFLAGS   = $BOOST_CFLAGS"
 echo "  BOOST_LIBS     = $BOOST_LIBS"
