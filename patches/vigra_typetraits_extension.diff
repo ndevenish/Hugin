@@ -1,0 +1,153 @@
+diff -uNr -b vigra-1.2.0.orig/include/vigra/numerictraits.hxx vigra-1.2.0/include/vigra/numerictraits.hxx
+--- vigra-1.2.0.orig/include/vigra/numerictraits.hxx	2003-08-07 02:16:31.000000000 +0200
++++ vigra-1.2.0/include/vigra/numerictraits.hxx	2004-05-10 08:31:07.000000000 +0200
+@@ -313,6 +313,7 @@
+     typedef Error_NumericTraits_not_specialized_for_this_case isScalar;
+     typedef Error_NumericTraits_not_specialized_for_this_case isIntegral;
+     typedef Error_NumericTraits_not_specialized_for_this_case isOrdered;
++    typedef Error_NumericTraits_not_specialized_for_this_case isSigned;
+ };
+ 
+ #ifndef NO_BOOL
+@@ -325,6 +326,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraFalseType isSigned;
+     
+     static bool zero() { return false; }
+     static bool one() { return true; }
+@@ -359,6 +361,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static signed char zero() { return 0; }
+     static signed char one() { return 1; }
+@@ -393,6 +396,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraFalseType isSigned;
+     
+     static unsigned char zero() { return 0; }
+     static unsigned char one() { return 1; }
+@@ -426,6 +430,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static short int zero() { return 0; }
+     static short int one() { return 1; }
+@@ -463,6 +468,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraFalseType isSigned;
+ 
+     static short unsigned int zero() { return 0; }
+     static short unsigned int one() { return 1; }
+@@ -497,6 +503,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+ 
+     static int zero() { return 0; }
+     static int one() { return 1; }
+@@ -530,6 +537,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraFalseType isSigned;
+     
+     static unsigned int zero() { return 0; }
+     static unsigned int one() { return 1; }
+@@ -563,6 +571,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static long zero() { return 0; }
+     static long one() { return 1; }
+@@ -596,6 +605,7 @@
+     typedef VigraTrueType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraFalseType isSigned;
+     
+     static unsigned long zero() { return 0; }
+     static unsigned long one() { return 1; }
+@@ -629,6 +639,7 @@
+     typedef VigraFalseType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static float zero() { return 0.0; }
+     static float one() { return 1.0; }
+@@ -653,6 +664,7 @@
+     typedef VigraFalseType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static double zero() { return 0.0; }
+     static double one() { return 1.0; }
+@@ -677,6 +689,7 @@
+     typedef VigraFalseType isIntegral;
+     typedef VigraTrueType isScalar;
+     typedef VigraTrueType isOrdered;
++    typedef VigraTrueType isSigned;
+     
+     static long double zero() { return 0.0; }
+     static long double one() { return 1.0; }
+diff -uNr -b vigra-1.2.0.orig/include/vigra/rgbvalue.hxx vigra-1.2.0/include/vigra/rgbvalue.hxx
+--- vigra-1.2.0.orig/include/vigra/rgbvalue.hxx	2003-08-07 02:16:32.000000000 +0200
++++ vigra-1.2.0/include/vigra/rgbvalue.hxx	2004-05-16 16:04:32.000000000 +0200
+@@ -319,6 +319,7 @@
+     typedef RGBValue<typename NumericTraits<T>::RealPromote> RealPromote;
+ 
+     typedef typename NumericTraits<T>::isIntegral isIntegral;
++    typedef typename NumericTraits<T>::isSigned isSigned;
+     typedef VigraFalseType isScalar;
+     typedef VigraFalseType isOrdered;
+ 
+@@ -378,6 +379,7 @@
+     typedef RGBValue<NumericTraits<T>::Promote> Promote;\
+     typedef RGBValue<NumericTraits<T>::RealPromote> RealPromote;\
+     typedef NumericTraits<T>::isIntegral isIntegral;\
++    typedef NumericTraits<T>::isSigned isSigned;\
+     typedef VigraFalseType isScalar;\
+     typedef VigraFalseType isOrdered;\
+     \
+diff -uNr -b vigra-1.2.0.orig/include/vigra/tinyvector.hxx vigra-1.2.0/include/vigra/tinyvector.hxx
+--- vigra-1.2.0.orig/include/vigra/tinyvector.hxx	2003-08-07 02:16:34.000000000 +0200
++++ vigra-1.2.0/include/vigra/tinyvector.hxx	2004-05-10 08:31:09.000000000 +0200
+@@ -798,6 +798,7 @@
+     typedef TinyVector<typename NumericTraits<T>::RealPromote, SIZE> RealPromote;
+ 
+     typedef typename NumericTraits<T>::isIntegral isIntegral;
++    typedef typename NumericTraits<T>::isSigned isSigned;
+     typedef VigraFalseType isScalar;
+     typedef VigraFalseType isOrdered;
+ 
+@@ -851,6 +852,7 @@
+     typedef TinyVector<typename NumericTraits<T>::RealPromote, SIZE> RealPromote;
+ 
+     typedef typename NumericTraits<T>::isIntegral isIntegral;
++    typedef typename NumericTraits<T>::isSigned isSigned;
+     typedef VigraFalseType isScalar;
+     typedef VigraFalseType isOrdered;
+ };
+@@ -914,6 +916,7 @@
+     typedef TinyVector<NumericTraits<T>::Promote, SIZE> Promote;\
+     typedef TinyVector<NumericTraits<T>::RealPromote, SIZE> RealPromote;\
+     typedef NumericTraits<T>::isIntegral isIntegral;\
++    typedef NumericTraits<T>::isSigned isSigned;\
+     typedef VigraFalseType isScalar;\
+     typedef VigraFalseType isOrdered;\
+     \
