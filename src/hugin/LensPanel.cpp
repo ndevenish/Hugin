@@ -112,10 +112,11 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
-    m_pixelDigits = wxConfigBase::Get()->Read("/Genera/PixelFractionalDigits",2);
-    m_distDigits = wxConfigBase::Get()->Read("/Genera/DistortionFractionalDigits",4);
+    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigitsEdit",3);
+    m_pixelDigits = wxConfigBase::Get()->Read("/General/PixelFractionalDigitsEdit",2);
+    m_distDigitsEdit = wxConfigBase::Get()->Read("/General/DistortionFractionalDigitsEdit",5);
 
+    
 
     // dummy to disable controls
     wxListEvent ev;
@@ -172,7 +173,7 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
         // update parameters
-        int ndigits = m_distDigits;
+        int ndigits = m_distDigitsEdit;
         if (strcmp(*varname, "hfov") == 0 || strcmp(*varname, "d") == 0 ||
             strcmp(*varname, "e") == 0 )
         {
@@ -188,12 +189,12 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
     // update focal length
     double focal_length = lens.calcFocalLength(HFOV);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
-        doubleToString(focal_length,m_distDigits).c_str());
+        doubleToString(focal_length,m_distDigitsEdit).c_str());
 
     // update focal length factor
     double focal_length_factor = lens.getFLFactor();
     XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
-        doubleToString(focal_length_factor,m_distDigits).c_str());
+        doubleToString(focal_length_factor,m_distDigitsEdit).c_str());
 
 
     DEBUG_TRACE("");

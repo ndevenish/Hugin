@@ -123,7 +123,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     pano->addObserver(this);
     DEBUG_TRACE("end");
 
-    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
+    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigitsEdit",3);
 }
 
 
@@ -393,6 +393,13 @@ void ImagesPanel::ClearImgParameters()
 void ImagesPanel::ShowImage(unsigned int imgNr)
 {
     // show preview image
+
+    // static bitmap behaves strangely under windows,
+    // we need to resize it to its maximum size every time before
+    // a new image is set, else it will keep the old size..
+    // however, I'm not sure how this should be done with wxWindows
+    
+    
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
     wxSize sz = imgctrl->GetSize();

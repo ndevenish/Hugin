@@ -130,6 +130,8 @@ private:
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;
 
+    int m_degDigits;
+
     DECLARE_EVENT_TABLE()
 };
 

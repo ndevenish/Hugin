@@ -89,7 +89,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     /** try to read exif data from a file */
     void OnReadExif(wxCommandEvent & e);
-    
+
     /** save the current lens parameters to a simple ini file */
     void OnSaveLensParameters(wxCommandEvent & e);
 
@@ -111,6 +111,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     unsigned int m_editImageNr;
 
     void updateHFOV(void);
+    int m_degDigits;
+    int m_distDigitsEdit;
+    int m_pixelDigits;
 
     DECLARE_EVENT_TABLE()
 };

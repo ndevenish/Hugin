@@ -580,7 +580,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                 thisImg->update();
                 // Bad correlation result.
                 wxMessageBox(
-                    wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong."),  xcorr, thresh),
+                    wxString::Format(_("low correlation coefficient: %.3f, (threshold: %.3f)\nPoint might be wrong."),  xcorr, thresh),
                     "Low correlation",
                     wxICON_HAND, this);
                 changeState(BOTH_POINTS_SELECTED);
@@ -696,7 +696,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 }
 
                 double thresh=0.8;
-                thresh = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold", &thresh, 0.8);
+                wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold", &thresh, 0.8);
 
                 if (xcorr < thresh) {
                     // low xcorr
@@ -708,7 +708,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     otherImg->setNewPoint(FDiff2D(newPoint_round.x, newPoint_round.y));
                     // Bad correlation result.
                     int answer = wxMessageBox(
-                        wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
+                        wxString::Format(_("low correlation coefficient: %.3f, (threshold: %.3f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
                         "Low correlation",
                         wxYES_NO|wxICON_QUESTION, this);
                     if (answer == wxNO) {

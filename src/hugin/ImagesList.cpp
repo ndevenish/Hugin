@@ -60,9 +60,9 @@ pano(*pano)
     AssignImageList(m_smallIcons,wxIMAGE_LIST_SMALL);
     pano->addObserver(this);
     DEBUG_TRACE("");
-    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
-    m_pixelDigits = wxConfigBase::Get()->Read("/Genera/PixelFractionalDigits",2);
-    m_distDigits = wxConfigBase::Get()->Read("/Genera/DistortionFractionalDigits",4);
+    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigits",1);
+    m_pixelDigits = wxConfigBase::Get()->Read("/General/PixelFractionalDigits",1);
+    m_distDigits = wxConfigBase::Get()->Read("/General/DistortionFractionalDigits",3);
 }
 
 ImagesList::~ImagesList(void)

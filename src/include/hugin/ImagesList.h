@@ -103,6 +103,9 @@ protected:
     // image icons.
     wxImageList *m_smallIcons;
     int m_iconHeight;
+    int m_degDigits;
+    int m_distDigits;
+    int m_pixelDigits;
     DECLARE_EVENT_TABLE()
 };
 
