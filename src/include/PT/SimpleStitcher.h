@@ -117,7 +117,7 @@ template <class DestImageType>
 void stitchPanoramaSimple(const PT::Panorama & pano,
                           const PT::PanoramaOptions & opts,
                           DestImageType & dest,
-                          utils::ProgressDisplay & progress,
+                          utils::MultiProgressDisplay & progress,
                           const std::string & basename,
                           const std::string & format = "tif",
                           bool savePartial = false)
@@ -142,8 +142,12 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     // remapped panorama images
     std::vector<RemappedPanoImage<OutputImageType, vigra::FImage> > remapped(pano.getNrOfImages());
 
-        // remap all images (save to disk and keep in memory...)
+
+    // remap all images (keep in memory...)
     unsigned int nImg = pano.getNrOfImages();
+
+    progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg+1)));
+
     for (unsigned int i=0; i< nImg; i++) {
         // load image
         const PT::PanoImage & img = pano.getImage(i);
@@ -152,10 +156,10 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         // FIXME.. use some other mechanism to define what format to use..
         InputImageType srcImg(info.width(), info.height());
         // import the image just read
-        progress.progressMessage("loading image " + img.getFilename());
+        progress.setMessage("loading image " + img.getFilename());
         importImage(info, destImage(srcImg));
 
-        progress.progressMessage("remapping " + img.getFilename());
+        progress.setMessage("remapping " + img.getFilename());
 
         // this should be made a bit smarter, but I don't
         // want to have virtual function call for the interpolator
@@ -163,63 +167,71 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         case PT::PanoramaOptions::CUBIC:
             DEBUG_DEBUG("using cubic interpolator");
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_cubic());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_cubic(),
+                           progress);
             break;
         case PT::PanoramaOptions::SPLINE_16:
             DEBUG_DEBUG("interpolator: spline16");
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_spline16());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_spline16(),
+                           progress);
             break;
         case PT::PanoramaOptions::SPLINE_36:
             DEBUG_DEBUG("interpolator: spline36");
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_spline36());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_spline36(),
+                           progress);
             break;
         case PT::PanoramaOptions::SPLINE_64:
             DEBUG_DEBUG("interpolator: spline64");
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_spline64());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_spline64(),
+                           progress);
             break;
         case PT::PanoramaOptions::SINC_256:
             DEBUG_DEBUG("interpolator: sinc 256")
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_sinc<8>());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_sinc<8>(),
+                           progress);
             break;
         case PT::PanoramaOptions::BILINEAR:
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_bilin());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_bilin(),
+                           progress);
             break;
         case PT::PanoramaOptions::NEAREST_NEIGHBOUR:
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_nearest());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_nearest(),
+                           progress);
             break;
         case PT::PanoramaOptions::SINC_1024:
             PT::remapImage(pano, i,
-                               srcImageRange(srcImg),
-                               opts,
-                               remapped[i],
-                               interp_sinc<32>());
+                           srcImageRange(srcImg),
+                           opts,
+                           remapped[i],
+                           interp_sinc<32>(),
+                           progress);
             break;
         }
 
@@ -237,7 +249,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
     DEBUG_DEBUG("merging images");
     // stitch images
-    progress.progressMessage("merging images,0");
+    progress.pushTask(utils::ProgressTask("Flattening", "", 1.0/nImg));
 
     // save individual images into a single big multi-image tif
     if (opts.outputFormat == PT::PanoramaOptions::TIFF_mask ||
@@ -261,6 +273,10 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         // loop over all images and create alpha channel for it,
         // and write it into the output file.
         for (unsigned int imgNr=0; imgNr< nImg; imgNr++) {
+
+            std::ostringstream tstr("Image: ");
+            tstr << imgNr;
+            progress.setMessage(tstr.str());
 
             vigra::Diff2D sz = remapped[imgNr].image.size();
             vigra::BImage alpha(sz);
@@ -291,6 +307,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                             *xa=0;
                         }
                     }
+                    if ((yend-y) % ((yend-ystart)/20) == 0) {
+                        progress.setProgress(1.0*(yend-y)/((yend-ystart)/20)/nImg);
+                    }
                 }
             } else {
                 vigra::BImage::Iterator ya(alpha.upperLeft());
@@ -318,6 +337,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                                 topImgNr = i;
                             }
                         }
+
                         // feather only topmost layer
                         if (topImgNr == imgNr) {
                             topDist = remapped[imgNr].getDistanceFromCenter(cp);
@@ -335,6 +355,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                             *xa = 0;
                         }
                     }
+                    if ((yend-y) % ((yend-ystart)/20) == 0) {
+                        progress.setProgress(1.0*(yend-y)/((yend-ystart)/20)/nImg);
+                    }
                 }
             }
             // call vigra function to write the image data
@@ -346,7 +369,6 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             // write this image to disk
             TIFFWriteDirectory (tiff);
             TIFFFlushData (tiff);
-            progress.progressMessage("merging images",100.0*((imgNr+1.0)/nImg));
         }
         TIFFClose(tiff);
     } else {
@@ -398,8 +420,8 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                     *xd = DestTraits::fromRealPromote(blended);
                 }
             }
-            if (y%100==0) {
-                progress.progressMessage("merging images",100.0*((y+1.0/yend)/nImg));
+            if ((yend-y) % ((yend-ystart)/20) == 0) {
+                progress.setProgress(((double)yend-y)/(yend-ystart));
             }
         }
 
@@ -414,6 +436,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         }
         exportImage(srcImageRange(dest), exinfo);
     }
+    progress.popTask();
+    progress.popTask();
+
 
 }
 

@@ -95,19 +95,30 @@ inline std::ostream & operator<<(std::ostream & o, const SIFTFeature & f)
  */
 template <class SrcIterator, class SrcAccessor>
 bool loweDetectSIFT(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> input,
-                    std::vector<SIFTFeature> & features)
+                    std::vector<SIFTFeature> & features, const std::string & keypointExe)
 {
     // write temp pgm image
     // write as JPEG image, using compression quality 80
     vigra::exportImage(input,
-                       vigra::ImageExportInfo("/tmp/__keypoints_in.pgm"));
+                       vigra::ImageExportInfo("__keypoints_in.pgm"));
 
+    // todo: implement for windows
+#ifdef unix
     // run external keypoint detector
-    int res = system("keypoints </tmp/__keypoints_in.pgm >/tmp/__keypoints_out.txt");
+
+    std::string cmd;
+    // check for original lowe keypoints
+    if (keypointExe == "keypoints") {
+        cmd = keypointExe + " <__keypoints_in.pgm >__keypoints_out.txt";
+    } else {        
+        std::string cmd = keypointExe + " __keypoints_in.pgm __keypoints_out.txt";
+    }
+    int res = system(cmd.c_str());
     if (res == -1) {
         DEBUG_ERROR("keypoints program failed");
         return false;
     }
+#endif
     // add keypoints to vector
     std::ifstream kp("/tmp/__keypoints_out.txt");
     if (kp.bad()) {

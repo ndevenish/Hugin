@@ -109,6 +109,7 @@
                 <object class="wxButton" name="images_feature_matching">
                   <label>Auto Ctrl. Points</label>
                   <style></style>
+                  <enabled>0</enabled>
                   <tooltip>advanced image processing operations to automatically create control points</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
@@ -117,11 +118,13 @@
               <object class="sizeritem">
                 <object class="wxStaticText">
                   <label>Points per Overlap</label>
+                  <enabled>0</enabled>
                 </object>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="images_points_per_overlap">
                   <value>10</value>
+                  <enabled>0</enabled>
                 </object>
               </object>
             </object>

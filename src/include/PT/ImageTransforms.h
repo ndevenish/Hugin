@@ -96,7 +96,8 @@ void remapImage(const PT::Panorama & pano, unsigned int imgNr,
                 vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                 const PT::PanoramaOptions & opts,
                 RemappedPanoImage<DestImageType, DistImageType> & remapped,
-                Interpolator interp)
+                Interpolator interp,
+                utils::MultiProgressDisplay & prog)
 
 //                vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
 //                vigra::Diff2D destUL,
@@ -139,7 +140,8 @@ void remapImage(const PT::Panorama & pano, unsigned int imgNr,
                    ulInt,
                    t,
                    vigra::destImageRange(remapped.dist),
-                   interp);
+                   interp,
+                   prog);
 }
 
 /** Transform an image into the panorama
@@ -176,7 +178,8 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
                     vigra::Diff2D destUL,
                     TRANSFORM & transform,
                     vigra::triple<DistImageIterator, DistImageIterator, DistAccessor> centerDist,
-                    Interpolator interp)
+                    Interpolator interp,
+                    utils::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
     vigra::Diff2D distSize = centerDist.second - centerDist.first;
@@ -193,6 +196,8 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
     int xend   = destUL.x + destSize.x;
     int ystart = destUL.y;
     int yend   = destUL.y + destSize.y;
+
+    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
     // FIXME: use d & e here.
@@ -251,7 +256,11 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
                 }
             }
         }
+        if ((y-ystart)%100 == 0) {
+            prog.setProgress(((double)y-ystart)/(yend-ystart));
+        }
     }
+    prog.popTask();
 }
 
 

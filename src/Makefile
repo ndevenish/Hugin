@@ -43,7 +43,8 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = jhead klt common vigra_ext Panorama hugin tools PanoImage
+SUBDIRS = jhead klt common vigra_ext Panorama hugin tools PanoImage \
+          keypoints
 
 # ====================================================================
 # include common rules

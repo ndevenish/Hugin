@@ -74,6 +74,7 @@ int main(int argc, char *argv[])
 
     const char * scriptFile = argv[optind];
 
+//    utils::StreamMultiProgressDisplay pdisp(cout);
     utils::CoutProgressDisplay pdisp;
 
     Panorama pano;
@@ -91,8 +92,6 @@ int main(int argc, char *argv[])
     }
 
     VariableMapVector newvars = PTools::autoOptimise(pano,pdisp);
-
-    // run a global optimisation...
 
     pano.updateVariables(newvars);
 

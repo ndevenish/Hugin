@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 
     const char * scriptFile = argv[optind];
 
-    utils::CoutProgressDisplay pdisp;
+    utils::StreamMultiProgressDisplay pdisp(cout);
 
     Panorama pano;
     PanoramaMemento newPano;

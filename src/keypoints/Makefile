@@ -50,7 +50,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += -I../ $(VIGRA_CFLAGS)
+CFLAGS += -O2 -I../ $(VIGRA_CFLAGS)
 LFLAGS += $(VIGRA_LFLAGS)
 
 # ====================================================================

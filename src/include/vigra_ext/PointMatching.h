@@ -203,7 +203,7 @@ void vigra_ext::exhaustiveSiftMatching(const SIFTFeatureTable & ftable,
                                        MatchingFunctor & match,
                                        SIFTMatchMatrix & matches,
                                        utils::AdjListGraph & connected,
-                                       utils::ProgressDisplay & pdisp)
+                                       utils::MultiProgressDisplay & pdisp)
 {
     int nImg = ftable.size();
     connected.clear();
@@ -211,13 +211,15 @@ void vigra_ext::exhaustiveSiftMatching(const SIFTFeatureTable & ftable,
     matches.clear();
     matches.resize(nImg);
     SIFTFeatureTable::const_iterator it1;
+    pdisp.pushTask(utils::ProgressTask("exhaustive Matching","",1.0/ftable.size()));
     for (it1 = ftable.begin(); it1 != ftable.end(); ++it1) {
         int first = it1 - ftable.begin();
         matches[first].clear();
         matches[first].resize(nImg - first-1);
         SIFTFeatureTable::const_iterator it2;
-        pdisp.progressMessage("exhaustive SIFT matching",
-                              100 * ((nImg * (nImg -1) / 2) - ((nImg - first) * ((nImg - first) -1) / 2))/(nImg * (nImg -1) / 2));
+        pdisp.increase();
+//        pdisp.progressMessage("exhaustive SIFT matching",
+//                              100 * ((nImg * (nImg -1) / 2) - ((nImg - first) * ((nImg - first) -1) / 2))/(nImg * (nImg -1) / 2));
         for (it2 = it1+1; it2 != ftable.end(); ++it2) {
             int second = it2 - ftable.begin();
             DEBUG_DEBUG("matching " << first << ", " << second);
@@ -237,7 +239,8 @@ void vigra_ext::exhaustiveSiftMatching(const SIFTFeatureTable & ftable,
 void extractSIFT(const std::vector<std::string> & imgfiles,
                  double scale,
                  SIFTFeatureTable &ftable,
-                 utils::ProgressDisplay & pdisp);
+                 utils::MultiProgressDisplay & pdisp,
+                 const std::string & keypoints);
 
 /** extract two sift feature sets */
 void extractSIFT2(const std::vector<std::string> & imgfiles,
@@ -245,7 +248,8 @@ void extractSIFT2(const std::vector<std::string> & imgfiles,
                   SIFTFeatureTable & ftable1,
                   double scale2,
                   SIFTFeatureTable & ftable2,
-                  utils::ProgressDisplay & pdisp);
+                  utils::MultiProgressDisplay & pdisp,
+                  const std::string & keypoints);
 
 
 /** Perform SIFT feature matching on the visited links, remember
@@ -257,7 +261,7 @@ struct SIFTMatchingVisitor
 //                        MatchingFunctor & match,
                         const SIFTFeatureTable & ft, double scaling,
                         int nFeatures,
-                        utils::ProgressDisplay & pdisp)
+                        utils::MultiProgressDisplay & pdisp)
         :  m_NImap(nodeImgMapping), m_ft(ft), m_scale(scaling),
            m_nFeatures(nFeatures), m_pdisp(pdisp)
         {
@@ -269,7 +273,8 @@ struct SIFTMatchingVisitor
             std::ostringstream os;
             if (m_match(m_ft[vert1], m_ft[vert2], matches)) {
                 os << "Found " << matches.size() << " points between images " << vert1 << " and " << vert2;
-                m_pdisp.progressMessage(os.str());
+                m_pdisp.setMessage(os.str());
+//                m_pdisp.progressMessage(os.str());
 
                 // sort matches by distance..
                 std::sort(matches.begin(), matches.end(),SIFTMatchDistanceLower());
@@ -288,7 +293,8 @@ struct SIFTMatchingVisitor
                 }
             } else {
                 os << "No matches between images " << vert1 << " and " << vert2;
-                m_pdisp.progressMessage(os.str());
+                m_pdisp.setMessage(os.str());
+                //m_pdisp.progressMessage(os.str());
             }
         }
 
@@ -301,7 +307,7 @@ struct SIFTMatchingVisitor
     double m_scale;
     int m_nFeatures;
     MatchFeatures m_match;
-    utils::ProgressDisplay &m_pdisp;
+    utils::MultiProgressDisplay &m_pdisp;
 };
 
 

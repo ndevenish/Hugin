@@ -36,7 +36,8 @@ using namespace vigra_ext;
 void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
                             double scale,
                             SIFTFeatureTable & ftable,
-                            utils::ProgressDisplay & pdisp
+                            utils::MultiProgressDisplay & pdisp,
+                            const std::string & keypointsExe
                             )
 {
     ftable.clear();
@@ -45,8 +46,8 @@ void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
 
         vigra::BImage img;
 
-        pdisp.progressMessage("SIFT feature detection",
-                              100 * i/imgfiles.size());
+//        pdisp.progressMessage("SIFT feature detection",
+//                              100 * i/imgfiles.size());
         std::string filename = imgfiles[i];
         DEBUG_DEBUG("loading image " << filename);
         // load image
@@ -79,7 +80,7 @@ void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
         }
         DEBUG_DEBUG("starting sift detector");
         // detect SIFT features
-        vigra_ext::loweDetectSIFT(srcImageRange(img), ftable[i]);
+        vigra_ext::loweDetectSIFT(srcImageRange(img), ftable[i], keypointsExe);
         DEBUG_DEBUG( ftable[i].size() << " features found");
     }
 }
@@ -91,7 +92,8 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
                              SIFTFeatureTable & ftable1,
                              double scale2,
                              SIFTFeatureTable & ftable2,
-                             utils::ProgressDisplay & pdisp
+                             utils::MultiProgressDisplay & pdisp,
+                             const std::string & keypointsExe
                              )
 {
     ftable1.clear();
@@ -100,8 +102,8 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
     ftable2.resize(imgfiles.size());
     for(unsigned int i=0; i < imgfiles.size() ; i++) {
 
-        pdisp.progressMessage("SIFT feature detection",
-                              100 * i/imgfiles.size());
+//        pdisp.progressMessage("SIFT feature detection",
+//                              100 * i/imgfiles.size());
         vigra::BImage img;
 
         std::string filename = imgfiles[i];
@@ -134,7 +136,7 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
                                                   vigra::destImageRange(t));
             DEBUG_DEBUG("starting sift detector, img size (" << width << "x" << height << ")");
             // detect SIFT features
-            vigra_ext::loweDetectSIFT(srcImageRange(t), ftable1[i]);
+            vigra_ext::loweDetectSIFT(srcImageRange(t), ftable1[i], keypointsExe);
             DEBUG_DEBUG("finished: " << ftable1[i].size() << " features found");
         }
         {
@@ -146,7 +148,7 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
                                                   vigra::destImageRange(t));
             DEBUG_DEBUG("starting sift detector, img size(" << width << "x" << height << ")");
             // detect SIFT features
-            vigra_ext::loweDetectSIFT(srcImageRange(t), ftable2[i]);
+            vigra_ext::loweDetectSIFT(srcImageRange(t), ftable2[i], keypointsExe);
             DEBUG_DEBUG(width << "x" << height << " size matching: " << ftable2[i].size() << " features found");
         }
     }

@@ -61,6 +61,7 @@ static void usage(const char * name)
          << "                   not provide this information in the EXIF header" << endl
          << "     -r number   # downscale factor for scouting. default: 0.05"
          << "                   increase if not images are wrongly categorized." << endl
+         << "     -k keypoint_exe # executable to use for keypoint detection" << endl
          << "     -s scale    # downscale images before final sift matching. default: 0.25" << endl
          << "                   while this seems crude, it is needed for speed" << endl
          << "                   and still gives good results" << endl;
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "ho:n:o:v:r:s:";
+    const char * optstring = "ho:n:o:v:r:s:k:";
     int c;
 
     opterr = 0;
@@ -81,6 +82,7 @@ int main(int argc, char *argv[])
     double scoutScale = 0.05;
     double defaultHFOV = 40.0;
     double scaling = 0.25;
+    string keypoints("lowe_keypoints");
 
     while ((c = getopt (argc, argv, optstring)) != -1) {
         switch (c) {
@@ -96,6 +98,9 @@ int main(int argc, char *argv[])
         case 's':
             scaling = atof(optarg);
             break;
+        case 'k':
+            keypoints = optarg;
+            break;
         case 'r':
             scoutScale = atof(optarg);
             break;
@@ -110,7 +115,8 @@ int main(int argc, char *argv[])
     unsigned int nImages = argc-optind;
     char **imgNames = argv+optind;
 
-    utils::CoutProgressDisplay pdisp;
+//    utils::CoutProgressDisplay pdisp;
+    utils::StreamMultiProgressDisplay pdisp(cout);
 
     vector<string> fnames;
     for (unsigned int i=0; i<nImages; i++) {
@@ -124,7 +130,7 @@ int main(int argc, char *argv[])
 
     cerr << "starting exhaustive matching" << endl;
     // do a low resolution "recon" run, to find connected images
-    extractSIFT2(fnames, scoutScale, scoutfTable, scaling, ftable, pdisp);
+    extractSIFT2(fnames, scoutScale, scoutfTable, scaling, ftable, pdisp, keypoints);
 
     // matched features [img1][img2][matchnr] = [sqr_dist, feat1, feat2]
     SIFTMatchMatrix matches;
