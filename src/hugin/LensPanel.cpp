@@ -70,6 +70,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_g"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_t"), LensPanel::OnVarChanged )
     EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
+    EVT_BUTTON ( XRCID("lens_button_loadEXIF"), LensPanel::OnReadExif )
     EVT_BUTTON ( XRCID("lens_button_save"), LensPanel::OnSaveLensParameters )
     EVT_BUTTON ( XRCID("lens_button_load"), LensPanel::OnLoadLensParameters )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
@@ -426,7 +427,12 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Disable();
         XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Disable();
-    } else {
+
+        XRCCTRL(*this, "lens_button_center", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
+} else {
         // one or more images selected
         if (XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Enable()) {
             // enable all other textboxes as well.
@@ -455,6 +461,10 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             // update values
             unsigned int img = *(sel.begin());
             DEBUG_DEBUG("updating LensPanel with Image " << img);
+            XRCCTRL(*this, "lens_button_center", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_load", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_save", wxButton)->Enable();
             UpdateLensDisplay(img);
         } else {
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Clear();
@@ -475,10 +485,45 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Clear();
             XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Clear();
+            
+            XRCCTRL(*this, "lens_button_center", wxButton)->Disable();
+            XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Disable();
+            XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
+            XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
         }
     }
 }
 
+
+void LensPanel::OnReadExif(wxCommandEvent & e)
+{
+    DEBUG_TRACE("")
+    const UIntSet & sel = images_list->GetSelected();
+    if (sel.size() == 1) {
+        unsigned int imgNr = *(sel.begin());
+        Lens lens = pano.getLens(pano.getImage(imgNr).getLensNr());
+        // check file extension
+        wxFileName file(pano.getImage(imgNr).getFilename().c_str());
+        if (file.GetExt().CmpNoCase("jpg") == 0 ||
+            file.GetExt().CmpNoCase("jpeg") == 0 )
+        {
+            lens.readEXIF(pano.getImage(imgNr).getFilename().c_str());
+
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::ChangeLensCmd( pano, pano.getImage(imgNr).getLensNr(),
+                                       lens )
+                );
+            
+        } else {
+            wxLogError(_("Not a jpeg file"));
+        }            
+    } else {
+        wxLogError(_("Please select an image and try again"));
+    }
+    
+}
+    
+        
 
 void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
 {
@@ -512,7 +557,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             cfg.Flush();
         }
     } else {
-        wxLogError("Please select an image and try again");
+        wxLogError(_("Please select an image and try again"));
     }
 }
 
@@ -547,7 +592,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
             cfg.Read("Lens/c", &d);map_get(vars,"c").setValue(d);
             cfg.Read("Lens/d", &d);map_get(vars,"d").setValue(d);
             cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
-            cfg.Read("Lens/t", &d);map_get(vars,"f").setValue(d);
+            cfg.Read("Lens/t", &d);map_get(vars,"t").setValue(d);
             cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
 
             GlobalCmdHist::getInstance().addCommand(
@@ -560,5 +605,4 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
     } else {
         wxLogError("Please select an image and try again");
     }
-    wxLogError("Not implemented yet");
 }
