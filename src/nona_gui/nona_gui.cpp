@@ -104,7 +104,7 @@ bool nonaApp::OnInit()
 #if 0
 #ifdef wxUSE_UNIX
     wxLog *logger=new wxLogStream(&cerr);
-    wxLog::SetActiveTarget(logger);    
+    wxLog::SetActiveTarget(logger);
 #endif
 #endif
 
@@ -127,12 +127,12 @@ bool nonaApp::OnInit()
 	break;
       case 0:  // all is well
         break;
-      default: 
+      default:
         wxLogError(_("Syntax error in parameters detected, aborting."));
 	return false;
         break;
     }
-    
+
     wxString scriptFile;
     switch ( parser.GetParamCount() ) {
       case 0:
@@ -167,7 +167,7 @@ bool nonaApp::OnInit()
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
     wxString outname;
-    
+
     if ( !parser.Found(wxT("o"), &outname) ) {
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
@@ -183,7 +183,7 @@ bool nonaApp::OnInit()
         }
     }
     DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str())
-    
+
     wxString basename;
     wxString outpath;
     wxFileName::SplitPath(outname, &outpath, &basename, NULL);
@@ -223,8 +223,9 @@ bool nonaApp::OnInit()
 
     try {
         // stitch panorama
+        UIntSet simgs = pano.getActiveImages();
         PT::stitchPanorama(pano, opts,
-                           pdisp, (const char *)outfile.mb_str());
+                           pdisp, (const char *)outfile.mb_str(), simgs);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return false;

@@ -814,7 +814,7 @@ void stitchPanorama(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
 		    utils::MultiProgressDisplay & progress,
 		    const std::string & basename,
-            const PT::UIntSet & usedImgs);
+                    const PT::UIntSet & usedImgs);
 
 
 } // namespace PT

@@ -443,7 +443,7 @@ public:
      */
     void removeLens(unsigned int lensNr);
 
-    
+
     /** remove unused lenses.
      *
      *  some operations might create lenses that are not
@@ -451,7 +451,7 @@ public:
      *
      */
     void removeUnusedLenses();
-    
+
     //=============================
 
     /** set new output settings
@@ -468,7 +468,7 @@ public:
     void setMemento(PanoramaMemento & state);
 
     /// read after optimization, fills in control point errors.
-    void parseOptimizerScript(std::istream & i, const UIntSet & imgs, 
+    void parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                               VariableMapVector & imgVars,
                               CPVector & ctrlPoints) const;
 
@@ -476,8 +476,8 @@ public:
     void printOptimizerScript(std::ostream & o,
                               const OptimizeVector & optvars,
                               const PanoramaOptions & options,
-							  const UIntSet & imgs,
-			                  const std::string & stripPrefix="");
+                              const UIntSet & imgs,
+                              const std::string & stripPrefix="");
 
     /// create the stitcher script
     void printStitcherScript(std::ostream & o, const PanoramaOptions & target,

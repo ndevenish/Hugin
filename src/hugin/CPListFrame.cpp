@@ -319,12 +319,12 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     m_pano.addObserver(this);
 
     g_pano = & m_pano;
-    
+
     if (config->Read(wxT("/CPListFrame/isShown"), 0l) != 0) {
         Show();
         Raise();
     }
-    
+
     DEBUG_TRACE("ctor end");
 }
 
@@ -345,7 +345,7 @@ CPListFrame::~CPListFrame()
     } else {
         config->Write(wxT("/CPListFrame/maximized"), 1l);
     }
-    
+
 
     if ( (!this->IsIconized()) && (!this->IsMaximized()) && this->IsShown()) {
         DEBUG_DEBUG("IsShown()");
@@ -354,7 +354,7 @@ CPListFrame::~CPListFrame()
         DEBUG_DEBUG(" not shown ");
         config->Write(wxT("/CPListFrame/isShown"), 0l);
     }
-    
+
     config->Flush();
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -566,6 +566,14 @@ void CPListFrame::OnDeleteButton(wxCommandEvent & e)
 {
     DeleteSelected();
 }
+
+#if 0
+void CPListFrame::OnSelectOutliers
+{
+    // calculate the mean error between all image pairs.
+
+}
+#endif
 
 void CPListFrame::OnSelectButton(wxCommandEvent & e)
 {

@@ -213,6 +213,7 @@ int main(int argc, char *argv[])
         ostringstream finame;
         finame << outputPrefix << "_" << nPano + 1 << ".pto";
         ofstream of(finame.str().c_str());
-        pano.printOptimizerScript(of, optvec, pano.getOptions());
+        UIntSet simgs = pano.getActiveImages();        
+        pano.printOptimizerScript(of, optvec, pano.getOptions(), simgs);
     }
 }

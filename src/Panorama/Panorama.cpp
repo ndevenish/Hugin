@@ -699,12 +699,12 @@ void Panorama::printOptimizerScript(ostream & o,
     o << std::endl
       << "# image lines" << std::endl;
     unsigned int ic = 0;
-	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+    for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
     {
-		unsigned int imgNr = *imgNrIt;
+	unsigned int imgNr = *imgNrIt;
         imageNrMap[imgNr] = ic;
-		PanoImage & img = state.images[imgNr];
+	PanoImage & img = state.images[imgNr];
         unsigned int lensNr = img.getLensNr();
         Lens & lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
@@ -773,11 +773,10 @@ void Panorama::printOptimizerScript(ostream & o,
     // be careful. linked variables should not be specified multiple times.
     vector<set<string> > linkvars(state.lenses.size());
 
-	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+    for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
     {
-		unsigned int i = *imgNrIt;
-//    for (unsigned int i=0; i < state.images.size(); i++) {
+        unsigned int i = *imgNrIt;
 
         unsigned int lensNr = state.images[i].getLensNr();
         const Lens & lens = state.lenses[lensNr];
@@ -854,9 +853,9 @@ void Panorama::printStitcherScript(ostream & o,
     target.printScriptLine(o);
     o << std::endl
       << "# output image lines" << std::endl;
-	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end(); ++imgNrIt) {
-		unsigned int imgNr = *imgNrIt;
-		const PanoImage & img = state.images[imgNr];
+    for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end(); ++imgNrIt) {
+        unsigned int imgNr = *imgNrIt;
+        const PanoImage & img = state.images[imgNr];
         unsigned int lensNr = img.getLensNr();
         const Lens & lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
@@ -899,7 +898,7 @@ void Panorama::readOptimizerOutput(const UIntSet & imgs, VariableMapVector & var
     parseOptimizerScript(script, imgs, vars, ctrlPoints);
 }
 
-void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs, 
+void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
                                     VariableMapVector & imgVars, CPVector & CPs) const
 {
     DEBUG_TRACE("");
@@ -913,7 +912,7 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
 
     unsigned int ic=0;
     std::map<unsigned int, unsigned int> script2ImgMap;
-	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+    for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
     {
 		unsigned int imgNr = *imgNrIt;
@@ -1105,7 +1104,7 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
                 ImageOptions opts = state.images[i].getOptions();
                 if (opts.docrop && opts.autoCenterCrop) {
                     // horizontally center crop area.
-                    
+
                     double center = state.images[i].getWidth() / 2.0 + var.getValue();
                     int left = roundi(center - opts.cropRect.width() / 2.0);
                     int right = roundi(center + opts.cropRect.width() / 2.0);
@@ -1119,7 +1118,7 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
                 ImageOptions opts = state.images[i].getOptions();
                 if (opts.docrop && opts.autoCenterCrop) {
                     // horizontally center crop area.
-                    
+
                     double center = state.images[i].getHeight() / 2.0 + var.getValue();
                     int top = roundi(center - opts.cropRect.height() / 2.0);
                     int bottom = roundi(center + opts.cropRect.height() / 2.0);

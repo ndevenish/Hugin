@@ -112,11 +112,12 @@ int main(int argc, char *argv[])
         }
     }
 
+    UIntSet imgs = pano.getActiveImages();
     if (output != "") {
         ofstream of(output.c_str());
-        pano.printOptimizerScript(of, optvec, pano.getOptions());
+        pano.printOptimizerScript(of, optvec, pano.getOptions(), imgs);
     } else {
-        pano.printOptimizerScript(cout, optvec, pano.getOptions());
+        pano.printOptimizerScript(cout, optvec, pano.getOptions(), imgs);
     }
     return 0;
 }

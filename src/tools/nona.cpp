@@ -128,8 +128,9 @@ int main(int argc, char *argv[])
 
     try {
         // stitch panorama
+        UIntSet imgs = pano.getActiveImages();
         PT::stitchPanorama(pano, opts,
-                           pdisp, basename);
+                           pdisp, basename, imgs);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
