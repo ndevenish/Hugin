@@ -162,12 +162,6 @@ bool huginApp::OnInit()
     m_workDir = config->Read("tempDir","");
     // FIXME, make secure against some symlink attacks
     // get a temp dir
-#ifdef __unix__
-    DEBUG_DEBUG("on unix..");
-    if (m_workDir == "") {
-        m_workDir = "/tmp";
-    }
-#else
 #ifdef __WXMSW__
     DEBUG_DEBUG("figuring out windows temp dir");
     if (m_workDir == "") {
@@ -177,10 +171,12 @@ bool huginApp::OnInit()
         m_workDir = buffer;
     }
 #else
-    DEBUG_ERROR("don't know how to find the temp dir on mac");
-    m_workDir = "";
+    DEBUG_DEBUG("on unix or mac");
+    if (m_workDir == "") {
+        m_workDir = "/tmp";
+    }
 #endif
-#endif
+
     DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
     if (!wxFileName::DirExists(m_workDir)) {
         DEBUG_DEBUG("creating temp dir: " << m_workDir);
