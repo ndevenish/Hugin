@@ -29,26 +29,41 @@
 #include "PT/PanoCommand.h"
 #include "common/stl_utils.h"
 #include "hugin/LensPanel.h"
+#include "hugin/config_defaults.h"
 
 namespace PT {
 
+struct FileIsNewer: public std::binary_function<const std::string &, const std::string &, bool>
+{
 
+    bool operator()(const std::string & file1, const std::string & file2)
+    {
+        // lets hope the operating system caches files stats.
+        return wxFileModificationTime(wxString(file1.c_str(),*wxConvCurrent)) > wxFileModificationTime(wxString(file2.c_str(),*wxConvCurrent));
+    };
+
+};
 
 /** add image(s) to a panorama */
 class wxAddImagesCmd : public PanoCommand
 {
 public:
-    wxAddImagesCmd(Panorama & pano, const std::vector<std::string> & files)
-    : PanoCommand(pano), files(files)
+    wxAddImagesCmd(Panorama & pano, const std::vector<std::string> & newfiles)
+    : PanoCommand(pano), newfiles(newfiles)
     { };
     virtual void execute()
         {
             PanoCommand::execute();
 
-            // FIXME make it possible to add other lenses,
-            // for example if the exif data or image size
-            // suggests it.
+            std::vector<std::string> files = newfiles;
+            // check if the files should be sorted by date
+            long sortbydate = wxConfigBase::Get()->Read(wxT("General/SortNewImgByDate"), HUGIN_GUI_SORT_IMG_BY_DATE);
+            if (sortbydate) {
+                std::sort(newfiles.begin(), newfiles.end(), FileIsNewer());
+            }
+            
             std::vector<std::string>::const_iterator it;
+
 
             double cropFactor=0;
 
@@ -102,7 +117,7 @@ public:
             return "add images";
         }
 private:
-    std::vector<std::string> files;
+    std::vector<std::string> newfiles;
 };
 
 
