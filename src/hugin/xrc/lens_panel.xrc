@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <resource>
   <object class="wxPanel" name="lens_panel">
-    <style></style>
-    <object class="wxFlexGridSizer">
+    <style>wxTAB_TRAVERSAL</style>
+    <object class="wxGridSizer">
       <cols>2</cols>
       <rows>2</rows>
       <object class="sizeritem">
@@ -11,13 +11,11 @@
         <border>5</border>
         <minsize>100,100</minsize>
       </object>
-      <growablecols>0</growablecols>
-      <growablerows>0</growablerows>
       <object class="sizeritem">
         <object class="unknown" name="lens_list_unknown"/>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
-        <minsize>100,100</minsize>
+        <minsize>200,100</minsize>
       </object>
     </object>
   </object>

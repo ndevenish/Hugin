@@ -98,7 +98,10 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-    /** remove an image from a panorama */
+    /** remove an image from a panorama
+     *
+     *  @todo would be nice to remove multiple at once
+     */
     class RemoveImageCmd : public PanoCommand
     {
     public:

@@ -36,6 +36,7 @@
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 
 #include "PT/PanoCommand.h"
+#include "PT/PanoramaMemento.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
@@ -78,14 +79,16 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
 {
     DEBUG_TRACE("");
 
-    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
     if ( list_layout == images_layout ) {
+      InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
       InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
       DEBUG_INFO( " images_layout" )
     } else {
+      SetSingleStyle(wxLC_SINGLE_SEL, true); 
+      InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 80 );
       InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
@@ -130,7 +133,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             pano.getImage(i).getFilename());
 
         // fill in the table
-        char Nr[8] ;
+        char Nr[32] ;
         sprintf(Nr ,"%d", i + 1);
         InsertItem ( i, Nr, i );
         EnsureVisible(i);
@@ -145,12 +148,26 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           SetItem ( i, 4, Nr );
         DEBUG_INFO( " images_layout" )
         } else {
-          sprintf(Nr, "empty" );
+          switch ( (int) pano.getLens(pano.getImage(i).getLens()).projectionFormat ) {
+            case RECTILINEAR:        sprintf(Nr, "Normal (rectlinear)" ); break;
+            case PANORAMIC:          sprintf(Nr, "Panoramic" ); break;
+            case CIRCULAR_FISHEYE:   sprintf(Nr, "Circular" ); break;
+            case FULL_FRAME_FISHEYE: sprintf(Nr, "Full frame" ); break;
+            case EQUIRECTANGULAR:    sprintf(Nr, "Equirectangular" ); break;
+          }
           SetItem ( i, 2, Nr );
-//          sprintf(Nr, "%d", pano.getImage(i)->Lens.projectionFormat );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
           SetItem ( i, 3, Nr );
-//          sprintf(Nr, "%f", pano.getImage(i)->Lens.HFOV );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).a );
           SetItem ( i, 4, Nr );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).b );
+          SetItem ( i, 5, Nr );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).c );
+          SetItem ( i, 6, Nr );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).d );
+          SetItem ( i, 7, Nr );
+          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).e );
+          SetItem ( i, 8, Nr );
         DEBUG_INFO( " else _layout" )
         }
         SetColumnWidth(0, wxLIST_AUTOSIZE);

@@ -128,15 +128,17 @@ public:
 };
 
 
+/** Lens type
+ */
+enum ProjectionFormat { RECTILINEAR = 0,
+                        PANORAMIC = 1,
+                        CIRCULAR_FISHEYE = 2,
+                        FULL_FRAME_FISHEYE = 3,
+                        EQUIRECTANGULAR = 4};
+
 class Lens {
 
 public:
-
-    enum ProjectionFormat { RECTILINEAR = 0,
-                            PANORAMIC = 1,
-                            CIRCULAR_FISHEYE = 2,
-                            FULL_FRAME_FISHEYE = 3,
-                            EQUIRECTANGULAR = 4};
 
     Lens()
         : exifFocalLength(0.0),

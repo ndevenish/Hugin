@@ -78,6 +78,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_list2_unknown"),
                images_list2 );
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("lens_list_unknown"),
+               wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
 
     images_list2->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
