@@ -1,5 +1,5 @@
 /* Panorama_Tools	-	Generate, Edit and Convert Panoramic Images
-   Copyright (C) 1998,1999 - Helmut Dersch  der@fh-furtwangen.de   
+   Copyright (C) 1998,1999 - Helmut Dersch  der@fh-furtwangen.de
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 2, or (at your option)
@@ -19,5 +19,5 @@
 #endif
 
 #ifndef LONGVERSION
-#define LONGVERSION "0.4.1 , Copyright © 1998-2000, H. Dersch, der@fh-furtwangen.de"
+#define LONGVERSION "0.4.1 , Copyright 1998-2000, H. Dersch, der@fh-furtwangen.de"
 #endif
