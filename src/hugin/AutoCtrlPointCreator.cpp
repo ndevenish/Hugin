@@ -207,7 +207,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxFile namefile;
     if (use_namefile) {
         // create temporary file with image names.
-        wxString fname = wxFileName::CreateTempFileName("ap_imgnames", &namefile);
+        wxString fname = wxFileName::CreateTempFileName(wxT("ap_imgnames"), &namefile);
         DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str());
         autopanoArgs.Replace(wxT("%namefile"), fname);
         DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str());
