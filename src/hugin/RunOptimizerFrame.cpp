@@ -93,9 +93,9 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     m_optimizer_result_text = XRCCTRL(*this, "optimizer_result_text", wxStaticText);
     assert(m_optimizer_result_text);
 
-    
+
     // start PTOptimizer process
-    
+
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
     wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer.exe");
@@ -140,7 +140,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);
     m_in = new wxTextInputStream(*t_in);
-    
+
     if ( !m_in )
     {
         wxLogError(_T("Failed to connect to child stdout"));
@@ -152,7 +152,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     m_apply->Disable();
     m_cancel->SetLabel(_("Stop"));
     // start the timer to poll program output
-    
+
 #ifdef __unix__
     Show();
     m_timer.Start(100);
@@ -169,7 +169,7 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     wxString line;
     long iteration = 0;
     double diff = 0;
-    
+
     // we don't have any way to be notified when any input appears on the
     // stream so we have to poll it :-(
     //
@@ -187,10 +187,12 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         diff = utils::lexical_cast<double>(t2.c_str());
         DEBUG_DEBUG("iteration: " << iteration << " difference:" << diff);
     }
-    m_optimizer_status->SetLabel(
-        wxString::Format(_("Iteration %d, average distance: %f"),
-                         iteration,diff));
-    
+    if (iteration != 0) {
+        m_optimizer_status->SetLabel(
+            wxString::Format(_("Iteration %d, average distance: %f"),
+                             iteration,diff));
+    }
+
 }
 
 void RunOptimizerFrame::OnCancel(wxCommandEvent & e)
@@ -215,7 +217,7 @@ void RunOptimizerFrame::OnApply(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCPCmd(*m_pano, m_vars, m_cps)
         );
-    
+
     if (m_process) {
         // kill Process if it is still running.
         m_process->Kill(m_pid, wxSIGINT);
@@ -237,7 +239,7 @@ void RunOptimizerFrame::OnClose(wxCloseEvent& event)
 
         process->CloseOutput();
     }
-    
+
     delete m_in;
     m_in = 0;
 
@@ -298,7 +300,7 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     msg.Printf(_("Optimizer run finished.\n"
                  "average control point distance: %f\n\n"
                  "Apply the changes?"), dist);
-    
+
     m_optimizer_result_text->SetLabel(msg);
 
     DEBUG_DEBUG("before del process");

@@ -186,9 +186,10 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.SetLogicalFunction(wxINVERT);
         dc.SetPen(wxPen("WHITE", 1, wxSOLID));
         dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+        
+//        DEBUG_DEBUG("drawing rect with width " << 2*width);
+        wxPoint upperLeft = scale(m_mousePos - wxPoint(m_searchRectWidth, m_searchRectWidth));
         int width = scale(m_searchRectWidth);
-        DEBUG_DEBUG("drawing rect with width " << 2*width);
-        wxPoint upperLeft = m_mousePos - wxPoint(width, width);
 
         dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
@@ -383,7 +384,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
     // draw a rectangle
 
     if ((editState == NO_SELECTION || editState == NEW_POINT_SELECTED)
-        && m_showSearchArea) 
+        && m_showSearchArea)
     {
         DEBUG_DEBUG("enabled search area")
         doUpdate = true;

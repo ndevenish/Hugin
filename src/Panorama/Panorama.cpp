@@ -585,10 +585,10 @@ void Panorama::printOptimizerScript(ostream & o,
 
         o << " u" << (*it).getOptions().featherWidth
           << ((*it).getOptions().morph ? " o" : "");
+        string fname = (*it).getFilename();
         if (stripPrefix.size() > 0) {
             // strip prefix from image names.
             // check if the prefix is acutally the same
-            string fname = (*it).getFilename();
             string tmp = fname.substr(0,stripPrefix.size());
             if (tmp.compare(stripPrefix) == 0) {
                 DEBUG_DEBUG("striping " << stripPrefix << " from " << fname);
@@ -597,8 +597,8 @@ void Panorama::printOptimizerScript(ostream & o,
             } else {
                 DEBUG_DEBUG(stripPrefix << " does not match " << fname);
             }
-            o << " n\"" << fname << "\"" << std::endl;
         }
+        o << " n\"" << fname << "\"" << std::endl;
         i++;
     }
 

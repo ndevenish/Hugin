@@ -108,7 +108,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         }
     }
 #else
-    wxString stitcherExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer");
+    wxString stitcherExe = config->Read("/PanoTools/PTOptimizerExe","PTStitcher");
 #endif
     wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
@@ -172,7 +172,7 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
     if (!m_process->IsInputAvailable()) {
         DEBUG_DEBUG("no input available");
     }
-    
+
     // we don't have any way to be notified when any input appears on the
     // stream so we have to poll it :-(
     //

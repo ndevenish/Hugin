@@ -277,15 +277,16 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                      "Project files (*.pto)|*.pto|All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
+        wxFileName scriptName = dlg.GetPath();
+        std::string prefix(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         wxString filename = dlg.GetPath();
-        wxString prefix = dlg.GetDirectory();
         SetStatusText( _("Open project:   ") + filename);
         config->Write("actualPath", dlg.GetDirectory());  // remember for later
         // open project.
         std::ifstream file(filename.c_str());
         if (file.good()) {
             GlobalCmdHist::getInstance().addCommand(
-                new LoadPTProjectCmd(pano,file, std::string(prefix.c_str()))
+                new LoadPTProjectCmd(pano,file, prefix)
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         } else {
