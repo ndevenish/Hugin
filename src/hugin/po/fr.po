@@ -1,7 +1,3 @@
-# translation of fr.po to 
-# translation of fr.po to
-# translation of fr.po to
-# translation of fr.po to
 # French translations for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
@@ -19,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:87
 #, c-format
@@ -32,7 +28,8 @@ msgstr "Résultat d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:102
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr "Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
+msgstr ""
+"Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
@@ -84,7 +81,8 @@ msgstr "Erreur dans la commande Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:202
 #, c-format
-msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid ""
+"Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
 "d'autopano-sift"
@@ -896,7 +894,8 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:203
 msgid "Add stitching control points to each pair of images."
-msgstr "Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
+msgstr ""
+"Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
 
 #: src/hugin/PanoDruid.cpp:204
 msgid ""
@@ -917,7 +916,8 @@ msgstr "Ajoutez encore au moins une image."
 
 #: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:559
 msgid "You should have at least two files listed in the Images tab."
-msgstr "Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
+msgstr ""
+"Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
 
 #: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:554
 msgid "To get started, add some image files."
@@ -1254,7 +1254,8 @@ msgid "Anchor Image"
 msgstr "Ancrer l'image"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Positionner le Lacet et le Tangage avec le bouton gauche de la souris. "
 "Utiliser le bouton droit de la souris pour positionner le Roulis"
@@ -2549,7 +2550,8 @@ msgstr "Aperçu automatique"
 
 #: src/hugin/xrc/preview_frame.xrs:5
 msgid "Automatically update preview on relevant changes"
-msgstr "Mettre à jour automatiquement l'aperçu lors de changements significatifs"
+msgstr ""
+"Mettre à jour automatiquement l'aperçu lors de changements significatifs"
 
 #: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:16
 msgid "Update"
@@ -2722,4 +2724,3 @@ msgstr "Assemblage"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Abandonner"
-
