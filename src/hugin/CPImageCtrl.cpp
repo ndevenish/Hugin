@@ -132,6 +132,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
                          long style,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
+      editState(NO_IMAGE),
       scaleFactor(1), fitToWindow(false),
       m_showSearchArea(false), m_searchRectWidth(0),
       m_showTemplateArea(false), m_templateRectWidth(0),
@@ -273,8 +274,8 @@ void CPImageCtrl::setImage(const std::string & file)
     imageFilename = file;
 
     if (imageFilename != "") {
-        rescaleImage();
         editState = NO_SELECTION;
+        rescaleImage();
     } else {
         editState = NO_IMAGE;
         bitmap = wxBitmap();
@@ -287,6 +288,9 @@ void CPImageCtrl::setImage(const std::string & file)
 
 void CPImageCtrl::rescaleImage()
 {
+    if (editState == NO_IMAGE) {
+        return;
+    }
     // rescale image
     wxImage * img = ImageCache::getInstance().getImage(imageFilename);
     imageSize = wxSize(img->GetWidth(), img->GetHeight());
@@ -326,7 +330,9 @@ void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
 void CPImageCtrl::clearNewPoint()
 {
     DEBUG_TRACE("clearNewPoint");
-    editState = NO_SELECTION;
+    if (editState != NO_IMAGE) {
+        editState = NO_SELECTION;
+    }
 }
 
 
@@ -618,8 +624,11 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent *mouse)
 
 void CPImageCtrl::update()
 {
-    DEBUG_TRACE("");
-    Refresh(FALSE);
+    if (editState == NO_IMAGE) return;
+    DEBUG_TRACE("edit state:" << editState);
+    wxClientDC dc(this);
+    PrepareDC(dc);
+    OnDraw(dc);
 }
 
 bool CPImageCtrl::emit(CPEvent & ev)
@@ -645,13 +654,13 @@ void CPImageCtrl::setScale(double factor)
     if (factor != scaleFactor) {
         scaleFactor = factor;
         rescaleImage();
-        update();
     }
 }
 
 double CPImageCtrl::calcAutoScaleFactor(wxSize size)
 {
-    wxSize csize = GetClientSize();
+//    wxSize csize = GetClientSize();
+    wxSize csize = GetSize();
     double s1 = (double)csize.GetWidth()/size.GetWidth();
     double s2 = (double)csize.GetHeight()/size.GetHeight();
     return s1 < s2 ? s1 : s2;

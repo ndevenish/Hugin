@@ -436,6 +436,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
 	    opt_panel->setOptimizeVector(pano.getOptimizeVector());
+            SetStatusText(_("Project opened"));
         } else {
             DEBUG_ERROR("Could not open file " << filename);
         }

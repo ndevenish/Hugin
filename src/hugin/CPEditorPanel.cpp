@@ -175,9 +175,17 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
+    // apply selection from xrc file
+    wxCommandEvent dummy;
+    dummy.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
+    OnZoom(dummy);
+    
+    
     wxConfigBase *config = wxConfigBase::Get();
+    
+    
 
-    m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",1l));
+    m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",0l));
     m_fineTuneCB->SetValue(config->Read("/CPEditorPanel/fineTune",1l));
     m_estimateCB->SetValue(config->Read("/CPEditorPanel/autoEstimate",1l));
 
