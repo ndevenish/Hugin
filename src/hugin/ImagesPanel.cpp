@@ -40,6 +40,7 @@
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
+#include "hugin/ImageCache.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -48,10 +49,10 @@
 using namespace PT;
 
 // Image Icons
-wxImageList* img_icons;
+wxImageList * img_icons;
 
 // image preview
-wxBitmap *p_img = (wxBitmap *) NULL;
+wxBitmap * p_img = (wxBitmap *) NULL;
 
 //------------------------------------------------------------------------------
 
@@ -95,7 +96,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     // Image Preview
     DEBUG_TRACE("");
-    p_img = new wxBitmap( 128, 128 );
+    p_img = new wxBitmap( 0, 0 );
     wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
     wxPaintDC dc (img_p);
     DEBUG_TRACE("");
@@ -114,191 +115,73 @@ ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("");
     pano.removeObserver(this);
-    delete p_img;
-}
-
-/*
-ImagesPanel::OnAddImages( wxCommandEvent& WXUNUSED(event) )
-{
-    // Write something in the statusline
-    char e_stat[128] = "Number of panoimages(";
-    sprintf (e_stat,"%s%d)", e_stat, pano.getNrOfImages() );
-    SetStatusText( e_stat, 0);
-
-    // To get users path we do following:
-    // a get the global config object
-    wxConfigBase* config = wxConfigBase::Get();
-    // b store current path
-    wxString current;
-    current = wxFileName::GetCwd();
-    DEBUG_INFO ( (wxString)"get Path: " + wxFileName::GetCwd().c_str() )
-    // c remember the last location from config
-    if (config->HasEntry(wxT("actualPath"))){
-      wxFileName::SetCwd(  config->Read("actualPath").c_str() );
-      DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
-    }
-
-    // call the file dialog
-    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
-        "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
-    if (dlg->ShowModal() == wxID_OK) {
-      // get the list to write to
-      wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
-      // get the selections
-      wxArrayString Filenames;
-      wxArrayString Pathnames;
-      dlg->GetFilenames(Filenames);
-      dlg->GetPaths(Pathnames);
-      sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
-
-      // we got some images to add.
-      if (Filenames.GetCount() > 0) {
-          // use a Command to ensure proper undo and updating of GUI
-          // parts
-          std::vector<std::string> filesv;
-          for (unsigned int i=0; i< Filenames.GetCount(); i++) {
-              filesv.push_back(Filenames[i].c_str());
-          }
-          GlobalCmdHist::getInstance().addCommand(
-              new PT::AddImagesCmd(pano,filesv)
-              );
-      }
-
-      // remember the added images;
-      // FIXME: do not update the view here.
-      // the panorama should will call panoramaChanged or
-      // panoramaImageAdded whenever an image has been added
-      //
-      // other parts that might add images do not know what needs
-      // to be updated.
-      int added ( pano.getNrOfImages() );
-      // start the loop for every selected filename
-      for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
-        wxImage img (Pathnames[i]);
-        // preview first selected image
-//        if ( i == 0 ) { // taking only the first one
-          wxImage s_img;
-          if ( img.GetHeight() > img.GetWidth() ) {
-            s_img = img.Scale(
-                 (int)((float)img.GetWidth()/(float)img.GetHeight()*128.0),128);
-          } else {
-            s_img = img.Scale(
-                 128,(int)((float)img.GetHeight()/(float)img.GetWidth()*128.0));
-          }
-          delete p_img;
-          p_img = new wxBitmap(s_img);
-          canvas->Refresh();
-
-          wxImage i_img;
-          if ( s_img.GetHeight() > s_img.GetWidth() ) {
-            i_img = s_img.Scale(
-               (int)((float)s_img.GetWidth()/(float)s_img.GetHeight()*20.0),20);
-          } else {
-            i_img = s_img.Scale(
-               20,(int)((float)s_img.GetHeight()/(float)s_img.GetWidth()*20.0));
-          }
-          int ind = img_icons->Add( i_img.ConvertToBitmap() );
-        DEBUG_INFO(__FUNCTION__ << "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
-
-//        }
-        // fill in the table
-        DEBUG_TRACE("");
-        char Nr[8] ;
-        sprintf(Nr ,"%d", pano.getNrOfImages()+1);
-        DEBUG_INFO( __FUNCTION__ << " icon at Item:" << wxString::Format("%d", ind) )
-        lst->InsertItem ( pano.getNrOfImages(), Nr, ind );
-        lst->SetColumnWidth(0, wxLIST_AUTOSIZE);
-        lst->SetItem ( pano.getNrOfImages(), 1, Filenames[i] );
-        sprintf(Nr, "%d", img.GetHeight() );
-        lst->SetItem ( pano.getNrOfImages(), 2, Nr );
-        sprintf(Nr, "%d", img.GetWidth() );
-        lst->SetItem ( pano.getNrOfImages(), 3, Nr );
-        sprintf(Nr, "%d", img.GetImageCount (Pathnames[i]) );
-        lst->SetItem ( pano.getNrOfImages(), 4, Nr );
-//        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
-
-        sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
-        added++;
-        DEBUG_TRACE("");
-      }
-      SetStatusText( e_stat, 0);
-
-      // update CP panel
-      // do not call this by hand. the pano will do this!
-//      cpe->ImagesAdded(pano, added);
-
-      // d There we are now?
-      wxString str;
-      str = dlg->GetDirectory();
-      // e safe the current path to config
-      config->Write("actualPath", str);  // remember for later
-      DEBUG_INFO( (wxString)"save Cwd - " + str )
-    } else {
-      // nothing to open
-      SetStatusText( _("Add Image: cancel"));
-    }
-    canvas->Refresh();
-    // f restore the path previous this dialog
-    wxFileName::SetCwd( current );
-    DEBUG_INFO ( (wxString)"set Cwd to: " + current )
-    dlg->Destroy();
+//    delete p_img; // Dont know how to check for existing
+    p_img = (wxBitmap *) NULL;
+    delete images_list;
     DEBUG_TRACE("");
-}*/
-
+}
 
 
 void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 {
-      images_list->DeleteAllItems() ; // very radical
-      // start the loop for every selected filename
-      for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
-          wxString fn = pano.getImage(i).getFilename().c_str();
-          wxImage img ( fn );
-        // preview first selected image
-//        if ( i == 0 ) { // taking only the first one
-          wxImage s_img;
-          if ( img.GetHeight() > img.GetWidth() ) {
-            s_img = img.Scale(
-                (int)((float)img.GetWidth()/(float)img.GetHeight()*128.0), 128);
-          } else {
-            s_img = img.Scale(
-                128, (int)((float)img.GetHeight()/(float)img.GetWidth()*128.0));
-          }
-          delete p_img;
-          p_img = new wxBitmap(s_img);
-          canvas->Refresh();
+    DEBUG_TRACE("");
+    images_list->DeleteAllItems() ; // very radical
+    // start the loop for every selected filename
+    for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
+        wxString fn = pano.getImage(i).getFilename().c_str();
+        wxImage * image = ImageCache::getInstance().getImage(
+            pano.getImage(i).getFilename());
 
-          wxImage i_img;
-          if ( s_img.GetHeight() > s_img.GetWidth() ) {
-            i_img = s_img.Scale(
-               (int)((float)s_img.GetWidth()/(float)s_img.GetHeight()*20.0),20);
-          } else {
-            i_img = s_img.Scale(
-               20,(int)((float)s_img.GetHeight()/(float)s_img.GetWidth()*20.0));
-          }
-          int ind = img_icons->Add( i_img.ConvertToBitmap() );
-        DEBUG_INFO(__FUNCTION__ << "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+        // preview selected images
+        wxImage * s_img = ImageCache::getInstance().getImageSmall(
+            pano.getImage(i).getFilename());
 
-//        }
+        wxImage I_img;
+        if ( s_img->GetHeight() > s_img->GetWidth() ) {
+          I_img = s_img->Scale(
+          (int)((float)s_img->GetWidth()/(float)s_img->GetHeight()*128.0), 128);
+        } else {
+          I_img = s_img->Scale(
+          128, (int)((float)s_img->GetHeight()/(float)s_img->GetWidth()*128.0));
+        }
+        delete p_img;
+        p_img = new wxBitmap( I_img.ConvertToBitmap() );
+        canvas->Refresh();
+
+        wxImage i_img;
+        if ( s_img->GetHeight() > s_img->GetWidth() ) {
+          i_img = s_img->Scale(
+             (int)((float)s_img->GetWidth()/(float)s_img->GetHeight()*20.0),20);
+        } else {
+          i_img = s_img->Scale(
+             20,(int)((float)s_img->GetHeight()/(float)s_img->GetWidth()*20.0));
+        }
+        int ind = img_icons->Add( i_img.ConvertToBitmap() );
+        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+
         // fill in the table
-        DEBUG_TRACE("");
         char Nr[8] ;
-        sprintf(Nr ,"%d", ind + 1);
-        DEBUG_INFO( __FUNCTION__ << " icon at Item:" << wxString::Format("%d", ind) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
+        sprintf(Nr ,"%d", i + 1);
         images_list->InsertItem ( i, Nr, ind );
         images_list->SetColumnWidth(0, wxLIST_AUTOSIZE);
+        DEBUG_INFO( " icon at Item:" << wxString::Format("%d", ind) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
         images_list->SetItem ( i, 1, fn );
-        sprintf(Nr, "%d", img.GetHeight() );
+        sprintf(Nr, "%d", image->GetHeight() );
         images_list->SetItem ( i, 2, Nr );
-        sprintf(Nr, "%d", img.GetWidth() );
+        sprintf(Nr, "%d", image->GetWidth() );
         images_list->SetItem ( i, 3, Nr );
-        sprintf(Nr, "%d", img.GetImageCount ( fn ) );
+        sprintf(Nr, "%d", image->GetImageCount ( fn ) );
         images_list->SetItem ( i, 4, Nr );
 //        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
 
-        DEBUG_TRACE("");
-      }
+    }
 
+    if ( pano.getNrOfImages() == 0 ) {
+        delete p_img;
+        p_img = new wxBitmap(0,0);
+    }
+    canvas->Refresh();
+    DEBUG_TRACE("");
 }
 
 
@@ -319,7 +202,8 @@ ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size)
 ImgPreview::~ImgPreview(void)
 {
     DEBUG_TRACE("");
-    delete p_img;
+    p_img = (wxBitmap *) NULL;
+    DEBUG_TRACE("");
 }
 
 // Define the repainting behaviour
