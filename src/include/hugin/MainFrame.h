@@ -32,6 +32,7 @@
 #include "PT/Panorama.h"
 
 #include "hugin/OptimizePanel.h"
+#include "hugin/PreferencesDialog.h"
 
 using namespace PT;
 
@@ -120,7 +121,7 @@ protected:
      *  @param progress optional progress indicator (0-100)
      */
     void updateProgressDisplay();
-    
+
 private:
 
     // event handlers
@@ -130,6 +131,7 @@ private:
     void OnHelp(wxCommandEvent & e);
     void OnKeyboardHelp(wxCommandEvent & e);
     void OnFAQ(wxCommandEvent & e);
+    void OnShowPrefs(wxCommandEvent &e);
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
@@ -162,6 +164,9 @@ private:
 
     // Image Preview
     ImgPreview *canvas;
+    
+    // Preferences
+    PreferencesDialog * pref_dlg;
 
     // the model
     PT::Panorama & pano;

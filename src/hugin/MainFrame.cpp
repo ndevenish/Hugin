@@ -37,6 +37,8 @@
 
 #include "jhead/jhead.h"
 
+#include "hugin/config_defaults.h"
+#include "hugin/PreferencesDialog.h"
 #include "hugin/MainFrame.h"
 #include "hugin/wxPanoCommand.h"
 #include "hugin/CommandHistory.h"
@@ -119,6 +121,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
     EVT_MENU(XRCID("action_show_shortcuts"),  MainFrame::OnKeyboardHelp)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
+    EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
@@ -290,6 +293,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     cp_frame = new CPListFrame(this, pano);
 
+    pref_dlg = new PreferencesDialog(this);
+
     // set the minimize icon
     SetIcon(wxIcon(m_xrcPrefix + "/data/icon.png", wxBITMAP_TYPE_PNG));
 
@@ -308,7 +313,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // observe the panorama
     pano.addObserver(this);
-
 
 #ifdef __WXMSW__
     int w = config->Read("MainFrame/width",-1l);
@@ -336,7 +340,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         Move(0, 44);
     }
 #else
-    
+
     // remember the last size from config
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
@@ -377,7 +381,6 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-
 #ifdef __WXMSW__
     wxRect sz = GetRect();
     config->Write("/MainFrame/width", sz.width);
@@ -390,7 +393,7 @@ MainFrame::~MainFrame()
     wxSize sz = GetClientSize();
     config->Write("/MainFrame/width", sz.GetWidth());
     config->Write("/MainFrame/height", sz.GetHeight());
-    //position    
+    //position
     wxPoint ps = GetPosition();
     config->Write("/MainFrame/positionX", ps.x);
     config->Write("/MainFrame/positionY", ps.y);
@@ -828,6 +831,13 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
     dlg.ShowModal();
 }
 
+void MainFrame::OnShowPrefs(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+//    wxDialog dlg(this, -1, _("Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxDIALOG_MODAL);
+    pref_dlg->Show(true);
+}
+
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 {   // Maybe this can be invoced by the Panorama::Changed() or
     // something like this. So no everytime update would be needed.
@@ -874,17 +884,17 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     unsigned int nBad=0;
 
     wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read("/CPEditorPanel/RotationSearch", 1l) == 1;
-    double startAngle=0;
-    cfg->Read("/CPEditorPanel/RotationStartAngle",&startAngle,-90);
+    bool rotatingFinetune = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
+    double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
+    cfg->Read("/Finetune/RotationStartAngle",&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
     startAngle=DEG_TO_RAD(startAngle);
-    double stopAngle=0;
-    cfg->Read("/CPEditorPanel/RotationStopAngle",&stopAngle,90);
+    double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
+    cfg->Read("/Finetune/RotationStopAngle",&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
     stopAngle=DEG_TO_RAD(stopAngle);
-    int nSteps = cfg->Read("/CPEditorPanel/RotationSteps",10);
+    int nSteps = cfg->Read("/Finetune/RotationSteps", HUGIN_FT_ROTATION_STEPS);
 
-    double threshold=0.8;
-    cfg->Read("/CPEditorPanel/finetuneThreshold", &threshold, 0.8);
+    double threshold=HUGIN_FT_CORR_THRESHOLD;
+    cfg->Read("/Finetune/CorrThreshold", &threshold, HUGIN_FT_CORR_THRESHOLD);
 
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
@@ -909,9 +919,9 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
-                        "/CPEditorPanel/templateSize",14);
+                        "/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
                     long sWidth = templWidth + wxConfigBase::Get()->Read(
-                        "/CPEditorPanel/smallSearchWidth",14);
+                        "/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
                     vigra_ext::CorrelationResult res;
                     if (rotatingFinetune) {
                         res = vigra_ext::PointFineTuneRotSearch(

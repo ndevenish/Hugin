@@ -185,6 +185,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("about.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("keyboard_help.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("pref_dialog.xrc"));
 #endif
 
     // create main frame
@@ -218,7 +219,6 @@ bool huginApp::OnInit()
 #endif
 
     DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
-    config->Write("tempDir",m_workDir);
     if (!wxFileName::DirExists(m_workDir)) {
         DEBUG_DEBUG("creating temp dir: " << m_workDir);
         if (!wxMkdir(m_workDir)) {

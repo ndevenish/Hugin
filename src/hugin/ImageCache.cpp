@@ -109,10 +109,8 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = wxConfigBase::Get()->Read("/ImageCache/upperBound", 75 * 1024 * 1024l);
-    long hysteresis = wxConfigBase::Get()->Read("/ImageCache/hysteresis",25 * 1024 * 1024l);
-
-    long purgeToSize = upperBound + hysteresis;
+    long upperBound = wxConfigBase::Get()->Read("/ImageCache/UpperBound", 75 * 1024 * 1024l);
+    long purgeToSize = upperBound/2;
 
     // calculate used memory
     long imgMem = 0;
@@ -133,15 +131,13 @@ void ImageCache::softFlush()
     DEBUG_DEBUG("total: " << (usedMem>>20) << " MB upper bound: " << (purgeToSize>>20) << " MB");
 
 
-    if (usedMem > purgeToSize) {
+    if (usedMem > upperBound) {
         // we need to remove images.
-        long purgeAmount = usedMem - upperBound;
+        long purgeAmount = usedMem - purgeToSize;
         long purgedMem = 0;
         // remove images from cache, first the grey level image,
-        // then the full size images an the
-
+        // then the full size images
         while (purgeAmount > purgedMem) {
-
             bool deleted = false;
             if (pyrImages.size() > 0) {
                 BImage * imgPtr = (*(pyrImages.begin())).second;

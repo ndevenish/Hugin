@@ -30,6 +30,7 @@
 // standard hugin include
 #include "panoinc.h"
 
+#include "hugin/config_defaults.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
@@ -138,17 +139,22 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 #if defined(__WXMSW__) || defined(__WXMAC__)
     m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #else
-    int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/cursorType",0l);
-    filename.Printf("%s/data/CPCursor%d.png",MainFrame::Get()->GetXRCPath().c_str(),
-                    cursorType);
-    wxImage cImg(filename);
-    if (cImg.Ok()) {
-        m_CPSelectCursor = new UniversalCursor(filename);
+    int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/CursorType",HUGIN_CP_CURSOR);
+    if (cursorType == 0) {
+        m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
     } else {
-        DEBUG_FATAL("Cursor file:" << filename << " not found");
+        filename.Printf("%s/data/CPCursor%d.png",MainFrame::Get()->GetXRCPath().c_str(),
+                        cursorType);
+        wxImage cImg(filename);
+        if (cImg.Ok()) {
+            m_CPSelectCursor = new UniversalCursor(filename);
+        } else {
+            DEBUG_ERROR("Cursor file:" << filename << " not found");
+            m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
+        }
     }
-    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
 #endif
+    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
     SetCursor(*m_CPSelectCursor);
 
     // functions were renamed in 2.5 :(
@@ -917,7 +923,7 @@ void CPImageCtrl::showSearchArea(bool show)
     m_showSearchArea = show;
     if (show)
     {
-        int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+        int templSearchAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent", HUGIN_FT_SEARCH_AREA_PERCENT);
         wxImage * img = ImageCache::getInstance().getImage(imageFilename);
 
         m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
@@ -931,7 +937,7 @@ void CPImageCtrl::showTemplateArea(bool show)
     m_showTemplateArea = show;
     if (show)
     {
-        m_templateRectWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14l) / 2;
+        m_templateRectWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE) / 2;
     }
 }
 

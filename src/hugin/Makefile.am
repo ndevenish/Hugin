@@ -11,18 +11,19 @@ RCCOMPILE   = $(RC) $(RCFLAGS) \
 	      sed -e 's/-I/--include-dir /g;s/-D/--define /g'`
 
 INCLUDES    = -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(FFTW_INCLUDES)
-AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS) 
+AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS)
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
 	      PreviewPanel.cpp ImageCenter.cpp OptimizePanel.cpp RunOptimizerFrame.cpp RunStitcherFrame.cpp CPListFrame.cpp \
 	      TextKillFocusHandler.cpp ImageOrientationPanel.cpp ImageOrientationFrame.cpp PanoDruid.cpp \
-	      UniversalCursor.cpp CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp 
-   
+	      UniversalCursor.cpp CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
+	      PreferencesDialog.cpp
+
 if HAVE_WIN32
 WIN_SRC    = hugin_rc.rc
 else
-WIN_SRC    = 
+WIN_SRC    =
 endif
 
 SUBDIRS    = xrc po
@@ -41,5 +42,5 @@ noinst_HEADERS = win_prep.h
 EXTRA_DIST = hugin.vcproj hugin_rc.rc hugin.desktop.tmpl
 
 .rc.o:
-	$(RCCOMPILE) -i $< -o $@ 
+	$(RCCOMPILE) -i $< -o $@
 

@@ -31,13 +31,9 @@
 
 #include "PT/Stitcher.h"
 
+#include "hugin/config_defaults.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
-//#include "hugin/ImageCache.h"
-//#include "hugin/CPEditorPanel.h"
-//#include "hugin/List.h"
-//#include "hugin/LensPanel.h"
-//#include "hugin/ImagesPanel.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/MainFrame.h"
@@ -241,7 +237,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
-            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend.exe");
+            wxString enblendExe = config->Read("/Enblend/EnblendExe",HUGIN_ENBLEND_EXE);
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend.exe"),
                                  "", "enblend.exe",
@@ -256,7 +252,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             }
             wxString args(enblendExe);
 #elif defined (__WXMAC__)
-            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
+            wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend commandline tool"),
                                  "", "",
@@ -271,7 +267,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             }
             wxString args(enblendExe);
 #else
-            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
+            wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
             wxString args(enblendExe);
 #endif
             // call enblend, and create the right output file
@@ -283,7 +279,9 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 // blend over the border
                 args.append(" -w");
             }
-            args.append(" -v -o ");
+            args.append(" -v ");
+            args.append(config->Read("/Enblend/EnblendArgs", HUGIN_ENBLEND_ARGS));
+            args.append(" -o ");
             wxString quoted((output + ".tif").c_str());
             quoted = utils::quoteFilename(quoted);
             args.append(quoted);

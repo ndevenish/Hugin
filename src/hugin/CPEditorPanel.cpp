@@ -27,6 +27,7 @@
 #include "panoinc_WX.h"
 // hugin's
 #include "hugin/huginApp.h"
+#include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
@@ -317,10 +318,10 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         if (set_contains(mirroredPoints, nr)) {
             cp.mirror();
         }
-        
+
         DEBUG_DEBUG("changing point to: " << cp.x1 << "," << cp.y1
                     << "  " << cp.x2 << "," << cp.y2);
-        
+
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
             );
@@ -550,9 +551,9 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
             FDiff2D newPoint = otherImg->getNewPoint();
 
-            long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
+            long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize", HUGIN_FT_TEMPLATE_SIZE);
             const PanoImage & img = m_pano->getImage(thisImgNr);
-            double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+            double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",10);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
             FDiff2D corrPoint;
             double xcorr=-1;
@@ -570,7 +571,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             }
             double thresh=0.8;
 
-            wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold",&thresh, 0.8);
+            wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&thresh,
+                                      HUGIN_FT_CORR_THRESHOLD);
             if (xcorr < thresh) {
                 // low xcorr
                 // zoom to 100 percent. & set second stage
@@ -678,9 +680,10 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
                 FDiff2D newPoint = otherImg->getNewPoint();
 
-                long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
+                long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
                 const PanoImage & img = m_pano->getImage(thisImgNr);
-                double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+                double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",
+                                                                HUGIN_FT_SEARCH_AREA_PERCENT);
                 int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
                 double xcorr = -1;
                 // corr point
@@ -698,7 +701,8 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 }
 
                 double thresh=0.8;
-                wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold", &thresh, 0.8);
+                wxConfigBase::Get()->Read("/Finetune/CorrThreshold", &thresh,
+                                          HUGIN_FT_CORR_THRESHOLD);
 
                 if (xcorr < thresh) {
                     // low xcorr
@@ -792,16 +796,16 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 
     vigra_ext::CorrelationResult res;
     wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read("/CPEditorPanel/RotationSearch", 0l) == 1;
+    bool rotatingFinetune = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
 
     if (rotatingFinetune) {
-        double startAngle=0;
-        cfg->Read("/CPEditorPanel/RotationStartAngle",&startAngle,-90);
+        double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
+        cfg->Read("/Finetune/RotationStartAngle",&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
         startAngle=DEG_TO_RAD(startAngle);
-        double stopAngle=0;
-        cfg->Read("/CPEditorPanel/RotationStopAngle",&stopAngle,90);
+        double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
+        cfg->Read("/Finetune/RotationStopAngle",&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
         stopAngle=DEG_TO_RAD(stopAngle);
-        int nSteps = cfg->Read("/CPEditorPanel/RotationSteps",10);
+        int nSteps = cfg->Read("/Finetune/RotationSteps", HUGIN_FT_ROTATION_STEPS);
 
         res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
                                                 subjImg, o_subjPoint.toDiff2D(),
@@ -1673,8 +1677,8 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           unsigned int moveNr,
                                           const FDiff2D & movePnt)
 {
-    long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
-    long sWidth = templWidth + wxConfigBase::Get()->Read("/CPEditorPanel/smallSearchWidth",14);
+    long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
+    long sWidth = templWidth + wxConfigBase::Get()->Read("/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
     FDiff2D result;
     double xcorr = PointFineTune(srcNr,
 		                 srcPnt,
