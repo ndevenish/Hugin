@@ -198,7 +198,11 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
             number.Trim(false);
 //            DEBUG_DEBUG("number read: >>>>>>>>>" << number << "<<<<<<<<<<<");
             bool ok = number.ToLong(&m_percent);
-            assert(ok);
+            if (!ok) {
+                // stupid fallback.
+                DEBUG_ERROR("Could not parse PTStitcher output");
+                m_percent = 0;
+            }
         } else if ( line.size() > 7) {
             // new description and number
             m_description = line.substr(0,line.find("  "));
@@ -210,7 +214,11 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
             number.Trim(false);
 //            DEBUG_DEBUG("number read: >>>>>>>" << number << "<<<<<<<");
             bool ok = number.ToLong(&m_percent);
-            assert(ok);
+            if (!ok) {
+                // stupid fallback.
+                DEBUG_ERROR("Could not parse PTStitcher output");
+                m_percent = 0;
+            }
         }
     }
 //    DEBUG_DEBUG("operation: " << m_description << " progress:" << m_percent << "%");
@@ -258,6 +266,11 @@ void RunStitcherFrame::OnProcessTerm(wxProcessEvent& event)
 #else
     Show();
 #endif
+    
+    if (event.GetExitCode() != 0) {
+        wxMessageBox(_("Stitching failed\nPTStitcher exited with nonzero error code."),
+                     _("Error executing PTStitcher.exe"), wxICON_ERROR | wxOK);
+    }
 
     DEBUG_DEBUG("before del process");
     delete m_process;

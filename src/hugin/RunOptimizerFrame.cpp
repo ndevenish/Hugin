@@ -168,8 +168,9 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     // of new data.
 
     wxString line;
-    long iteration = 0;
+    long iteration = -1;
     double diff = 0;
+    long strategy = 0;
 
     // we don't have any way to be notified when any input appears on the
     // stream so we have to poll it :-(
@@ -177,24 +178,38 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
     while ( m_process->IsInputOpened() && m_process->IsInputAvailable() ){
         line = m_in->ReadLine();
         DEBUG_DEBUG("read line: " << line);
-        wxString rest;
-        if (!line.StartsWith("after ", &rest)) {
-            DEBUG_DEBUG("unknown line: " << line);
-            continue;
+        
+        // Strategy 2
+        wxRegEx reStrat("^Strategy ([0-9]+)");
+        if (reStrat.Matches(line)) {
+            wxString t = reStrat.GetMatch(line, 1);
+            DEBUG_DEBUG("Stragegy matched: " << t.c_str());
+            t.ToLong(&strategy);
+            DEBUG_DEBUG("Stragegy matched (number): " << strategy);
+        } else {
+//            DEBUG_DEBUG("not a strategy line");
         }
-        bool ok;
-        ok = rest.BeforeFirst(' ').ToLong(&iteration);
-        assert(ok);
-        size_t t = line.First(": ");
-        wxString tstring = line.substr(t+2);
-        wxString t2 = tstring.BeforeFirst(' ');
-        diff = utils::lexical_cast<double>(t2.c_str());
-        DEBUG_DEBUG("iteration: " << iteration << " difference:" << diff);
+        
+        // after 1 iteration(s):          1.52168682328884
+        wxRegEx reLine("after +([0-9]*) +iter.*:[\t ]*([0-9,.]+) ");
+        if ( reLine.Matches(line) )
+        {
+            wxString titeration = reLine.GetMatch(line, 1);
+            wxString tdistance = reLine.GetMatch(line, 2);
+
+            titeration.ToLong(&iteration);
+            tdistance.ToDouble(&diff);
+            DEBUG_DEBUG("iteration: " << iteration << "  distance: " << diff);
+            DEBUG_DEBUG("iteration line matched: " << reLine.GetMatch(line,0)
+                        << " iteration:" << reLine.GetMatch(line, 1));
+        } else {
+//            DEBUG_DEBUG("Not a iteration line");
+        }
     }
-    if (iteration != 0) {
+    if (iteration != -1) {
         m_optimizer_status->SetLabel(
-            wxString::Format(_("Iteration %d, average distance: %f"),
-                             iteration,diff));
+            wxString::Format(_("Strategy %d, Iteration %d, average distance: %f"),
+                             strategy, iteration,diff));
         Layout();
         Fit();
         wxGetApp().Yield();
