@@ -426,6 +426,7 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 {
     DEBUG_DEBUG("x: " << point.x  << " y: " << point.y);
     wxSize sz = GetClientSize();
+    point = scale(point);
     int x = roundi(point.x);
     int y = roundi(point.y);
     int scrollx = x - sz.GetWidth()/2;
