@@ -36,7 +36,7 @@
               <hgap>5</hgap>
               <object class="sizeritem">
                 <object class="wxCheckBox" name="nona_check_enblend">
-                  <label>Soft Blending (requires enblend)</label>
+                  <label>Soft Blending (requires enblend, only TIFF output)</label>
                   <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
                 </object>
               </object>
