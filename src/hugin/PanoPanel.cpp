@@ -106,6 +106,7 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 //    PanoChanged (e);
     auto_preview = FALSE;
     panoviewer_enabled = TRUE;
+    panoviewer_started = FALSE;
 
     changePano = FALSE;
 
@@ -186,9 +187,11 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
       int id (XRCID("pano_button_preview"));
       wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
       e.SetId(id);
-      if (auto_preview && !self_pano_dlg)
+      if (auto_preview && !self_pano_dlg && !panoviewer_started)
         DoPreview (e);
 //    PanoChanged (e);
+//      if (panoviewer_started)
+//        panoviewer_started = FALSE;
     }
     changePano = FALSE;
 }
@@ -210,8 +213,12 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
     if (!self_pano_dlg) {
+      int old_previewWidth = previewWidth;
       Panorama preview_pano = pano;
       PanoramaOptions preview_opt = opt;
+      if ( !panoviewer_enabled ) {
+        previewWidth = 256;
+      }
       preview_opt.width = previewWidth;
       preview_opt.height = previewWidth / 2;
       wxString outputFormat = preview_opt.outputFormat.c_str();
@@ -219,16 +226,18 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       if ( outputFormat != "JPEG" )
         preview_opt.quality = 100;
 
-      // Set the preview image accordingly to ImagesPanel.cpp
-      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
-        wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
-        std::stringstream filename;
-        filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
-                <<_("preview")<<"_"<< imgNr <<".ppm" ;
-        PanoImage image = preview_pano.getImage(imgNr);
-        image.setFilename( filename.str() ) ;
-        preview_pano.setImage(imgNr, image);
-        DEBUG_INFO ("rendering preview image: "<< filename.str())
+      if (!panoviewer_enabled) {
+        // Set the preview image accordingly to ImagesPanel.cpp
+        for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+          wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
+          std::stringstream filename;
+          filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
+                  <<_("preview")<<"_"<< imgNr <<".ppm" ;
+          PanoImage image = preview_pano.getImage(imgNr);
+          image.setFilename( filename.str() ) ;
+          preview_pano.setImage(imgNr, image);
+          DEBUG_INFO ("rendering preview image: "<< filename.str())
+        }
       }
 
       preview_pano.clearObservers();
@@ -236,9 +245,13 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       preview_pano.runStitcher(process, preview_opt);
       process.wait();
 
+      previewWidth = old_previewWidth;
+
       // Send panoViewer the name of our image
-      if ( panoviewer_enabled )
+      if ( panoviewer_enabled ) {
         server->SendFilename( (wxString) preview_opt.outfile.c_str() );
+//        panoviewer_started = TRUE;
+      }
 
       // Show the result image in the first tab
           // right image preview

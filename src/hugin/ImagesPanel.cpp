@@ -708,6 +708,9 @@ void ImgPreview::OnDraw(wxDC & dc)
 
 void ImgPreview::ChangePreview ( std::string filename )
 {
+    wxFileName fn = (wxString)filename.c_str();
+    if ( fn.IsOk() && fn.FileExists() ) {
+//    DEBUG_INFO ( "hier: is item " << fn.GetFullPath() );
           // right image preview
           wxImage * s_img;
           s_img = new wxImage (filename.c_str());
@@ -731,6 +734,7 @@ void ImgPreview::ChangePreview ( std::string filename )
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           Refresh();
           delete s_img;
+    }
 //    wxPoint pos = e.GetPosition();
 //    long item = HitTest( e.m_x ,e.m_y );
 //    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
@@ -752,14 +756,18 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
               (int)coord_x,
               (int)coord_y ), 1);
 
-    if ( e.m_shiftDown || (!e.m_shiftDown && !e.m_controlDown) )
+    // mouse yaw and pitch -> sliders
+    if ( e.m_shiftDown || (e.m_shiftDown && e.m_controlDown) 
+           || (!e.m_shiftDown && !e.m_controlDown)) 
       XRCCTRL(*images_panel,"images_slider_pitch",wxSlider)
                                        ->SetValue((int) -coord_y);
-    if ( e.m_controlDown || (!e.m_shiftDown && !e.m_controlDown) )
+    if ( e.m_controlDown || (e.m_shiftDown && e.m_controlDown) 
+           || (!e.m_shiftDown && !e.m_controlDown)) 
       XRCCTRL(*images_panel,"images_slider_yaw", wxSlider)
                                        ->SetValue((int) coord_x);
 
     wxCommandEvent event;
+    // mouse yaw and pitch -> pano
     if ( e.m_leftDown ) {
       if ( (!e.m_shiftDown && !e.m_controlDown) || (e.m_shiftDown && e.m_controlDown) ) {
         images_panel->SetYawPitch( coord_x, coord_y );
@@ -772,11 +780,14 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
         }
       }
     }
+    // pano yaw and pitch -> sliders
     if ((images_panel->imgNr[0] >= 1)) {
-      if (e.Leaving() || e.m_controlDown) 
+      if (e.Leaving() || (e.m_controlDown 
+           && !(e.m_shiftDown && e.m_controlDown))) 
         XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue(
              (int) pano.getVariable(images_panel->imgNr[1]) .pitch .getValue());
-      if (e.Leaving() || e.m_shiftDown) 
+      if (e.Leaving() || (e.m_shiftDown
+            && !(e.m_shiftDown && e.m_controlDown)))
         XRCCTRL(*images_panel,"images_slider_yaw",wxSlider) ->SetValue(
              (int) pano.getVariable(images_panel->imgNr[1]) .yaw .getValue());
     }

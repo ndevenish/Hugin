@@ -286,7 +286,7 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
       for ( unsigned int imageNr=0; imageNr < pano.getNrOfImages(); imageNr++ ){
         ImageVariables new_var = pano.getVariable(imageNr);
         DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
-        if ( !(new_var. HFOV .getValue() >= 0.0) ) {
+        if ( !(new_var. HFOV .getValue() > 0.0) ) {
 //          new_var. HFOV .setValue(90.0);
           edit_Lens-> HFOV = 90.0;   // zere lenses are not allowed in gui!!
           DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
