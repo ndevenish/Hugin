@@ -1,11 +1,11 @@
 # Tips for hugin
 Pour faire défiler ensemble les deux images de l'onglet des points de contrôle, maitenir enfoncé la touche majuscule en déplaçant la souris.
 La touche « Crtrl » ou le bouton du milieu de la souris peuvent être utilisés pour déplacer une image dans l'onglet des points de contrôle.
-Faier pivoter l'appreil photo autour de son point nodal lors de la prise de vue rend la création de panorama beaucoup plus facile.
+Faier pivoter l'appreil photo autour de sa pupille d'netrée lors de la prise de vue rend la création de panorama beaucoup plus facile.
 Si le panorama semble correct mais que l'horizon est courbe, sélectionnez une nouvelle position d'ancrage ou ajoutez des points de contrôle pour une ligne verticale ou horizontale.
 Des paires de points de contrôle horizontaux ou verticaux peuvent être configurés en sélectionnant la même image des deux côtés dans l'onglet des points de contrôle.
 Des points de contrôle doivent être placés sur des objets statiques. Évitez de les placer sur des personnes, des arbres ou d'autres objets en mouvement ou qui se déforment.
-On eut aussi ajouter des images dans Hugin par glisser-déposer.
+On peut aussi ajouter des images dans Hugin par glisser-déposer.
 Étaler le plus possible les points de contrôle. Des points de contrôle rapprochés ne permettent pas de définir correctement l'orientation relative des images.
 Le bouton d'ajustement précis peut être utilisé pour trouver une meilleure position pour le point dans l'image de droite correspondant à un point déjà sélectionné.
 Éditer le panorama dans différents calques à l'aide de The Gimp ou de Photoshop autorise de nombreuses possibilités créatives.
@@ -24,4 +24,3 @@ La précision de « l'ajustement précis » des points de contrôle peut être amélior
 Plusieurs images peuvent être sélectionnées dans les onglets « Images » et « Appareil photo et objectif ». Les commandes s'appliqueront alors à toutes les images sélectionnées.
 Les paramètres de l'objectif peuvent varier en même temps que la mise au point. Pour obtenir de meilleurs résultats, calibrez les paramètres en utilisant des valeurs connues et réutilisez-les plus tard.
 L'optimisation de tous les paramètres de distorsion (« tout ») n'est utilisable que pour des images ayant un très large recouvrement et ayant des points de contrôle nombreux et bien distribués. 
-
