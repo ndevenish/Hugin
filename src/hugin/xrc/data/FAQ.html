@@ -2,13 +2,13 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>hugin Frequenty Asked Questions</title>
+<title>hugin Frequently Asked Questions</title>
 <!--#include virtual="/ssi/css.html"-->
 </head>
 <body>
 <!--#include virtual="/ssi/menu.html"-->
 <div class="content">
-<h1>hugin Frequenty Asked Questions</h1>
+<h1>hugin Frequently Asked Questions</h1>
 
 <p><strong>This document contains answers to questions that have been asked by
 users on the <a
@@ -57,13 +57,13 @@ list</a> and elsewhere.</strong></p>
 <h3> Common problems encountered while creating a panorama</h3>
 <ul>
   <li>
-    <a href="#problems_curvedhorizon">In my panorama the horizon is curved, how to straighten it?</a>
+    <a href="#problems_curvedhorizon">In my panorama, the horizon is curved. How do I straighten it?</a>
   </li>
   <li>
-    <a href="#problems_circledpano">When optimizing my 360 degree panorama it results in a circle instead of a hfov-360 panorama. How to make hugin recognize its a 360 degree one?</a>
+    <a href="#problems_circledpano">When optimizing my 360 degree panorama it results in a circle instead of a hfov-360 panorama. How do I make hugin recognize it's a 360 degree panorama?</a>
   </li>
   <li>
-    <a href="#problmes_blackblends">There are dark blends between two images, how to remove them?</a>
+    <a href="#problmes_blackblends">There are dark blends between two images, how do I remove them?</a>
   </li>
 </ul>
 
@@ -71,7 +71,7 @@ list</a> and elsewhere.</strong></p>
 <h3> Panorama Postprocessing </h3>
 <ul>
   <li>
-    <a href="#pano_gimp_layers">How do I produce a layered panorama , but gimp can't read the PSD?</a>
+    <a href="#pano_gimp_layers">How do I produce a layered panorama if the GIMP can't read a PSD?</a>
   </li>
 </ul>
 
@@ -87,7 +87,7 @@ list</a> and elsewhere.</strong></p>
   necessary (minor) changes to hugin and pano tools.
 </p>
 
-<h4><a href="#top" name="#g_enblend_fail">Enblend 2.1 does not work with hugin? (windows only)</a></h4>
+<h4><a href="#top" name="g_enblend_fail">Enblend 2.1 does not work with hugin? (windows only)</a></h4>
 <p>
   Enblend 2.1 cannot read the TIFF files created by hugin and nona.
 </p>
@@ -125,8 +125,7 @@ list</a> and elsewhere.</strong></p>
         will try to select the point in the other image.
       </li>
       <li> If its the first point in this pair, click near the same
-        feature on the right image.
-        Otherwise, the second point is placed and fine tuned
+        feature on the right image. The second point will be placed and fine tuned
         automatically.
       </li>
       <li> If you are not happy with the placement, both points
@@ -154,7 +153,7 @@ list</a> and elsewhere.</strong></p>
         will try to select the point in the other image.
       </li>
       <li> If its the first point in this pair, click near the same
-        feature on the right image. The point is placed and
+        feature on the right image. The point will be placed and
         fine tuned automatically.
       </li>
       <li> If you are not happy with the placement, both points
@@ -164,7 +163,7 @@ list</a> and elsewhere.</strong></p>
       </li>
       <li> When the points are on the same feature, press the
         right mouse button, or press the "a" key to add the
-        control point pair. It will then be shown in list
+        control point pair. It will then be shown in the list
         below the image.
       </li>
     </ul>
@@ -181,7 +180,7 @@ list</a> and elsewhere.</strong></p>
 
 
 <h3> Common problems encountered while creating a panorama</h3>
-<h4><a href="#top" name="problems_curvedhorizon">In my panorama the horizon is curved, how to straighten it?</a></h4>
+<h4><a href="#top" name="problems_curvedhorizon">In my panorama, the horizon is curved. How do I straighten it?</a></h4>
 <p>
 If the panorama looks nice but the horizon is curved, there are two ways to
 improve the image and straighten the horizon. First, try optimizing the view
@@ -216,8 +215,8 @@ horizontal line of images, you usually only have to set horizontal guides for
 one line.
 </p>
 <h4><a href="#top" name="problems_circledpano">When optimizing my 360 degree
-panorama it results in a circle instead of a hfov-360 panorama. How to make
-hugin recognize its a 360 degree one?</a></h4>
+panorama it results in a circle instead of a hfov-360 panorama. How do I make
+hugin recognize it's a 360 degree panorama?</a></h4>
 <p>
 In some 360 degree panoramas you might encounter an optimization like this:
 <center><img src="problem-circle.jpg" alt="360 degree panorama invalidly
@@ -249,13 +248,13 @@ Now optimize using &quot;the Custom parameters below&quot; and clear the pitch
 and roll and view optimizations. For the &quot;yaw&quot; box, select every
 picture but the first. Then optimize. Now you should land at a pretty good
 first estimate, which you can check in the preview tab after updating the
-preview. With this rought estimate, you can apply the normal &quot;Position
+preview. With this rough estimate, you can apply the normal &quot;Position
 and View&quot; optimization now.
 <br><br>
 If it still has some circles, you can try to set and optimize the pitch, too.
 </p>
 <h4><a href="#top" name="problmes_blackblends">There are dark blends between
-two images, how to remove them?</a></h4>
+two images, how do I remove them?</a></h4>
 <p>
 If there are visible black zones between two source images in the final output
 image but they are not visible in the preview, the most likely reason for that
@@ -273,18 +272,16 @@ the pictures in the first place.
 
 
 <h3> Panorama Postprocessing </h3>
-<h4><a href="#top" name="pano_gimp_layers">I want to use gimp to tweak the seams of my image, but gimp can't read the PSD?</a></h4>
+<h4><a href="#top" name="pano_gimp_layers">I want to use the GIMP to tweak the seams of my image, but the GIMP can't read a PSD format file.</a></h4>
 <p>
-  Unfortunately, <a href="http://www.gimp.org">The GIMP</a> can't read the PSD files
-  generated by PTStitcher, and the multiple tiff output it cumbersome to use. There are  two possiblilites to work around this:
+  Unfortunately, <a href="http://www.gimp.org">The GIMP</a> can't read PSD formatted files
+  generated by PTStitcher, and the multiple tiff output it produces is cumbersome to use. There are  two possiblilites to work around this:
 </p>
   <ol>
     <li>
       <p>
         Use our experimental stitcher, nona, to output to a multiple
-        tiff format. Unfortunately I haven't come around to compile a
-        windows .exe for it yet, but Alexandre is working on it.
-        Just follow the following procedure:
+        tiff format. Just follow the following procedure:
       </p>
       <ul>
         <li>
@@ -311,7 +308,7 @@ the pictures in the first place.
         supported by nona, you can also use <a href="http://www.vierpi.de/tif2xcf.html">tif2xcf</a>, to combine the multiple TIFF output into a multilayer XCF.
       </p>
       <p>
-        Important: PTStitcher does not create the output files, if the output file
+        <b>Important:</b> PTStitcher does not create the output files, if the output file
         contains an .tif extension. So, specify only the basename,
         without the extension.
       </p>
