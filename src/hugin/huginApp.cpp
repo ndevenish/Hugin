@@ -127,7 +127,8 @@ bool huginApp::OnInit()
     // testing for xrc file location
     if ( wxFile::Exists("xrc/main_frame.xrc") ) {
         DEBUG_INFO("using local xrc files");
-        xrcPrefix = "xrc/";
+        wxString currentDir = wxFileName::GetCwd();
+        xrcPrefix = currentDir + "/xrc/";
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
         DEBUG_INFO("using installed xrc files");
         xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
