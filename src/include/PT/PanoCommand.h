@@ -428,11 +428,11 @@ namespace PT {
 
 
     /// stitch the image
-    class StitchCmd : public PanoCommand
+    class StitchCmd : public Command
     {
     public:
-        StitchCmd(Panorama & p, const PanoramaOptions & t)
-            : PanoCommand(p), target(t)
+        StitchCmd(const Panorama & p, const PanoramaOptions & t)
+            : pano(p), target(t)
             { }
 
         virtual void execute()
@@ -450,6 +450,7 @@ namespace PT {
                 return "stitch panorama";
             }
     private:
+	const Panorama & pano;
         PanoramaOptions target;
     };
 }
