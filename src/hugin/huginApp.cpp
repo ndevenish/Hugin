@@ -24,6 +24,11 @@
  *
  */
 
+//Mac bundle code by Ippei
+#ifdef __WXMAC__
+#include <CFBundle.h>
+#endif
+
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -120,6 +125,44 @@ bool huginApp::OnInit()
         DEBUG_INFO("using xrc prefix from config")
         xrcPrefix = config->Read("xrc_path") + wxT("/");
     }
+
+    /* start: Mac code by Ippei*/
+#ifdef __WXMAC__
+
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("xrc"), NULL, NULL);
+        if(!XRCurl)
+        {
+            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
+        }
+        else
+        {
+            CFIndex bufLen = 1024;
+            unsigned char buffer[1024];
+            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            {
+                CFRelease(XRCurl);
+                DEBUG_INFO("Mac: Failed to get file system representation");
+            }
+            else
+            {
+                buffer[1023] = '\0';
+                CFRelease(XRCurl);
+                xrcPrefix = (wxString)buffer+ wxT("/");
+                DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
+            }
+        }
+    }
+
+    /* end: Mac code by Ippei*/
+#endif
+
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));

@@ -130,17 +130,17 @@ bool nonaApp::OnInit()
     } else {
         scriptFile = argv[optind];
     }
-    
+
     wxFileName fname(scriptFile.c_str());
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
-    
+
     if (basename == "") {
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
                          wxConfigBase::Get()->Read("actualPath",""),
                          "", "",
-                         wxOPEN, wxDefaultPosition);
+                         wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
             basename = dlg.GetPath().c_str();
@@ -149,7 +149,7 @@ bool nonaApp::OnInit()
             return 1;
         }
     }
-    
+
     basename = utils::stripExtension(basename);
 
     //utils::StreamMultiProgressDisplay pdisp(cout);

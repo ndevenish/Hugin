@@ -25,6 +25,14 @@
 #define _IMAGEGRAPH_H
 
 #include <PT/Panorama.h>
+
+#ifdef __APPLE__
+// In the case boost got error with macro "check()", uncomment following two lines.
+#include <AssertMacros.h>
+#undef check
+// Ref. http://lists.boost.org/MailArchives/boost-users/msg06726.php
+#endif
+
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/properties.hpp>
@@ -50,7 +58,7 @@ void createCPGraph(const Panorama & pano, CPGraph & graph);
 
 typedef boost::property<boost::edge_weight_t, float> OverlapEdgeProperty;
 
-/** A graph that contains all image as nodes (vertexes), overlaps are 
+/** A graph that contains all image as nodes (vertexes), overlaps are
  *  given by edges.
  *
  *  vertex property (color): indicates if the image has been stitched

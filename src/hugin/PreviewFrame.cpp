@@ -25,7 +25,10 @@
  */
 
 // use toggle buttons or uncomment check boxes
+
+#ifndef __WXMAC__
 #define USE_TOGGLE_BUTTON 1
+#endif
 
 #include "panoinc_WX.h"
 
@@ -252,9 +255,9 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format("%d",*it));
 #else
-                wxCheckBox * but = new wxToggleButton(this,
-                                                      ID_TOGGLE_BUT + *it,
-                                                      wxString::Format("%d",*it));
+                wxCheckBox * but = new wxCheckBox(this,
+                                                  ID_TOGGLE_BUT + *it,
+                                                  wxString::Format("%d",*it));
 #endif
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());

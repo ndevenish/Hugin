@@ -28,6 +28,11 @@
 
 #include "panoinc.h"
 
+//Mac bundle code by Ippei
+#ifdef __WXMAC__
+#include <CFBundle.h>
+#endif
+
 #include "vigra_ext/Correlation.h"
 
 #include "jhead/jhead.h"
@@ -160,6 +165,42 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         DEBUG_INFO("using xrc prefix from config")
         m_xrcPrefix = config->Read("xrc_path") + wxT("/");
     }
+
+    /* start: Mac bundle code by Ippei*/
+#ifdef __WXMAC__
+
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("xrc"), NULL, NULL);
+        if(!XRCurl)
+        {
+            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
+        }
+        else
+        {
+            CFIndex bufLen = 1024;
+            unsigned char buffer[1024];
+            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            {
+                CFRelease(XRCurl);
+                DEBUG_INFO("Mac: Failed to get file system representation");
+            }
+            else
+            {
+                buffer[1023] = '\0';
+                CFRelease(XRCurl);
+                m_xrcPrefix = (wxString)buffer+ wxT("/");
+                DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
+            }
+        }
+    }
+    /* end: Mac bundle code by Ippei*/
+#endif
 
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
@@ -307,7 +348,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
 #endif
 #endif
-    
+
     DEBUG_TRACE("");
 }
 
@@ -740,8 +781,6 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
 
     UIntSet selImg = lst->GetSelected();
     vector<string> filenames;
-    lst->GetSelected();
-  
     for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
         filenames.push_back(pano.getImage(*it).getFilename());
     }
