@@ -37,6 +37,13 @@
 // add this to the vigra_ext namespace
 namespace vigra_ext {
 
+    
+//***************************************************************************
+//
+//  functions to write tiff files with a single alpha channel.
+//
+//***************************************************************************
+    
 /** write a new Tiff directory, for a new layer
  *
  * @param tiff tiff struct
@@ -81,9 +88,9 @@ template <class ImageIterator, class ImageAccessor,
           class AlphaIterator, class AlphaAccessor>
 static void
 createScalarATiffImage(ImageIterator upperleft, ImageIterator lowerright,
-                  ImageAccessor a,
-                  AlphaIterator alphaUpperleft, AlphaAccessor alphaA,
-                  vigra::TiffImage * tiff, int sampleformat)
+                       ImageAccessor a,
+                       AlphaIterator alphaUpperleft, AlphaAccessor alphaA,
+                       vigra::TiffImage * tiff, int sampleformat)
 {
     typedef typename ImageAccessor::value_type PixelType;
 
@@ -233,8 +240,9 @@ struct CreateAlphaTiffImage<vigra::RGBValue<short> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<short> >
-            mA(vigra::ScalarIntensityTransform<short>(128));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<short>,
+	                               AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<short>(128), aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_INT);
     }
@@ -251,8 +259,8 @@ struct CreateAlphaTiffImage<vigra::RGBValue<unsigned short> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<unsigned short> >
-            mA(vigra::ScalarIntensityTransform<unsigned short>(256));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<unsigned short>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<unsigned short>(256), aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_UINT);
     }
@@ -271,8 +279,8 @@ struct CreateAlphaTiffImage<vigra::RGBValue<int> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<int> >
-            mA(vigra::ScalarIntensityTransform<int>(8388608));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<int>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<int>(8388608), aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_INT);
     }
@@ -289,8 +297,8 @@ struct CreateAlphaTiffImage<vigra::RGBValue<unsigned int> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<unsigned int> >
-            mA(vigra::ScalarIntensityTransform<unsigned int>(16777216));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<unsigned int>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<unsigned int>(16777216), aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_UINT);
     }
@@ -308,8 +316,8 @@ struct CreateAlphaTiffImage<vigra::RGBValue<float> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<float> >
-            mA(vigra::ScalarIntensityTransform<float>(1.0f/255));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<float>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<float>(1.0f/255), aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_IEEEFP);
     }
@@ -327,8 +335,8 @@ struct CreateAlphaTiffImage<vigra::RGBValue<double> >
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<double> >
-            mA(vigra::ScalarIntensityTransform<double>(1.0f/255));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<double>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<double>(1.0f/255),aA);
         createRGBATiffImage(iUL, iLR, iA, aUL, mA,
                             tiff,  SAMPLEFORMAT_IEEEFP);
     }
@@ -366,8 +374,8 @@ struct CreateAlphaTiffImage<short>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<short> >
-            mA(vigra::ScalarIntensityTransform<short>(128));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<short>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<short>(128), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_INT);
     }
 };
@@ -382,8 +390,8 @@ struct CreateAlphaTiffImage<unsigned short>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<unsigned short> >
-            mA(vigra::ScalarIntensityTransform<unsigned short>(256));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<unsigned short>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<unsigned short>(256), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_UINT);
     }
 };
@@ -400,8 +408,8 @@ struct CreateAlphaTiffImage<int>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<int> >
-            mA(vigra::ScalarIntensityTransform<int>(8388608));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<int>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<int>(8388608), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_INT);
     }
 };
@@ -417,8 +425,8 @@ struct CreateAlphaTiffImage<unsigned int>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<unsigned int> >
-            mA(vigra::ScalarIntensityTransform<unsigned int>(16777216));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<unsigned int>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<unsigned int>(16777216), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_UINT);
     }
 };
@@ -435,8 +443,8 @@ struct CreateAlphaTiffImage<float>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<float> >
-            mA(vigra::ScalarIntensityTransform<float>(1.0f/255));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<float>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<float>(1.0f/255), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_IEEEFP);
     }
 };
@@ -453,8 +461,8 @@ struct CreateAlphaTiffImage<double>
                      AlphaAccessor aA,
                      vigra::TiffImage * tiff)
     {
-        vigra_ext::FunctorAccessor<vigra::ScalarIntensityTransform<double> >
-            mA(vigra::ScalarIntensityTransform<double>(1.0f/255));
+        vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<double>, AlphaAccessor>
+            mA(vigra::ScalarIntensityTransform<double>(1.0f/255), aA);
         createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_IEEEFP);
     }
 };
@@ -496,6 +504,15 @@ createAlphaTiffImage(vigra::triple<ImageIterator, ImageIterator, ImageAccessor> 
     createAlphaTiffImage(src.first, src.second, src.third,
                          alpha.first, alpha.second, tiff);
 }
+
+
+    
+//***************************************************************************
+//
+//  functions to read tiff files with a single alpha channel,
+//  multiple layers and offsets.
+//
+//***************************************************************************
 
 
 }
