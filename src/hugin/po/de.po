@@ -3,13 +3,11 @@
 # This file is distributed under the same license as the hugin package.
 # Douglas Wilkins <douglasw@zahav.co.il>, 2004.
 #
-#: src/hugin/PanoDruid.cpp:42 src/hugin/PanoDruid.cpp:301
-#: src/hugin/PreviewFrame.cpp:499 src/hugin/PreviewFrame.cpp:539
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-09 17:55+0200\n"
+"POT-Creation-Date: 2004-10-13 18:50+0200\n"
 "PO-Revision-Date: 2004-10-09 18:05+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.co.il>\n"
 "Language-Team: German <de@li.org>\n"
