@@ -57,14 +57,24 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
-    wxString appname (GetAppName());
-    printf( "%s\n",appname.c_str());
+    printf( "%s\n", GetAppName().c_str());
 
     // here goes and comes configuration
-    wxConfig *config = new wxConfig("hugin");
+    wxConfigBase *config = new wxConfig ( GetAppName().c_str(),
+			"hugin Team", ".huginrc", "huginrc",
+			 wxCONFIG_USE_LOCAL_FILE );
+    config->SetRecordDefaults(TRUE);
+    printf( "GetPath(): %s\n",config->GetPath().c_str());
+    printf( "GetVendorName(): %s\n",config->GetVendorName().c_str() );
+    config->SetRecordDefaults(TRUE);
+    printf ("saved locale path at:  %s\n", config->Read("locale_path").c_str());
 
     wxString locale_path ( "../po" );
     config->Write("locale_path", locale_path);
+    printf ("entries in config:  %i\n", config->GetNumberOfEntries() );
+    if ( config->IsRecordingDefaults() )
+      printf ("writes in config:  %i\n", config->GetNumberOfEntries() );
+    config->Flush();
 
     // initialize i18n
     locale.Init(wxLANGUAGE_DEFAULT);
