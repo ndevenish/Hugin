@@ -46,5 +46,5 @@ std::string utils::CurrentTime()
     // FIXME implement for Win & Mac
     return "";
 }
-
+#endif
 
