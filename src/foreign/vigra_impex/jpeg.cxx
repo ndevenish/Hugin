@@ -364,6 +364,7 @@ namespace vigra
 #ifdef ENTROPY_OPT_SUPPORTED
         info.optimize_coding = TRUE;
 #endif
+        info.dct_method = JDCT_FLOAT;
 
         // start the compression
         if (setjmp(err.buf))
