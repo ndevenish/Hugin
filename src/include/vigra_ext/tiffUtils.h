@@ -37,13 +37,13 @@
 // add this to the vigra_ext namespace
 namespace vigra_ext {
 
-    
+
 //***************************************************************************
 //
 //  functions to write tiff files with a single alpha channel.
 //
 //***************************************************************************
-    
+
 /** write a new Tiff directory, for a new layer
  *
  * @param tiff tiff struct
@@ -152,8 +152,8 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
                     AlphaIterator alphaUpperleft, AlphaAccessor alphaA,
                     vigra::TiffImage * tiff, int sampleformat)
 {
-//    typedef typename ImageAccessor::value_type::value_type PixelType;
-    typedef typename ImageAccessor::value_type PixelType;
+    typedef typename ImageAccessor::value_type::value_type PixelType;
+//    typedef typename ImageAccessor::value_type PixelType;
     int w = lowerright.x - upperleft.x;
     int h = lowerright.y - upperleft.y;
 
@@ -508,7 +508,7 @@ createAlphaTiffImage(vigra::triple<ImageIterator, ImageIterator, ImageAccessor> 
 }
 
 
-    
+
 //***************************************************************************
 //
 //  functions to read tiff files with a single alpha channel,
