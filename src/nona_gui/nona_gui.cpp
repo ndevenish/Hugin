@@ -126,7 +126,7 @@ bool nonaApp::OnInit()
             scriptFile = dlg.GetPath().mb_str();
         } else {
             usage(argv[0]);
-            return 1;
+            return false;
         }
     } else {
         scriptFile = argv[optind];
@@ -147,7 +147,7 @@ bool nonaApp::OnInit()
             basename = dlg.GetPath().mb_str();
         } else {
             usage(argv[0]);
-            return 1;
+            return false;
         }
     }
 
@@ -192,7 +192,7 @@ bool nonaApp::OnInit()
                            pdisp, basename);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
-        return 1;
+        return false;
     }
 
     return false;
