@@ -112,6 +112,7 @@ public:
 		     || opts.outputFormat == PT::PanoramaOptions::TIFF_m);
 
         m_basename = utils::stripExtension(basename);
+        DEBUG_DEBUG("created basename: " << basename << " -> " << m_basename);
 
         // setup the output.
         prepareOutputFile(opts);

@@ -222,6 +222,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     PanoramaOptions opts = options;
+    DEBUG_DEBUG("Stitching to " << opts.outfile);
 
     bool enblend = m_EnblendCheckBox->IsChecked();
     try {
@@ -287,7 +288,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             if (cmd.size() > 1950) {
                 wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\n"
                                "This is a Windows limitiation\n"
-                               "Please select less images, or place the images in a folder with\n"
+                               "Please use less images, or place the images in a folder with\n"
                                "a shorter pathname"), _("Too many images selected"));
         return;
     }

@@ -58,7 +58,7 @@ DEPEND_FILES = *.cpp
 
 CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG) $(VIGRA_CFLAGS)
 LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS) ${VIGRA_LFLAGS} -lpanorama \
-           -ljhead -lcommon -lvigra_ext 
+           -ljhead -lcommon -lvigra_ext
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a
@@ -115,6 +115,8 @@ APP_1_OBJ = \
 	    PanoDruid.o \
 	    MyProgressDialog.o \
             UniversalCursor.o \
+	    CPZoomDisplayPanel.o \
+	    CPFineTuneFrame.o \
             $(RES_O)
 
 ifeq ($(PLATFORM),win32)

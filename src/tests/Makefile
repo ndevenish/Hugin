@@ -129,10 +129,10 @@ TEST_6_OBJ = vigra_ext.o
 TEST_6_CFLAGS = $(TEST_CFLAGS)
 TEST_6_LFLAGS = $(TEST_LFLAGS)
 
-TEST_6_BIN = common
-TEST_6_OBJ = common.o
-TEST_6_CFLAGS = $(TEST_CFLAGS)
-TEST_6_LFLAGS = $(TEST_LFLAGS)
+TEST_7_BIN = common
+TEST_7_OBJ = common.o
+TEST_7_CFLAGS = $(TEST_CFLAGS)
+TEST_7_LFLAGS = $(TEST_LFLAGS)
 
 
 # ====================================================================
