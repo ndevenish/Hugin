@@ -217,7 +217,8 @@ void PreviewPanel::updatePreview()
             }
         }
     } catch (std::exception & e) {
-        wxMessageBox("Error during Stitching", e.what());
+        DEBUG_ERROR("error during stitching: " << e.what());
+        wxMessageBox(e.what(), _("Error during Stitching"));
     }
     if (m_panoBitmap) {
         delete m_panoBitmap;
