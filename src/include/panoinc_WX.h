@@ -63,7 +63,9 @@
 #include <wx/regex.h>
 #include <wx/valtext.h>
 #include <wx/valgen.h>
-
+#if wxCHECK_VERSION(2,5,3)
+#include <wx/imaglist.h>
+#endif
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
 #include <wx/msw/winundef.h>

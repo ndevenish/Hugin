@@ -225,6 +225,37 @@ AC_DEFUN([AM_PATH_WXCONFIG],
     fi
   fi
 
+dnl xrc ressources are used in hugin but the xrc lib is only needed if version 
+dnl is less than 2.5.3
+  need_wx_xrc=yes
+  if test $wx_config_major_version -gt 2; then
+    need_wx_xrc=no
+    need_wx_regex=no
+  else
+    if test $wx_config_major_version -eq 2; then
+       if test $wx_config_minor_version -lt 5; then
+          need_wx_xrc=yes
+       else
+          if test $wx_config_minor_version -eq 5; then
+             if test $wx_config_micro_version -lt 3; then
+                need_wx_xrc=yes
+             else
+                need_wx_xrc=no
+                need_wx_regex=yes
+             fi
+          else
+             need_wx_xrc=no
+          fi
+       fi
+    fi
+  fi
+  if test "x$need_wx_xrc" = xyes ; then
+    WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
+  fi
+  if test "x$need_wx_regex" = xyes ; then
+    WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+  fi
+
   AC_SUBST(WX_CPPFLAGS)
   AC_SUBST(WX_CFLAGS)
   AC_SUBST(WX_CXXFLAGS)
