@@ -179,7 +179,7 @@ case "$HSYS" in
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "./xrc")
     ;;
   *)
-    if test "x$datadir" != xNONE; then
+    if test "$datadir" != '${prefix}/share' ; then
       AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
       AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
     else
