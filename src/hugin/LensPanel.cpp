@@ -377,7 +377,7 @@ void LensPanel::SetCenter ( wxCommandEvent & e )
         dlg->ChangeView(*img);
         dlg->CentreOnParent ();
         dlg->Refresh();
-        dlg->Show();
+        dlg->Show(true);
     }
     DEBUG_TRACE ("")
 }
