@@ -57,7 +57,7 @@
 #define HUGIN_APKOLOR_EXE                     "autopano.exe"
 #define HUGIN_APKOLOR_ARGS   "/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
 
-#define HUGIN_APSIFT_EXE                      "autopano-commandline.vbs"
+#define HUGIN_APSIFT_EXE                      "win-autopano-sift-cmdline.vbs"
 
 #endif
 
@@ -91,7 +91,7 @@
 #endif
 
 // enblend args
-#define HUGIN_ENBLEND_ARGS                    ""
+#define HUGIN_ENBLEND_ARGS                    "-v -z"
 
 // Autopano-SIFT args
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"

@@ -147,7 +147,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write("/Autopano/AutoPanoSiftExe",autopanoExe);
+            wxConfigBase::Get()->Write("/AutopanoSift/AutopanoExe",autopanoExe);
         } else {
             wxLogError(_("No autopano selected"));
             return;
@@ -162,7 +162,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write("/Autopano/AutoPanoSiftExe",autopanoExe);
+            wxConfigBase::Get()->Write("/AutopanoSift/AutopanoExe",autopanoExe);
         } else {
             wxLogError(_("No autopano selected"));
             return;
@@ -194,8 +194,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     tmp.Printf("%d", nFeatures);
     autopanoArgs.Replace("%p", tmp);
     autopanoArgs.Replace("%i", imgFiles.c_str());
-    wxString cmd;
-    cmd.Printf("%s %s", autopanoExe.c_str(), autopanoArgs.c_str());
+    wxString cmd = autopanoExe + " " + autopanoArgs;
 #ifdef __WXMSW__
     if (cmd.size() > 1950) {
         wxMessageBox(_("autopano command line too long.\n"
@@ -211,16 +210,39 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
     // run autopano in an own output window
 
+    int ret = 0;
 #ifdef unix
     DEBUG_DEBUG("using system() to execute autopano-sift");
-    int ret = system(cmd);
+    ret = system(cmd);
     if (ret == -1) {
 	perror("system() failed");
     } else {
 	ret = WEXITSTATUS(ret);
     }
+#elif WIN32
+    wxFileName tname(autopanoExe);
+    wxString ext = tname.GetExt();
+    if (ext == "vbs") {
+        // this is a script.. execute it with ShellExecute
+        char * exe_c = (char *)autopanoExe.c_str();
+        SHELLEXECUTEINFO seinfo;
+        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
+        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
+        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+        seinfo.lpFile = exe_c;
+        seinfo.lpParameters = autopanoArgs.c_str();
+        if (!ShellExecuteEx(&seinfo)) {
+            ret = -1;
+            wxMessageBox(_("Could not execute command: ") + cmd, _("ShellExecuteEx failed"));
+        }
+        // wait for process
+        WaitForSingleObject(seinfo.hProcess, INFINITE);
+    } else {
+        // normal wxExecute
+        ret = wxExecute(cmd, wxEXEC_SYNC);
+    }
 #else
-    int ret = wxExecute(cmd, wxEXEC_SYNC);
+    ret = wxExecute(cmd, wxEXEC_SYNC);
 #endif
 
     if (ret == -1) {
