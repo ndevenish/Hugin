@@ -475,6 +475,9 @@ public:
      */
     bool loadPTScript(std::istream & i, const std::string & prefix = "");
 
+    /** improved and robustified PTScript loader */
+    bool loadPTScript2(std::istream &i, const std::string &prefix);
+
 private:
 
     enum PTParseState { P_NONE,

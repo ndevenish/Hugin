@@ -328,6 +328,9 @@ namespace utils
         double m_minProgressStep;
     };
 
+    /** a progress display to print stuff to stdout (doesn't work properly on the
+     *  windows console.
+     */
     class StreamMultiProgressDisplay : public MultiProgressDisplay
     {
     public:

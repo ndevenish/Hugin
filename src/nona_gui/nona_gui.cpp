@@ -72,7 +72,7 @@ public:
 
     /** just for testing purposes */
     virtual int OnExit();
-    
+
     void usage(const char * name);
 
 

@@ -60,7 +60,12 @@ bool getParam(T & value, const std::string & line, const std::string & name)
 
 bool readVar(Variable & var, int & link, const std::string & line);
 
-bool getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
+bool getPTStringParam(std::string & output, const std::string & line,
+	              const std::string & parameter);
+
+bool getPTDoubleParam(double & value, int & link,
+                      const std::string & line, const std::string & var);
+		      
 
 /** this handler class will receive change events from the Panorama.
  *

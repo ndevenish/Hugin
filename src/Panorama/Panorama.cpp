@@ -127,6 +127,25 @@ bool PT::getPTStringParam(std::string & output, const std::string & line, const 
     return true;
 }
 
+bool PT::getPTDoubleParam(double & value, int & link,
+                      const std::string & line, const std::string & var)
+{
+    string val;
+    if (getPTParam(val,line, var)) {
+        DEBUG_ASSERT(line.size() > 0);
+        DEBUG_DEBUG(var << ":" <<val);
+        if (val[0] == '=') {
+            link = utils::lexical_cast<int>(val.substr(1));
+        } else {
+            link = -1;
+            value = utils::lexical_cast<double>(val);
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
 bool PT::readVar(Variable & var, int & link, const std::string & line)
 {
     string val;
@@ -144,8 +163,6 @@ bool PT::readVar(Variable & var, int & link, const std::string & line)
     }
     return true;
 }
-
-
 
 //=========================================================================
 //=========================================================================
