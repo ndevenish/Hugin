@@ -133,8 +133,18 @@ public:
     }
 
     const PT::VariableMapVector & getVariables() const
-    { return m_optVars; }
-    
+    { 
+#ifdef DEBUG        
+        for ( PT::VariableMapVector::const_iterator it=m_optVars.begin();
+              it != m_optVars.end(); ++it )
+        {
+            std::cerr << "optVars " << (it - m_optVars.begin()) << " ";
+            printVariableMap(std::cerr, *it);
+        }
+#endif
+        return m_optVars; 
+    }
+
     const PT::CPVector & getCtrlPoints() const
     { return m_cps; }
 

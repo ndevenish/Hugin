@@ -200,7 +200,7 @@ void ScaleSpace::CreateFeatureVector( float x, float y, float s, Keypoints & key
     int yi = (int) floor(y + 0.5f);
     int si = (int) floor(s + 0.5f);
 	
-	// array of orientation
+    // array of orientation
     OrientationVector OV;
 
     // radius calculus
