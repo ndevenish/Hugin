@@ -28,8 +28,6 @@
 #include "panoinc_WX.h"
 
 #include "hugin/ImageCache.h"
-#include "hugin/PanoToolsInterface.h"
-#include "hugin/ImageProcessing.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/MainFrame.h"
 
