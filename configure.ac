@@ -1,17 +1,48 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+dnl                                               -*- Autoconf -*-
+dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5)
 AC_INIT([hugin], [0.4], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
-AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
 AC_CONFIG_HEADER([src/hugin/config.h])
 AM_INIT_AUTOMAKE([no-define dist-bzip2 dist-zip])
 
-# By default, do not create shared libraries
+dnl By default, do not create shared libraries
 AC_DISABLE_SHARED
 
-# debugging options
+dnl
+dnl  Check the operating system
+dnl
+case "${target_os}" in
+  "")
+    SYS=unknown
+    ;;
+  linux*)
+    SYS=linux
+    ;;
+  darwin*)
+    SYS=darwin
+    ;;
+  *mingw32*)
+    AC_ARG_VAR(WINDRES, [Windows Resource compiler tool path])
+    AC_PATH_TOOL(WINDRES,windres,
+	             [AC_MSG_WARN(Could not find a windres tool in your PATH. Will not be able to compile hugin or nona_gui:)]
+		     )
+    AC_SUBST(WINDRES)
+
+    SYS=mingw32
+
+    ;;
+  *)
+    SYS="${target_os}"
+    ;;
+esac
+AM_CONDITIONAL(HAVE_LINUX, test "${SYS}" = "linux")
+AM_CONDITIONAL(HAVE_DARWIN, test "${SYS}" = "darwin")
+AM_CONDITIONAL(HAVE_WIN32, test "${SYS}" = "mingw32")
+
+dnl debugging options
 AC_ARG_ENABLE([debug],
               AC_HELP_STRING([--enable-debug],
 	                     [enable debugging of the hugin applictions(default=no). Note: -g is removed from flags if this is not defined]),
@@ -21,15 +52,15 @@ AC_ARG_ENABLE([debug],
 	      ],
 	      [enable_debug=no])
 
-#create local defines in config.h.in
+dnl  create local defines in config.h.in
 AH_TEMPLATE([HUGIN_VERSION],[Current Version of Hugin])
 AH_TEMPLATE([INSTALL_LOCALE_DIR],[Install Location of Hugin])
 AH_TEMPLATE([INSTALL_XRC_DIR],[Location for XRC information])
 
-# I18n support
+dnl I18n support
 AM_GNU_GETTEXT([external])
 
-# Checks for programs.
+dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
@@ -37,7 +68,7 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
 
-# Checks for libraries.
+dnl Checks for libraries.
 AM_OPTIONS_WXCONFIG
 AM_OPTIONS_GRAPHICS
 
@@ -99,7 +130,7 @@ if test "x$wxWin" != x1; then
     ])
 fi
 
-# xrc ressources are used
+dnl xrc ressources are used
 WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
 
 CHECK_WX_BUILT_WITH_GTK2
@@ -114,13 +145,13 @@ else
   fi
 fi
 
-# Checks for header files.
+dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([float.h limits.h locale.h memory.h paths.h stdlib.h string.h sys/time.h unistd.h utime.h])
 
-# Checks for typedefs, structures, and compiler characteristics.
+dnl Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
 AC_C_CONST
 AC_C_INLINE
@@ -130,7 +161,7 @@ AC_HEADER_TIME
 AC_STRUCT_TM
 AC_CHECK_TYPES([ptrdiff_t])
 
-# Checks for library functions.
+dnl Checks for library functions.
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_ERROR_AT_LINE
 AC_FUNC_FORK
@@ -153,9 +184,9 @@ else
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
 fi	
 
-#
-# Remove extraneous spaces from output variables (aesthetic)
-#
+dnl  
+dnl Remove extraneous spaces from output variables (aesthetic)
+dnl  
 CC=`echo $CC | sed -e 's/  */ /g'`
 CFLAGS=`echo $CFLAGS | sed -e 's/  */ /g'`
 CPPFLAGS=`echo $CPPFLAGS | sed -e 's/  */ /g'`
@@ -166,7 +197,7 @@ WX_LIBS=`echo $WX_LIBS | sed -e 's/  */ /g'`
 GTK_CFLAGS=`echo $GTK_CFLAGS | sed -e 's/  */ /g'`
 GTK_LIBS=`echo $GTK_LIBS | sed -e 's/  */ /g'`
 
-# Over-ride LIBS so that libraries are supplied by Makefiles instead
+dnl Over-ride LIBS so that libraries are supplied by Makefiles instead
 LIBS=""
 
 AC_CONFIG_FILES([Makefile
@@ -229,5 +260,6 @@ echo "  FFTW_INCLUDES  = $FFTW_INCLUDES"
 echo "  FFTW_LDFLAGS   = $FFTW_LDFLAGS"
 echo "  BOOST_CPPFLAGS = $BOOST_CPPFLAGS"
 echo "  BOOST_LIBS     = $BOOST_LIBS"
+echo "  BUILD          = $SYS"
 echo ""
 
