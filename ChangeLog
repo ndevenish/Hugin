@@ -1,3 +1,261 @@
+2004-11-13 13:21  dangelo
+
+	* src/hugin/xrc/data/about.htm: ups
+
+2004-11-13 13:17  dangelo
+
+	* src/hugin/xrc/data/about.htm: updated about text
+
+2004-11-13 13:11  dangelo
+
+	* src/: hugin/OptimizePanel.cpp, hugin/xrc/optimize_panel.xrc,
+	  include/hugin/OptimizePanel.h: made pairwise optimisation setting
+	  the default (actually its more than pairwise, since images are
+	  added one after another, hence it was renamed to pairwise
+	  optimisation).
+
+2004-11-13 13:10  dwilkins42
+
+	* m4/: ax_check_boost.m4, ax_check_graphics.m4, ax_fftw.m4: Update
+	  boost detection
+
+2004-11-13 13:08  dwilkins42
+
+	* src/hugin/PreviewFrame.cpp: Update capitalisation
+
+2004-11-13 12:51  dangelo
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/huginApp.cpp,
+	  hugin/xrc/pref_dialog.xrc, include/hugin/config_defaults.h,
+	  include/hugin/huginApp.h: added language selector
+
+2004-11-13 07:43  dwilkins42
+
+	* m4/ax_wxwin.m4: Account for differences in 2.4/2.5 wx-config
+
+2004-11-13 04:58  dangelo
+
+	* src/: foreign/vigra_impex/.cvsignore,
+	  hugin/AutoCtrlPointCreator.cpp, hugin/CPListFrame.cpp,
+	  hugin/ImagesList.cpp, hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/PanoDruid.cpp,
+	  hugin/PreferencesDialog.cpp, hugin/PreviewFrame.cpp,
+	  hugin/RunOptimizerFrame.cpp, hugin/huginApp.cpp,
+	  include/hugin/wxPanoCommand.h, vigra_ext/vigra_ext.vcproj: allow
+	  unicode compilation with visual c, needed to compress multi line
+	  strings into a single line, otherwise MSVC cannot convert them to
+	  unicode..
+
+2004-11-13 04:55  dangelo
+
+	* src/hugin/xrc/cp_list_frame.xrc: do not force cp list over other
+	  windows than the main window
+
+2004-11-13 04:42  dangelo
+
+	* src/Panorama/PanoToolsInterface.cpp: fixed crash with pano12.dll
+	  build with MSVC
+
+2004-11-13 04:38  dangelo
+
+	* src/: tests/.cvsignore, tools/.cvsignore, vigra_ext/.cvsignore,
+	  foreign/vigra_impex/vigra_impex.vcproj, hugin/.cvsignore,
+	  hugin/hugin.vcproj, jhead/.cvsignore, jhead/jhead.vcproj,
+	  nona_gui/.cvsignore, Hugin.sln, Panorama/.cvsignore,
+	  common/.cvsignore, common/common.vcproj: updated MSVC projects..
+	  unicode build crashes, though..
+
+2004-11-13 04:36  dangelo
+
+	* src/hugin/xrc/nona_panel.xrc: added note that enblend works only
+	  for tiff output
+
+2004-11-13 01:38  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/CPImageCtrl.cpp, hugin/CPListFrame.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/PTStitcherPanel.cpp, hugin/PanoPanel.cpp,
+	  hugin/PreviewPanel.cpp: closed some memory leaks. There are some
+	  singleton objects that are not freed explicitly, but they
+	  shouldn't matter since there will only be one instance from
+	  program start to end.
+
+2004-11-12 23:28  dangelo
+
+	* src/nona_gui/nona_gui.cpp: exit nona_gui.exe if it was canceled
+
+2004-11-12 23:27  dangelo
+
+	* src/hugin/: xrc/cp_list_frame.xrc, CPListFrame.cpp,
+	  PreviewFrame.cpp, MainFrame.cpp, MyProgressDialog.cpp: remember
+	  window positions and sizes on all platforms and with all windows.
+
+2004-11-12 23:23  dangelo
+
+	* src/Panorama/PanoToolsInterface.cpp: modifed pairwise
+	  optimisation, hopefully it works again with current pano12 dll.
+	  Also the final optimisation pass is done using the ordinary
+	  PTOptimizer.exe, to get a nice screen with yes/no button etc.
+
+2004-11-12 23:11  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, hugin/OptimizePanel.cpp,
+	  include/PT/PTOptimise.h: modifed pairwise optimisation, hopefully
+	  it works again with current pano12 dll.  Also the final
+	  optimisation pass is done using the ordinary PTOptimizer.exe, to
+	  get a nice screen with yes/no button etc.
+
+2004-11-12 21:12  dwilkins42
+
+	* m4/ax_wxwin.m4: Better version detection
+
+2004-11-12 16:42  dwilkins42
+
+	* src/hugin/po/pl.po: Updated polish translation
+
+2004-11-12 11:22  dwilkins42
+
+	* configure.ac, m4/ax_wxwin.m4: Add --with-unicode option to
+	  configure
+
+2004-11-12 09:32  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Make sure splash bitmap displays
+
+2004-11-12 08:53  dwilkins42
+
+	* src/: hugin/xrc/Makefile.am, include/.cvsignore: Fix for out of
+	  tree build
+
+2004-11-12 08:47  dwilkins42
+
+	* src/hugin/po/: POTFILES.in, de.po, fr.po, hugin.pot, it.po,
+	  pl.po: Update translations
+
+2004-11-12 08:43  dwilkins42
+
+	* src/: hugin/ImageCache.cpp, hugin/MainFrame.cpp,
+	  hugin/MyProgressDialog.cpp, include/hugin/wxPanoCommand.h: Update
+	  unicode fixes. StatusBar works again
+
+2004-11-10 17:49  dwilkins42
+
+	* m4/Makefile.am, src/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin/ImageCache.cpp, src/hugin/ImagesList.cpp,
+	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp: Update unicode
+	  fixes
+
+2004-11-10 11:02  dwilkins42
+
+	* src/: hugin/MainFrame.cpp, include/config.h.in,
+	  include/hugin/PanoDruid.h, include/hugin/wxPanoCommand.h: Remove
+	  (bootstrap) generated file. Small unicode fixes
+
+2004-11-10 10:36  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/CPImageCtrl.cpp, hugin/CPListFrame.cpp,
+	  hugin/CPZoomDisplayPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MyProgressDialog.cpp, hugin/NonaStitcherPanel.cpp,
+	  hugin/PanoDruid.cpp, hugin/PanoPanel.cpp,
+	  hugin/PreferencesDialog.cpp, hugin/PreviewPanel.cpp,
+	  hugin/RunOptimizerFrame.cpp, hugin/RunStitcherFrame.cpp,
+	  hugin/TextKillFocusHandler.cpp, hugin/huginApp.cpp,
+	  include/common/wxPlatform.h, include/hugin/CPImageCtrl.h,
+	  include/hugin/PanoDruid.h, include/hugin/wxPanoCommand.h,
+	  nona_gui/nona_gui.cpp: unicode fixes
+
+2004-11-10 10:32  dangelo
+
+	* src/hugin/MainFrame.cpp: unicode fixes, option to remember window
+	  position on unix as well
+
+2004-11-10 09:29  dwilkins42
+
+	* src/: Panorama/Makefile.am, hugin/Makefile.am, tools/Makefile.am:
+	  Update for boost detection changes
+
+2004-11-10 09:22  dwilkins42
+
+	* configure.ac, m4/ax_check_boost.m4, m4/ax_find_file.m4,
+	  m4/ax_rs_boost.m4, src/include/config.h.in: Improve boost
+	  detection. Improve error messages during configure. Improve
+	  configure speed
+
+2004-11-08 11:17  dwilkins42
+
+	* m4/ax_check_graphics.m4: fix YAN copy/paste typo (sigh...)
+
+2004-11-08 01:42  dangelo
+
+	* src/: hugin/xrc/pref_dialog.xrc, include/hugin/config_defaults.h,
+	  hugin/PreferencesDialog.cpp, hugin/PreviewFrame.cpp: added option
+	  to disable the panorama druid.
+
+2004-11-07 18:48  dwilkins42
+
+	* bootstrap: fix copy/paste typo
+
+2004-11-06 15:46  dwilkins42
+
+	* bootstrap: kill debug statement
+
+2004-11-06 15:45  dwilkins42
+
+	* bootstrap: Include better detection of libtool
+
+2004-11-05 20:18  dwilkins42
+
+	* src/hugin/po/pl.po: Update polish translation
+
+2004-11-04 17:04  dwilkins42
+
+	* configure.ac: fix for prefix/datadir definitions
+
+2004-11-04 13:57  dwilkins42
+
+	* src/hugin/: CPEditorPanel.cpp, po/de.po, po/fr.po, po/hugin.pot,
+	  po/it.po, po/pl.po: Add last status text to translations and
+	  update them
+
+2004-11-04 13:45  dwilkins42
+
+	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update
+	  translations
+
+2004-11-04 12:50  dwilkins42
+
+	* src/hugin/NonaStitcherPanel.cpp: Add errno include
+
+2004-11-04 09:55  dwilkins42
+
+	* ChangeLog, m4/ax_check_wx_gtk.m4,
+	  src/hugin/AutoCtrlPointCreator.cpp, src/hugin/CPEditorPanel.cpp,
+	  src/hugin/CPFineTuneFrame.cpp, src/hugin/CPImageCtrl.cpp,
+	  src/hugin/CPListFrame.cpp, src/hugin/CPZoomDisplayPanel.cpp,
+	  src/hugin/CommandHistory.cpp, src/hugin/ImageCache.cpp,
+	  src/hugin/ImageCenter.cpp, src/hugin/ImageOrientationFrame.cpp,
+	  src/hugin/ImagesList.cpp, src/hugin/ImagesPanel.cpp,
+	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
+	  src/hugin/NonaStitcherPanel.cpp, src/hugin/OptimizePanel.cpp,
+	  src/hugin/PTStitcherPanel.cpp, src/hugin/PanoDruid.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/PreferencesDialog.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/RunOptimizerFrame.cpp,
+	  src/hugin/RunStitcherFrame.cpp, src/hugin/huginApp.cpp,
+	  src/include/hugin/MyProgressDialog.h, src/nona_gui/nona_gui.cpp:
+	  Update strings for ansi/unicode. Translate more strings
+
+2004-11-04 07:49  dwilkins42
+
+	* src/hugin/PanoDruid.cpp: Fix typo
+
+2004-11-04 07:38  dwilkins42
+
+	* src/hugin/ImagesPanel.cpp: Fix typo
+
 2004-11-04 02:24  dangelo
 
 	* src/: include/hugin/huginApp.h, hugin/CPEditorPanel.cpp,
@@ -2946,130 +3204,4 @@
 
 	* INSTALL: stronger suggestion to use max lyons version of panorama
 	  tools
-
-2003-11-11 09:08  dangelo
-
-	* src/: include/PT/Panorama.h, Panorama/Panorama.cpp: send
-	  panoramaChanged when dirty flag is reset
-
-2003-11-11 05:54  speare
-
-	* src/: hugin/Makefile, hugin/PanoDruid.cpp,
-	  hugin/PreviewFrame.cpp, include/PT/Panorama.h,
-	  include/hugin/PanoDruid.h, include/hugin/PreviewFrame.h: -
-	  reworked PanoDruid into its own class so it's easy to move
-	  somewhere else - reworked how Druid hints database is built,
-	  using goofy #define tricks,	not a perfect scheme, but keeps
-	  strings and code organized together - added a couple new Druid
-	  hints, and more placeholders - made pano.isDirty() a const member
-	  function
-
-2003-11-11 01:15  dangelo
-
-	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
-	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
-	  hugin/LensPanel.cpp, hugin/OptimizePanel.cpp,
-	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
-	  hugin/RunOptimizerFrame.cpp, hugin/RunStitcherFrame.cpp,
-	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
-	  include/common/stl_utils.h, include/hugin/wxPanoCommand.h,
-	  tests/panotools.cpp: - warning if optimized v < 1 degree.  -
-	  better vfov/hfov calculation, but height calculation for
-	  rectilinear and   cylindrical panos still wrong.  - focal length
-	  of portrait images should be handled well now.
-
-2003-11-10 03:42  speare
-
-	* src/hugin/RunStitcherFrame.cpp: - launches stitcher process at
-	  higher niceness on unixen;   should have no effect if user is
-	  drinking coffee, but will be nicer   if the user is multitasking
-	  elsewhere.
-
-2003-11-09 12:59  dangelo
-
-	* src/: hugin/PreviewFrame.cpp, Panorama/Panorama.cpp,
-	  hugin/PanoPanel.cpp, hugin/PreviewPanel.cpp,
-	  hugin/xrc/data/about.htm, include/common/math.h,
-	  include/hugin/PreviewPanel.h: - removed assertation in preview
-	  window - added plotting of outlines - added a 1 degree limit for
-	  HFOV/VFOV - added Ed to the about tab
-
-2003-11-09 02:24  dangelo
-
-	* src/: hugin/ImageOrientationFrame.cpp,
-	  hugin/ImageOrientationPanel.cpp, hugin/hugin_rc.rc,
-	  include/hugin/ImageOrientationPanel.h: stuff needed for win
-
-2003-11-09 02:16  dangelo
-
-	* src/hugin/: CPImageCtrl.cpp, MainFrame.cpp,
-	  xrc/cp_editor_panel.xrc, CPEditorPanel.cpp: - changed repaint
-	  behaviour of CPImageCtrl. hopefully it works on Win9X now...	-
-	  made fit to window the default
-
-2003-11-09 01:26  dangelo
-
-	* src/Panorama/PanoToolsInterface.cpp: also missing in pano12.dll
-
-2003-11-09 01:03  dangelo
-
-	* src/include/common/math.h: - FDiff2D -> Diff2D
-
-2003-11-09 01:03  dangelo
-
-	* utils/pta2hugin.py: - small python hack to convert PTAssember
-	  (V1.x) files to .pto files   readable by hugin
-
-2003-11-09 01:01  dangelo
-
-	* src/tests/: Makefile, panotools.cpp, transforms.cpp: - quick hack
-	  test cases, for the transform and remap stuff   not very nice
-
-2003-11-09 00:59  dangelo
-
-	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
-	  hugin/ImagesList.cpp, hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
-	  hugin/MainFrame.cpp, hugin/PanoPanel.cpp, hugin/PreviewPanel.cpp,
-	  hugin/TextKillFocusHandler.cpp, include/hugin/CPEditorPanel.h,
-	  include/hugin/ImageCache.h, include/hugin/ImagesPanel.h,
-	  include/hugin/LensPanel.h, include/hugin/PanoPanel.h,
-	  include/hugin/PreviewPanel.h,
-	  include/hugin/TextKillFocusHandler.h: - keys 1 and 0 set 100% or
-	  fit to window zoom mode - hopefully better handling of the input
-	  fields.    now enter will apply the settings, as does tab or a
-	  mouseclick	somewhere else. There are still some uneeded
-	  updates, but it    should be more reliable than before  - change
-	  default image cache limit to 100 MB
-
-2003-11-09 00:54  dangelo
-
-	* src/: Panorama/PanoToolsInterface.cpp,
-	  include/PT/PanoToolsInterface.h: - added missing
-	  SetCorrectionRadius function	  (isn't included in pano12.dll,
-	  but in libpano12.so, very strange)
-
-	  - Transform interface also support a version that can convert
-	  from/to image coords.  - Added my own remapping function, that
-	  only uses the pano tool coordinate transform	 functions. works
-	  with all image types supportable by vigra.  - calculation of
-	  image border & remapped image roi. could be improved for images
-	  going over the edges.
-
-2003-11-06 03:50  speare
-
-	* src/hugin/xrc/: optimize_panel.xrc, pano_panel.xrc: - another
-	  iteration to tweak the interfaces of optimizer and pano panels
-
-2003-11-05 04:51  speare
-
-	* src/hugin/xrc/anchor_orientation.xrc: - fixed minimum size for
-	  the anchor_orientation doodad,   may still be too small; needs
-	  some explanation too
-
-2003-11-05 04:48  speare
-
-	* src/hugin/xrc/: edit_script_dialog.xrc, images_panel.xrc,
-	  lens_panel.xrc, main_frame.xrc, optimize_panel.xrc,
-	  pano_panel.xrc: - reworded, rearranged and adjusted the dialog
-	  resources   for style and consistency
 
