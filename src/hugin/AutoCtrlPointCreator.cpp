@@ -89,7 +89,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                 "Or change the commandline with the registry/configfile hugin/Autopano/Args parameter\n"
                 "to fit your program or batchfile");
 
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPano/AutopanoExe","autopano.exe");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPano/AutopanoExe","");
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program"),
                          "", "",
@@ -103,7 +103,6 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             return;
         }
     }
-*/
 #else
     wxString autopanoExe = wxConfigBase::Get()->Read("/Autopano/AutopanoExe","run-autopano-sift.sh");
 #endif
