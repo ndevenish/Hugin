@@ -23,11 +23,11 @@ list</a> and elsewhere.</strong></p>
   This is a FAQ for hugin, and contains mostly hugin specific questions.
   General Panorama Tools FAQ's:
 </p>
-  <ul>
-    <li>
-      <a href="http://www.path.unimelb.edu.au/~dersch/FAQ.html">Panorama Tools FAQ</a> from Helmut Dersch.
-    </li>
-  </ul>
+<ul>
+  <li>
+    <a href="http://www.path.unimelb.edu.au/~dersch/FAQ.html">Panorama Tools FAQ</a> from Helmut Dersch.
+  </li>
+</ul>
 
 
 <h2><a name="top"> Questions </a> </h2>
@@ -50,6 +50,20 @@ list</a> and elsewhere.</strong></p>
     <a href="#cp_scroll">How do I scroll both images at the same time?</a>
   </li>
 </ul>
+
+<h3> Common problems encountered while creating a panorama</h3>
+<ul>
+  <li>
+    <a href="#problems_curvedhorizon">In my panorama the horizon is curved, how to straighten it?</a>
+  </li>
+  <li>
+    <a href="#problems_circledpano">When optimizing my 360 degree panorama it results in a circle instead of a hfov-360 panorama. How to make hugin recognize its a 360 degree one?</a>
+  </li>
+  <li>
+    <a href="#problmes_blackblends">There are dark blends between two images, how to remove them?</a>
+  </li>
+</ul>
+
 
 <h3> Panorama Postprocessing </h3>
 <ul>
@@ -153,6 +167,99 @@ list</a> and elsewhere.</strong></p>
   the mouse cursor
 </p>
 
+
+<h3> Common problems encountered while creating a panorama</h3>
+<h4><a href="#top" name="problems_curvedhorizon">In my panorama the horizon is curved, how to straighten it?</a></h4>
+<p>
+If the panorama looks nice but the horizon is curved, there are two ways to
+improve the image and straighten the horizon. First, try optimizing the view
+by selecting &quot;Positions and View&quot; as the optimization mode and run
+the optimizer afterwards. By clicking &quot;Calculate Field of View&quot; in
+the &quot;Stitcher&quot; tab and displaying the preview window afterwards you
+can check if the image has been improved.
+<br><br>
+If it is still curved, you have to add horizontal guide control points in the
+&quot;Control Points&quot; tab. What works best for me is to select the first
+image in the left half of the window and the image next to it in the right
+window, just as you do with normal control points. Then add a control point in
+some left part of the left image, where the horizon is. In the right image
+select a point on the horizon in the right part of the image. Once this point
+is added, change its type in the list below to &quot;horiz. Line&quot;, as
+displayed in the image below (the red circles in the left/right part of the
+left/right image). You might want to switch off the auto-add and auto-estimate
+options while doing this to avoid naggy dialogs while adding this guide
+points (which I forgot in this screenshot).
+	<center><img src="horiz-guide.jpg" alt="Hugin screenshot displaying
+		horizontal guide line between two images"></center>
+<br>
+Then, just cycle one image pair to the right and do the same thing. For some
+images where lots of buildings are you have to guess where the horizon is,
+but do not worry, you do not have to be that exact (and most people can guess
+the horizon quite well without seeing it, must be some kind of evolutional
+ability ;-).
+<br><br>
+Afterwards run the optimizer with the &quot;Positions and View&quot; setting,
+update the preview and check the result. For panoramas that have more than one
+horizontal line of images, you usually only have to set horizontal guides for
+one line.
+</p>
+<h4><a href="#top" name="problems_circledpano">When optimizing my 360 degree
+panorama it results in a circle instead of a hfov-360 panorama. How to make
+hugin recognize its a 360 degree one?</a></h4>
+<p>
+In some 360 degree panoramas you might encounter an optimization like this:
+<center><img src="problem-circle.jpg" alt="360 degree panorama invalidly
+optimized as circled pictures"></center>
+<br>
+
+This is not a bug, but a feature ;-) As the panorama tools can handle
+images in any orientation, once the optimizer has found a strong local
+minimum it might be unable to escape from it. The way of avoiding this
+is to guide the optimizer by giving rough picture estimates for the
+yaw values (as pointed out by <a href="http://www.postle.net/">Bruno
+Postle</a>). To do this, count how many pictures are in your horizon
+line. For images with a horizontal field of view of 40 degrees this
+might be 10-12 pictures, sometimes more. Then divide 360 by the
+number, for example lets assume you have 12 pictures in one horizontal
+line, so 360 / 12 = 30. In the &quot;Images&quot; tab enter the yaw
+values in increasing order. Be careful to do this in the right order,
+i.e. if you took your pictures from left to right, just add 30 to each
+yaw value, starting with 0 for the first picture, then 30, 60, 90,
+etc. This does not have to be very exact, its just there to avoid the
+optimizer stepping into a local minima it might not be able to escape
+from. If you have multiple horizontal lines of images, you can do this
+for the other lines as well right now or try without doing so and if
+it fails, redo it later. Be sure to save your .pto file before
+optimizing.
+
+<br><br>
+Now optimize using &quot;the Custom parameters below&quot; and clear the pitch
+and roll and view optimizations. For the &quot;yaw&quot; box, select every
+picture but the first. Then optimize. Now you should land at a pretty good
+first estimate, which you can check in the preview tab after updating the
+preview. With this rought estimate, you can apply the normal &quot;Position
+and View&quot; optimization now.
+<br><br>
+If it still has some circles, you can try to set and optimize the pitch, too.
+</p>
+<h4><a href="#top" name="problmes_blackblends">There are dark blends between
+two images, how to remove them?</a></h4>
+<p>
+If there are visible black zones between two source images in the final output
+image but they are not visible in the preview, the most likely reason for that
+is feathering happening with the black background. This occurs if two images
+overlap only slightly and the feather width is set to more pixels than the
+overlap. It happens because feathering happens inside the image boundary, up
+to 'feather size' pixels into the image. If there is no overlapping picture
+within this border, the feathering takes place between the black background
+and the picture, which makes the black background shine through the image. To
+change this, either: (a) decrease the feather size to below the overlapping
+amount, or (b) increase the overlap of the two pictures. While (a) is always
+possible if there is any overlapping, (b) should be considered while taking
+the pictures in the first place.
+</p>
+
+
 <h3> Panorama Postprocessing </h3>
 <h4><a href="#top" name="pano_gimp_layers">I want to use gimp to tweak the seams of my image, but gimp can't read the PSD?</a></h4>
 <p>
@@ -203,6 +310,7 @@ list</a> and elsewhere.</strong></p>
         </p>
     </li>
   </ol>
+
 
 <!--#include virtual="/ssi/homelink.html"-->
 
