@@ -7,6 +7,12 @@
 // gets used in more than one file.
 //--------------------------------------------------------------------------
 
+#ifndef _JHEAD_H_
+#define _JHEAD_H_
+
+#include <stdio.h>
+#include <limits.h>
+
 typedef unsigned char uchar;
 
 #ifndef TRUE
@@ -130,3 +136,6 @@ void ResetJpgfile(void);
 #define M_JFIF  0xE0            // Jfif marker
 #define M_EXIF  0xE1            // Exif marker
 #define M_COM   0xFE            // COMment
+
+
+#endif // _JHEAD_H_
