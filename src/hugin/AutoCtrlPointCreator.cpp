@@ -104,7 +104,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
 #else
-    wxString autopanoExe = wxConfigBase::Get()->Read("/Autopano/AutopanoExe","run-autopano-sift.sh");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/Autopano/AutopanoExe","autopano-complete.sh");
 #endif
 
     wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano/Args"," -o %o -p %p %i");
