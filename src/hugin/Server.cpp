@@ -18,8 +18,20 @@
  *  $Id$
  */
 
+#include <wx/wxprec.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+
+#ifndef WX_PRECOMP
+    #include <wx/wx.h>
+#endif
+
+#include <wx/filename.h>
+
 #include "hugin/Server.h"
 #include "hugin/huginApp.h"
+#include "hugin/MainFrame.h"
 
 // --------------------------------------------------------------------------
 // event tables and other macros for wxWindows
@@ -129,7 +141,11 @@ void Server::SendFilename( wxString filename )
     if ( Connected() ) {
       send = "";
     } else {
-      wxString viewer ("panoviewer ");
+      wxFileName pv ("../PanoImage/panoviewer");
+      wxString viewer ("panoviewer");
+      if ( pv.FileExists() ) // get panoviewer from sourcetree
+        viewer = pv.GetFullPath();
+      viewer.Append (" ");
       viewer.Append (filename);
 //      viewer.Append (" ");
       wxString p;

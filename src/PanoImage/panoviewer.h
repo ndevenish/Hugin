@@ -20,7 +20,8 @@ public:
 	// Preferences and options
 	void SetMouseFactor ( const int &f );
 	void SetResolution ( const int &r );
-	void SetControl ( const wxImage &c, wxMenu *m );
+//	void SetControl ( const wxImage &c, wxMenu *m );
+	void SetControl ( wxMenu *m );
 	void ShowControl ( bool show = TRUE );
 	
 	// Event handlers

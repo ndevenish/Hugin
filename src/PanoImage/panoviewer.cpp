@@ -5,6 +5,9 @@
 #include "filter.h"
 #include "panoviewextractor.h"
 #include "panoviewer.h"
+#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
+    #include "control_.xpm"
+#endif
 
 
 BEGIN_EVENT_TABLE(PanoViewer, wxPanel)
@@ -39,6 +42,16 @@ PanoViewer::PanoViewer ( wxWindow *parent, wxWindowID id,
 
 	// Dummy panorama
    pano = wxImage(200,200);
+
+        // Set control
+#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
+   wxBitmap c (control_);
+   control = c;
+#else
+   wxImage p;
+   p.LoadFile("control.bmp");
+   control = p.ConvertToBitmap();
+#endif
 
 }
 
@@ -231,10 +244,9 @@ void PanoViewer::SetResolution ( const int &r )
 }
 
 
-void PanoViewer::SetControl ( const wxImage &c, wxMenu *m )
+void PanoViewer::SetControl ( wxMenu *m ) // ( const wxImage &c, wxMenu *m )
 {
 	cmenu = m;
-	control = c.ConvertToBitmap();
 	Refresh(FALSE);
 }
 

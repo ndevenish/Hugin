@@ -57,9 +57,9 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 	pano1 = new PanoViewer(this, -1);
 
 	// Load our control
-   wxImage p;
-   p.LoadFile("control.bmp");
-   pano1->SetControl(p, menuView);
+/*   wxImage p;
+   p.LoadFile("control.bmp");*/
+   pano1->SetControl(menuView); // pano1->SetControl(p,menuView);
    pano1->SetResolution(300);
 
    isFullScreen = FALSE;
@@ -79,7 +79,7 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
    new wxStaticText(pref, -1, "High", wxPoint(270, 130));
 
     m_client = new Client();
-    // Do something with the arguments
+    // Do something with the arguments - statically
     if ( argc > 1 ) {
       DEBUG_INFO ( "argc = " << argc )
       wxString m_argv ( argv[1] );
@@ -99,11 +99,6 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
           }
         }
       }
-      
-      DEBUG_INFO ( "argv[0] " << argv[0] << m_argv)
-      DEBUG_INFO ( "argv[1] " << argv[1] << m_argv)
-      DEBUG_INFO ( "argv[2] " << argv[2] << m_argv)
-//      DEBUG_INFO ( "argv[3] " << argv[3] << m_argv)
     }
     
 }
