@@ -37,7 +37,7 @@ using namespace vigra;
 using namespace PT;
 using namespace std;
 
-void usage(char * name)
+static void usage(char * name)
 {
     cerr << name << ": stitch a panorama image, with bilinear interpolation" << endl
          << endl

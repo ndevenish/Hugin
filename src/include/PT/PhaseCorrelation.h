@@ -39,13 +39,14 @@
 namespace PT {
 
 // Calculate Phase Correlation
-FDiff2D phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv);
+FDiff2D phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv,
+              std::string filename = "");
 
 // Main Program
 template <class SrcImageIterator, class SrcAccessor>
 FDiff2D phaseCorrelation(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> current,
                          vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> previous,
-                         fftwnd_plan fftw_p, fftwnd_plan fftw_pinv)
+                         fftwnd_plan fftw_p, fftwnd_plan fftw_pinv, std::string filename="")
 {
 
   /* Initialisation *****************/
@@ -158,7 +159,7 @@ FDiff2D phaseCorrelation(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
 
   // Calculate Phase Correlation
 
-  FDiff2D transl = phase(fc, fp, wide, high, fftw_pinv);
+  FDiff2D transl = phase(fc, fp, wide, high, fftw_pinv, filename);
 
   // Free memory and finish
 

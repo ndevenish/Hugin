@@ -27,6 +27,7 @@
 */
 
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
@@ -47,7 +48,7 @@ static float rhei(fftw_complex *data, int nx, int ny, int px, int py);
 // Author     : Lyndon Hill
 // Last Change: 10.08.2001
 
-FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv)
+FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv, std::string filename)
 {
   int e, f;
   int dpos;
@@ -107,6 +108,26 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
     }
   }
 
+  // write out the fftw image, in numeric form
+  if (filename != "") {
+    ofstream of(filename.c_str());
+    of << "# name cres" << endl
+       << "# type: complex matrix" << endl
+       << "# rows: " << ny << endl
+       << "# columns: " << nx << endl;
+    of << scientific;
+
+    for(e = 0; e < ny; e++)
+    {
+      for(f = 0; f < nx; f++)
+      {
+        dpos = e+f*ny;
+        of << "(" << pcs[dpos].re << "," << pcs[dpos].im << ") ";
+      }
+      of << endl;
+    }
+  }
+  
   // Peak searching routine
 
   for(e = 0; e < ny; e++)

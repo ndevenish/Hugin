@@ -56,7 +56,24 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(shell wx-config --cxxflags)
-LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_unit_test_framework -lpano12 $(VIGRA_LFLAGS)
+LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
+
+# ====================================================================
+# The applications that should be build in this directory.
+#
+# ====================================================================
+
+ifeq ($(HAS_FULL_VIGRA),1)
+
+APPS = 1
+
+# App 1
+
+APP_1_BIN = phase_correlate
+APP_1_OBJ = phasecorrelation.o
+
+APP_1_LFLAGS = $(LFLAGS) -lfftw
+endif
 
 
 # ====================================================================
@@ -70,7 +87,7 @@ TESTS = 1 2 3 4 5
 # Defaults
 
 TEST_CFLAGS =   $(CFLAGS)
-TEST_LFLAGS =   $(LFLAGS)
+TEST_LFLAGS =   $(LFLAGS)  -lboost_unit_test_framework
 
 # Test 1
 

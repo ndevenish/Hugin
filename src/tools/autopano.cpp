@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
     KLTPrintTrackingContext(tc);
 
 
-    // select a starting yaw 
+    // select a starting yaw
     double currentImageYaw = - defaultHFOV *  (nImages/2.0) * (1.0-overlapFactor);
     // set yaw
     PT::Variable var("y",currentImageYaw);
@@ -262,6 +262,8 @@ int main(int argc, char *argv[])
         // estimate translation between images, using phase correlation
         // could be optimized by keeping fft of one image
 
+        Diff2D offset = Diff2D(firstImg->width() - overlap.x,
+                               firstImg->height() - overlap.y);
         // copy overlapping regions.
         // assume images where taken left -> right
         copyImage(firstImg->lowerRight() - overlap,
@@ -317,7 +319,7 @@ int main(int argc, char *argv[])
                     nTracked++;
                 }
             }
-            if (nTracked < nFeatures/3) {
+            if (nTracked < nFeatures/5) {
                 DEBUG_ERROR("image pair " << pair << ": only " << nTracked
                             << " features tracked. Seems like the phase correlation estimate was not true, or the projective distortion is too high");
             }
@@ -326,8 +328,8 @@ int main(int argc, char *argv[])
                 if (fl->feature[i]->val >=0) {
                     // add point pair
                     ControlPoint cp(pair%nImages,
-                                    flFirst->feature[i]->x + firstImg->width() - overlap.x,
-                                    flFirst->feature[i]->y + firstImg->height() - overlap.y,
+                                    flFirst->feature[i]->x + offset.x,
+                                    flFirst->feature[i]->y + offset.y,
                                     (pair+1)%nImages,
                                     fl->feature[i]->x, fl->feature[i]->y);
                     pano.addCtrlPoint(cp);
@@ -346,10 +348,20 @@ int main(int argc, char *argv[])
     fftwnd_destroy_plan(fftw_pinv);
 
     ofstream of(outputFile);
+    // try setting sensible options
     PanoramaOptions opts = pano.getOptions();
+    FDiff2D fov = pano.calcFOV();
+    opts.HFOV = fov.x;
+    opts.VFOV = fov.y;
+    if (opts.HFOV < 80 && opts.VFOV < 80) {
+        opts.projectionFormat = PanoramaOptions::RECTILINEAR;
+    } else {
+        opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    }
+
     opts.optimizeReferenceImage = nImages/2;
     OptimizeVector optvec(nImages);
-    // fill optimize vector
+    // fill optimize vector, just anchor one image.
     for (unsigned int i=0; i<nImages; i++) {
         if (i != opts.optimizeReferenceImage) {
             optvec[i].insert("y");

@@ -276,11 +276,11 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class KernelIterator, class KernelAccessor>
 CorrelationResult correlateImage_new(SrcIterator sul, SrcIterator slr, SrcAccessor as,
-                                 DestIterator dul, DestAccessor ad,
-                                 KernelIterator ki, KernelAccessor ak,
-                                 vigra::Diff2D kul, vigra::Diff2D klr,
-                                 double threshold = 0.7
-                                 )
+                                     DestIterator dul, DestAccessor ad,
+                                     KernelIterator ki, KernelAccessor ak,
+                                     vigra::Diff2D kul, vigra::Diff2D klr,
+                                     double threshold = 0.7
+                                    )
 {
     vigra_precondition(kul.x <= 0 && kul.y <= 0,
                  "convolveImage(): coordinates of "
@@ -391,6 +391,19 @@ CorrelationResult correlateImage_new(SrcIterator sul, SrcIterator slr, SrcAccess
     return res;
 }
 
+
+
+/** fit a polynom of second order though the 3x3 neighbourhood.
+ *
+ *  x = a_1*s^2 + b_1*s + c_1
+ *  y = a_2*t^2 + b_2*t + c_2
+ *
+ *
+ *  y1 = ax1^2 + bx1 + c;
+ *  y2 = ax2^2 + bx2 + c;
+ *  y3 = ax3^2 + bx3 + c;
+ *  
+ */
 
 
 
