@@ -298,7 +298,15 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         splash->Close();
     }
 #endif
+#ifdef DEBUG
+#ifdef __WXMSW__
 
+    freopen("c:\\hugin_stdout.txt", "w", stdout);    // redirect stdout to file
+    freopen("c:\\hugin_stderr.txt", "w", stderr);    // redirect stderr to file
+
+#endif
+#endif
+    
     DEBUG_TRACE("");
 }
 

@@ -49,7 +49,8 @@ SUBDIRS = xrc po
 # Files that should be considered while creating the dependencies
 # ====================================================================
 
-DEPEND_FILES = *.cpp
+DEPEND_FILES =
+#DEPEND_FILES = *.cpp
 
 # ====================================================================
 # special compiler and linker flags for this directory
