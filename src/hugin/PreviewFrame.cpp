@@ -171,10 +171,12 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 PreviewFrame::~PreviewFrame()
 {
     DEBUG_TRACE("dtor writing config");
-    wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write("/PreviewFrame/width",sz.GetWidth());
-    config->Write("/PreviewFrame/height",sz.GetHeight());
+    wxSize sz = GetClientSize();
+    if (! (this->IsMaximized() || this->IsIconized())) {
+        config->Write("/PreviewFrame/width",sz.GetWidth());
+        config->Write("/PreviewFrame/height",sz.GetHeight());
+    }
     bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
     config->Write("/PreviewFrame/autoUpdate", checked ? 1l: 0l);
     m_pano.removeObserver(this);
