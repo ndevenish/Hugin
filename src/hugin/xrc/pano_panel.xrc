@@ -230,6 +230,46 @@
                             <object class="wxBoxSizer">
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
+                                <object class="wxButton" name="pano_button_preview">
+                                  <label>Make preview</label>
+                                </object>
+                                <flag>wxTOP|wxEXPAND|wxGROW</flag>
+                                <border>5</border>
+                                <minsize>232,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="pano_cb_auto_preview">
+                                  <label>auto preview</label>
+                                  <checked>1</checked>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxStaticLine">
+                                  <style>wxLI_HORIZONTAL</style>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="pano_cb_panoviewer_enabled">
+                                      <label>panoviewer enabled</label>
+                                      <checked>0</checked>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="pano_cb_panoviewer_precise">
+                                      <label>precise</label>
+                                      <checked>0</checked>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                  </object>
+                                </object>
+                              </object>
+                              <object class="sizeritem">
                                 <object class="wxBoxSizer">
                                   <orient>wxHORIZONTAL</orient>
                                   <object class="sizeritem">
@@ -242,7 +282,7 @@
                                   </object>
                                   <object class="sizeritem">
                                     <object class="wxComboBox" name="pano_val_previewWidth">
-                                      <selection>1</selection>
+                                      <selection>4</selection>
                                       <style></style>
                                       <content>
                                         <item>128</item>
@@ -261,40 +301,6 @@
                                   </object>
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxButton" name="pano_button_preview">
-                                  <label>Make preview</label>
-                                </object>
-                                <flag>wxTOP|wxEXPAND|wxGROW</flag>
-                                <border>5</border>
-                                <minsize>232,20</minsize>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pano_cb_auto_preview">
-                                  <label>auto preview</label>
-                                  <checked>1</checked>
-                                </object>
-                                <flag>wxEXPAND|wxGROW</flag>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxBoxSizer">
-                                  <orient>wxHORIZONTAL</orient>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="pano_cb_panoviewer_enabled">
-                                      <label>panoviewer enabled</label>
-                                      <checked>1</checked>
-                                    </object>
-                                    <flag>wxEXPAND|wxGROW</flag>
-                                  </object>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="pano_cb_panoviewer_precise">
-                                      <label>precise</label>
-                                      <checked>0</checked>
-                                    </object>
-                                    <flag>wxEXPAND|wxGROW</flag>
-                                  </object>
-                                </object>
                               </object>
                             </object>
                           </object>

@@ -94,11 +94,11 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
 
-    void PreviewWidthChanged(wxCommandEvent & e);
     void DoPreview(wxCommandEvent & e);
-    void AutoPreview(wxCommandEvent & e);
+    void autoPreview(wxCommandEvent & e);
     void panoviewerEnabled(wxCommandEvent & e);
     void panoviewerPrecise(wxCommandEvent & e);
+    void previewWidthChanged(wxCommandEvent & e);
 
     void FinalFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);

@@ -77,9 +77,9 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
   EVT_COMBOBOX ( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
   EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
 
-  EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::PreviewWidthChanged )
+  EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::previewWidthChanged )
   EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
-  EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::AutoPreview )
+  EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::autoPreview )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
                                                PanoPanel::panoviewerEnabled )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_precise"),
@@ -115,7 +115,7 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     changePano = FALSE;
 
-    PreviewWidthChanged (e);
+    previewWidthChanged (e);
 
     pano->addObserver (this);
 
@@ -333,7 +333,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
     }*/
     DEBUG_INFO ( "" )
 }
-void PanoPanel::AutoPreview ( wxCommandEvent & e )
+void PanoPanel::autoPreview ( wxCommandEvent & e )
 {
     if ( XRCCTRL(*this, "pano_cb_auto_preview", wxCheckBox)
          ->IsChecked() ) {
@@ -458,7 +458,7 @@ void PanoPanel::PanoOptionsChanged ( void )
 //    ProjectionChanged (e);
     XRCCTRL(*this, "pano_choice_panoType", wxChoice)
                             ->SetSelection(opt.projectionFormat);
-//    PreviewWidthChanged (e);
+//    previewWidthChanged (e);
 //    FinalFormatChanged (e);
     lt = XRCCTRL(*this, "pano_choice_formatFinal", wxChoice)
                         ->FindString(opt.outputFormat.c_str());
@@ -497,13 +497,17 @@ void PanoPanel::PanoChanged ( wxCommandEvent & e )
     InterpolatorChanged (e);
     ProjectionChanged (e);
 
-    PreviewWidthChanged (e);
-
     FinalFormatChanged (e);
     WidthChanged (e);
     HeightChanged (e);
     JpegQChanged (e);
     JpegPChanged (e);
+
+    autoPreview (e);
+    panoviewerEnabled (e);
+    panoviewerPrecise (e);
+    previewWidthChanged (e);
+
 
     DEBUG_TRACE ( "" )
 }
@@ -589,7 +593,7 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
     }
 }
 // --
-void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
+void PanoPanel::previewWidthChanged ( wxCommandEvent & e )
 {
     if ( ! changePano ) {
       double * val = new double ();
