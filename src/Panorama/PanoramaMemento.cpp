@@ -352,23 +352,26 @@ struct ImgInfo
 {
 public:
     ImgInfo()
-      : a(0), b(0), c(0), d(0), e(0), g(0), t(0),
-        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
+      : v(0), a(0), b(0), c(0), d(0), e(0), g(0), t(0),
+        lv(-2), la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
         r(0), p(0), y(0),
         lr(-2), lp(-2), ly(-2),
+        f(-2),
         blend_radius(0), width(-1), height(-1)
     {
 
     }
 
     ImgInfo(const string & line)
-      : a(0), b(0), c(0), d(0), e(0), g(0), t(0),
-        la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
+      : v(0), a(0), b(0), c(0), d(0), e(0), g(0), t(0),
+        lv(-2), la(-2), lb(-2), lc(-2), ld(-2), le(-2), lg(-2), lt(-2),
         r(0), p(0), y(0),
         lr(-2), lp(-2), ly(-2),
+        f(-2),
         blend_radius(0), width(-1), height(-1)
     {
         getPTStringParam(filename, line, "n");
+        getPTDoubleParam(v, lv, line, "v");
         getPTDoubleParam(a, la, line, "a");
         getPTDoubleParam(b, lb, line, "b");
         getPTDoubleParam(c, lc, line, "c");
@@ -382,6 +385,9 @@ public:
         getPTDoubleParam(y, ly, line, "y");
 
         getParam(blend_radius, line, "u");
+        
+        // read lens type and hfov
+        getParam(f, line, "f");
 
         getPTStringParam(filename,line,"n");
         getParam(width, line, "w");
@@ -389,10 +395,11 @@ public:
     }
 
     string filename;
-    double a,b,c,d,e,g,t;
-    int la,lb,lc,ld,le,lg,lt;
+    double v,a,b,c,d,e,g,t;
+    int lv,la,lb,lc,ld,le,lg,lt;
     double r,p,y;
     int lr,lp,ly;
+    int f;
     int blend_radius;
     int width, height;
 
@@ -655,6 +662,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         // move parameters from o lines -> i (only if it isn't given in the
         // i lines. or it is linked on the o lines)
 
+        if (iImgInfo[i].lv == -2 && oImgInfo[i].lv != -2 || iImgInfo[i].lv == -1 && oImgInfo[i].lv >=0) {
+            DEBUG_DEBUG("v: o -> i");
+            iImgInfo[i].v = oImgInfo[i].v;
+            iImgInfo[i].lv = oImgInfo[i].lv;
+        }
+        
         if (iImgInfo[i].la == -2 && oImgInfo[i].la != -2 || iImgInfo[i].la == -1 && oImgInfo[i].la >=0) {
             DEBUG_DEBUG("a: o -> i");
             iImgInfo[i].a = oImgInfo[i].a;
@@ -724,9 +737,15 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             DEBUG_DEBUG("width: o -> i");
             iImgInfo[i].width = oImgInfo[i].width;
         }
+        
         if (iImgInfo[i].height <= 0 && oImgInfo[i].height > 0) {
             DEBUG_DEBUG("height: o -> i");
             iImgInfo[i].height = oImgInfo[i].height;
+        }
+
+        if (iImgInfo[i].f < 0 && oImgInfo[i].f > 0) {
+            DEBUG_DEBUG("height: o -> i");
+            iImgInfo[i].f = oImgInfo[i].f;
         }
 
         if (nCLines == nImgs) {
@@ -772,6 +791,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             link = iImgInfo[i].la;
         } else {
             DEBUG_DEBUG("a not linked");
+        }
+
+        map_get(vars,"v").setValue(iImgInfo[i].v);
+        DEBUG_ASSERT(link <0 || iImgInfo[i].lv < 0 || link == iImgInfo[i].lv);
+        if (iImgInfo[i].lv >= 0) {
+            link = iImgInfo[i].lv;
         }
 
         map_get(vars,"b").setValue(iImgInfo[i].b);
@@ -885,9 +910,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
 
         DEBUG_DEBUG("lensNr after scanning " << lensNr);
-        int lensProjInt;
-        getParam(lensProjInt, line, "f");
-        l.projectionFormat = (Lens::LensProjectionFormat) lensProjInt;
+        l.projectionFormat = (Lens::LensProjectionFormat) iImgInfo[i].f;
 
         if (lensNr != -1) {
     //                lensNr = images[anchorImage].getLensNr();
