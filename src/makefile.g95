@@ -27,6 +27,7 @@ OBJECTS = Panorama/PanoImage.o  \
           hugin/PanoToolsInterface.o \
           hugin/PreviewPanel.o \
           hugin/PreviewFrame.o \
+          hugin/ImageCenter.o \
           hugin/CPListFrame.o \
           hugin/Server.o \
           hugin/huginApp.o \

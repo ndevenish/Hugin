@@ -301,25 +301,20 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
 
 void LensPanel::SetCenter ( wxCommandEvent & e )
 {
-    wxLogError("temporarily disabled");
-#if 0
+//    wxLogError("temporarily disabled");
     const UIntSet & selected = images_list->GetSelected();
     if (selected.size() > 0) {
-        unsigned int first = *(selected.begin());
-        DEBUG_TRACE ("");
-// temporarily disabled center panel
-        ImgCenter *dlg = new ImgCenter((wxWindow*)this, wxDefaultPosition, wxDefaultSize, pano, &first);
+        ImgCenter *dlg = new ImgCenter((wxWindow*)this, wxDefaultPosition, wxDefaultSize, pano, selected);
 
         // show an image preview
-        wxImage img = ImageCache::getInstance().getImage(
-            pano.getImage(first).getFilename());
-        dlg->ChangeView(img);
+        wxImage * img = ImageCache::getInstance().getImage(
+            pano.getImage(*(selected.begin())).getFilename());
+        dlg->ChangeView(*img);
         dlg->CentreOnParent ();
         dlg->Refresh();
         dlg->Show();
     }
     DEBUG_TRACE ("")
-#endif
 }
 
 

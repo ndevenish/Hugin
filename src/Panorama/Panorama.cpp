@@ -782,9 +782,10 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
 void Panorama::changeFinished()
 {
     bool forceImagesUpdate = false;
-    if (state.images.size() == 0 && changedImages.size() > 0) {
+    if (state.images.size() == 0) {
         // force an empty update if all images have been
         // removed
+        DEBUG_DEBUG("forcing images update, with no images");
         forceImagesUpdate = true;
     }
     // remove change notification for nonexisting images from set.

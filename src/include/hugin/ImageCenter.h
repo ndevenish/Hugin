@@ -33,8 +33,6 @@
 //#include "hugin/MainFrame.h"
 //#include "hugin/List.h"
 
-using namespace PT;
-
 class CenterCanvas;
 
 /** adjustment dialog
@@ -43,14 +41,14 @@ class CenterCanvas;
 class ImgCenter: public wxDialog
 {
  public:
-    ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, unsigned int* i );
+    ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
     ~ImgCenter(void) ;
 
     /** select the preview image */
     void ChangeView ( wxImage & s_img );
 
  private:
-    Panorama &pano;
+    PT::Panorama &pano;
 
     void FitParent ( wxSizeEvent & e );
 
@@ -69,7 +67,7 @@ class ImgCenter: public wxDialog
 class CenterCanvas: public wxPanel
 {
  public:
-    CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, unsigned int* i );
+    CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
     ~CenterCanvas(void) ;
 
     /** Here we select the preview image */
@@ -84,7 +82,7 @@ class CenterCanvas: public wxPanel
     void OnMouse ( wxMouseEvent & event );
 
     /** the model */
-    Panorama &pano;
+    PT::Panorama &pano;
 
     // the image to adjust ( full scale )
     wxImage img;
@@ -108,7 +106,8 @@ class CenterCanvas: public wxPanel
     int old_m_x;
     int old_m_y;
 
-    unsigned int *imgNr;
+//    unsigned int *imgNr;
+    PT::UIntSet imgNr;
 
     DECLARE_EVENT_TABLE()
 };

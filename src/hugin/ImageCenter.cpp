@@ -44,8 +44,11 @@
 #include "PT/Panorama.h"
 
 #include "common/utils.h"
+#include "common/stl_utils.h"
+
 using namespace PT;
 using namespace utils;
+using namespace std;
 
 BEGIN_EVENT_TABLE(ImgCenter, wxDialog)
     EVT_SIZE   ( ImgCenter::FitParent )
@@ -54,14 +57,14 @@ BEGIN_EVENT_TABLE(ImgCenter, wxDialog)
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
-ImgCenter::ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, unsigned int* i )//UIntSet& i)
+ImgCenter::ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, const UIntSet& i)
   : wxDialog(parent, -1, _("Center dialog"), pos, size, wxRESIZE_BORDER),
     pano(pano)
 {
     DEBUG_TRACE("");
     wxTheXmlResource->LoadPanel(this, wxT("image_center_dialog"));
 
-    c_canvas = new CenterCanvas ((wxWindow*)this, 
+    c_canvas = new CenterCanvas ((wxWindow*)this,
                XRCCTRL(*this, "image_center_view", wxPanel)->GetPosition(),
                XRCCTRL(*this, "image_center_view", wxPanel)->GetSize(), pano,i);
 
@@ -128,10 +131,9 @@ BEGIN_EVENT_TABLE(CenterCanvas, wxPanel)
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
-CenterCanvas::CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, unsigned int* i )
-  : wxPanel(parent, -1, pos, size, wxALL|wxRESIZE_BORDER|wxGROW|wxEXPAND),
-    pano(pano),
-    imgNr(i)
+CenterCanvas::CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama& pano, const UIntSet & imgs)
+  : wxPanel(parent, -1, pos, size, wxALL|wxRESIZE_BORDER | wxMINIMIZE_BOX | wxMAXIMIZE_BOX),
+    pano(pano), imgNr(imgs)
 {
     DEBUG_TRACE("");
 
@@ -192,23 +194,22 @@ void CenterCanvas::Resize( wxSizeEvent & e )
       wxBrush brush = memDC.GetBrush ();
       brush.SetStyle (wxTRANSPARENT);
       memDC.SetBrush (brush);
-      memDC.SetLogicalFunction (wxINVERT); 
+      memDC.SetLogicalFunction (wxINVERT);
       // draw text without background
       memDC.SetBackgroundMode (wxTRANSPARENT);
 
       DEBUG_TRACE ("")
       // We have to work on several images.
-#if 0
       for(UIntSet::iterator it = imgNr.begin(); it != imgNr.end(); ++it) {
         unsigned int imageNr = *it;
-#endif
+#if 0
       for(unsigned int i = 1; i <= imgNr[0]; i++) {
         unsigned int imageNr = imgNr[i];
-        DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1], imgNr[2], imgNr[3], imgNr[4]) )
-        DEBUG_INFO ( "imageNr = "<< imageNr <<" i="<< i )
-        ImageVariables new_var = pano.getVariable(imageNr);
-        pt_d = new_var. d .getValue();
-        pt_e = new_var. e .getValue();
+#endif
+        DEBUG_INFO ( "imageNr = "<< imageNr);
+        const VariableMap & new_var = pano.getImageVariables(imageNr);
+        pt_d = const_map_get(new_var,"d").getValue();
+        pt_e = const_map_get(new_var,"e").getValue();
         DEBUG_INFO( "image("<< imageNr <<") with d/e: "<< pt_d <<"/"<< pt_e );
         // paint a cross / text with values
         int c = 8; // size of midpoint cross
@@ -237,16 +238,15 @@ void CenterCanvas::OnPaint(wxDC & dc)
 {
     if ( img.Ok() )
     {
-      wxPaintDC paintDC( this );
+        wxPaintDC paintDC( this );
 
-      wxMemoryDC memDC;
-      memDC.SelectObject(c_img);
+        wxMemoryDC memDC;
+        memDC.SelectObject(c_img);
 
 //      DEBUG_INFO( "Width "<< img.GetWidth() <<" Height "<<img.GetHeight());
-      paintDC.Blit(0, 0, c_img.GetWidth(), c_img.GetHeight(), & memDC,
-                   0, 0, wxCOPY, TRUE);
-
-      memDC.SelectObject(wxNullBitmap);
+        paintDC.Blit(0, 0, c_img.GetWidth(), c_img.GetHeight(), & memDC,
+                     0, 0, wxCOPY, TRUE);
+        memDC.SelectObject(wxNullBitmap);
     }
 }
 
@@ -261,8 +261,8 @@ void CenterCanvas::ChangeView ( wxImage & s_img )
     DEBUG_TRACE("");
 }
 
-#define MAX(a,b) ( ( a > b ) ? a : b)
-#define MIN(a,b) ( ( a < b ) ? a : b)
+//#define MAX(a,b) ( ( a > b ) ? a : b)
+//#define MIN(a,b) ( ( a < b ) ? a : b)
 
 void CenterCanvas::OnMouse ( wxMouseEvent & e )
 {
@@ -273,7 +273,7 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
     bool isSetting = false;
     if ( e.m_leftDown )
       isSetting = true;
-    
+
 
     // set drawing variables
     if ( isSetting && !isDrag ) {
@@ -323,13 +323,13 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
 
     if ( first_is_set ) {
           // vertical and horicontal distance between two mouse clicks
-          dist_x = (MAX(s_x,first_x)-MIN(s_x,first_x))/2;
-          dist_y = (MAX(s_y,first_y)-MIN(s_y,first_y))/2;
+          dist_x = (max(s_x,first_x)-min(s_x,first_x))/2;
+          dist_y = (max(s_y,first_y)-min(s_y,first_y))/2;
           // vertical and horicontal middle point between two mouse clicks
-          mid_x = MIN(s_x,first_x) + dist_x;
-          mid_y = MIN(s_y,first_y) + dist_y;
+          mid_x = min(s_x,first_x) + dist_x;
+          mid_y = min(s_y,first_y) + dist_y;
           // half distance between two mouse clicks
-          radius = (int)sqrt(dist_x*dist_x + dist_y*dist_y);
+          radius = (int)std::sqrt((float)dist_x*dist_x + dist_y*dist_y);
     }
 
 
@@ -351,17 +351,17 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                  0, 0, wxCOPY, FALSE);
 
       // need to cover the whole circle
-/*      memDC.Blit( MIN(first_x,second_x),  MIN(first_y,second_y), 
-                    MAX(first_x, second_x) - MIN(first_x, second_x),
-                    MAX(first_y,second_y) - MIN(first_y,second_y),
+/*      memDC.Blit( min(first_x,second_x),  min(first_y,second_y),
+                    MAX(first_x, second_x) - min(first_x, second_x),
+                    MAX(first_y,second_y) - min(first_y,second_y),
                     & sourceDC,
-                    MIN(first_x,second_x),  MIN(first_y,second_y), wxCOPY, FALSE);
-*///      DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" w/h"<<first_x <<"x"<< first_y <<" center"<< second_x <<"x"<< second_y <<" min_pos"<< MIN(first_x,second_x) <<"x"<< MIN(first_y,second_y) <<" size"<< MAX(first_x, second_x) - MIN(first_x, second_x) <<"x"<< MAX(first_y,second_y) - MIN(first_y,second_y) )
+                    min(first_x,second_x),  min(first_y,second_y), wxCOPY, FALSE);
+*///      DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" w/h"<<first_x <<"x"<< first_y <<" center"<< second_x <<"x"<< second_y <<" min_pos"<< min(first_x,second_x) <<"x"<< min(first_y,second_y) <<" size"<< MAX(first_x, second_x) - min(first_x, second_x) <<"x"<< MAX(first_y,second_y) - min(first_y,second_y) )
       sourceDC.SelectObject(wxNullBitmap);
 #else
-      wxRect rect ( MIN(first_x,second_x), MIN(first_y,second_y),
-                    MAX(first_x,second_x)-MIN(first_x,second_x),
-                    MAX(first_y,second_y)-MIN(first_y,second_y));
+      wxRect rect ( min(first_x,second_x), min(first_y,second_y),
+                    max(first_x,second_x)-min(first_x,second_x),
+                    max(first_y,second_y)-min(first_y,second_y));
 
       Refresh (TRUE,&rect);
 #endif
@@ -371,7 +371,7 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
       wxBrush brush = memDC.GetBrush ();
       brush.SetStyle (wxTRANSPARENT);
       memDC.SetBrush (brush);
-      memDC.SetLogicalFunction (wxINVERT); 
+      memDC.SetLogicalFunction (wxINVERT);
       // draw text without background
       memDC.SetBackgroundMode (wxTRANSPARENT);
       // draw an diagonal line
@@ -413,26 +413,21 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
 void CenterCanvas::ChangePano ( void )
 {
     DEBUG_TRACE("");
-    if ( imgNr[0] > 0 ) { // dont work on an empty image
-      // we ask for each images Lens
-      Lens new_Lens;
-      UIntSet lensesNr;
-      LensVector lenses;
-      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-        lensesNr.insert(imgNr[i]);
-        new_Lens = pano.getLens(imgNr[i]);
-        // set values
-        new_Lens.d = pt_d;
-        new_Lens.e = pt_e;
+    if (imgNr.size() > 0) {
+        VariableMapVector vars(imgNr.size());
+        int i=0;
+        for(UIntSet::iterator it = imgNr.begin(); it != imgNr.end(); ++it) {
+            DEBUG_INFO( "setting shift for image "<< *it );
+            vars[i] = pano.getImageVariables(*it);
+            map_get(vars[i],"d").setValue(pt_d);
+            map_get(vars[i],"e").setValue(pt_e);
+            i++;
+        }
 
-        lenses.insert (lenses.begin(), new_Lens);
-        DEBUG_INFO( "shift for image "<< imgNr[i] );
-      }
-
-      // go into the history
-      GlobalCmdHist::getInstance().addCommand(
-          new PT::ChangeLensesCmd( pano, lensesNr, lenses )
-          );
+        // go into the history
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateImagesVariablesCmd( pano, imgNr, vars )
+            );
     }
     DEBUG_INFO( "shift d/e "<< pt_d <<"/"<< pt_e );
 }

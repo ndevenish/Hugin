@@ -104,6 +104,7 @@ APP_1_OBJ = \
             PanoPanel.o \
 	    PreviewFrame.o \
 	    PreviewPanel.o \
+	    ImageCenter.o \
 	    OptimizeFrame.o \
 	    RunOptimizerFrame.o \
 	    RunStitcherFrame.o \

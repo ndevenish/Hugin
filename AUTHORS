@@ -1,6 +1,11 @@
 Main author: Pablo d'Angelo <pablo.dangelo@web.de>
 authors: gui, panoviewer adds: Kai-Uwe Behrmann <ku.b@gmx.de>
          packaging, layout +++: Bruno Postle
-         wxPanoViewer: Ben Allfree
+         wxPanoViewer: Ben Allfree, Helmut Dersch
 Thanks to Nils Lagerkvist for suggesting the program name, hugin
+
+This package also includes a code from
+VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
+and
+jhead: http://www.sentex.net/~mwandel/jhead/
 

@@ -321,7 +321,8 @@ public:
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),progressive(true),
           colorCorrection(NONE), colorReferenceImage(0),
-          gamma(1.0), interpolator(POLY_3)
+          gamma(1.0), interpolator(POLY_3),
+          optimizeReferenceImage(0)
         {};
 
     void reset()
@@ -334,6 +335,7 @@ public:
             progressive = false;
             colorCorrection = NONE;
             colorReferenceImage = 0;
+            optimizeReferenceImage = 0;
             gamma = 1.0;
             interpolator = POLY_3;
         }
@@ -382,6 +384,7 @@ public:
     double gamma;
     Interpolator interpolator;
 
+    unsigned int optimizeReferenceImage;
 
 private:
     static const std::string fileformatNames[];
@@ -445,7 +448,7 @@ private:
     // FIXME support lenses
     std::vector<Lens> lenses;
     PanoramaOptions options;
-    
+
     OptimizeVector optvec;
 
 };
