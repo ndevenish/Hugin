@@ -101,6 +101,14 @@ public:
     void DoPreview(wxCommandEvent & e);
     void DoCalcFOV(wxCommandEvent & e);
 
+    /** set the highest sensible width
+     *
+     *  calculate average pixel density of each image
+     *  and use the highest one to calculate the width
+     *
+     */
+    void DoCalcOptimalWidth(wxCommandEvent & e);
+
 
     // the model
     Panorama &pano;
@@ -127,7 +135,7 @@ public:
     wxCheckBox  * m_PreviewPanoviewerCB;
     wxButton    * m_PreviewButton;
 
-    wxComboBox  * m_WidthCombo;
+    wxTextCtrl  * m_WidthCombo;
     wxStaticText *m_HeightStaticText;
     wxChoice    * m_FormatChoice;
     wxButton    * m_StitchButton;

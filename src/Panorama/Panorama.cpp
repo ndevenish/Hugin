@@ -152,7 +152,8 @@ Panorama::Panorama()
     : currentProcess(NO_PROCESS),
       optimizerExe("PTOptimizer"),
       stitcherExe("PTStitcher"),
-      PTScriptFile("PT_script.txt")
+      PTScriptFile("PT_script.txt"),
+      m_forceImagesUpdate(false)
 {
     cerr << "Panorama obj created" << endl;
 /*
@@ -506,6 +507,7 @@ void Panorama::removeImage(unsigned int imgNr)
     for (unsigned int i=imgNr; i < state.images.size(); i++) {
         imageChanged(i);
     }
+    m_forceImagesUpdate = true;
 }
 
 
@@ -781,12 +783,11 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
 
 void Panorama::changeFinished()
 {
-    bool forceImagesUpdate = false;
     if (state.images.size() == 0) {
         // force an empty update if all images have been
         // removed
         DEBUG_DEBUG("forcing images update, with no images");
-        forceImagesUpdate = true;
+        m_forceImagesUpdate = true;
     }
     // remove change notification for nonexisting images from set.
     UIntSet::iterator uB = changedImages.lower_bound(state.images.size());
@@ -799,13 +800,14 @@ void Panorama::changeFinished()
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
         DEBUG_TRACE("notifying listener");
-        if (changedImages.size() > 0 || forceImagesUpdate) {
+        if (changedImages.size() > 0 || m_forceImagesUpdate) {
             (*it)->panoramaImagesChanged(*this, changedImages);
         }
         (*it)->panoramaChanged(*this);
     }
     // reset changed images
     changedImages.clear();
+    m_forceImagesUpdate = false;
     DEBUG_TRACE("end");
 }
 

@@ -147,7 +147,9 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_list_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("optimizer_edit_dialog.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_stitcher_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));

@@ -44,14 +44,24 @@
 #include "common/utils.h"
 #include "common/stl_utils.h"
 
+#include "hugin/CommandHistory.h"
+#include "PT/PanoCommand.h"
+
 
 // a random id, hope this doesn't break something..
+#define ID_UPDATE_BUTTON 12333
 #define ID_TOGGLE_BUT 12334
 
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_CLOSE(PreviewFrame::OnClose)
-    EVT_CHECKBOX(-1, PreviewFrame::OnAutoPreviewToggle)
-    EVT_BUTTON(-1, PreviewFrame::OnUpdateButton)
+//    EVT_CHECKBOX(-1, PreviewFrame::OnAutoPreviewToggle)
+    EVT_BUTTON(ID_UPDATE_BUTTON, PreviewFrame::OnUpdateButton)
+    EVT_TOOL(XRCID("preview_center_tool"), PreviewFrame::OnCenterHorizontally)
+    EVT_TOOL(XRCID("preview_fit_pano_tool"), PreviewFrame::OnFitPano)
+    EVT_TOOL(XRCID("preview_auto_update_tool"), PreviewFrame::OnAutoPreviewToggle)
+    EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdateButton)
+    EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
+    EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
     EVT_TOGGLEBUTTON(-1,PreviewFrame::OnChangeDisplayedImgs)
 END_EVENT_TABLE()
 
@@ -62,6 +72,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 {
 //    SetTitle(_("panorama preview"));
     SetAutoLayout(TRUE);
+
+    m_ToolBar = wxXmlResource::Get()->LoadToolBar(this, wxT("preview_toolbar"));
+    DEBUG_ASSERT(m_ToolBar);
+    // create tool bar
+    SetToolBar(m_ToolBar);
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
 
@@ -80,6 +95,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxALL,    // draw border all around
                   5);       // border width
 
+#if 0
     wxBoxSizer *ctrlSizer = new wxBoxSizer( wxHORIZONTAL );
 
     m_autoCB = new wxCheckBox(this, -1, _("auto update"));
@@ -90,7 +106,10 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   5);       // border width
 
     // create the update button
-    wxButton *m_updatePreview = new wxButton(this,-1, _("Update Preview"),wxDefaultPosition);
+    wxButton *m_updatePreview = new wxButton(this,
+                                             ID_UPDATE_BUTTON,
+                                             _("Update Preview"),
+                                             wxDefaultPosition);
 
     ctrlSizer->Add(m_updatePreview,
                   0,        // not horizontally stretchable
@@ -100,7 +119,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // don't allow frame to get smaller than what the sizers tell it and also set
     topsizer->Add(ctrlSizer, 0, wxEXPAND, 0);
-
+#endif
 
     // the initial size as calculated by the sizers
     topsizer->SetSizeHints( this );
@@ -117,7 +136,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     long aup = config->Read("/PreviewFrame/autoUpdate",0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
-    m_autoCB->SetValue(aup != 0);
+    
+    m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
+        
 }
 
 PreviewFrame::~PreviewFrame()
@@ -127,9 +148,25 @@ PreviewFrame::~PreviewFrame()
     wxConfigBase * config = wxConfigBase::Get();
     config->Write("/PreviewFrame/width",sz.GetWidth());
     config->Write("/PreviewFrame/height",sz.GetHeight());
-    config->Write("/PreviewFrame/autoUpdate", (m_autoCB->IsChecked() ? 1l: 0l));
+    bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
+    config->Write("/PreviewFrame/autoUpdate", checked ? 1l: 0l);
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
+}
+
+void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
+{
+    int id = e.GetId() - ID_TOGGLE_BUT;
+    if (id >= 0 && id < (int) m_ToggleButtons.size()) {
+        if (e.IsChecked()) {
+            m_displayedImgs.insert(id);
+        } else {
+            m_displayedImgs.erase(id);
+        }
+        m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+    } else {
+        DEBUG_ERROR("invalid Togglebutton ID");
+    }
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -151,7 +188,8 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         dirty = true;
     }
 
-    // update existing items
+    // update existing itemsvoid PreviewFrame::OnFitPano(wxCommandEvent & e)
+
     if ( nrImages >= nrButtons ) {
         for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
@@ -185,20 +223,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
 }
 
-void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
-{
-    int id = e.GetId() - ID_TOGGLE_BUT;
-    if (id >= 0 && id < (int) m_ToggleButtons.size()) {
-        if (e.IsChecked()) {
-            m_displayedImgs.insert(id);
-        } else {
-            m_displayedImgs.erase(id);
-        }
-        m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
-    } else {
-        DEBUG_ERROR("invalid Togglebutton ID");
-    }
-}
 
 void PreviewFrame::OnClose(wxCloseEvent& event)
 {
@@ -219,8 +243,63 @@ void PreviewFrame::OnAutoPreviewToggle(wxCommandEvent & e)
     m_PreviewPanel->SetAutoUpdate(e.IsChecked());
 }
 
+void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
+{
+    VariableMapVector vars = m_pano.getVariables();
+    VariableMapVector::iterator it;
+    double min = 1000;
+    double max = -1000;
+    for(it = vars.begin(); it != vars.end(); it++) {
+        double val = map_get(*it,"y").getValue();
+        if (val < min) min = val;
+        if (val > max) max = val;
+    }
+    double shift = min + (max-min)/2;
+    for(it = vars.begin(); it != vars.end(); it++) {
+        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - shift);
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateVariablesCmd(m_pano, vars)
+        );
+}
 
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
+}
+
+void PreviewFrame::OnFitPano(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    PanoramaOptions opt = m_pano.getOptions();
+
+    opt.HFOV = (int) m_pano.calcHFOV() + 1;
+    opt.VFOV = (int) m_pano.calcVFOV() + 1;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( m_pano, opt )
+        );
+
+    DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
+
+}
+
+void PreviewFrame::OnShowAll(wxCommandEvent & e)
+{
+    DEBUG_ASSERT(m_pano.getNrOfImages() != m_ToggleButtons.size());
+    for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
+        m_displayedImgs.insert(i);
+        m_ToggleButtons[i]->SetValue(true);
+    }
+    m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+}
+
+void PreviewFrame::OnShowNone(wxCommandEvent & e)
+{
+    DEBUG_ASSERT(m_pano.getNrOfImages() != m_ToggleButtons.size());
+    for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
+        m_ToggleButtons[i]->SetValue(false);
+    }
+    m_displayedImgs.clear();
+    m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
 }

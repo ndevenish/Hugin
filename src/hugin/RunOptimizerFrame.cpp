@@ -43,6 +43,7 @@
 #include "wx/process.h"
 #include "wx/txtstrm.h"
 #include "wx/config.h"
+#include "wx/dialog.h"
 #include "wx/file.h"
 
 #include <string>
@@ -74,7 +75,8 @@ END_EVENT_TABLE()
 RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
                                      Panorama * pano,
                                      const PanoramaOptions & options,
-                                     const OptimizeVector & optvars)
+                                     const OptimizeVector & optvars,
+                                     bool edit)
     : m_pid(-1),
       m_in(0),
       m_pano(pano),
@@ -93,8 +95,23 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     m_optimizer_result_text = XRCCTRL(*this, "optimizer_result_text", wxStaticText);
     assert(m_optimizer_result_text);
 
+    stringstream script_stream;
+    m_pano->printOptimizerScript(script_stream, optvars, options);
+    std::string script(script_stream.str());
+    if (edit) {
+        // open a text dialog with an editor inside
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "optimizer_edit_dialog");
+        wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"optimizer_edit_text",wxTextCtrl);
+        txtCtrl->SetValue(script.c_str());
 
-    // start PTOptimizer process
+        if (edit_dlg->ShowModal() == wxID_OK) {
+            script = txtCtrl->GetValue();
+        } else {
+            script = script_stream.str();
+        }
+    } else {
+        script = script_stream.str();
+    }
 
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
@@ -116,9 +133,9 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
 #endif
     wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
-    std::ofstream script(PTScriptFile.c_str());
-    m_pano->printOptimizerScript(script, optvars, options);
-    script.close();
+    std::ofstream scriptfile(PTScriptFile.c_str());
+    scriptfile << script;
+    scriptfile.close();
 
     wxString cmd(optimizerExe + " " + PTScriptFile);
 
@@ -133,7 +150,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     if (m_pid <= 0 )
     {
         wxLogError(_T("Failed to launch the PTOptimizer."));
-        
+
         return;
     }
 

@@ -3,104 +3,45 @@
   <object class="wxDialog" name="text_edit_dialog">
     <title>Text mode</title>
     <centered>1</centered>
-    <object class="wxFlexGridSizer">
-      <cols>2</cols>
+    <object class="wxBoxSizer">
       <object class="sizeritem">
         <object class="wxTextCtrl">
-          <size>500,350</size>
-          <style></style>
+          <style>wxTE_MULTILINE</style>
         </object>
+        <option>1</option>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
       </object>
       <object class="sizeritem">
-        <object class="wxFlexGridSizer">
-          <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
-              <orient>wxVERTICAL</orient>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Line Nr.</label>
-                </object>
-                <flag>wxTOP|wxEXPAND|wxGROW|wxSHAPED</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl">
-                  <value>0</value>
-                  <style>wxTE_READONLY</style>
-                </object>
-                <flag>wxBOTTOM</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="wxID_OK">
-                  <label>Settings OK</label>
-                </object>
-                <flag>wxTOP|wxBOTTOM</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="wxID_CHANCEL">
-                  <label>Close</label>
-                </object>
-                <flag>wxTOP|wxBOTTOM</flag>
-                <border>5</border>
-              </object>
-              <label>Editor in expert mode</label>
-            </object>
-            <flag>wxALL|wxEXPAND|wxGROW</flag>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>0,0</size>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
-              <orient>wxVERTICAL</orient>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>This text describes the</label>
-                </object>
-                <flag>wxTOP|wxRIGHT</flag>
-                <border>5</border>
-              </object>
-              <label>Messages</label>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>current status of project.</label>
-                </object>
-                <flag>wxBOTTOM|wxRIGHT</flag>
-                <border>5</border>
-              </object>
-              <object class="spacer">
-                <size>12,12</size>
-                <flag>wxTOP|wxBOTTOM</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>First error:</label>
-                </object>
-                <flag>wxTOP|wxGROW</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl">
-                  <style>wxTE_MULTILINE</style>
-                </object>
-                <flag>wxEXPAND|wxGROW</flag>
-                <border>5</border>
-                <minsize>-1,120</minsize>
-              </object>
+            <object class="wxButton" name="wxID_OK">
+              <label>Optimize</label>
             </object>
-            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <flag>wxALL</flag>
+            <border>5</border>
           </object>
-          <cols>1</cols>
-          <rows>2</rows>
-          <growablerows>1</growablerows>
+          <object class="sizeritem">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+            <flag>wxALL</flag>
+            <border>5</border>
+          </object>
+          <object class="spacer">
+            <size>0,0</size>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
         </object>
-        <flag>wxALL|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-        <border>5</border>
+        <flag>wxALL|wxEXPAND|wxGROW</flag>
       </object>
-      <growablecols>0</growablecols>
-      <growablecols>1</growablecols>
-      <growablerows>0</growablerows>
-      <growablerows>1</growablerows>
+      <orient>wxVERTICAL</orient>
     </object>
     <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODAL|wxRESIZE_BORDER|wxRESIZE_BOX|wxTAB_TRAVERSAL</style>
   </object>

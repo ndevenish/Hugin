@@ -87,8 +87,9 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
                                                PanoPanel::PanoviewerEnabled )
     EVT_CHOICE   ( XRCID("pano_choice_format_final"),PanoPanel::FileFormatChanged)
-    EVT_COMBOBOX ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
-    EVT_BUTTON     ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
+    EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
+    EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
+    EVT_BUTTON   ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
 END_EVENT_TABLE()
 
 
@@ -132,7 +133,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_PreviewButton = XRCCTRL(*this, "pano_button_preview", wxButton);
     DEBUG_ASSERT(m_PreviewButton);
 
-    m_WidthCombo = XRCCTRL(*this, "pano_val_width", wxComboBox);
+    m_WidthCombo = XRCCTRL(*this, "pano_val_width", wxTextCtrl);
     DEBUG_ASSERT(m_WidthCombo);
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
     m_FormatChoice = XRCCTRL(*this, "pano_choice_format_final", wxChoice);
@@ -402,6 +403,29 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 
 }
 
+void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
+{
+    // calculate average pixel density of each image
+    // and use the highest one to calculate the width
+    int nImgs = pano.getNrOfImages();
+    double pixelDensity=0;
+    for (int i=0; i<nImgs; i++) {
+        const PanoImage & img = pano.getImage(i);
+        const VariableMap & var = pano.getImageVariables(i);
+        double density = img.getWidth() / const_map_get(var,"v").getValue();
+        if (density > pixelDensity) {
+            pixelDensity = density;
+        }
+    }
+    PanoramaOptions opt = pano.getOptions();
+    opt.width = (int) (pixelDensity * opt.HFOV);
+    
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+
+    DEBUG_INFO ( "new optimal width: " << opt.width );
+}
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )
 {

@@ -39,6 +39,7 @@
 #include <wx/listctrl.h>	// needed on mingw
 #include <wx/imaglist.h>
 #include <wx/spinctrl.h>
+#include <wx/config.h>
 
 #include "hugin/ImageCache.h"
 #include "common/stl_utils.h"
@@ -170,20 +171,27 @@ void PreviewPanel::updatePreview()
     // temporary bitmap for our remapped image
     // calculate the image size from panel widht, height from vfov
 
+    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
+    bool corrLens = cor != 0;
+
     double finalWidth = pano.getOptions().width;
     double finalHeight = pano.getOptions().getHeight();
 
     m_panoImgSize = GetClientSize();
 
     double ratioPano = finalWidth / finalHeight;
-    double ratioPanel = m_panoImgSize.GetWidth() / m_panoImgSize.GetHeight();
+    double ratioPanel = (double)m_panoImgSize.GetWidth() / (double)m_panoImgSize.GetHeight();
+
+    DEBUG_DEBUG("panorama ratio: " << ratioPano << "  panel ratio: " << ratioPanel);
 
     if (ratioPano < ratioPanel) {
         // panel is wider than pano
         m_panoImgSize.SetWidth((int) (m_panoImgSize.GetHeight() * ratioPano));
+        DEBUG_DEBUG("protrait: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
     } else {
         // panel is taller than pano
         m_panoImgSize.SetHeight((int)(m_panoImgSize.GetWidth() / ratioPano));
+        DEBUG_DEBUG("landscape: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
     }
 
     wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
@@ -191,7 +199,7 @@ void PreviewPanel::updatePreview()
     UIntSet::iterator it = m_dirtyImgs.begin();
     while(it != m_dirtyImgs.end()) {
         if (set_contains(m_displayedImages, *it)) {
-            if (!PTools::mapImage(timg, pano, *it, pano.getOptions())) {
+            if (!PTools::mapImage(timg, pano, *it, pano.getOptions()),corrLens) {
                 DEBUG_ERROR("mapImage for image " << *it << " failed" );
             }
             // FIXME.. we just mask out the black areas and hope that the

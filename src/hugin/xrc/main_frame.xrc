@@ -26,12 +26,12 @@
             <object class="unknown" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Control points</label>
-            <object class="unknown" name="cp_editor_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
             <label>Panorama settings</label>
             <object class="unknown" name="panorama_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Control points</label>
+            <object class="unknown" name="cp_editor_panel_unknown"/>
           </object>
         </object>
         <minsize>600,490</minsize>

@@ -29,7 +29,7 @@
 #include "PT/Panorama.h"
 
 class PreviewPanel;
-class wxButton;
+class wxToolBar;
 class wxToggleButton;
 
 /** The image preview frame
@@ -59,14 +59,19 @@ protected:
     void OnChangeDisplayedImgs(wxCommandEvent & e);
     void OnAutoPreviewToggle(wxCommandEvent & e);
     void OnUpdateButton(wxCommandEvent& event);
+    void OnCenterHorizontally(wxCommandEvent & e);
+    void OnFitPano(wxCommandEvent& e);
+    void OnShowAll(wxCommandEvent & e);
+    void OnShowNone(wxCommandEvent & e);
 
 private:
 
     PT::Panorama & m_pano;
 
     PreviewPanel * m_PreviewPanel;
-    wxButton * m_updatePreview;
-    wxCheckBox * m_autoCB;
+    wxToolBar * m_ToolBar;
+//    wxButton * m_updatePreview;
+//    wxCheckBox * m_autoCB;
 
     wxStaticBoxSizer * m_ToggleButtonSizer;
 

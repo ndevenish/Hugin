@@ -201,6 +201,9 @@
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="lens_inherit_d">
                           <label>Inherit</label>
+                          <style></style>
+                          <enabled>0</enabled>
+                          <tooltip>pano tools optimisation for linked &quot;d&quot; does not work </tooltip>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
                       </object>
@@ -220,6 +223,8 @@
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="lens_inherit_e">
                           <label>Inherit</label>
+                          <enabled>0</enabled>
+                          <tooltip>pano tools optimisation for linked &quot;d&quot; does not work</tooltip>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
                       </object>

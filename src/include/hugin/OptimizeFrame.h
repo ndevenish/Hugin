@@ -40,7 +40,7 @@ public:
 
     /** receives notification about panorama changes */
     virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
-    
+
     /** return currently selected OptimizeVector
      *
      *  @return OptimizeVector that contains the settings from
@@ -70,10 +70,6 @@ protected:
     void OnDelRoll(wxCommandEvent & e)
         { SetCheckMark(m_roll_list,false); }
 
-    void OnEqYaw(wxCommandEvent & e);
-//    void OnEqPitch(wxCommandEvent & e);
-//    void OnEqRoll(wxCommandEvent & e);
-
     // helper function for wxCheckListBox
     void SetCheckMark(wxCheckListBox * l, int check);
 
@@ -85,7 +81,15 @@ protected:
     wxCheckListBox * m_yaw_list;
     wxCheckListBox * m_pitch_list;
     wxCheckListBox * m_roll_list;
-    wxCheckListBox * m_lens_list;
+
+    wxCheckListBox * m_v_list;
+    wxCheckListBox * m_a_list;
+    wxCheckListBox * m_b_list;
+    wxCheckListBox * m_c_list;
+    wxCheckListBox * m_d_list;
+    wxCheckListBox * m_e_list;
+    
+    wxCheckBox * m_edit_cb;
 
     PT::Panorama * m_pano;
 private:

@@ -38,8 +38,9 @@ public:
     RunOptimizerFrame(wxFrame *parent,
                       PT::Panorama * pano,
                       const PT::PanoramaOptions & options,
-                      const PT::OptimizeVector & optvars);
-    
+                      const PT::OptimizeVector & optvars,
+                      bool edit);
+
     ~RunOptimizerFrame();
 
     void OnProcessTerm(wxProcessEvent& event);

@@ -32,7 +32,7 @@ extern "C" {
 #include <pano12/filter.h>
 }
 
-// remove fu'*!%$# min & max macros, that come from some windows include 
+// remove fu'*!%$# min & max macros, that come from some windows include
 #ifdef min
 #undef min
 #endif
@@ -82,19 +82,19 @@ void initCPrefs(cPrefs & p, const PT::VariableMap &vars);
  *  and setAdjustDestImg()
  */
 void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
-    
+
 /** set a new input image for inserting into the panorama.
  */
 void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
                      wxImage & src, const PT::VariableMap & vars,
                      const PT::Lens::LensProjectionFormat format,
                      bool correctDistortions);
-    
+
 /** set a new output image for the panorama */
 void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
                       wxImage & dest,
                       const PT::PanoramaOptions & opts);
-                             
+
 
 void freeTrform(TrformStr & trf);
 
@@ -109,7 +109,7 @@ void createAdjustTrform(TrformStr & trf);
  *   createAdjustTrform() must have been used to create @p trf
  */
 void freeTrform(TrformStr & trf);
-    
+
 
 /** Stitch a Panorama into an output image
  *
@@ -123,13 +123,14 @@ void freeTrform(TrformStr & trf);
  *       since panotools overwrites the previous images..
  *       Have to fix this somehow.
  */
-bool stitchImage(wxImage & dest, const PT::Panorama & pano, 
+bool stitchImage(wxImage & dest, const PT::Panorama & pano,
                  PT::UIntSet imgNrs, const PT::PanoramaOptions & opts);
 
 
 /** remaps a single image into its final projection */
 bool mapImage(wxImage & dest, const PT::Panorama & pano,
-              unsigned imgNr, const PT::PanoramaOptions & opts);
+              unsigned imgNr, const PT::PanoramaOptions & opts,
+              bool correctLensDistortion = true);
 
 
 #if 0

@@ -203,7 +203,7 @@ void PTools::createAdjustTrform(TrformStr & trf)
     SetImageDefaults(trf.src);
     trf.dest = (Image *) malloc(sizeof(Image));
     SetImageDefaults(trf.dest);
-    trf.success = FALSE;
+    trf.success = TRUE;
     trf.tool = _adjust;
     trf.mode = _destSupplied | _honor_valid;
     trf.data = 0;
@@ -294,7 +294,8 @@ bool PTools::stitchImage(wxImage & dest, const Panorama & pano,
 }
 
 bool PTools::mapImage(wxImage & dest, const Panorama & pano,
-                      unsigned imgNr, const PanoramaOptions & opts)
+                      unsigned imgNr, const PanoramaOptions & opts,
+                      bool correctLensDistortion)
 {
 
     TrformStr tform;
@@ -310,9 +311,9 @@ bool PTools::mapImage(wxImage & dest, const Panorama & pano,
     const Lens &l = pano.getLens(pimg.getLensNr());
     wxImage * src = ImageCache::getInstance().getImage(
         pimg.getFilename());
-    setAdjustSrcImg(tform, aP, *src,  vars, l.projectionFormat, false);
+    setAdjustSrcImg(tform, aP, *src,  vars, l.projectionFormat, correctLensDistortion);
 
-    DEBUG_DEBUG("remapping image " << imgNr << " into panorama");
+    DEBUG_DEBUG("remapping image " << imgNr << " into panorama" << (correctLensDistortion  ? "with lens distortion correction" : ""));
     // call the main remapping function
     MakePano(&tform,&aP);
     DEBUG_DEBUG("remapping finished");
@@ -387,7 +388,7 @@ void Transform::init(wxImage & sImg, const VariableMap & vars,
     srcImg = new PImage(sImg, vars, srcProj);
     trf.src = &(srcImg->image);
     trf.dest = 0;
-    trf.success = FALSE;
+    trf.success = TRUE;
     trf.tool = _remap;
     trf.mode = 0;
 };

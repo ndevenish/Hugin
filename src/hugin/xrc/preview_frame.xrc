@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="FRAME1">
+    <title>Preview</title>
+    <object class="wxStaticBoxSizer">
+      <label></label>
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="unknown" name="preview_panel"/>
+        <minsize>256,128</minsize>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxButton" name="preview_center_button">
+              <label>center</label>
+              <tooltip>center the preview horizontally</tooltip>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticLine"/>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="preview_auto_cb">
+              <label>auto preview</label>
+              <tooltip>automatically update preview on relevant changes</tooltip>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="preview_update_button">
+              <label>update preview</label>
+              <tooltip>force update</tooltip>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+  <object class="wxToolBar" name="preview_toolbar">
+    <object class="tool" name="preview_center_tool">
+      <bitmap>data/center_pano.xpm</bitmap>
+      <tooltip>center the preview horizontally</tooltip>
+    </object>
+    <object class="tool" name="preview_fit_pano_tool">
+      <bitmap>data/fit_pano.xpm</bitmap>
+      <longhelp>show the whole panorama (doesn't work well for very tall rectilinear and cylindircal panorams)</longhelp>
+      <tooltip>estimage field of view</tooltip>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="preview_auto_update_tool">
+      <bitmap>data/preview_auto_update.png</bitmap>
+      <toggle>1</toggle>
+    </object>
+    <object class="tool" name="preview_update_tool">
+      <bitmap>data/reload.png</bitmap>
+    </object>
+    <object class="separator"/>
+    <object class="tool" name="preview_show_all_tool">
+      <bitmap>data/preview_show_all.png</bitmap>
+    </object>
+    <object class="tool" name="preview_show_none_tool">
+      <bitmap>data/preview_show_none.png</bitmap>
+    </object>
+    <bitmapsize>22,22</bitmapsize>
+    <packing>3</packing>
+    <style>wxTB_DOCKABLE</style>
+  </object>
+</resource>

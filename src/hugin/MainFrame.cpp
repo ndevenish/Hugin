@@ -352,13 +352,9 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     ImageCache::getInstance().flush();
 }
 
-void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
+void MainFrame::OnAddImages( wxCommandEvent& event )
 {
-    // Write something in the statusline
-    char e_stat[128] = "";
-    sprintf (e_stat,_("Number of panoimages"), e_stat);
-    sprintf (e_stat,"%s(%d)", e_stat, pano.getNrOfImages() );
-    SetStatusText( e_stat, 0);
+    wxString e_stat;
 
     // To get users path we do following:
     // a get the global config object
@@ -388,8 +384,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
         wxArrayString Filenames;
         dlg->GetPaths(Pathnames);
         dlg->GetFilenames(Filenames);
-        sprintf(e_stat,_("Add images"));
-        sprintf(e_stat,"%s(%d): ", e_stat, Pathnames.GetCount());
+        e_stat = _("Adding images: ");
 
         // e safe the current path to config
         config->Write("actualPath", dlg->GetDirectory());  // remember for later
@@ -402,13 +397,13 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
             for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
                 filesv.push_back(Pathnames[i].c_str());
                 // fill the statusline
-                sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
+                e_stat.append(wxString::Format("%s ", Filenames[i].c_str()));
             }
+            SetStatusText( e_stat, 0);
             GlobalCmdHist::getInstance().addCommand(
                 new wxAddImagesCmd(pano,filesv)
                 );
         }
-        SetStatusText( e_stat, 0);
     } else {
         // nothing to open
         SetStatusText( _("Add Image: cancel"));

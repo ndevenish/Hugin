@@ -254,14 +254,14 @@ public:
     /// get variables of an image
     const VariableMap & getImageVariables(unsigned int imgNr) const;
 
-    
+
     /** return the optimize settings stored inside panorama */
     const OptimizeVector & getOptimizeVector()
         { return state.optvec; };
-    
+
     /** set optimize setting */
     void setOptimizeVector(const OptimizeVector & optvec);
-    
+
     /** get a lens
      */
     const Lens & getLens(unsigned int lensNr) const;
@@ -508,13 +508,15 @@ private:
     std::string stitcherExe;
     std::string PTScriptFile;
 
-    /// this indicates that there are unsav
+    /// this indicates that there are unsaved changes
     bool dirty;
 
     PanoramaMemento state;
     std::set<PanoramaObserver *> observers;
     /// the images that have been changed since the last changeFinished()
     UIntSet changedImages;
+    
+    bool m_forceImagesUpdate;
 
 };
 

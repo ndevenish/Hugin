@@ -101,7 +101,7 @@ END_EVENT_TABLE()
 
 
 CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
-    : m_mainFrame(parent), m_pano(pano),m_verbose(false), 
+    : m_mainFrame(parent), m_pano(pano),m_verbose(false),
     m_sortCol(0), m_sortAscend(true)
 {
     DEBUG_TRACE("");
@@ -179,14 +179,14 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
                 m_list->InsertItem(i, wxString::Format("%d",i));
             }
         }
-        // force a nice size
-        int nrCol = m_verbose ? 9 : 5;
-        for (int col=0; col < nrCol ; col++) {
-            m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
-        }
     }
     // update list.
     updateList();
+    // force a nice size
+    int nrCol = m_verbose ? 9 : 5;
+    for (int col=0; col < nrCol ; col++) {
+        m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
+    }
 }
 
 void CPListFrame::SetCPItem(int i, const ControlPoint & p)

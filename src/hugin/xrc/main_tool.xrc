@@ -2,62 +2,56 @@
 <resource>
   <object class="wxToolBar" name="main_toolbar">
     <object class="tool" name="action_new_project">
-      <bitmap>data/filenew.xpm</bitmap>
+      <bitmap>data/filenew.png</bitmap>
       <tooltip>New</tooltip>
       <longhelp>New project</longhelp>
     </object>
     <object class="tool" name="action_load_project">
-      <bitmap>data/fileopen.xpm</bitmap>
+      <bitmap>data/fileopen.png</bitmap>
       <tooltip>Open project</tooltip>
       <longhelp>Open project</longhelp>
     </object>
     <object class="tool" name="action_save_project">
-      <bitmap>data/filesave.xpm</bitmap>
+      <bitmap>data/filesave.png</bitmap>
       <tooltip>Save project</tooltip>
       <longhelp>Save project</longhelp>
     </object>
+    <object class="tool" name="action_save_as_project">
+      <bitmap>data/filesaveas.png</bitmap>
+      <tooltip>Save as new project</tooltip>
+      <longhelp>Save as new project</longhelp>
+    </object>
     <object class="separator"/>
     <object class="tool" name="ID_EDITUNDO">
-      <bitmap>data/undo.xpm</bitmap>
+      <bitmap>data/undo.png</bitmap>
       <tooltip>Undo</tooltip>
       <longhelp>Undo the last action</longhelp>
     </object>
     <object class="tool" name="ID_EDITREDO">
-      <bitmap>data/redo.xpm</bitmap>
+      <bitmap>data/redo.png</bitmap>
       <tooltip>Redo</tooltip>
       <longhelp>Redo the last action</longhelp>
     </object>
     <object class="separator"/>
-    <object class="tool" name="ID_EDITCOPY">
-      <bitmap>data/editcopy.xpm</bitmap>
-      <tooltip>Copy entry</tooltip>
-      <longhelp>Copy entry</longhelp>
-    </object>
-    <object class="tool" name="ID_EDITCUT">
-      <bitmap>data/editcut.xpm</bitmap>
-      <tooltip>Cut entry</tooltip>
-      <longhelp>Cut entry</longhelp>
-    </object>
-    <object class="tool" name="ID_EDITPASTE">
-      <bitmap>data/editpaste.xpm</bitmap>
-      <tooltip>Paste entry</tooltip>
-      <longhelp>Paste stored entry</longhelp>
+    <object class="tool" name="action_add_images">
+      <bitmap>data/edit_add.png</bitmap>
+      <tooltip>add an image to the panorama</tooltip>
+      <longhelp>add image</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="ID_SHOW_OPTIMIZE_FRAME">
       <bitmap>data/optimize.xpm</bitmap>
-      <tooltip>open optimizer window</tooltip>
-      <longhelp>Edit values and view output in an own window.</longhelp>
+      <tooltip>Optimizer</tooltip>
+      <longhelp>show optimizer window, used to calculate image positions</longhelp>
     </object>
-    <object class="separator"/>
-    <object class="separator"/>
-    <object class="tool" name="action_exit_hugin">
-      <bitmap>data/close.xpm</bitmap>
-      <tooltip>Exit</tooltip>
-      <longhelp>Exit program</longhelp>
-    </object>
+    <bitmapsize>22,22</bitmapsize>
     <margins>2,2</margins>
     <style>wxTB_FLAT|wxTB_DOCKABLE</style>
+    <object class="tool" name="ID_SHOW_PREVIEW_FRAME">
+      <bitmap>data/preview.png</bitmap>
+      <tooltip>preview panorama</tooltip>
+      <longhelp>show the preview image</longhelp>
+    </object>
     <object class="separator"/>
     <object class="tool" name="action_show_about">
       <bitmap>data/info.xpm</bitmap>

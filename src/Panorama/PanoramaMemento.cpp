@@ -39,6 +39,13 @@
 using namespace PT;
 using namespace std;
 
+// Convert degree to radian
+#define DEG_TO_RAD( x )		( (x) * 2.0 * M_PI / 360.0 )
+
+// and reverse
+#define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * M_PI ) )
+
+
 PanoramaMemento::~PanoramaMemento()
 {
 
@@ -392,7 +399,15 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
 unsigned int PanoramaOptions::getHeight() const
 {
-    return (int) (width * VFOV/HFOV);
+    switch (projectionFormat) {
+    case RECTILINEAR:
+        return (int) ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
+    case CYLINDRICAL:
+        return (int) ( width * atan(DEG_TO_RAD(VFOV/2.0)) / DEG_TO_RAD(HFOV/2.0));
+    case EQUIRECTANGULAR:
+        return (int) (width * VFOV/HFOV);
+    }
+    return 0;
 }
 
 const string PanoramaOptions::fileformatNames[] =
@@ -400,12 +415,12 @@ const string PanoramaOptions::fileformatNames[] =
     "JPEG",
     "PNG",
     "TIFF",
+    "TIFF_m",
     "TIFF_mask",
-    "TIFF_nomask",
     "PICT",
     "PSD",
+    "PSD_m",
     "PSD_mask",
-    "PSD_nomask",
     "PAN",
     "IVR",
     "IVR_java",
@@ -437,7 +452,26 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             getParam(options.HFOV, line, "v");
             int height;
             getParam(height, line, "h");
-            options.VFOV = options.HFOV * (double) height / options.width;
+
+
+            switch (options.projectionFormat) {
+            case PanoramaOptions::RECTILINEAR:
+//                h = ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
+                options.VFOV = 2.0 * atan( (double)height * tan(DEG_TO_RAD(options.HFOV)/2.0) / options.width);
+                options.VFOV = RAD_TO_DEG(options.VFOV);
+                break;
+            case PanoramaOptions::CYLINDRICAL:
+//                h = ( width * atan(DEG_TO_RAD(VFOV/2.0)) / DEG_TO_RAD(HFOV/2.0));
+                options.VFOV = 2.0 * tan( (double)height/options.width * DEG_TO_RAD(options.HFOV)/2.0);
+                options.VFOV = RAD_TO_DEG(options.VFOV);
+                break;
+            case PanoramaOptions::EQUIRECTANGULAR:
+//                return (int) (width * VFOV/HFOV);
+                options.VFOV = options.HFOV * height / options.width;
+                break;
+            }
+
+
             DEBUG_DEBUG("options.VFOV: " << options.VFOV << " ratio: "
                         << (double) height / options.width);
             // this is fragile.. hope nobody adds additional whitespace

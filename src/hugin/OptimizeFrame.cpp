@@ -73,7 +73,6 @@ BEGIN_EVENT_TABLE(OptimizeFrame, wxFrame)
     EVT_BUTTON(XRCID("optimize_frame_optimize"), OptimizeFrame::OnOptimizeButton)
     EVT_BUTTON(XRCID("opt_yaw_select"), OptimizeFrame::OnSelYaw)
     EVT_BUTTON(XRCID("opt_yaw_clear"), OptimizeFrame::OnDelYaw)
-    EVT_BUTTON(XRCID("opt_yaw_equalize"), OptimizeFrame::OnEqYaw)
     EVT_BUTTON(XRCID("opt_pitch_select"), OptimizeFrame::OnSelPitch)
     EVT_BUTTON(XRCID("opt_pitch_clear"), OptimizeFrame::OnDelPitch)
 //    EVT_BUTTON(XRCID("opt_pitch_equalize"), OptimizeFrame::OnEqPitch)
@@ -91,7 +90,15 @@ OptimizeFrame::OptimizeFrame(wxWindow * parent, PT::Panorama * pano)
     m_yaw_list = XRCCTRL(*this, "optimizer_yaw_list", wxCheckListBox);
     m_pitch_list = XRCCTRL(*this, "optimizer_pitch_list", wxCheckListBox);
     m_roll_list = XRCCTRL(*this, "optimizer_roll_list", wxCheckListBox);
-    m_lens_list = XRCCTRL(*this, "optimizer_lens_list", wxCheckListBox);
+    
+    m_v_list = XRCCTRL(*this, "optimizer_v_list", wxCheckListBox);
+    m_a_list = XRCCTRL(*this, "optimizer_a_list", wxCheckListBox);
+    m_b_list = XRCCTRL(*this, "optimizer_b_list", wxCheckListBox);
+    m_c_list = XRCCTRL(*this, "optimizer_c_list", wxCheckListBox);
+    m_d_list = XRCCTRL(*this, "optimizer_d_list", wxCheckListBox);
+    m_e_list = XRCCTRL(*this, "optimizer_e_list", wxCheckListBox);
+
+    m_edit_cb = XRCCTRL(*this, "optimizer_edit_script", wxCheckBox);
 
     wxConfigBase * config = wxConfigBase::Get();
     long w = config->Read("/OptimizerFrame/width",-1);
@@ -126,28 +133,6 @@ void OptimizeFrame::OnOptimizeButton(wxCommandEvent & e)
     runOptimizer(optvars, opts);
 }
 
-// FIXME this should be on the preview panel, once we have one :)
-void OptimizeFrame::OnEqYaw(wxCommandEvent & e)
-{
-    VariableMapVector vars = m_pano->getVariables();
-    VariableMapVector::iterator it;
-    double min = 1000;
-    double max = -1000;
-    for(it = vars.begin(); it != vars.end(); it++) {
-        double val = map_get(*it,"y").getValue();
-        if (val < min) min = val;
-        if (val > max) max = val;
-    }
-
-
-    double shift = min + (max-min)/2;
-    for(it = vars.begin(); it != vars.end(); it++) {
-        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - shift);
-    }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateVariablesCmd(*m_pano, vars)
-        );
-}
 
 void OptimizeFrame::SetCheckMark(wxCheckListBox * l, int check)
 {
@@ -169,28 +154,32 @@ OptimizeVector OptimizeFrame::getOptimizeVector()
 
     OptimizeVector optvars;
 
-    // possibly linked parameters.
-    set<string> linked;
-    if (m_lens_list->IsChecked(0)) {
-        linked.insert("v");
-    }
-    if (m_lens_list->IsChecked(1)) {
-        linked.insert("a");
-    }
-    if (m_lens_list->IsChecked(2)) {
-        linked.insert("b");
-    }
-    if (m_lens_list->IsChecked(3)) {
-        linked.insert("c");
-    }
-    if (m_lens_list->IsChecked(4)) {
-        linked.insert("d");
-    }
-    if (m_lens_list->IsChecked(5)) {
-        linked.insert("e");
-    }
     for (unsigned int i=0; i < nImages; i++) {
-        set<string> imgopt = linked;
+        
+        set<string> imgopt;
+        // lens variables
+        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+        
+        if (m_v_list->IsChecked(lensNr)) {
+            imgopt.insert("v");
+        }
+        if (m_a_list->IsChecked(lensNr)) {
+            imgopt.insert("a");
+        }
+        if (m_b_list->IsChecked(lensNr)) {
+            imgopt.insert("b");
+        }
+        if (m_c_list->IsChecked(lensNr)) {
+            imgopt.insert("c");
+        }
+        if (m_d_list->IsChecked(lensNr)) {
+            imgopt.insert("d");
+        }
+        if (m_e_list->IsChecked(lensNr)) {
+            imgopt.insert("e");
+        }
+        
+        // image variables
         if (m_roll_list->IsChecked(i)) {
             imgopt.insert("r");
         }
@@ -200,6 +189,7 @@ OptimizeVector OptimizeFrame::getOptimizeVector()
         if (m_yaw_list->IsChecked(i)) {
             imgopt.insert("y");
         }
+        
         optvars.push_back(imgopt);
     }
 
@@ -210,10 +200,39 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
     DEBUG_TRACE("");
+    
+    // update lens values
+    int nrLensList = m_v_list->GetCount();
+    assert(nrLensList >=0);
+    unsigned int nr = (unsigned int) nrLensList;
+    unsigned int nLens = m_pano->getNrOfLenses();
+    while (nr < nLens) {
+        // add checkboxes.
+        m_v_list->Append(wxString::Format("%d",nr));
+        m_a_list->Append(wxString::Format("%d",nr));
+        m_b_list->Append(wxString::Format("%d",nr));
+        m_c_list->Append(wxString::Format("%d",nr));
+        m_d_list->Append(wxString::Format("%d",nr));
+        m_e_list->Append(wxString::Format("%d",nr));
+        nr++;
+    }
+
+    while (nr > nLens) {
+        if (nr == 0)
+            break;
+        m_v_list->Delete(nr-1);
+        m_a_list->Delete(nr-1);
+        m_b_list->Delete(nr-1);
+        m_c_list->Delete(nr-1);
+        m_d_list->Delete(nr-1);
+        m_e_list->Delete(nr-1);
+        nr--;
+    }
+
     // add/remove items
     int nrLI = m_yaw_list->GetCount();
     assert(nrLI >=0);
-    unsigned int nr = (unsigned int) nrLI;
+    nr = (unsigned int) nrLI;
     unsigned int nImages = m_pano->getNrOfImages();
     while (nr < nImages) {
         // add checkboxes.
@@ -251,22 +270,30 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
         m_roll_list->SetString(*it, wxString::Format("%d (%5f)",
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
-    }
+    }    
+    
 }
 
 void OptimizeFrame::setOptimizeVector(const OptimizeVector & optvec)
 {
     DEBUG_ASSERT((int)optvec.size() == m_yaw_list->GetCount());
 
-    for (int i=0; i <6; i++) {
-	m_lens_list->Check(i,false);
+    for (int i=0; i < m_pano->getNrOfLenses(); i++) {
+	m_v_list->Check(i,false);
+	m_a_list->Check(i,false);
+	m_b_list->Check(i,false);
+	m_c_list->Check(i,false);
+	m_d_list->Check(i,false);
+	m_e_list->Check(i,false);
     }
-    
+
     unsigned int nImages = optvec.size();
     for (unsigned int i=0; i < nImages; i++) {
 	m_yaw_list->Check(i,false);
 	m_pitch_list->Check(i,false);
 	m_roll_list->Check(i,false);
+        unsigned int lensNr = m_pano->getImage(i).getLensNr();
+
         for(set<string>::const_iterator it = optvec[i].begin();
 	    it != optvec[i].end(); ++it)
 	{
@@ -279,23 +306,24 @@ void OptimizeFrame::setOptimizeVector(const OptimizeVector & optvec)
 	    if (*it == "r") {
 	        m_roll_list->Check(i);
 	    }
+            
 	    if (*it == "v") {
-	        m_lens_list->Check(0);
+	        m_v_list->Check(lensNr);
 	    }
 	    if (*it == "a") {
-	        m_lens_list->Check(1);
+	        m_a_list->Check(lensNr);
 	    }
 	    if (*it == "b") {
-	        m_lens_list->Check(2);
+	        m_b_list->Check(lensNr);
 	    }
 	    if (*it == "c") {
-	        m_lens_list->Check(3);
+	        m_c_list->Check(lensNr);
 	    }
 	    if (*it == "d") {
-	        m_lens_list->Check(4);
+	        m_d_list->Check(lensNr);
 	    }
 	    if (*it == "e") {
-	        m_lens_list->Check(5);
+	        m_e_list->Check(lensNr);
 	    }
 	}
     }
@@ -306,7 +334,8 @@ void OptimizeFrame::runOptimizer(const OptimizeVector & optvars, const PanoramaO
     DEBUG_TRACE("");
     // open window that shows a status dialog, and allows to
     // apply the results
-    new RunOptimizerFrame(this, m_pano, options, optvars);
+    bool edit = m_edit_cb->IsChecked();
+    new RunOptimizerFrame(this, m_pano, options, optvars, edit);
 }
 
 
