@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxMenuBar" name="main_menubar">
+    <style>wxMB_DOCKABLE</style>
+    <object class="wxMenu" name="file_menu">
+      <label>&amp;File</label>
+      <object class="wxMenuItem" name="ID_NEW">
+        <label>&amp;New</label>
+        <accel>Ctrl-n</accel>
+        <help>New project</help>
+      </object>
+      <object class="wxMenuItem" name="ID_OPEN">
+        <label>&amp;Open</label>
+        <accel>Ctrl-o</accel>
+        <help>Open project</help>
+      </object>
+      <object class="wxMenuItem" name="ID_SAVE">
+        <label>&amp;Save</label>
+        <accel>Ctrl-s</accel>
+        <help>Save project</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_exit_hugin">
+        <label>&amp;Quit</label>
+        <accel>Ctrl-q</accel>
+        <help>Exit program</help>
+      </object>
+    </object>
+    <object class="wxMenu" name="edit_menue">
+      <label>&amp;Edit</label>
+      <object class="wxMenuItem" name="ID_EDITCOPY">
+        <label>&amp;Copy</label>
+        <accel>Ctrl-c</accel>
+        <help>Copy entry</help>
+      </object>
+      <object class="wxMenuItem" name="ID_EDITCUT">
+        <label>C&amp;ut</label>
+        <accel>Ctrl-x</accel>
+        <help>Cut entry</help>
+      </object>
+      <object class="wxMenuItem" name="ID_EDITPASTE">
+        <label>&amp;Paste</label>
+        <accel>Ctrl-p</accel>
+        <help>Paste stored entry</help>
+      </object>
+      <object class="wxMenuItem" name="ID_EDITDELETE">
+        <label>&amp;Delete</label>
+        <accel>Ctrl-k</accel>
+        <help>Delete entry</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_edit_text_dialog">
+        <label>Project in &amp;text format</label>
+        <accel>F2</accel>
+        <help>Set parameters. view datas</help>
+      </object>
+      <object class="wxMenuItem" name="ID_CPFINETUNE">
+        <label>&amp;Fine tune control point</label>
+        <help>Experimental function</help>
+      </object>
+      <object class="wxMenuItem" name="ID_CPADD">
+        <label>&amp;Add control point</label>
+        <help>Same function as add button</help>
+      </object>
+      <object class="wxMenuItem" name="ID_CPUPDATE">
+        <label>Updat&amp;e control point</label>
+        <help>Same function as update button</help>
+      </object>
+    </object>
+    <object class="wxMenu" name="view_menu">
+      <label>&amp;View</label>
+      <object class="wxMenuItem" name="ID_CPTABLE">
+        <label>&amp;Control point table</label>
+        <accel>F3</accel>
+        <help>Shows all controlpoint distances</help>
+      </object>
+      <object class="wxMenuItem" name="ID_CPOPTIMIZED">
+        <label>&amp;Optimized control points</label>
+        <help>Last optimization result</help>
+      </object>
+      <object class="wxMenuItem" name="ID_LASTPREVIEWSTITCH">
+        <label>&amp;Last preview stitch</label>
+      </object>
+    </object>
+    <object class="wxMenu" name="help_menue">
+      <label>&amp;Help</label>
+      <object class="wxMenuItem" name="action_show_about">
+        <label>&amp;About</label>
+        <help>About program</help>
+      </object>
+    </object>
+  </object>
+</resource>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxDialog" name="about_dlg">
+    <title>About</title>
+    <centered>1</centered>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP|wxRESIZE_BORDER</style>
+    <object class="wxFlexGridSizer">
+      <object class="sizeritem">
+        <object class="wxHtmlWindow" name="about_html">
+          <size>450,200</size>
+          <style>wxHW_SCROLLBAR_NEVER</style>
+          <borders>0</borders>
+          <url>data/about.htm</url>
+          <bg>#D0D0D0</bg>
+        </object>
+        <flag>wxALL|wxEXPAND|wxGROW</flag>
+        <border>12</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="wxID_OK">
+          <label>enough</label>
+          <default>1</default>
+        </object>
+        <flag>wxALL|wxALIGN_RIGHT</flag>
+        <border>12</border>
+      </object>
+      <cols>1</cols>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+    </object>
+  </object>
+</resource>
