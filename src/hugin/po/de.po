@@ -1952,7 +1952,7 @@ msgstr "Projekt speichern unter"
 
 #: src/hugin/xrc/main_tool.xrs:11
 msgid "Save As"
-msgstr "Speichern unter"
+msgstr "Speichern\nunter"
 
 #: src/hugin/xrc/main_tool.xrs:13
 #: src/hugin/xrc/main_tool.xrs:14
