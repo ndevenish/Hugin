@@ -608,20 +608,21 @@ PTools::AlignInfoWrap::AlignInfoWrap()
 
 PTools::AlignInfoWrap::~AlignInfoWrap()
 {
-    DisposeAlignInfo(&gl);
+//    DisposeAlignInfo(&gl);
 
 //    delete[](gl.img);
 //    delete[](gl.opt);
 //    delete[](gl.cpt);
 //    delete[](gl.t);
 //    delete[](gl.cim);
-/*
+
+
     if (gl.im) free(gl.im);
     if (gl.opt) free(gl.opt);
     if (gl.cpt) free(gl.cpt);
     if (gl.t) free(gl.t);
     if (gl.cim) free(gl.cim);
-*/
+
 }
 
 bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
