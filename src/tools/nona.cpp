@@ -31,7 +31,11 @@
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 
-#include <unistd.h>
+#ifdef WIN32
+ #include <getopt.h>
+#else
+ #include <unistd.h>
+#endif
 
 #include "panoinc.h"
 #include "PT/Stitcher.h"
@@ -50,38 +54,31 @@ static void usage(const char * name)
          << " is quite simple, no seam feathering is done." << std::endl
          << " all interpolators of panotools are supported" << std::endl
          << std::endl
-         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
+         << " The following output formats (n option of panotools p script line)" << std::endl
+         << " are supported:"<< std::endl
          << std::endl
-         << "Usage: " << name  << " [options] -o output project_file" << std::endl
-	 << std::endl
-         << "  [options] can be: " << std::endl
-         << "     -r          # save tiff files with ROI (saves a lot of space, " << std::endl
-	 << "                   but doesn't work with most programs. " << std::endl
-	 << "                   The Gimp 2.0 can handle these files" << std::endl
-	 << std::endl;
-
+         << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
+         << "  TIFF_m          : multiple tiff files"<< std::endl
+         << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
+         << std::endl
+         << "Usage: " << name  << " [options] -o output project_file" << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "rho:";
+    const char * optstring = "ho:";
     int c;
 
     opterr = 0;
 
     string basename;
-    bool tiffROI = false;
-
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
         case 'o':
             basename = optarg;
             break;
-	case 'r':
-	    tiffROI = true;
-	    break;
         case '?':
         case 'h':
             usage(argv[0]);
@@ -119,7 +116,6 @@ int main(int argc, char *argv[])
     }
 
     PanoramaOptions  opts = pano.getOptions();
-    opts.tiff_saveROI = tiffROI;
 
     // check for some options
 
