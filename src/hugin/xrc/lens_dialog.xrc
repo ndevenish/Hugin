@@ -168,6 +168,7 @@
                     <object class="wxStaticText">
                       <label>a:</label>
                       <style>wxALIGN_LEFT</style>
+                      <tooltip>distortion value (a)</tooltip>
                     </object>
                     <flag>wxALL|wxALIGN_CENTRE</flag>
                     <minsize>80,20</minsize>
@@ -175,6 +176,7 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_a">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>distortion value (a)</tooltip>
                     </object>
                     <flag>wxEXPAND</flag>
                     <minsize>100,25</minsize>
@@ -212,6 +214,7 @@
                     <object class="wxStaticText">
                       <label>b:</label>
                       <style>wxALIGN_LEFT</style>
+                      <tooltip>distortion value (b)</tooltip>
                     </object>
                     <flag>wxALL|wxALIGN_CENTRE</flag>
                     <minsize>80,20</minsize>
@@ -219,6 +222,7 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_b">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>distortion value (b)</tooltip>
                     </object>
                     <flag>wxEXPAND</flag>
                     <minsize>100,25</minsize>
@@ -256,6 +260,7 @@
                     <object class="wxStaticText">
                       <label>c:</label>
                       <style>wxALIGN_LEFT</style>
+                      <tooltip>distortion value (c)</tooltip>
                     </object>
                     <flag>wxALL|wxALIGN_CENTRE</flag>
                     <minsize>80,20</minsize>
@@ -263,6 +268,7 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_c">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>distortion value (c)</tooltip>
                     </object>
                     <flag>wxEXPAND</flag>
                     <minsize>100,25</minsize>
@@ -315,6 +321,7 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_d">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>image shift horizontal (d)</tooltip>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                     <minsize>100,25</minsize>
@@ -359,6 +366,7 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_e">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>image shift vertical (e)</tooltip>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                     <minsize>100,25</minsize>

@@ -18,6 +18,7 @@
               <object class="sizeritem">
                 <object class="wxButton" name="action_add_images">
                   <label>Add</label>
+                  <tooltip>Add image(s) to project</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
@@ -25,7 +26,7 @@
               <object class="sizeritem">
                 <object class="wxButton" name="action_remove_images">
                   <label>Remove</label>
-                  <help>Remove image from project</help>
+                  <tooltip>Remove image(s) from project</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
@@ -73,6 +74,7 @@
                             <object class="wxPanel" name="img_preview_unknown">
                               <size>256,128</size>
                               <style>wxSUNKEN_BORDER</style>
+                              <tooltip>image view</tooltip>
                             </object>
                             <flag>wxALL|wxEXPAND|wxGROW</flag>
                           </object>
@@ -84,6 +86,7 @@
                               <style>wxSL_VERTICAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
                               <pagesize>10</pagesize>
                               <linesize>1</linesize>
+                              <tooltip>set pitch for selected image(s)</tooltip>
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
                             <minsize>22,-1</minsize>
@@ -96,6 +99,7 @@
                               <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
                               <pagesize>15</pagesize>
                               <linesize>1</linesize>
+                              <tooltip>set yaw for selected image(s)</tooltip>
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
                           </object>
@@ -128,6 +132,7 @@
                                   <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
                                   <pagesize>15</pagesize>
                                   <linesize>1</linesize>
+                                  <tooltip>set roll for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
                               </object>
@@ -171,6 +176,7 @@
                                 <object class="wxTextCtrl" name="images_text_yaw">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                <tooltip>set yaw for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -228,6 +234,7 @@
                                 <object class="wxTextCtrl" name="images_text_pitch">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                <tooltip>set pitch for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -285,6 +292,7 @@
                                 <object class="wxTextCtrl" name="images_text_roll">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                <tooltip>set roll for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
