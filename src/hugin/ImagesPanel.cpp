@@ -43,6 +43,7 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/ImageOrientationFrame.h"
+#include "hugin/AutoCtrlPointCreator.h"
 
 using namespace PT;
 using namespace utils;
@@ -139,7 +140,7 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 {
     wxSize new_size = GetSize();
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
-//    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }
 
 
@@ -173,11 +174,28 @@ void ImagesPanel::ChangePano ( std::string type, double var )
         );
 }
 
-
 // #####  Here start the eventhandlers  #####
 
 /** run sift matching on selected images, and add control points */
 void ImagesPanel::SIFTMatching(wxCommandEvent & e)
+{
+    const UIntSet & selImg = images_list->GetSelected();
+    if ( selImg.size() < 2 ) {
+        wxMessageBox(_("At least 2 images must be selected"),
+                     _("Error"), wxCANCEL | wxICON_ERROR);
+        return;
+    }
+
+    long nFeatures = XRCCTRL(*this, "images_points_per_overlap"
+                            , wxSpinCtrl)->GetValue();
+
+    AutoPanoSift matcher;
+    matcher.automatch(pano, selImg, nFeatures);
+};
+
+#if 0
+/** run sift matching on selected images, and add control points */
+void ImagesPanel::SIFTMatchingDepreciated(wxCommandEvent & e)
 {
     const UIntSet & selImg = images_list->GetSelected();
     if ( selImg.size() < 2 ) {
@@ -262,6 +280,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
         new PT::AddCtrlPointsCmd(pano, ctrlPoints)
         );
 }
+#endif
 
 #if 0
 /** run sift matching (using builtin matcher) on selected images, and
