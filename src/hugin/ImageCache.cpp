@@ -211,7 +211,8 @@ ImagePtr ImageCache::getImage(const std::string & filename)
         // use wx for image loading
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
-            DEBUG_ERROR("Can't load image: " << filename);
+            wxMessageBox(_("Cannot load image: ") + wxString(filename.c_str()),
+                         "Image Cache error");
         }
 #endif
         if (m_progress) {
@@ -348,6 +349,9 @@ SmallRemappedImageCache::operator()(const PT::Panorama & pano,
         // load image
         const PanoImage & img = pano.getImage(imgNr);
         wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+        if (!src->Ok()) {
+            throw std::runtime_error("could not retrieve small source image for preview generation");
+        }
         // image view
         BasicImageView<RGBValue<unsigned char> > srcImg((RGBValue<unsigned char> *)src->GetData(),
                                                         src->GetWidth(),
