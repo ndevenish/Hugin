@@ -141,6 +141,16 @@ Section "Create Quick Launch shortcut"
   CreateShortCut "$QUICKLAUNCH\Hugin.lnk" "$INSTDIR\hugin.exe"
 SectionEnd
 
+# [File association]
+Section "Associate .pto files with Hugin"
+  StrCpy $0 $INSTDIR\hugin.exe
+  WriteRegStr HKCR ".pto" "" "Hugin.pto"
+  WriteRegStr HKCR "Hugin.pto" "" "Hugin Project File"
+  WriteRegStr HKCR "Hugin.pto\DefaultIcon" "" '$0,0'
+  WriteRegStr HKCR "Hugin.pto\Shell\Open\Command" "" '$0 "%1"'
+  Call RefreshShellIcons
+SectionEnd
+
 ;--------------------------------
 
 # [UnInstallation]
@@ -183,7 +193,35 @@ Section "Uninstall"
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin"
   DeleteRegKey HKLM SOFTWARE\Hugin
+  
+  ; Remove file association
+  DeleteRegKey HKCR ".pto"
+  DeleteRegKey HKCR "Hugin.pto"
+  Call un.RefreshShellIcons
 
 SectionEnd
 
-#eof!
+;--------------------------------
+
+; Functions
+
+;http://nsis.sourceforge.net/archive/viewpage.php?pageid=202
+;After changing file associations, you can call this macro to refresh the shell immediatly. 
+;It calls the shell32 function SHChangeNotify. This will force windows to reload your changes from the registry.
+!define SHCNE_ASSOCCHANGED 0x08000000
+!define SHCNF_IDLIST 0
+
+Function RefreshShellIcons
+  ; By jerome tremblay - april 2003
+  System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v \
+  (${SHCNE_ASSOCCHANGED}, ${SHCNF_IDLIST}, 0, 0)'
+FunctionEnd
+
+Function un.RefreshShellIcons
+  ; By jerome tremblay - april 2003
+  System::Call 'shell32.dll::SHChangeNotify(i, i, i, i) v \
+  (${SHCNE_ASSOCCHANGED}, ${SHCNF_IDLIST}, 0, 0)'
+FunctionEnd
+
+;--------------------------------
+
