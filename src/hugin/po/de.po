@@ -256,6 +256,12 @@ msgstr "Optimieren"
 #: ../ptopengui.cpp:306
 msgid "Optimize"
 msgstr "Optimieren"
+msgid "Optimize window"
+msgstr "Optimierfenster"
+msgid "open optimizer window"
+msgstr "öffnet ein Fenster für's Optimieren"
+msgid "Edit values and view output in an own window."
+msgstr "optimierbare Werte einstellen und Ergebnisse betrachten"
 
 #: ../ptopengui.cpp:310
 msgid "Preview"

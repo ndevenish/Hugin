@@ -55,11 +55,11 @@
                                     <item>full lens settings (v,a,b,c,(d,e))</item>
                                     <item>automatic optimization</item>
                                   </content>
+                                  <size>150,-1</size>
                                   <bg>#D7D7D7</bg>
                                   <tooltip>manual or preselected optimization settings</tooltip>
                                 </object>
                                 <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                                <minsize>100,25</minsize>
                               </object>
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
@@ -84,16 +84,16 @@
                             <object class="wxStaticText">
                               <label>reference image:</label>
                             </object>
-                            <flag>wxTOP</flag>
-                            <minsize>120,20</minsize>
+                            <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <border>5</border>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="pano_optimizer_reference">
+                            <object class="wxSpinCtrl" name="pano_spin_optimizer_reference">
                               <value>0</value>
+                              <size>45,-1</size>
                               <tooltip>only for preseleted settings - optimizeable v,a,b,c,d,e, not(y,p,r);\nother images inherit v,a,b,c and optimizeable y,p,r, d,e</tooltip>
                             </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                            <minsize>150,25</minsize>
+                            <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                           </object>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
@@ -439,12 +439,13 @@
                                     <minsize>120,-1</minsize>
                                   </object>
                                   <object class="sizeritem">
-                                    <object class="wxComboBox" name="pano_val_previewImage">
-                                      <content/>
-                                      <tooltip>Select here one image for an quick preview. This helps quick adjusting the orientation.</tooltip>
+                                    <object class="wxSpinCtrl" name="pano_spin_single_preview">
+                                      <value>0</value>
+                                      <size>45,-1</size>
+                                      <style></style>
+                                      <tooltip>Render this image in single display mode.</tooltip>
                                     </object>
-                                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                                    <minsize>110,25</minsize>
+                                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>

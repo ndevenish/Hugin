@@ -44,6 +44,13 @@
       <longhelp>Paste stored entry</longhelp>
     </object>
     <object class="separator"/>
+    <object class="tool" name="ID_SHOW_OPTIMIZE_FRAME">
+      <bitmap>data/optimize.xpm</bitmap>
+      <tooltip>open optimizer window</tooltip>
+      <longhelp>Edit values and view output in an own window.</longhelp>
+    </object>
+    <object class="separator"/>
+    <object class="separator"/>
     <object class="tool" name="action_exit_hugin">
       <bitmap>data/close.xpm</bitmap>
       <tooltip>Exit</tooltip>
