@@ -119,5 +119,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     DECLARE_EVENT_TABLE()
 };
 
+/** try to read the lens spec from the exif info. */
+bool initLensFromFile(const std::string & filename, double & cropFactor, Lens & l);
+
 
 #endif // _LENSPANEL_H

@@ -52,6 +52,7 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
 #include "hugin/MyProgressDialog.h"
+#include "hugin/ImageCache.h"
 
 
 

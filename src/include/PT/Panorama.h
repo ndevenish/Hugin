@@ -366,7 +366,8 @@ public:
     unsigned int addImage(const PanoImage &img, const VariableMap &vars);
 
     /** creates an image, from filename, and a Lens, if needed */
-    int addImageAndLens(const std::string & filename, double HFOV);
+    //int addImageAndLens(const std::string & filename, double HFOV);
+
     /** add an Image to the panorama
      *  @return image number
      */

@@ -193,10 +193,16 @@ bool stringToDouble(const STR & str_, double & dest)
     /** Remove the extension from a filename */
     std::string stripExtension(const std::string & str);
 
+    /** Get extension of a filename */
+    std::string getExtension(const std::string & basename);
+
     /** remove the path of a filename (mainly useful for gui
      *  display of filenames)
      */
     std::string stripPath(const std::string & filename);
+
+    /** get extension of a filename */
+    std::string getExtension(const std::string & basename2);
 
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {

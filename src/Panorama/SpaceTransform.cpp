@@ -962,7 +962,7 @@ void SpaceTransform::Init(
         // Convert panoramic to spherical
         AddTransform( &pano_sphere_tp, mpdistance );
         break;
-    case Lens::EQUIRECTANGULAR_LENS:
+    case Lens::EQUIRECTANGULAR:
         // Convert PSphere to spherical
         AddTransform( &erect_sphere_tp, mpdistance );
         break;
@@ -1154,7 +1154,7 @@ void SpaceTransform::InitInv(
         // Convert panoramic to spherical
         AddTransform( &sphere_tp_pano, mpdistance );
         break;
-    case Lens::EQUIRECTANGULAR_LENS:
+    case Lens::EQUIRECTANGULAR:
         // Convert PSphere to spherical
         AddTransform( &sphere_tp_erect, mpdistance );
         break;

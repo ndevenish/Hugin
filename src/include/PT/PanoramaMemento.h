@@ -121,7 +121,7 @@ public:
                                 PANORAMIC = 1,
                                 CIRCULAR_FISHEYE = 2,
                                 FULL_FRAME_FISHEYE = 3,
-                                EQUIRECTANGULAR_LENS = 4};
+                                EQUIRECTANGULAR = 4};
 
 
     /** construct a new lens.
@@ -137,66 +137,97 @@ public:
      *  @return true if focal length was found, lens will contain
      *          the correct data.
      */
-    bool readEXIF(const std::string & filename);
+//    bool readEXIF(const std::string & filename);
 
-    /** calculate hfov, from focal length
-     *
-     *  does not change the lens in any way.
-     *  It doesn't update the hfov of the lens or the
-     *  images. the needs to be done separately
-     */
-    double calcHFOV(double fl) const;
+    /** get projection type */
+    LensProjectionFormat getProjection() const
+    {
+        return m_projectionFormat;
+    }
 
-    /** calculate focal length from given hfov
-     *
-     *  does not change the lens in any way.
-     *  This function is only there to display a focal length in the gui
-     *
-     */
-    double calcFocalLength(double HFOV) const;
+    /** set projection type */
+    void setProjection(LensProjectionFormat l) {
+        m_projectionFormat = l;
+    }
 
-    /** Set the focal length factor.
+    /** get HFOV in degrees */
+    double getHFOV() const;
+
+    /** set HFOV in degrees */
+    void Lens::setHFOV(double d);
+
+    /** get focal length of lens, it is calculated from the HFOV */
+    double getFocalLength() const;
+
+    /** set focal length, updates HFOV */
+    void setFocalLength(double);
+
+    /** get crop factor, d35mm/dreal */
+    double getCropFactor() const;
+
+    /** Set the crop factor.
      *
-     *  @param factor is the ratio of the sensor diagonals:
+     *  This will recalculate the sensor size.
+     *
+     *  @param c is the ratio of the sensor diagonals:
      *                factor = diag35mm / real_diag
      */
-    void setFLFactor(double factor);
+    void setCropFactor(double c);
 
-    /** return the focal length conversion factor of this lens */
-    double getFLFactor() const
-        { return focalLengthConversionFactor; }
+    /** get sensor dimension */
+    FDiff2D getSensorSize() const
+    {
+        return m_sensorSize;
+    }
 
-    /**  @param ratio  aspect ratio of the camera (width/height)
-     *                 always in landscape mode (ratio >= 1)
-     */
-    void setRatio(double ratio);
+    /** set sensor dimensions. Only square pixels are supported so far.*/
+    void setSensorSize(const FDiff2D & size);
 
     /** return the sensor ratio (width/height)
      */
-    double getRatio() const
-        { return sensorRatio; }
+    double getAspectRatio() const
+    { 
+        return (double)m_imageSize.x / m_imageSize.y;
+    }
 
+    /** check if the image associated with this lens is in landscape orientation.
+     */
+    bool isLandscape() const
+    {
+        return m_imageSize.x >= m_imageSize.y;
+    }
+
+    /** get the image size, in pixels */
+    vigra::Size2D getImageSize() const
+    {
+        return m_imageSize;
+    }
+
+    /** set image size in pixels */
+    void setImageSize(const vigra::Size2D & sz)
+    {
+        m_imageSize = sz;
+    }
+
+//    double isLandscape() const {
+//        return sensorRatio >=1;
+//    }
 
     // updates everything, including the lens variables.
     void update(const Lens & l);
 
-    LensProjectionFormat projectionFormat;
 
-    bool isLandscape;
+//    bool isLandscape;
     // these are the lens specific settings.
     // lens correction parameters
     LensVarMap variables;
     static char *variableNames[];
 
 private:
-//    double focalLength;
-    // factor for conversion of focal length to
-    // 35 mm film equivalent.
-    double focalLengthConversionFactor;
 
-    double sensorWidth;
-    double sensorHeight;
-    double sensorRatio;
+    vigra::Size2D m_imageSize;
+    LensProjectionFormat m_projectionFormat;
+    FDiff2D m_sensorSize;
 };
 
 

@@ -132,7 +132,7 @@ public :
 		}
 		Init(	srcSize,
                 pano.getImageVariables(imgNr),
-                pano.getLens(img.getLensNr()).projectionFormat,
+                pano.getLens(img.getLensNr()).getProjection(),
 				vigra::Diff2D(dest.width, dest.getHeight()),
                 dest.projectionFormat, dest.HFOV );
 	}
@@ -161,7 +161,7 @@ public :
 		}
 		InitInv(	srcSize,
                     pano.getImageVariables(imgNr),
-                    pano.getLens(img.getLensNr()).projectionFormat,
+                    pano.getLens(img.getLensNr()).getProjection(),
 					vigra::Diff2D(dest.width, dest.getHeight()),
                     dest.projectionFormat, dest.HFOV);
 	}

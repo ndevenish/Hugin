@@ -34,6 +34,8 @@
 
 #include <algorithm>
 
+#include "jhead/jhead.h"
+
 #include "common/wxPlatform.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
@@ -45,7 +47,7 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-
+#include "hugin/wxPanoCommand.h"
 
 using namespace PT;
 using namespace utils;
@@ -188,10 +190,10 @@ void LensPanel::UpdateLensDisplay ()
     // update gui
     int guiPF = XRCCTRL(*this, "lens_val_projectionFormat",
                       wxComboBox)->GetSelection();
-    if (lens.projectionFormat != (Lens::LensProjectionFormat) guiPF) {
-        DEBUG_DEBUG("changing projection format in gui to: " << lens.projectionFormat);
+    if (lens.getProjection() != (Lens::LensProjectionFormat) guiPF) {
+        DEBUG_DEBUG("changing projection format in gui to: " << lens.getProjection());
         XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->SetSelection(
-            lens.projectionFormat  );
+            lens.getProjection()  );
     }
 
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
@@ -208,14 +210,13 @@ void LensPanel::UpdateLensDisplay ()
         m_XRCCTRL(*this, wxString(wxT("lens_inherit_")).append(wxString(*varname, *wxConvCurrent)), wxCheckBox)->SetValue(linked);
     }
 
-    double HFOV = const_map_get(imgvars,"v").getValue();
     // update focal length
-    double focal_length = lens.calcFocalLength(HFOV);
+    double focal_length = lens.getFocalLength();
     m_XRCCTRL(*this, wxT("lens_val_focalLength"), wxTextCtrl)->SetValue(
         doubleTowxString(focal_length,m_distDigitsEdit));
 
     // update focal length factor
-    double focal_length_factor = lens.getFLFactor();
+    double focal_length_factor = lens.getCropFactor();
     m_XRCCTRL(*this, wxT("lens_val_flFactor"), wxTextCtrl)->SetValue(
         doubleTowxString(focal_length_factor,m_distDigitsEdit));
 
@@ -252,8 +253,8 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
             // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
             int var = XRCCTRL(*this, "lens_val_projectionFormat",
                               wxComboBox)->GetSelection();
-            if (lens.projectionFormat != (Lens::LensProjectionFormat) var) {
-                lens.projectionFormat = (Lens::LensProjectionFormat) (var);
+            if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
+                lens.setProjection((Lens::LensProjectionFormat) (var));
                 GlobalCmdHist::getInstance().addCommand(
                     new PT::ChangeLensCmd( pano, *it, lens )
                     );
@@ -281,8 +282,9 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
              ++it)
         {
             vars.push_back(pano.getImageVariables(*it));
-            const Lens & l = pano.getLens(pano.getImage(*it).getLensNr());
-            map_get(vars.back(),"v").setValue(l.calcHFOV(val));
+            Lens l = pano.getLens(pano.getImage(*it).getLensNr());
+            l.setFocalLength(val);
+            map_get(vars.back(),"v").setValue( map_get(l.variables,"v").getValue() );
         }
 
         GlobalCmdHist::getInstance().addCommand(
@@ -316,7 +318,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
              ++it)
         {
             lenses.push_back(pano.getLens(*it));
-            lenses.back().setFLFactor(val);
+            lenses.back().setCropFactor(val);
         }
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensesCmd( pano, lensNrs, lenses)
@@ -551,7 +553,8 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
-                    lens.readEXIF(pano.getImage(imgNr).getFilename().c_str());
+                    double c=0;
+                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens);
                     GlobalCmdHist::getInstance().addCommand(
                         new PT::ChangeLensCmd( pano, lensNr,
                                                lens )
@@ -592,10 +595,10 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             setlocale(LC_NUMERIC,"C");
             {
                 wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-                cfg.Write(wxT("Lens/type"), (long) lens.projectionFormat);
+                cfg.Write(wxT("Lens/type"), (long) lens.getProjection());
                 cfg.Write(wxT("Lens/hfov"), const_map_get(vars,"v").getValue());
                 cfg.Write(wxT("Lens/hfov_link"), const_map_get(lens.variables,"v").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/crop"), lens.getFLFactor());
+                cfg.Write(wxT("Lens/crop"), lens.getCropFactor());
                 cfg.Write(wxT("Lens/a"), const_map_get(vars,"a").getValue());
                 cfg.Write(wxT("Lens/a_link"), const_map_get(lens.variables,"a").isLinked() ? 1:0);
                 cfg.Write(wxT("Lens/b"), const_map_get(vars,"b").getValue());
@@ -645,9 +648,9 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 int integer=0;
                 double d;
                 cfg.Read(wxT("Lens/type"), &integer);
-                lens.projectionFormat = (Lens::LensProjectionFormat) integer;
+                lens.setProjection ((Lens::LensProjectionFormat) integer);
                 cfg.Read(wxT("Lens/hfov"), &d);map_get(vars,"v").setValue(d);
-                cfg.Read(wxT("Lens/crop"), &d);lens.setFLFactor(d);
+                cfg.Read(wxT("Lens/crop"), &d);lens.setCropFactor(d);
                 cfg.Read(wxT("Lens/a"), &d);map_get(vars,"a").setValue(d);
                 cfg.Read(wxT("Lens/b"), &d);map_get(vars,"b").setValue(d);
                 cfg.Read(wxT("Lens/c"), &d);map_get(vars,"c").setValue(d);
@@ -694,4 +697,90 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
     } else {
         wxLogError(_("Please select an image and try again"));
     }
+}
+
+bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
+{
+    std::string ext = utils::getExtension(filename);
+    std::transform(ext.begin(), ext.end(), ext.begin(), toupper);
+
+    if (ext != "JPG" && ext != "JPEG") {
+        return false;
+    }
+
+    ImageInfo_t exif;
+    ResetJpgfile();
+    // Start with an empty image information structure.
+
+    memset(&exif, 0, sizeof(exif));
+    exif.FlashUsed = -1;
+    exif.MeteringMode = -1;
+
+    if (!ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
+        DEBUG_DEBUG("Could not read jpg info");
+        return false;
+    }
+
+#ifdef DEBUG
+    ShowImageInfo(exif);
+#endif
+
+    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
+
+    // calc sensor dimensions if not set and 35mm focal length is available
+
+    FDiff2D sensorSize;
+    double focalLength = 0;
+
+    if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
+        // read sensor size directly.
+        sensorSize.x = exif.CCDWidth;
+        sensorSize.y = exif.CCDHeight;
+        if (strcmp(exif.CameraModel, "Canon EOS 20D") == 0) {
+            // special case for buggy 20D camera
+            sensorSize.x = 22.5;
+            sensorSize.y = 15;
+        }
+        cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
+        focalLength = exif.FocalLength;
+    } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
+        cropFactor = exif.FocalLength35mm / exif.FocalLength;
+        focalLength = exif.FocalLength;
+    } else if (exif.FocalLength > 0 || exif.FocalLength35mm > 0 ) {
+        // no complete specification found.. ask the user for sensor/chip size, or crop factor
+        if (cropFactor > 0) {
+            // crop factor was provided by user
+        } else {
+            cropFactor = 1;
+            wxConfigBase::Get()->Read(wxT("/LensDefaults/CropFactor"), &cropFactor);
+            wxString tval;
+            tval.Printf(wxT("%4.2f"),cropFactor);
+            wxString t = wxGetTextFromUser(_("Enter Crop Factor for image\n\nThe crop factor is given by:\ncrop factor = 43.3 / diagonal \n\nwhere diagnal is the diagonal (in mm) of the film or imaging chip."),
+                _("Adding Image"), tval);
+            t.ToDouble(&cropFactor);
+            wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
+        }
+        if (exif.FocalLength > 0 ) {
+            focalLength = exif.FocalLength;
+        } else if (exif.FocalLength35mm) {
+            focalLength = exif.FocalLength35mm * cropFactor;
+        }
+    }
+
+    if (sensorSize.x > 0) {
+        l.setSensorSize(sensorSize);
+    } else if (cropFactor > 0) {
+        l.setCropFactor(cropFactor);
+    } else {
+        return false;
+    }
+
+    if (focalLength > 0) {
+        l.setFocalLength(focalLength);
+    } else {
+        return false;
+    }
+
+
+    return true;
 }

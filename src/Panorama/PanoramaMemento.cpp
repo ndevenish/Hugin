@@ -102,149 +102,110 @@ std::ostream & LensVariable::printLink(std::ostream & o,
 
 
 Lens::Lens()
-    : projectionFormat(RECTILINEAR),
-      isLandscape(false),
-      focalLengthConversionFactor(1),
-      sensorWidth(36.0), sensorHeight(24.0),
-      sensorRatio(1.5)
+    : m_projectionFormat(RECTILINEAR),
+      m_sensorSize(36.0,24.0), m_imageSize(0,0)
 {
     fillLensVarMap(variables);
 }
 
 char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 0};
 
-bool Lens::readEXIF(const std::string & filename)
-{
-
-    double HFOV = 0;
-
-    std::string::size_type idx = filename.rfind('.');
-    if (idx == std::string::npos) {
-        DEBUG_DEBUG("could not find extension in filename");
-        return false;
-    }
-    std::string ext = filename.substr( idx+1 );
-    if (ext != "jpg" && ext != "JPG" && ext != "jpeg" && ext != "JPEG") {
-        DEBUG_NOTICE("can only read lens data from jpg files, current ext:"
-                     << ext);
-        return false;
-    }
-
-    ImageInfo_t exif;
-    ResetJpgfile();
-
-    // Start with an empty image information structure.
-    memset(&exif, 0, sizeof(exif));
-    exif.FlashUsed = -1;
-    exif.MeteringMode = -1;
-
-    if (!ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
-        DEBUG_DEBUG("Could not read jpg info");
-        return false;
-    }
-    ShowImageInfo(exif);
-
-    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
-
-    // calc sensor dimensions if not set and 35mm focal length is available
-    focalLengthConversionFactor = 0;
-    if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
-        focalLengthConversionFactor = exif.FocalLength35mm / exif.FocalLength;
-        if (exif.CCDWidth <= 0 && exif.CCDHeight <= 0) {
-            exif.CCDWidth = 36.0 / focalLengthConversionFactor;
-            exif.CCDHeight = 24 / focalLengthConversionFactor;
-        }
-    }
-
-    sensorWidth = exif.CCDWidth;
-    sensorHeight = exif.CCDHeight;
-    if (sensorWidth <= 0 && sensorWidth <= 0) {
-        DEBUG_ERROR("EXIF does not contain sensor width, assuming 36 x 24 mm film");
-        // should ask for sensor width/height
-        sensorWidth = 36.0;
-        sensorHeight = 24.0;
-    }
-
-    // update the sensor ratio to fit this
-    sensorRatio = sensorWidth / sensorHeight;
-    if (sensorWidth < sensorHeight) {
-        DEBUG_WARN("ODD: portrait oriented sensor detected.");
-    }
-    if (focalLengthConversionFactor <= 0) {
-        focalLengthConversionFactor = sqrt(36.0*36.0 + 24.0*24.0) /
-    	                              sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight);
-    }
-	
-    if (isLandscape) {
-        HFOV = 2.0 * atan((sensorWidth/2)/exif.FocalLength) * 180.0/M_PI;
-    } else {
-        HFOV = 2.0 * atan((sensorHeight/2)/exif.FocalLength) * 180.0/M_PI;
-    }
-
-    if ( HFOV <= 0.0)
-        HFOV = 50;
-    DEBUG_DEBUG("CCD size: " << sensorWidth << "," << sensorHeight << " mm");
-    DEBUG_DEBUG("real focal length: " << exif.FocalLength << ", 35mm equiv: "
-                << exif.FocalLength * focalLengthConversionFactor
-                << " crop factor: " << focalLengthConversionFactor
-                << " HFOV: " << HFOV);
-
-    map_get(variables,"v").setValue(HFOV);
-
-    return true;
-}
-
-
-void Lens::setFLFactor(double factor)
-{
-    focalLengthConversionFactor = factor;
-
-    // calculate corrosponding diagonal on our sensor
-    double d = sqrt(36.0*36.0 + 24.0*24.0) / focalLengthConversionFactor;
-    // calculate the sensor width and height that fit the ratio
-    // the ratio is determined by the size of our image.
-    sensorHeight = d / sqrt(sensorRatio*sensorRatio +1);
-    sensorWidth = sensorHeight * sensorRatio;
-    DEBUG_DEBUG("factor: " << factor << "ratio: " << sensorRatio << " --> New sensor size: " << sensorWidth << "," << sensorHeight);
-
-    // FIXME: calculate new HFOV.
-}
-
-
-void Lens::setRatio(double ratio)
-{
-    sensorRatio = ratio;
-    setFLFactor(focalLengthConversionFactor);
-}
 
 
 void Lens::update(const Lens & l)
 {
-    focalLengthConversionFactor = l.focalLengthConversionFactor;
-    projectionFormat = l.projectionFormat;
-    sensorWidth = l.sensorWidth;
-    sensorHeight = l.sensorHeight;
+    m_projectionFormat = l.m_projectionFormat;
+    m_sensorSize = l.m_sensorSize;
+    m_imageSize = l.m_imageSize;
     variables = l.variables;
 }
 
-
-double Lens::calcFocalLength(double HFOV) const
+double Lens::getHFOV() const
 {
-    if (isLandscape) {
-        return (sensorWidth/2.0) / tan(HFOV/180.0*M_PI/2);
+    return const_map_get(this->variables,"v").getValue();
+}
+
+void Lens::setHFOV(double d)
+{
+    map_get(variables,"v").setValue(d);
+}
+
+double Lens::getFocalLength() const
+{
+    FDiff2D ssize;
+    double HFOV = const_map_get(variables,"v").getValue();
+
+    if (isLandscape()) {
+        ssize = m_sensorSize;
     } else {
-        return (sensorHeight/2.0) / tan(HFOV/180.0*M_PI/2);
+        ssize.y = m_sensorSize.x;
+        ssize.x = m_sensorSize.y;
+    }
+
+    switch (m_projectionFormat)
+    {
+        case LensProjectionFormat::RECTILINEAR:
+            return (ssize.x/2.0) / tan(HFOV/180.0*M_PI/2);            
+            break;
+        case LensProjectionFormat::CIRCULAR_FISHEYE:
+        case LensProjectionFormat::FULL_FRAME_FISHEYE:
+            // same projection, equal area projection
+            return ssize.x / (HFOV/180*M_PI);
+            break;
+        default:
+            // TODO: add formulas for other projections
+            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
+            return 0;
     }
 }
 
-
-double Lens::calcHFOV(double focalLength) const
+void Lens::setFocalLength(double fl)
 {
-    if (isLandscape) {
-        return 2.0 * atan((sensorWidth/2.0)/focalLength) * 180.0/M_PI;
+    FDiff2D ssize;
+
+    if (isLandscape()) {
+        ssize = m_sensorSize;
     } else {
-        return 2.0 * atan((sensorHeight/2.0)/focalLength) * 180.0/M_PI;
+        ssize.y = m_sensorSize.x;
+        ssize.x = m_sensorSize.y;
     }
+
+    double hfov=map_get(variables, "v").getValue();
+    switch (m_projectionFormat) {
+        case LensProjectionFormat::RECTILINEAR:
+            hfov = 2*atan((ssize.x/2.0)/fl)  * 180.0/M_PI;
+            break;
+        case LensProjectionFormat::CIRCULAR_FISHEYE:
+        case LensProjectionFormat::FULL_FRAME_FISHEYE:
+            hfov = ssize.x / fl * 180/M_PI;
+        default:
+            // TODO: add formulas for other projections
+            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
+    }
+    map_get(variables, "v").setValue(hfov);
+}
+
+
+void Lens::setCropFactor(double factor)
+{
+    // calculate diagonal on our sensor
+    double d = sqrt(36.0*36.0 + 24.0*24.0) / factor;
+
+    double r = (double)m_imageSize.x / m_imageSize.y;
+    // calculate the sensor width and height that fit the ratio
+    // the ratio is determined by the size of our image.
+    m_sensorSize.x = d / sqrt(1 + 1/(r*r));
+    m_sensorSize.y = m_sensorSize.x / r;
+}
+
+double Lens::getCropFactor() const
+{
+    double d2 = m_sensorSize.x*m_sensorSize.x + m_sensorSize.y*m_sensorSize.y;
+    return sqrt(36.0*36+24*24) / sqrt(d2);
+}
+
+void Lens::setSensorSize(const FDiff2D & size) {
+    m_sensorSize = size;
 }
 
 //=========================================================================
@@ -704,10 +665,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     if (PTGUILensLoaded) {
         // create lens with dummy info
         Lens l;
-        l.isLandscape = PTGUILens.width > PTGUILens.height;
         for (char **v = Lens::variableNames; *v != 0; v++) {
             map_get(l.variables, *v).setValue(PTGUILens.vars[**v]);
         }
+        l.setImageSize(vigra::Size2D(PTGUILens.width, PTGUILens.height));
+        l.setCropFactor(1);
         lenses.push_back(l);
     }
 
@@ -836,7 +798,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
         Lens l;
 
-        l.isLandscape = iImgInfo[i].width > iImgInfo[i].height;
+        l.setImageSize(vigra::Size2D(iImgInfo[i].width, iImgInfo[i].height));
+        // we should store the crop factor somewhere...
+        l.setCropFactor(1);
+
         int anchorImage = -1;
         int lensNr = -1;
         for (LensVarMap::iterator it = l.variables.begin();
@@ -889,11 +854,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         variables.push_back(vars);
 
         DEBUG_DEBUG("lensNr after scanning " << lensNr);
-        l.projectionFormat = (Lens::LensProjectionFormat) iImgInfo[i].f;
+        //l.projectionFormat = (Lens::LensProjectionFormat) iImgInfo[i].f;
+        l.setProjection((Lens::LensProjectionFormat) iImgInfo[i].f);
 
         if (lensNr != -1) {
     //                lensNr = images[anchorImage].getLensNr();
-            if (l.projectionFormat != lenses[lensNr].projectionFormat) {
+            if (l.getProjection() != lenses[lensNr].getProjection()) {
                 DEBUG_ERROR("cannot link images with different projections");
     #ifdef __unix__
                 // reset locale
@@ -904,18 +870,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         }
 
         if (lensNr == -1) {
-            if (width > height) {
-                l.setRatio(((double)width)/height);
-            } else {
-                l.setRatio(((double)height)/width);
-            }
             // no links -> create a new lens
             // create a new lens.
             lenses.push_back(l);
             lensNr = lenses.size()-1;
         } else {
             // check if the lens uses landscape as well..
-            if (lenses[(unsigned int) lensNr].isLandscape != l.isLandscape) {
+            if (lenses[(unsigned int) lensNr].isLandscape() != l.isLandscape()) {
                 DEBUG_ERROR("Landscape and portrait images can't share a lens" << endl
                             << "error on script line " << lineNr << ":" << line);
             }

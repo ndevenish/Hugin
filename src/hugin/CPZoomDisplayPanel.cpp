@@ -106,7 +106,7 @@ void CPZoomDisplayPanel::updateInternalOptim()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
                                       360,
@@ -145,7 +145,7 @@ void CPZoomDisplayPanel::updateInternalOptim()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
                                       360,
@@ -188,7 +188,7 @@ void CPZoomDisplayPanel::updateInternalOptim()
     // transform to pano (undistorted patch), into image
     m_t_center2img.createTransform(srcSize,
                                    vars,
-                                   m_pano.getLens(img.getLensNr()).projectionFormat,
+                                   m_pano.getLens(img.getLensNr()).getProjection(),
                                    wSize,
                                    PanoramaOptions::RECTILINEAR,
                                    hfov,
@@ -199,7 +199,7 @@ void CPZoomDisplayPanel::updateInternalOptim()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       wSize,
                                       PanoramaOptions::RECTILINEAR,
                                       hfov,
@@ -268,7 +268,7 @@ void CPZoomDisplayPanel::updateInternal()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
                                       360,
@@ -307,7 +307,7 @@ void CPZoomDisplayPanel::updateInternal()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
                                       360,
@@ -350,7 +350,7 @@ void CPZoomDisplayPanel::updateInternal()
     // transform to pano (undistorted patch), into image
     m_t_center2img.createTransform(srcSize,
                                    vars,
-                                   m_pano.getLens(img.getLensNr()).projectionFormat,
+                                   m_pano.getLens(img.getLensNr()).getProjection(),
                                    wSize,
                                    PanoramaOptions::RECTILINEAR,
                                    hfov,
@@ -361,7 +361,7 @@ void CPZoomDisplayPanel::updateInternal()
     // coordiantes.
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
-                                      m_pano.getLens(img.getLensNr()).projectionFormat,
+                                      m_pano.getLens(img.getLensNr()).getProjection(),
                                       wSize,
                                       PanoramaOptions::RECTILINEAR,
                                       hfov,

@@ -28,9 +28,11 @@
 
 #include "PT/PanoCommand.h"
 #include "common/stl_utils.h"
-#include "hugin/ImageCache.h"
+#include "hugin/LensPanel.h"
 
 namespace PT {
+
+
 
 /** add image(s) to a panorama */
 class wxAddImagesCmd : public PanoCommand
@@ -47,31 +49,28 @@ public:
             // for example if the exif data or image size
             // suggests it.
             std::vector<std::string>::const_iterator it;
+
+            double cropFactor=0;
+
             for (it = files.begin(); it != files.end(); ++it) {
                 const std::string &filename = *it;
-                std::string::size_type idx = filename.rfind('.');
-                if (idx == std::string::npos) {
-                    DEBUG_DEBUG("could not find extension in filename");
-                }
-                wxImage * image = ImageCache::getInstance().getImage(filename);
-                std::string ext = filename.substr( idx+1 );
-
-
-                int width = image->GetWidth();
-                int height = image->GetHeight();
 
                 Lens lens;
-                lens.isLandscape = (width > height);
-                if (lens.isLandscape) {
-                    lens.setRatio(((double)width)/height);
-                } else {
-                    lens.setRatio(((double)height)/width);
+                double width;
+                double height;
+                try {
+                    vigra::ImageImportInfo info(filename.c_str());
+                    width = info.width();
+                    height = info.height();
+                } catch(vigra::PreconditionViolation & e) {
+                    pano.changeFinished();
+                    wxLogError(wxString(e.what()));
+                    return;
                 }
 
-                if (utils::tolower(ext) == "jpg") {
-                    // try to read exif data from jpeg files.
-                    lens.readEXIF(filename);
-                }
+                lens.setImageSize(vigra::Size2D(width, height));
+
+                initLensFromFile(filename, cropFactor, lens);
 
                 int matchingLensNr=-1;
                 // FIXME: check if the exif information
@@ -82,9 +81,12 @@ public:
                     // use a lens if hfov and ratio are the same
                     // should add a check for exif camera information as
                     // well.
-                    if ((l.getRatio() == lens.getRatio()) &&
-                        (l.isLandscape == lens.isLandscape) &&
-                        (const_map_get(l.variables,"v").getValue() - const_map_get(lens.variables,"v").getValue() < 0.002) )
+                    double l_v = const_map_get(l.variables,"v").getValue();
+                    double lens_v = const_map_get(lens.variables,"v").getValue();
+                    if ((l.getAspectRatio() == lens.getAspectRatio()) &&
+                        (l.isLandscape() == lens.isLandscape()) &&
+                        (fabs(l_v - lens_v) < 0.001) &&
+                        (l.getSensorSize() == lens.getSensorSize()))
                     {
                         matchingLensNr= lnr;
                     }
@@ -152,6 +154,9 @@ public:
                             pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str());
                             // save used path
                             basedir = dlg.GetDirectory();
+                        } else {
+                            pano.changeFinished();
+                            return;
                         }
                         fname.Assign(dlg.GetPath());
                     }

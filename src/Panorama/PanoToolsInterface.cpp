@@ -263,7 +263,7 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
     }
     createTransform(srcSize,
                     pano.getImageVariables(imgNr),
-                    pano.getLens(img.getLensNr()).projectionFormat,
+                    pano.getLens(img.getLensNr()).getProjection(),
                     Diff2D(dest.width, dest.getHeight()),
                     dest.projectionFormat, dest.HFOV,
                     Diff2D(img.getWidth(), img.getHeight()));
@@ -309,7 +309,7 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
     }
     createInvTransform(srcSize,
                        pano.getImageVariables(imgNr),
-                       pano.getLens(img.getLensNr()).projectionFormat,
+                       pano.getLens(img.getLensNr()).getProjection(),
                        Diff2D(dest.width, dest.getHeight()),
                        dest.projectionFormat, dest.HFOV,
                        Diff2D(img.getWidth(), img.getHeight()));
@@ -413,7 +413,7 @@ void PTools::setFullImage(Image & image, Diff2D size,
     case Lens::FULL_FRAME_FISHEYE:
         image.format = _fisheye_ff;
         break;
-    case Lens::EQUIRECTANGULAR_LENS:
+    case Lens::EQUIRECTANGULAR:
         image.format = _equirectangular;
         break;
     }
@@ -737,7 +737,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
         // set the image information, with pointer to dummy image data
         setFullImage(gl.im[cImgNr],
                      Diff2D(pimg.getWidth(), pimg.getHeight()),
-                     0, vars, lens.projectionFormat, true);
+                     0, vars, lens.getProjection(), true);
 
         // set optimisation flags
         setOptVars(gl.opt[cImgNr], optvec[cImgNr]);

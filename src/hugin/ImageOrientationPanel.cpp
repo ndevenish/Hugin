@@ -103,7 +103,7 @@ void ImageOrientationPanel::updateTransforms()
     const PanoImage & img = pano.getImage(m_refImgNr);
     // create suitable transform, pano -> image
     m_transform.createTransform(Diff2D(img.getWidth(), img.getHeight()),
-                                m_vars, pano.getLens(img.getLensNr()).projectionFormat,
+                                m_vars, pano.getLens(img.getLensNr()).getProjection(),
                                 Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
                                 360);
     VariableMap nullvars = m_vars;
@@ -113,7 +113,7 @@ void ImageOrientationPanel::updateTransforms()
     map_get(nullvars,"y").setValue(0);
     // create transform image -> pano
     m_invTransform.createInvTransform(Diff2D(img.getWidth(), img.getHeight()),
-                                      nullvars, pano.getLens(img.getLensNr()).projectionFormat,
+                                      nullvars, pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
                                       360);
 
@@ -174,7 +174,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
         double maxh=0;
         double maxv=0;
         const PanoImage & img = pano.getImage(m_refImgNr);
-        switch (pano.getLens(img.getLensNr()).projectionFormat) {
+        switch (pano.getLens(img.getLensNr()).getProjection()) {
         case Lens::RECTILINEAR:
             maxh = 85;
             maxv = 85;
@@ -188,7 +188,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
             maxh = 180;
             maxv = 180;
             break;
-        case Lens::EQUIRECTANGULAR_LENS:
+        case Lens::EQUIRECTANGULAR:
             maxh = 180;
             maxv = 90;
             break;

@@ -298,12 +298,12 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     VariableMap var = pano.getImageVariables(imgNr);
     const Lens & lens = pano.getLens( img.getLensNr());
     wxString ps;
-    switch ( (int) lens.  projectionFormat  ) {
+    switch ( (int) lens.getProjection() ) {
     case Lens::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
     case Lens::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
     case Lens::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
     case Lens::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
-    case Lens::EQUIRECTANGULAR_LENS: ps << _("Equirectangular"); break;
+    case Lens::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
     SetItem(imgNr, 4, doubleTowxString( map_get(var, "v").getValue(),m_degDigits));

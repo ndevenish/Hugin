@@ -52,6 +52,27 @@ std::string utils::CurrentTime()
 #endif
 
 
+std::string utils::getExtension(const std::string & basename2)
+{
+	std::string::size_type idx = basename2.rfind('.');
+    // check if the dot is not followed by a \ or a /
+    // to avoid cutting pathes.
+    if (idx == std::string::npos) {
+        // no dot found
+		return std::string("");
+    }
+    // check for slashes after dot
+    std::string::size_type slashidx = basename2.find('/', idx);
+    std::string::size_type backslashidx = basename2.find('\\', idx);
+    if ( slashidx == std::string::npos &&  backslashidx == std::string::npos)
+    {
+        return basename2.substr(idx+1);
+    } else {
+		return std::string("");
+    }
+
+}
+
 std::string utils::stripExtension(const std::string & basename2)
 {
     std::string::size_type idx = basename2.rfind('.');

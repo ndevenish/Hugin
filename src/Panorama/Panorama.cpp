@@ -196,7 +196,8 @@ Panorama::Panorama()
       optimizerExe("PTOptimizer"),
       stitcherExe("PTStitcher"),
       PTScriptFile("PT_script.txt"),
-      m_forceImagesUpdate(false)
+      m_forceImagesUpdate(false),
+      dirty(false)
 {
     cerr << "Panorama obj created" << std::endl;
 /*
@@ -354,7 +355,7 @@ FDiff2D Panorama::calcFOV() const
         int h = state.images[i].getHeight();
         T.createInvTransform(Diff2D(w, h),
                              state.variables[i],
-                             getLens(state.images[i].getLensNr()).projectionFormat,
+                             getLens(state.images[i].getLensNr()).getProjection(),
                              Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
                              360, Diff2D(w,h));
         FDiff2D ul;
@@ -382,7 +383,7 @@ FDiff2D Panorama::calcFOV() const
         // border
 
         // FIXME .. disinguish between these two overlaps
-        if (ul.x <= -170.0 && lr.x >= 170) {
+        if (ul.x <= -150.0 && lr.x >= 150) {
             // image in northern hemisphere
             if (ul.y > 0 ) {
                 ul.y = 90;
@@ -688,7 +689,7 @@ void Panorama::printOptimizerScript(ostream & o,
       << "# image lines" << std::endl;
     for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
         o << "i w" << (*it).getWidth() << " h" << (*it).getHeight()
-          <<" f" << state.lenses[(*it).getLensNr()].projectionFormat << " ";
+          <<" f" << state.lenses[(*it).getLensNr()].getProjection() << " ";
         // print variables with links
 
         unsigned int imgNr = it - state.images.begin();
@@ -826,7 +827,7 @@ void Panorama::printStitcherScript(ostream & o,
     for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
 
         o << "o w" << (*it).getWidth() << " h" << (*it).getHeight()
-          <<" f" << state.lenses[(*it).getLensNr()].projectionFormat << " ";
+          <<" f" << state.lenses[(*it).getLensNr()].getProjection() << " ";
         // print variables, without links
         VariableMap::const_iterator vit;
         for(vit = state.variables[i].begin();
@@ -1137,7 +1138,7 @@ void Panorama::setOptions(const PanoramaOptions & opt)
 
 }
 
-
+#if 0
 int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 {
     // load image
@@ -1193,6 +1194,7 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     PanoImage pimg(filename, img.width(), img.height(), (unsigned int) matchingLensNr);
     return addImage(pimg, vars);
 }
+#endif
 
 
 void Panorama::addObserver(PanoramaObserver * o)
