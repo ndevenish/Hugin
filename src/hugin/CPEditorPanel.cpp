@@ -177,9 +177,14 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #if wxCHECK_VERSION(2,5,3)
     m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
 	DEBUG_ASSERT(m_cp_ctrls);
+    m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
+	DEBUG_ASSERT(m_cp_splitter);
+
 	m_cp_ctrls->SetSizeHints(20, 20);
 	m_cp_ctrls->FitInside();
 	m_cp_ctrls->SetScrollRate(10, 10);
+	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
+	m_cp_splitter->SetMinimumPaneSize(20);
 #endif
 
     // apply selection from xrc file
@@ -203,6 +208,13 @@ CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
 
+#if wxCHECK_VERSION(2,5,3)
+    int sashPos;
+	sashPos = m_cp_splitter->GetSashPosition();
+	DEBUG_INFO("CP Editor panel sash pos: " << sashPos);
+	wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
+#endif
+				
     // FIXME. why does this crash at exit?
     m_x1Text->PopEventHandler(true);
     m_y1Text->PopEventHandler(true);

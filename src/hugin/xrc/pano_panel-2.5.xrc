@@ -62,7 +62,7 @@
         <border>5</border>
       </object>
       <object class="spacer">
-        <size>0,15</size>
+        <size>0,5</size>
       </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
@@ -142,7 +142,7 @@
                       <object class="wxTextCtrl" name="pano_val_width">
                         <style>wxTE_PROCESS_ENTER</style>
                       </object>
-                      <flag>wxRIGHT|wxALIGN_RIGHT</flag>
+                      <flag>wxRIGHT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>10</border>
                     </object>
                     <object class="sizeritem">
@@ -213,7 +213,7 @@
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
-                  <border>0</border>
+                  <border>5</border>
                 </object>
               </object>
             </object>

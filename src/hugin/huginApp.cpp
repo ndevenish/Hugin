@@ -102,7 +102,7 @@ bool huginApp::OnInit()
 
     // initialize i18n
     int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
-	DEBUG_TRACE("localeID" << localeID);
+	DEBUG_TRACE("localeID: " << localeID);
     {
 	bool bLInit;
 	bLInit = locale.Init(localeID);

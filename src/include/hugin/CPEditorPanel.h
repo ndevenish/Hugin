@@ -239,6 +239,7 @@ private:
     wxCheckBox *m_estimateCB;
 #if wxCHECK_VERSION(2,5,3)
 	wxScrolledWindow *m_cp_ctrls;
+    wxSplitterWindow *m_cp_splitter;
 #endif
 
     // my data

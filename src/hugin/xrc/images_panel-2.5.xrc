@@ -142,7 +142,8 @@
                     <border>5</border>
                   </object>
                 </object>
-                <flag>wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
@@ -210,7 +211,7 @@
                     <border>5</border>
                   </object>
                 </object>
-                <flag>wxEXPAND|wxGROW</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -228,9 +229,10 @@
                     <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
                   </object>
+                  <border>5</border>
                 </object>
                 <option>1</option>
-                <flag>wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
             </object>
