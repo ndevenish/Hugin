@@ -147,6 +147,9 @@ public:
                             // save used path
                             basedir = dlg.GetDirectory();
                         } else {
+                            PanoramaMemento emptyPano;
+                            pano.setMemento(emptyPano);
+                            // set an empty panorama
                             pano.changeFinished();
                             return;
                         }

@@ -366,100 +366,108 @@ ImagePtr ImageCache::getImage(const std::string & filename)
         }
 #if 1
         // load images with VIGRA impex, and scale to 8 bit
-        ImageImportInfo info(filename.c_str());
+        wxImage * image;
+        try {
+            ImageImportInfo info(filename.c_str());
 
-        wxImage * image = new wxImage(info.width(), info.height());
+            image = new wxImage(info.width(), info.height());
 
-        BasicImageView<RGBValue<unsigned char> > imgview((RGBValue<unsigned char> *)image->GetData(),
-                                                         image->GetWidth(),
-                                                         image->GetHeight());
+            BasicImageView<RGBValue<unsigned char> > imgview((RGBValue<unsigned char> *)image->GetData(),
+                image->GetWidth(),
+                image->GetHeight());
 
-        int bands = info.numBands();
-        int extraBands = info.numExtraBands();
-        const char * pixelType = info.getPixelType();
+            int bands = info.numBands();
+            int extraBands = info.numExtraBands();
+            const char * pixelType = info.getPixelType();
 
 
-        if ( bands == 1) {
-            // load and convert image to 8 bit, if needed
-            if (strcmp(pixelType, "UINT8") == 0 ) {
-                importImage(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT16") == 0 ) {
-                importAndConvertGrayImage<short> (info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                importAndConvertGrayImage<unsigned short >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                importAndConvertGrayImage<unsigned int>(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT32") == 0 ) {
-                importAndConvertGrayImage<int>(info, destImage(imgview));
-            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                importAndConvertGrayImage<float>(info, destImage(imgview));
-            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                importAndConvertGrayImage<double>(info, destImage(imgview));
+            if ( bands == 1) {
+                // load and convert image to 8 bit, if needed
+                if (strcmp(pixelType, "UINT8") == 0 ) {
+                    importImage(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertGrayImage<short> (info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    importAndConvertGrayImage<unsigned short >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertGrayImage<unsigned int>(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertGrayImage<int>(info, destImage(imgview));
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertGrayImage<float>(info, destImage(imgview));
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertGrayImage<double>(info, destImage(imgview));
+                } else {
+                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                }
+            } else if (bands == 3 && extraBands == 0) {
+                DEBUG_DEBUG( pixelType);
+                // load and convert image to 8 bit, if needed
+                if (strcmp(pixelType, "UINT8") == 0 ) {
+                    vigra::importImage(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertImage<RGBValue<short> > (info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    importAndConvertImage<RGBValue<unsigned short> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertImage<RGBValue<unsigned int> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertImage<RGBValue<int> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertImage<RGBValue<float> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertImage<RGBValue<double> >(info, destImage(imgview));
+                } else {
+                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                }
+            } else if ( bands == 4 && extraBands == 1) {
+                // load and convert image to 8 bit, if needed
+                if (strcmp(pixelType, "UINT8") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
+                } else {
+                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                }
+            } else if ( bands == 2 && extraBands == 1) {
+                // load and convert image to 8 bit, if needed
+                if (strcmp(pixelType, "UINT8") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertGrayAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
+                } else {
+                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                }
+
             } else {
-                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                DEBUG_ERROR("unsupported depth, only images with 1 or 3 channel images are supported.");
             }
-        } else if (bands == 3 && extraBands == 0) {
-            DEBUG_DEBUG( pixelType);
-            // load and convert image to 8 bit, if needed
-            if (strcmp(pixelType, "UINT8") == 0 ) {
-                vigra::importImage(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT16") == 0 ) {
-                importAndConvertImage<RGBValue<short> > (info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                importAndConvertImage<RGBValue<unsigned short> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                importAndConvertImage<RGBValue<unsigned int> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT32") == 0 ) {
-                importAndConvertImage<RGBValue<int> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                importAndConvertImage<RGBValue<float> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                importAndConvertImage<RGBValue<double> >(info, destImage(imgview));
-            } else {
-                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-            }
-        } else if ( bands == 4 && extraBands == 1) {
-            // load and convert image to 8 bit, if needed
-            if (strcmp(pixelType, "UINT8") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT16") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT32") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                importAndConvertAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
-            } else {
-                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-            }
-        } else if ( bands == 2 && extraBands == 1) {
-            // load and convert image to 8 bit, if needed
-            if (strcmp(pixelType, "UINT8") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT16") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "INT32") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
-            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                importAndConvertGrayAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
-            } else {
-                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-            }
-
-        } else {
-            DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported.");
+        } catch (vigra::PreconditionViolation & e) {
+            // could not load image..
+            DEBUG_DEBUG("Could not load image information: " << e.what());
+            return new wxImage;
         }
+
 #else
         // use wx for image loading
         wxImage * image = new wxImage(filename.c_str());

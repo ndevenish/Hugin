@@ -133,6 +133,9 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
 {
     wxImage * s_img = ImageCache::getInstance().getSmallImage(
         pano.getImage(imgNr).getFilename());
+    if (!s_img->Ok()) {
+        return;
+    }
 
     float w = s_img->GetWidth();
     float h = s_img->GetHeight();
