@@ -5,16 +5,8 @@
 //#include "wx/wx.h"
 #include "wx/frame.h"
 #include "wx/image.h"
-
+#include "wx/filename.h"
 #include "panoviewer.h"
-
-/** Projection of final panorama
- */
-typedef enum ProjectionFormat { RECTILINEAR = 0,
-                                CYLINDRICAL = 1,
-                                EQUIRECTANGULAR = 2
-                              } ProjectionFormat;
-
 
 
 class MyFrame : public wxFrame
@@ -30,7 +22,7 @@ public:
     void OnPref ( wxMenuEvent &event );
     /**  This function takes the hugin call via wxSocket and loads a new image.
      */
-    void ShowFile ( wxString fn );
+    void ShowFile ( wxFileName fn );
     /**  This function takes the hugin call via wxSocket and
      *   sets the projection.
      */
@@ -46,18 +38,25 @@ public:
     /**  This function takes the hugin call via wxSocket and sets the grid.
      */
     void setGrid ( bool showGrid );
+    void OnGrid ( wxMenuEvent &event );
+    void OnView ( wxMenuEvent &event );
 
     /** the pano panel */
     PanoViewer *pano;
 
 private:
         ProjectionFormat projectionFormat;
+        int width;
+        int height;
+        bool resetView;
+        bool showGrid;
 	wxImage control;
 	bool isFullScreen;
 	wxFileDialog *load, *save;
 	wxDialog *pref;
 	wxSlider *qslider;
 	wxSlider *mslider;
+        wxFileName filename;
 
 	DECLARE_EVENT_TABLE()
 };
@@ -69,7 +68,9 @@ enum
 	QUIT,
 
 	FULLSCREEN,
-	PREF
+	PREF,
+        GRID,
+        VIEW
 };
 
 

@@ -21,6 +21,8 @@ BEGIN_EVENT_TABLE(MyFrame, wxFrame)
 	EVT_MENU(LOAD, MyFrame::OnLoadFile)
 	EVT_MENU(QUIT, MyFrame::OnQuit)
 	EVT_MENU(PREF, MyFrame::OnPref)
+	EVT_MENU(GRID, MyFrame::OnGrid)
+	EVT_MENU(VIEW, MyFrame::OnView)
 END_EVENT_TABLE()
 
 
@@ -38,6 +40,8 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 
     menuView->Append(FULLSCREEN, "&Full screen", "Toggle full screen mode");
     menuView->Append(PREF, "&Preferences", "Adjust various panorama viewing preferences");
+    menuView->Append(GRID, "&Grid", "Show an grid");
+    menuView->Append(VIEW, "&Reset view", "look at 0° , 0°");
 
     // now append the freshly created menu to the menu bar...
     wxMenuBar *menuBar = new wxMenuBar();
@@ -65,6 +69,10 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 
    isFullScreen = FALSE;
    projectionFormat = EQUIRECTANGULAR;   // enum ProjectionFormat
+   width = 360;                          // moveable angle
+   height = 180;                         // moveable angle
+   resetView = TRUE;                     // look at the origin of the pano 0°,0°
+   showGrid = FALSE;                     // grid for justifieing in hugin
 
    load = new wxFileDialog(this, "Load a 360x180 panorama...");
    load->SetWildcard("JPEG files (*.jpg)|*.jpg|BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|PNG files (*.png)|*.png|All files|*.*");
@@ -88,7 +96,8 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
       wxString m_argv ( argv[1] );
       double d;
       if ( m_argv.IsAscii() )
-        ShowFile( argv[1] );  // arg [1] : filename to load
+        filename = argv[1];
+        ShowFile( filename );  // arg [1] : filename to load
       DEBUG_INFO ( _("open") <<" "<< m_argv )
       if (argc > 2) {  // arg [2] : port to listen for panoviewer client
         m_argv = argv[2];
@@ -108,9 +117,58 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
           if ( m_argv.ToDouble(&d) ) {
             DEBUG_INFO ( m_argv << " " << ((int)d) )
             projectionFormat = (ProjectionFormat)d;
+            setProjectionFormat(projectionFormat);
           } else {
             DEBUG_INFO ( "arg[3] " << _("failed: ") << m_argv )
             projectionFormat = EQUIRECTANGULAR;
+          }
+        }
+      }
+      if (argc > 4) {
+        m_argv = argv[4]; //  arg [4] : width
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((int)d) )
+            width = (int)d;
+          } else {
+            DEBUG_INFO ( "arg[4] " << _("failed: ") << m_argv )
+            width = 360;
+          }
+        }
+      }
+      if (argc > 5) {
+        m_argv = argv[5]; //  arg [5] : height
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((int)d) )
+            height = (int)d;
+          } else {
+            DEBUG_INFO ( "arg[5] " << _("failed: ") << m_argv )
+            height = 180;
+          }
+        }
+      }
+      if (argc > 6) {
+        m_argv = argv[6]; //  arg [6] : resetView
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((bool)d) )
+            resetView = (bool)d;
+          } else {
+            DEBUG_INFO ( "arg[6] " << _("failed: ") << m_argv )
+            resetView = 1;
+          }
+        }
+      }
+      if (argc > 7) {
+        m_argv = argv[7]; //  arg [7] : showGrid
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((bool)d) )
+            showGrid = (bool)d;
+          } else {
+            DEBUG_INFO ( "arg[7] " << _("failed: ") << m_argv )
+            showGrid = 0;
           }
         }
       }
@@ -141,10 +199,34 @@ void MyFrame::OnLoadFile ( wxMenuEvent &event )
     DEBUG_INFO ( load->GetWildcard() )
 	if ( load->ShowModal() == wxID_OK )
 	{
+                width = 360;    // We expect an equirectangular pano.
+                height = 180;
 		wxImage p;
 		p.LoadFile(load->GetPath());
+                filename = load->GetPath();
 		pano->SetPano(p);
 	}
+}
+
+void MyFrame::OnView ( wxMenuEvent &event )
+{
+    PanoViewpoint vp;
+    vp.SetYawLimit ( width );
+    vp.SetPitchLimit ( height );
+    pano->setView( vp );
+    DEBUG_INFO ( "width = " << width << " height = " << height )
+}
+
+void MyFrame::OnGrid ( wxMenuEvent &event )
+{
+    DEBUG_INFO ( "showGrid " << showGrid )
+	if ( showGrid )
+	{
+          showGrid = FALSE;
+	} else {
+          showGrid = TRUE;
+        }
+    ShowFile ( filename );
 }
 
 void MyFrame::OnQuit ( wxMenuEvent &event )
@@ -159,24 +241,49 @@ void MyFrame::OnPref ( wxMenuEvent &event )
 	pano->SetMouseFactor( mslider->GetValue() );
 }
 
-void MyFrame::ShowFile ( wxString fn )
+void MyFrame::ShowFile ( wxFileName file )
 {
     wxImage p;
-    wxFileName file = fn;
     if ( file.FileExists() ) {
-      if ( p.LoadFile(fn) ) {
+      if ( p.LoadFile(file.GetFullPath()) ) {
+        pano->showGrid(showGrid);
+        if ( showGrid ) {
+          wxBitmap bmp = p.ConvertToBitmap();
+          wxMemoryDC mdc;
+          mdc.SelectObject(bmp);
+          mdc.BeginDrawing();
+          double v_lines = 36.0;   // TODO work for the other projections
+          double h_lines = 18.0;
+          for ( double i = 0.0 ; i < v_lines ; i++ ) {
+            mdc.CrossHair((int)((double)p.GetWidth()/2
+                              + (double)p.GetWidth()/v_lines * i),
+                          (int)((double)p.GetHeight()/2
+                              + (double)p.GetHeight()/h_lines * i));
+            mdc.CrossHair((int)((double)p.GetWidth()/2
+                              + (double)p.GetWidth()/v_lines * -i),
+                          (int)((double)p.GetHeight()/2
+                              + (double)p.GetHeight()/h_lines * -i));
+          }
+          mdc.EndDrawing();
+          p = bmp;
+        }
         pano->SetPano(p); 
-        DEBUG_INFO ( " " << fn ) }
+        DEBUG_INFO ( " " << file.GetFullPath() ) }
       else 
-        DEBUG_INFO ( _("failed: ") << fn )
+        DEBUG_INFO ( _("failed: ") << file.GetFullPath() )
     } else {
-      DEBUG_INFO ( _("failed: ") << fn << _(" dont exist") )
+      DEBUG_INFO ( _("failed: ") << file.GetFullPath() << _(" dont exist") )
     }
 }
 
-void MyFrame::setProjectionFormat ( ProjectionFormat projectionFormat )
+void MyFrame::setProjectionFormat ( ProjectionFormat f )
 {
-    DEBUG_INFO ( _("TODO") << _(" projectionFormat ") << projectionFormat)
+    PanoViewpoint vp (pano->getView());
+    vp.SetFormat ( f );
+    vp.SetYawLimit ( width );
+    vp.SetPitchLimit ( height );
+    pano->setView( vp );
+    DEBUG_INFO ( _("projectionFormat ") << projectionFormat)
 }
 
 void MyFrame::setViewWidth ( int width )
@@ -189,9 +296,11 @@ void MyFrame::setViewHeight ( int height )
     DEBUG_INFO ( _("TODO") << _(" setViewHeigth ") << height)
 }
 
-void MyFrame::setGrid ( bool showGrid )
+void MyFrame::setGrid ( bool yes )
 {
-    DEBUG_INFO ( _("TODO") << _(" setGrid ") << showGrid)
+    showGrid = yes;
+    ShowFile ( filename );
+    DEBUG_INFO ( _(" setGrid ") << showGrid )
 }
 
 

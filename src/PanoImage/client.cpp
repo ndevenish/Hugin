@@ -149,7 +149,7 @@ void Client::GetServerData(wxSocketBase *sock)
   if ( informationType == FILENAME ) {
     // load file
     frame->SetStatusText(s << " loading", 0);
-    frame->ShowFile (buf);
+    frame->ShowFile ((wxFileName)buf);
     DEBUG_INFO ( "informationType: " << informationType )
     DEBUG_INFO ( s << " " << buf )
   } else if ( informationType == PROJECTION_FORMAT ) {

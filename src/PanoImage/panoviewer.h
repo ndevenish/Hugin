@@ -5,6 +5,8 @@
 #include "wx/image.h"
 #include "wx/timer.h"
 #include "panoviewextractor.h"
+#include "formats.h"
+
 
 class PanoViewer: public wxPanel
 {
@@ -16,7 +18,14 @@ public:
              const wxString& name = wxControlNameStr);
 	~PanoViewer();
 	void SetPano ( const wxImage &img );
+	void setProjection ( ProjectionFormat p );
+	void setWidth ( double width );
+	void setHeight ( double height );
+	PanoViewpoint getView ( void ) {
+            return vp;
+        }
 	void setView ( const PanoViewpoint vp );
+	void showGrid ( bool b );
 
 	// Preferences and options
 	void SetMouseFactor ( const int &f );
@@ -42,12 +51,14 @@ private:
 	bool isPanning, isZoomingIn, isZoomingOut, isControlShowing, forceRecalc;
 	int mx, my;
 	PanoViewpoint vp;
-	int cw, ch;
+        ProjectionFormat projectionFormat;
+	int cw, ch;                   // client sizes
 	int resolution, mf;
 	wxBitmap currentViewBmp, currentClientBmp, control;
 	wxImage pano, fastView, goodView;
+        bool grid;                    // grid to show ?
 
-        int ow, oh;
+        int ow, oh;                   // old client sizes
 	wxMenu *cmenu;
 
 	DECLARE_EVENT_TABLE()

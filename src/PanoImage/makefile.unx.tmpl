@@ -31,6 +31,8 @@ OBJECTS = panoviewerapp.o panoviewextractor.o panoviewer.o panolib.o printerror.
 
 all:    $(PROGRAM)
 
+apps:	$(PROGRAM)
+
 $(PROGRAM):	$(OBJECTS)
 	$(CC) -o $(PROGRAM) $(OBJECTS) `wx-config --libs`
 

@@ -16,132 +16,24 @@ int SetUpMweights();
 
 PanoViewpoint::PanoViewpoint(
 		const int &q,
+                const ProjectionFormat &pr,
 		const double &h,
 		const double &y,
 		const double &p,
-		const double &r)
+		const double &r,
+		const double &y_l,
+		const double &p_l)
 {
 	SetQuality(q);
+	SetFormat(pr);
 	SetHfov(h);
 	SetYaw(y);
 	SetPitch(p);
 	SetRoll(r);
+	SetYawLimit(y_l);
+	SetPitchLimit(p_l);
 }
 
-
-
-PanoViewpoint::PanoViewpoint( const PanoViewpoint &v )
-{
-	SetViewpoint(v);
-}
-
-
-
-
-int PanoViewpoint::GetQuality(void) const
-{
-	return quality;
-}
-
-
-
-double PanoViewpoint::GetHfov(void) const
-{
-	return hfov;
-}
-
-
-
-double PanoViewpoint::GetYaw(void) const
-{
-	return yaw;
-}
-
-
-
-double PanoViewpoint::GetPitch(void) const
-{
-	return pitch;
-}
-
-
-
-double PanoViewpoint::GetRoll(void) const
-{
-	return roll;
-}
-
-
-PanoViewpoint PanoViewpoint::GetViewpoint(void)
-{
-	return PanoViewpoint(quality, hfov, yaw, pitch, roll);
-}
-
-
-
-void PanoViewpoint::SetViewpoint ( const PanoViewpoint &v )
-{
-	quality = v.quality;
-	hfov = v.hfov;
-	yaw = v.yaw;
-	pitch = v.pitch;
-	roll = v.roll;
-}
-
-
-
-void PanoViewpoint::SetQuality ( const int &q)
-{
-	quality = q;
-	if ( quality < 0) quality = 0;
-	if ( quality > 100 ) quality = 100;
-}
-
-
-
-void PanoViewpoint::SetHfov ( const double &h)
-{
-	hfov = h;
-	if ( hfov < 10 ) hfov = 30;
-	if ( hfov > 150 ) hfov = 100;
-}
-
-
-
-void PanoViewpoint::SetYaw ( const double &y)
-{
-	yaw = y;
-	NORM_ANGLE(yaw);
-}
-
-
-
-void PanoViewpoint::SetPitch ( const double &p)
-{
-	pitch = p;
-	if ( pitch > 90 ) pitch = 90;
-	if ( pitch < -90 ) pitch = -90;
-}
-
-
-
-void PanoViewpoint::SetRoll ( const double &r)
-{
-	roll = r;
-	NORM_ANGLE(roll);
-}
-
-
-
-int PanoViewpoint::operator==( const PanoViewpoint &right) const
-{
-	return ( quality == right.quality && hfov == right.hfov && yaw == right.yaw && pitch == right.pitch && roll == right.roll );
-}
-
-int PanoViewpoint::operator!=( const PanoViewpoint &right) const
-{
-	return !operator==(right);
-}
 
 //=================================================================================================
 
@@ -191,6 +83,20 @@ PanoViewExtractor::PanoViewExtractor()
 void PanoViewExtractor::GetView( wxImage &s, wxImage &d, const PanoViewpoint &v )
 {
 	// Adjust destination Image structure
+        switch ((int)v.GetFormat()) {
+          case RECTILINEAR:    { dst.format = _orthographic;
+                                 src.format = _rectilinear;
+                                 break;
+                               }
+          case CYLINDRICAL:    { dst.format = _spherical_cp;
+                                 src.format = _spherical_cp;
+                                 break;
+                               }
+          case EQUIRECTANGULAR:{ dst.format = _panorama;
+                                 src.format = _equirectangular;
+                                 break;
+                               }
+        }
 	dst.hfov = v.GetHfov();
 	dst.yaw = v.GetYaw();
 	dst.pitch = v.GetPitch();
@@ -206,6 +112,7 @@ void PanoViewExtractor::GetView( wxImage &s, wxImage &d, const PanoViewpoint &v 
 	src.bytesPerLine = src.width * src.bitsPerPixel/8;
 	src.dataSize = src.bytesPerLine * src.height;
 	*src.data = s.GetData();
+//        DEBUG_INFO ( "format = "<< src.format <<"/"<< dst.format )
 
 	// Set up interpolator
    switch ( v.GetQuality() )

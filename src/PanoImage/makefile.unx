@@ -9,7 +9,7 @@ UTILS = utils.o
 # install locations
 # ========================================================================
 
-INSTALL_PREFIX=/usr
+INSTALL_PREFIX=/opt/kai-uwe
 INSTALL_ETC_DIR=__ETC_PREFIX__
 INSTALL_BIN_DIR=$(INSTALL_PREFIX)/bin
 INSTALL_DOC_DIR=$(INSTALL_PREFIX)/share/doc/hugin
@@ -30,6 +30,8 @@ OBJECTS = panoviewerapp.o panoviewextractor.o panoviewer.o panolib.o printerror.
 	$(CC) $(CC_ARGS) -c `wx-config --cflags` -o $@ $<
 
 all:    $(PROGRAM)
+
+apps:	$(PROGRAM)
 
 $(PROGRAM):	$(OBJECTS)
 	$(CC) -o $(PROGRAM) $(OBJECTS) `wx-config --libs`

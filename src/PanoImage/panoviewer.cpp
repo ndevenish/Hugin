@@ -43,7 +43,7 @@ PanoViewer::PanoViewer ( wxWindow *parent, wxWindowID id,
 	// Dummy panorama
    pano = wxImage(200,200);
 
-        // Set initial viewport width and heigght
+        // Set initial viewport width and height
    ow = 0, oh = 0;
 
         // Set control
@@ -73,9 +73,35 @@ void PanoViewer::SetPano ( const wxImage &img )
 }
 
 
+void PanoViewer::setProjection ( ProjectionFormat p )
+{
+	projectionFormat = p; // ku.b@gmx.de (07/2003)
+}
+
+void PanoViewer::setWidth ( double w )
+{
+	vp.SetYawLimit( w ); // ku.b@gmx.de (07/2003)
+	forceRecalc = TRUE;
+	Refresh(FALSE);
+}
+
+void PanoViewer::setHeight ( double h )
+{
+	vp.SetPitchLimit( h ); // ku.b@gmx.de (07/2003)
+	forceRecalc = TRUE;
+	Refresh(FALSE);
+}
+
 void PanoViewer::setView ( PanoViewpoint viewpoint )
 {
 	vp = viewpoint; // ku.b@gmx.de (07/2003)
+	forceRecalc = TRUE;
+	Refresh(FALSE);
+}
+
+void PanoViewer::showGrid ( bool show ) // ku.b@gmx.de (07/2003)
+{
+        grid = show;
 }
 
 
@@ -192,7 +218,7 @@ void PanoViewer::OnPaint(wxPaintEvent &event)
 			// Recompute client bitmap and views if size has changed
 			if ( ow != cw || oh != ch || forceRecalc)
 			{
-				currentClientBmp.Create(cw, ch);
+				currentClientBmp.Create(cw, ch); // viewport
 				goodView.Create(cw, ch);
 				r = resolution;
 				if ( cw < r ) r = cw;
@@ -224,6 +250,8 @@ void PanoViewer::OnPaint(wxPaintEvent &event)
 	
 			dc.BeginDrawing();
 			dc.DrawBitmap(currentClientBmp, 0,0);
+                        if (grid)
+                          dc.CrossHair(cw/2, ch/2);
 			dc.EndDrawing();
 
 			ow = cw; oh = ch; ovp = vp;
