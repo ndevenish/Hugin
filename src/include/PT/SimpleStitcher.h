@@ -46,6 +46,7 @@ template <class DestImageType>
 void stitchPanoramaSimple(const PT::Panorama & pano,
                           const PT::PanoramaOptions & opts,
                           DestImageType & dest,
+                          utils::ProgressDisplay & progress,
                           std::string basename = "")
 {
     // until we have something better...
@@ -69,8 +70,10 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         // FIXME.. use some other mechanism to define what format to use..
         InputImageType srcImg(info.width(), info.height());
         // import the image just read
+        progress.progressMessage("loading image " + img.getFilename());
         importImage(info, destImage(srcImg));
 
+        progress.progressMessage("remapping " + img.getFilename());
         PTools::remapImage(pano, i,
                            srcImageRange(srcImg),
                            opts,
@@ -89,6 +92,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
     DEBUG_DEBUG("merging images");
     // stitch images
+    progress.progressMessage("merging images");
 
     OutputImageType panoImg(opts.width, opts.getHeight());
 

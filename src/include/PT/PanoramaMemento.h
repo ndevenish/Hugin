@@ -379,6 +379,7 @@ public:
             gamma = 1.0;
             interpolator = POLY_3;
             featherWidth = 10;
+            outputFormat = JPEG;
         }
     virtual ~PanoramaOptions() {};
 

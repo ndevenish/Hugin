@@ -46,46 +46,62 @@
 // no stdout under windows
 //#ifdef __WXMSW__
 #if __WXMSW__
-// debug trace
-#define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str());}
-// low level debug info
-#define DEBUG_DEBUG(msg) { std::stringstream o; o << "DEBUG " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
-// informational debug message,
-#define DEBUG_INFO(msg) { std::stringstream o; o << "INFO " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
-// major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::stringstream o; o << "NOTICE " << DEBUG_HEADER << msg; wxLogMessage(o.str().c_str()); }
-// when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(o.str().c_str());}
-// an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(o.str().c_str());}
+ #ifdef DEBUG
+  // debug trace
+    #define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str());}
+  // low level debug info
+  #define DEBUG_DEBUG(msg) { std::stringstream o; o << "DEBUG " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
+  // informational debug message,
+  #define DEBUG_INFO(msg) { std::stringstream o; o << "INFO " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
+  // major change/operation should use this
+  #define DEBUG_NOTICE(msg) { std::stringstream o; o << "NOTICE " << DEBUG_HEADER << msg; wxLogMessage(o.str().c_str()); }
+ #else
+  #define DEBUG_TRACE(msg)
+  #define DEBUG_DEBUG(msg)
+  #define DEBUG_INFO(msg)
+  #define DEBUG_NOTICE(msg)
+ #endif
+
+ // when an error occured, but can be handled by the same function
+ #define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(o.str().c_str());}
+ // an error occured, might be handled by a calling function
+ #define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(o.str().c_str());}
 // a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(o.str().c_str()); }
-#define DEBUG_ASSERT(cond) \
-do { \
-    if (!(cond)) { \
-        std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond; \
-        wxLogFatalError(o.str().c_str()); \
-   } \
-} while(0)
+ #define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(o.str().c_str()); }
+ #define DEBUG_ASSERT(cond) \
+ do { \
+     if (!(cond)) { \
+         std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond; \
+         wxLogFatalError(o.str().c_str()); \
+    } \
+ } while(0)
 
 #else
 
-// debug trace
-#define DEBUG_TRACE(msg) { std::cerr << "TRACE " << DEBUG_HEADER << msg << std::endl; }
-// low level debug info
-#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << DEBUG_HEADER << msg << std::endl; }
-// informational debug message,
-#define DEBUG_INFO(msg) { std::cerr << "INFO " << DEBUG_HEADER << msg << std::endl; }
-// major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE " << DEBUG_HEADER << msg << std::endl; }
-// when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::cerr << "WARN: " << DEBUG_HEADER << msg << std::endl; }
-// an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
-// a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
+ #ifdef DEBUG
+  // debug trace
+  #define DEBUG_TRACE(msg) { std::cerr << "TRACE " << DEBUG_HEADER << msg << std::endl; }
+  // low level debug info
+  #define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << DEBUG_HEADER << msg << std::endl; }
+  // informational debug message,
+  #define DEBUG_INFO(msg) { std::cerr << "INFO " << DEBUG_HEADER << msg << std::endl; }
+  // major change/operation should use this
+  #define DEBUG_NOTICE(msg) { std::cerr << "NOTICE " << DEBUG_HEADER << msg << std::endl; }
+ #else
+  #define DEBUG_TRACE(msg)
+  #define DEBUG_DEBUG(msg)
+  #define DEBUG_INFO(msg)
+  #define DEBUG_NOTICE(msg)
+ #endif
 
-#define DEBUG_ASSERT(cond) assert(cond)
+ // when an error occured, but can be handled by the same function
+ #define DEBUG_WARN(msg) { std::cerr << "WARN: " << DEBUG_HEADER << msg << std::endl; }
+ // an error occured, might be handled by a calling function
+ #define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
+ // a fatal error occured. further program execution is unlikely
+ #define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
+
+ #define DEBUG_ASSERT(cond) assert(cond)
 
 #endif
 
@@ -140,7 +156,7 @@ namespace utils
     class CoutProgressDisplay : public ProgressDisplay
     {
     public:
-        virtual ~CoutProgressDisplay();
+        virtual ~CoutProgressDisplay() {};
 
         /** receive notification about progress
          *
@@ -159,7 +175,7 @@ namespace utils
                     if (progress != -1) {
                         std::cout << std::endl << msg << ": " << progress << "%" << std::flush;
                     } else {
-                        std::cout << std::endl << msg;
+                        std::cout << std::endl << msg << std::flush;
                     }
                     last_msg = msg;
                 }

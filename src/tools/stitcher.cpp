@@ -41,9 +41,12 @@ using namespace std;
 
 void usage(char * name)
 {
-    cerr << name << ": stitch a panorama image" << endl
+    cerr << name << ": stitch a panorama image, with bilinear interpolation" << endl
          << endl
-         << "Usage: " << name  << " PT_script_file outputimage" << endl;
+         << " It uses the transform function from PanoTools, the stitching itself" << endl 
+         << " is quite simple, no seam feathering is done. Seams are placed" << endl 
+         << endl
+         << "Usage: " << name  << " hugin_project outputimageprefix" << endl;
 }
 
 int main(int argc, char *argv[])
@@ -53,11 +56,11 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    utils::CoutProgressDisplay pdisp;
+    
     char * scriptFile = argv[1];
     // output settings
     string basename(argv[2]);
-    string format = "tif";
-
 
     Panorama pano;
     PanoramaMemento newPano;
@@ -75,20 +78,54 @@ int main(int argc, char *argv[])
 
     PanoramaOptions  opts = pano.getOptions();
 
+    string format = "jpg";
+    bool savePartial = false;
+    switch(opts.outputFormat) {
+    case PanoramaOptions::JPEG:
+        format = "jpg";
+        break;
+    case PanoramaOptions::PNG:
+        format = "png";
+        break;
+    case PanoramaOptions::TIFF:
+        format = "tif";
+        break;
+    case PanoramaOptions::TIFF_m:
+    case PanoramaOptions::TIFF_nomask:
+        format = "tif";
+        savePartial = true;
+        break;
+    default:
+        DEBUG_ERROR("unsupported file format, using jpeg");
+        format = "jpg";
+    }
+    
+    // check for some options
+
     int w = opts.width;
     int h = opts.getHeight();
 
     cout << "output image size: " << w << "x" << h << endl;
 
     try {
-
         BRGBImage dest;
         // stitch panorama
-        PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest);
+        if (!savePartial) {
+            PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
+                                         pdisp);
+        } else {
+            PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
+                                         pdisp, basename);
+        }
         // save final panorama
-        string filename = basename + ".png";
-        exportImage(srcImageRange(dest), vigra::ImageExportInfo(filename.c_str()));
-
+        string filename = basename + format;
+        vigra::ImageExportInfo exinfo(filename.c_str());
+        if (format == "jpg") {
+            ostringstream jpgqual;
+            jpgqual << opts.quality;
+            exinfo.setCompression(jpgqual.str().c_str());
+        }
+        exportImage(srcImageRange(dest), exinfo);
     } catch (std::runtime_error & e) {
         cerr << "caught runtime_error: " << e.what() << endl;
         return 1;

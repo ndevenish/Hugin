@@ -83,7 +83,7 @@ if ($platform eq "win32") {
 my $VIGRA_VERSION=`vigra-config --version`;
 my $VIGRA_LFLAGS="";
 my $VIGRA_CFLAGS="-I../foreign/vigra";
-my $HAS_FULL_VIGRA=undef;
+my $HAS_FULL_VIGRA=0;
 if ($VIGRA_VERSION) {
     print "Found external vigra library, version $VIGRA_VERSION\n";
     $VIGRA_LFLAGS=`vigra-config --libs`;
