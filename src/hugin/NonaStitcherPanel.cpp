@@ -26,6 +26,7 @@
  */
 
 #include <config.h>
+#include <errno.h>
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
