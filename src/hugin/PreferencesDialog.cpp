@@ -197,7 +197,7 @@ void PreferencesDialog::UpdateDisplayData()
     // Autopano-SIFT
     MY_STR_VAL("prefs_AutoPanoSIFTExe", cfg->Read("/AutoPanoSift/AutopanoExe",
                                                   HUGIN_APSIFT_EXE));
-    MY_STR_VAL("prefs_AutoPanoSIFTArgs", cfg->Read("/AutoPanoSift/AutopanoArgs",
+    MY_STR_VAL("prefs_AutoPanoSIFTArgs", cfg->Read("/AutoPanoSift/Args",
                                                    HUGIN_APSIFT_ARGS));
 
     // Autopano
