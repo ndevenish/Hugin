@@ -56,7 +56,7 @@ public:
         // same lens)
         // create a new Lens for this image
         Lens l;
-        if (tolower(ext) == "jpg") {
+        if (utils::tolower(ext) == "jpg") {
           // try to read exif data from jpeg files.
           l.readEXIF(filename);
         }

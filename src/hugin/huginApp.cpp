@@ -184,10 +184,10 @@ bool huginApp::OnInit()
     free(dir);
 #else // windows
     if (wrkDir == "") {
-        DEBUG_INFO("No tempdir specified, using c:\temp");
-        wrkDir = "C:\Temp";
+        DEBUG_INFO("No tempdir specified, using c:\\temp");
+        wrkDir = "C:\\Temp";
     }
-    m_workDir = wrkDir + "\hugin";
+    m_workDir = wrkDir + "\\hugin";
 #endif
     DEBUG_DEBUG("creating temp dir: " << m_workDir);
     if (!wxMkdir(m_workDir)) {

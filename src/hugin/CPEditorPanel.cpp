@@ -325,14 +325,12 @@ void CPEditorPanel::SelectGlobalPoint(unsigned int globalNr)
 
 bool CPEditorPanel::globalPNr2LocalPNr(unsigned int & localNr, unsigned int globalNr) const
 {
-    vector<CPoint>::const_iterator it;
-    // just wanted to try the advanced stl stuff here.  this searches
-    // the currentPoints list for a CPoint (std::pair), whose first
-    // element (global point nr) matches pointNr
-    it = find_if(currentPoints.begin(),
-                 currentPoints.end(),
-                 compose1(std::bind2nd(std::equal_to<unsigned int>(), globalNr),
-                               select1st<CPoint>()));
+    vector<CPoint>::const_iterator it = currentPoints.begin();
+
+    while(it != currentPoints.end() && (*it).first != globalNr) {
+        it++;
+    }
+    
     if (it != currentPoints.end()) {
         localNr = it - currentPoints.begin();
         return true;

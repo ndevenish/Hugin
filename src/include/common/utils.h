@@ -42,23 +42,24 @@
 #define DEBUG_HEADER utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
 #endif
 
-// use trace function under windows
+// use trace function under windows, because usually there is
+// no stdout under windows
 #ifdef __WXMSW__
 
 // debug trace
 #define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str());}
 // low level debug info
-#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << DEBUG_HEADER << msg << std::endl; }
+#define DEBUG_DEBUG(msg) { std::stringstream o; o << "DEBUG " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str()) }
 // informational debug message,
-#define DEBUG_INFO(msg) { std::cerr << "INFO " << DEBUG_HEADER << msg << std::endl; }
+#define DEBUG_INFO(msg) { std::stringstream o; o << "INFO " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str()) }
 // major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE " << DEBUG_HEADER << msg << std::endl; }
+#define DEBUG_NOTICE(msg) { std::stringstream o; o << "NOTICE " << DEBUG_HEADER << msg << std::endl; wxLogMessage(o.str().c_str()) }
 // when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::cerr << "WARN: " << DEBUG_HEADER << msg << std::endl; }
+#define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg << std::endl; wxLogWarning(o.str().c_str())}
 // an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
+#define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg << std::endl; wxLogError(o.str().c_str())}
 // a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
+#define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; wxLogError(o.str().c_str()) }
 
 #else
 
@@ -83,10 +84,10 @@
 namespace utils
 {
     std::string CurrentTime();
-    
+
     std::string doubleToString(double d); // FIXME not accessible
 
-    template <typename Target, typename Source> 
+    template <typename Target, typename Source>
     Target lexical_cast(Source arg) {
 
         std::stringstream interpreter;
