@@ -57,10 +57,11 @@ namespace vigra_impex2 {
         desc.pixelTypes[7] = "DOUBLE";
 
         // init compression types
-        desc.compressionTypes.resize(3);
+        desc.compressionTypes.resize(4);
         desc.compressionTypes[0] = "RLE";
         desc.compressionTypes[1] = "JPEG";
         desc.compressionTypes[2] = "LZW";
+        desc.compressionTypes[3] = "DEFLATE";
 
         // init magic strings
         desc.magicStrings.resize(2);
@@ -658,7 +659,7 @@ namespace vigra_impex2 {
         else if ( comp == "LZW" )
             tiffcomp = COMPRESSION_LZW;
         else if ( comp == "DEFLATE" )
-            tiffcomp = COMPRESSION_DEFLATE;
+            tiffcomp = COMPRESSION_ADOBE_DEFLATE;
     }
 
     void TIFFEncoderImpl::finalizeSettings()

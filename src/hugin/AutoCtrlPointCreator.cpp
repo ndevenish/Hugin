@@ -32,7 +32,6 @@
 #include "PT/Panorama.h"
 
 #include "hugin/AutoCtrlPointCreator.h"
-
 #include "hugin/CommandHistory.h"
 
 using namespace std;
@@ -87,7 +86,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     DEBUG_ERROR("automatch does not work under windows yet");
     wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
     if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(this,_("Select startscript for autopano-sift"),
+        wxFileDialog dlg(0,_("Select startscript for autopano-sift"),
                          "", "autopano-complete",
                          "Executables (*.bat)|*.bat",
                          wxOPEN, wxDefaultPosition);

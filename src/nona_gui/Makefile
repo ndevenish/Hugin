@@ -76,7 +76,7 @@ ifeq ($(PLATFORM),win32)
    APP_1_OBJ += nona_gui_rc.o
 endif
 
-APP_1_DESKTOP = hugin.desktop
+APP_1_DESKTOP = 
 
 APP_1_LFLAGS = $(LFLAGS) -lpano12
 

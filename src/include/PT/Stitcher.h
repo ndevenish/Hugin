@@ -237,7 +237,7 @@ public:
         case PanoramaOptions::TIFF_m:
         {
             std::ostringstream filename;
-            filename << m_basename << setfill('0') << setw(3) << imgNr << ".tif";
+            filename << m_basename << setfill('0') << setw(4) << imgNr << ".tif";
             vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
             vigra_ext::createTiffDirectory(tiff,
@@ -424,6 +424,10 @@ public:
             snprintf(jpgCompr,4,"%d", opts.quality);
             exinfo.setCompression(jpgCompr);
             vigra_impex2::exportImage(srcImageRange(pano), exinfo);
+	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
+	    exinfo.setCompression("DEFLATE");
+            vigra_impex2::exportImageAlpha(srcImageRange(pano),
+                                           srcImage(panoMask), exinfo);
 	} else {
             vigra_impex2::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);

@@ -240,9 +240,9 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                                  wxOPEN, wxDefaultPosition);
                 if (dlg.ShowModal() == wxID_OK) {
                     enblendExe = dlg.GetPath();
-                    config->Write("/Enblend/EnblendExe",stitcherExe);
+                    config->Write("/Enblend/EnblendExe",enblendExe);
                 } else {
-                    wxLogError(_("No PTStitcher.exe selected"));
+                    wxLogError(_("No enblend.exe selected"));
                 }
             }
 #else
@@ -267,7 +267,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             char imgname[256];
             for(unsigned int i = 0; i < nImg; i++)
             {
-                snprintf(imgname,256,"%s%03d.tif", output.c_str(), i);
+                snprintf(imgname,256,"%s%04d.tif", output.c_str(), i);
                 cmd.append(" ").append(imgname);
             }
             DEBUG_DEBUG("enblend cmdline: " << cmd);
