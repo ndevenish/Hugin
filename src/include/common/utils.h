@@ -28,6 +28,10 @@
 #include <iostream>
 #include <sstream>
 
+#ifdef __WXMSW__
+#include <wx/log.h>
+#endif
+
 // misc utility functions / macros
 
 #ifdef __GNUC__
@@ -37,6 +41,26 @@
 #else
 #define DEBUG_HEADER utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
 #endif
+
+// use trace function under windows
+#ifdef __WXMSW__
+
+// debug trace
+#define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str());}
+// low level debug info
+#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << DEBUG_HEADER << msg << std::endl; }
+// informational debug message,
+#define DEBUG_INFO(msg) { std::cerr << "INFO " << DEBUG_HEADER << msg << std::endl; }
+// major change/operation should use this
+#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE " << DEBUG_HEADER << msg << std::endl; }
+// when an error occured, but can be handled by the same function
+#define DEBUG_WARN(msg) { std::cerr << "WARN: " << DEBUG_HEADER << msg << std::endl; }
+// an error occured, might be handled by a calling function
+#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
+// a fatal error occured. further program execution is unlikely
+#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
+
+#else
 
 // debug trace
 #define DEBUG_TRACE(msg) { std::cerr << "TRACE " << DEBUG_HEADER << msg << std::endl; }
@@ -52,6 +76,9 @@
 #define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << DEBUG_HEADER << msg << std::endl; }
 // a fatal error occured. further program execution is unlikely
 #define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
+
+#endif
+
 
 namespace utils
 {

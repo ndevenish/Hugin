@@ -1,0 +1,43 @@
+# File:     makefile.g95 for hugin
+# Author:	Pablo d'Angelo
+# Created:	29-Aug-2003
+# Updated:
+
+WXDIR=${WXWIN}
+
+TARGET = hugin
+
+OBJECTS = Panorama/PanoImage.o  \
+          Panorama/Panorama.o  \
+          Panorama/PanoramaMemento.o \
+          Panorama/utils.o \
+          hugin/CPEditorPanel.o \
+          hugin/MainFrame.o \
+          hugin/List.o \
+          hugin/CPImageCtrl.o \
+          hugin/CommandHistory.o \
+          hugin/Events.o \
+          hugin/ImageCache.o \
+          hugin/ImageProcessing.o \
+          hugin/ImagesPanel.o \
+          hugin/ImageCenter.o \
+          hugin/LensPanel.o \
+          hugin/OptimizeFrame.o \
+          hugin/PanoPanel.o \
+          hugin/RunOptimizerFrame.o \
+          hugin/RunStitcherFrame.o \
+          hugin/Server.o \
+          hugin/huginApp.o \
+          hugin/wxVigraImage.o \
+          jhead/exif.o  \
+          jhead/jpgfile.o
+
+EXTRAINC = -I$(WXDIR)/contrib/include -Iinclude
+EXTRALIBS = -lwxxrc 
+
+include $(WXDIR)/src/makeprog.g95
+
+
+configure:
+	cp include/hugin/config.h.tmpl include/hugin/config.h
+

@@ -26,7 +26,7 @@
 
 #include <string>
 
-#include "include/common/utils.h"
+#include "common/utils.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/ImageCache.h"
 

@@ -143,6 +143,8 @@ PanoPanel::~PanoPanel(void)
 
 void PanoPanel::Resize( wxSizeEvent & e )
 {
+// FIXME crashes on windows
+#if defined(__WXGTK__)
     if ( wxGetApp().Initialized() && pano_dlg_run && !self_pano_dlg ) {
       wxPoint pos = frame->GetPosition();
       wxSize frame_size = frame->GetSize();
@@ -158,7 +160,7 @@ void PanoPanel::Resize( wxSizeEvent & e )
         pano_dlg->Maximize(TRUE);
         pano_dlg->Iconize(FALSE);
     }
-
+#endif
 }
 
 void PanoPanel::DoDialog ( wxCommandEvent & e )
