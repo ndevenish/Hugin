@@ -65,6 +65,7 @@ std::ostream & ImageVariables::print(std::ostream & o, bool printLinks) const
 
 void ImageVariables::updateValues(const ImageVariables & vars)
 {
+#if 0
     yaw.setValue(vars.yaw.getValue());
     roll.setValue(vars.roll.getValue());
     pitch.setValue(vars.pitch.getValue());
@@ -74,6 +75,17 @@ void ImageVariables::updateValues(const ImageVariables & vars)
     c.setValue(vars.c.getValue());
     d.setValue(vars.d.getValue());
     e.setValue(vars.e.getValue());
+#else
+    yaw=vars.yaw;
+    roll=vars.roll;
+    pitch=vars.pitch;
+    HFOV=vars.HFOV;
+    a=vars.a;
+    b=vars.b;
+    c=vars.c;
+    d=vars.d;
+    e=vars.e;
+#endif
 }
 
 

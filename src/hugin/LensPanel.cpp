@@ -201,15 +201,7 @@ LensEdit::~LensEdit(void)
 void LensEdit::updateHFOV()
 {
 //    DEBUG_TRACE("");
-
-/*    if ( ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) &&
-         ( edit_Lens->HFOV != 0.0 ) ) {
-      number =        doubleToString (
-                        pano.getLens (pano.getImage(lensEdit_RefImg).getLens()).
-                 HFOV );
-      XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number.c_str() );*/
     SET_WXTEXTCTRL_TEXT( "lens_val_HFOV" , HFOV )
-//    }
 
     std::string number;
     if ( EDIT_LENS.focalLength != 0 ) {

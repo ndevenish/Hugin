@@ -79,12 +79,12 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::SetYawText )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::SetPitchText )
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::SetRollText )
-    EVT_CHECKBOX ( XRCID("images_inherit_yaw"), ImagesPanel::SetYawCbInherit )
-    EVT_SPINCTRL ( XRCID("images_spin_yaw"), ImagesPanel::SetYawInheritFrom )
-    EVT_CHECKBOX ( XRCID("images_inherit_pitch"),ImagesPanel::SetPitchCbInherit)
-    EVT_SPINCTRL ( XRCID("images_spin_pitch"), ImagesPanel::SetPitchInheritFrom)
-    EVT_CHECKBOX ( XRCID("images_inherit_roll"), ImagesPanel::SetRollCbInherit )
-    EVT_SPINCTRL ( XRCID("images_spin_roll"), ImagesPanel::SetRollInheritFrom )
+    EVT_CHECKBOX ( XRCID("images_inherit_yaw"), ImagesPanel::SetInheritYaw )
+    EVT_SPINCTRL ( XRCID("images_spin_yaw"), ImagesPanel::SetInheritYaw )
+    EVT_CHECKBOX ( XRCID("images_inherit_pitch"),ImagesPanel::SetInheritPitch)
+    EVT_SPINCTRL ( XRCID("images_spin_pitch"), ImagesPanel::SetInheritPitch )
+    EVT_CHECKBOX ( XRCID("images_inherit_roll"), ImagesPanel::SetInheritRoll )
+    EVT_SPINCTRL ( XRCID("images_spin_roll"), ImagesPanel::SetInheritRoll )
 END_EVENT_TABLE()
 
 
@@ -166,9 +166,10 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 {
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
+    // Is something gone or more here? 
     if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
       wxListEvent e;
-      SetImages( e );
+      SetImages( e );  // refresh the list settings of this class
     }
 
 
@@ -182,8 +183,9 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 //    DEBUG_TRACE("");
 // DEBUG_TRACE("imgNr = "<<imgNr[0]<<" "<<imgNr[1]<<" "<<imgNr[2]<<" "<<imgNr[3]);
 
+    ImageVariables new_var;
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-        ImageVariables new_var = pano.getVariable(imgNr[i]);
+        new_var = pano.getVariable(imgNr[i]);
         // set values
         if ( type == "yaw" ) {
           new_var.yaw.setValue(var);
@@ -194,38 +196,18 @@ void ImagesPanel::ChangePano ( std::string type, double var )
         if ( type == "roll" ) {
           new_var.roll.setValue(var);
         }
-        // set linking
-        if ( type == "yaw_link" ) {
-          new_var.yaw.link((int)var);
-        }
-        if ( type == "pitch_link" ) {
-          new_var.pitch.link((int)var);
-        }
-        if ( type == "roll_link" ) {
-          new_var.roll.link((int)var);
-    DEBUG_INFO( new_var.roll.isLinked() << new_var.roll.getLink());
-        }
-        if ( type == "yaw_unlink" ) {
-          new_var.yaw.unlink();
-        }
-        if ( type == "pitch_unlink" ) {
-          new_var.pitch.unlink();
-        }
-        if ( type == "roll_unlink" ) {
-          new_var.roll.unlink();
-    DEBUG_INFO( new_var.roll.isLinked() << new_var.roll.getLink());
-        }
         pano.updateVariables( imgNr[i], new_var ); 
 
-    DEBUG_INFO( type <<" for image "<< imgNr[i]);
+    DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
-//    DEBUG_TRACE("");
+
     GlobalCmdHist::getInstance().addCommand(
-         new PT::UpdateVariablesCmd(pano, pano.getVariables())
+         new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
          );
 
-//    DEBUG_TRACE( "end" );
     changePano = FALSE;
+
+//    DEBUG_TRACE( "end" );
 }
 
 
@@ -352,83 +334,94 @@ void ImagesPanel::SetRollText ( wxCommandEvent & e )
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 }
 
-// Inheritance
-void ImagesPanel::SetInherit(std::string type,         // small helper
-                                wxString images_inherit,
-                                wxString images_spin,
-                                wxString images_optimize,
-                          wxCommandEvent & e )
+// Inheritance + Optimization
+
+void ImagesPanel::SetInherit( std::string type )
 {
+//    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll" 
+    // requisites
     int var (-1);
-    std::string command (type);
+    std::string command;
+    std::string xml_inherit, xml_optimize, xml_spin;
+    ImageVariables new_var;
+
     if ( imgNr[0] > 0 ) {
-      if ( XRCCTRL(*this, images_inherit,wxCheckBox)->IsChecked() ) {
-        // set the controls
-        XRCCTRL(*this, images_spin ,wxSpinCtrl)->Enable();
-        XRCCTRL(*this, images_optimize ,wxCheckBox)->Disable();
-        // set inheritance from image
-        var = XRCCTRL(*this, images_spin ,wxSpinCtrl)->GetValue();
-        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-          if ( var != (int)imgNr[i] ) {
-            command = type; command.append("_link");
-            ChangePano ( command , (double)var );
-            DEBUG_INFO("var( "<<var<<") != I("<<(int)imgNr[i] <<")  : ->pano");
-          } else {
-            command = type; command.append("_unlink");
-            ChangePano ( command , 0.0 );
-            DEBUG_INFO("var( "<<var<<") == I("<<(int)imgNr[i] <<")  :  | pano");
+        xml_inherit = "images_inherit_"; xml_inherit.append(type);
+        xml_optimize = "images_optimize_"; xml_optimize.append(type);
+        xml_spin = "images_spin_"; xml_spin.append(type);
+        // we do inheritance, yes?
+        if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked() ) {
+          // set inheritance from image
+          var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
+          // for all images
+          for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+            new_var = pano.getVariable(imgNr[i]);
+            // test for unselfish inheritance
+            if ( var != (int)imgNr[i] ) {
+              // We are conservative and ask better once more. 
+              if ( type == "yaw" )
+                new_var.yaw.link(var);
+              if ( type == "pitch" )
+                new_var.pitch.link(var);
+              if ( type == "roll" )
+                new_var.roll.link(var);
+              DEBUG_INFO("var("<<var<<") != I("<<(int)imgNr[i] <<")  : ->pano");
+            } else {
+              if ( type == "yaw" )
+                new_var.yaw.unlink();
+              if ( type == "pitch" )
+                new_var.pitch.unlink();
+              if ( type == "roll" )
+                new_var.roll.unlink();
+              DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+            }
+            // local ImageVariables finished, save to pano
+            pano.updateVariables( imgNr[i], new_var ); 
+            DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
           }
+          // set the controls
+          XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->Enable();
+          XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->Disable();
+        } else { // unset inheritance
+          // for all images
+          for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+            new_var = pano.getVariable(imgNr[i]);
+            if ( type == "yaw" )
+              new_var.yaw.unlink();
+            if ( type == "pitch" )
+              new_var.pitch.unlink();
+            if ( type == "roll" )
+              new_var.roll.unlink();
+            // local ImageVariables finished, save to pano
+            pano.updateVariables( imgNr[i], new_var ); 
+          }
+          // ... and set controls
+          XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->Enable();
+          XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->Disable();
+          DEBUG_INFO( type <<" unlinked");
         }
-      } else {
-        command.append("_unlink");
-        var = -2;
-        XRCCTRL(*this, images_optimize ,wxCheckBox)->Enable();
-        XRCCTRL(*this, images_spin ,wxSpinCtrl)->Disable();
-        ChangePano ( command , 0.0 );
-        DEBUG_INFO( command.c_str() );
-      }
+
+        // activate an undoable command
+        GlobalCmdHist::getInstance().addCommand(
+           new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
+           );
     }
-    DEBUG_INFO( type.c_str() << " end" );
-}   
-void ImagesPanel::SetYawCbInherit ( wxCommandEvent & e )
-{
-    SetInherit("yaw", "images_inherit_yaw", "images_spin_yaw",
-               "images_optimize_yaw", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_inherit_yaw",wxCheckBox)->IsChecked() );
-}
-void ImagesPanel::SetYawInheritFrom ( wxCommandEvent & e )
-{
-    SetInherit("yaw", "images_inherit_yaw", "images_spin_yaw",
-               "images_optimize_yaw", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_spin_yaw",wxSpinCtrl)->GetValue() );
-}
-void ImagesPanel::SetPitchCbInherit ( wxCommandEvent & e )
-{
-    SetInherit("pitch", "images_inherit_pitch", "images_spin_pitch",
-               "images_optimize_pitch", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_inherit_pitch",wxCheckBox)->IsChecked() );
-}
-void ImagesPanel::SetPitchInheritFrom ( wxCommandEvent & e )
-{
-    SetInherit("pitch", "images_inherit_pitch", "images_spin_pitch",
-               "images_optimize_pitch", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_spin_pitch",wxSpinCtrl)->GetValue() );
+    DEBUG_INFO( type.c_str() << " end" )
 }
 
-void ImagesPanel::SetRollCbInherit ( wxCommandEvent & e )
+void ImagesPanel::SetInheritYaw( wxCommandEvent & e )
 {
-    SetInherit("roll", "images_inherit_roll", "images_spin_roll",
-               "images_optimize_roll", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_inherit_roll",wxCheckBox)->IsChecked() );
+    SetInherit ( "yaw" );
 }
-void ImagesPanel::SetRollInheritFrom ( wxCommandEvent & e )
+void ImagesPanel::SetInheritPitch( wxCommandEvent & e )
 {
-    SetInherit("roll", "images_inherit_roll", "images_spin_roll",
-               "images_optimize_roll", e );
-    DEBUG_INFO( XRCCTRL(*this,"images_spin_roll",wxSpinCtrl)->GetValue() );
+    SetInherit ( "pitch" );
+}
+void ImagesPanel::SetInheritRoll( wxCommandEvent & e )
+{
+    SetInherit ( "roll" );
 }
 
-// Optimization
 
 
 // ######  Here end the eventhandlers  #####

@@ -178,7 +178,7 @@ namespace PT {
     {
     public:
         UpdateImageVariablesCmd(Panorama & p, unsigned int ImgNr, const ImageVariables & vars)
-            : PanoCommand(p), imgNr(imgNr),
+            : PanoCommand(p), imgNr(ImgNr),
               vars(vars)
             { };
         virtual void execute()

@@ -110,11 +110,12 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
       InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
-      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 30 );
+      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 40 );
-      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 50 );
-      InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 60 );
-      InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 9, _("optimize"), wxLIST_FORMAT_RIGHT, 80 );
       DEBUG_INFO( " else _layout" )
     }
 
@@ -163,11 +164,15 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     // first the internal changes without any new or removed item
     if ( (int)pano.getNrOfImages() == GetItemCount() ) {
-//      for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){}
-//        imageNr = *it;
+
+#if 1
+      for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
+        imageNr = *it;
+#else
       // We assume only the lens list selected images had changed.
-      for ( unsigned int i=1 ; i <= imgNr[0] ; i++ ) {
+      for ( unsigned int i=1 ; i <= imgNr[0] ; i++ ) { //dummy }
         imageNr = imgNr[i];
+#endif
         char Nr[128] ;
         sprintf(Nr ,"%d", imageNr);
         SetItem ( imageNr, 0, Nr );
@@ -211,28 +216,42 @@ void List::fillRow (unsigned int imageNr)
         wxFileName fn = (wxString)pano.getImage(imageNr).getFilename().c_str();
         wxImage * image = ImageCache::getInstance().getImage(
             pano.getImage(imageNr).getFilename());
-
+        #define ITEM_TEXT(streamin)  number.str(""); number << streamin ;
+        #define ITEM_OUT number.str().c_str()
         // fill in the table
         DEBUG_INFO( " Item: "<< imageNr <<"/"<<  pano.getNrOfImages() )
-        char Nr[128] ;
-        std::string number;
+        std::stringstream number;
         SetItem ( imageNr, 1, fn.GetFullName() );
+        ImageVariables new_var = pano.getVariable(imageNr);
         if ( list_layout == images_layout ) {
-          sprintf(Nr, "%d", image->GetHeight() );
-          SetItem ( imageNr, 2, Nr );
-          sprintf(Nr, "%d", image->GetWidth() );
-          SetItem ( imageNr, 3, Nr );
-          sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
-          SetItem ( imageNr, 4, Nr );
-          number = doubleToString( pano.getVariable(imageNr). yaw.getValue() );
-          SetItem ( imageNr, 5, number.c_str() );
-          number = doubleToString( pano.getVariable(imageNr). pitch.getValue());
-          SetItem ( imageNr, 6, number.c_str() );
-          number = doubleToString( pano.getVariable(imageNr). roll.getValue() );
-          SetItem ( imageNr, 7, number.c_str() );
-          ImageVariables new_var = pano.getVariable(imageNr);
-          number = doubleToString ((double)new_var. yaw.getLink() );
-          SetItem ( imageNr, 8, number.c_str() );
+          ITEM_TEXT( image->GetHeight() )
+          SetItem ( imageNr, 2, ITEM_OUT );
+          ITEM_TEXT( image->GetWidth() )
+          SetItem ( imageNr, 3, ITEM_OUT );
+          ITEM_TEXT( image->GetImageCount ( fn.GetFullPath() ) )
+          SetItem ( imageNr, 4, ITEM_OUT );
+          ITEM_TEXT( doubleToString( new_var. yaw.getValue() ) )
+          SetItem ( imageNr, 5, ITEM_OUT );
+          ITEM_TEXT( doubleToString( new_var. pitch.getValue() ) )
+          SetItem ( imageNr, 6, ITEM_OUT );
+          ITEM_TEXT( doubleToString( new_var. roll.getValue() ) )
+          SetItem ( imageNr, 7, ITEM_OUT );
+          number.str("");
+          if ( new_var. yaw.isLinked() )
+            number << doubleToString ((double)new_var. yaw.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. pitch.isLinked() )
+            number << doubleToString ((double)new_var. pitch.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. roll.isLinked() )
+            number << doubleToString ((double)new_var. roll.getLink());
+          else
+            number << "-";
+          SetItem ( imageNr, 8, ITEM_OUT );
 //        DEBUG_INFO( " images_layout" )
           for ( int j=0; j < GetColumnCount() ; j++ ) {
             SetColumnWidth(j, wxLIST_AUTOSIZE);
@@ -240,33 +259,53 @@ void List::fillRow (unsigned int imageNr)
               SetColumnWidth(j, 40);
           }
         } else {
-          switch ( (int) pano.getLens(pano.getImage(imageNr).getLens()).
-            projectionFormat ) {
-            case Lens::RECTILINEAR:   sprintf(Nr, _("Normal (rectlinear)") ); break;
-            case Lens::PANORAMIC:          sprintf(Nr, _("Panoramic") ); break;
-            case Lens::CIRCULAR_FISHEYE:   sprintf(Nr, _("Circular") ); break;
-            case Lens::FULL_FRAME_FISHEYE: sprintf(Nr, _("Full frame") ); break;
-            case Lens::EQUIRECTANGULAR_LENS: sprintf(Nr,_("Equirectangular") ); break;
+          Lens lens ( pano.getLens( pano.getImage(imageNr).getLens()) );
+          switch ( (int) lens.  projectionFormat  ) {
+            case Lens::RECTILINEAR:          number << _("Normal (rectlinear)"); break;
+            case Lens::PANORAMIC:            number << _("Panoramic"); break;
+            case Lens::CIRCULAR_FISHEYE:     number << _("Circular"); break;
+            case Lens::FULL_FRAME_FISHEYE:   number << _("Full frame"); break;
+            case Lens::EQUIRECTANGULAR_LENS: number << _("Equirectangular"); break;
           }
-          SetItem ( imageNr, 2, Nr );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). focalLength );
-          SetItem ( imageNr, 3, number.c_str() );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). a );
-          SetItem ( imageNr, 4, number.c_str() );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). b );
-          SetItem ( imageNr, 5, number.c_str() );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). c );
-          SetItem ( imageNr, 6, number.c_str() );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). d );
-          SetItem ( imageNr, 7, number.c_str() );
-          number = doubleToString (
-                       pano.getLens (pano.getImage(imageNr).getLens()). e );
-          SetItem ( imageNr, 8, number.c_str() );
+          SetItem ( imageNr, 2, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. focalLength ))
+          SetItem ( imageNr, 3, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. a ))
+          SetItem ( imageNr, 4, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. b ))
+          SetItem ( imageNr, 5, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. c ))
+          SetItem ( imageNr, 6, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. d ))
+          SetItem ( imageNr, 7, ITEM_OUT );
+          ITEM_TEXT( doubleToString ( lens. e ))
+          SetItem ( imageNr, 8, ITEM_OUT );
+          number.str("");
+          if ( new_var. a.isLinked() )
+            number << doubleToString ((double)new_var. a.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. b.isLinked() )
+            number << doubleToString ((double)new_var. b.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. c.isLinked() )
+            number << doubleToString ((double)new_var. c.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. d.isLinked() )
+            number << doubleToString ((double)new_var. d.getLink());
+          else
+            number << "-";
+          number << "|";
+          if ( new_var. e.isLinked() )
+            number << doubleToString ((double)new_var. e.getLink());
+          else
+            number << "-";
+          SetItem ( imageNr, 9, ITEM_OUT );
           for ( int j=0; j< GetColumnCount() ; j++ ) {
             SetColumnWidth(j, wxLIST_AUTOSIZE);
             if ( GetColumnWidth(j) < 40 )
