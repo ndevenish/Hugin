@@ -55,6 +55,11 @@ struct TDiff2D
         : x(d.x), y(d.y)
         { }
 
+    bool operator==(TDiff2D rhs) const
+        {
+            return x == rhs.x &&  y == rhs.y;
+        }
+
     TDiff2D operator+(TDiff2D rhs) const
         {
             return TDiff2D (x+rhs.x, y+rhs.y);

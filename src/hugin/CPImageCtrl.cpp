@@ -54,7 +54,7 @@ CPEvent::CPEvent( )
     mode = NONE;
 }
 
-CPEvent::CPEvent(wxWindow* win, wxPoint & p)
+CPEvent::CPEvent(wxWindow* win, FDiff2D & p)
 {
     SetEventType( EVT_CPEVENT );
     SetEventObject( win );
@@ -70,7 +70,7 @@ CPEvent::CPEvent(wxWindow *win, unsigned int cpNr)
     pointNr = cpNr;
 }
 
-CPEvent::CPEvent(wxWindow* win, unsigned int cpNr, const wxPoint & p)
+CPEvent::CPEvent(wxWindow* win, unsigned int cpNr, const FDiff2D & p)
 {
     SetEventType( EVT_CPEVENT );
     SetEventObject( win );
@@ -87,7 +87,7 @@ CPEvent::CPEvent(wxWindow* win, wxRect & reg)
     region = reg;
 }
 
-CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const wxPoint & p)
+CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const FDiff2D & p)
 {
     SetEventType(EVT_CPEVENT);
     SetEventObject(win);
@@ -213,7 +213,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
     // draw known points.
     unsigned int i=0;
-    vector<wxPoint>::const_iterator it;
+    vector<FDiff2D>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (i==selectedPointNr && editState == KNOWN_POINT_SELECTED) {
 
@@ -249,7 +249,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen("RED", 1, wxSOLID));
             dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
-            wxPoint upperLeft = scale(newPoint - wxPoint(m_templateRectWidth, m_templateRectWidth));
+            wxPoint upperLeft = roundP(scale(newPoint - FDiff2D(m_templateRectWidth, m_templateRectWidth)));
             int width = scale(m_templateRectWidth);
 
             dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
@@ -269,11 +269,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.SetPen(wxPen("WHITE", 1, wxSOLID));
         dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
 
-        wxPoint upperLeft = scale(m_mousePos - wxPoint(m_searchRectWidth, m_searchRectWidth));
+        FDiff2D upperLeft = scale(m_mousePos - FDiff2D(m_searchRectWidth, m_searchRectWidth));
         int width = scale(m_searchRectWidth);
         DEBUG_DEBUG("drawing rect with width " << 2*width << " orig: " << m_searchRectWidth*2  << " scale factor: " << getScaleFactor());
 
-        dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
+        dc.DrawRectangle(roundi(upperLeft.x), roundi(upperLeft.y), 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
     }
 
@@ -281,7 +281,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 }
 
 
-void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & color) const
+void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & point, const wxColor & color) const
 {
     double f = getScaleFactor();
     if (f < 1) {
@@ -290,15 +290,15 @@ void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & co
 
     dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
     dc.SetPen(wxPen(color, 2, wxSOLID));
-    dc.DrawCircle(scale(point), roundi(6*f));
+    dc.DrawCircle(roundP(scale(point)), roundi(6*f));
     dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
-    dc.DrawCircle(scale(point), roundi(7*f));
+    dc.DrawCircle(roundP(scale(point)), roundi(7*f));
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
 //    dc.DrawCircle(scale(point), 4);
 }
 
 
-void CPImageCtrl::drawHighlightPoint(wxDC & dc, const wxPoint & point, const wxColor & color) const
+void CPImageCtrl::drawHighlightPoint(wxDC & dc, const FDiff2D & point, const wxColor & color) const
 {
     double f = getScaleFactor();
     if (f < 1) {
@@ -307,9 +307,9 @@ void CPImageCtrl::drawHighlightPoint(wxDC & dc, const wxPoint & point, const wxC
 
     dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
     dc.SetPen(wxPen(color, 3, wxSOLID));
-    dc.DrawCircle(scale(point), roundi(7*f));
+    dc.DrawCircle(roundP(scale(point)), roundi(7*f));
     dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
-    dc.DrawCircle(scale(point), roundi(8*f));
+    dc.DrawCircle(roundP(scale(point)), roundi(8*f));
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
 //    dc.DrawCircle(scale(point), 4);
 }
@@ -369,7 +369,7 @@ void CPImageCtrl::rescaleImage()
 //    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
 }
 
-void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
+void CPImageCtrl::setCtrlPoints(const std::vector<FDiff2D> & cps)
 {
     points = cps;
     // update view
@@ -393,7 +393,7 @@ void CPImageCtrl::selectPoint(unsigned int nr)
     assert(nr < points.size());
     selectedPointNr = nr;
     editState = KNOWN_POINT_SELECTED;
-    showPosition(points[nr].x, points[nr].y);
+    showPosition(points[nr]);
     update();
 }
 
@@ -407,28 +407,30 @@ void CPImageCtrl::deselect()
         update();
     }
 
-void CPImageCtrl::showPosition(int x, int y, bool warpPointer)
+void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 {
-    DEBUG_DEBUG("x: " << x  << " y: " << y);
+    DEBUG_DEBUG("x: " << point.x  << " y: " << point.y);
     wxSize sz = GetClientSize();
-    int scrollx = scale(x)- sz.GetWidth()/2;
+    int x = roundi(point.x);
+    int y = roundi(point.y);
+    int scrollx = x - sz.GetWidth()/2;
 //    if (x<0) x = 0;
-    int scrolly = scale(y)- sz.GetHeight()/2;
+    int scrolly = y - sz.GetHeight()/2;
 //    if (y<0) x = 0;
 //    Scroll(x/16, y/16);
     Scroll(scrollx, scrolly);
     if (warpPointer) {
         int sx,sy;
         GetViewStart(&sx, &sy);
-        DEBUG_DEBUG("relative coordinages: " << scale(x)-sx << "," << scale(y)-sy);
-        WarpPointer(scale(x)-sx,scale(y)-sy);
+        DEBUG_DEBUG("relative coordinages: " << x-sx << "," << y-sy);
+        WarpPointer(x-sx,y-sy);
     }
 }
 
-CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int & pointNr) const
+CPImageCtrl::EditorState CPImageCtrl::isOccupied(const FDiff2D &p, unsigned int & pointNr) const
 {
     // check if mouse is over a known point
-    vector<wxPoint>::const_iterator it;
+    vector<FDiff2D>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (p.x < it->x + invScale(4) &&
             p.x > it->x - invScale(4) &&
@@ -458,11 +460,13 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int 
 
 void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
-    wxPoint mpos;
+    wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos.x, & mpos.y);
+                           &mpos_.x, & mpos_.y);
+    FDiff2D mpos(mpos_.x, mpos_.y);
     bool doUpdate = false;
     mpos = invScale(mpos);
+    mpos_ = invScale(mpos_);
 //    DEBUG_DEBUG(" pos:" << mpos.x << ", " << mpos.y);
     // only if the shift key is not pressed.
     if (mouse.LeftIsDown() && ! mouse.ShiftDown()) {
@@ -501,8 +505,8 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             break;
         case SELECT_REGION:
             DEBUG_FATAL("Select region not in use anymore");
-            region.SetWidth(mpos.x - region.x);
-            region.SetHeight(mpos.y - region.y);
+            region.SetWidth(mpos_.x - region.x);
+            region.SetHeight(mpos_.y - region.y);
             // do more intelligent updating here?
             doUpdate = true;
             break;
@@ -513,17 +517,18 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 
     if (mouse.MiddleIsDown() || mouse.ShiftDown() || mouse.m_controlDown ) {
         // scrolling with the mouse
-        if (m_mouseScrollPos != mouse.GetPosition()) {
-            wxPoint delta = mouse.GetPosition() - m_mouseScrollPos;
+        if (m_mouseScrollPos !=mouse.GetPosition()) {
+            wxPoint delta_ = mouse.GetPosition() - m_mouseScrollPos;
             double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
 //          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
-            delta.x = (int) (delta.x * speed);
-            delta.y = (int) (delta.y * speed);
+            wxPoint delta;
+            delta.x = (delta_.x * speed);
+            delta.y =  (delta_.y * speed);
             ScrollDelta(delta);
             if (mouse.ShiftDown()) {
                 // emit scroll event, so that other window can be scrolled
                 // as well.
-                CPEvent e(this, CPEvent::SCROLLED, delta);
+                CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
                 emit(e);
             }
             m_mouseScrollPos = mouse.GetPosition();
@@ -547,10 +552,12 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
-    wxPoint mpos;
+    wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos.x, & mpos.y);
+                           &mpos_.x, & mpos_.y);
+    FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = invScale(mpos);
+    mpos_ = invScale(mpos_);
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     unsigned int selPointNr = 0;
@@ -585,9 +592,10 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
-    wxPoint mpos;
+    wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos.x, & mpos.y);
+                           &mpos_.x, & mpos_.y);
+    FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
@@ -600,7 +608,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
         case KNOWN_POINT_SELECTED:
         {
             DEBUG_DEBUG("mouse release with known point " << selectedPointNr);
-            if (point != points[selectedPointNr]) {
+            if (! (point == points[selectedPointNr]) ) {
                 CPEvent e( this, selectedPointNr, points[selectedPointNr]);
                 emit(e);
             //emit(pointChanged(selectedPointNr, points[selectedPointNr]));
@@ -620,7 +628,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
         case SELECT_REGION:
         {
             DEBUG_FATAL("Select region not in use anymore");
-            if (region.GetPosition() == mpos) {
+            if (region.GetPosition() == roundP(mpos)) {
                 // create a new point.
                 editState = NEW_POINT_SELECTED;
                 newPoint = mpos;
@@ -674,9 +682,10 @@ void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 {
-    wxPoint mpos;
+    wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos.x, & mpos.y);
+                           &mpos_.x, & mpos_.y);
+    FDiff2D mpos(mpos_.x, mpos_.y);
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
@@ -779,14 +788,14 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         if (e.ShiftDown()) {
             // emit scroll event, so that other window can be scrolled
             // as well.
-            CPEvent e(this, CPEvent::SCROLLED, delta);
+            CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
             emit(e);
         }
     } else if (e.m_keyCode == 'a') {
         DEBUG_DEBUG("adding point with a key, faking right click");
         // faking right mouse button with "a"
         // set right up event
-        CPEvent ev(this, CPEvent::RIGHT_CLICK, wxPoint(0,0));
+        CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
         emit(ev);
     } else {
         DEBUG_DEBUG("forwarding key " << e.m_keyCode
@@ -843,7 +852,7 @@ void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
         m_tempZoom = false;
     }
 #endif
-    m_mousePos = wxPoint(-1,-1);
+    m_mousePos = FDiff2D(-1,-1);
 //    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
@@ -853,14 +862,14 @@ void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
     SetFocus();
 }
 
-wxPoint CPImageCtrl::getNewPoint()
+FDiff2D CPImageCtrl::getNewPoint()
 {
     // only possible if a new point is actually selected
     DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
     return newPoint;
 }
 
-void CPImageCtrl::setNewPoint(const wxPoint & p)
+void CPImageCtrl::setNewPoint(const FDiff2D & p)
 {
     DEBUG_DEBUG("setting new point " << p.x << "," << p.y);
     // should we need to check for some precondition?
@@ -868,7 +877,7 @@ void CPImageCtrl::setNewPoint(const wxPoint & p)
     editState = NEW_POINT_SELECTED;
 
     // show new point.
-    showPosition(p.x, p.y);
+    showPosition(p);
 
     // we do not send an event, since CPEditorPanel
     // caused the change.. so it doesn't need to filter
@@ -885,7 +894,7 @@ void CPImageCtrl::showSearchArea(bool show)
 
         m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
         DEBUG_DEBUG("Setting new search area: w in %:" << templSearchAreaPercent << " bitmap width: " << bitmap.GetWidth() << "  resulting size: " << m_searchRectWidth);
-        m_mousePos = wxPoint(-1,-1);
+        m_mousePos = FDiff2D(-1,-1);
     }
 }
 

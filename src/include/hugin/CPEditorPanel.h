@@ -131,7 +131,7 @@ private:
 
     // function called when a new point has been selected or changed
     // in one of your images
-    void NewPointChange(wxPoint p, bool left);
+    void NewPointChange(FDiff2D p, bool left);
 //    void CreateNewPointRight(wxPoint p);
 
     /// this is used to finally create the point in the panorama model
@@ -142,12 +142,12 @@ private:
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, vigra_ext::CorrelationResult & res);
 
     double PointFineTune(unsigned int tmplImgNr,
-                                        const vigra::Diff2D &tmplPoint,
-                                        int tmplWidth,
-                                        unsigned int subjImgNr,
-                                        const vigra::Diff2D &subjPoint,
-                                        int searchWidth,
-                                        FDiff2D & tunedPos);
+                         const vigra::Diff2D &tmplPoint,
+                         int tmplWidth,
+                         unsigned int subjImgNr,
+                         const FDiff2D &subjPoint,
+                         int searchWidth,
+                         FDiff2D & tunedPos);
 
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
@@ -169,11 +169,11 @@ private:
     void OnFineTuneButton(wxCommandEvent & e);
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
-    // local fine tune.
+    // local fine tune
     FDiff2D LocalFineTunePoint(unsigned int srcNr,
                                const vigra::Diff2D & srcPnt,
                                unsigned int moveNr,
-                               const vigra::Diff2D & movePnt);
+                               const FDiff2D & movePnt);
 
     // experimental corner detector.
     void OnAutoCreateCP();
@@ -206,7 +206,7 @@ private:
     void changeState(CPCreationState newState);
 
     /** estimate and set point in other image */
-    void estimateAndAddOtherPoint(const wxPoint & p,
+    void estimateAndAddOtherPoint(const FDiff2D & p,
                                   bool left,
                                   CPImageCtrl * thisImg,
                                   unsigned int thisImgNr,

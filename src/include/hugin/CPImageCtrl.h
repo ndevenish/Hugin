@@ -44,15 +44,15 @@ public:
     /// create a specific CPEvent
     CPEvent(wxWindow* win, CPEventMode mode);
     /// a new point has been created.
-    CPEvent(wxWindow* win, wxPoint & p);
+    CPEvent(wxWindow* win, FDiff2D & p);
     /// a point has been selected
     CPEvent(wxWindow *win, unsigned int cpNr);
     /// a point has been moved
-    CPEvent(wxWindow* win, unsigned int cpNr, const wxPoint & p);
+    CPEvent(wxWindow* win, unsigned int cpNr, const FDiff2D & p);
     /// region selected
     CPEvent(wxWindow* win, wxRect & reg);
     /// right mouse click
-    CPEvent(wxWindow* win, CPEventMode mode, const wxPoint & p);
+    CPEvent(wxWindow* win, CPEventMode mode, const FDiff2D & p);
 
     virtual wxEvent* Clone() const;
 
@@ -64,7 +64,7 @@ public:
     const wxRect & getRect()
         { return region; }
 
-    const wxPoint & getPoint()
+    const FDiff2D & getPoint()
         { return point; }
 
     unsigned int getPointNr()
@@ -72,7 +72,7 @@ public:
 private:
     CPEventMode mode;
     wxRect region;
-    wxPoint point;
+    FDiff2D point;
     int pointNr;
 };
 
@@ -120,17 +120,17 @@ public:
     void setImage (const std::string & filename);
 
     /// control point inside this image
-    void setCtrlPoints(const std::vector<wxPoint> & points);
+    void setCtrlPoints(const std::vector<FDiff2D> & points);
 
     /// clear new point
     void clearNewPoint();
 
     /// set new point to a specific point
-    void setNewPoint(const wxPoint & p);
+    void setNewPoint(const FDiff2D & p);
 
     /// select a point for usage
     void selectPoint(unsigned int);
-    
+
     /// remove selection.
     void deselect();
 
@@ -161,7 +161,7 @@ public:
      *  if @p warpPointer is true, the mouse pointer is moved
      *  to that position as well
      */
-    void showPosition(int x, int y, bool warpPointer=false);
+    void showPosition(FDiff2D point, bool warpPointer=false);
 
     /** show/hide the search area rectangle
      *
@@ -171,7 +171,7 @@ public:
     void showTemplateArea(bool show=true);
 
     /// get the new point
-    wxPoint getNewPoint();
+    FDiff2D getNewPoint();
 
     /// initiate redraw
     void update();
@@ -180,8 +180,8 @@ public:
     void ScrollDelta(const wxPoint & delta);
 
 protected:
-    void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
-    void drawHighlightPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
+    void drawPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;
+    void drawHighlightPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);
@@ -212,13 +212,25 @@ private:
     // size of real image
     wxSize m_realSize;
 
-    std::vector<wxPoint> points;
+    std::vector<FDiff2D> points;
 
     wxCursor * m_CPSelectCursor;
     wxCursor * m_ScrollCursor;
 
     int scale(int x) const
         {  return (int) (x * getScaleFactor() + 0.5); }
+
+    double scale(double x) const
+        {  return x * getScaleFactor(); }
+
+    FDiff2D scale(const FDiff2D & p) const
+        {
+            FDiff2D r;
+            r.x = scale(p.x);
+            r.y = scale(p.y);
+            return r;
+        }
+
     wxPoint scale(const wxPoint & p) const
         {
             wxPoint r;
@@ -230,6 +242,17 @@ private:
     int invScale(int x) const
         {  return (int) (x / getScaleFactor() + 0.5); }
 
+    double invScale(double x) const
+        {  return x / getScaleFactor(); }
+
+    FDiff2D invScale(const FDiff2D & p) const
+        {
+            FDiff2D r;
+            r.x = invScale(p.x);
+            r.y = invScale(p.y);
+            return r;
+        }
+
     wxPoint invScale(const wxPoint & p) const
         {
             wxPoint r;
@@ -238,11 +261,17 @@ private:
             return r;
         }
 
+    wxPoint roundP(const FDiff2D & p) const
+        {
+            return wxPoint(utils::roundi(p.x), utils::roundi(p.y));
+        }
+
+
     // this is only valid during MOVE_POINT
     unsigned int selectedPointNr;
     // valid during MOVE_POINT and CREATE_POINT
-    wxPoint point;
-    wxPoint newPoint;
+    FDiff2D point;
+    FDiff2D newPoint;
 
     // only valid during SELECT_REGION
     wxRect region;
@@ -308,7 +337,7 @@ private:
     bool m_showSearchArea;
     int m_searchRectWidth;
 
-    wxPoint m_mousePos;
+    FDiff2D m_mousePos;
     wxPoint m_mouseScrollPos;
 
     bool m_showTemplateArea;
@@ -319,7 +348,7 @@ private:
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point
-    EditorState isOccupied(const wxPoint &p, unsigned int & pointNr) const;
+    EditorState isOccupied(const FDiff2D &p, unsigned int & pointNr) const;
 
     CPEditorPanel * m_editPanel;
 
