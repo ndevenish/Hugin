@@ -139,6 +139,7 @@ MainFrame::MainFrame(wxWindow* parent)
     wxCommandEvent e;
     pano_panel->PanoChanged (e); // initialize from gui
 #endif
+
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
     cpe = new CPEditorPanel(this,&pano);
@@ -323,8 +324,9 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 {
     // Write something in the statusline
-    char e_stat[128] = "Number of panoimages(";
-    sprintf (e_stat,"%s%d)", e_stat, pano.getNrOfImages() );
+    char e_stat[128] = "";
+    sprintf (e_stat,_("Number of panoimages"), e_stat);
+    sprintf (e_stat,"%s(%d)", e_stat, pano.getNrOfImages() );
     SetStatusText( e_stat, 0);
 
     // To get users path we do following:
@@ -363,7 +365,8 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       wxArrayString Pathnames;
       dlg->GetFilenames(Filenames);
       dlg->GetPaths(Pathnames);
-      sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
+      sprintf(e_stat,_("Add images")); 
+      sprintf(e_stat,"%s(%d): ", e_stat, Filenames.GetCount());
 
       // d There we are now?
       wxString str;

@@ -109,7 +109,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
     void Stitch(wxCommandEvent & e);
 
-    void PanoOptionsChanged( void );
+    void PanoOptionsChanged( PanoramaOptions & opt );
     bool changePano;
 
     // the model

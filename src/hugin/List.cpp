@@ -336,9 +336,9 @@ void List::itemSelected ( wxListEvent & e )
 {
     DEBUG_TRACE("");
     // prepare an status message
-    std::string e_msg ( _("selected images(") );
+    std::string e_msg ( _("selected images") );
     char Nr[8];
-    sprintf (Nr, "%d", GetSelectedItemCount() );
+    sprintf (Nr, "(%d", GetSelectedItemCount() );
     e_msg.append( Nr );
     e_msg.append( "):  " );
 
