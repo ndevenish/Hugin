@@ -354,14 +354,11 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // better than all that stupid dialogunit stuff, that
                 // breaks on wxWin 2.5
                 but->SetSize(20, sz.GetHeight());
-                wxSize szm = sz;
-                szm.SetWidth(20);
-                but->SetMaxSize(szm);
                 but->SetValue(true);
-				m_ButtonSizer->Add(but,
-                                         0,
-                                         wxLEFT | wxADJUST_MINSIZE,
-                                         5);
+                m_ButtonSizer->Add(but,
+                                   0,
+                                   wxLEFT | wxADJUST_MINSIZE,
+                                   5);
                 m_ToggleButtons.push_back(but);
                 m_displayedImgs.insert(imgNr);
                 dirty = true;
