@@ -56,8 +56,8 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(WXWIN_CFLAGS) $(VIGRA_CFLAGS)
-LFLAGS += $(WXWIN_LFLAGS)  -lhuginwxutils -lpanorama \
-           -ljhead -lcommon -lvigra_ext -lvigra_impex2 ${VIGRA_LFLAGS}
+LFLAGS += -lhuginwxutils  -lpanorama \
+           -ljhead -lcommon  $(WXWIN_LFLAGS) ${VIGRA_LFLAGS} -lvigra_ext
 
 # ====================================================================
 # The applications that should be build in this directory.
@@ -76,7 +76,7 @@ ifeq ($(PLATFORM),win32)
    APP_1_OBJ += nona_gui_rc.o
 endif
 
-APP_1_DESKTOP = 
+APP_1_DESKTOP =
 
 APP_1_LFLAGS = $(LFLAGS) -lpano12
 

@@ -35,9 +35,8 @@
 #include <vigra/rgbvalue.hxx>
 #include <vigra/tiff.hxx>
 
-//#include <vigra_impex2/addimage.hxx>
-#include <vigra_impex2/impex.hxx>
-#include <vigra_impex2/impexalpha.hxx>
+#include <vigra/impex.hxx>
+#include <vigra/impexalpha.hxx>
 
 #include <vigra_ext/NearestFeatureTransform.h>
 #include <vigra_ext/tiffUtils.h>
@@ -78,7 +77,7 @@ public:
     {
         // load image
         const PT::PanoImage & img = pano.getImage(imgNr);
-        vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
+        vigra::ImageImportInfo info(img.getFilename().c_str());
         // create an image of the right size
         ImageType srcImg(info.width(), info.height());
         AlphaType srcAlpha(info.width(), info.height(), 1);
@@ -87,7 +86,7 @@ public:
         progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
 
         // import with alpha channel
-        vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
+        vigra::importImageAlpha(info, vigra::destImage(srcImg),
                                        vigra::destImage(srcAlpha));
 
         progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
@@ -213,24 +212,24 @@ public:
             std::ostringstream filename;
             filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".jpg";
 
-            vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
+            vigra::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
             // set compression options here.
             char jpgCompr[4];
             snprintf(jpgCompr,4,"%d", opts.quality);
             exinfo.setCompression(jpgCompr);
-            vigra_impex2::exportImage(srcImageRange(complete), exinfo);
+            vigra::exportImage(srcImageRange(complete), exinfo);
             break;
         }
         case PanoramaOptions::PNG:
         {
             std::ostringstream filename;
             filename << m_basename << setfill('0') << setw(4) << imgNr << ".png";
-            vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
+            vigra::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
-            vigra_impex2::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
+            vigra::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
                                            exinfo);
             break;
         }
@@ -415,7 +414,7 @@ public:
         }
 	m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
 	DEBUG_DEBUG("Saving panorama: " << outputfile);
-	vigra_impex2::ImageExportInfo exinfo(outputfile.c_str());
+	vigra::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
 	exinfo.setYResolution(150);
         // set compression quality for jpeg images.
@@ -423,17 +422,17 @@ public:
             char jpgCompr[4];
             snprintf(jpgCompr,4,"%d", opts.quality);
             exinfo.setCompression(jpgCompr);
-            vigra_impex2::exportImage(srcImageRange(pano), exinfo);
+            vigra::exportImage(srcImageRange(pano), exinfo);
 	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
 	    exinfo.setCompression("DEFLATE");
-            vigra_impex2::exportImageAlpha(srcImageRange(pano),
+            vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
 	} else {
-            vigra_impex2::exportImageAlpha(srcImageRange(pano),
+            vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
         }
 #ifdef DEBUG
-	vigra_impex2::exportImage(srcImageRange(panoMask), vigra_impex2::ImageExportInfo("pano_alpha.tif"));
+	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
 #endif
 	m_progress.popTask();
 
@@ -455,10 +454,10 @@ public:
 
 #ifdef DEBUG
 	// save the masks
-	vigra_impex2::exportImage(srcIterRange(imageMask.first, imageMask.first + size),
-                    vigra_impex2::ImageExportInfo("blendImageMask_before.tif"));
-        vigra_impex2::exportImage(srcIterRange(panoMask.first, panoMask.first + size),
-                    vigra_impex2::ImageExportInfo("blendPanoMask_before.tif"));
+	vigra::exportImage(srcIterRange(imageMask.first, imageMask.first + size),
+                    vigra::ImageExportInfo("blendImageMask_before.tif"));
+        vigra::exportImage(srcIterRange(panoMask.first, panoMask.first + size),
+                    vigra::ImageExportInfo("blendPanoMask_before.tif"));
 	
 #endif
 
@@ -475,8 +474,8 @@ public:
 
 #ifdef DEBUG
 	// save the masks
-	vigra_impex2::exportImage(srcImageRange(blendImageMask), vigra_impex2::ImageExportInfo("blendImageMask.tif"));
-	vigra_impex2::exportImage(srcImageRange(blendPanoMask), vigra_impex2::ImageExportInfo("blendPanoMask.tif"));
+	vigra::exportImage(srcImageRange(blendImageMask), vigra::ImageExportInfo("blendImageMask.tif"));
+	vigra::exportImage(srcImageRange(blendPanoMask), vigra::ImageExportInfo("blendPanoMask.tif"));
 	
 #endif
 	// copy the image into the panorama

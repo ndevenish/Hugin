@@ -116,6 +116,8 @@ PTStitcherPanel::PTStitcherPanel(wxWindow *parent, Panorama & pano)
                               wxChoice);
     DEBUG_ASSERT(m_SpeedupChoice);
 
+    UpdateDisplay(pano.getOptions());
+    
     // observe the panorama
     pano.addObserver (this);
 
@@ -225,8 +227,14 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
         format = 13;
         break;
     default:
-        DEBUG_ERROR("NONA: Unknown output format, switching to JPG");
-        format = 0;
+        {
+            PanoramaOptions opts = pano.getOptions();
+            opts.outputFormat = PanoramaOptions::JPEG;
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( pano, opts )
+                );            
+            format = 0;
+        }
     }
     m_FormatChoice->SetSelection(format);
 
@@ -238,7 +246,7 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_JPEGQualitySpin->SetValue(opt.quality);
 
     m_FeatherWidthSpin->SetValue(opt.featherWidth);
-    
+
     m_SpeedupChoice->SetSelection(opt.remapAcceleration);
 }
 

@@ -121,7 +121,7 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
         // calculate alpha channel
         rimg[*it].calcAlpha(pano, opts, *it);
 #ifdef DEBUG
-	vigra_impex2::exportImage(rimg[*it].alpha(), vigra_impex2::ImageExportInfo("debug_alpha.tif"));
+	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));
 #endif
     }
 
@@ -180,14 +180,14 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     pano.getImage(imgNr);
     string fname =  pano.getImage(imgNr).getFilename().c_str();
     DEBUG_DEBUG("Probing image: " << fname);
-    vigra_impex2::ImageImportInfo info(fname.c_str());
+    vigra::ImageImportInfo info(fname.c_str());
     const char * pixelType = info.getPixelType();
     int bands = info.numBands();
     int extraBands = info.numExtraBands();
 
     // check if all other images have the same type
     for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
-        vigra_impex2::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
+        vigra::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
         if (strcmp(info2.getPixelType(), pixelType) != 0) {
             DEBUG_FATAL("image " << pano.getImage(imgNr).getFilename()
                         << " uses " << info2.getPixelType() << " valued pixel, while " << pano.getImage(0).getFilename() << " uses: " << pixelType);

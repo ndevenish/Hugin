@@ -24,24 +24,17 @@
  *
  */
 
+#include "panoinc_WX.h"
+#include "panoinc.h"
+
 #include <fstream>
 #include <sstream>
 
-#include <vigra/impex.hxx>
 #include <vigra/error.hxx>
 
 #include <unistd.h>
 
-#include "panoinc.h"
 #include "PT/Stitcher.h"
-
-#include <wx/app.h>
-
-#include <wx/config.h>              // wx config classes for all systems
-#include <wx/image.h>               // wxImage
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/filename.h>            // files and dirs
-#include <wx/file.h>
 
 #include "hugin/MyProgressDialog.h"
 
@@ -85,7 +78,7 @@ nonaApp::nonaApp()
 {
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
-    
+
     DEBUG_TRACE("ctor");
 }
 
@@ -120,33 +113,58 @@ bool nonaApp::OnInit()
             return false;
         }
 
-    if (basename == "" || argc - optind <1) {
-        usage(argv[0]);
-        return false;
+    string scriptFile;
+    if (argc - optind <1) {
+        // ask for project file
+        wxFileDialog dlg(0,_("Specify project source project file"),
+                         wxConfigBase::Get()->Read("actualPath",""),
+                         "", "",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+            scriptFile = dlg.GetPath().c_str();
+        } else {
+            usage(argv[0]);
+            return 1;
+        }
+    } else {
+        scriptFile = argv[optind];
     }
+    
+    wxFileName fname(scriptFile.c_str());
+    wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
-    // strip any extension from output file
-    std::string::size_type idx = basename.rfind('.');
-    if (idx != std::string::npos) {
-        basename = basename.substr(0, idx);
+    
+    if (basename == "") {
+        // ask for output.
+        wxFileDialog dlg(0,_("Specify output image filename"),
+                         wxConfigBase::Get()->Read("actualPath",""),
+                         "", "",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+            basename = dlg.GetPath().c_str();
+        } else {
+            usage(argv[0]);
+            return 1;
+        }
     }
-
-    const char * scriptFile = argv[optind];
-
+    
+    basename = utils::stripExtension(basename);
 
     //utils::StreamMultiProgressDisplay pdisp(cout);
     MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     Panorama pano;
     PanoramaMemento newPano;
-    ifstream prjfile(scriptFile);
+    ifstream prjfile(scriptFile.c_str());
     if (prjfile.bad()) {
         ostringstream error;
         error << _("could not open script : ") << scriptFile << endl;
         wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
     }
-    if (newPano.loadPTScript(prjfile)) {
+    if (newPano.loadPTScript(prjfile, path.c_str())) {
         pano.setMemento(newPano);
     } else {
         ostringstream error;
@@ -188,7 +206,8 @@ int nonaApp::OnExit()
 
 void nonaApp::usage(const char * name)
 {
-    cerr << name << ": stitch a panorama image" << endl
+    ostringstream o;
+    o    << name << ": stitch a panorama image" << endl
          << endl
          << " It uses the transform function from PanoTools, the stitching itself" << endl
          << " is quite simple, no seam feathering is done." << endl
@@ -197,6 +216,7 @@ void nonaApp::usage(const char * name)
          << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << endl
          << endl
          << "Usage: " << name  << " -o output project_file" << endl;
+    wxMessageBox(o.str().c_str(), _("Error using standalone stitcher"));
 }
 
 

@@ -94,20 +94,20 @@ if ($platform eq "win32") {
 
 # check for external vigra
 my $VIGRA_VERSION=`vigra-config --version`;
-my $VIGRA_LFLAGS="";
-my $VIGRA_CFLAGS="-I../foreign/vigra";
-my $HAS_FULL_VIGRA=0;
-if ($VIGRA_VERSION) {
-    print "Found external vigra library, version $VIGRA_VERSION\n";
-    $VIGRA_LFLAGS=`vigra-config --libs`;
-    # hack, strip system includes dirs.. they break stuff..
-    $VIGRA_LFLAGS =~ s:-L/usr/lib ::;
-    $VIGRA_CFLAGS=`vigra-config --cppflags`;
-    $VIGRA_CFLAGS =~ s:-I/usr/include ::;
-    $HAS_FULL_VIGRA=1;
-} else {
-    print "No external vigra library found, utils/stitcher will not be compiled\n";
-}
+my $VIGRA_LFLAGS="-lvigra_impex -ltiff -ljpeg -lpng -lz";
+my $VIGRA_CFLAGS="-I../foreign";
+my $HAS_FULL_VIGRA=1;
+#if ($VIGRA_VERSION) {
+#    print "Found external vigra library, version $VIGRA_VERSION\n";
+#    $VIGRA_LFLAGS=`vigra-config --libs`;
+#    # hack, strip system includes dirs.. they break stuff..
+#    $VIGRA_LFLAGS =~ s:-L/usr/lib ::;
+#    $VIGRA_CFLAGS=`vigra-config --cppflags`;
+#    $VIGRA_CFLAGS =~ s:-I/usr/include ::;
+#    $HAS_FULL_VIGRA=1;
+#} else {
+#    print "No external vigra library found, utils/stitcher will not be compiled\n";
+#}
 
 print "\nConfiguration summary for hugin:\n";
 print "  platform: $platform\n";

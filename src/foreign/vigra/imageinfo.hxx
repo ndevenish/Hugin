@@ -21,8 +21,8 @@
 /*                                                                      */
 /************************************************************************/
 
-#ifndef VIGRA_IMAGEINFO_HXX
-#define VIGRA_IMAGEINFO_HXX
+#ifndef VIGRA_IMAGEINFO2_HXX
+#define VIGRA_IMAGEINFO2_HXX
 
 #include <memory>
 #include <string>
@@ -32,7 +32,7 @@
 namespace vigra
 {
 /** \addtogroup VigraImpex Image Import/Export Facilities
-    
+
     supports GIF, TIFF, JPEG, BMP, PNM (PBM, PGM, PPM), PNG, SunRaster, KHOROS-VIFF formats
 **/
 //@{
@@ -88,6 +88,7 @@ std::string impexListExtensions();
 **/
 bool isImage(char const * filename);
 
+
 /********************************************************/
 /*                                                      */
 /*                   ImageExportInfo                    */
@@ -105,7 +106,7 @@ class ImageExportInfo
 {
   public:
         /** Construct ImageExportInfo object.
-        
+
             The image will be stored under the given filename.
             The file type will be guessed from the extension unless overridden
             by \ref setFileType(). Recognized extensions: '.bmp', '.gif',
@@ -119,7 +120,7 @@ class ImageExportInfo
     const char * getFileName() const;
 
     /** Store image as given file type.
-    
+
         This will override any type guessed
         from the file name's extension. Recognized file types:
 
@@ -160,11 +161,17 @@ class ImageExportInfo
     const char * getFileType() const;
 
     /** Set compression type.
-    
+
         Recognized strings: "LZW",
         "RunLength", "1" ... "100". A number is interpreted as the
         compression quality for JPEG compression. JPEG compression is
         supported by the JPEG and TIFF formats.
+
+	Valid Compression for TIFF files:
+	  JPEG    jpeg compression, call setQuality as well!
+	  RLE     runlength compression
+	  LZW     lzw compression
+	  DEFLATE deflate compression
     **/
     ImageExportInfo & setCompression( const char * );
     const char * getCompression() const;
@@ -184,7 +191,9 @@ class ImageExportInfo
         <DL>
         <DT>"UINT8"<DD> 8-bit unsigned integer (unsigned char)
         <DT>"INT16"<DD> 16-bit signed integer (short)
+        <DT>"UINT16"<DD> 16-bit unsigned integer (short)
         <DT>"INT32"<DD> 32-bit signed integer (long)
+        <DT>"UINT32"<DD> 32-bit unsigned integer (long)
         <DT>"FLOAT"<DD> 32-bit floating point (float)
         <DT>"DOUBLE"<DD> 64-bit floating point (double)
         </DL>
@@ -198,13 +207,30 @@ class ImageExportInfo
         /** Set the image resolution in vertical direction
          **/
     ImageExportInfo & setYResolution( float );
-    
+
+    /** Set the position of the upper Left corner on a global
+     *  canvas.
+     *
+     *  Currently only supported for tiff files, where it
+     *  sets the XPosition and YPosition tags.
+     *
+     *  @param position of the upper left corner in pixels
+     *                  must be >= 0
+     */
+    ImageExportInfo & setPosition(const vigra::Diff2D & pos);
+
+    /** get the position in pixels
+     *
+     */
+    vigra::Diff2D getPosition() const;
+
     float getXResolution() const;
     float getYResolution() const;
 
   private:
     std::string m_filename, m_filetype, m_pixeltype, m_comp;
     float m_x_res, m_y_res;
+    vigra::Diff2D m_pos;
 };
 
 // return an encoder for a given ImageExportInfo object
@@ -230,7 +256,7 @@ class ImageImportInfo
     enum PixelType { UINT8, INT16, INT32, FLOAT, DOUBLE };
 
         /** Construct ImageImportInfo object.
-        
+
             The image with the given filename is read into memory.
             The file type will be determined by the first few bytes of the
             file (magic number). Recognized file types:
@@ -253,12 +279,12 @@ class ImageImportInfo
             </DL>
         **/
     ImageImportInfo( const char *  );
-    
+
     const char * getFileName() const;
-    
+
         /** Get the file type of the image associated with this
             info object.
-            
+
             See ImageImportInfo::ImageImportInfo for a list of the
             available file types.
         **/
@@ -272,13 +298,18 @@ class ImageImportInfo
          **/
     int height() const;
 
-        /** Get the number bands in the image.
+        /** Get the total number bands in the image.
          **/
     int numBands() const;
 
+        /** Get the number of extra (non color) bands in the image.
+         ** Usually these are the alpha channels.
+         **/
+    int numExtraBands() const;
+
         /** Get size of the image.
          **/
-    Size2D size() const;
+    vigra::Size2D size() const;
 
         /** Returns true if the image is gray scale.
          **/
@@ -289,12 +320,14 @@ class ImageImportInfo
     bool isColor() const;
 
         /** Query the pixel type of the image.
-        
+
             Possible values are:
             <DL>
             <DT>"UINT8"<DD> 8-bit unsigned integer (unsigned char)
             <DT>"INT16"<DD> 16-bit signed integer (short)
+            <DT>"UINT16"<DD> 16-bit unsigned integer (unsigned short)
             <DT>"INT32"<DD> 32-bit signed integer (long)
+            <DT>"UINT32"<DD> 32-bit signed integer (unsigned long)
             <DT>"FLOAT"<DD> 32-bit floating point (float)
             <DT>"DOUBLE"<DD> 64-bit floating point (double)
             </DL>
@@ -309,6 +342,10 @@ class ImageImportInfo
         **/
     bool isByte() const;
 
+        /** Returns the layer offset of the current image, if there is one
+         **/
+    vigra::Diff2D getPosition() const;
+
         /** Returns the image resolution in horizontal direction
          **/
     float getXResolution() const;
@@ -319,12 +356,13 @@ class ImageImportInfo
 
   private:
     std::string m_filename, m_filetype, m_pixeltype;
-    int m_width, m_height, m_num_bands;
+    int m_width, m_height, m_num_bands, m_num_extra_bands;
     float m_x_res, m_y_res;
+    vigra::Diff2D m_pos;
 };
 
 // return a decoder for a given ImageImportInfo object
-std::auto_ptr<vigra::Decoder> decoder( const ImageImportInfo & info );
+std::auto_ptr<Decoder> decoder( const ImageImportInfo & info );
 
 } // namespace vigra
 

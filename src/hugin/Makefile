@@ -56,8 +56,8 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG) $(VIGRA_CFLAGS)
-LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS)  -lpanorama \
-           -ljhead -lcommon -lvigra_ext -lvigra_impex2 ${VIGRA_LFLAGS}
+LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS) ${VIGRA_LFLAGS} -lpanorama \
+           -ljhead -lcommon -lvigra_ext 
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a
@@ -91,7 +91,6 @@ APP_1_OBJ = \
             huginApp.o \
 	    ImagesList.o \
 	    AutoCtrlPointCreator.o \
-            Server.o \
             MainFrame.o \
             CPImageCtrl.o \
             CPEditorPanel.o \

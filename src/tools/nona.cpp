@@ -28,7 +28,7 @@
 #include <sstream>
 
 #include <vigra/error.hxx>
-#include <vigra_impex2/impex.hxx>
+#include <vigra/impex.hxx>
 
 #include <unistd.h>
 

@@ -312,7 +312,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         o << " d" << colorReferenceImage;
         break;
     }
-    
+
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
@@ -535,7 +535,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             getParam(i,line,"i");
             options.interpolator = (PanoramaOptions::Interpolator) i;
             getParam(options.gamma,line,"g");
-            
+
             if (getParam(i,line,"f")) {
                 switch(i) {
                 case 0:
@@ -546,12 +546,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     break;
                 default:
                     options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
-                    break;                    
+                    break;
                 }
             } else {
                 options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
             }
-            
+
             break;
         }
         case 'v':
@@ -1006,6 +1006,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     return true;
 }
 
+#if 0
 bool PanoramaMemento::loadPTScript2(std::istream &i, const std::string &prefix)
 {
     DEBUG_TRACE("");
@@ -1425,3 +1426,5 @@ bool PanoramaMemento::loadPTScript2(std::istream &i, const std::string &prefix)
 #endif
     return true;
 }
+
+#endif

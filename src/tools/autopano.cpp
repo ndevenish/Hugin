@@ -30,7 +30,7 @@
 
 #include <vigra/error.hxx>
 #include "vigra_ext/PhaseCorrelation.h"
-#include <vigra_impex2/impex.hxx>
+#include <vigra/impex.hxx>
 
 extern "C" {
 #include "klt/klt.h"
@@ -43,7 +43,6 @@ extern "C" {
 
 using namespace vigra;
 using namespace vigra_ext;
-using namespace vigra_impex2;
 using namespace PT;
 using namespace std;
 using namespace utils;

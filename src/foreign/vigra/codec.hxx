@@ -20,15 +20,18 @@
 /*                                                                      */
 /************************************************************************/
 
-#ifndef VIGRA_CODEC_HXX
-#define VIGRA_CODEC_HXX
+#ifndef VIGRA_CODEC_IMPEX2_HXX
+#define VIGRA_CODEC_IMPEX2_HXX
 
 #include <memory>
 #include <string>
 #include <vector>
+#include <map>
+
+#include "vigra/diff2d.hxx"
 
 // possible pixel types:
-// "undefined", "UINT8", "INT16", "INT32", "FLOAT", "DOUBLE"
+// "undefined", "UINT8", "UINT16", "INT16", "UINT32", "INT32", "FLOAT", "DOUBLE"
 
 // possible compression types:
 // "undefined", "RLE", "LZW", "LOSSLESS", "JPEG"
@@ -55,6 +58,13 @@ namespace vigra
 
     // Decoder and Encoder are pure virtual types that define a common
     // interface for all image file formats impex supports.
+    //
+    // dangelo: added a simple, string based property interface to
+    //          to support importing complex image formats, like tiff.
+    //
+    // todo: support subimages as well.
+    // dangelo: not pure virtual, because the catch access
+    // to more exotic property not supported by most codecs.
 
     struct Decoder
     {
@@ -69,10 +79,21 @@ namespace vigra
         virtual unsigned int getWidth() const = 0;
         virtual unsigned int getHeight() const = 0;
         virtual unsigned int getNumBands() const = 0;
+        virtual unsigned int getNumExtraBands() const
+        {
+            return 0;
+        }
+
+        virtual vigra::Diff2D getPosition() const
+        {
+            return vigra::Diff2D();
+        }
+
         virtual unsigned int getOffset() const = 0;
 
         virtual const void * currentScanlineOfBand( unsigned int ) const = 0;
         virtual void nextScanline() = 0;
+
     };
 
     struct Encoder
@@ -91,6 +112,16 @@ namespace vigra
         virtual void setCompressionType( const std::string &, int = -1 ) = 0;
         virtual void setPixelType( const std::string & ) = 0;
         virtual void finalizeSettings() = 0;
+
+        virtual void setPosition( const vigra::Diff2D & pos )
+        {
+        }
+        virtual void setXResolution( float xres )
+        {
+        }
+        virtual void setYResolution( float yres )
+        {
+        }
 
         virtual void * currentScanlineOfBand( unsigned int ) = 0;
         virtual void nextScanline() = 0;

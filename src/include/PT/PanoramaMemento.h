@@ -451,7 +451,7 @@ public:
     bool loadPTScript(std::istream & i, const std::string & prefix = "");
 
     /** improved and robustified PTScript loader */
-    bool loadPTScript2(std::istream &i, const std::string &prefix);
+    bool loadPTScript2_old(std::istream &i, const std::string &prefix);
 
 private:
 

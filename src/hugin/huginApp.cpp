@@ -32,8 +32,6 @@
 
 #include <tiffio.h>
 
-Server * server;
-
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
 
@@ -149,9 +147,6 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("keyboard_help.xrc"));
 #endif
-
-    // create an wxSocketServer for commmunication with panopreview
-    server = new Server();
 
     // create main frame
     frame = new MainFrame(NULL, pano);

@@ -33,8 +33,7 @@
 #include <vigra_ext/ROI.h>
 #include <vigra_ext/LayerImage.h>
 #include <vigra_ext/Interpolators.h>
-
-#include <vigra_impex2/impex.hxx>
+#include <vigra/impex.hxx>
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
@@ -116,7 +115,7 @@ public:
 	// create an image with the right size..
 	vigra::Diff2D ulInt(static_cast<int>(floor(ulFloat.x)),
                             static_cast<int>(floor(ulFloat.y)));
-	vigra::Diff2D lrInt(static_cast<int>(ceil(lrFloat.x)), 
+	vigra::Diff2D lrInt(static_cast<int>(ceil(lrFloat.x)),
                             static_cast<int>(ceil(lrFloat.y)));
         DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
                     << lrInt - ulInt);

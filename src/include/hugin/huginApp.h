@@ -28,7 +28,6 @@
 #include <wx/app.h>
 
 #include "hugin/MainFrame.h"
-#include "hugin/Server.h"
 
 /** Resources Definition
  *
@@ -37,12 +36,6 @@
 #ifdef _INCLUDE_UI_RESOURCES
   void InitXmlResource();
 #endif
-
-// MainFrame
-// wxSocketServer
-
-extern    Server * server;
-
 
 /** The application class for hugin.
  *

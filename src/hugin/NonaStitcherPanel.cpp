@@ -86,6 +86,8 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
     m_EnblendCheckBox = XRCCTRL(*this, "nona_check_enblend", wxCheckBox);
     DEBUG_ASSERT(m_EnblendCheckBox);
 
+    UpdateDisplay(pano.getOptions());
+
     // observe the panorama
     pano.addObserver (this);
 
@@ -136,8 +138,14 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
         format = 4;
         break;
     default:
-        DEBUG_ERROR("NONA: Unknown output format, switching to JPG");
-        format = 0;
+        {
+            PanoramaOptions opts = pano.getOptions();
+            opts.outputFormat = PanoramaOptions::JPEG;
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( pano, opts )
+                );            
+            format = 0;
+        }
     }
     m_FormatChoice->SetSelection(format);
 
@@ -149,11 +157,12 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_JPEGQualitySpin->SetValue(opt.quality);
 
     if (opt.outputFormat == PanoramaOptions::TIFF) {
-        // enable enblend
+    // enable enblend
         m_EnblendCheckBox->Enable();
     } else {
         m_EnblendCheckBox->Disable();
     }
+    
 }
 
 
@@ -226,6 +235,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         PT::stitchPanorama(pano, opts,
                            pdisp, opts.outfile);
 
+        
         string output = stripExtension(opts.outfile);
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
@@ -246,7 +256,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
 #endif
-
+            wxArrayString args;
+            args.Add(enblendExe);
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
@@ -254,22 +265,33 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             string cmd(enblendExe.c_str());
             if (opts.HFOV == 360.0) {
                 // blend over the border
-                cmd.append(" -v -w -o ");
-            } else {
-                cmd.append(" -v -o ");
+                args.Add("-w");
             }
+            args.Add("-o");
 
-            cmd.append(output).append(".tif ");
+            args.Add(output.append(".tif ").c_str());
 
             unsigned int nImg = pano.getNrOfImages();
             char imgname[256];
             for(unsigned int i = 0; i < nImg; i++)
             {
                 snprintf(imgname,256,"%s%04d.tif", output.c_str(), i);
-                cmd.append(" ").append(imgname);
+                args.Add(imgname);
             }
-            DEBUG_DEBUG("enblend cmdline: " << cmd);
-            wxShell(cmd.c_str());
+            
+            wxChar * * argv = new (wxChar*)[args.GetCount() + 1];
+            for (unsigned int i = 0; i < args.GetCount(); i++)
+            {
+                argv[i] = (wxChar *) args[i].c_str();
+            }
+            argv[args.GetCount()+1] = 0;
+            int ret = wxExecute(argv, wxEXEC_SYNC, 0);
+            if (ret == -1) {
+                DEBUG_ERROR("Failed to call enblend, did you specify the right file");
+            } else if (ret > 0) {
+                DEBUG_ERROR("Enblend failed with error code: " << ret);
+            }
+            delete[] argv;
         }
     } catch (std::exception & e) {
         DEBUG_FATAL(_("error during stitching:") << e.what());

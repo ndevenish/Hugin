@@ -37,7 +37,7 @@
 #include <math.h>
 #include <limits.h>
 
-#include <vigra_impex2/impex.hxx>
+#include <vigra/impex.hxx>
 
 #include <common/stl_utils.h>
 
@@ -49,7 +49,6 @@
 
 using namespace PT;
 using namespace std;
-using namespace vigra_impex2;
 using namespace vigra;
 using namespace utils;
 
@@ -1073,7 +1072,7 @@ void Panorama::setOptions(const PanoramaOptions & opt)
 int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 {
     // load image
-    vigra_impex2::ImageImportInfo img(filename.c_str());
+    vigra::ImageImportInfo img(filename.c_str());
     // FIXME.. check for grayscale / color
 
     Lens lens;

@@ -34,7 +34,7 @@
 #include <vigra/basicimage.hxx>
 #include <vigra/stdimage.hxx>
 #include <vigra/inspectimage.hxx>
-#include <vigra_impex2/impex.hxx>
+#include <vigra/impex.hxx>
 
 #include <common/math.h>
 
@@ -99,8 +99,8 @@ bool loweDetectSIFT(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> input,
 {
     // write temp pgm image
     // write as JPEG image, using compression quality 80
-    vigra_impex2::exportImage(input,
-                              vigra_impex2::ImageExportInfo("__keypoints_in.pgm"));
+    vigra::exportImage(input,
+                       vigra::ImageExportInfo("__keypoints_in.pgm"));
 
     // todo: implement for windows
 #ifdef unix

@@ -56,8 +56,8 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(VIGRA_CFLAGS)
-LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_ext -lvigra_impex2 \
-           -lpano12 $(VIGRA_LFLAGS)
+LFLAGS +=  -lpanorama $(VIGRA_LFLAGS) -ljhead -lcommon -lvigra_ext \
+           -lpano12 
 
 # ====================================================================
 # The applications that should be build in this directory.
