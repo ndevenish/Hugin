@@ -282,7 +282,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             }
 
             DEBUG_INFO("enblend cmd:" << args.c_str());
-#ifdef __WXMSW__    
+#ifdef __WXMSW__
             if (cmd.size() > 1950) {
                 wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\n"
                                "This is a Windows limitiation\n"
@@ -291,8 +291,18 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         return;
     }
 #endif
-            if (!wxShell(args)) {
-                DEBUG_ERROR("Failed to call enblend");
+            {
+                wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
+                int ret = wxExecute(args, wxEXEC_SYNC);
+
+                if (ret == -1) {
+                    wxMessageBox(_("wxExecute Error"), _("Could not execute command: " + args));
+                    return;
+                } else if (ret > 0) {
+                    wxMessageBox(_("wxExecute Error"), _("command: ") + args +
+                                 _(" failed with error code: ") + wxString::Format("%d",ret));
+                    return;
+                }
             }
         }
     } catch (std::exception & e) {

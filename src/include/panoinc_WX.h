@@ -55,6 +55,7 @@
 #include <wx/splash.h>
 #include <wx/helphtml.h>
 #include <wx/html/htmlwin.h>
+#include <wx/progdlg.h>
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
