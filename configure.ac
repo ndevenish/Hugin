@@ -42,6 +42,12 @@ AM_CONDITIONAL(HAVE_LINUX, test "${HSYS}" = "linux")
 AM_CONDITIONAL(HAVE_DARWIN, test "${HSYS}" = "darwin")
 AM_CONDITIONAL(HAVE_MINGW, test "${HSYS}" = "mingw32")
 
+AC_ARG_WITH([unicode],
+            AC_HELP_STRING([--with-unicode=yes/no],
+	    [set to 'yes' if you are using unicode wxWidgets library. (default=no)]),
+	    [with_unicode=$withval],
+	    [with_unicode='no'])
+
 dnl debugging options
 AC_ARG_ENABLE([debug],
               AC_HELP_STRING([--enable-debug],
@@ -131,7 +137,11 @@ if test "x$have_boost" != xyes; then
     ])
 fi
 
-AM_PATH_WXCONFIG(2.4.2, wxWin=1)
+if test "x$with_unicode" = 'xyes' ; then
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes)
+else
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=no)
+fi
 if test "x$wxWin" != x1; then
     AC_MSG_ERROR([
 	wxWidgets must be installed on your system
@@ -240,6 +250,7 @@ echo "ZLIB             --with-zlib=$with_zlib		have_zlib  = $have_zlib"
 echo "PANO             --with-pano=$with_pano		have_pano  = $have_pano"
 echo "BOOST            --with-boost=$with_boost		have_boost = $have_boost"
 echo "BOOST            --with-boost-version=$with_boost_version"
+echo "Unicode          --with-unicode=$with_unicode"
 echo ""
 echo "Options used to compile and link:"
 echo "  PREFIX         = $prefix"

@@ -252,8 +252,14 @@ dnl is less than 2.5.3
   if test "x$need_wx_xrc" = xyes ; then
     WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
   fi
-  if test "x$need_wx_regex" = xyes ; then
-    WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+  if test "x$HSYS" = 'xmingw32' ; then
+    if test "x$need_wx_regex" = xyes ; then
+      if "x$with_unicode" = xyes ; then
+        WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpatu-`$WX_CONFIG_WITH_ARGS --release`"
+      else
+        WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+      fi
+    fi
   fi
 
   AC_SUBST(WX_CPPFLAGS)
