@@ -188,8 +188,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 CPImageCtrl::~CPImageCtrl()
 {
     DEBUG_TRACE("dtor");
-    delete m_CPSelectCursor;
-    delete m_ScrollCursor;
+//    delete m_CPSelectCursor;
+//    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }
 
