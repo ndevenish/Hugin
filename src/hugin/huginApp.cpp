@@ -35,6 +35,7 @@
     #include <wx/wx.h>
 #endif
 
+#include <wx/config.h>              // wx config classes for all systems
 #include "wx/image.h"               // wxImage
 #include "wx/xrc/xmlres.h"          // XRC XML resouces
 
@@ -56,12 +57,21 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
+    wxString appname (GetAppName());
+    printf( "%s\n",appname.c_str());
+
+    // here goes and comes configuration
+    wxConfig *config = new wxConfig("hugin");
+
+    wxString locale_path ( "../po" );
+    config->Write("locale_path", locale_path);
 
     // initialize i18n
     locale.Init(wxLANGUAGE_DEFAULT);
 
     // add local Path
-    locale.AddCatalogLookupPathPrefix("../po");
+    locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
+    printf ("locale at:  %s\n", config->Read("locale_path").c_str());
 
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
