@@ -290,6 +290,8 @@ public:
         TIFF,
         TIFF_m,
         TIFF_mask,
+        TIFF_multilayer,
+        TIFF_multilayer_mask,
         PICT,
         PSD,
         PSD_m,
@@ -299,6 +301,14 @@ public:
         IVR_java,
         VRML,
         QTVR
+    };
+
+    /** blending mechanism */
+    enum BlendingMechanism {
+	NO_BLEND,
+	WEIGHTED_BLEND,
+	SPLINE_BLEND,
+	CHESSBOARD_BLEND
     };
 
     /** type of color correction
@@ -314,6 +324,7 @@ public:
           width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
+	  tiff_saveROI(false),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(CUBIC),
           optimizeReferenceImage(0),
@@ -327,6 +338,7 @@ public:
             width = 3000;
             outfile = "panorama.JPG";
             quality = 90;
+	    tiff_saveROI = false;
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -372,6 +384,9 @@ public:
     FileFormat outputFormat;
     // jpeg options
     int quality;
+    // TIFF options
+    bool tiff_saveROI;
+
     ColorCorrection colorCorrection;
     unsigned int colorReferenceImage;
 
