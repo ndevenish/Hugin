@@ -574,11 +574,11 @@ msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:498
-msgid "Save PTSticher script file"
+msgid "Save PTStitcher script file"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:500
-msgid "PTSticher files (*.txt)|*.txt"
+msgid "PTStitcher files (*.txt)|*.txt"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:524
@@ -1697,7 +1697,7 @@ msgid "Save current project to a new file"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:10
-msgid "&Write PTSticher script"
+msgid "&Write PTStitcher script"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:11

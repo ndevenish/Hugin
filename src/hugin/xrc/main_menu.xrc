@@ -24,7 +24,7 @@
         <help>Save current project to a new file</help>
       </object>
       <object class="wxMenuItem" name="action_save_as_ptstitcher">
-        <label>&amp;Write PTSticher script</label>
+        <label>&amp;Write PTStitcher script</label>
         <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
       </object>
       <object class="separator"/>

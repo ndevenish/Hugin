@@ -501,13 +501,13 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxFileDialog dlg(this,
-                     _("Save PTSticher script file"),
+                     _("Save PTStitcher script file"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
-                     _("PTSticher files (*.txt)|*.txt"),
+                     _("PTStitcher files (*.txt)|*.txt"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxString fname = dlg.GetPath();
-        // the project file is just a PTSticher script...
+        // the project file is just a PTStitcher script...
         wxFileName scriptName = fname;
         std::ofstream script(scriptName.GetFullPath().mb_str());
         pano.printStitcherScript(script, pano.getOptions());
