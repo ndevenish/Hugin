@@ -112,6 +112,8 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_KEY_DOWN(CPEditorPanel::OnKeyDown)
     EVT_BUTTON(XRCID("cp_editor_delete"), CPEditorPanel::OnDeleteButton)
     EVT_CHECKBOX(XRCID("cp_editor_auto_add_cb"), CPEditorPanel::OnAutoAddCB)
+    EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
+    EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -162,7 +164,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_ASSERT(m_autoAddCB);
     m_fineTuneCB = XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox);
     DEBUG_ASSERT(m_fineTuneCB);
-    
+
     wxConfigBase *config = wxConfigBase::Get();
 
     m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",0l));
@@ -1211,7 +1213,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
     case LEFT_POINT:
         m_leftImg->showSearchArea(false);
         m_rightImg->showSearchArea(fineTune);
-        
+
         m_leftImg->showTemplateArea(fineTune);
         m_rightImg->showTemplateArea(false);
         g_MainFrame->SetStatusText("Select Point in right image",0);
@@ -1219,7 +1221,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
     case RIGHT_POINT:
         m_leftImg->showSearchArea(fineTune);
         m_rightImg->showSearchArea(false);
-        
+
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(fineTune);
         g_MainFrame->SetStatusText("Select Point in left image",0);
@@ -1244,3 +1246,44 @@ void CPEditorPanel::changeState(CPCreationState newState)
     // apply the change
     cpCreationState = newState;
 }
+
+void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
+{
+    int nImgs = m_leftTabs->GetPageCount();
+    int left = m_leftImageNr -1;
+    int right = m_rightImageNr -1;
+    if (left < 0) {
+        left += nImgs;
+    } else if (left >= nImgs) {
+        left -= nImgs;
+    }
+    
+    if (right < 0) {
+        right += nImgs;
+    } else if (right >= nImgs) {
+        right -= nImgs;
+    }
+    setLeftImage((unsigned int) left);
+    setRightImage((unsigned int) right);
+}
+
+void CPEditorPanel::OnNextImg(wxCommandEvent & e)
+{
+    int nImgs = m_leftTabs->GetPageCount();
+    int left = m_leftImageNr + 1;
+    int right = m_rightImageNr + 1;
+    if (left < 0) {
+        left += nImgs;
+    } else if (left >= nImgs) {
+        left -= nImgs;
+    }
+    
+    if (right < 0) {
+        right += nImgs;
+    } else if (right >= nImgs) {
+        right -= nImgs;
+    }
+    setLeftImage((unsigned int) left);
+    setRightImage((unsigned int) right);
+}
+

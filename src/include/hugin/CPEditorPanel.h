@@ -154,7 +154,10 @@ private:
     void OnDeleteButton(wxCommandEvent & e);
     void OnAutoAddCB(wxCommandEvent & e);
 
-    
+    void OnPrevImg(wxCommandEvent & e);
+    void OnNextImg(wxCommandEvent & e);
+
+
     // experimental corner detector.
     void OnAutoCreateCP();
 
@@ -183,7 +186,7 @@ private:
     wxChoice *m_cpModeChoice;
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
-    
+
     // my data
     PT::Panorama * m_pano;
     // the current images

@@ -168,7 +168,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         if (bitmap.GetWidth() < vSize.GetWidth()) {
             dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
             dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
-            dc.DrawRectangle(bitmap.GetWidth(), 0, 
+            dc.DrawRectangle(bitmap.GetWidth(), 0,
                              vSize.GetWidth() - bitmap.GetWidth(),vSize.GetHeight());
         }
         if (bitmap.GetHeight() < vSize.GetHeight()) {
@@ -299,7 +299,7 @@ void CPImageCtrl::rescaleImage()
                             imageSize.GetHeight()).ConvertToBitmap();
         DEBUG_DEBUG("rescaling finished");
     }
-    
+
     SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
     SetScrollRate(1,1);
 //    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
@@ -428,9 +428,10 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
     if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
       if (m_mouseScrollPos != mouse->GetPosition()) {
           wxPoint delta = mouse->GetPosition() - m_mouseScrollPos;
-          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
-	  delta.x = delta.x * speed;
-	  delta.y = delta.y * speed;
+          double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
+//          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
+	  delta.x = (int) (delta.x * speed);
+	  delta.y = (int) (delta.y * speed);
 	  ScrollDelta(delta);
 	  if (mouse->ShiftDown()) {
               // emit scroll event, so that other window can be scrolled

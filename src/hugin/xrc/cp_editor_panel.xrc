@@ -26,16 +26,32 @@
         <object class="wxBoxSizer">
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
+            <object class="wxBitmapButton" name="cp_editor_previous_img">
+              <bitmap>data/1leftarrow.png</bitmap>
+              <tooltip>previous image pair</tooltip>
+            </object>
+            <flag>wxRIGHT|wxEXPAND</flag>
+            <border>2</border>
+          </object>
+          <object class="sizeritem">
             <object class="unknown" name="cp_editor_left_img"/>
             <option>1</option>
-            <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+            <flag>wxRIGHT|wxEXPAND</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_right_img"/>
             <option>1</option>
-            <flag>wxRIGHT|wxEXPAND</flag>
+            <flag>wxEXPAND</flag>
             <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBitmapButton" name="cp_editor_next_img">
+              <bitmap>data/1rightarrow.png</bitmap>
+              <tooltip>next image pair</tooltip>
+            </object>
+            <flag>wxLEFT|wxEXPAND</flag>
+            <border>2</border>
           </object>
         </object>
         <option>10</option>
@@ -61,52 +77,63 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
                       <object class="sizeritem">
                         <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
+                          <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
                             <object class="wxBoxSizer">
-                              <orient>wxHORIZONTAL</orient>
+                              <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Zoom:</label>
+                                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
+                                  <label>auto fine &amp;tune</label>
                                 </object>
-                                <flag>wxALIGN_CENTRE</flag>
+                                <flag>wxADJUST_MINSIZE</flag>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxComboBox" name="cp_editor_zoom_box">
-                                  <content>
-                                    <item>100%</item>
-                                    <item>fit to window</item>
-                                    <item>200%</item>
-                                    <item>150%</item>
-                                    <item>75%</item>
-                                    <item>50%</item>
-                                    <item>25%</item>
-                                  </content>
-                                  <style>wxCB_READONLY|wxCB_DROPDOWN</style>
-                                  <bg>#DCDCDC</bg>
+                                <object class="wxCheckBox" name="cp_editor_auto_add">
+                                  <label>auto add</label>
+                                  <checked>1</checked>
+                                  <tooltip>immediately add control point when selecting a second point</tooltip>
                                 </object>
+                                <flag>wxADJUST_MINSIZE</flag>
                               </object>
                             </object>
+                            <flag>wxRIGHT</flag>
+                            <border>5</border>
                           </object>
                         </object>
                       </object>
-                      <orient>wxVERTICAL</orient>
                       <object class="sizeritem">
-                        <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                          <label>auto fine &amp;tune</label>
-                        </object>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="cp_editor_auto_add">
-                          <label>auto add</label>
-                          <checked>1</checked>
-                          <tooltip>immediately add control point when selecting a second point</tooltip>
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Zoom:</label>
+                            </object>
+                            <flag>wxALL|wxALIGN_CENTRE</flag>
+                            <border>5</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxComboBox" name="cp_editor_zoom_box">
+                              <content>
+                                <item>100%</item>
+                                <item>fit to window</item>
+                                <item>200%</item>
+                                <item>150%</item>
+                                <item>75%</item>
+                                <item>50%</item>
+                                <item>25%</item>
+                              </content>
+                              <style>wxCB_READONLY|wxCB_DROPDOWN</style>
+                              <bg>#DCDCDC</bg>
+                            </object>
+                            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                          </object>
                         </object>
                       </object>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>3</border>
                   </object>
                 </object>
@@ -199,6 +226,7 @@
                 <flag>wxEXPAND</flag>
               </object>
             </object>
+            <option>1</option>
             <flag>wxALL|wxEXPAND</flag>
             <border>3</border>
           </object>
