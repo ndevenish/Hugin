@@ -159,6 +159,10 @@ void PreferencesDialog::UpdateDisplayData()
     tstr = utils::doubleToString(d).c_str();
     MY_STR_VAL("prefs_ft_CorrThreshold", tstr);
 
+    cfg->Read("/Finetune/CurvThreshold", &d, HUGIN_FT_CURV_THRESHOLD);
+    tstr = utils::doubleToString(d).c_str();
+    MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
+
     bool t = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
     MY_BOOL_VAL("prefs_ft_RotationSearch", t);
     EnableRotationCtrls(t);
@@ -233,6 +237,11 @@ void PreferencesDialog::UpdateConfigData()
     double td= HUGIN_FT_CORR_THRESHOLD;
     utils::stringToDouble(t.c_str(), td);
     cfg->Write("/Finetune/CorrThreshold", td);
+
+    t = MY_G_STR_VAL("prefs_ft_CurvThreshold");
+    td = HUGIN_FT_CURV_THRESHOLD;
+    utils::stringToDouble(t.c_str(), td);
+    cfg->Write("/Finetune/CurvThreshold", td);
 
     cfg->Write("/Finetune/RotationSearch", MY_G_BOOL_VAL("prefs_ft_RotationSearch"));
     cfg->Write("/Finetune/RotationStartAngle", (double) MY_G_SPIN_VAL("prefs_ft_RotationStartAngle"));
