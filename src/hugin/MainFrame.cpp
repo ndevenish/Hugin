@@ -483,7 +483,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-    this->SetTitle(scriptName.GetName() + "." + scriptName.GetExt() + " - hugin");
+    this->SetTitle(m_filename.GetName() + "." + scriptName.GetExt() + " - hugin");
     pano.clearDirty();
 }
 
