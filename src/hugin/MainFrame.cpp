@@ -176,12 +176,17 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // do not try to transform into an absolute path under windows.
     // (hugin is started with an absolute path there anyway).
 	{
-    // make sure the path is absolute to avoid problems if the cwd is changed
-    wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
-    fn.MakeAbsolute();
+  	  // make sure the path is absolute to avoid problems if the cwd is changed
+  	  wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
+  	  if (fn.IsRelative())
+	  {
+		fn.MakeAbsolute();
+	  }
+  	  m_xrcPrefix = fn.GetPath() + wxT("/");
 	}
-#endif
+#else
     m_xrcPrefix = m_xrcPrefix + wxT("/");
+#endif
     DEBUG_TRACE("XRC prefix set to: " << m_xrcPrefix.mb_str());
 
     /* start: Mac bundle code by Ippei*/
