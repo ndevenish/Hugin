@@ -11,12 +11,14 @@
             <option>1</option>
             <flag>wxEXPAND</flag>
             <border>5</border>
+            <minsize>-1,25</minsize>
           </object>
           <object class="sizeritem">
             <object class="wxNotebook" name="cp_editor_right_tab"/>
             <option>1</option>
             <flag>wxEXPAND</flag>
             <border>5</border>
+            <minsize>-1,25</minsize>
           </object>
         </object>
         <flag>wxEXPAND</flag>
@@ -43,7 +45,7 @@
         <object class="wxListBox">
           <content/>
         </object>
-	<option>2</option>
+        <option>2</option>
         <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
