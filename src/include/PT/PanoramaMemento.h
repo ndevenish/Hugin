@@ -335,7 +335,7 @@ public:
         PNG,
         TIFF,
         TIFF_m,
-        TIFF_nomask,
+        TIFF_mask,
         PICT,
         PSD,
         PSD_m,

@@ -30,10 +30,10 @@
 #include <vigra/impex.hxx>
 #include <vigra/error.hxx>
 #include "PT/SimpleStitcher.h"
+#include "PT/Panorama.h"
 
 #include "common/utils.h"
 #include "common/stl_utils.h"
-#include "PT/Panorama.h"
 
 
 using namespace vigra;
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
         format = "tif";
         break;
     case PanoramaOptions::TIFF_m:
-    case PanoramaOptions::TIFF_nomask:
+    case PanoramaOptions::TIFF_mask:
         format = "tif";
         savePartial = true;
         break;
@@ -111,23 +111,8 @@ int main(int argc, char *argv[])
     try {
         BRGBImage dest;
         // stitch panorama
-        if (!savePartial) {
-            PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                         pdisp);
-        } else {
-            PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                         pdisp, basename);
-        }
-        // save final panorama
-        string filename = basename + "." + format;
-	DEBUG_DEBUG("saving output file: " << filename);
-        vigra::ImageExportInfo exinfo(filename.c_str());
-        if (format == "jpg") {
-            ostringstream jpgqual;
-            jpgqual << opts.quality;
-            exinfo.setCompression(jpgqual.str().c_str());
-        }
-        exportImage(srcImageRange(dest), exinfo);
+        PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
+                                     pdisp, basename, format);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;
         return 1;

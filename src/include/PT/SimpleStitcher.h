@@ -29,6 +29,7 @@
 #include <vigra/impex.hxx>
 
 #include <PT/PanoToolsInterface.h>
+#include <PT/tiffUtils.h>
 
 namespace PTools {
 
@@ -47,7 +48,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                           const PT::PanoramaOptions & opts,
                           DestImageType & dest,
                           utils::ProgressDisplay & progress,
-                          std::string basename = "")
+                          const std::string & basename,
+                          const std::string & format = "tif",
+                          bool savePartial = false)
 {
     // until we have something better...
     typedef DestImageType InputImageType;
@@ -57,6 +60,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     dest.resize(opts.width, opts.getHeight());
 
     // catch the errors that can be thrown by vigra.. easier to debug then...
+
     // remapped panorama images
     std::vector<RemappedPanoImage<OutputImageType, vigra::FImage> > remapped(pano.getNrOfImages());
 
@@ -74,7 +78,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         importImage(info, destImage(srcImg));
 
         progress.progressMessage("remapping " + img.getFilename());
-        
+
         // this should be made a bit smarter, but I don't
         // want to have virtual function call for the interpolator
         switch (opts.interpolator) {
@@ -141,7 +145,8 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             break;
         }
 
-        if ( basename != "") {
+        // test
+        if ( savePartial) {
             // write out the destination images
             std::ostringstream ofname;
             ofname << basename << "_" << i << ".tif";
@@ -156,45 +161,139 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     // stitch images
     progress.progressMessage("merging images");
 
-    OutputImageType panoImg(opts.width, opts.getHeight());
+    // save individual images into a single big multi-image tif
+    if (opts.outputFormat == PT::PanoramaOptions::TIFF_m) {
+        std::string filename = basename + ".tif";
+        DEBUG_DEBUG("flattening image into a multi image tif file " << filename);
+        vigra::TiffImage * tiff = TIFFOpen(filename.c_str(), "w");
+        DEBUG_ASSERT(tiff);
 
-    typename OutputImageType::Accessor oac(panoImg.accessor());
+        // loop over all images and create alpha channel for it,
+        // and write it into the output file.
+        for (unsigned int imgNr=0; imgNr< nImg; imgNr++) {
+            vigra::Diff2D sz = remapped[imgNr].image.size();
+            vigra::BImage alpha(sz);
 
-    // over whole image
-    int xstart = 0;
-    int xend = panoImg.width() -1;
-    int ystart = 0;
-    int yend = panoImg.height() -1;
+            // over whole image
+            int xstart = remapped[imgNr].ul.x;
+            int xend = remapped[imgNr].ul.x + sz.x;
+            int ystart = remapped[imgNr].ul.y;
+            int yend = remapped[imgNr].ul.y + sz.y;
 
-    // create dest y iterator
-    typename DestImageType::Iterator yd(dest.upperLeft());
-
-    // loop over whole image
-    for(int y=ystart; y < yend; ++y, ++yd.y)
-    {
-        // create x iterators
-        typename DestImageType::Iterator xd(yd);
-        for(int x=xstart; x < xend; ++x, ++xd.x)
-        {
-            // find the image where this pixel is closest to the image center
-            float minDist = FLT_MAX;
-            unsigned int minImgNr = 0;
-            vigra::Diff2D cp(x,y);
-            for (unsigned int i=0; i< nImg; i++) {
-                float dist = remapped[i].getDistanceFromCenter(cp);
-                if ( dist < minDist ) {
-                    minDist = dist;
-                    minImgNr = i;
+            vigra::BImage::Iterator ya(alpha.upperLeft());
+            for(int y=ystart; y < yend; ++y, ya.y++) {
+                // create x iterators
+                typename vigra::BImage::Iterator xa(ya);
+                for(int x=xstart; x < xend; ++x, ++xa.x) {
+                    // find the image where this pixel is closest to the image center
+                    float minDist = FLT_MAX;
+                    unsigned int minImgNr = 0;
+                    vigra::Diff2D cp(x,y);
+                    for (unsigned int i=0; i< nImg; i++) {
+                        float dist = remapped[imgNr].getDistanceFromCenter(cp);
+                        if ( dist < minDist ) {
+                            minDist = dist;
+                            minImgNr = i;
+                        }
+                    }
+                    // if a minimum was found in current image, use this pixel
+                    if (minDist < FLT_MAX && minImgNr == imgNr) {
+                        // set value in alpha channel
+                        *xa = 255;
+                    }
                 }
             }
-            // if a minimum was found, set output pixel
-            if (minDist < FLT_MAX) {
-                *xd = remapped[minImgNr].get(cp);
-//                *xd = vigra::RGBValue<unsigned char>(minImgNr, x/10,y/10);
+            
+            // write the alpha intoa a debug file
+            {
+                std::ostringstream ofname;
+                ofname << basename << "_alpha_" << imgNr << ".tif";
+                vigra::exportImage(srcImageRange(alpha), vigra::ImageExportInfo(ofname.str().c_str()));
+            }
+
+            // create a new directory for our image
+            // hopefully I didn't forget too much stuff..
+            TIFFCreateDirectory (tiff);
+
+            // set page
+            TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
+            TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)imgNr, (unsigned short)nImg);
+            // set offset
+            TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 72.0f);
+            TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 72.0f);
+            DEBUG_DEBUG("offset: " << xstart << "," << ystart);
+            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float) xstart/72.0f);
+            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float) ystart/72.0f);
+
+            // save input name.
+            TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, basename.c_str());
+            TIFFSetField (tiff, TIFFTAG_PAGENAME, pano.getImage(imgNr).getFilename().c_str() );
+            //
+            TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "created with nona, see http://hugin.sf.net");
+
+            // call vigra function to write the image data
+            vigra::createBRGBATiffImage(remapped[imgNr].image.upperLeft(),
+                                        remapped[imgNr].image.lowerRight(),
+                                        remapped[imgNr].image.accessor(),
+                                        alpha.upperLeft(), alpha.accessor(),
+                                        tiff);
+            // write this image
+            TIFFWriteDirectory (tiff);
+            TIFFFlushData (tiff);
+
+        }
+        TIFFClose(tiff);
+
+    } else {
+        // flatten image into a panorama image
+        DEBUG_DEBUG("flattening image");
+        typename OutputImageType::Accessor oac(dest.accessor());
+
+            // over whole image
+        int xstart = 0;
+        int xend = dest.width();
+        int ystart = 0;
+        int yend = dest.height();
+
+
+        // loop over whole image
+        typename DestImageType::Iterator yd(dest.upperLeft());
+        for(int y=ystart; y < yend; ++y, ++yd.y)
+        {
+            // create x iterators
+            typename DestImageType::Iterator xd(yd);
+            for(int x=xstart; x < xend; ++x, ++xd.x)
+            {
+                // find the image where this pixel is closest to the image center
+                float minDist = FLT_MAX;
+                unsigned int minImgNr = 0;
+                vigra::Diff2D cp(x,y);
+                for (unsigned int i=0; i< nImg; i++) {
+                    float dist = remapped[i].getDistanceFromCenter(cp);
+                    if ( dist < minDist ) {
+                        minDist = dist;
+                        minImgNr = i;
+                    }
+                }
+                // if a minimum was found, set output pixel
+                if (minDist < FLT_MAX) {
+                    *xd = remapped[minImgNr].get(cp);
+                }
             }
         }
+
+        // save final panorama
+        std::string filename = basename + "." + format;
+	DEBUG_DEBUG("saving output file: " << filename);
+        vigra::ImageExportInfo exinfo(filename.c_str());
+        if (format == "jpg") {
+            std::ostringstream jpgqual;
+            jpgqual << opts.quality;
+            exinfo.setCompression(jpgqual.str().c_str());
+        }
+        exportImage(srcImageRange(dest), exinfo);
     }
-    DEBUG_DEBUG("merge finished");
+
 }
 
 } // namespace PTools
