@@ -142,10 +142,19 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxSplashScreen* splash = 0;
     if (bitmap.LoadFile(m_xrcPrefix + "data/splash.png", wxBITMAP_TYPE_PNG))
     {
+#ifdef __unix__
         splash = new wxSplashScreen(bitmap,
-                                                    wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
-                                                    6000, NULL, -1, wxDefaultPosition, wxDefaultSize,
-                                                    wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+                              wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
+                              0, NULL, -1, wxDefaultPosition,
+	                      wxDefaultSize,
+			      wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+#else
+        splash = new wxSplashScreen(bitmap,
+                           wxSPLASH_CENTRE_ON_SCREEN|wxTIMEOUT,
+                           2000, NULL, -1, wxDefaultPosition,
+	                   wxDefaultSize,
+		           wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+#endif
     } else {
         DEBUG_ERROR("splash image not found");
     }
@@ -163,7 +172,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // create tool bar
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
 
-    // image_panel - cryptic light
+    // image_panel
     // put an "unknown" object in an xrc file and
     // take as wxObject (second argument) the return value of wxXmlResource::Get
     // finish the images_panel
@@ -216,7 +225,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     cp_frame = new CPListFrame(this, pano);
 
     // set the minimize icon
-    SetIcon(wxICON(gui));
+    SetIcon(wxIcon(m_xrcPrefix + "/data/icon.xpm", wxBITMAP_TYPE_XPM));
 
     // create a new drop handler. wxwindows deletes the automaticall
     SetDropTarget(new PanoDropTarget(pano));
@@ -254,7 +263,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
     
-    delete splash;
+#ifdef __unix__
+    if(splash) {
+        delete splash;
+    }
+#endif
     
     DEBUG_TRACE("");
 }
