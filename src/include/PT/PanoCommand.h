@@ -221,7 +221,7 @@ namespace PT {
             }
         virtual std::string getName() const
             {
-                return "update Variables";
+                return "update control points";
             }
     private:
         CPVector cps;
@@ -506,7 +506,7 @@ namespace PT {
             {
                 PanoCommand::execute();
                 for(UIntSet::reverse_iterator it = m_points.rbegin();
-                    it != m_points.rend(); ++it) 
+                    it != m_points.rend(); ++it)
                 {
                     pano.removeCtrlPoint(*it);
                 }
@@ -524,7 +524,7 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-    
+
     /** change a control point */
     class ChangeCtrlPointCmd : public PanoCommand
     {

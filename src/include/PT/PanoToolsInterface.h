@@ -29,7 +29,8 @@
 #include "vigra/accessor.hxx"
 #include "vigra/interpolating_accessor.hxx"
 
-#include "PT/Interpolators.h"
+//#include "vigra_ext/Interpolators.h"
+
 #include "PT/Panorama.h"
 #include "PT/PanoramaMemento.h"
 
