@@ -108,15 +108,15 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
 //      SetSingleStyle(wxLC_SINGLE_SEL, true);
       InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
-      InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
-      InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
+      InsertColumn( 2, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
+      InsertColumn( 3, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
       InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 9, _("optimize"), wxLIST_FORMAT_RIGHT, 80 );
-      InsertColumn( 10, _("lens"), wxLIST_FORMAT_RIGHT, 80 );
+      InsertColumn( 10, _("lens No."), wxLIST_FORMAT_RIGHT, 80 );
       DEBUG_INFO( " else _layout" )
     }
 
@@ -224,6 +224,7 @@ void List::fillRow (unsigned int imageNr)
         std::stringstream number;
         SetItem ( imageNr, 1, fn.GetFullName() );
         ImageVariables new_var = pano.getVariable(imageNr);
+        std::string opt_str = _("x"); // the small char wich show -> optimized
         if ( list_layout == images_layout ) {
           ITEM_TEXT( image->GetHeight() )
           SetItem ( imageNr, 2, ITEM_OUT );
@@ -240,16 +241,22 @@ void List::fillRow (unsigned int imageNr)
           number.str("");
           if ( new_var. yaw.isLinked() )
             number << doubleToString ((double)new_var. yaw.getLink());
+          else if ( optset->at(imageNr). yaw )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. pitch.isLinked() )
             number << doubleToString ((double)new_var. pitch.getLink());
+          else if ( optset->at(imageNr). pitch )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. roll.isLinked() )
             number << doubleToString ((double)new_var. roll.getLink());
+          else if ( optset->at(imageNr). roll )
+            number << opt_str;
           else
             number << "-";
           SetItem ( imageNr, 8, ITEM_OUT );
@@ -269,7 +276,7 @@ void List::fillRow (unsigned int imageNr)
             case Lens::EQUIRECTANGULAR_LENS: number << _("Equirectangular"); break;
           }
           SetItem ( imageNr, 2, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. focalLength ))
+          ITEM_TEXT( doubleToString ( lens. HFOV ))
           SetItem ( imageNr, 3, ITEM_OUT );
           ITEM_TEXT( doubleToString ( lens. a ))
           SetItem ( imageNr, 4, ITEM_OUT );
@@ -282,28 +289,45 @@ void List::fillRow (unsigned int imageNr)
           ITEM_TEXT( doubleToString ( lens. e ))
           SetItem ( imageNr, 8, ITEM_OUT );
           number.str("");
+          if ( new_var. HFOV.isLinked() )
+            number << doubleToString ((double)new_var. HFOV.getLink());
+          else if ( optset->at(imageNr). HFOV )
+            number << opt_str;
+          else
+            number << "-";
+          number << "|";
           if ( new_var. a.isLinked() )
             number << doubleToString ((double)new_var. a.getLink());
+          else if ( optset->at(imageNr). a )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. b.isLinked() )
             number << doubleToString ((double)new_var. b.getLink());
+          else if ( optset->at(imageNr). b )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. c.isLinked() )
             number << doubleToString ((double)new_var. c.getLink());
+          else if ( optset->at(imageNr). c )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. d.isLinked() )
             number << doubleToString ((double)new_var. d.getLink());
+          else if ( optset->at(imageNr). d )
+            number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. e.isLinked() )
             number << doubleToString ((double)new_var. e.getLink());
+          else if ( optset->at(imageNr). e )
+            number << opt_str;
           else
             number << "-";
           SetItem ( imageNr, 9, ITEM_OUT );
@@ -369,6 +393,7 @@ void List::itemSelected ( wxListEvent & e )
     DEBUG_TRACE("end");
 }
 
+// set a new image of the actual item the mouse is over
 void List::Change ( wxMouseEvent & e )
 {
     if ( list_layout == images_layout ) {
@@ -384,15 +409,21 @@ void List::Change ( wxMouseEvent & e )
 
           // right image preview
           wxImage r_img;
-          if ( s_img->GetHeight() > s_img->GetWidth() ) {
-            r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                        (float)s_img->GetHeight()*128.0),
-                                128);
+
+          int new_width;
+          int new_height;
+          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
+                > 2.0 ) {
+            new_width =  256;
+            new_height = (int)((float)s_img->GetHeight()/
+                                        (float)s_img->GetWidth()*256.0);
           } else {
-            r_img = s_img->Scale( 128,
-                                  (int)((float)s_img->GetHeight()/
-                                        (float)s_img->GetWidth()*128.0));
+            new_width = (int)((float)s_img->GetWidth()/
+                                        (float)s_img->GetHeight()*128.0);
+            new_height = 128;
           }
+
+          r_img = s_img->Scale( new_width, new_height );
           delete p_img;
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           canvas->Refresh();

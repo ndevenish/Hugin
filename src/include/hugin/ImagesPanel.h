@@ -112,6 +112,9 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void SetInheritYaw ( wxCommandEvent & e );
     void SetInheritPitch ( wxCommandEvent & e );
     void SetInheritRoll ( wxCommandEvent & e );
+    void SetOptimizeYaw ( wxCommandEvent & e );
+    void SetOptimizePitch ( wxCommandEvent & e );
+    void SetOptimizeRoll ( wxCommandEvent & e );
 
     /** event -> pano
      *

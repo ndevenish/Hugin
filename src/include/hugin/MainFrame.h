@@ -43,6 +43,7 @@ class PanoPanel;
 
 extern ImagesPanel* images_panel;
 extern LensPanel* lens_panel;
+extern OptimizeVector* optset;
 
 /** The main window frame.
  *

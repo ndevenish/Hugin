@@ -85,6 +85,9 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SPINCTRL ( XRCID("images_spin_pitch"), ImagesPanel::SetInheritPitch )
     EVT_CHECKBOX ( XRCID("images_inherit_roll"), ImagesPanel::SetInheritRoll )
     EVT_SPINCTRL ( XRCID("images_spin_roll"), ImagesPanel::SetInheritRoll )
+    EVT_CHECKBOX ( XRCID("images_optimize_yaw"), ImagesPanel::SetOptimizeYaw )
+    EVT_CHECKBOX ( XRCID("images_optimize_pitch"),ImagesPanel::SetOptimizePitch)
+    EVT_CHECKBOX ( XRCID("images_optimize_roll"), ImagesPanel::SetOptimizeRoll )
 END_EVENT_TABLE()
 
 
@@ -94,17 +97,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
       pano(*pano)
 {
     DEBUG_TRACE("");
-// TODO ---------------------------------------------------------------------
-/*    wxNotebook       *nb = XRCCTRL(*parent, "controls_notebook", wxNotebook);
-    wxNotebookSizer  *nbs = new wxNotebookSizer( nb );
-    nb->Add(nbs, 1, wxEXPAND | wxALL, 4);
-    nb->Layout();
 
-    wxBoxSizer *panelsizer = new wxBoxSizer( wxVERTICAL );
-    SetSizer( panelsizer );*/
-
-
-// TODO --------------------------------------------------------------------
     wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
     DEBUG_TRACE("");
 
@@ -121,8 +114,11 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     img_icons = new wxImageList(24,24);
     img_bicons = new wxImageList(128,128);
-    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );//_NORMAL );
-//    images_list->AssignImageList(img_bicons, wxIMAGE_LIST_NORMAL );
+#if 1
+    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
+#else
+    images_list->AssignImageList(img_bicons, wxIMAGE_LIST_NORMAL );
+#endif
 
     DEBUG_TRACE("");
     p_img = new wxBitmap( 0, 0 );
@@ -258,7 +254,7 @@ void ImagesPanel::ChangePano ( std::string type, double var )
         }
         pano.updateVariables( imgNr[i], new_var ); 
 
-    DEBUG_INFO( type <<" for image "<< imgNr[i] );
+        DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
 
     GlobalCmdHist::getInstance().addCommand(
@@ -405,63 +401,101 @@ void ImagesPanel::SetInherit( std::string type )
     std::string xml_inherit, xml_optimize, xml_spin;
     ImageVariables new_var;
 
-    if ( imgNr[0] > 0 ) {
-        xml_inherit = "images_inherit_"; xml_inherit.append(type);
-        xml_optimize = "images_optimize_"; xml_optimize.append(type);
-        xml_spin = "images_spin_"; xml_spin.append(type);
-        // we do inheritance, yes?
+    if ( imgNr[0] > 0 ) { // dont work on an empty image
+      // set xml resource names
+      xml_inherit = "images_inherit_"; xml_inherit.append(type);
+      xml_optimize = "images_optimize_"; xml_optimize.append(type);
+      xml_spin = "images_spin_"; xml_spin.append(type);
+      // for all images
+      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        new_var = pano.getVariable(imgNr[i]);
+        // set inheritance from image with number ...
+        var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
+        DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+        // Shall we inherit?
         if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked() ) {
-          // set inheritance from image
-          var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
-          // for all images
-          for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-            new_var = pano.getVariable(imgNr[i]);
-            // test for unselfish inheritance
-            if ( var != (int)imgNr[i] ) {
-              // We are conservative and ask better once more. 
-              if ( type == "yaw" )
+            // We are conservative and ask better once more. 
+            if ( type == "yaw" ) {
+              // test for unselfish inheritance
+              if ( var != (int)imgNr[i] ) {
                 new_var.yaw.link(var);
-              if ( type == "pitch" )
-                new_var.pitch.link(var);
-              if ( type == "roll" )
-                new_var.roll.link(var);
-              DEBUG_INFO("var("<<var<<") != I("<<(int)imgNr[i] <<")  : ->pano");
-            } else {
-              if ( type == "yaw" )
-                new_var.yaw.unlink();
-              if ( type == "pitch" )
-                new_var.pitch.unlink();
-              if ( type == "roll" )
-                new_var.roll.unlink();
-              DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+                optset->at(imgNr[i]).yaw = FALSE;
+              } else { // search for another possible link image
+                if ( (((int)new_var. yaw .getLink() > var) && (var != 0)) 
+                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                  var--; new_var.yaw.link(var);
+                } else {
+                  var++; new_var.yaw.link(var);
+                }
+              }
             }
+            if ( type == "pitch" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.pitch.link(var);
+                optset->at(imgNr[i]).pitch = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. pitch .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                  var--; new_var.pitch.link(var);
+                } else {
+                  var++; new_var.pitch.link(var);
+                }
+              }
+            }
+            if ( type == "roll" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.roll.link(var);
+                optset->at(imgNr[i]).roll = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. roll .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                  var--; new_var.roll.link(var);
+                } else {
+                  var++; new_var.roll.link(var);
+                }
+              }
+            }
+            // ... and set controls
+            XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->SetValue(var);
+            XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
+            DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
             // local ImageVariables finished, save to pano
             pano.updateVariables( imgNr[i], new_var ); 
             DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
-          }
-          // set the controls
-          XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->Enable();
-          XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->Disable();
-        } else { // unset inheritance
-          // for all images
-          for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-            new_var = pano.getVariable(imgNr[i]);
+          // unset inheritance
+          } else {
             if ( type == "yaw" )
               new_var.yaw.unlink();
             if ( type == "pitch" )
               new_var.pitch.unlink();
             if ( type == "roll" )
               new_var.roll.unlink();
-            // local ImageVariables finished, save to pano
-            pano.updateVariables( imgNr[i], new_var ); 
           }
-          // ... and set controls
-          XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->Enable();
-          XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->Disable();
-          DEBUG_INFO( type <<" unlinked");
+          // local ImageVariables finished, save to pano
+          pano.updateVariables( imgNr[i], new_var ); 
+          // set optimization
+          if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
+            if ( type == "yaw" ) {
+              optset->at(imgNr[i]).yaw = TRUE;
+            }
+            if ( type == "pitch" ) {
+              optset->at(imgNr[i]).pitch = TRUE;
+            }
+            if ( type == "roll" ) {
+              optset->at(imgNr[i]).roll = TRUE;
+            }
+          // unset optimization
+          } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
+            if ( type == "yaw" )
+              optset->at(imgNr[i]).yaw = FALSE;
+            if ( type == "pitch" )
+              optset->at(imgNr[i]).pitch = FALSE;
+            if ( type == "roll" )
+              optset->at(imgNr[i]).roll = FALSE;
+          }
         }
 
-        // activate an undoable command
+        // activate an undoable command, not for the optimize settings
         GlobalCmdHist::getInstance().addCommand(
            new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
            );
@@ -479,6 +513,22 @@ void ImagesPanel::SetInheritPitch( wxCommandEvent & e )
 }
 void ImagesPanel::SetInheritRoll( wxCommandEvent & e )
 {
+    SetInherit ( "roll" );
+}
+
+void ImagesPanel::SetOptimizeYaw( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_yaw" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "yaw" );
+}
+void ImagesPanel::SetOptimizePitch( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_pitch" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "pitch" );
+}
+void ImagesPanel::SetOptimizeRoll( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_roll" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "roll" );
 }
 
@@ -525,7 +575,8 @@ void ImagesPanel::SetImages ( wxListEvent & e )
       }
       DEBUG_INFO (e_msg)
 
-      // values to set
+      // gui values to set
+      // set sliders in the first tab
       XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->SetValue(doubleToString (
                                                      GET_VAR( yaw )).c_str());
       XRCCTRL(*this, "images_slider_yaw" , wxSlider)->SetValue(
@@ -541,31 +592,53 @@ void ImagesPanel::SetImages ( wxListEvent & e )
 
       XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel("");
       XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel("");
-
+      // set inherit and from wich image, dis-/enable optimize checkboxes
       ImageVariables new_var ( pano.getVariable(orientationEdit_RefImg) );
       if ( new_var.yaw.isLinked() ) {
          XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(TRUE);
          int var = (int)new_var. yaw .getLink();
          XRCCTRL(*this, "images_spin_yaw" , wxSpinCtrl) ->SetValue(var);
-         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Disable();
+//         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Disable();
          DEBUG_INFO (var << " " << (int)new_var.yaw.isLinked() )
       } else {
          DEBUG_INFO ( (int)new_var.yaw.isLinked() << " " << (int)new_var. yaw .getLink() )
          XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(FALSE);
-         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Enable();
+//         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Enable();
       }
       if ( new_var.pitch.isLinked() ) {
          XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(TRUE);
          int var = (int)new_var. pitch .getValue();
          XRCCTRL(*this, "images_spin_pitch" , wxSpinCtrl) ->SetValue(var);
-      } else
+//         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Disable();
+      } else {
          XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(FALSE);
+//         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Enable();
+      }
       if ( new_var.roll.isLinked() ) {
          XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(TRUE);
          int var = (int)new_var. roll .getValue();
          XRCCTRL(*this, "images_spin_roll" , wxSpinCtrl) ->SetValue(var);
-      } else
+//         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Disable();
+      } else {
          XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(FALSE);
+//         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Enable();
+      }
+      // enable disable optmize check boxes
+      if (optset->at(orientationEdit_RefImg).yaw == TRUE ) {
+         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(TRUE);
+      } else {
+         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(FALSE);
+      }
+      if (optset->at(orientationEdit_RefImg).pitch == TRUE ) {
+         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->SetValue(TRUE);
+      } else {
+         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->SetValue(FALSE);
+      }
+      if (optset->at(orientationEdit_RefImg).roll == TRUE ) {
+         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(TRUE);
+      } else {
+         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(FALSE);
+      }
 
 
     }

@@ -203,7 +203,7 @@ void LensEdit::LensSelected ( wxCommandEvent & e )
 
 void LensEdit::update_edit_LensGui ( int lens )
 {
-    DEBUG_TRACE("################################################################################");
+    DEBUG_TRACE("");
       lensEditRef_lensNr = lens;
 
       // Now create an new reference lens from the lensEdit_RefImg image.
@@ -356,12 +356,6 @@ void LensEdit::ChangePano ( )
     lensGui_dirty = FALSE;
     changePano = FALSE;
 
-    // update gui
-//    int id (XRCID("lens_dialog"));
-//    wxListEvent  e;
-//    e.SetId(id);
-//    LensChanged (e);
-
     DEBUG_TRACE( "" )
 }
 
@@ -370,7 +364,7 @@ void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       DEBUG_TRACE ("")
-      // uses enum LensProjectionFormat from PanoramaMemento.h
+      // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
       int var = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
       edit_Lens->projectionFormat = (Lens::LensProjectionFormat) (var);
@@ -543,7 +537,7 @@ void LensEdit::SetImages ( wxListEvent & e )
       update_edit_LensGui ( lensEditRef_lensNr );
 
       // set the selectable lenses
-      // TODO let give on names for it, type name in and take it as the new name
+      // TODO let give names for it, type in and take it as a new alias
       XRCCTRL(*this, "lens_combobox_number", wxComboBox)->Clear();
       for ( unsigned int i = 0 ; i < pano.getNrOfLenses() ; i++) {
           std::stringstream sstr;
@@ -563,7 +557,6 @@ void LensEdit::SetImages ( wxListEvent & e )
     }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) << " lens:"<< lensEditRef_lensNr);
 //    DEBUG_TRACE("");
-//    changePano = FALSE;
 }
 
 

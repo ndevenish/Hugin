@@ -54,6 +54,7 @@ using namespace PT;
 
 ImagesPanel * images_panel;
 LensPanel * lens_panel;
+OptimizeVector * optset;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
     #include "xrc/data/gui.xpm"
@@ -154,6 +155,9 @@ MainFrame::MainFrame(wxWindow* parent)
     // observe the panorama
     pano.addObserver(this);
 
+    // optimize settings
+    optset = new OptimizeVector();
+
     // show the frame.
 //    Show(TRUE);
     DEBUG_TRACE("");
@@ -176,10 +180,28 @@ MainFrame::~MainFrame()
 }
 
 //void MainFrame::panoramaChanged(PT::Panorama &panorama)
-void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & imgNr)
+void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & changed)
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
+
+    // set OptimizerSettings for each image in optset
+    if ( pano.getNrOfImages() > optset->size() ) { // some images are added
+      // expecting the newbees were pushed_back
+      for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
+        int imageNr = *it;
+        DEBUG_INFO ( "changed: " << imageNr )
+        OptimizerSettings opts;
+        if ( *it < 0 ) // we have an predecessor and copy its values
+          opts = optset->at(*it - 1);
+          
+        optset->push_back(opts);
+      }
+    } else if ( pano.getNrOfImages() < optset->size() ) { // images are removed
+      optset->erase(optset->end()); // pop_back()
+    }
+
+    DEBUG_INFO ( "images " << pano.getNrOfImages() <<" opts "<< optset->size() )
 }
 
 

@@ -86,7 +86,6 @@ APPS = 1
 
 APP_1_BIN = hugin
 APP_1_OBJ = \
-            ImagesPanel.o \
             huginApp.o \
             List.o \
             Events.o \
@@ -95,6 +94,7 @@ APP_1_OBJ = \
             CPImageCtrl.o \
             CPEditorPanel.o \
             LensPanel.o \
+            ImagesPanel.o \
             ImageCache.o \
             CommandHistory.o \
 	    ImageProcessing.o \
