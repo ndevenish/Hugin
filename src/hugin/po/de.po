@@ -323,16 +323,16 @@ msgid "Add"
 msgstr "neu"
 
 #: ../ptopengui.cpp:403
-msgid "Add new image to project"
-msgstr "fügt ein neues Bild dem Projekt hinzu"
+msgid "Add image(s) to project"
+msgstr "fügt Bilder dem Projekt hinzu"
 
 #: ../ptopengui.cpp:406
 msgid "Remove"
 msgstr "löschen"
 
 #: ../ptopengui.cpp:407
-msgid "Remove image from project"
-msgstr "löscht das Bild vom Projekt"
+msgid "Remove image(s) from project"
+msgstr "löscht Bilder vom Projekt"
 
 #: ../ptopengui.cpp:410
 msgid "Up"
@@ -383,12 +383,12 @@ msgid "Preview (source image)"
 msgstr "Vorschau (Bildquelle)"
 
 #: ../ptopengui.cpp:472
-msgid "Lens type"
-msgstr "Objektivart"
+msgid "Lens type (f)"
+msgstr "Bildprojektion (f)"
 
 #: ../ptopengui.cpp:473
 msgid "Lens type:"
-msgstr "Objektivart:"
+msgstr "Abbildungsart:"
 
 #: ../ptopengui.cpp:478
 msgid "Normal (rectlinear)"
@@ -445,6 +445,14 @@ msgstr "Objektivwinkel"
 #: ../ptopengui.cpp:523
 msgid "lens"
 msgstr "Objektiv"
+
+#: ../ptopengui.cpp:523
+msgid "lens No."
+msgstr "Objektiv Nr."
+
+#: ../ptopengui.cpp:523
+msgid "apply selected lens"
+msgstr "Objektiv zuweisen"
 
 #: ../ptopengui.cpp:523
 msgid "Lens No. :"
@@ -517,10 +525,14 @@ msgstr "Parameter zur Objektivkorrektur"
 #: ../ptopengui.cpp:615
 msgid "a - distortion value"
 msgstr "a - Verzerrung(k2)"
+msgid "distortion value (a)"
+msgstr "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt des Bilder) Tonnen-/Kissenverzeichnung - k2"
 
 #: ../ptopengui.cpp:624
 msgid "b:"
 msgstr ""
+msgid "distortion value (b)"
+msgstr "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt des Bilder) Tonnen-/Kissenverzeichnung"
 
 #: ../ptopengui.cpp:628
 msgid "Barrel or pincusion distortion"
@@ -529,6 +541,8 @@ msgstr "Tonnenverzeichnung"
 #: ../ptopengui.cpp:637
 msgid "c:"
 msgstr ""
+msgid "distortion value (c)"
+msgstr "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt des Bilder) Tonnen-/Kissenverzeichnung - k1"
 
 #: ../ptopengui.cpp:641
 msgid "c - distortion value"
@@ -544,23 +558,27 @@ msgstr "Versatz:"
 
 #: ../ptopengui.cpp:662
 msgid "horizontal (d): "
-msgstr ""
+msgstr "waagerecht (d):"
+msgid "image shift horizontal (d)"
+msgstr "Bildversatz waagerecht (d)"
 
 #: ../ptopengui.cpp:672
-msgid "vertical (e): "
-msgstr "vertikal (e); "
+msgid "vertical (e):"
+msgstr "senkrecht (e):"
+msgid "image shift vertical (e)"
+msgstr "Bildversatz senkrecht (e):"
 
 #: ../ptopengui.cpp:680
 msgid "Shear:"
 msgstr "Scheren:"
 
 #: ../ptopengui.cpp:685
-msgid "horizontal (g): "
-msgstr ""
+msgid "horizontal (g):"
+msgstr "waagerecht (g):"
 
 #: ../ptopengui.cpp:695
-msgid "vertical (f): "
-msgstr "vertikal (f); "
+msgid "vertical (f):"
+msgstr "senkrecht (f):"
 
 #: ../ptopengui.cpp:710
 msgid "Set rest in text file ..."
@@ -837,25 +855,37 @@ msgstr "Bildparameter"
 msgid "yaw"
 msgstr "Richt."
 
-#: ../ptopengui.cpp:968
-msgid "pitch"
-msgstr "Kipp."
-
-#: ../ptopengui.cpp:969
-msgid "roll"
-msgstr "Neig."
-
 #: ../ptopengui.cpp:967
 msgid "yaw (y)"
 msgstr "Richt.(y)"
+
+#: ../ptopengui.cpp:967
+msgid "set yaw for selected image(s)"
+msgstr "Blickrichtung der Kamera"
+
+#: ../ptopengui.cpp:968
+msgid "pitch"
+msgstr "Kipp."
 
 #: ../ptopengui.cpp:968
 msgid "pitch (p)"
 msgstr "Kipp.(p)"
 
+#: ../ptopengui.cpp:968
+msgid "set pitch for selected image(s)"
+msgstr "Kippen; nach oben + , nach unten -"
+
+#: ../ptopengui.cpp:969
+msgid "roll"
+msgstr "Neig."
+
 #: ../ptopengui.cpp:969
 msgid "roll (r)"
 msgstr "Neig. (r)"
+
+#: ../ptopengui.cpp:969
+msgid "set roll for selected image(s)"
+msgstr "seitliches Neigen; nach links - , nach rechts +"
 
 #: ../ptopengui.cpp:969
 msgid "Camera orientation"
@@ -1337,8 +1367,8 @@ msgid "Roll (r)"
 msgstr "Neig.(r)"
 
 #: ../ptopengui.cpp:1488
-msgid "Hfov (v)"
-msgstr ""
+msgid "hfov (v)"
+msgstr "Bildwinkel (v)"
 
 #: ../ptopengui.cpp:1489
 msgid "Horizontal field of view"
@@ -1423,6 +1453,10 @@ msgstr "Vorschau berechnen"
 #: ../ptopengui.cpp:1804
 msgid "Auto preview update"
 msgstr "automatische Vorschau"
+
+#: ../ptopengui.cpp:1804
+msgid "image view"
+msgstr "Bildansicht"
 
 #: ../ptopengui.cpp:1817
 msgid "Size"
