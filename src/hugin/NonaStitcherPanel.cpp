@@ -53,7 +53,7 @@ BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
 
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
     EVT_SPINCTRL(XRCID("nona_jpeg_quality"), NonaStitcherPanel::OnSetQuality)
-
+    EVT_CHECKBOX( XRCID("nona_check_enblend"), NonaStitcherPanel::OnEnblendChanged)
     EVT_CHOICE   ( XRCID("nona_choice_format_final"),NonaStitcherPanel::FileFormatChanged)
 END_EVENT_TABLE()
 
@@ -177,6 +177,22 @@ void NonaStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     DEBUG_DEBUG ("Interpolator changed to: " << lt )
 }
 
+void NonaStitcherPanel::OnEnblendChanged( wxCommandEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+
+
+    if (m_EnblendCheckBox->IsChecked()) {
+        opt.blendMode = PanoramaOptions::SPLINE_BLEND;
+    } else {
+        opt.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+}
 
 void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
 {
