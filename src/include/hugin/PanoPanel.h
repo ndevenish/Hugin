@@ -34,7 +34,7 @@
 //#include "hugin/List.h"
 
 using namespace PT;
-
+class PanoDialog;
 
 /** Define the pano edit panel
  *
@@ -45,7 +45,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
     PanoPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano );
+                 Panorama * pano);
     ~PanoPanel(void) ;
 
     /** this is called whenever the panorama has changed.
@@ -67,13 +67,22 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+    // function to update PanoramaOptions -> gui
+    bool autoPreview;
+    int previewWidth;
+
     // event handlers
     void DoDialog (wxCommandEvent & e);
+    // Did we run DoDialog, to bring PanoPanel in dialog mode?
+    bool self_pano_dlg;
+    // Does PanoPanel run in dialog mode?
+    bool pano_dlg_run;
  private:
+    // a window event
+    void FitParent(wxSizeEvent & e);
+
     void DoOptimization (wxCommandEvent & e);
     void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
-
-    void PanoChanged (wxCommandEvent & e);
 
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
@@ -93,12 +102,17 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
     void Stitch(wxCommandEvent & e);
 
+    void PanoOptionsChanged( void );
+    void PanoChanged (wxCommandEvent & e);
+    bool changePano;
+
     // the model
     Panorama &pano;
+    PanoramaOptions opt;
 
-    PanoramaOptions * opt;
+    // tearing off pano_panel
+    PanoDialog * pano_dlg;
 
-    int previewWidth;
     int Width;
     int Height;
 
@@ -106,6 +120,32 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
     DECLARE_EVENT_TABLE()
 };
+
+/** Define an pano edit panel dialog box
+ *
+ *  A small helper class to show up an second dialog insted of tearing off.
+ */
+class PanoDialog: public wxDialog
+{
+ public:
+    PanoDialog( wxWindow *parent, const wxPoint& pos, const wxSize& size,
+                 Panorama * pano);
+    ~PanoDialog(void) ;
+    // event handlers
+    void OnPaint (wxPaintEvent & e);
+
+    // The panel containing the controls
+    PanoPanel * pp;
+
+ private:
+    void DoPaint (wxPaintEvent & e);
+
+    // the model
+    Panorama &pano;
+
+    DECLARE_EVENT_TABLE()
+};
+
 
 
 #endif // _PANOPANEL_H

@@ -59,6 +59,7 @@ using namespace PT;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
+    EVT_SIZE   ( PanoPanel::FitParent )
     EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
 
   EVT_BUTTON   ( XRCID("pano_make_dialog"),PanoPanel::DoDialog )
@@ -90,14 +91,18 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),
       pano(*pano)
 {
-    opt = new PanoramaOptions();
+//    opt = new PanoramaOptions();
 
     // loading xrc resources in selfcreated this panel
     wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
 
     // set defaults from gui;
-    wxCommandEvent e;
-    PanoChanged (e);
+//    PanoChanged (e);
+    autoPreview = FALSE;
+
+    changePano = FALSE;
+
+    pano->addObserver (this);
 
     DEBUG_TRACE("")
 }
@@ -109,31 +114,72 @@ PanoPanel::~PanoPanel(void)
     DEBUG_TRACE("");
 }
 
+void PanoPanel::FitParent( wxSizeEvent & e )
+{
+//    wxSize new_size = GetSize();
+//    wxSize new_size = GetParent()->GetSize();
+//    XRCCTRL(*this, "panorama_panel", wxPanel)->SetSize ( new_size );
+//    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+}
+
 void PanoPanel::DoDialog ( wxCommandEvent & e )
 {
-    // FIXME open the wxDialog dlg in non modal mode, to not freeze other tabs
-    wxDialog dlg;
-    DEBUG_TRACE("");
-    wxTheXmlResource->LoadDialog(&dlg, this, wxT("pano_dialog"));
-    DEBUG_TRACE("");
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("pano_dialog_unknown"),
-               wxTheXmlResource->LoadPanel(&dlg, wxT("panorama_panel")) );
-    DEBUG_TRACE("");
-    dlg.ShowModal();
-    DEBUG_TRACE("");
-    dlg.SetModal(FALSE);
+    // we open only on dialog window , next click we close the dialog
+    if ( pano_dlg_run ) {
+      if ( self_pano_dlg ) {
+        pano_panel->pano_dlg_run = FALSE;
+        pano_panel->pano_dlg->Destroy();
+      } else {
+        pano_dlg->Destroy();
+        pano_dlg_run = FALSE;
+      }
+      XRCCTRL(*pano_panel, "pano_make_dialog", wxPanel)
+                    ->SetHelpText("tear off this tab");
+    } else {
+        DEBUG_TRACE("" <<   GetName() );
+        DEBUG_TRACE("" <<   GetParent()->GetName() );
+        DEBUG_TRACE("" <<   GetGrandParent()->GetName() );
+        DEBUG_TRACE("" <<   GetParent()->GetGrandParent()->GetLabel() );
+        DEBUG_TRACE("" <<   frame->GetLabel() );
+      wxSize new_size = frame->GetSize();
+      wxPoint new_point = frame->GetPosition();
+      new_point.y = new_point.y + new_size.GetHeight()
+#if defined(__WXGTK__)
+      +25 // for the status bar
+#endif
+      ;
+      pano_dlg = new PanoDialog (this, new_point,
+                         XRCCTRL(*this, "panorama_panel", wxPanel)->GetSize(),
+                         &pano);
+      pano_dlg->SetModal(FALSE);
+      pano_dlg_run = TRUE;
+      XRCCTRL(*this, "pano_make_dialog", wxPanel)
+                    ->SetHelpText("Close child window");
+      XRCCTRL(*pano_dlg->pp, "pano_make_dialog", wxPanel)
+                    ->SetHelpText("Close child window");
+      UIntSet i;
+      pano_dlg->pp->panoramaImagesChanged (pano, i); // initialize
+
+    }
     DEBUG_TRACE("");
 }
 
 void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-    DEBUG_INFO (XRCID("pano_button_preview"))
-    int id (XRCID("pano_button_preview"));
-    wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
-    e.SetId(id);
-    DoPreview (e);
+    opt = pano.getOptions();
+    if ( !changePano ) {
+      changePano = TRUE;
+
+      DEBUG_INFO (XRCID("pano_button_preview"))
+// --
+      PanoOptionsChanged ();
+      int id (XRCID("pano_button_preview"));
+      wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
+      e.SetId(id);
+      DoPreview (e);
 //    PanoChanged (e);
+    }
+    changePano = FALSE;
 }
 
 void PanoPanel::Optimize (OptimizeVector & optvars, PanoramaOptions & output)
@@ -146,12 +192,98 @@ void PanoPanel::Optimize (OptimizeVector & optvars, PanoramaOptions & output)
 void PanoPanel::DoOptimization (wxCommandEvent & e)
 {
     // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level 
-    Optimize(*optset, *opt); 
+    Optimize(*optset, opt); 
+}
+
+#define OPT_TO_COMBOBOX( xml_combo, type ) \
+{ \
+    DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type ) \
+    lt = XRCCTRL(*this, xml_combo , wxComboBox) \
+                            -> FindString( DoubleToString (opt.type) ) ; \
+    DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type <<" "<< lt ) \
+    std::string number = XRCCTRL(*this, xml_combo, wxComboBox) \
+                            ->GetString(lt).c_str(); \
+    std::stringstream compare_s; \
+    compare_s << opt.type; \
+    if ( atof(number.c_str()) != atof(compare_s.str().c_str()) ) { \
+      DEBUG_INFO ( "updating "<< xml_combo <<"  " << compare_s.str().c_str() ) \
+      XRCCTRL(*this, xml_combo, wxComboBox) \
+                            -> SetValue(compare_s.str().c_str()); \
+    } else { \
+      XRCCTRL(*this, xml_combo, wxComboBox) \
+                            ->SetSelection(lt) ; \
+      DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type <<" "<< lt ) \
+    } \
+}
+
+void PanoPanel::PanoOptionsChanged ( void )
+{
+    DEBUG_INFO ( "updating the other PanoPanel " << self_pano_dlg )
+    int lt;
+//    UIntSet imgNr;
+
+//    GammaChanged (e);
+    XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)
+                ->SetValue( wxString::Format ("%f", opt.gamma) );
+//    HFOVChanged (e);
+/*    DEBUG_INFO ( "updating HFOV " << opt.HFOV )
+    lt = XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                            -> FindString( DoubleToString (opt.HFOV) ) ;
+    DEBUG_INFO ( "updating HFOV " << opt.HFOV <<" "<< lt )
+    std::string number = XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                            ->GetString(lt).c_str();
+    std::stringstream compare_s;
+    compare_s << opt.HFOV;
+    if ( atof(number.c_str()) != atof(compare_s.str().c_str()) ) {
+      DEBUG_INFO ( "updating HFOV " << compare_s.str().c_str() )
+      XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                            -> SetValue(compare_s.str().c_str());
+    } else {
+      XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                            ->SetSelection(lt) ;
+      DEBUG_INFO ( "updating HFOV " << opt.HFOV <<" "<< lt )
+    }*/
+    OPT_TO_COMBOBOX ( "pano_val_hfov", HFOV )
+//    InterpolatorChanged (e);
+    XRCCTRL(*this, "pano_choice_interpolator", wxChoice)
+                            ->SetSelection(opt.interpolator);
+//    ProjectionChanged (e);
+    XRCCTRL(*this, "pano_choice_panoType", wxChoice)
+                            ->SetSelection(opt.projectionFormat);
+//    PreviewWidthChanged (e);
+//    FinalFormatChanged (e);
+    lt = XRCCTRL(*this, "pano_choice_formatFinal", wxChoice)
+                        ->FindString(opt.outputFormat.c_str());
+    XRCCTRL(*this, "pano_choice_formatFinal", wxChoice)
+                            ->SetSelection(lt);
+//    WidthChanged (e);
+    lt = XRCCTRL(*this, "pano_val_width", wxComboBox)
+                            ->FindString(wxString::Format ("%d", opt.width)) ;
+    XRCCTRL(*this, "pano_val_width", wxComboBox)
+                            ->SetSelection(lt) ;
+    Width = opt.width;
+//    HeightChanged (e);
+    lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
+                            ->FindString(wxString::Format ("%d", opt.height)) ;
+    XRCCTRL(*this, "pano_val_height", wxComboBox)
+                            ->SetSelection(lt) ;
+    Height = opt.height;
+//    JpegQChanged (e);
+    lt = XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
+                            ->FindString(wxString::Format ("%d", opt.quality)) ;
+    XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
+                            ->SetSelection(lt) ;
+//    JpegPChanged (e);
+    XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
+                            ->SetValue( opt.progressive ) ;
+    
+    DEBUG_TRACE("");
 }
 
 void PanoPanel::PanoChanged ( wxCommandEvent & e )
 {
 
+    DEBUG_TRACE("");
     GammaChanged (e);
     HFOVChanged (e);
     InterpolatorChanged (e);
@@ -165,125 +297,145 @@ void PanoPanel::PanoChanged ( wxCommandEvent & e )
     JpegQChanged (e);
     JpegPChanged (e);
 
-    DEBUG_INFO ( "" )
+    DEBUG_TRACE ( "" )
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 {
-    int lt = XRCCTRL(*this, "pano_choice_panoType",
-                                   wxChoice)->GetSelection();
-    wxString Ip ("Hallo");
-    switch ( lt ) {
-        case RECTILINEAR:       Ip = _("Rectlinear"); break;
-        case CYLINDRICAL:       Ip = _("Cylindrical"); break;
-        case EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
-    }
+    if ( ! changePano ) {
+      int lt = XRCCTRL(*this, "pano_choice_panoType",
+                                     wxChoice)->GetSelection();
+      wxString Ip ("Hallo");
+      switch ( lt ) {
+          case RECTILINEAR:       Ip = _("Rectlinear"); break;
+          case CYLINDRICAL:       Ip = _("Cylindrical"); break;
+          case EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
+      }
 
-    opt->projectionFormat = (ProjectionFormat) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
+      opt.projectionFormat = (ProjectionFormat) lt;
+      GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
         );
-
-    DEBUG_INFO ( Ip )
+      DEBUG_INFO ( Ip )
+    }
 }
 
 void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
 {
-    //Interpolator from PanoramaMemento.h
-    int lt = XRCCTRL(*this, "pano_choice_interpolator",
-                                   wxChoice)->GetSelection();
-    wxString Ip ("Hallo");
-    switch ( lt ) {
-        case POLY_3:            Ip = _("Poly3 (Bicubic)"); break;
-        case SPLINE_16:         Ip = _("Spline 16"); break;
-        case SPLINE_36:         Ip = _("Spline 36"); break;
-        case SINC_256:          Ip = _("Sinc 256"); break;
-        case SPLINE_64:         Ip = _("Spline 64"); break;
-        case BILINEAR:          Ip = _("Bilinear"); break;
-        case NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
-        case SINC_1024:         Ip = _("Sinc 1024"); break;
+    if ( ! changePano ) {
+      //Interpolator from PanoramaMemento.h
+      int lt = XRCCTRL(*this, "pano_choice_interpolator",
+                                     wxChoice)->GetSelection();
+      wxString Ip ("Hallo");
+      switch ( lt ) {
+          case POLY_3:            Ip = _("Poly3 (Bicubic)"); break;
+          case SPLINE_16:         Ip = _("Spline 16"); break;
+          case SPLINE_36:         Ip = _("Spline 36"); break;
+          case SINC_256:          Ip = _("Sinc 256"); break;
+          case SPLINE_64:         Ip = _("Spline 64"); break;
+          case BILINEAR:          Ip = _("Bilinear"); break;
+          case NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
+          case SINC_1024:         Ip = _("Sinc 1024"); break;
+      }
+  
+      opt.interpolator = (Interpolator) lt;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+      DEBUG_INFO ( Ip )
     }
-
-    opt->interpolator = (Interpolator) lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( Ip )
 }
 
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    int lt = XRCCTRL(*this, "pano_val_hfov", wxComboBox)
-                            ->GetSelection() ;
-    XRCCTRL(*this, "pano_val_hfov", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ;
-
-    opt->HFOV = *val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( ": " << *val )
-    delete val;
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_hfov", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+  
+      opt.HFOV = *val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
 }
 
 void PanoPanel::GammaChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    wxString text = XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    if ( ! changePano ) {
+      double * val = new double ();
+      wxString text = XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)->GetValue();
+      text.ToDouble( val );
+  
+      opt.gamma = *val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
 
-    opt->gamma = *val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( wxString::Format (": %f", *val) )
+      DEBUG_INFO ( wxString::Format (": %f", *val) )
+    }  
 }
 // --
 void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    int lt = XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
-                            ->GetSelection() ;
-    XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ;
-
-    previewWidth = (int)*val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( ": " << *val )
-    delete val;
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+  
+      previewWidth = (int)*val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
+      if ( pano_dlg_run ) {
+        if ( self_pano_dlg ) {
+          pano_panel->previewWidth = previewWidth;
+          XRCCTRL(*pano_panel, "pano_val_previewWidth", wxComboBox)
+                              ->SetValue(wxString::Format ("%d", previewWidth));
+        } else {
+          pano_dlg->pp->previewWidth = previewWidth;
+          XRCCTRL(*pano_dlg->pp, "pano_val_previewWidth", wxComboBox)
+                              ->SetValue(wxString::Format ("%d", previewWidth));
+        }
+      }
 }
 
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
-    opt->width = previewWidth;
-    opt->height = previewWidth / 2;
-    wxString outputFormat = opt->outputFormat.c_str();
-    opt->outputFormat = "JPEG";
-    int quality = opt->quality;
-    if ( outputFormat != "JPEG" )
-      opt->quality = 100;
+    if (autoPreview && !self_pano_dlg) {
+      opt.width = previewWidth;
+      opt.height = previewWidth / 2;
+      wxString outputFormat = opt.outputFormat.c_str();
+      opt.outputFormat = "JPEG";
+      int quality = opt.quality;
+      if ( outputFormat != "JPEG" )
+        opt.quality = 100;
 
-    PT::SetPanoOptionsCmd( pano, *opt );
+      PT::SetPanoOptionsCmd( pano, opt );
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::StitchCmd( pano, *opt )
+      GlobalCmdHist::getInstance().addCommand(
+        new PT::StitchCmd( pano, opt )
         );
 
-    // recover old values
-    opt->outputFormat = outputFormat.c_str();
-    if ( outputFormat != "JPEG" )
-      opt->quality = quality;
+      // recover old values
+      opt.outputFormat = outputFormat.c_str();
+      if ( outputFormat != "JPEG" )
+        opt.quality = quality;
 
-    // Send panoViewer the name of our image
-    server->SendFilename( (wxString) opt->outfile.c_str() );
+      // Send panoViewer the name of our image
+      server->SendFilename( (wxString) opt.outfile.c_str() );
 /*
     if ( !preview_dlg ) {
         wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
@@ -291,14 +443,14 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 //        preview_dlg = XRCCTRL(*this, "pano_dlg_preview", wxDialog);
     DEBUG_INFO ( "" )
         CPImageCtrl * preview_win = new CPImageCtrl(this);
-    DEBUG_INFO ( ": " << opt->width )
+    DEBUG_INFO ( ": " << opt.width )
 //        wxXmlResource::Get()->AttachUnknownControl(wxT("pano_preview_unknown"),
 //                                               preview_win);
     DEBUG_INFO ( "" )
         preview_dlg->ShowModal();
     DEBUG_INFO ( "" )
     }*/
-
+    }
 
     DEBUG_INFO ( "" )
 }
@@ -307,132 +459,152 @@ void PanoPanel::AutoPreview ( wxCommandEvent & e )
     if ( XRCCTRL(*this, "pano_cb_autopreview", wxCheckBox)
          ->IsChecked() ) {
         DEBUG_INFO ("set auto preview")
-        pano.addObserver(this);
-
+        autoPreview = true;
     } else {
         DEBUG_INFO ("unset auto prievew")
-        pano.removeObserver(this);
+        autoPreview = false;
     }
+
+    if ( pano_dlg_run ) {  // tell the other window
+      if ( self_pano_dlg ) {
+        pano_panel->autoPreview = autoPreview;
+        XRCCTRL(*pano_panel, "pano_cb_autopreview", wxCheckBox)
+                  ->SetValue(autoPreview);
+      } else {
+        pano_dlg->pp->autoPreview = autoPreview;
+        XRCCTRL(*pano_dlg->pp, "pano_cb_autopreview", wxCheckBox)
+                  ->SetValue(autoPreview);
+      }
+    }
+
 }
 
 // --
 void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
 {
-    // FileFormat from PanoramaMemento.h
-    int lt = XRCCTRL(*this, "pano_choice_formatFinal",
-                                   wxChoice)->GetSelection();
-
-    wxString Ip ("JPEG");
-    switch ( lt ) {
-        case JPEG:        Ip = wxT("JPEG"); break;
-        case PNG:         Ip = wxT("PNG"); break;
-        case TIFF:        Ip = wxT("TIFF"); break;
-        case TIFF_mask:   Ip = wxT("TIFF_m"); break;
-        case TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
-        case PICT:        Ip = wxT("PICT"); break;
-        case PSD:         Ip = wxT("PSD"); break;
-        case PSD_mask:    Ip = wxT("PSD_mask"); break;
-        case PSD_nomask:  Ip = wxT("PSD_nomask"); break;
-        case PAN:         Ip = wxT("PAN"); break;
-        case IVR:         Ip = wxT("IVR"); break;
-        case IVR_java:    Ip = wxT("IVR_java"); break;
-        case VRML:        Ip = wxT("VRML"); break;
-        case QTVR:        Ip = wxT("QTVR"); break;
-//      default :   Ip = wxString::Format ("%d",lt); break;
+    if ( ! changePano ) {
+      // FileFormat from PanoramaMemento.h
+      int lt = XRCCTRL(*this, "pano_choice_formatFinal",
+                                     wxChoice)->GetSelection();
+  
+      wxString Ip ("JPEG");
+      switch ( lt ) {
+          case JPEG:        Ip = wxT("JPEG"); break;
+          case PNG:         Ip = wxT("PNG"); break;
+          case TIFF:        Ip = wxT("TIFF"); break;
+          case TIFF_mask:   Ip = wxT("TIFF_m"); break;
+          case TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
+          case PICT:        Ip = wxT("PICT"); break;
+          case PSD:         Ip = wxT("PSD"); break;
+          case PSD_mask:    Ip = wxT("PSD_mask"); break;
+          case PSD_nomask:  Ip = wxT("PSD_nomask"); break;
+          case PAN:         Ip = wxT("PAN"); break;
+          case IVR:         Ip = wxT("IVR"); break;
+          case IVR_java:    Ip = wxT("IVR_java"); break;
+          case VRML:        Ip = wxT("VRML"); break;
+          case QTVR:        Ip = wxT("QTVR"); break;
+  //      default :   Ip = wxString::Format ("%d",lt); break;
+      }
+  
+      opt.outputFormat = Ip;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+  // TODO add path for writing
+      if (opt.outputFormat == "JPEG" ) {
+        opt.outfile = "panorama.JPG";
+      } else {
+        opt.outfile = "panorama";
+      }
+      DEBUG_INFO ( Ip )
     }
-
-    opt->outputFormat = Ip;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-// TODO add path for writing
-    if (opt->outputFormat == "JPEG" ) {
-      opt->outfile = "panorama.JPG";
-    } else {
-      opt->outfile = "panorama";
-    }
-
-    DEBUG_INFO ( Ip )
 }
 
 void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    int lt = XRCCTRL(*this, "pano_val_width", wxComboBox)
-                            ->GetSelection() ;
-    XRCCTRL(*this, "pano_val_width", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ;
-
-    opt->width = Width = (int) *val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO( ": " << *val << " " << Width );
-    delete val;
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_width", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_width", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+  
+      opt.width = Width = (int) *val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+      DEBUG_INFO( ": " << *val << " " << Width );
+      delete val;
+    }
 }
 
 void PanoPanel::HeightChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    int lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
-                            ->GetSelection() ;
-    XRCCTRL(*this, "pano_val_height", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ;
-
-    opt->height = Height = (int) *val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( ": " << *val )
-    delete val;
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_height", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+  
+      opt.height = Height = (int) *val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
 }
 
 void PanoPanel::JpegQChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
-    int lt = XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
-                            ->GetSelection() ;
-    XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ;
-
-    opt->quality = (int) *val;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( ": " << *val )
-    delete val;
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+  
+      opt.quality = (int) *val;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+  
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
 }
 
 void PanoPanel::JpegPChanged ( wxCommandEvent & e )
 {
-    int lt = XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
-                            ->GetValue() ;
-
-    opt->progressive = lt;
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, *opt )
-        );
-
-    DEBUG_INFO ( ": " << lt )
+    if ( ! changePano ) {
+      int lt = XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
+                              ->GetValue() ;
+  
+      opt.progressive = lt;
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+      DEBUG_INFO ( ": " << lt )
+    }
 }
 
 void PanoPanel::Stitch ( wxCommandEvent & e )
 {
-    opt->width = Width;
-    opt->height = Height;
-    PT::SetPanoOptionsCmd( pano, *opt );
+    opt.width = Width;
+    opt.height = Height;
+    PT::SetPanoOptionsCmd( pano, opt );
 #ifdef unix
     DEBUG_INFO ( "unix" )
     // for testing
-    //opt->printStitcherScript( *stdout, *opt);
+    //opt.printStitcherScript( *stdout, opt);
 #endif
 
     GlobalCmdHist::getInstance().addCommand(
-        new PT::StitchCmd( pano, *opt )
+        new PT::StitchCmd( pano, opt )
         );
 
     DEBUG_INFO ( ": " << Width )
@@ -440,5 +612,38 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
 
 //------------------------------------------------------------------------------
 
+BEGIN_EVENT_TABLE(PanoDialog, wxWindow)
+    EVT_PAINT (PanoDialog::OnPaint )
+END_EVENT_TABLE()
 
+PanoDialog::PanoDialog (wxWindow *parent, const wxPoint& pos, const wxSize& size
+              , Panorama *pano)
+    : wxDialog (parent, 1000, _("Panorama settings"), pos, size,
+          wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODELESS|wxRESIZE_BORDER),
+      pano (*pano)
+{
+    // FIXME let the window close and move together with the MainFrame like DDD
+    DEBUG_TRACE("");
+    wxTheXmlResource->LoadPanel(this, wxT("pano_dialog"));
+    pp = new PanoPanel( this, wxDefaultPosition, size, pano);
+    wxXmlResource::Get()->AttachUnknownControl (
+       wxT("pano_dialog_unknown"),
+       pp);
+    pp->pano_dlg_run = TRUE; // Tell pano_panel dialog is running.
+    pp->self_pano_dlg = TRUE; // Tell pano_panel it is dialog.
+    Show();
+    DEBUG_TRACE("");
+}
+
+PanoDialog::~PanoDialog(void)
+{
+    pp->Close();
+    this->Destroy();
+} 
+
+void PanoDialog::OnPaint (wxPaintEvent & e)
+{ }
+
+void PanoDialog::DoPaint (wxPaintEvent & e)
+{}
 

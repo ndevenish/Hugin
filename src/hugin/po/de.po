@@ -240,6 +240,10 @@ msgstr "Objektiv Einstellungen"
 #: ../ptopengui.cpp:294
 msgid "Panorama settings"
 msgstr "Panorama Einstellungen"
+msgid "tear off this tab"
+msgstr "in neuem Fenster anzeigen"
+msgid "Close child window"
+msgstr "Schlieﬂe Kindfenster"
 
 #: ../ptopengui.cpp:298
 msgid "Image settings"

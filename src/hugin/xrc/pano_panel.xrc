@@ -4,18 +4,17 @@
     <object class="wxFlexGridSizer">
       <cols>2</cols>
       <rows>1</rows>
-      <growablecols>0</growablecols>
       <growablerows>0</growablerows>
       <object class="sizeritem">
         <object class="wxButton" name="pano_make_dialog">
           <label></label>
+          <size>15,-1</size>
           <style>wxNO_BORDER</style>
           <bg>#ABBBFF</bg>
           <focused>1</focused>
           <tooltip>tear off this tab</tooltip>
         </object>
-        <flag></flag>
-        <minsize>0,-1</minsize>
+        <flag>wxEXPAND|wxGROW</flag>
       </object>
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
@@ -307,13 +306,13 @@
                               <object class="sizeritem">
                                 <object class="wxChoice" name="pano_choice_formatFinal">
                                   <content>
-                                    <item>JPEG (*.jpg)</item>
-                                    <item>PNG (*.png)</item>
-                                    <item>TIFF (*.tif)</item>
-                                    <item>TIFF_mask (*.tif)</item>
-                                    <item>TIFF_nomask (*.tif)</item>
-                                    <item>PICT Bitmap (*.bmp)</item>
-                                    <item>PSD Photoshop (*.psd)</item>
+                                    <item>JPEG</item>
+                                    <item>PNG</item>
+                                    <item>TIFF</item>
+                                    <item>TIFF_mask</item>
+                                    <item>TIFF_nomask</item>
+                                    <item>PICT</item>
+                                    <item>PSD</item>
                                     <item>PSD_mask</item>
                                     <item>PSD_nomask</item>
                                     <item>PAN</item>
@@ -496,11 +495,20 @@
         </object>
         <flag>wxEXPAND|wxGROW</flag>
       </object>
+      <growablecols>0</growablecols>
     </object>
   </object>
-  <object class="wxDialog" name="pano_dialog">
-    <title>Panorama settings</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODELESS</style>
-    <object class="unknown" name="pano_dialog_unknown"/>
+  <object class="wxPanel" name="pano_dialog">
+    <object class="wxFlexGridSizer">
+      <cols>2</cols>
+      <rows>2</rows>
+      <object class="sizeritem">
+        <object class="unknown" name="pano_dialog_unknown"/>
+        <flag>wxEXPAND|wxGROW</flag>
+        <minsize>600,400</minsize>
+      </object>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+    </object>
   </object>
 </resource>

@@ -36,6 +36,7 @@
 #include <utility>
 #include <PT/Panorama.h>
 
+
 // forward declarations
 class CPImageCtrl;
 class CPEvent;

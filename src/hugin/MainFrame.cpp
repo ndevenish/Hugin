@@ -54,6 +54,7 @@ using namespace PT;
 
 ImagesPanel * images_panel;
 LensPanel * lens_panel;
+PanoPanel * pano_panel;
 OptimizeVector * optset;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
@@ -128,6 +129,10 @@ MainFrame::MainFrame(wxWindow* parent)
     wxXmlResource::Get()->AttachUnknownControl (
        wxT("panorama_panel_unknown"),
        pano_panel);
+    pano_panel->pano_dlg_run = FALSE; // pano_panel did not yet run pano_dlg.
+    pano_panel->self_pano_dlg = FALSE; // Tell pano_panel it is non dialog
+    UIntSet i;
+    pano_panel->panoramaImagesChanged (pano, i); // initialize
 
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");

@@ -43,6 +43,7 @@ class PanoPanel;
 
 extern ImagesPanel* images_panel;
 extern LensPanel* lens_panel;
+extern PanoPanel * pano_panel;
 extern OptimizeVector* optset;
 
 /** The main window frame.
@@ -102,7 +103,6 @@ private:
     void UpdatePanels(wxCommandEvent & e);
 
 
-    PanoPanel * pano_panel;
     CPEditorPanel * cpe;
 
     // the model
