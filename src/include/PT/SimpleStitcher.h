@@ -164,9 +164,19 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     // save individual images into a single big multi-image tif
     if (opts.outputFormat == PT::PanoramaOptions::TIFF_m) {
         std::string filename = basename + ".tif";
-        DEBUG_DEBUG("flattening image into a multi image tif file " << filename);
+        DEBUG_DEBUG("Layering image into a multi image tif file " << filename);
         vigra::TiffImage * tiff = TIFFOpen(filename.c_str(), "w");
         DEBUG_ASSERT(tiff);
+
+        // test for widest negative offset as it is not allowed in tiff
+        int neg_off_x = 0,
+            neg_off_y = 0; 
+        for (unsigned int imgNr=0; imgNr< nImg; imgNr++) {
+            if (remapped[imgNr].ul.x < neg_off_x)
+                neg_off_x = remapped[imgNr].ul.x;
+            if (remapped[imgNr].ul.y < neg_off_y)
+                neg_off_y = remapped[imgNr].ul.y;
+        }
 
         // loop over all images and create alpha channel for it,
         // and write it into the output file.
@@ -186,6 +196,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                 typename vigra::BImage::Iterator xa(ya);
                 for(int x=xstart; x < xend; ++x, ++xa.x) {
                     // find the image where this pixel is closest to the image center
+                    // beku: what is it for?
                     float minDist = FLT_MAX;
                     unsigned int minImgNr = 0;
                     vigra::Diff2D cp(x,y);
@@ -197,7 +208,8 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                         }
                     }
                     // if a minimum was found in current image, use this pixel
-                    if (minDist < FLT_MAX && minImgNr == imgNr) {
+                    // beku: every image should get it own alpha layer - fixed
+                    if (minDist < FLT_MAX) {
                         // set value in alpha channel
                         *xa = 255;
                     }
@@ -221,9 +233,13 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             // set offset
             TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 72.0f);
             TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 72.0f);
-            DEBUG_DEBUG("offset: " << xstart << "," << ystart);
-            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float) xstart/72.0f);
-            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float) ystart/72.0f);
+            // offsets must allways be positive so correct them
+            DEBUG_DEBUG("offset: " << xstart-neg_off_x << ","
+                                   << ystart-neg_off_y << std::endl)
+            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)
+                                               (xstart-neg_off_x)/72.0f);
+            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)
+                                               (ystart-neg_off_y)/72.0f);
 
             // save input name.
             TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, basename.c_str());

@@ -101,6 +101,7 @@ createBRGBATiffImage(RGBImageIterator upperleft, RGBImageIterator lowerright,
     // for alpha stuff, do not uses premultilied data
     // I never understood why anybody wanted to throw away
     // accuracy by premultiplying..
+    // beku: This gets recogniced by cinepaint/gimp
     unsigned short extra_samples = EXTRASAMPLE_UNASSALPHA;
     TIFFSetField (tiff, TIFFTAG_EXTRASAMPLES, 0, &extra_samples);
 
