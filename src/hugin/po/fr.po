@@ -1,24 +1,25 @@
 # translation of fr.po to 
 # translation of fr.po to
 # translation of fr.po to
+# translation of fr.po to
 # French translations for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005.
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-02-07 07:20+0200\n"
-"PO-Revision-Date: 2005-02-02 21:07+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2005-02-12 11:51+0100\n"
+"Last-Translator:  <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:87
 #, c-format
@@ -31,8 +32,7 @@ msgstr "Résultat d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:102
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr ""
-"Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
+msgstr "Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
@@ -84,8 +84,7 @@ msgstr "Erreur dans la commande Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:202
 #, c-format
-msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
 "d'autopano-sift"
@@ -120,7 +119,7 @@ msgid ""
 "See the command window for autopanos' progress"
 msgstr ""
 "Veuillez patienter pendant qu'Autopano recherche les points de contrôle\n"
-"Vous pouvez suivre l'évolution du travail d'autopano dans le fenêtre de "
+"Vous pouvez suivre l'évolution du travail d'autopano dans la fenêtre de "
 "commande"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:274
@@ -303,12 +302,12 @@ msgstr "Sélectionner un point sur l'image de gauche"
 #: src/hugin/CPEditorPanel.cpp:1611
 msgid "change points, or press right mouse button to add the pair"
 msgstr ""
-"changer de points ou presser le bouton droit de la souris pour ajouter la "
+"modifier les points ou presser le bouton droit de la souris pour ajouter la "
 "paire de points"
 
 #: src/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
-msgstr "Ajustement précis des points de contrôle"
+msgstr "Ajuster précisément les points de contrôle"
 
 #: src/hugin/CPImageCtrl.cpp:757
 msgid "Could not process event!"
@@ -381,7 +380,7 @@ msgstr "Dialogue de centrage"
 #: src/hugin/ImageOrientationPanel.cpp:132
 #, c-format
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-msgstr "Lacet : %.f Tangage %.f Roulis %.f"
+msgstr "Lacet : %.1f Tangage %.1f Roulis %.1f"
 
 #: src/hugin/ImagesList.cpp:232 src/hugin/ImagesList.cpp:280
 msgid "Filename"
@@ -518,7 +517,7 @@ msgstr "Entrer le numéro du nouvel objectif"
 
 #: src/hugin/LensPanel.cpp:726
 msgid "Lens number"
-msgstr "Objectif no"
+msgstr "Objectif numéo"
 
 #: src/hugin/LensPanel.cpp:727
 msgid "Change lens number"
@@ -542,7 +541,7 @@ msgstr ""
 
 #: src/hugin/LensPanel.cpp:752
 msgid "Adding Image"
-msgstr "Ajoute une image"
+msgstr "Ajout d'une image"
 
 #: src/hugin/MainFrame.cpp:247
 msgid ""
@@ -674,9 +673,8 @@ msgstr ""
 "Un point problématique peut être mis en évidence (juste après l'ajustement "
 "précis, avant l'optimisation)\n"
 "lorsque l'erreur est <= %.3f.\n"
-"L'erreur des points sans pic vraiment défini (typiquement dans les zones de "
-"couleur uniforme)\n"
-"sera mise à 0.\n"
+"L'erreur des points sans pic vraiment défini (typiquement dans les zones de\n"
+"couleur uniforme) sera mise à 0.\n"
 "\n"
 "Utiliser la liste des points de contrôle (F3) pour afficher tous les points "
 "du projet actuel.\n"
@@ -707,7 +705,7 @@ msgstr "Sélectionner l'outil en ligne de commande enblend"
 
 #: src/hugin/NonaStitcherPanel.cpp:286
 msgid "No enblend commandline tool selected"
-msgstr "Aucun outil en ligne de commande sélectionné"
+msgstr "Aucun outil en ligne de commande enblend sélectionné"
 
 #: src/hugin/NonaStitcherPanel.cpp:317
 msgid ""
@@ -825,7 +823,7 @@ msgid ""
 "lenses."
 msgstr ""
 "Vérifier que la distance focale et/ou les valeur d'angle\n"
-"de champ horizontal de chacune des images sont correctes\n"
+"de champ horizontal de chacune des images sont corrects\n"
 "en fonctions des données de la prise de vue.\n"
 "Calculer alors de nouveau l'angle de champ visible.\n"
 "L'angle de champ horizontal (HFOV) est mesuré en degrés\n"
@@ -883,7 +881,7 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:184
 msgid "At least one image has no control points at all."
-msgstr "Au moins une image ne contient pas du tout de points de contrôle."
+msgstr "Au moins une image ne contient pas du tout de point de contrôle."
 
 #: src/hugin/PanoDruid.cpp:185
 msgid ""
@@ -898,8 +896,7 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:203
 msgid "Add stitching control points to each pair of images."
-msgstr ""
-"Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
+msgstr "Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
 
 #: src/hugin/PanoDruid.cpp:204
 msgid ""
@@ -920,8 +917,7 @@ msgstr "Ajoutez encore au moins une image."
 
 #: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:559
 msgid "You should have at least two files listed in the Images tab."
-msgstr ""
-"Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
+msgstr "Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
 
 #: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:554
 msgid "To get started, add some image files."
@@ -962,9 +958,8 @@ msgid "System default"
 msgstr "Langue par défaut du système"
 
 #: src/hugin/PreferencesDialog.cpp:108
-#, fuzzy
 msgid "English"
-msgstr "Polonais"
+msgstr "Anglais"
 
 #: src/hugin/PreferencesDialog.cpp:109
 msgid "German"
@@ -1000,22 +995,20 @@ msgid "Select Autopano"
 msgstr "Sélectionner Autopano"
 
 #: src/hugin/PreferencesDialog.cpp:253
-#, fuzzy
 msgid "Panotools details"
-msgstr "Panotools"
+msgstr "Détails de Panotools"
 
 #: src/hugin/PreferencesDialog.cpp:295
-#, fuzzy
 msgid "Could not load dll"
-msgstr "Impossible d'ouvrir "
+msgstr "Impossible de charger la dll"
 
 #: src/hugin/PreferencesDialog.cpp:295
 msgid "panoinfo"
-msgstr ""
+msgstr "panoinfo"
 
 #: src/hugin/PreferencesDialog.cpp:527
 msgid "Unknown Version"
-msgstr ""
+msgstr "Version inconnue"
 
 #: src/hugin/PreviewFrame.cpp:74
 msgid "Panorama preview"
@@ -1067,7 +1060,7 @@ msgstr "Cylindrique"
 
 #: src/hugin/PreviewFrame.cpp:297
 msgid "equirectangular"
-msgstr "Equirectangulaire"
+msgstr "Équirectangulaire"
 
 #: src/hugin/PreviewFrame.cpp:547
 msgid "The druid has no advice at this time."
@@ -1138,7 +1131,7 @@ msgstr "Échec du lancement de PTOptimizer."
 
 #: src/hugin/RunOptimizerFrame.cpp:149
 msgid "Could not obtain PTOptimizer output"
-msgstr ""
+msgstr "Impossible de récupérer la sortie de PTOptimizer"
 
 #: src/hugin/RunOptimizerFrame.cpp:159
 msgid "Stop"
@@ -1179,7 +1172,7 @@ msgstr ""
 "lorsque les images sont déjà alignées correctement."
 
 #: src/hugin/RunOptimizerFrame.cpp:327
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Optimizer run finished.\n"
 "Results:\n"
@@ -1189,7 +1182,7 @@ msgid ""
 "\n"
 "Apply the changes?"
 msgstr ""
-"Fin de traitement de l'optimiseur\n"
+"Fin de traitement de l'optimiseur.\n"
 "Résultats :\n"
 " distance moyenne des points de contrôle : %f\n"
 " écart-type : %f\n"
@@ -1211,7 +1204,7 @@ msgstr "Échec du lancement de PTStitcher."
 
 #: src/hugin/RunStitcherFrame.cpp:157
 msgid "Could not obtain PTStitcher output"
-msgstr ""
+msgstr "Impossible de récupérer la sortie de PTStitcher"
 
 #: src/hugin/RunStitcherFrame.cpp:281
 msgid ""
@@ -1261,12 +1254,10 @@ msgid "Anchor Image"
 msgstr "Ancrer l'image"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-#, fuzzy
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
-"Positionner le Lacet et le Roulis avec le bouton gauche de la souris. "
-"Utiliser le bouton droit de la souris pour positionner le Roulis."
+"Positionner le Lacet et le Tangage avec le bouton gauche de la souris. "
+"Utiliser le bouton droit de la souris pour positionner le Roulis"
 
 #: src/hugin/xrc/anchor_orientation.xrs:3
 msgid "Set Anchor Image Orientation"
@@ -1404,7 +1395,7 @@ msgstr ""
 
 #: src/hugin/xrc/edit_script_dialog.xrs:3
 msgid "Continue with these changes"
-msgstr "Poursuivre avec ces changements"
+msgstr "Poursuivre en utilisant ces modifications"
 
 #: src/hugin/xrc/edit_script_dialog.xrs:4
 msgid "Discard changes and cancel"
@@ -2558,8 +2549,7 @@ msgstr "Aperçu automatique"
 
 #: src/hugin/xrc/preview_frame.xrs:5
 msgid "Automatically update preview on relevant changes"
-msgstr ""
-"Mettre à jour automatiquement l'aperçu lors de changements significatifs"
+msgstr "Mettre à jour automatiquement l'aperçu lors de changements significatifs"
 
 #: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:16
 msgid "Update"
@@ -2733,5 +2723,3 @@ msgstr "Assemblage"
 msgid "Abort"
 msgstr "Abandonner"
 
-#~ msgid "Failed to connect to child stdout"
-#~ msgstr "Impossible de se connecter à la sortie standard fille"
