@@ -82,7 +82,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
     EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
     EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
-    EVT_SPINCTRL(XRCID("pano_spin_feather_width"), PanoPanel::OnFeatherWidthChanged) 
+    EVT_SPINCTRL(XRCID("pano_spin_feather_width"), PanoPanel::OnFeatherWidthChanged)
     EVT_SPINCTRL(XRCID("pano_jpeg_quality"), PanoPanel::OnSetQuality)
 
 // TODO remove
@@ -137,11 +137,11 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
                                  wxSpinCtrl);
     m_ColorCorrRefSpin->Disable();
     DEBUG_ASSERT(m_ColorCorrRefSpin);
-    
+
     m_FeatherWidthSpin = XRCCTRL(*this, "pano_spin_feather_width",
                                  wxSpinCtrl);
     DEBUG_ASSERT(m_FeatherWidthSpin);
-    
+
 // TODO remove
 #if 0
     m_PreviewWidthCombo = XRCCTRL(*this, "pano_val_preview_width", wxComboBox);
@@ -256,7 +256,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         m_JPEGQualitySpin->Disable();
     }
     m_JPEGQualitySpin->SetValue(opt.quality);
-
+    
+    m_FeatherWidthSpin->SetValue(opt.featherWidth);
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
