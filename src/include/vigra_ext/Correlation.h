@@ -316,7 +316,6 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
     int templWidth = templSize/2;
     vigra::Diff2D tmplUL(-templWidth, -templWidth);
     vigra::Diff2D tmplLR(templWidth, templWidth);
-    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1,1);
     // clip template
     if (tmplUL.x + templPos.x < 0) tmplUL.x = -templPos.x;
     if (tmplUL.y + templPos.y < 0) tmplUL.y = -templPos.y;
@@ -324,6 +323,9 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
         tmplLR.x = templImg.width() - templPos.x;
     if (tmplLR.y + templPos.y > templImg.height())
         tmplLR.y = templImg.height() - templPos.y;
+    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1,1);
+    DEBUG_DEBUG("template position: " << templPos << "  tmplUL: " << tmplUL
+		    << "  templLR:" << tmplLR << "  size:" << tmplSize);
 
     // extract patch from search region
     // make search region bigger, so that interpolation can always be done
@@ -454,7 +456,6 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     int templWidth = templSize/2;
     vigra::Diff2D tmplUL(-templWidth, -templWidth);
     vigra::Diff2D tmplLR(templWidth, templWidth);
-    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1,1);
     // clip template
     if (tmplUL.x + templPos.x < 0) tmplUL.x = -templPos.x;
     if (tmplUL.y + templPos.y < 0) tmplUL.y = -templPos.y;
@@ -462,6 +463,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
         tmplLR.x = templImg.width() - templPos.x;
     if (tmplLR.y + templPos.y > templImg.height())
         tmplLR.y = templImg.height() - templPos.y;
+    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1,1);
 
     // extract patch from search region
     // make search region bigger, so that interpolation can always be done
