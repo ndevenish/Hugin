@@ -67,10 +67,6 @@ using namespace PT;
 //LensPanel * lens_panel;
 //OptimizeVector * optset;
 
-#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
-    #include "xrc/data/gui.xpm"
-#endif
-
 
 /** file drag and drop handler method */
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -150,7 +146,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 			      wxSIMPLE_BORDER|wxSTAY_ON_TOP);
 #else
         splash = new wxSplashScreen(bitmap,
-                           wxSPLASH_CENTRE_ON_SCREEN|wxTIMEOUT,
+                           wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
                            2000, NULL, -1, wxDefaultPosition,
 	                   wxDefaultSize,
 		           wxSIMPLE_BORDER|wxSTAY_ON_TOP);
