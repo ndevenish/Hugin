@@ -154,11 +154,13 @@ END_EVENT_TABLE()
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : pano(pano)
 {
+    wxString splashPath;
+    wxFileName::SplitPath( wxTheApp->argv[0], &splashPath, NULL, NULL );
+		
     wxConfigBase* config = wxConfigBase::Get();
-    if ( wxFile::Exists("xrc/data/splash.png") ) {
+    if ( wxFile::Exists(splashPath + wxT("xrc/data/splash.png")) ) {
         DEBUG_INFO("using local xrc files");
-        wxString currentDir = wxFileName::GetCwd();
-        m_xrcPrefix = currentDir + "/xrc/";
+        m_xrcPrefix = splashPath + "/xrc/";
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
         DEBUG_INFO("using installed xrc files");
         m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");

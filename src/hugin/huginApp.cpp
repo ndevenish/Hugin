@@ -24,6 +24,8 @@
  *
  */
 
+#define DEBUG
+
 #include <config.h>
 
 //Mac bundle code by Ippei
@@ -62,9 +64,14 @@ huginApp::~huginApp()
 bool huginApp::OnInit()
 {
     SetAppName("hugin");
-//    DEBUG_INFO( GetAppName().c_str() )
-//    DEBUG_INFO( wxFileName::GetCwd().c_str() )
-//    DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
+    
+    wxString m_huginPath;
+    wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
+    
+    // DEBUG_INFO( GetAppName().c_str() )
+    // DEBUG_INFO( wxFileName::GetCwd().c_str() )
+    // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
+    DEBUG_INFO( "hugin path:" << m_huginPath.c_str() )
 
 
     // here goes and comes configuration
@@ -88,7 +95,7 @@ bool huginApp::OnInit()
     locale.Init(wxLANGUAGE_DEFAULT);
 
     // add local Paths
-    locale.AddCatalogLookupPathPrefix(wxT("po"));
+    locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
 //    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
@@ -113,10 +120,10 @@ bool huginApp::OnInit()
     // try local xrc files first
     wxString xrcPrefix;
     // testing for xrc file location
-    if ( wxFile::Exists("xrc/main_frame.xrc") ) {
+    if ( wxFile::Exists(m_huginPath + wxT("/xrc/main_frame.xrc")) ) {
         DEBUG_INFO("using local xrc files");
-        wxString currentDir = wxFileName::GetCwd();
-        xrcPrefix = currentDir + "/xrc/";
+        // wxString currentDir = wxFileName::GetCwd();
+        xrcPrefix = m_huginPath + wxT("/xrc/");
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
         DEBUG_INFO("using installed xrc files");
         xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
