@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-01-28 21:52+0200\n"
+"POT-Creation-Date: 2005-01-29 15:31+0100\n"
 "PO-Revision-Date: 2004-10-18 09:03+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.net.il>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -419,8 +419,7 @@ msgstr ""
 msgid "t"
 msgstr ""
 
-#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_dialog.xrs:3
-#: src/hugin/xrc/lens_panel.xrs:2
+#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
 msgstr ""
 
@@ -437,8 +436,7 @@ msgid "Full frame fisheye"
 msgstr ""
 
 #: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:187
-#: src/hugin/PreviewFrame.cpp:400 src/hugin/xrc/lens_dialog.xrs:7
-#: src/hugin/xrc/lens_panel.xrs:6
+#: src/hugin/PreviewFrame.cpp:400 src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr ""
 
@@ -1402,143 +1400,8 @@ msgstr ""
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/lens_dialog.xrs:1
-msgid "Lens"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:2 src/hugin/xrc/lens_panel.xrs:1
+#: src/hugin/xrc/lens_panel.xrs:1
 msgid "Lens type:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:4
-msgid "Panoramic"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:5
-msgid "Circular"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:6
-msgid "Full frame"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:8
-msgid "Lens degrees"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:9
-msgid "Degrees (v):"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:10 src/hugin/xrc/lens_dialog.xrs:11
-#: src/hugin/xrc/lens_dialog.xrs:12 src/hugin/xrc/lens_panel.xrs:9
-#: src/hugin/xrc/lens_panel.xrs:10 src/hugin/xrc/lens_panel.xrs:11
-msgid "Horizontal Field of View"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:13 src/hugin/xrc/lens_dialog.xrs:36
-#: src/hugin/xrc/lens_dialog.xrs:40 src/hugin/xrc/lens_dialog.xrs:44
-#: src/hugin/xrc/lens_dialog.xrs:48 src/hugin/xrc/lens_dialog.xrs:51
-#: src/hugin/xrc/lens_dialog.xrs:55 src/hugin/xrc/lens_dialog.xrs:58
-#: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel.xrs:25
-#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
-#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
-#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel.xrs:42
-msgid "Inherit"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:14
-msgid "Physical Parameters (to calculate HFOV)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:15 src/hugin/xrc/lens_panel.xrs:13
-msgid "focal length:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:16 src/hugin/xrc/lens_dialog.xrs:17
-#: src/hugin/xrc/lens_dialog.xrs:18 src/hugin/xrc/lens_dialog.xrs:20
-#: src/hugin/xrc/lens_dialog.xrs:21 src/hugin/xrc/lens_dialog.xrs:22
-#: src/hugin/xrc/lens_dialog.xrs:24 src/hugin/xrc/lens_dialog.xrs:25
-#: src/hugin/xrc/lens_dialog.xrs:26 src/hugin/xrc/lens_dialog.xrs:28
-#: src/hugin/xrc/lens_dialog.xrs:29 src/hugin/xrc/lens_dialog.xrs:30
-#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel.xrs:21
-msgid "equivalent to 35mm film optics"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:19
-msgid "sensor width:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:23 src/hugin/xrc/lens_dialog.xrs:27
-msgid "sensor height:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:31
-msgid "Distortion parameters"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:32
-msgid "Radial Distortion"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:33
-msgid "a:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:34 src/hugin/xrc/lens_dialog.xrs:35
-msgid "distortion value (a)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:37
-msgid "b:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:38 src/hugin/xrc/lens_dialog.xrs:39
-msgid "distortion value (b)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:41
-msgid "c:"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:42 src/hugin/xrc/lens_dialog.xrs:43
-msgid "distortion value (c)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:45
-msgid "Center shift"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:46 src/hugin/xrc/lens_panel.xrs:31
-msgid "horizontal (d):"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:47 src/hugin/xrc/lens_dialog.xrs:54
-msgid "image shift horizontal (d)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:49 src/hugin/xrc/lens_panel.xrs:33
-msgid "vertical (e):"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:50 src/hugin/xrc/lens_dialog.xrs:57
-msgid "image shift vertical (e)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:52
-msgid "Shearing"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:53 src/hugin/xrc/lens_panel.xrs:39
-msgid "horizontal (g):"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:56 src/hugin/xrc/lens_panel.xrs:41
-msgid "vertical (t):"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:59
-msgid "Lens Properties"
 msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:7
@@ -1547,6 +1410,22 @@ msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:8
 msgid "degrees of view (v):"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel.xrs:10
+#: src/hugin/xrc/lens_panel.xrs:11
+msgid "Horizontal Field of View"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel.xrs:25
+#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
+#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel.xrs:42
+msgid "Inherit"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:13
+msgid "focal length:"
 msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel.xrs:15
@@ -1564,6 +1443,10 @@ msgstr ""
 #: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel.xrs:19
 #: src/hugin/xrc/lens_panel.xrs:22
 msgid "35mm film diameter / ccd diameter"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel.xrs:21
+msgid "equivalent to 35mm film optics"
 msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:23
@@ -1586,6 +1469,14 @@ msgstr ""
 msgid "Image Center Shift"
 msgstr ""
 
+#: src/hugin/xrc/lens_panel.xrs:31
+msgid "horizontal (d):"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:33
+msgid "vertical (e):"
+msgstr ""
+
 #: src/hugin/xrc/lens_panel.xrs:35 src/hugin/xrc/preview_frame.xrs:2
 #: src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
@@ -1601,6 +1492,14 @@ msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:38
 msgid "Image Shearing"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:39
+msgid "horizontal (g):"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel.xrs:41
+msgid "vertical (t):"
 msgstr ""
 
 #: src/hugin/xrc/lens_panel.xrs:43
@@ -1679,8 +1578,8 @@ msgstr ""
 msgid "Exit this application"
 msgstr ""
 
-#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:32
-#: src/hugin/xrc/main_menu.xrs:35
+#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:31
+#: src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr ""
 
@@ -1812,43 +1711,39 @@ msgstr ""
 msgid "Show the preview window"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:31
-msgid "&Last preview stitch"
-msgstr ""
-
-#: src/hugin/xrc/main_menu.xrs:33
+#: src/hugin/xrc/main_menu.xrs:32
 msgid "&About"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:34
+#: src/hugin/xrc/main_menu.xrs:33
 msgid "About program"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:36
+#: src/hugin/xrc/main_menu.xrs:35
 msgid "Some information on the different buttons and so on."
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:37
+#: src/hugin/xrc/main_menu.xrs:36
 msgid "&Tip of the day"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:38
+#: src/hugin/xrc/main_menu.xrs:37
 msgid "Show one of the tips of the day."
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:38
 msgid "&Keyboard Shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menu.xrs:39
 msgid "keyboard shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:41
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "&FAQ"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:42
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "Frequently Asked Questions"
 msgstr ""
 
@@ -2622,50 +2517,144 @@ msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:4
 msgid ""
-"To scroll both the images in the control points tab, hold the shift key and "
-"press the middle mouse button while moving the mouse."
+"To scroll both the images in the control points tab, hold the shift key "
+"while moving the mouse."
 msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:5
 msgid ""
-"The control key or the middle mouse button can be used in the control points "
-"tab to scroll only the image under the mouse cursor."
+"The control key or the middle mouse button can be used to pan one image in "
+"the control points tab."
 msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:6
 msgid ""
-"If the panorama looks nice but the horizon is curved, you have to add "
-"horizontal guide control points in the control points tab."
+"Rotating the camera around the nodal point makes panorama creation a lot "
+"easier."
 msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:7
-msgid "Images can also be added to hugin via drag and drop."
+msgid ""
+"If the panorama looks nice but the horizon is curved, select a new anchor "
+"position, or add vertical or horizontal control points."
 msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:8
+msgid ""
+"Horizontal or vertical control point pairs can be set by selecting the same "
+"image on both sides of the control points tab."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:9
+msgid ""
+"Control points should be placed on static objects. Avoid placing them "
+"people, trees and other moving or deforming objects."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:10
+msgid "Images can also be added to hugin via drag and drop."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:11
+msgid ""
+"Spread control points as far as possible. Close control points do not define "
+"the relative orientation between images well."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:12
 msgid ""
 "The Fine Tune button can be used to find a better position for the point in "
 "the right image for an already selected point."
 msgstr ""
 
-#: src/hugin/xrc/data/tips.txt:9
+#: src/hugin/xrc/data/tips.txt:13
+msgid ""
+"Editing the panorama in multiple layers with The Gimp or Photoshop offers "
+"many creative possibilities."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:14
+msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:15
 msgid ""
 "You can press the middle mouse button to pan images in the control points "
 "tab."
 msgstr ""
 
-#: src/hugin/xrc/data/tips.txt:10
-msgid "You can use \"f\" is the shortcut for Fine Tune button"
+#: src/hugin/xrc/data/tips.txt:16
+msgid "The \"f\" key is the shortcut for Fine Tune button."
 msgstr ""
 
-#: src/hugin/xrc/data/tips.txt:11
-msgid "Pressing \"Del\" \twill remove currently selected control point."
+#: src/hugin/xrc/data/tips.txt:17
+msgid "Pressing \"Del\" will remove the currently selected control point."
 msgstr ""
 
-#: src/hugin/xrc/data/tips.txt:12
+#: src/hugin/xrc/data/tips.txt:18
 msgid "Press \"0\" in the control points tab to zoom out to full view."
 msgstr ""
 
-#: src/hugin/xrc/data/tips.txt:13
+#: src/hugin/xrc/data/tips.txt:19
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:20
+msgid ""
+"The external tools autopano and autopano-sift can be used to create control "
+"points automatically."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:21
+msgid ""
+"Enblend can be used to smoothly blend the panorama. Use it from within hugin "
+"by selecting \"high quality tiff file\" as output."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:22
+msgid ""
+"After enblend has blended the panorama, the remapped output images "
+"(available in the same directory as the panorama image) can be used to "
+"retouch the panorama in The Gimp or Photoshop."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:23
+msgid ""
+"enblend 2.1 for Windows cannot handle compressed TIFF images. Switch to "
+"another version if it doesn't work."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:24
+msgid ""
+"hugin and other free panoramic software is discussed on the ptx email list. "
+"http://www.email-lists.org/mailman/listinfo/ptx"
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:25
+msgid ""
+"The Panorama Tools, on which hugin is based were written by Helmut Dersch."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:26
+msgid ""
+"The precision of \"fine tuning\" control points can be improved by enabling "
+"rotation search. This is essential for fisheye and wide angle images."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:27
+msgid ""
+"Multiple images can be selected in the image and lens tabs. Command will act "
+"on all selected images."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:28
+msgid ""
+"Lens parameters may vary with changing focus. For best results, calibrate "
+"the parameters using know settings and reuse them later."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:29
+msgid ""
+"Optimisation of all distortion parameters (\"everything\") makes only sense "
+"with heavily overlapping images and many well distributed control points."
 msgstr ""

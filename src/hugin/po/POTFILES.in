@@ -37,7 +37,6 @@ src/hugin/xrc/help.xrs
 src/hugin/xrc/image_center.xrs
 src/hugin/xrc/images_panel.xrs
 src/hugin/xrc/keyboard_help.xrs
-src/hugin/xrc/lens_dialog.xrs
 src/hugin/xrc/lens_panel.xrs
 src/hugin/xrc/main_frame.xrs
 src/hugin/xrc/main_menubar.xrs
