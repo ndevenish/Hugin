@@ -257,7 +257,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             wxString args(enblendExe);
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
-            wxString args(quoteFilename(enblendExe));
+            wxString args(enblendExe);
 #endif
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
@@ -271,15 +271,15 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             args.append(" -v -o ");
             wxString quoted((output + ".tif").c_str());
             quoted = utils::quoteFilename(quoted);
-            args.append(quoted).append(" ");
+            args.append(quoted);
 
             unsigned int nImg = pano.getNrOfImages();
             for(unsigned int i = 0; i < nImg; i++)
             {
                 quoted.Printf("%s%04d.tif", output.c_str(), i);
                 quoted = utils::quoteFilename(quoted);
+		args.append(" ");
                 args.append(quoted);
-                args.append(" ");
             }
 
             DEBUG_INFO("enblend cmd:" << args.c_str());
@@ -297,11 +297,12 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 int ret = wxExecute(args, wxEXEC_SYNC);
 
                 if (ret == -1) {
-                    wxMessageBox(_("wxExecute Error"), _("Could not execute command: " + args));
+                    wxMessageBox( _("Could not execute command: ") + args, _("wxExecute Error"));
                     return;
                 } else if (ret > 0) {
-                    wxMessageBox(_("wxExecute Error"), _("command: ") + args +
-                                 _(" failed with error code: ") + wxString::Format("%d",ret));
+                    wxMessageBox(_("command: ") + args +
+                                 _(" failed with error code: ") + wxString::Format("%d",ret),
+				 _("enblend error"));
                     return;
                 }
             }
