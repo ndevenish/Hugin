@@ -203,6 +203,7 @@ public:
      *  Do not modify this image. Use a copy if it is really needed
      */
     ImagePtr getImage(const std::string & filename);
+    ImagePtr getImageSmall(const std::string & filename);
 
     virtual void notify(wxImage & subject);
 

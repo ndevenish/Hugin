@@ -69,6 +69,9 @@ private:
      */
     wxLocale locale;
 
+    // MainFrame
+    MainFrame * frame;
+
 };
 
 DECLARE_APP(huginApp)
