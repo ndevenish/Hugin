@@ -141,10 +141,10 @@ public:
     Lens()
         : exifFocalLength(0.0),
           exifFocalLengthConversionFactor(0.0),
-          exifHFOV(0.0),
+          exifHFOV(90.0),
           focalLength(0),
           focalLengthConversionFactor(1),
-          HFOV(0),
+          HFOV(90),
           projectionFormat(RECTILINEAR),
           a(0),b(0),c(0),
           d(0),e(0)
@@ -304,7 +304,7 @@ public:
     PanoramaOptions()
         : projectionFormat(EQUIRECTANGULAR),
           HFOV(360),
-          width(0), height(0),
+          width(300), height(600),
           outfile("panorama.JPG"),outputFormat("JPEG"),
           quality(80),progressive(false),
           colorCorrection(NONE), colorReferenceImage(0),

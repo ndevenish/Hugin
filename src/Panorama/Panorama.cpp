@@ -614,9 +614,11 @@ void Panorama::changeFinished()
          ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
     std::set<PanoramaObserver *>::iterator it;
-    for(it = observers.begin(); it != observers.end(); ++it) {
-        (*it)->panoramaImagesChanged(*this, changedImages);
-        (*it)->panoramaChanged(*this);
+    if ( state.images.size() > 0 ) {
+        for(it = observers.begin(); it != observers.end(); ++it) {
+            (*it)->panoramaImagesChanged(*this, changedImages);
+            (*it)->panoramaChanged(*this);
+        }
     }
     // reset changed images
     changedImages.clear();

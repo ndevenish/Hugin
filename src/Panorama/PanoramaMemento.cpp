@@ -202,6 +202,8 @@ bool Lens::readEXIF(const std::string & filename)
     }
 
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
+    if ( !(HFOV  > 0.0) )
+        HFOV = 90.0; 
     if ( ccdWidth > 0.0 )
       focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     focalLength = exifFocalLength = exif.FocalLength;
