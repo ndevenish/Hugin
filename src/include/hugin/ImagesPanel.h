@@ -31,6 +31,7 @@
 
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
+#include "hugin/List.h"
 
 using namespace PT;
 
@@ -39,6 +40,9 @@ class CPEditorPanel;
 
 // Define a new area
 class ImgPreview;
+
+    // Image Preview
+extern ImgPreview *canvas;
 
 /// Define the first panel - the one for image selection into Panorama
 class ImagesPanel: public wxPanel, public PT::PanoramaObserver
@@ -75,11 +79,8 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     // the model
     Panorama &pano;
 
-    // Image Preview
-    ImgPreview *canvas;
-
     // pointer to the list control
-    wxListCtrl* images_list;
+    List* images_list;
 
     DECLARE_EVENT_TABLE()
 };

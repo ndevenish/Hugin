@@ -41,6 +41,8 @@
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
+#include "hugin/CPEditorPanel.h"
+#include "hugin/List.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -56,37 +58,29 @@ wxImageList * img_bicons;
 // image preview
 wxBitmap * p_img = (wxBitmap *) NULL;
 
+ImgPreview * canvas;
+
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(ImagesPanel, ImagesPanel)
-//    EVT_PAINT(ImagesPanel::OnDraw)
-    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), ImagesPanel::ChangePreview )
-    EVT_MOUSE_EVENTS ( ImagesPanel::ChangePreview )
-    EVT_MOTION ( ImagesPanel::ChangePreview )
     EVT_LEFT_DOWN ( ImagesPanel::ChangePreview )
 END_EVENT_TABLE()
 
 
 // Define a constructor for the Images Panel
-ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano) //, wxStatusBar* s_bar
-    //  : wxPanel(parent, -1 , pos, size)
+ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : pano(*pano)
 {
-    DEBUG_TRACE("");
-//    wxPanel * panel = new wxPanel(images_list, -1);
-//    wxWindow * window = new wxWindow(parent, -1, pos, size);
-    wxBoxSizer * box = new wxBoxSizer( wxVERTICAL );
-    DEBUG_TRACE("");
-    images_list = XRCCTRL(*parent, "images_list", wxListCtrl);
+    pano->addObserver(this);
 
     DEBUG_TRACE("");
-    box->Add( images_list, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    images_list = new List (parent, pano);
     DEBUG_TRACE("");
-    box->Fit( parent );
-    DEBUG_TRACE("");
-    box->SetSizeHints( parent );
-    
-
+//    CPEditorPanel * cpe = new CPEditorPanel(parent,pano);
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("images_list_unknown"),
+               images_list );
+//               cpe );
     DEBUG_TRACE("");
     images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
     images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
@@ -94,13 +88,14 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
     images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
 
+    // Image Preview
+
     DEBUG_TRACE("");
     img_icons = new wxImageList(24,24);
     img_bicons = new wxImageList(64,64);
     DEBUG_TRACE("");
     images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );//_NORMAL );
 
-    // Image Preview
     DEBUG_TRACE("");
     p_img = new wxBitmap( 0, 0 );
     wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
@@ -110,7 +105,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
     DEBUG_TRACE("");;
 
-    pano->addObserver(this);
 }
 
 
@@ -128,14 +122,15 @@ ImagesPanel::~ImagesPanel(void)
 void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
-    images_list->DeleteAllItems() ; // very radical
     img_icons->RemoveAll();
+    DEBUG_TRACE("");
     img_bicons->RemoveAll();
     DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
     // start the loop for every selected filename
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
         wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
-        wxImage * image = ImageCache::getInstance().getImage(
+
+        wxImage * img = ImageCache::getInstance().getImage(
             pano.getImage(i).getFilename());
 
         // preview selected images
@@ -173,28 +168,9 @@ void ImagesPanel::panoramaChanged (PT::Panorama &pano)
         p_img = new wxBitmap( r_img.ConvertToBitmap() );
         canvas->Refresh();
 
-        int ind = img_icons->Add( i_img.ConvertToBitmap() );
+        img_icons->Add( i_img.ConvertToBitmap() );
         img_bicons->Add( b_img.ConvertToBitmap() );
         DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
-
-        // fill in the table
-        char Nr[8] ;
-        sprintf(Nr ,"%d", i + 1);
-        images_list->InsertItem ( i, Nr, ind );
-        DEBUG_INFO( " icon at Item:" << wxString::Format("%d", ind) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
-        images_list->SetItem ( i, 1, fn.GetFullName() );
-        sprintf(Nr, "%d", image->GetHeight() );
-        images_list->SetItem ( i, 2, Nr );
-        sprintf(Nr, "%d", image->GetWidth() );
-        images_list->SetItem ( i, 3, Nr );
-        sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
-        images_list->SetItem ( i, 4, Nr );
-        images_list->SetColumnWidth(0, wxLIST_AUTOSIZE);
-        images_list->SetColumnWidth(1, wxLIST_AUTOSIZE);
-        images_list->SetColumnWidth(2, wxLIST_AUTOSIZE);
-        images_list->SetColumnWidth(3, wxLIST_AUTOSIZE);
-        images_list->SetColumnWidth(4, wxLIST_AUTOSIZE);
-//        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
 
     }
 
@@ -260,11 +236,8 @@ void ImgPreview::OnDraw(wxDC & dc)
 
 void ImgPreview::ChangePreview ( wxMouseEvent & e )
 {
-//    DEBUG_TRACE ("")
-//    wxPoint pos = e.GetPosition();
-//    long item = HitTest( e.m_x ,e.m_y /*wxLIST_HITTEST_ONITEM*/ );
-//    DEBUG_INFO ( "hier: is  " << wxString::Format("%d,%d",e.m_x , e.m_y ) );
-//    wxWindow * frame ( wxTheApp->GetTopWindow() );
-    frame->SetStatusText ( wxString::Format("%d,%d",e.m_x , e.m_y ), 1 );
+    //wxPoint pos = e.GetPosition();
+//    long item = HitTest( e.m_x , e.m_y );
+//    frame->SetStatusText ( wxString::Format("%d,%d",e.m_x , e.m_y ), 1 );
 }
 

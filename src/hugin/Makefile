@@ -90,6 +90,7 @@ APP_1_OBJ = huginApp.o \
             CPEditorPanel.o \
             ImagesPanel.o \
             ImageCache.o \
+            List.o \
             CommandHistory.o \
             $(RES_O)
 

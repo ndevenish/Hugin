@@ -131,7 +131,7 @@ MainFrame::MainFrame(wxWindow* parent)
     // FIXME add a progriess dialog to the status bar
     const int fields (2);
     CreateStatusBar(fields);
-    int widths[fields] = {-1, 65};
+    int widths[fields] = {-1, 85};
     SetStatusWidths( fields, &widths[0]);
     SetStatusText("Started", 0);
     DEBUG_TRACE("");
@@ -359,7 +359,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
 
     DEBUG_TRACE("");
     // get the list to read from
-    wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
+    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
 
     // prepare an status message
     wxString e_msg;

@@ -3,9 +3,7 @@
   <object class="wxPanel" name="images_panel">
     <object class="wxFlexGridSizer">
       <object class="sizeritem">
-        <object class="wxListCtrl" name="images_list">
-          <style>wxLC_REPORT|wxSUNKEN_BORDER</style>
-        </object>
+        <object class="unknown" name="images_list_unknown"/>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
       </object>
