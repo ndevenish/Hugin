@@ -42,10 +42,45 @@ AM_OPTIONS_WXCONFIG
 AM_OPTIONS_GRAPHICS
 
 AX_CHECK_ZLIB
+if test "x$have_zlib" != xyes; then
+    AC_MSG_WARN([
+	the zlib library must be installed on your system
+ 	but configure could not find it.
+    ])
+fi
+
 AX_CHECK_PNG
+if test "x$have_png" != xyes; then
+    AC_MSG_WARN([
+	the png library must be installed on your system
+ 	but configure could not find it.
+    ])
+fi
+
 AX_CHECK_JPEG
+if test "x$have_jpeg" != xyes; then
+    AC_MSG_WARN([
+	the jpeg library must be installed on your system
+ 	but configure could not find it.
+    ])
+fi
+
 AX_CHECK_TIFF
+if test "x$have_tiff" != xyes; then
+    AC_MSG_WARN([
+	the tiff library must be installed on your system
+ 	but configure could not find it.
+    ])
+fi
+
 AX_CHECK_PANO
+if test "x$have_pano" != xyes; then
+    AC_MSG_ERROR([
+	the panorama tools library must be installed on your system
+ 	but configure could not find it.
+    ])
+fi
+
 AC_PATH_FFTW
 
 RS_BOOST([1.30.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
