@@ -61,6 +61,9 @@ using namespace PT;
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
 
+  EVT_BUTTON   ( XRCID("pano_make_dialog"),PanoPanel::DoDialog )
+
+
   EVT_BUTTON   ( XRCID("pano_optimizer_start"),PanoPanel::DoOptimization )
 
   EVT_CHOICE ( XRCID("pano_choice_panoType"),PanoPanel::ProjectionChanged )
@@ -106,6 +109,22 @@ PanoPanel::~PanoPanel(void)
     DEBUG_TRACE("");
 }
 
+void PanoPanel::DoDialog ( wxCommandEvent & e )
+{
+    // FIXME open the wxDialog dlg in non modal mode, to not freeze other tabs
+    wxDialog dlg;
+    DEBUG_TRACE("");
+    wxTheXmlResource->LoadDialog(&dlg, this, wxT("pano_dialog"));
+    DEBUG_TRACE("");
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("pano_dialog_unknown"),
+               wxTheXmlResource->LoadPanel(&dlg, wxT("panorama_panel")) );
+    DEBUG_TRACE("");
+    dlg.ShowModal();
+    DEBUG_TRACE("");
+    dlg.SetModal(FALSE);
+    DEBUG_TRACE("");
+}
 
 void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {

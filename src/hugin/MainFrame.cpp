@@ -444,7 +444,7 @@ void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
   wxDialog dlg;
   wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("text_edit_dialog"));
   dlg.ShowModal();
-  dlg.Show (TRUE);
+//  dlg.Show (TRUE);
         DEBUG_TRACE("");
 }
 
