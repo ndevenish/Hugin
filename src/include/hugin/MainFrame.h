@@ -112,7 +112,7 @@ public:
      *  @param progress optional progress indicator (0-100)
      */
     virtual void progressMessage(const std::string & msg,
-                                 int progress=-1);
+                                 double progress=-1);
 
     /// get the path to the xrc directory
     const wxString & GetXRCPath()

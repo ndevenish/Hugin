@@ -42,7 +42,7 @@ typedef std::vector<std::pair<float, unsigned int> > AlphaVector;
  *
  *  \warning modifies \p distance
  */
-void seamFactor(AlphaVector & distance,
+static inline void seamFactor(AlphaVector & distance,
                float seamWidth,
                AlphaVector & weights)
 {
@@ -75,6 +75,34 @@ void seamFactor(AlphaVector & distance,
         it->first = it->first / distSum;
     }
 }
+
+static inline void addTiffTags(vigra::TiffImage * tiff, const std::string & filename,
+                               const std::string & basename,
+                               uint16 page, uint16 nImg,
+                               vigra::Diff2D offset)
+{
+            // create a new directory for our image
+            // hopefully I didn't forget too much stuff..
+            TIFFCreateDirectory (tiff);
+
+            // set page
+            TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
+            TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)page, (unsigned short)nImg);
+
+            // resolution to 1, to avoid rounding errors of buggy tif loaders.
+            TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 1);
+            TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 1);
+            // offsets must allways be positive so correct them
+            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)(offset.x));
+            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)(offset.y));
+
+            // save input name.
+            TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, basename.c_str());
+            TIFFSetField (tiff, TIFFTAG_PAGENAME,filename.c_str() );
+            //
+            TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "created with nona (http://hugin.sf.net)");
+}
+
 /** stitch a panorama
  *
  * @todo more advanced seam calculation?
@@ -209,10 +237,12 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
     DEBUG_DEBUG("merging images");
     // stitch images
-    progress.progressMessage("merging images");
+    progress.progressMessage("merging images,0");
 
     // save individual images into a single big multi-image tif
-    if (opts.outputFormat == PT::PanoramaOptions::TIFF_mask) {
+    if (opts.outputFormat == PT::PanoramaOptions::TIFF_mask ||
+        opts.outputFormat == PT::PanoramaOptions::TIFF_m )
+    {
         std::string filename = basename + ".tif";
         DEBUG_DEBUG("Layering image into a multi image tif file " << filename);
         vigra::TiffImage * tiff = TIFFOpen(filename.c_str(), "w");
@@ -231,6 +261,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         // loop over all images and create alpha channel for it,
         // and write it into the output file.
         for (unsigned int imgNr=0; imgNr< nImg; imgNr++) {
+
             vigra::Diff2D sz = remapped[imgNr].image.size();
             vigra::BImage alpha(sz);
 
@@ -240,91 +271,82 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             int ystart = remapped[imgNr].ul.y;
             int yend = remapped[imgNr].ul.y + sz.y;
 
-            AlphaVector dists(nImg);
-            AlphaVector alphavec(nImg);
+            // write default tiff tags for this layer
+            vigra::Diff2D offset(xstart - neg_off_x, ystart-neg_off_y);
+            addTiffTags(tiff, pano.getImage(imgNr).getFilename(), basename,
+                        imgNr+1, nImg, offset);
 
-            vigra::BImage::Iterator ya(alpha.upperLeft());
-            for(int y=ystart; y < yend; ++y, ya.y++) {
-                // create x iterators
-                typename vigra::BImage::Iterator xa(ya);
-                for(int x=xstart; x < xend; ++x, ++xa.x) {
-                    // find the image where this pixel is closest to the image center
 
-#if 0
-                    // use weight factors as alpha channel...
-                    // not a good solution..
-                    vigra::Diff2D cp(x,y);
-                    dists.clear();
-                    for (unsigned int i=0; i< nImg; i++) {
-                        float dist = remapped[i].getDistanceFromCenter(cp);
-                        if ( dist < FLT_MAX ) {
-                            dists.push_back(std::make_pair(dist,i));
+            if (opts.outputFormat == PT::PanoramaOptions::TIFF_m) {
+                vigra::BImage::Iterator ya(alpha.upperLeft());
+                for(int y=ystart; y < yend; ++y, ya.y++) {
+                    // create x iterators
+                    typename vigra::BImage::Iterator xa(ya);
+                    for(int x=xstart; x < xend; ++x, ++xa.x) {
+                        // find the image where this pixel is closest to the image center
+                        vigra::Diff2D cp(x,y);
+                        if (remapped[imgNr].getDistanceFromCenter(cp) != FLT_MAX) {
+                            *xa=255;
+                        } else {
+                            *xa=0;
                         }
                     }
-                    if (dists.size() > 0) {
-                        // if image is defind in this area.
-                        seamFactor(dists, seamWidth, alphavec);
-                        for (AlphaVector::iterator it = alphavec.begin();
-                             it != alphavec.end(); ++it)
-                        {
-                            if (it->second == imgNr) {
-                                *xa = (unsigned char)( it->first * 255.0 + 0.5);
+                }
+            } else {
+                vigra::BImage::Iterator ya(alpha.upperLeft());
+                for(int y=ystart; y < yend; ++y, ya.y++) {
+                    // create x iterators
+                    typename vigra::BImage::Iterator xa(ya);
+                    for(int x=xstart; x < xend; ++x, ++xa.x) {
+                        // find the image where this pixel is closest to the image center
+                        vigra::Diff2D cp(x,y);
+
+                        float minDist = FLT_MAX;
+
+                        float topDist = FLT_MAX;
+                        float topImgNr = 0;
+
+                        for (unsigned int i=0; i< nImg; i++) {
+                            float dist = remapped[i].getDistanceFromCenter(cp);
+                            // minimum distance
+                            if ( dist < minDist ) {
+                                minDist = dist;
+                            }
+                            // distance in topmost layer.
+                            if (dist < FLT_MAX) {
+                                topDist = dist;
+                                topImgNr = i;
                             }
                         }
-                    }
-#endif
-
-                    float minDist = FLT_MAX;
-                    unsigned int minImgNr = 0;
-                    vigra::Diff2D cp(x,y);
-                    for (unsigned int img2=0; img2< nImg; img2++) {
-                        float dist = remapped[img2].getDistanceFromCenter(cp);
-                        if ( dist < minDist ) {
-                            minDist = dist;
-                            minImgNr = img2;
+                        // feather only topmost layer
+                        if (topImgNr == imgNr) {
+                            topDist = remapped[imgNr].getDistanceFromCenter(cp);
+                            float diff = topDist - minDist;
+                            if (diff > 0 && diff <= seamWidth) {
+                                *xa = (unsigned char) (255 * ( (seamWidth - diff)/seamWidth) +0.5);
+                            } else if (diff > seamWidth || topDist == FLT_MAX) {
+                                *xa = 0;
+                            } else {
+                                *xa = 255;
+                            }
+                        } else if (remapped[imgNr].getDistanceFromCenter(cp) < FLT_MAX) {
+                            *xa = 255;
+                        } else {
+                            *xa = 0;
                         }
                     }
-		    if (minDist < FLT_MAX && minImgNr == imgNr) {
-	                // pixel belongs to current image (imgNr)
-                        *xa = 255;
-                    }
-
                 }
             }
-
-            // create a new directory for our image
-            // hopefully I didn't forget too much stuff..
-            TIFFCreateDirectory (tiff);
-
-            // set page
-            TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
-            TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)imgNr, (unsigned short)nImg);
-
-            // resolution to 1, to avoid rounding errors of buggy tif loaders.
-            TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 1);
-            TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 1);
-            // offsets must allways be positive so correct them
-            DEBUG_DEBUG("offset: " << xstart-neg_off_x << ","
-                                   << ystart-neg_off_y << std::endl)
-            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)(xstart-neg_off_x));
-            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)(ystart-neg_off_y));
-
-            // save input name.
-            TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, basename.c_str());
-            TIFFSetField (tiff, TIFFTAG_PAGENAME, pano.getImage(imgNr).getFilename().c_str() );
-            //
-            TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "created with nona, see http://hugin.sf.net");
-
             // call vigra function to write the image data
             vigra::createBRGBATiffImage(remapped[imgNr].image.upperLeft(),
                                         remapped[imgNr].image.lowerRight(),
                                         remapped[imgNr].image.accessor(),
                                         alpha.upperLeft(), alpha.accessor(),
                                         tiff);
-            // write this image
+            // write this image to disk
             TIFFWriteDirectory (tiff);
             TIFFFlushData (tiff);
-
+            progress.progressMessage("merging images",100.0*((imgNr+1.0)/nImg));
         }
         TIFFClose(tiff);
     } else {
@@ -375,6 +397,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                     }
                     *xd = DestTraits::fromRealPromote(blended);
                 }
+            }
+            if (y%100==0) {
+                progress.progressMessage("merging images",100.0*((y+1.0/yend)/nImg));
             }
         }
 

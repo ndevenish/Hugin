@@ -831,7 +831,6 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
         img.getFilename(),0);
 
-    // FIXME user configurable search window?
     int swidth = sWidth/2;
     DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
     Diff2D subjPoint(o_subjPoint);
@@ -857,6 +856,58 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
+    // remap template into searchImage perspective
+    // We have 3 coordinate systems:
+    //
+    // S - search image, centered at p,y = 0, we assume r = 0, too;
+    // T - template image, centered at p,y = 0, we assume r = 0, too;
+    // E - equirectangular world coordinate system
+    //
+    // and two points
+    //
+    // S
+    //  Ps - point in S
+    //
+    // T
+    //  Pt - point in T
+    //                                           S
+    // we need a transformation X that will move  Ps into T, so that they
+    // coincide:
+    //
+    // T    T  S
+    //  Ps = X* Ps
+    //      S
+    //
+    // E   T    E   S
+    //  X * Pt = X * Ps
+    // T        S
+    //
+    // We can use X to remap the template from T into S.
+    // (by sampling a template grid in S)
+    //
+    // We assume that r = 0 for all images
+    //
+    // Then X can be estimated with:
+    //
+    // T    T'    T
+    //  X =   X *  X
+    // S     E
+    //
+    // This can can be solved for the r,p,y, so we assume that T and S are
+    // not rotated.
+    //
+    // assuming that r = 0 for all images (hmm should redo without that
+    //                                     assumption!)
+    //
+    // We then shift these points.
+    //
+    // T2 - template image coordinate system, shifted, so that
+    //      the coordinates of
+
+    // 1. transf calc Ps in E
+    // 
+    
+    
     // make template size user configurable as well?
     int templWidth = templSize/2;
     Diff2D tmplUL(-templWidth, -templWidth);

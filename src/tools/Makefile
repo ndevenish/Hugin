@@ -65,7 +65,7 @@ LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_ext -lpano12 $(VIGRA_LFLAGS)
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1 2 3 4
+APPS = 1 2 3 4 5
 
 # App 1
 
@@ -84,10 +84,15 @@ APP_3_OBJ = automatch.o
 
 APP_3_LFLAGS = $(LFLAGS) -lklt -lfftw
 
-APP_3_BIN = panosifter
-APP_3_OBJ = panosifter.o
+APP_4_BIN = panosifter
+APP_4_OBJ = panosifter.o
 
-APP_3_LFLAGS = $(LFLAGS)
+APP_4_LFLAGS = $(LFLAGS)
+
+APP_5_BIN = autooptimiser
+APP_5_OBJ = autooptimiser.o
+
+APP_5_LFLAGS = $(LFLAGS)
 
 endif
 

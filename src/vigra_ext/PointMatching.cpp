@@ -35,7 +35,9 @@ using namespace vigra_ext;
 /** run sift feature detector on a bunch of images */
 void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
                             double scale,
-                            SIFTFeatureTable & ftable)
+                            SIFTFeatureTable & ftable,
+                            utils::ProgressDisplay & pdisp
+                            )
 {
     ftable.clear();
     ftable.resize(imgfiles.size());
@@ -43,6 +45,8 @@ void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
 
         vigra::BImage img;
 
+        pdisp.progressMessage("SIFT feature detection",
+                              100 * i/imgfiles.size());
         std::string filename = imgfiles[i];
         DEBUG_DEBUG("loading image " << filename);
         // load image
@@ -86,7 +90,9 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
                              double scale1,
                              SIFTFeatureTable & ftable1,
                              double scale2,
-                             SIFTFeatureTable & ftable2)
+                             SIFTFeatureTable & ftable2,
+                             utils::ProgressDisplay & pdisp
+                             )
 {
     ftable1.clear();
     ftable1.resize(imgfiles.size());
@@ -94,6 +100,8 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
     ftable2.resize(imgfiles.size());
     for(unsigned int i=0; i < imgfiles.size() ; i++) {
 
+        pdisp.progressMessage("SIFT feature detection",
+                              100 * i/imgfiles.size());
         vigra::BImage img;
 
         std::string filename = imgfiles[i];

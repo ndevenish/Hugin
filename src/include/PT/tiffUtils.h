@@ -99,12 +99,10 @@ createBRGBATiffImage(RGBImageIterator upperleft, RGBImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
 
     // for alpha stuff, do not uses premultilied data
-    // I never understood why anybody wanted to throw away
-    // accuracy by premultiplying..
-    // beku: This gets recogniced by cinepaint/gimp
-    unsigned short extra_samples = EXTRASAMPLE_UNASSALPHA;
-    TIFFSetField (tiff, TIFFTAG_EXTRASAMPLES, 1, &extra_samples);
-
+    // We do not want to throw away data & accuracy by premultiplying
+    uint16 nextra_samples = 1;
+    uint16 extra_samples = EXTRASAMPLE_UNASSALPHA;
+    TIFFSetField (tiff, TIFFTAG_EXTRASAMPLES, nextra_samples, &extra_samples);
 
     int bufsize = TIFFScanlineSize(tiff);
     tdata_t * buf = new tdata_t[bufsize];

@@ -59,7 +59,7 @@ static void usage(const char * name)
          << "     -n number   # number of features per overlap, default: 20" << endl
          << "     -v number   # HFOV of images, in degrees, Used for images that do" << endl
          << "                   not provide this information in the EXIF header" << endl
-         << "     -r number   # downscale factor for scouting. default: 0.05" 
+         << "     -r number   # downscale factor for scouting. default: 0.05"
          << "                   increase if not images are wrongly categorized." << endl
          << "     -s scale    # downscale images before final sift matching. default: 0.25" << endl
          << "                   while this seems crude, it is needed for speed" << endl
@@ -110,6 +110,8 @@ int main(int argc, char *argv[])
     unsigned int nImages = argc-optind;
     char **imgNames = argv+optind;
 
+    utils::CoutProgressDisplay pdisp;
+
     vector<string> fnames;
     for (unsigned int i=0; i<nImages; i++) {
         fnames.push_back(imgNames[i]);
@@ -122,7 +124,7 @@ int main(int argc, char *argv[])
 
     cerr << "starting exhaustive matching" << endl;
     // do a low resolution "recon" run, to find connected images
-    extractSIFT2(fnames, scoutScale, scoutfTable, scaling, ftable);
+    extractSIFT2(fnames, scoutScale, scoutfTable, scaling, ftable, pdisp);
 
     // matched features [img1][img2][matchnr] = [sqr_dist, feat1, feat2]
     SIFTMatchMatrix matches;
@@ -130,18 +132,19 @@ int main(int argc, char *argv[])
     // connection graph
     AdjListGraph imageGraph;
 
-    cerr << "starting exhaustive matching, with 10 % of all features" << endl;
+    cerr << "starting exhaustive matching, low resolution images" << endl;
     // match all images with each other
     MatchFeatures m;
 //    RandomSampledMatcher<MatchFeatures> rmatcher(m,10);
-    exhaustiveSiftMatching(scoutfTable, 
+    exhaustiveSiftMatching(scoutfTable,
                            m,
-                           matches, 
-                           imageGraph);
+                           matches,
+                           imageGraph,
+                           pdisp);
 
     // nodes that start a subgraph
     vector<int> subgraphStart;
-    
+
     // find individual subgraphs. (panoramas)
     findSubGraphs(imageGraph, subgraphStart);
     cerr << "found " << subgraphStart.size() << " panoramas" << endl;
@@ -173,8 +176,9 @@ int main(int argc, char *argv[])
         // do sift matching for control points
         vigra_ext::SIFTMatchingVisitor sift2Matcher(graph2panoMapping,
 //                                                   matcher,
-                                                    ftable, 1/scaling, nFeatures);
-        
+                                                    ftable, 1/scaling, nFeatures,
+                                                    pdisp);
+
         traverseEdges(imageGraph, *panoit, sift2Matcher);
 
         // get matching features.
@@ -185,7 +189,11 @@ int main(int argc, char *argv[])
             pano.addCtrlPoint(*cpit);
         }
 
-        // estimate image positions & set sensible default options
+        // TODO: estimate image positions, by computing pairwise
+        // homographies. (could also be done by SIFTMatchingVisitor,
+        // and stored in the graph edge). Then, it should be used here.
+
+        // set sensible default options
         OptimizeVector optvec(subPanoSize);
         // fill optimize vector, just anchor one image.
         for (unsigned int im=1; im<subPanoSize; im++) {
@@ -196,7 +204,7 @@ int main(int argc, char *argv[])
 
         // write project
         ostringstream finame;
-        finame << outputPrefix << nPano + 1 << ".pto";
+        finame << outputPrefix << "_" << nPano + 1 << ".pto";
         ofstream of(finame.str().c_str());
         pano.printOptimizerScript(of, optvec, pano.getOptions());
     }

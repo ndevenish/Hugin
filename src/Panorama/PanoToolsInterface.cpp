@@ -27,11 +27,14 @@
 #include "panoinc.h"
 #include "PT/PanoToolsInterface.h"
 
+#include <utility>
+
 using namespace std;
 using namespace PT;
 using namespace PTools;
 
 using namespace vigra;
+using namespace utils;
 
 
 // really strange. the pano12.dll for windows doesn't seem to
@@ -462,5 +465,179 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
     }
     setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.projectionFormat, opts.HFOV);
     ap.pano = *(trf.dest);
+}
+
+
+void PTools::setOptVars(optVars & opt, const std::set<std::string> & optvars)
+{
+    opt.hfov    = set_contains(optvars,"v") ? 1 : 0;
+    opt.yaw     = set_contains(optvars,"y") ? 1 : 0;
+    opt.pitch   = set_contains(optvars,"p") ? 1 : 0;
+    opt.roll    = set_contains(optvars,"r") ? 1 : 0;
+    opt.a       = set_contains(optvars,"a") ? 1 : 0;
+    opt.b       = set_contains(optvars,"b") ? 1 : 0;
+    opt.c       = set_contains(optvars,"c") ? 1 : 0;
+    opt.d       = set_contains(optvars,"d") ? 1 : 0;
+    opt.e       = set_contains(optvars,"e") ? 1 : 0;
+    opt.shear_x = set_contains(optvars,"f") ? 1 : 0;
+    opt.shear_y = set_contains(optvars,"g") ? 1 : 0;
+}
+
+PTools::AlignInfoWrap::AlignInfoWrap()
+{
+    gl.im  = NULL;
+    gl.opt = NULL;
+    gl.cpt = NULL;
+    gl.t   = NULL;
+    gl.cim = NULL;
+
+    gl.numIm  = 0;
+    gl.numPts = 0;
+    gl.nt     = 0;
+}
+
+PTools::AlignInfoWrap::~AlignInfoWrap()
+{
+    DisposeAlignInfo(&gl);
+
+    if (gl.im) free(gl.im);
+    if (gl.opt) free(gl.opt);
+    if (gl.cpt) free(gl.cpt);
+    if (gl.t) free(gl.t);
+    if (gl.cim) free(gl.cim);
+}
+
+bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
+                                    const UIntSet & imgs,
+                                    const OptimizeVector & optvec)
+{
+    // based on code from ParseScript
+
+    gl.im  = NULL;
+    gl.opt = NULL;
+    gl.cpt = NULL;
+    gl.t   = NULL;
+    gl.cim = NULL;
+
+    // Determine number of images and control points
+    gl.numIm 	= imgs.size();
+    gl.nt 	= 0;
+
+    // Allocate Space for Pointers to images, preferences and control points
+	
+    gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(Image) );
+    gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(optVars) );
+    gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(triangle) );
+    gl.cim = (CoordInfo*)    malloc( gl.numIm 	* sizeof(CoordInfo) );
+
+    if( gl.im == NULL || gl.opt == NULL || gl.cpt == NULL || gl.t == NULL || gl.cim == NULL )
+    {
+        DEBUG_FATAL("Not enough memory");
+    }
+
+    SetImageDefaults(&(gl.pano));	
+    // Default: Use buffer 'buf' for stitching
+    SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
+    for(int i=0; i<gl.numIm; i++)
+    {
+        SetImageDefaults( &(gl.im[i]) );
+        SetOptDefaults	( &(gl.opt[i]));
+        SetCoordDefaults( &(gl.cim[i]), i);
+    }
+
+    unsigned int cImgNr=0;
+    for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
+        const PanoImage & pimg = pano.getImage(*it);
+        const VariableMap & vars = pano.getImageVariables(*it);
+        const Lens & lens = pano.getLens(pimg.getLensNr());
+        
+        // set the image information, with pointer to dummy image data
+        setFullImage(gl.im[cImgNr],
+                     Diff2D(pimg.getWidth(), pimg.getHeight()),
+                     0, vars, lens.projectionFormat, true);
+
+        // set optimisation flags
+        setOptVars(gl.opt[cImgNr], optvec[cImgNr]);
+
+        cImgNr++;
+    }
+
+    // set control points
+    // find all controls point pairs inside the given images
+    // (stupid implementation)
+    const CPVector & controlPoints = pano.getCtrlPoints();
+
+    CPVector cps;
+
+    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        PT::ControlPoint point = *it;
+
+        int matchCount = 0;
+        for (UIntSet::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
+            if (point.image1Nr == *iit) {
+                matchCount += 1;
+            }
+            if (point.image2Nr == *iit){
+                matchCount += 1;
+            }
+        }
+
+        if (matchCount == 2) {
+            // found a control point.. add to control points list
+            cps.push_back(point);
+        }
+    }
+
+    gl.numPts = cps.size();
+    gl.cpt = (controlPoint*) malloc( gl.numPts * sizeof(controlPoint) );
+
+    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        unsigned int i = it - controlPoints.begin();
+        // control point stuff.
+        gl.cpt[i].type = it->mode;
+        gl.cpt[i].num[0] = it->image1Nr;
+        gl.cpt[i].x[0] = it->x1;
+        gl.cpt[i].y[0] = it->y1;
+
+        gl.cpt[i].num[1] = it->image2Nr;
+        gl.cpt[i].x[1] = it->x2;
+        gl.cpt[i].y[1] = it->y2;
+    }
+
+/*    
+    if (CheckParams(&gl) != 0) {
+        DEBUG_FATAL("CheckParams error");
+        return false;
+    }
+*/
+    gl.fcn	= fcnPano;
+    return true;
+}
+
+PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const 
+{
+    VariableMapVector res;
+    if (gl.im) {
+        for (int i = 0; i < gl.numIm; i++) {
+            VariableMap vars;
+            Variable v("a", gl.im[i].hfov);
+            std::string a("v");
+            make_pair(a,v);
+            make_pair(std::string("v"), Variable("a", gl.im[i].hfov));
+            vars.insert(make_pair(string("v"), Variable("a", gl.im[i].hfov)));
+            vars.insert(make_pair(string("y"), Variable("y", gl.im[i].yaw)));
+            vars.insert(make_pair(string("r"), Variable("r", gl.im[i].roll)));
+            vars.insert(make_pair(string("p"), Variable("p", gl.im[i].pitch)));
+            vars.insert(make_pair(string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
+            vars.insert(make_pair(string("b"), Variable("a", gl.im[i].cP.radial_params[0][2])));
+            vars.insert(make_pair(string("c"), Variable("a", gl.im[i].cP.radial_params[0][1])));
+            
+            vars.insert(make_pair(string("e"), Variable("a", gl.im[i].cP.vertical_params[0])));
+            vars.insert(make_pair(string("d"), Variable("a", gl.im[i].cP.horizontal_params[0])));
+            
+            res.push_back(vars);
+        }
+    }
+    return res;
 }
 

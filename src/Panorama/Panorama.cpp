@@ -651,6 +651,7 @@ void Panorama::printOptimizerScript(ostream & o,
       << "# specify variables that should be optimized" << endl
       << "v ";
 
+    int optVarCounter=0;
     // be careful. linked variables should not be specified multiple times.
     vector<set<string> > linkvars(state.lenses.size());
     for (unsigned int i=0; i < state.images.size(); i++) {
@@ -673,6 +674,10 @@ void Panorama::printOptimizerScript(ostream & o,
             } else {
                 // not a lens variable, print multiple times
                 o << *sit << i << " ";
+            }
+            // insert line break after 10 variables
+            if (optVarCounter++%10) {
+                o << endl << "v ";
             }
         }
     }

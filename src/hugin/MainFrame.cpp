@@ -895,11 +895,11 @@ void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 }
 
 void MainFrame::progressMessage(const std::string & msg,
-                                int progress)
+                                double progress)
 {
     SetStatusText(msg.c_str());
     if (progress >= 0) {
-        SetStatusText(wxString::Format("%d%%",progress),1);
+        SetStatusText(wxString::Format("%f%%",progress),1);
     } else {
         SetStatusText("",1);
     }

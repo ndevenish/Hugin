@@ -32,6 +32,9 @@
 #include <wx/imaglist.h>
 #include <wx/spinctrl.h>
 
+#include <vigra_ext/PointMatching.h>
+#include <vigra_ext/LoweSIFT.h>
+
 #include "hugin/ImagesPanel.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
@@ -45,6 +48,9 @@
 
 using namespace PT;
 using namespace utils;
+using namespace vigra;
+using namespace vigra_ext;
+using namespace std;
 
 ImgPreview * canvas;
 
@@ -62,6 +68,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
     EVT_BUTTON     ( XRCID("images_set_orientation_button"), ImagesPanel::OnSelectAnchorPosition)
     EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
+    EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
@@ -168,6 +175,95 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 
 
 // #####  Here start the eventhandlers  #####
+
+
+/** run sift matching on selected images, and add control points */
+void ImagesPanel::SIFTMatching(wxCommandEvent & e)
+{
+    wxString text = XRCCTRL(*this, "images_points_per_overlap"
+                            , wxTextCtrl) ->GetValue();
+    long nFeatures = 10;
+    if (!text.ToLong(&nFeatures)) {
+        wxLogError(_("Value must be numeric."));
+        return;
+    }
+    // pyramid level to use
+    int pyrLevel = 2;
+    DEBUG_DEBUG("SIFTMatching, on pyramid level " << pyrLevel << " desired features per overlap: " << nFeatures);
+    const UIntSet & selImg = images_list->GetSelected();
+    if ( selImg.size() > 0 ) {
+        // do a stupid, match every Image with every image.
+
+        // first, calculate all sift features.
+        std::vector<std::vector<SIFTFeature> > ftable(selImg.size());
+
+        DEBUG_DEBUG("starting keypoint detection (with Dr. Lowes keypoint program)");
+        DEBUG_DEBUG("This will take time, please be patient");
+        int i=0;
+        for(UIntSet::const_iterator it = selImg.begin();
+            it != selImg.end(); ++it, ++i)
+        {
+            std::string fname = pano.getImage(*it).getFilename();
+            // get a small image, to keep SIFT detector time low
+            const vigra::BImage & img = ImageCache::getInstance().getPyramidImage(fname, pyrLevel);
+            loweDetectSIFT(srcImageRange(img), ftable[i]);
+        }
+        DEBUG_DEBUG("Feature points detected, starting matching");
+
+        // the accumulated Control Points.
+        CPVector newPoints;
+
+        // match all images...
+        // slow...
+        int i1=0;
+        for (UIntSet::const_iterator it1 = selImg.begin();
+             it1 != selImg.end(); ++it1, ++i1)
+        {
+            UIntSet::const_iterator tmpit(it1);
+            tmpit++;
+            int i2=i1+1;
+            for (UIntSet::const_iterator it2(tmpit);
+                 it2 != selImg.end(); ++it2, ++i2)
+            {
+                vector<triple<int,SIFTFeature, SIFTFeature> > matches;
+                // resulting features
+                if (MatchImageFeatures(ftable[i1],
+                                       ftable[i2],
+                                       matches))
+                {
+                    DEBUG_NOTICE("Found " << matches.size() << " points between image " << *it1 << " and " << *it2);
+
+                    // sort matches by distance..
+                    sort(matches.begin(), matches.end(),matchDistance());
+                    // we found matches! add control points.
+                    // copy once more...
+                    for (vector<triple<int, SIFTFeature, SIFTFeature> >::iterator mit = matches.begin();
+                         mit != matches.end() && mit - matches.begin() < nFeatures;
+                         ++mit)
+                    {
+                        // factor to undo pyramid level
+                        double f = 1 << pyrLevel;
+                        newPoints.push_back(ControlPoint(*it1,
+                                                         mit->second.pos.x * f,
+                                                         mit->second.pos.y * f,
+                                                         *it2,
+                                                         mit->third.pos.x * f,
+                                                         mit->third.pos.y * f)
+                            );
+                    }
+                } else {
+                    DEBUG_NOTICE("No matches between image " << *it1 << " and " << *it2);
+                }
+            }
+        }
+        if (newPoints.size() != 0) {
+            // add all control points
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::AddCtrlPointsCmd (pano, newPoints)
+                );
+        }
+    }
+}
 
 // Yaw by text -> double
 void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )

@@ -334,6 +334,35 @@ void freeTrform(TrformStr & trf);
  */
 void freeImage(Image &img);
 
+
+/** set variables to optimize */
+void setOptVars(optVars & opt, const std::set<std::string> & optvars);
+
+
+/** class around the central align info struct of the panotools
+ *  library
+ */
+class AlignInfoWrap
+{
+public:
+    AlignInfoWrap();
+
+    ~AlignInfoWrap();
+    bool setInfo(const PT::Panorama & pano,
+                 const PT::UIntSet & imgs,
+                 const PT::OptimizeVector & optvec);
+
+    void setGlobal()
+    {
+        SetGlobalPtr(& gl);
+    }
+    
+    /** get the variables stored in this AlignInfo */
+    PT::VariableMapVector getVariables() const;
+
+    AlignInfo gl;
+};
+
 } // namespace
 
 #endif // PT_PANOTOOLSINTERFACE_H

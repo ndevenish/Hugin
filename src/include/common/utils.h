@@ -154,7 +154,7 @@ namespace utils
          *  @param progress optional progress indicator (0-100%)
          */
         virtual void progressMessage(const std::string & msg,
-                                     int progress=-1) = 0;
+                                     double progress=-1) = 0;
     };
 
     // print progress to cout.
@@ -168,13 +168,13 @@ namespace utils
          *  @param msg message text
          *  @param progress optional progress indicator (0-100%)
          */
-        virtual void progressMessage(const std::string & msg, int progress=-1)
+        virtual void progressMessage(const std::string & msg, double progress=-1)
             {
                 if (msg == last_msg && progress != -1) {
                     // just print the progress
                     if (progress != -1) {
                         std::cout << "\r" << msg << ": "
-                                  << progress << "%" << std::flush;
+                                  << progress << "%" << "             " << std::flush;
                     }
                 } else {
                     if (progress != -1) {

@@ -98,6 +98,9 @@ private:
      */
     void ChangePano ( std::string type, double var );
 
+    /** sift feature matching */
+    void SIFTMatching(wxCommandEvent & e);
+
     /** change displayed variables if the selection
      *  has changed.
      */

@@ -309,4 +309,30 @@ void CPListFrame::OnClose(wxCloseEvent& event)
     }
 }
 
+#if 0
+void CPListFrame::OnKey(wxKeyEvent & e)
+{
+    DEBUG_DEBUG("key " << e.m_keyCode
+                << " origin: id:" << e.m_id << " obj: "
+                << e.GetEventObject());
+    if (e.m_keyCode == WXK_DELETE){
+        DEBUG_DEBUG("Delete pressed");
+        // find selected point
+        long item = -1;
+        item = m_cpList->GetNextItem(item,
+                                     wxLIST_NEXT_ALL,
+                                     wxLIST_STATE_SELECTED);
+        // no selected item.
+        if (item == -1) {
+            wxBell();
+            return;
+        }
+        unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
+        DEBUG_DEBUG("about to delete point " << pNr);
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RemoveCtrlPointCmd(*m_pano,pNr)
+            );
+    }
+}
 
+#endif
