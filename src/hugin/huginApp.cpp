@@ -42,7 +42,6 @@
 
 #include "hugin/huginApp.h"
 
-
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
 
@@ -57,6 +56,16 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
+
+    // initialize i18n
+    locale.Init(wxLANGUAGE_DEFAULT);
+
+    // add local Path
+    locale.AddCatalogLookupPathPrefix("../po");
+
+    // set the name of locale recource to look for
+    locale.AddCatalog(wxT("hugin"));
+
     // initialize image handlers
     wxInitAllImageHandlers();
 
@@ -64,10 +73,17 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->InitAllHandlers();
 
     // load all XRC files.
+#ifdef _INCLUDE_UI_RESOURCES
+    InitXmlResource();
+#else
     wxXmlResource::Get()->Load(wxT("xrc/main_frame.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/main_menubar.xrc"));
+//    wxXmlResource::Get()->Load(wxT("xrc/main_menubar.xrc"));
     wxXmlResource::Get()->Load(wxT("xrc/cp_editor_panel.xrc"));
-
+    wxXmlResource::Get()->Load(wxT("xrc/main_menu.xrc"));
+    wxXmlResource::Get()->Load(wxT("xrc/main_tool.xrc"));
+    wxXmlResource::Get()->Load(wxT("xrc/edit_text.xrc"));
+    wxXmlResource::Get()->Load(wxT("xrc/about.xrc"));
+#endif
 
     // create main frame
     MainFrame *frame = new MainFrame();
