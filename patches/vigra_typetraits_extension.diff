@@ -1,5 +1,5 @@
-diff -uNr -b vigra-1.2.0.orig/include/vigra/numerictraits.hxx vigra-1.2.0/include/vigra/numerictraits.hxx
---- vigra-1.2.0.orig/include/vigra/numerictraits.hxx	2003-08-07 02:16:31.000000000 +0200
+diff -w -uNr vigra-1.2.0-orig/include/vigra/numerictraits.hxx vigra-1.2.0/include/vigra/numerictraits.hxx
+--- vigra-1.2.0-orig/include/vigra/numerictraits.hxx	2003-08-07 02:16:31.000000000 +0200
 +++ vigra-1.2.0/include/vigra/numerictraits.hxx	2004-05-10 08:31:07.000000000 +0200
 @@ -313,6 +313,7 @@
      typedef Error_NumericTraits_not_specialized_for_this_case isScalar;
@@ -105,8 +105,8 @@ diff -uNr -b vigra-1.2.0.orig/include/vigra/numerictraits.hxx vigra-1.2.0/includ
      
      static long double zero() { return 0.0; }
      static long double one() { return 1.0; }
-diff -uNr -b vigra-1.2.0.orig/include/vigra/rgbvalue.hxx vigra-1.2.0/include/vigra/rgbvalue.hxx
---- vigra-1.2.0.orig/include/vigra/rgbvalue.hxx	2003-08-07 02:16:32.000000000 +0200
+diff -w -uNr vigra-1.2.0-orig/include/vigra/rgbvalue.hxx vigra-1.2.0/include/vigra/rgbvalue.hxx
+--- vigra-1.2.0-orig/include/vigra/rgbvalue.hxx	2003-08-07 02:16:32.000000000 +0200
 +++ vigra-1.2.0/include/vigra/rgbvalue.hxx	2004-05-16 16:04:32.000000000 +0200
 @@ -319,6 +319,7 @@
      typedef RGBValue<typename NumericTraits<T>::RealPromote> RealPromote;
@@ -124,8 +124,146 @@ diff -uNr -b vigra-1.2.0.orig/include/vigra/rgbvalue.hxx vigra-1.2.0/include/vig
      typedef VigraFalseType isScalar;\
      typedef VigraFalseType isOrdered;\
      \
-diff -uNr -b vigra-1.2.0.orig/include/vigra/tinyvector.hxx vigra-1.2.0/include/vigra/tinyvector.hxx
---- vigra-1.2.0.orig/include/vigra/tinyvector.hxx	2003-08-07 02:16:34.000000000 +0200
+diff -w -uNr vigra-1.2.0-orig/include/vigra/stdimage.hxx vigra-1.2.0/include/vigra/stdimage.hxx
+--- vigra-1.2.0-orig/include/vigra/stdimage.hxx	2003-08-07 02:16:33.000000000 +0200
++++ vigra-1.2.0/include/vigra/stdimage.hxx	2004-06-20 14:14:39.000000000 +0200
+@@ -88,8 +88,18 @@
+     */
+ typedef BasicImage<unsigned char> BImage;
+ 
+-VIGRA_DEFINE_ITERATORTRAITS(short, StandardValueAccessor, StandardConstValueAccessor)
++VIGRA_DEFINE_ITERATORTRAITS(unsigned short, vigra::StandardValueAccessor, vigra::StandardConstValueAccessor)
++
++    /** Unsigned Short (16-bit unsigned) image.
++        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
++        their const counterparts to access the data.
++
++        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
++        Namespace: vigra
++    */
++typedef BasicImage<unsigned short> USImage;
+ 
++VIGRA_DEFINE_ITERATORTRAITS(short, StandardValueAccessor, StandardConstValueAccessor)
+ 
+     /** Short integer (16-bit signed) image.
+         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and 
+@@ -100,6 +110,17 @@
+     */
+ typedef BasicImage<short> SImage;
+ 
++VIGRA_DEFINE_ITERATORTRAITS(unsigned int, StandardValueAccessor, StandardConstValueAccessor)
++
++    /** Unsigned Integer (32-bit unsigned) image.
++        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
++        their const counterparts to access the data.
++
++        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
++        Namespace: vigra
++    */
++typedef BasicImage<unsigned int> UIImage;
++
+ VIGRA_DEFINE_ITERATORTRAITS(int, StandardValueAccessor, StandardConstValueAccessor)
+ 
+     /** Integer (32-bit signed) image.
+@@ -145,6 +166,42 @@
+     */
+ typedef BasicImage<RGBValue<unsigned char> > BRGBImage;
+ 
++VIGRA_DEFINE_ITERATORTRAITS(RGBValue<unsigned short>, RGBAccessor, RGBAccessor)
++
++    /** Unsigned short (3x 16-bit unsigned) RGB image.
++        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<unsigned short>".
++        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
++        their const counterparts to access the data.
++
++        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
++        Namespace: vigra
++    */
++typedef BasicImage<RGBValue<unsigned short> > USRGBImage;
++
++VIGRA_DEFINE_ITERATORTRAITS(RGBValue<short>, RGBAccessor, RGBAccessor)
++
++    /** Unsigned short (3x 16-bit signed) RGB image.
++        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<short>".
++        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
++        their const counterparts to access the data.
++
++        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
++        Namespace: vigra
++    */
++typedef BasicImage<RGBValue<short> > SRGBImage;
++
++VIGRA_DEFINE_ITERATORTRAITS(RGBValue<unsigned int>, RGBAccessor, RGBAccessor)
++
++    /** Unsigned Integer (3x 32-bit unsigned) RGB image.
++        The pixel type is \ref vigra::RGBValue "RGBValue<unsigned int>".
++        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
++        their const counterparts to access the data.
++
++        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
++        Namespace: vigra
++    */
++typedef BasicImage<RGBValue<unsigned int> > UIRGBImage;
++
+ VIGRA_DEFINE_ITERATORTRAITS(RGBValue<int>, RGBAccessor, RGBAccessor)
+ 
+     /** Integer (3x 32-bit signed) RGB image.
+@@ -181,6 +238,53 @@
+     */
+ typedef BasicImage<RGBValue<double> > DRGBImage;
+ 
++#define VIGRA_PIXELTYPE TinyVector<unsigned char, 2>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned char, 3>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned char, 4>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++
++#define VIGRA_PIXELTYPE TinyVector<unsigned short, 2>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned short, 3>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned short, 4>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<short, 2>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<short, 3>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<short, 4>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<int, 2>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<int, 3>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<int, 4>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned int, 2>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned int, 3>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++#define VIGRA_PIXELTYPE TinyVector<unsigned int, 4>
++VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
++#undef VIGRA_PIXELTYPE
++
+ #define VIGRA_PIXELTYPE TinyVector<float, 2>
+ VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor) 
+ #undef VIGRA_PIXELTYPE 
+diff -w -uNr vigra-1.2.0-orig/include/vigra/tinyvector.hxx vigra-1.2.0/include/vigra/tinyvector.hxx
+--- vigra-1.2.0-orig/include/vigra/tinyvector.hxx	2003-08-07 02:16:34.000000000 +0200
 +++ vigra-1.2.0/include/vigra/tinyvector.hxx	2004-05-10 08:31:09.000000000 +0200
 @@ -798,6 +798,7 @@
      typedef TinyVector<typename NumericTraits<T>::RealPromote, SIZE> RealPromote;
