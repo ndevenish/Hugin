@@ -102,6 +102,15 @@ MainFrame::MainFrame(wxWindow* parent)
     images_panel = new ImagesPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
 
+    // lens_panel
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("lens_panel_unknown"),
+               wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel")) );
+
+    // finish the images_panel
+//    lens_panel = new LensPanel( this, wxDefaultPosition,
+//                                                 wxDefaultSize, &pano);
+
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
     cpe = new CPEditorPanel(this,&pano);
@@ -272,6 +281,10 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       wxFileName::SetCwd(  config->Read("actualPath").c_str() );
       DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
     }
+
+    wxString wildcard ("Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*");
+    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
+        wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
     // remember the image extension
     wxString img_ext ("");
     if (config->HasEntry(wxT("lastImageType"))){
@@ -285,9 +298,6 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       dlg->SetFilterIndex(3);
     DEBUG_TRACE ( img_ext )
 
-    wxString wildcard ("Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*");
-    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
-        wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
     // call the file dialog
     if (dlg->ShowModal() == wxID_OK) {
       // get the selections

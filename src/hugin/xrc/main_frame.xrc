@@ -23,7 +23,7 @@
           </object>
           <object class="notebookpage">
             <label>Lens</label>
-            <object class="wxPanel" name="lens_panel"/>
+            <object class="unknown" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Panorama</label>

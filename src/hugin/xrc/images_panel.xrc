@@ -6,7 +6,7 @@
         <object class="wxListCtrl" name="images_list">
           <style>wxLC_REPORT|wxSUNKEN_BORDER</style>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
       </object>
       <object class="sizeritem">
