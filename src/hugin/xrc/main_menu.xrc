@@ -4,17 +4,17 @@
     <style>wxMB_DOCKABLE</style>
     <object class="wxMenu" name="file_menu">
       <label>&amp;File</label>
-      <object class="wxMenuItem" name="ID_NEW">
+      <object class="wxMenuItem" name="action_new_project">
         <label>&amp;New</label>
         <accel>Ctrl-n</accel>
         <help>New project</help>
       </object>
-      <object class="wxMenuItem" name="ID_OPEN">
+      <object class="wxMenuItem" name="action_load_project">
         <label>&amp;Open</label>
         <accel>Ctrl-o</accel>
         <help>Open project</help>
       </object>
-      <object class="wxMenuItem" name="ID_SAVE">
+      <object class="wxMenuItem" name="action_save_project">
         <label>&amp;Save</label>
         <accel>Ctrl-s</accel>
         <help>Save project</help>
@@ -75,6 +75,10 @@
       <object class="wxMenuItem" name="ID_CPUPDATE">
         <label>Updat&amp;e control point</label>
         <help>Same function as update button</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_add_images">
+        <label>Add</label>
       </object>
     </object>
     <object class="wxMenu" name="view_menu">

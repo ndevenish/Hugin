@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxToolBar" name="main_toolbar">
-    <object class="tool" name="ID_NEW">
+    <object class="tool" name="action_new_project">
       <bitmap>data/filenew.xpm</bitmap>
       <tooltip>New</tooltip>
       <longhelp>New project</longhelp>
     </object>
-    <object class="tool" name="ID_OPEN">
+    <object class="tool" name="action_load_project">
       <bitmap>data/fileopen.xpm</bitmap>
       <tooltip>Open project</tooltip>
       <longhelp>Open project</longhelp>
     </object>
-    <object class="tool" name="ID_SAVE">
+    <object class="tool" name="action_save_project">
       <bitmap>data/filesave.xpm</bitmap>
       <tooltip>Save project</tooltip>
       <longhelp>Save project</longhelp>
