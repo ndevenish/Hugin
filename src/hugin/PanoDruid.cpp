@@ -296,7 +296,7 @@ PanoDruid::PanoDruid(wxWindow* parent)
 
     m_advice = -1;
     m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
-                      "/data/" "druid.stitch.128.png",
+                      "/data/" + "druid.stitch.128.png",
                       wxBITMAP_TYPE_PNG);
     m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
     m_text = new wxStaticText(this, -1, "",wxPoint(0,0));
