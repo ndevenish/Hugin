@@ -1,7 +1,8 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5 beta1"
+!define HUGIN_VERSION "0.5 beta2"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
+!define MSVC_DLLS
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
 ;!define HUGIN_EXPERIMENTAL_TOOLS
@@ -18,9 +19,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_beta1_allinone_setup.exe"
+OutFile "hugin-0.5_beta2_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_beta1_setup.exe"
+OutFile "hugin-0.5_beta2_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -88,15 +89,20 @@ Section "Hugin program files"
   File "VIGRA_LICENSE.txt"
   File "AUTHORS.txt"
   File "README_WINDOWS.txt"
+  File "nona.exe"
   File "nona_gui.exe"
   File "panoglview.exe"
   SetOutPath "$INSTDIR\locale"
   File /r "locale\*"
   SetOutPath "$INSTDIR\xrc"
   File /r "xrc\*"
+!ifdef MSVC_DLLS
+  File msvcp71.dll
+  File msvcr71.dll
+  File unicows.dll
+!endif
 !ifdef HUGIN_EXPERIMENTAL_TOOLS
   File "automatch.exe"
-  File "nona.exe"
   File "autooptimiser.exe"
   File "autopano_old.exe"
   File "panosifter.exe"
