@@ -120,7 +120,8 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
     // create file in tmp path..
     
-    autopanoArgs.Replace("%o", "autopano_result_tempfile.pto");
+    wxString ptofile("autopano_result_tempfile.pto");
+    autopanoArgs.Replace("%o", ptofile);
     wxString tmp;
     tmp.Printf("%d", nFeatures);
     autopanoArgs.Replace("%p", tmp);
@@ -132,5 +133,5 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxShell(cmd);
 
     // read and update control points
-    readUpdatedControlPoints("autopano_result.pto", imgMapping, pano);
+    readUpdatedControlPoints(ptofile.c_str(), imgMapping, pano);
 }
