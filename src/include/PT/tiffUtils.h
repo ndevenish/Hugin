@@ -103,7 +103,7 @@ createBRGBATiffImage(RGBImageIterator upperleft, RGBImageIterator lowerright,
     // accuracy by premultiplying..
     // beku: This gets recogniced by cinepaint/gimp
     unsigned short extra_samples = EXTRASAMPLE_UNASSALPHA;
-    TIFFSetField (tiff, TIFFTAG_EXTRASAMPLES, 0, &extra_samples);
+    TIFFSetField (tiff, TIFFTAG_EXTRASAMPLES, 1, &extra_samples);
 
 
     int bufsize = TIFFScanlineSize(tiff);
