@@ -472,6 +472,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     wxFileName scriptName = m_filename;
     if (m_filename == "") {
         OnSaveProjectAs(e);
+        scriptName = m_filename;
     } else {
         // the project file is just a PTOptimizer script...
         std::string path(
@@ -483,7 +484,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-    this->SetTitle(m_filename.GetName() + "." + scriptName.GetExt() + " - hugin");
+    this->SetTitle(scriptName.GetName() + "." + scriptName.GetExt() + " - hugin");
     pano.clearDirty();
 }
 
