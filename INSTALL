@@ -16,13 +16,13 @@ REQUIRED LIBRARIES/PACKAGES:
     need to install a wxwin-contrib (debian) or similar package if provided
     by your distribution, since most distributions do not include it
     in their default package.
- 
+
     If you compile wxwindows from scratch, go to the contrib/src/xrc folder
     and compile and install xrc from there.
 
  - Panorama tools. Please DO NOT USE the versions from the original site.
    I'm using the version maintained by Max Lyons, which includes several
-   important bugfixes. Other versions might work as well, have not been 
+   important bugfixes. Other versions might work as well, have not been
    tested by the developers.
 
    Download it from:
@@ -33,9 +33,6 @@ REQUIRED LIBRARIES/PACKAGES:
 
  - make, version 3.8 or higher. (only needed for compiliation)
  - boost, get it from www.boost.org (only needed for compilation)
- - vigra, get it from http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
-   IMPORTANT: Apply the patch in the patch/ directory.
-   
  - gcc (tested with 3.2, 2.95 might also work)
 
 COMPILATION:

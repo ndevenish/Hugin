@@ -1,27 +1,33 @@
-Goal: frontend for Panorama Tools, similar
-      to PTAssembler, PTGui or Open for Windows.
+Goal: Toolchain to create panoramic images for every occasion,
+      from quick holiday snaps to images with hundrets of megapixels.
 
-This package contains two useful programs:
+This package contains the following programs:
 
- - hugin, a GUI for the panorama tools suite
+ - hugin, The main program, a GUI for the panorama tools suite
+   and some programs included here.
 
  - nona, a simple replacement for PTStitcher (doesn't support most
    features of PTStitcher, but is several times faster, opensource and
    will be extended in the future).
 
  - autopano, creates hugin project files, for single row panoramas.
- 
+
  - panosifter, creates hugin project files, from arbitrary images,
    uses a simple matching algorithm and a sift featue detector
    [only works on linux right now.]
 
  - autooptimiser, optimise a panorama pairwise, starting from an
-   anchor image.
- 
+   anchor image. cmd line version of the pairwise mode in hugin
+
  - keypoints, an implementation of the SIFT feature detection algorithm.
     Beware, it's licenced under a special LICENCE found in the SIFT_LICENCE
     file, due to a possible patent on the SIFT algorithm.
 
+The following external programs are highly recommended:
+
+1. panotools
+2. enblend
+    
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution
 pictures by combining multiple images.
@@ -39,12 +45,6 @@ typical use:
 4. run optimizer to estimate image positions
 5. set output parameters and stich images together.
 
-3. might be splitted into
-  - move pictures to approxmiate positions with mouse
-  - program should search for corrospondances in overlapping regions.
-
-  a completely automatic version would be even better ;)
-
 
 Knowledge of Panorama Tools is needed to use hugin.
 Good introductions are the tutorials from PTGUI and PTAssembler.
@@ -52,8 +52,9 @@ The steps are approximately the same.
 
 Some links to get you started:
 
-http://www.ptgui.org
+http://hugin.sf.net
 http://www.tawbaware.com/ptasmblr.htm
+http://www.ptgui.org
 http://www.nic.fi/~juhe/ptbcbgui/
 http://www.bigbenpublishing.com.au/
 
