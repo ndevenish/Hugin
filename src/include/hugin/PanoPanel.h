@@ -90,6 +90,8 @@ public:
     void UpdateDisplay(const PT::PanoramaOptions & opt);
 
     // apply changes to the model. (gui values -> Panorama)
+    void QuickModeChanged(wxCommandEvent & e);
+
     void HFOVChanged(wxCommandEvent & e);
     void HFOVChangedSpin(wxSpinEvent & e);
     void VFOVChanged(wxCommandEvent & e );
@@ -106,13 +108,17 @@ public:
     void DoCalcFOV(wxCommandEvent & e);
 
     /** set the highest sensible width
-     *
-     *  calculate average pixel density of each image
-     *  and use the highest one to calculate the width
-     *
      */
     void DoCalcOptimalWidth(wxCommandEvent & e);
 
+    /*  calculate average pixel density of each image
+     *  and use the highest one to calculate the width
+     *
+     */
+    unsigned int CalcOptimalWidth();
+
+    /** enable/disable control influenced by quick mode */
+    void EnableControls(bool enable);
 
     // the model
     Panorama &pano;
@@ -124,7 +130,8 @@ public:
     PanoramaOptions m_oldOpt;
     double m_oldVFOV;
 
-    // control of this frame
+    // controls of this frame
+    wxChoice    * m_QuickChoice;
     wxChoice    * m_ProjectionChoice;
     wxSpinCtrl  * m_HFOVSpin;
     wxSpinCtrl  * m_VFOVSpin;

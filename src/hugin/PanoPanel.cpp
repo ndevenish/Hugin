@@ -54,6 +54,7 @@ using namespace utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::FitParent )
+    EVT_CHOICE ( XRCID("stitch_quick_mode"),PanoPanel::QuickModeChanged )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
@@ -275,6 +276,108 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
     }
 }
 
+void PanoPanel::EnableControls(bool enable)
+{
+    m_HFOVSpin->Enable(enable);
+    m_VFOVSpin->Enable(enable);
+    m_WidthTxt->Enable(enable);
+    m_StitcherChoice->Enable(enable);
+    m_Stitcher->Enable(enable);
+}
+
+void PanoPanel::QuickModeChanged(wxCommandEvent & e)
+{
+    int preset = m_QuickChoice->GetSelection();
+    DEBUG_DEBUG("changing quick stitch preset to " << preset);
+    PanoramaOptions opts = pano.getOptions();
+
+    // resize image for all but manual settings
+    if (preset != 0) {
+        FDiff2D fov = pano.calcFOV();
+        opts.HFOV = fov.x;
+        opts.VFOV = fov.y;
+        // resize.
+        opts.width = CalcOptimalWidth();
+    }
+
+    switch (preset) {
+    case 0:
+        // custom
+        EnableControls(true);
+        break;
+    case 1:
+        // high quality jpeg file
+        // nona + jpg output + cubic interpolator
+        // fixme: this should be an enblended pano...
+        opts.outputFormat = PanoramaOptions::JPEG;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        m_StitcherChoice->SetSelection(1);
+        EnableControls(false);
+
+    case 2:
+        // draft quality jpeg file
+        // nona + jpg output
+        opts.outputFormat = PanoramaOptions::JPEG;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        m_StitcherChoice->SetSelection(1);
+        EnableControls(false);
+        break;
+    case 3:
+        // high quality tiff file
+        // nona + enblend
+        opts.outputFormat = PanoramaOptions::JPEG;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        m_StitcherChoice->SetSelection(1);
+        EnableControls(false);
+        break;
+
+    case 4:
+        // multilayer TIFF file
+        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        m_StitcherChoice->SetSelection(1);
+        EnableControls(false);
+
+        break;
+
+    case 5:
+        // multilayer PSD file
+        opts.outputFormat = PanoramaOptions::PSD_mask;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        m_StitcherChoice->SetSelection(1);
+        EnableControls(false);
+        EnableControls(false);
+    default:
+	DEBUG_ERROR("unknown stitcher preset selected");
+	break;
+    }
+    
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opts )
+        );
+
+}
+
 void PanoPanel::StitcherChanged(wxCommandEvent & e)
 {
     int stitcher = m_StitcherChoice->GetSelection();
@@ -323,8 +426,20 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
+    PanoramaOptions opt = pano.getOptions();
+    opt.width = CalcOptimalWidth();
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+
+    DEBUG_INFO ( "new optimal width: " << opt.width );
+}
+
+unsigned int PanoPanel::CalcOptimalWidth()
+{
     // calculate average pixel density of each image
     // and use the highest one to calculate the width
+    PanoramaOptions opt = pano.getOptions();
     int nImgs = pano.getNrOfImages();
     double pixelDensity=0;
     for (int i=0; i<nImgs; i++) {
@@ -335,14 +450,7 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
             pixelDensity = density;
         }
     }
-    PanoramaOptions opt = pano.getOptions();
-    opt.width = (int) (pixelDensity * opt.HFOV);
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-
-    DEBUG_INFO ( "new optimal width: " << opt.width );
+    return roundi(pixelDensity * opt.HFOV);
 }
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )

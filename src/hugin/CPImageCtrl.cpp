@@ -131,8 +131,10 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 {
 
     wxString filename;
+#ifdef __WXMSW__
+    m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
+#else
     int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/cursorType",0l);
-
     filename.Printf("%s/data/CPCursor%d.png",MainFrame::Get()->GetXRCPath().c_str(),
                     cursorType);
     wxImage cImg(filename);
@@ -142,7 +144,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
         DEBUG_FATAL("Cursor file:" << filename << " not found");
     }
     m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
-
+#endif
     SetCursor(*m_CPSelectCursor);
 
     // functions were renamed in 2.5 :(

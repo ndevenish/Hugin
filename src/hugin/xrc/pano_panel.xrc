@@ -19,8 +19,8 @@
                 <item>with Custom settings below</item>
                 <item>into a high-quality JPEG file</item>
                 <item>into a draft-quality JPEG file</item>
-                <item>into a TIFF file</item>
-                <item>into a layered TIFF file with masks</item>
+                <item>into a high quality TIFF file</item>
+                <item>into a layered TIFF file</item>
                 <item>into a layered Photoshop file</item>
               </content>
               <enabled>0</enabled>
