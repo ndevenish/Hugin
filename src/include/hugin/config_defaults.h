@@ -46,6 +46,8 @@
 
 #define HUGIN_CAPTURE_TIMESPAN                60l
 
+#define HUGIN_PREVIEW_SHOW_DRUID              1l
+
 // Program defaults
 #ifdef WIN32
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"

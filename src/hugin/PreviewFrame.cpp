@@ -36,6 +36,7 @@
 
 #include "panoinc.h"
 
+#include "hugin/config_defaults.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/PreviewPanel.h"
@@ -167,7 +168,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
 
     wxConfigBase * config = wxConfigBase::Get();
-    long showDruid = config->Read(wxT("/PreviewFrame/showDruid"),1l);
+    long showDruid = config->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID);
     if (showDruid) {
         m_druid = new PanoDruid(this);
         topsizer->Add(m_druid, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 5);

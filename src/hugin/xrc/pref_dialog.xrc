@@ -203,7 +203,6 @@
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
-
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Peak Curvature Threshold:</label>
@@ -224,7 +223,6 @@
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
-
                         <growablecols>2</growablecols>
                       </object>
                       <option>1</option>
@@ -395,7 +393,7 @@ requires restarting hugin</label>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label></label>
+                    <label>File options</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
@@ -426,6 +424,25 @@ requires restarting hugin</label>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Preview</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_misc_showDruid">
+                            <label>Show Druid (requires restarting hugin)</label>
+                          </object>
+                        </object>
+                      </object>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                  </object>
+                  <flag>wxEXPAND</flag>
                 </object>
               </object>
             </object>
