@@ -59,7 +59,7 @@ static void usage(const char * name)
          << "     -n number   # number of features per overlap, default: 20" << endl
          << "     -v number   # HFOV of images, in degrees, Used for images that do" << endl
          << "                   not provide this information in the EXIF header" << endl
-         << "     -r number   # downscale factor for scouting. default: 0.05"
+         << "     -r number   # downscale factor for scouting. default: 0.05" << endl
          << "                   increase if not images are wrongly categorized." << endl
          << "     -k keypoint_exe # executable to use for keypoint detection" << endl
          << "     -s scale    # downscale images before final sift matching. default: 0.25" << endl
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
     double scoutScale = 0.05;
     double defaultHFOV = 40.0;
     double scaling = 0.25;
-    string keypoints("lowe_keypoints");
+    string keypoints("keypoints");
 
     while ((c = getopt (argc, argv, optstring)) != -1) {
         switch (c) {
