@@ -68,7 +68,7 @@ END_EVENT_TABLE()
 
 
 // Define a constructor for the Images Panel
-ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
+ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano) //, wxStatusBar* s_bar
     //  : wxPanel(parent, -1 , pos, size)
     : pano(*pano)
 {
@@ -260,10 +260,11 @@ void ImgPreview::OnDraw(wxDC & dc)
 
 void ImgPreview::ChangePreview ( wxMouseEvent & e )
 {
-    DEBUG_TRACE ("")
+//    DEBUG_TRACE ("")
 //    wxPoint pos = e.GetPosition();
-    long item = HitTest( e.m_x ,e.m_y /*wxLIST_HITTEST_ONITEM*/ );
-//    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
-    DEBUG_INFO ( "hier: is item %ld" << wxString::Format("%ld", item) );
+//    long item = HitTest( e.m_x ,e.m_y /*wxLIST_HITTEST_ONITEM*/ );
+//    DEBUG_INFO ( "hier: is  " << wxString::Format("%d,%d",e.m_x , e.m_y ) );
+//    wxWindow * frame ( wxTheApp->GetTopWindow() );
+    frame->SetStatusText ( wxString::Format("%d,%d",e.m_x , e.m_y ), 1 );
 }
 

@@ -35,6 +35,10 @@
   void InitXmlResource();
 #endif
 
+    // MainFrame
+extern    MainFrame * frame;
+
+
 /** The application class for hugin.
  *
  *  it contains the main frame.
@@ -68,9 +72,6 @@ private:
     /** locale for internationalication
      */
     wxLocale locale;
-
-    // MainFrame
-    MainFrame * frame;
 
 };
 

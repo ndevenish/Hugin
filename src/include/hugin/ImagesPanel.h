@@ -30,6 +30,8 @@
 #include "wx/listctrl.h"
 
 #include "PT/Panorama.h"
+#include "hugin/MainFrame.h"
+
 using namespace PT;
 
 // forward declarations, to save the #include statements

@@ -128,9 +128,12 @@ MainFrame::MainFrame(wxWindow* parent)
     DEBUG_TRACE("");
 
     // create a status bar
-    // FIXME add a progress dialog to the status bar
-    CreateStatusBar(1);
-    SetStatusText("Started");
+    // FIXME add a progriess dialog to the status bar
+    const int fields (2);
+    CreateStatusBar(fields);
+    int widths[fields] = {-1, 65};
+    SetStatusWidths( fields, &widths[0]);
+    SetStatusText("Started", 0);
     DEBUG_TRACE("");
 
     // observe the panorama
@@ -418,6 +421,13 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnRedo");
     GlobalCmdHist::getInstance().redo();
+}
+
+MainFrame* MainFrame::GetFrame(void)
+{
+    DEBUG_TRACE("");
+//    MainFrame* dummy( parent);//, -1, wxDefaultPosition, wxDefaultPosition);
+    return this;
 }
 
 

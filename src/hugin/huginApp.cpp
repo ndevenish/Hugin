@@ -44,6 +44,9 @@
 
 #include "hugin/huginApp.h"
 
+
+MainFrame * frame;
+
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
 
@@ -148,6 +151,7 @@ bool huginApp::OnInit()
 
     // create main frame
     frame = new MainFrame();
+    SetTopWindow(frame);
 
     // show the frame.
     frame->Show(TRUE);

@@ -101,6 +101,9 @@ private:
     // Image Preview
     ImgPreview *canvas;
 
+    // self
+    MainFrame* GetFrame(void);
+
     DECLARE_EVENT_TABLE()
 };
 
