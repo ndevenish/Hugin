@@ -128,8 +128,12 @@ public:
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> &
             remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
-	
-            saveRemapped(remapped, *it, Base::m_pano.getNrOfImages(), opts);
+            try {
+                saveRemapped(remapped, *it, Base::m_pano.getNrOfImages(), opts);
+            } catch (vigra::PreconditionViolation & e) {
+                // this can be thrown, if an image
+                // is completely out of the pano
+            }
             // free remapped image
             remapper.release();
 
@@ -338,7 +342,12 @@ public:
 
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
-	    blend(remapped, pano, alpha, panoROI);
+            try {
+                blend(remapped, pano, alpha, panoROI);
+            } catch (vigra::PreconditionViolation & e) {
+                // this can be thrown, if an image
+                // is completely out of the pano
+            }
             // free remapped image
             remapper.release();
 	}
@@ -567,7 +576,7 @@ public:
 private:
 };
 
-/** A stitcher without seaming, just copies the images over eachother
+/** A stitcher without seaming, just copies the images over each other
  */
 template <typename ImageType, typename AlphaType>
 class SimpleStitcher : public Stitcher<ImageType, AlphaType>
@@ -603,7 +612,12 @@ public:
 
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
-	    blend(remapped, pano, alpha, panoROI);
+            try {
+                blend(remapped, pano, alpha, panoROI);
+            } catch (vigra::PreconditionViolation & e) {
+                // this can be thrown, if an image
+                // is completely out of the pano
+            }
             // free remapped image
             remapper.release();
 	}
