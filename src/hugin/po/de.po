@@ -859,6 +859,14 @@ msgid "select kind of colour correction relative to the right side reference ima
 msgstr "Korrekturart wählen."
 msgid "image used as anchor for colour correction (will itself remain unchanged)"
 msgstr "Ankerbild für die Farbkorrektur. Das gewählte Bild wird nicht selbst verändert."
+msgid "Anchor"
+msgstr "Anker"
+msgid "misc"
+msgstr "Verschiedenes"
+msgid "set as anchor image"
+msgstr "Setze als Ankerbild"
+msgid "use currently selected image as anchor image. That is, do not optimize the (complete) position of this image."
+msgstr "Setzte gerade gewähltes Bild als Ankerbild. Beim Optimieren verbleibt dieses Bild in seiner jetzigen Lage."
 
 #: ../ptopengui.cpp:897
 msgid "Modify colors"
