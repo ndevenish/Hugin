@@ -101,7 +101,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
     DEBUG_ASSERT(m_HeightStaticText);
-    
+
     m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
     DEBUG_ASSERT(m_StitcherChoice);
     m_QuickChoice = XRCCTRL(*this, "stitch_quick_mode", wxChoice);
@@ -299,7 +299,7 @@ void PanoPanel::ApplyQuickMode(int preset)
 {
     if (preset == 0)
         return;
-    
+
     PanoramaOptions opts = pano.getOptions();
 
     // resize image for all but manual settings
@@ -379,9 +379,9 @@ void PanoPanel::ApplyQuickMode(int preset)
         new PT::SetPanoOptionsCmd( pano, opts )
         );
     wxCommandEvent dummy;
-    
+
     StitcherChanged(dummy);
-        
+
     }
 
 void PanoPanel::QuickModeChanged(wxCommandEvent & e)
@@ -390,7 +390,7 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
     DEBUG_DEBUG("changing quick stitch preset to " << preset);
 
     ApplyQuickMode(preset);
-    
+
     switch (preset) {
     case 0:
         // custom
@@ -492,7 +492,6 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
-        std::ofstream script(dlg.GetPath());
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
         m_Stitcher->Stitch(pano, opt);
