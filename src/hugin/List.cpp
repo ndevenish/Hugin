@@ -218,21 +218,21 @@ void List::fillRow (unsigned int imageNr)
           number.str("");
           if ( new_var. yaw.isLinked() )
             number << doubleToString ((double)new_var. yaw.getLink());
-          else if ( optset->at(imageNr). yaw )
+          else if ((*optset)[imageNr].yaw )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. pitch.isLinked() )
             number << doubleToString ((double)new_var. pitch.getLink());
-          else if ( optset->at(imageNr). pitch )
+          else if ( (*optset)[imageNr]. pitch )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. roll.isLinked() )
             number << doubleToString ((double)new_var. roll.getLink());
-          else if ( optset->at(imageNr). roll )
+          else if ( (*optset)[imageNr]. roll )
             number << opt_str;
           else
             number << "-";
@@ -268,42 +268,42 @@ void List::fillRow (unsigned int imageNr)
           number.str("");
           if ( new_var. HFOV.isLinked() )
             number << doubleToString ((double)new_var. HFOV.getLink());
-          else if ( optset->at(imageNr). HFOV )
+          else if ( (*optset)[imageNr]. HFOV )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. a.isLinked() )
             number << doubleToString ((double)new_var. a.getLink());
-          else if ( optset->at(imageNr). a )
+          else if ( (*optset)[imageNr]. a )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. b.isLinked() )
             number << doubleToString ((double)new_var. b.getLink());
-          else if ( optset->at(imageNr). b )
+          else if ( (*optset)[imageNr]. b )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. c.isLinked() )
             number << doubleToString ((double)new_var. c.getLink());
-          else if ( optset->at(imageNr). c )
+          else if ( (*optset)[imageNr]. c )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. d.isLinked() )
             number << doubleToString ((double)new_var. d.getLink());
-          else if ( optset->at(imageNr). d )
+          else if ( (*optset)[imageNr]. d )
             number << opt_str;
           else
             number << "-";
           number << "|";
           if ( new_var. e.isLinked() )
             number << doubleToString ((double)new_var. e.getLink());
-          else if ( optset->at(imageNr). e )
+          else if ( (*optset)[imageNr]. e )
             number << opt_str;
           else
             number << "-";

@@ -232,7 +232,7 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
         DEBUG_INFO ( "changed: " << imageNr )
         OptimizerSettings opts;
         if ( *it < 0 ) // we have an predecessor and copy its values
-          opts = optset->at(*it - 1);
+          opts = (*optset)[*it - 1];
 
         optset->push_back(opts);
       }

@@ -432,7 +432,7 @@ void ImagesPanel::SetInherit( std::string type )
               // test for unselfish inheritance
               if ( var != (int)imgNr[i] ) {
                 new_var.yaw.link(var);
-                optset->at(imgNr[i]).yaw = FALSE;
+                (*optset)[(imgNr[i])].yaw = FALSE;
               } else { // search for another possible link image
                 if ( (((int)new_var. yaw .getLink() > var) && (var != 0))
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -445,7 +445,7 @@ void ImagesPanel::SetInherit( std::string type )
             if ( type == "pitch" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.pitch.link(var);
-                optset->at(imgNr[i]).pitch = FALSE;
+                (*optset)[(imgNr[i])].pitch = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. pitch .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -458,7 +458,7 @@ void ImagesPanel::SetInherit( std::string type )
             if ( type == "roll" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.roll.link(var);
-                optset->at(imgNr[i]).roll = FALSE;
+                (*optset)[(imgNr[i])].roll = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. roll .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -486,23 +486,23 @@ void ImagesPanel::SetInherit( std::string type )
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" ) {
-              optset->at(imgNr[i]).yaw = TRUE;
+              (*optset)[(imgNr[i])].yaw = TRUE;
             }
             if ( type == "pitch" ) {
-              optset->at(imgNr[i]).pitch = TRUE;
+              (*optset)[(imgNr[i])].pitch = TRUE;
             }
             if ( type == "roll" ) {
-              optset->at(imgNr[i]).roll = TRUE;
+              (*optset)[(imgNr[i])].roll = TRUE;
             }
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           // unset optimization
           } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" )
-              optset->at(imgNr[i]).yaw = FALSE;
+              (*optset)[(imgNr[i])].yaw = FALSE;
             if ( type == "pitch" )
-              optset->at(imgNr[i]).pitch = FALSE;
+              (*optset)[(imgNr[i])].pitch = FALSE;
             if ( type == "roll" )
-              optset->at(imgNr[i]).roll = FALSE;
+              (*optset)[(imgNr[i])].roll = FALSE;
           }
           vars.insert (vars.begin(), new_var);
         }
@@ -627,17 +627,17 @@ void ImagesPanel::SetImages ( wxListEvent & e )
            XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(FALSE);
         }
         // enable disable optmize check boxes
-        if (optset->at(orientationEdit_RefImg).yaw == TRUE ) {
+        if ((*optset)[(orientationEdit_RefImg)].yaw == TRUE ) {
            XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(TRUE);
         } else {
            XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(FALSE);
         }
-        if (optset->at(orientationEdit_RefImg).pitch == TRUE ) {
+        if ((*optset)[(orientationEdit_RefImg)].pitch == TRUE ) {
            XRCCTRL(*this, "images_optimize_pitch" ,wxCheckBox) ->SetValue(TRUE);
         } else {
            XRCCTRL(*this, "images_optimize_pitch",wxCheckBox) ->SetValue(FALSE);
         }
-        if (optset->at(orientationEdit_RefImg).roll == TRUE ) {
+        if ((*optset)[(orientationEdit_RefImg)].roll == TRUE ) {
            XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(TRUE);
         } else {
            XRCCTRL(*this, "images_optimize_roll" ,wxCheckBox) ->SetValue(FALSE);

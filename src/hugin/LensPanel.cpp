@@ -256,7 +256,7 @@ void LensPanel::update_edit_LensGui ( int lens )
     } else { \
       XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->SetValue(FALSE); \
     } \
-    if (optset->at(lensEditRef_lensNr). type == TRUE ) { \
+    if ((*optset)[(lensEditRef_lensNr)]. type == TRUE ) { \
         XRCCTRL(*this, xml_optimize .c_str(), wxCheckBox) ->SetValue(TRUE); \
     } else { \
         XRCCTRL(*this, xml_optimize .c_str(), wxCheckBox) ->SetValue(FALSE); \
@@ -562,7 +562,7 @@ void LensPanel::SetInherit( std::string type )
               // test for unselfish inheritance
               if ( var != (int)imgNr[i] ) {
                 new_var.HFOV.link(var);
-                optset->at(imgNr[i]).HFOV = FALSE;
+                (*optset)[imgNr[i]].HFOV = FALSE;
               } else { // search for another possible link image
                 if ( (((int)new_var. HFOV .getLink() > var) && (var != 0)) 
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -575,7 +575,7 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "a" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.a.link(var);
-                optset->at(imgNr[i]).a = FALSE;
+		(*optset)[(imgNr[i])].a = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. a .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -588,7 +588,7 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "b" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.b.link(var);
-                optset->at(imgNr[i]).b = FALSE;
+                (*optset)[(imgNr[i])].b = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. b .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -601,7 +601,7 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "c" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.c.link(var);
-                optset->at(imgNr[i]).c = FALSE;
+                (*optset)[(imgNr[i])].c = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. c .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -614,7 +614,7 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "d" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.d.link(var);
-                optset->at(imgNr[i]).d = FALSE;
+                (*optset)[(imgNr[i])].d = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. d .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -627,7 +627,7 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "e" ) {
               if ( var != (int)imgNr[i] ) {
                 new_var.e.link(var);
-                optset->at(imgNr[i]).e = FALSE;
+                (*optset)[(imgNr[i])].e = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. e .getLink() > var) && (var != 0)
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
@@ -662,38 +662,38 @@ void LensPanel::SetInherit( std::string type )
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "HFOV" ) {
-              optset->at(imgNr[i]).HFOV = TRUE;
+              (*optset)[(imgNr[i])].HFOV = TRUE;
             }
             if ( type == "a" ) {
-              optset->at(imgNr[i]).a = TRUE;
+              (*optset)[(imgNr[i])].a = TRUE;
             }
             if ( type == "b" ) {
-              optset->at(imgNr[i]).b = TRUE;
+              (*optset)[(imgNr[i])].b = TRUE;
             }
             if ( type == "c" ) {
-              optset->at(imgNr[i]).c = TRUE;
+              (*optset)[(imgNr[i])].c = TRUE;
             }
             if ( type == "d" ) {
-              optset->at(imgNr[i]).d = TRUE;
+              (*optset)[(imgNr[i])].d = TRUE;
             }
             if ( type == "e" ) {
-              optset->at(imgNr[i]).e = TRUE;
+              (*optset)[(imgNr[i])].e = TRUE;
             }
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           // unset optimization
           } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "HFOV" )
-              optset->at(imgNr[i]).HFOV = FALSE;
+              (*optset)[(imgNr[i])].HFOV = FALSE;
             if ( type == "a" )
-              optset->at(imgNr[i]).a = FALSE;
+              (*optset)[(imgNr[i])].a = FALSE;
             if ( type == "b" )
-              optset->at(imgNr[i]).b = FALSE;
+              (*optset)[(imgNr[i])].b = FALSE;
             if ( type == "c" )
-              optset->at(imgNr[i]).c = FALSE;
+              (*optset)[(imgNr[i])].c = FALSE;
             if ( type == "d" )
-              optset->at(imgNr[i]).d = FALSE;
+              (*optset)[(imgNr[i])].d = FALSE;
             if ( type == "e" )
-              optset->at(imgNr[i]).e = FALSE;
+              (*optset)[(imgNr[i])].e = FALSE;
           }
           vars.insert (vars.begin(), new_var);
         }

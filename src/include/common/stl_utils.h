@@ -34,10 +34,11 @@
 
 
 #include <functional>
+#include <algorithm>
 #include <utility>
 #include <string>
 #include <string.h>
-
+#include <ctype.h>
 
 
 /// convert a string to lowercase
