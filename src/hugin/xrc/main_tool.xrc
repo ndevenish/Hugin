@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxToolBar" name="main_toolbar">
+    <style>wxTB_FLAT|wxTB_TEXT</style>
     <object class="tool" name="action_new_project">
       <bitmap>data/filenew.png</bitmap>
       <tooltip>New Project</tooltip>
+      <label>New</label>
       <longhelp>Start a new project</longhelp>
     </object>
     <object class="tool" name="action_load_project">
       <bitmap>data/fileopen.png</bitmap>
       <tooltip>Open Project</tooltip>
+      <label>Open</label>
       <longhelp>Open a project file</longhelp>
     </object>
     <object class="tool" name="action_save_project">
       <bitmap>data/filesave.png</bitmap>
       <tooltip>Save Project</tooltip>
+      <label>Save</label>
       <longhelp>Save current project file</longhelp>
     </object>
     <object class="tool" name="action_save_as_project">
       <bitmap>data/filesaveas.png</bitmap>
       <tooltip>Save Project As</tooltip>
+      <label>Save As</label>
       <longhelp>Save current project to a new file</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="ID_EDITUNDO">
       <bitmap>data/undo.png</bitmap>
       <tooltip>Undo</tooltip>
+      <label>Undo</label>
       <longhelp>Undo the last action</longhelp>
     </object>
     <object class="tool" name="ID_EDITREDO">
       <bitmap>data/redo.png</bitmap>
       <tooltip>Redo</tooltip>
+      <label>Redo</label>
       <longhelp>Redo the last action</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="action_add_images">
       <bitmap>data/edit_add.png</bitmap>
       <tooltip>Add an Image</tooltip>
+      <label>Add</label>
       <longhelp>Add another image to the current project</longhelp>
     </object>
     <object class="tool" name="action_optimize">
       <bitmap>data/optimize.png</bitmap>
       <tooltip>Re-Optimize</tooltip>
+      <label>Optimize</label>
       <longhelp>Re-Run the optimizer with current settings</longhelp>
     </object>
     <object class="separator"/>
@@ -50,17 +59,20 @@
     <object class="tool" name="ID_SHOW_PREVIEW_FRAME">
       <bitmap>data/preview.png</bitmap>
       <tooltip>Preview Panorama</tooltip>
+      <label>Preview</label>
       <longhelp>Show the preview image and the Panorama Druid</longhelp>
     </object>
     <object class="tool" name="ID_CP_TABLE">
       <bitmap>data/list.png</bitmap>
       <tooltip>Show Control Points</tooltip>
+      <label>Points</label>
       <longhelp>Show all control points in a single table</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="action_show_about">
       <bitmap>data/info.xpm</bitmap>
       <tooltip>About Hugin</tooltip>
+      <label>About</label>
       <longhelp>Display credits for the creators of Hugin</longhelp>
     </object>
   </object>
