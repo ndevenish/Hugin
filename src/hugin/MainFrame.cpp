@@ -43,7 +43,7 @@
 #include "hugin/MainFrame.h"
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
-    #include "images/gui.xpm"
+    #include "../images/gui.xpm"
 #endif
 
 // event table. this frame will recieve mostly global commands.
