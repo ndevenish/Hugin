@@ -26,6 +26,14 @@
 
 #include <wx/app.h>
 
+/** Resources Definition
+ * 
+ */
+
+#ifdef _INCLUDE_UI_RESOURCES
+  void InitXmlResource();
+#endif
+
 /** The application class for hugin.
  *
  *  it contains the main frame.
@@ -46,6 +54,11 @@ public:
      */
 
     virtual bool OnInit();
+
+    /** locale for internationalication
+     */
+
+    wxLocale locale;
 
 };
 
