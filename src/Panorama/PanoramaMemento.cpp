@@ -26,6 +26,8 @@
 
 #include <iostream>
 
+#include <math.h>
+
 #include <PT/PanoramaMemento.h>
 
 #include <common/utils.h>
