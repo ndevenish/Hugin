@@ -45,6 +45,15 @@ static void cubeZero_copy( double *a, int *n, double *root );
 static void squareZero_copy( double *a, int *n, double *root );
 static double cubeRoot_copy( double x );
 
+static void SetCoordDefaults_copy( CoordInfo *c, int num );
+
+void SetCoordDefaults_copy( CoordInfo *c, int num )
+{
+		c->num	= num;
+		c->x[0] = (double) num;
+		c->x[1] = c->x[2] = 0.0;
+		c->set[0] = c->set[1] = c->set[2] = TRUE;
+}
 
 static void cubeZero_copy( double *a, int *n, double *root ){
 	if( a[3] == 0.0 ){ // second order polynomial
@@ -677,7 +686,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     {
         SetImageDefaults( &(gl.im[i]) );
         SetOptDefaults	( &(gl.opt[i]));
-        SetCoordDefaults( &(gl.cim[i]), i);
+        SetCoordDefaults_copy( &(gl.cim[i]), i);
     }
 
     unsigned int cImgNr=0;
