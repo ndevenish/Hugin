@@ -83,8 +83,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
-	// set this width smaller than one button at least or scrolling will not work
-    m_ButtonPanel->SetSize(wxSize(20, 42));
+	// Set min height big enough to display scrollbars as well
+    m_ButtonPanel->SetSizeHints(-1, 42);
 	m_ButtonPanel->SetScrollRate(10, 10);
     m_ButtonSizer = new wxBoxSizer(wxHORIZONTAL);
     m_ButtonPanel->SetAutoLayout(true);
@@ -93,7 +93,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
         wxHORIZONTAL);
-	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxFIXED_MINSIZE, 0);
+	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND, 0);
     topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 1);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
