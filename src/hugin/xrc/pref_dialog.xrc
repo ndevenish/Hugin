@@ -2,7 +2,7 @@
 <resource>
   <object class="wxFrame" name="pref_dialog">
     <title>Preferences - hugin</title>
-    <style>wxCAPTION|wxRESIZE_BORDER|wxRESIZE_BOX</style>
+    <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxRESIZE_BORDER|wxRESIZE_BOX</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
