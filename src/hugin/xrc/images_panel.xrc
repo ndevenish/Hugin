@@ -168,11 +168,11 @@
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBitmap" name="images_selected_image">
-                  <bitmap></bitmap>
+                  <bitmap>data/druid.images.128.png</bitmap>
                   <style></style>
                 </object>
                 <option>1</option>
-                <flag>wxTOP|wxEXPAND|wxALIGN_CENTRE</flag>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
             </object>

@@ -3,23 +3,23 @@
   <object class="wxToolBar" name="main_toolbar">
     <object class="tool" name="action_new_project">
       <bitmap>data/filenew.png</bitmap>
-      <tooltip>New</tooltip>
-      <longhelp>New project</longhelp>
+      <tooltip>New Project</tooltip>
+      <longhelp>Start a new project</longhelp>
     </object>
     <object class="tool" name="action_load_project">
       <bitmap>data/fileopen.png</bitmap>
-      <tooltip>Open project</tooltip>
-      <longhelp>Open project</longhelp>
+      <tooltip>Open Project</tooltip>
+      <longhelp>Open a project file</longhelp>
     </object>
     <object class="tool" name="action_save_project">
       <bitmap>data/filesave.png</bitmap>
-      <tooltip>Save project</tooltip>
-      <longhelp>Save project</longhelp>
+      <tooltip>Save Project</tooltip>
+      <longhelp>Save current project file</longhelp>
     </object>
     <object class="tool" name="action_save_as_project">
       <bitmap>data/filesaveas.png</bitmap>
-      <tooltip>Save as new project</tooltip>
-      <longhelp>Save as new project</longhelp>
+      <tooltip>Save Project As</tooltip>
+      <longhelp>Save current project to a new file</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="ID_EDITUNDO">
@@ -35,33 +35,33 @@
     <object class="separator"/>
     <object class="tool" name="action_add_images">
       <bitmap>data/edit_add.png</bitmap>
-      <tooltip>add an image to the panorama</tooltip>
-      <longhelp>add image</longhelp>
+      <tooltip>Add an Image</tooltip>
+      <longhelp>Add another image to the current project</longhelp>
     </object>
     <object class="tool" name="action_optimize">
-      <bitmap>data/optimize.xpm</bitmap>
-      <tooltip>optimize, with settings from Optimize Tab</tooltip>
-      <longhelp>Optimize Panorama. Useful for optimization after a small change.</longhelp>
+      <bitmap>data/optimize.png</bitmap>
+      <tooltip>Re-Optimize</tooltip>
+      <longhelp>Re-Run the optimizer with current settings</longhelp>
     </object>
     <object class="separator"/>
-    <bitmapsize>22,22</bitmapsize>
+    <bitmapsize>24,24</bitmapsize>
     <margins>2,2</margins>
     <style>wxTB_FLAT|wxTB_DOCKABLE</style>
     <object class="tool" name="ID_SHOW_PREVIEW_FRAME">
       <bitmap>data/preview.png</bitmap>
-      <tooltip>preview panorama</tooltip>
-      <longhelp>show the preview image</longhelp>
+      <tooltip>Preview Panorama</tooltip>
+      <longhelp>Show the preview image and the Panorama Druid</longhelp>
     </object>
-     <object class="tool" name="ID_CP_TABLE">
+    <object class="tool" name="ID_CP_TABLE">
       <bitmap>data/list.png</bitmap>
-      <tooltip>show all control points</tooltip>
-      <longhelp>show all control points</longhelp>
+      <tooltip>Show Control Points</tooltip>
+      <longhelp>Show all control points in a single table</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="action_show_about">
       <bitmap>data/info.xpm</bitmap>
-      <tooltip>Infos</tooltip>
-      <longhelp>Informations about this program</longhelp>
+      <tooltip>About Hugin</tooltip>
+      <longhelp>Display credits for the creators of Hugin</longhelp>
     </object>
   </object>
 </resource>

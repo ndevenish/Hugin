@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxDialog" name="about_dlg">
-    <title>About</title>
+    <title>About Hugin</title>
     <centered>1</centered>
     <style>wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP|wxRESIZE_BORDER</style>
     <object class="wxFlexGridSizer">
@@ -18,7 +18,7 @@
       </object>
       <object class="sizeritem">
         <object class="wxButton" name="wxID_OK">
-          <label>enough</label>
+          <label>OK</label>
           <default>1</default>
         </object>
         <flag>wxALL|wxALIGN_RIGHT</flag>
