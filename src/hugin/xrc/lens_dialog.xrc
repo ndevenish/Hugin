@@ -1,0 +1,221 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxPanel" name="lens_dialog">
+    <style>wxTAB_TRAVERSAL</style>
+    <object class="wxFlexGridSizer">
+      <cols>1</cols>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Lens type:</label>
+                  <style>wxALIGN_LEFT</style>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE</flag>
+                <minsize>85,20</minsize>
+              </object>
+              <object class="sizeritem">
+                <object class="wxComboBox" name="lens_type_combobox">
+                  <content>
+                    <item>Normal (rectlinear)</item>
+                    <item>Panoramic</item>
+                    <item>Circular</item>
+                    <item>Full frame</item>
+                    <item>Equirectangular</item>
+                  </content>
+                  <selection>0</selection>
+                  <style></style>
+                </object>
+                <flag>wxEXPAND</flag>
+                <minsize>150,25</minsize>
+              </object>
+            </object>
+            <flag>wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticBoxSizer">
+                  <label>Lens degrees</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>Degrees (v):</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_HFOV">
+                          <help>Horizontal Field of View</help>
+                          <longhelp>Horizontal Field of View</longhelp>
+                          <tooltip>Horizontal Field of View</tooltip>
+                          <style></style>
+                        </object>
+                        <flag>wxEXPAND</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>Focal length:</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_focalLength">
+                          <help>equivalent to 35mm film optics</help>
+                          <longhelp>equivalent to 35mm film optics</longhelp>
+                          <tooltip>equivalent to 35mm film optics</tooltip>
+                          <style></style>
+                        </object>
+                        <flag>wxEXPAND</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBoxSizer">
+                  <label>Lens correction parameters</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>a:</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_a">
+                          <style></style>
+                        </object>
+                        <flag>wxEXPAND</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>b:</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_b">
+                          <style></style>
+                        </object>
+                        <flag>wxEXPAND</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>c:</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_c">
+                          <style></style>
+                        </object>
+                        <flag>wxEXPAND</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBoxSizer">
+                  <label>Image shift</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>horizontal (d):</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_d"/>
+                        <flag>wxEXPAND|wxGROW</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>vertical (e):</label>
+                          <style>wxALIGN_LEFT</style>
+                        </object>
+                        <flag>wxALL|wxALIGN_CENTRE</flag>
+                        <minsize>80,20</minsize>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxTextCtrl" name="lens_val_e"/>
+                        <flag>wxEXPAND|wxGROW</flag>
+                        <minsize>100,25</minsize>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxEXPAND|wxGROW</flag>
+          </object>
+        </object>
+      </object>
+      <growablerows>0</growablerows>
+      <growablerows>1</growablerows>
+      <rows>1</rows>
+      <growablecols>0</growablecols>
+      <growablecols>1</growablecols>
+    </object>
+  </object>
+</resource>
