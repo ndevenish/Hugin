@@ -96,7 +96,7 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
         // have to remap all images
         m_remapCache.invalidate();
     }
-    
+
     if (m_autoPreview && dirty) {
         DEBUG_DEBUG("forcing preview update");
         ForceUpdate();
@@ -193,7 +193,7 @@ void PreviewPanel::updatePreview()
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
             } else {
-                WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);

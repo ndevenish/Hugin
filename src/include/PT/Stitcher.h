@@ -342,7 +342,7 @@ public:
 	}
     }
 
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
                         const std::string & filename,
                         SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
@@ -565,6 +565,131 @@ public:
 private:
 };
 
+/** A stitcher without seaming, just copies the images over eachother
+ */
+template <typename ImageType, typename AlphaType>
+class SimpleStitcher : public Stitcher<ImageType, AlphaType>
+{
+    typedef Stitcher<ImageType, AlphaType> Base;
+public:
+    SimpleStitcher(const PT::Panorama & pano,
+		     utils::MultiProgressDisplay & progress)
+	: Stitcher<ImageType, AlphaType>(pano, progress)
+    {
+    }
+
+    template<class ImgIter, class ImgAccessor,
+             class AlphaIter, class AlphaAccessor>
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                        std::pair<AlphaIter, AlphaAccessor> alpha,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+    {
+	unsigned int nImg = imgSet.size();
+
+	Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
+	// empty ROI
+	vigra_ext::ROI<vigra::Diff2D> panoROI;
+
+	// remap each image and blend into main pano image
+	for (UIntSet::const_iterator it = imgSet.begin();
+	     it != imgSet.end(); ++it)
+	{
+            // get a remapped image.
+	    RemappedPanoImage<ImageType, AlphaType> &
+            remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
+
+	    Base::m_progress.setMessage("blending");
+	    // add image to pano and panoalpha, adjusts panoROI as well.
+	    blend(remapped, pano, alpha, panoROI);
+            // free remapped image
+            remapper.release();
+	}
+    }
+
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        const std::string & filename,
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+    {
+        std::string basename = utils::stripExtension(filename);
+
+	// create panorama canvas
+	ImageType pano(opts.width, opts.getHeight());
+	AlphaType panoMask(opts.width, opts.getHeight());
+
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
+	
+        std::string outputfile;
+	// save the remapped image
+        switch (opts.outputFormat) {
+        case PanoramaOptions::JPEG:
+            outputfile = basename + ".jpg";
+            break;
+        case PanoramaOptions::PNG:
+            outputfile = basename + ".png";
+            break;
+        case PanoramaOptions::TIFF:
+            outputfile = basename + ".tif";
+            break;
+        default:
+            DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+        }
+	Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
+	DEBUG_DEBUG("Saving panorama: " << outputfile);
+	vigra::ImageExportInfo exinfo(outputfile.c_str());
+	exinfo.setXResolution(150);
+	exinfo.setYResolution(150);
+        // set compression quality for jpeg images.
+        if (opts.outputFormat == PanoramaOptions::JPEG) {
+            char jpgCompr[4];
+            snprintf(jpgCompr,4,"%d", opts.quality);
+            exinfo.setCompression(jpgCompr);
+            vigra::exportImage(srcImageRange(pano), exinfo);
+	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
+	    exinfo.setCompression("DEFLATE");
+            vigra::exportImageAlpha(srcImageRange(pano),
+                                           srcImage(panoMask), exinfo);
+	} else {
+            vigra::exportImageAlpha(srcImageRange(pano),
+                                           srcImage(panoMask), exinfo);
+        }
+#ifdef DEBUG
+	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
+#endif
+	Base::m_progress.popTask();
+
+    }
+
+    /** blend \p img into \p pano, using \p alpha mask and \p panoROI
+     *
+     *  updates \p pano, \p alpha and \p panoROI
+     */
+    template <typename PanoIter, typename PanoAccessor,
+	      typename AlphaIter, typename AlphaAccessor>
+    void blend(RemappedPanoImage<ImageType, AlphaType> & img,
+	       vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
+	       std::pair<AlphaIter, AlphaAccessor> alpha,
+	       vigra_ext::ROI<vigra::Diff2D> & panoROI)
+    {
+	typedef typename AlphaIter::value_type AlphaValue;
+	// intersect the ROI's.
+	vigra_ext::ROI<vigra::Diff2D> overlap;
+
+        DEBUG_DEBUG("no overlap, copying upper area. imgroi " << img.roi());
+        DEBUG_DEBUG("pano roi: " << panoROI);
+        DEBUG_DEBUG("size of panorama: " << pano.second - pano.first);
+        vigra::copyImageIf(img.image(),
+                           maskIter(img.alpha().first),
+                           img.roi().apply(std::make_pair(pano.first, pano.third)));
+        // copy mask
+        vigra::copyImageIf(img.alpha(),
+                           maskIter(img.alpha().first),
+                           img.roi().apply(alpha));
+	img.roi().unite(panoROI, panoROI);
+    }
+
+
+};
 
 /*
 template <typename ImageType, typename AlphaImageType>
