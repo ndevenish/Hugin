@@ -66,7 +66,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     /** update the edit Lens values with values from the
      *  selected image.
      */
-    void UpdateLensDisplay (unsigned int imgNr);
+    void UpdateLensDisplay ();
 
     /** adjust the center of the image */
     void SetCenter (wxCommandEvent & e);
@@ -105,9 +105,11 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     ImagesListLens * images_list;
 
-    // image that has been changed.
-    unsigned int m_editImageNr;
-    unsigned int m_editLensNr;
+    // currently selected images and lenses
+    UIntSet m_selectedImages;
+    UIntSet m_selectedLenses;
+//    unsigned int m_editImageNr;
+//    unsigned int m_editLensNr;
 
     void updateHFOV(void);
     int m_degDigits;
