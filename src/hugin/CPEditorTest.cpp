@@ -36,7 +36,7 @@
 #include "CPEditorTest.h"
 #include "ImgScrollWindow.h"
 
-#include "../utils.h"
+#include "common/utils.h"
 
 
 IMPLEMENT_APP(PickerApp)

@@ -24,7 +24,7 @@
  *
  */
 
-#include "../utils.h"
+#include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 
 using namespace std;

@@ -32,7 +32,7 @@ extern "C" {
 #include <jpeglib.h>
 }
 
-#include "../utils.h"
+#include "common/utils.h"
 #include "PT/PanoramaMemento.h"
 
 

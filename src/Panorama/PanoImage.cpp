@@ -18,7 +18,7 @@ extern "C" {
 
 #include "PT/PanoImage.h"
 #include "PT/Panorama.h"
-#include "../utils.h"
+#include "common/utils.h"
 
 
 

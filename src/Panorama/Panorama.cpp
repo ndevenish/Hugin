@@ -40,7 +40,7 @@ extern "C" {
 
 #include "PT/Panorama.h"
 #include "PT/Process.h"
-#include "../utils.h"
+#include "common/utils.h"
 
 using namespace PT;
 using namespace std;

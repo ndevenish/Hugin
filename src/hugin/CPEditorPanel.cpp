@@ -42,7 +42,7 @@
 #endif
 
 #include "wx/xrc/xmlres.h"              // XRC XML resouces
-#include "../utils.h"
+#include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 
 #include "hugin/CPEditorPanel.h"

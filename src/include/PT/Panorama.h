@@ -28,9 +28,9 @@
 #include <vector>
 #include <sstream>
 
-#include "../utils.h"
-#include "PanoImage.h"
-#include "PanoramaMemento.h"
+#include "common/utils.h"
+#include "PT/PanoImage.h"
+#include "PT/PanoramaMemento.h"
 
 class Process;
 
