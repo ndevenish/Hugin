@@ -1459,6 +1459,12 @@ msgstr ""
 #: ../ptopengui.cpp:1800
 msgid "Make preview"
 msgstr "Vorschau erzeugen"
+msgid "preview"
+msgstr "Vorschau"
+msgid "auto preview"
+msgstr "automatische Vorschau erzeugen"
+msgid "panoviewer enabled"
+msgstr "externer Panoramabetrachter"
 
 #: ../ptopengui.cpp:1801
 msgid "Start preview stitching"

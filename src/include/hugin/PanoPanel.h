@@ -68,7 +68,8 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     // function to update PanoramaOptions -> gui
-    bool autoPreview;
+    bool auto_preview;
+    bool panoviewer_enabled;
     int previewWidth;
     // initialize from gui values
     void PanoChanged (wxCommandEvent & e);
@@ -94,6 +95,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void PreviewWidthChanged(wxCommandEvent & e);
     void DoPreview(wxCommandEvent & e);
     void AutoPreview(wxCommandEvent & e);
+    void panoviewerEnabled(wxCommandEvent & e);
 
     void FinalFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);

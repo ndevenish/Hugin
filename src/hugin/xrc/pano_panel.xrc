@@ -272,9 +272,16 @@
                                 <minsize>232,20</minsize>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxCheckBox" name="pano_cb_autopreview">
-                                  <label>Autopreview</label>
+                                <object class="wxCheckBox" name="pano_cb_auto_preview">
+                                  <label>auto preview</label>
                                   <checked>0</checked>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="pano_cb_panoviewer_enabled">
+                                  <label>panoviewer enabled</label>
+                                  <checked>1</checked>
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
                               </object>

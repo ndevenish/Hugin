@@ -108,6 +108,7 @@
                           <help>Horizontal Field of View</help>
                           <longhelp>Horizontal Field of View</longhelp>
                           <tooltip>Horizontal Field of View</tooltip>
+                          <value></value>
                           <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>

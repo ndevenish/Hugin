@@ -761,12 +761,15 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
 
     wxCommandEvent event;
     if ( e.m_leftDown ) {
-      if ( e.m_shiftDown ) {
-        images_panel->SetPitch (event);
-      } else if ( e.m_controlDown ) {
-        images_panel->SetYaw (event);
-      } else {
+      if ( (!e.m_shiftDown && !e.m_controlDown) || (e.m_shiftDown && e.m_controlDown) ) {
         images_panel->SetYawPitch( coord_x, coord_y );
+      } else {
+        if ( e.m_shiftDown ) {
+          images_panel->SetPitch (event);
+        }
+        if ( e.m_controlDown ) {
+          images_panel->SetYaw (event);
+        }
       }
     }
     if ((images_panel->imgNr[0] >= 1)) {

@@ -78,7 +78,9 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
 
   EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::PreviewWidthChanged )
   EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
-  EVT_CHECKBOX ( XRCID("pano_cb_autopreview"),PanoPanel::AutoPreview )
+  EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::AutoPreview )
+  EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
+                                               PanoPanel::panoviewerEnabled )
 
   EVT_CHOICE   ( XRCID("pano_choice_formatFinal"),PanoPanel::FinalFormatChanged)
   EVT_COMBOBOX ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
@@ -102,7 +104,8 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     // set defaults from gui;
 //    PanoChanged (e);
-    autoPreview = FALSE;
+    auto_preview = FALSE;
+    panoviewer_enabled = TRUE;
 
     changePano = FALSE;
 
@@ -183,7 +186,7 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
       int id (XRCID("pano_button_preview"));
       wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
       e.SetId(id);
-      if (autoPreview && !self_pano_dlg)
+      if (auto_preview && !self_pano_dlg)
         DoPreview (e);
 //    PanoChanged (e);
     }
@@ -202,6 +205,186 @@ void PanoPanel::DoOptimization (wxCommandEvent & e)
     // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level 
     Optimize(*optset, opt); 
 }
+
+void PanoPanel::DoPreview ( wxCommandEvent & e )
+{
+
+    if (!self_pano_dlg) {
+      Panorama old_pano = pano;
+      PanoramaOptions old_opt = opt;
+#if 1
+      old_opt.width = previewWidth;
+      old_opt.height = previewWidth / 2;
+      wxString outputFormat = old_opt.outputFormat.c_str();
+      old_opt.outputFormat = "JPEG";
+//      int quality = preview_opt.quality;
+      if ( outputFormat != "JPEG" )
+        old_opt.quality = 100;
+
+      // Set the preview image accordingly to ImagesPanel.cpp
+      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+        wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
+        std::stringstream filename;
+        filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
+                <<_("preview")<<"_"<< imgNr <<".ppm" ;
+        PanoImage image = old_pano.getImage(imgNr);
+        image.setFilename( filename.str() ) ;
+        old_pano.setImage(imgNr, image);
+        DEBUG_INFO ("rendering preview image: "<< filename.str())
+      }
+
+      DEBUG_TRACE ("")
+//      PT::SetPanoOptionsCmd( pano, opt );
+#endif
+      DEBUG_TRACE ("")
+
+//      GlobalCmdHist::getInstance().addCommand(
+//         /*new PT::*/StitchCmd( old_pano, old_opt );
+//         );
+                Process process(false);
+                old_pano.runStitcher(process, old_opt);
+                process.wait();
+
+#if 0
+      GlobalCmdHist::getInstance().addCommand(
+         new PT::SetPanoOptionsCmd( pano, opt )
+         );
+#endif
+      DEBUG_TRACE ("")
+
+      // Send panoViewer the name of our image
+      if ( panoviewer_enabled )
+        server->SendFilename( (wxString) old_opt.outfile.c_str() );
+
+      // Show the result image in the first tab
+          // right image preview
+          wxImage * s_img;
+          s_img = new wxImage (old_opt.outfile.c_str());
+          wxImage r_img;
+
+          int new_width;
+          int new_height;
+          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
+                > 2.0 ) {
+            new_width =  256;
+            new_height = (int)((float)s_img->GetHeight()/
+                                        (float)s_img->GetWidth()*256.0);
+          } else {
+            new_width = (int)((float)s_img->GetWidth()/
+                                        (float)s_img->GetHeight()*128.0);
+            new_height = 128;
+          }
+
+          r_img = s_img->Scale( new_width, new_height );
+          delete p_img;
+          p_img = new wxBitmap( r_img.ConvertToBitmap() );
+          canvas->Refresh();
+          delete s_img;
+
+      // recover old values
+//      opt = old_opt;
+#if 0
+      opt.width = old_opt.width;
+      opt.height = old_opt.height;
+      opt.outputFormat = old_opt.outputFormat;
+      opt.quality = old_opt.quality;
+
+      // Unset the preview image accordingly to ImagesPanel.cpp
+      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+        wxString fn = (wxString)old_pano.getImage(imgNr).getFilename().c_str();
+        PanoImage image = old_pano.getImage(imgNr);
+        image.setFilename( fn.c_str() ) ;
+        pano.setImage(imgNr, image);
+        DEBUG_INFO ( "reset image: "<< fn )
+      }
+
+      DEBUG_TRACE ("")
+//      PT::SetPanoOptionsCmd( pano, opt );
+      DEBUG_TRACE ("")
+
+      GlobalCmdHist::getInstance().addCommand(
+         new PT::SetPanoOptionsCmd( pano, opt )
+         );
+#endif
+//      if ( outputFormat != "JPEG" )
+//        preview_opt.quality = quality;
+      DEBUG_TRACE ("")
+
+// FIXME How to avoid crashing by the following? 
+// TODO  Can I run stitching without touching the pano object?
+#if 0
+      pano = old_pano;
+      opt = old_opt;
+#endif
+
+    } else {
+      pano_panel->DoPreview(e);
+    }
+/*
+    if ( !preview_dlg ) {
+        wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
+    DEBUG_INFO ( "" )
+//        preview_dlg = XRCCTRL(*this, "pano_dlg_preview", wxDialog);
+    DEBUG_INFO ( "" )
+        CPImageCtrl * preview_win = new CPImageCtrl(this);
+    DEBUG_INFO ( ": " << opt.width )
+//        wxXmlResource::Get()->AttachUnknownControl(wxT("pano_preview_unknown"),
+//                                               preview_win);
+    DEBUG_INFO ( "" )
+        preview_dlg->ShowModal();
+    DEBUG_INFO ( "" )
+    }*/
+    DEBUG_INFO ( "" )
+}
+void PanoPanel::AutoPreview ( wxCommandEvent & e )
+{
+    if ( XRCCTRL(*this, "pano_cb_auto_preview", wxCheckBox)
+         ->IsChecked() ) {
+        DEBUG_INFO ("set auto preview")
+        auto_preview = true;
+    } else {
+        DEBUG_INFO ("unset auto prievew")
+        auto_preview = false;
+    }
+
+    if ( pano_dlg_run ) {  // tell the other window
+      if ( self_pano_dlg ) {
+        pano_panel->auto_preview = auto_preview;
+        XRCCTRL(*pano_panel, "pano_cb_auto_preview", wxCheckBox)
+                  ->SetValue(auto_preview);
+      } else {
+        pano_dlg->pp->auto_preview = auto_preview;
+        XRCCTRL(*pano_dlg->pp, "pano_cb_auto_preview", wxCheckBox)
+                  ->SetValue(auto_preview);
+      }
+    }
+
+}
+void PanoPanel::panoviewerEnabled ( wxCommandEvent & e )
+{
+    if ( XRCCTRL(*this, "pano_cb_panoviewer_enabled", wxCheckBox)
+         ->IsChecked() ) {
+        DEBUG_INFO ("set panoviewer_enabled")
+        panoviewer_enabled = true;
+    } else {
+        DEBUG_INFO ("unset panoviewer_enabled")
+        panoviewer_enabled = false;
+    }
+
+    if ( pano_dlg_run ) {  // tell the other window
+      if ( self_pano_dlg ) {
+        pano_panel->panoviewer_enabled = panoviewer_enabled;
+        XRCCTRL(*pano_panel, "pano_cb_panoviewer_enabled", wxCheckBox)
+                  ->SetValue(panoviewer_enabled);
+      } else {
+        pano_dlg->pp->panoviewer_enabled = panoviewer_enabled;
+        XRCCTRL(*pano_dlg->pp, "pano_cb_panoviewer_enabled", wxCheckBox)
+                  ->SetValue(panoviewer_enabled);
+      }
+    }
+
+}
+
 
 #define OPT_TO_COMBOBOX( xml_combo, type ) \
 { \
@@ -413,133 +596,6 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
                               ->SetValue(wxString::Format ("%d", previewWidth));
         }
       }
-}
-
-void PanoPanel::DoPreview ( wxCommandEvent & e )
-{
-
-    if (!self_pano_dlg) {
-//      Panorama old_pano = pano;
-//      PanoramaOptions old_opt = opt;
-      opt.width = previewWidth;
-      opt.height = previewWidth / 2;
-      wxString outputFormat = opt.outputFormat.c_str();
-      opt.outputFormat = "JPEG";
-//      int quality = preview_opt.quality;
-      if ( outputFormat != "JPEG" )
-        opt.quality = 100;
-
-#if 1
-      // Set the preview image accordingly to ImagesPanel.cpp
-      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
-        wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
-        std::stringstream filename;
-        filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
-                <<_("preview")<<"_"<< imgNr <<".ppm" ;
-        PanoImage image = pano.getImage(imgNr);
-        image.setFilename( filename.str() ) ;
-        pano.setImage(imgNr, image);
-        DEBUG_INFO ("rendering preview image: "<< filename.str())
-      }
-
-      DEBUG_TRACE ("")
-//      PT::SetPanoOptionsCmd( pano, opt );
-#endif
-      DEBUG_TRACE ("")
-
-      GlobalCmdHist::getInstance().addCommand(
-         new PT::StitchCmd( pano, opt )
-         );
-
-#if 0
-      GlobalCmdHist::getInstance().addCommand(
-         new PT::SetPanoOptionsCmd( pano, opt )
-         );
-#endif
-      DEBUG_TRACE ("")
-
-      // Send panoViewer the name of our image
-      server->SendFilename( (wxString) opt.outfile.c_str() );
-
-      // Show the result image in the first tab
-          // right image preview
-          wxImage * s_img;
-          s_img = new wxImage (opt.outfile.c_str());
-          wxImage r_img;
-
-          int new_width;
-          int new_height;
-          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
-                > 2.0 ) {
-            new_width =  256;
-            new_height = (int)((float)s_img->GetHeight()/
-                                        (float)s_img->GetWidth()*256.0);
-          } else {
-            new_width = (int)((float)s_img->GetWidth()/
-                                        (float)s_img->GetHeight()*128.0);
-            new_height = 128;
-          }
-
-          r_img = s_img->Scale( new_width, new_height );
-          delete p_img;
-          p_img = new wxBitmap( r_img.ConvertToBitmap() );
-          canvas->Refresh();
-          delete s_img;
-
-      // recover old values
-//      if ( outputFormat != "JPEG" )
-//        preview_opt.quality = quality;
-      DEBUG_TRACE ("")
-
-// FIXME How to avoid crashing by the following? 
-// TODO  Can I run stitching without touching the pano object?
-#if 0
-      pano = old_pano;
-      opt = old_opt;
-#endif
-
-    } else {
-      pano_panel->DoPreview(e);
-    }
-/*
-    if ( !preview_dlg ) {
-        wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
-    DEBUG_INFO ( "" )
-//        preview_dlg = XRCCTRL(*this, "pano_dlg_preview", wxDialog);
-    DEBUG_INFO ( "" )
-        CPImageCtrl * preview_win = new CPImageCtrl(this);
-    DEBUG_INFO ( ": " << opt.width )
-//        wxXmlResource::Get()->AttachUnknownControl(wxT("pano_preview_unknown"),
-//                                               preview_win);
-    DEBUG_INFO ( "" )
-        preview_dlg->ShowModal();
-    DEBUG_INFO ( "" )
-    }*/
-    DEBUG_INFO ( "" )
-}
-void PanoPanel::AutoPreview ( wxCommandEvent & e )
-{
-    if ( XRCCTRL(*this, "pano_cb_autopreview", wxCheckBox)
-         ->IsChecked() ) {
-        DEBUG_INFO ("set auto preview")
-        autoPreview = true;
-    } else {
-        DEBUG_INFO ("unset auto prievew")
-        autoPreview = false;
-    }
-
-    if ( pano_dlg_run ) {  // tell the other window
-      if ( self_pano_dlg ) {
-        pano_panel->autoPreview = autoPreview;
-        XRCCTRL(*pano_panel, "pano_cb_autopreview", wxCheckBox)
-                  ->SetValue(autoPreview);
-      } else {
-        pano_dlg->pp->autoPreview = autoPreview;
-        XRCCTRL(*pano_dlg->pp, "pano_cb_autopreview", wxCheckBox)
-                  ->SetValue(autoPreview);
-      }
-    }
-
 }
 
 // --

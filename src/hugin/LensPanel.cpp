@@ -283,6 +283,18 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
       wxListEvent e;
       SetImages( e );
+      for ( unsigned int imageNr=0; imageNr < pano.getNrOfImages(); imageNr++ ){
+        ImageVariables new_var = pano.getVariable(imageNr);
+        DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
+        if ( !(new_var. HFOV .getValue() >= 0.0) ) {
+//          new_var. HFOV .setValue(90.0);
+          edit_Lens-> HFOV = 90.0;   // zere lenses are not allowed in gui!!
+          DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
+          GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeLensCmd( pano, imageNr, *edit_Lens )
+          );
+        }
+      } 
     }
     int lt = XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->GetSelection();
 //    DEBUG_INFO ( wxString::Format (" Lenstype %d", lt) )
