@@ -210,14 +210,14 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
                               0, NULL, -1, wxDefaultPosition,
-                          wxDefaultSize,
-                  wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+                                    wxDefaultSize,
+                                    wxSIMPLE_BORDER|wxSTAY_ON_TOP);
 #else
         splash = new wxSplashScreen(bitmap,
-                           wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
-                           2000, NULL, -1, wxDefaultPosition,
-                       wxDefaultSize,
-                   wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+                                    wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
+                                    0, NULL, -1, wxDefaultPosition,
+                                    wxDefaultSize,
+                                    wxSIMPLE_BORDER);
 #endif
     } else {
         DEBUG_ERROR("splash image not found");
@@ -335,11 +335,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 
-#ifdef __unix__
     if(splash) {
         splash->Close();
     }
-#endif
 #ifdef DEBUG
 #ifdef __WXMSW__
 
@@ -442,11 +440,11 @@ void MainFrame::OnExit(wxCloseEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    wxFileName scriptName = m_filename;
     if (m_filename == "") {
         OnSaveProjectAs(e);
     } else {
         // the project file is just a PTOptimizer script...
-        wxFileName scriptName = m_filename;
         std::string path(
             scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
@@ -456,6 +454,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
+    this->SetTitle(scriptName.GetName() + "." + scriptName.GetExt() + " - hugin");
     pano.clearDirty();
 }
 
@@ -497,10 +496,15 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 void MainFrame::LoadProjectFile(const wxString & filename)
 {
     DEBUG_TRACE("");
+    m_filename = filename;
     // remove old images from cache
-    ImageCache::getInstance().flush();
+    // hmm probably not a good idea, if the project is reloaded..
+    //ImageCache::getInstance().flush();
+    
     wxFileName fname(filename);
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+    
+    SetStatusText( _("Open project:   ") + filename);
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
@@ -514,9 +518,13 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
         SetStatusText(_("Project opened"));
         config->Write("actualPath", path);  // remember for later
+        this->SetTitle(fname.GetName() + "." + fname.GetExt() + " - hugin");
     } else {
+        SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
+    
+    pano.clearDirty();
 }
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
@@ -536,31 +544,13 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                      "All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
-        wxFileName scriptName = dlg.GetPath();
-        m_filename = dlg.GetPath();
-        std::string prefix(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         wxString filename = dlg.GetPath();
-        SetStatusText( _("Open project:   ") + filename);
-        config->Write("actualPath", dlg.GetDirectory());  // remember for later
-        // open project.
-        std::ifstream file(filename.c_str());
-        if (file.good()) {
-            wxBusyCursor();
-            GlobalCmdHist::getInstance().addCommand(
-                new LoadPTProjectCmd(pano,file, prefix)
-                );
-            DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
-        opt_panel->setOptimizeVector(pano.getOptimizeVector());
-            SetStatusText(_("Project opened"));
-        } else {
-            DEBUG_ERROR("Could not open file " << filename);
-        }
+        LoadProjectFile(filename);
     } else {
         // do not close old project
         // nothing to open
         SetStatusText( _("Open project: cancel"));
     }
-    pano.clearDirty();
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
