@@ -115,6 +115,8 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_MOTION(CPImageCtrl::mouseMoveEvent)
     EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
     EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
+    EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
+    EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
     EVT_SIZE(CPImageCtrl::OnSize)
     EVT_KEY_UP(CPImageCtrl::OnKeyUp)
     EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
@@ -160,8 +162,21 @@ CPImageCtrl::~CPImageCtrl()
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
+    wxSize vSize = GetVirtualSize();
     // draw image (FIXME, redraw only visible regions.)
     if (editState != NO_IMAGE) {
+        if (bitmap.GetWidth() < vSize.GetWidth()) {
+            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
+            dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+            dc.DrawRectangle(bitmap.GetWidth(), 0, 
+                             vSize.GetWidth() - bitmap.GetWidth(),vSize.GetHeight());
+        }
+        if (bitmap.GetHeight() < vSize.GetHeight()) {
+            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
+            dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+            dc.DrawRectangle(0, bitmap.GetHeight(),
+                             vSize.GetWidth(), vSize.GetHeight() - bitmap.GetHeight());
+        }
         dc.DrawBitmap(bitmap,0,0);
     }
 
@@ -276,14 +291,19 @@ void CPImageCtrl::rescaleImage()
     if (getScaleFactor() == 1.0) {
         bitmap = img->ConvertToBitmap();
     } else {
-        DEBUG_DEBUG("rescaling to " << scale(imageSize.GetWidth()) << "x"
-                    << scale(imageSize.GetHeight()) );
-        bitmap = img->Scale(scale(imageSize.GetWidth()),
-                            scale(imageSize.GetHeight())).ConvertToBitmap();
+        imageSize.SetWidth( scale(imageSize.GetWidth()) );
+        imageSize.SetHeight( scale(imageSize.GetHeight()) );
+        DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
+                    << imageSize.GetHeight() );
+        bitmap = img->Scale(imageSize.GetWidth(),
+                            imageSize.GetHeight()).ConvertToBitmap();
         DEBUG_DEBUG("rescaling finished");
     }
-    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
-    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
+    
+    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+    SetScrollRate(1,1);
+//    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
+//    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
 }
 
 void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
@@ -318,7 +338,8 @@ void CPImageCtrl::showPosition(int x, int y)
 //    if (x<0) x = 0;
     y = scale(y)- sz.GetHeight()/2;
 //    if (y<0) x = 0;
-    Scroll(x/16, y/16);
+//    Scroll(x/16, y/16);
+    Scroll(x, y);
 }
 
 CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int & pointNr) const
@@ -405,19 +426,20 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
         }
     }
     if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
-      int x,y;
-      wxSize vs;
-      GetVirtualSize( &vs.x, &vs.y );
-      wxSize sz = GetClientSize();
-      x = (int)((double)mouse->GetPosition().x/16.0/(double)sz.GetWidth()
-          * (double)vs.x
-          - (double)sz.x/32.0);
-      if (x<0) x = 0;
-      y = (int)((double)mouse->GetPosition().y/16.0/(double)sz.GetHeight()
-          * (double)vs.y
-          - (double)sz.y/32.0);
-      if (y<0) x = 0;
-      Scroll( x, y);
+      if (m_mouseScrollPos != mouse->GetPosition()) {
+          wxPoint delta = mouse->GetPosition() - m_mouseScrollPos;
+          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
+	  delta.x = delta.x * speed;
+	  delta.y = delta.y * speed;
+	  ScrollDelta(delta);
+	  if (mouse->ShiftDown()) {
+              // emit scroll event, so that other window can be scrolled
+              // as well.
+	      CPEvent e(this, CPEvent::SCROLLED, delta);
+	      emit(e);
+	  }
+	  m_mouseScrollPos = mouse->GetPosition();
+      }
     }
 
 //    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
@@ -426,7 +448,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
     if (m_showSearchArea) {
         doUpdate = true;
     }
-    
+
     m_mousePos = mpos;
     // repaint
     if (doUpdate) {
@@ -467,21 +489,6 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
         }
         DEBUG_DEBUG("ImageDisplay: mouse down, state change: " << oldstate
                     << " -> " << editState);
-    }
-    if (mouse->MiddleDown() ) {  // scrolling with the mouse
-        int x,y;
-        wxSize vs;
-        GetVirtualSize( &vs.x, &vs.y );
-        wxSize sz = GetClientSize();
-        x = (int)((double)mouse->GetPosition().x/16.0/(double)sz.GetWidth()
-                  * (double)vs.x
-                  - (double)sz.x/32.0);
-        if (x<0) x = 0;
-        y = (int)((double)mouse->GetPosition().y/16.0/(double)sz.GetHeight()
-                  * (double)vs.y
-                  - (double)sz.y/32.0);
-        if (y<0) x = 0;
-        Scroll( x, y);
     }
     m_mousePos = mpos;
 }
@@ -558,6 +565,22 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
     }
 
 }
+
+
+void CPImageCtrl::mouseReleaseMMBEvent(wxMouseEvent *mouse)
+{
+    DEBUG_DEBUG("middle mouse button released, leaving scroll mode")
+    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
+}
+
+
+void CPImageCtrl::mousePressMMBEvent(wxMouseEvent *mouse)
+{
+    DEBUG_DEBUG("middle mouse button pressed, entering scroll mode")
+    m_mouseScrollPos = mouse->GetPosition();
+    SetCursor(wxCursor(wxCURSOR_HAND));
+}
+
 
 void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent *mouse)
 {
@@ -638,21 +661,12 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 void CPImageCtrl::OnKeyUp(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
-    if (e.m_keyCode == WXK_SHIFT) {
-        // zoom to original zoom
-        DEBUG_DEBUG("shift down");
-        if (m_tempZoom) {
-            setScale(m_savedScale);
-            m_tempZoom = false;
-        }
-    } else {
-        e.Skip();
-    }
-
+    e.Skip();
 }
 
 void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 {
+#if 0
     DEBUG_TRACE("key:" << e.m_keyCode);
     if (e.m_keyCode == WXK_SHIFT) {
         DEBUG_DEBUG("shift down");
@@ -671,17 +685,22 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
     } else {
         e.Skip();
     }
+#endif
 
+    e.Skip();
 }
 
 void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
 {
+#if 0
     DEBUG_TRACE("");
     if (m_tempZoom) {
         setScale(m_savedScale);
         m_tempZoom = false;
     }
+#endif
     m_mousePos = wxPoint(-1,-1);
+    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
@@ -713,7 +732,7 @@ void CPImageCtrl::setNewPoint(const wxPoint & p)
 }
 
 void CPImageCtrl::showSearchArea(bool show)
-{ 
+{
     m_showSearchArea = show;
     if (show)
     {
@@ -727,10 +746,23 @@ void CPImageCtrl::showSearchArea(bool show)
 }
 
 void CPImageCtrl::showTemplateArea(bool show)
-{ 
+{
     m_showTemplateArea = show;
     if (show)
     {
         m_templateRectWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14l) / 2;
     }
 }
+
+void CPImageCtrl::ScrollDelta(const wxPoint & delta)
+{
+    int x,y;
+    GetViewStart( &x, &y );
+    x = x + delta.x;
+    y = y + delta.y;
+    if (x<0) x = 0;
+    if (y<0) y = 0;
+    Scroll( x, y);
+}
+
+

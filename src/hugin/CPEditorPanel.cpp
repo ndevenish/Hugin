@@ -331,6 +331,14 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         }
         break;
     }
+    case CPEvent::SCROLLED:
+	if (left) {
+	    m_rightImg->ScrollDelta(point);
+	} else {
+	    m_leftImg->ScrollDelta(point);
+	}
+	break;
+
 //    default:
 //        text = "FATAL: unknown event mode";
     }

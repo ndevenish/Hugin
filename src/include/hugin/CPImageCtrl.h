@@ -41,7 +41,8 @@ class CPEvent : public wxCommandEvent
 {
     DECLARE_DYNAMIC_CLASS(CPEvent)
 
-    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK };
+    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK, SCROLLED };
+    
 public:
     CPEvent( );
     /// create a specific CPEvent
@@ -139,6 +140,8 @@ public:
     void mouseReleaseLMBEvent(wxMouseEvent *mouse);
     void mouseReleaseRMBEvent(wxMouseEvent *mouse);
     void mouseMoveEvent(wxMouseEvent *mouse);
+    void mousePressMMBEvent(wxMouseEvent *mouse);
+    void mouseReleaseMMBEvent(wxMouseEvent *mouse);
 
     wxSize DoGetBestSize() const;
 //    virtual wxSize GetBestSize() const
@@ -172,6 +175,9 @@ public:
 
     /// initiate redraw
     void update();
+
+    /// scroll the window by @p delta pixels
+    void ScrollDelta(const wxPoint & delta);
 
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
@@ -296,6 +302,7 @@ private:
     int m_searchRectWidth;
 
     wxPoint m_mousePos;
+    wxPoint m_mouseScrollPos;
 
     bool m_showTemplateArea;
     int m_templateRectWidth;
