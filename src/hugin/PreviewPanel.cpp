@@ -58,7 +58,7 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
-    m_panoBitmap(0), m_blendMode(BLEND_NORMAL), parentWindow(parent)
+    m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent)
 {
     DEBUG_TRACE("");
 }
