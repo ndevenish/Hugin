@@ -3,15 +3,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>hugin - Panorama Tools GUI</title>
+<style media="screen" type="text/css" title="Screen style sheet">
+@import url(/css/normal.css);
+</style>
 </head>
 <body>
 
+<!--#include virtual="/ssi/menu.html"-->
+<div class="content">
 <h1>hugin - Panorama Tools GUI</h1>
 
 <p>A easy to use GUI for <a href="http://www.path.unimelb.edu.au/~dersch/">Panorama Tools</a>.</p>
 
-Hugin currently supports most features of panorama tools, and can be
-used for to create different kinds of panoramic images.
+<p>Hugin currently supports most features of panorama tools, and can be
+used for to create different kinds of panoramic images.</p>
 
 <h2>Introduction</h2>
 
@@ -26,12 +31,14 @@ look at the interface.  </p>
 </p>
 
 <h2>Credits</h2>
-Main programming:Pablo d'Angelo &lt;pablo@mathematik.uni-ulm.de&gt; <br>
-Additional programming: Kai-Uwe Behrmann <br>
-Tutorials and rpm packages: Bruno Postle <br>
+<ul>
+<li>Main programming:Pablo d'Angelo &lt;pablo&#64;mathematik.uni-ulm.de&gt;</li>
+<li>Additional programming: Kai-Uwe Behrmann</li>
+<li>Tutorials and rpm packages: Bruno Postle</li>
+</ul>
 
-Thanks to all people on the ptx mailing list, for many interesting
-ideas and for testing.
+<p>Thanks to all people on the ptx mailing list, for many interesting
+ideas and for testing.</p>
 
 <h2>IMPORTANT BUG WARNING</h2>
 <p>
@@ -91,7 +98,7 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
   changing the <b>d</b> and <b>e</b> parameters.
 </p>
 
-</p>
+<p>
   During image capture, it is possible that the parameters vary, that is
   are not the same for each image. This can have many reasons, one of
   the could be a scanner that cuts a way a few pixel more at one side
@@ -134,6 +141,7 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
 
 <p>
   Control point creation is influenced by the following checkboxes:
+</p>
   <ul>
     <li> <b>auto fine tune</b> hugin helps you to find the second point
       by looking for it in a search region (shown by a rectange around
@@ -141,7 +149,7 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
       if the image distortions are not too big. Try and play with it.
     </li>
     <li> <b>auto add</b> A control point is automatically added when both
-      points are know. >ou won't have time to refine the selection
+      points are know. You won't have time to refine the selection
       before adding the point.
     </li>
     <li> <b>auto estimate</b> Tries to estimate the position of the
@@ -151,6 +159,7 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
     </li>
   </ul>
 
+<p>
   All these flags can be combined. I typically use <b>auto fine tune</b> and
   <b>auto estimate</b> at the same time. Then hugin usually
   automatically selects the second point correctly. Well for single
@@ -181,10 +190,9 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
   This window supports some keyboard shortcuts:
 </p>
 
-<p>
-  <table>
+  <table summary="">
     <tr> <th> Key </th> <th> Function </th> </tr>
-    <tr> <td> a </td> <td> add a new point that has been selected in both images, and the <b>auto add</a> is switched off. </td> </tr>
+    <tr> <td> a </td> <td> add a new point that has been selected in both images, and the <b>auto add</b> is switched off. </td> </tr>
     <tr> <td> cursor keys </td> <td> scroll image under the mouse cursor </td> </tr>
     <tr> <td> shift + cursor keys </td> <td> scroll both images at the same time </td> </tr>
     <tr> <td> f </td> <td> fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button </td> </tr>
@@ -192,10 +200,8 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
     <tr> <td> 0 </td> <td> Zoom out to full view. </td> </tr>
     <tr> <td> 1 </td> <td> 100% view. </td> </tr>
   </table>
-</p>
 
-<p>
-  <table>
+  <table summary="">
     <tr> <th> Mouse function </th> <th> Function </th> </tr>
     <tr>
       <td> control key + mouse movement </td>
@@ -224,7 +230,6 @@ its orientation (yaw, pitch and roll values) can be edited on the left.
       <td> Scroll both images </td>
     </tr>
   </table>
-<p>
 
 
 <h3>Optimizer Tab</h3>
@@ -248,8 +253,11 @@ FIXME, write some more...
 
 <hr/>
 <p>
-This document was written by Pablo d'Angelo <a href="mailto:pablo.dangelo@web.de">&lt;pablo.dangelo@web.de&gt;</a>
+This document was written by Pablo d'Angelo <a href="mailto:pablo.dangelo&#64;web.de">&lt;pablo.dangelo&#64;web.de&gt;</a>
 </p>
 
+<!--#include virtual="/ssi/homelink.html"-->
+
+</div>
 </body>
 </html>
