@@ -152,7 +152,8 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
                     AlphaIterator alphaUpperleft, AlphaAccessor alphaA,
                     vigra::TiffImage * tiff, int sampleformat)
 {
-    typedef typename ImageAccessor::value_type::value_type PixelType;
+    typedef typename ImageAccessor::value_type PType;
+    typedef PType::value_type PixelType;
 //    typedef typename ImageAccessor::value_type PixelType;
     int w = lowerright.x - upperleft.x;
     int h = lowerright.y - upperleft.y;
