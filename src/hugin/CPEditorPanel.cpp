@@ -66,15 +66,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent)
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
 
-/*
-  wxButton *m_leftImg = new wxButton(this,12345, "left Image");
-  wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
-    m_leftImg);
-  wxButton *m_rightImg = new wxButton(this, -1, "right Image");
-  wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
-    m_rightImg);
-
-*/
 }
 
 
