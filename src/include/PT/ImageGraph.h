@@ -47,6 +47,29 @@ typedef boost::adjacency_list<boost::vecS, boost::vecS,
 void createCPGraph(const Panorama & pano, CPGraph & graph);
 
 
+
+typedef boost::property<boost::edge_weight_t, float> OverlapEdgeProperty;
+
+/** A graph that contains all image as nodes (vertexes), overlaps are 
+ *  given by edges.
+ *
+ *  vertex property (color): indicates if the image has been stitched
+ *  into the panorama
+ *
+ *  edge property (float): amount of overlap
+ */
+typedef boost::adjacency_list<boost::vecS, boost::vecS,
+                              boost::undirectedS,
+                              boost::property<boost::vertex_color_t, boost::default_color_type>,
+                              OverlapEdgeProperty> OverlapGraph;
+
+/** create a graph with all overlaps, and a suitable blend order.
+ *
+ *
+ */
+void createOverlapGraph(const Panorama & pano, OverlapGraph & graph);
+
+
 } // namespace
 
 #endif // _IMAGEGRAPH_H
