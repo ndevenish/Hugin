@@ -158,7 +158,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxFileName::SplitPath( wxTheApp->argv[0], &splashPath, NULL, NULL );
 		
     wxConfigBase* config = wxConfigBase::Get();
-    if ( wxFile::Exists(splashPath + wxT("xrc/data/splash.png")) ) {
+    if ( wxFile::Exists(splashPath + wxT("/xrc/data/splash.png")) ) {
         DEBUG_INFO("using local xrc files");
         m_xrcPrefix = splashPath + "/xrc/";
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
