@@ -121,9 +121,26 @@ namespace utils
     std::string CurrentTime();
 
     /** convert a double to a string, suitable for display
-     *  within a GUI
+     *  within a GUI.
+     *
+     *  @p d value to convert t a string
+     *  @p fractionaldigits number of fractional digits.
+     *     -1: not specified, use default.
      */
-    std::string doubleToString(double d);
+    std::string doubleToString(double d, int fractionaldigits=-1);
+    
+    /** convert a string to a double, ignore localisation.
+     *  always accept both.
+     *
+     *  sets \p dest to the new value, and returns true
+     *  if it could be read.
+     *
+     *  it the conversion fails, returns false and does not
+     *  modify \p dest.
+     *
+     *  @return success
+     */
+    bool stringToDouble(std::string str, double & dest);
 
     /** Remove the extension from a filename */
     std::string stripExtension(const std::string & str);
