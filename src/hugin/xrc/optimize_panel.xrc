@@ -46,7 +46,7 @@
         <border>5</border>
       </object>
       <object class="spacer">
-        <size>0,20</size>
+        <size>0,15</size>
       </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
@@ -176,7 +176,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
               <orient>wxHORIZONTAL</orient>
               <label>Image Orientation</label>
             </object>
-            <option>3</option>
+            <option>2</option>
             <flag>wxALL|wxEXPAND</flag>
             <border>8</border>
           </object>
