@@ -33,7 +33,7 @@
 #include <unistd.h>
 
 #include "panoinc.h"
-#include "PT/SimpleStitcher.h"
+#include "PT/Stitcher.h"
 
 using namespace vigra;
 using namespace PT;
@@ -49,25 +49,36 @@ static void usage(const char * name)
          << endl
          << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << endl
          << endl
-         << "Usage: " << name  << " -o output project_file" << endl;
+         << "Usage: " << name  << " [options] -o output project_file" << endl
+	 << endl
+         << "  [options] can be: " << endl
+         << "     -r          # save tiff files with ROI (saves a lot of space, " << endl
+	 << "                   but doesn't work with most programs. " << endl
+	 << "                   The Gimp 2.0 can handle these files" << endl
+	 << endl;
+
 }
 
 int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "ho:";
+    const char * optstring = "rho:";
     int c;
 
     opterr = 0;
 
     string basename;
+    bool tiffROI = false;
 
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
         case 'o':
             basename = optarg;
             break;
+	case 'r':
+	    tiffROI = true;
+	    break;
         case '?':
         case 'h':
             usage(argv[0]);
@@ -81,15 +92,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // strip any extension from output file
-    std::string::size_type idx = basename.rfind('.');
-    if (idx != std::string::npos) {
-        basename = basename.substr(0, idx);
-    }
-
     const char * scriptFile = argv[optind];
 
     utils::StreamMultiProgressDisplay pdisp(cout);
+    //utils::MultiProgressDisplay pdisp;
 
     Panorama pano;
     PanoramaMemento newPano;
@@ -106,30 +112,7 @@ int main(int argc, char *argv[])
     }
 
     PanoramaOptions  opts = pano.getOptions();
-
-    string format = "jpg";
-    bool savePartial = false;
-    switch(opts.outputFormat) {
-    case PanoramaOptions::JPEG:
-        format = "jpg";
-        break;
-    case PanoramaOptions::PNG:
-        format = "png";
-        break;
-    case PanoramaOptions::TIFF:
-        format = "tif";
-        break;
-    case PanoramaOptions::TIFF_m:
-        format = "tif";
-        savePartial = true;
-        break;
-    case PanoramaOptions::TIFF_mask:
-        format = "tif";
-        break;
-    default:
-        DEBUG_ERROR("unsupported file format, using jpeg");
-        format = "jpg";
-    }
+    opts.tiff_saveROI = tiffROI;
 
     // check for some options
 
@@ -138,11 +121,12 @@ int main(int argc, char *argv[])
 
     cout << "output image size: " << w << "x" << h << endl;
 
+    DEBUG_DEBUG("output basename: " << basename);
+
     try {
-        BRGBImage dest;
         // stitch panorama
-        PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                 pdisp, basename, format, savePartial);
+        PT::stitchPanorama(pano, opts,
+                           pdisp, basename);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;
         return 1;
@@ -150,5 +134,3 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-
-

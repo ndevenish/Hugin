@@ -39,7 +39,7 @@ extern "C" {
 #include <unistd.h>
 
 #include "panoinc.h"
-#include "PT/SimpleStitcher.h"
+//#include "PT/Stitcher.h"
 
 using namespace vigra;
 using namespace vigra_ext;

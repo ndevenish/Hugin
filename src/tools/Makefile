@@ -65,7 +65,8 @@ LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_ext -lpano12 $(VIGRA_LFLAGS)
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1 2 3 4 5 6
+#APPS = 1 2 3 4 5 6
+APPS = 1
 
 # App 1
 
