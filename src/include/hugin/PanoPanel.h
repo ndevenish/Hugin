@@ -33,8 +33,12 @@
 #include "hugin/MainFrame.h"
 //#include "hugin/List.h"
 
-using namespace PT;
+//using namespace PT;
 class PanoDialog;
+class wxSpinCtrl;
+class wxTextCtrl;
+class wxChoice;
+class wxComboBox;
 
 /** Define the pano edit panel
  *
@@ -43,9 +47,8 @@ class PanoDialog;
  */
 class PanoPanel: public wxPanel, public PT::PanoramaObserver
 {
- public:
-    PanoPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano);
+public:
+    PanoPanel(wxWindow *parent, PT::Panorama * pano);
     ~PanoPanel(void) ;
 
     /** this is called whenever the panorama has changed.
@@ -64,109 +67,72 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
      *
      *  @todo   react on different update signals more special
      */
-//    virtual void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    virtual void panoramaChanged(PT::Panorama &pano);
+//    void panoramaImageChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** function to update PanoramaOptions -> gui */
-    bool auto_preview;
-    bool auto_optimize;
-    bool auto_optimize_run;
-    unsigned int optimizeAnchor;
-    bool panoviewer_enabled;
-    bool panoviewer_precise;
-    bool panoviewer_started;
-    int previewWidth;
-    int previewHeight;
-    bool preview_single;
-    unsigned int previewSingle;
-
-    /* initialize from gui values */
-    void PanoChanged (wxCommandEvent & e);
-
-    /** Start/Stop external dialog */
-    void DoDialog (wxCommandEvent & e);
-    /** Did we run DoDialog, to bring PanoPanel in dialog mode? */
-    bool self_pano_dlg;
-    /** Does PanoPanel run in dialog mode? */
-    bool pano_dlg_run;
-    /** follow the main window */
-    void Resize(wxSizeEvent & e);
     /** set the image */
     void previewSingleChanged(wxCommandEvent & e);
 
  private:
-    void DoOptimization (wxCommandEvent & e);
-    void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
 
+    // resize if the notebook page changes size
+    void FitParent(wxSizeEvent & e);
+
+    // apply changes from the model
+    void UpdateDisplay(const PT::PanoramaOptions & opt);
+
+    // apply changes to the model. (gui values -> Panorama)
     void ColourModeChanged(wxCommandEvent & e);
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
+    void VFOVChanged ( wxCommandEvent & e );
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
 
-    void DoPreview(wxCommandEvent & e);
-    void autoPreview(wxCommandEvent & e);
-    void autoOptimize(wxCommandEvent & e);
-    void optimizeAnchorChanged(wxCommandEvent & e);
-    void panoviewerEnabled(wxCommandEvent & e);
-    void panoviewerPrecise(wxCommandEvent & e);
-    void previewWidthChanged(wxCommandEvent & e);
-    void previewHeightChanged(wxCommandEvent & e);
+    void AutoPreviewChanged (wxCommandEvent & e);
+    void PanoviewerEnabled(wxCommandEvent & e);
+    void PreviewWidthChanged(wxCommandEvent & e);
 
-    void FinalFormatChanged(wxCommandEvent & e);
+    void FileFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);
-    void HeightChanged(wxCommandEvent & e);
-    void JpegQChanged(wxCommandEvent & e);
-    void JpegPChanged(wxCommandEvent & e);
 
+    // actions
+    void DoStitch(wxCommandEvent & e);
+    void DoPreview(wxCommandEvent & e);
+    void DoCalcFOV(wxCommandEvent & e);
 
-    void Stitch(wxCommandEvent & e);
-
-    void PanoOptionsChanged( PanoramaOptions & opt );
-    bool changePano;
-
-    // the model
-    Panorama &pano;
-    // hmm, use the panooptions of panorama for the "main"
-    // panorama.
-    PanoramaOptions opt;
-
-    // tearing off pano_panel
-    PanoDialog * pano_dlg;
-
-    int Width;
-    int Height;
-
-    wxDialog * preview_dlg;
-
-    DECLARE_EVENT_TABLE()
-};
-
-/** Define an pano edit panel dialog box
- *
- *  A small helper class to show up an second dialog insted of tearing off.
- */
-class PanoDialog: public wxDialog
-{
- public:
-    PanoDialog( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano);
-    ~PanoDialog(void) ;
-    // event handlers
-    void OnPaint (wxPaintEvent & e);
-
-    // The panel containing the controls
-    PanoPanel * pp;
-
- private:
-    void DoPaint (wxPaintEvent & e);
 
     // the model
     Panorama &pano;
 
+    // don't listen to input on gui elements during
+    // updating the gui from the model, to prevent recursion,
+    // because the gui might report changes as well.
+    bool updatesDisabled;
+    PanoramaOptions m_oldOpt;
+    double m_oldVFOV;
+
+    // control of this frame
+    wxChoice    * m_ProjectionChoice;
+    wxSpinCtrl  * m_HFOVSpin;
+    wxSpinCtrl  * m_VFOVSpin;
+
+    wxChoice    * m_InterpolatorChoice;
+    wxTextCtrl  * m_GammaText;
+    wxChoice    * m_ColorCorrModeChoice;
+    wxSpinCtrl   * m_ColorCorrRefSpin;
+
+    wxComboBox  * m_PreviewWidthCombo;
+    wxCheckBox  * m_AutoPreviewCB;
+    wxCheckBox  * m_PreviewPanoviewerCB;
+    wxButton    * m_PreviewButton;
+
+    wxComboBox  * m_WidthCombo;
+    wxStaticText *m_HeightStaticText;
+    wxChoice    * m_FormatChoice;
+    wxButton    * m_StitchButton;
+
     DECLARE_EVENT_TABLE()
 };
-
-
 
 #endif // _PANOPANEL_H

@@ -39,9 +39,9 @@ public:
                       PT::Panorama * pano,
                       const PT::PanoramaOptions & options,
                       const PT::OptimizeVector & optvars);
-    
+
     void OnProcessTerm(wxProcessEvent& event);
-    
+
 protected:
     void OnCancel(wxCommandEvent& event);
     void OnApply(wxCommandEvent& event);
@@ -64,9 +64,9 @@ private:
     PT::Panorama * m_pano;
     wxTimer m_timer;
 
-    PT::VariablesVector m_vars;
+    PT::VariableMapVector m_vars;
     PT::CPVector m_cps;
-    
+
     DECLARE_EVENT_TABLE()
 };
 

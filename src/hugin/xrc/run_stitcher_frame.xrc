@@ -6,10 +6,11 @@
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxStaticText" name="stitcher_status">
-          <label>blind text.. blind text.. blind text.. blind text.. blind text...</label>
+          <label></label>
           <style>wxALIGN_CENTRE</style>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
       <label>Stitching</label>
       <object class="sizeritem">
@@ -20,7 +21,8 @@
         <object class="wxGauge" name="stitcher_progress">
           <range>100</range>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
       <object class="sizeritem">
         <object class="wxStaticLine"/>
@@ -31,8 +33,10 @@
           <label>Abort</label>
           <style></style>
         </object>
-        <flag>wxALIGN_CENTRE</flag>
+        <flag>wxALL|wxALIGN_CENTRE</flag>
+        <border>5</border>
       </object>
     </object>
+    <style></style>
   </object>
 </resource>

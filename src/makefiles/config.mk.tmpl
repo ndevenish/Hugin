@@ -99,7 +99,8 @@ CXXFLAGS   +=
 LFLAGS     += -L$(LIB_DIR)
 
 CFLAGS	   += -I. -I$(INC_DIR)
-CFLAGS     += -Wall -g
+CFLAGS     += -Wall
+CFLAGS     += __EXTRA_CFLAGS__
 
 WXWIN_CFLAGS = __WXWIN_CFLAGS__
 WXWIN_LFLAGS = __WXWIN_LFLAGS__

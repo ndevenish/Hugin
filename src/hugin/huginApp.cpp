@@ -162,9 +162,6 @@ bool huginApp::OnInit()
     frame = new MainFrame();
     SetTopWindow(frame);
 
-    // show the frame.
-    frame->Show(TRUE);
-
 
     wxString wrkDir = config->Read("tempDir","");
     // create temporary directory.
@@ -202,14 +199,9 @@ bool huginApp::OnInit()
     frame->SetSize(config->Read("MainFrameSize_x",600l),
                    config->Read("MainFrameSize_y",400l));
 
-    // remember if PanoPanel was teared off
-    if ( config->Read("pano_dlg_run",0l) ) {
-        wxCommandEvent e;
-        pano_panel->DoDialog(e);
-        DEBUG_INFO("PanoPanel opened")
-    }
+    // show the frame.
+    frame->Show(TRUE);
 
     DEBUG_TRACE("");
     return true;
 }
-

@@ -46,7 +46,6 @@ class PanoPanel;
 extern ImagesPanel* images_panel;
 extern LensPanel* lens_panel;
 extern PanoPanel * pano_panel;
-extern OptimizeVector* optset;
 
 /** The main window frame.
  *
@@ -109,6 +108,7 @@ private:
 
     CPEditorPanel * cpe;
     OptimizeFrame * opt_frame;
+    PanoPanel * pano_panel;
 
     // the model
     Panorama pano;

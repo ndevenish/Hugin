@@ -60,6 +60,7 @@
 #define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg << std::endl; wxLogError(o.str().c_str())}
 // a fatal error occured. further program execution is unlikely
 #define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; wxLogError(o.str().c_str()) }
+#define DEBUG_ASSERT(cond) do { if (cond) { std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond << std::endl; wxLogFatalError(o.str().c_str()) } }while(0)
 
 #else
 
@@ -78,6 +79,8 @@
 // a fatal error occured. further program execution is unlikely
 #define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; }
 
+#define DEBUG_ASSERT(cond) assert(cond)
+
 #endif
 
 
@@ -85,7 +88,7 @@ namespace utils
 {
     std::string CurrentTime();
 
-    std::string doubleToString(double d); // FIXME not accessible
+    std::string doubleToString(double d);
 
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {

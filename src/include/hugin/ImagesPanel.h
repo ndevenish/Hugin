@@ -31,7 +31,7 @@
 
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
-#include "hugin/List.h"
+#include "hugin/ImagesList.h"
 
 using namespace PT;
 
@@ -43,13 +43,13 @@ class ImgPreview;
 
 /** Image Preview
  *
- *  Reach the ImgPreview through this pointer globally to update only. 
+ *  Reach the ImgPreview through this pointer globally to update only.
  */
 extern ImgPreview *canvas;
 
 /** hugins first panel
  *
- *  This Panel is for loading of images into Panorama. 
+ *  This Panel is for loading of images into Panorama.
  *  Here one can set first values vor the camera orientation and
  *  link these parameters for the optimization.
  */
@@ -79,20 +79,6 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
      void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** sets the actual image to work on for roll, pitch and yaw
-     */
-    void SetImages ( wxListEvent & e );
-
-    void SetYawPitch ( double coord_x, double coord_y );
-    /**  take sliders ->pano */
-    void SetYaw ( wxCommandEvent & e );
-    void SetPitch ( wxCommandEvent & e );
-    void SetRoll ( wxCommandEvent & e );
-
-    /**  holds the images just in work
-      *  in conjunction with SetImages()
-      */
-    unsigned int imgNr[512];
  private:
     // a window event
     void FitParent(wxSizeEvent & e);
@@ -105,41 +91,41 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void OnRemoveImages(wxCommandEvent & e);
     // Here we select the preview image
 
-    /**  take text */
-    void SetYawText ( wxCommandEvent & e );
-    void SetPitchText ( wxCommandEvent & e );
-    void SetRollText ( wxCommandEvent & e );
-    /**  set inheritance and optimization */
-    void SetInherit ( std::string type );
-    void SetInheritYaw ( wxCommandEvent & e );
-    void SetInheritPitch ( wxCommandEvent & e );
-    void SetInheritRoll ( wxCommandEvent & e );
-    void SetOptimizeYaw ( wxCommandEvent & e );
-    void SetOptimizePitch ( wxCommandEvent & e );
-    void SetOptimizeRoll ( wxCommandEvent & e );
+    /**  gui -> pano */
+    void OnYawTextChanged ( wxCommandEvent & e );
+    void OnPitchTextChanged ( wxCommandEvent & e );
+    void OnRollTextChanged ( wxCommandEvent & e );
 
-    /** event -> pano
+    /** gui -> pano
      *
      *  usually for events to set the new pano state
      *
-     *  @param  type  "roll", "pitch" or "yaw"
+     *  @param  type  "r", "p" or "y"
      *  @param  var   the new value
      */
     void ChangePano ( std::string type, double var );
-    /** Are we changing the pano?
+
+    /** change displayed variables if the selection
+     *  has changed.
      */
-    bool changePano;
+    void ListSelectionChanged(wxListEvent & e);
 
-    /** Here we update the orientation values in the gui
+    /** pano -> gui
      */
-    void OrientationChanged ( void );
+    void ShowImgParameters(unsigned int imgNr);
 
-    // the image actually selected
-    int orientationEdit_RefImg;
+    /** clear display */
+    void ClearImgParameters();
 
+    void DisableImageCtrls();
+    void EnableImageCtrls();
+    
+    /** show a bigger thumbnail */
+    void ShowImage(unsigned int imgNr);
+    
 
     /** pointer to the list control */
-    List* images_list;
+    ImagesListImage* images_list;
 
     DECLARE_EVENT_TABLE()
 };

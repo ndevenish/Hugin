@@ -33,58 +33,58 @@
 namespace PT {
 
 /** add image(s) to a panorama */
-class AddImagesCmd : public PanoCommand
+class wxAddImagesCmd : public PanoCommand
 {
 public:
-  AddImagesCmd(Panorama & pano, const std::vector<std::string> & files)
+    wxAddImagesCmd(Panorama & pano, const std::vector<std::string> & files)
     : PanoCommand(pano), files(files)
     { };
-  virtual void execute()
-    {
-      PanoCommand::execute();
-      std::vector<std::string>::const_iterator it;
-      for (it = files.begin(); it != files.end(); ++it) {
-        const std::string &filename = *it;
-        std::string::size_type idx = filename.rfind('.');
-        if (idx == std::string::npos) {
-          DEBUG_DEBUG("could not find extension in filename");
-        }
-        std::string ext = filename.substr( idx+1 );
+    virtual void execute()
+        {
+            PanoCommand::execute();
+            
+            // FIXME make it possible to add other lenses,
+            // for example if the exif data or image size
+            // suggests it.
+            std::vector<std::string>::const_iterator it;
+            for (it = files.begin(); it != files.end(); ++it) {
+                const std::string &filename = *it;
+                std::string::size_type idx = filename.rfind('.');
+                if (idx == std::string::npos) {
+                    DEBUG_DEBUG("could not find extension in filename");
+                }
+                std::string ext = filename.substr( idx+1 );
 
-        // FIXME. this is bad. there shouldn't be a separate lens for
-        // every image (infact, most panoramas will be shot with the
-        // same lens)
-        // create a new Lens for this image
-        Lens l;
-        if (utils::tolower(ext) == "jpg") {
-          // try to read exif data from jpeg files.
-          l.readEXIF(filename);
-        }
-        unsigned int lnr = pano.addLens(l);
+                // FIXME check if we need to add another lens
+                // query user if we need to.
+                int lensNr=0;
+                if (pano.getNrOfLenses() == 0) {
+                    Lens lens;
+                    if (utils::tolower(ext) == "jpg") {
+                        // try to read exif data from jpeg files.
+                        lens.readEXIF(filename);
+                    }
+                    lensNr = pano.addLens(lens);
+                }
+                
+                wxImage * image = ImageCache::getInstance().getImage(filename);
+                int width = image->GetWidth();
+                int height = image->GetHeight();
 
-        wxImage * image = ImageCache::getInstance().getImage(filename);
-        int width = image->GetWidth();
-        int height = image->GetHeight();
-        
-        ImageVariables vars;
-        vars.HFOV.setValue(l.HFOV);
-        vars.a.setValue(l.a);
-        vars.b.setValue(l.b);
-        vars.c.setValue(l.c);
-        vars.d.setValue(l.d);
-        vars.e.setValue(l.e);
-        
-        PanoImage img(filename, width, height, lnr);
-        pano.addImage(img, vars);
-      }
-      pano.changeFinished();
-    }
-  virtual std::string getName() const
-    {
-      return "add images";
-    }
+                VariableMap vars;
+                fillVariableMap(vars);
+
+                PanoImage img(filename, width, height, lensNr);
+                pano.addImage(img, vars);
+            }
+            pano.changeFinished();
+        }
+    virtual std::string getName() const
+        {
+            return "add images";
+        }
 private:
-  std::vector<std::string> files;
+    std::vector<std::string> files;
 };
 
 } // namespace PT

@@ -48,14 +48,16 @@
 #include "wx/process.h"
 #include "wx/txtstrm.h"
 
+#include "hugin/OptimizeFrame.h"
+
 #include <string>
 #include <iostream>
 #include <fstream>
 
+#include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"
-#include "hugin/OptimizeFrame.h"
 
 using namespace std;
 using namespace PT;
@@ -115,16 +117,15 @@ void OptimizeFrame::OnOptimizeButton(wxCommandEvent & e)
 // FIXME this should be on the preview panel, once we have one :)
 void OptimizeFrame::OnEqYaw(wxCommandEvent & e)
 {
-
-    VariablesVector vars = m_pano->getVariables();
-    VariablesVector::iterator it;
+    VariableMapVector vars = m_pano->getVariables();
+    VariableMapVector::iterator it;
     double avg = 0;
     for(it = vars.begin(); it != vars.end(); it++) {
-        avg += it->yaw.getValue();
+        avg += map_get(*it,"y").getValue();
     }
     avg = avg/vars.size();
     for(it = vars.begin(); it != vars.end(); it++) {
-        it->yaw.setValue(it->yaw.getValue() - avg);
+        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - avg);
     }
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCmd(*m_pano, vars)
@@ -151,19 +152,38 @@ OptimizeVector OptimizeFrame::getOptimizeSettings()
 
     OptimizeVector optvars;
 
-    // "global" flags
-    OptimizerSettings s;
-    s.HFOV = m_lens_list->IsChecked(0);
-    s.a = m_lens_list->IsChecked(1);
-    s.b = m_lens_list->IsChecked(2);
-    s.c = m_lens_list->IsChecked(3);
-    s.d = m_lens_list->IsChecked(4);
-    s.e = m_lens_list->IsChecked(5);
+    // possibly linked parameters.
+    set<string> linked;
+    if (m_lens_list->IsChecked(0)) {
+        linked.insert("v");
+    }
+    if (m_lens_list->IsChecked(1)) {
+        linked.insert("a");
+    }
+    if (m_lens_list->IsChecked(2)) {
+        linked.insert("b");
+    }
+    if (m_lens_list->IsChecked(3)) {
+        linked.insert("c");
+    }
+    if (m_lens_list->IsChecked(4)) {
+        linked.insert("d");
+    }
+    if (m_lens_list->IsChecked(5)) {
+        linked.insert("e");
+    }
     for (unsigned int i=0; i < nImages; i++) {
-        s.roll = m_roll_list->IsChecked(i);
-        s.pitch = m_pitch_list->IsChecked(i);
-        s.yaw = m_yaw_list->IsChecked(i);
-        optvars.push_back(s);
+        set<string> imgopt = linked;
+        if (m_roll_list->IsChecked(i)) {
+            imgopt.insert("r");
+        }
+        if (m_pitch_list->IsChecked(i)) {
+            imgopt.insert("p");
+        }
+        if (m_yaw_list->IsChecked(i)) {
+            imgopt.insert("y");
+        }            
+        optvars.push_back(imgopt);
     }
 
     return optvars;
@@ -198,18 +218,21 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
     // display values of the variables.
     UIntSet::iterator it;
     for (it = imgNr.begin(); it != imgNr.end(); it++) {
-        // keep
+        const VariableMap & vars = pano.getImageVariables(*it);
+        // keep selections
         bool sel = m_yaw_list->IsChecked(*it);
         m_yaw_list->SetString(*it, wxString::Format("%d (%5f)",
-                                *it, m_pano->getVariable(*it).yaw.getValue()));
+                                *it, map_get(vars,"y").getValue()));
         m_yaw_list->Check(*it,sel);
+
         sel = m_pitch_list->IsChecked(*it);
         m_pitch_list->SetString(*it, wxString::Format("%d (%5f)",
-                              *it, m_pano->getVariable(*it).pitch.getValue()));
+                                *it, map_get(vars,"p").getValue()));
         m_pitch_list->Check(*it,sel);
+
         sel = m_roll_list->IsChecked(*it);
         m_roll_list->SetString(*it, wxString::Format("%d (%5f)",
-                               *it, m_pano->getVariable(*it).roll.getValue()));
+                                *it, map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
 }

@@ -31,26 +31,17 @@
 
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
-#include "hugin/List.h"
 
-using namespace PT;
-
-/** Image Preview
- *
- *  Reach the ImgPreview through this pointer globally to update only. 
- *  really needed here?
- */
-extern ImgPreview *canvas;
-
-    // pointer to the list control
-extern    List* images_list2;
-
-
+class ImagesListLens;
 
 /** Define the second the Lens panel
  *
  *  - the second for lens selection to images
- *    
+ *
+ *  @note currently only one lens per panorama is supported.
+ *
+ *  @todo add support multiple lenses
+ *
  */
 class LensPanel: public wxPanel, public PT::PanoramaObserver
 {
@@ -72,17 +63,15 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      *  controller and the view (even if they sometimes
      *  are in the same object). See model view controller
      *  pattern.
-     *  
+     *
      *  @todo   react on different update signals more special
      */
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** This sets the actual image to work on for the parameters. */
-    void SetImages ( wxListEvent & e );
-
-    /** Here we update the Lens values in the gui
+    /** update the edit Lens values with values from the
+     *  selected image.
      */
-    void update_edit_LensGui ( int lens );
+    void UpdateLensDisplay (unsigned int imgNr);
 
     /** adjust the center of the image */
     void SetCenter (wxCommandEvent & e);
@@ -92,69 +81,29 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void FitParent(wxSizeEvent & e);
 
     // event handlers
-    /**  selected a lens as edit_Lens */
-    void LensSelected (wxCommandEvent & e);
-    /**  apply edit_Lens to all selected images */
-    void LensApply (wxCommandEvent & e);
-    /**  selfexplaining */
+    /**  changes lens type */
     void LensTypeChanged (wxCommandEvent & e);
-    /**  selfexplaining */
-    void HFOVChanged(wxCommandEvent & e);
-    /**  selfexplaining */
+    /**  computes & updates HFOV */
     void focalLengthChanged(wxCommandEvent & e);
-    /**  selfexplaining */
-    void aChanged(wxCommandEvent & e);
-    /**  selfexplaining */
-    void bChanged(wxCommandEvent & e);
-    /**  selfexplaining */
-    void cChanged(wxCommandEvent & e);
-    /**  selfexplaining */
-    void dChanged(wxCommandEvent & e);
-    /**  selfexplaining */
-    void eChanged(wxCommandEvent & e);
-    /**  set inheritance and optimization */
-    void SetInherit ( std::string type );
-    void SetInheritHfov ( wxCommandEvent & e );
-    void SetInheritA ( wxCommandEvent & e );
-    void SetInheritB ( wxCommandEvent & e );
-    void SetInheritC ( wxCommandEvent & e );
-    void SetInheritD ( wxCommandEvent & e );
-    void SetInheritE ( wxCommandEvent & e );
-    void SetOptimizeHfov ( wxCommandEvent & e );
-    void SetOptimizeA ( wxCommandEvent & e );
-    void SetOptimizeB ( wxCommandEvent & e );
-    void SetOptimizeC ( wxCommandEvent & e );
-    void SetOptimizeD ( wxCommandEvent & e );
-    void SetOptimizeE ( wxCommandEvent & e );
+
+    /**  handlers for all other variables */
+    void OnVarChanged(wxCommandEvent & e);
+    /**  for all other variables */
+    void OnVarInheritChanged(wxCommandEvent & e);
+
+    /** catches changes to the list selection */
+    void ListSelectionChanged(wxListEvent& e);
+
 
     // the model
     Panorama &pano;
 
-    // the Lens actually selected
-    int lensEditRef_lensNr;
-
-    /** With this flag we decide to create a new Lens or not.*/
-    bool lensGui_dirty;
-
-    /** event -> pano
-     *
-     *  usually for events to set the new pano state
-     *
-     *  @param  type  "roll", "pitch" or "yaw"
-     *  @param  var   the new value
-     */
-    void ChangePano ( std::string type, double var );
-    /** Are we changing the pano?
-     */
-    bool changePano;
-
-    /**  holds the images just in work
-      *  in conjunction with SetImages()
-      */
-    unsigned int imgNr[512];
+    ImagesListLens * images_list;
 
     // Lens to change settings
-    Lens * edit_Lens;
+    unsigned int m_editLensNr;
+    // image that has been changed.
+    unsigned int m_editImageNr;
 
     void updateHFOV(void);
 

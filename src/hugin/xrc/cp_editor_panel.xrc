@@ -9,19 +9,17 @@
           <object class="sizeritem">
             <object class="wxNotebook" name="cp_editor_left_tab"/>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
-            <minsize>-1,25</minsize>
           </object>
           <object class="sizeritem">
             <object class="wxNotebook" name="cp_editor_right_tab"/>
             <option>1</option>
             <flag>wxEXPAND</flag>
             <border>5</border>
-            <minsize>-1,25</minsize>
           </object>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>
       <object class="sizeritem">
@@ -30,12 +28,14 @@
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_left_img"/>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_right_img"/>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
           </object>
         </object>
         <option>10</option>
@@ -43,69 +43,26 @@
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
-          <orient>wxVERTICAL</orient>
+          <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxListCtrl" name="cp_editor_cp_list">
-                  <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
-                  <bg>#DCDCDC</bg>
-                </object>
-                <option>4</option>
-                <flag>wxEXPAND</flag>
-              </object>
+            <object class="wxStaticBoxSizer">
+              <label>Control points</label>
+              <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxVERTICAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>Zoom:</label>
-                            </object>
-                            <flag>wxALIGN_CENTRE</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxComboBox" name="cp_editor_zoom_box">
-                              <content>
-                                <item>100%</item>
-                                <item>fit to window</item>
-                                <item>200%</item>
-                                <item>150%</item>
-                                <item>75%</item>
-                                <item>50%</item>
-                                <item>25%</item>
-                              </content>
-                              <bg>#DCDCDC</bg>
-                            </object>
-                          </object>
-                        </object>
-                      </object>
+                    <object class="wxListCtrl" name="cp_editor_cp_list">
+                      <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
+                      <bg>#DCDCDC</bg>
                     </object>
-                  </object>
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                      <label>auto fine tune</label>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxButton" name="cp_editor_delete">
-                      <label>Delete</label>
-                    </object>
+                    <option>4</option>
+                    <flag>wxEXPAND</flag>
                   </object>
                 </object>
+                <option>1</option>
+                <flag>wxEXPAND</flag>
               </object>
-            </object>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxBoxSizer">
                   <orient>wxHORIZONTAL</orient>
@@ -114,26 +71,28 @@
                       <label>x:</label>
                     </object>
                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                    <border>10</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="cp_editor_x1">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       <label>y:</label>
                     </object>
                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                    <border>10</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="cp_editor_y1">
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -146,6 +105,8 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -158,13 +119,9 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
                   </object>
-                </object>
-                <flag>wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       <label>mode:</label>
@@ -179,25 +136,70 @@
                         <item>horizontal line</item>
                       </content>
                     </object>
-                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="cp_editor_delete">
+                      <label>Delete</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
                 </object>
-                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                <flag>wxEXPAND</flag>
               </object>
-              <cols>2</cols>
-              <rows>2</rows>
-              <growablecols>0</growablecols>
-              <growablerows>1</growablerows>
             </object>
-            <flag>wxEXPAND</flag>
-            <border>5</border>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>3</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>Zoom:</label>
+                        </object>
+                        <flag>wxALIGN_CENTRE</flag>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxComboBox" name="cp_editor_zoom_box">
+                          <content>
+                            <item>100%</item>
+                            <item>fit to window</item>
+                            <item>200%</item>
+                            <item>150%</item>
+                            <item>75%</item>
+                            <item>50%</item>
+                            <item>25%</item>
+                          </content>
+                          <bg>#DCDCDC</bg>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
+                  <label>auto fine tune</label>
+                </object>
+              </object>
+              <label>options</label>
+            </object>
+            <flag>wxALL</flag>
+            <border>3</border>
           </object>
         </object>
         <option>4</option>
         <flag>wxEXPAND</flag>
       </object>
     </object>
-    <size>400</size>
     <style>wxWANTS_CHARS</style>
   </object>
 </resource>

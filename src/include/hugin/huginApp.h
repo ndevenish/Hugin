@@ -76,7 +76,7 @@ public:
 private:
     /** locale for internationalisation */
     wxLocale locale;
-    
+
     /** temporary working directory */
     wxString m_workDir;
 };

@@ -106,7 +106,7 @@ END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     : m_pano(pano), m_leftImageNr(UINT_MAX), m_rightImageNr(UINT_MAX),
-      m_listenToPageChange(true), cpCreationState(NO_POINT), 
+      m_listenToPageChange(true), cpCreationState(NO_POINT),
       m_selectedPoint(UINT_MAX)
 
 {
@@ -294,7 +294,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
 {
     DEBUG_TRACE("selectLocalPoint(" << LVpointNr << ")");
-    
+
     if ( m_selectedPoint == LVpointNr) {
         return;
     }
@@ -330,7 +330,7 @@ bool CPEditorPanel::globalPNr2LocalPNr(unsigned int & localNr, unsigned int glob
     while(it != currentPoints.end() && (*it).first != globalNr) {
         it++;
     }
-    
+
     if (it != currentPoints.end()) {
         localNr = it - currentPoints.begin();
         return true;
@@ -472,11 +472,9 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                 << subjImgNr);
 
     const PanoImage & img = m_pano->getImage(subjImgNr);
-    unsigned int lensNr = img.getLens();
-    const Lens & l = m_pano->getLens(lensNr);
 
     const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
-        m_pano->getImage(subjImgNr).getFilename(),0);
+        img.getFilename(),0);
 
     // FIXME user configurable search window?
     int swidth = subjImg.width() / 10;

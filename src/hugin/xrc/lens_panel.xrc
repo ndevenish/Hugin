@@ -2,68 +2,26 @@
 <resource>
   <object class="wxPanel" name="lens_panel">
     <style>wxTAB_TRAVERSAL</style>
-    <object class="wxFlexGridSizer">
-      <cols>2</cols>
+    <object class="wxBoxSizer">
       <object class="sizeritem">
-        <object class="unknown" name="images_list2_unknown"/>
+        <object class="unknown" name="lenses_list_unknown"/>
+        <option>2</option>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
         <minsize>205,-1</minsize>
       </object>
       <object class="sizeritem">
-        <object class="wxFlexGridSizer">
-          <cols>1</cols>
+        <object class="wxStaticBoxSizer">
           <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Lens No. :</label>
-                </object>
-                <flag>wxALL|wxEXPAND|wxGROW</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText" name="lens_val_number">
-                  <label>-</label>
-                </object>
-                <flag>wxALL|wxEXPAND|wxGROW</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxComboBox" name="lens_combobox_number">
-                  <content/>
-                  <selection>0</selection>
-                  <size>80,25</size>
-                  <style></style>
-                </object>
-                <flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_RIGHT</flag>
-                <border>5</border>
-              </object>
-              <cols>4</cols>
-              <rows>0</rows>
-              <object class="sizeritem">
-                <object class="wxButton" name="lens_button_apply">
-                  <label>apply selected lens</label>
-                </object>
-                <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT</flag>
-                <border>5</border>
-              </object>
-              <growablecols>2</growablecols>
-              <growablerows>0</growablerows>
-            </object>
-            <flag>wxLEFT|wxEXPAND|wxGROW</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
+            <object class="wxBoxSizer">
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticText">
                   <label>Lens type:</label>
-                  <style>wxALIGN_LEFT</style>
+                  <style>wxALIGN_RIGHT</style>
                 </object>
-                <flag>wxALL|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
-                <minsize>80,20</minsize>
+                <flag>wxLEFT|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxComboBox" name="lens_val_projectionFormat">
@@ -77,10 +35,64 @@
                   <selection>0</selection>
                   <style></style>
                 </object>
-                <flag>wxEXPAND</flag>
-                <minsize>150,25</minsize>
+                <option>1</option>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
               </object>
-              <label></label>
+            </object>
+            <flag>wxTOP|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <label>Primary parameters</label>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Degrees (v):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_v">
+                      <help>Horizontal Field of View</help>
+                      <longhelp>Horizontal Field of View</longhelp>
+                      <tooltip>Horizontal Field of View</tooltip>
+                      <value></value>
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_v">
+                      <label>Inherit</label>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Focal length:</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_focalLength">
+                      <help>equivalent to 35mm film optics</help>
+                      <longhelp>equivalent to 35mm film optics</longhelp>
+                      <tooltip>equivalent to 35mm film optics</tooltip>
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>0</growablecols>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
             </object>
             <flag>wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
             <border>5</border>
@@ -90,98 +102,17 @@
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Lens degrees</label>
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>Degrees (v):</label>
-                          <style>wxALIGN_LEFT</style>
-                        </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_HFOV">
-                          <help>Horizontal Field of View</help>
-                          <longhelp>Horizontal Field of View</longhelp>
-                          <tooltip>Horizontal Field of View</tooltip>
-                          <value></value>
-                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                        </object>
-                        <flag>wxEXPAND</flag>
-                        <minsize>100,25</minsize>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_HFOV">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_HFOV">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_HFOV">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>Focal length:</label>
-                          <style>wxALIGN_LEFT</style>
-                        </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_focalLength">
-                          <help>equivalent to 35mm film optics</help>
-                          <longhelp>equivalent to 35mm film optics</longhelp>
-                          <tooltip>equivalent to 35mm film optics</tooltip>
-                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                        </object>
-                        <flag>wxEXPAND</flag>
-                        <minsize>100,25</minsize>
-                      </object>
-                    </object>
-                  </object>
-                </object>
-                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticBoxSizer">
                   <label>Lens correction parameters</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
+                    <object class="wxFlexGridSizer">
+                      <cols>3</cols>
                       <object class="sizeritem">
                         <object class="wxStaticText">
                           <label>a:</label>
-                          <style>wxALIGN_LEFT</style>
                           <tooltip>distortion value (a)</tooltip>
                         </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_a">
@@ -189,91 +120,39 @@
                           <tooltip>distortion value (a)</tooltip>
                         </object>
                         <flag>wxEXPAND</flag>
-                        <minsize>100,25</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_a">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_a">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_a">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
+                        <object class="wxCheckBox" name="lens_inherit_a">
+                          <label>Inherit</label>
                         </object>
-                        <flag>wxEXPAND|wxGROW</flag>
+                        <flag>wxALL|wxEXPAND|wxGROW</flag>
                       </object>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
                       <object class="sizeritem">
                         <object class="wxStaticText">
                           <label>b:</label>
-                          <style>wxALIGN_LEFT</style>
                           <tooltip>distortion value (b)</tooltip>
                         </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_b">
                           <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                           <tooltip>distortion value (b)</tooltip>
                         </object>
-                        <flag>wxEXPAND</flag>
-                        <minsize>100,25</minsize>
+                        <flag>wxALL|wxEXPAND</flag>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_b">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_b">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_b">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
+                        <object class="wxCheckBox" name="lens_inherit_b">
+                          <label>Inherit</label>
                         </object>
-                        <flag>wxEXPAND|wxGROW</flag>
+                        <flag>wxALL|wxEXPAND|wxGROW</flag>
                       </object>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
                       <object class="sizeritem">
                         <object class="wxStaticText">
                           <label>c:</label>
-                          <style>wxALIGN_LEFT</style>
                           <tooltip>distortion value (c)</tooltip>
                         </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_c">
@@ -281,33 +160,19 @@
                           <tooltip>distortion value (c)</tooltip>
                         </object>
                         <flag>wxEXPAND</flag>
-                        <minsize>100,25</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_c">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_c">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_c">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
+                        <object class="wxCheckBox" name="lens_inherit_c">
+                          <label>Inherit</label>
                         </object>
-                        <flag>wxEXPAND|wxGROW</flag>
+                        <flag>wxALL|wxEXPAND|wxGROW</flag>
                       </object>
+                      <vgap>5</vgap>
+                      <hgap>5</hgap>
+                      <growablecols>0</growablecols>
                     </object>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>5</border>
                   </object>
                 </object>
                 <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
@@ -318,15 +183,13 @@
                   <label>Image shift</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
+                    <object class="wxFlexGridSizer">
+                      <cols>3</cols>
                       <object class="sizeritem">
                         <object class="wxStaticText">
                           <label>horizontal (d):</label>
-                          <style>wxALIGN_LEFT</style>
                         </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_d">
@@ -334,44 +197,18 @@
                           <tooltip>image shift horizontal (d)</tooltip>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
-                        <minsize>100,25</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_d">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_d">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_d">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
+                        <object class="wxCheckBox" name="lens_inherit_d">
+                          <label>Inherit</label>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
                       </object>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
                       <object class="sizeritem">
                         <object class="wxStaticText">
                           <label>vertical (e):</label>
-                          <style>wxALIGN_LEFT</style>
                         </object>
-                        <flag>wxALL|wxALIGN_CENTRE</flag>
-                        <minsize>80,20</minsize>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_e">
@@ -379,60 +216,44 @@
                           <tooltip>image shift vertical (e)</tooltip>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
-                        <minsize>100,25</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_inherit_e">
-                              <label>Inherit</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxSpinCtrl" name="images_spin_e">
-                              <size>45,-1</size>
-                            </object>
-                            <flag>wxALIGN_RIGHT</flag>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="images_optimize_e">
-                              <label>Optimize</label>
-                            </object>
-                            <flag>wxEXPAND|wxGROW</flag>
-                          </object>
+                        <object class="wxCheckBox" name="lens_inherit_e">
+                          <label>Inherit</label>
                         </object>
                         <flag>wxEXPAND|wxGROW</flag>
                       </object>
-                    </object>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxFlexGridSizer">
-                      <object class="sizeritem">
-                        <object class="wxButton" name="lens_button_center">
-                          <label>center</label>
-                          <tooltip>center image shifting it with d and e</tooltip>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                      <cols>2</cols>
+                      <vgap>5</vgap>
+                      <hgap>5</hgap>
                       <growablecols>0</growablecols>
                     </object>
-                    <flag>wxEXPAND|wxGROW</flag>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>4</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_center">
+                      <label>center</label>
+                      <tooltip>center image shifting it with d and e</tooltip>
+                    </object>
+                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                    <border>5</border>
                   </object>
                 </object>
                 <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxEXPAND|wxGROW</flag>
+            <flag>wxBOTTOM|wxEXPAND|wxGROW</flag>
+            <border>5</border>
           </object>
+          <label>Lens</label>
+          <orient>wxVERTICAL</orient>
         </object>
-        <flag>wxEXPAND|wxGROW</flag>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
-      <growablecols>0</growablecols>
-      <growablerows>0</growablerows>
+      <orient>wxHORIZONTAL</orient>
     </object>
   </object>
 </resource>

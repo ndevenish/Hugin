@@ -87,8 +87,7 @@ APPS = 1
 APP_1_BIN = hugin
 APP_1_OBJ = \
             huginApp.o \
-            List.o \
-            Events.o \
+	    ImagesList.o \
             Server.o \
             MainFrame.o \
             CPImageCtrl.o \
@@ -96,7 +95,6 @@ APP_1_OBJ = \
             LensPanel.o \
             ImagesPanel.o \
             ImageCache.o \
-            ImageCenter.o \
             CommandHistory.o \
 	    ImageProcessing.o \
 	    wxVigraImage.o \

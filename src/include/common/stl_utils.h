@@ -39,6 +39,7 @@
 #include <string>
 #include <string.h>
 #include <ctype.h>
+#include <stdexcept>
 
 namespace utils {
     /// convert a string to lowercase
@@ -59,6 +60,38 @@ template<typename _Container>
 inline bool set_contains(const _Container & c, const typename _Container::key_type & key)
 {
     return c.find(key) != c.end();
+}
+
+/** get a map element.
+ *
+ *  does not create a new element in the map, like operator[] does
+ *
+ *  Throws an error if the element does not exist
+ */
+template<typename Map>
+//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
+typename Map::data_type & map_get(Map &m, const typename Map::key_type & key)
+{
+    typename Map::iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+template<typename Map>
+//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
+const typename Map::data_type & map_get(const Map &m, const typename Map::key_type & key)
+{
+    typename Map::const_iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
 }
 
 #endif // _STL_UTILS_H

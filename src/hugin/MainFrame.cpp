@@ -60,7 +60,6 @@ using namespace PT;
 
 ImagesPanel * images_panel;
 LensPanel * lens_panel;
-PanoPanel * pano_panel;
 OptimizeVector * optset;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
@@ -69,9 +68,6 @@ OptimizeVector * optset;
 
 // event table. this frame will recieve mostly global commands.
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
-    EVT_MOVE(MainFrame::Resize)
-    EVT_ICONIZE(MainFrame::Resize)
-
     EVT_MENU(XRCID("action_new_project"),  MainFrame::OnNewProject)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
@@ -125,7 +121,7 @@ MainFrame::MainFrame(wxWindow* parent)
 
     // the lens_panel, see as well images_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
-                                                 wxDefaultSize, &pano);
+                                wxDefaultSize, &pano);
     // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("lens_panel_unknown"),
@@ -135,20 +131,12 @@ MainFrame::MainFrame(wxWindow* parent)
     // the pano_panel
     // The xrc resources are loaded by the class itself.
     DEBUG_TRACE("");
-    pano_panel = new PanoPanel( this, wxDefaultPosition,
-                                                 wxDefaultSize, &pano);
+    pano_panel = new PanoPanel(this, &pano);
     wxXmlResource::Get()->AttachUnknownControl (
        wxT("panorama_panel_unknown"),
        pano_panel);
-    pano_panel->pano_dlg_run = FALSE; // pano_panel did not yet run pano_dlg.
-    pano_panel->self_pano_dlg = FALSE; // Tell pano_panel it is non dialog
-#if 0
-    UIntSet i;
-    pano_panel->panoramaImagesChanged (pano, i); // initialize from pano
-#else
-    wxCommandEvent e;
-    pano_panel->PanoChanged (e); // initialize from gui
-#endif
+
+    pano_panel->panoramaChanged (pano); // initialize from pano
 
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
@@ -191,9 +179,9 @@ MainFrame::MainFrame(wxWindow* parent)
 MainFrame::~MainFrame()
 {
     DEBUG_TRACE("");
-    delete cpe;
+//    delete cpe;
     DEBUG_TRACE("");
-    delete images_panel;
+//    delete images_panel;
     DEBUG_TRACE("");
     pano.removeObserver(this);
 
@@ -209,8 +197,6 @@ MainFrame::~MainFrame()
     config->Write("MainFrameSize_x", wxString::Format("%d",GetRect().width)),
     config->Write("MainFrameSize_y", wxString::Format("%d",GetRect().height));
     DEBUG_INFO( "saved last size and position" )
-    config->Write("pano_dlg_run", wxString::Format("%d",
-                         pano_panel->pano_dlg_run));
 
     config->Flush();
 
@@ -223,24 +209,6 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
-
-    // set OptimizerSettings for each image in optset
-    if ( pano.getNrOfImages() > optset->size() ) { // some images are added
-      // expecting the newbees were pushed_back
-      for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
-        int imageNr = *it;
-        DEBUG_INFO ( "changed: " << imageNr )
-        OptimizerSettings opts;
-        if ( *it < 0 ) // we have an predecessor and copy its values
-          opts = (*optset)[*it - 1];
-
-        optset->push_back(opts);
-      }
-    } else if ( pano.getNrOfImages() < optset->size() ) { // images are removed
-      optset->erase(optset->end()); // pop_back()
-    }
-
-    DEBUG_INFO ( "images " << pano.getNrOfImages() <<" opts "<< optset->size() )
 }
 
 
@@ -254,7 +222,7 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
         filesv.push_back(filenames[i].c_str());
     }
     GlobalCmdHist::getInstance().addCommand(
-        new PT::AddImagesCmd(pano,filesv)
+        new PT::wxAddImagesCmd(pano,filesv)
         );
     return true;
 }
@@ -281,10 +249,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         std::ofstream script(dlg.GetPath());
         int nImages = pano.getNrOfImages();
         // create fake optimize settings
-        PT::OptimizeVector optvec;
-        for (int i=0; i<nImages; i++) {
-            optvec.push_back(OptimizerSettings());
-        }
+        PT::OptimizeVector optvec(nImages);
         pano.printOptimizerScript(script, optvec, pano.getOptions());
         script.close();
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
@@ -381,7 +346,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
                 sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
             }
             GlobalCmdHist::getInstance().addCommand(
-                new AddImagesCmd(pano,filesv)
+                new wxAddImagesCmd(pano,filesv)
                 );
         }
         SetStatusText( e_stat, 0);
@@ -478,18 +443,12 @@ void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
     DEBUG_TRACE("");
 }
 
-void MainFrame::Resize( wxSizeEvent& WXUNUSED(event) )
-{
-    wxSizeEvent e;
-    pano_panel->Resize(e);
-    DEBUG_TRACE("");
-}
-
 
 void MainFrame::OnToggleOptimizeFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     opt_frame->Show();
+    opt_frame->Raise();
 }
 
 void MainFrame::OnUndo(wxCommandEvent & e)
