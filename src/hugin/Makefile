@@ -103,6 +103,7 @@ APP_1_OBJ = \
             PanoPanel.o \
 	    OptimizeFrame.o \
 	    RunOptimizerFrame.o \
+	    RunStitcherFrame.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS)

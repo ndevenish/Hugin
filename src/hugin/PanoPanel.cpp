@@ -38,11 +38,15 @@
 #include <wx/imaglist.h>
 #include <wx/image.h>
 #include <wx/spinctrl.h>
+#include <wx/config.h>
+
+#include <fstream>
 
 #include "PT/PanoCommand.h"
 #include "PT/PanoramaMemento.h"
 #include "PT/Panorama.h"
 //#include "hugin/config.h"
+#include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
 //#include "hugin/CPEditorPanel.h"
@@ -323,7 +327,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
                             pano.getVariable((unsigned int)imgNr).HFOV.getValue() );
           DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
           if ( ((source_pixels >= (int)preview_opt.width)
-                && !panoviewer_precise) 
+                && !panoviewer_precise)
                || !panoviewer_enabled ) {
             wxFileName fn= (wxString)pano.getImage((unsigned int)imgNr).getFilename().c_str();
             filename.str("");
@@ -910,22 +914,24 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
 {
     opt.width = Width;
     opt.height = Height;
+    // what is that?
     PT::SetPanoOptionsCmd( pano, opt );
-#ifdef unix
-    DEBUG_INFO ( "unix" )
-    // for testing
-    //opt.printStitcherScript( *stdout, opt);
-#endif
 
-#ifdef __unix__
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::StitchCmd( pano, opt )
-        );
-#else
-      wxLogError("Stitching not implemented under windows yet");
-#endif
-
-
+    // select output file
+    // FIXME put in right output extension for selected
+    // file format
+    wxFileDialog dlg(this,_("Create panorama image"),
+                     wxConfigBase::Get()->Read("actualPath",""),
+                     "", "",
+                     wxSAVE, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        // print as optimizer script..
+        std::ofstream script(dlg.GetPath());
+        wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+        opt.outfile = dlg.GetPath().c_str();
+        new RunStitcherFrame(this, &pano, opt);
+    }
+    
     DEBUG_INFO ( ": " << Width )
 }
 

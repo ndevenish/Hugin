@@ -179,9 +179,30 @@ private:
 //typedef RefCountPtr<wxImage, RefCountNotifier<wxImage> > ImagePtr;
 typedef wxImage * ImagePtr;
 
+
+/** key for an image. used to find images, and to store access information.
+ *
+ *  Key is misnamed, because its more than just a key.
+ */
+struct ImageKey
+{
+    /// name of the image
+    std::string name;
+    /// producer (for special images)
+    std::string producer;
+    /// number of accesses
+    int accesses;
+    
+    bool operator==(const ImageKey& o) const
+        { return name == o.name && producer == o.producer; }
+};
+
 /** This is a cache for all the images we use.
  *
  *  is a singleton for easy access from everywhere.
+ *  The cache is used as an image source, that needs
+ *  to know how to reproduce the requested images, in case
+ *  that they have been deleted.
  *
  *  @todo: implement a strategy for smart deletion of images
  *
@@ -205,6 +226,7 @@ public:
      *  Do not modify this image. Use a copy if it is really needed
      */
     ImagePtr getImage(const std::string & filename);
+    
     /** get an small image version.
      *
      *  This image is 512x512 pixel maximum and can be used for icons

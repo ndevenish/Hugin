@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="run_stitcher_frame">
+    <title>PTStitcher</title>
+    <object class="wxStaticBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="stitcher_status">
+          <label>blind text.. blind text.. blind text.. blind text.. blind text...</label>
+          <style>wxALIGN_CENTRE</style>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+      <label>Stitching</label>
+      <object class="sizeritem">
+        <object class="wxStaticLine"/>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxGauge" name="stitcher_progress">
+          <range>100</range>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticLine"/>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="stitcher_abort">
+          <label>Abort</label>
+          <style></style>
+        </object>
+        <flag>wxALIGN_CENTRE</flag>
+      </object>
+    </object>
+  </object>
+</resource>

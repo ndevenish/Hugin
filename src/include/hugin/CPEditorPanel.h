@@ -156,14 +156,16 @@ private:
     std::string m_leftFile;
     std::string m_rightFile;
     bool m_listenToPageChange;
-
+    
     wxPoint newPoint;
     enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
     CPCreationState cpCreationState;
 
+    unsigned int m_selectedPoint;
+    
     // pair of global control point number and corrosponding control point
     typedef std::pair<unsigned int, PT::ControlPoint> CPoint;
-    
+
     // contains the control points shown currently.
     std::vector<CPoint> currentPoints;
     // this set contains all points that are mirrored (point 1 in right window,

@@ -64,7 +64,7 @@ huginApp::~huginApp()
     if (!wxRmdir(m_workDir)) {
         DEBUG_ERROR("Could not remove temporary directory");
     }
-    
+
 //    delete frame;
     DEBUG_TRACE("");
 }
@@ -148,6 +148,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("run_stitcher_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));
@@ -164,10 +165,10 @@ bool huginApp::OnInit()
     // show the frame.
     frame->Show(TRUE);
 
-    
+
     wxString wrkDir = config->Read("tempDir","");
     // create temporary directory.
-    
+
 
     config->Write( "startDir", wxFileName::GetCwd() );
 #ifdef __unix__
@@ -192,7 +193,7 @@ bool huginApp::OnInit()
     if (!wxMkdir(m_workDir)) {
         DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
     }
-    
+
     if (!wxSetWorkingDirectory(m_workDir)) {
         DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
     }
