@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-29 22:20+0200\n"
+"POT-Creation-Date: 2004-11-14 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/nona_gui/nona_gui.cpp:120
+#: src/nona_gui/nona_gui.cpp:128
+msgid "Syntax error in parameters detected, aborting."
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:137
 msgid "Specify project source project file"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:141
+#: src/nona_gui/nona_gui.cpp:153
+msgid "Too many project files specified"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:161
+msgid "Could not find project file"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:170
 msgid "Specify output image filename"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:157
+#: src/nona_gui/nona_gui.cpp:178
+msgid "No project files specified"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:189
 msgid "Stitching Panorama"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:164
-msgid "could not open script : "
+#: src/nona_gui/nona_gui.cpp:195
+#, c-format
+msgid "could not open script : %s"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:165 src/nona_gui/nona_gui.cpp:174
-msgid "Error"
+#: src/nona_gui/nona_gui.cpp:201
+#, c-format
+msgid "error while parsing panos tool script: %s"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:172
-msgid "error while parsing panos tool script: "
-msgstr ""
-
-#: src/nona_gui/nona_gui.cpp:220
-msgid "Error using standalone stitcher"
+#: src/nona_gui/nona_gui.cpp:212
+msgid "output image size: "
 msgstr ""

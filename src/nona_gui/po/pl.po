@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-29 22:20+0200\n"
+"POT-Creation-Date: 2004-11-14 11:19+0200\n"
 "PO-Revision-Date: 2004-10-15 14:14-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -15,30 +15,51 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/nona_gui/nona_gui.cpp:120
+#: src/nona_gui/nona_gui.cpp:128
+msgid "Syntax error in parameters detected, aborting."
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:137
 msgid "Specify project source project file"
 msgstr "Podaj plik ¼ród³owy projektu"
 
-#: src/nona_gui/nona_gui.cpp:141
+#: src/nona_gui/nona_gui.cpp:153
+msgid "Too many project files specified"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:161
+msgid "Could not find project file"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:170
 msgid "Specify output image filename"
 msgstr "Podaj nazwê zdjêcia wynikowego"
 
-#: src/nona_gui/nona_gui.cpp:157
+#: src/nona_gui/nona_gui.cpp:178
+msgid "No project files specified"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:189
 msgid "Stitching Panorama"
 msgstr "Sk³adam panoramê"
 
-#: src/nona_gui/nona_gui.cpp:164
-msgid "could not open script : "
+#: src/nona_gui/nona_gui.cpp:195
+#, fuzzy, c-format
+msgid "could not open script : %s"
 msgstr "nie mo¿na by³ otworzyæ skryptu : "
 
-#: src/nona_gui/nona_gui.cpp:165 src/nona_gui/nona_gui.cpp:174
-msgid "Error"
-msgstr "B³±d"
-
-#: src/nona_gui/nona_gui.cpp:172
-msgid "error while parsing panos tool script: "
+#: src/nona_gui/nona_gui.cpp:201
+#, fuzzy, c-format
+msgid "error while parsing panos tool script: %s"
 msgstr "b³±d podczas analizowania skryptu Panorama Tools"
 
-#: src/nona_gui/nona_gui.cpp:220
-msgid "Error using standalone stitcher"
-msgstr "B³±d podczas u¿ywania programu do sk³adania"
+#: src/nona_gui/nona_gui.cpp:212
+#, fuzzy
+msgid "output image size: "
+msgstr "Podaj nazwê zdjêcia wynikowego"
+
+#~ msgid "Error"
+#~ msgstr "B³±d"
+
+#~ msgid "Error using standalone stitcher"
+#~ msgstr "B³±d podczas u¿ywania programu do sk³adania"

@@ -1,3 +1,40 @@
+2004-11-14 11:30  dwilkins42
+
+	* src/nona_gui/nona_gui.cpp: Revert to previous behaviour. no -i
+	  required. Clean up code. Better error detection. Ensure
+	  translation catalog is loaded
+
+2004-11-13 23:04  dwilkins42
+
+	* src/nona_gui/nona_gui.cpp: Rewrite command line parsing. Small
+	  change in behavior: project file specified with -i <project>.
+	  nona_gui now builds on unicode
+
+2004-11-13 19:32  dwilkins42
+
+	* m4/ax_wxwin.m4: typo (forgot the test)
+
+2004-11-13 18:57  dangelo
+
+	* src/: Hugin.sln, hugin/CPListFrame.cpp, hugin/MainFrame.cpp,
+	  hugin/PreviewFrame.cpp, hugin/huginApp.cpp, jhead/.cvsignore,
+	  nona_gui/nona_gui.cpp: window placement bugfixes, do not accept
+	  position < 0, visual studio project for nona_gui
+
+2004-11-13 16:33  dangelo
+
+	* src/hugin/xrc/: about.xrc, data/about.htm: Updated about window
+
+2004-11-13 16:33  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: typo
+
+2004-11-13 13:36  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Update translations
+
 2004-11-13 13:21  dangelo
 
 	* src/hugin/xrc/data/about.htm: ups
