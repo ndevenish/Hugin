@@ -38,8 +38,7 @@
 #include "vigra_ext/FitPolynom.h"
 
 // hmm.. not really great.. should be part of vigra_ext
-#include "PT/ImageTransforms.h"
-#include "PT/PanoramaMemento.h"
+#include "vigra_ext/ImageTransforms.h"
 
 #define VIGRA_EXT_USE_FAST_CORR
 
@@ -159,7 +158,8 @@ CorrelationResult correlateImageFast(SrcImage & src,
 
             // mean of image patch
             KSumType mean=0;
-            for(int ym=yr+kul.y; ym <= yr+klr.y; ym++) {
+			int ym;
+            for(ym=yr+kul.y; ym <= yr+klr.y; ym++) {
                 for(int xm=xr+kul.x; xm <= xr+klr.x; xm++) {
                     mean += src(xm,ym);
                 }
@@ -167,18 +167,20 @@ CorrelationResult correlateImageFast(SrcImage & src,
             mean = mean / (hk*wk);
 
             // perform correlation (inner loop)
-            int ym=yr+kul.y;
+            ym=yr+kul.y;
             int yk;
-            for(yk=0; yk < hk; yk++, ym++) {
+            for(yk=0; yk < hk; yk++) {
                 int xm=xr+kul.x;
                 int xk;
-                for(xk=0; xk < wk; xk++, xm++) {
+                for(xk=0; xk < wk; xk++) {
                     spixel = src(xm,ym) - mean;
                     kpixel = kernel(xk,yk) - kmean;
                     numerator += kpixel * spixel;
                     div1 += kpixel * kpixel;
                     div2 += spixel * spixel;
+					xm++;
                 }
+				ym++;
             }
             numerator = (numerator/sqrt(div1 * div2));
             if (numerator > res.maxi) {
@@ -533,11 +535,11 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     for (double i=0; phi <= stopAngle; i++, phi += step) {
         DEBUG_DEBUG("+++++ Rotating image, phi: " << RAD_TO_DEG(phi));
         RotateTransform t(phi, FDiff2D(templWidth, templWidth), templPos);
-        PT::transformImage(srcImageRange(templImg),
+        vigra_ext::transformImage(srcImageRange(templImg),
                            destImageRange(rotTemplate),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
-                           t, PT::PanoramaOptions::CUBIC,
+                           t, vigra_ext::INTERP_CUBIC,
                            dummy);
         DEBUG_DEBUG("----- Image rotated");
 

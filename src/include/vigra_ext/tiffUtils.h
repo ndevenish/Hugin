@@ -32,7 +32,7 @@
 
 #include <vigra_ext/FunctorAccessor.h>
 
-//#include <tiffio.h>
+#include <tiffio.h>
 
 // add this to the vigra_ext namespace
 namespace vigra_ext {
@@ -152,7 +152,8 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
                     AlphaIterator alphaUpperleft, AlphaAccessor alphaA,
                     vigra::TiffImage * tiff, int sampleformat)
 {
-    typedef typename ImageAccessor::value_type::value_type PixelType;
+//    typedef typename ImageAccessor::value_type::value_type PixelType;
+    typedef typename ImageAccessor::value_type PixelType;
     int w = lowerright.x - upperleft.x;
     int h = lowerright.y - upperleft.y;
 
@@ -428,7 +429,7 @@ struct CreateAlphaTiffImage<unsigned int>
     {
         vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<unsigned int>, AlphaAccessor>
             mA(vigra::ScalarIntensityTransform<unsigned int>(16777216), aA);
-        createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_UINT);
+        createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_UINT);
     }
 };
 
@@ -446,7 +447,7 @@ struct CreateAlphaTiffImage<float>
     {
         vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<float>, AlphaAccessor>
             mA(vigra::ScalarIntensityTransform<float>(1.0f/255), aA);
-        createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_IEEEFP);
+        createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_IEEEFP);
     }
 };
 
@@ -464,7 +465,7 @@ struct CreateAlphaTiffImage<double>
     {
         vigra_ext::ReadFunctorAccessor<vigra::ScalarIntensityTransform<double>, AlphaAccessor>
             mA(vigra::ScalarIntensityTransform<double>(1.0f/255), aA);
-        createScalarATiffImage(iUL, iLR, iA, aUL, aA, tiff,  SAMPLEFORMAT_IEEEFP);
+        createScalarATiffImage(iUL, iLR, iA, aUL, mA, tiff,  SAMPLEFORMAT_IEEEFP);
     }
 };
 

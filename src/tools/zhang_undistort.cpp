@@ -40,6 +40,7 @@
 #include <tiff.h>
 
 using namespace vigra;
+using namespace vigra_ext;
 using namespace PT;
 using namespace std;
 using namespace utils;
@@ -141,7 +142,7 @@ int main(int argc, char *argv[])
                    destImage(alpha),
                    Diff2D(1,1),
                    func,
-                   PT::PanoramaOptions::CUBIC,
+                   vigra_ext::INTERP_CUBIC,
                    disp);
 
     exportImage(srcImageRange(undistorted), vigra::ImageExportInfo(output));

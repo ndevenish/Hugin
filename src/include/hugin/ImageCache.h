@@ -29,7 +29,9 @@
 #include <common/utils.h>
 #include <vigra/stdimage.hxx>
 
-#include <PT/ImageTransforms.h>
+#include <vigra_ext/ImageTransforms.h>
+
+#include <PT/Stitcher.h>
 
 typedef wxImage * ImagePtr;
 
@@ -168,14 +170,15 @@ public:
     virtual ~SmallRemappedImageCache();
 
     virtual
-    MRemappedImage &
-    operator()(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
+    MRemappedImage *
+    getRemapped(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
                unsigned int imgNr, utils::MultiProgressDisplay & progress);
 
-    /** nop
-     */
-    virtual void release() {};
-
+	virtual	void
+	release(MRemappedImage * d)
+	{
+		// NOP, will be done by invalidate..
+	}
     /** invalidates all images */
     void invalidate();
 

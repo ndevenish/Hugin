@@ -49,7 +49,7 @@ SUBDIRS =
 # Files that should be considered while creating the dependencies
 # ====================================================================
 
-DEPEND_FILES = *.cpp
+DEPEND_FILES =
 
 # ====================================================================
 # special compiler and linker flags for this directory
@@ -65,7 +65,7 @@ LFLAGS += -lpanorama -ljhead -lcommon -lpano12 $(VIGRA_LFLAGS)
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1 3
+APPS = 4
 
 # App 1
 
@@ -79,6 +79,9 @@ APP_3_LFLAGS = -l vigra_impex2 $(LFLAGS)
 
 APP_2_BIN = phase_correlate
 APP_2_OBJ = phasecorrelation.o
+
+APP_4_BIN = test_multilayer
+APP_4_OBJ = test_multilayer.o
 
 APP_2_LFLAGS = $(LFLAGS) -lfftw
 endif

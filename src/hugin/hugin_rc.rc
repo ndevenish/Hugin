@@ -1,4 +1,2 @@
-AppIcon ICON   "xrc/data/icon.ico"
-IDI_ICON1  ICON "xrc/data/icon.ico"
-				 
+appicon ICON   "xrc/data/icon.ico"
 #include "wx/msw/wx.rc"

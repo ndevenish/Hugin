@@ -258,17 +258,17 @@ void PTStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     int lt = m_InterpolatorChoice->GetSelection();
     wxString Ip;
     switch ( lt ) {
-    case PanoramaOptions::CUBIC:             Ip = _("Bicubic"); break;
-    case PanoramaOptions::SPLINE_16:         Ip = _("Spline 16"); break;
-    case PanoramaOptions::SPLINE_36:         Ip = _("Spline 36"); break;
-    case PanoramaOptions::SINC_256:          Ip = _("Sinc 256"); break;
-    case PanoramaOptions::SPLINE_64:         Ip = _("Spline 64"); break;
-    case PanoramaOptions::BILINEAR:          Ip = _("Bilinear"); break;
-    case PanoramaOptions::NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
-    case PanoramaOptions::SINC_1024:         Ip = _("Sinc 1024"); break;
+    case vigra_ext::INTERP_CUBIC:             Ip = _("Bicubic"); break;
+    case vigra_ext::INTERP_SPLINE_16:         Ip = _("Spline 16"); break;
+    case vigra_ext::INTERP_SPLINE_36:         Ip = _("Spline 36"); break;
+    case vigra_ext::INTERP_SINC_256:          Ip = _("Sinc 256"); break;
+    case vigra_ext::INTERP_SPLINE_64:         Ip = _("Spline 64"); break;
+    case vigra_ext::INTERP_BILINEAR:          Ip = _("Bilinear"); break;
+    case vigra_ext::INTERP_NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
+    case vigra_ext::INTERP_SINC_1024:         Ip = _("Sinc 1024"); break;
     }
 
-    opt.interpolator = (PanoramaOptions::Interpolator) lt;
+    opt.interpolator = (vigra_ext::Interpolator) lt;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );

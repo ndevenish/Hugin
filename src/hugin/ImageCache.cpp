@@ -331,8 +331,8 @@ SmallRemappedImageCache::~SmallRemappedImageCache()
     invalidate();
 }
 
-SmallRemappedImageCache::MRemappedImage &
-SmallRemappedImageCache::operator()(const PT::Panorama & pano,
+SmallRemappedImageCache::MRemappedImage *
+SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                                     const PT::PanoramaOptions & opts,
                                     unsigned int imgNr,
                                     utils::MultiProgressDisplay & progress)
@@ -340,7 +340,7 @@ SmallRemappedImageCache::operator()(const PT::Panorama & pano,
     // return old image, if already in cache
         if (set_contains(m_images, imgNr)) {
             DEBUG_DEBUG("using cached remapped image " << imgNr);
-            return *m_images[imgNr];
+            return m_images[imgNr];
         }
 
         // remap image
@@ -359,13 +359,13 @@ SmallRemappedImageCache::operator()(const PT::Panorama & pano,
         // mask image
         BImage srcAlpha(src->GetWidth(), src->GetHeight(), 255);
 
-        MRemappedImage *remapped = new RemappedPanoImage<BRGBImage, BImage>;
+        MRemappedImage *remapped = new MRemappedImage;
         remapped->remapImage(pano, opts,
                              srcImageRange(srcImg),
                              srcImage(srcAlpha),
                              imgNr, progress);
         m_images[imgNr] = remapped;
-        return *remapped;
+        return remapped;
     }
 
 

@@ -174,7 +174,7 @@ void NonaStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     //Interpolator from PanoramaMemento.h
     int lt = m_InterpolatorChoice->GetSelection();
 
-    opt.interpolator = (PanoramaOptions::Interpolator) lt;
+    opt.interpolator = (vigra_ext::Interpolator) lt;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );

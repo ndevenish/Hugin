@@ -40,6 +40,8 @@
 #include "vigra_ext/FunctorAccessor.h"
 #include "vigra_ext/Correlation.h"
 #include "vigra_ext/FitPolynom.h"
+#include "vigra_ext/ROIImage.h"
+#include "vigra_ext/MultilayerImage.h"
 
 #include "PT/PanoramaMemento.h"
 #include "PT/ImageTransforms.h"
@@ -554,6 +556,27 @@ void test_cross_correlation()
 
 }
 
+void test_roi_image()
+{
+    ROIImage<BImage, BImage> roiImage;
+
+    roiImage.resize(Rect2D(Point2D(10,10), Size2D(10,10)));
+    roiImage.m_image.init(1);
+    roiImage.m_image.init(2);
+    BOOST_CHECK_EQUAL(roiImage().rect().area(), 100);
+    BOOST_CHECK_EQUAL(roiImage().rect().lowerRight().x, 20);
+    BOOST_CHECK_EQUAL(roiImage().rect().lowerRight().y, 20);
+
+    int sum = 0;
+    // loop over whole image and count the number of pixels in it.
+    for (int y=0; y < 100; y++) {
+	for (int x=0; x < 100; x++) {
+	    if (roiImage.getMask(x,y)) {
+		sum += roiImage.get
+	}
+    }
+    BOOST_CHECK_EQUAL(sum, 100);
+}
 
 test_suite *
 init_unit_test_suite( int, char** )
@@ -567,13 +590,12 @@ init_unit_test_suite( int, char** )
   test->add(BOOST_TEST_CASE(&test_MergeVectorScalar2VectorAccessor));
   test->add(BOOST_TEST_CASE(&test_import_image));
   test->add(BOOST_TEST_CASE(&test_png_codec_16bit));
-#endif
   test->add(BOOST_TEST_CASE(&test_cross_correlation));
-#if 0
   test->add(BOOST_TEST_CASE(&test_fit_polygon));
   test->add(BOOST_TEST_CASE(&test_subpixel_correlation));
 #endif 
 //  test->add(BOOST_TEST_CASE(&transforms_test));
+  test->add(BOOST_TEST_CASE(&test_roi_image));
   return test;
 }
 

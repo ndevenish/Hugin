@@ -44,7 +44,7 @@ int fcnPano2(int m,int n, double * x, double * fvec, int * iflag);
 /** optimize the images \p imgs, for variables \p optvec, using \p vars
  *  as start. saves the control point distances in \p cps.
  */
-void PTools::optimize(const PT::Panorama & pano,
+void optimize(const PT::Panorama & pano,
                       const PT::UIntVector &imgs,
                       const PT::OptimizeVector & optvec,
                       PT::VariableMapVector & vars,

@@ -167,8 +167,8 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
     } else {
         temp_dc.DrawBitmap(bimg,0,(size-bH)>>1);
     }
-    wxMask * m = new wxMask(bitmap, wxColour(0,0,0));
-    bitmap.SetMask(m);
+//    wxMask * m = new wxMask(bitmap, wxColour(0,0,0));
+//    bitmap.SetMask(m);
 }
 
 void ImagesList::CreateItem(unsigned int imgNr)

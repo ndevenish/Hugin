@@ -32,7 +32,7 @@
 #include <vector>
 
 // BAD: sgi stl extension
-#include <ext/algorithm>
+//#include <ext/algorithm>
 
 #include "common/utils.h"
 #include "common/stl_utils.h"
@@ -201,7 +201,7 @@ struct RandomSampledMatcher
  *  of the connected images.
  */
 template<class MatchingFunctor>
-void vigra_ext::exhaustiveSiftMatching(const SIFTFeatureTable & ftable,
+void exhaustiveSiftMatching(const SIFTFeatureTable & ftable,
                                        MatchingFunctor & match,
                                        SIFTMatchMatrix & matches,
                                        utils::AdjListGraph & connected,

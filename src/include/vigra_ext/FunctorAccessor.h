@@ -528,7 +528,7 @@ protected:
 
     /** if scalar & vector image */
     template <class V, class ITERATOR>
-    void setComponentScalarIsScalar(V const & value, ITERATOR const & i, int idx,
+    void setComponentScalarIsVector(V const & value, ITERATOR const & i, int idx,
 				    vigra::VigraTrueType) const
     {
 	vigra_fail("vector -> scalar, vector accessor not implemented");
@@ -552,7 +552,7 @@ protected:
 
     /** if vector & vector image */
     template <class V, class ITERATOR>
-    void setComponentVectorIsScalar(V const & value, ITERATOR const & i, int idx,
+    void setComponentVectorIsVector(V const & value, ITERATOR const & i, int idx,
 				    vigra::VigraTrueType) const
     {
 	vigra_fail("vector -> vector, vector accessor not implemented");

@@ -11,8 +11,14 @@
 #define _JHEAD_H_
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
+
+#ifndef WIN32
 #include <sys/time.h>
+#else
+#include <time.h>
+#endif
 
 typedef unsigned char uchar;
 

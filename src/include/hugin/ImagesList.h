@@ -52,7 +52,7 @@ using namespace PT;
  *
  *  @todo   make the listcontents editable -> wxListCtrl->wxGrid?
  */
-class ImagesList: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
+class ImagesList: public wxListCtrl, public PT::PanoramaObserver
 {
  public:
     ImagesList( wxWindow * win, Panorama * pano);
@@ -106,6 +106,7 @@ protected:
     int m_degDigits;
     int m_distDigits;
     int m_pixelDigits;
+
     DECLARE_EVENT_TABLE()
 };
 
@@ -119,6 +120,8 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
+
+
 };
 
 
@@ -132,6 +135,8 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
+
+
 };
 
 

@@ -26,7 +26,7 @@
 
 #include <vector>
 
-#include <PT/ImageTransforms.h>
+#include <vigra_ext/ImageTransforms.h>
 //#include <hugin/ImageCache.h>
 
 
@@ -36,7 +36,7 @@
  */
 class CPZoomDisplayPanel : public wxPanel, public PT::PanoramaObserver
 {
-    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
+//    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
 public:
     /** ctor.
      */

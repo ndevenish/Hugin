@@ -323,7 +323,7 @@ void PanoPanel::ApplyQuickMode(int preset)
         // high quality tiff file
         // nona + enblend
         opts.outputFormat = PanoramaOptions::TIFF;
-        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
         opts.featherWidth = 10;
@@ -336,7 +336,7 @@ void PanoPanel::ApplyQuickMode(int preset)
         // nona + jpg output + cubic interpolator
         // fixme: this should be an enblended pano...
         opts.outputFormat = PanoramaOptions::JPEG;
-        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
         opts.featherWidth = 10;
@@ -347,7 +347,7 @@ void PanoPanel::ApplyQuickMode(int preset)
         // draft quality jpeg file
         // nona + jpg output
         opts.outputFormat = PanoramaOptions::JPEG;
-        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
         opts.featherWidth = 10;
@@ -357,7 +357,7 @@ void PanoPanel::ApplyQuickMode(int preset)
     case 4:
         // multilayer TIFF file
         opts.outputFormat = PanoramaOptions::TIFF_m;
-        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
         opts.featherWidth = 10;
@@ -367,7 +367,7 @@ void PanoPanel::ApplyQuickMode(int preset)
     case 5:
         // multilayer PSD file
         opts.outputFormat = PanoramaOptions::PSD_mask;
-        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
         opts.featherWidth = 10;

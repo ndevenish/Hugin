@@ -887,7 +887,7 @@ int RemoveThumbnail(ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigne
     }
 
     // This is how far the non thumbnail data went.
-    return LastExifRefd - ExifSection;
+    return (int) (LastExifRefd - ExifSection);
 }
 
 

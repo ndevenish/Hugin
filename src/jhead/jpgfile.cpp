@@ -183,7 +183,7 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
         Data[0] = (uchar)lh;
         Data[1] = (uchar)ll;
 
-        got = fread(Data+2, 1, itemlen-2, infile); // Read the whole section.
+        got = (int)fread(Data+2, 1, itemlen-2, infile); // Read the whole section.
         if (got != itemlen-2){
             DEBUG_FATAL("Premature end of file?");
         }
@@ -207,7 +207,7 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
                         DEBUG_FATAL("could not allocate data for entire image");
                     }
 
-                    got = fread(Data, 1, size, infile);
+                    got = (int)fread(Data, 1, size, infile);
                     if (got != size){
                         DEBUG_FATAL("could not read the rest of the image");
                     }
