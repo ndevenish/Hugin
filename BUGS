@@ -1,0 +1,2 @@
+- EXIF support:
+  rescaled files with EXIF report wrong HFOV

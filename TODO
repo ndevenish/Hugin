@@ -1,0 +1,18 @@
+this is very unfinished.. do a grep FIXME on all sourcefile to get more TODO's ;)
+
+- parsing of optimizer results
+- control point selector
+- control point editor
+- panorama output properties
+
+- (semi) automatic control point creator
+
+after initial release.
+
+- rewrite of Panorama/* classes
+  - move intelligence into Panorama class
+    - fine grained change notifications, reduce unnessecary updates.
+      (DAG change manager from GOF book?)
+  - move all optimizeable variables into a Variables class.
+  - provide a separate OptimizeSettings class, that tells wich
+    variables should be optimized...

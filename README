@@ -1,0 +1,37 @@
+Goal: frontend for Panorama Tools, similar
+      to PTAssembler, PTGui or Open for Windows.
+      
+hugin can be used to stitch multiple images together. The resulting image can
+span 360 degrees. Another common use is the creation of very high resolution
+pictures by combining multiple images.
+
+It uses the Panorama Tools (http://www.path.unimelb.edu.au/~dersch/)
+as backend, to create high quality images
+
+typical use:
+
+1. load images
+2. specify initial parameters (lens etc)
+3. select control points points.
+4. run optimizer to estimate image positions
+5. set output parameters and stich images together.
+
+3. might be splitted into
+  - move pictures to approxmiate positions with mouse
+  - program should search for corrospondances in overlapping regions.
+
+  a completely automatic version would be even better ;)
+  
+
+Knowledge of Panorama Tools is needed to use this.
+Good introductions are the tutorials from PTGUI and PTAssembler.
+The steps are approximately the same.
+
+Some links to get you started:
+
+http://www.ptgui.org
+http://www.tawbaware.com/ptasmblr.htm
+http://www.nic.fi/~juhe/ptbcbgui/
+http://www.bigbenpublishing.com.au/
+
+Send me a mail if you have questions: pablo.dangelo@gmx.de
