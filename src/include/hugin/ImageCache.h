@@ -31,6 +31,8 @@
 #include "common/utils.h"
 
 
+#if 0
+
 // BUG: all the smartpointer/ref counting is not used currently.
 //      maybe I'll fix it in the future, if I find a way how it
 //      should work.
@@ -176,6 +178,8 @@ private:
     T *ptr;
 };
 
+#endif
+
 //typedef RefCountPtr<wxImage, RefCountNotifier<wxImage> > ImagePtr;
 typedef wxImage * ImagePtr;
 
@@ -205,9 +209,8 @@ struct ImageKey
  *  that they have been deleted.
  *
  *  @todo: implement a strategy for smart deletion of images
- *
- *  @todo: possibility to store derived images as well
- *         (pyramid images etc)?
+ *  @todo: add more advanced key, that stores access statistics
+ *         and so on.
  */
 class ImageCache
 {
@@ -244,6 +247,12 @@ public:
      *  big pictures
      */
     void flush();
+    
+    /** a soft version of flush.
+     *
+     *  Releases some images if they go over a certain threshold
+     */
+    void softFlush();
 
     void setProgressDisplay(utils::ProgressDisplay * disp)
         {
@@ -285,7 +294,7 @@ private:
         int level;
     };
     std::map<std::string, vigra::BImage *> pyrImages;
-    
+
     // our progress display
     utils::ProgressDisplay * m_progress;
 };

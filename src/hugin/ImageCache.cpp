@@ -24,6 +24,18 @@
  *
  */
 
+#include <wx/wxprec.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+
+#ifndef WX_PRECOMP
+    #include <wx/wx.h>
+#endif
+
+#include <wx/config.h>
+#include <wx/image.h>
+
 #include <string>
 
 #include "common/utils.h"
@@ -67,6 +79,63 @@ void ImageCache::flush()
     images.clear();
 
 
+}
+
+void ImageCache::softFlush()
+{
+    long upperBound = wxConfigBase::Get()->Read("/ImageCache/upperBound",200 * 1024 * 1024l);
+    long hysteresis = wxConfigBase::Get()->Read("/ImageCache/hysteresis",25 * 1024 * 1024l);
+
+    long purgeToSize = upperBound + hysteresis;
+    
+    // calculate used memory
+    long imgMem = 0;
+    
+    std::map<std::string, ImagePtr>::iterator imgIt;
+    for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
+        imgMem += imgIt->second->GetWidth() * imgIt->second->GetHeight() * 3;
+    }
+    
+    long pyrMem = 0;
+    std::map<std::string, BImage*>::iterator pyrIt;
+    for(pyrIt=pyrImages.begin(); pyrIt != pyrImages.end(); pyrIt++) {
+        pyrMem += pyrIt->second->width() * pyrIt->second->height();
+    }
+
+    long usedMem = imgMem + pyrMem;
+
+    DEBUG_DEBUG("total: " << (usedMem>>20) << " MB upper bound: " << (purgeToSize>>20) << " MB");
+
+
+    if (usedMem > purgeToSize) {
+        // we need to remove images.
+        long purgeAmount = usedMem - upperBound;
+        long purgedMem = 0;
+        // remove images from cache, first the grey level image,
+        // then the full size images an the 
+
+        while (purgeAmount > purgedMem) {
+            if (pyrImages.size() > 0) {
+                BImage * imgPtr = (*(pyrImages.begin())).second;
+                purgedMem -= imgPtr->width() * imgPtr->height();
+                delete imgPtr;
+                pyrImages.erase(pyrImages.begin());
+            } else if (images.size() > 0) {
+                ImagePtr imgPtr = (*(images.begin())).second;
+                purgedMem -= imgPtr->GetWidth() * imgPtr->GetHeight() * 3;
+                delete imgPtr;
+                images.erase(images.begin());
+            } else {
+                DEBUG_ERROR("Purged all images, but image cache not empty");
+                break;
+            }
+        }
+        m_progress->progressMessage(
+            wxString::Format(_("Purged %d MB from image cache. Current cache usage: %d MB"),
+                             purgedMem>>20, (usedMem - purgedMem)>>20
+                ).c_str(),0);
+        DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB used: " << ((usedMem - purgedMem)>>20) << " MB");
+    }
 }
 
 ImageCache & ImageCache::getInstance()
@@ -121,7 +190,7 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
             const int w = 256;
             double ratio = (double)image->GetWidth() / image->GetHeight();
             small_image = image->Scale(w, (int) (w/ratio));
-            
+
             wxImage * tmp = new wxImage( &small_image );
             images[name] = tmp;
             DEBUG_INFO ( "created small image: " << name);

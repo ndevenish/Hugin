@@ -857,6 +857,11 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     unsigned int nrTabs = m_leftTabs->GetPageCount();
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
 
+    // try to remove some images.
+    DEBUG_DEBUG("calling soft purge")
+    ImageCache::getInstance().softFlush();
+    
+    
     // add tab bar entries, if needed
     if (nrTabs < nrImages) {
         for (unsigned int i=nrTabs; i < nrImages; i++) {
@@ -1484,7 +1489,7 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 }
 
 
-FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr, 
+FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           const Diff2D & srcPnt,
                                           unsigned int moveNr,
                                           const Diff2D & movePnt)
@@ -1566,7 +1571,7 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
         m_leftImg->setNewPoint(wxPoint((int) round(result.x),
                                         (int) round(result.y)));
         m_leftImg->update();
-        
+
     } else {
         m_rightImg->setNewPoint(wxPoint((int) round(result.x),
                                         (int) round(result.y)));
