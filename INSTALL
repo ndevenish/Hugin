@@ -20,22 +20,30 @@ REQUIRED LIBRARIES/PACKAGES:
     If you compile wxwindows from scratch, go to the contrib/src/xrc folder
     and compile and install xrc from there.
 
+ - Panorama tools. Please DO NOT USE the versions from the original site.
+   I'm using the version maintained by Max Lyons, which includes several
+   important bugfixes. Other versions might work as well, have not been 
+   tested by the developers.
+
+   Download it from:
+   http://www.tawbaware.com/maxlyons/pano12ml.htm (windows binary and sourcecode)
+   or
+   http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
+   
  - make, version 3.8 or higher.
  - gcc (tested with 3.2, 2.95 might also work)
 
-Panorama Tools, get it from
-http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux)
-or
-http://www.tawbaware.com/maxlyons/pano12ml.htm (windows)
+COMPILATION:
 
-Compilation:
+These are the instructions for linux. see the WINDOWS_COMPILE.txt
+if you compile on windows.
 
 do the following in the hugin directory:
 $ ./configure
 $ make
 $ make install
 
-for wxWindows do following:
+If you need to compile wxWindows, please use the following steps:
 $ bzip2 -dv wxGTK-2.4.2.tar.bz2
 $ cd wxGTK-2.4.0
 $ ./configure --with-gtk --with-opengl
