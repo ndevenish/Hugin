@@ -450,7 +450,7 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_dialog.xrs:3
+#: src/hugin/ImagesList.cpp:305
 #: src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
 msgstr "Normal (rectilinéaire)"
@@ -1556,44 +1556,15 @@ msgstr "Cette image"
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
-#: src/hugin/xrc/lens_dialog.xrs:1
-msgid "Lens"
-msgstr "Objectif"
-
-#: src/hugin/xrc/lens_dialog.xrs:2 src/hugin/xrc/lens_panel.xrs:1
+#: src/hugin/xrc/lens_panel.xrs:1
 msgid "Lens type:"
 msgstr "Type d'objectif"
 
-#: src/hugin/xrc/lens_dialog.xrs:4
-msgid "Panoramic"
-msgstr "Panoramique"
-
-#: src/hugin/xrc/lens_dialog.xrs:5
-msgid "Circular"
-msgstr "Circulaire"
-
-#: src/hugin/xrc/lens_dialog.xrs:6
-msgid "Full frame"
-msgstr "Plein cadre"
-
-#: src/hugin/xrc/lens_dialog.xrs:8
-msgid "Lens degrees"
-msgstr "Angle de l'objectif"
-
-#: src/hugin/xrc/lens_dialog.xrs:9
-msgid "Degrees (v):"
-msgstr "Degrés (v) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:10 src/hugin/xrc/lens_dialog.xrs:11
-#: src/hugin/xrc/lens_dialog.xrs:12 src/hugin/xrc/lens_panel.xrs:9
+#: src/hugin/xrc/lens_panel.xrs:9
 #: src/hugin/xrc/lens_panel.xrs:10 src/hugin/xrc/lens_panel.xrs:11
 msgid "Horizontal Field of View"
 msgstr "Angle de champ horizontal"
 
-#: src/hugin/xrc/lens_dialog.xrs:13 src/hugin/xrc/lens_dialog.xrs:36
-#: src/hugin/xrc/lens_dialog.xrs:40 src/hugin/xrc/lens_dialog.xrs:44
-#: src/hugin/xrc/lens_dialog.xrs:48 src/hugin/xrc/lens_dialog.xrs:51
-#: src/hugin/xrc/lens_dialog.xrs:55 src/hugin/xrc/lens_dialog.xrs:58
 #: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel.xrs:25
 #: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
@@ -1601,100 +1572,13 @@ msgstr "Angle de champ horizontal"
 msgid "Inherit"
 msgstr "Hérité"
 
-#: src/hugin/xrc/lens_dialog.xrs:14
-msgid "Physical Parameters (to calculate HFOV)"
-msgstr ""
-"Paramètres physiques (pour calculer le champ de vision horizontal HFOV)"
-
-#: src/hugin/xrc/lens_dialog.xrs:15 src/hugin/xrc/lens_panel.xrs:13
-msgid "focal length:"
-msgstr "Distance focale :"
-
-#: src/hugin/xrc/lens_dialog.xrs:16 src/hugin/xrc/lens_dialog.xrs:17
-#: src/hugin/xrc/lens_dialog.xrs:18 src/hugin/xrc/lens_dialog.xrs:20
-#: src/hugin/xrc/lens_dialog.xrs:21 src/hugin/xrc/lens_dialog.xrs:22
-#: src/hugin/xrc/lens_dialog.xrs:24 src/hugin/xrc/lens_dialog.xrs:25
-#: src/hugin/xrc/lens_dialog.xrs:26 src/hugin/xrc/lens_dialog.xrs:28
-#: src/hugin/xrc/lens_dialog.xrs:29 src/hugin/xrc/lens_dialog.xrs:30
 #: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel.xrs:21
 msgid "equivalent to 35mm film optics"
 msgstr "Focale équivalente en 35mm"
 
-#: src/hugin/xrc/lens_dialog.xrs:19
-msgid "sensor width:"
-msgstr "Largeur du capteur :"
-
-#: src/hugin/xrc/lens_dialog.xrs:23 src/hugin/xrc/lens_dialog.xrs:27
-msgid "sensor height:"
-msgstr "Hauteur du capteur :"
-
-#: src/hugin/xrc/lens_dialog.xrs:31
-msgid "Distortion parameters"
-msgstr "Paramètres de distorsion"
-
-#: src/hugin/xrc/lens_dialog.xrs:32
-msgid "Radial Distortion"
-msgstr "Distorsion radiale"
-
-#: src/hugin/xrc/lens_dialog.xrs:33
-msgid "a:"
-msgstr "a :"
-
-#: src/hugin/xrc/lens_dialog.xrs:34 src/hugin/xrc/lens_dialog.xrs:35
-msgid "distortion value (a)"
-msgstr "Valeur de la distorsion (a)"
-
-#: src/hugin/xrc/lens_dialog.xrs:37
-msgid "b:"
-msgstr "b :"
-
-#: src/hugin/xrc/lens_dialog.xrs:38 src/hugin/xrc/lens_dialog.xrs:39
-msgid "distortion value (b)"
-msgstr "Valeur de la distorsion (b)"
-
-#: src/hugin/xrc/lens_dialog.xrs:41
-msgid "c:"
-msgstr "c :"
-
-#: src/hugin/xrc/lens_dialog.xrs:42 src/hugin/xrc/lens_dialog.xrs:43
-msgid "distortion value (c)"
-msgstr "Valeur de la distorsion (c)"
-
-#: src/hugin/xrc/lens_dialog.xrs:45
-msgid "Center shift"
-msgstr "Décalage du centre de l'image"
-
-#: src/hugin/xrc/lens_dialog.xrs:46 src/hugin/xrc/lens_panel.xrs:31
-msgid "horizontal (d):"
-msgstr "Horizontalement (d) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:47 src/hugin/xrc/lens_dialog.xrs:54
-msgid "image shift horizontal (d)"
-msgstr "Décalage horizontal de l'image (d)"
-
-#: src/hugin/xrc/lens_dialog.xrs:49 src/hugin/xrc/lens_panel.xrs:33
-msgid "vertical (e):"
-msgstr "Verticalement (e) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:50 src/hugin/xrc/lens_dialog.xrs:57
-msgid "image shift vertical (e)"
-msgstr "Vécalage vertical de l'image (e)"
-
-#: src/hugin/xrc/lens_dialog.xrs:52
-msgid "Shearing"
-msgstr "Découpage de l'image"
-
-#: src/hugin/xrc/lens_dialog.xrs:53 src/hugin/xrc/lens_panel.xrs:39
-msgid "horizontal (g):"
-msgstr "Horizontalement (g) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:56 src/hugin/xrc/lens_panel.xrs:41
+#: src/hugin/xrc/lens_panel.xrs:41
 msgid "vertical (t):"
 msgstr "Verticalement (t) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:59
-msgid "Lens Properties"
-msgstr "Paramètres de l'objectif"
 
 #: src/hugin/xrc/lens_panel.xrs:7
 msgid "Design Parameters"

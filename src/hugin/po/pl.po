@@ -444,7 +444,7 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_dialog.xrs:3
+#: src/hugin/ImagesList.cpp:305
 #: src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
 msgstr "Normalny (prostoliniowy)"
@@ -462,7 +462,7 @@ msgid "Full frame fisheye"
 msgstr "Pe³noramowe rybie oko"
 
 #: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:187
-#: src/hugin/PreviewFrame.cpp:400 src/hugin/xrc/lens_dialog.xrs:7
+#: src/hugin/PreviewFrame.cpp:400
 #: src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr "Sferyczny"
@@ -1528,45 +1528,15 @@ msgstr "To zdjêcie"
 msgid "Keyboard Shortcuts"
 msgstr "Skróty klawiatury"
 
-#: src/hugin/xrc/lens_dialog.xrs:1
-#, fuzzy
-msgid "Lens"
-msgstr "Obiektyw numer"
-
-#: src/hugin/xrc/lens_dialog.xrs:2 src/hugin/xrc/lens_panel.xrs:1
+#: src/hugin/xrc/lens_panel.xrs:1
 msgid "Lens type:"
 msgstr "Typ obiektywu:"
 
-#: src/hugin/xrc/lens_dialog.xrs:4
-msgid "Panoramic"
-msgstr "Panoramiczny"
-
-#: src/hugin/xrc/lens_dialog.xrs:5
-msgid "Circular"
-msgstr "Okr±g³e"
-
-#: src/hugin/xrc/lens_dialog.xrs:6
-msgid "Full frame"
-msgstr "Pe³noramowe"
-
-#: src/hugin/xrc/lens_dialog.xrs:8
-msgid "Lens degrees"
-msgstr "Ilo¶æ stopni soczewek"
-
-#: src/hugin/xrc/lens_dialog.xrs:9
-msgid "Degrees (v):"
-msgstr "Stopnie:"
-
-#: src/hugin/xrc/lens_dialog.xrs:10 src/hugin/xrc/lens_dialog.xrs:11
-#: src/hugin/xrc/lens_dialog.xrs:12 src/hugin/xrc/lens_panel.xrs:9
+#: src/hugin/xrc/lens_panel.xrs:9
 #: src/hugin/xrc/lens_panel.xrs:10 src/hugin/xrc/lens_panel.xrs:11
 msgid "Horizontal Field of View"
 msgstr "Poziome Pole Widzenia"
 
-#: src/hugin/xrc/lens_dialog.xrs:13 src/hugin/xrc/lens_dialog.xrs:36
-#: src/hugin/xrc/lens_dialog.xrs:40 src/hugin/xrc/lens_dialog.xrs:44
-#: src/hugin/xrc/lens_dialog.xrs:48 src/hugin/xrc/lens_dialog.xrs:51
-#: src/hugin/xrc/lens_dialog.xrs:55 src/hugin/xrc/lens_dialog.xrs:58
 #: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel.xrs:25
 #: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
@@ -1574,106 +1544,29 @@ msgstr "Poziome Pole Widzenia"
 msgid "Inherit"
 msgstr "Odziedzicz"
 
-#: src/hugin/xrc/lens_dialog.xrs:14
-msgid "Physical Parameters (to calculate HFOV)"
-msgstr ""
-
-#: src/hugin/xrc/lens_dialog.xrs:15 src/hugin/xrc/lens_panel.xrs:13
+#: src/hugin/xrc/lens_panel.xrs:13
 msgid "focal length:"
 msgstr "ogniskowa:"
 
-#: src/hugin/xrc/lens_dialog.xrs:16 src/hugin/xrc/lens_dialog.xrs:17
-#: src/hugin/xrc/lens_dialog.xrs:18 src/hugin/xrc/lens_dialog.xrs:20
-#: src/hugin/xrc/lens_dialog.xrs:21 src/hugin/xrc/lens_dialog.xrs:22
-#: src/hugin/xrc/lens_dialog.xrs:24 src/hugin/xrc/lens_dialog.xrs:25
-#: src/hugin/xrc/lens_dialog.xrs:26 src/hugin/xrc/lens_dialog.xrs:28
-#: src/hugin/xrc/lens_dialog.xrs:29 src/hugin/xrc/lens_dialog.xrs:30
 #: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel.xrs:21
 msgid "equivalent to 35mm film optics"
 msgstr "ekwiwalentne do optyki filmu 35mm"
 
-#: src/hugin/xrc/lens_dialog.xrs:19
-#, fuzzy
-msgid "sensor width:"
-msgstr "szeroko¶æ piórka:"
-
-#: src/hugin/xrc/lens_dialog.xrs:23 src/hugin/xrc/lens_dialog.xrs:27
-#, fuzzy
-msgid "sensor height:"
-msgstr "wysoko¶æ w pikslach:"
-
-#: src/hugin/xrc/lens_dialog.xrs:31
-#, fuzzy
-msgid "Distortion parameters"
-msgstr "Parametry korekcji soczewek"
-
-#: src/hugin/xrc/lens_dialog.xrs:32
-#, fuzzy
-msgid "Radial Distortion"
-msgstr "zniekszta³cenie (a):"
-
-#: src/hugin/xrc/lens_dialog.xrs:33
-msgid "a:"
-msgstr "a:"
-
-#: src/hugin/xrc/lens_dialog.xrs:34 src/hugin/xrc/lens_dialog.xrs:35
-msgid "distortion value (a)"
-msgstr "warto¶æ zniekszta³cenia (a)"
-
-#: src/hugin/xrc/lens_dialog.xrs:37
-msgid "b:"
-msgstr "b:"
-
-#: src/hugin/xrc/lens_dialog.xrs:38 src/hugin/xrc/lens_dialog.xrs:39
-msgid "distortion value (b)"
-msgstr "warto¶æ zniekszta³cenia (b)"
-
-#: src/hugin/xrc/lens_dialog.xrs:41
-msgid "c:"
-msgstr "c:"
-
-#: src/hugin/xrc/lens_dialog.xrs:42 src/hugin/xrc/lens_dialog.xrs:43
-msgid "distortion value (c)"
-msgstr "warto¶æ zniekszta³cenia (c)"
-
-#: src/hugin/xrc/lens_dialog.xrs:45
-#, fuzzy
-msgid "Center shift"
-msgstr "Przesuniêcie ¶rodka zdjêcia"
-
-#: src/hugin/xrc/lens_dialog.xrs:46 src/hugin/xrc/lens_panel.xrs:31
+#: src/hugin/xrc/lens_panel.xrs:31
 msgid "horizontal (d):"
 msgstr "poziomy (d):"
 
-#: src/hugin/xrc/lens_dialog.xrs:47 src/hugin/xrc/lens_dialog.xrs:54
-msgid "image shift horizontal (d)"
-msgstr "poziome przesuniêcie zdjêcia (d)"
-
-#: src/hugin/xrc/lens_dialog.xrs:49 src/hugin/xrc/lens_panel.xrs:33
+#: src/hugin/xrc/lens_panel.xrs:33
 msgid "vertical (e):"
 msgstr "pionowy (e):"
 
-#: src/hugin/xrc/lens_dialog.xrs:50 src/hugin/xrc/lens_dialog.xrs:57
-msgid "image shift vertical (e)"
-msgstr "pionowe przesuniêcie zdjêcia (e)"
-
-#: src/hugin/xrc/lens_dialog.xrs:52
-#, fuzzy
-msgid "Shearing"
-msgstr "Przystrzy¿enie zdjêcia"
-
-#: src/hugin/xrc/lens_dialog.xrs:53 src/hugin/xrc/lens_panel.xrs:39
+#: src/hugin/xrc/lens_panel.xrs:39
 msgid "horizontal (g):"
 msgstr "poziomy (g):"
 
-#: src/hugin/xrc/lens_dialog.xrs:56 src/hugin/xrc/lens_panel.xrs:41
+#: src/hugin/xrc/lens_panel.xrs:41
 msgid "vertical (t):"
 msgstr "pionowy (t):"
-
-#: src/hugin/xrc/lens_dialog.xrs:59
-#, fuzzy
-msgid "Lens Properties"
-msgstr "Parametry obiektywu"
 
 #: src/hugin/xrc/lens_panel.xrs:7
 msgid "Design Parameters"
