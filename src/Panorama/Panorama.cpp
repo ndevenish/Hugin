@@ -376,7 +376,7 @@ void Panorama::updateVariables(unsigned int imgNr, const VariableMap & var)
 
 void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 {
-    DEBUG_TRACE("image " << imgNr << " variable: " << var.getName());
+//    DEBUG_TRACE("image " << imgNr << " variable: " << var.getName());
     DEBUG_ASSERT(imgNr < state.images.size());
     // update a single variable
     // check corrosponding lens if we have to update some other images
@@ -396,7 +396,7 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
         // image variables that use this lens.
         LensVariable & lv = map_get(state.lenses[lensNr].variables,var.getName());
         if (lv.isLinked()) {
-            DEBUG_DEBUG("updating image variable, lens var is linked");
+//            DEBUG_DEBUG("updating image variable, lens var is linked");
             lv.setValue(var.getValue());
             updateLensVariable(lensNr,lv);
         }
@@ -1093,7 +1093,7 @@ void Panorama::clearObservers()
 
 void Panorama::imageChanged(unsigned int imgNr)
 {
-    DEBUG_TRACE("adding image " << imgNr);
+//    DEBUG_TRACE("adding image " << imgNr);
     changedImages.insert(imgNr);
     assert(changedImages.find(imgNr) != changedImages.end());
 }

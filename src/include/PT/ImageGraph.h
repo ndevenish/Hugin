@@ -27,7 +27,7 @@
 #include <PT/Panorama.h>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/adjacency_list.hpp>
-
+#include <boost/graph/properties.hpp>
 namespace PT
 {
 
@@ -36,7 +36,9 @@ namespace PT
  *  verticies: images, links: controlpoints
  *
  */
-typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS> CPGraph;
+typedef boost::adjacency_list<boost::vecS, boost::vecS,
+                              boost::undirectedS,
+                              boost::property<boost::vertex_color_t, boost::default_color_type> > CPGraph;
 
 /** create a control point graph structure, with links representing one or
  *  more control points

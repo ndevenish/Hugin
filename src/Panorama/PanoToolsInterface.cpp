@@ -26,6 +26,7 @@
 
 #include "panoinc.h"
 #include "PT/PanoToolsInterface.h"
+#include "PT/PTOptimise.h"
 
 #include <utility>
 
@@ -720,7 +721,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
         DEBUG_FATAL("CheckParams() returned false!");
         return false;
     }
-    gl.fcn	= fcnPano;
+    gl.fcn	= (int(*)())PTools::fcnPano2;
     return true;
 }
 
