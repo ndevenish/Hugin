@@ -160,7 +160,7 @@ struct MatchFeatures
             }
             // add to list
             if (10*10* dist1 < 6*6*dist2 && best != 0) {
-                result.push_back(vigra::make_triple(dist1, it1 - feat1.begin(), best));
+                result.push_back(vigra::make_triple(dist1, (int)(it1 - feat1.begin()), best));
             }
         }
         // if less than 7.5 % of all features where tracked, return false...
