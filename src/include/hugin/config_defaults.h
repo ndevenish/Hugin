@@ -81,7 +81,8 @@
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
-#define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
+#define HUGIN_APSIFT_EXE                      "autopano-complete-mac.sh"
+#define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
 #endif
 
 #ifdef unix
@@ -103,6 +104,8 @@
 #define HUGIN_ENBLEND_ARGS                    "-v -z"
 
 // Autopano-SIFT args
+#ifndef HUGIN_APSIFT_ARGS
 #define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"
+#endif
 
 #endif // _CONFIG_DEFAULTS_H
