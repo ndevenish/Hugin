@@ -6,160 +6,338 @@
         <object class="unknown" name="images_list_unknown"/>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
-        <minsize>410,-1</minsize>
+        <minsize>295,-1</minsize>
       </object>
       <object class="sizeritem">
-        <object class="wxStaticBoxSizer">
-          <label>File operations</label>
+        <object class="wxBoxSizer">
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
-            <object class="wxButton" name="action_add_images">
-              <label>Add</label>
-            </object>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="action_remove_images">
-              <label>Remove</label>
-              <help>Remove image from project</help>
-            </object>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
+            <object class="wxStaticBoxSizer">
+              <label>File operations</label>
+              <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticLine">
-                  <size>2,-1</size>
+                <object class="wxButton" name="action_add_images">
+                  <label>Add</label>
                 </object>
-                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Camera orientation</label>
+                <object class="wxButton" name="action_remove_images">
+                  <label>Remove</label>
+                  <help>Remove image from project</help>
                 </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
               </object>
-              <object class="sizeritem">
-                <object class="wxStaticLine"/>
-                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <cols>3</cols>
-              <rows>1</rows>
-              <growablecols>2</growablecols>
             </object>
             <flag>wxEXPAND|wxGROW</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>yaw -</label>
-                </object>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-                <flag></flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>pitch | </label>
-                </object>
-              </object>
-              <cols>3</cols>
-              <rows>1</rows>
-              <growablecols>1</growablecols>
-            </object>
-            <flag>wxEXPAND|wxGROW</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <cols>2</cols>
-              <rows>4</rows>
-              <object class="sizeritem">
-                <object class="wxPanel" name="img_preview_unknown">
-                  <size>128,128</size>
-                  <style>wxSUNKEN_BORDER</style>
-                </object>
-                <flag>wxALL|wxEXPAND|wxGROW</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSlider" name="images_list_pitch">
-                  <value>0</value>
-                  <min>-90</min>
-                  <max>90</max>
-                  <style>wxSL_VERTICAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
-                  <pagesize>10</pagesize>
-                  <linesize>1</linesize>
-                </object>
-                <flag>wxEXPAND|wxGROW</flag>
-                <minsize>22,-1</minsize>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSlider" name="images_list_yaw">
-                  <value>0</value>
-                  <min>-180</min>
-                  <max>180</max>
-                  <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
-                  <pagesize>15</pagesize>
-                  <linesize>1</linesize>
-                </object>
-                <flag>wxEXPAND|wxGROW</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText" name="images_text_orientation">
-                  <label>0</label>
-                  <style>wxALIGN_RIGHT</style>
-                </object>
-                <flag>wxEXPAND|wxGROW</flag>
-              </object>
-            </object>
           </object>
           <object class="sizeritem">
             <object class="wxBoxSizer">
+              <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>roll O</label>
-                </object>
-                <flag></flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxFlexGridSizer">
-                  <cols>2</cols>
-                  <rows>1</rows>
+                <object class="wxStaticBoxSizer">
+                  <label>Camera orientation</label>
+                  <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
-                    <object class="wxStaticText" name="images_text_roll">
-                      <label>0</label>
-                    </object>
-                    <minsize>25,-1</minsize>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxSlider" name="images_list_roll">
-                      <value>0</value>
-                      <min>-180</min>
-                      <max>180</max>
-                      <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
-                      <pagesize>15</pagesize>
-                      <linesize>1</linesize>
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxFlexGridSizer">
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>yaw -</label>
+                            </object>
+                          </object>
+                          <object class="spacer">
+                            <size>0,0</size>
+                            <flag></flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>pitch | </label>
+                            </object>
+                          </object>
+                          <cols>3</cols>
+                          <rows>1</rows>
+                          <growablecols>1</growablecols>
+                        </object>
+                        <flag>wxEXPAND|wxGROW</flag>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxFlexGridSizer">
+                          <cols>2</cols>
+                          <rows>4</rows>
+                          <object class="sizeritem">
+                            <object class="wxPanel" name="img_preview_unknown">
+                              <size>256,128</size>
+                              <style>wxSUNKEN_BORDER</style>
+                            </object>
+                            <flag>wxALL|wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxSlider" name="images_list_pitch">
+                              <value>0</value>
+                              <min>-90</min>
+                              <max>90</max>
+                              <style>wxSL_VERTICAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
+                              <pagesize>10</pagesize>
+                              <linesize>1</linesize>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                            <minsize>22,-1</minsize>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxSlider" name="images_list_yaw">
+                              <value>0</value>
+                              <min>-180</min>
+                              <max>180</max>
+                              <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
+                              <pagesize>15</pagesize>
+                              <linesize>1</linesize>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText" name="images_text_orientation">
+                              <label>0</label>
+                              <style>wxALIGN_RIGHT</style>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxFlexGridSizer">
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <cols>2</cols>
+                              <rows>1</rows>
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="images_text_roll">
+                                  <label>0</label>
+                                </object>
+                                <minsize>25,-1</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxSlider" name="images_list_roll">
+                                  <value>0</value>
+                                  <min>-180</min>
+                                  <max>180</max>
+                                  <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
+                                  <pagesize>15</pagesize>
+                                  <linesize>1</linesize>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <growablecols>1</growablecols>
+                              <growablerows>0</growablerows>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>roll O</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT</flag>
+                          </object>
+                          <cols>2</cols>
+                          <rows>0</rows>
+                          <growablecols>0</growablecols>
+                        </object>
+                        <flag>wxTOP|wxBOTTOM|wxEXPAND|wxGROW</flag>
+                        <border>5</border>
+                      </object>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                   </object>
-                  <growablecols>1</growablecols>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="">
+                                  <label>yaw</label>
+                                  <size>35,15</size>
+                                </object>
+                                <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxTextCtrl" name="images_text_yaw">
+                                  <size>55,20</size>
+                                </object>
+                                <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                                <border>5</border>
+                              </object>
+                              <cols>2</cols>
+                              <growablecols>1</growablecols>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="images_inherit_yaw">
+                                      <label>Inherit</label>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxSpinCtrl" name="images_spin_yaw">
+                                      <size>45,-1</size>
+                                    </object>
+                                    <flag>wxALIGN_RIGHT</flag>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="images_optimize_yaw">
+                                  <label>Optimize</label>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="">
+                                  <label>pitch</label>
+                                  <size>35,15</size>
+                                </object>
+                                <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxTextCtrl" name="images_text_pitch">
+                                  <size>55,20</size>
+                                </object>
+                                <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                                <border>5</border>
+                              </object>
+                              <cols>2</cols>
+                              <growablecols>1</growablecols>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="images_inherit_pitch">
+                                      <label>Inherit</label>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxSpinCtrl" name="images_spin_pitch">
+                                      <size>45,-1</size>
+                                    </object>
+                                    <flag>wxALIGN_RIGHT</flag>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="images_optimize_pitch">
+                                  <label>Optimize</label>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="">
+                                  <label>rool</label>
+                                  <size>35,15</size>
+                                </object>
+                                <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxTextCtrl" name="images_text_roll">
+                                  <size>55,20</size>
+                                </object>
+                                <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
+                                <border>5</border>
+                              </object>
+                              <cols>2</cols>
+                              <growablecols>1</growablecols>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="images_inherit_roll">
+                                      <label>Inherit</label>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxSpinCtrl" name="images_spin_roll">
+                                      <size>45,-1</size>
+                                    </object>
+                                    <flag>wxALIGN_RIGHT</flag>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="images_optimize_roll">
+                                  <label>Optimize</label>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
                 </object>
                 <flag>wxEXPAND|wxGROW</flag>
               </object>
-              <orient>wxVERTICAL</orient>
             </object>
-            <flag>wxTOP|wxEXPAND|wxGROW</flag>
-            <border>5</border>
           </object>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxEXPAND|wxGROW</flag>
       </object>
       <cols>2</cols>
       <growablerows>0</growablerows>
       <growablecols>0</growablecols>
     </object>
     <title/>
+    <style>wxTAB_TRAVERSAL</style>
   </object>
 </resource>

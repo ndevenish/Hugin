@@ -240,6 +240,10 @@ msgid "Control points"
 msgstr "Kontrollpunkte"
 
 #: ../ptopengui.cpp:306
+msgid "Inherit"
+msgstr "Erben"
+
+#: ../ptopengui.cpp:306
 msgid "Optimize"
 msgstr "Optimieren"
 
@@ -816,6 +820,18 @@ msgstr ""
 #: ../ptopengui.cpp:963
 msgid "image parameters"
 msgstr "Bildparameter"
+
+#: ../ptopengui.cpp:967
+msgid "yaw"
+msgstr "Richt."
+
+#: ../ptopengui.cpp:968
+msgid "pitch"
+msgstr "Kipp."
+
+#: ../ptopengui.cpp:969
+msgid "roll"
+msgstr "Neig."
 
 #: ../ptopengui.cpp:967
 msgid "yaw (y)"

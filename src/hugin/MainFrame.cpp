@@ -101,11 +101,13 @@ MainFrame::MainFrame(wxWindow* parent)
     // take as wxObject (second argument) the return value of wxXmlResource::Get
     // finish the images_panel
     DEBUG_TRACE("");
-    images_panel = new ImagesPanel( this, wxDefaultPosition,
-                                                 wxDefaultSize, &pano);
+    images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
+                                          &pano);
+
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_panel_unknown"),
                images_panel );
+
     DEBUG_TRACE("");
 
     // show the lens_panel

@@ -71,24 +71,28 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SLIDER ( XRCID("images_list_roll"),ImagesPanel::SetRoll )
     EVT_SLIDER ( XRCID("images_list_pitch"),ImagesPanel::SetPitch )
     EVT_SLIDER ( XRCID("images_list_yaw"),ImagesPanel::SetYaw )
-//    EVT_SIZE   ( ImagesPanel::Layout )
+//    EVT_SIZE   ( ImagesPanel::FitParent )
 END_EVENT_TABLE()
 
 
 // Define a constructor for the Images Panel
 ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),
+    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
       pano(*pano)
 {
     DEBUG_TRACE("");
+// TODO ---------------------------------------------------------------------
+/*    wxNotebook       *nb = XRCCTRL(*parent, "controls_notebook", wxNotebook);
+    wxNotebookSizer  *nbs = new wxNotebookSizer( nb );
+    nb->Add(nbs, 1, wxEXPAND | wxALL, 4);
+    nb->Layout();
 
-/*    wxNotebookSizer *nbs = new wxNotebookSizer( XRCCTRL(*this,
-                                           "controls_notebook", wxNotebook ) );
     wxBoxSizer *panelsizer = new wxBoxSizer( wxVERTICAL );
-    SetSizer( frame->panelsizer );
-    SetAutoLayout(TRUE);*/
+    SetSizer( panelsizer );*/
 
-    wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));// );
+
+// TODO --------------------------------------------------------------------
+    wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
     DEBUG_TRACE("");
 
     images_list = new List (parent, pano, images_layout);
@@ -134,6 +138,15 @@ ImagesPanel::~ImagesPanel(void)
     DEBUG_TRACE("");
 }
 
+/*void ImagesPanel::FitParent(wxSizeEvent & e)
+{
+    DEBUG_TRACE("");
+//    wxSize new_size = XRCCTRL(*parent, "images_panel_top", wxPanel) ->GetSize();
+    wxSize new_size = GetParent()->GetSize();
+    GetParent()->SetClientSize ( new_size );
+    //SetoLayout(TRUE);
+    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+}*/
 
 //void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr)
