@@ -28,6 +28,16 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
+#ifndef WIN32
+#include <dlfcn.h>
+#else
+#include <windows.h>
+#endif
+
+extern "C" {
+#include <pano12/version.h>
+#include <pano12/queryfeature.h>
+}
 
 #include "common/wxPlatform.h"
 
@@ -43,6 +53,7 @@
 #define MY_SPIN_VAL(id, val) { XRCCTRL(*this, id, wxSpinCtrl)->SetValue(val); };
 #define MY_BOOL_VAL(id, val) { XRCCTRL(*this, id, wxCheckBox)->SetValue(val); };
 #define MY_CHOICE_VAL(id, val) { XRCCTRL(*this, id, wxChoice)->SetSelection(val); };
+#define MY_STATIC_VAL(id, val) { XRCCTRL(*this, id, wxStaticText)->SetLabel(val); };
 
 #define MY_G_STR_VAL(id)  XRCCTRL(*this, id, wxTextCtrl)->GetValue()
 #define MY_G_SPIN_VAL(id)  XRCCTRL(*this, id, wxSpinCtrl)->GetValue()
@@ -62,6 +73,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
     EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
     EVT_BUTTON(XRCID("prefs_load_defaults"), PreferencesDialog::OnDefaults)
+    EVT_BUTTON(XRCID("prefs_panotools_details"), PreferencesDialog::OnPTDetails)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
 //    EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
@@ -233,13 +245,181 @@ void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
     }
 }
 
+void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
+{
+	DEBUG_TRACE("Panotools Details Requested:\n" << m_PTDetails.mb_str());
+	wxMessageDialog dlg(this, m_PTDetails, _("Panotools details"), wxOK);
+	dlg.ShowModal();
+}
 
 void PreferencesDialog::EnableRotationCtrls(bool enable)
 {
     XRCCTRL(*this, "prefs_ft_rot_panel", wxPanel)->Enable(enable);
 }
 
+typedef int (*PROC_QF)			(int ,char** ,Tp12FeatureType* );
+typedef int (*PROC_QFNUM)		(void);
+typedef int (*PROC_QFINT)		(const char *, int *); 
+typedef int (*PROC_QFDOUBLE)	(const char *, double *);
+typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
 
+bool PreferencesDialog::GetPanoVersion()
+{
+#ifdef __WXMSW__
+	HINSTANCE		hDll		= NULL;
+#else
+	void *hDll = NULL;
+#endif
+	PROC_QF			pfQF		= NULL;
+	PROC_QFNUM		pfQFNum		= NULL;
+	PROC_QFINT		pfQFInt		= NULL;
+	PROC_QFDOUBLE	pfQFDouble	= NULL;
+	PROC_QFSTRING	pfQFString	= NULL;
+
+	int				iResult;
+	double			dResult;
+	char			sResult[256];
+	char			str1[1000];
+	char			str2[10000];
+	bool			bSuccess = true;
+
+#ifdef __WXMSW__
+	hDll = LoadLibrary("pano12.dll");
+	if(!hDll)
+	{
+		MessageBox((HWND)NULL, "Could not load dll", "panoinfo", MB_ICONEXCLAMATION);
+		bSuccess = false;
+		goto cleanup;
+	}
+
+	pfQF		= (PROC_QF) GetProcAddress( hDll, "queryFeatures" );
+	pfQFNum		= (PROC_QFNUM) GetProcAddress( hDll, "queryFeatureCount" );
+	pfQFInt     = (PROC_QFINT) GetProcAddress( hDll, "queryFeatureInt" );
+	pfQFDouble  = (PROC_QFDOUBLE) GetProcAddress( hDll, "queryFeatureDouble" );
+	pfQFString  = (PROC_QFSTRING) GetProcAddress( hDll, "queryFeatureString" );
+#else
+	hDll = dlopen("libpano12.so.0", RTLD_NOW);
+	if(!hDll)
+	{
+		hDll = dlopen("libpano12.so", RTLD_NOW);
+		if(!hDll)
+		{
+		  printf("Could not load pano12");
+		  bSuccess = false;
+		  goto cleanup;
+		}
+	}
+
+	pfQF		= (PROC_QF) dlsym( hDll, "queryFeatures" );
+	pfQFNum		= (PROC_QFNUM) dlsym( hDll, "queryFeatureCount" );
+	pfQFInt     = (PROC_QFINT) dlsym( hDll, "queryFeatureInt" );
+	pfQFDouble  = (PROC_QFDOUBLE) dlsym( hDll, "queryFeatureDouble" );
+	pfQFString  = (PROC_QFSTRING) dlsym( hDll, "queryFeatureString" );
+#endif
+	str2[0] = '\0';
+	if(!pfQF)
+	{
+		strcat(str2 ,"Error: The 'queryFeatures' function not present\n");
+	}
+	if(!pfQFNum)
+	{
+		strcat(str2 ,"Error: The 'queryFeatureCount' function not present\n");
+	}
+	if(!pfQFString)
+	{
+		strcat(str2 ,"Error: The 'queryFeatureString' function not present\n");
+	}
+	if(!pfQFInt)
+	{
+		strcat(str2 ,"Error: The 'queryFeatureInt' function not present\n");
+	}
+	if(!pfQFDouble)
+	{
+		strcat(str2 ,"Error: The 'queryFeatureDouble' function not present\n");
+	}
+
+
+	if(pfQFString)
+	{
+		if((pfQFString) (PTVERSION_NAME_FILEVERSION, sResult, sizeof(sResult)/sizeof(sResult[0]) ))
+		{
+			m_PTVersion = wxString(sResult, *wxConvCurrent);
+		}
+
+		if((pfQFString) (PTVERSION_NAME_COMMENT, sResult, sizeof(sResult)/sizeof(sResult[0]) ))
+		{
+			sprintf(str1, "Comment:\t%s\n", sResult );
+			strcat(str2 ,str1);
+			DEBUG_TRACE("PTVERSION_NAME_COMMENT" << wxString(str2, *wxConvCurrent).mb_str());
+		}
+
+		if((pfQFString) (PTVERSION_NAME_LEGALCOPYRIGHT, sResult, sizeof(sResult)/sizeof(sResult[0]) ))
+		{
+			sprintf(str1, "Copyright:\t%s\n\n", sResult );
+			strcat(str2 ,str1);
+		}
+
+	}
+
+	if(pfQFInt)
+	{
+		if((pfQFInt) ("CPErrorIsDistSphere", &iResult ))
+		{
+			sprintf(str1, "Optimizer Error:\t%s\n", iResult? "dist sphere" : "dist rect" );
+			strcat(str2 ,str1);
+			DEBUG_TRACE("PTVERSION_NAME_LEGALCOPYRIGHT" << wxString(str2, *wxConvCurrent).mb_str());
+		}
+	}
+
+	if(pfQFDouble)
+	{
+		if((pfQFDouble) ("MaxFFOV", &dResult ))
+		{
+			sprintf(str1, "Max FoV:\t\t%f\n\n", dResult );
+			strcat(str2 ,str1);
+		}
+
+	}
+
+	if(pfQFNum && pfQF && pfQFString)
+	{
+		int i,bufsize,numfeatures;
+		char *name;
+		char *value;
+		Tp12FeatureType type;
+
+		strcat(str2 ,"Feature List:\n\n");
+
+		numfeatures = pfQFNum();
+		for(i=0; i < numfeatures;i++)
+		{
+			pfQF(i, &name, &type);
+			bufsize = pfQFString(name, NULL, 0)+1;
+			value = (char*)malloc(bufsize);
+			pfQFString(name, value, bufsize);
+
+			sprintf(str1, "   %s: %s\n", name, value);
+			strcat(str2 ,str1);
+
+			free(value);
+		}
+	}
+	// use wxConvLocal to deal with the copyright symbols used by panotools
+	m_PTDetails = wxString(str2, wxConvLocal);
+
+cleanup:
+  if (bSuccess)
+  {
+#ifdef __WXMSW__
+	FreeLibrary(hDll);
+#else
+	dlclose(hDll);
+#endif
+	return true;
+  } else {
+	return false;
+  }
+}
 
 void PreferencesDialog::UpdateDisplayData()
 {
@@ -330,7 +510,16 @@ void PreferencesDialog::UpdateDisplayData()
                                                      wxT(HUGIN_ENBLEND_EXE)));
     MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/EnblendArgs"),
                                                       wxT(HUGIN_ENBLEND_ARGS)));
-
+    /////
+	/// Display Panotools version if we can
+	if (GetPanoVersion())
+	{
+  	  MY_STATIC_VAL("prefs_panotools_version", m_PTVersion);
+	  XRCCTRL(*this, "prefs_panotools_details", wxButton)->Enable();
+	} else
+	{
+  	  MY_STATIC_VAL("prefs_panotools_version", _("Unknown Version"));
+	}
 }
 
 void PreferencesDialog::UpdateConfigData()

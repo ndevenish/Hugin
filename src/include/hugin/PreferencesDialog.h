@@ -62,13 +62,17 @@ protected:
     void OnClose(wxCloseEvent& event);
     void OnPTStitcherExe(wxCommandEvent & e);
     void OnPTOptimizerExe(wxCommandEvent & e);
+    void OnPTDetails(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
     void OnAutopanoSiftExe(wxCommandEvent & e);
     void OnAutopanoKolorExe(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
+    bool GetPanoVersion();
 
 private:
-
+	wxString m_PTVersion;
+	wxString m_PTDetails;
+	
     DECLARE_EVENT_TABLE()
 
 };
