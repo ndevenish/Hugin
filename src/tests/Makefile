@@ -90,7 +90,7 @@ endif
 # ====================================================================
 
 
-TESTS = 6
+TESTS = 6 7
 
 # Defaults
 
@@ -127,7 +127,12 @@ TEST_5_LFLAGS = $(TEST_LFLAGS)
 TEST_6_BIN = vigra_ext
 TEST_6_OBJ = vigra_ext.o
 TEST_6_CFLAGS = $(TEST_CFLAGS)
-TEST_6_LFLAGS = $(TEST_LFLAGS) -lvigra_impex2
+TEST_6_LFLAGS = $(TEST_LFLAGS)
+
+TEST_6_BIN = common
+TEST_6_OBJ = common.o
+TEST_6_CFLAGS = $(TEST_CFLAGS)
+TEST_6_LFLAGS = $(TEST_LFLAGS)
 
 
 # ====================================================================

@@ -38,6 +38,7 @@
 
 using namespace std;
 using namespace PT;
+using namespace utils;
 
 // ============================================================================
 // RunStitcherFrame implementation
@@ -123,7 +124,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd = stitcherExe + wxString(" -o \"") + wxString(options.outfile.c_str()) + "\" " + PTScriptFile;
+    wxString cmd = stitcherExe + wxString(" -o ") + quoteFilename(wxString(options.outfile.c_str())) + " " + quoteFilename(PTScriptFile);
 
     DEBUG_INFO("Executing cmd: " << cmd);
 

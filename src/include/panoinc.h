@@ -68,6 +68,7 @@
 // =====
 #include "common/math.h"
 #include "common/utils.h"
+#include "common/platform.h"
 #include "common/stl_utils.h"
 #include "common/Vector3.h"
 #include "common/Matrix3.h"

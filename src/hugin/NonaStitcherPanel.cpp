@@ -143,7 +143,7 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
             opts.outputFormat = PanoramaOptions::JPEG;
             GlobalCmdHist::getInstance().addCommand(
                 new PT::SetPanoOptionsCmd( pano, opts )
-                );            
+                );
             format = 0;
         }
     }
@@ -162,7 +162,7 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     } else {
         m_EnblendCheckBox->Disable();
     }
-    
+
 }
 
 
@@ -235,7 +235,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         PT::stitchPanorama(pano, opts,
                            pdisp, opts.outfile);
 
-        
+
         string output = stripExtension(opts.outfile);
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
@@ -256,8 +256,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
 #endif
-            wxArrayString args;
-            args.Add(enblendExe);
+            wxString args(enblendExe);
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
@@ -265,33 +264,26 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             string cmd(enblendExe.c_str());
             if (opts.HFOV == 360.0) {
                 // blend over the border
-                args.Add("-w");
+                args.append(" -w");
             }
-            args.Add("-o");
-
-            args.Add(output.append(".tif ").c_str());
+            args.append(" -o ");
+            wxString quoted((output + ".tif").c_str());
+            quoted = utils::quoteFilename(quoted);
+            args.append(quoted).append(" ");
 
             unsigned int nImg = pano.getNrOfImages();
-            char imgname[256];
             for(unsigned int i = 0; i < nImg; i++)
             {
-                snprintf(imgname,256,"%s%04d.tif", output.c_str(), i);
-                args.Add(imgname);
+                quoted.Printf("%s%04d.tif", output.c_str(), i);
+                quoted = utils::quoteFilename(quoted);
+                args.append(quoted);
+                args.append(" ");
             }
-            
-            wxChar * * argv = new (wxChar*)[args.GetCount() + 1];
-            for (unsigned int i = 0; i < args.GetCount(); i++)
-            {
-                argv[i] = (wxChar *) args[i].c_str();
+
+            DEBUG_INFO("enblend cmd:" << args.c_str());
+            if (!wxShell(args)) {
+                DEBUG_ERROR("Failed to call enblend");
             }
-            argv[args.GetCount()+1] = 0;
-            int ret = wxExecute(argv, wxEXEC_SYNC, 0);
-            if (ret == -1) {
-                DEBUG_ERROR("Failed to call enblend, did you specify the right file");
-            } else if (ret > 0) {
-                DEBUG_ERROR("Enblend failed with error code: " << ret);
-            }
-            delete[] argv;
         }
     } catch (std::exception & e) {
         DEBUG_FATAL(_("error during stitching:") << e.what());

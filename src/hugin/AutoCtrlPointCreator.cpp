@@ -36,6 +36,7 @@
 
 using namespace std;
 using namespace PT;
+using namespace utils;
 
 void AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
                                                     std::map<int,int> & imgMapping,
@@ -84,12 +85,11 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
 #ifdef __WXMSW__
     DEBUG_ERROR("Sorry, autopano-sift not supported under windows yet");
-/*    
     wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
     if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select startscript for autopano-sift"),
-                         "", "autopano-complete",
-                         "Executables (*.bat)|*.bat",
+        wxFileDialog dlg(0,_("Select autopano program"),
+                         "", "",
+                         "Executables (*.exe)|*.exe",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
@@ -120,7 +120,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             imgFiles.append(" ").append(pano.getImage(*it).getFilename().c_str());
             imgNr++;
         }
-*/        
+*/
     if (autopanoExe.Contains("autopano-complete.sh")) {
         // strings for sebastians autopano. (on linux)..
         wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano-Sift/Args","-s 1024 -o %o -p %p %i");
@@ -133,7 +133,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
         {
             imgMapping[imgNr] = *it;
-            imgFiles.append(" ").append(pano.getImage(*it).getFilename().c_str());
+            imgFiles.append(" ").append(quoteString(pano.getImage(*it).getFilename()));
             imgNr++;
         }
 

@@ -39,6 +39,7 @@
 
 using namespace std;
 using namespace PT;
+using namespace utils;
 
 // ============================================================================
 // RunOptimizerFrame implementation
@@ -118,7 +119,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd(optimizerExe + " " + PTScriptFile);
+    wxString cmd(optimizerExe + " " + quoteFilename(PTScriptFile));
 
     DEBUG_INFO("Executing cmd: " << cmd);
 
