@@ -315,7 +315,7 @@ then
   then
     if test -d "$with_tiff"
     then
-      PNG_HOME="$with_tiff"
+      TIFF_HOME="$with_tiff"
     else
       AC_MSG_WARN([Sorry, $with_tiff does not exist, checking usual places])
       with_tiff=''

@@ -1,3 +1,14 @@
+2004-10-22 17:29  dwilkins42
+
+	* m4/: .cvsignore, Makefile.am: Add Makefile.am to m4 to distribute
+	  the m4 directory without generated files.
+
+2004-10-22 17:26  dwilkins42
+
+	* ChangeLog, Makefile.am, configure.ac, src/hugin/po/de.po,
+	  src/hugin/po/fr.po, src/hugin/po/pl.po: Distribute the m4
+	  directory without generated files. Update polish translation
+
 2004-10-22 15:57  dwilkins42
 
 	* ChangeLog, configure.ac, m4/ax_check_graphics.m4,
