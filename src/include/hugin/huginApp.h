@@ -69,8 +69,7 @@ public:
     bool createInitialConfig();
     
 private:
-    /** locale for internationalication
-     */
+    /** locale for internationalisation */
     wxLocale locale;
 
 };

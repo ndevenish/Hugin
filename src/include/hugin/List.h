@@ -32,26 +32,38 @@
 #include "PT/Panorama.h"
 using namespace PT;
 
-// kind of list
+/** kind of list.
+ *
+ *  Add here the new layout an call List with it.
+ */
 enum {
     images_layout,
     lens_layout
 };
 
+/** multi use list.
+ *
+ *  This list shall contain the overall handling of datas in lists,
+ *  moving selecting, drag'n drop and contain several special layouts.
+ *  Layouts are then selected by the contructor variable list_layout.
+ * 
+ *  @todo   make the listcontents editable -> wxListCtrl->wxGrid?
+ */
 class List: public wxListCtrl, public PT::PanoramaObserver
 {
  public:
-    List( wxWindow * win, Panorama * pano , int list_typ);
+    List( wxWindow * win, Panorama * pano , int list_layout);
     ~List(void) ;
 
-    /** multi use list.
+    /** receive the update signal and start an check.
      *
-     *
+     *  @todo   change the update behaviour
      */
     virtual void panoramaChanged(PT::Panorama &pano);
 
  private:
     // event handlers
+    // @todo   remove
     void OnAddItem(wxCommandEvent & e);
     void OnRemoveItem(wxCommandEvent & e);
     // Here we select the preview image
@@ -61,11 +73,14 @@ class List: public wxListCtrl, public PT::PanoramaObserver
     // the model
     Panorama &pano;
 
+    /** reminder for the object
+     *
+     *  What shall the object beheave like?
+     */
     int list_layout;
 
     DECLARE_EVENT_TABLE()
 };
 
-//------------------------------------------------------------------------------
 
 #endif // _LIST_H

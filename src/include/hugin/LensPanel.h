@@ -35,10 +35,18 @@
 
 using namespace PT;
 
-// Image Preview
+/** Image Preview
+ *
+ *  Reach the ImgPreview through this pointer globally to update only. 
+ *  really needed here?
+ */
 extern ImgPreview *canvas;
 
-/// Define the first panel - the one for image selection into Panorama
+/** Define the second the Lens panel
+ *
+ *  - the second for lens selection to images
+ *    
+ */
 class LensPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
@@ -59,7 +67,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      *  controller and the view (even if they sometimes
      *  are in the same object). See model view controller
      *  pattern.
-     *
+     *  
+     *  @todo   react on different update signals more special
      */
     virtual void panoramaChanged(PT::Panorama &pano);
 

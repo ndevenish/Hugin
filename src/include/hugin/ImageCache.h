@@ -203,8 +203,18 @@ public:
      *  Do not modify this image. Use a copy if it is really needed
      */
     ImagePtr getImage(const std::string & filename);
+    /** get an small image version.
+     *
+     *  This image is 512x512 pixel maximum and can be used for icons
+     *  and different previews. It is directly derived from the original.
+     *
+     *  @todo let selfdefined images been added belonging to the original one.
+     *  @todo create substitute, remove commands
+     *  @todo avoid smaller images as original
+     */
     ImagePtr getImageSmall(const std::string & filename);
 
+    /** ?  */
     virtual void notify(wxImage & subject);
 
 private:

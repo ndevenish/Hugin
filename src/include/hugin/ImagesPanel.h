@@ -41,7 +41,10 @@ class CPEditorPanel;
 // Define a new area
 class ImgPreview;
 
-    // Image Preview
+/** Image Preview
+ *
+ *  Reach the ImgPreview through this pointer globally to update only. 
+ */
 extern ImgPreview *canvas;
 
 /// Define the first panel - the one for image selection into Panorama
@@ -66,6 +69,7 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
      *  are in the same object). See model view controller
      *  pattern.
      *
+     *  @todo   react on different update signals more special
      */
     virtual void panoramaChanged(PT::Panorama &pano);
 
@@ -87,19 +91,25 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 
 //------------------------------------------------------------------------------
 
-// Define a new canvas which can receive some events
+/** simple Image Preview
+ *
+ *  Define a new canvas which can receive some events.
+ *  Use pointerTo_ImgPreview->Refresh() to update if needed.
+ *
+ *  @todo  give the referenced image as an pointer in the argument list.
+ */
 class ImgPreview: public wxScrolledWindow
 {
  public:
     ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size);
     ~ImgPreview(void) ;
 
-    void OnDraw(wxDC& dc);
-    //void OnPaint(wxPaintEvent& event);
-
  private:
     // Here we select the preview image
     void ChangePreview ( wxMouseEvent & e );
+
+    void OnDraw(wxDC& dc);
+    //void OnPaint(wxPaintEvent& event);
 
     DECLARE_EVENT_TABLE()
 };
