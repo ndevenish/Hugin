@@ -40,9 +40,26 @@
     #include "wx/wx.h"
 #endif
 
+// include additional wx stuff..
 #include <wx/xrc/xmlres.h>      // XRC XML resouces
 #include <wx/config.h>
+#include <wx/process.h>
+#include <wx/fileconf.h>
 #include <wx/filename.h>
+#include <wx/file.h>
+#include <wx/image.h>
+#include <wx/notebook.h>
+#include <wx/listctrl.h>
+#include <wx/spinctrl.h>
+#include <wx/config.h>
+#include <wx/splash.h>
+#include <wx/helphtml.h>
+
+// remove stupid #defines from the evil windows.h
+#ifdef __WXMSW__
+#include <wx/msw/winundef.h>
+#undef DIFFERENCE
+#endif
 
 #endif
 

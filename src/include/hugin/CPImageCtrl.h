@@ -24,6 +24,9 @@
 #ifndef _CPIMAGECTRL_H
 #define _CPIMAGECTRL_H
 
+#include <string>
+#include <vector>
+
 class CPEditorPanel;
 
 /** Events to notify about new point / region / point change
@@ -209,7 +212,7 @@ private:
 
     wxCursor * m_CPSelectCursor;
     wxCursor * m_ScrollCursor;
-    
+
     int scale(int x) const
         {  return (int) (x * getScaleFactor() + 0.5); }
     wxPoint scale(const wxPoint & p) const

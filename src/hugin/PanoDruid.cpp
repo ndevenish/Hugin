@@ -24,11 +24,8 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/tglbtn.h>
-#include <wx/config.h>
+#include "panoinc.h"
 #include "hugin/PanoDruid.h"
 #include "hugin/MainFrame.h"
 

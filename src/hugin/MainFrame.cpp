@@ -23,17 +23,14 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-#include "vigra_ext/Correlation.h"
-#include "panoinc.h"
-#include "jhead/jhead.h"
+
 #include "panoinc_WX.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/wxhtml.h>              // for about html
-//#include <wx/imagpng.h>             // for about html
-//#include <wx/image.h>               // wxImage
-#include <wx/listctrl.h>            // wxListCtrl
-#include <wx/splash.h>
-#include <wx/file.h>
+
+#include "panoinc.h"
+
+#include "vigra_ext/Correlation.h"
+
+#include "jhead/jhead.h"
 
 #include "hugin/MainFrame.h"
 #include "hugin/wxPanoCommand.h"
@@ -47,7 +44,8 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
-#include "hugin/ImageProcessing.h"
+
+
 
 using namespace PT;
 using namespace utils;
@@ -56,6 +54,10 @@ using namespace utils;
 //LensPanel * lens_panel;
 //OptimizeVector * optset;
 
+#ifdef __MINGW32__
+// fixes for mingw compilation...
+#undef FindWindow
+#endif
 
 /** file drag and drop handler method */
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -208,7 +210,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     DEBUG_TRACE("");
 
-    m_notebook = XRCCTRL(*this, "controls_notebook", wxNotebook);
+    m_notebook = XRCCTRL((*this), "controls_notebook", wxNotebook);
+//    m_notebook = ((wxNotebook*) ((*this).FindWindow(XRCID("controls_notebook"))));
+//    m_notebook = ((wxNotebook*) (FindWindow(XRCID("controls_notebook"))));
     DEBUG_ASSERT(m_notebook);
 
     // the lens_panel, see as well images_panel

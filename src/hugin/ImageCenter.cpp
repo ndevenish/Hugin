@@ -24,10 +24,9 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/config.h>
+
+#include "panoinc.h"
 
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
@@ -222,7 +221,7 @@ void CenterCanvas::Resize( wxSizeEvent & e )
 }
 
 // Define the repainting behaviour
-void CenterCanvas::OnPaint(wxDC & dc)
+void CenterCanvas::OnPaint(wxPaintEvent & dc)
 {
     if ( img.Ok() )
     {
@@ -353,7 +352,8 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
 
       Refresh (TRUE,&rect);
 #endif
-      OnPaint (sourceDC);
+      wxPaintEvent dummyE;
+      OnPaint (dummyE);
 
       // draw all areas without fillings
       wxBrush brush = memDC.GetBrush ();

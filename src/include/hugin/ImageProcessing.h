@@ -26,98 +26,9 @@
 #ifndef _IMAGEPROCESSING_H
 #define _IMAGEPROCESSING_H
 
-#include "hugin/wxVigraImage.h"
 #include "hugin/ImageCache.h"
 
 class wxImage;
-
-typedef vigra::ImageIterator<vigra::RGBValue<unsigned char> > wxImageIterator;
-
-/// create vigra iterators for wxImage
-wxImageIterator wxImageUpperLeft(wxImage & img);
-
-/// create vigra iterators for wxImage
-wxImageIterator wxImageLowerRight(wxImage & img);
-
-struct NormalizeToUChar
-{
-    NormalizeToUChar(double max, double mn)
-        : mini(mn), scale(255/(max - mn))
-        {}
-
-        template <class PixelType>
-        unsigned char operator()(PixelType const& v) const
-        {
-            float res = (v - mini)*scale;
-            if (res > 255) {
-                DEBUG_ERROR("overflow:" << res);
-                res = 255;
-            }
-            if (res < 0) {
-                DEBUG_ERROR("underflow" << res);
-                res = 0;
-            }
-            return (unsigned char)res;
-        }
-    double mini;
-    double scale;
-};
-
-
-/** save an image
- *
- *  so that all values in the range [@p min @p max] are mapped to
- *  [0 255]
- *  if min == max == 0, then min & max are calculated from the image.
- */
-template<typename Image>
-bool saveScaledImage(const Image &img,
-                     const std::string & filename,
-                     typename Image::PixelType min = 0,
-                     typename Image::PixelType max = 0
-                     )
-{
-    using namespace vigra;
-    using namespace vigra::functor;
-
-    if (min == max) {
-        vigra::FindMinMax<typename Image::PixelType> minmax;
-        vigra::inspectImage(srcImageRange(img), minmax);
-        min = minmax.min;
-        max = minmax.max;
-    }
-    DEBUG_DEBUG(filename << " min: " << min << " max:" << max);
-
-    wxImage wxI(img.width(), img.height());
-    wxVigraImage ii(wxI);
-    NormalizeToUChar scale(min, max);
-    transformImage(srcImageRange(img),
-                   destImage(ii),
-                   scale);
-
-    if (!wxI.SaveFile(filename.c_str())) {
-        DEBUG_ERROR("Saving of " << filename << " failed");
-        return false;
-    }
-    return true;
-}
-
-template<typename Image>
-bool saveImage(const Image &img, const std::string & filename)
-{
-    DEBUG_DEBUG(filename);
-    wxImage wxI(img.width(), img.height());
-    vigra::copyImage(img.upperLeft(), img.lowerRight(),
-                     vigra::BImage::Accessor(),
-                     wxImageUpperLeft(wxI),
-                     vigra::RGBAccessor<vigra::RGBValue<unsigned char> >());
-
-    if (!wxI.SaveFile(filename.c_str())) {
-        DEBUG_ERROR("Saving of " << filename << " failed");
-        return false;
-    }
-    return true;
-}
 
 #if 0
 

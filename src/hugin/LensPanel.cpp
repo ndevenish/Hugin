@@ -27,12 +27,9 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>
-#include <wx/imaglist.h>
-#include <wx/spinctrl.h>
+
+#include "panoinc.h"
 
 #include "hugin/LensPanel.h"
 #include "hugin/config.h"
@@ -45,6 +42,7 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
+
 
 using namespace PT;
 using namespace utils;
@@ -477,15 +475,15 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_val_e", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_g", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_t", wxTextCtrl)->Clear();
-            XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Clear();
-            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Clear();
-            
+            XRCCTRL(*this, "lens_inherit_v", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_a", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_b", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_c", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->SetValue(false);
+            XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->SetValue(false);
+
             XRCCTRL(*this, "lens_button_center", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
@@ -513,17 +511,17 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 new PT::ChangeLensCmd( pano, pano.getImage(imgNr).getLensNr(),
                                        lens )
                 );
-            
+
         } else {
             wxLogError(_("Not a jpeg file"));
-        }            
+        }
     } else {
         wxLogError(_("Please select an image and try again"));
     }
-    
+
 }
-    
-        
+
+
 
 void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
 {

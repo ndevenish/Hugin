@@ -25,12 +25,9 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
-#include <wx/imaglist.h>
-#include <wx/image.h>
-#include <wx/spinctrl.h>
-#include <wx/config.h>
+
+#include "panoinc.h"
 
 #include "PT/Stitcher.h"
 
@@ -567,7 +564,7 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
             case PanoramaOptions::TIFF:
                 format = "tif";
                 break;
-                
+
                 // mulilayer formats, without blended masks
             case PanoramaOptions::TIFF_m:
                 format = "tif";

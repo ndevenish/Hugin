@@ -24,19 +24,11 @@
  *
  */
 
-// standard hugin include
-#include "panoinc.h"
-
 // standard wx include
 #include "panoinc_WX.h"
 
-// more WX includes if needed
-#include "wx/xrc/xmlres.h"              // XRC XML resouces
-#include "wx/event.h"
-#include "wx/notebook.h"
-#include "wx/listctrl.h"
-#include "wx/config.h"
-#include "wx/image.h"
+// standard hugin include
+#include "panoinc.h"
 
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
@@ -153,6 +145,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 
     SetCursor(*m_CPSelectCursor);
 
+    // functions were renamed in 2.5 :(
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("GREEN")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
@@ -166,6 +160,21 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("SALMON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("MAROON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("KHAKI")));
+#else
+    pointColors.push_back(wxTheColourDatabase->Find("BLUE"));
+    pointColors.push_back(wxTheColourDatabase->Find("GREEN"));
+    pointColors.push_back(wxTheColourDatabase->Find("CYAN"));
+//    pointColors.push_back(wxTheColourDatabase->Find("MAGENTA"));
+    pointColors.push_back(wxTheColourDatabase->Find("GOLD"));
+    pointColors.push_back(wxTheColourDatabase->Find("ORANGE"));
+    pointColors.push_back(wxTheColourDatabase->Find("NAVY"));
+//    pointColors.push_back(wxTheColourDatabase->Find("FIREBRICK"));
+    pointColors.push_back(wxTheColourDatabase->Find("SIENNA"));
+    pointColors.push_back(wxTheColourDatabase->Find("DARK TURQUOISE"));
+//    pointColors.push_back(wxTheColourDatabase->Find("SALMON"));
+    pointColors.push_back(wxTheColourDatabase->Find("MAROON"));
+    pointColors.push_back(wxTheColourDatabase->Find("KHAKI"));
+#endif
 
     m_searchRectWidth = 120;
 }
@@ -205,9 +214,17 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     for (it = points.begin(); it != points.end(); ++it) {
         if (i==selectedPointNr) {
             if (editState != NEW_POINT_SELECTED) {
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
                 drawPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+#else
+                drawPoint(dc,*it,wxTheColourDatabase->Find("RED"));
+#endif
             } else {
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
                 drawPoint(dc,*it,*wxTheColourDatabase->FindColour("YELLOW"));
+#else
+                drawPoint(dc,*it,wxTheColourDatabase->Find("YELLOW"));
+#endif
             }
         } else {
             drawPoint(dc,*it,pointColors[i%pointColors.size()]);
@@ -230,7 +247,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
                     scale(region.GetHeight()));
         break;
     case NEW_POINT_SELECTED:
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
         drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
+#else
+        drawPoint(dc, newPoint, wxTheColourDatabase->Find("RED"));
+#endif        
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen("RED", 1, wxSOLID));
@@ -322,8 +343,7 @@ void CPImageCtrl::rescaleImage()
         imageSize.SetHeight( scale(imageSize.GetHeight()) );
         DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
                     << imageSize.GetHeight() );
-        bitmap = wxBitmap(img->Scale(imageSize.GetWidth(),
-                                     imageSize.GetHeight()).ConvertToBitmap());
+        bitmap = wxBitmap(img->Scale(imageSize.GetWidth(), imageSize.GetHeight()));
         DEBUG_DEBUG("rescaling finished");
     }
 

@@ -27,12 +27,10 @@
  *
  */
 
-// For compilers that support precompilation, includes "wx.h".
-#include "wx/wxprec.h"
-
 // standard wx include
-#include "common/utils.h"
 #include "panoinc_WX.h"
+
+#include "common/utils.h"
 
 #include "hugin/UniversalCursor.h"
 
@@ -74,7 +72,41 @@ using namespace std;
 
 #if defined(__WXMSW__)
 
-wxUniversalCursor::wxUniversalCursor(const wxImage & image)
+/** @BUG this is a bad hack! take from the private msw/cursor.c file
+ *
+ */
+class WXDLLEXPORT wxCursorRefData : public wxGDIImageRefData
+{
+public:
+    // the second parameter is used to tell us to delete the cursor when we're
+    // done with it (normally we shouldn't call DestroyCursor() this is why it
+    // doesn't happen by default)
+    wxCursorRefData(HCURSOR hcursor = 0, bool takeOwnership = false);
+
+    virtual ~wxCursorRefData() { Free(); }
+
+    virtual void Free();
+
+
+    // return the size of the standard cursor: notice that the system only
+    // supports the cursors of this size
+    static wxCoord GetStandardWidth();
+    static wxCoord GetStandardHeight();
+
+private:
+    bool m_destroyCursor;
+
+    // standard cursor size, computed on first use
+    static wxSize ms_sizeStd;
+};
+
+// ----------------------------------------------------------------------------
+// wxWin macros
+// ----------------------------------------------------------------------------
+
+//IMPLEMENT_DYNAMIC_CLASS(UniversalCursor, wxCursor)
+
+UniversalCursor::UniversalCursor(const wxImage & image)
 {
     //image has to be 32x32
     wxImage image32 = image.Scale(32,32);
@@ -188,7 +220,7 @@ UniversalCursor::UniversalCursor(const wxImage & image)
                                                   (gchar *) bits, w, h);
     GdkBitmap *mask = gdk_bitmap_create_from_data(wxGetRootWindow()->window,
                                                   (gchar *) maskBits, w, h);
-    
+
     m_refData = new wxCursorRefData;
     M_CURSORDATA->m_cursor = gdk_cursor_new_from_pixmap
                              (

@@ -24,15 +24,9 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
 
-#include <wx/config.h>              // wx config classes for all systems
-#include <wx/image.h>               // wxImage
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/filename.h>            // files and dirs
-#include <wx/file.h>
-
+#include "panoinc.h"
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 
@@ -208,10 +202,10 @@ bool huginApp::OnInit()
         filename.append(wxFileName::GetPathSeparator()).append(argv[1]);
         frame->LoadProjectFile(filename);
     }
-    
+
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
-    
+
     DEBUG_TRACE("");
     return true;
 }

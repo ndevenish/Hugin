@@ -24,6 +24,8 @@
 #ifndef _RUNOPTIMIZERFRAME_H
 #define _RUNOPTIMIZERFRAME_H
 
+class wxTextInputStream;
+
 namespace PT {
     class Panorama;
 }

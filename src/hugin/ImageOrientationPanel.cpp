@@ -24,17 +24,11 @@
  *
  */
 
+#include "panoinc_WX.h"
 
 #include "panoinc.h"
-#include "panoinc_WX.h"
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>	// needed on mingw
-#include <wx/imaglist.h>
-#include <wx/spinctrl.h>
-#include <wx/config.h>
 
 #include "hugin/ImageCache.h"
-#include "hugin/ImageProcessing.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageOrientationPanel.h"
 
@@ -268,7 +262,7 @@ void ImageOrientationPanel::OnResize(wxSizeEvent & e)
 {
     DEBUG_TRACE("");
     ScaleBitmap();
-    Clear();
+//    Clear();
 }
 
 void ImageOrientationPanel::ScaleBitmap()

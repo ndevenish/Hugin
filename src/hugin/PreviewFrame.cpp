@@ -24,9 +24,13 @@
  *
  */
 
-#include "panoinc.h"
+// use toggle buttons or uncomment check boxes
+#define USE_TOGGLE_BUTTON 1
+
 #include "panoinc_WX.h"
 #include <wx/tglbtn.h>
+
+#include "panoinc.h"
 
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
@@ -40,6 +44,7 @@ using namespace utils;
 #define ID_UPDATE_BUTTON 12333
 #define ID_TOGGLE_BUT 12334
 
+
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_CLOSE(PreviewFrame::OnClose)
 //    EVT_CHECKBOX(-1, PreviewFrame::OnAutoPreviewToggle)
@@ -49,7 +54,11 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdateButton)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
+#ifdef USE_TOGGLE_BUTTON
     EVT_TOGGLEBUTTON(-1, PreviewFrame::OnChangeDisplayedImgs)
+#else
+    EVT_CHECKBOX(-1, PreviewFrame::OnChangeDisplayedImgs)
+#endif
     EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
     EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
     EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
@@ -239,9 +248,15 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 unsigned int imgNr = *it;
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
+#ifdef USE_TOGGLE_BUTTON
                 wxToggleButton * but = new wxToggleButton(this,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format("%d",*it));
+#else
+                wxCheckBox * but = new wxToggleButton(this,
+                                                      ID_TOGGLE_BUT + *it,
+                                                      wxString::Format("%d",*it));
+#endif
                 wxSize sz(9,8);
                 wxSize res = ConvertDialogToPixels(sz);
                 sz = but->GetSize();

@@ -24,8 +24,8 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 
 #include <vigra/basicimageview.hxx>
 #include "vigra_ext/blend.h"
@@ -213,7 +213,7 @@ void PreviewPanel::updatePreview()
             WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
             stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
         }
-    }            
+    }
 
     if (m_panoBitmap) {
         delete m_panoBitmap;
@@ -222,7 +222,7 @@ void PreviewPanel::updatePreview()
 
     // always redraw
     wxClientDC dc(this);
-    DrawPreview(dc);        
+    DrawPreview(dc);
 }
 
 

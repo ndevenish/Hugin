@@ -24,6 +24,8 @@
 #ifndef _COMMANDHISTORY_H
 #define _COMMANDHISTORY_H
 
+class Command;
+
 /** A history for Command, provides undo/redo functionality.
  *
  *  To use this, all modifications to the model have to be done

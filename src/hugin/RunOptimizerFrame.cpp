@@ -24,8 +24,8 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include "wx/notebook.h"
 #include "wx/listctrl.h"
 #include "wx/process.h"
@@ -191,7 +191,8 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         ok = rest.BeforeFirst(' ').ToLong(&iteration);
         assert(ok);
         size_t t = line.First(": ");
-        wxString t2 = line.substr(t+2).BeforeFirst(' ');
+        wxString tstring = line.substr(t+2);
+        wxString t2 = tstring.BeforeFirst(' ');
         diff = utils::lexical_cast<double>(t2.c_str());
         DEBUG_DEBUG("iteration: " << iteration << " difference:" << diff);
     }

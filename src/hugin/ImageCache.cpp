@@ -24,14 +24,14 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
 
-#include "vigra_ext/Pyramid.h"
-#include <wx/config.h>
-#include <wx/image.h>
+#include "panoinc.h"
 
-#include "hugin/ImageProcessing.h"
+#include <vigra/basicimageview.hxx>
+
+#include "vigra_ext/Pyramid.h"
+
 #include "hugin/ImageCache.h"
 
 using namespace std;
@@ -168,7 +168,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             char *str = wxT("Loading image");
             m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,filename.c_str()).c_str(), "", 0));
         }
-        // Fixme, delete 
+        // Fixme, delete
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
             DEBUG_ERROR("Can't load image: " << filename);
@@ -250,9 +250,11 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     if (m_progress) {
                       m_progress->pushTask(ProgressTask("creating grayscale",filename.c_str(), 0));
                     }
-
-                    vigra::copyImage(wxImageUpperLeft(*srcImg),
-                                     wxImageLowerRight(*srcImg),
+                    BasicImageView<RGBValue<unsigned char> > src((RGBValue<unsigned char> *)srcImg->GetData(),
+                                                                 srcImg->GetWidth(),
+                                                                 srcImg->GetHeight());
+                    vigra::copyImage(src.upperLeft(),
+                                     src.lowerRight(),
                                      RGBToGrayAccessor<RGBValue<unsigned char> >(),
                                      img->upperLeft(),
                                      BImage::Accessor());

@@ -53,7 +53,7 @@ PanoViewer::PanoViewer ( wxWindow *parent, wxWindowID id,
 #else
    wxImage p;
    p.LoadFile("control.bmp");
-   control = p.ConvertToBitmap();
+   control = wxBitmap(p);
 #endif
 
 }
@@ -229,10 +229,10 @@ void PanoViewer::OnPaint(wxPaintEvent &event)
 			if ( vp.GetQuality() == 0 )
 			{
 				extractor.GetView(pano, fastView, vp);
-				currentViewBmp = fastView.ConvertToBitmap();
+				currentViewBmp = wxBitmap(fastView);
 			} else {
 				extractor.GetView(pano, goodView, vp);
-				currentViewBmp = goodView.ConvertToBitmap();
+				currentViewBmp = wxBitmap(goodView);
 			}
 
 			// Blit the view

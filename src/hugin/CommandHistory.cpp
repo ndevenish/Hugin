@@ -25,8 +25,8 @@
  */
 
 // standard include
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include "hugin/CommandHistory.h"
 
 CommandHistory::CommandHistory()

@@ -24,6 +24,15 @@
  *
  */
 
+#include "panoinc_WX.h"
+// hugin's
+#include "hugin/huginApp.h"
+#include "hugin/CommandHistory.h"
+#include "hugin/ImageCache.h"
+#include "hugin/CPImageCtrl.h"
+#include "hugin/TextKillFocusHandler.h"
+#include "hugin/CPEditorPanel.h"
+
 // more standard includes if needed
 #include <algorithm>
 #include <float.h>
@@ -35,24 +44,6 @@
 #include "vigra/cornerdetection.hxx"
 #include "vigra/localminmax.hxx"
 #include "vigra_ext/Correlation.h"
-
-// standard wx include
-#include "panoinc_WX.h"
-
-// more WX includes if needed
-#include "wx/xrc/xmlres.h"              // XRC XML resouces
-#include "wx/notebook.h"
-#include "wx/listctrl.h"
-#include "wx/config.h"
-
-// hugin's
-#include "hugin/huginApp.h"
-#include "hugin/ImageProcessing.h"
-#include "hugin/CommandHistory.h"
-#include "hugin/ImageCache.h"
-#include "hugin/CPImageCtrl.h"
-#include "hugin/TextKillFocusHandler.h"
-#include "hugin/CPEditorPanel.h"
 
 using namespace std;
 using namespace PT;
@@ -1455,19 +1446,19 @@ void CPEditorPanel::OnAutoCreateCP()
                                   destImage(leftCornerResponse),
                                   1.0);
 
-    saveScaledImage(leftCornerResponse,"corner_response.png");
+//    saveScaledImage(leftCornerResponse,"corner_response.png");
     DEBUG_DEBUG("finding local maxima");
 
     // find local maxima of corner response, mark with 1
     vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners));
-    saveScaledImage(leftCornerResponse,"corner_response_maxima.png");
+//    saveScaledImage(leftCornerResponse,"corner_response_maxima.png");
 
     DEBUG_DEBUG("thresholding corner response");
     // threshold corner response to keep only strong corners (above 400.0)
     transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
                    vigra::Threshold<double, double>(
                        400.0, DBL_MAX, 0.0, 1.0));
-    saveScaledImage(leftCornerResponse,"corner_response_maxima_thresh.png");
+//    saveScaledImage(leftCornerResponse,"corner_response_maxima_thresh.png");
 
     DEBUG_DEBUG("combining corners and response");
 
@@ -1477,7 +1468,7 @@ void CPEditorPanel::OnAutoCreateCP()
 
     // save image
 
-    saveScaledImage(leftCornerResponse,"corners.png");
+//    saveScaledImage(leftCornerResponse,"corners.png");
 }
 
 

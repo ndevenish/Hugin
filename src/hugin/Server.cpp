@@ -18,8 +18,8 @@
  *  $Id$
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 
 #include "hugin/Server.h"
 #include "hugin/huginApp.h"

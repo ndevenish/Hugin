@@ -24,14 +24,9 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
-#include "wx/xrc/xmlres.h"              // XRC XML resouces
-#include "wx/notebook.h"
-#include "wx/listctrl.h"
-#include "wx/process.h"
-#include "wx/txtstrm.h"
-#include <wx/config.h>
+
+#include "panoinc.h"
 
 #include "PT/PTOptimise.h"
 

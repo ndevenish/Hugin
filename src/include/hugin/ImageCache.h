@@ -24,7 +24,11 @@
 #ifndef _IMAGECACHE_H
 #define _IMAGECACHE_H
 
+#include <map>
+
+#include <common/utils.h>
 #include <wx/image.h>
+#include <vigra/stdimage.hxx>
 
 #if 0
 

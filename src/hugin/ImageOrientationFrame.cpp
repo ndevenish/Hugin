@@ -24,12 +24,13 @@
  *
  */
 
+#include "panoinc_WX.h"
+
 #include <algorithm>
 #include <utility>
 #include <functional>
 
 #include "panoinc.h"
-#include "panoinc_WX.h"
 
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"

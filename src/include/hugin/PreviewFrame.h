@@ -30,6 +30,7 @@
 class PreviewPanel;
 class wxToolBar;
 class wxToggleButton;
+class wxCheckBox;
 
 /** The image preview frame
  *
@@ -80,8 +81,11 @@ private:
     wxStaticBoxSizer * m_ToggleButtonSizer;
 
     PanoDruid *m_druid;
-
+#ifdef USE_TOGGLE_BUTTON
     std::vector<wxToggleButton *> m_ToggleButtons;
+#else
+    std::vector<wxCheckBox *> m_ToggleButtons;
+#endif
 
     PT::UIntSet m_displayedImgs;
 

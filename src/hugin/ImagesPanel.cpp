@@ -25,16 +25,10 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 
 #include <map>
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>    // needed on mingw
-#include <wx/imaglist.h>
-#include <wx/file.h>
-#include <wx/spinctrl.h>
 
 #include <vigra_ext/PointMatching.h>
 #include <vigra_ext/LoweSIFT.h>

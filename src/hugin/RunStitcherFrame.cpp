@@ -24,8 +24,8 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 
 #include "wx/notebook.h"
 #include "wx/listctrl.h"

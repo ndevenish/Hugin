@@ -24,8 +24,8 @@
  *
  */
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include "hugin/ImgScrollWindow.h"
 
 IMPLEMENT_DYNAMIC_CLASS(ImgScrollWindow, wxScrolledWindow);

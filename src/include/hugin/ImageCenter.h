@@ -71,7 +71,7 @@ class CenterCanvas: public wxPanel
 
  private:
     void Resize ( wxSizeEvent & e );
-    void OnPaint(wxDC& dc);
+    void OnPaint(wxPaintEvent & dc);
     void OnMouse ( wxMouseEvent & event );
 
     /** the model */

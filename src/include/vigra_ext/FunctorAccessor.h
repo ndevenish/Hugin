@@ -48,18 +48,25 @@ class ReadFunctorAccessor
 
     /** Get functor result
      */
-    template <class ITERATOR>
-    typename Functor::result_type operator()(ITERATOR const & i) const {
-                return m_f(m_a(i)); }
+    template <class A, class B>
+    void function(A a, B b)
+    {
+    };
 
-    /** Get functor result
-     */
-    template <class ITERATOR, class DIFFERENCE>
-    typename Functor::result_type operator()(ITERATOR const & i, DIFFERENCE d) const
+    template <typename ITERATOR_, typename DIFFERENCE_>
+    typename Functor::result_type operator()(ITERATOR_ const & i, DIFFERENCE_ d) const
     {
         return m_f(m_a(i,d));
     }
 
+    /** Get functor result
+     */
+    template <class ITERATOR>
+    typename Functor::result_type operator()(ITERATOR const & i) const {
+                return m_f(m_a(i)); }
+
+
+protected:
     Functor m_f;
     Accessor m_a;
 };
@@ -91,8 +98,8 @@ class WriteFunctorAccessor
 
     /** Get functor result
      */
-    template <class Value, class ITERATOR, class DIFFERENCE>
-    void set(Value const & v, ITERATOR const & i, DIFFERENCE d) const
+    template <class Value, class ITERATOR_, class DIFFERENCE_>
+    void set(Value const & v, ITERATOR_ const & i, DIFFERENCE_ d) const
     {
         m_a.set(m_f(v),i,d);
     }
@@ -232,8 +239,8 @@ public:
 
         /** read the current data item
         */
-    template <class DIFFERENCE>
-    value_type operator()(DIFFERENCE const & d) const
+    template <class DIFFERENCE_>
+    value_type operator()(DIFFERENCE_ const & d) const
     {
         return value_type(a1_(i1_, d), a2_(i2_, d));
     }
@@ -255,8 +262,8 @@ public:
     }
 
         /** read one component, with offset */
-    template <class ITERATOR, class DIFFERENCE>
-    component_type const & getComponent(ITERATOR const & i, DIFFERENCE const & d, int idx) const
+    template <class ITERATOR, class DIFFERENCE_>
+    component_type const & getComponent(ITERATOR const & i, DIFFERENCE_ const & d, int idx) const
     {
         i += d;
 	switch (idx) {
@@ -305,8 +312,8 @@ public:
 
         /** read the current data item
         */
-    template <class DIFFERENCE>
-    value_type operator()(DIFFERENCE const & d) const
+    template <class DIFFERENCE_>
+    value_type operator()(DIFFERENCE_ const & d) const
     {
 	value_type ret;
 	typename value_type::iterator it = ret.begin();
@@ -339,8 +346,8 @@ public:
     }
 
         /** read one component, with offset */
-    template <class ITERATOR, class DIFFERENCE>
-    component_type const & getComponent(ITERATOR const & i, DIFFERENCE const & d, int idx) const
+    template <class ITERATOR, class DIFFERENCE_>
+    component_type const & getComponent(ITERATOR const & i, DIFFERENCE_ const & d, int idx) const
     {
         i += d;
 	if ( idx < SIZE - 1 ) {
@@ -475,8 +482,8 @@ public:
             in <TT>value</TT> is automatically converted to <TT>VALUETYPE</TT>.
             In case of a conversion floating point -> intergral this includes rounding and clipping.
         */
-    template <class V, class ITERATOR, class DIFFERENCE>
-    void set(V const & value, ITERATOR const & i, DIFFERENCE const & diff) const
+    template <class V, class ITERATOR, class DIFFERENCE_>
+    void set(V const & value, ITERATOR const & i, DIFFERENCE_ const & diff) const
     {
         i[diff]= detail::RequiresExplicitCast<VALUETYPE>::cast(value);
     }
