@@ -145,12 +145,35 @@ void Client::GetServerData(wxSocketBase *sock)
   sock->Write(buf, len);
 
   DEBUG_INFO ( "" )
-  // load file
   wxString s (buf);
-  frame->SetStatusText(s << " loading", 0);
-  frame->ShowFile (buf);
-
-  DEBUG_INFO ( s << " " << buf )
+  if ( informationType == FILENAME ) {
+    // load file
+    frame->SetStatusText(s << " loading", 0);
+    frame->ShowFile (buf);
+    DEBUG_INFO ( "informationType: " << informationType )
+    DEBUG_INFO ( s << " " << buf )
+  } else if ( informationType == PROJECTION_FORMAT ) {
+    long l_int;
+    ((wxString)buf).ToLong(&l_int);
+    frame->setProjectionFormat ((ProjectionFormat) l_int);
+  } else if ( informationType == HEIGHT ) {
+    long l_int;
+    ((wxString)buf).ToLong(&l_int);
+    frame->setViewHeight ((int) &l_int);
+  } else if ( informationType == WIDTH ) {
+    long l_int;
+    ((wxString)buf).ToLong(&l_int);
+    frame->setViewWidth ((int) &l_int);
+  } else if ( informationType == RESET_VIEW ) {
+    PanoViewpoint vp;
+    frame->pano->setView( vp );
+  } else if ( informationType == SHOW_GRID ) {
+    long l_int;
+    ((wxString)buf).ToLong(&l_int);
+    frame->setGrid( (bool) l_int );
+  } else {
+    DEBUG_WARN ( "informationType: " << informationType << " not supported" )
+  }
   delete[] buf;
   
   frame->SetStatusText(_("ready"), 1);
@@ -213,9 +236,25 @@ void Client::OnSocketEvent(wxSocketEvent& event)
 
       switch (c)
       {
-        case 0xBE: GetServerData(sock); break;
         case 0xBA: s = "Connection ok"; break;      // let the handshake pass
-//        case 0xCE: Test2(sock); break;
+        case 0xCa: GetServerData(sock);
+                   informationType = FILENAME;
+                   break;
+        case 0xCb: GetServerData(sock); 
+                   informationType = PROJECTION_FORMAT;
+                   break;
+        case 0xCc: GetServerData(sock); 
+                   informationType = HEIGHT;
+                   break;
+        case 0xCd: GetServerData(sock); 
+                   informationType = WIDTH;
+                   break;
+        case 0xCe: GetServerData(sock); 
+                   informationType = RESET_VIEW;
+                   break;
+        case 0xCf: GetServerData(sock); 
+                   informationType = SHOW_GRID;
+                   break;
 //        case 0xDE: Test3(sock); break;
         default : s = "Unexpected event !\nLeaving!";sock->Close();return;break;
       }

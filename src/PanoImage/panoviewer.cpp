@@ -73,6 +73,12 @@ void PanoViewer::SetPano ( const wxImage &img )
 }
 
 
+void PanoViewer::setView ( PanoViewpoint viewpoint )
+{
+	vp = viewpoint; // ku.b@gmx.de (07/2003)
+}
+
+
 void PanoViewer::OnKeyDown(wxKeyEvent &event)
 {
 	if ( event.ShiftDown() ) isZoomingIn = TRUE;

@@ -6,6 +6,7 @@
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
 #endif
+#include "wx/filename.h"
 
 #include "mainframe.h"
 #include "client.h"
@@ -54,15 +55,16 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 
    wxInitAllImageHandlers();
 
-	pano1 = new PanoViewer(this, -1);
+	pano = new PanoViewer(this, -1);
 
 	// Load our control
 /*   wxImage p;
    p.LoadFile("control.bmp");*/
-   pano1->SetControl(menuView); // pano1->SetControl(p,menuView);
-   pano1->SetResolution(300);
+   pano->SetControl(menuView); // pano1->SetControl(p,menuView);
+   pano->SetResolution(300);
 
    isFullScreen = FALSE;
+   projectionFormat = EQUIRECTANGULAR;   // enum ProjectionFormat
 
    load = new wxFileDialog(this, "Load a 360x180 panorama...");
    load->SetWildcard("JPEG files (*.jpg)|*.jpg|BMP files (*.bmp)|*.bmp|GIF files (*.gif)|*.gif|PNG files (*.png)|*.png|All files|*.*");
@@ -80,14 +82,15 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
 
     m_client = new Client();
     // Do something with the arguments - statically
+    // FIXME Let panoviewer accept different mixed arguments.
     if ( argc > 1 ) {
       DEBUG_INFO ( "argc = " << argc )
       wxString m_argv ( argv[1] );
       double d;
       if ( m_argv.IsAscii() )
-        ShowFile( argv[1] );
+        ShowFile( argv[1] );  // arg [1] : filename to load
       DEBUG_INFO ( _("open") <<" "<< m_argv )
-      if (argc > 2) {
+      if (argc > 2) {  // arg [2] : port to listen for panoviewer client
         m_argv = argv[2];
         if (m_argv.IsNumber()) {
           if ( m_argv.ToDouble(&d) ) {
@@ -96,6 +99,18 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
           } else {
             DEBUG_INFO ( m_argv )
             m_client->Start (3000);
+          }
+        }
+      }
+      if (argc > 3) {
+        m_argv = argv[3]; //  arg [3] : ProjectionFormat
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((int)d) )
+            projectionFormat = (ProjectionFormat)d;
+          } else {
+            DEBUG_INFO ( "arg[3] " << _("failed: ") << m_argv )
+            projectionFormat = EQUIRECTANGULAR;
           }
         }
       }
@@ -111,11 +126,11 @@ void MyFrame::OnFullScreen ( wxMenuEvent &event )
 {
 	if ( !isFullScreen )
 	{
-		pano1->ShowControl();
+		pano->ShowControl();
 		ShowFullScreen(TRUE);
 		isFullScreen = TRUE;
 	} else {
-		pano1->ShowControl(FALSE);
+		pano->ShowControl(FALSE);
 		ShowFullScreen(FALSE);
 		isFullScreen = FALSE;
 	}
@@ -128,7 +143,7 @@ void MyFrame::OnLoadFile ( wxMenuEvent &event )
 	{
 		wxImage p;
 		p.LoadFile(load->GetPath());
-		pano1->SetPano(p);
+		pano->SetPano(p);
 	}
 }
 
@@ -140,17 +155,43 @@ void MyFrame::OnQuit ( wxMenuEvent &event )
 void MyFrame::OnPref ( wxMenuEvent &event )
 {
 	pref->ShowModal();
-	pano1->SetResolution( qslider->GetValue() );
-	pano1->SetMouseFactor( mslider->GetValue() );
+	pano->SetResolution( qslider->GetValue() );
+	pano->SetMouseFactor( mslider->GetValue() );
 }
 
 void MyFrame::ShowFile ( wxString fn )
 {
     wxImage p;
-    if ( p.LoadFile(fn) ) {
-      pano1->SetPano(p); 
-      DEBUG_INFO ( " " << fn ) }
-    else 
-      DEBUG_INFO ( "failed " << fn )
+    wxFileName file = fn;
+    if ( file.FileExists() ) {
+      if ( p.LoadFile(fn) ) {
+        pano->SetPano(p); 
+        DEBUG_INFO ( " " << fn ) }
+      else 
+        DEBUG_INFO ( _("failed: ") << fn )
+    } else {
+      DEBUG_INFO ( _("failed: ") << fn << _(" dont exist") )
+    }
 }
+
+void MyFrame::setProjectionFormat ( ProjectionFormat projectionFormat )
+{
+    DEBUG_INFO ( _("TODO") << _(" projectionFormat ") << projectionFormat)
+}
+
+void MyFrame::setViewWidth ( int width )
+{
+    DEBUG_INFO ( _("TODO") << _(" setViewWidth ") << width)
+}
+
+void MyFrame::setViewHeight ( int height )
+{
+    DEBUG_INFO ( _("TODO") << _(" setViewHeigth ") << height)
+}
+
+void MyFrame::setGrid ( bool showGrid )
+{
+    DEBUG_INFO ( _("TODO") << _(" setGrid ") << showGrid)
+}
+
 

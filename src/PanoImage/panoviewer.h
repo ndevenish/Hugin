@@ -16,6 +16,7 @@ public:
              const wxString& name = wxControlNameStr);
 	~PanoViewer();
 	void SetPano ( const wxImage &img );
+	void setView ( const PanoViewpoint vp );
 
 	// Preferences and options
 	void SetMouseFactor ( const int &f );

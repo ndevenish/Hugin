@@ -142,9 +142,32 @@ void Server::SendFilename( wxString filename )
       send = "";
     } else {
       wxFileName pv ("../PanoImage/panoviewer");
-      wxString viewer ("panoviewer");
+      char viewer_bin[] = "panoviewer";
+      wxString viewer (viewer_bin);
       if ( pv.FileExists() ) // get panoviewer from sourcetree
         viewer = pv.GetFullPath();
+      else {
+        viewer.Append ( ".exe" );
+        pv = viewer;
+        if ( pv.FileExists() )
+          viewer = pv.GetFullPath();
+        else {   
+          viewer = INSTALL_BIN_DIR ;
+          viewer.Append ( (wxString)wxFileName::GetPathSeparator() );
+          viewer.Append ( viewer_bin );
+          pv = viewer;
+          if ( pv.FileExists() ) // get panoviewer from installationtree
+            viewer = pv.GetFullPath();
+          else {
+            viewer.Append ( ".exe" );
+            pv = viewer;
+            if ( pv.FileExists() )
+              viewer = pv.GetFullPath();
+            else 
+              DEBUG_WARN ( "panoviewer not found" )
+          }
+        }
+      }
       viewer.Append (" ");
       viewer.Append (filename);
 //      viewer.Append (" ");
@@ -164,8 +187,8 @@ void Server::SendFilename( wxString filename )
       return;
     };
 
-  // Tell the other which test we are running
-  unsigned char c = 0xBE;
+  // Tell the other which command we are running
+  unsigned char c = 0xCa;   // FILENAME
   m_sock->Write(&c, 1);
   m_sock->SetFlags(wxSOCKET_WAITALL);
 

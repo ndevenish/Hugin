@@ -48,6 +48,18 @@
 // resources
 // --------------------------------------------------------------------------
 
+/** Projection of final panorama
+ */
+typedef enum InformationType { HANDSHAKE,           // 0xBA
+                               FILENAME,            // 0xCa 
+                               PROJECTION_FORMAT,   // 0xCb
+                               HEIGHT,              // 0xCc
+                               WIDTH,               // 0xCd
+                               RESET_VIEW,          // 0xCe
+                               SHOW_GRID,           // 0xCf
+                             } InformationType;
+
+
 // --------------------------------------------------------------------------
 // classes
 // --------------------------------------------------------------------------
@@ -68,10 +80,17 @@ public:
   // convenience functions
   void UpdateStatusBar();
 
+  /** what to do with the retrieved data?
+   *
+   *  enum InformationType
+   */
+  InformationType informationType;
+
 private:
   wxSocketClient *m_sock;
   bool            m_busy;
   bool            shaking;
+  
 
   // any class wishing to process wxWindows events must use this macro
   DECLARE_EVENT_TABLE()
@@ -87,6 +106,9 @@ enum
   // id for socket
   SOCKET_ID
 };
+
+
+
 
 #endif // _CLIENT_H
 
