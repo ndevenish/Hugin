@@ -840,7 +840,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         tmplLR.x = tmplImg.width() - tmplPoint.x;
     if (tmplLR.y + tmplPoint.y > tmplImg.height())
         tmplLR.y = tmplImg.height() - tmplPoint.y;
-    
+
     FImage dest(searchSize);
     dest.init(1);
     DEBUG_DEBUG("starting fine tune");
@@ -1467,6 +1467,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
 
 void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 {
+    if (m_pano->getNrOfImages() < 2) return;
     int nImgs = m_leftTabs->GetPageCount();
     int left = m_leftImageNr -1;
     int right = m_rightImageNr -1;
@@ -1487,6 +1488,7 @@ void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 
 void CPEditorPanel::OnNextImg(wxCommandEvent & e)
 {
+    if (m_pano->getNrOfImages() < 2) return;
     int nImgs = m_leftTabs->GetPageCount();
     int left = m_leftImageNr + 1;
     int right = m_rightImageNr + 1;
@@ -1631,8 +1633,8 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
         t.x = p.x - t.x;
         t.y = p.y - t.y;
     }
-    
-    // clip to fit to 
+
+    // clip to fit to
     if (t.x < 0) t.x=0;
     if (t.y < 0) t.y=0;
     if (t.x > img.getWidth()) t.x = img.getWidth();
