@@ -100,6 +100,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_ASSERT(m_setAnchorOrientButton);
     m_colorAnchorButton = XRCCTRL(*this, "images_color_anchor_button", wxButton);
     DEBUG_ASSERT(m_colorAnchorButton);
+    m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
+    DEBUG_ASSERT(m_matchingButton);
+    m_matchingButton->Disable();
+    m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
+    DEBUG_ASSERT(m_removeCPButton);
+    m_removeCPButton->Disable();
+    
     // Image Preview
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
@@ -192,190 +199,6 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     AutoPanoSift matcher;
     matcher.automatch(pano, selImg, nFeatures);
 };
-
-#if 0
-/** run sift matching on selected images, and add control points */
-void ImagesPanel::SIFTMatchingDepreciated(wxCommandEvent & e)
-{
-    const UIntSet & selImg = images_list->GetSelected();
-    if ( selImg.size() < 2 ) {
-        wxMessageBox(_("At least 2 images must be selected"),
-                     _("Error"), wxCANCEL | wxICON_ERROR);
-        return;
-    }
-
-    long nFeatures = XRCCTRL(*this, "images_points_per_overlap"
-                            , wxSpinCtrl)->GetValue();
-
-#ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
-    if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(this,_("Select autopano.exe (>= V 1.03"),
-                         "", "autopano.exe",
-                         "Executables (*.exe)|*.exe",
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write("/PanoTools/AutopanoExe",autopanoExe);
-        } else {
-            wxLogError(_("No autopano.exe selected (download it from http://autopano.kolor.com)"));
-            return;
-        }
-    }
-#else
-    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano");
-#endif
-
-
-    // build a list of all image files, and a corrosponding connection map.
-    // local img nr -> global (panorama) img number
-    std::map<int,int> imgMapping;
-    int imgNr=0;
-    for(UIntSet::const_iterator it = selImg.begin(); it != selImg.end(); it++)
-    {
-        imgMapping[imgNr] = *it;
-        autopanoExe.append(" ").append(pano.getImage(*it).getFilename().c_str());
-        imgNr++;
-    }
-    wxString autopanoArgs = wxConfigBase::Get()->Read("/PanoTools/AutopanoArgs","-nomove  -search:1 -size:1024 -ransac:1  -noclean -hugin -keys:");
-
-    wxString cmd;
-    cmd.Printf("%s %s%ld",autopanoExe.c_str(), autopanoArgs.c_str(), nFeatures);
-    DEBUG_DEBUG("Executing: " << cmd.c_str());
-    // run autopano in an own output window
-    wxShell(cmd);
-
-    // parse resulting output file
-    ifstream stream("pano0/pano0.pto");
-    if (! stream.is_open()) {
-        DEBUG_ERROR("Could not open autopano output: pano0/pano0.pto");
-        return;
-    }
-
-    CPVector ctrlPoints;
-    string line;
-    while(!stream.eof()) {
-        std::getline(stream, line);
-
-        if (line.size() > 0 && line[0] == 'c') {
-            int t;
-            ControlPoint point;
-            getParam(point.image1Nr, line, "n");
-            point.image1Nr = imgMapping[point.image1Nr];
-            getParam(point.image2Nr, line, "N");
-            point.image2Nr = imgMapping[point.image2Nr];
-            getParam(point.x1, line, "x");
-            getParam(point.x2, line, "X");
-            getParam(point.y1, line, "y");
-            getParam(point.y2, line, "Y");
-            getParam(t, line, "t");
-            point.mode = (ControlPoint::OptimizeMode) t;
-            ctrlPoints.push_back(point);
-        } else {
-            DEBUG_DEBUG("skipping line: " << line);
-        }
-    }
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::AddCtrlPointsCmd(pano, ctrlPoints)
-        );
-}
-#endif
-
-#if 0
-/** run sift matching (using builtin matcher) on selected images, and
-    add control points */
-void ImagesPanel::SIFTMatchingBuiltin(wxCommandEvent & e)
-{
-
-#if 0
-    wxString text = XRCCTRL(*this, "images_points_per_overlap"
-                            , wxTextCtrl) ->GetValue();
-    long nFeatures = 10;
-    if (!text.ToLong(&nFeatures)) {
-        wxLogError(_("Value must be numeric."));
-        return;
-    }
-    // pyramid level to use
-    int pyrLevel = 2;
-    DEBUG_DEBUG("SIFTMatching, on pyramid level " << pyrLevel << " desired features per overlap: " << nFeatures);
-    const UIntSet & selImg = images_list->GetSelected();
-    if ( selImg.size() > 0 ) {
-        // do a stupid, match every Image with every image.
-
-        // first, calculate all sift features.
-        std::vector<std::vector<SIFTFeature> > ftable(selImg.size());
-
-        DEBUG_DEBUG("starting keypoint detection (with Dr. Lowes keypoint program)");
-        DEBUG_DEBUG("This will take time, please be patient");
-        int i=0;
-        for(UIntSet::const_iterator it = selImg.begin();
-            it != selImg.end(); ++it, ++i)
-        {
-            std::string fname = pano.getImage(*it).getFilename();
-            // get a small image, to keep SIFT detector time low
-            const vigra::BImage & img = ImageCache::getInstance().getPyramidImage(fname, pyrLevel);
-            loweDetectSIFT(srcImageRange(img), ftable[i]);
-        }
-        DEBUG_DEBUG("Feature points detected, starting matching");
-
-        // the accumulated Control Points.
-        CPVector newPoints;
-
-        // match all images...
-        // slow...
-        int i1=0;
-        for (UIntSet::const_iterator it1 = selImg.begin();
-             it1 != selImg.end(); ++it1, ++i1)
-        {
-            UIntSet::const_iterator tmpit(it1);
-            tmpit++;
-            int i2=i1+1;
-            for (UIntSet::const_iterator it2(tmpit);
-                 it2 != selImg.end(); ++it2, ++i2)
-            {
-                vector<triple<int,SIFTFeature, SIFTFeature> > matches;
-                // resulting features
-                if (MatchImageFeatures(ftable[i1],
-                                       ftable[i2],
-                                       matches))
-                {
-                    DEBUG_NOTICE("Found " << matches.size() << " points between image " << *it1 << " and " << *it2);
-
-                    // sort matches by distance..
-                    sort(matches.begin(), matches.end(),matchDistance());
-                    // we found matches! add control points.
-                    // copy once more...
-                    for (vector<triple<int, SIFTFeature, SIFTFeature> >::iterator mit = matches.begin();
-                         mit != matches.end() && mit - matches.begin() < nFeatures;
-                         ++mit)
-                    {
-                        // factor to undo pyramid level
-                        double f = 1 << pyrLevel;
-                        newPoints.push_back(ControlPoint(*it1,
-                                                         mit->second.pos.x * f,
-                                                         mit->second.pos.y * f,
-                                                         *it2,
-                                                         mit->third.pos.x * f,
-                                                         mit->third.pos.y * f)
-                            );
-                    }
-                } else {
-                    DEBUG_NOTICE("No matches between image " << *it1 << " and " << *it2);
-                }
-            }
-        }
-        if (newPoints.size() != 0) {
-            // add all control points
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::AddCtrlPointsCmd (pano, newPoints)
-                );
-        }
-    }
-#endif
-}
-
-#endif
 
 // Yaw by text -> double
 void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )
@@ -496,6 +319,8 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_optAnchorButton->Enable();
             m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
+            m_matchingButton->Disable();
+            m_removeCPButton->Disable();
         } else {
             DEBUG_DEBUG("Multiselection");
             // multiselection, clear all values
@@ -504,6 +329,8 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_optAnchorButton->Disable();
             m_setAnchorOrientButton->Disable();
             m_colorAnchorButton->Disable();
+            m_matchingButton->Enable();
+            m_removeCPButton->Enable();
         }
     }
 }
