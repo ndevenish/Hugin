@@ -343,7 +343,7 @@
                     <item>nona</item>
                     <item>PTStitcher</item>
                   </content>
-                  <selection>2</selection>
+                  <selection>0</selection>
                 </object>
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
