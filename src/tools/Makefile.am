@@ -2,7 +2,7 @@
 DEFAULT_INCLUDES="-I."
 
 INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include
-AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
+AM_CPPFLAGS = $(BOOST_CFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 
 bin_PROGRAMS = nona autopano_old automatch panosifter autooptimiser zhang_undistort
