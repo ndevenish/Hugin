@@ -159,6 +159,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     CreateStatusBar(2);
     int widths[2] = {-1, 150};
     SetStatusWidths(2, widths);
+    SetStatusText("",0);
+    SetStatusText("",1);
 }
 
 PreviewFrame::~PreviewFrame()
@@ -207,7 +209,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         projection = _("equirectangular");
         break;
     }
-    SetStatusText(wxString::Format("%.1f° x %.1f°, %s", opts.HFOV, opts.VFOV,
+    SetStatusText(wxString::Format("%.1f x %.1f, %s", opts.HFOV, opts.VFOV,
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue((int) round(opts.HFOV));
     m_VFOVSlider->SetValue((int) round(opts.VFOV));
@@ -289,7 +291,32 @@ void PreviewFrame::OnClose(wxCloseEvent& event)
 void PreviewFrame::OnAutoPreviewToggle(wxCommandEvent & e)
 {
     m_PreviewPanel->SetAutoUpdate(e.IsChecked());
+    if (e.IsChecked()) {
+        m_PreviewPanel->ForceUpdate();
+    }
 }
+
+#if 0
+// need to add the wxChoice somewhere
+void PreviewFrame::OnProjectionChanged()
+{
+    PanoramaOptions opt = m_pano.getOptions();
+    int lt = m_ProjectionChoice->GetSelection();
+    wxString Ip;
+    switch ( lt ) {
+    case PanoramaOptions::RECTILINEAR:       Ip = _("Rectilinear"); break;
+    case PanoramaOptions::CYLINDRICAL:       Ip = _("Cylindrical"); break;
+    case PanoramaOptions::EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
+    }
+    opt.projectionFormat = (PanoramaOptions::ProjectionFormat) lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+    DEBUG_DEBUG ("Projection changed: "  << lt << ":" << Ip )
+ 
+    
+}
+#endif 
 
 void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {
@@ -315,7 +342,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
-	m_druid.Update(m_pano);
+    m_druid.Update(m_pano);
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
