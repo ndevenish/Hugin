@@ -83,8 +83,7 @@ public:
     void UpdateDisplay(const PT::PanoramaOptions & opt);
 
     // apply changes to the model. (gui values -> Panorama)
-// TODO remove
-//    void ColourModeChanged(wxCommandEvent & e);
+    void ColourModeChanged(wxCommandEvent & e);
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
     void VFOVChanged ( wxCommandEvent & e );
@@ -131,11 +130,11 @@ public:
 
     wxChoice    * m_InterpolatorChoice;
     wxTextCtrl  * m_GammaText;
-// TODO remove
-#if 0
     wxChoice    * m_ColorCorrModeChoice;
     wxSpinCtrl   * m_ColorCorrRefSpin;
 
+// TODO remove
+#if 0
     wxComboBox  * m_PreviewWidthCombo;
     wxCheckBox  * m_AutoPreviewCB;
     wxCheckBox  * m_PreviewPanoviewerCB;

@@ -77,10 +77,10 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
-// TODO remove
-//    EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
-//    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
+    EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
+    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
 
+// TODO remove
 //    EVT_COMBOBOX ( XRCID("pano_val_preview_width"),PanoPanel::PreviewWidthChanged )
 //    EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
 //    EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::AutoPreviewChanged )
@@ -118,8 +118,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_InterpolatorChoice);
     m_GammaText = XRCCTRL(*this, "pano_val_gamma" ,wxTextCtrl);
     DEBUG_ASSERT(m_GammaText);
-// TODO remove
-#if 0
+
     m_ColorCorrModeChoice = XRCCTRL(*this, "pano_choice_color_corr_mode",
                                     wxChoice);
     DEBUG_ASSERT(m_ColorCorrModeChoice);
@@ -127,6 +126,8 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
                                  wxSpinCtrl);
     m_ColorCorrRefSpin->Disable();
     DEBUG_ASSERT(m_ColorCorrRefSpin);
+// TODO remove
+#if 0
     m_PreviewWidthCombo = XRCCTRL(*this, "pano_val_preview_width", wxComboBox);
     DEBUG_ASSERT(m_PreviewWidthCombo);
     m_AutoPreviewCB = XRCCTRL(*this, "pano_cb_auto_preview", wxCheckBox);
@@ -174,19 +175,17 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     if (nImages < 1) {
         // disable some controls
+        m_ColorCorrModeChoice->Disable();
 // TODO remove
-//        m_ColorCorrModeChoice->Disable();
 //        m_PreviewButton->Disable();
         m_StitchButton->Disable();
-//        m_ColorCorrRefSpin->Disable();
+        m_ColorCorrRefSpin->Disable();
     } else {
-//        m_ColorCorrModeChoice->Enable();
+        m_ColorCorrModeChoice->Enable();
 //        m_PreviewButton->Enable();
         m_StitchButton->Enable();
     }
 
-// TODO remove
-#if 0
     int maximg = ((int)nImages) -1;
     // set spinctrl limits
     if (opt.colorCorrection != PanoramaOptions::NONE) {
@@ -195,7 +194,6 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     } else {
         m_ColorCorrRefSpin->Disable();
     }
-#endif
     switch (opt.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
         m_HFOVSpin->SetRange(0,179);
@@ -217,11 +215,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     m_InterpolatorChoice->SetSelection(opt.interpolator);
     m_GammaText->SetValue(wxString::Format ("%f", opt.gamma));
-// TODO remove
-#if 0
     m_ColorCorrModeChoice->SetSelection(opt.colorCorrection);
     m_ColorCorrRefSpin->SetValue(opt.colorReferenceImage);
-#endif
 
     m_WidthCombo->SetValue(wxString::Format("%d", opt.width));
     m_HeightStaticText->SetLabel(wxString::Format("%d", opt.getHeight()));
@@ -324,8 +319,6 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
     }
 }
 
-// TODO remove
-#if 0
 void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
@@ -345,6 +338,8 @@ void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
     DEBUG_INFO(text <<" with: " << refImage);
 }
 
+// TODO remove
+#if 0
 void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
@@ -436,7 +431,7 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
     }
     PanoramaOptions opt = pano.getOptions();
     opt.width = (int) (pixelDensity * opt.HFOV);
-    
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
