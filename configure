@@ -13,6 +13,7 @@ options:
   --prefix prefix  install program to prefix
   --platform=(unix|win32) specify platform.
                    defaults to unix.
+  --debug          enables debug output and assertations
 EOF
 }
 
@@ -23,6 +24,7 @@ my $prefix = "/usr/local";
 
 $result = GetOptions ("prefix=s" => \$prefix,    # string
                       "platform=s" => \$platform, # string
+                      "debug"  => \$debug,  # flag
                       "help"  => \$help);  # flag
 
 if (!$result) {
@@ -58,8 +60,18 @@ if (($1 == 2 && $2 >= 4) || $1 >2 ) {
 
 my $WXWIN_CFLAGS=`wx-config --cxxflags`;
 my $WXWIN_LFLAGS=`wx-config --libs`;
+chomp($WXWIN_CFLAGS);
+chomp($WXWIN_LFLAGS);
 
-print "checking for xrc extension of wxwin32.";
+my $EXTRA_CFLAGS;
+if ($debug) {
+#    $WXWIN_CFLAGS="$WXWIN_CFLAGS -D__WXDEBUG__";
+    $EXTRA_CFLAGS="$EXTRA_CFLAGS -g -DDEBUG";
+} else {
+    $EXTRA_CFLAGS="$EXTRA_CFLAGS -O2";
+}
+
+print "checking for xrc extension of wxwin.";
 my $XRC_LFLAGS;
 if ($platform eq "win32") {
     $XRC_LFLAGS="-lwx_msw_xrc-2.4";
@@ -67,9 +79,15 @@ if ($platform eq "win32") {
     $XRC_LFLAGS="-lwx_gtk_xrc-2.4";
 }
 
-print "\nConfiguration summary for hugin:\n\n";
+print "\n\nConfiguration summary for hugin:\n";
 print "  platform: $platform\n";
-print "  prefix: $prefix\n\n";
+print "  prefix: $prefix\n";
+if ($debug) {
+    print "  debug: enabled\n";
+} else {
+    print "  debug: disabled\n";
+}
+print "\n";
 
 print "Creating src/makefiles/config.mk\n";
 open(CONF_T,"<src/makefiles/config.mk.tmpl");
@@ -77,6 +95,7 @@ open(CONF,">src/makefiles/config.mk");
 
 while (<CONF_T>) {
     s/__PREFIX__/$prefix/g;
+    s/__EXTRA_CFLAGS__/$EXTRA_CFLAGS/g;
     s/__WXWIN_CFLAGS__/$WXWIN_CFLAGS/g;
     s/__WXWIN_LFLAGS__/$WXWIN_LFLAGS/g;
     s/__XRC_LFLAGS__/$XRC_LFLAGS/g;
