@@ -1,13 +1,17 @@
 Main author:
    Pablo d'Angelo <pablo.dangelo@web.de>
 Authors:
-  Alexandre Jenny                               Algorithms
+   Alexandre Jenny                              sift algorithm
    Kai-Uwe Behrmann <ku.b@gmx.de>               gui, panoviewer adds
+   Doug Wilkins                                 packaging, translation
+                                                compilation fixes
    Bruno Postle                                 packaging, layout
-   Helmut Dersch, Ben Allfree                   wxPanoViewer:
-   
+   Luca Vascon                                  splash screen
+
    Stan Birchfield                              KLT Feature Tracker
    Lyndon Hill                                  phase correlation.
+
+   Marek                                        polish translation
 
 This package also includes a code from
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
@@ -20,9 +24,11 @@ Some icons were taken from the BlueCurve theme package
 
 Thanks to the following people:
 
-  Peter Suetterlin, Mike Runge, Yili Zhao and Frederic for
-  beta testing and many ideas
+  The whole PTX mailing list, for great feedback and interesting
+  discussions.
+
+  The libpano developers, Helmut Dersch, Rik Littlefield, Jim Watters,
+  Fulvio Seniore, Max Lyons and Bruno Postle
 
   Nils Lagerkvist for suggesting the program name, hugin
-
 
