@@ -70,11 +70,13 @@ LIBS = 1
 
 # our image processing functions. separarte lib, to test them
 # with a programm in tests/
-LIB_1_BIN = wximageproc
+LIB_1_BIN = huginwxutils
 LIB_1_OBJ = ImageProcessing.o \
 	    wxVigraImage.o \
-            ImageCache.o
+            ImageCache.o \
+            MyProgressDialog.o
 LIB_1_LFLAGS =  $(LFLAGS)
+
 
 # ====================================================================
 # The applications that should be build in this directory.
