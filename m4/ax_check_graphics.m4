@@ -349,7 +349,7 @@ if test "x$with_tiff" != 'xno' ; then
   AC_LANG_SAVE
   AC_LANG_C
   AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
+  AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg -lm])
   AC_LANG_RESTORE
   LDFLAGS="$TIFF_OLD_LDFLAGS"
   CPPFLAGS="$TIFF_OLD_CPPFLAGS"
