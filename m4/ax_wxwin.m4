@@ -128,7 +128,8 @@ AC_DEFUN([AM_PATH_WXCONFIG],
 
     WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args $5 $4"
 
-    WX_VERSION=`$WX_CONFIG_WITH_ARGS --version 2>/dev/null`
+    WX_VERSION=`$WX_CONFIG_PATH $wx_config_args --version $5 $4 2>/dev/null`
+
     wx_config_major_version=`echo $WX_VERSION | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
     wx_config_minor_version=`echo $WX_VERSION | \
