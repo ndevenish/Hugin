@@ -526,15 +526,19 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
             }
         }
 
-        // try to set roll and pitch optimisation intelligently.
-        // remove yaw for reference image
-        m_yaw_list->Check(refImg,false);
-        int n = nHCP + nVCP;
-        if (n == 0) {
-            m_roll_list->Check(refImg,false);
-            m_pitch_list->Check(refImg,false);
-        } else if (n == 1) {
-            m_pitch_list->Check(refImg,false);
+        // try to select sensible position optimisation parameters,
+        // dependent on output projection
+        switch (m_pano->getOptions().outputFormat) {
+        case PT::PanoramaOptions::RECTILINEAR:
+            m_roll_list->Check(refImg, (nHCP > 0 || nVCP > 0));
+            m_yaw_list->Check(refImg, (nHCP > 0));
+            m_pitch_list->Check(refImg, (nVCP > 0));
+	    break;
+        case PT::PanoramaOptions::CYLINDRICAL:
+        case PT::PanoramaOptions::EQUIRECTANGULAR:
+            m_yaw_list->Check(refImg,false);
+            m_pitch_list->Check(refImg, (nHCP+nVCP > 1));
+            m_roll_list->Check(refImg, (nHCP+nVCP >= 1));
         }
 
 	// disable all manual settings
