@@ -24,6 +24,7 @@
  *
  */
 
+#include <string>
 #include <qcombobox.h>
 #include <qlineedit.h>
 #include <qspinbox.h>
@@ -39,7 +40,7 @@
 PanoOptionsWidget::PanoOptionsWidget(PT::Panorama & pano, QWidget* parent, const char* name, WFlags fl)
     : PanoOptionsBase(parent, name, fl), pano(pano)
 {
-    
+
     updateView();
 }
 
@@ -81,7 +82,7 @@ PT::PanoramaOptions PanoOptionsWidget::getOptions()
     opt.HFOV = HFOVSpinBox->value();
     opt.gamma = gammaEdit->text().toDouble();
 
-    opt.outputFormat = outputFormatCombo->currentText();
+    opt.outputFormat = outputFormatCombo->currentText().ascii();
     opt.width = widthSpinBox->value();
     opt.height = heightSpinBox->value();
     opt.quality = jpegQualitySpinBox->value();
@@ -100,7 +101,7 @@ void PanoOptionsWidget::createPanorama()
         "",
         this,
         "Save image",
-        "Save final panorama");
+        "Save final panorama").ascii();
     if (opt.outfile == "") {
         return;
     }
