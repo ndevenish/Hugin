@@ -557,11 +557,11 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             const PanoImage & img = m_pano->getImage(thisImgNr);
             double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",10);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
-            FDiff2D corrPoint;
-            double xcorr=-1;
+            CorrelationResult corrPoint;
+            double corrOk=false;
             Diff2D roundp(p.toDiff2D());
             try {
-                xcorr = PointFineTune(thisImgNr,
+                corrOk = PointFineTune(thisImgNr,
                                       roundp,
                                       templWidth,
                                       otherImgNr,
@@ -571,38 +571,23 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             } catch (std::exception & e) {
                 wxMessageBox(e.what(), _("Error during Fine-tune"));
             }
-            double thresh=0.8;
-
-            wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&thresh,
-                                      HUGIN_FT_CORR_THRESHOLD);
-            if (xcorr < thresh) {
-                // low xcorr
-                // zoom to 100 percent. & set second stage
-                // to abandon finetune this time.
+            if (! corrOk) {
+                // just set point, PointFineTune already complained
                 otherImg->setScale(1);
-                otherImg->setNewPoint(corrPoint);
-                otherImg->update();
-                thisImg->setNewPoint(FDiff2D(roundi(roundp.x), roundi(roundp.y)));
-                thisImg->update();
-                // Bad correlation result.
-                wxMessageBox(
-                    wxString::Format(_("low correlation coefficient: %.3f, (threshold: %.3f)\nPoint might be wrong."),  xcorr, thresh),
-                    "Low correlation",
-                    wxICON_HAND, this);
+                otherImg->setNewPoint(corrPoint.maxpos);
                 changeState(BOTH_POINTS_SELECTED);
             } else {
                 // show point & zoom in if auto add is not set
                 if (!m_autoAddCB->IsChecked()) {
                     otherImg->setScale(1);
-                    otherImg->setNewPoint(corrPoint);
+                    otherImg->setNewPoint(corrPoint.maxpos);
                     changeState(BOTH_POINTS_SELECTED);
                 } else {
                     // add point
-                    otherImg->setNewPoint(corrPoint);
+                    otherImg->setNewPoint(corrPoint.maxpos);
                     CreateNewPoint();
                 }
             }
-            MainFrame::Get()->SetStatusText(wxString::Format(_("found corrosponding point, mean xcorr coefficient: %f"),xcorr),0);
         } else {
             // no fine-tune, set 100% scale and set both points to selected
             otherImg->setScale(1);
@@ -671,15 +656,13 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                                      otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
         }
     } else if (cpCreationState == OTHER_POINT || cpCreationState == THIS_POINT_RETRY) {
-        FDiff2D p2;
-        p2.x = -1;
-        p2.y = -1;
         // the try for the second point.
         if (cpCreationState == OTHER_POINT) {
             // other point already selected, finalize point.
 
             if (m_fineTuneCB->IsChecked()) {
-                MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
+                CorrelationResult corrRes;
+
                 FDiff2D newPoint = otherImg->getNewPoint();
 
                 long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
@@ -687,56 +670,38 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",
                                                                 HUGIN_FT_SEARCH_AREA_PERCENT);
                 int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
-                double xcorr = -1;
+                bool corrOk = false;
                 // corr point
                 Diff2D newPoint_round = newPoint.toDiff2D();
                 try {
-                    xcorr = PointFineTune(otherImgNr,
-                                          newPoint_round,
-                                          templWidth,
-                                          thisImgNr,
-                                          p,
-                                          sWidth,
-                                          p2);
+                    corrOk = PointFineTune(otherImgNr,
+                                           newPoint_round,
+                                           templWidth,
+                                           thisImgNr,
+                                           p,
+                                           sWidth,
+                                           corrRes);
                 } catch (std::exception & e) {
                     wxMessageBox(e.what(), _("Error during Fine-tune"));
                 }
 
-                double thresh=0.8;
-                wxConfigBase::Get()->Read("/Finetune/CorrThreshold", &thresh,
-                                          HUGIN_FT_CORR_THRESHOLD);
-
-                if (xcorr < thresh) {
+                if (! corrOk) {
                     // low xcorr
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
                     thisImg->setScale(1);
-                    thisImg->setNewPoint(p2);
+                    thisImg->setNewPoint(corrRes.maxpos);
                     thisImg->update();
                     otherImg->setNewPoint(FDiff2D(newPoint_round.x, newPoint_round.y));
-                    // Bad correlation result.
-                    int answer = wxMessageBox(
-                        wxString::Format(_("low correlation coefficient: %.3f, (threshold: %.3f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
-                        "Low correlation",
-                        wxYES_NO|wxICON_QUESTION, this);
-                    if (answer == wxNO) {
-                        changeState(THIS_POINT_RETRY);
-                        thisImg->clearNewPoint();
-                        return;
-                    } else {
-                        changeState(BOTH_POINTS_SELECTED);
-                    }
+                    changeState(BOTH_POINTS_SELECTED);
                 } else {
                     // show point & zoom in if auto add is not set
                     changeState(BOTH_POINTS_SELECTED);
                     if (!m_autoAddCB->IsChecked()) {
                         thisImg->setScale(1);
                     }
-                    thisImg->setNewPoint(p2);
+                    thisImg->setNewPoint(corrRes.maxpos);
                 }
-
-                MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-
             } else {
                 // no finetune. but zoom into picture, when we where zoomed out
                 if (thisImg->getScale() < 1) {
@@ -778,16 +743,26 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     }
 }
 
-double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
-                                    const Diff2D & tmplPoint,
-                                    int templSize,
-                                    unsigned int subjImgNr,
-                                    const FDiff2D & o_subjPoint,
-                                    int sWidth,
-                                    FDiff2D & tunedPos)
+bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
+                                  const Diff2D & tmplPoint,
+                                  int templSize,
+                                  unsigned int subjImgNr,
+                                  const FDiff2D & o_subjPoint,
+                                  int sWidth,
+                                  CorrelationResult & res)
 {
     DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
                 << subjImgNr);
+
+    MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
+
+    double corrThresh=HUGIN_FT_CORR_THRESHOLD;
+    wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&corrThresh,
+                              HUGIN_FT_CORR_THRESHOLD);
+
+    double curvThresh = HUGIN_FT_CURV_THRESHOLD;
+    wxConfigBase::Get()->Read("/Finetune/CurvThreshold",&curvThresh,
+                              HUGIN_FT_CURV_THRESHOLD);
 
     const PanoImage & img = m_pano->getImage(subjImgNr);
 
@@ -796,7 +771,6 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
-    vigra_ext::CorrelationResult res;
     wxConfigBase *cfg = wxConfigBase::Get();
     bool rotatingFinetune = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
 
@@ -818,10 +792,26 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                        subjImg, o_subjPoint.toDiff2D(),
                                        sWidth);
     }
+    // invert curvature. we always assume its a maxima, the curvature there is negative
+    // however, we allow the user to specify a positive threshold, so we need to
+    // invert it
+    res.curv.x = - res.curv.x;
+    res.curv.y = - res.curv.y;
 
-    tunedPos.x = res.maxpos.x;
-    tunedPos.y = res.maxpos.y;
-    return res.maxi;
+    MainFrame::Get()->SetStatusText(wxString::Format("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f ",
+                                    res.maxAngle, res.maxi, res.curv.x, res.curv.y ),0);
+    if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
+    {
+        // Bad correlation result.
+        wxMessageBox(
+            wxString::Format(_("No similar point found.\ncorrelation coefficient: %.3f, (should be < %.3f)\npeak curvature: (%.3f, %.3f), ( should be > %.3f)"),
+                             res.maxi, corrThresh, res.curv.x, res.curv.y, curvThresh),
+            "No similar point found",
+            wxICON_HAND, this);
+        return false;
+    }
+
+    return true;
 }
 
 #if 0
@@ -1681,18 +1671,15 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
 {
     long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
     long sWidth = templWidth + wxConfigBase::Get()->Read("/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
-    FDiff2D result;
-    double xcorr = PointFineTune(srcNr,
-		                 srcPnt,
-                                 templWidth,
-				 moveNr,
-				 movePnt,
-                                 sWidth,
-                                 result);
-
-    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-
-    return result;
+    CorrelationResult result;
+    PointFineTune(srcNr,
+                  srcPnt,
+                  templWidth,
+                  moveNr,
+                  movePnt,
+                  sWidth,
+                  result);
+    return result.maxpos;
 }
 
 void CPEditorPanel::FineTuneSelectedPoint(bool left)

@@ -48,10 +48,13 @@ namespace vigra_ext{
 struct CorrelationResult
 {
     CorrelationResult()
-        : maxi(-1),maxpos(0,0), maxAngle(0)
+        : maxi(-1),maxpos(0,0), maxAngle(0), curv(0,0)
         { }
+    // value at correlation peak.
     double maxi;
     FDiff2D maxpos;
+    // curvature of the correlation peak
+    FDiff2D curv;
     double maxAngle;
 };
 
@@ -199,7 +202,7 @@ CorrelationResult correlateImageFast(SrcImage & src,
  *
  *  this estimates the x and y values
  *  separately. Don't know if this is the
- *  best way, but it should work.
+ *  best way, but it works well
  */
 template <class Iterator, class Accessor>
 CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img,
@@ -237,6 +240,7 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
     // the 1st derivate to zero
     // 2*c*x + b = 0
     res.maxpos.x = -b/(2*c);
+    res.curv.x = 2*c;
 
     // calculate result at maxima
     double maxx = c*res.maxpos.x*res.maxpos.x + b*res.maxpos.x + a;
@@ -244,6 +248,7 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
     FitPolynom(x, x + 2*interpWidth+1, zy, a,b,c);
     // calculate extrema of y position
     res.maxpos.y = -b/(2*c);
+    res.curv.y = 2*c;
     double maxy = c*res.maxpos.y*res.maxpos.y + b*res.maxpos.y + a;
 
     // use mean of both maxima as new interpolation result
@@ -432,9 +437,6 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
  *  images at \p tmplPos and searches it on the \p searchImg, at
  *  \p searchPos, in a neighbourhood of \p sWidth by \p sWidth.
  *
- *  Searches the angle in steps of 30 deg.
- *
- *
  *  The result in returned in @p tunedPos
  *
  *  @return correlation value
@@ -621,6 +623,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     }
 
     bestRes.maxpos = bestRes.maxpos + searchUL;
+    bestRes.maxAngle = bestAngle/M_PI*180;
     return bestRes;
 }
 

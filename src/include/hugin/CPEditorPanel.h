@@ -144,13 +144,13 @@ private:
     /// search for region in destImg
 //    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, vigra_ext::CorrelationResult & res);
 
-    double PointFineTune(unsigned int tmplImgNr,
-                         const vigra::Diff2D &tmplPoint,
-                         int tmplWidth,
-                         unsigned int subjImgNr,
-                         const FDiff2D &subjPoint,
-                         int searchWidth,
-                         FDiff2D & tunedPos);
+    bool PointFineTune(unsigned int tmplImgNr,
+                       const vigra::Diff2D &tmplPoint,
+                       int tmplWidth,
+                       unsigned int subjImgNr,
+                       const FDiff2D &subjPoint,
+                       int searchWidth,
+                       vigra_ext::CorrelationResult & tunedPos);
 
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);

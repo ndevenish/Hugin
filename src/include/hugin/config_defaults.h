@@ -31,6 +31,7 @@
 #define HUGIN_FT_SEARCH_AREA_PERCENT          10l
 #define HUGIN_FT_LOCAL_SEARCH_WIDTH           14l
 #define HUGIN_FT_CORR_THRESHOLD               0.8
+#define HUGIN_FT_CURV_THRESHOLD               0.0
 
 #define HUGIN_FT_ROTATION_SEARCH              0l
 #define HUGIN_FT_ROTATION_START_ANGLE         -30.0
@@ -43,6 +44,7 @@
 
 #define HUGIN_CP_CURSOR                       1
 
+#define HUGIN_CAPTURE_TIMESPAN                60l
 
 // Program defaults
 #ifdef WIN32
