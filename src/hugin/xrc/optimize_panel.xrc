@@ -258,7 +258,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>skew (d):</label>
+                  <label>x shift (d):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_d_list">
@@ -276,7 +276,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>skew (e):</label>
+                  <label>y shift (e):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_e_list">
