@@ -204,12 +204,12 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                         if ( dist < minDist ) {
                             minDist = dist;
                             minImgNr = img2;
-                        }
+                        } else if (dist == minDist && img2 == imgNr) {
                     }
 		    if (minDist < FLT_MAX && minImgNr == imgNr) {
 	                // pixel belongs to current image (imgNr)
                         *xa = 255;
-		    }
+                    }
                 }
             }
 
@@ -220,16 +220,15 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             // set page
             TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
             TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)imgNr, (unsigned short)nImg);
-            // set offset
-            TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 72.0f);
-            TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 72.0f);
+
+            // resolution to 1, to avoid rounding errors of buggy tif loaders.
+            TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) 1);
+            TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) 1);
             // offsets must allways be positive so correct them
             DEBUG_DEBUG("offset: " << xstart-neg_off_x << ","
                                    << ystart-neg_off_y << std::endl)
-            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)
-                                               (xstart-neg_off_x)/72.0f);
-            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)
-                                               (ystart-neg_off_y)/72.0f);
+            TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)(xstart-neg_off_x));
+            TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)(ystart-neg_off_y));
 
             // save input name.
             TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, basename.c_str());
