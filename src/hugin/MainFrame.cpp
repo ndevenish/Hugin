@@ -63,13 +63,41 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
 
     // FIXME check for Images / project files
     DEBUG_TRACE("OnDropFiles");
-    std::vector<std::string> filesv;
-    for (unsigned int i=0; i< filenames.GetCount(); i++) {
-        filesv.push_back(filenames[i].c_str());
+    if (filenames.GetCount() == 1) {
+        wxFileName file(filenames[0]);
+        if (file.GetExt().CmpNoCase("pto") ||
+            file.GetExt().CmpNoCase("ptp") ||
+            file.GetExt().CmpNoCase("pts")    )
+        {
+            if (MainFrame::Get()) {
+                // load project
+                MainFrame::Get()->LoadProjectFile(file.GetFullPath());
+            }
+        }
+    } else {
+        // try to add as images
+        std::vector<std::string> filesv;
+        for (unsigned int i=0; i< filenames.GetCount(); i++) {
+            wxFileName file(filenames[0]);
+            
+            if (file.GetExt().CmpNoCase("jpg") ||
+                file.GetExt().CmpNoCase("tif") ||
+                file.GetExt().CmpNoCase("tiff") ||
+                file.GetExt().CmpNoCase("png") ||
+                file.GetExt().CmpNoCase("bmp") ||
+                file.GetExt().CmpNoCase("gif") ||
+                file.GetExt().CmpNoCase("pnm") ||
+                file.GetExt().CmpNoCase("sun") ||
+                file.GetExt().CmpNoCase("viff") )
+            {
+                
+                filesv.push_back(filenames[i].c_str());
+            }
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::wxAddImagesCmd(pano,filesv)
+            );
     }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::wxAddImagesCmd(pano,filesv)
-        );
     return true;
 }
 
@@ -836,6 +864,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
             if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
+                    DEBUG_DEBUG("fine tuning point: " << *it);
                     const vigra::BImage & templImg = ImageCache::getInstance().getPyramidImage(
                         pano.getImage(cps[*it].image1Nr).getFilename(),0);
                     const vigra::BImage & searchImg = ImageCache::getInstance().getPyramidImage(

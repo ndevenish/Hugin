@@ -581,7 +581,7 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
     unsigned int nSelImg =  selImg.size();
     if ( nSelImg > 0 ) {
         VariableMapVector vars(nSelImg);
-        unsigned int i;
+        unsigned int i=0;
         for (UIntSet::const_iterator it = selImg.begin();
              it != selImg.end(); ++it )
         {
