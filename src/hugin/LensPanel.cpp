@@ -226,21 +226,19 @@ void LensEdit::updateHFOV()
 
 void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
+    if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
+      wxListEvent e;
+      SetImages( e );
+    }
     int lt = XRCCTRL(*this, "lens_type_combobox", wxComboBox)->GetSelection();
     DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d Lenstype %d",lensEdit_RefImg, lt) )
 }
 
 void LensEdit::ChangePano ( )
 {
-//    DEBUG_TRACE( "lensGui_dirty = " << lensGui_dirty )
+    DEBUG_TRACE( "lensGui_dirty = " << lensGui_dirty )
+    changePano = TRUE;
     if ( lensGui_dirty ) {
-      imgNr[0] = 0;             // reset
-      for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
-        if ( images_list2->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
-          imgNr[0] += 1;
-          imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
-        }
-      }
 //      DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
 /**
@@ -321,6 +319,7 @@ void LensEdit::ChangePano ( )
          );
 
     lensGui_dirty = FALSE;
+    changePano = FALSE;
 
     // update gui
 //    int id (XRCID("lens_dialog"));
@@ -439,7 +438,7 @@ void LensEdit::cChanged ( wxCommandEvent & e )
       ChangePano ();
       SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
 
-     delete var;
+      delete var;
     }
     DEBUG_TRACE ("")
 }
@@ -481,38 +480,58 @@ void LensEdit::eChanged ( wxCommandEvent & e )
 // This function is called whenever the image selection changes.
 void LensEdit::SetImages ( wxListEvent & e )
 {
-    DEBUG_TRACE("");
-    // One image is our prefered image.
-    lensEdit_RefImg = e.GetIndex();
+    DEBUG_TRACE("changePano = " << changePano );
+    if ( changePano == FALSE ) {
 
-    // Now create an new reference lens from the lensEdit_RefImg image.
-    delete edit_Lens;
-    edit_Lens = new Lens(EDIT_LENS);
+      // One image is our prefered image.
+      lensEdit_RefImg = e.GetIndex();
+      bool lensEdit_RefImg_valid = FALSE;
+      // get the selection
+      imgNr[0] = 0;             // reset
+      for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+        if ( images_list2->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+          imgNr[0] += 1;
+          imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+          if ( lensEdit_RefImg == Nr )
+            lensEdit_RefImg_valid = TRUE;
+        }
+      }
+      // We need a valid image to take the lens from.
+      if ( !lensEdit_RefImg_valid ) {
+        DEBUG_WARN( "leafing early !!!");
+        return;
+      }
 
-    // FIXME should get a bottom to update
+      // Now create an new reference lens from the lensEdit_RefImg image.
+      delete edit_Lens;
+      edit_Lens = new Lens(EDIT_LENS);
+
+      // FIXME should get a bottom to update
 //    edit_Lens->readEXIF(pano.getImage(lensEdit_RefImg).getFilename().c_str());
 
-    // update gui
+      // update gui
 //    LensChanged (e);
     // set the values from the mainly focused image lens.
-    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection( EDIT_LENS.
+      XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection( EDIT_LENS.
                                          projectionFormat  );
-    updateHFOV();
-    SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
-    SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
-    SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
-    SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
-    SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
+      updateHFOV();
+      SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
+      SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
+      SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
+      SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
+      SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
 
 
-    /**  - Look if we may need a new lens.
-      *   - If so set the lensGui_dirty flag for later remembering.
-      */
-    if ( images_list2->GetSelectedItemCount() != (int) pano.getNrOfImages() )
-      lensGui_dirty = TRUE;
+      /**  - Look if we may need a new lens.
+        *   - If so set the lensGui_dirty flag for later remembering.
+        */
+      if ( images_list2->GetSelectedItemCount() != (int) pano.getNrOfImages() )
+        lensGui_dirty = TRUE;
 
-
-    DEBUG_TRACE("");
+    }
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) << " lens:"<< pano.getImage(lensEdit_RefImg).getLens());
+//    DEBUG_TRACE("");
+//    changePano = FALSE;
 }
 
 

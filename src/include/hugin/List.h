@@ -92,11 +92,14 @@ class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
       */
     unsigned int imgNr[512];
 
-    /** reminder for the object
+    /** reminder for the list layout
      *
      *  What shall the object beheave like?
      */
     int list_layout;
+
+    // Fill in one row for image imageNr.
+    void fillRow (unsigned int imageNr);
 
     // Ready to select new items?
     bool selectItemVeto( wxListEvent & e );

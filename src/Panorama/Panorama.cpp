@@ -259,19 +259,49 @@ unsigned int Panorama::addImage(const std::string & filename)
     // read lens spec from image, if possible
     // FIXME use a lens database (for example the one from PTLens)
     // FIXME to initialize a,b,c etc.
+    // searches for a new image for an unused lens , if found takes this
+    // if no free lens is available creates a new one
+    int unsigned lensNr (0);
+    bool lens_belongs_to_image = false;
+    int unused_lens = -1;
+    while ( unused_lens < 0 ) {
+      lens_belongs_to_image = false;
+      for (ImageVector::iterator it = state.images.begin();
+                                    it != state.images.end()  ; ++it) {
+          if ((*it).getLens() == lensNr)
+              lens_belongs_to_image = true;
+      }
+      if ( lens_belongs_to_image == false )
+        unused_lens = lensNr;
+      else
+        lensNr++;
+    }
+    bool lens_allready_inside = false;
+    for ( lensNr = 0 ; lensNr < state.lenses.size(); ++lensNr) {
+        if ( (int)lensNr == unused_lens )
+          lens_allready_inside = true;
+    }
+//    DEBUG_INFO ( "lens_allready_inside= "<< lens_allready_inside <<"  new lensNr: " << unused_lens <<"/"<< state.lenses.size() )
     Lens l;
-    if(l.readEXIF(filename)) {
-        state.lenses.back() = l;
+    if ( lens_allready_inside )
+        l = state.lenses[unused_lens];
+    l.readEXIF(filename);
+    if ( lens_allready_inside ) {
+        state.lenses[unused_lens] = l;
+    } else {
+        state.lenses.push_back(l);
+        unused_lens = state.lenses.size() - 1;
     }
     unsigned int nr = state.images.size();
     state.images.push_back(PanoImage(filename));
     ImageOptions opts = state.images.back().getOptions();
-    opts.lensNr = 0;
+    opts.lensNr = unused_lens;
     state.images.back().setOptions(opts);
     state.variables.push_back(ImageVariables());
     updateLens(nr);
     adjustVarLinks();
     imageChanged(nr);
+    DEBUG_INFO ( "new lensNr: " << unused_lens <<"/"<< state.lenses.size() )
     return nr;
 }
 

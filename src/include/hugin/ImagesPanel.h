@@ -84,6 +84,9 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void SetImages ( wxListEvent & e );
 
  private:
+    // a window event
+    void FitParent(wxSizeEvent & e);
+
     /** the model */
     Panorama &pano;
 
@@ -104,6 +107,24 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void SetYawText ( wxCommandEvent & e );
     void SetPitchText ( wxCommandEvent & e );
     void SetRollText ( wxCommandEvent & e );
+    /**  Set Inheritance */
+    void SetInherit (        std::string type,         // small helper
+                                wxString images_inherit,
+                                wxString images_spin,
+                                wxString images_optimize,
+                          wxCommandEvent & e );
+    void SetInherit ( wxCommandEvent & e );
+    void SetYawCbInherit ( wxCommandEvent & e );
+    void SetYawInheritFrom ( wxCommandEvent & e );
+    void SetPitchCbInherit ( wxCommandEvent & e );
+    void SetPitchInheritFrom ( wxCommandEvent & e );
+    void SetRollCbInherit ( wxCommandEvent & e );
+    void SetRollInheritFrom ( wxCommandEvent & e );
+    /**  Set Optimization */
+    void SetYawCbOptimize ( wxCommandEvent & e );
+    void SetPitchCbOptimize ( wxCommandEvent & e );
+    void SetRollCbOptimize ( wxCommandEvent & e );
+
     /** event -> pano
      *
      *  usually for events to set the new pano state

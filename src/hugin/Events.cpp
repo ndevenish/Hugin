@@ -41,9 +41,25 @@
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(MyEvtHandler, wxEvtHandler)
+/*    EVT_BUTTON ( XRCID("action_add_images"), 
+                             MyEvtHandler::ToImagesPanel )
+    EVT_BUTTON ( XRCID("action_add_images"), 
+                             MyEvtHandler::ToLensPanel )
+    EVT_MENU ( XRCID("action_add_images"), 
+                             MyEvtHandler::ToImagesPanel )
+    EVT_MENU ( XRCID("action_add_images"), 
+                             MyEvtHandler::ToLensPanel )
+    EVT_BUTTON ( XRCID("action_remove_images"), 
+                             MyEvtHandler::ToImagesPanel )
+    EVT_BUTTON ( XRCID("action_remove_images"), 
+                             MyEvtHandler::ToLensPanel )
+    EVT_MENU ( XRCID("action_remove_images"), 
+                             MyEvtHandler::ToImagesPanel )
+    EVT_MENU ( XRCID("action_remove_images"), 
+                             MyEvtHandler::ToLensPanel )
     EVT_LIST_ITEM_SELECTED ( XRCID("images_list_unknown"), 
                              MyEvtHandler::ToImagesPanel )
     EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"), 
-                             MyEvtHandler::ToLensPanel )
+                             MyEvtHandler::ToLensPanel )*/
 END_EVENT_TABLE()
 

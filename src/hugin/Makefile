@@ -85,14 +85,15 @@ APPS = 1
 # App 1
 
 APP_1_BIN = hugin
-APP_1_OBJ = huginApp.o \
+APP_1_OBJ = \
+            ImagesPanel.o \
+            huginApp.o \
             List.o \
             Events.o \
             Server.o \
             MainFrame.o \
             CPImageCtrl.o \
             CPEditorPanel.o \
-            ImagesPanel.o \
             LensPanel.o \
             ImageCache.o \
             CommandHistory.o \

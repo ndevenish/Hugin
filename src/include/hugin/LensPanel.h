@@ -118,6 +118,9 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     void ChangePano ( );
     /** With this flag we decide to create a new Lens or not.*/
     bool lensGui_dirty;
+    /** Are we changing the pano?
+     */
+    bool changePano;
 
     /**  holds the images just in work
       *  in conjunction with SetImages()
