@@ -382,7 +382,7 @@ namespace {
     };
 
     GIFDecoderImpl::GIFDecoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
         : stream( filename.c_str(), std::ios::binary ),
 #else
         : stream( filename.c_str() ),
@@ -737,7 +737,7 @@ namespace {
     };
 
     GIFEncoderImpl::GIFEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
         : stream( filename.c_str(), std::ios::binary ),
 #else
         : stream( filename.c_str() ),

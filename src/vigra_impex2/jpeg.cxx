@@ -162,10 +162,10 @@ namespace vigra_impex2
     };
 
     JPEGDecoderImpl::JPEGDecoderImpl( const std::string & filename )
-#ifdef _MSC_VER
-        : file( filename.c_str(), "rb" ), 
+#ifdef WIN32
+        : file( filename.c_str(), "rb" ),
 #else
-        : file( filename.c_str(), "r" ), 
+        : file( filename.c_str(), "r" ),
 #endif
           bands(0), scanline(0)
     {
@@ -298,10 +298,10 @@ namespace vigra_impex2
     };
 
     JPEGEncoderImpl::JPEGEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
-        : file( filename.c_str(), "wb" ), 
+#ifdef WIN32
+        : file( filename.c_str(), "wb" ),
 #else
-        : file( filename.c_str(), "w" ), 
+        : file( filename.c_str(), "w" ),
 #endif
           scanline(0), quality(-1),
           finalized(false)
@@ -328,7 +328,7 @@ namespace vigra_impex2
         // alloc memory for a single scanline
         bands.resize( width * components );
         finalized = true;
-        
+
         // init the compression
         info.image_width = width;
         info.image_height = height;
@@ -350,7 +350,7 @@ namespace vigra_impex2
                 vigra_fail( "error in jpeg_set_quality()" );
             jpeg_set_quality( &info, quality, TRUE );
         }
-        
+
         // enhance the quality a little bit
         for ( unsigned int i = 0; i < MAX_COMPONENTS; ++i ) {
             info.comp_info[i].h_samp_factor = 1;

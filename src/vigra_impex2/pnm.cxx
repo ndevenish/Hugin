@@ -32,7 +32,7 @@ namespace vigra_impex2 {
 
     typedef short int16_t;
     typedef int   int32_t;
-    
+
     CodecDesc PnmCodecFactory::getCodecDesc() const
     {
         CodecDesc desc;
@@ -208,7 +208,7 @@ namespace vigra_impex2 {
 
     // reads the header.
     PnmDecoderImpl::PnmDecoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
         : stream( filename.c_str(), std::ios::binary )
 #else
         : stream( filename.c_str() )
@@ -224,7 +224,7 @@ namespace vigra_impex2 {
             msg += "'.";
             vigra_precondition(0, msg.c_str());
         }
-        
+
         // read the pnm header
         vigra_postcondition( stream.get() == 'P', "bad magic number" );
 
@@ -295,7 +295,7 @@ namespace vigra_impex2 {
             maxval >>= 1;
         }
         while(maxval > 0);
-        
+
         vigra_precondition( bits >= 0, "the file's maxval field is corrupt" );
 	if ( bits <= 8 )
             pixeltype = "UINT8";
@@ -439,10 +439,10 @@ namespace vigra_impex2 {
     };
 
     PnmEncoderImpl::PnmEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
-        : stream( filename.c_str(), std::ios::binary ), 
+#ifdef WIN32
+        : stream( filename.c_str(), std::ios::binary ),
 #else
-        : stream( filename.c_str() ), 
+        : stream( filename.c_str() ),
 #endif
           raw(true), bilevel(false), finalized(false), scanline(0)
     {
@@ -650,7 +650,7 @@ namespace vigra_impex2 {
             }
             stream << std::endl; // separate lines with a newline
           }
-        
+
         }
 
         // cast the bands to the correct type

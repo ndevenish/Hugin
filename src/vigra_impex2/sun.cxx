@@ -140,13 +140,13 @@ namespace vigra_impex2 {
     };
 
     SunDecoderImpl::SunDecoderImpl( const std::string & filename )
-#ifdef _MSC_VER
-        : stream( filename.c_str(), std::ios::binary ), 
+#ifdef WIN32
+        : stream( filename.c_str(), std::ios::binary ),
 #else
-        : stream( filename.c_str() ), 
+        : stream( filename.c_str() ),
 #endif
-          bo ("big endian"), 
-          maps (0), 
+          bo ("big endian"),
+          maps (0),
           bands (0),
           recode (false)
     {
@@ -157,7 +157,7 @@ namespace vigra_impex2 {
             msg += "'.";
             vigra_precondition (0, msg.c_str ());
         }
-        
+
         // read the magic number, adjust byte order if necessary
         SunHeader::field_type magic;
         read_field (stream, bo, magic);
@@ -254,7 +254,7 @@ namespace vigra_impex2 {
                     // blue
                     *recode_mover++ = *map_mover;
                 }
-                
+
             } else if (header.maptype == RMT_RAW) {
 
                 // map from unsigned char to unsigned char
@@ -359,10 +359,10 @@ namespace vigra_impex2 {
     };
 
     SunEncoderImpl::SunEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
-        : stream( filename.c_str(), std::ios::binary ), 
+#ifdef WIN32
+        : stream( filename.c_str(), std::ios::binary ),
 #else
-        : stream( filename.c_str() ), 
+        : stream( filename.c_str() ),
 #endif
           bo("big endian"),
           bands(0), finalized(false)

@@ -237,8 +237,8 @@ struct BmpDecoderImpl
 
 // reads the header.
 BmpDecoderImpl::BmpDecoderImpl( const std::string & filename )
-    : 
-#ifdef _MSC_VER
+    :
+#ifdef WIN32
       stream (filename.c_str (), std::ios::binary)
 #else
     stream (filename.c_str ())
@@ -863,7 +863,7 @@ struct BmpEncoderImpl
 
 BmpEncoderImpl::BmpEncoderImpl( const std::string & filename )
     : bo( "little endian" ),
-#ifdef _MSC_VER
+#ifdef WIN32
       stream( filename.c_str(), std::ios::binary ),
 #else
       stream( filename.c_str() ),

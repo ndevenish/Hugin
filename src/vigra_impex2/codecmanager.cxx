@@ -142,7 +142,7 @@ namespace vigra_impex2
         // get the magic string
         const unsigned int magiclen = 4;
         char fmagic[magiclen];
-#ifdef _MSC_VER
+#ifdef WIN32
         std::ifstream stream(filename.c_str(), std::ios::binary);
 #else
         std::ifstream stream(filename.c_str());

@@ -122,13 +122,13 @@ namespace vigra_impex2 {
         int scanline;
 
 	float x_resolution, y_resolution;
-        
+
         // number of passes needed during reading each scanline
         int interlace_method, n_interlace_passes;
-        
+
         // number of channels in png (or what libpng get_channels returns)
         int n_channels;
-        
+
         // size of one row
         int rowsize;
         unsigned char * row_data;
@@ -143,7 +143,7 @@ namespace vigra_impex2 {
     };
 
     PngDecoderImpl::PngDecoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
         : file( filename.c_str(), "rb" ),
 #else
         : file( filename.c_str(), "r" ),
@@ -185,7 +185,7 @@ namespace vigra_impex2 {
             vigra_postcondition( false, png_error_message.insert(0, "error in png_set_sig_bytes(): ").c_str() );
         }
         png_set_sig_bytes( png, sig_size );
-        
+
     }
 
     PngDecoderImpl::~PngDecoderImpl()
@@ -309,15 +309,15 @@ namespace vigra_impex2 {
         if (setjmp(png->jmpbuf))
             vigra_postcondition( false, png_error_message.insert(0, "error in png_read_update_info(): ").c_str() );
         png_read_update_info( png, info );
-        
+
         if (setjmp(png->jmpbuf))
             vigra_postcondition( false,png_error_message.insert(0, "error in png_get_channels(): ").c_str());
         n_channels = png_get_channels(png, info);
-             
+
         if (setjmp(png->jmpbuf))
             vigra_postcondition( false,png_error_message.insert(0, "error in png_get_rowbytes(): ").c_str());
         rowsize = png_get_rowbytes(png, info);
-        
+
         // allocate data buffers
         row_data = new unsigned char[rowsize];
     }
@@ -327,7 +327,7 @@ namespace vigra_impex2 {
         for (int i=0; i < n_interlace_passes; i++) {
             if (setjmp(png->jmpbuf))
                 vigra_postcondition( false,png_error_message.insert(0, "error in png_read_row(): ").c_str());
-            png_read_row(png, row_data, NULL);            
+            png_read_row(png, row_data, NULL);
         }
     }
 
@@ -466,7 +466,7 @@ namespace vigra_impex2 {
     };
 
     PngEncoderImpl::PngEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
         : file( filename.c_str(), "wb" ),
 #else
         : file( filename.c_str(), "w" ),

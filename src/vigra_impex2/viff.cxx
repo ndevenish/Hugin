@@ -515,7 +515,7 @@ namespace vigra_impex2 {
     ViffDecoderImpl::ViffDecoderImpl( const std::string & filename )
         : pixelType("undefined"), current_scanline(-1)
     {
-#ifdef _MSC_VER
+#ifdef WIN32
         std::ifstream stream( filename.c_str(), std::ios::binary );
 #else
         std::ifstream stream( filename.c_str() );
@@ -887,7 +887,7 @@ namespace vigra_impex2 {
         void_vector_base bands;
 
         ViffEncoderImpl( const std::string & filename )
-#ifdef _MSC_VER
+#ifdef WIN32
             : stream( filename.c_str(), std::ios::binary ),
 #else
             : stream( filename.c_str() ),
