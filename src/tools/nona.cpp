@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
     if (idx != std::string::npos) {
         basename = basename.substr(0, idx);
     }
-    
+
     const char * scriptFile = argv[optind];
 
     utils::CoutProgressDisplay pdisp;

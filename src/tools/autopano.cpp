@@ -310,16 +310,16 @@ int main(int argc, char *argv[])
                 fl->feature[i]->next_x = fl->feature[i]->x - cres.maxpos.x;
                 fl->feature[i]->next_y = fl->feature[i]->y - cres.maxpos.y;
             }
-            ostringstream finame;
-            finame << "pair_" << pair << "_0.ppm";
-            KLTWriteFeatureListToPPM(flFirst, img1, firstOverlap.width(), firstOverlap.height(), finame.str().c_str());
+//            ostringstream finame;
+//            finame << "pair_" << pair << "_0.ppm";
+//            KLTWriteFeatureListToPPM(flFirst, img1, firstOverlap.width(), firstOverlap.height(), finame.str().c_str());
 
             DEBUG_DEBUG("KLT tracking features for image pair " << pair);
             KLTTrackFeatures(tc, img1, img2, firstOverlap.width(), firstOverlap.height(), fl);
 
-            ostringstream foname;
-            foname << "pair_" << pair << "_1.ppm";
-            KLTWriteFeatureListToPPM(fl, img2, firstOverlap.width(), firstOverlap.height(), foname.str().c_str());
+//            ostringstream foname;
+//            foname << "pair_" << pair << "_1.ppm";
+//            KLTWriteFeatureListToPPM(fl, img2, firstOverlap.width(), firstOverlap.height(), foname.str().c_str());
 
             // check how many features where tracked
             int nTracked = 0;
@@ -346,7 +346,7 @@ int main(int argc, char *argv[])
                                                        Diff2D ((int) round(fl->feature[i]->x),
                                                                (int) round(fl->feature[i]->y)),
                                                        defaultKLTWindowSize);
-                    
+
                     }
                     // add only if the correlation result was not too bad
                     if (res.maxi > 0.5) {
