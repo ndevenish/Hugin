@@ -33,26 +33,6 @@
 #define snprintf _snprintf
 #endif
 
-namespace utils
-{
-
-inline double round(double x)
-{
-    return floor(x+0.5);
-}
-
-inline float roundf(float x)
-{
-    return (float) floor(x+0.5f);
-}
-
-inline int roundi(double x)
-{
-    return (int) floor(x+0.5);
-}
-
-};
-
 namespace utils {
 
 template <class str>

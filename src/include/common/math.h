@@ -41,6 +41,27 @@
 namespace utils
 {
 
+inline double round(double x);
+    
+inline double round(double x)
+{
+    return floor(x+0.5);
+}
+
+inline float roundf(float x);
+
+inline float roundf(float x)
+{
+    return (float) floor(x+0.5f);
+}
+
+inline int roundi(double x);
+
+inline int roundi(double x)
+{
+    return (int) floor(x+0.5);
+}
+
 // a simple point class
 template <class T>
 struct TDiff2D
@@ -140,7 +161,7 @@ vigra::Rect2D calcCircleROIFromPoints(const POINT& p1, const POINT & p2)
     double r = sqrt(dx*dx + dy*dy) / 2.0;
     double mx = p1.x + dx/2;
     double my = p1.y + dy/2;
-    
+
     vigra::Rect2D rect;
     rect.setUpperLeft(vigra::Point2D(roundi(mx-r), roundi(my -r)));
     rect.setLowerRight(vigra::Point2D(roundi(mx+r), roundi(my+r)));
