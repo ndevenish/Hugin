@@ -512,9 +512,9 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
                      "PTSticher files (*.txt)|*.txt",
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
-        m_filename = dlg.GetPath();
+        wxString fname = dlg.GetPath();
         // the project file is just a PTSticher script...
-        wxFileName scriptName = m_filename;
+        wxFileName scriptName = fname;
         std::ofstream script(scriptName.GetFullPath());
         pano.printStitcherScript(script, pano.getOptions());
         script.close();
@@ -548,6 +548,12 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText(_("Project opened"));
         config->Write("actualPath", path);  // remember for later
         this->SetTitle(fname.GetName() + "." + fname.GetExt() + " - hugin");
+        if (! (fname.GetExt() == "pto")) {
+            // do not remember filename if its not a hugin project
+            // to avoid overwriting the original project with an
+            // incompatible one
+            m_filename = "";
+        }
     } else {
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
@@ -925,7 +931,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     double corrThresh=HUGIN_FT_CORR_THRESHOLD;
     cfg->Read("/Finetune/CorrThreshold", &corrThresh, HUGIN_FT_CORR_THRESHOLD);
     double curvThresh = HUGIN_FT_CURV_THRESHOLD;
-    wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&curvThresh,
+    wxConfigBase::Get()->Read("/Finetune/CurvThreshold",&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
