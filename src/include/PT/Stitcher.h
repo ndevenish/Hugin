@@ -73,7 +73,10 @@ public:
      */
     virtual void stitch(const PT::PanoramaOptions & opts,
                         PT::UIntSet & images, const std::string & file,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper) = 0;
+                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+    {
+        DEBUG_FATAL("Not implemented");
+    };
 
 
     //    template<typename ImgIter, typename ImgAccessor>
@@ -577,6 +580,62 @@ public:
 private:
 };
 
+
+/** A stitcher without seaming, just copies the images over each other
+ */
+template <typename ImageType, typename AlphaType>
+class MultiBlendingStitcher : public Stitcher<ImageType, AlphaType>
+{
+    typedef Stitcher<ImageType, AlphaType> Base;
+public:
+    MultiBlendingStitcher(const PT::Panorama & pano,
+                          utils::MultiProgressDisplay & progress)
+	: Stitcher<ImageType, AlphaType>(pano, progress)
+    {
+    }
+
+    virtual ~MultiBlendingStitcher()
+    {
+    }
+
+    template<class ImgIter, class ImgAccessor,
+             class AlphaIter, class AlphaAccessor,
+             class BlendFunctor>
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                std::pair<AlphaIter, AlphaAccessor> alpha,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                BlendFunctor & blend)
+    {
+	unsigned int nImg = imgSet.size();
+
+	Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
+	// empty ROI
+	vigra_ext::ROI<vigra::Diff2D> panoROI;
+
+	// remap each image and blend into main pano image
+	for (UIntSet::const_iterator it = imgSet.begin();
+	     it != imgSet.end(); ++it)
+	{
+            // get a remapped image.
+	    RemappedPanoImage<ImageType, AlphaType> &
+            remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
+
+	    Base::m_progress.setMessage("blending");
+	    // add image to pano and panoalpha, adjusts panoROI as well.
+            try {
+                blend(remapped, pano, alpha, panoROI);
+            } catch (vigra::PreconditionViolation & e) {
+                // this can be thrown, if an image
+                // is completely out of the pano
+            }
+            // free remapped image
+            remapper.release();
+	}
+	Base::m_progress.popTask();
+    }
+};
+
 /** A stitcher without seaming, just copies the images over each other
  */
 template <typename ImageType, typename AlphaType>
@@ -590,12 +649,18 @@ public:
     {
     }
 
+    virtual ~SimpleStitcher()
+    {
+    }
+
     template<class ImgIter, class ImgAccessor,
-             class AlphaIter, class AlphaAccessor>
+             class AlphaIter, class AlphaAccessor,
+             class BlendFunctor>
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
-                        vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
-                        std::pair<AlphaIter, AlphaAccessor> alpha,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+                vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                std::pair<AlphaIter, AlphaAccessor> alpha,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                BlendFunctor & blend)
     {
 	unsigned int nImg = imgSet.size();
 
@@ -625,9 +690,11 @@ public:
 	Base::m_progress.popTask();
     }
 
+    template <class BlendFunctor>
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
-                        const std::string & filename,
-                        SingleImageRemapper<ImageType, AlphaType> & remapper)
+                const std::string & filename,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                BlendFunctor & blend)
     {
         std::string basename = utils::stripExtension(filename);
 
@@ -635,7 +702,7 @@ public:
 	ImageType pano(opts.width, opts.getHeight());
 	AlphaType panoMask(opts.width, opts.getHeight());
 
-        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blender);
 	
         std::string outputfile;
 	// save the remapped image
@@ -677,17 +744,26 @@ public:
 	Base::m_progress.popTask();
 
     }
+};
 
+/** blend images, by simply stacking them, without soft blending or
+ *  boundary calculation
+ */
+struct StackingBlender
+{
+
+public:
     /** blend \p img into \p pano, using \p alpha mask and \p panoROI
      *
      *  updates \p pano, \p alpha and \p panoROI
      */
-    template <typename PanoIter, typename PanoAccessor,
+    template <typename ImageType, typename AlphaType,
+              typename PanoIter, typename PanoAccessor,
 	      typename AlphaIter, typename AlphaAccessor>
-    void blend(RemappedPanoImage<ImageType, AlphaType> & img,
-	       vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
-	       std::pair<AlphaIter, AlphaAccessor> alpha,
-	       vigra_ext::ROI<vigra::Diff2D> & panoROI)
+    void operator()(RemappedPanoImage<ImageType, AlphaType> & img,
+                    vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
+                    std::pair<AlphaIter, AlphaAccessor> alpha,
+                    vigra_ext::ROI<vigra::Diff2D> & panoROI)
     {
 	typedef typename AlphaIter::value_type AlphaValue;
 	// intersect the ROI's.
@@ -705,8 +781,43 @@ public:
                            img.roi().apply(alpha));
 	img.roi().unite(panoROI, panoROI);
     }
+};
 
+/** blend by difference */
+struct DifferenceBlender
+{
+public:
 
+    /** blend \p img into \p pano, using \p alpha mask and \p panoROI
+     *
+     *  updates \p pano, \p alpha and \p panoROI
+     */
+    template <typename ImageType, typename AlphaType,
+              typename PanoIter, typename PanoAccessor,
+              typename AlphaIter, typename AlphaAccessor>
+    void operator()(RemappedPanoImage<ImageType, AlphaType> & img,
+                    vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
+                    std::pair<AlphaIter, AlphaAccessor> alpha,
+                    vigra_ext::ROI<vigra::Diff2D> & panoROI)
+    {
+	typedef typename AlphaIter::value_type AlphaValue;
+	// intersect the ROI's.
+	vigra_ext::ROI<vigra::Diff2D> overlap;
+
+        DEBUG_DEBUG("no overlap, copying upper area. imgroi " << img.roi());
+        DEBUG_DEBUG("pano roi: " << panoROI);
+        DEBUG_DEBUG("size of panorama: " << pano.second - pano.first);
+        vigra::combineTwoImagesIf(img.image(),
+                                  img.roi().apply(std::make_pair(pano.first, pano.third)),
+                                  maskIter(img.alpha().first),
+                                  img.roi().apply(std::make_pair(pano.first, pano.third)),
+                                  abs(vigra::functor::Arg1()-vigra::functor::Arg2()));
+        // copy mask
+        vigra::copyImageIf(img.alpha(),
+                           maskIter(img.alpha().first),
+                           img.roi().apply(alpha));
+	img.roi().unite(panoROI, panoROI);
+    }
 };
 
 /*

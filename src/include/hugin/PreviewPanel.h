@@ -58,6 +58,11 @@ public:
 
     // select which images should be shown.
     void SetDisplayedImages(const PT::UIntSet &images);
+    
+    // blending modes available
+    enum BlendMode { BLEND_COPY, BLEND_SEAMING, BLEND_DIFFERENCE };
+    
+    void SetBlendMode(BlendMode b);
 
 private:
 
@@ -92,9 +97,11 @@ private:
 
     // panorama options
     PT::PanoramaOptions opts;
-    
+
     // cache for remapped images
     SmallRemappedImageCache m_remapCache;
+    
+    BlendMode m_blendMode;
 
     wxWindow * parentWindow;
 

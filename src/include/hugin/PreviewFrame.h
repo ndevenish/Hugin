@@ -64,7 +64,9 @@ protected:
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);
-	
+
+    void OnBlendChoice(wxCommandEvent & e);
+
 private:
 
     PT::Panorama & m_pano;
@@ -73,6 +75,8 @@ private:
     wxToolBar * m_ToolBar;
     wxSlider * m_HFOVSlider;
     wxSlider * m_VFOVSlider;
+    wxChoice * m_BlendModeChoice;    
+    wxString m_choices[3];
 
 //    wxButton * m_updatePreview;
 //    wxCheckBox * m_autoCB;

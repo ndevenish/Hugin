@@ -58,7 +58,7 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
-    m_panoBitmap(0), parentWindow(parent)
+    m_panoBitmap(0), m_blendMode(BLEND_DIFFERENCE), parentWindow(parent)
 {
     DEBUG_TRACE("");
 }
@@ -127,6 +127,14 @@ void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
     }
 }
 
+void PreviewPanel::SetBlendMode(BlendMode b)
+{
+    m_blendMode = b;
+    if (m_autoPreview) {
+        updatePreview();
+    }
+}
+
 void PreviewPanel::ForceUpdate()
 {
     updatePreview();
@@ -187,16 +195,35 @@ void PreviewPanel::updatePreview()
         DEBUG_DEBUG("about to stitch images");
         if (m_displayedImages.size() > 0) {
 //            FileRemapper<BRGBImage, BImage> m;
-            if (seaming) {
+            switch (m_blendMode) {
+            case BLEND_COPY:
+            {
+                StackingBlender blender;
+                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                stitcher.stitch(opts, m_displayedImages,
+                                destImageRange(panoImg), destImage(alpha),
+                                m_remapCache,
+                                blender);
+                break;
+            }
+            case BLEND_SEAMING:
+            {
                 WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
-            } else {
+                break;
+            }
+            case BLEND_DIFFERENCE:
+            {
+                DifferenceBlender blender;
                 SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
-                                m_remapCache);
+                                m_remapCache,
+                                blender);
+                break;
+            }
             }
         }
     } catch (std::exception & e) {

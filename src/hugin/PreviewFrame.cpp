@@ -56,6 +56,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdateButton)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
+    EVT_CHOICE(-1, PreviewFrame::OnBlendChoice)
 #ifdef USE_TOGGLE_BUTTON
     EVT_TOGGLEBUTTON(-1, PreviewFrame::OnChangeDisplayedImgs)
 #else
@@ -134,6 +135,34 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
+    
+    wxStaticBoxSizer * blendModeSizer = new wxStaticBoxSizer(
+        new wxStaticBox(this, -1, _("Preview Options")),
+        wxHORIZONTAL);
+    
+    blendModeSizer->Add(new wxStaticText(this, -1, _("Blend mode:")),
+                        0,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        5);       // border width
+    
+    m_choices[0] = _("normal");
+    m_choices[1] = _("difference");
+    m_choices[2] = _("seams");
+    
+    int oldMode = wxConfigBase::Get()->Read("/PreviewFrame/blendMode", 0l);
+    DEBUG_ASSERT(oldMode >= 0 && oldMode < 3);
+    m_BlendModeChoice = new wxChoice(this, -1,
+                                     wxDefaultPosition, wxDefaultSize,
+                                     3, m_choices);
+    m_BlendModeChoice->SetSelection((PreviewPanel::BlendMode) oldMode);
+    
+    blendModeSizer->Add(m_BlendModeChoice,
+                        0,
+                        wxALL | wxALIGN_CENTER_VERTICAL,
+                        5);
+    
+    topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
+    
 
     wxConfigBase * config = wxConfigBase::Get();
     long showDruid = config->Read("/PreviewFrame/showDruid",1l);
@@ -186,6 +215,7 @@ PreviewFrame::~PreviewFrame()
     }
     bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
     config->Write("/PreviewFrame/autoUpdate", checked ? 1l: 0l);
+    config->Write("/PreviewFrame/blendMode", m_BlendModeChoice->GetSelection());
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -425,6 +455,29 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );
+}
+
+void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
+{
+    if (e.GetEventObject() == m_BlendModeChoice) {
+        int sel = e.GetSelection();
+        switch (sel) {
+        case 0:
+            m_PreviewPanel->SetBlendMode(PreviewPanel::BLEND_COPY);
+            break;
+        case 1:
+            m_PreviewPanel->SetBlendMode(PreviewPanel::BLEND_DIFFERENCE);
+            break;
+        case 2:
+            m_PreviewPanel->SetBlendMode(PreviewPanel::BLEND_SEAMING);
+            break;
+        default:
+            DEBUG_WARN("Unknown blend mode selected");
+        }
+    } else {
+        DEBUG_WARN("wxChoice event from unknown object received");
+    }
+        
 }
 
 //////////////////////////////////////////////////////////////////////////////
