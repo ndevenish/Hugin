@@ -126,7 +126,7 @@ private:
     // in on of your images
     void NewPointChange(wxPoint p, bool left);
 //    void CreateNewPointRight(wxPoint p);
-    
+
     /// this is used to finally create the point in the panorama model
     void CPEditorPanel::CreateNewPoint();
 
@@ -152,31 +152,11 @@ private:
     void OnKeyDown(wxKeyEvent & e);
     void OnKeyUp(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
-    void OnAddButton(wxCommandEvent & e);
     void OnAutoAddCB(wxCommandEvent & e);
 
-
-
+    
     // experimental corner detector.
     void OnAutoCreateCP();
-
-    // GUI controls
-    wxNotebook *m_leftTabs, *m_rightTabs;
-    CPImageCtrl *m_leftImg, *m_rightImg;
-    wxListCtrl *m_cpList;
-
-    wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
-    wxChoice *m_cpModeChoice;
-    wxCheckBox *m_autoAddCB;
-
-    // my data
-    PT::Panorama * m_pano;
-    // the current images
-    unsigned int m_leftImageNr;
-    unsigned int m_rightImageNr;
-    std::string m_leftFile;
-    std::string m_rightFile;
-    bool m_listenToPageChange;
 
     /** the state machine for point selection:
      *  it is set to the current selection
@@ -188,7 +168,30 @@ private:
                            LEFT_POINT_RETRY,  ///< right point, finetune for left point failed
                            BOTH_POINTS_SELECTED ///< left and right point selected, waiting for add point.
     };
+    // used to change the point selection state
+    void changeState(CPCreationState newState);
+
     CPCreationState cpCreationState;
+
+
+    // GUI controls
+    wxNotebook *m_leftTabs, *m_rightTabs;
+    CPImageCtrl *m_leftImg, *m_rightImg;
+    wxListCtrl *m_cpList;
+
+    wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
+    wxChoice *m_cpModeChoice;
+    wxCheckBox *m_autoAddCB;
+    wxCheckBox *m_fineTuneCB;
+    
+    // my data
+    PT::Panorama * m_pano;
+    // the current images
+    unsigned int m_leftImageNr;
+    unsigned int m_rightImageNr;
+    std::string m_leftFile;
+    std::string m_rightFile;
+    bool m_listenToPageChange;
 
     unsigned int m_selectedPoint;
 

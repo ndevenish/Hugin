@@ -97,13 +97,13 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
-                      <label>roll</label>
+                      <label>pitch</label>
                       <size>35,15</size>
                     </object>
                     <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="images_text_roll">
+                    <object class="wxTextCtrl" name="images_text_pitch">
                       <size>55,20</size>
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <tooltip>set pitch for selected image(s)</tooltip>
@@ -113,13 +113,13 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
-                      <label>pitch</label>
+                      <label>roll</label>
                       <size>35,15</size>
                     </object>
                     <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="images_text_pitch">
+                    <object class="wxTextCtrl" name="images_text_roll">
                       <size>55,20</size>
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <tooltip>set pitch for selected image(s)</tooltip>

@@ -35,6 +35,8 @@
 #endif
 
 #include "wx/image.h"
+#include "wx/config.h"
+
 #include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
@@ -127,8 +129,8 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
       scaleFactor(1), fitToWindow(false),
-      m_showSearchArea(false), m_searchRectWidth(10),
-      m_showTemplateRect(false),
+      m_showSearchArea(false), m_searchRectWidth(0),
+      m_showTemplateArea(false), m_templateRectWidth(0),
       m_tempZoom(false),m_savedScale(1)
 {
     SetCursor(wxCursor(wxCURSOR_BULLSEYE));
@@ -136,7 +138,7 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
     pointColors.push_back(*(wxTheColourDatabase->FindColour("GREEN")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("MAGENTA")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("YELLOW")));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour("GOLD")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("ORANGE")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("NAVY")));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("FIREBRICK")));
@@ -146,7 +148,6 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
     pointColors.push_back(*(wxTheColourDatabase->FindColour("MAROON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("KHAKI")));
 
-    m_drawSearchRect = false;
     m_searchRectWidth = 120;
 }
 
@@ -169,7 +170,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (i==selectedPointNr) {
-            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("GOLD"));
+            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("YELLOW"));
         } else {
             drawPoint(dc,*it,pointColors[i%pointColors.size()]);
         }
@@ -192,11 +193,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NEW_POINT_SELECTED:
         drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
-        if (m_showTemplateRect) {
+        if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen("RED", 1, wxSOLID));
             dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
-            wxPoint upperLeft = scale(m_mousePos - wxPoint(m_templateRectWidth, m_templateRectWidth));
+            wxPoint upperLeft = scale(newPoint - wxPoint(m_templateRectWidth, m_templateRectWidth));
             int width = scale(m_templateRectWidth);
 
             dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
@@ -211,20 +212,20 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     }
 
-    if (m_drawSearchRect){
+    if (m_showSearchArea && m_mousePos.x != -1){
         dc.SetLogicalFunction(wxINVERT);
         dc.SetPen(wxPen("WHITE", 1, wxSOLID));
         dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
 
-//        DEBUG_DEBUG("drawing rect with width " << 2*width);
         wxPoint upperLeft = scale(m_mousePos - wxPoint(m_searchRectWidth, m_searchRectWidth));
         int width = scale(m_searchRectWidth);
+        DEBUG_DEBUG("drawing rect with width " << 2*width << " orig: " << m_searchRectWidth*2  << " scale factor: " << getScaleFactor());
 
         dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
     }
-    
-        
+
+
 }
 
 
@@ -258,8 +259,6 @@ void CPImageCtrl::setImage(const std::string & file)
         bitmap = wxBitmap();
         SetSizeHints(0,0,0,0,1,1);
     }
-    // redraw
-    update();
 }
 
 
@@ -300,7 +299,6 @@ void CPImageCtrl::clearNewPoint()
 {
     DEBUG_TRACE("clearNewPoint");
     editState = NO_SELECTION;
-    update();
 }
 
 
@@ -396,6 +394,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             doUpdate = true;
             break;
         case SELECT_REGION:
+            DEBUG_FATAL("Select region not in use anymore");
             region.SetWidth(mpos.x - region.x);
             region.SetHeight(mpos.y - region.y);
             // do more intelligent updating here?
@@ -424,20 +423,10 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
 //    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
 
     // draw a rectangle
-
-    if (editState == NO_SELECTION && m_showSearchArea)
-    {
-        DEBUG_DEBUG("enabled search area")
+    if (m_showSearchArea) {
         doUpdate = true;
-        m_drawSearchRect = true;
-    } else {
-        if (m_drawSearchRect) {
-            DEBUG_DEBUG("disable search area display")
-            m_drawSearchRect = false;
-            doUpdate = true;
-        }
     }
-
+    
     m_mousePos = mpos;
     // repaint
     if (doUpdate) {
@@ -468,7 +457,8 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
             emit(e);
         } else if (clickState == NEW_POINT_SELECTED) {
             DEBUG_DEBUG("click on new space, select region/new point");
-            editState = SELECT_REGION;
+//            editState = SELECT_REGION;
+            editState = NEW_POINT_SELECTED;
             newPoint = mpos;
             region.x = mpos.x;
             region.y = mpos.y;
@@ -493,9 +483,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
         if (y<0) x = 0;
         Scroll( x, y);
     }
-    if (mouse->RightDown()) {
-        DEBUG_DEBUG("right mouse button pressed down");
-    }
+    m_mousePos = mpos;
 }
 
 void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
@@ -534,6 +522,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
         }
         case SELECT_REGION:
         {
+            DEBUG_FATAL("Select region not in use anymore");
             if (region.GetPosition() == mpos) {
                 // create a new point.
                 editState = NEW_POINT_SELECTED;
@@ -566,8 +555,8 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
         }
         DEBUG_DEBUG("ImageDisplay: mouse release, state change: " << oldState
                     << " -> " << editState);
-    } 
-    
+    }
+
 }
 
 void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent *mouse)
@@ -692,6 +681,7 @@ void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
         setScale(m_savedScale);
         m_tempZoom = false;
     }
+    m_mousePos = wxPoint(-1,-1);
 }
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
@@ -700,7 +690,7 @@ void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
     SetFocus();
 }
 
-wxPoint CPImageCtrl::getNewPoint() 
+wxPoint CPImageCtrl::getNewPoint()
 {
     // only possible if a new point is actually selected
     DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
@@ -713,13 +703,34 @@ void CPImageCtrl::setNewPoint(const wxPoint & p)
     // should we need to check for some precondition?
     newPoint = p;
     editState = NEW_POINT_SELECTED;
-    
+
     // show new point.
     showPosition(p.x, p.y);
-    
+
     // we do not send an event, since CPEditorPanel
     // caused the change.. so it doesn't need to filter
     // out its own change messages.
-    update();
 }
 
+void CPImageCtrl::showSearchArea(bool show)
+{ 
+    m_showSearchArea = show;
+    if (show)
+    {
+        int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
+        wxImage * img = ImageCache::getInstance().getImage(imageFilename);
+
+        m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
+        DEBUG_DEBUG("Setting new search area: w in %:" << templSearchAreaPercent << " bitmap width: " << bitmap.GetWidth() << "  resulting size: " << m_searchRectWidth);
+        m_mousePos = wxPoint(-1,-1);
+    }
+}
+
+void CPImageCtrl::showTemplateArea(bool show)
+{ 
+    m_showTemplateArea = show;
+    if (show)
+    {
+        m_templateRectWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14l) / 2;
+    }
+}

@@ -56,7 +56,7 @@ public:
     CPEvent(wxWindow* win, wxRect & reg);
     /// right mouse click
     CPEvent(wxWindow* win, CPEventMode mode, const wxPoint & p);
-    
+
     virtual wxEvent* Clone() const;
 
     /// accessor functions (they could check mode to see if a getXYZ() is
@@ -128,7 +128,7 @@ public:
 
     /// clear new point
     void clearNewPoint();
-    
+
     /// set new point to a specific point
     void setNewPoint(const wxPoint & p);
 
@@ -160,23 +160,18 @@ public:
      */
     void CPImageCtrl::showPosition(int x, int y);
 
-    /** show the search area rectangle
+    /** show/hide the search area rectangle
      *
      */
-    void showSearchArea(int width)
-        { m_showSearchArea = true; m_searchRectWidth = width; }
+    void showSearchArea(bool show=true);
+        
+    void showTemplateArea(bool show=true);
 
-    void hideSearchArea()
-        { m_showSearchArea = false ; update(); }
-    
-    void showTemplateArea(int width)
-        { m_showTemplateRect = true; m_templateRectWidth = width; };
-    void hideTemplateArea()
-        { m_showTemplateRect = false ; update(); }
-    
-    
     /// get the new point
     wxPoint getNewPoint();
+
+    /// initiate redraw
+    void update();
 
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
@@ -208,8 +203,6 @@ private:
 
     std::vector<wxPoint> points;
 
-    /// initiate redraw
-    void update();
 
     int scale(int x) const
         {  return (int) (x * getScaleFactor() + 0.5); }
@@ -244,6 +237,9 @@ private:
     // select region can also be used to just click...
 
     /**  state machine for selection process:
+     *
+     *   The select region is temporarily disabled.. maybe I find use
+     *   for it later on..
      *
      *   format of this list:
      *    - current state name
@@ -297,14 +293,13 @@ private:
     bool fitToWindow;
 
     bool m_showSearchArea;
-    bool m_drawSearchRect;
-    
-    wxPoint m_mousePos;
     int m_searchRectWidth;
 
-    bool m_showTemplateRect;
+    wxPoint m_mousePos;
+
+    bool m_showTemplateArea;
     int m_templateRectWidth;
-    
+
     bool m_tempZoom;
     double m_savedScale;
 

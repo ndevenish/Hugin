@@ -95,28 +95,14 @@
                       <orient>wxVERTICAL</orient>
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                          <label>auto fine tune</label>
+                          <label>auto fine &amp;tune</label>
                         </object>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxButton" name="cp_editor_add_button">
-                              <label>&amp;Add</label>
-                              <enabled>0</enabled>
-                              <tooltip>add a new point, right mouse button on the image does the same</tooltip>
-                            </object>
-                            <flag>wxRIGHT</flag>
-                            <border>5</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckBox" name="cp_editor_auto_add">
-                              <label>auto add</label>
-                              <checked>1</checked>
-                              <tooltip>immediately add control point when selecting a second point</tooltip>
-                            </object>
-                          </object>
+                        <object class="wxCheckBox" name="cp_editor_auto_add">
+                          <label>auto add</label>
+                          <checked>1</checked>
+                          <tooltip>immediately add control point when selecting a second point</tooltip>
                         </object>
                       </object>
                     </object>
