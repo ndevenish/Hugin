@@ -68,12 +68,18 @@ LIB_LFLAGS = $(LFLAGS)
 
 # Library 1
 LIB_1_BIN = panorama
-LIB_1_OBJ = Panorama.o PanoramaMemento.o PanoImage.o PanoToolsInterface.o  utils.o
+LIB_1_OBJ = Panorama.o \
+	    PanoramaMemento.o \
+            PanoImage.o \
+            PanoToolsInterface.o \
+            SpaceTransform.o \
+            utils.o
+
 LIB_1_CFLAGS =  $(LIB_CFLAGS)
 LIB_1_LFLAGS =  $(LIB_LFLAGS)
 
 
-APP = 1 2 3 4 5 6
+APP = 
 
 # Defaults
 
