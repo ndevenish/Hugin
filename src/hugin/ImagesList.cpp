@@ -35,6 +35,7 @@
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/spinctrl.h>
+#include <wx/imaglist.h>
 
 #include "hugin/ImagesList.h"
 

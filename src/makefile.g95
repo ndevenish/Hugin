@@ -13,14 +13,13 @@ OBJECTS = Panorama/PanoImage.o  \
           Panorama/utils.o \
           hugin/CPEditorPanel.o \
           hugin/MainFrame.o \
-          hugin/List.o \
+          hugin/ImagesList.o \
           hugin/CPImageCtrl.o \
           hugin/CommandHistory.o \
           hugin/Events.o \
           hugin/ImageCache.o \
           hugin/ImageProcessing.o \
           hugin/ImagesPanel.o \
-          hugin/ImageCenter.o \
           hugin/LensPanel.o \
           hugin/OptimizeFrame.o \
           hugin/PanoPanel.o \

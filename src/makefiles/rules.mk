@@ -323,9 +323,9 @@ TO_REMOVE2 = $(addprefix $(OBJ_DIR)/,$(OBJ_FILES)) \
 
 distclean.local:
 	@echo Removing files $(TO_REMOVE2)
-	@rm -f $(TO_REMOVE2)
+	@$(RM) -f $(TO_REMOVE2)
 	@echo Removing directory $(OBJ_DIR)
-	@-rmdir $(OBJ_DIR)
+	@-$(RM) $(OBJ_DIR)
 
 #=============================================================================
 # Things to remove when you type "make depclean"
