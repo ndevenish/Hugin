@@ -24,9 +24,10 @@
  *
  */
 
+#include <wx/cmdline.h>
 #include <config.h>
 #include "panoinc_WX.h"
-#include "panoinc.h"
+// #include "panoinc.h"
 
 #include <fstream>
 #include <sstream>
@@ -72,9 +73,6 @@ public:
     /** just for testing purposes */
     virtual int OnExit();
 
-    void usage(const wxChar * name);
-
-
 private:
     wxLocale m_locale;
 };
@@ -108,28 +106,31 @@ bool nonaApp::OnInit()
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
 
     // parse arguments
-    const char * optstring = "ho:";
-    int c;
+    static const wxCmdLineEntryDesc cmdLineDesc[] =
+    {
+      { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
+        wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+      { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output file") },
+      { wxCMD_LINE_OPTION, wxT("i"), wxT("input"),   wxT("project file to stitch") },
+      { wxCMD_LINE_NONE }
+    };
+    
+    wxCmdLineParser parser(cmdLineDesc, argc, argv);
 
-    opterr = 0;
-
-    string basename;
-
-    while ((c = getopt (argc, argv, optstring)) != -1)
-        switch (c) {
-        case 'o':
-            basename = optarg;
-            break;
-        case '?':
-        case 'h':
-            usage(argv[0]);
-            return false;
-        default:
-            return false;
-        }
-
-    string scriptFile;
-    if (argc - optind <1) {
+    switch ( parser.Parse() ) {
+      case -1: // -h or --help was given, and help displayed so exit
+	return false;
+	break;
+      case 0:  // all is well
+        break;
+      default: 
+        wxLogMessage(_("Syntax error detected, aborting."));
+	return false;
+        break;
+    }
+    
+    wxString scriptFile;
+    if ( !parser.Found(wxT("i"), &scriptFile) ) {
         // ask for project file
         wxFileDialog dlg(0,_("Specify project source project file"),
                          wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
@@ -137,20 +138,20 @@ bool nonaApp::OnInit()
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            scriptFile = dlg.GetPath().mb_str();
-        } else {
-            usage(argv[0]);
+            scriptFile = dlg.GetPath();
+        } else { // bail
             return false;
         }
-    } else {
-        scriptFile = argv[optind];
     }
 
-    wxFileName fname(wxString(scriptFile.c_str(), *wxConvCurrent));
+    DEBUG_DEBUG("input file is " << (const char *)scriptFile.mb_str())
+
+    wxFileName fname(scriptFile);
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
-
-    if (basename == "") {
+    wxString outname;
+    
+    if ( !parser.Found(wxT("o"), &outname) ) {
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
                          wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
@@ -158,28 +159,30 @@ bool nonaApp::OnInit()
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            basename = dlg.GetPath().mb_str();
-        } else {
-            usage(argv[0]);
+            outname = dlg.GetPath();
+        } else { // bail
             return false;
         }
     }
-
-    basename = utils::stripExtension(basename);
+    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str())
+    
+    wxString basename;
+    wxString outpath;
+    wxFileName::SplitPath(outname, &outpath, &basename, NULL);
 
     //utils::StreamMultiProgressDisplay pdisp(cout);
     MyProgressDialog pdisp(_("Stitching Panorama"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     Panorama pano;
     PanoramaMemento newPano;
-    ifstream prjfile(scriptFile.c_str());
+    ifstream prjfile((const char *)scriptFile.mb_str());
     if (prjfile.bad()) {
         ostringstream error;
         error << _("could not open script : ") << scriptFile << std::endl;
         wxMessageBox(wxString(error.str().c_str(), *wxConvCurrent) , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
     }
-    if (newPano.loadPTScript(prjfile, path.mb_str())) {
+    if (newPano.loadPTScript(prjfile, (const char *)path.mb_str())) {
         pano.setMemento(newPano);
     } else {
         ostringstream error;
@@ -197,13 +200,13 @@ bool nonaApp::OnInit()
     int h = opts.getHeight();
 
     cout << "output image size: " << w << "x" << h << std::endl;
-
-    DEBUG_DEBUG("output basename: " << basename);
+    wxString outfile = outpath + wxT("/") + basename;
+    DEBUG_DEBUG("output name: " << (const char *)outfile.mb_str());
 
     try {
         // stitch panorama
         PT::stitchPanorama(pano, opts,
-                           pdisp, basename);
+                           pdisp, (const char *)outfile.mb_str());
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return false;
@@ -219,20 +222,20 @@ int nonaApp::OnExit()
     return 0;
 }
 
-void nonaApp::usage(const wxChar * name)
-{
-    ostringstream o;
-    o    << name << ": stitch a panorama image" << std::endl
-         << std::endl
-         << " It uses the transform function from PanoTools, the stitching itself" << std::endl
-         << " is quite simple, no seam feathering is done." << std::endl
-         << " all interpolators of panotools are supported" << std::endl
-         << std::endl
-         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
-         << std::endl
-         << "Usage: " << name  << " -o output project_file" << std::endl;
-    wxMessageBox(wxString(o.str().c_str(), *wxConvCurrent), _("Error using standalone stitcher"));
-}
+//void nonaApp::usage(const wxChar * name)
+//{
+//    ostringstream o;
+//   o    << name << ": stitch a panorama image" << std::endl
+//        << std::endl
+//        << " It uses the transform function from PanoTools, the stitching itself" << std::endl
+//        << " is quite simple, no seam feathering is done." << std::endl
+//        << " all interpolators of panotools are supported" << std::endl
+//        << std::endl
+//        << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
+//        << std::endl
+//        << "Usage: " << name  << " -o output project_file" << std::endl;
+//    wxMessageBox(wxString(o.str().c_str(), *wxConvCurrent), _("Error using standalone stitcher"));
+//}
 
 
 // make wxwindows use this class as the main application
