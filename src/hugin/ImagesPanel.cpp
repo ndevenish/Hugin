@@ -152,12 +152,10 @@ ImagesPanel::~ImagesPanel(void)
 void ImagesPanel::FitParent( wxSizeEvent & e )
 {
     wxSize new_size = GetSize();
-//    wxSize new_size = GetParent()->GetSize();
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
 //    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }
 
-//void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
@@ -172,9 +170,6 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     // start the loop for every selected filename
       for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
 //        wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
-
-//        wxImage * img = ImageCache::getInstance().getImage(
-//            pano.getImage(i).getFilename());
 
         // preview selected images
         wxImage * s_img = ImageCache::getInstance().getImageSmall(
@@ -240,8 +235,6 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 void ImagesPanel::ChangePano ( std::string type, double var )
 {
     changePano = TRUE;
-//    DEBUG_TRACE("");
-// DEBUG_TRACE("imgNr = "<<imgNr[0]<<" "<<imgNr[1]<<" "<<imgNr[2]<<" "<<imgNr[3]);
 
     ImageVariables new_var = pano.getVariable (orientationEdit_RefImg);
     // set all images with the same distances (only for yaw)

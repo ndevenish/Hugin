@@ -583,7 +583,7 @@ msgid "Shift:"
 msgstr "Versatz:"
 
 #: ../ptopengui.cpp:662
-msgid "horizontal (d): "
+msgid "horizontal (d):"
 msgstr "waagerecht (d):"
 msgid "image shift horizontal (d)"
 msgstr "Bildversatz waagerecht (d)"
@@ -593,6 +593,10 @@ msgid "vertical (e):"
 msgstr "senkrecht (e):"
 msgid "image shift vertical (e)"
 msgstr "Bildversatz senkrecht (e):"
+msgid "center"
+msgstr "Zentrieren"
+msgid "center image shifting it with d and e"
+msgstr "die Mitte des Bildes bestimmen"
 
 #: ../ptopengui.cpp:680
 msgid "Shear:"
@@ -1623,6 +1627,12 @@ msgstr "Einstellungen gut"
 #: ../ptopengui.cpp:1993
 msgid "Close"
 msgstr "Schlieﬂen"
+msgid "close window"
+msgstr "Schlieﬂe Fenster"
+msgid "Apply"
+msgstr "Anwenden"
+msgid "apply changed values to selected images from panorama"
+msgstr "ausgew‰hlte Bilder des Panoramas ‰ndern"
 
 #: ../ptopengui.cpp:1997
 msgid "This text describes the \n"

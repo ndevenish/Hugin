@@ -254,9 +254,6 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
         filesv.push_back(filenames[i].c_str());
     }
     GlobalCmdHist::getInstance().addCommand(
-        new PT::RemoveImageCmd(pano,1)
-        );
-    GlobalCmdHist::getInstance().addCommand(
         new PT::AddImagesCmd(pano,filesv)
         );
     return true;

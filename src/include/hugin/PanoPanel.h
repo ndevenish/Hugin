@@ -91,6 +91,8 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     bool pano_dlg_run;
     /** follow the main window */
     void Resize(wxSizeEvent & e);
+    /** set the image */
+    void previewSingleChanged(wxCommandEvent & e);
 
  private:
     void DoOptimization (wxCommandEvent & e);
@@ -110,7 +112,6 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void panoviewerPrecise(wxCommandEvent & e);
     void previewWidthChanged(wxCommandEvent & e);
     void previewHeightChanged(wxCommandEvent & e);
-    void previewSingleChanged(wxCommandEvent & e);
 
     void FinalFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);

@@ -62,7 +62,7 @@
                   <label>Lens type:</label>
                   <style>wxALIGN_LEFT</style>
                 </object>
-                <flag>wxALL|wxALIGN_CENTRE</flag>
+                <flag>wxALL|wxALIGN_CENTRE|wxALIGN_CENTRE_VERTICAL</flag>
                 <minsize>80,20</minsize>
               </object>
               <object class="sizeritem">
@@ -406,6 +406,20 @@
                         <flag>wxEXPAND|wxGROW</flag>
                       </object>
                     </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxFlexGridSizer">
+                      <object class="sizeritem">
+                        <object class="wxButton" name="lens_button_center">
+                          <label>center</label>
+                          <tooltip>center image shifting it with d and e</tooltip>
+                        </object>
+                        <flag>wxEXPAND|wxGROW</flag>
+                      </object>
+                      <cols>2</cols>
+                      <growablecols>0</growablecols>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
                   </object>
                 </object>
                 <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>

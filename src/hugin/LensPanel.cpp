@@ -45,6 +45,7 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/List.h"
 #include "hugin/LensPanel.h"
+#include "hugin/ImageCenter.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -100,6 +101,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::cChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::dChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )
+    EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
     EVT_CHECKBOX ( XRCID("images_inherit_HFOV"), LensPanel::SetInheritHfov )
     EVT_SPINCTRL ( XRCID("images_spin_HFOV"), LensPanel::SetInheritHfov )
     EVT_CHECKBOX ( XRCID("images_optimize_HFOV"), LensPanel::SetOptimizeHfov )
@@ -508,6 +510,24 @@ void LensPanel::eChanged ( wxCommandEvent & e )
     }
     DEBUG_TRACE ("")
 }
+void LensPanel::SetCenter ( wxCommandEvent & e )
+{
+    if ( imgNr[0] > 0 ) {
+//      PT::UIntSet i;
+      ImgCenter *dlg = new ImgCenter((wxWindow*)this, wxDefaultPosition, wxDefaultSize, pano, &imgNr[0]);
+
+      // show an image preview
+      wxImage img = ImageCache::getInstance().getImage(
+              pano.getImage((int)imgNr[imgNr[0]]).getFilename());
+
+      dlg->ChangeView(img);
+      dlg->CentreOnParent ();
+      dlg->Refresh();
+      dlg->Show();
+    }
+    DEBUG_TRACE ("")
+}
+
 
 // Inheritance + Optimization
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxPanel" name="image_center_dialog">
+    <object class="wxFlexGridSizer">
+      <object class="sizeritem">
+        <object class="wxPanel" name="image_center_view"/>
+        <flag>wxALL|wxEXPAND|wxGROW</flag>
+      </object>
+      <cols>1</cols>
+      <rows>2</rows>
+      <growablecols>0</growablecols>
+      <object class="sizeritem">
+        <object class="wxFlexGridSizer">
+          <object class="sizeritem">
+            <object class="wxButton" name="image_center_b_apply">
+              <label>Apply</label>
+              <tooltip>apply changed values to selected images from panorama</tooltip>
+            </object>
+            <flag>wxEXPAND|wxGROW</flag>
+          </object>
+          <cols>2</cols>
+          <rows>2</rows>
+          <object class="sizeritem">
+            <object class="wxButton" name="image_center_b_close">
+              <label>Close</label>
+              <tooltip>close window</tooltip>
+            </object>
+          </object>
+          <growablecols>0</growablecols>
+        </object>
+        <flag>wxEXPAND|wxGROW</flag>
+      </object>
+      <growablerows>0</growablerows>
+      <growablerows>1</growablerows>
+    </object>
+  </object>
+</resource>

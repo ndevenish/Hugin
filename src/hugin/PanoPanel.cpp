@@ -788,10 +788,10 @@ void PanoPanel::previewSingleChanged ( wxCommandEvent & e )
         }
       }
 
-/*      GlobalCmdHist::getInstance().addCommand(
-          new PT::SetPanoOptionsCmd( pano, opt )
-          );
-*/
+      // update preview
+      PT::UIntSet i;
+      pano_panel->panoramaImagesChanged (pano, i);
+
       DEBUG_INFO ( "preview_single("<< preview_single <<"): " << previewSingle )
     }
 }
@@ -941,7 +941,6 @@ PanoDialog::PanoDialog (wxWindow *parent, const wxPoint& pos, const wxSize& size
           wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODELESS|wxRESIZE_BORDER),
       pano (*pano)
 {
-    // FIXME let the window close and move together with the MainFrame like DDD
     DEBUG_TRACE("");
     wxTheXmlResource->LoadPanel(this, wxT("pano_dialog"));
     pp = new PanoPanel( this, wxDefaultPosition, size, pano);

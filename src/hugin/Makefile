@@ -96,6 +96,7 @@ APP_1_OBJ = \
             LensPanel.o \
             ImagesPanel.o \
             ImageCache.o \
+            ImageCenter.o \
             CommandHistory.o \
 	    ImageProcessing.o \
 	    wxVigraImage.o \

@@ -34,6 +34,7 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
+#include <wx/spinctrl.h>
 
 #include "common/utils.h"
 //#include "PT/PanoCommand.h"
@@ -44,7 +45,7 @@
 #include "hugin/List.h"
 #include "hugin/LensPanel.h"
 #include "hugin/ImagesPanel.h"
-//#include "hugin/MainFrame.h"
+#include "hugin/PanoPanel.h"
 #include "hugin/Events.h"
 #include "hugin/huginApp.h"
 //#include "PT/Panorama.h"
@@ -368,10 +369,19 @@ void List::itemSelected ( wxListEvent & e )
     long item = imgNr[imgNr[0]];
     if ( (list_layout == images_layout && imgNr[0] > 0) && (item != -1 && item != prevItem) ) {
         // preview selected images
-        wxImage s_img = ImageCache::getInstance().getImageSmall(
+        if ( pano_panel->auto_preview ) {
+          // select for single image preview (very tricky)
+          XRCCTRL(*pano_panel, "pano_spin_single_preview"
+                  , wxSpinCtrl)->SetValue(item);
+          wxCommandEvent e;
+          pano_panel->previewSingleChanged (e);
+        } else {
+          // show an image preview
+          wxImage s_img = ImageCache::getInstance().getImageSmall(
               pano.getImage((int)item).getFilename());
 
-        canvas->ChangePreview ( s_img );
+          canvas->ChangePreview ( s_img );
+        }
 
         if (item != -1)
           prevItem = item;
