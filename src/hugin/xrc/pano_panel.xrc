@@ -26,7 +26,7 @@
               <selection>0</selection>
             </object>
             <option>1</option>
-            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
@@ -38,7 +38,7 @@
               </content>
               <selection>2</selection>
             </object>
-            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
@@ -193,7 +193,7 @@
                       </content>
                       <selection>0</selection>
                     </object>
-                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
                     <border>5</border>
                   </object>
                 </object>

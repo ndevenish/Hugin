@@ -1,3 +1,161 @@
+2005-02-11 20:07  dwilkins42
+
+	* src/hugin/: ImagesPanel.cpp, PTStitcherPanel.cpp: Set the color
+	  correction mode when setting the color anchor. Fixes bug 1009342
+
+2005-02-11 11:19  dwilkins42
+
+	* m4/ax_check_graphics.m4: Add -lm to ax_check_graphics.m4 to fix
+	  bug 119235
+
+2005-02-10 18:14  dwilkins42
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCenter.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesPanel.cpp,
+	  hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/OptimizePanel.cpp, hugin/PTStitcherPanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/PreviewFrame.cpp, hugin/huginApp.cpp,
+	  hugin/xrc/Makefile.am, hugin/xrc/cp_editor_panel-2.5.xrc,
+	  hugin/xrc/cp_editor_panel.xrc, hugin/xrc/images_panel-2.5.xrc,
+	  hugin/xrc/images_panel.xrc, hugin/xrc/lens_panel-2.5.xrc,
+	  hugin/xrc/lens_panel.xrc, hugin/xrc/main_frame-2.5.xrc,
+	  hugin/xrc/optimize_panel-2.5.xrc, hugin/xrc/optimize_panel.xrc,
+	  hugin/xrc/pano_panel-2.5.xrc, hugin/xrc/pano_panel.xrc,
+	  include/hugin/CPEditorPanel.h, include/hugin/ImagesPanel.h,
+	  include/hugin/LensPanel.h, include/hugin/OptimizePanel.h,
+	  include/hugin/PanoPanel.h: First attempt to solve size issues on
+	  small screens. Note: these fixes require wx 2.5.3 to work but
+	  code will still compile with wx < 2.5.3 and run. Also small fixes
+	  for preview buttons.
+
+2005-02-07 17:42  specu
+
+	* src/hugin/: po/pl.po, xrc/data/about_pl.htm,
+	  xrc/data/keyboard_pl.html: Polish translations
+
+2005-02-07 07:28  dwilkins42
+
+	* src/hugin/: ImageOrientationPanel.cpp, RunOptimizerFrame.cpp,
+	  RunStitcherFrame.cpp, po/hugin.pot, xrc/anchor_orientation.xrc,
+	  po/de.po, po/fr.po, po/it.po, po/pl.po: Correct spelling. Make
+	  text/tips clearer
+
+2005-02-07 00:27  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: fixed bug when reading exif
+	  data of rotated images. (image data rotated, portrait
+	  orientation, but exif sensor size is usually still in landscape
+	  format)
+
+2005-02-06 22:38  dwilkins42
+
+	* src/hugin/PreviewFrame.cpp: Really remove use of wxWidget 2.5.x
+	  specific features
+
+2005-02-06 22:13  dwilkins42
+
+	* src/hugin/: PreferencesDialog.cpp, PreviewFrame.cpp: Fix use of
+	  wxWidget 2.5.x specific features
+
+2005-02-06 17:45  dangelo
+
+	* src/hugin/OptimizePanel.cpp: Fixed "yaw optimisation enabled
+	  bug". I wonder why the compilers didn't detect that I was using
+	  different enums in the switch and case statements..
+
+2005-02-06 16:28  dwilkins42
+
+	* src/: include/hugin/PreviewFrame.h, hugin/PreviewFrame.cpp: Add
+	  scrollbar if image toggle buttons in preview frame do not fit
+
+2005-02-06 16:26  dwilkins42
+
+	* src/include/hugin/wxPanoCommand.h: If images are in a new
+	  directory, use new directory for loading all images
+
+2005-02-06 15:54  dangelo
+
+	* src/hugin/OptimizePanel.cpp: revert "fix" for yaw optimisatin
+	  problem.. shouldn't code straight after getting up. I suspect a
+	  build problem is responsible for that bug :(
+
+2005-02-05 08:13  dangelo
+
+	* src/hugin/OptimizePanel.cpp: fixed optimize anchor yaw when
+	  vertial OR horizontal point is selected.
+
+2005-02-04 09:25  dwilkins42
+
+	* src/hugin/xrc/data/: tips_pl-UTF8.txt, tips_pl.txt: Remove BOM
+	  from start of tips_pl-UTF8.txt to allow correct display and
+	  convert to 8859-2 in tips_pl.txt for ansi build
+
+2005-02-04 06:33  specu
+
+	* src/hugin/xrc/data/tips_pl-UTF8.txt: added Polish tips (the
+	  beginning)
+
+2005-02-04 05:49  specu
+
+	* src/hugin/po/pl.po: update Polish translation
+
+2005-02-04 03:31  dangelo
+
+	* src/hugin/xrc/data/: about.htm, about_fr.htm: forgot to increase
+	  version number in source code package
+
+2005-02-04 02:39  dangelo
+
+	* utils/hugin.nsi: updated installer script
+
+2005-02-04 02:37  dangelo
+
+	* src/: jhead/jhead.vcproj, tools/nona.vcproj,
+	  vigra_ext/vigra_ext.vcproj,
+	  foreign/vigra_impex/vigra_impex.vcproj, hugin/hugin.vcproj,
+	  nona_gui/nona_gui.vcproj, Panorama/Panorama.vcproj,
+	  common/common.vcproj: build msvc binaries against non DLL
+	  runtimes, to avoid dependancy on stupid msvcr71.dll
+
+2005-02-04 02:23  dangelo
+
+	* src/include/hugin/: config_defaults.h, wxPanoCommand.h: option to
+	  sort the images by date, when adding them (not visible by
+	  default)
+
+2005-02-03 22:50  dwilkins42
+
+	* src/hugin/xrc/data/: keyboard.html, keyboard_fr.html: Add french
+	  keyboard help. Small typo in english keyboard help
+
+2005-02-03 20:18  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Make sure help and keyboard help are
+	  also shown translated
+
+2005-02-03 19:43  dwilkins42
+
+	* src/nona_gui/po/: LINGUAS, fr.po: French translations for
+	  nona_gui
+
+2005-02-03 19:23  dwilkins42
+
+	* ChangeLog, src/hugin/po/fr.po, src/hugin/xrc/data/FAQ_fr.html,
+	  src/hugin/xrc/data/about_fr.htm,
+	  src/hugin/xrc/data/manual_fr.html: Update of French translations.
+	  Hugin now completely translated to french, including about and
+	  FAQ. Thanks to Jean-Luc Coulon
+
+2005-02-03 19:18  dwilkins42
+
+	* src/hugin/: PreferencesDialog.cpp, huginApp.cpp: Additional debug
+	  info for locale problems
+
+2005-02-03 19:16  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Only need UTF8 translations for tips
+
 2005-02-02 19:16  dwilkins42
 
 	* m4/ax_check_panotools.m4, src/hugin/MainFrame.cpp,
@@ -2917,131 +3075,4 @@
 
 	* src/keypoints/: ScaleSpace.cpp, ScaleSpaceTools.cpp,
 	  sift_keypoints.cpp: Clean
-
-2004-02-11 11:19  ajenny
-
-	* src/Panorama/Panorama.vcproj: Update for Visual Studio
-	  compilation
-
-2004-02-10 15:20  ajenny
-
-	* src/keypoints/ScaleSpace.cpp: Small bugs correction
-
-2004-02-10 13:53  dangelo
-
-	* src/hugin/PreviewPanel.cpp: fixed missing include
-
-2004-02-10 03:31  dangelo
-
-	* src/hugin/: ImageOrientationPanel.cpp, PreviewPanel.cpp: removed
-	  obselete files
-
-2004-02-10 03:24  dangelo
-
-	* src/: hugin/PanoToolsInterface.cpp,
-	  include/hugin/PanoToolsInterface.h: removed obselete files
-
-2004-02-10 03:23  dangelo
-
-	* src/: hugin/Makefile, hugin/PanoDruid.cpp,
-	  hugin/PreviewFrame.cpp, include/hugin/CPListFrame.h: fixe
-	  PanoDruid layout, made it configurable
-
-2004-02-10 02:48  dangelo
-
-	* src/hugin/ImagesList.cpp: made small mini icons look better
-
-2004-02-10 02:47  dangelo
-
-	* src/hugin/PreviewFrame.cpp: fixed PanoDruid creation
-
-2004-02-09 23:20  dangelo
-
-	* src/Panorama/Panorama.cpp: fixed "fit pano" function
-
-2004-02-09 22:37  dangelo
-
-	* src/: hugin/PanoDruid.cpp, hugin/PreviewFrame.cpp,
-	  include/hugin/PanoDruid.h, include/hugin/PreviewFrame.h: fixed
-	  crashes caused by invalid usage of wxWindows Windows and Panels.
-	  they always have to be created with "new"!
-
-2004-02-09 22:35  dangelo
-
-	* src/hugin/xrc/: main_tool.xrc, preview_frame.xrc: added text
-	  toolbar patch by bruno
-
-2004-02-08 18:01  dangelo
-
-	* src/: include/common/utils.h, include/hugin/ImageCache.h,
-	  include/hugin/MainFrame.h, include/hugin/OptimizePanel.h,
-	  tools/autooptimiser.cpp, Panorama/PTOptimise.cpp,
-	  hugin/ImageCache.cpp, hugin/MainFrame.cpp,
-	  hugin/OptimizePanel.cpp, hugin/PreviewPanel.cpp,
-	  include/PT/PTOptimise.h: fixed bugs with the optimizer panel and
-	  added new hierachial progress display to the status bar.
-
-2004-02-08 15:30  dangelo
-
-	* src/hugin/PreviewPanel.cpp: forgot to update hugin, when adding
-	  the new MultiProgressDisplay stuff.  quick fix to allow
-	  compilation.
-
-2004-02-08 00:57  dangelo
-
-	* src/tools/panosifter.cpp: default to lowe's keypoint program
-
-2004-02-08 00:52  dangelo
-
-	* src/tools/autooptimiser.cpp, src/tools/nona.cpp,
-	  src/tools/panosifter.cpp, src/vigra_ext/PointMatching.cpp,
-	  src/include/common/utils.h, src/include/vigra_ext/LoweSIFT.h,
-	  src/include/vigra_ext/PointMatching.h, src/keypoints/Makefile,
-	  README, src/Makefile, src/hugin/ImagesList.cpp,
-	  src/hugin/xrc/images_panel.xrc, src/include/PT/ImageTransforms.h,
-	  src/include/PT/SimpleStitcher.h: new ProgressDisplay, can display
-	  the progress of nested operations (GUI implementation still
-	  missing).
-
-	  added -k option to panosifter, can be used to select the keypoint
-	  program that should be used.
-
-2004-02-08 00:32  dangelo
-
-	* src/hugin/OptimizePanel.cpp: adjusted limit
-
-2004-02-07 21:25  dangelo
-
-	* LICENCE_SIFT, src/include/keypoints/ScaleSpace.h,
-	  src/include/keypoints/algo4sift.hxx, src/keypoints/.cvsignore,
-	  src/keypoints/LICENSE, src/keypoints/Makefile,
-	  src/keypoints/ScaleSpace.cpp, src/keypoints/ScaleSpaceTools.cpp,
-	  src/keypoints/sift_keypoints.cpp: added sift implementation from
-	  Alexandre.  just added comments, consistent indenting and a
-	  Makefile
-
-2004-02-07 11:02  dangelo
-
-	* src/hugin/Makefile: reodered libs while linking vigra. might
-	  resolve some linker issues
-
-2004-02-07 11:02  dangelo
-
-	* src/Panorama/PanoToolsInterface.cpp: added pano12 function, that
-	  doesn't seem to be accessible in the dll from max's site
-
-2004-02-06 00:03  dangelo
-
-	* src/: include/hugin/OptimizePanel.h, tools/autooptimiser.cpp,
-	  hugin/OptimizePanel.cpp, hugin/xrc/optimize_panel.xrc,
-	  include/common/utils.h: added gui for new automatic optimisation
-	  mode
-
-2004-02-05 23:52  dangelo
-
-	* src/: Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
-	  Panorama/Panorama.cpp, include/PT/ImageGraph.h,
-	  include/PT/PTOptimise.h: Improved pairwise optimisation, uses all
-	  optimised neighbouring images as anchor during optimisation
-	  traversal
 

@@ -437,6 +437,9 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
                m_Stitcher );
     // redo layout.
 //    Layout();
+#if wxCHECK_VERSION(2,5,3)
+    m_pano_ctrls->FitInside();
+#endif
 }
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
