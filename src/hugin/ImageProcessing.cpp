@@ -28,6 +28,7 @@
 #include "panoinc_WX.h"
 #include "hugin/ImageProcessing.h"
 
+using namespace vigra;
 
 wxImageIterator
 wxImageUpperLeft(wxImage & img)

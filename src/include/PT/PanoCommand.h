@@ -201,6 +201,35 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+    /** update all control points*/
+    class UpdateCPsCmd : public PanoCommand
+    {
+    public:
+        UpdateCPsCmd(Panorama & p, const CPVector & cps)
+            : PanoCommand(p),
+              cps(cps)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                CPVector::const_iterator it;
+                unsigned int i=0;
+                for (it = cps.begin(); it != cps.end(); ++it, i++) {
+                    pano.changeControlPoint(i, *it);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "update Variables";
+            }
+    private:
+        CPVector cps;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
     /** update all variables & control points*/
     class UpdateVariablesCPCmd : public PanoCommand
     {

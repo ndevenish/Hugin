@@ -120,7 +120,7 @@ public:
 
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
-    
+
     // load a project
     void LoadProjectFile(const wxString & filename);
 
@@ -145,6 +145,7 @@ private:
     void OnAddTimeImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
+    void OnFineTuneAll(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleCPFrame(wxCommandEvent & e);

@@ -51,10 +51,13 @@ class wxListEvent;
 class wxListCtrl;
 
 struct FDiff2D;
-struct CorrelationResult;
 
 namespace vigra {
     class Diff2D;
+}
+
+namespace vigra_ext{
+    struct CorrelationResult;
 }
 
 /** control point editor panel.
@@ -132,7 +135,7 @@ private:
 
 
     /// search for region in destImg
-    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
+    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, vigra_ext::CorrelationResult & res);
 
     double PointFineTune(unsigned int tmplImgNr,
                                         const vigra::Diff2D &tmplPoint,
@@ -196,15 +199,15 @@ private:
     };
     // used to change the point selection state
     void changeState(CPCreationState newState);
-    
+
     /** estimate and set point in other image */
-    void estimateAndAddOtherPoint(const wxPoint & p, 
+    void estimateAndAddOtherPoint(const wxPoint & p,
                                   bool left,
-                                  CPImageCtrl * thisImg, 
-                                  unsigned int thisImgNr, 
+                                  CPImageCtrl * thisImg,
+                                  unsigned int thisImgNr,
                                   CPCreationState THIS_POINT,
                                   CPCreationState THIS_POINT_RETRY,
-                                  CPImageCtrl * otherImg, 
+                                  CPImageCtrl * otherImg,
                                   unsigned int otherImgNr,
                                   CPCreationState OTHER_POINT,
                                   CPCreationState OTHER_POINT_RETRY);

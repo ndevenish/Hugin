@@ -30,6 +30,7 @@
 
 #include <vigra/impex.hxx>
 #include <vigra/error.hxx>
+#include "vigra_ext/PhaseCorrelation.h"
 
 extern "C" {
 #include "klt/klt.h"
@@ -39,9 +40,9 @@ extern "C" {
 
 #include "panoinc.h"
 #include "PT/SimpleStitcher.h"
-#include "PT/PhaseCorrelation.h"
 
 using namespace vigra;
+using namespace vigra_ext;
 using namespace PT;
 using namespace std;
 
@@ -68,9 +69,10 @@ static void usage(const char * name)
          << "     -v number   # HFOV of images, in degrees, Used for images that do" << endl
          << "                   not provide this information in the EXIF header" << endl
          << "                   default: 40" << endl
-         << "     -s number   # feature tracker window width and height, default: 7." << endl
+         << "     -s number   # feature tracker window width and height, default: sqrt(w_overlap*h*/2500)" << endl
          << "                   increase if not enough points are tracked. " << endl
          << "     -c          # closed panorama. tries to match the first and the last image." << endl;
+//         << "     -f          # do an additional correlation pass on the detected features, default: no" << endl;
 }
 
 void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama & pano, double defaultHFOV)
@@ -156,14 +158,18 @@ int main(int argc, char *argv[])
     int nFeatures = 100;
     double overlapFactor = 0.5;
     double defaultHFOV = 40;
-    int defaultKLTWindowSize = 7;
+    int defaultKLTWindowSize = -1;
     bool closedPanorama = false;
+    bool doFinetune = false;
 
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
         case 'n':
             nFeatures = atoi(optarg);
             break;
+//        case 'f':
+//            doFinetune = true;
+//            break;
         case 'o':
             overlapFactor = atof(optarg) / 100;
             break;
@@ -233,10 +239,13 @@ int main(int argc, char *argv[])
 
     // calculate feature density for perfectly distributed features.
     float featureArea = overlap.x * overlap.y / nFeatures;
+    if (defaultKLTWindowSize == -1) {
+        defaultKLTWindowSize = (int) (sqrt((overlap.x * overlap.y)/2500.0));
+    }
 
     // make sure that the features are distributed over the whole image
     // by basing the minimum feature distance on the feature area.
-    tc->mindist = (int)(sqrt(featureArea) / 3 + 0.5);
+    tc->mindist = (int)(sqrt(featureArea) / 2 + 0.5);
     tc->window_width = defaultKLTWindowSize;
     tc->window_height = defaultKLTWindowSize;
     KLTUpdateTCBorder(tc);
@@ -278,11 +287,11 @@ int main(int argc, char *argv[])
                   secondOverlap.upperLeft(),
                   secondOverlap.accessor());
 
-        FDiff2D transl = PT::phaseCorrelation(srcImageRange(firstOverlap),
+        CorrelationResult cres = vigra_ext::phaseCorrelation(srcImageRange(firstOverlap),
                                               srcImageRange(secondOverlap),
                                               fftw_p, fftw_pinv);
         DEBUG_DEBUG("Translation between " << pair << " and " << pair+1 << ": "
-                    << transl);
+                    << cres.maxpos);
         // run KLT on the images
         {
             // HACK, we assume that BImage stores its image in col major
@@ -298,8 +307,8 @@ int main(int argc, char *argv[])
                 flFirst->feature[i]->y = fl->feature[i]->y;
                 flFirst->feature[i]->val = fl->feature[i]->val;
                 // add estimation of feature position in next image
-                fl->feature[i]->next_x = fl->feature[i]->x - transl.x;
-                fl->feature[i]->next_y = fl->feature[i]->y - transl.y;
+                fl->feature[i]->next_x = fl->feature[i]->x - cres.maxpos.x;
+                fl->feature[i]->next_y = fl->feature[i]->y - cres.maxpos.y;
             }
             ostringstream finame;
             finame << "pair_" << pair << "_0.ppm";
@@ -319,24 +328,50 @@ int main(int argc, char *argv[])
                     nTracked++;
                 }
             }
-            if (nTracked < nFeatures/5) {
-                DEBUG_ERROR("image pair " << pair << ": only " << nTracked
-                            << " features tracked. Seems like the phase correlation estimate was not true, or the projective distortion is too high");
-            }
-            // add control point pairs.
+            int nAdded=0;
             for (int i = 0 ; i < fl->nFeatures ; i++)  {
                 if (fl->feature[i]->val >=0) {
-                    // add point pair
-                    ControlPoint cp(pair%nImages,
-                                    flFirst->feature[i]->x + offset.x,
-                                    flFirst->feature[i]->y + offset.y,
-                                    (pair+1)%nImages,
-                                    fl->feature[i]->x, fl->feature[i]->y);
-                    pano.addCtrlPoint(cp);
+                    // correlation based fine tune.
+                    CorrelationResult res;
+                    res.maxpos.x = fl->feature[i]->x;
+                    res.maxpos.y = fl->feature[i]->y;
+                    res.maxi = 1;
+                    // currently disabled, ther must be an error somewhere
+                    if (doFinetune) {
+                        res = vigra_ext::PointFineTune(*firstImg,
+                                                       Diff2D ((int) round(flFirst->feature[i]->x),
+                                                               (int) round(flFirst->feature[i]->y)),
+                                                       11,
+                                                       *secondImg,
+                                                       Diff2D ((int) round(fl->feature[i]->x),
+                                                               (int) round(fl->feature[i]->y)),
+                                                       defaultKLTWindowSize);
+                    
+                    }
+                    // add only if the correlation result was not too bad
+                    if (res.maxi > 0.5) {
+                        // add point pair
+                        ControlPoint cp(pair%nImages,
+                                        flFirst->feature[i]->x + offset.x,
+                                        flFirst->feature[i]->y + offset.y,
+                                        (pair+1)%nImages,
+                                        res.maxpos.x,
+                                        res.maxpos.y);
+                        pano.addCtrlPoint(cp);
+                        nAdded++;
+                    }
                 }
             }
+            DEBUG_NOTICE("image pair " << pair << ": point tracked: " << nTracked
+                         << " good points: " << nAdded);
+            if (nAdded < nFeatures/5) {
+                DEBUG_ERROR("image pair " << pair << ": only " << nAdded
+                            << " features added. Seems like the phase correlation estimate was not true, or the projective distortion is too high");
+            }
+            // add control point pairs.
+
             // set yaw estimate.
-            var.setValue(var.getValue() + (transl.x+firstImg->width() - overlap.x)/firstImg->width() * defaultHFOV);
+            var.setValue(var.getValue() + (cres.maxpos.x+firstImg->width() - overlap.x)/firstImg->width() * defaultHFOV);
             pano.updateVariable((pair+1)%nImages,var);
         }
 

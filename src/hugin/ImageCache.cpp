@@ -26,6 +26,8 @@
 
 #include "panoinc.h"
 #include "panoinc_WX.h"
+
+#include "vigra_ext/Pyramid.h"
 #include <wx/config.h>
 #include <wx/image.h>
 
@@ -34,6 +36,7 @@
 
 using namespace std;
 using namespace vigra;
+using namespace vigra_ext;
 
 ImageCache * ImageCache::instance = 0;
 

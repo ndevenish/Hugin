@@ -1,3 +1,4 @@
+// -*- c-basic-offset: 4 -*-
 // Program  : basic.cc
 // Purpose  : Basic Phase Correlation
 // Author   : Lyndon Hill
@@ -26,29 +27,61 @@
 
 */
 
-#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
+#ifndef _PHASECORRELATION_H
+#define _PHASECORRELATION_H
 
 #include <stdlib.h>
-//#include "fftw/include/fftw.h"
+#include <fftw.h>
 
-#include "PT/PhaseCorrelation.h"
-
-// Access values stored in complex data type
-static float wmag(fftw_complex *data, int nx, int ny, int px, int py);
-static float rhei(fftw_complex *data, int nx, int ny, int px, int py);
+#include "vigra_ext/Correlation.h"
 
 
+#include "common/utils.h"
+#include "common/math.h"
 
+namespace vigra_ext {
 
+    
+// Function   : rhei
+// Purpose    : Find the real height, simplifies access to complex data
+// Author     : Lyndon Hill
+// Last Change: 10.08.2001
+
+inline float rhei(fftw_complex *data, int nx, int ny, int px, int py)
+{
+  int dpos = py + px*ny;
+  float a = data[dpos].re;
+  return(a);
+}
+
+// Function   : wmag
+// Purpose    : Wrap around surface for PC
+// Author     : Lyndon Hill
+// Last Change: 14.4.99
+
+inline float wmag(fftw_complex *data, int nx, int ny, int px, int py)
+{
+  if(px < 0)
+    px = nx + px;
+  if(px >= nx)
+    px -= nx;
+
+  if(py < 0)
+    py = ny + py;
+  if(py >= ny)
+    py -= ny;
+
+  float temp = rhei(data, nx, ny, px, py);
+  return(temp);
+}
+
+    
 // Function   : phase
 // Purpose    : Calculate the phase correlation
 // Author     : Lyndon Hill
 // Last Change: 10.08.2001
 
-FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv, std::string filename)
+inline CorrelationResult phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_plan pinv, std::string filename)
 {
   int e, f;
   int dpos;
@@ -62,7 +95,7 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
   float *b; b = new float [3];
   float *x; x = new float [3];
 
-  FDiff2D result;
+  CorrelationResult result;
 
   fftw_complex *pcs;
   pcs = new fftw_complex[nx*ny];
@@ -110,12 +143,12 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
 
   // write out the fftw image, in numeric form
   if (filename != "") {
-    ofstream of(filename.c_str());
-    of << "# name cres" << endl
-       << "# type: complex matrix" << endl
-       << "# rows: " << ny << endl
-       << "# columns: " << nx << endl;
-    of << scientific;
+      std::ofstream of(filename.c_str());
+      of << "# name cres" << std::endl
+       << "# type: complex matrix" << std::endl
+       << "# rows: " << ny << std::endl
+       << "# columns: " << nx << std::endl;
+    of << std::scientific;
 
     for(e = 0; e < ny; e++)
     {
@@ -124,10 +157,10 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
         dpos = e+f*ny;
         of << "(" << pcs[dpos].re << "," << pcs[dpos].im << ") ";
       }
-      of << endl;
+      of << std::endl;
     }
   }
-  
+
   // Peak searching routine
 
   for(e = 0; e < ny; e++)
@@ -144,7 +177,7 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
     }
   }
 
-  cout << "Integer peak at (" << peakx << "," << peaky << ") height " << peakh << "\n";
+  DEBUG_DEBUG("Integer peak at (" << peakx << "," << peaky << ") height " << peakh);
 
   /* Peak interpolation, using a simple quadratic function *****************/
 
@@ -302,24 +335,21 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
      of -1 will wrap to the other side. The height is also interpolated.
                                                                             */
 
-  cout << "Interpolated peak at ";
 
   if(fpeakx < nx/2)  {
-    cout << "(" << -fpeakx << ",";
-    result.x = peakx;
+    result.maxpos.x = peakx;
   } else {
-    cout << "(" << nx-fpeakx << " ";
-    result.x = fpeakx - nx;
+    result.maxpos.x = fpeakx - nx;
   }
 
   if(fpeaky < ny/2) {
-    cout << -fpeaky;
-    result.y = fpeaky;
+    result.maxpos.y = fpeaky;
   } else {
-    cout << ny-fpeaky;
-    result.y = fpeaky - ny;
+    result.maxpos.y = fpeaky - ny;
   }
-  cout << ") height " << topmag << "\n";
+  result.maxi = topmag;
+
+  DEBUG_DEBUG("Interpolated peak at " << result.maxpos << " height: " << result.maxi);
 
   // Free memory
 
@@ -339,36 +369,103 @@ FDiff2D PT::phase(fftw_complex *F1, fftw_complex *F2, int nx, int ny, fftwnd_pla
 }
 
 
-// Function   : wmag
-// Purpose    : Wrap around surface for PC
-// Author     : Lyndon Hill
-// Last Change: 14.4.99
-
-float wmag(fftw_complex *data, int nx, int ny, int px, int py)
+// Main Program
+template <class SrcImageIterator, class SrcAccessor>
+CorrelationResult phaseCorrelation(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> current,
+                         vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> previous,
+                         fftwnd_plan fftw_p, fftwnd_plan fftw_pinv, std::string filename="")
 {
-  if(px < 0)
-    px = nx + px;
-  if(px >= nx)
-    px -= nx;
 
-  if(py < 0)
-    py = ny + py;
-  if(py >= ny)
-    py -= ny;
+  /* Initialisation *****************/
 
-  float temp = rhei(data, nx, ny, px, py);
-  return(temp);
+  // Simple variables, counters, etc.
+
+  int a, b;
+//  int c, d, e, f, g, h;
+  int N, dpos;
+
+  int wide, high;
+
+  float pi = 3.141592654;
+  float X;
+
+  float *x; x = new float [3];
+
+  wide = current.second.x - current.first.x;
+  high = current.second.y - current.first.y;
+  DEBUG_DEBUG("using images with size: " << wide << "," << high);
+
+  /* Phase Correlation Preprocessing *****************/
+
+  // FFTW related code and variables
+
+  N = wide*high;
+
+  fftw_complex *inc, *fc;
+//  fftw_complex *ffc;
+  fftw_complex *inp, *fp;
+//  fftw_complex *ffp;
+
+  // allocate memory for complex data
+
+  inc = new fftw_complex [N];
+  inp = new fftw_complex [N];
+  fc  = new fftw_complex [N];
+  fp  = new fftw_complex [N];
+
+  // Transfer images to FFTW input arrays
+  // and
+  // Input windowing for edges, raised cosine (=Hamming) window
+
+  SrcImageIterator ycur(current.first);
+  SrcImageIterator yprev(previous.first);
+//  std::ofstream tf("band_img.txt");
+  for(b = 0; b < high; b++, ++ycur.y, ++yprev.y)
+  {
+    SrcImageIterator xcur(ycur);
+    SrcImageIterator xprev(yprev);
+    for(a = 0; a < wide; a++, ++xcur.x, ++xprev.x)
+    {
+
+      X = cos(pi*(((float)(a)/(float)(wide)) - 0.5))*cos(pi*(((float)(b)/(float)(high)) - 0.5));
+      dpos = b+a*high;
+      inc[dpos].re = X * current.third(xcur);  inc[dpos].im = 0;
+      inp[dpos].re = X * previous.third(xprev); inp[dpos].im = 0;
+//      tf << inc[dpos].re << " ";
+    }
+//    tf << std::endl;
+  }
+
+  // Calculate FFT
+
+  fftwnd_one(fftw_p, inc, fc);
+  fftwnd_one(fftw_p, inp, fp);
+
+  DEBUG_DEBUG("Calculated FFTs");
+
+  /*
+     You may wish to add some noise filtering etc here
+                                                       */
+
+  // Calculate Phase Correlation
+
+  CorrelationResult transl = phase(fc, fp, wide, high, fftw_pinv, filename);
+
+  // Free memory and finish
+
+
+  delete []inc;
+  delete []inp;
+  delete []fc;
+  delete []fp;
+  delete []x;
+
+  return transl;
 }
 
-// Function   : rhei
-// Purpose    : Find the real height, simplifies access to complex data
-// Author     : Lyndon Hill
-// Last Change: 10.08.2001
 
-float rhei(fftw_complex *data, int nx, int ny, int px, int py)
-{
-  int dpos = py + px*ny;
-  float a = data[dpos].re;
-  return(a);
-}
+    
+    
+} // namespace
 
+#endif // _PHASECORRELATION_H

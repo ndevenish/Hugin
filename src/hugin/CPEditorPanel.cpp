@@ -34,6 +34,7 @@
 // more vigra include if needed
 #include "vigra/cornerdetection.hxx"
 #include "vigra/localminmax.hxx"
+#include "vigra_ext/Correlation.h"
 
 // standard wx include
 #include "panoinc_WX.h"
@@ -307,7 +308,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             wxRect region = ev.getRect();
             int dx = region.GetWidth() / 2;
             int dy = region.GetHeight() / 2;
-            CorrelationResult pos;
+            vigra_ext::CorrelationResult pos;
             ControlPoint point;
             bool found(false);
             DEBUG_DEBUG("left img: " << m_leftImageNr
@@ -318,8 +319,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                     point.x1 = region.GetLeft() + dx;
                     point.y1 = region.GetTop() + dy;
                     point.image2Nr = m_rightImageNr;
-                    point.x2 = pos.pos.x + dx;
-                    point.y2 = pos.pos.y + dy;
+                    point.x2 = pos.maxpos.x + dx;
+                    point.y2 = pos.maxpos.y + dy;
                     point.mode = PT::ControlPoint::X_Y;
                     found = true;
                 } else {
@@ -328,8 +329,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             } else {
                 if (FindTemplate(m_rightImageNr, region, m_leftImageNr, pos)) {
                     point.image1Nr = m_leftImageNr;
-                    point.x1 = pos.pos.x + dx;
-                    point.y1 = pos.pos.y + dy;
+                    point.x1 = pos.maxpos.x + dx;
+                    point.y1 = pos.maxpos.y + dy;
                     point.image2Nr = m_rightImageNr;
                     point.x2 = region.GetLeft() + dx;
                     point.y2 = region.GetTop() + dy;
@@ -476,11 +477,11 @@ unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
 
 void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
                                              bool left,
-                                             CPImageCtrl * thisImg, 
-                                             unsigned int thisImgNr, 
+                                             CPImageCtrl * thisImg,
+                                             unsigned int thisImgNr,
                                              CPCreationState THIS_POINT,
                                              CPCreationState THIS_POINT_RETRY,
-                                             CPImageCtrl * otherImg, 
+                                             CPImageCtrl * otherImg,
                                              unsigned int otherImgNr,
                                              CPCreationState OTHER_POINT,
                                              CPCreationState OTHER_POINT_RETRY)
@@ -499,7 +500,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
         if (m_fineTuneCB->IsChecked()) {
             MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
             wxPoint newPoint = otherImg->getNewPoint();
-            
+
             long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
             const PanoImage & img = m_pano->getImage(thisImgNr);
             double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
@@ -553,7 +554,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
             otherImg->setScale(1);
             changeState(BOTH_POINTS_SELECTED);
         }
-            
+
     } else {
         // estimate was outside of image
         // do nothing special
@@ -611,7 +612,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
         thisImg->showPosition(p.x,p.y);
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p.x,p.y);
-        
+
         if (estimate && currentPoints.size() > 0) {
             estimateAndAddOtherPoint(p, left,
                                      thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
@@ -775,6 +776,8 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
 
 #endif
 
+#if 0
+// complete image scanning disabled
 bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
                                  unsigned int dstImgNr,
                                  CorrelationResult & res)
@@ -800,7 +803,7 @@ bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
                      templ.accessor()
         );
 
-    findTemplate(templ, m_pano->getImage(dstImgNr).getFilename(), res);
+    vigra_ext::findTemplate(templ, m_pano->getImage(dstImgNr).getFilename(), res);
     // FIXME. make this configureable. 0.5 is a quite low value. 0.7 or
     // so is more acceptable. but some features only match with 0.5.
     // but we get more false positives..
@@ -810,6 +813,7 @@ bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
     return false;
 }
 
+#endif
 
 double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                     const Diff2D & tmplPoint,
@@ -870,21 +874,21 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     DEBUG_DEBUG("starting fine tune");
     // we could use the multiresolution version as well.
     // but usually the region is quite small.
-    CorrelationResult res;
-    res = correlateImage(subjImg.upperLeft() + searchUL,
-                         subjImg.upperLeft() + searchLR,
-                         subjImg.accessor(),
-                         dest.upperLeft(),
-                         dest.accessor(),
-                         tmplImg.upperLeft() + tmplPoint,
-                         tmplImg.accessor(),
-                         tmplUL, tmplLR, -1);
-    res.pos += searchUL;
+    vigra_ext::CorrelationResult res;
+    res = vigra_ext::correlateImage(subjImg.upperLeft() + searchUL,
+                                    subjImg.upperLeft() + searchLR,
+                                    subjImg.accessor(),
+                                    dest.upperLeft(),
+                                    dest.accessor(),
+                                    tmplImg.upperLeft() + tmplPoint,
+                                    tmplImg.accessor(),
+                                    tmplUL, tmplLR, -1);
+    res.maxpos = res.maxpos + searchUL;
     DEBUG_DEBUG("normal search finished, max:" << res.maxi
-                << " at " << res.pos.x << "," << res.pos.y);
+                << " at " << res.maxpos.x << "," << res.maxpos.y);
 
-    tunedPos.x = res.pos.x;
-    tunedPos.y = res.pos.y;
+    tunedPos.x = res.maxpos.x;
+    tunedPos.y = res.maxpos.y;
     return res.maxi;
 }
 
