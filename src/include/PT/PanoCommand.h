@@ -699,15 +699,48 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-#if 0
+	/** set active images */
+    class SetActiveImagesCmd : public PanoCommand
+    {
+    public:
+        SetActiveImagesCmd(Panorama & p, UIntSet & active)
+            : PanoCommand(p), m_active(active)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                UIntSet::iterator it;
+                LensVector::const_iterator v_it = vect.begin();
+				for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
+					if (set_contains(m_active, i)) {
+						pano.activateImage(i, true);
+					} else {
+						pano.activateImage(i, false);
+					}
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "change lens";
+            }
+    private:
+        UIntSet m_active;
+        LensVector vect;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
     class SetImageOptionsCmd : public PanoCommand
     {
     public:
-        SetPanoOptionsCmd(Panorama & p, unsigned int feather, UIntSet imgs)
-            : PanoCommand(p), options(options), images(imgs)
+        SetImageOptionsCmd(Panorama & p, ImageOptions opts, UIntSet imgs)
+            : PanoCommand(p), options(opts), imgNrs(imgs)
             { };
         virtual void execute()
             {
@@ -715,18 +748,18 @@ namespace PT {
                 for (UIntSet::iterator it = imgNrs.begin();
                      it != imgNrs.end(); ++it)
                 {
-                    pano.setImageOptions(*it, lensNr);
+                    pano.setImageOptions(*it, options);
                 }
                 pano.changeFinished();
             }
         virtual std::string getName() const
             {
-                return "unnamed command";
+                return "set image options";
             }
     private:
-        PanoramaOptions options;
+        ImageOptions options;
+        UIntSet imgNrs;
     };
-#endif
 
     /** set the panorama options */
     class SetPanoOptionsCmd : public PanoCommand

@@ -383,10 +383,6 @@ public:
         }
     virtual ~PanoramaOptions() {};
 
-//    QDomNode toXML(QDomDocument & doc) const;
-
-//    void setFromXML(const QDomNode & elem);
-
     void printScriptLine(std::ostream & o) const;
 
     /// return string name of output file format
@@ -413,6 +409,7 @@ public:
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
+
     ProjectionFormat projectionFormat;
     double HFOV;
     double VFOV;
@@ -438,7 +435,7 @@ public:
     BlendingMechanism blendMode;
 
 private:
-    static const std::string fileformatNames[];
+	static const std::string fileformatNames[];
 };
 
 typedef std::vector<ControlPoint> CPVector;

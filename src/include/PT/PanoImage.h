@@ -9,13 +9,7 @@
 #define PANOIMAGE_H
 
 #include <iostream>
-//#include <Magick++.h>
-
-/*
-#include <qstring.h>
-#include <qdom.h>
-#include <qpixmap.h>
-*/
+#include <vigra/diff2d.hxx>
 
 namespace PT {
 
@@ -28,39 +22,34 @@ public:
     ImageOptions()
         : featherWidth(10),
           ignoreFrameWidth(0),
-          morph(false)
+          morph(false),
+		  docrop(false),
+		  active(true),
+          autoCenterCrop(true)
         { };
-#if 0
-    // isn't the c++ compiler supposed to create a default operator== ?
-    bool operator==(const ImageOptions & o) const
-        {
-            return (featherWidth == o.featherWidth &&
-                    ignoreFrameWidth == o.ignoreFrameWidth &&
-                    morph == o.morph &&
-                    source == o.source
-                );
-        }
-
-#endif
-//        QDomElement toXML(QDomDocument & doc);
-//        void setFromXML(const QDomNode & node);
-
 
     // PT state
     /// u10           specify width of feather for stitching. default:10
     unsigned int featherWidth;
     /// m20           ignore a frame 20 pixels wide. default: 0
     unsigned int ignoreFrameWidth;
+
     /// Morph-to-fit using control points.
     bool morph;
 
+	// crop parameters
+	bool docrop;
+    bool autoCenterCrop;
+    vigra::Rect2D cropRect;
+
+	// is image active (displayed in preview and used for optimisation)
+	bool active;
 };
 
 
     /** This class holds an source image.
      *
-     *  It contains information about its settings for the panorama,
-     *  and holds the Image data (as an ImageMagick image)
+     *  It contains information about its settings for the panorama.
      *
      *  An image should not depend on the panorama.
      */
@@ -78,9 +67,6 @@ public:
 
         virtual const char * isA() const { return "PanoImage"; };
 
-//        QDomElement toXML(QDomDocument & doc);
-//        void setFromXML(QDomNode & node);
-
         std::string getFilename() const
             { return filename; }
 
@@ -89,7 +75,7 @@ public:
 
         const ImageOptions & getOptions() const
             { return options; }
-
+    
         void setOptions(const ImageOptions & opt)
             { options = opt; }
 

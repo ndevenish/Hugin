@@ -311,13 +311,15 @@ public:
 
     /** parse optimzier output
      *
+     *  @param set of image numbers that where used during by
+     *         printOptimizerScript().
      *  @param vars will be set the the optimzied variables
      *  @param ctrlPoints will contain the controlpoints, with distance
      *         information
      *
      *  @return false on error (could not read optimizer output, parse error)
      */
-    void readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoints) const;
+    void readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const;
 
     // ============================================================
     //
@@ -390,7 +392,7 @@ public:
 
     /** change image properties.
      */
-//    void setImageOptions(unsigned int img);
+    void setImageOptions(unsigned int i, const ImageOptions & opts);
 
     /** set a lens for this image.
      *
@@ -426,7 +428,7 @@ public:
      *  all images.
      *
      */
-    void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var);
+    void updateLensVariable(unsigned int lensNr, const LensVariable &var);
 
 
     /** update a lens
@@ -466,16 +468,20 @@ public:
     void setMemento(PanoramaMemento & state);
 
     /// read after optimization, fills in control point errors.
-    void parseOptimizerScript(std::istream & i, VariableMapVector & imgVars, CPVector & ctrlPoints) const;
+    void parseOptimizerScript(std::istream & i, const UIntSet & imgs, 
+                              VariableMapVector & imgVars,
+                              CPVector & ctrlPoints) const;
 
     /// create an optimizer script
     void printOptimizerScript(std::ostream & o,
                               const OptimizeVector & optvars,
                               const PanoramaOptions & options,
-			      const std::string & stripPrefix="");
+							  const UIntSet & imgs,
+			                  const std::string & stripPrefix="");
 
     /// create the stitcher script
-    void printStitcherScript(std::ostream & o, const PanoramaOptions & target) const;
+    void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
+		                     const UIntSet & imgs) const;
 
     // subject interface
     /** notify observers about changes in this class
@@ -500,8 +506,21 @@ public:
     bool isDirty() const
         { return dirty; }
 
+	/** mark an image as active or inactive.
+	 *
+	 *  This is only a flag, that can be turned on or off.
+	 *  If an image is marked active, then it should
+	 *  be used for optimizing and stitching.
+	 *
+	 *  However, this is not done automatically. One has
+	 *  to use getActiveImages() to get the numbers of the
+	 *  active images, and pass these to the respective
+	 *  functions that do the stitching or optimisation
+	 */
+	void activateImage(unsigned int imgNr, bool active=true);
 
-
+	/** get active images */
+	UIntSet getActiveImages() const;
 
 protected:
 

@@ -630,6 +630,15 @@ void Panorama::setImageFilename(unsigned int i, const std::string & fname)
     m_forceImagesUpdate = true;
 }
 
+void Panorama::setImageOptions(unsigned int i, const ImageOptions & opts)
+{
+    DEBUG_ASSERT(i < state.images.size());
+    state.images[i].setOptions(opts);
+    imageChanged(i);
+    m_forceImagesUpdate = true;
+}
+
+
 unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
 {
     unsigned int nr = state.ctrlPoints.size();
@@ -667,6 +676,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 void Panorama::printOptimizerScript(ostream & o,
                                     const OptimizeVector & optvars,
                                     const PanoramaOptions & output,
+									const UIntSet & imgs,
                                     const std::string & stripPrefix)
 {
 #ifdef __unix__
@@ -683,19 +693,26 @@ void Panorama::printOptimizerScript(ostream & o,
 
     output.printScriptLine(o);
 
-    unsigned int i = 0;
     std::map<unsigned int, unsigned int> linkAnchors;
+    // map from script img nr -> pano image nr
+    std::map<unsigned int, unsigned int> imageNrMap;
     o << std::endl
       << "# image lines" << std::endl;
-    for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
-        o << "i w" << (*it).getWidth() << " h" << (*it).getHeight()
-          <<" f" << state.lenses[(*it).getLensNr()].getProjection() << " ";
-        // print variables with links
-
-        unsigned int imgNr = it - state.images.begin();
-        unsigned int lensNr = it->getLensNr();
-        Lens & lens = state.lenses[it->getLensNr()];
+    unsigned int ic = 0;
+	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+         ++imgNrIt)
+    {
+		unsigned int imgNr = *imgNrIt;
+        imageNrMap[imgNr] = ic;
+		PanoImage & img = state.images[imgNr];
+        unsigned int lensNr = img.getLensNr();
+        Lens & lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
+
+        o << "i w" << img.getWidth() << " h" << img.getHeight()
+          <<" f" << lens.getProjection() << " ";
+
+        // print variables with links
         for (VariableMap::const_iterator vit = vars.begin();
              vit != vars.end(); ++vit)
         {
@@ -704,7 +721,7 @@ void Panorama::printOptimizerScript(ostream & o,
                 && map_get(lens.variables, vit->first).isLinked())
             {
                 if (set_contains(linkAnchors, lensNr)
-                    && linkAnchors[lensNr] != imgNr)
+                    && linkAnchors[lensNr] != imageNrMap[imgNr])
                 {
                     // print link
                     DEBUG_DEBUG("printing link: " << vit->first);
@@ -713,7 +730,7 @@ void Panorama::printOptimizerScript(ostream & o,
                 } else {
                     DEBUG_DEBUG("printing value for linked var " << vit->first);
                     // first time, print value
-                    linkAnchors[lensNr] = imgNr;
+                    linkAnchors[lensNr] = imageNrMap[imgNr];
                     vit->second.print(o) << " ";
                 }
             } else {
@@ -722,10 +739,16 @@ void Panorama::printOptimizerScript(ostream & o,
             }
         }
 
+        if (img.getOptions().docrop) {
+            // print crop parameters
+            vigra::Rect2D c = img.getOptions().cropRect;
+            o << " C" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
+        }
+
 //        o << " u" << (*it).getOptions().featherWidth
         o << " u" << output.featherWidth
-          << ((*it).getOptions().morph ? " o" : "");
-        string fname = (*it).getFilename();
+          << (img.getOptions().morph ? " o" : "");
+        string fname = img.getFilename();
         if (stripPrefix.size() > 0) {
             // strip prefix from image names.
             // check if the prefix is acutally the same
@@ -739,7 +762,7 @@ void Panorama::printOptimizerScript(ostream & o,
             }
         }
         o << " n\"" << fname << "\"" << std::endl;
-        i++;
+        ic++;
     }
 
     o << std::endl << std::endl
@@ -749,7 +772,12 @@ void Panorama::printOptimizerScript(ostream & o,
     int optVarCounter=0;
     // be careful. linked variables should not be specified multiple times.
     vector<set<string> > linkvars(state.lenses.size());
-    for (unsigned int i=0; i < state.images.size(); i++) {
+
+	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+         ++imgNrIt)
+    {
+		unsigned int i = *imgNrIt;
+//    for (unsigned int i=0; i < state.images.size(); i++) {
 
         unsigned int lensNr = state.images[i].getLensNr();
         const Lens & lens = state.lenses[lensNr];
@@ -763,18 +791,18 @@ void Panorama::printOptimizerScript(ostream & o,
                     if (! set_contains(linkvars[lensNr], *sit))
                     {
                         // print only once
-                        o << *sit << i << " ";
+                        o << *sit << imageNrMap[i] << " ";
                         linkvars[lensNr].insert(*sit);
                         optVarCounter++;
                     }
                 } else {
                     // unlinked lens variable, print as usual
-                    o << *sit << i << " ";
+                    o << *sit << imageNrMap[i] << " ";
                     optVarCounter++;
                 }
             } else {
                 // not a lens variable, print multiple times
-                o << *sit << i << " ";
+                o << *sit << imageNrMap[i] << " ";
                 optVarCounter++;
             }
         }
@@ -787,11 +815,13 @@ void Panorama::printOptimizerScript(ostream & o,
     o << std::endl << std::endl
       << "# control points" << std::endl;
     for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
-        o << "c n" << it->image1Nr
-          << " N" << it->image2Nr
-          << " x" << it->x1 << " y" << it->y1
-          << " X" << it->x2 << " Y" << it->y2
-          << " t" << it->mode << std::endl;
+		if (set_contains(imgs, it->image1Nr) && set_contains(imgs, it->image2Nr)) {
+	        o << "c n" << imageNrMap[it->image1Nr]
+		      << " N" << imageNrMap[it->image2Nr]
+			  << " x" << it->x1 << " y" << it->y1
+        	  << " X" << it->x2 << " Y" << it->y2
+              << " t" << it->mode << std::endl;
+        }
     }
     o << std::endl;
 
@@ -807,7 +837,8 @@ void Panorama::printOptimizerScript(ostream & o,
 
 
 void Panorama::printStitcherScript(ostream & o,
-                                   const PanoramaOptions & target) const
+                                   const PanoramaOptions & target,
+                                   const UIntSet & imgs) const
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output
@@ -823,22 +854,30 @@ void Panorama::printStitcherScript(ostream & o,
     target.printScriptLine(o);
     o << std::endl
       << "# output image lines" << std::endl;
-    unsigned int i=0;
-    for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
+	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end(); ++imgNrIt) {
+		unsigned int imgNr = *imgNrIt;
+		const PanoImage & img = state.images[imgNr];
+        unsigned int lensNr = img.getLensNr();
+        const Lens & lens = state.lenses[lensNr];
+        const VariableMap & vars = state.variables[imgNr];
 
-        o << "o w" << (*it).getWidth() << " h" << (*it).getHeight()
-          <<" f" << state.lenses[(*it).getLensNr()].getProjection() << " ";
+        o << "o w" << img.getWidth() << " h" << img.getHeight()
+          <<" f" << state.lenses[lensNr].getProjection() << " ";
         // print variables, without links
         VariableMap::const_iterator vit;
-        for(vit = state.variables[i].begin();
-            vit != state.variables[i].end();  ++vit)
+        for(vit = vars.begin(); vit != vars.end();  ++vit)
         {
             vit->second.print(o) << " ";
         }
-        o << " u" << target.featherWidth << " m" << (*it).getOptions().ignoreFrameWidth
-          << ((*it).getOptions().morph ? " o" : "")
-          << " n\"" << (*it).getFilename() << "\"" << std::endl;
-        i++;
+        o << " u" << target.featherWidth << " m" << img.getOptions().ignoreFrameWidth
+          << (img.getOptions().morph ? " o" : "")
+          << " n\"" << img.getFilename() << "\"";
+        if (img.getOptions().docrop) {
+            // print crop parameters
+            vigra::Rect2D c = img.getOptions().cropRect;
+            o << " C" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
+        }
+        o << std::endl;
     }
     o << std::endl;
 #ifdef __unix__
@@ -849,7 +888,7 @@ void Panorama::printStitcherScript(ostream & o,
 
 }
 
-void Panorama::readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoints) const
+void Panorama::readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const
 {
     std::ifstream script(PTScriptFile.c_str());
     if (!script.good()) {
@@ -857,10 +896,11 @@ void Panorama::readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoin
         // throw execption
         return;
     }
-    parseOptimizerScript(script, vars, ctrlPoints);
+    parseOptimizerScript(script, imgs, vars, ctrlPoints);
 }
 
-void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CPVector & CPs) const
+void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs, 
+                                    VariableMapVector & imgVars, CPVector & CPs) const
 {
     DEBUG_TRACE("");
 #ifdef __unix__
@@ -870,12 +910,37 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
     strcpy(old_locale, t);
     setlocale(LC_NUMERIC,"C");
 #endif
+
+    unsigned int ic=0;
+    std::map<unsigned int, unsigned int> script2ImgMap;
+	for (UIntSet::const_iterator & imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+         ++imgNrIt)
+    {
+		unsigned int imgNr = *imgNrIt;
+        script2ImgMap[ic] = imgNr;
+        ic++;
+    }
+    ic = 0;
+    unsigned int sc = 0;
+    std::map<unsigned int, unsigned int> script2CPMap;
+    for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
+        if (set_contains(imgs, it->image1Nr) && set_contains(imgs, it->image2Nr)) {
+            script2CPMap[sc] = ic;
+            sc++;
+        }
+        ic++;
+    }
+
+
+
     // 0 = read output (image lines), 1 = read control point distances
     int state = 0;
     string line;
     unsigned int lineNr = 0;
-    VariableMapVector::iterator varIt = imgVars.begin();
-    CPVector::iterator pointIt = CPs.begin();
+    unsigned int scriptImgCounter = 0;
+    unsigned int scriptCPCounter = 0;
+//    VariableMapVector::iterator varIt = imgVars.begin();
+//    CPVector::iterator pointIt = CPs.begin();
 
     int pnr=0;
 
@@ -892,39 +957,40 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
              || (line.compare("# Control Points: Distance between desired and fitted Position (in \"Pixels\")") == 0 )) {
 		
                 // switch to reading the control point distance
-                if (varIt != imgVars.end()) {
-                    DEBUG_ERROR("Read only " << varIt -imgVars.begin() << " images from PTOptimizer file");
+                if (scriptImgCounter != imgs.size()-1) {
+                    DEBUG_ERROR("Read only " << scriptImgCounter+1 << " images from PTOptimizer file");
                 }
-		DEBUG_DEBUG("Changing state to read control point distances");
+                DEBUG_DEBUG("Changing state to read control point distances");
                 state = 1;
                 break;
             }
             if (line[0] != 'o') continue;
-            assert(varIt != imgVars.end());
+            // select variables of the image
+            VariableMap & var = imgVars[script2ImgMap[scriptImgCounter]];
             DEBUG_DEBUG("reading image variables");
             // read position variables
             int link;
-            readVar(map_get(*varIt, "r"), link, line);
+            readVar(map_get(var, "r"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(*varIt, "p"), link, line);
+            readVar(map_get(var, "p"), link, line);
             DEBUG_ASSERT(link == -1);
-            readVar(map_get(*varIt, "y"), link, line);
+            readVar(map_get(var, "y"), link, line);
             DEBUG_ASSERT(link == -1);
 
-            DEBUG_DEBUG("yaw: " << map_get(*varIt, "y").getValue()
-                        << " pitch " << map_get(*varIt, "p").getValue()
-                        << " roll " << map_get(*varIt, "r").getValue());
+            DEBUG_DEBUG("yaw: " << map_get(var, "y").getValue()
+                        << " pitch " << map_get(var, "p").getValue()
+                        << " roll " << map_get(var, "r").getValue());
             // read lens variables
 
             for (char **c = Lens::variableNames; *c != 0; ++c) {
-                Variable & curVar = map_get(*varIt, *c);
+                Variable & curVar = map_get(var, *c);
                 if (!readVar(curVar, link, line)) {
                     DEBUG_ERROR("Could not read "<< *c << " at script line " << lineNr);
                 }
                 // linking in output forbidden
                 DEBUG_ASSERT(link == -1);
             }
-            varIt++;
+            scriptImgCounter++;
             break;
         }
         case 1:
@@ -932,9 +998,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             // read ctrl point distances:
             // # Control Point No 0:  0.428994
             if (line[0] == 'C') {
-                DEBUG_DEBUG(CPs.size() << " points, read: " << pnr);
-                DEBUG_ASSERT(pointIt == CPs.end() && "have all control point distances been read?");
-                DEBUG_DEBUG("all CP errors read");
+//                DEBUG_DEBUG(CPs.size() << " points, read: " << pnr);
                 state = 2;
                 break;
             }
@@ -943,14 +1007,13 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             string::size_type p;
             if ((p=line.find(':')) == string::npos) assert(0);
             p++;
-            DEBUG_DEBUG("parsing point " << pnr << " (idx:" << p << "): " << line.substr(p));
+            DEBUG_DEBUG("parsing point " << scriptCPCounter << " (idx:" << p << "): " << line.substr(p));
             double err = -1;
 
             utils::stringToDouble(line.substr(p), err);
-            (*pointIt).error = err;
-            DEBUG_DEBUG("read CP distance " << (*pointIt).error);
-            pointIt++;
-            pnr++;
+            CPs[script2CPMap[scriptCPCounter]].error = err;
+            DEBUG_DEBUG("read CP distance " << err);
+            scriptCPCounter++;
             break;
         }
         default:
@@ -1036,6 +1099,36 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
             // FIXME check for if really changed?
             imageChanged(i);
             map_get(state.variables[i], var.getName()).setValue(var.getValue());
+
+            // check if the crop area should be automatically centered
+            if ( var.getName() == "d" ) {
+                ImageOptions opts = state.images[i].getOptions();
+                if (opts.docrop && opts.autoCenterCrop) {
+                    // horizontally center crop area.
+                    
+                    double center = state.images[i].getWidth() / 2.0 + var.getValue();
+                    int left = roundi(center - opts.cropRect.width() / 2.0);
+                    int right = roundi(center + opts.cropRect.width() / 2.0);
+                    opts.cropRect.setUpperLeft(Point2D(left, opts.cropRect.top()));
+                    opts.cropRect.setLowerRight(Point2D(right, opts.cropRect.bottom()));
+                    state.images[i].setOptions(opts);
+                }
+            }
+
+            if ( var.getName() == "e" ) {
+                ImageOptions opts = state.images[i].getOptions();
+                if (opts.docrop && opts.autoCenterCrop) {
+                    // horizontally center crop area.
+                    
+                    double center = state.images[i].getHeight() / 2.0 + var.getValue();
+                    int top = roundi(center - opts.cropRect.height() / 2.0);
+                    int bottom = roundi(center + opts.cropRect.height() / 2.0);
+                    opts.cropRect.setUpperLeft(Point2D(opts.cropRect.left(), top));
+                    opts.cropRect.setLowerRight(Point2D(opts.cropRect.right(), bottom));
+                    state.images[i].setOptions(opts);
+                }
+            }
+
         }
     }
 }
@@ -1232,6 +1325,28 @@ void Panorama::imageChanged(unsigned int imgNr)
     assert(changedImages.find(imgNr) != changedImages.end());
 }
 
+void Panorama::activateImage(unsigned int imgNr, bool active)
+{
+    assert(imgNr < state.images.size());
+	ImageOptions o = getImage(imgNr).getOptions();
+	if (o.active != active) {
+		o.active = active;
+        state.images[imgNr].setOptions(o);
+		imageChanged(imgNr);
+	}
+}
+
+UIntSet Panorama::getActiveImages() const
+{
+	UIntSet activeImgs;
+
+    for (unsigned int i = 0; i < state.images.size(); i++) {
+        if (state.images[i].getOptions().active) {
+			activeImgs.insert(i);
+        }
+    }
+	return activeImgs;
+}
 
 //==== internal function for variable & lens management
 

@@ -485,8 +485,6 @@ public:
 
     void parse(const string & line)
     {
-        getPTStringParam(filename, line, "n");
-
         for (char * v = varnames; *v != 0; v++) {
             vars[*v] = 0;
             links[*v] = -1;
@@ -503,6 +501,16 @@ public:
         getPTStringParam(filename,line,"n");
         getIntParam(width, line, "w");
         getIntParam(height, line, "h");
+        string crop_str;
+        if ( getPTParam(crop_str, line, "C")) {
+            int left, right, top, bottom;
+            int n = sscanf(crop_str.c_str(), "%d,%d,%d,%d", &left, &right, &top, &bottom);
+            if (n == 4) {
+                crop = vigra::Rect2D(left, top, right, bottom);
+            } else {
+                DEBUG_WARN("Could not parse crop string: " << crop_str);
+            }
+        }
     }
 
     static char varnames[];
@@ -512,7 +520,7 @@ public:
     int f;
     int blend_radius;
     int width, height;
-
+    vigra::Rect2D crop;
 };
 
 char ImgInfo::varnames[] = "vabcdegtrpy";
@@ -879,6 +887,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             iImgInfo[i].filename = oImgInfo[i].filename;
         }
 
+        if (iImgInfo[i].crop.isEmpty() && !oImgInfo[i].crop.isEmpty()) {
+            DEBUG_DEBUG("crop: o -> i");
+            iImgInfo[i].crop = oImgInfo[i].crop;
+        }
+
         if (iImgInfo[i].width <= 0 && oImgInfo[i].width > 0) {
             DEBUG_DEBUG("width: o -> i");
             iImgInfo[i].width = oImgInfo[i].width;
@@ -1033,6 +1046,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
         ImageOptions opts = images.back().getOptions();
         opts.featherWidth = (unsigned int) iImgInfo[i].blend_radius;
+        if (!iImgInfo[i].crop.isEmpty()) {
+            opts.docrop = true;
+            opts.cropRect = iImgInfo[i].crop;
+        }
         images.back().setOptions(opts);
     }
 
