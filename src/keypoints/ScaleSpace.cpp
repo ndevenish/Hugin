@@ -117,7 +117,7 @@ void ScaleSpace::AccurateLocalizationAndPruning( int x, int y, int s, Keypoints 
         new_heigth = dogs[s](new_x, new_y) + 0.5 * dpos.Dot( dDog );
 
         // pruning small peak
-        if ( fabs(new_heigth)< PEAK_LIMIT )
+        if ( fabs(new_heigth)< PEAK_THRESH )
             return;
 
 		// pruning big edge response
@@ -378,7 +378,7 @@ bool ScaleSpace::CheckForMinMax( int x, int y, const FImage & im0, const FImage 
     double val = im1(x, y);
 
     // peak threshold
-    if ( fabs(val) < PEAK_LIMIT )
+    if ( fabs(val) < PEAK_THRESH )
         return false;
 
     // verify for max or min
