@@ -118,8 +118,6 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         imgNr++;
     }
 
-    // create file in tmp path..
-    
     wxString ptofile("autopano_result_tempfile.pto");
     autopanoArgs.Replace("%o", ptofile);
     wxString tmp;
@@ -134,4 +132,9 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 
     // read and update control points
     readUpdatedControlPoints(ptofile.c_str(), imgMapping, pano);
+
+    if (!wxRemoveFile(ptofile)) {
+        DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
+    }
+    
 }
