@@ -408,7 +408,7 @@ namespace PT {
 
                 pano.readOptimizerOutput(vars, cps);
                 pano.updateVariables(vars);
-                pano.updateCtrlPoints(cps);
+                pano.updateCtrlPointErrors(cps);
                 pano.changeFinished();
             }
         virtual std::string getName() const

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Panorama2.h
+/** @file Panorama.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -40,6 +40,16 @@ namespace PT {
 class Panorama;
 
 
+typedef std::set<unsigned int> UIntSet;
+
+/// helper functions for parsing a script line
+bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
+
+template <class T>
+bool getParam(T & v, const std::string & line, const std::string & parameter);
+
+bool readVar(Variable & var, const std::string & line);
+
 
 /** this handler class will receive change events from the Panorama.
  *
@@ -52,24 +62,55 @@ class PanoramaObserver
 public:
     virtual ~PanoramaObserver()
         { };
-    virtual void panoramaChanged(Panorama &pano) 
-        { DEBUG_TRACE(""); };
-    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr)
-        { DEBUG_TRACE(""); };
-    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr)
-        { DEBUG_TRACE(""); };
-    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr)
-        { DEBUG_TRACE(""); };
+    /** Notification about a Panorama change.
+     *
+     *  This function will always be called, even when the
+     *  change could be handled by panoramaImageAdded() or
+     *  other notify functions.
+     *
+     *  This allows lazy observers to just listen to
+     *  panoramaChanged().
+     *
+     */
+    virtual void panoramaChanged(Panorama &pano)
+        { DEBUG_WARN("Default panoramaChanged called"); };
+
+    /** notifies about changes to images
+     *
+     *  Images might have been added/removed. to find out
+     *  how many images are still there, use Panorama::getNrOfImages.
+     *
+     *  @param pano the panorama object that changed
+     *  @param changed set of changed images
+     *
+     */
+    virtual void panoramaImagesChanged(Panorama &pano, const UIntSet & changed)
+        { DEBUG_WARN("DEFAULT handler method"); };
+
+    /** notification about a new image.
+     *
+     *  It is called whenever an image has been added.
+     */
+//    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr)
+//        { DEBUG_WARN("DEFAULT handler method"); };
+
+    /** notifiy about the removal of an image.
+     *
+     *  always called when an image is removed.
+     *  Beware: the image might already destroyed when this is called.
+     */
+//    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr)
+//        { DEBUG_WARN("DEFAULT handler method"); };
+
+    /** notify about an image change.
+     *
+     *  This is called whenever the image (for example the filename)
+     *  or something the image depends on (for example: Lens, Control
+     *  Points) has changed.
+     */
+//    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr)
+//        { DEBUG_TRACE(""); };
 };
-
-
-/// helper functions for parsing a script line
-bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
-
-template <class T>
-bool getParam(T & v, const std::string & line, const std::string & parameter);
-
-bool readVar(Variable & var, const std::string & line);
 
 
 /** Model for a panorama.
@@ -135,7 +176,7 @@ public:
      */
 //    void setObserver(PanoramaObserver * o)
 //        { observer = o; }
-    
+
     /** add a panorama observer.
      *
      *  It will recieve all change messages.
@@ -143,7 +184,7 @@ public:
      *  the second addObserver() will have no effect.
      */
     void addObserver(PanoramaObserver *o);
-    
+
     /** remove a panorama observer.
      *
      *  Observers must be removed before they are destroyed,
@@ -268,8 +309,9 @@ public:
      *
      *  updates control distances and position in final panorama
      *  usually used to set the changes from the optimization.
+     *  The control points must be the same as in
      */
-    void updateCtrlPoints(const CPVector & controlPoints);
+    void updateCtrlPointErrors(const CPVector & controlPoints);
 
     /** add an Image to the panorama
      *  @return image number
@@ -317,6 +359,12 @@ public:
      */
     void updateLens(unsigned int lensNr, const Lens & lens);
 
+    /** remove a lens
+     *
+     *  The last lens can't be removed.
+     */
+    void removeLens(unsigned int lensNr);
+
     /** set new output settings
      *  This is not used directly for optimizing/stiching, but it can
      *  be feed into runOptimizer() and runStitcher().
@@ -342,7 +390,12 @@ public:
     void printStitcherScript(std::ostream & o, const PanoramaOptions & target) const;
 
     // subject interface
-    /// call after a change has happend
+    /** notify observers about changes in this class
+     *
+     *  This needs to be called explicitly by somebody after
+     *  changes have been made.
+     *  Allows to compress multiple changes into one notification.
+     */
     void changeFinished();
 
 
@@ -355,7 +408,25 @@ protected:
     /// when a lens has been changed.
     void adjustVarLinks();
 
+    /// copy lens data to variables of this image
     void updateLens(unsigned int imgNr);
+
+    /// image addition notification
+//    void notifyImageAdded(unsigned int imgNr);
+
+    /// image removal notification
+//    void notifyImageRemoved(unsigned int imgNr);
+
+    /// image change notification
+//    void notifyImageChanged(unsigned int imgNr);
+
+    /** mark image for change notification.
+     *
+     *  Does not send the notification, this is left
+     *  to changedFinished()
+     */
+    void imageChanged(unsigned int imgNr)
+        { changedImages.insert(imgNr); }
 
 
 private:
@@ -374,8 +445,10 @@ private:
 
     PanoramaMemento state;
     std::set<PanoramaObserver *> observers;
+    /// the images that have been changed since the last changeFinished()
+    UIntSet changedImages;
 };
 
 } // namespace
 
-#endif // _PANORAMA2_H
+#endif // _PANORAMA_H

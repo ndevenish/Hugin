@@ -228,6 +228,8 @@ public:
                     mode == o.mode &&
                     error == o.error);
         }
+    
+    const std::string & getModeName(OptimizeMode mode) const;
 
 //    QDomNode toXML(QDomDocument & doc) const;
 
@@ -242,6 +244,8 @@ public:
     double x2,y2;
     double error;
     OptimizeMode mode;
+    
+    static std::string modeNames[];
 };
 
 /** Panorama image options
