@@ -586,8 +586,9 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         // changing the images via the tabbar will always
         // take the current state directly from the pano
         // object
+        DEBUG_DEBUG("image changed "<< imgNr);
         if (m_leftImageNr == imgNr) {
-            DEBUG_DEBUG("left image dirty");
+            DEBUG_DEBUG("left image dirty "<< imgNr);
             if (m_leftFile != pano.getImage(imgNr).getFilename()) {
                 m_leftFile = pano.getImage(imgNr).getFilename();
                 m_leftImg->setImage(m_leftFile);
@@ -596,7 +597,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         }
 
         if (m_rightImageNr == imgNr) {
-            DEBUG_DEBUG("right image dirty");
+            DEBUG_DEBUG("right image dirty "<< imgNr);
             if (m_rightFile != pano.getImage(imgNr).getFilename()) {
                 m_rightFile = pano.getImage(imgNr).getFilename();
                 m_rightImg->setImage(m_rightFile);
