@@ -859,7 +859,27 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxDialog dlg;
+	wxString strFile;
+	wxString langCode;
+	bool bHelpExists = false;
+
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
+
+    //if the language is not default, load custom FAQ file (if exists)
+	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	if(langCode != wxString(wxT("en")))
+	{
+		strFile = m_xrcPrefix + wxT("data/manual_") + langCode + wxT(".html");
+		if(wxFile::Exists(strFile))
+			bHelpExists = true;
+	}
+	if(!bHelpExists)
+		strFile = m_xrcPrefix + wxT("data/manual.html");  //load default file
+
+	DEBUG_TRACE("Using help: " << strFile.mb_str());
+    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(strFile);
+
     dlg.ShowModal();
 }
 
@@ -906,7 +926,27 @@ void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxDialog dlg;
+	wxString strFile;
+	wxString langCode;
+	bool bKBDExists = false;
+
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("keyboard_help_dlg"));
+
+    //if the language is not default, load custom FAQ file (if exists)
+	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	if(langCode != wxString(wxT("en")))
+	{
+		strFile = m_xrcPrefix + wxT("data/keyboard_") + langCode + wxT(".html");
+		if(wxFile::Exists(strFile))
+			bKBDExists = true;
+	}
+	if(!bKBDExists)
+		strFile = m_xrcPrefix + wxT("data/keyboard.html");  //load default file
+
+	DEBUG_TRACE("Using keyboard help: " << strFile.mb_str());
+    XRCCTRL(dlg,"keyboard_help_html",wxHtmlWindow)->LoadPage(strFile);
+
     dlg.ShowModal();
 }
 
