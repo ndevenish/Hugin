@@ -139,5 +139,4 @@ inline std::ostream & operator<<(std::ostream & o, const utils::TDiff2D<T> & d)
     return o << "( " << d.x << " " << d.y << " )";
 }
 
-
 #endif // MY_MATH_H

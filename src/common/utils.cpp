@@ -96,7 +96,7 @@ std::string utils::doubleToString(double d, int digits)
     std::sprintf (c, fmt, d);
     std::string number (c);
 
-    int l = number.length()-1;
+    int l = (int)number.length()-1;
 
     while ( l != 0 && number[l] == '0' ) {
       number.erase (l);

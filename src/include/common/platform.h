@@ -29,6 +29,10 @@
 
 #include <math.h>
 
+#ifdef MSVC
+#define snprintf _snprintf
+#endif
+
 namespace utils
 {
 

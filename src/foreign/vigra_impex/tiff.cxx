@@ -659,7 +659,7 @@ namespace vigra {
         else if ( comp == "LZW" )
             tiffcomp = COMPRESSION_LZW;
         else if ( comp == "DEFLATE" )
-            tiffcomp = COMPRESSION_ADOBE_DEFLATE;
+            tiffcomp = COMPRESSION_DEFLATE;
     }
 
     void TIFFEncoderImpl::finalizeSettings()
@@ -715,12 +715,13 @@ namespace vigra {
         TIFFSetField( tiff, TIFFTAG_BITSPERSAMPLE, bits_per_sample );
 
 	if (extra_samples_per_pixel > 0) {
-	    uint16 types[extra_samples_per_pixel];
+		uint16 * types = new  uint16[extra_samples_per_pixel];
 	    for ( int i=0; i < extra_samples_per_pixel; i++ ) {
 		types[i] = EXTRASAMPLE_UNASSALPHA;
 	    }
 	    TIFFSetField( tiff, TIFFTAG_EXTRASAMPLES, extra_samples_per_pixel,
 			  types );
+		delete[] types;
 	}
 
         // set photometric

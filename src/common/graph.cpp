@@ -36,7 +36,7 @@ using namespace utils;
 void utils::findSubGraphs(AdjListGraph & graph,
                           std::vector<int> & subgraphStart)
 {
-    int nImages = graph.size();
+    int nImages = (int) graph.size();
     // nodes that have not been visited
     std::set<int> unseen;
     // fill with all images
@@ -44,7 +44,7 @@ void utils::findSubGraphs(AdjListGraph & graph,
 
     while(unseen.size() != 0 ) {
         // first remaining node determines the next graph
-        int root = *(unseen.begin());
+        int root = (int) *(unseen.begin());
         subgraphStart.push_back(root);
         // visit all nodes of this subgraph
         RemoveVisitor rmv(unseen);

@@ -35,6 +35,8 @@
 #ifdef __WXMSW__
 // has to be included before!
 //#include <wx/log.h>
+
+#define snprintf _snprintf
 #endif
 
 // misc utility functions / macros
@@ -320,7 +322,6 @@ namespace utils
         void increase()
         {
             // substep progress.
-            tasks.back().progress + tasks.back().subStepProgress;
             setProgress(tasks.back().progress + tasks.back().subStepProgress);
         }
 
@@ -401,7 +402,7 @@ namespace utils
                              it->getMessage().c_str(),
                              100 * it->getProgress());
                 } else if (! it->measureProgress && it+1 == tasks.end()) {
-                    m_whizzCount = (++m_whizzCount) % m_whizz.size();
+                    m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
                     snprintf(tmp,80,"%20s: %-50s :   %c ",
                              it->getShortMessage().c_str(),
                              it->getMessage().c_str(),
