@@ -33,54 +33,54 @@ struct DruidHint;
 /////////////////////////////////////////////////////////////////////////////
 
 // the druid is the gui
-class PanoDruid : public wxStaticBoxSizer
+class PanoDruid : public wxPanel
 {
 public:
-	PanoDruid(wxWindow* parent);
-	void Update(const PT::Panorama& pano);
-	DruidHint* FindHint(const wxChar* name);
+    PanoDruid(wxWindow* parent);
+    void Update(const PT::Panorama& pano);
+    DruidHint* FindHint(const wxChar* name);
 
 protected:
-	int m_advice;
-	wxWindow* m_parent;
+    int m_advice;
+    wxStaticBoxSizer  * m_boxSizer;
     wxBitmap m_bitmap;
-	wxStaticBitmap m_graphic;
-	wxStaticText m_text;
+    wxStaticBitmap * m_graphic;
+    wxStaticText * m_text;
 
-	static int sm_hints;
-	static int sm_chunk;
-	static int sm_sorted;
-	static DruidHint** sm_advice;
+    static int sm_hints;
+    static int sm_chunk;
+    static int sm_sorted;
+    static DruidHint** sm_advice;
 
 public:
-	static void DefineHint(DruidHint* advice);
+    static void DefineHint(DruidHint* advice);
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
 struct DruidHint
 {
-	DruidHint(int rank,
-			  const wxChar* name,
-			  const wxChar* graphic,
-			  const wxChar* brief,
-			  const wxChar* text)
+    DruidHint(int rank,
+              const wxChar* name,
+              const wxChar* graphic,
+              const wxChar* brief,
+              const wxChar* text)
 	{
-		this->rank = rank;
-		this->name = name;
-		this->graphic = graphic;
-		this->brief = brief;
-		this->text = text;
-		DEBUG_TRACE( "Adding DruidHint \"" << name << "\"..." );
-		PanoDruid::DefineHint(this);
+            this->rank = rank;
+            this->name = name;
+            this->graphic = graphic;
+            this->brief = brief;
+            this->text = text;
+            DEBUG_TRACE( "Adding DruidHint \"" << name << "\"..." );
+            PanoDruid::DefineHint(this);
 	}
-	virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
-		{ return FALSE; }
-	int rank;
-	const wxChar* name;
-	const wxChar* graphic;
-	const wxChar* brief;
-	const wxChar* text;
+    virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
+        { return FALSE; }
+    int rank;
+    const wxChar* name;
+    const wxChar* graphic;
+    const wxChar* brief;
+    const wxChar* text;
 };
 
 #define NEW_HINT(rank,name,graphic,brief,text) \

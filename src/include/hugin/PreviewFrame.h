@@ -73,13 +73,13 @@ private:
     wxToolBar * m_ToolBar;
     wxSlider * m_HFOVSlider;
     wxSlider * m_VFOVSlider;
-    
+
 //    wxButton * m_updatePreview;
 //    wxCheckBox * m_autoCB;
 
     wxStaticBoxSizer * m_ToggleButtonSizer;
 
-	PanoDruid m_druid;
+    PanoDruid *m_druid;
 
     std::vector<wxToggleButton *> m_ToggleButtons;
 

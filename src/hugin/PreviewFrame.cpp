@@ -55,9 +55,8 @@ END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("panorama preview"),
-              wxDefaultPosition, wxDefaultSize),
-	  m_pano(pano),
-	  m_druid(this)
+      wxDefaultPosition, wxDefaultSize),
+      m_pano(pano)
 {
 	DEBUG_TRACE("");
 
@@ -116,6 +115,10 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxALL,    // draw border all around
                   5);       // border width
 
+    
+    m_druid = new PanoDruid(this);
+    topsizer->Add(m_druid, 0, wxEXPAND | wxALL, 5);
+    m_druid->Update(m_pano);
 
     // the initial size as calculated by the sizers
     topsizer->SetSizeHints( this );
@@ -139,8 +142,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
 
-    topsizer->Add(&m_druid, 0, wxEXPAND | wxALL, 5);
-	m_druid.Update(m_pano);
 
     // add a status bar
     CreateStatusBar(2);
@@ -200,7 +201,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue((int) round(opts.HFOV));
     m_VFOVSlider->SetValue((int) round(opts.VFOV));
-	m_druid.Update(m_pano);
+	m_druid->Update(m_pano);
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -256,7 +257,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
-		m_druid.Update(m_pano);
+		m_druid->Update(m_pano);
     }
 }
 
@@ -300,10 +301,10 @@ void PreviewFrame::OnProjectionChanged()
         new PT::SetPanoOptionsCmd( pano, opt )
         );
     DEBUG_DEBUG ("Projection changed: "  << lt << ":" << Ip )
- 
-    
+
+
 }
-#endif 
+#endif
 
 void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {
@@ -329,7 +330,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
-    m_druid.Update(m_pano);
+    m_druid->Update(m_pano);
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
@@ -347,7 +348,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
     m_PreviewPanel->ForceUpdate();
-	m_druid.Update(m_pano);
+	m_druid->Update(m_pano);
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
