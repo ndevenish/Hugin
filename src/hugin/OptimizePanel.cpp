@@ -335,6 +335,10 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
 void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaOptions & options)
 {
     DEBUG_TRACE("");
+    if (m_pano->getNrOfImages() == 0) {
+        // nothing to optimize
+        return;
+    }
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode = m_mode_cb->GetSelection();
