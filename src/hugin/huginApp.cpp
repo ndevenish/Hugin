@@ -55,17 +55,17 @@ huginApp::~huginApp()
 {
 }
 
-// here goes and comes configuration
-wxConfigBase* config = new wxConfig ( "hugin",
-			"hugin Team", ".huginrc", "huginrc",
-			 wxCONFIG_USE_LOCAL_FILE );
-
 bool huginApp::OnInit()
 {
     DEBUG_INFO( GetAppName().c_str() )
     DEBUG_INFO( wxFileName::GetCwd().c_str() )
     DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
 
+
+    // here goes and comes configuration
+    wxConfigBase* config = new wxConfig ( "hugin",
+			"hugin Team", ".huginrc", "huginrc",
+			 wxCONFIG_USE_LOCAL_FILE );
 
     // set as global config, so that other parts of hugin and wxWindows
     // controls can use it easily
