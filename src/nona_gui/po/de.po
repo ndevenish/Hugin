@@ -8,52 +8,55 @@ msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2004-11-14 11:46+0200\n"
-"PO-Revision-Date: 2004-10-09 18:02+0200\n"
-"Last-Translator: Douglas Wilkins <douglasw@zahav.net.il>\n"
+"PO-Revision-Date: 2005-01-31 21:28+0100\n"
+"Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 
 #: src/nona_gui/nona_gui.cpp:131
 msgid "Syntax error in parameters detected, aborting."
-msgstr ""
+msgstr "Fehler in der Komandozeile."
 
 #: src/nona_gui/nona_gui.cpp:140
 msgid "Specify project source project file"
-msgstr ""
+msgstr "Projektdatei angeben"
 
 #: src/nona_gui/nona_gui.cpp:156
 msgid "Too many project files specified"
-msgstr ""
+msgstr "Zu viele Projektdateien angegeben"
 
 #: src/nona_gui/nona_gui.cpp:164
 msgid "Could not find project file"
-msgstr ""
+msgstr "Projektdatei nicht gefunden"
 
 #: src/nona_gui/nona_gui.cpp:173
 msgid "Specify output image filename"
-msgstr ""
+msgstr "Name des Panoramabildes angeben"
 
 #: src/nona_gui/nona_gui.cpp:181
 msgid "No project files specified"
-msgstr ""
+msgstr "Keine Projektdatei angegeben"
 
 #: src/nona_gui/nona_gui.cpp:192
 msgid "Stitching Panorama"
-msgstr ""
+msgstr "Panorama zusammenfügen"
 
 #: src/nona_gui/nona_gui.cpp:198
 #, c-format
 msgid "could not open script : %s"
-msgstr ""
+msgstr "Konnte Projekt %s nicht öffnen"
 
 #: src/nona_gui/nona_gui.cpp:204
 #, c-format
 msgid "error while parsing panos tool script: %s"
-msgstr ""
+msgstr "Fehler während dem einlesen des Skriptes: %s"
 
 #: src/nona_gui/nona_gui.cpp:215
 msgid "output image size: "
-msgstr ""
+msgstr "Größe des Ausgabebildes:"
+
