@@ -127,15 +127,15 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     // create our process
     m_process = new wxProcess(this);
     m_process->Redirect();
-    m_pid = wxExecute(cmd, wxEXEC_ASYNC, m_process);
+    m_pid = wxExecute(cmd, wxEXEC_ASYNC | wxEXEC_NOHIDE, m_process);
 
 #if __unix__
     if (m_pid <= 0 )
     {
         wxLogError(_T("Failed to launch the PTOptimizer."));
+        
         return;
     }
-#endif
 
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);
@@ -146,6 +146,9 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
         wxLogError(_T("Failed to connect to child stdout"));
         return;
     }
+#else
+    m_in = 0;
+#endif
 
     m_process->SetNextHandler(this);
 

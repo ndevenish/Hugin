@@ -29,7 +29,6 @@
 #include "common/utils.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/ImageCache.h"
-#include "hugin/huginApp.h"
 
 using namespace std;
 using namespace vigra;
@@ -38,6 +37,7 @@ using namespace vigra;
 ImageCache * ImageCache::instance = 0;
 
 ImageCache::ImageCache()
+    : m_progress(0)
 {
 }
 
@@ -86,7 +86,9 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     if (it != images.end()) {
         return it->second;
     } else {
-        g_MainFrame->SetStatusText(wxString::Format("Loading image %s",filename.c_str()),0);
+        if (m_progress) {
+            m_progress->progressMessage(wxString::Format("Loading image %s",filename.c_str()).c_str(),0);
+        }
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
             DEBUG_ERROR("Can't load image: " << filename);
@@ -107,7 +109,9 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
     if (it != images.end()) {
         return it->second;
     } else {
-        g_MainFrame->SetStatusText(wxString::Format("Scaling image %s",filename.c_str()),0);
+        if (m_progress) {
+            m_progress->progressMessage(wxString::Format("Scaling image %s",filename.c_str()).c_str(),0);
+        }
         DEBUG_DEBUG("creating small image " << name );
         ImagePtr image = getImage(filename);
         if (image->Ok()) {
@@ -159,7 +163,9 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     wxImage * srcImg = getImage(filename);
                     img = new vigra::BImage(srcImg->GetWidth(), srcImg->GetHeight());
                     DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
-                    g_MainFrame->SetStatusText(wxString::Format("Creating grayscale version of image %s",filename.c_str()),0);
+                    if (m_progress) {
+                        m_progress->progressMessage(wxString::Format("Creating grayscale version of image %s",filename.c_str()).c_str(),0);
+                    }
 
                     vigra::copyImage(wxImageUpperLeft(*srcImg),
                                      wxImageLowerRight(*srcImg),
@@ -170,7 +176,9 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     // reduce previous level to current level
                     DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
                     assert(img);
-                    g_MainFrame->SetStatusText(wxString::Format("Creating pyramid image for %s, level %d",filename.c_str(), key.level),0);
+                    if (m_progress) {
+                        m_progress->progressMessage(wxString::Format("Creating pyramid image for %s, level %d",filename.c_str(), key.level).c_str(),0);
+                    }
                     BImage *smallImg = new BImage();
                     reduceToNextLevel(*img, *smallImg);
                     img = smallImg;

@@ -68,7 +68,7 @@ void image_proc_test()
   
   BOOST_CHECK(res.pos == point);
   BOOST_CHECK_CLOSE(res.max,1.0,1e-3);
-  saveScaledImage(result, -1, 1, "result_corr.png");
+  saveScaledImage(result,"result_corr.png", -1, 1) ;
   BOOST_CHECK_CLOSE(res.max, (double)result[point], 1e-6);
 
   /*
@@ -106,7 +106,7 @@ void image_proc_test()
   BOOST_CHECK(res.pos == point);
   BOOST_CHECK_CLOSE(res.max,1.0,1e-3);
   std::cout << "result difference: " << 1.0 - res.max << std::endl;
-  saveScaledImage(result, -2, 1, "result_corr_2.png");
+  saveScaledImage(result, "result_corr_2.png", -2, 1);
   BOOST_CHECK_CLOSE(res.max, (double)result[point], 1e-6);
 
 

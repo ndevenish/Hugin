@@ -237,14 +237,18 @@ public:
      *  @todo avoid smaller images as original
      */
     ImagePtr getImageSmall(const std::string & filename);
-    
+
     /** release all images in the cache.
      *
      *  useful on project load, or maybe before stitching really
      *  big pictures
      */
-    void ImageCache::flush();
-    
+    void flush();
+
+    void setProgressDisplay(utils::ProgressDisplay * disp)
+        {
+            m_progress = disp;
+        }
 
     /** get a pyramid image.
      *
@@ -281,6 +285,9 @@ private:
         int level;
     };
     std::map<std::string, vigra::BImage *> pyrImages;
+    
+    // our progress display
+    utils::ProgressDisplay * m_progress;
 };
 
 #endif // _IMAGECACHE_H

@@ -129,9 +129,9 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"p").getValue(), 111.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"p").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"p").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"p").getValue(), 111.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"p").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"p").getValue(), 0.0);
     obs.reset();
 
     /// RemoveImageCmd
@@ -139,7 +139,7 @@ void SimplePanoTest()
     rimgc.execute();
     BOOST_CHECK_EQUAL(pano.getNrOfImages(), (size_t) 6);
     BOOST_CHECK_EQUAL(pano.getNrOfLenses(), (size_t) 1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"p").getValue(), 0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"p").getValue(), 0);
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 5);
@@ -156,12 +156,12 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 2);
-    BOOST_CHECK(! map_get(pano.getLens(0).variables, "a").isLinked());
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"a").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"a").getValue(), -0.2);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"a").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"a").getValue(), -0.2);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"a").getValue(), 0.0);
+    BOOST_CHECK(! const_map_get(pano.getLens(0).variables, "a").isLinked());
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"a").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"a").getValue(), -0.2);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"a").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"a").getValue(), -0.2);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"a").getValue(), 0.0);
     obs.reset();
 
     /// change a lens variable in the Lens itself
@@ -177,31 +177,31 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 6);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"c").getValue(), -0.4);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"c").getValue(), -0.4);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"c").getValue(), -0.4);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"c").getValue(), -0.4);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"c").getValue(), -0.4);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"c").getValue(), -0.4);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"c").getValue(), -0.4);
 
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"a").getValue(), 0.1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"a").getValue(), 0.1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"a").getValue(), 0.1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"a").getValue(), 0.1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"a").getValue(), 0.1);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"a").getValue(), 0.1);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"a").getValue(), 0.1);
 
-    BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"a").getValue(), 0.1);
-    BOOST_CHECK(!map_get(pano.getLens(0).variables,"a").isLinked());
-    BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"c").getValue(), -0.4);
-    BOOST_CHECK(map_get(pano.getLens(0).variables,"c").isLinked());
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"a").getValue(), 0.1);
+    BOOST_CHECK(!const_map_get(pano.getLens(0).variables,"a").isLinked());
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"c").getValue(), -0.4);
+    BOOST_CHECK(const_map_get(pano.getLens(0).variables,"c").isLinked());
     obs.reset();
 
 
     // change all variables of the image variable (not really, but
     VariableMap var2 = origvar[1];
     map_get(var2,"p").setValue(31.0);
-    BOOST_CHECK_EQUAL(map_get(var2,"p").getValue(), 31.0);
+    BOOST_CHECK_EQUAL(const_map_get(var2,"p").getValue(), 31.0);
     UpdateImageVariablesCmd pcmd1(pano, 1, var2);
     pcmd1.execute();
 
@@ -214,8 +214,8 @@ void SimplePanoTest()
     VariableMapVector updVar = pano.getVariables();
 //    BOOST_CHECK(origvar != updVar);
 //    BOOST_CHECK_EQUAL(var2, updVar[1]);
-//    BOOST_CHECK_EQUAL(map_get(var2,"p"), map_get(pano.getImageVariables(1),"p"));
-    BOOST_CHECK_EQUAL(map_get(updVar[1],"p").getValue(), 31.0);
+//    BOOST_CHECK_EQUAL(const_map_get(var2,"p"), const_map_get(pano.getImageVariables(1),"p"));
+    BOOST_CHECK_EQUAL(const_map_get(updVar[1],"p").getValue(), 31.0);
 
     /// Add another lens
     Lens lens2;
@@ -246,19 +246,19 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(pano.getImage(4).getLensNr(), (unsigned int) 0);
     BOOST_CHECK_EQUAL(pano.getImage(5).getLensNr(), (unsigned int) 0);
 
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"e").getValue(), 2.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"e").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"e").getValue(), 2.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"e").getValue(), 2.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"e").getValue(), 2.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"e").getValue(), 2.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"e").getValue(), 2.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
 
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"v").getValue(), 48);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"v").getValue(), 50);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"v").getValue(), 48);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"v").getValue(), 48);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"v").getValue(), 50);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"v").getValue(), 50);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"v").getValue(), 48);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"v").getValue(), 50);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"v").getValue(), 48);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"v").getValue(), 48);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"v").getValue(), 50);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"v").getValue(), 50);
 
 
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
@@ -277,15 +277,15 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 2);
     obs.reset();
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"b").getValue(), -4.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"b").getValue(), -4.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"b").getValue(), -4.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"b").getValue(), -4.0);
 
-    BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"b").getValue(), -0.01);
-    BOOST_CHECK_EQUAL(map_get(pano.getLens(1).variables,"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(0).variables,"b").getValue(), -0.01);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getLens(1).variables,"b").getValue(), -0.01);
 
 
     /// change the image part of a linked lens variable
@@ -297,12 +297,12 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 3);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"e").getValue(), -0.5);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"e").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"e").getValue(), -0.5);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"e").getValue(), -0.5);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
-    BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(0),"e").getValue(), -0.5);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(1),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(2),"e").getValue(), -0.5);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(3),"e").getValue(), -0.5);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
+    BOOST_CHECK_EQUAL(const_map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
     obs.reset();
 
 

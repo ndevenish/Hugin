@@ -126,7 +126,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     // create our process
     m_process = new wxProcess(this);
     m_process->Redirect();
-    m_pid = wxExecute(cmd.c_str(), wxEXEC_ASYNC, m_process);
+    m_pid = wxExecute(cmd.c_str(), wxEXEC_ASYNC | wxEXEC_NOHIDE, m_process);
 
 #if __unix__
     if (m_pid <= 0 )
@@ -134,7 +134,6 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         wxLogError(_T("Failed to launch the PTStitcher."));
         return;
     }
-#endif
 
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);
@@ -146,6 +145,9 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     }
     // set new separators, for parsing PTStitcher output
     m_in->SetStringSeparators("%");
+#else
+    m_in = 0;
+#endif
 
     m_process->SetNextHandler(this);
 
@@ -153,13 +155,13 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     Show();
     // start the timer to poll program output
     m_timer.Start(1000);
-#endif
+#endif 
 }
 
 RunStitcherFrame::~RunStitcherFrame()
 {
     DEBUG_TRACE("dtor");
-    DEBUG_TRACE("dtor end");
+   DEBUG_TRACE("dtor end");
 }
 
 void RunStitcherFrame::OnTimer(wxTimerEvent & e)

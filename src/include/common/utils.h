@@ -115,6 +115,60 @@ namespace utils
         return result;
 
     }; // lexical cast
+    
+    /** The progress display is used to report progress to another
+     *  part of the program.
+     *
+     *  This enables the utility classes to report progress both to
+     *  the statusbar if there is one, or a textmode, for applications
+     *  without GUI
+     */
+    class ProgressDisplay
+    {
+    public:
+        virtual ~ProgressDisplay();
+        /** receive notification about progress
+         *
+         *  @param msg message text
+         *  @param progress optional progress indicator (0-100%)
+         */
+        virtual void progressMessage(const std::string & msg,
+                                     int progress=-1) = 0;
+    };
+    
+    // print progress to cout.
+    class CoutProgressDisplay : public ProgressDisplay
+    {
+    public:
+        virtual ~CoutProgressDisplay();
+        
+        /** receive notification about progress
+         *
+         *  @param msg message text
+         *  @param progress optional progress indicator (0-100%)
+         */
+        virtual void progressMessage(const std::string & msg, int progress=-1)
+            {
+                if (msg == last_msg && progress != -1) {
+                    // just print the progress
+                    if (progress != -1) {
+                        std::cout << "\r" << msg << ": " 
+                                  << progress << "%" << std::flush;
+                    }
+                } else {
+                    if (progress != -1) {
+                        std::cout << std::endl << msg << ": " << progress << "%" << std::flush;
+                    } else {
+                        std::cout << std::endl << msg;
+                    }
+                    last_msg = msg;
+                }
+            }
+        
+    private:
+        std::string last_msg;
+    };
+    
 
 } // namespace
 

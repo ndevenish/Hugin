@@ -366,7 +366,6 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             DEBUG_DEBUG("updating LensPanel with Image " << img);
             UpdateLensDisplay(img);
         } else {
-            XRCCTRL(*this, "lens_val_projectionFormat", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_a", wxTextCtrl)->Clear();

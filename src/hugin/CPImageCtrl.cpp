@@ -295,10 +295,10 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int 
     // check if mouse is over a known point
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        if (p.x < it->x + 4 &&
-            p.x > it->x - 4 &&
-            p.y < it->y + 4 &&
-            p.y > it->y - 4
+        if (p.x < it->x + invScale(4) &&
+            p.x > it->x - invScale(4) &&
+            p.y < it->y + invScale(4) &&
+            p.y > it->y - invScale(4)
             )
         {
             pointNr = it - points.begin();

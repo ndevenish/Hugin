@@ -80,15 +80,24 @@ struct NormalizeToUChar
  *
  *  so that all values in the range [@p min @p max] are mapped to
  *  [0 255]
+ *  if min == max == 0, then min & max are calculated from the image.
  */
 template<typename Image>
-bool saveScaledImage(const Image &img, typename Image::PixelType min,
-                        typename Image::PixelType max,
-                        const std::string & filename)
+bool saveScaledImage(const Image &img, 
+                     const std::string & filename,
+                     typename Image::PixelType min = 0,
+                     typename Image::PixelType max = 0
+                     )
 {
     using namespace vigra;
     using namespace vigra::functor;
 
+    if (min == max) {
+        vigra::FindMinMax<typename Image::PixelType> minmax;
+        vigra::inspectImage(srcImageRange(img), minmax);
+        min = minmax.min;
+        max = minmax.max;
+    }
     DEBUG_DEBUG(filename << " min: " << min << " max:" << max);
 
     wxImage wxI(img.width(), img.height());
@@ -97,12 +106,6 @@ bool saveScaledImage(const Image &img, typename Image::PixelType min,
     transformImage(srcImageRange(img),
                    destImage(ii),
                    scale);
-
-//    transformImage(img.upperLeft(), img.lowerRight(),
-//                   typename Image::Accessor(),
-//                   wxImageUpperLeft(wxI),
-//                   RGBAccessor<vigra::RGBValue<unsigned char> >(),
-//                   (Arg1() - Param(min))*Param(scale));
 
     if (!wxI.SaveFile(filename.c_str())) {
         DEBUG_ERROR("Saving of " << filename << " failed");
