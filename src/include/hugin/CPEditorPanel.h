@@ -128,6 +128,8 @@ private:
     void OnCPListSelect(wxListEvent & e);
     void OnZoom(wxCommandEvent & e);
     void OnTextPointChange(wxCommandEvent &e);
+    void OnKeyDown(wxKeyEvent & e);
+    void OnDeleteButton(wxCommandEvent & e);
 
 
 

@@ -91,6 +91,11 @@
                       <label>auto fine tune</label>
                     </object>
                   </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="cp_editor_delete">
+                      <label>Delete</label>
+                    </object>
+                  </object>
                 </object>
               </object>
             </object>
@@ -187,6 +192,6 @@
       </object>
     </object>
     <size>400</size>
-    <style></style>
+    <style>wxWANTS_CHARS</style>
   </object>
 </resource>

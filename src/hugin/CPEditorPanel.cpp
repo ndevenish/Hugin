@@ -99,6 +99,8 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_TEXT_ENTER(XRCID("cp_editor_x2"), CPEditorPanel::OnTextPointChange )
     EVT_TEXT_ENTER(XRCID("cp_editor_y2"), CPEditorPanel::OnTextPointChange )
     EVT_CHOICE(XRCID("cp_editor_mode"), CPEditorPanel::OnTextPointChange )
+    EVT_CHAR(CPEditorPanel::OnKeyDown)
+    EVT_BUTTON(XRCID("cp_editor_delete"),CPEditorPanel::OnDeleteButton)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -678,14 +680,14 @@ void CPEditorPanel::UpdateDisplay()
     }
     m_leftImageNr = (unsigned int) fI;
     m_rightImageNr = (unsigned int) sI;
-    
+
     // reset selection
     m_x1Text->Clear();
     m_y1Text->Clear();
     m_x2Text->Clear();
     m_y2Text->Clear();
     m_cpModeChoice->SetSelection(0);
-    
+
     // update control points
     const PT::CPVector & controlPoints = m_pano->getCtrlPoints();
     currentPoints.clear();
@@ -715,7 +717,7 @@ void CPEditorPanel::UpdateDisplay()
     m_rightImg->setCtrlPoints(right);
 
     // put these control points into our listview.
-    int selectedCP; 
+    int selectedCP;
     for ( int i=0; i < m_cpList->GetItemCount() ; i++ ) {
       if ( m_cpList->GetItemState( i, wxLIST_STATE_SELECTED ) ) {
         selectedCP = i;            // remembers the old selection
@@ -771,7 +773,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     unsigned int nr = (unsigned int) item;
     assert(nr < currentPoints.size());
     ControlPoint cp = currentPoints[nr].second;
-    
+
     // update point state
     if (!m_x1Text->GetValue().ToDouble(&cp.x1)) {
         wxBell();
@@ -797,7 +799,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         *m_y2Text << cp.x2;
         return;
     }
-    
+
     switch(m_cpModeChoice->GetSelection()) {
     case 0:
         cp.mode = ControlPoint::X_Y;
@@ -813,7 +815,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
         break;
     }
-    
+
     // if point was mirrored, reverse before setting it.
     if (set_contains(mirroredPoints, nr)) {
         cp.mirror();
@@ -821,9 +823,9 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
         );
-    
+
 }
-    
+
 void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
@@ -881,4 +883,43 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
     }
     m_leftImg->setScale(factor);
     m_rightImg->setScale(factor);
+}
+
+void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
+{
+    DEBUG_TRACE("");
+    if (e.m_keyCode == WXK_DELETE){
+        DEBUG_DEBUG("Delete pressed");
+        // find selected point
+        long item = -1;
+        item = m_cpList->GetNextItem(item,
+                                     wxLIST_NEXT_ALL,
+                                     wxLIST_STATE_SELECTED);
+        // no selected item.
+        if (item == -1) {
+            wxBell();
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RemoveCtrlPointCmd(*m_pano,(unsigned int) item )
+            );
+    } else {
+        e.Skip();
+    }
+}
+
+void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    // find selected point
+    long item = -1;
+    item = m_cpList->GetNextItem(item,
+                                 wxLIST_NEXT_ALL,
+                                 wxLIST_STATE_SELECTED);
+    // no selected item.
+    if (item == -1) {
+        wxBell();
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveCtrlPointCmd(*m_pano,(unsigned int) item )
+        );
 }
