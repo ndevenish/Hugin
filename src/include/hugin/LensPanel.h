@@ -81,10 +81,7 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     /** This sets the actual image to work on for the parameters. */
     void SetImages ( wxListEvent & e );
 
-    /** Here we get the Lens
-     *
-     *  It takes one lens for filling in the editing controls and leaves
-     *  the panorama as it is.
+    /** Here we update the Lens values in the gui
      */
     void LensChanged ( wxListEvent & e );
 

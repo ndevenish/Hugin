@@ -193,20 +193,10 @@ LensEdit::~LensEdit(void)
 }
 
 
-void LensEdit::LensChanged ( wxListEvent & e )
+/*void LensEdit::LensChanged ( wxListEvent & e )
 {
-    // set the values from the mainly focused image lens.
-    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection( EDIT_LENS.
-                                         projectionFormat  );
-    updateHFOV();
-    SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
-    SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
-    SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
-    SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
-    SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
-
 //    DEBUG_TRACE("####################################################################################");
-}
+}*/
 
 void LensEdit::updateHFOV()
 {
@@ -334,10 +324,10 @@ void LensEdit::ChangePano ( )
     lensGui_dirty = FALSE;
 
     // update gui
-    int id (XRCID("lens_dialog"));
-    wxListEvent  e;
-    e.SetId(id);
-    LensChanged (e);
+//    int id (XRCID("lens_dialog"));
+//    wxListEvent  e;
+//    e.SetId(id);
+//    LensChanged (e);
 
     DEBUG_TRACE( "" )
 }
@@ -347,34 +337,36 @@ void LensEdit::ChangePano ( )
 // Here we change the pano.
 void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
-    DEBUG_TRACE ("")
-    // uses enum LensProjectionFormat from PanoramaMemento.h
-    int var = XRCCTRL(*this, "lens_type_combobox",
+    if ( imgNr[0] > 0 ) {
+      DEBUG_TRACE ("")
+      // uses enum LensProjectionFormat from PanoramaMemento.h
+      int var = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
-    edit_Lens->projectionFormat = (LensProjectionFormat) (var);
+      edit_Lens->projectionFormat = (LensProjectionFormat) (var);
 
-    ChangePano ();
-
+      ChangePano ();
+      DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d lens %d Lenstype %d",lensEdit_RefImg,pano.getImage(lensEdit_RefImg).getLens(),var) )
+    }
 //    int lensEdit_RefImg = images_list2->GetSelectedImage();
-    DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d lens %d Lenstype %d",lensEdit_RefImg,pano.getImage(lensEdit_RefImg).getLens(),var) )
 }
 
 void LensEdit::HFOVChanged ( wxCommandEvent & e )
 {
-    DEBUG_TRACE ("")
-    // FIXME beautify this function and write a macro
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      DEBUG_TRACE ("")
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->HFOV = *var;
-    edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
-    edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
+      edit_Lens->HFOV = *var;
+      edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
+      edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
 
-    ChangePano ();
+      ChangePano ();
+      updateHFOV();
 
-    delete var;
-//    updateHFOV();
+      delete var;
+    }
 
 //    edit_Lens->update ( pano.getLens(pano.getImage(lensEdit_RefImg).getLens()) );
 
@@ -383,91 +375,107 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
 
 void LensEdit::focalLengthChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text=XRCCTRL(*this,"lens_val_focalLength", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+     wxString text=XRCCTRL(*this,"lens_val_focalLength",wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->focalLength = *var / edit_Lens->focalLengthConversionFactor;
-    edit_Lens->HFOV = 2.0 * atan((36/2) 
+      edit_Lens->focalLength = *var / edit_Lens->focalLengthConversionFactor;
+      edit_Lens->HFOV = 2.0 * atan((36/2) 
                       / (edit_Lens->focalLength 
                          * edit_Lens->focalLengthConversionFactor))  
                       * 180/M_PI;
 
-//    updateHFOV();
+      ChangePano ();
+      updateHFOV();
 
-    ChangePano ();
-
-    delete var;
+      delete var;
+    }
     DEBUG_TRACE ("")
 }
 
 void LensEdit::aChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_a", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_a", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->a = *var;
+      edit_Lens->a = *var;
 
-    ChangePano ();
+      ChangePano ();
+      SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
 
-    delete var;
+      delete var;
+    }
     DEBUG_TRACE ("")
 }
 
 void LensEdit::bChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_b", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_b", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->b = *var;
+      edit_Lens->b = *var;
+ 
+      ChangePano ();
+      SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
 
-    ChangePano ();
-
-    delete var;
+      delete var;
+    }
     DEBUG_TRACE ("")
 }
 
 void LensEdit::cChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_c", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_c", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->c = *var;
+      edit_Lens->c = *var;
 
-    ChangePano ();
+      ChangePano ();
+      SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
 
-    delete var;
+     delete var;
+    }
     DEBUG_TRACE ("")
 }
 
 void LensEdit::dChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_d", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_d", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->d = *var;
+      edit_Lens->d = *var;
 
-    ChangePano ();
+      ChangePano ();
+      SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
 
-    delete var;
+      delete var;
+    }
     DEBUG_TRACE ("")
 }
 
 void LensEdit::eChanged ( wxCommandEvent & e )
 {
-    double * var = new double ();
-    wxString text = XRCCTRL(*this, "lens_val_e", wxTextCtrl)->GetValue();
-    text.ToDouble( var );
+    if ( imgNr[0] > 0 ) {
+      double * var = new double ();
+      wxString text = XRCCTRL(*this, "lens_val_e", wxTextCtrl)->GetValue();
+      text.ToDouble( var );
 
-    edit_Lens->e = *var;
+      edit_Lens->e = *var;
 
-    ChangePano ();
+      ChangePano ();
+      SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
 
-    delete var;
+      delete var;
+    }
     DEBUG_TRACE ("")
 }
 
@@ -486,7 +494,17 @@ void LensEdit::SetImages ( wxListEvent & e )
 //    edit_Lens->readEXIF(pano.getImage(lensEdit_RefImg).getFilename().c_str());
 
     // update gui
-    LensChanged (e);
+//    LensChanged (e);
+    // set the values from the mainly focused image lens.
+    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection( EDIT_LENS.
+                                         projectionFormat  );
+    updateHFOV();
+    SET_WXTEXTCTRL_TEXT( "lens_val_a"  , a )
+    SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
+    SET_WXTEXTCTRL_TEXT( "lens_val_c"  , c )
+    SET_WXTEXTCTRL_TEXT( "lens_val_d"  , d )
+    SET_WXTEXTCTRL_TEXT( "lens_val_e"  , e )
+
 
     /**  - Look if we may need a new lens.
       *   - If so set the lensGui_dirty flag for later remembering.

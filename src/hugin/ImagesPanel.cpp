@@ -51,7 +51,9 @@
 #include "hugin/huginApp.h"
 #include "PT/Panorama.h"
 
+#include "common/utils.h"
 using namespace PT;
+using namespace utils;
 
 // Image Icons
 wxImageList * img_icons;
@@ -64,13 +66,17 @@ wxBitmap * p_img = (wxBitmap *) NULL;
 ImgPreview * canvas;
 
 //------------------------------------------------------------------------------
+#define GET_VAR(val) pano.getVariable(orientationEdit_RefImg).val.getValue()
 
 BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
-    EVT_SLIDER ( XRCID("images_list_roll"),ImagesPanel::SetRoll )
-    EVT_SLIDER ( XRCID("images_list_pitch"),ImagesPanel::SetPitch )
-    EVT_SLIDER ( XRCID("images_list_yaw"),ImagesPanel::SetYaw )
+    EVT_SLIDER ( XRCID("images_slider_yaw"),ImagesPanel::SetYaw )
+    EVT_SLIDER ( XRCID("images_slider_pitch"),ImagesPanel::SetPitch )
+    EVT_SLIDER ( XRCID("images_slider_roll"),ImagesPanel::SetRoll )
+    EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::SetYawText )
+    EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::SetPitchText )
+    EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::SetRollText )
 //    EVT_SIZE   ( ImagesPanel::FitParent )
 END_EVENT_TABLE()
 
@@ -124,6 +130,8 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     for ( int i = 0 ; i < 512 ; i++ )
       imgNr[i] = 0;
+ 
+    changePano = FALSE;
 
     DEBUG_TRACE("end");
 }
@@ -143,19 +151,24 @@ ImagesPanel::~ImagesPanel(void)
     DEBUG_TRACE("");
 //    wxSize new_size = XRCCTRL(*parent, "images_panel_top", wxPanel) ->GetSize();
     wxSize new_size = GetParent()->GetSize();
-    GetParent()->SetClientSize ( new_size );
+    GetParent()->SetClientSize ( new_size );  // no reaction
     //SetoLayout(TRUE);
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }*/
 
 //void ImagesPanel::panoramaChanged (PT::Panorama &pano)
-void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr)
+void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
-    img_icons->RemoveAll();
-    img_bicons->RemoveAll();
+    if ( !changePano ) {
+      // TODO
+      imgNr[0] = 0;
+
+      //TODO be more sensible
+      img_icons->RemoveAll();
+      img_bicons->RemoveAll();
 //    DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
     // start the loop for every selected filename
-    for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
+      for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
         wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
 
 //        wxImage * img = ImageCache::getInstance().getImage(
@@ -201,19 +214,21 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
         img_bicons->Add( r_img.ConvertToBitmap() );
 //        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
 
-    }
+      }
 
-    if ( pano.getNrOfImages() == 0 ) {
+      if ( pano.getNrOfImages() == 0 ) {
         delete p_img;
         p_img = new wxBitmap(0,0);
+      }
+      canvas->Refresh();
     }
-    canvas->Refresh();
 
     DEBUG_TRACE("");
 }
 
 void ImagesPanel::ChangePano ( std::string type, double var )
 {
+    changePano = TRUE;
     DEBUG_TRACE("");
 // DEBUG_TRACE("imgNr = "<<imgNr[0]<<" "<<imgNr[1]<<" "<<imgNr[2]<<" "<<imgNr[3]);
 
@@ -245,82 +260,203 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 //    DEBUG_TRACE("roll = " << pano.getVariable(0).roll.getValue() );
 }
 
-void ImagesPanel::SetRoll ( wxCommandEvent & e )
+void ImagesPanel::SetYaw ( wxCommandEvent & e )
 {
-    int var = XRCCTRL(*this, "images_list_roll", wxSlider) ->GetValue();
-    DEBUG_INFO ("roll = " << var )
-    char text[16];
-    sprintf( text, "%d", var );
-    XRCCTRL(*this, "images_text_roll", wxStaticText) ->SetLabel(text);
-    if ( imgNr[0] > 0 )
-      ChangePano ( "roll" , (double) var );
+    if ( imgNr[0] > 0 ) {
+      int var = XRCCTRL(*this, "images_slider_yaw", wxSlider) ->GetValue();
+      DEBUG_INFO ("yaw = " << var )
+
+      char text[16];
+      sprintf( text, "%d ", var );
+      XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel(text);
+
+      ChangePano ( "yaw" , (double) var );
+
+      XRCCTRL(*this,"images_text_yaw",wxTextCtrl)->SetValue( doubleToString (
+                                              (double) var ).c_str() );
+    }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 }
 
 void ImagesPanel::SetPitch ( wxCommandEvent & e )
 {
-    int var = XRCCTRL(*this, "images_list_pitch", wxSlider) ->GetValue() * -1 ;
-    DEBUG_INFO ("pitch = " << var )
-    char text[16];
-    sprintf( text, "%d", var );
-    XRCCTRL(*this, "images_text_orientation", wxStaticText) ->SetLabel(text);
-    if ( imgNr[0] > 0 )
+    if ( imgNr[0] > 0 ) {
+      int var = XRCCTRL(*this,"images_slider_pitch",wxSlider) ->GetValue() * -1;
+      DEBUG_INFO ("pitch = " << var )
+
+      char text[16];
+      sprintf( text, "%d", var );
+      XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel(text);
+
       ChangePano ( "pitch" , (double) var );
+
+      XRCCTRL(*this,"images_text_pitch",wxTextCtrl)->SetValue( doubleToString (
+                                              (double) var ).c_str() );
+    }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 }
 
-void ImagesPanel::SetYaw ( wxCommandEvent & e )
+void ImagesPanel::SetRoll ( wxCommandEvent & e )
 {
-    int var = XRCCTRL(*this, "images_list_yaw", wxSlider) ->GetValue();
-    DEBUG_INFO ("yaw = " << var )
-    char text[16];
-    sprintf( text, "%d ", var );
-    XRCCTRL(*this, "images_text_orientation", wxStaticText) ->SetLabel(text);
-    if ( imgNr[0] > 0 )
-      ChangePano ( "yaw" , (double) var );
+    if ( imgNr[0] > 0 ) {
+      int var = XRCCTRL(*this, "images_slider_roll", wxSlider) ->GetValue();
+      DEBUG_INFO ("roll = " << var )
+
+      char text[16];
+      sprintf( text, "%d", var );
+      XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel(text);
+      DEBUG_INFO ("roll = " << var )
+
+      ChangePano ( "roll" , (double) var );
+
+      DEBUG_INFO ("roll = " << var )
+      XRCCTRL(*this, "images_text_roll", wxTextCtrl)->SetValue( doubleToString (
+                                              (double) var ).c_str() );
+      DEBUG_INFO ("roll = " << var )
+    }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 }
 
+void ImagesPanel::SetYawText ( wxCommandEvent & e )
+{
+    if ( imgNr[0] > 0 ) {
+      wxString text = XRCCTRL(*this, "images_text_yaw"
+                  , wxTextCtrl) ->GetValue();
+      DEBUG_INFO ("yaw = " << text )
+
+      double * var = new double ();
+      text.ToDouble (var);
+
+      char c[48];
+      sprintf ( c, "%d", (int) *var );
+      XRCCTRL(*this,"images_stext_orientation",wxStaticText)->SetLabel(c);
+
+      ChangePano ( "yaw" , *var );
+
+      XRCCTRL(*this,"images_slider_yaw",wxSlider) ->SetValue( (int) *var );
+
+      delete var;
+    }
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+void ImagesPanel::SetPitchText ( wxCommandEvent & e )
+{
+    if ( imgNr[0] > 0 ) {
+      wxString text = XRCCTRL(*this, "images_text_pitch"
+                  , wxTextCtrl) ->GetValue();
+      DEBUG_INFO ("pitch = " << text )
+
+      double * var = new double ();
+      text.ToDouble (var);
+
+      char c[48];
+      sprintf ( c, "%d", (int) *var );
+      XRCCTRL(*this,"images_stext_orientation",wxStaticText)->SetLabel(c);
+
+      ChangePano ( "pitch" , *var );
+
+      XRCCTRL(*this,"images_slider_pitch",wxSlider)->SetValue( (int) *var * -1);
+
+      delete var;
+    }
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+void ImagesPanel::SetRollText ( wxCommandEvent & e )
+{
+    if ( imgNr[0] > 0 ) {
+      wxString text = XRCCTRL(*this, "images_text_roll"
+                  , wxTextCtrl) ->GetValue();
+      DEBUG_INFO ("roll = " << text )
+
+      double * var = new double ();
+      text.ToDouble (var);
+
+      char c[48];
+      sprintf ( c, "%d", (int) *var );
+      XRCCTRL(*this,"images_stext_roll",wxStaticText)->SetLabel(c);
+
+      ChangePano ( "roll" , *var );
+
+      XRCCTRL(*this,"images_slider_roll",wxSlider) ->SetValue( (int) *var );
+
+      delete var;
+    }
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+
+/*void ImagesPanel::OrientationChanged ( void )
+{
+    DEBUG_TRACE("");
+    XRCCTRL(*this, "images_list_roll", wxSlider)  ->SetValue(
+         (int)pano.getVariable(orientationEdit_RefImg) .roll.getValue() );
+    XRCCTRL(*this, "images_list_pitch", wxSlider) ->SetValue(
+         (int)pano.getVariable(orientationEdit_RefImg) .pitch.getValue() * -1 );
+    XRCCTRL(*this, "images_list_yaw", wxSlider)   ->SetValue(
+         (int)pano.getVariable(orientationEdit_RefImg) .yaw.getValue() );
+    XRCCTRL(*this, "images_text_orientation", wxStaticText) ->SetLabel("");
+    XRCCTRL(*this, "images_text_roll", wxStaticText) ->SetLabel(text);
+
+    std::string number;
+
+    number = doubleToString(pano.getVariable(orientationEdit_RefImg) .pitch.getValue() * -1 );
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->SetValue( number.c_str() );
+    
+    DEBUG_TRACE("");
+}*/
 
 void ImagesPanel::SetImages ( wxListEvent & e )
 {
     DEBUG_TRACE("");
+    if ( changePano == FALSE ) {
 
-    // get the list to read from
-    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
+      // One image is our prefered image.
+      orientationEdit_RefImg = e.GetIndex();
 
-    // prepare an status message
-    wxString e_msg;
-    int sel_I = lst->GetSelectedItemCount();
-    if ( sel_I == 1 )
-      e_msg = _("Remove image:   ");
-    else
-      e_msg = _("Remove images:   ");
+      // get the list to read from
+      wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
 
-    imgNr[0] = 0;             // reset
-    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+      // prepare an status message
+      wxString e_msg;
+      int sel_I = lst->GetSelectedItemCount();
+      if ( sel_I == 1 )
+        e_msg = _("Remove image:   ");
+      else
+        e_msg = _("Remove images:   ");
+
+      imgNr[0] = 0;             // reset
+      for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
 //      DEBUG_INFO( wxString::Format("now test if removing item %d/%d",Nr,pano.getNrOfImages()) );
-      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+        if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
 //    DEBUG_TRACE("");
-        e_msg += "  " + lst->GetItemText(Nr);
-        imgNr[0] += 1;
-        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+          e_msg += "  " + lst->GetItemText(Nr);
+          imgNr[0] += 1;
+          imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+        }
       }
-    }
-    DEBUG_INFO (e_msg)
+      DEBUG_INFO (e_msg)
 
-    // values to set
-    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-      XRCCTRL(*this, "images_list_roll", wxSlider)  ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .roll.getValue() );
-      XRCCTRL(*this, "images_list_pitch", wxSlider) ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .pitch.getValue() * -1 );
-      XRCCTRL(*this, "images_list_yaw", wxSlider)   ->SetValue(
-                  (int)pano.getVariable(imgNr[i]) .yaw.getValue() );
-    }
+      // values to set
+      XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->SetValue(doubleToString (
+                                                     GET_VAR( yaw )).c_str());
+      XRCCTRL(*this, "images_slider_yaw" , wxSlider)->SetValue(
+                                                (int)GET_VAR( yaw ));
+      XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->SetValue(doubleToString (
+                                                     GET_VAR( pitch )).c_str());
+      XRCCTRL(*this, "images_slider_pitch" , wxSlider)->SetValue(
+                                                (int)GET_VAR( pitch ) * -1);
+      XRCCTRL(*this, "images_text_roll", wxTextCtrl)->SetValue(doubleToString (
+                                                     GET_VAR( roll )).c_str());
+      XRCCTRL(*this, "images_slider_roll" , wxSlider)->SetValue(
+                                                (int)GET_VAR( roll ));
 
+      XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel("");
+      XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel("");
+//    OrientationChanged ();
+
+    }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
+    changePano = FALSE;
 //    DEBUG_TRACE("");
 }
 

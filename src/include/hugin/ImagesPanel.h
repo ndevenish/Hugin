@@ -84,6 +84,9 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void SetImages ( wxListEvent & e );
 
  private:
+    /** the model */
+    Panorama &pano;
+
     // event handlers
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
@@ -94,9 +97,13 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
       */
     unsigned int imgNr[512];
     /**  take sliders */
-    void SetRoll ( wxCommandEvent & e );
-    void SetPitch ( wxCommandEvent & e );
     void SetYaw ( wxCommandEvent & e );
+    void SetPitch ( wxCommandEvent & e );
+    void SetRoll ( wxCommandEvent & e );
+    /**  take text */
+    void SetYawText ( wxCommandEvent & e );
+    void SetPitchText ( wxCommandEvent & e );
+    void SetRollText ( wxCommandEvent & e );
     /** event -> pano
      *
      *  usually for events to set the new pano state
@@ -105,9 +112,17 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
      *  @param  var   the new value
      */
     void ChangePano ( std::string type, double var );
+    /** Are we changing the pano?
+     */
+    bool changePano;
 
-    /** the model */
-    Panorama &pano;
+    /** Here we update the orientation values in the gui
+     */
+    void OrientationChanged ( void );
+
+    // the image actually selected
+    int orientationEdit_RefImg;
+
 
     /** pointer to the list control */
     List* images_list;

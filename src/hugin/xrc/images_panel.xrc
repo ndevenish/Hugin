@@ -77,7 +77,7 @@
                             <flag>wxALL|wxEXPAND|wxGROW</flag>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxSlider" name="images_list_pitch">
+                            <object class="wxSlider" name="images_slider_pitch">
                               <value>0</value>
                               <min>-90</min>
                               <max>90</max>
@@ -89,10 +89,10 @@
                             <minsize>22,-1</minsize>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxSlider" name="images_list_yaw">
+                            <object class="wxSlider" name="images_slider_yaw">
                               <value>0</value>
-                              <min>-180</min>
-                              <max>180</max>
+                              <min>0</min>
+                              <max>360</max>
                               <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
                               <pagesize>15</pagesize>
                               <linesize>1</linesize>
@@ -100,7 +100,7 @@
                             <flag>wxEXPAND|wxGROW</flag>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxStaticText" name="images_text_orientation">
+                            <object class="wxStaticText" name="images_stext_orientation">
                               <label>0</label>
                               <style>wxALIGN_RIGHT</style>
                             </object>
@@ -115,13 +115,13 @@
                               <cols>2</cols>
                               <rows>1</rows>
                               <object class="sizeritem">
-                                <object class="wxStaticText" name="images_text_roll">
+                                <object class="wxStaticText" name="images_stext_roll">
                                   <label>0</label>
                                 </object>
                                 <minsize>25,-1</minsize>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxSlider" name="images_list_roll">
+                                <object class="wxSlider" name="images_slider_roll">
                                   <value>0</value>
                                   <min>-180</min>
                                   <max>180</max>
@@ -170,6 +170,7 @@
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="images_text_yaw">
                                   <size>55,20</size>
+                                  <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -226,6 +227,7 @@
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="images_text_pitch">
                                   <size>55,20</size>
+                                  <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -274,7 +276,7 @@
                             <object class="wxFlexGridSizer">
                               <object class="sizeritem">
                                 <object class="wxStaticText" name="">
-                                  <label>rool</label>
+                                  <label>roll</label>
                                   <size>35,15</size>
                                 </object>
                                 <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
@@ -282,6 +284,7 @@
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="images_text_roll">
                                   <size>55,20</size>
+                                  <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
