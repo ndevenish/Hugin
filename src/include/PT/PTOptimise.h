@@ -128,8 +128,6 @@ public:
             printVariableMap(std::cerr, m_optVars[v]);
             std::cerr << std::endl;
 #endif
-        } else {
-            DEBUG_ERROR("image " << v << ": no optimized neighbour images");
         }
     }
 
