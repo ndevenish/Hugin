@@ -433,7 +433,7 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
                 << " tabs:" << nrTabs);
     m_leftTabs->DeleteAllPages();
     m_rightTabs->DeleteAllPages();
-    if (nrTabs < nrImages) { // insecure, better rebuild all
+//    if (nrTabs < nrImages) { // insecure, better rebuild all
         for (unsigned int img = 0/*nrTabs*/; img <nrImages; ++img) {
             DEBUG_DEBUG("adding tab " << img);
             // ugly.. but needed since we have to add something
@@ -452,12 +452,12 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
         }
-    } else if (nrTabs > nrImages) {
+/*    } else if (nrTabs > nrImages) {
         for (unsigned int img = nrImages; img > nrTabs; img--) {
             m_leftTabs->DeletePage(img);
             m_rightTabs->DeletePage(img);
         }
-    }
+    }*/
     // update the display
     UpdateDisplay();
 }

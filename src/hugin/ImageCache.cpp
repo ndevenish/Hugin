@@ -61,13 +61,42 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     } else {
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
-            DEBUG_ERROR("Can't load image: " << filename);
+            DEBUG_ERROR("Can't load image: " << filename)
         }
         // FIXME where is RefCountNotifier deleted?
 //        ImagePtr ptr(image, new RefCountNotifier<wxImage>(*this));
         images[filename] = image;
+
+        wxImage small_image;
+        if ( image->GetHeight() > image->GetWidth() ) {
+          small_image = image->Scale(
+                           (int)((float)image->GetWidth()/
+                                 (float)image->GetHeight()*512.0), 512);
+        } else {
+          small_image = image->Scale(
+                            512, (int)((float)image->GetHeight()/
+                                       (float)image->GetWidth()*512.0));
+        }
+        wxImage * tmp = new wxImage( &small_image );
+        images[filename + "_small"] = tmp;
+        DEBUG_INFO ( "nu gibts 'n kleenes Bildi" )
+
         return image;
     }
+}
+
+ImagePtr ImageCache::getImageSmall(const std::string & filename)
+{
+    std::map<std::string, wxImage *>::iterator it;
+    // "_small" is only used internally
+    it = images.find(filename + "_small");
+    if (it != images.end()) {
+        return it->second;
+    } else {
+        DEBUG_ERROR("Can't load small image: " << filename);
+    }
+    wxImage * nix = new wxImage(10,10);
+    return nix;
 }
 
 void ImageCache::notify(wxImage & img)

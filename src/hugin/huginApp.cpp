@@ -49,10 +49,14 @@ IMPLEMENT_APP(huginApp)
 
 huginApp::huginApp()
 {
+    DEBUG_TRACE("");
 }
 
 huginApp::~huginApp()
 {
+    DEBUG_TRACE("");
+//    delete frame;
+    DEBUG_TRACE("");
 }
 
 bool huginApp::OnInit()
@@ -142,11 +146,12 @@ bool huginApp::OnInit()
 #endif
 
     // create main frame
-    MainFrame* frame = new MainFrame();
+    frame = new MainFrame();
 
     // show the frame.
-//    frame->Show(TRUE);
+    frame->Show(TRUE);
 
+    DEBUG_TRACE("");
     return true;
 }
 

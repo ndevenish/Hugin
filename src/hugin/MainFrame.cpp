@@ -129,14 +129,19 @@ MainFrame::MainFrame(wxWindow* parent)
     DEBUG_TRACE("");
 
     // show the frame.
-    Show(TRUE);
+//    Show(TRUE);
     DEBUG_TRACE("");
 }
 
 MainFrame::~MainFrame()
 {
     DEBUG_TRACE("");
+    delete cpe;
+    DEBUG_TRACE("");
+    delete images_panel;
+    DEBUG_TRACE("");
     pano.removeObserver(this);
+    DEBUG_TRACE("");
 }
 
 void MainFrame::panoramaChanged(PT::Panorama &panorama)
@@ -165,11 +170,11 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
 
 void MainFrame::OnExit(wxCommandEvent & e)
 {
-  DEBUG_TRACE("");
+    DEBUG_TRACE("");
     // FIXME ask to save is panorama if unsaved changes exist
     //Close(TRUE);
     this->Destroy();
-  DEBUG_TRACE("");
+    DEBUG_TRACE("");
 }
 
 
@@ -311,7 +316,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
 {
 
     DEBUG_TRACE("");
-    // get the list to write to
+    // get the list to read from
     wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
 
     // prepare an status message
@@ -322,42 +327,19 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     else
       e_msg = _("Remove images:   ");
 
-    // storing the erased image numbers
-    int removed[512];
-    removed[0] = 0;
-    int i (0);
-    // for each selected item remove the entry from list and pano
-    std::vector<std::string> filesv;
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
-        i++;
         e_msg += "  " + lst->GetItemText(Nr);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::AddImagesCmd(pano,filesv)
+            new PT::RemoveImageCmd(pano,Nr)
             );
-// FIXME no updates here. they should go to panoramaChanged()
-//        lst->DeleteItem(Nr);
-        removed[i] = i;
-        removed[0]++;
-        DEBUG_INFO(" will remove " << wxString::Format("%d",i) << ". " << wxString::Format("%d",Nr) << "|" << wxString::Format("%d",removed[0]) )
       }
     }
 
     if ( sel_I == 0 )
       SetStatusText( _("Nothing selected"), 0);
     else {
-      DEBUG_TRACE("");
-// FIXME, shoule be notified by Panorama.
-//      cpe->ImagesRemoved(pano, removed);
       SetStatusText( e_msg, 0);
-// FIXME update the list in panoramaImageRemoved()
-      for ( int Nr = 1 ; Nr <= (int)pano.getNrOfImages() ; Nr++ ) {
-        // update the list
-        char Nr_c[8] ;
-        sprintf(Nr_c ,"%d", Nr );
-        lst->SetItem ( Nr - 1, 0, Nr_c );
-        DEBUG_INFO(" SetItem " << wxString::Format("%d",Nr) << " to " << Nr_c)
-      }
     }
     DEBUG_TRACE("");
 }
@@ -399,43 +381,4 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     GlobalCmdHist::getInstance().redo();
 }
 
-//------------------------------------------------------------------------------
-
-/*BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
-    EVT_PAINT(ImgPreview::OnPaint)
-END_EVENT_TABLE()
-
-// Define a constructor for my canvas
-ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
- wxScrolledWindow(parent, -1, pos, size)
-{
-    DEBUG_TRACE("");
-}
-
-ImgPreview::~ImgPreview(void)
-{
-    DEBUG_TRACE("");
-    delete p_img;
-}
-
-// Define the repainting behaviour
-void ImgPreview::OnDraw(wxDC & dc)
-{
-  DEBUG_TRACE("");
-  if ( p_img && p_img->Ok() )
-  {
-    wxMemoryDC memDC;
-    memDC.SelectObject(* p_img);
-
-    // Transparent blitting if there's a mask in the bitmap
-    dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
-      0, 0, wxCOPY, TRUE);
-
-    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE);
-
-    DEBUG_TRACE("");
-    memDC.SelectObject(wxNullBitmap);
-  }
-}
-*/
 
