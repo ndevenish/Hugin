@@ -45,7 +45,7 @@ void MyProgressDialog::updateProgressDisplay()
     {
         wxString cMsg;
         if (it->getProgress() > 0) {
-            cMsg.Printf("%s %s [%3.0f%%]\n",
+            cMsg.Printf("%s: %s [%3.0f%%]\n",
                         it->getShortMessage().c_str(),
                         it->getMessage().c_str(),
                         100 * it->getProgress());
@@ -63,6 +63,8 @@ void MyProgressDialog::updateProgressDisplay()
     if (!Update(percentage, msg)) {
         abortOperation();
     }
+    Layout();
+    Fit();
 //    wxYield();
 }
 

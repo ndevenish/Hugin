@@ -29,7 +29,7 @@
 # relative path to the src directory
 # ====================================================================
 
-PREFIX = .
+PREFIX = ..
 
 # ====================================================================
 # include config
@@ -43,24 +43,68 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = jhead klt common vigra_ext Panorama hugin tools nona_gui \
-          PanoImage keypoints
+SUBDIRS = xrc po
 
 # ====================================================================
-# include common rules
+# Files that should be considered while creating the dependencies
 # ====================================================================
 
-include $(PREFIX)/makefiles/rules.mk
+DEPEND_FILES = *.cpp
 
 # ====================================================================
-# local rules
+# special compiler and linker flags for this directory
 # ====================================================================
 
-docs:
-	doxygen
+CFLAGS += $(WXWIN_CFLAGS) $(VIGRA_CFLAGS)
+LFLAGS += $(WXWIN_LFLAGS)  -lhuginwxutils -lpanorama \
+           -ljhead -lcommon -lvigra_ext ${VIGRA_LFLAGS}
+
+# ====================================================================
+# The applications that should be build in this directory.
+#
+# ====================================================================
+
+
+APPS = 1
+
+# App 1
+
+APP_1_BIN = nona_gui
+APP_1_OBJ = nona_gui.o
+
+ifeq ($(PLATFORM),win32)
+   APP_1_OBJ += nona_rc.o
+endif
+
+APP_1_DESKTOP = hugin.desktop
+
+APP_1_LFLAGS = $(LFLAGS) -lpano12
+
+# ====================================================================
+# Some applications are only for testing. To make these compile you
+# must explicitly type "make tests"
+# ====================================================================
+
+
+TESTS =
+
+# Defaults
+
+TEST_CFLAGS =   $(CFLAGS)
+TEST_LFLAGS =   $(LFLAGS)
+
+# Test 1
+
+TEST_1_BIN =
+TEST_1_OBJ =
+TEST_1_CFLAGS = $(TEST_CFLAGS)
+TEST_1_LFLAGS = $(TEST_LFLAGS)
 
 # ====================================================================
 # Do not edit anything below this
 # ====================================================================
 
+include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)
+
+

@@ -249,7 +249,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
     DEBUG_DEBUG("merging images");
     // stitch images
-    progress.pushTask(utils::ProgressTask("Flattening", "", 1.0/nImg));
+    progress.pushTask(utils::ProgressTask("Flattening", ""));
 
     // save individual images into a single big multi-image tif
     if (opts.outputFormat == PT::PanoramaOptions::TIFF_mask ||
@@ -308,7 +308,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                         }
                     }
                     if ((yend-y) % ((yend-ystart)/20) == 0) {
-                        progress.setProgress(1.0*(yend-y)/((yend-ystart)/20)/nImg);
+                        progress.setProgress(1.0*(y-ystart)/((yend-ystart)/20)/nImg);
                     }
                 }
             } else {
@@ -356,7 +356,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                         }
                     }
                     if ((yend-y) % ((yend-ystart)/20) == 0) {
-                        progress.setProgress(1.0*(yend-y)/((yend-ystart)/20)/nImg);
+                        progress.setProgress(1.0*(y-ystart)/((yend-ystart)/20)/nImg);
                     }
                 }
             }
@@ -421,7 +421,8 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                 }
             }
             if ((yend-y) % ((yend-ystart)/20) == 0) {
-                progress.setProgress(((double)yend-y)/(yend-ystart));
+                DEBUG_DEBUG("progress update: " << ((double)y-ystart)/(yend-ystart));
+                progress.setProgress(((double)y-ystart)/(yend-ystart));
             }
         }
 

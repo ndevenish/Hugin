@@ -40,10 +40,13 @@ public:
     /** ctor.
      */
     MyProgressDialog(const wxString& title, const wxString& message,
-                     wxWindow * parent = NULL,
-                     int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL)
+                     wxWindow * parent = NULL, 
+                     int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL,
+                     const wxSize & sz = wxDefaultSize)
         : wxProgressDialog(title, message, 100, parent, style)
-        { }
+        { 
+            SetSize(sz);
+        }
     /** dtor.
      */
     virtual ~MyProgressDialog() {};
@@ -66,7 +69,7 @@ public:
                       int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT )
         : MyProgressDialog(_("Optimizing Panorama"), "", parent, style)
         { }
-    
+
     virtual void abortOperation();
 };
 
