@@ -201,7 +201,7 @@ void Lens::setFLFactor(double factor)
     sensorHeight = d / sqrt(sensorRatio*sensorRatio +1);
     sensorWidth = sensorHeight * sensorRatio;
     DEBUG_DEBUG("factor: " << factor << "ratio: " << sensorRatio << " --> New sensor size: " << sensorWidth << "," << sensorHeight);
-    
+
     // FIXME: calculate new HFOV.
 }
 
@@ -593,7 +593,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             getParam(point.x2, line, "X");
             getParam(point.y1, line, "y");
             getParam(point.y2, line, "Y");
-            getParam(t, line, "t");
+            if (!getParam(t, line, "t") ){
+                t = 0;
+            }
+            
             point.mode = (ControlPoint::OptimizeMode) t;
             ctrlPoints.push_back(point);
             state = P_CP;

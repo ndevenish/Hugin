@@ -84,16 +84,11 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     // create suitable command line..
 
 #ifdef __WXMSW__
-    DEBUG_ERROR("Sorry, autopano calling under windows not supported out of the box yet\n"
-                "The interface is: myautopano.exe -o output_project -p nrpoints -s downsizefactor image1 image2 ...\n"
-                "Or change the commandline with the registry/configfile hugin/Autopano/Args parameter\n"
-                "to fit your program or batchfile");
-
     wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPano/AutopanoExe","");
     if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select autopano program"),
+        wxFileDialog dlg(0,_("Select autopano program / frontend script"),
                          "", "",
-                         "Executables (*.exe)|*.exe",
+                         "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
@@ -121,13 +116,15 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         imgNr++;
     }
 
-    autopanoArgs.Replace("%o", "autopano_result.pto");
+    // create file in tmp path..
+    
+    autopanoArgs.Replace("%o", "autopano_result_tempfile.pto");
     wxString tmp;
     tmp.Printf("%d", nFeatures);
     autopanoArgs.Replace("%p", tmp);
     autopanoArgs.Replace("%i", imgFiles.c_str());
     wxString cmd;
-    cmd.Printf("%s %s",autopanoExe.c_str(), autopanoArgs.c_str());
+    cmd.Printf("%s %s",quoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
     DEBUG_DEBUG("Executing: " << cmd.c_str());
     // run autopano in an own output window
     wxShell(cmd);

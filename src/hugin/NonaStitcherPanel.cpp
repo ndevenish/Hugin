@@ -257,7 +257,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
 #endif
-            wxString args(enblendExe);
+            wxString args(quoteFilename(enblendExe));
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
