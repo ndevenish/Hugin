@@ -60,6 +60,12 @@ ImageOrientationFrame::ImageOrientationFrame(wxWindow * parent, Panorama & pano)
         wxT("anchor_orientation_panel_unknown"),
         m_orientationPanel );
 
+#if __WXMSW__
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+#else
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+#endif
+    SetIcon(myIcon);
 
     wxConfigBase * config = wxConfigBase::Get();
 

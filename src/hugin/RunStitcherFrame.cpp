@@ -32,6 +32,7 @@
 
 #include "hugin/CommandHistory.h"
 #include "hugin/RunStitcherFrame.h"
+#include "hugin/MainFrame.h"
 
 using namespace std;
 using namespace PT;
@@ -62,6 +63,12 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_stitcher_frame"));
     assert(ok);
 
+#if __WXMSW__
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+#else
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+#endif
+    SetIcon(myIcon);
 
     m_stitcherStatus = XRCCTRL(*this, "stitcher_status", wxStaticText);
     assert(m_stitcherStatus);

@@ -135,7 +135,6 @@ void ImageCache::softFlush()
 
     DEBUG_DEBUG("total: " << (usedMem>>20) << " MB upper bound: " << (purgeToSize>>20) << " MB");
 
-
     if (usedMem > upperBound) {
         // we need to remove images.
         long purgeAmount = usedMem - purgeToSize;

@@ -64,6 +64,13 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_optimizer_frame"));
     assert(ok);
 
+#if __WXMSW__
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+#else
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+#endif
+    SetIcon(myIcon);
+
     m_apply = XRCCTRL(*this, "optimizer_apply_change", wxButton);
     assert(m_apply);
     m_cancel = XRCCTRL(*this, "optimizer_cancel_change", wxButton);

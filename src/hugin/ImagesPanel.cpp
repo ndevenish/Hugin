@@ -113,7 +113,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     m_empty.LoadFile(MainFrame::Get()->GetXRCPath() +
-                     wxT("/data/") + wxT("druid.images.128.png"),
+                     wxT("data/") + wxT("druid.images.128.png"),
                      wxBITMAP_TYPE_PNG);
     wxStaticBitmap * bmp = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(bmp);

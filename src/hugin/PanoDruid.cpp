@@ -269,7 +269,7 @@ PanoDruid::PanoDruid(wxWindow* parent)
 
     m_advice = -1;
     m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
-                      wxT("/data/") + wxT("druid.stitch.128.png"),
+                      wxT("data/") + wxT("druid.stitch.128.png"),
                       wxBITMAP_TYPE_PNG);
     m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
     m_text = new wxStaticText(this, -1, wxT(""),wxPoint(0,0));
@@ -316,7 +316,7 @@ void PanoDruid::Update(const PT::Panorama& pano)
         full += wxGetTranslation(sm_advice[hint]->text);
         m_text->SetLabel(full);
         m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
-                          wxT("/data/") + sm_advice[hint]->graphic,
+                          wxT("data/") + sm_advice[hint]->graphic,
                           wxBITMAP_TYPE_PNG);
         m_graphic->SetBitmap(m_bitmap);
         m_parent->Layout();

@@ -303,7 +303,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pref_dlg = new PreferencesDialog(this);
 
     // set the minimize icon
-    SetIcon(wxIcon(m_xrcPrefix + wxT("/data/icon.png"), wxBITMAP_TYPE_PNG));
+#if __WXMSW__
+    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+#else
+    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+#endif
+    SetIcon(myIcon);
 
     // create a new drop handler. wxwindows deletes the automaticall
     SetDropTarget(new PanoDropTarget(pano));
@@ -831,7 +836,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(m_xrcPrefix + wxT("/data/FAQ.html"));
+    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(m_xrcPrefix + wxT("data/FAQ.html"));
     dlg.SetTitle(_("hugin - FAQ"));
     dlg.ShowModal();
 }
@@ -1058,7 +1063,7 @@ void MainFrame::updateProgressDisplay()
     // This is a bad call.. we just want to repaint the window, instead we will
     // process user events as well :( Unfortunately, there is not portable workaround...
 #ifdef __WXMSW__
-    ::UpdateWindow;
+    UpdateWindow(NULL);
 #else
     wxYield(true);
 #endif

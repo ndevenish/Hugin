@@ -188,8 +188,12 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     topsizer->SetSizeHints( this );
 
     // set the minimize icon
-    SetIcon(wxIcon(MainFrame::Get()->
-                   GetXRCPath() + wxT("/data/icon.png"), wxBITMAP_TYPE_PNG));
+#if __WXMSW__
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+#else
+    wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+#endif
+    SetIcon(myIcon);
 
     m_pano.addObserver(this);
 

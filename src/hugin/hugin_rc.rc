@@ -1,2 +1,6 @@
-appicon ICON   "xrc/data/icon.ico"
+appicon48 ICON   "xrc/data/icon_48x48.ico"
+//appicon16 ICON   "xrc/data/icon_16x16.ico"
+//appicon96 ICON   "xrc/data/icon_96x96.ico"
+//appicon128 ICON   "xrc/data/icon_128x128.ico"
+
 #include "wx/msw/wx.rc"

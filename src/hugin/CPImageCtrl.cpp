@@ -149,7 +149,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
     if (cursorType == 0) {
         m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
     } else {
-        filename.Printf(wxT("%s/data/CPCursor%d.png"),MainFrame::Get()->GetXRCPath().c_str(),
+        filename.Printf(wxT("%sdata/CPCursor%d.png"),MainFrame::Get()->GetXRCPath().c_str(),
                         cursorType);
         wxImage cImg(filename);
         if (cImg.Ok()) {
