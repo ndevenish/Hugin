@@ -134,25 +134,27 @@ void Lens::setHFOV(double d)
 
 double Lens::getFocalLength() const
 {
-    FDiff2D ssize;
-    double HFOV = const_map_get(variables,"v").getValue();
 
+    double HFOV = const_map_get(variables,"v").getValue();
+#if 0
     if (isLandscape()) {
         ssize = m_sensorSize;
     } else {
         ssize.y = m_sensorSize.x;
         ssize.x = m_sensorSize.y;
     }
+#endif
 
     switch (m_projectionFormat)
     {
         case RECTILINEAR:
-            return (ssize.x/2.0) / tan(HFOV/180.0*M_PI/2);
+            return (m_sensorSize.x/2.0) / tan(HFOV/180.0*M_PI/2);
             break;
         case CIRCULAR_FISHEYE:
         case FULL_FRAME_FISHEYE:
-            // same projection, equal area projection
-            return ssize.x / (HFOV/180*M_PI);
+            // same projection equation for both fisheye types,
+            // assume equal area projection.
+            return m_sensorSize.x / (HFOV/180*M_PI);
             break;
         default:
             // TODO: add formulas for other projections
@@ -163,23 +165,23 @@ double Lens::getFocalLength() const
 
 void Lens::setFocalLength(double fl)
 {
-    FDiff2D ssize;
-
+#if 0
     if (isLandscape()) {
         ssize = m_sensorSize;
     } else {
         ssize.y = m_sensorSize.x;
         ssize.x = m_sensorSize.y;
     }
+#endif
 
     double hfov=map_get(variables, "v").getValue();
     switch (m_projectionFormat) {
         case RECTILINEAR:
-            hfov = 2*atan((ssize.x/2.0)/fl)  * 180.0/M_PI;
+            hfov = 2*atan((m_sensorSize.x/2.0)/fl)  * 180.0/M_PI;
             break;
         case CIRCULAR_FISHEYE:
         case FULL_FRAME_FISHEYE:
-            hfov = ssize.x / fl * 180/M_PI;
+            hfov = m_sensorSize.x / fl * 180/M_PI;
         default:
             // TODO: add formulas for other projections
             DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
@@ -194,6 +196,7 @@ void Lens::setCropFactor(double factor)
     double d = sqrt(36.0*36.0 + 24.0*24.0) / factor;
 
     double r = (double)m_imageSize.x / m_imageSize.y;
+
     // calculate the sensor width and height that fit the ratio
     // the ratio is determined by the size of our image.
     m_sensorSize.x = d / sqrt(1 + 1/(r*r));
@@ -268,6 +271,11 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor)
     } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
         cropFactor = exif.FocalLength35mm / exif.FocalLength;
         focalLength = exif.FocalLength;
+    } else if (exif.FocalLength35mm > 0 && cropFactor <= 0) {
+        // do not ask for crop factor, even if we will store an invalid sensor size.
+        // currenty the sensor size (just the ratio) is not used anywhere.
+        cropFactor = 1;
+        focalLength = exif.FocalLength35mm;
     } else if (exif.FocalLength > 0 || exif.FocalLength35mm > 0 ) {
         // no complete specification found.. ask the user for sensor/chip size, or crop factor
         if (cropFactor > 0) {
@@ -793,6 +801,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         }
         l.setImageSize(vigra::Size2D(PTGUILens.width, PTGUILens.height));
         l.setCropFactor(1);
+        l.setProjection((Lens::LensProjectionFormat) PTGUILens.f);
         lenses.push_back(l);
     }
 
