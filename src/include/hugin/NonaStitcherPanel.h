@@ -77,6 +77,7 @@ public:
 
     // apply changes to the model. (gui values -> Panorama)
     void InterpolatorChanged(wxCommandEvent & e);
+    void OnEnblendChanged( wxCommandEvent & e );
     void OnSetQuality(wxSpinEvent & e);
 
     void FileFormatChanged(wxCommandEvent & e);
