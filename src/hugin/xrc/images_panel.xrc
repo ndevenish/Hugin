@@ -109,7 +109,7 @@
                 <object class="wxButton" name="images_feature_matching">
                   <label>Create Ctrl Points</label>
                   <style></style>
-                  <tooltip>Run external AutoPano (http://autopano.kolor.com) on the selected images</tooltip>
+                  <tooltip>Run external autopano-sift on the selected images (linux only, so far)</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
