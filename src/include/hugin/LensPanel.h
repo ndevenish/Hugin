@@ -42,6 +42,10 @@ using namespace PT;
  */
 extern ImgPreview *canvas;
 
+    // pointer to the list control
+extern    List* images_list2;
+
+
 /** Define the second the Lens panel
  *
  *  - the second for lens selection to images
@@ -73,10 +77,12 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
- private:
     // event handlers
-//    void itemSelected (wxListEvent & e);
     void LensTypeChanged (wxCommandEvent & e);
+    // Here we get the Lens
+    void LensChanged ( wxListEvent & e );
+ private:
+//    void itemSelected (wxListEvent & e);
     void HFOVChanged(wxCommandEvent & e);
     void focalLengthChanged(wxCommandEvent & e);
     void aChanged(wxCommandEvent & e);
@@ -84,17 +90,15 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void cChanged(wxCommandEvent & e);
     void dChanged(wxCommandEvent & e);
     void eChanged(wxCommandEvent & e);
-    // Here we select the preview image
-    void ChangePreview ( wxListEvent & e );
 
     // the model
     Panorama &pano;
 
-    // pointer to the list control
-    List* images_list2;
-
     // the enum_ProjectionFormat ComboBox
     wxComboBox * cb;
+
+    // the Lens actually selected
+    int lens;
 
     DECLARE_EVENT_TABLE()
 };

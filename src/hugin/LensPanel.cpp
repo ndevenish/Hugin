@@ -59,13 +59,16 @@ extern wxImageList * img_bicons;
 // image preview
 extern wxBitmap * p_img;
 
+// pointer to the list control
+List* images_list2;
+
 ImgPreview * lens_canvas;
 
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(LensPanel, wxEvtHandler)
 //    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
-    EVT_LEFT_DOWN ( LensPanel::ChangePreview )
+    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
     EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensPanel::LensTypeChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensPanel::HFOVChanged )
     EVT_TEXT_ENTER ( XRCID("lensval_focalLength"),LensPanel::focalLengthChanged)
@@ -116,11 +119,10 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 {
 }
 
-void LensPanel::ChangePreview ( wxListEvent & e )
+void LensPanel::LensChanged ( wxListEvent & e )
 {
-    DEBUG_TRACE ("")
-    long item (1);
-    DEBUG_INFO ( "hier: is item %ld" << wxString::Format("%ld", item) );
+    long item = e.GetIndex();
+    DEBUG_INFO ( "hier is item: " << wxString::Format("%ld", item) );
 }
 
 void LensPanel::LensTypeChanged ( wxCommandEvent & e )

@@ -77,6 +77,7 @@ class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
     void OnAddItem(wxCommandEvent & e);
     void OnRemoveItem(wxCommandEvent & e);
     void itemSelected ( wxListEvent & e );
+    void OnTest ( wxListEvent & e );
     // Here we select the preview image
     void Change ( wxMouseEvent & e );
 

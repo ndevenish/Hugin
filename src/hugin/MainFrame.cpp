@@ -51,6 +51,8 @@
 
 using namespace PT;
 
+LensPanel* lens_panel;
+
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
     #include "xrc/data/gui.xpm"
 #endif
@@ -103,7 +105,7 @@ MainFrame::MainFrame(wxWindow* parent)
     images_panel = new ImagesPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
 
-    // lens_panel
+    // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("lens_panel_unknown"),
                wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel")) );

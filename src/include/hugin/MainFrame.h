@@ -40,6 +40,9 @@ class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 
+
+extern LensPanel* lens_panel;
+
 /** The main window frame.
  *
  *  It contains the menu & statusbar and a big notebook with
@@ -97,7 +100,6 @@ private:
 
 
     ImagesPanel * images_panel;
-    LensPanel* lens_panel;
     CPEditorPanel * cpe;
 
     // the model

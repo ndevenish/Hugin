@@ -35,16 +35,17 @@
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 
-#include "PT/PanoCommand.h"
-#include "PT/PanoramaMemento.h"
+//#include "PT/PanoCommand.h"
+//#include "PT/PanoramaMemento.h"
 #include "hugin/config.h"
-#include "hugin/CommandHistory.h"
+//#include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/List.h"
+#include "hugin/LensPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "hugin/MainFrame.h"
+//#include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "PT/Panorama.h"
+//#include "PT/Panorama.h"
 
 using namespace PT;
 
@@ -58,16 +59,49 @@ extern wxImageList * img_bicons;
 
 long int prevItem (-1);
 
+// LensPanel
+extern    LensPanel* lens_panel;
+// LensPanel images list
+extern    List* images_list2;
 // Image Preview
 extern ImgPreview *canvas;
+
+// Define a custom event handler
+class MyEvtHandler : public wxEvtHandler
+{
+public:
+    MyEvtHandler(size_t level) { m_level = level; }
+
+    void ToLensPanel(wxListEvent& event)
+    {
+        DEBUG_TRACE("");
+        lens_panel->LensChanged (event);
+
+        // if we don't skip the event, the other event handlers won't get it:
+        // try commenting out this line and see what changes
+        event.Skip(true);
+    }
+
+private:
+    size_t m_level;
+
+    DECLARE_EVENT_TABLE()
+};
+
+BEGIN_EVENT_TABLE(MyEvtHandler, wxEvtHandler)
+    EVT_LIST_ITEM_SELECTED (XRCID("images_list2_unknown"), MyEvtHandler::ToLensPanel)
+END_EVENT_TABLE()
+
+
 
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(List, wxListCtrl)
 //    EVT_PAINT(ImagesPanel::OnDraw)
-    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
+//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
 //    EVT_MOUSE_EVENTS ( List::Change )
     EVT_MOTION ( List::Change )
+//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::OnTest )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::itemSelected )
 //    EVT_LEFT_DOWN ( List::Change )
 END_EVENT_TABLE()
@@ -102,7 +136,7 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
     }
 
     // Image Preview
-    DEBUG_TRACE("");
+    PushEventHandler( new MyEvtHandler((size_t) 1) );
 
     pano->addObserver(this);
     DEBUG_TRACE("");
@@ -189,12 +223,24 @@ void List::itemSelected ( wxListEvent & e )
     if ( list_layout == images_layout ) {
         DEBUG_TRACE ("images_layout")
     } else {
+        selectedItem = e.GetIndex();
+        DEBUG_TRACE (wxString::Format ("no images_layout:  %ld|%d", e.GetIndex(), selectedItem))
+//        lens_panel->Update();
+    }
+    // let others recieve the event too
+    e.Skip(true);
+}
+void List::OnTest ( wxListEvent & e )
+{
+    if ( list_layout == images_layout ) {
+        DEBUG_TRACE ("images_layout")
+    } else {
         DEBUG_TRACE ("no images_layout")
         selectedItem = e.GetIndex();
 //        lens_panel->Update();
     }
     // let others recieve the event too
-    e.Skip();
+    e.Skip(true);
 }
 /*void List::Change ( wxListEvent & e )
 {
