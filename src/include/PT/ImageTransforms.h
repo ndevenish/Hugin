@@ -121,6 +121,29 @@ void remapImage(const PT::Panorama & pano, unsigned int imgNr,
     FDiff2D lr;
     calcBorderPoints(srcSize, invT, back_inserter(outline),
                      ul, lr);
+    if (opts.projectionFormat == PanoramaOptions::EQUIRECTANGULAR) {
+        
+        // check if image overlaps the pole
+        double cw = opts.width / opts.HFOV * 360;
+        double startx = - (cw - opts.width)/2;
+        double stopx = opts.width + (cw-opts.width)/2;
+        
+        t.createTransform(pano, imgNr, opts, srcSize);
+        
+        // handle image overlaps pole case..
+        if (ul.x <= startx + opts.width * 0.1  && lr.x >= stopx - opts.width * 0.1) {
+            // image in northern hemisphere
+            if (ul.y < opts.getHeight() / 2 ) {
+                ul.y = 0;
+            }
+            // image in southern hemisphere
+            if (lr.y > opts.getHeight() / 2 ) {
+                lr.y = opts.getHeight();
+            }
+        }
+    }
+    
+    
 //    ul = FDiff2D(0,0);
 //    lr = FDiff2D(opts.width, opts.getHeight());
     DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ul << ", " << lr << endl);
@@ -263,7 +286,6 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
     prog.popTask();
 }
 
-
 /** Calculate the outline of the current image.
  *
  *  @param srcSize Size of source picture ( an be small, to
@@ -282,15 +304,23 @@ void calcBorderPoints(vigra::Diff2D srcSize,
 {
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
-    lr.x = DBL_MIN;
-    lr.y = DBL_MIN;
+    lr.x = -DBL_MAX;
+    lr.y = -DBL_MAX;
 
     int x = 0;
     int y = 0;
 
+#ifdef DEBUG
+    std::ofstream o("border_curve.txt");
+#endif
+
     for (x=0; x<srcSize.x ; x++) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << endl;
+#endif
         if (ul.x > sx) ul.x = sx;
         if (ul.y > sy) ul.y = sy;
         if (lr.x < sx) lr.x = sx;
@@ -301,6 +331,10 @@ void calcBorderPoints(vigra::Diff2D srcSize,
     for (y=0; y<srcSize.y ; y++) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << endl;
+#endif
         if (ul.x > sx) ul.x = sx;
         if (ul.y > sy) ul.y = sy;
         if (lr.x < sx) lr.x = sx;
@@ -311,6 +345,10 @@ void calcBorderPoints(vigra::Diff2D srcSize,
     for (x=srcSize.x-1; x>0 ; --x) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << endl;
+#endif
         if (ul.x > sx) ul.x = sx;
         if (ul.y > sy) ul.y = sy;
         if (lr.x < sx) lr.x = sx;
@@ -321,12 +359,18 @@ void calcBorderPoints(vigra::Diff2D srcSize,
     for (y=srcSize.y-1 ; y > 0 ; --y) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << endl;
+#endif
         if (ul.x > sx) ul.x = sx;
         if (ul.y > sy) ul.y = sy;
         if (lr.x < sx) lr.x = sx;
         if (lr.y < sy) lr.y = sy;
         *result = FDiff2D((float)sx, (float) sy);
     }
+
+
     DEBUG_DEBUG("bounding box: upper left: " << ul.x << "," << ul.y
                 << "  lower right: " << lr.x << "," << lr.y);
 }

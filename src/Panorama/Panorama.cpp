@@ -303,15 +303,14 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
     return state.variables[imgNr];
 }
 
-
 FDiff2D Panorama::calcFOV() const
 {
     // trace all outlines.
     FDiff2D gul, glr;
     gul.x = FLT_MAX;
-    gul.y = FLT_MAX;
-    glr.x = FLT_MIN;
-    glr.y = FLT_MIN;
+    gul.y = -FLT_MAX;
+    glr.x = -FLT_MAX;
+    glr.y = FLT_MAX;
 
 #ifdef DEBUG
     DEBUG_DEBUG("opening calcFOV_debug.txt");
@@ -326,11 +325,7 @@ FDiff2D Panorama::calcFOV() const
         // create suitable transform, pano -> image
         double ratio =  ((double) state.images[i].getWidth())/state.images[i].getHeight();
         int w = 20;
-        int h = roundi(20*ratio);
-        if (ratio < 1) {
-            w = roundi(20*ratio);
-            h = 20;
-        }
+        int h = roundi(w/ratio);
         T.createInvTransform(Diff2D(w, h),
                              state.variables[i],
                              getLens(state.images[i].getLensNr()).projectionFormat,
@@ -346,14 +341,28 @@ FDiff2D Panorama::calcFOV() const
         debug_out << "image coord:" << ul << " - " << lr << endl;
 #endif
         // equirect image coordinates -> equirectangular coordinates
-        ul.x -= 180;
-        ul.y -= 90;
-        lr.x -= 180;
-        lr.y -= 90;
+        ul.x = (ul.x + 0.5) - 180;
+        ul.y = 90 - (ul.y + 0.5);
+        lr.x = (lr.x + 0.5) - 180;
+        lr.y = 90 - (lr.y + 0.5);
+
+        // handle image overlaps pole case
+        if (ul.x <= -170.0 && lr.x >= 170) {
+            // image in northern hemisphere
+            if (ul.y > 0 ) {
+                ul.y = 90;
+            }
+            // image in southern hemisphere
+            if (lr.y < 0) {
+                lr.y = -90;
+            }
+        }
+
         if (gul.x > ul.x) gul.x = ul.x;
-        if (gul.y > ul.y) gul.y = ul.y;
+        if (gul.y < ul.y) gul.y = ul.y;
         if (glr.x < lr.x) glr.x = lr.x;
-        if (glr.y < lr.y) glr.y = lr.y;
+        if (glr.y > lr.y) glr.y = lr.y;
+
 #ifdef DEBUG
         debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << endl;
 #endif
@@ -827,7 +836,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
                         << " pitch " << map_get(*varIt, "p").getValue()
                         << " roll " << map_get(*varIt, "r").getValue());
             // read lens variables
-            
+
             for (char **c = Lens::variableNames; *c != 0; ++c) {
                 Variable & curVar = map_get(*varIt, *c);
                 if (!readVar(curVar, link, line)) {
