@@ -63,9 +63,24 @@ void MyProgressDialog::updateProgressDisplay()
     if (!Update(percentage, msg)) {
         abortOperation();
     }
-    Layout();
-    Fit();
-//    wxYield();
+    
+    bool resized=false;
+    const wxSize & sz = GetBestSize();
+    wxSize csz = GetClientSize();
+    if (sz.GetWidth() > csz.GetWidth()) {
+        SetClientSize(sz.GetWidth(),csz.GetHeight());
+        resized = true;
+    }
+    csz.SetWidth(sz.GetWidth());
+    if (sz.GetHeight() > csz.GetHeight()) {
+        SetClientSize(csz.GetWidth(),sz.GetHeight());
+        resized = true;
+    }
+    
+    if (resized) {
+        Layout();
+//    Fit();
+    }    
 }
 
 void OptProgressDialog::abortOperation()
