@@ -448,11 +448,16 @@ unsigned int PanoramaOptions::getHeight() const
 {
     switch (projectionFormat) {
     case RECTILINEAR:
-        // FIXME. wrong
+    {
         return (int) ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
+        break;
+    }
     case CYLINDRICAL:
-        // FIXME. wrong
-        return (int) ( width * atan(DEG_TO_RAD(VFOV/2.0)) / DEG_TO_RAD(HFOV/2.0));
+    {
+        double f = (double)width / DEG_TO_RAD(HFOV);
+        return (int) (2.0 * tan(DEG_TO_RAD(VFOV)/2.0) * f);
+        break;
+    }
     case EQUIRECTANGULAR:
         return (int) (width * VFOV/HFOV);
     }
@@ -524,17 +529,18 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
             switch (options.projectionFormat) {
             case PanoramaOptions::RECTILINEAR:
-//                h = ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
                 options.VFOV = 2.0 * atan( (double)height * tan(DEG_TO_RAD(options.HFOV)/2.0) / options.width);
                 options.VFOV = RAD_TO_DEG(options.VFOV);
                 break;
             case PanoramaOptions::CYLINDRICAL:
-//                h = ( width * atan(DEG_TO_RAD(VFOV/2.0)) / DEG_TO_RAD(HFOV/2.0));
-                options.VFOV = 2.0 * tan( (double)height/options.width * DEG_TO_RAD(options.HFOV)/2.0);
+            { 
+		// equations: w = f * v (f: focal length, in pixel)
+                double f = options.width / DEG_TO_RAD(options.HFOV);
+                options.VFOV = 2*atan(height/(2.0*f));
                 options.VFOV = RAD_TO_DEG(options.VFOV);
                 break;
+            }
             case PanoramaOptions::EQUIRECTANGULAR:
-//                return (int) (width * VFOV/HFOV);
                 options.VFOV = options.HFOV * height / options.width;
                 break;
             }
