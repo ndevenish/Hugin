@@ -19,3 +19,5 @@ phase_correlate
 rotatePTStitcher.pl
 rotatePTStitcher.py
 rotatePTStitcher.sh
+Debug
+Release

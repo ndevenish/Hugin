@@ -88,6 +88,7 @@
 				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\lib\mswd&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\contrib\include&quot;"
 				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;DEBUG=1;__WXDEBUG__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				RuntimeLibrary="1"
+				BufferSecurityCheck="TRUE"
 				PrecompiledHeaderFile=".\Debug/XrcDemoVC.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
@@ -257,6 +258,71 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug Unicode|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\lib\mswud&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\contrib\include&quot;"
+				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;DEBUG=1;__WXDEBUG__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT;UNICODE"
+				RuntimeLibrary="1"
+				PrecompiledHeaderFile=".\Debug/XrcDemoVC.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswud.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexd.lib wxxrcud.lib pano12.lib"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano\pano12"
+				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
+				SubSystem="2"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/XrcDemoVC.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
 				Culture="2057"
 				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;"/>
 			<Tool
