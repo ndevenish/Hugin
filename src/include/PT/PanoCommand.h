@@ -167,7 +167,7 @@ namespace PT {
             {
                 PanoCommand::execute();
                 for (UIntSet::reverse_iterator it = imgNrs.rbegin();
-                     it != imgNrs.rend(); ++it) 
+                     it != imgNrs.rend(); ++it)
                 {
                     pano.removeImage(*it);
                 }
@@ -603,6 +603,38 @@ namespace PT {
             }
     private:
         Lens lens;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
+    /** add a new lens to some images */
+    class AddNewLensToImagesCmd : public PanoCommand
+    {
+    public:
+        AddNewLensToImagesCmd(Panorama & p, const Lens & lens, const UIntSet & imgs)
+            : PanoCommand(p), lens(lens), imgNrs(imgs)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                unsigned int lnr = pano.addLens(lens);
+                for (UIntSet::iterator it = imgNrs.begin();
+                     it != imgNrs.end(); ++it)
+                {
+                    pano.setLens(*it, lnr);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "addLens and images";
+            }
+    private:
+        Lens lens;
+        UIntSet imgNrs;
     };
 
 

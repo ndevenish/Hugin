@@ -349,6 +349,32 @@
                   </object>
                 </object>
               </object>
+              <object class="sizeritem">
+                <object class="wxStaticLine"/>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_newlens">
+                      <label>New Lens</label>
+                      <tooltip>Create a new lens and assign it to selected images</tooltip>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_changelens">
+                      <label>Change lens</label>
+                      <tooltip>change lens of selected images</tooltip>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                </object>
+              </object>
             </object>
             <flag>wxALL|wxEXPAND</flag>
             <border>5</border>

@@ -96,6 +96,14 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     /** load the lens parameters for a file */
     void OnLoadLensParameters(wxCommandEvent & e);
 
+    /** change lens number of image */
+    void OnChangeLens(wxCommandEvent & e);
+
+    /** create a new lens and assign it to the
+     *  selected images 
+     */
+    void OnNewLens(wxCommandEvent & e);
+
     /** catches changes to the list selection */
     void ListSelectionChanged(wxListEvent& e);
 

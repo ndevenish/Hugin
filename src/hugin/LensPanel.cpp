@@ -87,6 +87,8 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_BUTTON ( XRCID("lens_button_loadEXIF"), LensPanel::OnReadExif )
     EVT_BUTTON ( XRCID("lens_button_save"), LensPanel::OnSaveLensParameters )
     EVT_BUTTON ( XRCID("lens_button_load"), LensPanel::OnLoadLensParameters )
+    EVT_BUTTON ( XRCID("lens_button_newlens"), LensPanel::OnNewLens )
+    EVT_BUTTON ( XRCID("lens_button_changelens"), LensPanel::OnChangeLens )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_a"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_b"), LensPanel::OnVarInheritChanged )
@@ -700,6 +702,42 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         wxLogError(_("Please select an image and try again"));
     }
 }
+
+void LensPanel::OnNewLens(wxCommandEvent & e)
+{
+    if (m_selectedImages.size() > 0) {
+        // create a new lens, try to read info from first image
+        unsigned int imgNr = *(m_selectedImages.begin());
+        Lens l;
+        double crop=0;
+        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l);
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::AddNewLensToImagesCmd(pano, l, m_selectedImages)
+            );
+    } else {
+        wxLogError(_("Please select an image and try again"));
+    }
+}
+
+void LensPanel::OnChangeLens(wxCommandEvent & e)
+{
+    if (m_selectedImages.size() > 0) {
+        // ask user for lens number.
+        long nr = wxGetNumberFromUser(_("Enter new lens number"), _("Lens number"),
+                                      _("Change lens number"), 0, 0,
+                                      pano.getNrOfLenses()-1);
+        if (nr >= 0) {
+            // user accepted
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetImageLensCmd(pano, m_selectedImages, nr)
+                );
+        }
+    } else {
+        wxLogError(_("Please select an image and try again"));
+    }       
+}
+
+
 
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
 {

@@ -1050,6 +1050,35 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
     // copy the whole lens settings into the image
     copyLensVariablesToImage(imgNr);
     // FIXME: check if we overwrote the last instance of another lens
+    removeUnusedLenses();
+}
+
+void Panorama::removeUnusedLenses()
+{
+    for (int lNr; lNr < state.lenses.size(); lNr++) {
+        // check if this lens is lonely
+        int n=0;
+        for (int iNr; iNr < state.images.size(); iNr++) {
+            if (state.images[iNr].getLensNr() == lNr) {
+                n++;
+            }
+        }
+        if (n == 0) {
+            // not used by any image, remove from vector
+            LensVector::iterator it = state.lenses.begin();
+            it = it + lNr;
+            state.lenses.erase(it);
+            // adjust lens numbers inside images
+            for (int iNr; iNr < state.images.size(); iNr++) {
+                int imgLensNr = state.images[iNr].getLensNr();
+                assert(imgLensNr != lNr);
+                if ( imgLensNr > lNr) {
+                    state.images[iNr].setLensNr(imgLensNr-1);
+                    imageChanged(iNr);
+                }
+            }
+        }
+    }
 }
 
 void Panorama::removeLens(unsigned int lensNr)
@@ -1145,7 +1174,7 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     // FIXME.. check for grayscale / color
 
     Lens lens;
-    lens.setImageSize(vigra::Size2D(img.width(), img.height()));    
+    lens.setImageSize(vigra::Size2D(img.width(), img.height()));
     map_get(lens.variables,"v").setValue(HFOV);
 
     double cropFactor = 0;

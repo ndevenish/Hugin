@@ -441,6 +441,15 @@ public:
      */
     void removeLens(unsigned int lensNr);
 
+    
+    /** remove unused lenses.
+     *
+     *  some operations might create lenses that are not
+     *  referenced by any image. This functions removes them.
+     *
+     */
+    void removeUnusedLenses();
+    
     //=============================
 
     /** set new output settings
