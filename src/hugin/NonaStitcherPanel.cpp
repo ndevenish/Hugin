@@ -300,6 +300,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 		int ret = system(args);
 		if (ret == -1) {
 		    perror("system() failed");
+		} else {
+		    ret = WEXITSTATUS(ret);
 		}
 #else
                 int ret = wxExecute(args, wxEXEC_SYNC);
@@ -311,7 +313,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     return;
                 } else if (ret > 0) {
                     wxMessageBox(_("command: ") + args +
-                                 _(" failed with error code: ") + wxString::Format("%d",ret),
+                                 _("\nfailed with error code: ") + wxString::Format("%d",ret),
 				 _("enblend error"));
                     return;
                 }

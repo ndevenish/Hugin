@@ -191,6 +191,8 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     int ret = system(cmd);
     if (ret == -1) {
 	perror("system() failed");
+    } else {
+	ret = WEXITSTATUS(ret);
     }
 #else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
@@ -201,7 +203,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     } else if (ret > 0) {
         wxMessageBox(_("command: ") + cmd +
-                     _(" failed with error code: ") + wxString::Format("%d",ret),
+                     _("\nfailed with error code: ") + wxString::Format("%d",ret),
 		     _("wxExecute Error"),
                      wxCANCEL );
         return;
@@ -291,6 +293,8 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     int ret = system(cmd);
     if (ret == -1) {
 	perror("system() failed");
+    } else {
+	ret = WEXITSTATUS(ret);
     }
 #else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
@@ -301,7 +305,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         return;
     } else if (ret > 0) {
         wxMessageBox(_("command: ") + cmd +
-                     _(" failed with error code: ") + wxString::Format("%d",ret),
+                     _("\nfailed with error code: ") + wxString::Format("%d",ret),
 		     _("wxExecute Error"),
                      wxCANCEL );
         return;
