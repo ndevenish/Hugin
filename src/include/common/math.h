@@ -30,6 +30,13 @@
 #include <iostream>
 #include <vigra/basicimage.hxx>
 
+#ifndef PI
+	#define PI 3.14159265358979323846
+#endif
+
+#define DEG_TO_RAD( x )		( (x) * 2.0 * PI / 360.0 )
+#define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * PI ) )
+
 /** namespace for various math utils */
 namespace utils
 {
@@ -67,6 +74,8 @@ struct TDiff2D
     double x,y;
 };
 
+
+
 /** clip a point to fit int [min, max]
  *  does not do a mathematical clipping, just sets p.x and p.y
  *  to the borders if they are outside.
@@ -80,8 +89,7 @@ void simpleClipPoint(T & p, const T & min, const T & max)
     if (p.y > max.y) p.y = max.y;
 }
 
-
-/** calculate Euclidean distance between two vectors.
+/** calculate squared Euclidean distance between two vectors.
  */
 template <class InputIterator1, class InputIterator2>
 double euclid_dist(InputIterator1 first1, InputIterator1 last1,
@@ -98,7 +106,7 @@ double euclid_dist(InputIterator1 first1, InputIterator1 last1,
     return sqrt(res);
 }
 
-/** calculate Euclidean distance between two vectors.
+/** calculate squared Euclidean distance between two vectors.
  */
 template <class InputIterator1, class InputIterator2, class T>
 T sqr_dist(InputIterator1 first1, InputIterator1 last1,
