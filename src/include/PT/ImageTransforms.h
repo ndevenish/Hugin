@@ -966,7 +966,6 @@ public:
         vigra::importImageAlpha(info, vigra::destImage(srcImg),
                                        vigra::destImage(srcAlpha));
 
-        progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
         m_remapped = new RemappedPanoImage<ImageType, AlphaType>;
         m_remapped->remapImage(pano, opts,
                              vigra::srcImageRange(srcImg),
@@ -980,6 +979,7 @@ public:
     {
         if (m_remapped) {
             delete m_remapped;
+            m_remapped = 0;
         }
     }
 protected:

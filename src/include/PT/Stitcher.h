@@ -136,6 +136,8 @@ public:
             runningImgNr++;
         }
 
+	Base::m_progress.popTask();
+
         finalizeOutputFile(opts);
     }
 
@@ -605,6 +607,7 @@ public:
             // free remapped image
             remapper.release();
 	}
+	Base::m_progress.popTask();
     }
 
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
