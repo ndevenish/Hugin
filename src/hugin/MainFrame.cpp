@@ -328,7 +328,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         //size
         int w = config->Read(wxT("/MainFrame/width"),-1l);
         int h = config->Read(wxT("/MainFrame/height"),-1l);
-        if (w != -1) {
+        if (w >0) {
             SetClientSize(w,h);
         } else {
             Fit();
@@ -336,7 +336,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         //position
         int x = config->Read(wxT("/MainFrame/positionX"),-1l);
         int y = config->Read(wxT("/MainFrame/positionY"),-1l);
-        if ( y != -1) {
+        if ( y > 0) {
             Move(x, y);
         } else {
             Move(0, 44);

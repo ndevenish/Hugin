@@ -33,7 +33,11 @@
 
 #include <vigra/error.hxx>
 
+#ifdef WIN32
+#include <getopt.h>
+#else
 #include <unistd.h>
+#endif
 
 #include "PT/Stitcher.h"
 
@@ -72,6 +76,7 @@ public:
 
 
 private:
+    wxLocale m_locale;
 };
 
 
@@ -92,6 +97,15 @@ nonaApp::~nonaApp()
 bool nonaApp::OnInit()
 {
     SetAppName(wxT("nona_gui"));
+
+    wxString exePath;
+    wxFileName::SplitPath( argv[0], &exePath, NULL, NULL );
+
+    m_locale.Init(wxLANGUAGE_DEFAULT);
+    // add local Paths
+    m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
+    m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
 
     // parse arguments
     const char * optstring = "ho:";

@@ -290,7 +290,7 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     } else {
         int w = config->Read(wxT("/CPListFrame/width"),-1l);
         int h = config->Read(wxT("/CPListFrame/height"),-1l);
-        if (w != -1) {
+        if (w > 0) {
             SetClientSize(w,h);
         } else {
             Fit();
@@ -298,7 +298,7 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         //position
         int x = config->Read(wxT("/CPListFrame/positionX"),-1l);
         int y = config->Read(wxT("/CPListFrame/positionY"),-1l);
-        if ( y != -1) {
+        if ( y > 0) {
             Move(x, y);
         } else {
             Move(0, 44);

@@ -11,4 +11,5 @@ Makefile
 Makefile.in
 stamp-h
 stamp-h.in
-Debug Static
+Debug.Static
+Release.Static

@@ -91,11 +91,6 @@ bool huginApp::OnInit()
     // here goes and comes configuration
     wxConfigBase * config = wxConfigBase::Get();
 
-    // set as global config, so that other parts of hugin and wxWindows
-    // controls can use it easily
-    config->SetRecordDefaults(TRUE);
-
-//    DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
     config->SetRecordDefaults(TRUE);
 
     if ( config->IsRecordingDefaults() ) {

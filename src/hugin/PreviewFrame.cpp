@@ -202,7 +202,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         //size
         int w = config->Read(wxT("/PreviewFrame/width"),-1l);
         int h = config->Read(wxT("/PreviewFrame/height"),-1l);
-        if (w != -1) {
+        if (w > 0) {
             SetClientSize(w,h);
         } else {
             Fit();
@@ -210,7 +210,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         //position
         int x = config->Read(wxT("/PreviewFrame/positionX"),-1l);
         int y = config->Read(wxT("/PreviewFrame/positionY"),-1l);
-        if ( y != -1) {
+        if ( y > 0) {
             Move(x, y);
         } else {
             Move(0, 44);
