@@ -68,7 +68,7 @@ $(TARGETS_NESTED):
 	@for subdir in $(SUBDIRS) __dummy__dir__ ; do \
             if test -d $$subdir; then \
 	      echo "Descending directory $$subdir to do \"make $(@:%.nested=%)\""; \
-              $(MAKE) -C $$subdir $(@:%.nested=%); \
+	      $(MAKE) -C $$subdir $(@:%.nested=%) || exit 1; \
             fi; \
         done
 
