@@ -83,12 +83,16 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),
       pano(*pano)
 {
-    pano->addObserver(this);
+//    pano->addObserver(this);
 
     opt = new PanoramaOptions();
 
     // loading xrc resources in selfcreated this panel
     wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
+
+    // set defaults from gui;
+    wxCommandEvent e;
+    PanoChanged (e);
 
     DEBUG_TRACE("")
 }
@@ -107,6 +111,19 @@ PanoPanel::~PanoPanel(void)
 
 void PanoPanel::PanoChanged ( wxCommandEvent & e )
 {
+
+    GammaChanged (e);
+    HFOVChanged (e);
+    InterpolatorChanged (e);
+    ProjectionChanged (e);
+
+    PreviewWidthChanged (e);
+
+    FinalFormatChanged (e);
+    WidthChanged (e);
+    HeightChanged (e);
+    JpegQChanged (e);
+    JpegPChanged (e);
 
     DEBUG_INFO ( "" )
 }
@@ -179,7 +196,7 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
     wxString text = XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)->GetValue();
     text.ToDouble( val );
 
-    opt->gamma = (int)*val;
+    opt->gamma = *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
@@ -208,7 +225,12 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
     opt->width = previewWidth;
+    opt->height = previewWidth / 2;
     PT::SetPanoOptionsCmd( pano, *opt );
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::StitchCmd( pano, *opt )
+        );
 
     DEBUG_INFO ( "" )
 }
@@ -254,7 +276,7 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_width", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
-    opt->width = Width= lt;
+    opt->width = Width = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
@@ -271,7 +293,7 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_height", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
-    opt->height = lt;
+    opt->height = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
@@ -288,7 +310,7 @@ void PanoPanel::JpegQChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
-    opt->quality = lt;
+    opt->quality = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
@@ -314,13 +336,15 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
 {
     opt->width = Width;
     PT::SetPanoOptionsCmd( pano, *opt );
-
+#ifdef unix
+    DEBUG_INFO ( "unix" )
+#endif
     // for testing
     //opt->printStitcherScript( *stdout, *opt);
 
-/*    GlobalCmdHist::getInstance().addCommand(
+    GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, *opt )
-        );*/
+        );
     DEBUG_INFO ( ": " )
 }
 
