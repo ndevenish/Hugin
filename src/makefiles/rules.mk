@@ -58,7 +58,7 @@ depclean: depclean.nested depclean.local
 docs:
 	doxygen
 po:
-	cd po; make po
+	cd $(CODE_ROOT)/po; make po
 
 #=============================================================================
 # All nested targets are taken care of by this rule. It simply goes
