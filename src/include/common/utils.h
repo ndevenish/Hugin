@@ -28,7 +28,7 @@
 #include <iostream>
 #include <sstream>
 
-#if __WXMSW__ || __WXGTK__
+#if __WXMSW__
 #include <wx/log.h>
 #endif
 
@@ -45,7 +45,7 @@
 // use trace function under windows, because usually there is
 // no stdout under windows
 //#ifdef __WXMSW__
-#if __WXMSW__ || __WXGTK__
+#if __WXMSW__
 // debug trace
 #define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str());}
 // low level debug info
@@ -106,7 +106,7 @@ namespace utils
         if (!(interpreter << arg) ||
             !(interpreter >> result) ||
             !(interpreter >> std::ws).eof()) {
-            
+
             DEBUG_ERROR("lexical cast error");
             // cast error.  handle it somehow
             // boost guys throw an exception here

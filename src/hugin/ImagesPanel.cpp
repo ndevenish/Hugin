@@ -230,7 +230,7 @@ void ImagesPanel::EnableImageCtrls()
         XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Enable();
         XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
     }
-}    
+}
 
 void ImagesPanel::ShowImgParameters(unsigned int imgNr)
 {
@@ -245,7 +245,7 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
 
     val = doubleToString(map_get(vars,"r").getValue());
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(val.c_str());
-    
+
     ShowImage(imgNr);
 }
 
@@ -254,9 +254,9 @@ void ImagesPanel::ClearImgParameters()
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Clear();
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Clear();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Clear();
-    
+
     XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->SetBitmap(wxNullBitmap);
-    
+
 }
 
 void ImagesPanel::ShowImage(unsigned int imgNr)
@@ -270,7 +270,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
 
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();
     double iRatio = (double)img->GetWidth() / img->GetHeight();
-            
+
     int w,h;
     if (iRatio > sRatio) {
         // image is wider than screen, display landscape

@@ -113,9 +113,10 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
                          long style,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
-      drawNewPoint(false), scaleFactor(1), fitToWindow(false)
+      drawNewPoint(false), scaleFactor(1), fitToWindow(false),
+      m_showSearchArea(false), m_searchRectWidth(10)
 {
-    SetCursor(wxCursor(wxCURSOR_MAGNIFIER));
+    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("GREEN")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
@@ -129,6 +130,9 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("SALMON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("MAROON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("KHAKI")));
+
+    m_drawSearchRect = false;
+    m_searchRectWidth = 120;
 }
 
 CPImageCtrl::~CPImageCtrl()
@@ -176,6 +180,18 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NO_SELECTION:
         break;
+    }
+
+    if (m_drawSearchRect){
+        dc.SetLogicalFunction(wxINVERT);
+        dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+        dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+        int width = scale(m_searchRectWidth);
+        DEBUG_DEBUG("drawing rect with width " << 2*width);
+        wxPoint upperLeft = m_mousePos - wxPoint(width, width);
+
+        dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
+        dc.SetLogicalFunction(wxCOPY);
     }
 }
 
@@ -245,7 +261,9 @@ void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
 
 void CPImageCtrl::clearNewPoint()
 {
+    editState = NO_SELECTION;
     drawNewPoint = false;
+    update();
 }
 
 
@@ -302,12 +320,12 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
     wxPoint mpos;
     CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
                            &mpos.x, & mpos.y);
+    bool doUpdate = false;
     mpos = invScale(mpos);
     if (mouse->LeftIsDown()) {
         switch(editState) {
         case NO_SELECTION:
-            DEBUG_FATAL("mouse movement without selection!");
-            assert(0);
+            DEBUG_ERROR("mouse down movement without selection, in NO_SELECTION state!");
             break;
         case KNOWN_POINT_SELECTED:
             if (mpos.x >= 0 && mpos.x <= imageSize.GetWidth()){
@@ -329,22 +347,20 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             //
             //emit(pointMoved(selectedPointNr, points[selectedPointNr]));
             // do more intelligent updating here?
-            update();
+            doUpdate = true;
             break;
         case NEW_POINT_SELECTED:
             newPoint = mpos;
             //emit(newPointMoved(newPoint));
-            update();
+            doUpdate = true;
             break;
         case SELECT_REGION:
             region.SetWidth(mpos.x - region.x);
             region.SetHeight(mpos.y - region.y);
             // do more intelligent updating here?
             drawNewPoint = false;
-            update();
+            doUpdate = true;
         }
-//        DEBUG_DEBUG("ImageDisplay: mouse move, state change: " << oldstate
-//                    << " -> " << editState);
     }
     if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
       int x,y;
@@ -360,6 +376,30 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
           - (double)sz.y/32.0);
       if (y<0) x = 0;
       Scroll( x, y);
+    }
+
+    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
+
+    // draw a rectangle
+
+    if ((editState == NO_SELECTION || editState == NEW_POINT_SELECTED)
+        && m_showSearchArea) 
+    {
+        DEBUG_DEBUG("enabled search area")
+        doUpdate = true;
+        m_drawSearchRect = true;
+    } else {
+        if (m_drawSearchRect) {
+            DEBUG_DEBUG("disable search area display")
+            m_drawSearchRect = false;
+            doUpdate = true;
+        }
+    }
+
+    m_mousePos = mpos;
+    // repaint
+    if (doUpdate) {
+        update();
     }
 }
 
@@ -392,10 +432,28 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
             editState = SELECT_REGION;
             region.x = mpos.x;
             region.y = mpos.y;
+        } else {
+            DEBUG_ERROR("invalid state " << clickState << " on mouse down");
         }
         DEBUG_DEBUG("ImageDisplay: mouse down, state change: " << oldstate
                     << " -> " << editState);
     }
+    if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
+        int x,y;
+        wxSize vs;
+        GetVirtualSize( &vs.x, &vs.y );
+        wxSize sz = GetClientSize();
+        x = (int)((double)mouse->GetPosition().x/16.0/(double)sz.GetWidth()
+                  * (double)vs.x
+                  - (double)sz.x/32.0);
+        if (x<0) x = 0;
+        y = (int)((double)mouse->GetPosition().y/16.0/(double)sz.GetHeight()
+                  * (double)vs.y
+                  - (double)sz.y/32.0);
+        if (y<0) x = 0;
+        Scroll( x, y);
+    }
+
 }
 
 
@@ -411,7 +469,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
     if (mouse->LeftUp()) {
         switch(editState) {
         case NO_SELECTION:
-            assert(0);
+            DEBUG_WARN("mouse release without selection");
             break;
         case KNOWN_POINT_SELECTED:
             if (point != points[selectedPointNr]) {

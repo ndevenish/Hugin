@@ -148,6 +148,15 @@ public:
      *  Scrolls the windows so that x,y is shown in the center
      */
     void CPImageCtrl::showPosition(int x, int y);
+    
+    /** show the search area rectangle
+     *
+     */
+    void showSearchArea(int width)
+        { m_showSearchArea = true; m_searchRectWidth = width; }
+    
+    void hideSearchArea()
+        { m_showSearchArea = false ; update(); }
 
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
@@ -251,6 +260,11 @@ private:
     std::vector<wxColour> pointColors;
     double scaleFactor;
     bool fitToWindow;
+
+    bool m_showSearchArea;
+    bool m_drawSearchRect;
+    wxPoint m_mousePos;
+    int m_searchRectWidth;
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point

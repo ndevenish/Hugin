@@ -121,7 +121,7 @@ private:
     /// search for region in destImg
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
 
-    bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
+    double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                       const vigra::Diff2D &tmplPoint,
                                       unsigned int subjImgNr,
                                       const vigra::Diff2D &subjPoint,
@@ -156,13 +156,13 @@ private:
     std::string m_leftFile;
     std::string m_rightFile;
     bool m_listenToPageChange;
-    
+
     wxPoint newPoint;
     enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
     CPCreationState cpCreationState;
 
     unsigned int m_selectedPoint;
-    
+
     // pair of global control point number and corrosponding control point
     typedef std::pair<unsigned int, PT::ControlPoint> CPoint;
 
@@ -171,6 +171,11 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
+
+    // template size
+    long m_templSize;
+    // template search area divider ( search size imgWidth/m_templSearchDivisor
+    double m_templSearchAreaPercent;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

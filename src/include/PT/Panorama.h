@@ -93,7 +93,7 @@ public:
      *
      */
     virtual void panoramaImagesChanged(Panorama &pano, const UIntSet & changed)
-        { DEBUG_WARN("DEFAULT handler method"); };
+        { DEBUG_DEBUG("DEFAULT handler method"); };
 
     /** notification about a new image.
      *
@@ -307,7 +307,7 @@ public:
 
     /** clear the internal state. */
     void reset();
-    
+
 
     /** Set the variables.
      *
