@@ -191,7 +191,7 @@
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
-              <label>Image Skew Parameters</label>
+              <label>Image Center Shift</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticText">
@@ -240,7 +240,7 @@
                     <object class="wxCheckBox" name="lens_inherit_e">
                       <label>Inherit</label>
                       <enabled>0</enabled>
-                      <tooltip>pano tools optimisation for linked &quot;d&quot; does not work</tooltip>
+                      <tooltip>pano tools optimisation for linked &quot;e&quot; does not work</tooltip>
                     </object>
                     <flag>wxEXPAND|wxGROW</flag>
                   </object>
