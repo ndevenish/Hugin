@@ -211,7 +211,7 @@ public:
         case PanoramaOptions::JPEG:
         {
             std::ostringstream filename;
-            filename << m_basename << std::setfill('0') << std::setw(3) << imgNr << ".jpg";
+            filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".jpg";
 
             vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
@@ -226,7 +226,7 @@ public:
         case PanoramaOptions::PNG:
         {
             std::ostringstream filename;
-            filename << m_basename << setfill('0') << setw(3) << imgNr << ".png";
+            filename << m_basename << setfill('0') << setw(4) << imgNr << ".png";
             vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
