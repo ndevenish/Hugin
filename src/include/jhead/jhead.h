@@ -22,8 +22,10 @@ typedef unsigned char uchar;
 
 #define MAX_COMMENT 2000
 
-#ifdef _WIN32
+#ifdef WIN32
+  #ifndef PATH_MAX
     #define PATH_MAX _MAX_PATH
+  #endif
 #endif
 
 //--------------------------------------------------------------------------

@@ -16,7 +16,7 @@
 #include <errno.h>
 #include <ctype.h>
 
-#ifdef _WIN32
+#ifdef WIN32
     #include <process.h>
     #include <io.h>
     #include <sys/utime.h>

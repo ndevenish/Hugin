@@ -28,6 +28,7 @@
 
 #include "common/utils.h"
 
+#ifdef unix
 std::string utils::CurrentTime()
 {
   char tmp[100];
@@ -39,3 +40,11 @@ std::string utils::CurrentTime()
   sprintf(tmp+8,".%06ld",tv.tv_usec);
   return tmp;
 }
+#else
+std::string utils::CurrentTime()
+{
+    // FIXME implement for Win & Mac
+    return "";
+}
+
+

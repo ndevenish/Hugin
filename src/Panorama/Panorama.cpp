@@ -492,7 +492,7 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
     // 0 = read output (image lines), 1 = read control point distances
     int state = 0;
     string line;
-    uint lineNr = 0;
+    unsigned int lineNr = 0;
     VariablesVector::iterator varIt = imgVars.begin();
     CPVector::iterator pointIt = CPs.begin();
 

@@ -15,7 +15,7 @@
 #include <ctype.h>
 
 
-#ifdef _WIN32
+#ifdef WIN32
     #include <sys/utime.h>
 #else
     #include <utime.h>
