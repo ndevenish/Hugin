@@ -60,44 +60,41 @@ using namespace utils;
 /** file drag and drop handler method */
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
-
-    // FIXME check for Images / project files
     DEBUG_TRACE("OnDropFiles");
     if (filenames.GetCount() == 1) {
         wxFileName file(filenames[0]);
-        if (file.GetExt().CmpNoCase("pto") ||
-            file.GetExt().CmpNoCase("ptp") ||
-            file.GetExt().CmpNoCase("pts")    )
+        if (file.GetExt().CmpNoCase("pto") == 0 ||
+            file.GetExt().CmpNoCase("ptp") == 0 ||
+            file.GetExt().CmpNoCase("pts") == 0 )
         {
             if (MainFrame::Get()) {
                 // load project
                 MainFrame::Get()->LoadProjectFile(file.GetFullPath());
             }
+            return true;
         }
-    } else {
-        // try to add as images
-        std::vector<std::string> filesv;
-        for (unsigned int i=0; i< filenames.GetCount(); i++) {
-            wxFileName file(filenames[0]);
-            
-            if (file.GetExt().CmpNoCase("jpg") ||
-                file.GetExt().CmpNoCase("tif") ||
-                file.GetExt().CmpNoCase("tiff") ||
-                file.GetExt().CmpNoCase("png") ||
-                file.GetExt().CmpNoCase("bmp") ||
-                file.GetExt().CmpNoCase("gif") ||
-                file.GetExt().CmpNoCase("pnm") ||
-                file.GetExt().CmpNoCase("sun") ||
-                file.GetExt().CmpNoCase("viff") )
-            {
-                
-                filesv.push_back(filenames[i].c_str());
-            }
-        }
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::wxAddImagesCmd(pano,filesv)
-            );
     }
+    // try to add as images
+    std::vector<std::string> filesv;
+    for (unsigned int i=0; i< filenames.GetCount(); i++) {
+        wxFileName file(filenames[0]);
+
+        if (file.GetExt().CmpNoCase("jpg") == 0 ||
+            file.GetExt().CmpNoCase("tif") == 0 ||
+            file.GetExt().CmpNoCase("tiff") == 0 ||
+            file.GetExt().CmpNoCase("png") == 0 ||
+            file.GetExt().CmpNoCase("bmp") == 0 ||
+            file.GetExt().CmpNoCase("gif") == 0 ||
+            file.GetExt().CmpNoCase("pnm") == 0 ||
+            file.GetExt().CmpNoCase("sun") == 0 ||
+            file.GetExt().CmpNoCase("viff") == 0 )
+        {
+            filesv.push_back(filenames[i].c_str());
+        }
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::wxAddImagesCmd(pano,filesv)
+        );
     return true;
 }
 
