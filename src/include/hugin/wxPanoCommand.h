@@ -169,7 +169,7 @@ public:
                 return "load project";
             }
     private:
-        std::istream & in;
+    std::istream & in;
 	const std::string &prefix;
     };
 
