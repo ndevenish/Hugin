@@ -29,6 +29,7 @@
 #include "panoinc.h"
 
 #include "PT/PTOptimise.h"
+#include "common/stl_utils.h"
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/CommandHistory.h"
@@ -38,6 +39,7 @@
 
 using namespace std;
 using namespace PT;
+using namespace utils;
 
 //============================================================================
 //============================================================================
@@ -250,21 +252,67 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         const VariableMap & vars = pano.getImageVariables(*it);
         // keep selections
         bool sel = m_yaw_list->IsChecked(*it);
-        m_yaw_list->SetString(*it, wxString::Format("%d (%5f)",
+        m_yaw_list->SetString(*it, wxString::Format("%d (%.3f)",
                                 *it, const_map_get(vars,"y").getValue()));
         m_yaw_list->Check(*it,sel);
 
         sel = m_pitch_list->IsChecked(*it);
-        m_pitch_list->SetString(*it, wxString::Format("%d (%5f)",
+        m_pitch_list->SetString(*it, wxString::Format("%d (%.3f)",
                                 *it, const_map_get(vars,"p").getValue()));
         m_pitch_list->Check(*it,sel);
 
         sel = m_roll_list->IsChecked(*it);
-        m_roll_list->SetString(*it, wxString::Format("%d (%5f)",
+        m_roll_list->SetString(*it, wxString::Format("%d (%.3f)",
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
 
+    // display lens values if they are linked
+    for (unsigned int i=0; i < nLens; i++) {
+        const Lens & lens = pano.getLens(i);
+        const LensVariable & v = const_map_get(lens.variables,"v");
+        if (v.isLinked()) {
+            m_v_list->SetString(i,wxString::Format("%d (%.2f)",i, v.getValue()));
+        } else {
+            m_v_list->SetString(i,wxString::Format("%d",nr));
+        }
+        
+        const LensVariable & a = const_map_get(lens.variables,"a");
+        if (a.isLinked()) {
+            m_a_list->SetString(i,wxString::Format("%d (%.3f)",i, a.getValue()));
+        } else {
+            m_a_list->SetString(i,wxString::Format("%d",nr));
+        }
+        
+        const LensVariable & b = const_map_get(lens.variables,"b");
+        if (b.isLinked()) {
+            m_b_list->SetString(i,wxString::Format("%d (%.3f)",i, b.getValue()));
+        } else {
+            m_b_list->SetString(i,wxString::Format("%d",nr));
+        }
+        
+        const LensVariable & c = const_map_get(lens.variables,"c");
+        if (c.isLinked()) {
+            m_c_list->SetString(i,wxString::Format("%d (%.3f)",i, c.getValue()));
+        } else {
+            m_c_list->SetString(i,wxString::Format("%d",nr));
+        }
+        
+        const LensVariable & d = const_map_get(lens.variables,"d");
+        if (d.isLinked()) {
+            m_d_list->SetString(i,wxString::Format("%d (%.1f)",i, d.getValue()));
+        } else {
+            m_d_list->SetString(i,wxString::Format("%d",nr));
+        }
+        
+        const LensVariable & e = const_map_get(lens.variables,"e");
+        if (e.isLinked()) {
+            m_e_list->SetString(i,wxString::Format("%d (%.1f)",i, e.getValue()));
+        } else {
+            m_e_list->SetString(i,wxString::Format("%d",nr));
+        }
+    }
+    
     // update automatic checkmarks
     wxCommandEvent dummy;
     dummy.m_commandInt = m_mode_cb->GetSelection();
