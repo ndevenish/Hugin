@@ -46,6 +46,64 @@ extern ImgPreview *canvas;
 extern    List* images_list2;
 
 
+/** Define the lens edit panel
+ *
+ *  - it is for lens editing and belongs directly to the lens panel.
+ *    I splittet it only for eventhandling needs.
+ *    
+ */
+class LensEdit: public wxPanel, public PT::PanoramaObserver
+{
+ public:
+    LensEdit( wxWindow *parent, //const wxPoint& pos, const wxSize& size,
+                 Panorama * pano );
+    ~LensEdit(void) ;
+
+    /** this is called whenever the panorama has changed.
+     *
+     *  This function must now update all the gui representations
+     *  of the panorama to display the new state.
+     *
+     *  Functions that change the panororama must not update
+     *  the GUI directly. The GUI should always be updated
+     *  to reflect the current panorama state in this function.
+     *
+     *  This avoids unnessecary close coupling between the
+     *  controller and the view (even if they sometimes
+     *  are in the same object). See model view controller
+     *  pattern.
+     *  
+     *  @todo   react on different update signals more special
+     */
+//    virtual void panoramaChanged(PT::Panorama &pano);
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+
+    // Here we get the Lens
+    void LensChanged ( wxListEvent & e );
+    // event handlers
+    void LensTypeChanged (wxCommandEvent & e);
+    void HFOVChanged(wxCommandEvent & e);
+    void focalLengthChanged(wxCommandEvent & e);
+    void aChanged(wxCommandEvent & e);
+    void bChanged(wxCommandEvent & e);
+    void cChanged(wxCommandEvent & e);
+    void dChanged(wxCommandEvent & e);
+    void eChanged(wxCommandEvent & e);
+ private:
+
+    // the model
+    Panorama &pano;
+
+    // the Lens actually selected
+    int lens;
+    int image;
+
+    // Lens to change settings
+    Lens * edit_Lens;
+
+    DECLARE_EVENT_TABLE()
+};
+
 /** Define the second the Lens panel
  *
  *  - the second for lens selection to images
@@ -77,28 +135,18 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    // event handlers
-    void LensTypeChanged (wxCommandEvent & e);
-    // Here we get the Lens
     void LensChanged ( wxListEvent & e );
  private:
-//    void itemSelected (wxListEvent & e);
-    void HFOVChanged(wxCommandEvent & e);
-    void focalLengthChanged(wxCommandEvent & e);
-    void aChanged(wxCommandEvent & e);
-    void bChanged(wxCommandEvent & e);
-    void cChanged(wxCommandEvent & e);
-    void dChanged(wxCommandEvent & e);
-    void eChanged(wxCommandEvent & e);
 
     // the model
     Panorama &pano;
 
-    // the enum_ProjectionFormat ComboBox
-    wxComboBox * cb;
-
     // the Lens actually selected
     int lens;
+    int image;
+
+    // lens editing controls
+    LensEdit * lens_edit;
 
     DECLARE_EVENT_TABLE()
 };

@@ -60,7 +60,7 @@
                           <help>Horizontal Field of View</help>
                           <longhelp>Horizontal Field of View</longhelp>
                           <tooltip>Horizontal Field of View</tooltip>
-                          <style></style>
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                         <minsize>100,25</minsize>
@@ -83,7 +83,7 @@
                           <help>equivalent to 35mm film optics</help>
                           <longhelp>equivalent to 35mm film optics</longhelp>
                           <tooltip>equivalent to 35mm film optics</tooltip>
-                          <style></style>
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                         <minsize>100,25</minsize>
@@ -111,7 +111,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_a">
-                          <style></style>
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                         <minsize>100,25</minsize>
@@ -131,7 +131,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_b">
-                          <style></style>
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                         <minsize>100,25</minsize>
@@ -151,7 +151,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_c">
-                          <style></style>
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                         <minsize>100,25</minsize>
@@ -178,7 +178,9 @@
                         <minsize>80,20</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_d"/>
+                        <object class="wxTextCtrl" name="lens_val_d">
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                        </object>
                         <flag>wxEXPAND|wxGROW</flag>
                         <minsize>100,25</minsize>
                       </object>
@@ -196,7 +198,9 @@
                         <minsize>80,20</minsize>
                       </object>
                       <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_e"/>
+                        <object class="wxTextCtrl" name="lens_val_e">
+                          <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                        </object>
                         <flag>wxEXPAND|wxGROW</flag>
                         <minsize>100,25</minsize>
                       </object>

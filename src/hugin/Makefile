@@ -85,6 +85,7 @@ APPS = 1
 
 APP_1_BIN = hugin
 APP_1_OBJ = huginApp.o \
+            Events.o \
             MainFrame.o \
             CPImageCtrl.o \
             CPEditorPanel.o \

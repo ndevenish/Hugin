@@ -44,6 +44,7 @@
 #include "hugin/LensPanel.h"
 #include "hugin/ImagesPanel.h"
 //#include "hugin/MainFrame.h"
+#include "hugin/Events.h"
 #include "hugin/huginApp.h"
 //#include "PT/Panorama.h"
 
@@ -66,33 +67,6 @@ extern    List* images_list2;
 // Image Preview
 extern ImgPreview *canvas;
 
-// Define a custom event handler
-class MyEvtHandler : public wxEvtHandler
-{
-public:
-    MyEvtHandler(size_t level) { m_level = level; }
-
-    void ToLensPanel(wxListEvent& event)
-    {
-        DEBUG_TRACE("");
-        lens_panel->LensChanged (event);
-
-        // if we don't skip the event, the other event handlers won't get it:
-        // try commenting out this line and see what changes
-        event.Skip(true);
-    }
-
-private:
-    size_t m_level;
-
-    DECLARE_EVENT_TABLE()
-};
-
-BEGIN_EVENT_TABLE(MyEvtHandler, wxEvtHandler)
-    EVT_LIST_ITEM_SELECTED (XRCID("images_list2_unknown"), MyEvtHandler::ToLensPanel)
-END_EVENT_TABLE()
-
-
 
 //------------------------------------------------------------------------------
 
@@ -101,7 +75,6 @@ BEGIN_EVENT_TABLE(List, wxListCtrl)
 //    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
 //    EVT_MOUSE_EVENTS ( List::Change )
     EVT_MOTION ( List::Change )
-//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::OnTest )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::itemSelected )
 //    EVT_LEFT_DOWN ( List::Change )
 END_EVENT_TABLE()
@@ -125,17 +98,17 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       SetSingleStyle(wxLC_SINGLE_SEL, true); 
       InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
-      InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 80 );
+      InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
       InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
-      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 20 );
-      InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 20 );
-      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 20 );
-      InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 20 );
-      InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 20 );
+      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 60 );
       DEBUG_INFO( " else _layout" )
     }
 
-    // Image Preview
+    // intermediate event station
     PushEventHandler( new MyEvtHandler((size_t) 1) );
 
     pano->addObserver(this);
@@ -184,13 +157,14 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_INFO( " images_layout" )
         } else {
           switch ( (int) pano.getLens(pano.getImage(i).getLens()).projectionFormat ) {
-            case RECTILINEAR:        sprintf(Nr, "Normal (rectlinear)" ); break;
-            case PANORAMIC:          sprintf(Nr, "Panoramic" ); break;
-            case CIRCULAR_FISHEYE:   sprintf(Nr, "Circular" ); break;
-            case FULL_FRAME_FISHEYE: sprintf(Nr, "Full frame" ); break;
-            case EQUIRECTANGULAR:    sprintf(Nr, "Equirectangular" ); break;
+            case RECTILINEAR:        sprintf(Nr, _("Normal (rectlinear)") ); break;
+            case PANORAMIC:          sprintf(Nr, _("Panoramic") ); break;
+            case CIRCULAR_FISHEYE:   sprintf(Nr, _("Circular") ); break;
+            case FULL_FRAME_FISHEYE: sprintf(Nr, _("Full frame") ); break;
+            case EQUIRECTANGULAR:    sprintf(Nr, _("Equirectangular") ); break;
           }
           SetItem ( i, 2, Nr );
+          // FIXME format it better - less null
           sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
           SetItem ( i, 3, Nr );
           sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).a );
@@ -230,18 +204,6 @@ void List::itemSelected ( wxListEvent & e )
     // let others recieve the event too
     e.Skip(true);
 }
-void List::OnTest ( wxListEvent & e )
-{
-    if ( list_layout == images_layout ) {
-        DEBUG_TRACE ("images_layout")
-    } else {
-        DEBUG_TRACE ("no images_layout")
-        selectedItem = e.GetIndex();
-//        lens_panel->Update();
-    }
-    // let others recieve the event too
-    e.Skip(true);
-}
 /*void List::Change ( wxListEvent & e )
 {
 DEBUG_TRACE ("")
@@ -255,34 +217,37 @@ DEBUG_TRACE ("")
 
 void List::Change ( wxMouseEvent & e )
 {
+    if ( list_layout == images_layout ) {
 //    DEBUG_TRACE ("")
-    int flags = wxLIST_HITTEST_ONITEM;
-    long item = HitTest( e.GetPosition(),  flags);
+        int flags = wxLIST_HITTEST_ONITEM;
+        long item = HitTest( e.GetPosition(),  flags);
 //    frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
     
-    if ( item != -1 && item != prevItem ) {
-        // preview selected images
-        wxImage * s_img = ImageCache::getInstance().getImageSmall(
-            pano.getImage((int)item).getFilename());
+        if ( item != -1 && item != prevItem ) {
+          // preview selected images
+          wxImage * s_img = ImageCache::getInstance().getImageSmall(
+              pano.getImage((int)item).getFilename());
 
 
-        // right image preview
-        wxImage r_img;
-        if ( s_img->GetHeight() > s_img->GetWidth() ) {
-          r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*128.0),
+          // right image preview
+          wxImage r_img;
+          if ( s_img->GetHeight() > s_img->GetWidth() ) {
+            r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
+                                        (float)s_img->GetHeight()*128.0),
                                 128);
-        } else {
-          r_img = s_img->Scale( 128,
-                                (int)((float)s_img->GetHeight()/
-                                      (float)s_img->GetWidth()*128.0));
+          } else {
+            r_img = s_img->Scale( 128,
+                                  (int)((float)s_img->GetHeight()/
+                                        (float)s_img->GetWidth()*128.0));
+          }
+          delete p_img;
+          p_img = new wxBitmap( r_img.ConvertToBitmap() );
+          canvas->Refresh();
+          frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
         }
-        delete p_img;
-        p_img = new wxBitmap( r_img.ConvertToBitmap() );
-        canvas->Refresh();
-        frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
+        if (item != -1)
+          prevItem = item;
+    } else {
     }
-    if (item != -1)
-      prevItem = item;
 }
 

@@ -65,11 +65,13 @@ class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     /** says wich item in single selection List(lens) is selected
+     *
+     *  obsolet
      */
-    int GetSelectedImage(void)
+/*    int GetSelectedImage(void)
         {
             return selectedItem;
-        };
+        };*/
 
  private:
     // event handlers
@@ -77,7 +79,6 @@ class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
     void OnAddItem(wxCommandEvent & e);
     void OnRemoveItem(wxCommandEvent & e);
     void itemSelected ( wxListEvent & e );
-    void OnTest ( wxListEvent & e );
     // Here we select the preview image
     void Change ( wxMouseEvent & e );
 

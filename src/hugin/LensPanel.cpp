@@ -47,6 +47,7 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/Events.h"
 #include "PT/Panorama.h"
 
 using namespace PT;
@@ -66,17 +67,17 @@ ImgPreview * lens_canvas;
 
 //------------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(LensPanel, wxEvtHandler)
+BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
 //    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
     EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
-    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensPanel::LensTypeChanged )
+/*    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensPanel::LensTypeChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensPanel::HFOVChanged )
     EVT_TEXT_ENTER ( XRCID("lensval_focalLength"),LensPanel::focalLengthChanged)
     EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensPanel::aChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensPanel::bChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::cChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::dChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )*/
 END_EVENT_TABLE()
 
 
@@ -86,19 +87,21 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 {
     pano->addObserver(this);
 
+    // The following control creates itself. We dont care about xrc loading. 
     images_list2 = new List (parent, pano, lens_layout);
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_list2_unknown"),
                images_list2 );
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("lens_list_unknown"),
-               wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
-
     images_list2->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
-    // connects the ProjectionFormat/PanoramaMemento.h ComboBox
-//    wxXmlResource::Get()->LoadObject (cb, parent, wxT("lens_type_combobox"), wxT("wxComboBox") );
-    cb = XRCCTRL( *parent, "lens_type_combobox", wxComboBox );
+    // This controls must called by xrc handler and after it we play with it.
+    // It could as well be done in the LensEdit class.
+    lens_edit    = new LensEdit (parent, pano);
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("lens_list_unknown"),
+               lens_edit);
+//               wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
+
 
     p_img = new wxBitmap( 0, 0 );
     DEBUG_TRACE("");;
@@ -121,50 +124,229 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 
 void LensPanel::LensChanged ( wxListEvent & e )
 {
-    long item = e.GetIndex();
-    DEBUG_INFO ( "hier is item: " << wxString::Format("%ld", item) );
+    image = e.GetIndex();
+
+    lens_edit->LensChanged ( e );
+    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", image) );
 }
 
-void LensPanel::LensTypeChanged ( wxCommandEvent & e )
+//------------------------------------------------------------------------------
+
+BEGIN_EVENT_TABLE(LensEdit, wxWindow) //wxEvtHandler)
+//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
+//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
+    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensEdit::LensTypeChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensEdit::HFOVChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_focalLength"),LensEdit::focalLengthChanged)
+    EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensEdit::aChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensEdit::bChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensEdit::cChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensEdit::dChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensEdit::eChanged )
+END_EVENT_TABLE()
+
+LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/ Panorama* pano)
+    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),//)wxSUNKEN_BORDER),
+      pano(*pano)
+{
+    pano->addObserver(this);
+
+    // connects the ProjectionFormat/PanoramaMemento.h ComboBox
+//    ProjectionFormat_cb = XRCCTRL(*this, "lens_type_combobox", wxComboBox);
+
+    // show the lens editing controls
+    wxXmlResource::Get()->LoadPanel (this, wxT("lens_dialog"));
+//    wxXmlResource::Get()->AttachUnknownControl (
+//               wxT("lens_list_unknown"),
+//               wxXmlResource::Get()->LoadPanel (this, wxT("lens_dialog")) );
+
+    // intermediate event station
+    PushEventHandler( new MyEvtHandler((size_t) 2) );
+
+    edit_Lens = new Lens ();
+    AddLensCmd ( *pano, *edit_Lens ); 
+    // FIXME with no image in pano hugin crashes
+    DEBUG_INFO ( wxString::Format ("Lensesnumber: %d", pano->getNrOfLenses()) )
+
+    DEBUG_TRACE("");;
+
+}
+
+
+LensEdit::~LensEdit(void)
+{
+    DEBUG_TRACE("");
+    pano.removeObserver(this);
+    DEBUG_TRACE("");
+}
+
+void LensEdit::LensChanged ( wxListEvent & e )
+{
+    image = e.GetIndex();
+
+    // FIXME should get a bottom to update
+    edit_Lens->readEXIF( pano.getImage(image).getFilename().c_str() );
+
+    // FIXME support separate lenses
+    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
+
+    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
+                   edit_Lens->projectionFormat
+           );
+    // FIXME format better
+    XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->HFOV)
+           );
+    // FIXME format better
+    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->focalLength )
+           );
+    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->a )
+           );
+    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->b )
+           );
+    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->c )
+           );
+    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->d )
+           );
+    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->SetValue(
+                   wxString::Format ( "%f", edit_Lens->e )
+           );
+
+    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", image) );
+}
+
+void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
+{
+/*    XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
+                   pano.getLens(pano.getImage(image).getLens()).projectionFormat
+           );*/
+    int lt = XRCCTRL(*this, "lens_type_combobox", wxComboBox)->GetSelection();
+    DEBUG_INFO ( wxString::Format ("image %d Lenstype %d",image, lt) )
+}
+
+
+void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
     // uses enum ProjectionFormat from PanoramaMemento.h
-    cb->GetSelection();
-    int image = images_list2->GetSelectedImage();
-    DEBUG_INFO ( wxString::Format ("%d",image) )
+    int lt = XRCCTRL(*this, "lens_type_combobox",
+                                   wxComboBox)->GetSelection();
+    edit_Lens->projectionFormat = (ProjectionFormat) (lt);
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+//    int image = images_list2->GetSelectedImage();
+    DEBUG_INFO ( wxString::Format ("image %d Lenstype %d",image,lt) )
 }
 
-void LensPanel::HFOVChanged ( wxCommandEvent & e )
+void LensEdit::HFOVChanged ( wxCommandEvent & e )
 {
+    // FIXME beautify this function and write a macro
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->HFOV = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::focalLengthChanged ( wxCommandEvent & e )
+void LensEdit::focalLengthChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text=XRCCTRL(*this,"lens_val_focalLength", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->focalLength = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::aChanged ( wxCommandEvent & e )
+void LensEdit::aChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_a", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->a = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::bChanged ( wxCommandEvent & e )
+void LensEdit::bChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_b", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->b = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::cChanged ( wxCommandEvent & e )
+void LensEdit::cChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_c", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->c = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::dChanged ( wxCommandEvent & e )
+void LensEdit::dChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_d", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->d = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
-void LensPanel::eChanged ( wxCommandEvent & e )
+void LensEdit::eChanged ( wxCommandEvent & e )
 {
+    double * val = new double ();
+    wxString text = XRCCTRL(*this, "lens_val_e", wxTextCtrl)->GetValue();
+    text.ToDouble( val );
+
+    edit_Lens->e = *val;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
+        );
+
     DEBUG_TRACE ("")
 }
 
