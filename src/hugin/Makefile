@@ -89,6 +89,7 @@ APP_1_OBJ = huginApp.o \
             CPImageCtrl.o \
             CPEditorPanel.o \
             ImagesPanel.o \
+            LensPanel.o \
             ImageCache.o \
             List.o \
             CommandHistory.o \
