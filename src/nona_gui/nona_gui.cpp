@@ -24,21 +24,14 @@
  *
  */
 
-#include <wx/cmdline.h>
 #include <config.h>
 #include "panoinc_WX.h"
-// #include "panoinc.h"
+#include <wx/cmdline.h>
 
 #include <fstream>
 #include <sstream>
 
 #include <vigra/error.hxx>
-
-#ifdef WIN32
-#include <getopt.h>
-#else
-#include <unistd.h>
-#endif
 
 #include "PT/Stitcher.h"
 
@@ -105,16 +98,27 @@ bool nonaApp::OnInit()
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
 
+    // set the name of locale recource to look for
+    m_locale.AddCatalog(wxT("nona_gui"));
+	
+#if 0
+#ifdef wxUSE_UNIX
+    wxLog *logger=new wxLogStream(&cerr);
+    wxLog::SetActiveTarget(logger);    
+#endif
+#endif
+
     // parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
     {
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output file") },
-      { wxCMD_LINE_OPTION, wxT("i"), wxT("input"),   wxT("project file to stitch") },
+      { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> (Note: all interpolators of panotools are supported)"),
+        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
     };
-    
+
     wxCmdLineParser parser(cmdLineDesc, argc, argv);
 
     switch ( parser.Parse() ) {
@@ -124,29 +128,42 @@ bool nonaApp::OnInit()
       case 0:  // all is well
         break;
       default: 
-        wxLogMessage(_("Syntax error detected, aborting."));
+        wxLogError(_("Syntax error in parameters detected, aborting."));
 	return false;
         break;
     }
     
     wxString scriptFile;
-    if ( !parser.Found(wxT("i"), &scriptFile) ) {
-        // ask for project file
-        wxFileDialog dlg(0,_("Specify project source project file"),
-                         wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                         wxT(""), wxT(""),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
+    switch ( parser.GetParamCount() ) {
+      case 0:
+        {
+	  wxFileDialog dlg(0,_("Specify project source project file"),
+                           wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
+                           wxT(""), wxT(""),
+                           wxOPEN, wxDefaultPosition);
+          if (dlg.ShowModal() == wxID_OK) {
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
             scriptFile = dlg.GetPath();
-        } else { // bail
+          } else { // bail
             return false;
+          }
         }
+        break;	
+      case 1:
+        scriptFile = parser.GetParam(0);
+        break;
+      default:
+	wxLogError( _("Too many project files specified"));
+	return false;
     }
 
     DEBUG_DEBUG("input file is " << (const char *)scriptFile.mb_str())
 
     wxFileName fname(scriptFile);
+    if ( !fname.FileExists() ) {
+      wxLogError( _("Could not find project file"));
+      return false;
+    }
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
 
     wxString outname;
@@ -161,6 +178,7 @@ bool nonaApp::OnInit()
             wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
             outname = dlg.GetPath();
         } else { // bail
+            wxLogError( _("No project files specified"));
             return false;
         }
     }
@@ -177,19 +195,14 @@ bool nonaApp::OnInit()
     PanoramaMemento newPano;
     ifstream prjfile((const char *)scriptFile.mb_str());
     if (prjfile.bad()) {
-        ostringstream error;
-        error << _("could not open script : ") << scriptFile << std::endl;
-        wxMessageBox(wxString(error.str().c_str(), *wxConvCurrent) , _("Error"), wxCANCEL | wxICON_ERROR);
-        exit(1);
+        wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()) );
+        return false;
     }
     if (newPano.loadPTScript(prjfile, (const char *)path.mb_str())) {
-        pano.setMemento(newPano);
+      pano.setMemento(newPano);
     } else {
-        ostringstream error;
-        error << _("error while parsing panos tool script: ") << scriptFile << std::endl;
-
-        wxMessageBox(wxString(error.str().c_str(), *wxConvCurrent) , _("Error"), wxCANCEL | wxICON_ERROR);
-        exit(1);
+      wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
+      return false;
     }
 
     PanoramaOptions  opts = pano.getOptions();
@@ -199,8 +212,13 @@ bool nonaApp::OnInit()
     int w = opts.width;
     int h = opts.getHeight();
 
-    cout << "output image size: " << w << "x" << h << std::endl;
-    wxString outfile = outpath + wxT("/") + basename;
+    cout << (const char *)wxString::Format(wxT("%s"), _("output image size: ")).mb_str() << w << "x" << h << std::endl;
+    wxString outfile;
+    if ( outpath != wxT("") ) {
+      outfile = outpath + wxFileName::GetPathSeparator() + basename;
+    } else {
+      outfile = basename;
+    }
     DEBUG_DEBUG("output name: " << (const char *)outfile.mb_str());
 
     try {
@@ -221,22 +239,6 @@ int nonaApp::OnExit()
     DEBUG_TRACE("");
     return 0;
 }
-
-//void nonaApp::usage(const wxChar * name)
-//{
-//    ostringstream o;
-//   o    << name << ": stitch a panorama image" << std::endl
-//        << std::endl
-//        << " It uses the transform function from PanoTools, the stitching itself" << std::endl
-//        << " is quite simple, no seam feathering is done." << std::endl
-//        << " all interpolators of panotools are supported" << std::endl
-//        << std::endl
-//        << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
-//        << std::endl
-//        << "Usage: " << name  << " -o output project_file" << std::endl;
-//    wxMessageBox(wxString(o.str().c_str(), *wxConvCurrent), _("Error using standalone stitcher"));
-//}
-
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(nonaApp)
