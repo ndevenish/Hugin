@@ -122,6 +122,16 @@ namespace vigra_impex2 {
         int scanline;
 
 	float x_resolution, y_resolution;
+        
+        // number of passes needed during reading each scanline
+        int interlace_method, n_interlace_passes;
+        
+        // number of channels in png (or what libpng get_channels returns)
+        int n_channels;
+        
+        // size of one row
+        int rowsize;
+        unsigned char * row_data;
 
         // ctor, dtor
         PngDecoderImpl( const std::string & filename );
@@ -129,6 +139,7 @@ namespace vigra_impex2 {
 
         // methods
         void init();
+        void nextScanline();
     };
 
     PngDecoderImpl::PngDecoderImpl( const std::string & filename )
@@ -137,7 +148,8 @@ namespace vigra_impex2 {
 #else
         : file( filename.c_str(), "r" ),
 #endif
-          bands(0), scanline(-1), x_resolution(0), y_resolution(0)
+          bands(0), scanline(-1), x_resolution(0), y_resolution(0),
+          n_interlace_passes(0), n_channels(0), row_data(0)
     {
         png_error_message = "";
         // check if the file is a png file
@@ -173,12 +185,13 @@ namespace vigra_impex2 {
             vigra_postcondition( false, png_error_message.insert(0, "error in png_set_sig_bytes(): ").c_str() );
         }
         png_set_sig_bytes( png, sig_size );
-
+        
     }
 
     PngDecoderImpl::~PngDecoderImpl()
     {
         png_destroy_read_struct( &png, &info, NULL );
+        if (row_data) delete[] row_data;
     }
 
     void PngDecoderImpl::init()
@@ -189,7 +202,7 @@ namespace vigra_impex2 {
         png_read_info( png, info );
 
         // pull over the header fields
-        int interlace_method, compression_method, filter_method;
+        int compression_method, filter_method;
         if (setjmp(png->jmpbuf))
             vigra_postcondition( false, png_error_message.insert(0, "error in png_get_IHDR(): ").c_str() );
         png_get_IHDR( png, info, &width, &height, &bit_depth, &color_type,
@@ -210,6 +223,19 @@ namespace vigra_impex2 {
                 vigra_postcondition( false,png_error_message.insert(0, "error in png_set_gray_1_2_4_to_8(): ").c_str());
             png_set_gray_1_2_4_to_8(png);
             bit_depth = 8;
+        }
+
+        // swap bytes if we are on a little endian system.
+        // 16 bit png's are stored in big endian byte order
+        if (bit_depth == 16) {
+            unsigned char swapTest[2] = { 1, 0 };
+            if( *(short *) swapTest == 1 ) {
+                // little endian, swap
+                // expand gray values to at least one byte size
+                if (setjmp(png->jmpbuf))
+                    vigra_postcondition( false,png_error_message.insert(0, "error in png_set_swap(): ").c_str());
+                png_set_swap(png);
+            }
         }
 
 	// dangelo: keep the alpha channel
@@ -273,29 +299,36 @@ namespace vigra_impex2 {
         png_set_gamma( png, screen_gamma, image_gamma );
 #endif
 
+        // interlace handling, get number of read passes needed
+        if (setjmp(png->jmpbuf))
+            vigra_postcondition( false,png_error_message.insert(0, "error in png_set_interlace_handling(): ").c_str());
+        n_interlace_passes = png_set_interlace_handling(png);
+
+
         // update png library state to reflect any changes that were made
         if (setjmp(png->jmpbuf))
             vigra_postcondition( false, png_error_message.insert(0, "error in png_read_update_info(): ").c_str() );
         png_read_update_info( png, info );
-
-        const unsigned int size = width * height * components
-            * ( bit_depth >> 3 );
-        const unsigned int row_stride = size / height;
-
-        // prepare the bands vector
-        typedef void_vector< unsigned char > vector_type;
-        vector_type & cbands = static_cast< vector_type & >(bands);
-        cbands.resize(size);
-
-        // prepare the row pointers
-        void_vector<png_bytep> row_pointers(height);
-        for ( unsigned int i = 0; i < height; ++i )
-            row_pointers[i] = cbands.data() + row_stride * i;
-
-        // read the whole image
+        
         if (setjmp(png->jmpbuf))
-            vigra_postcondition( false, png_error_message.insert(0, "error in png_read_image(): ").c_str() );
-        png_read_image( png, row_pointers.begin() );
+            vigra_postcondition( false,png_error_message.insert(0, "error in png_get_channels(): ").c_str());
+        n_channels = png_get_channels(png, info);
+             
+        if (setjmp(png->jmpbuf))
+            vigra_postcondition( false,png_error_message.insert(0, "error in png_get_rowbytes(): ").c_str());
+        rowsize = png_get_rowbytes(png, info);
+        
+        // allocate data buffers
+        row_data = new unsigned char[rowsize];
+    }
+
+    void PngDecoderImpl::nextScanline()
+    {
+        for (int i=0; i < n_interlace_passes; i++) {
+            if (setjmp(png->jmpbuf))
+                vigra_postcondition( false,png_error_message.insert(0, "error in png_read_row(): ").c_str());
+            png_read_row(png, row_data, NULL);            
+        }
     }
 
     void PngDecoder::init( const std::string & filename )
@@ -369,22 +402,14 @@ namespace vigra_impex2 {
 
     const void * PngDecoder::currentScanlineOfBand( unsigned int band ) const
     {
-        const unsigned int index = pimpl->width * pimpl->components
-            * pimpl->scanline + band;
         switch (pimpl->bit_depth) {
         case 8:
             {
-                typedef void_vector< unsigned char > bands_type;
-                const bands_type & bands
-                    = static_cast< const bands_type & >(pimpl->bands);
-                return bands.data() + index;
+                return pimpl->row_data + band;
             }
         case 16:
             {
-                typedef void_vector<short> bands_type;
-                const bands_type & bands
-                    = static_cast< const bands_type & >(pimpl->bands);
-                return bands.data() + index;
+                return pimpl->row_data + 2*band;
             }
         default:
             vigra_fail( "internal error: illegal bit depth." );
@@ -394,7 +419,7 @@ namespace vigra_impex2 {
 
     void PngDecoder::nextScanline()
     {
-        ++(pimpl->scanline);
+        pimpl->nextScanline();
     }
 
     void PngDecoder::close() {}
