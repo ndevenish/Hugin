@@ -295,12 +295,12 @@ PanoDruid::PanoDruid(wxWindow* parent)
     m_boxSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("the Panorama druid")),
         wxHORIZONTAL );
-    
+
     m_advice = -1;
     m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
                       "/data/" "druid.stitch.128.png",
                       wxBITMAP_TYPE_PNG);
-    m_graphic = new wxStaticBitmap(this, -1, m_bitmap);
+    m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
     m_text = new wxStaticText(this, -1, _(""),wxPoint(0,0));
     m_boxSizer->Add(m_graphic, 0, wxADJUST_MINSIZE);
     m_boxSizer->Add(m_text, 1, wxADJUST_MINSIZE);

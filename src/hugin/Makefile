@@ -73,7 +73,6 @@ LIBS = 1
 LIB_1_BIN = wximageproc
 LIB_1_OBJ = ImageProcessing.o \
 	    wxVigraImage.o \
-            PanoToolsInterface.o \
             ImageCache.o
 LIB_1_LFLAGS =  $(LFLAGS)
 
@@ -100,7 +99,6 @@ APP_1_OBJ = \
             ImageCache.o \
             CommandHistory.o \
 	    ImageProcessing.o \
-	    PanoToolsInterface.o \
 	    wxVigraImage.o \
             PanoPanel.o \
 	    PreviewFrame.o \

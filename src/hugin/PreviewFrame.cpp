@@ -115,14 +115,26 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxALL,    // draw border all around
                   5);       // border width
 
+    wxConfigBase * config = wxConfigBase::Get();
+    long showDruid = config->Read("/PreviewFrame/showDruid",1l);
+    if (showDruid) {
+        m_druid = new PanoDruid(this);
+        topsizer->Add(m_druid, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 5);
+        m_druid->Update(m_pano);
+    } else {
+        m_druid = 0;
+    }
 
-    m_druid = new PanoDruid(this);
-    topsizer->Add(m_druid, 0, wxEXPAND | wxALL, 5);
-    m_druid->Update(m_pano);
+    // add a status bar
+    CreateStatusBar(2);
+    int widths[2] = {-1, 150};
+    SetStatusWidths(2, widths);
+    SetStatusText("",0);
+    SetStatusText("",1);
 
     // the initial size as calculated by the sizers
-    topsizer->SetSizeHints( this );
     SetSizer( topsizer );
+    topsizer->SetSizeHints( this );
 
     // set the minimize icon
     SetIcon(wxIcon(MainFrame::Get()->
@@ -130,7 +142,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_pano.addObserver(this);
 
-    wxConfigBase * config = wxConfigBase::Get();
     long w = config->Read("/PreviewFrame/width",-1);
     long h = config->Read("/PreviewFrame/height",-1);
     if (w != -1) {
@@ -141,14 +152,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
-
-
-    // add a status bar
-    CreateStatusBar(2);
-    int widths[2] = {-1, 150};
-    SetStatusWidths(2, widths);
-    SetStatusText("",0);
-    SetStatusText("",1);
+    
 }
 
 PreviewFrame::~PreviewFrame()
@@ -201,7 +205,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue((int) round(opts.HFOV));
     m_VFOVSlider->SetValue((int) round(opts.VFOV));
-	m_druid->Update(m_pano);
+    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -257,7 +261,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
-        m_druid->Update(m_pano);
+        if (m_druid) m_druid->Update(m_pano);
     }
 }
 
@@ -331,7 +335,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
-    m_druid->Update(m_pano);
+    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
@@ -349,7 +353,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
     m_PreviewPanel->ForceUpdate();
-	m_druid->Update(m_pano);
+    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)

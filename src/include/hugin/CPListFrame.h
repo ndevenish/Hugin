@@ -40,7 +40,7 @@ class CPListFrame : public wxFrame, public PT::PanoramaObserver
 public:
     /** ctor.
      */
-	CPListFrame(MainFrame * parent, PT::Panorama & pano);
+    CPListFrame(MainFrame * parent, PT::Panorama & pano);
 	
     /** dtor.
      */
@@ -64,10 +64,10 @@ private:
 
     // show point coordinates?
     bool m_verbose;
-    
+
     // current sorting column
     int m_sortCol;
-    
+
     bool m_sortAscend;
 
     // needed for receiving events.
