@@ -210,16 +210,14 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
     if (!self_pano_dlg) {
-      Panorama old_pano = pano;
-      PanoramaOptions old_opt = opt;
-#if 1
-      old_opt.width = previewWidth;
-      old_opt.height = previewWidth / 2;
-      wxString outputFormat = old_opt.outputFormat.c_str();
-      old_opt.outputFormat = "JPEG";
-//      int quality = preview_opt.quality;
+      Panorama preview_pano = pano;
+      PanoramaOptions preview_opt = opt;
+      preview_opt.width = previewWidth;
+      preview_opt.height = previewWidth / 2;
+      wxString outputFormat = preview_opt.outputFormat.c_str();
+      preview_opt.outputFormat = "JPEG";
       if ( outputFormat != "JPEG" )
-        old_opt.quality = 100;
+        preview_opt.quality = 100;
 
       // Set the preview image accordingly to ImagesPanel.cpp
       for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
@@ -227,39 +225,25 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         std::stringstream filename;
         filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
                 <<_("preview")<<"_"<< imgNr <<".ppm" ;
-        PanoImage image = old_pano.getImage(imgNr);
+        PanoImage image = preview_pano.getImage(imgNr);
         image.setFilename( filename.str() ) ;
-        old_pano.setImage(imgNr, image);
+        preview_pano.setImage(imgNr, image);
         DEBUG_INFO ("rendering preview image: "<< filename.str())
       }
 
-      DEBUG_TRACE ("")
-//      PT::SetPanoOptionsCmd( pano, opt );
-#endif
-      DEBUG_TRACE ("")
-
-//      GlobalCmdHist::getInstance().addCommand(
-//         /*new PT::*/StitchCmd( old_pano, old_opt );
-//         );
-                Process process(false);
-                old_pano.runStitcher(process, old_opt);
-                process.wait();
-
-#if 0
-      GlobalCmdHist::getInstance().addCommand(
-         new PT::SetPanoOptionsCmd( pano, opt )
-         );
-#endif
-      DEBUG_TRACE ("")
+      preview_pano.clearObservers();
+      Process process(false);
+      preview_pano.runStitcher(process, preview_opt);
+      process.wait();
 
       // Send panoViewer the name of our image
       if ( panoviewer_enabled )
-        server->SendFilename( (wxString) old_opt.outfile.c_str() );
+        server->SendFilename( (wxString) preview_opt.outfile.c_str() );
 
       // Show the result image in the first tab
           // right image preview
           wxImage * s_img;
-          s_img = new wxImage (old_opt.outfile.c_str());
+          s_img = new wxImage (preview_opt.outfile.c_str());
           wxImage r_img;
 
           int new_width;
@@ -280,44 +264,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           canvas->Refresh();
           delete s_img;
-
-      // recover old values
-//      opt = old_opt;
-#if 0
-      opt.width = old_opt.width;
-      opt.height = old_opt.height;
-      opt.outputFormat = old_opt.outputFormat;
-      opt.quality = old_opt.quality;
-
-      // Unset the preview image accordingly to ImagesPanel.cpp
-      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
-        wxString fn = (wxString)old_pano.getImage(imgNr).getFilename().c_str();
-        PanoImage image = old_pano.getImage(imgNr);
-        image.setFilename( fn.c_str() ) ;
-        pano.setImage(imgNr, image);
-        DEBUG_INFO ( "reset image: "<< fn )
-      }
-
-      DEBUG_TRACE ("")
-//      PT::SetPanoOptionsCmd( pano, opt );
-      DEBUG_TRACE ("")
-
-      GlobalCmdHist::getInstance().addCommand(
-         new PT::SetPanoOptionsCmd( pano, opt )
-         );
-#endif
-//      if ( outputFormat != "JPEG" )
-//        preview_opt.quality = quality;
-      DEBUG_TRACE ("")
-
-// FIXME How to avoid crashing by the following? 
-// TODO  Can I run stitching without touching the pano object?
-#if 0
-      pano = old_pano;
-      opt = old_opt;
-#endif
-
-    } else {
+    } else {  // if ( panoviewer_enabled )
       pano_panel->DoPreview(e);
     }
 /*

@@ -169,6 +169,7 @@ MainFrame::MainFrame(wxWindow* parent)
 
     // show the frame.
 //    Show(TRUE);
+
     DEBUG_TRACE("");
 }
 
@@ -183,10 +184,20 @@ MainFrame::~MainFrame()
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
+    // Saves the last place we closed hugin.
+    config->Write("MainFramePosition_x", wxString::Format("%d",GetRect().x)),
+    config->Write("MainFramePosition_y", wxString::Format("%d",GetRect().y)),
+    config->Write("MainFrameSize_x", wxString::Format("%d",GetRect().width)),
+    config->Write("MainFrameSize_y", wxString::Format("%d",GetRect().height));
+    DEBUG_INFO( "saved last size and position" )
+    config->Write("pano_dlg_run", wxString::Format("%d",
+                         pano_panel->pano_dlg_run));
+
     config->Flush();
 
     DEBUG_TRACE("");
 }
+
 
 //void MainFrame::panoramaChanged(PT::Panorama &panorama)
 void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & changed)

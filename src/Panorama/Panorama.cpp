@@ -534,7 +534,8 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
         {
             // we are reading the output lines:
             // o f3 r0 p0 y0 v89.2582 a-0.027803 b0.059851 c-0.073115 d10.542470 e16.121145 u10 -buf
-            if (line.compare("# Control Points: Distance between desired and fitted Position") == 0) {
+            if ((line.compare("# Control Points: Distance between desired and fitted Position") == 0 )
+             || (line.compare("# Control Points: Distance between desired and fitted Position (in Pixels)")) == 0 ) {
                 // switch to reading the control point distance
                 assert(varIt == imgVars.end());
                 state = 1;
@@ -760,6 +761,11 @@ void Panorama::addObserver(PanoramaObserver * o)
 bool Panorama::removeObserver(PanoramaObserver * o)
 {
     return observers.erase(o) > 0;
+}
+
+void Panorama::clearObservers()
+{
+    observers.clear();
 }
 
 void Panorama::imageChanged(unsigned int imgNr)

@@ -195,6 +195,11 @@ public:
      */
     bool removeObserver(PanoramaObserver *observer);
 
+    /** remove all panorama observers.
+     *
+     */
+    void clearObservers();
+
     // query interface, used by the view to get information about
     // the panorama.
 

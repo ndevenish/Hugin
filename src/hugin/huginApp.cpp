@@ -42,9 +42,11 @@
 #include <wx/file.h>
 
 #include "hugin/huginApp.h"
+#include "hugin/PanoPanel.h"
 
 
 MainFrame * frame;
+extern PanoPanel *pano_panel;
 Server * server;
 
 // make wxwindows use this class as the main application
@@ -64,9 +66,9 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
-    DEBUG_INFO( GetAppName().c_str() )
-    DEBUG_INFO( wxFileName::GetCwd().c_str() )
-    DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
+//    DEBUG_INFO( GetAppName().c_str() )
+//    DEBUG_INFO( wxFileName::GetCwd().c_str() )
+//    DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
 
 
     // here goes and comes configuration
@@ -79,7 +81,7 @@ bool huginApp::OnInit()
     wxConfigBase::Set(config);
     config->SetRecordDefaults(TRUE);
 
-    DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
+//    DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
     config->SetRecordDefaults(TRUE);
 
     if ( config->IsRecordingDefaults() ) {
@@ -153,6 +155,37 @@ bool huginApp::OnInit()
 
     // show the frame.
     frame->Show(TRUE);
+
+    DEBUG_TRACE("");
+    // get the global config object
+    // remember the last location from config
+//    wxConfigBase* config = wxConfigBase::Get();
+    long pos_x, pos_y, size_x, size_y;
+    if (config->HasEntry(wxT("MainFramePosition_x")) &&
+        config->HasEntry(wxT("MainFramePosition_y")) &&
+        config->HasEntry(wxT("MainFrameSize_x")) &&
+        config->HasEntry(wxT("MainFrameSize_y")) ) {
+      config->Read("MainFramePosition_x").ToLong(&pos_x);
+      config->Read("MainFramePosition_y").ToLong(&pos_y);
+      config->Read("MainFrameSize_x").ToLong(&size_x);
+      config->Read("MainFrameSize_y").ToLong(&size_y);
+      frame->SetSize( pos_x, pos_y, size_x, size_y );
+      DEBUG_INFO("set position to "<<pos_x<<","<<pos_y )
+    }
+    // remember if PanoPanel was teared off
+    if (config->HasEntry(wxT("pano_dlg_run")) ) {
+      long l_pano_dlg_run = FALSE;
+      config->Read("pano_dlg_run").ToLong(&l_pano_dlg_run);
+      if ( l_pano_dlg_run ) {
+        wxCommandEvent e;
+        pano_panel->DoDialog(e);
+        DEBUG_INFO("PanoPanel opened")
+      }
+    }
+#if defined(__WXGTK__)   
+      // compensate the window decoration here approximately
+      frame->Move( pos_x + 5, pos_y + 24 );
+#endif
 
     DEBUG_TRACE("");
     return true;
