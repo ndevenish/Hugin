@@ -55,7 +55,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG)
+CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG) $(VIGRA_CFLAGS)
 LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS) -lpanorama -ljhead
 
 # ====================================================================

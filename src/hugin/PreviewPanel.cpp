@@ -274,8 +274,8 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     dc.SetBrush(wxBrush("BLACK",wxSOLID));
     dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
-    
-    
+
+
     for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
          it != m_remappedBitmaps.end();
          ++it)
@@ -298,11 +298,11 @@ void PreviewPanel::DrawPreview(wxDC & dc)
             DrawOutline(m_outlines[*it], dc, offsetX, offsetY);
         }
     }
-    
+
     wxCoord w = m_panoImgSize.GetWidth();
     wxCoord h = m_panoImgSize.GetHeight();
 
-    
+
     // draw center lines over display
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
     dc.SetLogicalFunction(wxINVERT);
@@ -376,19 +376,22 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
     DEBUG_DEBUG("after clipping: upper left: " << ulInt.x << "," << ulInt.y
                 << "  lower right: " << lrInt.x << "," << lrInt.y);
 
+    FImage empty(1,1);
     // remap image with that transform
     PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
                            destIterRange(wxImageUpperLeft(dest)+ ulInt,
                                          wxImageUpperLeft(dest)+lrInt),
                            ulInt,
-                           t);
+                           t,
+                           vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
+                                         empty.accessor()));
 }
 
 
 void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int offX, int offY)
 {
-    for (vector<FDiff2D>::const_iterator pnt = points.begin(); 
+    for (vector<FDiff2D>::const_iterator pnt = points.begin();
          pnt != points.end() ;
          ++pnt)
     {
