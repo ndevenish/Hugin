@@ -1696,24 +1696,6 @@ msgstr "Verticalement (t) :"
 msgid "Lens Properties"
 msgstr "Paramètres de l'objectif"
 
-#: src/hugin/xrc/lens_dialog.xrs:52
-#, fuzzy
-msgid "Shearing"
-msgstr "Découpage de l'image"
-
-#: src/hugin/xrc/lens_dialog.xrs:53 src/hugin/xrc/lens_panel.xrs:39
-msgid "horizontal (g):"
-msgstr "horizontalement (g) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:56 src/hugin/xrc/lens_panel.xrs:41
-msgid "vertical (t):"
-msgstr "verticalement (t) :"
-
-#: src/hugin/xrc/lens_dialog.xrs:59
-#, fuzzy
-msgid "Lens Properties"
-msgstr "Paramètres de l'objectif"
-
 #: src/hugin/xrc/lens_panel.xrs:7
 msgid "Design Parameters"
 msgstr "Paramètres de conception"
