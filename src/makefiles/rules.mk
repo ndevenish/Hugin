@@ -29,7 +29,7 @@
 # When you just type "make", the stuff listed after all: below will be done
 #=============================================================================
 
-all: depend lib apps
+all: depend lib apps po
 
 #=============================================================================
 # To make it possible to both do what has to be done in this directory
@@ -57,6 +57,9 @@ distclean: distclean.nested distclean.local
 depclean: depclean.nested depclean.local
 docs:
 	doxygen
+po:
+	cd po; make po
+
 #=============================================================================
 # All nested targets are taken care of by this rule. It simply goes
 # through the subdirectories and issues a make with the target name
