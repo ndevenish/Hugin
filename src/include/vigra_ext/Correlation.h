@@ -61,7 +61,7 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
                                 vigra::Diff2D searchPos,
                                 int sWidth)
 {
-    DEBUG_TRACE("templPos: " << templPos << " searchPos: " << searchPos);
+//    DEBUG_TRACE("templPos: " vigra::<< templPos << " searchPos: " vigra::<< searchPos);
 
     // extract patch from template
 
@@ -116,8 +116,8 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
                          templImg.accessor(),
                          tmplUL, tmplLR, -1);
     res.maxpos = res.maxpos + searchUL;
-    DEBUG_DEBUG("normal search finished, max:" << res.maxi
-                << " at " << res.maxpos);
+//    DEBUG_DEBUG("normal search finished, max:" << res.maxi
+//                << " at " << res.maxpos);
 
     return res;
 }
@@ -344,6 +344,6 @@ bool findTemplate(const Image & templ, const std::string & filename,
 
 
 
-} // namespace 
+} // namespace
 
 #endif // VIGRA_EXT_CORRELATION_H
