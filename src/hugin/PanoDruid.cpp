@@ -76,7 +76,7 @@ NEW_HINT(5, UNSAVED, "druid.stitch.128.png",
 		   "don't forget to save your project file so you can\n"
 		   "experiment or adjust the settings later."))
 {
-	return FALSE; //TODO: pano.isDirty(); // isn't currently signaled right
+	return pano.isDirty();
 }
 END_HINT(UNSAVED);
 
@@ -87,13 +87,32 @@ NEW_HINT(20, HUGE_FINAL, "druid.stitch.128.png",
 		 _("Very large pixel dimensions are currently entered.\n"
 		   "Some computers may take an excessively long time\n"
 		   "to render such a large final image.\n"
-		   "For best results, use the automatic Calc button on\n"
+		   "For best results, use the automatic Calc buttons on\n"
 		   "the Panorama Options tab to determine the\n"
 		   "pixel dimensions which will give the best quality."))
 {
-	//REVIEW: calc input images and/or memory
-	unsigned long threshold = 100000000L;
-	return (((unsigned long)opts.width * opts.getHeight() >= threshold));
+	unsigned long dst_mp = (unsigned long)opts.width * opts.getHeight();
+
+	// Destination is more than an arbitrary threshold.
+	unsigned long threshold = 400000000L; // 400 megapixels
+	if (dst_mp >= threshold)
+		return TRUE;
+
+	unsigned long src_mp = 0;
+	int images = pano.getNrOfImages();
+	while (images)
+	{
+		--images;
+		const PanoImage& image =
+			pano.getImage(images);
+		src_mp += image.getWidth() * image.getHeight();
+	}
+
+	// Destination is more all source images.
+	if (dst_mp > src_mp)
+		return TRUE;
+
+	return FALSE;
 }
 END_HINT(HUGE_FINAL);
 
@@ -119,9 +138,22 @@ NEW_HINT(45, NO_PLUMB_GUIDES, "druid.control.128.png",
 		 _("By adding vertical guides, the optimizer can ensure\n"
 		   "that buildings or trees or other vertical features\n"
 		   "appear vertical in the final result.  A horizontal\n"
-		   "guide can help ensure a horizon that does not bend."))
+		   "guide can help ensure that a horizon does not bend."))
 {
-	return FALSE; // TODO: scan for plumb guide pairs
+	int images = pano.getNrOfImages();
+	if (images < 3)
+		return FALSE;
+
+	int points = pano.getNrOfCtrlPoints();
+	while (points)
+	{
+		--points;
+		const ControlPoint& point =
+			pano.getCtrlPoint(points);
+		if (point.mode != ControlPoint::X_Y)
+			return FALSE;
+	}
+	return TRUE;
 }
 END_HINT(NO_PLUMB_GUIDES);
 
@@ -133,7 +165,11 @@ NEW_HINT(46, FEW_GUIDES, "druid.control.128.png",
 		   "of control points for each pair of overlapping images.\n"
 		   "More points, accurately placed, will improve the match."))
 {
-	return FALSE; // TODO: scan for guide pairs vs image pair ratio
+	int points = pano.getNrOfCtrlPoints();
+	int images = pano.getNrOfImages();
+	if ((points/3) <= images)
+		return TRUE;
+	return FALSE;
 }
 END_HINT(FEW_GUIDES);
 
@@ -145,7 +181,16 @@ NEW_HINT(47, UNGUIDED_IMAGE, "druid.control.128.png",
 		   "of control points for each pair of overlapping images.\n"
 		   "An image with no control points cannot be aligned."))
 {
-	return FALSE; // TODO: scan for image with no guide pairs
+	int images = pano.getNrOfImages();
+	while (images)
+	{
+		--images;
+		std::vector<unsigned int> points =
+			pano.getCtrlPointsForImage(images);
+		if (points.size() == 0)
+			return TRUE;
+	}
+	return FALSE;
 }
 END_HINT(UNGUIDED_IMAGE);
 
@@ -179,8 +224,12 @@ NEW_HINT(95, ONE_IMAGE, "druid.images.128.png",
 		 _("Add at least one more image."),
 		 _("You should have at least two files listed in the Images tab."))
 {
-	//REVIEW: may ignore this hint if there are already control points
-	return (1 == pano.getNrOfImages());
+	// Ignores this hint if they've already added some control points.
+	if (pano.getNrOfCtrlPoints())
+		return FALSE;
+	if (1 != pano.getNrOfImages())
+		return FALSE;
+	return TRUE;
 }
 END_HINT(ONE_IMAGE);
 
