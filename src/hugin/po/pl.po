@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-13 13:29+0200\n"
-"PO-Revision-Date: 2004-11-12 09:20-0500\n"
+"POT-Creation-Date: 2004-11-15 10:15+0200\n"
+"PO-Revision-Date: 2004-11-15 09:49-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -76,7 +76,7 @@ msgstr ""
 "krótsz± ¶cie¿k±"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:201
-#: src/hugin/AutoCtrlPointCreator.cpp:328 src/hugin/NonaStitcherPanel.cpp:317
+#: src/hugin/AutoCtrlPointCreator.cpp:328 src/hugin/NonaStitcherPanel.cpp:319
 msgid "Too many images selected"
 msgstr "Wybrano zbyt wiele zdjêæ"
 
@@ -96,8 +96,8 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:237
 #: src/hugin/AutoCtrlPointCreator.cpp:250
-#: src/hugin/AutoCtrlPointCreator.cpp:350 src/hugin/NonaStitcherPanel.cpp:354
-#: src/hugin/NonaStitcherPanel.cpp:362
+#: src/hugin/AutoCtrlPointCreator.cpp:350 src/hugin/NonaStitcherPanel.cpp:356
+#: src/hugin/NonaStitcherPanel.cpp:364
 msgid "Could not execute command: "
 msgstr "Nie mog³em wykonaæ polecenia:"
 
@@ -108,17 +108,17 @@ msgstr "b³±d ShellExecuteEx"
 #: src/hugin/AutoCtrlPointCreator.cpp:250
 #: src/hugin/AutoCtrlPointCreator.cpp:255
 #: src/hugin/AutoCtrlPointCreator.cpp:350
-#: src/hugin/AutoCtrlPointCreator.cpp:355 src/hugin/NonaStitcherPanel.cpp:362
+#: src/hugin/AutoCtrlPointCreator.cpp:355 src/hugin/NonaStitcherPanel.cpp:364
 msgid "wxExecute Error"
 msgstr "B³±d wxExecute"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:253
-#: src/hugin/AutoCtrlPointCreator.cpp:353 src/hugin/NonaStitcherPanel.cpp:365
+#: src/hugin/AutoCtrlPointCreator.cpp:353 src/hugin/NonaStitcherPanel.cpp:367
 msgid "command: "
 msgstr "polecenie:"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:254
-#: src/hugin/AutoCtrlPointCreator.cpp:354 src/hugin/NonaStitcherPanel.cpp:366
+#: src/hugin/AutoCtrlPointCreator.cpp:354 src/hugin/NonaStitcherPanel.cpp:368
 msgid ""
 "\n"
 "failed with error code: "
@@ -228,11 +228,11 @@ msgstr ""
 "zakrzywienie: %0.3f %0.3f "
 
 #: src/hugin/CPEditorPanel.cpp:808
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "No similar point found.\n"
-"correlation coefficient: %.3f, (should be < %.3f)\n"
-"peak curvature: (%.3f, %.3f), ( should be > %.3f)"
+"correlation coefficient: %.3f (should be > %.3f)\n"
+"peak curvature: (%.3f, %.3f) ( should be > %.3f)"
 msgstr ""
 "Nie znaleziono podobnego punktu.\n"
 "wspó³czynnik korelacji: %.3f, (powininen byæ < %.3f)\n"
@@ -484,6 +484,9 @@ msgid ""
 "The xrc directory was not found.\n"
 "Please ensure it is placed in the same directory as hugin.exe"
 msgstr ""
+"B³ad instalacji\n"
+"Nie znaleziono katalogu xrc.\n"
+"Proszê siê upewniæ, ¿e jest on w tym samym katalogu co hugin.exe"
 
 #: src/hugin/MainFrame.cpp:317
 msgid "Started"
@@ -624,23 +627,23 @@ msgstr "U³ynê³o ju¿ : "
 msgid "Stitching Panorama"
 msgstr "Sk³adam panoramê"
 
-#: src/hugin/NonaStitcherPanel.cpp:261
+#: src/hugin/NonaStitcherPanel.cpp:263
 msgid "Select enblend.exe"
 msgstr "Wybierz enblend.exe"
 
-#: src/hugin/NonaStitcherPanel.cpp:269
+#: src/hugin/NonaStitcherPanel.cpp:271
 msgid "No enblend.exe selected"
 msgstr "Nie wybrano enblend.exe"
 
-#: src/hugin/NonaStitcherPanel.cpp:275
+#: src/hugin/NonaStitcherPanel.cpp:277
 msgid "Select enblend commandline tool"
 msgstr "Wybierz narzêdzie enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:283
+#: src/hugin/NonaStitcherPanel.cpp:285
 msgid "No enblend commandline tool selected"
 msgstr "Nie wybrano narzêdzia enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:316
+#: src/hugin/NonaStitcherPanel.cpp:318
 msgid ""
 "Can not call enblend with a command line > 2000 characters.\n"
 "This is a Windows limitiation\n"
@@ -652,11 +655,11 @@ msgstr ""
 "Proszê u¿yæ mniejszej ilo¶ci zdjêæ, lub skopiowaæ je do folderu\n"
 "o krótszej nazwie ¶cie¿ki"
 
-#: src/hugin/NonaStitcherPanel.cpp:322
+#: src/hugin/NonaStitcherPanel.cpp:324
 msgid "Running Enblend"
 msgstr "Uruchomiono Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:322
+#: src/hugin/NonaStitcherPanel.cpp:324
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
@@ -664,15 +667,15 @@ msgstr ""
 "Enblend zajmie chwilê, aby zakoñczyæ pracê nad panoram±\n"
 "Mo¿esz podgl±daæ przebieg programu enblend w oknie poleceñ"
 
-#: src/hugin/NonaStitcherPanel.cpp:354
+#: src/hugin/NonaStitcherPanel.cpp:356
 msgid "CreateProcess Error"
 msgstr "B³±d CreateProcess"
 
-#: src/hugin/NonaStitcherPanel.cpp:367
+#: src/hugin/NonaStitcherPanel.cpp:369
 msgid "enblend error"
 msgstr "b³±d enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:373
+#: src/hugin/NonaStitcherPanel.cpp:375
 msgid "error during stitching:"
 msgstr "b³±d podczas sk³adania:"
 
@@ -861,9 +864,8 @@ msgid "Create panorama image"
 msgstr "Utwórz zdjêcie panoramiczne"
 
 #: src/hugin/PreviewFrame.cpp:74
-#, fuzzy
 msgid "Panorama preview"
-msgstr "podgl±d panoramy"
+msgstr "Podgl±d panoramy"
 
 #: src/hugin/PreviewFrame.cpp:92
 msgid "displayed images"
@@ -1031,7 +1033,7 @@ msgstr ""
 "gdy zdjêcia s± ju¿ dobrze wyrównane."
 
 #: src/hugin/RunOptimizerFrame.cpp:320
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Optimizer run finished.\n"
 "Results:\n"
@@ -1932,9 +1934,8 @@ msgid "approximation of values beetwen source pixels"
 msgstr "przybli¿enie warto¶ci pomiêdzy pikselami ¼ród³owymi"
 
 #: src/hugin/xrc/nona_panel.xrs:12
-#, fuzzy
 msgid "Soft Blending (requires enblend, only TIFF output)"
-msgstr "Miêkkie ³±czenie (wymaga enblend'a)"
+msgstr "Miêkkie ³±czenie (wymaga enblend'a, tylko dla plików TIFF)"
 
 #: src/hugin/xrc/nona_panel.xrs:13
 msgid ""
@@ -1985,9 +1986,8 @@ msgid "Quick Optimizer"
 msgstr "Szybki optymalizator"
 
 #: src/hugin/xrc/optimize_panel.xrs:3
-#, fuzzy
 msgid "Positions (incremental, starting from anchor)"
-msgstr "Pozycje (optymalizacja parami, zaczynaj±c od odniesienia)"
+msgstr "Pozycje (przyrostowy, zaczynaj±c od odniesienia)"
 
 #: src/hugin/xrc/optimize_panel.xrs:4
 msgid "Positions (y,p,r)"
@@ -2333,16 +2333,15 @@ msgstr "MB"
 
 #: src/hugin/xrc/pref_dialog.xrs:36
 msgid "User Interface"
-msgstr ""
+msgstr "Interfejs u¿ytkownika"
 
 #: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Language"
-msgstr ""
+msgstr "Jêzyk"
 
 #: src/hugin/xrc/pref_dialog.xrs:38
-#, fuzzy
 msgid "requires restarting hugin"
-msgstr "Poka¿ asystenta (wymaga restartu hugin'a)"
+msgstr "wymaga restartu hugin'a"
 
 #: src/hugin/xrc/pref_dialog.xrs:39
 msgid "Cursor Type"
@@ -2625,6 +2624,3 @@ msgstr "Sk³adam"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Anuluj"
-
-#~ msgid "Control Point Editor"
-#~ msgstr "Edytor punków kontrolnych"
