@@ -160,7 +160,8 @@ bool huginApp::OnInit()
     // get the global config object
     // remember the last location from config
 //    wxConfigBase* config = wxConfigBase::Get();
-    long pos_x, pos_y, size_x, size_y;
+    long pos_x=0, pos_y=0, size_x=100, size_y=100;
+    bool move = FALSE;
     if (config->HasEntry(wxT("MainFramePosition_x")) &&
         config->HasEntry(wxT("MainFramePosition_y")) &&
         config->HasEntry(wxT("MainFrameSize_x")) &&
@@ -171,6 +172,7 @@ bool huginApp::OnInit()
       config->Read("MainFrameSize_y").ToLong(&size_y);
       frame->SetSize( pos_x, pos_y, size_x, size_y );
       DEBUG_INFO("set position to "<<pos_x<<","<<pos_y )
+      move = TRUE;
     }
     // remember if PanoPanel was teared off
     if (config->HasEntry(wxT("pano_dlg_run")) ) {
@@ -183,8 +185,10 @@ bool huginApp::OnInit()
       }
     }
 #if defined(__WXGTK__)   
+    if ( move ) {
       // compensate the window decoration here approximately
       frame->Move( pos_x + 5, pos_y + 24 );
+    }
 #endif
 
     DEBUG_TRACE("");
