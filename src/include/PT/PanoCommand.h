@@ -434,8 +434,8 @@ namespace PT {
 
     //=========================================================================
     //=========================================================================
-    
-    
+
+
     /** add multiple control points */
     class AddCtrlPointsCmd : public PanoCommand
     {
@@ -494,6 +494,37 @@ namespace PT {
     //=========================================================================
 
 
+    /** remove several  control points */
+    class RemoveCtrlPointsCmd : public PanoCommand
+    {
+    public:
+        RemoveCtrlPointsCmd(Panorama & p, const UIntSet & points )
+            : PanoCommand(p), m_points(points)
+            { }
+
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                for(UIntSet::reverse_iterator it = m_points.rbegin();
+                    it != m_points.rend(); ++it) 
+                {
+                    pano.removeCtrlPoint(*it);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "remove control points";
+            }
+    private:
+        UIntSet m_points;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+    
     /** change a control point */
     class ChangeCtrlPointCmd : public PanoCommand
     {

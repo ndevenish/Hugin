@@ -583,7 +583,7 @@ unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
 
 void Panorama::removeCtrlPoint(unsigned int pNr)
 {
-    assert(pNr < state.ctrlPoints.size());
+    DEBUG_ASSERT(pNr < state.ctrlPoints.size());
     ControlPoint & point = state.ctrlPoints[pNr];
     unsigned int i1 = point.image1Nr;
     unsigned int i2 = point.image2Nr;

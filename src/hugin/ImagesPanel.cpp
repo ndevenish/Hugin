@@ -27,6 +27,9 @@
 
 #include "panoinc.h"
 #include "panoinc_WX.h"
+
+#include <map>
+
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/listctrl.h>    // needed on mingw
 #include <wx/imaglist.h>
@@ -69,6 +72,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_BUTTON     ( XRCID("images_set_orientation_button"), ImagesPanel::OnSelectAnchorPosition)
     EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
     EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
+    EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
+    EVT_BUTTON     ( XRCID("images_reset_pos"), ImagesPanel::OnResetImagePositions)
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
@@ -176,9 +181,103 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 
 // #####  Here start the eventhandlers  #####
 
-
 /** run sift matching on selected images, and add control points */
 void ImagesPanel::SIFTMatching(wxCommandEvent & e)
+{
+    const UIntSet & selImg = images_list->GetSelected();
+    if ( selImg.size() < 2 ) {
+        wxMessageBox(_("At least 2 images must be selected"),
+                     _("Error"), wxCANCEL | wxICON_ERROR);
+        return;
+    }
+
+    wxString text = XRCCTRL(*this, "images_points_per_overlap"
+                            , wxTextCtrl) ->GetValue();
+    long nFeatures = 10;
+    if (!text.ToLong(&nFeatures)) {
+        wxLogError(_("number of Control points must be numeric."));
+        return;
+    }
+
+
+#ifdef __WXMSW__
+    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
+    if (!wxFile::Exists(autopanoExe)){
+        wxFileDialog dlg(this,_("Select autopano.exe (>= V 1.03"),
+                         "", "autopano.exe",
+                         "Executables (*.exe)|*.exe",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            stitcherExe = dlg.GetPath();
+            config->Write("/PanoTools/AutopanoExe",autopanoExe);
+        } else {
+            wxLogError(_("No autopano.exe selected (download it from http://autopano.kolor.com)"));
+            return;
+        }
+    }
+#else
+    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano");
+#endif
+
+
+    // build a list of all image files, and a corrosponding connection map.
+    // local img nr -> global (panorama) img number
+    std::map<int,int> imgMapping;
+    int imgNr=0;
+    for(UIntSet::const_iterator it = selImg.begin(); it != selImg.end(); it++)
+    {
+        imgMapping[imgNr] = *it;
+        autopanoExe.append(" ").append(pano.getImage(*it).getFilename().c_str());
+        imgNr++;
+    }
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/PanoTools/AutopanoArgs","-nomove  -search:1 -size:1024 -ransac:1  -noclean -hugin -keys:");
+
+    wxString cmd;
+    cmd.Printf("%s %s%ld",autopanoExe.c_str(), autopanoArgs.c_str(), nFeatures);
+    DEBUG_DEBUG("Executing: " << cmd.c_str());
+    // run autopano in an own output window
+    wxShell(cmd);
+
+    // parse resulting output file
+    ifstream stream("pano0/pano0.pto");
+    if (! stream.is_open()) {
+        DEBUG_ERROR("Could not open autopano output: pano0/pano0.pto");
+        return;
+    }
+
+    CPVector ctrlPoints;
+    string line;
+    while(!stream.eof()) {
+        std::getline(stream, line);
+
+        if (line.size() > 0 && line[0] == 'c') {
+            int t;
+            ControlPoint point;
+            getParam(point.image1Nr, line, "n");
+            point.image1Nr = imgMapping[point.image1Nr];
+            getParam(point.image2Nr, line, "N");
+            point.image2Nr = imgMapping[point.image2Nr];
+            getParam(point.x1, line, "x");
+            getParam(point.x2, line, "X");
+            getParam(point.y1, line, "y");
+            getParam(point.y2, line, "Y");
+            getParam(t, line, "t");
+            point.mode = (ControlPoint::OptimizeMode) t;
+            ctrlPoints.push_back(point);
+        } else {
+            DEBUG_DEBUG("skipping line: " << line);
+        }
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::AddCtrlPointsCmd(pano, ctrlPoints)
+        );
+}
+
+#if 0
+/** run sift matching (using builtin matcher) on selected images, and
+    add control points */
+void ImagesPanel::SIFTMatchingBuiltin(wxCommandEvent & e)
 {
 
 #if 0
@@ -268,12 +367,17 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
 #endif
 }
 
+#endif
+
 // Yaw by text -> double
 void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )
 {
     if ( images_list->GetSelected().size() > 0 ) {
         wxString text = XRCCTRL(*this, "images_text_yaw"
                                 , wxTextCtrl) ->GetValue();
+        if (text == "") {
+            return;
+        }
         DEBUG_INFO ("yaw = " << text );
 
         double val;
@@ -292,6 +396,9 @@ void ImagesPanel::OnPitchTextChanged ( wxCommandEvent & e )
         wxString text = XRCCTRL(*this, "images_text_pitch"
                                 , wxTextCtrl) ->GetValue();
         DEBUG_INFO ("pitch = " << text );
+        if (text == "") {
+            return;
+        }
 
         double val;
         if (!text.ToDouble(&val)) {
@@ -308,6 +415,9 @@ void ImagesPanel::OnRollTextChanged ( wxCommandEvent & e )
         wxString text = XRCCTRL(*this, "images_text_roll"
                                 , wxTextCtrl) ->GetValue();
         DEBUG_INFO ("roll = " << text );
+        if (text == "") {
+            return;
+        }
 
         double val;
         if (!text.ToDouble(&val)) {
@@ -466,5 +576,49 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     }
     wxImage scaled = img->Scale(w,h);
     imgctrl->SetBitmap(scaled.ConvertToBitmap());
+}
+
+
+void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    const UIntSet & selImg = images_list->GetSelected();
+    unsigned int nSelImg =  selImg.size();
+    if ( nSelImg > 0 ) {
+        VariableMapVector vars(nSelImg);
+        unsigned int i;
+        for (UIntSet::const_iterator it = selImg.begin();
+             it != selImg.end(); ++it )
+        {
+            vars[i].insert(make_pair("y", Variable("y",0.0)));
+            vars[i].insert(make_pair("p", Variable("p",0.0)));
+            vars[i].insert(make_pair("r", Variable("r",0.0)));
+            i++;
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateVariablesCmd( pano, vars ));
+    }
+
+}
+
+
+void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    const UIntSet & selImg = images_list->GetSelected();
+    unsigned int nSelImg =  selImg.size();
+    if ( nSelImg > 0 ) {
+        UIntSet cpsToDelete;
+        const CPVector & cps = pano.getCtrlPoints();
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
+            if (set_contains(selImg, (*it).image1Nr) &&
+                set_contains(selImg, (*it).image2Nr) )
+            {
+                cpsToDelete.insert(it - cps.begin());
+            }
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RemoveCtrlPointsCmd( pano, cpsToDelete ));
+    }
 }
 

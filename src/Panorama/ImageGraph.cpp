@@ -26,7 +26,6 @@
 
 #include <PT/ImageGraph.h>
 
-
 using namespace PT;
 using namespace boost;
 

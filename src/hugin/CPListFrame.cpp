@@ -45,7 +45,7 @@ public:
         : m_list(list)
         {
         }
-    
+
     void OnKey(wxKeyEvent & e)
         {
             if (e.m_keyCode == WXK_DELETE) {
@@ -54,12 +54,12 @@ public:
                 e.Skip();
             }
         }
-    
+
 private:
     CPListFrame & m_list;
 
     DECLARE_EVENT_TABLE()
-   
+
 };
 
 BEGIN_EVENT_TABLE(DelKeyHandler, wxEvtHandler)
@@ -366,5 +366,5 @@ void CPListFrame::DeleteSelected()
     if (item >=0) {
         int cp = m_list->GetItemData(item);
         m_mainFrame->ShowCtrlPoint((unsigned int) cp);
-    }   
+    }
 }
