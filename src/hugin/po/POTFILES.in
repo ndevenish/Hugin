@@ -41,6 +41,7 @@ src/hugin/xrc/main_tool.xrs
 src/hugin/xrc/nona_panel.xrs
 src/hugin/xrc/optimize_panel.xrs
 src/hugin/xrc/pano_panel.xrs
+src/hugin/xrc/pref_dialog.xrs
 src/hugin/xrc/preview_frame.xrs
 src/hugin/xrc/ptstitcher_panel.xrs
 src/hugin/xrc/run_optimizer_frame.xrs

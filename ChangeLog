@@ -1,4 +1,132 @@
 
+2004-10-20 08:56:25  dwilkins42  (dwilkins42)
+
+	* src/hugin/po/fr.po: Update french translation. Thanks to
+	Jean-Luc Coulon
+
+	* src/hugin/Makefile.am, src/nona_gui/Makefile.am, configure.ac:
+	Add win32 support in the build system
+
+	* src/hugin/xrc/data/.cvsignore, src/hugin/xrc/data/Makefile.am,
+	src/hugin/po/de.po, src/hugin/po/fr.po, src/hugin/po/hugin.pot,
+	src/hugin/po/it.po, src/hugin/po/pl.po: Update translation
+	files. Make sure data files are copied/linked once only
+
+	* configure.ac: Make sure configure fails if pano12 library is
+	not found. Also warn if graphic libraries are not found
+
+2004-10-18 10:10:27  ippei  (ippei)
+
+	* src/hugin/MainFrame.cpp: Window Position Fix on Mac
+
+2004-10-18 07:15:10  dwilkins42  (dwilkins42)
+
+	* src/hugin/po/LINGUAS, src/hugin/po/it.po: Add blank italian
+	translation
+
+2004-10-18 05:23:21  dangelo  (dangelo)
+
+	* configure.ac: xrc files are installed under $prefix/share
+
+2004-10-17 16:29:54  dwilkins42  (dwilkins42)
+
+	* src/hugin/xrc/Makefile.am, src/hugin/xrc/.cvsignore: Create
+	links to .xrc files only when neccesary. make now works in and
+	out of src tree
+
+	* src/hugin/xrc/Makefile.am: Update to allow build, not ideal
+	but it works
+
+2004-10-17 00:42:33  dangelo  (dangelo)
+
+	* src/hugin/xrc/Makefile.am: wxrc always exits with errors,
+	ignore error code
+
+2004-10-16 23:52:55  dangelo  (dangelo)
+
+	* src/hugin/LensPanel.cpp: link v,a,b,c,d,e if the lens ini file
+	doesn't contain the link parameters. (compatablity to .ini files
+	created by older hugin builds)
+
+	* src/Panorama/Panorama.cpp: really removed empty v lines..
+
+	* AUTHORS, INSTALL: added mareks' full name
+
+2004-10-16 16:16:30  dwilkins42  (dwilkins42)
+
+	* src/hugin/po/fr.po: really add blank french translation
+
+	* src/hugin/po/hugin.pot, src/hugin/po/pl.po, src/hugin/po/de.po,
+	src/hugin/po/LINGUAS: Added blank french translation
+
+2004-10-16 02:07:38  dangelo  (dangelo)
+
+	* src/hugin/xrc/lens_panel.xrc: remove misleading (well, actually
+	quite wrong) note about image shift only needed on scanned images
+
+	* src/hugin/po/de.po: partial translation update
+
+	* src/common/utils.cpp: removed debug flag
+
+	* src/include/PT/PanoToolsInterface.h: undef MIN/MAX macro
+	if defined
+
+	* src/hugin/LensPanel.cpp: save lens link state as well
+
+2004-10-15 22:22:33  dangelo  (dangelo)
+
+	* src/include/hugin/wxPanoCommand.h, src/Panorama/Panorama.cpp,
+	src/hugin/MainFrame.cpp, src/include/PT/Panorama.h: ask for new
+	filename, if an image file is not found
+
+	* INSTALL: pointer to HACKING and panotools.sf.net
+
+	* AUTHORS: updated authors
+
+	* src/include/PT/PTOptimise.h: removed unnessecary error message
+
+2004-10-15 18:43:57  dwilkins42  (dwilkins42)
+
+	* src/hugin/xrc/lens_dialog.xrc,
+	src/hugin/xrc/main_menu.xrc, src/hugin/xrc/main_tool.xrc,
+	src/hugin/xrc/pano_panel.xrc, src/hugin/xrc/preview_frame.xrc,
+	src/hugin/xrc/ptstitcher_panel.xrc, src/nona_gui/po/LINGUAS,
+	src/nona_gui/po/pl.po, src/hugin/po/de.po, src/hugin/po/hugin.pot,
+	src/hugin/po/pl.po: Corrected menus, help and tooltips. Updated
+	translations (polish is complete)
+
+	* src/hugin/xrc/.cvsignore, src/hugin/xrc/Makefile.am,
+	src/hugin/po/POTFILES.in, src/hugin/po/de.po,
+	src/hugin/po/hugin.pot, src/hugin/po/pl.po, Makefile.am,
+	src/hugin/PanoDruid.cpp: Add strings in XRC files to translations
+
+2004-10-15 06:14:34  dangelo  (dangelo)
+
+	* src/hugin/po/de.po: partial update of german translation
+
+	* configure.ac: older boost library is fine too. have to create
+	Makefiles for the mess in tests/ sometime..
+
+2004-10-15 05:40:30  dwilkins42  (dwilkins42)
+
+	* src/hugin/xrc/main_menu.xrc, src/hugin/po/de.po,
+	src/hugin/po/hugin.pot, src/hugin/po/pl.po,
+	src/hugin/xrc/cp_editor_panel.xrc, src/hugin/xrc/lens_dialog.xrc,
+	src/hugin/xrc/lens_panel.xrc, src/hugin/CPEditorPanel.cpp,
+	src/hugin/ImagesList.cpp, src/hugin/MainFrame.cpp,
+	src/hugin/PanoDruid.cpp: translation and spelling updates
+
+2004-10-14 16:53:36  dwilkins42  (dwilkins42)
+
+	* ChangeLog, src/hugin/NonaStitcherPanel.cpp,
+	src/hugin/po/LINGUAS, src/hugin/po/de.po, src/hugin/po/hugin.pot,
+	src/hugin/po/pl.po: Added polish translation. Thanks to Marek
+	Januszewski
+
+	* m4/ax_check_graphics.m4, m4/ax_fftw.m4, m4/ax_gtk.m4,
+	src/foreign/vigra_impex/Makefile.am, src/hugin/Makefile.am:
+	Updates to autotools for mingw/msys
+
 2004-10-14 06:41:13  dangelo  (dangelo)
 
 	* src/Panorama/Panorama.cpp: do not produce empty v lines in
