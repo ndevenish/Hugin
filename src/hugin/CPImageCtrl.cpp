@@ -251,7 +251,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
 #else
         drawPoint(dc, newPoint, wxTheColourDatabase->Find("RED"));
-#endif        
+#endif
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen("RED", 1, wxSOLID));
@@ -527,7 +527,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     unsigned int selPointNr = 0;
-    EditorState oldstate = editState;
+//    EditorState oldstate = editState;
     EditorState clickState = isOccupied(mpos, selPointNr);
     if (mouse.LeftDown() && editState != NO_IMAGE) {
         // we can always select a new point
@@ -548,8 +548,8 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
         } else {
             DEBUG_ERROR("invalid state " << clickState << " on mouse down");
         }
-        DEBUG_DEBUG("ImageDisplay: mouse down, state change: " << oldstate
-                    << " -> " << editState);
+//        DEBUG_DEBUG("ImageDisplay: mouse down, state change: " << oldstate
+//                    << " -> " << editState);
     }
     m_mousePos = mpos;
 }
@@ -562,7 +562,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
-    EditorState oldState = editState;
+//    EditorState oldState = editState;
     if (mouse.LeftUp()) {
         switch(editState) {
         case NO_SELECTION:
@@ -621,8 +621,8 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
             break;
 
         }
-        DEBUG_DEBUG("ImageDisplay: mouse release, state change: " << oldState
-                    << " -> " << editState);
+//        DEBUG_DEBUG("ImageDisplay: mouse release, state change: " << oldState
+//                    << " -> " << editState);
     }
 
 }

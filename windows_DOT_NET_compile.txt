@@ -1,3 +1,6 @@
+
+WARNING: this hasn't been tried since quite some time..
+
 Hugin windows compilation with Visual Studio.NET 2003
 
 A step by step guide

@@ -113,17 +113,19 @@ UniversalCursor::UniversalCursor(const wxImage & image)
     unsigned char * rgbBits = image32.GetData();
     int w = image32.GetWidth()  ;
     int h = image32.GetHeight() ;
-    bool bHasMask = image32.HasMask() ;
+//    bool bHasMask = image32.HasMask() ;
     int imagebitcount = (w*h)/8;
 
     int hotSpotX = 0;
     int hotSpotY = 0;
 
-    unsigned char r, g, b ;
+//    unsigned char r, g, b ;
     unsigned char * bits = new unsigned char [imagebitcount];
     unsigned char * maskBits = new unsigned char [imagebitcount];
 
-    int i,j, i8; unsigned char c, cMask;
+    int i,j, i8; 
+//    unsigned char c;
+    unsigned char cMask;
     for (i=0; i<imagebitcount; i++)
     {
         bits[i] = 0;

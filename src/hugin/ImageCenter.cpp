@@ -280,11 +280,11 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
 
       // small message
       if ( (e.m_x < c_img.GetWidth()) && (e.m_y < c_img.GetHeight()) ) {
-        int pos_x = (int)((float)e.m_x * zoom) + 1;
-        int pos_y = (int)((float)e.m_y * zoom) + 1;
-        int x = (int)((float)c_img.GetWidth() * zoom);
-        int y = (int)((float)c_img.GetHeight() * zoom);
-        DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" pos"<<pos_x <<"x"<< pos_y <<" image"<< x <<"x"<< y <<" inside" )
+//        int pos_x = (int)((float)e.m_x * zoom) + 1;
+//        int pos_y = (int)((float)e.m_y * zoom) + 1;
+//        int x = (int)((float)c_img.GetWidth() * zoom);
+//        int y = (int)((float)c_img.GetHeight() * zoom);
+//        DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" pos"<<pos_x <<"x"<< pos_y <<" image"<< x <<"x"<< y <<" inside" )
       } else {
         DEBUG_INFO( "outside" )
       }

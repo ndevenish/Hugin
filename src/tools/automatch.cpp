@@ -1010,7 +1010,7 @@ int main(int argc, char *argv[])
     int nFeatures = 100;
     int defaultKLTWindowSize = -1;
     bool closedPanorama = false;
-    bool doFinetune = false;
+//    bool doFinetune = false;
     double maxangularDev = -1;
     ImgVars imgVars;
     int nrOfTriangles = 100;

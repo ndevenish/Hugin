@@ -1,4 +1,22 @@
 
+
+  WARNING OUTDATED DOCUMENT 
+
+This hasn't been tried since quite some time, and while it work for all the
+required libraries, the ./compile-mingw.sh script and the makefile.g95 haven't
+been updated since half a year or more.
+
+I (Pablo) compile the windows binaries under linux with the mingw compiler,
+using libraries from http://gnuwin32.sf.net, using the normal 
+
+./configure
+make
+
+approach.
+
+  WARNING OUTDATED DOCUMENT
+
+
 How to compile hugin on windows using mingw.
 
 A step by step guide.

@@ -173,14 +173,14 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
         }
       }
     }
-    
+
 }
 
 MyFrame::~MyFrame ()
 {
 }
 
-void MyFrame::OnFullScreen ( wxMenuEvent &event )
+void MyFrame::OnFullScreen ( wxCommandEvent &event )
 {
 	if ( !isFullScreen )
 	{
@@ -194,7 +194,7 @@ void MyFrame::OnFullScreen ( wxMenuEvent &event )
 	}
 }
 
-void MyFrame::OnLoadFile ( wxMenuEvent &event )
+void MyFrame::OnLoadFile ( wxCommandEvent &event )
 {
     DEBUG_INFO ( load->GetWildcard() )
 	if ( load->ShowModal() == wxID_OK )
@@ -208,7 +208,7 @@ void MyFrame::OnLoadFile ( wxMenuEvent &event )
 	}
 }
 
-void MyFrame::OnView ( wxMenuEvent &event )
+void MyFrame::OnView ( wxCommandEvent &event )
 {
     PanoViewpoint vp;
     vp.SetYawLimit ( width );
@@ -217,7 +217,7 @@ void MyFrame::OnView ( wxMenuEvent &event )
     DEBUG_INFO ( "width = " << width << " height = " << height )
 }
 
-void MyFrame::OnGrid ( wxMenuEvent &event )
+void MyFrame::OnGrid ( wxCommandEvent &event )
 {
     DEBUG_INFO ( "showGrid " << showGrid )
 	if ( showGrid )
@@ -229,12 +229,12 @@ void MyFrame::OnGrid ( wxMenuEvent &event )
     ShowFile ( filename );
 }
 
-void MyFrame::OnQuit ( wxMenuEvent &event )
+void MyFrame::OnQuit ( wxCommandEvent &event )
 {
 	Close();
 }
 
-void MyFrame::OnPref ( wxMenuEvent &event )
+void MyFrame::OnPref ( wxCommandEvent &event )
 {
 	pref->ShowModal();
 	pano->SetResolution( qslider->GetValue() );
@@ -248,12 +248,12 @@ void MyFrame::ShowFile ( wxFileName file )
       if ( p.LoadFile(file.GetFullPath()) ) {
         pano->showGrid(showGrid);
         if ( showGrid ) {
-          wxBitmap bmp = p.ConvertToBitmap();
+          wxBitmap bmp = wxBitmap(p);
           wxMemoryDC mdc;
           mdc.SelectObject(bmp);
           mdc.BeginDrawing();
           double space = 10.0;   // TODO work for the other projections
-          double step = (double)p.GetWidth()/360.0; 
+          double step = (double)p.GetWidth()/360.0;
           for ( double i = 0.0 ; i * space <= 360 ; i++ ) {
             mdc.CrossHair((int)((double)p.GetWidth()/2
                               + step * space * i),
@@ -265,11 +265,11 @@ void MyFrame::ShowFile ( wxFileName file )
                               + step * space * -i));
           }
           mdc.EndDrawing();
-          p = bmp;
+          p = bmp.ConvertToImage();
         }
-        pano->SetPano(p); 
+        pano->SetPano(p);
         DEBUG_INFO ( " " << file.GetFullPath() ) }
-      else 
+      else
         DEBUG_INFO ( _("failed: ") << file.GetFullPath() )
     } else {
       DEBUG_INFO ( _("failed: ") << file.GetFullPath() << _(" dont exist") )

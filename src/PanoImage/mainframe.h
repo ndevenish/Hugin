@@ -16,10 +16,10 @@ public:
             int& argc, char *argv[]);
     ~MyFrame();
 
-    void OnFullScreen( wxMenuEvent &event);
-    void OnLoadFile ( wxMenuEvent &event );
-    void OnQuit ( wxMenuEvent &event );
-    void OnPref ( wxMenuEvent &event );
+    void OnFullScreen( wxCommandEvent &event);
+    void OnLoadFile ( wxCommandEvent &event );
+    void OnQuit ( wxCommandEvent &event );
+    void OnPref ( wxCommandEvent &event );
     /**  This function takes the hugin call via wxSocket and loads a new image.
      */
     void ShowFile ( wxFileName fn );
@@ -38,8 +38,8 @@ public:
     /**  This function takes the hugin call via wxSocket and sets the grid.
      */
     void setGrid ( bool showGrid );
-    void OnGrid ( wxMenuEvent &event );
-    void OnView ( wxMenuEvent &event );
+    void OnGrid ( wxCommandEvent &event );
+    void OnView ( wxCommandEvent &event );
 
     /** the pano panel */
     PanoViewer *pano;

@@ -198,7 +198,7 @@ void ScaleSpace::CreateFeatureVector( float x, float y, float s, Keypoints & key
     // int position
     int xi = (int) floor(x + 0.5f);
     int yi = (int) floor(y + 0.5f);
-    int si = (int) floor(s + 0.5f);
+//    int si = (int) floor(s + 0.5f);
 	
     // array of orientation
     OrientationVector OV;
