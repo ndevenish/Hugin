@@ -30,7 +30,24 @@ http://www.tawbaware.com/maxlyons/pano12ml.htm (windows)
 
 Compilation:
 
-do the following:
+do the following in the hugin directory:
 $ ./configure
 $ make
 $ make install
+
+for wxWindows do following:
+$ bzip2 -dv wxGTK-2.4.2.tar.bz2
+$ cd wxGTK-2.4.0
+$ ./configure --with-gtk --with-opengl
+$ make
+$ cd contrib
+$ ./configure
+$ make
+$ cd ..
+$ su  ( login as root )
+$ make install
+$ cd contrib
+$ make install
+$ ldconfig
+$ exit  ( exit the root mode )
+
