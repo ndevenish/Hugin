@@ -50,6 +50,7 @@
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+//#include "hugin/PreviewPanel.h"
 #include "PT/Panorama.h"
 
 #include "common/utils.h"
@@ -96,13 +97,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     DEBUG_TRACE("");
 //    wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
-//    wxPaintDC dc (img_p);
-
-//    canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(256, 128), pano);
 
     DEBUG_TRACE("end");
     pano->addObserver(this);
-
 }
 
 

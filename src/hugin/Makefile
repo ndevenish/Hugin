@@ -71,7 +71,9 @@ LIBS = 1
 # with a programm in tests/
 LIB_1_BIN = wximageproc
 LIB_1_OBJ = ImageProcessing.o \
-	    wxVigraImage.o
+	    wxVigraImage.o \
+            PanoToolsInterface.o \
+            ImageCache.o
 LIB_1_LFLAGS =  $(LFLAGS)
 
 # ====================================================================
@@ -97,14 +99,17 @@ APP_1_OBJ = \
             ImageCache.o \
             CommandHistory.o \
 	    ImageProcessing.o \
+	    PanoToolsInterface.o \
 	    wxVigraImage.o \
             PanoPanel.o \
+	    PreviewFrame.o \
+	    PreviewPanel.o \
 	    OptimizeFrame.o \
 	    RunOptimizerFrame.o \
 	    RunStitcherFrame.o \
             $(RES_O)
 
-APP_1_LFLAGS = $(LFLAGS)
+APP_1_LFLAGS = $(LFLAGS) -lpano12
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you

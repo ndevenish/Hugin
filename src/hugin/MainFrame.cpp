@@ -51,6 +51,7 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/OptimizeFrame.h"
+#include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "PT/Panorama.h"
@@ -58,9 +59,9 @@
 
 using namespace PT;
 
-ImagesPanel * images_panel;
-LensPanel * lens_panel;
-OptimizeVector * optset;
+//ImagesPanel * images_panel;
+//LensPanel * lens_panel;
+//OptimizeVector * optset;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
     #include "xrc/data/gui.xpm"
@@ -77,6 +78,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
     EVT_BUTTON(XRCID("ID_SHOW_OPTIMIZE_FRAME"),MainFrame::OnToggleOptimizeFrame)
+    EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
+    EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
@@ -98,6 +101,7 @@ MainFrame::MainFrame(wxWindow* parent)
     // load our children. some children might need special
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("main_frame"));
+    DEBUG_TRACE("");
 
     // load our menu bar
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
@@ -146,6 +150,8 @@ MainFrame::MainFrame(wxWindow* parent)
 
     opt_frame = new OptimizeFrame(this, &pano);
 
+    preview_frame = new PreviewFrame(this, pano);
+
     // set the minimize icon
     SetIcon(wxICON(gui));
 
@@ -167,7 +173,7 @@ MainFrame::MainFrame(wxWindow* parent)
     pano.addObserver(this);
 
     // optimize settings
-    optset = new OptimizeVector();
+//    optset = new OptimizeVector();
 
 
     // show the frame.
@@ -451,6 +457,14 @@ void MainFrame::OnToggleOptimizeFrame(wxCommandEvent & e)
     opt_frame->Show();
     opt_frame->Raise();
 }
+
+void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    preview_frame->Show();
+    preview_frame->Raise();
+}
+
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {

@@ -41,11 +41,9 @@ class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 class PanoPanel;
+class PreviewFrame;
 //class OptimizeFrame;
 
-extern ImagesPanel* images_panel;
-extern LensPanel* lens_panel;
-extern PanoPanel * pano_panel;
 
 /** The main window frame.
  *
@@ -102,13 +100,21 @@ private:
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
     void OnToggleOptimizeFrame(wxCommandEvent & e);
+    void OnTogglePreviewFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);
 
 
+    // tab panels
+    ImagesPanel* images_panel;
+    LensPanel* lens_panel;
     CPEditorPanel * cpe;
-    OptimizeFrame * opt_frame;
     PanoPanel * pano_panel;
+
+    // flying windows
+    OptimizeFrame * opt_frame;
+    PreviewFrame * preview_frame;
+
 
     // the model
     Panorama pano;

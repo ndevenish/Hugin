@@ -94,7 +94,7 @@ END_EVENT_TABLE()
 
 // Define a constructor for the Pano Panel
 PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
-    : wxPanel (parent),
+    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
       pano(*pano),
       updatesDisabled(false)
 {

@@ -38,15 +38,6 @@ using namespace PT;
 // forward declarations, to save the #include statements
 class CPEditorPanel;
 
-// Define a new area
-class ImgPreview;
-
-/** Image Preview
- *
- *  Reach the ImgPreview through this pointer globally to update only.
- */
-extern ImgPreview *canvas;
-
 /** hugins first panel
  *
  *  This Panel is for loading of images into Panorama.
@@ -55,7 +46,7 @@ extern ImgPreview *canvas;
  */
 class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 {
- public:
+public:
     ImagesPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
                  Panorama * pano );
     ~ImagesPanel(void) ;
@@ -77,9 +68,9 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
      *  @todo   react on different update signals more special
      */
 //    virtual void panoramaChanged(PT::Panorama &pano);
-     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
- private:
+private:
     // a window event
     void FitParent(wxSizeEvent & e);
 
@@ -119,10 +110,10 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 
     void DisableImageCtrls();
     void EnableImageCtrls();
-    
+
     /** show a bigger thumbnail */
     void ShowImage(unsigned int imgNr);
-    
+
 
     /** pointer to the list control */
     ImagesListImage* images_list;

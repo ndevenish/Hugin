@@ -77,7 +77,7 @@
               <label>image orientation</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="unknown" name="images_position_selector">
+                <object class="unknown" name="img_preview_unknown">
                   <tooltip>not implemented, todo pablo</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
