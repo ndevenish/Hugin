@@ -43,6 +43,54 @@
 using namespace PT;
 using namespace std;
 
+//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
+const Variable & const_map_get(const VariableMap &m, const string & key)
+{
+    VariableMap::const_iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+// Map::data_type & map_get( Map &m,  Map::key_type & key)
+Variable & map_get( VariableMap &m, const std::string & key)
+{
+    VariableMap::iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+// Map::data_type & map_get( Map &m,  Map::key_type & key)
+PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key)
+{
+    LensVarMap::iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
+// Map::data_type & map_get( Map &m,  Map::key_type & key)
+const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key)
+{
+    LensVarMap::const_iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
 
 /// helper functions for parsing of a script line
 bool PT::getPTParam(std::string & output, const std::string & line, const std::string & parameter)
@@ -242,8 +290,8 @@ double Panorama::calcHFOV() const
     double hfov = 0;
     int nImages = state.images.size();
     for (int i = 0; i <nImages; i++) {
-        double c = fabs(map_get(state.variables[i],"y").getValue());
-        c += map_get(state.variables[i],"v").getValue() / 2;
+        double c = fabs(const_map_get(state.variables[i],"y").getValue());
+        c += const_map_get(state.variables[i],"v").getValue() / 2;
         if (c > hfov) {
             hfov = c;
         }
@@ -256,10 +304,10 @@ double Panorama::calcVFOV() const
     double vfov = 0;
     int nImages = state.images.size();
     for (int i = 0; i <nImages; i++) {
-        double c = fabs(map_get(state.variables[i],"p").getValue());
+        double c = fabs(const_map_get(state.variables[i],"p").getValue());
         double w = state.images[i].getWidth();
         double h = state.images[i].getHeight();
-        c += map_get(state.variables[i],"v").getValue() * h/w / 2;
+        c += const_map_get(state.variables[i],"v").getValue() * h/w / 2;
         if (c > vfov) {
             vfov = c;
         }
@@ -308,7 +356,9 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 
     // update value for this image
 //    state.variables[imgNr][var.getName()].setValue(var.getValue());
-    map_get(state.variables[imgNr],var.getName()).setValue(var.getValue());
+    const std::string & s = var.getName();
+    Variable & tvar = map_get(state.variables[imgNr], s);
+    tvar.setValue(var.getValue());
     bool lensVar = set_contains(state.lenses[lensNr].variables, var.getName());
     if (lensVar) {
         // special handling for lens variables.
@@ -553,7 +603,7 @@ void Panorama::printOptimizerScript(ostream & o,
         {
             if (set_contains(lens.variables,*sit)) {
                 // it is a lens variable
-                if (map_get(lens.variables,*sit).isLinked() &&
+                if (const_map_get(lens.variables,*sit).isLinked() &&
                     ! set_contains(linkvars[lensNr], *sit))
                 {
                     // print only once

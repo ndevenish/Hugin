@@ -164,7 +164,18 @@ void PreviewPanel::updatePreview()
     double finalHeight = pano.getOptions().getHeight();
 
     m_panoImgSize = GetClientSize();
-    m_panoImgSize.SetHeight((int) (m_panoImgSize.GetWidth() * finalHeight / finalWidth));
+
+    double ratioPano = finalWidth / finalHeight;
+    double ratioPanel = m_panoImgSize.GetWidth() / m_panoImgSize.GetHeight();
+    
+    if (ratioPano < ratioPanel) {
+        // panel is wider than pano
+        m_panoImgSize.SetWidth((int) (m_panoImgSize.GetHeight() * ratioPano));
+    } else {
+        // panel is taller than pano
+        m_panoImgSize.SetHeight((int)(m_panoImgSize.GetWidth() / ratioPano));
+    }
+    
     wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
     UIntSet::iterator it = m_dirtyImgs.begin();
@@ -190,13 +201,7 @@ void PreviewPanel::updatePreview()
         }
     }
     if (dirty) {
-        Refresh(false);
-        // force update of window layout
-        SetClientSize(m_panoImgSize);
-        SetSizeHints(-1, m_panoImgSize.GetHeight(),
-                     -1, m_panoImgSize.GetHeight());
-        parentWindow->Layout();
-        parentWindow->Fit();
+        Refresh();
     }
 }
 
@@ -208,11 +213,22 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
         return;
     }
 
+    int offsetX = 0;
+    int offsetY = 0;
+    
+    wxSize sz = GetClientSize();
+    if (sz.GetWidth() > m_panoImgSize.GetWidth()) {
+        offsetX = (sz.GetWidth() - m_panoImgSize.GetWidth()) / 2;
+    }
+    if (sz.GetHeight() > m_panoImgSize.GetHeight()) {
+        offsetY = (sz.GetHeight() - m_panoImgSize.GetHeight()) / 2;
+    }
+    
     DEBUG_TRACE("redrawing preview Panel");
 
     dc.SetPen(wxPen("BLACK",1,wxSOLID));
     dc.SetBrush(wxBrush("BLACK",wxSOLID));
-    dc.DrawRectangle(0, 0, m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
+    dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
     for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
          it != m_remappedBitmaps.end();
@@ -221,7 +237,7 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
         // draw only images that are scheduled to be drawn
         if (set_contains(m_displayedImages, it -m_remappedBitmaps.begin())) {
             DEBUG_DEBUG("drawing image " << it - m_remappedBitmaps.begin());
-            dc.DrawBitmap(*(*it), 0, 0, true);
+            dc.DrawBitmap(*(*it), offsetX, offsetY, true);
         }
     }
 
@@ -232,15 +248,17 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
     dc.SetPen(wxPen("DIM GREY", 1, wxLONG_DASH));
     dc.SetBrush(wxBrush("DIM GREY",wxSOLID));
     dc.SetBackground(wxBrush("DIM GREY",wxSOLID));
-    dc.DrawLine(w/2, 0,  w/2, h);
-    dc.DrawLine(0, h/2,  w, h/2);
+    dc.DrawLine(offsetX + w/2, offsetY,
+                offsetX + w/2, offsetY + h);
+    dc.DrawLine(offsetX, offsetY + h/2,
+                offsetX + w, offsetY+ h/2);
 }
 
 void PreviewPanel::OnResize(wxSizeEvent & e)
 {
     DEBUG_TRACE("");
     wxSize sz = GetClientSize();
-    if (sz.GetWidth() != m_panoImgSize.GetWidth()) {
+    if (sz != m_panoImgSize) {
         if (m_autoPreview) {
             ForceUpdate();
         }

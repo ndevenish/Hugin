@@ -234,13 +234,13 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
     const VariableMap & vars = pano.getImageVariables(imgNr);
 
     std::string val;
-    val = doubleToString(map_get(vars,"y").getValue());
+    val = doubleToString(const_map_get(vars,"y").getValue());
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->SetValue(val.c_str());
 
-    val = doubleToString(map_get(vars,"p").getValue());
+    val = doubleToString(const_map_get(vars,"p").getValue());
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->SetValue(val.c_str());
 
-    val = doubleToString(map_get(vars,"r").getValue());
+    val = doubleToString(const_map_get(vars,"r").getValue());
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(val.c_str());
 
     ShowImage(imgNr);

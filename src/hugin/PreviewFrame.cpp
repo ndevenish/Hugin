@@ -75,7 +75,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel = new PreviewPanel(this, &pano);
 
     topsizer->Add(m_PreviewPanel,
-                  0,        // not vertically stretchable
+                  1,        // not vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width

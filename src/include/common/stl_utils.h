@@ -62,6 +62,20 @@ inline bool set_contains(const _Container & c, const typename _Container::key_ty
     return c.find(key) != c.end();
 }
 
+
+template<typename Map>
+//const Map::data_type & map_get(const Map &m, const Map::key_type & key)
+typename Map::data_type & map_get(Map &m, const char * key)
+{
+    typename Map::iterator it = m.find(key);
+    if (it != m.end()) {
+        return (*it).second;
+    } else {
+        DEBUG_WARN("could not find " << key);
+        throw std::out_of_range("No such element in vector");
+    }
+}
+
 /** get a map element.
  *
  *  does not create a new element in the map, like operator[] does
@@ -81,7 +95,7 @@ typename Map::data_type & map_get(Map &m, const typename Map::key_type & key)
     }
 }
 
-template<typename Map>
+template<class Map> 
 //const Map::data_type & map_get(const Map &m, const Map::key_type & key)
 const typename Map::data_type & map_get(const Map &m, const typename Map::key_type & key)
 {
@@ -93,5 +107,5 @@ const typename Map::data_type & map_get(const Map &m, const typename Map::key_ty
         throw std::out_of_range("No such element in vector");
     }
 }
-
+    
 #endif // _STL_UTILS_H

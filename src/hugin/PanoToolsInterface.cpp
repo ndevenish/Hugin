@@ -113,10 +113,10 @@ void PTools::setFullImage(Image & image, wxImage & imgData, const VariableMap & 
         image.format = _equirectangular;
         break;
     }
-    image.hfov = map_get(vars,"v").getValue();
-    image.yaw = map_get(vars,"y").getValue();
-    image.pitch = map_get(vars,"p").getValue();
-    image.roll = map_get(vars,"r").getValue();
+    image.hfov = const_map_get(vars,"v").getValue();
+    image.yaw = const_map_get(vars,"y").getValue();
+    image.pitch = const_map_get(vars,"p").getValue();
+    image.roll = const_map_get(vars,"r").getValue();
 
     //fill cPrefs struct
     if (correctDistortions) {
@@ -125,8 +125,8 @@ void PTools::setFullImage(Image & image, wxImage & imgData, const VariableMap & 
 
     // no name
     image.name[0]=0;
-    image.yaw = map_get(vars,"y").getValue();
-    image.yaw = map_get(vars,"y").getValue();
+    image.yaw = const_map_get(vars,"y").getValue();
+    image.yaw = const_map_get(vars,"y").getValue();
 
 
     image.selection.top = 0;
@@ -139,9 +139,9 @@ void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
 {
     double val;
     p.magic = 20;
-    double a = map_get(vars,"a").getValue();
-    double b = map_get(vars,"b").getValue();
-    double c = map_get(vars,"c").getValue();
+    double a = const_map_get(vars,"a").getValue();
+    double b = const_map_get(vars,"b").getValue();
+    double c = const_map_get(vars,"c").getValue();
     if (a != 0.0 || b != 0.0 || c != 0) {
         p.radial = 1;
         p.radial_params[0][3] = p.radial_params[1][3] = p.radial_params[2][3] = a;
@@ -151,7 +151,7 @@ void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
         p.radial_params[0][0] = p.radial_params[1][0] = p.radial_params[2][0] = d;
     }
 
-    val = map_get(vars,"e").getValue();
+    val = const_map_get(vars,"e").getValue();
     if (val != 0.0) {
         p.vertical = TRUE;
         p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = val;
@@ -160,7 +160,7 @@ void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
         p.vertical_params[0] = p.vertical_params[1] = p.vertical_params[2] = 0;
     }
 
-    val = map_get(vars,"d").getValue();
+    val = const_map_get(vars,"d").getValue();
     if (val != 0.0) {
         p.horizontal = TRUE;
         p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = val;
@@ -280,7 +280,7 @@ bool PTools::stitchImage(wxImage & dest, const Panorama & pano,
         wxImage * src = ImageCache::getInstance().getImage(
             pimg.getFilename());
         setAdjustSrcImg(tform, aP, *src,  vars, l.projectionFormat, false);
-        
+
         DEBUG_DEBUG("inserting image " << *it << " into panorama");
         // call the main remapping function
         MakePano(&tform,&aP);
@@ -310,7 +310,7 @@ bool PTools::mapImage(wxImage & dest, const Panorama & pano,
     wxImage * src = ImageCache::getInstance().getImage(
         pimg.getFilename());
     setAdjustSrcImg(tform, aP, *src,  vars, l.projectionFormat, false);
-        
+
     DEBUG_DEBUG("remapping image " << imgNr << " into panorama");
     // call the main remapping function
     MakePano(&tform,&aP);
@@ -335,9 +335,9 @@ Transform::Transform(const Panorama & pano, unsigned int srcImgNr,
     // convert d,e they are measured in image coordinates
     // need to adjust them if the source size is different
     double factor = ((double)sImg.GetWidth())/img.getWidth();
-    Variable & d = map_get(vars,"d");
+    Variable & d = const_map_get(vars,"d");
     d.setValue(d.getValue() * factor);
-    Variable & e = map_get(vars,"e");
+    Variable & e = const_map_get(vars,"e");
     e.setValue(e.getValue() * factor);
     const PT::Lens & l = pano.getLens(img.getLensNr());
     init(sImg, vars, l.projectionFormat);

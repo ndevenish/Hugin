@@ -4,7 +4,7 @@
  *
  *  @brief implementation of LensPanel Class
  *
- *  @author Kai-Uwe Behrmann <web@tiscali.de> and 
+ *  @author Kai-Uwe Behrmann <web@tiscali.de> and
  *          Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  Rewritten by Pablo d'Angelo
@@ -145,18 +145,18 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
         // update parameters
         XRCCTRL(*this, wxString("lens_val_").append(*varname), wxTextCtrl)->SetValue(
-            doubleToString(map_get(imgvars,*varname).getValue()).c_str());
-        bool linked = map_get(lens.variables, *varname).isLinked();
+            doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
+        bool linked = const_map_get(lens.variables, *varname).isLinked();
         XRCCTRL(*this, wxString("lens_inherit_").append(*varname), wxCheckBox)->SetValue(linked);
-        
+
     }
-    
+
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
         // update parameters
         XRCCTRL(*this, wxString("lens_val_").append(*varname), wxTextCtrl)->SetValue(
-            doubleToString(map_get(imgvars,*varname).getValue()).c_str());
+            doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
     }
-    
+
 
     DEBUG_TRACE("");
 }
@@ -282,7 +282,7 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
         bool inherit = XRCCTRL(*this, ctrl_name.c_str(), wxCheckBox)->IsChecked();
         // get the current Lens.
         unsigned int lensNr = pano.getImage(*(selected.begin())).getLensNr();
-        LensVariable lv = map_get(pano.getLens(lensNr).variables, varname);
+        LensVariable lv = const_map_get(pano.getLens(lensNr).variables, varname);
         lv.setLinked(inherit);
         LensVarMap lmap;
         lmap.insert(make_pair(lv.getName(),lv));
@@ -356,7 +356,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_inherit_d", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Enable();
         }
-        
+
         if (sel.size() == 1) {
             // single selection, its parameters
             // update values

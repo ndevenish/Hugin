@@ -126,8 +126,8 @@ void OptimizeFrame::OnEqYaw(wxCommandEvent & e)
         if (val < min) min = val;
         if (val > max) max = val;
     }
-    
-    
+
+
     double shift = min + (max-min)/2;
     for(it = vars.begin(); it != vars.end(); it++) {
         map_get(*it, "y").setValue( map_get(*it, "y").getValue() - shift);
@@ -227,17 +227,17 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
         // keep selections
         bool sel = m_yaw_list->IsChecked(*it);
         m_yaw_list->SetString(*it, wxString::Format("%d (%5f)",
-                                *it, map_get(vars,"y").getValue()));
+                                *it, const_map_get(vars,"y").getValue()));
         m_yaw_list->Check(*it,sel);
 
         sel = m_pitch_list->IsChecked(*it);
         m_pitch_list->SetString(*it, wxString::Format("%d (%5f)",
-                                *it, map_get(vars,"p").getValue()));
+                                *it, const_map_get(vars,"p").getValue()));
         m_pitch_list->Check(*it,sel);
 
         sel = m_roll_list->IsChecked(*it);
         m_roll_list->SetString(*it, wxString::Format("%d (%5f)",
-                                *it, map_get(vars,"r").getValue()));
+                                *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
 }
