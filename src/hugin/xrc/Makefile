@@ -100,8 +100,9 @@ APP_LFLAGS =   $(LFLAGS)
 
 APP_1_BIN = hugin
 # for XRC files (in the current directory)
-APP_1_XRC = about.xrc cp_editor_panel.xrc edit_text.xrc main_menu.xrc \
+#APP_1_XRC = about.xrc cp_editor_panel.xrc edit_text.xrc main_menu.xrc \
             main_tool.xrc
+APP_1_XRC = *.xrc
 # for XRC data files, icons, images etc.
 APP_1_XRC_DATA =
 
