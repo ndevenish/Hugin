@@ -13,6 +13,8 @@ options:
   --prefix prefix  install program to prefix
   --platform=(unix|win32) specify platform.
                    defaults to unix.
+  --gtk=(1|2)      specify which gtk has been used to compile
+                   wxwindows, default 1. Only used on unix
   --debug          enables debug output and assertations
 EOF
 }
@@ -25,6 +27,7 @@ my $prefix = "/usr/local";
 $result = GetOptions ("prefix=s" => \$prefix,    # string
                       "platform=s" => \$platform, # string
                       "debug"  => \$debug,  # flag
+                      "gtk-version" => \$gtk_vers, #string
                       "help"  => \$help);  # flag
 
 if (!$result) {
@@ -38,6 +41,10 @@ if ($help) {
 
 if (!$platform) {
     $platform = "unix";
+}
+
+if (!$gtk_vers) {
+    $gtk_vers=1;
 }
 
 if (!($platform eq "unix" || $platform eq "win32")) {
@@ -77,6 +84,12 @@ if ($platform eq "win32") {
     $XRC_LFLAGS="-lwx_msw_xrc-2.4";
 } elsif ($platform eq "unix") {
     $XRC_LFLAGS="-lwx_gtk_xrc-2.4";
+    # add gtk path.
+    if ($gtk_vers == 1) {
+        $WXWIN_CFLAGS = $WXWIN_CFLAGS . " " . `gtk-config --cflags`;
+    } else {
+        $WXWIN_CFLAGS = $WXWIN_CFLAGS . " " . `pkg-config --cflags-only-I gtk+-2.0`;
+    }
 }
 
 # check for external vigra
