@@ -85,6 +85,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void LensTypeChanged (wxCommandEvent & e);
     /**  computes & updates HFOV */
     void focalLengthChanged(wxCommandEvent & e);
+    void focalLengthFactorChanged(wxCommandEvent & e);
 
     /**  handlers for all other variables */
     void OnVarChanged(wxCommandEvent & e);

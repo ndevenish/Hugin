@@ -72,6 +72,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_COMBOBOX (XRCID("lens_val_projectionFormat"),LensPanel::LensTypeChanged)
     EVT_TEXT_ENTER ( XRCID("lens_val_v"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_focalLength"),LensPanel::focalLengthChanged)
+    EVT_TEXT_ENTER ( XRCID("lens_val_flFactor"),LensPanel::focalLengthFactorChanged)
     EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::OnVarChanged )
@@ -108,6 +109,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     // converts KILL_FOCUS events to usable TEXT_ENTER events
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
@@ -184,11 +186,17 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
             doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
     }
 
-    double hfov = const_map_get(imgvars,"v").getValue();
+    double HFOV = const_map_get(imgvars,"v").getValue();
     // update focal length
-    double focal_length = lens.calcFL35mm(hfov);
+    double focal_length = lens.calcFocalLength(HFOV);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
         doubleToString(focal_length).c_str());
+
+    // update focal length factor
+    double focal_length_factor = lens.getFLFactor();
+    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
+        doubleToString(focal_length_factor).c_str());
+
 
     DEBUG_TRACE("");
 }
@@ -236,18 +244,57 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
             wxLogError(_("Value must be numeric."));
             return;
         }
-        
-        // this command is complicated and need the different lenses
-        // conversion factors, FIXME change for multiple lenses
-        int first = *(selected.begin());
-        const Lens & lens = pano.getLens(pano.getImage(first).getLensNr());
-        double HFOV = lens.calcHFOV35mm(val);
-        Variable var("v",HFOV);
+
+
+        VariableMapVector vars;
+        UIntSet lensNrs;
+        for (UIntSet::const_iterator it=selected.begin(); it != selected.end();
+             ++it)
+        {
+            vars.push_back(pano.getImageVariables(*it));
+            const Lens & l = pano.getLens(pano.getImage(*it).getLensNr());
+            map_get(vars.back(),"v").setValue(l.calcHFOV(val));
+        }
+
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetVariableCmd( pano, selected, var)
+            new PT::UpdateImagesVariablesCmd(pano, selected, vars)
             );
     }
-    DEBUG_TRACE ("")
+}
+
+void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
+{
+    DEBUG_TRACE ("");
+    const UIntSet & selected = images_list->GetSelected();
+    if (selected.size() > 0) {
+        wxString text=XRCCTRL(*this,"lens_val_flFactor",wxTextCtrl)->GetValue();
+        DEBUG_TRACE(text);
+        double val;
+        if (!text.ToDouble(&val)) {
+            wxLogError(_("Value must be numeric."));
+            return;
+        }
+
+        UIntSet lensNrs;
+        // this command is complicated and need the different lenses
+        // conversion factors, FIXME change for multiple lenses
+        for (UIntSet::const_iterator it=selected.begin(); it != selected.end();
+             ++it)
+        {
+            lensNrs.insert(pano.getImage(*it).getLensNr());
+        }
+
+        vector<Lens> lenses;
+        for (UIntSet::const_iterator it=lensNrs.begin(); it != lensNrs.end();
+             ++it)
+        {
+            lenses.push_back(pano.getLens(*it));
+            lenses.back().setFLFactor(val);
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeLensesCmd( pano, lensNrs, lenses)
+            );
+    }
 }
 
 
@@ -358,6 +405,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Disable();
         XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Disable();
+        XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_a", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_b", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Disable();
@@ -375,6 +423,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             // enable all other textboxes as well.
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Enable();
+            XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_a", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_b", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Enable();
@@ -397,6 +446,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         } else {
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Clear();
+            XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_a", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_b", wxTextCtrl)->Clear();
             XRCCTRL(*this, "lens_val_c", wxTextCtrl)->Clear();

@@ -47,13 +47,6 @@
               <orient>wxVERTICAL</orient>
               <label>Design Parameters</label>
               <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>(effective 35mm equivalents)</label>
-                </object>
-                <flag>wxALL|wxEXPAND</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
                 <object class="wxFlexGridSizer">
                   <cols>3</cols>
                   <object class="sizeritem">
@@ -86,9 +79,9 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="lens_val_focalLength">
-                      <help>equivalent to 35mm film optics</help>
-                      <longhelp>equivalent to 35mm film optics</longhelp>
-                      <tooltip>equivalent to 35mm film optics</tooltip>
+                      <help>real focal length of the optic</help>
+                      <longhelp>real focal length of the optic</longhelp>
+                      <tooltip>true focal length in mm</tooltip>
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                     </object>
                     <flag>wxEXPAND</flag>
@@ -96,6 +89,26 @@
                   <vgap>5</vgap>
                   <hgap>5</hgap>
                   <growablecols>0</growablecols>
+                  <object class="spacer">
+                    <size>0,0</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>crop factor:</label>
+                      <help>35mm film diameter / ccd diameter</help>
+                      <longhelp>35mm film diameter / ccd diameter</longhelp>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_flFactor">
+                      <help>equivalent to 35mm film optics</help>
+                      <longhelp>equivalent to 35mm film optics</longhelp>
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip>35mm film diameter / ccd diameter</tooltip>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
