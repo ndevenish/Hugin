@@ -41,6 +41,8 @@
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(MyEvtHandler, wxEvtHandler)
+    EVT_LIST_ITEM_SELECTED ( XRCID("images_list_unknown"), 
+                             MyEvtHandler::ToImagesPanel )
     EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"), 
                              MyEvtHandler::ToLensPanel )
 END_EVENT_TABLE()

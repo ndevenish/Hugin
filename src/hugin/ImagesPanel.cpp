@@ -47,6 +47,7 @@
 #include "hugin/List.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
+#include "hugin/Events.h"
 #include "hugin/huginApp.h"
 #include "PT/Panorama.h"
 
@@ -70,6 +71,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SLIDER ( XRCID("images_list_roll"),ImagesPanel::SetRoll )
     EVT_SLIDER ( XRCID("images_list_pitch"),ImagesPanel::SetPitch )
     EVT_SLIDER ( XRCID("images_list_yaw"),ImagesPanel::SetYaw )
+//    EVT_SIZE   ( ImagesPanel::Layout )
 END_EVENT_TABLE()
 
 
@@ -80,6 +82,12 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 {
     DEBUG_TRACE("");
 
+/*    wxNotebookSizer *nbs = new wxNotebookSizer( XRCCTRL(*this,
+                                           "controls_notebook", wxNotebook ) );
+    wxBoxSizer *panelsizer = new wxBoxSizer( wxVERTICAL );
+    SetSizer( frame->panelsizer );
+    SetAutoLayout(TRUE);*/
+
     wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));// );
     DEBUG_TRACE("");
 
@@ -89,6 +97,8 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
                images_list );
 
     DEBUG_TRACE("");
+
+    PushEventHandler( new MyEvtHandler((size_t) 3) );
 
     // Image Preview
 
@@ -135,8 +145,8 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
         wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
 
-        wxImage * img = ImageCache::getInstance().getImage(
-            pano.getImage(i).getFilename());
+//        wxImage * img = ImageCache::getInstance().getImage(
+//            pano.getImage(i).getFilename());
 
         // preview selected images
         wxImage * s_img = ImageCache::getInstance().getImageSmall(
@@ -284,6 +294,7 @@ void ImagesPanel::SetImages ( wxListEvent & e )
         imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
       }
     }
+    DEBUG_INFO (e_msg)
 
     // values to set
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {

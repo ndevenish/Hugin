@@ -99,9 +99,9 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
-      InsertColumn( 5, _("roll"), wxLIST_FORMAT_RIGHT, 40 );
-      InsertColumn( 6, _("pitch"), wxLIST_FORMAT_RIGHT, 40 );
-      InsertColumn( 7, _("yaw"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 5, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 6, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 7, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
       DEBUG_INFO( " images_layout" )
     } else {
 //      SetSingleStyle(wxLC_SINGLE_SEL, true); 
@@ -172,11 +172,11 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           SetItem ( i, 3, Nr );
           sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
           SetItem ( i, 4, Nr );
-          number = doubleToString ( pano.getVariable(i). roll.getValue() );
+          number = doubleToString ( pano.getVariable(i). yaw.getValue() );
           SetItem ( i, 5, number.c_str() );
           number = doubleToString ( pano.getVariable(i). pitch.getValue() );
           SetItem ( i, 6, number.c_str() );
-          number = doubleToString ( pano.getVariable(i). yaw.getValue() );
+          number = doubleToString ( pano.getVariable(i). roll.getValue() );
           SetItem ( i, 7, number.c_str() );
 //        DEBUG_INFO( " images_layout" )
           for ( int j=0; j < GetColumnCount() ; j++ ) {
@@ -282,10 +282,7 @@ void List::itemSelected ( wxListEvent & e )
 //    selectedItem = e.GetIndex();
     if ( list_layout == images_layout ) {
 //        DEBUG_TRACE ("images_layout")
-        images_panel->SetImages (e);
-    } else {
-//        DEBUG_TRACE (wxString::Format ("no images_layout:  %ld|%d", e.GetIndex(), selectedItem))
-        lens_panel->lens_edit->SetImages (e);
+//        images_panel->SetImages (e);
     }
     // let others recieve the event too
     e.Skip(true);

@@ -36,8 +36,10 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 
+// ImagesPanel
+extern    ImagesPanel* images_panel;
 // LensPanel
-extern    LensPanel* lens_panel;
+extern    LensEdit* lens_edit;
 // LensPanel images list
 extern    List* images_list2;
 // Image Preview
@@ -48,6 +50,16 @@ class MyEvtHandler : public wxEvtHandler
 {
 public:
     MyEvtHandler(size_t level) { m_level = level; }
+
+    void ToImagesPanel(wxListEvent& event)
+    {
+        DEBUG_TRACE("");
+        images_panel->SetImages (event);
+
+        // if we don't skip the event, the other event handlers won't get it:
+        // try commenting out this line and see what changes
+        event.Skip(true);
+    }
 
     void ToLensPanel(wxListEvent& event)
     {

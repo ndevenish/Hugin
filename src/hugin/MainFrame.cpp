@@ -103,7 +103,6 @@ MainFrame::MainFrame(wxWindow* parent)
     DEBUG_TRACE("");
     images_panel = new ImagesPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
-    DEBUG_TRACE("");
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_panel_unknown"),
                images_panel );
@@ -132,11 +131,9 @@ MainFrame::MainFrame(wxWindow* parent)
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
-    DEBUG_TRACE("");
 
     // set the minimize icon
     SetIcon(wxICON(gui));
-    DEBUG_TRACE("")
 
     // set ourselfs as our dnd handler
     // lets hope wxwindows doesn't try to delete the drop handlers
@@ -154,7 +151,6 @@ MainFrame::MainFrame(wxWindow* parent)
 
     // observe the panorama
     pano.addObserver(this);
-    DEBUG_TRACE("");
 
     // show the frame.
 //    Show(TRUE);
