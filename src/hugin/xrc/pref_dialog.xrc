@@ -599,7 +599,8 @@ requires restarting hugin</label>
                     <label>following patterns will be subsituted before running:
 %o  -- output project (0.oto will be appended when using Autopano)
 %p  -- number of control points between each pair
-%i  -- image files</label>
+%i  -- image files
+%namefile -- file that contains image filenames</label>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
