@@ -412,10 +412,8 @@ void ImagesPanel::SetRollText ( wxCommandEvent & e )
 
 void ImagesPanel::SetInherit( std::string type )
 {
-//    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll"
     // requisites
     int var (-1);
-//    std::string command;
     std::string xml_inherit, xml_optimize, xml_spin;
     ImageVariables new_var;
 
@@ -480,10 +478,8 @@ void ImagesPanel::SetInherit( std::string type )
             // ... and set controls
             XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->SetValue(var);
             XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
-            DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
-            // local ImageVariables finished, save to pano
-//            pano.updateVariables( imgNr[i], new_var );
-            DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
+//            DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+//            DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
           // unset inheritance
           } else {
             if ( type == "yaw" )
@@ -494,8 +490,6 @@ void ImagesPanel::SetInherit( std::string type )
               new_var.roll.unlink();
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
-          // local ImageVariables finished, save to pano
-//          pano.updateVariables( imgNr[i], new_var );
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" ) {
@@ -557,8 +551,6 @@ void ImagesPanel::SetOptimizeRoll( wxCommandEvent & e )
     SetInherit ( "roll" );
 }
 
-
-
 // ######  Here end the eventhandlers  #####
 
 
@@ -574,8 +566,6 @@ void ImagesPanel::SetImages ( wxListEvent & e )
       SET_SPIN_RANGE ("images_spin_yaw")
       SET_SPIN_RANGE ("images_spin_pitch")
       SET_SPIN_RANGE ("images_spin_roll")
-
-
 
       // One image is our prefered image.
       orientationEdit_RefImg = e.GetIndex();
@@ -624,30 +614,24 @@ void ImagesPanel::SetImages ( wxListEvent & e )
            XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(TRUE);
            int var = (int)new_var. yaw .getLink();
            XRCCTRL(*this, "images_spin_yaw" , wxSpinCtrl) ->SetValue(var);
-//           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Disable();
            DEBUG_INFO (var << " " << (int)new_var.yaw.isLinked() )
         } else {
            DEBUG_INFO ( (int)new_var.yaw.isLinked() << " " << (int)new_var. yaw .getLink() )
            XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(FALSE);
-//           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Enable();
         }
         if ( new_var.pitch.isLinked() ) {
            XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(TRUE);
            int var = (int)new_var. pitch .getLink();
            XRCCTRL(*this, "images_spin_pitch" , wxSpinCtrl) ->SetValue(var);
-//           XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Disable();
         } else {
            XRCCTRL(*this, "images_inherit_pitch" ,wxCheckBox) ->SetValue(FALSE);
-//           XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Enable();
         }
         if ( new_var.roll.isLinked() ) {
            XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(TRUE);
            int var = (int)new_var. roll .getLink();
            XRCCTRL(*this, "images_spin_roll" , wxSpinCtrl) ->SetValue(var);
-//           XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Disable();
         } else {
            XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(FALSE);
-//           XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Enable();
         }
         // enable disable optmize check boxes
         if (optset->at(orientationEdit_RefImg).yaw == TRUE ) {
@@ -675,7 +659,6 @@ void ImagesPanel::SetImages ( wxListEvent & e )
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
-    //EVT_PAINT(ImgPreview::OnPaint)
     EVT_MOUSE_EVENTS ( ImgPreview::OnMouse )
 END_EVENT_TABLE()
 
@@ -704,8 +687,6 @@ void ImgPreview::OnDraw(wxDC & dc)
     // Transparent blitting if there's a mask in the bitmap
     dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
       0, 0, wxCOPY, TRUE);
-
-    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE);
 
     memDC.SelectObject(wxNullBitmap);
   }
@@ -738,8 +719,8 @@ void ImgPreview::ChangePreview ( wxImage & s_img )
 
 void ImgPreview::OnMouse ( wxMouseEvent & e )
 {
-    double coord_x = (double)e.m_x/256.0*360.0 -180.0;
-    double coord_y = (double)e.m_y/128.0* -180.0 + 90.0;
+    double coord_x = (double)e.m_x / 256.0 *  360.0 - 180.0;
+    double coord_y = (double)e.m_y / 128.0 * -180.0 +  90.0;
 
     frame->SetStatusText(wxString::Format("%d°,%d°",
               (int)coord_x,

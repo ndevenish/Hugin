@@ -819,7 +819,7 @@ msgid "Jpeg advanced packing"
 msgstr ""
 
 #: ../ptopengui.cpp:894
-msgid "Color correction"
+msgid "Colour correction"
 msgstr "Farbkorrektur"
 
 #: ../ptopengui.cpp:897

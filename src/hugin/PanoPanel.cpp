@@ -37,6 +37,7 @@
 //#include <wx/listctrl.h>
 #include <wx/imaglist.h>
 #include <wx/image.h>
+#include <wx/spinctrl.h>
 
 #include "PT/PanoCommand.h"
 #include "PT/PanoramaMemento.h"
@@ -76,6 +77,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
   EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
   EVT_COMBOBOX ( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
   EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
+  EVT_CHOICE ( XRCID("pano_choice_colour_mode"),PanoPanel::ColourModeChanged)
+  EVT_SPINCTRL(XRCID("pano_spin_colour_reference"),PanoPanel::ColourModeChanged)
 
   EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::previewWidthChanged )
   EVT_COMBOBOX (XRCID("pano_val_previewHeight"),PanoPanel::previewHeightChanged)
@@ -492,6 +495,14 @@ void PanoPanel::PanoOptionsChanged ( PanoramaOptions &o )
     int lt;
 //    UIntSet imgNr;
 
+//    ColourModeChanged (e);
+    XRCCTRL(*this, "pano_spin_colour_reference" ,wxSpinCtrl)->
+                 SetRange( 0 , (int) pano.getNrOfImages() - 1);
+
+    XRCCTRL(*this, "pano_choice_colour_mode"
+                  , wxChoice) ->SetSelection(opt.colorCorrection);
+    XRCCTRL(*this, "pano_spin_colour_reference"
+                  , wxSpinCtrl)->SetValue(opt.colorReferenceImage);
 //    GammaChanged (e);
     XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)
                 ->SetValue( wxString::Format ("%f", opt.gamma) );
@@ -532,6 +543,7 @@ void PanoPanel::PanoChanged ( wxCommandEvent & e )
     DEBUG_TRACE("");
 
     if ( !self_pano_dlg ) {
+      ColourModeChanged (e);
       GammaChanged (e);
       HFOVChanged (e);
       InterpolatorChanged (e);
@@ -632,6 +644,29 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
           );
 
       DEBUG_INFO ( wxString::Format (": %f", *val) )
+    }
+}
+void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
+{
+    if ( ! changePano ) {
+      int colorCorrection = XRCCTRL(*this, "pano_choice_colour_mode"
+                  , wxChoice) ->GetSelection();
+      wxString text = XRCCTRL(*this, "pano_choice_colour_mode"
+                  , wxChoice) ->GetString(colorCorrection);
+
+      int val = XRCCTRL(*this, "pano_spin_colour_reference"
+                  , wxSpinCtrl)->GetValue();
+      opt.colorCorrection = (ColorCorrection) colorCorrection;
+      if ( val <= (int)pano.getNrOfImages() -1 || val == 0 )
+        opt.colorReferenceImage = (unsigned int) val;
+      else
+        opt.colorReferenceImage = 0;
+
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+
+      DEBUG_INFO ( wxString::Format ( text <<" with: %d", val) )
     }
 }
 // --

@@ -93,6 +93,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
 
     void GammaChanged(wxCommandEvent & e);
+    void ColourModeChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);

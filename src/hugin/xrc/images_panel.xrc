@@ -342,30 +342,6 @@
               </object>
             </object>
           </object>
-          <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>colour reference image</label>
-                </object>
-                <flag>wxTOP|wxLEFT|wxRIGHT</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="images_spin_colour_reference">
-                  <size>55,-1</size>
-                </object>
-                <flag>wxTOP|wxRIGHT|wxALIGN_RIGHT</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="images_choice_colour_mode">
-                  <content/>
-                </object>
-              </object>
-            </object>
-          </object>
         </object>
         <flag>wxEXPAND|wxGROW</flag>
       </object>
