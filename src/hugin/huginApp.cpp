@@ -24,6 +24,7 @@
  *
  */
 
+
 #include <wx/wxprec.h>
 #ifdef __BORLANDC__
     #pragma hdrstop
@@ -35,6 +36,8 @@
     #include <wx/wx.h>
 #endif
 
+#include "hugin/huginApp.h"
+
 #include <wx/config.h>              // wx config classes for all systems
 #include <wx/image.h>               // wxImage
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
@@ -45,7 +48,6 @@
 #include <windows.h>
 #endif
 
-#include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 
 

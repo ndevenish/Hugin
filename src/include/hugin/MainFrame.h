@@ -27,13 +27,14 @@
 
 #include <vector>
 #include <set>
+
+#include "common/utils.h"
+#include "PT/Panorama.h"
+
 #include "wx/frame.h"
 #include "wx/dnd.h"
 #include "wx/listctrl.h"
-
-#include "PT/Panorama.h"
 #include "hugin/OptimizePanel.h"
-#include "common/utils.h"
 
 using namespace PT;
 

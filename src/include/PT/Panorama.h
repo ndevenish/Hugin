@@ -24,16 +24,17 @@
 #ifndef _PANORAMA_H
 #define _PANORAMA_H
 
-#include <cassert>
+
+#include "common/math.h"
+#include "common/utils.h"
+
 #include <vector>
 #include <set>
 #include <sstream>
 
-#include "common/utils.h"
 #include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 
-#include "common/math.h"
 
 namespace PT {
 
