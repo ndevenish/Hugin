@@ -31,18 +31,18 @@
 
 namespace utils
 {
-    
-inline double round(double x) 
+
+inline double round(double x)
 {
     return floor(x+0.5);
 }
-    
-inline float roundf(float x) 
+
+inline float roundf(float x)
 {
-    return floorf(x+0.5f);
+    return (float) floor(x+0.5f);
 }
 
-inline int roundi(double x) 
+inline int roundi(double x)
 {
     return (int) floor(x+0.5);
 }
