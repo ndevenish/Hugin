@@ -44,7 +44,7 @@ include $(PREFIX)/makefiles/config.mk
 # ====================================================================
 
 SUBDIRS = jhead klt common vigra_ext foreign \
-          Panorama hugin tools nona_gui PanoImage keypoints
+          Panorama hugin tools nona_gui keypoints
 
 # ====================================================================
 # include common rules
