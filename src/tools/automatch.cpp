@@ -48,6 +48,110 @@ using namespace std;
 namespace AngularMatching
 {
 
+/** A histogram container class.
+ *
+ *  a bit like a multiset
+ */
+template <class TYPE>
+struct ValueHistogram : public std::vector<vector<TYPE> >
+{
+
+    typedef typename vector<vector<TYPE> >::iterator MYIT;
+
+    ValueHistogram(int nBins, double start, double end)
+        : std::vector<vector<TYPE> >(nBins), m_start(start), m_end(end)
+    {
+        m_width = (end - start)/nBins;
+    }
+
+    // remove all entries
+    void clearHist()
+    {
+        for (MYIT it = begin();
+             it != m_vector.end(); ++it) {
+            it->clear();
+        }
+    }
+
+    void insertHist(double val, const TYPE & t)
+    {
+        int idx = getIdx(val);
+        operator[](idx).push_back(t);
+    }
+
+    vector<double> getCount()
+    {
+        vector<double> ret(m_vector.size());
+        for (typename vector<vector<TYPE> >::iterator it = m_vector.begin();
+             it != m_vector.end(); ++it) {
+            ret.push_back(it->size());
+        }
+        return ret;
+    }
+
+    const vector<TYPE> & getBinEntries(double val)
+    {
+        int idx = getIdx(val);
+        m_vector[idx].push_back(t);
+    }
+
+    double getCenter(int bin)
+    {
+        return m_start + bin*m_width + m_width/2;
+    }
+
+    const vector<TYPE> & getMax(unsigned int & count)
+    {
+        vector<TYPE> * ret=0;
+        count = 0;
+        for (typename vector<vector<TYPE> >::iterator it = begin();
+             it != end(); ++it)
+        {
+            if (count < it->size()){
+                count = it->size();
+                ret = &(*it);
+            }
+        }
+        return *ret;
+    }
+
+    void printHist(ostream & o)
+    {
+        unsigned int count;
+        //const vector<TYPE> & maxval = getMax(count);
+        getMax(count);
+        o << "Histogram with " << size() << " bins, range: " << m_start
+          << " .. " << m_end << endl
+          << "Center Count=========================================================" << endl;
+        for (typename vector<vector<TYPE> >::iterator it = begin();
+             it != end(); ++it)
+        {
+            o << getCenter(it - begin())
+              << " ";
+            o << it->size() << "  ";
+            int fw = (int) round(60* ((double)it->size()/count));
+            for (int i=0; i < fw; i++) {
+                o << "#";
+            }
+            o << endl;
+        }
+    }
+
+private:
+    // return bin idx for this type
+    int getIdx(double val)
+    {
+        assert(val >= m_start);
+        assert(val <= m_end);
+        return (int) round((val - m_start + m_width/2)/m_width) - 1;
+    }
+
+    double m_start;
+    double m_end;
+    double m_width;
+};
+
+
 // distance between two points
 struct Line
 {
@@ -63,13 +167,42 @@ struct Line
 };
 
 struct shorterLine : public binary_function<Line, Line, bool> {
-    bool operator()(const Line & x, const Line &  y) 
+    bool operator()(const Line & x, const Line &  y)
         { return x.dist < y.dist; }
 };
-        
+
+// calculate the spherical distance between two points p
+double calcSphericalDist(const FDiff2D & p1, const FDiff2D &p2)
+{
+    // calc latitude from colatitude
+    double lat1 = M_PI/2 - p1.y;
+    double lat2 = M_PI/2 - p2.y;
+    // longitude
+    double dlon = p2.x - p1.x;
+    double dlat = lat2 - lat1;
+    double a = (sin(dlat/2))*(sin(dlat/2)) + cos(lat1) * cos(lat2) * (sin(dlon/2))*(sin(dlon/2));
+    return 2.0 * asin(min(1.0,sqrt(a)));
+}
+
+/** calculate angle between AB and AC
+ *
+ *  see http://mathworld.wolfram.com/SphericalTrigonometry.html
+ *
+ *  for formulas and definitions.
+ *  \p a, \p b, \p c are the angular length of the
+ *  sides opposite to points \p A, \p B, \p C
+ *
+ *  This may be ill conditioned if a,b,c are very small.
+ *  but should be ok for our cases.
+ */
+double calcDihedralAngle(double a, double b, double c)
+{
+    return acos( (cos(a) - cos(b)*cos(c)) / (sin(b)*sin(c)));
+}
+
 
 /** Triangle.
- *  
+ *
  *  structure with 3 points \p points,
  *  and associated distances \p dist
  *
@@ -94,7 +227,7 @@ struct Triangle
             dist[0] = d12;
             dist[1] = d23;
             dist[2] = d31;
-            
+
             normalize();
         }
     // point numbers (indidies)
@@ -102,24 +235,41 @@ struct Triangle
     // point distances. order: dist12, dist23, dist31
     double dist[3];
 
+    // safety function
+    void Triangle::assertDistances(const vector<FDiff2D> & epoints)
+    {
+        double d12 = calcSphericalDist(epoints[points[0]], epoints[points[1]]);
+        double d23 = calcSphericalDist(epoints[points[1]], epoints[points[2]]);
+        double d13 = calcSphericalDist(epoints[points[0]], epoints[points[2]]);
+        if (d12 - dist[0] > 1e-9) {
+            DEBUG_ERROR("d12 != dist[0]:  " << d12 << " != " << dist[0]);
+        }
+        if (d23 - dist[1] > 1e-9) {
+            DEBUG_ERROR("d23 != dist[1]:  " << d23 << " != " << dist[1]);
+        }
+        if (d13 - dist[2] > 1e-9) {
+            DEBUG_ERROR("d13 != dist[2]:  " << d13 << " != " << dist[2]);
+        }
+    }
+
     bool bad(double margin)
         {
 //            double avgdist = (dist[0] + dist[1] + dist[2])/3;
             bool bad = false;
-            
+
             // triangles with same points (or invalid combinations)
             if (dist[0] <= 0.0 || dist[1] <= 0.0 || dist[2] <= 0.0 ) {
                 return true;
             }
-            
+
             // flat triangles are bad
             // a triangle is flat when two lengthes are the same as the third.
             if (dist[0] > dist[1] && dist[0] > dist[2]) {
-                if (dist[1] + dist[2] < dist[0] + 2 * margin) bad = true;
+                if (dist[1] + dist[2] < dist[0] + 5 * margin) bad = true;
             } else if (dist[1] > dist[0] && dist[1] > dist[2]){
-                if (dist[0] + dist[2] < dist[1] + 2 * margin) bad = true;
+                if (dist[0] + dist[2] < dist[1] + 5 * margin) bad = true;
             } else {
-                if (dist[0] + dist[1] < dist[2] + 2 * margin) bad = true;
+                if (dist[0] + dist[1] < dist[2] + 5 * margin) bad = true;
             }
 #ifdef DEBUG
             if (bad) {
@@ -131,9 +281,9 @@ struct Triangle
             // symmetrical triangles make it hard to determine
             // keep p1, p2 and p3 appart
             // check for similar lengths
-            if (fabs(dist[0] - dist[1]) < margin*3) bad = true;
-            if (fabs(dist[0] - dist[2]) < margin*3) bad = true;
-            if (fabs(dist[1] - dist[2]) < margin*3) bad = true;
+            if (fabs(dist[0] - dist[1]) < margin*5) bad = true;
+            if (fabs(dist[0] - dist[2]) < margin*5) bad = true;
+            if (fabs(dist[1] - dist[2]) < margin*5) bad = true;
 #ifdef DEBUG
             if (bad) {
 //                DEBUG_DEBUG("symmetric triangle");
@@ -142,7 +292,7 @@ struct Triangle
 
             return bad;
         }
-    
+
     /** sort by point number indicies */
     bool operator<(const Triangle & o) const
         {
@@ -154,8 +304,8 @@ struct Triangle
                 return true;
             return false;
         }
-    
-#if 0    
+
+#if 0
     /** triangle comparison operator. triangles are compared by their
      *  circumfence.
      */
@@ -164,31 +314,31 @@ struct Triangle
             return dist[0]+dist[1]+dist[2] < o.dist[0]+dist[1]+dist[2];
         }
 #endif
-    
+
     /** normalize the triangle, enforce distance sort order, and move
      *  point accordingly
      */
-        
-    void normalize() 
+
+    void normalize()
         {
             vector<Line> v;
             // lines
             v.push_back(Line(points[0], points[1], dist[0]));
             v.push_back(Line(points[1], points[2], dist[1]));
             v.push_back(Line(points[2], points[0], dist[2]));
-            
+
             // sort lines by length
             sort(v.begin(), v.end(), shorterLine());
 
             dist[0] = v[0].dist;
             dist[1] = v[1].dist;
             dist[2] = v[2].dist;
-            
-               
+
+
             // p1 is point in common between lines v[0] and v[2]
             // p2 between lines 0 1
             // p3 between lines 1 2
-            
+
             if (v[0].p1 == v[2].p1) {
                 points[0] = v[0].p1;
                 // p2 must the other end
@@ -201,7 +351,7 @@ struct Triangle
                 points[1] = v[0].p2;
                 // and p3 is at the other end of v[2]
                 points[2] = v[2].p1;
-                
+
             } else if (v[0].p2 == v[2].p1) {
                 points[0] = v[0].p2;
                 // p2 must the other end
@@ -225,31 +375,21 @@ ostream & operator<<(ostream &o, const Triangle & t)
     return o;
 }
 
+
 #if 0
 // calculate the spherical distance between two points p
-double calcSphericalDist(const FDiff2D & p1, const FDiff2D &p2)
-{
-    double dlon = p2.x - p1.x;
-    // really?
-    double dlat = p2.y - p1.y;
-    double a = (sin(dlat/2))*(sin(dlat/2)) + cos(lat1) * cos(lat2) * (sin(dlon/2))*(sin(dlon/2));
-    c = 2 * asin(min(1,sqrt(a)));
-    return c;
-}
-#endif
-
-// calculate the spherical distance between two points p
-double calcSphericalDist(const FDiff2D & p1, const FDiff2D &p2)
+double calcEuclideanDist(const FDiff2D & p1, const FDiff2D &p2)
 {
     double dlon = p2.x - p1.x;
     // really?
     double dlat = p2.y - p1.y;
     return sqrt(dlon*dlon + dlat*dlat);
 }
+#endif
 
 void printMatrix(ostream & o, double *mat, int width, int height)
 {
-
+    o.precision(12);
     for (int j=0; j < height; j++) {
         for (int i=0; i < width; i++) {
             o << mat[i + j*width] << " ";
@@ -262,8 +402,16 @@ void printMatrix(ostream & o, double *mat, int width, int height)
 struct DistSet
 {
 public:
-
-    DistSet(vector<FDiff2D> & points, double margin=M_PI/(25*180))
+    /** create distance table of a set of spherical \p points
+     *
+     *  \param margin maximum distance error allowed while
+     *                comparing distances
+     *
+     *  \param minDist minimum distance
+     *  \param maxDist maximum distance
+     */
+    DistSet(vector<FDiff2D> & points, double margin, double minDist,
+            double maxDist)
         : m_points(points), m_margin(margin)
         {
             DEBUG_DEBUG("creating DistSet with radial error bound: " << m_margin);
@@ -276,7 +424,10 @@ public:
                     // calculate distance
                     double d = calcSphericalDist(points[i], points[j]);
                     // only use distances > 50 * margin
-                    dist[i+j*nP] = d > 50 * margin ? d : 0;
+                    if (d < minDist && d > maxDist) {
+//                        d = 0;
+                    }
+                    dist[i+j*nP] = d;
                 }
             }
             // copy the lower half, to make searching easier.
@@ -398,6 +549,7 @@ public:
             }
         }
 
+    /** try to find similar triangles */
     void findSimilarTriangles(const Triangle & tri, vector<Triangle> & output) const
         {
 //            DEBUG_DEBUG("starting search");
@@ -414,6 +566,14 @@ public:
                 // get the points that form valid triangles
                 closeTriangle(*uIt, tri, output);
             }
+        }
+
+    // return a specific triangle
+    Triangle getTriangle(int p1, int p2, int p3)
+        {
+            return Triangle (p1, getDistance(p1,p2),
+                             p2, getDistance(p2,p3),
+                             p3, getDistance(p3,p1));
         }
 
     // return a random triangle, for matching purposes.
@@ -456,7 +616,14 @@ private:
     double *dist;
 };
 
-
+/** try to match the given points by matching triangles.
+ *
+ *  uses spherical coordinates, on a unit sphere
+ *  (see mathworld.wolfram.com)
+ *  azimuth angle (longitude) (in xy-plane, from x axis)       (FDiff2D::x)
+ *  polar angle (colatitude) (angle from z axis)               (FDiff2D::y)
+ *  r     = 1
+ */
 void matchTriangleFeatures(Panorama & pano,
                            unsigned int img1, const vector<FDiff2D> & points1,
                            unsigned int img2, const vector<FDiff2D> & points2,
@@ -483,13 +650,15 @@ void matchTriangleFeatures(Panorama & pano,
 #ifdef DEBUG
     ofstream f("points1.txt");
     ofstream fimg("points1_img.txt");
-
+    f.precision(12);
+    fimg.precision(12);
 #endif
     for (it = points1.begin(); it != points1.end(); ++it) {
         FDiff2D d;
         T.transform(d,*it);
         d.x = DEG_TO_RAD(d.x);
-        d.y = DEG_TO_RAD(d.y);
+        // colataitude = 90 - latitude
+        d.y = DEG_TO_RAD(90 - d.y);
         equirect_points1.push_back(d);
 #ifdef DEBUG
         f << d.x << " " << d.y << endl;
@@ -503,16 +672,19 @@ void matchTriangleFeatures(Panorama & pano,
     fimg.close();
     ofstream f2("points2.txt");
     ofstream fimg2("points2_img.txt");
+    f2.precision(12);
+    fimg2.precision(12);
 #endif
     // second image
-    T.createInvTransform(pano, img1, opts);
+    T.createInvTransform(pano, img2, opts);
     vector<FDiff2D> equirect_points2;
 
     for (it = points2.begin(); it != points2.end(); ++it) {
         FDiff2D d;
         T.transform(d,*it);
         d.x = DEG_TO_RAD(d.x);
-        d.y = DEG_TO_RAD(d.y);
+        // colataitude = 90 - latitude
+        d.y = DEG_TO_RAD(90 - d.y);
 #ifdef DEBUG
         f2 << d.x << " " << d.y << endl;
         fimg2 << it->x << " " << it->y << endl;
@@ -524,8 +696,16 @@ void matchTriangleFeatures(Panorama & pano,
     fimg2.close();
 #endif
 
-    DistSet dset1(equirect_points1, degthresh);
-    DistSet dset2(equirect_points2, degthresh);
+    // minimum distance ( 1/20 th of HFOV)
+    double HFOV = const_map_get(pano.getImageVariables(img1),"v").getValue();
+    double minDist = DEG_TO_RAD(HFOV)/20;
+    // maximum distance ( 1/2 of HFOV)
+    // we assume that our images do not overlap a lot more than 50%
+    // even if they do.. doesn't matter too much..
+    double maxDist = DEG_TO_RAD(HFOV)/2;
+
+    DistSet dset1(equirect_points1, degthresh, minDist, maxDist);
+    DistSet dset2(equirect_points2, degthresh, minDist, maxDist);
 
 #ifdef DEBUG
     {
@@ -539,42 +719,85 @@ void matchTriangleFeatures(Panorama & pano,
     // record triangle matches, and the number of their occurance
     typedef map<Triangle, map<Triangle, int> > TriangleMatches;
     TriangleMatches triangle_matches;
-    
+
     typedef  map<int, map<int, int > > PointMatches;
     PointMatches point_matches;
 
+    // Angle histogram container.
+    ValueHistogram<pair<Triangle, Triangle> > angleHist(36, 0, M_PI);
+
     DEBUG_DEBUG("starting search");
 
+    int nP = points1.size();
+    // brute force matching.. match all possible triangles.
+    for (int tp2=1; tp2 < nP; tp2++) {
+        cerr << ".";
+        for (int tp3 = tp2; tp3 != tp2-1; tp3 = ++tp3%nP) {
+            int tp1 = tp2-1;
+
+            Triangle tri = dset1.getTriangle(tp1,tp2,tp3);
+            if (tri.bad(dset1.getMargin())) {
+//            DEBUG_DEBUG("Throwing away bad triangle: " << tri);
+//                cerr << "_";
+                continue;
+            }
+
+/*
     for (int i=0; i< nTriang; i++) {
         // for timiming purpose
         // create random triangle, from img
         Triangle tri = dset1.getRandomTriangle();
-        if (tri.bad(dset1.getMargin())) {
-//            DEBUG_DEBUG("Throwing away bad triangle: " << tri);
-            cerr << "_";
-            i--;
-            continue;
-        }
+*/
+            vector<Triangle> similar;
+            dset2.findSimilarTriangles(tri, similar);
 
-        vector<Triangle> similar;
-        cerr << ".";
-        dset2.findSimilarTriangles(tri, similar);
+            // save triangle candidates, could be used for later
+            // analysis ( pose estimation )
 
-        // save triangle candidates, could be used for later
-        // analysis ( pose estimation )
+            for (vector<Triangle>::iterator it = similar.begin();
+                 it != similar.end() ; ++it)
+            {
+                // safety check.. distances must be correct
+                tri.assertDistances(equirect_points1);
+                it->assertDistances(equirect_points2);
 
-        for (vector<Triangle>::iterator it = similar.begin();
-             it != similar.end() ; ++it)
-        {
-            cerr << ":";
-            // triangle votes
-            triangle_matches[tri][*it]++;
-            // add votes for this points
-            for (int pnr=0; pnr <3; pnr++) {
-                point_matches[tri.points[pnr]][it->points[pnr]]++;
+                // triangle votes
+                triangle_matches[tri][*it]++;
+
+                // calculate angle between triangles
+                // based on law of cosines for spherical triangles
+                // cos(d23) = cos(d13) * cos(d12) + sin(d13) * sin(d12) * cos(alpha)
+                // use side for calculation of angles
+                FDiff2D p1 = equirect_points1[tri.points[0]];
+                FDiff2D p2 = equirect_points1[tri.points[2]];
+                // hmm, hope this is correct
+                FDiff2D p3 = p1 + equirect_points2[tri.points[2]] - equirect_points2[tri.points[0]];
+                double c = calcSphericalDist(p1,p2);
+                double a = calcSphericalDist(p2,p3);
+                double b = calcSphericalDist(p3,p1);
+                double alpha = calcDihedralAngle(a,b,c);
+
+                // add to histogram
+                angleHist.insertHist(alpha, make_pair(tri,*it));
+
             }
         }
     }
+
+    // print histogram
+    angleHist.printHist(cerr);
+
+    // add triangle matches.
+    unsigned int hist_max;
+    const vector<pair<Triangle, Triangle> > vec = angleHist.getMax(hist_max);
+    vector<pair<Triangle, Triangle> >::const_iterator tit;
+    for (tit = vec.begin(); tit != vec.end() ; ++tit) {
+        // add votes for these points
+        for (int pnr=0; pnr <3; pnr++) {
+            point_matches[tit->first.points[pnr]][tit->second.points[pnr]]++;
+        }
+    }
+
 #ifdef DEBUG
     {
     // save all triangle matches
@@ -600,7 +823,7 @@ void matchTriangleFeatures(Panorama & pano,
     ft.close();
     }
 #endif
-    
+
 #if 0
     // add triangle matches.
     map<Triangle, vector<Triangle> >::iterator tit;
@@ -618,25 +841,26 @@ void matchTriangleFeatures(Panorama & pano,
     }
 #endif
 
+    // add point matches
     for (PointMatches::iterator it = point_matches.begin(); it != point_matches.end() ; ++it) {
         if (it->second.size() > 0) {
             // find match with highest vote
             int votes = 0;
             int bestPoint = 0;
             for (map<int,int>::iterator p2it = it->second.begin();
-                 p2it != it->second.end() ; ++p2it) 
+                 p2it != it->second.end() ; ++p2it)
             {
                 if (votes < p2it->second) {
                     votes = p2it->second;
                     bestPoint = p2it->first;
                 }
             }
-            
+
             cerr << "match: " << it->first << " -> " << bestPoint
                  << "  count: " << votes << endl;
-            
+
             // use a better criterium that just the max...
-            if (votes > voteThreshhold) {
+            if (votes >= voteThreshhold) {
                 // add points with score higher than 7
                 ControlPoint cp(img1,
                                 points1[it->first].x,
@@ -649,6 +873,7 @@ void matchTriangleFeatures(Panorama & pano,
             }
         }
     }
+
     DEBUG_DEBUG("added " << nAdded << " points");
 }
 
@@ -883,7 +1108,7 @@ int main(int argc, char *argv[])
 
     // make sure that the features are distributed over the whole image
     // by basing the minimum feature distance on the feature area.
-//    tc->mindist = (int)(sqrt(featureArea) / 2 + 0.5);
+    tc->mindist = (int)(sqrt(featureArea) / 2 + 0.5);
     tc->window_width = defaultKLTWindowSize;
     tc->window_height = defaultKLTWindowSize;
     KLTUpdateTCBorder(tc);
@@ -908,7 +1133,7 @@ int main(int argc, char *argv[])
     KLTSelectGoodFeatures(tc, img1, firstImg->width(),
                           firstImg->height(), fl);
 
-#ifdef DEBUG        
+#ifdef DEBUG
     {
         ostringstream finame;
         finame << "points" << 1 << ".ppm";
@@ -926,14 +1151,14 @@ int main(int argc, char *argv[])
         unsigned char * img2 = secondImg->begin();
         KLTSelectGoodFeatures(tc, img2, secondImg->width(),
                               secondImg->height(), fl);
-#ifdef DEBUG        
+#ifdef DEBUG
         {
             ostringstream finame;
             finame << "points" << pair+2 << ".ppm";
             KLTWriteFeatureListToPPM(fl, img2, secondImg->width(), secondImg->height(), finame.str().c_str());
         }
 #endif
-        
+
         copyFLToVector(fl, img2Features);
 
         // add features based on triangle matching.
@@ -980,8 +1205,8 @@ int main(int argc, char *argv[])
     }
     if (outputFile != "") {
         ofstream of(outputFile.c_str());
-        pano.printOptimizerScript(of, optvec, pano.getOptions());
+        pano.printOptimizerScript(of, optvec, opts);
     } else {
-        pano.printOptimizerScript(cout, optvec, pano.getOptions());
+        pano.printOptimizerScript(cout, optvec, opts);
     }
 }
