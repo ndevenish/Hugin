@@ -293,7 +293,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // I hope this works correctly with filenames that contain
             // spaces
 
-            wxString args(enblendExe.c_str());
+            wxString args;
             if (opts.HFOV == 360.0) {
                 // blend over the border
                 args.append(wxT(" -w"));
@@ -322,15 +322,17 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             {
                 wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
 #ifdef unix
-		DEBUG_DEBUG("using system() to execute enblend with cmdline:" << args.mb_str());
-		int ret = system(args.mb_str());
+        wxString cmdline = enblend_exe + wxT(" ") + args;
+		DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
+		int ret = system(cmdline.mb_str());
 		if (ret == -1) {
-                    wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + args + wxT("\n") + 
+                    wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") + 
 		               _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
 		} else {
 		    ret = WEXITSTATUS(ret);
 		}
 #elif __WXMSW__
+                wxString cmdline = wxString(wxT("enblend.exe ")) + args;
                 // using CreateProcess on windows
                 /* CreateProcess API initialization */
                 STARTUPINFO siStartupInfo;
@@ -340,20 +342,20 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 siStartupInfo.cb = sizeof(siStartupInfo);
 //#ifdef wxUSE_UNICODE
 #if wxUSE_UNICODE
-                WCHAR * args_c = (WCHAR *) args.wc_str();
+                WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
                 WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
 #else //ANSI
-                char * args_c = (char*) args.mb_str();
+                char * cmdline_c = (char*) cmdline.mb_str();
                 char * exe_c = (char*) enblendExe.mb_str();
 #endif
-                int ret = CreateProcess(exe_c, args_c, NULL, NULL, FALSE,
+                int ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
                                         IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
                                         NULL, &siStartupInfo, &piProcessInfo);
                 if (ret) {
                     ret = 0;
                 } else {
                     ret = -1;
-                    wxLogError(_("Could not execute command: ") + args  , _("CreateProcess Error"));
+                    wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
                 }
 #else
                 int ret = wxExecute(args, wxEXEC_SYNC);
@@ -361,10 +363,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 		DEBUG_NOTICE("enblend returned with: " << ret);
 
                 if (ret == -1) {
-                    wxLogError( _("Could not execute command: ") + args, _("wxExecute Error"));
+                    wxLogError( _("Could not execute command: ") + cmdline, _("wxExecute Error"));
                     return;
                 } else if (ret > 0) {
-                    wxLogError(_("command: ") + args +
+                    wxLogError(_("command: ") + cmdline +
                                  _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
 				 _("enblend error"));
                     return;
