@@ -116,7 +116,7 @@ depend.local: Makefile.depend Makefile
 Makefile.depend: $(DEPEND_FILES) Makefile
 	@echo "    ---- Creating dependencies"
 #	makedepend $(CXXFLAGS) $(CFLAGS) $(EXTRA_INC_FLAGS) -a -DDEPEND -f Makefile.depend $(DEPEND_FILES_H) 2>/dev/null
-	$(SILENT)-$(CC) -MM $(CXXFLAGS) $(CFLAGS) $(EXTRA_INC_FLAGS) -DDEPEND  $(DEPEND_FILES) > Makefile.depend
+	$(SILENT)-$(CC) -MM $(CXXFLAGS) $(CFLAGS) $(EXTRA_INC_FLAGS) -DDEPEND  $(DEPEND_FILES) | sed "s/^\(.*\.o:\)/.obj\/\1/" > Makefile.depend
 
 #=============================================================================
 # Create libraries
