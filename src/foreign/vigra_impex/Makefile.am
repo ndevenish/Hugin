@@ -2,7 +2,7 @@
 DEFAULT_INCLUDES="-I."
 
 INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign
-AM_CXXFLAGS = $(JPEG_FLAG) $(PNG_FLAG) $(TIFF_FLAG)
+AM_CXXFLAGS = $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS)
 AM_LDFLAGS = $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF)
 
 noinst_LTLIBRARIES = libvigra_impex.la

@@ -6,7 +6,7 @@ SUBDIRS=data
 SUFFIXES=.xrs 
 
 if HAVE_MINGW 
-xrcdir = @exec_prefix@/bin/xrc
+xrcdir = @bindir@/xrc
 else
 xrcdir = @datadir@/hugin/xrc
 endif

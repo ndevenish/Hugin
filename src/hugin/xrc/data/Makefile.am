@@ -9,7 +9,7 @@ PNG_FILES = $(wildcard $(srcdir)/*.png)
 XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 
 if HAVE_MINGW
-xrcdatadir = @exec_prefix@/bin/xrc/data
+xrcdatadir = @bindir@/xrc/data
 else
 xrcdatadir = @datadir@/hugin/xrc/data
 endif
