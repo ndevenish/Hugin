@@ -1,29 +1,27 @@
 # Tips for hugin
-# You can easily add translations to your startup tips via the usual gettext methods by wrapping a string in a gettext macro, which is _("").
-# See next tip for example.
-_("To scroll both the images in the control points tab, hold the shift key while moving the mouse.")
-_("The control key or the middle mouse button can be used to pan one image in the control points tab.")
-_("Rotating the camera around the nodal point makes panorama creation a lot easier.")
-_("If the panorama looks nice but the horizon is curved, select a new anchor position, or add vertical or horizontal control points.")
-_("Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab.")
-_("Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects.")
-_("Images can also be added to hugin via drag and drop.")
-_("Spread control points as far as possible. Close control points do not define the relative orientation between images well.")
-_("The Fine Tune button can be used to find a better position for the point in the right image for an already selected point.")
-_("Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities.")
-_("The multilayer tiff file output can be read by The Gimp 2.0 or higher.")
-_("You can press the middle mouse button to pan images in the control points tab.")
-_("The \"f\" key is the shortcut for Fine Tune button.")
-_("Pressing \"Del\" will remove the currently selected control point.")
-_("Press \"0\" in the control points tab to zoom out to full view.")
-_("Press \"1\" in the control points tab to zoom out to 100% view.")
-_("The external tools autopano and autopano-sift can be used to create control points automatically.")
-_("Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output.")
-_("After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop.")
-_("enblend 2.1 for Windows cannot handle compressed TIFF images. Switch to another version if it doesn't work.")
-_("hugin and other free panoramic software is discussed on the ptx email list. http://www.email-lists.org/mailman/listinfo/ptx")
-_("The Panorama Tools, on which hugin is based were written by Helmut Dersch.")
-_("The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images.")
-_("Multiple images can be selected in the image and lens tabs. Command will act on all selected images.")
-_("Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later.")
-_("Optimisation of all distortion parameters (\"everything\") makes only sense with heavily overlapping images and many well distributed control points.")
+To scroll both the images in the control points tab, hold the shift key while moving the mouse.
+The control key or the middle mouse button can be used to pan one image in the control points tab.
+Rotating the camera around the nodal point makes panorama creation a lot easier.
+If the panorama looks nice but the horizon is curved, select a new anchor position, or add vertical or horizontal control points.
+Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab.
+Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects.
+Images can also be added to hugin via drag and drop.
+Spread control points as far as possible. Close control points do not define the relative orientation between images well.
+The Fine Tune button can be used to find a better position for the point in the right image for an already selected point.
+Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities.
+The multilayer tiff file output can be read by The Gimp 2.0 or higher.
+You can press the middle mouse button to pan images in the control points tab.
+The "f" key is the shortcut for Fine Tune button.
+Pressing "Del" will remove the currently selected control point.
+Press "0" in the control points tab to zoom out to full view.
+Press "1" in the control points tab to zoom out to 100% view.
+The external tools autopano and autopano-sift can be used to create control points automatically.
+Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting "high quality tiff file" as output.
+After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop.
+enblend 2.1 for Windows cannot handle compressed TIFF images. Switch to another version if it doesn't work.
+hugin and other free panoramic software is discussed on the ptx email list. http://www.email-lists.org/mailman/listinfo/ptx
+The Panorama Tools, on which hugin is based were written by Helmut Dersch.
+The precision of "fine tuning" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images.
+Multiple images can be selected in the image and lens tabs. Command will act on all selected images.
+Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later.
+Optimisation of all distortion parameters "everything" makes only sense with heavily overlapping images and many well distributed control points.

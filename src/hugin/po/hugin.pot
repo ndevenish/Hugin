@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-01-29 15:31+0100\n"
+"POT-Creation-Date: 2005-01-30 20:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -588,19 +588,19 @@ msgstr ""
 msgid "Add Image: cancel"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:870
+#: src/hugin/MainFrame.cpp:884
 msgid "hugin - FAQ"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:949
+#: src/hugin/MainFrame.cpp:963
 msgid "Fine-tuning all points"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:951
+#: src/hugin/MainFrame.cpp:965
 msgid "Finetuning"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:1035
+#: src/hugin/MainFrame.cpp:1049
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -616,7 +616,7 @@ msgid ""
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:1037
+#: src/hugin/MainFrame.cpp:1051
 msgid "Fine-tune result"
 msgstr ""
 
@@ -2513,148 +2513,4 @@ msgstr ""
 
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:4
-msgid ""
-"To scroll both the images in the control points tab, hold the shift key "
-"while moving the mouse."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:5
-msgid ""
-"The control key or the middle mouse button can be used to pan one image in "
-"the control points tab."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:6
-msgid ""
-"Rotating the camera around the nodal point makes panorama creation a lot "
-"easier."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:7
-msgid ""
-"If the panorama looks nice but the horizon is curved, select a new anchor "
-"position, or add vertical or horizontal control points."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:8
-msgid ""
-"Horizontal or vertical control point pairs can be set by selecting the same "
-"image on both sides of the control points tab."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:9
-msgid ""
-"Control points should be placed on static objects. Avoid placing them "
-"people, trees and other moving or deforming objects."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:10
-msgid "Images can also be added to hugin via drag and drop."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:11
-msgid ""
-"Spread control points as far as possible. Close control points do not define "
-"the relative orientation between images well."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:12
-msgid ""
-"The Fine Tune button can be used to find a better position for the point in "
-"the right image for an already selected point."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:13
-msgid ""
-"Editing the panorama in multiple layers with The Gimp or Photoshop offers "
-"many creative possibilities."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:14
-msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:15
-msgid ""
-"You can press the middle mouse button to pan images in the control points "
-"tab."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:16
-msgid "The \"f\" key is the shortcut for Fine Tune button."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:17
-msgid "Pressing \"Del\" will remove the currently selected control point."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:18
-msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:19
-msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:20
-msgid ""
-"The external tools autopano and autopano-sift can be used to create control "
-"points automatically."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:21
-msgid ""
-"Enblend can be used to smoothly blend the panorama. Use it from within hugin "
-"by selecting \"high quality tiff file\" as output."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:22
-msgid ""
-"After enblend has blended the panorama, the remapped output images "
-"(available in the same directory as the panorama image) can be used to "
-"retouch the panorama in The Gimp or Photoshop."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:23
-msgid ""
-"enblend 2.1 for Windows cannot handle compressed TIFF images. Switch to "
-"another version if it doesn't work."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:24
-msgid ""
-"hugin and other free panoramic software is discussed on the ptx email list. "
-"http://www.email-lists.org/mailman/listinfo/ptx"
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:25
-msgid ""
-"The Panorama Tools, on which hugin is based were written by Helmut Dersch."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:26
-msgid ""
-"The precision of \"fine tuning\" control points can be improved by enabling "
-"rotation search. This is essential for fisheye and wide angle images."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:27
-msgid ""
-"Multiple images can be selected in the image and lens tabs. Command will act "
-"on all selected images."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:28
-msgid ""
-"Lens parameters may vary with changing focus. For best results, calibrate "
-"the parameters using know settings and reuse them later."
-msgstr ""
-
-#: src/hugin/xrc/data/tips.txt:29
-msgid ""
-"Optimisation of all distortion parameters (\"everything\") makes only sense "
-"with heavily overlapping images and many well distributed control points."
 msgstr ""

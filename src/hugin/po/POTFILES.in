@@ -50,7 +50,3 @@ src/hugin/xrc/preview_frame.xrs
 src/hugin/xrc/ptstitcher_panel.xrs
 src/hugin/xrc/run_optimizer_frame.xrs
 src/hugin/xrc/run_stitcher_frame.xrs
-
-# Tips File
-src/hugin/xrc/data/tips.txt
-

@@ -835,13 +835,27 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 {
 	wxString strFile;
+	wxString langCode;
 	bool bShowAtStartup;
+	bool bTipsExist = false;
 	int nValue;
 
     wxConfigBase * config = wxConfigBase::Get();
 	nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
+
+    //if the language is not default, load custom tip file (if exists)
+	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
 	DEBUG_TRACE("Tip index: " << nValue);
-	strFile = m_xrcPrefix + wxT("data/tips.txt");
+	if(langCode != wxString("en"))
+	{
+		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT(".txt");
+		if(wxFile::Exists(strFile))
+			bTipsExist = true;
+	}
+	if(!bTipsExist)
+		strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
+	
 	DEBUG_TRACE("Reading tips from " << strFile.mb_str());
 	wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
 	bShowAtStartup = wxShowTip(this, tipProvider);
