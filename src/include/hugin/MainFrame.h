@@ -133,6 +133,7 @@ private:
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
+    void OnAddTimeImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);

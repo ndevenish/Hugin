@@ -141,6 +141,7 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
 
         if (SectionsRead >= MAX_SECTIONS){
             DEBUG_FATAL("Too many sections in jpg file");
+			return FALSE;
         }
 
         for (a=0;a<7;a++){

@@ -30,7 +30,6 @@
                   <object class="sizeritem">
                     <object class="wxButton" name="action_add_time_images">
                       <label>Add time-series of images...</label>
-                      <enabled>0</enabled>
                       <tooltip>load a set of photos taken at the same time</tooltip>
                     </object>
                     <flag>wxALL|wxEXPAND</flag>

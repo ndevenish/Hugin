@@ -59,6 +59,7 @@
 #include "hugin/CPListFrame.h"
 
 //#include "xrc/data/icon.xpm"
+#include "jhead/jhead.h"
 
 #include "PT/Panorama.h"
 
@@ -111,6 +112,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
+    EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
+    EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_BUTTON(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
@@ -148,14 +151,14 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         splash = new wxSplashScreen(bitmap,
                               wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
                               0, NULL, -1, wxDefaultPosition,
-	                      wxDefaultSize,
-			      wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+                          wxDefaultSize,
+                  wxSIMPLE_BORDER|wxSTAY_ON_TOP);
 #else
         splash = new wxSplashScreen(bitmap,
                            wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_TIMEOUT,
                            2000, NULL, -1, wxDefaultPosition,
-	                   wxDefaultSize,
-		           wxSIMPLE_BORDER|wxSTAY_ON_TOP);
+                       wxDefaultSize,
+                   wxSIMPLE_BORDER|wxSTAY_ON_TOP);
 #endif
     } else {
         DEBUG_ERROR("splash image not found");
@@ -368,13 +371,14 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     if (m_filename == "") {
         OnSaveProjectAs(e);
     } else {
+        // the project file is just a PTOptimizer script...
         wxFileName scriptName = m_filename;
-        std::string path(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
+        std::string path(
+            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath());
-        // read optimize vector from OptimizeFrame
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
-        pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
+        pano.printOptimizerScript(script, optvec, pano.getOptions(), path);
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
@@ -384,27 +388,18 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    wxFileDialog dlg(this,_("Save project file"),
-                     wxConfigBase::Get()->Read("actualPath",""),
-                     "", "Project files (*.pto)|*.pto|All files (*.*)|*.*",
+    wxFileDialog dlg(this,
+                     _("Save project file"),
+                     wxConfigBase::Get()->Read("actualPath",""), "",
+                     "Project files (*.pto)|*.pto|"
+                     "All files (*.*)|*.*",
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
-        // print as optimizer script..
-        wxFileName scriptName = dlg.GetPath();
         m_filename = dlg.GetPath();
-        std::string path(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
-        DEBUG_DEBUG("stripping " << path << " from image filenames");
-        std::ofstream script(scriptName.GetFullPath());
-        // create fake optimize settings
-        PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
-        pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
-        script.close();
+        OnSaveProject(e);
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
     }
-    SetStatusText(wxString::Format(_("saved project %s"),m_filename.c_str()),0);
-    pano.clearDirty();
 }
-
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
@@ -416,9 +411,11 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxFileDialog dlg(this,_("Open project file"),
+    wxFileDialog dlg(this,
+                     _("Open project file"),
                      config->Read("actualPath",""), "",
-                     "Project files (*.pto)|*.pto|All files (*.*)|*.*",
+                     "Project files (*.pto)|*.pto|"
+                     "All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxFileName scriptName = dlg.GetPath();
@@ -435,7 +432,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                 new LoadPTProjectCmd(pano,file, prefix)
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
-	    opt_panel->setOptimizeVector(pano.getOptimizeVector());
+        opt_panel->setOptimizeVector(pano.getOptimizeVector());
             SetStatusText(_("Project opened"));
         } else {
             DEBUG_ERROR("Could not open file " << filename);
@@ -462,13 +459,18 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     wxString e_stat;
 
     // To get users path we do following:
-    // a get the global config object
+    // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard ("Images files (*.jpg)|*.jpg;*.JPG|Images files (*.png)|*.png;*.PNG|Images files (*.tif)|*.tif;*.TIF|All files (*.*)|*.*");
-    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"),
-                                         config->Read("actualPath",""), "",
-                                         wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+    wxString wildcard ("Image files (*.jpg)|*.jpg;*.JPG|"
+                       "Image files (*.png)|*.png;*.PNG|"
+                       "Image files (*.tif)|*.tif;*.TIF|"
+                       "All files (*.*)|*.*");
+    wxFileDialog *dlg =
+        new wxFileDialog(this,_("Add images"),
+                         config->Read("actualPath",""), "",
+                         wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+
     // remember the image extension
     wxString img_ext ("");
     if (config->HasEntry(wxT("lastImageType"))){
@@ -523,6 +525,132 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
     dlg->Destroy();
     DEBUG_TRACE("");
+}
+
+time_t ReadJpegTime(const char* filename)
+{
+    // Skip it if it isn't JPEG or there's no EXIF.
+    ResetJpgfile();
+    ImageInfo_t exif;
+    memset(&exif, 0, sizeof(exif));
+    if (!ReadJpegFile(exif, filename, READ_EXIF))
+        return 0;
+    // Remember the file and a shutter timestamp.
+    time_t stamp;
+    struct tm when;
+    memset(&when, 0, sizeof(when));
+    Exif2tm(&when, exif.DateTime);
+    stamp = mktime(&when);
+    if (stamp == (time_t)(-1))
+        return 0;
+    return stamp;
+}
+
+void MainFrame::OnAddTimeImages( wxCommandEvent& event )
+{
+    DEBUG_TRACE("");
+
+    // If no images already loaded, offer user a chance to pick one.
+    int images = pano.getNrOfImages();
+    if (!images) {
+        OnAddImages(event);
+        images = pano.getNrOfImages();
+        if (!images)
+            return;
+    }
+
+    DEBUG_TRACE("seeking similarly timed images");
+
+    // Collect potential image-mates.
+    WX_DECLARE_STRING_HASH_MAP(time_t, StringToPointerHash);
+    StringToPointerHash filenames;
+    while (images)
+    {
+        --images;
+
+        // Get the filename.  Naively assumes there are no Unicode issues.
+        const PanoImage& image = pano.getImage(images);
+        std::string filename = image.getFilename();
+        wxString file = filename.c_str();
+        filenames[file] = 0;
+
+        // Glob for all files of same type in same directory.
+        wxString name = filename.c_str();
+        wxString path = ::wxPathOnly(name) + "/*";
+        file = ::wxFindFirstFile(path);
+        while (!file.IsEmpty())
+        {
+            // Associated with a NULL dummy timestamp for now.
+            filenames[file] = 0;
+            file = ::wxFindNextFile();
+        }
+    }
+
+    DEBUG_TRACE("found " << filenames.size() <<
+                " candidate files to search.");
+
+    // For each globbed or loaded file,
+    StringToPointerHash::iterator found;
+    for (found = filenames.begin(); found != filenames.end(); found++)
+    {
+        wxString file = found->first;
+        // Check the time if it's got a camera EXIF timestamp.
+        time_t stamp = ReadJpegTime(file.c_str());
+        if (stamp)
+            filenames[file] = stamp;
+    }
+
+    //TODO: sorting the filenames keys by timestamp would be useful
+
+    int changed;
+    do
+    {
+        changed = FALSE;
+
+        // For each timestamped file,
+        for (found = filenames.begin(); found != filenames.end(); found++)
+        {
+            wxString recruit = found->first;
+            time_t pledge = filenames[recruit];
+            if (!pledge)
+                continue;
+
+            // For each other image already loaded,
+            images = pano.getNrOfImages();
+            while (images)
+            {
+                --images;
+                const PanoImage& image = pano.getImage(images);
+                std::string filename = image.getFilename();
+                wxString file = filename.c_str();
+                if (file == recruit)
+                    continue;
+
+                // If it is within threshold time,
+                //TODO: user preference, adjustable threshold?
+                time_t stamp = filenames[file];
+                if (abs(pledge - stamp) < 60)
+                {
+                    // Load this file, and remember it.
+                    DEBUG_TRACE("Recruited " << recruit.c_str());
+                    std::vector<std::string> filesv;
+                    std::string file = recruit.c_str();
+                    filesv.push_back(file);
+                    wxBusyCursor();
+                    GlobalCmdHist::getInstance().addCommand(
+                        new wxAddImagesCmd(pano,filesv)
+                        );
+                    // Don't recruit it again.
+                    filenames[recruit] = 0;
+                    // Count this as a change.
+                    changed++;
+                    break;
+                }
+            }
+        }
+    } while (changed);
+
+    // Load all of the named files.
 }
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
