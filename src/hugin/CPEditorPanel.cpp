@@ -106,7 +106,8 @@ END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     : m_pano(pano), m_leftImageNr(UINT_MAX), m_rightImageNr(UINT_MAX),
-      m_listenToPageChange(true), cpCreationState(NO_POINT)
+      m_listenToPageChange(true), cpCreationState(NO_POINT), 
+      m_selectedPoint(UINT_MAX)
 
 {
     DEBUG_TRACE("");
@@ -293,8 +294,12 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
 {
     DEBUG_TRACE("selectLocalPoint(" << LVpointNr << ")");
+    
+    if ( m_selectedPoint == LVpointNr) {
+        return;
+    }
+    m_selectedPoint = LVpointNr;
 
-    // update point display (listview etc.) here
     m_cpList->SetItemState(LVpointNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
     const ControlPoint & p = currentPoints[LVpointNr].second;
     m_x1Text->SetValue(wxString::Format("%.1f",p.x1));
@@ -763,6 +768,8 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
     }*/
     m_cpList->Show();
+    // clear selectedPoint marker
+    m_selectedPoint = UINT_MAX;
 }
 
 void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
@@ -928,7 +935,7 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
     }
     // get the global point number
     unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
-    
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::RemoveCtrlPointCmd(*m_pano,pNr )
         );
