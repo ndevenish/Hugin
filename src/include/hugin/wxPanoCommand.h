@@ -53,9 +53,10 @@ public:
                 if (idx == std::string::npos) {
                     DEBUG_DEBUG("could not find extension in filename");
                 }
+                wxImage * image = ImageCache::getInstance().getImage(filename);
                 std::string ext = filename.substr( idx+1 );
 
-                wxImage * image = ImageCache::getInstance().getImage(filename);
+
                 int width = image->GetWidth();
                 int height = image->GetHeight();
 
@@ -109,6 +110,68 @@ public:
 private:
     std::vector<std::string> files;
 };
+
+
+
+/** dump the current project and load a new one.
+ *
+ *  Use this for  style projects.
+ *
+ */
+class wxLoadPTProjectCmd : public PanoCommand
+{
+public:
+    wxLoadPTProjectCmd(Panorama & p, std::istream & i, const std::string & prefix = "")
+        : PanoCommand(p),
+          in(i),
+          prefix(prefix)
+        { }
+
+    virtual void execute()
+        {
+            PanoCommand::execute();
+            PanoramaMemento newPano;
+            if (newPano.loadPTScript(in,prefix)) {
+                pano.setMemento(newPano);
+                unsigned int nImg = pano.getNrOfImages();
+                wxString basedir;
+                for (unsigned int i = 0; i < nImg; i++) {
+                    wxFileName fname(pano.getImage(i).getFilename().c_str());
+                    while (! fname.FileExists()){
+                        wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), wxT("Image file not found"));
+
+                        if (basedir == "") {
+                            basedir = fname.GetPath();
+                        }
+                        // open file dialog
+                        wxString wildcard ("Image files (*.jpg)|*.jpg;*.JPG|"
+                                           "Image files (*.png)|*.png;*.PNG|"
+                                           "Image files (*.tif)|*.tif;*.TIF|"
+                                           "All files (*.*)|*.*");
+                        wxFileDialog dlg(MainFrame::Get(), _("Add images"),
+                                         basedir, fname.GetName(),
+                                         wildcard, wxOPEN, wxDefaultPosition);
+                        if (dlg.ShowModal() == wxID_OK) {
+                            pano.setImageFilename(i, dlg.GetPath().c_str());
+                            // save used path
+                            basedir = dlg.GetDirectory();
+                        }
+                        fname.Assign(dlg.GetPath());
+                    }
+                }
+            } else {
+                DEBUG_ERROR("could not load panotools script");
+            }
+            pano.changeFinished();
+        }
+        virtual std::string getName() const
+            {
+                return "load project";
+            }
+    private:
+        std::istream & in;
+	const std::string &prefix;
+    };
 
 } // namespace PT
 

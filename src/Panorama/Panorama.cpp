@@ -607,6 +607,14 @@ void Panorama::removeImage(unsigned int imgNr)
 }
 
 
+void Panorama::setImageFilename(unsigned int i, const std::string & fname)
+{
+    DEBUG_ASSERT(i < state.images.size());
+    state.images[i].setFilename(fname);
+    imageChanged(i);
+    m_forceImagesUpdate = true;
+}
+
 unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
 {
     unsigned int nr = state.ctrlPoints.size();

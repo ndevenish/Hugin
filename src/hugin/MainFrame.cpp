@@ -509,7 +509,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     if (file.good()) {
         wxBusyCursor();
         GlobalCmdHist::getInstance().addCommand(
-            new LoadPTProjectCmd(pano,file, path.c_str())
+            new wxLoadPTProjectCmd(pano,file, path.c_str())
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
@@ -572,10 +572,9 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
                        "Image files (*.png)|*.png;*.PNG|"
                        "Image files (*.tif)|*.tif;*.TIF|"
                        "All files (*.*)|*.*");
-    wxFileDialog *dlg =
-        new wxFileDialog(this,_("Add images"),
-                         config->Read("actualPath",""), "",
-                         wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+    wxFileDialog dlg(this,_("Add images"),
+                     config->Read("actualPath",""), "",
+                     wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
 
     // remember the image extension
     wxString img_ext ("");
@@ -583,23 +582,23 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
       img_ext = config->Read("lastImageType").c_str();
     }
     if (img_ext == "png")
-      dlg->SetFilterIndex(1);
+      dlg.SetFilterIndex(1);
     else if (img_ext == "tif")
-      dlg->SetFilterIndex(2);
+      dlg.SetFilterIndex(2);
     else if (img_ext == "all")
-      dlg->SetFilterIndex(3);
+      dlg.SetFilterIndex(3);
     DEBUG_TRACE ( img_ext )
 
     // call the file dialog
-    if (dlg->ShowModal() == wxID_OK) {
+    if (dlg.ShowModal() == wxID_OK) {
         // get the selections
         wxArrayString Pathnames;
         wxArrayString Filenames;
-        dlg->GetPaths(Pathnames);
-        dlg->GetFilenames(Filenames);
+        dlg.GetPaths(Pathnames);
+        dlg.GetFilenames(Filenames);
 
         // e safe the current path to config
-        config->Write("actualPath", dlg->GetDirectory());  // remember for later
+        config->Write("actualPath", dlg.GetDirectory());  // remember for later
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
@@ -620,16 +619,15 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         SetStatusText( _("Add Image: cancel"));
     }
 
-    DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg->GetFilterIndex()) )
+    DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg.GetFilterIndex()) )
     // save the image extension
-    switch ( dlg->GetFilterIndex() ) {
+    switch ( dlg.GetFilterIndex() ) {
       case 0: config->Write("lastImageType", "jpg"); break;
       case 1: config->Write("lastImageType", "png"); break;
       case 2: config->Write("lastImageType", "tif"); break;
       case 3: config->Write("lastImageType", "all"); break;
     }
 
-    dlg->Destroy();
     DEBUG_TRACE("");
 }
 

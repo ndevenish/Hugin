@@ -362,6 +362,14 @@ public:
      *  and the Lens, if it was only used by this image.
      */
     void removeImage(unsigned int nr);
+    
+    /** set a new image filename 
+     *
+     *  It is assumed that it is of the same size
+     *  as the old image.
+     *
+     */
+    void setImageFilename(unsigned int img, const std::string & fname);
 
     /** change image properties.
      */
