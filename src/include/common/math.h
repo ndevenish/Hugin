@@ -39,21 +39,21 @@ struct FDiff2D
         : x(x), y(y)
         { }
 
-    FDiff2D operator+(FDiff2D rhs)
+    FDiff2D operator+(FDiff2D rhs) const 
         {
             return FDiff2D (x+rhs.x, y+rhs.y);
         }
 
-    FDiff2D operator-(FDiff2D rhs)
+    FDiff2D operator-(FDiff2D rhs) const
         {
             return FDiff2D (x-rhs.x, y-rhs.y);
         }
-    
-    vigra::Diff2D toDiff2D() 
+
+    vigra::Diff2D toDiff2D() const
         {
             return vigra::Diff2D((int)round(x), (int)round(y));
         }
-    
+
     float x,y;
 };
 

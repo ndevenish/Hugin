@@ -138,6 +138,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("Deleting remapped wxImage" << i);
         delete m_remappedBitmaps[i];
         m_remappedBitmaps.pop_back();
+        m_outlines.pop_back();
         dirty = true;
     }
     // update existing items
@@ -147,6 +148,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
                 m_remappedBitmaps.push_back(new wxBitmap());
+                m_outlines.push_back(vector<FDiff2D>(512*4));
                 m_dirtyImgs.insert(*it);
             } else {
                 // update existing item
@@ -198,7 +200,7 @@ void PreviewPanel::updatePreview()
     if (ratioPano < ratioPanel) {
         // panel is wider than pano
         m_panoImgSize.SetWidth((int) (m_panoImgSize.GetHeight() * ratioPano));
-        DEBUG_DEBUG("protrait: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
+        DEBUG_DEBUG("portrait: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
     } else {
         // panel is taller than pano
         m_panoImgSize.SetHeight((int)(m_panoImgSize.GetWidth() / ratioPano));
@@ -241,6 +243,8 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     }
     DEBUG_TRACE("");
 
+    bool drawOutlines = wxConfigBase::Get()->Read("/PreviewPanel/drawOutlines",1l) != 0;
+
     int offsetX = 0;
     int offsetY = 0;
 
@@ -261,10 +265,17 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     dc.DrawRectangle(sz.GetWidth() - offsetX, offsetY,
                      sz.GetWidth(), sz.GetHeight() - offsetY);
 
+    // set a clip region to draw stuff accordingly
+    dc.DestroyClippingRegion();
+    dc.SetClippingRegion(offsetX, offsetY,
+                         m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
+
     dc.SetPen(wxPen("BLACK",1,wxSOLID));
     dc.SetBrush(wxBrush("BLACK",wxSOLID));
     dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
+    
+    
     for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
          it != m_remappedBitmaps.end();
          ++it)
@@ -278,9 +289,20 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         }
     }
 
+    if (drawOutlines) {
+        for (UIntSet::iterator it = m_displayedImages.begin();
+             it != m_displayedImages.end();
+             ++it)
+        {
+            dc.SetPen(wxPen("GREY", 1, wxSOLID));
+            DrawOutline(m_outlines[*it], dc, offsetX, offsetY);
+        }
+    }
+    
     wxCoord w = m_panoImgSize.GetWidth();
     wxCoord h = m_panoImgSize.GetHeight();
 
+    
     // draw center lines over display
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
     dc.SetLogicalFunction(wxINVERT);
@@ -320,23 +342,25 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
     const PanoImage & pimg = pano.getImage(imgNr);
     wxImage * src = ImageCache::getInstance().getSmallImage(
         pimg.getFilename());
-        
+
     Diff2D srcSize(src->GetWidth(), src->GetHeight());
     PanoramaOptions opts = pano.getOptions();
     opts.width = m_panoImgSize.GetWidth();
     Diff2D panoSize(opts.width, opts.getHeight());
-    DEBUG_ASSERT(panoSize.x == dest.GetWidth());
-    DEBUG_ASSERT(panoSize.y == dest.GetHeight());
-    
+    DEBUG_DEBUG("imgnr: " << imgNr << "  panoSize.x: " << panoSize.x << " dest.x: " << dest.GetWidth());
+    DEBUG_DEBUG("imgnr: " << imgNr << "  panoSize.y: " << panoSize.y << " dest.y: " << dest.GetHeight());
+//    DEBUG_ASSERT(panoSize.x == dest.GetWidth());
+//    DEBUG_ASSERT(panoSize.y == dest.GetHeight());
+
     t.createTransform(pano, imgNr, opts, srcSize);
     invT.createInvTransform(pano, imgNr, opts, srcSize);
-    
-    // outline of this image in final panorama
-    vector<FDiff2D> outline;
+
     // bounding box
     FDiff2D ul;
     FDiff2D lr;
-    PTools::calcBorderPoints(srcSize, invT, back_inserter(outline),
+    // outline of this image in final panorama
+    m_outlines[imgNr].clear();
+    PTools::calcBorderPoints(srcSize, invT, back_inserter(m_outlines[imgNr]),
                              ul, lr);
 
     Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
@@ -349,6 +373,8 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
     if (lrInt.y < 0) lrInt.y = 0;
     if (lrInt.x >= panoSize.x) lrInt.x = panoSize.x -1;
     if (lrInt.y >= panoSize.y) lrInt.y = panoSize.y -1;
+    DEBUG_DEBUG("after clipping: upper left: " << ulInt.x << "," << ulInt.y
+                << "  lower right: " << lrInt.x << "," << lrInt.y);
 
     // remap image with that transform
     PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
@@ -357,4 +383,22 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
                                          wxImageUpperLeft(dest)+lrInt),
                            ulInt,
                            t);
+}
+
+
+void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int offX, int offY)
+{
+    for (vector<FDiff2D>::const_iterator pnt = points.begin(); 
+         pnt != points.end() ;
+         ++pnt)
+    {
+        Diff2D point = pnt->toDiff2D();
+        if (point.x < 0) point.x = 0;
+        if (point.y < 0) point.y = 0;
+        if (point.x >= m_panoImgSize.GetWidth())
+            point.x = m_panoImgSize.GetWidth()-1;
+        if (point.y >= m_panoImgSize.GetHeight())
+            point.y = m_panoImgSize.GetHeight() -1;
+        dc.DrawPoint((int)round(offX + point.x), (int)round(offY + point.y));
+    }
 }

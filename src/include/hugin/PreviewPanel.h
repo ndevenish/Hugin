@@ -27,6 +27,8 @@
 #include "wx/frame.h"
 #include "wx/dnd.h"
 
+#include "common/math.h"
+
 #include "PT/Panorama.h"
 
 extern "C" {
@@ -81,6 +83,7 @@ private:
     void OnDraw(wxPaintEvent & event);
     void OnMouse(wxMouseEvent & e);
     void OnUpdatePreview(wxCommandEvent & e);
+    void DrawOutline(const std::vector<FDiff2D> & points, wxDC & dc, int offX, int offY);
 
     /** the model */
     PT::Panorama &pano;
@@ -90,6 +93,9 @@ private:
     wxSize m_panoImgSize;
 
     PT::UIntSet m_displayedImages;
+    
+    // outlines of all images
+    std::vector<std::vector<FDiff2D> > m_outlines;
 
     // a single image, we just show the first picture (layer) for now
     std::vector<wxBitmap *> m_remappedBitmaps;

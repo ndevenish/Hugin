@@ -974,6 +974,11 @@ void Panorama::setOptions(const PanoramaOptions & opt)
         state.options.HFOV = maxh;
     if (state.options.VFOV > maxv)
         state.options.VFOV = maxv;
+    
+    if (state.options.HFOV <= 0)
+        state.options.HFOV = 1;
+    if (state.options.VFOV <= 0)
+        state.options.VFOV = 1;
 
 }
 
@@ -1022,5 +1027,5 @@ void Panorama::copyLensVariablesToImage(unsigned int imgNr)
     }
 }
 
-    
+
 

@@ -90,7 +90,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
     flexSizer->AddGrowableRow(0);
-    
+
     // create our preview panel
     m_PreviewPanel = new PreviewPanel(this, &pano);
 
@@ -100,27 +100,27 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxALL,    // draw border all around
                   5);       // border width
 
-    
-    m_VFOVSlider = new wxSlider(this, -1, 0, 
-                                0, 180,
+
+    m_VFOVSlider = new wxSlider(this, -1, 0,
+                                1, 180,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_VERTICAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
                                 "VFOV");
     m_VFOVSlider->SetToolTip(_("drag to change the vertical field of view"));
-    
+
     flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
 
-    m_HFOVSlider = new wxSlider(this, -1, 0, 
-                                0, 360,
+    m_HFOVSlider = new wxSlider(this, -1, 0,
+                                1, 360,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_HORIZONTAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
                                 "HFOV");
     m_HFOVSlider->SetToolTip(_("drag to change the horizontal field of view"));
-    
+
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
-    
+
 
     topsizer->Add(flexSizer,
                   1,        // vertically stretchable
@@ -196,11 +196,11 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 }
 
 
-void PreviewFrame::panoramaChanged(Panorama &pano) 
+void PreviewFrame::panoramaChanged(Panorama &pano)
 {
     m_PreviewPanel->panoramaChanged(pano);
     const PanoramaOptions & opts = pano.getOptions();
-    
+
     wxString projection;
     switch (opts.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
@@ -364,7 +364,7 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
 void PreviewFrame::OnChangeFOV(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    
+
     PanoramaOptions opt = m_pano.getOptions();
 
     if (e.GetEventObject() == m_HFOVSlider) {
@@ -376,7 +376,7 @@ void PreviewFrame::OnChangeFOV(wxCommandEvent & e)
     } else {
         DEBUG_FATAL("Slider event from unknown control received");
     }
-    
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );

@@ -221,16 +221,16 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     }
     switch (opt.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
-        m_HFOVSpin->SetRange(0,179);
-        m_VFOVSpin->SetRange(0,179);
+        m_HFOVSpin->SetRange(1,179);
+        m_VFOVSpin->SetRange(1,179);
         break;
     case PanoramaOptions::CYLINDRICAL:
-        m_HFOVSpin->SetRange(0,360);
-        m_VFOVSpin->SetRange(0,179);
+        m_HFOVSpin->SetRange(1,360);
+        m_VFOVSpin->SetRange(1,179);
         break;
     case PanoramaOptions::EQUIRECTANGULAR:
-        m_HFOVSpin->SetRange(0,360);
-        m_VFOVSpin->SetRange(0,180);
+        m_HFOVSpin->SetRange(1,360);
+        m_VFOVSpin->SetRange(1,180);
         break;
     }
 
