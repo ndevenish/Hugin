@@ -620,7 +620,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
       dlg.SetFilterIndex(2);
     else if (img_ext == wxT("all"))
       dlg.SetFilterIndex(3);
-    DEBUG_TRACE ( img_ext )
+    DEBUG_TRACE ( "Image extention: " << img_ext.mb_str() )
 
     // call the file dialog
     if (dlg.ShowModal() == wxID_OK) {
@@ -652,7 +652,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         SetStatusText( _("Add Image: cancel"));
     }
 
-    DEBUG_TRACE ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()) )
+    DEBUG_TRACE ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
     // save the image extension
     switch ( dlg.GetFilterIndex() ) {
       case 0: config->Write(wxT("lastImageType"), wxT("jpg")); break;
@@ -684,6 +684,7 @@ time_t ReadJpegTime(const char* filename)
 }
 
 WX_DECLARE_STRING_HASH_MAP(time_t, StringToPointerHash);
+WX_DECLARE_STRING_HASH_MAP(int, StringToFlagHash);
 
 struct sortbytime
 {
@@ -710,9 +711,11 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
     // If no images already loaded, offer user a chance to pick one.
     int images = pano.getNrOfImages();
+	DEBUG_TRACE("Number of images: " << images);
     if (!images) {
         OnAddImages(event);
         images = pano.getNrOfImages();
+		DEBUG_TRACE("No images: " << images);
         if (!images)
             return;
     }
@@ -721,6 +724,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
     // Collect potential image-mates.
     StringToPointerHash filenames;
+    StringToFlagHash preloaded;
     while (images)
     {
         --images;
@@ -729,7 +733,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         const PanoImage& image = pano.getImage(images);
         std::string filename = image.getFilename();
         wxString file(filename.c_str(), *wxConvCurrent);
-        filenames[file] = 0;
+        preloaded[file] = 1;
 
         // Glob for all files of same type in same directory.
         wxString name(filename.c_str(), *wxConvCurrent);
@@ -738,8 +742,8 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         while (!file.IsEmpty())
         {
             // Associated with a NULL dummy timestamp for now.
-            filenames[file] = 0;
-            file = ::wxFindNextFile();
+			filenames[file] = 0;
+			file = ::wxFindNextFile();
         }
     }
 
@@ -753,11 +757,11 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
-        time_t stamp = ReadJpegTime(file.mb_str());
-        if (stamp) {
+		  time_t stamp = ReadJpegTime(file.mb_str());
+      	  if (stamp) {
             filenames[file] = stamp;
             timeMap[(const char *)file.mb_str()] = stamp;
-        }
+      	  }
     }
 
     //TODO: sorting the filenames keys by timestamp would be useful
@@ -772,6 +776,8 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         for (found = filenames.begin(); found != filenames.end(); found++)
         {
             wxString recruit = found->first;
+			if (preloaded[recruit] == 1)
+			  continue;
             time_t pledge = filenames[recruit];
             if (!pledge)
                 continue;
@@ -792,7 +798,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 if (abs(pledge - stamp) < maxtimediff)
                 {
                     // Load this file, and remember it.
-                    DEBUG_TRACE("Recruited " << recruit.c_str());
+                    DEBUG_TRACE("Recruited " << recruit.mb_str());
                     std::string file = (const char *)recruit.mb_str();
                     filesv.push_back(file);
                     // Don't recruit it again.

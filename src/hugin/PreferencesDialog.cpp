@@ -350,7 +350,6 @@ bool PreferencesDialog::GetPanoVersion()
 		{
 			sprintf(str1, "Comment:\t%s\n", sResult );
 			strcat(str2 ,str1);
-			DEBUG_TRACE("PTVERSION_NAME_COMMENT" << wxString(str2, *wxConvCurrent).mb_str());
 		}
 
 		if((pfQFString) (PTVERSION_NAME_LEGALCOPYRIGHT, sResult, sizeof(sResult)/sizeof(sResult[0]) ))
@@ -367,7 +366,6 @@ bool PreferencesDialog::GetPanoVersion()
 		{
 			sprintf(str1, "Optimizer Error:\t%s\n", iResult? "dist sphere" : "dist rect" );
 			strcat(str2 ,str1);
-			DEBUG_TRACE("PTVERSION_NAME_LEGALCOPYRIGHT" << wxString(str2, *wxConvCurrent).mb_str());
 		}
 	}
 
