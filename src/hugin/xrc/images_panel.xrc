@@ -4,7 +4,7 @@
     <object class="wxFlexGridSizer">
       <object class="sizeritem">
         <object class="wxListCtrl" name="images_list">
-          <style>wxLC_LIST|wxLC_REPORT</style>
+          <style>wxLC_REPORT|wxSUNKEN_BORDER</style>
         </object>
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
