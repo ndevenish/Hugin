@@ -34,9 +34,8 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/image.h>               // wxImage
-#include <wx/imagpng.h>             // for about html
-#include <wx/listctrl.h>            // wxListCtrl
+//#include <wx/image.h>               // wxImage
+//#include <wx/imagpng.h>             // for about html
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
@@ -68,22 +67,23 @@ END_EVENT_TABLE()
 // Define a constructor for the Images Panel
 ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     //  : wxPanel(parent, -1 , pos, size)
+    : pano(*pano)
 {
-    DEBUG_INFO(__FUNCTION__)
-    images_list = XRCCTRL(*parent, "images_list", wxListCtrl); 
+    DEBUG_TRACE("");
+    images_list = XRCCTRL(*parent, "images_list", wxListCtrl);
 
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_LEFT, 25 );
     images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
     images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_LEFT, 60 );
     images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_LEFT, 60 );
     images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_LEFT, 30 );
 
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     img_icons = new wxImageList(24,24);
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );//_NORMAL );
- 
+
     // (2) Insert some items into the listctrl
 /*    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(0,wxT("0"),0);
     XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(0,1,"Todd Hope");
@@ -94,24 +94,26 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 */
 
     // Image Preview
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     p_img = new wxBitmap( 128, 128 );
     wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
     wxPaintDC dc (img_p);
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 //    dc = dc_;
 //    dc.SetPen(* wxRED_PEN);
 //    dc.DrawLine(45, 0, 45, 100);
 
     canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");;
 
+    pano->addObserver(this);
 }
 
 
 ImagesPanel::~ImagesPanel(void)
 {
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
+    pano.removeObserver(this);
     delete p_img;
 }
 
@@ -200,7 +202,7 @@ ImagesPanel::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 
 //        }
         // fill in the table
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
         char Nr[8] ;
         sprintf(Nr ,"%d", pano.getNrOfImages()+1);
         DEBUG_INFO( __FUNCTION__ << " icon at Item:" << wxString::Format("%d", ind) )
@@ -217,7 +219,7 @@ ImagesPanel::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 
         sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
         added++;
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
       }
       SetStatusText( e_stat, 0);
 
@@ -240,7 +242,7 @@ ImagesPanel::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
     dlg->Destroy();
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }*/
 
 
@@ -279,7 +281,7 @@ void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 
 //        }
         // fill in the table
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
         char Nr[8] ;
         sprintf(Nr ,"%d", ind + 1);
         DEBUG_INFO( __FUNCTION__ << " icon at Item:" << wxString::Format("%d", ind) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
@@ -294,7 +296,7 @@ void ImagesPanel::panoramaChanged (PT::Panorama &pano)
         images_list->SetItem ( i, 4, Nr );
 //        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
 
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
       }
 
 }
@@ -311,19 +313,19 @@ END_EVENT_TABLE()
 ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
  wxScrolledWindow(parent, -1, pos, size)
 {
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 ImgPreview::~ImgPreview(void)
 {
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     delete p_img;
 }
 
 // Define the repainting behaviour
 void ImgPreview::OnDraw(wxDC & dc)
 {
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
   if ( p_img && p_img->Ok() )
   {
     wxMemoryDC memDC;
@@ -333,9 +335,9 @@ void ImgPreview::OnDraw(wxDC & dc)
     dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
       0, 0, wxCOPY, TRUE);
 
-    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE); 
+    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE);
 
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     memDC.SelectObject(wxNullBitmap);
   }
 }

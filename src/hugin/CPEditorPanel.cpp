@@ -118,8 +118,8 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
       cpCreationState(NO_POINT)
 
 {
+    DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
-    DEBUG_TRACE("Panel created");
 
     // left image
     m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
@@ -132,11 +132,16 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
+    
+    // observe the panorama
+    pano->addObserver(this);
 }
 
 
 CPEditorPanel::~CPEditorPanel()
 {
+    DEBUG_TRACE("");
+    pano->addObserver(this);
 }
 
 

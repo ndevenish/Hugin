@@ -34,10 +34,10 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/image.h>               // wxImage
-#include <wx/imagpng.h>             // for about html
+//#include <wx/image.h>               // wxImage
+//#include <wx/imagpng.h>             // for about html
 #include <wx/wxhtml.h>              // for about html
-#include <wx/listctrl.h>            // wxListCtrl
+//#include <wx/listctrl.h>            // wxListCtrl
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
@@ -80,7 +80,7 @@ END_EVENT_TABLE()
 
 MainFrame::MainFrame(wxWindow* parent)
 {
-  DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     // load our children. some children might need special
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("main_frame"));
@@ -103,48 +103,49 @@ MainFrame::MainFrame(wxWindow* parent)
                                                  wxDefaultSize, &pano);
 
     // create the custom widget referenced by the main_frame XRC
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 
     // set the minimize icon
     SetIcon(wxICON(gui));
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("")
 
     // set ourselfs as our dnd handler
     // lets hope wxwindows doesn't try to delete the drop handlers
     SetDropTarget(this);
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 
     // create a status bar
-    // I hope that we can also add other widget (like a
-    // progress dialog to the status bar
+    // FIXME add a progress dialog to the status bar
     CreateStatusBar(1);
     SetStatusText("Started");
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 
     // observe the panorama
-    pano.setObserver(this);
-    DEBUG_INFO(__FUNCTION__)
+    pano.addObserver(this);
+    DEBUG_TRACE("");
 
     // show the frame.
     Show(TRUE);
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 MainFrame::~MainFrame()
 {
-  DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
+    pano.removeObserver(this);
 }
 
 void MainFrame::panoramaChanged(PT::Panorama &panorama)
 {
-    DEBUG_TRACE("panoramaChanged");
+    DEBUG_TRACE("");
     assert(&pano == &panorama);
-    cpe->panoramaChanged(pano);
-    images_panel->panoramaChanged (pano);
+    // they subscribe themself to the panorama now.
+//    cpe->panoramaChanged(pano);
+//    images_panel->panoramaChanged (pano);
 }
 
 
@@ -164,11 +165,11 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
 
 void MainFrame::OnExit(wxCommandEvent & e)
 {
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
     // FIXME ask to save is panorama if unsaved changes exist
     //Close(TRUE);
     this->Destroy();
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
 }
 
 
@@ -180,7 +181,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
@@ -234,7 +235,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
   // store current project name as last opened project
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
@@ -303,13 +304,13 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
     dlg->Destroy();
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
 {
 
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     // get the list to write to
     wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
 
@@ -338,14 +339,14 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
 //        lst->DeleteItem(Nr);
         removed[i] = i;
         removed[0]++;
-        DEBUG_INFO(__FUNCTION__ << " will remove " << wxString::Format("%d",i) << ". " << wxString::Format("%d",Nr) << "|" << wxString::Format("%d",removed[0]) )
+        DEBUG_INFO(" will remove " << wxString::Format("%d",i) << ". " << wxString::Format("%d",Nr) << "|" << wxString::Format("%d",removed[0]) )
       }
     }
 
     if ( sel_I == 0 )
       SetStatusText( _("Nothing selected"), 0);
     else {
-      DEBUG_INFO(__FUNCTION__)
+      DEBUG_TRACE("");
 // FIXME, shoule be notified by Panorama.
 //      cpe->ImagesRemoved(pano, removed);
       SetStatusText( e_msg, 0);
@@ -355,25 +356,25 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
         char Nr_c[8] ;
         sprintf(Nr_c ,"%d", Nr );
         lst->SetItem ( Nr - 1, 0, Nr_c );
-        DEBUG_INFO(__FUNCTION__ << " SetItem " << wxString::Format("%d",Nr) << " to " << Nr_c)
+        DEBUG_INFO(" SetItem " << wxString::Format("%d",Nr) << " to " << Nr_c)
       }
     }
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
 {
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
   wxDialog dlg;
   wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("text_edit_dialog"));
   dlg.ShowModal();
   dlg.Show (TRUE);
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
 }
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
-        DEBUG_INFO(__FUNCTION__)
+        DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
     dlg.ShowModal();
@@ -382,7 +383,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 {   // Maybe this can be invoced by the Panorama::Changed() or
     // something like this. So no everytime update would be needed.
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 
@@ -408,19 +409,19 @@ END_EVENT_TABLE()
 ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
  wxScrolledWindow(parent, -1, pos, size)
 {
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
 }
 
 ImgPreview::~ImgPreview(void)
 {
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     delete p_img;
 }
 
 // Define the repainting behaviour
 void ImgPreview::OnDraw(wxDC & dc)
 {
-  DEBUG_INFO(__FUNCTION__)
+  DEBUG_TRACE("");
   if ( p_img && p_img->Ok() )
   {
     wxMemoryDC memDC;
@@ -430,9 +431,9 @@ void ImgPreview::OnDraw(wxDC & dc)
     dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
       0, 0, wxCOPY, TRUE);
 
-    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE); 
+    //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE);
 
-    DEBUG_INFO(__FUNCTION__)
+    DEBUG_TRACE("");
     memDC.SelectObject(wxNullBitmap);
   }
 }

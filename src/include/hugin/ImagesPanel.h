@@ -38,8 +38,8 @@ class CPEditorPanel;
 // Define a new area
 class ImgPreview;
 
-// Define the first panel - the one for image selection into Panorama
-class ImagesPanel: public wxPanel
+/// Define the first panel - the one for image selection into Panorama
+class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
     ImagesPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
@@ -69,7 +69,7 @@ class ImagesPanel: public wxPanel
     void OnRemoveImages(wxCommandEvent & e);
 
     // the model
-    Panorama pano;
+    Panorama &pano;
 
     // Image Preview
     ImgPreview *canvas;
