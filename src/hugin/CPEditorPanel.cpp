@@ -840,7 +840,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         tmplLR.x = tmplImg.width() - tmplPoint.x;
     if (tmplLR.y + tmplPoint.y > tmplImg.height())
         tmplLR.y = tmplImg.height() - tmplPoint.y;
-
+    
     FImage dest(searchSize);
     dest.init(1);
     DEBUG_DEBUG("starting fine tune");
@@ -855,7 +855,6 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                          tmplImg.upperLeft() + tmplPoint,
                          tmplImg.accessor(),
                          tmplUL, tmplLR, -1);
-
     res.pos += searchUL;
     DEBUG_DEBUG("normal search finished, max:" << res.max
                 << " at " << res.pos.x << "," << res.pos.y);
@@ -969,7 +968,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         setLeftImage(0);
         setRightImage(0);
     }
-    
+
     if (update) {
         UpdateDisplay();
     }
@@ -1220,13 +1219,15 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
             new PT::RemoveCtrlPointCmd(*m_pano,pNr)
             );
     } else if (e.m_keyCode == '0') {
-        wxCommandEvent dummy;
-        dummy.SetInt(1);
-        OnZoom(dummy);
+//        wxCommandEvent dummy;
+//        dummy.SetInt(1);
+//        OnZoom(dummy);
+        XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(1);
     } else if (e.m_keyCode == '1') {
-        wxCommandEvent dummy;
-        dummy.SetInt(0);
-        OnZoom(dummy);
+//        wxCommandEvent dummy;
+//        dummy.SetInt(0);
+//        OnZoom(dummy);
+        XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(0);
     } else if (e.m_keyCode == 'p') {
         // only estimate when there are control points.
         if (currentPoints.size() > 0) {
@@ -1607,7 +1608,8 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
 
 FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
-
+    int imgNr = left? m_rightImageNr : m_leftImageNr;
+    const PanoImage & img = m_pano->getImage(imgNr);
     FDiff2D t;
     if (currentPoints.size() == 0) {
         DEBUG_WARN("Cannot estimate position without at least one point");
@@ -1629,5 +1631,12 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
         t.x = p.x - t.x;
         t.y = p.y - t.y;
     }
+    
+    // clip to fit to 
+    if (t.x < 0) t.x=0;
+    if (t.y < 0) t.y=0;
+    if (t.x > img.getWidth()) t.x = img.getWidth();
+    if (t.y > img.getHeight()) t.y = img.getHeight();
+    DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
     return t;
 }
