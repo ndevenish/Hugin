@@ -68,7 +68,29 @@ namespace PT {
 
     //=========================================================================
     //=========================================================================
-    
+
+    /** reset the panorama */
+    class NewPanoCmd : public PanoCommand
+    {
+    public:
+        NewPanoCmd(Panorama & pano)
+            : PanoCommand(pano)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.reset();
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "new panorama";
+            }
+    };
+
+    //=========================================================================
+    //=========================================================================
+
     /** add image(s) to a panorama */
     class AddImagesCmd : public PanoCommand
     {
@@ -79,10 +101,10 @@ namespace PT {
         virtual void execute()
             {
                 PanoCommand::execute();
-                
+
                 VariableMap var;
                 fillVariableMap(var);
-                
+
                 std::vector<PanoImage>::const_iterator it;
                 for (it = imgs.begin(); it != imgs.end(); ++it) {
                     pano.addImage(*it,var);
@@ -97,10 +119,10 @@ namespace PT {
         std::vector<PanoImage> imgs;
     };
 
-    
+
     //=========================================================================
     //=========================================================================
-    
+
 
     /** remove an image from a panorama
      *

@@ -290,7 +290,8 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
 {
-    wxLogError("not implemented");
+    GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
+    ImageCache::getInstance().clear();
 }
 
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )

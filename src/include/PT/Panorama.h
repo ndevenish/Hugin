@@ -33,12 +33,10 @@
 #include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 
-class Process;
-
 namespace PT {
 
 class Panorama;
-
+class PanoCommand;
 
 typedef std::set<unsigned int> UIntSet;
 
@@ -289,33 +287,6 @@ public:
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
-#ifdef __unix__
-    /** optimize panorama variables.
-     *
-     *  this will start the optimization process.
-     *
-     *  after PTOptimizer exited/or was killed, use
-     *  readOptimizerOutput() to get the optimized variables.
-     *
-     *  @param optvars what variables should be optimized
-     *  @param proc Process that will run PTOptimizer
-     *  @param options specify wich output format is used.
-     *                 influences H or V style control points.
-     *  @return true if PTOptimizer could be started
-     */
-    bool runOptimizer(Process & proc, const OptimizeVector & optvars, const PanoramaOptions & options) const;
-
-    /** uses default options */
-    bool runOptimizer(Process & proc, const OptimizeVector & optvars) const;
-
-    /** this will stitch the Panorama.
-     *
-     *  @param proc Process that will run PTOptimizer
-     *  @param target description of output image
-     *  @return true if PTStitcher could be started
-     */
-    bool runStitcher(Process & proc, const PanoramaOptions & target) const;
-#endif
 
     /** parse optimzier output
      *
@@ -333,6 +304,10 @@ public:
     // should not be used directly, but through command objects.
     // ============================================================
 
+
+    /** clear the internal state. */
+    void reset();
+    
 
     /** Set the variables.
      *
@@ -475,8 +450,6 @@ public:
 
 protected:
 
-    /// remove all data, creates a fresh, empty panorama
-    void reset();
 
     /// adjust the links of the linked variables, must be called
     /// when a lens has been changed.

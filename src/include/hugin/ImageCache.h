@@ -192,7 +192,7 @@ struct ImageKey
     std::string producer;
     /// number of accesses
     int accesses;
-    
+
     bool operator==(const ImageKey& o) const
         { return name == o.name && producer == o.producer; }
 };
@@ -215,6 +215,10 @@ public:
     /** dtor.
      */
     virtual ~ImageCache();
+    
+    /** clear all images in the cache */
+    void clear()
+        { images.clear(); }
 
     /** get the global ImageCache object */
     static ImageCache & getInstance();
@@ -226,7 +230,7 @@ public:
      *  Do not modify this image. Use a copy if it is really needed
      */
     ImagePtr getImage(const std::string & filename);
-    
+
     /** get an small image version.
      *
      *  This image is 512x512 pixel maximum and can be used for icons
@@ -242,9 +246,9 @@ public:
      *
      *  A image pyramid is a image in multiple resolutions.
      *  Usually it is used to accelerate image processing, by using
-     *  small resolutions first. they are properly low pass filtered,
+     *  lower resolutions first. they are properly low pass filtered,
      *  so no undersampling occurs (it would if one just takes
-     *  every level^2 pixel instead).
+     *  every 2^level pixel instead).
      *
      *  @param filename of source image
      *  @param level of pyramid. height and width are calculated as

@@ -317,13 +317,26 @@ public:
     PanoramaOptions()
         : projectionFormat(EQUIRECTANGULAR),
           HFOV(360), VFOV(180),
-          width(300),
+          width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),progressive(true),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(POLY_3)
         {};
 
+    void reset()
+        { 
+            HFOV = 360;
+            VFOV = 180;
+            width = 3000;
+            outfile = "panorama.JPG";
+            quality = 90;
+            progressive = false;
+            colorCorrection = NONE;
+            colorReferenceImage = 0;
+            gamma = 1.0;
+            interpolator = POLY_3;
+        }
     virtual ~PanoramaOptions() {};
 
 //    QDomNode toXML(QDomDocument & doc) const;

@@ -128,11 +128,13 @@ Panorama::~Panorama()
 
 void Panorama::reset()
 {
+    imageChanged(0);
     // delete all images and control points.
     state.ctrlPoints.clear();
     state.lenses.clear();
     state.images.clear();
     state.variables.clear();
+    state.options.reset();
 }
 
 
@@ -704,6 +706,12 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
 
 void Panorama::changeFinished()
 {
+    bool forceImagesUpdate = false;
+    if (state.images.size() == 0 && changedImages.size() > 0) {
+        // force an empty update if all images have been
+        // removed
+        forceImagesUpdate = true;
+    }
     // remove change notification for nonexisting images from set.
     UIntSet::iterator uB = changedImages.lower_bound(state.images.size());
     changedImages.erase(uB,changedImages.end());
@@ -715,7 +723,7 @@ void Panorama::changeFinished()
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
         DEBUG_TRACE("notifying listener");
-        if (changedImages.size() > 0) {
+        if (changedImages.size() > 0 || forceImagesUpdate) {
             (*it)->panoramaImagesChanged(*this, changedImages);
         }
         (*it)->panoramaChanged(*this);

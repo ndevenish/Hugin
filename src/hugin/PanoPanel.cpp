@@ -77,8 +77,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
-    EVT_CHOICE ( XRCID("pano_choice_colour_mode"),PanoPanel::ColourModeChanged)
-    EVT_SPINCTRL(XRCID("pano_spin_colour_reference"),PanoPanel::ColourModeChanged)
+    EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
+    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
 
     EVT_COMBOBOX ( XRCID("pano_val_preview_width"),PanoPanel::PreviewWidthChanged )
     EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
@@ -309,7 +309,7 @@ void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
 
     int refImage = m_ColorCorrRefSpin->GetValue();
     opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
-    DEBUG_ASSERT(refImage > 0 && refImage < (int)pano.getNrOfImages());
+    DEBUG_ASSERT(refImage >= 0 && refImage < (int)pano.getNrOfImages());
     opt.colorReferenceImage = (unsigned int) refImage;
 
     GlobalCmdHist::getInstance().addCommand(

@@ -42,7 +42,8 @@ ImageCache::ImageCache()
 
 ImageCache::~ImageCache()
 {
-    delete instance;
+    images.clear();
+//    delete instance;
     instance = 0;
 }
 

@@ -119,13 +119,18 @@ void OptimizeFrame::OnEqYaw(wxCommandEvent & e)
 {
     VariableMapVector vars = m_pano->getVariables();
     VariableMapVector::iterator it;
-    double avg = 0;
+    double min = 1000;
+    double max = -1000;
     for(it = vars.begin(); it != vars.end(); it++) {
-        avg += map_get(*it,"y").getValue();
+        double val = map_get(*it,"y").getValue();
+        if (val < min) min = val;
+        if (val > max) max = val;
     }
-    avg = avg/vars.size();
+    
+    
+    double shift = min + (max-min)/2;
     for(it = vars.begin(); it != vars.end(); it++) {
-        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - avg);
+        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - shift);
     }
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCmd(*m_pano, vars)
@@ -182,7 +187,7 @@ OptimizeVector OptimizeFrame::getOptimizeSettings()
         }
         if (m_yaw_list->IsChecked(i)) {
             imgopt.insert("y");
-        }            
+        }
         optvars.push_back(imgopt);
     }
 

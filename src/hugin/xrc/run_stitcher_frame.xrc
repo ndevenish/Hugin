@@ -23,6 +23,7 @@
         </object>
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
+        <minsize>250,15</minsize>
       </object>
       <object class="sizeritem">
         <object class="wxStaticLine"/>

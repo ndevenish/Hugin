@@ -362,14 +362,8 @@ PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string
 void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
     o << "p f" << projectionFormat << " w" << width << " h" << getHeight()
-      << " v" << HFOV << " n\"" << getFormatName(outputFormat);
-    if ( outputFormat == JPEG ) {
-        o << " q" << quality;
-        if (progressive) {
-            o << " g";
-        }
-    }
-    o << "\"";
+      << " v" << HFOV << " ";
+    
     switch (colorCorrection) {
     case NONE:
         break;
@@ -383,6 +377,15 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         o << " d" << colorReferenceImage;
         break;
     }
+    
+    o << " n\"" << getFormatName(outputFormat);
+    if ( outputFormat == JPEG ) {
+        o << " q" << quality;
+        if (progressive) {
+            o << " g";
+        }
+    }
+    o << "\"";
     o << std::endl;
 
     // misc options
@@ -443,7 +446,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             // FIXME. add argument parsing for output formats
             options.outputFormat = options.getFormatFromName(format.substr(0,t));
 
-            // FIXME add color correction parsing.
             int cRefImg = 0;
             if (getParam(cRefImg, line,"k")) {
                 options.colorCorrection = PanoramaOptions::BRIGHTNESS_COLOR;
@@ -513,7 +515,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
                         // valid link. update the link state of the corrosponding
                         // existing lens variable
                         lensNr = images[anchorImage].getLensNr();
-                        map_get(lenses[lensNr].variables,it->first).setLinked(true);                        
+                        map_get(lenses[lensNr].variables,it->first).setLinked(true);
                     } else if (anchorImage != link) {
                         // conflict, link parameters do not match!
                         DEBUG_ERROR("cannot process images whos variables are linked "
