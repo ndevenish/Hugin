@@ -103,9 +103,11 @@ typedef std::map<std::string,Variable> VariableMap;
 typedef std::vector<VariableMap> VariableMapVector;
 typedef std::map<std::string,LensVariable> LensVarMap;
 
-
 /** fill map with all image & lens variables */
 void fillVariableMap(VariableMap & vars);
+
+/** just lens variables */
+void fillLensVarMap(LensVarMap & vars);
 
 /** print a variable map to \p o */
 void printVariableMap(std::ostream & o, const VariableMap & vars);
