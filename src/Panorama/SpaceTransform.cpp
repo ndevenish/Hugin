@@ -1,0 +1,1027 @@
+// -*- c-basic-offset: 4 -*-
+
+/** @file SpaceTransform.cpp
+ *
+ *  @implementation of Space Transformation
+ *
+ *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
+ *
+ *  $Id$
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+#include <math.h>
+#include "panoinc.h"
+
+using namespace std;
+using namespace PT;
+using namespace vigra;
+
+/// ctor
+SpaceTransform::SpaceTransform()
+{
+	m_Initialized = false;
+}
+
+/// dtor
+SpaceTransform::~SpaceTransform() 
+{ 
+}
+
+void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3 )
+{
+	fDescription fD;
+	fD.param.var0	= var0;
+	fD.param.var1	= var1;
+	fD.param.var2	= var2;
+	fD.param.var3	= var3;
+	fD.func			= function_name;
+	m_Stack.push_back( fD );
+}
+
+void SpaceTransform::AddTransform( PT::trfn function_name, Matrix3 m, double var0, double var1, double var2, double var3)
+{
+	fDescription fD;
+	fD.param.distance	= var0;
+	fD.param.var1	= var1;
+	fD.param.var2	= var2;
+	fD.param.var3	= var3;
+	fD.param.mt			= m;
+	fD.func				= function_name;
+	m_Stack.push_back( fD );
+}
+
+Matrix3 SetMatrix( double a, double b, double c, int cl )
+{
+	Matrix3 mx, my, mz, dummy;
+	
+	// Calculate Matrices;
+	mx.SetRotationX( a );
+	my.SetRotationY( b );
+	mz.SetRotationZ( c );
+	
+	if (cl)
+		return ( (mz * mx) * my );
+	else
+		return ( (mx * mz) * my );
+	
+	//if( cl )
+	//		matrix_matrix_mult( mz,	mx,	dummy);
+	//else
+	//	matrix_matrix_mult( mx,	mz,	dummy);
+	//matrix_matrix_mult( dummy, my, m);
+}
+
+
+// =====
+// ===== Pano12.dll (math.c) functions, helmut dersch
+// =====
+
+#define MAXITER 100
+#define R_EPS 1.0e-6
+
+// Rotate equirectangular image
+static void rotate_erect( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
+{
+	// params: double 180degree_turn(screenpoints), double turn(screenpoints);
+	*x_src = x_dest + params.var1;
+	while( *x_src < -params.var0 )
+		*x_src += 2 * params.var0;
+	while( *x_src >  params.var0 )
+		*x_src -= 2 * params.var0;
+	*y_src = y_dest;
+}
+
+// Calculate inverse 4th order polynomial correction using Newton
+// Don't use on large image (slow)!
+static void inv_radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
+{
+	// params: double coefficients[5]
+	register double rs, rd, f, scale;
+	int iter = 0;
+
+	rd	= (sqrt( x_dest*x_dest + y_dest*y_dest )) / params.var4; // Normalized 
+
+	rs	= rd;				
+	f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
+
+	while( abs(f - rd) > R_EPS && iter++ < MAXITER )
+	{
+		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  + 
+						  2 * params.var1) * rs + params.var0);
+
+		f 	= (((params.var3 * rs + params.var2) * rs + 
+				params.var1) * rs + params.var0) * rs;
+	}
+
+	scale = rs / rd;
+//	printf("scale = %lg iter = %d\n", scale,iter);	
+	
+	*x_src = x_dest * scale  ;
+	*y_src = y_dest * scale  ;
+}
+
+static void inv_vertical( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
+{
+	// params: double coefficients[4]
+	register double rs, rd, f, scale;
+	int iter = 0;
+
+	rd 	= abs( y_dest ) / params.var4; // Normalized 
+	rs	= rd;				
+	f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
+
+	while( abs(f - rd) > R_EPS && iter++ < MAXITER )
+	{
+		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  + 
+						  2 * params.var1) * rs + params.var0);
+
+		f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
+	}
+
+	scale = rs / rd;
+//	printf("scale = %lg iter = %d\n", scale,iter);	
+	
+	*x_src = x_dest  ;
+	*y_src = y_dest * scale  ;
+}
+
+// scale 
+static void resize( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double scale_horizontal, double scale_vertical;
+	*x_src = x_dest * params.var0;
+	*y_src = y_dest * params.var1;
+}
+
+// shear
+static void shear( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double shear_horizontal, double shear_vertical;
+	*x_src  = x_dest + params.var0 * y_dest;
+	*y_src  = y_dest + params.var1 * x_dest;
+}
+
+// horiz shift
+static void horiz( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double horizontal params.shift
+	*x_src	= x_dest + params.shift;	
+	*y_src  = y_dest;
+}
+
+// vertical shift
+static void vert( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double vertical params.shift
+	*x_src	= x_dest;	
+	*y_src  = y_dest + params.shift;
+}
+
+// radial
+static void radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double coefficients[4], scale, correction_radius
+	register double r, scale;
+
+	r = (sqrt( x_dest*x_dest + y_dest*y_dest )) / params.var4;
+	if( r < params.var5 )
+	{
+		scale = ((params.var3 * r + params.var2) * r + params.var1) * r + params.var0;
+	}
+	else
+		scale = 1000.0;
+	
+	*x_src = x_dest * scale  ;
+	*y_src = y_dest * scale  ;
+}
+
+//
+static void vertical( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double coefficients[4]
+	register double r, scale;
+
+	r = y_dest / params.var4;
+
+	if( r < 0.0 ) r = -r;
+
+	scale = ((params.var3 * r + params.var2) * r + params.var1) * r + params.var0;
+	
+	*x_src = x_dest;
+	*y_src = y_dest * scale  ;
+}
+
+// 
+static void deregister( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double coefficients[4]
+	register double r, scale;
+
+	r = y_dest / params.var4;
+
+	if( r < 0.0 ) r = -r;
+
+	scale 	= (params.var3 * r + params.var2) * r + params.var1 ;
+	
+	*x_src = x_dest + abs( y_dest ) * scale;
+	*y_src = y_dest ;
+}
+
+// perspective
+void persp_sphere( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params :  double Matrix[3][3], double params.distance
+	register double theta,s,r;
+	Vector3 v, v2;
+
+	r = sqrt( x_dest * x_dest + y_dest * y_dest );
+	theta 	= r / params.distance;
+	if( r == 0.0 )
+		s = 0.0;
+	else
+		s = sin( theta ) / r;
+
+	v.x =  s * x_dest ;
+	v.y =  s * y_dest ;
+	v.z =  cos( theta );
+
+	v2 = params.mt.TransformVector( v );
+
+	r = sqrt( v2.x*v2.x + v2.y*v2.y );
+	if( r == 0.0 )
+		theta = 0.0;
+	else
+		theta 	= params.distance * atan2( r, v2.z ) / r;
+	*x_src 	= theta * v2.x;
+	*y_src 	= theta * v2.y;
+}	
+
+
+// perspective rect
+void persp_rect( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params :  double Matrix[3][3], double params.distance, double x-offset, double y-offset
+	Vector3 v;
+	v.x = x_dest + params.var2;
+	v.y = y_dest + params.var3;
+	v.z = params.var1;
+	v = params.mt.TransformVector( v );
+	*x_src = v.x * params.var1 / v.z;
+	*y_src = v.y * params.var1 / v.z;
+}
+
+// 
+static void rect_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{									
+	*x_src = params.distance * tan( x_dest / params.distance ) ;
+	*y_src = y_dest / cos( x_dest / params.distance );
+}
+
+//
+static void pano_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	*x_src = params.distance * atan ( x_dest / params.distance );
+	*y_src = y_dest * cos( *x_src / params.distance );
+}
+
+//
+static void rect_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	// params: double params.distance
+	register double  phi, theta;
+
+	phi 	= x_dest / params.distance;
+	theta 	=  - y_dest / params.distance  + PI / 2.0;
+	if(theta < 0)
+	{
+		theta = - theta;
+		phi += PI;
+	}
+	if(theta > PI)
+	{
+		theta = PI - (theta - PI);
+		phi += PI;
+	}
+
+	*x_src = params.distance * tan(phi);
+	*y_src = params.distance / (tan( theta ) * cos(phi));
+}
+
+//
+static void pano_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	// params: double params.distance
+	*x_src = x_dest;
+	*y_src = params.distance * tan( y_dest / params.distance);
+}
+
+//
+static void erect_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	// params: double params.distance
+	*x_src = x_dest;
+	*y_src = params.distance * atan( y_dest / params.distance);
+}
+
+//
+static void sphere_cp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b
+	register double phi, theta;
+	phi 	= - x_dest /  ( params.var0 * PI / 2.0);
+	theta 	=  - ( y_dest + params.var1 ) / ( PI / 2.0) ;
+	*x_src =  theta * cos( phi );
+	*y_src =  theta * sin( phi );
+}
+
+//
+static void sphere_tp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double phi, theta, r,s;
+	double v[3];
+	phi 	= x_dest / params.distance;
+	theta 	=  - y_dest / params.distance  + PI / 2;
+	if(theta < 0)
+	{
+		theta = - theta;
+		phi += PI;
+	}
+	if(theta > PI)
+	{
+		theta = PI - (theta - PI);
+		phi += PI;
+	}
+	s = sin( theta );
+	v[0] =  s * sin( phi );	//  y' -> x
+	v[1] =  cos( theta );				//  z' -> y
+	r = sqrt( v[1]*v[1] + v[0]*v[0]);	
+	theta = params.distance * atan2( r , s * cos( phi ) );
+
+	*x_src =  theta * v[0] / r;
+	*y_src =  theta * v[1] / r;
+}
+
+//
+static void erect_sphere_cp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b
+	register double phi, theta;
+	theta = sqrt( x_dest * x_dest + y_dest * y_dest ) ;
+	phi   = atan2( y_dest , -x_dest );
+	*x_src = params.var0 * phi;
+	*y_src = theta - params.var1;
+}
+
+//
+static void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double rho, theta,r;
+	r = sqrt( x_dest*x_dest + y_dest*y_dest );
+	theta 	= r / params.distance;
+	if( theta > PI /2.0   )
+		theta = PI /2.0 ;
+	if( theta == 0.0 )
+		rho = 1.0;
+	else
+		rho =  tan( theta ) / theta;
+	*x_src = rho * x_dest ;
+	*y_src = rho * y_dest ;
+}
+
+//
+static void sphere_tp_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	// params: double params.distance
+	register double  theta, r;
+	r = sqrt(x_dest*x_dest + y_dest*y_dest) / params.distance;
+	if( r== 0.0 )
+		theta = 1.0;
+	else
+		theta 	= atan( r ) / r;
+	*x_src =  theta * x_dest ;
+	*y_src =  theta * y_dest ;
+}
+
+// 
+static void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double r, s, Phi, theta;
+	Phi = x_dest / params.distance;
+	s =  params.distance * sin( Phi ) ;	//  y' -> x
+	r = sqrt( s*s + y_dest*y_dest );
+	theta = params.distance * atan2( r , (params.distance * cos( Phi )) ) / r;
+	*x_src =  theta * s ;
+	*y_src =  theta * y_dest ;
+}
+
+// 
+static void pano_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double r,s, theta;
+	double v[3];
+	r = sqrt( x_dest * x_dest + y_dest * y_dest );
+	theta = r / params.distance;
+	if( theta == 0.0 )
+		s = 1.0 / params.distance;
+	else
+		s = sin( theta ) /r;
+	v[1] =  s * x_dest ;   //  x' -> y
+	v[0] =  cos( theta );				//  z' -> x
+	*x_src = params.distance * atan2( v[1], v[0] );
+	*y_src = params.distance * s * y_dest / sqrt( v[0]*v[0] + v[1]*v[1] );
+}
+
+//
+static void sphere_cp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double phi, theta;
+	phi 	= -x_dest / (params.distance * PI / 2.0) ;
+	theta	= PI /2.0 + atan( y_dest / (params.distance * PI/2.0) );
+	*x_src = params.distance * theta * cos( phi );
+	*y_src = params.distance * theta * sin( phi );
+}
+
+//
+static void erect_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	*x_src = params.distance * atan2( x_dest, params.distance );
+	*y_src = params.distance * atan2(  y_dest, sqrt( params.distance*params.distance + x_dest*x_dest ) );
+}
+
+//
+static void erect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance
+	register double  theta,r,s;
+	double	v[3];
+	r = sqrt( x_dest * x_dest + y_dest * y_dest );
+	theta = r / params.distance;
+	if(theta == 0.0)
+		s = 1.0 / params.distance;
+	else
+		s = sin( theta) / r;
+	
+	v[1] =  s * x_dest;   
+	v[0] =  cos( theta );				
+	
+	*x_src = params.distance * atan2( v[1], v[0] );
+	*y_src = params.distance * atan( s * y_dest /sqrt( v[0]*v[0] + v[1]*v[1] ) ); 
+}
+
+//
+static void mirror_sphere_cp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b
+	register double rho, phi, theta;
+	theta = sqrt( x_dest * x_dest + y_dest * y_dest ) / params.var0;
+	phi   = atan2( y_dest , x_dest );
+	rho = params.var1 * sin( theta / 2.0 );
+	*x_src = - rho * cos( phi );
+	*y_src = rho * sin( phi );
+}
+
+//
+static void mirror_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b, double b2
+	register double phi, theta, rho;
+	phi 	=  x_dest / ( params.var0 * PI/2.0) ;
+	theta 	=  - ( y_dest + params.var2 ) / (params.var0 * PI/2.0)  ;
+	rho = params.var1 * sin( theta / 2.0 );
+	*x_src = - rho * cos( phi );
+	*y_src = rho * sin( phi );
+}
+
+//
+static void mirror_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b
+	register double phi, theta, rho;
+	phi 	= -x_dest / (params.var0 * PI/2.0) ;
+	theta	= PI /2.0 + atan( y_dest / (params.var0 * PI/2.0) );
+	rho = params.var1 * sin( theta / 2.0 );
+	*x_src = rho * cos( phi );
+	*y_src = rho * sin( phi );
+}
+
+//
+static void sphere_cp_mirror( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.distance, double b
+	register double phi, theta, rho;
+	rho = sqrt( x_dest*x_dest + y_dest*y_dest );
+	theta = 2 * asin( rho/params.var1 );
+	phi   = atan2( y_dest , x_dest );
+	*x_src = params.var0 * theta * cos( phi );
+	*y_src = params.var0 * theta * sin( phi );
+}
+
+//
+static void shift_scale_rotate( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+	// params: double params.shift_x, params.shift_y, scale, cos_phi, sin_phi
+	register double x = x_dest - params.var0;
+	register double y = y_dest - params.var1;
+	*x_src = (x * params.var3 - y * params.var4) * params.var2;
+	*y_src = (x * params.var4 + y * params.var3) * params.var2;
+}
+
+/*
+
+// Correct radial luminance change using parabel
+unsigned char radlum( unsigned char srcPixel, int xc, int yc, void *params )
+{
+	// params: second and zero order polynomial coeff
+	register double result;
+
+	result = (xc * xc + yc * yc) * params.var0 + params.var1;
+	result = ((double)srcPixel) - result;
+
+	if(result < 0.0) return 0;
+	if(result > 255.0) return 255;
+
+	return( (unsigned char)(result+0.5) );
+}
+
+
+// Get smallest positive (non-zero) root of polynomial with degree deg and
+// (n+1) real coefficients p[i]. Return it, or 1000.0 if none exists or error occured
+// Changed to only allow degree 3
+#if 0
+double smallestRoot( double *p )
+{
+	doublecomplex 		root[3], poly[4];
+	doublereal 			radius[3], apoly[4], apolyr[4];
+	logical 			myErr[3];
+	double 				sRoot = 1000.0;
+	doublereal 			theEps, theBig, theSmall;
+	integer 			nitmax;
+	integer 			iter;
+	integer 			n,i;
+	
+	n 		= 3;
+
+	
+	for( i=0; i< n+1; i++)
+	{
+		poly[i].r = p[i];
+		poly[i].i = 0.0;
+	}
+	
+	theEps   = DBL_EPSILON;  		// machine precision 
+	theSmall = DBL_MIN ; 			// smallest positive real*8          
+	theBig   = DBL_MAX ; 			// largest real*8  
+
+	nitmax 	= 100;
+
+    polzeros_(&n, poly, &theEps, &theBig, &theSmall, &nitmax, root, radius, myErr, &iter, apoly, apolyr);
+
+	for( i = 0; i < n; i++ )
+	{
+//		PrintError("No %d : Real %g, Imag %g, radius %g, myErr %ld", i, root[i].r, root[i].i, radius[i], myErr[i]);
+		if( (root[i].r > 0.0) && (dabs( root[i].i ) <= radius[i]) && (root[i].r < sRoot) )
+			sRoot = root[i].r;
+	}
+
+	return sRoot;
+}
+#endif
+
+void cubeZero( double *a, int *n, double *root );
+void squareZero( double *a, int *n, double *root );
+double cubeRoot( double x );
+
+
+void cubeZero( double *a, int *n, double *root ){
+	if( a[3] == 0.0 ){ // second order polynomial
+		squareZero( a, n, root );
+	}else{
+		double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
+		double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
+		
+		if( q*q + p*p*p >= 0.0 ){
+			*n = 1;
+			root[0] = cubeRoot(-q + sqrt(q*q + p*p*p)) + cubeRoot(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]); 
+		}else{
+			double phi = acos( -q / sqrt(-p*p*p) );
+			*n = 3;
+			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]); 
+			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]); 
+			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]); 
+		}
+	}
+	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
+}
+
+void squareZero( double *a, int *n, double *root ){
+	if( a[2] == 0.0 ){ // linear equation
+		if( a[1] == 0.0 ){ // constant
+			if( a[0] == 0.0 ){
+				*n = 1; root[0] = 0.0;
+			}else{
+				*n = 0;
+			}
+		}else{
+			*n = 1; root[0] = - a[0] / a[1];
+		}
+	}else{
+		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
+			*n = 0; 
+		}else{
+			*n = 2;
+			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+			root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+		}
+	}
+
+}
+
+double cubeRoot( double x ){
+	if( x == 0.0 )
+		return 0.0;
+	else if( x > 0.0 )
+		return pow(x, 1.0/3.0);
+	else
+		return - pow(-x, 1.0/3.0);
+}
+
+double smallestRoot( double *p ){
+	int n,i;
+	double root[3], sroot = 1000.0;
+	
+	cubeZero( p, &n, root );
+	
+	for( i=0; i<n; i++){
+		// PrintError("Root %d = %lg", i,root[i]);
+		if(root[i] > 0.0 && root[i] < sroot)
+			sroot = root[i];
+	}
+	
+	// PrintError("Smallest Root  = %lg", sroot);
+	return sroot;
+}
+
+*/
+/** Creates the stacks of matrices and flatten them
+  *   
+  */
+void SpaceTransform::Init(
+	const Diff2D & srcSize,
+    const VariableMap & srcVars,
+    Lens::LensProjectionFormat srcProj,
+    const Diff2D &destSize,
+    PanoramaOptions::ProjectionFormat destProj,
+	double destHFOV )
+{
+	int 	i;
+	double	a, b;
+	Matrix3 mpmt;
+	double  mpdistance, mpscale[2], mpshear[2], mprot[2], mpperspect[2], mprad[6];
+
+	double  imhfov  = const_map_get(srcVars,"v").getValue();
+	double  imwidth = srcSize.x;
+	double  imheight= srcSize.y;
+    double  imyaw	= const_map_get(srcVars,"y").getValue();
+    double  impitch = const_map_get(srcVars,"p").getValue();
+    double	imroll	= const_map_get(srcVars,"r").getValue();
+	double  pnhfov  = destHFOV;
+	double  pnwidth = destSize.x;
+	double  pnheight= destSize.y;
+
+	m_Stack.clear();
+    m_srcTX = destSize.x/2.0;
+    m_srcTY = destSize.y/2.0;
+    m_destTX = srcSize.x/2.0;
+    m_destTY = srcSize.y/2.0;
+
+	a = DEG_TO_RAD( imhfov );	// field of view in rad		
+	b = DEG_TO_RAD( pnhfov );
+
+	mpmt = SetMatrix(	-DEG_TO_RAD( impitch ), 
+						0.0, 
+						- DEG_TO_RAD( imroll ), 
+						0 );
+
+	if (destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
+	{
+		mpdistance = pnwidth / (2.0 * tan(b/2.0));
+		if (srcProj == Lens::RECTILINEAR)	// rectilinear image
+		{
+			mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0))) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b; 
+
+		}
+		else //  pamoramic or fisheye image
+		{
+			mpscale[0] = (pnhfov / imhfov) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b; 
+		}
+	}
+	else // equirectangular or panoramic or fisheye
+	{
+		mpdistance = pnwidth / b;
+		if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+		{
+			mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0)))*( imwidth / pnwidth );
+		}
+		else //  pamoramic or fisheye image
+		{
+			mpscale[0] = (pnhfov / imhfov) * ( imwidth / pnwidth ); 
+		}
+	}
+	mpscale[1]		= mpscale[0];
+	mpshear[0]		= 0.0; // TODO : im->cP.shear_x / imheight;
+	mpshear[1]		= 0.0; // TODO : im->cP.shear_y / imwidth;
+	mprot[0]		= mpdistance * PI;								// 180¡ in screenpoints
+	mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
+	
+	/*for(i=0; i<4; i++)
+		mprad[i] 	= im->cP.radial_params[color][i];
+	mprad[5] = im->cP.radial_params[color][4];
+
+	if( (im->cP.correction_mode & 3) == correction_mode_radial )
+		mp->rad[4] 	= ( (double)( im->width < im->height ? im->width : im->height) ) / 2.0;
+	else
+		mp->rad[4] 	= ((double) im->height) / 2.0;*/
+		
+
+	//mp->horizontal 	= im->cP.horizontal_params[color];
+	//mp->vertical 	= im->cP.vertical_params[color];
+	
+	i = 0;
+
+	switch (destProj)
+	{
+		case Lens::RECTILINEAR :
+			// Convert rectilinear to equirect
+			AddTransform( &erect_rect, mpdistance );
+			break;
+
+		case Lens::PANORAMIC :
+			// Convert panoramic to equirect
+			AddTransform( &erect_pano, mpdistance );
+			break;
+		
+		/* never used :
+		   we cannot set such output ...
+		case Lens::CIRCULAR_FISHEYE:
+		case Lens::FULL_FRAME_FISHEYE:
+			// Convert panoramic to sphere
+			AddTransform( &erect_sphere_tp, mpdistance );
+			break;*/
+	}
+
+	// Rotate equirect. image horizontally
+	AddTransform( &rotate_erect, mprot[0], mprot[1] );
+	
+	// Convert spherical image to equirect.
+	AddTransform( &sphere_tp_erect, mpdistance );
+	
+	// Perspective Control spherical Image
+	AddTransform( &persp_sphere, mpmt, mpdistance );
+
+	switch (srcProj)
+	{
+		case Lens::RECTILINEAR : 
+			// Convert rectilinear to spherical
+			AddTransform( &rect_sphere_tp, mpdistance);
+			break;
+		case Lens::PANORAMIC :
+			// Convert panoramic to spherical
+			AddTransform( &pano_sphere_tp, mpdistance );
+			break;
+		case Lens::EQUIRECTANGULAR_LENS:
+			// Convert PSphere to spherical
+			AddTransform( &erect_sphere_tp, mpdistance );
+			break;
+	}
+
+	// Scale Image
+	AddTransform( &resize, mpscale[0], mpscale[1] );
+	
+	/*if( im->cP.radial )
+	{
+		switch( im->cP.correction_mode & 3 )
+		{
+			case correction_mode_radial:    SetDesc(stack[i],radial,mp->rad); 	  i++; break;
+			case correction_mode_vertical:  SetDesc(stack[i],vertical,mp->rad);   i++; break;
+			case correction_mode_deregister:SetDesc(stack[i],deregister,mp->rad); i++; break;
+		}
+	}
+	if (  im->cP.vertical)
+	{
+		SetDesc(stack[i],vert,				&(mp->vertical)); 	i++;
+	}
+	if ( im->cP.horizontal )
+	{
+		SetDesc(stack[i],horiz,				&(mp->horizontal)); i++;
+	}
+	if( im->cP.shear )
+	{
+		SetDesc( stack[i],shear,			mp->shear		); i++;
+	}
+
+	stack[i].func  = (trfn)NULL;*/
+
+}
+
+void SpaceTransform::InitInv(
+	const Diff2D & srcSize,
+    const VariableMap & srcVars,
+    Lens::LensProjectionFormat srcProj,
+    const Diff2D &destSize,
+    PanoramaOptions::ProjectionFormat destProj,
+	double destHFOV )
+{
+	int 	i;
+	double	a, b;
+	Matrix3 mpmt;
+	double  mpdistance, mpscale[2], mpshear[2], mprot[2], mpperspect[2], mprad[6];
+
+	double  imhfov  = const_map_get(srcVars,"v").getValue();
+	double  imwidth = srcSize.x;
+	double  imheight= srcSize.y;
+    double  imyaw	= const_map_get(srcVars,"y").getValue();
+    double  impitch = const_map_get(srcVars,"p").getValue();
+    double	imroll	= const_map_get(srcVars,"r").getValue();
+	double  pnhfov  = destHFOV;
+	double  pnwidth = destSize.x;
+	double  pnheight= destSize.y;
+
+	m_Stack.clear();
+    m_srcTX = destSize.x/2.0;
+    m_srcTY = destSize.y/2.0;
+    m_destTX = srcSize.x/2.0;
+    m_destTY = srcSize.y/2.0;
+
+
+	a =	 DEG_TO_RAD( imhfov );	// field of view in rad		
+	b =	 DEG_TO_RAD( pnhfov );
+
+	mpmt = SetMatrix( 	DEG_TO_RAD( impitch ), 
+						0.0, 
+						DEG_TO_RAD( imroll ), 
+						1 );
+
+	if(destProj == Lens::RECTILINEAR)	// rectilinear panorama
+	{
+		mpdistance 	= pnwidth / (2.0 * tan(b/2.0));
+		if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+		{
+			mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b; 
+		}
+		else //  pamoramic or fisheye image
+		{
+			mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b; 
+		}
+	}
+	else // equirectangular or panoramic 
+	{
+		mpdistance 	= pnwidth / b;
+		if(srcProj == Lens::RECTILINEAR ) // rectilinear image
+		{
+			mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ); 
+		}
+		else //  pamoramic or fisheye image
+		{
+			mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth );
+		}
+	}
+	mpshear[0] 	= 0.0f; // TODO -im->cP.shear_x / im->height;
+	mpshear[1] 	= 0.0f; // -im->cP.shear_y / im->width;
+	
+	mpscale[0] = 1.0 / mpscale[0];
+	mpscale[1] = mpscale[0];
+	/*mp->horizontal 	= -im->cP.horizontal_params[color];
+	mp->vertical 	= -im->cP.vertical_params[color];
+	for(i=0; i<4; i++)
+		mp->rad[i] 	= im->cP.radial_params[color][i];
+	mp->rad[5] = im->cP.radial_params[color][4];
+	
+	switch( im->cP.correction_mode & 3 )
+	{
+		case correction_mode_radial: mp->rad[4] = ((double)(im->width < im->height ? im->width : im->height) ) / 2.0;break;
+		case correction_mode_vertical: 
+		case correction_mode_deregister: mp->rad[4] = ((double) im->height) / 2.0;break;
+	}
+	*/
+
+	mprot[0]	= mpdistance * PI;								// 180¡ in screenpoints
+	mprot[1]	= imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
+
+	//mp->perspect[0] = (void*)(mp->mt);
+	//mp->perspect[1] = (void*)&(mp->distance);
+
+	i = 0;	// Stack counter
+		
+	// Perform radial correction
+	//if( im->cP.shear )
+	//{
+	//	SetDesc( stack[i],shear,			mp->shear		); i++;
+	//}
+	//	
+	//if ( im->cP.horizontal )
+	//{
+	//	SetDesc(stack[i],horiz,				&(mp->horizontal)); i++;
+	//}
+	//if (  im->cP.vertical)
+	//{
+	//	SetDesc(stack[i],vert,				&(mp->vertical)); 	i++;
+	//}
+	/*if(   im->cP.radial )
+	{
+		switch( im->cP.correction_mode & 3)
+		{
+			case correction_mode_radial:   SetDesc(stack[i],inv_radial,mp->rad); 	i++; break;
+			case correction_mode_vertical: SetDesc(stack[i],inv_vertical,mp->rad); 	i++; break;
+			case correction_mode_deregister: break;
+		}
+	}*/
+	
+	// Scale image
+	AddTransform( &resize, mpscale[0], mpscale[1] );
+		
+	switch (srcProj)
+	{
+		case Lens::RECTILINEAR :
+			// rectilinear image
+			AddTransform( &sphere_tp_rect, mpdistance );
+			break;
+		case Lens::PANORAMIC :
+			// Convert panoramic to spherical
+			AddTransform( &sphere_tp_pano, mpdistance );
+			break;
+		case Lens::EQUIRECTANGULAR_LENS:
+			// Convert PSphere to spherical
+			AddTransform( &sphere_tp_erect, mpdistance );
+			break;
+	}
+
+	// Perspective Control spherical Image
+	AddTransform( &persp_sphere, mpmt, mpdistance );
+	// Convert spherical image to equirect.
+	AddTransform( &erect_sphere_tp, mpdistance );
+	// Rotate equirect. image horizontally
+	AddTransform( &rotate_erect, mprot[0], mprot[1] );
+
+	switch (destProj)
+	{
+		case Lens::RECTILINEAR : 
+			// Convert rectilinear to spherical
+			AddTransform( &rect_erect, mpdistance);
+			break;
+		case Lens::PANORAMIC :
+			// Convert panoramic to spherical
+			AddTransform( &pano_erect, mpdistance );
+			break;
+		/* we cannot such output
+		case Lens::EQUIRECTANGULAR_LENS:
+			// Convert PSphere to spherical
+			AddTransform( &sphere_tp_erect, mpdistance );
+			break;*/
+	}
+}
+
+//
+void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src)
+{
+	double xd = src.x, yd = src.y;
+	vector<fDescription>::iterator tI;
+	
+	for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
+    {
+		(tI->func)( xd, yd, &dest.x, &dest.y, tI->param );
+		xd = dest.x;	
+		yd = dest.y;
+	}
+}
+
+//
+void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src)
+{
+	FDiff2D dest, src;
+	src.x = x_src - m_srcTX + 0.5;
+	src.y = y_src - m_srcTY + 0.5;
+	transform( dest, src );
+	x_dest = dest.x + m_destTX - 0.5;
+	y_dest = dest.y + m_destTY - 0.5;
+}
