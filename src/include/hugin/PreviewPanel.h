@@ -74,6 +74,7 @@ private:
     // remaps the images, called automatically if autopreview is enabled.
     void updatePreview();
 
+    void mapPreviewImage(wxImage & dest, int imgNr);
 
     /** recalculate panorama to fit the panel */
     void OnResize(wxSizeEvent & e);

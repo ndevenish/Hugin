@@ -120,6 +120,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 createIcon(small, *it, m_iconHeight);
                 m_smallIcons->Replace(*it, small);
             }
+            ImageCache::getInstance().softFlush();
         }
 //    }
 
@@ -135,7 +136,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
 void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size)
 {
-    wxImage * s_img = ImageCache::getInstance().getImageSmall(
+    wxImage * s_img = ImageCache::getInstance().getSmallImage(
         pano.getImage(imgNr).getFilename());
 
     float w = s_img->GetWidth();

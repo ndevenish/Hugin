@@ -31,7 +31,6 @@
 
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
-#include "hugin/TextKillFocusHandler.h"
 //#include "hugin/List.h"
 
 //using namespace PT;
@@ -151,9 +150,6 @@ public:
     wxSpinCtrl  * m_JPEGQualitySpin;
     wxCheckBox  * m_editScriptCB;
     wxButton    * m_StitchButton;
-
-    // to convert EVT_KILL_FOCUS to EVT_TEXT_ENTER
-    TextKillFocusHandler * m_tkf;
 
     DECLARE_EVENT_TABLE()
 };

@@ -239,7 +239,7 @@ public:
      *  @todo create substitute, remove commands
      *  @todo avoid smaller images as original
      */
-    ImagePtr getImageSmall(const std::string & filename);
+    ImagePtr getSmallImage(const std::string & filename);
 
     /** release all images in the cache.
      *
@@ -247,7 +247,7 @@ public:
      *  big pictures
      */
     void flush();
-    
+
     /** a soft version of flush.
      *
      *  Releases some images if they go over a certain threshold

@@ -32,7 +32,6 @@
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
 #include "hugin/ImagesList.h"
-#include "hugin/TextKillFocusHandler.h"
 
 using namespace PT;
 
@@ -125,7 +124,6 @@ private:
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
     wxButton * m_setAnchorOrientButton;
-    TextKillFocusHandler * m_tkf;
 
     DECLARE_EVENT_TABLE()
 };

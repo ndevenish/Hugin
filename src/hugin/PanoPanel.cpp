@@ -111,24 +111,22 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    m_tkf = new TextKillFocusHandler(this);
-
     // get gui controls
     m_ProjectionChoice = XRCCTRL(*this, "pano_choice_pano_type" ,wxChoice);
     DEBUG_ASSERT(m_ProjectionChoice);
     m_HFOVSpin = XRCCTRL(*this, "pano_val_hfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_HFOVSpin);
-    m_HFOVSpin->PushEventHandler(m_tkf);
+    m_HFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
     m_VFOVSpin = XRCCTRL(*this, "pano_val_vfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_VFOVSpin);
-    m_VFOVSpin->PushEventHandler(m_tkf);
+    m_VFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
 
     m_InterpolatorChoice = XRCCTRL(*this, "pano_choice_interpolator",
                                    wxChoice);
     DEBUG_ASSERT(m_InterpolatorChoice);
     m_GammaText = XRCCTRL(*this, "pano_val_gamma" ,wxTextCtrl);
     DEBUG_ASSERT(m_GammaText);
-    m_GammaText->PushEventHandler(m_tkf);
+    m_GammaText->PushEventHandler(new TextKillFocusHandler(this));
 
     m_ColorCorrModeChoice = XRCCTRL(*this, "pano_choice_color_corr_mode",
                                     wxChoice);
@@ -156,7 +154,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 
     m_WidthTxt = XRCCTRL(*this, "pano_val_width", wxTextCtrl);
     DEBUG_ASSERT(m_WidthTxt);
-    m_WidthTxt->PushEventHandler(m_tkf);
+    m_WidthTxt->PushEventHandler(new TextKillFocusHandler(this));
 
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
     m_FormatChoice = XRCCTRL(*this, "pano_choice_format_final", wxChoice);
@@ -183,7 +181,6 @@ PanoPanel::~PanoPanel(void)
 //    m_VFOVSpin->PopEventHandler(false);
 //    m_GammaText->PopEventHandler(false);
 //    m_WidthTxt->PopEventHandler(false);
-//    delete(m_tkf);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -256,7 +253,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         m_JPEGQualitySpin->Disable();
     }
     m_JPEGQualitySpin->SetValue(opt.quality);
-    
+
     m_FeatherWidthSpin->SetValue(opt.featherWidth);
 }
 

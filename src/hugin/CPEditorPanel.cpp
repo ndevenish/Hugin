@@ -155,18 +155,15 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_cpList->InsertColumn( 6, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
 
 
-    // converts KILL_FOCUS events to usable TEXT_ENTER events
-    m_tkf = new TextKillFocusHandler(this);
-
     // other controls
     m_x1Text = XRCCTRL(*this,"cp_editor_x1", wxTextCtrl);
-    m_x1Text->PushEventHandler(m_tkf);
+    m_x1Text->PushEventHandler(new TextKillFocusHandler(this));
     m_y1Text = XRCCTRL(*this,"cp_editor_y1", wxTextCtrl);
-    m_y1Text->PushEventHandler(m_tkf);
+    m_y1Text->PushEventHandler(new TextKillFocusHandler(this));
     m_x2Text = XRCCTRL(*this,"cp_editor_x2", wxTextCtrl);
-    m_x2Text->PushEventHandler(m_tkf);
+    m_x2Text->PushEventHandler(new TextKillFocusHandler(this));
     m_y2Text = XRCCTRL(*this,"cp_editor_y2", wxTextCtrl);
-    m_y2Text->PushEventHandler(m_tkf);
+    m_y2Text->PushEventHandler(new TextKillFocusHandler(this));
 
     m_cpModeChoice = XRCCTRL(*this, "cp_editor_mode", wxChoice);
 
@@ -194,11 +191,10 @@ CPEditorPanel::~CPEditorPanel()
     DEBUG_TRACE("dtor");
 
     // FIXME. why does this crash at exit?
-    //m_x1Text->PopEventHandler();
-    //m_y1Text->PopEventHandler();
-    //m_x2Text->PopEventHandler();
-    //m_y2Text->PopEventHandler();
-    //delete m_tkf;
+    m_x1Text->PopEventHandler();
+    m_y1Text->PopEventHandler();
+    m_x2Text->PopEventHandler();
+    m_y2Text->PopEventHandler();
 
     wxConfigBase::Get()->Write("/CPEditorPanel/autoAdd", m_autoAddCB->IsChecked() ? 1 : 0);
     wxConfigBase::Get()->Write("/CPEditorPanel/autoFineTune", m_fineTuneCB->IsChecked() ? 1 : 0);
@@ -800,9 +796,13 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     Diff2D searchLR(subjPoint.x + swidth, subjPoint.y + swidth);
     // clip search window
     if (searchUL.x < 0) searchUL.x = 0;
+    if (searchUL.x > subjImg.width()) searchUL.x = subjImg.width();
     if (searchUL.y < 0) searchUL.y = 0;
+    if (searchUL.y > subjImg.height()) searchUL.y = subjImg.height();
     if (searchLR.x > subjImg.width()) searchLR.x = subjImg.width();
+    if (searchLR.x < 0) searchLR.x = 0;
     if (searchLR.y > subjImg.height()) searchLR.y = subjImg.height();
+    if (searchLR.y < 0) searchLR.y = 0;
     DEBUG_DEBUG("search borders: " << searchLR.x << "," << searchLR.y);
     Diff2D searchSize = searchLR - searchUL;
 
@@ -859,7 +859,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
     // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
-    
+
     // add tab bar entries, if needed
     if (nrTabs < nrImages) {
         for (unsigned int i=nrTabs; i < nrImages; i++) {
@@ -1197,9 +1197,14 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         GlobalCmdHist::getInstance().addCommand(
             new PT::RemoveCtrlPointCmd(*m_pano,pNr)
             );
-    } else if (e.m_keyCode == 't') {
+    } else if (e.m_keyCode == '0') {
         wxCommandEvent dummy;
-        OnFineTuneButton(dummy);
+        dummy.SetInt(1);
+        OnZoom(dummy);
+    } else if (e.m_keyCode == '1') {
+        wxCommandEvent dummy;
+        dummy.SetInt(0);
+        OnZoom(dummy);
     } else if (e.m_keyCode == 'p') {
         // only estimate when there are control points.
         if (currentPoints.size() > 0) {

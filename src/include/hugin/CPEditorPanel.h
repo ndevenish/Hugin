@@ -49,7 +49,6 @@ class wxNotebook;
 class wxNotebookEvent;
 class wxListEvent;
 class wxListCtrl;
-class TextKillFocusHandler;
 
 struct FDiff2D;
 struct CorrelationResult;
@@ -164,7 +163,7 @@ private:
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
     // local fine tune.
-    FDiff2D LocalFineTunePoint(unsigned int srcNr, 
+    FDiff2D LocalFineTunePoint(unsigned int srcNr,
                                const vigra::Diff2D & srcPnt,
                                unsigned int moveNr,
                                const vigra::Diff2D & movePnt);
@@ -232,8 +231,6 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
-
-    TextKillFocusHandler * m_tkf;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

@@ -53,6 +53,7 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/TextKillFocusHandler.h"
 #include "PT/PanoCommand.h"
 #include "PT/Panorama.h"
 
@@ -105,15 +106,13 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 //    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    m_tkf = new TextKillFocusHandler(this);
-
-    XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(m_tkf);
+    XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     // dummy to disable controls
     wxListEvent ev;
@@ -135,7 +134,6 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler();
-    delete(m_tkf);
 */
 
     pano.removeObserver(this);

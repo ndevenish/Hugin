@@ -283,6 +283,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 MainFrame::~MainFrame()
 {
     DEBUG_TRACE("dtor");
+    ImageCache::getInstance().setProgressDisplay(0);
 //    delete cpe;
 //    delete images_panel;
     DEBUG_DEBUG("removing observer");

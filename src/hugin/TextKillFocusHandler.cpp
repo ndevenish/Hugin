@@ -42,6 +42,8 @@
 
 BEGIN_EVENT_TABLE(TextKillFocusHandler, wxEvtHandler)
     EVT_KILL_FOCUS(TextKillFocusHandler::OnKillFocus)
+    EVT_TEXT_ENTER(-1, TextKillFocusHandler::OnTextEnter)
+    EVT_TEXT(-1, TextKillFocusHandler::OnTextChange)
 END_EVENT_TABLE()
 
 
@@ -55,8 +57,39 @@ void TextKillFocusHandler::OnKillFocus(wxFocusEvent & e)
     DEBUG_TRACE("Control ID:" << e.m_id);
     // create a text changed event
     // need to get id of the eve
-    wxCommandEvent cmdEvt(wxEVT_COMMAND_TEXT_ENTER, e.m_id);
-    cmdEvt.m_eventObject = e.m_eventObject;
-    m_parent->ProcessEvent(cmdEvt);
+    if (dirty) {
+        DEBUG_DEBUG("forwarding focus change");
+        wxCommandEvent cmdEvt(wxEVT_COMMAND_TEXT_ENTER, e.m_id);
+        cmdEvt.m_eventObject = e.m_eventObject;
+        m_parent->ProcessEvent(cmdEvt);
+        dirty = false;
+    }
     e.Skip();
 }
+
+void TextKillFocusHandler::OnTextEnter(wxCommandEvent & e)
+{
+    DEBUG_TRACE("Control ID:" << e.m_id);
+    // create a text changed event
+    // need to get id of the event
+    if (dirty) {
+        // let the event through
+        dirty = false;
+        e.Skip();
+    } else {
+        // do not skip the event -> block
+    }
+}
+
+
+void TextKillFocusHandler::OnTextChange(wxCommandEvent & e)
+{
+    DEBUG_TRACE("Control ID:" << e.m_id);
+    // check if it was an enter event.
+    DEBUG_DEBUG("event: int: " << e.GetInt() << "  sel: " << e.GetSelection()
+                << "  string: " << e.GetString());
+    dirty = true;
+    e.Skip();
+}
+
+

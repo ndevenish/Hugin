@@ -39,9 +39,10 @@ public:
 
     /** ctor.
      *  @param parent that will receive the EVT_TEXT_ENTER event.
+     *         to indicate the change
      */
     TextKillFocusHandler(wxWindow * parent)
-        : m_parent(parent)
+        : m_parent(parent), dirty(false)
         { }
 
     /** dtor.
@@ -49,9 +50,13 @@ public:
     virtual ~TextKillFocusHandler();
 
     void OnKillFocus(wxFocusEvent & e);
+    void OnTextChange(wxCommandEvent & e);
+    void OnTextEnter(wxCommandEvent & e);
 
 private:
     wxWindow * m_parent;
+    
+    bool dirty;
 
     DECLARE_EVENT_TABLE()
 

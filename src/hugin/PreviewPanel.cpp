@@ -44,7 +44,9 @@
 #include "hugin/ImageCache.h"
 #include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
+#include "PT/PanoToolsInterface.h"
 #include "hugin/PanoToolsInterface.h"
+#include "hugin/ImageProcessing.h"
 
 #include "hugin/PreviewPanel.h"
 #ifdef min
@@ -57,6 +59,7 @@
 
 using namespace PT;
 using namespace std;
+using namespace vigra;
 
 BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
 //    EVT_PAINT(CPImageCtrl::OnPaint)
@@ -202,14 +205,12 @@ void PreviewPanel::updatePreview()
         DEBUG_DEBUG("landscape: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
     }
 
-    wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
 
     UIntSet::iterator it = m_dirtyImgs.begin();
     while(it != m_dirtyImgs.end()) {
         if (set_contains(m_displayedImages, *it)) {
-            if (!PTools::mapImage(timg, pano, *it, pano.getOptions()),true) {
-                DEBUG_ERROR("mapImage for image " << *it << " failed" );
-            }
+            wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
+            mapPreviewImage(timg, *it);
             // FIXME.. we just mask out the black areas and hope that the
             // image doesn't contain some..
             timg.SetMaskColour(0,0,0);
@@ -311,3 +312,49 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
     DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
 }
 
+
+void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
+{
+    PTools::Transform t;
+    PTools::Transform invT;
+    const PanoImage & pimg = pano.getImage(imgNr);
+    wxImage * src = ImageCache::getInstance().getSmallImage(
+        pimg.getFilename());
+        
+    Diff2D srcSize(src->GetWidth(), src->GetHeight());
+    PanoramaOptions opts = pano.getOptions();
+    opts.width = m_panoImgSize.GetWidth();
+    Diff2D panoSize(opts.width, opts.getHeight());
+    DEBUG_ASSERT(panoSize.x == dest.GetWidth());
+    DEBUG_ASSERT(panoSize.y == dest.GetHeight());
+    
+    t.createTransform(pano, imgNr, opts, srcSize);
+    invT.createInvTransform(pano, imgNr, opts, srcSize);
+    
+    // outline of this image in final panorama
+    vector<FDiff2D> outline;
+    // bounding box
+    FDiff2D ul;
+    FDiff2D lr;
+    PTools::calcBorderPoints(srcSize, invT, back_inserter(outline),
+                             ul, lr);
+
+    Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
+    Diff2D lrInt((int)ceil(lr.x), (int)ceil(lr.y));
+    if (ulInt.x < 0) ulInt.x = 0;
+    if (ulInt.y < 0) ulInt.y = 0;
+    if (ulInt.x >= panoSize.x) ulInt.x = panoSize.x -1;
+    if (ulInt.y >= panoSize.y) ulInt.y = panoSize.y -1;
+    if (lrInt.x < 0) lrInt.x = 0;
+    if (lrInt.y < 0) lrInt.y = 0;
+    if (lrInt.x >= panoSize.x) lrInt.x = panoSize.x -1;
+    if (lrInt.y >= panoSize.y) lrInt.y = panoSize.y -1;
+
+    // remap image with that transform
+    PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
+                                        wxImageLowerRight(*src)),
+                           destIterRange(wxImageUpperLeft(dest)+ ulInt,
+                                         wxImageUpperLeft(dest)+lrInt),
+                           ulInt,
+                           t);
+}

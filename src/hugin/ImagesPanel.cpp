@@ -45,6 +45,7 @@
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
+#include "hugin/TextKillFocusHandler.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
@@ -107,11 +108,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     // Image Preview
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    m_tkf = new TextKillFocusHandler(this);
-
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(m_tkf);
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(m_tkf);
+    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -152,7 +151,7 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     {
         ShowImgParameters( *(selected.begin()) );
     }
-   
+
     DEBUG_TRACE("");
 }
 
@@ -341,7 +340,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
     wxSize sz = imgctrl->GetSize();
-    const wxImage * img = ImageCache::getInstance().getImageSmall(
+    const wxImage * img = ImageCache::getInstance().getSmallImage(
         pano.getImage(imgNr).getFilename());
 
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();

@@ -31,7 +31,6 @@
 
 #include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
-#include "hugin/TextKillFocusHandler.h"
 
 class ImagesListLens;
 
@@ -105,8 +104,6 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     unsigned int m_editLensNr;
     // image that has been changed.
     unsigned int m_editImageNr;
-
-    TextKillFocusHandler * m_tkf;
 
     void updateHFOV(void);
 

@@ -83,7 +83,7 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = wxConfigBase::Get()->Read("/ImageCache/upperBound",200 * 1024 * 1024l);
+    long upperBound = wxConfigBase::Get()->Read("/ImageCache/upperBound", 75 * 1024 * 1024l);
     long hysteresis = wxConfigBase::Get()->Read("/ImageCache/hysteresis",25 * 1024 * 1024l);
 
     long purgeToSize = upperBound + hysteresis;
@@ -115,7 +115,7 @@ void ImageCache::softFlush()
         // then the full size images an the
 
         while (purgeAmount > purgedMem) {
-            
+
             bool deleted = false;
             if (pyrImages.size() > 0) {
                 BImage * imgPtr = (*(pyrImages.begin())).second;
@@ -137,7 +137,7 @@ void ImageCache::softFlush()
                         break;
                     }
                 }
-            } 
+            }
             if (!deleted) {
                 DEBUG_WARN("Purged all not preview images, but ImageCache still to big");
                 break;
@@ -165,7 +165,7 @@ ImageCache & ImageCache::getInstance()
 ImagePtr ImageCache::getImage(const std::string & filename)
 {
 //    softFlush();
-    
+
     std::map<std::string, wxImage *>::iterator it;
     it = images.find(filename);
     if (it != images.end()) {
@@ -186,7 +186,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     }
 }
 
-ImagePtr ImageCache::getImageSmall(const std::string & filename)
+ImagePtr ImageCache::getSmallImage(const std::string & filename)
 {
 //    softFlush();
     std::map<std::string, wxImage *>::iterator it;
@@ -204,7 +204,7 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
         ImagePtr image = getImage(filename);
         if (image->Ok()) {
             wxImage small_image;
-            const int w = 256;
+            const int w = 512;
             double ratio = (double)image->GetWidth() / image->GetHeight();
             small_image = image->Scale(w, (int) (w/ratio));
 
