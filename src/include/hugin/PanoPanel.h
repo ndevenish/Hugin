@@ -71,7 +71,8 @@ public:
 //    void panoramaImageChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     /** set the image */
-    void previewSingleChanged(wxCommandEvent & e);
+// TODO remove
+//    void previewSingleChanged(wxCommandEvent & e);
 
  private:
 
@@ -82,23 +83,26 @@ public:
     void UpdateDisplay(const PT::PanoramaOptions & opt);
 
     // apply changes to the model. (gui values -> Panorama)
-    void ColourModeChanged(wxCommandEvent & e);
+// TODO remove
+//    void ColourModeChanged(wxCommandEvent & e);
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
     void VFOVChanged ( wxCommandEvent & e );
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
 
-    void AutoPreviewChanged (wxCommandEvent & e);
-    void PanoviewerEnabled(wxCommandEvent & e);
-    void PreviewWidthChanged(wxCommandEvent & e);
+// TODO remove
+//    void AutoPreviewChanged (wxCommandEvent & e);
+//    void PanoviewerEnabled(wxCommandEvent & e);
+//    void PreviewWidthChanged(wxCommandEvent & e);
 
     void FileFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);
 
     // actions
     void DoStitch(wxCommandEvent & e);
-    void DoPreview(wxCommandEvent & e);
+// TODO remove
+//    void DoPreview(wxCommandEvent & e);
     void DoCalcFOV(wxCommandEvent & e);
 
     /** set the highest sensible width
@@ -127,6 +131,8 @@ public:
 
     wxChoice    * m_InterpolatorChoice;
     wxTextCtrl  * m_GammaText;
+// TODO remove
+#if 0
     wxChoice    * m_ColorCorrModeChoice;
     wxSpinCtrl   * m_ColorCorrRefSpin;
 
@@ -134,6 +140,7 @@ public:
     wxCheckBox  * m_AutoPreviewCB;
     wxCheckBox  * m_PreviewPanoviewerCB;
     wxButton    * m_PreviewButton;
+#endif
 
     wxTextCtrl  * m_WidthCombo;
     wxStaticText *m_HeightStaticText;

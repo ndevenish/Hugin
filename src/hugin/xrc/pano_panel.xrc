@@ -173,79 +173,6 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
-              <label>Preview</label>
-              <orient>wxVERTICAL</orient>
-              <object class="sizeritem">
-                <object class="wxFlexGridSizer">
-                  <object class="sizeritem">
-                    <object class="wxStaticText">
-                      <label>Width</label>
-                    </object>
-                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxComboBox" name="pano_val_preview_width">
-                      <selection>4</selection>
-                      <style></style>
-                      <content>
-                        <item>240</item>
-                        <item>480</item>
-                        <item>900</item>
-                        <item>1200</item>
-                        <item>2000</item>
-                        <item>2400</item>
-                        <item>2800</item>
-                        <item>3000</item>
-                        <item>4000</item>
-                        <item>8000</item>
-                        <item>16000</item>
-                        <item>24000</item>
-                        <item>32000</item>
-                      </content>
-                    </object>
-                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                  </object>
-                  <object class="spacer">
-                    <size>0,0</size>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxCheckBox" name="pano_cb_auto_preview">
-                      <label>auto preview</label>
-                      <checked>0</checked>
-                    </object>
-                    <flag>wxEXPAND|wxGROW</flag>
-                  </object>
-                  <cols>2</cols>
-                  <rows>2</rows>
-                  <vgap>5</vgap>
-                  <hgap>5</hgap>
-                  <object class="spacer">
-                    <size>0,0</size>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxCheckBox" name="pano_cb_panoviewer_enabled">
-                      <label>panoviewer enabled</label>
-                      <checked>0</checked>
-                    </object>
-                    <flag>wxEXPAND|wxGROW</flag>
-                  </object>
-                </object>
-                <flag>wxALL|wxEXPAND|wxGROW</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="pano_button_preview">
-                  <label>Make preview</label>
-                </object>
-                <flag>wxTOP|wxEXPAND|wxGROW</flag>
-                <border>5</border>
-              </object>
-            </object>
-            <option>1</option>
-            <flag>wxALL|wxALIGN_CENTRE</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
               <label>Output file</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
@@ -343,11 +270,11 @@
         </object>
         <flag>wxEXPAND|wxALIGN_CENTRE</flag>
       </object>
+      <orient>wxVERTICAL</orient>
       <object class="spacer">
         <size>0,10</size>
         <option>1</option>
       </object>
-      <orient>wxVERTICAL</orient>
     </object>
   </object>
 </resource>
