@@ -34,6 +34,8 @@
 
 #include "PT/PanoImage.h"
 
+#include "vigra_ext/Interpolators.h"
+
 namespace PT {
 
 /** a variable has a value and a name.
@@ -267,19 +269,6 @@ public:
                             CYLINDRICAL = 1,
                             EQUIRECTANGULAR = 2 };
 
-    /** soften the stairs if they occur
-     */
-    enum Interpolator {
-        CUBIC = 0,
-        SPLINE_16,
-        SPLINE_36,
-        SINC_256,
-        SPLINE_64,
-        BILINEAR,
-        NEAREST_NEIGHBOUR,
-        SINC_1024
-    };
-
     /** PTStitcher acceleration */
     enum PTStitcherAcceleration {
         NO_SPEEDUP,
@@ -331,7 +320,7 @@ public:
           quality(90),
 	  tiff_saveROI(false),
           colorCorrection(NONE), colorReferenceImage(0),
-          gamma(1.0), interpolator(CUBIC),
+          gamma(1.0), interpolator(vigra_ext::INTERP_CUBIC),
           optimizeReferenceImage(0),
           featherWidth(10),
           remapAcceleration(MAX_SPEEDUP),
@@ -350,7 +339,7 @@ public:
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
             gamma = 1.0;
-            interpolator = CUBIC;
+            interpolator = vigra_ext::INTERP_CUBIC;
             featherWidth = 10;
             outputFormat = JPEG;
             remapAcceleration = MAX_SPEEDUP;
@@ -401,7 +390,7 @@ public:
 
     // misc options
     double gamma;
-    Interpolator interpolator;
+    vigra_ext::Interpolator interpolator;
 
     unsigned int optimizeReferenceImage;
     unsigned int featherWidth;

@@ -68,6 +68,18 @@ static double cubic12( double x )
 
 }
 
+/** enum with all interpolation methods */
+enum Interpolator {
+    INTERP_CUBIC = 0,
+    INTERP_SPLINE_16,
+    INTERP_SPLINE_36,
+    INTERP_SINC_256,
+    INTERP_SPLINE_64,
+    INTERP_BILINEAR,
+    INTERP_NEAREST_NEIGHBOUR,
+    INTERP_SINC_1024
+};
+
 
 /** several classes to calculate interpolator weights,
  *
@@ -82,8 +94,8 @@ struct interp_nearest
 
     void calc_coeff(double x, double * w) const
         {
-            w[1] = int(1-x);
-            w[0] = int(x+0.5);
+            w[1] = (x >= 0.5) ? 1 : 0;
+            w[0] = (x < 0.5) ? 0 : 1;
         }
 };
 
