@@ -266,6 +266,18 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor)
             sensorSize.x = 22.5;
             sensorSize.y = 15;
         }
+		//
+		// check if sensor size ratio and image size fit together
+		double rsensor = (double)sensorSize.x / sensorSize.y;
+		double rimg = (double) width / height;
+		if ( (rsensor > 1 && rimg < 1) || (rsensor < 1 && rimg > 1) ) {
+			// image and sensor ratio do not match
+			// swap sensor sizes
+			float t;
+			t = sensorSize.y;
+			sensorSize.y = sensorSize.x;
+			sensorSize.x = t;
+		}
         cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
         focalLength = exif.FocalLength;
     } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
