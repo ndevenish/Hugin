@@ -55,14 +55,8 @@ then
   fi
   AC_LANG_SAVE
   AC_LANG_C
-dnl  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
   AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(z,inflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl  AC_CHECK_LIB(z,gzseek,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_LANG_RESTORE
   LDFLAGS="$ZLIB_OLD_LDFLAGS"
   CPPFLAGS="$ZLIB_OLD_CPPFLAGS"
@@ -243,9 +237,6 @@ then
   fi
   AC_LANG_SAVE
   AC_LANG_C
-dnl    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_HEADER(jerror.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_HEADER(jpeglib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(jpeg,jpeg_read_header,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 
@@ -363,12 +354,7 @@ then
   AC_LANG_SAVE
   AC_LANG_C
   AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
-dnl    AC_CHECK_LIB(tiff,TIFFClientOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_LIB(tiff,TIFFIsByteSwapped,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_LIB(tiff,TIFFReadRGBATile,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_LANG_RESTORE
   LDFLAGS="$TIFF_OLD_LDFLAGS"
   CPPFLAGS="$TIFF_OLD_CPPFLAGS"
@@ -392,7 +378,6 @@ dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`exp
       AC_DEFINE(HasTIFF,1,Define if you have TIFF library)
       AC_MSG_RESULT(yes)
       have_tiff='yes'
-dnl      AC_CHECK_HEADERS(tiffconf.h)
     fi
   else
     AC_MSG_RESULT(no)

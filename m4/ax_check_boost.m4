@@ -19,10 +19,9 @@ AC_DEFUN([AX_CHECK_BOOST],
  AC_MSG_CHECKING([boost version])
  AC_MSG_RESULT($BOOST_VERSION)
 
- 
  ac_cppflags_save="${CPPFLAGS}"
  ac_ldflags_save="${LDFLAGS}"
-
+ 
  #
  # --with-boost to be used when using boost from release or CVS
  #
@@ -37,7 +36,7 @@ AC_DEFUN([AX_CHECK_BOOST],
  [
 ########################################################
   AC_MSG_CHECKING([Boost headers files presence])
-  ac_boost_includedirs="$REPOSITORY/$ARCH/include/ /usr/include/ /usr/local/include/"
+  ac_boost_includedirs="/usr/include /usr/local/include /opt/include /mingw/include /usr/include/boost$BOOST_VERSION_ /usr/local/include/boost$BOOST_VERSION_ /opt/include/boost$BOOST_VERSION_ /mingw/include/boost$BOOST_VERSION_"
   AC_FIND_FILE("boost/any.hpp",$ac_boost_includedirs , ac_boost_includedir)
   AC_MSG_RESULT([$ac_boost_includedir])
   if ! test $ac_boost_includedir = "NO"; then
@@ -45,7 +44,7 @@ AC_DEFUN([AX_CHECK_BOOST],
   fi
 
   AC_MSG_CHECKING([Boost libraries presence])
-  ac_boost_libdirs="$REPOSITORY/$ARCH/lib$AFFIX/boost /usr/lib /usr/local/lib"
+  ac_boost_libdirs="/usr/lib /usr/local/lib /opt/lib /mingw/lib"
   AC_FIND_FILE("libboost_regex-gcc.a", $ac_boost_libdirs, ac_boost_libdir)
   # echo $ac_boost_libdir
   if ! test $ac_boost_libdir = "NO"; then
@@ -74,8 +73,8 @@ AC_DEFUN([AX_CHECK_BOOST],
    have_boost=no
   ])
   AC_LANG_RESTORE
-  LDFLAGS="$ac_ldflags_save"
   CPPFLAGS="$ac_cppflags_save"
+  LDFLAGS="$ac_ldflags_save"
   if test x$have_boost = xyes; then
    AC_DEFINE(HAVE_BOOST, 1, [have boost])
    BOOST_LIBS="-L${ac_boost_libdir}"
@@ -143,6 +142,13 @@ AC_DEFUN([AX_CHECK_BOOST_LIBVARIANT],
 AC_DEFUN([AX_CHECK_BOOST_TEST],
 [
  AC_REQUIRE([AX_CHECK_BOOST])
+
+ ac_cppflags_save="${CPPFLAGS}"
+ ac_ldflags_save="${LDFLAGS}"
+ 
+ CPPFLAGS="${BOOST_CFLAGS} ${CPPFLAGS}"
+ LDFLAGS="${LDFLAGS} ${BOOST_LIBS}"
+
  AC_LANG_SAVE
  AC_LANG_CPLUSPLUS
 
@@ -166,6 +172,10 @@ AC_DEFUN([AX_CHECK_BOOST_TEST],
    ac_have_boost_test=no
   ])
   AC_LANG_RESTORE
+
+  CPPFLAGS="$ac_cppflags_save"
+  LDFLAGS="$ac_ldflags_save"
+
   AX_CHECK_BOOST_LIBVARIANT([boost_unit_test_framework])
   if test x$ac_have_boost_test = xyes -a x$boost_lib != xno; then
    AC_DEFINE(HAVE_BOOST_TEST, 1, [have boost unit test framework library])
