@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.4-cvs20041018\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2004-10-21 20:20+0200\n"
-"PO-Revision-Date: 2004-10-18 13:42+0200\n"
+"PO-Revision-Date: 2004-10-22 08:15+0200\n"
 "Last-Translator: Jean-Luc  Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -358,7 +358,7 @@ msgstr ""
 "d'un faible coefficient de corrélation\n"
 "\n"
 "Information : les erreurs des points ajustés précisément ont été affectées "
-"aucoefficient de corrélation\n"
+"au coefficient de corrélation\n"
 "Un point problématique peut être mis en évidence (juste après l'ajustement "
 "précis,\n"
 "avant l'optimisation) avec une erreur <= %f\n"
@@ -398,8 +398,8 @@ msgid ""
 msgstr ""
 "Alors que tout semble prêt pour l'assemblage,\n"
 "n'oubliez pas d'enregistrer votre projet de façon\n"
-"à pouvoir faire d'autres tests et de procéder à des\"ajustements de "
-"paramètres ultérieurement."
+"à pouvoir faire d'autres tests et de procéder à des\n"
+"ajustements de paramètres ultérieurement."
 
 #: src/hugin/PanoDruid.cpp:75 src/hugin/PreviewFrame.cpp:525
 msgid "Warning:  current stitch has huge dimensions."
@@ -707,7 +707,7 @@ msgstr "%d points de contrôle ont été ajoutés"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:79
 msgid "Autopano result"
-msgstr "Résultat d'autopano"
+msgstr "Résultat d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:94
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -750,7 +750,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "La ligne de commande d'autopano est trop longue.\n"
-"C'est une limitation de windows\n"
+"C'est une limitation de Windows\n"
 "Veuillez sélectionner moins d'images ou placez les images\n"
 "dans un dossier avec un chemin plus court."
 
@@ -854,8 +854,8 @@ msgstr ""
 "Impossible d'appeler enblend avec une ligne de commande de\n"
 "plus de 2000 caractères\n"
 "Ceci est une limitation de Windows.\n"
-"veuillez utiliser moins d'images ou placez les images dans un dossier_ndont "
-"le chemin est plus court."
+"veuillez utiliser moins d'images ou placez les images dans un dossier\n"
+"dont le chemin est plus court."
 
 #: src/hugin/NonaStitcherPanel.cpp:309
 msgid "Running Enblend"
@@ -1244,7 +1244,7 @@ msgstr "lacet :"
 
 #: src/hugin/xrc/images_panel.xrs:26
 msgid "set yaw for selected image(s)"
-msgstr "positionner l'axe de lacet pour l'image(s) sélectionnée(s)"
+msgstr "positionner l'axe de lacet pour la ou les images sélectionnées"
 
 #: src/hugin/xrc/images_panel.xrs:27
 msgid "pitch:"
@@ -1252,7 +1252,7 @@ msgstr "tangage :"
 
 #: src/hugin/xrc/images_panel.xrs:28
 msgid "set pitch for selected image(s)"
-msgstr "positionner l'axe de lacet pour l'image(s) sélectionnée(s)"
+msgstr "positionner l'axe de tangage pour la ou les images sélectionnées"
 
 #: src/hugin/xrc/images_panel.xrs:29
 msgid "roll:"
@@ -1260,7 +1260,7 @@ msgstr "roulis :"
 
 #: src/hugin/xrc/images_panel.xrs:30
 msgid "set roll for selected image(s)"
-msgstr "positionner l'axe de roulis pour l'image(s) sélectionnée(s)"
+msgstr "positionner l'axe de roulis pour la ou les images sélectionnées"
 
 #: src/hugin/xrc/images_panel.xrs:31
 msgid "Reset"
@@ -1268,7 +1268,7 @@ msgstr "Valeurs par défaut"
 
 #: src/hugin/xrc/images_panel.xrs:32
 msgid "Reset position of selected image(s)"
-msgstr "Repositionner l'image(s) à sa position par défaut"
+msgstr "Repositionner ila ou les images à leur position par défaut"
 
 #: src/hugin/xrc/images_panel.xrs:33
 msgid "This Image"
@@ -1423,7 +1423,7 @@ msgstr "distorsion (a) :"
 
 #: src/hugin/xrc/lens_panel.xrs:26 src/hugin/xrc/optimize_panel.xrs:27
 msgid "barrel (b):"
-msgstr "tonneau (b) :"
+msgstr "Barillet (b) :"
 
 #: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/optimize_panel.xrs:28
 msgid "distortion (c):"
@@ -1576,9 +1576,8 @@ msgstr ""
 "PTStitcher, ce peut être utile pour du traitement par lot."
 
 #: src/hugin/xrc/main_menu.xrs:12
-#, fuzzy
 msgid "&Preferences"
-msgstr "différence"
+msgstr "&Préférences"
 
 #: src/hugin/xrc/main_menu.xrs:13
 msgid "&Quit"
@@ -1851,11 +1850,11 @@ msgstr "Position et vue (y, p, r, v)"
 
 #: src/hugin/xrc/optimize_panel.xrs:6
 msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "Position et distorsion en tonneau (y, p, r, b)"
+msgstr "Position et distorsion en barillet (y, p, r, b)"
 
 #: src/hugin/xrc/optimize_panel.xrs:7
 msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "Positions, vue et tonneau (y, p, r, v, b)"
+msgstr "Positions, vue et barillet (y, p, r, v, b)"
 
 #: src/hugin/xrc/optimize_panel.xrs:8
 msgid "Everything"
@@ -2048,194 +2047,188 @@ msgstr "nona"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
-msgstr ""
+msgstr "Préférences - Hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:2
 msgid "Panotools"
-msgstr ""
+msgstr "Panotools"
 
 #: src/hugin/xrc/pref_dialog.xrs:3
-#, fuzzy
 msgid "Panorama Tools"
-msgstr "Éditer le script des outils de Panorama"
+msgstr "Panorama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
-#, fuzzy
 msgid "PTStitcher:"
-msgstr "PTStitcher"
+msgstr "PTStitcher :"
 
 #: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
 #: src/hugin/xrc/pref_dialog.xrs:45 src/hugin/xrc/pref_dialog.xrs:49
 #: src/hugin/xrc/pref_dialog.xrs:55
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: src/hugin/xrc/pref_dialog.xrs:6
-#, fuzzy
 msgid "PTOptimizer"
-msgstr "Optimiseur"
+msgstr "PTOptimizer"
 
 #: src/hugin/xrc/pref_dialog.xrs:8
 msgid "Scriptfile"
-msgstr ""
+msgstr "Fichier script"
 
 #: src/hugin/xrc/pref_dialog.xrs:9
 msgid "Name of the temporary script file used by Panotools"
-msgstr ""
+msgstr "Nom de fichier du script temporaire utilisé par Panotools"
 
 #: src/hugin/xrc/pref_dialog.xrs:10
 msgid "Panotools:"
-msgstr ""
+msgstr "Panotools :"
 
 #: src/hugin/xrc/pref_dialog.xrs:11
 msgid "Details"
-msgstr ""
+msgstr "Détails"
 
 #: src/hugin/xrc/pref_dialog.xrs:12
-#, fuzzy
 msgid "Finetune"
 msgstr "Ajustement précis"
 
 #: src/hugin/xrc/pref_dialog.xrs:13
 msgid "Basic Settings"
-msgstr ""
+msgstr "Configuration de base"
 
 #: src/hugin/xrc/pref_dialog.xrs:14
 #, fuzzy
 msgid "Patch width:"
-msgstr "largeur de transition :"
+msgstr "Largeur des éléments :"
 
 #: src/hugin/xrc/pref_dialog.xrs:15 src/hugin/xrc/pref_dialog.xrs:19
 msgid "pixels"
-msgstr ""
+msgstr "pixels"
 
 #: src/hugin/xrc/pref_dialog.xrs:16
-#, fuzzy
 msgid "Search area width:"
-msgstr "largeur de transition :"
+msgstr "Recherche de la largeur de la zone :"
 
 #: src/hugin/xrc/pref_dialog.xrs:17
 msgid "percent of image width"
-msgstr ""
+msgstr "pourcentage de la largeur de l'image"
 
 #: src/hugin/xrc/pref_dialog.xrs:18
 msgid "Local search area width:"
-msgstr ""
+msgstr "Recherche locale de la largeur de la zone :"
 
 #: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Correlation Threshold:"
-msgstr ""
+msgstr "Seuil de corrélation :"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
 msgstr ""
+"0 : pas de similitude\n"
+"1 : maximum de similitude"
 
 #: src/hugin/xrc/pref_dialog.xrs:22
 msgid "Rotation search"
-msgstr ""
+msgstr "Recherche par rotation"
 
 #: src/hugin/xrc/pref_dialog.xrs:23
 msgid "Enable rotation search (slower, but more accurate)"
-msgstr ""
+msgstr "Valider la recherche par rotation (plus lente mais plus précise)"
 
 #: src/hugin/xrc/pref_dialog.xrs:24
 msgid "Start angle:"
-msgstr ""
+msgstr "Angle de départ :"
 
 #: src/hugin/xrc/pref_dialog.xrs:25 src/hugin/xrc/pref_dialog.xrs:27
-#, fuzzy
 msgid "degrees"
-msgstr "Angle de l'objectif"
+msgstr "degrés"
 
 #: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Stop angle:"
-msgstr ""
+msgstr "Angle de fin :"
 
 #: src/hugin/xrc/pref_dialog.xrs:28
-#, fuzzy
 msgid "Steps:"
-msgstr "Arrêt"
+msgstr "Pas :"
 
 #: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Misc"
-msgstr ""
+msgstr "Divers"
 
 #: src/hugin/xrc/pref_dialog.xrs:30
 msgid "Memory usage"
-msgstr ""
+msgstr "Utilisation de la mémoire"
 
 #: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Image cache memory:"
-msgstr ""
+msgstr "Mémoire cache d'image :"
 
 #: src/hugin/xrc/pref_dialog.xrs:32
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
+"Garder en mémoire les images de pleine taille jusqu'à ce que la limite soit "
+"atteinte"
 
 #: src/hugin/xrc/pref_dialog.xrs:33
 msgid "MB"
-msgstr ""
+msgstr "Mo"
 
 #: src/hugin/xrc/pref_dialog.xrs:34
-#, fuzzy
 msgid "Control Point Editor"
-msgstr "Points de contrôle"
+msgstr "Éditeur de points de contrôle"
 
 #: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Cursor Type"
-msgstr ""
+msgstr "Type de curseur"
 
 #: src/hugin/xrc/pref_dialog.xrs:36
 msgid ""
 "available on linux only\n"
 "requires restarting hugin"
 msgstr ""
+"disponible uniquement sous linux\n"
+"nécessite de redémarrer hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Tempdir:"
-msgstr ""
+msgstr "Répertoire temporaire :"
 
 #: src/hugin/xrc/pref_dialog.xrs:38
 msgid "leave empty for OS default"
-msgstr ""
+msgstr "laisser blanc pour utiliser la valeur par défaut du système"
 
 #: src/hugin/xrc/pref_dialog.xrs:39 src/hugin/xrc/pref_dialog.xrs:47
-#, fuzzy
 msgid "Autopano"
-msgstr "Résultat d'autopano"
+msgstr "Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
-#, fuzzy
 msgid "Select Autopano"
-msgstr "Sélectionner le type d'autopano"
+msgstr "Sélectionner Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Autopano (by A. Jenny)"
-msgstr ""
+msgstr "Autopano (par A. Jenny)"
 
 #: src/hugin/xrc/pref_dialog.xrs:42
 msgid "Autopano-SIFT (by S. Nowozin)"
-msgstr ""
+msgstr "Autopano-SIFT (par S. Nowozin)"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Autopano-SIFT"
-msgstr ""
+msgstr "Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:44
 msgid "Autopano-SIFT:"
-msgstr ""
+msgstr "Autopano-SIFT :"
 
 #: src/hugin/xrc/pref_dialog.xrs:46 src/hugin/xrc/pref_dialog.xrs:50
-#, fuzzy
 msgid "Arguments:"
-msgstr "Alignement"
+msgstr "Arguments :"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
-#, fuzzy
 msgid "Autopano:"
-msgstr "Résultat d'autopano"
+msgstr "Autopano :"
 
 #: src/hugin/xrc/pref_dialog.xrs:51
 #, c-format
@@ -2245,37 +2238,38 @@ msgid ""
 "%p  -- number of control points between each pair\n"
 "%i  -- image files"
 msgstr ""
+"les modèles suivants seront substitués avant le lancement :\n"
+"%o  -- sortie du projet (0.oto sera ajouté si on utilise Autopano)\n"
+"%p  -- nombre de points de contrôle enntre chaque paire\n"
+"%i  -- fichiers image"
 
 #: src/hugin/xrc/pref_dialog.xrs:52
-#, fuzzy
 msgid "Enblend"
-msgstr "Lancement d'Enblend"
+msgstr "Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:53
-#, fuzzy
 msgid "Enblend Options"
-msgstr "Options d'aperçu"
+msgstr "Options d'Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:54
-#, fuzzy
 msgid "Enblend:"
-msgstr "Lancement d'Enblend"
+msgstr "Enblend :"
 
 #: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Additional Arguments:"
-msgstr ""
+msgstr "Arguments supplémentaires :"
 
 #: src/hugin/xrc/pref_dialog.xrs:57
 msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr ""
+msgstr "Ne pas positionner les arguments -w et -o, ce sera fait par hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:58
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Load Defaults"
-msgstr ""
+msgstr "Chargement des valeurs par défaut"
 
 #: src/hugin/xrc/preview_frame.xrs:3 src/hugin/xrc/preview_frame.xrs:8
 msgid "Center the preview horizontally"
