@@ -267,7 +267,6 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     wxLogError(_("No enblend.exe selected"));
                 }
             }
-            wxString args(enblendExe);
 #elif defined (__WXMAC__)
             wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
             if (!wxFile::Exists(enblendExe)){
@@ -282,22 +281,18 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     wxLogError(_("No enblend commandline tool selected"));
                 }
             }
-            wxString args(enblendExe);
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
-            wxString args(enblendExe);
 #endif
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
 
-            string cmd(enblendExe.c_str());
+            wxString args(config->Read("/Enblend/EnblendArgs", HUGIN_ENBLEND_ARGS));
             if (opts.HFOV == 360.0) {
                 // blend over the border
                 args.append(" -w");
             }
-            args.append(" -v ");
-            args.append(config->Read("/Enblend/EnblendArgs", HUGIN_ENBLEND_ARGS));
             args.append(" -o ");
             wxString quoted((output + ".tif").c_str());
             quoted = utils::quoteFilename(quoted);
@@ -312,9 +307,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 args.append(quoted);
             }
 
-            DEBUG_INFO("enblend cmd:" << args.c_str());
+            wxString cmdline = enblendExe + " " + args;
+            DEBUG_INFO("enblend cmdline:" << cmdline.c_str());
 #ifdef __WXMSW__
-            if (cmd.size() > 1950) {
+            if (cmdline.size() > 1950) {
                 wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\n"
                                "This is a Windows limitiation\n"
                                "Please use less images, or place the images in a folder with\n"
@@ -326,14 +322,33 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
 #ifdef unix
 		DEBUG_DEBUG("using system() to execute enblend");
-		int ret = system(args);
+		int ret = system(cmdline);
 		if (ret == -1) {
-		    perror("system() failed");
+		    DEBUG_ERROR("Could not execute enblend, system() failed" << strerror(errno));
 		} else {
 		    ret = WEXITSTATUS(ret);
 		}
+#elif __WXMSW__
+                // using CreateProcess on windows
+                /* CreateProcess API initialization */
+                STARTUPINFO siStartupInfo;
+                PROCESS_INFORMATION piProcessInfo;
+                memset(&siStartupInfo, 0, sizeof(siStartupInfo));
+                memset(&piProcessInfo, 0, sizeof(piProcessInfo));
+                siStartupInfo.cb = sizeof(siStartupInfo);
+                char * cmdline_c = (char *) cmdline.c_str();
+                char * exe_c = (char *) enblendExe.c_str();
+                int ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE, 
+                                        IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL, 
+                                        NULL, &siStartupInfo, &piProcessInfo);
+                if (ret) {
+                    ret = 0;
+                } else {
+                    ret = -1;
+                    wxMessageBox(("Could not execute command: ") + args  , _("CreateProcess Error"));
+                }
 #else
-                int ret = wxExecute(args, wxEXEC_SYNC);
+                int ret = wxExecute(cmdline, wxEXEC_SYNC);
 #endif
 		DEBUG_NOTICE("enblend returned with: " << ret);
 

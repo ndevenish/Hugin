@@ -45,6 +45,7 @@ IMPLEMENT_APP(huginApp)
 huginApp::huginApp()
 {
     DEBUG_TRACE("ctor");
+    m_this=this;
 }
 
 huginApp::~huginApp()

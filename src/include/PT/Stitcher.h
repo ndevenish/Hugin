@@ -123,32 +123,28 @@ public:
 
 	unsigned int nImg = images.size();
 	Base::m_progress.pushTask(utils::ProgressTask("Remapping", "", 1.0/(nImg+1)));
-        // number of the remapped image in the panorama (for partial remapping,
-        // when the images set does not contain all input images.
-        unsigned int runningImgNr;
 	// remap each image and save
 	for (UIntSet::const_iterator it = images.begin();
 	     it != images.end(); ++it)
 	{
-            // get a remapped image.
-	    RemappedPanoImage<ImageType, AlphaType> *
+        // get a remapped image.
+        RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-            try {
-                saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
-            } catch (vigra::PreconditionViolation & e) {
-                // this can be thrown, if an image
-                // is completely out of the pano
-				std::cerr << e.what();
-            }
-            // free remapped image
-	    remapper.release(remapped);
-
-            runningImgNr++;
+        try {
+            saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
+        } catch (vigra::PreconditionViolation & e) {
+            // this can be thrown, if an image
+            // is completely out of the pano
+            std::cerr << e.what();
         }
+        // free remapped image
+        remapper.release(remapped);
 
-	Base::m_progress.popTask();
+    }
 
-        finalizeOutputFile(opts);
+    Base::m_progress.popTask();
+
+    finalizeOutputFile(opts);
     }
 
     /** prepare the output file (setup file structures etc.) */
