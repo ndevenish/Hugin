@@ -65,6 +65,7 @@
 #include "vigra/copyimage.hxx"
 #include "vigra/functorexpression.hxx"
 #include "vigra/convolution.hxx"
+#include "vigra/resizeimage.hxx"
 
 // =====
 // ===== Hugin specific with no dependencies to WX

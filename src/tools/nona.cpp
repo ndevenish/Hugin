@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
         BRGBImage dest;
         // stitch panorama
         PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                     pdisp, basename, format, savePartial);
+                                 pdisp, basename, format, savePartial);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;
         return 1;
