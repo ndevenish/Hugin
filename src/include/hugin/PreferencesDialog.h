@@ -60,9 +60,13 @@ protected:
     void OnDefaults(wxCommandEvent & e);
     void OnRotationCheckBox(wxCommandEvent & e);
     void OnClose(wxCloseEvent& event);
-
+    void OnPTStitcherExe(wxCommandEvent & e);
+    void OnPTOptimizerExe(wxCommandEvent & e);
+    void OnEnblendExe(wxCommandEvent & e);
+    void OnAutopanoSiftExe(wxCommandEvent & e);
+    void OnAutopanoKolorExe(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
-    
+
 private:
 
     DECLARE_EVENT_TABLE()
