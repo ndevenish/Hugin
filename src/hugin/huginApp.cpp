@@ -24,8 +24,6 @@
  *
  */
 
-#define DEBUG
-
 #include <config.h>
 
 //Mac bundle code by Ippei
