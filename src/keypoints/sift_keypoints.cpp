@@ -27,9 +27,12 @@
 #include "vigra/convolution.hxx"
 #include "vigra/functorexpression.hxx"
 #include "vigra/resizeimage.hxx"
-#include "vigra/impex.hxx"
+
+#include "vigra_impex2/impex.hxx"
 
 #include "keypoints/ScaleSpace.h"
+
+using namespace vigra_impex2;
 
 Matrix3 Matrix3::Identity;
 
@@ -85,13 +88,13 @@ int main(int argc, char ** argv)
     if(argc != 3)
     {
         std::cout << "Usage: " << argv[0] << " image_file key_file " << std::endl;
-        std::cout << "(supported formats: " << vigra::impexListFormats() << ")" << std::endl;
+        std::cout << "(supported formats: " << impexListFormats() << ")" << std::endl;
         return 1;
     }
 
     // read image given as first argument
     // file type is determined automatically
-    ImageImportInfo info(argv[1]);
+    vigra_impex2::ImageImportInfo info(argv[1]);
 
     //=====
     //===== 0. Prepare the image, convert to grayscale and float conversion

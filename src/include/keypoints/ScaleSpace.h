@@ -28,7 +28,7 @@
 #include "vigra/convolution.hxx"
 #include "vigra/functorexpression.hxx"
 #include "vigra/resizeimage.hxx"
-#include "vigra/impex.hxx"
+#include "vigra_impex2/impex.hxx"
 #include "algo4sift.hxx"
 
 #include "common/Vector3.h"
