@@ -42,6 +42,11 @@ If you use the CVS source, please read HACKING before continuing
 
 do the following in the hugin directory:
 $ ./configure
+   Configure might get confused if wxWindows 2.4 and 2.5 is installed
+   at the same time (especially on debian).
+   For example, debian ships wxWindows 2.5 as unicode enabled, so use
+   ./configure --with-unicode=yes, else it configure will mix 2.4 and 2.5.
+
 $ make
 $ make install
 
