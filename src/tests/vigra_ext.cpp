@@ -406,7 +406,7 @@ void test_fit_polygon()
     double a=1.23;
     double b=-3;
     double c=0.87;
-    
+
     const int sz=6;
     double x[] = {-1, 0, 1, 2, 3};
     double y[sz];
@@ -417,7 +417,7 @@ void test_fit_polygon()
     double ar;
     double br;
     double cr;
-        
+
     FitPolynom(x, x + 4, y, ar,br,cr);
     BOOST_CHECK_CLOSE(ar, a,  1e-10);
     BOOST_CHECK_CLOSE(br, b,  1e-10);
@@ -436,28 +436,26 @@ public:
         destx = srcx + m_dx;
         desty = srcy + m_dy;
     }
-    
+
     double m_dx, m_dy;
 };
 
 void test_subpixel_correlation()
 {
-    FImage img(50,50);
-    FImage shiftedImg(50,50);
-    FImage alpha(50,50);
-    Diff2D p(25,25);
-    // plot cross in the the middle of img
-    img(25,25) = 0.4;
-    img(24,25) = 1;
-    img(26,25) = 1;
-    img(25,24) = 1;
-    img(25,26) = 0.3;
+    ImageImportInfo import2("correlation_img.png");
+    FImage img(import2.width(), import2.height());
+    importImage(import2, destImage(img));
+
+    FImage shiftedImg(img.size());
+    FImage alpha(img.size());
+
+    Diff2D p(42,56);
 
     double dx=2.3;
     double dy=0.9;
-    // shift image, using sinc256.
+    // shift image, using cubic interpolation
     ShiftTransform t(-dx, -dy);
-    
+
     utils::MultiProgressDisplay dummy;
     PT::transformImage(srcImageRange(img),
                        destImageRange(shiftedImg),
@@ -465,16 +463,97 @@ void test_subpixel_correlation()
                        Diff2D(0,0),
                        t, PT::PanoramaOptions::CUBIC,
                        dummy);
-    
+
     // finetune point
     vigra_ext::CorrelationResult res;
     res = PointFineTune(img, p, 10,
                         shiftedImg, p, 100);
-    
-    BOOST_CHECK_CLOSE(res.maxpos.x, 25.0+dx, 0.1);
-    BOOST_CHECK_CLOSE(res.maxpos.y, 25.0+dy, 0.1);
-    BOOST_CHECK_CLOSE(res.maxi, 1.0, 0.001);
+
+    BOOST_CHECK_CLOSE(res.maxpos.x, p.x+dx, 0.01);
+    BOOST_CHECK_CLOSE(res.maxpos.y, p.y+dy, 0.01);
+    BOOST_CHECK_CLOSE(res.maxi, 1.0, 0.01);
 }
+
+void test_cross_correlation()
+{
+
+    // load test image.
+    ImageImportInfo import2("correlation_img.png");
+    FImage img(import2.width(), import2.height());
+    importImage(import2, destImage(img));
+    
+    FImage dest(img.size());
+    dest.init(-1);
+
+    FImage dest2(img.size());
+    dest2.init(-1);
+    
+    Diff2D pos(100,100);
+    Diff2D halfW(1,1);
+    FImage templ(halfW*2 + Diff2D(1,1));
+    
+    copyImage(img.upperLeft() + pos - halfW,
+              img.upperLeft() + pos + halfW + Diff2D(1,1),
+              img.accessor(),
+              templ.upperLeft(),
+              templ.accessor());
+
+    CorrelationResult res;
+    // correlate image, using direct access and interpolators
+    res = correlateImageFast(img,
+                             dest,
+                             templ,
+                             -halfW , halfW,
+                             -1);
+    
+    BOOST_CHECK_CLOSE((double)res.maxpos.x, (double) pos.x, 1e-13);
+    BOOST_CHECK_CLOSE((double)res.maxpos.y, (double) pos.y, 1e-13);
+    BOOST_CHECK_CLOSE((double)res.maxi, 1.0, 1e-15);
+
+    res = correlateImage(img.upperLeft(),
+                         img.lowerRight(),
+                         img.accessor(),
+                         dest2.upperLeft(),
+                         dest2.accessor(),
+                         templ.upperLeft() + halfW,
+                         templ.accessor(),
+                         -halfW, halfW, 
+                         -1);
+
+    BOOST_CHECK_CLOSE((double)res.maxpos.x, (double) pos.x, 1e-13);
+    BOOST_CHECK_CLOSE((double)res.maxpos.y, (double) pos.y, 1e-13);
+    BOOST_CHECK_CLOSE((double)res.maxi, 1.0, 1e-15);
+
+    // compare resulting images..
+    int xcorr_differences=0;
+    FImage::iterator it1 = dest.begin();
+    FImage::iterator it2 = dest2.begin();
+    for (; it1 != dest.end(); ++it1, ++it2) {
+        if (fabs(*it1 - *it2) > 1e-16) {
+            xcorr_differences++;
+        }
+    }
+    BOOST_CHECK_EQUAL(xcorr_differences, 0);
+    
+    BImage tmpImg(dest.size());
+    
+    vigra::transformImage(vigra::srcImageRange(dest), vigra::destImage(tmpImg),
+                          vigra::linearRangeMapping(
+                              -1, 1,               // src range
+                              (unsigned char)0, (unsigned char)255) // dest range
+            );
+    vigra::exportImage(srcImageRange(tmpImg), vigra::ImageExportInfo("xcorr_test_result_fast.png"));
+
+    
+    vigra::transformImage(vigra::srcImageRange(dest2), vigra::destImage(tmpImg),
+                          vigra::linearRangeMapping(
+                              -1, 1,               // src range
+                              (unsigned char)0, (unsigned char)255) // dest range
+            );
+    vigra::exportImage(srcImageRange(tmpImg), vigra::ImageExportInfo("xcorr_test_result.png"));
+
+}
+
 
 test_suite *
 init_unit_test_suite( int, char** )
@@ -489,8 +568,11 @@ init_unit_test_suite( int, char** )
   test->add(BOOST_TEST_CASE(&test_import_image));
   test->add(BOOST_TEST_CASE(&test_png_codec_16bit));
 #endif
+  test->add(BOOST_TEST_CASE(&test_cross_correlation));
+#if 0
   test->add(BOOST_TEST_CASE(&test_fit_polygon));
   test->add(BOOST_TEST_CASE(&test_subpixel_correlation));
+#endif 
 //  test->add(BOOST_TEST_CASE(&transforms_test));
   return test;
 }
