@@ -1,2320 +1,2793 @@
+2004-10-21 20:30  dwilkins42
 
-2004-10-20 08:56:25  dwilkins42  (dwilkins42)
+	* ChangeLog, src/hugin/po/POTFILES.in, src/hugin/po/de.po,
+	  src/hugin/po/fr.po, src/hugin/po/hugin.pot, src/hugin/po/it.po,
+	  src/hugin/po/pl.po, src/hugin/xrc/Makefile.am: Add preferences
+	  dialog to build system
 
-	* src/hugin/po/fr.po: Update french translation. Thanks to
-	Jean-Luc Coulon
+2004-10-21 19:42  dangelo
 
-	* src/hugin/Makefile.am, src/nona_gui/Makefile.am, configure.ac:
-	Add win32 support in the build system
+	* src/Panorama/Panorama.cpp: fixed optimisation flags for linked
+	  variables. also print one v line per image
 
-	* src/hugin/xrc/data/.cvsignore, src/hugin/xrc/data/Makefile.am,
-	src/hugin/po/de.po, src/hugin/po/fr.po, src/hugin/po/hugin.pot,
-	src/hugin/po/it.po, src/hugin/po/pl.po: Update translation
-	files. Make sure data files are copied/linked once only
+2004-10-21 02:22  dangelo
 
-	* configure.ac: Make sure configure fails if pano12 library is
-	not found. Also warn if graphic libraries are not found
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/ImageCache.cpp, hugin/MainFrame.cpp, hugin/Makefile.am,
+	  hugin/NonaStitcherPanel.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/huginApp.cpp, hugin/xrc/main_menu.xrc,
+	  hugin/xrc/pref_dialog.xrc, include/hugin/MainFrame.h,
+	  include/hugin/PreferencesDialog.h,
+	  include/hugin/config_defaults.h: added Preferences screen.
+	  Unfortunately hugin crashes on exit now. dunno why.  Seems to be
+	  related to loading the Preferences dialog from the XRC file
 
-2004-10-18 10:10:27  ippei  (ippei)
+2004-10-21 02:19  dangelo
+
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  common/utils.cpp, hugin/AutoCtrlPointCreator.cpp,
+	  include/panoinc_WX.h, include/PT/Panorama.h: use more robust
+	  number parsing routine. should accept , and . in autopano now.
+	  some more code cleanup
+
+2004-10-21 00:31  dangelo
+
+	* m4/ax_check_wx_gtk.m4: extended regular expressions needed for ?
+
+2004-10-21 00:20  dangelo
+
+	* m4/ax_check_wx_gtk.m4: Also detect the debug builds of gtk. Not
+	  sure if it works for gtk2
+
+2004-10-20 10:56  dwilkins42
+
+	* src/hugin/po/fr.po: Update french translation. Thanks to Jean-Luc
+	  Coulon
+
+2004-10-20 10:22  dwilkins42
+
+	* configure.ac, src/hugin/Makefile.am, src/nona_gui/Makefile.am:
+	  Add win32 support in the build system
+
+2004-10-20 08:35  dwilkins42
+
+	* src/hugin/: po/de.po, po/fr.po, po/hugin.pot, po/it.po, po/pl.po,
+	  xrc/data/.cvsignore, xrc/data/Makefile.am: Update translation
+	  files. Make sure data files are copied/linked once only
+
+2004-10-20 07:50  dwilkins42
+
+	* configure.ac: Make sure configure fails if pano12 library is not
+	  found. Also warn if graphic libraries are not found
+
+2004-10-18 12:10  ippei
 
 	* src/hugin/MainFrame.cpp: Window Position Fix on Mac
 
-2004-10-18 07:15:10  dwilkins42  (dwilkins42)
+2004-10-18 09:15  dwilkins42
 
-	* src/hugin/po/LINGUAS, src/hugin/po/it.po: Add blank italian
-	translation
+	* src/hugin/po/: LINGUAS, it.po: Add blank italian translation
 
-2004-10-18 05:23:21  dangelo  (dangelo)
+2004-10-18 07:23  dangelo
 
 	* configure.ac: xrc files are installed under $prefix/share
 
-2004-10-17 16:29:54  dwilkins42  (dwilkins42)
+2004-10-17 18:29  dwilkins42
 
-	* src/hugin/xrc/Makefile.am, src/hugin/xrc/.cvsignore: Create
-	links to .xrc files only when neccesary. make now works in and
-	out of src tree
+	* src/hugin/xrc/: .cvsignore, Makefile.am: Create links to .xrc
+	  files only when neccesary. make now works in and out of src tree
 
-	* src/hugin/xrc/Makefile.am: Update to allow build, not ideal
-	but it works
+2004-10-17 17:22  dwilkins42
 
-2004-10-17 00:42:33  dangelo  (dangelo)
+	* src/hugin/xrc/Makefile.am: Update to allow build, not ideal but
+	  it works
 
-	* src/hugin/xrc/Makefile.am: wxrc always exits with errors,
-	ignore error code
+2004-10-17 02:42  dangelo
 
-2004-10-16 23:52:55  dangelo  (dangelo)
+	* src/hugin/xrc/Makefile.am: wxrc always exits with errors, ignore
+	  error code
+
+2004-10-17 01:52  dangelo
 
 	* src/hugin/LensPanel.cpp: link v,a,b,c,d,e if the lens ini file
-	doesn't contain the link parameters. (compatablity to .ini files
-	created by older hugin builds)
+	  doesn't contain the link parameters. (compatablity to .ini files
+	  created by older hugin builds)
+
+2004-10-17 01:44  dangelo
 
 	* src/Panorama/Panorama.cpp: really removed empty v lines..
 
+2004-10-17 01:41  dangelo
+
 	* AUTHORS, INSTALL: added mareks' full name
 
-2004-10-16 16:16:30  dwilkins42  (dwilkins42)
+2004-10-16 18:16  dwilkins42
 
 	* src/hugin/po/fr.po: really add blank french translation
 
-	* src/hugin/po/hugin.pot, src/hugin/po/pl.po, src/hugin/po/de.po,
-	src/hugin/po/LINGUAS: Added blank french translation
+2004-10-16 18:14  dwilkins42
 
-2004-10-16 02:07:38  dangelo  (dangelo)
+	* src/hugin/po/: LINGUAS, de.po, hugin.pot, pl.po: Added blank
+	  french translation
+
+2004-10-16 04:07  dangelo
 
 	* src/hugin/xrc/lens_panel.xrc: remove misleading (well, actually
-	quite wrong) note about image shift only needed on scanned images
+	  quite wrong) note about image shift only needed on scanned images
+
+2004-10-16 04:06  dangelo
 
 	* src/hugin/po/de.po: partial translation update
 
+2004-10-16 02:49  dangelo
+
 	* src/common/utils.cpp: removed debug flag
 
-	* src/include/PT/PanoToolsInterface.h: undef MIN/MAX macro
-	if defined
+2004-10-16 02:48  dangelo
+
+	* src/include/PT/PanoToolsInterface.h: undef MIN/MAX macro if
+	  defined
+
+2004-10-16 02:47  dangelo
 
 	* src/hugin/LensPanel.cpp: save lens link state as well
 
-2004-10-15 22:22:33  dangelo  (dangelo)
+2004-10-16 00:22  dangelo
 
-	* src/include/hugin/wxPanoCommand.h, src/Panorama/Panorama.cpp,
-	src/hugin/MainFrame.cpp, src/include/PT/Panorama.h: ask for new
-	filename, if an image file is not found
+	* src/: Panorama/Panorama.cpp, hugin/MainFrame.cpp,
+	  include/PT/Panorama.h, include/hugin/wxPanoCommand.h: ask for new
+	  filename, if an image file is not found
+
+2004-10-16 00:20  dangelo
 
 	* INSTALL: pointer to HACKING and panotools.sf.net
 
+2004-10-16 00:17  dangelo
+
 	* AUTHORS: updated authors
+
+2004-10-16 00:11  dangelo
 
 	* src/include/PT/PTOptimise.h: removed unnessecary error message
 
-2004-10-15 18:43:57  dwilkins42  (dwilkins42)
+2004-10-15 20:43  dwilkins42
 
-	* src/hugin/xrc/lens_dialog.xrc,
-	src/hugin/xrc/main_menu.xrc, src/hugin/xrc/main_tool.xrc,
-	src/hugin/xrc/pano_panel.xrc, src/hugin/xrc/preview_frame.xrc,
-	src/hugin/xrc/ptstitcher_panel.xrc, src/nona_gui/po/LINGUAS,
-	src/nona_gui/po/pl.po, src/hugin/po/de.po, src/hugin/po/hugin.pot,
-	src/hugin/po/pl.po: Corrected menus, help and tooltips. Updated
-	translations (polish is complete)
+	* src/: hugin/po/de.po, hugin/po/hugin.pot, hugin/po/pl.po,
+	  hugin/xrc/lens_dialog.xrc, hugin/xrc/main_menu.xrc,
+	  hugin/xrc/main_tool.xrc, hugin/xrc/pano_panel.xrc,
+	  hugin/xrc/preview_frame.xrc, hugin/xrc/ptstitcher_panel.xrc,
+	  nona_gui/po/LINGUAS, nona_gui/po/pl.po: Corrected menus, help and
+	  tooltips. Updated translations (polish is complete)
 
-	* src/hugin/xrc/.cvsignore, src/hugin/xrc/Makefile.am,
-	src/hugin/po/POTFILES.in, src/hugin/po/de.po,
-	src/hugin/po/hugin.pot, src/hugin/po/pl.po, Makefile.am,
-	src/hugin/PanoDruid.cpp: Add strings in XRC files to translations
+2004-10-15 10:17  dwilkins42
 
-2004-10-15 06:14:34  dangelo  (dangelo)
+	* Makefile.am, src/hugin/PanoDruid.cpp, src/hugin/po/POTFILES.in,
+	  src/hugin/po/de.po, src/hugin/po/hugin.pot, src/hugin/po/pl.po,
+	  src/hugin/xrc/.cvsignore, src/hugin/xrc/Makefile.am: Add strings
+	  in XRC files to translations
+
+2004-10-15 08:14  dangelo
 
 	* src/hugin/po/de.po: partial update of german translation
 
+2004-10-15 08:08  dangelo
+
 	* configure.ac: older boost library is fine too. have to create
-	Makefiles for the mess in tests/ sometime..
+	  Makefiles for the mess in tests/ sometime..
 
-2004-10-15 05:40:30  dwilkins42  (dwilkins42)
+2004-10-15 07:40  dwilkins42
 
-	* src/hugin/xrc/main_menu.xrc, src/hugin/po/de.po,
-	src/hugin/po/hugin.pot, src/hugin/po/pl.po,
-	src/hugin/xrc/cp_editor_panel.xrc, src/hugin/xrc/lens_dialog.xrc,
-	src/hugin/xrc/lens_panel.xrc, src/hugin/CPEditorPanel.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/PanoDruid.cpp: translation and spelling updates
+	* src/hugin/: CPEditorPanel.cpp, ImagesList.cpp, MainFrame.cpp,
+	  PanoDruid.cpp, po/de.po, po/hugin.pot, po/pl.po,
+	  xrc/cp_editor_panel.xrc, xrc/lens_dialog.xrc, xrc/lens_panel.xrc,
+	  xrc/main_menu.xrc: translation and spelling updates
 
-2004-10-14 16:53:36  dwilkins42  (dwilkins42)
+2004-10-14 18:53  dwilkins42
 
-	* ChangeLog, src/hugin/NonaStitcherPanel.cpp,
-	src/hugin/po/LINGUAS, src/hugin/po/de.po, src/hugin/po/hugin.pot,
-	src/hugin/po/pl.po: Added polish translation. Thanks to Marek
-	Januszewski
+	* ChangeLog, src/hugin/NonaStitcherPanel.cpp, src/hugin/po/LINGUAS,
+	  src/hugin/po/de.po, src/hugin/po/hugin.pot, src/hugin/po/pl.po:
+	  Added polish translation. Thanks to Marek Januszewski
+
+2004-10-14 17:00  dwilkins42
 
 	* m4/ax_check_graphics.m4, m4/ax_fftw.m4, m4/ax_gtk.m4,
-	src/foreign/vigra_impex/Makefile.am, src/hugin/Makefile.am:
-	Updates to autotools for mingw/msys
+	  src/foreign/vigra_impex/Makefile.am, src/hugin/Makefile.am:
+	  Updates to autotools for mingw/msys
 
-2004-10-14 06:41:13  dangelo  (dangelo)
+2004-10-14 08:41  dangelo
 
 	* src/Panorama/Panorama.cpp: do not produce empty v lines in
-	PTOptimizer scripts
+	  PTOptimizer scripts
 
-	* src/hugin/ImageCenter.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/NonaStitcherPanel.cpp,
-	src/hugin/PTStitcherPanel.cpp, src/hugin/PanoPanel.cpp: include
-	new hugin/config.h file
+2004-10-14 08:25  dangelo
 
-2004-10-13 16:53:09  dwilkins42  (dwilkins42)
+	* src/hugin/: ImageCenter.cpp, ImagesList.cpp, ImagesPanel.cpp,
+	  LensPanel.cpp, MainFrame.cpp, NonaStitcherPanel.cpp,
+	  PTStitcherPanel.cpp, PanoPanel.cpp: include new hugin/config.h
+	  file
 
-	* src/hugin/po/hugin.pot, src/hugin/po/de.po: Updated translations
+2004-10-13 18:53  dwilkins42
+
+	* src/hugin/po/: de.po, hugin.pot: Updated translations
+
+2004-10-13 18:49  dwilkins42
 
 	* configure.ac: get the contact address right
 
-	* src/keypoints/.cvsignore, src/tools/.cvsignore: Update
-	.cvsignore
+2004-10-13 16:15  dwilkins42
+
+	* src/: keypoints/.cvsignore, tools/.cvsignore: Update .cvsignore
+
+2004-10-13 15:55  dwilkins42
 
 	* src/include/vigra_ext/PointMatching.h: random_sample is only
-	available if gcc is used to compile or you have the STLport
-	Library installed
+	  available if gcc is used to compile or you have the STLport
+	  Library installed
+
+2004-10-13 12:31  dwilkins42
 
 	* .cvsignore, src/hugin/.cvsignore, src/hugin/xrc/Makefile,
-	src/hugin/xrc/data/Makefile: Remove last Makefiles and update
-	.cvsignore files
+	  src/hugin/xrc/data/Makefile: Remove last Makefiles and update
+	  .cvsignore files
+
+2004-10-13 12:13  dwilkins42
 
 	* m4/ax_boost_unit_test_framework.m4: Remove
-	m4/ax_boost_unit_test_framework.m4 (replaced by ax_rs_boost.m4)
+	  m4/ax_boost_unit_test_framework.m4 (replaced by ax_rs_boost.m4)
 
-	* m4/ac_cxx_namespaces.m4: Remove m4/ac_cxx_namespaces.m4
-	(replaced by ax_cxx_namespaces.m4 for naming consistency)
+2004-10-13 12:10  dwilkins42
 
-	* m4/ChangeLog: Remove m4/ChangeLog from CVS as it is generated
-	by gettext
+	* m4/ac_cxx_namespaces.m4: Remove m4/ac_cxx_namespaces.m4 (replaced
+	  by ax_cxx_namespaces.m4 for naming consistency)
 
-	* ABOUT-NLS: Remove ABOUT-NLS from CVS as it is generated
-	by gettext
+2004-10-13 12:06  dwilkins42
+
+	* m4/ChangeLog: Remove m4/ChangeLog from CVS as it is generated by
+	  gettext
+
+2004-10-13 11:40  dwilkins42
+
+	* ABOUT-NLS: Remove ABOUT-NLS from CVS as it is generated by
+	  gettext
+
+2004-10-13 11:35  dwilkins42
 
 	* .cvsignore: Add .cvsignore for top directory
 
-	* src/hugin/.cvsignore, src/hugin/po/.cvsignore,
-	src/nona_gui/po/.cvsignore, ChangeLog, m4/.cvsignore: Add
-	ChangeLog. Update .cvsignore files for additional generated files
+2004-10-13 11:33  dwilkins42
+
+	* ChangeLog, m4/.cvsignore, src/hugin/.cvsignore,
+	  src/hugin/po/.cvsignore, src/nona_gui/po/.cvsignore: Add
+	  ChangeLog. Update .cvsignore files for additional generated files
+
+2004-10-13 11:05  dwilkins42
 
 	* bootstrap: Really make sure gettextize does not change anything
 
-	* src/hugin/PreviewFrame.cpp, src/hugin/PanoDruid.cpp: In the
-	po format, the empty string is reserved and has a special use
+2004-10-13 10:52  dwilkins42
 
-2004-10-13 06:36:27  dangelo  (dangelo)
+	* src/hugin/PreviewFrame.cpp: In the po format, the empty string is
+	  reserved and has a special use
+
+2004-10-13 10:47  dwilkins42
+
+	* src/hugin/PanoDruid.cpp: In the po format, the empty string is
+	  reserved and has a special use
+
+2004-10-13 08:36  dangelo
 
 	* bootstrap: also works with gettext 0.12.1
 
-2004-10-12 19:54:00  dangelo  (dangelo)
+2004-10-12 21:54  dangelo
 
 	* src/Makefile.am: more automake stuff
 
-	* src/nona_gui/po/LINGUAS, src/nona_gui/po/Makevars,
-	src/nona_gui/po/POTFILES.in, src/nona_gui/po/de.po,
-	src/nona_gui/po/nona_gui.pot: more automake files
+2004-10-12 21:49  dangelo
+
+	* src/nona_gui/po/: LINGUAS, Makevars, POTFILES.in, de.po,
+	  nona_gui.pot: more automake files
+
+2004-10-12 21:38  dangelo
 
 	* src/hugin/po/Makefile: removed obselete makefile
 
-	* src/nona_gui/po/.cvsignore: po directory seems to be needed
-	by bootstrap
+2004-10-12 21:29  dangelo
 
-	* m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
-	m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
-	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
-	m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
-	m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
-	m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
-	m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
-	m4/xsize.m4: removed system .m4 macros
+	* src/nona_gui/po/.cvsignore: po directory seems to be needed by
+	  bootstrap
 
-	* src/tools/Makefile.am, src/vigra_ext/.cvsignore,
-	src/vigra_ext/Makefile, src/vigra_ext/Makefile.am,
-	src/keypoints/Makefile.am, src/klt/.cvsignore, src/klt/Makefile,
-	src/klt/Makefile.am, src/nona_gui/.cvsignore,
-	src/nona_gui/Makefile, src/nona_gui/Makefile.am,
-	src/tools/.cvsignore, src/tools/Makefile, src/jhead/.cvsignore,
-	src/jhead/Makefile, src/jhead/Makefile.am,
-	src/keypoints/.cvsignore, src/keypoints/Makefile,
-	src/hugin/xrc/data/.cvsignore, src/hugin/xrc/data/Makefile.am,
-	src/include/vigra_ext/.cvsignore, src/hugin/Makefile,
-	src/hugin/Makefile.am, src/hugin/po/.cvsignore,
-	src/hugin/po/LINGUAS, src/hugin/po/Makevars,
-	src/hugin/po/POTFILES.in, src/hugin/po/de.po,
-	src/hugin/po/hugin.pot, src/hugin/xrc/.cvsignore,
-	src/hugin/xrc/Makefile.am, src/common/.cvsignore,
-	src/common/Makefile, src/common/Makefile.am,
-	src/foreign/.cvsignore, src/foreign/Makefile,
-	src/foreign/Makefile.am, src/foreign/vigra_impex/.cvsignore,
-	src/foreign/vigra_impex/Makefile,
-	src/foreign/vigra_impex/Makefile.am, src/hugin/.cvsignore,
-	src/PanoImage/.cvsignore, src/Panorama/.cvsignore,
-	src/Panorama/Makefile, src/Panorama/Makefile.am,
-	m4/.cvsignore, m4/ChangeLog, m4/ac_cxx_namespaces.m4,
-	m4/ax_boost_unit_test_framework.m4, m4/ax_check_graphics.m4,
-	m4/ax_check_panotools.m4, m4/ax_check_wx_gtk.m4,
-	m4/ax_cxx_namespaces.m4, m4/ax_fftw.m4, m4/ax_gtk-2.0.m4,
-	m4/ax_gtk.m4, m4/ax_rs_boost.m4, m4/ax_wxwin.m4,
-	m4/codeset.m4, m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4,
-	m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
-	m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
-	m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
-	m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
-	m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
-	m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
-	m4/xsize.m4, src/.cvsignore, src/Makefile, ABOUT-NLS, HACKING,
-	NEWS, bootstrap, configure.ac: really added automake stuff..
+2004-10-12 19:30  dangelo
+
+	* m4/: codeset.m4, gettext.m4, glibc21.m4, iconv.m4, intdiv0.m4,
+	  intmax.m4, inttypes-pri.m4, inttypes.m4, inttypes_h.m4,
+	  isc-posix.m4, lcmessage.m4, lib-ld.m4, lib-link.m4,
+	  lib-prefix.m4, longdouble.m4, longlong.m4, nls.m4, po.m4,
+	  printf-posix.m4, progtest.m4, signed.m4, size_max.m4,
+	  stdint_h.m4, uintmax_t.m4, ulonglong.m4, wchar_t.m4, wint_t.m4,
+	  xsize.m4: removed system .m4 macros
+
+2004-10-12 19:05  dangelo
+
+	* ABOUT-NLS, HACKING, NEWS, bootstrap, configure.ac, m4/.cvsignore,
+	  m4/ChangeLog, m4/ac_cxx_namespaces.m4,
+	  m4/ax_boost_unit_test_framework.m4, m4/ax_check_graphics.m4,
+	  m4/ax_check_panotools.m4, m4/ax_check_wx_gtk.m4,
+	  m4/ax_cxx_namespaces.m4, m4/ax_fftw.m4, m4/ax_gtk-2.0.m4,
+	  m4/ax_gtk.m4, m4/ax_rs_boost.m4, m4/ax_wxwin.m4, m4/codeset.m4,
+	  m4/gettext.m4, m4/glibc21.m4, m4/iconv.m4, m4/intdiv0.m4,
+	  m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	  m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	  m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
+	  m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
+	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
+	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
+	  m4/xsize.m4, src/.cvsignore, src/Makefile,
+	  src/PanoImage/.cvsignore, src/Panorama/.cvsignore,
+	  src/Panorama/Makefile, src/Panorama/Makefile.am,
+	  src/common/.cvsignore, src/common/Makefile,
+	  src/common/Makefile.am, src/foreign/.cvsignore,
+	  src/foreign/Makefile, src/foreign/Makefile.am,
+	  src/foreign/vigra_impex/.cvsignore,
+	  src/foreign/vigra_impex/Makefile,
+	  src/foreign/vigra_impex/Makefile.am, src/hugin/.cvsignore,
+	  src/hugin/Makefile, src/hugin/Makefile.am,
+	  src/hugin/po/.cvsignore, src/hugin/po/LINGUAS,
+	  src/hugin/po/Makevars, src/hugin/po/POTFILES.in,
+	  src/hugin/po/de.po, src/hugin/po/hugin.pot,
+	  src/hugin/xrc/.cvsignore, src/hugin/xrc/Makefile.am,
+	  src/hugin/xrc/data/.cvsignore, src/hugin/xrc/data/Makefile.am,
+	  src/include/vigra_ext/.cvsignore, src/jhead/.cvsignore,
+	  src/jhead/Makefile, src/jhead/Makefile.am,
+	  src/keypoints/.cvsignore, src/keypoints/Makefile,
+	  src/keypoints/Makefile.am, src/klt/.cvsignore, src/klt/Makefile,
+	  src/klt/Makefile.am, src/nona_gui/.cvsignore,
+	  src/nona_gui/Makefile, src/nona_gui/Makefile.am,
+	  src/tools/.cvsignore, src/tools/Makefile, src/tools/Makefile.am,
+	  src/vigra_ext/.cvsignore, src/vigra_ext/Makefile,
+	  src/vigra_ext/Makefile.am: really added automake stuff..
+
+2004-10-12 08:27  dangelo
 
 	* configure: removed configure, it is created from configure.ac
 
+2004-10-12 08:23  dangelo
+
 	* BUGS, COPYING, Makefile, Makefile.am, configure, configure.ac:
-	switched to automake/autoconf.	Thanks to Douglas Wilkins for
-	the patch!
+	  switched to automake/autoconf.  Thanks to Douglas Wilkins for the
+	  patch!
 
-2004-10-11 21:12:21  dangelo  (dangelo)
+2004-10-11 23:12  dangelo
 
-	* src/Panorama/Stitcher.cpp, src/include/PT/PanoramaMemento.h,
-	src/include/PT/RemappedPanoImage.h, src/include/PT/Stitcher.h,
-	src/include/vigra_ext/ROIImage.h, src/include/vigra_ext/blend.h,
-	src/tests/vigra_ext.cpp: fixed crashes while remapping and
-	blending. nona should be useable again
+	* src/: include/PT/Stitcher.h, include/vigra_ext/ROIImage.h,
+	  include/vigra_ext/blend.h, tests/vigra_ext.cpp,
+	  Panorama/Stitcher.cpp, include/PT/PanoramaMemento.h,
+	  include/PT/RemappedPanoImage.h: fixed crashes while remapping and
+	  blending. nona should be useable again
+
+2004-10-11 18:04  dangelo
 
 	* src/tools/zhang_undistort.cpp: patch to compile zhang_undistort
-	utility, can be used to undistort images using the zhang
-	distortion model. The calibration tool can be found at
-	http://loper.org/~matt/CamChecker/CamChecker_docs/html/index.html
+	  utility, can be used to undistort images using the zhang
+	  distortion model. The calibration tool can be found at
+	  http://loper.org/~matt/CamChecker/CamChecker_docs/html/index.html
 
-2004-10-07 16:54:01  dangelo  (dangelo)
+2004-10-07 18:54  dangelo
 
 	* src/include/vigra_ext/tiffUtils.h: fixed stupid bug that creept
-	in while making the source compilable with MSCV
+	  in while making the source compilable with MSCV
 
-	* src/makefiles/rules.mk: use gcc for dependency creation and
-	add the .obj/ path
+2004-10-07 18:49  dangelo
 
-2004-09-30 19:51:28  dangelo  (dangelo)
+	* src/makefiles/rules.mk: use gcc for dependency creation and add
+	  the .obj/ path
+
+2004-09-30 21:51  dangelo
 
 	* src/hugin/PreviewPanel.cpp: default to "normal" blending mode
 
+2004-09-30 21:33  dangelo
+
 	* src/include/PT/RemappedPanoImage.h: Hold a remapped pano image,
-	with ROI
+	  with ROI
 
-	* src/makefiles/rules.mk, src/tools/Makefile,
-	src/tools/zhang_undistort.cpp, src/jhead/exif.cpp,
-	src/jhead/jpgfile.cpp, src/tests/Makefile,
-	src/tests/vigra_ext.cpp, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPZoomDisplayPanel.h,
-	src/include/hugin/ImageCache.h, src/include/hugin/ImagesList.h,
-	src/include/hugin/MainFrame.h, src/include/jhead/jhead.h,
-	src/include/vigra_ext/Correlation.h,
-	src/include/vigra_ext/FunctorAccessor.h,
-	src/include/vigra_ext/PointMatching.h,
-	src/include/vigra_ext/tiffUtils.h,
-	src/hugin/CPZoomDisplayPanel.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/NonaStitcherPanel.cpp,
-	src/hugin/PTStitcherPanel.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/hugin_rc.rc, src/include/PT/PTOptimise.h: smaller
-	changes, fixes for MSVC compilation
+2004-09-30 21:28  dangelo
 
-	* src/hugin/xrc/cp_editor_panel.xrc,
-	src/hugin/xrc/optimize_panel.xrc, src/hugin/xrc/pano_panel.xrc:
-	commited modified xrc files provided by Ippei
+	* src/: hugin/CPZoomDisplayPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/ImagesList.cpp, hugin/NonaStitcherPanel.cpp,
+	  hugin/PTStitcherPanel.cpp, hugin/PanoPanel.cpp,
+	  hugin/hugin_rc.rc, include/PT/PTOptimise.h,
+	  include/hugin/CPEditorPanel.h,
+	  include/hugin/CPZoomDisplayPanel.h, include/hugin/ImageCache.h,
+	  include/hugin/ImagesList.h, include/hugin/MainFrame.h,
+	  include/jhead/jhead.h, include/vigra_ext/Correlation.h,
+	  include/vigra_ext/FunctorAccessor.h,
+	  include/vigra_ext/PointMatching.h, include/vigra_ext/tiffUtils.h,
+	  jhead/exif.cpp, jhead/jpgfile.cpp, tests/Makefile,
+	  tests/vigra_ext.cpp, tools/Makefile, tools/zhang_undistort.cpp,
+	  makefiles/rules.mk: smaller changes, fixes for MSVC compilation
 
-	* src/Hugin.sln, src/common/common.vcproj,
-	src/foreign/vigra/vigra.vcproj,
-	src/foreign/vigra_impex/vigra_impex.vcproj,
-	src/hugin/hugin.vcproj, src/jhead/jhead.vcproj,
-	src/vigra_ext/vigra_ext.vcproj: new MSVC project files
+2004-09-30 21:26  dangelo
 
-	* src/hugin/xrc/data/icon.ico, src/hugin/xrc/data/logo.png,
-	src/hugin/xrc/data/splash.png: new logo, thanks to Luca Vascon!
-	icons not yet ready.
+	* src/hugin/xrc/: cp_editor_panel.xrc, optimize_panel.xrc,
+	  pano_panel.xrc: commited modified xrc files provided by Ippei
 
-	* src/include/panoinc.h, src/include/panoinc_WX.h: changed
-	default includes (MSVC stuff and new files)
+2004-09-30 21:25  dangelo
+
+	* src/: vigra_ext/vigra_ext.vcproj,
+	  foreign/vigra_impex/vigra_impex.vcproj, hugin/hugin.vcproj,
+	  jhead/jhead.vcproj, common/common.vcproj,
+	  foreign/vigra/vigra.vcproj, Hugin.sln: new MSVC project files
+
+2004-09-30 21:15  dangelo
+
+	* src/hugin/xrc/data/: icon.ico, logo.png, splash.png: new logo,
+	  thanks to Luca Vascon! icons not yet ready.
+
+2004-09-30 21:12  dangelo
+
+	* src/include/: panoinc.h, panoinc_WX.h: changed default includes
+	  (MSVC stuff and new files)
+
+2004-09-30 21:11  dangelo
 
 	* src/include/vigra_ext/ImageTransforms.h: moved image transform
-	functions
+	  functions
 
-	* src/include/vigra_ext/MultiLayerImage.h,
-	src/include/vigra_ext/ROIImage.h: new partial and multilayer
-	image class, with cleaner API
+2004-09-30 21:09  dangelo
 
-	* src/include/vigra_ext/blend.h: some functions to blend two
-	images together
+	* src/include/vigra_ext/: MultiLayerImage.h, ROIImage.h: new
+	  partial and multilayer image class, with cleaner API
+
+2004-09-30 21:08  dangelo
+
+	* src/include/vigra_ext/blend.h: some functions to blend two images
+	  together
+
+2004-09-30 21:07  dangelo
 
 	* src/include/PT/Stitcher.h: changed Remapper semantics and
-	introduced blending functors
+	  introduced blending functors
 
-	* src/include/PT/PanoramaMemento.h,
-	src/include/vigra_ext/Interpolators.h: moved interpolator
-	functions/enums into right file
+2004-09-30 21:05  dangelo
 
-	* src/hugin/PreviewPanel.cpp, src/include/hugin/PreviewPanel.h:
-	selectable blending modes
+	* src/include/: PT/PanoramaMemento.h, vigra_ext/Interpolators.h:
+	  moved interpolator functions/enums into right file
 
-	* src/hugin/ImagesPanel.cpp, src/hugin/MainFrame.cpp: Moved
-	remove image function into ImagesPanel
+2004-09-30 21:01  dangelo
 
-	* src/hugin/CPImageCtrl.cpp: do not delete cursors. fixes crash
-	on exit
+	* src/: hugin/PreviewPanel.cpp, include/hugin/PreviewPanel.h:
+	  selectable blending modes
 
-	* src/hugin/CPEditorPanel.cpp: commented out unused region
-	matching code
+2004-09-30 20:58  dangelo
+
+	* src/hugin/: ImagesPanel.cpp, MainFrame.cpp: Moved remove image
+	  function into ImagesPanel
+
+2004-09-30 20:56  dangelo
+
+	* src/hugin/CPImageCtrl.cpp: do not delete cursors. fixes crash on
+	  exit
+
+2004-09-30 20:55  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: commented out unused region matching
+	  code
+
+2004-09-30 20:54  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: default to sensible files
-	when looking for external program
+	  when looking for external program
 
-	* src/common/graph.cpp, src/common/utils.cpp,
-	src/foreign/vigra/windows.h, src/foreign/vigra_impex/tiff.cxx,
-	src/include/common/math.h, src/include/common/platform.h,
-	src/include/common/utils.h: fixes for compilation with Visual
-	Studio.NET
+2004-09-30 20:51  dangelo
 
-	* src/include/vigra_ext/LayerImage.h, src/include/vigra_ext/ROI.h,
-	src/hugin/CPEditorPanelHandler.cpp, src/hugin/CPEditorTest.cpp,
-	src/hugin/ImgScrollWindow.cpp, src/hugin/TestPanel.cpp,
-	src/Panorama/main.cpp, src/Panorama/ImageGraph.cpp,
-	src/Panorama/Panorama.cpp, src/Panorama/Panorama.vcproj,
-	src/Panorama/PanoramaMemento.cpp, src/Panorama/Process.cpp,
-	src/Panorama/Stitcher.cpp: removed obselete files
+	* src/: foreign/vigra/windows.h, foreign/vigra_impex/tiff.cxx,
+	  include/common/math.h, include/common/platform.h,
+	  include/common/utils.h, common/graph.cpp, common/utils.cpp: fixes
+	  for compilation with Visual Studio.NET
 
-2004-09-22 15:17:53  ippei  (ippei)
+2004-09-30 20:29  dangelo
+
+	* src/include/vigra_ext/: LayerImage.h, ROI.h: removed obselete
+	  files
+
+2004-09-30 19:34  dangelo
+
+	* src/: Panorama/ImageGraph.cpp, Panorama/Panorama.cpp,
+	  Panorama/Panorama.vcproj, Panorama/PanoramaMemento.cpp,
+	  Panorama/Process.cpp, Panorama/Stitcher.cpp, Panorama/main.cpp,
+	  hugin/CPEditorPanelHandler.cpp, hugin/CPEditorTest.cpp,
+	  hugin/ImgScrollWindow.cpp, hugin/TestPanel.cpp: removed obselete
+	  files
+
+2004-09-22 17:17  ippei
 
 	* src/hugin/NonaStitcherPanel.cpp: Adding enblend executable
-	chooser like one in windows for OSX.
+	  chooser like one in windows for OSX.
+
+2004-09-22 14:04  ippei
 
 	* src/hugin/AutoCtrlPointCreator.cpp: Adding autopano-sift shell
-	script chooser like the windows one to OSX.
+	  script chooser like the windows one to OSX.
 
-2004-09-17 15:52:14  dangelo  (dangelo)
+2004-09-17 18:52  dangelo
 
-	* src/hugin/PreviewPanel.cpp, src/include/PT/Stitcher.h: actually
-	this is what I really wanted..
+	* src/: hugin/PreviewPanel.cpp, include/PT/Stitcher.h: actually
+	  this is what I really wanted..
+
+2004-09-17 18:45  dangelo
 
 	* src/hugin/PreviewPanel.cpp: ups, typo
 
-2004-09-16 23:55:18  dangelo  (dangelo)
+2004-09-17 02:55  dangelo
 
-	* src/hugin/CPZoomDisplayPanel.cpp,
-	src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
-	src/include/PT/Stitcher.h, src/include/hugin/PreviewFrame.h,
-	src/include/hugin/PreviewPanel.h: added difference blending to
-	preview window
+	* src/: hugin/CPZoomDisplayPanel.cpp, hugin/PreviewFrame.cpp,
+	  hugin/PreviewPanel.cpp, include/PT/Stitcher.h,
+	  include/hugin/PreviewFrame.h, include/hugin/PreviewPanel.h: added
+	  difference blending to preview window
+
+2004-09-17 00:37  dangelo
 
 	* src/Panorama/PanoToolsInterface.cpp: bugfix for d,e correction
-	was not complete
+	  was not complete
+
+2004-09-16 23:30  dangelo
 
 	* src/hugin/PanoPanel.cpp: do not change hfov/vfov of panoramas,
-	when selecting a stitcher preset
+	  when selecting a stitcher preset
 
-	* src/Panorama/PanoToolsInterface.cpp,
-	src/Panorama/Panorama.cpp, src/hugin/CPZoomDisplayPanel.cpp,
-	src/include/PT/PanoToolsInterface.h: preview was inaccurate when
-	using d,e parameters, since they have to be scaled according to
-	the image size. fixed
+2004-09-16 23:30  dangelo
 
-2004-09-15 23:05:00  dangelo  (dangelo)
+	* src/: include/PT/PanoToolsInterface.h,
+	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  hugin/CPZoomDisplayPanel.cpp: preview was inaccurate when using
+	  d,e parameters, since they have to be scaled according to the
+	  image size. fixed
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp: forgot to convert system()
-	return code to usual return code
+2004-09-16 02:05  dangelo
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp: use the system() call to execute
-	external programs like autopano and enblend
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp:
+	  forgot to convert system() return code to usual return code
 
-2004-09-14 23:17:13  dangelo  (dangelo)
+2004-09-16 01:34  dangelo
 
-	* src/include/common/utils.h: print messages in windows debug
-	build to stderr, which is redirected to a file
+	* src/hugin/: NonaStitcherPanel.cpp, AutoCtrlPointCreator.cpp: use
+	  the system() call to execute external programs like autopano and
+	  enblend
+
+2004-09-15 02:17  dangelo
+
+	* src/include/common/utils.h: print messages in windows debug build
+	  to stderr, which is redirected to a file
+
+2004-09-15 02:15  dangelo
 
 	* src/include/vigra_ext/Correlation.h: calculate template size
-	after cropping
+	  after cropping
 
-	* src/hugin/PTStitcherPanel.cpp: bug the prevented the selection
-	of PSD as output format fixed.
+2004-09-15 02:11  dangelo
 
-	* src/hugin/xrc/images_panel.xrc: no two lines spinctrl for #
-	of ctrl point selection
+	* src/hugin/PTStitcherPanel.cpp: bug the prevented the selection of
+	  PSD as output format fixed.
+
+2004-09-15 02:00  dangelo
+
+	* src/hugin/xrc/images_panel.xrc: no two lines spinctrl for # of
+	  ctrl point selection
+
+2004-09-15 01:58  dangelo
 
 	* src/hugin/PreviewFrame.cpp: display ticks every 5 degrees
 
-	* src/Panorama/Panorama.cpp: fixed bug with calcFOV and nozero
-	d,e parameters
+2004-09-15 01:36  dangelo
+
+	* src/Panorama/Panorama.cpp: fixed bug with calcFOV and nozero d,e
+	  parameters
+
+2004-09-14 23:33  dangelo
 
 	* src/hugin/PreviewFrame.cpp: do not save size if the preview
-	window is maximized
+	  window is maximized
+
+2004-09-14 23:28  dangelo
 
 	* src/include/common/utils.h: added stringToDouble function
 
+2004-09-14 23:21  dangelo
+
 	* src/hugin/xrc/optimize_panel.xrc: fixed naming of d,e
+
+2004-09-14 23:20  dangelo
 
 	* src/hugin/MainFrame.cpp: display open project name in titlebar
 
-	* src/hugin/OptimizePanel.cpp: display lens values, if they
-	are linked
+2004-09-14 23:19  dangelo
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
-	src/include/hugin/ImagesList.h, src/include/hugin/ImagesPanel.h,
-	src/include/hugin/LensPanel.h: added configureable number of
-	fractional digits for listviews, text fields etc.
+	* src/hugin/OptimizePanel.cpp: display lens values, if they are
+	  linked
 
-	* src/Panorama/Panorama.cpp, src/common/utils.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/ImagesPanel.cpp,
-	src/hugin/LensPanel.cpp: fixed lexical cast error, and made
-	number of digits in hugin display configureable.
+2004-09-14 23:18  dangelo
 
-	* src/hugin/CPListFrame.cpp, src/hugin/xrc/cp_list_frame.xrc,
-	src/include/hugin/CPListFrame.h: multiselection of control points
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  include/hugin/ImagesList.h, include/hugin/ImagesPanel.h,
+	  include/hugin/LensPanel.h: added configureable number of
+	  fractional digits for listviews, text fields etc.
 
-	* src/hugin/CPEditorPanel.cpp: moving an existing ctrl point
-	was broken.. fixed
+2004-09-14 21:07  dangelo
 
-2004-09-12 21:33:17  dangelo  (dangelo)
+	* src/: hugin/ImagesList.cpp, hugin/ImagesPanel.cpp,
+	  hugin/LensPanel.cpp, Panorama/Panorama.cpp, common/utils.cpp:
+	  fixed lexical cast error, and made number of digits in hugin
+	  display configureable.
 
-	* src/include/vigra_ext/Correlation.h: Fix for compilation with
-	gcc 3.4, thanks to Douglas Wilkins
+2004-09-14 20:39  dangelo
 
-2004-09-08 23:33:33  dangelo  (dangelo)
+	* src/: hugin/CPListFrame.cpp, hugin/xrc/cp_list_frame.xrc,
+	  include/hugin/CPListFrame.h: multiselection of control points
 
-	* src/tools/zhang_undistort.cpp: simple test tool to
-	undistort images according to the zhang camera model.
-	an opensource calibration tool is available from
-	http://www.loper.org/~matt/CamChecker/CamChecker_docs/html/index.html
+2004-09-14 20:26  dangelo
 
-	* src/hugin/MainFrame.cpp, src/hugin/PreviewFrame.cpp,
-	src/hugin/huginApp.cpp, src/include/PT/ImageGraph.h,
-	src/nona_gui/nona_gui.cpp: Fixes for Mac OSX compilation. Thanks
-	to Ippei UKAI for the activity on the Mac
+	* src/hugin/CPEditorPanel.cpp: moving an existing ctrl point was
+	  broken.. fixed
+
+2004-09-13 00:33  dangelo
+
+	* src/include/vigra_ext/Correlation.h: Fix for compilation with gcc
+	  3.4, thanks to Douglas Wilkins
+
+2004-09-09 02:33  dangelo
+
+	* src/tools/zhang_undistort.cpp: simple test tool to undistort
+	  images according to the zhang camera model.  an opensource
+	  calibration tool is available from
+	  http://www.loper.org/~matt/CamChecker/CamChecker_docs/html/index.html
+
+2004-09-09 02:13  dangelo
+
+	* src/: nona_gui/nona_gui.cpp, hugin/MainFrame.cpp,
+	  hugin/PreviewFrame.cpp, hugin/huginApp.cpp,
+	  include/PT/ImageGraph.h: Fixes for Mac OSX compilation. Thanks to
+	  Ippei UKAI for the activity on the Mac
+
+2004-09-09 01:55  dangelo
 
 	* src/hugin/huginApp.cpp: minor change
 
+2004-09-09 01:52  dangelo
+
 	* src/Makefile: do not build PanoImage by default
 
-	* src/hugin/Makefile, src/hugin/NonaStitcherPanel.cpp,
-	src/include/PT/Stitcher.h, src/tests/Makefile, src/tools/Makefile:
-	minor changes (DEBUG output etc.)
+2004-09-09 01:04  dangelo
 
-	* src/hugin/CPFineTuneFrame.cpp, src/hugin/CPZoomDisplayPanel.cpp,
-	src/include/hugin/CPFineTuneFrame.h,
-	src/include/hugin/CPZoomDisplayPanel.h: added window to display
-	the magnified and perspetive corrected control points.	DISABLED,
-	because of a bug in the orientation estimation.
+	* src/: tools/Makefile, include/PT/Stitcher.h, tests/Makefile,
+	  hugin/Makefile, hugin/NonaStitcherPanel.cpp: minor changes (DEBUG
+	  output etc.)
+
+2004-09-09 01:02  dangelo
+
+	* src/: include/hugin/CPFineTuneFrame.h,
+	  include/hugin/CPZoomDisplayPanel.h, hugin/CPFineTuneFrame.cpp,
+	  hugin/CPZoomDisplayPanel.cpp: added window to display the
+	  magnified and perspetive corrected control points.  DISABLED,
+	  because of a bug in the orientation estimation.
+
+2004-09-09 00:59  dangelo
 
 	* src/tests/vigra_ext.cpp: added some test that compare the two
-	correlation routines
+	  correlation routines
 
-	* src/makefiles/rules.mk: abort building after a compiler error
-	has occured.
+2004-09-09 00:59  dangelo
 
-	* src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp:
-	better output parsing of PTStitcher and PTOptimizer (optimizing
-	progress works properly with newer Pano Tools library)
+	* src/makefiles/rules.mk: abort building after a compiler error has
+	  occured.
+
+2004-09-09 00:57  dangelo
+
+	* src/hugin/: RunStitcherFrame.cpp, RunOptimizerFrame.cpp: better
+	  output parsing of PTStitcher and PTOptimizer (optimizing progress
+	  works properly with newer Pano Tools library)
+
+2004-09-09 00:56  dangelo
 
 	* src/hugin/PanoPanel.cpp: removed stupid cut'n'paste error that
-	created the nona output files before the stitching.  This broke
-	nona stitching if the correct file extension was specified.
+	  created the nona output files before the stitching.  This broke
+	  nona stitching if the correct file extension was specified.
 
-	* src/hugin/MainFrame.cpp, src/hugin/CPEditorPanel.cpp,
-	src/hugin/CPImageCtrl.cpp, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h, src/include/panoinc_WX.h,
-	src/include/vigra_ext/Correlation.h: added new correlation
-	function that will also search for rotated patches.  it must
-	be enabled in the config file (or registry), by setting
-	CPEditorPanel/RotationSearch = 1 the angle interval that should
-	be tried can be specified with
+2004-09-09 00:52  dangelo
 
-	CPEditorPanel/RotationStartAngle CPEditorPanel/RotationStopAngle
-	CPEditorPanel/RotationSteps
+	* src/: include/panoinc_WX.h, include/hugin/CPEditorPanel.h,
+	  include/hugin/CPImageCtrl.h, include/vigra_ext/Correlation.h,
+	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/MainFrame.cpp: added new correlation function that will
+	  also search for rotated patches.  it must be enabled in the
+	  config file (or registry), by setting
+	  CPEditorPanel/RotationSearch = 1 the angle interval that should
+	  be tried can be specified with
 
-	* src/Panorama/Panorama.cpp: fixed control point parsing bug
-	with newer pano12.dll's
+	  CPEditorPanel/RotationStartAngle CPEditorPanel/RotationStopAngle
+	  CPEditorPanel/RotationSteps
 
-	* src/common/utils.cpp: fixed error when the path to an output
-	file contained a .
+2004-09-09 00:23  dangelo
 
-2004-08-30 22:58:32  dangelo  (dangelo)
+	* src/Panorama/Panorama.cpp: fixed control point parsing bug with
+	  newer pano12.dll's
+
+2004-09-09 00:22  dangelo
+
+	* src/common/utils.cpp: fixed error when the path to an output file
+	  contained a .
+
+2004-08-31 01:58  dangelo
 
 	* src/hugin/MainFrame.cpp: fix endless loop on removing images,
-	looks like an unsigned int can get negative with the gcc 3.3
-	under linux, that is (! (uint >= 0)) can become true..
+	  looks like an unsigned int can get negative with the gcc 3.3
+	  under linux, that is (! (uint >= 0)) can become true..
+
+2004-08-30 10:38  dangelo
 
 	* src/hugin/LensPanel.cpp: fixed a typo (file dialog was called
-	save instead of load)
+	  save instead of load)
 
-2004-08-29 23:48:48  dangelo  (dangelo)
+2004-08-30 02:48  dangelo
 
-	* src/hugin/NonaStitcherPanel.cpp: fixed error on enblend
-	execution on unix. wxExecute doesn't like quoted commands, like
-	"enblend"
+	* src/hugin/NonaStitcherPanel.cpp: fixed error on enblend execution
+	  on unix. wxExecute doesn't like quoted commands, like "enblend"
 
-2004-08-27 22:51:53  dangelo  (dangelo)
+2004-08-28 01:51  dangelo
 
 	* src/hugin/Makefile: revert stupid change
 
-	* src/Panorama/Panorama.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/Makefile: bugfix: load control point errors from newer
-	panorama tools library.  windows change: debug build logs stdout &
-	stderr to files on c:\hugin_*.txt
+2004-08-28 01:50  dangelo
 
-2004-08-24 06:27:39  dangelo  (dangelo)
+	* src/: Panorama/Panorama.cpp, hugin/MainFrame.cpp, hugin/Makefile:
+	  bugfix: load control point errors from newer panorama tools
+	  library.  windows change: debug build logs stdout & stderr to
+	  files on c:\hugin_*.txt
+
+2004-08-24 09:27  dangelo
 
 	* src/include/vigra_ext/Correlation.h: removed debug output
 
-2004-08-18 21:28:41  dangelo  (dangelo)
+2004-08-19 00:28  dangelo
 
-	* src/hugin/CPEditorPanel.cpp,
-	src/include/vigra_ext/Correlation.h,
-	src/include/vigra_ext/FitPolynom.h, src/tests/vigra_ext.cpp:
-	subpixel accurate fine tune (for image pairs without rotation,
-	the accuracy should be between 0.1 and 0.2 pixels).
+	* src/: tests/vigra_ext.cpp, hugin/CPEditorPanel.cpp,
+	  include/vigra_ext/Correlation.h, include/vigra_ext/FitPolynom.h:
+	  subpixel accurate fine tune (for image pairs without rotation,
+	  the accuracy should be between 0.1 and 0.2 pixels).
 
-	* src/hugin/xrc/images_panel.xrc, src/hugin/ImagesPanel.cpp:
-	Enabled autopano button, even if no, or only one image is
-	selected. All Images are used then. Same with Delete Control
-	Points Button.
+2004-08-19 00:25  dangelo
 
-2004-07-30 05:56:04  dangelo  (dangelo)
+	* src/hugin/: ImagesPanel.cpp, xrc/images_panel.xrc: Enabled
+	  autopano button, even if no, or only one image is selected. All
+	  Images are used then. Same with Delete Control Points Button.
+
+2004-07-30 08:56  dangelo
 
 	* src/include/PT/Stitcher.h: temporarily fixed abort when images
-	are completely out of the pano.  this should fix the annoying
-	precondition messages on the preview window
+	  are completely out of the pano.  this should fix the annoying
+	  precondition messages on the preview window
 
-	* src/hugin/ImageCache.cpp: report if an image file could not
-	be found
+2004-07-30 08:52  dangelo
+
+	* src/hugin/ImageCache.cpp: report if an image file could not be
+	  found
+
+2004-07-30 08:51  dangelo
 
 	* src/Panorama/Panorama.cpp: removed assertation of not all image
-	parameters could be read.  hmm, strange this shouldn't happen,
-	and is definately a problem, but for the time beeing I just
-	print something to the console.
+	  parameters could be read.  hmm, strange this shouldn't happen,
+	  and is definately a problem, but for the time beeing I just print
+	  something to the console.
 
-2004-07-28 06:50:23  dangelo  (dangelo)
+2004-07-28 09:50  dangelo
 
 	* src/include/vigra_ext/Correlation.h: commented out work in
-	progress (subpixel estimation)
+	  progress (subpixel estimation)
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/NonaStitcherPanel.cpp,
-	src/hugin/PreviewFrame.cpp, src/hugin/RunOptimizerFrame.cpp,
-	src/hugin/RunStitcherFrame.cpp, src/hugin/UniversalCursor.cpp,
-	src/hugin/huginApp.cpp, src/include/PT/ImageTransforms.h,
-	src/include/PT/PanoToolsInterface.h,
-	src/include/common/utils.h, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPListFrame.h, src/include/hugin/ImageCache.h,
-	src/include/hugin/ImageCenter.h,
-	src/include/hugin/ImageOrientationFrame.h,
-	src/include/hugin/ImageOrientationPanel.h,
-	src/include/hugin/ImagesList.h, src/include/hugin/ImagesPanel.h,
-	src/include/hugin/LensPanel.h, src/include/hugin/MainFrame.h,
-	src/include/hugin/MyProgressDialog.h,
-	src/include/hugin/NonaStitcherPanel.h,
-	src/include/hugin/PTStitcherPanel.h,
-	src/include/hugin/PanoPanel.h, src/include/hugin/PreviewFrame.h,
-	src/include/hugin/PreviewPanel.h,
-	src/include/hugin/RunStitcherFrame.h,
-	src/include/hugin/StitcherPanel.h,
-	src/include/hugin/TextKillFocusHandler.h,
-	src/include/hugin/UniversalCursor.h, src/include/hugin/huginApp.h,
-	src/include/panoinc_WX.h: update for windows compilation using
-	native mingw, undef's some stupid macros defiend by windows,
-	that mess up the compilation.
+2004-07-28 08:53  dangelo
 
-	All wxWindows includes have to be included in panoinc_WX.h,
-	and not later.
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/NonaStitcherPanel.cpp,
+	  hugin/PreviewFrame.cpp, hugin/RunOptimizerFrame.cpp,
+	  hugin/RunStitcherFrame.cpp, hugin/UniversalCursor.cpp,
+	  hugin/huginApp.cpp, include/panoinc_WX.h,
+	  include/PT/ImageTransforms.h, include/PT/PanoToolsInterface.h,
+	  include/common/utils.h, include/hugin/CPEditorPanel.h,
+	  include/hugin/CPListFrame.h, include/hugin/ImageCache.h,
+	  include/hugin/ImageCenter.h,
+	  include/hugin/ImageOrientationFrame.h,
+	  include/hugin/ImageOrientationPanel.h,
+	  include/hugin/ImagesList.h, include/hugin/ImagesPanel.h,
+	  include/hugin/LensPanel.h, include/hugin/MainFrame.h,
+	  include/hugin/MyProgressDialog.h,
+	  include/hugin/NonaStitcherPanel.h,
+	  include/hugin/PTStitcherPanel.h, include/hugin/PanoPanel.h,
+	  include/hugin/PreviewFrame.h, include/hugin/PreviewPanel.h,
+	  include/hugin/RunStitcherFrame.h, include/hugin/StitcherPanel.h,
+	  include/hugin/TextKillFocusHandler.h,
+	  include/hugin/UniversalCursor.h, include/hugin/huginApp.h: update
+	  for windows compilation using native mingw, undef's some stupid
+	  macros defiend by windows, that mess up the compilation.
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/include/hugin/AutoCtrlPointCreator.h: added separate class
-	of autopano on windows (works now...)
+	  All wxWindows includes have to be included in panoinc_WX.h, and
+	  not later.
 
-2004-07-21 21:41:40  dangelo  (dangelo)
+2004-07-28 08:49  dangelo
 
-	* src/include/panoinc_WX.h, src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp: tried to fix autopano calling
-	on windows, support for autopano.kolor.com 1.03, more warning
-	messages if calling failed
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  include/hugin/AutoCtrlPointCreator.h: added separate class of
+	  autopano on windows (works now...)
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/include/common/math.h, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h: preparations for subpixel
-	finetuneing (and maybe editing)
+2004-07-22 00:41  dangelo
 
-2004-07-20 20:16:00  dangelo  (dangelo)
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  hugin/NonaStitcherPanel.cpp, include/panoinc_WX.h: tried to fix
+	  autopano calling on windows, support for autopano.kolor.com 1.03,
+	  more warning messages if calling failed
+
+2004-07-22 00:39  dangelo
+
+	* src/: include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
+	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  include/common/math.h: preparations for subpixel finetuneing (and
+	  maybe editing)
+
+2004-07-20 23:16  dangelo
 
 	* src/Panorama/PanoramaMemento.cpp: added small nonzero defaults
-	for a,b,c, else optimising will not change them
+	  for a,b,c, else optimising will not change them
 
-2004-07-16 06:28:49  dangelo  (dangelo)
+2004-07-16 09:28  dangelo
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp: warn if command line is >
-	2000 chars on windows
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp: warn
+	  if command line is > 2000 chars on windows
 
-	* src/hugin/NonaStitcherPanel.cpp: call enblend with -v option,
-	so that the people see what is going on
+2004-07-16 09:17  dangelo
+
+	* src/hugin/NonaStitcherPanel.cpp: call enblend with -v option, so
+	  that the people see what is going on
+
+2004-07-16 09:17  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: delete autopano result file
 
-2004-07-15 23:00:47  dangelo  (dangelo)
+2004-07-16 02:00  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: - last update broke autopano
-	result reading.. changed result filename.
+	  result reading.. changed result filename.
 
-	* src/hugin/AutoCtrlPointCreator.cpp: - assume t0 points if
-	type is not specified in optimizer script (work around autopano
-	1.3 bugs)
+2004-07-16 01:49  dangelo
 
-	* src/Panorama/PanoramaMemento.cpp,
-	src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp: - also quote autopano and
-	enblend filenames - assume t0 points if type is not specified
-	in optimizer script
+	* src/hugin/AutoCtrlPointCreator.cpp: - assume t0 points if type is
+	  not specified in optimizer script (work around autopano 1.3 bugs)
 
-2004-07-12 21:45:05  dangelo  (dangelo)
+2004-07-16 01:47  dangelo
 
-	* src/Panorama/PanoramaMemento.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/UniversalCursor.cpp: uses
-	standart wxCursor on __WXMAC__
+	* src/: Panorama/PanoramaMemento.cpp,
+	  hugin/AutoCtrlPointCreator.cpp, hugin/NonaStitcherPanel.cpp: -
+	  also quote autopano and enblend filenames - assume t0 points if
+	  type is not specified in optimizer script
 
-2004-07-11 21:36:32  dangelo  (dangelo)
+2004-07-13 00:45  dangelo
 
-	* src/include/hugin/CPEditorPanel.h, src/hugin/CPEditorPanel.cpp,
-	src/hugin/xrc/cp_editor_panel.xrc: added "Add" button, and
-	dynamic dis/enableing of add and delete buttons.
+	* src/: Panorama/PanoramaMemento.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/LensPanel.cpp, hugin/UniversalCursor.cpp: uses standart
+	  wxCursor on __WXMAC__
 
-	* src/hugin/CPEditorPanel.cpp,
-	src/hugin/CPImageCtrl.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/MainFrame.cpp, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h: fixed some crashes: - crash when
-	selecting point outside image - crash when seleciing a point in
-	the listview while only 1 point
-	  is set in the image
+2004-07-12 00:36  dangelo
 
-	some consistency changes: - consistent coloring when setting
-	points
-	  (red: modify existing point, yellow, edit new point) - made
-	active point slightly bigger - circles scale up when using zoom
-	> 100%
+	* src/: hugin/CPEditorPanel.cpp, hugin/xrc/cp_editor_panel.xrc,
+	  include/hugin/CPEditorPanel.h: added "Add" button, and dynamic
+	  dis/enableing of add and delete buttons.
 
-	* src/hugin/ImageCache.cpp, src/hugin/MainFrame.cpp,
-	src/include/PT/PanoCommand.h, src/include/hugin/ImageCache.h:
-	remove images from cache, if an image is removed
+2004-07-11 18:03  dangelo
 
-2004-07-09 14:32:52  dangelo  (dangelo)
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/ImageCache.cpp, hugin/MainFrame.cpp,
+	  include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h: fixed
+	  some crashes: - crash when selecting point outside image - crash
+	  when seleciing a point in the listview while only 1 point   is
+	  set in the image
 
-	* src/include/PT/ImageTransforms.h, src/include/PT/Stitcher.h:
-	avoid crash on destruction, or reload of new image
+	  some consistency changes: - consistent coloring when setting
+	  points   (red: modify existing point, yellow, edit new point) -
+	  made active point slightly bigger - circles scale up when using
+	  zoom > 100%
 
-2004-07-07 22:09:03  dangelo  (dangelo)
+2004-07-11 16:27  dangelo
+
+	* src/: include/hugin/ImageCache.h, hugin/ImageCache.cpp,
+	  hugin/MainFrame.cpp, include/PT/PanoCommand.h: remove images from
+	  cache, if an image is removed
+
+2004-07-09 17:30  dangelo
+
+	* src/include/PT/: Stitcher.h, ImageTransforms.h: avoid crash on
+	  destruction, or reload of new image
+
+2004-07-08 01:09  dangelo
 
 	* src/include/PT/ImageTransforms.h: forgot include.. strange,
-	compiled well on my system, but broke on gcc 3.4
+	  compiled well on my system, but broke on gcc 3.4
 
-	* src/hugin/PreviewPanel.cpp, src/include/PT/Stitcher.h: added a
-	faster simple, copy ontop of eachother stitcher, for use in the
-	preview panel. Should be a lot faster than the old solution. Not
-	tested well yet..
+2004-07-08 01:08  dangelo
 
-2004-07-06 21:53:38  dangelo  (dangelo)
+	* src/: include/PT/Stitcher.h, hugin/PreviewPanel.cpp: added a
+	  faster simple, copy ontop of eachother stitcher, for use in the
+	  preview panel. Should be a lot faster than the old solution. Not
+	  tested well yet..
 
-	* src/include/hugin/ImageCache.h,
-	src/include/hugin/PreviewPanel.h, src/hugin/ImageCache.cpp,
-	src/hugin/PreviewPanel.cpp, src/include/PT/ImageTransforms.h,
-	src/include/PT/Stitcher.h: added remap cache, speeds up preview
-	panel A LOT the better seam line calculation still takes a lot
-	of time..  should offer a "quick mode" that just copies the
-	images over eachother.
+2004-07-07 00:53  dangelo
 
-	* src/hugin/huginApp.cpp: default to TMPDIR, fallback to /tmp
-	on unix.  does not save TMPDIR automatically, that is reads the
-	TMPDIR variable on every start, if the used didn't specify the
-	tempDir in .huginrc
+	* src/: hugin/ImageCache.cpp, hugin/PreviewPanel.cpp,
+	  include/PT/ImageTransforms.h, include/PT/Stitcher.h,
+	  include/hugin/ImageCache.h, include/hugin/PreviewPanel.h: added
+	  remap cache, speeds up preview panel A LOT the better seam line
+	  calculation still takes a lot of time..  should offer a "quick
+	  mode" that just copies the images over eachother.
 
-	* src/nona_gui/nona_gui.cpp, src/tools/automatch.cpp,
-	src/tools/nona.cpp, src/foreign/vigra/accessor.hxx,
-	src/foreign/vigra/basicimage.hxx,
-	src/foreign/vigra/functorexpression.hxx,
-	src/foreign/vigra/imageiterator.hxx,
-	src/foreign/vigra/iteratortraits.hxx,
-	src/foreign/vigra/separableconvolution.hxx,
-	src/foreign/vigra/stdconvolution.hxx,
-	src/foreign/vigra/tinyvector.hxx,
-	src/include/PT/ImageTransforms.h, src/include/PT/PTOptimise.h,
-	src/include/PT/Stitcher.h, src/include/vigra_ext/Correlation.h,
-	src/include/vigra_ext/LoweSIFT.h,
-	src/include/vigra_ext/NearestFeatureTransform.h,
-	src/include/vigra_ext/Pyramid.h, src/Panorama/Panorama.cpp:
-	applied gcc 2.4 fixes by Douglas Wilkins namespace fixes, and
-	bugfixes for vigra
+2004-07-06 23:57  dangelo
 
-	03-vigra-update.patch.bz2 - two mistakes in vigra that are
-	caught by the newer compiler. (corrections from latest mandrake
-	vigra package) 04-vigra-namespace.patch.bz2 - explicit namespace
-	declarations required by 3.4.1 05-hugin-fix1.patch.bz2 - remove
-	dead code (never called) which has an undeclared variable "s"
-	06-hugin-move.patch.bz2 - move code so that forward declarations
-	are not required 07-hugin-namepace.patch.bz2 - explicit namespace
-	declarations required by 3.4.1
+	* src/hugin/huginApp.cpp: default to TMPDIR, fallback to /tmp on
+	  unix.  does not save TMPDIR automatically, that is reads the
+	  TMPDIR variable on every start, if the used didn't specify the
+	  tempDir in .huginrc
 
-2004-07-04 19:49:11  dangelo  (dangelo)
+2004-07-06 07:28  dangelo
 
-	* configure: xrc extension carries the release version 2.x
-	instead of the version 2.x.x
+	* src/: Panorama/Panorama.cpp, foreign/vigra/accessor.hxx,
+	  foreign/vigra/basicimage.hxx,
+	  foreign/vigra/functorexpression.hxx,
+	  foreign/vigra/imageiterator.hxx,
+	  foreign/vigra/iteratortraits.hxx,
+	  foreign/vigra/separableconvolution.hxx,
+	  foreign/vigra/stdconvolution.hxx, foreign/vigra/tinyvector.hxx,
+	  include/PT/ImageTransforms.h, include/PT/PTOptimise.h,
+	  include/PT/Stitcher.h, include/vigra_ext/Correlation.h,
+	  include/vigra_ext/LoweSIFT.h,
+	  include/vigra_ext/NearestFeatureTransform.h,
+	  include/vigra_ext/Pyramid.h, nona_gui/nona_gui.cpp,
+	  tools/automatch.cpp, tools/nona.cpp: applied gcc 2.4 fixes by
+	  Douglas Wilkins namespace fixes, and bugfixes for vigra
 
-	* configure: added gtk2 patches by Douglas Wilkins.  use wx
-	release number for linking with xrc
+	  03-vigra-update.patch.bz2 - two mistakes in vigra that are caught
+	  by the newer compiler. (corrections from latest mandrake vigra
+	  package) 04-vigra-namespace.patch.bz2 - explicit namespace
+	  declarations required by 3.4.1 05-hugin-fix1.patch.bz2 - remove
+	  dead code (never called) which has an undeclared variable "s"
+	  06-hugin-move.patch.bz2 - move code so that forward declarations
+	  are not required 07-hugin-namepace.patch.bz2 - explicit namespace
+	  declarations required by 3.4.1
 
-2004-07-03 15:54:15  dangelo  (dangelo)
+2004-07-04 22:49  dangelo
+
+	* configure: xrc extension carries the release version 2.x instead
+	  of the version 2.x.x
+
+2004-07-04 22:24  dangelo
+
+	* configure: added gtk2 patches by Douglas Wilkins.  use wx release
+	  number for linking with xrc
+
+2004-07-03 18:54  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: default to
-	autopano-complete.sh script, provided by autopano-sift 1.4
+	  autopano-complete.sh script, provided by autopano-sift 1.4
+
+2004-07-03 18:30  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: fixes for windows
 
+2004-07-03 13:07  dangelo
+
 	* src/foreign/Makefile: ups, forgot to add moved vigra stuff
 
-	* src/foreign/vigra/extraimagetraits.hxx,
-	src/foreign/vigra/impexalpha.hxx: added
+2004-07-03 13:02  dangelo
+
+	* src/foreign/vigra/: extraimagetraits.hxx, impexalpha.hxx: added
+
+2004-07-03 12:58  dangelo
 
 	* src/keypoints/Makefile: removed reference to old impex
 
-	* src/foreign/vigra_impex/Makefile,
-	src/foreign/vigra_impex/auto_file.hxx,
-	src/foreign/vigra_impex/bmp.cxx, src/foreign/vigra_impex/bmp.hxx,
-	src/foreign/vigra_impex/byteorder.cxx,
-	src/foreign/vigra_impex/byteorder.hxx,
-	src/foreign/vigra_impex/codecmanager.cxx,
-	src/foreign/vigra_impex/codecmanager.hxx,
-	src/foreign/vigra_impex/error.hxx,
-	src/foreign/vigra_impex/gif.cxx, src/foreign/vigra_impex/gif.hxx,
-	src/foreign/vigra_impex/imageinfo.cxx,
-	src/foreign/vigra_impex/jpeg.cxx,
-	src/foreign/vigra_impex/jpeg.hxx, src/foreign/vigra_impex/png.cxx,
-	src/foreign/vigra_impex/png.hxx, src/foreign/vigra_impex/pnm.cxx,
-	src/foreign/vigra_impex/pnm.hxx, src/foreign/vigra_impex/sun.cxx,
-	src/foreign/vigra_impex/sun.hxx, src/foreign/vigra_impex/tiff.cxx,
-	src/foreign/vigra_impex/tiff.hxx,
-	src/foreign/vigra_impex/viff.cxx,
-	src/foreign/vigra_impex/viff.hxx,
-	src/foreign/vigra_impex/void_vector.cxx,
-	src/foreign/vigra_impex/void_vector.hxx: ups, forgot to add
-	moved vigra stuff
+2004-07-03 12:55  dangelo
 
-	* src/hugin/NonaStitcherPanel.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/xrc/images_panel.xrc, src/hugin/xrc/pano_panel.xrc,
-	src/include/hugin/ImagesPanel.h, src/include/hugin/PanoPanel.h:
-	added quick stitch modes
+	* src/foreign/vigra_impex/: bmp.hxx, byteorder.cxx, byteorder.hxx,
+	  codecmanager.cxx, codecmanager.hxx, error.hxx, gif.cxx, gif.hxx,
+	  imageinfo.cxx, jpeg.cxx, jpeg.hxx, png.cxx, png.hxx, pnm.cxx,
+	  pnm.hxx, sun.cxx, sun.hxx, tiff.cxx, tiff.hxx, viff.cxx,
+	  viff.hxx, void_vector.cxx, void_vector.hxx, Makefile,
+	  auto_file.hxx, bmp.cxx: ups, forgot to add moved vigra stuff
+
+2004-07-03 12:45  dangelo
+
+	* src/: hugin/NonaStitcherPanel.cpp, hugin/PanoPanel.cpp,
+	  hugin/xrc/images_panel.xrc, hugin/xrc/pano_panel.xrc,
+	  include/hugin/ImagesPanel.h, include/hugin/PanoPanel.h: added
+	  quick stitch modes
+
+2004-07-03 12:44  dangelo
 
 	* src/hugin/ImagesPanel.cpp: disable autopano / remove points
-	buttons if only one image is selected
+	  buttons if only one image is selected
+
+2004-07-03 12:44  dangelo
 
 	* src/include/PT/PanoramaMemento.h: added blend flag
 
+2004-07-03 12:43  dangelo
+
 	* src/hugin/PreviewFrame.cpp: set fixed width of 20 pixel for
-	number buttons
+	  number buttons
+
+2004-07-03 12:42  dangelo
 
 	* src/hugin/AutoCtrlPointCreator.cpp: do not try to do special
-	things based on the program name selected..
+	  things based on the program name selected..
+
+2004-07-03 12:41  dangelo
 
 	* INSTALL, README: small changes
 
+2004-07-03 11:11  dangelo
+
 	* utils/run-autopano-sift.sh: interface script for autopano-sift,
-	that makes parameters accessible by the command line. Used by
-	the new hugin autopano calling code
+	  that makes parameters accessible by the command line. Used by the
+	  new hugin autopano calling code
 
-	Somebody should write a windows equivalent.
+	  Somebody should write a windows equivalent.
 
-	* src/tests/Makefile, src/tests/common.cpp,
-	src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp, src/hugin/PreviewPanel.cpp,
-	src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp,
-	src/include/common/platform.h, src/include/panoinc.h: add " "
-	around filenames. don't know how to quote " itself on windows,
-	assumed ^ is the quote char. Maybe its wrong. but who would put a
-	" in his filename.. ;)
+2004-07-03 10:59  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/PreviewPanel.cpp,
+	  hugin/RunOptimizerFrame.cpp, hugin/RunStitcherFrame.cpp,
+	  include/panoinc.h, include/common/platform.h, tests/Makefile,
+	  tests/common.cpp: add " " around filenames. don't know how to
+	  quote " itself on windows, assumed ^ is the quote char. Maybe its
+	  wrong. but who would put a " in his filename.. ;)
+
+2004-07-03 10:56  dangelo
 
 	* src/tests/vigra_ext.cpp: test for new import_export routines
 
-2004-07-02 21:02:36  dangelo  (dangelo)
+2004-07-03 00:02  dangelo
 
-	* src/vigra_ext/PointMatching.cpp, src/tools/Makefile,
-	src/tools/automatch.cpp, src/tools/autopano.cpp,
-	src/tools/nona.cpp, src/include/vigra_ext/blend.h,
-	src/keypoints/sift_keypoints.cpp, src/nona_gui/Makefile,
-	src/nona_gui/nona_gui.cpp, src/include/keypoints/ScaleSpace.h,
-	src/include/vigra_ext/LoweSIFT.h,
-	src/include/PT/ImageTransforms.h,
-	src/include/PT/PanoramaMemento.h, src/include/PT/Stitcher.h,
-	src/include/hugin/huginApp.h, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp, src/Panorama/Stitcher.cpp,
-	src/foreign/vigra/codec.hxx, src/foreign/vigra/imageinfo.hxx,
-	src/foreign/vigra/impex.hxx, src/hugin/Makefile,
-	src/hugin/NonaStitcherPanel.cpp, src/hugin/PTStitcherPanel.cpp,
-	src/hugin/huginApp.cpp, src/Makefile, configure: moved
-	vigra_impex2 back into vigra namespace.  I hope that sometime the
-	changes will end up in the official vigra.  Until that happens
-	I'll keep all stuff in the hugin cvs.
+	* configure, src/Makefile, src/Panorama/Panorama.cpp,
+	  src/Panorama/PanoramaMemento.cpp, src/Panorama/Stitcher.cpp,
+	  src/foreign/vigra/codec.hxx, src/foreign/vigra/imageinfo.hxx,
+	  src/foreign/vigra/impex.hxx, src/hugin/Makefile,
+	  src/hugin/NonaStitcherPanel.cpp, src/hugin/PTStitcherPanel.cpp,
+	  src/hugin/huginApp.cpp, src/include/PT/ImageTransforms.h,
+	  src/include/PT/PanoramaMemento.h, src/include/PT/Stitcher.h,
+	  src/include/hugin/huginApp.h, src/include/keypoints/ScaleSpace.h,
+	  src/include/vigra_ext/LoweSIFT.h, src/include/vigra_ext/blend.h,
+	  src/keypoints/sift_keypoints.cpp, src/nona_gui/Makefile,
+	  src/nona_gui/nona_gui.cpp, src/tools/Makefile,
+	  src/tools/automatch.cpp, src/tools/autopano.cpp,
+	  src/tools/nona.cpp, src/vigra_ext/PointMatching.cpp: moved
+	  vigra_impex2 back into vigra namespace.  I hope that sometime the
+	  changes will end up in the official vigra.  Until that happens
+	  I'll keep all stuff in the hugin cvs.
 
-	This als means, that hugin does not depend on vigra packages
-	anymore!
+	  This als means, that hugin does not depend on vigra packages
+	  anymore!
+
+2004-07-02 23:48  dangelo
 
 	* src/hugin/OptimizePanel.cpp: disable buttons on automatic modes
 
-	* src/hugin/MainFrame.cpp: add time series adds all images
-	together
+2004-07-02 23:40  dangelo
 
-	* src/include/hugin/Server.h, src/hugin/Server.cpp: removed
-	obselete interface to old viewer
+	* src/hugin/MainFrame.cpp: add time series adds all images together
 
-2004-07-01 06:35:57  dangelo  (dangelo)
+2004-07-02 19:42  dangelo
 
-	* src/foreign/vigra/distancetransform.hxx,
-	src/foreign/vigra/edgedetection.hxx, src/foreign/vigra/error.hxx,
-	src/foreign/vigra/fftw.hxx, src/foreign/vigra/flatmorphology.hxx,
-	src/foreign/vigra/functorexpression.hxx,
-	src/foreign/vigra/gaborfilter.hxx,
-	src/foreign/vigra/imagecontainer.hxx,
-	src/foreign/vigra/imageinfo.hxx,
-	src/foreign/vigra/imageiterator.hxx,
-	src/foreign/vigra/imageiteratoradapter.hxx,
-	src/foreign/vigra/impex.hxx, src/foreign/vigra/initimage.hxx,
-	src/foreign/vigra/inspectimage.hxx,
-	src/foreign/vigra/interpolating_accessor.hxx,
-	src/foreign/vigra/iteratoradapter.hxx,
-	src/foreign/vigra/iteratortags.hxx,
-	src/foreign/vigra/iteratortraits.hxx,
-	src/foreign/vigra/labelimage.hxx,
-	src/foreign/vigra/localminmax.hxx,
-	src/foreign/vigra/mathutil.hxx, src/foreign/vigra/memory.hxx,
-	src/foreign/vigra/metaprogramming.hxx,
-	src/foreign/vigra/multi_array.hxx,
-	src/foreign/vigra/multi_impex.hxx,
-	src/foreign/vigra/multi_iterator.hxx,
-	src/foreign/vigra/nonlineardiffusion.hxx,
-	src/foreign/vigra/numerictraits.hxx,
-	src/foreign/vigra/pixelneighborhood.hxx,
-	src/foreign/vigra/recursiveconvolution.hxx,
-	src/foreign/vigra/resizeimage.hxx, src/foreign/vigra/rgbvalue.hxx,
-	src/foreign/vigra/seededregiongrowing.hxx,
-	src/foreign/vigra/separableconvolution.hxx,
-	src/foreign/vigra/stdconvolution.hxx,
-	src/foreign/vigra/stdimage.hxx,
-	src/foreign/vigra/stdimagefunctions.hxx,
-	src/foreign/vigra/symmetry.hxx,
-	src/foreign/vigra/tiff.hxx, src/foreign/vigra/tinyvector.hxx,
-	src/foreign/vigra/transformimage.hxx, src/foreign/vigra/tuple.hxx,
-	src/foreign/vigra/utilities.hxx, src/foreign/vigra/windows.h,
-	src/foreign/vigra/contourcirculator.hxx,
-	src/foreign/vigra/convolution.hxx,
-	src/foreign/vigra/copyimage.hxx,
-	src/foreign/vigra/cornerdetection.hxx,
-	src/foreign/vigra/diff2d.hxx, src/foreign/vigra/accessor.hxx,
-	src/foreign/vigra/array_vector.hxx,
-	src/foreign/vigra/basicimage.hxx,
-	src/foreign/vigra/basicimageview.hxx,
-	src/foreign/vigra/bordertreatment.hxx,
-	src/foreign/vigra/codec.hxx,
-	src/foreign/vigra/colorconversions.hxx,
-	src/foreign/vigra/combineimages.hxx, src/foreign/vigra/config.hxx:
-	readded patched vigra, to avoid installing patched libs etc.
+	* src/: hugin/Server.cpp, include/hugin/Server.h: removed obselete
+	  interface to old viewer
+
+2004-07-01 09:35  dangelo
+
+	* src/foreign/vigra/: accessor.hxx, array_vector.hxx,
+	  basicimage.hxx, basicimageview.hxx, bordertreatment.hxx,
+	  codec.hxx, colorconversions.hxx, combineimages.hxx, config.hxx,
+	  contourcirculator.hxx, convolution.hxx, copyimage.hxx,
+	  cornerdetection.hxx, diff2d.hxx, distancetransform.hxx,
+	  edgedetection.hxx, error.hxx, fftw.hxx, flatmorphology.hxx,
+	  functorexpression.hxx, gaborfilter.hxx, imagecontainer.hxx,
+	  imageinfo.hxx, imageiterator.hxx, imageiteratoradapter.hxx,
+	  impex.hxx, initimage.hxx, inspectimage.hxx,
+	  interpolating_accessor.hxx, iteratoradapter.hxx,
+	  iteratortags.hxx, iteratortraits.hxx, labelimage.hxx,
+	  localminmax.hxx, mathutil.hxx, memory.hxx, metaprogramming.hxx,
+	  multi_array.hxx, multi_impex.hxx, multi_iterator.hxx,
+	  nonlineardiffusion.hxx, numerictraits.hxx, pixelneighborhood.hxx,
+	  recursiveconvolution.hxx, resizeimage.hxx, rgbvalue.hxx,
+	  seededregiongrowing.hxx, separableconvolution.hxx,
+	  stdconvolution.hxx, stdimage.hxx, stdimagefunctions.hxx,
+	  symmetry.hxx, tiff.hxx, tinyvector.hxx, transformimage.hxx,
+	  tuple.hxx, utilities.hxx, windows.h: readded patched vigra, to
+	  avoid installing patched libs etc.
+
+2004-07-01 09:34  dangelo
 
 	* src/foreign/VIGRA_LICENSE: readded vigra
 
-2004-06-30 22:22:09  dangelo  (dangelo)
+2004-07-01 01:22  dangelo
 
-	* src/hugin/Makefile, src/hugin/NonaStitcherPanel.cpp: ups,
-	disabled dependencies by accident added .tif to enblend output
-	filename
+	* src/hugin/: Makefile, NonaStitcherPanel.cpp: ups, disabled
+	  dependencies by accident added .tif to enblend output filename
+
+2004-07-01 01:16  dangelo
 
 	* src/include/PT/Stitcher.h: use 4 digits for all multiimage
-	outputs..
+	  outputs..
 
-	* src/hugin/NonaStitcherPanel.cpp: keep remapped source images
-	for enblend in output directory, for later patching.
+2004-07-01 01:08  dangelo
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/xrc/images_panel.xrc: use autopano-sift instead of
-	autopano.exe, due to inconvinient cmd line usage and better
-	matching results..
+	* src/hugin/NonaStitcherPanel.cpp: keep remapped source images for
+	  enblend in output directory, for later patching.
 
-	I should write suitable wrapper scripts for unix and windows..
+2004-07-01 01:05  dangelo
 
-	* src/hugin/AutoCtrlPointCreator.cpp,
-	src/hugin/NonaStitcherPanel.cpp, src/include/PT/Stitcher.h,
-	src/include/vigra_ext/tiffUtils.h, src/nona_gui/Makefile: uses
-	ADOBE_DEFLATE compression for all TIFF files use 4 numeric digits
-	for multiple file sequence numbering
+	* src/hugin/: xrc/images_panel.xrc, AutoCtrlPointCreator.cpp: use
+	  autopano-sift instead of autopano.exe, due to inconvinient cmd
+	  line usage and better matching results..
 
-	* src/hugin/PanoPanel.cpp, src/hugin/xrc/pano_panel.xrc,
-	src/include/hugin/PanoPanel.h, src/hugin/CPImageCtrl.cpp: uses
-	standart crosshair cursor under win32, until custom cursor works.
-	started work on stitcher presets, but not finished and enabled.
+	  I should write suitable wrapper scripts for unix and windows..
 
-2004-06-29 21:43:23  dangelo  (dangelo)
+2004-06-30 13:47  dangelo
 
-	* src/tests/Makefile, utils/mergepto,
-	src/hugin/NonaStitcherPanel.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/xrc/nona_panel.xrc, src/include/hugin/.cvsignore,
-	src/include/hugin/NonaStitcherPanel.h,
-	src/include/hugin/PreviewPanel.h, src/klt/trackFeatures.c,
-	src/.cvsignore, src/hugin/AutoCtrlPointCreator.cpp: added working
-	enblend option.
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  hugin/NonaStitcherPanel.cpp, include/PT/Stitcher.h,
+	  include/vigra_ext/tiffUtils.h, nona_gui/Makefile: uses
+	  ADOBE_DEFLATE compression for all TIFF files use 4 numeric digits
+	  for multiple file sequence numbering
 
-	The external autopano doesn't work on windows yet.. have to
-	write wrappers for the different command line parameters.
+2004-06-30 10:48  dangelo
 
-	autopano/enblend will have problems with spaces in the
-	filenames.. have to fix this sometime.
+	* src/: hugin/CPImageCtrl.cpp, hugin/PanoPanel.cpp,
+	  hugin/xrc/pano_panel.xrc, include/hugin/PanoPanel.h: uses
+	  standart crosshair cursor under win32, until custom cursor works.
+	  started work on stitcher presets, but not finished and enabled.
 
-	* src/Panorama/Stitcher.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/Makefile, src/hugin/PreviewPanel.cpp,
-	src/include/PT/Stitcher.h: fixed permanent remapping.  removed
-	image loading from the stitcher algo, moved into a separate
-	remapper class, useful for the preview, where the remapped images
-	can be cached..
+2004-06-30 00:43  dangelo
 
-	The drawback: That cache is not implemented yet :(
+	* src/.cvsignore, src/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin/NonaStitcherPanel.cpp, src/hugin/PanoPanel.cpp,
+	  src/hugin/xrc/nona_panel.xrc, src/include/hugin/.cvsignore,
+	  src/include/hugin/NonaStitcherPanel.h,
+	  src/include/hugin/PreviewPanel.h, src/klt/trackFeatures.c,
+	  src/tests/Makefile, utils/mergepto: added working enblend option.
 
-	* src/hugin/NonaStitcherPanel.cpp, src/hugin/PTStitcherPanel.cpp,
-	src/hugin/PanoPanel.cpp, src/hugin/RunStitcherFrame.cpp,
-	src/hugin/huginApp.cpp, src/hugin/xrc/main_frame.xrc,
-	src/hugin/xrc/nona_panel.xrc, src/hugin/xrc/pano_panel.xrc,
-	src/hugin/xrc/ptstitcher_panel.xrc,
-	src/include/hugin/AutoCtrlPointCreator.h,
-	src/include/hugin/NonaStitcherPanel.h,
-	src/include/hugin/PTStitcherPanel.h,
-	src/include/hugin/PanoPanel.h,
-	src/include/hugin/RunStitcherFrame.h,
-	src/include/hugin/StitcherPanel.h: added separate panels for
-	PTStitcher and buildin stitcher
+	  The external autopano doesn't work on windows yet.. have to write
+	  wrappers for the different command line parameters.
 
-	* src/hugin/AutoCtrlPointCreator.cpp, src/hugin/ImagesPanel.cpp:
-	added interface to autopano-sift
+	  autopano/enblend will have problems with spaces in the
+	  filenames.. have to fix this sometime.
 
-	* src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp,
-	src/include/PT/Panorama.h, src/include/PT/PanoramaMemento.h:
-	added new "f" (remapping approximation) option to panorama model
+2004-06-29 23:06  dangelo
 
-2004-06-25 06:21:37  dangelo  (dangelo)
+	* src/: include/PT/Stitcher.h, hugin/PreviewPanel.cpp,
+	  Panorama/Stitcher.cpp, hugin/ImageCache.cpp, hugin/Makefile:
+	  fixed permanent remapping.  removed image loading from the
+	  stitcher algo, moved into a separate remapper class, useful for
+	  the preview, where the remapped images can be cached..
 
-	* src/include/PT/ImageTransforms.h: correct remapping width,
-	should fix the tiff_m one pixel to big or small.
+	  The drawback: That cache is not implemented yet :(
 
-2004-06-24 16:58:05  dangelo  (dangelo)
+2004-06-29 22:56  dangelo
 
-	* src/hugin/PreviewPanel.cpp: report preview stitching error,
-	and do not crash. (hopefully)
+	* src/: include/hugin/StitcherPanel.h,
+	  include/hugin/NonaStitcherPanel.h,
+	  include/hugin/PTStitcherPanel.h, include/hugin/PanoPanel.h,
+	  include/hugin/RunStitcherFrame.h, hugin/xrc/ptstitcher_panel.xrc,
+	  include/hugin/AutoCtrlPointCreator.h, hugin/xrc/pano_panel.xrc,
+	  hugin/NonaStitcherPanel.cpp, hugin/PTStitcherPanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/RunStitcherFrame.cpp,
+	  hugin/huginApp.cpp, hugin/xrc/main_frame.xrc,
+	  hugin/xrc/nona_panel.xrc: added separate panels for PTStitcher
+	  and buildin stitcher
+
+2004-06-29 22:48  dangelo
+
+	* src/hugin/: ImagesPanel.cpp, AutoCtrlPointCreator.cpp: added
+	  interface to autopano-sift
+
+2004-06-29 22:34  dangelo
+
+	* src/: include/PT/PanoramaMemento.h, include/PT/Panorama.h,
+	  Panorama/PanoramaMemento.cpp, Panorama/Panorama.cpp: added new
+	  "f" (remapping approximation) option to panorama model
+
+2004-06-25 09:21  dangelo
+
+	* src/include/PT/ImageTransforms.h: correct remapping width, should
+	  fix the tiff_m one pixel to big or small.
+
+2004-06-24 19:58  dangelo
+
+	* src/hugin/PreviewPanel.cpp: report preview stitching error, and
+	  do not crash. (hopefully)
+
+2004-06-24 19:20  dangelo
 
 	* INSTALL: added patch to INSTALL
 
-2004-06-22 20:52:07  dangelo  (dangelo)
+2004-06-22 23:52  dangelo
 
-	* src/include/keypoints/ScaleSpace.h, src/keypoints/Makefile,
-	src/keypoints/sift_keypoints.cpp: used vigra_impex2 everywhere
+	* src/: include/keypoints/ScaleSpace.h, keypoints/Makefile,
+	  keypoints/sift_keypoints.cpp: used vigra_impex2 everywhere
 
-	* src/Panorama/Stitcher.cpp, src/hugin/PreviewPanel.cpp: print
-	warning and avoid crashing on non-fatal preview stitcher errors.
+2004-06-22 23:51  dangelo
 
-	* src/include/vigra_ext/FunctorAccessor.h,
-	src/include/vigra_ext/LoweSIFT.h, src/tools/automatch.cpp,
-	src/tools/autopano.cpp, src/vigra_ext/PointMatching.cpp,
-	src/include/PT/Stitcher.h: fixed bugs in non 8 bit tiff reader.
+	* src/: Panorama/Stitcher.cpp, hugin/PreviewPanel.cpp: print
+	  warning and avoid crashing on non-fatal preview stitcher errors.
 
-2004-06-17 15:00:59  dangelo  (dangelo)
+2004-06-22 23:48  dangelo
 
-	* src/hugin/CPEditorPanel.cpp: do not delete last pair, if only
-	one point of the new pair has been added.
+	* src/: include/PT/Stitcher.h, include/vigra_ext/FunctorAccessor.h,
+	  include/vigra_ext/LoweSIFT.h, tools/automatch.cpp,
+	  tools/autopano.cpp, vigra_ext/PointMatching.cpp: fixed bugs in
+	  non 8 bit tiff reader.
 
-	* src/include/PT/ImageTransforms.h, src/include/common/math.h,
-	src/hugin/PreviewPanel.cpp: fixed crash in new preview code
+2004-06-17 18:00  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: do not delete last pair, if only one
+	  point of the new pair has been added.
+
+2004-06-17 09:38  dangelo
+
+	* src/: hugin/PreviewPanel.cpp, include/PT/ImageTransforms.h,
+	  include/common/math.h: fixed crash in new preview code
+
+2004-06-17 09:37  dangelo
 
 	* src/include/PT/Stitcher.h: use accessors during stitching
 
-2004-06-15 17:05:40  dangelo  (dangelo)
+2004-06-15 20:05  dangelo
 
-	* src/hugin/huginApp.cpp: use /tmp on all platforms other
-	than windows
+	* src/hugin/huginApp.cpp: use /tmp on all platforms other than
+	  windows
 
-2004-06-13 22:34:38  dangelo  (dangelo)
+2004-06-14 01:34  dangelo
 
-	* src/include/panoinc_WX.h, src/tools/autopano.cpp,
-	src/tools/nona.cpp, src/Panorama/Panorama.cpp: fixes for unix
-	compilation
+	* src/: Panorama/Panorama.cpp, include/panoinc_WX.h,
+	  tools/autopano.cpp, tools/nona.cpp: fixes for unix compilation
 
-	* src/PanoImage/mainframe.cpp, src/PanoImage/mainframe.h,
-	windows_DOT_NET_compile.txt, windows_compile.txt,
-	src/hugin/CPImageCtrl.cpp, src/hugin/ImageCenter.cpp,
-	src/hugin/UniversalCursor.cpp, src/keypoints/ScaleSpace.cpp,
-	src/tools/Makefile, src/tools/automatch.cpp: various small fixes
-	for windows compilation (mostly to silence warnings)
+2004-06-14 01:03  dangelo
 
-	* src/nona_gui/Makefile, src/nona_gui/nona_gui_rc.rc: rc file
-	for nona_gui
+	* src/tools/Makefile, src/tools/automatch.cpp,
+	  src/hugin/CPImageCtrl.cpp, src/hugin/ImageCenter.cpp,
+	  src/hugin/UniversalCursor.cpp, src/keypoints/ScaleSpace.cpp,
+	  windows_DOT_NET_compile.txt, windows_compile.txt,
+	  src/PanoImage/mainframe.cpp, src/PanoImage/mainframe.h: various
+	  small fixes for windows compilation (mostly to silence warnings)
 
-	* src/PanoImage/panoviewer.cpp, src/hugin/CPEditorPanel.cpp,
-	src/hugin/CPEditorPanelHandler.cpp,
-	src/hugin/CPImageCtrl.cpp, src/hugin/CPListFrame.cpp,
-	src/hugin/CommandHistory.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/ImageCenter.cpp, src/hugin/ImageOrientationFrame.cpp,
-	src/hugin/ImageOrientationPanel.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/ImgScrollWindow.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/Makefile, src/hugin/MyProgressDialog.cpp,
-	src/hugin/OptimizePanel.cpp, src/hugin/PanoDruid.cpp,
-	src/hugin/PanoPanel.cpp, src/hugin/PreviewFrame.cpp,
-	src/hugin/PreviewPanel.cpp, src/hugin/RunOptimizerFrame.cpp,
-	src/hugin/RunStitcherFrame.cpp, src/hugin/Server.cpp,
-	src/hugin/TextKillFocusHandler.cpp,
-	src/hugin/UniversalCursor.cpp, src/hugin/huginApp.cpp,
-	src/include/panoinc_WX.h, src/include/hugin/CPImageCtrl.h,
-	src/include/hugin/CommandHistory.h,
-	src/include/hugin/ImageCache.h, src/include/hugin/ImageCenter.h,
-	src/include/hugin/ImageProcessing.h,
-	src/include/hugin/PreviewFrame.h,
-	src/include/hugin/RunOptimizerFrame.h,
-	src/include/vigra_ext/FunctorAccessor.h, src/tools/Makefile:
-	windows compilation working again.  Configuration: wxWindows
-	2.5.2 and mingw crosscompiler under linux
+2004-06-13 17:04  dangelo
 
-2004-06-12 20:41:41  dangelo  (dangelo)
+	* src/nona_gui/: Makefile, nona_gui_rc.rc: rc file for nona_gui
 
-	* src/hugin/ImageProcessing.cpp, src/hugin/wxVigraImage.cpp,
-	src/include/hugin/wxVigraImage.h: removed obselete class, use
-	vigra::BasicImageView instead
+2004-06-13 16:48  dangelo
 
-2004-06-10 18:22:06  dangelo  (dangelo)
+	* src/: include/hugin/CPImageCtrl.h,
+	  include/hugin/CommandHistory.h, include/hugin/ImageCache.h,
+	  include/hugin/ImageCenter.h, include/hugin/ImageProcessing.h,
+	  include/hugin/PreviewFrame.h, include/hugin/RunOptimizerFrame.h,
+	  include/vigra_ext/FunctorAccessor.h, tools/Makefile,
+	  PanoImage/panoviewer.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/CPEditorPanelHandler.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/CPListFrame.cpp, hugin/CommandHistory.cpp,
+	  hugin/ImageCache.cpp, hugin/ImageCenter.cpp,
+	  hugin/ImageOrientationFrame.cpp, hugin/ImageOrientationPanel.cpp,
+	  hugin/ImagesList.cpp, hugin/ImagesPanel.cpp,
+	  hugin/ImgScrollWindow.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/Makefile, hugin/MyProgressDialog.cpp,
+	  hugin/OptimizePanel.cpp, hugin/PanoDruid.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
+	  hugin/PreviewPanel.cpp, hugin/RunOptimizerFrame.cpp,
+	  hugin/RunStitcherFrame.cpp, hugin/Server.cpp,
+	  hugin/TextKillFocusHandler.cpp, hugin/UniversalCursor.cpp,
+	  hugin/huginApp.cpp, include/panoinc_WX.h: windows compilation
+	  working again.  Configuration: wxWindows 2.5.2 and mingw
+	  crosscompiler under linux
 
-	* src/tools/Makefile: *** empty log message ***
+2004-06-12 23:41  dangelo
 
-	* src/foreign/vigra/LICENSE, src/foreign/vigra/README: removed
-	local copy of vigra
+	* src/hugin/: ImageProcessing.cpp, wxVigraImage.cpp: removed
+	  obselete class, use vigra::BasicImageView instead
+
+2004-06-12 23:37  dangelo
+
+	* src/include/hugin/wxVigraImage.h: removed obselete class, use
+	  vigra::BasicImageView instead
+
+2004-06-10 21:22  dangelo
+
+	* src/tools/Makefile: [no log message]
+
+2004-06-10 21:20  dangelo
+
+	* src/foreign/vigra/: LICENSE, README: removed local copy of vigra
+
+2004-06-10 21:04  dangelo
 
 	* src/tools/Makefile: accidentally compiled only nona.
 
-	* src/nona_gui/Makefile, src/nona_gui/nona_gui.cpp: use impex2,
-	ignore tiff errors
+2004-06-10 20:38  dangelo
+
+	* src/nona_gui/: Makefile, nona_gui.cpp: use impex2, ignore tiff
+	  errors
+
+2004-06-10 20:35  dangelo
 
 	* src/makefiles/rules.mk: support for .cxx extension
 
-	* src/include/vigra_ext/tiffUtils.h: some attempts at using
-	libtiff directly. still used for multilayer files, but for single
-	layer files, impex2 provides a better alternative.
+2004-06-10 20:30  dangelo
+
+	* src/include/vigra_ext/tiffUtils.h: some attempts at using libtiff
+	  directly. still used for multilayer files, but for single layer
+	  files, impex2 provides a better alternative.
+
+2004-06-10 20:29  dangelo
 
 	* src/include/vigra_ext/blend.h: use impex2
 
+2004-06-10 20:25  dangelo
+
 	* src/include/vigra_ext/Interpolators.h: bugfix
 
-	* src/include/vigra_ext/FunctorAccessor.h: added Accessors to
-	access an image with a separate alpha channel, and to apply
-	functors while accessing (useful for temporary point operations).
+2004-06-10 20:22  dangelo
 
-	* src/include/jhead/jhead.h, src/jhead/exif.cpp: support for 35
-	mm focal length exif tag
+	* src/include/vigra_ext/FunctorAccessor.h: added Accessors to
+	  access an image with a separate alpha channel, and to apply
+	  functors while accessing (useful for temporary point operations).
+
+2004-06-10 20:19  dangelo
+
+	* src/: include/jhead/jhead.h, jhead/exif.cpp: support for 35 mm
+	  focal length exif tag
+
+2004-06-10 20:18  dangelo
 
 	* src/include/PT/Stitcher.h: const fixes
 
-	* src/include/hugin/PreviewPanel.h, src/hugin/CPImageCtrl.cpp,
-	src/hugin/ImageCenter.cpp, src/hugin/ImageOrientationPanel.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/Makefile,
-	src/hugin/MyProgressDialog.cpp, src/hugin/PreviewPanel.cpp,
-	src/hugin/RunOptimizerFrame.cpp, src/hugin/xrc/lens_panel.xrc,
-	src/hugin/xrc/pano_panel.xrc: various small changes, removed
-	useage of ConvertToBitmap, Preview uses the same stitching
-	routines as nona.
+2004-06-10 19:26  dangelo
+
+	* src/: hugin/CPImageCtrl.cpp, hugin/ImageCenter.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesPanel.cpp,
+	  hugin/Makefile, hugin/MyProgressDialog.cpp,
+	  hugin/PreviewPanel.cpp, hugin/RunOptimizerFrame.cpp,
+	  hugin/xrc/lens_panel.xrc, hugin/xrc/pano_panel.xrc,
+	  include/hugin/PreviewPanel.h: various small changes, removed
+	  useage of ConvertToBitmap, Preview uses the same stitching
+	  routines as nona.
+
+2004-06-10 19:15  dangelo
 
 	* src/hugin/huginApp.cpp: surpress tiff warnings
 
-2004-06-08 21:23:10  dangelo  (dangelo)
+2004-06-09 00:23  dangelo
 
-	* src/include/PT/ImageTransforms.h, src/include/PT/Stitcher.h,
-	src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp, src/Panorama/Stitcher.cpp,
-	src/Panorama/utils.cpp: - remapping with alpha channel support
-	(ignore pixels with alpha=0 in source image) - changes to the
-	lens reading - method to calculate stitching order based on
-	size of overlaping area.  - stitcher classes for remapping,
-	multilayer tiff output, and stitching
-	  using a transition line calculated by Andrew's nearest feature
-	  transform.  Should be more memory efficient, since it only
-	  keeps one image in memory.
+	* src/: Panorama/PanoImage.cpp, Panorama/Panorama.cpp,
+	  Panorama/PanoramaMemento.cpp, Panorama/Stitcher.cpp,
+	  Panorama/utils.cpp, include/PT/ImageTransforms.h,
+	  include/PT/Stitcher.h: - remapping with alpha channel support
+	  (ignore pixels with alpha=0 in source image) - changes to the
+	  lens reading - method to calculate stitching order based on size
+	  of overlaping area.  - stitcher classes for remapping, multilayer
+	  tiff output, and stitching   using a transition line calculated
+	  by Andrew's nearest feature transform.    Should be more memory
+	  efficient, since it only keeps one image in memory.
 
-	Bugs: - no feathering supported, still needs a lot of RAM. enblend
-	integration missing.
+	  Bugs: - no feathering supported, still needs a lot of RAM.
+	  enblend integration missing.
 
-	* src/include/common/utils.h, src/common/utils.cpp: functions
-	to strip path and extensions
+2004-06-09 00:06  dangelo
+
+	* src/: common/utils.cpp, include/common/utils.h: functions to
+	  strip path and extensions
+
+2004-06-09 00:02  dangelo
 
 	* src/Makefile: patched copy of vigra's impex with the following
-	additions:
+	  additions:
 
-	- support for reading of images with alpha channel (only tiff &
-	  png) reading of 16/32bit and float images with alpha channels
-	  is still buggy.
-	- support for unsigned integer images.	- support for layer
-	positions in tiff & png - support for reading / writing of
-	resolution tag (tiff & png)
+	  - support for reading of images with alpha channel (only tiff &
+	  png)	 reading of 16/32bit and float images with alpha channels
+	  is still buggy.  - support for unsigned integer images.  -
+	  support for layer positions in tiff & png - support for reading /
+	  writing of resolution tag (tiff & png)
 
-	note: this depends on a slightly patched vigra. (type traits
-	that indicate the signeness of integral types are needed).
+	  note: this depends on a slightly patched vigra. (type traits that
+	  indicate the signeness of integral types are needed).
 
-2004-05-13 11:35:25  dangelo  (dangelo)
+2004-05-13 14:35  dangelo
 
-	* src/include/hugin/PreviewPanel.h, src/include/hugin/LensPanel.h:
-	forgot some more stuff
+	* src/include/hugin/: LensPanel.h, PreviewPanel.h: forgot some more
+	  stuff
 
-2004-05-12 20:51:20  dangelo  (dangelo)
+2004-05-12 23:51  dangelo
 
-	* src/hugin/MainFrame.cpp: - properly detect dropped files
-	(bugfix)
+	* src/hugin/MainFrame.cpp: - properly detect dropped files (bugfix)
 
-	* src/hugin/LensPanel.cpp: - bugfix for lens reading - button
-	to reload EXIF data
+2004-05-12 23:50  dangelo
+
+	* src/hugin/LensPanel.cpp: - bugfix for lens reading - button to
+	  reload EXIF data
+
+2004-05-12 23:48  dangelo
 
 	* configure: add gtk include dirs for wxwindows compile line
-	(needed because of custom cursor class)
+	  (needed because of custom cursor class)
 
-	* src/hugin/xrc/data/CPCursor0.png,
-	src/hugin/xrc/data/CPCursor1.png,
-	src/hugin/xrc/data/CPCursor2.png,
-	src/hugin/xrc/data/CPCursor3.png,
-	src/hugin/xrc/data/CPCursor4.png,
-	src/hugin/xrc/data/CPCursor5.png,
-	src/hugin/xrc/data/CPCursor6.png: forgot checkin.. stupid me
+2004-05-12 23:34  dangelo
 
-2004-05-07 16:07:48  dangelo  (dangelo)
+	* src/hugin/xrc/data/: CPCursor0.png, CPCursor1.png, CPCursor2.png,
+	  CPCursor3.png, CPCursor4.png, CPCursor5.png, CPCursor6.png:
+	  forgot checkin.. stupid me
 
-	* src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h,
-	src/include/hugin/UniversalCursor.h, src/hugin/CPEditorPanel.cpp,
-	src/hugin/CPImageCtrl.cpp, src/hugin/Makefile,
-	src/hugin/PanoPanel.cpp, src/hugin/UniversalCursor.cpp: Added
-	alternative cursors for point selection. didn't know that they
-	looked so horrible under some windows versions.
+2004-05-07 19:07  dangelo
 
-2004-05-05 17:26:57  dangelo  (dangelo)
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/Makefile, hugin/PanoPanel.cpp, hugin/UniversalCursor.cpp,
+	  include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
+	  include/hugin/UniversalCursor.h: Added alternative cursors for
+	  point selection. didn't know that they looked so horrible under
+	  some windows versions.
+
+2004-05-05 20:26  dangelo
 
 	* src/include/PT/Stitcher.h: removed reference to old blend.h
 
-2004-05-03 22:49:12  dangelo  (dangelo)
+2004-05-04 01:49  dangelo
 
-	* src/tools/Makefile, src/tools/automatch.cpp,
-	src/tools/autopano.cpp, src/tools/nona.cpp: adjusted to updates
-	in the libraries
+	* src/tools/: nona.cpp, Makefile, automatch.cpp, autopano.cpp:
+	  adjusted to updates in the libraries
+
+2004-05-04 01:47  dangelo
 
 	* src/nona_gui/nona_gui.cpp: update to new stitching routines
 
-	* src/include/vigra_ext/FunctorAccessor.h,
-	src/include/vigra_ext/Interpolators.h,
-	src/include/vigra_ext/LayerImage.h,
-	src/include/vigra_ext/NearestFeatureTransform.h,
-	src/include/vigra_ext/ROI.h, src/include/vigra_ext/blend.h,
-	src/include/vigra_ext/tiffUtils.h, src/include/vigra_ext/utils.h:
-	image processing routines
+2004-05-04 01:47  dangelo
 
-	- layered image, with region of interest, and functions to apply
-	  roi's to vigra iterators
+	* src/include/vigra_ext/: ROI.h, blend.h, tiffUtils.h, utils.h,
+	  FunctorAccessor.h, Interpolators.h, LayerImage.h,
+	  NearestFeatureTransform.h: image processing routines
 
-	- moved PTools interpolators here - ported nearest feature
-	transform from enblend - added simple blending (no soft featering
-	yet) based on the
-	  nearest feature transform - utilities to create complex tiff
-	files, with multiple layers
-	  and alpha channel
+	  - layered image, with region of interest, and functions   to
+	  apply roi's to vigra iterators
 
-	* src/include/PT/Interpolators.h: moved to vigra_ext
+	  - moved PTools interpolators here - ported nearest feature
+	  transform from enblend - added simple blending (no soft featering
+	  yet) based on the   nearest feature transform - utilities to
+	  create complex tiff files, with multiple layers   and alpha
+	  channel
+
+2004-05-04 01:42  dangelo
 
 	* src/include/jhead/jhead.h: added include
 
+2004-05-04 01:41  dangelo
+
 	* src/include/hugin/LensPanel.h: load/save lens parameters
 
+2004-05-04 01:40  dangelo
+
 	* src/include/hugin/PreviewPanel.h: update for new stitching
-	routines
+	  routines
 
-	* src/include/common/math.h, src/include/common/stl_utils.h:
-	added some utilities
+2004-05-04 01:40  dangelo
 
-	* src/include/PT/tiffUtils.h: moved to vigra_ext
+	* src/include/common/: math.h, stl_utils.h: added some utilities
 
-	* src/include/PT/SpaceTransform.h: small changes
+2004-05-04 01:39  dangelo
 
-	* src/include/PT/Stitcher.h: new stitching functions still a
-	bit messy and some duplicate code
+	* src/include/PT/: tiffUtils.h, Interpolators.h: moved to vigra_ext
+
+2004-05-04 01:38  dangelo
+
+	* src/include/PT/Stitcher.h: new stitching functions still a bit
+	  messy and some duplicate code
+
+2004-05-04 01:37  dangelo
 
 	* src/include/PT/PanoramaMemento.h: added new output fields
 
-	* src/include/PT/PanoCommand.h,
-	src/include/PT/PanoToolsInterface.h: small changes
+2004-05-04 01:36  dangelo
 
-	* src/include/PT/ImageTransforms.h: cleaned up transform
-	functions, and code cleanup
+	* src/include/PT/: PanoCommand.h, PanoToolsInterface.h,
+	  SpaceTransform.h: small changes
 
-	- added possibility to use alpha channels in input images (not
-	tested yet) - correct roi calculation
+2004-05-04 01:34  dangelo
 
-	* src/include/PT/ImageGraph.h: added graph with connections
-	based on overlapping areas
+	* src/include/PT/ImageTransforms.h: cleaned up transform functions,
+	  and code cleanup
+
+	  - added possibility to use alpha channels in input images (not
+	  tested yet) - correct roi calculation
+
+2004-05-04 01:33  dangelo
+
+	* src/include/PT/ImageGraph.h: added graph with connections based
+	  on overlapping areas
+
+2004-05-04 01:32  dangelo
 
 	* src/include/panoinc.h: removed some obselete includes
 
-	* src/hugin/xrc/lens_panel.xrc, src/hugin/xrc/pano_panel.xrc:
-	added load/save buttons and TIFF_multilayer
+2004-05-04 01:31  dangelo
 
-	* src/hugin/MainFrame.cpp, src/hugin/ImagesPanel.cpp: can drop
-	project and images files on main window now
+	* src/hugin/xrc/: lens_panel.xrc, pano_panel.xrc: added load/save
+	  buttons and TIFF_multilayer
+
+2004-05-04 01:30  dangelo
+
+	* src/hugin/: ImagesPanel.cpp, MainFrame.cpp: can drop project and
+	  images files on main window now
+
+2004-05-04 01:29  dangelo
 
 	* src/hugin/PanoPanel.cpp: new TIFF_multilayer options
 
-	* src/hugin/LensPanel.cpp, src/hugin/ImageCache.cpp: added
-	experimental lens settings save/load
+2004-05-04 01:28  dangelo
+
+	* src/hugin/: ImageCache.cpp, LensPanel.cpp: added experimental
+	  lens settings save/load
+
+2004-05-04 01:27  dangelo
 
 	* src/hugin/PreviewPanel.cpp: call new stitching routines
 
-	* src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp, src/Panorama/SpaceTransform.cpp:
-	changed includes, to speed up compile on linux (no preprocessed
-	headers here..)
+2004-05-04 01:26  dangelo
 
-	* src/Panorama/Stitcher.cpp: added new stitching routines
-	(probably needs to be reworked.)
+	* src/Panorama/: PanoToolsInterface.cpp, Panorama.cpp,
+	  PanoramaMemento.cpp, SpaceTransform.cpp: changed includes, to
+	  speed up compile on linux (no preprocessed headers here..)
 
-	* src/Panorama/Makefile, src/Panorama/PTOptimise.cpp: *** empty
-	log message ***
+2004-05-04 01:25  dangelo
+
+	* src/Panorama/Stitcher.cpp: added new stitching routines (probably
+	  needs to be reworked.)
+
+2004-05-04 01:24  dangelo
+
+	* src/Panorama/: Makefile, PTOptimise.cpp: [no log message]
+
+2004-05-04 01:23  dangelo
 
 	* src/Panorama/ImageGraph.cpp: added visitor to count overlaping
-	pixels
+	  pixels
 
-2004-03-25 07:09:18  dangelo  (dangelo)
+2004-03-25 09:09  dangelo
 
-	* src/hugin/xrc/images_panel.xrc, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp: - fixes for windows compilation -
-	use spinctrl to set number of desired control points
+	* src/hugin/: ImagesList.cpp, ImagesPanel.cpp,
+	  xrc/images_panel.xrc:
+	  - fixes for windows compilation - use spinctrl to set number of
+	  desired control points
 
-2004-03-24 23:15:15  dangelo  (dangelo)
+2004-03-25 01:15  dangelo
 
-	* src/include/PT/PanoCommand.h, src/include/hugin/ImagesPanel.h,
-	src/Panorama/Panorama.cpp, src/hugin/CPListFrame.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/xrc/images_panel.xrc,
-	src/Panorama/ImageGraph.cpp: new features: - autopano integration
-	- delete control points between selected images - reset positions
-	of all selected images
+	* src/: Panorama/ImageGraph.cpp, Panorama/Panorama.cpp,
+	  hugin/CPListFrame.cpp, hugin/ImagesPanel.cpp,
+	  hugin/xrc/images_panel.xrc, include/PT/PanoCommand.h,
+	  include/hugin/ImagesPanel.h: new features: - autopano integration
+	  - delete control points between selected images - reset positions
+	  of all selected images
 
-2004-03-20 12:14:43  dangelo  (dangelo)
+2004-03-20 14:14  dangelo
 
 	* src/tools/Makefile: renamed autopano to autopano_old
 
+2004-03-20 10:06  dangelo
+
 	* src/Panorama/PanoramaMemento.cpp: fixed crash when loading
-	projects without v line
+	  projects without v line
 
-2004-03-19 07:21:58  dangelo  (dangelo)
+2004-03-19 09:21  dangelo
 
-	* src/hugin/xrc/pano_panel.xrc: set default stitching engine
-	to nona
+	* src/hugin/xrc/pano_panel.xrc: set default stitching engine to
+	  nona
 
-2004-03-17 23:49:02  dangelo  (dangelo)
+2004-03-18 01:49  dangelo
 
 	* src/hugin/PreviewPanel.cpp: fixed images on pole bug
 
-	* src/hugin/PanoPanel.cpp, src/hugin/xrc/pano_panel.xrc,
-	src/include/hugin/PanoPanel.h: added nona stitching (cancel not
-	possible yet)
+2004-03-18 01:46  dangelo
 
-	* src/include/PT/PanoToolsInterface.h: - removed obselete
-	functions - estimate correct pano size (bug with images
-	overlapping the poles fixed)
+	* src/: include/hugin/PanoPanel.h, hugin/xrc/pano_panel.xrc,
+	  hugin/PanoPanel.cpp: added nona stitching (cancel not possible
+	  yet)
 
-	* src/include/PT/ImageTransforms.h, src/Panorama/Panorama.cpp:
-	estimate correct pano size (bug with images overlapping the
-	poles fixed)
+2004-03-18 01:45  dangelo
+
+	* src/include/PT/PanoToolsInterface.h:
+	  - removed obselete functions - estimate correct pano size (bug
+	  with images overlapping the poles fixed)
+
+2004-03-18 01:34  dangelo
+
+	* src/: Panorama/Panorama.cpp, include/PT/ImageTransforms.h:
+	  estimate correct pano size (bug with images overlapping the poles
+	  fixed)
+
+2004-03-18 01:33  dangelo
 
 	* src/Panorama/PanoramaMemento.cpp: parser fixes
 
-2004-03-16 17:50:32  dangelo  (dangelo)
+2004-03-16 19:50  dangelo
 
-	* src/include/PT/ImageTransforms.h,
-	src/include/PT/PanoramaMemento.h, src/include/hugin/CPListFrame.h,
-	src/hugin/CPListFrame.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/RunOptimizerFrame.cpp,
-	src/hugin/xrc/lens_panel.xrc, src/hugin/xrc/optimize_panel.xrc,
-	src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp: - added shear parameters -
-	CPListFrame: Del key deletes selected control point
+	* src/: Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  Panorama/PanoramaMemento.cpp, hugin/CPListFrame.cpp,
+	  hugin/ImagesList.cpp, hugin/LensPanel.cpp,
+	  hugin/RunOptimizerFrame.cpp, hugin/xrc/lens_panel.xrc,
+	  hugin/xrc/optimize_panel.xrc, include/PT/ImageTransforms.h,
+	  include/PT/PanoramaMemento.h, include/hugin/CPListFrame.h:
+	  - added shear parameters - CPListFrame: Del key deletes selected
+	  control point
 
-2004-03-13 17:55:26  dangelo  (dangelo)
+2004-03-13 19:55  dangelo
 
-	* src/nona_gui/nona_gui.cpp, src/include/PT/Panorama.h,
-	src/include/PT/PanoramaMemento.h, src/include/common/utils.h,
-	src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp:
-	some more hacking on the parser.... probably still buggy
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/common/utils.h, nona_gui/nona_gui.cpp: some more hacking
+	  on the parser.... probably still buggy
 
-	* src/hugin/RunOptimizerFrame.cpp: *** empty log message ***
+2004-03-13 13:16  dangelo
+
+	* src/hugin/RunOptimizerFrame.cpp: [no log message]
+
+2004-03-13 13:15  dangelo
 
 	* src/hugin/Makefile: added generic stuff to huginwxutils library,
-	for useage in nona_gui
+	  for useage in nona_gui
+
+2004-03-13 13:14  dangelo
 
 	* src/hugin/MyProgressDialog.cpp: fixed constant resizing
 
-	* src/nona_gui/.cvsignore, src/nona_gui/Makefile,
-	src/nona_gui/nona_gui.cpp, src/Makefile,
-	src/hugin/MyProgressDialog.cpp, src/include/PT/SimpleStitcher.h,
-	src/include/hugin/MyProgressDialog.h: nona_gui added (simple
-	progress bar gui for nona)
+2004-03-13 12:46  dangelo
 
-2004-03-05 18:29:18  dangelo  (dangelo)
+	* src/: Makefile, hugin/MyProgressDialog.cpp,
+	  include/PT/SimpleStitcher.h, include/hugin/MyProgressDialog.h,
+	  nona_gui/.cvsignore, nona_gui/Makefile, nona_gui/nona_gui.cpp:
+	  nona_gui added (simple progress bar gui for nona)
+
+2004-03-05 20:29  dangelo
 
 	* src/hugin/OptimizePanel.cpp: fixed crash when clicking optimize
-	without a project
+	  without a project
 
-2004-03-04 07:32:35  dangelo  (dangelo)
+2004-03-04 09:32  dangelo
 
-	* src/include/vigra_ext/LoweSIFT.h: fixed stupid "/tmp"
-	placement..
+	* src/include/vigra_ext/LoweSIFT.h: fixed stupid "/tmp" placement..
 
-2004-02-18 07:16:52  dangelo  (dangelo)
+2004-02-18 09:16  dangelo
 
-	* src/hugin/MyProgressDialog.cpp: added general wx includes
-	(needed for compilation under mingw)
+	* src/hugin/MyProgressDialog.cpp: added general wx includes (needed
+	  for compilation under mingw)
 
-2004-02-17 22:39:34  dangelo  (dangelo)
+2004-02-18 00:39  dangelo
 
-	* src/Panorama/PTOptimise.cpp, src/include/PT/PTOptimise.h,
-	src/include/hugin/ImageOrientationPanel.h: working pairwise
-	optimisation
+	* src/: include/hugin/ImageOrientationPanel.h,
+	  Panorama/PTOptimise.cpp, include/PT/PTOptimise.h: working
+	  pairwise optimisation
+
+2004-02-17 23:01  dangelo
 
 	* src/include/PT/Transforms.h: ups, readded
 
-	* src/include/PT/PTOptimise.h, src/include/panoinc.h,
-	src/keypoints/ScaleSpace.cpp: some more compilation fixes
+2004-02-17 22:04  dangelo
 
-	* src/foreign/vigra/LICENSE, src/hugin/xrc/data/.cvsignore,
-	src/include/PT/Transforms.h, src/tests/.cvsignore,
-	src/tools/.cvsignore: other cleanup
+	* src/: include/panoinc.h, include/PT/PTOptimise.h,
+	  keypoints/ScaleSpace.cpp: some more compilation fixes
 
-	* src/keypoints/.cvsignore, src/keypoints/ScaleSpace.cpp,
-	src/keypoints/ScaleSpaceTools.cpp,
-	src/keypoints/sift_keypoints.cpp,
-	src/include/keypoints/ScaleSpace.h: keypoints changes, compilable
-	under linux, readded comments
+2004-02-17 20:47  dangelo
+
+	* src/: hugin/xrc/data/.cvsignore, include/PT/Transforms.h,
+	  tests/.cvsignore, tools/.cvsignore, foreign/vigra/LICENSE: other
+	  cleanup
+
+2004-02-17 20:45  dangelo
+
+	* src/: include/keypoints/ScaleSpace.h, keypoints/.cvsignore,
+	  keypoints/ScaleSpace.cpp, keypoints/ScaleSpaceTools.cpp,
+	  keypoints/sift_keypoints.cpp: keypoints changes, compilable under
+	  linux, readded comments
+
+2004-02-17 19:36  dangelo
 
 	* src/include/common/platform.h: removed floorf
 
-	* src/Panorama/PanoramaMemento.cpp, src/include/PT/PTOptimise.h,
-	src/include/PT/PanoramaMemento.h: fixes for the pairwise
-	optimisation. not complete yet.
+2004-02-17 19:34  dangelo
+
+	* src/: include/PT/PTOptimise.h, include/PT/PanoramaMemento.h,
+	  Panorama/PanoramaMemento.cpp: fixes for the pairwise
+	  optimisation. not complete yet.
+
+2004-02-17 19:33  dangelo
 
 	* src/include/hugin/MyProgressDialog.h: added missing file
 
-	* src/hugin/LensPanel.cpp: Show(true) seems to be required on
-	the mac
+2004-02-17 14:02  dangelo
 
-	* src/keypoints/ScaleSpace.cpp, src/keypoints/ScaleSpaceTools.cpp,
-	src/keypoints/sift_keypoints.cpp: fixed includes (hope they work
-	under windows as well)
+	* src/hugin/LensPanel.cpp: Show(true) seems to be required on the
+	  mac
 
-2004-02-15 14:50:52  dangelo  (dangelo)
+2004-02-17 13:59  dangelo
 
-	* src/hugin/MyProgressDialog.cpp, src/include/common/platform.h,
-	src/Panorama/ImageGraph.cpp, src/Panorama/PTOptimise.cpp,
-	src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/hugin/CPEditorPanel.cpp, src/hugin/ImageOrientationPanel.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/Makefile, src/hugin/OptimizePanel.cpp,
-	src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
-	src/include/PT/ImageGraph.h, src/include/PT/PTOptimise.h,
-	src/include/PT/PanoToolsInterface.h, src/include/common/utils.h,
-	src/include/panoinc.h, src/include/vigra_ext/PointMatching.h,
-	src/tools/automatch.cpp, src/tools/autooptimiser.cpp,
-	src/tools/autopano.cpp, src/vigra_ext/PointMatching.cpp: replaced
-	rounding.. I hope that this is the last step to a MAC OSX build.
-	currently the autooptimize function is broken..
+	* src/keypoints/: ScaleSpace.cpp, ScaleSpaceTools.cpp,
+	  sift_keypoints.cpp: fixed includes (hope they work under windows
+	  as well)
 
-2004-02-13 09:43:20  ajenny  (ajenny)
+2004-02-15 16:49  dangelo
 
-	* src/keypoints/ScaleSpace.cpp, src/keypoints/ScaleSpaceTools.cpp,
-	src/keypoints/sift_keypoints.cpp: Clean
+	* src/: include/vigra_ext/PointMatching.h, tools/automatch.cpp,
+	  tools/autooptimiser.cpp, tools/autopano.cpp,
+	  vigra_ext/PointMatching.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesList.cpp,
+	  hugin/MainFrame.cpp, hugin/Makefile, hugin/OptimizePanel.cpp,
+	  hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/panoinc.h, include/PT/ImageGraph.h,
+	  include/PT/PTOptimise.h, include/PT/PanoToolsInterface.h,
+	  include/common/utils.h, Panorama/ImageGraph.cpp,
+	  Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
+	  Panorama/Panorama.cpp, hugin/MyProgressDialog.cpp,
+	  include/common/platform.h: replaced rounding.. I hope that this
+	  is the last step to a MAC OSX build.	currently the autooptimize
+	  function is broken..
 
-2004-02-11 09:19:35  ajenny  (ajenny)
+2004-02-13 11:43  ajenny
+
+	* src/keypoints/: ScaleSpace.cpp, ScaleSpaceTools.cpp,
+	  sift_keypoints.cpp: Clean
+
+2004-02-11 11:19  ajenny
 
 	* src/Panorama/Panorama.vcproj: Update for Visual Studio
-	compilation
+	  compilation
 
-2004-02-10 13:20:53  ajenny  (ajenny)
+2004-02-10 15:20  ajenny
 
 	* src/keypoints/ScaleSpace.cpp: Small bugs correction
 
-2004-02-10 11:53:13  dangelo  (dangelo)
+2004-02-10 13:53  dangelo
 
 	* src/hugin/PreviewPanel.cpp: fixed missing include
 
-	* src/hugin/ImageOrientationPanel.cpp,
-	src/hugin/PreviewPanel.cpp, src/hugin/PanoToolsInterface.cpp,
-	src/include/hugin/PanoToolsInterface.h: removed obselete files
+2004-02-10 03:31  dangelo
 
-	* src/hugin/Makefile, src/hugin/PanoDruid.cpp,
-	src/hugin/PreviewFrame.cpp, src/include/hugin/CPListFrame.h:
-	fixe PanoDruid layout, made it configurable
+	* src/hugin/: ImageOrientationPanel.cpp, PreviewPanel.cpp: removed
+	  obselete files
+
+2004-02-10 03:24  dangelo
+
+	* src/: hugin/PanoToolsInterface.cpp,
+	  include/hugin/PanoToolsInterface.h: removed obselete files
+
+2004-02-10 03:23  dangelo
+
+	* src/: hugin/Makefile, hugin/PanoDruid.cpp,
+	  hugin/PreviewFrame.cpp, include/hugin/CPListFrame.h: fixe
+	  PanoDruid layout, made it configurable
+
+2004-02-10 02:48  dangelo
 
 	* src/hugin/ImagesList.cpp: made small mini icons look better
 
+2004-02-10 02:47  dangelo
+
 	* src/hugin/PreviewFrame.cpp: fixed PanoDruid creation
 
-2004-02-09 21:20:18  dangelo  (dangelo)
+2004-02-09 23:20  dangelo
 
 	* src/Panorama/Panorama.cpp: fixed "fit pano" function
 
-	* src/hugin/PanoDruid.cpp, src/hugin/PreviewFrame.cpp,
-	src/include/hugin/PanoDruid.h, src/include/hugin/PreviewFrame.h:
-	fixed crashes caused by invalid usage of wxWindows Windows
-	and Panels.  they always have to be created with "new"!
+2004-02-09 22:37  dangelo
 
-	* src/hugin/xrc/main_tool.xrc, src/hugin/xrc/preview_frame.xrc:
-	added text toolbar patch by bruno
+	* src/: hugin/PanoDruid.cpp, hugin/PreviewFrame.cpp,
+	  include/hugin/PanoDruid.h, include/hugin/PreviewFrame.h: fixed
+	  crashes caused by invalid usage of wxWindows Windows and Panels.
+	  they always have to be created with "new"!
 
-2004-02-08 16:01:15  dangelo  (dangelo)
+2004-02-09 22:35  dangelo
 
-	* src/Panorama/PTOptimise.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/OptimizePanel.cpp,
-	src/hugin/PreviewPanel.cpp, src/include/PT/PTOptimise.h,
-	src/include/common/utils.h, src/include/hugin/ImageCache.h,
-	src/include/hugin/MainFrame.h, src/include/hugin/OptimizePanel.h,
-	src/tools/autooptimiser.cpp: fixed bugs with the optimizer panel
-	and added new hierachial progress display to the status bar.
+	* src/hugin/xrc/: main_tool.xrc, preview_frame.xrc: added text
+	  toolbar patch by bruno
 
-	* src/hugin/PreviewPanel.cpp: forgot to update hugin, when
-	adding the new MultiProgressDisplay stuff.  quick fix to allow
-	compilation.
+2004-02-08 18:01  dangelo
 
-2004-02-07 22:57:34  dangelo  (dangelo)
+	* src/: include/common/utils.h, include/hugin/ImageCache.h,
+	  include/hugin/MainFrame.h, include/hugin/OptimizePanel.h,
+	  tools/autooptimiser.cpp, Panorama/PTOptimise.cpp,
+	  hugin/ImageCache.cpp, hugin/MainFrame.cpp,
+	  hugin/OptimizePanel.cpp, hugin/PreviewPanel.cpp,
+	  include/PT/PTOptimise.h: fixed bugs with the optimizer panel and
+	  added new hierachial progress display to the status bar.
+
+2004-02-08 15:30  dangelo
+
+	* src/hugin/PreviewPanel.cpp: forgot to update hugin, when adding
+	  the new MultiProgressDisplay stuff.  quick fix to allow
+	  compilation.
+
+2004-02-08 00:57  dangelo
 
 	* src/tools/panosifter.cpp: default to lowe's keypoint program
 
-	* README, src/Makefile, src/hugin/ImagesList.cpp,
-	src/hugin/xrc/images_panel.xrc,
-	src/include/PT/ImageTransforms.h, src/include/PT/SimpleStitcher.h,
-	src/include/common/utils.h, src/include/vigra_ext/LoweSIFT.h,
-	src/include/vigra_ext/PointMatching.h, src/keypoints/Makefile,
-	src/tools/autooptimiser.cpp, src/tools/nona.cpp,
-	src/tools/panosifter.cpp, src/vigra_ext/PointMatching.cpp: new
-	ProgressDisplay, can display the progress of nested operations
-	(GUI implementation still missing).
+2004-02-08 00:52  dangelo
 
-	added -k option to panosifter, can be used to select the keypoint
-	program that should be used.
+	* src/tools/autooptimiser.cpp, src/tools/nona.cpp,
+	  src/tools/panosifter.cpp, src/vigra_ext/PointMatching.cpp,
+	  src/include/common/utils.h, src/include/vigra_ext/LoweSIFT.h,
+	  src/include/vigra_ext/PointMatching.h, src/keypoints/Makefile,
+	  README, src/Makefile, src/hugin/ImagesList.cpp,
+	  src/hugin/xrc/images_panel.xrc, src/include/PT/ImageTransforms.h,
+	  src/include/PT/SimpleStitcher.h: new ProgressDisplay, can display
+	  the progress of nested operations (GUI implementation still
+	  missing).
+
+	  added -k option to panosifter, can be used to select the keypoint
+	  program that should be used.
+
+2004-02-08 00:32  dangelo
 
 	* src/hugin/OptimizePanel.cpp: adjusted limit
 
-	* src/keypoints/.cvsignore, src/keypoints/LICENSE,
-	src/keypoints/Makefile, src/keypoints/ScaleSpace.cpp,
-	src/keypoints/ScaleSpaceTools.cpp,
-	src/keypoints/sift_keypoints.cpp,
-	LICENCE_SIFT, src/include/keypoints/ScaleSpace.h,
-	src/include/keypoints/algo4sift.hxx: added sift implementation
-	from Alexandre.  just added comments, consistent indenting and
-	a Makefile
+2004-02-07 21:25  dangelo
+
+	* LICENCE_SIFT, src/include/keypoints/ScaleSpace.h,
+	  src/include/keypoints/algo4sift.hxx, src/keypoints/.cvsignore,
+	  src/keypoints/LICENSE, src/keypoints/Makefile,
+	  src/keypoints/ScaleSpace.cpp, src/keypoints/ScaleSpaceTools.cpp,
+	  src/keypoints/sift_keypoints.cpp: added sift implementation from
+	  Alexandre.  just added comments, consistent indenting and a
+	  Makefile
+
+2004-02-07 11:02  dangelo
 
 	* src/hugin/Makefile: reodered libs while linking vigra. might
-	resolve some linker issues
+	  resolve some linker issues
 
-	* src/Panorama/PanoToolsInterface.cpp: added pano12 function,
-	that doesn't seem to be accessible in the dll from max's site
+2004-02-07 11:02  dangelo
 
-2004-02-05 22:03:44  dangelo  (dangelo)
+	* src/Panorama/PanoToolsInterface.cpp: added pano12 function, that
+	  doesn't seem to be accessible in the dll from max's site
 
-	* src/hugin/OptimizePanel.cpp, src/hugin/xrc/optimize_panel.xrc,
-	src/include/common/utils.h, src/include/hugin/OptimizePanel.h,
-	src/tools/autooptimiser.cpp: added gui for new automatic
-	optimisation mode
+2004-02-06 00:03  dangelo
 
-	* src/Panorama/PTOptimise.cpp,
-	src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/include/PT/ImageGraph.h, src/include/PT/PTOptimise.h:
-	Improved pairwise optimisation, uses all optimised neighbouring
-	images as anchor during optimisation traversal
+	* src/: include/hugin/OptimizePanel.h, tools/autooptimiser.cpp,
+	  hugin/OptimizePanel.cpp, hugin/xrc/optimize_panel.xrc,
+	  include/common/utils.h: added gui for new automatic optimisation
+	  mode
 
-2004-02-03 09:40:41  dangelo  (dangelo)
+2004-02-05 23:52  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
+	  Panorama/Panorama.cpp, include/PT/ImageGraph.h,
+	  include/PT/PTOptimise.h: Improved pairwise optimisation, uses all
+	  optimised neighbouring images as anchor during optimisation
+	  traversal
+
+2004-02-03 11:40  dangelo
 
 	* INSTALL, src/hugin/ImagesPanel.cpp: disabled obselete SIFT
-	matching in hugin, waiting for alexandre's version
+	  matching in hugin, waiting for alexandre's version
 
-	* src/tools/autooptimiser.cpp, src/tests/.cvsignore,
-	src/Panorama/PTOptimise.cpp, src/Panorama/PanoToolsInterface.cpp,
-	src/include/PT/PTOptimise.h, src/include/PT/PanoToolsInterface.h,
-	src/include/PT/Panorama.h, src/Panorama/ImageGraph.cpp,
-	src/.cvsignore: added a "autooptimiser" test program, to test
-	the pairwise registration of existing projects. will be part of
-	the future autooptimize function of hugin.
+2004-02-03 10:22  dangelo
 
-2004-02-02 08:35:49  dangelo  (dangelo)
+	* src/: .cvsignore, Panorama/ImageGraph.cpp,
+	  Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
+	  include/PT/PTOptimise.h, include/PT/PanoToolsInterface.h,
+	  include/PT/Panorama.h, tests/.cvsignore, tools/autooptimiser.cpp:
+	  added a "autooptimiser" test program, to test the pairwise
+	  registration of existing projects. will be part of the future
+	  autooptimize function of hugin.
+
+2004-02-02 10:35  dangelo
 
 	* src/Panorama/ImageGraph.cpp: trying the boost (www.boost.org
-	graph stuff), instead of my selfwritten routines in common/graph.h
+	  graph stuff), instead of my selfwritten routines in
+	  common/graph.h
 
-	* src/Panorama/Makefile, src/Panorama/PTOptimise.cpp,
-	src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/hugin/CPEditorPanel.cpp, src/hugin/CPListFrame.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/xrc/images_panel.xrc, src/include/PT/ImageGraph.h,
-	src/include/PT/PTOptimise.h, src/include/PT/PanoToolsInterface.h,
-	src/include/PT/SimpleStitcher.h,
-	src/include/PT/tiffUtils.h, src/include/common/utils.h,
-	src/include/hugin/ImagesPanel.h, src/include/hugin/MainFrame.h,
-	src/include/vigra_ext/PointMatching.h, src/tools/Makefile,
-	src/tools/panosifter.cpp, src/vigra_ext/PointMatching.cpp:
-	update to my current state. lots of incomplete changes & additions
+2004-02-02 10:33  dangelo
 
-2004-02-01 17:57:39  beku  (beku)
+	* src/: include/vigra_ext/PointMatching.h, tools/Makefile,
+	  tools/panosifter.cpp, vigra_ext/PointMatching.cpp,
+	  Panorama/Makefile, Panorama/PTOptimise.cpp,
+	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/CPListFrame.cpp,
+	  hugin/ImagesPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/xrc/images_panel.xrc, include/PT/ImageGraph.h,
+	  include/PT/PTOptimise.h, include/PT/PanoToolsInterface.h,
+	  include/PT/SimpleStitcher.h, include/PT/tiffUtils.h,
+	  include/common/utils.h, include/hugin/ImagesPanel.h,
+	  include/hugin/MainFrame.h: update to my current state. lots of
+	  incomplete changes & additions
+
+2004-02-01 19:57  beku
 
 	* src/include/PT/tiffUtils.h: - fixed writing of unassoc alpha tag
 
-2004-01-25 22:10:58  speare  (speare)
+2004-01-26 00:10  speare
 
-	* src/vigra_ext/.cvsignore, src/common/.cvsignore: Ignore
-	Makefile.depend files
+	* src/: common/.cvsignore, vigra_ext/.cvsignore: Ignore
+	  Makefile.depend files
 
-2004-01-18 10:08:17  dangelo  (dangelo)
+2004-01-18 12:08  dangelo
 
 	* src/include/hugin/CPEditorPanel.h: small change
 
+2004-01-18 12:07  dangelo
+
 	* src/hugin/Makefile: forgot to add vigra
+
+2004-01-18 04:19  dangelo
 
 	* src/tools/panosifter.cpp: panosifter main program
 
-	* src/tools/nona.cpp: *** empty log message ***
+2004-01-18 04:18  dangelo
 
-	* src/tools/automatch.cpp: tried histograming the angles, but
-	I'm caclulating them wrongly right now
+	* src/tools/automatch.cpp: tried histograming the angles, but I'm
+	  caclulating them wrongly right now
+
+2004-01-18 04:17  dangelo
 
 	* src/tools/Makefile: added panosifter
 
-	* src/include/panoinc.h: *** empty log message ***
+2004-01-18 04:16  dangelo
+
+	* src/: include/panoinc.h, tools/nona.cpp: [no log message]
+
+2004-01-18 04:16  dangelo
 
 	* src/Makefile: include new dirs
 
-	* src/vigra_ext/Makefile, src/vigra_ext/PointMatching.cpp,
-	src/vigra_ext/LoweSIFT.cpp, src/include/vigra_ext/PointMatching.h,
-	src/include/vigra_ext/LoweSIFT.h,
-	src/include/vigra_ext/Correlation.h: - interface class to lowe's
-	keypoint program - simple matching routines, for matching multiple
+2004-01-18 04:10  dangelo
+
+	* src/: include/vigra_ext/Correlation.h,
+	  include/vigra_ext/LoweSIFT.h, include/vigra_ext/PointMatching.h,
+	  vigra_ext/LoweSIFT.cpp, vigra_ext/Makefile,
+	  vigra_ext/PointMatching.cpp: - interface class to lowe's keypoint
+	  program - simple matching routines, for matching multiple
 	  images, and creating the overlap graph
 
-	* src/common/Makefile, src/common/graph.cpp, src/common/utils.cpp,
-	src/include/common/graph.h, src/include/common/math.h,
-	src/include/common/stl_utils.h: - moved common stuff into an
-	own library - some simple graph manipulation functions.
+2004-01-18 04:07  dangelo
 
-	* src/Panorama/Makefile, src/Panorama/Panorama.cpp,
-	src/include/PT/PanoCommand.h, src/include/PT/Panorama.h,
-	src/include/PT/PanoramaMemento.h: added function to add images
-	easily libpanorama depends on vigra from now on.
+	* src/: common/Makefile, common/graph.cpp, common/utils.cpp,
+	  include/common/graph.h, include/common/math.h,
+	  include/common/stl_utils.h: - moved common stuff into an own
+	  library - some simple graph manipulation functions.
 
-2004-01-15 00:33:19  dangelo  (dangelo)
+2004-01-18 04:02  dangelo
+
+	* src/: Panorama/Makefile, Panorama/Panorama.cpp,
+	  include/PT/PanoCommand.h, include/PT/Panorama.h,
+	  include/PT/PanoramaMemento.h: added function to add images easily
+	  libpanorama depends on vigra from now on.
+
+2004-01-15 02:33  dangelo
 
 	* src/include/PT/SimpleStitcher.h: compiles now
 
-2004-01-14 06:22:12  dangelo  (dangelo)
+2004-01-14 08:21  dangelo
 
-	* src/tools/automatch.cpp, src/tools/Makefile: - first, buggy
-	c++ automatch
+	* src/tools/: Makefile, automatch.cpp: - first, buggy c++ automatch
+
+2004-01-14 08:20  dangelo
 
 	* src/include/PT/SimpleStitcher.h: ups, forgot to add the seaming
-	implemementation
+	  implemementation
 
-2004-01-13 23:52:08  dangelo  (dangelo)
+2004-01-14 01:52  dangelo
 
 	* src/Panorama/Panorama.cpp: save feather width to pto file
 
-	* src/tools/autopano.cpp, src/tools/nona.cpp: simple seaming
-	support for nona
+2004-01-14 01:51  dangelo
 
-2004-01-06 22:59:40  speare  (speare)
+	* src/tools/: autopano.cpp, nona.cpp: simple seaming support for
+	  nona
+
+2004-01-07 00:59  speare
 
 	* src/klt/.cvsignore: Ignoring Makefile.depend
 
-2004-01-05 22:56:55  dangelo  (dangelo)
+2004-01-06 00:56  dangelo
 
 	* src/tools/nona.cpp: made command line arguments similar to
-	PTStitcher
+	  PTStitcher
 
-	* src/include/hugin/wxPanoCommand.h: compare hfov difference
-	with less precision, in case the user accidentially touched the
-	HFOV field, and the value only contains 3 valid digits after
-	the decimal point.
+2004-01-06 00:55  dangelo
 
-2004-01-02 19:58:05  dangelo  (dangelo)
+	* src/include/hugin/wxPanoCommand.h: compare hfov difference with
+	  less precision, in case the user accidentially touched the HFOV
+	  field, and the value only contains 3 valid digits after the
+	  decimal point.
 
-	* src/Panorama/Makefile, src/Panorama/PhaseCorrelation.cpp,
-	src/hugin/CPEditorPanel.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/ImageProcessing.cpp, src/include/PT/PanoCommand.h,
-	src/include/PT/PhaseCorrelation.h,
-	src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/ImageProcessing.h,
-	src/include/hugin/MainFrame.h,
-	src/include/vigra_ext/Correlation.h,
-	src/include/vigra_ext/PhaseCorrelation.h,
-	src/include/vigra_ext/Pyramid.h, src/tools/autopano.cpp: created
-	new folder vigra_ext, which should contain our image processing
-	functions. Moved the correlation from the hugin tree.
+2004-01-02 21:58  dangelo
 
-	* src/hugin/MainFrame.cpp, src/hugin/xrc/main_menu.xrc: added
-	"fine tune all points" function
+	* src/: Panorama/Makefile, Panorama/PhaseCorrelation.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/ImageProcessing.cpp, include/PT/PanoCommand.h,
+	  include/PT/PhaseCorrelation.h, include/hugin/CPEditorPanel.h,
+	  include/hugin/ImageProcessing.h, include/hugin/MainFrame.h,
+	  include/vigra_ext/Correlation.h,
+	  include/vigra_ext/PhaseCorrelation.h,
+	  include/vigra_ext/Pyramid.h, tools/autopano.cpp: created new
+	  folder vigra_ext, which should contain our image processing
+	  functions. Moved the correlation from the hugin tree.
+
+2004-01-02 21:55  dangelo
+
+	* src/hugin/: MainFrame.cpp, xrc/main_menu.xrc: added "fine tune
+	  all points" function
+
+2004-01-02 14:23  dangelo
 
 	* src/hugin/xrc/data/Makefile: install .html files as well
 
-	* src/Panorama/PhaseCorrelation.cpp,
-	src/include/PT/PhaseCorrelation.h,
-	src/include/hugin/ImageProcessing.h, src/tests/Makefile,
-	src/tests/phasecorrelation.cpp, src/tools/autopano.cpp,
-	src/tools/nona.cpp: added a small standalone application for
-	phase correlation
+2004-01-02 13:43  dangelo
 
-2004-01-01 15:30:47  dangelo  (dangelo)
+	* src/: tests/phasecorrelation.cpp, tools/autopano.cpp,
+	  tools/nona.cpp, Panorama/PhaseCorrelation.cpp,
+	  include/PT/PhaseCorrelation.h, include/hugin/ImageProcessing.h,
+	  tests/Makefile: added a small standalone application for phase
+	  correlation
+
+2004-01-01 17:30  dangelo
 
 	* src/include/PT/PhaseCorrelation.h: ups^2
 
+2004-01-01 17:07  dangelo
+
 	* src/include/PT/SimpleStitcher.h: ups
 
-	* src/include/hugin/MainFrame.h, src/hugin/MainFrame.cpp,
-	src/hugin/huginApp.cpp: - hugin load the first command line
-	argument as a project
+2004-01-01 15:38  dangelo
 
-	* src/Panorama/PhaseCorrelation.cpp, src/include/klt/base.h,
-	src/include/klt/convolve.h, src/include/klt/error.h,
-	src/include/klt/klt.h, src/include/klt/klt_util.h,
-	src/include/klt/pnmio.h, src/include/klt/pyramid.h,
-	src/klt/Makefile, src/klt/convolve.c, src/klt/error.c,
-	src/klt/klt.c, src/klt/klt_util.c, src/klt/pnmio.c,
-	src/klt/pyramid.c, src/klt/selectGoodFeatures.c,
-	src/klt/storeFeatures.c, src/klt/trackFeatures.c,
-	src/klt/track_saved.c, src/klt/writeFeatures.c,
-	src/tools/autopano.cpp, src/Panorama/Makefile, src/tools/Makefile,
-	AUTHORS, README, src/Makefile: autopano and related KLT library
+	* src/: hugin/MainFrame.cpp, hugin/huginApp.cpp,
+	  include/hugin/MainFrame.h: - hugin load the first command line
+	  argument as a project
 
-2003-12-29 08:48:04  dangelo  (dangelo)
+2004-01-01 15:35  dangelo
+
+	* AUTHORS, README, src/Makefile, src/Panorama/Makefile,
+	  src/tools/Makefile, src/Panorama/PhaseCorrelation.cpp,
+	  src/include/klt/base.h, src/include/klt/convolve.h,
+	  src/include/klt/error.h, src/include/klt/klt.h,
+	  src/include/klt/klt_util.h, src/include/klt/pnmio.h,
+	  src/include/klt/pyramid.h, src/klt/Makefile, src/klt/convolve.c,
+	  src/klt/error.c, src/klt/klt.c, src/klt/klt_util.c,
+	  src/klt/pnmio.c, src/klt/pyramid.c, src/klt/selectGoodFeatures.c,
+	  src/klt/storeFeatures.c, src/klt/trackFeatures.c,
+	  src/klt/track_saved.c, src/klt/writeFeatures.c,
+	  src/tools/autopano.cpp: autopano and related KLT library
+
+2003-12-29 10:48  dangelo
 
 	* src/Panorama/Panorama.cpp: use PTools::Transform
 
+2003-12-29 10:45  dangelo
+
 	* src/hugin/xrc/preview_frame.xrc: fixed typo
 
-	* src/include/PT/SimpleStitcher.h: set resolution to 1 dpi,
-	to work around gimp tif loader bug
+2003-12-29 10:45  dangelo
 
-2003-12-27 15:50:27  dangelo  (dangelo)
+	* src/include/PT/SimpleStitcher.h: set resolution to 1 dpi, to work
+	  around gimp tif loader bug
 
-	* src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	  src/Panorama/SpaceTransform.cpp, src/hugin/ImagesList.cpp,
-	  src/hugin/ImagesPanel.cpp, src/hugin/PanoToolsInterface.cpp,
-	  src/hugin/PreviewPanel.cpp, src/include/PT/PanoToolsInterface.h,
-	  src/include/PT/SimpleStitcher.h,
-	  src/include/PT/SpaceTransform.h, src/include/common/Matrix3.h,
-	  src/include/common/Vector3.h, src/include/panoinc.h,
-	  src/tests/interpolator.cpp, src/tests/panotools.cpp,
-	  src/tests/transforms.cpp, src/tools/nona.cpp: - SpaceTransform
-	  seems to have some problems with the inverse transform, using
-	  PTools::Transform until they have been fixed.
+2003-12-27 17:50  dangelo
+
+	* src/: Panorama/SpaceTransform.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/PanoToolsInterface.cpp,
+	  hugin/PreviewPanel.cpp, include/panoinc.h,
+	  include/PT/PanoToolsInterface.h, include/PT/SimpleStitcher.h,
+	  include/PT/SpaceTransform.h, include/common/Matrix3.h,
+	  include/common/Vector3.h, tests/interpolator.cpp,
+	  tests/panotools.cpp, tests/transforms.cpp, tools/nona.cpp,
+	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp: -
+	  SpaceTransform seems to have some problems with the inverse
+	  transform,   using PTools::Transform until they have been fixed.
+
+2003-12-27 17:48  dangelo
 
 	* src/include/PT/ImageTransforms.h: made image remapping (almost)
-	independant from type of transform class used
+	  independant from type of transform class used
 
-2003-12-20 12:07:27  dangelo  (dangelo)
+2003-12-20 14:07  dangelo
 
-	* src/hugin/xrc/data/FAQ.html, src/hugin/xrc/data/horiz-guide.jpg,
-	src/hugin/xrc/data/problem-circle.jpg: - tutorial additions
+	* src/hugin/xrc/data/: FAQ.html, horiz-guide.jpg,
+	  problem-circle.jpg: - tutorial additions
 
-2003-12-19 17:32:28  dangelo  (dangelo)
+2003-12-19 19:32  dangelo
 
 	* src/Panorama/Makefile: added SpaceTransform.o
 
-2003-12-17 08:22:19  dangelo  (dangelo)
+2003-12-17 10:22  dangelo
 
 	* src/include/panoinc.h: fixed upper <-> lowercase
 
-2003-12-16 15:49:55  ajenny  (ajenny)
+2003-12-16 17:49  ajenny
 
-	* src/hugin/hugin.vcproj, src/Panorama/Panorama.vcproj,
-	src/Panorama/Panorama.cpp,
-	src/include/hugin/ImageOrientationPanel.h,
-	src/include/common/Matrix3.h, src/include/common/Vector3.h,
-	src/include/panoinc.h, src/hugin/PreviewPanel.cpp,
-	src/hugin/PanoToolsInterface.cpp: Space transformation class
-	integration
+	* src/hugin/hugin.vcproj: Space transformation class integration
 
-2003-12-14 14:02:19  brunopostle  (brunopostle)
+2003-12-16 17:43  ajenny
 
-	* src/hugin/xrc/data/FAQ.html, src/hugin/xrc/data/manual.html:
-	CSS reference is now a server side include
+	* src/Panorama/: Panorama.cpp, Panorama.vcproj: Space
+	  transformation class integration
 
-	* src/hugin/xrc/data/FAQ.html, src/hugin/xrc/data/manual.html:
-	Made the title and h1 identical
+2003-12-16 17:39  ajenny
 
-	* src/hugin/xrc/data/FAQ.html, src/hugin/xrc/data/manual.html:
-	Minor html fixes
+	* src/: hugin/PanoToolsInterface.cpp, hugin/PreviewPanel.cpp,
+	  include/panoinc.h, include/common/Matrix3.h,
+	  include/common/Vector3.h, include/hugin/ImageOrientationPanel.h:
+	  Space transformation class integration
 
-2003-12-14 02:01:51  dangelo  (dangelo)
+2003-12-14 16:02  brunopostle
+
+	* src/hugin/xrc/data/: FAQ.html, manual.html: CSS reference is now
+	  a server side include
+
+2003-12-14 15:46  brunopostle
+
+	* src/hugin/xrc/data/: FAQ.html, manual.html: Made the title and h1
+	  identical
+
+2003-12-14 15:36  brunopostle
+
+	* src/hugin/xrc/data/: FAQ.html, manual.html: Minor html fixes
+
+2003-12-14 04:01  dangelo
 
 	* src/hugin/MainFrame.cpp: include changes
 
-	* src/hugin/MainFrame.cpp, src/hugin/xrc/help.xrc,
-	src/hugin/xrc/main_menu.xrc, src/hugin/xrc/data/FAQ.html,
-	src/include/hugin/MainFrame.h:	added faq to help menu
+2003-12-14 03:57  dangelo
 
-2003-12-13 16:28:08  dangelo  (dangelo)
+	* src/: hugin/xrc/data/FAQ.html, include/hugin/MainFrame.h,
+	  hugin/MainFrame.cpp, hugin/xrc/help.xrc, hugin/xrc/main_menu.xrc:
+	  added faq to help menu
+
+2003-12-13 18:28  dangelo
 
 	* src/hugin/xrc/data/FAQ.html: - first steps to a FAQ.
 
-	* src/include/hugin/config.h.tmpl, src/hugin/xrc/data/about.htm,
-	src/hugin/xrc/data/splash.png: - new version 0.4 pre
+2003-12-13 12:38  dangelo
 
-	* src/hugin/CPEditorPanel.cpp, src/include/hugin/CPEditorPanel.h:
-	- auto estimate with first click, if 100% view is used - fixed
-	a bad bug: auto-estimate auto-add auto-finetune didn't use
-			   the finetuned point, just the estimated point.
-	- added vertical/horizontal control point creation heuristic
+	* src/: hugin/xrc/data/about.htm, hugin/xrc/data/splash.png,
+	  include/hugin/config.h.tmpl: - new version 0.4 pre
+
+2003-12-13 12:35  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, include/hugin/CPEditorPanel.h: -
+	  auto estimate with first click, if 100% view is used - fixed a
+	  bad bug: auto-estimate auto-add auto-finetune didn't use
+		    the finetuned point, just the estimated point.  - added
+	  vertical/horizontal control point creation heuristic
+
+2003-12-13 12:32  dangelo
 
 	* configure: - substitute __ETC_DIR__ with /etc   (not uses by
-	hugin but...)
+	  hugin but...)
 
-2003-12-12 23:38:40  dangelo  (dangelo)
+2003-12-13 01:38  dangelo
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/huginApp.cpp, src/hugin/xrc/data/about.htm,
-	src/hugin/xrc/data/keyboard.html, src/hugin/xrc/data/manual.html,
-	src/hugin/xrc/keyboard_help.xrc, src/hugin/xrc/main_menu.xrc,
-	src/include/hugin/MainFrame.h: - added keyboard shortcuts help
-	file - added shift and ctrl scroll modes - the "a" key can be
-	used instead of right mouse button to add images - removed .tif
-	extension for TIFF_m and TIFF_mask
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/MainFrame.cpp, hugin/PanoPanel.cpp, hugin/huginApp.cpp,
+	  hugin/xrc/keyboard_help.xrc, hugin/xrc/main_menu.xrc,
+	  hugin/xrc/data/about.htm, hugin/xrc/data/keyboard.html,
+	  hugin/xrc/data/manual.html, include/hugin/MainFrame.h: - added
+	  keyboard shortcuts help file - added shift and ctrl scroll modes
+	  - the "a" key can be used instead of right mouse button to add
+	  images - removed .tif extension for TIFF_m and TIFF_mask
 
-	* src/hugin/xrc/main_menu.xrc, src/include/hugin/MainFrame.h,
-	src/hugin/MainFrame.cpp: added "save as ptsticher script" to
-	file menu
+2003-12-12 19:20  dangelo
 
-2003-12-07 20:42:03  dangelo  (dangelo)
+	* src/: hugin/MainFrame.cpp, hugin/xrc/main_menu.xrc,
+	  include/hugin/MainFrame.h: added "save as ptsticher script" to
+	  file menu
+
+2003-12-07 22:42  dangelo
 
 	* src/hugin/xrc/lens_panel.xrc: - changed skew to shift.
 
-2003-12-03 16:26:59  ajenny  (ajenny)
+2003-12-03 18:26  ajenny
 
-	* src/include/PT/SpaceTransform.h,
-	src/Panorama/SpaceTransform.cpp: Space transformation class :
-	will replace panotoolsinterface
+	* src/: Panorama/SpaceTransform.cpp, include/PT/SpaceTransform.h:
+	  Space transformation class : will replace panotoolsinterface
 
-2003-12-01 23:02:44  dangelo  (dangelo)
+2003-12-02 01:02  dangelo
 
-	* src/include/PT/SimpleStitcher.h, src/tools/nona.cpp: - creates
-	correct alpha channels now...  - multi layer tiff output with
-	TIFF_mask output format
+	* src/: tools/nona.cpp, include/PT/SimpleStitcher.h: - creates
+	  correct alpha channels now...  - multi layer tiff output with
+	  TIFF_mask output format
+
+2003-12-01 14:23  dangelo
 
 	* src/include/PT/SimpleStitcher.h: reverted alpha calculation
 
-2003-12-01 11:37:20  beku  (beku)
+2003-12-01 13:37  beku
 
-	* src/include/PT/SimpleStitcher.h, src/include/PT/tiffUtils.h:
-	o missed alpha writing fixed o nonallowed negative offsets fixed
-	o made DEBUG messages visible with
-	   an appended << std::endl
+	* src/include/PT/: SimpleStitcher.h, tiffUtils.h: o missed alpha
+	  writing fixed o nonallowed negative offsets fixed o made DEBUG
+	  messages visible with    an appended << std::endl
 
-2003-12-01 09:04:28  dangelo  (dangelo)
+2003-12-01 11:04  dangelo
 
 	* src/include/PT/tiffUtils.h: - update alpha pointer as well.
 
+2003-12-01 10:56  dangelo
+
 	* src/include/PT/tiffUtils.h: forgot to add
 
-	* src/include/PT/PanoramaMemento.h,
-	  src/include/PT/SimpleStitcher.h, src/tools/nona.cpp: - trying
-	  to save a multi image tiff. but doesn't work correctly, at least
-	  the output looks strange in gimp-1.3.22 with new tiff plugin
+2003-12-01 09:36  dangelo
 
-2003-11-29 18:52:50  dangelo  (dangelo)
+	* src/: include/PT/PanoramaMemento.h, include/PT/SimpleStitcher.h,
+	  tools/nona.cpp: - trying to save a multi image tiff. but doesn't
+	  work	 correctly, at least the output looks strange in
+	  gimp-1.3.22	with new tiff plugin
 
-	* src/tests/Makefile, src/tests/imageproc.cpp,
-	  src/tests/interpolator.cpp, src/tests/panotools.cpp,
-	  src/tests/transforms.cpp: - added test program for interpolator,
-	  fixed others for new includes interpolator results still seem
-	  to differ from PanoTools slightly.
+2003-11-29 20:52  dangelo
+
+	* src/tests/: Makefile, imageproc.cpp, interpolator.cpp,
+	  panotools.cpp, transforms.cpp: - added test program for
+	  interpolator, fixed others for new includes	interpolator
+	  results still seem to differ from PanoTools slightly.
+
+2003-11-29 20:50  dangelo
 
 	* src/include/PT/Interpolators.h: - intialize interpolation sum
-	with zero...
+	  with zero...
 
-	* src/Panorama/PanoramaMemento.cpp: fixed errors in vfov <->
-	height calculations
+2003-11-29 20:49  dangelo
 
-2003-11-27 23:41:38  dangelo  (dangelo)
+	* src/Panorama/PanoramaMemento.cpp: fixed errors in vfov <-> height
+	  calculations
 
-	* src/Panorama/PanoramaMemento.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/PreviewPanel.cpp, src/include/PT/Interpolators.h,
-	src/include/PT/PanoToolsInterface.h,
-	src/include/PT/PanoramaMemento.h, src/include/PT/SimpleStitcher.h,
-	src/tools/Makefile, src/tools/nona.cpp, src/tools/stitcher.cpp:
-	- added panorama tools interpolators - read jpg quality from
-	the scripts - renamed stitcher to nona
+2003-11-28 01:41  dangelo
 
-	* src/Panorama/utils.cpp, src/hugin/MainFrame.cpp,
-	src/include/PT/PanoToolsInterface.h,
-	src/include/hugin/MainFrame.h: - minor changes for linux
-	compilation
+	* src/: Panorama/PanoramaMemento.cpp, hugin/PanoPanel.cpp,
+	  hugin/PreviewPanel.cpp, include/PT/Interpolators.h,
+	  include/PT/PanoToolsInterface.h, include/PT/PanoramaMemento.h,
+	  include/PT/SimpleStitcher.h, tools/Makefile, tools/nona.cpp,
+	  tools/stitcher.cpp: - added panorama tools interpolators - read
+	  jpg quality from the scripts - renamed stitcher to nona
 
-2003-11-27 17:31:38  ajenny  (ajenny)
+2003-11-27 20:15  dangelo
 
-	* windows_DOT_NET_compile.txt, src/Hugin.sln,
-	src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp,
-	src/hugin/Server.cpp, src/hugin/TextKillFocusHandler.cpp,
-	src/hugin/hugin.vcproj, src/hugin/huginApp.cpp,
-	src/hugin/win_prep.h, src/hugin/wxVigraImage.cpp,
-	src/hugin/CPEditorPanelHandler.cpp, src/hugin/CPEditorTest.cpp,
-	src/hugin/CPImageCtrl.cpp, src/hugin/CPListFrame.cpp,
-	src/hugin/CommandHistory.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/ImageCenter.cpp, src/hugin/ImageOrientationFrame.cpp,
-	src/hugin/ImageOrientationPanel.cpp,
-	src/hugin/ImageProcessing.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/ImgScrollWindow.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/OptimizePanel.cpp, src/hugin/PanoDruid.cpp,
-	src/hugin/PanoPanel.cpp, src/hugin/PanoToolsInterface.cpp,
-	src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
-	src/hugin/CPEditorPanel.cpp, src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h, src/include/hugin/CPListFrame.h,
-	src/include/hugin/CommandHistory.h,
-	src/include/hugin/ImageCache.h, src/include/hugin/ImageCenter.h,
-	src/include/hugin/ImageOrientationPanel.h,
-	src/include/hugin/ImageProcessing.h,
-	src/include/hugin/ImagesList.h, src/include/hugin/ImagesPanel.h,
-	src/include/hugin/PanoPanel.h,
-	src/include/hugin/PanoToolsInterface.h,
-	src/include/hugin/PreviewFrame.h,
-	src/include/hugin/PreviewPanel.h,
-	src/include/hugin/wxVigraImage.h, src/include/panoinc.h,
-	src/include/panoinc_WX.h, src/include/common/math.h,
-	src/include/common/utils.h, src/include/PT/PanoToolsInterface.h,
-	src/include/PT/Panorama.h, src/include/PT/PanoramaMemento.h,
-	src/jhead/exif.cpp, src/jhead/jhead.vcproj,
-	src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/Panorama.vcproj, src/Panorama/PanoramaMemento.cpp,
-	src/Panorama/utils.cpp: .Net Win32 compilation
+	* src/: include/hugin/MainFrame.h, hugin/MainFrame.cpp,
+	  include/PT/PanoToolsInterface.h, Panorama/utils.cpp: - minor
+	  changes for linux compilation
 
-2003-11-25 23:11:27  dangelo  (dangelo)
+2003-11-27 19:30  ajenny
 
-	* src/Panorama/PanoramaMemento.cpp,
-	  src/hugin/MainFrame.cpp, src/include/PT/PanoToolsInterface.h,
-	  src/include/PT/PanoramaMemento.h: - added some more ugly code
-	  to loadPTScript(), that tries to load PTGui and PTAssembler
-	  projects.
+	* src/hugin/CPEditorPanel.cpp, src/hugin/CPEditorPanelHandler.cpp,
+	  src/hugin/CPEditorTest.cpp, src/hugin/CPImageCtrl.cpp,
+	  src/hugin/CPListFrame.cpp, src/hugin/CommandHistory.cpp,
+	  src/hugin/ImageCache.cpp, src/hugin/ImageCenter.cpp,
+	  src/hugin/ImageOrientationFrame.cpp,
+	  src/hugin/ImageOrientationPanel.cpp,
+	  src/hugin/ImageProcessing.cpp, src/hugin/ImagesList.cpp,
+	  src/hugin/ImagesPanel.cpp, src/hugin/ImgScrollWindow.cpp,
+	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
+	  src/hugin/OptimizePanel.cpp, src/hugin/PanoDruid.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/PanoToolsInterface.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
+	  src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp,
+	  src/hugin/Server.cpp, src/hugin/TextKillFocusHandler.cpp,
+	  src/hugin/hugin.vcproj, src/hugin/huginApp.cpp,
+	  src/hugin/win_prep.h, src/hugin/wxVigraImage.cpp, src/Hugin.sln,
+	  windows_DOT_NET_compile.txt: .Net Win32 compilation
 
-	  this is far from perfect, each image from ptassember scripts
-	  will get its own lens. The file formats are just ugly.
+2003-11-27 19:26  ajenny
+
+	* src/: Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  Panorama/Panorama.vcproj, Panorama/PanoramaMemento.cpp,
+	  Panorama/utils.cpp, jhead/exif.cpp, jhead/jhead.vcproj,
+	  include/PT/PanoToolsInterface.h, include/PT/Panorama.h,
+	  include/PT/PanoramaMemento.h, include/common/math.h,
+	  include/common/utils.h, include/panoinc.h, include/panoinc_WX.h,
+	  include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
+	  include/hugin/CPListFrame.h, include/hugin/CommandHistory.h,
+	  include/hugin/ImageCache.h, include/hugin/ImageCenter.h,
+	  include/hugin/ImageOrientationPanel.h,
+	  include/hugin/ImageProcessing.h, include/hugin/ImagesList.h,
+	  include/hugin/ImagesPanel.h, include/hugin/PanoPanel.h,
+	  include/hugin/PanoToolsInterface.h, include/hugin/PreviewFrame.h,
+	  include/hugin/PreviewPanel.h, include/hugin/wxVigraImage.h: .Net
+	  Win32 compilation
+
+2003-11-26 01:11  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, hugin/MainFrame.cpp,
+	  include/PT/PanoToolsInterface.h, include/PT/PanoramaMemento.h: -
+	  added some more ugly code to loadPTScript(), that tries to load
+	  PTGui and PTAssembler projects.
+
+	    this is far from perfect, each image from ptassember scripts
+	  will get its
+	    own lens. The file formats are just ugly.
+
+2003-11-25 18:27  dangelo
 
 	* src/tools/stitcher.cpp: - create valid output filenames,
-	shouldn't add features without testing
+	  shouldn't add features without testing
+
+2003-11-25 14:45  dangelo
 
 	* src/tools/stitcher.cpp: catch more generic std::exception
 
-2003-11-24 07:24:31  dangelo  (dangelo)
+2003-11-24 09:24  dangelo
 
-	* src/include/PT/SimpleStitcher.h, src/include/common/utils.h:
-	removed one cassert to much.. added one in utils.h
+	* src/include/: PT/SimpleStitcher.h, common/utils.h: removed one
+	  cassert to much.. added one in utils.h
 
-2003-11-23 13:33:19  dangelo  (dangelo)
+2003-11-23 15:33  dangelo
 
-	* src/hugin/huginApp.cpp, src/include/PT/Panorama.h,
-	src/include/hugin/MainFrame.h: some more include reodering
+	* src/: hugin/huginApp.cpp, include/PT/Panorama.h,
+	  include/hugin/MainFrame.h: some more include reodering
+
+2003-11-23 15:32  dangelo
 
 	* README: mentioned stitcher in readme
 
-	* src/include/PT/PanoToolsInterface.h,
-	src/include/PT/SimpleStitcher.h,
-	src/include/hugin/ImageProcessing.h, src/tools/stitcher.cpp: -
-	need to include vigra headers before all other stuff on windows
+2003-11-23 15:06  dangelo
+
+	* src/: tools/stitcher.cpp, include/hugin/ImageProcessing.h,
+	  include/PT/PanoToolsInterface.h, include/PT/SimpleStitcher.h: -
+	  need to include vigra headers before all other stuff on windows
+
+2003-11-23 14:56  dangelo
 
 	* configure, src/include/PT/PanoramaMemento.h,
-	src/include/PT/SimpleStitcher.h, src/include/common/utils.h,
-	src/tools/stitcher.cpp: - show low level debug only if compiled
-	with -DDEBUG - cosmetic improvements to stitcher (ProgressDisplay)
-	- fixed undef warnings in configure script
+	  src/include/PT/SimpleStitcher.h, src/include/common/utils.h,
+	  src/tools/stitcher.cpp: - show low level debug only if compiled
+	  with -DDEBUG - cosmetic improvements to stitcher
+	  (ProgressDisplay) - fixed undef warnings in configure script
 
-	* src/include/PT/SimpleStitcher.h: removed white background that
-	I needed for debugging
+2003-11-23 02:01  dangelo
 
-2003-11-22 23:55:01  dangelo  (dangelo)
+	* src/include/PT/SimpleStitcher.h: removed white background that I
+	  needed for debugging
 
-	* src/hugin/Makefile, src/hugin/PreviewPanel.cpp: vigra &
-	stitching changes
+2003-11-23 01:55  dangelo
+
+	* src/hugin/: Makefile, PreviewPanel.cpp: vigra & stitching changes
+
+2003-11-23 01:54  dangelo
 
 	* src/include/PT/SimpleStitcher.h: new stitcher function
 
-	* src/Panorama/Makefile, src/include/PT/PanoToolsInterface.h,
-	src/include/common/math.h, src/tools/Makefile,
-	src/tools/stitcher.cpp: new stitching routines (for standalone
-	stitcher)
+2003-11-23 01:52  dangelo
+
+	* src/: Panorama/Makefile, include/PT/PanoToolsInterface.h,
+	  include/common/math.h, tools/Makefile, tools/stitcher.cpp: new
+	  stitching routines (for standalone stitcher)
+
+2003-11-23 01:51  dangelo
 
 	* configure, src/foreign/vigra/README,
-	src/makefiles/config.mk.tmpl: moved vigra to new directory
+	  src/makefiles/config.mk.tmpl: moved vigra to new directory
 
-2003-11-20 22:15:51  dangelo  (dangelo)
+2003-11-21 00:15  dangelo
 
-	* src/include/hugin/wxPanoCommand.h: - while adding images,
-	  check if lenses match, and create new lenses if ratio or hfov
-	  doesn't fit existing ones.
+	* src/include/hugin/wxPanoCommand.h: - while adding images, check
+	  if lenses match, and	 create new lenses if ratio or hfov doesn't
+	  fit	existing ones.
 
-2003-11-19 02:46:09  speare  (speare)
+2003-11-19 04:46  speare
 
-	* src/hugin/xrc/data/editcopy.xpm, src/hugin/xrc/data/editcut.xpm,
-	src/hugin/xrc/data/editpaste.xpm, src/hugin/xrc/data/filenew.xpm,
-	src/hugin/xrc/data/fileopen.xpm, src/hugin/xrc/data/filesave.xpm,
-	src/hugin/xrc/data/icon.xpm, src/hugin/xrc/data/redo.xpm,
-	src/hugin/xrc/data/undo.xpm: - remove unused .xpm files; others
-	still awaiting new .png versions
+	* src/hugin/xrc/data/: editcopy.xpm, editcut.xpm, editpaste.xpm,
+	  filenew.xpm, fileopen.xpm, filesave.xpm, icon.xpm, redo.xpm,
+	  undo.xpm: - remove unused .xpm files; others still awaiting new
+	  .png versions
 
-	* src/hugin/hugin.desktop.tmpl: - use the icon.png instead of
-	the redundant identical icon.xpm
+2003-11-19 04:43  speare
 
-2003-11-19 02:31:31  anoncvs_folder-publish  (anoncvs_folder-publish)
+	* src/hugin/hugin.desktop.tmpl: - use the icon.png instead of the
+	  redundant identical icon.xpm
 
-	* src/hugin/MainFrame.cpp, src/hugin/PreviewFrame.cpp: - use
-	the icon.png everywhere, instead of redundant identical icon.xpm
+2003-11-19 04:31  anoncvs_folder-publish
 
-2003-11-18 20:14:59  dangelo  (dangelo)
+	* src/hugin/: MainFrame.cpp, PreviewFrame.cpp: - use the icon.png
+	  everywhere, instead of redundant identical icon.xpm
 
-	* src/hugin/CPEditorPanel.cpp: fixed crash on next/previous
-	buttons
+2003-11-18 22:14  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed crash on next/previous buttons
+
+2003-11-18 10:39  dangelo
 
 	* src/include/hugin/ImagesPanel.h: added m_empty bitmap
 
-2003-11-18 04:41:07  speare  (speare)
+2003-11-18 06:41  speare
 
 	* src/hugin/ImagesPanel.cpp: - put in a more interesting
-	  placeholder in the Images tab when no images or multiple images
+	  placeholder in the Images tab when no images	 or multiple images
 	  are selected
 
-	- tried to fix the "remove last image" bug but didn't find the
-	  right solution here; hope I didn't make it worse
+	  - tried to fix the "remove last image" bug but didn't find the
+	  right   solution here; hope I didn't make it worse
 
-	* src/hugin/xrc/data/about.htm, src/hugin/xrc/data/edit_add.png,
-	  src/hugin/xrc/data/editcopy.png, src/hugin/xrc/data/editcut.png,
-	  src/hugin/xrc/data/editdelete.png,
-	  src/hugin/xrc/data/editpaste.png,
-	  src/hugin/xrc/data/filenew.png, src/hugin/xrc/data/fileopen.png,
-	  src/hugin/xrc/data/filesave.png,
-	  src/hugin/xrc/data/filesaveas.png,
-	  src/hugin/xrc/data/optimize.png, src/hugin/xrc/data/redo.png,
-	  src/hugin/xrc/data/reload.png, src/hugin/xrc/data/undo.png,
-	  src/hugin/xrc/images_panel.xrc, src/hugin/xrc/main_tool.xrc,
-	  src/hugin/xrc/about.xrc: - new toolbar bitmap artwork which
-	  matches gtk2 ximian style and ties into the panorama druid
-	  color/motifs for some orientation
+2003-11-18 06:39  speare
 
-	- will remove unused .xpm files soon if nobody claims them
+	* src/hugin/xrc/: about.xrc, images_panel.xrc, main_tool.xrc,
+	  data/about.htm, data/edit_add.png, data/editcopy.png,
+	  data/editcut.png, data/editdelete.png, data/editpaste.png,
+	  data/filenew.png, data/fileopen.png, data/filesave.png,
+	  data/filesaveas.png, data/optimize.png, data/redo.png,
+	  data/reload.png, data/undo.png: - new toolbar bitmap artwork
+	  which matches gtk2 ximian style and	ties into the panorama
+	  druid color/motifs for some orientation
 
-	- reworded toolbar tooltips and statusbar help texts for
-	consistency
+	  - will remove unused .xpm files soon if nobody claims them
 
-	- fixed typo in the About Hugin html
+	  - reworded toolbar tooltips and statusbar help texts for
+	  consistency
 
-2003-11-18 00:07:54  dangelo  (dangelo)
+	  - fixed typo in the About Hugin html
 
-	* src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp, src/include/common/math.h,
-	src/include/common/utils.h: - small cleanup (removed some debug
-	prints and added new ones ;) - fixed PanoImage constructor,
-	multiple lenses work again - added code to write the borders to
-	a file, but doesn't work yet.
-	  calcFOV seems to be broken on windows, I don't understand why.
+2003-11-18 02:07  dangelo
 
-2003-11-17 09:39:32  dangelo  (dangelo)
+	* src/: include/common/utils.h, Panorama/PanoImage.cpp,
+	  Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  include/common/math.h: - small cleanup (removed some debug prints
+	  and added new ones ;) - fixed PanoImage constructor, multiple
+	  lenses work again - added code to write the borders to a file,
+	  but doesn't work yet.    calcFOV seems to be broken on windows, I
+	  don't understand why.
 
-	* src/hugin/PanoPanel.cpp: added the TextKillFocusHandler to
-	some spin controls in PanoPanel
+2003-11-17 11:39  dangelo
 
-2003-11-17 03:58:42  speare  (speare)
+	* src/hugin/PanoPanel.cpp: added the TextKillFocusHandler to some
+	  spin controls in PanoPanel
 
-	* src/hugin/MainFrame.cpp, src/hugin/xrc/images_panel.xrc,
-	src/include/hugin/MainFrame.h, src/jhead/jpgfile.cpp: - Enabled
-	and implemented the "Add Time-Series of Images" feature
+2003-11-17 05:58  speare
 
-2003-11-16 16:22:56  dangelo  (dangelo)
+	* src/: hugin/MainFrame.cpp, hugin/xrc/images_panel.xrc,
+	  include/hugin/MainFrame.h, jhead/jpgfile.cpp: - Enabled and
+	  implemented the "Add Time-Series of Images" feature
+
+2003-11-16 18:22  dangelo
 
 	* src/PanoImage/version.h: removed obselete wxwin code..
 
-	* admin/update_tarball.sh: small script to package the current
-	cvs into a tar ball on hugin.sf.net
+2003-11-16 18:07  dangelo
 
-	* src/Panorama/PanoramaMemento.cpp,
-	  src/include/PT/PanoramaMemento.h: - jpg quality was not honoured
-	  by PTSticher for progressive jpg output.  disabled progressive
-	  jpg creation
+	* admin/update_tarball.sh: small script to package the current cvs
+	  into a tar ball on hugin.sf.net
 
-	* src/jhead/exif.cpp: - calculate correct sensor width/height
-	  even if the images have been rotated with jpgtran.
-	- precondition: sensor width > sensor height.. hmm. probably
-	not so nice.
+2003-11-16 18:03  dangelo
+
+	* src/: include/PT/PanoramaMemento.h, Panorama/PanoramaMemento.cpp:
+	  - jpg quality was not honoured by PTSticher for progressive jpg
+	  output.    disabled progressive jpg creation
+
+2003-11-16 16:48  dangelo
+
+	* src/jhead/exif.cpp: - calculate correct sensor width/height even
+	  if the images have been   rotated with jpgtran.  - precondition:
+	  sensor width > sensor height.. hmm. probably not so nice.
+
+2003-11-16 16:47  dangelo
 
 	* src/include/hugin/wxPanoCommand.h: - no functional changes,
-	should add check if a new lens should be added
+	  should add check if a new lens should be added
 
-	* src/hugin/PreviewFrame.cpp: - removed non ascii chars -
-	where should a possible projection format wxChoice be placed?
-	- update preview when auto preview is switched on
+2003-11-16 16:45  dangelo
+
+	* src/hugin/PreviewFrame.cpp: - removed non ascii chars - where
+	  should a possible projection format wxChoice be placed? - update
+	  preview when auto preview is switched on
+
+2003-11-16 16:43  dangelo
 
 	* src/hugin/PanoPanel.cpp: - fixed typo
 
-	* src/hugin/LensPanel.cpp, src/hugin/xrc/lens_panel.xrc,
-	src/include/hugin/LensPanel.h: - interface for crop factor -
-	physical focal length should be entered.
+2003-11-16 16:42  dangelo
+
+	* src/: hugin/LensPanel.cpp, hugin/xrc/lens_panel.xrc,
+	  include/hugin/LensPanel.h: - interface for crop factor - physical
+	  focal length should be entered.
+
+2003-11-16 16:31  dangelo
 
 	* src/hugin/PanoDruid.cpp: - removed lens nr druid hint. its a
-	program error to have images without lens - changed control point
-	hint to consider 1 image panos as a special case - added hint
-	to run the optimizer (detected if all images are still at 0,0,0)
+	  program error to have images without lens - changed control point
+	  hint to consider 1 image panos as a special case - added hint to
+	  run the optimizer (detected if all images are still at 0,0,0)
+
+2003-11-16 15:50  dangelo
 
 	* src/hugin/CPEditorPanel.cpp: - fixed a crash if the estimated
-	position was outside of the image
+	  position was outside of the image
 
-	* src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp,
-	src/include/PT/PanoCommand.h, src/include/PT/PanoramaMemento.h:
-	changed focal length handling.	- crop factor is calculated
-	based on sensor diagonals..
-	  its a bit strange that my camera EXIF data reports non square
-	  pixels...
+2003-11-16 15:48  dangelo
 
-	- changes to lens variables are applied to all images.
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  include/PT/PanoCommand.h, include/PT/PanoramaMemento.h: changed
+	  focal length handling.  - crop factor is calculated based on
+	  sensor diagonals..	its a bit strange that my camera EXIF data
+	  reports non	 square pixels...
 
-2003-11-16 01:17:22  speare  (speare)
+	  - changes to lens variables are applied to all images.
 
-	* src/hugin/PanoDruid.cpp: - added druid logic for
-	NO_PLUMB_GUIDES, FEW_GUIDES, UNGUIDED_IMAGE - tried a better
-	determination for HUGE_FINAL:
-	  if the final image is more than 400 megapixels, or if the
-	  final image has more pixels than all source images combined;
-	  would still like to determine available memory somehow
+2003-11-16 03:17  speare
 
-2003-11-14 10:54:06  dangelo  (dangelo)
+	* src/hugin/PanoDruid.cpp: - added druid logic for NO_PLUMB_GUIDES,
+	  FEW_GUIDES, UNGUIDED_IMAGE - tried a better determination for
+	  HUGE_FINAL:	if the final image is more than 400 megapixels, or
+	  if the final image has more pixels than all source images
+	  combined;   would still like to determine available memory
+	  somehow
+
+2003-11-14 12:54  dangelo
 
 	* INSTALL: include files in include/pano12
 
-	* INSTALL: stronger suggestion to use max lyons version of
-	panorama tools
+2003-11-14 12:48  dangelo
 
-2003-11-11 07:08:49  dangelo  (dangelo)
+	* INSTALL: stronger suggestion to use max lyons version of panorama
+	  tools
 
-	* src/Panorama/Panorama.cpp, src/include/PT/Panorama.h: send
-	panoramaChanged when dirty flag is reset
+2003-11-11 09:08  dangelo
 
-2003-11-11 03:54:58  speare  (speare)
+	* src/: include/PT/Panorama.h, Panorama/Panorama.cpp: send
+	  panoramaChanged when dirty flag is reset
 
-	* src/hugin/Makefile, src/hugin/PanoDruid.cpp,
-	src/hugin/PreviewFrame.cpp, src/include/PT/Panorama.h,
-	src/include/hugin/PanoDruid.h, src/include/hugin/PreviewFrame.h:
-	- reworked PanoDruid into its own class so it's easy to move
-	somewhere else - reworked how Druid hints database is built,
-	using goofy #define tricks,
-	  not a perfect scheme, but keeps strings and code organized
-	together - added a couple new Druid hints, and more placeholders -
-	made pano.isDirty() a const member function
+2003-11-11 05:54  speare
 
-2003-11-10 23:15:46  dangelo  (dangelo)
+	* src/: hugin/Makefile, hugin/PanoDruid.cpp,
+	  hugin/PreviewFrame.cpp, include/PT/Panorama.h,
+	  include/hugin/PanoDruid.h, include/hugin/PreviewFrame.h: -
+	  reworked PanoDruid into its own class so it's easy to move
+	  somewhere else - reworked how Druid hints database is built,
+	  using goofy #define tricks,	not a perfect scheme, but keeps
+	  strings and code organized together - added a couple new Druid
+	  hints, and more placeholders - made pano.isDirty() a const member
+	  function
 
-	* src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp,
-	src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/OptimizePanel.cpp,
-	src/hugin/PanoPanel.cpp, src/hugin/PreviewFrame.cpp,
-	src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp,
-	src/include/PT/Panorama.h, src/include/PT/PanoramaMemento.h,
-	src/include/common/stl_utils.h, src/include/hugin/wxPanoCommand.h,
-	src/tests/panotools.cpp: - warning if optimized v < 1 degree.
-	- better vfov/hfov calculation, but height calculation for
-	rectilinear and
-	  cylindrical panos still wrong.  - focal length of portrait
-	images should be handled well now.
+2003-11-11 01:15  dangelo
 
-2003-11-10 01:42:51  speare  (speare)
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/LensPanel.cpp, hugin/OptimizePanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
+	  hugin/RunOptimizerFrame.cpp, hugin/RunStitcherFrame.cpp,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/common/stl_utils.h, include/hugin/wxPanoCommand.h,
+	  tests/panotools.cpp: - warning if optimized v < 1 degree.  -
+	  better vfov/hfov calculation, but height calculation for
+	  rectilinear and   cylindrical panos still wrong.  - focal length
+	  of portrait images should be handled well now.
 
-	* src/hugin/RunStitcherFrame.cpp: - launches stitcher process
-	  at higher niceness on unixen; should have no effect if user is
-	  drinking coffee, but will be nicer if the user is multitasking
+2003-11-10 03:42  speare
+
+	* src/hugin/RunStitcherFrame.cpp: - launches stitcher process at
+	  higher niceness on unixen;   should have no effect if user is
+	  drinking coffee, but will be nicer   if the user is multitasking
 	  elsewhere.
 
-2003-11-09 10:59:34  dangelo  (dangelo)
+2003-11-09 12:59  dangelo
 
-	* src/Panorama/Panorama.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/PreviewPanel.cpp, src/hugin/xrc/data/about.htm,
-	src/include/common/math.h, src/include/hugin/PreviewPanel.h,
-	src/hugin/PreviewFrame.cpp: - removed assertation in preview
-	window - added plotting of outlines - added a 1 degree limit
-	for HFOV/VFOV - added Ed to the about tab
+	* src/: hugin/PreviewFrame.cpp, Panorama/Panorama.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreviewPanel.cpp,
+	  hugin/xrc/data/about.htm, include/common/math.h,
+	  include/hugin/PreviewPanel.h: - removed assertation in preview
+	  window - added plotting of outlines - added a 1 degree limit for
+	  HFOV/VFOV - added Ed to the about tab
 
-	* src/hugin/ImageOrientationFrame.cpp,
-	src/hugin/ImageOrientationPanel.cpp, src/hugin/hugin_rc.rc,
-	src/include/hugin/ImageOrientationPanel.h: stuff needed for win
+2003-11-09 02:24  dangelo
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/xrc/cp_editor_panel.xrc: -
-	changed repaint behaviour of CPImageCtrl. hopefully it works on
-	Win9X now...  - made fit to window the default
+	* src/: hugin/ImageOrientationFrame.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/hugin_rc.rc,
+	  include/hugin/ImageOrientationPanel.h: stuff needed for win
 
-2003-11-08 23:26:24  dangelo  (dangelo)
+2003-11-09 02:16  dangelo
+
+	* src/hugin/: CPImageCtrl.cpp, MainFrame.cpp,
+	  xrc/cp_editor_panel.xrc, CPEditorPanel.cpp: - changed repaint
+	  behaviour of CPImageCtrl. hopefully it works on Win9X now...	-
+	  made fit to window the default
+
+2003-11-09 01:26  dangelo
 
 	* src/Panorama/PanoToolsInterface.cpp: also missing in pano12.dll
 
+2003-11-09 01:03  dangelo
+
 	* src/include/common/math.h: - FDiff2D -> Diff2D
 
+2003-11-09 01:03  dangelo
+
 	* utils/pta2hugin.py: - small python hack to convert PTAssember
-	  (V1.x) files to .pto files readable by hugin
+	  (V1.x) files to .pto files   readable by hugin
 
-	* src/tests/panotools.cpp, src/tests/transforms.cpp,
-	  src/tests/Makefile: - quick hack test cases, for the transform
-	  and remap stuff not very nice
+2003-11-09 01:01  dangelo
 
-	* src/hugin/CPEditorPanel.cpp,
-	src/hugin/ImageCache.cpp, src/hugin/ImagesList.cpp,
-	src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/PanoPanel.cpp,
-	src/hugin/PreviewPanel.cpp, src/hugin/TextKillFocusHandler.cpp,
-	src/include/hugin/CPEditorPanel.h, src/include/hugin/ImageCache.h,
-	src/include/hugin/ImagesPanel.h, src/include/hugin/LensPanel.h,
-	src/include/hugin/PanoPanel.h, src/include/hugin/PreviewPanel.h,
-	src/include/hugin/TextKillFocusHandler.h: - keys 1 and 0 set 100%
-	or fit to window zoom mode - hopefully better handling of the
-	input fields.
-	  now enter will apply the settings, as does tab or a mouseclick
-	  somewhere else. There are still some uneeded updates, but it
-	  should be more reliable than before
-	- change default image cache limit to 100 MB
+	* src/tests/: Makefile, panotools.cpp, transforms.cpp: - quick hack
+	  test cases, for the transform and remap stuff   not very nice
 
-	* src/Panorama/PanoToolsInterface.cpp,
-	   src/include/PT/PanoToolsInterface.h: - added missing
-	   SetCorrectionRadius function (isn't included in pano12.dll,
-	   but in libpano12.so, very strange)
+2003-11-09 00:59  dangelo
 
-	- Transform interface also support a version that can convert
-	from/to image coords.  - Added my own remapping function, that
-	only uses the pano tool coordinate transform
-	  functions. works with all image types supportable by vigra.
-	- calculation of image border & remapped image roi. could be
-	improved for images
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/ImagesList.cpp, hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/PanoPanel.cpp, hugin/PreviewPanel.cpp,
+	  hugin/TextKillFocusHandler.cpp, include/hugin/CPEditorPanel.h,
+	  include/hugin/ImageCache.h, include/hugin/ImagesPanel.h,
+	  include/hugin/LensPanel.h, include/hugin/PanoPanel.h,
+	  include/hugin/PreviewPanel.h,
+	  include/hugin/TextKillFocusHandler.h: - keys 1 and 0 set 100% or
+	  fit to window zoom mode - hopefully better handling of the input
+	  fields.    now enter will apply the settings, as does tab or a
+	  mouseclick	somewhere else. There are still some uneeded
+	  updates, but it    should be more reliable than before  - change
+	  default image cache limit to 100 MB
+
+2003-11-09 00:54  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp,
+	  include/PT/PanoToolsInterface.h: - added missing
+	  SetCorrectionRadius function	  (isn't included in pano12.dll,
+	  but in libpano12.so, very strange)
+
+	  - Transform interface also support a version that can convert
+	  from/to image coords.  - Added my own remapping function, that
+	  only uses the pano tool coordinate transform	 functions. works
+	  with all image types supportable by vigra.  - calculation of
+	  image border & remapped image roi. could be improved for images
 	  going over the edges.
 
-2003-11-06 01:50:19  speare  (speare)
+2003-11-06 03:50  speare
 
-	* src/hugin/xrc/optimize_panel.xrc, src/hugin/xrc/pano_panel.xrc:
-	- another iteration to tweak the interfaces of optimizer and
-	pano panels
+	* src/hugin/xrc/: optimize_panel.xrc, pano_panel.xrc: - another
+	  iteration to tweak the interfaces of optimizer and pano panels
 
-2003-11-05 02:51:00  speare  (speare)
+2003-11-05 04:51  speare
 
-	* src/hugin/xrc/anchor_orientation.xrc: - fixed minimum size
-	  for the anchor_orientation doodad, may still be too small;
-	  needs some explanation too
+	* src/hugin/xrc/anchor_orientation.xrc: - fixed minimum size for
+	  the anchor_orientation doodad,   may still be too small; needs
+	  some explanation too
 
-	* src/hugin/xrc/images_panel.xrc,
-	  src/hugin/xrc/lens_panel.xrc, src/hugin/xrc/main_frame.xrc,
-	  src/hugin/xrc/optimize_panel.xrc, src/hugin/xrc/pano_panel.xrc,
-	  src/hugin/xrc/edit_script_dialog.xrc: - reworded, rearranged
-	  and adjusted the dialog resources for style and consistency
+2003-11-05 04:48  speare
 
-2003-11-04 00:51:58  dangelo  (dangelo)
+	* src/hugin/xrc/: edit_script_dialog.xrc, images_panel.xrc,
+	  lens_panel.xrc, main_frame.xrc, optimize_panel.xrc,
+	  pano_panel.xrc: - reworded, rearranged and adjusted the dialog
+	  resources   for style and consistency
 
-	* src/Panorama/Makefile, src/Panorama/PanoToolsInterface.cpp,
-	src/Panorama/Panorama.cpp, src/hugin/CPEditorPanel.cpp,
-	src/hugin/ImageCache.cpp, src/hugin/ImageOrientationFrame.cpp,
-	src/hugin/ImageOrientationPanel.cpp, src/hugin/ImagesPanel.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/Makefile,
-	src/hugin/PanoToolsInterface.cpp, src/hugin/PreviewPanel.cpp,
-	src/hugin/TextKillFocusHandler.cpp, src/hugin/huginApp.cpp,
-	src/hugin/hugin_rc.rc, src/hugin/xrc/anchor_orientation.xrc,
-	src/hugin/xrc/images_panel.xrc,
-	src/include/PT/PanoToolsInterface.h, src/include/PT/Transforms.h,
-	src/include/common/math.h, src/include/hugin/AnchorPositionCtrl.h,
-	src/include/hugin/ImageOrientationFrame.h,
-	src/include/hugin/ImageOrientationPanel.h,
-	src/include/hugin/ImageProcessing.h,
-	src/include/hugin/ImagesPanel.h,
-	src/include/hugin/PanoToolsInterface.h,
-	src/include/hugin/PreviewPanel.h, src/tests/Makefile,
-	src/tests/panorama.cpp, src/tests/panotools.cpp,
-	src/tests/transforms.cpp: - added interface to Pano Tools
-	transforms (PT/PanoToolsInterface) - preview with lens distortions
+2003-11-04 02:51  dangelo
 
-	- anchor selection window, with strange rotation behavior..
-	  have to dissect the transforms and calculate pitch & yaw for
-	  new rotation values.	Panotools apply rotation before yaw &
-	  pitch -> images are rotatated around their center, not the
+	* src/: hugin/xrc/images_panel.xrc,
+	  include/PT/PanoToolsInterface.h, include/PT/Transforms.h,
+	  include/common/math.h, include/hugin/AnchorPositionCtrl.h,
+	  include/hugin/ImageOrientationFrame.h,
+	  include/hugin/ImageOrientationPanel.h,
+	  include/hugin/ImageProcessing.h, include/hugin/ImagesPanel.h,
+	  include/hugin/PanoToolsInterface.h, include/hugin/PreviewPanel.h,
+	  tests/Makefile, tests/panorama.cpp, tests/panotools.cpp,
+	  tests/transforms.cpp, Panorama/Makefile,
+	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/ImageOrientationFrame.cpp, hugin/ImageOrientationPanel.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp, hugin/Makefile,
+	  hugin/PanoToolsInterface.cpp, hugin/PreviewPanel.cpp,
+	  hugin/TextKillFocusHandler.cpp, hugin/huginApp.cpp,
+	  hugin/hugin_rc.rc, hugin/xrc/anchor_orientation.xrc: - added
+	  interface to Pano Tools transforms (PT/PanoToolsInterface) -
+	  preview with lens distortions
+
+	  - anchor selection window, with strange rotation behavior..
+	  have to dissect the transforms and calculate pitch & yaw    for
+	  new rotation values.	  Panotools apply rotation before yaw &
+	  pitch ->    images are rotatated around their center, not the
 	  yaw,pitch position.
 
-	- always use 35 mm equiv focal length in focal length field
+	  - always use 35 mm equiv focal length in focal length field
 
-	- enter in Lens Tab is broken again.
+	  - enter in Lens Tab is broken again.
 
-2003-11-02 10:21:40  dangelo  (dangelo)
+2003-11-02 12:21  dangelo
 
 	* src/hugin/ImageCache.cpp: ups, should add instead of subtract
 
-	* src/hugin/ImageCache.cpp, src/include/hugin/ImageCache.h,
-	src/hugin/CPEditorPanel.cpp: simple cache purge
+2003-11-02 12:12  dangelo
 
-2003-11-01 03:08:49  speare  (speare)
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
+	  include/hugin/ImageCache.h: simple cache purge
 
-	* src/hugin/xrc/data/druid.control.128.png,
-	src/hugin/xrc/data/druid.images.128.png,
-	src/hugin/xrc/data/druid.lenses.128.png,
-	src/hugin/xrc/data/druid.optimize.128.png,
-	src/hugin/xrc/data/druid.stitch.128.png: First-draft graphics
-	for the Panorama Druid feature.  Each graphic represents one
-	of the top tabs of the main frame.  I'll color-code the tabs to
-	these graphics later.
+2003-11-01 05:08  speare
 
-	* src/hugin/PreviewFrame.cpp, src/include/hugin/PreviewFrame.h:
-	Added a proof-of-concept "panorama druid" feature in the preview
-	frame.	This feature watches as you work, and updates itself to
-	advise you on any steps or parameters you may have forgotten.
-	Currently very limited, but will be extending this to add more
-	smarts in the future.  Comments welcome.
+	* src/hugin/xrc/data/: druid.control.128.png, druid.images.128.png,
+	  druid.lenses.128.png, druid.optimize.128.png,
+	  druid.stitch.128.png: First-draft graphics for the Panorama Druid
+	  feature.  Each graphic represents one of the top tabs of the main
+	  frame.  I'll color-code the tabs to these graphics later.
 
-2003-10-29 12:45:35  speare  (speare)
+2003-11-01 05:07  speare
 
-	* src/hugin/RunOptimizerFrame.cpp: Added a wxGetApp().Yield()
-	to resize the RunOptimizer to show live numbers.
+	* src/: hugin/PreviewFrame.cpp, include/hugin/PreviewFrame.h: Added
+	  a proof-of-concept "panorama druid" feature in the preview frame.
+	  This feature watches as you work, and updates itself to advise
+	  you on any steps or parameters you may have forgotten.  Currently
+	  very limited, but will be extending this to add more smarts in
+	  the future.  Comments welcome.
 
-2003-10-29 07:18:46  beku  (beku)
+2003-10-29 14:45  speare
+
+	* src/hugin/RunOptimizerFrame.cpp: Added a wxGetApp().Yield() to
+	  resize the RunOptimizer to show live numbers.
+
+2003-10-29 09:18  beku
 
 	* src/hugin/po/de.po: teilweiser Angleich
 
-2003-10-28 18:35:25  dangelo  (dangelo)
+2003-10-28 20:35  dangelo
 
-	* src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	  src/hugin/xrc/data/manual.html,
-	  src/include/hugin/CPEditorPanel.h,
-	  src/include/hugin/CPImageCtrl.h: - fine tune key "f" changes
-	  the point in the current image (not only the right img)
+	* src/: include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
+	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/xrc/data/manual.html: - fine tune key "f" changes the point
+	  in the current image	 (not only the right img)
 
-	- points can be moved in zoomed out views properly (bugfix)
+	  - points can be moved in zoomed out views properly (bugfix)
 
-	* src/hugin/OptimizePanel.cpp, src/hugin/xrc/optimize_panel.xrc:
-	refinements of new optimer interface
+2003-10-28 11:51  dangelo
 
-2003-10-27 23:39:34  dangelo  (dangelo)
+	* src/hugin/: OptimizePanel.cpp, xrc/optimize_panel.xrc:
+	  refinements of new optimer interface
+
+2003-10-28 01:39  dangelo
 
 	* src/hugin/MainFrame.cpp: windows fix
 
-	* src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
-	src/Panorama/PanoramaMemento.cpp, src/hugin/ImageCache.cpp,
-	src/hugin/ImagesList.cpp, src/hugin/ImagesPanel.cpp,
-	src/hugin/MainFrame.cpp, src/hugin/OptimizePanel.cpp,
-	src/hugin/huginApp.cpp, src/hugin/xrc/about.xrc,
-	src/hugin/xrc/data/manual.html, src/hugin/xrc/help.xrc,
-	src/hugin/xrc/images_panel.xrc, src/hugin/xrc/main_menu.xrc,
-	src/hugin/xrc/optimize_panel.xrc, src/include/hugin/ImagesPanel.h,
-	src/include/hugin/MainFrame.h, src/include/hugin/OptimizePanel.h:
-	optimizer presets and first reference
+2003-10-28 01:33  dangelo
+
+	* src/: include/hugin/ImagesPanel.h, include/hugin/MainFrame.h,
+	  include/hugin/OptimizePanel.h, Panorama/PanoImage.cpp,
+	  Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  hugin/ImageCache.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/OptimizePanel.cpp, hugin/huginApp.cpp, hugin/xrc/about.xrc,
+	  hugin/xrc/help.xrc, hugin/xrc/images_panel.xrc,
+	  hugin/xrc/main_menu.xrc, hugin/xrc/optimize_panel.xrc,
+	  hugin/xrc/data/manual.html: optimizer presets and first reference
+
+2003-10-27 11:37  dangelo
 
 	* src/hugin/CPEditorPanel.cpp: do not show error window if
-	estimation is possible
+	  estimation is possible
+
+2003-10-27 02:47  dangelo
 
 	* src/hugin/PanoPanel.cpp: update feather width display
 
+2003-10-27 02:17  dangelo
+
 	* src/hugin/MainFrame.cpp: optimize button works now
 
-2003-10-26 23:53:15  dangelo  (dangelo)
+2003-10-27 01:53  dangelo
 
 	* src/include/hugin/CPEditorPanel.h: compile fix for windows
 
-	* README, src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
-	src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
-	src/hugin/PanoPanel.cpp, src/hugin/xrc/cp_editor_panel.xrc,
-	src/hugin/xrc/data/list.png, src/hugin/xrc/images_panel.xrc,
-	src/hugin/xrc/lens_panel.xrc, src/hugin/xrc/main_menu.xrc,
-	src/hugin/xrc/main_tool.xrc, src/hugin/xrc/pano_panel.xrc,
-	src/include/PT/PanoCommand.h, src/include/PT/PanoImage.h,
-	src/include/PT/Panorama.h, src/include/PT/PanoramaMemento.h,
-	src/include/hugin/CPEditorPanel.h,
-	src/include/hugin/CPImageCtrl.h, src/include/hugin/MainFrame.h,
-	src/include/hugin/OptimizePanel.h, src/include/hugin/PanoPanel.h:
-	Many small changes: - added estimate function to CPEditorPanel
-	- some more keyboard shortcuts for CPEditorPanel: ctrl-left,
-	ctrl-right,f,p,del - added more toolbar entries - specify
-	feather width
+2003-10-27 01:27  dangelo
 
-2003-10-22 20:33:27  beku  (beku)
+	* src/include/PT/PanoramaMemento.h,
+	  src/include/hugin/CPEditorPanel.h,
+	  src/include/hugin/CPImageCtrl.h, src/include/hugin/MainFrame.h,
+	  src/include/hugin/OptimizePanel.h, src/include/hugin/PanoPanel.h,
+	  src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
+	  src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
+	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/xrc/cp_editor_panel.xrc,
+	  src/hugin/xrc/images_panel.xrc, src/hugin/xrc/lens_panel.xrc,
+	  src/hugin/xrc/main_menu.xrc, src/hugin/xrc/main_tool.xrc,
+	  src/hugin/xrc/pano_panel.xrc, src/hugin/xrc/data/list.png,
+	  src/include/PT/PanoCommand.h, src/include/PT/PanoImage.h,
+	  src/include/PT/Panorama.h, README: Many small changes: - added
+	  estimate function to CPEditorPanel - some more keyboard shortcuts
+	  for CPEditorPanel: ctrl-left, ctrl-right,f,p,del - added more
+	  toolbar entries - specify feather width
 
-	* src/hugin/ImageCache.cpp, src/hugin/po/de.po,
-	src/hugin/xrc/images_panel.xrc, src/hugin/xrc/pano_panel.xrc:
-	- deutsch update - Panorama tab layout
+2003-10-22 22:33  beku
 
-
-Back to main page </>
+	* src/hugin/: ImageCache.cpp, po/de.po, xrc/images_panel.xrc,
+	  xrc/pano_panel.xrc: - deutsch update - Panorama tab layout
 

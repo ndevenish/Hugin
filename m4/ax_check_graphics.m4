@@ -1,57 +1,68 @@
-dnl ---------------------------------------------------------------------------
-dnl AM_OPTIONS_GRAPHICS
-dnl
-dnl adds support for --with-jpeg --with-png --with-tiff and --with-zlib
-dnl command line options
-dnl ---------------------------------------------------------------------------
-
-AC_DEFUN([AM_OPTIONS_GRAPHICS],
-[
-    AC_ARG_WITH([jpeg],
-                AC_HELP_STRING([--with-jpeg=PATH],
-		               [Use version of jpeg in PATH]),
-                [with_jpeg=$withval],
-		[with_jpeg=''])
-    AC_ARG_WITH([jpeg],
-                AC_HELP_STRING([--with-png=PATH],
-		               [Use version of png in PATH]),
-                [with_png=$withval],
-		[with_png=''])
-    AC_ARG_WITH([tiff],
-                AC_HELP_STRING([--with-tiff=PATH],
-		               [Use version of TIFF in PATH]),
-                [with_tiff=$withval],
-		[with_tiff=''])
-    AC_ARG_WITH([zlib],
-                AC_HELP_STRING([--with-zlib=PATH],
-		               [Use version of zlib in PATH]),
-                [with_zlib=$withval],
-		[with_zlib=''])
-])
-
 #
 # Check for ZLIB
 #
 AC_DEFUN([AX_CHECK_ZLIB],
 [
+AC_ARG_WITH([zlib],
+            AC_HELP_STRING([--with-zlib=PATH],
+		           [Use version of zlib in PATH]),
+            [with_zlib=$withval],
+	    [with_zlib=''])
 have_zlib='no'
 LIB_ZLIB=''
-ZLIB_FLAG=''
+ZLIB_FLAGS=''
 dnl PNG and TIFF require zlib so enable zlib check if PNG or TIFF is requested
 if test "$with_zlib" != 'no' || test "$with_png" != 'no' || test "$with_tiff" != 'no' 
 then
   AC_MSG_CHECKING(for ZLIB support )
   AC_MSG_RESULT()
+  if test "x$with_zlib" != "x"
+  then
+    if test -d "$with_zlib"
+    then
+      ZLIB_HOME="$with_zlib"
+    else
+      AC_MSG_WARN([Sorry, $with_zlib does not exist, checking usual places])
+      with_zlib=''
+    fi
+  fi
+  if test "x$ZLIB_HOME" = "x"
+  then
+    zlib_dirs="/usr /usr/local /opt"
+    for i in $zlib_dirs;
+    do
+      if test -r "$i/include/zlib.h"; then
+        ZLIB_HOME="$i"
+        break
+      fi
+    done
+    if test "x$ZLIB_HOME" != "x"
+    then
+      AC_MSG_NOTICE([zlib home set to $ZLIB_HOME])
+    else
+      AC_MSG_ERROR([cannot find the zlib directory],[1])
+    fi
+  fi
   failed=0;
   passed=0;
-  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  ZLIB_OLD_LDFLAGS=$LDFLAGS
+  ZLIB_OLD_CPPFLAGS=$LDFLAGS
+  LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
+  CPPFLAGS="$CPPFLAGS -I$ZLIB_HOME/include"
+  AC_LANG_SAVE
+  AC_LANG_C
+dnl  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
   AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
 dnl  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+dnl  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(z,inflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,gzseek,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_LANG_RESTORE
+  LDFLAGS="$ZLIB_OLD_LDFLAGS"
+  CPPFLAGS="$ZLIB_OLD_CPPFLAGS"
+
   AC_MSG_CHECKING(if ZLIB package is complete)
   if test $passed -gt 0
   then
@@ -60,8 +71,14 @@ dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
       AC_MSG_RESULT(no -- some components failed test)
       have_zlib='no (failed tests)'
     else
-      LIB_ZLIB='-lz'
-      ZLIB_FLAG='-DHasZLIB'
+      if test "x$with_zlib" = "x"
+      then
+        LIB_ZLIB="-lz"
+        ZLIB_FLAGS="-DHasZLIB"
+      else
+        LIB_ZLIB="-L$ZLIB_HOME/lib -lz"
+        ZLIB_FLAGS="-I$ZLIB_HOME/include -DHasZLIB"
+      fi
       AC_MSG_RESULT(yes)
       have_zlib='yes'
     fi
@@ -71,7 +88,7 @@ dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 fi
 AM_CONDITIONAL(HasZLIB, test "$have_zlib" = 'yes')
 AC_SUBST(LIB_ZLIB)
-AC_SUBST(ZLIB_FLAG)
+AC_SUBST(ZLIB_FLAGS)
 ])
 
 #
@@ -79,38 +96,86 @@ AC_SUBST(ZLIB_FLAG)
 #
 AC_DEFUN([AX_CHECK_PNG],
 [
+AC_ARG_WITH([png],
+            AC_HELP_STRING([--with-png=PATH],
+		           [Use version of png in PATH]),
+            [with_png=$withval],
+	    [with_png=''])
 have_png='no'
 LIB_PNG=''
-PNG_FLAG=''
+PNG_FLAGS=''
 if test "$with_png" != 'no'
 then
-    AC_MSG_CHECKING(for PNG support )
-    AC_MSG_RESULT()
-    failed=0;
-    passed=0;
-    AC_CHECK_HEADER(png.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-    AC_CHECK_LIB([png],[png_get_io_ptr],passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz])
-    AC_MSG_CHECKING(if PNG package is complete)
-    if test $passed -gt 0
+  AC_MSG_CHECKING(for PNG support )
+  AC_MSG_RESULT()
+  if test "x$with_png" != "x"
+  then
+    if test -d "$with_png"
     then
+      PNG_HOME="$with_png"
+    else
+      AC_MSG_WARN([Sorry, $with_png does not exist, checking usual places])
+      with_png=''
+    fi
+  fi
+  if test "x$PNG_HOME" = "x"
+  then
+    png_dirs="/usr /usr/local /opt"
+    for i in $png_dirs;
+    do
+      if test -r "$i/include/png.h"; then
+        PNG_HOME="$i"
+        break
+      fi
+    done
+    if test "x$PNG_HOME" != "x"
+    then
+      AC_MSG_NOTICE([png home set to $PNG_HOME])
+    else
+      AC_MSG_ERROR([cannot find the png directory],[1])
+    fi
+  fi
+  failed=0;
+  passed=0;
+  PNG_OLD_LDFLAGS=$LDFLAGS
+  PNG_OLD_CPPFLAGS=$LDFLAGS
+  LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
+  CPPFLAGS="$CPPFLAGS -I$PNG_HOME/include"
+  AC_LANG_SAVE
+  AC_LANG_C
+  AC_CHECK_HEADER(png.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_LIB([png],[png_get_io_ptr],passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz])
+  AC_LANG_RESTORE
+  LDFLAGS="$PNG_OLD_LDFLAGS"
+  CPPFLAGS="$PNG_OLD_CPPFLAGS"
+
+  AC_MSG_CHECKING(if PNG package is complete)
+  if test $passed -gt 0
+  then
     if test $failed -gt 0
     then
-  AC_MSG_RESULT(no -- some components failed test)
-  have_png='no (failed tests)'
+      AC_MSG_RESULT(no -- some components failed test)
+      have_png='no (failed tests)'
     else
-  LIB_PNG='-lpng'
-  PNG_FLAG='-DHasPNG'
-  AC_DEFINE(HasPNG,1,Define if you have PNG library)
-  AC_MSG_RESULT(yes)
-  have_png='yes'
+      if test "x$with_png" = "x"
+      then
+        LIB_PNG="-lpng"
+        PNG_FLAGS="-DHasPNG"
+      else
+        LIB_PNG="-L$PNG_HOME/lib -lpng"
+        PNG_FLAG="-I$PNG_HOME/include -DHasPNG"
+      fi
+      AC_DEFINE(HasPNG,1,Define if you have PNG library)
+      AC_MSG_RESULT(yes)
+      have_png='yes'
     fi
-    else
+  else
     AC_MSG_RESULT(no)
-    fi
+  fi
 fi
 AM_CONDITIONAL(HasPNG, test "$have_png" = 'yes')
 AC_SUBST(LIB_PNG)
-AC_SUBST(PNG_FLAG)
+AC_SUBST(PNG_FLAGS)
 ])
 
 #
@@ -118,67 +183,115 @@ AC_SUBST(PNG_FLAG)
 #
 AC_DEFUN([AX_CHECK_JPEG],
 [
+AC_ARG_WITH([jpeg],
+            AC_HELP_STRING([--with-jpeg=PATH],
+		           [Use version of jpeg in PATH]),
+            [with_jpeg=$withval],
+	    [with_jpeg=''])
 have_jpeg='no'
 LIB_JPEG=''
-JPEG_FLAG=''
+JPEG_FLAGS=''
 dnl TIFF requires jpeg so enable jpeg check if TIFF is requested
 if test "$with_jpeg" != 'no' || test "$with_tiff" != 'no' 
 then
-    AC_MSG_CHECKING(for JPEG support )
-    AC_MSG_RESULT()
-    failed=0;
-    passed=0;
-    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_HEADER(jerror.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_HEADER(jpeglib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_LIB(jpeg,jpeg_read_header,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_MSG_CHECKING(for JPEG support )
+  AC_MSG_RESULT()
+  if test "x$with_jpeg" != "x"
+  then
+    if test -d "$with_jpeg"
+    then
+      JPEG_HOME="$with_jpeg"
+    else
+      AC_MSG_WARN([Sorry, $with_jpeg does not exist, checking usual places])
+      with_jpeg=''
+    fi
+  fi
+  if test "x$JPEG_HOME" = "x"
+  then
+    jpeg_dirs="/usr /usr/local /opt"
+    for i in $jpeg_dirs;
+    do
+      if test -r "$i/include/jpeglib.h"; then
+        JPEG_HOME="$i"
+        break
+      fi
+    done
+    if test "x$JPEG_HOME" != "x"
+    then
+      AC_MSG_NOTICE([jpeg home set to $JPEG_HOME])
+    else
+      AC_MSG_ERROR([cannot find the jpeg directory],[1])
+    fi
+  fi
+  failed=0;
+  passed=0;
+  JPEG_OLD_LDFLAGS=$LDFLAGS
+  JPEG_OLD_CPPFLAGS=$LDFLAGS
+  LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
+  CPPFLAGS="$CPPFLAGS -I$JPEG_HOME/include"
+  AC_LANG_SAVE
+  AC_LANG_C
+dnl    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+dnl    AC_CHECK_HEADER(jerror.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_HEADER(jpeglib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_LIB(jpeg,jpeg_read_header,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 
 # Test for compatible JPEG library
-if test "$ac_cv_jpeg_version_ok" != 'yes' ; then
-AC_CACHE_CHECK(for JPEG library is version 6b or later, ac_cv_jpeg_version_ok,
-[AC_TRY_COMPILE(
-#include <stdio.h>
-#include <stdlib.h>
-#include <jpeglib.h>
-,
-changequote(<<, >>)dnl
-<<
-#if JPEG_LIB_VERSION < 62
-#error IJG JPEG library must be version 6b or newer!
-#endif
-return 0;
->>,
-changequote([, ])dnl
-ac_cv_jpeg_version_ok='yes',
-ac_cv_jpeg_version_ok='no')])
-  if test "$ac_cv_jpeg_version_ok" = 'yes' ; then
-    passed=`expr $passed + 1`
-  else
-    failed=`expr $failed + 1`
+  if test "$ac_cv_jpeg_version_ok" != 'yes' ; then
+    AC_CACHE_CHECK(for JPEG library is version 6b or later, ac_cv_jpeg_version_ok,
+    [AC_TRY_COMPILE(
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <jpeglib.h>
+    ,
+    changequote(<<, >>)dnl
+    <<
+    #if JPEG_LIB_VERSION < 62
+    #error IJG JPEG library must be version 6b or newer! 
+    #endif
+    return 0;
+    >>,
+    changequote([, ])dnl
+    ac_cv_jpeg_version_ok='yes',
+    ac_cv_jpeg_version_ok='no')])
+    if test "$ac_cv_jpeg_version_ok" = 'yes' ; then  
+      passed=`expr $passed + 1`
+    else
+      failed=`expr $failed + 1`
+    fi
   fi
-fi
-AC_MSG_CHECKING(if JPEG package is complete)
-if test $passed -gt 0
-then
-  if test $failed -gt 0
+  AC_LANG_RESTORE
+  LDFLAGS="$JPEG_OLD_LDFLAGS"
+  CPPFLAGS="$JPEG_OLD_CPPFLAGS"
+
+  AC_MSG_CHECKING(if JPEG package is complete)
+  if test $passed -gt 0
   then
-    AC_MSG_RESULT(no -- some components failed test)
-    have_jpeg='no (failed tests)'
+    if test $failed -gt 0
+    then
+      AC_MSG_RESULT(no -- some components failed test)
+      have_jpeg='no (failed tests)'
+    else
+      if test "x$with_jpeg" = "x"
+      then
+        LIB_JPEG="-ljpeg"
+        JPEG_FLAGS="-DHasJPEG"
+      else
+        LIB_JPEG="-L$JPEG_HOME/lib -lpng"
+        JPEG_FLAGS="-I$JPEG_HOME/include -DHasPNG"
+      fi
+      AC_DEFINE(HasJPEG,1,Define if you have JPEG library)
+      AC_MSG_RESULT(yes)
+      have_jpeg='yes'
+    fi
   else
-    LIB_JPEG='-ljpeg'
-    JPEG_FLAG='-DHasJPEG'
-    AC_DEFINE(HasJPEG,1,Define if you have JPEG library)
-    AC_MSG_RESULT(yes)
-    have_jpeg='yes'
-  fi
-else
     AC_MSG_RESULT(no)
-fi
+  fi
 fi
 AM_CONDITIONAL(HasJPEG, test "$have_jpeg" = 'yes')
 AC_SUBST(LIB_JPEG)
-AC_SUBST(JPEG_FLAG)
+AC_SUBST(JPEG_FLAGS)
 ])
 
 #
@@ -186,42 +299,90 @@ AC_SUBST(JPEG_FLAG)
 #
 AC_DEFUN([AX_CHECK_TIFF],
 [
+AC_ARG_WITH([tiff],
+            AC_HELP_STRING([--with-tiff=PATH],
+		           [Use version of TIFF in PATH]),
+            [with_tiff=$withval],
+	    [with_tiff=''])
 have_tiff='no'
 LIB_TIFF=''
-TIFF_FLAG=''
+TIFF_FLAGS=''
 if test "$with_tiff" != 'no'
 then
-    AC_MSG_CHECKING(for TIFF support )
-    AC_MSG_RESULT()
-    failed=0;
-    passed=0;
-    AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
+  AC_MSG_CHECKING(for TIFF support )
+  AC_MSG_RESULT()
+  if test "x$with_tiff" != "x"
+  then
+    if test -d "$with_tiff"
+    then
+      PNG_HOME="$with_tiff"
+    else
+      AC_MSG_WARN([Sorry, $with_tiff does not exist, checking usual places])
+      with_tiff=''
+    fi
+  fi
+  if test "x$TIFF_HOME" = "x"
+  then
+    tiff_dirs="/usr /usr/local /opt"
+    for i in $tiff_dirs;
+    do
+      if test -r "$i/include/tiff.h"; then
+        TIFF_HOME="$i"
+        break
+      fi
+    done
+    if test "x$TIFF_HOME" != "x"
+    then
+      AC_MSG_NOTICE([tiff home set to $TIFF_HOME])
+    else
+      AC_MSG_ERROR([cannot find the tiff directory],[1])
+    fi
+  fi
+  failed=0;
+  passed=0;
+  TIFF_OLD_LDFLAGS=$LDFLAGS
+  TIFF_OLD_CPPFLAGS=$LDFLAGS
+  LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
+  CPPFLAGS="$CPPFLAGS -I$TIFF_HOME/include"
+  AC_LANG_SAVE
+  AC_LANG_C
+  AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+dnl    AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
 dnl    AC_CHECK_LIB(tiff,TIFFClientOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFIsByteSwapped,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFReadRGBATile,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-    AC_MSG_CHECKING(if TIFF package is complete)
-    if test $passed -gt 0
-    then
+  AC_LANG_RESTORE
+  LDFLAGS="$TIFF_OLD_LDFLAGS"
+  CPPFLAGS="$TIFF_OLD_CPPFLAGS"
+
+  AC_MSG_CHECKING(if TIFF package is complete)
+  if test $passed -gt 0
+  then
     if test $failed -gt 0
     then
-  AC_MSG_RESULT(no -- some components failed test)
-  have_tiff='no (failed tests)'
+      AC_MSG_RESULT(no -- some components failed test)
+      have_tiff='no (failed tests)'
     else
-  LIB_TIFF='-ltiff'
-  TIFF_FLAG='-DHasTIFF'
-  AC_DEFINE(HasTIFF,1,Define if you have TIFF library)
-  AC_MSG_RESULT(yes)
-  have_tiff='yes'
-  AC_CHECK_HEADERS(tiffconf.h)
+      if test "x$with_tiff" = "x"
+      then
+        LIB_TIFF="-ltiff"
+        TIFF_FLAGS="-DHasTIFF"
+      else
+        LIB_TIFF="-L$TIFF_HOME/lib -ltiff"
+        TIFF_FLAGS="-I$TIFF_HOME/include -DHasTIFF"
+      fi
+      AC_DEFINE(HasTIFF,1,Define if you have TIFF library)
+      AC_MSG_RESULT(yes)
+      have_tiff='yes'
+      AC_CHECK_HEADERS(tiffconf.h)
     fi
-    else
+  else
     AC_MSG_RESULT(no)
-    fi
+  fi
 fi
 AM_CONDITIONAL(HasTIFF, test "$have_tiff" = 'yes')
 AC_SUBST(LIB_TIFF)
-AC_SUBST(TIFF_FLAG)
+AC_SUBST(TIFF_FLAGS)
 ])

@@ -70,7 +70,6 @@ AC_PROG_LN_S
 
 dnl Checks for libraries.
 AM_OPTIONS_WXCONFIG
-AM_OPTIONS_GRAPHICS
 
 AX_CHECK_ZLIB
 if test "x$have_zlib" != xyes; then
@@ -146,34 +145,34 @@ else
 fi
 
 dnl Checks for header files.
-AC_HEADER_DIRENT
-AC_HEADER_STDC
-AC_HEADER_SYS_WAIT
-AC_CHECK_HEADERS([float.h limits.h locale.h memory.h paths.h stdlib.h string.h sys/time.h unistd.h utime.h])
+dnl AC_HEADER_DIRENT
+dnl AC_HEADER_STDC
+dnl AC_HEADER_SYS_WAIT
+dnl AC_CHECK_HEADERS([float.h limits.h locale.h memory.h paths.h stdlib.h string.h sys/time.h unistd.h utime.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
-AC_C_CONST
-AC_C_INLINE
-AC_C_RESTRICT
-AC_TYPE_SIZE_T
-AC_HEADER_TIME
-AC_STRUCT_TM
-AC_CHECK_TYPES([ptrdiff_t])
+dnl AC_HEADER_STDBOOL
+dnl AC_C_CONST
+dnl AC_C_INLINE
+dnl AC_C_RESTRICT
+dnl AC_TYPE_SIZE_T
+dnl AC_HEADER_TIME
+dnl AC_STRUCT_TM
+dnl AC_CHECK_TYPES([ptrdiff_t])
 
 dnl Checks for library functions.
-AC_FUNC_CLOSEDIR_VOID
-AC_FUNC_ERROR_AT_LINE
-AC_FUNC_FORK
-AC_FUNC_MALLOC
-AC_FUNC_MEMCMP
-AC_FUNC_MKTIME
-AC_FUNC_SELECT_ARGTYPES
-AC_FUNC_SETVBUF_REVERSED
-AC_FUNC_STRFTIME
-AC_FUNC_STRTOD
-AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([dup2 floor gettimeofday localtime_r memmove memset pow select setlocale sqrt])
+dnl AC_FUNC_CLOSEDIR_VOID
+dnl dnl AC_FUNC_ERROR_AT_LINE
+dnl AC_FUNC_FORK
+dnl AC_FUNC_MALLOC
+dnl AC_FUNC_MEMCMP
+dnl AC_FUNC_MKTIME
+dnl AC_FUNC_SELECT_ARGTYPES
+dnl AC_FUNC_SETVBUF_REVERSED
+dnl AC_FUNC_STRFTIME
+dnl AC_FUNC_STRTOD
+dnl AC_FUNC_VPRINTF
+dnl AC_CHECK_FUNCS([dup2 floor gettimeofday localtime_r memmove memset pow select setlocale sqrt])
 
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
 if test "x$prefix" != xNONE; then
@@ -232,10 +231,11 @@ echo "                  Option                        Value"
 echo "-------------------------------------------------------------------------"
 echo "Shared libraries  --enable-shared=$enable_shared		$libtool_build_shared_libs"
 echo "Static libraries  --enable-static=$enable_static		$libtool_build_static_libs"
-echo "JPEG              --with-jpeg=$with_jpeg		$have_jpeg"
-echo "PNG               --with-png=$with_png		$have_png"
-echo "TIFF              --with-tiff=$with_tiff		$have_tiff"
-echo "ZLIB              --with-zlib=$with_zlib		$have_zlib"
+echo "JPEG              --with-jpeg=$with_jpeg		have_jpeg = $have_jpeg"
+echo "PNG               --with-png=$with_png		have_png  = $have_png"
+echo "TIFF              --with-tiff=$with_tiff		have_tiff = $have_tiff"
+echo "ZLIB              --with-zlib=$with_zlib		have_zlib = $have_zlib"
+echo "PANO              --with-pano=$with_pano		have_pano = $have_pano"
 echo ""
 echo "Options used to compile and link:"
 echo "  PREFIX         = $prefix"
@@ -248,10 +248,16 @@ echo "  LDFLAGS        = $LDFLAGS"
 echo "  LIBS           = $LIBS"
 echo "  CXX            = $CXX"
 echo "  CXXFLAGS       = $CXXFLAGS"
+echo "  JPEG_FLAGS     = $JPEG_FLAGS"
 echo "  LIB_JPEG       = $LIB_JPEG"
+echo "  PNG_FLAGS      = $PNG_FLAGS"
 echo "  LIB_PNG        = $LIB_PNG"
+echo "  TIFF_FLAGS     = $TIFF_FLAGS"
 echo "  LIB_TIFF       = $LIB_TIFF"
+echo "  ZLIB_FLAGS     = $ZLIB_FLAGS"
 echo "  LIB_ZLIB       = $LIB_ZLIB"
+echo "  PANO_FLAGS     = $PANO_FLAGS"
+echo "  LIB_PANO       = $LIB_PANO"
 echo "  WX_CXXFLAGS    = $WX_CXXFLAGS"
 echo "  WX_LIBS        = $WX_LIBS"
 echo "  GTK_CFLAGS     = $GTK_CFLAGS"

@@ -19,7 +19,7 @@ WIN_SRC   =
 endif
 
 INCLUDES    = -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign
-AM_CXXFLAGS = $(WX_CXXFLAGS)
+AM_CXXFLAGS = $(WX_CXXFLAGS) $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS) $(ZLIB_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(WX_LIBS) $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF) $(LIB_ZLIB) $(LIB_PANO)
 
 bin_PROGRAMS     = nona_gui

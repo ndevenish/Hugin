@@ -11,7 +11,7 @@ RCCOMPILE   = $(RC) $(RCFLAGS) \
 	      sed -e 's/-I/--include-dir /g;s/-D/--define /g'`
 
 INCLUDES    = -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(FFTW_INCLUDES)
-AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS)
+AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS) $(PANO_FLAGS)
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
