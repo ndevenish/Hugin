@@ -250,7 +250,7 @@ $(APPS_BIN): %: $(addprefix $(LIB_DIR)/,$(LIB_NAMES)) $(addprefix $(OBJ_DIR)/,$(
 	)
 
 
-$(TEST_BIN): %: $(addprefix $(LIB_DIR)/,$(LIB_NAMES)) $(addprefix $(OBJ_DIR)/,$(foreach i, $(TESTS), $(TEST_$(i)_OBJ)))
+$(TESTS_BIN): %: $(addprefix $(LIB_DIR)/,$(LIB_NAMES)) $(addprefix $(OBJ_DIR)/,$(foreach i, $(TESTS), $(TEST_$(i)_OBJ)))
 	$(foreach i, $(TESTS), \
 	  $(if $(findstring $(TEST_$(i)_BIN),$@), \
 	    $(if $(filter $(addprefix $(LIB_DIR)/,$(LIB_NAMES)) $(addprefix $(OBJ_DIR)/,$(TEST_$(i)_OBJ)),$?), \
