@@ -197,6 +197,8 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                 for(int x=xstart; x < xend; ++x, ++xa.x) {
                     // find the image where this pixel is closest to the image center
                     // beku: what is it for?
+		    // pablo: it determines which image should be used
+		    //        for the current panorama pixel.
                     float minDist = FLT_MAX;
                     unsigned int minImgNr = 0;
                     vigra::Diff2D cp(x,y);
@@ -207,12 +209,15 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                             minImgNr = i;
                         }
                     }
-                    // if a minimum was found in current image, use this pixel
-                    // beku: every image should get it own alpha layer - fixed
-                    if (minDist < FLT_MAX) {
-                        // set value in alpha channel
+		    if (minDist < FLT_MAX && minImgNr == imgNr) {
+	                // pixel belongs to current image (imgNr)
                         *xa = 255;
-                    }
+		    } 
+//		    else {
+//			// pixel doesn't belong to current image.
+// 			*xa = 0;  // not needed since alpha image
+//		                  // is initialized with 0.
+//		    }	
                 }
             }
             
