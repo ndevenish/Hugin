@@ -81,12 +81,14 @@ struct TDiff2D
  *  to the borders if they are outside.
  */
 template <class T>
-void simpleClipPoint(T & p, const T & min, const T & max)
+T simpleClipPoint(const T & point, const T & min, const T & max)
 {
+    T p(point);
     if (p.x < min.x) p.x = min.x;
     if (p.x > max.x) p.x = max.x;
     if (p.y < min.y) p.y = min.y;
     if (p.y > max.y) p.y = max.y;
+    return p;
 }
 
 /** calculate squared Euclidean distance between two vectors.

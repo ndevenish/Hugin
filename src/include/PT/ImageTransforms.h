@@ -108,14 +108,16 @@ public:
 	    }
 	}
 	// restrict to panorama size
-	simpleClipPoint(ulFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
-	simpleClipPoint(lrFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
+	ulFloat = simpleClipPoint(ulFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
+	lrFloat = simpleClipPoint(lrFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
 
 	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << endl);
 
 	// create an image with the right size..
-	vigra::Diff2D ulInt((int)floor(ulFloat.x), (int)floor(ulFloat.y));
-	vigra::Diff2D lrInt((int)ceil(lrFloat.x), (int)ceil(lrFloat.y));
+	vigra::Diff2D ulInt(utils::roundi(ulFloat.x), utils::roundi(ulFloat.y));
+	vigra::Diff2D lrInt(utils::roundi(lrFloat.x), utils::roundi(lrFloat.y));
+        DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
+                    << lrInt - ulInt);
 
 	m_ROI.setCorners(ulInt,lrInt);
     }
@@ -273,7 +275,7 @@ public:
      *  @param progress progress reporting class
      *
      */
-/*    
+/*
     void remapImage(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
 		    unsigned int imgNr,
@@ -303,7 +305,7 @@ public:
                    imgNr, progress);
     }
 */
-    
+
     const std::vector<FDiff2D> & getOutline()
     {
         return m_outline;

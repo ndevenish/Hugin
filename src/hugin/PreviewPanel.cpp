@@ -195,6 +195,7 @@ void PreviewPanel::updatePreview()
 
     PanoramaOptions opts = pano.getOptions();
     opts.width = m_panoImgSize.x;
+    m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
     opts.interpolator = PanoramaOptions::BILINEAR;
 
