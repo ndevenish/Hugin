@@ -295,9 +295,11 @@ FDiff2D Panorama::calcFOV() const
     glr.x = FLT_MIN;
     glr.y = FLT_MIN;
 
+#ifdef DEBUG
     DEBUG_DEBUG("opening calcFOV_debug.txt");
     ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
     debug_out << endl;
+#endif
 
     //PT::SpaceTransform T;
     PTools::Transform T;
@@ -307,7 +309,7 @@ FDiff2D Panorama::calcFOV() const
         double ratio =  ((double) state.images[i].getWidth())/state.images[i].getHeight();
         int w = 20;
         int h = (int) round(20*ratio);
-        if (ratio > 1) {
+        if (ratio < 1) {
             w = (int) round(20*ratio);
             h = 20;
         }
@@ -322,6 +324,9 @@ FDiff2D Panorama::calcFOV() const
         vector<FDiff2D> outline;
         PT::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
                                  ul, lr);
+#ifdef DEBUG
+        debug_out << "image coord:" << ul << " - " << lr << endl;
+#endif
         // equirect image coordinates -> equirectangular coordinates
         ul.x -= 180;
         ul.y -= 90;
@@ -331,11 +336,14 @@ FDiff2D Panorama::calcFOV() const
         if (gul.y > ul.y) gul.y = ul.y;
         if (glr.x < lr.x) glr.x = lr.x;
         if (glr.y < lr.y) glr.y = lr.y;
+#ifdef DEBUG
         debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << endl;
+#endif
     }
-
+#ifdef DEBUG
     debug_out.close();
     DEBUG_DEBUG("closed calcFOV_debug.txt");
+#endif
     FDiff2D res;
     res.x = 2 * max(fabs(gul.x),fabs(glr.x));
     res.y = 2 * max(fabs(gul.y),fabs(glr.y));
