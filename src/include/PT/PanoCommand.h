@@ -69,7 +69,7 @@ namespace PT {
 
     //=========================================================================
     //=========================================================================
-
+#if 0
     /** add image(s) to a panorama */
     class AddImagesCmd : public PanoCommand
     {
@@ -94,7 +94,7 @@ namespace PT {
     private:
         std::vector<std::string> files;
     };
-
+#endif
     //=========================================================================
     //=========================================================================
 
@@ -168,6 +168,34 @@ namespace PT {
             }
     private:
         VariablesVector vars;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update all variables & control points*/
+    class UpdateVariablesCPCmd : public PanoCommand
+    {
+    public:
+        UpdateVariablesCPCmd(Panorama & p, const VariablesVector & vars,
+                             const CPVector & cps)
+            : PanoCommand(p),
+              vars(vars), cps(cps)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.updateVariables(vars);
+                pano.updateCtrlPointErrors(cps);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "update Variables";
+            }
+    private:
+        VariablesVector vars;
+        CPVector cps;
     };
 
     //=========================================================================
@@ -445,6 +473,43 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+    /** dump the current project and load a new one.
+     *
+     *  Use this for  style projects.
+     *
+     */
+    class LoadPTProjectCmd : public PanoCommand
+    {
+    public:
+        LoadPTProjectCmd(Panorama & p, std::istream & i)
+            : PanoCommand(p),
+              in(i)
+            { }
+
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                PanoramaMemento newPano;
+                if (newPano.loadPTScript(in)) {
+                    pano.setMemento(newPano);
+                } else {
+                    DEBUG_ERROR("could not load panotools script");
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "load project";
+            }
+    private:
+        std::istream & in;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
 #ifdef __unix__
 
     /** run the optimizer & set optimized variables
@@ -484,6 +549,7 @@ namespace PT {
         OptimizeVector optvars;
         PanoramaOptions outputOpts;
     };
+
 
     //=========================================================================
     //=========================================================================

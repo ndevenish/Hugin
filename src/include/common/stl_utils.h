@@ -35,6 +35,24 @@
 
 #include <functional>
 #include <utility>
+#include <string>
+#include <string.h>
+
+
+
+/// convert a string to lowercase
+inline std::string tolower(const std::string& s)
+{
+    std::string result = s;
+    std::transform<std::string::iterator,
+                   std::string::iterator,
+                   int (*)(int)>(result.begin(), result.end(), 
+                     result.begin(), ::tolower);
+    return result;
+}
+
+
+ 
 
 // the extensions are automatically included on gcc 2.95...
 #if __GNUC__ != 2

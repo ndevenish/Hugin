@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <23-May-2003 16:11:58 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <10-Aug-2003 02:17:50 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -54,6 +54,16 @@ void ImageOptions::setFromXML(const QDomNode & node)
 
 #endif
 
+PanoImage::PanoImage(const std::string &filename, int width, int height,
+                     int lens)
+    : filename(filename),
+      height(height),
+      width(width)
+{
+    options.lensNr = lens;
+}
+
+#if 0
 PanoImage::PanoImage(const std::string &filename)
     : filename(filename)
 {
@@ -61,6 +71,7 @@ PanoImage::PanoImage(const std::string &filename)
     init();
     readImageInformation();
 }
+#endif
 
 void PanoImage::init()
 {

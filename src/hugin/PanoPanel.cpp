@@ -35,7 +35,7 @@
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 //#include <wx/listctrl.h>
-//#include <wx/imaglist.h>
+#include <wx/imaglist.h>
 #include <wx/image.h>
 
 #include "PT/PanoCommand.h"
@@ -211,7 +211,7 @@ void PanoPanel::Optimize (OptimizeVector & optvars, PanoramaOptions & output)
 #else
     wxLogError("Optimize not implemented under windows yet");
 #endif
-    
+
 }
 
 void PanoPanel::DoOptimization (wxCommandEvent & e)
@@ -249,14 +249,14 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
                          128.0;
         if (p_width > 128.0) p_width = 128.0;
         int source_pixels = (int)(p_width *
-                            preview_opt.HFOV / 
+                            preview_opt.HFOV /
                             pano.getVariable(imgNr).HFOV.getValue() );
         DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
         if ( (source_pixels >= (int)preview_opt.width)
              && !panoviewer_precise ) {
           wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
           filename.str("");
-          filename 
+          filename
 #if 0
           << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
 #endif
@@ -276,7 +276,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 #else
       wxLogError("Preview not implemented under windows yet");
 #endif
-      
+
       previewWidth = old_previewWidth;
 
       // Send panoViewer the name of our image
@@ -671,18 +671,17 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
 void PanoPanel::HeightChanged ( wxCommandEvent & e )
 {
     if ( ! changePano ) {
-      double * val = new double ();
-      int lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
+        double val;
+        int lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
                               ->GetSelection() ;
-      XRCCTRL(*this, "pano_val_height", wxComboBox)
-                              ->GetString(lt).ToDouble(val) ;
+        XRCCTRL(*this, "pano_val_height", wxComboBox)
+                              ->GetString(lt).ToDouble(&val) ;
 
-      opt.height = Height = (int) *val;
-      GlobalCmdHist::getInstance().addCommand(
-          new PT::SetPanoOptionsCmd( pano, opt )
-          );
-      DEBUG_INFO ( ": " << *val << " " << Height )
-      delete val;
+        opt.height = Height = (int) val;
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+        DEBUG_INFO ( ": " << val << " " << Height )
     }
 }
 
@@ -737,7 +736,7 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
 #else
       wxLogError("Stitching not implemented under windows yet");
 #endif
-    
+
 
     DEBUG_INFO ( ": " << Width )
 }

@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <21-May-2003 01:28:31 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <10-Aug-2003 02:15:43 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -33,7 +33,7 @@ public:
           lensNr(0),
           source(DIGITAL_CAMERA)
         { };
-
+#if 0
     // isn't the c++ compiler supposed to create a default operator== ?
     bool operator==(const ImageOptions & o) const
         {
@@ -44,6 +44,8 @@ public:
                     source == o.source
                 );
         }
+    
+#endif
 //        QDomElement toXML(QDomDocument & doc);
 //        void setFromXML(const QDomNode & node);
 
@@ -73,7 +75,10 @@ public:
     class PanoImage
     {
     public:
-        PanoImage(const std::string & filename);
+        PanoImage(const std::string &filename,  int width,int height,
+                  int lens);
+
+//        PanoImage(const std::string & filename);
         // create from xml node
 //        PanoImage(QDomNode & node);
 
@@ -105,7 +110,7 @@ public:
             { options.lensNr = l; }
         unsigned int getLens() const
             { return options.lensNr; }
-
+        
     private:
         /// common init for all constructors
         void init();

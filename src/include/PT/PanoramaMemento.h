@@ -370,7 +370,24 @@ public:
     /// assignment operator
 //    PanoramaMemento & operator=(const PanoramaMemento & o);
     virtual ~PanoramaMemento();
+    
+    /** load a PTScript file
+     *
+     *  initializes the PanoramaMemento from a PTScript file
+     */
+    bool loadPTScript(std::istream & i);
+    
 private:
+    
+    enum PTParseState { P_NONE,
+                        P_OUTPUT,
+                        P_MODIFIER,
+                        P_IMAGE,
+                        P_OPTIMIZE,
+                        P_CP
+    };
+                        
+    
     friend class PT::Panorama;
     // state members for the state
 

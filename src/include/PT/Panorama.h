@@ -46,9 +46,20 @@ typedef std::set<unsigned int> UIntSet;
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
 
 template <class T>
-bool getParam(T & v, const std::string & line, const std::string & parameter);
+bool PT::getParam(T & value, const std::string & line, const std::string & name)
+{
+    std::string s;
+    if (!getPTParam(s, line, name)) {
+        return false;
+    }
+    std::istringstream is(s);
+    is >> value;
+    return true;
+}
 
 bool readVar(Variable & var, const std::string & line);
+
+bool getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
 
 
 /** this handler class will receive change events from the Panorama.
@@ -327,9 +338,16 @@ public:
     void updateCtrlPointErrors(const CPVector & controlPoints);
 
     /** add an Image to the panorama
+     *
+     *  The Image must be initialized, the Lens must exist.
+     *
+     */
+    unsigned int addImage(PanoImage &img, ImageVariables &vars);
+
+    /** add an Image to the panorama
      *  @return image number
      */
-    unsigned int addImage(const std::string & filename);
+//    unsigned int addImage(const std::string & filename);
 
     /** remove an Image.
      *

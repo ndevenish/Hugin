@@ -100,6 +100,8 @@ APP_1_OBJ = \
 	    ImageProcessing.o \
 	    wxVigraImage.o \
             PanoPanel.o \
+	    OptimizeFrame.o \
+	    RunOptimizerFrame.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS)

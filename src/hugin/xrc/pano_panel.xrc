@@ -240,7 +240,7 @@
                               <object class="sizeritem">
                                 <object class="wxCheckBox" name="pano_cb_auto_preview">
                                   <label>auto preview</label>
-                                  <checked>1</checked>
+                                  <checked>0</checked>
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
                               </object>

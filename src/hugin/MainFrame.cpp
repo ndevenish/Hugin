@@ -39,17 +39,22 @@
 #include <wx/wxhtml.h>              // for about html
 #include <wx/listctrl.h>            // wxListCtrl
 
+#include <fstream>
+
+#include "hugin/MainFrame.h"
+
 #include "PT/PanoCommand.h"
+#include "hugin/wxPanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
+#include "hugin/OptimizeFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "PT/Panorama.h"
 
-#include "hugin/MainFrame.h"
 
 using namespace PT;
 
@@ -71,6 +76,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
+    EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
@@ -145,6 +151,8 @@ MainFrame::MainFrame(wxWindow* parent)
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
+
+    opt_frame = new OptimizeFrame(this, &pano);
 
     // set the minimize icon
     SetIcon(wxICON(gui));
@@ -236,6 +244,9 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
         filesv.push_back(filenames[i].c_str());
     }
     GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveImageCmd(pano,1)
+        );
+    GlobalCmdHist::getInstance().addCommand(
         new PT::AddImagesCmd(pano,filesv)
         );
     return true;
@@ -253,13 +264,28 @@ void MainFrame::OnExit(wxCommandEvent & e)
 
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
-    wxLogError("not implemented");
+    DEBUG_TRACE("");
+    wxFileDialog dlg(this,_("Save project file"), "", "",
+                     "Project files (*.pto)|*.pto|All files (*.*)|*.*",
+                     wxSAVE, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        // print as optimizer script..
+        std::ofstream script(dlg.GetFilename());
+        int nImages = pano.getNrOfImages();
+        // create fake optimize settings
+        PT::OptimizeVector optvec;
+        for (int i=0; i<nImages; i++) {
+            optvec.push_back(OptimizerSettings());
+        }
+        pano.printOptimizerScript(script, optvec, pano.getOptions());
+        script.close();
+    }
 }
 
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
-  DEBUG_TRACE("");
+    DEBUG_TRACE("");
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
@@ -276,27 +302,24 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
   wxFileDialog *dlg = new wxFileDialog(this,_("Open project file"), "", "",
         "Project files (*.pto)|*.pto|All files (*.*)|*.*", wxOPEN, wxDefaultPosition);
   if (dlg->ShowModal() == wxID_OK) {
-        str = dlg->GetFilename();
-        SetStatusText( _("Open project:   ") + str);
+      wxString filename = dlg->GetFilename();
+        SetStatusText( _("Open project:   ") + filename);
         // read to memo
         str = dlg->GetDirectory();
         // If we load here out project, we should have all other as well in place.
         wxFileName::SetCwd( str );
         config->Write("actualPath", str);  // remember for later
-        DEBUG_INFO( (wxString)"save Cwd to - " + str )
-//        itemProjTextMemo->LoadFile( dlg->GetFilename() );
-        // parse read project
-        //TProjectParser parser;
-        //wxTextCtrl *m1,*m2,*m3;
-        //edit_dialog->GetTextControls(&m1,&m2,&m3);
-        //parser->SetControls(m1,m2,m3);
-        //parser->ParseScript(&(itemProjTextMemo->GetValue()),&Fainf,true,true);
-        //edit_dialog->ParseText2Struct(&(itemProjTextMemo->GetValue()),&Fainf);
-//        wxString input_text;
-//        input_text = itemProjTextMemo->GetValue();
-        //if (edit_dialog->ParseText2Struct(&(input_text),&Fainf,true)) {
-        //  itemProjTextMemo->SetValue(input_text);
-        //}
+        DEBUG_INFO( (wxString)"save Cwd to - " + str );
+        // open project.
+        std::ifstream file(filename.c_str());
+        if (file.good()) {
+            GlobalCmdHist::getInstance().addCommand(
+                new LoadPTProjectCmd(pano,file)
+                );
+            DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
+        } else {
+            DEBUG_ERROR("Could not open file " << filename);
+        }
   } else {
         // do not close old project
         // nothing to open
@@ -308,12 +331,8 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
         return;
   }
-  // parse project
-  //OpenProject(str);
-  // store current project name as last opened project
-    wxFileName::SetCwd( current );
-    DEBUG_INFO ( (wxString)"set Cwd to: " + current )
-  DEBUG_TRACE("");
+  wxFileName::SetCwd( current );
+  DEBUG_INFO ( (wxString)"set Cwd to: " + current )
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
@@ -389,7 +408,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
               sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
           }
           GlobalCmdHist::getInstance().addCommand(
-              new PT::AddImagesCmd(pano,filesv)
+              new AddImagesCmd(pano,filesv)
               );
       }
       SetStatusText( e_stat, 0);
@@ -487,6 +506,12 @@ void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
     DEBUG_TRACE("");
 }
 
+
+void MainFrame::OnToggleOptimizeFrame(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    opt_frame->Show();
+}
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {

@@ -56,15 +56,19 @@ bool PT::getPTParam(std::string & output, const std::string & line, const std::s
     return true;
 }
 
-template <class T>
-bool PT::getParam(T & value, const std::string & line, const std::string & name)
+bool PT::getPTStringParam(std::string & output, const std::string & line, const std::string & parameter)
 {
-    std::string s;
-    if (!getPTParam(s, line, name)) {
+    std::string::size_type p;
+    if ((p=line.find(std::string(" ") + parameter + "\"")) == std::string::npos) {
+        DEBUG_ERROR("could not find string param " << parameter
+                    << " in line: " << line);
         return false;
     }
-    std::istringstream is(s);
-    is >> value;
+    p += 3;
+    std::string::size_type e = line.find("\"",p);
+    DEBUG_DEBUG("p:" << p << " e:" << e);
+    output = line.substr(p,e-p);
+    DEBUG_DEBUG("output: ##" << output << "##");
     return true;
 }
 
@@ -250,6 +254,21 @@ void Panorama::updateVariables(unsigned int imgNr, const ImageVariables & var)
     imageChanged(imgNr);
 }
 
+unsigned int Panorama::addImage(PanoImage &img, ImageVariables & vars)
+{
+    // the lens must have been already created!
+    assert(img.getOptions().lensNr < state.lenses.size());
+    initialize = false;
+    unsigned int nr = state.images.size();
+    state.images.push_back(img);
+    state.variables.push_back(vars);
+    adjustVarLinks();
+    imageChanged(nr);
+
+    return nr;
+}
+
+#if 0
 unsigned int Panorama::addImage(const std::string & filename)
 {
     // create a lens if we don't have one.
@@ -258,9 +277,12 @@ unsigned int Panorama::addImage(const std::string & filename)
     }
 
     initialize = false;
+
     // read lens spec from image, if possible
     // FIXME use a lens database (for example the one from PTLens)
     // FIXME to initialize a,b,c etc.
+
+
     // searches for the new image for an unused lens , if found takes this
     // if no free lens is available creates a new one
     int unsigned lensNr (0);
@@ -294,6 +316,7 @@ unsigned int Panorama::addImage(const std::string & filename)
         state.lenses.push_back(l);
         unused_lens = state.lenses.size() - 1;
     }
+
     unsigned int nr = state.images.size();
     state.images.push_back(PanoImage(filename));
     ImageOptions opts = state.images.back().getOptions();
@@ -306,6 +329,8 @@ unsigned int Panorama::addImage(const std::string & filename)
     DEBUG_INFO ( "new lensNr: " << unused_lens <<"/"<< state.lenses.size() )
     return nr;
 }
+
+#endif
 
 void Panorama::removeImage(unsigned int imgNr)
 {
@@ -401,6 +426,7 @@ bool Panorama::runOptimizer(Process & proc, const OptimizeVector & optvars) cons
 bool Panorama::runOptimizer(Process & proc, const OptimizeVector & optvars, const PanoramaOptions & options) const
 {
     std::ofstream script(PTScriptFile.c_str());
+    DEBUG_INFO("Creating PTOptimizer Script: " << PTScriptFile);
     printOptimizerScript(script, optvars, options);
     script.close();
 
@@ -523,12 +549,15 @@ void Panorama::readOptimizerOutput(VariablesVector & vars, CPVector & ctrlPoints
 
 void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVector & CPs) const
 {
+    DEBUG_TRACE("");
     // 0 = read output (image lines), 1 = read control point distances
     int state = 0;
     string line;
     unsigned int lineNr = 0;
     VariablesVector::iterator varIt = imgVars.begin();
     CPVector::iterator pointIt = CPs.begin();
+
+    int pnr=0;
 
     while (!i.eof()) {
         std::getline(i, line);
@@ -547,15 +576,21 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
             }
             if (line[0] != 'o') continue;
             assert(varIt != imgVars.end());
+            DEBUG_DEBUG("reading image variables");
             // read variables
             readVar(varIt->roll, line);
             readVar(varIt->pitch, line);
             readVar(varIt->yaw, line);
 
+            DEBUG_DEBUG("yaw: " << varIt->yaw.getValue()
+                        << " pitch " << varIt->pitch.getValue()
+                        << " yaw " << varIt->pitch.getValue());
+
             readVar(varIt->HFOV, line);
             readVar(varIt->a, line);
             readVar(varIt->b, line);
             readVar(varIt->c, line);
+
 
             if (!readVar(varIt->d, line)) {
                 if (varIt->d.isLinked()) {
@@ -587,16 +622,22 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
             // read ctrl point distances:
             // # Control Point No 0:  0.428994
             if (line[0] == 'C') {
+                DEBUG_DEBUG(CPs.size() << " points, read: " << pnr);
                 assert(pointIt == CPs.end());
+                DEBUG_DEBUG("all CP errors read");
                 state = 2;
                 break;
             }
             if (line.find("# Control Point No") != 0) continue;
+            DEBUG_DEBUG("reading cp dist line: " << line);
             string::size_type p;
             if ((p=line.find(':')) == string::npos) assert(0);
             p++;
-            (*pointIt).error = atof(line.substr(p, line.find(' ',p)).c_str());
+            DEBUG_DEBUG("parsing point " << pnr << " (idx:" << p << "): " << line.substr(p));
+            (*pointIt).error = utils::lexical_cast<double>(line.substr(p));
+            DEBUG_DEBUG("read CP distance " << (*pointIt).error);
             pointIt++;
+            pnr++;
             break;
         }
         default:
@@ -605,6 +646,8 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
         }
     }
 }
+
+
 
 
 void Panorama::changeFinished()
@@ -618,8 +661,9 @@ void Panorama::changeFinished()
          ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
     std::set<PanoramaObserver *>::iterator it;
-    if ( !initialize ) {  // some images were allready loaded 
+    if ( !initialize ) {  // some images were allready loaded
         for(it = observers.begin(); it != observers.end(); ++it) {
+            DEBUG_TRACE("notifying listener");
             (*it)->panoramaImagesChanged(*this, changedImages);
             (*it)->panoramaChanged(*this);
         }
@@ -650,7 +694,6 @@ void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
     }
 }
 
-
 void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
 {
     assert(lensNr < state.lenses.size());
@@ -659,7 +702,6 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
     updateLens(imgNr);
     adjustVarLinks();
 }
-
 
 void Panorama::removeLens(unsigned int lensNr)
 {
@@ -679,6 +721,8 @@ void Panorama::removeLens(unsigned int lensNr)
 void Panorama::adjustVarLinks()
 {
     DEBUG_TRACE("Panorama::adjustVarLinks()");
+
+#if 0
     unsigned int image = 0;
     std::map<unsigned int,unsigned int> usedLenses;
     for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
@@ -712,6 +756,7 @@ void Panorama::adjustVarLinks()
         }
         image++;
     }
+#endif
 }
 
 
@@ -738,9 +783,13 @@ void Panorama::setMemento(PanoramaMemento & memento)
 {
     DEBUG_TRACE("");
     // remove old content.
+    initialize = false;
     reset();
+    DEBUG_DEBUG("nr of images in memento:" << memento.images.size());
+
     state = memento;
     unsigned int nNewImages = state.images.size();
+    DEBUG_DEBUG("nNewImages:" << nNewImages);
 
     // send changes for all images
     for (unsigned int i = 0; i < nNewImages; i++) {

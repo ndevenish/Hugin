@@ -140,6 +140,8 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
 //    wxXmlResource::Get()->Load(xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("optimize_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));
@@ -184,7 +186,7 @@ bool huginApp::OnInit()
         DEBUG_INFO("PanoPanel opened")
       }
     }
-#if defined(__WXGTK__)   
+#if defined(__WXGTK__)
     if ( move ) {
       // compensate the window decoration here approximately
       frame->Move( pos_x + 5, pos_y + 24 );

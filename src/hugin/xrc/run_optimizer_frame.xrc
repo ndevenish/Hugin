@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="run_optimizer_frame">
+    <title></title>
+    <object class="wxStaticBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="optimizer_status">
+          <label>blind text.. blind text.. blind text.. blind text.. blind text...</label>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+      <label>Optimizing</label>
+      <object class="sizeritem">
+        <object class="wxStaticLine"/>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticText" name="optimizer_result_text">
+          <label>Optimizer running...
+
+Use Stop to stop optimization, for
+example when the average control point
+distance doesn't lower anymore.</label>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticLine"/>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="spacer">
+            <size>0,0</size>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="optimizer_apply_change">
+              <label>Apply</label>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="optimizer_cancel_change">
+              <label>cancel</label>
+            </object>
+          </object>
+          <object class="spacer">
+            <size>0,0</size>
+            <flag>wxEXPAND</flag>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</resource>

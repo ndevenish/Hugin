@@ -32,6 +32,7 @@
 #include "wx/listctrl.h"
 
 #include "PT/Panorama.h"
+#include "hugin/OptimizeFrame.h"
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -40,6 +41,7 @@ class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 class PanoPanel;
+//class OptimizeFrame;
 
 extern ImagesPanel* images_panel;
 extern LensPanel* lens_panel;
@@ -100,10 +102,12 @@ private:
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
+    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
 
 
     CPEditorPanel * cpe;
+    OptimizeFrame * opt_frame;
 
     // the model
     Panorama pano;

@@ -30,6 +30,8 @@
 #include <jhead/jhead.h>
 #include <PT/PanoramaMemento.h>
 
+#include <PT/Panorama.h>
+
 using namespace PT;
 using namespace std;
 
@@ -105,36 +107,30 @@ std::ostream & OptimizerSettings::printOptimizeLine(std::ostream & o,
     return o << std::endl;
 }
 
-#if 0
+/*
 QString PT::getAttrib(QDomNamedNodeMap map, QString name)
 {
     return map.namedItem(name).nodeValue();
 }
-
+*/
 
 //=========================================================================
 //=========================================================================
 
-
-QDomElement Lens::toXML(QDomDocument & doc)
+#if 0
+void Lens::toXML(std::ostream & o)
 {
-    QDomElement root = doc.createElement("lens");
-
-    root.setAttribute("projection", projectionFormat);
-    root.setAttribute("focal_length", focalLength);
-    root.setAttribute("focal_length_conv_factor", focalLengthConversionFactor);
-    root.setAttribute("HFOV", HFOV);
-    root.setAttribute("a", a);
-    root.setAttribute("b", b);
-    root.setAttribute("c", c);
-    root.setAttribute("d", d);
-    root.setAttribute("e", e);
-    root.setAttribute("exif_focal_length", exifFocalLength);
-    root.setAttribute("exif_focal_length_conv_factor",
-                      exifFocalLengthConversionFactor);
-    root.setAttribute("exif_HFOV", exifHFOV);
-    return root;
+    o << "<lens type=\"" << prjToString(projection) << "\">" << endl
+      << root.setAttribute("focal_length", focalLength)
+      << root.setAttribute("focal_length_conv_factor", focalLengthConversionFactor)
+      << root.setAttribute("HFOV", HFOV)
+      << "<distortion a=\"" << a
+      << "\" b=\"" << b
+      << "\" c=\"" << c
+      << "\" d=\"" << d
+      << "\" e=\"" << e << "\"/>" << endl;
 }
+
 
 void Lens::setFromXML(const QDomNode & node)
 {
@@ -203,7 +199,7 @@ bool Lens::readEXIF(const std::string & filename)
 
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     if ( !(HFOV  > 0.0) )
-        HFOV = 90.0; 
+        HFOV = 90.0;
     if ( ccdWidth > 0.0 )
       focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     focalLength = exifFocalLength = exif.FocalLength;
@@ -349,4 +345,131 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
     // misc options
     o << "m g" << gamma << " i" << interpolator << std::endl;
+}
+
+
+bool PanoramaMemento::loadPTScript(std::istream &i)
+{
+    DEBUG_TRACE("");
+    PTParseState state;
+    string line;
+    unsigned int lineNr = 0;
+    while (!i.eof()) {
+        std::getline(i, line);
+        lineNr++;
+        // check for a known line
+        switch(line[0]) {
+        case 'p':
+        {
+            DEBUG_DEBUG("p line: " << line);
+            string format;
+            int i;
+            getParam(i,line,"f");
+            options.projectionFormat = (ProjectionFormat) i;
+            getParam(options.width, line, "w");
+            getParam(options.height, line, "h");
+            getParam(options.HFOV, line, "v");
+            // this is fragile.. hope nobody adds additional whitespace
+            // and other arguments than q...
+            // n"JPEG q80"
+            getPTStringParam(format,line,"n");
+            int t = format.find(' ');
+            options.outputFormat = format.substr(0,t);
+            // FIXME. add argument parsing for output formats
+            // FIXME add color correction parsing.
+            break;
+        }
+        case 'm':
+        {
+            DEBUG_DEBUG("m line: " << line);
+            // parse misc options
+            int i;
+            getParam(i,line,"i");
+            options.interpolator = (Interpolator) i;
+            getParam(options.gamma,line,"g");
+            break;
+        }
+        case 'i':
+        {
+            DEBUG_DEBUG("i line: " << line);
+            // parse image lines
+            // create a new Image
+            string file;
+            getPTStringParam(file,line,"n");
+            DEBUG_DEBUG("filename: " << file);
+            // load the image somehow..
+                
+            // create lens for this image
+            Lens l;
+            getParam(l.HFOV, line, "v");
+            getParam(l.a, line, "a");
+            getParam(l.b, line, "b");
+            getParam(l.c, line, "c");
+            getParam(l.d, line, "d");
+            getParam(l.e, line, "e");
+            int t;
+            getParam(t, line, "f");
+            l.projectionFormat = (Lens::LensProjectionFormat) t;
+            
+            lenses.push_back(l);
+            unsigned int lnr = lenses.size()-1;
+            int width, height;
+            getParam(width, line, "w");
+            getParam(height, line, "h");
+
+            images.push_back(PanoImage(file,width, height, lnr));
+            ImageOptions opts = images.back().getOptions();
+            getParam(opts.featherWidth, line, "u");
+            images.back().setOptions(opts);
+            
+            ImageVariables var;
+            readVar(var.roll, line);
+            readVar(var.pitch, line);
+            readVar(var.yaw, line);
+
+            // FIXME support linking.
+            readVar(var.HFOV, line);
+            readVar(var.a, line);
+            readVar(var.b, line);
+            readVar(var.c, line);
+            readVar(var.d, line);
+            readVar(var.e, line);
+            variables.push_back(var);
+            state = P_IMAGE;
+
+            // FIXME add lens here.
+            
+            
+            
+            break;
+        }
+        case 'v':
+            DEBUG_DEBUG("v line: " << line);
+            // FIXME add optimize flags to Panorama and parse it here.
+            state = P_OPTIMIZE;
+            break;
+        case 'c':
+        {
+            DEBUG_DEBUG("c line: " << line);
+            int t;
+            // read control points
+            ControlPoint point;
+            getParam(point.image1Nr, line, "n");
+            getParam(point.image2Nr, line, "N");
+            getParam(point.x1, line, "x");
+            getParam(point.x2, line, "X");
+            getParam(point.y1, line, "y");
+            getParam(point.y2, line, "Y");
+            getParam(t, line, "t");
+            point.mode = (ControlPoint::OptimizeMode) t;
+            ctrlPoints.push_back(point);
+            state = P_CP;
+            break;
+        }
+        default:
+            // ignore line..
+            break;
+        }
+    }
+    return true;
 }

@@ -90,8 +90,11 @@
         <help>Shows all controlpoint distances</help>
       </object>
       <object class="wxMenuItem" name="ID_CPOPTIMIZED">
-        <label>&amp;Optimized control points</label>
+        <label>Optimized control &amp;points</label>
         <help>Last optimization result</help>
+      </object>
+      <object class="wxMenuItem" name="ID_SHOW_OPTIMIZE_FRAME">
+        <label>&amp;Optimize Window</label>
       </object>
       <object class="wxMenuItem" name="ID_LASTPREVIEWSTITCH">
         <label>&amp;Last preview stitch</label>
