@@ -223,8 +223,10 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
     T zx[2*interpWidth+1];
     T zy[2*interpWidth+1];
 
+#ifdef DEBUG_CORRELATION
     exportImage(img,vigra::ImageExportInfo("test.tif"));
-
+#endif
+    
     Accessor acc = img.third;
     Iterator begin=img.first;
     for (int i=-interpWidth; i<=interpWidth; i++) {
