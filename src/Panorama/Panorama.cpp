@@ -181,7 +181,7 @@ Panorama::Panorama()
       PTScriptFile("PT_script.txt"),
       m_forceImagesUpdate(false)
 {
-    cerr << "Panorama obj created" << endl;
+    cerr << "Panorama obj created" << std::endl;
 /*
     settings.setPath("dangelo","PanoAssistant");
     readSettings();
@@ -321,7 +321,7 @@ FDiff2D Panorama::calcFOV() const
 #ifdef DEBUG
     DEBUG_DEBUG("opening calcFOV_debug.txt");
     ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
-    debug_out << endl;
+    debug_out << std::endl;
 #endif
 
     //PT::SpaceTransform T;
@@ -344,7 +344,7 @@ FDiff2D Panorama::calcFOV() const
         PT::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
                                  ul, lr);
 #ifdef DEBUG
-        debug_out << "image coord:" << ul << " - " << lr << endl;
+        debug_out << "image coord:" << ul << " - " << lr << std::endl;
 #endif
         // equirect image coordinates -> equirectangular coordinates
         ul.x = (ul.x + 0.5) - 180;
@@ -352,7 +352,7 @@ FDiff2D Panorama::calcFOV() const
         lr.x = (lr.x + 0.5) - 180;
         lr.y = 90 - (lr.y + 0.5);
 #ifdef DEBUG
-        debug_out << "image coord (long lat):" << ul << " - " << lr << endl;
+        debug_out << "image coord (long lat):" << ul << " - " << lr << std::endl;
 #endif
 
         // handle image overlaps pole case
@@ -379,7 +379,7 @@ FDiff2D Panorama::calcFOV() const
         if (glr.y > lr.y) glr.y = lr.y;
 
 #ifdef DEBUG
-        debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << endl;
+        debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << std::endl;
 #endif
     }
 #ifdef DEBUG
@@ -632,16 +632,16 @@ void Panorama::printOptimizerScript(ostream & o,
     setlocale(LC_NUMERIC,"C");
 #endif
 
-    o << "# PTOptimizer script, written by hugin" << endl
-      << endl;
+    o << "# PTOptimizer script, written by hugin" << std::endl
+      << std::endl;
     // output options..
 
     output.printScriptLine(o);
 
     unsigned int i = 0;
     std::map<unsigned int, unsigned int> linkAnchors;
-    o << endl
-      << "# image lines" << endl;
+    o << std::endl
+      << "# image lines" << std::endl;
     for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
         o << "i w" << (*it).getWidth() << " h" << (*it).getHeight()
           <<" f" << state.lenses[(*it).getLensNr()].projectionFormat << " ";
@@ -697,8 +697,8 @@ void Panorama::printOptimizerScript(ostream & o,
         i++;
     }
 
-    o << endl << endl
-      << "# specify variables that should be optimized" << endl
+    o << std::endl << std::endl
+      << "# specify variables that should be optimized" << std::endl
       << "v ";
 
     int optVarCounter=0;
@@ -727,12 +727,12 @@ void Panorama::printOptimizerScript(ostream & o,
             }
             // insert line break after 10 variables
             if (optVarCounter++%10) {
-                o << endl << "v ";
+                o << std::endl << "v ";
             }
         }
     }
-    o << endl << endl
-      << "# control points" << endl;
+    o << std::endl << std::endl
+      << "# control points" << std::endl;
     for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
         o << "c n" << it->image1Nr
           << " N" << it->image2Nr
@@ -740,10 +740,10 @@ void Panorama::printOptimizerScript(ostream & o,
           << " X" << it->x2 << " Y" << it->y2
           << " t" << it->mode << std::endl;
     }
-    o << endl;
+    o << std::endl;
 
     // special line with hugins options.
-    o << "#hugin_options r" << output.optimizeReferenceImage << endl;
+    o << "#hugin_options r" << output.optimizeReferenceImage << std::endl;
 
 #ifdef __unix__
     // reset locale
@@ -761,12 +761,12 @@ void Panorama::printStitcherScript(ostream & o,
     setlocale(LC_NUMERIC,"C");
 #endif
 
-    o << "# PTStitcher script, written by hugin" << endl
-      << endl;
+    o << "# PTStitcher script, written by hugin" << std::endl
+      << std::endl;
     // output options..
     target.printScriptLine(o);
-    o << endl
-      << "# output image lines" << endl;
+    o << std::endl
+      << "# output image lines" << std::endl;
     unsigned int i=0;
     for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
 
@@ -784,7 +784,7 @@ void Panorama::printStitcherScript(ostream & o,
           << " n\"" << (*it).getFilename() << "\"" << std::endl;
         i++;
     }
-    o << endl;
+    o << std::endl;
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);

@@ -42,6 +42,282 @@
 
 namespace PT
 {
+
+/** calculate the outline of the image
+ *
+ *  @param srcSize Size of source picture ( an be small, to
+ *                 if not every point is needed)
+ *  @param transf  Transformation from image to pano
+ *  @param result  insert border point into result container
+ *  @param ul      Upper Left corner of the image roi
+ *  @param lr      Lower right corner of the image roi
+ */
+template <class OutputIterator, class TRANSFORM>
+void calcBorderPoints(vigra::Diff2D srcSize,
+                      TRANSFORM & transf,
+                      OutputIterator result,
+                      FDiff2D & ul,
+                      FDiff2D & lr)
+{
+    ul.x = DBL_MAX;
+    ul.y = DBL_MAX;
+    lr.x = -DBL_MAX;
+    lr.y = -DBL_MAX;
+
+    int x = 0;
+    int y = 0;
+
+#ifdef DEBUG
+    std::ofstream o("border_curve.txt");
+#endif
+
+    for (x=0; x<srcSize.x ; x++) {
+        double sx,sy;
+        transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << std::endl;
+#endif
+        if (ul.x > sx) ul.x = sx;
+        if (ul.y > sy) ul.y = sy;
+        if (lr.x < sx) lr.x = sx;
+        if (lr.y < sy) lr.y = sy;
+        *result = FDiff2D((float)sx, (float) sy);
+    }
+    x = srcSize.x-1;
+    for (y=0; y<srcSize.y ; y++) {
+        double sx,sy;
+        transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << std::endl;
+#endif
+        if (ul.x > sx) ul.x = sx;
+        if (ul.y > sy) ul.y = sy;
+        if (lr.x < sx) lr.x = sx;
+        if (lr.y < sy) lr.y = sy;
+        *result = FDiff2D((float)sx, (float) sy);
+    }
+    y = srcSize.y-1;
+    for (x=srcSize.x-1; x>0 ; --x) {
+        double sx,sy;
+        transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << std::endl;
+#endif
+        if (ul.x > sx) ul.x = sx;
+        if (ul.y > sy) ul.y = sy;
+        if (lr.x < sx) lr.x = sx;
+        if (lr.y < sy) lr.y = sy;
+        *result = FDiff2D((float)sx, (float) sy);
+    }
+    x = 0;
+    for (y=srcSize.y-1 ; y > 0 ; --y) {
+        double sx,sy;
+        transf.transformImgCoord(sx,sy,x,y);
+#ifdef DEBUG
+        o << x << ", " << y << "\t"
+          << sx << ", " << sy << std::endl;
+#endif
+        if (ul.x > sx) ul.x = sx;
+        if (ul.y > sy) ul.y = sy;
+        if (lr.x < sx) lr.x = sx;
+        if (lr.y < sy) lr.y = sy;
+        *result = FDiff2D((float)sx, (float) sy);
+    }
+
+
+    DEBUG_DEBUG("bounding box: upper left: " << ul.x << "," << ul.y
+                << "  lower right: " << lr.x << "," << lr.y);
+}
+
+/** Transform an image into the panorama
+ *
+ *  It can be used for partial transformations as well, if the boundig
+ *  box of a remapped image is known.
+ *
+ *  Usage: create an output image @dest that should contain the remapped
+ *         @p src image. if @p dest doesn't cover the whole output panorama,
+ *         use @p destUL to specify the offset of @p dest from the output
+ *         panorama.
+ *
+ *  @param src    source image
+ *  @param dest   (partial) panorama image. the image size needed to
+ *                hold the complete remapped image can be calculated using
+ *                calcBorderPoints().
+ *  @param destUL upper left point of @p dest in final panorama. set to (0,0)
+ *                if @p dest has the same size as the complete panorama.
+ *  @param transform function used to remap the picture.
+ *  @param centerDist image, with the same size as dest, that will contain the
+ *                distance of the corrosponding pixel from the center of @p
+ *                src. This is useful to calculate nice seams. Use a null
+ *                image if this information is not needed.
+ *  @param interp Interpolator class (calculates weights for interpolation)
+ *
+ */
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor,
+          class TRANSFORM,
+          class AlphaImageIterator, class AlphaAccessor,
+          class Interpolator>
+void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                         vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
+                         std::pair<AlphaImageIterator, AlphaAccessor> alpha,
+                         TRANSFORM & transform,
+                         vigra::Diff2D destUL,
+                         Interpolator interp,
+                         utils::MultiProgressDisplay & prog)
+{
+    vigra::Diff2D destSize = dest.second - dest.first;
+
+    int xstart = destUL.x;
+    int xend   = destUL.x + destSize.x;
+    int ystart = destUL.y;
+    int yend   = destUL.y + destSize.y;
+
+    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
+
+    vigra::Diff2D srcSize = src.second - src.first;
+    // FIXME: use d & e here.
+    vigra::Diff2D srcMiddle = srcSize / 2;
+
+//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
+
+    //InterpolatingAccessor(src.third, interp);
+    vigra_ext::InterpolatingAccessor<SrcAccessor,
+                            typename SrcAccessor::value_type,
+                            Interpolator> interpol(src.third, interp);
+
+
+//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
+
+//    vigra::BilinearInterpolatingAccessor interpol(src.third);
+
+    // create dest y iterator
+    DestImageIterator yd(dest.first);
+    // create dist y iterator
+    AlphaImageIterator ydist(alpha.first);
+    // loop over the image and transform
+    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
+    {
+        // create x iterators
+        DestImageIterator xd(yd);
+        AlphaImageIterator xdist(ydist);
+        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
+        {
+            double sx,sy;
+            transform.transformImgCoord(sx,sy,x,y);
+            // make sure that the interpolator doesn't
+            // access pixels outside.. Should we introduce
+            // some sort of border treatment?
+            if (sx < interp.size/2 -1
+                || sx > srcSize.x-interp.size/2 - 1
+                || sy < interp.size/2 - 1
+                || sy > srcSize.y-interp.size/2 - 1)
+            {
+                *xdist = 0;
+                // nothing..
+            } else {
+//                cout << x << "," << y << " -> " << sx << "," << sy << " " << std::endl;
+
+//                nearest neighbour
+//                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
+                // use given interpolator function.
+                *xd = interpol(src.first, sx, sy);
+                *xdist = 255;
+            }
+        }
+        if ((y-ystart)%100 == 0) {
+            prog.setProgress(((double)y-ystart)/(yend-ystart));
+        }
+    }
+    prog.popTask();
+}
+
+/** transform input images with alpha channel */
+template <class SrcImageIterator, class SrcAccessor,
+          class SrcAlphaIterator, class SrcAlphaAccessor,
+          class DestImageIterator, class DestAccessor,
+          class TRANSFORM,
+          class AlphaImageIterator, class AlphaAccessor,
+          class Interpolator>
+void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                               std::pair<SrcAlphaIterator, SrcAlphaAccessor> srcAlpha,
+                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
+                               std::pair<AlphaImageIterator, AlphaAccessor> alpha,
+                               TRANSFORM & transform,
+                               vigra::Diff2D destUL,
+                               Interpolator interp,
+                               utils::MultiProgressDisplay & prog)
+{
+    vigra::Diff2D destSize = dest.second - dest.first;
+
+    int xstart = destUL.x;
+    int xend   = destUL.x + destSize.x;
+    int ystart = destUL.y;
+    int yend   = destUL.y + destSize.y;
+
+    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
+
+    vigra::Diff2D srcSize = src.second - src.first;
+    // FIXME: use d & e here.
+    vigra::Diff2D srcMiddle = srcSize / 2;
+
+//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
+
+    //InterpolatingAccessor(src.third, interp);
+    vigra_ext::InterpolatingAccessor<SrcAccessor,
+                                     typename SrcAccessor::value_type,
+                                     Interpolator> interpol(src.third, interp);
+
+//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
+
+//    vigra::BilinearInterpolatingAccessor interpol(src.third);
+
+    // create dest y iterator
+    DestImageIterator yd(dest.first);
+    // create dist y iterator
+    AlphaImageIterator ydist(alpha.first);
+
+    typename SrcAccessor::value_type tempval;
+
+    // loop over the image and transform
+    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
+    {
+        // create x iterators
+        DestImageIterator xd(yd);
+        AlphaImageIterator xdist(ydist);
+        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
+        {
+            double sx,sy;
+            transform.transformImgCoord(sx,sy,x,y);
+            // make sure that the interpolator doesn't
+            // access pixels outside.. Should we introduce
+            // some sort of border treatment?
+            if (sx < interp.size/2 -1
+                || sx > srcSize.x-interp.size/2 - 1
+                || sy < interp.size/2 - 1
+                || sy > srcSize.y-interp.size/2 - 1)
+            {
+                *xdist = 0;
+                // nothing..
+            } else if (interpol(src.first, srcAlpha, sx, sy, tempval)) {
+                *xd = tempval;
+                *xdist = 255;
+            } else {
+                *xdist = 0;
+            }
+        }
+        if ((y-ystart)%100 == 0) {
+            prog.setProgress(((double)y-ystart)/(yend-ystart));
+        }
+    }
+    prog.popTask();
+}
+
+
+
 /** struct to hold a image state for stitching
  *
  */
@@ -49,6 +325,8 @@ template <class RemapImage, class AlphaImage>
 class RemappedPanoImage : public vigra_ext::LayerImage<RemapImage, AlphaImage>
 {
 public:
+
+    typedef vigra_ext::LayerImage<RemapImage, AlphaImage> Base;
 
     /** create a remapped pano image
      *
@@ -110,7 +388,7 @@ public:
 	ulFloat = simpleClipPoint(ulFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
 	lrFloat = simpleClipPoint(lrFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
 
-	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << endl);
+	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << std::endl);
 
 	// create an image with the right size..
 	vigra::Diff2D ulInt(static_cast<int>(floor(ulFloat.x)),
@@ -120,7 +398,7 @@ public:
         DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
                     << lrInt - ulInt);
 
-	m_ROI.setCorners(ulInt,lrInt);
+	Base::m_ROI.setCorners(ulInt,lrInt);
     }
 
     /** calculate only the alpha channel.
@@ -139,12 +417,12 @@ public:
 	setPanoImage(pano, imgNr, opts);
 	vigra::Diff2D srcSize(pano.getImage(imgNr).getWidth(),
 			      pano.getImage(imgNr).getHeight());
-	m_alpha.resize(m_ROI.size());
+	Base::m_alpha.resize(Base::m_ROI.size());
 	// calculate the alpha channel,
-	int xstart = m_ROI.getUL().x;
-	int xend   = m_ROI.getLR().x;
-	int ystart = m_ROI.getUL().y;
-	int yend   = m_ROI.getLR().y;
+	int xstart = Base::m_ROI.getUL().x;
+	int xend   = Base::m_ROI.getLR().x;
+	int ystart = Base::m_ROI.getUL().y;
+	int yend   = Base::m_ROI.getLR().y;
 
 	// hack.. doesn't belong here..
 	int interpolHalfWidth=0;
@@ -180,7 +458,7 @@ public:
 	transf.createTransform(pano, imgNr, opts, srcSize);
 
 	// create dist y iterator
-	typename AlphaImage::Iterator yalpha(m_alpha.upperLeft());
+	typename AlphaImage::Iterator yalpha(Base::m_alpha.upperLeft());
 	// loop over the image and transform
 	for(int y=ystart; y < yend; ++y, ++yalpha.y)
 	{
@@ -217,8 +495,8 @@ public:
     {
 	setPanoImage(pano, imgNr, opts);
         // load image
-	m_image.resize(m_ROI.size());
-	m_alpha.resize(m_ROI.size());
+	Base::m_image.resize(Base::m_ROI.size());
+	Base::m_alpha.resize(Base::m_ROI.size());
 
 //        std::ostringstream msg;
 //        msg <<"remapping image "  << imgNr;
@@ -229,9 +507,9 @@ public:
 	transf.createTransform(pano, imgNr, opts, srcImgSize);
 
 	transformImage(srcImg,
-                       destImageRange(m_image),
-                       destImage(m_alpha),
-                       m_ROI.getUL(),
+                       destImageRange(Base::m_image),
+                       destImage(Base::m_alpha),
+                       Base::m_ROI.getUL(),
                        transf,
                        opts.interpolator,
                        progress);
@@ -249,8 +527,8 @@ public:
     {
 	setPanoImage(pano, imgNr, opts);
         // load image
-	m_image.resize(m_ROI.size());
-	m_alpha.resize(m_ROI.size());
+	Base::m_image.resize(Base::m_ROI.size());
+	Base::m_alpha.resize(Base::m_ROI.size());
 
 
 	PTools::Transform transf;
@@ -259,9 +537,9 @@ public:
 
 	transformImageAlpha(srcImg,
                             alphaImg,
-			    destImageRange(m_image),
-			    destImage(m_alpha),
-			    m_ROI.getUL(),
+			    destImageRange(Base::m_image),
+			    destImage(Base::m_alpha),
+			    Base::m_ROI.getUL(),
 			    transf,
 			    opts.interpolator,
 			    progress);
@@ -448,7 +726,7 @@ void transformImageDist(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcc
                 }
                 // nothing..
             } else {
-//                cout << x << "," << y << " -> " << sx << "," << sy << " " << endl;
+//                cout << x << "," << y << " -> " << sx << "," << sy << " " << std::endl;
 
 //                nearest neighbour
 //                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
@@ -619,279 +897,6 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
 }
 
 
-/** Transform an image into the panorama
- *
- *  It can be used for partial transformations as well, if the boundig
- *  box of a remapped image is known.
- *
- *  Usage: create an output image @dest that should contain the remapped
- *         @p src image. if @p dest doesn't cover the whole output panorama,
- *         use @p destUL to specify the offset of @p dest from the output
- *         panorama.
- *
- *  @param src    source image
- *  @param dest   (partial) panorama image. the image size needed to
- *                hold the complete remapped image can be calculated using
- *                calcBorderPoints().
- *  @param destUL upper left point of @p dest in final panorama. set to (0,0)
- *                if @p dest has the same size as the complete panorama.
- *  @param transform function used to remap the picture.
- *  @param centerDist image, with the same size as dest, that will contain the
- *                distance of the corrosponding pixel from the center of @p
- *                src. This is useful to calculate nice seams. Use a null
- *                image if this information is not needed.
- *  @param interp Interpolator class (calculates weights for interpolation)
- *
- */
-template <class SrcImageIterator, class SrcAccessor,
-          class DestImageIterator, class DestAccessor,
-          class TRANSFORM,
-          class AlphaImageIterator, class AlphaAccessor,
-          class Interpolator>
-void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                         vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
-                         std::pair<AlphaImageIterator, AlphaAccessor> alpha,
-                         TRANSFORM & transform,
-                         vigra::Diff2D destUL,
-                         Interpolator interp,
-                         utils::MultiProgressDisplay & prog)
-{
-    vigra::Diff2D destSize = dest.second - dest.first;
-
-    int xstart = destUL.x;
-    int xend   = destUL.x + destSize.x;
-    int ystart = destUL.y;
-    int yend   = destUL.y + destSize.y;
-
-    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
-
-    vigra::Diff2D srcSize = src.second - src.first;
-    // FIXME: use d & e here.
-    vigra::Diff2D srcMiddle = srcSize / 2;
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-    //InterpolatingAccessor(src.third, interp);
-    vigra_ext::InterpolatingAccessor<SrcAccessor,
-                            typename SrcAccessor::value_type,
-                            Interpolator> interpol(src.third, interp);
-
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-//    vigra::BilinearInterpolatingAccessor interpol(src.third);
-
-    // create dest y iterator
-    DestImageIterator yd(dest.first);
-    // create dist y iterator
-    AlphaImageIterator ydist(alpha.first);
-    // loop over the image and transform
-    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
-    {
-        // create x iterators
-        DestImageIterator xd(yd);
-        AlphaImageIterator xdist(ydist);
-        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
-        {
-            double sx,sy;
-            transform.transformImgCoord(sx,sy,x,y);
-            // make sure that the interpolator doesn't
-            // access pixels outside.. Should we introduce
-            // some sort of border treatment?
-            if (sx < interp.size/2 -1
-                || sx > srcSize.x-interp.size/2 - 1
-                || sy < interp.size/2 - 1
-                || sy > srcSize.y-interp.size/2 - 1)
-            {
-                *xdist = 0;
-                // nothing..
-            } else {
-//                cout << x << "," << y << " -> " << sx << "," << sy << " " << endl;
-
-//                nearest neighbour
-//                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
-                // use given interpolator function.
-                *xd = interpol(src.first, sx, sy);
-                *xdist = 255;
-            }
-        }
-        if ((y-ystart)%100 == 0) {
-            prog.setProgress(((double)y-ystart)/(yend-ystart));
-        }
-    }
-    prog.popTask();
-}
-
-/** transform input images with alpha channel */
-template <class SrcImageIterator, class SrcAccessor,
-          class SrcAlphaIterator, class SrcAlphaAccessor,
-          class DestImageIterator, class DestAccessor,
-          class TRANSFORM,
-          class AlphaImageIterator, class AlphaAccessor,
-          class Interpolator>
-void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                               std::pair<SrcAlphaIterator, SrcAlphaAccessor> srcAlpha,
-                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
-                               std::pair<AlphaImageIterator, AlphaAccessor> alpha,
-                               TRANSFORM & transform,
-                               vigra::Diff2D destUL,
-                               Interpolator interp,
-                               utils::MultiProgressDisplay & prog)
-{
-    vigra::Diff2D destSize = dest.second - dest.first;
-
-    int xstart = destUL.x;
-    int xend   = destUL.x + destSize.x;
-    int ystart = destUL.y;
-    int yend   = destUL.y + destSize.y;
-
-    prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
-
-    vigra::Diff2D srcSize = src.second - src.first;
-    // FIXME: use d & e here.
-    vigra::Diff2D srcMiddle = srcSize / 2;
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-    //InterpolatingAccessor(src.third, interp);
-    vigra_ext::InterpolatingAccessor<SrcAccessor,
-                                     typename SrcAccessor::value_type,
-                                     Interpolator> interpol(src.third, interp);
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-//    vigra::BilinearInterpolatingAccessor interpol(src.third);
-
-    // create dest y iterator
-    DestImageIterator yd(dest.first);
-    // create dist y iterator
-    AlphaImageIterator ydist(alpha.first);
-
-    typename SrcAccessor::value_type tempval;
-
-    // loop over the image and transform
-    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
-    {
-        // create x iterators
-        DestImageIterator xd(yd);
-        AlphaImageIterator xdist(ydist);
-        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
-        {
-            double sx,sy;
-            transform.transformImgCoord(sx,sy,x,y);
-            // make sure that the interpolator doesn't
-            // access pixels outside.. Should we introduce
-            // some sort of border treatment?
-            if (sx < interp.size/2 -1
-                || sx > srcSize.x-interp.size/2 - 1
-                || sy < interp.size/2 - 1
-                || sy > srcSize.y-interp.size/2 - 1)
-            {
-                *xdist = 0;
-                // nothing..
-            } else if (interpol(src.first, srcAlpha, sx, sy, tempval)) {
-                *xd = tempval;
-                *xdist = 255;
-            } else {
-                *xdist = 0;
-            }
-        }
-        if ((y-ystart)%100 == 0) {
-            prog.setProgress(((double)y-ystart)/(yend-ystart));
-        }
-    }
-    prog.popTask();
-}
-
-
-/** calculate the outline of the image
- *
- *  @param srcSize Size of source picture ( an be small, to
- *                 if not every point is needed)
- *  @param transf  Transformation from image to pano
- *  @param result  insert border point into result container
- *  @param ul      Upper Left corner of the image roi
- *  @param lr      Lower right corner of the image roi
- */
-template <class OutputIterator, class TRANSFORM>
-void calcBorderPoints(vigra::Diff2D srcSize,
-                      TRANSFORM & transf,
-                      OutputIterator result,
-                      FDiff2D & ul,
-                      FDiff2D & lr)
-{
-    ul.x = DBL_MAX;
-    ul.y = DBL_MAX;
-    lr.x = -DBL_MAX;
-    lr.y = -DBL_MAX;
-
-    int x = 0;
-    int y = 0;
-
-#ifdef DEBUG
-    std::ofstream o("border_curve.txt");
-#endif
-
-    for (x=0; x<srcSize.x ; x++) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    x = srcSize.x-1;
-    for (y=0; y<srcSize.y ; y++) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    y = srcSize.y-1;
-    for (x=srcSize.x-1; x>0 ; --x) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    x = 0;
-    for (y=srcSize.y-1 ; y > 0 ; --y) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-
-
-    DEBUG_DEBUG("bounding box: upper left: " << ul.x << "," << ul.y
-                << "  lower right: " << lr.x << "," << lr.y);
-}
 
 
 template <class T, int nr>

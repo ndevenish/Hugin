@@ -24,6 +24,7 @@
 #ifndef VIGRA_EXT_PYRAMID_H
 #define VIGRA_EXT_PYRAMID_H
 
+#include <vigra/separableconvolution.hxx>
 
 namespace vigra_ext {
 

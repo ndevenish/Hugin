@@ -143,6 +143,9 @@ template <typename ImageType, typename AlphaType>
 class MultiImageRemapper : public Stitcher<ImageType, AlphaType>
 {
 public:
+
+    typedef Stitcher<ImageType, AlphaType> Base;
+    
     MultiImageRemapper(const PT::Panorama & pano,
 		       utils::MultiProgressDisplay & progress)
 	: Stitcher<ImageType,AlphaType>(pano, progress)
@@ -166,7 +169,7 @@ public:
         prepareOutputFile(opts);
 
 	unsigned int nImg = images.size();
-	m_progress.pushTask(utils::ProgressTask("Remapping", "", 1.0/(nImg+1)));
+	Base::m_progress.pushTask(utils::ProgressTask("Remapping", "", 1.0/(nImg+1)));
         // number of the remapped image in the panorama (for partial remapping,
         // when the images set does not contain all input images.
         unsigned int runningImgNr;
@@ -176,9 +179,9 @@ public:
 	{
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> * remapped;
-            remapped = remapper(m_pano, opts, *it, m_progress);
+            remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
 	
-            saveRemapped(*remapped, *it, m_pano.getNrOfImages(), opts);
+            saveRemapped(*remapped, *it, Base::m_pano.getNrOfImages(), opts);
             delete remapped;
 
             runningImgNr++;
@@ -225,7 +228,7 @@ public:
         case PanoramaOptions::PNG:
         {
             std::ostringstream filename;
-            filename << m_basename << setfill('0') << setw(4) << imgNr << ".png";
+            filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".png";
             vigra::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
@@ -236,11 +239,11 @@ public:
         case PanoramaOptions::TIFF_m:
         {
             std::ostringstream filename;
-            filename << m_basename << setfill('0') << setw(4) << imgNr << ".tif";
+            filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
             vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
             vigra_ext::createTiffDirectory(tiff,
-                                           m_pano.getImage(imgNr).getFilename(),
+                                           Base::m_pano.getImage(imgNr).getFilename(),
                                            m_basename,
                                            imgNr+1, nImg,
                                            vigra::Diff2D(0,0));
@@ -270,6 +273,8 @@ template <typename ImageType, typename AlphaImageType>
 class TiffMultiLayerRemapper : public MultiImageRemapper<ImageType, AlphaImageType>
 {
 public:
+
+    typedef MultiImageRemapper<ImageType, AlphaImageType> Base;
     TiffMultiLayerRemapper(const PT::Panorama & pano,
                            utils::MultiProgressDisplay & progress)
 	: MultiImageRemapper<ImageType, AlphaImageType> (pano, progress)
@@ -282,7 +287,7 @@ public:
 
     virtual void prepareOutputFile(const PanoramaOptions & opts)
     {
-        std::string filename = m_basename + ".tif";
+        std::string filename = Base::m_basename + ".tif";
         DEBUG_DEBUG("Layering image into a multi image tif file " << filename);
         m_tiff = TIFFOpen(filename.c_str(), "w");
         DEBUG_ASSERT(m_tiff && "could not open tiff output file");
@@ -295,8 +300,8 @@ public:
     {
         DEBUG_DEBUG("Saving TIFF ROI");
         vigra_ext::createTiffDirectory(m_tiff,
-                                       m_pano.getImage(imgNr).getFilename(),
-                                       m_basename,
+                                       Base::m_pano.getImage(imgNr).getFilename(),
+                                       Base::m_basename,
                                        imgNr+1, nImg, remapped.roi().getUL());
         vigra_ext::createAlphaTiffImage(remapped.image(),
                                         vigra::srcIter(remapped.alpha().first),
@@ -347,6 +352,8 @@ template <typename ImageType, typename AlphaType>
 class WeightedStitcher : public Stitcher<ImageType, AlphaType>
 {
 public:
+
+    typedef Stitcher<ImageType, AlphaType> Base;
     WeightedStitcher(const PT::Panorama & pano,
 		     utils::MultiProgressDisplay & progress)
 	: Stitcher<ImageType, AlphaType>(pano, progress)
@@ -362,11 +369,11 @@ public:
     {
 	std::vector<unsigned int> images;
 	// calculate stitching order
-	estimateBlendingOrder(m_pano, imgSet, images);
+	estimateBlendingOrder(Base::m_pano, imgSet, images);
 
 	unsigned int nImg = images.size();
 
-	m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
+	Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
 	// empty ROI
 	vigra_ext::ROI<vigra::Diff2D> panoROI;
 
@@ -376,9 +383,9 @@ public:
 	{
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> * remapped;
-            remapped = remapper(m_pano, opts, *it, m_progress);
+            remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
 
-	    m_progress.setMessage("blending");
+	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
 	    blend(*remapped, pano, alpha, panoROI);
             delete remapped;
@@ -412,7 +419,7 @@ public:
         default:
             DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
         }
-	m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
+	Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
 	DEBUG_DEBUG("Saving panorama: " << outputfile);
 	vigra::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
@@ -434,7 +441,7 @@ public:
 #ifdef DEBUG
 	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
 #endif
-	m_progress.popTask();
+	Base::m_progress.popTask();
 
     }
 
@@ -470,7 +477,7 @@ public:
                                            imageMask,
                                            destImage(blendPanoMask),
                                            destImage(blendImageMask),
-                                           m_progress);
+                                           Base::m_progress);
 
 #ifdef DEBUG
 	// save the masks

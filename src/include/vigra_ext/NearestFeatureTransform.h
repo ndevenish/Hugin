@@ -183,8 +183,8 @@ void nearestFeatureTransform(vigra::triple<Feat1Iter, Feat1Iter, Feat1Accessor> 
     dist_t *dnfColumn = (dist_t*)malloc(ubbPixels * sizeof(dist_t));
 
     if (dnfColumn == NULL) {
-        cerr << endl
-             << "enblend: out of memory (in nearestFeatureTransform for dnfColumn)" << endl;
+        std::cerr << std::endl
+             << "enblend: out of memory (in nearestFeatureTransform for dnfColumn)" << std::endl;
         exit(1);
     }
 
@@ -192,7 +192,7 @@ void nearestFeatureTransform(vigra::triple<Feat1Iter, Feat1Iter, Feat1Accessor> 
     // column or any column to the left.
     dist_t *dnfLeft = (dist_t*)malloc(ubbPixels * sizeof(dist_t));
     if (dnfLeft == NULL) {
-        cerr << "enblend: out of memory (in nearestFeatureTransform for dnfLeft)" << endl;
+        std::cerr << "enblend: out of memory (in nearestFeatureTransform for dnfLeft)" << std::endl;
         exit(1);
     }
 

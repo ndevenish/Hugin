@@ -37,6 +37,7 @@
 #include <vigra/impex.hxx>
 
 #include <common/math.h>
+#include <common/utils.h>
 
 namespace vigra_ext
 {

@@ -975,8 +975,8 @@ class ConstImageIterator
 
     ConstImageIterator & operator=(ImageIterator<PIXELTYPE> const & o)
     {
-        x = o.x;
-        y = o.y;
+        Base::x = o.x;
+        Base::y = o.y;
         return *this;
     }
 };
@@ -1111,8 +1111,8 @@ class ConstStridedImageIterator
         /** Assign mutable iterator */
     ConstStridedImageIterator & operator=(StridedImageIterator<PIXELTYPE> const & o)
     {
-        x = o.x;
-        y = o.y;
+        Base::x = o.x;
+        Base::y = o.y;
         return *this;
     }
 };

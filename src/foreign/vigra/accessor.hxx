@@ -562,12 +562,12 @@ class SequenceAccessor
     /** get size of sequence at given iterator position
     */
     template <class ITERATOR>
-    int size(ITERATOR const & i) const { return (*i).size(); }
+    unsigned int size(ITERATOR const & i) const { return (*i).size(); }
 
     /** get size of sequence at 2D difference vector of given iterator position
     */
     template <class ITERATOR, class DIFFERENCE>
-    int size(ITERATOR const & i, DIFFERENCE const & diff) const
+    unsigned int size(ITERATOR const & i, DIFFERENCE const & diff) const
     { return i[diff].size(); }
 };
 
@@ -759,16 +759,16 @@ class MultiImageAccessor2
     template <class DIFFERENCE>
     value_type operator()(DIFFERENCE const & d) const
     { 
-        return std::make_pair(a1_(i1_, d), a2_(i2_, i.x, i.y)); 
+        return std::make_pair(a1_(i1_, d), a2_(i2_, d));
     }
     
         /** read the data item at an offset
         */
     template <class DIFFERENCE1, class DIFFERENCE2>
-    value_type operator()(DIFFERENCE1 const & d1, DIFFERENCE2 const & d2) const
+    value_type operator()(DIFFERENCE1 d1, DIFFERENCE2 const & d2) const
     { 
-        d2 += d1;
-        return std::make_pair(a1_(i1_, d2), a2_(i2_, d2)); 
+        d1 += d2;
+        return std::make_pair(a1_(i1_, d1), a2_(i2_, d1));
     }
     
   private:

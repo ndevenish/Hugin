@@ -293,8 +293,8 @@ class ConstBasicImageIterator
     ConstBasicImageIterator &
     operator=(BasicImageIterator<PIXELTYPE, ITERATOR> const & rhs)
     {
-        x = rhs.x;
-        y = rhs.y;
+        Base::x = rhs.x;
+        Base::y = rhs.y;
         return *this;
     }
 

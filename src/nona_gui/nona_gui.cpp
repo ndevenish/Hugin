@@ -160,7 +160,7 @@ bool nonaApp::OnInit()
     ifstream prjfile(scriptFile.c_str());
     if (prjfile.bad()) {
         ostringstream error;
-        error << _("could not open script : ") << scriptFile << endl;
+        error << _("could not open script : ") << scriptFile << std::endl;
         wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
     }
@@ -168,7 +168,7 @@ bool nonaApp::OnInit()
         pano.setMemento(newPano);
     } else {
         ostringstream error;
-        error << _("error while parsing panos tool script: ") << scriptFile << endl;
+        error << _("error while parsing panos tool script: ") << scriptFile << std::endl;
 
         wxMessageBox(error.str().c_str() , _("Error"), wxCANCEL | wxICON_ERROR);
         exit(1);
@@ -181,7 +181,7 @@ bool nonaApp::OnInit()
     int w = opts.width;
     int h = opts.getHeight();
 
-    cout << "output image size: " << w << "x" << h << endl;
+    cout << "output image size: " << w << "x" << h << std::endl;
 
     DEBUG_DEBUG("output basename: " << basename);
 
@@ -190,7 +190,7 @@ bool nonaApp::OnInit()
         PT::stitchPanorama(pano, opts,
                            pdisp, basename);
     } catch (std::exception & e) {
-        cerr << "caught exception: " << e.what() << endl;
+        cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
 
@@ -207,15 +207,15 @@ int nonaApp::OnExit()
 void nonaApp::usage(const char * name)
 {
     ostringstream o;
-    o    << name << ": stitch a panorama image" << endl
-         << endl
-         << " It uses the transform function from PanoTools, the stitching itself" << endl
-         << " is quite simple, no seam feathering is done." << endl
-         << " all interpolators of panotools are supported" << endl
-         << endl
-         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << endl
-         << endl
-         << "Usage: " << name  << " -o output project_file" << endl;
+    o    << name << ": stitch a panorama image" << std::endl
+         << std::endl
+         << " It uses the transform function from PanoTools, the stitching itself" << std::endl
+         << " is quite simple, no seam feathering is done." << std::endl
+         << " all interpolators of panotools are supported" << std::endl
+         << std::endl
+         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
+         << std::endl
+         << "Usage: " << name  << " -o output project_file" << std::endl;
     wxMessageBox(o.str().c_str(), _("Error using standalone stitcher"));
 }
 

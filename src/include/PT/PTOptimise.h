@@ -83,9 +83,9 @@ public:
         PT::VariableMapVector vars(1);
         vars[0] = m_optVars[v];
 #ifdef DEBUG
-        cerr << "before optim "<< v << " : ";
-        printVariableMap(cerr, vars[0]);
-        cerr << endl;
+        std::cerr << "before optim "<< v << " : ";
+        printVariableMap(std::cerr, vars[0]);
+        std::cerr << std::endl;
 #endif
 
         // collect all optimized neighbours
@@ -95,16 +95,16 @@ public:
              ai != ai_end; ++ai)
         {
             if (*ai != v) {
-                if ( (get(vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
+                if ( (get(boost::vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
 //            if (m_colors[*ai] != boost::color_traits<boost::default_color_type>::white()) {
                     // image has been already optimized, use as anchor
                     imgs.push_back(*ai);
                     vars.push_back(m_optVars[*ai]);
                     DEBUG_DEBUG("non white neighbour " << (*ai));
 #ifdef DEBUG
-                    cerr << "vars " << (*ai) << " : ";
-                    printVariableMap(cerr, m_optVars[*ai]);
-                    cerr << endl;
+                    std::cerr << "vars " << (*ai) << " : ";
+                    printVariableMap(std::cerr, m_optVars[*ai]);
+                    std::cerr << std::endl;
 #endif
                 } else {
                     DEBUG_DEBUG("white neighbour " << (*ai));
@@ -124,9 +124,9 @@ public:
             m_progDisp.popTask();
             m_optVars[v] = vars[0];
 #ifdef DEBUG
-            cerr << "after optim " << v << " : ";
-            printVariableMap(cerr, m_optVars[v]);
-            cerr << endl;
+            std::cerr << "after optim " << v << " : ";
+            printVariableMap(std::cerr, m_optVars[v]);
+            std::cerr << std::endl;
 #endif
         } else {
             DEBUG_ERROR("image " << v << ": no optimized neighbour images");

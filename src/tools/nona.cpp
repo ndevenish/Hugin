@@ -43,21 +43,21 @@ using namespace std;
 
 static void usage(const char * name)
 {
-    cerr << name << ": stitch a panorama image" << endl
-         << endl
-         << " It uses the transform function from PanoTools, the stitching itself" << endl
-         << " is quite simple, no seam feathering is done." << endl
-         << " all interpolators of panotools are supported" << endl
-         << endl
-         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << endl
-         << endl
-         << "Usage: " << name  << " [options] -o output project_file" << endl
-	 << endl
-         << "  [options] can be: " << endl
-         << "     -r          # save tiff files with ROI (saves a lot of space, " << endl
-	 << "                   but doesn't work with most programs. " << endl
-	 << "                   The Gimp 2.0 can handle these files" << endl
-	 << endl;
+    cerr << name << ": stitch a panorama image" << std::endl
+         << std::endl
+         << " It uses the transform function from PanoTools, the stitching itself" << std::endl
+         << " is quite simple, no seam feathering is done." << std::endl
+         << " all interpolators of panotools are supported" << std::endl
+         << std::endl
+         << " the \"TIFF_mask\" output will produce a multilayer TIFF file" << std::endl
+         << std::endl
+         << "Usage: " << name  << " [options] -o output project_file" << std::endl
+	 << std::endl
+         << "  [options] can be: " << std::endl
+         << "     -r          # save tiff files with ROI (saves a lot of space, " << std::endl
+	 << "                   but doesn't work with most programs. " << std::endl
+	 << "                   The Gimp 2.0 can handle these files" << std::endl
+	 << std::endl;
 
 }
 
@@ -107,13 +107,13 @@ int main(int argc, char *argv[])
     PanoramaMemento newPano;
     ifstream prjfile(scriptFile);
     if (prjfile.bad()) {
-        cerr << "could not open script : " << scriptFile << endl;
+        cerr << "could not open script : " << scriptFile << std::endl;
         exit(1);
     }
     if (newPano.loadPTScript(prjfile)) {
         pano.setMemento(newPano);
     } else {
-        cerr << "error while parsing panos tool script: " << scriptFile << endl;
+        cerr << "error while parsing panos tool script: " << scriptFile << std::endl;
         exit(1);
     }
 
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
     int w = opts.width;
     int h = opts.getHeight();
 
-    cout << "output image size: " << w << "x" << h << endl;
+    cout << "output image size: " << w << "x" << h << std::endl;
 
     DEBUG_DEBUG("output basename: " << basename);
 
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
         PT::stitchPanorama(pano, opts,
                            pdisp, basename);
     } catch (std::exception & e) {
-        cerr << "caught exception: " << e.what() << endl;
+        cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
 

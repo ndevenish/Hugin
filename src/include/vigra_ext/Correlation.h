@@ -26,9 +26,12 @@
 
 #include <vigra/stdimage.hxx>
 #include <vigra/inspectimage.hxx>
+#include <vigra/copyimage.hxx>
+#include <vigra/resizeimage.hxx>
 
 #include "common/utils.h"
 #include "common/math.h"
+#include "vigra_ext/Pyramid.h"
 
 namespace vigra_ext{
 
@@ -256,6 +259,7 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
 }
 
 
+#if 0
 /** multi resolution template matching using cross correlatation.
  *
  */
@@ -282,7 +286,7 @@ bool findTemplate(const Image & templ, const std::string & filename,
 
     // create other levels
     for(int i=1; i<levels; i++) {
-        reduceToNextLevel(templs[i-1], templs[i]);
+        vigra_ext::reduceToNextLevel(templs[i-1], templs[i]);
     }
 
     // this image will store the correlation coefficients
@@ -341,7 +345,7 @@ bool findTemplate(const Image & templ, const std::string & filename,
     delete currentMask;
     return true;
 }
-
+#endif
 
 
 } // namespace

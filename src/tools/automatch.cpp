@@ -57,6 +57,7 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
 {
 
     typedef typename vector<vector<TYPE> >::iterator MYIT;
+    typedef typename std::vector<vector<TYPE> > Base;
 
     ValueHistogram(int nBins, double start, double end)
         : std::vector<vector<TYPE> >(nBins), m_start(start), m_end(end)
@@ -67,8 +68,8 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
     // remove all entries
     void clearHist()
     {
-        for (MYIT it = begin();
-             it != m_vector.end(); ++it) {
+        for (MYIT it = Base::begin();
+             it != Base::m_vector.end(); ++it) {
             it->clear();
         }
     }
@@ -76,14 +77,14 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
     void insertHist(double val, const TYPE & t)
     {
         int idx = getIdx(val);
-        operator[](idx).push_back(t);
+        Base::operator[](idx).push_back(t);
     }
 
     vector<double> getCount()
     {
-        vector<double> ret(m_vector.size());
-        for (typename vector<vector<TYPE> >::iterator it = m_vector.begin();
-             it != m_vector.end(); ++it) {
+        vector<double> ret(Base::m_vector.size());
+        for (typename vector<vector<TYPE> >::iterator it = Base::m_vector.begin();
+             it != Base::m_vector.end(); ++it) {
             ret.push_back(it->size());
         }
         return ret;
@@ -92,7 +93,7 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
     const vector<TYPE> & getBinEntries(double val)
     {
         int idx = getIdx(val);
-        m_vector[idx].push_back(t);
+        Base::m_vector[idx].push_back(Base::t);
     }
 
     double getCenter(int bin)
@@ -104,8 +105,8 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
     {
         vector<TYPE> * ret=0;
         count = 0;
-        for (typename vector<vector<TYPE> >::iterator it = begin();
-             it != end(); ++it)
+        for (typename vector<vector<TYPE> >::iterator it = Base::begin();
+             it != Base::end(); ++it)
         {
             if (count < it->size()){
                 count = it->size();
@@ -120,13 +121,13 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
         unsigned int count;
         //const vector<TYPE> & maxval = getMax(count);
         getMax(count);
-        o << "Histogram with " << size() << " bins, range: " << m_start
+        o << "Histogram with " << Base::size() << " bins, range: " << m_start
           << " .. " << m_end << endl
           << "Center Count=========================================================" << endl;
-        for (typename vector<vector<TYPE> >::iterator it = begin();
-             it != end(); ++it)
+        for (typename vector<vector<TYPE> >::iterator it = Base::begin();
+             it != Base::end(); ++it)
         {
-            o << getCenter(it - begin())
+            o << getCenter(it - Base::begin())
               << " ";
             o << it->size() << "  ";
             int fw = roundi(60* ((double)it->size()/count));
