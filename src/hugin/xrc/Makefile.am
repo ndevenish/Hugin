@@ -17,9 +17,11 @@ xrcdir = @datadir@/hugin/xrc
 
 all-local: $(XRS_FILES)
 	xrclist='$(XRC_FILES)'; \
+	srcdir_sh='$(srcdir)'; \
 	for p in $$xrclist; do \
-	    if test -e `basename $$p`; then :; else \
-		( $(LN_S) $$p ) ; \
+	    p_full="$$srcdir_sh/$$p"; \
+	    if test -e $$p; then :; else \
+	        ( $(LN_S) $$p_full ) ; \
 	    fi; \
 	done
 
