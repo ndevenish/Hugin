@@ -29,7 +29,7 @@ then
   fi
   if test "x$ZLIB_HOME" = 'x'
   then
-    zlib_dirs="/usr /usr/local /opt"
+    zlib_dirs="/usr /usr/local /opt /mingw"
     for i in $zlib_dirs;
     do
       if test -r "$i/include/zlib.h"; then
@@ -125,7 +125,7 @@ then
   fi
   if test "x$PNG_HOME" = 'x'
   then
-    png_dirs="/usr /usr/local /opt"
+    png_dirs="/usr /usr/local /opt /mingw"
     for i in $png_dirs;
     do
       if test -r "$i/include/png.h"; then
@@ -217,7 +217,7 @@ then
   fi
   if test "x$JPEG_HOME" = 'x'
   then
-    jpeg_dirs="/usr /usr/local /opt"
+    jpeg_dirs="/usr /usr/local /opt /mingw"
     for i in $jpeg_dirs;
     do
       if test -r "$i/include/jpeglib.h"; then
@@ -336,7 +336,7 @@ then
   fi
   if test "x$TIFF_HOME" = 'x'
   then
-    tiff_dirs="/usr /usr/local /opt"
+    tiff_dirs="/usr /usr/local /opt /mingw"
     for i in $tiff_dirs;
     do
       if test -r "$i/include/tiff.h"; then

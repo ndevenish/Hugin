@@ -1,3 +1,20 @@
+2004-10-26 18:15  dwilkins42
+
+	* ChangeLog, bootstrap, configure.ac, m4/ax_check_panotools.m4,
+	  src/Panorama/Makefile.am: Update build. hugin now builds on win32
+	  using mingw
+
+2004-10-26 00:27  dangelo
+
+	* src/: hugin/xrc/optimize_panel.xrc,
+	  include/hugin/OptimizePanel.h: moved pairwise optimisation to the
+	  last entry.
+
+2004-10-25 22:49  dangelo
+
+	* src/include/PT/PanoCommand.h: fixed crash when removing all
+	  images
+
 2004-10-25 21:40  dwilkins42
 
 	* m4/ax_fftw.m4, src/Makefile.am: Change --with-fftw-dir to

@@ -50,13 +50,13 @@ AC_ARG_WITH([fftw-libraries],
 AC_CACHE_VAL(ac_cv_have_fftw,
 [#try to guess FFTW locations
 
-fftw_incdirs="/usr/lib/fftw/include /opt/include /usr/local/fftw/include /usr/include/fftw /usr/include /usr/local/include $FFTWINC"
+fftw_incdirs="/usr/lib/fftw/include /opt/include /mingw/include /usr/local/fftw/include /usr/include/fftw /usr/include /usr/local/include $FFTWINC"
 test -n "$FFTWDIR" && fftw_incdirs="$FFTWDIR/include $FFTWDIR $fftw_incdirs"
 fftw_incdirs="$ac_fftw_includes $fftw_incdirs"
 AC_FIND_FILE(fftw.h, $fftw_incdirs, fftw_incdir)
 ac_fftw_includes="$fftw_incdir"
 
-fftw_libdirs="/usr/lib/fftw/lib /usr/lib /opt/lib /usr/local/fftw/lib /usr/local/lib /usr/lib/fftw /usr/local/lib $FFTWLIB"
+fftw_libdirs="/usr/lib/fftw/lib /usr/lib /opt/lib /mingw/lib /usr/local/fftw/lib /usr/local/lib /usr/lib/fftw /usr/local/lib $FFTWLIB"
 test -n "$FFTWDIR" && fftw_libdirs="$FFTWDIR/lib $FFTWDIR $fftw_libdirs"
 if test ! "$ac_fftw_libraries" = "NO"; then
   fftw_libdirs="$ac_fftw_libraries $fftw_libdirs"

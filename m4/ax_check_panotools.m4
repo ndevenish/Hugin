@@ -30,7 +30,7 @@ then
     fi
     if test "x$PANO_HOME" = 'x'
     then
-      pano_dirs="/usr /usr/local /opt"
+      pano_dirs="/usr /usr/local /opt /mingw"
       for i in $pano_dirs;
       do
         if test -r "$i/include/pano12/panorama.h"; then
