@@ -365,7 +365,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             string format;
             int i;
             getParam(i,line,"f");
-            options.projectionFormat = (ProjectionFormat) i;
+            options.projectionFormat = (PanoramaOptions::ProjectionFormat) i;
             getParam(options.width, line, "w");
             getParam(options.height, line, "h");
             getParam(options.HFOV, line, "v");
@@ -377,6 +377,17 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             options.outputFormat = format.substr(0,t);
             // FIXME. add argument parsing for output formats
             // FIXME add color correction parsing.
+            int cRefImg = 0;
+            if (getParam(cRefImg, line,"k")) {
+                options.colorCorrection = PanoramaOptions::BRIGHTNESS_COLOR;
+            } else if (getParam(cRefImg, line,"b")) {
+                options.colorCorrection = PanoramaOptions::BRIGHTNESS;
+            } else if (getParam(cRefImg, line,"d")) {
+                options.colorCorrection = PanoramaOptions::COLOR;
+            } else {
+                options.colorCorrection = PanoramaOptions::NONE;
+            }
+            options.colorReferenceImage=cRefImg;
             break;
         }
         case 'm':
@@ -385,7 +396,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             // parse misc options
             int i;
             getParam(i,line,"i");
-            options.interpolator = (Interpolator) i;
+            options.interpolator = (PanoramaOptions::Interpolator) i;
             getParam(options.gamma,line,"g");
             break;
         }
@@ -398,7 +409,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             getPTStringParam(file,line,"n");
             DEBUG_DEBUG("filename: " << file);
             // load the image somehow..
-                
+
             // create lens for this image
             Lens l;
             getParam(l.HFOV, line, "v");
@@ -410,7 +421,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             int t;
             getParam(t, line, "f");
             l.projectionFormat = (Lens::LensProjectionFormat) t;
-            
+
             lenses.push_back(l);
             unsigned int lnr = lenses.size()-1;
             int width, height;
@@ -421,7 +432,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             ImageOptions opts = images.back().getOptions();
             getParam(opts.featherWidth, line, "u");
             images.back().setOptions(opts);
-            
+
             ImageVariables var;
             readVar(var.roll, line);
             readVar(var.pitch, line);
@@ -438,9 +449,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             state = P_IMAGE;
 
             // FIXME add lens here.
-            
-            
-            
+
+
+
             break;
         }
         case 'v':

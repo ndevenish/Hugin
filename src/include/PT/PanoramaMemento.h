@@ -248,21 +248,24 @@ public:
     static std::string modeNames[];
 };
 
-/** Projection of final panorama
+/** Panorama image options
+ *
+ *  this holds the settings for the final panorama
  */
+class PanoramaOptions
+{
+public:
+
+    
+    /** Projection of final panorama
+     */
     enum ProjectionFormat { RECTILINEAR = 0,
                             CYLINDRICAL = 1,
                             EQUIRECTANGULAR = 2 };
 
-/** type of color correction
- */
-    enum ColorCorrection { NONE = 0,
-                           BRIGHTNESS_COLOR,
-                           BRIGHTNESS,
-                           COLOR };
 
-/** soften the stairs if they occure
- */
+    /** soften the stairs if they occure
+     */
     enum Interpolator {
         POLY_3 = 0,
         SPLINE_16,
@@ -274,32 +277,32 @@ public:
         SINC_1024
     };
 
-/** Fileformat
- */
-enum FileFormat {
-    JPEG = 0,
-    PNG,
-    TIFF,
-    TIFF_mask,
-    TIFF_nomask,
-    PICT,
-    PSD,
-    PSD_mask,
-    PSD_nomask,
-    PAN,
-    IVR,
-    IVR_java,
-    VRML,
-    QTVR
-};
 
-/** Panorama image options
- *
- *  this holds the settings for the final panorama
- */
-class PanoramaOptions
-{
-public:
+    /** Fileformat
+     */
+    enum FileFormat {
+        JPEG = 0,
+        PNG,
+        TIFF,
+        TIFF_mask,
+        TIFF_nomask,
+        PICT,
+        PSD,
+        PSD_mask,
+        PSD_nomask,
+        PAN,
+        IVR,
+        IVR_java,
+        VRML,
+        QTVR
+    };
+
+    /** type of color correction
+     */
+    enum ColorCorrection { NONE = 0,
+                           BRIGHTNESS_COLOR,
+                           BRIGHTNESS,
+                           COLOR };
 
     PanoramaOptions()
         : projectionFormat(EQUIRECTANGULAR),
@@ -370,15 +373,15 @@ public:
     /// assignment operator
 //    PanoramaMemento & operator=(const PanoramaMemento & o);
     virtual ~PanoramaMemento();
-    
+
     /** load a PTScript file
      *
      *  initializes the PanoramaMemento from a PTScript file
      */
     bool loadPTScript(std::istream & i);
-    
+
 private:
-    
+
     enum PTParseState { P_NONE,
                         P_OUTPUT,
                         P_MODIFIER,
@@ -386,8 +389,8 @@ private:
                         P_OPTIMIZE,
                         P_CP
     };
-                        
-    
+
+
     friend class PT::Panorama;
     // state members for the state
 
