@@ -33,6 +33,7 @@
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/listctrl.h>    // needed on mingw
 #include <wx/imaglist.h>
+#include <wx/file.h>
 #include <wx/spinctrl.h>
 
 #include <vigra_ext/PointMatching.h>
@@ -191,14 +192,8 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
         return;
     }
 
-    wxString text = XRCCTRL(*this, "images_points_per_overlap"
-                            , wxTextCtrl) ->GetValue();
-    long nFeatures = 10;
-    if (!text.ToLong(&nFeatures)) {
-        wxLogError(_("number of Control points must be numeric."));
-        return;
-    }
-
+    long nFeatures = XRCCTRL(*this, "images_points_per_overlap"
+                            , wxSpinCtrl)->GetValue();
 
 #ifdef __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
@@ -208,8 +203,8 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                          "Executables (*.exe)|*.exe",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
-            stitcherExe = dlg.GetPath();
-            config->Write("/PanoTools/AutopanoExe",autopanoExe);
+            autopanoExe = dlg.GetPath();
+            wxConfigBase::Get()->Write("/PanoTools/AutopanoExe",autopanoExe);
         } else {
             wxLogError(_("No autopano.exe selected (download it from http://autopano.kolor.com)"));
             return;
@@ -607,7 +602,7 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
     DEBUG_TRACE("");
     const UIntSet & selImg = images_list->GetSelected();
     unsigned int nSelImg =  selImg.size();
-    if ( nSelImg > 0 ) {
+    if ( nSelImg > 1 ) {
         UIntSet cpsToDelete;
         const CPVector & cps = pano.getCtrlPoints();
         for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
@@ -619,6 +614,8 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
         }
         GlobalCmdHist::getInstance().addCommand(
             new PT::RemoveCtrlPointsCmd( pano, cpsToDelete ));
+    } else {
+        wxLogError(_("Select at least two images"));
     }
 }
 

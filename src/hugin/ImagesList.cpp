@@ -232,6 +232,7 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 40);
 }
 
 void ImagesListImage::UpdateItem(unsigned int imgNr)
@@ -258,6 +259,15 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
         flags[1]='C';
     }
     SetItem(imgNr,7, flags);
+    // urgh.. slow.. stupid.. traverse control point list for each image..
+    const CPVector & cps = pano.getCtrlPoints();
+    int nCP=0;
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
+        if ((*it).image1Nr == imgNr || (*it).image2Nr == imgNr) {
+            nCP++;
+        }
+    }
+    SetItem(imgNr, 8, wxString::Format("%d", nCP));
 }
 
 ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)

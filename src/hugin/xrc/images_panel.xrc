@@ -117,20 +117,21 @@
               <object class="sizeritem">
                 <object class="wxStaticText">
                   <label>Points per Overlap:</label>
-                  <enabled>0</enabled>
                 </object>
-                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>6</border>
+                <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
-                <object class="wxTextCtrl" name="images_points_per_overlap">
+                <object class="wxSpinCtrl" name="images_points_per_overlap">
                   <value>10</value>
+                  <min>1</min>
                 </object>
-                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxButton" name="images_remove_cp">
                   <label>Remove Points</label>
+                  <tooltip>Remove control points connecting the selected images</tooltip>
                 </object>
                 <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
@@ -194,6 +195,7 @@
                   <object class="sizeritem">
                     <object class="wxButton" name="images_reset_pos">
                       <label>Reset</label>
+                      <tooltip>Reset position of selected image(s)</tooltip>
                     </object>
                     <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
