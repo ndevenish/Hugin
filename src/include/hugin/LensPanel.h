@@ -92,6 +92,12 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     /**  for all other variables */
     void OnVarInheritChanged(wxCommandEvent & e);
 
+    /** save the current lens parameters to a simple ini file */
+    void OnSaveLensParameters(wxCommandEvent & e);
+
+    /** load the lens parameters for a file */
+    void OnLoadLensParameters(wxCommandEvent & e);
+
     /** catches changes to the list selection */
     void ListSelectionChanged(wxListEvent& e);
 
