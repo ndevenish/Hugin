@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Hugin FAQ</title>
+</style>
+</head>
+<body>
+
+<div class="content">
+<h1>Frequenty Asked Questions</h1>
+
+This document contains answers to questions that have been asked by
+users on the <a
+href="http://www.email-lists.org/mailman/listinfo/ptx">Ptx mailing
+list</a> and elsewhere.
+
+<p>
+  The answers refer to a fairly recent snapshot of hugin.
+</p>
+
+<p>
+  This is a FAQ for hugin, and contains mostly hugin specific questions.
+  General Panorama Tools FAQ's:
+  <ul>
+    <li>
+      <a href="http://www.path.unimelb.edu.au/~dersch/FAQ.html">Panorama Tools FAQ</a> from Helmut Dersch.
+    </li>
+  </ul>
+    
+</p>
+
+<h2><a name="top"> Questions </a> </h2>
+
+<h3> General questions </h3>
+
+<ul>
+  <li> 
+    <a href="#g_mac">Can hugin be used on the Mac?</a>
+  </li>
+</ul>
+
+
+<h3> Control point selection </h3>
+<ul>
+  <li> 
+    <a href="#cp_add">How do I add control points?</a>
+  </li>
+  <li>
+    <a href="#cp_scroll">How do I scroll both images at the same time?</a>
+  </li>
+</ul>
+
+<h3> Panorama Postprocessing </h3>
+<ul>
+  <li> 
+    <a href="#pano_gimp_layers">How do I produce a layered panorama , but gimp can't read the PSD?</a>
+  </li>
+</ul>
+
+<h2> Answers </h2>
+
+<h3> General questions </h3>
+
+<h4><a href="#top" name="g_mac">Can hugin be used on the Mac?</a></h4>
+<p>
+  While its shouldn't be too hard to create a Macintosh version,
+  none of the core developers uses a Macintosh.
+  We are waiting for Mac user with sufficient skills to make the
+  nessecary (minor) changes to hugin and pano tools.
+</p>
+
+
+<h3> Control point selection </h3>
+
+<h4><a href="#top" name="cp_add">How do I add control points?</a></h4>
+    
+<p>
+  The control point editor is quite powerful, but its usage is
+  probably not obvious on the first try. Here are some ways
+  the developers use the Control Point panel:
+</p>
+
+<ol>
+  <li>
+    <p> Selecting control points in <b>100%</b> mode. </p>
+    <p>
+      This method needs some scrolling, if big images are used. You
+      might want to try the <b>fit to window</b> zoom setting in that case.
+      Switch to the Control Points tab, and use the following settings:
+      <pre>
+ Zoom: 100%
+ [X] auto fine tune
+ [X] auto add
+ [X] auto estimate
+      </pre>
+    </p>
+    <ul>
+      <li> Click on a prominent feature in the left image.
+        If the image pair already contains control points, hugin
+        will try to select the point in the other image.
+      </li>
+      <li> If its the first point in this pair, click near the same
+        feature on the right image. <br>
+        Otherwise, the second point is placed and fine tuned
+        automatically.
+      </li>
+      <li> If you are not happy with the placement, both points
+        can be moved by dragging them to a better position.
+        Press the "f" key to fine tune the point in a small area.
+      </li>
+    </ul>
+    <br/>
+      <p>
+        repeat until 4 or 5 points are set.
+      </p>
+      <br/>
+  </li>  
+      
+            
+  <li> Selecting control points in <b>fit to window</b> mode.
+    <p>
+      I uses this mode if I need to set points on big images.
+      Switch to the Control Points tab, and use the following settings:
+      <pre>
+ Zoom: fit to window
+ [X] auto fine tune
+ [ ] auto add
+ [X] auto estimate
+      </pre>
+    </p>
+    <ul>
+      <li> Click on left image. The image is shown in 100% view. </li>
+      <li> Within the detailed view, click on a prominent feature.
+        If the image pair already contains control points, hugin
+        will try to select the point in the other image.
+      </li>
+      <li> If its the first point in this pair, click near the same
+        feature on the right image. The point is placed and
+        fine tuned automatically.<br/>
+      </li>
+      <li> If you are not happy with the placement, both points
+        can be moved by clicking at the desired
+        position. Move the point close to the desired feature
+        and press the "f" key to fine tune the point.
+      </li>
+      <li> When the points are on the same feature, press the
+        right mouse button, or press the "a" key to add the
+        control point pair. It will then be shown in list
+        below the image.
+      </li>
+    </ul>
+    <br/>
+    <p>
+      repeat until 4 or 5 points are set.
+    </p>
+    <br/>
+  </li>  
+</ol>
+
+<h4><a href="#top" name="cp_scroll">How do I scroll both images at the same time?</a></h4>
+<p>
+  Try pressing the shift key while moving the mouse. The control key
+  or the middle mouse button can be used to scroll only the image under
+  the mouse cursor
+</p>
+
+<h3> Panorama Postprocessing </h3>
+<h4><a href="#top" name="pano_gimp_layers">I want to use gimp to tweak the seams of my image, but gimp can't read the PSD?</a></h4>
+<p>
+  Unfortunately, <a href="http://www.gimp.org">The GIMP</a> can't read the PSD files
+  generated by PTSticher, and the multiple tiff output it cumbersome to use. There are  two possiblilites to work around this:
+  <ol>
+    <li>
+      <p>
+        Use our experimental stitcher, nona, to output to a multiple
+        tiff format. Unfortunately I haven't come around to compile a
+        windows .exe for it yet, but Alexandre is working on it.
+        Just follow the following procedure:
+      </p>
+      <ul>
+        <li> use hugin to create the panorama project, and choose "Multiple TIFF with mask" as output format. Save the project and start nona on the commandline:
+        </li>
+      <pre>
+$ nona pano_project.pto multi_layer
+      </pre>
+      <p>
+        This will will produce a multi_layer.tif file, that contains
+        all remapped images, cropped to their bounding box. This will
+        save a lot of space, compared to a "traditional" PTSticher
+        layered output file, where all layers have the full panorama size.
+      </p>
+      <p>
+        Unfortunately, The GIMP 1.2 and 1.3 can't load multilayer TIFF files.
+        You have to download and compile an <a href="http://sourceforge.net/tracker/index.php?func=detail&aid=859181&group_id=77506&atid=550443">updated tiff plugin</a>.
+        It has been tested with GIMP 1.2 and GIMP 1.3.22.
+      </p>
+    </li>
+
+    <li>
+      <p>
+        If this is to cumbersome or you need PTSticher features not
+        supported by nona, you can also use <a href="http://www.vierpi.de/tif2xcf.html">tif2xcf</a>, to combine the multiple TIFF output into a multilayer XCF.
+      </p>
+      <p>
+        Important: PTSticher does not create the output files, if the output file
+        contains an .tif extension. So, specify only the basename,
+        without the extension.
+      </p>
+      <p>
+        Unfortunately this wastes tons of memory because it stores
+        each remapped image in a layer with the size of the final
+        panorama.
+        </p>
+    </li>
+  </ol>
+</p>  
+
+</div> </body> </html>
