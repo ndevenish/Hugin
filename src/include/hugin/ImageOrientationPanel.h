@@ -26,6 +26,7 @@
 
 #include "wx/frame.h"
 #include "wx/dnd.h"
+#include "PT/Transforms.h"
 #include "hugin/ImageProcessing.h"
 
 /** Select image orientation

@@ -67,9 +67,10 @@ class OptimiseVisitor: public boost::default_bfs_visitor
 {
 public:
     OptimiseVisitor(const PT::Panorama & pano, const std::set<std::string> & optvec,
+                    PT::VariableMapVector & vars, PT::CPVector & cps,
                     utils::MultiProgressDisplay & pdisp)
-        : m_pano(pano), m_opt(optvec),
-          m_cps(pano.getCtrlPoints()), m_progDisp(pdisp)
+        : m_pano(pano), m_opt(optvec), m_optVars(vars),
+          m_cps(cps), m_progDisp(pdisp)
         {
             m_optVars = pano.getVariables();
         };
@@ -133,16 +134,17 @@ public:
     }
 
     const PT::VariableMapVector & getVariables() const
-    { 
-#ifdef DEBUG        
+    {
+#ifdef DEBUG
         for ( PT::VariableMapVector::const_iterator it=m_optVars.begin();
               it != m_optVars.end(); ++it )
         {
             std::cerr << "optVars " << (it - m_optVars.begin()) << " ";
             printVariableMap(std::cerr, *it);
+            std::cerr << std::endl;
         }
 #endif
-        return m_optVars; 
+        return m_optVars;
     }
 
     const PT::CPVector & getCtrlPoints() const
@@ -151,8 +153,8 @@ public:
 private:
     const PT::Panorama & m_pano;
     const std::set<std::string> & m_opt;
-    PT::VariableMapVector m_optVars;
-    PT::CPVector m_cps;
+    PT::VariableMapVector & m_optVars;
+    PT::CPVector & m_cps;
     utils::MultiProgressDisplay & m_progDisp;
 };
 

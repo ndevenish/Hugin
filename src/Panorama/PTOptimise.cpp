@@ -454,7 +454,8 @@ PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
     // start a breadth first traversal of the graph, and optimize
     // the links found (every vertex just once.)
 
-    PTools::OptimiseVisitor optVisitor(pano, optvars, progDisp);
+    PT::VariableMapVector vars = pano.getVariables();
+    PTools::OptimiseVisitor optVisitor(pano, optvars, vars, cps, progDisp);
 
     boost::queue<boost::graph_traits<CPGraph>::vertex_descriptor> qu;
     boost::breadth_first_search(graph, startImg,
@@ -473,11 +474,8 @@ PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
             goptvec[im] = optvars;
         }
     }
-    // FIXME really limit iterations to 1000?
-    cps = pano.getCtrlPoints();
-    PT::VariableMapVector vars = optVisitor.getVariables();
     // run global optimisation
-//    optimize(pano, imgs, goptvec, vars, cps, progDisp, 1000);
+    optimize(pano, imgs, goptvec, vars, cps, progDisp, 1000);
     return vars;
 }
 
