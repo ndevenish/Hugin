@@ -56,7 +56,7 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(VIGRA_CFLAGS)
-LFLAGS += -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
+LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_ext -lpano12 $(VIGRA_LFLAGS)
 
 # ====================================================================
 # The applications that should be build in this directory.
@@ -65,7 +65,7 @@ LFLAGS += -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1 2 3
+APPS = 1 2 3 4
 
 # App 1
 
@@ -83,6 +83,11 @@ APP_3_BIN = automatch
 APP_3_OBJ = automatch.o
 
 APP_3_LFLAGS = $(LFLAGS) -lklt -lfftw
+
+APP_3_BIN = panosifter
+APP_3_OBJ = panosifter.o
+
+APP_3_LFLAGS = $(LFLAGS)
 
 endif
 
