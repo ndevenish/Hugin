@@ -27,6 +27,8 @@
 #ifndef MY_MATH_H
 #define MY_MATH_H
 
+#include <vigra/basicimage.hxx>
+
 // a simple vector class...
 struct FDiff2D
 {
@@ -36,17 +38,22 @@ struct FDiff2D
     FDiff2D(float x, float y)
         : x(x), y(y)
         { }
-    
+
     FDiff2D operator+(FDiff2D rhs)
         {
             return FDiff2D (x+rhs.x, y+rhs.y);
         }
-    
+
     FDiff2D operator-(FDiff2D rhs)
         {
             return FDiff2D (x-rhs.x, y-rhs.y);
         }
-        
+    
+    vigra::Diff2D toDiff2D() 
+        {
+            return vigra::Diff2D((int)round(x), (int)round(y));
+        }
+    
     float x,y;
 };
 
