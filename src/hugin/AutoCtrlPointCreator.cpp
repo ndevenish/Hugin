@@ -82,7 +82,7 @@ void AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
 }
 
 
-void AutoCtrlPointCreator::automatch(Panorama & pano, 
+void AutoCtrlPointCreator::automatch(Panorama & pano,
 		                     const UIntSet & imgs,
 				     int nFeatures)
 {
@@ -133,7 +133,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","");
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
-                         "", "",
+                         "", "Autopano-SIFT-Cmdline.vbs",
                          "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
@@ -160,7 +160,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
 #else
-    // todo: selection of autopano on linux..
+    // autopano should be in the path on linux
     wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","autopano-complete.sh");
 #endif
 
@@ -197,7 +197,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
-    
+
     wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
     // run autopano in an own output window
 
@@ -247,7 +247,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe","");
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
-                         "", "",
+                         "", "autopano.exe",
                          "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
@@ -265,7 +265,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 
     // write default autopano.kolor.com flags
     wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoKolor/Args"," /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i");
-    
+
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number
     std::map<int,int> imgMapping;
@@ -300,7 +300,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
-    
+
     wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
     // run autopano in an own output window
 #ifdef unix
@@ -331,7 +331,7 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
         wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\n"
                        "This is an indicator that the autopano call failed,\n"
                        "or wrong command line parameters have been used.\n\n"
-                       "Autopano command: ") + cmd + "\n current directory:" + 
+                       "Autopano command: ") + cmd + "\n current directory:" +
 			wxGetCwd(),
 		       _("autopano failure"), wxCANCEL );
         return;
