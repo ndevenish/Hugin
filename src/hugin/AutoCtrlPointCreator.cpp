@@ -84,8 +84,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     // create suitable command line..
 
 #ifdef __WXMSW__
-    DEBUG_ERROR("Sorry, autopano-sift not supported under windows yet");
-    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano.exe");
+    DEBUG_ERROR("Sorry, autopano calling under windows not supported out of the box yet\n"
+                "The interface is: myautopano.exe -o output_project -p nrpoints -s downsizefactor image1 image2 ...\n"
+                "Or change the commandline with the registry/configfile hugin/Autopano/Args parameter\n"
+                "to fit your program or batchfile");
+
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPano/AutopanoExe","autopano.exe");
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program"),
                          "", "",
@@ -93,64 +97,42 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write("/PanoTools/AutopanoExe",autopanoExe);
+            wxConfigBase::Get()->Write("/Autopano/AutopanoExe",autopanoExe);
         } else {
-            wxLogError(_("No autopano.exe selected (download it from http://autopano.kolor.com)"));
+            wxLogError(_("No autopano selected"));
             return;
         }
     }
 */
 #else
-    wxString autopanoExe = wxConfigBase::Get()->Read("/PanoTools/AutopanoExe","autopano-complete.sh");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/Autopano/AutopanoExe","run-autopano-sift.sh");
 #endif
 
-/*
-    if (autopanoExe.Contains("autopano.exe")) {
-        // autopano.kolor.com
-        // windows only version...
-        wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano-Jenny/Args","/nomove /search:2 /size:1024 /ransac:1 /noclean /hugin /keys:%p");
-        wxString tmp;
-        tmp.Printf("%d", nFeatures);
-        autopanoArgs.Replace("%p", tmp);
-        string imgFiles;
-        int imgNr=0;
-        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
-        {
-            imgMapping[imgNr] = *it;
-            imgFiles.append(" ").append(pano.getImage(*it).getFilename().c_str());
-            imgNr++;
-        }
-*/
-    if (autopanoExe.Contains("autopano-complete.sh")) {
-        // strings for sebastians autopano. (on linux)..
-        wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano-Sift/Args","-s 1024 -o %o -p %p %i");
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano/Args"," -o %o -p %p %i");
 
-        // build a list of all image files, and a corrosponding connection map.
-        // local img nr -> global (panorama) img number
-        std::map<int,int> imgMapping;
-        string imgFiles;
-        int imgNr=0;
-        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
-        {
-            imgMapping[imgNr] = *it;
-            imgFiles.append(" ").append(quoteString(pano.getImage(*it).getFilename()));
-            imgNr++;
-        }
-
-        autopanoArgs.Replace("%o", "autopano.pto");
-        wxString tmp;
-        tmp.Printf("%d", nFeatures);
-        autopanoArgs.Replace("%p", tmp);
-        autopanoArgs.Replace("%i", imgFiles.c_str());
-        wxString cmd;
-        cmd.Printf("%s %s",autopanoExe.c_str(), autopanoArgs.c_str());
-        DEBUG_DEBUG("Executing: " << cmd.c_str());
-        // run autopano in an own output window
-        wxShell(cmd);
-
-        // read and update control points
-        readUpdatedControlPoints("autopano.pto", imgMapping, pano);
-    } else {
-        DEBUG_ERROR("No supported autopano found. Use autopano-sift with the autopano-complete.sh, as supplied in the hugin package");
+    // build a list of all image files, and a corrosponding connection map.
+    // local img nr -> global (panorama) img number
+    std::map<int,int> imgMapping;
+    string imgFiles;
+    int imgNr=0;
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    {
+        imgMapping[imgNr] = *it;
+        imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
+        imgNr++;
     }
+
+    autopanoArgs.Replace("%o", "autopano_result.pto");
+    wxString tmp;
+    tmp.Printf("%d", nFeatures);
+    autopanoArgs.Replace("%p", tmp);
+    autopanoArgs.Replace("%i", imgFiles.c_str());
+    wxString cmd;
+    cmd.Printf("%s %s",autopanoExe.c_str(), autopanoArgs.c_str());
+    DEBUG_DEBUG("Executing: " << cmd.c_str());
+    // run autopano in an own output window
+    wxShell(cmd);
+
+    // read and update control points
+    readUpdatedControlPoints("autopano_result.pto", imgMapping, pano);
 }
