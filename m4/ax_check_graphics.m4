@@ -37,8 +37,8 @@ AC_DEFUN([AX_CHECK_ZLIB],
 have_zlib='no'
 LIB_ZLIB=''
 ZLIB_FLAG=''
-dnl PNG requires zlib so enable zlib check if PNG is requested
-if test "$with_zlib" != 'no' || test "$with_png" != 'no'
+dnl PNG and TIFF require zlib so enable zlib check if PNG or TIFF is requested
+if test "$with_zlib" != 'no' || test "$with_png" != 'no' || test "$with_tiff" != 'no' 
 then
   AC_MSG_CHECKING(for ZLIB support )
   AC_MSG_RESULT()
@@ -89,7 +89,7 @@ then
     failed=0;
     passed=0;
     AC_CHECK_HEADER(png.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-    AC_CHECK_LIB(png,png_get_io_ptr,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    AC_CHECK_LIB([png],[png_get_io_ptr],passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz])
     AC_MSG_CHECKING(if PNG package is complete)
     if test $passed -gt 0
     then
@@ -121,7 +121,8 @@ AC_DEFUN([AX_CHECK_JPEG],
 have_jpeg='no'
 LIB_JPEG=''
 JPEG_FLAG=''
-if test "$with_jpeg" != 'no'
+dnl TIFF requires jpeg so enable jpeg check if TIFF is requested
+if test "$with_jpeg" != 'no' || test "$with_tiff" != 'no' 
 then
     AC_MSG_CHECKING(for JPEG support )
     AC_MSG_RESULT()
@@ -196,7 +197,7 @@ then
     passed=0;
     AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
     AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-    AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
 dnl    AC_CHECK_LIB(tiff,TIFFClientOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFIsByteSwapped,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFReadRGBATile,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)

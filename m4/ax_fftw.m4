@@ -1,4 +1,4 @@
-AC_DEFUN(AC_FIND_FILE,
+AC_DEFUN([AC_FIND_FILE],
 [
 $3=NO
 for i in $2;
@@ -14,7 +14,7 @@ done
 ])
 
 
-AC_DEFUN(AC_PATH_FFTW,
+AC_DEFUN([AC_PATH_FFTW],
 [
 LIBFFTW="-lrfftw -lfftw"
 

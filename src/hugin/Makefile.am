@@ -3,7 +3,6 @@ DEFAULT_INCLUDES="-I."
 
 INCLUDES = -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(FFTW_INCLUDES)
 AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS) 
-AM_LDFLAGS = $(WX_LIBS) $(GTK_LIBS) $(FFTW_LDFLAGS) $(LIB_FFTW) $(LIB_PANO)
 
 SUBDIRS = xrc po
 
@@ -16,6 +15,7 @@ hugin_SOURCES  = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.
                  PreviewPanel.cpp ImageCenter.cpp OptimizePanel.cpp RunOptimizerFrame.cpp RunStitcherFrame.cpp CPListFrame.cpp \
                  TextKillFocusHandler.cpp ImageOrientationPanel.cpp ImageOrientationFrame.cpp PanoDruid.cpp \
                  UniversalCursor.cpp CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp
+hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(FFTW_LDFLAGS) $(LIB_FFTW) $(LIB_PANO)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
                  ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
                  ${top_builddir}/src/vigra_ext/libvigra_ext.la libhuginwxutils.la
