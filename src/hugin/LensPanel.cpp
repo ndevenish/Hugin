@@ -547,10 +547,11 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             // set numeric locale to C, for correct number output
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
-            {            
+            {
                 wxFileConfig cfg("hugin lens file","",fname);
                 cfg.Write("Lens/type", (long) lens.projectionFormat);
                 cfg.Write("Lens/hfov", const_map_get(vars,"v").getValue());
+                cfg.Write("Lens/hfov_link", const_map_get(lens.variables,"v").isLinked() ? 1:0);
                 cfg.Write("Lens/crop", lens.getFLFactor());
                 cfg.Write("Lens/a", const_map_get(vars,"a").getValue());
                 cfg.Write("Lens/a_link", const_map_get(lens.variables,"a").isLinked() ? 1:0);
@@ -598,7 +599,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
             // read with with standart C numeric format
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
-            {            
+            {
                 wxFileConfig cfg("hugin lens file","",fname);
                 int integer=0;
                 double d;
@@ -613,25 +614,35 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
                 cfg.Read("Lens/t", &d);map_get(vars,"t").setValue(d);
                 cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
-                
+
+                integer = 1;
+                cfg.Read("Lens/hfov_link", &integer);
+                map_get(lens.variables, "v").setLinked(integer);
+                integer = 1;
                 cfg.Read("Lens/a_link", &integer);
                 map_get(lens.variables, "a").setLinked(integer);
+                integer = 1;
                 cfg.Read("Lens/b_link", &integer);
                 map_get(lens.variables, "b").setLinked(integer);
-                cfg.Read("Lens/c_link", &integer);                
+                integer = 1;
+                cfg.Read("Lens/c_link", &integer);
                 map_get(lens.variables, "c").setLinked(integer);
-                cfg.Read("Lens/d_link", &integer);                
+                integer = 1;
+                cfg.Read("Lens/d_link", &integer);
                 map_get(lens.variables, "d").setLinked(integer);
-                cfg.Read("Lens/e_link", &integer);                
+                integer = 1;
+                cfg.Read("Lens/e_link", &integer);
                 map_get(lens.variables, "e").setLinked(integer);
+                integer = 0;
                 cfg.Read("Lens/t_link", &integer);
                 map_get(lens.variables, "t").setLinked(integer);
+                integer = 0;
                 cfg.Read("Lens/g_link", &integer);
                 map_get(lens.variables, "g").setLinked(integer);
             }
             // reset locale
             setlocale(LC_NUMERIC,old_locale);
-            
+
             GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(pano, lensNr, lens)
                 );
