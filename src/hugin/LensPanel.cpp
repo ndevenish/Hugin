@@ -104,6 +104,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
         images_list );
 //    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
+    // dummy to disable controls
+    wxListEvent ev;
+    ListSelectionChanged(ev);
     DEBUG_TRACE("");;
 }
 
@@ -137,8 +140,13 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 //    edit_Lens->readEXIF(pano.getImage(lensEdit_ReferenceImage).getFilename().c_str());
 
     // update gui
-    XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->SetSelection(
-        lens.projectionFormat  );
+    int guiPF = XRCCTRL(*this, "lens_val_projectionFormat",
+                      wxComboBox)->GetSelection();
+    if (lens.projectionFormat != (Lens::LensProjectionFormat) guiPF) {
+        DEBUG_DEBUG("changing projection format in gui to: " << lens.projectionFormat);
+        XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->SetSelection(
+            lens.projectionFormat  );
+    }
 
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
         // update parameters
@@ -146,7 +154,6 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
             doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
         bool linked = const_map_get(lens.variables, *varname).isLinked();
         XRCCTRL(*this, wxString("lens_inherit_").append(*varname), wxCheckBox)->SetValue(linked);
-
     }
 
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
@@ -181,11 +188,13 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
         // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
         int var = XRCCTRL(*this, "lens_val_projectionFormat",
                           wxComboBox)->GetSelection();
-        lens.projectionFormat = (Lens::LensProjectionFormat) (var);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeLensCmd( pano, m_editLensNr, lens )
-            );
-        DEBUG_INFO ("lens " << m_editLensNr << " Lenstype " << var);
+        if (lens.projectionFormat != (Lens::LensProjectionFormat) var) {
+            lens.projectionFormat = (Lens::LensProjectionFormat) (var);
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::ChangeLensCmd( pano, m_editLensNr, lens )
+                );
+            DEBUG_INFO ("lens " << m_editLensNr << " Lenstype " << var);
+        }
     }
 }
 

@@ -402,5 +402,5 @@ void Server::UpdateStatusBar()
 //  s.Append(_("clients"));
   for (int i (0); i < m_numClients; i++)
     s.Append(_("*"));
-  frame->SetStatusText(s,1);
+  g_MainFrame->SetStatusText(s,1);
 }

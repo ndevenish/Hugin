@@ -65,6 +65,9 @@ public:
 
 private:
 
+    // draw the preview directly onto the canvas
+    void DrawPreview(wxDC & dc);
+        
     // remaps the images, called automatically if autopreview is enabled.
     void updatePreview();
 

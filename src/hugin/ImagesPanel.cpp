@@ -98,8 +98,10 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_TRACE("");
 //    wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
 
-    DEBUG_TRACE("end");
+    wxListEvent ev;
+    ListSelectionChanged(ev);
     pano->addObserver(this);
+    DEBUG_TRACE("end");
 }
 
 

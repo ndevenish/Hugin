@@ -121,6 +121,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_ColorCorrModeChoice);
     m_ColorCorrRefSpin = XRCCTRL(*this, "pano_spin_color_corr_reference",
                                  wxSpinCtrl);
+    m_ColorCorrRefSpin->Disable();
     DEBUG_ASSERT(m_ColorCorrRefSpin);
     m_PreviewWidthCombo = XRCCTRL(*this, "pano_val_preview_width", wxComboBox);
     DEBUG_ASSERT(m_PreviewWidthCombo);
@@ -171,6 +172,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         m_ColorCorrModeChoice->Disable();
         m_PreviewButton->Disable();
         m_StitchButton->Disable();
+        m_ColorCorrRefSpin->Disable();
     } else {
         m_ColorCorrModeChoice->Enable();
         m_PreviewButton->Enable();
@@ -179,16 +181,25 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     int maximg = ((int)nImages) -1;
     // set spinctrl limits
-    m_ColorCorrRefSpin->SetRange(0, maximg);
+    if (opt.colorCorrection != PanoramaOptions::NONE) {
+        m_ColorCorrRefSpin->Enable();
+        m_ColorCorrRefSpin->SetRange(0, maximg);
+    } else {
+        m_ColorCorrRefSpin->Disable();
+    }
     switch (opt.projectionFormat) {
     case PanoramaOptions::RECTILINEAR:
-        m_HFOVSpin->SetRange(0,180);
-        m_VFOVSpin->SetRange(0,180);
+        m_HFOVSpin->SetRange(0,179);
+        m_VFOVSpin->SetRange(0,179);
         break;
     case PanoramaOptions::CYLINDRICAL:
+        m_HFOVSpin->SetRange(0,360);
+        m_VFOVSpin->SetRange(0,179);
+        break;
     case PanoramaOptions::EQUIRECTANGULAR:
         m_HFOVSpin->SetRange(0,360);
         m_VFOVSpin->SetRange(0,180);
+        break;
     }
 
     m_ProjectionChoice->SetSelection(opt.projectionFormat);
@@ -419,6 +430,7 @@ void PanoPanel::DoPreview (wxCommandEvent & e)
 void PanoPanel::FitParent( wxSizeEvent & e )
 {
     DEBUG_TRACE("");
+    Layout();
     wxSize new_size = e.GetSize();
 //    this->SetSize(new_size);
 //    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );

@@ -254,7 +254,14 @@ public:
     /// get variables of an image
     const VariableMap & getImageVariables(unsigned int imgNr) const;
 
-
+    
+    /** return the optimize settings stored inside panorama */
+    const OptimizeVector & getOptimizeVector()
+        { return state.optvec; };
+    
+    /** set optimize setting */
+    void setOptimizeVector(const OptimizeVector & optvec);
+    
     /** get a lens
      */
     const Lens & getLens(unsigned int lensNr) const;
@@ -271,7 +278,7 @@ public:
      *
      *  The panorama center is always at yaw=0, pitch=0.
      *
-     *  @bug doesn't consider roll & lens distortion
+     *  @bug doesn't consider roll & lens distortion, cylindrical & rectilinear
      */
     double calcHFOV() const;
 
@@ -279,7 +286,7 @@ public:
      *
      *  The panorama center is always at yaw=0, pitch=0.
      *
-     *  @bug doesn't consider roll & lens distortion
+     *  @bug doesn't consider roll & lens distortion, cylindrical & rectilinear
      */
     double calcVFOV() const;
 

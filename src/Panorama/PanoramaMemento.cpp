@@ -416,6 +416,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     DEBUG_TRACE("");
     PTParseState state;
     string line;
+
+    bool firstOptVecParse = true;
     unsigned int lineNr = 0;
     while (!i.eof()) {
         std::getline(i, line);
@@ -579,10 +581,28 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             break;
         }
         case 'v':
+	{
             DEBUG_DEBUG("v line: " << line);
-            // FIXME add optimize flags to Panorama and parse them here ??
-            state = P_OPTIMIZE;
+            if (firstOptVecParse) {
+                optvec = OptimizeVector(images.size());
+		firstOptVecParse = false;
+            }
+	    std::stringstream optstream;
+            optstream << line.substr(1);
+            string var;
+            while (!(optstream >> std::ws).eof()) {
+                optstream >> var;
+                if (var.length() < 2) {
+                    DEBUG_ERROR("short option read");
+                    continue;
+                }
+		unsigned int nr = utils::lexical_cast<unsigned int>(var.substr(1));
+		DEBUG_ASSERT(nr < optvec.size());
+		optvec[nr].insert(var.substr(0,1));
+		DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << var[0] << " image:" << nr);
+	    }
             break;
+	}
         case 'c':
         {
             DEBUG_DEBUG("c line: " << line);

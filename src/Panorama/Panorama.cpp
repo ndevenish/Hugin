@@ -178,7 +178,8 @@ Panorama::~Panorama()
 
 void Panorama::reset()
 {
-    imageChanged(0);
+    //
+    // imageChanged(0);
     // delete all images and control points.
     state.ctrlPoints.clear();
     state.lenses.clear();
@@ -375,6 +376,13 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
     }
     imageChanged(imgNr);
 }
+
+void Panorama::setOptimizeVector(const OptimizeVector & optvec)
+{
+    DEBUG_ASSERT(optvec.size() == state.images.size());
+    state.optvec = optvec;
+}
+
 
 unsigned int Panorama::addImage(const PanoImage &img, const VariableMap & vars)
 {

@@ -52,6 +52,7 @@
 #include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
 
+#include "hugin/huginApp.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
@@ -114,14 +115,19 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
 
+    wxPoint tabsz(1,14);
+    tabsz = ConvertDialogToPixels(tabsz); 
+    int tabH = tabsz.y;
     // left image
     m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
+    m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
     m_leftImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
 
     // right image
     m_rightTabs = XRCCTRL(*this, "cp_editor_right_tab", wxNotebook);
+    m_rightTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
@@ -146,9 +152,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     // observe the panorama
     m_pano->addObserver(this);
-
-    // load our settings from the configuration
-
 }
 
 
@@ -369,6 +372,7 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
             int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
             int swidth = (int) (width * templSearchAreaPercent / 200);
             m_rightImg->showSearchArea(swidth);
+            g_MainFrame->SetStatusText("Select Point in right image",0);
         }
     case FIRST_POINT:
         newPoint = p;
@@ -378,6 +382,7 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
     case SECOND_POINT:
         FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
+            g_MainFrame->SetStatusText("searching similar point...",0);
             double xcorr = PointFineTune(m_rightImageNr,
                                          Diff2D(newPoint.x, newPoint.y),
                                          m_leftImageNr,
@@ -391,6 +396,7 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
                 m_leftImg->clearNewPoint();
                 return;
             }
+            g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
         } else {
             p2.x = p.x;
             p2.y = p.y;
@@ -426,6 +432,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
             int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
             int swidth = (int) (width * templSearchAreaPercent / 200);
             m_leftImg->showSearchArea(swidth);
+            g_MainFrame->SetStatusText("Select Point in right image",0);
         }
     case SECOND_POINT:
         newPoint = p;
@@ -435,6 +442,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
     case FIRST_POINT:
         FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
+            g_MainFrame->SetStatusText("searching similar point...",0);
             double xcorr = PointFineTune(m_leftImageNr,
                                          Diff2D(newPoint.x,newPoint.y),
                                          m_rightImageNr,
@@ -448,6 +456,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
                 m_rightImg->clearNewPoint();
                 return;
             }
+            g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
         } else {
             p2.x = p.x;
             p2.y = p.y;
@@ -470,7 +479,6 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
 
     }
 }
-
 
 bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
                                  unsigned int dstImgNr,
@@ -760,7 +768,7 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format("%.1f",p.error));
     }
-    if ( selectedCP <= m_cpList->GetItemCount() ) // sets an old selection again
+    if ( selectedCP < m_cpList->GetItemCount() ) // sets an old selection again
         m_cpList->SetItemState( selectedCP,
                                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe

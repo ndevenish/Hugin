@@ -73,6 +73,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_new_project"),  MainFrame::OnNewProject)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
+    EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
@@ -100,7 +101,8 @@ END_EVENT_TABLE()
 //wxBitmap *p_img = (wxBitmap *) NULL;
 //WX_DEFINE_ARRAY()
 
-MainFrame::MainFrame(wxWindow* parent)
+MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
+    : pano(pano)
 {
     DEBUG_TRACE("");
     // load our children. some children might need special
@@ -254,14 +256,32 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
 void MainFrame::OnExit(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    ImageCache::getInstance().flush();
     // FIXME ask to save is panorama if unsaved changes exist
     //Close(TRUE);
     this->Destroy();
     DEBUG_TRACE("");
 }
 
-
 void MainFrame::OnSaveProject(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    if (m_filename == "") {
+        OnSaveProjectAs(e);
+    } else {
+        wxFileName scriptName = m_filename;
+        std::string path(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
+        DEBUG_DEBUG("stripping " << path << " from image filenames");
+        std::ofstream script(scriptName.GetFullPath());
+        // read optimize vector from OptimizeFrame
+        PT::OptimizeVector optvec = opt_frame->getOptimizeVector();
+        pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
+        script.close();
+    }
+    SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
+}
+
+void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxFileDialog dlg(this,_("Save project file"),
@@ -271,22 +291,27 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
         wxFileName scriptName = dlg.GetPath();
+        m_filename = dlg.GetPath();
         std::string path(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath());
-        int nImages = pano.getNrOfImages();
         // create fake optimize settings
-        PT::OptimizeVector optvec(nImages);
+        PT::OptimizeVector optvec = opt_frame->getOptimizeVector();
         pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
         script.close();
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
     }
+    SetStatusText(wxString::Format(_("saved project %s"),m_filename.c_str()),0);
 }
 
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+
+    // remove old images from cache
+    ImageCache::getInstance().flush();
+
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
@@ -296,6 +321,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxFileName scriptName = dlg.GetPath();
+        m_filename = dlg.GetPath();
         std::string prefix(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
         wxString filename = dlg.GetPath();
         SetStatusText( _("Open project:   ") + filename);
@@ -307,6 +333,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                 new LoadPTProjectCmd(pano,file, prefix)
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
+	    opt_frame->setOptimizeVector(pano.getOptimizeVector());
         } else {
             DEBUG_ERROR("Could not open file " << filename);
         }
@@ -319,8 +346,10 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
 {
+    m_filename = "";
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
-    ImageCache::getInstance().clear();
+    // remove old images from cache
+    ImageCache::getInstance().flush();
 }
 
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )

@@ -45,8 +45,7 @@
 #include "hugin/PanoPanel.h"
 
 
-MainFrame * frame;
-extern PanoPanel *pano_panel;
+MainFrame * g_MainFrame;
 Server * server;
 
 // make wxwindows use this class as the main application
@@ -160,7 +159,8 @@ bool huginApp::OnInit()
     server = new Server();
 
     // create main frame
-    frame = new MainFrame();
+    frame = new MainFrame(NULL, pano);
+    g_MainFrame = frame;
     SetTopWindow(frame);
 
 
@@ -211,4 +211,10 @@ bool huginApp::OnInit()
 
     DEBUG_TRACE("");
     return true;
+}
+
+int huginApp::OnExit()
+{
+    DEBUG_TRACE("");
+    return wxApp::OnExit();
 }

@@ -40,11 +40,22 @@ public:
 
     /** receives notification about panorama changes */
     virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    
+    /** return currently selected OptimizeVector
+     *
+     *  @return OptimizeVector that contains the settings from
+     *          the GUI
+     */
+    PT::OptimizeVector getOptimizeVector();
+
+    /** updates the display to fit the settings in optimize vector */
+    void setOptimizeVector(const PT::OptimizeVector & optvec);
+
 protected:
     void OnOptimizeButton(wxCommandEvent & e);
 
     void OnClose(wxCloseEvent& e);
-    
+
     // shortcuts to check/uncheck
     void OnSelYaw(wxCommandEvent & e)
         { SetCheckMark(m_yaw_list,true); }
@@ -67,12 +78,6 @@ protected:
     void SetCheckMark(wxCheckListBox * l, int check);
 
 
-    /** return currently selected OptimizeVector
-     *
-     *  @return OptimizeVector that contains the settings from
-     *          the GUI
-     */
-    PT::OptimizeVector getOptimizeSettings();
 
 
     void runOptimizer(const PT::OptimizeVector & optvars, const PT::PanoramaOptions & options);

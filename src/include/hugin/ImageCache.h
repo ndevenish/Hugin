@@ -215,10 +215,6 @@ public:
     /** dtor.
      */
     virtual ~ImageCache();
-    
-    /** clear all images in the cache */
-    void clear()
-        { images.clear(); }
 
     /** get the global ImageCache object */
     static ImageCache & getInstance();
@@ -241,6 +237,14 @@ public:
      *  @todo avoid smaller images as original
      */
     ImagePtr getImageSmall(const std::string & filename);
+    
+    /** release all images in the cache.
+     *
+     *  useful on project load, or maybe before stitching really
+     *  big pictures
+     */
+    void ImageCache::flush();
+    
 
     /** get a pyramid image.
      *

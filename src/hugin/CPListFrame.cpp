@@ -75,7 +75,7 @@ END_EVENT_TABLE()
 
 
 CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
-    : m_mainFrame(parent), m_pano(pano)
+    : m_mainFrame(parent), m_pano(pano),m_verbose(false)
 {
     DEBUG_TRACE("");
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("cp_list_frame"));
@@ -84,7 +84,7 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     DEBUG_ASSERT(m_list);
 
     wxConfigBase * config = wxConfigBase::Get();
-    m_verbose = config->Read("/CPListFrame/verbose",0l) != 0;
+    m_verbose = (config->Read("/CPListFrame/verbose",0l) != 0);
 
     if (m_verbose) {
         // setup list display
@@ -114,16 +114,19 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     m_list->Show();
     // observe the panorama
     m_pano.addObserver(this);
+    DEBUG_TRACE("ctor end");
 }
 
 CPListFrame::~CPListFrame()
 {
-    DEBUG_TRACE("dtor writing config");
+    DEBUG_TRACE("dtor");
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
     config->Write("/CPListFrame/width",sz.GetWidth());
-    config->Write("/CPListFrame/height",sz.GetWidth());
+    config->Write("/CPListFrame/height",sz.GetHeight());
+    config->Flush();
     m_pano.removeObserver(this);
+    DEBUG_TRACE("dtor end");
 }
 
 void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr)
@@ -150,9 +153,11 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
                 m_list->InsertItem(i, wxString::Format("%d",i));
             }
             SetCPItem(i,p);
+            m_list->SetItemData(i,i);
         }
         // force a nice size
-        for (int col=0; col < 9 ; col++) {
+        int nrCol = m_verbose ? 9 : 5;
+        for (int col=0; col < nrCol ; col++) {
             m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
         }
     }
@@ -161,6 +166,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 
 void CPListFrame::SetCPItem(int i, const ControlPoint & p)
 {
+    DEBUG_ASSERT(i < m_list->GetItemCount());
     wxString mode;
     switch (p.mode) {
     case ControlPoint::X_Y:
@@ -217,30 +223,31 @@ void CPListFrame::OnCPListHeaderClick(wxListEvent & e)
         cpv[i] = make_pair(i,cps[i]);
     }
     int col = e.GetColumn();
-    DEBUG_TRACE("sorting column " << col);
-    switch (col) {
-    case 1:
-        sort(cpv.begin(),cpv.end(), compareImg1Nr());
-        break;
-    case 4:
-        sort(cpv.begin(),cpv.end(), compareImg2Nr());
-        break;
-    case 7:
-        sort(cpv.begin(),cpv.end(), compareMode());
-    case 8:
-        sort(cpv.begin(),cpv.end(), compareError());
-    default:
-        // no sorting.
-        break;
+    int colLeftImg = 1;
+    int colRightImg = 4;
+    int colMode = 7;
+    int colError = 8;
+    
+    if (!m_verbose) {
+        colRightImg = 2;
+        colMode = 3;
+        colError = 4;
     }
-    // insert the sorted data
-
+                      
+    DEBUG_TRACE("sorting column " << col);
+    if (col == colLeftImg) {
+        sort(cpv.begin(),cpv.end(), compareImg1Nr());
+    } else if (col == colRightImg) {
+        sort(cpv.begin(),cpv.end(), compareImg2Nr());
+    } else if (col == colMode) {
+        sort(cpv.begin(),cpv.end(), compareMode());
+    } else if (col == colError) {
+            sort(cpv.begin(),cpv.end(), compareError());
+    }
+        
     for (int i=0; i < (int) nrCP; i++) {
-        const ControlPoint & p = cpv[i].second;
-        // create item
-//        m_list->InsertItem(i, "");
+        SetCPItem(i,cpv[i].second);
         m_list->SetItemData(i, cpv[i].first);
-        SetCPItem(i,p);
     }
 }
 
@@ -254,6 +261,7 @@ void CPListFrame::OnClose(wxCloseEvent& event)
         DEBUG_DEBUG("hiding");
     } else {
         DEBUG_DEBUG("closing");
+        Destroy();
     }
 }
 

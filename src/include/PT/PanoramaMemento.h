@@ -445,6 +445,8 @@ private:
     // FIXME support lenses
     std::vector<Lens> lenses;
     PanoramaOptions options;
+    
+    OptimizeVector optvec;
 
 };
 

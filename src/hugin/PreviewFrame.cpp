@@ -126,7 +126,7 @@ PreviewFrame::~PreviewFrame()
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
     config->Write("/PreviewFrame/width",sz.GetWidth());
-    config->Write("/PreviewFrame/height",sz.GetWidth());
+    config->Write("/PreviewFrame/height",sz.GetHeight());
     config->Write("/PreviewFrame/autoUpdate", (m_autoCB->IsChecked() ? 1l: 0l));
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -210,6 +210,7 @@ void PreviewFrame::OnClose(wxCloseEvent& event)
         DEBUG_DEBUG("hiding");
     } else {
         DEBUG_DEBUG("closing");
+        this->Destroy();
     }
 }
 

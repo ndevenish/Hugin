@@ -110,7 +110,7 @@ OptimizeFrame::~OptimizeFrame()
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
     config->Write("/OptimizerFrame/width",sz.GetWidth());
-    config->Write("/OptimizerFrame/height",sz.GetWidth());
+    config->Write("/OptimizerFrame/height",sz.GetHeight());
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -121,7 +121,7 @@ void OptimizeFrame::OnOptimizeButton(wxCommandEvent & e)
     // run optimizer
     // take the OptimizeVector from somewhere...
 
-    OptimizeVector optvars = getOptimizeSettings();
+    OptimizeVector optvars = getOptimizeVector();
     PanoramaOptions opts;
     runOptimizer(optvars, opts);
 }
@@ -158,7 +158,7 @@ void OptimizeFrame::SetCheckMark(wxCheckListBox * l, int check)
 }
 
 
-OptimizeVector OptimizeFrame::getOptimizeSettings()
+OptimizeVector OptimizeFrame::getOptimizeVector()
 {
 
     int nrLI = m_yaw_list->GetCount();
@@ -254,6 +254,52 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
     }
 }
 
+void OptimizeFrame::setOptimizeVector(const OptimizeVector & optvec)
+{
+    DEBUG_ASSERT((int)optvec.size() == m_yaw_list->GetCount());
+
+    for (int i=0; i <6; i++) {
+	m_lens_list->Check(i,false);
+    }
+    
+    unsigned int nImages = optvec.size();
+    for (unsigned int i=0; i < nImages; i++) {
+	m_yaw_list->Check(i,false);
+	m_pitch_list->Check(i,false);
+	m_roll_list->Check(i,false);
+        for(set<string>::const_iterator it = optvec[i].begin();
+	    it != optvec[i].end(); ++it)
+	{
+	    if (*it == "y") {
+	        m_yaw_list->Check(i);
+	    }
+	    if (*it == "p") {
+	        m_pitch_list->Check(i);
+	    }
+	    if (*it == "r") {
+	        m_roll_list->Check(i);
+	    }
+	    if (*it == "v") {
+	        m_lens_list->Check(0);
+	    }
+	    if (*it == "a") {
+	        m_lens_list->Check(1);
+	    }
+	    if (*it == "b") {
+	        m_lens_list->Check(2);
+	    }
+	    if (*it == "c") {
+	        m_lens_list->Check(3);
+	    }
+	    if (*it == "d") {
+	        m_lens_list->Check(4);
+	    }
+	    if (*it == "e") {
+	        m_lens_list->Check(5);
+	    }
+	}
+    }
+}
 
 void OptimizeFrame::runOptimizer(const OptimizeVector & optvars, const PanoramaOptions & options)
 {
@@ -274,5 +320,6 @@ void OptimizeFrame::OnClose(wxCloseEvent& event)
         DEBUG_DEBUG("Hiding");
     } else {
         DEBUG_DEBUG("Closing");
+        Destroy();
     }
 }

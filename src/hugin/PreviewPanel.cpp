@@ -86,6 +86,7 @@ PreviewPanel::~PreviewPanel()
     {
         delete *it;
     }
+    pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
 
@@ -150,7 +151,6 @@ void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
 {
     m_displayedImages = imgs;
     updatePreview();
-    Refresh(false);
 }
 
 void PreviewPanel::ForceUpdate()
@@ -210,18 +210,19 @@ void PreviewPanel::updatePreview()
             ++it;
         }
     }
-    if (dirty) {
-        Refresh();
-    }
+//    if (dirty) {
+    // always redraw
+    wxClientDC dc(this);
+    DrawPreview(dc);
+//    }
 }
 
-void PreviewPanel::OnDraw(wxPaintEvent & event)
+void PreviewPanel::DrawPreview(wxDC & dc)
 {
-    wxClientDC dc(this);
-
     if (!IsShown()){
         return;
     }
+    DEBUG_TRACE("");
 
     int offsetX = 0;
     int offsetY = 0;
@@ -234,7 +235,14 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
         offsetY = (sz.GetHeight() - m_panoImgSize.GetHeight()) / 2;
     }
 
-    DEBUG_TRACE("redrawing preview Panel");
+    dc.SetPen(wxPen(GetBackgroundColour(),1,wxSOLID));
+    dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+    dc.DrawRectangle(0, 0, offsetX, sz.GetHeight());
+    dc.DrawRectangle(offsetX, 0, sz.GetWidth(), offsetY);
+    dc.DrawRectangle(offsetX, sz.GetHeight() - offsetY,
+                     sz.GetWidth(), sz.GetHeight());
+    dc.DrawRectangle(sz.GetWidth() - offsetX, offsetY,
+                     sz.GetWidth(), sz.GetHeight() - offsetY);
 
     dc.SetPen(wxPen("BLACK",1,wxSOLID));
     dc.SetBrush(wxBrush("BLACK",wxSOLID));
@@ -265,6 +273,12 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
                 offsetX + w, offsetY+ h/2);
 }
 
+void PreviewPanel::OnDraw(wxPaintEvent & event)
+{
+    wxPaintDC dc(this);
+    DrawPreview(dc);
+}
+
 void PreviewPanel::OnResize(wxSizeEvent & e)
 {
     DEBUG_TRACE("");
@@ -280,178 +294,4 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 {
     DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
 }
-#if 0
 
-// Yaw by slider -> int -> double  -- roughly
-void ImagesPanel::SetYaw ( wxCommandEvent & e )
-{
-    if ( images_list->GetSelected().size() > 0 ) {
-        int var = XRCCTRL(*this, "images_slider_yaw", wxSlider) ->GetValue();
-        DEBUG_INFO ("yaw = " << var );
-
-        char text[16];
-        sprintf( text, "%d ", var );
-        XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel(text);
-        XRCCTRL(*this,"images_text_yaw",wxTextCtrl)->SetValue( doubleToString (
-                                              (double) var ).c_str() );
-
-        ChangePano ( "y" , (double) var );
-
-    }
-    //DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
-}
-void ImagesPanel::SetPitch ( wxCommandEvent & e )
-{
-    if ( images_list->GetSelected().size() > 0 ) {
-      int var = XRCCTRL(*this,"images_slider_pitch",wxSlider) ->GetValue() * -1;
-      DEBUG_INFO ("pitch = " << var )
-
-      char text[16];
-      sprintf( text, "%d", var );
-      XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel(text);
-
-      ChangePano ( "p" , (double) var );
-
-      XRCCTRL(*this,"images_text_pitch",wxTextCtrl)->SetValue( doubleToString (
-                                              (double) var ).c_str() );
-    }
-//    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
-}
-void ImagesPanel::SetRoll ( wxCommandEvent & e )
-{
-    if ( images_list->GetSelected().size() > 0 ) {
-      int var = XRCCTRL(*this, "images_slider_roll", wxSlider) ->GetValue();
-      DEBUG_INFO ("roll = " << var )
-
-      char text[16];
-      sprintf( text, "%d", var );
-      XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel(text);
-
-      ChangePano ( "r" , (double) var );
-
-      XRCCTRL(*this, "images_text_roll", wxTextCtrl)->SetValue( doubleToString (
-                                              (double) var ).c_str() );
-    }
-//    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
-}
-
-
-void ImagesPanel::SetYawPitch ( double coord_x, double coord_y ) {
-    wxCommandEvent e;
-    SetYaw (e);
-    SetPitch (e);
-}
-
-#endif
-
-
-#if 0
-
-BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
-    EVT_MOUSE_EVENTS ( ImgPreview::OnMouse )
-    EVT_PAINT ( CenterCanvas::OnDraw )
-END_EVENT_TABLE()
-
-// Define a constructor for my canvas
-ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano)
-  : wxScrolledWindow(parent, -1, pos, size),
-    pano(*pano)
-{
-    DEBUG_TRACE("");
-}
-
-ImgPreview::~ImgPreview(void)
-{
-    DEBUG_TRACE("");
-}
-
-// Define the repainting behaviour
-void ImgPreview::OnDraw(wxDC & dc)
-{
-  if ( p_img && p_img->Ok() )
-  {
-    wxMemoryDC memDC;
-    memDC.SelectObject(* p_img);
-
-    // Transparent blitting if there's a mask in the bitmap
-    dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
-      0, 0, wxCOPY, TRUE);
-
-    memDC.SelectObject(wxNullBitmap);
-  }
-}
-
-void ImgPreview::ChangePreview ( wxImage & s_img )
-{
-          // right image preview
-          wxImage r_img;
-
-          int new_width;
-          int new_height;
-          if ( ((float)s_img.GetWidth() / (float)s_img.GetHeight())
-                > 2.0 ) {
-            new_width =  256;
-            new_height = (int)((float)s_img.GetHeight()/
-                                        (float)s_img.GetWidth()*256.0);
-          } else {
-            new_width = (int)((float)s_img.GetWidth()/
-                                        (float)s_img.GetHeight()*128.0);
-            new_height = 128;
-          }
-
-          r_img = s_img.Scale( new_width, new_height );
-          delete p_img;
-          p_img = new wxBitmap( r_img.ConvertToBitmap() );
-          Refresh();
-}
-
-
-void ImgPreview::OnMouse ( wxMouseEvent & e )
-{
-    double coord_x = (double)e.m_x / 256.0 *  360.0 - 180.0;
-    double coord_y = (double)e.m_y / 128.0 * -180.0 +  90.0;
-
-    frame->SetStatusText(wxString::Format("%d°,%d°",
-              (int)coord_x,
-              (int)coord_y ), 1);
-
-    // mouse yaw and pitch -> sliders
-    if ( e.m_shiftDown || (e.m_shiftDown && e.m_controlDown)
-           || (!e.m_shiftDown && !e.m_controlDown))
-      XRCCTRL(*images_panel,"images_slider_pitch",wxSlider)
-                                       ->SetValue((int) -coord_y);
-    if ( e.m_controlDown || (e.m_shiftDown && e.m_controlDown)
-           || (!e.m_shiftDown && !e.m_controlDown))
-      XRCCTRL(*images_panel,"images_slider_yaw", wxSlider)
-                                       ->SetValue((int) coord_x);
-
-    wxCommandEvent event;
-    // mouse yaw and pitch -> pano
-    if ( e.m_leftDown ) {
-      if ( (!e.m_shiftDown && !e.m_controlDown) || (e.m_shiftDown && e.m_controlDown) ) {
-        images_panel->SetYawPitch( coord_x, coord_y );
-      } else {
-        if ( e.m_shiftDown ) {
-          images_panel->SetPitch (event);
-        }
-        if ( e.m_controlDown ) {
-          images_panel->SetYaw (event);
-        }
-      }
-    }
-    // pano yaw and pitch -> sliders
-    if ((images_panel->imgNr[0] >= 1)) {
-      if (e.Leaving() || (e.m_controlDown
-           && !(e.m_shiftDown && e.m_controlDown)))
-        XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue( -1 *
-             (int) pano.getVariable(images_panel->imgNr[1]) .pitch .getValue());
-      if (e.Leaving() || (e.m_shiftDown
-            && !(e.m_shiftDown && e.m_controlDown)))
-        XRCCTRL(*images_panel,"images_slider_yaw",wxSlider) ->SetValue(
-             (int) pano.getVariable(images_panel->imgNr[1]) .yaw .getValue());
-    }
-
-//    DEBUG_INFO ( "Mouse " << e.Entering() << e.Leaving());
-}
-
-#endif

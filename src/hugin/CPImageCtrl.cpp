@@ -428,11 +428,12 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
         // we can always select a new point
         if (clickState == KNOWN_POINT_SELECTED) {
             DEBUG_DEBUG("click on point: " << selPointNr);
+            selectedPointNr = selPointNr;
+            point = points[selectedPointNr];
+            editState = clickState;
             if (selectedPointNr != selPointNr) {
-                selectedPointNr = selPointNr;
-                point = points[selectedPointNr];
-                editState = clickState;
-                // FIXME emit(pointSelected(selectedPointNr));
+                CPEvent e( this, selectedPointNr);
+                emit(e);
             }
         } else if (clickState == NEW_POINT_SELECTED) {
             DEBUG_DEBUG("click on new space, select region/new point");

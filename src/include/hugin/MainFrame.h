@@ -60,7 +60,7 @@ public:
 
     /** ctor.
      */
-    MainFrame(wxWindow* parent=(wxWindow *)NULL);
+    MainFrame(wxWindow* parent, PT::Panorama & pano);
 
     /** dtor.
      */
@@ -98,6 +98,7 @@ private:
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
+    void OnSaveProjectAs(wxCommandEvent & e);
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
@@ -120,11 +121,14 @@ private:
     PreviewFrame * preview_frame;
     CPListFrame * cp_frame;
 
-    // the model
-    Panorama pano;
-
     // Image Preview
     ImgPreview *canvas;
+
+    // the model
+    PT::Panorama & pano;
+
+    // filename of the current project
+    wxString m_filename;
 
     // self
     MainFrame* GetFrame(void);
