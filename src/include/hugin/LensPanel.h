@@ -83,9 +83,11 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
 
     /** Here we update the Lens values in the gui
      */
-    void LensChanged ( wxListEvent & e );
+    void update_edit_LensGui ( int lens );
 
     // event handlers
+    /**  selected a lens as edit_Lens */
+    void LensSelected (wxCommandEvent & e);
     /**  selfexplaining */
     void LensTypeChanged (wxCommandEvent & e);
     /**  selfexplaining */
@@ -108,8 +110,7 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     Panorama &pano;
 
     // the Lens actually selected
-    int lens;
-    int lensEdit_RefImg;
+    int lensEditRef_lensNr;
 
     /** event -> pano
      *

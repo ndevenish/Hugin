@@ -388,7 +388,7 @@ msgstr "Objektivart"
 
 #: ../ptopengui.cpp:473
 msgid "Lens type:"
-msgstr "Objektivart"
+msgstr "Objektivart:"
 
 #: ../ptopengui.cpp:478
 msgid "Normal (rectlinear)"
@@ -441,6 +441,14 @@ msgid "Degrees"
 msgstr "Grad"
 msgid "Lens degrees"
 msgstr "Objektivwinkel"
+
+#: ../ptopengui.cpp:523
+msgid "lens"
+msgstr "Objektiv"
+
+#: ../ptopengui.cpp:523
+msgid "Lens No. :"
+msgstr "Objektiv Nr. :"
 
 #: ../ptopengui.cpp:510
 msgid "Set lens type calculation method"

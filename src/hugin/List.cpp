@@ -116,6 +116,7 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 40 );
       InsertColumn( 9, _("optimize"), wxLIST_FORMAT_RIGHT, 80 );
+      InsertColumn( 10, _("lens"), wxLIST_FORMAT_RIGHT, 80 );
       DEBUG_INFO( " else _layout" )
     }
 
@@ -306,6 +307,8 @@ void List::fillRow (unsigned int imageNr)
           else
             number << "-";
           SetItem ( imageNr, 9, ITEM_OUT );
+          ITEM_TEXT( pano.getImage(imageNr).getLens() )
+          SetItem ( imageNr, 10, ITEM_OUT );
           for ( int j=0; j< GetColumnCount() ; j++ ) {
             SetColumnWidth(j, wxLIST_AUTOSIZE);
             if ( GetColumnWidth(j) < 40 )

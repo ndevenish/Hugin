@@ -168,6 +168,66 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 
     // Is something gone or more here? 
     if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
+      imgNr[0] = 0;
+
+      img_icons->RemoveAll();
+      img_bicons->RemoveAll();
+    DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+    // start the loop for every selected filename
+      for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
+        wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
+
+//        wxImage * img = ImageCache::getInstance().getImage(
+//            pano.getImage(i).getFilename());
+
+        // preview selected images
+        wxImage * s_img = ImageCache::getInstance().getImageSmall(
+            pano.getImage(i).getFilename());
+
+        // right image preview
+        wxImage r_img;
+        // left list control big icon
+        wxImage b_img;
+        // left list control icon
+        wxImage i_img;
+        if ( s_img->GetHeight() > s_img->GetWidth() ) {
+          r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
+                                      (float)s_img->GetHeight()*128.0),
+                                128);
+          b_img = s_img->Scale( (int)((float)s_img->GetWidth()/
+                                      (float)s_img->GetHeight()*64.0),
+                                64);
+          i_img = s_img->Scale( (int)((float)s_img->GetWidth()/
+                                      (float)s_img->GetHeight()*20.0),
+                                20);
+        } else {
+          r_img = s_img->Scale( 128, 
+                                (int)((float)s_img->GetHeight()/
+                                      (float)s_img->GetWidth()*128.0));
+          b_img = r_img.Scale( 64,
+                                (int)((float)r_img.GetHeight()/
+                                      (float)r_img.GetWidth()*64.0));
+          i_img = r_img.Scale( 20,
+                                (int)((float)r_img.GetHeight()/
+                                      (float)r_img.GetWidth()*20.0));
+
+        }
+        delete p_img;
+        p_img = new wxBitmap( r_img.ConvertToBitmap() );
+        canvas->Refresh();
+
+        img_icons->Add( i_img.ConvertToBitmap() );
+        img_bicons->Add( r_img.ConvertToBitmap() );
+        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+
+      }
+
+      if ( pano.getNrOfImages() == 0 ) {
+        delete p_img;
+        p_img = new wxBitmap(0,0);
+      }
+      canvas->Refresh();
+
       wxListEvent e;
       SetImages( e );  // refresh the list settings of this class
     }
@@ -439,66 +499,6 @@ void ImagesPanel::SetImages ( wxListEvent & e )
                  SetRange( 0 , (int) pano.getNrOfImages() - 1);
       XRCCTRL(*this,"images_spin_roll",wxSpinCtrl)-> 
                  SetRange( 0 , (int) pano.getNrOfImages() - 1);
-
-      imgNr[0] = 0;
-
-      img_icons->RemoveAll();
-      img_bicons->RemoveAll();
-    DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
-    // start the loop for every selected filename
-      for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
-        wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
-
-//        wxImage * img = ImageCache::getInstance().getImage(
-//            pano.getImage(i).getFilename());
-
-        // preview selected images
-        wxImage * s_img = ImageCache::getInstance().getImageSmall(
-            pano.getImage(i).getFilename());
-
-        // right image preview
-        wxImage r_img;
-        // left list control big icon
-        wxImage b_img;
-        // left list control icon
-        wxImage i_img;
-        if ( s_img->GetHeight() > s_img->GetWidth() ) {
-          r_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*128.0),
-                                128);
-          b_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*64.0),
-                                64);
-          i_img = s_img->Scale( (int)((float)s_img->GetWidth()/
-                                      (float)s_img->GetHeight()*20.0),
-                                20);
-        } else {
-          r_img = s_img->Scale( 128, 
-                                (int)((float)s_img->GetHeight()/
-                                      (float)s_img->GetWidth()*128.0));
-          b_img = r_img.Scale( 64,
-                                (int)((float)r_img.GetHeight()/
-                                      (float)r_img.GetWidth()*64.0));
-          i_img = r_img.Scale( 20,
-                                (int)((float)r_img.GetHeight()/
-                                      (float)r_img.GetWidth()*20.0));
-
-        }
-        delete p_img;
-        p_img = new wxBitmap( r_img.ConvertToBitmap() );
-        canvas->Refresh();
-
-        img_icons->Add( i_img.ConvertToBitmap() );
-        img_bicons->Add( r_img.ConvertToBitmap() );
-        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
-
-      }
-
-      if ( pano.getNrOfImages() == 0 ) {
-        delete p_img;
-        p_img = new wxBitmap(0,0);
-      }
-      canvas->Refresh();
 
 
 

@@ -5,7 +5,48 @@
     <object class="wxFlexGridSizer">
       <cols>1</cols>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
+        <object class="wxFlexGridSizer">
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Lens No. :</label>
+            </object>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="lens_val_number">
+              <label>-</label>
+            </object>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxComboBox" name="lens_combobox_number">
+              <content/>
+              <selection>0</selection>
+              <size>80,25</size>
+              <style></style>
+            </object>
+            <flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_RIGHT</flag>
+            <border>5</border>
+          </object>
+          <cols>4</cols>
+          <rows>0</rows>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="lens_cb_apply">
+              <label>apply selected lens</label>
+            </object>
+            <flag>wxTOP|wxBOTTOM|wxLEFT|wxRIGHT</flag>
+            <border>5</border>
+          </object>
+          <growablecols>2</growablecols>
+          <growablerows>0</growablerows>
+        </object>
+        <flag>wxLEFT|wxEXPAND|wxGROW</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
@@ -13,7 +54,7 @@
               <style>wxALIGN_LEFT</style>
             </object>
             <flag>wxALL|wxALIGN_CENTRE</flag>
-            <minsize>85,20</minsize>
+            <minsize>80,20</minsize>
           </object>
           <object class="sizeritem">
             <object class="wxComboBox" name="lens_type_combobox">
@@ -30,6 +71,7 @@
             <flag>wxEXPAND</flag>
             <minsize>150,25</minsize>
           </object>
+          <label></label>
         </object>
         <flag>wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
         <border>5</border>
@@ -354,10 +396,6 @@
         </object>
         <flag>wxEXPAND|wxGROW</flag>
       </object>
-      <growablerows>0</growablerows>
-      <growablerows>1</growablerows>
-      <growablecols>0</growablecols>
-      <growablecols>1</growablecols>
     </object>
   </object>
 </resource>
