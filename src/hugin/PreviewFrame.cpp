@@ -71,7 +71,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
-    : wxFrame(frame,-1, _("panorama preview"),
+    : wxFrame(frame,-1, _("Panorama preview"),
               wxDefaultPosition, wxDefaultSize, 
               wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION),
       m_pano(pano)
