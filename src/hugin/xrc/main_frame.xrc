@@ -19,33 +19,19 @@
           <usenotebooksizer>1</usenotebooksizer>
           <object class="notebookpage">
             <label>Images</label>
-            <object class="wxPanel" name="images_panel_top">
-              <style>wxTAB_TRAVERSAL</style>
-              <object class="wxGridSizer">
-                <object class="sizeritem">
-                  <object class="unknown" name="images_panel_unknown"/>
-                  <flag>wxEXPAND|wxGROW|wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
-                </object>
-                <cols>1</cols>
-                <rows>2</rows>
-              </object>
-            </object>
+            <object class="unknown" name="images_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Lens settings</label>
             <object class="unknown" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Panorama settings</label>
-            <object class="unknown" name="panorama_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
             <label>Control points</label>
             <object class="unknown" name="cp_editor_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Optimize</label>
-            <object class="wxPanel"/>
+            <label>Panorama settings</label>
+            <object class="unknown" name="panorama_panel_unknown"/>
           </object>
         </object>
         <minsize>600,490</minsize>

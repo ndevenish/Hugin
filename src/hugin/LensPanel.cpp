@@ -76,12 +76,12 @@ END_EVENT_TABLE()
 // The lens of the pano for reading - the local edit_Lens is for writing.
 #define EDIT_LENS pano.getLens (lensEditRef_lensNr)
 
-#define SET_WXTEXTCTRL_TEXT( xrc_name , lens, variable_name )                  \
+#define SET_WXTEXTCTRL_TEXT( xrc_name , variable )                  \
 {                                                                              \
     std::string number;                                                        \
-    if ( ( wxString::Format ("%f", pano.getLens(lens).variable_name)\
-           != "nan" ) &&  ( pano.getLens(lens).variable_name != 0.0 ) ) {      \
-      number = doubleToString ( pano.getLens(lens).variable_name ); \
+    if ( ( wxString::Format ("%f", variable)\
+           != "nan" ) &&  ( variable != 0.0 ) ) {      \
+      number = doubleToString ( variable ); \
       XRCCTRL(*this, xrc_name, wxTextCtrl)->SetValue( number.c_str() );        \
     } else {                                                                   \
       XRCCTRL(*this, xrc_name, wxTextCtrl)->SetValue( "" ) ;                   \
@@ -136,7 +136,7 @@ void LensPanel::LensChanged ( wxListEvent & e )
     DEBUG_TRACE("");
 
     lens_edit->SetImages ( e );
-//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", lensEdit_RefImg) );
+//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", lensEdit_ReferenceImage) );
 }
 
 //------------------------------------------------------------------------------
@@ -225,35 +225,41 @@ void LensEdit::update_edit_LensGui ( int lens )
     DEBUG_TRACE("");
       lensEditRef_lensNr = lens;
 
-      // Now create an new reference lens from the lensEdit_RefImg image.
+      // Now create an new reference lens from the lensEdit_ReferenceImage image.
       delete edit_Lens;
       edit_Lens = new Lens( pano.getLens (lensEditRef_lensNr) );
 
       // FIXME should get a bottom to update
-//    edit_Lens->readEXIF(pano.getImage(lensEdit_RefImg).getFilename().c_str());
+//    edit_Lens->readEXIF(pano.getImage(lensEdit_ReferenceImage).getFilename().c_str());
 
       // update gui
       XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(  
                       pano.getLens (lensEditRef_lensNr).  projectionFormat  );
       updateHFOV();
-      SET_WXTEXTCTRL_TEXT( "lens_val_a" ,lensEditRef_lensNr , a )
-      SET_WXTEXTCTRL_TEXT( "lens_val_b" ,lensEditRef_lensNr , b )
-      SET_WXTEXTCTRL_TEXT( "lens_val_c" ,lensEditRef_lensNr , c )
-      SET_WXTEXTCTRL_TEXT( "lens_val_d" ,lensEditRef_lensNr , d )
-      SET_WXTEXTCTRL_TEXT( "lens_val_e" ,lensEditRef_lensNr , e )
+      SET_WXTEXTCTRL_TEXT( "lens_val_a" , EDIT_LENS.a )
+      SET_WXTEXTCTRL_TEXT( "lens_val_b" , EDIT_LENS.b )
+      SET_WXTEXTCTRL_TEXT( "lens_val_c" , EDIT_LENS.c )
+      SET_WXTEXTCTRL_TEXT( "lens_val_d" , EDIT_LENS.d )
+      SET_WXTEXTCTRL_TEXT( "lens_val_e" , EDIT_LENS.e )
 
       // label the panel
       std::stringstream label;
       label << lensEditRef_lensNr ;
       XRCCTRL(*this, "lens_val_number", wxStaticText)->SetLabel( 
                             label.str().c_str() );
+
+/*    if ( EDIT_LENS.HFOV.isLinked() )
+      XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(TRUE);
+    else
+      XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(FALSE);
+  */    
     DEBUG_TRACE("");
 }
 
 void LensEdit::updateHFOV()
 {
 //    DEBUG_TRACE("");
-    SET_WXTEXTCTRL_TEXT( "lens_val_HFOV" , lensEditRef_lensNr, HFOV )
+    SET_WXTEXTCTRL_TEXT( "lens_val_HFOV" , EDIT_LENS.HFOV )
 
     std::string number;
     if ( EDIT_LENS.focalLength != 0 ) {
@@ -366,7 +372,7 @@ void LensEdit::ChangePano ( )
     // FIXME support separate lenses
 //      EDIT_LENS->update ( pano.getLens(lensEditRef_lensNr) );
 
-//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d",lensEdit_RefImg) );
+//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d",lensEdit_ReferenceImage) );
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, lensEditRef_lensNr,*edit_Lens )
@@ -391,7 +397,7 @@ void LensEdit::LensTypeChanged ( wxCommandEvent & e )
       ChangePano ();
       DEBUG_INFO ( wxString::Format ("lens %d Lenstype %d",lensEditRef_lensNr,var) )
     }
-//    int lensEdit_RefImg = images_list2->GetSelectedImage();
+//    int lensEdit_ReferenceImage = images_list2->GetSelectedImage();
 }
 
 void LensEdit::HFOVChanged ( wxCommandEvent & e )
@@ -448,7 +454,7 @@ void LensEdit::aChanged ( wxCommandEvent & e )
       edit_Lens->a = *var;
 
       ChangePano ();
-      SET_WXTEXTCTRL_TEXT( "lens_val_a" ,lensEditRef_lensNr , a )
+      SET_WXTEXTCTRL_TEXT( "lens_val_a" , EDIT_LENS.a )
 
       delete var;
     }
@@ -465,7 +471,7 @@ void LensEdit::bChanged ( wxCommandEvent & e )
       edit_Lens->b = *var;
 
       ChangePano ();
-      SET_WXTEXTCTRL_TEXT( "lens_val_b" ,lensEditRef_lensNr , b )
+      SET_WXTEXTCTRL_TEXT( "lens_val_b" , EDIT_LENS.b )
 
       delete var;
     }
@@ -482,7 +488,7 @@ void LensEdit::cChanged ( wxCommandEvent & e )
       edit_Lens->c = *var;
 
       ChangePano ();
-      SET_WXTEXTCTRL_TEXT( "lens_val_c" ,lensEditRef_lensNr , c )
+      SET_WXTEXTCTRL_TEXT( "lens_val_c" , EDIT_LENS.c )
 
       delete var;
     }
@@ -499,7 +505,7 @@ void LensEdit::dChanged ( wxCommandEvent & e )
       edit_Lens->d = *var;
 
       ChangePano ();
-      SET_WXTEXTCTRL_TEXT( "lens_val_d" ,lensEditRef_lensNr , d )
+      SET_WXTEXTCTRL_TEXT( "lens_val_d" , EDIT_LENS.d )
 
       delete var;
     }
@@ -516,7 +522,7 @@ void LensEdit::eChanged ( wxCommandEvent & e )
       edit_Lens->e = *var;
 
       ChangePano ();
-      SET_WXTEXTCTRL_TEXT( "lens_val_e" ,lensEditRef_lensNr , e )
+      SET_WXTEXTCTRL_TEXT( "lens_val_e" , EDIT_LENS.e )
 
       delete var;
     }
@@ -636,7 +642,7 @@ void LensEdit::SetInherit( std::string type )
             pano.updateVariables( imgNr[i], new_var ); 
           // unset inheritance
           } else {
-            if ( type == "Hfov" )
+            if ( type == "hfov" )
               new_var.HFOV.unlink();
             if ( type == "a" )
               new_var.a.unlink();
@@ -762,29 +768,40 @@ void LensEdit::SetImages ( wxListEvent & e )
     DEBUG_TRACE("changePano = " << changePano );
     if ( changePano == FALSE ) {
 
+      // set link controls
+      #define SET_SPIN_RANGE( type ) \
+      XRCCTRL(*this, type ,wxSpinCtrl)->   \
+                 SetRange( 0 , (int) pano.getNrOfImages() - 1); 
+      SET_SPIN_RANGE ("images_spin_hfov")
+      SET_SPIN_RANGE ("images_spin_a")
+      SET_SPIN_RANGE ("images_spin_b")
+      SET_SPIN_RANGE ("images_spin_c")
+      SET_SPIN_RANGE ("images_spin_d")
+      SET_SPIN_RANGE ("images_spin_e")
+
       // One image is our prefered image.
-      int lensEdit_RefImg = e.GetIndex();
-      bool lensEdit_RefImg_valid = FALSE;
+      int lensEdit_ReferenceImage = e.GetIndex();
+      bool lensEdit_ReferenceImage_valid = FALSE;
       // get the selection
       imgNr[0] = 0;             // reset
       for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
         if ( images_list2->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
           imgNr[0] += 1;
           imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
-          if ( lensEdit_RefImg == Nr )
-            lensEdit_RefImg_valid = TRUE;
+          if ( lensEdit_ReferenceImage == Nr )
+            lensEdit_ReferenceImage_valid = TRUE;
         }
       }
       // We need a valid image to take the lens from.
-      if ( !lensEdit_RefImg_valid ) {
+      if ( !lensEdit_ReferenceImage_valid ) {
         DEBUG_WARN( "leafing early !!!");
         return;
       }
 
       // We remember the number of the lens on wich we work.
-      lensEditRef_lensNr = pano.getImage(lensEdit_RefImg). getLens();
+      lensEditRef_lensNr = pano.getImage(lensEdit_ReferenceImage). getLens();
 
-      // Now create an new reference lens from the lensEdit_RefImg image.
+      // Now create a new reference lens from the lensEdit_ReferenceImage image.
       // and update the gui
       update_edit_LensGui ( lensEditRef_lensNr );
 

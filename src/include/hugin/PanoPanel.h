@@ -67,7 +67,11 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+ private:
     // event handlers
+    void DoOptimization (wxCommandEvent & e);
+    void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
+
     void PanoChanged (wxCommandEvent & e);
 
     void GammaChanged(wxCommandEvent & e);
@@ -87,7 +91,6 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
 
     void Stitch(wxCommandEvent & e);
- private:
 
     // the model
     Panorama &pano;

@@ -17,6 +17,17 @@
       <longhelp>Save project</longhelp>
     </object>
     <object class="separator"/>
+    <object class="tool" name="ID_EDITUNDO">
+      <bitmap>data/undo.xpm</bitmap>
+      <tooltip>Undo</tooltip>
+      <longhelp>Undo the last action</longhelp>
+    </object>
+    <object class="tool" name="ID_EDITREDO">
+      <bitmap>data/redo.xpm</bitmap>
+      <tooltip>Redo</tooltip>
+      <longhelp>Redo the last action</longhelp>
+    </object>
+    <object class="separator"/>
     <object class="tool" name="ID_EDITCOPY">
       <bitmap>data/editcopy.xpm</bitmap>
       <tooltip>Copy entry</tooltip>

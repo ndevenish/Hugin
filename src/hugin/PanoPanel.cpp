@@ -61,6 +61,8 @@ using namespace PT;
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
 
+  EVT_BUTTON   ( XRCID("pano_optimizer_start"),PanoPanel::DoOptimization )
+
   EVT_CHOICE ( XRCID("pano_choice_panoType"),PanoPanel::ProjectionChanged )
   EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
   EVT_COMBOBOX ( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
@@ -113,6 +115,19 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     e.SetId(id);
     DoPreview (e);
 //    PanoChanged (e);
+}
+
+void PanoPanel::Optimize (OptimizeVector & optvars, PanoramaOptions & output)
+{
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::OptimizeCmd( pano, optvars, output)
+        );
+}
+
+void PanoPanel::DoOptimization (wxCommandEvent & e)
+{
+    // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level 
+    Optimize(*optset, *opt); 
 }
 
 void PanoPanel::PanoChanged ( wxCommandEvent & e )
@@ -386,9 +401,9 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
     PT::SetPanoOptionsCmd( pano, *opt );
 #ifdef unix
     DEBUG_INFO ( "unix" )
-#endif
     // for testing
     //opt->printStitcherScript( *stdout, *opt);
+#endif
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, *opt )

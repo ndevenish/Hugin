@@ -35,9 +35,10 @@
       </object>
       <object class="wxMenuItem" name="ID_EDITREDO">
         <label>&amp;Redo</label>
-        <accel>Ctrl-Shift-z</accel>
-        <help>redo the last action</help>
+        <accel>Ctrl-r</accel>
+        <help>Redo the last action</help>
       </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="ID_EDITCOPY">
         <label>&amp;Copy</label>
         <accel>Ctrl-c</accel>

@@ -546,12 +546,12 @@ void ImagesPanel::SetImages ( wxListEvent & e )
     if ( changePano == FALSE ) {
 
       // set link controls
-      XRCCTRL(*this,"images_spin_yaw",wxSpinCtrl)-> 
+      #define SET_SPIN_RANGE(type) \
+      XRCCTRL(*this, type ,wxSpinCtrl)->   \
                  SetRange( 0 , (int) pano.getNrOfImages() - 1);
-      XRCCTRL(*this,"images_spin_pitch",wxSpinCtrl)-> 
-                 SetRange( 0 , (int) pano.getNrOfImages() - 1);
-      XRCCTRL(*this,"images_spin_roll",wxSpinCtrl)-> 
-                 SetRange( 0 , (int) pano.getNrOfImages() - 1);
+      SET_SPIN_RANGE ("images_spin_yaw")
+      SET_SPIN_RANGE ("images_spin_pitch")
+      SET_SPIN_RANGE ("images_spin_roll")
 
 
 

@@ -1658,6 +1658,17 @@ msgid "Save project"
 msgstr "Speichere Projekt"
 
 #: tool.xrc:22
+msgid "Undo"
+msgstr "Rückgängig"
+msgid "Undo the last action"
+msgstr "Letzter Eingriff rückgängig"
+msgid "Redo"
+msgstr "Wiederholen"
+msgid "Redo the last action"
+msgstr "Letzten Eingriff wiederherstellen"
+
+
+#: tool.xrc:22
 msgid "Copy entry"
 msgstr "Kopere Eintrag"
 
