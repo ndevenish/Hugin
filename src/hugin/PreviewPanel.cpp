@@ -312,8 +312,8 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 
 void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 {
-    PTools::Transform t;
-    PTools::Transform invT;
+    PT::SpaceTransform t;
+    PT::SpaceTransform invT;
     const PanoImage & pimg = pano.getImage(imgNr);
     wxImage * src = ImageCache::getInstance().getSmallImage(
         pimg.getFilename());
@@ -335,7 +335,7 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
     FDiff2D lr;
     // outline of this image in final panorama
     m_outlines[imgNr].clear();
-    PTools::calcBorderPoints(srcSize, invT, back_inserter(m_outlines[imgNr]),
+    PT::calcBorderPoints(srcSize, invT, back_inserter(m_outlines[imgNr]),
                              ul, lr);
 
     Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
@@ -353,7 +353,7 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 
     FImage empty(1,1);
     // remap image with that transform
-    PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
+    PT::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
                            destIterRange(wxImageUpperLeft(dest)+ ulInt,
                                          wxImageUpperLeft(dest)+lrInt),

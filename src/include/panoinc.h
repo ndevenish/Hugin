@@ -72,13 +72,17 @@
 #include "common/math.h"
 #include "common/utils.h"
 #include "common/stl_utils.h"
+#include "common/vector3.h"
+#include "common/matrix3.h"
 
 #include "PT/Panorama.h"
 #include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 #include "PT/PanoCommand.h"
 #include "PT/Transforms.h"
-#include "PT/PanoToolsInterface.h"
+#include "PT/Interpolators.h"
+#include "PT/Panotoolsinterface.h"
+#include "PT/SpaceTransform.h"
 
 #endif
 

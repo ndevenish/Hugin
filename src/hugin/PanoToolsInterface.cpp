@@ -35,6 +35,7 @@
 #include "hugin/PanoToolsInterface.h"
 
 using namespace PT;
+/*
 using namespace PTools;
 
 // ==================================================================
@@ -106,3 +107,4 @@ bool PTools::mapImage(wxImage & dest, const Panorama & pano,
     return tform.success;
 }
 
+*/

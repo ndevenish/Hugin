@@ -24,7 +24,7 @@
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough=""
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -64,8 +64,8 @@
 				AdditionalIncludeDirectories="..\foreign\vigra;..\include\;..\..\..\..\wxWindows\include;..\..\..\..\wxWindows\contrib\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough=""
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="panoinc.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -98,6 +98,40 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="headers"
+			Filter="">
+			<File
+				RelativePath="..\include\Pt\Interpolators.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\PanoCommand.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\PanoImage.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\Panorama.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\PanoramaMemento.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\Process.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\SimpleStitcher.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\SpaceTransform.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\tiffUtils.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\Transforms.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\PanoImage.cpp">
 		</File>
@@ -109,6 +143,9 @@
 		</File>
 		<File
 			RelativePath=".\PanoToolsInterface.cpp">
+		</File>
+		<File
+			RelativePath=".\SpaceTransform.cpp">
 		</File>
 		<File
 			RelativePath=".\utils.cpp">

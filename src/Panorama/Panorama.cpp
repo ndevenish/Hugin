@@ -297,7 +297,7 @@ FDiff2D Panorama::calcFOV() const
     ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
     debug_out << endl;
     
-    PTools::Transform T;
+	PT::SpaceTransform T;
     unsigned int nImg = state.images.size();
     for (unsigned int i=0; i<nImg; i++) {
         // create suitable transform, pano -> image
@@ -317,7 +317,7 @@ FDiff2D Panorama::calcFOV() const
         FDiff2D lr;
         // outline of this image in final panorama
         vector<FDiff2D> outline;
-        PTools::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
+        PT::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
                                  ul, lr);
         // equirect image coordinates -> equirectangular coordinates
         ul.x -= 180;
