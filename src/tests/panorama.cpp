@@ -24,9 +24,10 @@
  *
  */
 
-#include <boost/test/included/unit_test_framework.hpp>
+#include <boost/test/unit_test.hpp>
+#include <boost/test/floating_point_comparison.hpp>
 
-#include "../Panorama.h"
+#include "PT/Panorama.h"
 
 using namespace boost::unit_test_framework;
 
@@ -36,28 +37,28 @@ void PanoImageTest()
 {
     // the main panorama
     Panorama pano;
-    
+
     // test pano image
     pano.addImage("test.jpg");
-    PanoImage * img = pano.getImage(1);
-    BOOST_CHECK_EQUAL(img.getFilename() == "test.jpg");
-    
-    LensSettings l;
+    const PanoImage & img = pano.getImage(1);
+    BOOST_CHECK_EQUAL(img.getFilename(), "test.jpg");
+
+    Lens l;
     l.focalLength = l.exifFocalLength = 5.40625;
     l.focalLengthConversionFactor = l.exifFocalLengthConversionFactor = 6.88021;
     l.HFOV = l.exifHFOV = 51.6467;
-    l.projectionFormat = LensSettings::RECTILINEAR_LENS;
+    l.projectionFormat = Lens::RECTILINEAR;
     l.a = l.b = l.c = l.d = l.e = 0;
-    BOOST_CHECK_EQUAL(l, pano.getLens());
-    
+    BOOST_CHECK(l ==  pano.getLens(1));
+
     // test a simple panorama creation.
 }
-    
+
 test_suite*
 init_unit_test_suite( int, char** )
 {
     test_suite* test= BOOST_TEST_SUITE( "UTIL tests" );
-    test->add(BOOST_TEST_CASE(&Synchronizer_test));
+    test->add(BOOST_TEST_CASE(&PanoImageTest));
 
     return test;
 }
