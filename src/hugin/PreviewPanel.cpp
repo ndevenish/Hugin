@@ -58,7 +58,7 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
-    m_panoBitmap(0), m_blendMode(BLEND_DIFFERENCE), parentWindow(parent)
+    m_panoBitmap(0), m_blendMode(BLEND_NORMAL), parentWindow(parent)
 {
     DEBUG_TRACE("");
 }
@@ -151,7 +151,7 @@ void PreviewPanel::SetAutoUpdate(bool enabled)
 void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
-    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
+//    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
 
     // temporary bitmap for our remapped image
     // calculate the image size from panel widht, height from vfov
@@ -183,7 +183,7 @@ void PreviewPanel::updatePreview()
     opts.width = m_panoImgSize.x;
     m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
-    opts.interpolator = PanoramaOptions::BILINEAR;
+    opts.interpolator = vigra_ext::INTERP_BILINEAR;
 
     // create images
     wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
@@ -191,8 +191,8 @@ void PreviewPanel::updatePreview()
         vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
         BImage alpha(m_panoImgSize);
         // the empty panorama roi
-        ROI<Diff2D> panoROI;
-        DEBUG_DEBUG("about to stitch images");
+//        Rect2D panoROI;
+        DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
         if (m_displayedImages.size() > 0) {
 //            FileRemapper<BRGBImage, BImage> m;
             switch (m_blendMode) {
@@ -209,18 +209,19 @@ void PreviewPanel::updatePreview()
             case BLEND_SEAMING:
             {
 
-/*
                 MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
                 break;
-*/
+/*
+
                 WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
                 break;
+*/
             }
             case BLEND_DIFFERENCE:
             {
@@ -256,7 +257,7 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     }
     DEBUG_TRACE("");
 
-    bool drawOutlines = wxConfigBase::Get()->Read("/PreviewPanel/drawOutlines",1l) != 0;
+//    bool drawOutlines = wxConfigBase::Get()->Read("/PreviewPanel/drawOutlines",1l) != 0;
 
     int offsetX = 0;
     int offsetY = 0;

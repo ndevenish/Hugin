@@ -26,8 +26,10 @@
 
 #include <vector>
 
-#include <PT/ImageTransforms.h>
+#include <vigra_ext/ImageTransforms.h>
 #include <hugin/ImageCache.h>
+
+#include <vigra_ext/ROIImage.h>
 
 class wxImage;
 
