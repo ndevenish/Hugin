@@ -29,21 +29,52 @@
 #include "PT/Panorama.h"
 #include "PT/PanoToolsInterface.h"
 
+#include <boost/graph/breadth_first_search.hpp>
+
 namespace PTools
 {
 
-    /** optimize the images specified in this set.
-     *
-     *  control points between the images should exist.
-     */
-    PT::VariableMapVector optimisePair(PT::Panorama & pano,
-                                   const PT::OptimizeVector & optvec,
-                                   unsigned int firstImg,
-                                   unsigned int secondImg);
+/** optimize the images specified in this set.
+ *
+ *  control points between the images should exist.
+ */
+PT::VariableMap optimisePair(PT::Panorama & pano,
+                             const PT::OptimizeVector & optvec,
+                             unsigned int firstImg,
+                             unsigned int secondImg);
 
-    /** autooptimise the panorama (does local optimisation first) */
-    PT::VariableMapVector autoOptimise(PT::Panorama & pano);
-}
+/** a traverse functor to optimise the image links */
+class OptimiseVisitor: public boost::default_bfs_visitor
+{
+public:
+    OptimiseVisitor(PT::Panorama & pano, const PT::OptimizeVector & optvec)
+        : m_pano(pano), m_opt(optvec), m_optVars(pano.getNrOfImages())
+        { 
+        };
+    template < typename Edge, typename Graph >
+    void tree_edge(Edge e, const Graph & g)
+    {
+        DEBUG_DEBUG("optimising image pair " << boost::source(e,g) << ", " << boost::target(e,g));
+        m_optVars[target(e,g)] = optimisePair(m_pano, m_opt, source(e,g), target(e,g));
+        // apply vars to panorama... (breaks undo!!!)
+        m_pano.updateVariables(target(e,g), m_optVars[target(e,g)]);
+    }
+    
+    PT::VariableMapVector getVars()
+    { return m_optVars; }
+    
+private:
+    PT::Panorama & m_pano;
+    PT::OptimizeVector m_opt;
+    PT::VariableMapVector m_optVars;
+};
+    
+
+/** autooptimise the panorama (does local optimisation first) */
+PT::VariableMapVector autoOptimise(PT::Panorama & pano);
+    
+    
+} // namespace
 
 
 

@@ -41,6 +41,7 @@ class Panorama;
 class PanoCommand;
 
 typedef std::set<unsigned int> UIntSet;
+typedef std::vector<unsigned int> UIntVector;
 
 /// helper functions for parsing a script line
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);

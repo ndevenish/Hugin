@@ -1,4 +1,5 @@
 bin
+octave
 lib
 Makefile.depend
 api-doc

@@ -24,14 +24,21 @@
  *
  */
 
+#include <fstream>
+
 #include "PT/PTOptimise.h"
+#include "PT/ImageGraph.h"
 
+#include <boost/graph/graphviz.hpp>
+
+using namespace std;
 using namespace PT;
+using namespace boost;
 
-VariableMapVector PTools::optimisePair(Panorama & pano,
-                                       const OptimizeVector & optvec,
-                                       unsigned int firstImg,
-                                       unsigned int secondImg)
+VariableMap PTools::optimisePair(Panorama & pano,
+                                 const OptimizeVector & optvec,
+                                 unsigned int firstImg,
+                                 unsigned int secondImg)
 {
     VariableMapVector res;
     // setup data structures
@@ -42,9 +49,9 @@ VariableMapVector PTools::optimisePair(Panorama & pano,
 
     AlignInfoWrap aInfo;
 
-    UIntSet imgs;
-    imgs.insert(firstImg);
-    imgs.insert(secondImg);
+    UIntVector imgs(2);
+    imgs[0] = firstImg;
+    imgs[1] = secondImg;
 
     // set the information
     if (aInfo.setInfo(pano,imgs, optvec)) {
@@ -64,20 +71,40 @@ VariableMapVector PTools::optimisePair(Panorama & pano,
         res = aInfo.getVariables();
     }
 
-    // get optimized variables
-    return res;
+    // return optimized variables of secondImg
+    return res[1];
 }
 
-#if 0
 /** autooptimise the panorama (does local optimisation first) */
-PT::VariableMapVector PT::autoOptimise(PT::Panorama & pano)
+PT::VariableMapVector PTools::autoOptimise(PT::Panorama & pano)
 {
-    
+
     // build a graph over all overlapping images
     CPGraph graph;
     createCPGraph(pano,graph);
-    
+
+#if DEBUG
+    {
+        ofstream gfile("cp_graph.dot");
+        // output doxygen graph
+        boost::write_graphviz(gfile, graph);
+    }
+#endif
+
+    unsigned int startImg = pano.getOptions().optimizeReferenceImage;
+
+    OptimizeVector optvec(2);
+    optvec[1].insert("y");
+    optvec[1].insert("p");
+    optvec[1].insert("r");
+
+    PTools::OptimiseVisitor optVisitor(pano, optvec);
+
+    // start a breadth first traversal of the graph, and optimize
+    // the links found (every vertex just once.)
+    boost::breadth_first_search(graph, startImg, visitor(optVisitor));
     // iterate over all image combinations.
     unsigned nImg = pano.getNrOfImages();
+
+    return optVisitor.getVars();
 }
-#endif

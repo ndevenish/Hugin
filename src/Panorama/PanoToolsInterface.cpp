@@ -135,6 +135,72 @@ static void SetCorrectionRadius_copy( cPrefs *cP )
     }
 }
 
+int CheckParams_copy( AlignInfo *g )
+{
+	int i;
+	int		err = -1;
+	char 	*errmsg[] = {
+				"No Parameters to optimize",
+				"No input images",
+				"No Feature Points",
+				"Image width must be positive",
+				"Image height must be positive",
+				"Field of View must be positive",
+				"Field of View must be smaller than 180 degrees in rectilinear Images",
+				"Unsupported Image Format (must be 0,1,2,3 or 4)",
+				"Panorama Width must be positive",
+				"Panorama Height must be positive",
+				"Field of View must be smaller than 180 degrees in rectilinear Panos",
+				"Unsupported Panorama Format",
+				"Control Point Coordinates must be positive",
+				"Invalid Image Number in Control Point Descriptions"
+				};
+
+	if( g->numParam == 0 )				err = 0;
+	if( g->numIm	== 0 )				err = 1;
+	if( g->numPts	== 0 )				err = 2;
+	
+	// Check images
+	
+	for( i=0; i<g->numIm; i++)
+	{
+		if( g->im[i].width  <= 0 )		err = 3;
+		if( g->im[i].height <= 0 )		err = 4;
+		if( g->im[i].hfov   <= 0.0 )	err = 5;
+		if( g->im[i].format == _rectilinear && g->im[i].hfov >= 180.0 )	err = 6;
+		if( g->im[i].format != _rectilinear && g->im[i].format != _panorama &&
+		    g->im[i].format != _fisheye_circ && g->im[i].format != _fisheye_ff && g->im[i].format != _equirectangular)
+										err = 7;
+	}
+	
+	// Check Panorama specs
+	
+	if( g->pano.hfov <= 0.0 )	err = 5;
+	if( g->pano.width <=0 )		err = 8;
+	if( g->pano.height <=0 )		err = 9;
+	if( g->pano.format == _rectilinear && g->pano.hfov >= 180.0 )	err = 10;
+	if( g->pano.format != _rectilinear && g->pano.format != _panorama &&
+		    g->pano.format != _equirectangular ) err = 11;
+	
+	// Check Control Points
+	
+	for( i=0; i<g->numPts; i++)
+	{
+		if( g->cpt[i].x[0] < 0 || g->cpt[i].y[0] < 0 || g->cpt[i].x[1] < 0 || g->cpt[i].y[1] < 0 )
+			err = 12;
+		if( g->cpt[i].num[0] < 0 || g->cpt[i].num[0] >= g->numIm ||
+			g->cpt[i].num[1] < 0 || g->cpt[i].num[1] >= g->numIm )			err = 13;
+	}
+	
+	if( err != -1 )
+	{
+		PrintError( errmsg[ err ] );
+		return -1;
+	}
+	else
+		return 0;
+}
+
 
 Transform::Transform()
     : m_initialized(false), m_srcTX(0), m_srcTY(0),
@@ -500,19 +566,32 @@ PTools::AlignInfoWrap::~AlignInfoWrap()
 {
     DisposeAlignInfo(&gl);
 
+//    delete[](gl.img);
+//    delete[](gl.opt);
+//    delete[](gl.cpt);
+//    delete[](gl.t);
+//    delete[](gl.cim);
+/*
     if (gl.im) free(gl.im);
     if (gl.opt) free(gl.opt);
     if (gl.cpt) free(gl.cpt);
     if (gl.t) free(gl.t);
     if (gl.cim) free(gl.cim);
+*/
 }
 
 bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
-                                    const UIntSet & imgs,
+                                    const UIntVector & imgs,
                                     const OptimizeVector & optvec)
 {
-    // based on code from ParseScript
-
+    // based on code from ParseScript by H. Dersch
+/*
+    delete(gl.im);
+    delete(gl.opt);
+    delete(gl.cpt);
+    delete(gl.t);
+    delete(gl.cim);
+*/
     gl.im  = NULL;
     gl.opt = NULL;
     gl.cpt = NULL;
@@ -523,46 +602,16 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     gl.numIm 	= imgs.size();
     gl.nt 	= 0;
 
-    // Allocate Space for Pointers to images, preferences and control points
-	
-    gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(Image) );
-    gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(optVars) );
-    gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(triangle) );
-    gl.cim = (CoordInfo*)    malloc( gl.numIm 	* sizeof(CoordInfo) );
 
-    if( gl.im == NULL || gl.opt == NULL || gl.cpt == NULL || gl.t == NULL || gl.cim == NULL )
-    {
-        DEBUG_FATAL("Not enough memory");
+    map<int,int> imgMap;
+    int imgCnt=0;
+    gl.numParam = 0;
+    for (UIntVector::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
+        imgMap[*iit] = imgCnt;
+        gl.numParam += optvec[imgCnt].size();
+        imgCnt++;
     }
 
-    SetImageDefaults(&(gl.pano));	
-    // Default: Use buffer 'buf' for stitching
-    SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
-    for(int i=0; i<gl.numIm; i++)
-    {
-        SetImageDefaults( &(gl.im[i]) );
-        SetOptDefaults	( &(gl.opt[i]));
-        SetCoordDefaults( &(gl.cim[i]), i);
-    }
-
-    unsigned int cImgNr=0;
-    for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-        const PanoImage & pimg = pano.getImage(*it);
-        const VariableMap & vars = pano.getImageVariables(*it);
-        const Lens & lens = pano.getLens(pimg.getLensNr());
-        
-        // set the image information, with pointer to dummy image data
-        setFullImage(gl.im[cImgNr],
-                     Diff2D(pimg.getWidth(), pimg.getHeight()),
-                     0, vars, lens.projectionFormat, true);
-
-        // set optimisation flags
-        setOptVars(gl.opt[cImgNr], optvec[cImgNr]);
-
-        cImgNr++;
-    }
-
-    // set control points
     // find all controls point pairs inside the given images
     // (stupid implementation)
     const CPVector & controlPoints = pano.getCtrlPoints();
@@ -573,7 +622,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
         PT::ControlPoint point = *it;
 
         int matchCount = 0;
-        for (UIntSet::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
+        for (UIntVector::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
             if (point.image1Nr == *iit) {
                 matchCount += 1;
             }
@@ -589,52 +638,109 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     }
 
     gl.numPts = cps.size();
-    gl.cpt = (controlPoint*) malloc( gl.numPts * sizeof(controlPoint) );
 
-    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        unsigned int i = it - controlPoints.begin();
+    // Allocate Space for Pointers to images, preferences and control points
+
+/*
+    gl.im  = new Image[2];
+    gl.opt = new optVars[2];
+    gl.t   = new triangle[0];
+    gl.cim = new CoordInfo[2];
+    gl.cpt = new controlPoint[gl.numPts];
+
+    gl.im  = new Image[gl.numIm];
+    gl.opt = new optVars[gl.numIm];
+    gl.t   = new triangle[gl.nt];
+    gl.cim = new CoordInfo[gl.numIm];
+    gl.cpt = new controlPoint[gl.numPts];
+*/
+
+    gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(::Image) );
+    gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(::optVars) );
+    gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(::triangle) );
+    gl.cim = (CoordInfo*)    malloc( gl.numIm 	* sizeof(::CoordInfo) );
+    gl.cpt = (controlPoint*) malloc( gl.numPts  * sizeof(::controlPoint) );
+
+    if( gl.im == NULL || gl.opt == NULL || gl.cpt == NULL || gl.t == NULL || gl.cim == NULL )
+    {
+        DEBUG_FATAL("Not enough memory");
+    }
+
+    const PanoramaOptions & opts = pano.getOptions();
+    setDestImage(gl.pano, Diff2D(opts.width, opts.getHeight()),
+                 0, opts.projectionFormat, opts.HFOV);
+
+    // Default: Use buffer 'buf' for stitching
+    SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
+    for(int i=0; i<gl.numIm; i++)
+    {
+        SetImageDefaults( &(gl.im[i]) );
+        SetOptDefaults	( &(gl.opt[i]));
+        SetCoordDefaults( &(gl.cim[i]), i);
+    }
+
+    unsigned int cImgNr=0;
+    for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
+        const PanoImage & pimg = pano.getImage(*it);
+        const VariableMap & vars = pano.getImageVariables(*it);
+        const Lens & lens = pano.getLens(pimg.getLensNr());
+
+        // set the image information, with pointer to dummy image data
+        setFullImage(gl.im[cImgNr],
+                     Diff2D(pimg.getWidth(), pimg.getHeight()),
+                     0, vars, lens.projectionFormat, true);
+
+        // set optimisation flags
+        setOptVars(gl.opt[cImgNr], optvec[cImgNr]);
+
+        cImgNr++;
+    }
+
+
+    for (PT::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
+        unsigned int i = it - cps.begin();
         // control point stuff.
         gl.cpt[i].type = it->mode;
-        gl.cpt[i].num[0] = it->image1Nr;
+        gl.cpt[i].num[0] = imgMap[it->image1Nr];
         gl.cpt[i].x[0] = it->x1;
         gl.cpt[i].y[0] = it->y1;
 
-        gl.cpt[i].num[1] = it->image2Nr;
+        gl.cpt[i].num[1] = imgMap[it->image2Nr];
         gl.cpt[i].x[1] = it->x2;
         gl.cpt[i].y[1] = it->y2;
     }
 
-/*    
+/*
     if (CheckParams(&gl) != 0) {
         DEBUG_FATAL("CheckParams error");
         return false;
     }
 */
+    if( CheckParams_copy( &gl ) != 0 ) {
+        DEBUG_FATAL("CheckParams() returned false!");
+        return false;
+    }
     gl.fcn	= fcnPano;
     return true;
 }
 
-PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const 
+PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const
 {
     VariableMapVector res;
     if (gl.im) {
         for (int i = 0; i < gl.numIm; i++) {
             VariableMap vars;
-            Variable v("a", gl.im[i].hfov);
-            std::string a("v");
-            make_pair(a,v);
-            make_pair(std::string("v"), Variable("a", gl.im[i].hfov));
-            vars.insert(make_pair(string("v"), Variable("a", gl.im[i].hfov)));
+            vars.insert(make_pair(string("v"), Variable("v", gl.im[i].hfov)));
             vars.insert(make_pair(string("y"), Variable("y", gl.im[i].yaw)));
             vars.insert(make_pair(string("r"), Variable("r", gl.im[i].roll)));
             vars.insert(make_pair(string("p"), Variable("p", gl.im[i].pitch)));
             vars.insert(make_pair(string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
-            vars.insert(make_pair(string("b"), Variable("a", gl.im[i].cP.radial_params[0][2])));
-            vars.insert(make_pair(string("c"), Variable("a", gl.im[i].cP.radial_params[0][1])));
-            
-            vars.insert(make_pair(string("e"), Variable("a", gl.im[i].cP.vertical_params[0])));
-            vars.insert(make_pair(string("d"), Variable("a", gl.im[i].cP.horizontal_params[0])));
-            
+            vars.insert(make_pair(string("b"), Variable("b", gl.im[i].cP.radial_params[0][2])));
+            vars.insert(make_pair(string("c"), Variable("c", gl.im[i].cP.radial_params[0][1])));
+
+            vars.insert(make_pair(string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
+            vars.insert(make_pair(string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
+
             res.push_back(vars);
         }
     }

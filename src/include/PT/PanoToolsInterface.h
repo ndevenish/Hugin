@@ -349,14 +349,14 @@ public:
 
     ~AlignInfoWrap();
     bool setInfo(const PT::Panorama & pano,
-                 const PT::UIntSet & imgs,
+                 const PT::UIntVector & imgs,
                  const PT::OptimizeVector & optvec);
 
     void setGlobal()
     {
         SetGlobalPtr(& gl);
     }
-    
+
     /** get the variables stored in this AlignInfo */
     PT::VariableMapVector getVariables() const;
 

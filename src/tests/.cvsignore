@@ -5,5 +5,12 @@ panotools
 stitch_result.jpg
 photo.jpg
 stitch_result.jpg
+*.jpg
+*.tif
+*.txt
+*.gif
+*.ppm
+*.png
+_PTStitcher*
 .kdbgrc.panorama
 .kdbgrc.panotools

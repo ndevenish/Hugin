@@ -28,8 +28,9 @@
 
 
 using namespace PT;
+using namespace boost;
 
-typedef property_map<Graph, vertex_index_t>::type CPGraphIndexMap;
+typedef property_map<CPGraph, vertex_index_t>::type CPGraphIndexMap;
 void PT::createCPGraph(Panorama & pano, CPGraph & graph)
 {
     // clear old graph
@@ -45,12 +46,12 @@ void PT::createCPGraph(Panorama & pano, CPGraph & graph)
     const CPVector & cps = pano.getCtrlPoints();
     for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
         // probably very inefficient
-        typename graph_traits<Graph>::adjacency_iterator ai;
-        typename graph_traits<Graph>::adjacency_iterator ai_end;
-        
-        IndexMap index = get(vertex_index, g);
+        graph_traits<CPGraph>::adjacency_iterator ai;
+        graph_traits<CPGraph>::adjacency_iterator ai_end;
+
+        CPGraphIndexMap index = get(vertex_index, graph);
         bool found=false;
-        for (tie(ai, ai_end) = adjacent_vertices(v, g);
+        for (tie(ai, ai_end) = adjacent_vertices(it->image1Nr, graph);
              ai != ai_end; ++ai)
         {
             if (index[*ai] == it->image2Nr) found = true;
