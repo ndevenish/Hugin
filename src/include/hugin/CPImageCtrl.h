@@ -32,6 +32,7 @@
 
 #include <vector>
 
+class CPEditorPanel;
 
 /** Events to notify about new point / region / point change
  *
@@ -105,7 +106,7 @@ public:
 
     /** ctor.
      */
-    CPImageCtrl(wxWindow* parent, wxWindowID id = -1,
+    CPImageCtrl(CPEditorPanel* parent, wxWindowID id = -1,
                 const wxPoint& pos = wxDefaultPosition,
                 const wxSize& size = wxDefaultSize,
                 long style = wxHSCROLL | wxVSCROLL,
@@ -160,8 +161,10 @@ public:
     /** Show point @p x, @p y
      *
      *  Scrolls the windows so that x,y is shown in the center
+     *  if @p warpPointer is true, the mouse pointer is moved
+     *  to that position as well
      */
-    void CPImageCtrl::showPosition(int x, int y);
+    void showPosition(int x, int y, bool warpPointer=false);
 
     /** show/hide the search area rectangle
      *
@@ -315,6 +318,7 @@ private:
     /// the point
     EditorState isOccupied(const wxPoint &p, unsigned int & pointNr) const;
 
+    CPEditorPanel * m_editPanel;
 
     DECLARE_CLASS(CPImageCtrl)
     DECLARE_EVENT_TABLE()

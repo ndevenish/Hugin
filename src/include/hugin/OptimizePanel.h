@@ -53,8 +53,10 @@ public:
     /** updates the display to fit the settings in optimize vector */
     void setOptimizeVector(const PT::OptimizeVector & optvec);
 
-protected:
+    /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
+
+protected:
 
     void OnClose(wxCloseEvent& e);
 

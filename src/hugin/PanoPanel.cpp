@@ -82,6 +82,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
     EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
     EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
+    EVT_SPINCTRL(XRCID("pano_spin_feather_width"), PanoPanel::OnFeatherWidthChanged) 
+    EVT_SPINCTRL(XRCID("pano_jpeg_quality"), PanoPanel::OnSetQuality)
 
 // TODO remove
 //    EVT_COMBOBOX ( XRCID("pano_val_preview_width"),PanoPanel::PreviewWidthChanged )
@@ -93,7 +95,6 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE   ( XRCID("pano_choice_format_final"),PanoPanel::FileFormatChanged)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
-    EVT_SPINCTRL(XRCID("m_JPEGQualitySpin"), PanoPanel::OnSetQuality)
     EVT_BUTTON   ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
 END_EVENT_TABLE()
 
@@ -136,6 +137,11 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
                                  wxSpinCtrl);
     m_ColorCorrRefSpin->Disable();
     DEBUG_ASSERT(m_ColorCorrRefSpin);
+    
+    m_FeatherWidthSpin = XRCCTRL(*this, "pano_spin_feather_width",
+                                 wxSpinCtrl);
+    DEBUG_ASSERT(m_FeatherWidthSpin);
+    
 // TODO remove
 #if 0
     m_PreviewWidthCombo = XRCCTRL(*this, "pano_val_preview_width", wxComboBox);
@@ -243,14 +249,14 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_WidthTxt->SetValue(wxString::Format("%d", opt.width));
     m_HeightStaticText->SetLabel(wxString::Format("%d", opt.getHeight()));
     m_FormatChoice->SetSelection((int)opt.outputFormat);
-    
+
     if (opt.outputFormat == PanoramaOptions::JPEG) {
         m_JPEGQualitySpin->Enable();
     } else {
         m_JPEGQualitySpin->Disable();
     }
     m_JPEGQualitySpin->SetValue(opt.quality);
-        
+
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -491,13 +497,24 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
 void PanoPanel::OnSetQuality(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
-    
+
     opt.quality = m_JPEGQualitySpin->GetValue();
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-}    
+}
+
+void PanoPanel::OnFeatherWidthChanged(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano.getOptions();
+
+    opt.featherWidth = m_FeatherWidthSpin->GetValue();
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+}
 
 // TODO remove
 #if 0

@@ -364,11 +364,8 @@ public:
     void removeImage(unsigned int nr);
 
     /** change image properties.
-     *
-     *  @todo what should be changed? Lens settings etc. they are part
-     *        of OptimizeVariables, but might need extra fields.
      */
-//    void changeImage();
+//    void setImageOptions(unsigned int img);
 
     /** set a lens for this image.
      *
@@ -454,16 +451,16 @@ public:
      *  Allows to compress multiple changes into one notification.
      */
     void changeFinished();
-    
+
     /** clear dirty flag. call after save */
     void clearDirty()
         { dirty = false;}
-        
+
     /** true if there are unsaved changes */
     bool isDirty()
         { return dirty; }
-    
-    
+
+
 
 
 protected:

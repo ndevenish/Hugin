@@ -91,6 +91,7 @@ public:
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
     void OnSetQuality(wxCommandEvent & e);
+    void OnFeatherWidthChanged(wxCommandEvent & e);
 
 // TODO remove
 //    void AutoPreviewChanged (wxCommandEvent & e);
@@ -133,7 +134,8 @@ public:
     wxChoice    * m_InterpolatorChoice;
     wxTextCtrl  * m_GammaText;
     wxChoice    * m_ColorCorrModeChoice;
-    wxSpinCtrl   * m_ColorCorrRefSpin;
+    wxSpinCtrl  * m_ColorCorrRefSpin;
+    wxSpinCtrl  * m_FeatherWidthSpin;
 
 // TODO remove
 #if 0

@@ -322,7 +322,8 @@ public:
           quality(90),progressive(true),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(POLY_3),
-          optimizeReferenceImage(0)
+          optimizeReferenceImage(0),
+          featherWidth(10)
         {};
 
     void reset()
@@ -338,6 +339,7 @@ public:
             optimizeReferenceImage = 0;
             gamma = 1.0;
             interpolator = POLY_3;
+            featherWidth = 10;
         }
     virtual ~PanoramaOptions() {};
 
@@ -385,6 +387,7 @@ public:
     Interpolator interpolator;
 
     unsigned int optimizeReferenceImage;
+    unsigned int featherWidth;
 
 private:
     static const std::string fileformatNames[];

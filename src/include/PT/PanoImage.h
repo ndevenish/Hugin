@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <09-Sep-2003 17:56:06 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <26-Oct-2003 18:37:34 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -28,8 +28,7 @@ public:
     ImageOptions()
         : featherWidth(10),
           ignoreFrameWidth(0),
-          morph(false),
-          lensNr(0)
+          morph(false)
         { };
 #if 0
     // isn't the c++ compiler supposed to create a default operator== ?
@@ -38,7 +37,6 @@ public:
             return (featherWidth == o.featherWidth &&
                     ignoreFrameWidth == o.ignoreFrameWidth &&
                     morph == o.morph &&
-                    lensNr == o.lensNr &&
                     source == o.source
                 );
         }
@@ -56,8 +54,6 @@ public:
     /// Morph-to-fit using control points.
     bool morph;
 
-    // the lens of this image
-    unsigned int lensNr;
 };
 
 
@@ -103,9 +99,12 @@ public:
             { return width; }
 
         void setLensNr(unsigned int l)
-            { options.lensNr = l; }
+            { lensNr = l; }
         unsigned int getLensNr() const
-            { return options.lensNr; }
+            { return lensNr; }
+        
+        void setFeatherWidth(unsigned int w)
+            { options.featherWidth = w; }
 
     private:
         /// common init for all constructors
@@ -120,6 +119,8 @@ public:
 
         bool imageRead;
         ImageOptions options;
+        // the lens of this image
+        unsigned int lensNr;
     };
 
 } // namespace

@@ -64,6 +64,10 @@
         <help>Delete entry</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_optimize">
+        <label>&amp;optimize</label>
+        <accel>Ctrl-f</accel>
+      </object>
       <object class="wxMenuItem" name="action_add_images">
         <label>Add</label>
       </object>

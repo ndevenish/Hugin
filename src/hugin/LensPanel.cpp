@@ -110,11 +110,12 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(m_tkf);
+/*
     XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(m_tkf);
-
+*/
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -137,7 +138,7 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler();
     delete(m_tkf);
 */
-    
+
     pano.removeObserver(this);
     DEBUG_TRACE("dtor about to finish");
 }
@@ -186,6 +187,11 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
             doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
     }
 
+    double hfov = const_map_get(imgvars,"v").getValue();
+    // update focal length
+    double focal_length = 16.0/tan(hfov/360*M_PI);
+    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
+        doubleToString(focal_length).c_str());
 
     DEBUG_TRACE("");
 }
@@ -250,10 +256,11 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
 
 void LensPanel::OnVarChanged(wxCommandEvent & e)
 {
+    DEBUG_TRACE("")
     const UIntSet & selected = images_list->GetSelected();
     if (selected.size() > 0) {
         string varname;
-        DEBUG_TRACE ("");
+        DEBUG_TRACE (" var changed for control with id:" << e.m_id);
         if (e.m_id == XRCID("lens_val_a")) {
             varname = "a";
         } else if (e.m_id == XRCID("lens_val_b")) {
@@ -274,6 +281,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         ctrl_name.append(varname);
         double val;
         wxString text = XRCCTRL(*this, ctrl_name.c_str(), wxTextCtrl)->GetValue();
+        DEBUG_DEBUG("setting variable " << varname << " to " << text);
         if (!text.ToDouble(&val)){
             wxLogError(_("Value must be numeric."));
             return;

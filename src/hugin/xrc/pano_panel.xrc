@@ -156,6 +156,17 @@
                 </object>
                 <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
               </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Feather width:</label>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxSpinCtrl" name="pano_spin_feather_width">
+                  <tooltip>width of the transition between images</tooltip>
+                </object>
+              </object>
             </object>
             <flag>wxEXPAND</flag>
             <border>6</border>

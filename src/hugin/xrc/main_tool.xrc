@@ -38,6 +38,11 @@
       <tooltip>add an image to the panorama</tooltip>
       <longhelp>add image</longhelp>
     </object>
+    <object class="tool" name="action_optimize">
+      <bitmap>data/optimize.xpm</bitmap>
+      <tooltip>optimize, with settings from Optimize Tab</tooltip>
+      <longhelp>Optimize Panorama. Useful for optimization after a small change.</longhelp>
+    </object>
     <object class="separator"/>
     <bitmapsize>22,22</bitmapsize>
     <margins>2,2</margins>
@@ -46,6 +51,11 @@
       <bitmap>data/preview.png</bitmap>
       <tooltip>preview panorama</tooltip>
       <longhelp>show the preview image</longhelp>
+    </object>
+     <object class="tool" name="ID_CP_TABLE">
+      <bitmap>data/list.png</bitmap>
+      <tooltip>show all control points</tooltip>
+      <longhelp>show all control points</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="action_show_about">

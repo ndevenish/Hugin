@@ -17,7 +17,7 @@
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>File operations</label>
+                  <label>Images</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxButton" name="action_add_images">

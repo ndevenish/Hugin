@@ -542,7 +542,35 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-
+#if 0    
+    /** set image options for a set of images.
+     *  just sets the @p options given for all images in @p imgs
+     */
+    class SetImageOptionsCmd : public PanoCommand
+    {
+    public:
+        SetPanoOptionsCmd(Panorama & p, unsigned int feather, UIntSet imgs)
+            : PanoCommand(p), options(options), images(imgs)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                for (UIntSet::iterator it = imgNrs.begin();
+                     it != imgNrs.end(); ++it)
+                {
+                    pano.setImageOptions(*it, lensNr);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "unnamed command";
+            }
+    private:
+        PanoramaOptions options;
+    };
+#endif
+    
     /** set the panorama options */
     class SetPanoOptionsCmd : public PanoCommand
     {
@@ -552,8 +580,8 @@ namespace PT {
             { };
         virtual void execute()
             {
-                pano.setOptions(options);
                 PanoCommand::execute();
+                pano.setOptions(options);
                 pano.changeFinished();
             }
         virtual std::string getName() const

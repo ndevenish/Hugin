@@ -40,6 +40,7 @@
 #include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
+#include "hugin/CPEditorPanel.h"
 
 using namespace std;
 
@@ -125,7 +126,7 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_ENTER_WINDOW(CPImageCtrl::OnMouseEnter)
 END_EVENT_TABLE()
 
-CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
+CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
                          const wxPoint& pos,
                          const wxSize& size,
                          long style,
@@ -134,7 +135,7 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
       scaleFactor(1), fitToWindow(false),
       m_showSearchArea(false), m_searchRectWidth(0),
       m_showTemplateArea(false), m_templateRectWidth(0),
-      m_tempZoom(false),m_savedScale(1)
+      m_tempZoom(false),m_savedScale(1), m_editPanel(parent)
 {
     SetCursor(wxCursor(wxCURSOR_BULLSEYE));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
@@ -279,6 +280,7 @@ void CPImageCtrl::setImage(const std::string & file)
         bitmap = wxBitmap();
         SetSizeHints(0,0,0,0,1,1);
     }
+    editState = NO_SELECTION;
 }
 
 
@@ -336,15 +338,22 @@ void CPImageCtrl::selectPoint(unsigned int nr)
     update();
 }
 
-void CPImageCtrl::showPosition(int x, int y)
+void CPImageCtrl::showPosition(int x, int y, bool warpPointer)
 {
+    DEBUG_DEBUG("x: " << x  << " y: " << y);
     wxSize sz = GetClientSize();
-    x = scale(x)- sz.GetWidth()/2;
+    int scrollx = scale(x)- sz.GetWidth()/2;
 //    if (x<0) x = 0;
-    y = scale(y)- sz.GetHeight()/2;
+    int scrolly = scale(y)- sz.GetHeight()/2;
 //    if (y<0) x = 0;
 //    Scroll(x/16, y/16);
-    Scroll(x, y);
+    Scroll(scrollx, scrolly);
+    if (warpPointer) {
+        int sx,sy;
+        GetViewStart(&sx, &sy);
+        DEBUG_DEBUG("relative coordinages: " << scale(x)-sx << "," << scale(y)-sy);
+        WarpPointer(scale(x)-sx,scale(y)-sy);
+    }
 }
 
 CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int & pointNr) const
@@ -666,9 +675,12 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 
 void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
-    DEBUG_DEBUG("forwarding key " << e.m_keyCode);
+    DEBUG_DEBUG("forwarding key " << e.m_keyCode 
+                << " origin: id:" << e.m_id << " obj: "
+                << e.GetEventObject());
     // forward all keys to our parent
-    GetParent()->GetEventHandler()->ProcessEvent(e);
+    //GetParent()->GetEventHandler()->ProcessEvent(e);
+    m_editPanel->GetEventHandler()->ProcessEvent(e);
 }
 
 void CPImageCtrl::OnKeyUp(wxKeyEvent & e)

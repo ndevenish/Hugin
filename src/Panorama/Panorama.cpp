@@ -389,7 +389,7 @@ void Panorama::setOptimizeVector(const OptimizeVector & optvec)
 unsigned int Panorama::addImage(const PanoImage &img, const VariableMap & vars)
 {
     // the lens must have been already created!
-    bool ok = img.getOptions().lensNr < state.lenses.size();
+    bool ok = img.getLensNr() < state.lenses.size();
     DEBUG_ASSERT(ok);
     unsigned int nr = state.images.size();
     state.images.push_back(img);
@@ -695,7 +695,7 @@ void Panorama::printStitcherScript(ostream & o,
         {
             vit->second.print(o) << " ";
         }
-        o << " u" << (*it).getOptions().featherWidth << " m" << (*it).getOptions().ignoreFrameWidth
+        o << " u" << target.featherWidth << " m" << (*it).getOptions().ignoreFrameWidth
           << ((*it).getOptions().morph ? " o" : "")
           << " n\"" << (*it).getFilename() << "\"" << std::endl;
         i++;

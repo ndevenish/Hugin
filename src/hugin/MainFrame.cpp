@@ -102,6 +102,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
 
+    EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
+    
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnToggleCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnToggleCPFrame)
 
@@ -160,7 +162,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // save our pointer
     m_this = this;
-    
+
     DEBUG_TRACE("");
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -601,6 +603,12 @@ void MainFrame::OnToggleCPFrame(wxCommandEvent & e)
     DEBUG_TRACE("");
     cp_frame->Show();
     cp_frame->Raise();
+}
+
+void MainFrame::OnOptimize(wxCommandEvent & e) 
+{
+    wxCommandEvent dummy;
+    opt_panel->OnOptimizeButton(dummy);
 }
 
 

@@ -116,7 +116,7 @@ public:
     /// get the path to the xrc directory
     const wxString & GetXRCPath()
     { return m_xrcPrefix;};
-    
+
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
 
@@ -137,6 +137,7 @@ private:
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleCPFrame(wxCommandEvent & e);
+    void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);
 
