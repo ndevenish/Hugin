@@ -931,7 +931,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
-    pdisp.pushTask(ProgressTask("Finetuning","",1.0/unoptimized.size()));
+    pdisp.pushTask(ProgressTask(_("Finetuning"),"",1.0/unoptimized.size()));
 
     // do not process the control points in random order,
     // but walk from image to image, to reduce image reloading

@@ -77,10 +77,6 @@ struct DruidHint
     virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
         { return FALSE; }
     int rank;
-    // const wxChar* name;
-    // const wxChar* graphic;
-    // const wxChar* brief;
-    // const wxChar* text;
     wxString name;
     wxString graphic;
     wxString brief;
