@@ -91,6 +91,7 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_KEY_UP(CPEditorPanel::OnKeyUp)
     EVT_KEY_DOWN(CPEditorPanel::OnKeyDown)
     EVT_BUTTON(XRCID("cp_editor_delete"), CPEditorPanel::OnDeleteButton)
+    EVT_BUTTON(XRCID("cp_editor_add"), CPEditorPanel::OnAddButton)
     EVT_CHECKBOX(XRCID("cp_editor_auto_add_cb"), CPEditorPanel::OnAutoAddCB)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
@@ -145,6 +146,8 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_y2Text->PushEventHandler(new TextKillFocusHandler(this));
 
     m_cpModeChoice = XRCCTRL(*this, "cp_editor_mode", wxChoice);
+    m_addButton = XRCCTRL(*this, "cp_editor_add", wxButton);
+    m_delButton = XRCCTRL(*this, "cp_editor_delete", wxButton);
 
     m_autoAddCB = XRCCTRL(*this,"cp_editor_auto_add", wxCheckBox);
     DEBUG_ASSERT(m_autoAddCB);
@@ -208,6 +211,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         changeState(NO_POINT);
         UpdateDisplay();
     }
+    m_selectedPoint = UINT_MAX;
 }
 
 
@@ -233,6 +237,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         changeState(NO_POINT);
         UpdateDisplay();
     }
+    m_selectedPoint = UINT_MAX;
 
 }
 
@@ -349,7 +354,6 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         if (cpCreationState == BOTH_POINTS_SELECTED) {
             DEBUG_DEBUG("right click -> adding point");
             CreateNewPoint();
-            MainFrame::Get()->SetStatusText("new control point added");
         } else {
             DEBUG_DEBUG("right click without two points..");
             changeState(NO_POINT);
@@ -408,6 +412,7 @@ void CPEditorPanel::CreateNewPoint()
     unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
     SelectGlobalPoint(lPoint);
     changeState(NO_POINT);
+    MainFrame::Get()->SetStatusText("new control point added");
 }
 
 void CPEditorPanel::ClearSelection()
@@ -418,7 +423,7 @@ void CPEditorPanel::ClearSelection()
         return;
     }
     m_cpList->SetItemState(m_selectedPoint, 0, wxLIST_STATE_SELECTED);
-    
+
     m_selectedPoint=UINT_MAX;
     changeState(NO_POINT);
     m_leftImg->deselect();
@@ -539,17 +544,11 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
                 otherImg->setNewPoint(corrPoint);
                 otherImg->update();
                 // Bad correlation result.
-                int answer = wxMessageBox(
-                    wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
+                wxMessageBox(
+                    wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong."),  xcorr, thresh),
                     "Low correlation",
-                    wxYES_NO|wxICON_QUESTION, this);
-                if (answer == wxNO) {
-                    changeState(THIS_POINT_RETRY);
-                    otherImg->clearNewPoint();
-                    return;
-                } else {
-                    changeState(BOTH_POINTS_SELECTED);
-                }
+                    wxICON_HAND, this);
+                changeState(BOTH_POINTS_SELECTED);
             } else {
                 // show point & zoom in if auto add is not set
                 if (!m_autoAddCB->IsChecked()) {
@@ -1066,7 +1065,7 @@ void CPEditorPanel::UpdateDisplay()
         m_cpModeChoice->SetSelection(p.mode);
         m_leftImg->selectPoint(m_selectedPoint);
         m_rightImg->selectPoint(m_selectedPoint);
-        
+
     } else {
         m_selectedPoint = UINT_MAX;
         EnablePointEdit(false);
@@ -1336,6 +1335,7 @@ void CPEditorPanel::OnKeyUp(wxKeyEvent & e)
     }
 
 }
+
 void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
@@ -1345,6 +1345,14 @@ void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
         e.Skip();
     }
 
+}
+
+void CPEditorPanel::OnAddButton(wxCommandEvent & e)
+{
+    // check if the point can be created..
+    if (cpCreationState == BOTH_POINTS_SELECTED) {
+        CreateNewPoint();
+    }
 }
 
 void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
@@ -1455,6 +1463,12 @@ void CPEditorPanel::changeState(CPCreationState newState)
         // but draw template size, if fine tune enabled
         m_leftImg->showTemplateArea(fineTune);
         m_rightImg->showTemplateArea(fineTune);
+        m_addButton->Enable(false);
+        if (m_selectedPoint < UINT_MAX) {
+            m_delButton->Enable(true);
+        } else {
+            m_delButton->Enable(false);
+        }
         if (cpCreationState != NO_POINT) {
             // reset zoom to previous setting
             wxCommandEvent tmpEvt;
@@ -1476,6 +1490,8 @@ void CPEditorPanel::changeState(CPCreationState newState)
 
         // unselect point
         ClearSelection();
+        m_addButton->Enable(false);
+        m_delButton->Enable(false);
         MainFrame::Get()->SetStatusText("Select Point in right image",0);
         break;
     case RIGHT_POINT:
@@ -1486,7 +1502,8 @@ void CPEditorPanel::changeState(CPCreationState newState)
         m_rightImg->showTemplateArea(fineTune);
 
         ClearSelection();
-        
+        m_addButton->Enable(false);
+        m_delButton->Enable(false);
         MainFrame::Get()->SetStatusText("Select Point in left image",0);
         break;
     case LEFT_POINT_RETRY:
@@ -1496,14 +1513,16 @@ void CPEditorPanel::changeState(CPCreationState newState)
         // but draw template size, if fine tune enabled
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(false);
-
-        MainFrame::Get()->SetStatusText("select point selection",0);
+        m_addButton->Enable(false);
+        m_delButton->Enable(false);
         break;
     case BOTH_POINTS_SELECTED:
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(false);
         m_leftImg->showSearchArea(false);
         m_rightImg->showSearchArea(false);
+        m_addButton->Enable(true);
+        m_delButton->Enable(false);
         MainFrame::Get()->SetStatusText("change points, or press right mouse button to add the pair");
     }
     // apply the change

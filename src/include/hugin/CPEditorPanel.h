@@ -107,14 +107,14 @@ public:
 
     /** unselect a point */
     void ClearSelection();
-    
+
 private:
 
     /** updates the display after another image has been selected.
      *  updates control points, and other widgets
      */
     void UpdateDisplay();
-    
+
     /** enable or disable controls for editing other points */
     void EnablePointEdit(bool state);
 
@@ -155,6 +155,7 @@ private:
     void OnLeftImgChange(wxNotebookEvent & e);
     void OnRightImgChange(wxNotebookEvent & e);
     void OnCPListSelect(wxListEvent & e);
+    void OnAddButton(wxCommandEvent & e);
     void OnZoom(wxCommandEvent & e);
     void OnTextPointChange(wxCommandEvent &e);
     void OnKey(wxKeyEvent & e);
@@ -227,6 +228,8 @@ private:
 
     wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
     wxChoice *m_cpModeChoice;
+    wxButton *m_addButton;
+    wxButton *m_delButton;
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;

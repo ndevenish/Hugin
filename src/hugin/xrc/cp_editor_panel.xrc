@@ -169,7 +169,7 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -183,7 +183,7 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -197,7 +197,7 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -211,7 +211,7 @@
                       <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                       <bg>#DCDCDC</bg>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -235,7 +235,15 @@
                     <object class="wxButton" name="cp_editor_delete">
                       <label>Delete</label>
                     </object>
-                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="cp_editor_add">
+                      <label>&amp;Add</label>
+                      <tooltip>add a new Point</tooltip>
+                    </object>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
                   </object>
                 </object>
                 <flag>wxEXPAND</flag>
