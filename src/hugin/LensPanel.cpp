@@ -582,8 +582,7 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
                          wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
-                         _("Lens Project Files (*.ini)|*.ini|"
-                         "All files (*.*)|*.*"),
+                         _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
@@ -633,8 +632,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         wxFileDialog dlg(this,
                          _("Load lens parameters"),
                          wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
-                         _("Lens Project Files (*.ini)|*.ini|"
-                         "All files (*.*)|*.*"),
+                         _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();

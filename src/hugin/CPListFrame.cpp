@@ -340,7 +340,7 @@ CPListFrame::~CPListFrame()
     }
     
 
-    if ( (!this->IsIconized()) && (!this->IsMaximized())) {
+    if ( (!this->IsIconized()) && (!this->IsMaximized()) && this->IsShown()) {
         DEBUG_DEBUG("IsShown()");
         config->Write(wxT("/CPListFrame/isShown"), 1l);
     } else {

@@ -224,7 +224,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                                     wxSIMPLE_BORDER);
 #endif
     } else {
-        DEBUG_ERROR("splash image not found");
+        wxLogFatalError(_("Fatal installation error\nThe xrc directory was not found.\nPlease ensure it is placed in the same directory as hugin.exe"));
+        abort();
     }
     splash->Refresh();
     wxYield();
@@ -466,8 +467,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     wxFileDialog dlg(this,
                      _("Save project file"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
-                     _("Project files (*.pto)|*.pto|"
-                     "All files (*.*)|*.*"),
+                     _("Project files (*.pto)|*.pto|All files (*.*)|*.*"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
@@ -548,8 +548,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     wxFileDialog dlg(this,
                      _("Open project file"),
                      config->Read(wxT("actualPath"),wxT("")), wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|"
-                     "All files (*.*)|*.*"),
+                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*.*)|*.*"),
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
@@ -579,10 +578,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|"
-                       "Image files (*.png)|*.png;*.PNG|"
-                       "Image files (*.tif)|*.tif;*.TIF|"
-                       "All files (*.*)|*.*"));
+    wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files (*.tif)|*.tif;*.TIF|All files (*.*)|*.*"));
     wxFileDialog dlg(this,_("Add images"),
                      config->Read(wxT("actualPath"),wxT("")), wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
@@ -633,10 +629,10 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()) )
     // save the image extension
     switch ( dlg.GetFilterIndex() ) {
-      case 0: config->Write(wxT("lastImageType"), "jpg"); break;
-      case 1: config->Write(wxT("lastImageType"), "png"); break;
-      case 2: config->Write(wxT("lastImageType"), "tif"); break;
-      case 3: config->Write(wxT("lastImageType"), "all"); break;
+      case 0: config->Write(wxT("lastImageType"), wxT("jpg")); break;
+      case 1: config->Write(wxT("lastImageType"), wxT("png")); break;
+      case 2: config->Write(wxT("lastImageType"), wxT("tif")); break;
+      case 3: config->Write(wxT("lastImageType"), wxT("all")); break;
     }
 
     DEBUG_TRACE("");
@@ -1000,13 +996,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     }
     }
     wxString result;
-    result.Printf(_("%d points fine-tuned, %d points not updated due to low correlation\n\n"
-                    "Hint: The errors of the fine-tuned points have been set to the, correlation coefficient\n"
-                    "Problematic point can be spotted (just after fine-tune, before optimizing)\n"
-                    "by an error <= %.3f.\n"
-                    "The error of points without a well defined peak (typically in regions with uniform color)\n"
-                    "will be set to 0\n\n"
-                    "Use the Control Point list (F3) to see all point of the current project\n"),
+    result.Printf(_("%d points fine-tuned, %d points not updated due to low correlation\n\nHint: The errors of the fine-tuned points have been set to the, correlation coefficient\nProblematic point can be spotted (just after fine-tune, before optimizing)\nby an error <= %.3f.\nThe error of points without a well defined peak (typically in regions with uniform color)\nwill be set to 0\n\nUse the Control Point list (F3) to see all point of the current project\n"),
                   nGood, nBad, corrThresh);
     wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points

@@ -259,7 +259,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     if (pano.getOptions().colorReferenceImage == imgNr) {
         flags[1]='C';
     }
-    SetItem(imgNr,7, flags);
+    SetItem(imgNr,7, wxString(flags, *wxConvCurrent));
     // urgh.. slow.. stupid.. traverse control point list for each image..
     const CPVector & cps = pano.getCtrlPoints();
     int nCP=0;

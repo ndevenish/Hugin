@@ -223,12 +223,8 @@ bool huginApp::OnInit()
     DEBUG_DEBUG("figuring out windows temp dir");
     if (m_workDir == wxT("")) {
         /* added by Yili Zhao */
-#ifdef wxUSE_UNICODE
-        WCHAR buffer[MAX_PATH];
-#else //ANSI
-        char buffer[MAX_PATH];
-#endif
-        GetTempPath(255, buffer);
+        wxChar buffer[MAX_PATH];
+        GetTempPath(MAX_PATH, buffer);
         m_workDir = buffer;
     }
 #else

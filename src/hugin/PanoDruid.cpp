@@ -50,9 +50,7 @@ END_HINT(ERROR);
 
 NEW_HINT(1, READY, wxT("druid.stitch.128.png"),
          _("The druid finds no problems with your panorama."),
-         _("Stitch your final image now, and then use an image editor\n"
-           "such as the GNU Image Manipulation Program (the GIMP)\n"
-           "to add any finishing touches."))
+         _("Stitch your final image now, and then use an image editor\nsuch as the GNU Image Manipulation Program (the GIMP)\nto add any finishing touches."))
 {
     return TRUE;
 }
@@ -62,9 +60,7 @@ END_HINT(READY);
 
 NEW_HINT(5, UNSAVED, wxT("druid.stitch.128.png"),
          _("Warning:  you haven't saved the current project."),
-         _("While everything else seems to be ready to stitch,\n"
-           "don't forget to save your project file so you can\n"
-           "experiment or adjust the settings later."))
+         _("While everything else seems to be ready to stitch,\ndon't forget to save your project file so you can\nexperiment or adjust the settings later."))
 {
     return pano.isDirty();
 }
@@ -74,12 +70,7 @@ END_HINT(UNSAVED);
 
 NEW_HINT(20, HUGE_FINAL, wxT("druid.stitch.128.png"),
          _("Warning:  current stitch has huge dimensions."),
-         _("Very large pixel dimensions are currently entered.\n"
-           "Some computers may take an excessively long time\n"
-           "to render such a large final image.\n"
-           "For best results, use the automatic Calc button on\n"
-           "the Panorama Options tab to determine the\n"
-           "pixel dimensions which will give the best quality."))
+         _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the automatic Calc button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality."))
 {
     unsigned long dst_mp = (unsigned long)opts.width * opts.getHeight();
 
@@ -110,12 +101,7 @@ END_HINT(HUGE_FINAL);
 
 NEW_HINT(25, LOW_HFOV, wxT("druid.lenses.128.png"),
          _("The Horizontal Field of View (HFOV) may be too low."),
-         _("Check that the focal lengths and/or hfov figures\n"
-           "for each image are correct for the camera settings.\n"
-           "Then calculate the visible field of view again.\n"
-           "HFOV is measured in degrees of arc, usually between\n"
-           "5 and 120 degrees per image unless using specialized\n"
-           "lenses."))
+         _("Check that the focal lengths and/or hfov figures\nfor each image are correct for the camera settings.\nThen calculate the visible field of view again.\nHFOV is measured in degrees of arc, usually between\n5 and 120 degrees per image unless using specialized\nlenses."))
 {
     return (opts.HFOV <= 2.0);
 }
@@ -125,10 +111,7 @@ END_HINT(LOW_HFOV);
 
 NEW_HINT(42, NO_PLUMB_GUIDES, wxT("druid.control.128.png"),
          _("Consider adding a vertical or horizontal guide."),
-         _("By adding vertical guides, the optimizer can ensure\n"
-           "that buildings or trees or other vertical features\n"
-           "appear vertical in the final result.  A horizontal\n"
-           "guide can help ensure that a horizon does not bend."))
+         _("By adding vertical guides, the optimizer can ensure\nthat buildings or trees or other vertical features\nappear vertical in the final result.  A horizontal\nguide can help ensure that a horizon does not bend."))
 {
     int images = pano.getNrOfImages();
     if (images < 3)
@@ -151,10 +134,7 @@ END_HINT(NO_PLUMB_GUIDES);
 
 NEW_HINT(45, OPTIMIZER_NOT_RUN, wxT("druid.control.128.png"),
          _("Run the Optimizer to estimate the image positions."),
-         _("The Optimizer uses the control points to estimate the\n"
-           "positions of the individual images in the final panorama\n"
-           "\n"
-           "The optimizer can be invoked in the Optimizer tab.\n"))
+         _("The Optimizer uses the control points to estimate the\npositions of the individual images in the final panorama\n\nThe optimizer can be invoked in the Optimizer tab.\n"))
 {
     int images = pano.getNrOfImages();
     if (images > 1) {
@@ -182,9 +162,7 @@ END_HINT(OPTIMIZER_NOT_RUN);
 
 NEW_HINT(46, FEW_GUIDES, wxT("druid.control.128.png"),
          _("Add more control points to improve the stitch quality."),
-         _("For best results, there should be at least four pairs\n"
-           "of control points for each pair of overlapping images.\n"
-           "More points, accurately placed, will improve the match."))
+         _("For best results, there should be at least four pairs\nof control points for each pair of overlapping images.\nMore points, accurately placed, will improve the match."))
 {
     int points = pano.getNrOfCtrlPoints();
     int images = pano.getNrOfImages();
@@ -203,9 +181,7 @@ END_HINT(FEW_GUIDES);
 
 NEW_HINT(47, UNGUIDED_IMAGE, wxT("druid.control.128.png"),
          _("At least one image has no control points at all."),
-         _("For best results, there should be at least four pairs\n"
-           "of control points for each pair of overlapping images.\n"
-           "An image with no control points cannot be aligned."))
+         _("For best results, there should be at least four pairs\nof control points for each pair of overlapping images.\nAn image with no control points cannot be aligned."))
 {
     int images = pano.getNrOfImages();
     while (images)
@@ -224,10 +200,7 @@ END_HINT(UNGUIDED_IMAGE);
 
 NEW_HINT(48, NO_GUIDES, wxT("druid.control.128.png"),
          _("Add stitching control points to each pair of images."),
-         _("The Optimizer relies on your control points to arrange\n"
-           "and blend the images properly.  On the Control Points\n"
-           "tab, add pairs of points that correspond to identical\n"
-           "visual features in each pair of overlapping images."))
+         _("The Optimizer relies on your control points to arrange\nand blend the images properly.  On the Control Points\ntab, add pairs of points that correspond to identical\nvisual features in each pair of overlapping images."))
 {
     return (0 == pano.getNrOfCtrlPoints());
 }

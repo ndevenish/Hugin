@@ -313,10 +313,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             DEBUG_INFO("enblend cmdline:" << cmdline.c_str());
 #ifdef __WXMSW__
             if (cmdline.size() > 1950) {
-                wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\n"
-                               "This is a Windows limitiation\n"
-                               "Please use less images, or place the images in a folder with\n"
-                               "a shorter pathname"), _("Too many images selected"));
+                wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitiation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
+                    _("Too many images selected"));
         return;
     }
 #endif
@@ -338,7 +336,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 memset(&siStartupInfo, 0, sizeof(siStartupInfo));
                 memset(&piProcessInfo, 0, sizeof(piProcessInfo));
                 siStartupInfo.cb = sizeof(siStartupInfo);
-#ifdef wxUSE_UNICODE
+//#ifdef wxUSE_UNICODE
+#if wxUSE_UNICODE
                 WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
                 WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
 #else //ANSI

@@ -7,3 +7,5 @@ Makefile
 Makefile.in
 stamp-h
 stamp-h.in
+Release
+Debug

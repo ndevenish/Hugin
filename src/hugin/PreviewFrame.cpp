@@ -244,7 +244,7 @@ PreviewFrame::~PreviewFrame()
         config->Write(wxT("/PreviewFrame/maximized"), 1l);
     }
     
-    if ( (!this->IsIconized()) && (! this->IsMaximized())) {
+    if ( (!this->IsIconized()) && (! this->IsMaximized()) && this->IsShown()) {
         config->Write(wxT("/PreviewFrame/isShown"), 1l);
     } else {
         config->Write(wxT("/PreviewFrame/isShown"), 0l);
@@ -537,9 +537,7 @@ static struct advocation _advice[] =
 
 	{ wxT("READY"), wxT("druid.stitch.128.png"),
 	  _("The druid finds no problems with your panorama."),
-	  _("Stitch your final image now, and then use an image editor\n"
-		"such as the GNU Image Manipulation Program (the GIMP)\n"
-		"to add any finishing touches.") },
+	  _("Stitch your final image now, and then use an image editor\nsuch as the GNU Image Manipulation Program (the GIMP)\nto add any finishing touches.") },
 
 	{ wxT("NO IMAGES"), wxT("druid.images.128.png"),
 	  _("To get started, add some image files."),
@@ -551,27 +549,15 @@ static struct advocation _advice[] =
 
 	{ wxT("LOW HFOV"), wxT("druid.lenses.128.png"),
 	  _("The Horizontal Field of View (HFOV) may be too low."),
-	  _("Check that the focal lengths and/or hfov figures\n"
-		"for each image are correct for the camera settings.\n"
-		"Then calculate the visible field of view again.\n"
-		"HFOV is measured in degrees of arc, usually between\n"
-		"5 and 120 degrees per image unless using specialized\n"
-		"lenses.") },
+	  _("Check that the focal lengths and/or hfov figures\nfor each image are correct for the camera settings.\nThen calculate the visible field of view again.\nHFOV is measured in degrees of arc, usually between\n5 and 120 degrees per image unless using specialized\nlenses.") },
 
 	{ wxT("HUGE FINAL"), wxT("druid.stitch.128.png"),
 	  _("Warning:  current stitch has huge dimensions."),
-	  _("Very large pixel dimensions are currently entered.\n"
-		"Some computers may take an excessively long time\n"
-		"to render such a large final image.\n"
-		"For best results, use the automatic Calc button on\n"
-		"the Panorama Options tab to determine the\n"
-		"pixel dimensions which will give the best quality.") },
+	  _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the automatic Calc button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality.") },
 
 	{ wxT("UNSAVED"), wxT("druid.stitch.128.png"),
 	  _("Warning:  you haven't saved the current project."),
-	  _("While everything else seems to be ready to stitch,\n"
-		"don't forget to save your project file so you can\n"
-		"experiment or adjust the settings later.") },
+	  _("While everything else seems to be ready to stitch,\ndon't forget to save your project file so you can\nexperiment or adjust the settings later.") },
 
 	{ NULL, NULL, wxT("") }
 };

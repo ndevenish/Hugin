@@ -144,10 +144,7 @@ public:
                             basedir = fname.GetPath();
                         }
                         // open file dialog
-                        wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|"
-                                             "Image files (*.png)|*.png;*.PNG|"
-                                             "Image files (*.tif)|*.tif;*.TIF|"
-                                             "All files (*.*)|*.*"));
+                        wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files (*.tif)|*.tif;*.TIF|All files (*.*)|*.*"));
                         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                          basedir, fname.GetName(),
                                          wildcard, wxOPEN, wxDefaultPosition);

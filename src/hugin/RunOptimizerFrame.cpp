@@ -315,19 +315,9 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
 
     wxString msg;
     if (smallHFOV) {
-        msg.Printf(_("Optimizer run finished.\n"
-                     "WARNING: a very small Field of View (v) has been estimated\n\n"
-                     "The results are probably invalid.\n"
-                     "Please optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\n"
-                     "The Field of View (v) can sometimes be optimized for partial panoramas as well,\n"
-                     "when the images are already aligned well."));
+        msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\nPlease optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\nThe Field of View (v) can sometimes be optimized for partial panoramas as well,\nwhen the images are already aligned well."));
     } else {
-        msg.Printf(_("Optimizer run finished.\n"
-                     "Results:\n"
-                     "  average control point distance: %f\n"
-                     "  standart deviation: %f\n"
-                     "  maximum: %f\n\n"
-                     "Apply the changes?"),
+        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standart deviation: %f\n maximum: %f\n\nApply the changes?"),
                    mean_error, std_dev, max_error);
     }
     m_optimizer_result_text->SetLabel(msg);

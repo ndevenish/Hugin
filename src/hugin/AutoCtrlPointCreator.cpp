@@ -197,10 +197,8 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
 #ifdef __WXMSW__
     if (cmd.size() > 1950) {
-        wxMessageBox(_("autopano command line too long.\n"
-                       "This is a windows limitation\n"
-                       "Please select less images, or place the images in a folder with\n"
-                       "a shorter pathname"), _("Too many images selected"),
+        wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"),
                      wxCANCEL );
         return;
     }
@@ -223,11 +221,10 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxFileName tname(autopanoExe);
     wxString ext = tname.GetExt();
     if (ext == wxT("vbs")) {
-        // this is a script.. execute it with ShellExecute
-#ifdef wxUSE_UNICODE
-        WCHAR * exe_c = (WCHAR *)autopanoExe.wc_str();
+#if wxUSE_UNICODE
+        wxChar * exe_c = (wxChar *)autopanoExe.c_str();
 #else //ANSI
-        char * exe_c = autopanoExe.mb_str();
+        char * exe_c = (char *) autopanoExe.mb_str();
 #endif
         SHELLEXECUTEINFO seinfo;
         memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
@@ -261,13 +258,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
     if (! wxFileExists(ptofile.c_str())) {
-        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\n"
-                       "This is an indicator that the autopano call failed,\n"
-                       "or wrong command line parameters have been used.\n\n"
-                       "Autopano command: ") + cmd, _("autopano failure"), wxCANCEL );
+        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ") 
+                     + cmd, _("autopano failure"), wxCANCEL );
         return;
     }
     // read and update control points
+    readUpdatedControlPoints(string(ptofile.mb_str()), pano);
     readUpdatedControlPoints((const char *)ptofile.mb_str(), pano);
 
     if (!wxRemoveFile(ptofile)) {
@@ -328,10 +324,8 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     cmd.Printf(wxT("%s %s"), autopanoExe.c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 1950) {
-        wxMessageBox(_("autopano command line too long.\n"
-                       "This is a windows limitation\n"
-                       "Please select less images, or place the images in a folder with\n"
-                       "a shorter pathname"), _("Too many images selected"),
+        wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"),
                      wxCANCEL );
         return;
     }
@@ -365,12 +359,10 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 
     ptofile.append(wxT("0.oto"));
     if (! wxFileExists(ptofile.c_str()) ) {
-        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\n"
-                       "This is an indicator that the autopano call failed,\n"
-                       "or wrong command line parameters have been used.\n\n"
-                       "Autopano command: ") + cmd + _("\n current directory:") +
-			wxGetCwd(),
-		       _("autopano failure"), wxCANCEL );
+        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\nThis is an indicator that the autopano call failed,\nor wrong command line parameters have been used.\n\nAutopano command: ")
+                     + cmd + _("\n current directory:") +
+			         wxGetCwd(),
+		             _("autopano failure"), wxCANCEL );
         return;
     }
     // read and update control points
