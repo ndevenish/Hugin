@@ -24,6 +24,17 @@
  *
  */
 
+
+#include <wx/wxprec.h>
+#ifdef __BORLANDC__
+    #pragma hdrstop
+#endif
+
+#ifndef WX_PRECOMP
+    #include <wx/wx.h>
+#endif
+
+#include "wx/image.h"
 #include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 

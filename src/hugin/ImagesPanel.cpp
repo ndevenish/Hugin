@@ -36,6 +36,8 @@
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 //#include <wx/image.h>               // wxImage
 //#include <wx/imagpng.h>             // for about html
+#include <wx/listctrl.h>	// needed on mingw
+#include <wx/imaglist.h>
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"

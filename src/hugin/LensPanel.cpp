@@ -34,6 +34,8 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
+#include <wx/listctrl.h>
+#include <wx/imaglist.h>
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"

@@ -37,7 +37,7 @@
 //#include <wx/image.h>               // wxImage
 //#include <wx/imagpng.h>             // for about html
 #include <wx/wxhtml.h>              // for about html
-//#include <wx/listctrl.h>            // wxListCtrl
+#include <wx/listctrl.h>            // wxListCtrl
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"

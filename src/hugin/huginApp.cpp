@@ -39,6 +39,7 @@
 #include "wx/image.h"               // wxImage
 #include "wx/xrc/xmlres.h"          // XRC XML resouces
 #include <wx/filename.h>            // files and dirs
+#include <wx/file.h>
 
 #include "hugin/MainFrame.h"
 
