@@ -60,9 +60,9 @@ pano(*pano)
     AssignImageList(m_smallIcons,wxIMAGE_LIST_SMALL);
     pano->addObserver(this);
     DEBUG_TRACE("");
-    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigits",1);
-    m_pixelDigits = wxConfigBase::Get()->Read("/General/PixelFractionalDigits",1);
-    m_distDigits = wxConfigBase::Get()->Read("/General/DistortionFractionalDigits",3);
+    m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
+    m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigits"),1);
+    m_distDigits = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigits"),3);
 }
 
 ImagesList::~ImagesList(void)
@@ -175,7 +175,7 @@ void ImagesList::CreateItem(unsigned int imgNr)
 {
     DEBUG_DEBUG("creating item " << imgNr);
     // create the new row
-    InsertItem ( imgNr, wxString::Format("%d",imgNr), imgNr );
+    InsertItem ( imgNr, wxString::Format(wxT("%d"),imgNr), imgNr );
     UpdateItem(imgNr);
 }
 
@@ -243,11 +243,11 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     wxFileName fn(img.getFilename().c_str());
     VariableMap var = pano.getImageVariables(imgNr);
 
-//    wxLogMessage(wxString::Format("updating image list item %d, filename %s",imgNr, fn.GetFullName()));
+//    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
 
     SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format("%d", img.getWidth()));
-    SetItem(imgNr, 3, wxString::Format("%d", img.getHeight()));
+    SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getWidth()));
+    SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getHeight()));
     SetItem(imgNr, 4, doubleToString(map_get(var,"y").getValue(),m_degDigits).c_str());
     SetItem(imgNr, 5, doubleToString( map_get(var,"p").getValue(),m_degDigits).c_str());
     SetItem(imgNr, 6, doubleToString( map_get(var,"r").getValue(),m_degDigits).c_str());
@@ -267,7 +267,7 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
             nCP++;
         }
     }
-    SetItem(imgNr, 8, wxString::Format("%d", nCP));
+    SetItem(imgNr, 8, wxString::Format(wxT("%d"), nCP));
 }
 
 ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
@@ -292,7 +292,7 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     const PanoImage & img = pano.getImage(imgNr);
     wxFileName fn(img.getFilename().c_str());
     SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format("%d",img.getLensNr()));
+    SetItem(imgNr, 2, wxString::Format(wxT("%d"),img.getLensNr()));
 
     VariableMap var = pano.getImageVariables(imgNr);
     const Lens & lens = pano.getLens( img.getLensNr());

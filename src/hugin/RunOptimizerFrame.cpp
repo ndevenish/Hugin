@@ -77,7 +77,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     std::string script(script_stream.str());
     if (edit) {
         // open a text dialog with an editor inside
-        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "edit_script_dialog");
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("edit_script_dialog"));
         wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
         txtCtrl->SetValue(script.c_str());
 
@@ -93,7 +93,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
     Hide();
-    wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer.exe");
+    wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"),wxT("PTOptimizer.exe"));
     if (!wxFile::Exists(optimizerExe)){
         wxFileDialog dlg(this,_("Select PTOptimizer"),
         "", "PTOptimizer.exe",
@@ -101,21 +101,21 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
         wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             optimizerExe = dlg.GetPath();
-            config->Write("/PanoTools/PTOptimizerExe",optimizerExe);
+            config->Write(wxT("/PanoTools/PTOptimizerExe"),optimizerExe);
         } else {
             wxLogError(_("No PTOptimizer.exe selected"));
         }
     }
 #else
-    wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer");
+    wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"),wxT("PTOptimizer"));
 #endif
-    wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
+    wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt"));
 
     std::ofstream scriptfile(PTScriptFile.c_str());
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd(optimizerExe + " " + quoteFilename(PTScriptFile));
+    wxString cmd(optimizerExe + wxT(" ") + quoteFilename(PTScriptFile));
 
     DEBUG_INFO("Executing cmd: " << cmd);
 
@@ -127,7 +127,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 #if __unix__
     if (m_pid <= 0 )
     {
-        wxLogError(_T("Failed to launch the PTOptimizer."));
+        wxLogError(_("Failed to launch PTOptimizer."));
 
         return;
     }
@@ -138,7 +138,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 
     if ( !m_in )
     {
-        wxLogError(_T("Failed to connect to child stdout"));
+        wxLogError(_("Failed to connect to child stdout"));
         return;
     }
 #else
@@ -182,7 +182,7 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         DEBUG_DEBUG("read line: " << line);
 
         // Strategy 2
-        wxRegEx reStrat("^Strategy ([0-9]+)");
+        wxRegEx reStrat(wxT("^Strategy ([0-9]+)"));
         if (reStrat.Matches(line)) {
             wxString t = reStrat.GetMatch(line, 1);
             DEBUG_DEBUG("Stragegy matched: " << t.c_str());
@@ -193,7 +193,7 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         }
 
         // after 1 iteration(s):          1.52168682328884
-        wxRegEx reLine("after +([0-9]*) +iter.*:[\t ]*([0-9,.]+) ");
+        wxRegEx reLine(wxT("after +([0-9]*) +iter.*:[\t ]*([0-9,.]+) "));
         if ( reLine.Matches(line) )
         {
             wxString titeration = reLine.GetMatch(line, 1);

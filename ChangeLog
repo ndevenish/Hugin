@@ -1,3 +1,128 @@
+2004-11-04 02:24  dangelo
+
+	* src/: include/hugin/huginApp.h, hugin/CPEditorPanel.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/PTStitcherPanel.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/huginApp.cpp, include/common/utils.h, common/utils.cpp:
+	  always accept , and . in floating point input fields
+
+2004-11-04 00:44  dangelo
+
+	* src/: hugin/CPImageCtrl.cpp, include/hugin/CPEditorPanel.h,
+	  hugin/CPEditorPanel.cpp: fixed 1059221 ( autoestimate sets image
+	  to 100%) and [ 992439 ] images not refreshed when changed zoom
+
+2004-11-03 20:00  dangelo
+
+	* src/hugin/MainFrame.cpp: use correct name for title bar - real
+	  fix
+
+2004-11-03 19:57  dangelo
+
+	* src/hugin/MainFrame.cpp: use correct name for title bar
+
+2004-11-03 19:41  dwilkins42
+
+	* configure.ac: Fix datadir detection
+
+2004-11-03 03:18  dangelo
+
+	* src/: Panorama/Panorama.vcproj,
+	  foreign/vigra_impex/vigra_impex.vcproj,
+	  hugin/NonaStitcherPanel.cpp, hugin/huginApp.cpp,
+	  hugin/xrc/data/CPCursor1.png, include/PT/Stitcher.h: use
+	  CreateProcess to execute enblend on windows
+
+2004-11-03 03:18  dangelo
+
+	* src/: include/hugin/config_defaults.h,
+	  hugin/AutoCtrlPointCreator.cpp: autopano-sift finally works from
+	  within hugin
+
+2004-11-03 00:31  dangelo
+
+	* src/: include/hugin/LensPanel.h, hugin/LensPanel.cpp: Better
+	  handling of lens parameter changes
+
+2004-11-03 00:13  dangelo
+
+	* src/hugin/huginApp.cpp: working fix
+
+2004-11-02 23:45  dangelo
+
+	* src/hugin/huginApp.cpp: fix bug 1059089, thanks to marek for the
+	  patch
+
+2004-11-02 23:00  dangelo
+
+	* src/hugin/CPImageCtrl.cpp: fixed bug 1038138
+
+2004-11-02 22:35  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp, hugin/huginApp.cpp,
+	  include/hugin/huginApp.h: fixed bug 1058900, uses real workdir.
+
+2004-11-02 20:24  dwilkins42
+
+	* utils/hugin.nsi: Really update to 041102 version
+
+2004-11-02 19:43  dwilkins42
+
+	* utils/hugin.nsi: Update to 041102 version
+
+2004-11-01 22:34  dangelo
+
+	* src/hugin/MainFrame.cpp: do not remember project file name if a
+	  non hugin project was loaded, to prevent accidentally overwriting
+	  it.
+
+2004-11-01 22:32  dangelo
+
+	* src/hugin/ImagesPanel.cpp: Clear() was renamed in wxWindows 2.5.x
+
+2004-11-01 22:29  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: fixes for PTGUI script loading
+	  seems to be able to ptgui script version 7 and 8
+
+2004-11-01 20:19  dangelo
+
+	* src/hugin/ImagesPanel.cpp: fixed preview image on linux. I hope
+	  now it works on both platforms
+
+2004-11-01 20:05  dangelo
+
+	* src/include/vigra_ext/Correlation.h: do not write correlation
+	  test image
+
+2004-11-01 20:04  dangelo
+
+	* src/include/vigra_ext/tiffUtils.h: allow build with gcc
+
+2004-11-01 20:01  dangelo
+
+	* src/hugin/MainFrame.cpp: added .oto to the project files
+
+2004-11-01 19:50  dwilkins42
+
+	* ChangeLog: Update
+
+2004-11-01 19:20  dangelo
+
+	* src/foreign/vigra_impex/jpeg.cxx: use float calculations when
+	  writing jpeg files
+
+2004-11-01 19:19  dangelo
+
+	* src/include/vigra_ext/tiffUtils.h: MSVC fixes
+
+2004-11-01 19:10  dangelo
+
+	* src/: vigra_ext/vigra_ext.vcproj, hugin/hugin.vcproj,
+	  jhead/jhead.vcproj, common/common.vcproj,
+	  foreign/vigra_impex/vigra_impex.vcproj, Panorama/Panorama.vcproj,
+	  Hugin.sln: updated MSVC projects. release builds should work now
+
 2004-11-01 19:09  dangelo
 
 	* src/hugin/PreferencesDialog.cpp: added curvature threshold
@@ -2947,44 +3072,4 @@
 	  lens_panel.xrc, main_frame.xrc, optimize_panel.xrc,
 	  pano_panel.xrc: - reworded, rearranged and adjusted the dialog
 	  resources   for style and consistency
-
-2003-11-04 02:51  dangelo
-
-	* src/: hugin/xrc/images_panel.xrc,
-	  include/PT/PanoToolsInterface.h, include/PT/Transforms.h,
-	  include/common/math.h, include/hugin/AnchorPositionCtrl.h,
-	  include/hugin/ImageOrientationFrame.h,
-	  include/hugin/ImageOrientationPanel.h,
-	  include/hugin/ImageProcessing.h, include/hugin/ImagesPanel.h,
-	  include/hugin/PanoToolsInterface.h, include/hugin/PreviewPanel.h,
-	  tests/Makefile, tests/panorama.cpp, tests/panotools.cpp,
-	  tests/transforms.cpp, Panorama/Makefile,
-	  Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
-	  hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
-	  hugin/ImageOrientationFrame.cpp, hugin/ImageOrientationPanel.cpp,
-	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp, hugin/Makefile,
-	  hugin/PanoToolsInterface.cpp, hugin/PreviewPanel.cpp,
-	  hugin/TextKillFocusHandler.cpp, hugin/huginApp.cpp,
-	  hugin/hugin_rc.rc, hugin/xrc/anchor_orientation.xrc: - added
-	  interface to Pano Tools transforms (PT/PanoToolsInterface) -
-	  preview with lens distortions
-
-	  - anchor selection window, with strange rotation behavior..
-	  have to dissect the transforms and calculate pitch & yaw    for
-	  new rotation values.	  Panotools apply rotation before yaw &
-	  pitch ->    images are rotatated around their center, not the
-	  yaw,pitch position.
-
-	  - always use 35 mm equiv focal length in focal length field
-
-	  - enter in Lens Tab is broken again.
-
-2003-11-02 12:21  dangelo
-
-	* src/hugin/ImageCache.cpp: ups, should add instead of subtract
-
-2003-11-02 12:12  dangelo
-
-	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
-	  include/hugin/ImageCache.h: simple cache purge
 

@@ -84,8 +84,8 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
 
 
     wxConfigBase * config = wxConfigBase::Get();
-    long w = config->Read("/OptimizerPanel/width",-1);
-    long h = config->Read("/OptimizerPanel/height",-1);
+    long w = config->Read(wxT("/OptimizerPanel/width"),-1);
+    long h = config->Read(wxT("/OptimizerPanel/height"),-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
@@ -103,8 +103,8 @@ OptimizePanel::~OptimizePanel()
     DEBUG_TRACE("dtor, writing config");
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write("/OptimizerPanel/width",sz.GetWidth());
-    config->Write("/OptimizerPanel/height",sz.GetHeight());
+    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
+    config->Write(wxT("/OptimizerPanel/height"),sz.GetHeight());
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -203,12 +203,12 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     unsigned int nLens = m_pano->getNrOfLenses();
     while (nr < nLens) {
         // add checkboxes.
-        m_v_list->Append(wxString::Format("%d",nr));
-        m_a_list->Append(wxString::Format("%d",nr));
-        m_b_list->Append(wxString::Format("%d",nr));
-        m_c_list->Append(wxString::Format("%d",nr));
-        m_d_list->Append(wxString::Format("%d",nr));
-        m_e_list->Append(wxString::Format("%d",nr));
+        m_v_list->Append(wxString::Format(wxT("%d"),nr));
+        m_a_list->Append(wxString::Format(wxT("%d"),nr));
+        m_b_list->Append(wxString::Format(wxT("%d"),nr));
+        m_c_list->Append(wxString::Format(wxT("%d"),nr));
+        m_d_list->Append(wxString::Format(wxT("%d"),nr));
+        m_e_list->Append(wxString::Format(wxT("%d"),nr));
         nr++;
     }
 
@@ -231,9 +231,9 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     unsigned int nImages = m_pano->getNrOfImages();
     while (nr < nImages) {
         // add checkboxes.
-        m_yaw_list->Append(wxString::Format("%d",nr));
-        m_pitch_list->Append(wxString::Format("%d",nr));
-        m_roll_list->Append(wxString::Format("%d",nr));
+        m_yaw_list->Append(wxString::Format(wxT("%d"),nr));
+        m_pitch_list->Append(wxString::Format(wxT("%d"),nr));
+        m_roll_list->Append(wxString::Format(wxT("%d"),nr));
         nr++;
     }
 
@@ -253,17 +253,17 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         const VariableMap & vars = pano.getImageVariables(*it);
         // keep selections
         bool sel = m_yaw_list->IsChecked(*it);
-        m_yaw_list->SetString(*it, wxString::Format("%d (%.3f)",
+        m_yaw_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
                                 *it, const_map_get(vars,"y").getValue()));
         m_yaw_list->Check(*it,sel);
 
         sel = m_pitch_list->IsChecked(*it);
-        m_pitch_list->SetString(*it, wxString::Format("%d (%.3f)",
+        m_pitch_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
                                 *it, const_map_get(vars,"p").getValue()));
         m_pitch_list->Check(*it,sel);
 
         sel = m_roll_list->IsChecked(*it);
-        m_roll_list->SetString(*it, wxString::Format("%d (%.3f)",
+        m_roll_list->SetString(*it, wxString::Format(wxT("%d (%.3f)"),
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
@@ -273,44 +273,44 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         const Lens & lens = pano.getLens(i);
         const LensVariable & v = const_map_get(lens.variables,"v");
         if (v.isLinked()) {
-            m_v_list->SetString(i,wxString::Format("%d (%.2f)",i, v.getValue()));
+            m_v_list->SetString(i,wxString::Format(wxT("%d (%.2f)"),i, v.getValue()));
         } else {
-            m_v_list->SetString(i,wxString::Format("%d",nr));
+            m_v_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
 
         const LensVariable & a = const_map_get(lens.variables,"a");
         if (a.isLinked()) {
-            m_a_list->SetString(i,wxString::Format("%d (%.3f)",i, a.getValue()));
+            m_a_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, a.getValue()));
         } else {
-            m_a_list->SetString(i,wxString::Format("%d",nr));
+            m_a_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
 
         const LensVariable & b = const_map_get(lens.variables,"b");
         if (b.isLinked()) {
-            m_b_list->SetString(i,wxString::Format("%d (%.3f)",i, b.getValue()));
+            m_b_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, b.getValue()));
         } else {
-            m_b_list->SetString(i,wxString::Format("%d",nr));
+            m_b_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
 
         const LensVariable & c = const_map_get(lens.variables,"c");
         if (c.isLinked()) {
-            m_c_list->SetString(i,wxString::Format("%d (%.3f)",i, c.getValue()));
+            m_c_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, c.getValue()));
         } else {
-            m_c_list->SetString(i,wxString::Format("%d",nr));
+            m_c_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
 
         const LensVariable & d = const_map_get(lens.variables,"d");
         if (d.isLinked()) {
-            m_d_list->SetString(i,wxString::Format("%d (%.1f)",i, d.getValue()));
+            m_d_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, d.getValue()));
         } else {
-            m_d_list->SetString(i,wxString::Format("%d",nr));
+            m_d_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
 
         const LensVariable & e = const_map_get(lens.variables,"e");
         if (e.isLinked()) {
-            m_e_list->SetString(i,wxString::Format("%d (%.1f)",i, e.getValue()));
+            m_e_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, e.getValue()));
         } else {
-            m_e_list->SetString(i,wxString::Format("%d",nr));
+            m_e_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
     }
 

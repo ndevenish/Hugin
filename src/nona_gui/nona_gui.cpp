@@ -68,7 +68,7 @@ public:
     /** just for testing purposes */
     virtual int OnExit();
 
-    void usage(const char * name);
+    void usage(const wxChar * name);
 
 
 private:
@@ -91,7 +91,7 @@ nonaApp::~nonaApp()
 
 bool nonaApp::OnInit()
 {
-    SetAppName("nona_gui");
+    SetAppName(wxT("nona_gui"));
 
     // parse arguments
     const char * optstring = "ho:";
@@ -118,11 +118,11 @@ bool nonaApp::OnInit()
     if (argc - optind <1) {
         // ask for project file
         wxFileDialog dlg(0,_("Specify project source project file"),
-                         wxConfigBase::Get()->Read("actualPath",""),
+                         wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
                          "", "",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
-            wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
             scriptFile = dlg.GetPath().c_str();
         } else {
             usage(argv[0]);
@@ -139,11 +139,11 @@ bool nonaApp::OnInit()
     if (basename == "") {
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
-                         wxConfigBase::Get()->Read("actualPath",""),
+                         wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
                          "", "",
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
-            wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
             basename = dlg.GetPath().c_str();
         } else {
             usage(argv[0]);
@@ -154,7 +154,7 @@ bool nonaApp::OnInit()
     basename = utils::stripExtension(basename);
 
     //utils::StreamMultiProgressDisplay pdisp(cout);
-    MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+    MyProgressDialog pdisp(_("Stitching Panorama"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     Panorama pano;
     PanoramaMemento newPano;
@@ -205,7 +205,7 @@ int nonaApp::OnExit()
     return 0;
 }
 
-void nonaApp::usage(const char * name)
+void nonaApp::usage(const wxChar * name)
 {
     ostringstream o;
     o    << name << ": stitch a panorama image" << std::endl

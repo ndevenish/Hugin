@@ -182,9 +182,9 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     wxConfigBase *config = wxConfigBase::Get();
 
-    m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",0l));
-    m_fineTuneCB->SetValue(config->Read("/CPEditorPanel/fineTune",1l));
-    m_estimateCB->SetValue(config->Read("/CPEditorPanel/autoEstimate",1l));
+    m_autoAddCB->SetValue(config->Read(wxT("/CPEditorPanel/autoAdd"),0l));
+    m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l));
+    m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l));
 
     // observe the panorama
     m_pano->addObserver(this);
@@ -201,9 +201,9 @@ CPEditorPanel::~CPEditorPanel()
     m_x2Text->PopEventHandler();
     m_y2Text->PopEventHandler();
 
-    wxConfigBase::Get()->Write("/CPEditorPanel/autoAdd", m_autoAddCB->IsChecked() ? 1 : 0);
-    wxConfigBase::Get()->Write("/CPEditorPanel/autoFineTune", m_fineTuneCB->IsChecked() ? 1 : 0);
-    wxConfigBase::Get()->Write("/CPEditorPanel/autoEstimate", m_estimateCB->IsChecked() ? 1 : 0);
+    wxConfigBase::Get()->Write(wxT("/CPEditorPanel/autoAdd"), m_autoAddCB->IsChecked() ? 1 : 0);
+    wxConfigBase::Get()->Write(wxT("/CPEditorPanel/autoFineTune"), m_fineTuneCB->IsChecked() ? 1 : 0);
+    wxConfigBase::Get()->Write(wxT("/CPEditorPanel/autoEstimate"), m_estimateCB->IsChecked() ? 1 : 0);
 
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -381,7 +381,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                 SelectGlobalPoint(lPoint);
                 changeState(NO_POINT);
             } else {
-                wxLogError("No corrosponding point found");
+                wxLogError(_("No corresponding point found"));
             }
 	    }
 #endif
@@ -480,10 +480,10 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     m_selectedPoint = LVpointNr;
 
     const ControlPoint & p = currentPoints[LVpointNr].second;
-    m_x1Text->SetValue(wxString::Format("%.2f",p.x1));
-    m_y1Text->SetValue(wxString::Format("%.2f",p.y1));
-    m_x2Text->SetValue(wxString::Format("%.2f",p.x2));
-    m_y2Text->SetValue(wxString::Format("%.2f",p.y2));
+    m_x1Text->SetValue(wxString::Format(wxT("%.2f"),p.x1));
+    m_y1Text->SetValue(wxString::Format(wxT("%.2f"),p.y1));
+    m_x2Text->SetValue(wxString::Format(wxT("%.2f"),p.x2));
+    m_y2Text->SetValue(wxString::Format(wxT("%.2f"),p.y2));
     m_cpModeChoice->SetSelection(p.mode);
     m_leftImg->selectPoint(LVpointNr);
     m_rightImg->selectPoint(LVpointNr);
@@ -553,9 +553,9 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
             FDiff2D newPoint = otherImg->getNewPoint();
 
-            long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize", HUGIN_FT_TEMPLATE_SIZE);
+            long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
             const PanoImage & img = m_pano->getImage(thisImgNr);
-            double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",10);
+            double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),10);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
             CorrelationResult corrPoint;
             double corrOk=false;
@@ -666,9 +666,9 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
 
                 FDiff2D newPoint = otherImg->getNewPoint();
 
-                long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
+                long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
                 const PanoImage & img = m_pano->getImage(thisImgNr);
-                double sAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent",
+                double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),
                                                                 HUGIN_FT_SEARCH_AREA_PERCENT);
                 int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
                 bool corrOk = false;
@@ -758,11 +758,11 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
 
     double corrThresh=HUGIN_FT_CORR_THRESHOLD;
-    wxConfigBase::Get()->Read("/Finetune/CorrThreshold",&corrThresh,
+    wxConfigBase::Get()->Read(wxT("/Finetune/CorrThreshold"),&corrThresh,
                               HUGIN_FT_CORR_THRESHOLD);
 
     double curvThresh = HUGIN_FT_CURV_THRESHOLD;
-    wxConfigBase::Get()->Read("/Finetune/CurvThreshold",&curvThresh,
+    wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
 
     const PanoImage & img = m_pano->getImage(subjImgNr);
@@ -773,16 +773,16 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
     wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
+    bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
 
     if (rotatingFinetune) {
         double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
-        cfg->Read("/Finetune/RotationStartAngle",&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
+        cfg->Read(wxT("/Finetune/RotationStartAngle"),&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
         startAngle=DEG_TO_RAD(startAngle);
         double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
-        cfg->Read("/Finetune/RotationStopAngle",&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
+        cfg->Read(wxT("/Finetune/RotationStopAngle"),&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
         stopAngle=DEG_TO_RAD(stopAngle);
-        int nSteps = cfg->Read("/Finetune/RotationSteps", HUGIN_FT_ROTATION_STEPS);
+        int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
 
         res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
                                                 subjImg, o_subjPoint.toDiff2D(),
@@ -799,7 +799,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     res.curv.x = - res.curv.x;
     res.curv.y = - res.curv.y;
 
-    MainFrame::Get()->SetStatusText(wxString::Format("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f ",
+    MainFrame::Get()->SetStatusText(wxString::Format(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                                     res.maxAngle, res.maxi, res.curv.x, res.curv.y ),0);
     if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
     {
@@ -807,7 +807,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         wxMessageBox(
             wxString::Format(_("No similar point found.\ncorrelation coefficient: %.3f, (should be < %.3f)\npeak curvature: (%.3f, %.3f), ( should be > %.3f)"),
                              res.maxi, corrThresh, res.curv.x, res.curv.y, curvThresh),
-            "No similar point found",
+            _("No similar point found"),
             wxICON_HAND, this);
         return false;
     }
@@ -970,10 +970,10 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             t2->SetSize(0,0);
             t2->SetSizeHints(0,0,0,0);
             // update tab buttons
-            if (!m_leftTabs->AddPage(t1, wxString::Format("%d",i))) {
+            if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
             }
-            if (!m_rightTabs->AddPage(t2, wxString::Format("%d",i))){
+            if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
         }
@@ -1115,11 +1115,11 @@ void CPEditorPanel::UpdateDisplay()
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
         const ControlPoint & p = currentPoints[i].second;
         DEBUG_DEBUG("inserting LVItem " << i);
-        m_cpList->InsertItem(i,wxString::Format("%d",currentPoints[i].first));
-        m_cpList->SetItem(i,1,wxString::Format("%.2f",p.x1));
-        m_cpList->SetItem(i,2,wxString::Format("%.2f",p.y1));
-        m_cpList->SetItem(i,3,wxString::Format("%.2f",p.x2));
-        m_cpList->SetItem(i,4,wxString::Format("%.2f",p.y2));
+        m_cpList->InsertItem(i,wxString::Format(wxT("%d"),currentPoints[i].first));
+        m_cpList->SetItem(i,1,wxString::Format(wxT("%.2f"),p.x1));
+        m_cpList->SetItem(i,2,wxString::Format(wxT("%.2f"),p.y1));
+        m_cpList->SetItem(i,3,wxString::Format(wxT("%.2f"),p.x2));
+        m_cpList->SetItem(i,4,wxString::Format(wxT("%.2f"),p.y2));
         wxString mode;
         switch (p.mode) {
         case ControlPoint::X_Y:
@@ -1132,7 +1132,7 @@ void CPEditorPanel::UpdateDisplay()
             mode = _("horiz. Line");
         }
         m_cpList->SetItem(i,5,mode);
-        m_cpList->SetItem(i,6,wxString::Format("%.2f",p.error));
+        m_cpList->SetItem(i,6,wxString::Format(wxT("%.2f"),p.error));
     }
     if ( selectedCP < (unsigned int) m_cpList->GetItemCount() ) { // sets an old selection again
         m_cpList->SetItemState( selectedCP,
@@ -1142,10 +1142,10 @@ void CPEditorPanel::UpdateDisplay()
         EnablePointEdit(true);
 
         const ControlPoint & p = currentPoints[m_selectedPoint].second;
-        m_x1Text->SetValue(wxString::Format("%.2f",p.x1));
-        m_y1Text->SetValue(wxString::Format("%.2f",p.y1));
-        m_x2Text->SetValue(wxString::Format("%.2f",p.x2));
-        m_y2Text->SetValue(wxString::Format("%.2f",p.y2));
+        m_x1Text->SetValue(wxString::Format(wxT("%.2f"),p.x1));
+        m_y1Text->SetValue(wxString::Format(wxT("%.2f"),p.y1));
+        m_x2Text->SetValue(wxString::Format(wxT("%.2f"),p.x2));
+        m_y2Text->SetValue(wxString::Format(wxT("%.2f"),p.y2));
         m_cpModeChoice->SetSelection(p.mode);
         m_leftImg->selectPoint(m_selectedPoint);
         m_rightImg->selectPoint(m_selectedPoint);
@@ -1669,8 +1669,8 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           unsigned int moveNr,
                                           const FDiff2D & movePnt)
 {
-    long templWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
-    long sWidth = templWidth + wxConfigBase::Get()->Read("/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
+    long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
+    long sWidth = templWidth + wxConfigBase::Get()->Read(wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
     CorrelationResult result;
     PointFineTune(srcNr,
                   srcPnt,

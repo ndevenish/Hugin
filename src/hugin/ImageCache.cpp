@@ -112,7 +112,7 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = wxConfigBase::Get()->Read("/ImageCache/UpperBound", 75 * 1024 * 1024l);
+    long upperBound = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), 75 * 1024 * 1024l);
     long purgeToSize = upperBound/2;
 
     // calculate used memory
@@ -362,7 +362,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     } else {
         if (m_progress) {
             char *str = wxT("Loading image");
-            m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,utils::stripPath(filename).c_str()).c_str(), "", 0));
+            m_progress->pushTask(ProgressTask(wxString::Format(wxT("%s %s"),str,utils::stripPath(filename).c_str()).c_str(), "", 0));
         }
 #if 1
         // load images with VIGRA impex, and scale to 8 bit
@@ -561,7 +561,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
                     assert(img);
                     if (m_progress) {
-                        m_progress->pushTask(ProgressTask(wxString::Format("Creating pyramid image for %s, level %d",filename.c_str(), key.level).c_str(),"",0));
+                        m_progress->pushTask(ProgressTask(wxString::Format(wxT("Creating pyramid image for %s, level %d"),filename.c_str(), key.level).c_str(),"",0));
                     }
                     BImage *smallImg = new BImage();
                     reduceToNextLevel(*img, *smallImg);

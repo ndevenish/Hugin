@@ -74,7 +74,7 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
-    SetAppName("hugin");
+    SetAppName(wxT("hugin"));
 
     wxString m_huginPath;
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
@@ -112,7 +112,7 @@ bool huginApp::OnInit()
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
     // add path from config file
     if (config->HasEntry(wxT("locale_path"))){
-        locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
+        locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
     }
 
     // set the name of locale recource to look for
@@ -143,7 +143,7 @@ bool huginApp::OnInit()
 //        xrcPrefix = "/usr/local/share/hugin/xrc/";
     } else {
         DEBUG_INFO("using xrc prefix from config")
-        xrcPrefix = config->Read("xrc_path") + wxT("/");
+        xrcPrefix = config->Read(wxT("xrc_path")) + wxT("/");
     }
 
     /* start: Mac code by Ippei*/
@@ -214,9 +214,9 @@ bool huginApp::OnInit()
 
 
     wxString cwd = wxFileName::GetCwd();
-    config->Write( "startDir", cwd );
+    config->Write( wxT("startDir"), cwd );
 
-    m_workDir = config->Read("tempDir","");
+    m_workDir = config->Read(wxT("tempDir"),wxT(""));
     // FIXME, make secure against some symlink attacks
     // get a temp dir
 #ifdef __WXMSW__
@@ -229,11 +229,11 @@ bool huginApp::OnInit()
     }
 #else
     DEBUG_DEBUG("on unix or mac");
-    if (m_workDir == "") {
+    if (m_workDir == wxT("")) {
         // try to read environment variable
-        if (!wxGetEnv("TMPDIR", &m_workDir)) {
+        if (!wxGetEnv(wxT("TMPDIR"), &m_workDir)) {
             // still no tempdir, use /tmp
-            m_workDir = "/tmp";
+            m_workDir = wxT("/tmp");
         }
     }
 #endif

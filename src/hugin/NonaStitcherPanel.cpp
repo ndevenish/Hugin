@@ -254,7 +254,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
-            wxString enblendExe = config->Read("/Enblend/EnblendExe",HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"),HUGIN_ENBLEND_EXE);
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend.exe"),
                                  "", "enblend.exe",
@@ -262,13 +262,13 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                                  wxOPEN, wxDefaultPosition);
                 if (dlg.ShowModal() == wxID_OK) {
                     enblendExe = dlg.GetPath();
-                    config->Write("/Enblend/EnblendExe",enblendExe);
+                    config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
                 } else {
                     wxLogError(_("No enblend.exe selected"));
                 }
             }
 #elif defined (__WXMAC__)
-            wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), HUGIN_ENBLEND_EXE);
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend commandline tool"),
                                  "", "",
@@ -276,19 +276,19 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                                  wxOPEN, wxDefaultPosition);
                 if (dlg.ShowModal() == wxID_OK) {
                     enblendExe = dlg.GetPath();
-                    config->Write("/Enblend/EnblendExe",enblendExe);
+                    config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
                 } else {
                     wxLogError(_("No enblend commandline tool selected"));
                 }
             }
 #else
-            wxString enblendExe = config->Read("/Enblend/EnblendExe", HUGIN_ENBLEND_EXE);
+            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), HUGIN_ENBLEND_EXE);
 #endif
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
 
-            wxString args(config->Read("/Enblend/EnblendArgs", HUGIN_ENBLEND_ARGS));
+            wxString args(config->Read(wxT("/Enblend/EnblendArgs"), HUGIN_ENBLEND_ARGS));
             if (opts.HFOV == 360.0) {
                 // blend over the border
                 args.append(" -w");
@@ -357,7 +357,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     return;
                 } else if (ret > 0) {
                     wxMessageBox(_("command: ") + args +
-                                 _("\nfailed with error code: ") + wxString::Format("%d",ret),
+                                 _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
 				 _("enblend error"));
                     return;
                 }

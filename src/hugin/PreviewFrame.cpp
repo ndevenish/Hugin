@@ -110,7 +110,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_VERTICAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
-                                "VFOV");
+                                _("VFOV"));
     m_VFOVSlider->SetLineSize(2);
     m_VFOVSlider->SetPageSize(10);
     m_VFOVSlider->SetTickFreq(5,0);
@@ -123,7 +123,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_HORIZONTAL | wxSL_AUTOTICKS,
                                 wxDefaultValidator,
-                                "HFOV");
+                                _("HFOV"));
     m_HFOVSlider->SetPageSize(10);
     m_HFOVSlider->SetLineSize(2);
     m_HFOVSlider->SetTickFreq(5,0);
@@ -151,7 +151,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_choices[1] = _("difference");
     m_choices[2] = _("seams");
 
-    int oldMode = wxConfigBase::Get()->Read("/PreviewFrame/blendMode", 0l);
+    int oldMode = wxConfigBase::Get()->Read(wxT("/PreviewFrame/blendMode"), 0l);
     DEBUG_ASSERT(oldMode >= 0 && oldMode < 3);
     m_BlendModeChoice = new wxChoice(this, -1,
                                      wxDefaultPosition, wxDefaultSize,
@@ -167,7 +167,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
 
     wxConfigBase * config = wxConfigBase::Get();
-    long showDruid = config->Read("/PreviewFrame/showDruid",1l);
+    long showDruid = config->Read(wxT("/PreviewFrame/showDruid"),1l);
     if (showDruid) {
         m_druid = new PanoDruid(this);
         topsizer->Add(m_druid, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 5);
@@ -180,8 +180,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     CreateStatusBar(2);
     int widths[2] = {-1, 150};
     SetStatusWidths(2, widths);
-    SetStatusText("",0);
-    SetStatusText("",1);
+    SetStatusText(wxT(""),0);
+    SetStatusText(wxT(""),1);
 
     // the initial size as calculated by the sizers
     SetSizer( topsizer );
@@ -189,17 +189,17 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // set the minimize icon
     SetIcon(wxIcon(MainFrame::Get()->
-                   GetXRCPath() + "/data/icon.png", wxBITMAP_TYPE_PNG));
+                   GetXRCPath() + wxT("/data/icon.png"), wxBITMAP_TYPE_PNG));
 
     m_pano.addObserver(this);
 
-    long w = config->Read("/PreviewFrame/width",-1);
-    long h = config->Read("/PreviewFrame/height",-1);
+    long w = config->Read(wxT("/PreviewFrame/width"),-1);
+    long h = config->Read(wxT("/PreviewFrame/height"),-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
 
-    long aup = config->Read("/PreviewFrame/autoUpdate",0l);
+    long aup = config->Read(wxT("/PreviewFrame/autoUpdate"),0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
@@ -212,12 +212,12 @@ PreviewFrame::~PreviewFrame()
     wxConfigBase * config = wxConfigBase::Get();
     wxSize sz = GetClientSize();
     if (! (this->IsMaximized() || this->IsIconized())) {
-        config->Write("/PreviewFrame/width",sz.GetWidth());
-        config->Write("/PreviewFrame/height",sz.GetHeight());
+        config->Write(wxT("/PreviewFrame/width"),sz.GetWidth());
+        config->Write(wxT("/PreviewFrame/height"),sz.GetHeight());
     }
     bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
-    config->Write("/PreviewFrame/autoUpdate", checked ? 1l: 0l);
-    config->Write("/PreviewFrame/blendMode", m_BlendModeChoice->GetSelection());
+    config->Write(wxT("/PreviewFrame/autoUpdate"), checked ? 1l: 0l);
+    config->Write(wxT("/PreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -255,7 +255,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         projection = _("equirectangular");
         break;
     }
-    SetStatusText(wxString::Format("%.1f x %.1f, %s", opts.HFOV, opts.VFOV,
+    SetStatusText(wxString::Format(wxT("%.1f x %.1f, %s"), opts.HFOV, opts.VFOV,
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue(roundi(opts.HFOV));
     m_VFOVSlider->SetValue(roundi(opts.VFOV));
@@ -294,11 +294,11 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 #ifdef USE_TOGGLE_BUTTON
                 wxToggleButton * but = new wxToggleButton(this,
                                                           ID_TOGGLE_BUT + *it,
-                                                          wxString::Format("%d",*it));
+                                                          wxString::Format(wxT("%d"),*it));
 #else
                 wxCheckBox * but = new wxCheckBox(this,
                                                   ID_TOGGLE_BUT + *it,
-                                                  wxString::Format("%d",*it));
+                                                  wxString::Format(wxT("%d"),*it));
 #endif
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
@@ -497,24 +497,24 @@ struct advocation
 
 static struct advocation _advice[] =
 {
-	{ "ERROR", "druid.images.128.png", // "ERROR" must be at index 0
-	  _("The druid has no advice at this time."), "" },
+	{ wxT("ERROR"), wxT("druid.images.128.png"), // "ERROR" must be at index 0
+	  _("The druid has no advice at this time."), wxT("") },
 
-	{ "READY", "druid.stitch.128.png",
+	{ wxT("READY"), wxT("druid.stitch.128.png"),
 	  _("The druid finds no problems with your panorama."),
 	  _("Stitch your final image now, and then use an image editor\n"
 		"such as the GNU Image Manipulation Program (the GIMP)\n"
 		"to add any finishing touches.") },
 
-	{ "NO IMAGES", "druid.images.128.png",
+	{ wxT("NO IMAGES"), wxT("druid.images.128.png"),
 	  _("To get started, add some image files."),
 	  _("You can add any number of images using the Images tab.") },
 
-	{ "ONE IMAGE", "druid.images.128.png",
+	{ wxT("ONE IMAGE"), wxT("druid.images.128.png"),
 	  _("Add at least one more image."),
 	  _("You should have at least two files listed in the Images tab.") },
 
-	{ "LOW HFOV", "druid.lenses.128.png",
+	{ wxT("LOW HFOV"), wxT("druid.lenses.128.png"),
 	  _("The Horizontal Field of View (HFOV) may be too low."),
 	  _("Check that the focal lengths and/or hfov figures\n"
 		"for each image are correct for the camera settings.\n"
@@ -523,7 +523,7 @@ static struct advocation _advice[] =
 		"5 and 120 degrees per image unless using specialized\n"
 		"lenses.") },
 
-	{ "HUGE FINAL", "druid.stitch.128.png",
+	{ wxT("HUGE FINAL"), wxT("druid.stitch.128.png"),
 	  _("Warning:  current stitch has huge dimensions."),
 	  _("Very large pixel dimensions are currently entered.\n"
 		"Some computers may take an excessively long time\n"
@@ -532,11 +532,11 @@ static struct advocation _advice[] =
 		"the Panorama Options tab to determine the\n"
 		"pixel dimensions which will give the best quality.") },
 
-	{ "UNSAVED", "druid.stitch.128.png",
+	{ wxT("UNSAVED"), wxT("druid.stitch.128.png"),
 	  _("Warning:  you haven't saved the current project."),
 	  _("While everything else seems to be ready to stitch,\n"
 		"don't forget to save your project file so you can\n"
 		"experiment or adjust the settings later.") },
 
-	{ NULL, NULL, "" }
+	{ NULL, NULL, wxT("") }
 };

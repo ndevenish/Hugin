@@ -62,8 +62,8 @@ CPFineTuneFrame::CPFineTuneFrame(wxWindow * parent, PT::Panorama & pano)
     topsizer->SetSizeHints( this );
 
     wxConfigBase * config = wxConfigBase::Get();
-    long w = config->Read("/CPFineTuneFrame/width",-1);
-    long h = config->Read("/CPFineTuneFrame/height",-1);
+    long w = config->Read(wxT("/CPFineTuneFrame/width"),-1);
+    long h = config->Read(wxT("/CPFineTuneFrame/height"),-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
@@ -73,7 +73,7 @@ CPFineTuneFrame::~CPFineTuneFrame()
 {
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write("/CPFineTuneFrame/width",sz.GetWidth());
-    config->Write("/CPFineTuneFrame/height",sz.GetHeight());
+    config->Write(wxT("/CPFineTuneFrame/width"),sz.GetWidth());
+    config->Write(wxT("/CPFineTuneFrame/height"),sz.GetHeight());
 
 }

@@ -114,9 +114,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigitsEdit",3);
-    m_pixelDigits = wxConfigBase::Get()->Read("/General/PixelFractionalDigitsEdit",2);
-    m_distDigitsEdit = wxConfigBase::Get()->Read("/General/DistortionFractionalDigitsEdit",5);
+    m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
+    m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigitsEdit"),2);
+    m_distDigitsEdit = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigitsEdit"),5);
 
 
 
@@ -400,7 +400,7 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
 
 void LensPanel::SetCenter ( wxCommandEvent & e )
 {
-//    wxLogError("temporarily disabled");
+//    wxLogError(_("temporarily disabled"));
     if (m_selectedImages.size() == 1) {
         ImgCenter *dlg = new ImgCenter((wxWindow*)this, wxDefaultPosition, wxDefaultSize, pano, m_selectedImages);
 
@@ -535,8 +535,8 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 Lens lens = pano.getLens(lensNr);
                 // check file extension
                 wxFileName file(pano.getImage(imgNr).getFilename().c_str());
-                if (file.GetExt().CmpNoCase("jpg") == 0 ||
-                    file.GetExt().CmpNoCase("jpeg") == 0 )
+                if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
                     lens.readEXIF(pano.getImage(imgNr).getFilename().c_str());
                     GlobalCmdHist::getInstance().addCommand(
@@ -568,36 +568,36 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
         wxString fname;
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
-                         wxConfigBase::Get()->Read("lensPath",""), "",
+                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), "",
                          "Lens Project Files (*.ini)|*.ini|"
                          "All files (*.*)|*.*",
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
-            wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
             // set numeric locale to C, for correct number output
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
             {
-                wxFileConfig cfg("hugin lens file","",fname);
-                cfg.Write("Lens/type", (long) lens.projectionFormat);
-                cfg.Write("Lens/hfov", const_map_get(vars,"v").getValue());
-                cfg.Write("Lens/hfov_link", const_map_get(lens.variables,"v").isLinked() ? 1:0);
-                cfg.Write("Lens/crop", lens.getFLFactor());
-                cfg.Write("Lens/a", const_map_get(vars,"a").getValue());
-                cfg.Write("Lens/a_link", const_map_get(lens.variables,"a").isLinked() ? 1:0);
-                cfg.Write("Lens/b", const_map_get(vars,"b").getValue());
-                cfg.Write("Lens/b_link", const_map_get(lens.variables,"b").isLinked() ? 1:0);
-                cfg.Write("Lens/c", const_map_get(vars,"c").getValue());
-                cfg.Write("Lens/c_link", const_map_get(lens.variables,"c").isLinked() ? 1:0);
-                cfg.Write("Lens/d", const_map_get(vars,"d").getValue());
-                cfg.Write("Lens/d_link", const_map_get(lens.variables,"d").isLinked() ? 1:0);
-                cfg.Write("Lens/e", const_map_get(vars,"e").getValue());
-                cfg.Write("Lens/e_link", const_map_get(lens.variables,"e").isLinked() ? 1:0);
-                cfg.Write("Lens/t", const_map_get(vars,"t").getValue());
-                cfg.Write("Lens/t_link", const_map_get(lens.variables,"t").isLinked() ? 1:0);
-                cfg.Write("Lens/g", const_map_get(vars,"g").getValue());
-                cfg.Write("Lens/g_link", const_map_get(lens.variables,"g").isLinked() ? 1:0);
+                wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
+                cfg.Write(wxT("Lens/type"), (long) lens.projectionFormat);
+                cfg.Write(wxT("Lens/hfov"), const_map_get(vars,"v").getValue());
+                cfg.Write(wxT("Lens/hfov_link"), const_map_get(lens.variables,"v").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/crop"), lens.getFLFactor());
+                cfg.Write(wxT("Lens/a"), const_map_get(vars,"a").getValue());
+                cfg.Write(wxT("Lens/a_link"), const_map_get(lens.variables,"a").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/b"), const_map_get(vars,"b").getValue());
+                cfg.Write(wxT("Lens/b_link"), const_map_get(lens.variables,"b").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/c"), const_map_get(vars,"c").getValue());
+                cfg.Write(wxT("Lens/c_link"), const_map_get(lens.variables,"c").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/d"), const_map_get(vars,"d").getValue());
+                cfg.Write(wxT("Lens/d_link"), const_map_get(lens.variables,"d").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/e"), const_map_get(vars,"e").getValue());
+                cfg.Write(wxT("Lens/e_link"), const_map_get(lens.variables,"e").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/t"), const_map_get(vars,"t").getValue());
+                cfg.Write(wxT("Lens/t_link"), const_map_get(lens.variables,"t").isLinked() ? 1:0);
+                cfg.Write(wxT("Lens/g"), const_map_get(vars,"g").getValue());
+                cfg.Write(wxT("Lens/g_link"), const_map_get(lens.variables,"g").isLinked() ? 1:0);
                 cfg.Flush();
             }
             // reset locale
@@ -619,13 +619,13 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         wxString fname;
         wxFileDialog dlg(this,
                          _("Load lens parameters"),
-                         wxConfigBase::Get()->Read("lensPath",""), "",
+                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), "",
                          "Lens Project Files (*.ini)|*.ini|"
                          "All files (*.*)|*.*",
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
-            wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
             // read with with standart C numeric format
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
@@ -633,41 +633,41 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 wxFileConfig cfg("hugin lens file","",fname);
                 int integer=0;
                 double d;
-                cfg.Read("Lens/type", &integer);
+                cfg.Read(wxT("Lens/type"), &integer);
                 lens.projectionFormat = (Lens::LensProjectionFormat) integer;
-                cfg.Read("Lens/hfov", &d);map_get(vars,"v").setValue(d);
-                cfg.Read("Lens/crop", &d);lens.setFLFactor(d);
-                cfg.Read("Lens/a", &d);map_get(vars,"a").setValue(d);
-                cfg.Read("Lens/b", &d);map_get(vars,"b").setValue(d);
-                cfg.Read("Lens/c", &d);map_get(vars,"c").setValue(d);
-                cfg.Read("Lens/d", &d);map_get(vars,"d").setValue(d);
-                cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
-                cfg.Read("Lens/t", &d);map_get(vars,"t").setValue(d);
-                cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
+                cfg.Read(wxT("Lens/hfov"), &d);map_get(vars,"v").setValue(d);
+                cfg.Read(wxT("Lens/crop"), &d);lens.setFLFactor(d);
+                cfg.Read(wxT("Lens/a"), &d);map_get(vars,"a").setValue(d);
+                cfg.Read(wxT("Lens/b"), &d);map_get(vars,"b").setValue(d);
+                cfg.Read(wxT("Lens/c"), &d);map_get(vars,"c").setValue(d);
+                cfg.Read(wxT("Lens/d"), &d);map_get(vars,"d").setValue(d);
+                cfg.Read(wxT("Lens/e"), &d);map_get(vars,"e").setValue(d);
+                cfg.Read(wxT("Lens/t"), &d);map_get(vars,"t").setValue(d);
+                cfg.Read(wxT("Lens/g"), &d);map_get(vars,"g").setValue(d);
 
                 integer = 1;
-                cfg.Read("Lens/hfov_link", &integer);
+                cfg.Read(wxT("Lens/hfov_link"), &integer);
                 map_get(lens.variables, "v").setLinked(integer);
                 integer = 1;
-                cfg.Read("Lens/a_link", &integer);
+                cfg.Read(wxT("Lens/a_link"), &integer);
                 map_get(lens.variables, "a").setLinked(integer);
                 integer = 1;
-                cfg.Read("Lens/b_link", &integer);
+                cfg.Read(wxT("Lens/b_link"), &integer);
                 map_get(lens.variables, "b").setLinked(integer);
                 integer = 1;
-                cfg.Read("Lens/c_link", &integer);
+                cfg.Read(wxT("Lens/c_link"), &integer);
                 map_get(lens.variables, "c").setLinked(integer);
                 integer = 1;
-                cfg.Read("Lens/d_link", &integer);
+                cfg.Read(wxT("Lens/d_link"), &integer);
                 map_get(lens.variables, "d").setLinked(integer);
                 integer = 1;
-                cfg.Read("Lens/e_link", &integer);
+                cfg.Read(wxT("Lens/e_link"), &integer);
                 map_get(lens.variables, "e").setLinked(integer);
                 integer = 0;
-                cfg.Read("Lens/t_link", &integer);
+                cfg.Read(wxT("Lens/t_link"), &integer);
                 map_get(lens.variables, "t").setLinked(integer);
                 integer = 0;
-                cfg.Read("Lens/g_link", &integer);
+                cfg.Read(wxT("Lens/g_link"), &integer);
                 map_get(lens.variables, "g").setLinked(integer);
             }
             // reset locale
@@ -681,6 +681,6 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 );
         }
     } else {
-        wxLogError("Please select an image and try again");
+        wxLogError(_("Please select an image and try again"));
     }
 }

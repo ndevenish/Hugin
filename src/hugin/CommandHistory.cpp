@@ -91,7 +91,7 @@ void CommandHistory::undo()
         commands[nextCmd-1]->undo();
         nextCmd--;
     } else {
-        wxLogError("no command in undo history");
+        wxLogError(_("no command in undo history"));
     }
 }
 
@@ -103,7 +103,7 @@ void CommandHistory::redo()
         commands[nextCmd]->execute();
         nextCmd++;
     } else {
-        wxLogError("no command in redo history");
+        wxLogError(_("no command in redo history"));
     }
 }
 

@@ -66,7 +66,7 @@ class OptProgressDialog : public MyProgressDialog
 public:
     OptProgressDialog(wxWindow * parent = NULL,
                       int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT )
-        : MyProgressDialog(_("Optimizing Panorama"), "", parent, style)
+        : MyProgressDialog(_("Optimizing Panorama"), wxT(""), parent, style)
         { }
 
     virtual void abortOperation();

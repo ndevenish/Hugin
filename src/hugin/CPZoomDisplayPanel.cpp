@@ -73,8 +73,8 @@ void CPZoomDisplayPanel::updateInternalOptim()
 
     wxConfigBase * config = wxConfigBase::Get();
     double zoom = 1.0;
-    config->Read("/CPZoomDisplay/Zoom",&zoom);
-    config->Write("/CPZoomDisplay/Zoom",zoom);
+    config->Read(wxT("/CPZoomDisplay/Zoom"),&zoom);
+    config->Write(wxT("/CPZoomDisplay/Zoom"),zoom);
 
     const PanoImage & img = m_pano.getImage(m_imgNr);
     string imageFilename = img.getFilename();
@@ -235,8 +235,8 @@ void CPZoomDisplayPanel::updateInternal()
 
     wxConfigBase * config = wxConfigBase::Get();
     double zoom = 1.0;
-    config->Read("/CPZoomDisplay/Zoom",&zoom);
-    config->Write("/CPZoomDisplay/Zoom",zoom);
+    config->Read(wxT("/CPZoomDisplay/Zoom"),&zoom);
+    config->Write(wxT("/CPZoomDisplay/Zoom"),zoom);
 
     const PanoImage & img = m_pano.getImage(m_imgNr);
     string imageFilename = img.getFilename();

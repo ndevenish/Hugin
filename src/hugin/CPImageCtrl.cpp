@@ -140,11 +140,11 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 #if defined(__WXMSW__) || defined(__WXMAC__)
     m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #else
-    int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/CursorType",HUGIN_CP_CURSOR);
+    int cursorType = wxConfigBase::Get()->Read(wxT("/CPImageCtrl/CursorType"),HUGIN_CP_CURSOR);
     if (cursorType == 0) {
         m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
     } else {
-        filename.Printf("%s/data/CPCursor%d.png",MainFrame::Get()->GetXRCPath().c_str(),
+        filename.Printf(wxT("%s/data/CPCursor%d.png"),MainFrame::Get()->GetXRCPath().c_str(),
                         cursorType);
         wxImage cImg(filename);
         if (cImg.Ok()) {
@@ -160,33 +160,33 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 
     // functions were renamed in 2.5 :(
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("GREEN")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
-//    pointColors.push_back(*(wxTheColourDatabase->FindColour("MAGENTA")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("GOLD")));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("BLUE"))));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("GREEN"))));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("CYAN"))));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("MAGENTA")));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("GOLD"))));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("ORANGE")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("NAVY")));
-//    pointColors.push_back(*(wxTheColourDatabase->FindColour("FIREBRICK")));
-//    pointColors.push_back(*(wxTheColourDatabase->FindColour("SIENNA")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("DARK TURQUOISE")));
-//    pointColors.push_back(*(wxTheColourDatabase->FindColour("SALMON")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("MAROON")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("KHAKI")));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("NAVY"))));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("FIREBRICK"))));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("SIENNA"))));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("DARK TURQUOISE"))));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("SALMON"))));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("MAROON"))));
+    pointColors.push_back(*(wxTheColourDatabase->FindColour(wxT("KHAKI"))));
 #else
-    pointColors.push_back(wxTheColourDatabase->Find("BLUE"));
-    pointColors.push_back(wxTheColourDatabase->Find("GREEN"));
-    pointColors.push_back(wxTheColourDatabase->Find("CYAN"));
-//    pointColors.push_back(wxTheColourDatabase->Find("MAGENTA"));
-    pointColors.push_back(wxTheColourDatabase->Find("GOLD"));
-//    pointColors.push_back(wxTheColourDatabase->Find("ORANGE"));
-    pointColors.push_back(wxTheColourDatabase->Find("NAVY"));
-//    pointColors.push_back(wxTheColourDatabase->Find("FIREBRICK"));
-//    pointColors.push_back(wxTheColourDatabase->Find("SIENNA"));
-    pointColors.push_back(wxTheColourDatabase->Find("DARK TURQUOISE"));
-//    pointColors.push_back(wxTheColourDatabase->Find("SALMON"));
-    pointColors.push_back(wxTheColourDatabase->Find("MAROON"));
-    pointColors.push_back(wxTheColourDatabase->Find("KHAKI"));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("BLUE")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("GREEN")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("CYAN")));
+//    pointColors.push_back(wxTheColourDatabase->Find(wxT("MAGENTA")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("GOLD")));
+//    pointColors.push_back(wxTheColourDatabase->Find(wxT("ORANGE"));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("NAVY")));
+//    pointColors.push_back(wxTheColourDatabase->Find(wxT("FIREBRICK")));
+//    pointColors.push_back(wxTheColourDatabase->Find(wxT("SIENNA")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("DARK TURQUOISE")));
+//    pointColors.push_back(wxTheColourDatabase->Find(wxT("SALMON")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("MAROON")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("KHAKI")));
 #endif
 
     m_searchRectWidth = 120;
@@ -233,9 +233,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         if (editState == KNOWN_POINT_SELECTED && i==selectedPointNr) {
 
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-                drawHighlightPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+                drawHighlightPoint(dc,*it,*wxTheColourDatabase->FindColour(wxT("RED")));
 #else
-                drawHighlightPoint(dc,*it,wxTheColourDatabase->Find("RED"));
+                drawHighlightPoint(dc,*it,wxTheColourDatabase->Find(wxT("RED")));
 #endif
 
         } else {
@@ -256,9 +256,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NEW_POINT_SELECTED:
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-        drawHighlightPoint(dc, newPoint, *wxTheColourDatabase->FindColour("YELLOW"));
+        drawHighlightPoint(dc, newPoint, *wxTheColourDatabase->FindColour(wxT("YELLOW")));
 #else
-        drawHighlightPoint(dc, newPoint, wxTheColourDatabase->Find("YELLOW"));
+        drawHighlightPoint(dc, newPoint, wxTheColourDatabase->Find(wxT("YELLOW")));
 #endif
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
@@ -537,7 +537,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
         if (m_mouseScrollPos !=mouse.GetPosition()) {
             wxPoint delta_ = mouse.GetPosition() - m_mouseScrollPos;
             double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
-//          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
+//          int speed = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/scrollSpeed"),5);
             wxPoint delta;
             delta.x = roundi(delta_.x * speed);
             delta.y =  roundi(delta_.y * speed);
@@ -747,7 +747,7 @@ void CPImageCtrl::updateZoomed()
 bool CPImageCtrl::emit(CPEvent & ev)
 {
     if ( ProcessEvent( ev ) == FALSE ) {
-        wxLogWarning( "Could not process event!" );
+        wxLogWarning( _("Could not process event!") );
         return false;
     } else {
         return true;
@@ -926,7 +926,7 @@ void CPImageCtrl::showSearchArea(bool show)
     m_showSearchArea = show;
     if (show)
     {
-        int templSearchAreaPercent = wxConfigBase::Get()->Read("/Finetune/SearchAreaPercent", HUGIN_FT_SEARCH_AREA_PERCENT);
+        int templSearchAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
         wxImage * img = ImageCache::getInstance().getImage(imageFilename);
 
         m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
@@ -940,7 +940,7 @@ void CPImageCtrl::showTemplateArea(bool show)
     m_showTemplateArea = show;
     if (show)
     {
-        m_templateRectWidth = wxConfigBase::Get()->Read("/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE) / 2;
+        m_templateRectWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE) / 2;
     }
 }
 

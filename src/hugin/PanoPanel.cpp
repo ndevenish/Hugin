@@ -113,7 +113,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     pano->addObserver (this);
 
     // setup the stitcher
-    int t = wxConfigBase::Get()->Read("Stitcher/DefaultStitcher",0l);
+    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),0l);
     m_StitcherChoice->SetSelection(t);
 
     // trigger creation of apropriate stitcher control, if
@@ -130,7 +130,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 PanoPanel::~PanoPanel(void)
 {
     DEBUG_TRACE("dtor");
-    wxConfigBase::Get()->Write("Stitcher/DefaultStitcher",m_StitcherChoice->GetSelection());
+    wxConfigBase::Get()->Write(wxT("Stitcher/DefaultStitcher"),m_StitcherChoice->GetSelection());
 
     // FIXME. why does the crash at exit?
 //    m_HFOVSpin->PopEventHandler(false);
@@ -172,8 +172,8 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_HFOVSpin->SetValue((int)opt.HFOV);
     m_VFOVSpin->SetValue((int)opt.VFOV);
 
-    m_WidthTxt->SetValue(wxString::Format("%d", opt.width));
-    m_HeightStaticText->SetLabel(wxString::Format("%d", opt.getHeight()));
+    m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.width));
+    m_HeightStaticText->SetLabel(wxString::Format(wxT("%d"), opt.getHeight()));
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -490,12 +490,12 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
     // FIXME put in right output extension for selected
     // file format
     wxFileDialog dlg(this,_("Create panorama image"),
-                     wxConfigBase::Get()->Read("actualPath",""),
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
                      "", "",
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
-        wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
         m_Stitcher->Stitch(pano, opt);
     }

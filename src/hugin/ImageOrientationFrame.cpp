@@ -63,8 +63,8 @@ ImageOrientationFrame::ImageOrientationFrame(wxWindow * parent, Panorama & pano)
 
     wxConfigBase * config = wxConfigBase::Get();
 
-    long w = config->Read("/ImageOrientationFrame/width",-1);
-    long h = config->Read("/ImageOrientationFrame/height",-1);
+    long w = config->Read(wxT("/ImageOrientationFrame/width"),-1);
+    long h = config->Read(wxT("/ImageOrientationFrame/height"),-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
@@ -81,8 +81,8 @@ ImageOrientationFrame::~ImageOrientationFrame()
     DEBUG_TRACE("dtor");
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write("/ImageOrientationFrame/width",sz.GetWidth());
-    config->Write("/ImageOrientationFrame/height",sz.GetHeight());
+    config->Write(wxT("/ImageOrientationFrame/width"),sz.GetWidth());
+    config->Write(wxT("/ImageOrientationFrame/height"),sz.GetHeight());
     DEBUG_TRACE("dtor end");
 }
 

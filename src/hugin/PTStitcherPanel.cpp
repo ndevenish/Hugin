@@ -178,7 +178,7 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     }
 
     m_InterpolatorChoice->SetSelection(opt.interpolator);
-    m_GammaText->SetValue(wxString::Format ("%.2f", opt.gamma));
+    m_GammaText->SetValue(wxString::Format (wxT("%.2f"), opt.gamma));
     m_ColorCorrModeChoice->SetSelection(opt.colorCorrection);
     m_ColorCorrRefSpin->SetValue(opt.colorReferenceImage);
 

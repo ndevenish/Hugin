@@ -90,7 +90,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     images_list = new ImagesListImage (parent, pano);
     wxXmlResource::Get()->AttachUnknownControl (
-        "images_list_unknown",
+        wxT("images_list_unknown"),
         images_list );
 
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
@@ -113,7 +113,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
     m_empty.LoadFile(MainFrame::Get()->GetXRCPath() +
-                     "/data/" + "druid.images.128.png",
+                     wxT("/data/") + wxT("druid.images.128.png"),
                      wxBITMAP_TYPE_PNG);
     wxStaticBitmap * bmp = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(bmp);
@@ -124,7 +124,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     pano->addObserver(this);
     DEBUG_TRACE("end");
 
-    m_degDigits = wxConfigBase::Get()->Read("/General/DegreeFractionalDigitsEdit",3);
+    m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
 }
 
 
@@ -214,7 +214,7 @@ void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )
     if ( images_list->GetSelected().size() > 0 ) {
         wxString text = XRCCTRL(*this, "images_text_yaw"
                                 , wxTextCtrl) ->GetValue();
-        if (text == "") {
+        if (text == wxT("")) {
             return;
         }
         DEBUG_INFO ("yaw = " << text );
@@ -236,7 +236,7 @@ void ImagesPanel::OnPitchTextChanged ( wxCommandEvent & e )
         wxString text = XRCCTRL(*this, "images_text_pitch"
                                 , wxTextCtrl) ->GetValue();
         DEBUG_INFO ("pitch = " << text );
-        if (text == "") {
+        if (text == wxT("")) {
             return;
         }
 
@@ -256,7 +256,7 @@ void ImagesPanel::OnRollTextChanged ( wxCommandEvent & e )
         wxString text = XRCCTRL(*this, "images_text_roll"
                                 , wxTextCtrl) ->GetValue();
         DEBUG_INFO ("roll = " << text );
-        if (text == "") {
+        if (text == wxT("")) {
             return;
         }
 

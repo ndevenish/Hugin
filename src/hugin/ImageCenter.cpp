@@ -57,8 +57,8 @@ ImgCenter::ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    SetSize(config->Read("CenterDialogSize_x",200l),
-            config->Read("CenterDialogSize_y",200l));
+    SetSize(config->Read(wxT("CenterDialogSize_x"),200l),
+            config->Read(wxT("CenterDialogSize_y"),200l));
 
     c_canvas->Show();
     DEBUG_TRACE("");
@@ -100,8 +100,8 @@ void ImgCenter::OnClose ( wxCommandEvent & e )
     DEBUG_TRACE("");
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    config->Write("CenterDialogSize_x",wxString::Format("%d",GetRect().width)),
-    config->Write("CenterDialogSize_y",wxString::Format("%d",GetRect().height));
+    config->Write(wxT("CenterDialogSize_x"),wxString::Format(wxT("%d"),GetRect().width)),
+    config->Write(wxT("CenterDialogSize_y"),wxString::Format(wxT("%d"),GetRect().height));
     DEBUG_INFO( "saved last size" )
 
     Destroy();
@@ -207,7 +207,7 @@ void CenterCanvas::Resize( wxSizeEvent & e )
                           mid_x - c, mid_y - c);
           memDC.DrawLine( mid_x - c, mid_y + c,
                           mid_x + c, mid_y - c);
-          memDC.DrawText( wxString::Format("%d,%d",(int)pt_d,(int)pt_e),
+          memDC.DrawText( wxString::Format(wxT("%d,%d"),(int)pt_d,(int)pt_e),
                           mid_x+10,mid_y-10);
         }
       }
@@ -374,12 +374,12 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
            || (first_x > s_x && first_y < s_y) ) {
         memDC.DrawLine( mid_x + c, mid_y + c,
                         mid_x - c, mid_y - c );
-        memDC.DrawText( wxString::Format("%d,%d", (int)pt_d, (int)pt_e),
+        memDC.DrawText( wxString::Format(wxT("%d,%d"), (int)pt_d, (int)pt_e),
                         mid_x + 10, mid_y + 10 );
       } else {
         memDC.DrawLine( mid_x - c, mid_y + c,
                         mid_x + c, mid_y - c );
-        memDC.DrawText( wxString::Format("%d,%d", (int)pt_d, (int)pt_e),
+        memDC.DrawText( wxString::Format(wxT("%d,%d"), (int)pt_d, (int)pt_e),
                         mid_x + 10, mid_y - 15 );
       }
       memDC.EndDrawing ();

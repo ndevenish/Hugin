@@ -73,7 +73,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
     Hide();
-    wxString stitcherExe = config->Read("/PanoTools/PTStitcherExe","PTStitcher.exe");
+    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT("PTStitcher.exe"));
     if (!wxFile::Exists(stitcherExe)){
         wxFileDialog dlg(this,_("Select PTStitcher.exe"),
         "", "PTStitcher.exe",
@@ -81,22 +81,22 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             stitcherExe = dlg.GetPath();
-            config->Write("/PanoTools/PTStitcherExe",stitcherExe);
+            config->Write(wxT("/PanoTools/PTStitcherExe"),stitcherExe);
         } else {
             wxLogError(_("No PTStitcher.exe selected"));
         }
     }
 #else
-    wxString stitcherExe = config->Read("/PanoTools/PTStitcherExe","PTStitcher");
+    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT("PTStitcher"));
 #endif
-    wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
+    wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt"));
 
     stringstream script_stream;
     m_pano->printStitcherScript(script_stream, options);
     std::string script(script_stream.str());
     if (editScript) {
         // open a text dialog with an editor inside
-        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "edit_script_dialog");
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("edit_script_dialog"));
         DEBUG_ASSERT(edit_dlg);
         wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
         DEBUG_ASSERT(txtCtrl);
@@ -120,7 +120,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd = stitcherExe + wxString(" -o ") + quoteFilename(wxString(options.outfile.c_str())) + " " + quoteFilename(PTScriptFile);
+    wxString cmd = stitcherExe + wxT(" -o ") + quoteFilename(wxString(options.outfile.c_str())) + wxT(" ") + quoteFilename(PTScriptFile);
 
     DEBUG_INFO("Executing cmd: " << cmd);
 
@@ -132,7 +132,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 #if __unix__
     if (m_pid <= 0 )
     {
-        wxLogError(_T("Failed to launch the PTStitcher."));
+        wxLogError(_("Failed to launch the PTStitcher."));
         return;
     }
 
@@ -146,11 +146,11 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_in = new wxTextInputStream(*t_in);
     if ( !m_in )
     {
-        wxLogError(_T("Failed to connect to child stdout"));
+        wxLogError(_("Failed to connect to child stdout"));
         return;
     }
     // set new separators, for parsing PTStitcher output
-    m_in->SetStringSeparators("%");
+    m_in->SetStringSeparators(wxT("%"));
 #else
     m_in = 0;
 #endif
@@ -207,7 +207,7 @@ void RunStitcherFrame::OnTimer(wxTimerEvent & e)
             }
         } else if ( line.size() > 7) {
             // new description and number
-            m_description = line.substr(0,line.find("  "));
+            m_description = line.substr(0,line.find(wxT("  ")));
             m_description.Trim();
             m_description.Trim(false);
             // number

@@ -261,7 +261,7 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     DEBUG_ASSERT(m_list);
 
     wxConfigBase * config = wxConfigBase::Get();
-    m_verbose = (config->Read("/CPListFrame/verbose",0l) != 0);
+    m_verbose = (config->Read(wxT("/CPListFrame/verbose"),0l) != 0);
 
     if (m_verbose) {
         // setup list display
@@ -282,8 +282,8 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
     }
 
-    long w = config->Read("/CPListFrame/width",-1);
-    long h = config->Read("/CPListFrame/height",-1);
+    long w = config->Read(wxT("/CPListFrame/width"),-1);
+    long h = config->Read(wxT("/CPListFrame/height"),-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
@@ -303,8 +303,8 @@ CPListFrame::~CPListFrame()
     DEBUG_TRACE("dtor");
     wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write("/CPListFrame/width",sz.GetWidth());
-    config->Write("/CPListFrame/height",sz.GetHeight());
+    config->Write(wxT("/CPListFrame/width"),sz.GetWidth());
+    config->Write(wxT("/CPListFrame/height"),sz.GetHeight());
     config->Flush();
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -330,7 +330,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
         for (int i=0; i < (int) nrCP; i++) {
             if (i >= (int) nrItems) {
                 // create item
-                m_list->InsertItem(i, wxString::Format("%d",i));
+                m_list->InsertItem(i, wxString::Format(wxT("%d"),i));
             }
         }
     }
@@ -359,21 +359,21 @@ void CPListFrame::SetCPItem(int i, const ControlPoint & p)
     }
 
     if (m_verbose) {
-        m_list->SetItem(i,0,wxString::Format("%d",i));
-        m_list->SetItem(i,1,wxString::Format("%d",p.image1Nr));
-        m_list->SetItem(i,2,wxString::Format("%.1f",p.x1));
-        m_list->SetItem(i,3,wxString::Format("%.1f",p.y1));
-        m_list->SetItem(i,4,wxString::Format("%d",p.image2Nr));
-        m_list->SetItem(i,5,wxString::Format("%.1f",p.x2));
-        m_list->SetItem(i,6,wxString::Format("%.1f",p.y2));
+        m_list->SetItem(i,0,wxString::Format(wxT("%d"),i));
+        m_list->SetItem(i,1,wxString::Format(wxT("%d"),p.image1Nr));
+        m_list->SetItem(i,2,wxString::Format(wxT("%.1f"),p.x1));
+        m_list->SetItem(i,3,wxString::Format(wxT("%.1f"),p.y1));
+        m_list->SetItem(i,4,wxString::Format(wxT("%d"),p.image2Nr));
+        m_list->SetItem(i,5,wxString::Format(wxT("%.1f"),p.x2));
+        m_list->SetItem(i,6,wxString::Format(wxT("%.1f"),p.y2));
         m_list->SetItem(i,7,mode);
-        m_list->SetItem(i,8,wxString::Format("%.2f",p.error));
+        m_list->SetItem(i,8,wxString::Format(wxT("%.2f"),p.error));
     } else {
-        m_list->SetItem(i,0,wxString::Format("%d",i));
-        m_list->SetItem(i,1,wxString::Format("%d",p.image1Nr));
-        m_list->SetItem(i,2,wxString::Format("%d",p.image2Nr));
+        m_list->SetItem(i,0,wxString::Format(wxT("%d"),i));
+        m_list->SetItem(i,1,wxString::Format(wxT("%d"),p.image1Nr));
+        m_list->SetItem(i,2,wxString::Format(wxT("%d"),p.image2Nr));
         m_list->SetItem(i,3,mode);
-        m_list->SetItem(i,4,wxString::Format("%.2f",p.error));
+        m_list->SetItem(i,4,wxString::Format(wxT("%.2f"),p.error));
     }
 }
 
@@ -546,7 +546,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
 
     wxString t=wxGetTextFromUser(_("Enter minimum control point error.\nAll point with a higher error will be selected"), _("Select Control Points"),
                                  utils::doubleToString(threshold,2).c_str());
-    if (t == "") {
+    if (t == wxT("")) {
         // do not select anything
         return;
     }

@@ -74,9 +74,9 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
     DEBUG_TRACE("OnDropFiles");
     if (filenames.GetCount() == 1) {
         wxFileName file(filenames[0]);
-        if (file.GetExt().CmpNoCase("pto") == 0 ||
-            file.GetExt().CmpNoCase("ptp") == 0 ||
-            file.GetExt().CmpNoCase("pts") == 0 )
+        if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("ptp")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("pts")) == 0 )
         {
             if (MainFrame::Get()) {
                 // load project
@@ -90,15 +90,15 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
     for (unsigned int i=0; i< filenames.GetCount(); i++) {
         wxFileName file(filenames[0]);
 
-        if (file.GetExt().CmpNoCase("jpg") == 0 ||
-            file.GetExt().CmpNoCase("tif") == 0 ||
-            file.GetExt().CmpNoCase("tiff") == 0 ||
-            file.GetExt().CmpNoCase("png") == 0 ||
-            file.GetExt().CmpNoCase("bmp") == 0 ||
-            file.GetExt().CmpNoCase("gif") == 0 ||
-            file.GetExt().CmpNoCase("pnm") == 0 ||
-            file.GetExt().CmpNoCase("sun") == 0 ||
-            file.GetExt().CmpNoCase("viff") == 0 )
+        if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("tiff")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("png")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("bmp")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("gif")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("pnm")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
             filesv.push_back(filenames[i].c_str());
         }
@@ -160,13 +160,13 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxConfigBase* config = wxConfigBase::Get();
     if ( wxFile::Exists(splashPath + wxT("/xrc/data/splash.png")) ) {
         DEBUG_INFO("using local xrc files");
-        m_xrcPrefix = splashPath + "/xrc/";
+        m_xrcPrefix = splashPath + wxT("/xrc/");
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
         DEBUG_INFO("using installed xrc files");
         m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
     } else {
         DEBUG_INFO("using xrc prefix from config")
-        m_xrcPrefix = config->Read("xrc_path") + wxT("/");
+        m_xrcPrefix = config->Read(wxT("xrc_path")) + wxT("/");
     }
 
     /* start: Mac bundle code by Ippei*/
@@ -207,7 +207,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
-    if (bitmap.LoadFile(m_xrcPrefix + "data/splash.png", wxBITMAP_TYPE_PNG))
+    if (bitmap.LoadFile(m_xrcPrefix + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
     {
 #ifdef __unix__
         splash = new wxSplashScreen(bitmap,
@@ -299,7 +299,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pref_dlg = new PreferencesDialog(this);
 
     // set the minimize icon
-    SetIcon(wxIcon(m_xrcPrefix + "/data/icon.png", wxBITMAP_TYPE_PNG));
+    SetIcon(wxIcon(m_xrcPrefix + wxT("/data/icon.png"), wxBITMAP_TYPE_PNG));
 
     // create a new drop handler. wxwindows deletes the automaticall
     SetDropTarget(new PanoDropTarget(pano));
@@ -311,32 +311,32 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     CreateStatusBar(fields);
     int widths[fields] = {-1, 85};
     SetStatusWidths( fields, &widths[0]);
-    SetStatusText("Started", 0);
+    SetStatusText(_("Started"), 0);
     DEBUG_TRACE("");
 
     // observe the panorama
     pano.addObserver(this);
 
 #ifdef __WXMSW__
-    int w = config->Read("MainFrame/width",-1l);
-    int h = config->Read("MainFrame/height",-1l);
-    int x = config->Read("MainFrame/positionX",-1l);
-    int y = config->Read("MainFrame/positionY",-1l);
+    int w = config->Read(wxT("MainFrame/width"),-1l);
+    int h = config->Read(wxT("MainFrame/height"),-1l);
+    int x = config->Read(wxT("MainFrame/positionX"),-1l);
+    int y = config->Read(wxT("MainFrame/positionY"),-1l);
     if (y != -1) {
         SetSize(x,y,w,h);
     }
 #elif defined(__WXMAC__)
     //size
-    int w = config->Read("MainFrame/width",-1l);
-    int h = config->Read("MainFrame/height",-1l);
+    int w = config->Read(wxT("MainFrame/width"),-1l);
+    int h = config->Read(wxT("MainFrame/height"),-1l);
     if (w != -1) {
         SetClientSize(w,h);
     } else {
         Fit();
     }
     //position
-    int x = config->Read("MainFrame/positionX",-1l);
-    int y = config->Read("MainFrame/positionY",-1l);
+    int x = config->Read(wxT("MainFrame/positionX"),-1l);
+    int y = config->Read(wxT("MainFrame/positionY"),-1l);
     if ( y != -1) {
         Move(x, y);
     } else {
@@ -345,8 +345,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #else
 
     // remember the last size from config
-    int w = config->Read("MainFrame/width",-1l);
-    int h = config->Read("MainFrame/height",-1l);
+    int w = config->Read(wxT("MainFrame/width"),-1l);
+    int h = config->Read(wxT("MainFrame/height"),-1l);
     if (w != -1) {
         SetClientSize(w,h);
     } else {
@@ -408,8 +408,8 @@ MainFrame::~MainFrame()
     // the upper left title bar position (at least in kwm)
     // netscape navigator had the same problem..
     wxSize sz = GetClientSize();
-    config->Write("/MainFrame/width", sz.GetWidth());
-    config->Write("/MainFrame/height", sz.GetHeight());
+    config->Write(wxT("/MainFrame/width"), sz.GetWidth());
+    config->Write(wxT("/MainFrame/height"), sz.GetHeight());
 #endif
     DEBUG_INFO( "saved last size and position" )
 
@@ -470,7 +470,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxFileName scriptName = m_filename;
-    if (m_filename == "") {
+    if (m_filename == wxT("")) {
         OnSaveProjectAs(e);
         scriptName = m_filename;
     } else {
@@ -484,7 +484,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-    this->SetTitle(scriptName.GetName() + "." + scriptName.GetExt() + " - hugin");
+    this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - hugin"));
     pano.clearDirty();
 }
 
@@ -493,14 +493,14 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read("actualPath",""), "",
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), "",
                      "Project files (*.pto)|*.pto|"
                      "All files (*.*)|*.*",
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
         OnSaveProject(e);
-        wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
     }
 }
 
@@ -509,7 +509,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxFileDialog dlg(this,
                      _("Save PTSticher script file"),
-                     wxConfigBase::Get()->Read("actualPath",""), "",
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), "",
                      "PTSticher files (*.txt)|*.txt",
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
@@ -547,13 +547,13 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
         SetStatusText(_("Project opened"));
-        config->Write("actualPath", path);  // remember for later
-        this->SetTitle(fname.GetName() + "." + fname.GetExt() + " - hugin");
-        if (! (fname.GetExt() == "pto")) {
+        config->Write(wxT("actualPath"), path);  // remember for later
+        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - hugin"));
+        if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
             // to avoid overwriting the original project with an
             // incompatible one
-            m_filename = "";
+            m_filename = wxT("");
         }
     } else {
         SetStatusText( _("Error opening project:   ") + filename);
@@ -575,7 +575,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 
     wxFileDialog dlg(this,
                      _("Open project file"),
-                     config->Read("actualPath",""), "",
+                     config->Read(wxT("actualPath"),wxT("")), "",
                      "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|"
                      "All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
@@ -591,7 +591,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
 {
-    m_filename = "";
+    m_filename = wxT("");
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
     ImageCache::getInstance().flush();
@@ -612,19 +612,19 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
                        "Image files (*.tif)|*.tif;*.TIF|"
                        "All files (*.*)|*.*");
     wxFileDialog dlg(this,_("Add images"),
-                     config->Read("actualPath",""), "",
+                     config->Read(wxT("actualPath"),wxT("")), "",
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
 
     // remember the image extension
-    wxString img_ext ("");
+    wxString img_ext (wxT(""));
     if (config->HasEntry(wxT("lastImageType"))){
-      img_ext = config->Read("lastImageType").c_str();
+      img_ext = config->Read(wxT("lastImageType")).c_str();
     }
-    if (img_ext == "png")
+    if (img_ext == wxT("png"))
       dlg.SetFilterIndex(1);
-    else if (img_ext == "tif")
+    else if (img_ext == wxT("tif"))
       dlg.SetFilterIndex(2);
-    else if (img_ext == "all")
+    else if (img_ext == wxT("all"))
       dlg.SetFilterIndex(3);
     DEBUG_TRACE ( img_ext )
 
@@ -637,7 +637,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         dlg.GetFilenames(Filenames);
 
         // e safe the current path to config
-        config->Write("actualPath", dlg.GetDirectory());  // remember for later
+        config->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
@@ -658,13 +658,13 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         SetStatusText( _("Add Image: cancel"));
     }
 
-    DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg.GetFilterIndex()) )
+    DEBUG_TRACE ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()) )
     // save the image extension
     switch ( dlg.GetFilterIndex() ) {
-      case 0: config->Write("lastImageType", "jpg"); break;
-      case 1: config->Write("lastImageType", "png"); break;
-      case 2: config->Write("lastImageType", "tif"); break;
-      case 3: config->Write("lastImageType", "all"); break;
+      case 0: config->Write(wxT("lastImageType"), "jpg"); break;
+      case 1: config->Write(wxT("lastImageType"), "png"); break;
+      case 2: config->Write(wxT("lastImageType"), "tif"); break;
+      case 3: config->Write(wxT("lastImageType"), "all"); break;
     }
 
     DEBUG_TRACE("");
@@ -712,7 +712,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     DEBUG_TRACE("");
 
-    int maxtimediff = wxConfigBase::Get()->Read("CaptureTimeSpan", HUGIN_CAPTURE_TIMESPAN);
+    int maxtimediff = wxConfigBase::Get()->Read(wxT("CaptureTimeSpan"), HUGIN_CAPTURE_TIMESPAN);
 
     // If no images already loaded, offer user a chance to pick one.
     int images = pano.getNrOfImages();
@@ -739,7 +739,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
         // Glob for all files of same type in same directory.
         wxString name = filename.c_str();
-        wxString path = ::wxPathOnly(name) + "/*";
+        wxString path = ::wxPathOnly(name) + wxT("/*");
         file = ::wxFindFirstFile(path);
         while (!file.IsEmpty())
         {
@@ -862,7 +862,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(m_xrcPrefix + "/data/FAQ.html");
+    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(m_xrcPrefix + wxT("/data/FAQ.html"));
     dlg.SetTitle(_("hugin - FAQ"));
     dlg.ShowModal();
 }
@@ -920,19 +920,19 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     unsigned int nBad=0;
 
     wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read("/Finetune/RotationSearch", HUGIN_FT_ROTATION_SEARCH) == 1;
+    bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
     double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
-    cfg->Read("/Finetune/RotationStartAngle",&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
+    cfg->Read(wxT("/Finetune/RotationStartAngle"),&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
     startAngle=DEG_TO_RAD(startAngle);
     double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
-    cfg->Read("/Finetune/RotationStopAngle",&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
+    cfg->Read(wxT("/Finetune/RotationStopAngle"),&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
     stopAngle=DEG_TO_RAD(stopAngle);
-    int nSteps = cfg->Read("/Finetune/RotationSteps", HUGIN_FT_ROTATION_STEPS);
+    int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
 
     double corrThresh=HUGIN_FT_CORR_THRESHOLD;
-    cfg->Read("/Finetune/CorrThreshold", &corrThresh, HUGIN_FT_CORR_THRESHOLD);
+    cfg->Read(wxT("/Finetune/CorrThreshold"), &corrThresh, HUGIN_FT_CORR_THRESHOLD);
     double curvThresh = HUGIN_FT_CURV_THRESHOLD;
-    wxConfigBase::Get()->Read("/Finetune/CurvThreshold",&curvThresh,
+    wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
@@ -958,9 +958,9 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
-                        "/Finetune/TemplateSize",HUGIN_FT_TEMPLATE_SIZE);
+                        wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
                     long sWidth = templWidth + wxConfigBase::Get()->Read(
-                        "/Finetune/LocalSearchWidth",HUGIN_FT_LOCAL_SEARCH_WIDTH);
+                        wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
                     vigra_ext::CorrelationResult res;
                     vigra::Diff2D roundP1(roundi(cps[*it].x1), roundi(cps[*it].y1));
                     vigra::Diff2D roundP2(roundi(cps[*it].x2), roundi(cps[*it].y2));
@@ -1066,19 +1066,19 @@ void MainFrame::updateProgressDisplay()
     {
         wxString cMsg;
         if (it->getProgress() > 0) {
-            cMsg.Printf("%s %s [%3.0f%%]",
+            cMsg.Printf(wxT("%s %s [%3.0f%%]"),
                         it->getShortMessage().c_str(),
                         it->getMessage().c_str(),
                         100 * it->getProgress());
         } else {
-            cMsg.Printf("%s %s",it->getShortMessage().c_str(),
+            cMsg.Printf(wxT("%s %s"),it->getShortMessage().c_str(),
                         it->getMessage().c_str());
         }
         // append to main message
         if (it == tasks.begin()) {
             msg = cMsg;
         } else {
-            msg.Append(" | ");
+            msg.Append(wxT(" | "));
             msg.Append(cMsg);
         }
     }

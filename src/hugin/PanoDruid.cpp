@@ -38,9 +38,9 @@
 
 //////////
 
-NEW_HINT(0, ERROR, "druid.images.128.png",
+NEW_HINT(0, ERROR, wxT("druid.images.128.png"),
          _("The druid has no advice."),
-         "")
+         wxT(""))
 {
     return TRUE;
 }
@@ -48,7 +48,7 @@ END_HINT(ERROR);
 
 //////////
 
-NEW_HINT(1, READY, "druid.stitch.128.png",
+NEW_HINT(1, READY, wxT("druid.stitch.128.png"),
          _("The druid finds no problems with your panorama."),
          _("Stitch your final image now, and then use an image editor\n"
            "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -60,7 +60,7 @@ END_HINT(READY);
 
 //////////
 
-NEW_HINT(5, UNSAVED, "druid.stitch.128.png",
+NEW_HINT(5, UNSAVED, wxT("druid.stitch.128.png"),
          _("Warning:  you haven't saved the current project."),
          _("While everything else seems to be ready to stitch,\n"
            "don't forget to save your project file so you can\n"
@@ -72,7 +72,7 @@ END_HINT(UNSAVED);
 
 //////////
 
-NEW_HINT(20, HUGE_FINAL, "druid.stitch.128.png",
+NEW_HINT(20, HUGE_FINAL, wxT("druid.stitch.128.png"),
          _("Warning:  current stitch has huge dimensions."),
          _("Very large pixel dimensions are currently entered.\n"
            "Some computers may take an excessively long time\n"
@@ -108,7 +108,7 @@ END_HINT(HUGE_FINAL);
 
 //////////
 
-NEW_HINT(25, LOW_HFOV, "druid.lenses.128.png",
+NEW_HINT(25, LOW_HFOV, wxT("druid.lenses.128.png"),
          _("The Horizontal Field of View (HFOV) may be too low."),
          _("Check that the focal lengths and/or hfov figures\n"
            "for each image are correct for the camera settings.\n"
@@ -123,7 +123,7 @@ END_HINT(LOW_HFOV);
 
 //////////
 
-NEW_HINT(42, NO_PLUMB_GUIDES, "druid.control.128.png",
+NEW_HINT(42, NO_PLUMB_GUIDES, wxT("druid.control.128.png"),
          _("Consider adding a vertical or horizontal guide."),
          _("By adding vertical guides, the optimizer can ensure\n"
            "that buildings or trees or other vertical features\n"
@@ -149,7 +149,7 @@ END_HINT(NO_PLUMB_GUIDES);
 
 //////////
 
-NEW_HINT(45, OPTIMIZER_NOT_RUN, "druid.control.128.png",
+NEW_HINT(45, OPTIMIZER_NOT_RUN, wxT("druid.control.128.png"),
          _("Run the Optimizer to estimate the image positions."),
          _("The Optimizer uses the control points to estimate the\n"
            "positions of the individual images in the final panorama\n"
@@ -180,7 +180,7 @@ END_HINT(OPTIMIZER_NOT_RUN);
 
 //////////
 
-NEW_HINT(46, FEW_GUIDES, "druid.control.128.png",
+NEW_HINT(46, FEW_GUIDES, wxT("druid.control.128.png"),
          _("Add more control points to improve the stitch quality."),
          _("For best results, there should be at least four pairs\n"
            "of control points for each pair of overlapping images.\n"
@@ -201,7 +201,7 @@ END_HINT(FEW_GUIDES);
 
 //////////
 
-NEW_HINT(47, UNGUIDED_IMAGE, "druid.control.128.png",
+NEW_HINT(47, UNGUIDED_IMAGE, wxT("druid.control.128.png"),
          _("At least one image has no control points at all."),
          _("For best results, there should be at least four pairs\n"
            "of control points for each pair of overlapping images.\n"
@@ -222,7 +222,7 @@ END_HINT(UNGUIDED_IMAGE);
 
 //////////
 
-NEW_HINT(48, NO_GUIDES, "druid.control.128.png",
+NEW_HINT(48, NO_GUIDES, wxT("druid.control.128.png"),
          _("Add stitching control points to each pair of images."),
          _("The Optimizer relies on your control points to arrange\n"
            "and blend the images properly.  On the Control Points\n"
@@ -235,7 +235,7 @@ END_HINT(NO_GUIDES);
 
 //////////
 
-NEW_HINT(95, ONE_IMAGE, "druid.images.128.png",
+NEW_HINT(95, ONE_IMAGE, wxT("druid.images.128.png"),
          _("Add at least one more image."),
          _("You should have at least two files listed in the Images tab."))
 {
@@ -250,7 +250,7 @@ END_HINT(ONE_IMAGE);
 
 //////////
 
-NEW_HINT(100, NO_IMAGES, "druid.images.128.png",
+NEW_HINT(100, NO_IMAGES, wxT("druid.images.128.png"),
          _("To get started, add some image files."),
          _("You can add any number of images using the Images tab."))
 {
@@ -296,10 +296,10 @@ PanoDruid::PanoDruid(wxWindow* parent)
 
     m_advice = -1;
     m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
-                      "/data/" + "druid.stitch.128.png",
+                      wxT("/data/") + wxT("druid.stitch.128.png"),
                       wxBITMAP_TYPE_PNG);
     m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
-    m_text = new wxStaticText(this, -1, "",wxPoint(0,0));
+    m_text = new wxStaticText(this, -1, wxT(""),wxPoint(0,0));
     m_boxSizer->Add(m_graphic, 0, wxADJUST_MINSIZE);
     m_boxSizer->Add(m_text, 1, wxADJUST_MINSIZE);
     SetSizer(m_boxSizer);
@@ -343,7 +343,7 @@ void PanoDruid::Update(const PT::Panorama& pano)
         full += wxGetTranslation(sm_advice[hint]->text);
         m_text->SetLabel(full);
         m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
-                          "/data/" + sm_advice[hint]->graphic,
+                          wxT("/data/") + sm_advice[hint]->graphic,
                           wxBITMAP_TYPE_PNG);
         m_graphic->SetBitmap(m_bitmap);
         m_parent->Layout();
