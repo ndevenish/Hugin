@@ -922,7 +922,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
     wxDialog dlg;
 	wxString strFile;
 	wxString langCode;
-	bool bFAQExists;
+	bool bFAQExists=false;
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
 
