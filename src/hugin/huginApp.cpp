@@ -94,14 +94,9 @@ bool huginApp::OnInit()
 
     // add local Paths
     locale.AddCatalogLookupPathPrefix(wxT("po"));
-    #ifndef INSTALL_LOCALE_DIR          // FIXME
-      #define INSTALL_LOCALE_DIR "/opt/kai-uwe/share/locale"
-    #endif
-    #ifdef INSTALL_LOCALE_DIR
-      locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
-      locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-      DEBUG_INFO((wxString)"add locale path: " + INSTALL_LOCALE_DIR)
-    #endif
+    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
+    locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+    DEBUG_INFO((wxString)"add locale path: " + INSTALL_LOCALE_DIR)
     // add path from config file
     if (config->HasEntry(wxT("locale_path"))){
         locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
@@ -121,9 +116,6 @@ bool huginApp::OnInit()
     InitXmlResource();
 #else
     // try local xrc files first
-    #ifndef INSTALL_XRC_DIR          // FIXME
-      #define INSTALL_XRC_DIR "/opt/kai-uwe/share/hugin/xrc"
-    #endif
     wxString xrcPrefix;
     // testing for xrc file location
     if ( wxFile::Exists("xrc/main_frame.xrc")/*local_file.IsOpened()*/ ) {
