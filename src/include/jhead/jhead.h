@@ -55,6 +55,7 @@ typedef struct {
     int   Process;
     int   FlashUsed;
     float FocalLength;
+	float FocalLength35mm;
     float ExposureTime;
     float ApertureFNumber;
     float Distance;

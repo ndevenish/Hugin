@@ -153,6 +153,9 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 #define TAG_THUMBNAIL_OFFSET  0x0201
 #define TAG_THUMBNAIL_LENGTH  0x0202
 
+// the following is added 23-may-2004 pkl
+#define TAG_FOCALLENGTH35MM   0xa405
+
 static TagTable_t TagTable[] = {
   {   0x100,   "ImageWidth"},
   {   0x101,   "ImageLength"},
@@ -236,6 +239,7 @@ static TagTable_t TagTable[] = {
   {   0xA217,  "SensingMethod"},            // 0x9217    -  -
   {   0xA300,  "FileSource"},
   {   0xA301,  "SceneType"},
+  {   0xA405,  "FocalLength35mm"},
   {      0, NULL}
 } ;
 
@@ -547,6 +551,12 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
                 // Nice digital cameras actually save the focal length as a function
                 // of how farthey are zoomed in.
                 ImageInfo.FocalLength = (float)ConvertAnyFormat(ValuePtr, Format);
+                break;
+
+            case TAG_FOCALLENGTH35MM:
+                // Some digital cameras save the focal length translated into 35mm
+				// format for comparability
+                ImageInfo.FocalLength35mm = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_SUBJECT_DISTANCE:
@@ -946,7 +956,9 @@ void ShowImageInfo(ImageInfo_t & ImageInfo)
     }
     if (ImageInfo.FocalLength){
         printf("Focal length : %4.1fmm",(double)ImageInfo.FocalLength);
-        if (ImageInfo.CCDWidth){
+		if (ImageInfo.FocalLength35mm) {
+            printf("  (35mm equivalent: %dmm)", (int) ImageInfo.FocalLength35mm);
+		} else if (ImageInfo.CCDWidth){
             printf("  (35mm equivalent: %dmm)",
                         (int)(ImageInfo.FocalLength/ImageInfo.CCDWidth*36 + 0.5));
         }
