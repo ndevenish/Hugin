@@ -263,7 +263,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                     }
                     if (dists.size() > 0) {
                         // if image is defind in this area.
-                        seamAlpha(dists, seamWidth, alphavec);
+                        seamFactor(dists, seamWidth, alphavec);
                         for (AlphaVector::iterator it = alphavec.begin();
                              it != alphavec.end(); ++it)
                         {
@@ -367,7 +367,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                     SumType blended;
 
                     // use a simple weighted sum, to merge the images.
-                    seamAlpha(dists, seamWidth, alpha);
+                    seamFactor(dists, seamWidth, alpha);
                     for (AlphaVector::iterator it = alpha.begin();
                          it != alpha.end(); ++it)
                     {
