@@ -5,30 +5,26 @@ AC_DEFUN([AX_CHECK_ZLIB],
 [
 AC_ARG_WITH([zlib],
             AC_HELP_STRING([--with-zlib=PATH],
-		           [Use version of zlib in PATH]),
+                           [Use version of zlib in PATH]),
             [with_zlib=$withval],
-	    [with_zlib=''])
+            [with_zlib=''])
 have_zlib='no'
 LIB_ZLIB=''
 ZLIB_FLAGS=''
 ZLIB_HOME=''
 dnl PNG and TIFF require zlib so enable zlib check if PNG or TIFF is requested
-if test "x$with_zlib" != 'xno' || test "x$with_png" != 'xno' || test "x$with_tiff" != 'xno' 
-then
+if test "x$with_zlib" != 'xno' || test "x$with_png" != 'xno' || test "x$with_tiff" != 'xno' ; then
   AC_MSG_CHECKING(for ZLIB support )
   AC_MSG_RESULT()
-  if test "x$with_zlib" != 'x'
-  then
-    if test -d "$with_zlib"
-    then
+  if test "x$with_zlib" != 'x' ; then
+    if test -d "$with_zlib" ; then
       ZLIB_HOME="$with_zlib"
     else
       AC_MSG_WARN([Sorry, $with_zlib does not exist, checking usual places])
       with_zlib=''
     fi
   fi
-  if test "x$ZLIB_HOME" = 'x'
-  then
+  if test "x$ZLIB_HOME" = 'x' ; then
     zlib_dirs="/usr /usr/local /opt /mingw"
     for i in $zlib_dirs;
     do
@@ -37,8 +33,7 @@ then
         break
       fi
     done
-    if test "x$ZLIB_HOME" != 'x'
-    then
+    if test "x$ZLIB_HOME" != 'x' ; then
       AC_MSG_NOTICE([zlib home set to $ZLIB_HOME])
     else
       AC_MSG_NOTICE([cannot find the zlib directory, assuming it is specified in CFLAGS])
@@ -48,9 +43,12 @@ then
   passed=0;
   ZLIB_OLD_LDFLAGS=$LDFLAGS
   ZLIB_OLD_CPPFLAGS=$CPPFLAGS
-  if test "x$ZLIB_HOME" != 'x'
-  then
-    LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
+  if test "x$ZLIB_HOME" != 'x' ; then
+    if test "x$HCPU" = 'xamd64' ; then
+      LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib64"
+    else
+      LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
+    fi
     CPPFLAGS="$CPPFLAGS -I$ZLIB_HOME/include"
   fi
   AC_LANG_SAVE
@@ -62,19 +60,20 @@ then
   CPPFLAGS="$ZLIB_OLD_CPPFLAGS"
 
   AC_MSG_CHECKING(if ZLIB package is complete)
-  if test $passed -gt 0
-  then
-    if test $failed -gt 0
-    then
+  if test $passed -gt 0 ; then
+    if test $failed -gt 0 ; then
       AC_MSG_RESULT(no -- some components failed test)
       have_zlib='no (failed tests)'
     else
-      if test "x$ZLIB_HOME" = 'x'
-      then
+      if test "x$ZLIB_HOME" = 'x' || test "x$ZLIB_HOME" = 'x/usr' ; then
         LIB_ZLIB="-lz"
         ZLIB_FLAGS="-DHasZLIB"
       else
-        LIB_ZLIB="-L$ZLIB_HOME/lib -lz"
+        if test "x$HCPU" = 'xamd64' ; then
+          LIB_ZLIB="-L$ZLIB_HOME/lib64 -lz"
+        else
+          LIB_ZLIB="-L$ZLIB_HOME/lib -lz"
+        fi
         ZLIB_FLAGS="-I$ZLIB_HOME/include -DHasZLIB"
       fi
       AC_MSG_RESULT(yes)
@@ -96,29 +95,25 @@ AC_DEFUN([AX_CHECK_PNG],
 [
 AC_ARG_WITH([png],
             AC_HELP_STRING([--with-png=PATH],
-		           [Use version of png in PATH]),
+                           [Use version of png in PATH]),
             [with_png=$withval],
-	    [with_png=''])
+            [with_png=''])
 have_png='no'
 LIB_PNG=''
 PNG_FLAGS=''
 PNG_HOME=''
-if test "x$with_png" != 'xno'
-then
+if test "x$with_png" != 'xno' ; then
   AC_MSG_CHECKING(for PNG support )
   AC_MSG_RESULT()
-  if test "x$with_png" != 'x'
-  then
-    if test -d "$with_png"
-    then
+  if test "x$with_png" != 'x' ; then
+    if test -d "$with_png" ; then
       PNG_HOME="$with_png"
     else
       AC_MSG_WARN([Sorry, $with_png does not exist, checking usual places])
       with_png=''
     fi
   fi
-  if test "x$PNG_HOME" = 'x'
-  then
+  if test "x$PNG_HOME" = 'x' ; then
     png_dirs="/usr /usr/local /opt /mingw"
     for i in $png_dirs;
     do
@@ -127,8 +122,7 @@ then
         break
       fi
     done
-    if test "x$PNG_HOME" != 'x'
-    then
+    if test "x$PNG_HOME" != 'x' ; then
       AC_MSG_NOTICE([png home set to $PNG_HOME])
     else
       AC_MSG_NOTICE([cannot find the png directory, assuming it is specified in CFLAGS])
@@ -138,9 +132,12 @@ then
   passed=0;
   PNG_OLD_LDFLAGS=$LDFLAGS
   PNG_OLD_CPPFLAGS=$CPPFLAGS
-  if test "x$PNG_HOME" != 'x'
-  then
-    LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
+  if test "x$PNG_HOME" != 'x' ; then
+    if test "x$HCPU" = 'xamd64' ; then
+      LDFLAGS="$LDFLAGS -L$PNG_HOME/lib64"
+    else
+      LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
+    fi
     CPPFLAGS="$CPPFLAGS -I$PNG_HOME/include"
   fi
   AC_LANG_SAVE
@@ -152,19 +149,20 @@ then
   CPPFLAGS="$PNG_OLD_CPPFLAGS"
 
   AC_MSG_CHECKING(if PNG package is complete)
-  if test $passed -gt 0
-  then
-    if test $failed -gt 0
-    then
+  if test $passed -gt 0 ; then
+    if test $failed -gt 0 ; then
       AC_MSG_RESULT(no -- some components failed test)
       have_png='no (failed tests)'
     else
-      if test "x$PNG_HOME" = 'x'
-      then
+      if test "x$PNG_HOME" = 'x' || test "x$PNG_HOME" = 'x/usr' ; then
         LIB_PNG="-lpng"
         PNG_FLAGS="-DHasPNG"
       else
-        LIB_PNG="-L$PNG_HOME/lib -lpng"
+        if test "x$HCPU" = 'xamd64' ; then
+          LIB_PNG="-L$PNG_HOME/lib64 -lpng"
+        else
+          LIB_PNG="-L$PNG_HOME/lib -lpng"
+        fi
         PNG_FLAGS="-I$PNG_HOME/include -DHasPNG"
       fi
       AC_DEFINE(HasPNG,1,Define if you have PNG library)
@@ -187,30 +185,26 @@ AC_DEFUN([AX_CHECK_JPEG],
 [
 AC_ARG_WITH([jpeg],
             AC_HELP_STRING([--with-jpeg=PATH],
-		           [Use version of jpeg in PATH]),
+                           [Use version of jpeg in PATH]),
             [with_jpeg=$withval],
-	    [with_jpeg=''])
+            [with_jpeg=''])
 have_jpeg='no'
 LIB_JPEG=''
 JPEG_FLAGS=''
 JPEG_HOME=''
 dnl TIFF requires jpeg so enable jpeg check if TIFF is requested
-if test "x$with_jpeg" != 'xno' || test "x$with_tiff" != 'xno' 
-then
+if test "x$with_jpeg" != 'xno' || test "x$with_tiff" != 'xno'  ; then
   AC_MSG_CHECKING(for JPEG support )
   AC_MSG_RESULT()
-  if test "x$with_jpeg" != 'x'
-  then
-    if test -d "$with_jpeg"
-    then
+  if test "x$with_jpeg" != 'x' ; then
+    if test -d "$with_jpeg" ; then
       JPEG_HOME="$with_jpeg"
     else
       AC_MSG_WARN([Sorry, $with_jpeg does not exist, checking usual places])
       with_jpeg=''
     fi
   fi
-  if test "x$JPEG_HOME" = 'x'
-  then
+  if test "x$JPEG_HOME" = 'x' ; then
     jpeg_dirs="/usr /usr/local /opt /mingw"
     for i in $jpeg_dirs;
     do
@@ -219,8 +213,7 @@ then
         break
       fi
     done
-    if test "x$JPEG_HOME" != 'x'
-    then
+    if test "x$JPEG_HOME" != 'x' ; then
       AC_MSG_NOTICE([jpeg home set to $JPEG_HOME])
     else
       AC_MSG_NOTICE([cannot find the jpeg directory, assuming it is specified in CFLAGS])
@@ -230,9 +223,12 @@ then
   passed=0;
   JPEG_OLD_LDFLAGS=$LDFLAGS
   JPEG_OLD_CPPFLAGS=$CPPFLAGS
-  if test "x$JPEG_HOME" != 'x'
-  then
-    LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
+  if test "x$JPEG_HOME" != 'x' ; then
+    if test "x$HCPU" = 'xamd64' ; then
+      LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib64"
+    else
+      LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
+    fi
     CPPFLAGS="$CPPFLAGS -I$JPEG_HOME/include"
   fi
   AC_LANG_SAVE
@@ -269,19 +265,20 @@ then
   CPPFLAGS="$JPEG_OLD_CPPFLAGS"
 
   AC_MSG_CHECKING(if JPEG package is complete)
-  if test $passed -gt 0
-  then
-    if test $failed -gt 0
-    then
+  if test $passed -gt 0 ; then
+    if test $failed -gt 0 ; then
       AC_MSG_RESULT(no -- some components failed test)
       have_jpeg='no (failed tests)'
     else
-      if test "x$JPEG_HOME" = 'x'
-      then
+      if test "x$JPEG_HOME" = 'x' || test "x$JPEG_HOME" = 'x/usr' ; then
         LIB_JPEG="-ljpeg"
         JPEG_FLAGS="-DHasJPEG"
       else
-        LIB_JPEG="-L$JPEG_HOME/lib -ljpeg"
+        if test "x$HCPU" = 'xamd64' ; then
+          LIB_JPEG="-L$JPEG_HOME/lib64 -ljpeg"
+        else
+          LIB_JPEG="-L$JPEG_HOME/lib -ljpeg"
+        fi
         JPEG_FLAGS="-I$JPEG_HOME/include -DHasJPEG"
       fi
       AC_DEFINE(HasJPEG,1,Define if you have JPEG library)
@@ -304,29 +301,25 @@ AC_DEFUN([AX_CHECK_TIFF],
 [
 AC_ARG_WITH([tiff],
             AC_HELP_STRING([--with-tiff=PATH],
-		           [Use version of TIFF in PATH]),
+                           [Use version of TIFF in PATH]),
             [with_tiff=$withval],
-	    [with_tiff=''])
+			[with_tiff=''])
 have_tiff='no'
 LIB_TIFF=''
 TIFF_FLAGS=''
 TIFF_HOME=''
-if test "x$with_tiff" != 'xno'
-then
+if test "x$with_tiff" != 'xno' ; then
   AC_MSG_CHECKING(for TIFF support )
   AC_MSG_RESULT()
-  if test "x$with_tiff" != 'x'
-  then
-    if test -d "$with_tiff"
-    then
+  if test "x$with_tiff" != 'x' ; then
+    if test -d "$with_tiff" ; then
       TIFF_HOME="$with_tiff"
     else
       AC_MSG_WARN([Sorry, $with_tiff does not exist, checking usual places])
       with_tiff=''
     fi
   fi
-  if test "x$TIFF_HOME" = 'x'
-  then
+  if test "x$TIFF_HOME" = 'x' ; then
     tiff_dirs="/usr /usr/local /opt /mingw"
     for i in $tiff_dirs;
     do
@@ -335,8 +328,7 @@ then
         break
       fi
     done
-    if test "x$TIFF_HOME" != 'x'
-    then
+    if test "x$TIFF_HOME" != 'x' ; then
       AC_MSG_NOTICE([tiff home set to $TIFF_HOME])
     else
       AC_MSG_NOTICE([cannot find the tiff directory, assuming it is specified in CFLAGS])
@@ -346,9 +338,12 @@ then
   passed=0;
   TIFF_OLD_LDFLAGS=$LDFLAGS
   TIFF_OLD_CPPFLAGS=$CPPFLAGS
-  if test "x$TIFF_HOME" != 'x'
-  then
-    LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
+  if test "x$TIFF_HOME" != 'x' ; then
+    if test "x$HCPU" = 'xamd64' ; then
+      LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib64"
+    else
+      LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
+    fi
     CPPFLAGS="$CPPFLAGS -I$TIFF_HOME/include"
   fi    
   AC_LANG_SAVE
@@ -360,19 +355,20 @@ then
   CPPFLAGS="$TIFF_OLD_CPPFLAGS"
 
   AC_MSG_CHECKING(if TIFF package is complete)
-  if test $passed -gt 0
-  then
-    if test $failed -gt 0
-    then
+  if test $passed -gt 0 ; then
+    if test $failed -gt 0 ; then
       AC_MSG_RESULT(no -- some components failed test)
       have_tiff='no (failed tests)'
     else
-      if test "x$TIFF_HOME" = 'x'
-      then
+      if test "x$TIFF_HOME" = 'x' || test "x$TIFF_HOME" = 'x/usr' ; then
         LIB_TIFF="-ltiff"
         TIFF_FLAGS="-DHasTIFF"
       else
-        LIB_TIFF="-L$TIFF_HOME/lib -ltiff"
+        if test "x$HCPU" = 'xamd64' ; then
+          LIB_TIFF="-L$TIFF_HOME/lib64 -ltiff"
+        else
+          LIB_TIFF="-L$TIFF_HOME/lib -ltiff"
+        fi
         TIFF_FLAGS="-I$TIFF_HOME/include -DHasTIFF"
       fi
       AC_DEFINE(HasTIFF,1,Define if you have TIFF library)

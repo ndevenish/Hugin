@@ -12,7 +12,11 @@ AC_ARG_WITH([fftw],
             AC_HELP_STRING([--with-fftw=DIR],
                            [where the root of FFTW is installed ]),
     [  ac_fftw_includes="$withval"/include
-       ac_fftw_libraries="$withval"/lib
+	   if test "x$HCPU" = 'xamd64' ; then
+         ac_fftw_libraries="$withval"/lib64
+	   else
+         ac_fftw_libraries="$withval"/lib
+	   fi
        ac_fftw_bindir="$withval"/bin
     ])
 
@@ -31,6 +35,7 @@ AC_ARG_WITH([fftw-libraries],
     [  ac_fftw_libraries="$withval"
        fftw_libs_given=yes
     ])
+
 AC_CACHE_VAL(ac_cv_have_fftw,
 [#try to guess FFTW locations
 
@@ -40,8 +45,16 @@ fftw_incdirs="$ac_fftw_includes $fftw_incdirs"
 AC_FIND_FILE(fftw.h, $fftw_incdirs, fftw_incdir)
 ac_fftw_includes="$fftw_incdir"
 
-fftw_libdirs="/usr/lib/fftw/lib /usr/lib /opt/lib /mingw/lib /usr/local/fftw/lib /usr/local/lib /usr/lib/fftw /usr/local/lib $FFTWLIB"
-test -n "$FFTWDIR" && fftw_libdirs="$FFTWDIR/lib $FFTWDIR $fftw_libdirs"
+if test "x$HCPU" = 'xamd64' ; then
+  fftw_libdirs="/usr/lib64/fftw/lib64 /usr/lib64 /opt/lib64 /mingw/lib64 /usr/local/fftw/lib64 /usr/local/lib64 /usr/lib64/fftw $FFTWLIB"
+else
+  fftw_libdirs="/usr/lib/fftw/lib /usr/lib /opt/lib /mingw/lib /usr/local/fftw/lib /usr/local/lib /usr/lib/fftw $FFTWLIB"
+fi
+if test "x$HCPU" = 'xamd64' ; then
+  test -n "$FFTWDIR" && fftw_libdirs="$FFTWDIR/lib64 $FFTWDIR $fftw_libdirs"
+else
+  test -n "$FFTWDIR" && fftw_libdirs="$FFTWDIR/lib $FFTWDIR $fftw_libdirs"
+fi
 if test ! "$ac_fftw_libraries" = "NO"; then
   fftw_libdirs="$ac_fftw_libraries $fftw_libdirs"
 fi
@@ -113,7 +126,7 @@ else
  all_includes="$FFTW_INCLUDES $all_includes"
 fi
 
-if test "$fftw_libraries" = "$x_libraries" || test -z "$fftw_libraries"; then
+if  test "$fftw_libraries" = "/usr/lib" || test "$fftw_libraries" = "/usr/lib64" || test "$fftw_libraries" = "$x_libraries" || test -z "$fftw_libraries"; then
  FFTW_LDFLAGS=""
 LIB_FFTW=""
 else

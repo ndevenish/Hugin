@@ -5,7 +5,8 @@
 AC_DEFUN([AX_CHECK_BOOST],
 [
  AC_ARG_WITH([boost-version],
- AC_HELP_STRING([--with-boost-version],[tell which boost version to use (default: 1.31)]),
+             AC_HELP_STRING([--with-boost-version],
+			                [tell which boost version to use (default: 1.31)]),
  [
   BOOST_VERSION="$withval"
   BOOST_VERSION_=`echo $withval | sed "s/\./_/g"`
@@ -77,8 +78,16 @@ AC_DEFUN([AX_CHECK_BOOST],
   LDFLAGS="$ac_ldflags_save"
   if test x$have_boost = xyes; then
    AC_DEFINE(HAVE_BOOST, 1, [have boost])
-   BOOST_LIBS="-L${ac_boost_libdir}"
-   BOOST_CFLAGS="-I${ac_boost_includedir}"
+   if test "x$ac_boost_libdir" = 'x/usr/lib' || test "x$ac_boost_libdir" = 'x/usr/lib64' ; then 
+    BOOST_LIBS=""
+   else
+    BOOST_LIBS="-L${ac_boost_libdir}"
+   fi
+   if test "x$ac_boost_includedir" = 'x/usr/include' ; then 
+	 BOOST_CFLAGS=""
+   else
+	 BOOST_CFLAGS="-I${ac_boost_includedir}"
+   fi
    boost_error=no
   else
    boost_error=yes

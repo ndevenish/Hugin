@@ -20,9 +20,24 @@ case "${target_os}" in
     ;;
   linux*)
     HSYS=linux
+	dnl
+	dnl Check the cpu to allow lib/lib64 decisions
+	dnl
+	case "${target_cpu}" in
+	  "")
+	    HCPU=unknown
+	    ;;
+	  x86_64*)
+	    HCPU=amd64
+	    ;;
+	  *)
+	    HCPU="${target_cpu}"
+	    ;;
+	esac
     ;;
   darwin*)
     HSYS=darwin
+	HCPU="${target_cpu}"
     ;;
   *mingw32*)
     AC_ARG_VAR(WINDRES, [Windows Resource compiler tool path])
@@ -32,15 +47,19 @@ case "${target_os}" in
     AC_SUBST(WINDRES)
 
     HSYS=mingw32
+	HCPU="${target_cpu}"
 
     ;;
   *)
     HSYS="${target_os}"
+	HCPU="${target_cpu}"
     ;;
 esac
 AM_CONDITIONAL(HAVE_LINUX, test "${HSYS}" = "linux")
 AM_CONDITIONAL(HAVE_DARWIN, test "${HSYS}" = "darwin")
 AM_CONDITIONAL(HAVE_MINGW, test "${HSYS}" = "mingw32")
+
+AM_CONDITIONAL(HAVE_AMD64, test "${HCPU}" = "amd64")
 
 AC_ARG_WITH([unicode],
             AC_HELP_STRING([--with-unicode=yes/no],
@@ -284,5 +303,6 @@ echo "  BOOST_CFLAGS   = $BOOST_CFLAGS"
 echo "  BOOST_LIBS     = $BOOST_LIBS"
 echo "  BOOST_TEST_LIB = $BOOST_TEST_LIB"
 echo "  BUILD          = $HSYS"
+echo "  CPU            = $HCPU"
 echo ""
 
