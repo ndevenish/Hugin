@@ -550,6 +550,12 @@ void Panorama::printOptimizerScript(ostream & o,
                                     const PanoramaOptions & output,
                                     const std::string & stripPrefix)
 {
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+#endif
+                        
     o << "# PTOptimizer script, written by hugin" << endl
       << endl;
     // output options..
@@ -653,12 +659,23 @@ void Panorama::printOptimizerScript(ostream & o,
           << " t" << it->mode << std::endl;
     }
     o << endl;
+
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+#endif
 }
 
 
 void Panorama::printStitcherScript(ostream & o,
                                    const PanoramaOptions & target)
 {
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+#endif
+    
     o << "# PTStitcher script, written by hugin" << endl
       << endl;
     // output options..
@@ -683,6 +700,11 @@ void Panorama::printStitcherScript(ostream & o,
         i++;
     }
     o << endl;
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+#endif
+
 }
 
 void Panorama::readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoints) const
@@ -699,6 +721,11 @@ void Panorama::readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoin
 void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CPVector & CPs) const
 {
     DEBUG_TRACE("");
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+#endif
     // 0 = read output (image lines), 1 = read control point distances
     int state = 0;
     string line;
@@ -779,6 +806,11 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             break;
         }
     }
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+#endif
+
 }
 
 void Panorama::changeFinished()

@@ -431,6 +431,11 @@ const string PanoramaOptions::fileformatNames[] =
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
     DEBUG_TRACE("");
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+#endif    
     PTParseState state;
     string line;
 
@@ -518,13 +523,33 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             fillVariableMap(vars);
             int link;
             ok = readVar(map_get(vars, "r"), link, line);
-            if (!ok)  return false;
+            if (!ok) {
+#ifdef __unix__
+                // reset locale
+                setlocale(LC_NUMERIC,old_locale);
+#endif
+                return false;
+            }
             DEBUG_ASSERT(link == -1);
             ok = readVar(map_get(vars, "p"), link, line);
-            if (!ok)  return false;
+            if (!ok){
+#ifdef __unix__
+                // reset locale
+                setlocale(LC_NUMERIC,old_locale);
+#endif
+               
+                return false;
+            }
             DEBUG_ASSERT(link == -1);
             ok = readVar(map_get(vars, "y"), link, line);
-            if (!ok)  return false;
+            if (!ok) {
+#ifdef __unix__
+                // reset locale
+                setlocale(LC_NUMERIC,old_locale);
+#endif
+                
+                return false;
+            }
             DEBUG_ASSERT(link == -1);
 
             Lens l;
@@ -535,7 +560,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                  ++it)
             {
                 ok = readVar(it->second, link, line);
-                if (!ok)  return false;
+                if (!ok) {
+#ifdef __unix__
+                // reset locale
+                setlocale(LC_NUMERIC,old_locale);
+#endif
+                    
+                    return false;
+                }
                 if (link !=-1) {
                     // linked variable
                     if ( anchorImage < 0) {
@@ -545,6 +577,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                                         << "number links: " << link << " images: " << images.size() << endl
                                         << "error on line " << lineNr << ":" << endl
                                         << line);
+#ifdef __unix__
+                            // reset locale
+                            setlocale(LC_NUMERIC,old_locale);
+#endif
                             return false;
                         }
                         anchorImage = link;
@@ -558,6 +594,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         DEBUG_ERROR("cannot process images whos variables are linked "
                                     "to different anchor images, on line " << lineNr
                                     << ":\n" << line);
+#ifdef __unix__
+                        // reset locale
+                        setlocale(LC_NUMERIC,old_locale);
+#endif
                         return false;
                     }
                     // get variable value of the link target
@@ -580,6 +620,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 lensNr = images[anchorImage].getLensNr();
                 if (l.projectionFormat != lenses[lensNr].projectionFormat) {
                     DEBUG_ERROR("cannot link images with different projections");
+#ifdef __unix__
+                    // reset locale
+                    setlocale(LC_NUMERIC,old_locale);
+#endif
                     return false;
                 }
             }
@@ -662,5 +706,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             break;
         }
     }
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+#endif
     return true;
 }

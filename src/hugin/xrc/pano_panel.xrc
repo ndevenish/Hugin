@@ -27,7 +27,7 @@
                     <item>Equirectangular</item>
                   </content>
                   <selection>2</selection>
-                  <tooltip>type of projection for the panorama\nRectlinear = normal lens (for stitching conventional/architectural photos)\nCylindrical = qtvr (good for printing panoramas)/nEquirectangular = VirtualReality format (Shows an whole sphere in one image with ratio(w/h) 2:1. good for viewing in applications like ptviewer on internet and for environtmant maps)</tooltip>
+                  <tooltip>type of projection for the panorama\nRectlinear = normal lens (for stitching conventional/architectural photos)\nCylindrical = qtvr (good for printing panoramas)\nEquirectangular = VirtualReality format (Shows an whole sphere in one image with ratio(w/h) 2:1. good for viewing in applications like ptviewer on internet and for environment maps)</tooltip>
                 </object>
                 <flag>wxEXPAND</flag>
               </object>
