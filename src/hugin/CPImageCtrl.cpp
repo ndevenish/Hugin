@@ -254,9 +254,9 @@ void CPImageCtrl::selectPoint(unsigned int nr)
     assert(nr < points.size());
     selectedPointNr = nr;
     wxSize sz = GetClientSize();
-    int x = invScale(points[nr].x)- sz.GetWidth()/2;
+    int x = scale(points[nr].x)- sz.GetWidth()/2;
     if (x<0) x = 0;
-    int y = invScale(points[nr].y)- sz.GetHeight()/2;
+    int y = scale(points[nr].y)- sz.GetHeight()/2;
     if (y<0) x = 0;
     showPosition(x,y);
     update();
