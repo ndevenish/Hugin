@@ -19,7 +19,7 @@ STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp
 	      UniversalCursor.cpp CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
 	      PreferencesDialog.cpp
 
-if HAVE_WIN32
+if HAVE_MINGW
 WIN_SRC    = hugin_rc.rc
 else
 WIN_SRC    =

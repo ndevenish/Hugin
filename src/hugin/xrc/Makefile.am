@@ -5,7 +5,11 @@ SUBDIRS=data
 
 SUFFIXES=.xrs 
 
-xrcdir=@datadir@/hugin/xrc
+if HAVE_MINGW 
+xrcdir = @prefix@/xrc
+else
+xrcdir = @datadir@/hugin/xrc
+endif
 
 XRC_FILES = about.xrc anchor_orientation.xrc cp_editor_panel.xrc cp_list_frame.xrc edit_script_dialog.xrc edit_text.xrc help.xrc image_center.xrc \
             images_panel.xrc keyboard_help.xrc lens_dialog.xrc lens_panel.xrc main_frame.xrc main_menubar.xrc main_menu.xrc main_tool.xrc nona_panel.xrc \

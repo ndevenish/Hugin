@@ -1,3 +1,73 @@
+2004-10-29 08:27  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: more typos fixed. Autopano-sift
+	  args should really work now
+
+2004-10-29 08:24  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: fixed typo. Autopano-sift args
+	  should work now
+
+2004-10-27 20:12  dangelo
+
+	* configure.ac, src/Panorama/ImageGraph.cpp,
+	  src/Panorama/Makefile.am, src/Panorama/OptimizeOptions.cpp,
+	  src/Panorama/PTOptimise.cpp, src/Panorama/PanoImage.cpp,
+	  src/Panorama/PanoToolsInterface.cpp, src/Panorama/Panorama.cpp,
+	  src/Panorama/PanoramaMemento.cpp,
+	  src/Panorama/SpaceTransform.cpp, src/Panorama/Stitcher.cpp,
+	  src/common/Makefile.am, src/common/graph.cpp,
+	  src/foreign/vigra_impex/Makefile.am,
+	  src/foreign/vigra_impex/bmp.cxx,
+	  src/foreign/vigra_impex/byteorder.cxx,
+	  src/foreign/vigra_impex/codecmanager.cxx,
+	  src/foreign/vigra_impex/gif.cxx,
+	  src/foreign/vigra_impex/imageinfo.cxx,
+	  src/foreign/vigra_impex/jpeg.cxx,
+	  src/foreign/vigra_impex/png.cxx, src/foreign/vigra_impex/pnm.cxx,
+	  src/foreign/vigra_impex/sun.cxx,
+	  src/foreign/vigra_impex/tiff.cxx,
+	  src/foreign/vigra_impex/viff.cxx,
+	  src/foreign/vigra_impex/void_vector.cxx,
+	  src/hugin/AutoCtrlPointCreator.cpp, src/hugin/CPEditorPanel.cpp,
+	  src/hugin/CPFineTuneFrame.cpp, src/hugin/CPImageCtrl.cpp,
+	  src/hugin/CPListFrame.cpp, src/hugin/CPZoomDisplayPanel.cpp,
+	  src/hugin/CommandHistory.cpp, src/hugin/ImageCache.cpp,
+	  src/hugin/ImageCenter.cpp, src/hugin/ImageOrientationFrame.cpp,
+	  src/hugin/ImagesList.cpp, src/hugin/ImagesPanel.cpp,
+	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
+	  src/hugin/Makefile.am, src/hugin/MyProgressDialog.cpp,
+	  src/hugin/NonaStitcherPanel.cpp, src/hugin/OptimizePanel.cpp,
+	  src/hugin/PTStitcherPanel.cpp, src/hugin/PanoDruid.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/PreferencesDialog.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
+	  src/hugin/RunOptimizerFrame.cpp, src/hugin/RunStitcherFrame.cpp,
+	  src/hugin/TextKillFocusHandler.cpp,
+	  src/hugin/UniversalCursor.cpp, src/hugin/huginApp.cpp,
+	  src/include/config.h.in, src/jhead/Makefile.am,
+	  src/jhead/exif.cpp, src/jhead/jpgfile.cpp,
+	  src/keypoints/Makefile.am, src/keypoints/ScaleSpace.cpp,
+	  src/keypoints/ScaleSpaceTools.cpp,
+	  src/keypoints/sift_keypoints.cpp, src/klt/Makefile.am,
+	  src/nona_gui/Makefile.am, src/nona_gui/nona_gui.cpp,
+	  src/tests/common.cpp, src/tests/imageproc.cpp,
+	  src/tests/interpolator.cpp, src/tests/panorama.cpp,
+	  src/tests/panotools.cpp, src/tests/phasecorrelation.cpp,
+	  src/tests/transforms.cpp, src/tests/vigra_ext.cpp,
+	  src/tools/Makefile.am, src/tools/automatch.cpp,
+	  src/tools/autooptimiser.cpp, src/tools/autopano.cpp,
+	  src/tools/nona.cpp, src/tools/panosifter.cpp,
+	  src/tools/zhang_undistort.cpp, src/vigra_ext/LoweSIFT.cpp,
+	  src/vigra_ext/Makefile.am, src/vigra_ext/PointMatching.cpp: moved
+	  config.h to builddir/include and included it from all files. This
+	  should avoid building some sources without the correct flags
+	  (especially HasTIFF etc.)
+
+2004-10-26 20:48  dwilkins42
+
+	* ChangeLog, m4/ax_check_graphics.m4, m4/ax_check_panotools.m4,
+	  m4/ax_fftw.m4: Add mingw to list of paths searched for libraries
+
 2004-10-26 18:15  dwilkins42
 
 	* ChangeLog, bootstrap, configure.ac, m4/ax_check_panotools.m4,
@@ -2814,74 +2884,4 @@
 
 	* src/hugin/RunOptimizerFrame.cpp: Added a wxGetApp().Yield() to
 	  resize the RunOptimizer to show live numbers.
-
-2003-10-29 09:18  beku
-
-	* src/hugin/po/de.po: teilweiser Angleich
-
-2003-10-28 20:35  dangelo
-
-	* src/: include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
-	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
-	  hugin/xrc/data/manual.html: - fine tune key "f" changes the point
-	  in the current image	 (not only the right img)
-
-	  - points can be moved in zoomed out views properly (bugfix)
-
-2003-10-28 11:51  dangelo
-
-	* src/hugin/: OptimizePanel.cpp, xrc/optimize_panel.xrc:
-	  refinements of new optimer interface
-
-2003-10-28 01:39  dangelo
-
-	* src/hugin/MainFrame.cpp: windows fix
-
-2003-10-28 01:33  dangelo
-
-	* src/: include/hugin/ImagesPanel.h, include/hugin/MainFrame.h,
-	  include/hugin/OptimizePanel.h, Panorama/PanoImage.cpp,
-	  Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
-	  hugin/ImageCache.cpp, hugin/ImagesList.cpp,
-	  hugin/ImagesPanel.cpp, hugin/MainFrame.cpp,
-	  hugin/OptimizePanel.cpp, hugin/huginApp.cpp, hugin/xrc/about.xrc,
-	  hugin/xrc/help.xrc, hugin/xrc/images_panel.xrc,
-	  hugin/xrc/main_menu.xrc, hugin/xrc/optimize_panel.xrc,
-	  hugin/xrc/data/manual.html: optimizer presets and first reference
-
-2003-10-27 11:37  dangelo
-
-	* src/hugin/CPEditorPanel.cpp: do not show error window if
-	  estimation is possible
-
-2003-10-27 02:47  dangelo
-
-	* src/hugin/PanoPanel.cpp: update feather width display
-
-2003-10-27 02:17  dangelo
-
-	* src/hugin/MainFrame.cpp: optimize button works now
-
-2003-10-27 01:53  dangelo
-
-	* src/include/hugin/CPEditorPanel.h: compile fix for windows
-
-2003-10-27 01:27  dangelo
-
-	* src/include/PT/PanoramaMemento.h,
-	  src/include/hugin/CPEditorPanel.h,
-	  src/include/hugin/CPImageCtrl.h, src/include/hugin/MainFrame.h,
-	  src/include/hugin/OptimizePanel.h, src/include/hugin/PanoPanel.h,
-	  src/Panorama/PanoImage.cpp, src/Panorama/Panorama.cpp,
-	  src/hugin/CPEditorPanel.cpp, src/hugin/CPImageCtrl.cpp,
-	  src/hugin/LensPanel.cpp, src/hugin/MainFrame.cpp,
-	  src/hugin/PanoPanel.cpp, src/hugin/xrc/cp_editor_panel.xrc,
-	  src/hugin/xrc/images_panel.xrc, src/hugin/xrc/lens_panel.xrc,
-	  src/hugin/xrc/main_menu.xrc, src/hugin/xrc/main_tool.xrc,
-	  src/hugin/xrc/pano_panel.xrc, src/hugin/xrc/data/list.png,
-	  src/include/PT/PanoCommand.h, src/include/PT/PanoImage.h,
-	  src/include/PT/Panorama.h, README: Many small changes: - added
-	  estimate function to CPEditorPanel - some more keyboard shortcuts
-	  for CPEditorPanel: ctrl-left, ctrl-right,f,p,del - added more
-	  toolbar entries - specify feather width
 

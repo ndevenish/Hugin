@@ -8,8 +8,11 @@ JPG_FILES = $(wildcard $(srcdir)/*.jpg)
 PNG_FILES = $(wildcard $(srcdir)/*.png)
 XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 
+if HAVE_MINGW
+xrcdatadir = @prefix@/xrc/data
+else
 xrcdatadir = @datadir@/hugin/xrc/data
-
+endif
 
 all-local: stamp-data
 

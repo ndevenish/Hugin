@@ -16,7 +16,7 @@ RCCOMPILE = $(RC) $(RCFLAGS) \
 
 SUBDIRS   = po
 
-if HAVE_WIN32
+if HAVE_MINGW
 WIN_SRC   = nona_gui_rc.rc
 else
 WIN_SRC   =

@@ -16,31 +16,31 @@ dnl  Check the operating system
 dnl
 case "${target_os}" in
   "")
-    SYS=unknown
+    HSYS=unknown
     ;;
   linux*)
-    SYS=linux
+    HSYS=linux
     ;;
   darwin*)
-    SYS=darwin
+    HSYS=darwin
     ;;
   *mingw32*)
     AC_ARG_VAR(WINDRES, [Windows Resource compiler tool path])
     AC_PATH_TOOL(WINDRES,windres,
-	             [AC_MSG_WARN(Could not find a windres tool in your PATH. Will not be able to compile hugin or nona_gui:)]
+	             [AC_MSG_ERROR(Could not find a windres tool in your PATH. Will not be able to compile hugin or nona_gui:)]
 		     )
     AC_SUBST(WINDRES)
 
-    SYS=mingw32
+    HSYS=mingw32
 
     ;;
   *)
-    SYS="${target_os}"
+    HSYS="${target_os}"
     ;;
 esac
-AM_CONDITIONAL(HAVE_LINUX, test "${SYS}" = "linux")
-AM_CONDITIONAL(HAVE_DARWIN, test "${SYS}" = "darwin")
-AM_CONDITIONAL(HAVE_WIN32, test "${SYS}" = "mingw32")
+AM_CONDITIONAL(HAVE_LINUX, test "${HSYS}" = "linux")
+AM_CONDITIONAL(HAVE_DARWIN, test "${HSYS}" = "darwin")
+AM_CONDITIONAL(HAVE_MINGW, test "${HSYS}" = "mingw32")
 
 dnl debugging options
 AC_ARG_ENABLE([debug],
@@ -172,14 +172,23 @@ dnl AC_FUNC_VPRINTF
 dnl AC_CHECK_FUNCS([dup2 floor gettimeofday localtime_r memmove memset pow select setlocale sqrt])
 
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
-if test "x$prefix" != xNONE; then
-    AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$prefix/share/locale")
-    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/share/hugin/xrc")
-else
-    AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
-    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
-fi	
 
+case "$HSYS" in
+  mingw32)
+    AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "./locale")
+    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "./xrc")
+    ;;
+  *)
+    if test "x$datadir" != xNONE; then
+      AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
+      AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+    else
+      AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
+      AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
+    fi
+    ;;
+esac
+						
 dnl
 dnl Remove extraneous spaces from output variables (aesthetic)
 dnl
@@ -264,6 +273,6 @@ echo "  FFTW_INCLUDES  = $FFTW_INCLUDES"
 echo "  FFTW_LDFLAGS   = $FFTW_LDFLAGS"
 echo "  BOOST_CPPFLAGS = $BOOST_CPPFLAGS"
 echo "  BOOST_LIBS     = $BOOST_LIBS"
-echo "  BUILD          = $SYS"
+echo "  BUILD          = $HSYS"
 echo ""
 
