@@ -422,7 +422,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
     case SECOND_POINT:
         newPoint = p;
         // FIXME approximate position in left image
-        
+
         break;
     case FIRST_POINT:
         FDiff2D p2;
@@ -450,7 +450,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
                            PT::ControlPoint::X_Y);
         m_leftImg->clearNewPoint();
         m_rightImg->clearNewPoint();
-        
+
         m_rightImg->hideSearchArea();
         cpCreationState = NO_POINT;
         GlobalCmdHist::getInstance().addCommand(
@@ -459,7 +459,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
         // select new control Point
         unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
         SelectGlobalPoint(lPoint);
-        
+
     }
 }
 
@@ -916,6 +916,7 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
     // no selected item.
     if (item == -1) {
         wxBell();
+        return;
     }
     // get the global point number
     unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
