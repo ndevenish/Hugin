@@ -364,7 +364,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     int mode = m_mode_cb->GetSelection();
-    DEBUG_ASSERT(mode >= 0 && mode <=5);
+    DEBUG_ASSERT(mode >= 0 && mode <=6);
     switch (mode) {
     case 0:
         // smart auto optimize
