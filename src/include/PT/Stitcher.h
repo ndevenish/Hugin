@@ -23,8 +23,8 @@
  *
  */
 
-#ifndef _SIMPLESTITCHER_H
-#define _SIMPLESTITCHER_H
+#ifndef _STITCHER_H
+#define _STITCHER_H
 
 #include <sstream>
 #include <iomanip>
@@ -542,7 +542,7 @@ public:
                     // copy image with mask.
                     vigra::copyImageIf((*it).apply(img.image(), imgROI),
                                        (*it).apply(srcIter(img.alpha().first), imgROI),
-                                       (*it).apply(destIter(pano.first),panoROI) );
+                                       (*it).apply(std::make_pair(pano.first, pano.third),panoROI) );
                     // copy mask
                     vigra::copyImageIf((*it).apply(img.alpha(),imgROI),
                                        (*it).apply(maskIter(img.alpha().first),imgROI),
@@ -550,11 +550,13 @@ public:
 
                 }
             } else {
-                // images do not overlap
+                // images do not overlap, but roi's do
                 // copy image with mask.
+                DEBUG_DEBUG("no overlap, copying upper area. imgroi " << img.roi());
+                DEBUG_DEBUG("pano roi: " << panoROI);
                 vigra::copyImageIf(img.image(),
                                    maskIter(img.alpha().first),
-                                   img.roi().apply(destIter(pano.first),panoROI) );
+                                   img.roi().apply(std::make_pair(pano.first, pano.third),panoROI) );
                 // copy mask
                 vigra::copyImageIf(img.alpha(),
                                    maskIter(img.alpha().first),
@@ -563,14 +565,18 @@ public:
 
 	} else {
 	    // image ROI's do not overlap, no blending, just copy
-	    // alpha channel is not considered, because the whole target
-	    // is free.
-	    vigra::copyImage(img.image(),
-			     img.roi().apply(destIter(pano.first)));
+
+            DEBUG_DEBUG("no overlap, copying upper area. imgroi " << img.roi());
+            DEBUG_DEBUG("pano roi: " << panoROI);
+            DEBUG_DEBUG("size of panorama: " << pano.second - pano.first);
+	    vigra::copyImageIf(img.image(),
+                               maskIter(img.alpha().first),
+                               img.roi().apply(std::make_pair(pano.first, pano.third)));
 
 	    // copy mask
-	    vigra::copyImage(img.alpha(),
-			     img.roi().apply(alpha));
+	    vigra::copyImageIf(img.alpha(),
+                               maskIter(img.alpha().first),
+                               img.roi().apply(alpha));
 	}
 	img.roi().unite(panoROI, panoROI);
     }
@@ -638,6 +644,6 @@ void stitchPanorama(const PT::Panorama & pano,
 		    utils::MultiProgressDisplay & progress,
 		    const std::string & basename);
 
-} // namespace PTools
+} // namespace PT
 
-#endif // _SIMPLESTITCHER_H
+#endif // _STITCHER_H
