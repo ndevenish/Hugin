@@ -57,6 +57,8 @@ namespace utils
 {
     std::string CurrentTime();
     
+    std::string doubleToString(double d); // FIXME not accessible
+
     template <typename Target, typename Source> 
     Target lexical_cast(Source arg) {
 

@@ -68,6 +68,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
 
   EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::PreviewWidthChanged )
   EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
+  EVT_CHECKBOX ( XRCID("pano_cb_autopreview"),PanoPanel::AutoPreview )
 
   EVT_CHOICE   ( XRCID("pano_choice_formatFinal"),PanoPanel::FinalFormatChanged)
   EVT_COMBOBOX ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
@@ -84,8 +85,6 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),
       pano(*pano)
 {
-//    pano->addObserver(this);
-
     opt = new PanoramaOptions();
 
     // loading xrc resources in selfcreated this panel
@@ -106,9 +105,15 @@ PanoPanel::~PanoPanel(void)
 }
 
 
-/*void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
+void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-}*/
+    DEBUG_INFO (XRCID("pano_button_preview"))
+    int id (XRCID("pano_button_preview"));
+    wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
+    e.SetId(id);
+    DoPreview (e);
+//    PanoChanged (e);
+}
 
 void PanoPanel::PanoChanged ( wxCommandEvent & e )
 {
@@ -227,26 +232,25 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 
     opt->width = previewWidth;
     opt->height = previewWidth / 2;
+    wxString outputFormat = opt->outputFormat.c_str();
+    opt->outputFormat = "JPEG";
+    int quality = opt->quality;
+    if ( outputFormat != "JPEG" )
+      opt->quality = 100;
+
     PT::SetPanoOptionsCmd( pano, *opt );
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, *opt )
         );
 
-    
-/*    wxString viewer ( "panoviewer " );
-    viewer += opt->outfile.c_str();
+    // recover old values
+    opt->outputFormat = outputFormat.c_str();
+    if ( outputFormat != "JPEG" )
+      opt->quality = quality;
 
-    DEBUG_INFO ( "command = " << viewer )
-    if ( server->Connected() == false ) {
-      wxExecute( viewer, FALSE); // sync 
-//      wxSleep (2);
-      DEBUG_INFO ( "server->Connected() = " << server->Connected() )
-    };
-
-    DEBUG_INFO ( "server->Connected() = " << server->Connected() )
-    // Hopefully panoViewer has stared; send him the name of our image
-*/    server->SendFilename( (wxString) opt->outfile.c_str() );
+    // Send panoViewer the name of our image
+    server->SendFilename( (wxString) opt->outfile.c_str() );
 /*
     if ( !preview_dlg ) {
         wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
@@ -265,6 +269,19 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 
     DEBUG_INFO ( "" )
 }
+void PanoPanel::AutoPreview ( wxCommandEvent & e )
+{
+    if ( XRCCTRL(*this, "pano_cb_autopreview", wxCheckBox)
+         ->IsChecked() ) {
+        DEBUG_INFO ("set auto preview")
+        pano.addObserver(this);
+
+    } else {
+        DEBUG_INFO ("unset auto prievew")
+        pano.removeObserver(this);
+    }
+}
+
 // --
 void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
 {

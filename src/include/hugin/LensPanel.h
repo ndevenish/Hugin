@@ -78,16 +78,32 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    // Here we get the Lens
+    /** This sets the actual image to work on for the parameters. */
+    void SetImages ( wxListEvent & e );
+
+    /** Here we get the Lens
+     *
+     *  It takes one lens for filling in the editing controls and leaves
+     *  the panorama as it is.
+     */
     void LensChanged ( wxListEvent & e );
+
     // event handlers
+    /**  selfexplainiing */
     void LensTypeChanged (wxCommandEvent & e);
+    /**  selfexplainiing */
     void HFOVChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void focalLengthChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void aChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void bChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void cChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void dChanged(wxCommandEvent & e);
+    /**  selfexplainiing */
     void eChanged(wxCommandEvent & e);
  private:
 
@@ -97,6 +113,19 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     // the Lens actually selected
     int lens;
     int image;
+
+    /** event -> pano
+     *
+     *  usually for events to set the new pano state
+     *
+     *  @param  type  "HFOV", "a", "b" ...
+     *  @param  var   the new value
+     */
+    void ChangePano ( std::string type, double var );
+    /**  holds the images just in work
+      *  in conjunction with SetImages()
+      */
+    unsigned int imgNr[512];
 
     // Lens to change settings
     Lens * edit_Lens;
@@ -137,7 +166,17 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+    /** Here we get the Lens
+     *
+     *  It takes one lens for filling in the editing controls and leaves
+     *  the panorama as it is. Here it is mainly a wrapper for lens_edit.
+     */
     void LensChanged ( wxListEvent & e );
+
+    /** lens editing controls
+     */
+    LensEdit * lens_edit;
+
  private:
 
     // the model
@@ -146,9 +185,6 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     // the Lens actually selected
     int lens;
     int image;
-
-    // lens editing controls
-    LensEdit * lens_edit;
 
     DECLARE_EVENT_TABLE()
 };

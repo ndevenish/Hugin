@@ -35,6 +35,7 @@
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 
+#include "common/utils.h"
 //#include "PT/PanoCommand.h"
 //#include "PT/PanoramaMemento.h"
 #include "hugin/config.h"
@@ -49,10 +50,13 @@
 //#include "PT/Panorama.h"
 
 using namespace PT;
+using namespace utils;
 
 // image preview
 extern wxBitmap * p_img;
 
+// ImagesPanel
+extern ImagesPanel* images_panel;
 // Image Icons
 extern wxImageList * img_icons;
 // Image Icons biger
@@ -75,14 +79,16 @@ BEGIN_EVENT_TABLE(List, wxListCtrl)
 //    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
 //    EVT_MOUSE_EVENTS ( List::Change )
     EVT_MOTION ( List::Change )
+    EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"), List::selectItemVeto)
+    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::selectItemVeto)
+    EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"), List::itemSelected )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::itemSelected )
 //    EVT_LEFT_DOWN ( List::Change )
 END_EVENT_TABLE()
 
-
 // Define a constructor for the Images Panel
 List::List( wxWindow* parent, Panorama* pano, int layout)
-    : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxSUNKEN_BORDER),
+    : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxSUNKEN_BORDER),   //|wxLC_HRULES),
       pano(*pano), list_layout (layout)
 {
     DEBUG_TRACE("");
@@ -93,6 +99,9 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
+      InsertColumn( 5, _("roll"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 6, _("pitch"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 7, _("yaw"), wxLIST_FORMAT_RIGHT, 40 );
       DEBUG_INFO( " images_layout" )
     } else {
 //      SetSingleStyle(wxLC_SINGLE_SEL, true); 
@@ -100,9 +109,9 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
       InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_RIGHT, 80 );
-      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 60 );
-      InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 60 );
-      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 4, _("a"), wxLIST_FORMAT_RIGHT, 30 );
+      InsertColumn( 5, _("b"), wxLIST_FORMAT_RIGHT, 40 );
+      InsertColumn( 6, _("c"), wxLIST_FORMAT_RIGHT, 50 );
       InsertColumn( 7, _("d"), wxLIST_FORMAT_RIGHT, 60 );
       InsertColumn( 8, _("e"), wxLIST_FORMAT_RIGHT, 60 );
       DEBUG_INFO( " else _layout" )
@@ -113,6 +122,11 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
 
     pano->addObserver(this);
     DEBUG_TRACE("");
+
+    selectItems = TRUE;
+    for ( int i = 0 ; i < 512 ; i++ )
+      imgNr[i] = 0;
+
 }
 
 
@@ -130,10 +144,12 @@ List::~List(void)
 
 void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)       
 {
+
     DeleteAllItems() ;
 //    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 
     // start the loop for every selected filename
+    DEBUG_INFO ("nr = " << pano.getNrOfImages() )
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
         wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
         wxImage * image = ImageCache::getInstance().getImage(
@@ -141,10 +157,11 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
         // fill in the table
         char Nr[128] ;
+        std::string number;
         sprintf(Nr ,"%d", i + 1);
         InsertItem ( i, Nr, i );
         EnsureVisible(i);
-//        DEBUG_INFO( " icon at Item:" << wxString::Format("%d", i) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
+        DEBUG_INFO( " icon at Item: " << i << "/" <<  pano.getNrOfImages() )
         SetItem ( i, 1, fn.GetFullName() );
         if ( list_layout == images_layout ) {
           sprintf(Nr, "%d", image->GetHeight() );
@@ -153,7 +170,18 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           SetItem ( i, 3, Nr );
           sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
           SetItem ( i, 4, Nr );
+          number = doubleToString ( pano.getVariable(i). roll.getValue() );
+          SetItem ( i, 5, number.c_str() );
+          number = doubleToString ( pano.getVariable(i). pitch.getValue() );
+          SetItem ( i, 6, number.c_str() );
+          number = doubleToString ( pano.getVariable(i). yaw.getValue() );
+          SetItem ( i, 7, number.c_str() );
 //        DEBUG_INFO( " images_layout" )
+          for ( int j=0; j < GetColumnCount() ; j++ ) {
+            SetColumnWidth(j, wxLIST_AUTOSIZE);
+            if ( GetColumnWidth(j) < 40 )
+              SetColumnWidth(j, 40);
+          }
         } else {
           switch ( (int) pano.getLens(pano.getImage(i).getLens()).projectionFormat ) {
             case RECTILINEAR_LENS:   sprintf(Nr, _("Normal (rectlinear)") ); break;
@@ -163,64 +191,100 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             case EQUIRECTANGULAR_LENS: sprintf(Nr,_("Equirectangular") ); break;
           }
           SetItem ( i, 2, Nr );
-          wxString number;
-          number = number.Format ( "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
-          while ( number.Right(1) == "0" ) {
-            number.RemoveLast ();
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). focalLength );
+          SetItem ( i, 3, number.c_str() );
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). a );
+          SetItem ( i, 4, number.c_str() );
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). b );
+          SetItem ( i, 5, number.c_str() );
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). c );
+          SetItem ( i, 6, number.c_str() );
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). d );
+          SetItem ( i, 7, number.c_str() );
+          number = doubleToString (
+                       pano.getLens (pano.getImage(i).getLens()). e );
+          SetItem ( i, 8, number.c_str() );
+          for ( int j=0; j< GetColumnCount() ; j++ ) {
+            SetColumnWidth(j, wxLIST_AUTOSIZE);
+            if ( GetColumnWidth(j) < 40 )
+              SetColumnWidth(j, 40);
           }
-          if ( number.Right(1) == "," )
-            number.RemoveLast ();
-          if ( number.Right(1) == "." )
-            number.RemoveLast ();
-//          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
-          SetItem ( i, 3, number );
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).a );
-          SetItem ( i, 4, Nr );
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).b );
-          SetItem ( i, 5, Nr );
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).c );
-          SetItem ( i, 6, Nr );
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).d );
-          SetItem ( i, 7, Nr );
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).e );
-          SetItem ( i, 8, Nr );
 //        DEBUG_INFO( " else _layout" )
         }
-        SetColumnWidth(0, wxLIST_AUTOSIZE);
-        SetColumnWidth(1, wxLIST_AUTOSIZE);
 //        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
 
+    }
+
+    selectItems = FALSE;   // The following causes an event. skip itemSelected()
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        SetItemState( imgNr[i], wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
+    }
+    selectItems = TRUE;
+
+    imgNr[0] = 0;             // reset the counter
+    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+      if ( GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+        imgNr[0] += 1;        // set the counter
+        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+      }
     }
 /*
     if ( pano.getNrOfImages() == 0 ) {
         delete p_img;
         p_img = new wxBitmap(0,0);
     }*/
-    DEBUG_TRACE("");
+
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+
+bool List::selectItemVeto( wxListEvent & e )
+{
+    if ( selectItems ) {
+      itemSelected (e);
+    }
+
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+    return TRUE;
 }
 
 void List::itemSelected ( wxListEvent & e )
 {
+    // prepare an status message
+    std::string e_msg ( _("images(") );
+    char Nr[8];
+    sprintf (Nr, "%d", GetSelectedItemCount() );
+    e_msg.append( Nr );
+    e_msg.append( "):  " );
+
+    imgNr[0] = 0;             // reset the counter
+    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+      if ( GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+//    DEBUG_TRACE("");
+        e_msg += "  " + GetItemText(Nr);
+        imgNr[0] += 1;        // set the counter
+        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+      }
+    }
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+
+    frame->SetStatusText(e_msg.c_str(), 0);
+
+//    selectedItem = e.GetIndex();
     if ( list_layout == images_layout ) {
-        DEBUG_TRACE ("images_layout")
+//        DEBUG_TRACE ("images_layout")
+        images_panel->SetImages (e);
     } else {
-        selectedItem = e.GetIndex();
-        DEBUG_TRACE (wxString::Format ("no images_layout:  %ld|%d", e.GetIndex(), selectedItem))
-//        lens_panel->Update();
+//        DEBUG_TRACE (wxString::Format ("no images_layout:  %ld|%d", e.GetIndex(), selectedItem))
+        lens_panel->lens_edit->SetImages (e);
     }
     // let others recieve the event too
     e.Skip(true);
 }
-/*void List::Change ( wxListEvent & e )
-{
-DEBUG_TRACE ("")
-    long item (1);
-//    wxPoint pos = e.GetPosition();
-//    long item = HitTest( e.m_x ,e.m_y );
-//    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
-    DEBUG_INFO ( "hier: is item %ld" << wxString::Format("%ld", item) );
-    frame->SetStatusBar(wxString::Format(" %d,%d is item %ld", e.m_x, e.m_y, item), 1);
-}*/
 
 void List::Change ( wxMouseEvent & e )
 {
@@ -228,7 +292,6 @@ void List::Change ( wxMouseEvent & e )
 //    DEBUG_TRACE ("")
         int flags = wxLIST_HITTEST_ONITEM;
         long item = HitTest( e.GetPosition(),  flags);
-//    frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
     
         if ( item != -1 && item != prevItem ) {
           // preview selected images
@@ -250,8 +313,9 @@ void List::Change ( wxMouseEvent & e )
           delete p_img;
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           canvas->Refresh();
-          frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
+//          frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
         }
+
         if (item != -1)
           prevItem = item;
     } else {

@@ -168,8 +168,10 @@ LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/
     // FIXME with no image in pano hugin crashes
     DEBUG_INFO ( wxString::Format ("Lensesnumber: %d", pano->getNrOfLenses()) )
 
-    DEBUG_TRACE("");;
+    for ( int i = 0 ; i < 512 ; i++ )
+      imgNr[i] = 0;
 
+    DEBUG_TRACE("");;
 }
 
 
@@ -180,12 +182,15 @@ LensEdit::~LensEdit(void)
     DEBUG_TRACE("");
 }
 
+
 void LensEdit::LensChanged ( wxListEvent & e )
 {
+
+    
     image = e.GetIndex();
 
     // FIXME should get a bottom to update
-    edit_Lens->readEXIF( pano.getImage(image).getFilename().c_str() );
+//    edit_Lens->readEXIF( pano.getImage(image).getFilename().c_str() );
 
     // FIXME support separate lenses
 //    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
@@ -227,6 +232,7 @@ void LensEdit::LensChanged ( wxListEvent & e )
 
 void LensEdit::updateHFOV()
 {
+    DEBUG_TRACE("");
     wxString number;
 
     if ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) {
@@ -268,32 +274,36 @@ void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & im
 void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
     // uses enum LensProjectionFormat from PanoramaMemento.h
-    int lt = XRCCTRL(*this, "lens_type_combobox",
+    int var = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
-    edit_Lens->projectionFormat = (LensProjectionFormat) (lt);
+    edit_Lens->projectionFormat = (LensProjectionFormat) (var);
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
+
 //    int image = images_list2->GetSelectedImage();
-    DEBUG_INFO ( wxString::Format ("image %d lens %d Lenstype %d",image,pano.getImage(image).getLens(),lt) )
+    DEBUG_INFO ( wxString::Format ("image %d lens %d Lenstype %d",image,pano.getImage(image).getLens(),var) )
 }
 
 void LensEdit::HFOVChanged ( wxCommandEvent & e )
 {
     // FIXME beautify this function and write a macro
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->HFOV = *val;
+    edit_Lens->HFOV = *var;
     edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
     edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete var;
     updateHFOV();
 
 //    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
@@ -303,98 +313,151 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
 
 void LensEdit::focalLengthChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text=XRCCTRL(*this,"lens_val_focalLength", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->focalLength = *val / edit_Lens->focalLengthConversionFactor;
+    edit_Lens->focalLength = *var / edit_Lens->focalLengthConversionFactor;
     edit_Lens->HFOV = 2.0 * atan((36/2) 
                       / (edit_Lens->focalLength 
                          * edit_Lens->focalLengthConversionFactor))  
                       * 180/M_PI;
 
+    updateHFOV();
+
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
-    updateHFOV();
 
+    delete var;
     DEBUG_TRACE ("")
 }
 
 void LensEdit::aChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_a", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->a = *val;
+    edit_Lens->a = *var;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete var;
     DEBUG_TRACE ("")
 }
 
 void LensEdit::bChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_b", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->b = *val;
+    edit_Lens->b = *var;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete var;
     DEBUG_TRACE ("")
 }
 
 void LensEdit::cChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_c", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->c = *val;
+    edit_Lens->c = *var;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete var;
     DEBUG_TRACE ("")
 }
 
 void LensEdit::dChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_d", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->d = *val;
+    edit_Lens->d = *var;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete var;
     DEBUG_TRACE ("")
 }
 
 void LensEdit::eChanged ( wxCommandEvent & e )
 {
-    double * val = new double ();
+    double * var = new double ();
     wxString text = XRCCTRL(*this, "lens_val_e", wxTextCtrl)->GetValue();
-    text.ToDouble( val );
+    text.ToDouble( var );
 
-    edit_Lens->e = *val;
+    edit_Lens->e = *var;
 
+    // We take the last selected images lens as undo object for all others.
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
-    delete val;
+    delete var;
     DEBUG_TRACE ("")
+}
+
+void LensEdit::SetImages ( wxListEvent & e )
+{
+    DEBUG_TRACE("");
+
+    // get the list to read from
+    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
+
+    // prepare an status message
+    wxString e_msg;
+    int sel_I = lst->GetSelectedItemCount();
+    if ( sel_I == 1 )
+      e_msg = _("Remove image:   ");
+    else
+      e_msg = _("Remove images:   ");
+
+    imgNr[0] = 0;             // reset
+    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+//      DEBUG_INFO( wxString::Format("now test if removing item %d/%d",Nr,pano.getNrOfImages()) );
+      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+//    DEBUG_TRACE("");
+        e_msg += "  " + lst->GetItemText(Nr);
+        imgNr[0] += 1;
+        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+      }
+    }
+
+    // values to set
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+      XRCCTRL(*this, "images_list_roll", wxSlider)  ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .roll.getValue() );
+      XRCCTRL(*this, "images_list_pitch", wxSlider) ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .pitch.getValue() * -1 );
+      XRCCTRL(*this, "images_list_yaw", wxSlider)   ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .yaw.getValue() );
+    }
+
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+
+//    DEBUG_TRACE("");
 }
 
 

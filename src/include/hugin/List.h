@@ -85,14 +85,22 @@ class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
     // the model
     Panorama &pano;
 
+    /**  holds the selected images 
+      *
+      *  used in conjunction with panoramaImagesChanged()
+      *  @todo change to UIntSet
+      */
+    unsigned int imgNr[512];
+
     /** reminder for the object
      *
      *  What shall the object beheave like?
      */
     int list_layout;
 
-    // wich item is selected?
-    int selectedItem;
+    // Ready to select new items?
+    bool selectItemVeto( wxListEvent & e );
+    bool selectItems;
 
     DECLARE_EVENT_TABLE()
 };

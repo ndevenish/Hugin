@@ -194,6 +194,13 @@
                             <border>5</border>
                             <minsize>232,20</minsize>
                           </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="pano_cb_autopreview">
+                              <label>Autopreview</label>
+                              <checked>0</checked>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
                         </object>
                       </object>
                     </object>

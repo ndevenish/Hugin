@@ -47,7 +47,12 @@ class ImgPreview;
  */
 extern ImgPreview *canvas;
 
-/// Define the first panel - the one for image selection into Panorama
+/** hugins first panel
+ *
+ *  This Panel is for loading of images into Panorama. 
+ *  Here one can set first values vor the camera orientation and
+ *  link these parameters for the optimization.
+ */
 class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
@@ -74,17 +79,37 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
      void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+    /** sets the actual image to work on for roll, pitch and yaw
+     */
+    void SetImages ( wxListEvent & e );
+
  private:
     // event handlers
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     // Here we select the preview image
-    void ChangePreview ( wxListEvent & e );
 
-    // the model
+    /**  holds the images just in work
+      *  in conjunction with SetImages()
+      */
+    unsigned int imgNr[512];
+    /**  take sliders */
+    void SetRoll ( wxCommandEvent & e );
+    void SetPitch ( wxCommandEvent & e );
+    void SetYaw ( wxCommandEvent & e );
+    /** event -> pano
+     *
+     *  usually for events to set the new pano state
+     *
+     *  @param  type  "roll", "pitch" or "yaw"
+     *  @param  var   the new value
+     */
+    void ChangePano ( std::string type, double var );
+
+    /** the model */
     Panorama &pano;
 
-    // pointer to the list control
+    /** pointer to the list control */
     List* images_list;
 
     DECLARE_EVENT_TABLE()
@@ -107,7 +132,7 @@ class ImgPreview: public wxScrolledWindow
 
  private:
     // Here we select the preview image
-    void ChangePreview ( wxMouseEvent & e );
+    void ChangePreview ( long item );
 
     void OnDraw(wxDC& dc);
     //void OnPaint(wxPaintEvent& event);

@@ -48,3 +48,28 @@ std::string utils::CurrentTime()
 }
 #endif
 
+std::string utils::doubleToString(double d)
+{   
+    char * c = new char[64];
+    std::sprintf (c, "%f", d);
+    std::string number (c);
+    
+    int l = number.length()-1;
+      
+    while ( number[l] == '0' ) {
+      number.erase (l);
+      l--;
+    }
+    if ( number[l] == ',' ) {
+      number.erase (l);
+      l--;
+    } 
+    if ( number[l] == '.' ) {
+      number.erase (l);
+      l--;
+    }
+    delete c;
+
+    return number;
+}
+

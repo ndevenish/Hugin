@@ -41,6 +41,7 @@ class ImgPreview;
 class ImagesPanel;
 class PanoPanel;
 
+extern ImagesPanel* images_panel;
 extern LensPanel* lens_panel;
 
 /** The main window frame.
@@ -100,7 +101,6 @@ private:
     void UpdatePanels(wxCommandEvent & e);
 
 
-    ImagesPanel * images_panel;
     PanoPanel * pano_panel;
     CPEditorPanel * cpe;
 

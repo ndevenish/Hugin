@@ -819,7 +819,7 @@ msgstr "Bildparameter"
 
 #: ../ptopengui.cpp:967
 msgid "yaw (y)"
-msgstr "Schw.(y)"
+msgstr "Richt.(y)"
 
 #: ../ptopengui.cpp:968
 msgid "pitch (p)"
@@ -828,6 +828,22 @@ msgstr "Kipp.(p)"
 #: ../ptopengui.cpp:969
 msgid "roll (r)"
 msgstr "Neig. (r)"
+
+#: ../ptopengui.cpp:969
+msgid "Camera orientation"
+msgstr "Kamera Richtung"
+
+#: ../ptopengui.cpp:969
+msgid "yaw -"
+msgstr "Richtung -"
+
+#: ../ptopengui.cpp:969
+msgid "pitch | "
+msgstr "Kippen | "
+
+#: ../ptopengui.cpp:969
+msgid "roll O"
+msgstr "Neigen O"
 
 #: ../ptopengui.cpp:970
 msgid "a"

@@ -52,7 +52,8 @@
 
 using namespace PT;
 
-LensPanel* lens_panel;
+ImagesPanel * images_panel;
+LensPanel * lens_panel;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
     #include "xrc/data/gui.xpm"
@@ -98,13 +99,15 @@ MainFrame::MainFrame(wxWindow* parent)
     // image_panel - cryptic light
     // put an "unknown" object in an xrc file and
     // take as wxObject (second argument) the return value of wxXmlResource::Get
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("images_panel_unknown"),
-               wxXmlResource::Get()->LoadPanel (this, wxT("images_panel")) );
-
     // finish the images_panel
+    DEBUG_TRACE("");
     images_panel = new ImagesPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
+    DEBUG_TRACE("");
+    wxXmlResource::Get()->AttachUnknownControl (
+               wxT("images_panel_unknown"),
+               images_panel );
+    DEBUG_TRACE("");
 
     // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
@@ -141,7 +144,7 @@ MainFrame::MainFrame(wxWindow* parent)
     DEBUG_TRACE("");
 
     // create a status bar
-    // FIXME add a progriess dialog to the status bar
+    // FIXME add a progress dialog to the status bar
     const int fields (2);
     CreateStatusBar(fields);
     int widths[fields] = {-1, 85};

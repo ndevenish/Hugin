@@ -64,37 +64,54 @@ ImgPreview * canvas;
 
 //------------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(ImagesPanel, ImagesPanel)
-    EVT_LEFT_DOWN ( ImagesPanel::ChangePreview )
+BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
+//    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
+//    EVT_MOTION ( ImagesPanel::ChangePreview )
+    EVT_SLIDER ( XRCID("images_list_roll"),ImagesPanel::SetRoll )
+    EVT_SLIDER ( XRCID("images_list_pitch"),ImagesPanel::SetPitch )
+    EVT_SLIDER ( XRCID("images_list_yaw"),ImagesPanel::SetYaw )
 END_EVENT_TABLE()
 
 
 // Define a constructor for the Images Panel
 ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : pano(*pano)
+    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),
+      pano(*pano)
 {
-    pano->addObserver(this);
+    DEBUG_TRACE("");
+
+    wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));// );
+    DEBUG_TRACE("");
 
     images_list = new List (parent, pano, images_layout);
-//    CPEditorPanel * cpe = new CPEditorPanel(parent,pano);
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_list_unknown"),
                images_list );
-//               cpe );
+
+    DEBUG_TRACE("");
 
     // Image Preview
 
     img_icons = new wxImageList(24,24);
-    img_bicons = new wxImageList(64,64);
+    img_bicons = new wxImageList(128,128);
     images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );//_NORMAL );
+//    images_list->AssignImageList(img_bicons, wxIMAGE_LIST_NORMAL );
 
+    DEBUG_TRACE("");
     p_img = new wxBitmap( 0, 0 );
     wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
     wxPaintDC dc (img_p);
 
+    DEBUG_TRACE("");
     canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
-    DEBUG_TRACE("");;
 
+    DEBUG_TRACE("end");
+    pano->addObserver(this);
+
+    for ( int i = 0 ; i < 512 ; i++ )
+      imgNr[i] = 0;
+
+    DEBUG_TRACE("end");
 }
 
 
@@ -151,13 +168,14 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
           i_img = r_img.Scale( 20,
                                 (int)((float)r_img.GetHeight()/
                                       (float)r_img.GetWidth()*20.0));
+
         }
         delete p_img;
         p_img = new wxBitmap( r_img.ConvertToBitmap() );
         canvas->Refresh();
 
         img_icons->Add( i_img.ConvertToBitmap() );
-        img_bicons->Add( b_img.ConvertToBitmap() );
+        img_bicons->Add( r_img.ConvertToBitmap() );
 //        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
 
     }
@@ -167,24 +185,126 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
         p_img = new wxBitmap(0,0);
     }
     canvas->Refresh();
+
     DEBUG_TRACE("");
 }
 
-void ImagesPanel::ChangePreview ( wxListEvent & e )
+void ImagesPanel::ChangePano ( std::string type, double var )
 {
-    long item (1);
-//    wxPoint pos = e.GetPosition();
-//    long item = HitTest( e.m_x ,e.m_y );
-//    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
-    DEBUG_INFO ( "hier: is item %ld" << wxString::Format("%ld", item) );
+    DEBUG_TRACE("");
+// DEBUG_TRACE("imgNr = "<<imgNr[0]<<" "<<imgNr[1]<<" "<<imgNr[2]<<" "<<imgNr[3]);
+
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        ImageVariables new_var = pano.getVariable(imgNr[i]);
+        if ( type == "roll" ) {
+          new_var.roll.setValue(var);
+        }
+        if ( type == "pitch" ) {
+          new_var.pitch.setValue(var);
+        }
+        if ( type == "yaw" ) {
+          new_var.yaw.setValue(var);
+        }
+//        ImageVariables old_var = new_var;//pano.getVariable(imgNr[i]);
+//    DEBUG_TRACE("roll = " << new_var.roll.getValue() );
+//    DEBUG_TRACE("updateVariables(" << imgNr[i] <<",new_var)" );
+        pano.updateVariables( imgNr[i], new_var ); 
+//    DEBUG_TRACE("roll = " << pano.getVariable(imgNr[i]).roll.getValue() );
+
+    }
+//        DEBUG_INFO( wxString::Format("to remove: %d",imgNr[0]) );
+//    DEBUG_TRACE("");
+    GlobalCmdHist::getInstance().addCommand(
+         new PT::UpdateVariablesCmd(pano, pano.getVariables())
+         );
+//        DEBUG_INFO( wxString::Format("removed %d/%d",imgNr[i], i) );
+
+//    DEBUG_TRACE("roll = " << pano.getVariable(0).roll.getValue() );
 }
 
+void ImagesPanel::SetRoll ( wxCommandEvent & e )
+{
+    int var = XRCCTRL(*this, "images_list_roll", wxSlider) ->GetValue();
+    DEBUG_INFO ("roll = " << var )
+    char text[16];
+    sprintf( text, "%d", var );
+    XRCCTRL(*this, "images_text_roll", wxStaticText) ->SetLabel(text);
+    if ( imgNr[0] > 0 )
+      ChangePano ( "roll" , (double) var );
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+
+void ImagesPanel::SetPitch ( wxCommandEvent & e )
+{
+    int var = XRCCTRL(*this, "images_list_pitch", wxSlider) ->GetValue() * -1 ;
+    DEBUG_INFO ("pitch = " << var )
+    char text[16];
+    sprintf( text, "%d", var );
+    XRCCTRL(*this, "images_text_orientation", wxStaticText) ->SetLabel(text);
+    if ( imgNr[0] > 0 )
+      ChangePano ( "pitch" , (double) var );
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+
+void ImagesPanel::SetYaw ( wxCommandEvent & e )
+{
+    int var = XRCCTRL(*this, "images_list_yaw", wxSlider) ->GetValue();
+    DEBUG_INFO ("yaw = " << var )
+    char text[16];
+    sprintf( text, "%d ", var );
+    XRCCTRL(*this, "images_text_orientation", wxStaticText) ->SetLabel(text);
+    if ( imgNr[0] > 0 )
+      ChangePano ( "yaw" , (double) var );
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+
+
+void ImagesPanel::SetImages ( wxListEvent & e )
+{
+    DEBUG_TRACE("");
+
+    // get the list to read from
+    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
+
+    // prepare an status message
+    wxString e_msg;
+    int sel_I = lst->GetSelectedItemCount();
+    if ( sel_I == 1 )
+      e_msg = _("Remove image:   ");
+    else
+      e_msg = _("Remove images:   ");
+
+    imgNr[0] = 0;             // reset
+    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+//      DEBUG_INFO( wxString::Format("now test if removing item %d/%d",Nr,pano.getNrOfImages()) );
+      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+//    DEBUG_TRACE("");
+        e_msg += "  " + lst->GetItemText(Nr);
+        imgNr[0] += 1;
+        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
+      }
+    }
+
+    // values to set
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+      XRCCTRL(*this, "images_list_roll", wxSlider)  ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .roll.getValue() );
+      XRCCTRL(*this, "images_list_pitch", wxSlider) ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .pitch.getValue() * -1 );
+      XRCCTRL(*this, "images_list_yaw", wxSlider)   ->SetValue(
+                  (int)pano.getVariable(imgNr[i]) .yaw.getValue() );
+    }
+
+    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+
+//    DEBUG_TRACE("");
+}
 
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
     //EVT_PAINT(ImgPreview::OnPaint)
-    EVT_MOUSE_EVENTS ( ImgPreview::ChangePreview )
+//    EVT_MOTION ( ImagesPanel::ChangePreview )
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
@@ -218,10 +338,13 @@ void ImgPreview::OnDraw(wxDC & dc)
   }
 }
 
-void ImgPreview::ChangePreview ( wxMouseEvent & e )
+void ImgPreview::ChangePreview ( long item )
 {
-    //wxPoint pos = e.GetPosition();
-//    long item = HitTest( e.m_x , e.m_y );
-//    frame->SetStatusText ( wxString::Format("%d,%d",e.m_x , e.m_y ), 1 );
+//    wxPoint pos = e.GetPosition();
+//    long item = HitTest( e.m_x ,e.m_y );
+//    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
+    DEBUG_INFO ( "hier: is item " << wxString::Format("%ld", item) );
 }
+
+
 
