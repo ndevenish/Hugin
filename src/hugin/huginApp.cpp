@@ -36,6 +36,8 @@
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 
+#include <tiffio.h>
+
 Server * server;
 
 // make wxwindows use this class as the main application
@@ -206,6 +208,10 @@ bool huginApp::OnInit()
         filename.append(wxFileName::GetPathSeparator()).append(argv[1]);
         frame->LoadProjectFile(filename);
     }
+    
+    // suppress tiff warnings
+    TIFFSetWarningHandler(0);
+    
     DEBUG_TRACE("");
     return true;
 }
