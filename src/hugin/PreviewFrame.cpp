@@ -496,7 +496,7 @@ struct advocation
 static struct advocation _advice[] =
 {
 	{ "ERROR", "druid.images.128.png", // "ERROR" must be at index 0
-	  _("The druid has no advice at this time."), _("") },
+	  _("The druid has no advice at this time."), "" },
 
 	{ "READY", "druid.stitch.128.png",
 	  _("The druid finds no problems with your panorama."),
@@ -536,5 +536,5 @@ static struct advocation _advice[] =
 		"don't forget to save your project file so you can\n"
 		"experiment or adjust the settings later.") },
 
-	{ NULL, NULL, _("") }
+	{ NULL, NULL, "" }
 };

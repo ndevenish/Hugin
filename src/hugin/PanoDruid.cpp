@@ -39,7 +39,7 @@
 
 NEW_HINT(0, ERROR, "druid.images.128.png",
          _("The druid has no advice."),
-         _(""))
+         "")
 {
     return TRUE;
 }
@@ -298,7 +298,7 @@ PanoDruid::PanoDruid(wxWindow* parent)
                       "/data/" "druid.stitch.128.png",
                       wxBITMAP_TYPE_PNG);
     m_graphic = new wxStaticBitmap(this, -1, m_bitmap, wxPoint(0,0));
-    m_text = new wxStaticText(this, -1, _(""),wxPoint(0,0));
+    m_text = new wxStaticText(this, -1, "",wxPoint(0,0));
     m_boxSizer->Add(m_graphic, 0, wxADJUST_MINSIZE);
     m_boxSizer->Add(m_text, 1, wxADJUST_MINSIZE);
     SetSizer(m_boxSizer);
