@@ -200,20 +200,21 @@ dnl Over-ride LIBS so that libraries are supplied by Makefiles instead
 LIBS=""
 
 AC_CONFIG_FILES([Makefile
-		 src/hugin/po/Makefile.in
-		 src/nona_gui/po/Makefile.in
+		 m4/Makefile
                  src/Makefile
                  src/Panorama/Makefile
                  src/common/Makefile
                  src/foreign/Makefile
                  src/foreign/vigra_impex/Makefile
                  src/hugin/Makefile
+		 src/hugin/po/Makefile.in
                  src/hugin/xrc/Makefile
                  src/hugin/xrc/data/Makefile
                  src/jhead/Makefile
                  src/keypoints/Makefile
                  src/klt/Makefile
                  src/nona_gui/Makefile
+		 src/nona_gui/po/Makefile.in
                  src/tools/Makefile
                  src/vigra_ext/Makefile])
 

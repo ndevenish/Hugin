@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2004-10-21 20:20+0200\n"
-"PO-Revision-Date: 2004-10-15 14:33-0500\n"
+"PO-Revision-Date: 2004-10-21 15:04-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1556,9 +1556,8 @@ msgstr ""
 "Zapisz obecny projekt jako skrypt PTStitchra, u¿yteczne przez masowej obróbce"
 
 #: src/hugin/xrc/main_menu.xrs:12
-#, fuzzy
 msgid "&Preferences"
-msgstr "ró¿nica"
+msgstr "&Preferencje"
 
 #: src/hugin/xrc/main_menu.xrs:13
 msgid "&Quit"
@@ -2024,57 +2023,53 @@ msgstr "nona"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
-msgstr ""
+msgstr "Preferencje - hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:2
 msgid "Panotools"
-msgstr ""
+msgstr "Panotools"
 
 #: src/hugin/xrc/pref_dialog.xrs:3
-#, fuzzy
 msgid "Panorama Tools"
-msgstr "Edytuj skrypt Panarama Tools"
+msgstr "Panarama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
-#, fuzzy
 msgid "PTStitcher:"
-msgstr "PTStitcher"
+msgstr "PTStitcher:"
 
 #: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
 #: src/hugin/xrc/pref_dialog.xrs:45 src/hugin/xrc/pref_dialog.xrs:49
 #: src/hugin/xrc/pref_dialog.xrs:55
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: src/hugin/xrc/pref_dialog.xrs:6
-#, fuzzy
 msgid "PTOptimizer"
-msgstr "Optymalizator"
+msgstr "PTOptimizer"
 
 #: src/hugin/xrc/pref_dialog.xrs:8
 msgid "Scriptfile"
-msgstr ""
+msgstr "Skrypt"
 
 #: src/hugin/xrc/pref_dialog.xrs:9
 msgid "Name of the temporary script file used by Panotools"
-msgstr ""
+msgstr "Nazwa pliku chwilowego skryptu u¿ywanego przez Panotools"
 
 #: src/hugin/xrc/pref_dialog.xrs:10
 msgid "Panotools:"
-msgstr ""
+msgstr "Panotools:"
 
 #: src/hugin/xrc/pref_dialog.xrs:11
 msgid "Details"
-msgstr ""
+msgstr "Szczegó³y"
 
 #: src/hugin/xrc/pref_dialog.xrs:12
-#, fuzzy
 msgid "Finetune"
 msgstr "Dostroj"
 
 #: src/hugin/xrc/pref_dialog.xrs:13
 msgid "Basic Settings"
-msgstr ""
+msgstr "Podstawowe ustawienia"
 
 #: src/hugin/xrc/pref_dialog.xrs:14
 #, fuzzy
@@ -2083,7 +2078,7 @@ msgstr "szerko¶æ piórka:"
 
 #: src/hugin/xrc/pref_dialog.xrs:15 src/hugin/xrc/pref_dialog.xrs:19
 msgid "pixels"
-msgstr ""
+msgstr "piksle"
 
 #: src/hugin/xrc/pref_dialog.xrs:16
 #, fuzzy
@@ -2092,126 +2087,125 @@ msgstr "szerko¶æ piórka:"
 
 #: src/hugin/xrc/pref_dialog.xrs:17
 msgid "percent of image width"
-msgstr ""
+msgstr "procent szeroko¶ci zdjêcia"
 
 #: src/hugin/xrc/pref_dialog.xrs:18
 msgid "Local search area width:"
-msgstr ""
+msgstr "Lokalna szeroko¶æ obszaru poszukiwania:"
 
 #: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Correlation Threshold:"
-msgstr ""
+msgstr "Próg korelacji:"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
 msgstr ""
+"0: brak podobieñstwa\n"
+"1: maksymalne podobieñstwo"
 
 #: src/hugin/xrc/pref_dialog.xrs:22
 msgid "Rotation search"
-msgstr ""
+msgstr "Poszukiwanie obrotu"
 
 #: src/hugin/xrc/pref_dialog.xrs:23
 msgid "Enable rotation search (slower, but more accurate)"
-msgstr ""
+msgstr "Aktywuj poszukiwanie obrotu (wolniejsze, ale bardziej dok³adne)"
 
 #: src/hugin/xrc/pref_dialog.xrs:24
 msgid "Start angle:"
-msgstr ""
+msgstr "K±t pocz±tkowy:"
 
 #: src/hugin/xrc/pref_dialog.xrs:25 src/hugin/xrc/pref_dialog.xrs:27
-#, fuzzy
 msgid "degrees"
-msgstr "Ilo¶æ stopni soczewek"
+msgstr "stopnie"
 
 #: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Stop angle:"
-msgstr ""
+msgstr "K±t koñcowy:"
 
 #: src/hugin/xrc/pref_dialog.xrs:28
-#, fuzzy
 msgid "Steps:"
-msgstr "Zatrzymaj"
+msgstr "Kroki:"
 
 #: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Misc"
-msgstr ""
+msgstr "Ró¿ne"
 
 #: src/hugin/xrc/pref_dialog.xrs:30
 msgid "Memory usage"
-msgstr ""
+msgstr "Zu¿ycie pamiêci"
 
 #: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Image cache memory:"
-msgstr ""
+msgstr "Pamiêæ cache zdjêæ:"
 
 #: src/hugin/xrc/pref_dialog.xrs:32
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
+"Trzymaj pe³nowymiarowe zdjêcia w pamiêci, dopóki nie zostanie przekroczony "
+"limit"
 
 #: src/hugin/xrc/pref_dialog.xrs:33
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: src/hugin/xrc/pref_dialog.xrs:34
-#, fuzzy
 msgid "Control Point Editor"
-msgstr "Punkty kontrolne"
+msgstr "Edytor punków kontrolnych"
 
 #: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Cursor Type"
-msgstr ""
+msgstr "Rodzaj kursora"
 
 #: src/hugin/xrc/pref_dialog.xrs:36
 msgid ""
 "available on linux only\n"
 "requires restarting hugin"
 msgstr ""
+"dostêpne tylko dla Linuksa\n"
+"wymaga restartu Hugin'a"
 
 #: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Tempdir:"
-msgstr ""
+msgstr "Folder tymczasowy:"
 
 #: src/hugin/xrc/pref_dialog.xrs:38
 msgid "leave empty for OS default"
-msgstr ""
+msgstr "Dla domy¶lnych OS'a nie wype³niaj"
 
 #: src/hugin/xrc/pref_dialog.xrs:39 src/hugin/xrc/pref_dialog.xrs:47
-#, fuzzy
 msgid "Autopano"
-msgstr "Wynik autopano"
+msgstr "Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
-#, fuzzy
 msgid "Select Autopano"
-msgstr "Wybierz typ autopano"
+msgstr "Wybierz autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Autopano (by A. Jenny)"
-msgstr ""
+msgstr "Autopano (autor A. Jenny)"
 
 #: src/hugin/xrc/pref_dialog.xrs:42
 msgid "Autopano-SIFT (by S. Nowozin)"
-msgstr ""
+msgstr "Autopano-SIFT (autor S. Nowozin)"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Autopano-SIFT"
-msgstr ""
+msgstr "Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:44
 msgid "Autopano-SIFT:"
-msgstr ""
+msgstr "Autopano-SIFT:"
 
 #: src/hugin/xrc/pref_dialog.xrs:46 src/hugin/xrc/pref_dialog.xrs:50
-#, fuzzy
 msgid "Arguments:"
-msgstr "Wyrównanie"
+msgstr "Parametry:"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
-#, fuzzy
 msgid "Autopano:"
-msgstr "Wynik autopano"
+msgstr "Autopano:"
 
 #: src/hugin/xrc/pref_dialog.xrs:51
 #, c-format
@@ -2221,37 +2215,38 @@ msgid ""
 "%p  -- number of control points between each pair\n"
 "%i  -- image files"
 msgstr ""
+"poni¿sze parametry zostan± zast±pione przed urochomieniem:\n"
+"%o  -- plik projektu (0.oto zostanie dodane je¶li u¿yjesz Autopano)\n"
+"%p  -- ilo¶æ punktów kontrolnych dla ka¿dej pary\n"
+"%i  -- pliki zdjêæ"
 
 #: src/hugin/xrc/pref_dialog.xrs:52
-#, fuzzy
 msgid "Enblend"
-msgstr "Uruchomiono Enblend"
+msgstr "Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:53
-#, fuzzy
 msgid "Enblend Options"
-msgstr "Opcje podgl±du"
+msgstr "Opcje enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:54
-#, fuzzy
 msgid "Enblend:"
-msgstr "Uruchomiono Enblend"
+msgstr "Enblend:"
 
 #: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Additional Arguments:"
-msgstr ""
+msgstr "Dodatkowe parametry:"
 
 #: src/hugin/xrc/pref_dialog.xrs:57
 msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr ""
+msgstr "Nie dodawaj parametrów -w i -o, hugin same je doda"
 
 #: src/hugin/xrc/pref_dialog.xrs:58
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Load Defaults"
-msgstr ""
+msgstr "Za³aduj warto¶ci domy¶lne"
 
 #: src/hugin/xrc/preview_frame.xrs:3 src/hugin/xrc/preview_frame.xrs:8
 msgid "Center the preview horizontally"
@@ -2433,4 +2428,3 @@ msgstr "Sk³adam"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Anuluj"
-

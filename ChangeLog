@@ -1,3 +1,11 @@
+2004-10-22 15:57  dwilkins42
+
+	* ChangeLog, configure.ac, m4/ax_check_graphics.m4,
+	  m4/ax_check_panotools.m4, src/hugin/Makefile.am,
+	  src/nona_gui/Makefile.am, src/tools/Makefile.am: Reduce the time
+	  to run configure. Add --with-pano to configure. Correct operation
+	  of --with-jpeg/png/tiff/zlib flags.
+
 2004-10-21 20:30  dwilkins42
 
 	* ChangeLog, src/hugin/po/POTFILES.in, src/hugin/po/de.po,
