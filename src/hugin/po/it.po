@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-04 13:35+0200\n"
+"POT-Creation-Date: 2004-11-04 13:54+0200\n"
 "PO-Revision-Date: 2004-10-18 09:03+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.net.il>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -49,6 +49,10 @@ msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:384
 msgid "No corresponding point found"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:453
+msgid "new control point added"
 msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:553 src/hugin/CPEditorPanel.cpp:758
@@ -97,6 +101,18 @@ msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:1387
 msgid "Cannot estimate image position without control points"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1578
+msgid "Select Point in right image"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1590
+msgid "Select Point in left image"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1609
+msgid "change points, or press right mouse button to add the pair"
 msgstr ""
 
 #: src/hugin/CPListFrame.cpp:269 src/hugin/CPListFrame.cpp:279

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-04 13:35+0200\n"
+"POT-Creation-Date: 2004-11-04 13:54+0200\n"
 "PO-Revision-Date: 2004-10-23 14:11-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -49,6 +49,11 @@ msgstr "Odleg³o¶æ"
 #: src/hugin/CPEditorPanel.cpp:384
 msgid "No corresponding point found"
 msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:453
+#, fuzzy
+msgid "new control point added"
+msgstr "Poka¿ punkty kontrolne"
 
 #: src/hugin/CPEditorPanel.cpp:553 src/hugin/CPEditorPanel.cpp:758
 msgid "searching similar point..."
@@ -97,6 +102,19 @@ msgstr "poz. linia"
 #: src/hugin/CPEditorPanel.cpp:1387
 msgid "Cannot estimate image position without control points"
 msgstr "Nie mogê estymowaæ pozycji zdjêcia bez punktów kontrolnych"
+
+#: src/hugin/CPEditorPanel.cpp:1578
+msgid "Select Point in right image"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1590
+#, fuzzy
+msgid "Select Point in left image"
+msgstr "Zresetuj pozycje wybranego zdjêcia (zdjêæ)"
+
+#: src/hugin/CPEditorPanel.cpp:1609
+msgid "change points, or press right mouse button to add the pair"
+msgstr ""
 
 #: src/hugin/CPListFrame.cpp:269 src/hugin/CPListFrame.cpp:279
 msgid "left Img."

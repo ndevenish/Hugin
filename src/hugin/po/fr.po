@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4-cvs20041018\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-04 13:35+0200\n"
+"POT-Creation-Date: 2004-11-04 13:54+0200\n"
 "PO-Revision-Date: 2004-10-22 08:15+0200\n"
 "Last-Translator: Jean-Luc  Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -50,6 +50,11 @@ msgstr "Distance"
 #: src/hugin/CPEditorPanel.cpp:384
 msgid "No corresponding point found"
 msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:453
+#, fuzzy
+msgid "new control point added"
+msgstr "Afficher les points de contrôle"
 
 #: src/hugin/CPEditorPanel.cpp:553 src/hugin/CPEditorPanel.cpp:758
 msgid "searching similar point..."
@@ -98,6 +103,19 @@ msgstr "ligne horiz."
 #: src/hugin/CPEditorPanel.cpp:1387
 msgid "Cannot estimate image position without control points"
 msgstr "Impossible d'estimer la position de l'image sans point de contrôle"
+
+#: src/hugin/CPEditorPanel.cpp:1578
+msgid "Select Point in right image"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1590
+#, fuzzy
+msgid "Select Point in left image"
+msgstr "Repositionner ila ou les images à leur position par défaut"
+
+#: src/hugin/CPEditorPanel.cpp:1609
+msgid "change points, or press right mouse button to add the pair"
+msgstr ""
 
 #: src/hugin/CPListFrame.cpp:269 src/hugin/CPListFrame.cpp:279
 msgid "left Img."

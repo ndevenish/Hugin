@@ -450,7 +450,7 @@ void CPEditorPanel::CreateNewPoint()
     unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
     SelectGlobalPoint(lPoint);
     changeState(NO_POINT);
-    MainFrame::Get()->SetStatusText("new control point added");
+    MainFrame::Get()->SetStatusText(_("new control point added"));
 }
 
 void CPEditorPanel::ClearSelection()
@@ -1575,7 +1575,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         ClearSelection();
         m_addButton->Enable(false);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText("Select Point in right image",0);
+        MainFrame::Get()->SetStatusText(_("Select Point in right image"),0);
         break;
     case RIGHT_POINT:
         m_leftImg->showSearchArea(fineTune);
@@ -1587,7 +1587,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         ClearSelection();
         m_addButton->Enable(false);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText("Select Point in left image",0);
+        MainFrame::Get()->SetStatusText(_("Select Point in left image"),0);
         break;
     case LEFT_POINT_RETRY:
     case RIGHT_POINT_RETRY:
@@ -1606,7 +1606,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         m_rightImg->showSearchArea(false);
         m_addButton->Enable(true);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText("change points, or press right mouse button to add the pair");
+        MainFrame::Get()->SetStatusText(_("change points, or press right mouse button to add the pair"));
     }
     // apply the change
     cpCreationState = newState;
