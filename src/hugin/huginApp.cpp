@@ -183,7 +183,7 @@ bool huginApp::OnInit()
         m_workDir == "/tmp";
     }
 #elif __WXMSW__
-    if (m_wrkDir == "") {
+    if (m_workDir == "") {
         /* added by Yili Zhao */
         char buffer[255];
         GetTempPath(255, buffer);

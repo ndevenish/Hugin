@@ -39,6 +39,7 @@
 #include <wx/wxhtml.h>              // for about html
 #include <wx/listctrl.h>            // wxListCtrl
 #include <wx/splash.h>
+#include <wx/file.h>
 
 #include <fstream>
 
