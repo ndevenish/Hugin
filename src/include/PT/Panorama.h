@@ -441,12 +441,18 @@ public:
      *  This needs to be called explicitly by somebody after
      *  changes have been made.
      *  Allows to compress multiple changes into one notification.
+     *
+     *  @param keepDirty  do not set dirty flag. useful for changing
+     *                    the dirty flag itself
      */
-    void changeFinished();
+    void changeFinished(bool keepDirty=false);
 
     /** clear dirty flag. call after save */
     void clearDirty()
-        { dirty = false;}
+        {
+            dirty = false;
+            changeFinished(true);
+        }
 
     /** true if there are unsaved changes */
     bool isDirty() const

@@ -333,12 +333,12 @@ FDiff2D Panorama::calcFOV() const
         if (glr.x < lr.x) glr.x = lr.x;
         if (glr.y < lr.y) glr.y = lr.y;
     }
-    
+
     FDiff2D res;
     res.x = 2 * max(fabs(gul.x),fabs(glr.x));
     res.y = 2 * max(fabs(gul.y),fabs(glr.y));
-    DEBUG_DEBUG("ul: " << gul.x << "," << gul.y 
-                << "  lr: " << glr.x << "," << gul.y 
+    DEBUG_DEBUG("ul: " << gul.x << "," << gul.y
+                << "  lr: " << glr.x << "," << gul.y
                 << "  fov: " << res.x << "," << res.y);
     return res;
 }
@@ -840,7 +840,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
 
 }
 
-void Panorama::changeFinished()
+void Panorama::changeFinished(bool keepDirty)
 {
     if (state.images.size() == 0) {
         // force an empty update if all images have been
@@ -867,7 +867,9 @@ void Panorama::changeFinished()
     // reset changed images
     changedImages.clear();
     m_forceImagesUpdate = false;
-    dirty = true;
+    if (!keepDirty) {
+        dirty = true;
+    }
     DEBUG_TRACE("end");
 }
 
