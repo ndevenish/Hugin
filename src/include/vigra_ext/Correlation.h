@@ -45,6 +45,35 @@ struct CorrelationResult
     FDiff2D maxpos;
 };
 
+#if 0
+/** find the subpixel maxima by fitting
+ *  2nd order polynoms to x and y.
+ *
+ *  this estimates the x and y values
+ *  separately. Don't know if this is the
+ *  best way, but it should work.
+ */
+template <class Iterator, class Accessor>
+FDiff2D subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img,
+                       vigra::Diff2D max)
+{
+    vigra_precondition(max.x >= 2 && max.y >= 2,
+                 "subpixelMaxima(): coordinates of "
+                 "maxima must be >= 2,2.");
+    Diff2D sz = img.second - img.first;
+    vigra_precondition(sz.x - max.x >= 2 0 && sz.y - max.y >= 2,
+                 "subpixelMaxima(): coordinates of "
+                 "maxima must 2 pixels from the border.");
+    typedef Accessor::value_type T;
+    T x[10];
+    T z[10];
+
+    Accessor a = img.third;
+    for (int i=0; i<5; i++) {
+        x[0] =
+    }
+}
+#endif
 
 /** fine tune a point with normalized cross correlation
  *
@@ -119,6 +148,9 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
                          templImg.accessor(),
                          tmplUL, tmplLR, -1);
     res.maxpos = res.maxpos + searchUL;
+
+    // do a subpixel maxima estimation
+
 //    DEBUG_DEBUG("normal search finished, max:" << res.maxi
 //                << " at " << res.maxpos);
 
