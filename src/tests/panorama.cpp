@@ -49,8 +49,8 @@ class TestObserver : public PT::PanoramaObserver
 public:
     TestObserver()
         : imgUpdates(0), panoUpdates(0) { }
-    
-    virtual void panoramaImagesChanged (Panorama &pano, 
+
+    virtual void panoramaImagesChanged (Panorama &pano,
                                         const UIntSet &changed)
         {
             imgUpdates++;
@@ -71,12 +71,12 @@ public:
             imgUpdates = 0;
             panoUpdates = 0;
         }
-    
+
     UIntSet changedImages;
     int imgUpdates;
     int panoUpdates;
 };
-    
+
 
 /// creates a simple panorama with pano commands, and checks the
 /// resulting Panorama model
@@ -91,13 +91,13 @@ void SimplePanoTest()
     Lens lens;
     AddLensCmd lcmd(pano, lens);
     lcmd.execute();
-    
+
     BOOST_CHECK_EQUAL(obs.imgUpdates, 0);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK(obs.changedImages.size() == 0);
     obs.reset();
-    
-    
+
+
     // create Panorama Images
     std::vector<PanoImage> imgs;
     imgs.push_back(PanoImage("image_1.tiff", 640, 480, 0));
@@ -115,15 +115,15 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK(obs.changedImages.size() == 7);
     obs.reset();
-    
+
     // test variable change routines.
     VariableMapVector origvar = pano.getVariables();
-    
+
     // SetVariableCommand, change the pitch variable
     Variable pv("p",111.0);
     UIntSet cimgs;
     cimgs.insert(1);
-    
+
     SetVariableCmd pcmd2(pano, cimgs, pv);
     pcmd2.execute();
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
@@ -144,13 +144,13 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 5);
     obs.reset();
-    
+
     // SetVariableCommand, change a unlinked lens variable, in two images
     Variable lav("a",-0.2);
     cimgs.clear();
     cimgs.insert(1);
     cimgs.insert(3);
-    
+
     SetVariableCmd pcmd3(pano, cimgs, lav);
     pcmd3.execute();
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
@@ -163,15 +163,15 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"a").getValue(), -0.2);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"a").getValue(), 0.0);
     obs.reset();
-    
+
     /// change a lens variable in the Lens itself
     LensVariable lenscv("c",-0.4);
     lenscv.setLinked();
     LensVarMap lensvarm;
-    
+
     lensvarm.insert(make_pair("c", lenscv));
     lensvarm.insert(make_pair("a", LensVariable("a",0.1)));
-    
+
     SetLensVariableCmd pcmd4(pano, 0, lensvarm);
     pcmd4.execute();
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
@@ -190,21 +190,21 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"a").getValue(), 0.1);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"a").getValue(), 0.1);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"a").getValue(), 0.1);
-    
+
     BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"a").getValue(), 0.1);
     BOOST_CHECK(!map_get(pano.getLens(0).variables,"a").isLinked());
     BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"c").getValue(), -0.4);
     BOOST_CHECK(map_get(pano.getLens(0).variables,"c").isLinked());
     obs.reset();
 
-    
-    // change all variables of the image variable (not really, but 
+
+    // change all variables of the image variable (not really, but
     VariableMap var2 = origvar[1];
     map_get(var2,"p").setValue(31.0);
     BOOST_CHECK_EQUAL(map_get(var2,"p").getValue(), 31.0);
     UpdateImageVariablesCmd pcmd1(pano, 1, var2);
     pcmd1.execute();
-    
+
     BOOST_CHECK_EQUAL(obs.imgUpdates, 1);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     // 1 is also valid!
@@ -235,7 +235,7 @@ void SimplePanoTest()
     cimgs.insert(0);
     cimgs.insert(2);
     cimgs.insert(3);
-    
+
     SetImageLensCmd slensCmd(pano, cimgs, 1);
     slensCmd.execute();
 
@@ -245,14 +245,14 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(pano.getImage(3).getLensNr(), (unsigned int) 1);
     BOOST_CHECK_EQUAL(pano.getImage(4).getLensNr(), (unsigned int) 0);
     BOOST_CHECK_EQUAL(pano.getImage(5).getLensNr(), (unsigned int) 0);
-    
+
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"e").getValue(), 2.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"e").getValue(), 0.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"e").getValue(), 2.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"e").getValue(), 2.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
-    
+
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(0),"v").getValue(), 48);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(1),"v").getValue(), 50);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(2),"v").getValue(), 48);
@@ -265,7 +265,7 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 3);
     obs.reset();
-    
+
     /// change a image lens variable in first Lens
     Variable lbVar("b",-4.0);
     cimgs.clear();
@@ -283,11 +283,11 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(3),"b").getValue(), -0.01);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"b").getValue(), -0.01);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"b").getValue(), -4.0);
-    
+
     BOOST_CHECK_EQUAL(map_get(pano.getLens(0).variables,"b").getValue(), -0.01);
     BOOST_CHECK_EQUAL(map_get(pano.getLens(1).variables,"b").getValue(), -0.01);
-    
-    
+
+
     /// change the image part of a linked lens variable
     Variable lvVar("e",-0.5);
     cimgs.clear();
@@ -304,8 +304,8 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(4),"e").getValue(), 0.0);
     BOOST_CHECK_EQUAL(map_get(pano.getImageVariables(5),"e").getValue(), 0.0);
     obs.reset();
-    
-    
+
+
     // add a third lens
     Lens lens3;
     lens3.projectionFormat = Lens::PANORAMIC;
@@ -319,13 +319,13 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.imgUpdates, 0);
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     obs.reset();
-    
+
     /// add lens 2 to images 0 3 4
     cimgs.clear();
     cimgs.insert(0);
     cimgs.insert(3);
     cimgs.insert(4);
-    
+
     SetImageLensCmd slens2Cmd(pano, cimgs, 2);
     slens2Cmd.execute();
 
@@ -340,19 +340,19 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.panoUpdates, 1);
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 3);
     obs.reset();
-    
-    
+
+
     /// delete image 2, to see if Lens 1 is deleted
     RemoveImageCmd rm2Cmd(pano, 2);
     rm2Cmd.execute();
-    
+
     BOOST_CHECK_EQUAL(pano.getNrOfLenses(), (size_t) 2);
     BOOST_CHECK_EQUAL(pano.getImage(0).getLensNr(), (unsigned int) 1);
     BOOST_CHECK_EQUAL(pano.getImage(1).getLensNr(), (unsigned int) 0);
     BOOST_CHECK_EQUAL(pano.getImage(2).getLensNr(), (unsigned int) 1);
     BOOST_CHECK_EQUAL(pano.getImage(3).getLensNr(), (unsigned int) 1);
     BOOST_CHECK_EQUAL(pano.getImage(4).getLensNr(), (unsigned int) 0);
-    
+
     // check if the correct lenses have been removed
     BOOST_CHECK_EQUAL(pano.getLens(0).projectionFormat, Lens::RECTILINEAR);
     BOOST_CHECK_EQUAL(pano.getLens(1).projectionFormat, Lens::PANORAMIC);
@@ -362,7 +362,7 @@ void SimplePanoTest()
     BOOST_CHECK_EQUAL(obs.changedImages.size(), (size_t) 4);
     obs.reset();
 
-    
+
 }
 
 test_suite*
