@@ -276,7 +276,7 @@ void LensEdit::LensTypeChanged ( wxCommandEvent & e )
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 //    int image = images_list2->GetSelectedImage();
-    DEBUG_INFO ( wxString::Format ("image %d Lenstype %d",image,lt) )
+    DEBUG_INFO ( wxString::Format ("image %d lens %d Lenstype %d",image,pano.getImage(image).getLens(),lt) )
 }
 
 void LensEdit::HFOVChanged ( wxCommandEvent & e )

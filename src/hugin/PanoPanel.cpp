@@ -39,6 +39,7 @@
 
 #include "PT/PanoCommand.h"
 #include "PT/PanoramaMemento.h"
+#include "PT/Panorama.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
@@ -100,9 +101,9 @@ PanoPanel::~PanoPanel(void)
 }
 
 
-void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
+/*void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-}
+}*/
 
 void PanoPanel::PanoChanged ( wxCommandEvent & e )
 {
@@ -120,6 +121,11 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
         case CYLINDRICAL:       Ip = _("Cylindrical"); break;
         case EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
     }
+
+    opt->projectionFormat = (ProjectionFormat) lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
     
 
     DEBUG_INFO ( Ip )
@@ -142,6 +148,11 @@ void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
         case SINC_1024:         Ip = _("Sinc 1024"); break;
     }
 
+    opt->interpolator = (Interpolator) lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( Ip )
 }
 
@@ -153,6 +164,11 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_hfov", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
+    opt->HFOV = *val;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( ": " << *val )
     delete val;
 }
@@ -162,6 +178,11 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
     double * val = new double ();
     wxString text = XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)->GetValue();
     text.ToDouble( val );
+
+    opt->gamma = (int)*val;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
 
     DEBUG_INFO ( wxString::Format (": %f", *val) )
 }
@@ -174,6 +195,11 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
+    previewWidth = (int)*val;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( ": " << *val )
     delete val;
 }
@@ -181,26 +207,41 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
+    opt->width = previewWidth;
+    PT::SetPanoOptionsCmd( pano, *opt );
+
     DEBUG_INFO ( "" )
 }
 // --
 void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
 {
-    //Interpolator from PanoramaMemento.h
+    // FileFormat from PanoramaMemento.h
     int lt = XRCCTRL(*this, "pano_choice_formatFinal",
                                    wxChoice)->GetSelection();
-    wxString Ip ("Hallo");
+
+    wxString Ip ("JPEG");
     switch ( lt ) {
-        case JPEG:            Ip = _("JPEG (*.jpg)"); break;
-        case PNG:         Ip = _("PNG (*.png)"); break;
-        case TIFF:         Ip = _("TIFF (*.tif)"); break;
-        case TIFF_mask:          Ip = _("TIFF_mask (*.tif)"); break;
-        case TIFF_nomask:         Ip = _("TIFF_nomask (*.tif)"); break;
-        case PICT:          Ip = _("PICT Bitmap (*.bmp)"); break;
-        case PSD: Ip = _("PSD Photoshop (*.psd)"); break;
-        case PSD_mask:         Ip = _("PSD_mask"); break;
-        default :   Ip = wxString::Format ("%d",lt); break;
+        case JPEG:        Ip = wxT("JPEG"); break;
+        case PNG:         Ip = wxT("PNG"); break;
+        case TIFF:        Ip = wxT("TIFF"); break;
+        case TIFF_mask:   Ip = wxT("TIFF_mask"); break;
+        case TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
+        case PICT:        Ip = wxT("PICT"); break;
+        case PSD:         Ip = wxT("PSD"); break;
+        case PSD_mask:    Ip = wxT("PSD_mask"); break;
+        case PSD_nomask:  Ip = wxT("PSD_nomask"); break;
+        case PAN:         Ip = wxT("PAN"); break;
+        case IVR:         Ip = wxT("IVR"); break;
+        case IVR_java:    Ip = wxT("IVR_java"); break;
+        case VRML:        Ip = wxT("VRML"); break;
+        case QTVR:        Ip = wxT("QTVR"); break;
+//      default :   Ip = wxString::Format ("%d",lt); break;
     }
+
+    opt->outputFormat = Ip;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
 
     DEBUG_INFO ( Ip )
 }
@@ -212,6 +253,11 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
                             ->GetSelection() ; 
     XRCCTRL(*this, "pano_val_width", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
+
+    opt->width = Width= lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
 
     DEBUG_INFO ( ": " << *val )
     delete val;
@@ -225,6 +271,11 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_height", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
+    opt->height = lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( ": " << *val )
     delete val;
 }
@@ -237,6 +288,11 @@ void PanoPanel::JpegQChanged ( wxCommandEvent & e )
     XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
                             ->GetString(lt).ToDouble(val) ; 
 
+    opt->quality = lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( ": " << *val )
     delete val;
 }
@@ -246,11 +302,22 @@ void PanoPanel::JpegPChanged ( wxCommandEvent & e )
     int lt = XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
                             ->GetValue() ; 
 
+    opt->progressive = lt;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, *opt )
+        );
+
     DEBUG_INFO ( ": " << lt )
 }
 
 void PanoPanel::Stitch ( wxCommandEvent & e )
 {
+    opt->width = Width;
+    PT::SetPanoOptionsCmd( pano, *opt );
+
+    // for testing
+    //opt->printStitcherScript( *stdout, *opt);
+
 /*    GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, *opt )
         );*/

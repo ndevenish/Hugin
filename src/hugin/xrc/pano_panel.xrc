@@ -397,7 +397,8 @@
             <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
           </object>
         </object>
-        <flag>wxEXPAND|wxGROW</flag>
+        <flag>wxTOP|wxLEFT|wxEXPAND|wxGROW</flag>
+        <border>5</border>
       </object>
     </object>
   </object>

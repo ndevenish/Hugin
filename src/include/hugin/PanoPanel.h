@@ -65,7 +65,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
      *  @todo   react on different update signals more special
      */
 //    virtual void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+//    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     // event handlers
     void PanoChanged (wxCommandEvent & e);
@@ -92,6 +92,9 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     Panorama &pano;
 
     PanoramaOptions * opt;
+
+    int previewWidth;
+    int Width;
 
     DECLARE_EVENT_TABLE()
 };
