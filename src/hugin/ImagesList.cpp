@@ -54,7 +54,7 @@ ImagesList::ImagesList( wxWindow* parent, Panorama* pano)
     InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
 
     // get a good size for the images
-    wxPoint sz(1,14);
+    wxPoint sz(1,11);
     sz = ConvertDialogToPixels(sz);
     m_iconHeight = sz.y;
     DEBUG_DEBUG("icon Height: " << m_iconHeight);
@@ -102,7 +102,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 DEBUG_DEBUG("creating " << *it);
                 CreateItem(*it);
 
-                wxBitmap small0;
+                wxBitmap small0(m_iconHeight, m_iconHeight);
                 createIcon(small0, *it, m_iconHeight);
                 m_smallIcons->Add(small0);
             } else {
@@ -110,7 +110,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 DEBUG_DEBUG("updating item" << *it);
                 UpdateItem(*it);
 
-                wxBitmap small0;
+                wxBitmap small0(m_iconHeight, m_iconHeight);
                 createIcon(small0, *it, m_iconHeight);
                 m_smallIcons->Replace(*it, small0);
             }
@@ -140,16 +140,35 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
     int bW,bH;
 
     if ( h > w ) {
-        // protrait
-        bW = (int) nearbyint(h/w * size);
+        // portrait
+        bW = (int) round(w/h * size);
         bH = size;
     } else {
+        // landscape
         bW = size;
-        bH = (int) nearbyint(h/w * size);
+        bH = (int) round(h/w * size);
     }
     wxImage img = s_img->Scale(bW, bH);
-    img.SaveFile("test.pnm");
-    bitmap = img.ConvertToBitmap();
+    wxBitmap bimg(img);
+
+    wxMemoryDC temp_dc;
+    temp_dc.SelectObject(bitmap);
+    temp_dc.Clear();
+/*    
+    wxBitmap maskb(size, size);
+    wxMemoryDC mask_dc;
+    mask_dc.SelectObject(maskb);
+    mask_dc.Clear();
+    mask_dc.SetBrush(wxBrush("WHITE",wxSOLID));
+    mask_dc.SetPen(wxPen("WHITE",wxSOLID));
+*/
+    if (h > w) {
+        temp_dc.DrawBitmap(bimg, (size-bW)>>1 ,0);
+    } else {
+        temp_dc.DrawBitmap(bimg,0,(size-bH)>>1);
+    }
+    wxMask * m = new wxMask(bitmap, wxColour(0,0,0));
+    bitmap.SetMask(m);
 }
 
 void ImagesList::CreateItem(unsigned int imgNr)
