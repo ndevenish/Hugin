@@ -371,7 +371,7 @@ void OptimizePanel::OnClose(wxCloseEvent& event)
 void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 {
     int mode = m_mode_cb->GetSelection();
-    DEBUG_ASSERT(mode != -1);
+    DEBUG_ASSERT(mode >= 0 && mode <=5);
     switch (mode) {
     case 0:
         // simple position
@@ -467,5 +467,26 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         } else if (n == 1) {
             m_pitch_list->Check(refImg,false);
         }
+
+	// disable all manual settings
+	m_yaw_list->Disable();
+	m_pitch_list->Disable();
+	m_roll_list->Disable();
+	m_v_list->Disable();
+	m_a_list->Disable();
+	m_b_list->Disable();
+	m_c_list->Disable();
+	m_d_list->Disable();
+	m_e_list->Disable();
+    } else {
+	m_yaw_list->Enable();
+	m_pitch_list->Enable();
+	m_roll_list->Enable();
+	m_v_list->Enable();
+	m_a_list->Enable();
+	m_b_list->Enable();
+	m_c_list->Enable();
+	m_d_list->Enable();
+	m_e_list->Enable();
     }
 }
