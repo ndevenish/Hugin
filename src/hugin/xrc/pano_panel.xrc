@@ -8,8 +8,7 @@
       <object class="sizeritem">
         <object class="wxButton" name="pano_make_dialog">
           <label></label>
-          <size>15,-1</size>
-          <style>wxNO_BORDER</style>
+          <size>8,-1</size>
           <bg>#ABBBFF</bg>
           <focused>1</focused>
           <tooltip>tear off this tab</tooltip>
