@@ -1,3 +1,35 @@
+2004-10-25 21:40  dwilkins42
+
+	* m4/ax_fftw.m4, src/Makefile.am: Change --with-fftw-dir to
+	  --with-fftw for consistancy. Really remove PanoImage from build
+	  system
+
+2004-10-25 21:05  dwilkins42
+
+	* src/Makefile.am: Remove PanoImage from build system
+
+2004-10-25 20:48  dwilkins42
+
+	* src/Panorama/Makefile.am: Add required flags for proper
+	  dependancies
+
+2004-10-25 20:42  dwilkins42
+
+	* src/tools/Makefile.am: Add BOOST_CPPFLAGS. clean up
+
+2004-10-25 20:12  dwilkins42
+
+	* ChangeLog, m4/ax_check_wx_gtk.m4: Add support for wxWidgets 2.5.3
+
+2004-10-25 08:38  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: fix chrash on exit
+
+2004-10-25 08:37  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  include/hugin/config_defaults.h: default configuration updated
+
 2004-10-24 14:34  dwilkins42
 
 	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update
@@ -379,12 +411,11 @@
 	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
 	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
 	  m4/xsize.m4, src/.cvsignore, src/Makefile,
-	  src/PanoImage/.cvsignore, src/Panorama/.cvsignore,
-	  src/Panorama/Makefile, src/Panorama/Makefile.am,
-	  src/common/.cvsignore, src/common/Makefile,
-	  src/common/Makefile.am, src/foreign/.cvsignore,
-	  src/foreign/Makefile, src/foreign/Makefile.am,
-	  src/foreign/vigra_impex/.cvsignore,
+	  src/Panorama/.cvsignore, src/Panorama/Makefile,
+	  src/Panorama/Makefile.am, src/common/.cvsignore,
+	  src/common/Makefile, src/common/Makefile.am,
+	  src/foreign/.cvsignore, src/foreign/Makefile,
+	  src/foreign/Makefile.am, src/foreign/vigra_impex/.cvsignore,
 	  src/foreign/vigra_impex/Makefile,
 	  src/foreign/vigra_impex/Makefile.am, src/hugin/.cvsignore,
 	  src/hugin/Makefile, src/hugin/Makefile.am,
@@ -1317,9 +1348,8 @@
 	* src/tools/Makefile, src/tools/automatch.cpp,
 	  src/hugin/CPImageCtrl.cpp, src/hugin/ImageCenter.cpp,
 	  src/hugin/UniversalCursor.cpp, src/keypoints/ScaleSpace.cpp,
-	  windows_DOT_NET_compile.txt, windows_compile.txt,
-	  src/PanoImage/mainframe.cpp, src/PanoImage/mainframe.h: various
-	  small fixes for windows compilation (mostly to silence warnings)
+	  windows_DOT_NET_compile.txt, windows_compile.txt: various small
+	  fixes for windows compilation (mostly to silence warnings)
 
 2004-06-13 17:04  dangelo
 
@@ -1332,16 +1362,15 @@
 	  include/hugin/ImageCenter.h, include/hugin/ImageProcessing.h,
 	  include/hugin/PreviewFrame.h, include/hugin/RunOptimizerFrame.h,
 	  include/vigra_ext/FunctorAccessor.h, tools/Makefile,
-	  PanoImage/panoviewer.cpp, hugin/CPEditorPanel.cpp,
-	  hugin/CPEditorPanelHandler.cpp, hugin/CPImageCtrl.cpp,
-	  hugin/CPListFrame.cpp, hugin/CommandHistory.cpp,
-	  hugin/ImageCache.cpp, hugin/ImageCenter.cpp,
-	  hugin/ImageOrientationFrame.cpp, hugin/ImageOrientationPanel.cpp,
-	  hugin/ImagesList.cpp, hugin/ImagesPanel.cpp,
-	  hugin/ImgScrollWindow.cpp, hugin/LensPanel.cpp,
-	  hugin/MainFrame.cpp, hugin/Makefile, hugin/MyProgressDialog.cpp,
-	  hugin/OptimizePanel.cpp, hugin/PanoDruid.cpp,
-	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/CPEditorPanelHandler.cpp,
+	  hugin/CPImageCtrl.cpp, hugin/CPListFrame.cpp,
+	  hugin/CommandHistory.cpp, hugin/ImageCache.cpp,
+	  hugin/ImageCenter.cpp, hugin/ImageOrientationFrame.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesList.cpp,
+	  hugin/ImagesPanel.cpp, hugin/ImgScrollWindow.cpp,
+	  hugin/LensPanel.cpp, hugin/MainFrame.cpp, hugin/Makefile,
+	  hugin/MyProgressDialog.cpp, hugin/OptimizePanel.cpp,
+	  hugin/PanoDruid.cpp, hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
 	  hugin/PreviewPanel.cpp, hugin/RunOptimizerFrame.cpp,
 	  hugin/RunStitcherFrame.cpp, hugin/Server.cpp,
 	  hugin/TextKillFocusHandler.cpp, hugin/UniversalCursor.cpp,
@@ -2502,10 +2531,6 @@
 	* src/: hugin/MainFrame.cpp, hugin/xrc/images_panel.xrc,
 	  include/hugin/MainFrame.h, jhead/jpgfile.cpp: - Enabled and
 	  implemented the "Add Time-Series of Images" feature
-
-2003-11-16 18:22  dangelo
-
-	* src/PanoImage/version.h: removed obselete wxwin code..
 
 2003-11-16 18:07  dangelo
 

@@ -129,9 +129,6 @@ if test "x$wxWin" != x1; then
     ])
 fi
 
-dnl xrc ressources are used
-WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
-
 CHECK_WX_BUILT_WITH_GTK2
 
 if test "x$GTK_USEDVERSION" = x2 ; then

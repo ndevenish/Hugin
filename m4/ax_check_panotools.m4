@@ -68,7 +68,7 @@ then
       AC_MSG_RESULT(no -- some components failed test)
       have_pano='no (failed tests)'
     else
-      if test "x$with_pano" = 'x'
+      if test "x$PANO_HOME" = 'x'
       then
         LIB_PANO="-lpano12"
         PANO_FLAGS="-DHasPANO"
