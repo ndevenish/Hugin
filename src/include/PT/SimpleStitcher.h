@@ -125,8 +125,6 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             if (minDist < FLT_MAX) {
                 *xd = remapped[minImgNr].get(cp);
 //                *xd = vigra::RGBValue<unsigned char>(minImgNr, x/10,y/10);
-            } else {
-                *xd = vigra::RGBValue<unsigned char>(255,255,255);
             }
         }
     }
