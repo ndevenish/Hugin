@@ -206,6 +206,7 @@ void List::Change ( wxMouseEvent & e )
         canvas->Refresh();
         frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
     }
-    prevItem = item;
+    if (item != -1)
+      prevItem = item;
 }
 
