@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4-cvs20041018\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-21 20:20+0200\n"
+"POT-Creation-Date: 2004-10-23 09:30+0200\n"
 "PO-Revision-Date: 2004-10-22 08:15+0200\n"
 "Last-Translator: Jean-Luc  Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -369,15 +369,15 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Résultat de l'ajustement précis"
 
-#: src/hugin/PanoDruid.cpp:41
+#: src/hugin/PanoDruid.cpp:42
 msgid "The druid has no advice."
 msgstr "L'assistant ne peut vous aider"
 
-#: src/hugin/PanoDruid.cpp:51 src/hugin/PreviewFrame.cpp:502
+#: src/hugin/PanoDruid.cpp:52 src/hugin/PreviewFrame.cpp:502
 msgid "The druid finds no problems with your panorama."
 msgstr "L'assistant n'a trouvé aucun problème avec votre panorama"
 
-#: src/hugin/PanoDruid.cpp:52 src/hugin/PreviewFrame.cpp:503
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:503
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -386,11 +386,11 @@ msgstr ""
 "Assemblez votre image finale maintenant, utilisez ensuite un\n"
 "éditeur d'images tel que The Gimp pour y apporter une touche finale."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:534
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:534
 msgid "Warning:  you haven't saved the current project."
 msgstr "Attention : vous n'avez pas enregistré votre projet actuel."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:535
+#: src/hugin/PanoDruid.cpp:65 src/hugin/PreviewFrame.cpp:535
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -401,11 +401,11 @@ msgstr ""
 "à pouvoir faire d'autres tests et de procéder à des\n"
 "ajustements de paramètres ultérieurement."
 
-#: src/hugin/PanoDruid.cpp:75 src/hugin/PreviewFrame.cpp:525
+#: src/hugin/PanoDruid.cpp:76 src/hugin/PreviewFrame.cpp:525
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Attention : l'assemblage en cours a des dimensions énormes."
 
-#: src/hugin/PanoDruid.cpp:76 src/hugin/PreviewFrame.cpp:526
+#: src/hugin/PanoDruid.cpp:77 src/hugin/PreviewFrame.cpp:526
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -421,11 +421,11 @@ msgstr ""
 "de l'onglet « Options du Panorama » pour déterminer les\n"
 "dimensions en pixels qui vous donneront la meilleure qualité."
 
-#: src/hugin/PanoDruid.cpp:111 src/hugin/PreviewFrame.cpp:516
+#: src/hugin/PanoDruid.cpp:112 src/hugin/PreviewFrame.cpp:516
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Le champ de vision horizontal (hfov) est peut-être trop faible"
 
-#: src/hugin/PanoDruid.cpp:112 src/hugin/PreviewFrame.cpp:517
+#: src/hugin/PanoDruid.cpp:113 src/hugin/PreviewFrame.cpp:517
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -442,11 +442,11 @@ msgstr ""
 "d'arc, habituellement il est compris entre 5 et 120 degrés par\n"
 "image à moins d'utiliser des objectifs spécialisés."
 
-#: src/hugin/PanoDruid.cpp:126
+#: src/hugin/PanoDruid.cpp:127
 msgid "Consider adding a vertical or horizontal guide."
 msgstr "Pensez à ajouter un guide vertical ou horizontal."
 
-#: src/hugin/PanoDruid.cpp:127
+#: src/hugin/PanoDruid.cpp:128
 msgid ""
 "By adding vertical guides, the optimizer can ensure\n"
 "that buildings or trees or other vertical features\n"
@@ -458,11 +458,11 @@ msgstr ""
 "seront bien verticaux dans le résultat final. Un guide horizontal\n"
 "peut aider à s'assurer que l'horizon ne penchera pas. "
 
-#: src/hugin/PanoDruid.cpp:152
+#: src/hugin/PanoDruid.cpp:153
 msgid "Run the Optimizer to estimate the image positions."
 msgstr "Lancer l'optimiseur pour estimer les positions des images"
 
-#: src/hugin/PanoDruid.cpp:153
+#: src/hugin/PanoDruid.cpp:154
 msgid ""
 "The Optimizer uses the control points to estimate the\n"
 "positions of the individual images in the final panorama\n"
@@ -474,13 +474,13 @@ msgstr ""
 "\n"
 "L'optimiseur peut être appelé depuis l'onglet « Optimiseur ».\n"
 
-#: src/hugin/PanoDruid.cpp:183
+#: src/hugin/PanoDruid.cpp:184
 msgid "Add more control points to improve the stitch quality."
 msgstr ""
 "Ajoutez davantage de points de contrôle pour améliorer la qualité de "
 "l'assemblage."
 
-#: src/hugin/PanoDruid.cpp:184
+#: src/hugin/PanoDruid.cpp:185
 msgid ""
 "For best results, there should be at least four pairs\n"
 "of control points for each pair of overlapping images.\n"
@@ -491,11 +491,11 @@ msgstr ""
 "recouvrant. davantage de points de contrôle, précisément placés,\n"
 "amélioreront la correspondance."
 
-#: src/hugin/PanoDruid.cpp:204
+#: src/hugin/PanoDruid.cpp:205
 msgid "At least one image has no control points at all."
 msgstr "Au moins une image ne contient pas du tout de points de contrôle."
 
-#: src/hugin/PanoDruid.cpp:205
+#: src/hugin/PanoDruid.cpp:206
 msgid ""
 "For best results, there should be at least four pairs\n"
 "of control points for each pair of overlapping images.\n"
@@ -506,12 +506,12 @@ msgstr ""
 "recouvrant. Une image sans point de contrôle ne peut être\n"
 "alignée."
 
-#: src/hugin/PanoDruid.cpp:225
+#: src/hugin/PanoDruid.cpp:226
 msgid "Add stitching control points to each pair of images."
 msgstr ""
 "Ajoutez des points de contrôle d'assemblage pour chaque paire d'images ;"
 
-#: src/hugin/PanoDruid.cpp:226
+#: src/hugin/PanoDruid.cpp:227
 msgid ""
 "The Optimizer relies on your control points to arrange\n"
 "and blend the images properly.  On the Control Points\n"
@@ -524,26 +524,26 @@ msgstr ""
 "à des éléments visuels identiques pour chaque paire d'images\n"
 "en recouvrement."
 
-#: src/hugin/PanoDruid.cpp:238 src/hugin/PreviewFrame.cpp:512
+#: src/hugin/PanoDruid.cpp:239 src/hugin/PreviewFrame.cpp:512
 msgid "Add at least one more image."
 msgstr "Ajoutez au moins encore une image."
 
-#: src/hugin/PanoDruid.cpp:239 src/hugin/PreviewFrame.cpp:513
+#: src/hugin/PanoDruid.cpp:240 src/hugin/PreviewFrame.cpp:513
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 "Vous devez avoir au moins deux fichiers listés dans l'onglet « images »."
 
-#: src/hugin/PanoDruid.cpp:253 src/hugin/PreviewFrame.cpp:508
+#: src/hugin/PanoDruid.cpp:254 src/hugin/PreviewFrame.cpp:508
 msgid "To get started, add some image files."
 msgstr "Pour démarrer, ajoutez quelques fichiers d'images."
 
-#: src/hugin/PanoDruid.cpp:254 src/hugin/PreviewFrame.cpp:509
+#: src/hugin/PanoDruid.cpp:255 src/hugin/PreviewFrame.cpp:509
 msgid "You can add any number of images using the Images tab."
 msgstr ""
 "Vous pouvez ajouter autant d'images que vous le voulez en utilisant\n"
 "l'onglet « images »."
 
-#: src/hugin/PanoDruid.cpp:293
+#: src/hugin/PanoDruid.cpp:294
 msgid "the Panorama druid"
 msgstr "L'assistant Panorama"
 
