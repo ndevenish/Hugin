@@ -380,6 +380,7 @@ void CPImageCtrl::rescaleImage()
 
     SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
     SetScrollRate(1,1);
+    Refresh(FALSE);
 //    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
 //    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
 }

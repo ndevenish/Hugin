@@ -246,6 +246,7 @@ private:
     std::string m_leftFile;
     std::string m_rightFile;
     bool m_listenToPageChange;
+    double m_detailZoomFactor;
 
     unsigned int m_selectedPoint;
     unsigned int m_cursorType;

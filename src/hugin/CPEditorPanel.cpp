@@ -106,7 +106,7 @@ END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     : cpCreationState(NO_POINT), m_pano(pano), m_leftImageNr(UINT_MAX),
-      m_rightImageNr(UINT_MAX), m_listenToPageChange(true),
+      m_rightImageNr(UINT_MAX), m_listenToPageChange(true), m_detailZoomFactor(1),
       m_selectedPoint(UINT_MAX)
 
 {
@@ -573,13 +573,13 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             }
             if (! corrOk) {
                 // just set point, PointFineTune already complained
-                otherImg->setScale(1);
+                otherImg->setScale(m_detailZoomFactor);
                 otherImg->setNewPoint(corrPoint.maxpos);
                 changeState(BOTH_POINTS_SELECTED);
             } else {
                 // show point & zoom in if auto add is not set
                 if (!m_autoAddCB->IsChecked()) {
-                    otherImg->setScale(1);
+                    otherImg->setScale(m_detailZoomFactor);
                     otherImg->setNewPoint(corrPoint.maxpos);
                     changeState(BOTH_POINTS_SELECTED);
                 } else {
@@ -590,7 +590,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             }
         } else {
             // no fine-tune, set 100% scale and set both points to selected
-            otherImg->setScale(1);
+            otherImg->setScale(m_detailZoomFactor);
+            otherImg->showPosition(op);
             changeState(BOTH_POINTS_SELECTED);
         }
 
@@ -634,7 +635,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
         changeState(THIS_POINT);
         // zoom into our window
         if (thisImg->getScale() < 1) {
-            thisImg->setScale(1);
+            thisImg->setScale(m_detailZoomFactor);
             thisImg->showPosition(p);
         } else {
             // run auto estimate procedure?
@@ -689,7 +690,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     // low xcorr
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
-                    thisImg->setScale(1);
+                    thisImg->setScale(m_detailZoomFactor);
                     thisImg->setNewPoint(corrRes.maxpos);
                     thisImg->update();
                     otherImg->setNewPoint(FDiff2D(newPoint_round.x, newPoint_round.y));
@@ -698,7 +699,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     // show point & zoom in if auto add is not set
                     changeState(BOTH_POINTS_SELECTED);
                     if (!m_autoAddCB->IsChecked()) {
-                        thisImg->setScale(1);
+                        thisImg->setScale(m_detailZoomFactor);
                     }
                     thisImg->setNewPoint(corrRes.maxpos);
                 }
@@ -707,7 +708,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 if (thisImg->getScale() < 1) {
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
-                    thisImg->setScale(1);
+                    thisImg->setScale(m_detailZoomFactor);
                     thisImg->clearNewPoint();
                     thisImg->showPosition(p);
                     //thisImg->setNewPoint(p.x, p.y);
@@ -1271,6 +1272,7 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
     switch (e.GetSelection()) {
     case 0:
         factor = 1;
+        m_detailZoomFactor = factor;
         break;
     case 1:
         // fit to window
@@ -1278,9 +1280,11 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
         break;
     case 2:
         factor = 2;
+        m_detailZoomFactor = factor;
         break;
     case 3:
         factor = 1.5;
+        m_detailZoomFactor = factor;
         break;
     case 4:
         factor = 0.75;
