@@ -180,9 +180,9 @@ $(OBJ_DIR)/%.s %.s: %.c
 	$(ECHO) "    ---- Creating assembly file for $< (C)"
 	$(SILENT) $(CC) $(CFLAGS) $(INCLUDES) -S $<
 
-$(OBJ_DIR)/%.s: %.cpp
+$(OBJ_DIR)/%.s %.s: %.cpp
 	$(ECHO) "    ---- Creating assembly file for $< (C++)"
-	$(SILENT) $(CXX) $(CFLAGS) $(INCLUDES) -S $<
+	$(SILENT) $(CXX) $(CFLAGS) -dA $(INCLUDES) -S $<
 
 $(OBJ_DIR)/%.c %.c: %.l
 	$(ECHO) "    ---- Creating C file for $< (LEX)"
