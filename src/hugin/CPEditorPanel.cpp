@@ -544,7 +544,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
         && p.y < (int) pImg.getHeight() && p.y >= 0)
     {
         otherImg->setNewPoint(op);
-        // if fine tune is checked, run a fine tune session as well.
+        // if fine-tune is checked, run a fine-tune session as well.
         // hmm probably there should be another separate function for this..
         if (m_fineTuneCB->IsChecked()) {
             MainFrame::Get()->SetStatusText(_("searching similar point..."),0);
@@ -566,7 +566,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                                       sWidth,
                                       corrPoint);
             } catch (std::exception & e) {
-                wxMessageBox(e.what(), _("Error during Fine Tune"));
+                wxMessageBox(e.what(), _("Error during Fine-tune"));
             }
             double thresh=0.8;
 
@@ -600,7 +600,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             }
             MainFrame::Get()->SetStatusText(wxString::Format(_("found corrosponding point, mean xcorr coefficient: %f"),xcorr),0);
         } else {
-            // no fine tune, set 100% scale and set both points to selected
+            // no fine-tune, set 100% scale and set both points to selected
             otherImg->setScale(1);
             changeState(BOTH_POINTS_SELECTED);
         }
@@ -694,7 +694,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                                           sWidth,
                                           p2);
                 } catch (std::exception & e) {
-                    wxMessageBox(e.what(), _("Error during Finetune"));
+                    wxMessageBox(e.what(), _("Error during Fine-tune"));
                 }
 
                 double thresh=0.8;
@@ -750,7 +750,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             }
         } else {
             // selection retry
-            // nothing special, no second stage fine tune yet.
+            // nothing special, no second stage fine-tune yet.
         }
 
         // ok, we have determined the other point.. apply if auto add is on
@@ -763,7 +763,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
         }
 
     } else if (cpCreationState == BOTH_POINTS_SELECTED) {
-        // nothing to do.. maybe a special fine tune with
+        // nothing to do.. maybe a special fine-tune with
         // a small search region
 
     } else {
@@ -926,7 +926,7 @@ double CPEditorPanel::PointFineTune_old(unsigned int tmplImgNr,
 
     FImage dest(searchSize);
     dest.init(1);
-    DEBUG_DEBUG("starting fine tune");
+    DEBUG_DEBUG("starting fine-tune");
     // we could use the multiresolution version as well.
     // but usually the region is quite small.
     vigra_ext::CorrelationResult res;
@@ -1547,7 +1547,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         // disable all drawing search boxes.
         m_leftImg->showSearchArea(false);
         m_rightImg->showSearchArea(false);
-        // but draw template size, if fine tune enabled
+        // but draw template size, if fine-tune enabled
         m_leftImg->showTemplateArea(fineTune);
         m_rightImg->showTemplateArea(fineTune);
         m_addButton->Enable(false);
@@ -1597,7 +1597,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
     case RIGHT_POINT_RETRY:
         m_leftImg->showSearchArea(false);
         m_rightImg->showSearchArea(false);
-        // but draw template size, if fine tune enabled
+        // but draw template size, if fine-tune enabled
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(false);
         m_addButton->Enable(false);

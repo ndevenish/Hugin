@@ -297,7 +297,7 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     const Lens & lens = pano.getLens( img.getLensNr());
     wxString ps;
     switch ( (int) lens.  projectionFormat  ) {
-    case Lens::RECTILINEAR:          ps << _("Normal (rectlinear)"); break;
+    case Lens::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
     case Lens::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
     case Lens::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
     case Lens::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;

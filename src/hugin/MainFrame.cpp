@@ -835,7 +835,7 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
 void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    // fine tune all points
+    // fine-tune all points
 
     CPVector cps = pano.getCtrlPoints();
 
@@ -863,7 +863,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     cfg->Read("/CPEditorPanel/finetuneThreshold", &threshold, 0.8);
 
     {
-    MyProgressDialog pdisp(_("Finetuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+    MyProgressDialog pdisp(_("Fine-tuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     pdisp.pushTask(ProgressTask("Finetuning","",1.0/unoptimized.size()));
 
@@ -933,13 +933,13 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     }
     }
     wxString result;
-    result.Printf(_("%d points fine tuned, %d points not updated due to low correlation\n\n"
-                    "Hint: The errors of the fine tuned points have been set to the, correlation coefficient\n"
-                    "Problematic point can be spotted (just after finetune, before optimizing)\n"
+    result.Printf(_("%d points fine-tuned, %d points not updated due to low correlation\n\n"
+                    "Hint: The errors of the fine-tuned points have been set to the, correlation coefficient\n"
+                    "Problematic point can be spotted (just after fine-tune, before optimizing)\n"
                     "by an error <= %f.\n"
                     "Use the Control Point list (F3) to see all point of the current project\n"),
                   nGood, nBad, threshold);
-    wxMessageBox(result, _("Fine tune result"), wxOK);
+    wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points
     GlobalCmdHist::getInstance().addCommand(
         new UpdateCPsCmd(pano,cps)

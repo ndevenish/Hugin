@@ -265,7 +265,7 @@ END_HINT(NO_IMAGES);
 //TODO: no variables are marked to be optimized
 //TODO: all variables are marked to be optimized
 //TODO: optimizing for different projection from final
-//TODO: above 90 hfov, above 5 images, but rectlinear projection
+//TODO: above 90 hfov, above 5 images, but rectilinear projection
 //TODO: detect bend panoramas?
 
 //////////////////////////////////////////////////////////////////////////////

@@ -132,7 +132,7 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="cp_editor_finetune_button">
-                      <label>Fine Tune</label>
+                      <label>Fine-tune</label>
                       <tooltip>tries to optimize the currently active point.</tooltip>
                     </object>
                     <flag>wxLEFT|wxRIGHT</flag>
@@ -146,7 +146,7 @@
                           <orient>wxVERTICAL</orient>
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                              <label>auto fine &amp;tune</label>
+                              <label>auto fine-&amp;tune</label>
                             </object>
                             <flag>wxADJUST_MINSIZE</flag>
                           </object>

@@ -26,7 +26,7 @@
               <object class="sizeritem">
                 <object class="wxComboBox" name="lens_val_projectionFormat">
                   <content>
-                    <item>Normal (rectlinear)</item>
+                    <item>Normal (rectilinear)</item>
                     <item>Panoramic (cylindrical)</item>
                     <item>Circular fisheye</item>
                     <item>Full frame fisheye</item>

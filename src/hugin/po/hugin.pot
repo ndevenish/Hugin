@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-14 18:44+0200\n"
+"POT-Creation-Date: 2004-10-15 07:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,8 +51,8 @@ msgstr ""
 msgid "searching similar point..."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:569
-msgid "Error during Fine Tune"
+#: src/hugin/CPEditorPanel.cpp:569 src/hugin/CPEditorPanel.cpp:697
+msgid "Error during Fine-tune"
 msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:585
@@ -69,10 +69,6 @@ msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:612
 msgid "Estimated point outside image"
-msgstr ""
-
-#: src/hugin/CPEditorPanel.cpp:697
-msgid "Error during Finetune"
 msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:713
@@ -223,7 +219,7 @@ msgid "t"
 msgstr ""
 
 #: src/hugin/ImagesList.cpp:300
-msgid "Normal (rectlinear)"
+msgid "Normal (rectilinear)"
 msgstr ""
 
 #: src/hugin/ImagesList.cpp:301
@@ -334,23 +330,23 @@ msgid "hugin - FAQ"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:866
-msgid "Finetuning all points"
+msgid "Fine-tuning all points"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:936
 #, c-format
 msgid ""
-"%d points fine tuned, %d points not updated due to low correlation\n"
+"%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
-"Hint: The errors of the fine tuned points have been set to the, correlation "
+"Hint: The errors of the fine-tuned points have been set to the, correlation "
 "coefficient\n"
-"Problematic point can be spotted (just after finetune, before optimizing)\n"
+"Problematic point can be spotted (just after fine-tune, before optimizing)\n"
 "by an error <= %f.\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
 
 #: src/hugin/MainFrame.cpp:942
-msgid "Fine tune result"
+msgid "Fine-tune result"
 msgstr ""
 
 #: src/hugin/PanoDruid.cpp:41

@@ -59,7 +59,7 @@
           <object class="sizeritem">
             <object class="wxComboBox" name="lens_type_combobox">
               <content>
-                <item>Normal (rectlinear)</item>
+                <item>Normal (rectilinear)</item>
                 <item>Panoramic</item>
                 <item>Circular</item>
                 <item>Full frame</item>
