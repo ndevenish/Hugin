@@ -228,11 +228,35 @@ void LensPanel::update_edit_LensGui ( int lens )
       XRCCTRL(*this, "lens_val_number", wxStaticText)->SetLabel( 
                             label.str().c_str() );
 
-/*    if ( EDIT_LENS.HFOV.isLinked() )
-      XRCCTRL(*this, "images_inherit_HFOV" ,wxCheckBox)->SetValue(TRUE);
-    else
-      XRCCTRL(*this, "images_inherit_HFOV" ,wxCheckBox)->SetValue(FALSE);
-  */    
+    // set inherit and from wich image,  dis-/enable optimize checkboxes
+    // We expect ImageNr = lensEditRef_lensNr !
+    std::string xml_inherit, xml_optimize, xml_spin;
+    ImageVariables new_var ( pano.getVariable( lensEditRef_lensNr ) );
+#define SET_IMHERIT_OPTIMIZE( type_str, type ) \
+{ \
+    xml_inherit = "images_inherit_"; xml_inherit.append(type_str); \
+    xml_optimize = "images_optimize_"; xml_optimize.append(type_str); \
+    xml_spin = "images_spin_"; xml_spin.append(type_str); \
+    if ( new_var. type .isLinked() ) {\
+      XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->SetValue(TRUE); \
+      int var = (int)new_var. type .getLink(); \
+         XRCCTRL(*this, xml_spin.c_str(), wxSpinCtrl) ->SetValue(var); \
+    } else { \
+      XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->SetValue(FALSE); \
+    } \
+    if (optset->at(lensEditRef_lensNr). type == TRUE ) { \
+        XRCCTRL(*this, xml_optimize .c_str(), wxCheckBox) ->SetValue(TRUE); \
+    } else { \
+        XRCCTRL(*this, xml_optimize .c_str(), wxCheckBox) ->SetValue(FALSE); \
+    } \
+}
+    SET_IMHERIT_OPTIMIZE ( "HFOV" , HFOV )
+    SET_IMHERIT_OPTIMIZE ( "a" , a )
+    SET_IMHERIT_OPTIMIZE ( "b" , b )
+    SET_IMHERIT_OPTIMIZE ( "c" , c )
+    SET_IMHERIT_OPTIMIZE ( "d" , d )
+    SET_IMHERIT_OPTIMIZE ( "e" , e )
+      
     DEBUG_TRACE("");
 }
 
@@ -586,9 +610,6 @@ void LensPanel::SetInherit( std::string type )
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
           // local ImageVariables finished, save to pano
-          GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
-            );
 //          pano.updateVariables( imgNr[i], new_var ); 
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
@@ -626,6 +647,9 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "e" )
               optset->at(imgNr[i]).e = FALSE;
           }
+          GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
+            );
         }
 
         // activate an undoable command, not for the optimize settings

@@ -397,7 +397,7 @@ void ImagesPanel::SetInherit( std::string type )
 //    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll" 
     // requisites
     int var (-1);
-    std::string command;
+//    std::string command;
     std::string xml_inherit, xml_optimize, xml_spin;
     ImageVariables new_var;
 
@@ -461,7 +461,7 @@ void ImagesPanel::SetInherit( std::string type )
             XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
             DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
             // local ImageVariables finished, save to pano
-            pano.updateVariables( imgNr[i], new_var ); 
+//            pano.updateVariables( imgNr[i], new_var ); 
             DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
           // unset inheritance
           } else {
@@ -474,7 +474,7 @@ void ImagesPanel::SetInherit( std::string type )
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
           // local ImageVariables finished, save to pano
-          pano.updateVariables( imgNr[i], new_var ); 
+//          pano.updateVariables( imgNr[i], new_var ); 
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" ) {
@@ -496,12 +496,12 @@ void ImagesPanel::SetInherit( std::string type )
             if ( type == "roll" )
               optset->at(imgNr[i]).roll = FALSE;
           }
+          // activate an undoable command, not for the optimize settings
+          GlobalCmdHist::getInstance().addCommand(
+              new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
+              );
         }
 
-        // activate an undoable command, not for the optimize settings
-        GlobalCmdHist::getInstance().addCommand(
-           new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
-           );
     }
     DEBUG_INFO( type.c_str() << " end" )
 }
