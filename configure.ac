@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5)
-AC_INIT([hugin], [0.4], [douglasw@zahav.net.il])
+AC_INIT([hugin], [0.4], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_HOST
 AC_CONFIG_HEADER([src/hugin/config.h])
