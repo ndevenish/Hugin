@@ -331,6 +331,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::REGION_SELECTED:
     {
         changeState(NO_POINT);
+#if 0
 	if (false) {
             text = "REGION_SELECTED";
             wxRect region = ev.getRect();
@@ -379,7 +380,8 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             } else {
                 wxLogError("No corrosponding point found");
             }
-        }
+	    }
+#endif
         break;
     }
     case CPEvent::RIGHT_CLICK:
