@@ -69,6 +69,9 @@ OptimizeVector * optset;
 
 // event table. this frame will recieve mostly global commands.
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
+    EVT_MOVE(MainFrame::Resize)
+    EVT_ICONIZE(MainFrame::Resize)
+
     EVT_MENU(XRCID("action_new_project"),  MainFrame::OnNewProject)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
@@ -474,6 +477,13 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 {   // Maybe this can be invoced by the Panorama::Changed() or
     // something like this. So no everytime update would be needed.
+    DEBUG_TRACE("");
+}
+
+void MainFrame::Resize( wxSizeEvent& WXUNUSED(event) )
+{
+    wxSizeEvent e;
+    pano_panel->Resize(e);
     DEBUG_TRACE("");
 }
 

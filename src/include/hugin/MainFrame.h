@@ -104,6 +104,7 @@ private:
     void OnTextEdit(wxCommandEvent & e);
     void OnToggleOptimizeFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
+    void Resize(wxSizeEvent & e);
 
 
     CPEditorPanel * cpe;

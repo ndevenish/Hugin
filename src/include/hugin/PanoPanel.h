@@ -67,25 +67,25 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    // function to update PanoramaOptions -> gui
+    /** function to update PanoramaOptions -> gui */
     bool auto_preview;
     bool panoviewer_enabled;
     bool panoviewer_precise;
     bool panoviewer_started;
     int previewWidth;
-    // initialize from gui values
+    /* initialize from gui values */
     void PanoChanged (wxCommandEvent & e);
 
-    // event handlers
+    /** Start/Stop external dialog */
     void DoDialog (wxCommandEvent & e);
-    // Did we run DoDialog, to bring PanoPanel in dialog mode?
+    /** Did we run DoDialog, to bring PanoPanel in dialog mode? */
     bool self_pano_dlg;
-    // Does PanoPanel run in dialog mode?
+    /** Does PanoPanel run in dialog mode? */
     bool pano_dlg_run;
- private:
-    // a window event
-    void FitParent(wxSizeEvent & e);
+    /** follow the main window */
+    void Resize(wxSizeEvent & e);
 
+ private:
     void DoOptimization (wxCommandEvent & e);
     void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
 

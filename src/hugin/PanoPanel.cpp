@@ -64,8 +64,8 @@ extern ImgPreview *canvas;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
-    EVT_SIZE   ( PanoPanel::FitParent )
 //    EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
+  EVT_SIZE   ( PanoPanel::Resize )
 
   EVT_BUTTON   ( XRCID("pano_make_dialog"),PanoPanel::DoDialog )
 
@@ -126,12 +126,24 @@ PanoPanel::~PanoPanel(void)
     DEBUG_TRACE("");
 }
 
-void PanoPanel::FitParent( wxSizeEvent & e )
+void PanoPanel::Resize( wxSizeEvent & e )
 {
-//    wxSize new_size = GetSize();
-//    wxSize new_size = GetParent()->GetSize();
-//    XRCCTRL(*this, "panorama_panel", wxPanel)->SetSize ( new_size );
-//    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+    if ( wxGetApp().Initialized() && pano_dlg_run && !self_pano_dlg ) {
+      wxPoint pos = frame->GetPosition();
+      wxSize frame_size = frame->GetSize();
+      pos.y = pos.y + frame_size.GetHeight()
+#if defined(__WXGTK__)
+      +25 // for the status bar
+#endif
+      ;
+      pano_dlg->Move (pos.x, pos.y); 
+      if ( frame->IsIconized() )
+        pano_dlg->Iconize(TRUE);
+      else
+        pano_dlg->Maximize(TRUE);
+        pano_dlg->Iconize(FALSE);
+    }
+
 }
 
 void PanoPanel::DoDialog ( wxCommandEvent & e )
@@ -147,29 +159,30 @@ void PanoPanel::DoDialog ( wxCommandEvent & e )
         pano_dlg_run = FALSE;
       }
       XRCCTRL(*pano_panel, "pano_make_dialog", wxPanel)
-                    ->SetHelpText("tear off this tab");
+                    ->SetToolTip(_("tear off this tab"));
     } else {
         DEBUG_TRACE("" <<   GetName() );
         DEBUG_TRACE("" <<   GetParent()->GetName() );
         DEBUG_TRACE("" <<   GetGrandParent()->GetName() );
         DEBUG_TRACE("" <<   GetParent()->GetGrandParent()->GetLabel() );
         DEBUG_TRACE("" <<   frame->GetLabel() );
-      wxSize new_size = frame->GetSize();
-      wxPoint new_point = frame->GetPosition();
-      new_point.y = new_point.y + new_size.GetHeight()
+      wxSize frame_size = frame->GetSize();
+      wxPoint frame_pos = frame->GetPosition();
+      DEBUG_INFO( "pos.x "<< frame_pos.x <<"  pos.y "<< frame_pos.y )
+      frame_pos.y = frame_pos.y + frame_size.GetHeight()
 #if defined(__WXGTK__)
       +25 // for the status bar
 #endif
       ;
-      pano_dlg = new PanoDialog (this, new_point,
+      pano_dlg = new PanoDialog (this, frame_pos,
                          XRCCTRL(*this, "panorama_panel", wxPanel)->GetSize(),
                          &pano);
       pano_dlg->SetModal(FALSE);
       pano_dlg_run = TRUE;
       XRCCTRL(*this, "pano_make_dialog", wxPanel)
-                    ->SetHelpText("Close child window");
+                    ->SetToolTip(_("Close child window"));
       XRCCTRL(*pano_dlg->pp, "pano_make_dialog", wxPanel)
-                    ->SetHelpText("Close child window");
+                    ->SetToolTip(_("Close child window"));
 //      UIntSet i;
 //      pano_dlg->pp->panoramaImagesChanged (pano, i); // initialize
       pano_dlg->pp->pano_dlg_run = TRUE;

@@ -195,20 +195,15 @@ bool huginApp::OnInit()
         DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
     }
 
-    // get the global config object
     // remember the last size from config
     frame->SetSize(config->Read("MainFrameSize_x",600l),
                    config->Read("MainFrameSize_y",400l));
 
     // remember if PanoPanel was teared off
-    if (config->HasEntry(wxT("pano_dlg_run")) ) {
-      long l_pano_dlg_run = FALSE;
-      config->Read("pano_dlg_run").ToLong(&l_pano_dlg_run);
-      if ( l_pano_dlg_run ) {
+    if ( config->Read("pano_dlg_run",0l) ) {
         wxCommandEvent e;
         pano_panel->DoDialog(e);
         DEBUG_INFO("PanoPanel opened")
-      }
     }
 
     DEBUG_TRACE("");
