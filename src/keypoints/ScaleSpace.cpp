@@ -474,9 +474,9 @@ Vector3 ScaleSpace::Fit3D( int x, int y, int s, Vector3 & dDog, float& dX2, floa
     float dS2	= Below(x, y) - 2.0 * Cur(x, y) + Above(x, y);
 	
     // standard approximation of crossed derivatives d²(DOG)/d?d?
-    /*float*/ dXdY  = 0.25 * ( Cur(x+1, y+1) - Cur(x-1, y+1)) - 0.5 * ( Cur(x+1, y-1) - Cur(x-1, y-1) );
-    float dSdX	= 0.25 * ( Above(x+1, y) - Above(x-1, y)) - 0.5 * ( Below(x+1, y) - Below(x-1, y) );
-    float dSdY	= 0.25 * ( Above(x, y+1) - Above(x, y-1)) - 0.5 * ( Below(x, y+1) - Below(x, y-1) );
+    /*float*/ dXdY  = 0.25 * ( Cur(x+1, y+1) - Cur(x-1, y+1)) - 0.25 * ( Cur(x+1, y-1) - Cur(x-1, y-1) );
+    float dSdX	= 0.25 * ( Above(x+1, y) - Above(x-1, y)) - 0.25 * ( Below(x+1, y) - Below(x-1, y) );
+    float dSdY	= 0.25 * ( Above(x, y+1) - Above(x, y-1)) - 0.25 * ( Below(x, y+1) - Below(x, y-1) );
 		
     // matrix to solve is
     // dX         [ dX²  dXdY dXdS ]
@@ -486,7 +486,7 @@ Vector3 ScaleSpace::Fit3D( int x, int y, int s, Vector3 & dDog, float& dX2, floa
     Matrix3 mat;
     Vector3 solution;
 
-    dDog.Set( dX, dY, dS );
+    dDog.Set( -dX, -dY, -dS );
     mat.m[0][0] = dX2;
     mat.m[1][1] = dY2;
     mat.m[2][2] = dS2;
