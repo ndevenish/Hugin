@@ -3,6 +3,13 @@ How to compile hugin on windows using mingw.
 
 A step by step guide.
 
+steps: 1. install mingw.
+       2. install wxwindows 
+           IMPORTANT  a small change needs to be made to
+           IMPORTANT  wxwindows/src/makeg95.env, even if you have already
+           IMPORTANT  installed wxwindows.
+       3. compile hugin
+
 1. Download & install mingw (www.mingw.org)
 
 2. Download the current wxWindows release from www.wxwindows.org
@@ -19,9 +26,13 @@ A step by step guide.
         variable. I unzipped wxwindows to d:\temp\wxWindows-2.4.1
         Adjust the path below to fit your needs.
 
-         $ export WXWIN=/cygdrive/d/temp/wxWindows-2.4.1
-	Its even better to put it into ~/.bashrc, so that it will
-        be automatically on the next start of the msys shell.
+         $ export WXWIN=/d/temp/wxWindows-2.4.1
+
+        This sets the variable only for the current shell, it will
+        be lost after closing the shell. It can be set permanently
+        using autoexec.bat (on Win9x) or in the Environment Dialog
+        on Windows NT/2000/XP (access it with right click my computer ->
+        Properties)
 
         Compile the main wxwindows library.
         Edit $WXWIN/src/makeg95.env and remove all occurences of

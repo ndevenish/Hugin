@@ -9,9 +9,13 @@ installed (including dev packages)
 REQUIRED LIBRARIES/PACKAGES:
 
  - wxwindows 2.4.0 or higher (libary and development packages)
-    wxwindows needs to be compiled with the xrc extension. You might
-    need to install a wxwin-contrib or similar package if provided
-    by your distribution.
+    hugin uses the XRC extension of wxwindows to build its
+    dialogs.
+
+    the XRC extension needs to be installed. You might
+    need to install a wxwin-contrib (debian) or similar package if provided
+    by your distribution, since most distributions do not include it
+    in their default package.
  
     If you compile wxwindows from scratch, go to the contrib/src/xrc folder
     and compile and install xrc from there.
