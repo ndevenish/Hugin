@@ -11,9 +11,10 @@ CC = gcc
 CC_ARGS = -O2 -Wall -g
 
 PROGRAM = panoviewer
-UTILS = ../Panorama/.obj/utils.o
+#UTILS = ../Panorama/.obj/utils.o
+UTILS = utils.o
 
-OBJECTS = $(PROGRAM).o
+#OBJECTS = $(PROGRAM).o
 OBJECTS = panoviewerapp.o panoviewextractor.o panoviewer.o panolib.o printerror.o mainframe.o client.o $(UTILS)
 
 # implementation

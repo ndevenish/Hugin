@@ -11,6 +11,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "client.h"
+#include "utils.h"
 
 
 // --------------------------------------------------------------------------
@@ -136,28 +137,35 @@ void Client::GetServerData(wxSocketBase *sock)
   sock->Read(buf, len);
   DEBUG_INFO ( "read " << buf )
 
-  DEBUG_INFO ( buf )
-  wxString s = buf;
-  frame->SetStatusText(s << " loaded", 0);
+  sock->Discard();    // cleanup 
+  if ( sock->LastCount() > 0 )
+    DEBUG_INFO ( "bytes " << sock->LastCount() )
 
   // Write it back
   sock->Write(buf, len);
 
   DEBUG_INFO ( "" )
   // load file
+  wxString s (buf);
+  frame->SetStatusText(s << " loading", 0);
   frame->ShowFile (buf);
 
   DEBUG_INFO ( s << " " << buf )
   delete[] buf;
   
   frame->SetStatusText(_("ready"), 1);
-  DEBUG_INFO ( _("end") )
+//  DEBUG_INFO ( _("end") )
+  s = "";
+  if ( sock->Error() ) s.Append (" error ");
+  if ( sock->IsData() ) s.Append (" data ");
+  if ( sock->Ok() ) s.Append (" sockOk "); else s.Append (" sockBad");
+  DEBUG_INFO ( _("end") << " sent " << sock->LastCount() << s )
 } 
 
 void Client::OnSocketEvent(wxSocketEvent& event)
 {
   DEBUG_INFO ( _("begin") << "  busy " << m_busy )
-  UpdateStatusBar();
+//  UpdateStatusBar();
   if ( m_busy ) {
     event.Skip();
     DEBUG_INFO ( _("skipping event!!") )
@@ -166,16 +174,8 @@ void Client::OnSocketEvent(wxSocketEvent& event)
   wxString s = ("now  ");
   wxSocketBase *sock = event.GetSocket();
 
-  switch(event.GetSocketEvent())
-  {
-    case wxSOCKET_INPUT      : s.Append(_("wxSOCKET_INPUT\n")); break;
-    case wxSOCKET_LOST       : s.Append(_("wxSOCKET_LOST\n")); break;
-    case wxSOCKET_CONNECTION : s.Append(_("wxSOCKET_CONNECTION\n")); break;
-    default                  : s.Append(_("Unexpected event !\n")); break;
-  }
-
   // Now we process the event
-  DEBUG_INFO ( s )
+//  DEBUG_INFO ( "" )
   switch(event.GetSocketEvent())
   {
     case wxSOCKET_CONNECTION: {
@@ -183,23 +183,11 @@ void Client::OnSocketEvent(wxSocketEvent& event)
       unsigned char handshake (0xBF);  // send handshake
       sock->Write ( &handshake, 1 );
       shaking = TRUE;
-      DEBUG_INFO ( "handshake to server sent" )
-      break;
-      }
-    case wxSOCKET_INPUT:
-    {
-      DEBUG_INFO ( "" )
-      // We disable input events, so that the test doesn't trigger
-      // wxSocketEvent again.
-      sock->SetNotify(wxSOCKET_LOST_FLAG);
-
-      // Which test are we going to run?
-      unsigned char c;
-      sock->Read(&c, 1);
-      DEBUG_INFO ( "read " << c )
-
+      DEBUG_INFO ( "wxSOCKET_CONNECTION\nhandshake to server sent" )
       // Handshake section
       if ( shaking ) {    // We are in Handshake with server.
+        unsigned char c;
+        sock->Read( &c, 1);
         if ( c == 0xBA ) {// Is the server answere ours.
           sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
           DEBUG_INFO ( "connection to server accepted" )
@@ -208,6 +196,20 @@ void Client::OnSocketEvent(wxSocketEvent& event)
         }
         shaking = FALSE;  // We shake only once per handshake.
       }
+
+      break;
+      }
+    case wxSOCKET_INPUT:
+    {
+      DEBUG_INFO ( "wxSOCKET_INPUT\n" )
+      // We disable input events, so that the test doesn't trigger
+      // wxSocketEvent again.
+      sock->SetNotify(wxSOCKET_LOST_FLAG);
+
+      // Which test are we going to run?
+      unsigned char c;
+      sock->Read(&c, 1);
+      DEBUG_INFO ( "read " << c )
 
       switch (c)
       {
@@ -223,18 +225,25 @@ void Client::OnSocketEvent(wxSocketEvent& event)
         DEBUG_INFO ( "bytes " << sock->LastCount() )
 
       // Enable input events again.
+      sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
       break;
     }
     case wxSOCKET_LOST:
     {
+      DEBUG_INFO ( "wxSOCKET_LOST\n" )
 //      sock->Destroy();
       break;
     }
-    default: ;
+    default:       DEBUG_INFO ( "Unexpected event !\n" )
+      break;
   }
 
 //  sock->Write ( "0", 1 );
-  DEBUG_INFO ( _("end") << " sent " << "0 " << sock->LastCount() )
+  s = "";
+  if ( sock->Error() ) s.Append (" error ");
+  if ( sock->IsData() ) s.Append (" data ");
+  if ( sock->Ok() ) s.Append (" sockOk "); else s.Append (" sockBad");
+  DEBUG_INFO ( _("end") << " sent " << sock->LastCount() << s )
 }
 
 // convenience functions

@@ -9,7 +9,7 @@
 
 #include "mainframe.h"
 #include "client.h"
-#include "../include/common/utils.h"
+#include "utils.h"
 
 MyFrame * frame;
 extern Client * m_client;
@@ -81,24 +81,29 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, 
     m_client = new Client();
     // Do something with the arguments
     if ( argc > 1 ) {
-      DEBUG_INFO ( "argc" << argc )
+      DEBUG_INFO ( "argc = " << argc )
       wxString m_argv ( argv[1] );
       double d;
-      if ( m_argv.IsNumber() ) {
-        DEBUG_INFO ( m_argv )
-        if ( m_argv.ToDouble(&d) ) {
-          DEBUG_INFO ( m_argv << " " << ((int)d) )
-          m_client->Start ((int)d);
-        } else {
-          DEBUG_INFO ( m_argv )
-          m_client->Start (3000);
+      if ( m_argv.IsAscii() )
+        ShowFile( argv[1] );
+      DEBUG_INFO ( _("open") <<" "<< m_argv )
+      if (argc > 2) {
+        m_argv = argv[2];
+        if (m_argv.IsNumber()) {
+          if ( m_argv.ToDouble(&d) ) {
+            DEBUG_INFO ( m_argv << " " << ((int)d) )
+            m_client->Start ((int)d);
+          } else {
+            DEBUG_INFO ( m_argv )
+            m_client->Start (3000);
+          }
         }
-      } else {
-        if ( m_argv.IsAscii() )
-          ShowFile( argv[1] );
-        DEBUG_INFO ( m_argv )
       }
+      
+      DEBUG_INFO ( "argv[0] " << argv[0] << m_argv)
       DEBUG_INFO ( "argv[1] " << argv[1] << m_argv)
+      DEBUG_INFO ( "argv[2] " << argv[2] << m_argv)
+//      DEBUG_INFO ( "argv[3] " << argv[3] << m_argv)
     }
     
 }

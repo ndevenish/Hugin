@@ -1,6 +1,6 @@
 #include "panoviewerapp.h"
 #include "mainframe.h"
-#include "../include/common/utils.h"
+#include "utils.h"
 
 bool MyApp::OnInit()
 {

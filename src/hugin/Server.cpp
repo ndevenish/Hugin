@@ -129,16 +129,22 @@ void Server::SendFilename( wxString filename )
     if ( Connected() ) {
       send = "";
     } else {
-      wxString viewer;
-      viewer.sprintf("panoviewer %d", port); //filename;
+      wxString viewer ("panoviewer ");
+      viewer.Append (filename);
+//      viewer.Append (" ");
+      wxString p;
+      p.sprintf(" %d", port);
+      viewer.Append (p);
+      DEBUG_INFO ( "port = " << port )
+//      viewer.sprintf("panoviewer %s %d", filename, port);
 
       DEBUG_INFO ( "command = " << viewer )
       if ( Connected() == false ) {
         wxExecute( viewer, FALSE /* sync */);
       };
 
-      send = filename;
-      server_timer.Start(1000);    // 1 second interval
+//      send = filename;
+//      server_timer.Start(100);    // 1 second interval
       return;
     };
 
@@ -165,15 +171,16 @@ void Server::SendFilename( wxString filename )
   {
       DEBUG_INFO("test failed; starting timer "<<buf1<<" "<<buf2<<" "<<(int)len)
       send = filename;
-      server_timer.Start(1000);    // 1 second interval
+      server_timer.Start(100);    // 1 second interval
   } else {
       DEBUG_INFO ( "test passed, sent - " << filename )
       send = "";
+      server_timer.Stop();        //
   }
 
   delete[] buf2;
   m_busy = FALSE;
-      m_sock->Discard();    // cleanup
+//      m_sock->Discard();    // cleanup
       if ( m_sock->LastCount() > 0 )
         DEBUG_INFO ( "bytes " << m_sock->LastCount() )
   DEBUG_INFO ( _("end") )
@@ -194,7 +201,7 @@ void Server::OnServerTimer(wxTimerEvent& event)
       DEBUG_INFO ( _("send") << " " << send )
       if ( Connected() ) {
         SendFilename ( send );
-        server_timer.Stop();      // stop here and let SendFilename decide 
+//        server_timer.Stop();      // stop here and let SendFilename decide 
       } else {
         ;                         // hope the connection will establish
       }
@@ -207,6 +214,18 @@ void Server::OnServerTimer(wxTimerEvent& event)
     else
       s = _("No");
     DEBUG_INFO ( _("send empty? ") << s  )
+  s = "";
+/*  if ( m_sock->Ok() ) {
+    if ( m_sock->Error() )
+      s.Append (" error ");
+    DEBUG_INFO ( _("") )
+    if ( m_sock->IsData() )
+      s.Append (" data ");
+    DEBUG_INFO ( _("") )
+    if ( m_sock->Ok() )
+      s.Append (" sockOk ");
+  }*/
+  DEBUG_INFO ( _("end")  << s  )
 }
 
 void Server::OnServerEvent(wxSocketEvent& event)
@@ -263,6 +282,14 @@ void Server::OnServerEvent(wxSocketEvent& event)
         DEBUG_INFO ( "bytes " << m_sock->LastCount() )
   m_numClients++;
   UpdateStatusBar();
+  s = "";
+  if ( m_sock->Error() )
+    s.Append (" error ");
+  if ( m_sock->IsData() )
+    s.Append (" data ");
+  if ( m_sock->Ok() )
+    s.Append (" sockOk ");
+  DEBUG_INFO ( _("end") << m_sock->LastCount() << s  )
 }
 
 void Server::OnSocketEvent(wxSocketEvent& event)
@@ -287,6 +314,15 @@ void Server::OnSocketEvent(wxSocketEvent& event)
       if ( m_sock->LastCount() > 0 )
         DEBUG_INFO ( "bytes " << m_sock->LastCount() )
   UpdateStatusBar();
+
+  s = "";
+  if ( m_sock->Error() )
+    s.Append (" error ");
+  if ( m_sock->IsData() )
+    s.Append (" data ");
+  if ( m_sock->Ok() )
+    s.Append (" sockOk ");
+  DEBUG_INFO ( _("end") << m_sock->LastCount() << s  )
 }
 
 // convenience functions
@@ -294,8 +330,9 @@ void Server::OnSocketEvent(wxSocketEvent& event)
 void Server::UpdateStatusBar()
 {
   wxString s;
-  s.sprintf(_("%d "), m_numClients);
-  s.Append(_("clients"));
-//  DEBUG_INFO ( "m_numClients= " << s )
+//  s.sprintf(_("%d "), m_numClients);
+//  s.Append(_("clients"));
+  for (int i (0); i < m_numClients; i++)
+    s.Append(_("*"));
   frame->SetStatusText(s,1);
 }

@@ -10,7 +10,8 @@
 WXDIR = $(WXWIN)
 
 TARGET=panoviewer
-OBJECTS = panoviewextractor.o panoviewer.o panolib.o printerror.o dummy.o 
+UTILS = utils.o
+OBJECTS = panoviewerapp.o panoviewextractor.o panoviewer.o panolib.o printerror.o mainframe.o client.o $(UTILS)
 
 include $(WXDIR)\src\makeprog.g95
 
