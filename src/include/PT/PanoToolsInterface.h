@@ -35,8 +35,21 @@
 #include "PT/PanoramaMemento.h"
 
 extern "C" {
-    #include <pano12/panorama.h>
-    #include <pano12/filter.h>
+
+#ifdef __INTEL__
+#define __INTELMEMO__
+#undef __INTEL__
+#endif
+
+#include <pano12/panorama.h>
+
+#ifdef __INTELMEMO__
+#define __INTEL__
+#undef __INTELMEMO__
+#endif
+
+#include <pano12/filter.h>
+
 }
 
 // remove stupid #defines from the evil windows.h
