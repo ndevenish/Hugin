@@ -58,7 +58,6 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
 
-//#include "xrc/data/icon.xpm"
 #include "jhead/jhead.h"
 
 #include "PT/Panorama.h"
@@ -233,7 +232,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     cp_frame = new CPListFrame(this, pano);
 
     // set the minimize icon
-    SetIcon(wxIcon(m_xrcPrefix + "/data/icon.xpm", wxBITMAP_TYPE_XPM));
+    SetIcon(wxIcon(m_xrcPrefix + "/data/icon.png", wxBITMAP_TYPE_PNG));
 
     // create a new drop handler. wxwindows deletes the automaticall
     SetDropTarget(new PanoDropTarget(pano));
