@@ -320,58 +320,28 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // observe the panorama
     pano.addObserver(this);
 
-#ifdef __WXMSW__
-    int w = config->Read(wxT("MainFrame/width"),-1l);
-    int h = config->Read(wxT("MainFrame/height"),-1l);
-    int x = config->Read(wxT("MainFrame/positionX"),-1l);
-    int y = config->Read(wxT("MainFrame/positionY"),-1l);
-    if (y != -1) {
-        SetSize(x,y,w,h);
-    }
-#elif defined(__WXMAC__)
-    //size
-    int w = config->Read(wxT("MainFrame/width"),-1l);
-    int h = config->Read(wxT("MainFrame/height"),-1l);
-    if (w != -1) {
-        SetClientSize(w,h);
+    bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
+    if (maximized) {
+        this->Maximize();
     } else {
-        Fit();
-    }
-    //position
-    int x = config->Read(wxT("MainFrame/positionX"),-1l);
-    int y = config->Read(wxT("MainFrame/positionY"),-1l);
-    if ( y != -1) {
-        Move(x, y);
-    } else {
-        Move(0, 44);
-    }
-#else
-
-    // remember the last size from config
-    int w = config->Read(wxT("MainFrame/width"),-1l);
-    int h = config->Read(wxT("MainFrame/height"),-1l);
-    if (w != -1) {
-        SetClientSize(w,h);
-    } else {
-        Fit();
-    }
-    // the position is more problematic, since it might
-    // not include a title, making the window move down
-    // on every start of hugin, because setPosition sets
-    // the upper left title bar position (at least in kwm)
-    // netscape navigator had the same problem..
-    if(config->Read(wxT("MainFrame/rememberPosition"),0l)) {
+        //size
+        int w = config->Read(wxT("/MainFrame/width"),-1l);
+        int h = config->Read(wxT("/MainFrame/height"),-1l);
+        if (w != -1) {
+            SetClientSize(w,h);
+        } else {
+            Fit();
+        }
         //position
-        int x = config->Read(wxT("MainFrame/positionX"),-1l);
-        int y = config->Read(wxT("MainFrame/positionY"),-1l);
+        int x = config->Read(wxT("/MainFrame/positionX"),-1l);
+        int y = config->Read(wxT("/MainFrame/positionY"),-1l);
         if ( y != -1) {
             Move(x, y);
         } else {
             Move(0, 44);
         }
     }
-#endif
-
+    
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 
@@ -403,13 +373,18 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxSize sz = GetClientSize();
-    config->Write(wxT("/MainFrame/width"), sz.GetWidth());
-    config->Write(wxT("/MainFrame/height"), sz.GetHeight());
-    wxPoint ps = GetPosition();
-    config->Write(wxT("/MainFrame/positionX"), ps.x);
-    config->Write(wxT("/MainFrame/positionY"), ps.y);
-
+    if (! this->IsMaximized() ) {
+        wxSize sz = GetClientSize();
+        config->Write(wxT("/MainFrame/width"), sz.GetWidth());
+        config->Write(wxT("/MainFrame/height"), sz.GetHeight());
+        wxPoint ps = GetPosition();
+        config->Write(wxT("/MainFrame/positionX"), ps.x);
+        config->Write(wxT("/MainFrame/positionY"), ps.y);
+        config->Write(wxT("/MainFrame/maximized"), 0);
+    } else {
+        config->Write(wxT("/MainFrame/maximized"), 1l);
+    }
+        
     config->Flush();
 
     DEBUG_TRACE("dtor end");
@@ -880,6 +855,9 @@ void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    if (preview_frame->IsIconized()) {
+        preview_frame->Iconize(false);
+    }
     preview_frame->Show();
     preview_frame->Raise();
 }
@@ -887,6 +865,9 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 void MainFrame::OnToggleCPFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    if (cp_frame->IsIconized()) {
+        cp_frame->Iconize(false);
+    }
     cp_frame->Show();
     cp_frame->Raise();
 }
@@ -934,7 +915,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-    
+
     pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(),"",1.0/unoptimized.size()));
 
     // do not process the control points in random order,

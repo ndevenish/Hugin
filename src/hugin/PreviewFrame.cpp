@@ -72,7 +72,8 @@ END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("panorama preview"),
-      wxDefaultPosition, wxDefaultSize),
+              wxDefaultPosition, wxDefaultSize, 
+              wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION),
       m_pano(pano)
 {
 	DEBUG_TRACE("");
@@ -194,16 +195,35 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_pano.addObserver(this);
 
-    long w = config->Read(wxT("/PreviewFrame/width"),-1);
-    long h = config->Read(wxT("/PreviewFrame/height"),-1);
-    if (w != -1) {
-        SetClientSize(w,h);
+    bool maximized = config->Read(wxT("/PreviewFrame/maximized"), 0l) != 0;
+    if (maximized) {
+        this->Maximize();
+    } else {
+        //size
+        int w = config->Read(wxT("/PreviewFrame/width"),-1l);
+        int h = config->Read(wxT("/PreviewFrame/height"),-1l);
+        if (w != -1) {
+            SetClientSize(w,h);
+        } else {
+            Fit();
+        }
+        //position
+        int x = config->Read(wxT("/PreviewFrame/positionX"),-1l);
+        int y = config->Read(wxT("/PreviewFrame/positionY"),-1l);
+        if ( y != -1) {
+            Move(x, y);
+        } else {
+            Move(0, 44);
+        }
     }
-
     long aup = config->Read(wxT("/PreviewFrame/autoUpdate"),0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
+
+    if (config->Read(wxT("/PreviewFrame/isShown"), 0l) != 0) {
+        Show();
+    }
 
 }
 
@@ -212,10 +232,24 @@ PreviewFrame::~PreviewFrame()
     DEBUG_TRACE("dtor writing config");
     wxConfigBase * config = wxConfigBase::Get();
     wxSize sz = GetClientSize();
-    if (! (this->IsMaximized() || this->IsIconized())) {
-        config->Write(wxT("/PreviewFrame/width"),sz.GetWidth());
-        config->Write(wxT("/PreviewFrame/height"),sz.GetHeight());
+    if (! this->IsMaximized() ) {
+        wxSize sz = GetClientSize();
+        config->Write(wxT("/PreviewFrame/width"), sz.GetWidth());
+        config->Write(wxT("/PreviewFrame/height"), sz.GetHeight());
+        wxPoint ps = GetPosition();
+        config->Write(wxT("/PreviewFrame/positionX"), ps.x);
+        config->Write(wxT("/PreviewFrame/positionY"), ps.y);
+        config->Write(wxT("/PreviewFrame/maximized"), 0);
+    } else {
+        config->Write(wxT("/PreviewFrame/maximized"), 1l);
     }
+    
+    if ( (!this->IsIconized()) && (! this->IsMaximized())) {
+        config->Write(wxT("/PreviewFrame/isShown"), 1l);
+    } else {
+        config->Write(wxT("/PreviewFrame/isShown"), 0l);
+    }
+
     bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
     config->Write(wxT("/PreviewFrame/autoUpdate"), checked ? 1l: 0l);
     config->Write(wxT("/PreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());

@@ -283,10 +283,26 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
     }
 
-    long w = config->Read(wxT("/CPListFrame/width"),-1);
-    long h = config->Read(wxT("/CPListFrame/height"),-1);
-    if (w != -1) {
-        SetClientSize(w,h);
+    //size
+    bool maximized = config->Read(wxT("/CPListFrame/maximized"), 0l) != 0;
+    if (maximized) {
+        this->Maximize();
+    } else {
+        int w = config->Read(wxT("/CPListFrame/width"),-1l);
+        int h = config->Read(wxT("/CPListFrame/height"),-1l);
+        if (w != -1) {
+            SetClientSize(w,h);
+        } else {
+            Fit();
+        }
+        //position
+        int x = config->Read(wxT("/CPListFrame/positionX"),-1l);
+        int y = config->Read(wxT("/CPListFrame/positionY"),-1l);
+        if ( y != -1) {
+            Move(x, y);
+        } else {
+            Move(0, 44);
+        }
     }
 
     m_list->PushEventHandler(new DelKeyHandler(*this));
@@ -296,16 +312,40 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     m_pano.addObserver(this);
 
     g_pano = & m_pano;
+    
+    if (config->Read(wxT("/CPListFrame/isShown"), 0l) != 0) {
+        Show();
+        Raise();
+    }
+    
     DEBUG_TRACE("ctor end");
 }
 
 CPListFrame::~CPListFrame()
 {
     DEBUG_TRACE("dtor");
-    wxSize sz = GetClientSize();
     wxConfigBase * config = wxConfigBase::Get();
-    config->Write(wxT("/CPListFrame/width"),sz.GetWidth());
-    config->Write(wxT("/CPListFrame/height"),sz.GetHeight());
+    if (! this->IsMaximized() ) {
+        wxSize sz = GetClientSize();
+        config->Write(wxT("/CPListFrame/width"), sz.GetWidth());
+        config->Write(wxT("/CPListFrame/height"), sz.GetHeight());
+        wxPoint ps = GetPosition();
+        config->Write(wxT("/CPListFrame/positionX"), ps.x);
+        config->Write(wxT("/CPListFrame/positionY"), ps.y);
+        config->Write(wxT("/CPListFrame/maximized"), 0l);
+    } else {
+        config->Write(wxT("/CPListFrame/maximized"), 1l);
+    }
+    
+
+    if ( (!this->IsIconized()) && (!this->IsMaximized())) {
+        DEBUG_DEBUG("IsShown()");
+        config->Write(wxT("/CPListFrame/isShown"), 1l);
+    } else {
+        DEBUG_DEBUG(" not shown ");
+        config->Write(wxT("/CPListFrame/isShown"), 0l);
+    }
+    
     config->Flush();
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");

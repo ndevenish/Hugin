@@ -86,7 +86,9 @@ void MyProgressDialog::updateProgressDisplay()
 
 void OptProgressDialog::abortOperation()
 {
+#if PT_CUSTOM_OPT
     PTools::stopOptimiser();
+#endif
 }
 
 
