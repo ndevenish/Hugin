@@ -68,6 +68,17 @@ while (<CONF_T>) {
 close (CONF_T);
 close (CONF);
 
+print "Creating src/PanoImage/makefile.unx\n";
+open(CONF_T,"<src/PanoImage/makefile.unx.tmpl");
+open(CONF,">src/PanoImage/makefile.unx");
+
+while (<CONF_T>) {
+    s/__PREFIX__/$prefix/g;
+    print CONF;
+}
+close (CONF_T);
+close (CONF);
+
 
 print <<EOT
 
