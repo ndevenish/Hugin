@@ -269,7 +269,7 @@ void List::fillRow (unsigned int imageNr)
               SetColumnWidth(j, 40);
           }
         } else {
-//          Lens lens ( pano.getLens( pano.getImage(imageNr).getLens()) );
+          Lens lens ( pano.getLens( pano.getImage(imageNr).getLens()) );
           switch ( (int) lens.  projectionFormat  ) {
             case Lens::RECTILINEAR:          number << _("Normal (rectlinear)"); break;
             case Lens::PANORAMIC:            number << _("Panoramic"); break;
