@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file LensDialog.h
+/** @file QTImageCache.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -21,47 +21,38 @@
  *
  */
 
-#ifndef _LENSDIALOG_H
-#define _LENSDIALOG_H
+#ifndef _QTIMAGECACHE_H
+#define _QTIMAGECACHE_H
 
-#include <lensdialogbase.h>
+#include <map>
+#include <qimage.h>
 
-#include "Panorama/Panorama.h"
-
-#include <qdialog.h>
-
-/** brief description.
+/** This is a cache for all the image magick images we use.
  *
- *  What this does
+ *  is a singleton for easy access from everywhere.
+ *
+ *  @todo garbage collection for unused images? useage of a smartpointer?
  */
-class LensDialog : public LensDialogBase
+class QTImageCache
 {
-  Q_OBJECT
 public:
-
-    /** ctor.
-     */
-    LensDialog(const PT::Lens & lens, QWidget * parent = 0,
-               const char* name = 0, bool modal = FALSE, WFlags fl = 0);
-
     /** dtor.
      */
-    virtual ~LensDialog();
+    virtual ~QTImageCache();
 
-    /// get the changes.
-    const PT::Lens & getLens();
+    static QTImageCache & getInstance();
 
-    /// update Edit fields after calc.
-    void updateHFOV();
-
-public slots:
-    virtual void useEXIF();
-    virtual void calculateFocalLength();
-    virtual void calculateHFOV();
+    QImage & getImage(const std::string & filename);
 
 
 private:
-    PT::Lens lens;
+    /** ctor.
+     */
+    QTImageCache();
+
+    static QTImageCache * instance;
+
+    std::map<std::string, QImage> images;
 };
 
-#endif // _LENSDIALOG_H
+#endif // _IMAGECACHE_H

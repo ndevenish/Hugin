@@ -25,13 +25,8 @@
 #define _OPTIMIZERVARWIDGET_H
 
 #include <qtable.h>
-
+#include <Panorama/Panorama.h>
 #include "optimizervarwidgetbase.h"
-
-namespace PT {
-    class Panorama;
-    class PanoImage;
-}
 
 /** brief description.
  *
@@ -53,19 +48,19 @@ public:
 public slots:
     /** changes have been commited
      */
-    void updateVariables();
-    
+    void updateView();
+
     void setChanges(int row, int col);
 
     // call the optimizer
     void optimize();
 
 private:
-    void updateRow(unsigned int row, PT::PanoImage * img);
+    void updateRow(unsigned int row);
 
 private:
     PT::Panorama & pano;
-
+    PT::OptimizeVector optset;
 };
 
 

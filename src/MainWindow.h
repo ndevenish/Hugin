@@ -36,6 +36,7 @@ class QStringList;
 //#include "InputImages.h"
 
 class QTabWidget;
+class QProgressBar;
 class InputImages;
 class OptimizerVarWidget;
 class PanoOptionsWidget;
@@ -47,7 +48,7 @@ class CPEditor;
  *  contains the main window widgets and the logic how to control
  *  the the Panorama class.
  */
-class MainWindow : public MainWindowBase
+class MainWindow : public MainWindowBase, public PT::PanoramaObserver
 {
     Q_OBJECT
 public:
@@ -108,7 +109,7 @@ public:
     void optimizePanorama()
         {
             qDebug("optimize not implemented");
-            pano.optimize();
+//            pano.optimize();
         }
 
     void previewPanorama()
@@ -137,6 +138,11 @@ public:
 
     void saveProject(QString filename);
 
+    virtual void panoramaChanged();
+
+signals:
+    void modelChanged();
+
 private:
 
     QTabWidget* tabWidget;
@@ -145,6 +151,8 @@ private:
     OptimizerVarWidget * optimizerWidget;
     PanoOptionsWidget * panoOptionsWidget;
 
+    QProgressBar * progressbar;
+    
     QString projectFile;
 
     QWidget* tab_2;

@@ -24,6 +24,7 @@
 #ifndef _PANOCOMMAND_H
 #define _PANOCOMMAND_H
 
+#include "Process.h"
 #include "../Command.h"
 
 #include "PanoImage.h"
@@ -32,161 +33,296 @@
 namespace PT {
 
 
+    /** default panorama cmd, provides undo with mementos
+     */
+    class PanoCommand : public Command
+    {
+    public:
+        PanoCommand(Panorama & p)
+            : pano(p)
+            { };
+
+        virtual ~PanoCommand()
+            {
+            };
+
+        /** save the state */
+        virtual void execute()
+            {
+                memento = pano.getMemento();
+            };
+        /** set the saved state.
+         *
+         *  the derived class must call PanoComand::execute() in its
+         *  execute() method to save the state.
+         */
+        virtual void undo()
+            {
+                pano.setMemento(memento);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const = 0;
+    protected:
+        Panorama & pano;
+        PanoramaMemento memento;
+    };
+
     //=========================================================================
     //=========================================================================
 
     /** add image(s) to a panorama */
-    class AddImagesCmd : public Command
+    class AddImagesCmd : public PanoCommand
     {
     public:
-        AddImagesCmd(Panorama & pano, QStringList & files)
-            : pano(pano), files(files)
+        AddImagesCmd(Panorama & pano, const std::vector<std::string> & files)
+            : PanoCommand(pano), files(files)
             { };
         virtual void execute()
             {
-                QStringList::const_iterator it;
+                PanoCommand::execute();
+
+                std::vector<std::string>::const_iterator it;
                 for (it = files.begin(); it != files.end(); ++it) {
-                    addedImages.push_back(pano.addImage(*it));
+                    pano.addImage(*it);
                 }
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                std::vector<PanoImage *>::const_iterator it;
-                for (it = addedImages.begin(); it != addedImages.end(); ++it) {
-                    pano.removeImage(*it);
-                }
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "add images";
             }
     private:
-        Panorama & pano;
-        QStringList files;
-        std::vector<PanoImage*> addedImages;
+        std::vector<std::string> files;
     };
 
     //=========================================================================
     //=========================================================================
 
     /** remove an image from a panorama */
-    class RemoveImageCmd : public Command
+    class RemoveImageCmd : public PanoCommand
     {
     public:
         RemoveImageCmd(Panorama & p, unsigned int imgNr)
-            : pano(p), imgNr(imgNr)
+            : PanoCommand(p), imgNr(imgNr)
             { };
         virtual void execute()
             {
-                PanoImage * img = pano.getImage(imgNr);
-                file = img->getFilename();
-                pano.removeImage(img);
+                PanoCommand::execute();
+                pano.removeImage(imgNr);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                qWarning("FIXME Undo not implemented");
-                pano.addImage(file);
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "remove image";
             }
     private:
-        Panorama &pano;
         unsigned int imgNr;
-        QString file;
     };
 
     //=========================================================================
     //=========================================================================
 
+#if 0
+    /**  */
+    class ChangeImageCmd : public PanoCommand
+    {
+    public:
+        Cmd(Panorama & p)
+            : PanoCommand(p)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+            }
+        virtual std::string getName() const
+            {
+                return "unnamed command";
+            }
+    private:
+    };
+#endif
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update all variables */
+    class UpdateVariablesCmd : public PanoCommand
+    {
+    public:
+        UpdateVariablesCmd(Panorama & p, const VariablesVector & vars)
+            : PanoCommand(p),
+              vars(vars)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.updateVariables(vars);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "update Variables";
+            }
+    private:
+        VariablesVector vars;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update variables of a single image */
+    class UpdateImageVariablesCmd : public PanoCommand
+    {
+    public:
+        UpdateImageVariablesCmd(Panorama & p, unsigned int ImgNr, const ImageVariables & vars)
+            : PanoCommand(p), imgNr(imgNr),
+              vars(vars)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.updateVariables(imgNr, vars);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "update image variables";
+            }
+    private:
+        unsigned int imgNr;
+        ImageVariables vars;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** change the lens for an image */
+    class SetImageLensCmd : public PanoCommand
+    {
+    public:
+        SetImageLensCmd(Panorama & p, int imgNr, int lensNr)
+            : PanoCommand(p),
+              imgNr(imgNr), lensNr(lensNr)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.setLens(imgNr, lensNr);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "set lens";
+            }
+    private:
+        unsigned int imgNr;
+        unsigned int lensNr;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
     /** add a control point */
-    class AddCtrlPointCmd : public Command
+    class AddCtrlPointCmd : public PanoCommand
     {
     public:
         AddCtrlPointCmd(Panorama & p, const ControlPoint & cpoint)
-            : pano(p), point(cpoint)
+            : PanoCommand(p), point(cpoint)
             { }
 
         virtual void execute()
             {
-                newPoint = pano.addControlPoint(point);
+                PanoCommand::execute();
+                pano.addCtrlPoint(point);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                pano.removeControlPoint(newPoint);
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "add control point";
             }
     private:
-        Panorama & pano;
         ControlPoint point;
-        ControlPoint * newPoint;
     };
 
     //=========================================================================
     //=========================================================================
 
     /** remove a control point */
-    class RemoveCtrlPointCmd : public Command
+    class RemoveCtrlPointCmd : public PanoCommand
     {
     public:
-        RemoveCtrlPointCmd(Panorama & p, ControlPoint * point)
-            : pano(p), point(point)
+        RemoveCtrlPointCmd(Panorama & p, unsigned int cpNr)
+            : PanoCommand(p), pointNr(cpNr)
             { }
 
         virtual void execute()
             {
-                copy = *point;
-                pano.removeControlPoint(point);
+                PanoCommand::execute();
+                pano.removeCtrlPoint(pointNr);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                // XXXX adds ctrl point at the wrong position...
-                pano.addControlPoint(copy);
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "remove control point";
             }
     private:
-        Panorama & pano;
-        ControlPoint * point;
-        ControlPoint copy;
+        unsigned int pointNr;
     };
 
 
     //=========================================================================
     //=========================================================================
-    
+
+
     /** change a control point */
-    class ChangeCtrlPointCmd : public Command
+    class ChangeCtrlPointCmd : public PanoCommand
     {
     public:
         ChangeCtrlPointCmd(Panorama & p, unsigned int nr, ControlPoint point)
-            : pano(p), pNr(nr), point(point)
+            : PanoCommand(p), pNr(nr), point(point)
             { }
 
         virtual void execute()
             {
-                copy = *pano.getControlPoint(pNr);
+                PanoCommand::execute();
                 pano.changeControlPoint(pNr, point);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                pano.changeControlPoint(pNr,copy);
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "change control point";
             }
     private:
-        Panorama & pano;
         unsigned int pNr;
         ControlPoint point;
-        ControlPoint copy;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
+    /** add a new lens */
+    class AddLensCmd : public PanoCommand
+    {
+    public:
+        AddLensCmd(Panorama & p, const Lens & lens)
+            : PanoCommand(p), lens(lens)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.addLens(lens);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "addLens";
+            }
+    private:
+        Lens lens;
     };
 
 
@@ -195,31 +331,25 @@ namespace PT {
 
 
     /** change lens */
-    class ChangeLensCmd : public Command
+    class ChangeLensCmd : public PanoCommand
     {
     public:
-        ChangeLensCmd(Panorama & p, unsigned int imageNr, const LensSettings & lens)
-            : pano(p), imageNr(imageNr), newLens(lens)
+        ChangeLensCmd(Panorama & p, unsigned int lensNr, const Lens & lens)
+            : PanoCommand(p), lensNr(lensNr), newLens(lens)
             { };
         virtual void execute()
             {
-                PanoImage * img = pano.getImage(imageNr);
-                oldLens = img->getLens();
-                img->updateLens(newLens);
+                PanoCommand::execute();
+                pano.updateLens(lensNr, newLens);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                pano.getImage(imageNr)->updateLens(oldLens);
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "change lens";
             }
     private:
-        Panorama & pano;
-        unsigned int imageNr;
-        LensSettings newLens;
-        LensSettings oldLens;
+        unsigned int lensNr;
+        Lens newLens;
     };
 
 
@@ -227,166 +357,67 @@ namespace PT {
     //=========================================================================
 
 
-    /** change position of image inside panorama */
-    class ChangeImagePositionCmd : public Command
+    /** set the panorama options */
+    class SetPanoOptionsCmd : public PanoCommand
     {
     public:
-        ChangeImagePositionCmd(Panorama & p, unsigned int imageNr,
-                               const ImagePosition & prop)
-            : pano(p), imageNr(imageNr), newPos(prop)
-            { };
-
-        virtual void execute()
-            {
-                PanoImage * img = pano.getImage(imageNr);
-                oldPos = img->getPosition();
-                img->setPosition(newPos);
-            }
-        virtual void undo()
-            {
-                pano.getImage(imageNr)->setPosition(oldPos);
-            }
-        virtual QString getName() const
-            {
-                return "set image position";
-            }
-    private:
-        Panorama & pano;
-        unsigned int imageNr;
-        ImagePosition newPos;
-        ImagePosition oldPos;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** change position of image inside panorama */
-    class ChangeImageOptionsCmd : public Command
-    {
-    public:
-        ChangeImageOptionsCmd(Panorama & p, unsigned int imageNr,
-                               const ImageOptions & prop)
-            : pano(p), imageNr(imageNr), newOpt(prop)
-            { };
-
-        virtual void execute()
-            {
-                PanoImage * img = pano.getImage(imageNr);
-                oldOpt = img->getOptions();
-                img->setOptions(newOpt);
-            }
-        virtual void undo()
-            {
-                pano.getImage(imageNr)->setOptions(oldOpt);
-            }
-        virtual QString getName() const
-            {
-                return "set image position";
-            }
-    private:
-        Panorama & pano;
-        unsigned int imageNr;
-        ImageOptions newOpt;
-        ImageOptions oldOpt;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /** set common lens */
-    class SetCommonLensCmd : public Command
-    {
-    public:
-        SetCommonLensCmd(Panorama & p, bool commonLens)
-            : pano(p), common(commonLens)
+        SetPanoOptionsCmd(Panorama & p, const PanoramaOptions & opts)
+            : PanoCommand(p), options(opts)
             { };
         virtual void execute()
             {
-                oldCommon = pano.hasCommonLens();
-                pano.setCommonLens(common);
+                pano.setOptions(options);
+                PanoCommand::execute();
+                pano.changeFinished();
             }
-        virtual void undo()
+        virtual std::string getName() const
             {
-                pano.setCommonLens(oldCommon);
-            }
-        virtual QString getName() const
-            {
-                return "set common lens";
+                return "unnamed command";
             }
     private:
-        Panorama & pano;
-        bool common;
-        bool oldCommon;
+        PanoramaOptions options;
     };
 
-
     //=========================================================================
     //=========================================================================
 
 
-    /** change the panorama properties */
-    class ChangePanoramaOptionsCmd : public Command
+    /** run the optimizer & set optimized variables
+     *  there should be a gui version of this command,
+     *  where the user can choose to apply the changes or not
+     */
+    class OptimizeCmd : public PanoCommand
     {
     public:
-        ChangePanoramaOptionsCmd(Panorama & p,
-                                 const PanoramaOptions & options)
-            : pano(p), imageNr(imageNr), newOptions(options)
-            { };
-
-        virtual void execute()
-            {
-                oldOptions = pano.getOptions();
-                pano.setOptions(newOptions);
-            }
-        virtual void undo()
-            {
-                pano.setOptions(oldOptions);
-            }
-        virtual QString getName() const
-            {
-                return "set image position";
-            }
-    private:
-        Panorama & pano;
-        unsigned int imageNr;
-        PanoramaOptions newOptions;
-        PanoramaOptions oldOptions;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
-
-    /// run the optimizer
-    class OptimizeCmd : public Command
-    {
-    public:
-        OptimizeCmd(Panorama & p)
-            : pano(p)
+        OptimizeCmd(Panorama & p, const OptimizeVector & optvars,
+                    PanoramaOptions & output)
+            : PanoCommand(p),
+              optvars(optvars),
+              outputOpts(output)
             { }
 
         virtual void execute()
             {
-                /// XXXX save all variables that could be changed
-                /// XXXX by the optimizer.
-                qWarning("XXXX save optimizer variables for undo");
-                pano.optimize();
+                PanoCommand::execute();
+                Process process(false);
+                pano.runOptimizer(process,optvars,outputOpts);
+                process.wait();
+
+                VariablesVector vars = pano.getVariables();
+                CPVector cps = pano.getCtrlPoints();
+
+                pano.readOptimizerOutput(vars, cps);
+                pano.updateVariables(vars);
+                pano.updateCtrlPoints(cps);
+                pano.changeFinished();
             }
-        virtual void undo()
-            {
-                qWarning("XXXX restore optimizer variables.");
-            }
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "optimize";
             }
     private:
-        Panorama & pano;
+        OptimizeVector optvars;
+        PanoramaOptions outputOpts;
     };
 
     //=========================================================================
@@ -394,41 +425,29 @@ namespace PT {
 
 
     /// stitch the image
-    class StitchCmd : public Command
+    class StitchCmd : public PanoCommand
     {
     public:
-        StitchCmd(Panorama & p, QString filename,
-                  unsigned int height=0, unsigned int width=0)
-            : pano(p), file(filename), height(height), width(width)
+        StitchCmd(Panorama & p, const PanoramaOptions & t)
+            : PanoCommand(p), target(t)
             { }
 
         virtual void execute()
             {
-                PanoramaOptions opt = pano.getOptions();
-                if (file.length() != 0) {
-                    opt.outfile = file;
-                }
-                if (height != 0 ) {
-                    opt.height = height;
-                }
-                if (width != 0 ) {
-                    opt.width = width;
-                }
-                pano.stitch(opt);
+                Process process(false);
+                pano.runStitcher(process, target);
+                process.wait();
             }
         virtual void undo()
             {
             }
 
-        virtual QString getName() const
+        virtual std::string getName() const
             {
                 return "stitch panorama";
             }
     private:
-        Panorama & pano;
-        QString file;
-        unsigned int height;
-        unsigned int width;
+        PanoramaOptions target;
     };
 }
 

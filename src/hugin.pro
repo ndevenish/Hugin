@@ -1,37 +1,59 @@
+TEMPLATE	=app
+#CONFIG	+= qt warn_on release thread rtti warn
+CONFIG	+= qt warn_on debug thread rtti warn
+DEFINES	+= QT_CLEAN_NAMESPACE
+LANGUAGE	= C++
+
+
 SOURCES	+= main.cpp \
 	MainWindow.cpp \
 	LensDialog.cpp \
 	OptimizerVarWidget.cpp \
 	InputImages.cpp \
-	Command.cpp \
+	CommandHistory.cpp \
 	PanoOptionsWidget.cpp \
 	CPListView.cpp \
         CPImageDisplay.cpp \
-        CPEditor.cpp
+        CPEditor.cpp \
+        QTImageCache.cpp \
+        ImageTransforms.cpp
 
 HEADERS	+= MainWindow.h \
 	LensDialog.h \
 	OptimizerVarWidget.h \
 	InputImages.h \
 	Command.h \
+	CommandHistory.h \
 	PanoOptionsWidget.h \
 	CPListView.h \
         CPImageDisplay.h \
-        CPEditor.h
+        CPEditor.h \
+        utils.h \
+        stl_utils.h \
+        QTImageCache.h \
+        ImageTransforms.h
 
 # Panorama subdir sources.
 SOURCES   += Panorama/Panorama.cpp \
-             Panorama/PanoImage.cpp
+             Panorama/PanoImage.cpp \
+             Panorama/Process.cpp 
 
 HEADERS   += Panorama/Panorama.h \
              Panorama/PanoImage.h \
-             Panorama/PanoCommand.h
+             Panorama/Process.h \
+             Panorama/PanoCommand.h 
 
 
 unix {
   UI_DIR = .ui
   MOC_DIR = .moc
   OBJECTS_DIR = .obj
+  DEFINES += UNIX
+  LIBS	+= -lexif -ljpeg
+  LIBS += `Magick++-config --ldflags --libs`
+  QMAKE_CXXFLAGS_DEBUG += -O2
+#  CFLAGS += -O2 `Magick++-config --cppflags --cxxflags`
+
 }
 
 
@@ -50,8 +72,3 @@ IMAGES	= images/filenew \
 	images/editcopy \
 	images/editpaste \
 	images/searchfind
-TEMPLATE	=app
-CONFIG	+= qt warn_on debug thread rtti
-DEFINES	+= QT_CLEAN_NAMESPACE
-unix:LIBS	+= -lexif -ljpeg
-LANGUAGE	= C++

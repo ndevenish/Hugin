@@ -38,18 +38,17 @@ namespace PT {
 class PanoImageLVItem : public QListViewItem
 {
 public:
-    PanoImageLVItem(QListView * parent, PT::PanoImage &img);
+    PanoImageLVItem(QListView * parent, PT::Panorama &pano, unsigned int nr);
     virtual ~PanoImageLVItem();
 
     // return right text
     QString text(int column) const ;
 
-    PT::PanoImage & getImage()
-        { return image; };
-
-    unsigned int getNr() const;
+    unsigned int getNr() const
+        { return imgNr; }
 private:
-    PT::PanoImage & image;
+    PT::Panorama & pano;
+    unsigned int imgNr;
 };
 
 //=============================================================================
@@ -77,11 +76,9 @@ public slots:
     void addImage();
     void removeImage();
     void editLens();
-    void setCommonLens(bool common);
 
     // receive notifications
-    void imageRemoved(unsigned int img);
-    void imageAdded(unsigned int img);
+    void updateView();
 private:
     PT::Panorama & pano;
 };

@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <04-Apr-2003 23:07:55 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <05-May-2003 00:06:14 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -9,205 +9,113 @@
 #define PANOIMAGE_H
 
 #include <iostream>
+#include <Magick++.h>
+
+/*
 #include <qstring.h>
 #include <qdom.h>
 #include <qpixmap.h>
+*/
 
 namespace PT {
 
-    class Panorama;
+class Panorama;
 
-    struct LensSettings {
+/** optimization & stitching options. */
+class ImageOptions {
 
-        enum ProjectionFormat { RECTILINEAR = 0,
-                                PANORAMIC = 1,
-                                CIRCULAR_FISHEYE = 2,
-                                FULL_FRAME_FISHEYE = 3,
-                                EQUIRECTANGULAR = 4};
+public:
+    enum ImageSource { DIGITAL_CAMERA, SCANNER };
+    ImageOptions()
+        : featherWidth(10),
+          ignoreFrameWidth(0),
+          morph(false),
+          lensNr(0),
+          source(DIGITAL_CAMERA)
+        { };
 
-        LensSettings()
-            : exifFocalLength(0.0),
-              exifFocalLengthConversionFactor(0.0),
-              exifHFOV(0.0),
-              focalLength(35),
-              focalLengthConversionFactor(1),
-              HFOV(50),
-              projectionFormat(RECTILINEAR),
-              a(0),b(0),c(0),
-              d(0),e(0)
-            {}
+    // isn't the c++ compiler supposed to create a default operator== ?
+    bool operator==(const ImageOptions & o) const
+        {
+            return (featherWidth == o.featherWidth &&
+                    ignoreFrameWidth == o.ignoreFrameWidth &&
+                    morph == o.morph &&
+                    lensNr == o.lensNr &&
+                    source == o.source
+                );
+        }
+//        QDomElement toXML(QDomDocument & doc);
+//        void setFromXML(const QDomNode & node);
 
-        QDomElement toXML(QDomDocument & doc);
-        void setFromXML(const QDomNode & node);
 
-        void update(const LensSettings & l)
-            {
-                focalLength = l.focalLength;
-                focalLengthConversionFactor = l.focalLengthConversionFactor;
-                HFOV = l.HFOV;
-                projectionFormat = l.projectionFormat;
-                a = l.a;
-                b = l.b;
-                c = l.c;
-                d = l.d;
-                e = l.e;
-            }
+    // PT state
+    /// u10           specify width of feather for stitching. default:10
+    unsigned int featherWidth;
+    /// m20           ignore a frame 20 pixels wide. default: 0
+    unsigned int ignoreFrameWidth;
+    /// Morph-to-fit using control points.
+    bool morph;
 
-        double exifFocalLength;
-        // factor for conversion of focal length to
-        // 35 mm film equivalent.
-        double exifFocalLengthConversionFactor;
-        double exifHFOV;
+    // the lens of this image
+    unsigned int lensNr;
+    /// image source, used to determine the linking of variables
+    ImageSource source;
+};
 
-        double focalLength;
-        double focalLengthConversionFactor;
-        double HFOV;
-        ProjectionFormat projectionFormat;
-        // lens correction parameters
-        double a,b,c;
-        // horizontal & vertical offset
-        // XXXX maybe these are not really lens settings.
-        // XXXX can be different between scanned images as well.
-        double d,e;
-    };
 
-    /** position of image inside the panorama.
+    /** This class holds an source image.
+     *
+     *  It contains information about its settings for the panorama,
+     *  and holds the Image data (as an ImageMagick image)
+     *
+     *  An image should not depend on the panorama.
      */
-    struct ImagePosition {
-        ImagePosition()
-            : yaw(0), pitch(0), roll(0)
-            { }
-        QDomElement toXML(QDomDocument & doc);
-        void setFromXML(const QDomNode & node);
-
-        double yaw;
-        double pitch;
-        double roll;
-    };
-
-    /** optimization & stitching options. */
-    struct ImageOptions {
-        ImageOptions()
-            : featherWidth(10),
-              ignoreFrameWidth(0),
-              morph(false),
-              optimizeYaw(true),
-              optimizeRoll(true),
-              optimizePitch(true),
-              optimizeFOV(false),
-              optimizeA(false),
-              optimizeB(true),
-              optimizeC(false),
-              optimizeD(false),
-              optimizeE(false)
-            { };
-
-        QDomElement toXML(QDomDocument & doc);
-        void setFromXML(const QDomNode & node);
-
-        //seam options
-        /// u10           specify width of feather for stitching. default:10
-        unsigned int featherWidth;
-
-        /// m20           ignore a frame 20 pixels wide. default: 0
-        unsigned int ignoreFrameWidth;
-
-        /// Morph-to-fit using control points.
-        bool morph;
-
-        // optimize options
-        bool optimizeYaw;
-        bool optimizeRoll;
-        bool optimizePitch;
-        bool optimizeFOV;
-        bool optimizeA;
-        bool optimizeB;
-        bool optimizeC;
-        bool optimizeD;
-        bool optimizeE;
-    };
-
     class PanoImage
     {
     public:
-        PanoImage(Panorama & parent, const QString & filename);
+        PanoImage(const std::string & filename);
         // create from xml node
-        PanoImage(Panorama & parent, QDomNode & node);
+//        PanoImage(QDomNode & node);
 
-        /// common init for all constructors
-        void init();
         virtual ~PanoImage();
 
         virtual const char * isA() const { return "PanoImage"; };
 
-        QDomElement toXML(QDomDocument & doc);
-        void setFromXML(QDomNode & node);
+//        QDomElement toXML(QDomDocument & doc);
+//        void setFromXML(QDomNode & node);
 
-        void printImageLine(std::ostream &o);
-        void printStitchImageLine(std::ostream &o);
-        void printOptimizeLine(std::ostream &o);
-
-        unsigned int getNr();
-
-        QString getFilename() const
+        std::string getFilename() const
             { return filename; }
 
-        const QPixmap & getPixmap();
-
-        const LensSettings & getLens() const
-            { return lens; }
-        void updateLens(const LensSettings & l)
-            {
-                lens.update(l);
-                changed();
-            }
-
-        const ImagePosition & getPosition() const
-            { return position; };
-
-        void setPosition(const ImagePosition & pos)
-            {
-                position = pos;
-                changed();
-            }
-
         const ImageOptions & getOptions() const
-            { return options; };
+            { return options; }
 
-        void setOptions(const ImageOptions & opts)
-            {
-                options = opts;
-                changed();
-            }
+        void setOptions(const ImageOptions & opt)
+            { options = opt; }
 
         unsigned int getHeight() const
             { return height; }
         unsigned int getWidth() const
             { return width; }
 
-    private:
+        void setLens(unsigned int l)
+            { options.lensNr = l; }
+        unsigned int getLens() const
+            { return options.lensNr; }
 
-        void changed();
+    private:
+        /// common init for all constructors
+        void init();
         /// read image info (size, exif header)
         bool readImageInformation();
-        // read information from file
-        bool readJPEGInfo();
-        bool readTIFFInfo();
-        bool readPNGInfo();
 
-        bool isLandscape;
-
-        PT::Panorama & pano;
-        
         // image properties needed by Panorama tools.
-        QString filename;
+
+        std::string filename;
         int height,width;
 
-        ImagePosition position;
-        LensSettings lens;
+        bool imageRead;
         ImageOptions options;
-        
-        QPixmap pixmap;
     };
 
 } // namespace

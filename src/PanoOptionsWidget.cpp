@@ -30,23 +30,32 @@
 #include <qcheckbox.h>
 #include <qfiledialog.h>
 
-#include "PanoOptionsWidget.h"
+#include "CommandHistory.h"
+#include "Panorama/PanoCommand.h"
 #include "Panorama/Panorama.h"
+#include "PanoOptionsWidget.h"
 
 
 PanoOptionsWidget::PanoOptionsWidget(PT::Panorama & pano, QWidget* parent, const char* name, WFlags fl)
     : PanoOptionsBase(parent, name, fl), pano(pano)
 {
-    updateDisplay();
-    connect(&pano, SIGNAL(stateChanged()), this, SLOT(updateDisplay()));
-
+    
+    updateView();
 }
 
 PanoOptionsWidget::~PanoOptionsWidget()
 {
 }
 
-void PanoOptionsWidget::updateDisplay()
+void PanoOptionsWidget::changeOptions()
+{
+    PT::PanoramaOptions opt = getOptions();
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd(pano, opt)
+        );
+}
+
+void PanoOptionsWidget::updateView()
 {
     PT::PanoramaOptions opt = pano.getOptions();
     panoProjectionCombo->setCurrentItem(opt.projectionFormat);
@@ -95,22 +104,18 @@ void PanoOptionsWidget::createPanorama()
     if (opt.outfile == "") {
         return;
     }
-    pano.setOptions(opt);
-    pano.stitch(opt);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::StitchCmd(pano,opt)
+        );
 }
 
 
 void PanoOptionsWidget::previewPanorama()
 {
     PT::PanoramaOptions opt = getOptions();
-    opt.outfile = QFileDialog::getSaveFileName (
-        QString::null,
-// FIXME set mask for each type..
-        "",
-        this,
-        "Save image",
-        "Save final panorama");
-    pano.setOptions(getOptions());
-    pano.stitch(opt);
-    pano.setOptions(opt);
+    // FIXME update with preview width.
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::StitchCmd(pano,opt)
+        );
 }

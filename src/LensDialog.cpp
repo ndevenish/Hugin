@@ -34,7 +34,7 @@
 
 using namespace PT;
 
-LensDialog::LensDialog(const LensSettings & lens, QWidget * parent,
+LensDialog::LensDialog(const Lens & lens, QWidget * parent,
                        const char* name, bool modal, WFlags fl)
   : LensDialogBase(parent, name, modal, fl),
     lens(lens)
@@ -61,7 +61,7 @@ void LensDialog::updateHFOV()
   focalLengthEdit->setText(QString::number(lens.focalLength));
   focalLengthMultiplierEdit->setText(QString::number(lens.focalLengthConversionFactor));
   focalLengthLabel->setText(QString::number(lens.focalLength * lens.focalLengthConversionFactor));
-}  
+}
 
 void LensDialog::useEXIF()
 {
@@ -89,7 +89,7 @@ void LensDialog::calculateHFOV()
     updateHFOV();
 }
 
-const PT::LensSettings & LensDialog::getLens()
+const PT::Lens & LensDialog::getLens()
 {
     lens.HFOV = HFOVEdit->text().toDouble();
     lens.focalLength = focalLengthEdit->text().toDouble();
@@ -97,6 +97,6 @@ const PT::LensSettings & LensDialog::getLens()
     lens.a = aEdit->text().toDouble();
     lens.b = bEdit->text().toDouble();
     lens.c = cEdit->text().toDouble();
-    lens.projectionFormat = (LensSettings::ProjectionFormat) lensTypeCombo->currentItem();
+    lens.projectionFormat = (Lens::ProjectionFormat) lensTypeCombo->currentItem();
     return lens;
 }

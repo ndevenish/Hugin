@@ -207,12 +207,6 @@
         <slot>addImage()</slot>
     </connection>
     <connection>
-        <sender>commonLensCheckBox</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>InputImagesBase</receiver>
-        <slot>setCommonLens(bool)</slot>
-    </connection>
-    <connection>
         <sender>removeImageButton</sender>
         <signal>clicked()</signal>
         <receiver>InputImagesBase</receiver>
@@ -229,7 +223,6 @@
     <slot specifier="pure virtual">removeImage()</slot>
     <slot specifier="pure virtual">editLens()</slot>
     <slot specifier="pure virtual">addImage()</slot>
-    <slot specifier="pure virtual">setCommonLens(bool)</slot>
 </slots>
 <pixmapinproject/>
 <layoutdefaults spacing="6" margin="11"/>

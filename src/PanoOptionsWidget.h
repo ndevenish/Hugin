@@ -51,9 +51,10 @@ public:
     PT::PanoramaOptions PanoOptionsWidget::getOptions();
 
 public slots:
-    void updateDisplay();
+    void updateView();
     void createPanorama();
     void previewPanorama();
+    void changeOptions();
 
 private:
     PT::Panorama & pano;

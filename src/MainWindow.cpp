@@ -31,6 +31,8 @@
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qmessagebox.h>
+#include <qstatusbar.h>
+#include <qprogressbar.h>
 
 #include "MainWindow.h"
 #include "InputImages.h"
@@ -38,6 +40,7 @@
 #include "CPEditor.h"
 #include "OptimizerVarWidget.h"
 #include "Panorama/PanoCommand.h"
+#include "CommandHistory.h"
 
 using namespace std;
 using namespace PT;
@@ -46,22 +49,36 @@ MainWindow::MainWindow()
 {
     cerr << "MainWindow created" << endl;
 
+    pano.setObserver(this);
     tabWidget = new QTabWidget(this, "tabWidget");
     setCentralWidget( tabWidget );
 
     inputImages = new InputImages(pano, this, "inputImages1" );
     tabWidget->insertTab( inputImages, tr("Input Images") );
 
+    // statusbar
+    progressbar = new QProgressBar(this);
+    progressbar->setTotalSteps(100);
+    statusBar()->addWidget(progressbar);
+
+    // update widgets if the pano object is changed
+    connect( this, SIGNAL(modelChanged()), inputImages, SLOT(updateView()));
+
 //    tab_2 = new QWidget( tabWidget, "tab_2" );
-    cpEditor = new CPEditor(pano,tabWidget);
+    cpEditor = new CPEditor(pano,*progressbar,tabWidget);
     tabWidget->insertTab( cpEditor, tr("Control Points") );
+    connect( this, SIGNAL(modelChanged()), cpEditor, SLOT(updateView()));
 
     optimizerWidget = new OptimizerVarWidget( pano, tabWidget, "optimizerVarWidget1" );
     tabWidget->insertTab( optimizerWidget, tr("Optimizer") );
+    connect(this, SIGNAL(modelChanged()), optimizerWidget, SLOT(updateView()));
+
 
     panoOptionsWidget = new PanoOptionsWidget(pano, this, "pano options");
     tabWidget->insertTab( panoOptionsWidget, tr("Panorama"));
-    
+    connect(this, SIGNAL(modelChanged()), panoOptionsWidget, SLOT(updateView()));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -79,8 +96,12 @@ void MainWindow::dropEvent(QDropEvent* event)
     QStringList files;
     if ( QUriDrag::decodeLocalFiles(event, files) ) {
         if (files.size() > 0) {
+            vector<string> filesv;
+            for(unsigned int i = 0; i < files.size(); i++) {
+                filesv.push_back(files[i].ascii());
+            }
             GlobalCmdHist::getInstance().addCommand(
-                new PT::AddImagesCmd(pano,files)
+                new PT::AddImagesCmd(pano,filesv)
                 );
         }
     } else {
@@ -90,6 +111,8 @@ void MainWindow::dropEvent(QDropEvent* event)
 
 void MainWindow::saveProject(QString file)
 {
+    qDebug("FIXME save not implemnted: %s",file.ascii());
+    /*
     QDomDocument doc( "Hugin_Project" );
     QDomElement root = doc.createElement( "Project" );
     doc.appendChild( root );
@@ -101,10 +124,12 @@ void MainWindow::saveProject(QString file)
 
     std::ofstream of(file);
     of << xml << std::endl;
+    */
 }
 
 void MainWindow::fileOpen()
 {
+#if 0
     QString filename;
     filename = QFileDialog::getOpenFileName (
         QString::null,
@@ -139,16 +164,17 @@ void MainWindow::fileOpen()
     }
     pano.setFromXML(panoNodes.item(0));
     projectFile = filename;
+#endif
 }
 
 
 void MainWindow::fileNew()
 {
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::AddCtrlPointCmd(pano,ControlPoint(pano.getImage(0),10,11,
-                                                  pano.getImage(0),20,21,
-                                                  ControlPoint::X)
-            )
-        );
-    std::cerr << "file new not implemented" << std::endl;
+    DEBUG_DEBUG("file new not implemented");
+}
+
+
+void MainWindow::panoramaChanged()
+{
+    emit(modelChanged());
 }

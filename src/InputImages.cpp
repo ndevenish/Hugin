@@ -32,51 +32,48 @@
 #include "Panorama/Panorama.h"
 #include "Panorama/PanoImage.h"
 #include "Panorama/PanoCommand.h"
+#include "CommandHistory.h"
 
 #include "LensDialog.h"
 #include "InputImages.h"
 
 using namespace std;
 
-PanoImageLVItem::PanoImageLVItem(QListView * parent, PT::PanoImage &img)
-    : QListViewItem(parent), image(img)
+PanoImageLVItem::PanoImageLVItem(QListView * parent, PT::Panorama &pano, unsigned int nr)
+    : QListViewItem(parent), pano(pano),
+      imgNr(nr)
 {
-    qDebug("LVItem ctor, img: %s",img.getFilename().ascii());
 }
 
 PanoImageLVItem::~PanoImageLVItem()
 {
-    qDebug("LVItem dtor, img: %s",image.getFilename().ascii());
-}
-
-
-unsigned int PanoImageLVItem::getNr() const
-{
-    return image.getNr();
 }
 
 // return text for specific column
 QString PanoImageLVItem::text(int column) const
 {
+    const PT::ImageVariables & vars = pano.getVariable(imgNr);
     switch(column) {
     case 0:
-        return QString::number(image.getNr());
+        return QString::number(imgNr);
         break;
     case 1:
+    {
         // XXXX needs to be changed for windows.
-        return image.getFilename().section( '/', -1 );
+        string filename = pano.getImage(imgNr).getFilename();
+        return filename.substr(filename.rfind('/'), string::npos ).c_str();
         break;
+    }
     case 2:
         {
-            QString ret;
-            ret.sprintf("%dx%d", image.getWidth(), image.getHeight());
-            return ret;
+        QString ret;
+        ret.sprintf("%dx%d", pano.getImage(imgNr).getWidth(), pano.getImage(imgNr).getHeight());
+        return ret;
         }
         break;
-
     case 3:
         {
-            double fov = image.getLens().HFOV;
+            double fov = vars.HFOV.getValue();
             if (fov == 0.0) {
                 return QString("invalid");
             }
@@ -84,28 +81,28 @@ QString PanoImageLVItem::text(int column) const
         }
         break;
     case 4:
-        return QString::number(image.getPosition().yaw);
+        return QString::number(vars.yaw.getValue());
         break;
     case 5:
-        return QString::number(image.getPosition().pitch);
+        return QString::number(vars.pitch.getValue());
         break;
     case 6:
-        return QString::number(image.getPosition().roll);
+        return QString::number(vars.roll.getValue());
         break;
     case 7:
         {
             QString ret;
             ret.sprintf("%4.3f, %4.3f, %4.3f",
-                        image.getLens().a,
-                        image.getLens().b,
-                        image.getLens().c);
+                        vars.a.getValue(),
+                        vars.b.getValue(),
+                        vars.c.getValue());
             return ret;
         }
         break;
     case 8:
         {
             QString ret;
-            ret.sprintf("%4.3f, %4.3f", image.getLens().d, image.getLens().e);
+            ret.sprintf("%4.3f, %4.3f", vars.d.getValue(), vars.e.getValue());
             return ret;
         }
         break;
@@ -146,11 +143,7 @@ InputImages::InputImages(PT::Panorama & p, QWidget* parent,
     : InputImagesBase(parent, name, fl),
       pano(p)
 {
-    connect(&pano,SIGNAL(imageAdded(unsigned int)), this, SLOT(imageAdded(unsigned int)));
-    connect(&pano,SIGNAL(imageRemoved(unsigned int)), this, SLOT(imageRemoved(unsigned int)));
 
-    // update widgets if the pano object is changed
-    connect( &pano, SIGNAL( imageChanged(unsigned int) ), imagesListView, SLOT(triggerUpdate()));
 }
 
 
@@ -186,9 +179,13 @@ void InputImages::addImage()
 //    fd->setPreviewMode( QFileDialog::Contents );
     if ( fd->exec() == QDialog::Accepted ) {
         QStringList files = fd->selectedFiles();
+        vector<string> filesv;
+        for(unsigned int i = 0; i < files.size(); i++) {
+            filesv.push_back(files[i].ascii());
+        }
         if (files.size() > 0) {
             GlobalCmdHist::getInstance().addCommand(
-                new PT::AddImagesCmd(pano,files)
+                new PT::AddImagesCmd(pano,filesv)
                 );
         }
     }
@@ -197,51 +194,26 @@ void InputImages::addImage()
 
 void InputImages::editLens()
 {
-    if (pano.hasCommonLens() && pano.getImages().size() > 0) {
-        LensDialog dialog(pano.getImages()[0]->getLens(),this,"Lens Settings",true);
+    if (pano.getNrOfLenses() > 0) {
+
+        LensDialog dialog(pano.getLens(0),this,"Lens Settings",true);
         if (dialog.exec() == QDialog::Accepted) {
             GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(pano,0,dialog.getLens())
                 );
         }
-    } else {
-        QListViewItem * item = imagesListView->selectedItem();
-        PanoImageLVItem * img = dynamic_cast<PanoImageLVItem *>(item);
-        if (img) {
-            LensDialog dialog(img->getImage().getLens(),this,"Lens Settings",true);
-            if (dialog.exec() == QDialog::Accepted) {
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd(pano, img->getNr(), dialog.getLens())
-                    );
-            }
-        }
     }
 }
 
-void InputImages::setCommonLens(bool common)
+void InputImages::updateView()
 {
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetCommonLensCmd(pano, common)
-        );
-}
-
-void InputImages::imageAdded(unsigned int img)
-{
-    new PanoImageLVItem(imagesListView, *pano.getImage(img));
-}
-
-
-void InputImages::imageRemoved(unsigned int img)
-{
-    qDebug("InputImages::imageRemoved(%d), %d items in listview",img, imagesListView->childCount());
-    QListViewItemIterator it( imagesListView );
-    Q_ASSERT(it.current());
-    for( ; it.current(); ++it) {
-        PanoImageLVItem * pitem = static_cast<PanoImageLVItem*>(it.current());
-        Q_ASSERT(pitem);
-        if (pitem->getNr() ==  img) {
-            delete pitem;
-        }
+    DEBUG_DEBUG("InputImages::updateView()")
+    // we don't know exaclty what has been changed..
+    // remove all listview items and readd them.
+    imagesListView->clear();
+    unsigned int n = pano.getNrOfImages();
+    for (unsigned int i = 0; i < n; i++) {
+        new PanoImageLVItem(imagesListView,pano,i);
     }
     imagesListView->triggerUpdate();
 }

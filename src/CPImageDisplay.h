@@ -27,6 +27,7 @@
 #include <vector>
 #include <qwidget.h>
 #include <qpoint.h>
+#include <qpixmap.h>
 
 namespace PT {
     class ControlPoint;
@@ -73,7 +74,7 @@ public:
     virtual ~CPImageDisplay();
 
     // FIXME use a lazy evaluation QPixmap here?
-    void setPixmap (const QPixmap * img);
+    void setPixmap (const QPixmap & img);
 
     /// control point inside this image
     void setCtrlPoints(const std::vector<QPoint> & points);
@@ -85,26 +86,26 @@ public:
 public slots:
     /// clear new point
     void clearNewPoint();
-    
+
     void selectPoint(unsigned int);
 
-    
+
 signals:
     /// emited whenever a point is selected
     void pointSelected(unsigned int);
 
     /// when a point is moved (mouse button released)
     void pointChanged(unsigned int, QPoint);
-    
+
     /// during the point movement, can be used to track
     void pointMoved(unsigned int, QPoint);
 
     /// whenever a possible new point was created or moved(mouse button released)
     void newPointChanged(QPoint);
-    
+
     /// track the new points movement
     void newPointMoved(QPoint);
-    
+
     /// whenever a region was selected
     void regionSelected(QRect);
     // emited whenever the window has been scrolled..
@@ -112,7 +113,7 @@ signals:
 
 
 protected:
-    
+
     int scale(int p) const
         { return (int)(p * scaleFactor + 0.5); }
     int invScale(int p) const
@@ -122,9 +123,13 @@ protected:
     void mouseMoveEvent (QMouseEvent *);
     void mousePressEvent (QMouseEvent *);
     void mouseReleaseEvent (QMouseEvent *);
+
+    // draw a control point
+    void drawPoint(QPainter & p, const QPoint & point, const QColor & color) const;
+
 private:
 
-    const QPixmap * pixmap;
+    QPixmap pixmap;
     std::vector<QPoint> points;
 
     // this is only valid during MOVE_POINT
@@ -138,12 +143,12 @@ private:
     QRect region;
     // state of widget (selection modes etc)
     // select region can also be used to just click...
-    
+
     /**  state machine for selection process:
      *
      *   states:
      *    - NO_SELECTION nothing selected
-     *        - KNOWN_POINT_SELECTED 
+     *        - KNOWN_POINT_SELECTED
      *          - mouse down on known point
      *          - set from outside
      *        - NEW_POINT_SELECTED
@@ -174,15 +179,17 @@ private:
      *          - programatic change
      *        - REGION
      *          - mouse down on free space
-     *     
+     *
      */
     enum EditorState {NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION};
     EditorState editState;
-    
+
     // colors for the different points
     std::vector<QColor> pointColors;
     double scaleFactor;
-    
+
+    /// check if p is over a known point, if it is, pointNr contains
+    /// the point
     EditorState isOccupied(const QPoint &p, unsigned int & pointNr) const;
 
 };

@@ -27,6 +27,8 @@
 #include <vector>
 #include <qlistview.h>
 
+#include "Panorama/Panorama.h"
+
 namespace PT {
     class ControlPoint;
     class Panorama;
@@ -35,19 +37,24 @@ namespace PT {
 class CtrlPointLVItem : public QListViewItem
 {
 public:
-    CtrlPointLVItem(PT::ControlPoint * point, QListView * parent)
+    CtrlPointLVItem(const PT::ControlPoint & point, unsigned int nr,
+                    QListView * parent)
         : QListViewItem(parent),
-          cp(point)
+          cp(point), pNr(nr)
         { };
-
+    // to enable rtti on this class
+    virtual ~CtrlPointLVItem();
     // return right text
     QString text(int column) const;
-    PT::ControlPoint * getPoint()
+    const PT::ControlPoint & getPoint()
         { return cp; };
-
+    unsigned int getPointNr()
+        { return pNr; }
 
 private:
-    PT::ControlPoint * cp;
+    PT::ControlPoint  cp;
+    // global point nr.
+    unsigned int pNr;
 };
 
 
@@ -70,12 +77,24 @@ public:
      */
     virtual ~CPListView();
 
-    void setPoints(std::vector<PT::ControlPoint *> & points);
+//    void setPoints(const std::vector<PT::ControlPoint> & points);
+    void setPoints(const std::vector<std::pair<unsigned int, PT::ControlPoint> > & points);
+    
+    // returns the selected point
+    bool getSelectedPoint(unsigned int & pNr);
 
 public slots:
-    void addPoint(unsigned int point);
-    void removePoint(unsigned int point);
-    void selectPoint(PT::ControlPoint * point);
+//    void removePoint(unsigned int point);
+    void selectPoint(unsigned int point);
+
+signals:
+    /// returns the (global) point nr of the selected point
+    void selectedPoint(unsigned int point);
+
+protected slots:
+
+    void forwardSelection(QListViewItem * item);
+
 
 private:
     PT::Panorama & pano;

@@ -26,9 +26,10 @@
 
 #include <qpushbutton.h>
 
-#include "OptimizerVarWidget.h"
-
+#include "CommandHistory.h"
+#include "Panorama/PanoCommand.h"
 #include "Panorama/Panorama.h"
+#include "OptimizerVarWidget.h"
 
 using namespace PT;
 
@@ -36,7 +37,6 @@ OptimizerVarWidget::OptimizerVarWidget(PT::Panorama & p, QWidget* parent, const 
     : OptimizerVarBaseWidget(parent, name, fl),
       pano(p)
 {
-    connect(&pano, SIGNAL(stateChanged()), this, SLOT(updateVariables()));
     connect(optimizeButton, SIGNAL(clicked()), this, SLOT(optimize()));
     connect(varTable,SIGNAL(valueChanged(int, int)), this, SLOT(setChanges(int,int)));
 }
@@ -46,49 +46,54 @@ OptimizerVarWidget::~OptimizerVarWidget()
 
 }
 
-void OptimizerVarWidget::updateRow(unsigned int row, PanoImage * img)
+void OptimizerVarWidget::updateRow(unsigned int imgNr)
 {
+    assert(varTable);
+    assert(optset.size() > imgNr);
     for (int col=0; col<9; col++) {
-        QCheckTableItem * item = dynamic_cast<QCheckTableItem*>( varTable->item(row,col));
+        QTableItem *aitem = varTable->item(imgNr, col);
+        assert(aitem);
+        QCheckTableItem * item = (QCheckTableItem*)(aitem);
         if (item == 0) {
-            qFatal("wrong table item at %d,%d",row,col);
+            qFatal("wrong table item at %d,%d",imgNr,col);
         } else {
             switch (col) {
             case 0:
-                item->setText(QString::number(img->getPosition().yaw));
-                item->setChecked(img->getOptions().optimizeYaw);
+                item->setText(QString::number(pano.getVariable(imgNr).yaw.getValue()));
+                item->setChecked(true);
+                item->setChecked(optset[imgNr].yaw);
                 break;
             case 1:
-                item->setText(QString::number(img->getPosition().pitch));
-                item->setChecked(img->getOptions().optimizePitch);
+                item->setText(QString::number(pano.getVariable(imgNr).pitch.getValue()));
+                item->setChecked(optset[imgNr].pitch);
                 break;
             case 2:
-                item->setText(QString::number(img->getPosition().roll));
-                item->setChecked(img->getOptions().optimizeRoll);
+                item->setText(QString::number(pano.getVariable(imgNr).roll.getValue()));
+                item->setChecked(optset[imgNr].roll);
                 break;
             case 3:
-                item->setText(QString::number(img->getLens().HFOV));
-                item->setChecked(img->getOptions().optimizeFOV);
+                item->setText(QString::number(pano.getVariable(imgNr).HFOV.getValue()));
+                item->setChecked(optset[imgNr].HFOV);
                 break;
             case 4:
-                item->setText(QString::number(img->getLens().a));
-                item->setChecked(img->getOptions().optimizeA);
+                item->setText(QString::number(pano.getVariable(imgNr).a.getValue()));
+                item->setChecked(optset[imgNr].a);
                 break;
             case 5:
-                item->setText(QString::number(img->getLens().b));
-                item->setChecked(img->getOptions().optimizeB);
+                item->setText(QString::number(pano.getVariable(imgNr).b.getValue()));
+                item->setChecked(optset[imgNr].b);
                 break;
             case 6:
-                item->setText(QString::number(img->getLens().c));
-                item->setChecked(img->getOptions().optimizeC);
+                item->setText(QString::number(pano.getVariable(imgNr).c.getValue()));
+                item->setChecked(optset[imgNr].c);
                 break;
             case 7:
-                item->setText(QString::number(img->getLens().d));
-                item->setChecked(img->getOptions().optimizeD);
+                item->setText(QString::number(pano.getVariable(imgNr).d.getValue()));
+                item->setChecked(optset[imgNr].d);
                 break;
             case 8:
-                item->setText(QString::number(img->getLens().e));
-                item->setChecked(img->getOptions().optimizeE);
+                item->setText(QString::number(pano.getVariable(imgNr).e.getValue()));
+                item->setChecked(optset[imgNr].e);
                 break;
             default:
                 qFatal("Unknown col");
@@ -98,25 +103,18 @@ void OptimizerVarWidget::updateRow(unsigned int row, PanoImage * img)
 }
 
 
-void OptimizerVarWidget::updateVariables()
+void OptimizerVarWidget::updateView()
 {
-    unsigned int images = pano.getNrImages();
-    unsigned int rows = varTable->numRows();
-    if (rows < images ) {
-        varTable->setNumRows(images);
-        for (unsigned int row=rows; row < images; row++) {
-            for (unsigned int col=0; col<9; col++) {
-                QCheckTableItem * item =  new QCheckTableItem( varTable, "" );
-                varTable->setItem( row, col, item);
-            }
+    qDebug("OptimizerWidget: updateView");
+    unsigned int images = pano.getNrOfImages();
+    varTable->setNumRows(images);
+    optset.resize(images);
+    for (unsigned int row=0; row < images; row++) {
+        for (unsigned int col=0; col<9; col++) {
+            QCheckTableItem * item =  new QCheckTableItem( varTable, "" );
+            varTable->setItem( row, col, item);
         }
-    } else if (rows > images) {
-        varTable->setNumRows(images);
-    }
-
-    for (unsigned int i=0; i<images; i++) {
-        PanoImage * img = pano.getImage(i);
-        updateRow(i,img);
+        updateRow(row);
     }
 
     for(unsigned int col=0; col < 9; col++) {
@@ -127,16 +125,18 @@ void OptimizerVarWidget::updateVariables()
 
 void OptimizerVarWidget::optimize()
 {
-    pano.optimize();
+    PanoramaOptions opts;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::OptimizeCmd(pano, optset, opts)
+        );
 }
 
 void OptimizerVarWidget::setChanges(int row, int col)
 {
-    qDebug("%d, %d changed", row, col);
-    PanoImage * img = pano.getImage(row);
-    ImageOptions opt = img->getOptions();
-
-    QCheckTableItem * item = dynamic_cast<QCheckTableItem*>( varTable->item(row,col));
+    DEBUG_TRACE("setChanges(" << row <<","<< col);
+    QTableItem *aitem = varTable->item(row, col);
+    assert(aitem);
+    QCheckTableItem * item = (QCheckTableItem*)(aitem);
     if (item == 0) {
         qFatal("wrong table item at %d,%d",row,col);
         return;
@@ -144,34 +144,33 @@ void OptimizerVarWidget::setChanges(int row, int col)
     bool checked = item->isChecked();
     switch (col) {
     case 0:
-        opt.optimizeYaw = checked;
+        optset[row].yaw = checked;
         break;
     case 1:
-        opt.optimizePitch = checked;
+        optset[row].pitch = checked;
         break;
     case 2:
-        opt.optimizeRoll = checked;
+        optset[row].roll = checked;
         break;
     case 3:
-        opt.optimizeFOV = checked;
+        optset[row].HFOV = checked;
         break;
     case 4:
-        opt.optimizeA = checked;
+        optset[row].a = checked;
         break;
     case 5:
-        opt.optimizeB = checked;
+        optset[row].b = checked;
         break;
     case 6:
-        opt.optimizeC = checked;
+        optset[row].c = checked;
         break;
     case 7:
-        opt.optimizeD = checked;
+        optset[row].d = checked;
         break;
     case 8:
-        opt.optimizeE = checked;
+        optset[row].e = checked;
         break;
     default:
         qFatal("Unknown col");
     }
-    img->setOptions(opt);
 }

@@ -33,7 +33,7 @@ using namespace std;
 
 CPImageDisplay::CPImageDisplay(QWidget* parent, const char* name, WFlags fl)
     : QWidget(parent, name, fl),
-      pixmap(0), 
+      pixmap(0),
       drawNewPoint(false),
       editState(NO_SELECTION),
       scaleFactor(1.0)
@@ -54,15 +54,11 @@ CPImageDisplay::~CPImageDisplay()
 {
 }
 
-void CPImageDisplay::setPixmap (const QPixmap * img)
+void CPImageDisplay::setPixmap (const QPixmap & img)
 {
     pixmap = img;
-    if (pixmap) {
-//        setFixedSize(pixmap->size());
-        setMinimumSize(pixmap->size());
-//        setMaximumSize(pixmap->size());
-        resize(pixmap->size());
-    }
+    setMinimumSize(pixmap.size());
+    resize(pixmap.size());
     updateGeometry();
 //    update();
 }
@@ -74,20 +70,12 @@ QSizePolicy CPImageDisplay::sizePolicy() const
 
 QSize CPImageDisplay::minimumSizeHint () const
 {
-    if (pixmap) {
-        return QSize(scale(pixmap->size().width()), scale(pixmap->size().height()));
-    } else {
-        return QSize();
-    }
+    return QSize(scale(pixmap.size().width()), scale(pixmap.size().height()));
 }
 
 QSize CPImageDisplay::sizeHint () const
 {
-    if (pixmap) {
-        return QSize(scale(pixmap->size().width()), scale(pixmap->size().height()));
-    } else {
-        return QSize();
-    }
+    return QSize(scale(pixmap.size().width()), scale(pixmap.size().height()));
 }
 
 
@@ -95,35 +83,25 @@ QSize CPImageDisplay::sizeHint () const
 void CPImageDisplay::paintEvent( QPaintEvent * event)
 {
     QPainter p( this );
-    if (pixmap) {
-        p.save();
-        if (scaleFactor != 1.0) {
-            p.scale(scaleFactor, scaleFactor);
-        }
-        // draw image here (FIXME, redraw only visible regions.)
-        p.drawPixmap(0, 0, *pixmap);
-        p.restore();
-    } else {
-        p.eraseRect(event->rect());
+    p.save();
+    if (scaleFactor != 1.0) {
+        p.scale(scaleFactor, scaleFactor);
     }
+    // draw image here (FIXME, redraw only visible regions.)
+    p.drawPixmap(0, 0, pixmap);
+    p.restore();
     // draw known points.
     int i=0;
     vector<QPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        p.setPen(QPen(black,1));
-        p.setBrush(QBrush(pointColors[i%pointColors.size()]));
-        p.drawEllipse( scale(it->x()) - 4,
-                       scale(it->y()) - 4,
-                       9, 9 );
+        drawPoint(p,*it,pointColors[i%pointColors.size()]);
         i++;
     }
-    
+
     if (drawNewPoint) {
-        qDebug("Drawing create_point");
-        p.setBrush(QBrush(yellow));
-        p.drawEllipse( scale(newPoint.x()) -4, scale(newPoint.y())-4, 9,9 );
+        drawPoint(p, newPoint, yellow);
     }
-    
+
     switch(editState) {
     case SELECT_REGION:
         p.setRasterOp(XorROP);
@@ -141,6 +119,19 @@ void CPImageDisplay::paintEvent( QPaintEvent * event)
     }
 }
 
+void CPImageDisplay::drawPoint(QPainter & p, const QPoint & point, const QColor & color) const
+{
+    p.setPen(QPen(white,1));
+    p.setBrush(QBrush(gray));
+    p.drawEllipse( scale(point.x()) - 5,
+                   scale(point.y()) - 5,
+                   11, 11 );
+    p.setPen(QPen(black,1));
+    p.setBrush(QBrush(color));
+    p.drawEllipse( scale(point.x()) - 4,
+                   scale(point.y()) - 4,
+                   9, 9 );
+}
 
 void CPImageDisplay::setCtrlPoints(const std::vector<QPoint> & cps)
 {
@@ -162,20 +153,20 @@ void CPImageDisplay::mouseMoveEvent(QMouseEvent *mouse)
             Q_ASSERT(0);
             break;
         case KNOWN_POINT_SELECTED:
-            if (mpos.x() >= 0 && mpos.x() <= pixmap->width()){
+            if (mpos.x() >= 0 && mpos.x() <= pixmap.width()){
                 points[selectedPointNr].setX(mpos.x());
             } else if (mpos.x() < 0) {
                 points[selectedPointNr].setX(0);
-            } else if (mpos.x() > pixmap->width()) {
-                points[selectedPointNr].setX(pixmap->width());
+            } else if (mpos.x() > pixmap.width()) {
+                points[selectedPointNr].setX(pixmap.width());
             }
-            
-            if (mpos.y() >= 0 && mpos.y() <= pixmap->height()){
+
+            if (mpos.y() >= 0 && mpos.y() <= pixmap.height()){
                 points[selectedPointNr].setY(mpos.y());
             } else if (mpos.y() < 0) {
                 points[selectedPointNr].setY(0);
-            } else if (mpos.y() > pixmap->height()) {
-                points[selectedPointNr].setY(pixmap->height());
+            } else if (mpos.y() > pixmap.height()) {
+                points[selectedPointNr].setY(pixmap.height());
             }
             emit(pointMoved(selectedPointNr, points[selectedPointNr]));
             // do more intelligent updating here?
@@ -275,7 +266,7 @@ void CPImageDisplay::clearNewPoint()
 CPImageDisplay::EditorState CPImageDisplay::isOccupied(const QPoint &mpos, unsigned int & pointNr) const
 {
     // check if mouse is over a known point
-    EditorState ret;
+//    EditorState ret;
     vector<QPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (mpos.x() < it->x() + 4 &&
@@ -301,12 +292,12 @@ CPImageDisplay::EditorState CPImageDisplay::isOccupied(const QPoint &mpos, unsig
         return SELECT_REGION;
     }
 }
-    
-    
+
+
 
 void CPImageDisplay::selectPoint(unsigned int nr)
 {
     Q_ASSERT(nr < points.size());
-    
+
     selectedPointNr = nr;
 }

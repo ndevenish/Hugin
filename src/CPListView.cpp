@@ -30,41 +30,50 @@
 
 using namespace PT;
 
+
+CtrlPointLVItem::~CtrlPointLVItem()
+{
+
+}
+
 QString CtrlPointLVItem::text(int column) const
 {
     switch (column) {
     case 0:
-        return QString::number(cp->image1->getNr());
+        return QString::number(pNr);
         break;
     case 1:
-        return QString::number(cp->x1);
+        return QString::number(cp.image1Nr);
         break;
     case 2:
-        return QString::number(cp->y1);
+        return QString::number(cp.x1);
         break;
     case 3:
-        return QString::number(cp->image2->getNr());
+        return QString::number(cp.y1);
         break;
     case 4:
-        return QString::number(cp->x2);
+        return QString::number(cp.image2Nr);
         break;
     case 5:
-        return QString::number(cp->y2);
+        return QString::number(cp.x2);
         break;
     case 6:
-        switch (cp->mode) {
+        return QString::number(cp.y2);
+        break;
+    case 7:
+        switch (cp.mode) {
         case PT::ControlPoint::X:
-            return QObject::tr("H");
+            return QObject::tr("V");
             break;
         case PT::ControlPoint::Y:
-            return QObject::tr("V");
+            return QObject::tr("H");
         case PT::ControlPoint::X_Y:
             return QObject::tr("H+V");
             break;
         }
         break;
-    case 7:
-        return QString::number(cp->error);
+    case 8:
+        return QString::number(cp.error);
         break;
     default:
         Q_ASSERT(0);
@@ -79,6 +88,7 @@ CPListView::CPListView(PT::Panorama & pano, QWidget* parent,
     : QListView(parent, name, fl),
       pano(pano)
 {
+    addColumn(tr("Nr"));
     addColumn(tr("Image"));
     addColumn(tr("x"));
     addColumn(tr("y"));
@@ -88,15 +98,10 @@ CPListView::CPListView(PT::Panorama & pano, QWidget* parent,
     addColumn(tr("Alignment"));
     addColumn(tr("Distance"));
 
-    // left to the user.
-//      connect(&pano, SIGNAL(ctrlPointAdded(unsigned int)),
-//              this, SLOT(addPoint(unsigned int)));
-//      connect(&pano, SIGNAL(ctrlPointRemoved(unsigned int)),
-//              this, SLOT(removePoint(unsigned int)));
-    
-    // update  if the pano object is changed
-    connect( &pano, SIGNAL(stateChanged()),
-             this, SLOT(triggerUpdate()));
+    setSorting(0);
+    connect(this, SIGNAL(selectionChanged(QListViewItem *)),
+            this, SLOT(forwardSelection(QListViewItem *)));
+
 }
 
 
@@ -105,48 +110,62 @@ CPListView::~CPListView()
 
 }
 
-void CPListView::addPoint(unsigned int point)
+//void CPListView::setPoints(const std::vector<PT::ControlPoint> & points)
+void CPListView::setPoints(const std::vector<std::pair<unsigned int, PT::ControlPoint> > & points)
 {
-    new CtrlPointLVItem(pano.getControlPoint(point),this);
-//    triggerUpdate();
-}
-
-void CPListView::removePoint(unsigned int point)
-{
-    qDebug("ctrlPointLV::removePoint %d", point);
-    QListViewItemIterator it( this );
-    QListViewItem * item;
-    PT::ControlPoint * target = pano.getControlPoint(point);
-    while ((item = it.current())) {
-        CtrlPointLVItem * pitem = static_cast<CtrlPointLVItem*>(item);
-        if (pitem->getPoint() == target)
-            delete pitem;
-        ++it;
+    DEBUG_TRACE("setPoints()");
+    QListViewItem * selItem = QListView::selectedItem();
+    unsigned int oldSelPoint = 0;
+    if (selItem) {
+        CtrlPointLVItem * item = static_cast<CtrlPointLVItem *>(selItem);
+        oldSelPoint = item->getPointNr();
     }
-//    triggerUpdate();
-}
-
-
-
-void CPListView::setPoints(std::vector<PT::ControlPoint *> & points)
-{
     // remove all points
     clear();
-    for (std::vector<ControlPoint*>::const_iterator it = points.begin(); it != points.end(); ++it) {
-        new CtrlPointLVItem(*it, this);
+    for (std::vector<std::pair<unsigned int, ControlPoint> >::const_iterator it = points.begin(); it != points.end(); ++it) {
+        CtrlPointLVItem * item = new CtrlPointLVItem((*it).second, (*it).first, this);
+
+        if (selItem && (*it).first == oldSelPoint) {
+            DEBUG_DEBUG("restoring old selection");
+            setSelected(item,true);
+        }
     }
 }
 
-
-void CPListView::selectPoint(PT::ControlPoint * point)
+void CPListView::selectPoint(unsigned int pNr)
 {
-    qDebug("CPListView::selectPoint(%d)", point);
+    DEBUG_TRACE("selectPoint(" << pNr <<")");
     QListViewItemIterator it( this );
     QListViewItem * item;
     while ((item = it.current())) {
         CtrlPointLVItem * pitem = static_cast<CtrlPointLVItem*>(item);
-        if (pitem->getPoint() == point)
+        if (pitem->getPointNr() == pNr)
             setSelected(pitem, true);
         ++it;
+    }
+}
+
+
+
+void CPListView::forwardSelection(QListViewItem * qitem)
+{
+    assert(qitem);
+    // dynamic_cast crashes.. why?
+    CtrlPointLVItem * item = static_cast<CtrlPointLVItem *>(qitem);
+    assert(item);
+    DEBUG_TRACE("forwardSelection(), pointNr: " << item->getPointNr());
+    emit(selectedPoint(item->getPointNr()));
+}
+
+
+bool CPListView::getSelectedPoint(unsigned int & pNr)
+{
+    QListViewItem * selItem = QListView::selectedItem();
+    if (selItem) {
+        CtrlPointLVItem * item = static_cast<CtrlPointLVItem *>(selItem);
+        pNr = item->getPointNr();
+        return true;
+    } else {
+        return false;
     }
 }
