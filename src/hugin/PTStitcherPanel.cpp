@@ -274,7 +274,7 @@ void PTStitcherPanel::InterpolatorChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-    DEBUG_DEBUG ("Interpolator changed to: " << Ip )
+    DEBUG_DEBUG ("Interpolator changed to: " << Ip.mb_str() )
 }
 
 
@@ -312,7 +312,7 @@ void PTStitcherPanel::ColourModeChanged ( wxCommandEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO(text <<" with: " << refImage);
+    DEBUG_INFO(text.mb_str() << "(" << colorCorrection << ") with: " << refImage);
 }
 
 
@@ -324,6 +324,7 @@ void PTStitcherPanel::ColourModeChangedSpin ( wxSpinEvent & e )
     wxString text = m_ColorCorrModeChoice->GetString(colorCorrection);
 
     int refImage = m_ColorCorrRefSpin->GetValue();
+	DEBUG_INFO("old color correction mode:" << opt.colorCorrection);
     opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
     DEBUG_ASSERT(refImage >= 0 && refImage < (int)pano.getNrOfImages());
     opt.colorReferenceImage = (unsigned int) refImage;
@@ -332,7 +333,7 @@ void PTStitcherPanel::ColourModeChangedSpin ( wxSpinEvent & e )
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO(text <<" with: " << refImage);
+    DEBUG_INFO(text.mb_str() <<" with: " << refImage);
 }
 
 
@@ -459,16 +460,6 @@ void PTStitcherPanel::OnFeatherWidthChanged(wxSpinEvent & e)
 
 void PTStitcherPanel::FitParent( wxSizeEvent & e )
 {
-#if wxCHECK_VERSION(2,5,3)
-    wxSize size = GetClientSize();
-#else
-    wxSize size = GetSize();
-#endif
-    DEBUG_INFO( "after  layout:" << size.GetWidth() <<"x"<< size.GetHeight());
-    size = GetAdjustedBestSize();
-    DEBUG_INFO( "after  layout a:" << size.GetWidth() <<"x"<< size.GetHeight());
-    size = GetBestSize();
-    DEBUG_INFO( "after  layout b:" << size.GetWidth() <<"x"<< size.GetHeight());
     wxSize new_size = e.GetSize();
 //    this->SetSize(new_size);
 //    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );

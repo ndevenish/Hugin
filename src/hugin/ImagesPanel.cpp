@@ -331,11 +331,17 @@ void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
         // set first image to be the anchor
         PanoramaOptions opt = pano.getOptions();
         opt.colorReferenceImage = *(sel.begin());
-
+		// Set the color correction mode so that the anchor image is persisted
+		if (opt.colorCorrection == 0) {
+		  opt.colorCorrection = (PanoramaOptions::ColorCorrection) 1;
+		}
+		DEBUG_INFO("Color reference image is now: " << opt.colorReferenceImage);
+		DEBUG_INFO("Color correction mode : " << opt.colorCorrection);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )
             );
     }
+	
 }
 
 
