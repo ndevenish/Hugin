@@ -24,6 +24,8 @@
  *
  */
 
+//#define PT_CUSTOM_OPT
+
 #include <config.h>
 #include <fstream>
 
@@ -42,6 +44,8 @@ using namespace utils;
 
 namespace PTools {
 
+#ifdef PT_CUSTOM_OPT
+    
 struct MLOptFuncData
 {
     MultiProgressDisplay * progDisp;
@@ -341,7 +345,10 @@ int * iflag
     return 0;
 }
 
-}
+
+# endif
+
+} // namespace
 
 void PTools::optimize(const Panorama & pano,
                       const PT::UIntVector &imgs,
@@ -358,7 +365,7 @@ void PTools::optimize(const Panorama & pano,
 
     SetAdjustDefaults(&aP);
     AlignInfoWrap aInfo;
-    // set the information
+    // copy pano information int libpano data structures
     if (aInfo.setInfo(pano, imgs, vars, cps, optvec)) {
         aInfo.setGlobal();
 
@@ -369,67 +376,25 @@ void PTools::optimize(const Panorama & pano,
         opt.fcn			= aInfo.gl.fcn;
         *opt.message		= 0;
 
-        optdata.progDisp = &progDisplay;
-        optdata.terminate = false;
-        optdata.maxIter = maxIter;
-        optdata.g = & aInfo.gl;
-
         DEBUG_DEBUG("starting optimizer");
         RunLMOptimizer( &opt );
-        DEBUG_DEBUG("optimizer finished");
+        std::ostringstream oss;
+        oss << "optimizing images";
+        for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
+            if (it + 1 != imgs.end()) {
+                oss << *it << ",";
+            } else {
+                oss << *it;
+            }
+        }
+        oss << "\n" << opt.message;
+        progDisplay.setMessage(oss.str());
+        DEBUG_DEBUG("optimizer finished:" << opt.message);
 
         vars = aInfo.getVariables();
         cps = aInfo.getCtrlPoints();
     }
 }
-
-#if 0
-VariableMap PTools::optimisePair(Panorama & pano,
-                                 const OptimizeVector & optvec,
-                                 unsigned int firstImg,
-                                 unsigned int secondImg,
-                                 utils::MultiProgressDisplay & progDisp)
-{
-    VariableMapVector res;
-    // setup data structures
-    aPrefs    aP;
-    OptInfo   opt;
-
-    SetAdjustDefaults(&aP);
-
-    AlignInfoWrap aInfo;
-
-    UIntVector imgs(2);
-    imgs[0] = firstImg;
-    imgs[1] = secondImg;
-
-    // set the information
-    if (aInfo.setInfo(pano,imgs, optvec)) {
-        aInfo.setGlobal();
-
-        opt.numVars 		= aInfo.gl.numParam;
-        opt.numData 		= aInfo.gl.numPts;
-        opt.SetVarsToX		= SetLMParams;
-        opt.SetXToVars		= SetAlignParams;
-        opt.fcn			= aInfo.gl.fcn;
-        *opt.message		= 0;
-
-        optdata.progDisp = &progDisp;
-        optdata.terminate = false;
-        optdata.maxIter = -1;
-        optdata.g = & aInfo.gl;
-
-        DEBUG_DEBUG("starting optimizer for images " << firstImg << " and " << secondImg);
-        RunLMOptimizer( &opt );
-        DEBUG_DEBUG("optimizer finished");
-
-        res = aInfo.getVariables();
-    }
-
-    // return optimized variables of secondImg
-    return res[1];
-}
-#endif
 
 /** autooptimise the panorama (does local optimisation first) */
 PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
@@ -442,6 +407,7 @@ PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
     CPGraph graph;
     createCPGraph(pano,graph);
 
+    
 #if DEBUG
     {
         ofstream gfile("cp_graph.dot");
@@ -459,28 +425,26 @@ PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
     PTools::OptimiseVisitor optVisitor(pano, optvars, vars, cps, progDisp);
 
     boost::queue<boost::graph_traits<CPGraph>::vertex_descriptor> qu;
+    progDisp.pushTask(utils::ProgressTask("", "",0));
     boost::breadth_first_search(graph, startImg,
                                 color_map(get(vertex_color, graph)).
                                 visitor(optVisitor));
     // iterate over all image combinations.
 
-    // do a global optimisation run
-    // set sensible default options
-    OptimizeVector goptvec(nImg);
-    UIntVector imgs(nImg);
-    // fill optimize vector, just anchor one image.
-    for (unsigned int im=1; im<nImg; im++) {
-        imgs[im] = im;
-        if (im != startImg) {
-            goptvec[im] = optvars;
-        }
-    }
-    // run global optimisation
-    optimize(pano, imgs, goptvec, vars, cps, progDisp, 1000);
+    progDisp.popTask();
     return vars;
 }
 
+
+void test__()
+    {
+        
+    }
+
+#ifdef PT_CUSTOM_OPT
 void PTools::stopOptimiser()
 {
     optdata.terminate = true;
 }
+#endif
+

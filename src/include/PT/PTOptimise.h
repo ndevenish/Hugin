@@ -37,9 +37,12 @@
 namespace PTools
 {
 
+#ifdef PT_CUSTOM_OPT
+
 // my optimize function, without pano tools gui hooks.
 int fcnPano2(int m,int n, double * x, double * fvec, int * iflag);
 
+#endif
 
 /** optimize the images \p imgs, for variables \p optvec, using \p vars
  *  as start. saves the control point distances in \p cps.
@@ -117,11 +120,9 @@ public:
 
         if ( imgs.size() > 1) {
             DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
-            std::ostringstream oss;
-            oss << "optimizing image " << v;
-            m_progDisp.pushTask(utils::ProgressTask(oss.str(), "",0));
+
+            
             optimize(m_pano, imgs, optvec, vars, m_cps, m_progDisp, 1000);
-            m_progDisp.popTask();
             m_optVars[v] = vars[0];
 #ifdef DEBUG
             std::cerr << "after optim " << v << " : ";
@@ -163,13 +164,14 @@ PT::VariableMapVector autoOptimise(const PT::Panorama & pano,
                                    PT::CPVector & cps,
                                    utils::MultiProgressDisplay & progDisp);
 
+#ifdef PT_CUSTOM_OPT
 /** can be used to stop the optimiser */
 void stopOptimiser();
 
 // utility function, needed by PanoToolsInterface
 double distSphere( int num );
 double distSquared( int num );
-
+#endif
 
 } // namespace
 

@@ -388,16 +388,18 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaO
     int mode = m_mode_cb->GetSelection();
     if (mode == OPT_PAIRWISE) {
         OptProgressDialog prog(this);
-        std::set<std::string> optvars;
-        optvars.insert("y");
-        optvars.insert("p");
-        optvars.insert("r");
+        std::set<std::string> optvars2;
+        optvars2.insert("y");
+        optvars2.insert("p");
+        optvars2.insert("r");
         CPVector cps = m_pano->getCtrlPoints();
-        VariableMapVector vars = PTools::autoOptimise(*m_pano, optvars, cps, prog);
-        // FIXME. ask user here!
+        VariableMapVector vars = PTools::autoOptimise(*m_pano, optvars2, cps, prog);
         GlobalCmdHist::getInstance().addCommand(
             new PT::UpdateVariablesCPCmd(*m_pano, vars, cps)
             );
+        // run the usual optimizer afterwards.
+        bool edit = m_edit_cb->IsChecked();
+        new RunOptimizerFrame(this, m_pano, options, optvars, edit);
     } else {
         bool edit = m_edit_cb->IsChecked();
         new RunOptimizerFrame(this, m_pano, options, optvars, edit);
