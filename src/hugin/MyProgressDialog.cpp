@@ -32,6 +32,9 @@
 
 #include "PT/PTOptimise.h"
 
+// So that the translation is captured
+#define ELAPSED_TIME _("Elapsed time : ")
+
 void MyProgressDialog::updateProgressDisplay()
 {
     wxString msg;
@@ -42,12 +45,13 @@ void MyProgressDialog::updateProgressDisplay()
         wxString cMsg;
         if (it->getProgress() > 0) {
             cMsg.Printf(wxT("%s: %s [%3.0f%%]\n"),
-                        it->getShortMessage().c_str(),
-                        it->getMessage().c_str(),
+                        wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str(),
                         100 * it->getProgress());
         } else {
-            cMsg.Printf(wxT("%s %s\n"),it->getShortMessage().c_str(),
-                        it->getMessage().c_str());
+            cMsg.Printf(wxT("%s %s\n"),
+	                wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
         }
         // append to main message
         msg.Append(cMsg);

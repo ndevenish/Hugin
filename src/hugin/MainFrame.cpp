@@ -250,6 +250,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
                                           &pano);
 
+    wxYield();
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_panel_unknown"),
                images_panel );
@@ -264,6 +265,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // the lens_panel, see as well images_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
                                 wxDefaultSize, &pano);
+    wxYield();
     // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("lens_panel_unknown"),
@@ -278,6 +280,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
        wxT("panorama_panel_unknown"),
        pano_panel);
 
+    wxYield();
     pano_panel->panoramaChanged (pano); // initialize from pano
 
     // create the custom widget referenced by the main_frame XRC
@@ -931,7 +934,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     {
     MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
     
-    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning"), *wxConvCurrent).mb_str(),"",1.0/unoptimized.size()));
+    pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(),"",1.0/unoptimized.size()));
 
     // do not process the control points in random order,
     // but walk from image to image, to reduce image reloading
@@ -1060,12 +1063,12 @@ void MainFrame::updateProgressDisplay()
         wxString cMsg;
         if (it->getProgress() > 0) {
             cMsg.Printf(wxT("%s %s [%3.0f%%]"),
-                        it->getShortMessage().c_str(),
-                        it->getMessage().c_str(),
+                        wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str(),
                         100 * it->getProgress());
         } else {
-            cMsg.Printf(wxT("%s %s"),it->getShortMessage().c_str(),
-                        it->getMessage().c_str());
+            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
         }
         // append to main message
         if (it == tasks.begin()) {
@@ -1075,8 +1078,10 @@ void MainFrame::updateProgressDisplay()
             msg.Append(cMsg);
         }
     }
-    SetStatusText(msg,0);
-//    wxYield();
+    wxStatusBar *m_statbar = GetStatusBar();
+    DEBUG_TRACE("Statusmb : " << msg.mb_str());
+    m_statbar->SetStatusText(msg,0);
+    wxYield();
 }
 
 

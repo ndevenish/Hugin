@@ -138,7 +138,7 @@ public:
                 for (unsigned int i = 0; i < nImg; i++) {
                     wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
                     while (! fname.FileExists()){
-                        wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), wxT("Image file not found"));
+                        wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), _("Image file not found"));
 
                         if (basedir == wxT("")) {
                             basedir = fname.GetPath();
