@@ -26,6 +26,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 // misc utility functions / macros
 
@@ -55,6 +56,26 @@
 namespace utils
 {
     std::string CurrentTime();
+    
+    template <typename Target, typename Source> 
+    Target lexical_cast(Source arg) {
+
+        std::stringstream interpreter;
+
+        Target result;
+
+        if (!(interpreter << arg) ||
+            !(interpreter >> result) ||
+            !(interpreter >> std::ws).eof()) {
+            DEBUG_ERROR("lexical cast error");
+            // cast error.  handle it somehow
+            // boost guys throw an exception here
+        };
+
+        return result;
+
+    }; // lexical cast
+
 } // namespace
 
 
