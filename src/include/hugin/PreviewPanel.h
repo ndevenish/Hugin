@@ -24,8 +24,12 @@
 #ifndef _PREVIEWPANEL_H
 #define _PREVIEWPANEL_H
 
+#include <vector>
+
 #include "wx/frame.h"
 #include "wx/dnd.h"
+
+#include <PT/ImageTransforms.h>
 
 class wxImage;
 
@@ -35,6 +39,8 @@ class wxImage;
  */
 class PreviewPanel : public wxPanel, public PT::PanoramaObserver
 {
+    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> RemappedImage;
+    typedef std::vector<RemappedImage *> RemappedVector;
 public:
 
     /** ctor.
@@ -68,7 +74,7 @@ private:
     // remaps the images, called automatically if autopreview is enabled.
     void updatePreview();
 
-    void mapPreviewImage(wxImage & dest, int imgNr);
+    void mapPreviewImage(unsigned int imgNr);
 
     /** recalculate panorama to fit the panel */
     void OnResize(wxSizeEvent & e);
@@ -82,15 +88,13 @@ private:
 
     bool m_autoPreview;
 
-    wxSize m_panoImgSize;
+    vigra::Diff2D m_panoImgSize;
 
     PT::UIntSet m_displayedImages;
-    
-    // outlines of all images
-    std::vector<std::vector<FDiff2D> > m_outlines;
 
-    // a single image, we just show the first picture (layer) for now
-    std::vector<wxBitmap *> m_remappedBitmaps;
+    RemappedVector m_remapped;
+    wxBitmap * m_panoBitmap;
+
     PT::UIntSet m_dirtyImgs;
 
     // panorama options
