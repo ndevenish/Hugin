@@ -170,7 +170,7 @@ msgstr "&Editieren"
 
 #: ../ptopengui.cpp:117
 msgid "&View"
-msgstr "Ansicht"
+msgstr "&Ansicht"
 
 #: ../ptopengui.cpp:118
 msgid "&Options"
