@@ -43,6 +43,7 @@ using namespace PT::TRANSFORM;
 using namespace std;
 using namespace PTools;
 using namespace vigra;
+using namespace utils;
 
 BEGIN_EVENT_TABLE(ImageOrientationPanel, wxPanel)
     EVT_SIZE(ImageOrientationPanel::OnResize)
@@ -223,10 +224,10 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
 //            DEBUG_DEBUG("line point "<< i << ":" << pos.x << ", " << pos.y);
             if (fabs(pos.x) < 32000 && fabs(pos.y) < 32000 &&
                 fabs(old_pos.x) < 32000 && fabs(pos.y) < 32000) {
-                dc.DrawLine((int) round(m_offsetX + (old_pos.x * m_scaleFactor)),
-                            (int) round(m_offsetY + (old_pos.y * m_scaleFactor)),
-                            (int) round(m_offsetX + (pos.x * m_scaleFactor)),
-                            (int) round(m_offsetY + (pos.y * m_scaleFactor)));
+                dc.DrawLine(roundi(m_offsetX + (old_pos.x * m_scaleFactor)),
+                            roundi(m_offsetY + (old_pos.y * m_scaleFactor)),
+                            roundi(m_offsetX + (pos.x * m_scaleFactor)),
+                            roundi(m_offsetY + (pos.y * m_scaleFactor)));
             } else {
                 DEBUG_DEBUG("discarting point, too far outside");
             }
@@ -248,10 +249,10 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
             m_transform.transform(pos,pos);
             m_tCartToImg(pos,pos);
 //            DEBUG_DEBUG("line point "<< i << ":" << pos.x << ", " << pos.y);
-            dc.DrawLine((int) round(m_offsetX + (old_pos.x * m_scaleFactor)),
-                        (int) round(m_offsetY + (old_pos.y * m_scaleFactor)),
-                        (int) round(m_offsetX + (pos.x * m_scaleFactor)),
-                        (int) round(m_offsetY + (pos.y * m_scaleFactor)));
+            dc.DrawLine(roundi(m_offsetX + (old_pos.x * m_scaleFactor)),
+                        roundi(m_offsetY + (old_pos.y * m_scaleFactor)),
+                        roundi(m_offsetX + (pos.x * m_scaleFactor)),
+                        roundi(m_offsetY + (pos.y * m_scaleFactor)));
             old_pos = pos;
         }
     }

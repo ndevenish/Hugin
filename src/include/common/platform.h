@@ -1,5 +1,8 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ImageGraph.h
+/** @file platform.h
+ *
+ *
+ *  platform/compiler specific stuff.
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -21,32 +24,31 @@
  *
  */
 
-#ifndef _IMAGEGRAPH_H
-#define _IMAGEGRAPH_H
+#ifndef HUGIN_PLATFORM_H
+#define HUGIN_PLATFORM_H
 
-#include <PT/Panorama.h>
-#include <boost/graph/graph_traits.hpp>
-#include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/properties.hpp>
-namespace PT
+#include <math.h>
+
+namespace utils
 {
+    
+inline double round(double x) 
+{
+    return floor(x+0.5);
+}
+    
+inline float roundf(float x) 
+{
+    return floorf(x+0.5f);
+}
 
-/** graph of images, connected with control points.
- *
- *  verticies: images, links: controlpoints
- *
- */
-typedef boost::adjacency_list<boost::vecS, boost::vecS,
-                              boost::undirectedS,
-                              boost::property<boost::vertex_color_t, boost::default_color_type> > CPGraph;
+inline int roundi(double x) 
+{
+    return (int) floor(x+0.5);
+}
 
-/** create a control point graph structure, with links representing one or
- *  more control points
- *
- */
-void createCPGraph(const Panorama & pano, CPGraph & graph);
+};
 
 
-} // namespace
 
-#endif // _IMAGEGRAPH_H
+#endif // HUGIN_PLATFORM_H

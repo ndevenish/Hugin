@@ -39,6 +39,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/MainFrame.h"
+#include "hugin/MyProgressDialog.h"
 
 using namespace std;
 using namespace PT;
@@ -338,11 +339,17 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaO
     // apply the results
     int mode = m_mode_cb->GetSelection();
     if (mode == OPT_PAIRWISE) {
-        VariableMapVector vars = PTools::autoOptimise(*m_pano, *(MainFrame::Get()));
+        OptProgressDialog prog(this);
+        std::set<std::string> optvars;
+        optvars.insert("y");
+        optvars.insert("p");
+        optvars.insert("r");
+        CPVector cps = m_pano->getCtrlPoints();
+        VariableMapVector vars = PTools::autoOptimise(*m_pano, optvars, cps, prog);
+        // FIXME. ask user here!
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateVariablesCmd(*m_pano, vars)
+            new PT::UpdateVariablesCPCmd(*m_pano, vars, cps)
             );
-        
     } else {
         bool edit = m_edit_cb->IsChecked();
         new RunOptimizerFrame(this, m_pano, options, optvars, edit);

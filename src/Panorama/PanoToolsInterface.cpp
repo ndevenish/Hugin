@@ -546,6 +546,8 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
 
 void PTools::setOptVars(optVars & opt, const std::set<std::string> & optvars)
 {
+    // FIXME: BUG does not support linked variables!!!!
+    // set the optimisation value to img+2, if it is linked to img...
     opt.hfov    = set_contains(optvars,"v") ? 1 : 0;
     opt.yaw     = set_contains(optvars,"y") ? 1 : 0;
     opt.pitch   = set_contains(optvars,"p") ? 1 : 0;
@@ -591,7 +593,9 @@ PTools::AlignInfoWrap::~AlignInfoWrap()
 }
 
 bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
-                                    const UIntVector & imgs,
+                                    const PT::UIntVector & imgs,
+                                    const PT::VariableMapVector & variables,
+                                    const PT::CPVector & controlPoints,
                                     const OptimizeVector & optvec)
 {
     // based on code from ParseScript by H. Dersch
@@ -622,10 +626,9 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
         imgCnt++;
     }
 
+    m_controlPoints = controlPoints;
     // find all controls point pairs inside the given images
     // (stupid implementation)
-    const CPVector & controlPoints = pano.getCtrlPoints();
-
     CPVector cps;
 
     for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
@@ -643,6 +646,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
 
         if (matchCount == 2) {
             // found a control point.. add to control points list
+            m_ctrlPointMap[cps.size()] = it - controlPoints.begin();
             cps.push_back(point);
         }
     }
@@ -692,7 +696,8 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     unsigned int cImgNr=0;
     for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
         const PanoImage & pimg = pano.getImage(*it);
-        const VariableMap & vars = pano.getImageVariables(*it);
+        const VariableMap & vars = variables[it - imgs.begin()];
+        //pano.getImageVariables(*it);
         const Lens & lens = pano.getLens(pimg.getLensNr());
 
         // set the image information, with pointer to dummy image data
@@ -757,3 +762,15 @@ PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const
     return res;
 }
 
+
+const PT::CPVector & PTools::AlignInfoWrap::getCtrlPoints()
+{
+    if (gl.cpt) {
+        for (int i = 0; i < gl.numPts; i++) {
+            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i)); 
+//            res[i] = ControlPoint(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
+//                                  gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].mode[];
+        }
+    }
+    return m_controlPoints;
+}

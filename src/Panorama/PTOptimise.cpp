@@ -264,7 +264,7 @@ double * fvec;
 int * iflag
 */
 {
-#pragma unused(n)
+//#pragma unused(n)
     int i;
     static int numIt;
     double result;
@@ -342,13 +342,15 @@ int * iflag
 
 }
 
-VariableMapVector PTools::optimize(Panorama & pano,
-                                   const OptimizeVector & optvec,
-                                   const PT::UIntVector &imgs,
-                                   utils::MultiProgressDisplay & progDisplay,
-                                   int maxIter)
+void PTools::optimize(const Panorama & pano,
+                      const PT::UIntVector &imgs,
+                      const OptimizeVector & optvec,
+                      VariableMapVector & vars,
+                      CPVector & cps,
+                      utils::MultiProgressDisplay & progDisplay,
+                      int maxIter)
 {
-    VariableMapVector res;
+//    VariableMapVector res;
     // setup data structures
     aPrefs    aP;
     OptInfo   opt;
@@ -356,7 +358,7 @@ VariableMapVector PTools::optimize(Panorama & pano,
     SetAdjustDefaults(&aP);
     AlignInfoWrap aInfo;
     // set the information
-    if (aInfo.setInfo(pano,imgs, optvec)) {
+    if (aInfo.setInfo(pano, imgs, vars, cps, optvec)) {
         aInfo.setGlobal();
 
         opt.numVars 		= aInfo.gl.numParam;
@@ -375,13 +377,12 @@ VariableMapVector PTools::optimize(Panorama & pano,
         RunLMOptimizer( &opt );
         DEBUG_DEBUG("optimizer finished");
 
-        res = aInfo.getVariables();
+        vars = aInfo.getVariables();
+        cps = aInfo.getCtrlPoints();
     }
-
-    return res;
 }
 
-
+#if 0
 VariableMap PTools::optimisePair(Panorama & pano,
                                  const OptimizeVector & optvec,
                                  unsigned int firstImg,
@@ -427,9 +428,12 @@ VariableMap PTools::optimisePair(Panorama & pano,
     // return optimized variables of secondImg
     return res[1];
 }
+#endif
 
 /** autooptimise the panorama (does local optimisation first) */
-PT::VariableMapVector PTools::autoOptimise(PT::Panorama & pano,
+PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
+                                           const std::set<std::string> & optvars,
+                                           CPVector & cps,
                                            utils::MultiProgressDisplay & progDisp)
 {
     unsigned nImg = pano.getNrOfImages();
@@ -446,11 +450,6 @@ PT::VariableMapVector PTools::autoOptimise(PT::Panorama & pano,
 #endif
 
     unsigned int startImg = pano.getOptions().optimizeReferenceImage;
-
-    std::set<std::string> optvars;
-    optvars.insert("y");
-    optvars.insert("p");
-    optvars.insert("r");
 
     // start a breadth first traversal of the graph, and optimize
     // the links found (every vertex just once.)
@@ -471,11 +470,18 @@ PT::VariableMapVector PTools::autoOptimise(PT::Panorama & pano,
     for (unsigned int im=1; im<nImg; im++) {
         imgs[im] = im;
         if (im != startImg) {
-            goptvec[im].insert("y");
-            goptvec[im].insert("p");
-            goptvec[im].insert("r");
+            goptvec[im] = optvars;
         }
     }
-    // really limit iterations?
-    return optimize(pano, goptvec, imgs, progDisp, 1000);
+    // FIXME really limit iterations to 1000?
+    cps = pano.getCtrlPoints();
+    PT::VariableMapVector vars = optVisitor.getVariables();
+    // run global optimisation
+//    optimize(pano, imgs, goptvec, vars, cps, progDisp, 1000);
+    return vars;
+}
+
+void PTools::stopOptimiser()
+{
+    optdata.terminate = true;
 }

@@ -30,6 +30,8 @@
 #include <sstream>
 #include <cassert>
 
+#include "platform.h"
+
 #ifdef __WXMSW__
 #include <wx/log.h>
 #endif
@@ -169,9 +171,19 @@ namespace utils
         ProgressTask(std::string shortMessage, std::string message,
                      double subStepProgress, double progress=0)
             : shortMessage(shortMessage), message(message),
-              progress(progress), subStepProgress(subStepProgress),
+              measureProgress(true), progress(progress),
+              subStepProgress(subStepProgress), last_displayed_progress(-1)
+            { };
+
+        // create a progress task without a progress percentage
+        // display
+        ProgressTask(std::string shortMessage, std::string message)
+            : shortMessage(shortMessage), message(message),
+              measureProgress(false),
+              progress(0), subStepProgress(0),
               last_displayed_progress(-1)
             { };
+
 
         const std::string & getShortMessage()
         {
@@ -190,6 +202,7 @@ namespace utils
 
         std::string shortMessage;
         std::string message;
+        bool measureProgress;
         double progress;
         double subStepProgress;
         double last_displayed_progress;
@@ -228,12 +241,17 @@ namespace utils
         void pushTask(const ProgressTask & task)
         {
             tasks.push_back(task);
+            taskAdded();
             updateProgressDisplay();
         };
 
         /** remove a task from the progress display */
         void popTask()
         {
+            taskRemove();
+            if (!tasks.back().measureProgress && tasks.size()>1) {
+                tasks[tasks.size()-2].progress += tasks[tasks.size()-2].subStepProgress;
+            }
             tasks.pop_back();
             updateProgressDisplay();
         }
@@ -278,6 +296,15 @@ namespace utils
          *  should be provided by subclasses.
          */
         virtual void updateProgressDisplay() { }
+
+        /** template method, called when a task is added */
+        virtual void taskAdded() {};
+
+        /** template method, called just before the task
+         *  is removed
+         */
+        virtual void taskRemove() {};
+
 
     protected:
 
@@ -331,12 +358,12 @@ namespace utils
                 m_printedLines++;
                 char tmp[81];
                 tmp[80]=0;
-                if (it->getProgress() >= 0) {
+                if (it->measureProgress) {
                     snprintf(tmp,80,"%15s : %-50s : %3.0f %%",
                              it->getShortMessage().c_str(),
                              it->getMessage().c_str(),
                              100 * it->getProgress());
-                } else if (it->getProgress() == -1 && it+1 == tasks.end()) {
+                } else if (! it->measureProgress && it+1 == tasks.end()) {
                     m_whizzCount = (++m_whizzCount) % m_whizz.size();
                     snprintf(tmp,80,"%20s: %-50s :   %c ",
                              it->getShortMessage().c_str(),

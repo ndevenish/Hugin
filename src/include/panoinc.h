@@ -43,11 +43,7 @@
 #include <iostream>
 #include <math.h>
 
-// on windows, defines the round for math
 #ifdef _MSC_VER
-#define round(x) floor(x+0.5f)
-#define nearbyint(x) floor(x+0.5f)
-
 #pragma warning (disable : 4267 4355)
 #endif
 

@@ -31,6 +31,7 @@
 #include "common/stl_utils.h"
 
 using namespace vigra_ext;
+using namespace utils;
 
 /** run sift feature detector on a bunch of images */
 void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
@@ -71,8 +72,8 @@ void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
 
         if (scale != 1.0) {
             // resize images
-            int width  = (int) round(img.width() * scale);
-            int height = (int) round(img.height() * scale);
+            int width  = roundi(img.width() * scale);
+            int height = roundi(img.height() * scale);
             vigra::BImage t(width,height);
             vigra::resizeImageLinearInterpolation(vigra::srcImageRange(img),
                                                   vigra::destImageRange(t));
@@ -129,8 +130,8 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
 
         {
             // resize image
-            int width  = (int) round(img.width() * scale1);
-            int height = (int) round(img.height() * scale1);
+            int width  = roundi(img.width() * scale1);
+            int height = roundi(img.height() * scale1);
             vigra::BImage t(width,height);
             vigra::resizeImageLinearInterpolation(vigra::srcImageRange(img),
                                                   vigra::destImageRange(t));
@@ -141,8 +142,8 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
         }
         {
             // resize image
-            int width  = (int) round(img.width() * scale2);
-            int height = (int) round(img.height() * scale2);
+            int width  = roundi(img.width() * scale2);
+            int height = roundi(img.height() * scale2);
             vigra::BImage t(width,height);
             vigra::resizeImageLinearInterpolation(vigra::srcImageRange(img),
                                                   vigra::destImageRange(t));

@@ -44,6 +44,7 @@
 using namespace PT;
 using namespace std;
 using namespace vigra;
+using namespace utils;
 
 //const Map::data_type & map_get(const Map &m, const Map::key_type & key)
 const Variable & const_map_get(const VariableMap &m, const string & key)
@@ -308,9 +309,9 @@ FDiff2D Panorama::calcFOV() const
         // create suitable transform, pano -> image
         double ratio =  ((double) state.images[i].getWidth())/state.images[i].getHeight();
         int w = 20;
-        int h = (int) round(20*ratio);
+        int h = roundi(20*ratio);
         if (ratio < 1) {
-            w = (int) round(20*ratio);
+            w = roundi(20*ratio);
             h = 20;
         }
         T.createInvTransform(Diff2D(w, h),

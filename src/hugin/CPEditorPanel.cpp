@@ -58,6 +58,7 @@ using namespace std;
 using namespace PT;
 using namespace vigra;
 using namespace vigra::functor;
+using namespace utils;
 
 /*
 void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy)
@@ -494,7 +495,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
     if (p.x < (int) pImg.getWidth() && p.x >= 0
         && p.y < (int) pImg.getHeight() && p.y >= 0)
     {
-        otherImg->setNewPoint(wxPoint((int) round(op.x), (int) round(op.y)));
+        otherImg->setNewPoint(wxPoint(roundi(op.x), roundi(op.y)));
         // if fine tune is checked, run a fine tune session as well.
         // hmm probably there should be another separate function for this..
         if (m_fineTuneCB->IsChecked()) {
@@ -514,8 +515,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
                                          sWidth,
                                          p2);
             wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-            wxPoint corrPoint((int)round(p2.x),
-                              (int)round(p2.y) );
+            wxPoint corrPoint(roundi(p2.x),
+                              roundi(p2.y) );
             double thresh = utils::lexical_cast<double>(str);
             if (xcorr < thresh) {
                 // low xcorr
@@ -648,8 +649,8 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
                     thisImg->setScale(1);
-                    thisImg->setNewPoint(wxPoint((int)round(p2.x),
-                                                 (int)round(p2.y) ));
+                    thisImg->setNewPoint(wxPoint(roundi(p2.x),
+                                                 roundi(p2.y) ));
                     thisImg->update();
                     // Bad correlation result.
                     int answer = wxMessageBox(
@@ -669,8 +670,8 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
                     if (!m_autoAddCB->IsChecked()) {
                         thisImg->setScale(1);
                     }
-                    thisImg->setNewPoint(wxPoint((int)round(p2.x),
-                                                 (int)round(p2.y) ));
+                    thisImg->setNewPoint(wxPoint(roundi(p2.x),
+                                                 roundi(p2.y) ));
                 }
 
                 MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
@@ -905,9 +906,9 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     //      the coordinates of
 
     // 1. transf calc Ps in E
-    // 
-    
-    
+    //
+
+
     // make template size user configurable as well?
     int templWidth = templSize/2;
     Diff2D tmplUL(-templWidth, -templWidth);
@@ -1316,14 +1317,14 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                 // jump to right point
                 wxPoint lp = m_leftImg->getNewPoint();
                 FDiff2D t = EstimatePoint(FDiff2D(lp.x, lp.y), true);
-                m_rightImg->showPosition((int) round(t.x),
-                                         (int) round(t.y), true);
+                m_rightImg->showPosition(roundi(t.x),
+                                         roundi(t.y), true);
             } else if (cpCreationState == RIGHT_POINT) {
                 // jump to left point
                 wxPoint rp = m_rightImg->getNewPoint();
                 FDiff2D t = EstimatePoint(FDiff2D(rp.x, rp.y), false);
-                m_leftImg->showPosition((int) round(t.x),
-                                        (int) round(t.y), true);
+                m_leftImg->showPosition(roundi(t.x),
+                                        roundi(t.y), true);
             } else {
                 if (e.GetEventObject() == m_leftImg) {
                     DEBUG_DEBUG("p pressed in left img");
@@ -1335,8 +1336,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     {
                         wxPoint p = m_leftImg->getNewPoint();
                         FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
-                        m_rightImg->showPosition((int) round(t.x),
-                                                 (int) round(t.y), true);
+                        m_rightImg->showPosition(roundi(t.x),
+                                                 roundi(t.y), true);
                     }
                 } else if (e.GetEventObject() == m_rightImg) {
                     DEBUG_DEBUG("p pressed in right img");
@@ -1348,8 +1349,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     {
                         wxPoint p = m_rightImg->getNewPoint();
                         FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
-                        m_leftImg->showPosition((int) round(t.x),
-                                                (int) round(t.y), true);
+                        m_leftImg->showPosition(roundi(t.x),
+                                                roundi(t.y), true);
                     }
                 }
             }
@@ -1631,13 +1632,13 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
 
     unsigned int srcNr = cp.image1Nr;
     unsigned int moveNr = cp.image2Nr;
-    Diff2D srcPnt((int) round(cp.x1), (int) round(cp.y1));
-    Diff2D movePnt((int) round(cp.x2), (int) round(cp.y2));
+    Diff2D srcPnt(roundi(cp.x1), roundi(cp.y1));
+    Diff2D movePnt(roundi(cp.x2), roundi(cp.y2));
     if (left) {
         srcNr = cp.image2Nr;
         moveNr = cp.image1Nr;
-	srcPnt = Diff2D((int) round(cp.x2), (int) round(cp.y2));
-	movePnt = Diff2D((int) round(cp.x1), (int) round(cp.y1));
+	srcPnt = Diff2D(roundi(cp.x2), roundi(cp.y2));
+	movePnt = Diff2D(roundi(cp.x1), roundi(cp.y1));
     }
 
     FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
@@ -1679,13 +1680,13 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
     FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
 
     if (left) {
-        m_leftImg->setNewPoint(wxPoint((int) round(result.x),
-                                        (int) round(result.y)));
+        m_leftImg->setNewPoint(wxPoint(roundi(result.x),
+                                        roundi(result.y)));
         m_leftImg->update();
 
     } else {
-        m_rightImg->setNewPoint(wxPoint((int) round(result.x),
-                                        (int) round(result.y)));
+        m_rightImg->setNewPoint(wxPoint(roundi(result.x),
+                                        roundi(result.y)));
         m_rightImg->update();
     }
 }

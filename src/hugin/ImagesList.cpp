@@ -141,12 +141,12 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
 
     if ( h > w ) {
         // portrait
-        bW = (int) round(w/h * size);
+        bW = roundi(w/h * size);
         bH = size;
     } else {
         // landscape
         bW = size;
-        bH = (int) round(h/w * size);
+        bH = roundi(h/w * size);
     }
     wxImage img = s_img->Scale(bW, bH);
     wxBitmap bimg(img);
@@ -154,7 +154,7 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
     wxMemoryDC temp_dc;
     temp_dc.SelectObject(bitmap);
     temp_dc.Clear();
-/*    
+/*
     wxBitmap maskb(size, size);
     wxMemoryDC mask_dc;
     mask_dc.SelectObject(maskb);

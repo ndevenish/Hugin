@@ -44,6 +44,7 @@ using namespace vigra;
 //using namespace vigra_ext;
 using namespace PT;
 using namespace std;
+using namespace utils;
 
 namespace AngularMatching
 {
@@ -129,7 +130,7 @@ struct ValueHistogram : public std::vector<vector<TYPE> >
             o << getCenter(it - begin())
               << " ";
             o << it->size() << "  ";
-            int fw = (int) round(60* ((double)it->size()/count));
+            int fw = roundi(60* ((double)it->size()/count));
             for (int i=0; i < fw; i++) {
                 o << "#";
             }
@@ -143,7 +144,7 @@ private:
     {
         assert(val >= m_start);
         assert(val <= m_end);
-        return (int) round((val - m_start + m_width/2)/m_width) - 1;
+        return roundi((val - m_start + m_width/2)/m_width) - 1;
     }
 
     double m_start;

@@ -45,6 +45,7 @@ using namespace vigra;
 using namespace vigra_ext;
 using namespace PT;
 using namespace std;
+using namespace utils;
 
 static void usage(const char * name)
 {
@@ -339,12 +340,12 @@ int main(int argc, char *argv[])
                     // currently disabled, ther must be an error somewhere
                     if (doFinetune) {
                         res = vigra_ext::PointFineTune(*firstImg,
-                                                       Diff2D ((int) round(flFirst->feature[i]->x),
-                                                               (int) round(flFirst->feature[i]->y)),
+                                                       Diff2D (roundi(flFirst->feature[i]->x),
+                                                               roundi(flFirst->feature[i]->y)),
                                                        11,
                                                        *secondImg,
-                                                       Diff2D ((int) round(fl->feature[i]->x),
-                                                               (int) round(fl->feature[i]->y)),
+                                                       Diff2D (roundi(fl->feature[i]->x),
+                                                               roundi(fl->feature[i]->y)),
                                                        defaultKLTWindowSize);
 
                     }

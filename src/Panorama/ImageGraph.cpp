@@ -31,7 +31,7 @@ using namespace PT;
 using namespace boost;
 
 typedef property_map<CPGraph, vertex_index_t>::type CPGraphIndexMap;
-void PT::createCPGraph(Panorama & pano, CPGraph & graph)
+void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
 {
     // clear old graph
     graph.clear();

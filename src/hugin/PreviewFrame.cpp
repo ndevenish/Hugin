@@ -34,6 +34,8 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 
+using namespace utils;
+
 // a random id, hope this doesn't break something..
 #define ID_UPDATE_BUTTON 12333
 #define ID_TOGGLE_BUT 12334
@@ -152,7 +154,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
-    
+
 }
 
 PreviewFrame::~PreviewFrame()
@@ -203,8 +205,8 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     }
     SetStatusText(wxString::Format("%.1f x %.1f, %s", opts.HFOV, opts.VFOV,
                                    projection.c_str()),1);
-    m_HFOVSlider->SetValue((int) round(opts.HFOV));
-    m_VFOVSlider->SetValue((int) round(opts.VFOV));
+    m_HFOVSlider->SetValue(roundi(opts.HFOV));
+    m_VFOVSlider->SetValue(roundi(opts.VFOV));
     if (m_druid) m_druid->Update(m_pano);
 }
 
@@ -344,8 +346,8 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     PanoramaOptions opt = m_pano.getOptions();
 
     FDiff2D fov = m_pano.calcFOV();
-    opt.HFOV = (int) round(fov.x);
-    opt.VFOV = (int) round(fov.y);
+    opt.HFOV = roundi(fov.x);
+    opt.VFOV = roundi(fov.y);
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )

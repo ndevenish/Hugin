@@ -848,10 +848,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                         "/CPEditorPanel/smallSearchWidth",14);
                     vigra_ext::CorrelationResult res;
                     res = vigra_ext::PointFineTune(templImg,
-                                                   vigra::Diff2D((int)round(cps[*it].x1), (int)round(cps[*it].y1)),
+                                                   vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
                                                    templWidth,
                                                    searchImg,
-                                                   vigra::Diff2D((int) round(cps[*it].x2), (int) round(cps[*it].y2)),
+                                                   vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
                                                    sWidth);
                     if (res.maxi > 0.75) {
                         // only update if a good correlation was found

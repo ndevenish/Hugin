@@ -318,7 +318,7 @@ void freeTrform(TrformStr & trf);
 
 
 /** prepare a Trform struct for the adjust operation, image -> pano
- *  see use createAdjustPrefs(), setAdjustSrcImg() and setAdjustDestImg()
+q *  see use createAdjustPrefs(), setAdjustSrcImg() and setAdjustDestImg()
  *  to specify the images and transformation options
  */
 void createAdjustTrform(TrformStr & trf);
@@ -350,6 +350,8 @@ public:
     ~AlignInfoWrap();
     bool setInfo(const PT::Panorama & pano,
                  const PT::UIntVector & imgs,
+                 const PT::VariableMapVector & variables,
+                 const PT::CPVector & controlPoints,
                  const PT::OptimizeVector & optvec);
 
     void setGlobal()
@@ -359,6 +361,10 @@ public:
 
     /** get the variables stored in this AlignInfo */
     PT::VariableMapVector getVariables() const;
+    const PT::CPVector & getCtrlPoints();
+
+    std::map<int,int> m_ctrlPointMap;
+    PT::CPVector m_controlPoints;
 
     AlignInfo gl;
 };

@@ -35,6 +35,7 @@
 using namespace PT;
 using namespace std;
 using namespace vigra;
+using namespace utils;
 
 BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
 //    EVT_PAINT(CPImageCtrl::OnPaint)
@@ -381,6 +382,6 @@ void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int of
             point.x = m_panoImgSize.GetWidth()-1;
         if (point.y >= m_panoImgSize.GetHeight())
             point.y = m_panoImgSize.GetHeight() -1;
-        dc.DrawPoint((int)round(offX + point.x), (int)round(offY + point.y));
+        dc.DrawPoint(roundi(offX + point.x), roundi(offY + point.y));
     }
 }

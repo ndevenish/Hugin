@@ -26,6 +26,8 @@
 #ifndef _POINTMATCHING_H
 #define _POINTMATCHING_H
 
+#include <math.h>
+
 #include <limits.h>
 #include <vector>
 

@@ -91,7 +91,12 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    VariableMapVector newvars = PTools::autoOptimise(pano,pdisp);
+    CPVector cps = pano.getCtrlPoints();
+    set<string> optvars;
+    optvars.insert("r");
+    optvars.insert("p");
+    optvars.insert("y");
+    VariableMapVector newvars = PTools::autoOptimise(pano, optvars, cps, pdisp);
 
     pano.updateVariables(newvars);
 

@@ -112,6 +112,7 @@ APP_1_OBJ = \
 	    ImageOrientationPanel.o \
 	    ImageOrientationFrame.o \
 	    PanoDruid.o \
+	    MyProgressDialog.o \
             $(RES_O)
 
 ifeq ($(PLATFORM),win32)
