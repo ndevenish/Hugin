@@ -355,16 +355,17 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 
     FImage empty(1,1);
     // remap image with that transform
+    utils::MultiProgressDisplay p;
     PT::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
-                           destIterRange(wxImageUpperLeft(dest)+ ulInt,
-                                         wxImageUpperLeft(dest)+lrInt),
-                           ulInt,
-                           t,
-                           vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
-                                         empty.accessor()),
-                           interp_bilin()
-                           );
+                       destIterRange(wxImageUpperLeft(dest)+ ulInt,
+                                     wxImageUpperLeft(dest)+lrInt),
+                       ulInt,
+                       t,
+                       vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
+                                          empty.accessor()),
+                       interp_bilin(),
+                       p );
 }
 
 
