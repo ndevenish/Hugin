@@ -224,10 +224,9 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
       }
 
       if ( pano.getNrOfImages() == 0 ) {
-        delete p_img;
-        p_img = new wxBitmap(0,0);
+        wxImage img (1,1);
+        canvas->ChangePreview(img);
       }
-      canvas->Refresh();
 
       wxListEvent e;
       SetImages( e );  // refresh the list settings of this class
@@ -601,72 +600,72 @@ void ImagesPanel::SetImages ( wxListEvent & e )
       }
       DEBUG_INFO (e_msg)
 
-      // gui values to set
-      // set sliders in the first tab
-      XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->SetValue(doubleToString (
+      if ( pano.getNrOfImages() > 0) {
+        // gui values to set
+        // set sliders in the first tab
+        XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->SetValue(doubleToString (
                                                      GET_VAR( yaw )).c_str());
-      XRCCTRL(*this, "images_slider_yaw" , wxSlider)->SetValue(
+        XRCCTRL(*this, "images_slider_yaw" , wxSlider)->SetValue(
                                                 (int)GET_VAR( yaw ));
-      XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->SetValue(doubleToString (
+        XRCCTRL(*this, "images_text_pitch",wxTextCtrl)->SetValue(doubleToString(
                                                      GET_VAR( pitch )).c_str());
-      XRCCTRL(*this, "images_slider_pitch" , wxSlider)->SetValue(
+        XRCCTRL(*this, "images_slider_pitch" , wxSlider)->SetValue(
                                                 (int)GET_VAR( pitch ) * -1);
-      XRCCTRL(*this, "images_text_roll", wxTextCtrl)->SetValue(doubleToString (
+        XRCCTRL(*this, "images_text_roll", wxTextCtrl)->SetValue(doubleToString(
                                                      GET_VAR( roll )).c_str());
-      XRCCTRL(*this, "images_slider_roll" , wxSlider)->SetValue(
+        XRCCTRL(*this, "images_slider_roll" , wxSlider)->SetValue(
                                                 (int)GET_VAR( roll ));
 
-      XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel("");
-      XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel("");
-      // set inherit and from wich image, dis-/enable optimize checkboxes
-      ImageVariables new_var ( pano.getVariable(orientationEdit_RefImg) );
-      if ( new_var.yaw.isLinked() ) {
-         XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(TRUE);
-         int var = (int)new_var. yaw .getLink();
-         XRCCTRL(*this, "images_spin_yaw" , wxSpinCtrl) ->SetValue(var);
-//         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Disable();
-         DEBUG_INFO (var << " " << (int)new_var.yaw.isLinked() )
-      } else {
-         DEBUG_INFO ( (int)new_var.yaw.isLinked() << " " << (int)new_var. yaw .getLink() )
-         XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(FALSE);
-//         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Enable();
+        XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel("");
+        XRCCTRL(*this, "images_stext_roll", wxStaticText) ->SetLabel("");
+        // set inherit and from wich image, dis-/enable optimize checkboxes
+        ImageVariables new_var ( pano.getVariable(orientationEdit_RefImg) );
+        if ( new_var.yaw.isLinked() ) {
+           XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(TRUE);
+           int var = (int)new_var. yaw .getLink();
+           XRCCTRL(*this, "images_spin_yaw" , wxSpinCtrl) ->SetValue(var);
+//           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Disable();
+           DEBUG_INFO (var << " " << (int)new_var.yaw.isLinked() )
+        } else {
+           DEBUG_INFO ( (int)new_var.yaw.isLinked() << " " << (int)new_var. yaw .getLink() )
+           XRCCTRL(*this, "images_inherit_yaw" , wxCheckBox) ->SetValue(FALSE);
+//           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->Enable();
+        }
+        if ( new_var.pitch.isLinked() ) {
+           XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(TRUE);
+           int var = (int)new_var. pitch .getLink();
+           XRCCTRL(*this, "images_spin_pitch" , wxSpinCtrl) ->SetValue(var);
+//           XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Disable();
+        } else {
+           XRCCTRL(*this, "images_inherit_pitch" ,wxCheckBox) ->SetValue(FALSE);
+//           XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Enable();
+        }
+        if ( new_var.roll.isLinked() ) {
+           XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(TRUE);
+           int var = (int)new_var. roll .getLink();
+           XRCCTRL(*this, "images_spin_roll" , wxSpinCtrl) ->SetValue(var);
+//           XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Disable();
+        } else {
+           XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(FALSE);
+//           XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Enable();
+        }
+        // enable disable optmize check boxes
+        if (optset->at(orientationEdit_RefImg).yaw == TRUE ) {
+           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(TRUE);
+        } else {
+           XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(FALSE);
+        }
+        if (optset->at(orientationEdit_RefImg).pitch == TRUE ) {
+           XRCCTRL(*this, "images_optimize_pitch" ,wxCheckBox) ->SetValue(TRUE);
+        } else {
+           XRCCTRL(*this, "images_optimize_pitch",wxCheckBox) ->SetValue(FALSE);
+        }
+        if (optset->at(orientationEdit_RefImg).roll == TRUE ) {
+           XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(TRUE);
+        } else {
+           XRCCTRL(*this, "images_optimize_roll" ,wxCheckBox) ->SetValue(FALSE);
+        }
       }
-      if ( new_var.pitch.isLinked() ) {
-         XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(TRUE);
-         int var = (int)new_var. pitch .getLink();
-         XRCCTRL(*this, "images_spin_pitch" , wxSpinCtrl) ->SetValue(var);
-//         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Disable();
-      } else {
-         XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(FALSE);
-//         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Enable();
-      }
-      if ( new_var.roll.isLinked() ) {
-         XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(TRUE);
-         int var = (int)new_var. roll .getLink();
-         XRCCTRL(*this, "images_spin_roll" , wxSpinCtrl) ->SetValue(var);
-//         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Disable();
-      } else {
-         XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(FALSE);
-//         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Enable();
-      }
-      // enable disable optmize check boxes
-      if (optset->at(orientationEdit_RefImg).yaw == TRUE ) {
-         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(TRUE);
-      } else {
-         XRCCTRL(*this, "images_optimize_yaw" , wxCheckBox) ->SetValue(FALSE);
-      }
-      if (optset->at(orientationEdit_RefImg).pitch == TRUE ) {
-         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->SetValue(TRUE);
-      } else {
-         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->SetValue(FALSE);
-      }
-      if (optset->at(orientationEdit_RefImg).roll == TRUE ) {
-         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(TRUE);
-      } else {
-         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->SetValue(FALSE);
-      }
-
-
     }
 
     changePano = FALSE;

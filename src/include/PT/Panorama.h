@@ -461,6 +461,9 @@ private:
     std::set<PanoramaObserver *> observers;
     /// the images that have been changed since the last changeFinished()
     UIntSet changedImages;
+
+    // as long as there is no image inside Panorama
+    bool initialize;
 };
 
 } // namespace

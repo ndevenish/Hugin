@@ -102,6 +102,7 @@ Panorama::Panorama()
                              QProcess::DupStderr);
     connect(&process, SIGNAL(processExited()), this, SLOT(processExited()));
 */
+    initialize = true;
 }
 
 
@@ -256,6 +257,7 @@ unsigned int Panorama::addImage(const std::string & filename)
         state.lenses.push_back(Lens());
     }
 
+    initialize = false;
     // read lens spec from image, if possible
     // FIXME use a lens database (for example the one from PTLens)
     // FIXME to initialize a,b,c etc.
@@ -616,7 +618,7 @@ void Panorama::changeFinished()
          ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
     std::set<PanoramaObserver *>::iterator it;
-    if ( state.images.size() > 0 ) {
+    if ( !initialize ) {  // some images were allready loaded 
         for(it = observers.begin(); it != observers.end(); ++it) {
             (*it)->panoramaImagesChanged(*this, changedImages);
             (*it)->panoramaChanged(*this);

@@ -106,7 +106,8 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
 
     // set defaults from gui;
-//    PanoChanged (e);
+    wxCommandEvent e;
+    PanoChanged (e);
     auto_preview = TRUE;
     panoviewer_enabled = TRUE;
     panoviewer_precise = FALSE;
@@ -114,7 +115,6 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     changePano = FALSE;
 
-    wxCommandEvent e;
     PreviewWidthChanged (e);
 
     pano->addObserver (this);
@@ -242,10 +242,15 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       // Set the preview image accordingly to ImagesPanel.cpp
       for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
         // test for needed precision of source image
-        int source_pixels = (int)(128.0 * preview_opt.HFOV / 
+        double p_width = (double)pano.getImage(imgNr).getWidth() /
+                         (double)pano.getImage(imgNr).getHeight() *
+                         128.0;
+        if (p_width > 128.0) p_width = 128.0;
+        int source_pixels = (int)(p_width *
+                            preview_opt.HFOV / 
                             pano.getVariable(imgNr).HFOV.getValue() );
         DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
-        if ( (source_pixels > (int)preview_opt.width)
+        if ( (source_pixels >= (int)preview_opt.width)
              && !panoviewer_precise ) {
           wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
           filename.str("");
@@ -592,15 +597,8 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-
       previewWidth = (int)*val;
-      GlobalCmdHist::getInstance().addCommand(
-          new PT::SetPanoOptionsCmd( pano, opt )
-          );
 
-      DEBUG_INFO ( ": " << *val )
-      delete val;
-    }
       if ( pano_dlg_run ) {
         if ( self_pano_dlg ) {
           pano_panel->previewWidth = previewWidth;
@@ -612,6 +610,14 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
                               ->SetValue(wxString::Format ("%d", previewWidth));
         }
       }
+
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
 }
 
 // --

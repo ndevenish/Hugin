@@ -168,10 +168,12 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     } else { // Now we take the long way, to setup the table from ground.
       DeleteAllItems() ;
+      if ( pano.getNrOfImages() == 0 )
+        imgNr[0] = 0;
 
       // start the loop for every selected filename
       DEBUG_INFO ("nr = " << pano.getNrOfImages() )
-      for ( imageNr = 0 ; imageNr <= pano.getNrOfImages() - 1 ; imageNr++ ) {
+      for ( imageNr = 0 ; (int)imageNr <= (int)pano.getNrOfImages() - 1 ; imageNr++ ) {
 //        lst->SetItemImage( pano.getNrOfImages(), pano.getNrOfImages(), pano.getNrOfImages() );
         char Nr[128] ;
         sprintf(Nr ,"%d", imageNr);
@@ -387,7 +389,7 @@ void List::itemSelected ( wxListEvent & e )
 // set a new image of the actual selected item
 void List::Change ( wxMouseEvent & e )
 {
-    if (e.Leaving() && imgNr[0] > 0) {
+    if (e.Leaving() && pano.getNrOfImages() > 0) {
       std::stringstream filename;
       filename <<_("preview")<<".JPG" ;
       wxFileName fn = (wxString)filename.str().c_str();
