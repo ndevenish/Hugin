@@ -149,6 +149,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+
     wxString current;
     current = wxFileName::GetCwd();
 
@@ -208,6 +211,10 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 {
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+    DEBUG_INFO ( (wxString)"get Path: " + config->GetPath().c_str() )
+
     wxString current;
     current = wxFileName::GetCwd();
 
