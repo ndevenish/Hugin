@@ -19,10 +19,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panorama", "Panorama\Panora
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpano", "..\..\libs\libpano\pano12\pano12.vcproj", "{609891D5-B1A9-43E3-9B69-AD53D6008158}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hugin", "hugin\hugin.vcproj", "{609891D5-B1A9-43E3-9B64-AD53D6008158}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
@@ -36,11 +32,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jhead", "jhead\jhead.vcproj
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panotools", "..\..\libs\libpano\pano12\libpano.vcproj", "{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Debug Static = Debug Static
 		Release = Release
+		Release MSVS = Release MSVS
 		Release Static = Release Static
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
@@ -50,6 +51,8 @@ Global
 		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
@@ -58,6 +61,8 @@ Global
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B62-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
@@ -66,6 +71,8 @@ Global
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
@@ -74,6 +81,8 @@ Global
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
@@ -82,22 +91,18 @@ Global
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release Static.Build.0 = Release|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Debug.Build.0 = Debug|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Debug Static.ActiveCfg = Debug|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Debug Static.Build.0 = Debug|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Release.ActiveCfg = Release|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Release.Build.0 = Release|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
-		{609891D5-B1A9-43E3-9B69-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug.Build.0 = Debug|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug Static.ActiveCfg = Debug DLL|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug Static.Build.0 = Debug DLL|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release MSVS.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release MSVS.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release Static.ActiveCfg = Release|Win32
 		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release Static.Build.0 = Release|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug.ActiveCfg = Debug Static|Win32
@@ -106,8 +111,20 @@ Global
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug Static.Build.0 = Debug Static|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release.ActiveCfg = Release Static|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release.Build.0 = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release MSVS.ActiveCfg = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release MSVS.Build.0 = Release Static|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Static.ActiveCfg = Release Static|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Static.Build.0 = Release Static|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.ActiveCfg = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.Build.0 = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug Static.ActiveCfg = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug Static.Build.0 = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.ActiveCfg = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.Build.0 = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release MSVS.ActiveCfg = Release MSVS|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release MSVS.Build.0 = Release MSVS|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Static.ActiveCfg = Release MSVS|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Static.Build.0 = Release MSVS|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

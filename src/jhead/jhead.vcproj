@@ -62,7 +62,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\foreign\vigra;..\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"

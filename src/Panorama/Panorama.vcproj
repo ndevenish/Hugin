@@ -62,7 +62,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
-				RuntimeLibrary="4"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"

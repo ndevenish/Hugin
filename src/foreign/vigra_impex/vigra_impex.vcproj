@@ -62,7 +62,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../include;../;&quot;..\..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;;&quot;..\..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\..\libs\wxWindows-2.4.2\src\zlib&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;HasTIFF;HasPNG;HasJPEG"
-				RuntimeLibrary="4"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"

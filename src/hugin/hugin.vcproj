@@ -38,10 +38,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw24.lib wxxrc.lib"
-				OutputFile="ReleaseDLL/xmldemo.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="../../../lib,../../../contrib/lib"
+				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libc.lib,libci.lib"
 				ProgramDatabaseFile=".\ReleaseDLL/xmldemo.pdb"
 				SubSystem="2"
@@ -101,9 +101,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswd.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexd.lib wxxrcd.lib pano12.lib"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano"
+				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
@@ -165,10 +166,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw24d.lib wxxrcd.lib"
-				OutputFile="DebugDLL/xmldemo.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="../../../lib,../../../contrib/lib"
+				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\DebugDLL/xmldemo.pdb"
@@ -217,7 +218,7 @@
 				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\lib\msw&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\contrib\include&quot;"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;__WINDOWS__;__WXMSW__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				StringPooling="TRUE"
-				RuntimeLibrary="1"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				PrecompiledHeaderFile=".\Release/XrcDemoVC.pch"
 				AssemblerListingLocation=".\Release/"
@@ -230,11 +231,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib wxxrc.lib"
-				OutputFile="Release/xmldemo.exe"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib wxxrc.lib pano12.lib"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\..\libs\wxWindows-2.4.2\lib"
+				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\lib&quot;;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libc.lib,libci.lib,msvcrtd.lib"
 				ProgramDatabaseFile=".\Release/xmldemo.pdb"
 				SubSystem="2"
@@ -256,7 +257,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="2057"/>
+				Culture="2057"
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows-2.4.2\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -339,6 +341,9 @@
 				RelativePath=".\PanoPanel.cpp">
 			</File>
 			<File
+				RelativePath=".\PreferencesDialog.cpp">
+			</File>
+			<File
 				RelativePath=".\PreviewFrame.cpp">
 			</File>
 			<File
@@ -374,6 +379,9 @@
 			</File>
 			<File
 				RelativePath="..\include\hugin\config.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\config_defaults.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\CPEditorPanel.h">
@@ -437,6 +445,9 @@
 			</File>
 			<File
 				RelativePath="..\include\hugin\PanoPanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\PreferencesDialog.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\PreviewFrame.h">
