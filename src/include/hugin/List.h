@@ -32,11 +32,16 @@
 #include "PT/Panorama.h"
 using namespace PT;
 
+// kind of list
+enum {
+    images_layout,
+    lens_layout
+};
 
 class List: public wxListCtrl, public PT::PanoramaObserver
 {
  public:
-    List( wxWindow * win, Panorama * pano );
+    List( wxWindow * win, Panorama * pano , int list_typ);
     ~List(void) ;
 
     /** multi use list.
@@ -55,6 +60,8 @@ class List: public wxListCtrl, public PT::PanoramaObserver
 
     // the model
     Panorama &pano;
+
+    int list_layout;
 
     DECLARE_EVENT_TABLE()
 };

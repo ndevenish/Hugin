@@ -74,7 +74,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     Panorama &pano;
 
     // pointer to the list control
-    List* images_list;
+    List* images_list2;
 
     DECLARE_EVENT_TABLE()
 };
