@@ -127,8 +127,8 @@ int main(int argc, char *argv[])
             exinfo.setCompression(jpgqual.str().c_str());
         }
         exportImage(srcImageRange(dest), exinfo);
-    } catch (std::runtime_error & e) {
-        cerr << "caught runtime_error: " << e.what() << endl;
+    } catch (std::exception & e) {
+        cerr << "caught exception: " << e.what() << endl;
         return 1;
     }
 
