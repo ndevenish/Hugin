@@ -28,6 +28,7 @@
 #include "wx/frame.h"
 
 #include "PT/Panorama.h"
+using namespace PT;
 
 // forward declarations, to save the #include statements
 class CPEditorPanel;
@@ -57,14 +58,17 @@ private:
     // event handlers
     void OnExit(wxCommandEvent & e);
     void OnAbout(wxCommandEvent & e);
-    void OnSave(wxCommandEvent & e);
-    void OnLoad(wxCommandEvent & e);
-    void OnNew(wxCommandEvent & e);
+    void OnSaveProject(wxCommandEvent & e);
+    void OnLoadProject(wxCommandEvent & e);
+    void OnNewProject(wxCommandEvent & e);
+    void OnAddImages(wxCommandEvent & e);
+    void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
 
     CPEditorPanel * cpe;
+
     // the model
-    PT::Panorama pano;
+    Panorama pano;
 
     DECLARE_EVENT_TABLE()
 };
