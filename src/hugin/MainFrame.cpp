@@ -49,6 +49,7 @@
 
 using namespace PT;
 using namespace utils;
+using namespace std;
 
 //ImagesPanel * images_panel;
 //LensPanel * lens_panel;
@@ -727,47 +728,24 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     // get the list to read from
     wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
 
-    // prepare an status message
-    wxString e_msg;
-    int sel_I = lst->GetSelectedItemCount();
-    if ( sel_I == 1 )
-      e_msg = _("Remove image:   ");
-    else
-      e_msg = _("Remove images:   ");
-
-    unsigned int imgNr[512] = {0,0};
-    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
-//      DEBUG_INFO( wxString::Format("now test if removing item %d/%d",Nr,pano.getNrOfImages()) );
-      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
-//    DEBUG_TRACE("");
-        e_msg += "  " + lst->GetItemText(Nr);
-//    DEBUG_TRACE("");
-//        GlobalCmdHist::getInstance().addCommand(
-//            new PT::RemoveImageCmd(pano,Nr)
-//            );
-//    DEBUG_TRACE("");
-        imgNr[0] += 1;
-        imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
-//        DEBUG_INFO( wxString::Format("will remove %d",Nr) );
-//    DEBUG_INFO( wxString::Format("rrrr %d", imgNr[0]) );
-//    DEBUG_INFO( wxString::Format("rrrr %d/%d",imgNr[imgNr[0]], imgNr[0]) );
-      }
-    }
-    DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
-    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-//        DEBUG_INFO( wxString::Format("to remove: %d",imgNr[0]) );
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveImageCmd(pano,imgNr[i])
-            );
-//        DEBUG_INFO( wxString::Format("removed %d/%d",imgNr[i], i) );
+    UIntSet selImg;
+    vector<string> filenames;
+    for (unsigned int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+        if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+            selImg.insert(Nr);
+            filenames.push_back(pano.getImage(Nr).getFilename());
+        }
     }
 
-    if ( sel_I == 0 )
-      SetStatusText( _("Nothing selected"), 0);
-    else {
-      SetStatusText( e_msg, 0);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveImagesCmd(pano, selImg)
+        );
+    
+    for (vector<string>::iterator it = filenames.begin();
+         it != filenames.end(); ++it) 
+    {
+        ImageCache::getInstance().removeImage(*it);
     }
-    DEBUG_TRACE("");
 }
 
 void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )

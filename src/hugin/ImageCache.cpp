@@ -55,6 +55,39 @@ ImageCache::~ImageCache()
     instance = 0;
 }
 
+// blubber
+
+void ImageCache::removeImage(const std::string & filename)
+{
+    map<string, wxImage*>::iterator it = images.find(filename);
+    if (it != images.end()) {
+        delete it->second;
+        images.erase(it);
+    }
+
+    string sfilename = filename + string("_small");
+    it = images.find(sfilename);
+    if (it != images.end()) {
+        delete it->second;
+        images.erase(it);
+    }
+    
+    int level = 0;
+    bool found = true;
+    do {
+        // found. xyz
+        PyramidKey key(filename,level);
+        map<string, vigra::BImage*>::iterator it = pyrImages.find(key.toString());
+        found = it != pyrImages.end();
+        if (found) {
+            delete it->second;
+            pyrImages.erase(it);
+        }
+        level++;
+    } while (found);
+}
+
+
 void ImageCache::flush()
 {
     for (map<string, ImagePtr>::iterator it = images.begin();
@@ -72,8 +105,6 @@ void ImageCache::flush()
         delete it->second;
     }
     images.clear();
-
-
 }
 
 void ImageCache::softFlush()
@@ -307,10 +338,12 @@ SmallRemappedImageCache::operator()(const PT::Panorama & pano,
 {
     // return old image, if already in cache
         if (set_contains(m_images, imgNr)) {
+            DEBUG_DEBUG("using cached remapped image " << imgNr);
             return *m_images[imgNr];
         }
 
         // remap image
+        DEBUG_DEBUG("remapping image " << imgNr);
 
         // load image
         const PanoImage & img = pano.getImage(imgNr);
@@ -334,6 +367,7 @@ SmallRemappedImageCache::operator()(const PT::Panorama & pano,
 
 void SmallRemappedImageCache::invalidate()
 {
+    DEBUG_DEBUG("Clear remapped cache");
     for(std::map<unsigned int, MRemappedImage*>::iterator it = m_images.begin();
         it != m_images.end(); ++it)
     {
@@ -345,6 +379,7 @@ void SmallRemappedImageCache::invalidate()
 
 void SmallRemappedImageCache::invalidate(unsigned int imgNr)
 {
+    DEBUG_DEBUG("Remove " << imgNr << " from remapped cache");
     if (set_contains(m_images, imgNr)) {
         delete (m_images[imgNr]);
         m_images.erase(imgNr);

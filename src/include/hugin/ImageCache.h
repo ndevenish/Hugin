@@ -93,6 +93,11 @@ public:
      */
     ImagePtr getSmallImage(const std::string & filename);
 
+    /** remove a specific image (and dependant images)
+     * from the cache 
+     */
+    void removeImage(const std::string & filename);
+    
     /** release all images in the cache.
      *
      *  useful on project load, or maybe before stitching really
@@ -157,7 +162,7 @@ private:
  *
  *  This is meant to be used by the preview stitcher.
  */
-class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::BRGBImage, 
+class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::BRGBImage,
                                 vigra::BImage>
 {
     typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> MRemappedImage;
@@ -172,10 +177,10 @@ public:
     /** nop
      */
     virtual void release() {};
-    
+
     /** invalidates all images */
     void invalidate();
-    
+
     /** invalidate a specific image */
     void invalidate(unsigned int imgNr);
 

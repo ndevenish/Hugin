@@ -153,6 +153,37 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+
+    /** remove multiple images from a panorama
+     *
+     */
+    class RemoveImagesCmd : public PanoCommand
+    {
+    public:
+        RemoveImagesCmd(Panorama & p, UIntSet imgs)
+            : PanoCommand(p), imgNrs(imgs)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                for (UIntSet::iterator it = imgNrs.begin();
+                     it != imgNrs.end(); ++it) 
+                {
+                    pano.removeImage(*it);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "remove images";
+            }
+    private:
+        UIntSet imgNrs;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
 #if 0
     /**  */
     class ChangeImageCmd : public PanoCommand
