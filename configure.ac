@@ -69,13 +69,15 @@ AC_ARG_WITH([unicode],
 
 dnl debugging options
 AC_ARG_ENABLE([debug],
-              AC_HELP_STRING([--enable-debug],
-	                     [enable debugging of the hugin applictions(default=no). Note: -g is removed from flags if this is not defined]),
-	      [enable_debug=$enableval
-	      CFLAGS="$CFLAGS -g -DDEBUG"
-	      CXXFLAGS="$CXXFLAGS -g -DDEBUG"
-	      ],
+          AC_HELP_STRING([--enable-debug],
+	    			     [enable debugging of the hugin applictions(default=no).]),
+	      [enable_debug=$enableval],
 	      [enable_debug=no])
+
+if test "x$enable_debug" = xyes; then
+	CFLAGS="$CFLAGS -g -DDEBUG"
+	CXXFLAGS="$CXXFLAGS -g -DDEBUG"
+fi
 
 dnl  create local defines in config.h.in
 AH_TEMPLATE([HUGIN_VERSION],[Current Version of Hugin])
@@ -268,6 +270,7 @@ echo "PANO             --with-pano=$with_pano		have_pano  = $have_pano"
 echo "BOOST            --with-boost=$with_boost		have_boost = $have_boost"
 echo "BOOST            --with-boost-version=$with_boost_version"
 echo "Unicode          --with-unicode=$with_unicode"
+echo "Debug enabled?   $enable_debug"
 echo ""
 echo "Options used to compile and link:"
 echo "  PREFIX         = $prefix"
