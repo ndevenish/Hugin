@@ -44,6 +44,7 @@ class wxNotebook;
 class wxNotebookEvent;
 class wxListCtrl;
 
+struct FDiff2D;
 struct CorrelationResult;
 
 namespace vigra {
@@ -116,7 +117,7 @@ private:
                                       const vigra::Diff2D &tmplPoint,
                                       unsigned int subjImgNr,
                                       const vigra::Diff2D &subjPoint,
-                                      vigra::Diff2D & tunedPos);
+                                      FDiff2D & tunedPos);
 
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
@@ -125,6 +126,8 @@ private:
     void OnRightImgChange(wxNotebookEvent & e);
     void OnCPListSelect(wxListEvent & e);
     void OnZoom(wxCommandEvent & e);
+    void OnTextPointChange(wxCommandEvent &e);
+
 
 
     // GUI controls

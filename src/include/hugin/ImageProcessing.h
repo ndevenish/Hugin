@@ -176,8 +176,11 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
     // calculate width and height of the image
     int w = slr.x - sul.x;
     int h = slr.y - sul.y;
-    int wk = klr.x - kul.x;
-    int hk = klr.y - kul.y;
+    int wk = klr.x - kul.x +1;
+    int hk = klr.y - kul.y +1;
+
+    DEBUG_DEBUG("correlate Image srcSize " << (slr - sul).x << "," << (slr - sul).y
+                << " tmpl size: " << wk << "," << hk)
 
     vigra_precondition(w >= wk && h >= hk,
                  "convolveImage(): kernel larger than image.");
@@ -189,7 +192,7 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
     int xend   = w-klr.x;
 
     // calculate template mean
-    vigra::FindAverage<vigra::BImage::PixelType> average;
+    vigra::FindAverage<typename KernelAccessor::value_type> average;
     vigra::inspectImage(ki + kul, ki + klr,
                         ak,
                         average);
@@ -214,12 +217,12 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
             if (as(xd) < threshold) {
                 continue;
             }
-            int x0, y0, x1, y1;
+//            int x0, y0, x1, y1;
 
-            y0 = kul.y;
-            y1 = klr.y;
-            x0 = kul.x;
-            x1 = klr.x;;
+//            y0 = kul.y;
+//            y1 = klr.y;
+//            x0 = kul.x;
+//            x1 = klr.x;;
 
             // init the sum
             SumType numerator = 0;
@@ -229,11 +232,11 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
             KSumType kpixel = 0;
 
             // create inner y iterators
-            SrcIterator yys = xs + kul;
-            KernelIterator yk  = ki + kul;
+            SrcIterator yys = xs - klr;
+            KernelIterator yk  = ki - klr;
 
-            vigra::FindAverage<vigra::BImage::PixelType> average;
-            vigra::inspectImage(yys, yys + vigra::Diff2D(wk, hk), as, average);
+            vigra::FindAverage<typename SrcAccessor::value_type> average;
+            vigra::inspectImage(xs + kul, xs + klr, as, average);
             double mean = average();
 
             int xx, yy;
@@ -267,10 +270,101 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
 }
 
 
+struct FDiff2D
+{
+    FDiff2D()
+        : x(0), y(0)
+        { }
+    FDiff2D(float x, float y)
+        : x(x), y(y)
+        { }
+    float x,y;
+};
+
+// a subpixel correlation result
+struct SubPixelCorrelationResult
+{
+    SubPixelCorrelationResult()
+        : max(-1),pos(-1,-1)
+        { }
+    double max;
+    FDiff2D pos;
+};
+
+/** sub pixel correlation.
+ *
+ *  This is designed for small templates and search areas only.
+ *  It just creates upscaled versions of src and kernel and runs
+ *  the normal correlation routine on it.
+ *
+ *  The effective kernel and src image size is 4 pixel less in width and
+ *  height, because rescaling needs the border pixels as well.
+ */
+template <class SrcIterator, class SrcAccessor,
+          class KernelIterator, class KernelAccessor>
+SubPixelCorrelationResult correlateSubPixImage(SrcIterator sul, SrcIterator slr, SrcAccessor as,
+                                               KernelIterator ki, KernelAccessor ak,
+                                               vigra::Diff2D kul, vigra::Diff2D klr,
+                                               int mag=4
+    )
+{
+    using namespace vigra;
+
+    vigra_precondition(kul.x <= 0 && kul.y <= 0,
+                 "convolveImage(): coordinates of "
+                 "kernel's upper left must be <= 0.");
+    vigra_precondition(klr.x >= 0 && klr.y >= 0,
+                 "convolveImage(): coordinates of "
+                 "kernel's lower right must be >= 0.");
+
+    int w = slr.x - sul.x;
+    int ew = w-4;
+    int h = slr.y - sul.y;
+    int eh = h-4;
+    int wk = klr.x - kul.x +1;
+    int ewk = wk -4;
+    int hk = klr.y - kul.y +1;
+    int ehk = hk-4;
+    
+    DEBUG_DEBUG("correlate sub pix Image srcSize " << w << "," << h
+                << " tmpl size: " << wk << "," << hk);
+
+    // create scaled up versions of source and kernel
+    // uses a high quality spline interpolation.
+
+    Diff2D srcImgSize(slr-sul);
+    srcImgSize.x *= mag; srcImgSize.y *= mag;
+    FImage src(srcImgSize);
+    resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor>(sul, slr, as),
+                                   destImageRange(src));
+//        triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+
+
+    FImage kernel(wk*mag, hk*mag, -1);
+    resizeImageSplineInterpolation(triple<KernelIterator, KernelIterator, KernelAccessor>(ki + kul, ki+klr, as), destImageRange(kernel));
+    FImage dest(srcImgSize-Diff2D(4,4));
+    Diff2D nkul(kul.x * mag + 2, kul.y * mag + 2);
+    Diff2D nklr(klr.x * mag - 2, klr.y * mag - 2);
+
+    // use our normal correlation routine on the upsized pictures
+    CorrelationResult res;
+    res = correlateImage(src.upperLeft() + Diff2D(2,2),
+                         src.lowerRight() - Diff2D(2,2), src.accessor(),
+                         dest.upperLeft()+ Diff2D(2,2), dest.accessor(),
+                         kernel.upperLeft() - nkul + Diff2D(2,2),
+                         kernel.accessor(),
+                         nkul, nklr,-1);
+    SubPixelCorrelationResult r;
+    r.max = res.max;
+    r.pos.x = (double)res.pos.x / mag;
+    r.pos.y = (double)res.pos.y / mag;
+    return r;
+}
+
+
 /** multi resolution template matching using cross correlatation.
  *
  */
-
 template <class Image>
 bool findTemplate(const Image & templ, const std::string & filename,
                   CorrelationResult & res)

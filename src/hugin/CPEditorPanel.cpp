@@ -94,6 +94,11 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
     EVT_COMBOBOX(XRCID("cp_editor_zoom_box"), CPEditorPanel::OnZoom)
+    EVT_TEXT_ENTER(XRCID("cp_editor_x1"), CPEditorPanel::OnTextPointChange )
+    EVT_TEXT_ENTER(XRCID("cp_editor_y1"), CPEditorPanel::OnTextPointChange )
+    EVT_TEXT_ENTER(XRCID("cp_editor_x2"), CPEditorPanel::OnTextPointChange )
+    EVT_TEXT_ENTER(XRCID("cp_editor_y2"), CPEditorPanel::OnTextPointChange )
+    EVT_CHOICE(XRCID("cp_editor_mode"), CPEditorPanel::OnTextPointChange )
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -340,19 +345,20 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
         // FIXME approximate position in the right image
         break;
     case SECOND_POINT:
+        FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            Diff2D result;
             if (PointFineTune(m_rightImageNr,
                               Diff2D(newPoint.x, newPoint.y),
                               m_leftImageNr,
                               Diff2D(p.x, p.y),
-                              result)) {
-                p.x = result.x;
-                p.y = result.y;
+                              p2)) {
             }
+        } else {
+            p2.x = p.x;
+            p2.y = p.y;
         }
         // FIXME: get OptimizeMode from somewhere
-        ControlPoint point(m_leftImageNr, p.x, p.y,
+        ControlPoint point(m_leftImageNr, p2.x, p2.y,
                            m_rightImageNr, newPoint.x, newPoint.y,
                            PT::ControlPoint::X_Y);
 
@@ -380,21 +386,21 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
         // FIXME approximate position in left image
         break;
     case FIRST_POINT:
+        FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            Diff2D result;
             if (PointFineTune(m_leftImageNr,
                               Diff2D(newPoint.x,newPoint.y),
                               m_rightImageNr,
                               Diff2D(p.x, p.y),
-                              result)) {
-                p.x = result.x;
-                p.y = result.y;
+                              p2)) {
             }
+        } else {
+            p2.x = p.x;
+            p2.y = p.y;
         }
-
         // FIXME: get OptimizeMode from somewhere
         ControlPoint point(m_leftImageNr, newPoint.x, newPoint.y,
-                           m_rightImageNr, p.x, p.y,
+                           m_rightImageNr, p2.x, p2.y,
                            PT::ControlPoint::X_Y);
         m_leftImg->clearNewPoint();
         m_rightImg->clearNewPoint();
@@ -448,53 +454,48 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                   const Diff2D & tmplPoint,
                                   unsigned int subjImgNr,
                                   const Diff2D & subjPoint,
-                                  Diff2D & tunedPos)
+                                  FDiff2D & tunedPos)
 {
     DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
                 << subjImgNr);
 
-    // region, should be changeable though preferences, defaults to
-    // a window with 5 by 5 deg.
     const PanoImage & img = m_pano->getImage(subjImgNr);
     unsigned int lensNr = img.getLens();
     const Lens & l = m_pano->getLens(lensNr);
-    // FIXME user configurable search window (in horizontal degrees).
-//    int swidth = (int) (img.getWidth()*5.0/l.HFOV);
-//    int swidth = (int) ( img.getWidth() * 5.0 /l.HFOV);
 
     const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
         m_pano->getImage(subjImgNr).getFilename(),0);
 
+    // FIXME user configurable search window?
     int swidth = subjImg.width() / 10;
-    DEBUG_DEBUG("search window: " << swidth << "x" << swidth);
-    Diff2D searchSize(swidth, swidth);
-
-    Diff2D searchUL(subjPoint.x - swidth/2, subjPoint.y - swidth/2);
-    Diff2D searchLR(subjPoint.x + swidth/2, subjPoint.y + swidth/2);
+    DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
+    Diff2D searchUL(subjPoint.x - swidth, subjPoint.y - swidth);
+    Diff2D searchLR(subjPoint.x + swidth, subjPoint.y + swidth);
     // clip search window
     if (searchUL.x < 0) searchUL.x = 0;
     if (searchUL.y <0) searchUL.y = 0;
     if (searchLR.x > subjImg.width()) searchLR.x = subjImg.width();
     if (searchLR.y > subjImg.width()) searchLR.y = subjImg.height();
-    searchSize = searchLR - searchUL;
+    Diff2D searchSize = searchLR - searchUL;
 
     const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
     // make template size user configurable as well?
-    Diff2D halfTmplS(6,6);
-    Diff2D templS(13,13);
-    Diff2D tmplUL = tmplPoint - halfTmplS;
-    Diff2D tmplLR = tmplPoint + halfTmplS;
+    int templWidth = 6;
+    Diff2D tmplUL(-templWidth, -templWidth);
+    Diff2D tmplLR(templWidth, templWidth);
     // clip template
-    if (tmplUL.x < 0) tmplUL.x = 0;
-    if (tmplUL.y <0) tmplUL.y = 0;
-    if (tmplLR.x > tmplImg.width()) tmplLR.x = tmplImg.width();
-    if (tmplLR.y > tmplImg.width()) tmplLR.y = tmplImg.height();
+    if (tmplUL.x + tmplPoint.x < 0) tmplUL.x = -tmplPoint.x;
+    if (tmplUL.y + tmplPoint.y < 0) tmplUL.y = -tmplPoint.y;
+    if (tmplLR.x + tmplPoint.x> tmplImg.width())
+        tmplLR.x = tmplImg.width() - tmplPoint.x;
+    if (tmplLR.y + tmplPoint.y > tmplImg.width())
+        tmplLR.y = tmplImg.height() - tmplPoint.y;
 
     FImage dest(searchSize);
     dest.init(1);
-    DEBUG_DEBUG("starting fine tune")
+    DEBUG_DEBUG("starting fine tune");
     // we could use the multiresolution version as well.
     // but usually the region is quite small.
     CorrelationResult res;
@@ -503,15 +504,66 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                          subjImg.accessor(),
                          dest.upperLeft(),
                          dest.accessor(),
-                         tmplImg.upperLeft() + tmplUL,
+                         tmplImg.upperLeft() + tmplPoint,
                          tmplImg.accessor(),
-                         Diff2D(0,0), templS, -1);
-    DEBUG_DEBUG("finished fine tune")
-    // FIXME make configurable
-    if (res.max < 0.7) {
-        return false;
+                         tmplUL, tmplLR, -1);
+
+    res.pos += searchUL;
+    DEBUG_DEBUG("normal search finished, max:" << res.max
+                << " at " << res.pos.x << "," << res.pos.y);
+
+// FIXME subpixel correlation is broken right now..
+#if 0
+    // do a subpixel correlation afterwards.
+    SubPixelCorrelationResult spres;
+    // clip the new (small) subpixel search area
+    // note that subPixelSearch will clip 2 pixel at each side.
+    swidth = templWidth + 2 + 2;
+    searchUL = Diff2D(res.pos.x - swidth, res.pos.y - swidth);
+    searchLR = Diff2D(res.pos.x + swidth, res.pos.y + swidth);
+    // clip search window
+    if (searchUL.x < 0) searchUL.x = 0;
+    if (searchUL.y < 0) searchUL.y = 0;
+    if (searchLR.x > subjImg.width()) searchLR.x = subjImg.width();
+    if (searchLR.y > subjImg.width()) searchLR.y = subjImg.height();
+    searchSize = searchLR - searchUL;
+
+    // use a template with two more pixels ate each size.
+    templWidth = 6 + 2;
+    tmplUL = Diff2D(-templWidth, -templWidth);
+    tmplLR = Diff2D(templWidth, templWidth);
+    // clip template
+    if (tmplUL.x + res.pos.x < 0) tmplUL.x = -res.pos.x;
+    if (tmplUL.y + res.pos.y < 0) tmplUL.y = -res.pos.y;
+    if (tmplLR.x + res.pos.x> tmplImg.width())
+        tmplLR.x = tmplImg.width() - res.pos.x;
+    if (tmplLR.y + res.pos.y > tmplImg.width())
+        tmplLR.y = tmplImg.height() - res.pos.y;
+
+
+    DEBUG_DEBUG("starting subpixel search in window:" << searchUL.x << ","
+                << searchUL.y << " - " << searchLR.x << "," << searchLR.y);
+    // FIXME what subpixel resolution makes sense?
+    // I guess that less that 0.2 doesn't bring a big benefit,
+    // probably its not even that accurate
+    spres = correlateSubPixImage(subjImg.upperLeft() + searchUL,
+                                 subjImg.upperLeft() + searchLR,
+                                 subjImg.accessor(),
+                                 tmplImg.upperLeft() + res.pos,
+                                 tmplImg.accessor(),
+                                 tmplUL, tmplLR,
+                                 5);
+    tunedPos.x = res.pos.x + spres.pos.x;
+    tunedPos.y = res.pos.y + spres.pos.y;
+    DEBUG_DEBUG("subpixel search finished, max:" << spres.max
+                << " at " << tunedPos.x << "," << tunedPos.y);
+    if (spres.max < 0.7) {
+        DEBUG_NOTICE("Bad template match, max corr:" << spres.max);
     }
-    tunedPos = res.pos + searchUL + halfTmplS;
+#else
+    tunedPos.x = res.pos.x;
+    tunedPos.y = res.pos.y;
+#endif
     return true;
 }
 
@@ -626,6 +678,14 @@ void CPEditorPanel::UpdateDisplay()
     }
     m_leftImageNr = (unsigned int) fI;
     m_rightImageNr = (unsigned int) sI;
+    
+    // reset selection
+    m_x1Text->Clear();
+    m_y1Text->Clear();
+    m_x2Text->Clear();
+    m_y2Text->Clear();
+    m_cpModeChoice->SetSelection(0);
+    
     // update control points
     const PT::CPVector & controlPoints = m_pano->getCtrlPoints();
     currentPoints.clear();
@@ -687,6 +747,74 @@ void CPEditorPanel::UpdateDisplay()
     m_cpList->Show();
 }
 
+void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
+{
+    DEBUG_TRACE("");
+    // find selected point
+    long item = -1;
+    item = m_cpList->GetNextItem(item,
+                                 wxLIST_NEXT_ALL,
+                                 wxLIST_STATE_SELECTED);
+    // no selected item.
+    if (item == -1) {
+        return;
+    }
+    unsigned int nr = (unsigned int) item;
+    assert(nr < currentPoints.size());
+    ControlPoint cp = currentPoints[nr].second;
+    
+    // update point state
+    if (!m_x1Text->GetValue().ToDouble(&cp.x1)) {
+        wxBell();
+        m_x1Text->Clear();
+        *m_x1Text << cp.x1;
+        return;
+    }
+    if (!m_y1Text->GetValue().ToDouble(&cp.y1)) {
+        wxBell();
+        m_y1Text->Clear();
+        *m_y1Text << cp.y1;
+        return;
+    }
+    if (!m_x2Text->GetValue().ToDouble(&cp.x2)) {
+        wxBell();
+        m_x2Text->Clear();
+        *m_x2Text << cp.x2;
+        return;
+    }
+    if (!m_y2Text->GetValue().ToDouble(&cp.y2)) {
+        wxBell();
+        m_y2Text->Clear();
+        *m_y2Text << cp.x2;
+        return;
+    }
+    
+    switch(m_cpModeChoice->GetSelection()) {
+    case 0:
+        cp.mode = ControlPoint::X_Y;
+        break;
+    case 1:
+        cp.mode = ControlPoint::X;
+        break;
+    case 2:
+        cp.mode = ControlPoint::Y;
+        break;
+    default:
+        DEBUG_FATAL("unkown control point type selected");
+        return;
+        break;
+    }
+    
+    // if point was mirrored, reverse before setting it.
+    if (set_contains(mirroredPoints, nr)) {
+        cp.mirror();
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
+        );
+    
+}
+    
 void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
@@ -707,7 +835,7 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
 {
     int t = ev.GetIndex();
     DEBUG_TRACE("selected: " << t);
-    if (t >0) {
+    if (t >=0) {
         SelectLocalPoint((unsigned int) t);
     }
 }

@@ -77,8 +77,6 @@ public:
         { value = v; }
     double getValue() const
         { return value; }
-    const std::string & getName()
-        { return name; }
 
 private:
 

@@ -31,4 +31,14 @@
 
 #define HUGIN_VERSION 0.1
 
+#define INSTALL_PREFIX "/usr/local"
+#define INSTALL_ETC_DIR "__ETC_PREFIX__"
+#define INSTALL_BIN_DIR "/usr/local/bin"
+#define INSTALL_DOC_DIR "/usr/local/share/doc/hugin"
+#define INSTALL_DATA_DIR "/usr/local/share/hugin"
+#define INSTALL_XRC_DIR "/usr/local/share/hugin/xrc"
+#define INSTALL_XRC_DATA_DIR "/usr/local/share/hugin/xrc/data"
+#define INSTALL_LOCALE_DIR "/usr/local/share/locale"
+
+
 #endif // _CONFIG_H

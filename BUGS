@@ -2,4 +2,10 @@
   rescaled files with EXIF report wrong HFOV
 
 - Makefile
-  dependencies do not include local libraries.
+  - dependencies do not include local libraries.
+  - ./configure should work for mingw too.
+
+- CPEditor
+  - update doesn work correctly if only one image is loaded
+  - all automatic control point functions only work for rectiliniar
+    input images

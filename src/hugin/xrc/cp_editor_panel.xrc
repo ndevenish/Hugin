@@ -110,7 +110,9 @@
                     <border>10</border>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="cp_editor_x1"/>
+                    <object class="wxTextCtrl" name="cp_editor_x1">
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -120,7 +122,9 @@
                     <border>10</border>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="cp_editor_y1"/>
+                    <object class="wxTextCtrl" name="cp_editor_y1">
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -129,7 +133,9 @@
                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="cp_editor_x2"/>
+                    <object class="wxTextCtrl" name="cp_editor_x2">
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
@@ -138,7 +144,9 @@
                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="cp_editor_y2"/>
+                    <object class="wxTextCtrl" name="cp_editor_y2">
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                    </object>
                   </object>
                 </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
@@ -159,7 +167,6 @@
                         <item>vertical line</item>
                         <item>horizontal line</item>
                       </content>
-                      <style></style>
                     </object>
                     <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                   </object>
