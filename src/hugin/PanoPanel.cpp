@@ -64,7 +64,7 @@ extern ImgPreview *canvas;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::FitParent )
-    EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
+//    EVT_TEXT_ENTER ( XRCID("panorama_panel"),PanoPanel::PanoChanged )
 
   EVT_BUTTON   ( XRCID("pano_make_dialog"),PanoPanel::DoDialog )
 
@@ -205,22 +205,18 @@ void PanoPanel::DoOptimization (wxCommandEvent & e)
 
 #define OPT_TO_COMBOBOX( xml_combo, type ) \
 { \
-    DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type ) \
     lt = XRCCTRL(*this, xml_combo , wxComboBox) \
                             -> FindString( DoubleToString (opt.type) ) ; \
-    DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type <<" "<< lt ) \
     std::string number = XRCCTRL(*this, xml_combo, wxComboBox) \
                             ->GetString(lt).c_str(); \
     std::stringstream compare_s; \
     compare_s << opt.type; \
     if ( atof(number.c_str()) != atof(compare_s.str().c_str()) ) { \
-      DEBUG_INFO ( "updating "<< xml_combo <<"  " << compare_s.str().c_str() ) \
       XRCCTRL(*this, xml_combo, wxComboBox) \
                             -> SetValue(compare_s.str().c_str()); \
     } else { \
       XRCCTRL(*this, xml_combo, wxComboBox) \
                             ->SetSelection(lt) ; \
-      DEBUG_INFO ( "updating "<< xml_combo <<"  " << opt.type <<" "<< lt ) \
     } \
 }
 
@@ -423,24 +419,44 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
     if (!self_pano_dlg) {
+//      Panorama old_pano = pano;
+//      PanoramaOptions old_opt = opt;
       opt.width = previewWidth;
       opt.height = previewWidth / 2;
       wxString outputFormat = opt.outputFormat.c_str();
       opt.outputFormat = "JPEG";
-      int quality = opt.quality;
+//      int quality = preview_opt.quality;
       if ( outputFormat != "JPEG" )
         opt.quality = 100;
 
-      PT::SetPanoOptionsCmd( pano, opt );
+#if 1
+      // Set the preview image accordingly to ImagesPanel.cpp
+      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+        wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
+        std::stringstream filename;
+        filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
+                <<_("preview")<<"_"<< imgNr <<".ppm" ;
+        PanoImage image = pano.getImage(imgNr);
+        image.setFilename( filename.str() ) ;
+        pano.setImage(imgNr, image);
+        DEBUG_INFO ("rendering preview image: "<< filename.str())
+      }
+
+      DEBUG_TRACE ("")
+//      PT::SetPanoOptionsCmd( pano, opt );
+#endif
+      DEBUG_TRACE ("")
 
       GlobalCmdHist::getInstance().addCommand(
-        new PT::StitchCmd( pano, opt )
-        );
+         new PT::StitchCmd( pano, opt )
+         );
 
-      // recover old values
-      opt.outputFormat = outputFormat.c_str();
-      if ( outputFormat != "JPEG" )
-        opt.quality = quality;
+#if 0
+      GlobalCmdHist::getInstance().addCommand(
+         new PT::SetPanoOptionsCmd( pano, opt )
+         );
+#endif
+      DEBUG_TRACE ("")
 
       // Send panoViewer the name of our image
       server->SendFilename( (wxString) opt.outfile.c_str() );
@@ -469,6 +485,19 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           canvas->Refresh();
           delete s_img;
+
+      // recover old values
+//      if ( outputFormat != "JPEG" )
+//        preview_opt.quality = quality;
+      DEBUG_TRACE ("")
+
+// FIXME How to avoid crashing by the following? 
+// TODO  Can I run stitching without touching the pano object?
+#if 0
+      pano = old_pano;
+      opt = old_opt;
+#endif
+
     } else {
       pano_panel->DoPreview(e);
     }

@@ -207,6 +207,12 @@ public:
             assert(nr < state.images.size());
             return state.images[nr];
         };
+    /// set a panorama image, counting starts with 0
+    void setImage(std::size_t nr, PanoImage img)
+        {
+            assert(nr < state.images.size());
+            state.images[nr] = img;
+        };
     /// the the number for a specific image
 //    unsigned int getImageNr(const PanoImage * image) const;
 

@@ -208,6 +208,11 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
                                       (float)r_img.GetWidth()*20.0));
 
         }
+        std::stringstream filename;
+        filename << _("preview") << "_" << i << ".ppm" ;
+        r_img.SaveFile(filename.str().c_str(), wxBITMAP_TYPE_PNM);
+        DEBUG_INFO( "saving for preview: " << filename.str().c_str() )
+
         delete p_img;
         p_img = new wxBitmap( r_img.ConvertToBitmap() );
         canvas->Refresh();
@@ -239,11 +244,18 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 //    DEBUG_TRACE("");
 // DEBUG_TRACE("imgNr = "<<imgNr[0]<<" "<<imgNr[1]<<" "<<imgNr[2]<<" "<<imgNr[3]);
 
-    ImageVariables new_var;
+    ImageVariables new_var = pano.getVariable (orientationEdit_RefImg);
+    // set all images with the same distances (only for yaw)
+    double yaw_diff  = var - new_var.yaw.getValue();
+
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
         new_var = pano.getVariable(imgNr[i]);
         // set values
         if ( type == "yaw" ) {
+          new_var.yaw.setValue(new_var.yaw.getValue() + yaw_diff);
+          DEBUG_INFO( "var "<< var <<"  yaw_diff "<< yaw_diff )
+        }
+        if ( type == "yaw_text" ) {
           new_var.yaw.setValue(var);
         }
         if ( type == "pitch" ) {
@@ -279,11 +291,11 @@ void ImagesPanel::SetYaw ( wxCommandEvent & e )
       char text[16];
       sprintf( text, "%d ", var );
       XRCCTRL(*this, "images_stext_orientation", wxStaticText) ->SetLabel(text);
+      XRCCTRL(*this,"images_text_yaw",wxTextCtrl)->SetValue( doubleToString (
+                                              (double) var ).c_str() );
 
       ChangePano ( "yaw" , (double) var );
 
-      XRCCTRL(*this,"images_text_yaw",wxTextCtrl)->SetValue( doubleToString (
-                                              (double) var ).c_str() );
     }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 }
@@ -342,7 +354,7 @@ void ImagesPanel::SetYawText ( wxCommandEvent & e )
       sprintf ( c, "%d", (int) *var );
       XRCCTRL(*this,"images_stext_orientation",wxStaticText)->SetLabel(c);
 
-      ChangePano ( "yaw" , *var );
+      ChangePano ( "yaw_text" , *var );
 
       XRCCTRL(*this,"images_slider_yaw",wxSlider) ->SetValue( (int) *var );
 
@@ -756,6 +768,14 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
       } else {
         images_panel->SetYawPitch( coord_x, coord_y );
       }
+    }
+    if ((images_panel->imgNr[0] >= 1)) {
+      if (e.Leaving() || e.m_controlDown) 
+        XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue(
+             (int) pano.getVariable(images_panel->imgNr[1]) .pitch .getValue());
+      if (e.Leaving() || e.m_shiftDown) 
+        XRCCTRL(*images_panel,"images_slider_yaw",wxSlider) ->SetValue(
+             (int) pano.getVariable(images_panel->imgNr[1]) .yaw .getValue());
     }
 
 //    DEBUG_INFO ( "Mouse " << e.Entering() << e.Leaving());

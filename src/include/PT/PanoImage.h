@@ -87,6 +87,9 @@ public:
         std::string getFilename() const
             { return filename; }
 
+        void setFilename(std::string fn)
+            { filename = fn; }
+
         const ImageOptions & getOptions() const
             { return options; }
 

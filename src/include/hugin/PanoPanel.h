@@ -70,6 +70,8 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     // function to update PanoramaOptions -> gui
     bool autoPreview;
     int previewWidth;
+    // initialize from gui values
+    void PanoChanged (wxCommandEvent & e);
 
     // event handlers
     void DoDialog (wxCommandEvent & e);
@@ -103,7 +105,6 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void Stitch(wxCommandEvent & e);
 
     void PanoOptionsChanged( void );
-    void PanoChanged (wxCommandEvent & e);
     bool changePano;
 
     // the model

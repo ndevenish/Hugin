@@ -131,9 +131,13 @@ MainFrame::MainFrame(wxWindow* parent)
        pano_panel);
     pano_panel->pano_dlg_run = FALSE; // pano_panel did not yet run pano_dlg.
     pano_panel->self_pano_dlg = FALSE; // Tell pano_panel it is non dialog
-    UIntSet i;
-    pano_panel->panoramaImagesChanged (pano, i); // initialize
-
+#if 0
+    UIntSet i; 
+    pano_panel->panoramaImagesChanged (pano, i); // initialize from pano
+#else
+    wxCommandEvent e;
+    pano_panel->PanoChanged (e); // initialize from gui
+#endif
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
     cpe = new CPEditorPanel(this,&pano);

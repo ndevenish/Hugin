@@ -84,10 +84,15 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void SetImages ( wxListEvent & e );
 
     void SetYawPitch ( double coord_x, double coord_y );
-    /**  take sliders */
+    /**  take sliders ->pano */
     void SetYaw ( wxCommandEvent & e );
     void SetPitch ( wxCommandEvent & e );
     void SetRoll ( wxCommandEvent & e );
+
+    /**  holds the images just in work
+      *  in conjunction with SetImages()
+      */
+    unsigned int imgNr[512];
  private:
     // a window event
     void FitParent(wxSizeEvent & e);
@@ -100,10 +105,6 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     void OnRemoveImages(wxCommandEvent & e);
     // Here we select the preview image
 
-    /**  holds the images just in work
-      *  in conjunction with SetImages()
-      */
-    unsigned int imgNr[512];
     /**  take text */
     void SetYawText ( wxCommandEvent & e );
     void SetPitchText ( wxCommandEvent & e );
