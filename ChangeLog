@@ -1,3 +1,81 @@
+2004-11-01 19:09  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: added curvature threshold
+
+2004-11-01 19:08  dangelo
+
+	* src/hugin/PanoPanel.cpp: do not disable hfov, vfov controls when
+	  choosing stitcher presets
+
+2004-11-01 19:04  dangelo
+
+	* src/hugin/NonaStitcherPanel.cpp: remember enblend checkbox when
+	  switching some stuff
+
+2004-11-01 19:03  dangelo
+
+	* src/hugin/MainFrame.cpp: sort time series images by time. fixed
+	  bug within subpixel finetune, finetune all created slightly wrong
+	  points, when input points were already subpixel accurate
+
+2004-11-01 18:59  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, include/PT/PanoramaMemento.h:
+	  properly load inherit flags. support for loading PTGUI projects
+	  added (untested)
+
+2004-11-01 18:57  dangelo
+
+	* src/include/common/utils.h: compilation fixes for visual studio
+
+2004-11-01 18:54  dangelo
+
+	* src/include/hugin/wxPanoCommand.h: [no log message]
+
+2004-11-01 18:51  dangelo
+
+	* src/include/hugin/NonaStitcherPanel.h: remember enblend checkbox
+	  when switching some stuff
+
+2004-11-01 18:50  dangelo
+
+	* src/include/hugin/config_defaults.h: added /allinone to autopano
+	  args
+
+2004-11-01 18:48  dangelo
+
+	* src/: include/vigra_ext/Correlation.h, hugin/CPEditorPanel.cpp,
+	  hugin/xrc/pref_dialog.xrc, include/hugin/CPEditorPanel.h,
+	  include/hugin/config_defaults.h: new feature: check curvature of
+	  correlation peak as an aditional criteria for control point
+	  correlation. Unfortunately, it doesn't work well, so its not used
+	  by default
+
+2004-11-01 18:45  dangelo
+
+	* src/hugin/: xrc/images_panel.xrc, ImagesPanel.cpp: avoid
+	  shrinking of preview image in images panel, fixes bug 978954
+
+2004-11-01 18:40  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  include/hugin/AutoCtrlPointCreator.h: fixed bug [ 1035041 ],
+	  running autopano checks the filenames and does not shuffle the
+	  points between images
+
+2004-11-01 18:33  dangelo
+
+	* src/: hugin/LensPanel.cpp, include/hugin/LensPanel.h,
+	  Panorama/Panorama.cpp: Changing lens variables works properly
+	  when the project contains multiple lenses
+
+2004-10-30 22:50  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po,
+	  src/nona_gui/po/de.po, src/nona_gui/po/nona_gui.pot,
+	  src/nona_gui/po/pl.po: Update POT file and ChangeLog
+
 2004-10-30 22:42  dwilkins42
 
 	* src/hugin/MainFrame.cpp: Fix typo
@@ -2909,21 +2987,4 @@
 
 	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
 	  include/hugin/ImageCache.h: simple cache purge
-
-2003-11-01 05:08  speare
-
-	* src/hugin/xrc/data/: druid.control.128.png, druid.images.128.png,
-	  druid.lenses.128.png, druid.optimize.128.png,
-	  druid.stitch.128.png: First-draft graphics for the Panorama Druid
-	  feature.  Each graphic represents one of the top tabs of the main
-	  frame.  I'll color-code the tabs to these graphics later.
-
-2003-11-01 05:07  speare
-
-	* src/: hugin/PreviewFrame.cpp, include/hugin/PreviewFrame.h: Added
-	  a proof-of-concept "panorama druid" feature in the preview frame.
-	  This feature watches as you work, and updates itself to advise
-	  you on any steps or parameters you may have forgotten.  Currently
-	  very limited, but will be extending this to add more smarts in
-	  the future.  Comments welcome.
 
