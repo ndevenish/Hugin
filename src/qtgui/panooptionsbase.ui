@@ -1,0 +1,534 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>PanoOptionsBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>PanoOptionsBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>454</width>
+            <height>421</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Panorama output</string>
+    </property>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>400</width>
+                <height>100</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>GroupBoxPanel</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Sunken</enum>
+        </property>
+        <property name="title">
+            <string>Panorama Options</string>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>18</y>
+                    <width>147</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>&amp;Projection:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>panoProjectionCombo</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>50</y>
+                    <width>147</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Interpolator:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>interpolatorCombo</cstring>
+            </property>
+        </widget>
+        <widget class="QComboBox">
+            <item>
+                <property name="text">
+                    <string>Rectilinear</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Cylindrical</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>Equirectangular</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>panoProjectionCombo</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>100</x>
+                    <y>20</y>
+                    <width>115</width>
+                    <height>26</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QComboBox">
+            <item>
+                <property name="text">
+                    <string>poly3</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>spline16</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>spline36</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>sinc256</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>spline64</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>bilinear</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>nearest neighbour</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>sinc1024</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>interpolatorCombo</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>100</x>
+                    <y>50</y>
+                    <width>100</width>
+                    <height>26</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>220</x>
+                    <y>20</y>
+                    <width>79</width>
+                    <height>12</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>H. Field of View:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>HFOVSpinBox</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_4</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>230</x>
+                    <y>50</y>
+                    <width>52</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Gamma:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>gammaEdit</cstring>
+            </property>
+        </widget>
+        <widget class="QSpinBox">
+            <property name="name">
+                <cstring>HFOVSpinBox</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>320</x>
+                    <y>20</y>
+                    <width>47</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="maxValue">
+                <number>360</number>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>gammaEdit</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>310</x>
+                    <y>50</y>
+                    <width>61</width>
+                    <height>21</height>
+                </rect>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>107</width>
+                <height>78</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Preview</string>
+        </property>
+        <grid>
+            <property name="name">
+                <cstring>unnamed</cstring>
+            </property>
+            <widget class="QLabel" row="0" column="0">
+                <property name="name">
+                    <cstring>textLabel3_3</cstring>
+                </property>
+                <property name="text">
+                    <string>Width:</string>
+                </property>
+                <property name="buddy" stdset="0">
+                    <cstring>previewWidthSpinBox</cstring>
+                </property>
+            </widget>
+            <widget class="QSpinBox" row="0" column="1">
+                <property name="name">
+                    <cstring>previewWidthSpinBox</cstring>
+                </property>
+            </widget>
+            <widget class="QPushButton" row="1" column="0" rowspan="1" colspan="2">
+                <property name="name">
+                    <cstring>createPreviewButton</cstring>
+                </property>
+                <property name="text">
+                    <string>preview</string>
+                </property>
+            </widget>
+        </grid>
+    </widget>
+    <widget class="QGroupBox">
+        <property name="name">
+            <cstring>groupBox7</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>210</x>
+                <y>120</y>
+                <width>200</width>
+                <height>200</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string>Final Panorama</string>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel5</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>74</y>
+                    <width>65</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Height:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>panoHeightSpinBox</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>98</y>
+                    <width>65</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>JPEG quality:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>jpegQualitySpinBox</cstring>
+            </property>
+        </widget>
+        <widget class="QComboBox">
+            <item>
+                <property name="text">
+                    <string>JPEG</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PNG</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PICT</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PSD_mask</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PSD_nomask</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>TIFF</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PAN</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>IVR</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>IVR_java</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>VRML</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>QTVR</string>
+                </property>
+            </item>
+            <item>
+                <property name="text">
+                    <string>PSD</string>
+                </property>
+            </item>
+            <property name="name">
+                <cstring>outputFormatCombo</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>82</x>
+                    <y>18</y>
+                    <width>107</width>
+                    <height>26</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel3_3_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>50</y>
+                    <width>65</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Width:</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>panoWidthSpinBox</cstring>
+            </property>
+        </widget>
+        <widget class="QPushButton">
+            <property name="name">
+                <cstring>createFinalPanoButton</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>170</y>
+                    <width>178</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>create Panorama</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel6</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>11</x>
+                    <y>18</y>
+                    <width>65</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Format</string>
+            </property>
+            <property name="buddy" stdset="0">
+                <cstring>outputFormatCombo</cstring>
+            </property>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>progressiveCheckBox</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>50</x>
+                    <y>130</y>
+                    <width>77</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>progressive</string>
+            </property>
+        </widget>
+        <widget class="QSpinBox">
+            <property name="name">
+                <cstring>heightSpinBox</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>82</x>
+                    <y>74</y>
+                    <width>107</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="maxValue">
+                <number>100000</number>
+            </property>
+        </widget>
+        <widget class="QSpinBox">
+            <property name="name">
+                <cstring>jpegQualitySpinBox</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>82</x>
+                    <y>98</y>
+                    <width>107</width>
+                    <height>18</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QSpinBox">
+            <property name="name">
+                <cstring>widthSpinBox</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>82</x>
+                    <y>50</y>
+                    <width>107</width>
+                    <height>18</height>
+                </rect>
+            </property>
+            <property name="maxValue">
+                <number>100000</number>
+            </property>
+        </widget>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>createPreviewButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PanoOptionsBase</receiver>
+        <slot>previewPanorama()</slot>
+    </connection>
+    <connection>
+        <sender>createFinalPanoButton</sender>
+        <signal>clicked()</signal>
+        <receiver>PanoOptionsBase</receiver>
+        <slot>createPanorama()</slot>
+    </connection>
+</connections>
+<slots>
+    <slot specifier="pure virtual">createPanorama()</slot>
+    <slot>previewPanorama()</slot>
+</slots>
+<pixmapinproject/>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
