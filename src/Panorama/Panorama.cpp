@@ -351,8 +351,17 @@ FDiff2D Panorama::calcFOV() const
         ul.y = 90 - (ul.y + 0.5);
         lr.x = (lr.x + 0.5) - 180;
         lr.y = 90 - (lr.y + 0.5);
+#ifdef DEBUG
+        debug_out << "image coord (long lat):" << ul << " - " << lr << endl;
+#endif
 
         // handle image overlaps pole case
+        // check if the image width is quite big. (almost
+        // 360 deg). This is true for overlapping images
+        // but also for other images that lay over the 180 deg
+        // border
+
+        // FIXME .. disinguish between these two overlaps
         if (ul.x <= -170.0 && lr.x >= 170) {
             // image in northern hemisphere
             if (ul.y > 0 ) {
@@ -822,7 +831,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             if ((line.compare("# Control Points: Distance between desired and fitted Position") == 0 )
              || (line.compare("# Control Points: Distance between desired and fitted Position (in Pixels)")) == 0 ) {
                 // switch to reading the control point distance
-                assert(varIt == imgVars.end());
+                DEBUG_ASSERT( varIt == imgVars.end() && "Not all image parameters have been read");
                 state = 1;
                 break;
             }
@@ -860,7 +869,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             // # Control Point No 0:  0.428994
             if (line[0] == 'C') {
                 DEBUG_DEBUG(CPs.size() << " points, read: " << pnr);
-                assert(pointIt == CPs.end());
+                DEBUG_ASSERT(pointIt == CPs.end() && "have all control point distances been read?");
                 DEBUG_DEBUG("all CP errors read");
                 state = 2;
                 break;

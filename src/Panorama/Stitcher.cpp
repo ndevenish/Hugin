@@ -48,7 +48,17 @@ static void stitchPanoIntern(const PT::Panorama & pano,
     // determine stitching output
     switch (opts.outputFormat) {
     case PT::PanoramaOptions::JPEG:
+	{
+	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+	    stitcher.stitch(opts, imgs, basename);
+	    break;
+	}
     case PT::PanoramaOptions::PNG:
+	{
+	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+	    stitcher.stitch(opts, imgs, basename);
+	    break;
+	}
     case PT::PanoramaOptions::TIFF:
 	{
 	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
@@ -69,7 +79,7 @@ static void stitchPanoIntern(const PT::Panorama & pano,
 	}
     case PT::PanoramaOptions::TIFF_mask:
     case PT::PanoramaOptions::TIFF_multilayer_mask:
-	DEBUG_DEBUG("multi mask stitching not implemented!");
+	DEBUG_ERROR("multi mask stitching not implemented!");
 	break;
     default:
 	DEBUG_ERROR("output format " << opts.getFormatName(opts.outputFormat) << "not supported");
@@ -101,7 +111,9 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     {
         // calculate alpha channel
         rimg[*it].calcAlpha(pano, opts, *it);
-	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));
+#ifdef DEBUG
+	vigra_impex2::exportImage(rimg[*it].alpha(), vigra_impex2::ImageExportInfo("debug_alpha.tif"));
+#endif
     }
 
     int firstImg = *(images.begin());
@@ -157,13 +169,16 @@ void PT::stitchPanorama(const PT::Panorama & pano,
 
     unsigned int imgNr = 0;
     pano.getImage(imgNr);
-    vigra::ImageImportInfo info(pano.getImage(imgNr).getFilename().c_str());
+    string fname =  pano.getImage(imgNr).getFilename().c_str();
+    DEBUG_DEBUG("Probing image: " << fname);
+    vigra_impex2::ImageImportInfo info(fname.c_str());
     const char * pixelType = info.getPixelType();
     int bands = info.numBands();
+    int extraBands = info.numExtraBands();
 
     // check if all other images have the same type
     for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
-        vigra::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
+        vigra_impex2::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
         if (strcmp(info2.getPixelType(), pixelType) != 0) {
             DEBUG_FATAL("image " << pano.getImage(imgNr).getFilename()
                         << " uses " << info2.getPixelType() << " valued pixel, while " << pano.getImage(0).getFilename() << " uses: " << pixelType);
@@ -180,7 +195,7 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     // FIXME add alpha channel treatment!
 
     // stitch the pano with a suitable image type
-    if (bands == 1) {
+    if (bands == 1 || bands == 2 && extraBands == 1) {
         if (strcmp(pixelType, "UINT8") == 0 ) {
             stitchPanoIntern<BImage,BImage>(pano, opts, progress, basename);
         } else if (strcmp(pixelType, "INT16") == 0 ) {
@@ -199,7 +214,7 @@ void PT::stitchPanorama(const PT::Panorama & pano,
             DEBUG_FATAL("Unsupported pixel type: " << pixelType);
             return;
         }
-    } else if (bands == 3) {
+    } else if (bands == 3 || bands == 4 && extraBands == 1) {
         if (strcmp(pixelType, "UINT8") == 0 ) {
             stitchPanoIntern<BRGBImage,BImage>(pano, opts, progress, basename);
         } else if (strcmp(pixelType, "INT16") == 0 ) {
@@ -219,7 +234,7 @@ void PT::stitchPanorama(const PT::Panorama & pano,
             return;
         }
     } else {
-        DEBUG_FATAL("unsupported depth (images with alpha channel not yet supported)");
+        DEBUG_FATAL("unsupported depth, only images with 1 and 3 channel images are supported");
         return;
     }
 }

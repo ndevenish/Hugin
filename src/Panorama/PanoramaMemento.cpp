@@ -98,7 +98,7 @@ Lens::Lens()
 {
     variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50 , true)));
     variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
-    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b",-0.01, true)));
+    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("d",LensVariable("d", 0.0)));
     variables.insert(pair<const char*, LensVariable>("e",LensVariable("e", 0.0)));
@@ -141,28 +141,35 @@ bool Lens::readEXIF(const std::string & filename)
 
     DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
 
-    sensorWidth = exif.CCDWidth;
-    if (sensorWidth <= 0) {
-        DEBUG_ERROR("EXIF does not contain sensor width, assuming 36 x 24 mm film");
-        sensorWidth = 36.0;
+    // calc sensor dimensions if not set and 35mm focal length is available
+    focalLengthConversionFactor = 0;
+    if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
+        focalLengthConversionFactor = exif.FocalLength35mm / exif.FocalLength;
+        if (exif.CCDWidth <= 0 && exif.CCDHeight <= 0) {
+            exif.CCDWidth = 36.0 / focalLengthConversionFactor;
+            exif.CCDHeight = 24 / focalLengthConversionFactor;
+        }
     }
 
-    // FIXME, assumes square pixels
-    //sensorHeight = sensorWidth / ratio;
+    sensorWidth = exif.CCDWidth;
     sensorHeight = exif.CCDHeight;
-    if (sensorHeight <= 0) {
-        DEBUG_ERROR("EXIF does not contain sensor height, assuming 36 x 24 mm film");
+    if (sensorWidth <= 0 && sensorWidth <= 0) {
+        DEBUG_ERROR("EXIF does not contain sensor width, assuming 36 x 24 mm film");
+        // should ask for sensor width/height
+        sensorWidth = 36.0;
         sensorHeight = 24.0;
     }
 
     // update the sensor ratio to fit this
     sensorRatio = sensorWidth / sensorHeight;
     if (sensorWidth < sensorHeight) {
-        DEBUG_WARN("support for sensors probably buggy");
+        DEBUG_WARN("ODD: portrait oriented sensor detected.");
     }
-    focalLengthConversionFactor = sqrt(36.0*36.0 + 24.0*24.0) /
-                                  sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight);
-
+    if (focalLengthConversionFactor <= 0) {
+        focalLengthConversionFactor = sqrt(36.0*36.0 + 24.0*24.0) /
+    	                              sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight);
+    }
+	
     if (isLandscape) {
         HFOV = 2.0 * atan((sensorWidth/2)/exif.FocalLength) * 180.0/M_PI;
     } else {
@@ -438,7 +445,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 
     bool firstOptVecParse = true;
     unsigned int lineNr = 0;
-    while (!i.eof()) {
+    while (i.good()) {
         std::getline(i, line);
         lineNr++;
         DEBUG_DEBUG(lineNr << ": " << line);

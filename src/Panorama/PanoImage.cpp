@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <18-Nov-2003 00:56:14 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <26-Mai-2004 17:12:23 pablo@svalbart>
 //
 //
 
@@ -125,6 +125,7 @@ QDomElement PanoImage::toXML(QDomDocument & doc)
 }
 #endif
 
+/*
 bool PanoImage::readImageInformation()
 {
   std::string::size_type idx = filename.rfind('.');
@@ -140,7 +141,7 @@ bool PanoImage::readImageInformation()
 //  width = image->GetWidth();
 //  height = image->GetHeight();
 
-  /*
+  
   try {
       // find another platform independant way to read the image info..
       Magick::Image img;
@@ -152,7 +153,9 @@ bool PanoImage::readImageInformation()
                    << ": " << e.what());
       return false;
   }
-  */
+  
 //  isLandscape = (width > height);
   return true;
 }
+
+*/

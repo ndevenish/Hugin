@@ -31,9 +31,13 @@
 #include <vector>
 #include <utility>
 
-#include <vigra/impex.hxx>
 #include <vigra/stdimage.hxx>
-#include "vigra/rgbvalue.hxx"
+#include <vigra/rgbvalue.hxx>
+#include <vigra/tiff.hxx>
+
+#include <vigra_impex2/addimage.hxx>
+#include <vigra_impex2/impex.hxx>
+#include <vigra_impex2/impexalpha.hxx>
 
 #include <vigra_ext/NearestFeatureTransform.h>
 #include <vigra_ext/tiffUtils.h>
@@ -41,71 +45,6 @@
 
 #include <PT/ImageTransforms.h>
 
-namespace vigra {
-
-// define missing std image types in vigra.
-
-#define VIGRA_EXT_DEFINE_ITERATORTRAITS(VALUETYPE, ACCESSOR, CONSTACCESSOR) \
-    template<> \
-    struct IteratorTraits< \
-        BasicImageIterator<VALUETYPE, VALUETYPE **> > \
-    { \
-        typedef BasicImageIterator<VALUETYPE, VALUETYPE **> \
-                                                     Iterator; \
-        typedef Iterator                             iterator; \
-        typedef iterator::iterator_category          iterator_category; \
-        typedef iterator::value_type                 value_type; \
-        typedef iterator::reference                  reference; \
-        typedef iterator::index_reference            index_reference; \
-        typedef iterator::pointer                    pointer; \
-        typedef iterator::difference_type            difference_type; \
-        typedef iterator::row_iterator               row_iterator; \
-        typedef iterator::column_iterator            column_iterator; \
-        typedef ACCESSOR<VALUETYPE >                 default_accessor; \
-        typedef ACCESSOR<VALUETYPE >                 DefaultAccessor; \
-    }; \
-    template<> \
-    struct IteratorTraits< \
-        ConstBasicImageIterator<VALUETYPE, VALUETYPE **> > \
-    { \
-        typedef \
-          ConstBasicImageIterator<VALUETYPE, VALUETYPE **> \
-                                                     Iterator; \
-        typedef Iterator                             iterator; \
-        typedef iterator::iterator_category          iterator_category; \
-        typedef iterator::value_type                 value_type; \
-        typedef iterator::reference                  reference; \
-        typedef iterator::index_reference            index_reference; \
-        typedef iterator::pointer                    pointer; \
-        typedef iterator::difference_type            difference_type; \
-        typedef iterator::row_iterator               row_iterator; \
-        typedef iterator::column_iterator            column_iterator; \
-        typedef CONSTACCESSOR<VALUETYPE >            default_accessor; \
-        typedef CONSTACCESSOR<VALUETYPE >            DefaultAccessor; \
-    };
-
-VIGRA_EXT_DEFINE_ITERATORTRAITS(unsigned short, StandardValueAccessor,
-                                StandardConstValueAccessor)
-typedef BasicImage<unsigned short> USImage;
-
-VIGRA_EXT_DEFINE_ITERATORTRAITS(unsigned int, StandardValueAccessor,
-                                StandardConstValueAccessor)
-typedef BasicImage<unsigned int> UIImage;
-
-
-VIGRA_EXT_DEFINE_ITERATORTRAITS(RGBValue<short>, RGBAccessor,
-                            RGBAccessor)
-typedef BasicImage<RGBValue<short> > SRGBImage;
-
-VIGRA_EXT_DEFINE_ITERATORTRAITS(RGBValue<unsigned short>, RGBAccessor,
-                            RGBAccessor)
-typedef BasicImage<RGBValue<unsigned short> > USRGBImage;
-
-VIGRA_EXT_DEFINE_ITERATORTRAITS(RGBValue<unsigned int>, RGBAccessor,
-                            RGBAccessor)
-typedef BasicImage<RGBValue<unsigned int> > UIRGBImage;
-
-}
 
 namespace PT{
 
@@ -127,19 +66,25 @@ public:
     {
     }
 
-    /** Stitch some images into a panorama file */
+    /** Stitch some images into a panorama file.
+     *
+     *  The filename can be specified with and without extension
+     */
     virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images, const std::string & file) = 0;
+
 
     //    template<typename ImgIter, typename ImgAccessor>
 
     //void stitch(const PanoramaOptions & opts, UIntSet & images, vigra::triple<ImgIter, ImgIter, ImgAccessor> output);
 
 protected:
+
     const PT::Panorama & m_pano;
     utils::MultiProgressDisplay & m_progress;
 };
+
 /** remap a set of images, and store the individual remapped files. */
-template <typename ImageType, typename AlphaImageType>
+template <typename ImageType, typename AlphaType>
 class MultiImageRemapper : public Stitcher
 {
 public:
@@ -153,17 +98,12 @@ public:
     {
     }
 
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images, const std::string & filename)
+    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & images, const std::string & basename)
     {
 	DEBUG_ASSERT(opts.outputFormat == PT::PanoramaOptions::TIFF_multilayer
 		     || opts.outputFormat == PT::PanoramaOptions::TIFF_m);
 
-	std::string::size_type idx = filename.rfind('.');
-	if (idx != std::string::npos) {
-	    m_basename = filename.substr(0, idx);
-	} else {
-            m_basename = filename;
-        }
+        m_basename = utils::stripExtension(basename);
 
         // setup the output.
         prepareOutputFile(opts);
@@ -177,22 +117,28 @@ public:
 	for (UIntSet::const_iterator it = images.begin();
 	     it != images.end(); ++it)
 	{
+
 	    // load image
 	    const PT::PanoImage & img = m_pano.getImage(*it);
-	    vigra::ImageImportInfo info(img.getFilename().c_str());
-	    // create a RGB image of appropriate size
-	    // FIXME.. use some other mechanism to define what format to use..
-	    // have to look at the vigra import/export stuff how this could
-	    // handled
+	    vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
+            // create an image of the right size
 	    ImageType srcImg(info.width(), info.height());
+            AlphaType srcAlpha(info.width(), info.height(), 1);
+
 	    // import the image just read
-	    m_progress.setMessage(std::string("loading image ") + img.getFilename());
-	    importImage(info, destImage(srcImg));
+	    m_progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
+
+            // import with alpha channel
+            vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
+                             vigra::destImage(srcAlpha));
+
+	    m_progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
 	
-	    m_progress.setMessage("remapping " + img.getFilename());
-	
-	    RemappedPanoImage<ImageType, AlphaImageType> remapped;
-	    remapped.remapImage(m_pano, opts, *it, m_progress);
+	    RemappedPanoImage<ImageType, AlphaType> remapped;
+	    remapped.remapImage(m_pano, opts,
+                                vigra::srcImageRange(srcImg),
+                                vigra::srcImage(srcAlpha),
+                                *it, m_progress);
 	
             saveRemapped(remapped, *it, m_pano.getNrOfImages(), opts);
 
@@ -208,7 +154,7 @@ public:
     }
 
     /** save a remapped image, or layer */
-    virtual void saveRemapped(RemappedPanoImage<ImageType, AlphaImageType> & remapped,
+    virtual void saveRemapped(RemappedPanoImage<ImageType, AlphaType> & remapped,
                               unsigned int imgNr, unsigned int nImg,
                               const PT::PanoramaOptions & opts)
     {
@@ -227,24 +173,25 @@ public:
             std::ostringstream filename;
             filename << m_basename << std::setfill('0') << std::setw(3) << imgNr << ".jpg";
 
-            vigra::ImageExportInfo exinfo(filename.str().c_str());
+            vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
             // set compression options here.
             char jpgCompr[4];
             snprintf(jpgCompr,4,"%d", opts.quality);
             exinfo.setCompression(jpgCompr);
-            vigra::exportImage(srcImageRange(complete), exinfo);
+            vigra_impex2::exportImage(srcImageRange(complete), exinfo);
             break;
         }
         case PanoramaOptions::PNG:
         {
             std::ostringstream filename;
             filename << m_basename << setfill('0') << setw(3) << imgNr << ".png";
-            vigra::ImageExportInfo exinfo(filename.str().c_str());
+            vigra_impex2::ImageExportInfo exinfo(filename.str().c_str());
             exinfo.setXResolution(150);
             exinfo.setYResolution(150);
-            vigra::exportImage(srcImageRange(complete), exinfo);
+            vigra_impex2::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
+                                           exinfo);
             break;
         }
         case PanoramaOptions::TIFF_m:
@@ -357,7 +304,7 @@ struct CalcMaskUnion
 };
 
 
-template <typename ImageType, typename AlphaImageType>
+template <typename ImageType, typename AlphaType>
 class WeightedStitcher : public Stitcher
 {
 public:
@@ -367,7 +314,11 @@ public:
     {
     }
 
-    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet, const std::string & filename)
+    template<class ImgIter, class ImgAccessor,
+             class AlphaIter, class AlphaAccessor>
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                        vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
+                        std::pair<AlphaIter, AlphaAccessor> alpha)
     {
 	std::vector<unsigned int> images;
 	// calculate stitching order
@@ -375,62 +326,149 @@ public:
 
 	unsigned int nImg = images.size();
 
-	m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(2*nImg)));	
-	// create panorama canvas
-	ImageType pano;
-	AlphaImageType panoMask;
-	
-	// the output panorama
-	pano.resize(opts.width, opts.getHeight());	
-	panoMask.resize(opts.width, opts.getHeight());
-	
+	m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
 	// empty ROI
 	vigra_ext::ROI<vigra::Diff2D> panoROI;
 
-	// remap each image and save
+	// remap each image and blend into main pano image
 	for (UIntVector::const_iterator it = images.begin();
 	     it != images.end(); ++it)
 	{
 	    // load image
 	    const PT::PanoImage & img = m_pano.getImage(*it);
-	    vigra::ImageImportInfo info(img.getFilename().c_str());
-	    // create a output image of appropriate size
+	    vigra_impex2::ImageImportInfo info(img.getFilename().c_str());
+            // create an image of the right size
 	    ImageType srcImg(info.width(), info.height());
-	    // import the image just read
-	    m_progress.setMessage(std::string("loading image ") + img.getFilename());
-	    importImage(info, std::make_pair(srcImg.upperLeft(), srcImg.accessor()));
-	
-	    m_progress.setMessage("remapping " + img.getFilename());
-	
-	    RemappedPanoImage<ImageType, AlphaImageType> remapped;
-	    remapped.remapImage(m_pano, opts, *it, m_progress);
+            AlphaType srcAlpha(info.width(), info.height(), 1);
 
-	    m_progress.setMessage("blending " + img.getFilename());
-	    // add image to pano and panoalpha, adjusts panoROI as well.
-	    blend(remapped, destImageRange(pano), destImage(panoMask), panoROI);
-	}
+	    // import the image just read
+	    m_progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
+
+            // import with alpha channel
+            vigra_impex2::importImageAlpha(info, vigra::destImage(srcImg),
+                                           vigra::destImage(srcAlpha));
+
+#ifdef DEBUG
+            // testing stuff.
+            vigra_impex2::exportImage(srcImageRange(srcImg), vigra_impex2::ImageExportInfo("test_image_loaded.tif"));
+            vigra_impex2::exportImage(srcImageRange(srcAlpha), vigra_impex2::ImageExportInfo("test_alpha_loaded.tif"));
+#endif
 	
-	m_progress.setMessage("saving result");
+	    m_progress.setMessage("remapping " + utils::stripPath(img.getFilename()));
+	
+	    RemappedPanoImage<ImageType, AlphaType> remapped;
+	    remapped.remapImage(m_pano, opts,
+                                vigra::srcImageRange(srcImg),
+                                vigra::srcImage(srcAlpha),
+                                *it, m_progress);
+
+	    m_progress.setMessage("blending " + utils::stripPath(img.getFilename()));
+	    // add image to pano and panoalpha, adjusts panoROI as well.
+	    blend(remapped, pano, alpha, panoROI);
+	}
+    }
+
+    virtual void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet, const std::string & filename)
+    {
+        std::string basename = utils::stripExtension(filename);
+
+	// create panorama canvas
+	ImageType pano(opts.width, opts.getHeight());
+	AlphaType panoMask(opts.width, opts.getHeight());
+
+        stitch(opts, imgSet, vigra::srcImageRange(pano), vigra::maskImage(panoMask));
+	
+        std::string outputfile;
 	// save the remapped image
-	DEBUG_DEBUG("Saving panorama: " << filename);
-	vigra::ImageExportInfo exinfo(filename.c_str());
+        switch (opts.outputFormat) {
+        case PanoramaOptions::JPEG:
+            outputfile = basename + ".jpg";
+            break;
+        case PanoramaOptions::PNG:
+            outputfile = basename + ".png";
+            break;
+        case PanoramaOptions::TIFF:
+            outputfile = basename + ".tif";
+            break;
+        default:
+            DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+        }
+	m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
+	DEBUG_DEBUG("Saving panorama: " << outputfile);
+	vigra_impex2::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
 	exinfo.setYResolution(150);
-	vigra::exportImage(srcImageRange(pano), exinfo);
+        // set compression quality for jpeg images.
+        if (opts.outputFormat == PanoramaOptions::JPEG) {
+            char jpgCompr[4];
+            snprintf(jpgCompr,4,"%d", opts.quality);
+            exinfo.setCompression(jpgCompr);
+            vigra_impex2::exportImage(srcImageRange(pano), exinfo);
+	} else {
+            vigra_impex2::exportImageAlpha(srcImageRange(pano),
+                                           srcImage(panoMask), exinfo);
+        }
 #ifdef DEBUG
-	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
+	vigra_impex2::exportImage(srcImageRange(panoMask), vigra_impex2::ImageExportInfo("pano_alpha.tif"));
 #endif
 	m_progress.popTask();
 
     }
 
+    /** blends two images, they overlap and the iterators point
+     *  to excatly the same position.
+     */
+    template <typename PanoIter, typename PanoAccessor,
+              typename MaskIter, typename MaskAccessor,
+              typename ImageIter, typename ImageAccessor,
+	      typename ImageMaskIter, typename ImageMaskAccessor>
+    void blendOverlap(vigra::triple<ImageIter, ImageIter, ImageAccessor> image,
+		      std::pair<ImageMaskIter, ImageMaskAccessor> imageMask,
+		      std::pair<PanoIter, PanoAccessor> pano,
+		      std::pair<MaskIter, MaskAccessor> panoMask)
+    {
+	vigra::Diff2D size = image.second - image.first;
+
+#ifdef DEBUG
+	// save the masks
+	vigra_impex2::exportImage(srcIterRange(imageMask.first, imageMask.first + size),
+                    vigra_impex2::ImageExportInfo("blendImageMask_before.tif"));
+        vigra_impex2::exportImage(srcIterRange(panoMask.first, panoMask.first + size),
+                    vigra_impex2::ImageExportInfo("blendPanoMask_before.tif"));
+	
+#endif
+
+	// create new blending masks
+	vigra::BasicImage<typename MaskIter::value_type> blendPanoMask(size);
+	vigra::BasicImage<typename MaskIter::value_type> blendImageMask(size);
+
+	// calculate the stitching masks.
+	vigra_ext::nearestFeatureTransform(srcIterRange(panoMask.first, panoMask.first + size),
+                                           imageMask,
+                                           destImage(blendPanoMask),
+                                           destImage(blendImageMask),
+                                           m_progress);
+
+#ifdef DEBUG
+	// save the masks
+	vigra_impex2::exportImage(srcImageRange(blendImageMask), vigra_impex2::ImageExportInfo("blendImageMask.tif"));
+	vigra_impex2::exportImage(srcImageRange(blendPanoMask), vigra_impex2::ImageExportInfo("blendPanoMask.tif"));
+	
+#endif
+	// copy the image into the panorama
+	vigra::copyImageIf(image, vigra::maskImage(blendImageMask), pano);
+	// copy mask
+	vigra::copyImageIf(vigra::srcImageRange(blendImageMask), vigra::maskImage(blendImageMask), panoMask);
+    }
+    
+    
     /** blend \p img into \p pano, using \p alpha mask and \p panoROI
      *
      *  updates \p pano, \p alpha and \p panoROI
      */
     template <typename PanoIter, typename PanoAccessor,
 	      typename AlphaIter, typename AlphaAccessor>
-    void blend(RemappedPanoImage<ImageType, AlphaImageType> & img,
+    void blend(RemappedPanoImage<ImageType, AlphaType> & img,
 	       vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
 	       std::pair<AlphaIter, AlphaAccessor> alpha,
 	       vigra_ext::ROI<vigra::Diff2D> & panoROI)
@@ -439,7 +477,7 @@ public:
 	// intersect the ROI's.
 	vigra_ext::ROI<vigra::Diff2D> overlap;
         const vigra_ext::ROI<vigra::Diff2D> & imgROI = img.roi();
-	if (panoROI.intersect(img.roi(),overlap)) {
+	if (panoROI.intersect(imgROI, overlap)) {
 	    // image ROI's overlap.. calculate overlap mask
 	    vigra::BasicImage<AlphaValue> overlapMask(overlap.size());
 	    vigra_ext::OverlapSizeCounter counter;
@@ -512,6 +550,7 @@ public:
 
                 }
             } else {
+                // images do not overlap
                 // copy image with mask.
                 vigra::copyImageIf(img.image(),
                                    maskIter(img.alpha().first),
@@ -536,52 +575,10 @@ public:
 	img.roi().unite(panoROI, panoROI);
     }
 
-    /** blends two images, they overlap and the iterators point
-     *  to excatly the same position.
-     */
-    template <typename PanoIter, typename PanoAccessor,
-	      typename MaskIter, typename MaskAccessor>
-    void blendOverlap(vigra::triple<PanoIter, PanoIter, PanoAccessor> image,
-		      std::pair<MaskIter, MaskAccessor> imageMask,
-		      std::pair<PanoIter, PanoAccessor> pano,
-		      std::pair<MaskIter, MaskAccessor> panoMask)
-    {
-	vigra::Diff2D size = image.second - image.first;
-
-#ifdef DEBUG
-	// save the masks
-	exportImage(srcIterRange(imageMask.first, imageMask.first + size),
-                    vigra::ImageExportInfo("blendImageMask_before.tif"));
-	exportImage(srcIterRange(panoMask.first, panoMask.first + size),
-                    vigra::ImageExportInfo("blendPanoMask_before.tif"));
-	
-#endif
-
-	// create new blending masks
-	vigra::BasicImage<typename MaskIter::value_type> blendPanoMask(size);
-	vigra::BasicImage<typename MaskIter::value_type> blendImageMask(size);
-
-	// calculate the stitching masks.
-	vigra_ext::nearestFeatureTransform(srcIterRange(panoMask.first, panoMask.first + size),
-                                           imageMask,
-                                           destImage(blendPanoMask),
-                                           destImage(blendImageMask),
-                                           m_progress);
-
-#ifdef DEBUG
-	// save the masks
-	exportImage(srcImageRange(blendImageMask), vigra::ImageExportInfo("blendImageMask.tif"));
-	exportImage(srcImageRange(blendPanoMask), vigra::ImageExportInfo("blendPanoMask.tif"));
-	
-#endif
-	// copy the image into the panorama
-	vigra::copyImageIf(image, vigra::maskImage(blendImageMask), pano);
-	// copy mask
-	vigra::copyImageIf(vigra::srcImageRange(blendImageMask), vigra::maskImage(blendImageMask), panoMask);
-    }
 
 private:
 };
+
 
 /*
 template <typename ImageType, typename AlphaImageType>

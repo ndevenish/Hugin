@@ -29,11 +29,12 @@
 
 #include <fstream>
 
-#include <vigra/impex.hxx>
 #include <vigra/basicimage.hxx>
 #include <vigra_ext/ROI.h>
 #include <vigra_ext/LayerImage.h>
 #include <vigra_ext/Interpolators.h>
+
+#include <vigra_impex2/impex.hxx>
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
@@ -219,7 +220,7 @@ public:
 //        std::ostringstream msg;
 //        msg <<"remapping image "  << imgNr;
 //        progress.setMessage(msg.str().c_str());
-        
+
 	PTools::Transform transf;
         vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
 	transf.createTransform(pano, imgNr, opts, srcImgSize);
@@ -248,7 +249,7 @@ public:
 	m_image.resize(m_ROI.size());
 	m_alpha.resize(m_ROI.size());
 
-        
+
 	PTools::Transform transf;
         vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
 	transf.createTransform(pano, imgNr, opts, srcImgSize);
@@ -272,12 +273,13 @@ public:
      *  @param progress progress reporting class
      *
      */
+/*    
     void remapImage(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
 		    unsigned int imgNr,
 		    utils::MultiProgressDisplay & progress)
     {
-        
+
         // load image
         const PT::PanoImage & img = pano.getImage(imgNr);
         vigra::ImageImportInfo info(img.getFilename().c_str());
@@ -300,7 +302,8 @@ public:
         remapImage(pano, opts, srcImageRange(srcImg),
                    imgNr, progress);
     }
-
+*/
+    
     const std::vector<FDiff2D> & getOutline()
     {
         return m_outline;
@@ -724,7 +727,7 @@ template <class SrcImageIterator, class SrcAccessor,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                               std::pair<SrcAlphaAccessor, SrcAlphaAccessor> srcAlpha,
+                               std::pair<SrcAlphaIterator, SrcAlphaAccessor> srcAlpha,
                                vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                                std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                                TRANSFORM & transform,
@@ -760,7 +763,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
     DestImageIterator yd(dest.first);
     // create dist y iterator
     AlphaImageIterator ydist(alpha.first);
-    
+
     typename SrcAccessor::value_type tempval;
 
     // loop over the image and transform
@@ -783,8 +786,8 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
             {
                 *xdist = 0;
                 // nothing..
-            } else if (interpol(src.first, sx, sy, srcAlpha, tmpval)) {
-                *xd = tmpval;
+            } else if (interpol(src.first, srcAlpha, sx, sy, tempval)) {
+                *xd = tempval;
                 *xdist = 255;
             } else {
                 *xdist = 0;
