@@ -32,6 +32,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
+
 // Add the hint definitions in reverse order, with increasing rank.
 // A good panorama passes all of the tests from the bottom (highest rank)
 // to the top (lowest rank).
@@ -233,6 +234,7 @@ END_HINT(NO_IMAGES);
 
 //////////
 
+
 // Other hints to be added:
 
 //TODO: all images have the same center
@@ -248,14 +250,16 @@ END_HINT(NO_IMAGES);
 // improve the current panorama.
 
 // The static "hints" database is a vector of pointers to instances.
-// Each instance is a singleton, derived from the basic DruidHint class.
-// Each hint definition above will automatically add itself to the array.
+// The hints have to be added to the PanoDruid in the PanoDruid::AddHints()
+// method
 // Each hint has a basic detector function and a set of static strings.
 
+#if 0
 /* static */ int PanoDruid::sm_hints = 0;
 /* static */ int PanoDruid::sm_chunk = 0;
 /* static */ int PanoDruid::sm_sorted = FALSE;
 /* static */ DruidHint** PanoDruid::sm_advice = NULL;
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -263,6 +267,11 @@ PanoDruid::PanoDruid(wxWindow* parent)
   : wxPanel(parent)
 {
     DEBUG_TRACE("");
+    sm_hints = 0;
+    sm_chunk = 0;
+    sm_sorted = 0;
+    sm_advice = NULL;
+
     m_boxSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("the Panorama druid")),
         wxHORIZONTAL );
@@ -275,11 +284,38 @@ PanoDruid::PanoDruid(wxWindow* parent)
     m_text = new wxStaticText(this, -1, wxT(""),wxPoint(0,0));
     m_boxSizer->Add(m_graphic, 0, wxADJUST_MINSIZE);
     m_boxSizer->Add(m_text, 1, wxADJUST_MINSIZE);
+    // populate hint database
+    AddHints();
     SetSizer(m_boxSizer);
+}
+
+PanoDruid::~PanoDruid()
+{
+    for (int i = 0; i < sm_hints; i++) {
+        delete sm_advice[i];
+    }
+
+}
+
+void PanoDruid::AddHints()
+{
+    DefineHint(new hintERROR);
+    DefineHint(new hintREADY);
+    DefineHint(new hintUNSAVED);
+    DefineHint(new hintHUGE_FINAL);
+    DefineHint(new hintLOW_HFOV);
+    DefineHint(new hintNO_PLUMB_GUIDES);
+    DefineHint(new hintOPTIMIZER_NOT_RUN);
+    DefineHint(new hintFEW_GUIDES);
+    DefineHint(new hintUNGUIDED_IMAGE);
+    DefineHint(new hintNO_GUIDES);
+//    DefineHint(new hintONE_IMAGE);
+    DefineHint(new hintNO_IMAGES);
 }
 
 void PanoDruid::Update(const PT::Panorama& pano)
 {
+
     DEBUG_TRACE("PanoramaDruid::Update()");
     const PT::PanoramaOptions& opts = pano.getOptions();
 

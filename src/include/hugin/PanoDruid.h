@@ -37,23 +37,25 @@ class PanoDruid : public wxPanel
 {
 public:
     PanoDruid(wxWindow* parent);
+    ~PanoDruid();
     void Update(const PT::Panorama& pano);
     DruidHint* FindHint(const wxChar* name);
 
 protected:
+    void AddHints();
     int m_advice;
     wxStaticBoxSizer  * m_boxSizer;
     wxBitmap m_bitmap;
     wxStaticBitmap * m_graphic;
     wxStaticText * m_text;
 
-    static int sm_hints;
-    static int sm_chunk;
-    static int sm_sorted;
-    static DruidHint** sm_advice;
+    int sm_hints;
+    int sm_chunk;
+    int sm_sorted;
+    DruidHint** sm_advice;
 
 public:
-    static void DefineHint(DruidHint* advice);
+    void DefineHint(DruidHint* advice);
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -71,8 +73,8 @@ struct DruidHint
             this->graphic = graphic;
             this->brief = brief;
             this->text = text;
-            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str() << "\"..." );
-            PanoDruid::DefineHint(this);
+//            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str() << "\"..." );
+//            PanoDruid::DefineHint(this);
 	}
     virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
         { return FALSE; }
@@ -89,7 +91,7 @@ struct DruidHint
     int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
 
 #define END_HINT(name) \
-    } _the##name;
+    } 
 
 /////////////////////////////////////////////////////////////////////////////
 
