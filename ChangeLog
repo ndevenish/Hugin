@@ -1,3 +1,64 @@
+2004-11-19 22:19  dwilkins42
+
+	* src/include/vigra_ext/tiffUtils.h: Write out a slightly better
+	  TIFF, fixes problems on windows build. Still needs work
+
+2004-11-19 22:14  dwilkins42
+
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp:
+	  Unicode fixes
+
+2004-11-17 05:58  dwilkins42
+
+	* src/hugin/AutoCtrlPointCreator.cpp: Unicode fix
+
+2004-11-17 02:07  dangelo
+
+	* src/: include/hugin/config_defaults.h,
+	  hugin/AutoCtrlPointCreator.cpp, hugin/xrc/pref_dialog.xrc: added
+	  support for autopano-sift 2.1
+
+2004-11-16 22:20  dangelo
+
+	* src/hugin/PreviewFrame.cpp: forgot comma
+
+2004-11-16 21:34  dangelo
+
+	* src/include/hugin/PreferencesDialog.h: file dialog boxes for
+	  utility programs
+
+2004-11-16 21:33  dangelo
+
+	* src/hugin/PreviewFrame.cpp: use default options, wxCLOSE_BOX
+	  doesn't exist in wxWindows 2.4
+
+2004-11-16 21:28  dangelo
+
+	* src/Panorama/Panorama.cpp: fixed crash on calculate size on a
+	  pano without images
+
+2004-11-16 21:26  dangelo
+
+	* src/hugin/: xrc/pref_dialog.xrc, PreferencesDialog.cpp: enabled
+	  exe chooser
+
+2004-11-16 19:59  dwilkins42
+
+	* src/nona_gui/po/pl.po: Update polish translation
+
+2004-11-16 14:56  dwilkins42
+
+	* src/hugin/PreviewFrame.cpp: Allow preview to be closed
+
+2004-11-15 21:30  dwilkins42
+
+	* src/hugin/po/pl.po: Update polish translation
+
+2004-11-14 11:43  dwilkins42
+
+	* ChangeLog, src/nona_gui/po/de.po, src/nona_gui/po/nona_gui.pot,
+	  src/nona_gui/po/pl.po: Update nona_gui translations
+
 2004-11-14 11:30  dwilkins42
 
 	* src/nona_gui/nona_gui.cpp: Revert to previous behaviour. no -i
@@ -3090,155 +3151,4 @@
 	* src/include/hugin/wxPanoCommand.h: - while adding images, check
 	  if lenses match, and	 create new lenses if ratio or hfov doesn't
 	  fit	existing ones.
-
-2003-11-19 04:46  speare
-
-	* src/hugin/xrc/data/: editcopy.xpm, editcut.xpm, editpaste.xpm,
-	  filenew.xpm, fileopen.xpm, filesave.xpm, icon.xpm, redo.xpm,
-	  undo.xpm: - remove unused .xpm files; others still awaiting new
-	  .png versions
-
-2003-11-19 04:43  speare
-
-	* src/hugin/hugin.desktop.tmpl: - use the icon.png instead of the
-	  redundant identical icon.xpm
-
-2003-11-19 04:31  anoncvs_folder-publish
-
-	* src/hugin/: MainFrame.cpp, PreviewFrame.cpp: - use the icon.png
-	  everywhere, instead of redundant identical icon.xpm
-
-2003-11-18 22:14  dangelo
-
-	* src/hugin/CPEditorPanel.cpp: fixed crash on next/previous buttons
-
-2003-11-18 10:39  dangelo
-
-	* src/include/hugin/ImagesPanel.h: added m_empty bitmap
-
-2003-11-18 06:41  speare
-
-	* src/hugin/ImagesPanel.cpp: - put in a more interesting
-	  placeholder in the Images tab when no images	 or multiple images
-	  are selected
-
-	  - tried to fix the "remove last image" bug but didn't find the
-	  right   solution here; hope I didn't make it worse
-
-2003-11-18 06:39  speare
-
-	* src/hugin/xrc/: about.xrc, images_panel.xrc, main_tool.xrc,
-	  data/about.htm, data/edit_add.png, data/editcopy.png,
-	  data/editcut.png, data/editdelete.png, data/editpaste.png,
-	  data/filenew.png, data/fileopen.png, data/filesave.png,
-	  data/filesaveas.png, data/optimize.png, data/redo.png,
-	  data/reload.png, data/undo.png: - new toolbar bitmap artwork
-	  which matches gtk2 ximian style and	ties into the panorama
-	  druid color/motifs for some orientation
-
-	  - will remove unused .xpm files soon if nobody claims them
-
-	  - reworded toolbar tooltips and statusbar help texts for
-	  consistency
-
-	  - fixed typo in the About Hugin html
-
-2003-11-18 02:07  dangelo
-
-	* src/: include/common/utils.h, Panorama/PanoImage.cpp,
-	  Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
-	  include/common/math.h: - small cleanup (removed some debug prints
-	  and added new ones ;) - fixed PanoImage constructor, multiple
-	  lenses work again - added code to write the borders to a file,
-	  but doesn't work yet.    calcFOV seems to be broken on windows, I
-	  don't understand why.
-
-2003-11-17 11:39  dangelo
-
-	* src/hugin/PanoPanel.cpp: added the TextKillFocusHandler to some
-	  spin controls in PanoPanel
-
-2003-11-17 05:58  speare
-
-	* src/: hugin/MainFrame.cpp, hugin/xrc/images_panel.xrc,
-	  include/hugin/MainFrame.h, jhead/jpgfile.cpp: - Enabled and
-	  implemented the "Add Time-Series of Images" feature
-
-2003-11-16 18:07  dangelo
-
-	* admin/update_tarball.sh: small script to package the current cvs
-	  into a tar ball on hugin.sf.net
-
-2003-11-16 18:03  dangelo
-
-	* src/: include/PT/PanoramaMemento.h, Panorama/PanoramaMemento.cpp:
-	  - jpg quality was not honoured by PTSticher for progressive jpg
-	  output.    disabled progressive jpg creation
-
-2003-11-16 16:48  dangelo
-
-	* src/jhead/exif.cpp: - calculate correct sensor width/height even
-	  if the images have been   rotated with jpgtran.  - precondition:
-	  sensor width > sensor height.. hmm. probably not so nice.
-
-2003-11-16 16:47  dangelo
-
-	* src/include/hugin/wxPanoCommand.h: - no functional changes,
-	  should add check if a new lens should be added
-
-2003-11-16 16:45  dangelo
-
-	* src/hugin/PreviewFrame.cpp: - removed non ascii chars - where
-	  should a possible projection format wxChoice be placed? - update
-	  preview when auto preview is switched on
-
-2003-11-16 16:43  dangelo
-
-	* src/hugin/PanoPanel.cpp: - fixed typo
-
-2003-11-16 16:42  dangelo
-
-	* src/: hugin/LensPanel.cpp, hugin/xrc/lens_panel.xrc,
-	  include/hugin/LensPanel.h: - interface for crop factor - physical
-	  focal length should be entered.
-
-2003-11-16 16:31  dangelo
-
-	* src/hugin/PanoDruid.cpp: - removed lens nr druid hint. its a
-	  program error to have images without lens - changed control point
-	  hint to consider 1 image panos as a special case - added hint to
-	  run the optimizer (detected if all images are still at 0,0,0)
-
-2003-11-16 15:50  dangelo
-
-	* src/hugin/CPEditorPanel.cpp: - fixed a crash if the estimated
-	  position was outside of the image
-
-2003-11-16 15:48  dangelo
-
-	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
-	  include/PT/PanoCommand.h, include/PT/PanoramaMemento.h: changed
-	  focal length handling.  - crop factor is calculated based on
-	  sensor diagonals..	its a bit strange that my camera EXIF data
-	  reports non	 square pixels...
-
-	  - changes to lens variables are applied to all images.
-
-2003-11-16 03:17  speare
-
-	* src/hugin/PanoDruid.cpp: - added druid logic for NO_PLUMB_GUIDES,
-	  FEW_GUIDES, UNGUIDED_IMAGE - tried a better determination for
-	  HUGE_FINAL:	if the final image is more than 400 megapixels, or
-	  if the final image has more pixels than all source images
-	  combined;   would still like to determine available memory
-	  somehow
-
-2003-11-14 12:54  dangelo
-
-	* INSTALL: include files in include/pano12
-
-2003-11-14 12:48  dangelo
-
-	* INSTALL: stronger suggestion to use max lyons version of panorama
-	  tools
 

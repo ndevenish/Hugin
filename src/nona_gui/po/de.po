@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-11-14 11:19+0200\n"
+"POT-Creation-Date: 2004-11-14 11:46+0200\n"
 "PO-Revision-Date: 2004-10-09 18:02+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.net.il>\n"
 "Language-Team: German <de@li.org>\n"
@@ -16,44 +16,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/nona_gui/nona_gui.cpp:128
+#: src/nona_gui/nona_gui.cpp:131
 msgid "Syntax error in parameters detected, aborting."
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:137
+#: src/nona_gui/nona_gui.cpp:140
 msgid "Specify project source project file"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:153
+#: src/nona_gui/nona_gui.cpp:156
 msgid "Too many project files specified"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:161
+#: src/nona_gui/nona_gui.cpp:164
 msgid "Could not find project file"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:170
+#: src/nona_gui/nona_gui.cpp:173
 msgid "Specify output image filename"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:178
+#: src/nona_gui/nona_gui.cpp:181
 msgid "No project files specified"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:189
+#: src/nona_gui/nona_gui.cpp:192
 msgid "Stitching Panorama"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:195
+#: src/nona_gui/nona_gui.cpp:198
 #, c-format
 msgid "could not open script : %s"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:201
+#: src/nona_gui/nona_gui.cpp:204
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:212
+#: src/nona_gui/nona_gui.cpp:215
 msgid "output image size: "
 msgstr ""
