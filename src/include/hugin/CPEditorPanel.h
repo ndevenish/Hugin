@@ -50,8 +50,6 @@ class wxNotebookEvent;
 class wxListEvent;
 class wxListCtrl;
 
-struct FDiff2D;
-
 namespace vigra {
     class Diff2D;
 }
