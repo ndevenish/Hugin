@@ -36,12 +36,15 @@
 #include <utility>
 #include <functional>
 
-#include "hugin/ImageOrientationFrame.h"
-#include "hugin/ImageOrientationPanel.h"
+
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
 #include "PT/PanoCommand.h"
 #include "common/utils.h"
+
+#include "hugin/ImageOrientationFrame.h"
+
+#include "hugin/ImageOrientationPanel.h"
 
 using namespace PT;
 using namespace std;

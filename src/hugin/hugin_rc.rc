@@ -1,25 +1,4 @@
-#include "wx/
 AppIcon ICON   "xrc/data/icon.ico"
 IDI_ICON1  ICON "xrc/data/icon.ico"
-
-1 VERSIONINFO
-FILEVERSION 4, 0, 3, 17
-PRODUCTVERSION 3, 0, 0, 0
-FILEFLAGSMASK 0
-FILEOS 0x40000
-FILETYPE 1
-{
- BLOCK "StringFileInfo"
-  {
-      BLOCK "040904E4"
-      {
-	  VALUE "CompanyName", "hugin developers"
-          VALUE "FileDescription", "Panorama Tools frontend"
-          VALUE "LegalCopyright", "GNU Public License"
-          VALUE "ProductName", "hugin"
-          VALUE "ProductVersion", HUGIN_VERSION
-      }
-  }
-}
 				 
 #include "wx/msw/wx.rc"

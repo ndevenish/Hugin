@@ -27,12 +27,11 @@
 #include "wx/frame.h"
 #include "wx/dnd.h"
 
-#include "PT/Panorama.h"
+#include "hugin/ImageProcessing.h"
+//#include "PT/Panorama.h"
 #include "PT/PanoToolsInterface.h"
 #include "PT/Transforms.h"
-#include "hugin/ImageProcessing.h"
 
-class wxImage;
 
 /** Select image orientation
  *
@@ -89,7 +88,7 @@ private:
 
     PTools::Transform m_transform;
     PTools::Transform m_invTransform;
-    
+
     PT::TRANSFORM::CartToImg m_tCartToImg;
     PT::TRANSFORM::ImgToCart m_tImgToCart;
 

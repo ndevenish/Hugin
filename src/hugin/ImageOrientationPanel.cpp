@@ -189,8 +189,8 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
         m_tCartToImg(m_origin,m_origin);
         DEBUG_DEBUG("origin: 0,0 -> " << m_origin.x << ", " << m_origin.y << " pixel");
 
-        double maxh;
-        double maxv;
+        double maxh=0;
+        double maxv=0;
         const PanoImage & img = pano.getImage(m_refImgNr);
         switch (pano.getLens(img.getLensNr()).projectionFormat) {
         case Lens::RECTILINEAR:
@@ -211,17 +211,17 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
             maxv = 90;
             break;
         }
-        
+
         // draw horizontal "line"
         dc.SetPen(wxPen("WHITE", 2, wxSOLID));
         dc.SetLogicalFunction(wxINVERT);
-        
+
         const int nSteps = 20;
-        
+
         double yaw = map_get(m_vars,"y").getValue();
         double pitch = map_get(m_vars,"p").getValue();
         double hfov = map_get(m_vars,"v").getValue();
-        
+
         double byaw =  yaw - hfov/2;
         double stepwidth = hfov/nSteps;
         DEBUG_DEBUG("begin yaw: " << byaw << " end yaw" << byaw + nSteps*stepwidth);
@@ -234,7 +234,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
             m_transform.transform(pos,pos);
             m_tCartToImg(pos,pos);
 //            DEBUG_DEBUG("line point "<< i << ":" << pos.x << ", " << pos.y);
-            if (fabs(pos.x) < 32000 && fabs(pos.y) < 32000 && 
+            if (fabs(pos.x) < 32000 && fabs(pos.y) < 32000 &&
                 fabs(old_pos.x) < 32000 && fabs(pos.y) < 32000) {
                 dc.DrawLine((int) round(m_offsetX + (old_pos.x * m_scaleFactor)),
                             (int) round(m_offsetY + (old_pos.y * m_scaleFactor)),
@@ -251,7 +251,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
         double bpitch =  pitch - hfov/2.0;
         stepwidth = hfov/nSteps;
         DEBUG_DEBUG("begin pitch: " << bpitch << " end pitch" << bpitch + nSteps*stepwidth);
-        
+
         dc.SetPen(wxPen("RED", 2, wxSOLID));
         dc.SetLogicalFunction(wxXOR);
         m_transform.transform(old_pos,FDiff2D(0, bpitch));
@@ -347,7 +347,7 @@ void ImageOrientationPanel::InitRollChange(wxPoint p)
 void ImageOrientationPanel::UpdateRoll(wxPoint p)
 {
     FDiff2D diff( p.x / m_scaleFactor, p.y / m_scaleFactor);
-    
+
     m_tImgToCart(diff,diff);
 //    diff = diff - FDiff2D(m_imageSize.GetWidth()/1, m_imageSize.GetHeight()/2);
     double angle = atan2(diff.y, diff.x);
@@ -373,7 +373,7 @@ void ImageOrientationPanel::UpdateYawPitch(wxPoint p)
     m_tImgToCart(origin,origin);
     // why -x ???
     origin.x = - origin.x;
-    
+
     DEBUG_DEBUG("click coordinates: " << origin.x << "," << origin.y);
     // transform into orientation
     m_invTransform.transform(origin,origin);
