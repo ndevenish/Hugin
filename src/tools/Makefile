@@ -43,7 +43,7 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = 
+SUBDIRS =
 
 # ====================================================================
 # Files that should be considered while creating the dependencies
@@ -55,23 +55,25 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG)
-LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS) -lwximageproc -lpanorama -ljhead
+CFLAGS += $(VIGRA_CFLAGS)
+LFLAGS += -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
 
 # ====================================================================
 # The applications that should be build in this directory.
 #
 # ====================================================================
 
+ifeq ($(HAS_FULL_VIGRA),1)
 
 APPS = 1
 
 # App 1
 
 APP_1_BIN = stitcher
-APP_1_OBJ = stitcher.o 
+APP_1_OBJ = stitcher.o
 
-APP_1_LFLAGS = $(LFLAGS) -lpano12
+APP_1_LFLAGS = $(LFLAGS)
+endif
 
 # ====================================================================
 # Do not edit anything below this

@@ -39,6 +39,9 @@ struct FDiff2D
     FDiff2D(float x, float y)
         : x(x), y(y)
         { }
+    FDiff2D(const vigra::Diff2D &d)
+        : x(d.x), y(d.y)
+        { }
 
     FDiff2D operator+(FDiff2D rhs) const
         {
@@ -60,13 +63,20 @@ struct FDiff2D
 
 inline std::ostream & operator<<(std::ostream & o, const FDiff2D & d)
 {
-    return o << "[ " << d.x << " " << d.y << " ]";
+    return o << "( " << d.x << " " << d.y << " )";
 }
 
-inline std::ostream & operator<<(std::ostream & o, const vigra::Diff2D & d)
+/** clip a point to fit int [min, max]
+ *  does not do a mathematical clipping, just sets p.x and p.y
+ *  to the borders if they are outside.
+ */
+template <class T>
+void simpleClipPoint(T & p, const T & min, const T & max)
 {
-    return o << "[ " << d.x << " " << d.y << " ]";
+    if (p.x < min.x) p.x = min.x;
+    if (p.x > max.x) p.x = max.x;
+    if (p.y < min.y) p.y = min.y;
+    if (p.y > max.y) p.y = max.y;
 }
-
 
 #endif // MY_MATH_H
