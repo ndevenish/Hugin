@@ -489,6 +489,7 @@ const string PanoramaOptions::fileformatNames[] =
     "QTVR"
 };
 
+
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
     DEBUG_TRACE("");
@@ -497,14 +498,26 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     char * old_locale = setlocale(LC_NUMERIC,NULL);
     setlocale(LC_NUMERIC,"C");
 #endif
+
+    PTFileFormat fileformat = PTFILE_HUGIN;
+
     PTParseState state;
     string line;
+
+    // indicate PTGui's dummy image
+    bool ptGUIDummyImage = false;
+
+    // PTGui & PTAssembler image names.
+    string nextFilename = "";
+    int nextWidth = 0;
+    int nextHeight = 0;
 
     bool firstOptVecParse = true;
     unsigned int lineNr = 0;
     while (!i.eof()) {
         std::getline(i, line);
         lineNr++;
+        DEBUG_DEBUG(lineNr << ": " << line);
         // check for a known line
         switch(line[0]) {
         case 'p':
@@ -573,7 +586,30 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             break;
         }
         case 'i':
+            // ptgui & ptasm scripts have 'o' image lines...
+        case 'o':
         {
+            // ugly hack to load PTGui script files
+            if (ptGUIDummyImage) {
+                DEBUG_DEBUG("loading default PTGUI line: " << line);
+                Lens l;
+                // skip ptgui's dummy image
+                // load parameters into default lens...
+                for (LensVarMap::iterator it = l.variables.begin();
+                 it != l.variables.end();
+                 ++it)
+                {
+                    DEBUG_DEBUG("reading default lens variable " << it->first);
+                    int link;
+                    bool ok = readVar(it->second, link, line);
+                    DEBUG_ASSERT(ok);
+                    DEBUG_ASSERT(link == -1);
+                }
+                lenses.push_back(l);
+
+                ptGUIDummyImage = false;
+                break;
+            }
             DEBUG_DEBUG("i line: " << line);
             // parse image lines
 
@@ -613,7 +649,33 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             DEBUG_ASSERT(link == -1);
 
+            string file;
+            int width, height;
+            // use previously known filename, if provided..
+            if (nextFilename != "") {
+                file = nextFilename;
+                nextFilename = "";
+                width = nextWidth;
+                height = nextHeight;
+            } else {
+                getPTStringParam(file,line,"n");
+
+                getParam(width, line, "w");
+                getParam(height, line, "h");
+
+            }
+            // add prefix if only a relative path.
+            // FIXME, make this more robust. it breaks if one saves the project in a different dir
+            // as the images
+            if (file.find_first_of("\\/") == string::npos) {
+                file.insert(0, prefix);
+            }
+            DEBUG_DEBUG("filename: " << file);
+
             Lens l;
+
+            l.isLandscape = width > height;
+
             int anchorImage = -1;
             int lensNr = -1;
             for (LensVarMap::iterator it = l.variables.begin();
@@ -634,7 +696,17 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     // linked variable
                     if ( anchorImage < 0) {
                         // first occurance of a link for this image.
-                        if ((int) images.size() <= anchorImage) {
+                        // special case for PTGUI script files
+                        if (fileformat == PTFILE_PTGUI && images.size() <= 0
+                            && lenses.size() == 1)
+                        {
+                            DEBUG_DEBUG("PTGUI special case for first image");
+                            // use the first lens
+                            DEBUG_ASSERT(link == 0);
+                            lenses[link].setRatio(((double)width)/height);
+                            lensNr = link;
+
+                        } else if ((int) images.size() <= link) {
                             DEBUG_ERROR("variables must be linked to an image with a lower number" << endl
                                         << "number links: " << link << " images: " << images.size() << endl
                                         << "error on line " << lineNr << ":" << endl
@@ -644,15 +716,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                             setlocale(LC_NUMERIC,old_locale);
 #endif
                             return false;
+                        } else {
+                            DEBUG_DEBUG("anchored to image " << link);
+                            anchorImage = link;
+                            // existing lens
+                            lensNr = images[anchorImage].getLensNr();
+                            DEBUG_DEBUG("using lens nr " << lensNr);
+                            map_get(lenses[lensNr].variables,it->first).setLinked(true);
                         }
-                        DEBUG_DEBUG("anchored to image " << link);
-                        anchorImage = link;
-                        lensNr = images[anchorImage].getLensNr();
-                        // valid link. update the link state of the corrosponding
-                        // existing lens 
-                        lensNr = images[anchorImage].getLensNr();
-                        DEBUG_DEBUG("using lens nr " << lensNr);
-                        map_get(lenses[lensNr].variables,it->first).setLinked(true);
                     } else if (anchorImage != link) {
                         // conflict, link parameters do not match!
                         DEBUG_ERROR("cannot process images whos variables are linked "
@@ -664,8 +735,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 #endif
                         return false;
                     }
+                    DEBUG_ASSERT(lensNr >= 0);
                     // get variable value of the link target
-                    double val = map_get(variables[anchorImage], it->first).getValue();
+                    double val = map_get(lenses[lensNr].variables, it->first).getValue();
                     map_get(vars, it->first).setValue(val);
                     it->second.setValue(val);
                 } else {
@@ -677,13 +749,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             variables.push_back(vars);
 
+
             DEBUG_DEBUG("lensNr after scanning " << lensNr);
             int lensProjInt;
             getParam(lensProjInt, line, "f");
             l.projectionFormat = (Lens::LensProjectionFormat) lensProjInt;
 
             if (lensNr != -1) {
-                lensNr = images[anchorImage].getLensNr();
+//                lensNr = images[anchorImage].getLensNr();
                 if (l.projectionFormat != lenses[lensNr].projectionFormat) {
                     DEBUG_ERROR("cannot link images with different projections");
 #ifdef __unix__
@@ -694,10 +767,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 }
             }
 
-            int width, height;
-            getParam(width, line, "w");
-            getParam(height, line, "h");
-            l.isLandscape = width > height;
 
 
             if (lensNr == -1) {
@@ -719,16 +788,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 // check if the ratio is equal
             }
 
-            // create a new Image
-            string file;
-            getPTStringParam(file,line,"n");
-            // add prefix if only a relative path.
-            // FIXME, make this more robust. it breaks if one saves the project in a different dir
-            // as the images
-            if (file.find_first_of("\\/") == string::npos) {
-                file.insert(0, prefix);
-            }
-            DEBUG_DEBUG("filename: " << file);
             DEBUG_ASSERT(lensNr >= 0);
             DEBUG_DEBUG("adding image with lens " << lensNr);
             images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
@@ -754,8 +813,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             while (!(optstream >> std::ws).eof()) {
                 optstream >> var;
                 if (var.length() < 2) {
-                    DEBUG_ERROR("short option read");
-                    continue;
+                    if (fileformat == PTFILE_PTGUI) {
+                        // special case for PTGUI
+                        var += "0";
+                        break;
+                    } else {
+                        DEBUG_ERROR("short option read");
+                        continue;
+                    }
                 }
 		unsigned int nr = utils::lexical_cast<unsigned int>(var.substr(1));
 		DEBUG_ASSERT(nr < optvec.size());
@@ -783,6 +848,43 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             break;
         }
         case '#':
+            if (line.substr(0,20) == "# ptGui project file") {
+                DEBUG_DEBUG("loading PTGui project file");
+                // PTGUI
+                fileformat = PTFILE_PTGUI;
+            }
+
+            if (line.substr(0,41) ==  "# Script file for Panorama Tools stitcher") {
+                DEBUG_DEBUG("loading PTAssembler project file");
+                // PTAssembler
+                fileformat = PTFILE_PTA;
+            }
+
+            // PTGui and PTAssember project files:
+            // #-imgfile 960 1280 "D:\data\bruno\074-098\087.jpg"
+            if (line.substr(0,10) == "#-imgfile ") {
+
+                // arghhh. I like string processing without regexps.
+                int b = line.find_first_not_of(" ",9);
+                int e = line.find_first_of(" ",b);
+                DEBUG_DEBUG(" width:" << line.substr(b,e-b)<<":")
+                nextWidth = utils::lexical_cast<int,string>(line.substr(b,e-b));
+                DEBUG_DEBUG("next width " << nextWidth);
+                b = line.find_first_not_of(" ",e);
+                e = line.find_first_of(" ",b);
+                DEBUG_DEBUG(" height:" << line.substr(b,e-b)<<":")
+                nextHeight = utils::lexical_cast<int, string>(line.substr(b,e-b));
+                DEBUG_DEBUG("next height " << nextHeight);
+                b = line.find_first_not_of(" \"",e);
+                e = line.find_first_of("\"",b);
+                nextFilename = line.substr(b,e-b);
+                DEBUG_DEBUG("next filename " << nextFilename);
+            }
+
+            if (line.substr(0,12) == "#-dummyimage") {
+                ptGUIDummyImage = true;
+            }
+
             // parse our special options
             if (line.substr(0,14) == "#hugin_options") {
                 DEBUG_DEBUG("parsing special line");

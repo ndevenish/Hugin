@@ -66,7 +66,8 @@ namespace PTools {
 class Transform
 {
 public:
-    /** construct a new Transform object, without a transformation
+    /** construct a new Transform object, without 
+     *  initializing a transformation
      *
      *  use createTransform or createInvTransform to create a
      *  transformation, and transform to execute it.

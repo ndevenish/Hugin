@@ -462,6 +462,10 @@ public:
 //    PanoramaMemento & operator=(const PanoramaMemento & o);
     virtual ~PanoramaMemento();
 
+    /** enum for supported PTScript syntax bastards */
+    enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
+        
+    
     /** load a PTScript file
      *
      *  initializes the PanoramaMemento from a PTScript file

@@ -413,7 +413,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     wxFileDialog dlg(this,
                      _("Open project file"),
                      config->Read("actualPath",""), "",
-                     "Project files (*.pto)|*.pto|"
+                     "Project files (*.pto)|*.pto;*.ptp;*.pts|"
                      "All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
