@@ -67,14 +67,19 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_BUTTON(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
     EVT_CLOSE(  MainFrame::OnExit)
 END_EVENT_TABLE()
 
 // change this variable definition
-wxTextCtrl *itemProjTextMemo;
+//wxTextCtrl *itemProjTextMemo;
+// image preview
+wxBitmap *p_img = (wxBitmap *) NULL;
+//WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent)
 {
+  DEBUG_INFO(__FUNCTION__)
     // load our children. some children might need special
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("main_frame"));
@@ -92,7 +97,7 @@ MainFrame::MainFrame(wxWindow* parent)
                wxT("images_panel_unknown"),
                wxXmlResource::Get()->LoadPanel (this, wxT("images_panel")) );
 
-    DEBUG_INFO("")
+  DEBUG_INFO(__FUNCTION__)
     wxListCtrl* images_list;
     images_list = XRCCTRL(*this, "images_list", wxListCtrl);
 
@@ -100,7 +105,7 @@ MainFrame::MainFrame(wxWindow* parent)
     images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
     images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_LEFT, 60 );
     images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_LEFT, 60 );
-    images_list->InsertColumn( 4, _("rotate"), wxLIST_FORMAT_LEFT, 60 );
+    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_LEFT, 30 );
 
     // (2) Insert some items into the listctrl
 /*    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(0,wxT("0"),0);
@@ -110,6 +115,7 @@ MainFrame::MainFrame(wxWindow* parent)
     XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(2,wxT("2"),0);
     XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(2,1,"Leon Li");
 */
+
     // create the custom widget referenced by the main_frame XRC
     cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
@@ -130,12 +136,25 @@ MainFrame::MainFrame(wxWindow* parent)
     // observe the panorama
     pano.setObserver(this);
 
+    // Image Preview
+  DEBUG_INFO(__FUNCTION__)
+    //p_img = new wxBitmap( 128, 128 );
+    wxPanel * img_p = XRCCTRL(*this, "img_preview_unknown", wxPanel);
+//    wxPaintDC dc (img_p);
+//    dc = dc_;
+//    dc.SetPen(* wxRED_PEN);
+//    dc.DrawLine(45, 0, 45, 100);
+
+    canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
+
     // show the frame.
     Show(TRUE);
+  DEBUG_INFO(__FUNCTION__)
 }
 
 MainFrame::~MainFrame()
 {
+  DEBUG_INFO(__FUNCTION__)
 }
 
 void MainFrame::panoramaChanged(PT::Panorama &panorama)
@@ -162,9 +181,11 @@ bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
 
 void MainFrame::OnExit(wxCommandEvent & e)
 {
+  DEBUG_INFO(__FUNCTION__)
     // FIXME ask to save is panorama if unsaved changes exist
     //Close(TRUE);
     this->Destroy();
+  DEBUG_INFO(__FUNCTION__)
 }
 
 
@@ -176,6 +197,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
+  DEBUG_INFO(__FUNCTION__)
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
@@ -229,6 +251,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
   // store current project name as last opened project
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+  DEBUG_INFO(__FUNCTION__)
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
@@ -238,70 +261,105 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 {
+    // Write something in the statusline
     char e_stat[128] = "Number of panoimages(";
     sprintf (e_stat,"%s%d)", e_stat, pano.getNrOfImages() );
     SetStatusText( e_stat, 0);
 
-    // get the global config object
+    // To get users path we do following:
+    // a get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    DEBUG_INFO ( (wxString)"get Path: " + config->GetPath().c_str() )
-
+    // b store current path 
     wxString current;
     current = wxFileName::GetCwd();
-
-    // remember the last location from config
+    DEBUG_INFO ( (wxString)"get Path: " + wxFileName::GetCwd().c_str() )
+    // c remember the last location from config
     if (config->HasEntry(wxT("actualPath"))){
       wxFileName::SetCwd(  config->Read("actualPath").c_str() );
       DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
     }
 
-    wxString str;
+    // call the file dialog
     wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
         "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
-    // do the dialog
     if (dlg->ShowModal() == wxID_OK) {
       // get the list to write to
       wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
-      char Nr[8] ;
+      // get the selections
       wxArrayString Filenames;
       wxArrayString Pathnames;
-      // get the selections
       dlg->GetFilenames(Filenames);
       dlg->GetPaths(Pathnames);
       sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
 
+      // start the loop for every selected filename
       for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
+        // fill in the table
+        DEBUG_INFO(__FUNCTION__)
+        char Nr[8] ;
         sprintf(Nr ,"%d", pano.getNrOfImages()+1);
         lst->InsertItem ( pano.getNrOfImages(), Nr );
         lst->SetItem ( pano.getNrOfImages(), 1, Filenames[i] );
+        wxImage img (Pathnames[i]);
+        sprintf(Nr, "%d", img.GetHeight() );
+        lst->SetItem ( pano.getNrOfImages(), 2, Nr );
+        sprintf(Nr, "%d", img.GetWidth() );
+        lst->SetItem ( pano.getNrOfImages(), 3, Nr );
+        sprintf(Nr, "%d", img.GetImageCount (Pathnames[i]) );
+        lst->SetItem ( pano.getNrOfImages(), 4, Nr );
+
+        // preview first selected image
+        if ( i == 0 ) { // taking only the first one
+          wxImage s_img;
+          if ( img.GetHeight() > img.GetWidth() ) {
+            s_img = img.Scale(
+                 (int)((float)img.GetWidth()/(float)img.GetHeight()*128.0),128);
+          } else {
+            s_img = img.Scale(
+                 128,(int)((float)img.GetHeight()/(float)img.GetWidth()*128.0));
+          }
+          delete p_img;
+          p_img = new wxBitmap(s_img);
+        }
+
+        // tell pano about the new image
         pano.addImage( Pathnames[i].c_str() );
         sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
       }
       SetStatusText( e_stat, 0);
 
-      // If we load here out project, we await all other as well in place.
+      // d There we are now?
+      wxString str;
       str = dlg->GetDirectory();
-      wxFileName::SetCwd( str );
+      // e safe the current path to config
       config->Write("actualPath", str);  // remember for later
       DEBUG_INFO( (wxString)"save Cwd - " + str )
-      // read in the images
     } else {
       // nothing to open
       SetStatusText( _("Add Image: cancel"));
     }
-    dlg->Destroy();
-    if (str == wxT("")) {
-      wxFileName::SetCwd( current );
-      DEBUG_INFO ( (wxString)"set Cwd to: " + current )
-      return;
-    }
+    canvas->Refresh();
+    // f restore the path previous this dialog
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+    dlg->Destroy();
+    DEBUG_INFO(__FUNCTION__)
 }
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
 {
+
+    DEBUG_INFO(__FUNCTION__)
+    // get the list to write to
     wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
+    for ( int Nr = 1 ; Nr <= (int)pano.getNrOfImages() ; Nr++ ) {
+        // update the table
+        DEBUG_INFO(__FUNCTION__)
+        char Nr_c[8] ;
+        sprintf(Nr_c ,"%d", Nr );
+        lst->SetItem ( Nr, 0, Nr_c );
+    }
+    // prepare an status message
     wxString e_msg;
     int sel_I = lst->GetSelectedItemCount();
     if ( sel_I == 1 )
@@ -309,6 +367,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     else
       e_msg = _("Remove images:   ");
 
+    // for each selected item remove the entry from list and pano
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
         e_msg += "  " + lst->GetItemText(Nr);
@@ -321,22 +380,35 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
       SetStatusText( _("Nothing selected"), 0);
     else
       SetStatusText( e_msg, 0);
+    DEBUG_INFO(__FUNCTION__)
 }
 
 void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
 {
+        DEBUG_INFO(__FUNCTION__)
   wxDialog dlg;
   wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("text_edit_dialog"));
   dlg.ShowModal();
   dlg.Show (TRUE);
+        DEBUG_INFO(__FUNCTION__)
 }
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
+        DEBUG_INFO(__FUNCTION__)
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
     dlg.ShowModal();
 }
+
+void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
+{   // Maybe this can be invoced by the Panorama::Changed() or 
+    // something like this. So no everytime update would be needed. 
+        DEBUG_INFO(__FUNCTION__)
+    cpe->panoramaChanged(pano);
+        DEBUG_INFO(__FUNCTION__)
+}
+
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
@@ -349,3 +421,41 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     DEBUG_TRACE("OnRedo");
     GlobalCmdHist::getInstance().redo();
 }
+
+//------------------------------------------------------------------------------
+
+/*BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
+    EVT_PAINT(ImgPreview::OnPaint)
+END_EVENT_TABLE()
+*/
+// Define a constructor for my canvas
+ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
+ wxScrolledWindow(parent, -1, pos, size)
+{
+    DEBUG_INFO(__FUNCTION__)
+}
+
+ImgPreview::~ImgPreview(void)
+{
+    DEBUG_INFO(__FUNCTION__)
+    delete p_img;
+}
+
+// Define the repainting behaviour
+void ImgPreview::OnDraw(wxDC & dc)
+{
+  DEBUG_INFO(__FUNCTION__)
+  if ( p_img && p_img->Ok() )
+  {
+    wxMemoryDC memDC;
+    memDC.SelectObject(* p_img);
+
+    // Transparent blitting if there's a mask in the bitmap
+    dc.Blit(0, 0, p_img->GetWidth(), p_img->GetHeight(), & memDC,
+      0, 0, wxCOPY, TRUE);
+
+    DEBUG_INFO(__FUNCTION__)
+    memDC.SelectObject(wxNullBitmap);
+  }
+}
+

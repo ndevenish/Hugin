@@ -25,7 +25,7 @@
  */
 
 #include <string>
-#include "utils.h"
+#include "include/common/utils.h"
 #include "hugin/ImageCache.h"
 
 ImageCache * ImageCache::instance = 0;

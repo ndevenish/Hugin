@@ -158,7 +158,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     wxString text;
     unsigned int nr = ev.getPointNr();
     wxPoint point = ev.getPoint();
-    bool left;
+    bool left (TRUE);
     if (ev.GetEventObject() == m_leftImg) {
         left = true;
     } else  if (ev.GetEventObject() == m_rightImg){
@@ -426,13 +426,15 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
     // update tab buttons
     DEBUG_TRACE("panoramChanged() images:" << nrImages
                 << " tabs:" << nrTabs);
-    if (nrTabs < nrImages) {
-        for (unsigned int img = nrTabs; img <nrImages; ++img) {
+    m_leftTabs->DeleteAllPages();
+    m_rightTabs->DeleteAllPages();
+//    if (nrTabs < nrImages) { // insecure, better rebuild all
+        for (unsigned int img = 0/*nrTabs*/; img <nrImages; ++img) {
             DEBUG_DEBUG("adding tab " << img);
             // ugly.. but needed since we have to add something
             // to wxNotebook to get the TabBar...
-            wxWindow * t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
-            wxWindow * t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+            wxNotebook * t1= new wxNotebook(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+            wxNotebook * t2= new wxNotebook(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             if (!m_leftTabs->AddPage(t1, wxString::Format("%d",img))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
             }
@@ -440,13 +442,12 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
         }
-    } else if (nrTabs > nrImages) {
+/*    } else if (nrTabs > nrImages) {
         for (unsigned int img = nrImages; img > nrTabs; img--) {
             m_leftTabs->DeletePage(img);
             m_rightTabs->DeletePage(img);
         }
-    }
-
+    }*/
     // update the display
     UpdateDisplay();
 }

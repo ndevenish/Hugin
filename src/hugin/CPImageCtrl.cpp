@@ -206,6 +206,8 @@ void CPImageCtrl::setImage(const wxImage & img)
     //SetVirtualSizeHints(-1,-1,img.GetWidth(), img.GetHeight());
 //    SetVirtualSizeHints(bitmap->GetWidth(),bitmap->GetHeight(),bitmap->GetWidth(), bitmap->GetHeight());
     SetScrollbars(16, 16, bitmap->GetWidth()/16 ,bitmap->GetHeight()/16 );
+    wxClientDC dc (this);
+    PrepareDC(dc);
 }
 
 
