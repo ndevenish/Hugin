@@ -126,9 +126,8 @@ AC_DEFUN([AM_PATH_WXCONFIG],
       AC_MSG_CHECKING([for wxWindows version >= $min_wx_version ($5)])
     fi
 
-    WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args $5 $4"
 
-    WX_VERSION=`$WX_CONFIG_PATH $wx_config_args --version $5 $4 2>/dev/null`
+    WX_VERSION=`$WX_CONFIG_PATH --version 2>/dev/null`
 
     wx_config_major_version=`echo $WX_VERSION | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
@@ -166,6 +165,40 @@ AC_DEFUN([AM_PATH_WXCONFIG],
     if test "x$wx_ver_ok" = x ; then
       no_wx=yes
     else
+      dnl acccount for version differences, particularly 2.4 and 2.5
+      dnl xrc lib is in contrib if version is less than 2.5.3
+      dnl 2.4 cannot handle --unicode or --debug
+      need_wx_xrc=yes
+      wx_full_args=no
+      if test $wx_config_major_version -gt 2; then
+        need_wx_xrc=no
+        need_wx_regex=no
+        wx_full_args=yes
+      else
+        if test $wx_config_major_version -eq 2; then
+          if test $wx_config_minor_version -lt 5; then
+            need_wx_xrc=yes
+          else
+            wx_full_args=yes
+            if test $wx_config_minor_version -eq 5; then
+              if test $wx_config_micro_version -lt 3; then
+                 need_wx_xrc=yes
+              else
+                need_wx_xrc=no
+                need_wx_regex=yes
+              fi
+            else
+              need_wx_xrc=no
+            fi
+          fi
+        fi
+      fi
+      
+      if test "x$wx_full_args" = 'xyes' ; then
+        WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args $5 $4"
+      else
+        WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args "
+      fi	
       WX_LIBS=`$WX_CONFIG_WITH_ARGS --libs`
       WX_LIBS_STATIC=`$WX_CONFIG_WITH_ARGS --static --libs`
 
@@ -186,6 +219,7 @@ AC_DEFUN([AM_PATH_WXCONFIG],
            fi
         fi
       fi
+
 
       if test "x$wx_has_cppflags" = x ; then
          dnl no choice but to define all flags like CFLAGS
@@ -228,35 +262,13 @@ AC_DEFUN([AM_PATH_WXCONFIG],
 
 dnl xrc ressources are used in hugin but the xrc lib is only needed if version 
 dnl is less than 2.5.3
-  need_wx_xrc=yes
-  if test $wx_config_major_version -gt 2; then
-    need_wx_xrc=no
-    need_wx_regex=no
-  else
-    if test $wx_config_major_version -eq 2; then
-       if test $wx_config_minor_version -lt 5; then
-          need_wx_xrc=yes
-       else
-          if test $wx_config_minor_version -eq 5; then
-             if test $wx_config_micro_version -lt 3; then
-                need_wx_xrc=yes
-             else
-                need_wx_xrc=no
-                need_wx_regex=yes
-             fi
-          else
-             need_wx_xrc=no
-          fi
-       fi
-    fi
-  fi
   if test "x$need_wx_xrc" = xyes ; then
     WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
   fi
   if test "x$HSYS" = 'xmingw32' ; then
     if test "x$need_wx_regex" = xyes ; then
       if "x$with_unicode" = xyes ; then
-        WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpatu-`$WX_CONFIG_WITH_ARGS --release`"
+        WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
       else
         WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
       fi
