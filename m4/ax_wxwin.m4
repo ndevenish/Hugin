@@ -128,7 +128,7 @@ AC_DEFUN([AM_PATH_WXCONFIG],
 
 
     WX_VERSION=`$WX_CONFIG_PATH --version 2>/dev/null`
-
+    echo "configure: __oline__: wx version found:$WX_VERSION" >&AC_FD_CC
     wx_config_major_version=`echo $WX_VERSION | \
            sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
     wx_config_minor_version=`echo $WX_VERSION | \
@@ -168,6 +168,7 @@ AC_DEFUN([AM_PATH_WXCONFIG],
       dnl acccount for version differences, particularly 2.4 and 2.5
       dnl xrc lib is in contrib if version is less than 2.5.3
       dnl 2.4 cannot handle --unicode or --debug
+	  dnl neither can 2.5.1
       need_wx_xrc=yes
       wx_full_args=no
       if test $wx_config_major_version -gt 2; then
@@ -179,11 +180,12 @@ AC_DEFUN([AM_PATH_WXCONFIG],
           if test $wx_config_minor_version -lt 5; then
             need_wx_xrc=yes
           else
-            wx_full_args=yes
             if test $wx_config_minor_version -eq 5; then
               if test $wx_config_micro_version -lt 3; then
-                 need_wx_xrc=yes
+    	        wx_full_args=no
+            	need_wx_xrc=yes
               else
+	            wx_full_args=yes
                 need_wx_xrc=no
                 need_wx_regex=yes
               fi
@@ -195,12 +197,17 @@ AC_DEFUN([AM_PATH_WXCONFIG],
       fi
       
       if test "x$wx_full_args" = 'xyes' ; then
+	    echo "configure: __oline__: wx_full_args required" >&AC_FD_CC
         WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args $5 $4"
       else
+	    echo "configure: __oline__: wx_full_args not required" >&AC_FD_CC
         WX_CONFIG_WITH_ARGS="$WX_CONFIG_PATH $wx_config_args "
       fi	
+	  echo "configure: __oline__: wx-config: <$WX_CONFIG_WITH_ARGS>" >&AC_FD_CC
       WX_LIBS=`$WX_CONFIG_WITH_ARGS --libs`
+	  echo "configure: __oline__: wx libs: $WX_LIBS" >&AC_FD_CC
       WX_LIBS_STATIC=`$WX_CONFIG_WITH_ARGS --static --libs`
+	  echo "configure: __oline__: wx static libs: $WX_LIBS" >&AC_FD_CC
 
       dnl starting with version 2.2.6 wx-config has --cppflags argument
       wx_has_cppflags=""
