@@ -38,6 +38,7 @@
 #include <wx/config.h>              // wx config classes for all systems
 #include "wx/image.h"               // wxImage
 #include "wx/xrc/xmlres.h"          // XRC XML resouces
+#include <wx/filename.h>            // files and dirs
 
 #include "hugin/MainFrame.h"
 
@@ -57,7 +58,10 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
-    printf( "%s\n", GetAppName().c_str());
+    DEBUG_INFO( GetAppName().c_str() )
+    DEBUG_INFO( wxFileName::GetCwd().c_str() )
+    DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
+
 
     // here goes and comes configuration
     wxConfigBase *config = new wxConfig ( GetAppName().c_str(),
@@ -67,20 +71,27 @@ bool huginApp::OnInit()
     // controls can use it easily
     wxConfigBase::Set(config);
     config->SetRecordDefaults(TRUE);
-    printf( "GetPath(): %s\n",config->GetPath().c_str());
-    printf( "GetVendorName(): %s\n",config->GetVendorName().c_str() );
+
+    DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
     config->SetRecordDefaults(TRUE);
     
-    printf ("entries in config:  %i\n", config->GetNumberOfEntries() );
     if ( config->IsRecordingDefaults() )
-      printf ("writes in config:  %i\n", config->GetNumberOfEntries() );
+      DEBUG_INFO((wxString)"writes in config: " + config->GetNumberOfEntries());
     config->Flush();
 
     // initialize i18n
     locale.Init(wxLANGUAGE_DEFAULT);
 
-    // add local Path
+    // add local Paths
     locale.AddCatalogLookupPathPrefix(wxT("po"));
+    #ifndef INSTALL_LOCALE_DIR          // FIXME
+      #define INSTALL_LOCALE_DIR "/opt/kai-uwe/share/locale"
+    #endif
+    #ifdef INSTALL_LOCALE_DIR
+      locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
+      locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
+      DEBUG_INFO((wxString)"add locale path: " + INSTALL_LOCALE_DIR)
+    #endif
     // add path from config file
     if (config->HasEntry(wxT("locale_path"))){
         locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
@@ -100,22 +111,31 @@ bool huginApp::OnInit()
     InitXmlResource();
 #else
     // try local xrc files first
+    #ifndef INSTALL_XRC_DIR          // FIXME
+      #define INSTALL_XRC_DIR "/opt/kai-uwe/share/hugin/xrc"
+    #endif
     wxString xrcPrefix;
-    wxFile testfile("xrc/main_frame.xrc");
-    if (testfile.IsOpened()) {
-        std::cerr << "using local xrc files" << std::endl;
-        xrcPrefix = "";
+    // testing for xrc file location
+    if ( wxFile::Exists("xrc/main_frame.xrc")/*local_file.IsOpened()*/ ) {
+        DEBUG_INFO("using local xrc files")
+        xrcPrefix = "xrc/";
+    } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
+        DEBUG_INFO("using installed xrc files")
+        xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
+    } else if ( wxFile::Exists("/usr/local/share/hugin/xrc/main_frame.xrc") ) {
+        DEBUG_INFO("using installed xrc files in standard path")
+        xrcPrefix = "/usr/local/share/hugin/xrc/";
     } else {
-        std::cerr << "using xrc prefix from config" << std::endl;
+        DEBUG_INFO("using xrc prefix from config")
         xrcPrefix = config->Read("xrc_path") + wxT("/");
     }
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_frame.xrc"));
-//    wxXmlResource::Get()->Load(wxT("xrc/main_menubar.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/cp_editor_panel.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_menu.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_tool.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/edit_text.xrc"));
-    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/about.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_frame.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("about.xrc"));
 #endif
 
     // create main frame
