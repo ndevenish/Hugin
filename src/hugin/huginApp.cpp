@@ -62,13 +62,9 @@ bool huginApp::OnInit()
 
     // here goes and comes configuration
     wxConfigBase * config = wxConfigBase::Get();
-//    wxConfigBase* config = new wxConfig ( "hugin",
-//			"hugin Team", ".huginrc", "huginrc",
-//			 wxCONFIG_USE_LOCAL_FILE );
 
     // set as global config, so that other parts of hugin and wxWindows
     // controls can use it easily
-    wxConfigBase::Set(config);
     config->SetRecordDefaults(TRUE);
 
 //    DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
