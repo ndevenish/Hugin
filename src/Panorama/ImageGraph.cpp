@@ -25,8 +25,8 @@
  */
 
 #include <PT/ImageGraph.h>
-#include <PT/ImageTransforms.h>
-#include <vigra_ext/ROI.h>
+
+#include <vigra_ext/ImageTransforms.h>
 
 using namespace PT;
 using namespace boost;

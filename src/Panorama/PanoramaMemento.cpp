@@ -535,7 +535,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             // parse misc options
             int i;
             getParam(i,line,"i");
-            options.interpolator = (PanoramaOptions::Interpolator) i;
+            options.interpolator = (vigra_ext::Interpolator) i;
             getParam(options.gamma,line,"g");
 
             if (getParam(i,line,"f")) {
@@ -998,7 +998,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
 
         ImageOptions opts = images.back().getOptions();
-        opts.featherWidth == (unsigned int) iImgInfo[i].blend_radius;
+        opts.featherWidth = (unsigned int) iImgInfo[i].blend_radius;
         images.back().setOptions(opts);
     }
 
@@ -1110,7 +1110,7 @@ bool PanoramaMemento::loadPTScript2(std::istream &i, const std::string &prefix)
             // parse misc options
             int i;
             getParam(i,line,"i");
-            options.interpolator = (PanoramaOptions::Interpolator) i;
+            options.interpolator = (vigra_ext::Interpolator) i;
             getParam(options.gamma,line,"g");
             break;
         }

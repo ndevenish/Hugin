@@ -43,7 +43,8 @@
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
-#include <PT/ImageTransforms.h>
+
+#include <PT/RemappedPanoImage.h>
 
 //#include "panoinc.h"
 
@@ -585,6 +586,17 @@ void Panorama::removeImage(unsigned int imgNr)
     DEBUG_TRACE("Remove variables and image from panorama state")
     state.variables.erase(state.variables.begin() + imgNr);
     state.images.erase(state.images.begin() + imgNr);
+
+	// check if reference image has been moved
+	if (state.options.optimizeReferenceImage >= state.images.size()) {
+		state.options.optimizeReferenceImage = 0;
+        imageChanged(state.options.optimizeReferenceImage);
+	}
+
+	if (state.options.colorReferenceImage >= state.images.size()) {
+		state.options.colorReferenceImage = 0;
+        imageChanged(state.options.colorReferenceImage);
+	}
 
     // change all other (moved) images
     DEBUG_TRACE("flag moved images as dirty");

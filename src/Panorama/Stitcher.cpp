@@ -23,9 +23,12 @@
  *
  */
 
+#include <vigra/windows.h>
 #include <vigra/stdimage.hxx>
 
 #include <PT/Stitcher.h>
+
+#include <PT/RemappedPanoImage.h>
 
 using namespace std;
 using namespace vigra;
@@ -96,7 +99,6 @@ static void stitchPanoIntern(const PT::Panorama & pano,
     }
 }
 
-
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
  *  do everything on a low res version of the masks
@@ -114,23 +116,29 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> > rimg;
 
     BImage alpha(size);
-    ROI<Diff2D> alphaROI;
+    Rect2D alphaROI;
 
     for (UIntSet::iterator it = images.begin(); it != images.end(); ++it)
     {
         // calculate alpha channel
         rimg[*it].calcAlpha(pano, opts, *it);
 #ifdef DEBUG
-	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));
+//	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));
 #endif
     }
 
+//    RemappedPanoImage<BImage, BImage> fuckyou;
+    ROIImage<BImage, BImage> fuckyou;
+    srcImageRange(alpha);
+    vigra_ext::srcImageRange(fuckyou);
+
     int firstImg = *(images.begin());
     // copy first alpha channel
-    copyImage(rimg[firstImg].alpha(), rimg[firstImg].roi().apply(destImage(alpha)));
-    alphaROI = rimg[firstImg].roi();
+    alphaROI = rimg[firstImg].boundingBox();
+    copyImage(applyRect(alphaROI, vigra_ext::srcMaskRange(rimg[firstImg])),
+              applyRect(alphaROI, destImage(alpha)));
 
-    ROI<Diff2D> overlap;
+    Rect2D overlap;
     // intersect ROI's & masks of all images
     while (images.size() > 0) {
 	unsigned int maxSize = 0;
@@ -139,15 +147,17 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
 	for (UIntSet::iterator it = images.begin(); it != images.end(); ++it) {
 	    // check for possible overlap
 	    DEBUG_DEBUG("examing overlap with image " << *it);
-	    if (alphaROI.intersect(rimg[*it].roi(), overlap)) {
-	      DEBUG_DEBUG("ROI intersects: " << overlap.getUL() << " to " << overlap.getLR());
+	    // overlapping images..
+	    overlap = alphaROI & rimg[*it].boundingBox();
+	    if (!overlap.isEmpty()) {
+	      DEBUG_DEBUG("ROI intersects: " << overlap.upperLeft()
+                          << " to " << overlap.lowerRight());
 		// if the overlap ROI is smaller than the current maximum,
 		// ignore.
-	        if (overlap.size().x * overlap.size().y > (int) maxSize) {
+	        if (overlap.area() > (int) maxSize) {
 		    OverlapSizeCounter counter;
-		    inspectTwoImages(overlap.apply(rimg[*it].alpha(),
-						   rimg[*it].roi()),
-				     overlap.apply(srcImage(alpha)),
+		    inspectTwoImages(applyRect(overlap, srcMaskRange(rimg[*it])),
+				     applyRect(overlap, srcImage(alpha)),
 				     counter);
 		    DEBUG_DEBUG("overlap size in pixel: " << counter.getSize());
 		    if (counter.getSize() > maxSize) {
@@ -161,7 +171,7 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
 	blendOrder.push_back(choosenImg);
 	images.erase(choosenImg);
 	// update alphaROI, to new roi.
-	rimg[choosenImg].roi().unite(alphaROI, alphaROI);
+	alphaROI = alphaROI | rimg[choosenImg].boundingBox();
     }
 }
 

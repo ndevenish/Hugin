@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Panorama"
-	ProjectGUID="{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}"
+	ProjectGUID="{609891D5-B1A9-43E3-9B66-AD53D6008158}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -11,21 +11,20 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug Static|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			Name="Debug|Win32"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
 			ConfigurationType="4"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\foreign\vigra;..\include\;..\..\..\..\wxWindows\include;..\..\..\..\wxWindows\contrib\include;..\..\..\..\boost"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WINDOWS;WINVER=0x400;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1"
+				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;DEBUG;HasJPEG;HasPNG;HasTIFF"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough=""
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"/>
@@ -54,18 +53,17 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release Static|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			Name="Release|Win32"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
 			ConfigurationType="4"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\foreign\vigra;..\include\;..\..\..\..\wxWindows\include;..\..\..\..\wxWindows\contrib\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="2"
+				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\boost_1_31_0;..\..\..\libs\libpano;&quot;..\..\..\libs\wxWindows-2.4.2\src\tiff&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\png&quot;;&quot;..\..\..\libs\wxWindows-2.4.2\src\jpeg&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
+				RuntimeLibrary="4"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="panoinc.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -73,8 +71,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/Panorama.lib"
-				IgnoreAllDefaultLibraries="TRUE"/>
+				OutputFile="$(OutDir)/Panorama.lib"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -99,10 +96,40 @@
 	</References>
 	<Files>
 		<Filter
-			Name="headers"
-			Filter="">
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\include\Pt\Interpolators.h">
+				RelativePath=".\ImageGraph.cpp">
+			</File>
+			<File
+				RelativePath=".\PanoImage.cpp">
+			</File>
+			<File
+				RelativePath=".\Panorama.cpp">
+			</File>
+			<File
+				RelativePath=".\PanoramaMemento.cpp">
+			</File>
+			<File
+				RelativePath=".\PanoToolsInterface.cpp">
+			</File>
+			<File
+				RelativePath=".\PTOptimise.cpp">
+			</File>
+			<File
+				RelativePath=".\SpaceTransform.cpp">
+			</File>
+			<File
+				RelativePath=".\Stitcher.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath="..\include\Pt\ImageGraph.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\PanoCommand.h">
@@ -117,7 +144,16 @@
 				RelativePath="..\include\Pt\PanoramaMemento.h">
 			</File>
 			<File
+				RelativePath="..\include\Pt\PanoToolsInterface.h">
+			</File>
+			<File
 				RelativePath="..\include\Pt\Process.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\PTOptimise.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\RemappedPanoImage.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\SimpleStitcher.h">
@@ -126,33 +162,17 @@
 				RelativePath="..\include\Pt\SpaceTransform.h">
 			</File>
 			<File
-				RelativePath="..\include\Pt\tiffUtils.h">
+				RelativePath="..\include\Pt\Stitcher.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\Transforms.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ImageGraph.cpp">
-		</File>
-		<File
-			RelativePath=".\PanoImage.cpp">
-		</File>
-		<File
-			RelativePath=".\Panorama.cpp">
-		</File>
-		<File
-			RelativePath=".\PanoramaMemento.cpp">
-		</File>
-		<File
-			RelativePath=".\PanoToolsInterface.cpp">
-		</File>
-		<File
-			RelativePath=".\PTOptimise.cpp">
-		</File>
-		<File
-			RelativePath=".\SpaceTransform.cpp">
-		</File>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
