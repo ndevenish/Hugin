@@ -860,7 +860,11 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 	DEBUG_TRACE("Tip index: " << nValue);
 	if(langCode != wxString(wxT("en")))
 	{
+#ifdef UNICODE
+		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT("-UTF8.txt");
+#else
 		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT(".txt");
+#endif
 		if(wxFile::Exists(strFile))
 			bTipsExist = true;
 	}
@@ -890,8 +894,30 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxDialog dlg;
+	wxString strFile;
+	wxString langCode;
+	bool bFAQExists;
+	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(m_xrcPrefix + wxT("data/FAQ.html"));
+
+    //if the language is not default, load custom FAQ file (if exists)
+	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	if(langCode != wxString(wxT("en")))
+	{
+#ifdef UNICODE
+		strFile = m_xrcPrefix + wxT("data/FAQ_") + langCode + wxT("-UTF8.html");
+#else
+		strFile = m_xrcPrefix + wxT("data/FAQ_") + langCode + wxT(".html");
+#endif
+		if(wxFile::Exists(strFile))
+			bFAQExists = true;
+	}
+	if(!bFAQExists)
+		strFile = m_xrcPrefix + wxT("data/FAQ.html");  //load default file
+
+	DEBUG_TRACE("Using FAQ: " << strFile.mb_str());
+    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(strFile);
     dlg.SetTitle(_("hugin - FAQ"));
     dlg.ShowModal();
 }
