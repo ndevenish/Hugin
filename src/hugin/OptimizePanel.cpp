@@ -278,46 +278,58 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     for (unsigned int i=0; i < nLens; i++) {
         const Lens & lens = pano.getLens(i);
         const LensVariable & v = const_map_get(lens.variables,"v");
+        bool sel = m_v_list->IsChecked(i);
         if (v.isLinked()) {
             m_v_list->SetString(i,wxString::Format(wxT("%d (%.2f)"),i, v.getValue()));
         } else {
             m_v_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_v_list->Check(i,sel);
 
+        sel = m_a_list->IsChecked(i);
         const LensVariable & a = const_map_get(lens.variables,"a");
         if (a.isLinked()) {
             m_a_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, a.getValue()));
         } else {
             m_a_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_a_list->Check(i,sel);
 
+        sel = m_b_list->IsChecked(i);
         const LensVariable & b = const_map_get(lens.variables,"b");
         if (b.isLinked()) {
             m_b_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, b.getValue()));
         } else {
             m_b_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_b_list->Check(i,sel);
 
+        sel = m_c_list->IsChecked(i);
         const LensVariable & c = const_map_get(lens.variables,"c");
         if (c.isLinked()) {
             m_c_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, c.getValue()));
         } else {
             m_c_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_c_list->Check(i,sel);
 
+        sel = m_d_list->IsChecked(i);
         const LensVariable & d = const_map_get(lens.variables,"d");
         if (d.isLinked()) {
             m_d_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, d.getValue()));
         } else {
             m_d_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_d_list->Check(i,sel);
 
+        sel = m_e_list->IsChecked(i);
         const LensVariable & e = const_map_get(lens.variables,"e");
         if (e.isLinked()) {
             m_e_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, e.getValue()));
         } else {
             m_e_list->SetString(i,wxString::Format(wxT("%d"),nr));
         }
+        m_e_list->Check(i,sel);
     }
 
     // update automatic checkmarks
