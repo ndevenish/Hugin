@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-01-30 20:52+0200\n"
+"POT-Creation-Date: 2005-02-02 08:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,9 +46,9 @@ msgstr ""
 msgid "Select autopano program / frontend script"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:160
-#: src/hugin/PreferencesDialog.cpp:176 src/hugin/PreferencesDialog.cpp:192
-#: src/hugin/PreferencesDialog.cpp:208 src/hugin/RunOptimizerFrame.cpp:108
+#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:173
+#: src/hugin/PreferencesDialog.cpp:189 src/hugin/PreferencesDialog.cpp:205
+#: src/hugin/PreferencesDialog.cpp:221 src/hugin/RunOptimizerFrame.cpp:108
 #: src/hugin/RunStitcherFrame.cpp:88
 msgid "Executables (*.exe)|*.exe"
 msgstr ""
@@ -155,7 +155,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:224
+#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:237
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr ""
 
@@ -502,105 +502,105 @@ msgstr ""
 msgid "Adding Image"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:236
+#: src/hugin/MainFrame.cpp:247
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
 "Please ensure it is placed in the same directory as hugin.exe"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:331
+#: src/hugin/MainFrame.cpp:342
 msgid "Started"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:427
+#: src/hugin/MainFrame.cpp:438
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:427
+#: src/hugin/MainFrame.cpp:438
 msgid "Save Panorama?"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:442
+#: src/hugin/MainFrame.cpp:453
 msgid "forced close"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:474
+#: src/hugin/MainFrame.cpp:485
 #, c-format
 msgid "saved project %s"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:483
+#: src/hugin/MainFrame.cpp:494
 msgid "Save project file"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:485
+#: src/hugin/MainFrame.cpp:496
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:498
+#: src/hugin/MainFrame.cpp:509
 msgid "Save PTStitcher script file"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:500
+#: src/hugin/MainFrame.cpp:511
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:524
+#: src/hugin/MainFrame.cpp:535
 msgid "Open project:   "
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:536
+#: src/hugin/MainFrame.cpp:547
 msgid "Project opened"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:546
+#: src/hugin/MainFrame.cpp:557
 msgid "Error opening project:   "
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:564
+#: src/hugin/MainFrame.cpp:575
 msgid "Open project file"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:566
+#: src/hugin/MainFrame.cpp:577
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:574
+#: src/hugin/MainFrame.cpp:585
 msgid "Open project: cancel"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:596 src/include/hugin/wxPanoCommand.h:141
+#: src/hugin/MainFrame.cpp:607 src/include/hugin/wxPanoCommand.h:141
 msgid ""
 "Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files "
 "(*.tif)|*.tif;*.TIF|All files (*.*)|*.*"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:597 src/include/hugin/wxPanoCommand.h:142
+#: src/hugin/MainFrame.cpp:608 src/include/hugin/wxPanoCommand.h:142
 msgid "Add images"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:641
+#: src/hugin/MainFrame.cpp:652
 msgid "Add Image: cancel"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:884
+#: src/hugin/MainFrame.cpp:941
 msgid "hugin - FAQ"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:963
+#: src/hugin/MainFrame.cpp:1020
 msgid "Fine-tuning all points"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:965
+#: src/hugin/MainFrame.cpp:1022
 msgid "Finetuning"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:1049
+#: src/hugin/MainFrame.cpp:1106
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -616,7 +616,7 @@ msgid ""
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:1051
+#: src/hugin/MainFrame.cpp:1108
 msgid "Fine-tune result"
 msgstr ""
 
@@ -832,45 +832,65 @@ msgstr ""
 msgid "Create panorama image"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:92
+#: src/hugin/PreferencesDialog.cpp:104
 msgid "Select one"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:93
+#: src/hugin/PreferencesDialog.cpp:105
 msgid "System default"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:94
+#: src/hugin/PreferencesDialog.cpp:106
+msgid "English"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:107
 msgid "German"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:95
+#: src/hugin/PreferencesDialog.cpp:108
 msgid "French"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:96
+#: src/hugin/PreferencesDialog.cpp:109
 msgid "Polish"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:97
+#: src/hugin/PreferencesDialog.cpp:110
 msgid "Italian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:157
+#: src/hugin/PreferencesDialog.cpp:170
 msgid "Select PTStitcher"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:173 src/hugin/RunOptimizerFrame.cpp:106
+#: src/hugin/PreferencesDialog.cpp:186 src/hugin/RunOptimizerFrame.cpp:106
 msgid "Select PTOptimizer"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:189
+#: src/hugin/PreferencesDialog.cpp:202
 msgid "Select Enblend"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:205 src/hugin/PreferencesDialog.cpp:221
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/PreferencesDialog.cpp:218 src/hugin/PreferencesDialog.cpp:234
+#: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Select Autopano"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:251
+msgid "Panotools details"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:290
+msgid "Could not load dll"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:290
+msgid "panoinfo"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:521
+msgid "Unknown Version"
 msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:74
@@ -1006,7 +1026,7 @@ msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr ""
 
 #: src/hugin/RunOptimizerFrame.cpp:293 src/hugin/xrc/edit_text.xrs:3
-#: src/hugin/xrc/pref_dialog.xrs:67
+#: src/hugin/xrc/pref_dialog.xrs:68
 msgid "Cancel"
 msgstr ""
 
@@ -1249,7 +1269,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:67
 #: src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr ""
@@ -1799,7 +1819,7 @@ msgstr ""
 msgid "Preview panorama"
 msgstr ""
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:45
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr ""
@@ -2102,7 +2122,7 @@ msgstr ""
 msgid "Preferences - hugin"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:2 src/hugin/xrc/pref_dialog.xrs:11
 msgid "Panotools"
 msgstr ""
 
@@ -2115,8 +2135,8 @@ msgid "PTStitcher:"
 msgstr ""
 
 #: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
-#: src/hugin/xrc/pref_dialog.xrs:52 src/hugin/xrc/pref_dialog.xrs:56
-#: src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/pref_dialog.xrs:53 src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:63
 msgid "..."
 msgstr ""
 
@@ -2136,169 +2156,169 @@ msgstr ""
 msgid "Panotools:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:11
+#: src/hugin/xrc/pref_dialog.xrs:12
 msgid "Details"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:12
+#: src/hugin/xrc/pref_dialog.xrs:13
 msgid "Finetune"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:13
+#: src/hugin/xrc/pref_dialog.xrs:14
 msgid "Basic Settings"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:14
+#: src/hugin/xrc/pref_dialog.xrs:15
 msgid "Patch width:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:15 src/hugin/xrc/pref_dialog.xrs:19
+#: src/hugin/xrc/pref_dialog.xrs:16 src/hugin/xrc/pref_dialog.xrs:20
 msgid "pixels"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:16
+#: src/hugin/xrc/pref_dialog.xrs:17
 msgid "Search area width:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:17
+#: src/hugin/xrc/pref_dialog.xrs:18
 msgid "percent of image width"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:18
+#: src/hugin/xrc/pref_dialog.xrs:19
 msgid "Local search area width:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:20
+#: src/hugin/xrc/pref_dialog.xrs:21
 msgid "Correlation Threshold:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:21
+#: src/hugin/xrc/pref_dialog.xrs:22
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:23
 msgid "Peak Curvature Threshold:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:24
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:24
+#: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Rotation search"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:25
+#: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:27
 msgid "Start angle:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:27 src/hugin/xrc/pref_dialog.xrs:29
+#: src/hugin/xrc/pref_dialog.xrs:28 src/hugin/xrc/pref_dialog.xrs:30
 msgid "degrees"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:28
+#: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Stop angle:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:30
+#: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Steps:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:31
+#: src/hugin/xrc/pref_dialog.xrs:32
 msgid "Misc"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:33
 msgid "Memory usage"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:34
 msgid "Image cache memory:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:34
+#: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:35
+#: src/hugin/xrc/pref_dialog.xrs:36
 msgid "MB"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:36
+#: src/hugin/xrc/pref_dialog.xrs:37
 msgid "User Interface"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:37
+#: src/hugin/xrc/pref_dialog.xrs:38
 msgid "Language"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:38
+#: src/hugin/xrc/pref_dialog.xrs:39
 msgid "requires restarting hugin"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:39
+#: src/hugin/xrc/pref_dialog.xrs:40
 msgid "Cursor Type"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:41
 msgid ""
 "available on linux only\n"
 "requires restarting hugin"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:41
+#: src/hugin/xrc/pref_dialog.xrs:42
 msgid "File options"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:42
+#: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Tempdir:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:43
+#: src/hugin/xrc/pref_dialog.xrs:44
 msgid "leave empty for OS default"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:46
 msgid "Show Druid (requires restarting hugin)"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:46 src/hugin/xrc/pref_dialog.xrs:54
+#: src/hugin/xrc/pref_dialog.xrs:47 src/hugin/xrc/pref_dialog.xrs:55
 msgid "Autopano"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:48
+#: src/hugin/xrc/pref_dialog.xrs:49
 msgid "Autopano (by A. Jenny)"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:50
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:51
 msgid "Autopano-SIFT"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:52
 msgid "Autopano-SIFT:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:53 src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:54 src/hugin/xrc/pref_dialog.xrs:58
 msgid "Arguments:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:55
+#: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Autopano:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:58
+#: src/hugin/xrc/pref_dialog.xrs:59
 #, c-format
 msgid ""
 "following patterns will be subsituted before running:\n"
@@ -2308,31 +2328,31 @@ msgid ""
 "%namefile -- file that contains image filenames"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Enblend"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Enblend Options"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:62
 msgid "Enblend:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:63
+#: src/hugin/xrc/pref_dialog.xrs:64
 msgid "Additional Arguments:"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:64
+#: src/hugin/xrc/pref_dialog.xrs:65
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:65
+#: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Ok"
 msgstr ""
 
-#: src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:69
 msgid "Load Defaults"
 msgstr ""
 
