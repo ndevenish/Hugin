@@ -162,7 +162,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     progress.progressMessage("merging images");
 
     // save individual images into a single big multi-image tif
-    if (opts.outputFormat == PT::PanoramaOptions::TIFF_m) {
+    if (opts.outputFormat == PT::PanoramaOptions::TIFF_mask) {
         std::string filename = basename + ".tif";
         DEBUG_DEBUG("Layering image into a multi image tif file " << filename);
         vigra::TiffImage * tiff = TIFFOpen(filename.c_str(), "w");
@@ -170,7 +170,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
         // test for widest negative offset as it is not allowed in tiff
         int neg_off_x = 0,
-            neg_off_y = 0; 
+            neg_off_y = 0;
         for (unsigned int imgNr=0; imgNr< nImg; imgNr++) {
             if (remapped[imgNr].ul.x < neg_off_x)
                 neg_off_x = remapped[imgNr].ul.x;
@@ -196,36 +196,21 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                 typename vigra::BImage::Iterator xa(ya);
                 for(int x=xstart; x < xend; ++x, ++xa.x) {
                     // find the image where this pixel is closest to the image center
-                    // beku: what is it for?
-		    // pablo: it determines which image should be used
-		    //        for the current panorama pixel.
                     float minDist = FLT_MAX;
                     unsigned int minImgNr = 0;
                     vigra::Diff2D cp(x,y);
-                    for (unsigned int i=0; i< nImg; i++) {
-                        float dist = remapped[imgNr].getDistanceFromCenter(cp);
+                    for (unsigned int img2=0; img2< nImg; img2++) {
+                        float dist = remapped[img2].getDistanceFromCenter(cp);
                         if ( dist < minDist ) {
                             minDist = dist;
-                            minImgNr = i;
+                            minImgNr = img2;
                         }
                     }
 		    if (minDist < FLT_MAX && minImgNr == imgNr) {
 	                // pixel belongs to current image (imgNr)
                         *xa = 255;
-		    } 
-//		    else {
-//			// pixel doesn't belong to current image.
-// 			*xa = 0;  // not needed since alpha image
-//		                  // is initialized with 0.
-//		    }	
+		    }
                 }
-            }
-            
-            // write the alpha intoa a debug file
-            {
-                std::ostringstream ofname;
-                ofname << basename << "_alpha_" << imgNr << ".tif";
-                vigra::exportImage(srcImageRange(alpha), vigra::ImageExportInfo(ofname.str().c_str()));
             }
 
             // create a new directory for our image

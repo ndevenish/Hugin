@@ -92,9 +92,11 @@ int main(int argc, char *argv[])
         format = "tif";
         break;
     case PanoramaOptions::TIFF_m:
-    case PanoramaOptions::TIFF_mask:
         format = "tif";
         savePartial = true;
+        break;
+    case PanoramaOptions::TIFF_mask:
+        format = "tif";
         break;
     default:
         DEBUG_ERROR("unsupported file format, using jpeg");
@@ -112,7 +114,7 @@ int main(int argc, char *argv[])
         BRGBImage dest;
         // stitch panorama
         PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                     pdisp, basename, format);
+                                     pdisp, basename, format, savePartial);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;
         return 1;
