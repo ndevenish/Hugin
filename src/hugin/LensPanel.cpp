@@ -566,7 +566,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         VariableMap vars = pano.getImageVariables(imgNr);
         wxString fname;
         wxFileDialog dlg(this,
-                         _("Save lens parameters file"),
+                         _("Load lens parameters"),
                          wxConfigBase::Get()->Read("lensPath",""), "",
                          "Lens Project Files (*.ini)|*.ini|"
                          "All files (*.*)|*.*",
