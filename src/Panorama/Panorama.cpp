@@ -39,7 +39,13 @@
 
 #include <vigra/impex.hxx>
 
-#include "panoinc.h"
+#include <common/stl_utils.h>
+
+#include <PT/Panorama.h>
+#include <PT/PanoToolsInterface.h>
+#include <PT/ImageTransforms.h>
+
+//#include "panoinc.h"
 
 using namespace PT;
 using namespace std;

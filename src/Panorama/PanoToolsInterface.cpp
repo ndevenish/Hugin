@@ -24,7 +24,12 @@
  *
  */
 
-#include "panoinc.h"
+//#include "panoinc.h"
+
+#include "common/utils.h"
+#include "common/stl_utils.h"
+#include "common/math.h"
+#include "PT/Panorama.h"
 #include "PT/PanoToolsInterface.h"
 #include "PT/PTOptimise.h"
 

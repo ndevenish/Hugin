@@ -24,12 +24,21 @@
  *
  */
 
-#include "panoinc.h"
+
+
 #include <jhead/jhead.h>
+
+#include <common/utils.h>
+#include <common/stl_utils.h>
+#include <common/math.h>
+
+#include <PT/PanoramaMemento.h>
+
+#include <PT/Panorama.h>
 
 using namespace PT;
 using namespace std;
-
+using namespace utils;
 
 PanoramaMemento::~PanoramaMemento()
 {
@@ -336,6 +345,8 @@ const string PanoramaOptions::fileformatNames[] =
     "TIFF",
     "TIFF_m",
     "TIFF_mask",
+    "TIFF_multilayer",
+    "TIFF_multilayer_mask",
     "PICT",
     "PSD",
     "PSD_m",
