@@ -83,6 +83,7 @@
 #include "PT/Interpolators.h"
 #include "PT/PanoToolsInterface.h"
 #include "PT/SpaceTransform.h"
+#include "PT/ImageTransforms.h"
 
 #endif
 

@@ -142,10 +142,12 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 
     // update text field if selected
     const UIntSet & selected = images_list->GetSelected();
+    DEBUG_DEBUG("nr of sel Images: " << selected.size());
     if (selected.size() == 1 &&
         *(selected.begin()) < pano.getNrOfImages() &&
         set_contains(_imgNr, *(selected.begin())))
     {
+        DEBUG_DEBUG("Img Nr: " << *(selected.begin()));
         ShowImgParameters( *(selected.begin()) );
     }
     else
@@ -258,8 +260,12 @@ void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
 
 void ImagesPanel::ListSelectionChanged(wxListEvent & e)
 {
-	DEBUG_TRACE(e.GetIndex());
+    DEBUG_TRACE(e.GetIndex());
     const UIntSet & sel = images_list->GetSelected();
+    DEBUG_DEBUG("selected Images: " << sel.size());
+    if (sel.size() > 0) {
+        DEBUG_DEBUG("first sel. image: " << *(sel.begin()));
+    }
     if (sel.size() == 0) {
         // nothing to edit
         DisableImageCtrls();
@@ -274,6 +280,7 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
         } else {
+            DEBUG_DEBUG("Multiselection");
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();

@@ -24,6 +24,8 @@
 #ifndef _MATRIX3_H_
 #define _MATRIX3_H_
 
+#include "common/Vector3.h"
+
 /** general : Matrix3 is a class for handling 3x3 Matrix manipulation.
  *
  * We do not use 4x4 matrix for view point changement as the calculus could be inefficent
@@ -45,7 +47,7 @@ public:
 	/** copy constructor */
 	Matrix3(const Matrix3& ot)
 	{
-		(*this) = ot; // call copy operator 
+		(*this) = ot; // call copy operator
 	}
 
 	/** Set the identity matrix */
@@ -110,7 +112,7 @@ public:
 		return *this;
 	}
 	
-	/** multiplication with another matrix */ 
+	/** multiplication with another matrix */
 	Matrix3 operator*(const Matrix3& ot) const
 	{
 		Matrix3	Result;
@@ -260,29 +262,29 @@ Matrix3 GetRotationAroundU(const Vector3& da)
 	return GetRotationAroundU(da, da.Abs());
 }*/
 
-/*// return the rotation matrix around X 
+/*// return the rotation matrix around X
 Matrix3 GetRotationX(double Ang)
 {
 	double a = cos(Ang);
 	double b = sin(Ang);
 	return Matrix3(
-			1.0,	0.0,		0.0, 
+			1.0,	0.0,		0.0,
 			0.0,	a,			b,
 			0.0,    -b,			a );
 }
 
-//return the rotation matrix around Y 
+//return the rotation matrix around Y
 Matrix3 GetRotationY(double Ang)
 {
 	double a = cos(Ang);
 	double b = -sin(Ang);
 	return Matrix3(
-			a,		0.0,	b, 
+			a,		0.0,	b,
 			0.0,	1.0,	0.0,
 			-b,		0.0,	a );
 }
 
-//return the rotation matrix around Z 
+//return the rotation matrix around Z
 Matrix3 GetRotationZ(double Ang)
 {
 	double a = cos(Ang);

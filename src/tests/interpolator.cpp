@@ -44,8 +44,6 @@ using namespace boost::unit_test_framework;
 using namespace vigra;
 using namespace vigra::functor;
 using namespace PT;
-using namespace PT::TRANSFORM;
-using namespace PTools;
 using namespace std;
 
 template <class SrcIterator, class SrcAccessor,

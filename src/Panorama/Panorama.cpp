@@ -296,7 +296,7 @@ FDiff2D Panorama::calcFOV() const
     DEBUG_DEBUG("opening calcFOV_debug.txt");
     ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
     debug_out << endl;
-    
+
 	PT::SpaceTransform T;
     unsigned int nImg = state.images.size();
     for (unsigned int i=0; i<nImg; i++) {

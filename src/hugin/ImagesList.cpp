@@ -84,6 +84,12 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     for (int i=nrItems-1; i>=(int)nrImages; i--)
     {
         DEBUG_DEBUG("Deleting list item " << i);
+
+        // deselect item
+        DEBUG_DEBUG("item state before: " << GetItemState(i,wxLIST_STATE_SELECTED));
+        SetItemState(i,0, wxLIST_STATE_SELECTED);
+        DEBUG_DEBUG("item state after: " << GetItemState(i,wxLIST_STATE_SELECTED));
+        
         RemoveItem(i);
         m_smallIcons->Remove(i);
     }

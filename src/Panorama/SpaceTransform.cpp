@@ -38,17 +38,19 @@ SpaceTransform::SpaceTransform()
 }
 
 /// dtor
-SpaceTransform::~SpaceTransform() 
-{ 
+SpaceTransform::~SpaceTransform()
+{
 }
 
-void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3 )
+void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3, double var4, double var5 )
 {
 	fDescription fD;
 	fD.param.var0	= var0;
 	fD.param.var1	= var1;
 	fD.param.var2	= var2;
 	fD.param.var3	= var3;
+	fD.param.var4	= var4;
+	fD.param.var5	= var5;
 	fD.func			= function_name;
 	m_Stack.push_back( fD );
 }
@@ -67,17 +69,18 @@ void SpaceTransform::AddTransform( PT::trfn function_name, Matrix3 m, double var
 
 Matrix3 SetMatrix( double a, double b, double c, int cl )
 {
-	Matrix3 mx, my, mz, dummy;
+    Matrix3 mx, my, mz;
+//    Matrix3 dummy;
 	
-	// Calculate Matrices;
-	mx.SetRotationX( a );
-	my.SetRotationY( b );
-	mz.SetRotationZ( c );
+    // Calculate Matrices;
+    mx.SetRotationX( a );
+    my.SetRotationY( b );
+    mz.SetRotationZ( c );
 	
-	if (cl)
-		return ( (mz * mx) * my );
-	else
-		return ( (mx * mz) * my );
+    if (cl)
+        return ( (mz * mx) * my );
+    else
+        return ( (mx * mz) * my );
 	
 	//if( cl )
 	//		matrix_matrix_mult( mz,	mx,	dummy);
@@ -114,17 +117,17 @@ static void inv_radial( double x_dest, double y_dest, double* x_src, double* y_s
 	register double rs, rd, f, scale;
 	int iter = 0;
 
-	rd	= (sqrt( x_dest*x_dest + y_dest*y_dest )) / params.var4; // Normalized 
+	rd	= (sqrt( x_dest*x_dest + y_dest*y_dest )) / params.var4; // Normalized
 
 	rs	= rd;				
 	f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
 
 	while( abs(f - rd) > R_EPS && iter++ < MAXITER )
 	{
-		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  + 
+		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  +
 						  2 * params.var1) * rs + params.var0);
 
-		f 	= (((params.var3 * rs + params.var2) * rs + 
+		f 	= (((params.var3 * rs + params.var2) * rs +
 				params.var1) * rs + params.var0) * rs;
 	}
 
@@ -135,19 +138,20 @@ static void inv_radial( double x_dest, double y_dest, double* x_src, double* y_s
 	*y_src = y_dest * scale  ;
 }
 
+/*
 static void inv_vertical( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
 {
 	// params: double coefficients[4]
 	register double rs, rd, f, scale;
 	int iter = 0;
 
-	rd 	= abs( y_dest ) / params.var4; // Normalized 
+	rd 	= abs( y_dest ) / params.var4; // Normalized
 	rs	= rd;				
 	f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
 
 	while( abs(f - rd) > R_EPS && iter++ < MAXITER )
 	{
-		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  + 
+		rs = rs - (f - rd) / ((( 4 * params.var3 * rs + 3 * params.var2) * rs  +
 						  2 * params.var1) * rs + params.var0);
 
 		f 	= (((params.var3 * rs + params.var2) * rs + params.var1) * rs + params.var0) * rs;
@@ -159,8 +163,9 @@ static void inv_vertical( double x_dest, double y_dest, double* x_src, double* y
 	*x_src = x_dest  ;
 	*y_src = y_dest * scale  ;
 }
+*/
 
-// scale 
+// scale
 static void resize( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double scale_horizontal, double scale_vertical;
@@ -168,6 +173,7 @@ static void resize( double x_dest, double y_dest, double* x_src, double* y_src, 
 	*y_src = y_dest * params.var1;
 }
 
+/*
 // shear
 static void shear( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -175,6 +181,7 @@ static void shear( double x_dest, double y_dest, double* x_src, double* y_src, c
 	*x_src  = x_dest + params.var0 * y_dest;
 	*y_src  = y_dest + params.var1 * x_dest;
 }
+*/
 
 // horiz shift
 static void horiz( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
@@ -210,6 +217,7 @@ static void radial( double x_dest, double y_dest, double* x_src, double* y_src, 
 	*y_src = y_dest * scale  ;
 }
 
+/*
 //
 static void vertical( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -225,8 +233,10 @@ static void vertical( double x_dest, double y_dest, double* x_src, double* y_src
 	*x_src = x_dest;
 	*y_src = y_dest * scale  ;
 }
+*/
 
-// 
+/*
+//
 static void deregister( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double coefficients[4]
@@ -241,7 +251,7 @@ static void deregister( double x_dest, double y_dest, double* x_src, double* y_s
 	*x_src = x_dest + abs( y_dest ) * scale;
 	*y_src = y_dest ;
 }
-
+*/
 // perspective
 void persp_sphere( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -285,19 +295,23 @@ void persp_rect( double x_dest, double y_dest, double* x_src, double* y_src, con
 	*y_src = v.y * params.var1 / v.z;
 }
 
-// 
+/*
+//
 static void rect_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {									
 	*x_src = params.distance * tan( x_dest / params.distance ) ;
 	*y_src = y_dest / cos( x_dest / params.distance );
 }
+*/
 
+/*
 //
 static void pano_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {	
 	*x_src = params.distance * atan ( x_dest / params.distance );
 	*y_src = y_dest * cos( *x_src / params.distance );
 }
+*/
 
 //
 static void rect_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
@@ -338,6 +352,7 @@ static void erect_pano( double x_dest,double  y_dest, double* x_src, double* y_s
 	*y_src = params.distance * atan( y_dest / params.distance);
 }
 
+/*
 //
 static void sphere_cp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -348,6 +363,7 @@ static void sphere_cp_erect( double x_dest,double  y_dest, double* x_src, double
 	*x_src =  theta * cos( phi );
 	*y_src =  theta * sin( phi );
 }
+*/
 
 //
 static void sphere_tp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
@@ -377,6 +393,7 @@ static void sphere_tp_erect( double x_dest,double  y_dest, double* x_src, double
 	*y_src =  theta * v[1] / r;
 }
 
+/*
 //
 static void erect_sphere_cp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -387,6 +404,7 @@ static void erect_sphere_cp( double x_dest,double  y_dest, double* x_src, double
 	*x_src = params.var0 * phi;
 	*y_src = theta - params.var1;
 }
+*/
 
 //
 static void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
@@ -419,7 +437,7 @@ static void sphere_tp_rect( double x_dest,double  y_dest, double* x_src, double*
 	*y_src =  theta * y_dest ;
 }
 
-// 
+//
 static void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
@@ -432,7 +450,7 @@ static void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double*
 	*y_src =  theta * y_dest ;
 }
 
-// 
+//
 static void pano_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
@@ -450,6 +468,7 @@ static void pano_sphere_tp( double x_dest,double  y_dest, double* x_src, double*
 	*y_src = params.distance * s * y_dest / sqrt( v[0]*v[0] + v[1]*v[1] );
 }
 
+/*
 //
 static void sphere_cp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -460,6 +479,7 @@ static void sphere_cp_pano( double x_dest,double  y_dest, double* x_src, double*
 	*x_src = params.distance * theta * cos( phi );
 	*y_src = params.distance * theta * sin( phi );
 }
+*/
 
 //
 static void erect_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
@@ -482,13 +502,14 @@ static void erect_sphere_tp( double x_dest,double  y_dest, double* x_src, double
 	else
 		s = sin( theta) / r;
 	
-	v[1] =  s * x_dest;   
+	v[1] =  s * x_dest;
 	v[0] =  cos( theta );				
 	
 	*x_src = params.distance * atan2( v[1], v[0] );
-	*y_src = params.distance * atan( s * y_dest /sqrt( v[0]*v[0] + v[1]*v[1] ) ); 
+	*y_src = params.distance * atan( s * y_dest /sqrt( v[0]*v[0] + v[1]*v[1] ) );
 }
 
+/*
 //
 static void mirror_sphere_cp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -500,7 +521,9 @@ static void mirror_sphere_cp( double x_dest,double  y_dest, double* x_src, doubl
 	*x_src = - rho * cos( phi );
 	*y_src = rho * sin( phi );
 }
+*/
 
+/*
 //
 static void mirror_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -512,7 +535,9 @@ static void mirror_erect( double x_dest,double  y_dest, double* x_src, double* y
 	*x_src = - rho * cos( phi );
 	*y_src = rho * sin( phi );
 }
+*/
 
+/*
 //
 static void mirror_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -524,7 +549,9 @@ static void mirror_pano( double x_dest,double  y_dest, double* x_src, double* y_
 	*x_src = rho * cos( phi );
 	*y_src = rho * sin( phi );
 }
+*/
 
+/*
 //
 static void sphere_cp_mirror( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -536,7 +563,9 @@ static void sphere_cp_mirror( double x_dest,double  y_dest, double* x_src, doubl
 	*x_src = params.var0 * theta * cos( phi );
 	*y_src = params.var0 * theta * sin( phi );
 }
+*/
 
+/*
 //
 static void shift_scale_rotate( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
@@ -546,6 +575,7 @@ static void shift_scale_rotate( double x_dest,double  y_dest, double* x_src, dou
 	*x_src = (x * params.var3 - y * params.var4) * params.var2;
 	*y_src = (x * params.var4 + y * params.var3) * params.var2;
 }
+*/
 
 /*
 
@@ -589,9 +619,9 @@ double smallestRoot( double *p )
 		poly[i].i = 0.0;
 	}
 	
-	theEps   = DBL_EPSILON;  		// machine precision 
-	theSmall = DBL_MIN ; 			// smallest positive real*8          
-	theBig   = DBL_MAX ; 			// largest real*8  
+	theEps   = DBL_EPSILON;  		// machine precision
+	theSmall = DBL_MIN ; 			// smallest positive real*8
+	theBig   = DBL_MAX ; 			// largest real*8
 
 	nitmax 	= 100;
 
@@ -622,13 +652,13 @@ void cubeZero( double *a, int *n, double *root ){
 		
 		if( q*q + p*p*p >= 0.0 ){
 			*n = 1;
-			root[0] = cubeRoot(-q + sqrt(q*q + p*p*p)) + cubeRoot(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]); 
+			root[0] = cubeRoot(-q + sqrt(q*q + p*p*p)) + cubeRoot(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
 		}else{
 			double phi = acos( -q / sqrt(-p*p*p) );
 			*n = 3;
-			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]); 
-			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]); 
-			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]); 
+			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
+			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
+			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
 		}
 	}
 	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
@@ -647,7 +677,7 @@ void squareZero( double *a, int *n, double *root ){
 		}
 	}else{
 		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
-			*n = 0; 
+			*n = 0;
 		}else{
 			*n = 2;
 			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
@@ -683,77 +713,193 @@ double smallestRoot( double *p ){
 }
 
 */
+
+
+
+// really strange. the pano12.dll for windows doesn't seem to
+// contain the SetCorrectionRadius function, so it is included here
+
+static void cubeZero_copy( double *a, int *n, double *root );
+static void squareZero_copy( double *a, int *n, double *root );
+static double cubeRoot_copy( double x );
+
+
+static void cubeZero_copy( double *a, int *n, double *root ){
+	if( a[3] == 0.0 ){ // second order polynomial
+		squareZero_copy( a, n, root );
+	}else{
+		double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
+		double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
+		
+		if( q*q + p*p*p >= 0.0 ){
+			*n = 1;
+			root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
+		}else{
+			double phi = acos( -q / sqrt(-p*p*p) );
+			*n = 3;
+			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
+			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
+			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
+		}
+	}
+	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
+}
+
+static void squareZero_copy( double *a, int *n, double *root ){
+	if( a[2] == 0.0 ){ // linear equation
+		if( a[1] == 0.0 ){ // constant
+			if( a[0] == 0.0 ){
+				*n = 1; root[0] = 0.0;
+			}else{
+				*n = 0;
+			}
+		}else{
+			*n = 1; root[0] = - a[0] / a[1];
+		}
+	}else{
+		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
+			*n = 0;
+		}else{
+			*n = 2;
+			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+			root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+		}
+	}
+
+}
+
+static double cubeRoot_copy( double x ){
+	if( x == 0.0 )
+		return 0.0;
+	else if( x > 0.0 )
+		return pow(x, 1.0/3.0);
+	else
+		return - pow(-x, 1.0/3.0);
+}
+
+static double smallestRoot_copy( double *p ){
+	int n,i;
+	double root[3], sroot = 1000.0;
+	
+	cubeZero_copy( p, &n, root );
+	
+	for( i=0; i<n; i++){
+		// PrintError("Root %d = %lg", i,root[i]);
+		if(root[i] > 0.0 && root[i] < sroot)
+			sroot = root[i];
+	}
+	
+	// PrintError("Smallest Root  = %lg", sroot);
+	return sroot;
+}
+
+
+// Restrict radial correction to monotonous interval
+static double CalcCorrectionRadius_copy(double *coeff )
+{
+    double a[4];
+    int k;
+	
+    for( k=0; k<4; k++ )
+    {
+        a[k] = 0.0;//1.0e-10;
+        if( coeff[k] != 0.0 )
+        {
+            a[k] = (k+1) * coeff[k];
+        }
+    }
+    return smallestRoot_copy( a );
+}
+
+
+
 /** Creates the stacks of matrices and flatten them
-  *   
+  *
   */
 void SpaceTransform::Init(
-	const Diff2D & srcSize,
+    const Diff2D & srcSize,
     const VariableMap & srcVars,
     Lens::LensProjectionFormat srcProj,
     const Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
-	double destHFOV )
+    double destHFOV )
 {
-	int 	i;
-	double	a, b;
-	Matrix3 mpmt;
-	double  mpdistance, mpscale[2], mpshear[2], mprot[2], mpperspect[2], mprad[6];
+    int 	i;
+    double	a, b;
+    Matrix3 mpmt;
+    double  mpdistance, mpscale[2], mpshear[2], mprot[2], mprad[6];
+    // double mpperspect[2];
+    double  mphorizontal, mpvertical;
 
-	double  imhfov  = const_map_get(srcVars,"v").getValue();
-	double  imwidth = srcSize.x;
-	double  imheight= srcSize.y;
-    double  imyaw	= const_map_get(srcVars,"y").getValue();
+    double  imhfov  = const_map_get(srcVars,"v").getValue();
+    double  imwidth = srcSize.x;
+    double  imheight= srcSize.y;
+    double  imyaw   = const_map_get(srcVars,"y").getValue();
     double  impitch = const_map_get(srcVars,"p").getValue();
-    double	imroll	= const_map_get(srcVars,"r").getValue();
-	double  pnhfov  = destHFOV;
-	double  pnwidth = destSize.x;
-	double  pnheight= destSize.y;
+    double  imroll  = const_map_get(srcVars,"r").getValue();
+    double  ima = const_map_get(srcVars,"a").getValue();
+    double  imb = const_map_get(srcVars,"b").getValue();
+    double  imc = const_map_get(srcVars,"c").getValue();
+    double  imd = const_map_get(srcVars,"d").getValue();
+    double  ime = const_map_get(srcVars,"e").getValue();
+    double  pnhfov  = destHFOV;
+    double  pnwidth = destSize.x;
+//    double  pnheight= destSize.y;
 
-	m_Stack.clear();
+    m_Stack.clear();
     m_srcTX = destSize.x/2.0;
     m_srcTY = destSize.y/2.0;
     m_destTX = srcSize.x/2.0;
     m_destTY = srcSize.y/2.0;
 
-	a = DEG_TO_RAD( imhfov );	// field of view in rad		
-	b = DEG_TO_RAD( pnhfov );
+    a = DEG_TO_RAD( imhfov );	// field of view in rad		
+    b = DEG_TO_RAD( pnhfov );
 
-	mpmt = SetMatrix(	-DEG_TO_RAD( impitch ), 
-						0.0, 
-						- DEG_TO_RAD( imroll ), 
-						0 );
+    mpmt = SetMatrix(	-DEG_TO_RAD( impitch ),
+                        0.0,
+                        - DEG_TO_RAD( imroll ),
+                        0 );
 
-	if (destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
-	{
-		mpdistance = pnwidth / (2.0 * tan(b/2.0));
-		if (srcProj == Lens::RECTILINEAR)	// rectilinear image
-		{
-			mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0))) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b; 
+    if (destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
+    {
+        mpdistance = pnwidth / (2.0 * tan(b/2.0));
+        if (srcProj == Lens::RECTILINEAR)	// rectilinear image
+        {
+            mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0))) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b;
 
-		}
-		else //  pamoramic or fisheye image
-		{
-			mpscale[0] = (pnhfov / imhfov) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b; 
-		}
-	}
-	else // equirectangular or panoramic or fisheye
-	{
-		mpdistance = pnwidth / b;
-		if(srcProj == Lens::RECTILINEAR)	// rectilinear image
-		{
-			mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0)))*( imwidth / pnwidth );
-		}
-		else //  pamoramic or fisheye image
-		{
-			mpscale[0] = (pnhfov / imhfov) * ( imwidth / pnwidth ); 
-		}
-	}
-	mpscale[1]		= mpscale[0];
-	mpshear[0]		= 0.0; // TODO : im->cP.shear_x / imheight;
-	mpshear[1]		= 0.0; // TODO : im->cP.shear_y / imwidth;
-	mprot[0]		= mpdistance * PI;								// 180¡ in screenpoints
-	mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
-	
+        }
+        else //  pamoramic or fisheye image
+        {
+            mpscale[0] = (pnhfov / imhfov) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b;
+        }
+    }
+    else // equirectangular or panoramic or fisheye
+    {
+        mpdistance = pnwidth / b;
+        if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+        {
+            mpscale[0] = (pnhfov / imhfov) * (a /(2.0 * tan(a/2.0)))*( imwidth / pnwidth );
+        }
+        else //  pamoramic or fisheye image
+        {
+            mpscale[0] = (pnhfov / imhfov) * ( imwidth / pnwidth );
+        }
+    }
+    mpscale[1]		= mpscale[0];
+    mpshear[0]		= 0.0; // TODO : im->cP.shear_x / imheight;
+    mpshear[1]		= 0.0; // TODO : im->cP.shear_y / imwidth;
+    mprot[0]		= mpdistance * PI;								// 180¡ in screenpoints
+    mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
+
+    // add radial correction
+    mprad[3] = ima;
+    mprad[2] = imb;
+    mprad[1] = imc;
+    mprad[0] = 1.0 - (ima+imb+imc);
+    mprad[4] = ( imwidth < imheight ? imwidth : imheight)  / 2.0;
+    // calculate the correction radius.
+    mprad[5] = CalcCorrectionRadius_copy(mprad);
+
 	/*for(i=0; i<4; i++)
 		mprad[i] 	= im->cP.radial_params[color][i];
 	mprad[5] = im->cP.radial_params[color][4];
@@ -763,63 +909,82 @@ void SpaceTransform::Init(
 	else
 		mp->rad[4] 	= ((double) im->height) / 2.0;*/
 		
-
+    mphorizontal = imd;
+    mpvertical = ime;
 	//mp->horizontal 	= im->cP.horizontal_params[color];
 	//mp->vertical 	= im->cP.vertical_params[color];
 	
-	i = 0;
+    i = 0;
 
-	switch (destProj)
-	{
-		case Lens::RECTILINEAR :
-			// Convert rectilinear to equirect
-			AddTransform( &erect_rect, mpdistance );
-			break;
+    switch (destProj)
+    {
+    case PanoramaOptions::RECTILINEAR :
+        // Convert rectilinear to equirect
+        AddTransform( &erect_rect, mpdistance );
+        break;
 
-		case Lens::PANORAMIC :
-			// Convert panoramic to equirect
-			AddTransform( &erect_pano, mpdistance );
-			break;
-		
-		/* never used :
-		   we cannot set such output ...
-		case Lens::CIRCULAR_FISHEYE:
-		case Lens::FULL_FRAME_FISHEYE:
-			// Convert panoramic to sphere
-			AddTransform( &erect_sphere_tp, mpdistance );
-			break;*/
-	}
+    case PanoramaOptions::CYLINDRICAL:
+        // Convert panoramic to equirect
+        AddTransform( &erect_pano, mpdistance );
+        break;
+    case PanoramaOptions::EQUIRECTANGULAR:
+        // do nothing... coordinates are already equirect
+        break;
+        /* never used :
+           we cannot set such output ...
+           case Lens::CIRCULAR_FISHEYE:
+           case Lens::FULL_FRAME_FISHEYE:
+           // Convert panoramic to sphere
+           AddTransform( &erect_sphere_tp, mpdistance );
+           break;*/
+    }
 
-	// Rotate equirect. image horizontally
-	AddTransform( &rotate_erect, mprot[0], mprot[1] );
+    // Rotate equirect. image horizontally
+    AddTransform( &rotate_erect, mprot[0], mprot[1] );
 	
-	// Convert spherical image to equirect.
-	AddTransform( &sphere_tp_erect, mpdistance );
+    // Convert spherical image to equirect.
+    AddTransform( &sphere_tp_erect, mpdistance );
 	
-	// Perspective Control spherical Image
-	AddTransform( &persp_sphere, mpmt, mpdistance );
+    // Perspective Control spherical Image
+    AddTransform( &persp_sphere, mpmt, mpdistance );
 
-	switch (srcProj)
-	{
-		case Lens::RECTILINEAR : 
-			// Convert rectilinear to spherical
-			AddTransform( &rect_sphere_tp, mpdistance);
-			break;
-		case Lens::PANORAMIC :
-			// Convert panoramic to spherical
-			AddTransform( &pano_sphere_tp, mpdistance );
-			break;
-		case Lens::EQUIRECTANGULAR_LENS:
-			// Convert PSphere to spherical
-			AddTransform( &erect_sphere_tp, mpdistance );
-			break;
-	}
+    switch (srcProj)
+    {
+    case Lens::RECTILINEAR :
+        // Convert rectilinear to spherical
+        AddTransform( &rect_sphere_tp, mpdistance);
+        break;
+    case Lens::PANORAMIC :
+        // Convert panoramic to spherical
+        AddTransform( &pano_sphere_tp, mpdistance );
+        break;
+    case Lens::EQUIRECTANGULAR_LENS:
+        // Convert PSphere to spherical
+        AddTransform( &erect_sphere_tp, mpdistance );
+        break;
+    default:
+        // do nothing for CIRCULAR & FULL_FRAME_FISHEYE
+        break;
+    }
 
-	// Scale Image
-	AddTransform( &resize, mpscale[0], mpscale[1] );
-	
-	/*if( im->cP.radial )
-	{
+    // Scale Image
+    AddTransform( &resize, mpscale[0], mpscale[1] );
+
+    // radial correction if nonzero radial coefficients
+    if ( mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+        AddTransform (&radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+    }
+
+    // shift optical center if needed
+    if (mpvertical != 0.0) {
+        AddTransform(&vert, mpvertical);
+    }
+    if (mphorizontal != 0.0) {
+        AddTransform(&horiz, mphorizontal);
+    }
+
+    /*if( im->cP.radial )
+      {
 		switch( im->cP.correction_mode & 3 )
 		{
 			case correction_mode_radial:    SetDesc(stack[i],radial,mp->rad); 	  i++; break;
@@ -845,73 +1010,94 @@ void SpaceTransform::Init(
 }
 
 void SpaceTransform::InitInv(
-	const Diff2D & srcSize,
+    const Diff2D & srcSize,
     const VariableMap & srcVars,
     Lens::LensProjectionFormat srcProj,
     const Diff2D &destSize,
     PanoramaOptions::ProjectionFormat destProj,
-	double destHFOV )
+    double destHFOV )
 {
-	int 	i;
-	double	a, b;
-	Matrix3 mpmt;
-	double  mpdistance, mpscale[2], mpshear[2], mprot[2], mpperspect[2], mprad[6];
+    double	a, b;
+    Matrix3 mpmt;
+    double  mpdistance, mpscale[2], mpshear[2], mprot[2], mprad[6];
+//    double  mpperspect[2];
+    double mphorizontal, mpvertical;
 
-	double  imhfov  = const_map_get(srcVars,"v").getValue();
-	double  imwidth = srcSize.x;
-	double  imheight= srcSize.y;
-    double  imyaw	= const_map_get(srcVars,"y").getValue();
+    double  imhfov  = const_map_get(srcVars,"v").getValue();
+    double  imwidth = srcSize.x;
+    double  imheight= srcSize.y;
+    double  imyaw   = const_map_get(srcVars,"y").getValue();
     double  impitch = const_map_get(srcVars,"p").getValue();
-    double	imroll	= const_map_get(srcVars,"r").getValue();
-	double  pnhfov  = destHFOV;
-	double  pnwidth = destSize.x;
-	double  pnheight= destSize.y;
+    double  imroll  = const_map_get(srcVars,"r").getValue();
+    double  ima = const_map_get(srcVars,"a").getValue();
+    double  imb = const_map_get(srcVars,"b").getValue();
+    double  imc = const_map_get(srcVars,"c").getValue();
+    double  imd = const_map_get(srcVars,"d").getValue();
+    double  ime = const_map_get(srcVars,"e").getValue();
+    double  pnhfov  = destHFOV;
+    double  pnwidth = destSize.x;
+//    double  pnheight= destSize.y;
 
-	m_Stack.clear();
+    m_Stack.clear();
     m_srcTX = destSize.x/2.0;
     m_srcTY = destSize.y/2.0;
     m_destTX = srcSize.x/2.0;
     m_destTY = srcSize.y/2.0;
 
 
-	a =	 DEG_TO_RAD( imhfov );	// field of view in rad		
-	b =	 DEG_TO_RAD( pnhfov );
+    a =	 DEG_TO_RAD( imhfov );	// field of view in rad		
+    b =	 DEG_TO_RAD( pnhfov );
 
-	mpmt = SetMatrix( 	DEG_TO_RAD( impitch ), 
-						0.0, 
-						DEG_TO_RAD( imroll ), 
-						1 );
+    mpmt = SetMatrix( 	DEG_TO_RAD( impitch ),
+                        0.0,
+                        DEG_TO_RAD( imroll ),
+                        1 );
 
-	if(destProj == Lens::RECTILINEAR)	// rectilinear panorama
-	{
-		mpdistance 	= pnwidth / (2.0 * tan(b/2.0));
-		if(srcProj == Lens::RECTILINEAR)	// rectilinear image
-		{
-			mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b; 
-		}
-		else //  pamoramic or fisheye image
-		{
-			mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b; 
-		}
-	}
-	else // equirectangular or panoramic 
-	{
-		mpdistance 	= pnwidth / b;
-		if(srcProj == Lens::RECTILINEAR ) // rectilinear image
-		{
-			mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ); 
-		}
-		else //  pamoramic or fisheye image
-		{
-			mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth );
-		}
-	}
-	mpshear[0] 	= 0.0f; // TODO -im->cP.shear_x / im->height;
-	mpshear[1] 	= 0.0f; // -im->cP.shear_y / im->width;
+    if(destProj == PanoramaOptions::RECTILINEAR)	// rectilinear panorama
+    {
+        mpdistance 	= pnwidth / (2.0 * tan(b/2.0));
+        if(srcProj == Lens::RECTILINEAR)	// rectilinear image
+        {
+            mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b;
+        }
+        else //  pamoramic or fisheye image
+        {
+            mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth ) * 2.0 * tan(b/2.0) / b;
+        }
+    }
+    else // equirectangular or panoramic
+    {
+        mpdistance 	= pnwidth / b;
+        if(srcProj == Lens::RECTILINEAR ) // rectilinear image
+        {
+            mpscale[0] = ( pnhfov/imhfov ) * (a /(2.0 * tan(a/2.0))) * ( imwidth/pnwidth );
+        }
+        else //  pamoramic or fisheye image
+        {
+            mpscale[0] = ( pnhfov/imhfov ) * ( imwidth/pnwidth );
+        }
+    }
+    mpshear[0] 	= 0.0f; // TODO -im->cP.shear_x / im->height;
+    mpshear[1] 	= 0.0f; // -im->cP.shear_y / im->width;
 	
-	mpscale[0] = 1.0 / mpscale[0];
-	mpscale[1] = mpscale[0];
-	/*mp->horizontal 	= -im->cP.horizontal_params[color];
+    mpscale[0] = 1.0 / mpscale[0];
+    mpscale[1] = mpscale[0];
+
+    // principal point shift
+    mphorizontal = - imd;
+    mpvertical = - ime;
+
+    // radial correction parameters
+    mprad[3] = ima;
+    mprad[2] = imb;
+    mprad[1] = imc;
+    mprad[0] = 1.0 - (ima+imb+imc);
+    mprad[4] = ( imwidth < imheight ? imwidth : imheight)  / 2.0;
+    // calculate the correction radius.
+    mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+
+    /*mp->horizontal 	= -im->cP.horizontal_params[color];
 	mp->vertical 	= -im->cP.vertical_params[color];
 	for(i=0; i<4; i++)
 		mp->rad[i] 	= im->cP.radial_params[color][i];
@@ -920,85 +1106,84 @@ void SpaceTransform::InitInv(
 	switch( im->cP.correction_mode & 3 )
 	{
 		case correction_mode_radial: mp->rad[4] = ((double)(im->width < im->height ? im->width : im->height) ) / 2.0;break;
-		case correction_mode_vertical: 
+		case correction_mode_vertical:
 		case correction_mode_deregister: mp->rad[4] = ((double) im->height) / 2.0;break;
 	}
 	*/
 
-	mprot[0]	= mpdistance * PI;								// 180¡ in screenpoints
-	mprot[1]	= imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
+    mprot[0]	= mpdistance * PI;								// 180¡ in screenpoints
+    mprot[1]	= imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
 
-	//mp->perspect[0] = (void*)(mp->mt);
-	//mp->perspect[1] = (void*)&(mp->distance);
+    //mp->perspect[0] = (void*)(mp->mt);
+    //mp->perspect[1] = (void*)&(mp->distance);
 
-	i = 0;	// Stack counter
-		
-	// Perform radial correction
-	//if( im->cP.shear )
-	//{
-	//	SetDesc( stack[i],shear,			mp->shear		); i++;
-	//}
-	//	
-	//if ( im->cP.horizontal )
-	//{
-	//	SetDesc(stack[i],horiz,				&(mp->horizontal)); i++;
-	//}
-	//if (  im->cP.vertical)
-	//{
-	//	SetDesc(stack[i],vert,				&(mp->vertical)); 	i++;
-	//}
-	/*if(   im->cP.radial )
-	{
-		switch( im->cP.correction_mode & 3)
-		{
-			case correction_mode_radial:   SetDesc(stack[i],inv_radial,mp->rad); 	i++; break;
-			case correction_mode_vertical: SetDesc(stack[i],inv_vertical,mp->rad); 	i++; break;
-			case correction_mode_deregister: break;
-		}
-	}*/
+    // Perform radial correction
+    //if( im->cP.shear )
+    //{
+    //	SetDesc( stack[i],shear,			mp->shear		); i++;
+    //}
+    //	
+
+    // principal point shift
+    if (mphorizontal != 0.0) {
+        AddTransform(&horiz, mphorizontal);
+    }
+    if (mpvertical != 0.0) {
+        AddTransform(&vert, mpvertical);
+    }
+
+    // radial distortion
+    if ( mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+        AddTransform (&inv_radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+    }
 	
-	// Scale image
-	AddTransform( &resize, mpscale[0], mpscale[1] );
+    // Scale image
+    AddTransform( &resize, mpscale[0], mpscale[1] );
 		
-	switch (srcProj)
-	{
-		case Lens::RECTILINEAR :
-			// rectilinear image
-			AddTransform( &sphere_tp_rect, mpdistance );
-			break;
-		case Lens::PANORAMIC :
-			// Convert panoramic to spherical
-			AddTransform( &sphere_tp_pano, mpdistance );
-			break;
-		case Lens::EQUIRECTANGULAR_LENS:
-			// Convert PSphere to spherical
-			AddTransform( &sphere_tp_erect, mpdistance );
-			break;
-	}
+    switch (srcProj)
+    {
+    case Lens::RECTILINEAR :
+        // rectilinear image
+        AddTransform( &sphere_tp_rect, mpdistance );
+        break;
+    case Lens::PANORAMIC :
+        // Convert panoramic to spherical
+        AddTransform( &sphere_tp_pano, mpdistance );
+        break;
+    case Lens::EQUIRECTANGULAR_LENS:
+        // Convert PSphere to spherical
+        AddTransform( &sphere_tp_erect, mpdistance );
+        break;
+    default:
+        // do nothing for fisheye lenses
+        break;
+    }
 
-	// Perspective Control spherical Image
-	AddTransform( &persp_sphere, mpmt, mpdistance );
-	// Convert spherical image to equirect.
-	AddTransform( &erect_sphere_tp, mpdistance );
-	// Rotate equirect. image horizontally
-	AddTransform( &rotate_erect, mprot[0], mprot[1] );
+    // Perspective Control spherical Image
+    AddTransform( &persp_sphere, mpmt, mpdistance );
+    // Convert spherical image to equirect.
+    AddTransform( &erect_sphere_tp, mpdistance );
+    // Rotate equirect. image horizontally
+    AddTransform( &rotate_erect, mprot[0], mprot[1] );
 
-	switch (destProj)
-	{
-		case Lens::RECTILINEAR : 
-			// Convert rectilinear to spherical
-			AddTransform( &rect_erect, mpdistance);
-			break;
-		case Lens::PANORAMIC :
-			// Convert panoramic to spherical
-			AddTransform( &pano_erect, mpdistance );
-			break;
-		/* we cannot such output
-		case Lens::EQUIRECTANGULAR_LENS:
-			// Convert PSphere to spherical
-			AddTransform( &sphere_tp_erect, mpdistance );
-			break;*/
-	}
+    switch (destProj)
+    {
+    case PanoramaOptions::RECTILINEAR :
+        // Convert rectilinear to spherical
+        AddTransform( &rect_erect, mpdistance);
+        break;
+    case PanoramaOptions::CYLINDRICAL :
+        // Convert panoramic to spherical
+        AddTransform( &pano_erect, mpdistance );
+        break;
+        /* we cannot such output
+           case Lens::FISHEYE:
+           // Convert PSphere to spherical
+           AddTransform( &sphere_tp_erect, mpdistance );
+           break;*/
+    case PanoramaOptions::EQUIRECTANGULAR:
+        break;
+    }
 }
 
 //

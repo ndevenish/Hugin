@@ -29,12 +29,9 @@
 
 #include <vigra/impex.hxx>
 #include <vigra/error.hxx>
+
+#include "panoinc.h"
 #include "PT/SimpleStitcher.h"
-#include "PT/Panorama.h"
-
-#include "common/utils.h"
-#include "common/stl_utils.h"
-
 
 using namespace vigra;
 using namespace PT;
@@ -113,7 +110,7 @@ int main(int argc, char *argv[])
     try {
         BRGBImage dest;
         // stitch panorama
-        PTools::stitchPanoramaSimple(pano, pano.getOptions(), dest,
+        PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
                                      pdisp, basename, format, savePartial);
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << endl;

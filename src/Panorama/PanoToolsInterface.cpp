@@ -25,6 +25,7 @@
  */
 
 #include "panoinc.h"
+#include "PT/PanoToolsInterface.h"
 
 using namespace std;
 using namespace PT;
@@ -50,13 +51,13 @@ static void cubeZero_copy( double *a, int *n, double *root ){
 		
 		if( q*q + p*p*p >= 0.0 ){
 			*n = 1;
-			root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]); 
+			root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]);
 		}else{
 			double phi = acos( -q / sqrt(-p*p*p) );
 			*n = 3;
-			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]); 
-			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]); 
-			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]); 
+			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]);
+			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]);
+			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]);
 		}
 	}
 	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
@@ -75,7 +76,7 @@ static void squareZero_copy( double *a, int *n, double *root ){
 		}
 	}else{
 		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
-			*n = 0; 
+			*n = 0;
 		}else{
 			*n = 2;
 			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);

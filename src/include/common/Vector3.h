@@ -65,14 +65,14 @@ public:
 	void Set(double a, double b, double c) { x=a; y=b; z=c; }
 
 	/** comparison : equality */
-	inline bool operator== (const Vector3& v) const 
-	{ 
-		return (v.x==x && v.y==y && v.z==z); 
+	inline bool operator== (const Vector3& v) const
+	{
+		return (v.x==x && v.y==y && v.z==z);
 	}
 
 	/** comparison : not equal */
-	inline bool operator!= (const Vector3& v ) const 
-	{ 
+	inline bool operator!= (const Vector3& v ) const
+	{
 		return !(v == *this);
 	}
 
@@ -89,9 +89,9 @@ public:
 	}
 	
 	/** comparison : nearly equal */
-	bool IsNearlyEqual(const Vector3& v) const 
-	{ 
-		return ( (fabs(x-v.x)<EPSILON) && (fabs(y-v.y)<EPSILON) && (fabs(z-v.z)<EPSILON) ); 
+	bool IsNearlyEqual(const Vector3& v) const
+	{
+		return ( (fabs(x-v.x)<EPSILON) && (fabs(y-v.y)<EPSILON) && (fabs(z-v.z)<EPSILON) );
 	}
 
 	/** operator * */
@@ -134,8 +134,8 @@ public:
 	/** operator += */
 	inline Vector3 operator+=( const Vector3& v )
 	{
-		x += v.x; 
-		y += v.y; 
+		x += v.x;
+		y += v.y;
 		z += v.z;
 		return *this;
 	}
@@ -143,8 +143,8 @@ public:
 	/** operator -= */
 	inline Vector3 operator-=( const Vector3& v )
 	{
-		x -= v.x; 
-		y -= v.y; 
+		x -= v.x;
+		y -= v.y;
 		z -= v.z;
 		return *this;
 	}
@@ -199,8 +199,8 @@ public:
 		if( SquareSum >= EPSILON )
 		{
 			double invNorm = 1.f/sqrt(SquareSum);
-			x *= invNorm; 
-			y *= invNorm; 
+			x *= invNorm;
+			y *= invNorm;
 			z *= invNorm;
 			return true;
 		}
@@ -215,8 +215,8 @@ public:
 		if( SquareSum >= EPSILON )
 		{
 			double invNorm = 1.f/sqrt(SquareSum);
-			result.x *= invNorm; 
-			result.y *= invNorm; 
+			result.x *= invNorm;
+			result.y *= invNorm;
 			result.z *= invNorm;
 		}
 		return result;

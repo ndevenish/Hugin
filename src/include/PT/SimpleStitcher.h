@@ -28,10 +28,10 @@
 
 #include <vigra/impex.hxx>
 
-#include <PT/PanoToolsInterface.h>
+#include <PT/SpaceTransform.h>
 #include <PT/tiffUtils.h>
 
-namespace PTools {
+namespace PT{
 
 /** stitch a panorama
  *
@@ -83,32 +83,32 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         // want to have virtual function call for the interpolator
         switch (opts.interpolator) {
         case PT::PanoramaOptions::CUBIC:
-            DEBUG_DEBUG("using cubic interpolator")
-            PTools::remapImage(pano, i,
+            DEBUG_DEBUG("using cubic interpolator");
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_cubic());
             break;
         case PT::PanoramaOptions::SPLINE_16:
-            DEBUG_DEBUG("interpolator: spline16")
-            PTools::remapImage(pano, i,
+            DEBUG_DEBUG("interpolator: spline16");
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_spline16());
             break;
         case PT::PanoramaOptions::SPLINE_36:
-            DEBUG_DEBUG("interpolator: spline36")
-            PTools::remapImage(pano, i,
+            DEBUG_DEBUG("interpolator: spline36");
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_spline36());
             break;
         case PT::PanoramaOptions::SPLINE_64:
-            DEBUG_DEBUG("interpolator: spline64")
-            PTools::remapImage(pano, i,
+            DEBUG_DEBUG("interpolator: spline64");
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
@@ -116,28 +116,28 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             break;
         case PT::PanoramaOptions::SINC_256:
             DEBUG_DEBUG("interpolator: sinc 256")
-            PTools::remapImage(pano, i,
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_sinc<8>());
             break;
         case PT::PanoramaOptions::BILINEAR:
-            PTools::remapImage(pano, i,
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_bilin());
             break;
         case PT::PanoramaOptions::NEAREST_NEIGHBOUR:
-            PTools::remapImage(pano, i,
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],
                                interp_nearest());
             break;
         case PT::PanoramaOptions::SINC_1024:
-            PTools::remapImage(pano, i,
+            PT::remapImage(pano, i,
                                srcImageRange(srcImg),
                                opts,
                                remapped[i],

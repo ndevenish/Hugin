@@ -312,8 +312,10 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 
 void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 {
-    PT::SpaceTransform t;
-    PT::SpaceTransform invT;
+//    PT::SpaceTransform t;
+//    PT::SpaceTransform invT;
+    PTools::Transform t;
+    PTools::Transform invT;
     const PanoImage & pimg = pano.getImage(imgNr);
     wxImage * src = ImageCache::getInstance().getSmallImage(
         pimg.getFilename());

@@ -32,14 +32,15 @@
 #include "panoinc.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageProcessing.h"
-#include "hugin/PanoToolsInterface.h"
+#include "PT/SpaceTransform.h"
+//#include "hugin/PanoToolsInterface.h"
 
 using namespace boost::unit_test_framework;
 
 using namespace vigra;
 using namespace PT;
 using namespace PT::TRANSFORM;
-using namespace PTools;
+//using namespace PTools;
 using namespace std;
 
 void remap_test()
@@ -82,14 +83,14 @@ void remap_test()
     //====================================================================
     //====================================================================
     // the pt remap routines
-    UIntSet imgs;
+/*    UIntSet imgs;
     imgs.insert(0);
     DEBUG_DEBUG("begin stitching");
     opts = pano.getOptions();
-    BOOST_CHECK(PTools::stitchImage(output, pano, imgs, opts));
+    BOOST_CHECK(stitchImage(output, pano, imgs, opts));
     DEBUG_TRACE("end stitching");
     output.SaveFile("stich_result_PT.jpg");
-
+*/
 
     //====================================================================
     //====================================================================
@@ -103,7 +104,7 @@ void remap_test()
     //====================================================================
     // my remap routine
     DEBUG_DEBUG("own begin stitching");
-    Transform transf;
+    SpaceTransform transf;
     transf.createTransform(pano,0, pano.getOptions());
 
 
@@ -114,9 +115,9 @@ void remap_test()
     // bounding box
     FDiff2D ul;
     FDiff2D lr;
-    Transform invT;
+    SpaceTransform invT;
     invT.createInvTransform(pano, 0, opts);
-    PTools::calcBorderPoints(Diff2D(1600,1200), invT, back_inserter(outline),
+    calcBorderPoints(Diff2D(1600,1200), invT, back_inserter(outline),
                              ul, lr);
 
     Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
@@ -132,7 +133,7 @@ void remap_test()
 
     FImage emptyDist(1,1);
     // remap image with that transform
-    PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
+    PT::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
                            destIterRange(wxImageUpperLeft(output)+ulInt,
                                          wxImageUpperLeft(output)+lrInt),

@@ -28,14 +28,13 @@
 #include <boost/test/floating_point_comparison.hpp>
 
 #include "panoinc.h"
+#include "PT/PanoToolsInterface.h"
 
 using namespace boost::unit_test_framework;
 
 using namespace std;
 using namespace vigra;
 using namespace PT;
-using namespace PT::TRANSFORM;
-
 
 void transforms_test()
 {
@@ -51,13 +50,25 @@ void transforms_test()
     map_get(vars,"d").setValue(0.0);
     map_get(vars,"e").setValue(0.0);
 
-    PTools::Transform trans;
+    SpaceTransform trans;
+    PTools::Transform ptTrans;
     trans.createTransform(Diff2D(width, height),
                           vars, Lens::RECTILINEAR,
                           Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
                           360);
-    PTools::Transform invTrans;
+    ptTrans.createTransform(Diff2D(width, height),
+                            vars, Lens::RECTILINEAR,
+                            Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
+                            360);
+    
+    SpaceTransform invTrans;
+    PTools::Transform ptInvTrans;
     invTrans.createInvTransform(Diff2D(width, height),
+                                vars, Lens::RECTILINEAR,
+                                Diff2D(360,180),
+                                PanoramaOptions::EQUIRECTANGULAR,
+                                360);
+    ptInvTrans.createInvTransform(Diff2D(width, height),
                                 vars, Lens::RECTILINEAR,
                                 Diff2D(360,180),
                                 PanoramaOptions::EQUIRECTANGULAR,
@@ -65,18 +76,28 @@ void transforms_test()
 
     // set yaw and pitch
     // transform from equirect into image
-    FDiff2D dest(25.0,25.0);
+    FDiff2D src(25.0,25.0);
+    FDiff2D dest;
+    FDiff2D ptdest;
     std::cout << "erect: " << dest.x << "," << dest.y << std::endl;
-    trans.transform(dest,dest);
-    std::cout << "rect (img): " << dest.x << "," << dest.y << std::endl;
-    BOOST_CHECK_CLOSE((double)dest.x, 2000.0, 1e-6);
-    BOOST_CHECK_CLOSE((double)dest.y, 0.0, 1e-6);
+    trans.transform(dest,src);
+    ptTrans.transform(ptdest,src);
 
+    std::cout << "rect (img): " << dest << " pt: " << ptdest << std::endl;
+    BOOST_CHECK_CLOSE((double)ptdest.x, 1000.0, 1e-6);
+    BOOST_CHECK_CLOSE((double)ptdest.y, 1000.0, 1e-6);
+    BOOST_CHECK_CLOSE((double)ptdest.x, (double)dest.x, 1e-6);
+    BOOST_CHECK_CLOSE((double)ptdest.y, (double)dest.y, 1e-6);
+
+    src = ptdest;
     // transfrom back to equirect
-    invTrans.transform(dest,dest);
-    std::cout << "erect: " << dest.x << "," << dest.y << std::endl;
+    invTrans.transform(dest,src);
+    ptInvTrans.transform(ptdest,src);
+    std::cout << "erect (25,25): " << dest << " pt: " << ptdest << std::endl;
     BOOST_CHECK_CLOSE((double)dest.x, 25.0, 1e-4);
     BOOST_CHECK_CLOSE((double)dest.y, 25.0, 1e-4);
+    BOOST_CHECK_CLOSE((double)ptdest.x, (double)dest.x, 1e-6);
+    BOOST_CHECK_CLOSE((double)ptdest.y, (double)dest.y, 1e-6);
 
 
     // transfrom back to equirect
@@ -136,7 +157,7 @@ void transform_img_test()
     map_get(vars,"e").setValue(0.0);
 
 
-    PTools::Transform trans;
+    SpaceTransform trans;
     trans.createTransform(Diff2D(2*w, 2*h),
                           vars, Lens::RECTILINEAR,
                           Diff2D(w,h), PanoramaOptions::EQUIRECTANGULAR,
@@ -144,8 +165,9 @@ void transform_img_test()
     cout.precision(2);
     for (int x=0; x<w; x++) {
         for (int y=0; y<h; y++) {
+            FDiff2D res;
             double sx, sy;
-            trans.transform(sx, sy, x,y);
+            trans.transform(res, FDiff2D(x,y));
             cout << sx << "," << sy << " ";
         }
         cout << endl;
