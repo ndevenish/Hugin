@@ -328,6 +328,10 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
 
 FDiff2D Panorama::calcFOV() const
 {
+    if(getNrOfImages() == 0) {
+	// dummy value if no image in pano
+	return FDiff2D(40,40);
+    }
     // trace all outlines.
     FDiff2D gul, glr;
     gul.x = FLT_MAX;
