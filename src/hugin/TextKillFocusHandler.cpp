@@ -24,21 +24,9 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-// For all others, include the necessary headers (this file is usually all you
-// need because it includes almost all "standard" wxWindows headers)
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "hugin/TextKillFocusHandler.h"
-
-#include "common/utils.h"
-
 
 BEGIN_EVENT_TABLE(TextKillFocusHandler, wxEvtHandler)
     EVT_KILL_FOCUS(TextKillFocusHandler::OnKillFocus)

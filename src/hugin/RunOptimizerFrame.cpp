@@ -24,39 +24,18 @@
  *
  */
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
-
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-// For all others, include the necessary headers (this file is usually all you
-// need because it includes almost all "standard" wxWindows headers)
-#ifndef WX_PRECOMP
-    #include "wx/wx.h"
-#endif
-
-#include "wx/xrc/xmlres.h"              // XRC XML resouces
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "wx/notebook.h"
 #include "wx/listctrl.h"
 #include "wx/process.h"
 #include "wx/txtstrm.h"
-#include "wx/config.h"
 #include "wx/dialog.h"
 #include "wx/file.h"
 
-#include <string>
-#include <iostream>
-#include <fstream>
-
-#include "common/stl_utils.h"
-#include "PT/PanoCommand.h"
 #include "hugin/CommandHistory.h"
-
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/huginApp.h"
-
 
 using namespace std;
 using namespace PT;

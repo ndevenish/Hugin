@@ -24,20 +24,9 @@
  *
  */
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
-
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-// For all others, include the necessary headers (this file is usually all you
-// need because it includes almost all "standard" wxWindows headers)
-#ifndef WX_PRECOMP
-    #include "wx/wx.h"
-#endif
-
-#include "common/utils.h"
+// standard include
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "hugin/CommandHistory.h"
 
 CommandHistory::CommandHistory()

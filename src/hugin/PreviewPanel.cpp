@@ -24,38 +24,13 @@
  *
  */
 
-
-
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>	// needed on mingw
-#include <wx/imaglist.h>
-#include <wx/spinctrl.h>
-#include <wx/config.h>
+#include "panoinc.h"
+#include "panoinc_WX.h"
 
 #include "hugin/ImageCache.h"
-#include "common/stl_utils.h"
-#include "PT/PanoCommand.h"
-#include "PT/PanoToolsInterface.h"
 #include "hugin/PanoToolsInterface.h"
 #include "hugin/ImageProcessing.h"
-
 #include "hugin/PreviewPanel.h"
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
 
 using namespace PT;
 using namespace std;
@@ -143,7 +118,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
     // update existing items
 //    if ( nrImages >= nrRemapped ) {
-        for(PT::UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
+        for(PT::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrRemapped) {
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());

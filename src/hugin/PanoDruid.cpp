@@ -24,19 +24,11 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/tglbtn.h>
 #include <wx/config.h>
-
 #include "hugin/PanoDruid.h"
 #include "hugin/MainFrame.h"
 

@@ -29,7 +29,7 @@
 #include <sstream>
 #include <cassert>
 
-#if __WXMSW__
+#ifdef __WXMSW__
 #include <wx/log.h>
 #endif
 
@@ -40,13 +40,17 @@
 //#define DEBUG_HEADER utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << ") " << __PRETTY_FUNCTION__ << "()" << std::endl << "    "
 #define DEBUG_HEADER utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
 #else
+#if _MSC_VER > 1300
+#define DEBUG_HEADER utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __FUNCTION__ << "(): "
+#else
 #define DEBUG_HEADER utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
+#endif
 #endif
 
 // use trace function under windows, because usually there is
 // no stdout under windows
 //#ifdef __WXMSW__
-#if __WXMSW__
+#ifdef __WXMSW__
  #ifdef DEBUG
   // debug trace
     #define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str());}

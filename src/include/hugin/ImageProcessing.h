@@ -26,26 +26,12 @@
 #ifndef _IMAGEPROCESSING_H
 #define _IMAGEPROCESSING_H
 
-#include <vigra/numerictraits.hxx>
-#include <vigra/imageiterator.hxx>
-#include <vigra/stdimage.hxx>
-#include <vigra/transformimage.hxx>
-#include <vigra/copyimage.hxx>
-#include <vigra/functorexpression.hxx>
-#include <vigra/convolution.hxx>
-#include <vigra/functorexpression.hxx>
-
 #include "hugin/wxVigraImage.h"
 #include "hugin/ImageCache.h"
-
-#include "common/utils.h"
-#include "common/math.h"
 
 class wxImage;
 
 typedef vigra::ImageIterator<vigra::RGBValue<unsigned char> > wxImageIterator;
-
-
 
 /// create vigra iterators for wxImage
 wxImageIterator wxImageUpperLeft(wxImage & img);
@@ -55,14 +41,14 @@ wxImageIterator wxImageLowerRight(wxImage & img);
 
 struct NormalizeToUChar
 {
-    NormalizeToUChar(double max, double min)
-        : min(min), scale(255/(max - min))
+    NormalizeToUChar(double max, double mn)
+        : mini(mn), scale(255/(max - mn))
         {}
 
         template <class PixelType>
         unsigned char operator()(PixelType const& v) const
         {
-            float res = (v - min)*scale;
+            float res = (v - mini)*scale;
             if (res > 255) {
                 DEBUG_ERROR("overflow:" << res);
                 res = 255;
@@ -73,7 +59,7 @@ struct NormalizeToUChar
             }
             return (unsigned char)res;
         }
-    double min;
+    double mini;
     double scale;
 };
 
@@ -138,9 +124,9 @@ bool saveImage(const Image &img, const std::string & filename)
 struct CorrelationResult
 {
     CorrelationResult()
-        : max(-1),pos(-1,-1)
+        : maxi(-1),pos(-1,-1)
         { }
-    double max;
+    double maxi;
     vigra::Diff2D pos;
 };
 
@@ -264,8 +250,8 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
                 }
             }
             numerator = (numerator/sqrt(div1 * div2));
-            if (numerator > res.max) {
-                res.max = numerator;
+            if (numerator > res.maxi) {
+                res.maxi = numerator;
                 res.pos.x = x;
                 res.pos.y = y;
             }
@@ -412,9 +398,9 @@ CorrelationResult correlateImage_new(SrcIterator sul, SrcIterator slr, SrcAccess
 struct SubPixelCorrelationResult
 {
     SubPixelCorrelationResult()
-        : max(-1),pos(-1,-1)
+        : maxi(-1),pos(-1,-1)
         { }
-    double max;
+    double maxi;
     FDiff2D pos;
 };
 
@@ -490,7 +476,7 @@ bool findTemplate(const Image & templ, const std::string & filename,
     int levels = maxLevel+1;
     DEBUG_DEBUG("starting search on pyramid level " << maxLevel);
 
-    vigra::BImage templs[levels];
+	vigra::BImage *templs = new vigra::BImage[levels];
     templs[0].resize(templ.width(), templ.height());
     vigra::copyImage(srcImageRange(templ), destImage(templs[0]));
 
@@ -541,11 +527,11 @@ bool findTemplate(const Image & templ, const std::string & filename,
                              threshold
             );
 //        saveScaledImage(*currentMask, -1, 1, basename + "result.pnm");
-        DEBUG_DEBUG("Correlation result at level " << i << ":  max:" << res.max << " at: " << res.pos.x << "," << res.pos.y);
+        DEBUG_DEBUG("Correlation result at level " << i << ":  max:" << res.maxi << " at: " << res.pos.x << "," << res.pos.y);
         // simple adaptive threshold.
         // FIXME, make this configurable? or select it according to some
         // statistical value
-        threshold = res.max - 0.07;
+        threshold = res.maxi - 0.07;
 
         vigra::FImage *tmp = prevMask;
         prevMask = currentMask;

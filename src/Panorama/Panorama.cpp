@@ -37,10 +37,7 @@
 #include <math.h>
 #include <limits.h>
 
-#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
-#include "common/utils.h"
-#include "common/stl_utils.h"
+#include "panoinc.h"
 
 using namespace PT;
 using namespace std;
@@ -657,7 +654,7 @@ void Panorama::printOptimizerScript(ostream & o,
         unsigned int lensNr = state.images[i].getLensNr();
         const Lens & lens = state.lenses[lensNr];
         const set<string> & optvar = optvars[i];
-        for (set<string>::iterator sit = optvar.begin();
+        for (set<string>::const_iterator sit = optvar.begin();
              sit != optvar.end(); ++sit )
         {
             if (set_contains(lens.variables,*sit)) {

@@ -26,12 +26,9 @@
 
 
 #include "wx/frame.h"
-//#include "wx/dnd.h"
-//#include "wx/listctrl.h"
+#include "wx/spinbutt.h"
 
-#include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
-//#include "hugin/List.h"
 
 //using namespace PT;
 class PanoDialog;
@@ -84,13 +81,16 @@ public:
 
     // apply changes to the model. (gui values -> Panorama)
     void ColourModeChanged(wxCommandEvent & e);
+	void ColourModeChangedSpin(wxSpinEvent & e);
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
-    void VFOVChanged ( wxCommandEvent & e );
+	void HFOVChangedSpin(wxSpinEvent & e);
+    void VFOVChanged(wxCommandEvent & e );
+	void VFOVChangedSpin(wxSpinEvent & e);
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
-    void OnSetQuality(wxCommandEvent & e);
-    void OnFeatherWidthChanged(wxCommandEvent & e);
+    void OnSetQuality(wxSpinEvent & e);
+    void OnFeatherWidthChanged(wxSpinEvent & e);
 
 // TODO remove
 //    void AutoPreviewChanged (wxCommandEvent & e);

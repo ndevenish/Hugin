@@ -24,8 +24,8 @@
  *
  */
 
-#include "wx/image.h"
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "hugin/ImageProcessing.h"
 
 

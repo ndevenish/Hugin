@@ -25,16 +25,8 @@
  */
 
 
-
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/listctrl.h>	// needed on mingw
 #include <wx/imaglist.h>
@@ -43,10 +35,6 @@
 
 #include "hugin/ImageCache.h"
 #include "hugin/ImageProcessing.h"
-#include <vigra/basicimage.hxx>
-#include "PT/Transforms.h"
-#include "common/stl_utils.h"
-#include "PT/PanoCommand.h"
 #include "hugin/PanoToolsInterface.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageOrientationPanel.h"

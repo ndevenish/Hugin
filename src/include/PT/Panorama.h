@@ -24,7 +24,6 @@
 #ifndef _PANORAMA_H
 #define _PANORAMA_H
 
-
 #include "common/math.h"
 #include "common/utils.h"
 
@@ -47,7 +46,7 @@ typedef std::set<unsigned int> UIntSet;
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
 
 template <class T>
-bool PT::getParam(T & value, const std::string & line, const std::string & name)
+bool getParam(T & value, const std::string & line, const std::string & name)
 {
     std::string s;
     if (!getPTParam(s, line, name)) {
@@ -58,9 +57,9 @@ bool PT::getParam(T & value, const std::string & line, const std::string & name)
     return true;
 }
 
-bool PT::readVar(Variable & var, int & link, const std::string & line);
+bool readVar(Variable & var, int & link, const std::string & line);
 
-bool PT::getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
+bool getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
 
 /** this handler class will receive change events from the Panorama.
  *

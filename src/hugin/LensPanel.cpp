@@ -27,23 +27,14 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/listctrl.h>
 #include <wx/imaglist.h>
 #include <wx/spinctrl.h>
 
 #include "hugin/LensPanel.h"
-
-#include "common/stl_utils.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
@@ -54,8 +45,6 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "PT/PanoCommand.h"
-#include "PT/Panorama.h"
 
 using namespace PT;
 using namespace utils;

@@ -24,12 +24,7 @@
  *
  */
 
-#include <vigra/basicimage.hxx>
-#include "common/utils.h"
-#include "common/stl_utils.h"
-#include "PT/PanoramaMemento.h"
-
-#include "PT/PanoToolsInterface.h"
+#include "panoinc.h"
 
 using namespace std;
 using namespace PT;

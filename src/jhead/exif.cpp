@@ -537,9 +537,9 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
             case TAG_MAXAPERTURE:
                 // More relevant info always comes earlier, so only use this field if we don't
                 // have appropriate aperture information yet.
-                if (ImageInfo.ApertureFNumber == 0){
-                    ImageInfo.ApertureFNumber
-                        = (float)exp(ConvertAnyFormat(ValuePtr, Format)*log(2)*0.5);
+                if (ImageInfo.ApertureFNumber == 0)
+				{
+					ImageInfo.ApertureFNumber = (float)exp(ConvertAnyFormat(ValuePtr, Format)*log(2.0)*0.5);
                 }
                 break;
 
@@ -564,9 +564,9 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
             case TAG_SHUTTERSPEED:
                 // More complicated way of expressing exposure time, so only use
                 // this value if we don't already have it from somewhere else.
-                if (ImageInfo.ExposureTime == 0){
-                    ImageInfo.ExposureTime
-                        = (float)(1/exp(ConvertAnyFormat(ValuePtr, Format)*log(2)));
+                if (ImageInfo.ExposureTime == 0)
+				{
+                    ImageInfo.ExposureTime = (float)(1/exp(ConvertAnyFormat(ValuePtr, Format)*log(2.0)));
                 }
                 break;
 

@@ -24,27 +24,16 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/config.h>
 #include <wx/image.h>
 
-#include <string>
-
-#include "common/utils.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/ImageCache.h"
 
 using namespace std;
 using namespace vigra;
-
 
 ImageCache * ImageCache::instance = 0;
 

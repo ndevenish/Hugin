@@ -24,10 +24,6 @@
 #ifndef _WXVIGRAIMAGE_H
 #define _WXVIGRAIMAGE_H
 
-#include "vigra/basicimage.hxx"
-#include "vigra/rgbvalue.hxx"
-#include "vigra/accessor.hxx"
-#include "vigra/iteratortraits.hxx"
 #include "wx/image.h"
 
 /** a wrapper to make a wxImage look like a vigra image

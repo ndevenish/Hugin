@@ -25,8 +25,7 @@
 #define _CPLISTFRAME_H
 
 #include "wx/frame.h"
-
-#include <PT/Panorama.h>
+#include "wx/listbase.h"
 
 class wxListCtrl;
 class MainFrame;
@@ -39,11 +38,10 @@ class MainFrame;
 class CPListFrame : public wxFrame, public PT::PanoramaObserver
 {
 public:
-
     /** ctor.
      */
-    CPListFrame(MainFrame * parent, PT::Panorama & pano);
-
+	CPListFrame(MainFrame * parent, PT::Panorama & pano);
+	
     /** dtor.
      */
     virtual ~CPListFrame();

@@ -24,10 +24,6 @@
 #ifndef _COMMANDHISTORY_H
 #define _COMMANDHISTORY_H
 
-#include <vector>
-
-#include "common/Command.h"
-
 /** A history for Command, provides undo/redo functionality.
  *
  *  To use this, all modifications to the model have to be done

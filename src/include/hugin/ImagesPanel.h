@@ -24,12 +24,10 @@
 #ifndef _IMAGESPANEL_H
 #define _IMAGESPANEL_H
 
-
 #include "wx/frame.h"
 #include "wx/dnd.h"
 #include "wx/listctrl.h"
 
-#include "PT/Panorama.h"
 #include "hugin/MainFrame.h"
 #include "hugin/ImagesList.h"
 

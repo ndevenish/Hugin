@@ -27,8 +27,8 @@
 #ifndef MY_MATH_H
 #define MY_MATH_H
 
-#include <vigra/basicimage.hxx>
 #include <iostream>
+#include <vigra/basicimage.hxx>
 
 // a simple vector class...
 struct FDiff2D
@@ -55,10 +55,11 @@ struct FDiff2D
 
     vigra::Diff2D toDiff2D() const
         {
-            return vigra::Diff2D((int)round(x), (int)round(y));
+			// windows fix
+            return vigra::Diff2D((int)floor(x+0.5f), (int)floor(y+0.5f));
         }
 
-    float x,y;
+    double x,y;
 };
 
 inline std::ostream & operator<<(std::ostream & o, const FDiff2D & d)

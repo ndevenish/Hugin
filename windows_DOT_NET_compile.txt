@@ -1,0 +1,48 @@
+Hugin windows compilation with Visual Studio.NET 2003
+
+A step by step guide
+
+0. Decision
+   
+   At startup, you have to choose if you want the runtime library statically linked or dynamically link.
+   When decided, you have to compile every project with the same settings.
+   Let says it's dynamically linked (best performance in wxWindows)
+
+1. Compilation of wxWindows
+ 
+   WARNING : read carefully this, it will not work if not :
+     In every dsp files from wxWindows, you have to check 2 properties lines
+      "C/C++/Preprocessor/Preprocessors Definitions" : If _MT or _DLL is defined, remove them
+      "C/C++/Code Generation/Runtime Library" : 
+         - for debug   : Multi-threaded Debug DLL (/MTd)
+         - for release : Multi-threaded DLL (/MT) 
+   
+   - Grab the latest package at www.wxwindows.org
+     Name : wxMSW-2.4.2-setup.zip, extract and install.
+   - In the yourpath\Windows-2.4.2\src, open the wxWindows.dsp into visual studio 
+   - save the sln file project
+   - build the solution : choose the right configuration you want : debug / release, static / linked, ansi / unicode
+     for hugin : Static / Ansi / ( debug or release )
+   - go to contrib\src\xrc and open the XrcVC.dsp
+     -> save the .sln file 
+   - compile with desired configuration DLL / (Debug | Release)
+   In yourpath\Windows-2.4.2\lib, you should at least have :
+      wxmsw.lib or wxmswd.lib (for wxWindows DLL release or debug)
+      wxxrc.lib or wxxrcd.lib
+   - Then you should do the same with the following libraries : jpeg, png, zlib, tiff, regex
+      You should get jpegd.lib (for debug), jpeg.lib (for release), etc
+     => take care also here that the project properties are correct
+    
+2. Compilation of Pano12.dll
+
+   I used the max-lyon release : Look at here : http://www.tawbaware.com/maxlyons/pano12ml.htm
+   
+   You should have this project compiled with visual. I provide the right sln file for doing it.
+   I put the code in the pano12 folder near jhead. I do not provide source code but you will find
+   the files which have differences from Max's release.
+
+   => the output of the compilation : pano12.dll, pano12.lib (in either debug or release folder) 
+
+3. Compilation of hugin
+
+   => open hugin.sln and compile

@@ -24,31 +24,20 @@
  *
  */
 
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>
-#include <wx/config.h>
-
 #include <algorithm>
 #include <utility>
 #include <functional>
 
+#include "panoinc.h"
+#include "panoinc_WX.h"
 
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
-#include "PT/PanoCommand.h"
-#include "common/utils.h"
-
 #include "hugin/ImageOrientationFrame.h"
-
 #include "hugin/ImageOrientationPanel.h"
 
 using namespace PT;
 using namespace std;
-
 
 BEGIN_EVENT_TABLE(ImageOrientationFrame, wxFrame)
 END_EVENT_TABLE()

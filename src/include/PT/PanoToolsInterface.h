@@ -24,31 +24,24 @@
 #ifndef PT_PANOTOOLSINTERFACE_H
 #define PT_PANOTOOLSINTERFACE_H
 
-#include <vigra/accessor.hxx>
-#include <vigra/interpolating_accessor.hxx>
+#include "common/math.h"
 
-#include <PT/Panorama.h>
-#include <PT/PanoramaMemento.h>
-#include <common/math.h>
+#include "vigra/accessor.hxx"
+#include "vigra/interpolating_accessor.hxx"
+
+#include "PT/Panorama.h"
+#include "PT/PanoramaMemento.h"
 
 extern "C" {
-#include <pano12/panorama.h>
-#include <pano12/filter.h>
+#include "../pano12/panorama.h"
+#include "../pano12/filter.h"
 }
-
-// remove fu'*!%$# min & max macros, that come from some windows include
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
 
 class wxImage;
 
-namespace vigra{
-    struct Diff2D;
+namespace vigra
+{
+    class Diff2D;
 }
 
 /** mainly consists of wrapper around the pano tools library,
@@ -385,7 +378,7 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
  *  @param lr      Lower right corner of the image roi
  */
 template <class OutputIterator, class Transform>
-void PTools::calcBorderPoints(vigra::Diff2D srcSize,
+void calcBorderPoints(vigra::Diff2D srcSize,
                               Transform & transf,
                               OutputIterator result,
                               FDiff2D & ul,
@@ -419,7 +412,7 @@ void PTools::calcBorderPoints(vigra::Diff2D srcSize,
         *result = FDiff2D((float)sx, (float) sy);
     }
     y = srcSize.y;
-    for (int x=srcSize.x-1; x>0 ; --x) {
+    for (x=srcSize.x-1; x>0 ; --x) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
         if (ul.x > sx) ul.x = sx;
@@ -429,7 +422,7 @@ void PTools::calcBorderPoints(vigra::Diff2D srcSize,
         *result = FDiff2D((float)sx, (float) sy);
     }
     x = 0;
-    for (int y=srcSize.y-1 ; y > 0 ; --y) {
+    for (y=srcSize.y-1 ; y > 0 ; --y) {
         double sx,sy;
         transf.transformImgCoord(sx,sy,x,y);
         if (ul.x > sx) ul.x = sx;
@@ -509,7 +502,7 @@ void freeTrform(TrformStr & trf);
  *
  *  does NOT free the data referenced by image
  */
-void PTools::freeImage(Image &img);
+void freeImage(Image &img);
 
 } // namespace
 

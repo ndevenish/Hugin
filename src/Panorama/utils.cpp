@@ -22,10 +22,13 @@
  *
  */
 
-#include <sys/time.h>
+#ifdef WIN32
+    #include <sys/utime.h>
+#else
+	#include <utime.h>
+#endif
 #include <time.h>
 #include <stdio.h>
-
 #include "common/utils.h"
 
 #ifdef unix

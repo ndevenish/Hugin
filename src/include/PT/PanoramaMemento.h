@@ -119,7 +119,7 @@ typedef std::map<std::string,LensVariable> LensVarMap;
 
 
 /** fill map with all image & lens variables */
-void PT::fillVariableMap(VariableMap & vars);
+void fillVariableMap(VariableMap & vars);
 
 #if 0
 /// variables of an image

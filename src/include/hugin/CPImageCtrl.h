@@ -24,14 +24,6 @@
 #ifndef _CPIMAGECTRL_H
 #define _CPIMAGECTRL_H
 
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-#include <vector>
-
 class CPEditorPanel;
 
 /** Events to notify about new point / region / point change
@@ -103,7 +95,6 @@ END_DECLARE_EVENT_TYPES()
 class CPImageCtrl : public wxScrolledWindow
 {
 public:
-
     /** ctor.
      */
     CPImageCtrl(CPEditorPanel* parent, wxWindowID id = -1,
@@ -119,7 +110,7 @@ public:
 
     /** dtor.
      */
-    virtual ~CPImageCtrl();
+    ~CPImageCtrl();
 
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
@@ -137,12 +128,12 @@ public:
     /// select a point for usage
     void selectPoint(unsigned int);
 
-    void mousePressLMBEvent(wxMouseEvent *mouse);
-    void mouseReleaseLMBEvent(wxMouseEvent *mouse);
-    void mouseReleaseRMBEvent(wxMouseEvent *mouse);
-    void mouseMoveEvent(wxMouseEvent *mouse);
-    void mousePressMMBEvent(wxMouseEvent *mouse);
-    void mouseReleaseMMBEvent(wxMouseEvent *mouse);
+	void mousePressLMBEvent(wxMouseEvent& mouse);
+    void mouseReleaseLMBEvent(wxMouseEvent& mouse);
+    void mouseReleaseRMBEvent(wxMouseEvent& mouse);
+    void mouseMoveEvent(wxMouseEvent& mouse);
+    void mousePressMMBEvent(wxMouseEvent& mouse);
+    void mouseReleaseMMBEvent(wxMouseEvent& mouse);
 
     wxSize DoGetBestSize() const;
 //    virtual wxSize GetBestSize() const
@@ -323,8 +314,7 @@ private:
 
     CPEditorPanel * m_editPanel;
 
-    DECLARE_CLASS(CPImageCtrl)
-    DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE();
 };
 
 

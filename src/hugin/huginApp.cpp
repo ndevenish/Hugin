@@ -24,19 +24,8 @@
  *
  */
 
-
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-// For all others, include the necessary headers (this file is usually all you
-// need because it includes almost all "standard" wxWindows headers)
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include "hugin/huginApp.h"
+#include "panoinc.h"
+#include "panoinc_WX.h"
 
 #include <wx/config.h>              // wx config classes for all systems
 #include <wx/image.h>               // wxImage
@@ -44,12 +33,8 @@
 #include <wx/filename.h>            // files and dirs
 #include <wx/file.h>
 
-#ifdef __WXMSW__
-#include <windows.h>
-#endif
-
+#include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
-
 
 Server * server;
 
@@ -184,7 +169,8 @@ bool huginApp::OnInit()
     if (m_workDir == "") {
         m_workDir = "/tmp";
     }
-#elif __WXMSW__
+#else
+#ifdef __WXMSW__
     DEBUG_DEBUG("figuring out windows temp dir");
     if (m_workDir == "") {
         /* added by Yili Zhao */
@@ -195,6 +181,7 @@ bool huginApp::OnInit()
 #else
     DEBUG_ERROR("don't know how to find the temp dir on mac");
     m_workDir = "";
+#endif
 #endif
     DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
     if (!wxFileName::DirExists(m_workDir)) {

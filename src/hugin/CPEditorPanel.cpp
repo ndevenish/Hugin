@@ -24,48 +24,34 @@
  *
  */
 
-//-----------------------------------------------------------------------------
-// Standard wxWindows headers
-//-----------------------------------------------------------------------------
+// more standard includes if needed
+#include <algorithm>
+#include <float.h>
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
+// standard hugin include
+#include "panoinc.h"
 
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
+// more vigra include if needed
+#include "vigra/cornerdetection.hxx"
+#include "vigra/localminmax.hxx"
 
-// For all others, include the necessary headers (this file is usually all you
-// need because it includes almost all "standard" wxWindows headers)
-#ifndef WX_PRECOMP
-    #include "wx/wx.h"
-#endif
+// standard wx include
+#include "panoinc_WX.h"
 
+// more WX includes if needed
 #include "wx/xrc/xmlres.h"              // XRC XML resouces
 #include "wx/notebook.h"
 #include "wx/listctrl.h"
 #include "wx/config.h"
 
-#include <algorithm>
-
-#include <float.h>
-
-#include "vigra/cornerdetection.hxx"
-#include "vigra/localminmax.hxx"
-
-#include "common/utils.h"
-#include "common/stl_utils.h"
-#include "PT/PanoCommand.h"
-
+// hugin's
 #include "hugin/huginApp.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
-
 #include "hugin/CPEditorPanel.h"
-
 
 using namespace std;
 using namespace PT;
@@ -211,7 +197,6 @@ CPEditorPanel::~CPEditorPanel()
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
-
 
 void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
@@ -780,7 +765,7 @@ bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
     // FIXME. make this configureable. 0.5 is a quite low value. 0.7 or
     // so is more acceptable. but some features only match with 0.5.
     // but we get more false positives..
-    if (res.max > 0.5) {
+    if (res.maxi > 0.5) {
         return true;
     }
     return false;
@@ -856,12 +841,12 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                          tmplImg.accessor(),
                          tmplUL, tmplLR, -1);
     res.pos += searchUL;
-    DEBUG_DEBUG("normal search finished, max:" << res.max
+    DEBUG_DEBUG("normal search finished, max:" << res.maxi
                 << " at " << res.pos.x << "," << res.pos.y);
 
     tunedPos.x = res.pos.x;
     tunedPos.y = res.pos.y;
-    return res.max;
+    return res.maxi;
 }
 
 
@@ -936,7 +921,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
     // update changed images
     bool update(false);
-    for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it) {
+    for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
         unsigned int imgNr = *it;
         // we only need to update the view if the currently
         // selected images were changed.

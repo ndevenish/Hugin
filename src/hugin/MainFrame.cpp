@@ -23,16 +23,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "jhead/jhead.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 //#include <wx/image.h>               // wxImage
 //#include <wx/imagpng.h>             // for about html
@@ -41,11 +34,7 @@
 #include <wx/splash.h>
 #include <wx/file.h>
 
-#include <fstream>
-
 #include "hugin/MainFrame.h"
-
-#include "PT/PanoCommand.h"
 #include "hugin/wxPanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
@@ -57,11 +46,6 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
-
-#include "jhead/jhead.h"
-
-#include "PT/Panorama.h"
-
 
 using namespace PT;
 
@@ -93,7 +77,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
-    EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
+    //EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
@@ -116,7 +100,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_BUTTON(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
-    EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
+    //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
     EVT_CLOSE(  MainFrame::OnExit)
 END_EVENT_TABLE()
 

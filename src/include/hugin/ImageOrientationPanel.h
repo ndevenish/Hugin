@@ -26,12 +26,7 @@
 
 #include "wx/frame.h"
 #include "wx/dnd.h"
-
 #include "hugin/ImageProcessing.h"
-//#include "PT/Panorama.h"
-#include "PT/PanoToolsInterface.h"
-#include "PT/Transforms.h"
-
 
 /** Select image orientation
  *

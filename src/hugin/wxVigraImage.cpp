@@ -24,8 +24,9 @@
  *
  */
 
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "hugin/wxVigraImage.h"
-
 
 using namespace vigra;
 

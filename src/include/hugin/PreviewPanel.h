@@ -27,14 +27,6 @@
 #include "wx/frame.h"
 #include "wx/dnd.h"
 
-#include "common/math.h"
-
-#include "PT/Panorama.h"
-
-extern "C" {
-#include <pano12/panorama.h>
-}
-
 class wxImage;
 
 /** A preview panel that renders the pictures using the panotools library

@@ -25,27 +25,13 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-//#include <wx/listctrl.h>
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/imaglist.h>
 #include <wx/image.h>
 #include <wx/spinctrl.h>
 #include <wx/config.h>
 
-#include <fstream>
-
-#include "PT/PanoCommand.h"
-#include "PT/PanoramaMemento.h"
-#include "PT/Panorama.h"
 //#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
@@ -59,7 +45,6 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "PT/Panorama.h"
 
 using namespace PT;
 
@@ -74,14 +59,14 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
 
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
-    EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
+    EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
-    EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
+    EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChangedSpin )
     EVT_TEXT_ENTER( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
     EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
-    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChanged)
+    EVT_SPINCTRL(XRCID("pano_spin_color_corr_reference"),PanoPanel::ColourModeChangedSpin)
     EVT_SPINCTRL(XRCID("pano_spin_feather_width"), PanoPanel::OnFeatherWidthChanged)
     EVT_SPINCTRL(XRCID("pano_jpeg_quality"), PanoPanel::OnSetQuality)
 
@@ -319,7 +304,43 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     DEBUG_INFO ( "new hfov: " << hfov )
 }
 
+void PanoPanel::HFOVChangedSpin ( wxSpinEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    int hfov = m_HFOVSpin->GetValue() ;
+
+    DEBUG_ASSERT(hfov >= 0 && hfov <= 360);
+
+    opt.HFOV = (int) hfov;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+
+    DEBUG_INFO ( "new hfov: " << hfov )
+}
+
 void PanoPanel::VFOVChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE("")
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    int vfov = m_VFOVSpin->GetValue() ;
+    DEBUG_ASSERT(vfov >= 0 && vfov <= 180);
+
+    if (vfov != m_oldVFOV) {
+        opt.VFOV = vfov;
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+        DEBUG_INFO ( "new vfov: " << vfov << " => height: " << opt.getHeight() );
+        m_oldVFOV = vfov;
+    } else {
+        DEBUG_DEBUG("not setting same fov");
+    }
+}
+
+void PanoPanel::VFOVChangedSpin ( wxSpinEvent & e )
 {
     DEBUG_TRACE("")
     if (updatesDisabled) return;
@@ -357,6 +378,25 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
 }
 
 void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    int colorCorrection = m_ColorCorrModeChoice->GetSelection();
+    wxString text = m_ColorCorrModeChoice->GetString(colorCorrection);
+
+    int refImage = m_ColorCorrRefSpin->GetValue();
+    opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
+    DEBUG_ASSERT(refImage >= 0 && refImage < (int)pano.getNrOfImages());
+    opt.colorReferenceImage = (unsigned int) refImage;
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+
+    DEBUG_INFO(text <<" with: " << refImage);
+}
+
+void PanoPanel::ColourModeChangedSpin ( wxSpinEvent & e )
 {
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
@@ -496,7 +536,7 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
     }
 }
 
-void PanoPanel::OnSetQuality(wxCommandEvent & e)
+void PanoPanel::OnSetQuality(wxSpinEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
 
@@ -507,7 +547,7 @@ void PanoPanel::OnSetQuality(wxCommandEvent & e)
         );
 }
 
-void PanoPanel::OnFeatherWidthChanged(wxCommandEvent & e)
+void PanoPanel::OnFeatherWidthChanged(wxSpinEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
 

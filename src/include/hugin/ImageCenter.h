@@ -24,14 +24,7 @@
 #ifndef _IMAGECENTER_H
 #define _IMAGECENTER_H
 
-
 #include "wx/frame.h"
-//#include "wx/dnd.h"
-//#include "wx/listctrl.h"
-
-#include "PT/Panorama.h"
-//#include "hugin/MainFrame.h"
-//#include "hugin/List.h"
 
 class CenterCanvas;
 
@@ -42,7 +35,7 @@ class ImgCenter: public wxDialog
 {
  public:
     ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
-    ~ImgCenter(void) ;
+    virtual ~ImgCenter(void) ;
 
     /** select the preview image */
     void ChangeView ( wxImage & s_img );
@@ -68,7 +61,7 @@ class CenterCanvas: public wxPanel
 {
  public:
     CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
-    ~CenterCanvas(void) ;
+    virtual ~CenterCanvas(void) ;
 
     /** Here we select the preview image */
     void ChangeView ( wxImage & s_img );

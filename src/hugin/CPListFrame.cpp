@@ -24,21 +24,15 @@
  *
  */
 
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>
-#include <wx/config.h>
-
 #include <algorithm>
 #include <utility>
 #include <functional>
 
+#include "panoinc.h"
+#include "panoinc_WX.h"
+
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
-#include "common/utils.h"
 
 using namespace PT;
 using namespace std;

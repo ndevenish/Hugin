@@ -1,0 +1,48 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hugin", "hugin\hugin.vcproj", "{9C857CF5-3413-4C1D-80C0-5CA3F0DFF66C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
+		{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D} = {FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}
+		{48D68E26-9088-42E7-BA20-6B665E731580} = {48D68E26-9088-42E7-BA20-6B665E731580}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panorama", "Panorama\Panorama.vcproj", "{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jhead", "jhead\jhead.vcproj", "{E974EF12-9647-400A-AF30-1D0E70D1C32C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pano12", "Pano12\pano12.vcproj", "{48D68E26-9088-42E7-BA20-6B665E731580}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug Static = Debug Static
+		Release Static = Release Static
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9C857CF5-3413-4C1D-80C0-5CA3F0DFF66C}.Debug Static.ActiveCfg = Debug Static|Win32
+		{9C857CF5-3413-4C1D-80C0-5CA3F0DFF66C}.Debug Static.Build.0 = Debug Static|Win32
+		{9C857CF5-3413-4C1D-80C0-5CA3F0DFF66C}.Release Static.ActiveCfg = Release Static|Win32
+		{9C857CF5-3413-4C1D-80C0-5CA3F0DFF66C}.Release Static.Build.0 = Release Static|Win32
+		{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}.Debug Static.ActiveCfg = Debug Static|Win32
+		{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}.Debug Static.Build.0 = Debug Static|Win32
+		{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}.Release Static.ActiveCfg = Release Static|Win32
+		{FF8B9E19-4BC3-4474-93C7-D749D8D35C8D}.Release Static.Build.0 = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug Static.ActiveCfg = Debug Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug Static.Build.0 = Debug Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Static.ActiveCfg = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Static.Build.0 = Release Static|Win32
+		{48D68E26-9088-42E7-BA20-6B665E731580}.Debug Static.ActiveCfg = Debug Static|Win32
+		{48D68E26-9088-42E7-BA20-6B665E731580}.Debug Static.Build.0 = Debug Static|Win32
+		{48D68E26-9088-42E7-BA20-6B665E731580}.Release Static.ActiveCfg = Release Static|Win32
+		{48D68E26-9088-42E7-BA20-6B665E731580}.Release Static.Build.0 = Release Static|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -23,13 +23,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-// For compilers that support precompilation, includes "wx.h".
-#include "wx/wxprec.h"
-
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include "CPEditorPanelHandler.h"
 
 CPEditorPanelHandler::CPEditorPanelHandler()

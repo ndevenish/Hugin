@@ -22,25 +22,16 @@
  *
  */
 
+// standard hugin include
+#include "panoinc.h"
+#include "panoinc_WX.h"
 
-#include "wx/wxprec.h"
-
-#ifndef WX_PRECOMP
-#include "wx/wx.h"
-#endif
-
-
-#include "wx/xrc/xmlres.h"          // XRC XML resouces
-#include "CPEditorPanel.h"
-#include "TestPanel.h"
-#include "CPEditorTest.h"
-#include "ImgScrollWindow.h"
-
-#include "common/utils.h"
-
+// hugin's
+#include "hugin/CPEditorPanel.h"
+#include "hugin/CPEditorTest.h"
+#include "hugin/ImgScrollWindow.h"
 
 IMPLEMENT_APP(PickerApp)
-
 
 PickerApp::PickerApp()
 {
@@ -49,7 +40,6 @@ PickerApp::PickerApp()
 PickerApp::~PickerApp()
 {
 }
-
 
 bool PickerApp::OnInit()
 {

@@ -24,10 +24,6 @@
 #ifndef _PANOTOOLSINTERFACE_H
 #define _PANOTOOLSINTERFACE_H
 
-#include <PT/Panorama.h>
-#include <PT/PanoramaMemento.h>
-#include <PT/PanoToolsInterface.h>
-
 class wxImage;
 
 namespace PTools {

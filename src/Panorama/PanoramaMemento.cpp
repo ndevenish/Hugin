@@ -24,19 +24,8 @@
  *
  */
 
-#include <iostream>
-
-#include <math.h>
-#include <locale.h>
-
-#include <PT/PanoramaMemento.h>
-
-#include <common/utils.h>
-#include <common/stl_utils.h>
+#include "panoinc.h"
 #include <jhead/jhead.h>
-
-#include <PT/Panorama.h>
-#include <PT/PanoToolsInterface.h>
 
 using namespace PT;
 using namespace std;

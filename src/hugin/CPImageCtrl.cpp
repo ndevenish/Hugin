@@ -24,20 +24,20 @@
  *
  */
 
+// standard hugin include
+#include "panoinc.h"
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
+// standard wx include
+#include "panoinc_WX.h"
 
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include "wx/image.h"
+// more WX includes if needed
+#include "wx/xrc/xmlres.h"              // XRC XML resouces
+#include "wx/event.h"
+#include "wx/notebook.h"
+#include "wx/listctrl.h"
 #include "wx/config.h"
+#include "wx/image.h"
 
-#include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
@@ -108,22 +108,19 @@ wxEvent * CPEvent::Clone() const
 
 // our image control
 
-IMPLEMENT_DYNAMIC_CLASS(CPImageCtrl, wxScrolledWindow);
-
 BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
-//    EVT_PAINT(CPImageCtrl::OnPaint)
-    EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
-    EVT_MOTION(CPImageCtrl::mouseMoveEvent)
-    EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
-    EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
-    EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
-    EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
     EVT_SIZE(CPImageCtrl::OnSize)
     EVT_CHAR(CPImageCtrl::OnKey)
     EVT_KEY_UP(CPImageCtrl::OnKeyUp)
     EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
     EVT_LEAVE_WINDOW(CPImageCtrl::OnMouseLeave)
     EVT_ENTER_WINDOW(CPImageCtrl::OnMouseEnter)
+	EVT_MOTION(CPImageCtrl::mouseMoveEvent)
+	EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
+    EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
+    EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
+    EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
+    EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
 END_EVENT_TABLE()
 
 CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
@@ -393,15 +390,15 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int 
 }
 
 
-void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
     wxPoint mpos;
-    CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
+    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
     bool doUpdate = false;
     mpos = invScale(mpos);
 //    DEBUG_DEBUG(" pos:" << mpos.x << ", " << mpos.y);
-    if (mouse->LeftIsDown()) {
+    if (mouse.LeftIsDown()) {
         switch(editState) {
         case NO_SELECTION:
             DEBUG_ERROR("mouse down movement without selection, in NO_SELECTION state!");
@@ -446,21 +443,21 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             break;
         }
     }
-    if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
-      if (m_mouseScrollPos != mouse->GetPosition()) {
-          wxPoint delta = mouse->GetPosition() - m_mouseScrollPos;
+    if (mouse.MiddleIsDown() ) {  // scrolling with the mouse
+      if (m_mouseScrollPos != mouse.GetPosition()) {
+          wxPoint delta = mouse.GetPosition() - m_mouseScrollPos;
           double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
 //          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
 	  delta.x = (int) (delta.x * speed);
 	  delta.y = (int) (delta.y * speed);
 	  ScrollDelta(delta);
-	  if (mouse->ShiftDown()) {
+	  if (mouse.ShiftDown()) {
               // emit scroll event, so that other window can be scrolled
               // as well.
 	      CPEvent e(this, CPEvent::SCROLLED, delta);
 	      emit(e);
 	  }
-	  m_mouseScrollPos = mouse->GetPosition();
+	  m_mouseScrollPos = mouse.GetPosition();
       }
     }
 
@@ -479,10 +476,10 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
 }
 
 
-void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
     wxPoint mpos;
-    CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
+    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
     mpos = invScale(mpos);
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
@@ -490,7 +487,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
     unsigned int selPointNr = 0;
     EditorState oldstate = editState;
     EditorState clickState = isOccupied(mpos, selPointNr);
-    if (mouse->LeftDown() && editState != NO_IMAGE) {
+    if (mouse.LeftDown() && editState != NO_IMAGE) {
         // we can always select a new point
         if (clickState == KNOWN_POINT_SELECTED) {
             DEBUG_DEBUG("click on point: " << selPointNr);
@@ -515,16 +512,16 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
     m_mousePos = mpos;
 }
 
-void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
     wxPoint mpos;
-    CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
+    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     EditorState oldState = editState;
-    if (mouse->LeftUp()) {
+    if (mouse.LeftUp()) {
         switch(editState) {
         case NO_SELECTION:
             DEBUG_WARN("mouse release without selection");
@@ -589,31 +586,31 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
 }
 
 
-void CPImageCtrl::mouseReleaseMMBEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mouseReleaseMMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("middle mouse button released, leaving scroll mode")
     SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 
-void CPImageCtrl::mousePressMMBEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("middle mouse button pressed, entering scroll mode")
-    m_mouseScrollPos = mouse->GetPosition();
+    m_mouseScrollPos = mouse.GetPosition();
     SetCursor(wxCursor(wxCURSOR_HAND));
 }
 
 
-void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 {
     wxPoint mpos;
-    CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
+    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos.x, & mpos.y);
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
 
-    if (mouse->RightUp()) {
+    if (mouse.RightUp()) {
         // set right up event
         DEBUG_DEBUG("Emitting right click (rmb release)");
         CPEvent e(this, CPEvent::RIGHT_CLICK, mpos);

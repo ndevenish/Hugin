@@ -24,27 +24,15 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/config.h>
 
-#include "PT/PanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageCenter.h"
-#include "PT/Panorama.h"
-
-#include "common/utils.h"
-#include "common/stl_utils.h"
 
 using namespace PT;
 using namespace utils;

@@ -24,27 +24,15 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/spinctrl.h>
 #include <wx/imaglist.h>
 
 #include "hugin/ImagesList.h"
-
-#include "common/utils.h"
-#include "common/stl_utils.h"
-
 #include "hugin/config.h"
 #include "hugin/ImageCache.h"
-//#include "hugin/huginApp.h"
 
 using namespace PT;
 using namespace utils;
@@ -102,23 +90,23 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     // update existing items
 //    if ( nrImages >= nrItems ) {
-        for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
+        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrItems) {
                 // create new item.
                 DEBUG_DEBUG("creating " << *it);
                 CreateItem(*it);
 
-                wxBitmap small;
-                createIcon(small, *it, m_iconHeight);
-                m_smallIcons->Add(small);
+                wxBitmap small0;
+                createIcon(small0, *it, m_iconHeight);
+                m_smallIcons->Add(small0);
             } else {
                 // update existing item
                 DEBUG_DEBUG("updating item" << *it);
                 UpdateItem(*it);
 
-                wxBitmap small;
-                createIcon(small, *it, m_iconHeight);
-                m_smallIcons->Replace(*it, small);
+                wxBitmap small0;
+                createIcon(small0, *it, m_iconHeight);
+                m_smallIcons->Replace(*it, small0);
             }
             ImageCache::getInstance().softFlush();
         }

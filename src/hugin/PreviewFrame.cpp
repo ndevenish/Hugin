@@ -24,29 +24,15 @@
  *
  */
 
-#include <wx/wxprec.h>
-#ifdef __BORLANDC__
-    #pragma hdrstop
-#endif
-
-#ifndef WX_PRECOMP
-    #include <wx/wx.h>
-#endif
-
-#include <wx/xrc/xmlres.h>          // XRC XML resouces
+#include "panoinc.h"
+#include "panoinc_WX.h"
 #include <wx/tglbtn.h>
-#include <wx/config.h>
 
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "common/utils.h"
-#include "common/stl_utils.h"
-
 #include "hugin/CommandHistory.h"
-#include "PT/PanoCommand.h"
-
 
 // a random id, hope this doesn't break something..
 #define ID_UPDATE_BUTTON 12333
@@ -241,7 +227,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     // update existing itemsvoid PreviewFrame::OnFitPano(wxCommandEvent & e)
 
     if ( nrImages >= nrButtons ) {
-        for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
+        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
                 unsigned int imgNr = *it;
                 // create new item.
@@ -384,7 +370,7 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
 }
 
-void PreviewFrame::OnChangeFOV(wxCommandEvent & e)
+void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
 {
     DEBUG_TRACE("");
 

@@ -54,7 +54,7 @@ struct FDiff2D;
 struct CorrelationResult;
 
 namespace vigra {
-    struct Diff2D;
+    class Diff2D;
 }
 
 /** control point editor panel.
@@ -66,7 +66,6 @@ namespace vigra {
 class CPEditorPanel : public wxPanel, public PT::PanoramaObserver
 {
 public:
-
     /** ctor.
      */
     CPEditorPanel(wxWindow * parent, PT::Panorama * pano);
@@ -129,13 +128,13 @@ private:
 //    void CreateNewPointRight(wxPoint p);
 
     /// this is used to finally create the point in the panorama model
-    void CPEditorPanel::CreateNewPoint();
+    void CreateNewPoint();
 
 
     /// search for region in destImg
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
 
-    double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
+    double PointFineTune(unsigned int tmplImgNr,
                                         const vigra::Diff2D &tmplPoint,
                                         int tmplWidth,
                                         unsigned int subjImgNr,

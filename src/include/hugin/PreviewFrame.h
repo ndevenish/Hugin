@@ -25,8 +25,6 @@
 #define _PREVIEWFRAME_H
 
 #include <wx/frame.h>
-
-#include "PT/Panorama.h"
 #include "hugin/PanoDruid.h"
 
 class PreviewPanel;
@@ -65,7 +63,7 @@ protected:
     void OnFitPano(wxCommandEvent& e);
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
-    void OnChangeFOV(wxCommandEvent & e);
+    void OnChangeFOV(wxScrollEvent & e);
 	
 private:
 

@@ -60,7 +60,7 @@ class ImagesList: public wxListCtrl, public PT::PanoramaObserver//, public MainP
 {
  public:
     ImagesList( wxWindow * win, Panorama * pano);
-    ~ImagesList(void) ;
+    virtual ~ImagesList(void) ;
 
     /** receive the update signal and update display accordingly
      */
