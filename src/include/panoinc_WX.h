@@ -67,6 +67,8 @@
 #include <wx/msw/winundef.h>
 #undef DIFFERENCE
 #undef FindWindow
+#undef min
+#undef max
 #endif
 
 #endif
