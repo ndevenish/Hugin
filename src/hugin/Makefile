@@ -86,11 +86,13 @@ APPS = 1
 APP_1_BIN = hugin
 APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o $(RES_O)
 APP_1_LFLAGS = $(LFLAGS)
-all: $(APP_1_BIN) Link
+all: Link $(APP_1_BIN)
 
-Link:
-	cd xrc ; test -L xrc/data || ln -v -s ../../data . ;
-	test -L xrc/images || ln -v -s ../../images .
+Link: subdirs
+
+subdirs:
+	cd xrc ; test -L data || ln -v -s ../../data .
+	cd xrc ; test -L images || ln -v -s ../../images .
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you
