@@ -34,7 +34,6 @@
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_ptstitcher_select">
                             <label>...</label>
-                            <enabled>0</enabled>
                           </object>
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
@@ -54,7 +53,6 @@
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_ptoptimizer_select">
                             <label>...</label>
-                            <enabled>0</enabled>
                           </object>
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
@@ -523,7 +521,6 @@ requires restarting hugin</label>
                           <object class="sizeritem">
                             <object class="wxButton" name="prefs_AutoPanoSIFTExe_select">
                               <label>...</label>
-                              <enabled>0</enabled>
                             </object>
                             <flag>wxALIGN_CENTRE_VERTICAL</flag>
                           </object>
@@ -572,7 +569,6 @@ requires restarting hugin</label>
                           <object class="sizeritem">
                             <object class="wxButton" name="prefs_AutoPanoKolorExe_select">
                               <label>...</label>
-                              <enabled>0</enabled>
                             </object>
                             <flag>wxALIGN_CENTRE_VERTICAL</flag>
                           </object>
@@ -638,7 +634,6 @@ requires restarting hugin</label>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_enblend_select">
                             <label>...</label>
-                            <enabled>0</enabled>
                           </object>
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>

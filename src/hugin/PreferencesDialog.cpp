@@ -56,6 +56,11 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
     EVT_BUTTON(wxID_APPLY,PreferencesDialog::OnApply)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
+    EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
+    EVT_BUTTON(XRCID("prefs_ptoptimizer_select"), PreferencesDialog::OnPTOptimizerExe)
+    EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
+    EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
+    EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
     EVT_BUTTON(XRCID("prefs_load_defaults"), PreferencesDialog::OnDefaults)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
 //    EVT_CLOSE(RunOptimizerFrame::OnClose)
@@ -75,7 +80,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     XRCCTRL(*this, "prefs_ft_RotationStopAngle", wxSpinCtrl)->SetRange(0,180);
 
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    
+
     // add languages to choice
     lang_choice->Append(_("Select one"), (void *) huginApp::Get()->GetLocale().GetLanguage());
     lang_choice->Append(_("System default"), (void *) wxLANGUAGE_DEFAULT);
@@ -84,7 +89,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);
     lang_choice->Append(_("Italian"), (void *) wxLANGUAGE_ITALIAN);
     lang_choice->SetSelection(0);
-    
+
     // Load configuration values from wxConfig
     UpdateDisplayData();
 }
@@ -140,10 +145,93 @@ void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
     EnableRotationCtrls(e.IsChecked());
 }
 
+void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select PTStitcher"),
+	             wxT(""), wxT(HUGIN_PT_STITCHER_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe)|*.exe"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+
+}
+void PreferencesDialog::OnPTOptimizerExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select PTOptimizer"),
+	             wxT(""), wxT(HUGIN_PT_OPTIMIZER_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe)|*.exe"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_pt_PTOptimizerEXE", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+}
+
+void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select Enblend"),
+	             wxT(""), wxT(HUGIN_ENBLEND_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe)|*.exe"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+}
+
+void PreferencesDialog::OnAutopanoKolorExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select Autopano"),
+	             wxT(""), wxT(HUGIN_APKOLOR_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe)|*.exe"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_AutoPanoKolorExe", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+}
+
+void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select Autopano"),
+	             wxT(""), wxT(HUGIN_APSIFT_EXE),
+#ifdef __WXMSW__
+		     _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),
+#else
+		     wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+	XRCCTRL(*this, "prefs_AutoPanoSiftExe", wxTextCtrl)->SetValue(
+		dlg.GetPath());
+    }
+}
+
+
 void PreferencesDialog::EnableRotationCtrls(bool enable)
 {
     XRCCTRL(*this, "prefs_ft_rot_panel", wxPanel)->Enable(enable);
 }
+
+
 
 void PreferencesDialog::UpdateDisplayData()
 {
