@@ -128,10 +128,10 @@ fi
 
 if  test "$fftw_libraries" = "/usr/lib" || test "$fftw_libraries" = "/usr/lib64" || test "$fftw_libraries" = "$x_libraries" || test -z "$fftw_libraries"; then
  FFTW_LDFLAGS=""
-LIB_FFTW=""
+ LIB_FFTW='-lrfftw -lfftw'
 else
  FFTW_LDFLAGS="-L$fftw_libraries"
-LIB_FFTW='-lrfftw -lfftw'
+ LIB_FFTW='-lrfftw -lfftw'
  all_libraries="$FFTW_LDFLAGS $all_libraries"
 fi
 
