@@ -39,19 +39,26 @@
                 <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
               </object>
             </object>
-            <flag>wxTOP|wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
               <orient>wxVERTICAL</orient>
-              <label>Primary parameters</label>
+              <label>Design Parameters</label>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>(effective 35mm equivalents)</label>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
               <object class="sizeritem">
                 <object class="wxFlexGridSizer">
                   <cols>3</cols>
                   <object class="sizeritem">
                     <object class="wxStaticText">
-                      <label>Degrees (v):</label>
+                      <label>degrees of view (v):</label>
                     </object>
                     <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
@@ -73,7 +80,7 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText">
-                      <label>Focal length:</label>
+                      <label>focal length:</label>
                     </object>
                     <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
@@ -94,164 +101,156 @@
                 <border>5</border>
               </object>
             </object>
-            <flag>wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
+            <object class="wxStaticBoxSizer">
+              <label>Lens Correction Parameters</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticBoxSizer">
-                  <label>Lens correction parameters</label>
-                  <orient>wxVERTICAL</orient>
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
                   <object class="sizeritem">
-                    <object class="wxFlexGridSizer">
-                      <cols>3</cols>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>a:</label>
-                          <tooltip>distortion value (a)</tooltip>
-                        </object>
-                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_a">
-                          <style>wxTE_PROCESS_ENTER</style>
-                          <tooltip>distortion value (a)</tooltip>
-                        </object>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="lens_inherit_a">
-                          <label>Inherit</label>
-                        </object>
-                        <flag>wxALL|wxEXPAND|wxGROW</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>b:</label>
-                          <tooltip>distortion value (b)</tooltip>
-                        </object>
-                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_b">
-                          <style>wxTE_PROCESS_ENTER</style>
-                          <tooltip>distortion value (b)</tooltip>
-                        </object>
-                        <flag>wxALL|wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="lens_inherit_b">
-                          <label>Inherit</label>
-                        </object>
-                        <flag>wxALL|wxEXPAND|wxGROW</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>c:</label>
-                          <tooltip>distortion value (c)</tooltip>
-                        </object>
-                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_c">
-                          <style>wxTE_PROCESS_ENTER</style>
-                          <tooltip>distortion value (c)</tooltip>
-                        </object>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="lens_inherit_c">
-                          <label>Inherit</label>
-                        </object>
-                        <flag>wxALL|wxEXPAND|wxGROW</flag>
-                      </object>
-                      <vgap>5</vgap>
-                      <hgap>5</hgap>
-                      <growablecols>0</growablecols>
+                    <object class="wxStaticText">
+                      <label>distortion (a):</label>
                     </object>
-                    <flag>wxALL|wxEXPAND</flag>
-                    <border>5</border>
-                  </object>
-                </object>
-                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticBoxSizer">
-                  <label>Image shift</label>
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxFlexGridSizer">
-                      <cols>3</cols>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>horizontal (d):</label>
-                        </object>
-                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_d">
-                          <style>wxTE_PROCESS_ENTER</style>
-                          <tooltip>image shift horizontal (d)</tooltip>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="lens_inherit_d">
-                          <label>Inherit</label>
-                          <style></style>
-                          <enabled>0</enabled>
-                          <tooltip>pano tools optimisation for linked &quot;d&quot; does not work </tooltip>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>vertical (e):</label>
-                        </object>
-                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxTextCtrl" name="lens_val_e">
-                          <style>wxTE_PROCESS_ENTER</style>
-                          <tooltip>image shift vertical (e)</tooltip>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxCheckBox" name="lens_inherit_e">
-                          <label>Inherit</label>
-                          <enabled>0</enabled>
-                          <tooltip>pano tools optimisation for linked &quot;d&quot; does not work</tooltip>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                      <vgap>5</vgap>
-                      <hgap>5</hgap>
-                      <growablecols>0</growablecols>
-                    </object>
-                    <flag>wxALL|wxEXPAND</flag>
-                    <border>4</border>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxButton" name="lens_button_center">
-                      <label>center</label>
-                      <tooltip>center image shifting it with d and e</tooltip>
+                    <object class="wxTextCtrl" name="lens_val_a">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_a">
+                      <label>Inherit</label>
                     </object>
                     <flag>wxALL|wxEXPAND|wxGROW</flag>
-                    <border>5</border>
                   </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>barrel (b):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_b">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxALL|wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_b">
+                      <label>Inherit</label>
+                    </object>
+                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>distortion (c):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_c">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_c">
+                      <label>Inherit</label>
+                    </object>
+                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>0</growablecols>
                 </object>
-                <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND|wxGROW</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxBOTTOM|wxEXPAND|wxGROW</flag>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
             <border>5</border>
           </object>
-          <label>Lens</label>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <label>Image Skew Parameters</label>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>(usually for film scanning only)</label>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>horizontal (d):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_d">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_d">
+                      <label>Inherit</label>
+                      <style></style>
+                      <enabled>0</enabled>
+                      <tooltip>pano tools optimisation for linked &quot;d&quot; does not work </tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>vertical (e):</label>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="lens_val_e">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxCheckBox" name="lens_inherit_e">
+                      <label>Inherit</label>
+                      <enabled>0</enabled>
+                      <tooltip>pano tools optimisation for linked &quot;d&quot; does not work</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxGROW</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>0</growablecols>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>4</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxButton" name="lens_button_center">
+                  <label>Center</label>
+                  <tooltip>center image shifting it with d and e</tooltip>
+                </object>
+                <flag>wxALL|wxEXPAND|wxGROW</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND|wxGROW</flag>
+            <border>5</border>
+          </object>
+          <label>Camera and Lens Information</label>
           <orient>wxVERTICAL</orient>
         </object>
         <option>1</option>

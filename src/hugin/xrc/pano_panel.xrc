@@ -2,22 +2,333 @@
 <resource>
   <object class="wxPanel" name="panorama_panel">
     <object class="wxBoxSizer">
-      <object class="spacer">
-        <size>0,10</size>
-        <option>1</option>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <label>Quick Stitcher</label>
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Stitch the images</label>
+              <enabled>0</enabled>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="stitch_quick_mode">
+              <content>
+                <item>as a draft-quality JPEG file</item>
+                <item>as a high-quality JPEG file</item>
+                <item>as multiple masked TIFF files</item>
+                <item>as a layered Photoshop file</item>
+                <item>with Custom settings below</item>
+              </content>
+              <enabled>0</enabled>
+            </object>
+            <option>1</option>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="pano_button_stitch">
+              <label>Now!</label>
+              <tooltip>execute the PTStitcher engine</tooltip>
+            </object>
+            <option>0</option>
+            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
-          <label>Panorama settings</label>
+          <label>Custom Stitching Options</label>
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <cols>3</cols>
+            <object class="wxStaticBoxSizer">
+              <label>Field of View</label>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>horizontal (v):</label>
+                      <style>wxALIGN_LEFT</style>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="pano_val_hfov">
+                      <max>360</max>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="pano_button_calc_fov">
+                      <label> Calculate Field of View </label>
+                    </object>
+                    <flag>wxALIGN_RIGHT</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>vertical:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="pano_val_vfov">
+                      <max>180</max>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>1</growablecols>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <label>Stitching Options</label>
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>4</cols>
+                  <rows>3</rows>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>interpolator (i):</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="pano_choice_interpolator">
+                      <content>
+                        <item>Poly3 (Bicubic)</item>
+                        <item>Spline 16</item>
+                        <item>Spline 36</item>
+                        <item>Sinc 256</item>
+                        <item>Spline 64</item>
+                        <item>Bilinear</item>
+                        <item>Nearest neighbour</item>
+                        <item>Sinc 1024</item>
+                      </content>
+                      <selection>0</selection>
+                      <tooltip>approximation of values beetwen source pixels</tooltip>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText" name="">
+                      <label>gamma (g):</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="pano_val_gamma">
+                      <value>1</value>
+                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <tooltip></tooltip>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>exposure correction:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="pano_choice_color_corr_mode">
+                      <content>
+                        <item>None</item>
+                        <item>Brightness and Color (k)</item>
+                        <item>Brightness (b)</item>
+                        <item>Color (d)</item>
+                      </content>
+                      <selection>0</selection>
+                      <tooltip>select kind of exposure correction relative to the anchor image</tooltip>
+                    </object>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>exposure anchor:</label>
+                    </object>
+                    <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="pano_spin_color_corr_reference">
+                      <value>0</value>
+                      <tooltip>image used as reference for exposure correction</tooltip>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>feather width:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="pano_spin_feather_width">
+                      <tooltip>width of the transition between images</tooltip>
+                    </object>
+                  </object>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <label>Output File Options</label>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>pixel width:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="pano_val_width">
+                      <style>wxTE_PROCESS_ENTER</style>
+                    </object>
+                    <flag>wxGROW|wxALIGN_RIGHT</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="pano_button_opt_width">
+                      <label>Calculate Pixel Dimensions</label>
+                      <tooltip>calculate highest sensible width. (uses every image pixel)</tooltip>
+                    </object>
+                    <flag>wxALIGN_RIGHT</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>pixel height:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText" name="pano_static_height">
+                      <label>0</label>
+                      <style>wxALIGN_LEFT</style>
+                    </object>
+                    <option>1</option>
+                    <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="spacer">
+                    <size>0,0</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>image format:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="pano_choice_format_final">
+                      <content>
+                        <item>JPG</item>
+                        <item>PNG</item>
+                        <item>TIFF</item>
+                        <item>Multiple TIFF</item>
+                        <item>Multiple TIFF with masks</item>
+                        <item>PICT</item>
+                        <item>PSD</item>
+                        <item>Layered PSD</item>
+                        <item>Layered PSD with masks</item>
+                        <item>PAN</item>
+                        <item>IVR</item>
+                        <item>Java IVR</item>
+                        <item>VRML</item>
+                        <item>QTVR</item>
+                      </content>
+                      <selection>2</selection>
+                    </object>
+                    <option>1</option>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <growablecols>1</growablecols>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>compression:</label>
+                          <tooltip>JPEG compression (0-100)</tooltip>
+                        </object>
+                        <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                        <border>5</border>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxSpinCtrl" name="pano_jpeg_quality">
+                          <min>0</min>
+                          <max>100</max>
+                        </object>
+                        <flag>wxALL</flag>
+                        <border>5</border>
+                      </object>
+                      <object class="spacer">
+                        <size>0,0</size>
+                        <flag>wxLEFT|wxRIGHT</flag>
+                        <border>65</border>
+                      </object>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="pano_edit_script">
+                  <label>edit script before stitching</label>
+                  <tooltip>for advanced users</tooltip>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticLine">
+                  <style>wxLI_VERTICAL</style>
+                </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Panorama type (f)</label>
+                  <label>projection for stitching (f):</label>
                 </object>
                 <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_pano_type">
@@ -27,300 +338,19 @@
                     <item>Equirectangular</item>
                   </content>
                   <selection>2</selection>
-                  <tooltip>type of projection for the panorama\nRectlinear = normal lens (for stitching conventional/architectural photos)\nCylindrical = qtvr (good for printing panoramas)\nEquirectangular = VirtualReality format (Shows an whole sphere in one image with ratio(w/h) 2:1. good for viewing in applications like ptviewer on internet and for environment maps)</tooltip>
                 </object>
-                <flag>wxEXPAND</flag>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Horizontal Field of view (v)</label>
-                  <style>wxALIGN_LEFT</style>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="pano_val_hfov">
-                  <max>360</max>
-                </object>
-                <flag>wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="pano_button_calc_fov">
-                  <label>calculate visible Field of View</label>
-                </object>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Vertical Field of view</label>
-                  <style>wxALIGN_LEFT</style>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="pano_val_vfov">
-                  <max>180</max>
-                </object>
-                <flag>wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <vgap>5</vgap>
-              <hgap>5</hgap>
-            </object>
-            <flag>wxEXPAND</flag>
-            <border>5</border>
-          </object>
-        </object>
-        <flag>wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
-        <border>5</border>
-      </object>
-      <object class="spacer">
-        <size>0,5</size>
-        <option>1</option>
-      </object>
-      <object class="sizeritem">
-        <object class="wxStaticBoxSizer">
-          <label>Stitching options</label>
-          <orient>wxHORIZONTAL</orient>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <cols>4</cols>
-              <rows>3</rows>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Interpolator (i)</label>
-                </object>
-                <flag>wxALIGN_CENTRE|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="pano_choice_interpolator">
-                  <content>
-                    <item>Poly3 (Bicubic)</item>
-                    <item>Spline 16</item>
-                    <item>Spline 36</item>
-                    <item>Sinc 256</item>
-                    <item>Spline 64</item>
-                    <item>Bilinear</item>
-                    <item>Nearest neighbour</item>
-                    <item>Sinc 1024</item>
-                  </content>
-                  <selection>0</selection>
-                  <tooltip>approximation of values beetwen source pixels</tooltip>
-                </object>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText" name="">
-                  <label>Gamma (g):</label>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl" name="pano_val_gamma">
-                  <value>1</value>
-                  <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                  <tooltip></tooltip>
-                </object>
-              </object>
-              <vgap>5</vgap>
-              <hgap>5</hgap>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Colour correction</label>
-                </object>
-                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="pano_choice_color_corr_mode">
-                  <content>
-                    <item>none</item>
-                    <item>brightness and color (k)</item>
-                    <item>brightness (b)</item>
-                    <item>color (d)</item>
-                  </content>
-                  <selection>0</selection>
-                  <tooltip>select kind of colour correction relative to the right side reference image</tooltip>
-                </object>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Reference image:</label>
-                </object>
-                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="pano_spin_color_corr_reference">
-                  <value>0</value>
-                  <tooltip>image used as anchor for colour correction (will itself remain unchanged)</tooltip>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Feather width:</label>
-                </object>
-                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="pano_spin_feather_width">
-                  <tooltip>width of the transition between images</tooltip>
-                </object>
-              </object>
             </object>
-            <flag>wxEXPAND</flag>
-            <border>6</border>
+            <flag>wxALIGN_RIGHT</flag>
           </object>
         </object>
-        <flag>wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
-        <border>5</border>
-      </object>
-      <object class="spacer">
-        <size>0,5</size>
         <option>1</option>
-      </object>
-      <object class="sizeritem">
-        <object class="wxStaticBoxSizer">
-          <label>Output file</label>
-          <orient>wxVERTICAL</orient>
-          <object class="sizeritem">
-            <object class="wxFlexGridSizer">
-              <cols>3</cols>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Width</label>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl" name="pano_val_width">
-                  <style>wxTE_PROCESS_ENTER</style>
-                </object>
-                <flag>wxGROW|wxALIGN_RIGHT</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="pano_button_opt_width">
-                  <label>calc</label>
-                  <tooltip>calculate highest sensible width. (uses every image pixel)</tooltip>
-                </object>
-                <flag>wxADJUST_MINSIZE</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Height</label>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText" name="pano_static_height">
-                  <label>0</label>
-                  <style>wxALIGN_LEFT</style>
-                </object>
-                <option>1</option>
-                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Format</label>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="pano_choice_format_final">
-                  <content>
-                    <item>JPG</item>
-                    <item>PNG</item>
-                    <item>TIFF</item>
-                    <item>multiple TIFF</item>
-                    <item>multiple TIFF, mask</item>
-                    <item>PICT</item>
-                    <item>PSD</item>
-                    <item>multiple PSD</item>
-                    <item>multiple PSD, mask</item>
-                    <item>PAN</item>
-                    <item>IVR</item>
-                    <item>IVR_java</item>
-                    <item>VRML</item>
-                    <item>QTVR</item>
-                  </content>
-                  <selection>2</selection>
-                </object>
-                <option>1</option>
-                <flag>wxEXPAND</flag>
-              </object>
-              <vgap>5</vgap>
-              <hgap>5</hgap>
-              <growablecols>1</growablecols>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxHORIZONTAL</orient>
-                  <object class="spacer">
-                    <size>0,0</size>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxStaticText">
-                      <label>Quality</label>
-                      <tooltip>JPEG compression (0-100)</tooltip>
-                    </object>
-                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxSpinCtrl" name="pano_jpeg_quality">
-                      <min>0</min>
-                      <max>100</max>
-                    </object>
-                  </object>
-                  <object class="spacer">
-                    <size>0,0</size>
-                    <flag>wxLEFT|wxRIGHT</flag>
-                    <border>65</border>
-                  </object>
-                </object>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="pano_edit_script">
-                  <label>edit PTStitcher script</label>
-                  <tooltip>for advanced users</tooltip>
-                </object>
-              </object>
-              <object class="spacer">
-                <size>0,0</size>
-              </object>
-            </object>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="pano_button_stitch">
-              <label>Stitch!</label>
-            </object>
-            <flag>wxTOP|wxEXPAND|wxGROW</flag>
-            <border>5</border>
-          </object>
-        </object>
-        <flag>wxALL|wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
+        <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>
       <orient>wxVERTICAL</orient>
-      <object class="spacer">
-        <size>0,10</size>
-        <option>1</option>
-      </object>
     </object>
   </object>
 </resource>

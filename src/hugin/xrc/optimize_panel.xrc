@@ -5,11 +5,11 @@
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
-          <label>Basic Optimizer</label>
+          <label>Quick Optimizer</label>
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              <label>optimize:</label>
+              <label>Optimize for</label>
             </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>5</border>
@@ -18,37 +18,41 @@
             <object class="wxChoice" name="optimize_panel_mode">
               <content>
                 <item>Positions (y,p,r)</item>
-                <item>Positions and Field Of View (y,p,r,v)</item>
-                <item>Positions and important Lens Distortion (y,p,r,b)</item>
-                <item>Positions and important Lens Variables(y,p,r,v,b)</item>
-                <item>everything</item>
-                <item>custom</item>
+                <item>Positions and View (y,p,r,v)</item>
+                <item>Positions and Barrel Distortion (y,p,r,b)</item>
+                <item>Positions, View and Barrel (y,p,r,v,b)</item>
+                <item>Everything</item>
+                <item>the Custom parameters below</item>
               </content>
               <selection>0</selection>
               <style></style>
             </object>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="optimize_frame_optimize">
-              <label>optimize</label>
-            </object>
-            <option>0</option>
+            <option>1</option>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>5</border>
           </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="optimize_frame_optimize">
+              <label>Now!</label>
+              <tooltip>execute the PTOptimizer engine</tooltip>
+            </object>
+            <option>0</option>
+            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
         </object>
-        <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
-          <label>Advanced settings</label>
+          <label>Custom Optimization Variables</label>
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Yaw</label>
+                  <label>yaw (y):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_yaw_list">
@@ -81,11 +85,11 @@
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Pitch</label>
+                  <label>pitch (p):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_pitch_list">
@@ -118,11 +122,11 @@
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Roll</label>
+                  <label>roll (r):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_roll_list">
@@ -155,7 +159,7 @@
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <orient>wxHORIZONTAL</orient>
               <label>Image Orientation</label>
@@ -170,7 +174,7 @@
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>HFOV</label>
+                  <label>view (v):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_v_list">
@@ -179,15 +183,16 @@
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
-                    <minsize>20,40</minsize>
+                    <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>a</label>
+                  <label>distortion (a):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_a_list">
@@ -195,17 +200,17 @@
                     </object>
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
-                    <border>3</border>
+                    <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>b</label>
+                  <label>barrel (b):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_b_list">
@@ -213,17 +218,17 @@
                     </object>
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
-                    <border>3</border>
+                    <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>c</label>
+                  <label>distortion (c):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_c_list">
@@ -231,17 +236,17 @@
                     </object>
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
-                    <border>3</border>
+                    <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>d</label>
+                  <label>skew (d):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_d_list">
@@ -249,17 +254,17 @@
                     </object>
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
-                    <border>3</border>
+                    <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>e</label>
+                  <label>skew (e):</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxCheckList" name="optimizer_e_list">
@@ -267,13 +272,13 @@
                     </object>
                     <option>1</option>
                     <flag>wxALL|wxEXPAND</flag>
-                    <border>3</border>
+                    <border>5</border>
                     <minsize>20,20</minsize>
                   </object>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
-                <border>3</border>
+                <border>5</border>
               </object>
             </object>
             <option>1</option>
@@ -285,25 +290,24 @@
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxCheckBox" name="optimizer_edit_script">
-                  <label>edit script</label>
-                  <tooltip>Edit the PTOptimizer script by hand.</tooltip>
+                  <label>edit script before optimizing</label>
+                  <tooltip>for advanced users</tooltip>
                 </object>
-                <flag>wxALL</flag>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticLine">
                   <style>wxLI_VERTICAL</style>
                 </object>
-                <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Projection for optimization</label>
-                  <tooltip>the projection used for optimizing horizontal &amp; vertical line control points</tooltip>
+                  <label>projection for optimization:</label>
                 </object>
-                <flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
@@ -313,8 +317,9 @@
                     <item>Cylindrical</item>
                     <item>Equirectangular</item>
                   </content>
+                  <selection>3</selection>
                 </object>
-                <flag>wxLEFT|wxRIGHT</flag>
+                <flag>wxALL</flag>
                 <border>5</border>
               </object>
             </object>

@@ -5,13 +5,20 @@
     <centered>1</centered>
     <object class="wxBoxSizer">
       <object class="sizeritem">
+        <object class="wxStaticText">
+          <label>This is the script which will be sent to the Panorama Tools engine.  Editing these lines is an advanced technique.</label>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
         <object class="wxTextCtrl" name="script_edit_text">
           <style>wxTE_MULTILINE</style>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
-        <minsize>500,300</minsize>
+        <minsize>600,300</minsize>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
@@ -23,22 +30,17 @@
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label>Ok</label>
+              <label>Continue with these changes</label>
             </object>
             <flag>wxALL</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label>Discard Changes</label>
+              <label>Discard changes and cancel</label>
             </object>
             <flag>wxALL</flag>
             <border>5</border>
-          </object>
-          <object class="spacer">
-            <size>0,0</size>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
           </object>
         </object>
         <flag>wxALL|wxEXPAND|wxGROW</flag>

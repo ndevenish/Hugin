@@ -22,11 +22,11 @@
             <object class="unknown" name="images_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Lens settings</label>
+            <label>Camera and Lens</label>
             <object class="unknown" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Control points</label>
+            <label>Control Points</label>
             <object class="unknown" name="cp_editor_panel_unknown"/>
           </object>
           <object class="notebookpage">
@@ -34,7 +34,7 @@
             <object class="unknown" name="optimizer_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Panorama settings</label>
+            <label>Stitcher</label>
             <object class="unknown" name="panorama_panel_unknown"/>
           </object>
         </object>

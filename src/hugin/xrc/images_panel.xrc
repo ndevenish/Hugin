@@ -17,48 +17,66 @@
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Images</label>
+                  <label>Image Collection</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxButton" name="action_add_images">
-                      <label>Add</label>
-                      <tooltip>Add image(s) to project</tooltip>
+                      <label>Add individual images...</label>
+                      <tooltip>load one or more photos for this project</tooltip>
+                    </object>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="action_add_time_images">
+                      <label>Add time-series of images...</label>
+                      <enabled>0</enabled>
+                      <tooltip>load a set of photos taken at the same time</tooltip>
+                    </object>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="action_add_dir_images">
+                      <label>Add all images from a folder...</label>
+                      <enabled>0</enabled>
+                      <tooltip>load all photos stored in the same subdirectory</tooltip>
                     </object>
                     <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="action_remove_images">
-                      <label>Remove</label>
-                      <tooltip>Remove image(s) from project</tooltip>
+                      <label>Remove this image</label>
+                      <tooltip>dismiss the current photo from this project</tooltip>
                     </object>
                     <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxALIGN_CENTRE</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>misc</label>
+                  <label>Reference Image</label>
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
                     <object class="wxButton" name="images_opt_anchor_button">
-                      <label>set as anchor image</label>
+                      <label>Anchor this image for position</label>
                       <style></style>
                       <tooltip>use currently selected image as anchor image. That is, do not optimize the (complete) position of this image.</tooltip>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="images_set_orientation_button">
-                      <label>select anchor position</label>
+                      <label>Adjust the anchor spot...</label>
                       <tooltip>opens a window to select the anchor orientation graphically</tooltip>
                     </object>
-                    <flag>wxBOTTOM|wxLEFT|wxRIGHT</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
                   </object>
                   <object class="sizeritem">
@@ -69,24 +87,24 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="images_color_anchor_button">
-                      <label>color corr anchor</label>
+                      <label>Anchor this image for exposure</label>
                       <enabled>0</enabled>
                       <tooltip>use the currently selected images as color correction anchor image</tooltip>
                     </object>
-                    <flag>wxALL</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>5</border>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxRIGHT|wxALIGN_CENTRE</flag>
+                <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
               </object>
             </object>
-            <flag>wxEXPAND</flag>
+            <flag>wxALL|wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
-              <label>image orientation</label>
+              <label>Image Orientation</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxBoxSizer">
@@ -147,7 +165,7 @@
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
-              <label>selected Image</label>
+              <label>This Image</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
                 <object class="wxStaticBitmap" name="images_selected_image">
