@@ -157,9 +157,6 @@
 				RelativePath=".\PTOptimise.cpp">
 			</File>
 			<File
-				RelativePath=".\SpaceTransform.cpp">
-			</File>
-			<File
 				RelativePath=".\Stitcher.cpp">
 			</File>
 		</Filter>
@@ -196,9 +193,6 @@
 			</File>
 			<File
 				RelativePath="..\include\Pt\SimpleStitcher.h">
-			</File>
-			<File
-				RelativePath="..\include\Pt\SpaceTransform.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\Stitcher.h">

@@ -251,7 +251,9 @@
 				TypeLibraryName=".\Release/XrcDemoVC.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Install into temp folder"
+				CommandLine="$(SolutionDir)\hugin_msvc_install_win98.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -360,6 +362,7 @@
 				ProgramDataBaseFileName=".\Release Unicode/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="2"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
