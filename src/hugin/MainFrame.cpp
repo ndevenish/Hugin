@@ -23,6 +23,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
+#include "vigra_ext/Correlation.h"
 #include "panoinc.h"
 #include "jhead/jhead.h"
 #include "panoinc_WX.h"
@@ -46,6 +47,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
+#include "hugin/ImageProcessing.h"
 
 using namespace PT;
 
@@ -90,6 +92,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 
     EVT_MENU(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
+    EVT_MENU(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
+    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnToggleCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnToggleCPFrame)
@@ -800,6 +804,7 @@ void MainFrame::OnToggleCPFrame(wxCommandEvent & e)
     cp_frame->Raise();
 }
 
+
 void MainFrame::OnOptimize(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -807,6 +812,68 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
     opt_panel->OnOptimizeButton(dummy);
 }
 
+void MainFrame::OnFineTuneAll(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    // fine tune all points
+
+    CPVector cps = pano.getCtrlPoints();
+
+    // create a map of all control points.
+    std::set<unsigned int> unoptimized;
+    for (unsigned int i=0; i < cps.size(); i++) {
+        // create all control points.
+        unoptimized.insert(i);
+    }
+
+    // do not process the control points in random order,
+    // but walk from image to image, to reduce image reloading
+    // in low mem situations.
+    for (unsigned int imgNr = 0 ; imgNr < pano.getNrOfImages(); imgNr++) {
+        std::set<unsigned int>::iterator it=unoptimized.begin();
+        while (it != unoptimized.end()) {
+            if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
+                if (cps[*it].mode == ControlPoint::X_Y) {
+                    // finetune only normal points
+                    const vigra::BImage & templImg = ImageCache::getInstance().getPyramidImage(
+                        pano.getImage(cps[*it].image1Nr).getFilename(),0);
+                    const vigra::BImage & searchImg = ImageCache::getInstance().getPyramidImage(
+                        pano.getImage(cps[*it].image2Nr).getFilename(),0);
+
+                    // load parameters
+                    long templWidth = wxConfigBase::Get()->Read(
+                        "/CPEditorPanel/templateSize",14);
+                    long sWidth = templWidth + wxConfigBase::Get()->Read(
+                        "/CPEditorPanel/smallSearchWidth",14);
+                    vigra_ext::CorrelationResult res;
+                    res = vigra_ext::PointFineTune(templImg,
+                                                   vigra::Diff2D((int)round(cps[*it].x1), (int)round(cps[*it].y1)),
+                                                   templWidth,
+                                                   searchImg,
+                                                   vigra::Diff2D((int) round(cps[*it].x2), (int) round(cps[*it].y2)),
+                                                   sWidth);
+                    if (res.maxi > 0.75) {
+                        // only update if a good correlation was found
+                        cps[*it].x2 = res.maxpos.x;
+                        cps[*it].y2 = res.maxpos.y;
+                        cps[*it].error = 0;
+                    } else {
+                        DEBUG_DEBUG("low correlation:" << res.maxi);
+                    }
+                }
+                unsigned int rm = *it;
+                it++;
+                unoptimized.erase(rm);
+            } else {
+                it++;
+            }
+        }
+    }
+    // set newly optimized points
+    GlobalCmdHist::getInstance().addCommand(
+        new UpdateCPsCmd(pano,cps)
+        );
+}
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
@@ -852,3 +919,4 @@ MainFrame * MainFrame::Get()
 }
 
 MainFrame * MainFrame::m_this = 0;
+
