@@ -28,7 +28,6 @@
 #include "panoinc.h"
 
 #include "hugin/ImagesList.h"
-#include "hugin/config.h"
 #include "hugin/ImageCache.h"
 
 using namespace PT;

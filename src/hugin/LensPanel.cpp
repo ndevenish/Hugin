@@ -32,7 +32,6 @@
 #include "panoinc.h"
 
 #include "hugin/LensPanel.h"
-#include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
@@ -116,7 +115,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     m_pixelDigits = wxConfigBase::Get()->Read("/General/PixelFractionalDigitsEdit",2);
     m_distDigitsEdit = wxConfigBase::Get()->Read("/General/DistortionFractionalDigitsEdit",5);
 
-    
+
 
     // dummy to disable controls
     wxListEvent ev;

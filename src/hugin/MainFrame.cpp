@@ -39,7 +39,6 @@
 
 #include "hugin/MainFrame.h"
 #include "hugin/wxPanoCommand.h"
-#include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"

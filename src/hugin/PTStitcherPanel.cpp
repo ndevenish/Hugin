@@ -31,7 +31,6 @@
 
 #include "PT/Stitcher.h"
 
-//#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
@@ -117,7 +116,7 @@ PTStitcherPanel::PTStitcherPanel(wxWindow *parent, Panorama & pano)
     DEBUG_ASSERT(m_SpeedupChoice);
 
     UpdateDisplay(pano.getOptions());
-    
+
     // observe the panorama
     pano.addObserver (this);
 
@@ -232,7 +231,7 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
             opts.outputFormat = PanoramaOptions::JPEG;
             GlobalCmdHist::getInstance().addCommand(
                 new PT::SetPanoOptionsCmd( pano, opts )
-                );            
+                );
             format = 0;
         }
     }

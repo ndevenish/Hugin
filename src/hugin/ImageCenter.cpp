@@ -28,7 +28,6 @@
 
 #include "panoinc.h"
 
-#include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageCenter.h"

@@ -34,7 +34,6 @@
 #include <vigra_ext/LoweSIFT.h>
 
 #include "hugin/ImagesPanel.h"
-#include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/ImageCache.h"
@@ -398,8 +397,8 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     // we need to resize it to its maximum size every time before
     // a new image is set, else it will keep the old size..
     // however, I'm not sure how this should be done with wxWindows
-    
-    
+
+
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
     wxSize sz = imgctrl->GetSize();

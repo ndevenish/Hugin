@@ -31,7 +31,6 @@
 
 #include "PT/Stitcher.h"
 
-//#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"

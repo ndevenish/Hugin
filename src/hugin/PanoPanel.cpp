@@ -31,7 +31,6 @@
 
 #include "PT/Stitcher.h"
 
-//#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
@@ -309,7 +308,7 @@ void PanoPanel::ApplyQuickMode(int preset)
 //        FDiff2D fov = pano.calcFOV();
 //        opts.HFOV = fov.x;
 //        opts.VFOV = fov.y;
-        
+
         // resize.
         if (preset == 3) {
             opts.width = 1024;
