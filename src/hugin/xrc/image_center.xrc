@@ -14,7 +14,7 @@
           <object class="sizeritem">
             <object class="wxButton" name="image_center_b_apply">
               <label>Apply</label>
-              <tooltip>apply changed values to selected images from panorama</tooltip>
+              <tooltip>apply changed values to actual selected images from panorama</tooltip>
             </object>
             <flag>wxEXPAND|wxGROW</flag>
           </object>

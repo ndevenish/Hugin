@@ -34,6 +34,7 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
+#include <wx/config.h>
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
@@ -63,6 +64,11 @@ ImgCenter::ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     c_canvas = new CenterCanvas ((wxWindow*)this, 
                XRCCTRL(*this, "image_center_view", wxPanel)->GetPosition(),
                XRCCTRL(*this, "image_center_view", wxPanel)->GetSize(), pano,i);
+
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+    SetSize(config->Read("CenterDialogSize_x",200l),
+            config->Read("CenterDialogSize_y",200l));
 
     c_canvas->Show();
     DEBUG_TRACE("");
@@ -102,6 +108,12 @@ void ImgCenter::OnApply ( wxCommandEvent & e )
 void ImgCenter::OnClose ( wxCommandEvent & e )
 {
     DEBUG_TRACE("");
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+    config->Write("CenterDialogSize_x",wxString::Format("%d",GetRect().width)),
+    config->Write("CenterDialogSize_y",wxString::Format("%d",GetRect().height));
+    DEBUG_INFO( "saved last size" )
+
     Destroy();
     DEBUG_TRACE("");
 }
@@ -127,6 +139,8 @@ CenterCanvas::CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& s
 
     first_x = -1;
     first_y = -1;
+    first_is_set = false;
+    second_is_set = false;
 
     Show();
     DEBUG_TRACE("");
@@ -146,6 +160,7 @@ void CenterCanvas::Resize( wxSizeEvent & e )
       DEBUG_INFO( "x "<< x <<" y "<< y );
 
       // scale to fit the window
+      {
           int new_width;
           int new_height;
 
@@ -164,14 +179,14 @@ void CenterCanvas::Resize( wxSizeEvent & e )
 
           c_img = img.Scale (new_width, new_height)
                                          .ConvertToBitmap();
+      }
 
       dirty_img = c_img.ConvertToImage().ConvertToBitmap();
       DEBUG_TRACE ("")
 
       // now show the position of current PT shift (d,e)
-      wxPaintDC paintDC( this );
       wxMemoryDC memDC;
-      memDC.SelectObject (dirty_img);
+      memDC.SelectObject (c_img);
       memDC.BeginDrawing ();
       // draw all areas without fillings
       wxBrush brush = memDC.GetBrush ();
@@ -196,23 +211,23 @@ void CenterCanvas::Resize( wxSizeEvent & e )
         pt_e = new_var. e .getValue();
         DEBUG_INFO( "image("<< imageNr <<") with d/e: "<< pt_d <<"/"<< pt_e );
         // paint a cross / text with values
-        int c = 5; // size of midpoint cross
-        int mid_x = (int)((pt_d + (float)img.GetWidth()) * zoom);
-        int mid_y = (int)((pt_e + (float)img.GetHeight()) * zoom);
+        int c = 8; // size of midpoint cross
+        int mid_x = (int)((pt_d + (float)img.GetWidth()/2.0) / zoom);
+        int mid_y = (int)((pt_e + (float)img.GetHeight()/2.0) / zoom);
+        {
           memDC.DrawLine( mid_x + c, mid_y + c,
                           mid_x - c, mid_y - c);
           memDC.DrawLine( mid_x - c, mid_y + c,
                           mid_x + c, mid_y - c);
           memDC.DrawText( wxString::Format("%d,%d",(int)pt_d,(int)pt_e),
                           mid_x+10,mid_y-10);
+        }
       }
       DEBUG_TRACE ("")
-      paintDC.Blit(0, 0, c_img.GetWidth(), c_img.GetHeight(), & memDC,
-                   0, 0, wxCOPY, TRUE);
       memDC.SelectObject(wxNullBitmap);
       memDC.EndDrawing ();
 
-      Refresh();
+//      Refresh();
     }
     DEBUG_TRACE ("end")
 }
@@ -227,7 +242,6 @@ void CenterCanvas::OnPaint(wxDC & dc)
       wxMemoryDC memDC;
       memDC.SelectObject(c_img);
 
-      // Transparent blitting if there's a mask in the bitmap
 //      DEBUG_INFO( "Width "<< img.GetWidth() <<" Height "<<img.GetHeight());
       paintDC.Blit(0, 0, c_img.GetWidth(), c_img.GetHeight(), & memDC,
                    0, 0, wxCOPY, TRUE);
@@ -252,25 +266,83 @@ void CenterCanvas::ChangeView ( wxImage & s_img )
 
 void CenterCanvas::OnMouse ( wxMouseEvent & e )
 {
-    // calculate drawing variables
-    // vertical and horicontal distance between two mouse clicks
-    int c_x = (MAX(e.m_x,first_x)-MIN(e.m_x,first_x))/2;
-    int c_y = (MAX(e.m_y,first_y)-MIN(e.m_y,first_y))/2;
-    // vertical and horicontal middle point between two mouse clicks
-    int mid_x = MIN(e.m_x,first_x) + c_x;
-    int mid_y = MIN(e.m_y,first_y) + c_y;
-    // half distance between two mouse clicks
-    int radius = (int)sqrt(c_x*c_x + c_y*c_y);
-    // show some drawing
-    if ( first_x >= 0 ) {
-      // select an fresh image to draw on (real copy!)
+    int dist_x, dist_y, s_x, s_y, mid_x, mid_y, radius;
+    bool isDrag = false;
+    if ( e.m_altDown )
+      isDrag = true;
+    bool isSetting = false;
+    if ( e.m_leftDown )
+      isSetting = true;
+    
 
+    // set drawing variables
+    if ( isSetting && !isDrag ) {
+      if ( !first_is_set ) {
+        first_x = e.m_x;
+        first_y = e.m_y;
+        first_is_set = true ;
+      } else if ( first_is_set && !second_is_set ) {
+        second_x = e.m_x;
+        second_y = e.m_y;
+        second_is_set = true;
+      } else if ( first_is_set && second_is_set ) {
+        first_x = e.m_x;
+        first_y = e.m_y;
+        second_is_set = false;
+      }
+
+      // small message
+      if ( (e.m_x < c_img.GetWidth()) && (e.m_y < c_img.GetHeight()) ) {
+        int pos_x = (int)((float)e.m_x * zoom) + 1;
+        int pos_y = (int)((float)e.m_y * zoom) + 1;
+        int x = (int)((float)c_img.GetWidth() * zoom);
+        int y = (int)((float)c_img.GetHeight() * zoom);
+        DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" pos"<<pos_x <<"x"<< pos_y <<" image"<< x <<"x"<< y <<" inside" )
+      } else {
+        DEBUG_INFO( "outside" )
+      }
+    } else if ( first_is_set && second_is_set && isDrag ) {
+      // moving the circle around
+      first_x += e.m_x - old_m_x;
+      first_y += e.m_y - old_m_y;
+      second_x += e.m_x - old_m_x;
+      second_y += e.m_y - old_m_y;
+      s_x = second_x;
+      s_y = second_y;
+      DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" old_m"<<old_m_x <<"x"<< old_m_y <<" second"<< second_x <<"x"<< second_y )
+    } else if ( first_is_set && !second_is_set ) {
+      // update coordinates
+      s_x = e.m_x;
+      s_y = e.m_y;
+    } else if ( first_is_set && second_is_set ) {
+      s_x = second_x;
+      s_y = second_y;
+    }
+    old_m_x = e.m_x;
+    old_m_y = e.m_y;
+
+    if ( first_is_set ) {
+          // vertical and horicontal distance between two mouse clicks
+          dist_x = (MAX(s_x,first_x)-MIN(s_x,first_x))/2;
+          dist_y = (MAX(s_y,first_y)-MIN(s_y,first_y))/2;
+          // vertical and horicontal middle point between two mouse clicks
+          mid_x = MIN(s_x,first_x) + dist_x;
+          mid_y = MIN(s_y,first_y) + dist_y;
+          // half distance between two mouse clicks
+          radius = (int)sqrt(dist_x*dist_x + dist_y*dist_y);
+    }
+
+
+
+
+    // show some drawing
+    if ( first_is_set && (!second_is_set || isDrag) ) {
+
+      // select an fresh image to draw on an real! copy
       wxPaintDC paintDC( this );
       wxMemoryDC memDC;
       memDC.SelectObject (dirty_img);
       memDC.BeginDrawing ();
-
-      // recover the old image
 #if 1
       wxMemoryDC sourceDC;
       sourceDC.SelectObject (c_img);
@@ -303,15 +375,15 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
       // draw text without background
       memDC.SetBackgroundMode (wxTRANSPARENT);
       // draw an diagonal line
-      memDC.DrawLine( e.m_x, e.m_y, first_x, first_y );
+      memDC.DrawLine( first_x, first_y, s_x, s_y );
       memDC.DrawCircle ( mid_x, mid_y, radius );
       // draw the midpoint and the coordinates
       int c = 5; // size of midpoint cross
       // calculate PT variables - lens shift
       pt_d = (zoom * (float)mid_x) - (float)img.GetWidth()/2.0;
       pt_e = (zoom * (float)mid_y) - (float)img.GetHeight()/2.0;
-      if ( (e.m_x > first_x && e.m_y < first_y)  // 1th and 3th quadrants
-           || (e.m_x < first_x && e.m_y > first_y) ) {
+      if ( (first_x < s_x && first_y > s_y)  // 1th and 3th quadrants
+           || (first_x > s_x && first_y < s_y) ) {
         memDC.DrawLine( mid_x + c, mid_y + c,
                         mid_x - c, mid_y - c );
         memDC.DrawText( wxString::Format("%d,%d", (int)pt_d, (int)pt_e),
@@ -323,7 +395,7 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                         mid_x + 10, mid_y - 15 );
       }
       memDC.EndDrawing ();
-      // Transparent blitting if there's a mask in the bitmap
+      // Transparent bliting if there's a mask in the bitmap
 #if 0 // timeconsuming but save
       paintDC.Blit(0, 0, c_img.GetWidth(), c_img.GetHeight(), & memDC,
                  0, 0, wxCOPY, FALSE);
@@ -334,32 +406,6 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                    mid_x - rad, mid_y - rad, wxCOPY, FALSE);
 #endif
       memDC.SelectObject(wxNullBitmap);
-
-      second_x = e.m_x;
-      second_y = e.m_y;
-    }
-    // calculate the results
-    if ( e.m_leftDown ) {
-      float scale = (float)img.GetHeight()/(float)c_img.GetHeight();
-      if ( (e.m_x < c_img.GetWidth()) && (e.m_y < c_img.GetHeight()) ) {
-        int pos_x = (int)((float)e.m_x * scale) + 1;
-        int pos_y = (int)((float)e.m_y * scale) + 1;
-        int x = (int)((float)c_img.GetWidth() * scale);
-        int y = (int)((float)c_img.GetHeight() * scale);
-        DEBUG_INFO( "m"<< e.m_x <<"x"<< e.m_y <<" pos"<<pos_x <<"x"<< pos_y <<" image"<< x <<"x"<< y <<" inside" )
-      } else {
-        DEBUG_INFO( "outside" )
-      }
-      if ( first_x == -1 ) { 
-        first_x = e.m_x;
-        first_y = e.m_y;
-      } else {
-        int mid_x_orig = c_img.GetWidth()/2;
-        int mid_y_orig = c_img.GetHeight()/2;
-        DEBUG_INFO( "horiz. shift (d) = "<< mid_x - mid_x_orig <<"vert. shift (e) = "<< mid_y - mid_y_orig )
-        first_x = -1;
-        first_y = -1;
-      }
     }
 //    DEBUG_INFO ( "Mouse " << e.m_x <<"x"<< e.m_y);
 }

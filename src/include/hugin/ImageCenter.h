@@ -94,14 +94,19 @@ class CenterCanvas: public wxPanel
     // first mouse click
     int first_x;
     int first_y;
+    bool first_is_set;
     // second mouse click
     int second_x;
     int second_y;
+    bool second_is_set;
     // zoom of view
     float zoom;
     // the values of the panorama
     float pt_d;
     float pt_e;
+    // mouse coordinates
+    int old_m_x;
+    int old_m_y;
 
     unsigned int *imgNr;
 

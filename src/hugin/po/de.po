@@ -1631,8 +1631,8 @@ msgid "close window"
 msgstr "Schlieﬂe Fenster"
 msgid "Apply"
 msgstr "Anwenden"
-msgid "apply changed values to selected images from panorama"
-msgstr "ausgew‰hlte Bilder des Panoramas ‰ndern"
+msgid "apply changed values to actual selected images from panorama"
+msgstr "momentan ausgew‰hlte Bilder des Panoramas ‰ndern"
 
 #: ../ptopengui.cpp:1997
 msgid "This text describes the \n"
