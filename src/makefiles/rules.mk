@@ -90,6 +90,7 @@ OBJ_FILES =     $(foreach lib, $(LIBS), $(LIB_$(lib)_OBJ)) \
 
 LIBS_BIN =      $(patsubst %, lib%.a, $(foreach lib, $(LIBS), $(LIB_$(lib)_BIN)))
 
+
 # contains all binaries. pseudo binaries (apps without objects
 # are not considered)
 APPS_BIN =      $(foreach app, $(APPS), \
@@ -178,6 +179,10 @@ $(OBJ_DIR)/%.o %.o: %.c
 	$(SILENT) $(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
 $(OBJ_DIR)/%.o %.o: %.cpp
+	$(ECHO) "    ---- Compiling $< (C++)"
+	$(SILENT) $(CXX) $(CFLAGS) $(INCLUDES) -c -o $@ $<
+
+$(OBJ_DIR)/%.o %.o: %.cxx
 	$(ECHO) "    ---- Compiling $< (C++)"
 	$(SILENT) $(CXX) $(CFLAGS) $(INCLUDES) -c -o $@ $<
 
