@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\foreign\vigra;..\include\;..\..\..\..\wxWindows\include;..\..\..\..\wxWindows\contrib\include"
+				AdditionalIncludeDirectories="..\foreign\vigra;..\include\;..\..\..\..\wxWindows\include;..\..\..\..\wxWindows\contrib\include;..\..\..\..\boost"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WINDOWS;WINVER=0x400;wxUSE_GUI=1;__WXDEBUG__;WXDEBUG=1"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -133,6 +133,9 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\ImageGraph.cpp">
+		</File>
+		<File
 			RelativePath=".\PanoImage.cpp">
 		</File>
 		<File
@@ -145,10 +148,10 @@
 			RelativePath=".\PanoToolsInterface.cpp">
 		</File>
 		<File
-			RelativePath=".\SpaceTransform.cpp">
+			RelativePath=".\PTOptimise.cpp">
 		</File>
 		<File
-			RelativePath=".\utils.cpp">
+			RelativePath=".\SpaceTransform.cpp">
 		</File>
 	</Files>
 	<Globals>
