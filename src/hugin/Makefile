@@ -55,7 +55,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags)
+CFLAGS += $(shell wx-config --cxxflags) -I../ $(INCL_RESOURCES_FLAG)
 LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
 
 # ====================================================================
@@ -73,7 +73,6 @@ LIB_1_BIN = my_xrc_extension
 LIB_1_OBJ = xh_tbctl.o
 LIB_1_LFLAGS =  $(LFLAGS)
 
-
 # ====================================================================
 # The applications that should be build in this directory.
 #
@@ -85,8 +84,13 @@ APPS = 1
 # App 1
 
 APP_1_BIN = hugin
-APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o
+APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o $(RES_O)
 APP_1_LFLAGS = $(LFLAGS)
+all: $(APP_1_BIN) Link
+
+Link:
+	cd xrc ; test -L xrc/data || ln -v -s ../../data . ;
+	test -L xrc/images || ln -v -s ../../images .
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you
@@ -108,6 +112,21 @@ TEST_1_OBJ =
 TEST_1_CFLAGS = $(TEST_CFLAGS)
 TEST_1_LFLAGS = $(TEST_LFLAGS)
 
+# ====================================================================
+# Code generation for the ui
+# For distributions we include pixmaps and ui layouts in the code.
+# comment INCL_RESOURCES_FLAG out for including all resources
+# ====================================================================
+
+#INCL_RESOURCES_FLAG = -D_INCLUDE_UI_RESOURCES
+RESOURCES = xrc/*.xrc xrc/data/about.htm
+
+ifdef INCL_RESOURCES_FLAG
+RES_O = resource.o
+resource.cpp: $(RESOURCES)
+	wxrc -c xrc/*.xrc ; test -f resource.cpp
+endif
+
 
 # ====================================================================
 # Do not edit anything below this
@@ -115,3 +134,5 @@ TEST_1_LFLAGS = $(TEST_LFLAGS)
 
 include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)
+
+
