@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-01-20 19:15+0200\n"
+"POT-Creation-Date: 2005-01-28 21:52+0200\n"
 "PO-Revision-Date: 2005-01-04 15:57-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -344,21 +344,21 @@ msgstr "B³±d odczytu numeru"
 msgid "Loading image %s"
 msgstr "£adujê zdjêcie %s"
 
-#: src/hugin/ImageCache.cpp:467
+#: src/hugin/ImageCache.cpp:475
 msgid "Cannot load image: "
 msgstr "B³±d ³adowania zdjêcia:"
 
-#: src/hugin/ImageCache.cpp:490
+#: src/hugin/ImageCache.cpp:498
 #, c-format
 msgid "Scaling image %s"
 msgstr "Skalujê zdjêcie %s"
 
-#: src/hugin/ImageCache.cpp:546
+#: src/hugin/ImageCache.cpp:554
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "Tworzê odcienie szaro¶ci %s"
 
-#: src/hugin/ImageCache.cpp:564
+#: src/hugin/ImageCache.cpp:572
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Tworzê zdjêcie piramidalne dla %s, poziom %d"
@@ -372,96 +372,96 @@ msgstr "Wycentruj okno"
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 msgstr "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 
-#: src/hugin/ImagesList.cpp:229 src/hugin/ImagesList.cpp:277
+#: src/hugin/ImagesList.cpp:232 src/hugin/ImagesList.cpp:280
 msgid "Filename"
 msgstr "Nazwa pliku"
 
-#: src/hugin/ImagesList.cpp:230
+#: src/hugin/ImagesList.cpp:233
 msgid "width"
 msgstr "szeroko¶æ"
 
-#: src/hugin/ImagesList.cpp:231
+#: src/hugin/ImagesList.cpp:234
 msgid "height"
 msgstr "wysoko¶æ"
 
-#: src/hugin/ImagesList.cpp:232
+#: src/hugin/ImagesList.cpp:235
 msgid "yaw (y)"
 msgstr "yaw (y)"
 
-#: src/hugin/ImagesList.cpp:233
+#: src/hugin/ImagesList.cpp:236
 msgid "pitch (p)"
 msgstr "pitch (p)"
 
-#: src/hugin/ImagesList.cpp:234
+#: src/hugin/ImagesList.cpp:237
 msgid "roll (r)"
 msgstr "roll (r)"
 
-#: src/hugin/ImagesList.cpp:235
+#: src/hugin/ImagesList.cpp:238
 msgid "Anchor"
 msgstr "Odniesienie"
 
-#: src/hugin/ImagesList.cpp:236
+#: src/hugin/ImagesList.cpp:239
 msgid "# Ctrl Pnts"
 msgstr "# Punktów kontr."
 
-#: src/hugin/ImagesList.cpp:278
+#: src/hugin/ImagesList.cpp:281
 msgid "Lens no."
 msgstr "Obiektyw numer"
 
-#: src/hugin/ImagesList.cpp:279
+#: src/hugin/ImagesList.cpp:282
 msgid "Lens type (f)"
 msgstr "Typ obiektywu (f)"
 
-#: src/hugin/ImagesList.cpp:280
+#: src/hugin/ImagesList.cpp:283
 msgid "hfov (v)"
 msgstr "hfov (v)"
 
-#: src/hugin/ImagesList.cpp:281
+#: src/hugin/ImagesList.cpp:284
 msgid "a"
 msgstr "a"
 
-#: src/hugin/ImagesList.cpp:282
+#: src/hugin/ImagesList.cpp:285
 msgid "b"
 msgstr "b"
 
-#: src/hugin/ImagesList.cpp:283
+#: src/hugin/ImagesList.cpp:286
 msgid "c"
 msgstr "c"
 
-#: src/hugin/ImagesList.cpp:284
+#: src/hugin/ImagesList.cpp:287
 msgid "d"
 msgstr "d"
 
-#: src/hugin/ImagesList.cpp:285
+#: src/hugin/ImagesList.cpp:288
 msgid "e"
 msgstr "e"
 
-#: src/hugin/ImagesList.cpp:286
+#: src/hugin/ImagesList.cpp:289
 msgid "g"
 msgstr "g"
 
-#: src/hugin/ImagesList.cpp:287
+#: src/hugin/ImagesList.cpp:290
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/lens_dialog.xrs:3
+#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_dialog.xrs:3
 #: src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
 msgstr "Normalny (prostoliniowy)"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/lens_panel.xrs:3
+#: src/hugin/ImagesList.cpp:306 src/hugin/xrc/lens_panel.xrs:3
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramiczny (cylindryczny)"
 
-#: src/hugin/ImagesList.cpp:304 src/hugin/xrc/lens_panel.xrs:4
+#: src/hugin/ImagesList.cpp:307 src/hugin/xrc/lens_panel.xrs:4
 msgid "Circular fisheye"
 msgstr "Okr±g³e rybie oko"
 
-#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_panel.xrs:5
+#: src/hugin/ImagesList.cpp:308 src/hugin/xrc/lens_panel.xrs:5
 msgid "Full frame fisheye"
 msgstr "Pe³noramowe rybie oko"
 
-#: src/hugin/ImagesList.cpp:306 src/hugin/PanoPanel.cpp:187
+#: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:187
 #: src/hugin/PreviewFrame.cpp:400 src/hugin/xrc/lens_dialog.xrs:7
 #: src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Adding Image"
 msgstr "&Dodaj zdjêcie"
 
-#: src/hugin/MainFrame.cpp:228
+#: src/hugin/MainFrame.cpp:236
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -541,11 +541,11 @@ msgstr ""
 "Nie znaleziono katalogu xrc.\n"
 "Proszê siê upewniæ, ¿e jest on w tym samym katalogu co hugin.exe"
 
-#: src/hugin/MainFrame.cpp:323
+#: src/hugin/MainFrame.cpp:331
 msgid "Started"
 msgstr "Rozpoczêto"
 
-#: src/hugin/MainFrame.cpp:418
+#: src/hugin/MainFrame.cpp:427
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -553,52 +553,52 @@ msgstr ""
 "Panorama zosta³a zmodyfikowana\n"
 "Zapisaæ zmiany?"
 
-#: src/hugin/MainFrame.cpp:418
+#: src/hugin/MainFrame.cpp:427
 msgid "Save Panorama?"
 msgstr "Zapisaæ panoramê?"
 
-#: src/hugin/MainFrame.cpp:433
+#: src/hugin/MainFrame.cpp:442
 msgid "forced close"
 msgstr "wymuszone zamkniêcie"
 
-#: src/hugin/MainFrame.cpp:465
+#: src/hugin/MainFrame.cpp:474
 #, c-format
 msgid "saved project %s"
 msgstr "zapisano projekt %s"
 
-#: src/hugin/MainFrame.cpp:474
+#: src/hugin/MainFrame.cpp:483
 msgid "Save project file"
 msgstr "Zapisz projekt"
 
-#: src/hugin/MainFrame.cpp:476
+#: src/hugin/MainFrame.cpp:485
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr "Pliki projektów (*.pto)|*.pto|Wszystkie pliki (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:489
+#: src/hugin/MainFrame.cpp:498
 msgid "Save PTSticher script file"
 msgstr "Zapisz plik skryptu PTStitcher"
 
-#: src/hugin/MainFrame.cpp:491
+#: src/hugin/MainFrame.cpp:500
 msgid "PTSticher files (*.txt)|*.txt"
 msgstr "Pliki PTSticher'a (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:515
+#: src/hugin/MainFrame.cpp:524
 msgid "Open project:   "
 msgstr "Otwórz projekt"
 
-#: src/hugin/MainFrame.cpp:527
+#: src/hugin/MainFrame.cpp:536
 msgid "Project opened"
 msgstr "Otwarto projekt"
 
-#: src/hugin/MainFrame.cpp:537
+#: src/hugin/MainFrame.cpp:546
 msgid "Error opening project:   "
 msgstr "B³±d podczas otwierania projektu:"
 
-#: src/hugin/MainFrame.cpp:555
+#: src/hugin/MainFrame.cpp:564
 msgid "Open project file"
 msgstr "Otwórz projekt"
 
-#: src/hugin/MainFrame.cpp:557
+#: src/hugin/MainFrame.cpp:566
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
@@ -606,11 +606,11 @@ msgstr ""
 "Pliki projektów (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Wszystkie "
 "zdjêcia (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:565
+#: src/hugin/MainFrame.cpp:574
 msgid "Open project: cancel"
 msgstr "Otwórz projekt: anuluj"
 
-#: src/hugin/MainFrame.cpp:587 src/include/hugin/wxPanoCommand.h:141
+#: src/hugin/MainFrame.cpp:596 src/include/hugin/wxPanoCommand.h:141
 msgid ""
 "Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files "
 "(*.tif)|*.tif;*.TIF|All files (*.*)|*.*"
@@ -618,27 +618,27 @@ msgstr ""
 "Pliki zdjêæ (*.jpg)|*.jpg;*.JPG|Pliki zdjêæ (*.png)|*.png;*.PNG|Pliki zdjêæ "
 "(*.tif)|*.tif;*.TIF|Wszystkie pliki (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:588 src/include/hugin/wxPanoCommand.h:142
+#: src/hugin/MainFrame.cpp:597 src/include/hugin/wxPanoCommand.h:142
 msgid "Add images"
 msgstr "Dodaj zdjêcia"
 
-#: src/hugin/MainFrame.cpp:632
+#: src/hugin/MainFrame.cpp:641
 msgid "Add Image: cancel"
 msgstr "Dodaj zdjêcia: anuluj"
 
-#: src/hugin/MainFrame.cpp:840
+#: src/hugin/MainFrame.cpp:870
 msgid "hugin - FAQ"
 msgstr "hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:919
+#: src/hugin/MainFrame.cpp:949
 msgid "Fine-tuning all points"
 msgstr "Dostrajanie wszystkich punktów"
 
-#: src/hugin/MainFrame.cpp:921
+#: src/hugin/MainFrame.cpp:951
 msgid "Finetuning"
 msgstr "Dostrajam"
 
-#: src/hugin/MainFrame.cpp:1005
+#: src/hugin/MainFrame.cpp:1035
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -668,7 +668,7 @@ msgstr ""
 "U¿yj listy Punktów Kontrolnych (F3) aby zobaczyæ wszystkie punkty obecnego "
 "projektu\n"
 
-#: src/hugin/MainFrame.cpp:1007
+#: src/hugin/MainFrame.cpp:1037
 msgid "Fine-tune result"
 msgstr "Rezultat dostrajania"
 
@@ -744,15 +744,15 @@ msgstr "b³±d enblend"
 msgid "error during stitching:"
 msgstr "b³±d podczas sk³adania:"
 
-#: src/hugin/PanoDruid.cpp:42
+#: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
 msgstr "Asystant nie ma wskazówek."
 
-#: src/hugin/PanoDruid.cpp:52 src/hugin/PreviewFrame.cpp:541
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:541
 msgid "The druid finds no problems with your panorama."
 msgstr "Asystant nie znalaz³ problemów z twoj± panoram±."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:542
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -762,11 +762,11 @@ msgstr ""
 "jak GNU Image Manipulation Program (the GIMP)\n"
 "dokonaæ wykoñczenia zdjêcia."
 
-#: src/hugin/PanoDruid.cpp:62 src/hugin/PreviewFrame.cpp:561
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:561
 msgid "Warning:  you haven't saved the current project."
 msgstr "Uwaga: nie zapisano obecnego projektu."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:562
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:562
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -776,11 +776,11 @@ msgstr ""
 "nie zapomnij zapisaæ swój projekt, aby móc\n"
 "pó¼nije eksperymentowaæ lub poprawiæ ustawienia."
 
-#: src/hugin/PanoDruid.cpp:72 src/hugin/PreviewFrame.cpp:557
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:557
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Uwaga: z³o¿one zdjêcie ma ogromne rozmiary."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:558
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:558
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -796,11 +796,11 @@ msgstr ""
 "zak³adce Opcje Panoramy, aby ustaliæ\n"
 "wielko¶æ w pikselach, która da najlepsz± jako¶æ."
 
-#: src/hugin/PanoDruid.cpp:103 src/hugin/PreviewFrame.cpp:553
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:553
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Poziome Pole Widzenia (HFOV) mo¿e byæ zbyt ma³e."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:554
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -816,11 +816,11 @@ msgstr ""
 "5 i 120 stopni na zdjêcie chyba, ¿e u¿ywasz specjalistycznego\n"
 "obiektywu."
 
-#: src/hugin/PanoDruid.cpp:113
+#: src/hugin/PanoDruid.cpp:114
 msgid "Consider adding a vertical or horizontal guide."
 msgstr "Rozwa¿ dodanie pionowej lub poziomej linii prowadz±cej."
 
-#: src/hugin/PanoDruid.cpp:114
+#: src/hugin/PanoDruid.cpp:115
 msgid ""
 "By adding vertical guides, the optimizer can ensure\n"
 "that buildings or trees or other vertical features\n"
@@ -832,11 +832,11 @@ msgstr ""
 "bêd± pionowe w finalnym rezultacie. Pozioma\n"
 "linia prowadzaca mo¿e pomóc zapewniæ, ¿e horyzont nie bêdzie wykrzywiony."
 
-#: src/hugin/PanoDruid.cpp:136
+#: src/hugin/PanoDruid.cpp:137
 msgid "Run the Optimizer to estimate the image positions."
 msgstr "Uruchom Optymalizator aby oszacowaæ pozycjê zdjêcia."
 
-#: src/hugin/PanoDruid.cpp:137
+#: src/hugin/PanoDruid.cpp:138
 msgid ""
 "The Optimizer uses the control points to estimate the\n"
 "positions of the individual images in the final panorama\n"
@@ -848,11 +848,11 @@ msgstr ""
 "\n"
 "Optymalizator mo¿e byæ uruchomiony w zak³adce Optymalizator.\n"
 
-#: src/hugin/PanoDruid.cpp:164
+#: src/hugin/PanoDruid.cpp:165
 msgid "Add more control points to improve the stitch quality."
 msgstr "Dodaj wiêcej punktów kontrolnych, aby polepszyæ jako¶æ z³o¿enia."
 
-#: src/hugin/PanoDruid.cpp:165
+#: src/hugin/PanoDruid.cpp:166
 msgid ""
 "For best results, there should be at least four pairs\n"
 "of control points for each pair of overlapping images.\n"
@@ -862,11 +862,11 @@ msgstr ""
 "punktów kontrolnych dla ka¿dej pary pokrywaj±cych siê zdjêæ.\n"
 "Wiêcej precyzyjnie zaznaczonych punktów polepszy dopasowanie."
 
-#: src/hugin/PanoDruid.cpp:183
+#: src/hugin/PanoDruid.cpp:184
 msgid "At least one image has no control points at all."
 msgstr "Conajmniej jedno zdjêcie w ogóle nie ma punktów kontrolnych."
 
-#: src/hugin/PanoDruid.cpp:184
+#: src/hugin/PanoDruid.cpp:185
 msgid ""
 "For best results, there should be at least four pairs\n"
 "of control points for each pair of overlapping images.\n"
@@ -876,11 +876,11 @@ msgstr ""
 "punktów kontrolnych dla ka¿dej pary pokrywaj±cych siê zdjêæ.\n"
 "Zdjêcie bez punktów kontrolnych nie mo¿e byæ wyrównane."
 
-#: src/hugin/PanoDruid.cpp:202
+#: src/hugin/PanoDruid.cpp:203
 msgid "Add stitching control points to each pair of images."
 msgstr "Dodaj punkty kontrolne do ka¿dej pary zdjêæ, aby je z³o¿yæ."
 
-#: src/hugin/PanoDruid.cpp:203
+#: src/hugin/PanoDruid.cpp:204
 msgid ""
 "The Optimizer relies on your control points to arrange\n"
 "and blend the images properly.  On the Control Points\n"
@@ -892,23 +892,23 @@ msgstr ""
 "dodaj pary punktów, które odpowiadaj± identycznym\n"
 "szczegó³om wizualnym w ka¿dej parze nak³adaj±cych siê obrazków."
 
-#: src/hugin/PanoDruid.cpp:212 src/hugin/PreviewFrame.cpp:549
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:549
 msgid "Add at least one more image."
 msgstr "Dodaj conajmniej jeszcze jedno zdjêcie"
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:550
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:550
 msgid "You should have at least two files listed in the Images tab."
 msgstr "Powiniene¶ mieæ conajmniej dwa zdjêcia w zak³adce Zdjêcia."
 
-#: src/hugin/PanoDruid.cpp:227 src/hugin/PreviewFrame.cpp:545
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:545
 msgid "To get started, add some image files."
 msgstr "Aby rozpocz±æ, dodaj jakie¶ zdjêcia."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:546
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:546
 msgid "You can add any number of images using the Images tab."
 msgstr "Mo¿esz dodaæ dowoln± ilo¶æ zdjêæ u¿ywaj±c zak³±dki Zdjêcia"
 
-#: src/hugin/PanoDruid.cpp:267
+#: src/hugin/PanoDruid.cpp:276
 msgid "the Panorama druid"
 msgstr "Asystant tworzenia panoram"
 
@@ -1967,18 +1967,27 @@ msgid "Some information on the different buttons and so on."
 msgstr "Informacja o ró¿nych przyciskach itp."
 
 #: src/hugin/xrc/main_menu.xrs:37
+msgid "&Tip of the day"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:38
+#, fuzzy
+msgid "Show one of the tips of the day."
+msgstr "Schowaj wszystkie zdjêcia"
+
+#: src/hugin/xrc/main_menu.xrs:39
 msgid "&Keyboard Shortcuts"
 msgstr "&Klawisze skrótów"
 
-#: src/hugin/xrc/main_menu.xrs:38
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "keyboard shortcuts"
 msgstr "klawisze skrótów"
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menu.xrs:42
 msgid "Frequently Asked Questions"
 msgstr "Najczê¶ciej zadawane pytania"
 
@@ -2769,14 +2778,53 @@ msgstr "Sk³adam"
 msgid "Abort"
 msgstr "Anuluj"
 
-#~ msgid "Lens No. :"
-#~ msgstr "Numer obiektywu:"
+#: src/hugin/xrc/data/tips.txt:4
+msgid ""
+"To scroll both the images in the control points tab, hold the shift key and "
+"press the middle mouse button while moving the mouse."
+msgstr ""
 
-#~ msgid "-"
-#~ msgstr "-"
+#: src/hugin/xrc/data/tips.txt:5
+msgid ""
+"The control key or the middle mouse button can be used in the control points "
+"tab to scroll only the image under the mouse cursor."
+msgstr ""
 
-#~ msgid "apply selected lens"
-#~ msgstr "zastosuj wybrany obiektyw"
+#: src/hugin/xrc/data/tips.txt:6
+msgid ""
+"If the panorama looks nice but the horizon is curved, you have to add "
+"horizontal guide control points in the control points tab."
+msgstr ""
 
-#~ msgid "Image shift"
-#~ msgstr "Przesuniêcie zdjêcia"
+#: src/hugin/xrc/data/tips.txt:7
+msgid "Images can also be added to hugin via drag and drop."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:8
+msgid ""
+"The Fine Tune button can be used to find a better position for the point in "
+"the right image for an already selected point."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:9
+msgid ""
+"You can press the middle mouse button to pan images in the control points "
+"tab."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:10
+msgid "You can use \"f\" is the shortcut for Fine Tune button"
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:11
+msgid "Pressing \"Del\" \twill remove currently selected control point."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:12
+msgid "Press \"0\" in the control points tab to zoom out to full view."
+msgstr ""
+
+#: src/hugin/xrc/data/tips.txt:13
+msgid "Press \"1\" in the control points tab to zoom out to 100% view."
+msgstr ""
+

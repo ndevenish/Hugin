@@ -26,7 +26,7 @@
 
 #include <config.h>
 #include "panoinc_WX.h"
-
+#include <wx/tipdlg.h>
 #include "panoinc.h"
 
 //Mac bundle code by Ippei
@@ -121,6 +121,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
+    EVT_MENU(XRCID("action_show_tip"),  MainFrame::OnTipOfDay)
     EVT_MENU(XRCID("action_show_shortcuts"),  MainFrame::OnKeyboardHelp)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
@@ -161,14 +162,21 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxConfigBase* config = wxConfigBase::Get();
     if ( wxFile::Exists(splashPath + wxT("/xrc/data/splash.png")) ) {
         DEBUG_INFO("using local xrc files");
-        m_xrcPrefix = splashPath + wxT("/xrc/");
+        m_xrcPrefix = splashPath + wxT("/xrc");
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
         DEBUG_INFO("using installed xrc files");
-        m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
+        m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR);
     } else {
         DEBUG_INFO("using xrc prefix from config")
-        m_xrcPrefix = config->Read(wxT("xrc_path")) + wxT("/");
+        m_xrcPrefix = config->Read(wxT("xrc_path"));
     }
+	{
+	  // make sure the path is absolute to avoid problems if the cwd is changed
+	  wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
+  	  fn.MakeAbsolute();
+	  m_xrcPrefix = fn.GetPath() + wxT("/");
+	  DEBUG_TRACE("XRC prefix set to: " << m_xrcPrefix.mb_str());
+	}
 
     /* start: Mac bundle code by Ippei*/
 #ifdef __WXMAC__
@@ -356,6 +364,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         splash->Close();
     }
     wxYield();
+	
 #ifdef DEBUG
 #ifdef __WXMSW__
 
@@ -821,6 +830,27 @@ void MainFrame::OnHelp(wxCommandEvent & e)
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
     dlg.ShowModal();
+}
+
+void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
+{
+	wxString strFile;
+	bool bShowAtStartup;
+	int nValue;
+
+    wxConfigBase * config = wxConfigBase::Get();
+	nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
+	DEBUG_TRACE("Tip index: " << nValue);
+	strFile = m_xrcPrefix + wxT("data/tips.txt");
+	DEBUG_TRACE("Reading tips from " << strFile.mb_str());
+	wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
+	bShowAtStartup = wxShowTip(this, tipProvider);
+
+	//store startup preferences
+	nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
+	DEBUG_TRACE("Writing tip index: " << nValue);
+    config->Write(wxT("/MainFrame/ShowStartTip"), nValue);
+	delete tipProvider;
 }
 
 void MainFrame::OnKeyboardHelp(wxCommandEvent & e)

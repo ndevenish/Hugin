@@ -1,0 +1,13 @@
+# Tips for hugin
+# You can easily add translations to your startup tips via the usual gettext methods by wrapping a string in a gettext macro, which is _(""). 
+# See next tip for example.
+_("To scroll both the images in the control points tab, hold the shift key and press the middle mouse button while moving the mouse.")
+_("The control key or the middle mouse button can be used in the control points tab to scroll only the image under the mouse cursor.")
+_("If the panorama looks nice but the horizon is curved, you have to add horizontal guide control points in the control points tab.")
+_("Images can also be added to hugin via drag and drop.")
+_("The Fine Tune button can be used to find a better position for the point in the right image for an already selected point.")
+_("You can press the middle mouse button to pan images in the control points tab.")
+_("You can use \"f\" is the shortcut for Fine Tune button")
+_("Pressing \"Del\" 	will remove currently selected control point.")
+_("Press \"0\" in the control points tab to zoom out to full view.")
+_("Press \"1\" in the control points tab to zoom out to 100% view.")

@@ -93,6 +93,10 @@
         <accel>F1</accel>
         <help>Some information on the different buttons and so on.</help>
       </object>
+      <object class="wxMenuItem" name="action_show_tip">
+        <label>&amp;Tip of the day</label>
+        <help>Show one of the tips of the day.</help>
+      </object>
       <object class="wxMenuItem" name="action_show_shortcuts">
         <label>&amp;Keyboard Shortcuts</label>
         <help>keyboard shortcuts</help>

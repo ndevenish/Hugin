@@ -210,7 +210,6 @@ bool huginApp::OnInit()
     frame = new MainFrame(NULL, pano);
     SetTopWindow(frame);
 
-
     wxString cwd = wxFileName::GetCwd();
     config->Write( wxT("startDir"), cwd );
 
@@ -259,6 +258,16 @@ bool huginApp::OnInit()
         }
         frame->LoadProjectFile(filename);
     }
+
+    //load tip startup preferences (tips will be started after splash terminates)
+	int nValue = config->Read(wxT("/MainFrame/ShowStartTip"), 1l);
+		
+	//show tips if needed now
+	if(nValue > 0)
+	{
+		wxCommandEvent dummy;
+		frame->OnTipOfDay(dummy);
+	}
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);

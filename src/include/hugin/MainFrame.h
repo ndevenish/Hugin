@@ -110,6 +110,9 @@ public:
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
 
+    // Used to display tip of the day after main interface is initialised and visible
+	void OnTipOfDay(wxCommandEvent & e);
+
     // load a project
     void LoadProjectFile(const wxString & filename);
 

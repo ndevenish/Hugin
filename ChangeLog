@@ -1,3 +1,59 @@
+2005-01-28 02:22  dangelo
+
+	* src/hugin/xrc/lens_dialog.xrc: removed obselete lens dialog
+
+2005-01-28 02:11  dangelo
+
+	* src/hugin/xrc/Makefile.am: lens_dialog.xrc is not used currently
+
+2005-01-27 14:07  dwilkins42
+
+	* configure.ac, src/hugin/Makefile.am, src/tools/Makefile.am:
+	  Remove dependency on FFTW
+
+2005-01-27 10:20  dangelo
+
+	* src/hugin/po/fr.po: removed duplicate entries.
+
+2005-01-27 01:20  dangelo
+
+	* src/: include/hugin/PanoDruid.h,
+	  foreign/vigra_impex/vigra_impex.vcproj, hugin/PanoDruid.cpp: MSVC
+	  unicode build working now. Had to remove some static instatiation
+	  in the pano druid, because it seemd that wxWindows (especially
+	  the unicode string conversion functions) weren't set up when that
+	  hints were added.
+
+2005-01-27 00:38  dangelo
+
+	* src/: hugin/ImageCache.cpp, hugin/ImagesList.cpp,
+	  foreign/vigra/vigra.vcproj, include/hugin/wxPanoCommand.h: more
+	  MSVC unicode stuff + bugfix for possible crash when aborting
+	  loading a project whose image files are missing.
+
+2005-01-27 00:26  dangelo
+
+	* src/: Panorama/Panorama.vcproj, common/common.vcproj,
+	  hugin/hugin.vcproj, jhead/jhead.vcproj,
+	  vigra_ext/vigra_ext.vcproj, Hugin.sln: updated windows build
+	  files for unicode build with MSVC.NET
+
+2005-01-27 00:13  dangelo
+
+	* src/hugin/xrc/data/FAQ.html: Added enblend 2.1 for windows
+	  problem to faq
+
+2005-01-24 20:25  dwilkins42
+
+	* src/hugin/po/fr.po: Updated french translation
+
+2005-01-20 21:56  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Update translation files for new messages in LensPanel.cpp and
+	  lens_dialog.xrc
+
 2005-01-20 21:20  dwilkins42
 
 	* src/: Panorama/PanoramaMemento.cpp, foreign/vigra_impex/bmp.cxx,
@@ -2853,9 +2909,4 @@
 2004-02-01 19:57  beku
 
 	* src/include/PT/tiffUtils.h: - fixed writing of unassoc alpha tag
-
-2004-01-26 00:10  speare
-
-	* src/: common/.cvsignore, vigra_ext/.cvsignore: Ignore
-	  Makefile.depend files
 

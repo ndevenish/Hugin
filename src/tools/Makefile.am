@@ -10,7 +10,7 @@ bin_PROGRAMS = nona panosifter autooptimiser zhang_undistort
 
 nona_SOURCES = nona.cpp
 nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
-               ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
+	           ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
 
 #autopano_old_SOURCES = autopano.cpp
 #autopano_old_CFLAGS  = $(FFTW_INCLUDES)
@@ -21,21 +21,21 @@ nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/c
 
 automatch_SOURCES = automatch.cpp
 automatch_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
-                    ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
-		    ${top_builddir}/src/klt/libklt.la
+	                ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
+				    ${top_builddir}/src/klt/libklt.la
 
 panosifter_SOURCES = panosifter.cpp
 panosifter_CFLAGS  = $(PNG_FLAGS) $(ZLIB_FLAGS)
 panosifter_LDFLAGS = $(LIB_PNG) $(LIB_ZLIB)
 panosifter_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la ${top_builddir}/src/vigra_ext/libvigra_ext.la \
-                     ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
-		     ${top_builddir}/src/klt/libklt.la
+	                 ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
+				     ${top_builddir}/src/klt/libklt.la
 
 autooptimiser_SOURCES =  autooptimiser.cpp
 autooptimiser_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la ${top_builddir}/src/vigra_ext/libvigra_ext.la \
-                        ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
+	                    ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
 
 zhang_undistort_SOURCES = zhang_undistort.cpp
 zhang_undistort_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la ${top_builddir}/src/vigra_ext/libvigra_ext.la \
-                          ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
+	                      ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
 
