@@ -180,6 +180,8 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 /** run sift matching on selected images, and add control points */
 void ImagesPanel::SIFTMatching(wxCommandEvent & e)
 {
+
+#if 0
     wxString text = XRCCTRL(*this, "images_points_per_overlap"
                             , wxTextCtrl) ->GetValue();
     long nFeatures = 10;
@@ -263,6 +265,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                 );
         }
     }
+#endif
 }
 
 // Yaw by text -> double

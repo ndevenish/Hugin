@@ -31,7 +31,9 @@ REQUIRED LIBRARIES/PACKAGES:
    http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
    see below if you want to compile the panorama tools yourself.
 
- - make, version 3.8 or higher.
+ - make, version 3.8 or higher. (only needed for compiliation)
+ - boost, get it from www.boost.org (only needed for compilation)
+ - vigra, get it from http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
  - gcc (tested with 3.2, 2.95 might also work)
 
 COMPILATION:
