@@ -1022,7 +1022,9 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
     DEBUG_TRACE("lens " << lensNr << " variable: " << var.getName());
     DEBUG_ASSERT(lensNr < state.lenses.size());
 
-    map_get(state.lenses[lensNr].variables, var.getName()) = var;
+    std::string varname = var.getName();
+    LensVariable & realvar = map_get(state.lenses[lensNr].variables, varname);
+    realvar = var;
     unsigned int nImages = state.images.size();
     for (unsigned int i=0; i<nImages; i++) {
         if (state.images[i].getLensNr() == lensNr) {

@@ -155,9 +155,10 @@ void LensPanel::FitParent( wxSizeEvent & e )
 void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 {
     DEBUG_TRACE("");
-
-    m_editImageNr = imgNr;
-    m_editLensNr = 0;
+    if (m_editImageNr == UINT_MAX || m_editLensNr == UINT_MAX) {
+        // no image selected
+        return;
+    }
 
     const Lens & lens = pano.getLens(m_editLensNr);
     const VariableMap & imgvars = pano.getImageVariables(m_editImageNr);
@@ -202,10 +203,12 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 
 void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
+    
     // we need to do something if the image we are editing has changed.
     if ( pano.getNrOfImages() <= m_editImageNr) {
         // the image we were editing has been removed.
         m_editImageNr = 0;
+        m_editLensNr = 0;
     } else if (set_contains(imgNr, m_editImageNr)) {
         UpdateLensDisplay(m_editImageNr);
     }
@@ -406,6 +409,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
     const UIntSet & sel = images_list->GetSelected();
     DEBUG_DEBUG("selected Images: " << sel.size());
     if (sel.size() == 0) {
+        m_editImageNr = UINT_MAX;
+        m_editLensNr = UINT_MAX;
         DEBUG_DEBUG("no selection, disabling value display");
         // clear & disable display
         XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Disable();
@@ -432,7 +437,10 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
-} else {
+    } else {
+        m_editImageNr = *sel.begin();
+        m_editLensNr = pano.getImage(m_editImageNr).getLensNr();
+
         // one or more images selected
         if (XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Enable()) {
             // enable all other textboxes as well.

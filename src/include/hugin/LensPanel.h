@@ -105,10 +105,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     ImagesListLens * images_list;
 
-    // Lens to change settings
-    unsigned int m_editLensNr;
     // image that has been changed.
     unsigned int m_editImageNr;
+    unsigned int m_editLensNr;
 
     void updateHFOV(void);
     int m_degDigits;
