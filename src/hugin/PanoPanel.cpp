@@ -286,12 +286,12 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
 
 void PanoPanel::EnableControls(bool enable)
 {
-    m_HFOVSpin->Enable(enable);
-    m_VFOVSpin->Enable(enable);
+//    m_HFOVSpin->Enable(enable);
+//    m_VFOVSpin->Enable(enable);
     m_WidthTxt->Enable(enable);
     m_StitcherChoice->Enable(enable);
     m_Stitcher->Enable(enable);
-    m_CalcHFOVButton->Enable(enable);
+//    m_CalcHFOVButton->Enable(enable);
     m_CalcOptWidthButton->Enable(enable);
 }
 
