@@ -57,7 +57,7 @@
 /* definitions for data storage type,
    unsigned long data_storage_type; */
 #define	VFF_TYP_BIT		0	/* pixels are on or off (binary image)*/
-                                        /* Note: This is an X11 XBitmap 
+                                        /* Note: This is an X11 XBitmap
 					   with bits packed into a byte and
 					   padded to a byte */
 #define	VFF_TYP_1_BYTE		1	/* pixels are byte (unsigned char) */
@@ -99,13 +99,13 @@
 					   by groups of maps_per_cycle, allowing
 					   "rotating the color map" */
 #define	VFF_MS_SHARED		3	/* All data band share the same map */
-#define VFF_MS_GROUP		4	/* All data bands are "grouped" 
+#define VFF_MS_GROUP		4	/* All data bands are "grouped"
 					   together to point into one map */
 /* definitions for enabling the map,
    unsigned long map_enable; */
 #define VFF_MAP_OPTIONAL	1	/* The data is valid without being
 					   sent thru the color map. If a
-					   map is defined, the data may 
+					   map is defined, the data may
 					   optionally be sent thru it. */
 #define	VFF_MAP_FORCE		2	/* The data MUST be sent thru the map
 					   to be interpreted */
@@ -123,8 +123,8 @@
     HSV:  hue, saturation, value
     IHS:  intensity, hue, saturation
     XYZ:
-    UVW:  
-    SOW:  
+    UVW:
+    SOW:
     Lab:
     Luv:
 
@@ -164,7 +164,13 @@ namespace vigra_impex2 {
 
     typedef short int16_t;
     typedef int   int32_t;
-    
+
+    // added by dangelo, this is probably a hack, but the some of
+    // the fields seem to be unsigned int, but other have size_t (which is
+    // probably not unsigned int on 64 bit machines). Force the usage
+    // of unsigned int here..
+    typedef unsigned int my_size_t;
+
     template< class T1, class T2 >
     class colormap
     {
@@ -242,35 +248,35 @@ namespace vigra_impex2 {
     // this function encapsulates the colormap functor
     template< class storage_type, class map_storage_type >
     void map_multiband( void_vector<map_storage_type> & dest,
-                        size_t & dest_bands,
+                        my_size_t & dest_bands,
                         const void_vector<storage_type> & src,
-                        size_t src_bands, size_t src_width, size_t src_height,
+                        my_size_t src_bands, my_size_t src_width, my_size_t src_height,
                         const void_vector<map_storage_type> & maps,
-                        size_t map_bands, size_t map_width, size_t map_height )
+                        my_size_t map_bands, my_size_t map_width, my_size_t map_height )
     {
         typedef colormap< storage_type, map_storage_type > colormap_type;
-        const unsigned int num_pixels = src_width * src_height;
+        const my_size_t num_pixels = src_width * src_height;
 
         // build the color map
-        const unsigned int map_band_size = map_width * map_height;
+        const my_size_t map_band_size = map_width * map_height;
         colormap_type colormap( map_height, map_bands, map_width );
-        for ( unsigned int i = 0; i < map_bands; ++i )
+        for ( my_size_t i = 0; i < map_bands; ++i )
             colormap.initialize( maps.data() + map_band_size * i, i );
 
         // map each pixel
-        const unsigned int band_size = src_width * src_height;
+        const my_size_t band_size = src_width * src_height;
         dest_bands = map_bands * map_width;
         dest.resize( band_size * dest_bands );
         if ( map_width > 1 ) {
             // interleaved maps => there is only one band in the image
-            for( unsigned int bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( unsigned int i = 0; i < num_pixels; ++i )
+            for( my_size_t bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( my_size_t i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[i], bandnum );
         } else {
             // non-interleaved bands => map can be used per band
-            for( unsigned int bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( unsigned int i = 0; i < num_pixels; ++i )
+            for( my_size_t bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( my_size_t i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[ bandnum * band_size + i ], bandnum );
         }
@@ -409,7 +415,7 @@ namespace vigra_impex2 {
             read_field( stream, bo, map_row_size );
             read_field( stream, bo, map_col_size );
         }
-            
+
         // seek behind the header. (skip colorspace and pointers)
         stream.seekg( 1024, std::ios::beg );
     }
@@ -420,7 +426,7 @@ namespace vigra_impex2 {
 
         // magic number
         stream.put((char)0xAB);
-            
+
         // file type
         stream.put(0x01);
 
@@ -436,7 +442,7 @@ namespace vigra_impex2 {
             bo.set("big endian" );
             stream.put(VFF_DEP_BIGENDIAN);
         }
-        else 
+        else
         {
             bo.set("little endian" );
             stream.put(VFF_DEP_LITENDIAN);
@@ -491,7 +497,7 @@ namespace vigra_impex2 {
 
     struct ViffDecoderImpl
     {
-        unsigned int width, height, components, map_width,
+        my_size_t width, height, components, map_width,
             map_height, num_maps;
         std::string pixelType;
         int current_scanline;
@@ -514,7 +520,7 @@ namespace vigra_impex2 {
 #else
         std::ifstream stream( filename.c_str() );
 #endif
-        
+
         if(!stream.good())
         {
             std::string msg("Unable to open file '");
@@ -572,7 +578,7 @@ namespace vigra_impex2 {
 
     void ViffDecoderImpl::read_bands( std::ifstream & stream, byteorder & bo )
     {
-        const unsigned int bands_size = width * height * components;
+        const my_size_t bands_size = width * height * components;
 
         if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
             typedef void_vector< unsigned char > bands_type;
@@ -611,7 +617,7 @@ namespace vigra_impex2 {
     void ViffDecoderImpl::color_map()
     {
         void_vector_base temp_bands;
-        unsigned int temp_num_bands;
+        my_size_t temp_num_bands;
 
         if ( header.map_storage_type == VFF_MAPTYP_1_BYTE ) {
             typedef unsigned char map_storage_type;
@@ -771,7 +777,7 @@ namespace vigra_impex2 {
                                components, width, height,
                                static_cast< const maps_type & >(maps),
                                num_maps, map_width, map_height );
- 
+
             } else
                 vigra_precondition( false, "storage type unsupported" );
 
@@ -811,7 +817,7 @@ namespace vigra_impex2 {
 
     unsigned int ViffDecoder::getNumBands() const
     {
-        return pimpl->components;
+        return static_cast<unsigned int>(pimpl->components);
     }
 
     std::string ViffDecoder::getPixelType() const
@@ -882,9 +888,9 @@ namespace vigra_impex2 {
 
         ViffEncoderImpl( const std::string & filename )
 #ifdef _MSC_VER
-            : stream( filename.c_str(), std::ios::binary ), 
+            : stream( filename.c_str(), std::ios::binary ),
 #else
-            : stream( filename.c_str() ), 
+            : stream( filename.c_str() ),
 #endif
               bo( "big endian" ),
               pixelType("undefined"), current_scanline(0), finalized(false)
