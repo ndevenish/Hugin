@@ -54,9 +54,9 @@ void PT::fillVariableMap(VariableMap & vars)
 
     // Lens variables
     vars.insert(pair<const char*, Variable>("v",Variable("v",51)));
-    vars.insert(pair<const char*, Variable>("a",Variable("a",0)));
-    vars.insert(pair<const char*, Variable>("b",Variable("b",0)));
-    vars.insert(pair<const char*, Variable>("c",Variable("c",0)));
+    vars.insert(pair<const char*, Variable>("a",Variable("a",0.001)));
+    vars.insert(pair<const char*, Variable>("b",Variable("b",0.001)));
+    vars.insert(pair<const char*, Variable>("c",Variable("c",0.001)));
     vars.insert(pair<const char*, Variable>("d",Variable("d",0)));
     vars.insert(pair<const char*, Variable>("e",Variable("e",0)));
     vars.insert(pair<const char*, Variable>("g",Variable("g",0)));
@@ -97,9 +97,9 @@ Lens::Lens()
       sensorRatio(1.5)
 {
     variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50 , true)));
-    variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
-    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b", 0.0, true)));
-    variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.001, true )));
+    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b", 0.001, true)));
+    variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.001, true)));
     variables.insert(pair<const char*, LensVariable>("d",LensVariable("d", 0.0)));
     variables.insert(pair<const char*, LensVariable>("e",LensVariable("e", 0.0)));
     variables.insert(pair<const char*, LensVariable>("g",LensVariable("g", 0.0)));
@@ -596,7 +596,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             if (!getParam(t, line, "t") ){
                 t = 0;
             }
-            
+
             point.mode = (ControlPoint::OptimizeMode) t;
             ctrlPoints.push_back(point);
             state = P_CP;
