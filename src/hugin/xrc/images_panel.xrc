@@ -118,12 +118,12 @@
                   <min>1</min>
                   <tooltip>number of points created at each overlap</tooltip>
                 </object>
-                <flag>wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxButton" name="images_feature_matching">
                   <label>Create Ctrl Points</label>
-                  <tooltip>Run external autopano-sift on the selected images (linux only, so far)</tooltip>
+                  <tooltip>Run external autopano program on the selected images</tooltip>
                 </object>
                 <flag>wxALL|wxEXPAND</flag>
                 <border>5</border>
