@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-15 20:11+0200\n"
+"POT-Creation-Date: 2004-10-16 18:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,15 +260,15 @@ msgstr ""
 msgid "Not a jpeg file"
 msgstr ""
 
-#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:559
+#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:575
 msgid "Please select an image and try again"
 msgstr ""
 
-#: src/hugin/LensPanel.cpp:537
+#: src/hugin/LensPanel.cpp:539
 msgid "Save lens parameters file"
 msgstr ""
 
-#: src/hugin/LensPanel.cpp:574
+#: src/hugin/LensPanel.cpp:590
 msgid "Load lens parameters"
 msgstr ""
 
@@ -319,23 +319,23 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:576
+#: src/hugin/MainFrame.cpp:575
 msgid "Add images"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:620
+#: src/hugin/MainFrame.cpp:619
 msgid "Add Image: cancel"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:803
+#: src/hugin/MainFrame.cpp:801
 msgid "hugin - FAQ"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:866
+#: src/hugin/MainFrame.cpp:864
 msgid "Fine-tuning all points"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:936
+#: src/hugin/MainFrame.cpp:934
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -347,7 +347,7 @@ msgid ""
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:942
+#: src/hugin/MainFrame.cpp:940
 msgid "Fine-tune result"
 msgstr ""
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-15 20:11+0200\n"
+"POT-Creation-Date: 2004-10-16 18:12+0200\n"
 "PO-Revision-Date: 2004-10-16 03:58+0200\n"
 "Last-Translator: Pablo dAngelo <pablo.dangelo@web.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.3.1\n"
 
+#: src/hugin/CPEditorPanel.cpp:143 src/hugin/CPListFrame.cpp:267
 #: src/hugin/CPListFrame.cpp:277 src/hugin/ImagesList.cpp:50
 msgid "#"
 msgstr "#"
@@ -272,15 +273,15 @@ msgstr "Kontrollpunkte löschen"
 msgid "Not a jpeg file"
 msgstr "Kein JPEG Bild"
 
-#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:559
+#: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:575
 msgid "Please select an image and try again"
 msgstr "Bitte Bild auswählen und erneut versuchen"
 
-#: src/hugin/LensPanel.cpp:537
+#: src/hugin/LensPanel.cpp:539
 msgid "Save lens parameters file"
 msgstr "Objektivparameter speichern"
 
-#: src/hugin/LensPanel.cpp:574
+#: src/hugin/LensPanel.cpp:590
 msgid "Load lens parameters"
 msgstr "Objektivparameter laden"
 
@@ -339,24 +340,24 @@ msgstr "Öffne Projekt Datei"
 msgid "Open project: cancel"
 msgstr "Öffne Projekt: Abbrechen"
 
-#: src/hugin/MainFrame.cpp:576
+#: src/hugin/MainFrame.cpp:575
 msgid "Add images"
 msgstr "neue Bilder"
 
-#: src/hugin/MainFrame.cpp:620
+#: src/hugin/MainFrame.cpp:619
 msgid "Add Image: cancel"
 msgstr "neue Bilder: abgebrochen"
 
-#: src/hugin/MainFrame.cpp:803
+#: src/hugin/MainFrame.cpp:801
 msgid "hugin - FAQ"
 msgstr "hugin - Häufig gestellte Fragen"
 
-#: src/hugin/MainFrame.cpp:866
+#: src/hugin/MainFrame.cpp:864
 #, fuzzy
 msgid "Fine-tuning all points"
 msgstr "Feiner Kontrollpunkt"
 
-#: src/hugin/MainFrame.cpp:936
+#: src/hugin/MainFrame.cpp:934
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -367,14 +368,17 @@ msgid ""
 "by an error <= %f.\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
-"%d Kontrollpunkte geändert, %d Kontrollpunkte wegen niedriger Korrelation nicht geändert.\n"
+"%d Kontrollpunkte geändert, %d Kontrollpunkte wegen niedriger Korrelation "
+"nicht geändert.\n"
 "\n"
-"Hinweis: In der Kontrollpunktliste (F3) wird statt dem Fehler der\n Korrelationskoeffizient angezeigt. Ungenaue und nicht korrigierte\n"
+"Hinweis: In der Kontrollpunktliste (F3) wird statt dem Fehler der\n"
+" Korrelationskoeffizient angezeigt. Ungenaue und nicht korrigierte\n"
 "Punkte können an einem Korrelationskoeffizienten kleiner %f erkannt werden\n"
 "\n"
-"Nach der nächsten Optimierung werden wieder die Kontrollpunktfehler dargestellt.\n"
+"Nach der nächsten Optimierung werden wieder die Kontrollpunktfehler "
+"dargestellt.\n"
 
-#: src/hugin/MainFrame.cpp:942
+#: src/hugin/MainFrame.cpp:940
 #, fuzzy
 msgid "Fine-tune result"
 msgstr "Feiner Kontrollpunkt"
@@ -392,7 +396,9 @@ msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
-msgstr "Das Panorama kann nun zusammengefügt (gestitchtet) werden und mit einem Bildbearbeitungsprogramm wie GIMP nachbearbeitet werden."
+msgstr ""
+"Das Panorama kann nun zusammengefügt (gestitchtet) werden und mit einem "
+"Bildbearbeitungsprogramm wie GIMP nachbearbeitet werden."
 
 #: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:534
 msgid "Warning:  you haven't saved the current project."
@@ -421,8 +427,9 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
-"Bei sehr großen Panoramen benötigen viel Rechenzeit beim zusammenfügen. "
-"Mit der \"Automatische Größe\" Funktion in den Panorama Optionen kann die Größe mit bester Qualität bestimmt werden."
+"Bei sehr großen Panoramen benötigen viel Rechenzeit beim zusammenfügen. Mit "
+"der \"Automatische Größe\" Funktion in den Panorama Optionen kann die Größe "
+"mit bester Qualität bestimmt werden."
 
 #: src/hugin/PanoDruid.cpp:111 src/hugin/PreviewFrame.cpp:516
 #, fuzzy
@@ -451,7 +458,12 @@ msgid ""
 "that buildings or trees or other vertical features\n"
 "appear vertical in the final result.  A horizontal\n"
 "guide can help ensure that a horizon does not bend."
-msgstr "Vertikale oder Horizontale Kontrollpunkte können gedrehte oder wellige\n Panoramen geradeziehen. Überlicherweise sollten vertikale Kontrollpunkte auf senkrechte Kanten, wie Häuser, Strommasten oder ähnliche Objekte gesetzt werden. Damit kann der Optimierer da Panorama \"geradeziehen\". Horizontale Kontrollpunkte sollten nur auf der Horizontline gesetzt werden."
+msgstr ""
+"Vertikale oder Horizontale Kontrollpunkte können gedrehte oder wellige\n"
+" Panoramen geradeziehen. Überlicherweise sollten vertikale Kontrollpunkte "
+"auf senkrechte Kanten, wie Häuser, Strommasten oder ähnliche Objekte gesetzt "
+"werden. Damit kann der Optimierer da Panorama \"geradeziehen\". Horizontale "
+"Kontrollpunkte sollten nur auf der Horizontline gesetzt werden."
 
 #: src/hugin/PanoDruid.cpp:152
 #, fuzzy
@@ -459,7 +471,8 @@ msgid "Run the Optimizer to estimate the image positions."
 msgstr "Optimiere Bild Positionen"
 
 #: src/hugin/PanoDruid.cpp:153
-msgid "The Optimizer uses the control points to estimate the\n"
+msgid ""
+"The Optimizer uses the control points to estimate the\n"
 "positions of the individual images in the final panorama\n"
 "\n"
 "The optimizer can be invoked in the Optimizer tab.\n"
@@ -471,7 +484,8 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:183
 msgid "Add more control points to improve the stitch quality."
-msgstr "Mehr Kontrollpunkte führen üblicherweise zu weniger Fehlern im Panorama."
+msgstr ""
+"Mehr Kontrollpunkte führen üblicherweise zu weniger Fehlern im Panorama."
 
 #: src/hugin/PanoDruid.cpp:184
 msgid ""
@@ -496,7 +510,8 @@ msgstr ""
 "Für gute Resultate sollten mindestens 4 Kontrollpunkte für jedes Bildpaar\n"
 "gesetzt werden. Durch mehr Punkte können die Bilder genauer\n"
 "aufeinander gelegt werden.\n"
-"Bilder ohne Kontrollpunkte können nicht an den Nachbarbildern ausgerichtet werden"
+"Bilder ohne Kontrollpunkte können nicht an den Nachbarbildern ausgerichtet "
+"werden"
 
 #: src/hugin/PanoDruid.cpp:225
 msgid "Add stitching control points to each pair of images."
@@ -924,7 +939,8 @@ msgid "Anchor Image"
 msgstr "Anker"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid "Set Yaw and Roll with left mouse button. Use right mouse button to set roll"
+msgid ""
+"Set Yaw and Roll with left mouse button. Use right mouse button to set roll"
 msgstr ""
 
 #: src/hugin/xrc/anchor_orientation.xrs:3
@@ -2287,4 +2303,3 @@ msgstr "Parameter für's Zusammenfügen"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr ""
-
