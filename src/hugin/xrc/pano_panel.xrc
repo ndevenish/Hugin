@@ -374,6 +374,30 @@
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
                               </object>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="pano_cb_single_preview">
+                                      <label>single preview</label>
+                                      <checked>0</checked>
+                                      <tooltip>Render only one image.</tooltip>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW</flag>
+                                    <minsize>120,-1</minsize>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxComboBox" name="pano_val_previewImage">
+                                      <content/>
+                                      <tooltip>Select here one image for an quick preview. This helps quick adjusting the orientation.</tooltip>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                                    <minsize>110,25</minsize>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                                <minsize></minsize>
+                              </object>
                             </object>
                           </object>
                         </object>
