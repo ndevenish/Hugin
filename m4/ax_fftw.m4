@@ -24,8 +24,8 @@ LIBFFTW="$LIBFFTW"
 ac_fftw_includes=NO ac_fftw_libraries=NO ac_fftw_bindir=NO
 fftw_libraries=""
 fftw_includes=""
-AC_ARG_WITH([fftw-dir],
-            AC_HELP_STRING([--with-fftw-dir=DIR],
+AC_ARG_WITH([fftw],
+            AC_HELP_STRING([--with-fftw=DIR],
                            [where the root of FFTW is installed ]),
     [  ac_fftw_includes="$withval"/include
        ac_fftw_libraries="$withval"/lib
