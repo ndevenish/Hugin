@@ -530,8 +530,10 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
     const UIntSet & sel = images_list->GetSelected();
     if (sel.size() == 1) {
         unsigned int imgNr = *(sel.begin());
-        const Lens & lens = pano.getLens(pano.getImage(imgNr).getLensNr());
+        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
+        const Lens & lens = pano.getLens(lensNr);
         const VariableMap & vars = pano.getImageVariables(imgNr);
+        // get the variable map
         wxString fname;
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
@@ -542,18 +544,32 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
             wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
-            wxFileConfig cfg("hugin lens file","",fname);
-            cfg.Write("Lens/type", (long) lens.projectionFormat);
-            cfg.Write("Lens/hfov", const_map_get(vars,"v").getValue());
-            cfg.Write("Lens/crop", lens.getFLFactor());
-            cfg.Write("Lens/a", const_map_get(vars,"a").getValue());
-            cfg.Write("Lens/b", const_map_get(vars,"b").getValue());
-            cfg.Write("Lens/c", const_map_get(vars,"c").getValue());
-            cfg.Write("Lens/d", const_map_get(vars,"d").getValue());
-            cfg.Write("Lens/e", const_map_get(vars,"e").getValue());
-            cfg.Write("Lens/t", const_map_get(vars,"t").getValue());
-            cfg.Write("Lens/g", const_map_get(vars,"g").getValue());
-            cfg.Flush();
+            // set numeric locale to C, for correct number output
+            char * old_locale = setlocale(LC_NUMERIC,NULL);
+            setlocale(LC_NUMERIC,"C");
+            {            
+                wxFileConfig cfg("hugin lens file","",fname);
+                cfg.Write("Lens/type", (long) lens.projectionFormat);
+                cfg.Write("Lens/hfov", const_map_get(vars,"v").getValue());
+                cfg.Write("Lens/crop", lens.getFLFactor());
+                cfg.Write("Lens/a", const_map_get(vars,"a").getValue());
+                cfg.Write("Lens/a_link", const_map_get(lens.variables,"a").isLinked() ? 1:0);
+                cfg.Write("Lens/b", const_map_get(vars,"b").getValue());
+                cfg.Write("Lens/b_link", const_map_get(lens.variables,"b").isLinked() ? 1:0);
+                cfg.Write("Lens/c", const_map_get(vars,"c").getValue());
+                cfg.Write("Lens/c_link", const_map_get(lens.variables,"c").isLinked() ? 1:0);
+                cfg.Write("Lens/d", const_map_get(vars,"d").getValue());
+                cfg.Write("Lens/d_link", const_map_get(lens.variables,"d").isLinked() ? 1:0);
+                cfg.Write("Lens/e", const_map_get(vars,"e").getValue());
+                cfg.Write("Lens/e_link", const_map_get(lens.variables,"e").isLinked() ? 1:0);
+                cfg.Write("Lens/t", const_map_get(vars,"t").getValue());
+                cfg.Write("Lens/t_link", const_map_get(lens.variables,"t").isLinked() ? 1:0);
+                cfg.Write("Lens/g", const_map_get(vars,"g").getValue());
+                cfg.Write("Lens/g_link", const_map_get(lens.variables,"g").isLinked() ? 1:0);
+                cfg.Flush();
+            }
+            // reset locale
+            setlocale(LC_NUMERIC,old_locale);
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -579,21 +595,43 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
             wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
-            wxFileConfig cfg("hugin lens file","",fname);
-            int integer=0;
-            double d;
-            cfg.Read("Lens/type", &integer);
-            lens.projectionFormat = (Lens::LensProjectionFormat) integer;
-            cfg.Read("Lens/hfov", &d);map_get(vars,"v").setValue(d);
-            cfg.Read("Lens/crop", &d);lens.setFLFactor(d);
-            cfg.Read("Lens/a", &d);map_get(vars,"a").setValue(d);
-            cfg.Read("Lens/b", &d);map_get(vars,"b").setValue(d);
-            cfg.Read("Lens/c", &d);map_get(vars,"c").setValue(d);
-            cfg.Read("Lens/d", &d);map_get(vars,"d").setValue(d);
-            cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
-            cfg.Read("Lens/t", &d);map_get(vars,"t").setValue(d);
-            cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
-
+            // read with with standart C numeric format
+            char * old_locale = setlocale(LC_NUMERIC,NULL);
+            setlocale(LC_NUMERIC,"C");
+            {            
+                wxFileConfig cfg("hugin lens file","",fname);
+                int integer=0;
+                double d;
+                cfg.Read("Lens/type", &integer);
+                lens.projectionFormat = (Lens::LensProjectionFormat) integer;
+                cfg.Read("Lens/hfov", &d);map_get(vars,"v").setValue(d);
+                cfg.Read("Lens/crop", &d);lens.setFLFactor(d);
+                cfg.Read("Lens/a", &d);map_get(vars,"a").setValue(d);
+                cfg.Read("Lens/b", &d);map_get(vars,"b").setValue(d);
+                cfg.Read("Lens/c", &d);map_get(vars,"c").setValue(d);
+                cfg.Read("Lens/d", &d);map_get(vars,"d").setValue(d);
+                cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
+                cfg.Read("Lens/t", &d);map_get(vars,"t").setValue(d);
+                cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
+                
+                cfg.Read("Lens/a_link", &integer);
+                map_get(lens.variables, "a").setLinked(integer);
+                cfg.Read("Lens/b_link", &integer);
+                map_get(lens.variables, "b").setLinked(integer);
+                cfg.Read("Lens/c_link", &integer);                
+                map_get(lens.variables, "c").setLinked(integer);
+                cfg.Read("Lens/d_link", &integer);                
+                map_get(lens.variables, "d").setLinked(integer);
+                cfg.Read("Lens/e_link", &integer);                
+                map_get(lens.variables, "e").setLinked(integer);
+                cfg.Read("Lens/t_link", &integer);
+                map_get(lens.variables, "t").setLinked(integer);
+                cfg.Read("Lens/g_link", &integer);
+                map_get(lens.variables, "g").setLinked(integer);
+            }
+            // reset locale
+            setlocale(LC_NUMERIC,old_locale);
+            
             GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(pano, lensNr, lens)
                 );
