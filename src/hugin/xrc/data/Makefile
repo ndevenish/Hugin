@@ -101,7 +101,7 @@ APP_LFLAGS =   $(LFLAGS)
 APP_1_BIN = hugin
 APP_1_OBJ =
 # for XRC data files, icons, images etc.
-APP_1_XRC_DATA = *.htm *.xpm *.png
+APP_1_XRC_DATA = *.htm *.xpm *.png *.html
 
 # App 2
 
