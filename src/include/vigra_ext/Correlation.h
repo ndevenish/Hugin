@@ -56,6 +56,142 @@ struct CorrelationResult
     double maxAngle;
 };
 
+/** correlate a template with an image.
+ *
+ *  This tries to be faster than the other version, because
+ *  it uses the image data directly.
+ *
+ *  most code is taken from vigra::convoluteImage.
+ *  See its documentation for further information.
+ *
+ *  Correlation result already contains the maximum position
+ *  and its correlation value.
+ *  it should be possible to set a threshold here.
+ */
+template <class SrcImage, class DestImage, class KernelImage>
+CorrelationResult correlateImageFast(SrcImage & src,
+                                     DestImage & dest,
+                                     KernelImage & kernel,
+                                     vigra::Diff2D kul, vigra::Diff2D klr,
+                                     double threshold = 0.7 )
+{
+    vigra_precondition(kul.x <= 0 && kul.y <= 0,
+                 "convolveImage(): coordinates of "
+                 "kernel's upper left must be <= 0.");
+    vigra_precondition(klr.x >= 0 && klr.y >= 0,
+                 "convolveImage(): coordinates of "
+                 "kernel's lower right must be >= 0.");
+
+    // use traits to determine SumType as to prevent possible overflow
+    typedef typename
+        vigra::NumericTraits<typename SrcImage::value_type>::RealPromote SumType;
+    typedef typename
+        vigra::NumericTraits<typename KernelImage::value_type>::RealPromote KSumType;
+    typedef
+        vigra::NumericTraits<typename DestImage::value_type> DestTraits;
+
+    // calculate width and height of the image
+    int w = src.width();
+    int h = src.height();
+    int wk = kernel.width();
+    int hk = kernel.height();
+
+//    DEBUG_DEBUG("correlate Image srcSize " << (slr - sul).x << "," << (slr - sul).y
+//                << " tmpl size: " << wk << "," << hk);
+
+    vigra_precondition(w >= wk && h >= hk,
+                 "convolveImage(): kernel larger than image.");
+
+//    int x,y;
+    int ystart = -kul.y;
+    int yend   = h-klr.y;
+    int xstart = -kul.x;
+    int xend   = w-klr.x;
+
+    // mean of kernel
+    KSumType kmean=0;
+    for(int y=0; y < hk; y++) {
+        for(int x=0; x < wk; x++) {
+            kmean += kernel(x,y);
+        }
+    }
+    kmean = kmean / (hk*wk);
+
+    CorrelationResult res;
+
+    // create y iterators, they iterate over the rows.
+//    DestIterator yd = dul + vigra::Diff2D(xstart, ystart);
+//    SrcIterator ys = sul + vigra::Diff2D(xstart, ystart);
+
+
+//    DEBUG_DEBUG("size: " << w << "," <<  h << " ystart: " << ystart <<", yend: " << yend);
+    for(int yr=ystart; yr < yend; ++yr)
+    {
+        // create x iterators, they iterate the coorelation over
+        // the columns
+//        DestIterator xd(yd);
+//        SrcIterator xs(ys);
+
+        for(int xr=xstart; xr < xend; ++xr)
+        {
+            if (dest(xr,yr) < threshold) {
+                continue;
+            }
+//            int x0, y0, x1, y1;
+
+//            y0 = kul.y;
+//            y1 = klr.y;
+//            x0 = kul.x;
+//            x1 = klr.x;;
+
+            // init the sum
+            SumType numerator = 0;
+            SumType div1 = 0;
+            SumType div2 = 0;
+            SumType spixel = 0;
+            KSumType kpixel = 0;
+
+            // create inner y iterators
+            // access to the source image
+//            SrcIterator yys = xs + kul;
+            // access to the kernel image
+//            KernelIterator yk  = ki + kul;
+
+            // mean of image patch
+            KSumType mean=0;
+            for(int ym=yr+kul.y; ym <= yr+klr.y; ym++) {
+                for(int xm=xr+kul.x; xm <= xr+klr.x; xm++) {
+                    mean += src(xm,ym);
+                }
+            }
+            mean = mean / (hk*wk);
+
+            // perform correlation (inner loop)
+            int ym=yr+kul.y;
+            int yk;
+            for(yk=0; yk < hk; yk++, ym++) {
+                int xm=xr+kul.x;
+                int xk;
+                for(xk=0; xk < wk; xk++, xm++) {
+                    spixel = src(xm,ym) - mean;
+                    kpixel = kernel(xk,yk) - kmean;
+                    numerator += kpixel * spixel;
+                    div1 += kpixel * kpixel;
+                    div2 += spixel * spixel;
+                }
+            }
+            numerator = (numerator/sqrt(div1 * div2));
+            if (numerator > res.maxi) {
+                res.maxi = numerator;
+                res.maxpos.x = xr;
+                res.maxpos.y = yr;
+            }
+            dest(xr,yr) = DestTraits::fromRealPromote(numerator);
+        }
+    }
+    return res;
+}
+
 /** find the subpixel maxima by fitting
  *  2nd order polynoms to x and y.
  *
@@ -616,142 +752,6 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
     return res;
 }
 
-
-/** correlate a template with an image.
- *
- *  This tries to be faster than the other version, because
- *  it uses the image data directly.
- *
- *  most code is taken from vigra::convoluteImage.
- *  See its documentation for further information.
- *
- *  Correlation result already contains the maximum position
- *  and its correlation value.
- *  it should be possible to set a threshold here.
- */
-template <class SrcImage, class DestImage, class KernelImage>
-CorrelationResult correlateImageFast(SrcImage & src,
-                                     DestImage & dest,
-                                     KernelImage & kernel,
-                                     vigra::Diff2D kul, vigra::Diff2D klr,
-                                     double threshold = 0.7 )
-{
-    vigra_precondition(kul.x <= 0 && kul.y <= 0,
-                 "convolveImage(): coordinates of "
-                 "kernel's upper left must be <= 0.");
-    vigra_precondition(klr.x >= 0 && klr.y >= 0,
-                 "convolveImage(): coordinates of "
-                 "kernel's lower right must be >= 0.");
-
-    // use traits to determine SumType as to prevent possible overflow
-    typedef typename
-        vigra::NumericTraits<typename SrcImage::value_type>::RealPromote SumType;
-    typedef typename
-        vigra::NumericTraits<typename KernelImage::value_type>::RealPromote KSumType;
-    typedef
-        vigra::NumericTraits<typename DestImage::value_type> DestTraits;
-
-    // calculate width and height of the image
-    int w = src.width();
-    int h = src.height();
-    int wk = kernel.width();
-    int hk = kernel.height();
-
-//    DEBUG_DEBUG("correlate Image srcSize " << (slr - sul).x << "," << (slr - sul).y
-//                << " tmpl size: " << wk << "," << hk);
-
-    vigra_precondition(w >= wk && h >= hk,
-                 "convolveImage(): kernel larger than image.");
-
-//    int x,y;
-    int ystart = -kul.y;
-    int yend   = h-klr.y;
-    int xstart = -kul.x;
-    int xend   = w-klr.x;
-
-    // mean of kernel
-    KSumType kmean=0;
-    for(int y=0; y < hk; y++) {
-        for(int x=0; x < wk; x++) {
-            kmean += kernel(x,y);
-        }
-    }
-    kmean = kmean / (hk*wk);
-
-    CorrelationResult res;
-
-    // create y iterators, they iterate over the rows.
-//    DestIterator yd = dul + vigra::Diff2D(xstart, ystart);
-//    SrcIterator ys = sul + vigra::Diff2D(xstart, ystart);
-
-
-//    DEBUG_DEBUG("size: " << w << "," <<  h << " ystart: " << ystart <<", yend: " << yend);
-    for(int yr=ystart; yr < yend; ++yr)
-    {
-        // create x iterators, they iterate the coorelation over
-        // the columns
-//        DestIterator xd(yd);
-//        SrcIterator xs(ys);
-
-        for(int xr=xstart; xr < xend; ++xr)
-        {
-            if (dest(xr,yr) < threshold) {
-                continue;
-            }
-//            int x0, y0, x1, y1;
-
-//            y0 = kul.y;
-//            y1 = klr.y;
-//            x0 = kul.x;
-//            x1 = klr.x;;
-
-            // init the sum
-            SumType numerator = 0;
-            SumType div1 = 0;
-            SumType div2 = 0;
-            SumType spixel = 0;
-            KSumType kpixel = 0;
-
-            // create inner y iterators
-            // access to the source image
-//            SrcIterator yys = xs + kul;
-            // access to the kernel image
-//            KernelIterator yk  = ki + kul;
-
-            // mean of image patch
-            KSumType mean=0;
-            for(int ym=yr+kul.y; ym <= yr+klr.y; ym++) {
-                for(int xm=xr+kul.x; xm <= xr+klr.x; xm++) {
-                    mean += src(xm,ym);
-                }
-            }
-            mean = mean / (hk*wk);
-
-            // perform correlation (inner loop)
-            int ym=yr+kul.y;
-            int yk;
-            for(yk=0; yk < hk; yk++, ym++) {
-                int xm=xr+kul.x;
-                int xk;
-                for(xk=0; xk < wk; xk++, xm++) {
-                    spixel = src(xm,ym) - mean;
-                    kpixel = kernel(xk,yk) - kmean;
-                    numerator += kpixel * spixel;
-                    div1 += kpixel * kpixel;
-                    div2 += spixel * spixel;
-                }
-            }
-            numerator = (numerator/sqrt(div1 * div2));
-            if (numerator > res.maxi) {
-                res.maxi = numerator;
-                res.maxpos.x = xr;
-                res.maxpos.y = yr;
-            }
-            dest(xr,yr) = DestTraits::fromRealPromote(numerator);
-        }
-    }
-    return res;
-}
 
 
 #if 0
