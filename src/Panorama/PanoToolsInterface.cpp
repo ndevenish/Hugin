@@ -41,6 +41,81 @@ using namespace vigra;
 // really strange. the pano12.dll for windows doesn't seem to
 // contain the SetCorrectionRadius function, so it is included here
 
+static void cubeZero_copy( double *a, int *n, double *root );
+static void squareZero_copy( double *a, int *n, double *root );
+static double cubeRoot_copy( double x );
+
+
+static void cubeZero_copy( double *a, int *n, double *root ){
+	if( a[3] == 0.0 ){ // second order polynomial
+		squareZero_copy( a, n, root );
+	}else{
+		double p = ((-1.0/3.0) * (a[2]/a[3]) * (a[2]/a[3]) + a[1]/a[3]) / 3.0;
+		double q = ((2.0/27.0) * (a[2]/a[3]) * (a[2]/a[3]) * (a[2]/a[3]) - (1.0/3.0) * (a[2]/a[3]) * (a[1]/a[3]) + a[0]/a[3]) / 2.0;
+		
+		if( q*q + p*p*p >= 0.0 ){
+			*n = 1;
+			root[0] = cubeRoot_copy(-q + sqrt(q*q + p*p*p)) + cubeRoot_copy(-q - sqrt(q*q + p*p*p)) - a[2] / (3.0 * a[3]); 
+		}else{
+			double phi = acos( -q / sqrt(-p*p*p) );
+			*n = 3;
+			root[0] =  2.0 * sqrt(-p) * cos(phi/3.0) - a[2] / (3.0 * a[3]); 
+			root[1] = -2.0 * sqrt(-p) * cos(phi/3.0 + PI/3.0) - a[2] / (3.0 * a[3]); 
+			root[2] = -2.0 * sqrt(-p) * cos(phi/3.0 - PI/3.0) - a[2] / (3.0 * a[3]); 
+		}
+	}
+	// PrintError("%lg, %lg, %lg, %lg root = %lg", a[3], a[2], a[1], a[0], root[0]);
+}
+
+static void squareZero_copy( double *a, int *n, double *root ){
+	if( a[2] == 0.0 ){ // linear equation
+		if( a[1] == 0.0 ){ // constant
+			if( a[0] == 0.0 ){
+				*n = 1; root[0] = 0.0;
+			}else{
+				*n = 0;
+			}
+		}else{
+			*n = 1; root[0] = - a[0] / a[1];
+		}
+	}else{
+		if( 4.0 * a[2] * a[0] > a[1] * a[1] ){
+			*n = 0; 
+		}else{
+			*n = 2;
+			root[0] = (- a[1] + sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+			root[1] = (- a[1] - sqrt( a[1] * a[1] - 4.0 * a[2] * a[0] )) / (2.0 * a[2]);
+		}
+	}
+
+}
+
+static double cubeRoot_copy( double x ){
+	if( x == 0.0 )
+		return 0.0;
+	else if( x > 0.0 )
+		return pow(x, 1.0/3.0);
+	else
+		return - pow(-x, 1.0/3.0);
+}
+
+static double smallestRoot_copy( double *p ){
+	int n,i;
+	double root[3], sroot = 1000.0;
+	
+	cubeZero_copy( p, &n, root );
+	
+	for( i=0; i<n; i++){
+		// PrintError("Root %d = %lg", i,root[i]);
+		if(root[i] > 0.0 && root[i] < sroot)
+			sroot = root[i];
+	}
+	
+	// PrintError("Smallest Root  = %lg", sroot);
+	return sroot;
+}
+
+
 // Restrict radial correction to monotonous interval
 static void SetCorrectionRadius_copy( cPrefs *cP )
 {
@@ -57,7 +132,7 @@ static void SetCorrectionRadius_copy( cPrefs *cP )
                 a[k] = (k+1) * cP->radial_params[i][k];
             }
         }
-        cP->radial_params[i][4] = smallestRoot( a );
+        cP->radial_params[i][4] = smallestRoot_copy( a );
     }
 }
 
