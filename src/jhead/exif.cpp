@@ -34,6 +34,7 @@ static double FocalplaneXRes;
 static double FocalplaneYRes;
 static double FocalplaneUnits;
 static int ExifImageWidth;
+static int ExifImageLength;
 static int MotorolaOrder = 0;
 
 // for fixing the rotation.
@@ -588,17 +589,21 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
                 break;
 
             case TAG_EXIF_IMAGELENGTH:
+                ExifImageLength = (int)ConvertAnyFormat(ValuePtr, Format);
+                break;
+
             case TAG_EXIF_IMAGEWIDTH:
+              // Pablo: disabled this hack. I want to know the real size.
                 // Use largest of height and width to deal with images that have been
                 // rotated to portrait format.
-                a = (int)ConvertAnyFormat(ValuePtr, Format);
-                if (ExifImageWidth < a) ExifImageWidth = a;
+
+                ExifImageWidth = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_FOCALPLANEXRES:
                 FocalplaneXRes = ConvertAnyFormat(ValuePtr, Format);
                 break;
-                
+
             case TAG_FOCALPLANEYRES:
                 FocalplaneYRes = ConvertAnyFormat(ValuePtr, Format);
                 break;
@@ -724,6 +729,7 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
     FocalplaneYRes = 0;
     FocalplaneUnits = 0;
     ExifImageWidth = 0;
+    ExifImageLength = 0;
     OrientationPtr = NULL;
 
 
@@ -771,13 +777,20 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ImageInfo, ExifSection+8+FirstOffset, ExifSection+8, length-6, 0);
 
+    // 2003 Pablo d'Angelo. fixed to work with rotated pictures as well.
+    double sensorPixelWidth = ExifImageWidth;
+    double sensorPixelHeight = ExifImageLength;
+    if (ExifImageWidth < ExifImageLength) {
+        sensorPixelHeight = ExifImageWidth;
+        sensorPixelWidth = ExifImageLength;
+    }
     // Compute the CCD width, in milimeters.
     if (FocalplaneXRes != 0){
-        ImageInfo.CCDWidth = (float)(ExifImageWidth * FocalplaneUnits / FocalplaneXRes);
+        ImageInfo.CCDWidth = (float)(sensorPixelWidth * FocalplaneUnits / FocalplaneXRes);
     }
     // Compute the CCD height, in milimeters.
     if (FocalplaneYRes != 0){
-        ImageInfo.CCDHeight = (float)(ExifImageWidth * FocalplaneUnits / FocalplaneXRes);
+        ImageInfo.CCDHeight = (float)(sensorPixelHeight * FocalplaneUnits / FocalplaneYRes);
     }
 
     if (ImageInfo.ShowTags){
