@@ -33,6 +33,7 @@
                                 <item>Cylindrical</item>
                                 <item>Equirectangular</item>
                               </content>
+                              <selection>2</selection>
                             </object>
                             <minsize>110,31</minsize>
                           </object>
@@ -165,7 +166,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxComboBox" name="pano_val_previewWidth">
-                                  <value>600</value>
+                                  <selection>3</selection>
                                   <style></style>
                                   <content>
                                     <item>120</item>
@@ -252,15 +253,15 @@
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Width</label>
+                                  <label>Height</label>
                                   <style>wxALIGN_LEFT</style>
                                 </object>
                                 <flag>wxALL|wxALIGN_CENTRE</flag>
                                 <minsize>120,15</minsize>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxComboBox" name="pano_val_width">
-                                  <value>2400</value>
+                                <object class="wxComboBox" name="pano_val_height">
+                                  <value>1200</value>
                                   <style></style>
                                   <content>
                                     <item>120</item>
@@ -268,7 +269,7 @@
                                     <item>450</item>
                                     <item>600</item>
                                     <item>1000</item>
-                                    <item>1240</item>
+                                    <item>1200</item>
                                     <item>1400</item>
                                     <item>1500</item>
                                     <item>2000</item>
@@ -289,15 +290,15 @@
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Height</label>
+                                  <label>Width</label>
                                   <style>wxALIGN_LEFT</style>
                                 </object>
                                 <flag>wxALL|wxALIGN_CENTRE</flag>
                                 <minsize>120,15</minsize>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxComboBox" name="pano_val_height">
-                                  <value>1200</value>
+                                <object class="wxComboBox" name="pano_val_width">
+                                  <value>2400</value>
                                   <style></style>
                                   <content>
                                     <item>240</item>
@@ -334,7 +335,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxComboBox" name="pano_val_jpegQuality">
-                                  <value>82</value>
+                                  <selection>8</selection>
                                   <style></style>
                                   <content>
                                     <item>20</item>
