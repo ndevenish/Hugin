@@ -9,7 +9,6 @@
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>Stitch the images</label>
-              <enabled>0</enabled>
             </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>5</border>
@@ -17,10 +16,10 @@
           <object class="sizeritem">
             <object class="wxChoice" name="stitch_quick_mode">
               <content>
-                <item>as a draft-quality JPEG file</item>
-                <item>as a high-quality JPEG file</item>
-                <item>as multiple masked TIFF files</item>
-                <item>as a layered Photoshop file</item>
+                <item>into a draft-quality JPEG file</item>
+                <item>into a high-quality JPEG file</item>
+                <item>into multiple masked TIFF files</item>
+                <item>into a layered Photoshop file</item>
                 <item>with Custom settings below</item>
               </content>
               <enabled>0</enabled>
@@ -30,8 +29,27 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
+            <object class="wxChoice" name="pano_choice_pano_type">
+              <content>
+                <item>as a Rectilinear</item>
+                <item>as a Cylindrical</item>
+                <item>as an Equirectangular</item>
+              </content>
+              <selection>2</selection>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>panorama.</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
             <object class="wxButton" name="pano_button_stitch">
-              <label>Now!</label>
+              <label>Stitch now!</label>
               <tooltip>execute the PTStitcher engine</tooltip>
             </object>
             <option>0</option>
@@ -41,6 +59,9 @@
         </object>
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
+      </object>
+      <object class="spacer">
+        <size>0,20</size>
       </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
@@ -306,44 +327,11 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="pano_edit_script">
-                  <label>edit script before stitching</label>
-                  <tooltip>for advanced users</tooltip>
-                </object>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticLine">
-                  <style>wxLI_VERTICAL</style>
-                </object>
-                <flag>wxALL|wxEXPAND</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>projection for stitching (f):</label>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="pano_choice_pano_type">
-                  <content>
-                    <item>Rectilinear</item>
-                    <item>Cylindrical</item>
-                    <item>Equirectangular</item>
-                  </content>
-                  <selection>2</selection>
-                </object>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
+            <object class="wxCheckBox" name="pano_edit_script">
+              <label>edit script before stitching</label>
+              <tooltip>for advanced users</tooltip>
             </object>
-            <flag>wxALIGN_RIGHT</flag>
+            <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
           </object>
         </object>
         <option>1</option>

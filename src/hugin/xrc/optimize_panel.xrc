@@ -32,8 +32,27 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
+            <object class="wxChoice" name="optimizer_projection_choice">
+              <content>
+                <item>with a Rectilinear</item>
+                <item>with a Cylindrical</item>
+                <item>with an Equirectangular</item>
+              </content>
+              <selection>3</selection>
+            </object>
+            <flag>wxALL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>projection.</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
             <object class="wxButton" name="optimize_frame_optimize">
-              <label>Now!</label>
+              <label>Optimize now!</label>
               <tooltip>execute the PTOptimizer engine</tooltip>
             </object>
             <option>0</option>
@@ -44,10 +63,21 @@
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>
+      <object class="spacer">
+        <size>0,20</size>
+      </object>
       <object class="sizeritem">
         <object class="wxStaticBoxSizer">
           <label>Custom Optimization Variables</label>
           <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Any variables below which are marked [x] will be optimized.
+Variables which are cleared [ ] will act as references or anchors.</label>
+            </object>
+            <flag>wxALL</flag>
+            <border>8</border>
+          </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
               <object class="sizeritem">
@@ -166,7 +196,7 @@
             </object>
             <option>3</option>
             <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
+            <border>8</border>
           </object>
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
@@ -283,47 +313,14 @@
             </object>
             <option>1</option>
             <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
+            <border>8</border>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="optimizer_edit_script">
-                  <label>edit script before optimizing</label>
-                  <tooltip>for advanced users</tooltip>
-                </object>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticLine">
-                  <style>wxLI_VERTICAL</style>
-                </object>
-                <flag>wxALL|wxEXPAND</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>projection for optimization:</label>
-                </object>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxChoice" name="optimizer_projection_choice">
-                  <content>
-                    <item>Rectilinear</item>
-                    <item>Cylindrical</item>
-                    <item>Equirectangular</item>
-                  </content>
-                  <selection>3</selection>
-                </object>
-                <flag>wxALL</flag>
-                <border>5</border>
-              </object>
+            <object class="wxCheckBox" name="optimizer_edit_script">
+              <label>edit script before optimizing</label>
+              <tooltip>for advanced users</tooltip>
             </object>
-            <flag>wxALIGN_RIGHT</flag>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
           </object>
         </object>
         <option>1</option>
