@@ -30,6 +30,8 @@
 #include "wx/listctrl.h"
 
 #include "PT/Panorama.h"
+#include "hugin/MainFrame.h"
+
 using namespace PT;
 
 /** kind of list.
@@ -49,7 +51,7 @@ enum {
  * 
  *  @todo   make the listcontents editable -> wxListCtrl->wxGrid?
  */
-class List: public wxListCtrl, public PT::PanoramaObserver
+class List: public wxListCtrl, public PT::PanoramaObserver//, public MainPanel
 {
  public:
     List( wxWindow * win, Panorama * pano , int list_layout);
@@ -62,13 +64,20 @@ class List: public wxListCtrl, public PT::PanoramaObserver
      */
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
+    /** says wich item in single selection List(lens) is selected
+     */
+    int GetSelectedImage(void)
+        {
+            return selectedItem;
+        };
+
  private:
     // event handlers
     // @todo   remove
     void OnAddItem(wxCommandEvent & e);
     void OnRemoveItem(wxCommandEvent & e);
+    void itemSelected ( wxListEvent & e );
     // Here we select the preview image
-//    void Change ( wxListEvent & e );
     void Change ( wxMouseEvent & e );
 
     // the model
@@ -79,6 +88,9 @@ class List: public wxListCtrl, public PT::PanoramaObserver
      *  What shall the object beheave like?
      */
     int list_layout;
+
+    // wich item is selected?
+    int selectedItem;
 
     DECLARE_EVENT_TABLE()
 };

@@ -65,9 +65,10 @@ extern ImgPreview *canvas;
 
 BEGIN_EVENT_TABLE(List, wxListCtrl)
 //    EVT_PAINT(ImagesPanel::OnDraw)
-//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
+    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
 //    EVT_MOUSE_EVENTS ( List::Change )
     EVT_MOTION ( List::Change )
+    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::itemSelected )
 //    EVT_LEFT_DOWN ( List::Change )
 END_EVENT_TABLE()
 
@@ -183,9 +184,21 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     DEBUG_TRACE("");
 }
 
+void List::itemSelected ( wxListEvent & e )
+{
+    if ( list_layout == images_layout ) {
+        DEBUG_TRACE ("images_layout")
+    } else {
+        DEBUG_TRACE ("no images_layout")
+        selectedItem = e.GetIndex();
+//        lens_panel->Update();
+    }
+    // let others recieve the event too
+    e.Skip();
+}
 /*void List::Change ( wxListEvent & e )
 {
-    DEBUG_TRACE ("")
+DEBUG_TRACE ("")
     long item (1);
 //    wxPoint pos = e.GetPosition();
 //    long item = HitTest( e.m_x ,e.m_y );

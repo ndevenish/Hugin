@@ -36,6 +36,7 @@ using namespace PT;
 
 // forward declarations, to save the #include statements
 class CPEditorPanel;
+class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 
@@ -96,6 +97,7 @@ private:
 
 
     ImagesPanel * images_panel;
+    LensPanel* lens_panel;
     CPEditorPanel * cpe;
 
     // the model

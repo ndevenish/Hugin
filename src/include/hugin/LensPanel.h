@@ -75,8 +75,15 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
  private:
     // event handlers
-    void OnAddLens(wxCommandEvent & e);
-    void OnRemoveLens(wxCommandEvent & e);
+//    void itemSelected (wxListEvent & e);
+    void LensTypeChanged (wxCommandEvent & e);
+    void HFOVChanged(wxCommandEvent & e);
+    void focalLengthChanged(wxCommandEvent & e);
+    void aChanged(wxCommandEvent & e);
+    void bChanged(wxCommandEvent & e);
+    void cChanged(wxCommandEvent & e);
+    void dChanged(wxCommandEvent & e);
+    void eChanged(wxCommandEvent & e);
     // Here we select the preview image
     void ChangePreview ( wxListEvent & e );
 
@@ -86,8 +93,13 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     // pointer to the list control
     List* images_list2;
 
+    // the enum_ProjectionFormat ComboBox
+    wxComboBox * cb;
+
     DECLARE_EVENT_TABLE()
 };
 
+// some ID's
+//#define ID_images_list2  200
 
 #endif // _LENSPANEL_H

@@ -63,8 +63,17 @@ ImgPreview * lens_canvas;
 
 //------------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(LensPanel, LensPanel)
+BEGIN_EVENT_TABLE(LensPanel, wxEvtHandler)
+//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::itemSelected )
     EVT_LEFT_DOWN ( LensPanel::ChangePreview )
+    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensPanel::LensTypeChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensPanel::HFOVChanged )
+    EVT_TEXT_ENTER ( XRCID("lensval_focalLength"),LensPanel::focalLengthChanged)
+    EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensPanel::aChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensPanel::bChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::cChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::dChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )
 END_EVENT_TABLE()
 
 
@@ -83,6 +92,10 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
                wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
 
     images_list2->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
+
+    // connects the ProjectionFormat/PanoramaMemento.h ComboBox
+//    wxXmlResource::Get()->LoadObject (cb, parent, wxT("lens_type_combobox"), wxT("wxComboBox") );
+    cb = XRCCTRL( *parent, "lens_type_combobox", wxComboBox );
 
     p_img = new wxBitmap( 0, 0 );
     DEBUG_TRACE("");;
@@ -108,6 +121,49 @@ void LensPanel::ChangePreview ( wxListEvent & e )
     DEBUG_TRACE ("")
     long item (1);
     DEBUG_INFO ( "hier: is item %ld" << wxString::Format("%ld", item) );
+}
+
+void LensPanel::LensTypeChanged ( wxCommandEvent & e )
+{
+    // uses enum ProjectionFormat from PanoramaMemento.h
+    cb->GetSelection();
+    int image = images_list2->GetSelectedImage();
+    DEBUG_INFO ( wxString::Format ("%d",image) )
+}
+
+void LensPanel::HFOVChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::focalLengthChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::aChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::bChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::cChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::dChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
+}
+
+void LensPanel::eChanged ( wxCommandEvent & e )
+{
+    DEBUG_TRACE ("")
 }
 
 

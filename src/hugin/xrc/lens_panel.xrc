@@ -15,7 +15,7 @@
         <object class="unknown" name="lens_list_unknown"/>
         <flag>wxALL|wxEXPAND|wxGROW</flag>
         <border>5</border>
-        <minsize>200,100</minsize>
+        <minsize>150,100</minsize>
       </object>
     </object>
   </object>

@@ -109,7 +109,7 @@ MainFrame::MainFrame(wxWindow* parent)
                wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel")) );
 
     // the lens_panel
-    LensPanel* lens_panel = new LensPanel( this, wxDefaultPosition,
+    lens_panel = new LensPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
 
     // create the custom widget referenced by the main_frame XRC
