@@ -47,6 +47,7 @@ class CPEvent;
 class wxTabView;
 class wxNotebook;
 class wxNotebookEvent;
+class wxListEvent;
 class wxListCtrl;
 class TextKillFocusHandler;
 
