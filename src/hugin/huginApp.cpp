@@ -170,7 +170,11 @@ bool huginApp::OnInit()
 #else
     DEBUG_DEBUG("on unix or mac");
     if (m_workDir == "") {
-        m_workDir = "/tmp";
+        // try to read environment variable
+        if (!wxGetEnv("TMPDIR", &m_workDir)) {
+            // still no tempdir, use /tmp
+            m_workDir = "/tmp";
+        }
     }
 #endif
 
@@ -181,7 +185,6 @@ bool huginApp::OnInit()
             DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
         }
     }
-    config->Write("tempDir",m_workDir);
     if (!wxSetWorkingDirectory(m_workDir)) {
         DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
     }
