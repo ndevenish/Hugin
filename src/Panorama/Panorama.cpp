@@ -625,7 +625,8 @@ void Panorama::printOptimizerScript(ostream & o,
             }
         }
 
-        o << " u" << (*it).getOptions().featherWidth
+//        o << " u" << (*it).getOptions().featherWidth
+        o << " u" << output.featherWidth
           << ((*it).getOptions().morph ? " o" : "");
         string fname = (*it).getFilename();
         if (stripPrefix.size() > 0) {
