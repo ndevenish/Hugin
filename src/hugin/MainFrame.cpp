@@ -292,6 +292,8 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       dlg->GetPaths(Pathnames);
       sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
 
+      // remember the added images;
+      int added ( pano.getNrOfImages() );
       // start the loop for every selected filename
       for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
         // fill in the table
@@ -325,8 +327,13 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
         // tell pano about the new image
         pano.addImage( Pathnames[i].c_str() );
         sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
+        added++;
+        DEBUG_INFO(__FUNCTION__)
       }
       SetStatusText( e_stat, 0);
+
+      // update CP panel
+      cpe->ImagesAdded(pano, added);
 
       // d There we are now?
       wxString str;
@@ -352,13 +359,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     DEBUG_INFO(__FUNCTION__)
     // get the list to write to
     wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
-    for ( int Nr = 1 ; Nr <= (int)pano.getNrOfImages() ; Nr++ ) {
-        // update the table
-        DEBUG_INFO(__FUNCTION__)
-        char Nr_c[8] ;
-        sprintf(Nr_c ,"%d", Nr );
-        lst->SetItem ( Nr, 0, Nr_c );
-    }
+
     // prepare an status message
     wxString e_msg;
     int sel_I = lst->GetSelectedItemCount();
@@ -367,19 +368,37 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     else
       e_msg = _("Remove images:   ");
 
+    // storing the erased image numbers
+    int removed[512]; 
+    removed[0] = 0;
+    int i (0);
     // for each selected item remove the entry from list and pano
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+        i++;
         e_msg += "  " + lst->GetItemText(Nr);
         pano.removeImage(Nr);
         lst->DeleteItem(Nr);
+        removed[i] = i;
+        removed[0]++;
+        DEBUG_INFO(__FUNCTION__ << " will remove " << wxString::Format("%d",i) << ". " << wxString::Format("%d",Nr) << "|" << wxString::Format("%d",removed[0]) )
       }
     }
 
     if ( sel_I == 0 )
       SetStatusText( _("Nothing selected"), 0);
-    else
+    else {
+      DEBUG_INFO(__FUNCTION__)
+      cpe->ImagesRemoved(pano, removed);
       SetStatusText( e_msg, 0);
+      for ( int Nr = 1 ; Nr <= (int)pano.getNrOfImages() ; Nr++ ) {
+        // update the list
+        char Nr_c[8] ;
+        sprintf(Nr_c ,"%d", Nr );
+        lst->SetItem ( Nr - 1, 0, Nr_c );
+        DEBUG_INFO(__FUNCTION__ << " SetItem " << wxString::Format("%d",Nr) << " to " << Nr_c)
+      }
+    }
     DEBUG_INFO(__FUNCTION__)
 }
 
@@ -404,9 +423,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 {   // Maybe this can be invoced by the Panorama::Changed() or 
     // something like this. So no everytime update would be needed. 
-        DEBUG_INFO(__FUNCTION__)
-    cpe->panoramaChanged(pano);
-        DEBUG_INFO(__FUNCTION__)
+    DEBUG_INFO(__FUNCTION__)
 }
 
 

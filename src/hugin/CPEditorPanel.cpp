@@ -43,6 +43,8 @@
 
 #include "wx/xrc/xmlres.h"              // XRC XML resouces
 #include "wx/notebook.h"
+#include "wx/tabctrl.h"
+#include "wx/tab.h"
 
 #include <algorithm>
 
@@ -108,9 +110,8 @@ wxImageLowerRight(wxImage & img)
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON( XRCID("button_wide"), CPEditorPanel::OnMyButtonClicked )
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
-    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange)
-    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange)
-
+    EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange )
+    EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -420,6 +421,7 @@ void CPEditorPanel::OnMyButtonClicked(wxCommandEvent &e)
 
 void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
 {
+    // Its the allways working method
     // update Tabs
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrTabs = m_leftTabs->GetPageCount();
@@ -428,7 +430,7 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
                 << " tabs:" << nrTabs);
     m_leftTabs->DeleteAllPages();
     m_rightTabs->DeleteAllPages();
-//    if (nrTabs < nrImages) { // insecure, better rebuild all
+    if (nrTabs < nrImages) { // insecure, better rebuild all
         for (unsigned int img = 0/*nrTabs*/; img <nrImages; ++img) {
             DEBUG_DEBUG("adding tab " << img);
             // ugly.. but needed since we have to add something
@@ -442,15 +444,79 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
         }
-/*    } else if (nrTabs > nrImages) {
+    } else if (nrTabs > nrImages) {
         for (unsigned int img = nrImages; img > nrTabs; img--) {
             m_leftTabs->DeletePage(img);
             m_rightTabs->DeletePage(img);
         }
+    }
+    // update the display
+    UpdateDisplay();
+}
+
+void CPEditorPanel::ImagesAdded(PT::Panorama &pano, int added)
+{
+    // This function is for adding only
+    // update Tabs
+    unsigned int nrImages = pano.getNrOfImages();
+    unsigned int nrTabs = m_leftTabs->GetPageCount();
+    // ugly.. but needed since we have to add something
+    // to wxNotebook to get the TabBar...
+    wxNotebook* t1= new wxNotebook(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+    wxNotebook* t2= new wxNotebook(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+    // update tab buttons
+    DEBUG_TRACE("panoramChanged() images:" << nrImages
+                << " tabs:" << nrTabs);
+    for (unsigned int img = nrTabs; img < nrImages; ++img) {
+        DEBUG_DEBUG("adding tab " << img);
+        if (!m_leftTabs->AddPage(t1, wxString::Format("%d",img + 1))) {
+            DEBUG_FATAL("could not add dummy window to left notebook");
+        }
+        if (!m_rightTabs->AddPage(t2, wxString::Format("%d",img + 1))){
+            DEBUG_FATAL("could not add dummy window to right notebook");
+        }
+    }
+/*    if ( t1->GetSelection() == -1 ) { // FIXME How to set CPE the first time - is never selected
+        DEBUG_INFO(__FUNCTION__ << " setImage " << wxString::Format("%d",t1->GetSelection()) << "/" )
+        wxImage * ptr = ImageCache::getInstance().getImage(
+          pano.getImage(0).getFilename());
+        m_leftImg->setImage(ptr);
+        m_rightImg->setImage(ptr);
+        setLeftImage(0);
+        setRightImage(0);
     }*/
     // update the display
     UpdateDisplay();
 }
+
+void CPEditorPanel::ImagesRemoved(PT::Panorama &pano, int removed[512])
+{
+    // update Tabs
+    unsigned int nrImages = pano.getNrOfImages();
+    unsigned int nrTabs = m_leftTabs->GetPageCount();
+    // update tab buttons
+    DEBUG_TRACE(__FUNCTION__ << " images:" << nrImages
+                << " tabs:" << nrTabs << " = " << removed[0]);
+    // remove erased tabs  in CPEditorPanel
+    if ( pano.getNrOfImages() <= 0 ) {
+       m_leftTabs->DeleteAllPages();
+       m_rightTabs->DeleteAllPages();
+    } else {
+      for ( int i = 1 ; i <= removed[0] ; i++ ) {
+        DEBUG_INFO(__FUNCTION__ << " removeTab " << wxString::Format("%d",removed[i]) << "/" << wxString::Format("%d",i) )
+        m_leftTabs->DeletePage(removed[i]);
+        m_rightTabs->DeletePage(removed[i]);
+      }
+      // renumbering the tabs in CPEditorPanel
+      for ( int i = 1 ; i <= (int)pano.getNrOfImages() ; i++ ) {
+        m_leftTabs->SetPageText( i, wxString::Format("%d",i + 1) );
+        m_rightTabs->SetPageText( i, wxString::Format("%d",i + 1) );
+      }
+    }
+    // update the display
+    UpdateDisplay();
+}
+
 
 void CPEditorPanel::UpdateDisplay()
 {

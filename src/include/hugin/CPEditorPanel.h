@@ -77,6 +77,8 @@ public:
      *  update our display
      */
     void panoramaChanged(PT::Panorama &pano);
+    void ImagesAdded(PT::Panorama &pano, int added);
+    void ImagesRemoved(PT::Panorama &pano, int removed[512]);
 
     /** Select a point.
      *
