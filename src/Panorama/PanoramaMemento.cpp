@@ -363,7 +363,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
     o << "p f" << projectionFormat << " w" << width << " h" << getHeight()
       << " v" << HFOV << " ";
-    
+
     switch (colorCorrection) {
     case NONE:
         break;
@@ -377,7 +377,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         o << " d" << colorReferenceImage;
         break;
     }
-    
+
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
@@ -437,7 +437,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             getParam(options.HFOV, line, "v");
             int height;
             getParam(height, line, "h");
-            options.VFOV = height / ( options.width * options.HFOV);
+            options.VFOV = options.HFOV * (double) height / options.width;
+            DEBUG_DEBUG("options.VFOV: " << options.VFOV << " ratio: " 
+                        << (double) height / options.width);
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
@@ -458,6 +460,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             }
             options.colorReferenceImage=cRefImg;
             break;
+            
         }
         case 'm':
         {

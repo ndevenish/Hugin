@@ -835,15 +835,17 @@ void Panorama::setOptions(const PanoramaOptions & opt)
     case PanoramaOptions::RECTILINEAR:
         maxh = 180;
         maxv = 180;
+        break;
     case PanoramaOptions::CYLINDRICAL:
     case PanoramaOptions::EQUIRECTANGULAR:
         maxh = 360;
         maxv = 180;
+        break;
     }
     if (state.options.HFOV > maxh)
         state.options.HFOV = maxh;
-    if (state.options.HFOV > maxv)
-        state.options.HFOV = maxv;
+    if (state.options.VFOV > maxv)
+        state.options.VFOV = maxv;
 }
 
 void Panorama::addObserver(PanoramaObserver * o)
