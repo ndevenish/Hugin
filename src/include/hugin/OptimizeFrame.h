@@ -43,6 +43,8 @@ public:
 protected:
     void OnOptimizeButton(wxCommandEvent & e);
 
+    void OnClose(wxCloseEvent& e);
+    
     // shortcuts to check/uncheck
     void OnSelYaw(wxCommandEvent & e)
         { SetCheckMark(m_yaw_list,true); }
@@ -56,6 +58,10 @@ protected:
         { SetCheckMark(m_roll_list,true); }
     void OnDelRoll(wxCommandEvent & e)
         { SetCheckMark(m_roll_list,false); }
+
+    void OnEqYaw(wxCommandEvent & e);
+//    void OnEqPitch(wxCommandEvent & e);
+//    void OnEqRoll(wxCommandEvent & e);
 
     // helper function for wxCheckListBox
     void SetCheckMark(wxCheckListBox * l, int check);

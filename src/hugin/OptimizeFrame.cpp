@@ -67,13 +67,17 @@ using namespace PT;
 //============================================================================
 
 BEGIN_EVENT_TABLE(OptimizeFrame, wxFrame)
+    EVT_CLOSE(OptimizeFrame::OnClose)
     EVT_BUTTON(XRCID("optimize_frame_optimize"), OptimizeFrame::OnOptimizeButton)
     EVT_BUTTON(XRCID("opt_yaw_select"), OptimizeFrame::OnSelYaw)
     EVT_BUTTON(XRCID("opt_yaw_clear"), OptimizeFrame::OnDelYaw)
+    EVT_BUTTON(XRCID("opt_yaw_equalize"), OptimizeFrame::OnEqYaw)
     EVT_BUTTON(XRCID("opt_pitch_select"), OptimizeFrame::OnSelPitch)
     EVT_BUTTON(XRCID("opt_pitch_clear"), OptimizeFrame::OnDelPitch)
+//    EVT_BUTTON(XRCID("opt_pitch_equalize"), OptimizeFrame::OnEqPitch)
     EVT_BUTTON(XRCID("opt_roll_select"), OptimizeFrame::OnSelRoll)
     EVT_BUTTON(XRCID("opt_roll_clear"), OptimizeFrame::OnDelRoll)
+//    EVT_BUTTON(XRCID("opt_roll_equalize"), OptimizeFrame::OnEqRoll)
 END_EVENT_TABLE()
 
 OptimizeFrame::OptimizeFrame(wxWindow * parent, PT::Panorama * pano)
@@ -106,6 +110,25 @@ void OptimizeFrame::OnOptimizeButton(wxCommandEvent & e)
     OptimizeVector optvars = getOptimizeSettings();
     PanoramaOptions opts;
     runOptimizer(optvars, opts);
+}
+
+// FIXME this should be on the preview panel, once we have one :)
+void OptimizeFrame::OnEqYaw(wxCommandEvent & e)
+{
+
+    VariablesVector vars = m_pano->getVariables();
+    VariablesVector::iterator it;
+    double avg = 0;
+    for(it = vars.begin(); it != vars.end(); it++) {
+        avg += it->yaw.getValue();
+    }
+    avg = avg/vars.size();
+    for(it = vars.begin(); it != vars.end(); it++) {
+        it->yaw.setValue(it->yaw.getValue() - avg);
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateVariablesCmd(*m_pano, vars)
+        );
 }
 
 void OptimizeFrame::SetCheckMark(wxCheckListBox * l, int check)
@@ -175,48 +198,23 @@ void OptimizeFrame::panoramaImagesChanged(PT::Panorama &pano,
     // display values of the variables.
     UIntSet::iterator it;
     for (it = imgNr.begin(); it != imgNr.end(); it++) {
+        // keep
+        bool sel = m_yaw_list->IsChecked(*it);
         m_yaw_list->SetString(*it, wxString::Format("%d (%5f)",
                                 *it, m_pano->getVariable(*it).yaw.getValue()));
+        m_yaw_list->Check(*it,sel);
+        sel = m_pitch_list->IsChecked(*it);
         m_pitch_list->SetString(*it, wxString::Format("%d (%5f)",
                               *it, m_pano->getVariable(*it).pitch.getValue()));
+        m_pitch_list->Check(*it,sel);
+        sel = m_roll_list->IsChecked(*it);
         m_roll_list->SetString(*it, wxString::Format("%d (%5f)",
                                *it, m_pano->getVariable(*it).roll.getValue()));
+        m_roll_list->Check(*it,sel);
     }
 }
 
-/*
-bool OptimizeFrame::runStitcher(const Panorama & pano,
-                           const OptimizeVector & optvars
-                           const PanoramaOptions & target)
-{
-    std::ofstream script(PTScriptFile.c_str());
-    pano.printStitcherScript(script, target);
-    script.close();
 
-    string cmd = stitcherExe + string(" -o \"") + target.outfile + "\" " + PTScriptFile;
-
-    wxProcess *process = wxProcess::Open(cmd.c_str());
-
-    if ( !process )
-    {
-        wxLogError(_T("Failed to launch the command."));
-        return;
-    }
-
-    wxOutputStream *out = process->GetOutputStream();
-    if ( !out )
-    {
-        wxLogError(_T("Failed to connect to child stdin"));
-        return;
-    }
-
-#ifdef unix
-    // open window that shows a status dialog
-    new MyPipeFrame(this, cmd, process);
-#endif
-}
-
-*/
 void OptimizeFrame::runOptimizer(const OptimizeVector & optvars, const PanoramaOptions & options)
 {
     DEBUG_TRACE("");
@@ -226,20 +224,11 @@ void OptimizeFrame::runOptimizer(const OptimizeVector & optvars, const PanoramaO
 }
 
 
-/*
-        {
-            // create a new process.
-
-            Process process(false);
-            pano.runOptimizer(process,optvars,outputOpts);
-            process.wait();
-
-            VariablesVector vars = pano.getVariables();
-            CPVector cps = pano.getCtrlPoints();
-
-            pano.readOptimizerOutput(vars, cps);
-            pano.updateVariables(vars);
-            pano.updateCtrlPointErrors(cps);
-            pano.changeFinished();
-        }
-*/
+void OptimizeFrame::OnClose(wxCloseEvent& event)
+{
+    // do not close, just hide if we're not forced
+    if (event.CanVeto()) {
+        event.Veto();
+        Hide();
+    }
+}

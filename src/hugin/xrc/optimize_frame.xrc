@@ -24,17 +24,19 @@
                     <object class="wxButton" name="opt_yaw_select">
                       <label>select</label>
                     </object>
+                    <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="opt_yaw_clear">
                       <label>clear</label>
                     </object>
+                    <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                   </object>
                 </object>
-                <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
               </object>
               <object class="sizeritem">
-                <object class="wxButton" name="opt_equalize_yaw">
+                <object class="wxButton" name="opt_yaw_equalize">
                   <label>equalize</label>
                 </object>
                 <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
@@ -70,12 +72,6 @@
                 </object>
                 <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
               </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="opt_equalize_pitch">
-                  <label>equalize</label>
-                </object>
-                <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-              </object>
             </object>
             <option>1</option>
             <flag>wxEXPAND</flag>
@@ -104,12 +100,6 @@
                       <label>clear</label>
                     </object>
                   </object>
-                </object>
-                <flag>wxEXPAND</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="opt_equalize_roll">
-                  <label>equalize</label>
                 </object>
                 <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
               </object>

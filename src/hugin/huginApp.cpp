@@ -120,15 +120,15 @@ bool huginApp::OnInit()
     // try local xrc files first
     wxString xrcPrefix;
     // testing for xrc file location
-    if ( wxFile::Exists("xrc/main_frame.xrc")/*local_file.IsOpened()*/ ) {
-        DEBUG_INFO("using local xrc files")
+    if ( wxFile::Exists("xrc/main_frame.xrc") ) {
+        DEBUG_INFO("using local xrc files");
         xrcPrefix = "xrc/";
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
-        DEBUG_INFO("using installed xrc files")
+        DEBUG_INFO("using installed xrc files");
         xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
-    } else if ( wxFile::Exists("/usr/local/share/hugin/xrc/main_frame.xrc") ) {
-        DEBUG_INFO("using installed xrc files in standard path")
-        xrcPrefix = "/usr/local/share/hugin/xrc/";
+//    } else if ( wxFile::Exists("/usr/local/share/hugin/xrc/main_frame.xrc") ) {
+//        DEBUG_INFO("using installed xrc files in standard path")
+//        xrcPrefix = "/usr/local/share/hugin/xrc/";
     } else {
         DEBUG_INFO("using xrc prefix from config")
         xrcPrefix = config->Read("xrc_path") + wxT("/");
@@ -158,24 +158,11 @@ bool huginApp::OnInit()
     // show the frame.
     frame->Show(TRUE);
 
-    DEBUG_TRACE("");
     // get the global config object
-    // remember the last location from config
-//    wxConfigBase* config = wxConfigBase::Get();
-    long pos_x=0, pos_y=0, size_x=100, size_y=100;
-    bool move = FALSE;
-    if (config->HasEntry(wxT("MainFramePosition_x")) &&
-        config->HasEntry(wxT("MainFramePosition_y")) &&
-        config->HasEntry(wxT("MainFrameSize_x")) &&
-        config->HasEntry(wxT("MainFrameSize_y")) ) {
-      config->Read("MainFramePosition_x").ToLong(&pos_x);
-      config->Read("MainFramePosition_y").ToLong(&pos_y);
-      config->Read("MainFrameSize_x").ToLong(&size_x);
-      config->Read("MainFrameSize_y").ToLong(&size_y);
-      frame->SetSize( pos_x, pos_y, size_x, size_y );
-      DEBUG_INFO("set position to "<<pos_x<<","<<pos_y )
-      move = TRUE;
-    }
+    // remember the last size from config
+    frame->SetSize(config->Read("MainFrameSize_x",600l),
+                   config->Read("MainFrameSize_y",400l));
+
     // remember if PanoPanel was teared off
     if (config->HasEntry(wxT("pano_dlg_run")) ) {
       long l_pano_dlg_run = FALSE;
@@ -186,12 +173,6 @@ bool huginApp::OnInit()
         DEBUG_INFO("PanoPanel opened")
       }
     }
-#if defined(__WXGTK__)
-    if ( move ) {
-      // compensate the window decoration here approximately
-      frame->Move( pos_x + 5, pos_y + 24 );
-    }
-#endif
 
     DEBUG_TRACE("");
     return true;
