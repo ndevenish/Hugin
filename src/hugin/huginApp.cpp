@@ -174,7 +174,7 @@ bool huginApp::OnInit()
         else
         {
             CFIndex bufLen = 1024;
-            unsigned char buffer[1024];
+            unsigned char buffer[(int) bufLen];
             if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
             {
                 CFRelease(XRCurl);
@@ -182,10 +182,11 @@ bool huginApp::OnInit()
             }
             else
             {
-                buffer[1023] = '\0';
+                buffer[((int) bufLen) - 1] = '\0';
                 CFRelease(XRCurl);
-                xrcPrefix = (wxString)buffer+ wxT("/");
+                xrcPrefix = wxString::FromAscii( (char *) buffer) + wxT("/");
                 DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
+                
             }
         }
     }
