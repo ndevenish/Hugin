@@ -446,7 +446,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
     unsigned int selPointNr = 0;
     EditorState oldstate = editState;
     EditorState clickState = isOccupied(mpos, selPointNr);
-    if (mouse->LeftDown()) {
+    if (mouse->LeftDown() && editState != NO_IMAGE) {
         // we can always select a new point
         if (clickState == KNOWN_POINT_SELECTED) {
             DEBUG_DEBUG("click on point: " << selPointNr);
