@@ -269,7 +269,7 @@ void List::fillRow (unsigned int imageNr)
               SetColumnWidth(j, 40);
           }
         } else {
-          Lens lens ( pano.getLens( pano.getImage(imageNr).getLens()) );
+//          Lens lens ( pano.getLens( pano.getImage(imageNr).getLens()) );
           switch ( (int) lens.  projectionFormat  ) {
             case Lens::RECTILINEAR:          number << _("Normal (rectlinear)"); break;
             case Lens::PANORAMIC:            number << _("Panoramic"); break;
@@ -278,17 +278,17 @@ void List::fillRow (unsigned int imageNr)
             case Lens::EQUIRECTANGULAR_LENS: number << _("Equirectangular"); break;
           }
           SetItem ( imageNr, 2, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. HFOV ))
+          ITEM_TEXT( doubleToString ( new_var. HFOV .getValue() ))//lens. HFOV))
           SetItem ( imageNr, 3, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. a ))
+          ITEM_TEXT( doubleToString ( new_var. a .getValue() )) //lens. a ))
           SetItem ( imageNr, 4, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. b ))
+          ITEM_TEXT( doubleToString ( new_var. b .getValue() ))
           SetItem ( imageNr, 5, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. c ))
+          ITEM_TEXT( doubleToString ( new_var. c .getValue() ))
           SetItem ( imageNr, 6, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. d ))
+          ITEM_TEXT( doubleToString ( new_var. d .getValue() ))
           SetItem ( imageNr, 7, ITEM_OUT );
-          ITEM_TEXT( doubleToString ( lens. e ))
+          ITEM_TEXT( doubleToString ( new_var. e .getValue() ))
           SetItem ( imageNr, 8, ITEM_OUT );
           number.str("");
           if ( new_var. HFOV.isLinked() )
