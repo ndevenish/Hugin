@@ -1,7 +1,0 @@
-This directory contains the generic computer vision library, VIGRA.
-
-It was written by Ullrich Köthe, and is available at:
-http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
-
-This is the main library, without the fftw or impex parts.
-
