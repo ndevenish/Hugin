@@ -141,6 +141,11 @@ MainFrame::~MainFrame()
     delete images_panel;
     DEBUG_TRACE("");
     pano.removeObserver(this);
+
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+    config->Flush();
+
     DEBUG_TRACE("");
 }
 
