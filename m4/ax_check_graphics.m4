@@ -11,12 +11,13 @@ AC_ARG_WITH([zlib],
 have_zlib='no'
 LIB_ZLIB=''
 ZLIB_FLAGS=''
+ZLIB_HOME=''
 dnl PNG and TIFF require zlib so enable zlib check if PNG or TIFF is requested
-if test "$with_zlib" != 'no' || test "$with_png" != 'no' || test "$with_tiff" != 'no' 
+if test "x$with_zlib" != 'xno' || test "x$with_png" != 'xno' || test "x$with_tiff" != 'xno' 
 then
   AC_MSG_CHECKING(for ZLIB support )
   AC_MSG_RESULT()
-  if test "x$with_zlib" != "x"
+  if test "x$with_zlib" != 'x'
   then
     if test -d "$with_zlib"
     then
@@ -26,7 +27,7 @@ then
       with_zlib=''
     fi
   fi
-  if test "x$ZLIB_HOME" = "x"
+  if test "x$ZLIB_HOME" = 'x'
   then
     zlib_dirs="/usr /usr/local /opt"
     for i in $zlib_dirs;
@@ -36,7 +37,7 @@ then
         break
       fi
     done
-    if test "x$ZLIB_HOME" != "x"
+    if test "x$ZLIB_HOME" != 'x'
     then
       AC_MSG_NOTICE([zlib home set to $ZLIB_HOME])
     else
@@ -52,7 +53,7 @@ then
   AC_LANG_SAVE
   AC_LANG_C
 dnl  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_HEADER(zlib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,compress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,uncompress,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl  AC_CHECK_LIB(z,deflate,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
@@ -71,7 +72,7 @@ dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
       AC_MSG_RESULT(no -- some components failed test)
       have_zlib='no (failed tests)'
     else
-      if test "x$with_zlib" = "x"
+      if test "x$with_zlib" = 'x'
       then
         LIB_ZLIB="-lz"
         ZLIB_FLAGS="-DHasZLIB"
@@ -86,7 +87,7 @@ dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
     AC_MSG_RESULT(no)
   fi
 fi
-AM_CONDITIONAL(HasZLIB, test "$have_zlib" = 'yes')
+AM_CONDITIONAL(HasZLIB, test "x$have_zlib" = 'xyes')
 AC_SUBST(LIB_ZLIB)
 AC_SUBST(ZLIB_FLAGS)
 ])
@@ -104,11 +105,12 @@ AC_ARG_WITH([png],
 have_png='no'
 LIB_PNG=''
 PNG_FLAGS=''
-if test "$with_png" != 'no'
+PNG_HOME=''
+if test "x$with_png" != 'xno'
 then
   AC_MSG_CHECKING(for PNG support )
   AC_MSG_RESULT()
-  if test "x$with_png" != "x"
+  if test "x$with_png" != 'x'
   then
     if test -d "$with_png"
     then
@@ -118,7 +120,7 @@ then
       with_png=''
     fi
   fi
-  if test "x$PNG_HOME" = "x"
+  if test "x$PNG_HOME" = 'x'
   then
     png_dirs="/usr /usr/local /opt"
     for i in $png_dirs;
@@ -128,7 +130,7 @@ then
         break
       fi
     done
-    if test "x$PNG_HOME" != "x"
+    if test "x$PNG_HOME" != 'x'
     then
       AC_MSG_NOTICE([png home set to $PNG_HOME])
     else
@@ -157,13 +159,13 @@ then
       AC_MSG_RESULT(no -- some components failed test)
       have_png='no (failed tests)'
     else
-      if test "x$with_png" = "x"
+      if test "x$with_png" = 'x'
       then
         LIB_PNG="-lpng"
         PNG_FLAGS="-DHasPNG"
       else
         LIB_PNG="-L$PNG_HOME/lib -lpng"
-        PNG_FLAG="-I$PNG_HOME/include -DHasPNG"
+        PNG_FLAGS="-I$PNG_HOME/include -DHasPNG"
       fi
       AC_DEFINE(HasPNG,1,Define if you have PNG library)
       AC_MSG_RESULT(yes)
@@ -173,7 +175,7 @@ then
     AC_MSG_RESULT(no)
   fi
 fi
-AM_CONDITIONAL(HasPNG, test "$have_png" = 'yes')
+AM_CONDITIONAL(HasPNG, test "x$have_png" = 'xyes')
 AC_SUBST(LIB_PNG)
 AC_SUBST(PNG_FLAGS)
 ])
@@ -191,12 +193,13 @@ AC_ARG_WITH([jpeg],
 have_jpeg='no'
 LIB_JPEG=''
 JPEG_FLAGS=''
+JPEG_HOME=''
 dnl TIFF requires jpeg so enable jpeg check if TIFF is requested
-if test "$with_jpeg" != 'no' || test "$with_tiff" != 'no' 
+if test "x$with_jpeg" != 'xno' || test "x$with_tiff" != 'xno' 
 then
   AC_MSG_CHECKING(for JPEG support )
   AC_MSG_RESULT()
-  if test "x$with_jpeg" != "x"
+  if test "x$with_jpeg" != 'x'
   then
     if test -d "$with_jpeg"
     then
@@ -206,7 +209,7 @@ then
       with_jpeg=''
     fi
   fi
-  if test "x$JPEG_HOME" = "x"
+  if test "x$JPEG_HOME" = 'x'
   then
     jpeg_dirs="/usr /usr/local /opt"
     for i in $jpeg_dirs;
@@ -216,7 +219,7 @@ then
         break
       fi
     done
-    if test "x$JPEG_HOME" != "x"
+    if test "x$JPEG_HOME" != 'x'
     then
       AC_MSG_NOTICE([jpeg home set to $JPEG_HOME])
     else
@@ -231,14 +234,14 @@ then
   CPPFLAGS="$CPPFLAGS -I$JPEG_HOME/include"
   AC_LANG_SAVE
   AC_LANG_C
-dnl    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-dnl    AC_CHECK_HEADER(jerror.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-  AC_CHECK_HEADER(jpeglib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+dnl    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+dnl    AC_CHECK_HEADER(jerror.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+  AC_CHECK_HEADER(jpeglib.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(jpeg,jpeg_read_header,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 
 # Test for compatible JPEG library
-  if test "$ac_cv_jpeg_version_ok" != 'yes' ; then
+  if test "x$ac_cv_jpeg_version_ok" != 'xyes' ; then
     AC_CACHE_CHECK(for JPEG library is version 6b or later, ac_cv_jpeg_version_ok,
     [AC_TRY_COMPILE(
     #include <stdio.h>
@@ -255,7 +258,7 @@ dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed
     changequote([, ])dnl
     ac_cv_jpeg_version_ok='yes',
     ac_cv_jpeg_version_ok='no')])
-    if test "$ac_cv_jpeg_version_ok" = 'yes' ; then  
+    if test "x$ac_cv_jpeg_version_ok" = 'xyes' ; then  
       passed=`expr $passed + 1`
     else
       failed=`expr $failed + 1`
@@ -273,7 +276,7 @@ dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed
       AC_MSG_RESULT(no -- some components failed test)
       have_jpeg='no (failed tests)'
     else
-      if test "x$with_jpeg" = "x"
+      if test "x$with_jpeg" = 'x'
       then
         LIB_JPEG="-ljpeg"
         JPEG_FLAGS="-DHasJPEG"
@@ -289,7 +292,7 @@ dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed
     AC_MSG_RESULT(no)
   fi
 fi
-AM_CONDITIONAL(HasJPEG, test "$have_jpeg" = 'yes')
+AM_CONDITIONAL(HasJPEG, test "x$have_jpeg" = 'xyes')
 AC_SUBST(LIB_JPEG)
 AC_SUBST(JPEG_FLAGS)
 ])
@@ -307,11 +310,12 @@ AC_ARG_WITH([tiff],
 have_tiff='no'
 LIB_TIFF=''
 TIFF_FLAGS=''
-if test "$with_tiff" != 'no'
+TIFF_HOME=''
+if test "x$with_tiff" != 'xno'
 then
   AC_MSG_CHECKING(for TIFF support )
   AC_MSG_RESULT()
-  if test "x$with_tiff" != "x"
+  if test "x$with_tiff" != 'x'
   then
     if test -d "$with_tiff"
     then
@@ -321,7 +325,7 @@ then
       with_tiff=''
     fi
   fi
-  if test "x$TIFF_HOME" = "x"
+  if test "x$TIFF_HOME" = 'x'
   then
     tiff_dirs="/usr /usr/local /opt"
     for i in $tiff_dirs;
@@ -331,7 +335,7 @@ then
         break
       fi
     done
-    if test "x$TIFF_HOME" != "x"
+    if test "x$TIFF_HOME" != 'x'
     then
       AC_MSG_NOTICE([tiff home set to $TIFF_HOME])
     else
@@ -346,8 +350,8 @@ then
   CPPFLAGS="$CPPFLAGS -I$TIFF_HOME/include"
   AC_LANG_SAVE
   AC_LANG_C
-  AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
-dnl    AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
+  AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+dnl    AC_CHECK_HEADER(tiffio.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
   AC_CHECK_LIB(tiff,TIFFOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -ljpeg])
 dnl    AC_CHECK_LIB(tiff,TIFFClientOpen,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
 dnl    AC_CHECK_LIB(tiff,TIFFIsByteSwapped,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
@@ -365,7 +369,7 @@ dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`exp
       AC_MSG_RESULT(no -- some components failed test)
       have_tiff='no (failed tests)'
     else
-      if test "x$with_tiff" = "x"
+      if test "x$with_tiff" = 'x'
       then
         LIB_TIFF="-ltiff"
         TIFF_FLAGS="-DHasTIFF"
@@ -376,13 +380,13 @@ dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`exp
       AC_DEFINE(HasTIFF,1,Define if you have TIFF library)
       AC_MSG_RESULT(yes)
       have_tiff='yes'
-      AC_CHECK_HEADERS(tiffconf.h)
+dnl      AC_CHECK_HEADERS(tiffconf.h)
     fi
   else
     AC_MSG_RESULT(no)
   fi
 fi
-AM_CONDITIONAL(HasTIFF, test "$have_tiff" = 'yes')
+AM_CONDITIONAL(HasTIFF, test "x$have_tiff" = 'xyes')
 AC_SUBST(LIB_TIFF)
 AC_SUBST(TIFF_FLAGS)
 ])

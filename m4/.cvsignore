@@ -15,6 +15,7 @@ lib-link.m4
 lib-prefix.m4
 longdouble.m4
 longlong.m4
+Makefile
 Makefile.in
 nls.m4
 po.m4

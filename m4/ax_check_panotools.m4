@@ -12,13 +12,13 @@ AC_ARG_WITH(pano,
 
 have_pano='no'
 LIB_PANO=''
-PANO_FLAG=''
+PANO_FLAGS=''
 PANO_HOME=''
-if test "x$with_pano" != "xno"
+if test "x$with_pano" != 'xno'
 then
     AC_MSG_CHECKING(for PanoTools support )
     AC_MSG_RESULT()
-    if test "x$with_pano" != "x"
+    if test "x$with_pano" != 'x'
     then
       if test -d "$with_pano"
       then
@@ -28,7 +28,7 @@ then
 	with_pano=''
       fi
     fi
-    if test "x$PANO_HOME" = "x"
+    if test "x$PANO_HOME" = 'x'
     then
       pano_dirs="/usr /usr/local /opt"
       for i in $pano_dirs;
@@ -38,7 +38,7 @@ then
 	  break
 	fi
       done
-      if test "x$PANO_HOME" != "x"
+      if test "x$PANO_HOME" != 'x'
       then
 	AC_MSG_NOTICE([pano home set to $PANO_HOME])
       else
@@ -68,13 +68,13 @@ then
       AC_MSG_RESULT(no -- some components failed test)
       have_pano='no (failed tests)'
     else
-      if test "x$with_pano" = "x"
+      if test "x$with_pano" = 'x'
       then
-        LIB_PANO='-lpano12'
-        PANO_FLAGS='-DHasPANO'
+        LIB_PANO="-lpano12"
+        PANO_FLAGS="-DHasPANO"
       else
-        LIB_PANO='-L$PANO_HOME/lib -lpano12'
-        PANO_FLAGS='-I$PANO_HOME/include -DHasPANO'
+        LIB_PANO="-L$PANO_HOME/lib -lpano12"
+        PANO_FLAGS="-I$PANO_HOME/include -DHasPANO"
       fi
       AC_DEFINE(HasPANO,1,Define if you have Panotools library (pano12))
       AC_MSG_RESULT(yes)
@@ -84,7 +84,7 @@ then
       AC_MSG_RESULT(no)
     fi
 fi
-AM_CONDITIONAL(HasPANO, test "$have_pano" = 'yes')
+AM_CONDITIONAL(HasPANO, test "x$have_pano" = 'xyes')
 AC_SUBST(LIB_PANO)
 AC_SUBST(PANO_FLAGS)
 ])
