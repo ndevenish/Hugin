@@ -28,7 +28,7 @@ namespace vigra_ext
 {
 
 
-/** apply a roi to an image area 
+/** apply a roi to an image area
  *
  *  adjusts the iterators, so that they iterate
  *  over the region specifed by \p r
@@ -40,6 +40,11 @@ template <class ImgIter, class ImgAcc>
 vigra::triple<ImgIter, ImgIter, ImgAcc>
 applyRect(vigra::Rect2D & r, vigra::triple<ImgIter, ImgIter, ImgAcc> img)
 {
+#ifdef DEBUG
+    vigra::Diff2D t = img.second - (img.first + r.lowerRight());
+    DEBUG_ASSERT(t.x >= 0);
+    DEBUG_ASSERT(t.y >= 0);
+#endif
     return vigra::triple<ImgIter, ImgIter, ImgAcc>
            (img.first + r.upperLeft(),
             img.first + r.lowerRight(),
@@ -85,7 +90,7 @@ public:
     typedef typename Image::const_traverser image_const_traverser;
     typedef typename Image::Accessor        ImageAccessor;
     typedef typename Image::ConstAccessor   ImageConstAccessor;
-    
+
     typedef typename Mask::value_type       mask_value_type;
     typedef typename Mask::traverser        mask_traverser;
     typedef typename Mask::const_traverser  mask_const_traverser;
@@ -115,9 +120,9 @@ public:
         } else {
             m_image.resize(vigra::Size2D(1,1));
             m_mask.resize(vigra::Size2D(1,1));
-        }        
+        }
     }
-    
+
     /** returns an traverser to the upper left of the image,
      *  this is usually outside of the rectangle.
      *
@@ -128,6 +133,8 @@ public:
     upperLeft()
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_image.size().x > 0);
+        DEBUG_ASSERT(m_image.size().y > 0);
 	return m_image.upperLeft() - m_region.upperLeft();
     }
 
@@ -135,13 +142,17 @@ public:
     upperLeft() const
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_image.size().x > 0);
+        DEBUG_ASSERT(m_image.size().y > 0);
 	return m_image.upperLeft() - m_region.upperLeft();
     }
-    
+
     image_traverser
     lowerRight()
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_image.size().x > 0);
+        DEBUG_ASSERT(m_image.size().y > 0);
 	return m_image.upperLeft() + m_region.size();
     }
 
@@ -149,6 +160,8 @@ public:
     lowerRight() const
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_image.size().x > 0);
+        DEBUG_ASSERT(m_image.size().y > 0);
 	return m_image.upperLeft() + m_region.size();
     }
 
@@ -163,7 +176,7 @@ public:
         const ROIImage<Image,Mask> & t = *this;
 	return t.m_image.accessor();
     }
-    
+
     /** returns an traverser to the upper left of the image,
      *  this is usually outside of the rectangle.
      *
@@ -174,6 +187,8 @@ public:
     maskUpperLeft()
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_mask.size().x > 0);
+        DEBUG_ASSERT(m_mask.size().y > 0);
 	return m_mask.upperLeft() - m_region.upperLeft();
     }
 
@@ -181,6 +196,8 @@ public:
     maskUpperLeft() const
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_mask.size().x > 0);
+        DEBUG_ASSERT(m_mask.size().y > 0);
 	return m_mask.upperLeft() - m_region.upperLeft();
     }
 
@@ -188,6 +205,8 @@ public:
     maskLowerRight()
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_mask.size().x > 0);
+        DEBUG_ASSERT(m_mask.size().y > 0);
 	return m_mask.upperLeft() + m_region.size();
     }
 
@@ -195,6 +214,8 @@ public:
     maskLowerRight() const
     {
         DEBUG_DEBUG(m_region);
+        DEBUG_ASSERT(m_mask.size().x > 0);
+        DEBUG_ASSERT(m_mask.size().y > 0);
 	return m_mask.upperLeft() + m_region.size();
     }
 
@@ -208,7 +229,7 @@ public:
     {
 	return m_mask.accessor();
     }
-        
+
     vigra::Rect2D & boundingBox()
     {
 	return m_region;
@@ -218,7 +239,7 @@ public:
     {
 	return operator[](vigra::Diff2D(x,y));
     }
-    
+
     image_value_type operator[](vigra::Diff2D const & pos)
         {
             if (m_region.contains(vigra::Point2D(pos))) {
@@ -233,7 +254,7 @@ public:
     {
 	return getMask(vigra::Diff2D(x,y));
     }
-    
+
     mask_value_type getMask(const vigra::Diff2D & pos)
         {
             if (m_region.contains(vigra::Point2D(pos))) {
@@ -242,7 +263,7 @@ public:
                 return vigra::NumericTraits<mask_value_type>::zero();
             }
         }
-    
+
 
     Image       m_image;    ///< remapped image
     Mask        m_mask;    ///< corresponding alpha channel
@@ -260,8 +281,8 @@ inline vigra::triple<typename ROIImage<Image, Mask>::image_const_traverser,
                      typename ROIImage<Image, Mask>::ImageConstAccessor>
 srcImageRange(const ROIImage<Image,Mask> & img)
 {
-return vigra::triple<typename ROIImage<Image,Mask>::image_const_traverser, 
-                   typename ROIImage<Image,Mask>::image_const_traverser, 
+return vigra::triple<typename ROIImage<Image,Mask>::image_const_traverser,
+                   typename ROIImage<Image,Mask>::image_const_traverser,
                    typename ROIImage<Image,Mask>::ImageConstAccessor>(img.upperLeft(),
                                                              img.lowerRight(),
                                                              img.accessor());
@@ -273,7 +294,7 @@ inline vigra::pair<typename ROIImage<Image, Mask>::image_const_traverser,
                    typename ROIImage<Image, Mask>::ImageConstAccessor>
 srcImage(const ROIImage<Image,Mask> & img)
 {
-return vigra::pair<typename ROIImage<Image,Mask>::image_const_traverser, 
+return vigra::pair<typename ROIImage<Image,Mask>::image_const_traverser,
                    typename ROIImage<Image,Mask>::ImageConstAccessor>(img.upperLeft(),
                                                              img.accessor());
 }
@@ -285,11 +306,11 @@ inline vigra::triple<typename ROIImage<Image,Alpha>::image_traverser,
                      typename ROIImage<Image,Alpha>::ImageAccessor>
 destImageRange(ROIImage<Image,Alpha> & img)
 {
-    return vigra::triple<typename ROIImage<Image,Alpha>::image_traverser, 
-	        typename ROIImage<Image,Alpha>::image_traverser, 
+    return vigra::triple<typename ROIImage<Image,Alpha>::image_traverser,
+	        typename ROIImage<Image,Alpha>::image_traverser,
                 typename ROIImage<Image,Alpha>::ImageAccessor>(img.upperLeft(),
 			       			          img.lowerRight(),	
-                                                          img.accessor()); 
+                                                          img.accessor());
 }
 
 template <class Image, class Alpha>
@@ -297,9 +318,9 @@ inline vigra::pair<typename ROIImage<Image,Alpha>::image_traverser,
                    typename ROIImage<Image,Alpha>::ImageAccessor>
 destImage(ROIImage<Image,Alpha> & img)
 {
-    return vigra::pair<typename ROIImage<Image,Alpha>::image_traverser, 
+    return vigra::pair<typename ROIImage<Image,Alpha>::image_traverser,
                 typename ROIImage<Image,Alpha>::ImageAccessor>(img.upperLeft(),
-                                                          img.accessor()); 
+                                                          img.accessor());
 }
 
 template <class Image, class Alpha>
@@ -308,11 +329,11 @@ inline vigra::triple<typename ROIImage<Image,Alpha>::mask_const_traverser,
                      typename ROIImage<Image,Alpha>::MaskConstAccessor>
 srcMaskRange(const ROIImage<Image,Alpha> & img)
 {
-    return vigra::triple<typename ROIImage<Image,Alpha>::mask_const_traverser, 
-	        typename ROIImage<Image,Alpha>::mask_const_traverser, 
+    return vigra::triple<typename ROIImage<Image,Alpha>::mask_const_traverser,
+	        typename ROIImage<Image,Alpha>::mask_const_traverser,
                 typename ROIImage<Image,Alpha>::MaskConstAccessor>(img.maskUpperLeft(),
 			       			          img.maskLowerRight(),	
-                                                          img.maskAccessor()); 
+                                                          img.maskAccessor());
 }
 
 template <class Image, class Alpha>
@@ -320,9 +341,9 @@ inline vigra::pair<typename ROIImage<Image,Alpha>::mask_const_traverser,
                    typename ROIImage<Image,Alpha>::MaskConstAccessor>
 srcMask(const ROIImage<Image,Alpha> & img)
 {
-    return vigra::pair<typename ROIImage<Image,Alpha>::mask_const_traverser, 
+    return vigra::pair<typename ROIImage<Image,Alpha>::mask_const_traverser,
                 typename ROIImage<Image,Alpha>::MaskConstAccessor>(img.maskUpperLeft(),
-                                                          img.maskAccessor()); 
+                                                          img.maskAccessor());
 }
 
 template <class Image, class Alpha>
@@ -331,11 +352,11 @@ inline vigra::triple<typename ROIImage<Image,Alpha>::mask_traverser,
                      typename ROIImage<Image,Alpha>::MaskAccessor>
 destMaskRange(ROIImage<Image,Alpha> & img)
 {
-    return vigra::triple<typename ROIImage<Image,Alpha>::mask_traverser, 
-	        typename ROIImage<Image,Alpha>::mask_traverser, 
+    return vigra::triple<typename ROIImage<Image,Alpha>::mask_traverser,
+	        typename ROIImage<Image,Alpha>::mask_traverser,
                 typename ROIImage<Image,Alpha>::MaskAccessor>(img.maskUpperLeft(),
 			       			          img.maskLowerRight(),	
-                                                          img.maskAccessor()); 
+                                                          img.maskAccessor());
 }
 
 template <class Image, class Alpha>
@@ -343,9 +364,9 @@ inline vigra::pair<typename ROIImage<Image,Alpha>::mask_traverser,
                    typename ROIImage<Image,Alpha>::MaskAccessor>
 destMask(ROIImage<Image,Alpha> & img)
 {
-    return vigra::pair<typename ROIImage<Image,Alpha>::mask_traverser, 
+    return vigra::pair<typename ROIImage<Image,Alpha>::mask_traverser,
                 typename ROIImage<Image,Alpha>::MaskAccessor>(img.maskUpperLeft(),
-                                                          img.maskAccessor()); 
+                                                          img.maskAccessor());
 }
 
 

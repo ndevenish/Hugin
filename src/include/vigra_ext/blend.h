@@ -108,26 +108,29 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
     typedef typename AlphaIter::value_type AlphaValue;
     // calculate the overlap by intersecting the two image
     // rectangles.
+    DEBUG_DEBUG("image bounding Box: " << img.boundingBox());
+    DEBUG_DEBUG("pano size: " << pano.second - pano.first);
+    DEBUG_DEBUG("pano roi: " << panoROI);
     vigra::Rect2D overlap = img.boundingBox() & panoROI;
-    
+    DEBUG_DEBUG("overlap: " << overlap);
+
     if (!overlap.isEmpty()) {
         // image ROI's overlap.. calculate real overlapping area.
-        
+
 	// corner points of overlapping area.
 	vigra::Point2D overlapUL(INT_MAX, INT_MAX);
 	vigra::Point2D overlapLR(0,0);
 	AlphaIter alphaIter = alpha.first + overlap.upperLeft();
-	typename AlphaImageType::traverser imgAlphaIter = img.maskUpperLeft() 
-                                                      + overlap.upperLeft();
+//	typename AlphaImageType::traverser imgAlphaIter = img.maskUpperLeft()
+//                                                      + overlap.upperLeft();
         typename AlphaImageType::Accessor imgAlphaAcc = img.maskAccessor();
 	// find real, overlapping ROI, by iterating over ROI
-	for (int y=overlap.top(); y < overlap.bottom(); y++, ++imgAlphaIter.y,
-                                                        ++alphaIter.y)
+	for (int y=overlap.top(); y < overlap.bottom(); y++, ++(alphaIter.y))
         {
-	    for (int x=overlap.bottom(); x < overlap.right(); x++, 
-                  ++(imgAlphaIter.x), ++(alphaIter.x)) {
+	    for (int x=overlap.left(); x < overlap.right(); x++,
+                  ++(alphaIter.x)) {
 		// check if images overlap
-		if (imgAlphaAcc(imgAlphaIter) > 0 && alpha.second(alphaIter) > 0) {
+		if (img.getMask(x,y) > 0 && alpha.second(alpha.first,vigra::Diff2D(x,y)) > 0) {
                     // overlap, use it to calculate bounding box
                     if (overlapUL.x > x) overlapUL.x = x;
                     if (overlapUL.y > y) overlapUL.y = y;
@@ -149,7 +152,7 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
                          progress);
 
             // now, copy the non-overlapping parts
-            
+
             // upper stripe
             vigra::Rect2D border(img.boundingBox().left(),
                                  img.boundingBox().top(),
@@ -163,7 +166,7 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
             vigra::copyImageIf(applyRect(border, vigra_ext::srcMaskRange(img)),
                                applyRect(border, vigra_ext::srcMask(img)),
                                applyRect(border, alpha));
-                               
+
             // left stripe
             border.setUpperLeft(vigra::Point2D(img.boundingBox().left(),
                                                realOverlap.top()));
@@ -221,6 +224,8 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
 	// alpha channel is not considered, because the whole target
 	// is free.
         // copy image
+        DEBUG_DEBUG("image rect: " <<img.boundingBox());
+        DEBUG_DEBUG("panorama size: " << pano.second - pano.first); 
         vigra::copyImage(applyRect(img.boundingBox(), vigra_ext::srcImageRange(img)),
                          applyRect(img.boundingBox(), std::make_pair(pano.first,pano.third)));
         // copy mask

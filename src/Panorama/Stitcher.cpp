@@ -111,7 +111,8 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     PanoramaOptions opts = pano.getOptions();
     // small area, for alpha mask overlap analysis.
     opts.width = 400;
-    Diff2D size(opts.width, opts.getHeight());
+    Size2D size(opts.width, opts.getHeight());
+    Rect2D completeAlphaROI(size);
     // find intersecting regions, on a small version of the panorama.
     std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> > rimg;
 
@@ -128,14 +129,19 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     }
 
 //    RemappedPanoImage<BImage, BImage> fuckyou;
-    ROIImage<BImage, BImage> fuckyou;
-    srcImageRange(alpha);
-    vigra_ext::srcImageRange(fuckyou);
+//    ROIImage<BImage, BImage> fuckyou;
+//    srcImageRange(alpha);
+//    vigra_ext::srcImageRange(fuckyou);
 
     int firstImg = *(images.begin());
     // copy first alpha channel
     alphaROI = rimg[firstImg].boundingBox();
+    // restrict to output pano size
+    alphaROI = alphaROI & completeAlphaROI;
+    DEBUG_DEBUG("alphaROI: " << alphaROI);
+    DEBUG_DEBUG("alpha size: " << alpha.size());
     copyImage(applyRect(alphaROI, vigra_ext::srcMaskRange(rimg[firstImg])),
+//    copyImage(vigra_ext::srcMaskRange(rimg[firstImg]),
               applyRect(alphaROI, destImage(alpha)));
 
     Rect2D overlap;
@@ -172,6 +178,8 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
 	images.erase(choosenImg);
 	// update alphaROI, to new roi.
 	alphaROI = alphaROI | rimg[choosenImg].boundingBox();
+        alphaROI = alphaROI & completeAlphaROI;
+
     }
 }
 

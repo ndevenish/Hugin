@@ -370,7 +370,10 @@ public:
      */
     unsigned int getHeight() const;
 
-
+    unsigned int getWidth() const
+        {
+            return width;
+        }
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 

@@ -218,14 +218,17 @@ public:
 	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << std::endl);
 
 	// create an image with the right size..
-	vigra::Point2D ulInt(static_cast<int>(floor(ulFloat.x)),
-                            static_cast<int>(floor(ulFloat.y)));
-	vigra::Point2D lrInt(static_cast<int>(ceil(lrFloat.x)),
-                            static_cast<int>(ceil(lrFloat.y)));
+	vigra::Point2D ulInt(static_cast<int>(ceil(ulFloat.x)),
+                            static_cast<int>(ceil(ulFloat.y)));
+	vigra::Point2D lrInt(static_cast<int>(floor(lrFloat.x)),
+                            static_cast<int>(floor(lrFloat.y)));
         DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
                     << lrInt - ulInt);
 
-	Base::resize(vigra::Rect2D(ulInt, lrInt + vigra::Point2D(1,1)));
+        // restrict to panorama size
+        vigra::Rect2D imageRect(ulInt, lrInt + vigra::Point2D(1,1));
+        vigra::Rect2D panoRect(0,0, opts.getWidth(), opts.getHeight());
+	Base::resize(imageRect & panoRect);
 	DEBUG_DEBUG("after resize: " << Base::m_region);
     }
 

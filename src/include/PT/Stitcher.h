@@ -141,7 +141,7 @@ public:
 				std::cerr << e.what();
             }
             // free remapped image
-            delete remapped;
+	    remapper.release(remapped);
 
             runningImgNr++;
         }
@@ -365,7 +365,7 @@ public:
                 // is completely out of the pano
             }
             // free remapped image
-            delete remapped;
+	    remapper.release(remapped);
 	}
     }
 

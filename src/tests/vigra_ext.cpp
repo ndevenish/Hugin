@@ -41,7 +41,7 @@
 #include "vigra_ext/Correlation.h"
 #include "vigra_ext/FitPolynom.h"
 #include "vigra_ext/ROIImage.h"
-#include "vigra_ext/MultilayerImage.h"
+#include "vigra_ext/MultiLayerImage.h"
 
 #include "PT/PanoramaMemento.h"
 #include "PT/ImageTransforms.h"
@@ -459,12 +459,12 @@ void test_subpixel_correlation()
     ShiftTransform t(-dx, -dy);
 
     utils::MultiProgressDisplay dummy;
-    PT::transformImage(srcImageRange(img),
-                       destImageRange(shiftedImg),
-                       destImage(alpha),
-                       Diff2D(0,0),
-                       t, PT::PanoramaOptions::CUBIC,
-                       dummy);
+    transformImage(srcImageRange(img),
+                   destImageRange(shiftedImg),
+                   destImage(alpha),
+                   Diff2D(0,0),
+                   t, vigra_ext::INTERP_CUBIC,
+                   dummy);
 
     // finetune point
     vigra_ext::CorrelationResult res;
@@ -483,17 +483,17 @@ void test_cross_correlation()
     ImageImportInfo import2("correlation_img.png");
     FImage img(import2.width(), import2.height());
     importImage(import2, destImage(img));
-    
+
     FImage dest(img.size());
     dest.init(-1);
 
     FImage dest2(img.size());
     dest2.init(-1);
-    
+
     Diff2D pos(100,100);
     Diff2D halfW(1,1);
     FImage templ(halfW*2 + Diff2D(1,1));
-    
+
     copyImage(img.upperLeft() + pos - halfW,
               img.upperLeft() + pos + halfW + Diff2D(1,1),
               img.accessor(),
@@ -507,7 +507,7 @@ void test_cross_correlation()
                              templ,
                              -halfW , halfW,
                              -1);
-    
+
     BOOST_CHECK_CLOSE((double)res.maxpos.x, (double) pos.x, 1e-13);
     BOOST_CHECK_CLOSE((double)res.maxpos.y, (double) pos.y, 1e-13);
     BOOST_CHECK_CLOSE((double)res.maxi, 1.0, 1e-15);
@@ -519,7 +519,7 @@ void test_cross_correlation()
                          dest2.accessor(),
                          templ.upperLeft() + halfW,
                          templ.accessor(),
-                         -halfW, halfW, 
+                         -halfW, halfW,
                          -1);
 
     BOOST_CHECK_CLOSE((double)res.maxpos.x, (double) pos.x, 1e-13);
@@ -536,9 +536,9 @@ void test_cross_correlation()
         }
     }
     BOOST_CHECK_EQUAL(xcorr_differences, 0);
-    
+
     BImage tmpImg(dest.size());
-    
+
     vigra::transformImage(vigra::srcImageRange(dest), vigra::destImage(tmpImg),
                           vigra::linearRangeMapping(
                               -1, 1,               // src range
@@ -546,7 +546,7 @@ void test_cross_correlation()
             );
     vigra::exportImage(srcImageRange(tmpImg), vigra::ImageExportInfo("xcorr_test_result_fast.png"));
 
-    
+
     vigra::transformImage(vigra::srcImageRange(dest2), vigra::destImage(tmpImg),
                           vigra::linearRangeMapping(
                               -1, 1,               // src range
@@ -562,17 +562,18 @@ void test_roi_image()
 
     roiImage.resize(Rect2D(Point2D(10,10), Size2D(10,10)));
     roiImage.m_image.init(1);
-    roiImage.m_image.init(2);
-    BOOST_CHECK_EQUAL(roiImage().rect().area(), 100);
-    BOOST_CHECK_EQUAL(roiImage().rect().lowerRight().x, 20);
-    BOOST_CHECK_EQUAL(roiImage().rect().lowerRight().y, 20);
+    roiImage.m_mask.init(2);
+    BOOST_CHECK_EQUAL(roiImage.boundingBox().area(), 100);
+    BOOST_CHECK_EQUAL(roiImage.boundingBox().lowerRight().x, 20);
+    BOOST_CHECK_EQUAL(roiImage.boundingBox().lowerRight().y, 20);
 
     int sum = 0;
     // loop over whole image and count the number of pixels in it.
     for (int y=0; y < 100; y++) {
 	for (int x=0; x < 100; x++) {
 	    if (roiImage.getMask(x,y)) {
-		sum += roiImage.get
+		sum++;
+            }
 	}
     }
     BOOST_CHECK_EQUAL(sum, 100);
@@ -593,7 +594,7 @@ init_unit_test_suite( int, char** )
   test->add(BOOST_TEST_CASE(&test_cross_correlation));
   test->add(BOOST_TEST_CASE(&test_fit_polygon));
   test->add(BOOST_TEST_CASE(&test_subpixel_correlation));
-#endif 
+#endif
 //  test->add(BOOST_TEST_CASE(&transforms_test));
   test->add(BOOST_TEST_CASE(&test_roi_image));
   return test;
