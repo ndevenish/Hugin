@@ -108,7 +108,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         }
     }
 #else
-    wxString stitcherExe = config->Read("/PanoTools/PTOptimizerExe","PTStitcher");
+    wxString stitcherExe = config->Read("/PanoTools/PTStitcherExe","PTStitcher");
 #endif
     wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
