@@ -144,6 +144,21 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             return;
         }
     }
+#elif defined (__WXMAC__)
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","");
+    if (!wxFile::Exists(autopanoExe)){
+        wxFileDialog dlg(0,_("Select autopano-sift frontend script"),
+                         "", "",
+                         "Shell Scripts (*.sh)|*.sh",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            autopanoExe = dlg.GetPath();
+            wxConfigBase::Get()->Write("/Autopano/AutoPanoSiftExe",autopanoExe);
+        } else {
+            wxLogError(_("No autopano selected"));
+            return;
+        }
+    }
 #else
     // todo: selection of autopano on linux..
     wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","autopano-complete.sh");
