@@ -55,7 +55,7 @@
 
 #define HUGIN_AP_TYPE                         0l
 #define HUGIN_APKOLOR_EXE                     "autopano.exe"
-#define HUGIN_APKOLOR_ARGS   "/path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
+#define HUGIN_APKOLOR_ARGS   "/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
 
 #define HUGIN_APSIFT_EXE                      "autopano-commandline.vbs"
 
