@@ -217,45 +217,52 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     wxString current;
     current = wxFileName::GetCwd();
 
-  // remember the last location from config
-  if (config->HasEntry(wxT("actualPath"))){
-    wxFileName::SetCwd(  config->Read("actualPath").c_str() );
-    DEBUG_INFO ( (wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
-  }
+    // remember the last location from config
+    if (config->HasEntry(wxT("actualPath"))){
+      wxFileName::SetCwd(  config->Read("actualPath").c_str() );
+      DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
+    }
 
-//  wxArrayString str;         // look data at debug
-  wxString str;
-  wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
+    wxString str;
+    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
         "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
-  if (dlg->ShowModal() == wxID_OK) {
-        str = dlg->GetFilename();
-        wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
-        char Nr[8] ;
+    // do the dialog
+    if (dlg->ShowModal() == wxID_OK) {
+      // get the list to write to
+      wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
+      char Nr[8] ;
+      wxArrayString Filenames;
+      wxArrayString Pathnames; 
+      // get the selections
+      dlg->GetFilenames(Filenames);
+      dlg->GetPaths(Pathnames);
+      sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
+
+      for ( int i = 0 ; i <= (int)Filenames.GetCount() - 1 ; i++ ) {
         sprintf(Nr ,"%d", pano.getNrOfImages()+1);
         lst->InsertItem ( pano.getNrOfImages(), Nr );
-        lst->SetItem ( pano.getNrOfImages(), 1, str );
-//        pano.setObserver( o);
-        pano.addImage( dlg->GetPath().c_str() );
+        lst->SetItem ( pano.getNrOfImages(), 1, Filenames[i] );
+        pano.addImage( Pathnames[i].c_str() );
+        sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
+      }
+      SetStatusText( e_stat, 0);
 
-        sprintf(e_stat,"Add images(%d): %s", pano.getNrOfImages(), str.c_str());
-        SetStatusText( e_stat, 0);
-        // If we load here out project, we await all other as well in place.
-        str = dlg->GetDirectory();
-        wxFileName::SetCwd( str );
-        config->Write("actualPath", str);  // remember for later
-        DEBUG_INFO( (wxString)"save Cwd - " + str )
-        // read in the images
-  } else {
-        // do not close old project
-        // nothing to open
-        SetStatusText( _("Add Image: cancel"));
-  }
-  dlg->Destroy();
-  if (str == wxT("")) {
-    wxFileName::SetCwd( current );
-    DEBUG_INFO ( (wxString)"set Cwd to: " + current )
-        return;
-  }
+      // If we load here out project, we await all other as well in place.
+      str = dlg->GetDirectory();
+      wxFileName::SetCwd( str );
+      config->Write("actualPath", str);  // remember for later
+      DEBUG_INFO( (wxString)"save Cwd - " + str )
+      // read in the images
+    } else {
+      // nothing to open
+      SetStatusText( _("Add Image: cancel"));
+    }
+    dlg->Destroy();
+    if (str == wxT("")) {
+      wxFileName::SetCwd( current );
+      DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+      return;
+    }
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
 }
