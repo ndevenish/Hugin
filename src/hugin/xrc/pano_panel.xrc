@@ -16,11 +16,12 @@
           <object class="sizeritem">
             <object class="wxChoice" name="stitch_quick_mode">
               <content>
-                <item>into a draft-quality JPEG file</item>
-                <item>into a high-quality JPEG file</item>
-                <item>into multiple masked TIFF files</item>
-                <item>into a layered Photoshop file</item>
                 <item>with Custom settings below</item>
+                <item>into a high-quality JPEG file</item>
+                <item>into a draft-quality JPEG file</item>
+                <item>into a TIFF file</item>
+                <item>into a layered TIFF file with masks</item>
+                <item>into a layered Photoshop file</item>
               </content>
               <enabled>0</enabled>
             </object>
@@ -320,6 +321,31 @@
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticBoxSizer">
+              <label>Stitching engine</label>
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Stitching engine:</label>
+                </object>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="pano_choice_stitcher">
+                  <content>
+                    <item>nona</item>
+                    <item>PTStitcher</item>
+                  </content>
+                  <selection>2</selection>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>
               </object>
             </object>

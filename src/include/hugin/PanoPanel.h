@@ -73,6 +73,14 @@ public:
 
  private:
 
+    /// the supported stitching engines
+    enum StitchingEngine { NONA=0, PTSTITCHER };
+
+    /// the supported defaults
+    enum StitchingPresets { PROFILE_CUSTOM =0 , PROFILE_JPEG=0,
+                            PROFILE_DRAFT_JPEG, PROFILE_TIFF,
+                            PROFILE_LAYER_TIFF, PROFILE_LAYER_PSD };
+    
     // resize if the notebook page changes size
     void FitParent(wxSizeEvent & e);
 
@@ -81,12 +89,12 @@ public:
 
     // apply changes to the model. (gui values -> Panorama)
     void ColourModeChanged(wxCommandEvent & e);
-	void ColourModeChangedSpin(wxSpinEvent & e);
+    void ColourModeChangedSpin(wxSpinEvent & e);
     void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
-	void HFOVChangedSpin(wxSpinEvent & e);
+    void HFOVChangedSpin(wxSpinEvent & e);
     void VFOVChanged(wxCommandEvent & e );
-	void VFOVChangedSpin(wxSpinEvent & e);
+    void VFOVChangedSpin(wxSpinEvent & e);
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
     void OnSetQuality(wxSpinEvent & e);
@@ -149,6 +157,7 @@ public:
     wxChoice    * m_FormatChoice;
     wxSpinCtrl  * m_JPEGQualitySpin;
     wxCheckBox  * m_editScriptCB;
+    wxChoice    * m_StitcherChoice;
     wxButton    * m_StitchButton;
 
     DECLARE_EVENT_TABLE()

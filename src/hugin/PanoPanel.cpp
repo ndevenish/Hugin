@@ -32,6 +32,8 @@
 #include <wx/spinctrl.h>
 #include <wx/config.h>
 
+#include "PT/SimpleStitcher.h"
+
 //#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
@@ -45,8 +47,11 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
+#include "hugin/MyProgressDialog.h"
 
 using namespace PT;
+using namespace std;
+using namespace utils;
 
 // image preview
 extern wxBitmap *p_img;
@@ -80,7 +85,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE   ( XRCID("pano_choice_format_final"),PanoPanel::FileFormatChanged)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
-    EVT_BUTTON   ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
+    EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
+//    EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
 END_EVENT_TABLE()
 
 
@@ -151,6 +157,8 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_JPEGQualitySpin->PushEventHandler(new TextKillFocusHandler(this));
     m_editScriptCB = XRCCTRL(*this, "pano_edit_script", wxCheckBox);
     DEBUG_ASSERT(m_editScriptCB);
+    m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
+    DEBUG_ASSERT(m_StitcherChoice);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
@@ -482,8 +490,8 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     PanoramaOptions opt = pano.getOptions();
 
     FDiff2D fov = pano.calcFOV();
-    opt.HFOV = (int) ceil(fov.x);
-    opt.VFOV = (int) ceil(fov.y);
+    opt.HFOV = roundi(fov.x);
+    opt.VFOV = roundi(fov.y);
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
@@ -532,21 +540,72 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
         std::ofstream script(dlg.GetPath());
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
-        
-        // work around a bug in PTStitcher...
-        if ( ( opt.outputFormat == PanoramaOptions::TIFF_m 
-               || opt.outputFormat == PanoramaOptions::TIFF_mask
-             ) &&
-             (
-               opt.outfile.substr(opt.outfile.size()-4) == ".tif"
-               || opt.outfile.substr(opt.outfile.size()-4) == ".TIF"
-             )
-           )
+
+        int s = m_StitcherChoice->GetSelection();
+        DEBUG_ASSERT(s >=0 && s <= PTSTITCHER);
+        StitchingEngine stitcher((StitchingEngine)s);
+        switch (stitcher) {
+        case NONA:
         {
-            opt.outfile = opt.outfile.substr(0, opt.outfile.size()-4);
+            std::string basename;
+            // strip any extension from output file
+            std::string::size_type idx = opt.outfile.rfind('.');
+            if (idx != std::string::npos) {
+                basename = opt.outfile.substr(0, idx);
+            }
+            MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+            std::string format = "jpg";
+            bool savePartial = false;
+            switch(opt.outputFormat) {
+            case PanoramaOptions::JPEG:
+                format = "jpg";
+                break;
+            case PanoramaOptions::PNG:
+                format = "png";
+                break;
+            case PanoramaOptions::TIFF:
+                format = "tif";
+                break;
+            case PanoramaOptions::TIFF_m:
+                format = "tif";
+                break;
+            case PanoramaOptions::TIFF_mask:
+                format = "tif";
+                break;
+            default:
+                wxMessageBox("unsupported file format, using jpg","Nona warning",wxICON_ERROR);
+                format = "jpg";
+            }
+
+            try {
+                MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+
+                vigra::BRGBImage dest;
+                // stitch panorama
+                PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
+                                         pdisp, basename, format, savePartial);
+            } catch (std::exception & e) {
+                DEBUG_ERROR("Error during stitching: " << e.what());
+            }
         }
-        
-        new RunStitcherFrame(this, &pano, opt, m_editScriptCB->IsChecked());
+        break;
+        case PTSTITCHER:
+        {
+            // work around a bug in PTStitcher...
+            if ( ( opt.outputFormat == PanoramaOptions::TIFF_m
+                   || opt.outputFormat == PanoramaOptions::TIFF_mask
+                ) &&
+                 (
+                     opt.outfile.substr(opt.outfile.size()-4) == ".tif"
+                     || opt.outfile.substr(opt.outfile.size()-4) == ".TIF"
+                     )
+                )
+            {
+                opt.outfile = opt.outfile.substr(0, opt.outfile.size()-4);
+            }
+            new RunStitcherFrame(this, &pano, opt, m_editScriptCB->IsChecked());
+        }
+        }
     }
 }
 
