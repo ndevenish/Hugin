@@ -82,6 +82,8 @@ private:
 //    wxCheckBox * m_autoCB;
 
     wxStaticBoxSizer * m_ToggleButtonSizer;
+	wxScrolledWindow * m_ButtonPanel;
+	wxBoxSizer * m_ButtonSizer;
 
     PanoDruid *m_druid;
 #ifdef USE_TOGGLE_BUTTON

@@ -76,19 +76,24 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 {
 	DEBUG_TRACE("");
 
-//    SetTitle(_("panorama preview"));
-    SetAutoLayout(TRUE);
-
     m_ToolBar = wxXmlResource::Get()->LoadToolBar(this, wxT("preview_toolbar"));
     DEBUG_ASSERT(m_ToolBar);
     // create tool bar
     SetToolBar(m_ToolBar);
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
-
+	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	// set this smaller than one button at least or scrolling will not work
+    m_ButtonPanel->SetSize(wxSize(5, 5));
+	m_ButtonPanel->SetScrollRate(10, 10);
+    m_ButtonSizer = new wxBoxSizer(wxHORIZONTAL);
+    m_ButtonPanel->SetAutoLayout(true);
+	m_ButtonPanel->SetSizer(m_ButtonSizer);
+						
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
         wxHORIZONTAL);
+	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxFIXED_MINSIZE, 0);
     topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 1);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
@@ -313,7 +318,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     // remove items for nonexisting images
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
-        m_ToggleButtonSizer->Remove(m_ToggleButtons[i]);
+        m_ButtonSizer->Remove(m_ToggleButtons[i]);
         delete m_ToggleButtons[i];
         m_ToggleButtons.pop_back();
         m_displayedImgs.erase(i);
@@ -329,11 +334,11 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
 #ifdef USE_TOGGLE_BUTTON
-                wxToggleButton * but = new wxToggleButton(this,
+                wxToggleButton * but = new wxToggleButton(m_ButtonPanel,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it));
 #else
-                wxCheckBox * but = new wxCheckBox(this,
+                wxCheckBox * but = new wxCheckBox(m_ButtonPanel,
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
@@ -344,11 +349,16 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // breaks on wxWin 2.5
                 but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
-                m_ToggleButtonSizer->Add(but,
+				{
+				  wxSize m_tbSize = m_ButtonSizer->GetSize();
+				  // leave space for the scroll bar
+				  m_tbSize.SetHeight(sz.GetHeight() + 15);
+				  m_ButtonPanel->SetMinSize(m_tbSize);
+                }
+				m_ButtonSizer->Add(but,
                                          0,
-                                         wxLEFT,
+                                         wxLEFT | wxADJUST_MINSIZE,
                                          5);
-
                 m_ToggleButtons.push_back(but);
                 m_displayedImgs.insert(imgNr);
                 dirty = true;
@@ -356,7 +366,12 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         }
     }
     if (dirty) {
-        m_ToggleButtonSizer->Layout();
+		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
+		Layout();
+		DEBUG_TRACE("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
+		DEBUG_TRACE("New m_ButtonPanel min width: " << (m_ButtonPanel->GetMinSize()).GetWidth());
+		DEBUG_TRACE("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
+		DEBUG_TRACE("New m_ButtonPanel min Height: " << (m_ButtonPanel->GetMinSize()).GetHeight());
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
