@@ -221,11 +221,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         text = "NONE";
         break;
     case CPEvent::NEW_POINT_CHANGED:
-        if (left) {
-            CreateNewPointLeft(ev.getPoint());
-        } else {
-            CreateNewPointRight(ev.getPoint());
-        }
+        CreateNewPoint(ev.getPoint(),left);
         break;
     case CPEvent::POINT_SELECTED:
         SelectLocalPoint(nr);
@@ -367,71 +363,141 @@ unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
 }
 
 
-void CPEditorPanel::CreateNewPointLeft(wxPoint p)
+void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
 {
-    DEBUG_TRACE("CreateNewPointLeft");
-    switch (cpCreationState) {
-    case NO_POINT:
-        cpCreationState = FIRST_POINT;
+    DEBUG_TRACE("CreateNewPoint");
+    
+    CPImageCtrl * thisImg = m_leftImg;
+    unsigned int thisImgNr = m_leftImageNr;
+    CPImageCtrl * otherImg = m_rightImg;
+    unsigned int otherImgNr = m_rightImageNr;
+    CPCreationState THIS_POINT = LEFT_POINT;
+    CPCreationState THIS_POINT_RETRY = LEFT_POINT_RETRY;
+    CPCreationState OTHER_POINT = RIGHT_POINT;
+    CPCreationState OTHER_POINT_RETRY = RIGHT_POINT_RETRY;
+    
+    if (!left) {
+        thisImg = m_rightImg;
+        thisImgNr = m_rightImageNr;
+        otherImg = m_leftImg;
+        otherImgNr = m_leftImageNr;
+        THIS_POINT = RIGHT_POINT;
+        THIS_POINT_RETRY = RIGHT_POINT_RETRY;
+        OTHER_POINT = LEFT_POINT;
+        OTHER_POINT_RETRY = LEFT_POINT_RETRY;
+    }
+        
+    
+    if (cpCreationState == NO_POINT) {
+        //case NO_POINT
+        newPoint = p;
+        cpCreationState = THIS_POINT;
+        // zoom into our window
+        if (thisImg->getScale() < 1) {
+            thisImg->setScale(1);
+            thisImg->showPosition(p.x,p.y);
+        }
+        
+        // display search area for the other image
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            int width = m_pano->getImage(m_rightImageNr).getWidth();
+            int width = m_pano->getImage(otherImgNr).getWidth();
             int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
             int swidth = (int) (width * templSearchAreaPercent / 200);
-            m_rightImg->showSearchArea(swidth);
-            g_MainFrame->SetStatusText("Select Point in right image",0);
+            otherImg->showSearchArea(swidth);
+            g_MainFrame->SetStatusText("Select Point in other image",0);
         }
-    case FIRST_POINT:
+    } else if (cpCreationState == THIS_POINT || cpCreationState == OTHER_POINT_RETRY) {
         newPoint = p;
-        // FIXME approximate position in the right image, and warp cursor
+        thisImg->showPosition(p.x,p.y);
+        // FIXME approximate position in the other image, and warp cursor
         // there.
-        break;
-    case SECOND_POINT:
+    } else if (cpCreationState == OTHER_POINT || cpCreationState == THIS_POINT_RETRY) {
         FDiff2D p2;
-        if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            g_MainFrame->SetStatusText("searching similar point...",0);
-            double xcorr = PointFineTune(m_rightImageNr,
-                                         Diff2D(newPoint.x, newPoint.y),
-                                         m_leftImageNr,
-                                         Diff2D(p.x, p.y),
-                                         p2);
-            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-            double thresh = utils::lexical_cast<double>(str);
-            if (xcorr < thresh) {
-                // Bad correlation result.
-                wxLogError(wxString::Format(_("could not find corrosponding point, low xcorr: %f, (threshold: %f)"),  xcorr, thresh));
-                m_leftImg->clearNewPoint();
-                return;
+        p2.x = -1;
+        p2.y = -1;
+        if (cpCreationState == OTHER_POINT) {
+            // other point already selected, finalize point.
+
+            if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
+                g_MainFrame->SetStatusText("searching similar point...",0);
+                double xcorr = PointFineTune(otherImgNr,
+                                             Diff2D(newPoint.x, newPoint.y),
+                                             thisImgNr,
+                                             Diff2D(p.x, p.y),
+                                             p2);
+                wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
+                double thresh = utils::lexical_cast<double>(str);
+                if (xcorr < thresh) {
+                    // zoom to 100 percent. & set second stage
+                    // to abandon finetune this time.
+                    thisImg->setScale(1);
+                    thisImg->showPosition(p.x, p.y);
+                    
+                    // Bad correlation result.
+                    int answer = wxMessageBox(
+                        wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
+                        "Low correlation",
+                        wxYES_NO|wxICON_QUESTION, this);
+                    if (answer == wxNO) {
+                        cpCreationState = THIS_POINT_RETRY;
+                        return;
+                    }
+                }
+                g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+                // FIXME optionally show point for a short time to check finetune
+            } else {
+                // no finetune. but zoom into picture, when we where zoomed out
+                if (thisImg->getScale() < 1) {
+                    // zoom to 100 percent. & set second stage
+                    // to abandon finetune this time.
+                    thisImg->setScale(1);
+                    thisImg->showPosition(p.x, p.y);
+                    cpCreationState = THIS_POINT_RETRY;
+                    return;
+                } else {
+                    p2.x = p.x;
+                    p2.y = p.y;
+                }
             }
-            g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
         } else {
+            // selection retry
             p2.x = p.x;
             p2.y = p.y;
+            
         }
         // FIXME: get OptimizeMode from somewhere
-        ControlPoint point(m_leftImageNr, p2.x, p2.y,
-                           m_rightImageNr, newPoint.x, newPoint.y,
+        ControlPoint point(thisImgNr, p2.x, p2.y,
+                           otherImgNr, newPoint.x, newPoint.y,
                            PT::ControlPoint::X_Y);
-
-        m_leftImg->clearNewPoint();
-        m_rightImg->clearNewPoint();
+        thisImg->clearNewPoint();
+        otherImg->clearNewPoint();
         cpCreationState = NO_POINT;
-        m_leftImg->hideSearchArea();
+        // reset zoom to previous setting
+        wxCommandEvent tmpEvt;
+        tmpEvt.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
+        OnZoom(tmpEvt);
+            
+        thisImg->hideSearchArea();
         GlobalCmdHist::getInstance().addCommand(
             new PT::AddCtrlPointCmd(*m_pano, point)
             );
-        // select new control Point
-        unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-        SelectGlobalPoint(lPoint);
+            // select new control Point
+//            unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
+//            SelectGlobalPoint(lPoint);
+    } else {
+        // should never reach this, else state machine is broken.
+        DEBUG_ASSERT(0);
     }
 }
 
 
+#if 0
 void CPEditorPanel::CreateNewPointRight(wxPoint p)
 {
     DEBUG_TRACE("CreateNewPointRight");
     switch (cpCreationState) {
     case NO_POINT:
-        cpCreationState = SECOND_POINT;
+        cpCreationState = RIGHT_POINT;
         // show search area
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
             int width = m_pano->getImage(m_leftImageNr).getWidth();
@@ -440,12 +506,12 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
             m_leftImg->showSearchArea(swidth);
             g_MainFrame->SetStatusText("Select Point in right image",0);
         }
-    case SECOND_POINT:
+    case RIGHT_POINT:
         newPoint = p;
         // FIXME approximate position in left image
 
         break;
-    case FIRST_POINT:
+    case LEFT_POINT:
         FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
             g_MainFrame->SetStatusText("searching similar point...",0);
@@ -485,6 +551,8 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
 
     }
 }
+
+#endif
 
 bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
                                  unsigned int dstImgNr,

@@ -94,6 +94,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
+    Hide();
     wxString stitcherExe = config->Read("/PanoTools/PTStitcherExe","PTStitcher.exe");
     if (!wxFile::Exists(stitcherExe)){
         wxFileDialog dlg(this,_("Select PTStitcher.exe"),

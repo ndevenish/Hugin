@@ -99,7 +99,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
 
     // update existing items
-    if ( nrImages >= nrItems ) {
+//    if ( nrImages >= nrItems ) {
         for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrItems) {
                 // create new item.
@@ -117,7 +117,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 m_smallIcons->Replace(*it, small);
             }
         }
-    }
+//    }
 
     // set new column widths
     for ( int j=0; j < GetColumnCount() ; j++ ) {
@@ -214,9 +214,12 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
 
 void ImagesListImage::UpdateItem(unsigned int imgNr)
 {
+    DEBUG_DEBUG("update image list item" << imgNr);
     const PanoImage & img = pano.getImage(imgNr);
     wxFileName fn(img.getFilename().c_str());
     VariableMap var = pano.getImageVariables(imgNr);
+
+//    wxLogMessage(wxString::Format("updating image list item %d, filename %s",imgNr, fn.GetFullName()));
 
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format("%d", img.getWidth()));

@@ -115,6 +115,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
 
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
+    Hide();
     wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer.exe");
     if (!wxFile::Exists(optimizerExe)){
         wxFileDialog dlg(this,_("Select PTOptimizer"),

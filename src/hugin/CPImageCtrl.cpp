@@ -221,40 +221,43 @@ void CPImageCtrl::setImage(const std::string & file)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
+   
     if (imageFilename != "") {
-        wxImage * img = ImageCache::getInstance().getImage(file);
-        imageSize = wxSize(img->GetWidth(), img->GetHeight());
-        if (fitToWindow) {
-            scaleFactor = calcAutoScaleFactor(imageSize);
-        }
-        DEBUG_DEBUG("src image size "
-                    << imageSize.GetHeight() << "x" << imageSize.GetWidth());
-        if (getScaleFactor() == 1.0) {
-            bitmap = img->ConvertToBitmap();
-        } else {
-            DEBUG_DEBUG("rescaling to " << scale(imageSize.GetWidth()) << "x"
-                        << scale(imageSize.GetHeight()) );
-            bitmap = img->Scale(scale(imageSize.GetWidth()),
-                                scale(imageSize.GetHeight())).ConvertToBitmap();
-            DEBUG_DEBUG("rescaling finished");
-        }
+        rescaleImage();
         editState = NO_SELECTION;
-        SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
-        SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
     } else {
         editState = NO_IMAGE;
         bitmap = wxBitmap();
         SetSizeHints(0,0,0,0,1,1);
     }
-    // FIXME update size & relayout dialog
-//    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
-//    SetVirtualSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight());
-    //SetVirtualSizeHints(-1,-1,img.GetWidth(), img.GetHeight());
-//    SetVirtualSizeHints(bitmap->GetWidth(),bitmap->GetHeight(),bitmap->GetWidth(), bitmap->GetHeight());
     // redraw
     update();
 }
 
+
+
+void CPImageCtrl::rescaleImage()
+{
+    // rescale image
+    wxImage * img = ImageCache::getInstance().getImage(imageFilename);
+    imageSize = wxSize(img->GetWidth(), img->GetHeight());
+    if (fitToWindow) {
+        scaleFactor = calcAutoScaleFactor(imageSize);
+    }
+    DEBUG_DEBUG("src image size "
+                << imageSize.GetHeight() << "x" << imageSize.GetWidth());
+    if (getScaleFactor() == 1.0) {
+        bitmap = img->ConvertToBitmap();
+    } else {
+        DEBUG_DEBUG("rescaling to " << scale(imageSize.GetWidth()) << "x"
+                    << scale(imageSize.GetHeight()) );
+        bitmap = img->Scale(scale(imageSize.GetWidth()),
+                            scale(imageSize.GetHeight())).ConvertToBitmap();
+        DEBUG_DEBUG("rescaling finished");
+    }
+    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
+    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
+}
 
 void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
 {
@@ -267,6 +270,7 @@ void CPImageCtrl::setCtrlPoints(const std::vector<wxPoint> & cps)
 
 void CPImageCtrl::clearNewPoint()
 {
+    DEBUG_TRACE("clearNewPoint");
     editState = NO_SELECTION;
     update();
 }
@@ -276,17 +280,17 @@ void CPImageCtrl::selectPoint(unsigned int nr)
 {
     assert(nr < points.size());
     selectedPointNr = nr;
-    wxSize sz = GetClientSize();
-    int x = scale(points[nr].x)- sz.GetWidth()/2;
-//    if (x<0) x = 0;
-    int y = scale(points[nr].y)- sz.GetHeight()/2;
-//    if (y<0) x = 0;
-    showPosition(x,y);
+    showPosition(points[nr].x, points[nr].y);
     update();
 }
 
 void CPImageCtrl::showPosition(int x, int y)
 {
+    wxSize sz = GetClientSize();
+    x = scale(x)- sz.GetWidth()/2;
+//    if (x<0) x = 0;
+    y = scale(y)- sz.GetHeight()/2;
+//    if (y<0) x = 0;
     Scroll(x/16, y/16);
 }
 
@@ -507,8 +511,8 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
                 emit(e);
                 update();
             } else {
-                editState = NO_SELECTION;
                 DEBUG_DEBUG("new Region selected " << region.GetLeft() << "," << region.GetTop() << " " << region.GetRight() << "," << region.GetBottom());
+                editState = NO_SELECTION;
                 // normalize region
                 if (region.GetWidth() < 0) {
                     region.SetX(region.GetRight());
@@ -533,8 +537,8 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
 
 void CPImageCtrl::update()
 {
+    DEBUG_TRACE("");
     Refresh(FALSE);
-//    DEBUG_DEBUG("redraw display");
 }
 
 bool CPImageCtrl::emit(CPEvent & ev)
@@ -559,7 +563,7 @@ void CPImageCtrl::setScale(double factor)
     // update if factor changed
     if (factor != scaleFactor) {
         scaleFactor = factor;
-        setImage(imageFilename);
+        rescaleImage();
         update();
     }
 }

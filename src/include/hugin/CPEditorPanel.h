@@ -124,8 +124,8 @@ private:
 
     // function called when a new point has been selected in the first or
     // second image
-    void CreateNewPointLeft(wxPoint p);
-    void CreateNewPointRight(wxPoint p);
+    void CreateNewPoint(wxPoint p, bool left);
+//    void CreateNewPointRight(wxPoint p);
 
     /// search for region in destImg
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
@@ -146,7 +146,7 @@ private:
     void OnTextPointChange(wxCommandEvent &e);
     void OnKeyDown(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
-    
+
     // experimental corner detector.
     void OnAutoCreateCP();
 
@@ -168,9 +168,17 @@ private:
     bool m_listenToPageChange;
 
     wxPoint newPoint;
-    enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
+    /** the state machine for point selection:
+     *  it is set to the current selection
+     */
+    enum CPCreationState { NO_POINT,  ///< no point selected
+                           LEFT_POINT, ///< point in left image selected
+                           RIGHT_POINT, ///< selected point in right image
+                           RIGHT_POINT_RETRY, ///< point in left image selected, finetune failed in right image
+                           LEFT_POINT_RETRY  ///< right point, finetune for left point failed
+    };
     CPCreationState cpCreationState;
-
+    
     unsigned int m_selectedPoint;
 
     // pair of global control point number and corrosponding control point

@@ -177,6 +177,7 @@
                             <item>50%</item>
                             <item>25%</item>
                           </content>
+                          <style>wxCB_READONLY|wxCB_DROPDOWN</style>
                           <bg>#DCDCDC</bg>
                         </object>
                       </object>

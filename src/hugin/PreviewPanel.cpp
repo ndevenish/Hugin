@@ -130,7 +130,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         dirty = true;
     }
     // update existing items
-    if ( nrImages >= nrRemapped ) {
+//    if ( nrImages >= nrRemapped ) {
         for(PT::UIntSet::iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrRemapped) {
                 // create new item.
@@ -142,7 +142,7 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 m_dirtyImgs.insert(*it);
             }
         }
-    }
+//    }
     if (m_autoPreview) {
         updatePreview();
     }

@@ -140,6 +140,10 @@ public:
      *  @param factor zoom factor, 0 means fit to window.
      */
     void setScale(double factor);
+    
+    /// return scale factor, 0 for autoscale
+    double getScale()
+        { return fitToWindow ? 0 : scaleFactor; }
 
     /** Show point @p x, @p y
      *
@@ -169,6 +173,10 @@ protected:
 
     /// calculate new scale factor for this image
     double calcAutoScaleFactor(wxSize size);
+    
+    // rescale image
+    void rescaleImage();
+
 
 private:
 
