@@ -57,11 +57,14 @@ std::string utils::stripExtension(const std::string & basename2)
     std::string::size_type idx = basename2.rfind('.');
     // check if the dot is not followed by a \ or a /
     // to avoid cutting pathes.
-    std::string::size_type slashidx = basename2.rfind('/', idx);
-    std::string::size_type backslashidx = basename2.rfind('\\', idx);
-    if (idx != std::string::npos
-        && (slashidx < idx || slashidx == std::string::npos)
-        && (backslashidx < idx || backslashidx == std::string::npos) ) 
+    if (idx == std::string::npos) {
+        // no dot found
+        return basename2;
+    }
+    // check for slashes after dot
+    std::string::size_type slashidx = basename2.find('/', idx);
+    std::string::size_type backslashidx = basename2.find('\\', idx);
+    if ( slashidx == std::string::npos &&  backslashidx == std::string::npos)
     {
         return basename2.substr(0, idx);
     } else {
