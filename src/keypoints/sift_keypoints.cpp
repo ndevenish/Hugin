@@ -39,7 +39,7 @@
 #include "vigra/resizeimage.hxx"
 #include "vigra/impex.hxx"
 
-#include "ScaleSpace.h"
+#include "keypoints/ScaleSpace.h"
 
 Matrix3 Matrix3::Identity;
 

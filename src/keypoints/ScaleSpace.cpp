@@ -10,7 +10,7 @@
  *
  */
 
-#include "ScaleSpace.h"
+#include "keypoints/ScaleSpace.h"
 
 // ====================================================
 // Init this Scale Space
