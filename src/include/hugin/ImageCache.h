@@ -249,7 +249,7 @@ public:
      */
     void softFlush();
 
-    void setProgressDisplay(utils::ProgressDisplay * disp)
+    void setProgressDisplay(utils::MultiProgressDisplay * disp)
         {
             m_progress = disp;
         }
@@ -291,7 +291,7 @@ private:
     std::map<std::string, vigra::BImage *> pyrImages;
 
     // our progress display
-    utils::ProgressDisplay * m_progress;
+    utils::MultiProgressDisplay * m_progress;
 };
 
 #endif // _IMAGECACHE_H

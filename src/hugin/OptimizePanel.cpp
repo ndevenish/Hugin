@@ -337,11 +337,15 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaO
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode = m_mode_cb->GetSelection();
-    if (mode != 0) {
+    if (mode == OPT_PAIRWISE) {
+        VariableMapVector vars = PTools::autoOptimise(*m_pano, *(MainFrame::Get()));
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateVariablesCmd(*m_pano, vars)
+            );
+        
+    } else {
         bool edit = m_edit_cb->IsChecked();
         new RunOptimizerFrame(this, m_pano, options, optvars, edit);
-    } else {
-        PTools::autoOptimise(*m_pano, *(MainFrame::Get()));
     }
 }
 
@@ -364,9 +368,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     int mode = m_mode_cb->GetSelection();
-    DEBUG_ASSERT(mode >= 0 && mode <=6);
+    DEBUG_ASSERT(mode >= 0 && mode < OPT_END_MARKER);
     switch (mode) {
-    case 0:
+    case OPT_PAIRWISE:
         // smart auto optimize
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -377,7 +381,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_c_list,false);
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
-    case 1:
+    case OPT_YRP:
         // simple position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -389,7 +393,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 2:
+    case OPT_YRP_V:
         // v + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -401,7 +405,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 3:
+    case OPT_YRP_B:
         // important lens distortion + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -413,7 +417,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 4:
+    case OPT_YRP_BV:
         // important lens distortion + v + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -425,7 +429,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 5:
+    case OPT_ALL:
         // everything
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -437,14 +441,12 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,true);
         SetCheckMark(m_e_list,true);
         break;
-    case 6:
-    default:
-        // do not change anything.
+    case OPT_CUSTOM:
         break;
     }
     // do not try to do anything on our own
     // if the user selected custom
-    if (mode != 5 && m_pano->getNrOfImages() > 0) {
+    if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0) {
         // get anchor image
         unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
 

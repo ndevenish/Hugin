@@ -26,6 +26,8 @@
 #ifndef _PTOPTIMISE_H
 #define _PTOPTIMISE_H
 
+#include <sstream>
+
 #include "PT/Panorama.h"
 #include "PT/PanoToolsInterface.h"
 #include "PT/ImageGraph.h"
@@ -42,7 +44,7 @@ int fcnPano2(int m,int n, double * x, double * fvec, int * iflag);
 PT::VariableMapVector PTools::optimize(PT::Panorama & pano,
                                        const PT::OptimizeVector & optvec,
                                        const PT::UIntVector &imgs,
-                                       utils::ProgressDisplay & progDisplay,
+                                       utils::MultiProgressDisplay & progDisplay,
                                        int maxIter=-1);
 
 /** optimize the images specified in this set.
@@ -53,14 +55,14 @@ PT::VariableMap optimisePair(PT::Panorama & pano,
                              const PT::OptimizeVector & optvec,
                              unsigned int firstImg,
                              unsigned int secondImg,
-                             utils::ProgressDisplay & progDisplay);
+                             utils::MultiProgressDisplay & progDisplay);
 
 /** a traverse functor to optimise the image links */
 class OptimiseVisitor: public boost::default_bfs_visitor
 {
 public:
     OptimiseVisitor(PT::Panorama & pano, const std::set<std::string> & optvec,
-                    utils::ProgressDisplay & pdisp)
+                    utils::MultiProgressDisplay & pdisp)
         : m_pano(pano), m_opt(optvec), m_optVars(pano.getNrOfImages()),
           m_progDisp(pdisp)
         {
@@ -93,7 +95,11 @@ public:
 
         if ( imgs.size() > 1) {
             DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
+            std::ostringstream oss;
+            oss << "optimizing image" << v;
+            m_progDisp.pushTask(utils::ProgressTask(oss.str(), "",0));
             PT::VariableMapVector optVars = optimize(m_pano, optvec, imgs, m_progDisp,1000);
+            m_progDisp.popTask();
             // FIXME apply vars to panorama... (breaks undo!!!)
             m_pano.updateVariables(v, optVars[0]);
             m_optVars[v] = optVars[0];
@@ -109,13 +115,13 @@ private:
     PT::Panorama & m_pano;
     const std::set<std::string> & m_opt;
     PT::VariableMapVector m_optVars;
-    utils::ProgressDisplay & m_progDisp;
+    utils::MultiProgressDisplay & m_progDisp;
 };
 
 
 /** autooptimise the panorama (does local optimisation first) */
 PT::VariableMapVector autoOptimise(PT::Panorama & pano,
-                                   utils::ProgressDisplay &progDisp);
+                                   utils::MultiProgressDisplay &progDisp);
 
 
 } // namespace

@@ -50,6 +50,7 @@
 #include "hugin/ImageProcessing.h"
 
 using namespace PT;
+using namespace utils;
 
 //ImagesPanel * images_panel;
 //LensPanel * lens_panel;
@@ -894,19 +895,38 @@ void MainFrame::ShowCtrlPoint(unsigned int cpNr)
     cpe->ShowControlPoint(cpNr);
 }
 
-void MainFrame::progressMessage(const std::string & msg,
-                                double progress)
+/** update the display */
+void MainFrame::updateProgressDisplay()
 {
-    SetStatusText(msg.c_str());
-    if (progress >= 0) {
-        SetStatusText(wxString::Format("%f%%",progress),1);
-    } else {
-        SetStatusText("",1);
+    wxString msg;
+    // build the message:
+    for (std::vector<ProgressTask>::iterator it = tasks.begin();
+                 it != tasks.end(); ++it)
+    {
+        wxString cMsg;
+        if (it->getProgress() > 0) {
+            cMsg.Printf("%s %s [%3.0f%%]",
+                        it->getShortMessage().c_str(),
+                        it->getMessage().c_str(),
+                        100 * it->getProgress());
+        } else {
+            cMsg.Printf("%s %s",it->getShortMessage().c_str(),
+                        it->getMessage().c_str());
+        }
+        // append to main message
+        if (it == tasks.begin()) {
+            msg = cMsg;
+        } else {
+            msg.Append(" | ");
+            msg.Append(cMsg);
+        }
     }
+    SetStatusText(msg,0);
     wxYield();
 }
 
-    /// hack.. kind of a pseudo singleton...
+
+/// hack.. kind of a pseudo singleton...
 MainFrame * MainFrame::Get()
 {
     if (m_this) {

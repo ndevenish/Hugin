@@ -43,7 +43,7 @@ namespace PTools {
 
 struct MLOptFuncData
 {
-    ProgressDisplay * progDisp;
+    MultiProgressDisplay * progDisp;
     bool terminate;
     int maxIter;
     AlignInfo * g;
@@ -271,11 +271,12 @@ int * iflag
 
     if( *iflag == -100 ){ // reset
         numIt = 0;
-        optdata.progDisp->progressMessage("Optimizing");
+        optdata.progDisp->pushTask(ProgressTask("Optimizing","",0));
 //		infoDlg ( _initProgress, "Optimizing Variables" );
         return 0;
     }
     if( *iflag == -99 ){ //
+        optdata.progDisp->popTask();
 //		infoDlg ( _disposeProgress, "" );
         return 0;
     }
@@ -290,10 +291,10 @@ int * iflag
         }
         result = sqrt( result/ (double)optdata.g->numPts );
 		
-        sprintf( message, "Optimizing: Average Difference after %d iteration(s): %g pixels", numIt,result);//average);
+        sprintf( message, "Avg. Error after %d iter: %g pixels", numIt,result);//average);
         numIt += 10;
 
-        optdata.progDisp->progressMessage(message);
+        optdata.progDisp->setMessage(message);
 
         // termination criteria?
         if (optdata.maxIter > 0 && numIt > optdata.maxIter)
@@ -344,7 +345,7 @@ int * iflag
 VariableMapVector PTools::optimize(Panorama & pano,
                                    const OptimizeVector & optvec,
                                    const PT::UIntVector &imgs,
-                                   utils::ProgressDisplay & progDisplay,
+                                   utils::MultiProgressDisplay & progDisplay,
                                    int maxIter)
 {
     VariableMapVector res;
@@ -385,7 +386,7 @@ VariableMap PTools::optimisePair(Panorama & pano,
                                  const OptimizeVector & optvec,
                                  unsigned int firstImg,
                                  unsigned int secondImg,
-                                 utils::ProgressDisplay & progDisp)
+                                 utils::MultiProgressDisplay & progDisp)
 {
     VariableMapVector res;
     // setup data structures
@@ -429,7 +430,7 @@ VariableMap PTools::optimisePair(Panorama & pano,
 
 /** autooptimise the panorama (does local optimisation first) */
 PT::VariableMapVector PTools::autoOptimise(PT::Panorama & pano,
-                                           utils::ProgressDisplay & progDisp)
+                                           utils::MultiProgressDisplay & progDisp)
 {
     unsigned nImg = pano.getNrOfImages();
     // build a graph over all overlapping images

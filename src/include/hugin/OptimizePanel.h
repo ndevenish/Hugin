@@ -34,6 +34,10 @@ class wxCheckListBox;
  */
 class OptimizePanel : public wxPanel, public PT::PanoramaObserver
 {
+    enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_V,
+                        OPT_YRP_B, OPT_YRP_BV, OPT_ALL, OPT_CUSTOM,
+                        OPT_END_MARKER};
+    
 public:
     OptimizePanel(wxWindow * parent, PT::Panorama * pano);
     virtual ~OptimizePanel();

@@ -37,6 +37,7 @@
 using namespace std;
 using namespace vigra;
 using namespace vigra_ext;
+using namespace utils;
 
 ImageCache * ImageCache::instance = 0;
 
@@ -135,10 +136,10 @@ void ImageCache::softFlush()
                 break;
             }
         }
-        m_progress->progressMessage(
-            wxString::Format(_("Purged %d MB from image cache. Current cache usage: %d MB"),
-                             purgedMem>>20, (usedMem - purgedMem)>>20
-                ).c_str(),0);
+//        m_progress->progressMessage(
+//            wxString::Format(_("Purged %d MB from image cache. Current cache usage: %d MB"),
+//                             purgedMem>>20, (usedMem - purgedMem)>>20
+//                ).c_str(),0);
         DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB");
     }
 }
@@ -165,11 +166,14 @@ ImagePtr ImageCache::getImage(const std::string & filename)
     } else {
         if (m_progress) {
             char *str = wxT("Loading image");
-            m_progress->progressMessage(wxString::Format("%s %s",str,filename.c_str()).c_str(),0);
+            m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,filename.c_str()).c_str(), "", 0));
         }
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
             DEBUG_ERROR("Can't load image: " << filename);
+        }
+        if (m_progress) {
+            m_progress->popTask();
         }
         // FIXME where is RefCountNotifier deleted?
 //        ImagePtr ptr(image, new RefCountNotifier<wxImage>(*this));
@@ -189,8 +193,7 @@ ImagePtr ImageCache::getSmallImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            char *str = wxT("Scaling image");
-            m_progress->progressMessage(wxString::Format("%s %s",str,filename.c_str()).c_str(),0);
+            m_progress->pushTask(ProgressTask(_("Scaling image"), filename.c_str(), 0));
         }
         DEBUG_DEBUG("creating small image " << name );
         ImagePtr image = getImage(filename);
@@ -203,8 +206,14 @@ ImagePtr ImageCache::getSmallImage(const std::string & filename)
             wxImage * tmp = new wxImage( &small_image );
             images[name] = tmp;
             DEBUG_INFO ( "created small image: " << name);
+            if (m_progress) {
+                m_progress->popTask();
+            }
             return tmp;
         } else {
+            if (m_progress) {
+                m_progress->popTask();
+            }
             return image;
         }
     }
@@ -240,7 +249,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                     img = new vigra::BImage(srcImg->GetWidth(), srcImg->GetHeight());
                     DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
                     if (m_progress) {
-                        m_progress->progressMessage(wxString::Format("Creating grayscale version of image %s",filename.c_str()).c_str(),0);
+                      m_progress->pushTask(ProgressTask("creating grayscale",filename.c_str(), 0));
                     }
 
                     vigra::copyImage(wxImageUpperLeft(*srcImg),
@@ -248,16 +257,22 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                                      RGBToGrayAccessor<RGBValue<unsigned char> >(),
                                      img->upperLeft(),
                                      BImage::Accessor());
+                    if (m_progress) {
+                        m_progress->popTask();
+                    }
                 } else {
                     // reduce previous level to current level
                     DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
                     assert(img);
                     if (m_progress) {
-                        m_progress->progressMessage(wxString::Format("Creating pyramid image for %s, level %d",filename.c_str(), key.level).c_str(),0);
+                        m_progress->pushTask(ProgressTask(wxString::Format("Creating pyramid image for %s, level %d",filename.c_str(), key.level).c_str(),"",0));
                     }
                     BImage *smallImg = new BImage();
                     reduceToNextLevel(*img, *smallImg);
                     img = smallImg;
+                    if (m_progress) {
+                        m_progress->popTask();
+                    }
                 }
                 pyrImages[key.toString()]=img;
             }

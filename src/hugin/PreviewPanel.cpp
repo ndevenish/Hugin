@@ -31,6 +31,7 @@
 #include "hugin/PanoToolsInterface.h"
 #include "hugin/ImageProcessing.h"
 #include "hugin/PreviewPanel.h"
+#include "hugin/MainFrame.h"
 
 using namespace PT;
 using namespace std;
@@ -355,7 +356,6 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 
     FImage empty(1,1);
     // remap image with that transform
-    utils::MultiProgressDisplay p;
     PT::transformImage(srcIterRange(wxImageUpperLeft(*src),
                                         wxImageLowerRight(*src)),
                        destIterRange(wxImageUpperLeft(dest)+ ulInt,
@@ -365,7 +365,7 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
                        vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
                                           empty.accessor()),
                        interp_bilin(),
-                       p );
+                       *MainFrame::Get() );
 }
 
 

@@ -71,7 +71,7 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::ProgressDisplay
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay
 {
 public:
 
@@ -105,15 +105,6 @@ public:
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
 
-    // called when a progress message should be displayed
-    /** receive notification about progress
-     *
-     *  @param msg message text
-     *  @param progress optional progress indicator (0-100)
-     */
-    virtual void progressMessage(const std::string & msg,
-                                 double progress=-1);
-
     /// get the path to the xrc directory
     const wxString & GetXRCPath()
     { return m_xrcPrefix;};
@@ -124,7 +115,15 @@ public:
     // load a project
     void LoadProjectFile(const wxString & filename);
 
-
+protected:
+    // called when a progress message should be displayed
+    /** receive notification about progress. Should not be called directly.
+     *
+     *  @param msg message text
+     *  @param progress optional progress indicator (0-100)
+     */
+    void updateProgressDisplay();
+    
 private:
 
     // event handlers

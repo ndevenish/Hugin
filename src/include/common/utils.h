@@ -161,33 +161,33 @@ namespace utils
          *  and a longer description, \p message.
          *
          *  Progress can be set directly, or with substeps, \p subStepProgress
-         *  
+         *
          *  nSteps * subStepProgress = 100%.
          *  The progress is also increased by a subStep, if a lower operation
          *  completes.
          */
-        ProgressTask(std::string shortMessage, std::string message, 
+        ProgressTask(std::string shortMessage, std::string message,
                      double subStepProgress, double progress=0)
             : shortMessage(shortMessage), message(message),
               progress(progress), subStepProgress(subStepProgress),
               last_displayed_progress(-1)
             { };
-            
-        const std::string & getShortMessage() 
+
+        const std::string & getShortMessage()
         {
             return shortMessage;
         }
-            
+
         const std::string & getMessage()
-        { 
+        {
             return message;
         }
-            
+
         double getProgress()
         {
             return progress;
         }
-            
+
         std::string shortMessage;
         std::string message;
         double progress;
@@ -208,11 +208,11 @@ namespace utils
     class MultiProgressDisplay
     {
     public:
-        
+
         MultiProgressDisplay(double minPrintStep=0.02)
             : m_minProgressStep(minPrintStep)
         { }
-        
+
         virtual ~MultiProgressDisplay() {};
 
         /** create a new progress display for a task.
@@ -226,30 +226,30 @@ namespace utils
          *
          */
         void pushTask(const ProgressTask & task)
-        { 
+        {
             tasks.push_back(task);
-            updateDisplay();
+            updateProgressDisplay();
         };
 
         /** remove a task from the progress display */
         void popTask()
         {
             tasks.pop_back();
-            updateDisplay();
+            updateProgressDisplay();
         }
 
         /** change the message text of the current task */
         void setShortMessage(const std::string & msg)
         {
             tasks.back().shortMessage = msg;
-            updateDisplay();
+            updateProgressDisplay();
         }
-        
+
         /** change the message text of the current task */
         void setMessage(const std::string & msg)
         {
             tasks.back().message = msg;
-            updateDisplay();
+            updateProgressDisplay();
         }
 
         /** set progress (affects this task and all tasks above it) */
@@ -259,11 +259,11 @@ namespace utils
             double displayStep = tasks.back().progress - tasks.back().last_displayed_progress;
             if (displayStep > m_minProgressStep)
             {
-                updateDisplay();
+                updateProgressDisplay();
                 tasks.back().last_displayed_progress = tasks.back().progress;
             }
         }
-        
+
         /** increase progress by a substep. */
         void increase()
         {
@@ -271,18 +271,18 @@ namespace utils
             tasks.back().progress + tasks.back().subStepProgress;
             setProgress(tasks.back().progress + tasks.back().subStepProgress);
         }
-        
-        
-        /** template method, to update the display 
+
+
+        /** template method, to update the display
          *
          *  should be provided by subclasses.
          */
-        virtual void updateDisplay() { }
-        
+        virtual void updateProgressDisplay() { }
+
     protected:
 
         /** propagate progress to next level */
-        void propagateProgress(double progress) 
+        void propagateProgress(double progress)
         {
             std::vector<ProgressTask>::reverse_iterator it = tasks.rbegin();
             double diff = progress - it->progress;
@@ -296,7 +296,7 @@ namespace utils
                 ++it;
             }
         }
-            
+
         std::vector<ProgressTask> tasks;
         double m_minProgressStep;
     };
@@ -306,16 +306,16 @@ namespace utils
     public:
         StreamMultiProgressDisplay(std::ostream & o, double minPrintStep=0.02)
             : MultiProgressDisplay(minPrintStep),
-              m_stream(o), m_printedLines(0), 
+              m_stream(o), m_printedLines(0),
               m_whizz("-\\|/"), m_whizzCount(0)
         {
-            
+
         }
-        
+
         virtual ~StreamMultiProgressDisplay() {};
-        
+
         /** update the display */
-        virtual void updateDisplay()
+        virtual void updateProgressDisplay()
         {
             int lines = m_printedLines;
             // step back the line printed before.
@@ -332,22 +332,22 @@ namespace utils
                 char tmp[81];
                 tmp[80]=0;
                 if (it->getProgress() >= 0) {
-                    snprintf(tmp,80,"%15s : %-50s : %3.0f %%", 
+                    snprintf(tmp,80,"%15s : %-50s : %3.0f %%",
                              it->getShortMessage().c_str(),
                              it->getMessage().c_str(),
                              100 * it->getProgress());
                 } else if (it->getProgress() == -1 && it+1 == tasks.end()) {
                     m_whizzCount = (++m_whizzCount) % m_whizz.size();
-                    snprintf(tmp,80,"%20s: %-50s :   %c ", 
+                    snprintf(tmp,80,"%20s: %-50s :   %c ",
                              it->getShortMessage().c_str(),
                              it->getMessage().c_str(),
                              m_whizz[m_whizzCount]);
                 } else {
-                    snprintf(tmp,80,"%20s: %-50s :   - ", 
+                    snprintf(tmp,80,"%20s: %-50s :   - ",
                              it->getShortMessage().c_str(),
                              it->getMessage().c_str());
                 }
-                    
+
                 m_stream << tmp << std::endl;
             }
             // print empty lines..
@@ -362,7 +362,7 @@ namespace utils
         std::string m_whizz;
         int m_whizzCount;
     };
-    
+
     // print progress to cout.
     class CoutProgressDisplay : public ProgressDisplay
     {
