@@ -204,7 +204,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
                         if ( dist < minDist ) {
                             minDist = dist;
                             minImgNr = img2;
-                        } else if (dist == minDist && img2 == imgNr) {
+                        }
                     }
 		    if (minDist < FLT_MAX && minImgNr == imgNr) {
 	                // pixel belongs to current image (imgNr)
@@ -248,7 +248,6 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 
         }
         TIFFClose(tiff);
-
     } else {
         // flatten image into a panorama image
         DEBUG_DEBUG("flattening image");
