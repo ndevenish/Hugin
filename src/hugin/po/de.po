@@ -10,19 +10,18 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2004-10-15 20:11+0200\n"
-"PO-Revision-Date: 2004-10-09 18:05+0200\n"
-"Last-Translator: Douglas Wilkins <douglasw@zahav.co.il>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2004-10-16 03:58+0200\n"
+"Last-Translator: Pablo dAngelo <pablo.dangelo@web.de>\n"
+"Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.3.1\n"
 
-#: src/hugin/CPEditorPanel.cpp:143 src/hugin/CPListFrame.cpp:267
 #: src/hugin/CPListFrame.cpp:277 src/hugin/ImagesList.cpp:50
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: src/hugin/CPEditorPanel.cpp:144
 msgid "left x"
@@ -55,9 +54,8 @@ msgid "searching similar point..."
 msgstr "suche ähnlichen Punkt"
 
 #: src/hugin/CPEditorPanel.cpp:569 src/hugin/CPEditorPanel.cpp:697
-#, fuzzy
 msgid "Error during Fine-tune"
-msgstr "Feher während der Feinsuche"
+msgstr "Fehler während der Feinsuche"
 
 #: src/hugin/CPEditorPanel.cpp:585
 #, c-format
@@ -186,9 +184,8 @@ msgid "Anchor"
 msgstr "Anker"
 
 #: src/hugin/ImagesList.cpp:234
-#, fuzzy
 msgid "# Ctrl Pnts"
-msgstr "Kontrollpunkte"
+msgstr "# Punkte"
 
 #: src/hugin/ImagesList.cpp:276
 msgid "Lens no."
@@ -352,7 +349,7 @@ msgstr "neue Bilder: abgebrochen"
 
 #: src/hugin/MainFrame.cpp:803
 msgid "hugin - FAQ"
-msgstr ""
+msgstr "hugin - Häufig gestellte Fragen"
 
 #: src/hugin/MainFrame.cpp:866
 #, fuzzy
@@ -370,6 +367,12 @@ msgid ""
 "by an error <= %f.\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
+"%d Kontrollpunkte geändert, %d Kontrollpunkte wegen niedriger Korrelation nicht geändert.\n"
+"\n"
+"Hinweis: In der Kontrollpunktliste (F3) wird statt dem Fehler der\n Korrelationskoeffizient angezeigt. Ungenaue und nicht korrigierte\n"
+"Punkte können an einem Korrelationskoeffizienten kleiner %f erkannt werden\n"
+"\n"
+"Nach der nächsten Optimierung werden wieder die Kontrollpunktfehler dargestellt.\n"
 
 #: src/hugin/MainFrame.cpp:942
 #, fuzzy
@@ -378,22 +381,22 @@ msgstr "Feiner Kontrollpunkt"
 
 #: src/hugin/PanoDruid.cpp:41
 msgid "The druid has no advice."
-msgstr ""
+msgstr "Der Druide weiss keinen Rat"
 
 #: src/hugin/PanoDruid.cpp:51 src/hugin/PreviewFrame.cpp:502
 msgid "The druid finds no problems with your panorama."
-msgstr ""
+msgstr "Der Druide sieht kein Problem am aktuellen Panorama."
 
 #: src/hugin/PanoDruid.cpp:52 src/hugin/PreviewFrame.cpp:503
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
-msgstr ""
+msgstr "Das Panorama kann nun zusammengefügt (gestitchtet) werden und mit einem Bildbearbeitungsprogramm wie GIMP nachbearbeitet werden."
 
 #: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:534
 msgid "Warning:  you haven't saved the current project."
-msgstr ""
+msgstr "Warnung: Aktuelles Projekt nicht gespeichert"
 
 #: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:535
 msgid ""
@@ -401,10 +404,13 @@ msgid ""
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
+"Es sieht so aus als ob das Panorama nun gestitcht werden könnte.\n"
+"Bitte vergessein Sie nicht die Projektdatei zu speichern um später\n"
+"Änderungen vornehmen zu können."
 
 #: src/hugin/PanoDruid.cpp:75 src/hugin/PreviewFrame.cpp:525
 msgid "Warning:  current stitch has huge dimensions."
-msgstr ""
+msgstr "Warnung: Panoramabild sehr groß"
 
 #: src/hugin/PanoDruid.cpp:76 src/hugin/PreviewFrame.cpp:526
 msgid ""
@@ -415,6 +421,8 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
+"Bei sehr großen Panoramen benötigen viel Rechenzeit beim zusammenfügen. "
+"Mit der \"Automatische Größe\" Funktion in den Panorama Optionen kann die Größe mit bester Qualität bestimmt werden."
 
 #: src/hugin/PanoDruid.cpp:111 src/hugin/PreviewFrame.cpp:516
 #, fuzzy
@@ -430,10 +438,12 @@ msgid ""
 "5 and 120 degrees per image unless using specialized\n"
 "lenses."
 msgstr ""
+"Bitte überprüfen Sie die eingestellten Brennweiten oder Blickwinkel.\n"
+"Normale Linsen haben einen horizontalen Blickwinkel (HFOV) von 120 bis 5 Grad"
 
 #: src/hugin/PanoDruid.cpp:126
 msgid "Consider adding a vertical or horizontal guide."
-msgstr ""
+msgstr "Eventuell vertikale oder horizontale Kontrollpunkte hinzufügen"
 
 #: src/hugin/PanoDruid.cpp:127
 msgid ""
@@ -441,7 +451,7 @@ msgid ""
 "that buildings or trees or other vertical features\n"
 "appear vertical in the final result.  A horizontal\n"
 "guide can help ensure that a horizon does not bend."
-msgstr ""
+msgstr "Vertikale oder Horizontale Kontrollpunkte können gedrehte oder wellige\n Panoramen geradeziehen. Überlicherweise sollten vertikale Kontrollpunkte auf senkrechte Kanten, wie Häuser, Strommasten oder ähnliche Objekte gesetzt werden. Damit kann der Optimierer da Panorama \"geradeziehen\". Horizontale Kontrollpunkte sollten nur auf der Horizontline gesetzt werden."
 
 #: src/hugin/PanoDruid.cpp:152
 #, fuzzy
@@ -449,16 +459,19 @@ msgid "Run the Optimizer to estimate the image positions."
 msgstr "Optimiere Bild Positionen"
 
 #: src/hugin/PanoDruid.cpp:153
-msgid ""
-"The Optimizer uses the control points to estimate the\n"
+msgid "The Optimizer uses the control points to estimate the\n"
 "positions of the individual images in the final panorama\n"
 "\n"
 "The optimizer can be invoked in the Optimizer tab.\n"
 msgstr ""
+"Der Optimierer benutzt die Kontrollpunkte um die Position\n"
+"der einzelnen Bilder im Panorama festzulegen.\n"
+"\n"
+"Er kann in der Optimierer Karteikarte aufgerufen werden.\n"
 
 #: src/hugin/PanoDruid.cpp:183
 msgid "Add more control points to improve the stitch quality."
-msgstr ""
+msgstr "Mehr Kontrollpunkte führen üblicherweise zu weniger Fehlern im Panorama."
 
 #: src/hugin/PanoDruid.cpp:184
 msgid ""
@@ -466,10 +479,13 @@ msgid ""
 "of control points for each pair of overlapping images.\n"
 "More points, accurately placed, will improve the match."
 msgstr ""
+"Für gute Resultate sollten mindestens 4 Kontrollpunkte für jedes Bildpaar\n"
+"gesetzt werden. Durch mehr Punkte können die Bilder genauer\n"
+"aufeinander gelegt werden. "
 
 #: src/hugin/PanoDruid.cpp:204
 msgid "At least one image has no control points at all."
-msgstr ""
+msgstr "Mindestens ein Bild besitzt überhaupt keine Kontrollpunkte"
 
 #: src/hugin/PanoDruid.cpp:205
 msgid ""
@@ -477,10 +493,14 @@ msgid ""
 "of control points for each pair of overlapping images.\n"
 "An image with no control points cannot be aligned."
 msgstr ""
+"Für gute Resultate sollten mindestens 4 Kontrollpunkte für jedes Bildpaar\n"
+"gesetzt werden. Durch mehr Punkte können die Bilder genauer\n"
+"aufeinander gelegt werden.\n"
+"Bilder ohne Kontrollpunkte können nicht an den Nachbarbildern ausgerichtet werden"
 
 #: src/hugin/PanoDruid.cpp:225
 msgid "Add stitching control points to each pair of images."
-msgstr ""
+msgstr "Kontrollpunkte zwischen jedem Bildpaar hinzufügen"
 
 #: src/hugin/PanoDruid.cpp:226
 msgid ""
@@ -588,7 +608,7 @@ msgstr ""
 
 #: src/hugin/PreviewPanel.cpp:240
 msgid "Error during Stitching"
-msgstr ""
+msgstr "Fehler während des stitchens (Zusammenfügen des Panoramabildes)"
 
 #: src/hugin/RunOptimizerFrame.cpp:96
 #, fuzzy
@@ -608,7 +628,7 @@ msgstr "Itteration anhalten"
 #: src/hugin/RunOptimizerFrame.cpp:211
 #, c-format
 msgid "Strategy %d, Iteration %d, average distance: %f"
-msgstr ""
+msgstr "Strategie: %d, Iteration:%d, durchnittlicher Abstand: %f"
 
 #: src/hugin/RunOptimizerFrame.cpp:283 src/hugin/xrc/edit_text.xrs:3
 msgid "Cancel"
@@ -627,6 +647,10 @@ msgid ""
 "well,\n"
 "when the images are already aligned well."
 msgstr ""
+"Optimierung beendet\n"
+"Vorsicht! Das Panorama besitzt einen sehr kleinen Blickwinkel.\n"
+"In manchen Fällen kann der Blickwinkel der Eingabebilder (v)\n"
+"nicht richtig optimiert werden."
 
 #: src/hugin/RunOptimizerFrame.cpp:322
 #, c-format
@@ -900,8 +924,7 @@ msgid "Anchor Image"
 msgstr "Anker"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid ""
-"Set Yaw and Roll with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Roll with left mouse button. Use right mouse button to set roll"
 msgstr ""
 
 #: src/hugin/xrc/anchor_orientation.xrs:3
@@ -2265,21 +2288,3 @@ msgstr "Parameter für's Zusammenfügen"
 msgid "Abort"
 msgstr ""
 
-#, fuzzy
-#~ msgid "Open Project"
-#~ msgstr "Öffne Projekt"
-
-#, fuzzy
-#~ msgid "Save Project"
-#~ msgstr "Speichere Projekt"
-
-#, fuzzy
-#~ msgid "Save Project As"
-#~ msgstr "Projekt Speichern unter"
-
-#, fuzzy
-#~ msgid "Add an Image"
-#~ msgstr "neue Bilder"
-
-#~ msgid "Error during Finetune"
-#~ msgstr "Fehler während Feinsuche"
