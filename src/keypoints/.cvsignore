@@ -1,7 +1,8 @@
 Makefile.depend
 .obj
 sift_keypoints
-lowe_keypoints*.lo
+lowe_keypoints
+*.lo
 *.la
 .deps
 .libs
