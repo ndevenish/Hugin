@@ -669,6 +669,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 
     //TODO: sorting the filenames keys by timestamp would be useful
 
+    std::vector<std::string> filesv;
     int changed;
     do
     {
@@ -700,13 +701,8 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 {
                     // Load this file, and remember it.
                     DEBUG_TRACE("Recruited " << recruit.c_str());
-                    std::vector<std::string> filesv;
                     std::string file = recruit.c_str();
                     filesv.push_back(file);
-                    wxBusyCursor();
-                    GlobalCmdHist::getInstance().addCommand(
-                        new wxAddImagesCmd(pano,filesv)
-                        );
                     // Don't recruit it again.
                     filenames[recruit] = 0;
                     // Count this as a change.
@@ -718,6 +714,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     } while (changed);
 
     // Load all of the named files.
+    wxBusyCursor();
+    GlobalCmdHist::getInstance().addCommand(
+        new wxAddImagesCmd(pano,filesv)
+        );
 }
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
