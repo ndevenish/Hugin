@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxPanel" name="images_panel">
+    <object class="wxFlexGridSizer">
+      <object class="sizeritem">
+        <object class="wxListCtrl" name="images_list">
+          <style>wxLC_LIST|wxLC_REPORT</style>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <label>File operations</label>
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxButton" name="action_add_images">
+              <label>Add</label>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxButton" name="action_remove_images">
+              <label>Remove</label>
+              <help>Remove image from project</help>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+        </object>
+        <flag>wxEXPAND</flag>
+        <minsize>120,-1</minsize>
+      </object>
+      <cols>2</cols>
+      <rows>2</rows>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+      <growablerows>1</growablerows>
+    </object>
+    <title/>
+  </object>
+</resource>
