@@ -102,11 +102,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_ASSERT(m_colorAnchorButton);
     m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
     DEBUG_ASSERT(m_matchingButton);
-    m_matchingButton->Disable();
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
-    m_removeCPButton->Disable();
-    
+
     // Image Preview
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
@@ -186,10 +184,17 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 /** run sift matching on selected images, and add control points */
 void ImagesPanel::SIFTMatching(wxCommandEvent & e)
 {
-    const UIntSet & selImg = images_list->GetSelected();
-    if ( selImg.size() < 2 ) {
-        wxMessageBox(_("At least 2 images must be selected"),
-                     _("Error"), wxCANCEL | wxICON_ERROR);
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() < 2) {
+        // add all images.
+        selImg.clear();
+        unsigned int nImg = pano.getNrOfImages();
+        for (unsigned int i=0; i < nImg; i++) {
+            selImg.insert(i);
+        }
+    }
+
+    if (selImg.size() == 0) {
         return;
     }
 
@@ -319,18 +324,14 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_optAnchorButton->Enable();
             m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
-            m_matchingButton->Disable();
-            m_removeCPButton->Disable();
         } else {
-            DEBUG_DEBUG("Multiselection");
+            DEBUG_DEBUG("Multiselection, or no image selected");
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
             m_optAnchorButton->Disable();
             m_setAnchorOrientButton->Disable();
             m_colorAnchorButton->Disable();
-            m_matchingButton->Enable();
-            m_removeCPButton->Enable();
         }
     }
 }
@@ -440,22 +441,36 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
 void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    const UIntSet & selImg = images_list->GetSelected();
-    unsigned int nSelImg =  selImg.size();
-    if ( nSelImg > 1 ) {
-        UIntSet cpsToDelete;
-        const CPVector & cps = pano.getCtrlPoints();
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
-            if (set_contains(selImg, (*it).image1Nr) &&
-                set_contains(selImg, (*it).image2Nr) )
-            {
-                cpsToDelete.insert(it - cps.begin());
-            }
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() < 2) {
+        // add all images.
+        selImg.clear();
+        unsigned int nImg = pano.getNrOfImages();
+        for (unsigned int i=0; i < nImg; i++) {
+            selImg.insert(i);
         }
+    }
+
+    if (selImg.size() == 0) {
+        return;
+    }
+
+    UIntSet cpsToDelete;
+    const CPVector & cps = pano.getCtrlPoints();
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
+        if (set_contains(selImg, (*it).image1Nr) &&
+            set_contains(selImg, (*it).image2Nr) )
+        {
+            cpsToDelete.insert(it - cps.begin());
+        }
+    }
+    int r =wxMessageBox(wxString::Format(_("Really Delete %d control points?"), 
+                                         cpsToDelete.size()), 
+                        _("Delete Control Points"), 
+                        wxICON_QUESTION | wxYES_NO);
+    if (r == wxYES) {
         GlobalCmdHist::getInstance().addCommand(
             new PT::RemoveCtrlPointsCmd( pano, cpsToDelete ));
-    } else {
-        wxLogError(_("Select at least two images"));
     }
 }
 
