@@ -29,7 +29,8 @@ REQUIRED LIBRARIES/PACKAGES:
    http://www.tawbaware.com/maxlyons/pano12ml.htm (windows binary and sourcecode)
    or
    http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
-   
+   see below if you want to compile the panorama tools yourself.
+
  - make, version 3.8 or higher.
  - gcc (tested with 3.2, 2.95 might also work)
 
@@ -42,6 +43,10 @@ do the following in the hugin directory:
 $ ./configure
 $ make
 $ make install
+
+If you do want to recompile your pano tools library:
+ Please copy the libpano.so file to /usr/local/lib and the include files
+ into /usr/local/include/pano12.
 
 If you need to compile wxWindows, please use the following steps:
 $ bzip2 -dv wxGTK-2.4.2.tar.bz2
