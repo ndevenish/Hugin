@@ -119,7 +119,8 @@ int main(int argc, char *argv[])
                                          pdisp, basename);
         }
         // save final panorama
-        string filename = basename + format;
+        string filename = basename + "." + format;
+	DEBUG_DEBUG("saving output file: " << filename);
         vigra::ImageExportInfo exinfo(filename.c_str());
         if (format == "jpg") {
             ostringstream jpgqual;
