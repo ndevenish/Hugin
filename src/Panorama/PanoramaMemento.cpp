@@ -385,7 +385,7 @@ public:
         getPTDoubleParam(y, ly, line, "y");
 
         getParam(blend_radius, line, "u");
-        
+
         // read lens type and hfov
         getParam(f, line, "f");
 
@@ -612,7 +612,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         } // case
     }
 
-
     // assemble images & lenses from the information read before..
 /*
     // ugly hack to load PTGui script files
@@ -667,7 +666,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             iImgInfo[i].v = oImgInfo[i].v;
             iImgInfo[i].lv = oImgInfo[i].lv;
         }
-        
+
         if (iImgInfo[i].la == -2 && oImgInfo[i].la != -2 || iImgInfo[i].la == -1 && oImgInfo[i].la >=0) {
             DEBUG_DEBUG("a: o -> i");
             iImgInfo[i].a = oImgInfo[i].a;
@@ -737,7 +736,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             DEBUG_DEBUG("width: o -> i");
             iImgInfo[i].width = oImgInfo[i].width;
         }
-        
+
         if (iImgInfo[i].height <= 0 && oImgInfo[i].height > 0) {
             DEBUG_DEBUG("height: o -> i");
             iImgInfo[i].height = oImgInfo[i].height;
@@ -952,7 +951,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         images.back().setOptions(opts);
     }
 
-    // set dummy optimize vector
+    // if we haven't found a v line in the project file
+    if (optvec.size() != images.size()) {
+        optvec = OptimizeVector(images.size());
+    }
+
 
     return true;
 }
