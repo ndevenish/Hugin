@@ -85,19 +85,6 @@ CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img
         zy[i+interpWidth] = acc(begin, max + vigra::Diff2D(0,i));
     }
 
-    cout << "zx = [";
-    for (int i=0; i<2*interpWidth+1; i++) {
-        cout << zx[i] << " ";
-    }
-    cout << "];" << std::endl;
-
-    cout << "zy = [";
-    for (int i=0; i<interpWidth*2+1; i++) {
-        cout << zy[i] << " ";
-    }
-    cout << "];" << std::endl;
-    
-    
     double a,b,c;
     FitPolynom(x, x + 2*interpWidth+1, zx, a,b,c);
     // calculate extrema of x position by setting
