@@ -166,6 +166,9 @@ public:
                                 EQUIRECTANGULAR_LENS = 4};
 
 
+    /** construct a new lens.
+     *
+     */
     Lens();
 
 //    QDomElement toXML(QDomDocument & doc);
@@ -177,34 +180,65 @@ public:
      *          the correct data.
      */
     bool readEXIF(const std::string & filename);
-    
-    /** HFOV -> 35mm focal length
-     */
-    double calcHFOV35mm(double focalLength35mm) const;
-    
-    /** 35 mm focal length -> HFOV
-     */
-    double calcFL35mm(double HFOV) const;
-    
-    // updates everything, except the variables
-    void update(const Lens & l)
-        {
-            focalLength = l.focalLength;
-            focalLengthConversionFactor = l.focalLengthConversionFactor;
-            projectionFormat = l.projectionFormat;
-        }
 
-    double focalLength;
-    // factor for conversion of focal length to
-    // 35 mm film equivalent.
-    double focalLengthConversionFactor;
-    LensProjectionFormat projectionFormat;
+    /** calculate hfov, from focal length 
+     *
+     *  does not change the lens in any way. 
+     *  It doesn't update the hfov of the lens or the
+     *  images. the needs to be done separately
+     */
+    double calcHFOV(double fl) const;
     
+    /** calculate focal length from given hfov
+     *
+     *  does not change the lens in any way.
+     *  This function is only there to display a focal length in the gui
+     *
+     */
+    double calcFocalLength(double HFOV) const;
+
+    /** Set the focal length factor.
+     *
+     *  @param factor is the ratio of the sensor diagonals:
+     *                factor = diag35mm / real_diag
+     */
+    void setFLFactor(double factor);
+
+    /** return the focal length conversion factor of this lens */
+    double getFLFactor() const
+        { return focalLengthConversionFactor; }
+
+    /**  @param ratio  aspect ratio of the camera (width/height)
+     *                 always in landscape mode (ratio >= 1)
+     */
+    void setRatio(double ratio);
+
+    /** return the sensor ratio (width/height)
+     */
+    double getRatio() const
+        { return sensorRatio; }
+
+
+    // updates everything, including the lens variables.
+    void update(const Lens & l);
+
+    LensProjectionFormat projectionFormat;
+
     bool isLandscape;
     // these are the lens specific settings.
     // lens correction parameters
     LensVarMap variables;
     static char *variableNames[];
+
+private:
+//    double focalLength;
+    // factor for conversion of focal length to
+    // 35 mm film equivalent.
+    double focalLengthConversionFactor;
+
+    double sensorWidth;
+    double sensorHeight;
+    double sensorRatio;
 };
 
 

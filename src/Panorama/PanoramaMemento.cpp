@@ -121,12 +121,13 @@ QString PT::getAttrib(QDomNamedNodeMap map, QString name)
 
 
 Lens::Lens()
-    : focalLength(35),
+    : projectionFormat(RECTILINEAR),
+      isLandscape(false),
       focalLengthConversionFactor(1),
-      projectionFormat(RECTILINEAR),
-      isLandscape(false)
+      sensorWidth(36.0), sensorHeight(24.0),
+      sensorRatio(1.5)
 {
-    variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50.0, true)));
+    variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50 , true)));
     variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
     variables.insert(pair<const char*, LensVariable>("b",LensVariable("b",-0.01, true)));
     variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
@@ -205,23 +206,40 @@ bool Lens::readEXIF(const std::string & filename)
 
     DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
 
-    double ccdWidth = 0;
-    if (isLandscape) {
-        ccdWidth = exif.CCDWidth;
-    } else {
-        // portrait images must use the ccd height instead
-        // of ccd width. we assume that the pixels are squares
-        ccdWidth = exif.CCDWidth * exif.Width / exif.Height;
+    sensorWidth = exif.CCDWidth;
+    if (sensorWidth <= 0) {
+        DEBUG_ERROR("EXIF does not contain sensor width, assuming 36 x 24 mm film");
+        sensorWidth = 36.0;
     }
-    HFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
-    if ( !(HFOV  > 0.0) )
-        HFOV = 50.0;
-    if ( ccdWidth > 0.0 )
-        focalLengthConversionFactor = 36 / ccdWidth;
-    focalLength = exif.FocalLength;
-    DEBUG_DEBUG("CCD size: " << ccdWidth << " mm");
-    DEBUG_DEBUG("focal length: " << focalLength << ", 35mm equiv: "
-                << focalLength * focalLengthConversionFactor
+
+    // FIXME, assumes square pixels
+    //sensorHeight = sensorWidth / ratio;
+    sensorHeight = exif.CCDHeight;
+    if (sensorHeight <= 0) {
+        DEBUG_ERROR("EXIF does not contain sensor height, assuming 36 x 24 mm film");
+        sensorHeight = 24.0;
+    }
+
+    // update the sensor ratio to fit this
+    sensorRatio = sensorWidth / sensorHeight;
+    if (sensorWidth < sensorHeight) {
+        DEBUG_WARN("support for sensors probably buggy");
+    }
+    focalLengthConversionFactor = sqrt(36.0*36.0 + 24.0*24.0) /
+                                  sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight);
+
+    if (isLandscape) {
+        HFOV = 2.0 * atan((sensorWidth/2)/exif.FocalLength) * 180.0/M_PI;
+    } else {
+        HFOV = 2.0 * atan((sensorHeight/2)/exif.FocalLength) * 180.0/M_PI;
+    }
+
+    if ( HFOV <= 0.0)
+        HFOV = 50;
+    DEBUG_DEBUG("CCD size: " << sensorWidth << "," << sensorHeight << " mm");
+    DEBUG_DEBUG("real focal length: " << exif.FocalLength << ", 35mm equiv: "
+                << exif.FocalLength * focalLengthConversionFactor
+                << " crop factor: " << focalLengthConversionFactor
                 << " HFOV: " << HFOV);
 
     map_get(variables,"v").setValue(HFOV);
@@ -229,25 +247,56 @@ bool Lens::readEXIF(const std::string & filename)
     return true;
 }
 
-double Lens::calcHFOV35mm(double focalLength35mm) const
-{
-    if (isLandscape) {
-        return RAD_TO_DEG(2.0 * atan((36/2) / focalLength35mm));
-    } else {
-        return RAD_TO_DEG(2.0 * atan((24/2) / focalLength35mm));
-    }
-}
 
-double Lens::calcFL35mm(double hfov) const
+void Lens::setFLFactor(double factor)
 {
-    if (isLandscape) {
-        return 18.0/tan(hfov/360.0*M_PI);
-    } else {
-        return 12.0/tan(hfov/360.0*M_PI);
-    }
+    focalLengthConversionFactor = factor;
+
+    // calculate corrosponding diagonal on our sensor
+    double d = sqrt(36.0*36.0 + 24.0*24.0) / focalLengthConversionFactor;
+    // calculate the sensor width and height that fit the ratio
+    // the ratio is determined by the size of our image.
+    sensorHeight = d / sqrt(sensorRatio*sensorRatio +1);
+    sensorWidth = sensorHeight * sensorRatio;
+    DEBUG_DEBUG("factor: " << factor << "ratio: " << sensorRatio << " --> New sensor size: " << sensorWidth << "," << sensorHeight)
 }
 
 
+void Lens::setRatio(double ratio)
+{
+    sensorRatio = ratio;
+    setFLFactor(focalLengthConversionFactor);
+}
+
+
+void Lens::update(const Lens & l)
+{
+    focalLengthConversionFactor = l.focalLengthConversionFactor;
+    projectionFormat = l.projectionFormat;
+    sensorWidth = l.sensorWidth;
+    sensorHeight = l.sensorHeight;
+    variables = l.variables;
+}
+
+
+double Lens::calcFocalLength(double HFOV) const
+{
+    if (isLandscape) {
+        return (sensorWidth/2.0) / tan(HFOV/180.0*M_PI/2);
+    } else {
+        return (sensorHeight/2.0) / tan(HFOV/180.0*M_PI/2);
+    }
+}
+
+
+double Lens::calcHFOV(double focalLength) const
+{
+    if (isLandscape) {
+        return 2.0 * atan((sensorWidth/2.0)/focalLength) * 180.0/M_PI;
+    } else {
+        return 2.0 * atan((sensorHeight/2.0)/focalLength) * 180.0/M_PI;
+    }
+}
 
 //=========================================================================
 //=========================================================================
@@ -643,13 +692,30 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 }
             }
 
+            int width, height;
+            getParam(width, line, "w");
+            getParam(height, line, "h");
+            l.isLandscape = width > height;
+
+
             if (lensNr == -1) {
+                if (width > height) {
+                    l.setRatio(((double)width)/height);
+                } else {
+                    l.setRatio(((double)height)/width);
+                }
                 // no links -> create a new lens
                 // create a new lens.
                 lenses.push_back(l);
                 lensNr = lenses.size()-1;
+            } else {
+                // check if the lens uses landscape as well..
+                if (lenses[(unsigned int) lensNr].isLandscape != l.isLandscape) {
+                    DEBUG_ERROR("Landscape and portrait images can't share a lens" << endl
+                                << "error on script line " << lineNr << ":" << line);
+                }
+                // check if the ratio is equal
             }
-
 
             // create a new Image
             string file;
@@ -661,9 +727,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 file.insert(0, prefix);
             }
             DEBUG_DEBUG("filename: " << file);
-            int width, height;
-            getParam(width, line, "w");
-            getParam(height, line, "h");
             DEBUG_ASSERT(lensNr >= 0);
             images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
 

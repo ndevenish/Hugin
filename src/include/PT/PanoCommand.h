@@ -24,7 +24,9 @@
 #ifndef _PANOCOMMAND_H
 #define _PANOCOMMAND_H
 
-#include "Process.h"
+
+#include <vector>
+
 #include "common/Command.h"
 
 #include "PanoImage.h"
@@ -257,7 +259,7 @@ namespace PT {
     class UpdateImagesVariablesCmd : public PanoCommand
     {
     public:
-        UpdateImagesVariablesCmd(Panorama & p, UIntSet & change, const VariableMapVector & vars)
+        UpdateImagesVariablesCmd(Panorama & p, const UIntSet & change, const VariableMapVector & vars)
             : PanoCommand(p), change(change),
               vars(vars)
             { };
@@ -508,6 +510,7 @@ namespace PT {
         Lens newLens;
     };
 
+
     //=========================================================================
     //=========================================================================
 
@@ -542,7 +545,7 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-#if 0    
+#if 0
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
@@ -570,7 +573,7 @@ namespace PT {
         PanoramaOptions options;
     };
 #endif
-    
+
     /** set the panorama options */
     class SetPanoOptionsCmd : public PanoCommand
     {

@@ -882,14 +882,17 @@ const Lens & Panorama::getLens(unsigned int lensNr) const
 
 void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
 {
+    DEBUG_TRACE(lensNr << " contains " << lens.variables.size() << " variables");
     assert(lensNr < state.lenses.size());
     state.lenses[lensNr].update(lens);
-    unsigned int nImages = state.images.size();
-    // flag affected images as changed
-    for (unsigned int i=0; i<nImages; i++) {
-        if (state.images[i].getLensNr() == lensNr) {
-            imageChanged(i);
-        }
+//    DEBUG_DEBUG("after update: " << lens.variables.size() << " variables");
+    // copy changes to images
+    for (LensVarMap::const_iterator it = state.lenses[lensNr].variables.begin();
+         it != state.lenses[lensNr].variables.end();
+         ++it)
+    {
+        DEBUG_DEBUG("updating " << it->second.getName() << " (key: " << it->first << ")");
+        updateLensVariable(lensNr, it->second);
     }
 }
 
