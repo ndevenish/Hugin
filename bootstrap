@@ -117,12 +117,15 @@ echo
 $GETTEXTIZE --copy --force || exit $?
 
 # Now we have to do a bit of hackery to setup for hugin
-# first reverse the changes to configure.ac
+# first reverse the changes to configure.ac etc.
 if test -f ./configure.ac~; then
     mv -f ./configure.ac~ ./configure.ac
 fi
 if test -f ./ChangeLog~; then
     mv -f ./ChangeLog~ ./ChangeLog
+fi
+if test -f ./Makefile.am~; then
+    mv -f ./Makefile.am~ ./Makefile.am
 fi
 
 # then copy and move changes in srcdir/po to srcdir/src/hugin/po and srcdir/src/nona_gui/po
