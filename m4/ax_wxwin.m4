@@ -269,12 +269,12 @@ AC_DEFUN([AM_PATH_WXCONFIG],
 
 dnl xrc ressources are used in hugin but the xrc lib is only needed if version 
 dnl is less than 2.5.3
-  if test "x$need_wx_xrc" = xyes ; then
+  if test "x$need_wx_xrc" = 'xyes' ; then
     WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
   fi
   if test "x$HSYS" = 'xmingw32' ; then
-    if test "x$need_wx_regex" = xyes ; then
-      if test "x$with_unicode" = xyes ; then
+    if test "x$need_wx_regex" = 'xyes' ; then
+      if test "x$with_unicode" = 'xyes' ; then
         WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
       else
         WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
