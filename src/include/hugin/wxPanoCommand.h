@@ -72,29 +72,32 @@ public:
                     lens.readEXIF(filename);
                 }
 
-                bool addNew = (pano.getNrOfLenses() == 0);
-#if 0
+                int matchingLensNr=-1;
                 // FIXME: check if the exif information
                 // indicates other camera parameters
                 for (unsigned int lnr=0; lnr < pano.getNrOfLenses(); lnr++) {
                     const Lens & l = pano.getLens(lnr);
-                    // compare lenses.
-                    // FIXME check if we need to add another lens
-                    // query user if we need to.
-                    
-                }
-#endif
-                    
-                int lensNr=0;
-                if (addNew) {
-                    lensNr = pano.addLens(lens);
+
+                    // use a lens if hfov and ratio are the same
+                    // should add a check for exif camera information as
+                    // well.
+                    if ((l.getRatio() == lens.getRatio()) &&
+                        (l.isLandscape == lens.isLandscape) &&
+                        (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) )
+                    {
+                        matchingLensNr= lnr;
+                    }
                 }
 
+                if (matchingLensNr == -1) {
+                    matchingLensNr = pano.addLens(lens);
+                }
 
                 VariableMap vars;
                 fillVariableMap(vars);
-
-                PanoImage img(filename, width, height, lensNr);
+                
+                DEBUG_ASSERT(matchingLensNr >= 0);
+                PanoImage img(filename, width, height, (unsigned int) matchingLensNr);
                 pano.addImage(img, vars);
             }
             pano.changeFinished();
