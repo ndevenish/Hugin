@@ -43,6 +43,9 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "PT/Panorama.h"
+
+using namespace PT;
 
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
     #include "xrc/data/gui.xpm"
@@ -203,6 +206,10 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 
 void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 {
+    char e_stat[128] = "Number of panoimages(";
+    sprintf (e_stat,"%s%d)", e_stat, pano.getNrOfImages() );
+    SetStatusText( e_stat, 0);
+
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
     DEBUG_INFO ( (wxString)"get Path: " + config->GetPath().c_str() )
@@ -223,9 +230,15 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
   if (dlg->ShowModal() == wxID_OK) {
         str = dlg->GetFilename();
         wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
-        lst->InsertItem ( 0 , "0" );
-        lst->SetItem ( 0 , 1, str );
-        SetStatusText( _("Add images:   ") + str, 0);
+        char Nr[8] ;
+        sprintf(Nr ,"%d", pano.getNrOfImages()+1);
+        lst->InsertItem ( pano.getNrOfImages(), Nr );
+        lst->SetItem ( pano.getNrOfImages(), 1, str );
+//        pano.setObserver( o);
+        pano.addImage( dlg->GetPath().c_str() );
+
+        sprintf(e_stat,"Add images(%d): %s", pano.getNrOfImages(), str.c_str());
+        SetStatusText( e_stat, 0);
         // If we load here out project, we await all other as well in place.
         str = dlg->GetDirectory();
         wxFileName::SetCwd( str );
@@ -249,10 +262,26 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
 {
-//    wxArrayInt& aSelections = new wxArrayInt();
-//    XRCCTRL(*this, "images_list", wxListCtrl)->GetSelections(aSelections);
-//    SetStatusText( _("iRemove images:   ") + aSelections, 0);
-    wxLogError("not implemented");
+    wxListCtrl* lst =  XRCCTRL(*this, "images_list", wxListCtrl);
+    wxString e_msg;
+    int sel_I = lst->GetSelectedItemCount();
+    if ( sel_I == 1 )
+      e_msg = _("Remove image:   ");
+    else
+      e_msg = _("Remove images:   ");
+ 
+    for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
+      if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
+        e_msg += "  " + lst->GetItemText(Nr);
+        pano.removeImage(Nr);
+        lst->DeleteItem(Nr);
+      }
+    }
+
+    if ( sel_I == 0 )
+      SetStatusText( _("Nothing selected"), 0);
+    else
+      SetStatusText( e_msg, 0);
 }
 
 void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
