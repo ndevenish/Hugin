@@ -24,7 +24,7 @@
  *
  */
 
-#include "../utils.h"
+#include "../include/common/utils.h"
 #include "CPImageCtrl.h"
 
 using namespace std;

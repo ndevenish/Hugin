@@ -26,7 +26,7 @@
 
 #include "CPEditor.h"
 
-#include "../utils.h"
+#include "../include/common/utils.h"
 
 IMPLEMENT_DYNAMIC_CLASS(CPEditor, wxPanel);
 
