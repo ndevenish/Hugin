@@ -1,12 +1,23 @@
 Overview:
 
-hugin uses the following libraries. make sure that they are completely installed (including dev packages)
+These are UNIX only instructions, windows instructions will follow once
+hugin is usable on windows.
+
+hugin uses the following libraries. make sure that they are completely
+installed (including dev packages)
 
 REQUIRED LIBRARIES/PACKAGES:
 
-wxwindows 2.4.0 or higher (libary and development packages)
-wxwindows needs to be compiled with the xrc extension. You might need to install
-wxwin-contrib or similar.
+ - wxwindows 2.4.0 or higher (libary and development packages)
+    wxwindows needs to be compiled with the xrc extension. You might
+    need to install a wxwin-contrib or similar package if provided
+    by your distribution.
+ 
+    If you compile wxwindows from scratch, go to the contrib/src/xrc folder
+    and compile and install xrc from there.
+
+ - make, version 3.8 or higher.
+ - gcc (tested with 3.2, 2.95 might also work)
 
 Panorama Tools, get it from
 http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux)
