@@ -74,7 +74,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     pano->addObserver(this);
 
     DEBUG_TRACE("");
-    images_list = new List (parent, pano);
+    images_list = new List (parent, pano, images_layout);
     DEBUG_TRACE("");
 //    CPEditorPanel * cpe = new CPEditorPanel(parent,pano);
     wxXmlResource::Get()->AttachUnknownControl (
@@ -82,11 +82,11 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
                images_list );
 //               cpe );
     DEBUG_TRACE("");
-    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
-    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
-    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
-    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
+//    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
+//    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
+//    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
+//    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
+//    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
 
     // Image Preview
 

@@ -72,18 +72,29 @@ END_EVENT_TABLE()
 
 
 // Define a constructor for the Images Panel
-List::List( wxWindow* parent, Panorama* pano)
+List::List( wxWindow* parent, Panorama* pano, int layout)
     : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxSUNKEN_BORDER),
-      pano(*pano)
+      pano(*pano), list_layout (layout)
 {
     DEBUG_TRACE("");
 
-/*    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
-    InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
-    InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
-*/
+    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
+    if ( list_layout == images_layout ) {
+      InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
+      InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
+      InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
+      DEBUG_INFO( " images_layout" )
+    } else {
+      InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
+      InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 80 );
+      InsertColumn( 3, _("Focal length"), wxLIST_FORMAT_LEFT, 80 );
+      InsertColumn( 4, _("a"), wxLIST_FORMAT_LEFT, 20 );
+      InsertColumn( 5, _("b"), wxLIST_FORMAT_LEFT, 20 );
+      InsertColumn( 6, _("c"), wxLIST_FORMAT_LEFT, 20 );
+      DEBUG_INFO( " else _layout" )
+    }
+
     // Image Preview
     DEBUG_TRACE("");
 
@@ -98,7 +109,7 @@ List::~List(void)
     pano.removeObserver(this);
 //    delete p_img; // Dont know how to check for existing
     p_img = (wxBitmap *) NULL;
-    DEBUG_TRACE("");
+    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 }
 
 
@@ -106,6 +117,7 @@ void List::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
     DeleteAllItems() ; // very radical
+    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 
     // start the loop for every selected filename
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
@@ -119,12 +131,23 @@ void List::panoramaChanged (PT::Panorama &pano)
         InsertItem ( i, Nr, i );
         DEBUG_INFO( " icon at Item:" << wxString::Format("%d", i) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
         SetItem ( i, 1, fn.GetFullName() );
-        sprintf(Nr, "%d", image->GetHeight() );
-        SetItem ( i, 2, Nr );
-        sprintf(Nr, "%d", image->GetWidth() );
-        SetItem ( i, 3, Nr );
-        sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
-        SetItem ( i, 4, Nr );
+        if ( list_layout == images_layout ) {
+          sprintf(Nr, "%d", image->GetHeight() );
+          SetItem ( i, 2, Nr );
+          sprintf(Nr, "%d", image->GetWidth() );
+          SetItem ( i, 3, Nr );
+          sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
+          SetItem ( i, 4, Nr );
+        DEBUG_INFO( " images_layout" )
+        } else {
+          sprintf(Nr, "empty" );
+          SetItem ( i, 2, Nr );
+          sprintf(Nr, "%d", image->GetWidth() );
+          //SetItem ( i, 3, Nr );
+          sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
+          //SetItem ( i, 4, Nr );
+        DEBUG_INFO( " else _layout" )
+        }
         SetColumnWidth(0, wxLIST_AUTOSIZE);
         SetColumnWidth(1, wxLIST_AUTOSIZE);
         SetColumnWidth(2, wxLIST_AUTOSIZE);

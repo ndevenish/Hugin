@@ -50,9 +50,9 @@
 using namespace PT;
 
 // Image Icons
-//wxImageList * img_icons;
+extern wxImageList * img_icons;
 // Image Icons biger
-//wxImageList * img_bicons;
+extern wxImageList * img_bicons;
 
 // image preview
 extern wxBitmap * p_img;
@@ -72,16 +72,18 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 {
     pano->addObserver(this);
 
-    images_list = new List (parent, pano);
+    images_list2 = new List (parent, pano, lens_layout);
     wxXmlResource::Get()->AttachUnknownControl (
-               wxT("images_list_unknown"),
-               images_list );
+               wxT("images_list2_unknown"),
+               images_list2 );
 
-    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
-    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
-//    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
-//    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-//    images_list->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
+    images_list2->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
+//    images_list2->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
+//    images_list2->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
+//    images_list2->InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 0 );
+//    images_list2->InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 0 );
+//    images_list2->InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 0 );
+//    images_list2->InsertColumn( 5, _("Lens"), wxLIST_FORMAT_RIGHT, 125 );
 
     p_img = new wxBitmap( 0, 0 );
 /*    wxPanel * img_p = XRCCTRL(*parent, "Lens_preview_unknown", wxPanel);
@@ -99,7 +101,7 @@ LensPanel::~LensPanel(void)
     pano.removeObserver(this);
 //    delete p_img; // Dont know how to check for existing
     p_img = (wxBitmap *) NULL;
-    delete images_list;
+    delete images_list2;
     DEBUG_TRACE("");
 }
 

@@ -22,19 +22,19 @@
             <object class="unknown" name="images_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Lens</label>
+            <label>Lens settings</label>
             <object class="unknown" name="lens_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Panorama</label>
+            <label>Panorama settings</label>
             <object class="wxPanel" name="panorama_panel"/>
           </object>
           <object class="notebookpage">
-            <label>Control Points</label>
+            <label>Control points</label>
             <object class="unknown" name="cp_editor_panel_unknown"/>
           </object>
           <object class="notebookpage">
-            <label>Optimizer</label>
+            <label>Optimize</label>
             <object class="wxPanel"/>
           </object>
         </object>

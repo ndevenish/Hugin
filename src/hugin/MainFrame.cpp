@@ -44,6 +44,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesPanel.h"
+#include "hugin/LensPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "PT/Panorama.h"
@@ -107,9 +108,9 @@ MainFrame::MainFrame(wxWindow* parent)
                wxT("lens_panel_unknown"),
                wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel")) );
 
-    // finish the images_panel
-//    lens_panel = new LensPanel( this, wxDefaultPosition,
-//                                                 wxDefaultSize, &pano);
+    // the lens_panel
+    LensPanel* lens_panel = new LensPanel( this, wxDefaultPosition,
+                                                 wxDefaultSize, &pano);
 
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");
