@@ -36,6 +36,7 @@
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 #include <wx/listctrl.h>
 #include <wx/imaglist.h>
+#include <wx/spinctrl.h>
 
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
@@ -152,6 +153,24 @@ BEGIN_EVENT_TABLE(LensEdit, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensEdit::cChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensEdit::dChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensEdit::eChanged )
+    EVT_CHECKBOX ( XRCID("images_inherit_hfov"), LensEdit::SetInheritHfov )
+    EVT_SPINCTRL ( XRCID("images_spin_hfov"), LensEdit::SetInheritHfov )
+    EVT_CHECKBOX ( XRCID("images_optimize_hfov"), LensEdit::SetOptimizeHfov )
+    EVT_CHECKBOX ( XRCID("images_inherit_a"), LensEdit::SetInheritA )
+    EVT_SPINCTRL ( XRCID("images_spin_a"), LensEdit::SetInheritA )
+    EVT_CHECKBOX ( XRCID("images_optimize_a"), LensEdit::SetOptimizeA )
+    EVT_CHECKBOX ( XRCID("images_inherit_b"), LensEdit::SetInheritB )
+    EVT_SPINCTRL ( XRCID("images_spin_b"), LensEdit::SetInheritB )
+    EVT_CHECKBOX ( XRCID("images_optimize_b"), LensEdit::SetOptimizeB )
+    EVT_CHECKBOX ( XRCID("images_inherit_c"), LensEdit::SetInheritC )
+    EVT_SPINCTRL ( XRCID("images_spin_c"), LensEdit::SetInheritC )
+    EVT_CHECKBOX ( XRCID("images_optimize_c"), LensEdit::SetOptimizeC )
+    EVT_CHECKBOX ( XRCID("images_inherit_d"), LensEdit::SetInheritD )
+    EVT_SPINCTRL ( XRCID("images_spin_d"), LensEdit::SetInheritD )
+    EVT_CHECKBOX ( XRCID("images_optimize_d"), LensEdit::SetOptimizeD )
+    EVT_CHECKBOX ( XRCID("images_inherit_e"), LensEdit::SetInheritE )
+    EVT_SPINCTRL ( XRCID("images_spin_e"), LensEdit::SetInheritE )
+    EVT_CHECKBOX ( XRCID("images_optimize_e"), LensEdit::SetOptimizeE )
 END_EVENT_TABLE()
 
 LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/ Panorama* pano)
@@ -503,6 +522,239 @@ void LensEdit::eChanged ( wxCommandEvent & e )
     }
     DEBUG_TRACE ("")
 }
+
+// Inheritance + Optimization
+
+void LensEdit::SetInherit( std::string type )
+{
+//    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll" 
+    // requisites
+    int var (-1);
+    std::string command;
+    std::string xml_inherit, xml_optimize, xml_spin;
+    ImageVariables new_var;
+
+    if ( imgNr[0] > 0 ) { // dont work on an empty image
+      // set xml resource names
+      xml_inherit = "images_inherit_"; xml_inherit.append(type);
+      xml_optimize = "images_optimize_"; xml_optimize.append(type);
+      xml_spin = "images_spin_"; xml_spin.append(type);
+      // for all images
+      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        new_var = pano.getVariable(imgNr[i]);
+        // set inheritance from image with number ...
+        var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
+        DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+        // Shall we inherit?
+        if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked()
+             && (pano.getNrOfImages() != 1) ) { // single image cannot inherit
+            // We are conservative and ask better once more. 
+            if ( type == "hfov" ) {
+              // test for unselfish inheritance
+              if ( var != (int)imgNr[i] ) {
+                new_var.HFOV.link(var);
+                optset->at(imgNr[i]).HFOV = FALSE;
+              } else { // search for another possible link image
+                if ( (((int)new_var. HFOV .getLink() > var) && (var != 0)) 
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.HFOV.link(var);
+                } else {
+                  var++; new_var.HFOV.link(var);
+                }
+              }
+            }
+            if ( type == "a" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.a.link(var);
+                optset->at(imgNr[i]).a = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. a .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.a.link(var);
+                } else {
+                  var++; new_var.a.link(var);
+                }
+              }
+            }
+            if ( type == "b" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.b.link(var);
+                optset->at(imgNr[i]).b = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. b .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.b.link(var);
+                } else {
+                  var++; new_var.b.link(var);
+                }
+              }
+            }
+            if ( type == "c" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.c.link(var);
+                optset->at(imgNr[i]).c = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. c .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.c.link(var);
+                } else {
+                  var++; new_var.c.link(var);
+                }
+              }
+            }
+            if ( type == "d" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.d.link(var);
+                optset->at(imgNr[i]).d = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. d .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.d.link(var);
+                } else {
+                  var++; new_var.d.link(var);
+                }
+              }
+            }
+            if ( type == "e" ) {
+              if ( var != (int)imgNr[i] ) {
+                new_var.e.link(var);
+                optset->at(imgNr[i]).e = FALSE;
+              } else { // search for another possible link image
+                if ( ((int)new_var. e .getLink() > var) && (var != 0)
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
+                  var--; new_var.e.link(var);
+                } else {
+                  var++; new_var.e.link(var);
+                }
+              }
+            }
+            // ... and set controls
+            XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->SetValue(var);
+            XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
+            DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
+            // local ImageVariables finished, save to pano
+            pano.updateVariables( imgNr[i], new_var ); 
+          // unset inheritance
+          } else {
+            if ( type == "Hfov" )
+              new_var.HFOV.unlink();
+            if ( type == "a" )
+              new_var.a.unlink();
+            if ( type == "b" )
+              new_var.b.unlink();
+            if ( type == "c" )
+              new_var.c.unlink();
+            if ( type == "d" )
+              new_var.d.unlink();
+            if ( type == "e" )
+              new_var.e.unlink();
+            XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
+          }
+          // local ImageVariables finished, save to pano
+          pano.updateVariables( imgNr[i], new_var ); 
+          // set optimization
+          if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
+            if ( type == "hfov" ) {
+              optset->at(imgNr[i]).HFOV = TRUE;
+            }
+            if ( type == "a" ) {
+              optset->at(imgNr[i]).a = TRUE;
+            }
+            if ( type == "b" ) {
+              optset->at(imgNr[i]).b = TRUE;
+            }
+            if ( type == "c" ) {
+              optset->at(imgNr[i]).c = TRUE;
+            }
+            if ( type == "d" ) {
+              optset->at(imgNr[i]).d = TRUE;
+            }
+            if ( type == "e" ) {
+              optset->at(imgNr[i]).e = TRUE;
+            }
+            XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
+          // unset optimization
+          } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
+            if ( type == "hfov" )
+              optset->at(imgNr[i]).HFOV = FALSE;
+            if ( type == "a" )
+              optset->at(imgNr[i]).a = FALSE;
+            if ( type == "b" )
+              optset->at(imgNr[i]).b = FALSE;
+            if ( type == "c" )
+              optset->at(imgNr[i]).c = FALSE;
+            if ( type == "d" )
+              optset->at(imgNr[i]).d = FALSE;
+            if ( type == "e" )
+              optset->at(imgNr[i]).e = FALSE;
+          }
+        }
+
+        // activate an undoable command, not for the optimize settings
+        GlobalCmdHist::getInstance().addCommand(
+           new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
+           );
+    }
+    DEBUG_INFO( type.c_str() << " end" )
+}
+
+void LensEdit::SetInheritHfov( wxCommandEvent & e )
+{
+    SetInherit ( "hfov" );
+}
+void LensEdit::SetInheritA( wxCommandEvent & e )
+{
+    SetInherit ( "a" );
+}
+void LensEdit::SetInheritB( wxCommandEvent & e )
+{
+    SetInherit ( "b" );
+}
+void LensEdit::SetInheritC( wxCommandEvent & e )
+{
+    SetInherit ( "c" );
+}
+void LensEdit::SetInheritD( wxCommandEvent & e )
+{
+    SetInherit ( "d" );
+}
+void LensEdit::SetInheritE( wxCommandEvent & e )
+{
+    SetInherit ( "e" );
+}
+
+void LensEdit::SetOptimizeHfov( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "hfov" );
+}
+void LensEdit::SetOptimizeA( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_a" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "a" );
+}
+void LensEdit::SetOptimizeB( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_b" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "b" );
+}
+void LensEdit::SetOptimizeC( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_c" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "c" );
+}
+void LensEdit::SetOptimizeD( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_d" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "d" );
+}
+void LensEdit::SetOptimizeE( wxCommandEvent & e )
+{
+    XRCCTRL(*this, "images_inherit_e" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "e" );
+}
+
+
 
 // This function is called whenever the image selection changes.
 void LensEdit::SetImages ( wxListEvent & e )

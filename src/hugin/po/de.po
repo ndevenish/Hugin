@@ -137,6 +137,16 @@ msgstr "allgemeine Einstellungen"
 #: ../ptopengui.cpp:107
 msgid "&Optimization\tCtrl-r"
 msgstr "&Optimierung\tCtrl-r"
+msgid "Optimization"
+msgstr "Optimierung"
+msgid "optimizer level:"
+msgstr "Optimierung von:"
+msgid "orientation"
+msgstr "Orientierung"
+msgid "lens settings"
+msgstr "Objektiv Parameter"
+msgid "all switched"
+msgstr "alles Gew‰hlte"
 
 #: ../ptopengui.cpp:107
 msgid "Optimize with current parameters"
@@ -788,7 +798,7 @@ msgstr "Qualit‰t 100% gut-groﬂ 0% schlecht-klein "
 
 #: ../ptopengui.cpp:882
 msgid "Progressive jpeg"
-msgstr ""
+msgstr "progressives JPEG"
 
 #: ../ptopengui.cpp:883
 msgid "Jpeg advanced packing"

@@ -85,6 +85,8 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
      */
     void update_edit_LensGui ( int lens );
 
+ private:
+
     // event handlers
     /**  selected a lens as edit_Lens */
     void LensSelected (wxCommandEvent & e);
@@ -104,7 +106,20 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     void dChanged(wxCommandEvent & e);
     /**  selfexplaining */
     void eChanged(wxCommandEvent & e);
- private:
+    /**  set inheritance and optimization */
+    void SetInherit ( std::string type );
+    void SetInheritHfov ( wxCommandEvent & e );
+    void SetInheritA ( wxCommandEvent & e );
+    void SetInheritB ( wxCommandEvent & e );
+    void SetInheritC ( wxCommandEvent & e );
+    void SetInheritD ( wxCommandEvent & e );
+    void SetInheritE ( wxCommandEvent & e );
+    void SetOptimizeHfov ( wxCommandEvent & e );
+    void SetOptimizeA ( wxCommandEvent & e );
+    void SetOptimizeB ( wxCommandEvent & e );
+    void SetOptimizeC ( wxCommandEvent & e );
+    void SetOptimizeD ( wxCommandEvent & e );
+    void SetOptimizeE ( wxCommandEvent & e );
 
     // the model
     Panorama &pano;

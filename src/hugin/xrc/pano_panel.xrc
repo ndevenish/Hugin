@@ -1,155 +1,77 @@
 <?xml version="1.0" ?>
 <resource>
   <object class="wxPanel" name="panorama_panel">
-    <object class="wxBoxSizer">
-      <orient>wxHORIZONTAL</orient>
+    <object class="wxFlexGridSizer">
+      <cols>2</cols>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxVERTICAL</orient>
+        <object class="wxFlexGridSizer">
           <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
-              <label>Panorama settings</label>
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxHORIZONTAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxVERTICAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>Panorama type (f)</label>
-                            </object>
-                            <flag>wxALL|wxALIGN_CENTRE</flag>
-                            <minsize>120,20</minsize>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxChoice" name="pano_choice_panoType">
-                              <content>
-                                <item>Rectlinear</item>
-                                <item>Cylindrical</item>
-                                <item>Equirectangular</item>
-                              </content>
-                              <selection>2</selection>
-                            </object>
-                            <minsize>110,31</minsize>
-                          </object>
-                        </object>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>Field of view (v)</label>
-                              <style>wxALIGN_LEFT</style>
-                            </object>
-                            <flag>wxALL|wxALIGN_CENTRE</flag>
-                            <minsize>120,20</minsize>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxComboBox" name="pano_val_hfov">
-                              <value>360</value>
-                              <style></style>
-                              <content>
-                                <item>30</item>
-                                <item>60</item>
-                                <item>90</item>
-                                <item>120</item>
-                                <item>180</item>
-                                <item>240</item>
-                                <item>260</item>
-                                <item>360</item>
-                                <item>720</item>
-                              </content>
-                            </object>
-                            <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                            <minsize>110,25</minsize>
-                          </object>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                    </object>
-                  </object>
-                  <object class="spacer">
-                    <size>0,0</size>
-                    <flag>wxALL</flag>
-                    <border>10</border>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxVERTICAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>Interpolator (i)</label>
-                            </object>
-                            <flag>wxALIGN_CENTRE|wxALIGN_CENTRE_HORIZONTAL</flag>
-                            <minsize>120,20</minsize>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxChoice" name="pano_choice_interpolator">
-                              <content>
-                                <item>Poly3 (Bicubic)</item>
-                                <item>Spline 16</item>
-                                <item>Spline 36</item>
-                                <item>Sinc 256</item>
-                                <item>Spline 64</item>
-                                <item>Bilinear</item>
-                                <item>Nearest neighbour</item>
-                                <item>Sinc 1024</item>
-                              </content>
-                              <selection>0</selection>
-                            </object>
-                            <minsize>150,31</minsize>
-                          </object>
-                        </object>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText" name="">
-                              <label>Gamma (g)</label>
-                              <style>wxALIGN_LEFT</style>
-                            </object>
-                            <flag>wxALL|wxALIGN_CENTRE</flag>
-                            <minsize>120,20</minsize>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxTextCtrl" name="pano_val_gamma">
-                              <value>1</value>
-                              <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                            </object>
-                            <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                            <minsize>150,25</minsize>
-                          </object>
-                        </object>
-                        <flag>wxEXPAND|wxGROW</flag>
-                      </object>
-                    </object>
-                  </object>
-                </object>
-                <flag>wxALL|wxEXPAND|wxGROW</flag>
-              </object>
-            </object>
-            <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
+            <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxStaticBoxSizer">
-                  <label>Preview</label>
+                  <label>Optimization</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxFlexGridSizer">
+                      <cols>2</cols>
+                      <rows>2</rows>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <size>0,0</size>
+                          <orient>wxVERTICAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>optimizer level:</label>
+                                  <style>wxALIGN_LEFT</style>
+                                </object>
+                                <flag>wxALL|wxALIGN_CENTRE</flag>
+                                <minsize>120,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxComboBox" name="pano_optimizer_level">
+                                  <selection>0</selection>
+                                  <style></style>
+                                  <content>
+                                    <item>orientation</item>
+                                    <item>lens settings</item>
+                                    <item>all switched</item>
+                                  </content>
+                                </object>
+                                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                                <minsize>150,25</minsize>
+                              </object>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                          </object>
+                        </object>
+                        <flag>wxALL|wxEXPAND|wxGROW</flag>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxButton" name="pano_optimizer_start">
+                          <label>Optimize</label>
+                        </object>
+                        <flag>wxLEFT|wxEXPAND|wxGROW</flag>
+                        <border>5</border>
+                      </object>
+                      <growablecols>1</growablecols>
+                      <growablerows>0</growablerows>
+                    </object>
+                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                  </object>
+                </object>
+                <flag>wxTOP|wxBOTTOM|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBoxSizer">
+                  <label>Panorama settings</label>
                   <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
+                    <object class="wxFlexGridSizer">
+                      <cols>3</cols>
                       <object class="sizeritem">
                         <object class="wxBoxSizer">
                           <orient>wxVERTICAL</orient>
@@ -158,26 +80,49 @@
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Width</label>
+                                  <label>Panorama type (f)</label>
+                                </object>
+                                <flag>wxALL|wxALIGN_CENTRE</flag>
+                                <minsize>120,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxChoice" name="pano_choice_panoType">
+                                  <content>
+                                    <item>Rectlinear</item>
+                                    <item>Cylindrical</item>
+                                    <item>Equirectangular</item>
+                                  </content>
+                                  <selection>2</selection>
+                                </object>
+                                <minsize>110,31</minsize>
+                              </object>
+                            </object>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>Field of view (v)</label>
                                   <style>wxALIGN_LEFT</style>
                                 </object>
                                 <flag>wxALL|wxALIGN_CENTRE</flag>
                                 <minsize>120,20</minsize>
                               </object>
                               <object class="sizeritem">
-                                <object class="wxComboBox" name="pano_val_previewWidth">
-                                  <selection>3</selection>
+                                <object class="wxComboBox" name="pano_val_hfov">
+                                  <value>360</value>
                                   <style></style>
                                   <content>
+                                    <item>30</item>
+                                    <item>60</item>
+                                    <item>90</item>
                                     <item>120</item>
+                                    <item>180</item>
                                     <item>240</item>
-                                    <item>450</item>
-                                    <item>600</item>
-                                    <item>1000</item>
-                                    <item>1240</item>
-                                    <item>1400</item>
-                                    <item>1600</item>
-                                    <item>2000</item>
+                                    <item>260</item>
+                                    <item>360</item>
+                                    <item>720</item>
                                   </content>
                                 </object>
                                 <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
@@ -186,36 +131,151 @@
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
                           </object>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                        </object>
+                        <flag>wxEXPAND|wxGROW</flag>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxVERTICAL</orient>
                           <object class="sizeritem">
-                            <object class="wxButton" name="pano_button_preview">
-                              <label>Make preview</label>
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>Interpolator (i)</label>
+                                </object>
+                                <flag>wxALIGN_CENTRE|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                <minsize>120,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxChoice" name="pano_choice_interpolator">
+                                  <content>
+                                    <item>Poly3 (Bicubic)</item>
+                                    <item>Spline 16</item>
+                                    <item>Spline 36</item>
+                                    <item>Sinc 256</item>
+                                    <item>Spline 64</item>
+                                    <item>Bilinear</item>
+                                    <item>Nearest neighbour</item>
+                                    <item>Sinc 1024</item>
+                                  </content>
+                                  <selection>0</selection>
+                                </object>
+                                <minsize>150,31</minsize>
+                              </object>
                             </object>
-                            <flag>wxTOP|wxEXPAND|wxGROW</flag>
-                            <border>5</border>
-                            <minsize>232,20</minsize>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxCheckBox" name="pano_cb_autopreview">
-                              <label>Autopreview</label>
-                              <checked>0</checked>
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="">
+                                  <label>Gamma (g)</label>
+                                  <style>wxALIGN_LEFT</style>
+                                </object>
+                                <flag>wxALL|wxALIGN_CENTRE</flag>
+                                <minsize>120,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxTextCtrl" name="pano_val_gamma">
+                                  <value>1</value>
+                                  <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                </object>
+                                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                                <minsize>150,25</minsize>
+                              </object>
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
                           </object>
                         </object>
+                        <flag>wxALIGN_RIGHT</flag>
                       </object>
+                      <growablerows>0</growablerows>
+                      <growablecols>1</growablecols>
                     </object>
-                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                   </object>
                 </object>
-                <flag>wxTOP|wxRIGHT|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                <flag>wxTOP|wxEXPAND|wxGROW</flag>
                 <border>5</border>
               </object>
               <object class="sizeritem">
-                <object class="wxStaticBoxSizer">
-                  <label>Output file</label>
-                  <orient>wxHORIZONTAL</orient>
+                <object class="wxFlexGridSizer">
                   <object class="sizeritem">
-                    <object class="wxBoxSizer">
+                    <object class="wxStaticBoxSizer">
+                      <label>Preview</label>
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxVERTICAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Width</label>
+                                      <style>wxALIGN_LEFT</style>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_CENTRE</flag>
+                                    <minsize>120,20</minsize>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxComboBox" name="pano_val_previewWidth">
+                                      <selection>3</selection>
+                                      <style></style>
+                                      <content>
+                                        <item>120</item>
+                                        <item>240</item>
+                                        <item>450</item>
+                                        <item>600</item>
+                                        <item>1000</item>
+                                        <item>1240</item>
+                                        <item>1400</item>
+                                        <item>1600</item>
+                                        <item>2000</item>
+                                      </content>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                                    <minsize>110,25</minsize>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxButton" name="pano_button_preview">
+                                  <label>Make preview</label>
+                                </object>
+                                <flag>wxTOP|wxEXPAND|wxGROW</flag>
+                                <border>5</border>
+                                <minsize>232,20</minsize>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="pano_cb_autopreview">
+                                  <label>Autopreview</label>
+                                  <checked>0</checked>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                        <flag>wxALL|wxEXPAND|wxGROW</flag>
+                      </object>
+                    </object>
+                    <flag>wxTOP|wxRIGHT|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticBoxSizer">
+                      <label>Output file</label>
                       <orient>wxHORIZONTAL</orient>
                       <object class="sizeritem">
                         <object class="wxBoxSizer">
@@ -393,21 +453,38 @@
                             <minsize>150,31</minsize>
                           </object>
                         </object>
+                        <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                       </object>
                     </object>
-                    <flag>wxALL|wxEXPAND|wxGROW</flag>
+                    <flag>wxTOP|wxLEFT|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                    <border>5</border>
                   </object>
+                  <cols>2</cols>
+                  <growablecols>1</growablecols>
+                  <growablerows>0</growablerows>
                 </object>
-                <flag>wxTOP|wxLEFT|wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                <border>5</border>
+                <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
               </object>
+              <cols>1</cols>
+              <rows>3</rows>
+              <vgap>0</vgap>
+              <hgap>0</hgap>
+              <growablerows>2</growablerows>
+              <growablecols>0</growablecols>
             </object>
-            <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+            <flag>wxTOP|wxLEFT|wxEXPAND|wxGROW</flag>
+            <border>5</border>
           </object>
+          <cols>2</cols>
+          <rows>2</rows>
+          <growablecols>0</growablecols>
+          <growablerows>0</growablerows>
         </object>
-        <flag>wxTOP|wxLEFT|wxEXPAND|wxGROW</flag>
-        <border>5</border>
+        <flag>wxEXPAND|wxGROW</flag>
       </object>
+      <rows>1</rows>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
     </object>
   </object>
 </resource>

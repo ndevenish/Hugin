@@ -413,7 +413,8 @@ void ImagesPanel::SetInherit( std::string type )
         var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
         DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
         // Shall we inherit?
-        if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked() ) {
+        if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked()
+             && (pano.getNrOfImages() != 1) ) { // single image cannot inherit
             // We are conservative and ask better once more. 
             if ( type == "yaw" ) {
               // test for unselfish inheritance
@@ -422,7 +423,7 @@ void ImagesPanel::SetInherit( std::string type )
                 optset->at(imgNr[i]).yaw = FALSE;
               } else { // search for another possible link image
                 if ( (((int)new_var. yaw .getLink() > var) && (var != 0)) 
-                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
                   var--; new_var.yaw.link(var);
                 } else {
                   var++; new_var.yaw.link(var);
@@ -435,7 +436,7 @@ void ImagesPanel::SetInherit( std::string type )
                 optset->at(imgNr[i]).pitch = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. pitch .getLink() > var) && (var != 0)
-                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
                   var--; new_var.pitch.link(var);
                 } else {
                   var++; new_var.pitch.link(var);
@@ -448,7 +449,7 @@ void ImagesPanel::SetInherit( std::string type )
                 optset->at(imgNr[i]).roll = FALSE;
               } else { // search for another possible link image
                 if ( ((int)new_var. roll .getLink() > var) && (var != 0)
-                     || (imgNr[i] == pano.getNrOfImages()) ) {
+                     || (imgNr[i] == pano.getNrOfImages()-1) ) {
                   var--; new_var.roll.link(var);
                 } else {
                   var++; new_var.roll.link(var);
@@ -470,6 +471,7 @@ void ImagesPanel::SetInherit( std::string type )
               new_var.pitch.unlink();
             if ( type == "roll" )
               new_var.roll.unlink();
+            XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
           // local ImageVariables finished, save to pano
           pano.updateVariables( imgNr[i], new_var ); 
@@ -484,6 +486,7 @@ void ImagesPanel::SetInherit( std::string type )
             if ( type == "roll" ) {
               optset->at(imgNr[i]).roll = TRUE;
             }
+            XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           // unset optimization
           } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" )
@@ -607,7 +610,7 @@ void ImagesPanel::SetImages ( wxListEvent & e )
       }
       if ( new_var.pitch.isLinked() ) {
          XRCCTRL(*this, "images_inherit_pitch" , wxCheckBox) ->SetValue(TRUE);
-         int var = (int)new_var. pitch .getValue();
+         int var = (int)new_var. pitch .getLink();
          XRCCTRL(*this, "images_spin_pitch" , wxSpinCtrl) ->SetValue(var);
 //         XRCCTRL(*this, "images_optimize_pitch" , wxCheckBox) ->Disable();
       } else {
@@ -616,7 +619,7 @@ void ImagesPanel::SetImages ( wxListEvent & e )
       }
       if ( new_var.roll.isLinked() ) {
          XRCCTRL(*this, "images_inherit_roll" , wxCheckBox) ->SetValue(TRUE);
-         int var = (int)new_var. roll .getValue();
+         int var = (int)new_var. roll .getLink();
          XRCCTRL(*this, "images_spin_roll" , wxSpinCtrl) ->SetValue(var);
 //         XRCCTRL(*this, "images_optimize_roll" , wxCheckBox) ->Disable();
       } else {
