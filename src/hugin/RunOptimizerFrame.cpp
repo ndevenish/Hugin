@@ -198,8 +198,8 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
             wxString::Format(_("Iteration %d, average distance: %f"),
                              iteration,diff));
         Layout();
-		Fit();
-		wxGetApp().Yield();
+        Fit();
+        wxGetApp().Yield();
     }
 
 }
