@@ -53,6 +53,15 @@ void PT::fillVariableMap(VariableMap & vars)
 };
 
 
+void PT::printVariableMap(ostream & o, const VariableMap & vars)
+{
+    for ( VariableMap::const_iterator it = vars.begin(); it != vars.end();++it)
+    {
+        it->second.print(o);
+        o << " ";
+    }
+}
+
 ostream & Variable::print(ostream & o) const
 {
     return o << name << value;
@@ -533,7 +542,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 options.VFOV = RAD_TO_DEG(options.VFOV);
                 break;
             case PanoramaOptions::CYLINDRICAL:
-            { 
+            {
 		// equations: w = f * v (f: focal length, in pixel)
                 double f = options.width / DEG_TO_RAD(options.HFOV);
                 options.VFOV = 2*atan(height/(2.0*f));

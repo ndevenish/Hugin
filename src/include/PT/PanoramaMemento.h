@@ -121,6 +121,9 @@ typedef std::map<std::string,LensVariable> LensVarMap;
 /** fill map with all image & lens variables */
 void fillVariableMap(VariableMap & vars);
 
+/** print a variable map to \p o */
+void printVariableMap(std::ostream & o, const VariableMap & vars);
+
 #if 0
 /// variables of an image
 class ImageVariables

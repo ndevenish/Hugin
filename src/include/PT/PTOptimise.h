@@ -73,7 +73,7 @@ public:
         {
             m_optVars = pano.getVariables();
         };
-    
+
     template < typename Vertex, typename Graph >
     void discover_vertex(Vertex v, const Graph & g)
     {
@@ -81,6 +81,11 @@ public:
         imgs.push_back(v);
         PT::VariableMapVector vars(1);
         vars[0] = m_optVars[v];
+#ifdef DEBUG
+        cerr << "before optim "<< v << " : ";
+        printVariableMap(cerr, vars[0]);
+        cerr << endl;
+#endif
 
         // collect all optimized neighbours
         typename boost::graph_traits<PT::CPGraph>::adjacency_iterator ai;
@@ -95,6 +100,11 @@ public:
                     imgs.push_back(*ai);
                     vars.push_back(m_optVars[*ai]);
                     DEBUG_DEBUG("non white neighbour " << (*ai));
+#ifdef DEBUG
+                    cerr << "vars " << (*ai) << " : ";
+                    printVariableMap(cerr, m_optVars[*ai]);
+                    cerr << endl;
+#endif
                 } else {
                     DEBUG_DEBUG("white neighbour " << (*ai));
                 }
@@ -112,6 +122,11 @@ public:
             optimize(m_pano, imgs, optvec, vars, m_cps, m_progDisp, 1000);
             m_progDisp.popTask();
             m_optVars[v] = vars[0];
+#ifdef DEBUG
+            cerr << "after optim " << v << " : ";
+            printVariableMap(cerr, m_optVars[v]);
+            cerr << endl;
+#endif
         } else {
             DEBUG_ERROR("image " << v << ": no optimized neighbour images");
         }
@@ -119,6 +134,7 @@ public:
 
     const PT::VariableMapVector & getVariables() const
     { return m_optVars; }
+    
     const PT::CPVector & getCtrlPoints() const
     { return m_cps; }
 
