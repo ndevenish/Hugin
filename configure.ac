@@ -112,10 +112,10 @@ AC_CHECK_FUNCS([dup2 floor gettimeofday localtime_r memmove memset pow select se
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
 if test "x$prefix" != xNONE; then
     AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$prefix/share/locale")
-    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/hugin/xrc")
+    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/share/hugin/xrc")
 else
     AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
-    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/hugin/xrc")
+    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
 fi	
 
 #
