@@ -177,7 +177,6 @@ MainFrame::MainFrame(wxWindow* parent)
     // optimize settings
     optset = new OptimizeVector();
 
-    // create temporary directory.
 
     // show the frame.
 //    Show(TRUE);
@@ -278,7 +277,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
-        std::ofstream script(dlg.GetFilename());
+        std::ofstream script(dlg.GetPath());
         int nImages = pano.getNrOfImages();
         // create fake optimize settings
         PT::OptimizeVector optvec;
@@ -303,7 +302,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                      "Project files (*.pto)|*.pto|All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
-        wxString filename = dlg.GetFilename();
+        wxString filename = dlg.GetPath();
         SetStatusText( _("Open project:   ") + filename);
         config->Write("actualPath", dlg.GetDirectory());  // remember for later
         // open project.
@@ -339,19 +338,11 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     // To get users path we do following:
     // a get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    // b store current path
-    wxString current;
-    current = wxFileName::GetCwd();
-    DEBUG_INFO ( (wxString)"get Path: " + wxFileName::GetCwd().c_str() )
-    // c remember the last location from config
-    if (config->HasEntry(wxT("actualPath"))){
-      wxFileName::SetCwd(  config->Read("actualPath").c_str() );
-      DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
-    }
 
     wxString wildcard ("Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*");
-    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
-        wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+    wxFileDialog *dlg = new wxFileDialog(this,_("Add images"),
+                                         config->Read("actualPath",""), "",
+                                         wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
     // remember the image extension
     wxString img_ext ("");
     if (config->HasEntry(wxT("lastImageType"))){
@@ -367,43 +358,35 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 
     // call the file dialog
     if (dlg->ShowModal() == wxID_OK) {
-      // get the selections
-      wxArrayString Filenames;
-      wxArrayString Pathnames;
-      dlg->GetFilenames(Filenames);
-      dlg->GetPaths(Pathnames);
-      sprintf(e_stat,_("Add images"));
-      sprintf(e_stat,"%s(%d): ", e_stat, Filenames.GetCount());
+        // get the selections
+        wxArrayString Pathnames;
+        wxArrayString Filenames;
+        dlg->GetPaths(Pathnames);
+        dlg->GetFilenames(Filenames);
+        sprintf(e_stat,_("Add images"));
+        sprintf(e_stat,"%s(%d): ", e_stat, Pathnames.GetCount());
 
-      // d There we are now?
-      wxString str;
-      str = dlg->GetDirectory();
-      // e safe the current path to config
-      config->Write("actualPath", str);  // remember for later
-      DEBUG_INFO( (wxString)"save Cwd - " + str )
-      // f restore the path previous this dialog
-      wxFileName::SetCwd( current );
-      DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+        // e safe the current path to config
+        config->Write("actualPath", dlg->GetDirectory());  // remember for later
 
-      // we got some images to add.
-      if (Pathnames.GetCount() > 0) {
-          // use a Command to ensure proper undo and updating of GUI
-          // parts
-          std::vector<std::string> filesv;
-          for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-              filesv.push_back(Pathnames[i].c_str());
-              // fill the statusline
-              sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
-          }
-          GlobalCmdHist::getInstance().addCommand(
-              new AddImagesCmd(pano,filesv)
-              );
-      }
-      SetStatusText( e_stat, 0);
-
+        // we got some images to add.
+        if (Pathnames.GetCount() > 0) {
+            // use a Command to ensure proper undo and updating of GUI
+            // parts
+            std::vector<std::string> filesv;
+            for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
+                filesv.push_back(Pathnames[i].c_str());
+                // fill the statusline
+                sprintf( e_stat,"%s %s", e_stat, Filenames[i].c_str() );
+            }
+            GlobalCmdHist::getInstance().addCommand(
+                new AddImagesCmd(pano,filesv)
+                );
+        }
+        SetStatusText( e_stat, 0);
     } else {
-      // nothing to open
-      SetStatusText( _("Add Image: cancel"));
+        // nothing to open
+        SetStatusText( _("Add Image: cancel"));
     }
 
     DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg->GetFilterIndex()) )

@@ -60,6 +60,11 @@ huginApp::huginApp()
 huginApp::~huginApp()
 {
     DEBUG_TRACE("");
+    // delete temporary dir
+    if (!wxRmdir(m_workDir)) {
+        DEBUG_ERROR("Could not remove temporary directory");
+    }
+    
 //    delete frame;
     DEBUG_TRACE("");
 }
@@ -157,6 +162,37 @@ bool huginApp::OnInit()
 
     // show the frame.
     frame->Show(TRUE);
+
+    
+    wxString wrkDir = config->Read("tempDir","");
+    // create temporary directory.
+    
+#ifdef __unix__
+    // create a temporary directory
+    char * dir;
+    if (wrkDir == "") {
+        DEBUG_INFO("No tempdir specified, using system default");
+        dir = tempnam(0,"hugin");
+    } else {
+        dir = tempnam(wrkDir.c_str(), "");
+    }
+    m_workDir = dir;
+    free(dir);
+#else // windows
+    if (wrkDir == "") {
+        DEBUG_INFO("No tempdir specified, using c:\temp");
+        wrkDir = "C:\Temp";
+    }
+    m_workDir = wrkDir + "\hugin";
+#endif
+    DEBUG_DEBUG("creating temp dir: " << m_workDir);
+    if (!wxMkdir(m_workDir)) {
+        DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
+    }
+    
+    if (!wxSetWorkingDirectory(m_workDir)) {
+        DEBUG_ERROR("could not change to temp. dir: " << m_workDir);
+    }
 
     // get the global config object
     // remember the last size from config

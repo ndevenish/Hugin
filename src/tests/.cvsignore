@@ -1,4 +1,2 @@
-bin
-lib
 Makefile.depend
-api-doc
+imageproc

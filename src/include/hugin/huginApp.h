@@ -72,11 +72,13 @@ public:
      *  pathes here
      */
     bool createInitialConfig();
-    
+
 private:
     /** locale for internationalisation */
     wxLocale locale;
-
+    
+    /** temporary working directory */
+    wxString m_workDir;
 };
 
 DECLARE_APP(huginApp)

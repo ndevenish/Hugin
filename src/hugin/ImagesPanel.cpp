@@ -133,7 +133,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     for ( int i = 0 ; i < 512 ; i++ )
       imgNr[i] = 0;
- 
+
     changePano = FALSE;
 
     DEBUG_TRACE("end");
@@ -162,7 +162,7 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 {
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
-    // Is something gone or more here? 
+    // Is something gone or more here?
     if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
       imgNr[0] = 0;
 
@@ -171,7 +171,7 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
     // start the loop for every selected filename
       for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
-        wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
+//        wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
 
 //        wxImage * img = ImageCache::getInstance().getImage(
 //            pano.getImage(i).getFilename());
@@ -197,7 +197,7 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
                                       (float)s_img->GetHeight()*20.0),
                                 20);
         } else {
-          r_img = s_img->Scale( 128, 
+          r_img = s_img->Scale( 128,
                                 (int)((float)s_img->GetHeight()/
                                       (float)s_img->GetWidth()*128.0));
           b_img = r_img.Scale( 64,
@@ -282,7 +282,7 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 
 // #####  Here start the eventhandlers  #####
 
-// Yaw by slider -> int -> double  -- roughly 
+// Yaw by slider -> int -> double  -- roughly
 void ImagesPanel::SetYaw ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
@@ -412,7 +412,7 @@ void ImagesPanel::SetRollText ( wxCommandEvent & e )
 
 void ImagesPanel::SetInherit( std::string type )
 {
-//    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll" 
+//    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll"
     // requisites
     int var (-1);
 //    std::string command;
@@ -436,14 +436,14 @@ void ImagesPanel::SetInherit( std::string type )
         // Shall we inherit?
         if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked()
              && (pano.getNrOfImages() != 1) ) { // single image cannot inherit
-            // We are conservative and ask better once more. 
+            // We are conservative and ask better once more.
             if ( type == "yaw" ) {
               // test for unselfish inheritance
               if ( var != (int)imgNr[i] ) {
                 new_var.yaw.link(var);
                 optset->at(imgNr[i]).yaw = FALSE;
               } else { // search for another possible link image
-                if ( (((int)new_var. yaw .getLink() > var) && (var != 0)) 
+                if ( (((int)new_var. yaw .getLink() > var) && (var != 0))
                      || (imgNr[i] == pano.getNrOfImages()-1) ) {
                   var--; new_var.yaw.link(var);
                 } else {
@@ -482,7 +482,7 @@ void ImagesPanel::SetInherit( std::string type )
             XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
             DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
             // local ImageVariables finished, save to pano
-//            pano.updateVariables( imgNr[i], new_var ); 
+//            pano.updateVariables( imgNr[i], new_var );
             DEBUG_INFO ( new_var.yaw.getLink() <<" "<< pano.getVariable(orientationEdit_RefImg).yaw.getValue() )//<<" "<< pano.getVariable(imgNr[i]).yaw.getLink() )
           // unset inheritance
           } else {
@@ -495,7 +495,7 @@ void ImagesPanel::SetInherit( std::string type )
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
           // local ImageVariables finished, save to pano
-//          pano.updateVariables( imgNr[i], new_var ); 
+//          pano.updateVariables( imgNr[i], new_var );
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
             if ( type == "yaw" ) {
@@ -739,19 +739,19 @@ void ImgPreview::ChangePreview ( wxImage & s_img )
 void ImgPreview::OnMouse ( wxMouseEvent & e )
 {
     double coord_x = (double)e.m_x/256.0*360.0 -180.0;
-    double coord_y = (double)e.m_y/128.0* -180.0 + 90.0; 
+    double coord_y = (double)e.m_y/128.0* -180.0 + 90.0;
 
     frame->SetStatusText(wxString::Format("%d°,%d°",
               (int)coord_x,
               (int)coord_y ), 1);
 
     // mouse yaw and pitch -> sliders
-    if ( e.m_shiftDown || (e.m_shiftDown && e.m_controlDown) 
-           || (!e.m_shiftDown && !e.m_controlDown)) 
+    if ( e.m_shiftDown || (e.m_shiftDown && e.m_controlDown)
+           || (!e.m_shiftDown && !e.m_controlDown))
       XRCCTRL(*images_panel,"images_slider_pitch",wxSlider)
                                        ->SetValue((int) -coord_y);
-    if ( e.m_controlDown || (e.m_shiftDown && e.m_controlDown) 
-           || (!e.m_shiftDown && !e.m_controlDown)) 
+    if ( e.m_controlDown || (e.m_shiftDown && e.m_controlDown)
+           || (!e.m_shiftDown && !e.m_controlDown))
       XRCCTRL(*images_panel,"images_slider_yaw", wxSlider)
                                        ->SetValue((int) coord_x);
 
@@ -771,8 +771,8 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
     }
     // pano yaw and pitch -> sliders
     if ((images_panel->imgNr[0] >= 1)) {
-      if (e.Leaving() || (e.m_controlDown 
-           && !(e.m_shiftDown && e.m_controlDown))) 
+      if (e.Leaving() || (e.m_controlDown
+           && !(e.m_shiftDown && e.m_controlDown)))
         XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue( -1 *
              (int) pano.getVariable(images_panel->imgNr[1]) .pitch .getValue());
       if (e.Leaving() || (e.m_shiftDown
@@ -782,5 +782,5 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
     }
 
 //    DEBUG_INFO ( "Mouse " << e.Entering() << e.Leaving());
-} 
+}
 
