@@ -26,8 +26,10 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <map>
 #include <set>
+#include <iterator>
 
 #include <stdio.h>
 #include <math.h>
@@ -103,11 +105,12 @@ Panorama::Panorama()
 }
 
 
-
 Panorama::~Panorama()
 {
     reset();
+    changeFinished();
 }
+
 
 void Panorama::reset()
 {
@@ -116,7 +119,6 @@ void Panorama::reset()
     state.lenses.clear();
     state.images.clear();
     state.variables.clear();
-    changeFinished();
 }
 
 
@@ -219,11 +221,13 @@ const ImageVariables & Panorama::getVariable(unsigned int imgNr) const
 }
 
 
-void Panorama::updateCtrlPoints(const CPVector & cps)
+void Panorama::updateCtrlPointErrors(const CPVector & cps)
 {
     assert(cps.size() == state.ctrlPoints.size());
     unsigned int nrp = cps.size();
     for (unsigned int i = 0; i < nrp ; i++) {
+        imageChanged(state.ctrlPoints[i].image1Nr);
+        imageChanged(state.ctrlPoints[i].image2Nr);
         state.ctrlPoints[i].error = cps[i].error;
     }
 }
@@ -242,6 +246,7 @@ void Panorama::updateVariables(unsigned int imgNr, const ImageVariables & var)
 {
     assert(imgNr < state.images.size());
     state.variables[imgNr].updateValues(var);
+    imageChanged(imgNr);
 }
 
 unsigned int Panorama::addImage(const std::string & filename)
@@ -266,6 +271,7 @@ unsigned int Panorama::addImage(const std::string & filename)
     state.variables.push_back(ImageVariables());
     updateLens(nr);
     adjustVarLinks();
+    imageChanged(nr);
     return nr;
 }
 
@@ -310,6 +316,11 @@ void Panorama::removeImage(unsigned int imgNr)
     state.variables.erase(state.variables.begin() + imgNr);
     state.images.erase(state.images.begin() + imgNr);
     adjustVarLinks();
+
+    // change all other (moved) images
+    for (unsigned int i=imgNr; i < state.images.size(); i++) {
+        imageChanged(i);
+    }
 }
 
 
@@ -317,19 +328,33 @@ unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
 {
     unsigned int nr = state.ctrlPoints.size();
     state.ctrlPoints.push_back(point);
+    imageChanged(point.image1Nr);
+    imageChanged(point.image2Nr);
     return nr;
 }
 
 void Panorama::removeCtrlPoint(unsigned int pNr)
 {
     assert(pNr < state.ctrlPoints.size());
+    ControlPoint & point = state.ctrlPoints[pNr];
+    unsigned int i1 = point.image1Nr;
+    unsigned int i2 = point.image2Nr;
     state.ctrlPoints.erase(state.ctrlPoints.begin() + pNr);
+    imageChanged(i1);
+    imageChanged(i2);
 }
 
 
 void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 {
     assert(pNr < state.ctrlPoints.size());
+
+    // change notify for all involved images
+    imageChanged(state.ctrlPoints[pNr].image1Nr);
+    imageChanged(state.ctrlPoints[pNr].image2Nr);
+    imageChanged(point.image1Nr);
+    imageChanged(point.image2Nr);
+
     state.ctrlPoints[pNr] = point;
 }
 
@@ -549,14 +574,23 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
 
 void Panorama::changeFinished()
 {
-    DEBUG_DEBUG("Panorama changed");
+    // remove change notification for nonexisting images from set.
+    UIntSet::iterator uB = changedImages.lower_bound(state.images.size()-1);
+    changedImages.erase(uB,changedImages.end());
+
+    stringstream t;
+    copy(changedImages.begin(), changedImages.end(),
+         ostream_iterator<unsigned int>(t, " "));
+    DEBUG_TRACE("changed image(s) " << t.str() << " begin");
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
+        (*it)->panoramaImagesChanged(*this, changedImages);
         (*it)->panoramaChanged(*this);
     }
-    DEBUG_TRACE("")
+    // reset changed images
+    changedImages.clear();
+    DEBUG_TRACE("end");
 }
-
 
 const Lens & Panorama::getLens(unsigned int lensNr) const
 {
@@ -569,10 +603,12 @@ void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
 {
     assert(lensNr < state.lenses.size());
     state.lenses[lensNr] = lens;
+    // update all images that use this lens
     for ( unsigned int i = 0; i < state.variables.size(); ++i) {
         if(state.images[i].getLens() == lensNr) {
             // set variables
             updateLens(i);
+            imageChanged(i);
         }
     }
 }
@@ -588,9 +624,24 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
 }
 
 
+void Panorama::removeLens(unsigned int lensNr)
+{
+    assert(lensNr < state.lenses.size());
+    // it is an error to remove all lenses.
+    assert(lensNr == 0 && state.lenses.size() == 0);
+    for (unsigned int i = 0; i < state.images.size(); i++) {
+        if (state.images[i].getLens() == lensNr) {
+            state.images[i].setLens(0);
+            imageChanged(i);
+        }
+    }
+    adjustVarLinks();
+}
+
+
 void Panorama::adjustVarLinks()
 {
-    DEBUG_DEBUG("Panorama::adjustVarLinks()");
+    DEBUG_TRACE("Panorama::adjustVarLinks()");
     unsigned int image = 0;
     std::map<unsigned int,unsigned int> usedLenses;
     for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
@@ -599,6 +650,7 @@ void Panorama::adjustVarLinks()
             unsigned int refImg = usedLenses[lens];
             switch ((*it).getOptions().source) {
             case ImageOptions::DIGITAL_CAMERA:
+                DEBUG_DEBUG("Linking lens for digital camera");
                 state.variables[image].a.link(refImg);
                 state.variables[image].b.link(refImg);
                 state.variables[image].c.link(refImg);
@@ -606,6 +658,7 @@ void Panorama::adjustVarLinks()
                 state.variables[image].e.link(refImg);
                 break;
             case ImageOptions::SCANNER:
+                DEBUG_DEBUG("Linking lens for scanner");
                 state.variables[image].a.link(refImg);
                 state.variables[image].b.link(refImg);
                 state.variables[image].c.link(refImg);
@@ -624,11 +677,13 @@ void Panorama::adjustVarLinks()
     }
 }
 
+
 unsigned int Panorama::addLens(const Lens & lens)
 {
     state.lenses.push_back(lens);
     return state.lenses.size() - 1;
 }
+
 
 void Panorama::updateLens(unsigned int imgNr)
 {
@@ -639,11 +694,21 @@ void Panorama::updateLens(unsigned int imgNr)
     state.variables[imgNr].c.setValue(state.lenses[lensNr].c);
     state.variables[imgNr].d.setValue(state.lenses[lensNr].d);
     state.variables[imgNr].e.setValue(state.lenses[lensNr].e);
+
 }
 
 void Panorama::setMemento(PanoramaMemento & memento)
 {
+    DEBUG_TRACE("");
+    // remove old content.
+    reset();
     state = memento;
+    unsigned int nNewImages = state.images.size();
+
+    // send changes for all images
+    for (unsigned int i = 0; i < nNewImages; i++) {
+        imageChanged(i);
+    }
 }
 
 PanoramaMemento Panorama::getMemento(void) const

@@ -251,6 +251,14 @@ void ControlPoint::mirror()
     td = y1; y1 = y2 ; y2 = td;
 }
 
+std::string ControlPoint::modeNames[] = { "x_y", "x", "y" };
+
+
+const std::string & ControlPoint::getModeName(OptimizeMode mode) const
+{
+    return modeNames[mode];
+}
+
 //=========================================================================
 //=========================================================================
 
