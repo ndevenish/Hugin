@@ -46,6 +46,7 @@ private:
 	wxBitmap currentViewBmp, currentClientBmp, control;
 	wxImage pano, fastView, goodView;
 
+        int ow, oh;
 	wxMenu *cmenu;
 
 	DECLARE_EVENT_TABLE()

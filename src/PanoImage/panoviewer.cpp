@@ -43,6 +43,9 @@ PanoViewer::PanoViewer ( wxWindow *parent, wxWindowID id,
 	// Dummy panorama
    pano = wxImage(200,200);
 
+        // Set initial viewport width and heigght
+   ow = 0, oh = 0;
+
         // Set control
 #if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
    wxBitmap c (control_);
@@ -64,7 +67,7 @@ PanoViewer::~PanoViewer()
 void PanoViewer::SetPano ( const wxImage &img )
 {
 	pano = img;
-	vp = PanoViewpoint();
+//	vp = PanoViewpoint(); // ku.b@gmx.de (07/2003)
 	forceRecalc = TRUE;
 	Refresh(FALSE);
 }
@@ -125,7 +128,8 @@ void PanoViewer::OnIdle ( wxIdleEvent &event )
 
 	// Request more idle events. No more will be posted until another event causes one
 	// unless we request more now.
-	event.RequestMore();
+        // ku.b@gmx.de: This makes the app running endless. (07/2003)
+//	event.RequestMore();
 }
 
 
@@ -168,7 +172,6 @@ void PanoViewer::OnMouseLeftUp ( wxMouseEvent & event )
 
 void PanoViewer::OnPaint(wxPaintEvent &event)
 {
-	static int ow = 0, oh = 0;
 	static PanoViewpoint ovp;
 	wxPaintDC dc(this);
 
