@@ -67,6 +67,12 @@ public:
     /// hack.. kind of a pseudo singleton...
     static huginApp * Get();
 
+    /** return currently active locale */
+    wxLocale & GetLocale()
+    {
+        return locale;
+    }
+    
     wxString GetWorkDir()
     {
         return m_workDir;

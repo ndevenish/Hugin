@@ -48,6 +48,9 @@
 
 #define HUGIN_PREVIEW_SHOW_DRUID              1l
 
+// GUI defaults
+#define HUGIN_LANGUAGE                        wxLANGUAGE_DEFAULT
+
 // Program defaults
 #ifdef WIN32
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"

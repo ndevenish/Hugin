@@ -30,6 +30,8 @@
 
 
 #include "common/wxPlatform.h"
+
+#include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
 
@@ -72,6 +74,17 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->SetRange(-180,0);
     XRCCTRL(*this, "prefs_ft_RotationStopAngle", wxSpinCtrl)->SetRange(0,180);
 
+    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    
+    // add languages to choice
+    lang_choice->Append(_("Select one"), (void *) huginApp::Get()->GetLocale().GetLanguage());
+    lang_choice->Append(_("System default"), (void *) wxLANGUAGE_DEFAULT);
+    lang_choice->Append(_("German"), (void *) wxLANGUAGE_GERMAN);
+    lang_choice->Append(_("French"), (void *) wxLANGUAGE_FRENCH);
+    lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);
+    lang_choice->Append(_("Italian"), (void *) wxLANGUAGE_ITALIAN);
+    lang_choice->SetSelection(0);
+    
     // Load configuration values from wxConfig
     UpdateDisplayData();
 }
@@ -222,7 +235,6 @@ void PreferencesDialog::UpdateDisplayData()
     MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/EnblendArgs"),
                                                       wxT(HUGIN_ENBLEND_ARGS)));
 
-
 }
 
 void PreferencesDialog::UpdateConfigData()
@@ -256,6 +268,10 @@ void PreferencesDialog::UpdateConfigData()
     /// MISC
     // cache
     cfg->Write(wxT("/ImageCache/UpperBound"), MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
+    // locale
+    // language
+    wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    cfg->Write(wxT("language"), (long)((int) lang->GetClientData(lang->GetSelection())));
     // cursor
     cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir

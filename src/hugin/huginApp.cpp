@@ -34,6 +34,9 @@
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
+
+
+#include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 
@@ -103,11 +106,11 @@ bool huginApp::OnInit()
     config->Flush();
 
     // initialize i18n
-    locale.Init(wxLANGUAGE_DEFAULT);
+    int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
+    locale.Init(localeID);
 
     // add local Paths
     locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
-//    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
     // add path from config file

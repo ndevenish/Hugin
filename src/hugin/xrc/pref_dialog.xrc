@@ -357,11 +357,33 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Control Point Editor</label>
+                    <label>User Interface</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxGridSizer">
+                      <object class="wxFlexGridSizer">
                         <cols>3</cols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Language</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="prefs_gui_language">
+                            <content/>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>requires restarting hugin</label>
+                            <style></style>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Cursor Type</label>
@@ -374,7 +396,7 @@
                             <min>0</min>
                             <max>7</max>
                           </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxGROW|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
@@ -382,8 +404,11 @@
                             <label>available on linux only
 requires restarting hugin</label>
                           </object>
-                          <flag></flag>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
                         </object>
+                        <rows>2</rows>
+                        <growablecols>1</growablecols>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
@@ -442,7 +467,8 @@ requires restarting hugin</label>
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
-                  <flag>wxEXPAND</flag>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
                 </object>
               </object>
             </object>
