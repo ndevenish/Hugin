@@ -100,7 +100,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            filesv.push_back(filenames[i].c_str());
+            filesv.push_back(filenames[i].mb_str());
         }
     }
     GlobalCmdHist::getInstance().addCommand(
@@ -352,6 +352,21 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     } else {
         Fit();
     }
+    // the position is more problematic, since it might
+    // not include a title, making the window move down
+    // on every start of hugin, because setPosition sets
+    // the upper left title bar position (at least in kwm)
+    // netscape navigator had the same problem..
+    if(config->Read(wxT("MainFrame/rememberPosition"),0l)) {
+        //position
+        int x = config->Read(wxT("MainFrame/positionX"),-1l);
+        int y = config->Read(wxT("MainFrame/positionY"),-1l);
+        if ( y != -1) {
+            Move(x, y);
+        } else {
+            Move(0, 44);
+        }
+    }
 #endif
 
     // set progress display for image cache.
@@ -384,34 +399,12 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-#ifdef __WXMSW__
-    wxRect sz = GetRect();
-    config->Write("/MainFrame/width", sz.width);
-    config->Write("/MainFrame/height", sz.height);
-
-    config->Write("/MainFrame/positionX", sz.x);
-    config->Write("/MainFrame/positionY", sz.y);
-#elif defined(__WXMAC__)
-    //size
-    wxSize sz = GetClientSize();
-    config->Write("/MainFrame/width", sz.GetWidth());
-    config->Write("/MainFrame/height", sz.GetHeight());
-    //position
-    wxPoint ps = GetPosition();
-    config->Write("/MainFrame/positionX", ps.x);
-    config->Write("/MainFrame/positionY", ps.y);
-#else
-    // Saves only the size of the window.
-    // the position is more problematic, since it might
-    // not include a title, making the window move down
-    // on every start of hugin, because setPosition sets
-    // the upper left title bar position (at least in kwm)
-    // netscape navigator had the same problem..
     wxSize sz = GetClientSize();
     config->Write(wxT("/MainFrame/width"), sz.GetWidth());
     config->Write(wxT("/MainFrame/height"), sz.GetHeight());
-#endif
-    DEBUG_INFO( "saved last size and position" )
+    wxPoint ps = GetPosition();
+    config->Write(wxT("/MainFrame/positionX"), ps.x);
+    config->Write(wxT("/MainFrame/positionY"), ps.y);
 
     config->Flush();
 
@@ -476,9 +469,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
     } else {
         // the project file is just a PTOptimizer script...
         std::string path(
-            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
+            scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str());
         DEBUG_DEBUG("stripping " << path << " from image filenames");
-        std::ofstream script(scriptName.GetFullPath());
+        std::ofstream script(scriptName.GetFullPath().mb_str());
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         pano.printOptimizerScript(script, optvec, pano.getOptions(), path);
         script.close();
@@ -493,9 +486,9 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), "",
-                     "Project files (*.pto)|*.pto|"
-                     "All files (*.*)|*.*",
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     _("Project files (*.pto)|*.pto|"
+                     "All files (*.*)|*.*"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
@@ -509,14 +502,14 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxFileDialog dlg(this,
                      _("Save PTSticher script file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), "",
-                     "PTSticher files (*.txt)|*.txt",
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     _("PTSticher files (*.txt)|*.txt"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxString fname = dlg.GetPath();
         // the project file is just a PTSticher script...
         wxFileName scriptName = fname;
-        std::ofstream script(scriptName.GetFullPath());
+        std::ofstream script(scriptName.GetFullPath().mb_str());
         pano.printStitcherScript(script, pano.getOptions());
         script.close();
     }
@@ -538,11 +531,11 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
-    std::ifstream file(filename.c_str());
+    std::ifstream file((const char *)filename.mb_str());
     if (file.good()) {
         wxBusyCursor();
         GlobalCmdHist::getInstance().addCommand(
-            new wxLoadPTProjectCmd(pano,file, path.c_str())
+            new wxLoadPTProjectCmd(pano,file, path.mb_str())
             );
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
@@ -575,9 +568,9 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 
     wxFileDialog dlg(this,
                      _("Open project file"),
-                     config->Read(wxT("actualPath"),wxT("")), "",
-                     "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|"
-                     "All files (*.*)|*.*",
+                     config->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|"
+                     "All files (*.*)|*.*"),
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
@@ -607,12 +600,12 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard ("Image files (*.jpg)|*.jpg;*.JPG|"
+    wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|"
                        "Image files (*.png)|*.png;*.PNG|"
                        "Image files (*.tif)|*.tif;*.TIF|"
-                       "All files (*.*)|*.*");
+                       "All files (*.*)|*.*"));
     wxFileDialog dlg(this,_("Add images"),
-                     config->Read(wxT("actualPath"),wxT("")), "",
+                     config->Read(wxT("actualPath"),wxT("")), wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
 
     // remember the image extension
@@ -641,7 +634,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-            filesv.push_back(Pathnames[i].c_str());
+            filesv.push_back(Pathnames[i].mb_str());
         }
 
         // we got some images to add.
@@ -734,11 +727,11 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         // Get the filename.  Naively assumes there are no Unicode issues.
         const PanoImage& image = pano.getImage(images);
         std::string filename = image.getFilename();
-        wxString file = filename.c_str();
+        wxString file(filename.c_str(), *wxConvCurrent);
         filenames[file] = 0;
 
         // Glob for all files of same type in same directory.
-        wxString name = filename.c_str();
+        wxString name(filename.c_str(), *wxConvCurrent);
         wxString path = ::wxPathOnly(name) + wxT("/*");
         file = ::wxFindFirstFile(path);
         while (!file.IsEmpty())
@@ -759,10 +752,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
-        time_t stamp = ReadJpegTime(file.c_str());
+        time_t stamp = ReadJpegTime(file.mb_str());
         if (stamp) {
             filenames[file] = stamp;
-            timeMap[file.c_str()] = stamp;
+            timeMap[file.mb_str()] = stamp;
         }
     }
 
@@ -799,7 +792,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
                 {
                     // Load this file, and remember it.
                     DEBUG_TRACE("Recruited " << recruit.c_str());
-                    std::string file = recruit.c_str();
+                    std::string file = (const char *)recruit.mb_str();
                     filesv.push_back(file);
                     // Don't recruit it again.
                     filenames[recruit] = 0;
@@ -936,7 +929,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
-    MyProgressDialog pdisp(_("Fine-tuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+    MyProgressDialog pdisp(_("Fine-tuning all points"), wxT(""), NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     pdisp.pushTask(ProgressTask("Finetuning","",1.0/unoptimized.size()));
 
