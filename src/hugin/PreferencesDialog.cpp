@@ -284,10 +284,10 @@ bool PreferencesDialog::GetPanoVersion()
 	bool			bSuccess = true;
 
 #ifdef __WXMSW__
-	hDll = LoadLibrary("pano12.dll");
+	hDll = LoadLibrary(_T("pano12.dll"));
 	if(!hDll)
 	{
-		MessageBox((HWND)NULL, "Could not load dll", "panoinfo", MB_ICONEXCLAMATION);
+		MessageBox((HWND)NULL, _("Could not load dll"), _("panoinfo"), MB_ICONEXCLAMATION);
 		bSuccess = false;
 		goto cleanup;
 	}
