@@ -36,6 +36,7 @@
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
 //#include <wx/listctrl.h>
 //#include <wx/imaglist.h>
+#include <wx/image.h>
 
 #include "PT/PanoCommand.h"
 #include "PT/PanoramaMemento.h"
@@ -201,15 +202,20 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 
 void PanoPanel::Optimize (OptimizeVector & optvars, PanoramaOptions & output)
 {
+#ifdef __unix__
     GlobalCmdHist::getInstance().addCommand(
         new PT::OptimizeCmd( pano, optvars, output)
         );
+#else
+    wxLogError("Optimize not implemented under windows yet");
+#endif
+    
 }
 
 void PanoPanel::DoOptimization (wxCommandEvent & e)
 {
-    // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level 
-    Optimize(*optset, opt); 
+    // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level
+    Optimize(*optset, opt);
 }
 
 void PanoPanel::DoPreview ( wxCommandEvent & e )
@@ -256,10 +262,14 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       }
 
       preview_pano.clearObservers();
+#ifdef __unix__
       Process process(false);
       preview_pano.runStitcher(process, preview_opt);
       process.wait();
-
+#else
+      wxLogError("Preview not implemented under windows yet");
+#endif
+      
       previewWidth = old_previewWidth;
 
       // Send panoViewer the name of our image
@@ -469,7 +479,7 @@ void PanoPanel::PanoOptionsChanged ( void )
 //    JpegPChanged (e);
     XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
                             ->SetValue( opt.progressive ) ;
-    
+
     DEBUG_TRACE("");
 }
 
@@ -530,7 +540,7 @@ void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
           case NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
           case SINC_1024:         Ip = _("Sinc 1024"); break;
       }
-  
+
       opt.interpolator = (Interpolator) lt;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
@@ -547,12 +557,12 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_hfov", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-  
+
       opt.HFOV = *val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
+
       DEBUG_INFO ( ": " << *val )
       delete val;
     }
@@ -564,14 +574,14 @@ void PanoPanel::GammaChanged ( wxCommandEvent & e )
       double * val = new double ();
       wxString text = XRCCTRL(*this, "pano_val_gamma", wxTextCtrl)->GetValue();
       text.ToDouble( val );
-  
+
       opt.gamma = *val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
 
       DEBUG_INFO ( wxString::Format (": %f", *val) )
-    }  
+    }
 }
 // --
 void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
@@ -582,12 +592,12 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-  
+
       previewWidth = (int)*val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
+
       DEBUG_INFO ( ": " << *val )
       delete val;
     }
@@ -611,7 +621,7 @@ void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
       // FileFormat from PanoramaMemento.h
       int lt = XRCCTRL(*this, "pano_choice_formatFinal",
                                      wxChoice)->GetSelection();
-  
+
       wxString Ip ("JPEG");
       switch ( lt ) {
           case JPEG:        Ip = wxT("JPEG"); break;
@@ -630,12 +640,12 @@ void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
           case QTVR:        Ip = wxT("QTVR"); break;
   //      default :   Ip = wxString::Format ("%d",lt); break;
       }
-  
+
       opt.outputFormat = Ip;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
+
   // TODO add path for writing
       if (opt.outputFormat == "JPEG" ) {
         opt.outfile = "panorama.JPG";
@@ -654,12 +664,12 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_width", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-  
+
       opt.width = Width = (int) *val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
+
       DEBUG_INFO( ": " << *val << " " << Width );
       delete val;
     }
@@ -673,12 +683,11 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_height", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-  
+
       opt.height = Height = (int) *val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
       DEBUG_INFO ( ": " << *val << " " << Height )
       delete val;
     }
@@ -692,12 +701,12 @@ void PanoPanel::JpegQChanged ( wxCommandEvent & e )
                               ->GetSelection() ;
       XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
                               ->GetString(lt).ToDouble(val) ;
-  
+
       opt.quality = (int) *val;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-  
+
       DEBUG_INFO ( ": " << *val )
       delete val;
     }
@@ -708,7 +717,7 @@ void PanoPanel::JpegPChanged ( wxCommandEvent & e )
     if ( ! changePano ) {
       int lt = XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
                               ->GetValue() ;
-  
+
       opt.progressive = lt;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
@@ -728,9 +737,14 @@ void PanoPanel::Stitch ( wxCommandEvent & e )
     //opt.printStitcherScript( *stdout, opt);
 #endif
 
+#ifdef __unix__
     GlobalCmdHist::getInstance().addCommand(
         new PT::StitchCmd( pano, opt )
         );
+#else
+      wxLogError("Stitching not implemented under windows yet");
+#endif
+    
 
     DEBUG_INFO ( ": " << Width )
 }
@@ -764,7 +778,7 @@ PanoDialog::~PanoDialog(void)
 {
     pp->Close();
     this->Destroy();
-} 
+}
 
 void PanoDialog::OnPaint (wxPaintEvent & e)
 { }

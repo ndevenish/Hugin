@@ -55,6 +55,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
+
 #include "hugin/CPEditorPanel.h"
 
 

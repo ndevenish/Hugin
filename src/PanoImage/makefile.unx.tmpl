@@ -1,4 +1,4 @@
-CC = gcc
+CC = g++
 CC_ARGS = -O2 -Wall -g
 
 PROGRAM = panoviewer
@@ -36,7 +36,7 @@ apps:	$(PROGRAM)
 $(PROGRAM):	$(OBJECTS)
 	$(CC) -o $(PROGRAM) $(OBJECTS) `wx-config --libs`
 
-clean: 
+clean:
 	rm -f *.o $(PROGRAM)
 
 install: $(PROGRAM)

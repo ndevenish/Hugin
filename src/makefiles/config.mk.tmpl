@@ -48,6 +48,8 @@ INSTALL_LOCALE_DIR=$(INSTALL_PREFIX)/share/locale
 # General settings
 # ========================================================================
 
+PLATFORM = __PLATFORM__
+
 # the programs we use (TODO: use configure to detect them)
 CC            = gcc
 CXX           = g++
@@ -98,6 +100,10 @@ LFLAGS     += -L$(LIB_DIR)
 
 CFLAGS	   += -I. -I$(INC_DIR)
 CFLAGS     += -Wall -g
+
+WXWIN_CFLAGS = __WXWIN_CFLAGS__
+WXWIN_LFLAGS = __WXWIN_LFLAGS__
+XRC_LFLAGS = __XRC_LFLAGS__
 
 
 # ========================================================================

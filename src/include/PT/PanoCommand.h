@@ -445,6 +445,7 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+#ifdef __unix__
 
     /** run the optimizer & set optimized variables
      *  there should be a gui version of this command,
@@ -487,7 +488,6 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-
     /// stitch the image
     class StitchCmd : public Command
     {
@@ -514,6 +514,7 @@ namespace PT {
 	const Panorama & pano;
         PanoramaOptions target;
     };
+#endif // __unix__
 }
 
 

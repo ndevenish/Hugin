@@ -388,6 +388,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
     state.ctrlPoints[pNr] = point;
 }
 
+#ifdef __unix__
 
 bool Panorama::runOptimizer(Process & proc, const OptimizeVector & optvars) const
 {
@@ -401,7 +402,7 @@ bool Panorama::runOptimizer(Process & proc, const OptimizeVector & optvars, cons
     printOptimizerScript(script, optvars, options);
     script.close();
 
-#ifdef unix
+#ifdef __unix__
     string cmd = optimizerExe + " " + PTScriptFile;
     return proc.open(cmd.c_str());
 #else
@@ -428,6 +429,7 @@ bool Panorama::runStitcher(Process & proc, const PanoramaOptions & target) const
 
 }
 
+#endif // __unix__
 
 void Panorama::printOptimizerScript(ostream & o,
                                     const OptimizeVector & optvars,

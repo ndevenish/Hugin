@@ -50,8 +50,8 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags) -I../
-LFLAGS += $(shell wx-config --libs)
+CFLAGS += $(WXWIN_CFLAGS) -I../
+LFLAGS += $(WXWIN_LFLAGS)
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a
@@ -68,7 +68,10 @@ LIB_LFLAGS = $(LFLAGS)
 
 # Library 1
 LIB_1_BIN = panorama
-LIB_1_OBJ = Panorama.o PanoramaMemento.o PanoImage.o utils.o Process.o
+LIB_1_OBJ = Panorama.o PanoramaMemento.o PanoImage.o utils.o
+ifeq ($(PLATFORM), unix)
+   LIB_1_OBJ += Process.o
+endif
 LIB_1_CFLAGS =  $(LIB_CFLAGS)
 LIB_1_LFLAGS =  $(LIB_LFLAGS)
 

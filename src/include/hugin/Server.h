@@ -48,6 +48,7 @@
 #endif
 
 #include "wx/socket.h"
+#include "wx/window.h"
 #include "common/utils.h"
 #include "PT/PanoramaMemento.h"
 

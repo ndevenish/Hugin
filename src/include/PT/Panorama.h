@@ -263,6 +263,7 @@ public:
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
+#ifdef __unix__
     /** optimize panorama variables.
      *
      *  this will start the optimization process.
@@ -288,6 +289,7 @@ public:
      *  @return true if PTStitcher could be started
      */
     bool runStitcher(Process & proc, const PanoramaOptions & target) const;
+#endif
 
     /** parse optimzier output
      *

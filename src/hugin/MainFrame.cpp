@@ -42,13 +42,14 @@
 #include "PT/PanoCommand.h"
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/CPEditorPanel.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
-#include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/CPEditorPanel.h"
 #include "PT/Panorama.h"
+
+#include "hugin/MainFrame.h"
 
 using namespace PT;
 
@@ -132,7 +133,7 @@ MainFrame::MainFrame(wxWindow* parent)
     pano_panel->pano_dlg_run = FALSE; // pano_panel did not yet run pano_dlg.
     pano_panel->self_pano_dlg = FALSE; // Tell pano_panel it is non dialog
 #if 0
-    UIntSet i; 
+    UIntSet i;
     pano_panel->panoramaImagesChanged (pano, i); // initialize from pano
 #else
     wxCommandEvent e;
@@ -214,7 +215,7 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
         OptimizerSettings opts;
         if ( *it < 0 ) // we have an predecessor and copy its values
           opts = optset->at(*it - 1);
-          
+
         optset->push_back(opts);
       }
     } else if ( pano.getNrOfImages() < optset->size() ) { // images are removed
@@ -403,7 +404,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       case 2: config->Write("lastImageType", "tif"); break;
       case 3: config->Write("lastImageType", "all"); break;
     }
-      
+
     dlg->Destroy();
     config->Flush();
     DEBUG_TRACE("");

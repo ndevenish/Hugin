@@ -11,6 +11,8 @@ configure - prepare hugin for compilation
 options:
   --help           this text
   --prefix prefix  install program to prefix
+  --platform=(unix|win32) specify platform.
+                   defaults to unix.
 EOF
 }
 
@@ -20,6 +22,7 @@ use Getopt::Long;
 my $prefix = "/usr/local";
 
 $result = GetOptions ("prefix=s" => \$prefix,    # string
+                      "platform=s" => \$platform, # string
                       "help"  => \$help);  # flag
 
 if (!$result) {
@@ -31,7 +34,17 @@ if ($help) {
     exit(0);
 }
 
-print "checking for wxwindows 2.4 or greater: ";
+if (!$platform) {
+    $platform = "unix";
+}
+
+if (!($platform eq "unix" || $platform eq "win32")) {
+   print "Invalid platform specified: $platform\n";
+   print_help();
+   exit(1);
+}
+
+print "checking for wxwin32 2.4 or greater: ";
 $_ = `wx-config --version`;
 
 chomp;
@@ -43,7 +56,19 @@ if (($1 == 2 && $2 >= 4) || $1 >2 ) {
     exit(1);
 }
 
-print "Configuration summary for hugin:\n\n";
+my $WXWIN_CFLAGS=`wx-config --cxxflags`;
+my $WXWIN_LFLAGS=`wx-config --libs`;
+
+print "checking for xrc extension of wxwin32.";
+my $XRC_LFLAGS;
+if ($platform eq "win32") {
+    $XRC_LFLAGS="-lwx_msw_xrc-2.4";
+} elsif ($platform eq "unix") {
+    $XRC_LFLAGS="-lwx_gtk_xrc-2.4";
+}
+
+print "\nConfiguration summary for hugin:\n\n";
+print "  platform: $platform\n";
 print "  prefix: $prefix\n\n";
 
 print "Creating src/makefiles/config.mk\n";
@@ -52,6 +77,10 @@ open(CONF,">src/makefiles/config.mk");
 
 while (<CONF_T>) {
     s/__PREFIX__/$prefix/g;
+    s/__WXWIN_CFLAGS__/$WXWIN_CFLAGS/g;
+    s/__WXWIN_LFLAGS__/$WXWIN_LFLAGS/g;
+    s/__XRC_LFLAGS__/$XRC_LFLAGS/g;
+    s/__PLATFORM__/$platform/g;
     print CONF;
 }
 close (CONF_T);

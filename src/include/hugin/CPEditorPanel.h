@@ -34,6 +34,10 @@
 #include <set>
 #include <functional>
 #include <utility>
+#include <string>
+
+#include "wx/panel.h"
+
 #include <PT/Panorama.h>
 
 
@@ -146,7 +150,8 @@ private:
     // the current images
     unsigned int m_leftImageNr;
     unsigned int m_rightImageNr;
-    std::string m_leftFile, m_rightFile;
+    std::string m_leftFile;
+    std::string m_rightFile;
     bool m_listenToPageChange;
 
     wxPoint newPoint;
