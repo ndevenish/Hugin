@@ -327,7 +327,7 @@ void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
         case JPEG:        Ip = wxT("JPEG"); break;
         case PNG:         Ip = wxT("PNG"); break;
         case TIFF:        Ip = wxT("TIFF"); break;
-        case TIFF_mask:   Ip = wxT("TIFF_mask"); break;
+        case TIFF_mask:   Ip = wxT("TIFF_m"); break;
         case TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
         case PICT:        Ip = wxT("PICT"); break;
         case PSD:         Ip = wxT("PSD"); break;
@@ -345,6 +345,13 @@ void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
+
+// TODO add path for writing
+    if (opt->outputFormat == "JPEG" ) {
+      opt->outfile = "panorama.JPG";
+    } else {
+      opt->outfile = "panorama";
+    }
 
     DEBUG_INFO ( Ip )
 }

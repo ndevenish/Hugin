@@ -322,9 +322,12 @@ void PanoramaOptions::setFromXML(const QDomNode & elem)
 void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
     o << "p f" << projectionFormat << " w" << width << " h" << height << " v" << HFOV
-      << " n\"" << outputFormat << " q" << quality;
-    if (progressive) {
-        o << " g";
+      << " n\"" << outputFormat;
+    if ( outputFormat == "JPEG" ) {
+      o << " q" << quality;
+      if (progressive) {
+          o << " g";
+      }
     }
     o << "\"";
     switch (colorCorrection) {
