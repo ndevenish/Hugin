@@ -133,7 +133,7 @@ END_HINT(LOW_HFOV);
 
 //////////
 
-NEW_HINT(45, NO_PLUMB_GUIDES, "druid.control.128.png",
+NEW_HINT(42, NO_PLUMB_GUIDES, "druid.control.128.png",
 		 _("Consider adding a vertical or horizontal guide."),
 		 _("By adding vertical guides, the optimizer can ensure\n"
 		   "that buildings or trees or other vertical features\n"
@@ -159,17 +159,53 @@ END_HINT(NO_PLUMB_GUIDES);
 
 //////////
 
+NEW_HINT(45, OPTIMIZER_NOT_RUN, "druid.control.128.png",
+         _("Run the Optimizer to estimate the image positions."),
+         _("The Optimizer uses the control points to estimate the\n"
+           "positions of the individual images in the final panorama\n"
+           "\n"
+           "The optimizer can be invoked in the Optimizer tab.\n"))
+{
+    int images = pano.getNrOfImages();
+    if (images > 1) {
+        while (images)
+        {
+            --images;
+            const VariableMap & vars = pano.getImageVariables(images);
+            if (const_map_get(vars,"y").getValue() != 0.0) {
+                return FALSE;
+            }
+            if (const_map_get(vars,"p").getValue() != 0.0) {
+                return FALSE;
+            }
+            if (const_map_get(vars,"r").getValue() != 0.0) {
+                return FALSE;
+            }
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+END_HINT(OPTIMIZER_NOT_RUN);
+
+//////////
+
 NEW_HINT(46, FEW_GUIDES, "druid.control.128.png",
 		 _("Add more control points to improve the stitch quality."),
 		 _("For best results, there should be at least four pairs\n"
 		   "of control points for each pair of overlapping images.\n"
 		   "More points, accurately placed, will improve the match."))
 {
-	int points = pano.getNrOfCtrlPoints();
-	int images = pano.getNrOfImages();
-	if ((points/3) <= images)
-		return TRUE;
-	return FALSE;
+    int points = pano.getNrOfCtrlPoints();
+    int images = pano.getNrOfImages();
+    if (images == 1 && points <=1 ) {
+        return TRUE;
+    }
+    // for partial panoramas.
+    if (images > 1 && (points/3) < (images-1)) {
+        return TRUE;
+    }
+    return FALSE;
 }
 END_HINT(FEW_GUIDES);
 
@@ -209,17 +245,6 @@ END_HINT(NO_GUIDES);
 
 //////////
 
-NEW_HINT(85, NO_LENSES, "druid.lenses.128.png",
-		 _("There are no lenses defined or inferred."),
-		 _("Add and configure the appropriate lens information\n"
-		   "on the Camera and Lens tab."))
-{
-	return FALSE; // TODO: (0 == pano.getLensCount());
-}
-END_HINT(NO_LENSES);
-
-//////////
-
 NEW_HINT(95, ONE_IMAGE, "druid.images.128.png",
 		 _("Add at least one more image."),
 		 _("You should have at least two files listed in the Images tab."))
@@ -252,6 +277,7 @@ END_HINT(NO_IMAGES);
 //TODO: all variables are marked to be optimized
 //TODO: optimizing for different projection from final
 //TODO: above 90 hfov, above 5 images, but rectlinear projection
+//TODO: detect bend panoramas?
 
 //////////////////////////////////////////////////////////////////////////////
 
