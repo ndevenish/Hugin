@@ -168,6 +168,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             char *str = wxT("Loading image");
             m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,filename.c_str()).c_str(), "", 0));
         }
+        // Fixme, delete 
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
             DEBUG_ERROR("Can't load image: " << filename);
@@ -175,8 +176,6 @@ ImagePtr ImageCache::getImage(const std::string & filename)
         if (m_progress) {
             m_progress->popTask();
         }
-        // FIXME where is RefCountNotifier deleted?
-//        ImagePtr ptr(image, new RefCountNotifier<wxImage>(*this));
         images[filename] = image;
         return image;
     }

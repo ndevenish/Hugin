@@ -70,6 +70,8 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_g"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_t"), LensPanel::OnVarChanged )
     EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
+    EVT_BUTTON ( XRCID("lens_button_save"), LensPanel::OnSaveLensParameters )
+    EVT_BUTTON ( XRCID("lens_button_load"), LensPanel::OnLoadLensParameters )
     EVT_CHECKBOX ( XRCID("lens_inherit_v"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_a"), LensPanel::OnVarInheritChanged )
     EVT_CHECKBOX ( XRCID("lens_inherit_b"), LensPanel::OnVarInheritChanged )
@@ -478,4 +480,85 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
 }
 
 
+void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
+{
+    DEBUG_TRACE("")
+    const UIntSet & sel = images_list->GetSelected();
+    if (sel.size() == 1) {
+        unsigned int imgNr = *(sel.begin());
+        const Lens & lens = pano.getLens(pano.getImage(imgNr).getLensNr());
+        const VariableMap & vars = pano.getImageVariables(imgNr);
+        wxString fname;
+        wxFileDialog dlg(this,
+                         _("Save lens parameters file"),
+                         wxConfigBase::Get()->Read("lensPath",""), "",
+                         "Lens Project Files (*.ini)|*.ini|"
+                         "All files (*.*)|*.*",
+                         wxSAVE, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            fname = dlg.GetPath();
+            wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
+            wxFileConfig cfg("hugin lens file","",fname);
+            cfg.Write("Lens/type", (long) lens.projectionFormat);
+            cfg.Write("Lens/hfov", const_map_get(vars,"v").getValue());
+            cfg.Write("Lens/crop", lens.getFLFactor());
+            cfg.Write("Lens/a", const_map_get(vars,"a").getValue());
+            cfg.Write("Lens/b", const_map_get(vars,"b").getValue());
+            cfg.Write("Lens/c", const_map_get(vars,"c").getValue());
+            cfg.Write("Lens/d", const_map_get(vars,"d").getValue());
+            cfg.Write("Lens/e", const_map_get(vars,"e").getValue());
+            cfg.Write("Lens/t", const_map_get(vars,"t").getValue());
+            cfg.Write("Lens/g", const_map_get(vars,"g").getValue());
+            cfg.Flush();
+        }
+    } else {
+        wxLogError("Please select an image and try again");
+    }
+}
 
+
+void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
+{
+    const UIntSet & sel = images_list->GetSelected();
+    if (sel.size() == 1) {
+        unsigned int imgNr = *(sel.begin());
+        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
+        Lens lens = pano.getLens(lensNr);
+        VariableMap vars = pano.getImageVariables(imgNr);
+        wxString fname;
+        wxFileDialog dlg(this,
+                         _("Save lens parameters file"),
+                         wxConfigBase::Get()->Read("lensPath",""), "",
+                         "Lens Project Files (*.ini)|*.ini|"
+                         "All files (*.*)|*.*",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            fname = dlg.GetPath();
+            wxConfig::Get()->Write("lensPath", dlg.GetDirectory());  // remember for later
+            wxFileConfig cfg("hugin lens file","",fname);
+            int integer=0;
+            double d;
+            cfg.Read("Lens/type", &integer);
+            lens.projectionFormat = (Lens::LensProjectionFormat) integer;
+            cfg.Read("Lens/hfov", &d);map_get(vars,"v").setValue(d);
+            cfg.Read("Lens/crop", &d);lens.setFLFactor(d);
+            cfg.Read("Lens/a", &d);map_get(vars,"a").setValue(d);
+            cfg.Read("Lens/b", &d);map_get(vars,"b").setValue(d);
+            cfg.Read("Lens/c", &d);map_get(vars,"c").setValue(d);
+            cfg.Read("Lens/d", &d);map_get(vars,"d").setValue(d);
+            cfg.Read("Lens/e", &d);map_get(vars,"e").setValue(d);
+            cfg.Read("Lens/t", &d);map_get(vars,"f").setValue(d);
+            cfg.Read("Lens/g", &d);map_get(vars,"g").setValue(d);
+
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::ChangeLensCmd(pano, lensNr, lens)
+                );
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::UpdateImageVariablesCmd(pano, imgNr, vars)
+                );
+        }
+    } else {
+        wxLogError("Please select an image and try again");
+    }
+    wxLogError("Not implemented yet");
+}
