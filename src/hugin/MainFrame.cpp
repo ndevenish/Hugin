@@ -34,15 +34,24 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
+#include <wx/image.h>               // wxImage
+#include <wx/imagpng.h>             // for about html
+#include <wx/wxhtml.h>              // for about html
 
 #include "hugin/config.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 
+#if defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXMAC__) || defined(__WXMGL__)
+    #include "images/gui.xpm"
+#endif
+
 // event table. this frame will recieve mostly global commands.
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
+    EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
+    EVT_CLOSE(  MainFrame::OnExit)
 END_EVENT_TABLE()
 
 MainFrame::MainFrame(wxWindow* parent)
@@ -54,16 +63,22 @@ MainFrame::MainFrame(wxWindow* parent)
     // load our menu bar
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
+    // create tool bar
+    SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
+
     // create the custom widget referenced by the main_frame XRC
     cpe = new CPEditorPanel(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
-
+    // set the minimize icon
+    SetIcon(wxICON(gui));
 
     // create a status bar
     // I hope that we can also add other widget (like a
     // progress dialog to the status bar
-//    CreateStatusBar(1);
+    CreateStatusBar(1);
+    SetStatusText("Started");
+    
 }
 
 MainFrame::~MainFrame()
@@ -74,7 +89,8 @@ MainFrame::~MainFrame()
 void MainFrame::OnExit(wxCommandEvent & e)
 {
     // FIXME ask to save is panorama is true
-    Close(TRUE);
+    //Close(TRUE);
+    this->Destroy();
 }
 
 
@@ -94,6 +110,14 @@ void MainFrame::OnNew(wxCommandEvent & e)
     wxLogError("not implemented");
 }
 
+void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
+{
+  wxDialog dlg;
+  wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("text_edit_dialog"));
+  dlg.ShowModal();
+  dlg.Show (TRUE);
+}
+
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
     wxString msg;
@@ -110,4 +134,10 @@ void MainFrame::OnAbout(wxCommandEvent & e)
              "Homepage: http://hugin.sourceforge.net");
     wxMessageBox(msg, _("About XML resources demo"),
                  wxOK | wxICON_INFORMATION, this);
+//------------------------------------------------------------------------------
+    wxImage::AddHandler(new wxPNGHandler);
+
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
+    dlg.ShowModal();
 }
