@@ -47,6 +47,13 @@ SUBDIRS =
 DEPEND_FILES = *.cpp
 
 # ====================================================================
+# special compiler and linker flags for this directory
+# ====================================================================
+
+CFLAGS += $(shell wx-config --cxxflags) -I../
+LFLAGS += $(shell wx-config --libs)
+
+# ====================================================================
 # Some of the object in this directory you might want to put in a
 # library to make them easily available from other locations. The
 # library name should be without the leading lib and trailing

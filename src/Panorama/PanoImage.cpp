@@ -16,6 +16,7 @@
 #include <PT/PanoImage.h>
 #include <PT/Panorama.h>
 #include <common/utils.h>
+#include "hugin/ImageCache.h"
 
 using namespace PT;
 using namespace std;
@@ -121,6 +122,11 @@ bool PanoImage::readImageInformation()
       return false;
   }
   std::string ext = filename.substr( idx+1 );
+
+  // this depends on wxWindow
+  wxImage * image = ImageCache::getInstance().getImage(filename);
+  width = image->GetWidth();
+  height = image->GetHeight();
 
   /*
   try {

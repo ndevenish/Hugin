@@ -371,7 +371,7 @@ bool Panorama::runOptimizer(Process & proc, const OptimizeVector & optvars, cons
     printOptimizerScript(script, optvars, options);
     script.close();
 
-#ifdef UNIX
+#ifdef unix
     string cmd = optimizerExe + " " + PTScriptFile;
     return proc.open(cmd.c_str());
 #else
@@ -388,7 +388,7 @@ bool Panorama::runStitcher(Process & proc, const PanoramaOptions & target) const
     printStitcherScript(script, target);
     script.close();
 
-#ifdef UNIX
+#ifdef unix
     string cmd = stitcherExe + string(" -o \"") + target.outfile + "\" " + PTScriptFile;
     return proc.open(cmd.c_str());
 #else
