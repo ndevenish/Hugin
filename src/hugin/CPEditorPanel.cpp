@@ -715,6 +715,12 @@ void CPEditorPanel::UpdateDisplay()
     m_rightImg->setCtrlPoints(right);
 
     // put these control points into our listview.
+    int selectedCP; 
+    for ( int i=0; i < m_cpList->GetItemCount() ; i++ ) {
+      if ( m_cpList->GetItemState( i, wxLIST_STATE_SELECTED ) ) {
+        selectedCP = i;            // remembers the old selection
+      }
+    }
     m_cpList->Hide();
     m_cpList->DeleteAllItems();
 
@@ -740,6 +746,9 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format("%f",p.error));
     }
+    if ( selectedCP <= m_cpList->GetItemCount() ) // sets an old selection again
+      m_cpList->SetItemState( selectedCP,
+                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
 /*    for (int i=0; i<7; i++) {
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);

@@ -1727,7 +1727,7 @@ msgstr "links y"
 
 #: CPEditorPanel.cpp:124
 msgid "right x"
-msgstr "techts x"
+msgstr "rechts x"
 
 #: CPEditorPanel.cpp:125
 msgid "right y"
