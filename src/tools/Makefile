@@ -65,7 +65,7 @@ LFLAGS += -lpanorama -ljhead -lpano12 $(VIGRA_LFLAGS)
 
 ifeq ($(HAS_FULL_VIGRA),1)
 
-APPS = 1
+APPS = 1 2
 
 # App 1
 
@@ -73,6 +73,12 @@ APP_1_BIN = nona
 APP_1_OBJ = nona.o
 
 APP_1_LFLAGS = $(LFLAGS)
+
+APP_2_BIN = autopano
+APP_2_OBJ = autopano.o
+
+APP_2_LFLAGS = $(LFLAGS) -lklt -lfftw
+
 endif
 
 # ====================================================================

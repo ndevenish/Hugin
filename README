@@ -9,6 +9,8 @@ This package contains two useful programs:
    features of PTStitcher, but is several times faster, opensource and
    will be extended in the future).
 
+ - autopano, creates hugin project files, for single row panoramas.
+
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution
 pictures by combining multiple images.

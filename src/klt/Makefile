@@ -29,7 +29,7 @@
 # relative path to the src directory
 # ====================================================================
 
-PREFIX = .
+PREFIX = ..
 
 # ====================================================================
 # include config
@@ -43,23 +43,94 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = jhead klt Panorama hugin tools PanoImage
+SUBDIRS =
 
 # ====================================================================
-# include common rules
+# Files that should be considered while creating the dependencies
 # ====================================================================
 
-include $(PREFIX)/makefiles/rules.mk
+DEPEND_FILES = *.c
 
 # ====================================================================
-# local rules
+# special compiler/linker flags needed in this directory
 # ====================================================================
 
-docs:
-	doxygen
+CFLAGS +=
+LFLAGS +=
+
+# ====================================================================
+# Some of the object in this directory you might want to put in a
+# library to make them easily available from other locations. The
+# library name should be without the leading lib and trailing
+# .a. Those are added automatically.
+# ====================================================================
+
+# ====================================================================
+# Libraries
+# Multiple libraries can be defined here, by adding them to the
+# LIBS list and specifying details in LIB_x_BIN LIB_x_OBJ
+# LIB_x_LFLAGS
+# This is useful for code that is needed from other directories.
+# ====================================================================
+LIBS = 1
+#LIBS = 1
+
+# Defaults
+LIB_LFLAGS = $(LFLAGS)
+
+# Library 1
+LIB_1_BIN = klt
+LIB_1_OBJ = error.o convolve.o klt.o klt_util.o pyramid.o selectGoodFeatures.o \
+            storeFeatures.o trackFeatures.o writeFeatures.o pnmio.o
+LIB_1_LFLAGS =  $(LIB_LFLAGS)
+
+
+# ====================================================================
+# Applications
+# ====================================================================
+
+APPS =
+#APPS = 1 2
+
+# Defaults
+
+APP_LFLAGS =   $(LFLAGS)
+
+# App 1
+
+APP_1_BIN = bla
+APP_1_OBJ = bla.o bla2.o
+APP_1_LFLAGS = $(TEST_LFLAGS)
+
+# App 2
+
+APP_1_BIN = alb
+APP_1_OBJ = alb.o alb2.o
+APP_1_LFLAGS = $(TEST_LFLAGS)
+
+
+# ====================================================================
+# Some applications are only for testing. To make these compile you
+# must explicitly type "make tests"
+# ====================================================================
+
+
+TESTS =
+
+# Defaults
+
+TEST_LFLAGS =   $(LFLAGS)
+
+# Test 1
+
+TEST_1_BIN =
+TEST_1_OBJ =
+TEST_1_LFLAGS = $(TEST_LFLAGS)
+
 
 # ====================================================================
 # Do not edit anything below this
 # ====================================================================
 
+include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)

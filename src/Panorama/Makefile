@@ -73,13 +73,14 @@ LIB_1_OBJ = Panorama.o \
             PanoImage.o \
             PanoToolsInterface.o \
             SpaceTransform.o \
-            utils.o
+            utils.o \
+	    PhaseCorrelation.o
 
 LIB_1_CFLAGS =  $(LIB_CFLAGS)
 LIB_1_LFLAGS =  $(LIB_LFLAGS)
 
 
-APP = 
+APP =
 
 # Defaults
 

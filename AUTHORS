@@ -1,14 +1,21 @@
-Main author: Pablo d'Angelo <pablo.dangelo@web.de>
-authors: gui, panoviewer adds: Kai-Uwe Behrmann <ku.b@gmx.de>
-         packaging, layout +++: Bruno Postle
-         wxPanoViewer: Ben Allfree, Helmut Dersch
+Main author:
+   Pablo d'Angelo <pablo.dangelo@web.de>
+Authors:
+  Alexandre Jenny                               Algorithms
+   Kai-Uwe Behrmann <ku.b@gmx.de>               gui, panoviewer adds
+   Bruno Postle                                 packaging, layout
+   Helmut Dersch, Ben Allfree                   wxPanoViewer:
+   
+   Stan Birchfield                              KLT Feature Tracker
+   Lyndon Hill                                  phase correlation.
 
 This package also includes a code from
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
 and
 jhead: http://www.sentex.net/~mwandel/jhead/
 
-Most icons were taken from the BlueCurve theme package
+
+Some icons were taken from the BlueCurve theme package
 
 
 Thanks to the following people:
@@ -17,5 +24,5 @@ Thanks to the following people:
   beta testing and many ideas
 
   Nils Lagerkvist for suggesting the program name, hugin
-  
+
 
