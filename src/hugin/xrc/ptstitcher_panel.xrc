@@ -29,7 +29,7 @@
                     <item>Sinc 1024</item>
                   </content>
                   <selection>0</selection>
-                  <tooltip>approximation of values beetwen source pixels</tooltip>
+                  <tooltip>approximation of values between source pixels</tooltip>
                 </object>
               </object>
               <object class="sizeritem">

@@ -135,7 +135,7 @@
                   <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
                     <object class="wxStaticText">
-                      <label>Focal length:</label>
+                      <label>focal length:</label>
                       <style>wxALIGN_LEFT</style>
                     </object>
                     <flag>wxALL|wxALIGN_CENTRE</flag>

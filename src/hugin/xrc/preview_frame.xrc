@@ -47,8 +47,8 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxButton" name="preview_center_button">
-              <label>center</label>
-              <tooltip>center the preview horizontally</tooltip>
+              <label>Center</label>
+              <tooltip>Center the preview horizontally</tooltip>
             </object>
           </object>
           <object class="sizeritem">
@@ -56,14 +56,14 @@
           </object>
           <object class="sizeritem">
             <object class="wxCheckBox" name="preview_auto_cb">
-              <label>auto preview</label>
-              <tooltip>automatically update preview on relevant changes</tooltip>
+              <label>Auto Preview</label>
+              <tooltip>Automatically update preview on relevant changes</tooltip>
             </object>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="preview_update_button">
-              <label>update preview</label>
-              <tooltip>force update</tooltip>
+              <label>Update</label>
+              <tooltip>Update preview</tooltip>
             </object>
           </object>
         </object>
@@ -74,36 +74,36 @@
     <style>wxTB_FLAT|wxTB_TEXT</style>
     <object class="tool" name="preview_center_tool">
       <bitmap>data/center_pano.xpm</bitmap>
-      <tooltip>center the preview horizontally</tooltip>
+      <tooltip>Center the preview horizontally</tooltip>
       <label>Center</label>
     </object>
     <object class="tool" name="preview_fit_pano_tool">
       <bitmap>data/fit_pano.xpm</bitmap>
-      <longhelp>show the whole panorama</longhelp>
-      <tooltip>estimate field of view</tooltip>
+      <longhelp>Show the whole panorama</longhelp>
+      <tooltip>Estimate field of view</tooltip>
       <label>Fit</label>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_auto_update_tool">
       <bitmap>data/preview_auto_update.png</bitmap>
-      <tooltip>auto update</tooltip>
+      <tooltip>Auto update</tooltip>
       <label>Auto</label>
       <toggle>1</toggle>
     </object>
     <object class="tool" name="preview_update_tool">
       <bitmap>data/reload.png</bitmap>
-      <tooltip>update</tooltip>
+      <tooltip>Update preview</tooltip>
       <label>Update</label>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_show_all_tool">
       <bitmap>data/preview_show_all.png</bitmap>
-      <tooltip>show all</tooltip>
+      <tooltip>Show all images</tooltip>
       <label>All</label>
     </object>
     <object class="tool" name="preview_show_none_tool">
       <bitmap>data/preview_show_none.png</bitmap>
-      <tooltip>show none</tooltip>
+      <tooltip>Show none of the images</tooltip>
       <label>None</label>
     </object>
     <bitmapsize>22,22</bitmapsize>

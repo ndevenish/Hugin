@@ -17,11 +17,11 @@
       <object class="wxMenuItem" name="action_save_project">
         <label>&amp;Save</label>
         <accel>Ctrl-s</accel>
-        <help>Save project</help>
+        <help>Save current project file</help>
       </object>
       <object class="wxMenuItem" name="action_save_as_project">
-        <label>&amp;Save as</label>
-        <help>Save project</help>
+        <label>S&amp;ave as</label>
+        <help>Save current project to a new file</help>
       </object>
       <object class="wxMenuItem" name="action_save_as_ptstitcher">
         <label>&amp;Write PTSticher script</label>
@@ -69,16 +69,18 @@
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_finetune_all_cp">
-        <label>Fine-tune all Points</label>
+        <label>Fine-&amp;tune all Points</label>
         <help>Runs fine-tune on all control points. useful for projects created with other tools, like PTGui or PTAssembler</help>
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_optimize">
-        <label>&amp;optimize</label>
-        <accel>Ctrl-f</accel>
+        <label>&amp;Optimize</label>
+        <accel>Ctrl-t</accel>
+	<help>Re-run the optimizer with current settings</help>
       </object>
       <object class="wxMenuItem" name="action_add_images">
-        <label>Add</label>
+        <label>&amp;Add Image</label>
+	<help>Add another image to the current project</help>
       </object>
     </object>
     <object class="wxMenu" name="view_menu">
@@ -86,12 +88,12 @@
       <object class="wxMenuItem" name="ID_CP_TABLE">
         <label>&amp;Control point table</label>
         <accel>F3</accel>
-        <help>Shows all controlpoint distances</help>
+        <help>Shows all control point distances</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PREVIEW_FRAME">
         <label>&amp;Preview window</label>
         <accel>Ctrl-p</accel>
-        <help>show the preview window</help>
+        <help>Show the preview window</help>
       </object>
       <object class="wxMenuItem" name="ID_LASTPREVIEWSTITCH">
         <label>&amp;Last preview stitch</label>

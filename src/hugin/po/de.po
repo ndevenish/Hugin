@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-15 09:46+0200\n"
+"POT-Creation-Date: 2004-10-15 20:11+0200\n"
 "PO-Revision-Date: 2004-10-09 18:05+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.co.il>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1286,8 +1286,8 @@ msgstr "Horizontaler Bildwinkel (v)"
 msgid "Inherit"
 msgstr "Höhe"
 
-#: src/hugin/xrc/lens_dialog.xrs:17
-msgid "Focal length:"
+#: src/hugin/xrc/lens_dialog.xrs:17 src/hugin/xrc/lens_panel.xrs:13
+msgid "focal length:"
 msgstr ""
 
 #: src/hugin/xrc/lens_dialog.xrs:18 src/hugin/xrc/lens_dialog.xrs:19
@@ -1357,10 +1357,6 @@ msgstr "Objektivparameter laden"
 msgid "degrees of view (v):"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:13
-msgid "focal length:"
-msgstr ""
-
 #: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel.xrs:15
 msgid "real focal length of the optic"
 msgstr ""
@@ -1403,7 +1399,8 @@ msgstr ""
 msgid "(usually for film scanning only)"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/preview_frame.xrs:9
+#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/preview_frame.xrs:2
+#: src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr ""
 
@@ -1493,8 +1490,8 @@ msgstr ""
 msgid "Exit this application"
 msgstr ""
 
-#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:37
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:42
 msgid "&Help"
 msgstr ""
 
@@ -1510,7 +1507,7 @@ msgstr ""
 msgid "&New"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:3
+#: src/hugin/xrc/main_menu.xrs:3 src/hugin/xrc/main_tool.xrs:1
 #, fuzzy
 msgid "New project"
 msgstr "Öffne Projekt"
@@ -1519,7 +1516,7 @@ msgstr "Öffne Projekt"
 msgid "&Open"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:5
+#: src/hugin/xrc/main_menu.xrs:5 src/hugin/xrc/main_tool.xrs:4
 #, fuzzy
 msgid "Open project"
 msgstr "Öffne Projekt"
@@ -1528,14 +1525,19 @@ msgstr "Öffne Projekt"
 msgid "&Save"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:7 src/hugin/xrc/main_menu.xrs:9
+#: src/hugin/xrc/main_menu.xrs:7 src/hugin/xrc/main_tool.xrs:9
 #, fuzzy
-msgid "Save project"
+msgid "Save current project file"
 msgstr "Speichere Projekt"
 
 #: src/hugin/xrc/main_menu.xrs:8
-msgid "&Save as"
+msgid "S&ave as"
 msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:9 src/hugin/xrc/main_tool.xrs:12
+#, fuzzy
+msgid "Save current project to a new file"
+msgstr "Speichere Projekt"
 
 #: src/hugin/xrc/main_menu.xrs:10
 #, fuzzy
@@ -1611,7 +1613,7 @@ msgstr "Kontrollpunkte löschen"
 
 #: src/hugin/xrc/main_menu.xrs:27
 #, fuzzy
-msgid "Fine-tune all Points"
+msgid "Fine-&tune all Points"
 msgstr "Feiner Kontrollpunkt"
 
 #: src/hugin/xrc/main_menu.xrs:28
@@ -1621,69 +1623,78 @@ msgid ""
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:29
-msgid "&optimize"
-msgstr ""
+#, fuzzy
+msgid "&Optimize"
+msgstr "Optimieren"
 
-#: src/hugin/xrc/main_menu.xrs:30 src/hugin/xrc/main_tool.xrs:20
-msgid "Add"
-msgstr ""
+#: src/hugin/xrc/main_menu.xrs:30 src/hugin/xrc/main_tool.xrs:24
+#, fuzzy
+msgid "Re-run the optimizer with current settings"
+msgstr "Optimiere Bild Positionen"
 
 #: src/hugin/xrc/main_menu.xrs:31
-msgid "&View"
+#, fuzzy
+msgid "&Add Image"
+msgstr "neue Bilder"
+
+#: src/hugin/xrc/main_menu.xrs:32 src/hugin/xrc/main_tool.xrs:21
+msgid "Add another image to the current project"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:32
-#, fuzzy
-msgid "&Control point table"
-msgstr "&Justierpunkttabelle"
-
 #: src/hugin/xrc/main_menu.xrs:33
-msgid "Shows all controlpoint distances"
+msgid "&View"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:34
 #, fuzzy
+msgid "&Control point table"
+msgstr "&Justierpunkttabelle"
+
+#: src/hugin/xrc/main_menu.xrs:35
+#, fuzzy
+msgid "Shows all control point distances"
+msgstr "Kontrollpunkte auswählen"
+
+#: src/hugin/xrc/main_menu.xrs:36
+#, fuzzy
 msgid "&Preview window"
 msgstr "&Vorschau"
 
-#: src/hugin/xrc/main_menu.xrs:35
-msgid "show the preview window"
-msgstr ""
+#: src/hugin/xrc/main_menu.xrs:37
+#, fuzzy
+msgid "Show the preview window"
+msgstr "&Vorschau"
 
-#: src/hugin/xrc/main_menu.xrs:36
+#: src/hugin/xrc/main_menu.xrs:38
 msgid "&Last preview stitch"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:38
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "&About"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "About program"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:41
+#: src/hugin/xrc/main_menu.xrs:43
 msgid "Some information on the different buttons and so on."
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:42
+#: src/hugin/xrc/main_menu.xrs:44
 msgid "&Keyboard Shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:43
+#: src/hugin/xrc/main_menu.xrs:45
 msgid "keyboard shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:44
+#: src/hugin/xrc/main_menu.xrs:46
 msgid "&FAQ"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:45
+#: src/hugin/xrc/main_menu.xrs:47
 msgid "Frequently Asked Questions"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:1
-msgid "New Project"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:2
@@ -1694,11 +1705,6 @@ msgstr ""
 #, fuzzy
 msgid "Start a new project"
 msgstr "Speichere Projekt"
-
-#: src/hugin/xrc/main_tool.xrs:4
-#, fuzzy
-msgid "Open Project"
-msgstr "Öffne Projekt"
 
 #: src/hugin/xrc/main_tool.xrs:5
 msgid "Open"
@@ -1711,27 +1717,17 @@ msgstr "Öffne Projekt Datei"
 
 #: src/hugin/xrc/main_tool.xrs:7
 #, fuzzy
-msgid "Save Project"
-msgstr "Speichere Projekt"
-
-#: src/hugin/xrc/main_tool.xrs:9
-#, fuzzy
-msgid "Save current project file"
+msgid "Save project"
 msgstr "Speichere Projekt"
 
 #: src/hugin/xrc/main_tool.xrs:10
 #, fuzzy
-msgid "Save Project As"
-msgstr "Projekt Speichern unter"
+msgid "Save project as"
+msgstr "Speichere Projekt"
 
 #: src/hugin/xrc/main_tool.xrs:11
 msgid "Save As"
 msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:12
-#, fuzzy
-msgid "Save current project to a new file"
-msgstr "Speichere Projekt"
 
 #: src/hugin/xrc/main_tool.xrs:13 src/hugin/xrc/main_tool.xrs:14
 msgid "Undo"
@@ -1743,26 +1739,21 @@ msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:19
 #, fuzzy
-msgid "Add an Image"
+msgid "Add image"
 msgstr "neue Bilder"
 
-#: src/hugin/xrc/main_tool.xrs:21
-msgid "Add another image to the current project"
+#: src/hugin/xrc/main_tool.xrs:20
+msgid "Add"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:22
 #, fuzzy
-msgid "Re-Optimize"
+msgid "Re-optimize"
 msgstr "Optimieren"
-
-#: src/hugin/xrc/main_tool.xrs:24
-#, fuzzy
-msgid "Re-Run the optimizer with current settings"
-msgstr "Optimiere Bild Positionen"
 
 #: src/hugin/xrc/main_tool.xrs:25
 #, fuzzy
-msgid "Preview Panorama"
+msgid "Preview panorama"
 msgstr "Speichere Panorama"
 
 #: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/preview_frame.xrs:1
@@ -1776,7 +1767,7 @@ msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:28
 #, fuzzy
-msgid "Show Control Points"
+msgid "Show control points"
 msgstr "Kontrollpunkte auswählen"
 
 #: src/hugin/xrc/main_tool.xrs:29
@@ -1808,7 +1799,7 @@ msgstr ""
 msgid "Poly3 (Bicubic)"
 msgstr ""
 
-#: src/hugin/xrc/nona_panel.xrs:11 src/hugin/xrc/ptstitcher_panel.xrs:11
+#: src/hugin/xrc/nona_panel.xrs:11
 msgid "approximation of values beetwen source pixels"
 msgstr ""
 
@@ -1973,8 +1964,9 @@ msgid "Stitch the images"
 msgstr ""
 
 #: src/hugin/xrc/pano_panel.xrs:3
-msgid "with Custom settings below"
-msgstr ""
+#, fuzzy
+msgid "with custom settings below"
+msgstr "Objektivparameter speichern"
 
 #: src/hugin/xrc/pano_panel.xrs:4
 msgid "into a high quality TIFF file"
@@ -2088,75 +2080,69 @@ msgstr "PTStitcher Anweisungen bearbeiten"
 msgid "nona"
 msgstr "normal"
 
-#: src/hugin/xrc/preview_frame.xrs:2
-msgid "center"
-msgstr ""
-
 #: src/hugin/xrc/preview_frame.xrs:3 src/hugin/xrc/preview_frame.xrs:8
-msgid "center the preview horizontally"
+msgid "Center the preview horizontally"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:4
 #, fuzzy
-msgid "auto preview"
+msgid "Auto Preview"
 msgstr "automatische Vorschau erzeugen"
 
 #: src/hugin/xrc/preview_frame.xrs:5
-msgid "automatically update preview on relevant changes"
+msgid "Automatically update preview on relevant changes"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:6
+#: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:16
+msgid "Update"
+msgstr ""
+
+#: src/hugin/xrc/preview_frame.xrs:7 src/hugin/xrc/preview_frame.xrs:15
 #, fuzzy
-msgid "update preview"
+msgid "Update preview"
 msgstr "automatische Vorschau erzeugen"
 
-#: src/hugin/xrc/preview_frame.xrs:7
-msgid "force update"
-msgstr ""
-
 #: src/hugin/xrc/preview_frame.xrs:10
-msgid "show the whole panorama"
+msgid "Show the whole panorama"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:11
-msgid "estimate field of view"
-msgstr ""
+#, fuzzy
+msgid "Estimate field of view"
+msgstr "Horizontaler Bildwinkel (v)"
 
 #: src/hugin/xrc/preview_frame.xrs:12
 msgid "Fit"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:13
-msgid "auto update"
+msgid "Auto update"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:14
 msgid "Auto"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:15
-msgid "update"
-msgstr ""
-
-#: src/hugin/xrc/preview_frame.xrs:16
-msgid "Update"
-msgstr ""
-
 #: src/hugin/xrc/preview_frame.xrs:17
-msgid "show all"
-msgstr ""
+#, fuzzy
+msgid "Show all images"
+msgstr "Bild skalieren"
 
 #: src/hugin/xrc/preview_frame.xrs:18
 msgid "All"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:19
-msgid "show none"
+msgid "Show none of the images"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:20 src/hugin/xrc/ptstitcher_panel.xrs:14
 #: src/hugin/xrc/ptstitcher_panel.xrs:24
 msgid "None"
+msgstr ""
+
+#: src/hugin/xrc/ptstitcher_panel.xrs:11
+msgid "approximation of values between source pixels"
 msgstr ""
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:12
@@ -2278,6 +2264,22 @@ msgstr "Parameter für's Zusammenfügen"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Open Project"
+#~ msgstr "Öffne Projekt"
+
+#, fuzzy
+#~ msgid "Save Project"
+#~ msgstr "Speichere Projekt"
+
+#, fuzzy
+#~ msgid "Save Project As"
+#~ msgstr "Projekt Speichern unter"
+
+#, fuzzy
+#~ msgid "Add an Image"
+#~ msgstr "neue Bilder"
 
 #~ msgid "Error during Finetune"
 #~ msgstr "Fehler während Feinsuche"

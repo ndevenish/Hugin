@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2004-10-15 09:46+0200\n"
+"POT-Creation-Date: 2004-10-15 20:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1207,8 +1207,8 @@ msgstr ""
 msgid "Inherit"
 msgstr ""
 
-#: src/hugin/xrc/lens_dialog.xrs:17
-msgid "Focal length:"
+#: src/hugin/xrc/lens_dialog.xrs:17 src/hugin/xrc/lens_panel.xrs:13
+msgid "focal length:"
 msgstr ""
 
 #: src/hugin/xrc/lens_dialog.xrs:18 src/hugin/xrc/lens_dialog.xrs:19
@@ -1273,10 +1273,6 @@ msgstr ""
 msgid "degrees of view (v):"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:13
-msgid "focal length:"
-msgstr ""
-
 #: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel.xrs:15
 msgid "real focal length of the optic"
 msgstr ""
@@ -1318,7 +1314,8 @@ msgstr ""
 msgid "(usually for film scanning only)"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/preview_frame.xrs:9
+#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/preview_frame.xrs:2
+#: src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr ""
 
@@ -1402,8 +1399,8 @@ msgstr ""
 msgid "Exit this application"
 msgstr ""
 
-#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:37
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menubar.xrs:4 src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:42
 msgid "&Help"
 msgstr ""
 
@@ -1419,7 +1416,7 @@ msgstr ""
 msgid "&New"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:3
+#: src/hugin/xrc/main_menu.xrs:3 src/hugin/xrc/main_tool.xrs:1
 msgid "New project"
 msgstr ""
 
@@ -1427,7 +1424,7 @@ msgstr ""
 msgid "&Open"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:5
+#: src/hugin/xrc/main_menu.xrs:5 src/hugin/xrc/main_tool.xrs:4
 msgid "Open project"
 msgstr ""
 
@@ -1435,12 +1432,16 @@ msgstr ""
 msgid "&Save"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:7 src/hugin/xrc/main_menu.xrs:9
-msgid "Save project"
+#: src/hugin/xrc/main_menu.xrs:7 src/hugin/xrc/main_tool.xrs:9
+msgid "Save current project file"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:8
-msgid "&Save as"
+msgid "S&ave as"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:9 src/hugin/xrc/main_tool.xrs:12
+msgid "Save current project to a new file"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:10
@@ -1514,7 +1515,7 @@ msgid "Delete entry"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:27
-msgid "Fine-tune all Points"
+msgid "Fine-&tune all Points"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:28
@@ -1524,67 +1525,71 @@ msgid ""
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:29
-msgid "&optimize"
+msgid "&Optimize"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:30 src/hugin/xrc/main_tool.xrs:20
-msgid "Add"
+#: src/hugin/xrc/main_menu.xrs:30 src/hugin/xrc/main_tool.xrs:24
+msgid "Re-run the optimizer with current settings"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:31
-msgid "&View"
+msgid "&Add Image"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:32
-msgid "&Control point table"
+#: src/hugin/xrc/main_menu.xrs:32 src/hugin/xrc/main_tool.xrs:21
+msgid "Add another image to the current project"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:33
-msgid "Shows all controlpoint distances"
+msgid "&View"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:34
-msgid "&Preview window"
+msgid "&Control point table"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:35
-msgid "show the preview window"
+msgid "Shows all control point distances"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:36
-msgid "&Last preview stitch"
+msgid "&Preview window"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:37
+msgid "Show the preview window"
 msgstr ""
 
 #: src/hugin/xrc/main_menu.xrs:38
+msgid "&Last preview stitch"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "&About"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "About program"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:41
+#: src/hugin/xrc/main_menu.xrs:43
 msgid "Some information on the different buttons and so on."
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:42
+#: src/hugin/xrc/main_menu.xrs:44
 msgid "&Keyboard Shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:43
+#: src/hugin/xrc/main_menu.xrs:45
 msgid "keyboard shortcuts"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:44
+#: src/hugin/xrc/main_menu.xrs:46
 msgid "&FAQ"
 msgstr ""
 
-#: src/hugin/xrc/main_menu.xrs:45
+#: src/hugin/xrc/main_menu.xrs:47
 msgid "Frequently Asked Questions"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:1
-msgid "New Project"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:2
@@ -1593,10 +1598,6 @@ msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:3
 msgid "Start a new project"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:4
-msgid "Open Project"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:5
@@ -1608,23 +1609,15 @@ msgid "Open a project file"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:7
-msgid "Save Project"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:9
-msgid "Save current project file"
+msgid "Save project"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:10
-msgid "Save Project As"
+msgid "Save project as"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:11
 msgid "Save As"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:12
-msgid "Save current project to a new file"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:13 src/hugin/xrc/main_tool.xrs:14
@@ -1636,23 +1629,19 @@ msgid "Redo"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:19
-msgid "Add an Image"
+msgid "Add image"
 msgstr ""
 
-#: src/hugin/xrc/main_tool.xrs:21
-msgid "Add another image to the current project"
+#: src/hugin/xrc/main_tool.xrs:20
+msgid "Add"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:22
-msgid "Re-Optimize"
-msgstr ""
-
-#: src/hugin/xrc/main_tool.xrs:24
-msgid "Re-Run the optimizer with current settings"
+msgid "Re-optimize"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:25
-msgid "Preview Panorama"
+msgid "Preview panorama"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/preview_frame.xrs:1
@@ -1664,7 +1653,7 @@ msgid "Show the preview image and the Panorama Druid"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:28
-msgid "Show Control Points"
+msgid "Show control points"
 msgstr ""
 
 #: src/hugin/xrc/main_tool.xrs:29
@@ -1695,7 +1684,7 @@ msgstr ""
 msgid "Poly3 (Bicubic)"
 msgstr ""
 
-#: src/hugin/xrc/nona_panel.xrs:11 src/hugin/xrc/ptstitcher_panel.xrs:11
+#: src/hugin/xrc/nona_panel.xrs:11
 msgid "approximation of values beetwen source pixels"
 msgstr ""
 
@@ -1850,7 +1839,7 @@ msgid "Stitch the images"
 msgstr ""
 
 #: src/hugin/xrc/pano_panel.xrs:3
-msgid "with Custom settings below"
+msgid "with custom settings below"
 msgstr ""
 
 #: src/hugin/xrc/pano_panel.xrs:4
@@ -1953,36 +1942,32 @@ msgstr ""
 msgid "nona"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:2
-msgid "center"
-msgstr ""
-
 #: src/hugin/xrc/preview_frame.xrs:3 src/hugin/xrc/preview_frame.xrs:8
-msgid "center the preview horizontally"
+msgid "Center the preview horizontally"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:4
-msgid "auto preview"
+msgid "Auto Preview"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:5
-msgid "automatically update preview on relevant changes"
+msgid "Automatically update preview on relevant changes"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:6
-msgid "update preview"
+#: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:16
+msgid "Update"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:7
-msgid "force update"
+#: src/hugin/xrc/preview_frame.xrs:7 src/hugin/xrc/preview_frame.xrs:15
+msgid "Update preview"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:10
-msgid "show the whole panorama"
+msgid "Show the whole panorama"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:11
-msgid "estimate field of view"
+msgid "Estimate field of view"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:12
@@ -1990,23 +1975,15 @@ msgid "Fit"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:13
-msgid "auto update"
+msgid "Auto update"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:14
 msgid "Auto"
 msgstr ""
 
-#: src/hugin/xrc/preview_frame.xrs:15
-msgid "update"
-msgstr ""
-
-#: src/hugin/xrc/preview_frame.xrs:16
-msgid "Update"
-msgstr ""
-
 #: src/hugin/xrc/preview_frame.xrs:17
-msgid "show all"
+msgid "Show all images"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:18
@@ -2014,12 +1991,16 @@ msgid "All"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:19
-msgid "show none"
+msgid "Show none of the images"
 msgstr ""
 
 #: src/hugin/xrc/preview_frame.xrs:20 src/hugin/xrc/ptstitcher_panel.xrs:14
 #: src/hugin/xrc/ptstitcher_panel.xrs:24
 msgid "None"
+msgstr ""
+
+#: src/hugin/xrc/ptstitcher_panel.xrs:11
+msgid "approximation of values between source pixels"
 msgstr ""
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:12

@@ -16,7 +16,7 @@
           <object class="sizeritem">
             <object class="wxChoice" name="stitch_quick_mode">
               <content>
-                <item>with Custom settings below</item>
+                <item>with custom settings below</item>
                 <item>into a high quality TIFF file</item>
                 <item>into a high-quality JPEG file</item>
                 <item>into a draft-quality JPEG file</item>
