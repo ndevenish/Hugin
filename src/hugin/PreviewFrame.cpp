@@ -257,10 +257,12 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                                       ID_TOGGLE_BUT + *it,
                                                       wxString::Format("%d",*it));
 #endif
-                wxSize sz(9,8);
-                wxSize res = ConvertDialogToPixels(sz);
-                sz = but->GetSize();
-                but->SetSize(res.GetWidth(),sz.GetHeight());
+                wxSize sz = but->GetSize();
+//                but->SetSize(res.GetWidth(),sz.GetHeight());
+                // HACK.. set fixed width. that should work
+                // better than all that stupid dialogunit stuff, that
+                // breaks on wxWin 2.5
+                but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
                 m_ToggleButtonSizer->Add(but,
                                          0,
