@@ -181,14 +181,14 @@ public:
      */
     bool readEXIF(const std::string & filename);
 
-    /** calculate hfov, from focal length 
+    /** calculate hfov, from focal length
      *
-     *  does not change the lens in any way. 
+     *  does not change the lens in any way.
      *  It doesn't update the hfov of the lens or the
      *  images. the needs to be done separately
      */
     double calcHFOV(double fl) const;
-    
+
     /** calculate focal length from given hfov
      *
      *  does not change the lens in any way.
@@ -359,7 +359,7 @@ public:
           HFOV(360), VFOV(180),
           width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
-          quality(90),progressive(true),
+          quality(90),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(POLY_3),
           optimizeReferenceImage(0),
@@ -373,7 +373,6 @@ public:
             width = 3000;
             outfile = "panorama.JPG";
             quality = 90;
-            progressive = false;
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -418,7 +417,6 @@ public:
     FileFormat outputFormat;
     // jpeg options
     int quality;
-    bool progressive;
     ColorCorrection colorCorrection;
     unsigned int colorReferenceImage;
 

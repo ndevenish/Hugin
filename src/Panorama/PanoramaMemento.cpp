@@ -447,9 +447,6 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
-        if (progressive) {
-            o << " g";
-        }
     }
     o << "\"";
     o << std::endl;
