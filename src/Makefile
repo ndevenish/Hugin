@@ -43,7 +43,7 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = jhead Panorama hugin PanoImage
+SUBDIRS = jhead Panorama hugin tools PanoImage
 
 # ====================================================================
 # include common rules

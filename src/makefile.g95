@@ -24,14 +24,17 @@ OBJECTS = Panorama/PanoImage.o  \
           hugin/PanoPanel.o \
           hugin/RunOptimizerFrame.o \
           hugin/RunStitcherFrame.o \
+          hugin/PanoToolsInterface.o \
+          hugin/PreviewPanel.o \
+          hugin/PreviewFrame.o \
           hugin/Server.o \
           hugin/huginApp.o \
           hugin/wxVigraImage.o \
           jhead/exif.o  \
           jhead/jpgfile.o
 
-EXTRAINC = -I$(WXDIR)/contrib/include -Iinclude
-EXTRALIBS = -lwxxrc
+EXTRAINC = -I$(WXDIR)/contrib/include -Iinclude -Ipano12
+EXTRALIBS = -lwxxrc -lpano12
 
 include $(WXDIR)/src/makeprog.g95
 
