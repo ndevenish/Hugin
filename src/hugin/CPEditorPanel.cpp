@@ -1272,21 +1272,27 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                 << e.GetEventObject());
     if (e.m_keyCode == WXK_DELETE){
         DEBUG_DEBUG("Delete pressed");
-        // find selected point
-        long item = -1;
-        item = m_cpList->GetNextItem(item,
-                                     wxLIST_NEXT_ALL,
-                                     wxLIST_STATE_SELECTED);
-        // no selected item.
-        if (item == -1) {
-            wxBell();
-            return;
+        // remove working points..
+        if (cpCreationState != NO_POINT) {
+            changeState(NO_POINT);
+        } else {
+            // remove selected point
+            // find selected point
+            long item = -1;
+            item = m_cpList->GetNextItem(item,
+                                         wxLIST_NEXT_ALL,
+                                         wxLIST_STATE_SELECTED);
+            // no selected item.
+            if (item == -1) {
+                wxBell();
+                return;
+            }
+            unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
+            DEBUG_DEBUG("about to delete point " << pNr);
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::RemoveCtrlPointCmd(*m_pano,pNr)
+                );
         }
-        unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
-        DEBUG_DEBUG("about to delete point " << pNr);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveCtrlPointCmd(*m_pano,pNr)
-            );
     } else if (e.m_keyCode == '0') {
         wxCommandEvent dummy;
         dummy.SetInt(1);
@@ -1392,22 +1398,27 @@ void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
 void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    // find selected point
-    long item = -1;
-    item = m_cpList->GetNextItem(item,
-                                 wxLIST_NEXT_ALL,
-                                 wxLIST_STATE_SELECTED);
-    // no selected item.
-    if (item == -1) {
-        wxBell();
-        return;
-    }
-    // get the global point number
-    unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
+    // check if a point has been selected, but not added.
+    if (cpCreationState != NO_POINT) {
+        changeState(NO_POINT);
+    } else {
+        // find selected point
+        long item = -1;
+        item = m_cpList->GetNextItem(item,
+                                     wxLIST_NEXT_ALL,
+                                     wxLIST_STATE_SELECTED);
+        // no selected item.
+        if (item == -1) {
+            wxBell();
+            return;
+        }
+        // get the global point number
+        unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::RemoveCtrlPointCmd(*m_pano,pNr )
-        );
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RemoveCtrlPointCmd(*m_pano,pNr )
+            );
+    }
 }
 
 // show a global control point
