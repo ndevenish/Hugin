@@ -1055,10 +1055,10 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
 
 void Panorama::removeUnusedLenses()
 {
-    for (int lNr; lNr < state.lenses.size(); lNr++) {
+    for (unsigned int lNr=0; lNr < state.lenses.size(); lNr++) {
         // check if this lens is lonely
         int n=0;
-        for (int iNr; iNr < state.images.size(); iNr++) {
+        for (unsigned int iNr=0; iNr < state.images.size(); iNr++) {
             if (state.images[iNr].getLensNr() == lNr) {
                 n++;
             }
@@ -1069,8 +1069,8 @@ void Panorama::removeUnusedLenses()
             it = it + lNr;
             state.lenses.erase(it);
             // adjust lens numbers inside images
-            for (int iNr; iNr < state.images.size(); iNr++) {
-                int imgLensNr = state.images[iNr].getLensNr();
+            for (unsigned int iNr=0; iNr < state.images.size(); iNr++) {
+                unsigned int imgLensNr = state.images[iNr].getLensNr();
                 assert(imgLensNr != lNr);
                 if ( imgLensNr > lNr) {
                     state.images[iNr].setLensNr(imgLensNr-1);
@@ -1191,7 +1191,7 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
         // well.
         if ((l.getAspectRatio() == lens.getAspectRatio()) &&
             (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) &&
-            (l.getSensorSize() == lens.getSensorSize()));
+            (l.getSensorSize() == lens.getSensorSize()))
         {
             matchingLensNr= lnr;
         }
