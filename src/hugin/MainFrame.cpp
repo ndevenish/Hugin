@@ -272,10 +272,23 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       wxFileName::SetCwd(  config->Read("actualPath").c_str() );
       DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
     }
+    // remember the image extension
+    wxString img_ext ("");
+    if (config->HasEntry(wxT("lastImageType"))){
+      img_ext = config->Read("lastImageType").c_str();
+    }
+    if      (img_ext == "png")
+      dlg->SetFilterIndex(1);
+    else if (img_ext == "tif")
+      dlg->SetFilterIndex(2);
+    else if (img_ext == "all")
+      dlg->SetFilterIndex(3);
+    DEBUG_TRACE ( img_ext )
 
-    // call the file dialog
+    wxString wildcard ("Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*");
     wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
-        "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
+        wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+    // call the file dialog
     if (dlg->ShowModal() == wxID_OK) {
       // get the selections
       wxArrayString Filenames;
@@ -313,7 +326,18 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     // f restore the path previous this dialog
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+
+    DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg->GetFilterIndex()) )
+    // save the image extension
+    switch ( dlg->GetFilterIndex() ) {
+      case 0: config->Write("lastImageType", "jpg"); break;
+      case 1: config->Write("lastImageType", "png"); break;
+      case 2: config->Write("lastImageType", "tif"); break;
+      case 3: config->Write("lastImageType", "all"); break;
+    }
+      
     dlg->Destroy();
+    config->Flush();
     DEBUG_TRACE("");
 }
 

@@ -134,13 +134,13 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
-    m_cpList->InsertColumn( 0, _("#"));
-    m_cpList->InsertColumn( 1, _("left x"));
-    m_cpList->InsertColumn( 2, _("left y"));
-    m_cpList->InsertColumn( 3, _("right x"));
-    m_cpList->InsertColumn( 4, _("right y"));
-    m_cpList->InsertColumn( 5, _("Alignment"));
-    m_cpList->InsertColumn( 6, _("Distance"));
+    m_cpList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25);
+    m_cpList->InsertColumn( 1, _("left x"), wxLIST_FORMAT_RIGHT, 65);
+    m_cpList->InsertColumn( 2, _("left y"), wxLIST_FORMAT_RIGHT, 65);
+    m_cpList->InsertColumn( 3, _("right x"), wxLIST_FORMAT_RIGHT, 65);
+    m_cpList->InsertColumn( 4, _("right y"), wxLIST_FORMAT_RIGHT, 65);
+    m_cpList->InsertColumn( 5, _("Alignment"), wxLIST_FORMAT_LEFT,110 );
+    m_cpList->InsertColumn( 6, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
 
     
     // other controls
@@ -618,6 +618,7 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,2,wxString::Format("%.1f",p.y1));
         m_cpList->SetItem(i,3,wxString::Format("%.1f",p.x2));
         m_cpList->SetItem(i,4,wxString::Format("%.1f",p.y2));
+        m_cpList->EnsureVisible(i);
         wxString mode;
         switch (p.mode) {
         case ControlPoint::X_Y:
@@ -632,10 +633,10 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format("%f",p.error));
     }
-    // autosize all columns
-    for (int i=0; i<7; i++) {
+    // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
+/*    for (int i=0; i<7; i++) {
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
-    }
+    }*/
     m_cpList->Show();
 }
 

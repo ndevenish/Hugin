@@ -67,6 +67,8 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
     // event handlers
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
+    // Here we select the preview image
+    void ChangePreview ( wxListEvent & e );
 
     // the model
     Panorama &pano;
@@ -91,6 +93,12 @@ class ImgPreview: public wxScrolledWindow
 
     void OnDraw(wxDC& dc);
     //void OnPaint(wxPaintEvent& event);
+
+ private:
+    // Here we select the preview image
+    void ChangePreview ( wxMouseEvent & e );
+
+    DECLARE_EVENT_TABLE()
 };
 
 #endif // _IMAGESPANEL_H
