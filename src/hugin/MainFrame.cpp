@@ -77,6 +77,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
+    EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
@@ -385,6 +386,25 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
         OnSaveProject(e);
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
     }
+}
+
+void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    wxFileDialog dlg(this,
+                     _("Save PTSticher script file"),
+                     wxConfigBase::Get()->Read("actualPath",""), "",
+                     "PTSticher files (*.txt)|*.txt",
+                     wxSAVE, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        m_filename = dlg.GetPath();
+        // the project file is just a PTSticher script...
+        wxFileName scriptName = m_filename;
+        std::ofstream script(scriptName.GetFullPath());
+        pano.printStitcherScript(script, pano.getOptions());
+        script.close();
+    }
+
 }
 
 void MainFrame::OnLoadProject(wxCommandEvent & e)

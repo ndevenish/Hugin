@@ -23,6 +23,10 @@
         <label>&amp;Save as</label>
         <help>Save project</help>
       </object>
+      <object class="wxMenuItem" name="action_save_as_ptstitcher">
+        <label>&amp;Write PTSticher script</label>
+        <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
+      </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_exit_hugin">
         <label>&amp;Quit</label>
@@ -88,7 +92,7 @@
         <label>&amp;Last preview stitch</label>
       </object>
     </object>
-    <object class="wxMenu" name="help_menue">
+    <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
       <object class="wxMenuItem" name="action_show_about">
         <label>&amp;About</label>

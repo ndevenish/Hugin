@@ -132,6 +132,7 @@ private:
     void OnRedo(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
     void OnSaveProjectAs(wxCommandEvent & e);
+    void OnSavePTStitcherAs(wxCommandEvent & e);
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
