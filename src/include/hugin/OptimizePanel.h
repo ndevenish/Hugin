@@ -34,11 +34,6 @@ class wxCheckListBox;
  */
 class OptimizePanel : public wxPanel, public PT::PanoramaObserver
 {
-    // removed OPT_PAIRWISE, until it works cleanly with the
-    // pano12 dlls around there.
-    enum OptimizeMode { OPT_YRP=0, OPT_YRP_V,
-                        OPT_YRP_B, OPT_YRP_BV, OPT_ALL, OPT_CUSTOM,
-                        OPT_PAIRWISE, OPT_END_MARKER};
 
 
 public:

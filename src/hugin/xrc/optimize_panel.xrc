@@ -17,13 +17,13 @@
           <object class="sizeritem">
             <object class="wxChoice" name="optimize_panel_mode">
               <content>
+                <item>Positions (incremental, starting from anchor)</item>
                 <item>Positions (y,p,r)</item>
                 <item>Positions and View (y,p,r,v)</item>
                 <item>Positions and Barrel Distortion (y,p,r,b)</item>
                 <item>Positions, View and Barrel (y,p,r,v,b)</item>
                 <item>Everything</item>
                 <item>the Custom parameters below</item>
-                <item>Positions (pairwise optim., starting from anchor)</item>
               </content>
               <selection>0</selection>
               <style></style>
