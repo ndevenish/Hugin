@@ -33,8 +33,8 @@
 #include "PT/PanoramaMemento.h"
 
 extern "C" {
-#include "../pano12/panorama.h"
-#include "../pano12/filter.h"
+    #include <pano12/panorama.h>
+    #include <pano12/filter.h>
 }
 
 class wxImage;
@@ -59,7 +59,7 @@ namespace PTools {
 class Transform
 {
 public:
-    /** construct a new Transform object, without 
+    /** construct a new Transform object, without
      *  initializing a transformation
      *
      *  use createTransform or createInvTransform to create a

@@ -125,6 +125,7 @@ private:
 
     // event handlers
     void OnExit(wxCloseEvent & e);
+    void OnUserQuit(wxCommandEvent & e);
     void OnAbout(wxCommandEvent & e);
     void OnHelp(wxCommandEvent & e);
     void OnUndo(wxCommandEvent & e);

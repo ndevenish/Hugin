@@ -77,13 +77,11 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_load_project"),  MainFrame::OnLoadProject)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
-    //EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
+    EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
-//    EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
-//    EVT_BUTTON(XRCID("ID_SHOW_OPTIMIZE_FRAME"),MainFrame::OnToggleOptimizeFrame)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
 
@@ -311,6 +309,11 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
+}
+
+void MainFrame::OnUserQuit(wxCommandEvent & e)
+{
+    Close();
 }
 
 void MainFrame::OnExit(wxCloseEvent & e)
@@ -717,16 +720,6 @@ void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
     // something like this. So no everytime update would be needed.
     DEBUG_TRACE("");
 }
-
-
-#if 0
-void MainFrame::OnToggleOptimizeFrame(wxCommandEvent & e)
-{
-    DEBUG_TRACE("");
-    opt_frame->Show();
-    opt_frame->Raise();
-}
-#endif
 
 void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 {
