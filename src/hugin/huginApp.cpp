@@ -102,7 +102,19 @@ bool huginApp::OnInit()
 
     // initialize i18n
     int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
-    locale.Init(localeID);
+	DEBUG_TRACE("localeID" << localeID);
+    {
+	bool bLInit;
+	bLInit = locale.Init(localeID);
+	if (bLInit) {
+	  DEBUG_TRACE("locale init OK");
+	  DEBUG_TRACE("System Locale: " << locale.GetSysName().mb_str())
+	  DEBUG_TRACE("Canonical Locale: " << locale.GetCanonicalName().mb_str())
+	} else {
+	  DEBUG_TRACE("locale init failed");
+	}
+	}
+	
 
     // add local Paths
     locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
