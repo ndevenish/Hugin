@@ -71,9 +71,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
-    : wxFrame(frame,-1, _("Panorama preview"),
-              wxDefaultPosition, wxDefaultSize, 
-              wxMAXIMIZE_BOX | wxCLOSE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION),
+    : wxFrame(frame,-1, _("Panorama preview"))
       m_pano(pano)
 {
 	DEBUG_TRACE("");
@@ -243,7 +241,7 @@ PreviewFrame::~PreviewFrame()
     } else {
         config->Write(wxT("/PreviewFrame/maximized"), 1l);
     }
-    
+
     if ( (!this->IsIconized()) && (! this->IsMaximized()) && this->IsShown()) {
         config->Write(wxT("/PreviewFrame/isShown"), 1l);
     } else {
