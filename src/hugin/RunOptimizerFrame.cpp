@@ -146,7 +146,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 
     if ( !m_in )
     {
-        wxLogError(_("Failed to connect to child stdout"));
+        wxLogError(_("Could not obtain PTOptimizer output"));
         return;
     }
 #else
@@ -235,7 +235,7 @@ void RunOptimizerFrame::OnCancel(wxCommandEvent & e)
         // kill Process if it is still running.
         m_process->Kill(m_pid, wxSIGINT);
     } else {
-        DEBUG_DEBUG("discarting optimizer results");
+        DEBUG_DEBUG("discarding optimizer results");
         Close();
     }
 }
@@ -324,7 +324,7 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     if (smallHFOV) {
         msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\nPlease optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\nThe Field of View (v) can sometimes be optimized for partial panoramas as well,\nwhen the images are already aligned well."));
     } else {
-        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standart deviation: %f\n maximum: %f\n\nApply the changes?"),
+        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
                    mean_error, std_dev, max_error);
     }
     m_optimizer_result_text->SetLabel(msg);

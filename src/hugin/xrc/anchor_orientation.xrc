@@ -12,7 +12,7 @@
           </object>
           <object class="sizeritem">
             <object class="unknown" name="anchor_orientation_panel_unknown">
-              <tooltip>Set Yaw and Roll with left mouse button. Use right mouse button to set roll</tooltip>
+              <tooltip>Set Yaw and Pitch with left mouse button. Use right mouse button to set roll</tooltip>
             </object>
             <option>1</option>
             <flag>wxEXPAND</flag>

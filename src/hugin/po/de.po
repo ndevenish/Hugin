@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-02-02 08:07+0200\n"
+"POT-Creation-Date: 2005-02-07 07:20+0200\n"
 "PO-Revision-Date: 2005-01-31 08:08+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -52,9 +52,9 @@ msgstr "Wählen sie den Autopano Typ"
 msgid "Select autopano program / frontend script"
 msgstr "Wählen sie das Autopano Programm / Oberflächenskript"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:173
-#: src/hugin/PreferencesDialog.cpp:189 src/hugin/PreferencesDialog.cpp:205
-#: src/hugin/PreferencesDialog.cpp:221 src/hugin/RunOptimizerFrame.cpp:108
+#: src/hugin/AutoCtrlPointCreator.cpp:146 src/hugin/PreferencesDialog.cpp:175
+#: src/hugin/PreferencesDialog.cpp:191 src/hugin/PreferencesDialog.cpp:207
+#: src/hugin/PreferencesDialog.cpp:223 src/hugin/RunOptimizerFrame.cpp:108
 #: src/hugin/RunStitcherFrame.cpp:88
 msgid "Executables (*.exe)|*.exe"
 msgstr "Ausführbar (*.exe)|*.exe"
@@ -177,7 +177,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "Autopano Fehler"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:237
+#: src/hugin/AutoCtrlPointCreator.cpp:319 src/hugin/PreferencesDialog.cpp:239
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Ausführbare (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -273,7 +273,7 @@ msgid "No similar point found"
 msgstr "Keinen ähnlichen Punkt gefunden"
 
 #: src/hugin/CPEditorPanel.cpp:1128 src/hugin/CPListFrame.cpp:402
-#: src/hugin/PreviewFrame.cpp:150 src/hugin/xrc/cp_editor_panel.xrs:24
+#: src/hugin/PreviewFrame.cpp:155 src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "normal"
 msgstr "normal"
 
@@ -467,7 +467,7 @@ msgid "Full frame fisheye"
 msgstr "Fischauge Vollbild"
 
 #: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:187
-#: src/hugin/PreviewFrame.cpp:400 src/hugin/xrc/lens_panel.xrs:6
+#: src/hugin/PreviewFrame.cpp:409 src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
 
@@ -619,7 +619,7 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Projekt öffnen: Abbrechen"
 
-#: src/hugin/MainFrame.cpp:607 src/include/hugin/wxPanoCommand.h:141
+#: src/hugin/MainFrame.cpp:607 src/include/hugin/wxPanoCommand.h:169
 msgid ""
 "Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files "
 "(*.tif)|*.tif;*.TIF|All files (*.*)|*.*"
@@ -627,7 +627,7 @@ msgstr ""
 "Bilddateien (*.jpg)|*.jpg;*.JPG|Bilddateien (*.png)|*.png;*.PNG|Bilddateien "
 "(*.tif)|*.tif;*.TIF|Alle Dateien (*.*)|*."
 
-#: src/hugin/MainFrame.cpp:608 src/include/hugin/wxPanoCommand.h:142
+#: src/hugin/MainFrame.cpp:608 src/include/hugin/wxPanoCommand.h:170
 msgid "Add images"
 msgstr "Bilder hinzufügen"
 
@@ -635,19 +635,19 @@ msgstr "Bilder hinzufügen"
 msgid "Add Image: cancel"
 msgstr "Bilder hinzufügen: abgebrochen"
 
-#: src/hugin/MainFrame.cpp:941
+#: src/hugin/MainFrame.cpp:977
 msgid "hugin - FAQ"
 msgstr "hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:1020
+#: src/hugin/MainFrame.cpp:1056
 msgid "Fine-tuning all points"
 msgstr "Alle Kontrollpunkt verfeinern"
 
-#: src/hugin/MainFrame.cpp:1022
+#: src/hugin/MainFrame.cpp:1058
 msgid "Finetuning"
 msgstr "Verfeinern"
 
-#: src/hugin/MainFrame.cpp:1106
+#: src/hugin/MainFrame.cpp:1142
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -676,7 +676,7 @@ msgstr ""
 "Benutze die Kontrollliste (F3) um alle Punkte des aktuellen Projekts zu "
 "sehen\n"
 
-#: src/hugin/MainFrame.cpp:1108
+#: src/hugin/MainFrame.cpp:1144
 msgid "Fine-tune result"
 msgstr "Verfeinerungsergebnis"
 
@@ -757,11 +757,11 @@ msgstr "Fehler während des Zusammenfügens"
 msgid "The druid has no advice."
 msgstr "Der Druide hat keinen Vorschlag"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:541
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:550
 msgid "The druid finds no problems with your panorama."
 msgstr "Der Druide hat kein Problem in ihrem Panorama gefunden"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:551
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -770,11 +770,11 @@ msgstr ""
 "Füge jetzt dein endgültiges Panorama zusammen und benutzt dann eine\n"
 "Bildverarbeitung, (z.B. GIMP) um dem Panorama den letzten Schliff zu geben."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:561
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:570
 msgid "Warning:  you haven't saved the current project."
 msgstr "Warnung: Sie haben das aktuelle Projekt nicht gesichert."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:562
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:571
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -785,11 +785,11 @@ msgstr ""
 "können sie noch weiter herumprobieren\n"
 "oder die Einstellungen später verändern."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:557
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:566
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Warnung: Derzeitiges Panorama ist sehr groß"
 
-#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:558
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:567
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -805,11 +805,11 @@ msgstr ""
 "im Panorama Optionen Reiter. Damit können sie die optimale Bildgröße des "
 "Panoramas berechnen."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:553
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:562
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Der Horizontaler Bildwinkel (HFOV) ist wahrscheinlich zu klein"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:563
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -906,20 +906,20 @@ msgstr ""
 "im Kontrollpunkt Karteireiter, für jedes identische optische Merkmal\n"
 " von überlappenden Bildern hinzu."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:549
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:558
 msgid "Add at least one more image."
 msgstr "Noch ein weiteres Bild anfügen."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:550
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:559
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 "Sie sollten mindestens zwei Dateien im Bild-Karteireiter aufgelistet sein."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:545
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:554
 msgid "To get started, add some image files."
 msgstr "Am Anfang fügen sie einige Bilder hinzu."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:546
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:555
 msgid "You can add any number of images using the Images tab."
 msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 
@@ -927,11 +927,11 @@ msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 msgid "the Panorama druid"
 msgstr "Der Panorama Druide"
 
-#: src/hugin/PanoPanel.cpp:185 src/hugin/PreviewFrame.cpp:398
+#: src/hugin/PanoPanel.cpp:185 src/hugin/PreviewFrame.cpp:407
 msgid "Rectilinear"
 msgstr "Rectilinear"
 
-#: src/hugin/PanoPanel.cpp:186 src/hugin/PreviewFrame.cpp:399
+#: src/hugin/PanoPanel.cpp:186 src/hugin/PreviewFrame.cpp:408
 msgid "Cylindrical"
 msgstr "Zylindrisch"
 
@@ -943,67 +943,67 @@ msgstr "Die Breite muß größer als 0 sein."
 msgid "Create panorama image"
 msgstr "Erstelle das Panoramabild"
 
-#: src/hugin/PreferencesDialog.cpp:104
+#: src/hugin/PreferencesDialog.cpp:106
 msgid "Select one"
 msgstr "auswählen"
 
-#: src/hugin/PreferencesDialog.cpp:105
+#: src/hugin/PreferencesDialog.cpp:107
 msgid "System default"
 msgstr "Systemeinstellung"
 
-#: src/hugin/PreferencesDialog.cpp:106
+#: src/hugin/PreferencesDialog.cpp:108
 #, fuzzy
 msgid "English"
 msgstr "Polnisch"
 
-#: src/hugin/PreferencesDialog.cpp:107
+#: src/hugin/PreferencesDialog.cpp:109
 msgid "German"
 msgstr "Deutsch"
 
-#: src/hugin/PreferencesDialog.cpp:108
+#: src/hugin/PreferencesDialog.cpp:110
 msgid "French"
 msgstr "Französisch"
 
-#: src/hugin/PreferencesDialog.cpp:109
+#: src/hugin/PreferencesDialog.cpp:111
 msgid "Polish"
 msgstr "Polnisch"
 
-#: src/hugin/PreferencesDialog.cpp:110
+#: src/hugin/PreferencesDialog.cpp:112
 msgid "Italian"
 msgstr "Italienisch"
 
-#: src/hugin/PreferencesDialog.cpp:170
+#: src/hugin/PreferencesDialog.cpp:172
 msgid "Select PTStitcher"
 msgstr "PTStitcher.exe angeben"
 
-#: src/hugin/PreferencesDialog.cpp:186 src/hugin/RunOptimizerFrame.cpp:106
+#: src/hugin/PreferencesDialog.cpp:188 src/hugin/RunOptimizerFrame.cpp:106
 msgid "Select PTOptimizer"
 msgstr "PTOptimierer wählen"
 
-#: src/hugin/PreferencesDialog.cpp:202
+#: src/hugin/PreferencesDialog.cpp:204
 msgid "Select Enblend"
 msgstr "enblend.exe angeben"
 
-#: src/hugin/PreferencesDialog.cpp:218 src/hugin/PreferencesDialog.cpp:234
+#: src/hugin/PreferencesDialog.cpp:220 src/hugin/PreferencesDialog.cpp:236
 #: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Select Autopano"
 msgstr "Autopano wählen"
 
-#: src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/PreferencesDialog.cpp:253
 #, fuzzy
 msgid "Panotools details"
 msgstr "Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:290
+#: src/hugin/PreferencesDialog.cpp:295
 #, fuzzy
 msgid "Could not load dll"
 msgstr "Konnte nicht öffnen"
 
-#: src/hugin/PreferencesDialog.cpp:290
+#: src/hugin/PreferencesDialog.cpp:295
 msgid "panoinfo"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:521
+#: src/hugin/PreferencesDialog.cpp:527
 msgid "Unknown Version"
 msgstr ""
 
@@ -1011,55 +1011,55 @@ msgstr ""
 msgid "Panorama preview"
 msgstr "Panoramavorschau"
 
-#: src/hugin/PreviewFrame.cpp:90
+#: src/hugin/PreviewFrame.cpp:94
 msgid "displayed images"
 msgstr "Dargestellte Bilder"
 
-#: src/hugin/PreviewFrame.cpp:113
+#: src/hugin/PreviewFrame.cpp:118
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:117
+#: src/hugin/PreviewFrame.cpp:122
 msgid "drag to change the vertical field of view"
 msgstr "Ziehen um dem vertikalen Bildwinkel festzulegen"
 
-#: src/hugin/PreviewFrame.cpp:126
+#: src/hugin/PreviewFrame.cpp:131
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:131
+#: src/hugin/PreviewFrame.cpp:136
 msgid "drag to change the horizontal field of view"
 msgstr "Ziehen um dem horizontalen Bildwinkel festzulegen"
 
-#: src/hugin/PreviewFrame.cpp:142
+#: src/hugin/PreviewFrame.cpp:147
 msgid "Preview Options"
 msgstr "Vorschauoptionen"
 
-#: src/hugin/PreviewFrame.cpp:145
+#: src/hugin/PreviewFrame.cpp:150
 msgid "Blend mode:"
 msgstr "Überblendmodus:"
 
-#: src/hugin/PreviewFrame.cpp:151
+#: src/hugin/PreviewFrame.cpp:156
 msgid "difference"
 msgstr "Unterschiede"
 
-#: src/hugin/PreviewFrame.cpp:152
+#: src/hugin/PreviewFrame.cpp:157
 msgid "seams"
 msgstr "Nähte"
 
-#: src/hugin/PreviewFrame.cpp:286
+#: src/hugin/PreviewFrame.cpp:291
 msgid "rectilinear"
 msgstr "rectilinear"
 
-#: src/hugin/PreviewFrame.cpp:289
+#: src/hugin/PreviewFrame.cpp:294
 msgid "cylindrical"
 msgstr "zylindrisch"
 
-#: src/hugin/PreviewFrame.cpp:292
+#: src/hugin/PreviewFrame.cpp:297
 msgid "equirectangular"
 msgstr "Sphärisch"
 
-#: src/hugin/PreviewFrame.cpp:538
+#: src/hugin/PreviewFrame.cpp:547
 msgid "The druid has no advice at this time."
 msgstr "Der Druide hat zur Zeit keinen Vorschlag"
 
@@ -1127,9 +1127,9 @@ msgstr "Keine PTOptimizer.exe wurde ausgewählt"
 msgid "Failed to launch PTOptimizer."
 msgstr "Konnte PTOptimierer nicht ausführen"
 
-#: src/hugin/RunOptimizerFrame.cpp:149 src/hugin/RunStitcherFrame.cpp:157
-msgid "Failed to connect to child stdout"
-msgstr "Verbindung zu Kindausgabe fehlgeschlagen"
+#: src/hugin/RunOptimizerFrame.cpp:149
+msgid "Could not obtain PTOptimizer output"
+msgstr ""
 
 #: src/hugin/RunOptimizerFrame.cpp:159
 msgid "Stop"
@@ -1164,12 +1164,12 @@ msgstr ""
 "Der Ergebnis ist wahrscheinlich nicht richtig"
 
 #: src/hugin/RunOptimizerFrame.cpp:327
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Optimizer run finished.\n"
 "Results:\n"
 " average control point distance: %f\n"
-" standart deviation: %f\n"
+" standard deviation: %f\n"
 " maximum: %f\n"
 "\n"
 "Apply the changes?"
@@ -1194,6 +1194,10 @@ msgstr "Keine PTStitcher Anwendung auswählt"
 msgid "Failed to launch the PTStitcher."
 msgstr "Konnte PTStitcher nicht ausführen"
 
+#: src/hugin/RunStitcherFrame.cpp:157
+msgid "Could not obtain PTStitcher output"
+msgstr ""
+
 #: src/hugin/RunStitcherFrame.cpp:281
 msgid ""
 "Stitching failed\n"
@@ -1210,11 +1214,11 @@ msgstr "Fehler während der Ausführung von PTStitcher.exe"
 msgid "Optimizing Panorama"
 msgstr "Optimiere Panorama"
 
-#: src/include/hugin/wxPanoCommand.h:63
+#: src/include/hugin/wxPanoCommand.h:78
 msgid "Could not read image size"
 msgstr "Konnte Bildgröße nicht lesen"
 
-#: src/include/hugin/wxPanoCommand.h:135
+#: src/include/hugin/wxPanoCommand.h:163
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1225,7 +1229,7 @@ msgstr ""
 "%s\n"
 "Bitte das richtige Bild wählen"
 
-#: src/include/hugin/wxPanoCommand.h:135
+#: src/include/hugin/wxPanoCommand.h:163
 msgid "Image file not found"
 msgstr "Bilddatei nicht gefunden"
 
@@ -1242,8 +1246,9 @@ msgid "Anchor Image"
 msgstr "Ankerbild"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
+#, fuzzy
 msgid ""
-"Set Yaw and Roll with left mouse button. Use right mouse button to set roll"
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Yaw und Rollen mit der linken Maustaste setzen.\n"
 "Benutzen sie die rechte Maustaste um den Rollen zu setzten."
@@ -2705,3 +2710,6 @@ msgstr "Zusammenfügen"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Abbrechen"
+
+#~ msgid "Failed to connect to child stdout"
+#~ msgstr "Verbindung zu Kindausgabe fehlgeschlagen"

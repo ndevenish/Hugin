@@ -154,7 +154,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_in = new wxTextInputStream(*t_in);
     if ( !m_in )
     {
-        wxLogError(_("Failed to connect to child stdout"));
+        wxLogError(_("Could not obtain PTStitcher output"));
         return;
     }
     // set new separators, for parsing PTStitcher output

@@ -223,7 +223,7 @@ void ImageOrientationPanel::DrawImage(wxDC & dc)
                             roundi(m_offsetX + (pos.x * m_scaleFactor)),
                             roundi(m_offsetY + (pos.y * m_scaleFactor)));
             } else {
-                DEBUG_DEBUG("discarting point, too far outside");
+                DEBUG_DEBUG("discarding point, too far outside");
             }
             old_pos = pos;
         }
