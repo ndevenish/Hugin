@@ -28,6 +28,16 @@
     </object>
     <object class="wxMenu" name="edit_menue">
       <label>&amp;Edit</label>
+      <object class="wxMenuItem" name="ID_EDITUNDO">
+        <label>&amp;Undo</label>
+        <accel>Ctrl-z</accel>
+        <help>Undo the last action</help>
+      </object>
+      <object class="wxMenuItem" name="ID_EDITREDO">
+        <label>&amp;Redo</label>
+        <accel>Ctrl-Shift-z</accel>
+        <help>redo the last action</help>
+      </object>
       <object class="wxMenuItem" name="ID_EDITCOPY">
         <label>&amp;Copy</label>
         <accel>Ctrl-c</accel>

@@ -2,7 +2,7 @@
 <resource>
   <object class="wxFrame" name="main_frame">
     <title>Hugin - Panorama Tools Frontend</title>
-    <style>wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER</style>
+    <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxMAXIMIZE_BOX</style>
     <centered>1</centered>
     <object class="wxFlexGridSizer">
       <cols>1</cols>
