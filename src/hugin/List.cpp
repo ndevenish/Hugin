@@ -200,9 +200,9 @@ void List::fillRow (unsigned int imageNr)
         ImageVariables new_var = pano.getVariable(imageNr);
         std::string opt_str = _("x"); // the small char wich show -> optimized
         if ( list_layout == images_layout ) {
-          ITEM_TEXT( image->GetHeight() )
-          SetItem ( imageNr, 2, ITEM_OUT );
           ITEM_TEXT( image->GetWidth() )
+          SetItem ( imageNr, 2, ITEM_OUT );
+          ITEM_TEXT( image->GetHeight() )
           SetItem ( imageNr, 3, ITEM_OUT );
           ITEM_TEXT( image->GetImageCount ( fn.GetFullPath() ) )
           SetItem ( imageNr, 4, ITEM_OUT );

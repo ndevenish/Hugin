@@ -233,12 +233,20 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       if ( outputFormat != "JPEG" )
         preview_opt.quality = 100;
 
-      if (!panoviewer_precise) {
-        // Set the preview image accordingly to ImagesPanel.cpp
-        for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+      // Set the preview image accordingly to ImagesPanel.cpp
+      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
+        // test for needed precision of source image
+        int source_pixels = (int)(128.0 * preview_opt.HFOV / 
+                            pano.getVariable(imgNr).HFOV.getValue() );
+        DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
+        if ( (source_pixels > (int)preview_opt.width)
+             && !panoviewer_precise ) {
           wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
           filename.str("");
-          filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
+          filename 
+#if 0
+          << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
+#endif
                   <<_("preview")<<"_"<< imgNr <<".ppm" ;
           PanoImage image = preview_pano.getImage(imgNr);
           image.setFilename( filename.str() ) ;
