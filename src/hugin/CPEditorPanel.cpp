@@ -1241,8 +1241,9 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     }
                 }
             }
-        }
-        wxLogError(_("Cannot estimate image position without control points"));
+        } else {
+	    wxLogError(_("Cannot estimate image position without control points"));
+	}
     } else if (e.ControlDown() && e.GetKeyCode() == WXK_LEFT) {
         // move to next
         wxCommandEvent dummy;
