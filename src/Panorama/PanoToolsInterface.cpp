@@ -356,11 +356,11 @@ void PTools::setDestImage(Image & image, Diff2D size,
     image.bitsPerPixel = 24;
     image.dataSize = image.height * image.bytesPerLine;
     // Allocate memory for pointer to pointer to image data
-    image.data = (unsigned char**)malloc( sizeof(unsigned char*) );
-    if(image.data == NULL) {
-        DEBUG_FATAL("Out of memory");
-    }
-    *(image.data) = imageData;
+//    image.data = (unsigned char**)malloc( sizeof(unsigned char*) );
+//    if(image.data == NULL) {
+//        DEBUG_FATAL("Out of memory");
+//    }
+    image.data = 0;
     switch (format) {
     case PanoramaOptions::RECTILINEAR:
         image.format = _rectilinear;
@@ -388,12 +388,16 @@ void PTools::setFullImage(Image & image, Diff2D size,
     image.bitsPerPixel = 24;
     image.dataSize = image.height * image.bytesPerLine;
 
+#if 0
     // Allocate memory for pointer to pointer to image data
     image.data = (unsigned char**)malloc( sizeof(unsigned char*) );
     if(image.data == NULL) {
         DEBUG_FATAL("Out of memory");
     }
     *(image.data) = imageData;
+#else    
+    image.data = 0;
+#endif
 
     image.dataformat = _RGB;
     switch (format) {
@@ -525,22 +529,22 @@ void PTools::freeTrform(TrformStr & trf)
 {
     if (trf.dest) {
         if (trf.dest->data) {
-            free(trf.dest->data);
+            myfree((void**)trf.dest->data);
         }
-        free(trf.dest);
+        free((void**)trf.dest);
     }
     if (trf.src) {
         if (trf.src->data) {
-            free(trf.src->data);
+            myfree((void**)trf.src->data);
         }
-        free(trf.src);
+        free((void**)trf.src);
     }
 }
 
 void PTools::freeImage(Image &img)
 {
     if (img.data) {
-        free(img.data);
+        myfree((void**)img.data);
     }
 }
 
@@ -552,7 +556,7 @@ void PTools::setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
 {
     DEBUG_ASSERT(trf.src);
     if (trf.src->data) {
-        free(trf.src->data);
+        myfree((void**)trf.src->data);
     }
     setFullImage(*(trf.src), vigra::Diff2D(width,height), imageData, vars, format,
                  correctDistortions);
@@ -565,7 +569,7 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
 {
     DEBUG_ASSERT(trf.dest);
     if (trf.dest->data) {
-        free(trf.dest->data);
+        myfree((void**)trf.dest->data);
     }
     setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.projectionFormat, opts.HFOV);
     ap.pano = *(trf.dest);
@@ -697,6 +701,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     gl.cpt = new controlPoint[gl.numPts];
 */
 
+    // use memory allocation routines from pano12.dll
     gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(::Image) );
     gl.opt = (optVars*)	     malloc( gl.numIm 	* sizeof(::optVars) );
     gl.t   = (triangle*)     malloc( gl.nt 	* sizeof(::triangle) );

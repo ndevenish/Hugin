@@ -53,7 +53,7 @@ using namespace std;
 
 #define m_XRCID(str_id) \
     wxXmlResource::GetXRCID(str_id)
-    
+
 #ifdef __WXDEBUG__
 #define m_XRCCTRL(window, id, type) \
     (wxDynamicCast((window).FindWindow(m_XRCID(id)), type))
@@ -144,15 +144,16 @@ LensPanel::~LensPanel(void)
     DEBUG_TRACE("dtor");
 
     // FIXME. why does this crash at exit?
-/*
-    XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler();
-*/
+    XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PopEventHandler(true);
 
     pano.removeObserver(this);
     DEBUG_TRACE("dtor about to finish");

@@ -324,6 +324,8 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
 CPListFrame::~CPListFrame()
 {
     DEBUG_TRACE("dtor");
+    // delete our event handler
+    m_list->PopEventHandler(true);
     wxConfigBase * config = wxConfigBase::Get();
     if (! this->IsMaximized() ) {
         wxSize sz = GetClientSize();

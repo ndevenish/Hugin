@@ -133,10 +133,10 @@ ImagesPanel::~ImagesPanel(void)
     DEBUG_TRACE("dtor");
 
     // FIXME crashes.. don't know why
+    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler(true);
 /*
-    XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler();
-    XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler();
     delete(m_tkf);
 */
     pano.removeObserver(this);

@@ -133,10 +133,9 @@ PanoPanel::~PanoPanel(void)
     wxConfigBase::Get()->Write(wxT("Stitcher/DefaultStitcher"),m_StitcherChoice->GetSelection());
 
     // FIXME. why does the crash at exit?
-//    m_HFOVSpin->PopEventHandler(false);
-//    m_VFOVSpin->PopEventHandler(false);
-//    m_GammaText->PopEventHandler(false);
-//    m_WidthTxt->PopEventHandler(false);
+    m_HFOVSpin->PopEventHandler(true);
+    m_VFOVSpin->PopEventHandler(true);
+    m_WidthTxt->PopEventHandler(true);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }

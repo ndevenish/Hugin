@@ -155,7 +155,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
         }
     }
 #endif
-    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
+    // scroll cursor not used right now.
+//    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
     SetCursor(*m_CPSelectCursor);
 
     // functions were renamed in 2.5 :(
@@ -195,7 +196,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 CPImageCtrl::~CPImageCtrl()
 {
     DEBUG_TRACE("dtor");
-//    delete m_CPSelectCursor;
+    this->SetCursor(wxNullCursor);
+    delete m_CPSelectCursor;
 //    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }

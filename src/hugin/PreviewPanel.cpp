@@ -68,6 +68,9 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
 PreviewPanel::~PreviewPanel()
 {
     DEBUG_TRACE("dtor");
+    if (m_panoBitmap) {
+        delete m_panoBitmap;
+    }
     DEBUG_TRACE("dtor end");
 }
 

@@ -138,10 +138,11 @@ PTStitcherPanel::~PTStitcherPanel(void)
 {
     DEBUG_TRACE("dtor");
     // FIXME. why does the crash at exit?
-//    m_HFOVSpin->PopEventHandler(false);
-//    m_VFOVSpin->PopEventHandler(false);
-//    m_GammaText->PopEventHandler(false);
-//    m_WidthTxt->PopEventHandler(false);
+    m_GammaText->PopEventHandler(true);
+    m_ColorCorrRefSpin->PopEventHandler(true);
+    m_FeatherWidthSpin->PopEventHandler(true);
+    m_JPEGQualitySpin->PopEventHandler(true);
+    
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }

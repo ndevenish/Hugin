@@ -196,10 +196,10 @@ CPEditorPanel::~CPEditorPanel()
     DEBUG_TRACE("dtor");
 
     // FIXME. why does this crash at exit?
-    m_x1Text->PopEventHandler();
-    m_y1Text->PopEventHandler();
-    m_x2Text->PopEventHandler();
-    m_y2Text->PopEventHandler();
+    m_x1Text->PopEventHandler(true);
+    m_y1Text->PopEventHandler(true);
+    m_x2Text->PopEventHandler(true);
+    m_y2Text->PopEventHandler(true);
 
     wxConfigBase::Get()->Write(wxT("/CPEditorPanel/autoAdd"), m_autoAddCB->IsChecked() ? 1 : 0);
     wxConfigBase::Get()->Write(wxT("/CPEditorPanel/autoFineTune"), m_fineTuneCB->IsChecked() ? 1 : 0);
