@@ -17,13 +17,13 @@
             <object class="wxChoice" name="stitch_quick_mode">
               <content>
                 <item>with Custom settings below</item>
+                <item>into a high quality TIFF file</item>
                 <item>into a high-quality JPEG file</item>
                 <item>into a draft-quality JPEG file</item>
-                <item>into a high quality TIFF file</item>
                 <item>into a layered TIFF file</item>
                 <item>into a layered Photoshop file</item>
               </content>
-              <enabled>0</enabled>
+              <selection>0</selection>
             </object>
             <option>1</option>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>

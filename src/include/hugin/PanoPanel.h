@@ -91,6 +91,7 @@ public:
 
     // apply changes to the model. (gui values -> Panorama)
     void QuickModeChanged(wxCommandEvent & e);
+    void ApplyQuickMode(int preset);
 
     void HFOVChanged(wxCommandEvent & e);
     void HFOVChangedSpin(wxSpinEvent & e);
@@ -140,6 +141,8 @@ public:
     wxStaticText *m_HeightStaticText;
     wxChoice    * m_StitcherChoice;
     wxButton    * m_StitchButton;
+    wxButton    * m_CalcHFOVButton;
+    wxButton    * m_CalcOptWidthButton;
 
     StitcherPanel * m_Stitcher;
 

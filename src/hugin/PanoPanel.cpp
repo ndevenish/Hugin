@@ -85,6 +85,8 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_ProjectionChoice);
     m_HFOVSpin = XRCCTRL(*this, "pano_val_hfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_HFOVSpin);
+    m_CalcHFOVButton = XRCCTRL(*this, "pano_button_calc_fov" ,wxButton);
+    DEBUG_ASSERT(m_CalcHFOVButton);
     m_HFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
     m_VFOVSpin = XRCCTRL(*this, "pano_val_vfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_VFOVSpin);
@@ -94,10 +96,16 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_WidthTxt = XRCCTRL(*this, "pano_val_width", wxTextCtrl);
     DEBUG_ASSERT(m_WidthTxt);
     m_WidthTxt->PushEventHandler(new TextKillFocusHandler(this));
+    m_CalcOptWidthButton = XRCCTRL(*this, "pano_button_opt_width" ,wxButton);
+    DEBUG_ASSERT(m_CalcOptWidthButton);
 
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
+    DEBUG_ASSERT(m_HeightStaticText);
+    
     m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
     DEBUG_ASSERT(m_StitcherChoice);
+    m_QuickChoice = XRCCTRL(*this, "stitch_quick_mode", wxChoice);
+    DEBUG_ASSERT(m_QuickChoice);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
@@ -283,12 +291,15 @@ void PanoPanel::EnableControls(bool enable)
     m_WidthTxt->Enable(enable);
     m_StitcherChoice->Enable(enable);
     m_Stitcher->Enable(enable);
+    m_CalcHFOVButton->Enable(enable);
+    m_CalcOptWidthButton->Enable(enable);
 }
 
-void PanoPanel::QuickModeChanged(wxCommandEvent & e)
+void PanoPanel::ApplyQuickMode(int preset)
 {
-    int preset = m_QuickChoice->GetSelection();
-    DEBUG_DEBUG("changing quick stitch preset to " << preset);
+    if (preset == 0)
+        return;
+    
     PanoramaOptions opts = pano.getOptions();
 
     // resize image for all but manual settings
@@ -297,15 +308,27 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
         opts.HFOV = fov.x;
         opts.VFOV = fov.y;
         // resize.
-        opts.width = CalcOptimalWidth();
+        if (preset == 3) {
+            opts.width = 1024;
+        } else {
+            opts.width = CalcOptimalWidth();
+        }
     }
 
     switch (preset) {
-    case 0:
-        // custom
-        EnableControls(true);
-        break;
     case 1:
+        // high quality tiff file
+        // nona + enblend
+        opts.outputFormat = PanoramaOptions::TIFF;
+        opts.interpolator = PanoramaOptions::CUBIC;
+        opts.colorCorrection = PanoramaOptions::NONE;
+        opts.gamma = 1.0;
+        opts.featherWidth = 10;
+        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+        opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+        m_StitcherChoice->SetSelection(1);
+        break;
+    case 2:
         // high quality jpeg file
         // nona + jpg output + cubic interpolator
         // fixme: this should be an enblended pano...
@@ -316,9 +339,8 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
         opts.featherWidth = 10;
         opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
         m_StitcherChoice->SetSelection(1);
-        EnableControls(false);
-
-    case 2:
+        break;
+    case 3:
         // draft quality jpeg file
         // nona + jpg output
         opts.outputFormat = PanoramaOptions::JPEG;
@@ -328,21 +350,7 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
         opts.featherWidth = 10;
         opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
         m_StitcherChoice->SetSelection(1);
-        EnableControls(false);
         break;
-    case 3:
-        // high quality tiff file
-        // nona + enblend
-        opts.outputFormat = PanoramaOptions::JPEG;
-        opts.interpolator = PanoramaOptions::CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(1);
-        EnableControls(false);
-        break;
-
     case 4:
         // multilayer TIFF file
         opts.outputFormat = PanoramaOptions::TIFF_m;
@@ -352,10 +360,7 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
         opts.featherWidth = 10;
         opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
         m_StitcherChoice->SetSelection(1);
-        EnableControls(false);
-
         break;
-
     case 5:
         // multilayer PSD file
         opts.outputFormat = PanoramaOptions::PSD_mask;
@@ -364,18 +369,36 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
         opts.gamma = 1.0;
         opts.featherWidth = 10;
         opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(1);
-        EnableControls(false);
-        EnableControls(false);
+        m_StitcherChoice->SetSelection(0);
     default:
 	DEBUG_ERROR("unknown stitcher preset selected");
 	break;
     }
-    
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opts )
         );
+    wxCommandEvent dummy;
+    
+    StitcherChanged(dummy);
+        
+    }
 
+void PanoPanel::QuickModeChanged(wxCommandEvent & e)
+{
+    int preset = m_QuickChoice->GetSelection();
+    DEBUG_DEBUG("changing quick stitch preset to " << preset);
+
+    ApplyQuickMode(preset);
+    
+    switch (preset) {
+    case 0:
+        // custom
+        EnableControls(true);
+        break;
+    default:
+        EnableControls(false);
+    }
 }
 
 void PanoPanel::StitcherChanged(wxCommandEvent & e)
@@ -455,6 +478,10 @@ unsigned int PanoPanel::CalcOptimalWidth()
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )
 {
+    int preset = m_QuickChoice->GetSelection();
+    // apply preset mode. (recalculates width etc)
+    ApplyQuickMode(preset);
+
     PanoramaOptions opt = pano.getOptions();
     // select output file
     // FIXME put in right output extension for selected

@@ -88,7 +88,7 @@ private:
     void OnOptAnchorChanged(wxCommandEvent & e);
     void OnColorAnchorChanged(wxCommandEvent &e );
     void OnSelectAnchorPosition(wxCommandEvent & e);
-    
+
     void OnRemoveCtrlPoints(wxCommandEvent & e);
     void OnResetImagePositions(wxCommandEvent & e);
 
@@ -130,6 +130,9 @@ private:
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
     wxButton * m_setAnchorOrientButton;
+
+    wxButton * m_matchingButton;
+    wxButton * m_removeCPButton;
 
     DECLARE_EVENT_TABLE()
 };

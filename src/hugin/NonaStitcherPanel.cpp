@@ -159,10 +159,11 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     if (opt.outputFormat == PanoramaOptions::TIFF) {
     // enable enblend
         m_EnblendCheckBox->Enable();
+        m_EnblendCheckBox->SetValue(opt.blendMode == PanoramaOptions::SPLINE_BLEND);
     } else {
+        m_EnblendCheckBox->SetValue(false);
         m_EnblendCheckBox->Disable();
     }
-
 }
 
 
