@@ -335,9 +335,8 @@ FDiff2D Panorama::calcFOV() const
     unsigned int nImg = state.images.size();
     for (unsigned int i=0; i<nImg; i++) {
         // create suitable transform, pano -> image
-        double ratio =  ((double) state.images[i].getWidth())/state.images[i].getHeight();
-        int w = 20;
-        int h = roundi(w/ratio);
+        int w = state.images[i].getWidth();
+        int h = state.images[i].getHeight();
         T.createInvTransform(Diff2D(w, h),
                              state.variables[i],
                              getLens(state.images[i].getLensNr()).projectionFormat,
@@ -573,6 +572,7 @@ void Panorama::removeImage(unsigned int imgNr)
         i++;
     }
     if (removeLens) {
+	DEBUG_TRACE("removing lens " << lens);
         for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
             if((*it).getLensNr() >= lens) {
                 (*it).setLensNr((*it).getLensNr() - 1);
@@ -582,10 +582,12 @@ void Panorama::removeImage(unsigned int imgNr)
         state.lenses.erase(state.lenses.begin() + lens);
     }
 
+    DEBUG_TRACE("Remove variables and image from panorama state")
     state.variables.erase(state.variables.begin() + imgNr);
     state.images.erase(state.images.begin() + imgNr);
 
     // change all other (moved) images
+    DEBUG_TRACE("flag moved images as dirty");
     for (unsigned int i=imgNr; i < state.images.size(); i++) {
         imageChanged(i);
     }
