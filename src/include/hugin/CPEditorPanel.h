@@ -124,7 +124,7 @@ private:
     unsigned int localPNr2GlobalPNr(unsigned int localNr) const;
 
     // function called when a new point has been selected or changed
-    // in on of your images
+    // in one of your images
     void NewPointChange(wxPoint p, bool left);
 //    void CreateNewPointRight(wxPoint p);
 
@@ -235,6 +235,7 @@ private:
     bool m_listenToPageChange;
 
     unsigned int m_selectedPoint;
+    unsigned int m_cursorType;
 
     // pair of global control point number and corrosponding control point
     typedef std::pair<unsigned int, PT::ControlPoint> CPoint;

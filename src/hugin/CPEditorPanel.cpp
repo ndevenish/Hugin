@@ -171,8 +171,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     wxConfigBase *config = wxConfigBase::Get();
 
-
-
     m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",0l));
     m_fineTuneCB->SetValue(config->Read("/CPEditorPanel/fineTune",1l));
     m_estimateCB->SetValue(config->Read("/CPEditorPanel/autoEstimate",1l));

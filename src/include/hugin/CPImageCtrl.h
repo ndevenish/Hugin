@@ -207,7 +207,9 @@ private:
 
     std::vector<wxPoint> points;
 
-
+    wxCursor * m_CPSelectCursor;
+    wxCursor * m_ScrollCursor;
+    
     int scale(int x) const
         {  return (int) (x * getScaleFactor() + 0.5); }
     wxPoint scale(const wxPoint & p) const

@@ -554,8 +554,10 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
                 basename = opt.outfile.substr(0, idx);
             }
             MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+
             std::string format = "jpg";
             switch(opt.outputFormat) {
+                // flat formats.. do the stitching
             case PanoramaOptions::JPEG:
                 format = "jpg";
                 break;
@@ -565,32 +567,42 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
             case PanoramaOptions::TIFF:
                 format = "tif";
                 break;
+                
+                // mulilayer formats, without blended masks
             case PanoramaOptions::TIFF_m:
                 format = "tif";
                 break;
+            case PanoramaOptions::TIFF_multilayer:
+                format = "tif";
+                break;
+
+                // multilayer, with blend masks.
             case PanoramaOptions::TIFF_mask:
                 format = "tif";
                 break;
+            case PanoramaOptions::TIFF_multilayer_mask:
+                format = "tif";
+                break;
             default:
-                wxMessageBox("unsupported file format, using jpg","Nona warning",wxICON_ERROR);
+                wxMessageBox(_("file format not supported by builtin stitcher\ntry the PTStitcher engine"),_("Nona warning"),wxICON_ERROR);
                 format = "jpg";
+                return;
             }
 
             try {
-                MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
-
-                vigra::BRGBImage dest;
                 // stitch panorama
-                PT::stitchPanorama(pano, pano.getOptions(),
+                PT::stitchPanorama(pano, opt,
                                    pdisp, basename);
             } catch (std::exception & e) {
-                DEBUG_ERROR("Error during stitching: " << e.what());
+                DEBUG_FATAL(_("error during stitching:") << e.what());
+                return;
             }
         }
         break;
         case PTSTITCHER:
         {
-            // work around a bug in PTStitcher...
+            // work around a bug in PTStitcher, which doesn't
+            // allow multilayer tif files to end with .tif
             if ( ( opt.outputFormat == PanoramaOptions::TIFF_m
                    || opt.outputFormat == PanoramaOptions::TIFF_mask
                 ) &&

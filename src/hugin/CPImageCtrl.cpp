@@ -41,6 +41,8 @@
 #include "hugin/CPImageCtrl.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/MainFrame.h"
+#include "hugin/UniversalCursor.h"
 
 using namespace std;
 
@@ -135,7 +137,22 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
       m_showTemplateArea(false), m_templateRectWidth(0),
       m_tempZoom(false),m_savedScale(1), m_editPanel(parent)
 {
-    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
+
+    wxString filename;
+    int cursorType = wxConfigBase::Get()->Read("/CPImageCtrl/cursorType",0l);
+
+    filename.Printf("%s/data/CPCursor%d.png",MainFrame::Get()->GetXRCPath().c_str(),
+                    cursorType);
+    wxImage cImg(filename);
+    if (cImg.Ok()) {
+        m_CPSelectCursor = new UniversalCursor(filename);
+    } else {
+        DEBUG_FATAL("Cursor file:" << filename << " not found");
+    }
+    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
+
+    SetCursor(*m_CPSelectCursor);
+
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("GREEN")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
@@ -156,6 +173,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 CPImageCtrl::~CPImageCtrl()
 {
     DEBUG_TRACE("dtor");
+    delete m_CPSelectCursor;
+    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }
 
@@ -592,7 +611,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 void CPImageCtrl::mouseReleaseMMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("middle mouse button released, leaving scroll mode")
-    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
+//    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 
@@ -600,7 +619,7 @@ void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("middle mouse button pressed, entering scroll mode")
     m_mouseScrollPos = mouse.GetPosition();
-    SetCursor(wxCursor(wxCURSOR_HAND));
+//    SetCursor(wxCursor(wxCURSOR_HAND));
 }
 
 
@@ -776,7 +795,7 @@ void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
     }
 #endif
     m_mousePos = wxPoint(-1,-1);
-    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
+//    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
