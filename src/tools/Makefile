@@ -56,7 +56,8 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += $(VIGRA_CFLAGS)
-LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_impex2 -lvigra_ext -lpano12 $(VIGRA_LFLAGS)
+LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_ext -lvigra_impex2 \
+           -lpano12 $(VIGRA_LFLAGS)
 
 # ====================================================================
 # The applications that should be build in this directory.
@@ -66,7 +67,8 @@ LFLAGS +=  -lpanorama -ljhead -lcommon -lvigra_impex2 -lvigra_ext -lpano12 $(VIG
 ifeq ($(HAS_FULL_VIGRA),1)
 
 APPS = 1 2 3 4 5 6
-#APPS = 1
+=======
+APPS = 1 2 3 4 5 6
 
 # App 1
 
@@ -95,6 +97,10 @@ APP_5_OBJ = autooptimiser.o
 
 APP_5_LFLAGS = $(LFLAGS)
 
+APP_6_BIN = estimateCA
+APP_6_OBJ = estimate_CA_shift.o
+
+APP_6_LFLAGS = $(LFLAGS) -lklt
 
 
 endif
