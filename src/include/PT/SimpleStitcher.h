@@ -26,6 +26,9 @@
 #ifndef _SIMPLESTITCHER_H
 #define _SIMPLESTITCHER_H
 
+#include <vector>
+#include <utility>
+
 #include <vigra/impex.hxx>
 
 #include <PT/SpaceTransform.h>
@@ -33,6 +36,45 @@
 
 namespace PT{
 
+typedef std::vector<std::pair<float, unsigned int> > AlphaVector;
+
+/** calculate weight factors for seaming
+ *
+ *  \warning modifies \p distance
+ */
+void seamFactor(AlphaVector & distance,
+               float seamWidth,
+               AlphaVector & weights)
+{
+    // sort distance.
+    sort(distance.begin(), distance.end());
+
+    float distSum=0;
+    float min=distance[0].first;
+    weights.clear();
+    if (seamWidth <= 0 ) {
+        // special case for seamWidth = zero
+        weights.push_back(std::make_pair(1, distance[0].second));
+        return;
+    }
+
+    // walk over distance, add points that need to be added
+    for (AlphaVector::const_iterator it = distance.begin();
+         it != distance.end(); ++it)
+    {
+        double d = it->first - min;
+        if ( d <= seamWidth) {
+            // seam width.
+            distSum += seamWidth - d;
+            weights.push_back(std::make_pair(seamWidth - d, it->second));
+        }
+    }
+    for (AlphaVector::iterator it = weights.begin();
+         it != weights.end(); ++it)
+    {
+        it->first = it->first / distSum;
+    }
+}
 /** stitch a panorama
  *
  * @todo more advanced seam calculation?
@@ -55,6 +97,14 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
     // until we have something better...
     typedef DestImageType InputImageType;
     typedef DestImageType OutputImageType;
+
+    typedef
+        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
+
+    DEBUG_ASSERT(pano.getNrOfImages() > 0);
+
+    float seamWidth = pano.getImage(0).getOptions().featherWidth;
+    DEBUG_DEBUG("using seamWidth: " << seamWidth);
 
     // resize dest to output panorama size
     dest.resize(opts.width, opts.getHeight());
@@ -190,12 +240,40 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
             int ystart = remapped[imgNr].ul.y;
             int yend = remapped[imgNr].ul.y + sz.y;
 
+            AlphaVector dists(nImg);
+            AlphaVector alphavec(nImg);
+
             vigra::BImage::Iterator ya(alpha.upperLeft());
             for(int y=ystart; y < yend; ++y, ya.y++) {
                 // create x iterators
                 typename vigra::BImage::Iterator xa(ya);
                 for(int x=xstart; x < xend; ++x, ++xa.x) {
                     // find the image where this pixel is closest to the image center
+
+#if 0
+                    // use weight factors as alpha channel...
+                    // not a good solution..
+                    vigra::Diff2D cp(x,y);
+                    dists.clear();
+                    for (unsigned int i=0; i< nImg; i++) {
+                        float dist = remapped[i].getDistanceFromCenter(cp);
+                        if ( dist < FLT_MAX ) {
+                            dists.push_back(std::make_pair(dist,i));
+                        }
+                    }
+                    if (dists.size() > 0) {
+                        // if image is defind in this area.
+                        seamAlpha(dists, seamWidth, alphavec);
+                        for (AlphaVector::iterator it = alphavec.begin();
+                             it != alphavec.end(); ++it)
+                        {
+                            if (it->second == imgNr) {
+                                *xa = (unsigned char)( it->first * 255.0 + 0.5);
+                            }
+                        }
+                    }
+#endif
+
                     float minDist = FLT_MAX;
                     unsigned int minImgNr = 0;
                     vigra::Diff2D cp(x,y);
@@ -210,6 +288,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
 	                // pixel belongs to current image (imgNr)
                         *xa = 255;
                     }
+
                 }
             }
 
@@ -253,7 +332,9 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         DEBUG_DEBUG("flattening image");
         typename OutputImageType::Accessor oac(dest.accessor());
 
-            // over whole image
+        typedef typename
+            vigra::NumericTraits<typename OutputImageType::Accessor::value_type>::RealPromote SumType;
+        // over whole image
         int xstart = 0;
         int xend = dest.width();
         int ystart = 0;
@@ -266,22 +347,33 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         {
             // create x iterators
             typename DestImageType::Iterator xd(yd);
+
+            AlphaVector dists(nImg);
+            AlphaVector alpha(nImg);
             for(int x=xstart; x < xend; ++x, ++xd.x)
             {
                 // find the image where this pixel is closest to the image center
-                float minDist = FLT_MAX;
-                unsigned int minImgNr = 0;
                 vigra::Diff2D cp(x,y);
+                dists.clear();
                 for (unsigned int i=0; i< nImg; i++) {
                     float dist = remapped[i].getDistanceFromCenter(cp);
-                    if ( dist < minDist ) {
-                        minDist = dist;
-                        minImgNr = i;
+                    if ( dist < FLT_MAX ) {
+                        dists.push_back(std::make_pair(dist,i));
                     }
                 }
-                // if a minimum was found, set output pixel
-                if (minDist < FLT_MAX) {
-                    *xd = remapped[minImgNr].get(cp);
+                if (dists.size() > 0) {
+                    // if image is defind in this area.
+                    // use float for alpha merging
+                    SumType blended;
+
+                    // use a simple weighted sum, to merge the images.
+                    seamAlpha(dists, seamWidth, alpha);
+                    for (AlphaVector::iterator it = alpha.begin();
+                         it != alpha.end(); ++it)
+                    {
+                        blended = blended + it->first *  remapped[it->second].get(cp);
+                    }
+                    *xd = DestTraits::fromRealPromote(blended);
                 }
             }
         }
