@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <05-May-2003 00:06:14 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <22-May-2003 19:24:47 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -16,9 +16,9 @@ extern "C" {
 #include <jpeglib.h>
 }
 
-#include "PanoImage.h"
-#include "Panorama.h"
-#include "utils.h"
+#include "PT/PanoImage.h"
+#include "PT/Panorama.h"
+#include "../utils.h"
 
 
 
@@ -151,6 +151,7 @@ bool PanoImage::readImageInformation()
   }
   std::string ext = filename.substr( idx+1 );
 
+  /*
   try {
       // find another platform independant way to read the image info..
       Magick::Image img;
@@ -162,6 +163,7 @@ bool PanoImage::readImageInformation()
                    << ": " << e.what());
       return false;
   }
+  */
 //  isLandscape = (width > height);
   return true;
 }

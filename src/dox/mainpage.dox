@@ -1,0 +1,124 @@
+/*!
+ \mainpage hugin source code documentation
+
+ \section intro Introduction
+
+   The code is divided in a platform and toolkit indepedant
+   (mostly) abstraction of a panorama, PT::Panorama and a wxwindows
+   GUI.
+
+
+ \section model Panorama Model
+   Holds the Panorama state. The command objects that
+   inherit from PanoCommand should be used to change the panorama.
+   
+ \section GUI GUI
+
+   The GUI is written using the wxWindows toolkit.  My idea was that
+   the gui should not be a monolithic block, but split into smaller
+   parts (for example the different tabs in the main frame are a idea
+   how the GUI should be split in different panels that will recieve
+   notifications when the model changed and will update themself
+   accordingly. These panels can also use the Commands inherited from
+   PanoCommand to modify the model. The model should never be changed
+   directly. By using PT::PanoCommand and a CommandHistory to execute
+   them, it is very easy to implement undo/redo
+   functionality. PT::Panorama will notify a PT::PanoramaObserver
+   which can then notify the GUI and interested subwindows. MainFrame
+   is a good candidate for PT::PanoramaObserver.
+
+   XRC is used for the GUI design. Each custom Panel should have its
+   own XRC file, so that people can work with on different parts of
+   the GUI without to much trouble. The MainFrame will then use the
+   unknown class to load the different custom Panel. CPEditorPanel
+   is an example how this can be done. Note that there is only a
+   global namespace for all xrc files. Names in the xrc files should
+   theirfor start with a prefix that indicates the parent panel.
+
+ \section build Building
+
+   Makefiles for building hugin on unix machines exist.
+   They have been taken from two former projects I worked with,
+   and do not use autoconf. But they are reasonably easy to use
+   and wxwindows should take care of most platform dependant
+   configuration stuff.
+   If a new Makefile is created, use the Makefile.template from
+   src/makefiles/ as template and define the needed variables.
+
+   Projects files for IDE's on windows still need to be created.
+
+   The projects directory structure:
+
+   - hugin/
+     - src/
+       - include/ Contains all includes
+         - hugin/
+         - PT/
+       - PT/      Contains the model classes
+       - hugin/   Contains the wxwindows interface
+       - qtgui/   old gui written with qt.
+       - lib/     Parts that do not compile to a exe
+                 (for example the stuff under PT) will
+                 be linked to a static library and put here.
+       - makefiles  global part of the makefiles
+       - tests    various tests for the model classes directory.
+                 They use the unit test framework from BOOST
+                 (http://www.boost.org). They are not needed
+                 to compile or run hugin.
+       
+ \section code Code writing
+
+   A short list of my coding habits:
+   
+   indentation with 4 spaces, no tabs. Tabs often cause confusion,
+   when different IDE's use different tab lengths.
+
+   source code documentation with doxygen (http://www.doxygen.org)
+   Doxygen is a useful tool and can also be used to create other
+   documentation that just class interface descriptions (for example
+   this document). It works by prefixing the function prototypes with
+   a special comment. I usually put the documentation in the header
+   files.
+
+      The basic usage is very javadoc like:
+      
+      \verbatim
+
+      /** One sentence class description
+       *
+       *  more detailed description
+       *
+       *  @todo pet the cat more often
+       *  @bug  might scratch if annoyed
+       */
+      class Cat
+      {
+      public:
+          /** hunt food
+           *
+           *  @param prey type of animals that we should hunt
+           *  @return true if the cat is sated
+           */
+          bool HuntFood(Prey prey);
+
+      }
+      
+      \endverbatim
+
+      I haven't commented all my classes but I will complete the
+      documentation of the more important ones.
+
+      the todo and bug items will appear in a separate list, so its
+      a useful tool to document some stuff that has to be fixed at
+      some time but is not too important right now.
+
+      I have also often used // FIXME comments, mainly inside *.cpp
+      files, so a grep for FIXME should also reveal places where some
+      more work should be done ;-)
+
+      I usually use java like naming conventions, but wxwindows uses
+      uppercase characters for the first char of a method name. I'll
+      use capital letters for all wx widgets in the future to avoid
+      confusion.
+      
+*/
