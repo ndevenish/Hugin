@@ -21,6 +21,7 @@
  *
  */
 
+#include <algorithm>
 #include <fstream>
 #include <cassert>
 #include <qpixmap.h>
@@ -281,9 +282,9 @@ void Panorama::removeImage(PanoImage * img)
 
     qDebug("Panorama::removeImage: %s\n",img->getFilename().ascii());
     // remove from vector
-    vector<PanoImage *>::iterator it = find(images.begin(),
-                                            images.end(),
-                                            img);
+    vector<PanoImage *>::iterator it = std::find(images.begin(),
+                                                 images.end(),
+                                                 img);
     if (it != images.end()) {
 
         qDebug("calling reportRemovedImage");
