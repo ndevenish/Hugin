@@ -69,9 +69,6 @@ ImgPreview * lens_canvas;
 
 //------------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
-    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
-END_EVENT_TABLE()
 
 // The lens of the pano for reading - the local edit_Lens is for writing.
 #define EDIT_LENS pano.getLens (lensEditRef_lensNr)
@@ -89,12 +86,51 @@ END_EVENT_TABLE()
     DEBUG_INFO( xrc_name << " = " << number);                                  \
 }
 
+BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
+    EVT_SIZE   ( LensPanel::FitParent )
+//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensPanel::SetImages )
+//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
+    EVT_COMBOBOX ( XRCID("lens_combobox_number"), LensPanel::LensSelected )
+    EVT_BUTTON ( XRCID("lens_button_apply"), LensPanel::LensApply )
+    EVT_COMBOBOX (XRCID("lens_val_projectionFormat"),LensPanel::LensTypeChanged)
+    EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensPanel::HFOVChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_focalLength"),LensPanel::focalLengthChanged)
+    EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensPanel::aChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensPanel::bChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensPanel::cChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensPanel::dChanged )
+    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensPanel::eChanged )
+    EVT_CHECKBOX ( XRCID("images_inherit_HFOV"), LensPanel::SetInheritHfov )
+    EVT_SPINCTRL ( XRCID("images_spin_HFOV"), LensPanel::SetInheritHfov )
+    EVT_CHECKBOX ( XRCID("images_optimize_HFOV"), LensPanel::SetOptimizeHfov )
+    EVT_CHECKBOX ( XRCID("images_inherit_a"), LensPanel::SetInheritA )
+    EVT_SPINCTRL ( XRCID("images_spin_a"), LensPanel::SetInheritA )
+    EVT_CHECKBOX ( XRCID("images_optimize_a"), LensPanel::SetOptimizeA )
+    EVT_CHECKBOX ( XRCID("images_inherit_b"), LensPanel::SetInheritB )
+    EVT_SPINCTRL ( XRCID("images_spin_b"), LensPanel::SetInheritB )
+    EVT_CHECKBOX ( XRCID("images_optimize_b"), LensPanel::SetOptimizeB )
+    EVT_CHECKBOX ( XRCID("images_inherit_c"), LensPanel::SetInheritC )
+    EVT_SPINCTRL ( XRCID("images_spin_c"), LensPanel::SetInheritC )
+    EVT_CHECKBOX ( XRCID("images_optimize_c"), LensPanel::SetOptimizeC )
+    EVT_CHECKBOX ( XRCID("images_inherit_d"), LensPanel::SetInheritD )
+    EVT_SPINCTRL ( XRCID("images_spin_d"), LensPanel::SetInheritD )
+    EVT_CHECKBOX ( XRCID("images_optimize_d"), LensPanel::SetOptimizeD )
+    EVT_CHECKBOX ( XRCID("images_inherit_e"), LensPanel::SetInheritE )
+    EVT_SPINCTRL ( XRCID("images_spin_e"), LensPanel::SetInheritE )
+    EVT_CHECKBOX ( XRCID("images_optimize_e"), LensPanel::SetOptimizeE )
+END_EVENT_TABLE()
+
 // Define a constructor for the Lenses Panel
+
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
-    : pano(*pano)
+    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
+      pano(*pano)
 {
     DEBUG_TRACE("ctor");
     pano->addObserver(this);
+
+    // This controls must called by xrc handler and after it we play with it.
+    wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel"));
 
     // The following control creates itself. We dont care about xrc loading.
     images_list2 = new List (parent, pano, lens_layout);
@@ -103,90 +139,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
                images_list2 );
     images_list2->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
-    // This controls must called by xrc handler and after it we play with it.
-    // It could as well be done in the LensEdit class.
-    lens_edit    = new LensEdit (parent, pano);
-    wxXmlResource::Get()->AttachUnknownControl (
-               wxT("lens_list_unknown"),
-               lens_edit);
-//               wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
-
     p_img = new wxBitmap( 0, 0 );
-    DEBUG_TRACE("");;
-
-}
-
-
-LensPanel::~LensPanel(void)
-{
-    DEBUG_TRACE("");
-    pano.removeObserver(this);
-    delete images_list2;
-    DEBUG_TRACE("");
-}
-
-
-void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
-{
-    DEBUG_TRACE("");
-}
-
-void LensPanel::LensChanged ( wxListEvent & e )
-{
-    DEBUG_TRACE("");
-
-    lens_edit->SetImages ( e );
-//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d", lensEdit_ReferenceImage) );
-}
-
-//------------------------------------------------------------------------------
-
-BEGIN_EVENT_TABLE(LensEdit, wxWindow) //wxEvtHandler)
-//    EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), LensEdit::SetImages )
-//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list2_unknown"),LensPanel::LensChanged )
-    EVT_COMBOBOX ( XRCID("lens_combobox_number"), LensEdit::LensSelected )
-    EVT_COMBOBOX ( XRCID("lens_type_combobox"), LensEdit::LensTypeChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_HFOV"), LensEdit::HFOVChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_focalLength"),LensEdit::focalLengthChanged)
-    EVT_TEXT_ENTER ( XRCID("lens_val_a"), LensEdit::aChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_b"), LensEdit::bChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_c"), LensEdit::cChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_d"), LensEdit::dChanged )
-    EVT_TEXT_ENTER ( XRCID("lens_val_e"), LensEdit::eChanged )
-    EVT_CHECKBOX ( XRCID("images_inherit_hfov"), LensEdit::SetInheritHfov )
-    EVT_SPINCTRL ( XRCID("images_spin_hfov"), LensEdit::SetInheritHfov )
-    EVT_CHECKBOX ( XRCID("images_optimize_hfov"), LensEdit::SetOptimizeHfov )
-    EVT_CHECKBOX ( XRCID("images_inherit_a"), LensEdit::SetInheritA )
-    EVT_SPINCTRL ( XRCID("images_spin_a"), LensEdit::SetInheritA )
-    EVT_CHECKBOX ( XRCID("images_optimize_a"), LensEdit::SetOptimizeA )
-    EVT_CHECKBOX ( XRCID("images_inherit_b"), LensEdit::SetInheritB )
-    EVT_SPINCTRL ( XRCID("images_spin_b"), LensEdit::SetInheritB )
-    EVT_CHECKBOX ( XRCID("images_optimize_b"), LensEdit::SetOptimizeB )
-    EVT_CHECKBOX ( XRCID("images_inherit_c"), LensEdit::SetInheritC )
-    EVT_SPINCTRL ( XRCID("images_spin_c"), LensEdit::SetInheritC )
-    EVT_CHECKBOX ( XRCID("images_optimize_c"), LensEdit::SetOptimizeC )
-    EVT_CHECKBOX ( XRCID("images_inherit_d"), LensEdit::SetInheritD )
-    EVT_SPINCTRL ( XRCID("images_spin_d"), LensEdit::SetInheritD )
-    EVT_CHECKBOX ( XRCID("images_optimize_d"), LensEdit::SetOptimizeD )
-    EVT_CHECKBOX ( XRCID("images_inherit_e"), LensEdit::SetInheritE )
-    EVT_SPINCTRL ( XRCID("images_spin_e"), LensEdit::SetInheritE )
-    EVT_CHECKBOX ( XRCID("images_optimize_e"), LensEdit::SetOptimizeE )
-END_EVENT_TABLE()
-
-LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/ Panorama* pano)
-    : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, 0),//)wxSUNKEN_BORDER),
-      pano(*pano)
-{
-    pano->addObserver(this);
-
-    // connects the LensProjectionFormat/PanoramaMemento.h ComboBox
-//    ProjectionFormat_cb = XRCCTRL(*this, "lens_type_combobox", wxComboBox);
-
-    // show the lens editing controls
-    wxXmlResource::Get()->LoadPanel (this, wxT("lens_dialog"));
-//    wxXmlResource::Get()->AttachUnknownControl (
-//               wxT("lens_list_unknown"),
-//               wxXmlResource::Get()->LoadPanel (this, wxT("lens_dialog")) );
 
     // intermediate event station
     PushEventHandler( new MyEvtHandler((size_t) 2) );
@@ -204,23 +157,54 @@ LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/
 }
 
 
-LensEdit::~LensEdit(void)
+LensPanel::~LensPanel(void)
 {
     DEBUG_TRACE("");
     pano.removeObserver(this);
+    delete images_list2;
     DEBUG_TRACE("");
 }
 
+void LensPanel::FitParent( wxSizeEvent & e )
+{
+    wxSize new_size = GetSize();
+//    wxSize new_size = GetParent()->GetSize();
+    XRCCTRL(*this, "lens_panel", wxPanel)->SetSize ( new_size );
+//    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+}
 
 // selected a lens as edit_Lens
-void LensEdit::LensSelected ( wxCommandEvent & e )
+void LensPanel::LensSelected ( wxCommandEvent & e )
 {
     int lens = XRCCTRL(*this, "lens_combobox_number", wxComboBox)
                                  ->GetSelection();
     update_edit_LensGui ( lens );
 }
 
-void LensEdit::update_edit_LensGui ( int lens )
+// apply edit_Lens to selected images
+void LensPanel::LensApply ( wxCommandEvent & e )
+{
+    DEBUG_TRACE("");
+    // TODO make a button from this
+
+//    if ( XRCCTRL(*this, "lens_button_apply", wxCheckBox)->IsChecked() ) {
+        lensEditRef_lensNr = XRCCTRL(*this, "lens_combobox_number", wxComboBox)
+                                 ->GetSelection();
+        
+    update_edit_LensGui ( lensEditRef_lensNr );
+        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+//          PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens );
+          GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens )
+            );
+
+          //pano.setLens (imgNr[i], lensEditRef_lensNr);
+        }
+//    }
+    DEBUG_TRACE("");
+}
+
+void LensPanel::update_edit_LensGui ( int lens )
 {
     DEBUG_TRACE("");
       lensEditRef_lensNr = lens;
@@ -233,7 +217,7 @@ void LensEdit::update_edit_LensGui ( int lens )
 //    edit_Lens->readEXIF(pano.getImage(lensEdit_ReferenceImage).getFilename().c_str());
 
       // update gui
-      XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(  
+      XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->SetSelection(  
                       pano.getLens (lensEditRef_lensNr).  projectionFormat  );
       updateHFOV();
       SET_WXTEXTCTRL_TEXT( "lens_val_a" , EDIT_LENS.a )
@@ -249,14 +233,14 @@ void LensEdit::update_edit_LensGui ( int lens )
                             label.str().c_str() );
 
 /*    if ( EDIT_LENS.HFOV.isLinked() )
-      XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(TRUE);
+      XRCCTRL(*this, "images_inherit_HFOV" ,wxCheckBox)->SetValue(TRUE);
     else
-      XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(FALSE);
+      XRCCTRL(*this, "images_inherit_HFOV" ,wxCheckBox)->SetValue(FALSE);
   */    
     DEBUG_TRACE("");
 }
 
-void LensEdit::updateHFOV()
+void LensPanel::updateHFOV()
 {
 //    DEBUG_TRACE("");
     SET_WXTEXTCTRL_TEXT( "lens_val_HFOV" , EDIT_LENS.HFOV )
@@ -274,17 +258,18 @@ void LensEdit::updateHFOV()
 }
 
 
-void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
+void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
     if ( (int)pano.getNrOfImages() != images_list2->GetItemCount() ) {
       wxListEvent e;
       SetImages( e );
     }
-    int lt = XRCCTRL(*this, "lens_type_combobox", wxComboBox)->GetSelection();
+    int lt = XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->GetSelection();
+//    DEBUG_INFO ( wxString::Format (" Lenstype %d", lt) )
     DEBUG_INFO ( wxString::Format (" Lenstype %d", lt) )
 }
 
-void LensEdit::ChangePano ( )
+void LensPanel::ChangePano ( std::string type, double var )
 {
     DEBUG_TRACE( "lensGui_dirty = " << lensGui_dirty )
     changePano = TRUE;
@@ -332,8 +317,8 @@ void LensEdit::ChangePano ( )
           // Now we can simply erase, the images get theyre new lenses later.
           DEBUG_INFO( "will removeLens  " << pano.getImage(imgNr[i]).getLens() << " of " << pano.getNrOfLenses() )
 //          pano.removeLens(imgNr[i]); // FIXME ?????
-//          eraseLensNr[0] += 1;
-//          eraseLensNr[eraseLensNr[0]] = pano.getImage(imgNr[i]).getLens();
+          eraseLensNr[0] += 1;
+          eraseLensNr[eraseLensNr[0]] = pano.getImage(imgNr[i]).getLens();
         }
       }
       // create a new lens?
@@ -344,40 +329,67 @@ void LensEdit::ChangePano ( )
 //        DEBUG_INFO( "new_Lens = " << new_Lens )
       }
 
-      unsigned int lensNr;
-      // set the edit_lens
-      if ( new_Lens )
-        lensNr = pano.addLens (EDIT_LENS); // lensEditRef_lensNr must set before
-      else
-        lensNr =  lensEditRef_lensNr;
+//      unsigned int lensNr;
+      // add the edit_lens as new lens to pano
+//      if ( new_Lens )
+        PT::AddLensCmd( pano, *edit_Lens );
+//      else
+//        lensNr = lensEditRef_lensNr; // lensEditRef_lensNr must set before
 
       // All list images get the new lens assigned.
       for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-        pano.setLens (imgNr[i], lensNr);
+        PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens );  
+//        pano.setLens (imgNr[i], lensNr);
       }
 
     }
 
-    // TODO decide wether to take the selected lens or not
 
-    if ( XRCCTRL(*this, "lens_cb_apply", wxCheckBox)->IsChecked() ) {
-        lensEditRef_lensNr = XRCCTRL(*this, "lens_combobox_number", wxComboBox)
-                                 ->GetSelection();
-        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-          pano.setLens (imgNr[i], lensEditRef_lensNr);
+    // we ask for each images Lens
+    Lens new_Lens;
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        new_Lens = pano.getLens(imgNr[i]);
+        // set values
+        if ( type == "projectionFormat" ) {
+          new_Lens.projectionFormat = (PT::Lens::LensProjectionFormat)var;
         }
-    }
+        if ( type == "HFOV" ) {
+          new_Lens.HFOV = var;
+        }
+        if ( type == "a" ) {
+          new_Lens.a = var;
+        }
+        if ( type == "b" ) {
+          new_Lens.b = var;
+        }
+        if ( type == "c" ) {
+          new_Lens.c = var;
+        }
+        if ( type == "d" ) {
+          new_Lens.d = var;
+        }
+        if ( type == "e" ) {
+          new_Lens.e = var;
+        }
+        GlobalCmdHist::getInstance().addCommand(
+//          new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_Lens)
+          new PT::ChangeLensCmd( pano, imgNr[i], new_Lens )
+          );
 
+//        pano.updateVariables( imgNr[i], new_Lens ); 
+
+        DEBUG_INFO( type <<" for image "<< imgNr[i] );
+    }
 
     // FIXME support separate lenses
 //      EDIT_LENS->update ( pano.getLens(lensEditRef_lensNr) );
 
 //    DEBUG_INFO ( "hier is item: " << wxString::Format("%d",lensEdit_ReferenceImage) );
 
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::ChangeLensCmd( pano, lensEditRef_lensNr,*edit_Lens )
+/*    GlobalCmdHist::getInstance().addCommand(
+        new PT::ChangeLensCmd( pano, //lensEditRef_lensNr,*edit_Lens )
          );
-
+*/
     lensGui_dirty = FALSE;
     changePano = FALSE;
 
@@ -385,22 +397,22 @@ void LensEdit::ChangePano ( )
 }
 
 // Here we change the pano.
-void LensEdit::LensTypeChanged ( wxCommandEvent & e )
+void LensPanel::LensTypeChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       DEBUG_TRACE ("")
       // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
-      int var = XRCCTRL(*this, "lens_type_combobox",
+      int var = XRCCTRL(*this, "lens_val_projectionFormat",
                                    wxComboBox)->GetSelection();
       edit_Lens->projectionFormat = (Lens::LensProjectionFormat) (var);
 
-      ChangePano ();
+      ChangePano ( "projectionFormat", (double)var );
       DEBUG_INFO ( wxString::Format ("lens %d Lenstype %d",lensEditRef_lensNr,var) )
     }
 //    int lensEdit_ReferenceImage = images_list2->GetSelectedImage();
 }
 
-void LensEdit::HFOVChanged ( wxCommandEvent & e )
+void LensPanel::HFOVChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       DEBUG_TRACE ("")
@@ -412,7 +424,7 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
       edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
       edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
 
-      ChangePano ();
+      ChangePano ( "HFOV", *var );
       updateHFOV();
 
       delete var;
@@ -423,7 +435,7 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::focalLengthChanged ( wxCommandEvent & e )
+void LensPanel::focalLengthChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -436,7 +448,7 @@ void LensEdit::focalLengthChanged ( wxCommandEvent & e )
                          * edit_Lens->focalLengthConversionFactor))
                       * 180/M_PI;
 
-      ChangePano ();
+      ChangePano ( "HFOV", edit_Lens->HFOV );
       updateHFOV();
 
       delete var;
@@ -444,7 +456,7 @@ void LensEdit::focalLengthChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::aChanged ( wxCommandEvent & e )
+void LensPanel::aChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -453,7 +465,7 @@ void LensEdit::aChanged ( wxCommandEvent & e )
 
       edit_Lens->a = *var;
 
-      ChangePano ();
+      ChangePano ( "a", *var );
       SET_WXTEXTCTRL_TEXT( "lens_val_a" , EDIT_LENS.a )
 
       delete var;
@@ -461,7 +473,7 @@ void LensEdit::aChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::bChanged ( wxCommandEvent & e )
+void LensPanel::bChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -470,7 +482,7 @@ void LensEdit::bChanged ( wxCommandEvent & e )
 
       edit_Lens->b = *var;
 
-      ChangePano ();
+      ChangePano ( "b", *var );
       SET_WXTEXTCTRL_TEXT( "lens_val_b" , EDIT_LENS.b )
 
       delete var;
@@ -478,7 +490,7 @@ void LensEdit::bChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::cChanged ( wxCommandEvent & e )
+void LensPanel::cChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -487,7 +499,7 @@ void LensEdit::cChanged ( wxCommandEvent & e )
 
       edit_Lens->c = *var;
 
-      ChangePano ();
+      ChangePano ( "c", *var );
       SET_WXTEXTCTRL_TEXT( "lens_val_c" , EDIT_LENS.c )
 
       delete var;
@@ -495,7 +507,7 @@ void LensEdit::cChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::dChanged ( wxCommandEvent & e )
+void LensPanel::dChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -504,7 +516,7 @@ void LensEdit::dChanged ( wxCommandEvent & e )
 
       edit_Lens->d = *var;
 
-      ChangePano ();
+      ChangePano ( "d", *var );
       SET_WXTEXTCTRL_TEXT( "lens_val_d" , EDIT_LENS.d )
 
       delete var;
@@ -512,7 +524,7 @@ void LensEdit::dChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
 }
 
-void LensEdit::eChanged ( wxCommandEvent & e )
+void LensPanel::eChanged ( wxCommandEvent & e )
 {
     if ( imgNr[0] > 0 ) {
       double * var = new double ();
@@ -521,7 +533,7 @@ void LensEdit::eChanged ( wxCommandEvent & e )
 
       edit_Lens->e = *var;
 
-      ChangePano ();
+      ChangePano ( "e", *var );
       SET_WXTEXTCTRL_TEXT( "lens_val_e" , EDIT_LENS.e )
 
       delete var;
@@ -531,7 +543,7 @@ void LensEdit::eChanged ( wxCommandEvent & e )
 
 // Inheritance + Optimization
 
-void LensEdit::SetInherit( std::string type )
+void LensPanel::SetInherit( std::string type )
 {
 //    "roll", "images_inherit_roll", "images_spin_roll", "images_optimize_roll" 
     // requisites
@@ -555,7 +567,7 @@ void LensEdit::SetInherit( std::string type )
         if ( XRCCTRL(*this, xml_inherit .c_str(),wxCheckBox)->IsChecked()
              && (pano.getNrOfImages() != 1) ) { // single image cannot inherit
             // We are conservative and ask better once more. 
-            if ( type == "hfov" ) {
+            if ( type == "HFOV" ) {
               // test for unselfish inheritance
               if ( var != (int)imgNr[i] ) {
                 new_var.HFOV.link(var);
@@ -638,11 +650,9 @@ void LensEdit::SetInherit( std::string type )
             XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->SetValue(var);
             XRCCTRL(*this, xml_optimize .c_str(),wxCheckBox)->SetValue(FALSE);
             DEBUG_INFO("var("<<var<<") == I("<<(int)imgNr[i]<<")  :  | pano");
-            // local ImageVariables finished, save to pano
-            pano.updateVariables( imgNr[i], new_var ); 
           // unset inheritance
           } else {
-            if ( type == "hfov" )
+            if ( type == "HFOV" )
               new_var.HFOV.unlink();
             if ( type == "a" )
               new_var.a.unlink();
@@ -657,10 +667,13 @@ void LensEdit::SetInherit( std::string type )
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           }
           // local ImageVariables finished, save to pano
-          pano.updateVariables( imgNr[i], new_var ); 
+          GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
+            );
+//          pano.updateVariables( imgNr[i], new_var ); 
           // set optimization
           if (XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
-            if ( type == "hfov" ) {
+            if ( type == "HFOV" ) {
               optset->at(imgNr[i]).HFOV = TRUE;
             }
             if ( type == "a" ) {
@@ -681,7 +694,7 @@ void LensEdit::SetInherit( std::string type )
             XRCCTRL(*this,xml_inherit.c_str(),wxCheckBox)->SetValue(FALSE);
           // unset optimization
           } else if(!XRCCTRL(*this,xml_optimize.c_str(),wxCheckBox)->IsChecked()){
-            if ( type == "hfov" )
+            if ( type == "HFOV" )
               optset->at(imgNr[i]).HFOV = FALSE;
             if ( type == "a" )
               optset->at(imgNr[i]).a = FALSE;
@@ -697,64 +710,64 @@ void LensEdit::SetInherit( std::string type )
         }
 
         // activate an undoable command, not for the optimize settings
-        GlobalCmdHist::getInstance().addCommand(
-           new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
-           );
+/*        GlobalCmdHist::getInstance().addCommand(
+           new PT::UpdateImageVariablesCmd(pano, imgNr[i], pano.getVariable(imgNr[imgNr[0]]))
+           );*/
     }
     DEBUG_INFO( type.c_str() << " end" )
 }
 
-void LensEdit::SetInheritHfov( wxCommandEvent & e )
+void LensPanel::SetInheritHfov( wxCommandEvent & e )
 {
-    SetInherit ( "hfov" );
+    SetInherit ( "HFOV" );
 }
-void LensEdit::SetInheritA( wxCommandEvent & e )
+void LensPanel::SetInheritA( wxCommandEvent & e )
 {
     SetInherit ( "a" );
 }
-void LensEdit::SetInheritB( wxCommandEvent & e )
+void LensPanel::SetInheritB( wxCommandEvent & e )
 {
     SetInherit ( "b" );
 }
-void LensEdit::SetInheritC( wxCommandEvent & e )
+void LensPanel::SetInheritC( wxCommandEvent & e )
 {
     SetInherit ( "c" );
 }
-void LensEdit::SetInheritD( wxCommandEvent & e )
+void LensPanel::SetInheritD( wxCommandEvent & e )
 {
     SetInherit ( "d" );
 }
-void LensEdit::SetInheritE( wxCommandEvent & e )
+void LensPanel::SetInheritE( wxCommandEvent & e )
 {
     SetInherit ( "e" );
 }
 
-void LensEdit::SetOptimizeHfov( wxCommandEvent & e )
+void LensPanel::SetOptimizeHfov( wxCommandEvent & e )
 {
-    XRCCTRL(*this, "images_inherit_hfov" ,wxCheckBox)->SetValue(FALSE);
-    SetInherit ( "hfov" );
+    XRCCTRL(*this, "images_inherit_HFOV" ,wxCheckBox)->SetValue(FALSE);
+    SetInherit ( "HFOV" );
 }
-void LensEdit::SetOptimizeA( wxCommandEvent & e )
+void LensPanel::SetOptimizeA( wxCommandEvent & e )
 {
     XRCCTRL(*this, "images_inherit_a" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "a" );
 }
-void LensEdit::SetOptimizeB( wxCommandEvent & e )
+void LensPanel::SetOptimizeB( wxCommandEvent & e )
 {
     XRCCTRL(*this, "images_inherit_b" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "b" );
 }
-void LensEdit::SetOptimizeC( wxCommandEvent & e )
+void LensPanel::SetOptimizeC( wxCommandEvent & e )
 {
     XRCCTRL(*this, "images_inherit_c" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "c" );
 }
-void LensEdit::SetOptimizeD( wxCommandEvent & e )
+void LensPanel::SetOptimizeD( wxCommandEvent & e )
 {
     XRCCTRL(*this, "images_inherit_d" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "d" );
 }
-void LensEdit::SetOptimizeE( wxCommandEvent & e )
+void LensPanel::SetOptimizeE( wxCommandEvent & e )
 {
     XRCCTRL(*this, "images_inherit_e" ,wxCheckBox)->SetValue(FALSE);
     SetInherit ( "e" );
@@ -763,7 +776,7 @@ void LensEdit::SetOptimizeE( wxCommandEvent & e )
 
 
 // This function is called whenever the image selection changes.
-void LensEdit::SetImages ( wxListEvent & e )
+void LensPanel::SetImages ( wxListEvent & e )
 {
     DEBUG_TRACE("changePano = " << changePano );
     if ( changePano == FALSE ) {
@@ -772,7 +785,7 @@ void LensEdit::SetImages ( wxListEvent & e )
       #define SET_SPIN_RANGE( type ) \
       XRCCTRL(*this, type ,wxSpinCtrl)->   \
                  SetRange( 0 , (int) pano.getNrOfImages() - 1); 
-      SET_SPIN_RANGE ("images_spin_hfov")
+      SET_SPIN_RANGE ("images_spin_HFOV")
       SET_SPIN_RANGE ("images_spin_a")
       SET_SPIN_RANGE ("images_spin_b")
       SET_SPIN_RANGE ("images_spin_c")

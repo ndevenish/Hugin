@@ -385,7 +385,7 @@ void List::itemSelected ( wxListEvent & e )
 //        DEBUG_TRACE ("images_layout")
         images_panel->SetImages (e);
     } else {
-        lens_panel->lens_edit->SetImages (e);
+        lens_panel->SetImages (e);
     }
 
     // let others recieve the event too

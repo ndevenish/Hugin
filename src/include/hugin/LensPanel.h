@@ -46,18 +46,18 @@ extern ImgPreview *canvas;
 extern    List* images_list2;
 
 
-/** Define the lens edit panel
+
+/** Define the second the Lens panel
  *
- *  - it is for lens editing and belongs directly to the lens panel.
- *    I splittet it only for eventhandling needs.
+ *  - the second for lens selection to images
  *    
  */
-class LensEdit: public wxPanel, public PT::PanoramaObserver
+class LensPanel: public wxPanel, public PT::PanoramaObserver
 {
  public:
-    LensEdit( wxWindow *parent, //const wxPoint& pos, const wxSize& size,
+    LensPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
                  Panorama * pano );
-    ~LensEdit(void) ;
+    ~LensPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *
@@ -75,7 +75,6 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
      *  
      *  @todo   react on different update signals more special
      */
-//    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
     /** This sets the actual image to work on for the parameters. */
@@ -86,10 +85,14 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     void update_edit_LensGui ( int lens );
 
  private:
+    // a window event
+    void FitParent(wxSizeEvent & e);
 
     // event handlers
     /**  selected a lens as edit_Lens */
     void LensSelected (wxCommandEvent & e);
+    /**  apply edit_Lens to all selected images */
+    void LensApply (wxCommandEvent & e);
     /**  selfexplaining */
     void LensTypeChanged (wxCommandEvent & e);
     /**  selfexplaining */
@@ -127,13 +130,17 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     // the Lens actually selected
     int lensEditRef_lensNr;
 
+    /** With this flag we decide to create a new Lens or not.*/
+    bool lensGui_dirty;
+
     /** event -> pano
      *
      *  usually for events to set the new pano state
+     *
+     *  @param  type  "roll", "pitch" or "yaw"
+     *  @param  var   the new value
      */
-    void ChangePano ( );
-    /** With this flag we decide to create a new Lens or not.*/
-    bool lensGui_dirty;
+    void ChangePano ( std::string type, double var );
     /** Are we changing the pano?
      */
     bool changePano;
@@ -151,61 +158,5 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     DECLARE_EVENT_TABLE()
 };
 
-/** Define the second the Lens panel
- *
- *  - the second for lens selection to images
- *    
- */
-class LensPanel: public wxPanel, public PT::PanoramaObserver
-{
- public:
-    LensPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
-                 Panorama * pano );
-    ~LensPanel(void) ;
-
-    /** this is called whenever the panorama has changed.
-     *
-     *  This function must now update all the gui representations
-     *  of the panorama to display the new state.
-     *
-     *  Functions that change the panororama must not update
-     *  the GUI directly. The GUI should always be updated
-     *  to reflect the current panorama state in this function.
-     *
-     *  This avoids unnessecary close coupling between the
-     *  controller and the view (even if they sometimes
-     *  are in the same object). See model view controller
-     *  pattern.
-     *  
-     *  @todo   react on different update signals more special
-     */
-//    virtual void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
-
-    /** Here we get the Lens
-     *
-     *  It takes one lens for filling in the editing controls and leaves
-     *  the panorama as it is. Here it is mainly a wrapper for lens_edit.
-     */
-    void LensChanged ( wxListEvent & e );
-
-    /** lens editing controls
-     */
-    LensEdit * lens_edit;
-
- private:
-
-    // the model
-    Panorama &pano;
-
-    // the Lens actually selected
-    int lens;
-    int lensEdit_RefImg;
-
-    DECLARE_EVENT_TABLE()
-};
-
-// some ID's
-//#define ID_images_list2  200
 
 #endif // _LENSPANEL_H

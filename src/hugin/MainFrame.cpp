@@ -111,14 +111,14 @@ MainFrame::MainFrame(wxWindow* parent)
 
     DEBUG_TRACE("");
 
+    // the lens_panel, see as well images_panel
+    lens_panel = new LensPanel( this, wxDefaultPosition,
+                                                 wxDefaultSize, &pano);
     // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("lens_panel_unknown"),
-               wxXmlResource::Get()->LoadPanel (this, wxT("lens_panel")) );
+               lens_panel );
 
-    // the lens_panel
-    lens_panel = new LensPanel( this, wxDefaultPosition,
-                                                 wxDefaultSize, &pano);
 
     // the pano_panel
     // The xrc resources are loaded by the class itself.

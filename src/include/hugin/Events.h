@@ -39,7 +39,7 @@
 // ImagesPanel
 extern    ImagesPanel* images_panel;
 // LensPanel
-extern    LensEdit* lens_edit;
+extern    LensPanel* lens_panel;
 // LensPanel images list
 extern    List* images_list2;
 // Image Preview
@@ -64,7 +64,7 @@ public:
     void ToLensPanel(wxListEvent& event)
     {
         DEBUG_TRACE("");
-        lens_panel->LensChanged (event);
+        lens_panel->SetImages (event);
 
         // if we don't skip the event, the other event handlers won't get it:
         // try commenting out this line and see what changes

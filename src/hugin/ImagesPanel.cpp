@@ -253,7 +253,7 @@ void ImagesPanel::ChangePano ( std::string type, double var )
           new_var.roll.setValue(var);
         }
         GlobalCmdHist::getInstance().addCommand(
-          new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_var)
+          new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
           );
 
 //        pano.updateVariables( imgNr[i], new_var ); 
