@@ -27,9 +27,9 @@
 #include "jhead/jhead.h"
 #include "panoinc_WX.h"
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
-//#include <wx/image.h>               // wxImage
-//#include <wx/imagpng.h>             // for about html
 #include <wx/wxhtml.h>              // for about html
+//#include <wx/imagpng.h>             // for about html
+//#include <wx/image.h>               // wxImage
 #include <wx/listctrl.h>            // wxListCtrl
 #include <wx/splash.h>
 #include <wx/file.h>
