@@ -35,7 +35,7 @@
 #endif
 
 #include <wx/xrc/xmlres.h>          // XRC XML resouces
-#include <wx/listctrl.h>	// needed on mingw
+#include <wx/listctrl.h>    // needed on mingw
 #include <wx/imaglist.h>
 #include <wx/spinctrl.h>
 
@@ -112,6 +112,12 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
+    m_empty.LoadFile(MainFrame::Get()->GetXRCPath() +
+                     "/data/" "druid.images.128.png",
+                     wxBITMAP_TYPE_PNG);
+    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
+        SetBitmap(m_empty);
+
     wxListEvent ev;
     ListSelectionChanged(ev);
     pano->addObserver(this);
@@ -145,11 +151,19 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
+    DEBUG_TRACE("");
+
     // update text field if selected
     const UIntSet & selected = images_list->GetSelected();
-    if (selected.size() == 1 && set_contains(_imgNr, *(selected.begin())))
+    if (selected.size() == 1 &&
+        *(selected.begin()) < pano.getNrOfImages() &&
+        set_contains(_imgNr, *(selected.begin())))
     {
         ShowImgParameters( *(selected.begin()) );
+    }
+    else
+    {
+        ClearImgParameters( );
     }
 
     DEBUG_TRACE("");
@@ -257,7 +271,7 @@ void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
 
 void ImagesPanel::ListSelectionChanged(wxListEvent & e)
 {
-    DEBUG_TRACE(e.GetIndex());
+	DEBUG_TRACE(e.GetIndex());
     const UIntSet & sel = images_list->GetSelected();
     if (sel.size() == 0) {
         // nothing to edit
@@ -292,7 +306,8 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Disable();
-    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->SetBitmap(wxNullBitmap);
+    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
+        SetBitmap(m_empty);
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
     m_setAnchorOrientButton->Disable();
@@ -330,8 +345,8 @@ void ImagesPanel::ClearImgParameters()
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Clear();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Clear();
 
-    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->SetBitmap(wxNullBitmap);
-
+    XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
+        SetBitmap(m_empty);
 }
 
 void ImagesPanel::ShowImage(unsigned int imgNr)
