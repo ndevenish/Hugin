@@ -97,7 +97,7 @@ public:
      *  two existing images
      */
     void SelectGlobalPoint(unsigned int globalNr);
-    
+
     /** show a control point
      *
      *  show control point @p cpNr and the corrosponding images
@@ -146,8 +146,9 @@ private:
     void OnTextPointChange(wxCommandEvent &e);
     void OnKeyDown(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
-
-
+    
+    // experimental corner detector.
+    void OnAutoCreateCP();
 
     // GUI controls
     wxNotebook *m_leftTabs, *m_rightTabs;

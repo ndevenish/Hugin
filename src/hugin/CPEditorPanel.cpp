@@ -48,6 +48,11 @@
 
 #include <algorithm>
 
+#include <float.h>
+
+#include "vigra/cornerdetection.hxx"
+#include "vigra/localminmax.hxx"
+
 #include "common/utils.h"
 #include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
@@ -103,7 +108,8 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_TEXT_ENTER(XRCID("cp_editor_y2"), CPEditorPanel::OnTextPointChange )
     EVT_CHOICE(XRCID("cp_editor_mode"), CPEditorPanel::OnTextPointChange )
     EVT_CHAR(CPEditorPanel::OnKeyDown)
-    EVT_BUTTON(XRCID("cp_editor_delete"),CPEditorPanel::OnDeleteButton)
+    EVT_BUTTON(XRCID("cp_editor_delete"), CPEditorPanel::OnDeleteButton)
+    EVT_BUTTON(XRCID("cp_editor_auto_create"), CPEditorPanel::OnAutoCreateCP)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -116,7 +122,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
 
     wxPoint tabsz(1,14);
-    tabsz = ConvertDialogToPixels(tabsz); 
+    tabsz = ConvertDialogToPixels(tabsz);
     int tabH = tabsz.y;
     // left image
     m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
@@ -958,4 +964,51 @@ void CPEditorPanel::ShowControlPoint(unsigned int cpNr)
     setRightImage(p.image2Nr);
 
     SelectGlobalPoint(cpNr);
+}
+
+
+void CPEditorPanel::OnAutoCreateCP()
+{
+    DEBUG_DEBUG("corner detection software");
+    
+    
+    const PanoImage & limg = m_pano->getImage(m_leftImageNr);
+    // run both images through the harris corner detector
+    BImage leftImg = ImageCache::getInstance().getPyramidImage(
+        limg.getFilename(),0);
+    
+    BImage leftCorners(leftImg.size());
+    FImage leftCornerResponse(leftImg.size());
+    
+    // empty corner image
+    leftCorners.init(0);
+
+    DEBUG_DEBUG("running corner detector");
+
+    // find corner response at scale 1.0
+    vigra::cornerResponseFunction(srcImageRange(leftImg), 
+                                  destImage(leftCornerResponse), 
+                                  1.0);
+
+    DEBUG_DEBUG("finding local maxima");
+    
+    // find local maxima of corner response, mark with 1
+    vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners));
+    
+    DEBUG_DEBUG("thresholding corner response");
+    // threshold corner response to keep only strong corners (above 400.0)
+    transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
+                   vigra::Threshold<double, double>(
+                       400.0, DBL_MAX, 0.0, 1.0));
+    
+    DEBUG_DEBUG("combining corners and response");
+
+    // combine thresholding and local maxima
+    vigra::combineTwoImages(srcImageRange(leftCorners), srcImage(leftCornerResponse),
+                            destImage(leftCorners), std::multiplies<float>());
+    
+    // save image
+    
+    saveImage(leftCornerResponse,"corners.png");
+
 }

@@ -191,6 +191,19 @@
                 </object>
               </object>
               <label>options</label>
+              <object class="sizeritem">
+                <object class="wxStaticBoxSizer">
+                  <label>experimental stuff</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="cp_editor_auto_create">
+                      <label>harris corner detection</label>
+                    </object>
+                    <flag>wxALL</flag>
+                    <border>5</border>
+                  </object>
+                </object>
+              </object>
             </object>
             <flag>wxALL</flag>
             <border>3</border>

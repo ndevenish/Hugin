@@ -47,17 +47,17 @@ PanoramaMemento::~PanoramaMemento()
 void PT::fillVariableMap(VariableMap & vars)
 {
 
-    vars.insert(make_pair("y",Variable("y",0)));
-    vars.insert(make_pair("r",Variable("r",0)));
-    vars.insert(make_pair("p",Variable("p",0)));
+    vars.insert(pair<const char*, Variable>("y",Variable("y",0)));
+    vars.insert(pair<const char*, Variable>("r",Variable("r",0)));
+    vars.insert(pair<const char*, Variable>("p",Variable("p",0)));
 
     // Lens variables
-    vars.insert(make_pair("v",Variable("v",51)));
-    vars.insert(make_pair("a",Variable("a",0)));
-    vars.insert(make_pair("b",Variable("b",0)));
-    vars.insert(make_pair("c",Variable("c",0)));
-    vars.insert(make_pair("d",Variable("d",0)));
-    vars.insert(make_pair("e",Variable("e",0)));
+    vars.insert(pair<const char*, Variable>("v",Variable("v",51)));
+    vars.insert(pair<const char*, Variable>("a",Variable("a",0)));
+    vars.insert(pair<const char*, Variable>("b",Variable("b",0)));
+    vars.insert(pair<const char*, Variable>("c",Variable("c",0)));
+    vars.insert(pair<const char*, Variable>("d",Variable("d",0)));
+    vars.insert(pair<const char*, Variable>("e",Variable("e",0)));
 };
 
 
@@ -125,12 +125,12 @@ Lens::Lens()
       focalLengthConversionFactor(1),
       projectionFormat(RECTILINEAR)
 {
-    variables.insert(make_pair("v",LensVariable("v",50.0, true)));
-    variables.insert(make_pair("a",LensVariable("a", 0.0, true )));
-    variables.insert(make_pair("b",LensVariable("b",-0.01, true)));
-    variables.insert(make_pair("c",LensVariable("c", 0.0, true)));
-    variables.insert(make_pair("d",LensVariable("d", 0.0)));
-    variables.insert(make_pair("e",LensVariable("e", 0.0)));
+    variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50.0, true)));
+    variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
+    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b",-0.01, true)));
+    variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("d",LensVariable("d", 0.0)));
+    variables.insert(pair<const char*, LensVariable>("e",LensVariable("e", 0.0)));
 }
 
 char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", 0};
@@ -392,7 +392,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
 unsigned int PanoramaOptions::getHeight() const
 {
-    return (int) nearbyint(width * VFOV/HFOV);
+    return (int) (width * VFOV/HFOV);
 }
 
 const string PanoramaOptions::fileformatNames[] =
