@@ -142,7 +142,7 @@ bool utils::stringToDouble(std::string str, double & dest)
     } else {
         // conversion ok.
         dest = res;
-        DEBUG_DEBUG("converted: " << str << " to:" << dest);
+//        DEBUG_DEBUG("converted: " << str << " to:" << dest);
         return true;
     }
 }
