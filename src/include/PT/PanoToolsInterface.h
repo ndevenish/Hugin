@@ -43,6 +43,12 @@ extern "C" {
 #ifdef __WXMSW__
 #include <wx/msw/winundef.h>
 #undef DIFFERENCE
+#ifdef MIN
+#undef MIN
+#endif
+#ifdef MAX
+#undef MAX
+#endif
 #endif
 
 
@@ -105,12 +111,12 @@ public:
                          vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
 
-    /** create image->pano transformation 
+    /** create image->pano transformation
      *
      *  @param srcSize size of input image
      *  @param variables of input image
      *  @param srcProj projection of the image
-     *  @param destSize  output panorama size  
+     *  @param destSize  output panorama size
      *  @param destProj  panorama projection
      *  @param destHFOV  HFOV of panorama
      *  @param origSrcSize  original input image size, 0,0 if the same
