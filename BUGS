@@ -1,2 +1,5 @@
 - EXIF support:
   rescaled files with EXIF report wrong HFOV
+
+- Makefile
+  dependencies do not include local libraries.
