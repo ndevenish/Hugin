@@ -297,7 +297,8 @@ FDiff2D Panorama::calcFOV() const
     ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
     debug_out << endl;
 
-	PT::SpaceTransform T;
+    //PT::SpaceTransform T;
+    PTools::Transform T;
     unsigned int nImg = state.images.size();
     for (unsigned int i=0; i<nImg; i++) {
         // create suitable transform, pano -> image
