@@ -51,7 +51,6 @@ public:
 protected:
 
     void readUpdatedControlPoints(const std::string & file,
-                                  std::map<int,int> & imgMapping,
                                   PT::Panorama & pano);
 private:
 
