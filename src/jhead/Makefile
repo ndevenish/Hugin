@@ -52,11 +52,11 @@ SUBDIRS =
 DEPEND_FILES = *.cpp
 
 # ====================================================================
-# special compiler and linker flags for this directory
+# special compiler/linker flags needed in this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags)
-LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
+CFLAGS +=
+LFLAGS +=
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a
@@ -65,28 +65,48 @@ LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
 # .a. Those are added automatically.
 # ====================================================================
 
-LIBS =
+# ====================================================================
+# Libraries
+# Multiple libraries can be defined here, by adding them to the
+# LIBS list and specifying details in LIB_x_BIN LIB_x_OBJ
+# LIB_x_LFLAGS
+# This is useful for code that is needed from other directories.
+# ====================================================================
+LIBS = 1
+#LIBS = 1
 
-# extension libary to use TabCtrl in XRC files.
-# not used, since TabCtrl is not available on gtk/mac.
-LIB_1_BIN = my_xrc_extension
-LIB_1_OBJ = xh_tbctl.o
-LIB_1_LFLAGS =  $(LFLAGS)
+# Defaults
+LIB_LFLAGS = $(LFLAGS)
+
+# Library 1
+LIB_1_BIN = jhead
+LIB_1_OBJ = exif.o jpgfile.o
+LIB_1_LFLAGS =  $(LIB_LFLAGS)
 
 
 # ====================================================================
-# The applications that should be build in this directory.
-#
+# Applications
 # ====================================================================
 
+APPS =
+#APPS = 1 2
 
-APPS = 1
+# Defaults
+
+APP_LFLAGS =   $(LFLAGS)
 
 # App 1
 
-APP_1_BIN = hugin
-APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o
-APP_1_LFLAGS = $(LFLAGS)
+APP_1_BIN = bla
+APP_1_OBJ = bla.o bla2.o
+APP_1_LFLAGS = $(TEST_LFLAGS)
+
+# App 2
+
+APP_1_BIN = alb
+APP_1_OBJ = alb.o alb2.o
+APP_1_LFLAGS = $(TEST_LFLAGS)
+
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you
@@ -98,14 +118,12 @@ TESTS =
 
 # Defaults
 
-TEST_CFLAGS =   $(CFLAGS)
 TEST_LFLAGS =   $(LFLAGS)
 
 # Test 1
 
 TEST_1_BIN =
 TEST_1_OBJ =
-TEST_1_CFLAGS = $(TEST_CFLAGS)
 TEST_1_LFLAGS = $(TEST_LFLAGS)
 
 

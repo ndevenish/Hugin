@@ -43,7 +43,7 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = Panorama hugin
+SUBDIRS = jhead Panorama hugin
 
 # ====================================================================
 # Files that should be considered while creating the dependencies
@@ -60,66 +60,20 @@ DEPEND_FILES =
 
 LIBS = 
 
-# Defaults
-LIB_CFLAGS = $(CFLAGS)
-LIB_LFLAGS = $(LFLAGS)
-
-# Library 1
-LIB_1_BIN = somelib
-LIB_1_OBJ = somelib.o other.o
-LIB_1_CFLAGS =  $(LIB_CFLAGS)
-LIB_1_LFLAGS =  $(LIB_LFLAGS)
-
-
 # ====================================================================
 # The source files from which the applications should be built. The
 # applications will be given the same name as the source file but
 # without the suffix such as .cc
 # ====================================================================
 
-
 APPS = 
-
-# Defaults
-
-APP_CFLAGS =   $(CFLAGS)
-APP_LFLAGS =   $(LFLAGS)
-
-# App 1
-
-APP_1_BIN = bla
-APP_1_OBJ = bla.o bla2.o
-APP_1_CFLAGS = $(TEST_CFLAGS)
-APP_1_LFLAGS = $(TEST_LFLAGS)
-
-# App 2
-
-APP_1_BIN = alb
-APP_1_OBJ = alb.o alb2.o
-APP_1_CFLAGS = $(TEST_CFLAGS)
-APP_1_LFLAGS = $(TEST_LFLAGS)
-
 
 # ====================================================================
 # Some applications are only for testing. To make these compile you
 # must explicitly type "make tests"
 # ====================================================================
 
-
 TESTS =
-
-# Defaults
-
-TEST_CFLAGS =   $(CFLAGS)
-TEST_LFLAGS =   $(LFLAGS)
-
-# Test 1
-
-TEST_1_BIN =
-TEST_1_OBJ =
-TEST_1_CFLAGS = $(TEST_CFLAGS)
-TEST_1_LFLAGS = $(TEST_LFLAGS)
-
 
 # ====================================================================
 # Do not edit anything below this

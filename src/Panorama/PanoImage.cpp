@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <22-May-2003 19:24:47 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <23-May-2003 16:11:58 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -12,44 +12,15 @@
 
 #include <stdexcept>
 
-extern "C" {
-#include <jpeglib.h>
-}
-
-#include "PT/PanoImage.h"
-#include "PT/Panorama.h"
-#include "common/utils.h"
-
-
+#include <jhead/jhead.h>
+#include <PT/PanoImage.h>
+#include <PT/Panorama.h>
+#include <common/utils.h>
 
 using namespace PT;
 using namespace std;
 
-
 #if 0
-QDomElement ImagePosition::toXML(QDomDocument & doc)
-{
-    QDomElement root = doc.createElement("position");
-
-    root.setAttribute("yaw", yaw);
-    root.setAttribute("pitch", pitch);
-    root.setAttribute("roll", roll);
-
-    return root;
-}
-
-
-void ImagePosition::setFromXML(const QDomNode & node)
-{
-    DEBUG_DEBUG("ImagePosition::setFromXML");
-    Q_ASSERT(node.nodeName() == "position");
-    QDomNamedNodeMap attrs = node.attributes();
-    yaw = getAttrib(attrs, "yaw").toDouble();
-    roll = getAttrib(attrs, "roll").toDouble();
-    pitch = getAttrib(attrs, "pitch").toDouble();
-}
-
-
 QDomElement ImageOptions::toXML(QDomDocument & doc)
 {
     QDomElement root = doc.createElement("options");

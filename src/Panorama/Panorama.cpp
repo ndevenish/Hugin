@@ -32,12 +32,6 @@
 #include <stdio.h>
 #include <math.h>
 
-extern "C" {
-#include <libexif/exif-data.h>
-#include <libexif/exif-utils.h>
-#include <jpeglib.h>
-}
-
 #include "PT/Panorama.h"
 #include "PT/Process.h"
 #include "common/utils.h"

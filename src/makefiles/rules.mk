@@ -4,6 +4,11 @@
 #
 #  Author: Patric Jensfelt
 #
+#  Changes by Pablo d'Angelo
+#   - removed CORBA stuff
+#   - added LIBS, APPS and TESTS expansion (written by Boris Kluge)
+#   - make static instead of shared libraries
+#
 #  This library is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU Lesser General Public
 #  License as published by the Free Software Foundation; either
@@ -102,6 +107,7 @@ Makefile.depend: $(DEPEND_FILES) Makefile
 #=============================================================================
 
 lib.local: $(OBJ_DIR) $(LIB_DIR) $(addprefix $(LIB_DIR)/, $(LIBS_BIN))
+	echo $(OBJ_FILES)
 
 #=============================================================================
 # Create Applicatios
@@ -113,7 +119,7 @@ apps.local: $(OBJ_DIR) $(BIN_DIR) $(APPS_BIN)
 # Create test Applications use "make tests" to build these tests
 #=============================================================================
 
-tests.local: $(OBJ_DIR) $(TST_DIR) $(addprefix $(TST_DIR)/, $(TESTS_BIN))
+tests.local: $(OBJ_DIR) $(TESTS_BIN)
 
 #=============================================================================
 # Install links to the binary files

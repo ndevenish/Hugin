@@ -31,7 +31,7 @@
 namespace PT {
 
 class PanoImage;
-    
+
 /** a variable has a value, name and can be linked to another variable.
  *
  *  (I believe linking is only possible for HFOV,a,b,c,d and
@@ -333,6 +333,8 @@ class Panorama;
 class PanoramaMemento
 {
 public:
+    PanoramaMemento()
+        { };
     /// copy ctor.
     PanoramaMemento(const PanoramaMemento & o);
     /// assignment operator
@@ -340,8 +342,6 @@ public:
     virtual ~PanoramaMemento();
 private:
     friend class PT::Panorama;
-    PanoramaMemento()
-        { };
     // state members for the state
 
     ImagePtrVector images;

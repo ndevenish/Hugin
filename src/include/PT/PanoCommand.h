@@ -25,7 +25,7 @@
 #define _PANOCOMMAND_H
 
 #include "Process.h"
-#include "../Command.h"
+#include "common/Command.h"
 
 #include "PanoImage.h"
 #include "Panorama.h"

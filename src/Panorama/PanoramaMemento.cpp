@@ -26,15 +26,9 @@
 
 #include <iostream>
 
-extern "C" {
-#include <libexif/exif-data.h>
-#include <libexif/exif-utils.h>
-#include <jpeglib.h>
-}
-
-#include "common/utils.h"
-#include "PT/PanoramaMemento.h"
-
+#include <common/utils.h>
+#include <jhead/jhead.h>
+#include <PT/PanoramaMemento.h>
 
 using namespace PT;
 using namespace std;
@@ -107,22 +101,6 @@ std::ostream & OptimizerSettings::printOptimizeLine(std::ostream & o,
     return o << std::endl;
 }
 
-
-static ExifEntry *
-search_entry (ExifData *ed, ExifTag tag)
-{
-  ExifEntry *entry;
-  unsigned int i;
-
-  for (i = 0; i < EXIF_IFD_COUNT; i++) {
-    entry = exif_content_get_entry (ed->ifd[i], tag);
-    if (entry)
-      return entry;
-  }
-  return 0;
-}
-
-
 #if 0
 QString PT::getAttrib(QDomNamedNodeMap map, QString name)
 {
@@ -177,6 +155,7 @@ void Lens::setFromXML(const QDomNode & node)
 
 bool Lens::readEXIF(const std::string & filename)
 {
+    
     bool isLandscape;
     int width, height;
     width = height = 0;
@@ -187,142 +166,43 @@ bool Lens::readEXIF(const std::string & filename)
         return false;
     }
     std::string ext = filename.substr( idx+1 );
-    if (ext != "jpg" && ext != "JPG") {
-        DEBUG_DEBUG("can only read lens data from jpg files, current ext:"
-                    << ext);
+    if (ext != "jpg" && ext != "JPG" && ext != "jpeg" && ext != "JPEG") {
+        DEBUG_NOTICE("can only read lens data from jpg files, current ext:"
+                     << ext);
         return false;
     }
+    
+    ImageInfo_t exif;
+    ResetJpgfile();
 
-    // read normal jpeg header for image dimensions
+    // Start with an empty image information structure.
+    memset(&exif, 0, sizeof(exif));
+    exif.FlashUsed = -1;
+    exif.MeteringMode = -1;
 
-    /* This struct contains the JPEG decompression parameters and pointers to
-     * working space (which is allocated as needed by the JPEG library).
-     */
-    struct jpeg_decompress_struct cinfo;
-    /* We use our private extension JPEG error handler.
-     * Note that this struct must live as long as the main JPEG parameter
-     * struct, to avoid dangling-pointer problems.
-     */
-    struct jpeg_error_mgr jerr;
-    /* More stuff */
-    FILE * infile;                /* source file */
-
-    /* In this example we want to open the input file before doing anything else,
-     * so that the setjmp() error recovery below can assume the file is open.
-     * VERY IMPORTANT: use "b" option to fopen() if you are on a machine that
-     * requires it in order to read binary files.
-     */
-
-    if ((infile = fopen(filename.c_str(), "rb")) == NULL) {
-        DEBUG_NOTICE("can't open " << filename.c_str());
+    if (!ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
+        DEBUG_DEBUG("Could not read jpg info");
         return false;
     }
+    ShowImageInfo(exif);
 
-    /* Step 1: allocate and initialize JPEG decompression object */
 
-    /* We set up the normal JPEG error routines */
-    cinfo.err = jpeg_std_error(&jerr);
-    /* Now we can initialize the JPEG decompression object. */
-    jpeg_create_decompress(&cinfo);
-
-    /* Step 2: specify data source (eg, a file) */
-
-    jpeg_stdio_src(&cinfo, infile);
-
-    /* Step 3: read file parameters with jpeg_read_header() */
-
-    (void) jpeg_read_header(&cinfo, TRUE);
-
-    jpeg_destroy_decompress(&cinfo);
-    fclose (infile);
-
-    width = cinfo.image_width;
-    height = cinfo.image_height;
-
-    isLandscape = (width > height);
-
-    // Try to read EXIF data from the file.
-    ExifData * ed = 0;
-    ed = exif_data_new_from_file (filename.c_str());
-    if (!ed) {
-        DEBUG_NOTICE(filename << " does not contain EXIF data");
-        return false;
-    }
-    ExifByteOrder order = exif_data_get_byte_order (ed);
-    DEBUG_DEBUG(filename << " EXIF tags are " << exif_byte_order_get_name (order));
-
-    ExifEntry * entry=0;
-
-    // read real focal length;
-    entry = search_entry(ed,EXIF_TAG_FOCAL_LENGTH);
-    if (entry) {
-        ExifRational t = exif_get_rational(entry->data, order);
-        focalLength = exifFocalLength = (double) t.numerator/t.denominator;
+    isLandscape = (exif.Width > exif.Height);
+    double ccdWidth;
+    if (!isLandscape) {
+        ccdWidth = exif.CCDWidth;
     } else {
-        DEBUG_NOTICE(filename << " does not contain EXIF focal length");
-        return false;
+        // portrait images must use the ccd height instead
+        // of ccd width. we assume that the pixels are squares
+        ccdWidth = exif.CCDWidth * exif.Height / exif.Width;
     }
-
-    // resolution in mm.
-    double resUnit = 0;
-    // read focal plane resolution unit
-    entry = search_entry(ed,EXIF_TAG_FOCAL_PLANE_RESOLUTION_UNIT);
-    if (entry) {
-        ExifShort res_unit = exif_get_short(entry->data, order);
-        switch(res_unit) {
-        case 2:
-            resUnit = 25.4;
-            break;
-        case 3:
-            resUnit = 10;
-        default:
-            DEBUG_NOTICE("Unknown Focal Plane Resolution Unit in EXIF tag: "
-                         <<resUnit <<", assuming inch");
-            resUnit = 2.54;
-        }
-    } else {
-        DEBUG_NOTICE("No EXIF_TAG_FOCAL_PLANE_RESOLUTION_UNIT found");
-        return false;
-    }
-
-    // in mm
-    double ccdWidth = 0;
-    if (isLandscape) {
-        DEBUG_DEBUG("landscape image");
-        // read focal plane x resolution
-        entry = search_entry(ed,EXIF_TAG_FOCAL_PLANE_X_RESOLUTION);
-        if (entry) {
-            ExifRational t = exif_get_rational(entry->data, order);
-            double ccdRes = (double) t.numerator/t.denominator;
-            // BUG need to use width during capture.. it might have been
-            // resized
-            ccdWidth = width * resUnit / ccdRes;
-        } else {
-            DEBUG_DEBUG("No EXIF_TAG_FOCAL_PLANE_X_RESOLUTION found");
-            return false;
-        }
-    } else {
-        DEBUG_DEBUG("portrait image");
-        // read focal plane y resolution (we have a portrait image)
-        entry = search_entry(ed,EXIF_TAG_FOCAL_PLANE_Y_RESOLUTION);
-        if (entry) {
-            ExifRational t = exif_get_rational(entry->data, order);
-            double ccdRes = (double) t.numerator/t.denominator;
-            // BUG need to use height during capture.. it might have been
-            // resized
-            ccdWidth = height * resUnit / ccdRes;
-        } else {
-            DEBUG_DEBUG("No EXIF_TAG_FOCAL_PLANE_Y_RESOLUTION found");
-            return false;
-        }
-    }
-    HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exifFocalLength) * 180/M_PI;
+    
+    HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     DEBUG_DEBUG("CCD size: " << ccdWidth << " mm");
     DEBUG_DEBUG("focal length: " << exifFocalLength << ", 35mm equiv: "
               << exifFocalLength * exifFocalLengthConversionFactor
               << " HFOV: " << HFOV);
-    exif_data_unref (ed);
     return true;
 }
 
