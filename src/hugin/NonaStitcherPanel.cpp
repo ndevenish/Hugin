@@ -214,7 +214,6 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     PanoramaOptions opts = options;
 
     bool enblend = m_EnblendCheckBox->IsChecked();
-    string output = opts.outfile;
     try {
         if (enblend) {
             // output must be set to TIFF
@@ -222,12 +221,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // set output to multiple tiff.
             // hope the next enblend will also contain multilayer support
             opts.outputFormat = PanoramaOptions::TIFF_m;
-            // the temporary filename.
-            output = "enblend_input";
         }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
-                           pdisp, output);
+                           pdisp, opts.outfile);
 
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
@@ -248,7 +245,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
 #endif
-            
+
             // call enblend, and create the right output file
             // I hope this works correctly with filenames that contain
             // spaces
@@ -265,6 +262,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 
             unsigned int nImg = pano.getNrOfImages();
             char imgname[256];
+            string output = stripExtension(opts.outfile);
             for(unsigned int i = 0; i < nImg; i++)
             {
                 snprintf(imgname,256,"%s%04d.tif", output.c_str(), i);
