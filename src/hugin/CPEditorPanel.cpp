@@ -805,7 +805,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     {
         // Bad correlation result.
         wxMessageBox(
-            wxString::Format(_("No similar point found.\ncorrelation coefficient: %.3f, (should be < %.3f)\npeak curvature: (%.3f, %.3f), ( should be > %.3f)"),
+            wxString::Format(_("No similar point found.\ncorrelation coefficient: %.3f (should be > %.3f)\npeak curvature: (%.3f, %.3f) ( should be > %.3f)"),
                              res.maxi, corrThresh, res.curv.x, res.curv.y, curvThresh),
             _("No similar point found"),
             wxICON_HAND, this);
