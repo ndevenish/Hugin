@@ -112,6 +112,7 @@ APP_1_OBJ = \
 	    TextKillFocusHandler.o \
 	    ImageOrientationPanel.o \
 	    ImageOrientationFrame.o \
+	    PanoDruid.o \
             $(RES_O)
 
 ifeq ($(PLATFORM),win32)

@@ -449,7 +449,7 @@ public:
         { dirty = false;}
 
     /** true if there are unsaved changes */
-    bool isDirty()
+    bool isDirty() const
         { return dirty; }
 
 

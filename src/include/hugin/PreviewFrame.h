@@ -27,6 +27,7 @@
 #include <wx/frame.h>
 
 #include "PT/Panorama.h"
+#include "hugin/PanoDruid.h"
 
 class PreviewPanel;
 class wxToolBar;
@@ -53,7 +54,6 @@ public:
 
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
-    void updatePanoDruid();
 
 protected:
     void OnClose(wxCloseEvent& e);
@@ -81,11 +81,7 @@ private:
 
     wxStaticBoxSizer * m_ToggleButtonSizer;
 
-	int m_druid;
-    wxBitmap m_PanoDruidGraphic;
-    wxStaticBoxSizer * m_PanoDruidSizer;
-	wxStaticBitmap * m_PanoDruidBitmap;
-	wxStaticText * m_PanoDruidText;
+	PanoDruid m_druid;
 
     std::vector<wxToggleButton *> m_ToggleButtons;
 

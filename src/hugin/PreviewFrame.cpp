@@ -70,8 +70,11 @@ END_EVENT_TABLE()
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("panorama preview"),
               wxDefaultPosition, wxDefaultSize),
-    m_pano(pano)
+	  m_pano(pano),
+	  m_druid(this)
 {
+	DEBUG_TRACE("");
+
 //    SetTitle(_("panorama preview"));
     SetAutoLayout(TRUE);
 
@@ -121,7 +124,6 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
-
     topsizer->Add(flexSizer,
                   1,        // vertically stretchable
                   wxEXPAND | // horizontally stretchable
@@ -150,16 +152,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
 
-	m_druid = -1;
-    m_PanoDruidSizer = new wxStaticBoxSizer(
-        new wxStaticBox(this, -1, _("the Panorama druid")),
-        wxHORIZONTAL);
-    topsizer->Add(m_PanoDruidSizer, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 1);
-	m_PanoDruidBitmap = new wxStaticBitmap(this, -1, m_PanoDruidGraphic, wxPoint(0,0));
-	m_PanoDruidText = new wxStaticText(this, -1, _(""), wxPoint(0,0));
-	m_PanoDruidSizer->Add(m_PanoDruidBitmap, 0, wxADJUST_MINSIZE);
-	m_PanoDruidSizer->Add(m_PanoDruidText, 1, wxADJUST_MINSIZE);
-	updatePanoDruid();
+    topsizer->Add(&m_druid, 0, wxEXPAND | wxALL, 5);
+	m_druid.Update(m_pano);
 
     // add a status bar
     CreateStatusBar(2);
@@ -217,7 +211,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                                    projection.c_str()),1);
     m_HFOVSlider->SetValue((int) round(opts.HFOV));
     m_VFOVSlider->SetValue((int) round(opts.VFOV));
-	updatePanoDruid();
+	m_druid.Update(m_pano);
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -273,7 +267,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
-		updatePanoDruid();
+		m_druid.Update(m_pano);
     }
 }
 
@@ -321,7 +315,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
-	updatePanoDruid();
+	m_druid.Update(m_pano);
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
@@ -339,7 +333,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
     m_PreviewPanel->ForceUpdate();
-	updatePanoDruid();
+	m_druid.Update(m_pano);
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
@@ -441,82 +435,3 @@ static struct advocation _advice[] =
 
 	{ NULL, NULL, _("") }
 };
-
-int findAdvocation(const wxChar* name)
-{
-	//REVIEW: boneheaded linear search for matching advocation name
-	int i = 0;
-	wxString sought = name;
-	while (_advice[i].name && !sought.IsSameAs(_advice[i].name))
-		i++;
-	// fallback on "ERROR" if not found
-	if (!_advice[i].name)
-		return 0;
-	return i;
-}
-
-void PreviewFrame::updatePanoDruid()
-{
-    DEBUG_TRACE("updatePanoDruid() checking for any heuristics");
-    const PanoramaOptions & opts = m_pano.getOptions();
-
-	int advice = 0;
-
-	// image count issues
-	if (!advice && 0 == m_pano.getNrOfImages())
-		advice = findAdvocation("NO IMAGES");
-	if (!advice && 1 == m_pano.getNrOfImages())
-		advice = findAdvocation("ONE IMAGE");
-
-	// image arrangement issues
-	//TODO: all images have the same center
-
-	// camera/lens issues
-	if (!advice && opts.HFOV <= 2.0)
-		advice = findAdvocation("LOW HFOV");
-
-	// control point issues
-	//TODO: no vertical or horizontal control points
-
-	// optimization issues
-	//TODO: no variables are marked to be optimized
-	//TODO: all variables are marked to be optimized
-	//TODO: optimizing for different projection from final
-
-	// output dimension issues
-	unsigned long threshold = 100000000L; //REVIEW: calc input images and/or memory
-	if (!advice && ((unsigned long)opts.width * opts.getHeight() >= threshold))
-		advice = findAdvocation("HUGE FINAL");
-
-	// projection choice issues
-	//TODO: above 90 hfov, above 5 images, but rectlinear projection
-
-	// output format issues
-
-	//TODO: unsaved project
-
-	// reward: no known issues found
-	if (!advice)
-		advice = findAdvocation("READY");
-
-	DEBUG_INFO( "updatePanoDruid() found \"" << _advice[advice].name << "\"" );
-
-	// set the controls to contain the appropriate text
-	if (m_druid != advice)
-	{
-		DEBUG_INFO( "updatePanoDruid() updating the visuals" );
-
-		wxString full = _advice[advice].brief;
-		full += '\n';
-		full += _advice[advice].text;
-		m_PanoDruidText->SetLabel(full);
-		m_PanoDruidGraphic.LoadFile(MainFrame::Get()->GetXRCPath() +
-									"/data/" + _advice[advice].graphic,
-									wxBITMAP_TYPE_PNG);
-		m_PanoDruidBitmap->SetBitmap(m_PanoDruidGraphic);
-		m_druid = advice;
-		m_PanoDruidSizer->Layout();
-		Layout();
-	}
-}
-
