@@ -1,5 +1,8 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
+INCLUDES    = -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign $(WX_CXXFLAGS) 
+AM_CXXFLAGS = $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS) $(ZLIB_FLAGS) $(PANO_FLAGS)
+AM_LDFLAGS  = $(WX_LIBS) $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF) $(LIB_ZLIB) $(LIB_PANO)
 
 SUFFIXES  = .rc
 
@@ -8,8 +11,9 @@ RCFLAGS   = --use-temp-file --verbose -O COFF
 
 RCCOMPILE = $(RC) $(RCFLAGS) \
 	    `echo $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) |\
-	    sed -e 's/-I/--include-dir /g;s/-D/--define /g'`
-					  
+	    sed -e 's/-I/--include-dir /g;s/-D/--define /g;s/-m.*//g'`
+
+
 SUBDIRS   = po
 
 if HAVE_WIN32
@@ -17,10 +21,6 @@ WIN_SRC   = nona_gui_rc.rc
 else
 WIN_SRC   =
 endif
-
-INCLUDES    = -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign
-AM_CXXFLAGS = $(WX_CXXFLAGS) $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS) $(ZLIB_FLAGS) $(PANO_FLAGS)
-AM_LDFLAGS  = $(WX_LIBS) $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF) $(LIB_ZLIB) $(LIB_PANO)
 
 bin_PROGRAMS     = nona_gui
 nona_gui_SOURCES = nona_gui.cpp $(WIN_SRC)

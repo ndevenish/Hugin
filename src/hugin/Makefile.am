@@ -1,5 +1,7 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
+INCLUDES    = -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(FFTW_INCLUDES) $(WX_CXXFLAGS) 
+AM_CXXFLAGS = $(GTK_CFLAGS) $(PANO_FLAGS) $(BOOST_CPPFLAGS)
 
 SUFFIXES    = .rc
 
@@ -8,10 +10,7 @@ RCFLAGS     = --use-temp-file --verbose -O COFF
 
 RCCOMPILE   = $(RC) $(RCFLAGS) \
 	      `echo $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) |\
-	      sed -e 's/-I/--include-dir /g;s/-D/--define /g'`
-
-INCLUDES    = -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(FFTW_INCLUDES)
-AM_CXXFLAGS = $(WX_CXXFLAGS) $(GTK_CFLAGS) $(PANO_FLAGS)
+	      sed -e 's/-I/--include-dir /g;s/-D/--define /g;s/-m.*//g'`
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
@@ -33,7 +32,7 @@ libhuginwxutils_la_SOURCES = ImageCache.cpp MyProgressDialog.cpp
 
 bin_PROGRAMS   = hugin
 hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)
-hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(FFTW_LDFLAGS) $(LIB_FFTW) $(LIB_PANO)
+hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(FFTW_LDFLAGS) $(LIB_FFTW) $(LIB_PANO) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
                  ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
                  ${top_builddir}/src/vigra_ext/libvigra_ext.la libhuginwxutils.la
