@@ -549,6 +549,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             int t = format.find(' ');
             // FIXME. add argument parsing for output formats
             options.outputFormat = options.getFormatFromName(format.substr(0,t));
+            // "parse" jpg quality
+            unsigned int q = format.find('q',t);
+            if (q != string::npos) {
+                DEBUG_DEBUG("found jpg quality: " << format.substr(q+1));
+                options.quality = utils::lexical_cast<int, string>(format.substr(q+1));
+            }
 
             int cRefImg = 0;
             if (getParam(cRefImg, line,"k")) {

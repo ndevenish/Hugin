@@ -69,8 +69,8 @@ APPS = 1
 
 # App 1
 
-APP_1_BIN = stitcher
-APP_1_OBJ = stitcher.o
+APP_1_BIN = nona
+APP_1_OBJ = nona.o
 
 APP_1_LFLAGS = $(LFLAGS)
 endif

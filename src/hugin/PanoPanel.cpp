@@ -271,7 +271,7 @@ void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
     int lt = m_InterpolatorChoice->GetSelection();
     wxString Ip;
     switch ( lt ) {
-    case PanoramaOptions::POLY_3:            Ip = _("Poly3 (Bicubic)"); break;
+    case PanoramaOptions::CUBIC:             Ip = _("Bicubic"); break;
     case PanoramaOptions::SPLINE_16:         Ip = _("Spline 16"); break;
     case PanoramaOptions::SPLINE_36:         Ip = _("Spline 36"); break;
     case PanoramaOptions::SINC_256:          Ip = _("Sinc 256"); break;

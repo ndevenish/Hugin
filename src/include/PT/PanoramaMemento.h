@@ -314,10 +314,10 @@ public:
                             EQUIRECTANGULAR = 2 };
 
 
-    /** soften the stairs if they occure
+    /** soften the stairs if they occur
      */
     enum Interpolator {
-        POLY_3 = 0,
+        CUBIC = 0,
         SPLINE_16,
         SPLINE_36,
         SINC_256,
@@ -361,7 +361,7 @@ public:
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
           colorCorrection(NONE), colorReferenceImage(0),
-          gamma(1.0), interpolator(POLY_3),
+          gamma(1.0), interpolator(CUBIC),
           optimizeReferenceImage(0),
           featherWidth(10)
         {};
@@ -377,7 +377,7 @@ public:
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
             gamma = 1.0;
-            interpolator = POLY_3;
+            interpolator = CUBIC;
             featherWidth = 10;
             outputFormat = JPEG;
         }
@@ -464,8 +464,8 @@ public:
 
     /** enum for supported PTScript syntax bastards */
     enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
-        
-    
+
+
     /** load a PTScript file
      *
      *  initializes the PanoramaMemento from a PTScript file

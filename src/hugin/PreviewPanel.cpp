@@ -360,7 +360,9 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
                            ulInt,
                            t,
                            vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
-                                         empty.accessor()));
+                                         empty.accessor()),
+                           interp_bilin()
+                           );
 }
 
 

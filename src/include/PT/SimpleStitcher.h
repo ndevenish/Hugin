@@ -74,10 +74,72 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         importImage(info, destImage(srcImg));
 
         progress.progressMessage("remapping " + img.getFilename());
-        PTools::remapImage(pano, i,
-                           srcImageRange(srcImg),
-                           opts,
-                           remapped[i]);
+        
+        // this should be made a bit smarter, but I don't
+        // want to have virtual function call for the interpolator
+        switch (opts.interpolator) {
+        case PT::PanoramaOptions::CUBIC:
+            DEBUG_DEBUG("using cubic interpolator")
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_cubic());
+            break;
+        case PT::PanoramaOptions::SPLINE_16:
+            DEBUG_DEBUG("interpolator: spline16")
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_spline16());
+            break;
+        case PT::PanoramaOptions::SPLINE_36:
+            DEBUG_DEBUG("interpolator: spline36")
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_spline36());
+            break;
+        case PT::PanoramaOptions::SPLINE_64:
+            DEBUG_DEBUG("interpolator: spline64")
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_spline64());
+            break;
+        case PT::PanoramaOptions::SINC_256:
+            DEBUG_DEBUG("interpolator: sinc 256")
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_sinc<8>());
+            break;
+        case PT::PanoramaOptions::BILINEAR:
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_bilin());
+            break;
+        case PT::PanoramaOptions::NEAREST_NEIGHBOUR:
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_nearest());
+            break;
+        case PT::PanoramaOptions::SINC_1024:
+            PTools::remapImage(pano, i,
+                               srcImageRange(srcImg),
+                               opts,
+                               remapped[i],
+                               interp_sinc<32>());
+            break;
+        }
 
         if ( basename != "") {
             // write out the destination images
@@ -133,8 +195,6 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         }
     }
     DEBUG_DEBUG("merge finished");
-
-
 }
 
 } // namespace PTools

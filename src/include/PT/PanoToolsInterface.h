@@ -29,6 +29,7 @@
 #include "vigra/accessor.hxx"
 #include "vigra/interpolating_accessor.hxx"
 
+#include "PT/Interpolators.h"
 #include "PT/Panorama.h"
 #include "PT/PanoramaMemento.h"
 
@@ -122,12 +123,12 @@ public:
     void transformImgCoord(double & x_dest, double & y_dest,
                    double x_src, double y_src)
         {
-            x_src -= m_srcTX;
-            y_src -= m_srcTY;
+            x_src -= m_srcTX - 0.5 ;
+            y_src -= m_srcTY - 0.5;
 
             execute_stack(x_src, y_src, &x_dest, &y_dest, &m_stack);
-            x_dest += m_destTX;
-            y_dest += m_destTY;
+            x_dest += m_destTX - 0.5;
+            y_dest += m_destTY - 0.5;
         }
 
     void transform(FDiff2D& dest, const FDiff2D & src)
@@ -218,16 +219,19 @@ struct RemappedPanoImage
  *                              need a full image)
  *  @param dist distance image for @p dest (might be resized as well)
  *
+ *  @param interp Interpolator class (calculates weights for interpolation)
  *
  */
 template <class SrcImageIterator, class SrcAccessor,
-          class DestImageType, class DistImageType>
+          class DestImageType, class DistImageType, 
+          class Interpolator>
 //          class DestImageIterator, class DestAccessor,
 //          class DistImageIterator, class DistAccessor>
 void remapImage(const PT::Panorama & pano, unsigned int imgNr,
                 vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                 const PT::PanoramaOptions & opts,
-                RemappedPanoImage<DestImageType, DistImageType> & remapped)
+                RemappedPanoImage<DestImageType, DistImageType> & remapped,
+                Interpolator interp)
 
 //                vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
 //                vigra::Diff2D destUL,
@@ -265,7 +269,8 @@ void remapImage(const PT::Panorama & pano, unsigned int imgNr,
                            vigra::destImageRange(remapped.image),
                            ulInt,
                            t,
-                           vigra::destImageRange(remapped.dist));
+                           vigra::destImageRange(remapped.dist),
+                           interp);
 }
 
 /** Transform an image into the panorama
@@ -289,17 +294,20 @@ void remapImage(const PT::Panorama & pano, unsigned int imgNr,
  *                distance of the corrosponding pixel from the center of @p
  *                src. This is useful to calculate nice seams. Use a null
  *                image if this information is not needed.
+ *  @param interp Interpolator class (calculates weights for interpolation)
  *
  */
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor,
           class Transform,
-          class DistImageIterator, class DistAccessor>
+          class DistImageIterator, class DistAccessor,
+          class Interpolator>
 void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                     vigra::Diff2D destUL,
                     Transform & transform,
-                    vigra::triple<DistImageIterator, DistImageIterator, DistAccessor> centerDist)
+                    vigra::triple<DistImageIterator, DistImageIterator, DistAccessor> centerDist,
+                    Interpolator interp)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
     vigra::Diff2D distSize = centerDist.second - centerDist.first;
@@ -323,8 +331,13 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
 
 //    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
 
-
-    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
+    //InterpolatingAccessor(src.third, interp);
+    InterpolatingAccessor<SrcAccessor, 
+                          typename SrcAccessor::value_type,
+                          Interpolator> interpol(src.third, interp);
+    
+    
+//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
 
 //    vigra::BilinearInterpolatingAccessor interpol(src.third);
 
@@ -342,8 +355,13 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
         {
             double sx,sy;
             transform.transformImgCoord(sx,sy,x,y);
-            if (sx < 0 || sx > srcSize.x-1
-                || sy < 0 || sy > srcSize.y-1)
+            // make sure that the interpolator doesn't
+            // access pixels outside.. Should we introduce
+            // some sort of border treatment?
+            if (sx < interp.size/2 -1
+                || sx > srcSize.x-interp.size/2 - 1
+                || sy < interp.size/2 - 1  
+                || sy > srcSize.y-interp.size/2 - 1)
             {
                 if (calcDist) {
                     // save an invalid distance
@@ -353,9 +371,9 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
             } else {
 //                cout << x << "," << y << " -> " << sx << "," << sy << " " << endl;
 
+//                nearest neighbour
 //                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
-                // do a nearest neighbour interpolation
-                // fixme, border check here?
+                // use given interpolator function.
                 *xd = interpol(src.first, sx, sy);
                 if (calcDist) {
                     double mx = sx - srcMiddle.x;
