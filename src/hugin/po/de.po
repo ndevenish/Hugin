@@ -827,6 +827,10 @@ msgstr ""
 #: ../ptopengui.cpp:894
 msgid "Colour correction"
 msgstr "Farbkorrektur"
+msgid "select kind of colour correction relative to the right side reference image"
+msgstr "Korrekturart wählen."
+msgid "image used as anchor for colour correction (will itself remain unchanged)"
+msgstr "Ankerbild für die Farbkorrektur. Das gewählte Bild wird nicht selbst verändert."
 
 #: ../ptopengui.cpp:897
 msgid "Modify colors"
@@ -1509,7 +1513,13 @@ msgstr "externer Panoramabetrachter"
 msgid "precise"
 msgstr "genau"
 msgid "Cuts the height of an preview to quickly wath the horizont line of an panorama. To control the orientation."
-msgstr "Verkleinert die zu berechnende Höhe für eine shcnellere Horizontvorschau. Zur Kontrolle der Ausrichtung."
+msgstr "Verkleinert die zu berechnende Höhe für eine schnellere Horizontvorschau. Zur Kontrolle der Ausrichtung."
+msgid "single preview"
+msgstr "Einzelvorschau"
+msgid "Render only one image."
+msgstr "Nur ein Bild anzeigen"
+msgid "Render this image in single display mode."
+msgstr "Zeigt dieses Bild als einziges."
 
 #: ../ptopengui.cpp:1801
 msgid "Start preview stitching"

@@ -71,11 +71,15 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     bool auto_preview;
     bool auto_optimize;
     bool auto_optimize_run;
+    unsigned int optimizeAnchor;
     bool panoviewer_enabled;
     bool panoviewer_precise;
     bool panoviewer_started;
     int previewWidth;
     int previewHeight;
+    bool preview_single;
+    unsigned int previewSingle;
+
     /* initialize from gui values */
     void PanoChanged (wxCommandEvent & e);
 
@@ -92,8 +96,8 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void DoOptimization (wxCommandEvent & e);
     void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
 
-    void GammaChanged(wxCommandEvent & e);
     void ColourModeChanged(wxCommandEvent & e);
+    void GammaChanged(wxCommandEvent & e);
     void HFOVChanged(wxCommandEvent & e);
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
@@ -101,10 +105,12 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
     void DoPreview(wxCommandEvent & e);
     void autoPreview(wxCommandEvent & e);
     void autoOptimize(wxCommandEvent & e);
+    void optimizeAnchorChanged(wxCommandEvent & e);
     void panoviewerEnabled(wxCommandEvent & e);
     void panoviewerPrecise(wxCommandEvent & e);
     void previewWidthChanged(wxCommandEvent & e);
     void previewHeightChanged(wxCommandEvent & e);
+    void previewSingleChanged(wxCommandEvent & e);
 
     void FinalFormatChanged(wxCommandEvent & e);
     void WidthChanged(wxCommandEvent & e);

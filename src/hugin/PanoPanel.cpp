@@ -89,6 +89,10 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
                                                PanoPanel::panoviewerEnabled )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_precise"),
                                                PanoPanel::panoviewerPrecise )
+  EVT_SPINCTRL ( XRCID("pano_spin_single_preview"),
+                                               PanoPanel::previewSingleChanged)
+  EVT_CHECKBOX ( XRCID("pano_cb_single_preview"),
+                                               PanoPanel::previewSingleChanged)
 
   EVT_CHOICE   ( XRCID("pano_choice_formatFinal"),PanoPanel::FinalFormatChanged)
   EVT_COMBOBOX ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
@@ -276,7 +280,7 @@ void PanoPanel::autoOptimize ( wxCommandEvent & e )
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
-    DEBUG_TRACE("");
+    DEBUG_TRACE("self_pano_dlg " << self_pano_dlg);
     if (!self_pano_dlg && (pano.getNrOfImages() > 0) ) {
       std::stringstream filename;
       int old_previewWidth = previewWidth;
@@ -299,29 +303,40 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         preview_opt.quality = 100;
 
       // Set the preview image accordingly to ImagesPanel.cpp
-      for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
-        // test for needed precision of source image
-        double p_width = (double)pano.getImage(imgNr).getWidth() /
-                         (double)pano.getImage(imgNr).getHeight() *
+      for (int imgNr=(int)pano.getNrOfImages()-1; imgNr >= 0; imgNr--) {
+        if ( preview_single && !(imgNr == (int)previewSingle) ) {
+          DEBUG_INFO ( "preview_single("<< preview_single <<"): " << previewSingle )
+          if ( imgNr > (int)previewSingle ) {
+            preview_pano.removeImage(imgNr);
+          } else {
+            preview_pano.removeImage(0);
+          }
+          DEBUG_INFO ("remove image: "<< imgNr)
+        } else {
+          // test for needed precision of source image
+          double p_width =(double)pano.getImage((unsigned int)imgNr).getWidth()/
+                         (double)pano.getImage((unsigned int)imgNr).getHeight()*
                          128.0;
-        if (p_width > 128.0) p_width = 128.0;
-        int source_pixels = (int)(p_width *
+          if (p_width > 128.0) p_width = 128.0;
+          int source_pixels = (int)(p_width *
                             preview_opt.HFOV /
-                            pano.getVariable(imgNr).HFOV.getValue() );
-        DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
-        if ( (source_pixels >= (int)preview_opt.width)
-             && !panoviewer_precise ) {
-          wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
-          filename.str("");
-          filename
+                            pano.getVariable((unsigned int)imgNr).HFOV.getValue() );
+          DEBUG_INFO ( source_pixels <<" source:target "<< preview_opt.width )
+          if ( ((source_pixels >= (int)preview_opt.width)
+                && !panoviewer_precise) 
+               || !panoviewer_enabled ) {
+            wxFileName fn= (wxString)pano.getImage((unsigned int)imgNr).getFilename().c_str();
+            filename.str("");
+            filename
 #if 0
           << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
 #endif
                   <<_("preview")<<"_"<< imgNr <<".ppm" ;
-          PanoImage image = preview_pano.getImage(imgNr);
-          image.setFilename( filename.str() ) ;
-          preview_pano.setImage(imgNr, image);
-          DEBUG_INFO ("rendering preview image: "<< filename.str())
+            PanoImage image = preview_pano.getImage((unsigned int)imgNr);
+            image.setFilename( filename.str() ) ;
+            preview_pano.setImage((unsigned int)imgNr, image);
+            DEBUG_INFO ("rendering preview image: "<< filename.str())
+          }
         }
       }
 
@@ -495,10 +510,16 @@ void PanoPanel::PanoOptionsChanged ( PanoramaOptions &o )
     int lt;
 //    UIntSet imgNr;
 
-//    ColourModeChanged (e);
+    // setting number of available images
+    XRCCTRL(*this, "pano_spin_single_preview" ,wxSpinCtrl)->
+                 SetRange( 0 , (int) pano.getNrOfImages() - 1);
+    XRCCTRL(*this, "pano_spin_optimizer_reference" ,wxSpinCtrl)->
+                 SetRange( 0 , (int) pano.getNrOfImages() - 1);
     XRCCTRL(*this, "pano_spin_colour_reference" ,wxSpinCtrl)->
                  SetRange( 0 , (int) pano.getNrOfImages() - 1);
 
+
+//    ColourModeChanged (e);
     XRCCTRL(*this, "pano_choice_colour_mode"
                   , wxChoice) ->SetSelection(opt.colorCorrection);
     XRCCTRL(*this, "pano_spin_colour_reference"
@@ -518,6 +539,11 @@ void PanoPanel::PanoOptionsChanged ( PanoramaOptions &o )
     OPT_TO_COMBOBOX ( "pano_val_previewWidth", previewWidth )
 //    previewHeightChanged (e);
     OPT_TO_COMBOBOX ( "pano_val_previewHeight", previewHeight )
+//    previewSingleChanged (e);
+    XRCCTRL(*this, "pano_spin_single_preview"
+                  , wxSpinCtrl)->SetValue(previewSingle);
+    XRCCTRL(*this, "pano_cb_single_preview", wxCheckBox)
+                            ->SetValue( preview_single ) ;
 //    FinalFormatChanged (e);
     lt = XRCCTRL(*this, "pano_choice_formatFinal", wxChoice)
                         ->FindString(opt.outputFormat.c_str());
@@ -557,10 +583,12 @@ void PanoPanel::PanoChanged ( wxCommandEvent & e )
 
       autoPreview (e);
       autoOptimize (e);
+//      optimizeAnchorChanged (e);
       panoviewerEnabled (e);
       panoviewerPrecise (e);
       previewWidthChanged (e);
       previewHeightChanged (e);
+      previewSingleChanged (e);
     }
 
     DEBUG_TRACE ( "" )
@@ -692,10 +720,10 @@ void PanoPanel::previewWidthChanged ( wxCommandEvent & e )
         }
       }
 
-      GlobalCmdHist::getInstance().addCommand(
+/*      GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-
+*/
       DEBUG_INFO ( ": " << *val )
       delete val;
     }
@@ -723,15 +751,50 @@ void PanoPanel::previewHeightChanged ( wxCommandEvent & e )
         }
       }
 
-      GlobalCmdHist::getInstance().addCommand(
+/*      GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
-
+*/
       DEBUG_INFO ( ": " << *val )
       delete val;
     }
 }
 
+void PanoPanel::previewSingleChanged ( wxCommandEvent & e )
+{
+    if ( ! changePano ) {
+      int lt = XRCCTRL(*this, "pano_spin_single_preview", wxSpinCtrl)
+                              ->GetValue();
+      previewSingle = (unsigned int)lt;
+      lt = XRCCTRL(*this, "pano_cb_single_preview", wxCheckBox)
+                              ->GetValue();
+      preview_single = lt;
+
+      if ( pano_dlg_run ) {
+        if ( self_pano_dlg ) {
+          pano_panel->previewSingle = previewSingle;
+          pano_panel->preview_single = preview_single;
+          XRCCTRL(*pano_panel, "pano_spin_single_preview", wxSpinCtrl)
+                             ->SetValue(previewSingle);
+          XRCCTRL(*pano_panel, "pano_cb_single_preview", wxCheckBox)
+                             ->SetValue(preview_single);
+        } else {
+          pano_dlg->pp->previewSingle = previewSingle;
+          pano_dlg->pp->preview_single = preview_single;
+          XRCCTRL(*pano_dlg->pp, "pano_spin_single_preview", wxSpinCtrl)
+                             ->SetValue(previewSingle);
+          XRCCTRL(*pano_dlg->pp, "pano_cb_single_preview", wxCheckBox)
+                             ->SetValue(preview_single);
+        }
+      }
+
+/*      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+*/
+      DEBUG_INFO ( "preview_single("<< preview_single <<"): " << previewSingle )
+    }
+}
 // --
 void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
 {
