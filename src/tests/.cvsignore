@@ -12,5 +12,10 @@ stitch_result.jpg
 *.ppm
 *.png
 _PTStitcher*
-.kdbgrc.panorama
-.kdbgrc.panotools
+.kdbgrc.*
+*.JPG
+border.m
+phase_correlate
+rotatePTStitcher.pl
+rotatePTStitcher.py
+rotatePTStitcher.sh
