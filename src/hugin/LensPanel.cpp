@@ -144,10 +144,10 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     // intermediate event station
     PushEventHandler( new MyEvtHandler((size_t) 2) );
 
+    // with no image in pano hugin crashes
     edit_Lens = new Lens ();
     AddLensCmd ( *pano, *edit_Lens );
-    lensGui_dirty = FALSE;
-    // FIXME with no image in pano hugin crashes
+
     DEBUG_INFO ( wxString::Format ("Lensesnumber: %d", pano->getNrOfLenses()) )
 
     for ( int i = 0 ; i < 512 ; i++ )
@@ -185,22 +185,18 @@ void LensPanel::LensSelected ( wxCommandEvent & e )
 void LensPanel::LensApply ( wxCommandEvent & e )
 {
     DEBUG_TRACE("");
-    // TODO make a button from this
 
-//    if ( XRCCTRL(*this, "lens_button_apply", wxCheckBox)->IsChecked() ) {
-        lensEditRef_lensNr = XRCCTRL(*this, "lens_combobox_number", wxComboBox)
+    lensEditRef_lensNr = XRCCTRL(*this, "lens_combobox_number", wxComboBox)
                                  ->GetSelection();
         
     update_edit_LensGui ( lensEditRef_lensNr );
-        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-//          PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens );
-          GlobalCmdHist::getInstance().addCommand(
+
+    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens )
             );
-
           //pano.setLens (imgNr[i], lensEditRef_lensNr);
-        }
-//    }
+    }
     DEBUG_TRACE("");
 }
 
@@ -271,79 +267,8 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 
 void LensPanel::ChangePano ( std::string type, double var )
 {
-    DEBUG_TRACE( "lensGui_dirty = " << lensGui_dirty )
+//    DEBUG_TRACE( "" )
     changePano = TRUE;
-    if ( lensGui_dirty ) {
-//      DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
-
-/**
- *   - Look if a lens is not needed anywhere else and erase it eventually.
- *   - Check if a lens is elsewhere needed and if so, create a new lens, copy
- *     edit_lens to the new one, assign it to pano and set all edited images to
- *     new lens.
- *   - Reset the lensGui_dirty flag.
- */
-      int eraseLensNr[512]; eraseLensNr[0] = 0;
-      unsigned int notSelImgNr[512]; notSelImgNr[0] = 0;
-      for ( int i = 0 ; i < 512 ; i++ )
-        notSelImgNr[i] = 0;
-      bool new_Lens = FALSE;
-//      DEBUG_INFO( "new_Lens = " << new_Lens )
-      for ( unsigned int all_img = 0
-            ; all_img < (unsigned int) pano.getNrOfImages() ; all_img++ ) {
-        bool selected_image = FALSE;
-        for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-          // Are You in the group of selected images?
-          if ( imgNr[i] == all_img )
-            selected_image = TRUE;
-        }
-        if ( !selected_image ) { // But we ask for not selected - indirect.
-            notSelImgNr[0]++;      // increase the number of not selected images
-            notSelImgNr[notSelImgNr[0]] = all_img; // add the image number
-        }
-      }
-//      DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",notSelImgNr[0], notSelImgNr[1],notSelImgNr[2], notSelImgNr[3], notSelImgNr[4]) );
-
-      // ask for no longer needed lenses to erase
-      for ( unsigned int i = 1 ; i <= imgNr[0] ; i++ ) {
-        bool erase_Lens = TRUE;
-        for ( unsigned int j = 1; notSelImgNr[0] >= j ; j++ ) {
-            // is this lens inside of imgNr in notSelImgNr too
-            if ( pano.getImage(notSelImgNr[j]).getLens() ==
-                 pano.getImage(imgNr[i]).getLens() )
-              erase_Lens = FALSE;
-        }
-        if ( erase_Lens ) {
-          // Now we can simply erase, the images get theyre new lenses later.
-          DEBUG_INFO( "will removeLens  " << pano.getImage(imgNr[i]).getLens() << " of " << pano.getNrOfLenses() )
-//          pano.removeLens(imgNr[i]); // FIXME ?????
-          eraseLensNr[0] += 1;
-          eraseLensNr[eraseLensNr[0]] = pano.getImage(imgNr[i]).getLens();
-        }
-      }
-      // create a new lens?
-      for ( unsigned int j = 1; notSelImgNr[0] >= j ; j++ ) {
-        // Is the new lens in the group of the not selected images?
-        if ( lensEditRef_lensNr == (int)pano.getImage(notSelImgNr[j]).getLens())
-          new_Lens = TRUE;
-//        DEBUG_INFO( "new_Lens = " << new_Lens )
-      }
-
-//      unsigned int lensNr;
-      // add the edit_lens as new lens to pano
-//      if ( new_Lens )
-        PT::AddLensCmd( pano, *edit_Lens );
-//      else
-//        lensNr = lensEditRef_lensNr; // lensEditRef_lensNr must set before
-
-      // All list images get the new lens assigned.
-      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-        PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens );  
-//        pano.setLens (imgNr[i], lensNr);
-      }
-
-    }
-
 
     // we ask for each images Lens
     Lens new_Lens;
@@ -381,16 +306,10 @@ void LensPanel::ChangePano ( std::string type, double var )
         DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
 
-    // FIXME support separate lenses
-//      EDIT_LENS->update ( pano.getLens(lensEditRef_lensNr) );
-
-//    DEBUG_INFO ( "hier is item: " << wxString::Format("%d",lensEdit_ReferenceImage) );
-
 /*    GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, //lensEditRef_lensNr,*edit_Lens )
          );
 */
-    lensGui_dirty = FALSE;
     changePano = FALSE;
 
     DEBUG_TRACE( "" )
@@ -829,12 +748,6 @@ void LensPanel::SetImages ( wxListEvent & e )
       }
       XRCCTRL(*this, "lens_combobox_number", wxComboBox)
                                -> SetSelection(lensEditRef_lensNr);
-
-      /**  - Look if we may need a new lens.
-        *   - If so set the lensGui_dirty flag for later remembering.
-        */
-      if ( images_list2->GetSelectedItemCount() != (int) pano.getNrOfImages() )
-        lensGui_dirty = TRUE;
 
     }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) << " lens:"<< lensEditRef_lensNr);

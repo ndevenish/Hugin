@@ -259,7 +259,7 @@ unsigned int Panorama::addImage(const std::string & filename)
     // read lens spec from image, if possible
     // FIXME use a lens database (for example the one from PTLens)
     // FIXME to initialize a,b,c etc.
-    // searches for a new image for an unused lens , if found takes this
+    // searches for the new image for an unused lens , if found takes this
     // if no free lens is available creates a new one
     int unsigned lensNr (0);
     bool lens_belongs_to_image = false;
