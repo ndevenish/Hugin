@@ -28,8 +28,8 @@
 #include <fstream>
 #include <sstream>
 
-#include <vigra/impex.hxx>
 #include <vigra/error.hxx>
+#include <vigra_impex2/impex.hxx>
 
 extern "C" {
 #include "klt/klt.h"
@@ -913,7 +913,7 @@ static void usage(const char * name)
 void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama & pano, const ImgVars & imgvars)
 {
     // load image
-    vigra::ImageImportInfo info(filename.c_str());
+    vigra_impex2::ImageImportInfo info(filename.c_str());
     // FIXME.. check for grayscale / color
     img.resize(info.width(), info.height());
     if(info.isGrayscale())

@@ -47,11 +47,11 @@ class ReadFunctorAccessor
     }
 
     /** Get functor result
-     */
     template <class A, class B>
     void function(A a, B b)
     {
     };
+     */
 
     template <typename ITERATOR_, typename DIFFERENCE_>
     typename Functor::result_type operator()(ITERATOR_ const & i, DIFFERENCE_ d) const
@@ -88,7 +88,7 @@ class WriteFunctorAccessor
     {
     }
 
-    /** Get functor result
+    /** Set functor result
      */
     template <class Value, class ITERATOR>
     void set(Value const & v, ITERATOR const & i) const
@@ -96,7 +96,7 @@ class WriteFunctorAccessor
 	m_a.set(m_f(v), i);
     }
 
-    /** Get functor result
+    /** Set functor result
      */
     template <class Value, class ITERATOR_, class DIFFERENCE_>
     void set(Value const & v, ITERATOR_ const & i, DIFFERENCE_ d) const
@@ -347,7 +347,7 @@ public:
 
         /** read one component, with offset */
     template <class ITERATOR, class DIFFERENCE_>
-    component_type const & getComponent(ITERATOR const & i, DIFFERENCE_ const & d, int idx) const
+    component_type const getComponent(ITERATOR i, DIFFERENCE_ const & d, int idx) const
     {
         i += d;
 	if ( idx < SIZE - 1 ) {

@@ -28,9 +28,9 @@
 #include <fstream>
 #include <sstream>
 
-#include <vigra/impex.hxx>
 #include <vigra/error.hxx>
 #include "vigra_ext/PhaseCorrelation.h"
+#include <vigra_impex2/impex.hxx>
 
 extern "C" {
 #include "klt/klt.h"
@@ -43,6 +43,7 @@ extern "C" {
 
 using namespace vigra;
 using namespace vigra_ext;
+using namespace vigra_impex2;
 using namespace PT;
 using namespace std;
 using namespace utils;
@@ -78,7 +79,7 @@ static void usage(const char * name)
 void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama & pano, double defaultHFOV, bool forcedHFOV)
 {
     // load image
-    vigra::ImageImportInfo info(filename.c_str());
+    ImageImportInfo info(filename.c_str());
     // FIXME.. check for grayscale / color
     img.resize(info.width(), info.height());
     if(info.isGrayscale())

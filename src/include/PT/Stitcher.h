@@ -35,7 +35,7 @@
 #include <vigra/rgbvalue.hxx>
 #include <vigra/tiff.hxx>
 
-#include <vigra_impex2/addimage.hxx>
+//#include <vigra_impex2/addimage.hxx>
 #include <vigra_impex2/impex.hxx>
 #include <vigra_impex2/impexalpha.hxx>
 

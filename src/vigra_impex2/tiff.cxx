@@ -341,12 +341,28 @@ namespace vigra_impex2 {
                 pixeltype = get_pixeltype_by_datatype();
 
                 if ( pixeltype == "undefined" ) {
-
-                    // use bytes as the default pixeltype
-                    pixeltype = "UINT8";
+                    // ERROR: no useable pixeltype found..
+                    // imagemagick can write files without it..
+                    // try to guess a suitable one here.
+                    switch (bits_per_sample) {
+                    case 8:
+                        pixeltype = "UINT8";
+                        break;
+                    case 16:
+                        pixeltype = "UINT16";
+                        break;
+                    case 32:
+                        pixeltype = "UINT32";
+                        break;
+                    case 64:
+                        pixeltype = "DOUBLE";
+                        break;
+                    default:
+                        vigra_fail( "TIFFDecoderImpl::init(): Sampleformat or Datatype tag undefined and guessing sampletype from Bits per Sample failed." );
+                        
+                    }
                 }
             }
-
         } else {
 
             // if each sample is 1 bit long

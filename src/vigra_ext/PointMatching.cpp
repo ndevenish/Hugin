@@ -52,17 +52,17 @@ void vigra_ext::extractSIFT(const std::vector<std::string> & imgfiles,
         std::string filename = imgfiles[i];
         DEBUG_DEBUG("loading image " << filename);
         // load image
-        vigra::ImageImportInfo info(filename.c_str());
+        vigra_impex2::ImageImportInfo info(filename.c_str());
         // FIXME.. check for grayscale / color
         img.resize(info.width(), info.height());
         if(info.isGrayscale())
         {
             // import the image just read
-            importImage(info, destImage(img));
+            vigra_impex2::importImage(info, destImage(img));
         } else {
             // convert to greyscale
             vigra::BRGBImage timg(info.width(), info.height());
-            vigra::importImage(info, destImage(timg));
+            vigra_impex2::importImage(info, destImage(timg));
             vigra::copyImage(timg.upperLeft(),
                              timg.lowerRight(),
                              vigra::RGBToGrayAccessor<vigra::RGBValue<unsigned char> >(),
@@ -110,17 +110,17 @@ void vigra_ext::extractSIFT2(const std::vector<std::string> & imgfiles,
         std::string filename = imgfiles[i];
         DEBUG_DEBUG("loading image " << filename);
         // load image
-        vigra::ImageImportInfo info(filename.c_str());
+        vigra_impex2::ImageImportInfo info(filename.c_str());
         // FIXME.. check for grayscale / color
         img.resize(info.width(), info.height());
         if(info.isGrayscale())
         {
             // import the image just read
-            importImage(info, destImage(img));
+            vigra_impex2::importImage(info, destImage(img));
         } else {
             // convert to greyscale
             vigra::BRGBImage timg(info.width(), info.height());
-            vigra::importImage(info, destImage(timg));
+            vigra_impex2::importImage(info, destImage(timg));
             vigra::copyImage(timg.upperLeft(),
                              timg.lowerRight(),
                              vigra::RGBToGrayAccessor<vigra::RGBValue<unsigned char> >(),

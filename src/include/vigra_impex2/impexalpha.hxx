@@ -41,17 +41,9 @@
 
 namespace vigra_impex2 {
 
+
 template <class T1, class T2>
 struct GetAlphaScaleFactor;
-
-template<>
-struct GetAlphaScaleFactor<int, unsigned int>
-{
-    unsigned int get()
-    {
-	return 1;
-    }
-};
 
 // define the scale factors to map from the alpha channel type (T2)
 // to valid alpha channels in image type (T1)
@@ -62,20 +54,38 @@ struct GetAlphaScaleFactor<int, unsigned int>
 template<> \
 struct GetAlphaScaleFactor<T1, T2> \
 { \
-    static T1 get() \
+    static vigra::NumericTraits<T1>::RealPromote get() \
     { \
 	return S; \
     } \
 };
 
+// conversion from/to unsigned char
 VIGRA_EXT_GETALPHASCALE(unsigned char, unsigned char, 1);
-VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned char, 256);
-VIGRA_EXT_GETALPHASCALE(unsigned int, unsigned char, 16777216);
-VIGRA_EXT_GETALPHASCALE(char, unsigned char, 1);
-VIGRA_EXT_GETALPHASCALE(short, unsigned char, 127);
-VIGRA_EXT_GETALPHASCALE(int, unsigned char, 8388608);
+VIGRA_EXT_GETALPHASCALE(short, unsigned char, 128.498);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned char, 257);
+VIGRA_EXT_GETALPHASCALE(int, unsigned char, 8421504.49803922);
+VIGRA_EXT_GETALPHASCALE(unsigned int, unsigned char, 16843009);
 VIGRA_EXT_GETALPHASCALE(float, unsigned char, 1.0/255);
 VIGRA_EXT_GETALPHASCALE(double, unsigned char, 1.0/255);
+
+// conversion from/to unsigned short
+VIGRA_EXT_GETALPHASCALE(unsigned char, unsigned short, 0.00389105058365759);
+VIGRA_EXT_GETALPHASCALE(short, unsigned short, 0.499992370489052);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned short, 1);
+VIGRA_EXT_GETALPHASCALE(int, unsigned short, 32768.4999923705);
+VIGRA_EXT_GETALPHASCALE(unsigned int, unsigned short, 65537);
+VIGRA_EXT_GETALPHASCALE(float, unsigned short, 1.0/65535);
+VIGRA_EXT_GETALPHASCALE(double, unsigned short, 1.0/65535);
+
+// conversion from/to unsigned int
+VIGRA_EXT_GETALPHASCALE(unsigned char,  unsigned int, 5.93718141455603e-08);
+VIGRA_EXT_GETALPHASCALE(short,          unsigned int, 7.62916170238265e-06);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned int, 1.52585562354090e-05);
+VIGRA_EXT_GETALPHASCALE(int,            unsigned int, 0.499999999883585);
+VIGRA_EXT_GETALPHASCALE(unsigned int,   unsigned int, 1);
+VIGRA_EXT_GETALPHASCALE(float,          unsigned int, 1.0/4294967295.0);
+VIGRA_EXT_GETALPHASCALE(double,         unsigned int, 1.0/4294967295.0);
 
 #undef VIGRA_EXT_GETALPHASCALE
 
@@ -91,7 +101,7 @@ void exportImageAlpha(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> image
     typedef typename AlphaAccessor::value_type alpha_type;
 
     typedef typename vigra::NumericTraits<image_type>::RealPromote ScaleType;
-    ScaleType scale =  vigra::NumericTraits<ScaleType>::one()/GetAlphaScaleFactor<image_type, alpha_type>::get();
+    ScaleType scale =  GetAlphaScaleFactor<image_type, alpha_type>::get();
     std::cerr << " export alpha factor: " << scale << std::endl;
 
     // construct scaling accessor, for reading from the mask image
@@ -132,7 +142,7 @@ void exportImageAlpha(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> image
 
     // get the correction factor
     typedef typename vigra::NumericTraits<component_type>::RealPromote ScaleType;
-    ScaleType scale =  vigra::NumericTraits<ScaleType>::one()/GetAlphaScaleFactor<component_type, alpha_type>::get();
+    ScaleType scale =  GetAlphaScaleFactor<component_type, alpha_type>::get();
     std::cerr << " export alpha factor: " << scale << std::endl;
 
     // construct scaling accessor.
@@ -194,15 +204,17 @@ void importImageAlpha(vigra_impex2::ImageImportInfo const & info,
     typedef typename image_type::value_type component_type;
     typedef typename AlphaAccessor::value_type alpha_type;
 
+    typedef typename vigra::NumericTraits<component_type>::RealPromote ScaleType;
+
     // get the correction factor
-    component_type scale =  GetAlphaScaleFactor<component_type, alpha_type>::get();
+    ScaleType scale = vigra::NumericTraits<ScaleType>::one()/GetAlphaScaleFactor<component_type, alpha_type>::get();
     std::cerr << " import alpha factor: " << scale << std::endl;
 
     // construct scaling accessor.
-    typedef vigra_ext::WriteFunctorAccessor<vigra::ScalarIntensityTransform<component_type>,
+    typedef vigra_ext::WriteFunctorAccessor<vigra::ScalarIntensityTransform<ScaleType>,
 	AlphaAccessor> ScalingAccessor;
 
-    vigra::ScalarIntensityTransform<component_type> scaler(scale);
+    vigra::ScalarIntensityTransform<ScaleType> scaler(scale);
     ScalingAccessor scaleA(scaler,
 			   alpha.second);
 
@@ -252,16 +264,18 @@ void importImageAlpha(vigra_impex2::ImageImportInfo const & info,
     typedef typename DestAccessor::value_type image_type;
     typedef typename AlphaAccessor::value_type alpha_type;
 
+    typedef typename vigra::NumericTraits<image_type>::RealPromote ScaleType;
+    
     // get the correction factor
-    image_type scale = GetAlphaScaleFactor<image_type, alpha_type>::get();
+    ScaleType scale = vigra::NumericTraits<ScaleType>::one()/GetAlphaScaleFactor<image_type, alpha_type>::get();
 
     std::cerr << " export alpha factor: " << scale << std::endl;
 
     // construct scaling accessor.
-    typedef vigra_ext::WriteFunctorAccessor<vigra::ScalarIntensityTransform<image_type>,
+    typedef vigra_ext::WriteFunctorAccessor<vigra::ScalarIntensityTransform<ScaleType>,
 	AlphaAccessor> ScalingAccessor;
 
-    vigra::ScalarIntensityTransform<image_type> scaler(scale);
+    vigra::ScalarIntensityTransform<ScaleType> scaler(scale);
     ScalingAccessor scaleA(scaler,
 			   alpha.second);
 

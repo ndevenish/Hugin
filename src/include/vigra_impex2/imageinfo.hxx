@@ -191,7 +191,9 @@ class ImageExportInfo
         <DL>
         <DT>"UINT8"<DD> 8-bit unsigned integer (unsigned char)
         <DT>"INT16"<DD> 16-bit signed integer (short)
+        <DT>"UINT16"<DD> 16-bit unsigned integer (short)
         <DT>"INT32"<DD> 32-bit signed integer (long)
+        <DT>"UINT32"<DD> 32-bit unsigned integer (long)
         <DT>"FLOAT"<DD> 32-bit floating point (float)
         <DT>"DOUBLE"<DD> 64-bit floating point (double)
         </DL>
