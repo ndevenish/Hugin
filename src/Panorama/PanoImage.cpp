@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <26-Oct-2003 18:35:02 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <27-Oct-2003 20:27:32 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 

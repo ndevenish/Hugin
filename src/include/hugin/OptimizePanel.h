@@ -77,6 +77,8 @@ protected:
     // helper function for wxCheckListBox
     void SetCheckMark(wxCheckListBox * l, int check);
 
+    // called whenever the optimize mode changes
+    void OnChangeMode(wxCommandEvent & e);
 
 
 
@@ -94,6 +96,7 @@ protected:
     wxCheckListBox * m_e_list;
 
     wxCheckBox * m_edit_cb;
+    wxChoice * m_mode_cb;
     wxChoice * m_projectionChoice;
     PT::Panorama * m_pano;
 private:

@@ -88,6 +88,9 @@ private:
     void OnPitchTextChanged ( wxCommandEvent & e );
     void OnRollTextChanged ( wxCommandEvent & e );
 
+    void OnOptAnchorChanged(wxCommandEvent & e);
+    void OnColorAnchorChanged(wxCommandEvent &e );
+    
     /** gui -> pano
      *
      *  usually for events to set the new pano state
@@ -118,6 +121,8 @@ private:
 
     /** pointer to the list control */
     ImagesListImage* images_list;
+    wxButton * m_optAnchorButton;
+    wxButton * m_colorAnchorButton;
 
     TextKillFocusHandler * m_tkf;
 

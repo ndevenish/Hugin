@@ -661,6 +661,9 @@ void Panorama::printOptimizerScript(ostream & o,
     }
     o << endl;
 
+    // special line with hugins options.
+    o << "#hugin_options r" << output.optimizeReferenceImage << endl;
+
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
@@ -938,6 +941,16 @@ PanoramaMemento Panorama::getMemento(void) const
 
 void Panorama::setOptions(const PanoramaOptions & opt)
 {
+    if (state.options.optimizeReferenceImage != opt.optimizeReferenceImage) {
+        imageChanged(opt.optimizeReferenceImage);
+        imageChanged(state.options.optimizeReferenceImage);
+    }
+
+    if (state.options.colorReferenceImage != opt.colorReferenceImage) {
+        imageChanged(opt.colorReferenceImage);
+        imageChanged(state.options.colorReferenceImage);
+    }
+
     state.options = opt;
 
     // enforce a valid field of view
@@ -961,6 +974,7 @@ void Panorama::setOptions(const PanoramaOptions & opt)
         state.options.HFOV = maxh;
     if (state.options.VFOV > maxv)
         state.options.VFOV = maxv;
+    
 }
 
 void Panorama::addObserver(PanoramaObserver * o)

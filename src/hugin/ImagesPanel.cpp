@@ -70,6 +70,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
                             ImagesPanel::ListSelectionChanged )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
+    EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
+    EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
@@ -92,6 +94,12 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
         images_list );
 
     DEBUG_TRACE("");
+
+    m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
+    DEBUG_ASSERT(m_optAnchorButton);
+
+    m_colorAnchorButton = XRCCTRL(*this, "images_color_anchor_button", wxButton);
+    DEBUG_ASSERT(m_colorAnchorButton);
 
     // Image Preview
 
@@ -132,11 +140,9 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 //    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 }
 
+
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
-
-    // fixme update display if the selected image has changed,
-
     DEBUG_TRACE("");
 }
 
@@ -201,6 +207,35 @@ void ImagesPanel::OnRollTextChanged ( wxCommandEvent & e )
     }
 }
 
+void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
+{
+    const UIntSet & sel = images_list->GetSelected();
+    if ( sel.size() == 1 ) {
+        // set first image to be the anchor
+        PanoramaOptions opt = pano.getOptions();
+        opt.optimizeReferenceImage = *(sel.begin());
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+    }
+}
+
+void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
+{
+    const UIntSet & sel = images_list->GetSelected();
+    if ( sel.size() == 1 ) {
+        // set first image to be the anchor
+        PanoramaOptions opt = pano.getOptions();
+        opt.colorReferenceImage = *(sel.begin());
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
+    }
+}
+
+
 void ImagesPanel::ListSelectionChanged(wxListEvent & e)
 {
     DEBUG_TRACE(e.GetIndex());
@@ -215,10 +250,14 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             unsigned int imgNr = *(sel.begin());
             // single selection, show its parameters
             ShowImgParameters(imgNr);
+            m_optAnchorButton->Enable();
+            m_colorAnchorButton->Enable();
         } else {
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
+            m_optAnchorButton->Disable();
+            m_colorAnchorButton->Disable();
         }
     }
 }
@@ -233,6 +272,8 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->SetBitmap(wxNullBitmap);
+    m_optAnchorButton->Disable();
+    m_colorAnchorButton->Disable();
 }
 
 void ImagesPanel::EnableImageCtrls()

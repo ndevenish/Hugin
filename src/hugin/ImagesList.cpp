@@ -129,7 +129,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         if ( GetColumnWidth(j) < 40 )
             SetColumnWidth(j, 40);
     }
-    
+
     Thaw();
 }
 
@@ -217,6 +217,7 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     InsertColumn( 4, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
+    InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 40 );
 }
 
 void ImagesListImage::UpdateItem(unsigned int imgNr)
@@ -235,6 +236,14 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 4, doubleToString(map_get(var,"y").getValue()).c_str());
     SetItem(imgNr, 5, doubleToString( map_get(var,"p").getValue()).c_str());
     SetItem(imgNr, 6, doubleToString( map_get(var,"r").getValue()).c_str());
+    char flags[] = "--";
+    if (pano.getOptions().optimizeReferenceImage == imgNr) {
+        flags[0]='A';
+    }
+    if (pano.getOptions().colorReferenceImage == imgNr) {
+        flags[1]='C';
+    }
+    SetItem(imgNr,7, flags);
 }
 
 ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)

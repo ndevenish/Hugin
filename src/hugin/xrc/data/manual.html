@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>hugin - Panorama Tools GUI</title>
+</head>
+<body>
+
+<h1>hugin - Panorama Tools GUI</h1>
+
+<p>A easy to use GUI for <a href="http://www.path.unimelb.edu.au/~dersch/">Panorama Tools</a>.</p>
+
+Hugin currently supports most features of panorama tools, and can be
+used for to create different kinds of panoramic images.
+
+<h2>Introduction</h2>
+
+<p> This is the reference manual (hah, good joke... :-) for hugin. It
+does not cover general panorama creation, but tries to document
+keyboard shortcuts and other things that are not obvious from the first
+look at the interface.  </p>
+
+<p>
+  The <a href="http://hugin.sf.net">hugin homepage</a> contains more
+  general information and even some tutorials.
+</p>
+
+<h2>Credits</h2>
+Main programming:Pablo d'Angelo &lt;pablo@mathematik.uni-ulm.de&gt; <br>
+Additional programming: Kai-Uwe Behrmann <br>
+Tutorials and rpm packages: Bruno Postle <br>
+
+Thanks to all people on the ptx mailing list, for many interesting
+ideas and for testing.
+
+<h2>IMPORTANT BUG WARNING</h2>
+<p>
+  Currently, changes to the text fields have to be confirmed by
+  pressing enter or by selecting another GUI element (press tab or
+  click somewhere else). Unfortunately on some platforms only one
+  variation works.
+</p>
+
+<h2>Main Window</h2>
+
+<p> This window consists of a toolbar that provides quick access to
+important functions. It also contains the Images, Lens, Control Point,
+Optimizer and Panorama Tab, which will be explained below.</p>
+
+<h3>Images Tab</h3>
+
+<p> Images can either be added with the <b>Add</b> button, or via drag
+and drop. To change the orientation of one or more images, select them
+in the list on the left. The image will be show in the preview area, and
+its orientation (yaw, pitch and roll values) can be edited on the left.
+</p>
+
+<p> It is possible to select multiple images at the same time. Changes
+  in orientation will be applied to all selected images
+</p>
+
+<h3>Lens Tab</h3>
+<p>
+  The lens tab looks a lot like the Images tab, except that the lens settings
+  can be edited here. As in the Images Tab, multiselection can be used
+  to change the parameters for multiple images.
+</p>
+
+<p>
+  Currently only one lens is supported. The idea is that the Lens
+  describes the process that was used to create the image. The most
+  important parameters are the <b>Lens type</b> and the <b>HFOV</b>
+  (Horizontal Field of View). Hugin will read the EXIF information in
+  jpg files created by digital cameras, so usually it is filled out
+  correctly.
+</p>
+
+<p>
+  Photographers do not use a HFOV in degrees, but the focal
+  length. The focal length can be entered and it will be converted to
+  HFOV in degrees, like the panorama tool require it. The focal length
+  entered is taken to be for 35 mm film cameras.
+</p>
+
+<p>
+  Usually images are more or less distorted. This can be seen especially
+  if there are long straight lines close to the image border, which
+  are usually not completely straight but bent a little. The <b>a</b>
+  <b>b</b> and <b>c</b> parameters are used to remove that distortion.
+  They are applied radially from the image center, which can be moved by
+  changing the <b>d</b> and <b>e</b> parameters.
+</p>
+
+</p>
+  During image capture, it is possible that the parameters vary, that is
+  are not the same for each image. This can have many reasons, one of
+  the could be a scanner that cuts a way a few pixel more at one side
+  than the other. Other parameters stay the same, like usually the a,b and c
+  parameters (if the zoom and focus for the images is the same).
+  </p>
+<p>
+  The <b>inherit</b> checkmark means that this parameter doesn't vary
+  between the images that were captures with that lens setting. If a
+  parameter is inheritied it is forced to be the same for all images.
+  When inherited parameters are optimized they are kept the same for
+  all images, whereas parameters that are not inherited can get values
+  specific for a single picture.
+</p>
+
+<h3>Control Point Tab</h3>
+
+<p>
+  Control Points are probably the most important thing when using
+  panorama tools.
+</p>
+
+<p>
+  The Tab consists of two image displays and tab bars to switch images
+  to be editied. The bottom contains a list view where Points can be
+  selected and some fields to edit a selected point. Points can also
+  be selected by clicking or dragging on them in the images. It is
+  possible to zoom out to show the full image.
+</p>
+
+<p>
+  Adding a control point works by clicking into one image to select a point
+  and then into the other image. If <b>auto add</b> is not set, the
+  points can be moved by clicking at some other place in the images.
+  They are added to the list of control points by pressing the <b>right
+  mouse button</b>. If you press the right mouse button when only one
+  point is slected, the point selection will be aborted. <b>auto
+  add</b> adds the control point as soon as both points have been specified.
+</p>
+
+<p>
+  Control point creation is influenced by the following checkboxes:
+  <ul>
+    <li> <b>auto fine tune</b> hugin helps you to find the second point
+      by looking for it in a search region (shown by a rectange around
+      the cursor). This might not always work, but usually is reliable,
+      if the image distortions are not too big. Try and play with it.
+    </li>
+    <li> <b>auto add</b> A control point is automatically added when both
+      points are know. >ou won't have time to refine the selection
+      before adding the point.
+    </li>
+    <li> <b>auto estimate</b> Tries to estimate the position of the
+      second point by estimating the translation between the two images.
+      This is very crude and probably only works for single row panoramas
+      created from rectilinear images.
+    </li>
+  </ul>
+
+  All these flags can be combined. I typically use <b>auto fine tune</b> and
+  <b>auto estimate</b> at the same time. Then hugin usually
+  automatically selects the second point correctly. Well for single
+  row panos that is...
+</p>
+
+<p>
+  The images are zoomed out, the first click zooms to a temporary 100%
+  view to give you the chance to refine your selection. Note that only
+  the second click will trigger the auto estimate.
+</p>
+
+<p>
+  The <b>Fine Tune</b> button can be used to find a better position
+  for the point in the right image for already selected
+  point. Contrary to <b>auto fine tune</b> it only looks in a very
+  small area around the point.
+  This function is especially useful if you moved both points by hand, but
+  want to have fine tuned control points.
+</p>
+
+<p>
+  Press the <b>middle mouse button</b> to pan the image. If you press
+  <b>shift key</b> while paning, both images will move.
+</p>
+
+<p>
+  This window supports some keyboard shortcuts:
+  <table>
+    <tr> <th> Key </th> <th> Function </th> </tr>
+    <tr> <td> f </td> <td> fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button </td> </tr>
+    <tr> <td> p </td> <td> warp cursor to estimated point in the other window.</td> </tr>
+    <tr> <td> Del </td> <td> Remove currently selected control point. </td> </tr>
+  </table>
+</p>
+
+<h3>Optimizer Tab</h3>
+<p>
+  The optimizer moves the images into the right position, so that they
+  can be assembled into a hopefully seamless panorama.
+</p>
+
+<p>
+  FIXME, write some more...
+</p>
+
+<h3>Pano Panel</h3>
+<p>
+Options concerning the output panorama can be set here.
+FIXME, write some more...
+</p>
+
+<hr/>
+<p>
+This document was written by Pablo d'Angelo <a href="mailto:pablo.dangelo@web.de">&lt;pablo.dangelo@web.de&gt;</a>  
+</p>
+
+</body>
+</html>

@@ -118,15 +118,10 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
         ImagePtr image = getImage(filename);
         if (image->Ok()) {
             wxImage small_image;
-            if ( image->GetHeight() > image->GetWidth() ) {
-                small_image = image->Scale(
-                    (int)((float)image->GetWidth()/
-                          (float)image->GetHeight()*512.0), 512);
-            } else {
-                small_image = image->Scale(
-                    512, (int)((float)image->GetHeight()/
-                               (float)image->GetWidth()*512.0));
-            }
+            const int w = 256;
+            double ratio = (double)image->GetWidth() / image->GetHeight();
+            small_image = image->Scale(w, (int) (w/ratio));
+            
             wxImage * tmp = new wxImage( &small_image );
             images[name] = tmp;
             DEBUG_INFO ( "created small image: " << name);

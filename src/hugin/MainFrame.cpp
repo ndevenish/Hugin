@@ -95,6 +95,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
+    EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
 //    EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
@@ -247,7 +248,16 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // observe the panorama
     pano.addObserver(this);
 
-
+    
+#ifdef __WXMSW__
+    int w = config->Read("MainFrame/width",-1l);
+    int h = config->Read("MainFrame/height",-1l);
+    int x = config->Read("MainFrame/positionX",-1l);
+    int y = config->Read("MainFrame/positionY",-1l);
+    if (y != -1) {
+        SetSize(x,y,w,h);
+    }
+#else    
     // remember the last size from config
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
@@ -256,14 +266,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     } else {
         Fit();
     }
-
-    // optimize settings
-//    optset = new OptimizeVector();
-
-
-    // show the frame.
-//    Show(TRUE);
-
+#endif
+    
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 
@@ -287,15 +291,26 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
+    
+#ifdef __WXMSW__
+    wxSize sz = GetRect();
+    config->Write("/MainFrame/width", sz.width);
+    config->Write("/MainFrame/height", sz.height);
+
+    config->Write("/MainFrame/positionX", sz.x);
+    config->Write("/MainFrame/positionY", sz.y);
+#else
+    
     // Saves only the size of the window.
     // the position is more problematic, since it might
     // not include a title, making the window move down
     // on every start of hugin, because setPosition sets
     // the upper left title bar position (at least in kwm)
-    // netscape navigator had the same problem..
+    // netscape navigator had the same problem..    
     wxSize sz = GetClientSize();
     config->Write("/MainFrame/width", sz.GetWidth());
     config->Write("/MainFrame/height", sz.GetHeight());
+#endif
     DEBUG_INFO( "saved last size and position" )
 
     config->Flush();
@@ -573,6 +588,14 @@ void MainFrame::OnAbout(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
+    dlg.ShowModal();
+}
+
+void MainFrame::OnHelp(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
     dlg.ShowModal();
 }
 

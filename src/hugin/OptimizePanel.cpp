@@ -78,6 +78,7 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
 //    EVT_BUTTON(XRCID("opt_pitch_equalize"), OptimizePanel::OnEqPitch)
     EVT_BUTTON(XRCID("opt_roll_select"), OptimizePanel::OnSelRoll)
     EVT_BUTTON(XRCID("opt_roll_clear"), OptimizePanel::OnDelRoll)
+    EVT_CHOICE(XRCID("optimize_panel_mode"), OptimizePanel::OnChangeMode)
 //    EVT_BUTTON(XRCID("opt_roll_equalize"), OptimizePanel::OnEqRoll)
 END_EVENT_TABLE()
 
@@ -102,6 +103,8 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
     m_projectionChoice = XRCCTRL(*this, "optimizer_projection_choice",
                                  wxChoice);
     DEBUG_ASSERT(m_projectionChoice);
+    m_mode_cb = XRCCTRL(*this, "optimize_panel_mode", wxChoice);
+    DEBUG_ASSERT(m_mode_cb);
 
     wxConfigBase * config = wxConfigBase::Get();
     long w = config->Read("/OptimizerPanel/width",-1);
@@ -203,6 +206,10 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 {
     m_projectionChoice->SetSelection(pano.getOptions().projectionFormat);
+
+    // update accordingly to the choosen mode
+    wxCommandEvent dummy;
+    OnChangeMode(dummy);
 }
 
 void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
@@ -280,7 +287,6 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
-
 }
 
 void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
@@ -359,5 +365,107 @@ void OptimizePanel::OnClose(wxCloseEvent& event)
     } else {
         DEBUG_DEBUG("Closing");
         Destroy();
+    }
+}
+
+void OptimizePanel::OnChangeMode(wxCommandEvent & e)
+{
+    int mode = m_mode_cb->GetSelection();
+    DEBUG_ASSERT(mode != -1);
+    switch (mode) {
+    case 0:
+        // simple position
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,false);
+        SetCheckMark(m_a_list,false);
+        SetCheckMark(m_b_list,false);
+        SetCheckMark(m_c_list,false);
+        SetCheckMark(m_d_list,false);
+        SetCheckMark(m_e_list,false);
+        break;
+    case 1:
+        // v + position
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,true);
+        SetCheckMark(m_a_list,false);
+        SetCheckMark(m_b_list,false);
+        SetCheckMark(m_c_list,false);
+        SetCheckMark(m_d_list,false);
+        SetCheckMark(m_e_list,false);
+        break;
+    case 2:
+        // important lens distortion + position
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,false);
+        SetCheckMark(m_a_list,false);
+        SetCheckMark(m_b_list,true);
+        SetCheckMark(m_c_list,false);
+        SetCheckMark(m_d_list,false);
+        SetCheckMark(m_e_list,false);
+        break;
+    case 3:
+        // important lens distortion + v + position
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,true);
+        SetCheckMark(m_a_list,false);
+        SetCheckMark(m_b_list,true);
+        SetCheckMark(m_c_list,false);
+        SetCheckMark(m_d_list,false);
+        SetCheckMark(m_e_list,false);
+        break;
+    case 4:
+        // everything
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,true);
+        SetCheckMark(m_a_list,true);
+        SetCheckMark(m_b_list,true);
+        SetCheckMark(m_c_list,true);
+        SetCheckMark(m_d_list,true);
+        SetCheckMark(m_e_list,true);
+        break;
+    case 5:
+    default:
+        // do not change anything.
+        break;
+    }
+    // do not try to do anything on our own
+    // if the user selected custom
+    if (mode != 5) {
+        // get anchor image
+        unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
+
+        // count number of vertical/horizontal control points
+        int nHCP = 0;
+        int nVCP = 0;
+        const CPVector & cps = m_pano->getCtrlPoints();
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) {
+            // control points
+            if (it->mode == ControlPoint::X) {
+                nVCP++;
+            } else if (it->mode == ControlPoint::Y) {
+                nHCP++;
+            }
+        }
+
+        // try to set roll and pitch optimisation intelligently.
+        // remove yaw for reference image
+        m_yaw_list->Check(refImg,false);
+        int n = nHCP + nVCP;
+        if (n == 0) {
+            m_roll_list->Check(refImg,false);
+            m_pitch_list->Check(refImg,false);
+        } else if (n == 1) {
+            m_pitch_list->Check(refImg,false);
+        }
     }
 }

@@ -94,6 +94,11 @@
         <label>&amp;About</label>
         <help>About program</help>
       </object>
+      <object class="wxMenuItem" name="action_show_help">
+        <label>&amp;Help</label>
+        <accel>F1</accel>
+        <help>Some information on the different buttons and so on.</help>
+      </object>
     </object>
   </object>
 </resource>

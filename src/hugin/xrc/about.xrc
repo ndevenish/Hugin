@@ -7,7 +7,7 @@
     <object class="wxFlexGridSizer">
       <object class="sizeritem">
         <object class="wxHtmlWindow" name="about_html">
-          <size>400,210</size>
+          <size>400,300</size>
           <style>wxHW_SCROLLBAR_NEVER</style>
           <borders>0</borders>
           <url>data/about.htm</url>

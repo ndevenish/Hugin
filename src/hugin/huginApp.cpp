@@ -160,6 +160,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("edit_text.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("about.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("help.xrc"));
 #endif
 
     // create an wxSocketServer for commmunication with panopreview

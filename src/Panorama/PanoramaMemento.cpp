@@ -702,6 +702,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             state = P_CP;
             break;
         }
+        case '#':
+            // parse our special options
+            if (line.substr(0,14) == "#hugin_options") {
+                DEBUG_DEBUG("parsing special line");
+                getParam(options.optimizeReferenceImage, line, "r");
+            }
+            break;
         default:
             // ignore line..
             break;
