@@ -248,7 +248,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // observe the panorama
     pano.addObserver(this);
 
-    
+
 #ifdef __WXMSW__
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
@@ -257,7 +257,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     if (y != -1) {
         SetSize(x,y,w,h);
     }
-#else    
+#else
     // remember the last size from config
     int w = config->Read("MainFrame/width",-1l);
     int h = config->Read("MainFrame/height",-1l);
@@ -267,7 +267,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         Fit();
     }
 #endif
-    
+
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 
@@ -291,22 +291,22 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    
+
 #ifdef __WXMSW__
-    wxSize sz = GetRect();
+    wxRect sz = GetRect();
     config->Write("/MainFrame/width", sz.width);
     config->Write("/MainFrame/height", sz.height);
 
     config->Write("/MainFrame/positionX", sz.x);
     config->Write("/MainFrame/positionY", sz.y);
 #else
-    
+
     // Saves only the size of the window.
     // the position is more problematic, since it might
     // not include a title, making the window move down
     // on every start of hugin, because setPosition sets
     // the upper left title bar position (at least in kwm)
-    // netscape navigator had the same problem..    
+    // netscape navigator had the same problem..
     wxSize sz = GetClientSize();
     config->Write("/MainFrame/width", sz.GetWidth());
     config->Write("/MainFrame/height", sz.GetHeight());
