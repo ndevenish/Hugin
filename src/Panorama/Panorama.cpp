@@ -628,7 +628,9 @@ void Panorama::printOptimizerScript(ostream & o,
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    char * t = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = (char*) malloc(strlen(t)+1);
+    strcpy(old_locale, t);
     setlocale(LC_NUMERIC,"C");
 #endif
 
@@ -748,6 +750,7 @@ void Panorama::printOptimizerScript(ostream & o,
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
 #endif
 }
 
@@ -757,7 +760,9 @@ void Panorama::printStitcherScript(ostream & o,
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    char * t = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = (char*) malloc(strlen(t)+1);
+    strcpy(old_locale, t);
     setlocale(LC_NUMERIC,"C");
 #endif
 
@@ -788,6 +793,7 @@ void Panorama::printStitcherScript(ostream & o,
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
 #endif
 
 }
@@ -808,7 +814,9 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
     DEBUG_TRACE("");
 #ifdef __unix__
     // set numeric locale to C, for correct number output
-    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    char * t = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = (char*) malloc(strlen(t)+1);
+    strcpy(old_locale, t);
     setlocale(LC_NUMERIC,"C");
 #endif
     // 0 = read output (image lines), 1 = read control point distances
@@ -831,7 +839,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             if ((line.compare("# Control Points: Distance between desired and fitted Position") == 0 )
              || (line.compare("# Control Points: Distance between desired and fitted Position (in Pixels)") == 0 )
              || (line.compare("# Control Points: Distance between desired and fitted Position (in \"Pixels\")") == 0 )) {
-		               
+		
                 // switch to reading the control point distance
                 if (varIt != imgVars.end()) {
                     DEBUG_ERROR("Read only " << varIt -imgVars.begin() << " images from PTOptimizer file");
@@ -899,6 +907,7 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
 #endif
 
 }
