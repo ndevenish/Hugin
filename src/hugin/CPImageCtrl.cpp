@@ -36,7 +36,11 @@
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
+
+#if 0
 #include "hugin/UniversalCursor.h"
+#endif
+
 #include "hugin/CPZoomDisplayPanel.h"
 
 using namespace std;
@@ -137,7 +141,8 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 {
 
     wxString filename;
-#if defined(__WXMSW__) || defined(__WXMAC__)
+//#if defined(__WXMSW__) || defined(__WXMAC__)
+#if 1
     m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #else
     int cursorType = wxConfigBase::Get()->Read(wxT("/CPImageCtrl/CursorType"),HUGIN_CP_CURSOR);

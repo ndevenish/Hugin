@@ -98,23 +98,11 @@ void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama
     }
 
     Lens lens;
-    map_get(lens.variables,"v").setValue(defaultHFOV);
-    lens.isLandscape = (img.width() > img.height());
-    if (lens.isLandscape) {
-                    lens.setRatio(((double)img.width())/img.height());
-                } else {
-                    lens.setRatio(((double)img.height())/img.width());
-                }
-
-    std::string::size_type idx = filename.rfind('.');
-    if (idx == std::string::npos) {
-      DEBUG_DEBUG("could not find extension in filename");
-    }
-    std::string ext = filename.substr( idx+1 );
-
-    if (! forcedHFOV && utils::tolower(ext) == "jpg") {
-        // try to read exif data from jpeg files.
-        lens.readEXIF(filename);
+    // try to read exif data from jpeg files.
+    double cropFactor=0;
+    lens.initFromFile(filename, cropFactor);
+    if (forcedHFOV) {
+        map_get(lens.variables,"v").setValue(defaultHFOV);
     }
 
     int matchingLensNr=-1;
@@ -126,9 +114,10 @@ void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama
         // use a lens if hfov and ratio are the same
         // should add a check for exif camera information as
         // well.
-        if ((l.getRatio() == lens.getRatio()) &&
-            (l.isLandscape == lens.isLandscape) &&
-            (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) )
+        if ((l.getAspectRatio() == lens.getAspectRatio()) &&
+            (l.isLandscape() == lens.isLandscape()) &&
+            (fabs(const_map_get(l.variables,"v").getValue() - const_map_get(lens.variables,"v").getValue()) < 0.01 ) &&
+            (l.getSensorSize() == lens.getSensorSize()))
         {
             matchingLensNr= lnr;
         }

@@ -186,7 +186,7 @@ public:
     /** return the sensor ratio (width/height)
      */
     double getAspectRatio() const
-    { 
+    {
         return (double)m_imageSize.x / m_imageSize.y;
     }
 
@@ -209,6 +209,9 @@ public:
         m_imageSize = sz;
     }
 
+    /** try to read image information from file */
+    bool initFromFile(const std::string & filename, double &cropFactor);
+    
 //    double isLandscape() const {
 //        return sensorRatio >=1;
 //    }

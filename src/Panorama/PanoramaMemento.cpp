@@ -37,6 +37,8 @@
 
 #include <PT/Panorama.h>
 
+#include <vigra/impex.hxx>
+
 using namespace PT;
 using namespace std;
 using namespace utils;
@@ -144,11 +146,11 @@ double Lens::getFocalLength() const
 
     switch (m_projectionFormat)
     {
-        case LensProjectionFormat::RECTILINEAR:
-            return (ssize.x/2.0) / tan(HFOV/180.0*M_PI/2);            
+        case RECTILINEAR:
+            return (ssize.x/2.0) / tan(HFOV/180.0*M_PI/2);
             break;
-        case LensProjectionFormat::CIRCULAR_FISHEYE:
-        case LensProjectionFormat::FULL_FRAME_FISHEYE:
+        case CIRCULAR_FISHEYE:
+        case FULL_FRAME_FISHEYE:
             // same projection, equal area projection
             return ssize.x / (HFOV/180*M_PI);
             break;
@@ -172,11 +174,11 @@ void Lens::setFocalLength(double fl)
 
     double hfov=map_get(variables, "v").getValue();
     switch (m_projectionFormat) {
-        case LensProjectionFormat::RECTILINEAR:
+        case RECTILINEAR:
             hfov = 2*atan((ssize.x/2.0)/fl)  * 180.0/M_PI;
             break;
-        case LensProjectionFormat::CIRCULAR_FISHEYE:
-        case LensProjectionFormat::FULL_FRAME_FISHEYE:
+        case CIRCULAR_FISHEYE:
+        case FULL_FRAME_FISHEYE:
             hfov = ssize.x / fl * 180/M_PI;
         default:
             // TODO: add formulas for other projections
@@ -206,6 +208,97 @@ double Lens::getCropFactor() const
 
 void Lens::setSensorSize(const FDiff2D & size) {
     m_sensorSize = size;
+}
+
+
+bool Lens::initFromFile(const std::string & filename, double &cropFactor)
+{
+    std::string ext = utils::getExtension(filename);
+    std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
+
+    int width;
+    int height;
+    try {
+        vigra::ImageImportInfo info(filename.c_str());
+        width = info.width();
+        height = info.height();
+    } catch(vigra::PreconditionViolation & e) {
+        return false;
+    }
+    setImageSize(vigra::Size2D(width, height));
+
+    if (ext != "JPG" && ext != "JPEG") {
+        return false;
+    }
+
+    ImageInfo_t exif;
+    ResetJpgfile();
+    // Start with an empty image information structure.
+
+    memset(&exif, 0, sizeof(exif));
+    exif.FlashUsed = -1;
+    exif.MeteringMode = -1;
+
+    if (!ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
+        DEBUG_DEBUG("Could not read jpg info");
+        return false;
+    }
+
+#ifdef DEBUG
+    ShowImageInfo(exif);
+#endif
+
+    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
+
+    // calc sensor dimensions if not set and 35mm focal length is available
+    FDiff2D sensorSize;
+    double focalLength = 0;
+
+    if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
+        // read sensor size directly.
+        sensorSize.x = exif.CCDWidth;
+        sensorSize.y = exif.CCDHeight;
+        if (strcmp(exif.CameraModel, "Canon EOS 20D") == 0) {
+            // special case for buggy 20D camera
+            sensorSize.x = 22.5;
+            sensorSize.y = 15;
+        }
+        cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
+        focalLength = exif.FocalLength;
+    } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
+        cropFactor = exif.FocalLength35mm / exif.FocalLength;
+        focalLength = exif.FocalLength;
+    } else if (exif.FocalLength > 0 || exif.FocalLength35mm > 0 ) {
+        // no complete specification found.. ask the user for sensor/chip size, or crop factor
+        if (cropFactor > 0) {
+            // crop factor was provided by user
+        } else {
+            // need to redo, this time with crop
+            cropFactor = -1;
+            return false;
+        }
+        if (exif.FocalLength > 0 ) {
+            focalLength = exif.FocalLength;
+        } else if (exif.FocalLength35mm) {
+            focalLength = exif.FocalLength35mm * cropFactor;
+        }
+    }
+
+    if (sensorSize.x > 0) {
+        setSensorSize(sensorSize);
+    } else if (cropFactor > 0) {
+        setCropFactor(cropFactor);
+    } else {
+        return false;
+    }
+
+    if (focalLength > 0) {
+        setFocalLength(focalLength);
+    } else {
+        return false;
+    }
+
+    return true;
 }
 
 //=========================================================================
@@ -426,7 +519,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     bool skipNextLine = false;
 
     bool PTGUIScriptFile = false;
-    
+
     // PTGui lens line detected
     bool PTGUILensLine = false;
 

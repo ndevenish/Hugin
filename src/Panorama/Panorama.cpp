@@ -1138,7 +1138,6 @@ void Panorama::setOptions(const PanoramaOptions & opt)
 
 }
 
-#if 0
 int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 {
     // load image
@@ -1146,25 +1145,11 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     // FIXME.. check for grayscale / color
 
     Lens lens;
+    lens.setImageSize(vigra::Size2D(img.width(), img.height()));    
     map_get(lens.variables,"v").setValue(HFOV);
 
-    lens.isLandscape = (img.width() > img.height());
-    if (lens.isLandscape) {
-        lens.setRatio(((double)img.width())/img.height());
-    } else {
-        lens.setRatio(((double)img.height())/img.width());
-    }
-
-    std::string::size_type idx = filename.rfind('.');
-    if (idx == std::string::npos) {
-        DEBUG_DEBUG("could not find extension in filename");
-    }
-    std::string ext = filename.substr( idx+1 );
-
-    if (utils::tolower(ext) == "jpg") {
-        // try to read exif data from jpeg files.
-        lens.readEXIF(filename);
-    }
+    double cropFactor = 0;
+    lens.initFromFile(filename, cropFactor);
 
     int matchingLensNr=-1;
     // FIXME: check if the exif information
@@ -1175,9 +1160,9 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
         // use a lens if hfov and ratio are the same
         // should add a check for exif camera information as
         // well.
-        if ((l.getRatio() == lens.getRatio()) &&
-            (l.isLandscape == lens.isLandscape) &&
-            (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) )
+        if ((l.getAspectRatio() == lens.getAspectRatio()) &&
+            (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) &&
+            (l.getSensorSize() == lens.getSensorSize()));
         {
             matchingLensNr= lnr;
         }
@@ -1194,7 +1179,6 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     PanoImage pimg(filename, img.width(), img.height(), (unsigned int) matchingLensNr);
     return addImage(pimg, vars);
 }
-#endif
 
 
 void Panorama::addObserver(PanoramaObserver * o)

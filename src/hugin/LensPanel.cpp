@@ -701,56 +701,9 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
 {
-    std::string ext = utils::getExtension(filename);
-    std::transform(ext.begin(), ext.end(), ext.begin(), toupper);
-
-    if (ext != "JPG" && ext != "JPEG") {
-        return false;
-    }
-
-    ImageInfo_t exif;
-    ResetJpgfile();
-    // Start with an empty image information structure.
-
-    memset(&exif, 0, sizeof(exif));
-    exif.FlashUsed = -1;
-    exif.MeteringMode = -1;
-
-    if (!ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
-        DEBUG_DEBUG("Could not read jpg info");
-        return false;
-    }
-
-#ifdef DEBUG
-    ShowImageInfo(exif);
-#endif
-
-    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
-
-    // calc sensor dimensions if not set and 35mm focal length is available
-
-    FDiff2D sensorSize;
-    double focalLength = 0;
-
-    if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
-        // read sensor size directly.
-        sensorSize.x = exif.CCDWidth;
-        sensorSize.y = exif.CCDHeight;
-        if (strcmp(exif.CameraModel, "Canon EOS 20D") == 0) {
-            // special case for buggy 20D camera
-            sensorSize.x = 22.5;
-            sensorSize.y = 15;
-        }
-        cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
-        focalLength = exif.FocalLength;
-    } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
-        cropFactor = exif.FocalLength35mm / exif.FocalLength;
-        focalLength = exif.FocalLength;
-    } else if (exif.FocalLength > 0 || exif.FocalLength35mm > 0 ) {
-        // no complete specification found.. ask the user for sensor/chip size, or crop factor
-        if (cropFactor > 0) {
-            // crop factor was provided by user
-        } else {
+    
+    if (!l.initFromFile(filename, cropFactor)) {
+        if (cropFactor == -1) {
             cropFactor = 1;
             wxConfigBase::Get()->Read(wxT("/LensDefaults/CropFactor"), &cropFactor);
             wxString tval;
@@ -759,28 +712,10 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
                 _("Adding Image"), tval);
             t.ToDouble(&cropFactor);
             wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
+            
+            return l.initFromFile(filename, cropFactor);
         }
-        if (exif.FocalLength > 0 ) {
-            focalLength = exif.FocalLength;
-        } else if (exif.FocalLength35mm) {
-            focalLength = exif.FocalLength35mm * cropFactor;
-        }
-    }
-
-    if (sensorSize.x > 0) {
-        l.setSensorSize(sensorSize);
-    } else if (cropFactor > 0) {
-        l.setCropFactor(cropFactor);
-    } else {
         return false;
     }
-
-    if (focalLength > 0) {
-        l.setFocalLength(focalLength);
-    } else {
-        return false;
-    }
-
-
     return true;
 }

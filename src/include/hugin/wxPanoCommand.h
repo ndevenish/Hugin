@@ -56,21 +56,13 @@ public:
                 const std::string &filename = *it;
 
                 Lens lens;
-                double width;
-                double height;
-                try {
-                    vigra::ImageImportInfo info(filename.c_str());
-                    width = info.width();
-                    height = info.height();
-                } catch(vigra::PreconditionViolation & e) {
+                initLensFromFile(filename, cropFactor, lens);
+                if( lens.getImageSize().x == 0) {
+                    // if image size is invalid, do not add image.
                     pano.changeFinished();
-                    wxLogError(wxString(e.what()));
+                    wxLogError(_("Could not read image size"));
                     return;
                 }
-
-                lens.setImageSize(vigra::Size2D(width, height));
-
-                initLensFromFile(filename, cropFactor, lens);
 
                 int matchingLensNr=-1;
                 // FIXME: check if the exif information
@@ -100,7 +92,7 @@ public:
                 fillVariableMap(vars);
 
                 DEBUG_ASSERT(matchingLensNr >= 0);
-                PanoImage img(filename, width, height, (unsigned int) matchingLensNr);
+                PanoImage img(filename, lens.getImageSize().x, lens.getImageSize().y, (unsigned int) matchingLensNr);
                 pano.addImage(img, vars);
             }
             pano.changeFinished();

@@ -16,7 +16,7 @@ STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
 	      PreviewPanel.cpp ImageCenter.cpp OptimizePanel.cpp RunOptimizerFrame.cpp RunStitcherFrame.cpp CPListFrame.cpp \
 	      TextKillFocusHandler.cpp ImageOrientationPanel.cpp ImageOrientationFrame.cpp PanoDruid.cpp \
-	      UniversalCursor.cpp CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
+	      CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
 	      PreferencesDialog.cpp
 
 if HAVE_MINGW
