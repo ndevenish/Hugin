@@ -221,6 +221,11 @@ $(OBJ_DIR)/%.tab.cc %.tab.cc: %.y
 	$(SILENT) mv -f $*.tab.c $*.tab.cc
 	$(CXX) $(CXXFLAGS) $(CFLAGS) $(EXTRA_INC_FLAGS) -shared $< -o $@
 
+$(OBJ_DIR)/%.o %.o: %.rc
+	$(ECHO) "    ---- Compiling windows ressource file $< "
+	$(SILENT) windres --use-temp-file -i $< -o $@ --include-dir /usr/local/win32/include  --define __WIN32__ --define __WIN95__ --define __GNUWIN32__
+
+
 %/%.mo: %.po
 
 

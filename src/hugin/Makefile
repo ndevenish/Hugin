@@ -111,7 +111,13 @@ APP_1_OBJ = \
 	    CPListFrame.o \
 	    TextKillFocusHandler.o \
             $(RES_O)
+
+ifeq ($(PLATFORM),win32)
+   APP_1_OBJ += hugin_rc.o
+endif
+
 APP_1_DESKTOP = hugin.desktop
+
 APP_1_LFLAGS = $(LFLAGS) -lpano12
 
 # ====================================================================
