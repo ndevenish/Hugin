@@ -208,19 +208,19 @@ void PreviewPanel::updatePreview()
             }
             case BLEND_SEAMING:
             {
-                
+
+/*
                 MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
                 break;
-/*                
+*/
                 WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
                 break;
-*/
             }
             case BLEND_DIFFERENCE:
             {

@@ -599,39 +599,75 @@ public:
     }
 
     template<class ImgIter, class ImgAccessor,
-             class AlphaIter, class AlphaAccessor,
-             class BlendFunctor>
+             class AlphaIter, class AlphaAccessor>
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
                 vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
                 std::pair<AlphaIter, AlphaAccessor> alpha,
-                SingleImageRemapper<ImageType, AlphaType> & remapper,
-                BlendFunctor & blend)
+                SingleImageRemapper<ImageType, AlphaType> & remapper)
     {
-	unsigned int nImg = imgSet.size();
+        typedef typename
+            vigra::NumericTraits<typename ImageType::value_type>::RealPromote RealImgType;
+        typedef typename ImageType::value_type ImgType;
+
+        unsigned int nImg = imgSet.size();
 
 	Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
 	// empty ROI
 	vigra_ext::ROI<vigra::Diff2D> panoROI;
 
+        // remap all images..
+        std::vector<RemappedPanoImage<ImageType, AlphaType> > remapped(nImg);
+
+        int i=0;
+        int w=0;
+        int h=0;
 	// remap each image and blend into main pano image
 	for (UIntSet::const_iterator it = imgSet.begin();
 	     it != imgSet.end(); ++it)
 	{
-            // get a remapped image.
-	    RemappedPanoImage<ImageType, AlphaType> &
-            remapped = remapper(Base::m_pano, opts, *it, Base::m_progress);
-
-	    Base::m_progress.setMessage("blending");
-	    // add image to pano and panoalpha, adjusts panoROI as well.
-            try {
-                blend(remapped, pano, alpha, panoROI);
-            } catch (vigra::PreconditionViolation & e) {
-                // this can be thrown, if an image
-                // is completely out of the pano
-            }
-            // free remapped image
+            // get a copy of the remapped image.
+            // not very good, but should be enought for the preview.
+            remapped[i] = remapper(Base::m_pano, opts, *it, Base::m_progress);
             remapper.release();
+            vigra::Diff2D lr = remapped[i].roi().getLR();
+            if (w < lr.x)
+                w = lr.x;
+            if (h < lr.y)
+                h = lr.y;
+
+            i++;
 	}
+
+        // iterate over the whole image...
+        // calculate something on the pixels that belong together..
+        for (int y=0; y < h; y++) {
+            for (int x=0; x < w; x++) {
+
+                ImgType min;
+                ImgType max;
+
+                RealImgType mean;
+                RealImgType squared_error;
+
+                int n=0;
+                // calculate the minimum and maximum
+                for (unsigned int i=0; i< nImg; i++) {
+                    if (remapped[i].getAlphaPixel(x,y)) {
+                        RealImgType c = remapped[i].getPixel(x,y);
+                        mean = mean + c;
+                        n++;
+                    }
+                }
+                mean = mean / n;
+                for (unsigned int i=0; i< nImg; i++) {
+                    if (remapped[i].getAlphaPixel(x,y)) {
+                        RealImgType c = remapped[i].getPixel(x,y) - mean;
+                        squared_error = squared_error + c * c;
+                    }
+                }
+                pano.third.set(squared_error/n, pano.first, vigra::Diff2D(x,y));
+            }
+        }
 	Base::m_progress.popTask();
     }
 };
@@ -702,7 +738,7 @@ public:
 	ImageType pano(opts.width, opts.getHeight());
 	AlphaType panoMask(opts.width, opts.getHeight());
 
-        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blender);
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blend);
 	
         std::string outputfile;
 	// save the remapped image
