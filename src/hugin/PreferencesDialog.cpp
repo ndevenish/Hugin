@@ -59,7 +59,7 @@ END_EVENT_TABLE()
 
 
 PreferencesDialog::PreferencesDialog(wxWindow *parent)
-    : wxFrame(parent, -1, _("Preferences - hugin"))
+//    : wxFrame(parent, -1, _("Preferences - hugin"))
 {
     DEBUG_TRACE("");
     // load our children. some children might need special
@@ -135,7 +135,6 @@ void PreferencesDialog::UpdateDisplayData()
 
     DEBUG_DEBUG("Updating display data");
 
-    int i;
     double d;
     wxString tstr;
     wxConfigBase *cfg = wxConfigBase::Get();
@@ -203,7 +202,7 @@ void PreferencesDialog::UpdateDisplayData()
     // Autopano
     MY_STR_VAL("prefs_AutoPanoKolorExe", cfg->Read("/AutoPanoKolor/AutopanoExe",
                                                   HUGIN_APKOLOR_EXE));
-    MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read("/AutoPanoKolor/AutopanoExe",
+    MY_STR_VAL("prefs_AutoPanoKolorArgs", cfg->Read("/AutoPanoKolor/AutopanoArgs",
                                                    HUGIN_APKOLOR_ARGS));
 
     
