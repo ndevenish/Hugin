@@ -264,7 +264,7 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
     int lt = m_ProjectionChoice->GetSelection();
     wxString Ip;
     switch ( lt ) {
-    case PanoramaOptions::RECTILINEAR:       Ip = _("Rectlinear"); break;
+    case PanoramaOptions::RECTILINEAR:       Ip = _("Rectilinear"); break;
     case PanoramaOptions::CYLINDRICAL:       Ip = _("Cylindrical"); break;
     case PanoramaOptions::EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
     }
