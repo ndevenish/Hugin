@@ -28,9 +28,8 @@
 
 #include <vigra_ext/utils.h>
 #include <vigra_ext/NearestFeatureTransform.h>
-#include <vigra_ext/tiffUtils.h>
 
-#include <vigra_ext/LayerImage.h>
+#include <vigra_ext/ROIImage.h>
 
 #include <vigra/impex.hxx>
 
@@ -87,115 +86,148 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
 
 /** blend \p img into \p pano, using \p alpha mask and \p panoROI
  *
- *  updates \p pano, \p alpha and \p panoROI
+ *  updates \p pano, \p alpha and \p panoROI.
+ *
+ *  \param img      is the image that should be blended,
+ *  \param pano     destinatation image
+ *  \param alpha    destination image alpha
+ *  \param panoROI  used part of pano. Does not indicate the allocated part!
+ *                  It is supposed that \p pano is defined at least where
+ *                  \p img is defined.
+ *  \param progress Display progress there.
  */
 template <typename ImageType, typename AlphaImageType,
           typename PanoIter, typename PanoAccessor,
           typename AlphaIter, typename AlphaAccessor>
-void blend(vigra_ext::LayerImage<ImageType, AlphaImageType> & img,
+void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
            vigra::triple<PanoIter, PanoIter, PanoAccessor> pano,
            std::pair<AlphaIter, AlphaAccessor> alpha,
-           vigra_ext::ROI<vigra::Diff2D> & panoROI,
+           vigra::Rect2D & panoROI,
            utils::MultiProgressDisplay & progress)
 {
     typedef typename AlphaIter::value_type AlphaValue;
-    // intersect the ROI's.
-    vigra_ext::ROI<vigra::Diff2D> overlap;
-    const vigra_ext::ROI<vigra::Diff2D> & imgROI = img.roi();
-    if (panoROI.intersect(img.roi(),overlap)) {
-        // image ROI's overlap.. calculate overlap mask
-	vigra::BasicImage<AlphaValue> overlapMask(overlap.size());
-	vigra_ext::OverlapSizeCounter counter;
-	// calculate union of panorama and image mask
-	vigra::inspectTwoImages(overlap.apply(img.alpha(),imgROI),
-				    overlap.apply(alpha, panoROI),
-				    counter);
+    // calculate the overlap by intersecting the two image
+    // rectangles.
+    vigra::Rect2D overlap = img.boundingBox() & panoROI;
+    
+    if (!overlap.isEmpty()) {
+        // image ROI's overlap.. calculate real overlapping area.
+        
+	// corner points of overlapping area.
+	vigra::Point2D overlapUL(INT_MAX, INT_MAX);
+	vigra::Point2D overlapLR(0,0);
+	AlphaIter alphaIter = alpha.first + overlap.upperLeft();
+	typename AlphaImageType::traverser imgAlphaIter = img.maskUpperLeft() 
+                                                      + overlap.upperLeft();
+        typename AlphaImageType::Accessor imgAlphaAcc = img.maskAccessor();
+	// find real, overlapping ROI, by iterating over ROI
+	for (int y=overlap.top(); y < overlap.bottom(); y++, ++imgAlphaIter.y,
+                                                        ++alphaIter.y)
+        {
+	    for (int x=overlap.bottom(); x < overlap.right(); x++, 
+                  ++(imgAlphaIter.x), ++(alphaIter.x)) {
+		// check if images overlap
+		if (imgAlphaAcc(imgAlphaIter) > 0 && alpha.second(alphaIter) > 0) {
+                    // overlap, use it to calculate bounding box
+                    if (overlapUL.x > x) overlapUL.x = x;
+                    if (overlapUL.y > y) overlapUL.y = y;
+                    if (overlapLR.x < x) overlapLR.x = x;
+                    if (overlapLR.y < y) overlapLR.y = y;
+		}
+            }
+        }
+        if (overlapUL.x != INT_MAX) {
+            // the real overlap. we could have copied the image here, but
+            // we leave that to the real blending routine.
+            vigra::Rect2D realOverlap(overlapUL, overlapLR + vigra::Point2D(1,1));
 
-	DEBUG_DEBUG("overlap found: " << overlap << " pixels: " << counter.getSize());
- 	if (counter.getSize() > 0) {
 	    // images overlap, call real blending routine
-	    blendOverlap(overlap.apply(img.image(), imgROI),
-		         overlap.apply(srcIter(img.alpha().first), imgROI),
-			 overlap.apply(destIter(pano.first), panoROI),
-			 overlap.apply(alpha, panoROI),
+	    blendOverlap(applyRect(realOverlap, vigra_ext::srcImageRange(img)),
+		         applyRect(realOverlap, vigra_ext::srcMask(img)),
+			 applyRect(realOverlap, std::make_pair(pano.first, pano.third)),
+			 applyRect(realOverlap, alpha),
                          progress);
 
             // now, copy the non-overlapping parts
-
-            vigra::Diff2D imgUL = imgROI.getUL();
-            vigra::Diff2D imgLR = imgROI.getLR();
-
-            std::vector<vigra_ext::ROI<vigra::Diff2D> > borderAreas;
-
-            vigra_ext::ROI<vigra::Diff2D> roi;
-
-            // upper part
-            roi.setCorners(imgUL,
-                           vigra::Diff2D(imgLR.x, overlap.getUL().y));
-            DEBUG_DEBUG("upper area: " << roi);
-            if (roi.size().x > 0 && roi.size().y > 0) {
-                borderAreas.push_back(roi);
-            }
-
-            // left area
-            roi.setCorners(vigra::Diff2D(imgUL.x, overlap.getUL().y),
-                           vigra::Diff2D(overlap.getUL().x, overlap.getLR().y));
-            DEBUG_DEBUG("left area: " << roi);
-            if (roi.size().x > 0 && roi.size().y > 0) {
-                borderAreas.push_back(roi);
-            }
-
-            // right area
-            roi.setCorners(vigra::Diff2D(overlap.getLR().x, overlap.getUL().y),
-                           vigra::Diff2D(imgLR.x, overlap.getLR().y));
-            DEBUG_DEBUG("right area: " << roi);
-            if (roi.size().x > 0 && roi.size().y > 0) {
-                borderAreas.push_back(roi);
-            }
-
-            // bottom area
-            roi.setCorners(vigra::Diff2D(imgUL.x, overlap.getLR().y),
-                           imgLR);
-            DEBUG_DEBUG("bottom area: " << roi);
-            if (roi.size().x > 0 && roi.size().y > 0) {
-                borderAreas.push_back(roi);
-            }
-
-            for (std::vector<vigra_ext::ROI<vigra::Diff2D> >::iterator it = borderAreas.begin();
-                it != borderAreas.end();
-                ++it)
-            {
-                // copy image with mask.
-                vigra::copyImageIf((*it).apply(img.image(), imgROI),
-                                   (*it).apply(srcIter(img.alpha().first), imgROI),
-                                   (*it).apply(destIter(pano.first),panoROI) );
-                // copy mask
-                vigra::copyImageIf((*it).apply(img.alpha(),imgROI),
-                                   (*it).apply(maskIter(img.alpha().first),imgROI),
-                                   (*it).apply(alpha,panoROI) );
-            }
-        } else {
-            // copy image with mask.
-            vigra::copyImageIf(img.image(),
-                               maskIter(img.alpha().first),
-                               img.roi().apply(destIter(pano.first),panoROI) );
+            
+            // upper stripe
+            vigra::Rect2D border(img.boundingBox().left(),
+                                 img.boundingBox().top(),
+                                 img.boundingBox().right(),
+                                 realOverlap.top());
+            // copy image
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcImageRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, std::make_pair(pano.first,pano.third)));
             // copy mask
-            vigra::copyImageIf(img.alpha(),
-                               maskIter(img.alpha().first),
-                               img.roi().apply(alpha,panoROI) );
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcMaskRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, alpha));
+                               
+            // left stripe
+            border.setUpperLeft(vigra::Point2D(img.boundingBox().left(),
+                                               realOverlap.top()));
+            border.setLowerRight(vigra::Point2D(realOverlap.left(),
+                                                realOverlap.bottom()));
+            // copy image
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcImageRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, std::make_pair(pano.first,pano.third)));
+            // copy mask
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcMaskRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, alpha));
+
+            // right stripe
+            border.setUpperLeft(vigra::Point2D(realOverlap.right(),
+                                realOverlap.top()));
+            border.setLowerRight(vigra::Point2D(img.boundingBox().right(),
+                                 realOverlap.bottom()));
+            // copy image
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcImageRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, std::make_pair(pano.first,pano.third)));
+            // copy mask
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcMaskRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, alpha));
+
+            // lower stripe
+            border.setUpperLeft(vigra::Point2D(img.boundingBox().left(),
+                                               realOverlap.bottom()));
+            border.setLowerRight(vigra::Point2D(img.boundingBox().right(),
+                                                img.boundingBox().bottom()));
+            // copy image
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcImageRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, std::make_pair(pano.first,pano.third)));
+            // copy mask
+            vigra::copyImageIf(applyRect(border, vigra_ext::srcMaskRange(img)),
+                               applyRect(border, vigra_ext::srcMask(img)),
+                               applyRect(border, alpha));
+        } else {
+            DEBUG_DEBUG("ROI's overlap, but no overlapping pixels found");
+            // copy image
+            vigra::copyImageIf(applyRect(img.boundingBox(), vigra_ext::srcImageRange(img)),
+                               applyRect(img.boundingBox(), vigra_ext::srcMask(img)),
+                               applyRect(img.boundingBox(), std::make_pair(pano.first,pano.third)));
+            // copy mask
+            vigra::copyImageIf(applyRect(img.boundingBox(), vigra_ext::srcMaskRange(img)),
+                               applyRect(img.boundingBox(), vigra_ext::srcMask(img)),
+                               applyRect(img.boundingBox(), alpha));
         }
     } else {
 	// image ROI's do not overlap, no blending, just copy
 	// alpha channel is not considered, because the whole target
 	// is free.
-	vigra::copyImage(img.image(),
-	                 img.roi().apply(destIter(pano.first)));
-
+        // copy image
+        vigra::copyImage(applyRect(img.boundingBox(), vigra_ext::srcImageRange(img)),
+                         applyRect(img.boundingBox(), std::make_pair(pano.first,pano.third)));
         // copy mask
-	vigra::copyImage(img.alpha(),
-	                 img.roi().apply(alpha));
+        vigra::copyImage(applyRect(img.boundingBox(), vigra_ext::srcMaskRange(img)),
+                         applyRect(img.boundingBox(), alpha));
+
     }
-    img.roi().unite(panoROI, panoROI);
 }
 
 
