@@ -32,7 +32,7 @@
 #include <wx/spinctrl.h>
 #include <wx/config.h>
 
-#include "PT/SimpleStitcher.h"
+#include "PT/Stitcher.h"
 
 //#include "hugin/config.h"
 #include "hugin/RunStitcherFrame.h"
@@ -555,7 +555,6 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
             }
             MyProgressDialog pdisp(_("Stitching Panorama"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
             std::string format = "jpg";
-            bool savePartial = false;
             switch(opt.outputFormat) {
             case PanoramaOptions::JPEG:
                 format = "jpg";
@@ -582,8 +581,8 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
 
                 vigra::BRGBImage dest;
                 // stitch panorama
-                PT::stitchPanoramaSimple(pano, pano.getOptions(), dest,
-                                         pdisp, basename, format, savePartial);
+                PT::stitchPanorama(pano, pano.getOptions(),
+                                   pdisp, basename);
             } catch (std::exception & e) {
                 DEBUG_ERROR("Error during stitching: " << e.what());
             }
