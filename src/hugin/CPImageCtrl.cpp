@@ -188,7 +188,7 @@ void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & co
     dc.SetPen(wxPen("BLACK", 1, wxSOLID));
     dc.DrawCircle(scale(point), 7);
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
-    dc.DrawCircle(scale(point), 4);
+//    dc.DrawCircle(scale(point), 4);
 }
 
 wxSize CPImageCtrl::DoGetBestSize() const
@@ -345,6 +345,21 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
         }
 //        DEBUG_DEBUG("ImageDisplay: mouse move, state change: " << oldstate
 //                    << " -> " << editState);
+    }
+    if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
+      int x,y;
+      wxSize vs;
+      GetVirtualSize( &vs.x, &vs.y );
+      wxSize sz = GetClientSize();
+      x = (int)((double)mouse->GetPosition().x/16.0/(double)sz.GetWidth()
+          * (double)vs.x
+          - (double)sz.x/32.0);
+      if (x<0) x = 0;
+      y = (int)((double)mouse->GetPosition().y/16.0/(double)sz.GetHeight()
+          * (double)vs.y
+          - (double)sz.y/32.0);
+      if (y<0) x = 0;
+      Scroll( x, y);
     }
 }
 

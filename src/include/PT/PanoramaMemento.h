@@ -344,6 +344,7 @@ typedef std::vector<ControlPoint> CPVector;
 typedef std::vector<PanoImage> ImageVector;
 typedef std::vector<ImageVariables> VariablesVector;
 typedef std::vector<OptimizerSettings> OptimizeVector;
+typedef std::vector<Lens> LensVector;
 
 
 

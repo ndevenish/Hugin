@@ -317,6 +317,7 @@ void LensPanel::ChangePano ( std::string type, double var )
     // we ask for each images Lens
     Lens new_Lens;
     UIntSet lensesNr;
+    LensVector lenses;
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
         lensesNr.insert(imgNr[i]);
         new_Lens = pano.getLens(imgNr[i]);
@@ -343,12 +344,13 @@ void LensPanel::ChangePano ( std::string type, double var )
           new_Lens.e = var;
         }
 //        pano.updateVariables( imgNr[i], new_Lens ); 
+        lenses.insert (lenses.begin(), new_Lens);
         DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
 
     // go into the history
     GlobalCmdHist::getInstance().addCommand(
-          new PT::ChangeLensesCmd( pano, lensesNr, new_Lens )
+          new PT::ChangeLensesCmd( pano, lensesNr, lenses )
           );
 
 /*    GlobalCmdHist::getInstance().addCommand(
@@ -522,7 +524,10 @@ void LensPanel::SetInherit( std::string type )
       xml_optimize = "images_optimize_"; xml_optimize.append(type);
       xml_spin = "images_spin_"; xml_spin.append(type);
       // for all images
+      UIntSet imagesNr;
+      VariablesVector vars;
       for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        imagesNr.insert (imgNr[i]);
         new_var = pano.getVariable(imgNr[i]);
         // set inheritance from image with number ...
         var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
@@ -668,12 +673,11 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "e" )
               optset->at(imgNr[i]).e = FALSE;
           }
-          if ( imgNr[0] > i )
-            PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var);
+          vars.insert (vars.begin(), new_var);
         }
         // lets do the update of history and gui
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_var)
+            new PT::UpdateImagesVariablesCmd(pano, imagesNr, vars)
             );
 
         // activate an undoable command, not for the optimize settings

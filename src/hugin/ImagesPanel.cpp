@@ -248,7 +248,10 @@ void ImagesPanel::ChangePano ( std::string type, double var )
     // set all images with the same distances (only for yaw)
     double yaw_diff  = var - new_var.yaw.getValue();
 
+    UIntSet imagesNr;
+    VariablesVector vars;
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        imagesNr.insert (imgNr[i]);
         new_var = pano.getVariable(imgNr[i]);
         // set values
         if ( type == "yaw" ) {
@@ -264,14 +267,13 @@ void ImagesPanel::ChangePano ( std::string type, double var )
         if ( type == "roll" ) {
           new_var.roll.setValue(var);
         }
-        GlobalCmdHist::getInstance().addCommand(
-          new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
-          );
-
-//        pano.updateVariables( imgNr[i], new_var ); 
-
+        vars.insert (vars.begin(), new_var);
         DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
+        DEBUG_INFO( "");
+    GlobalCmdHist::getInstance().addCommand(
+          new PT::UpdateImagesVariablesCmd(pano, imagesNr, vars)
+          );
 
     changePano = FALSE;
 
@@ -424,7 +426,10 @@ void ImagesPanel::SetInherit( std::string type )
       xml_optimize = "images_optimize_"; xml_optimize.append(type);
       xml_spin = "images_spin_"; xml_spin.append(type);
       // for all images
+      UIntSet imagesNr;
+      VariablesVector vars;
       for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        imagesNr.insert (imgNr[i]);
         new_var = pano.getVariable(imgNr[i]);
         // set inheritance from image with number ...
         var = XRCCTRL(*this, xml_spin .c_str(),wxSpinCtrl)->GetValue();
@@ -513,12 +518,13 @@ void ImagesPanel::SetInherit( std::string type )
             if ( type == "roll" )
               optset->at(imgNr[i]).roll = FALSE;
           }
-          // activate an undoable command, not for the optimize settings
-          GlobalCmdHist::getInstance().addCommand(
-              new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
-              );
+          vars.insert (vars.begin(), new_var);
         }
 
+          // activate an undoable command, not for the optimize settings
+        GlobalCmdHist::getInstance().addCommand(
+          new PT::UpdateImagesVariablesCmd(pano, imagesNr, vars)
+          );
     }
     DEBUG_INFO( type.c_str() << " end" )
 }

@@ -199,6 +199,37 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+    /** update variables of a group of images */
+    class UpdateImagesVariablesCmd : public PanoCommand
+    {
+    public:
+        UpdateImagesVariablesCmd(Panorama & p, UIntSet & change, const VariablesVector & vars)
+            : PanoCommand(p), change(change),
+              vars(vars)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                UIntSet::iterator it;
+                VariablesVector::const_iterator v_it = vars.begin();
+                for (it = change.begin(); it != change.end(); ++it) {
+                    pano.updateVariables(*it, *v_it);
+                    v_it++;
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "update image variables";
+            }
+    private:
+        UIntSet change;
+        VariablesVector vars;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
     /** change the lens for an image */
     class SetImageLensCmd : public PanoCommand
     {
@@ -355,20 +386,24 @@ namespace PT {
         Lens newLens;
     };
 
+    //=========================================================================
+    //=========================================================================
 
     /** change lenses */
     class ChangeLensesCmd : public PanoCommand
     {
     public:
-        ChangeLensesCmd(Panorama & p, UIntSet & lensesNr, const Lens & lens)
-            : PanoCommand(p), lensesNr(lensesNr), newLens(lens)
+        ChangeLensesCmd(Panorama & p, UIntSet & lNr, const LensVector & lenses)
+            : PanoCommand(p), change(lNr), vect(lenses)
             { };
         virtual void execute()
             {
                 PanoCommand::execute();
                 UIntSet::iterator it;
-                for (it = lensesNr.begin(); it != lensesNr.end(); ++it) {
-                    pano.updateLens(*it, newLens);
+                LensVector::const_iterator v_it = vect.begin();
+                for (it = change.begin(); it != change.end(); ++it) {
+                    pano.updateLens(*it, *v_it);
+                    v_it++;
                 }
                 pano.changeFinished();
             }
@@ -377,8 +412,8 @@ namespace PT {
                 return "change lens";
             }
     private:
-        UIntSet lensesNr;
-        Lens newLens;
+        UIntSet change;
+        LensVector vect;
     };
 
 
