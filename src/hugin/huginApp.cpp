@@ -178,7 +178,6 @@ bool huginApp::OnInit()
     // FIXME, make secure against some symlink attacks
     // get a temp dir
 #ifdef __unix__
-    char * dir;
     if (m_workDir == "") {
         m_workDir == "/tmp";
     }

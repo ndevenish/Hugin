@@ -75,7 +75,9 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_CHOICE ( XRCID("pano_choice_interpolator"),PanoPanel::InterpolatorChanged)
     EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
+    EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
     EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
+    EVT_TEXT_ENTER( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
     EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PanoPanel::ColourModeChanged)
@@ -115,8 +117,10 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_ProjectionChoice);
     m_HFOVSpin = XRCCTRL(*this, "pano_val_hfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_HFOVSpin);
+    m_HFOVSpin->PushEventHandler(m_tkf);
     m_VFOVSpin = XRCCTRL(*this, "pano_val_vfov" ,wxSpinCtrl);
     DEBUG_ASSERT(m_VFOVSpin);
+    m_VFOVSpin->PushEventHandler(m_tkf);
 
     m_InterpolatorChoice = XRCCTRL(*this, "pano_choice_interpolator",
                                    wxChoice);
@@ -169,6 +173,8 @@ PanoPanel::~PanoPanel(void)
 {
     DEBUG_TRACE("dtor");
     // FIXME. why does the crash at exit?
+//    m_HFOVSpin->PopEventHandler(false);
+//    m_VFOVSpin->PopEventHandler(false);
 //    m_GammaText->PopEventHandler(false);
 //    m_WidthTxt->PopEventHandler(false);
 //    delete(m_tkf);
