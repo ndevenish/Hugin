@@ -109,7 +109,7 @@ void ImageCache::flush()
     {
         delete it->second;
     }
-    images.clear();
+    pyrImages.clear();
 }
 
 void ImageCache::softFlush()
