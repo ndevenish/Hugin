@@ -67,8 +67,9 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 //    virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
- private:
     // event handlers
+    void DoDialog (wxCommandEvent & e);
+ private:
     void DoOptimization (wxCommandEvent & e);
     void Optimize (OptimizeVector & optvars, PanoramaOptions & output);
 

@@ -3,6 +3,20 @@
   <object class="wxPanel" name="panorama_panel">
     <object class="wxFlexGridSizer">
       <cols>2</cols>
+      <rows>1</rows>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+      <object class="sizeritem">
+        <object class="wxButton" name="pano_make_dialog">
+          <label></label>
+          <style>wxNO_BORDER</style>
+          <bg>#ABBBFF</bg>
+          <focused>1</focused>
+          <tooltip>tear off this tab</tooltip>
+        </object>
+        <flag></flag>
+        <minsize>0,-1</minsize>
+      </object>
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <object class="sizeritem">
@@ -482,9 +496,11 @@
         </object>
         <flag>wxEXPAND|wxGROW</flag>
       </object>
-      <rows>1</rows>
-      <growablecols>0</growablecols>
-      <growablerows>0</growablerows>
     </object>
+  </object>
+  <object class="wxDialog" name="pano_dialog">
+    <title>Panorama settings</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODELESS</style>
+    <object class="unknown" name="pano_dialog_unknown"/>
   </object>
 </resource>
