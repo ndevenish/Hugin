@@ -76,7 +76,7 @@ public:
   bool Connected( void );
 
   /** panorama projection format to send to panoviewer */
-  PT::ProjectionFormat  projectionFormat;
+  PT::PanoramaOptions::ProjectionFormat  projectionFormat;
   int height;
   int width;
   bool resetView;

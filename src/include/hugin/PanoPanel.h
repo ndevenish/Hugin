@@ -61,7 +61,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
      *  controller and the view (even if they sometimes
      *  are in the same object). See model view controller
      *  pattern.
-     *  
+     *
      *  @todo   react on different update signals more special
      */
 //    virtual void panoramaChanged(PT::Panorama &pano);
@@ -126,6 +126,8 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 
     // the model
     Panorama &pano;
+    // hmm, use the panooptions of panorama for the "main"
+    // panorama.
     PanoramaOptions opt;
 
     // tearing off pano_panel

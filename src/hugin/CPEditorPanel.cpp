@@ -336,6 +336,12 @@ bool CPEditorPanel::globalPNr2LocalPNr(unsigned int & localNr, unsigned int glob
     }
 }
 
+unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
+{
+    assert(localNr < currentPoints.size());
+    return currentPoints[localNr].first;
+}
+
 
 void CPEditorPanel::CreateNewPointLeft(wxPoint p)
 {
@@ -920,7 +926,10 @@ void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
     if (item == -1) {
         wxBell();
     }
+    // get the global point number
+    unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
+    
     GlobalCmdHist::getInstance().addCommand(
-        new PT::RemoveCtrlPointCmd(*m_pano,(unsigned int) item )
+        new PT::RemoveCtrlPointCmd(*m_pano,pNr )
         );
 }

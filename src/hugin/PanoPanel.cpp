@@ -147,7 +147,7 @@ void PanoPanel::Resize( wxSizeEvent & e )
       +25 // for the status bar
 #endif
       ;
-      pano_dlg->Move (pos.x, pos.y); 
+      pano_dlg->Move (pos.x, pos.y);
       if ( frame->IsIconized() )
         pano_dlg->Iconize(TRUE);
       else
@@ -357,7 +357,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         server->projectionFormat = preview_opt.projectionFormat;
         server->height = (int)180;
         server->width = (int)preview_opt.HFOV;
-        if (  preview_opt.projectionFormat != EQUIRECTANGULAR )
+        if (  preview_opt.projectionFormat != PanoramaOptions::EQUIRECTANGULAR )
           server->resetView = TRUE;
 //        server->showGrid = TRUE;
         server->SendFilename( (wxString) preview_opt.outfile.c_str() );
@@ -552,7 +552,7 @@ void PanoPanel::PanoOptionsChanged ( PanoramaOptions &o )
 //    WidthChanged (e);
     OPT_TO_COMBOBOX ( "pano_val_width", opt.width )
 //    HeightChanged (e);
-    OPT_TO_COMBOBOX ( "pano_val_height", opt.height ) 
+    OPT_TO_COMBOBOX ( "pano_val_height", opt.height )
 //    Height = opt.height;
 //    JpegQChanged (e);
     OPT_TO_COMBOBOX ( "pano_val_jpegQuality", opt.quality )
@@ -601,12 +601,12 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
                                      wxChoice)->GetSelection();
       wxString Ip ("Hallo");
       switch ( lt ) {
-          case RECTILINEAR:       Ip = _("Rectlinear"); break;
-          case CYLINDRICAL:       Ip = _("Cylindrical"); break;
-          case EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
+          case PanoramaOptions::RECTILINEAR:       Ip = _("Rectlinear"); break;
+          case PanoramaOptions::CYLINDRICAL:       Ip = _("Cylindrical"); break;
+          case PanoramaOptions::EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
       }
 
-      opt.projectionFormat = (ProjectionFormat) lt;
+      opt.projectionFormat = (PanoramaOptions::ProjectionFormat) lt;
       GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
@@ -622,17 +622,17 @@ void PanoPanel::InterpolatorChanged ( wxCommandEvent & e )
                                      wxChoice)->GetSelection();
       wxString Ip ("Hallo");
       switch ( lt ) {
-          case POLY_3:            Ip = _("Poly3 (Bicubic)"); break;
-          case SPLINE_16:         Ip = _("Spline 16"); break;
-          case SPLINE_36:         Ip = _("Spline 36"); break;
-          case SINC_256:          Ip = _("Sinc 256"); break;
-          case SPLINE_64:         Ip = _("Spline 64"); break;
-          case BILINEAR:          Ip = _("Bilinear"); break;
-          case NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
-          case SINC_1024:         Ip = _("Sinc 1024"); break;
+          case PanoramaOptions::POLY_3:            Ip = _("Poly3 (Bicubic)"); break;
+          case PanoramaOptions::SPLINE_16:         Ip = _("Spline 16"); break;
+          case PanoramaOptions::SPLINE_36:         Ip = _("Spline 36"); break;
+          case PanoramaOptions::SINC_256:          Ip = _("Sinc 256"); break;
+          case PanoramaOptions::SPLINE_64:         Ip = _("Spline 64"); break;
+          case PanoramaOptions::BILINEAR:          Ip = _("Bilinear"); break;
+          case PanoramaOptions::NEAREST_NEIGHBOUR: Ip = _("Nearest neighbour"); break;
+          case PanoramaOptions::SINC_1024:         Ip = _("Sinc 1024"); break;
       }
 
-      opt.interpolator = (Interpolator) lt;
+      opt.interpolator = (PanoramaOptions::Interpolator) lt;
       GlobalCmdHist::getInstance().addCommand(
           new PT::SetPanoOptionsCmd( pano, opt )
           );
@@ -684,7 +684,7 @@ void PanoPanel::ColourModeChanged ( wxCommandEvent & e )
 
       int val = XRCCTRL(*this, "pano_spin_colour_reference"
                   , wxSpinCtrl)->GetValue();
-      opt.colorCorrection = (ColorCorrection) colorCorrection;
+      opt.colorCorrection = (PanoramaOptions::ColorCorrection) colorCorrection;
       if ( val <= (int)pano.getNrOfImages() -1 || val == 0 )
         opt.colorReferenceImage = (unsigned int) val;
       else
@@ -805,20 +805,20 @@ void PanoPanel::FinalFormatChanged ( wxCommandEvent & e )
 
       wxString Ip ("JPEG");
       switch ( lt ) {
-          case JPEG:        Ip = wxT("JPEG"); break;
-          case PNG:         Ip = wxT("PNG"); break;
-          case TIFF:        Ip = wxT("TIFF"); break;
-          case TIFF_mask:   Ip = wxT("TIFF_m"); break;
-          case TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
-          case PICT:        Ip = wxT("PICT"); break;
-          case PSD:         Ip = wxT("PSD"); break;
-          case PSD_mask:    Ip = wxT("PSD_mask"); break;
-          case PSD_nomask:  Ip = wxT("PSD_nomask"); break;
-          case PAN:         Ip = wxT("PAN"); break;
-          case IVR:         Ip = wxT("IVR"); break;
-          case IVR_java:    Ip = wxT("IVR_java"); break;
-          case VRML:        Ip = wxT("VRML"); break;
-          case QTVR:        Ip = wxT("QTVR"); break;
+          case PanoramaOptions::JPEG:        Ip = wxT("JPEG"); break;
+          case PanoramaOptions::PNG:         Ip = wxT("PNG"); break;
+          case PanoramaOptions::TIFF:        Ip = wxT("TIFF"); break;
+          case PanoramaOptions::TIFF_mask:   Ip = wxT("TIFF_m"); break;
+          case PanoramaOptions::TIFF_nomask: Ip = wxT("TIFF_nomask"); break;
+          case PanoramaOptions::PICT:        Ip = wxT("PICT"); break;
+          case PanoramaOptions::PSD:         Ip = wxT("PSD"); break;
+          case PanoramaOptions::PSD_mask:    Ip = wxT("PSD_mask"); break;
+          case PanoramaOptions::PSD_nomask:  Ip = wxT("PSD_nomask"); break;
+          case PanoramaOptions::PAN:         Ip = wxT("PAN"); break;
+          case PanoramaOptions::IVR:         Ip = wxT("IVR"); break;
+          case PanoramaOptions::IVR_java:    Ip = wxT("IVR_java"); break;
+          case PanoramaOptions::VRML:        Ip = wxT("VRML"); break;
+          case PanoramaOptions::QTVR:        Ip = wxT("QTVR"); break;
   //      default :   Ip = wxString::Format ("%d",lt); break;
       }
 

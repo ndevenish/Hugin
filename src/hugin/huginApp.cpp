@@ -101,7 +101,7 @@ bool huginApp::OnInit()
 
     // add local Paths
     locale.AddCatalogLookupPathPrefix(wxT("po"));
-    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
+//    locale.AddCatalogLookupPathPrefix("/usr/local/share/locale");
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO((wxString)"add locale path: " + INSTALL_LOCALE_DIR)
     // add path from config file

@@ -67,7 +67,7 @@ Server::Server()  : server_timer(this, TIMER_ID)
 
   port = 3000;
 
-    projectionFormat = EQUIRECTANGULAR;
+    projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
     height = 180;
     width = 360;
     resetView = FALSE;
@@ -165,7 +165,7 @@ void Server::SendFilename( wxString filename )
         pv = viewer;
         if ( pv.FileExists() )
           viewer = pv.GetFullPath();
-        else {   
+        else {
           viewer = INSTALL_BIN_DIR ;
           viewer.Append ( (wxString)wxFileName::GetPathSeparator() );
           viewer.Append ( viewer_bin );
@@ -177,7 +177,7 @@ void Server::SendFilename( wxString filename )
             pv = viewer;
             if ( pv.FileExists() )
               viewer = pv.GetFullPath();
-            else 
+            else
               DEBUG_WARN ( "panoviewer not found" )
           }
         }
@@ -269,7 +269,7 @@ void Server::OnServerTimer(wxTimerEvent& event)
       DEBUG_INFO ( _("send") << " " << send )
       if ( Connected() ) {
         SendFilename ( send );
-//        server_timer.Stop();      // stop here and let SendFilename decide 
+//        server_timer.Stop();      // stop here and let SendFilename decide
       } else {
         ;                         // hope the connection will establish
       }
@@ -318,7 +318,7 @@ void Server::OnServerEvent(wxSocketEvent& event)
   {
     // handshake for proofing the client
     unsigned char handshake;
-    m_sock->SetTimeout(2); 
+    m_sock->SetTimeout(2);
     m_sock->Read(&handshake, 1);
 
     m_sock->SetFlags(wxSOCKET_WAITALL);
@@ -329,7 +329,7 @@ void Server::OnServerEvent(wxSocketEvent& event)
       DEBUG_INFO ( "New client connection accepted: send handshake" )
     } else {
       DEBUG_INFO ( "handshake failed - refusing" )
-      m_sock->Close(); 
+      m_sock->Close();
       UpdateStatusBar();
       return;
     };

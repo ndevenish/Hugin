@@ -110,6 +110,9 @@ private:
 
     /// map a global point nr to a local one, if possible
     bool globalPNr2LocalPNr(unsigned int & localNr, unsigned int globalNr) const;
+    /// find a
+    unsigned int localPNr2GlobalPNr(unsigned int localNr) const;
+
     // function called when a new point has been selected in the first or
     // second image
     void CreateNewPointLeft(wxPoint p);
@@ -158,7 +161,10 @@ private:
     enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
     CPCreationState cpCreationState;
 
+    // pair of global control point number and corrosponding control point
     typedef std::pair<unsigned int, PT::ControlPoint> CPoint;
+    
+    // contains the control points shown currently.
     std::vector<CPoint> currentPoints;
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
