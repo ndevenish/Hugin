@@ -142,7 +142,7 @@ bool huginApp::OnInit()
 #endif
 
     // create main frame
-    MainFrame *frame = new MainFrame();
+    MainFrame* frame = new MainFrame();
 
     // show the frame.
 //    frame->Show(TRUE);

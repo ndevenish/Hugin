@@ -57,8 +57,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
-    EVT_MENU(XRCID("action_remove images"),  MainFrame::OnRemoveImages)
-    EVT_BUTTON(XRCID("action_remove images"),  MainFrame::OnRemoveImages)
+    EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
+    EVT_BUTTON(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
     EVT_CLOSE(  MainFrame::OnExit)
 END_EVENT_TABLE()
@@ -81,36 +81,28 @@ MainFrame::MainFrame(wxWindow* parent)
     // image_panel - cryptic light
     // put an "unknown" object in an xrc file and
     // take as wxObject (second argument) the return value of wxXmlResource::Get
-    DEBUG_INFO("")
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_panel_unknown"),
                wxXmlResource::Get()->LoadPanel (this, wxT("images_panel")) );
 
     DEBUG_INFO("")
-    wxPanel dlg;
-    wxXmlResource::Get()->LoadPanel(&dlg, this, wxT("images_panel"));
-    DEBUG_INFO("")
-    wxListCtrl* images_list = XRCCTRL(dlg, "images_list", wxListCtrl);
+    wxListCtrl* images_list;
+    images_list = XRCCTRL(*this, "images_list", wxListCtrl);
 
-//    wxPanel img_panel XRCCTRL(dlg, "images_panel", wxPanel);
-    DEBUG_INFO("")
-//    XRCCTRL(dlg, "images_list", wxListCtrl)
-    images_list->InsertColumn( 0,
-                                                       _("Name"),
-                                                       wxLIST_FORMAT_LEFT,
-                                                       ( 200 )
-                                                       );
-    DEBUG_INFO("");
+    images_list->InsertColumn( 0, _("#"), wxLIST_FORMAT_LEFT, 25 );
+    images_list->InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 255 );
+    images_list->InsertColumn( 2, _("width"), wxLIST_FORMAT_LEFT, 60 );
+    images_list->InsertColumn( 3, _("height"), wxLIST_FORMAT_LEFT, 60 );
+    images_list->InsertColumn( 4, _("rotate"), wxLIST_FORMAT_LEFT, 60 );
+
     // (2) Insert some items into the listctrl
-/*    XRCCTRL(this, "images_list", wxListCtrl)->InsertItem(0,wxT("Todd Hope"));
-    XRCCTRL(this, "images_list", wxListCtrl)->InsertItem(1,wxT("Kim Wynd"));
-    XRCCTRL(this, "images_list", wxListCtrl)->InsertItem(2,wxT("Leon Li"));
-    DEBUG_INFO("");
+/*    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(0,wxT("0"),0);
+    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(0,1,"Todd Hope");
+    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(1,wxT("1"),0);
+    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(1,1,"Kim Wynd");
+    XRCCTRL(*this, "images_list", wxListCtrl)->InsertItem(2,wxT("2"),0);
+    XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(2,1,"Leon Li");
 */
-
-
-    //img_panel->
-
     // create the custom widget referenced by the main_frame XRC
     cpe = new CPEditorPanel(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
@@ -224,12 +216,16 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     DEBUG_INFO ( (wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
   }
 
-  wxString str;         // look data at debug
+//  wxArrayString str;         // look data at debug
+  wxString str;
   wxFileDialog *dlg = new wxFileDialog(this,_("Add images"), "", "",
-        "Images files (*.jpg)|*.jpg,*.JPG|(*.png)|*.png,*.PNG|(*.tif)|*.tif,*.tiff,*.TIF,*.TIFF|All files (*.*)|*.*", wxOPEN, wxDefaultPosition);
+        "Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*", wxOPEN|wxMULTIPLE , wxDefaultPosition);
   if (dlg->ShowModal() == wxID_OK) {
         str = dlg->GetFilename();
-        SetStatusText( _("Add images:   ") + str);
+        wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
+        lst->InsertItem ( 0 , "0" );
+        lst->SetItem ( 0 , 1, str );
+        SetStatusText( _("Add images:   ") + str, 0);
         // If we load here out project, we await all other as well in place.
         str = dlg->GetDirectory();
         wxFileName::SetCwd( str );
@@ -253,6 +249,9 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
 
 void MainFrame::OnRemoveImages(wxCommandEvent & e)
 {
+//    wxArrayInt& aSelections = new wxArrayInt();
+//    XRCCTRL(*this, "images_list", wxListCtrl)->GetSelections(aSelections);
+//    SetStatusText( _("iRemove images:   ") + aSelections, 0);
     wxLogError("not implemented");
 }
 
