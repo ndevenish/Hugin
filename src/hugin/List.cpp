@@ -52,9 +52,6 @@
 using namespace PT;
 using namespace utils;
 
-// image preview
-extern wxBitmap * p_img;
-
 // ImagesPanel
 extern ImagesPanel* images_panel;
 // Image Icons
@@ -75,15 +72,11 @@ extern ImgPreview *canvas;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(List, wxListCtrl)
-//    EVT_PAINT(ImagesPanel::OnDraw)
-//    EVT_LIST_ITEM_SELECTED ( XRCID("images_list"), List::Change )
-//    EVT_MOUSE_EVENTS ( List::Change )
-    EVT_MOTION ( List::Change )
+    EVT_MOUSE_EVENTS ( List::Change )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"), List::selectItemVeto)
     EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::selectItemVeto)
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"), List::itemSelected )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list2_unknown"), List::itemSelected )
-//    EVT_LEFT_DOWN ( List::Change )
 END_EVENT_TABLE()
 
 // Define a constructor for the Images Panel
@@ -140,8 +133,6 @@ List::~List(void)
 {
     DEBUG_TRACE("");
     pano.removeObserver(this);
-//    delete p_img; // Dont know how to check for existing
-    p_img = (wxBitmap *) NULL;
     DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 }
 
@@ -155,14 +146,6 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     selectItems = FALSE;
 
     DEBUG_INFO( wxString::Format("modus %d", list_layout) )
-/*      // publicate the numbers of the selected images
-      imgNr[0] = 0;             // reset the counter
-      for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
-        if ( GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
-          imgNr[0] += 1;        // set the counter
-          imgNr[imgNr[0]] = Nr; //(unsigned int)Nr;
-        }
-      }*/
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
 
     // first the internal changes without any new or removed item
@@ -183,13 +166,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_INFO( "filling row: " << imageNr )
       }
 
-    // Here we set all items as selected wich may forgot it.
-/*      selectItems = FALSE; // The following causes an event.Skip itemSelected()
-      for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
-        SetItemState( imgNr[i], wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
-      }
-      */
-    } else { // Now we take long way, to setup the table from ground.
+    } else { // Now we take the long way, to setup the table from ground.
       DeleteAllItems() ;
 
       // start the loop for every selected filename
@@ -204,11 +181,6 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 
     }
     EnsureVisible(imageNr);
-/*
-    if ( pano.getNrOfImages() == 0 ) {
-        delete p_img;
-        p_img = new wxBitmap(0,0);
-    }*/
 
     selectItems = TRUE;
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
@@ -391,52 +363,52 @@ void List::itemSelected ( wxListEvent & e )
     } else {
         lens_panel->SetImages (e);
     }
+    long item = imgNr[imgNr[0]];
+    if ( (list_layout == images_layout && imgNr[0] > 0) && (item != -1 && item != prevItem) ) {
+        // preview selected images
+        wxImage s_img = ImageCache::getInstance().getImageSmall(
+              pano.getImage((int)item).getFilename());
+
+        canvas->ChangePreview ( s_img );
+
+        if (item != -1)
+          prevItem = item;
+    }
+    if (imgNr[0] == 0) {
+      wxImage img (1,1);
+      canvas->ChangePreview ( img );
+    }
 
     // let others recieve the event too
     //e.Skip(true);
     DEBUG_TRACE("end");
 }
 
-// set a new image of the actual item the mouse is over
+// set a new image of the actual selected item
 void List::Change ( wxMouseEvent & e )
 {
-    if ( list_layout == images_layout ) {
-//    DEBUG_TRACE ("")
-        int flags = wxLIST_HITTEST_ONITEM;
-        long item = HitTest( e.GetPosition(),  flags);
+    if (e.Leaving() && imgNr[0] > 0) {
+      std::stringstream filename;
+      filename <<_("preview")<<".JPG" ;
+      wxFileName fn = (wxString)filename.str().c_str();
+//      DEBUG_INFO ( filename.str() )
+      if ( fn.FileExists() ) {
+        wxImage img (filename.str().c_str());
+        canvas->ChangePreview (img);
+      }
+    }
+    long item = imgNr[imgNr[0]];
+    if ( (list_layout == images_layout && imgNr[0] > 0) && e.Entering() ) {
+//        int flags = wxLIST_HITTEST_ONITEM;
+//        long item = HitTest( e.GetPosition(),  flags);
+//        DEBUG_TRACE ("item " << item)
 
-        if ( item != -1 && item != prevItem ) {
-          // preview selected images
-          wxImage * s_img = ImageCache::getInstance().getImageSmall(
+        // preview selected images
+        wxImage s_img = ImageCache::getInstance().getImageSmall(
               pano.getImage((int)item).getFilename());
 
-
-          // right image preview
-          wxImage r_img;
-
-          int new_width;
-          int new_height;
-          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
-                > 2.0 ) {
-            new_width =  256;
-            new_height = (int)((float)s_img->GetHeight()/
-                                        (float)s_img->GetWidth()*256.0);
-          } else {
-            new_width = (int)((float)s_img->GetWidth()/
-                                        (float)s_img->GetHeight()*128.0);
-            new_height = 128;
-          }
-
-          r_img = s_img->Scale( new_width, new_height );
-          delete p_img;
-          p_img = new wxBitmap( r_img.ConvertToBitmap() );
-          canvas->Refresh();
-//          frame->SetStatusText(wxString::Format(" %d,%d / %ld",e.m_x,e.m_y, item), 1);
-        }
-
-        if (item != -1)
-          prevItem = item;
-    } else {
+        canvas->ChangePreview ( s_img );
     }
+    e.Skip();
 }
 

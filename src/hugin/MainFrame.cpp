@@ -364,6 +364,16 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       dlg->GetPaths(Pathnames);
       sprintf(e_stat,"Add images(%d): ", Filenames.GetCount());
 
+      // d There we are now?
+      wxString str;
+      str = dlg->GetDirectory();
+      // e safe the current path to config
+      config->Write("actualPath", str);  // remember for later
+      DEBUG_INFO( (wxString)"save Cwd - " + str )
+      // f restore the path previous this dialog
+      wxFileName::SetCwd( current );
+      DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+
       // we got some images to add.
       if (Pathnames.GetCount() > 0) {
           // use a Command to ensure proper undo and updating of GUI
@@ -380,19 +390,10 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       }
       SetStatusText( e_stat, 0);
 
-      // d There we are now?
-      wxString str;
-      str = dlg->GetDirectory();
-      // e safe the current path to config
-      config->Write("actualPath", str);  // remember for later
-      DEBUG_INFO( (wxString)"save Cwd - " + str )
     } else {
       // nothing to open
       SetStatusText( _("Add Image: cancel"));
     }
-    // f restore the path previous this dialog
-    wxFileName::SetCwd( current );
-    DEBUG_INFO ( (wxString)"set Cwd to: " + current )
 
     DEBUG_TRACE ( wxString::Format("img_ext: %d", dlg->GetFilterIndex()) )
     // save the image extension

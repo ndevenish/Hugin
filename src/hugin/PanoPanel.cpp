@@ -81,6 +81,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
   EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::AutoPreview )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
                                                PanoPanel::panoviewerEnabled )
+  EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_precise"),
+                                               PanoPanel::panoviewerPrecise )
 
   EVT_CHOICE   ( XRCID("pano_choice_formatFinal"),PanoPanel::FinalFormatChanged)
   EVT_COMBOBOX ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
@@ -104,8 +106,9 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     // set defaults from gui;
 //    PanoChanged (e);
-    auto_preview = FALSE;
+    auto_preview = TRUE;
     panoviewer_enabled = TRUE;
+    panoviewer_precise = FALSE;
     panoviewer_started = FALSE;
 
     changePano = FALSE;
@@ -212,7 +215,9 @@ void PanoPanel::DoOptimization (wxCommandEvent & e)
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
-    if (!self_pano_dlg) {
+    DEBUG_TRACE("");
+    if (!self_pano_dlg && (pano.getNrOfImages() > 0) ) {
+      std::stringstream filename;
       int old_previewWidth = previewWidth;
       Panorama preview_pano = pano;
       PanoramaOptions preview_opt = opt;
@@ -222,15 +227,17 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       preview_opt.width = previewWidth;
       preview_opt.height = previewWidth / 2;
       wxString outputFormat = preview_opt.outputFormat.c_str();
+      filename <<_("preview")<<".JPG" ;
+      preview_opt.outfile = filename.str();
       preview_opt.outputFormat = "JPEG";
       if ( outputFormat != "JPEG" )
         preview_opt.quality = 100;
 
-      if (!panoviewer_enabled) {
+      if (!panoviewer_precise) {
         // Set the preview image accordingly to ImagesPanel.cpp
         for (unsigned int imgNr=0; imgNr < pano.getNrOfImages(); imgNr++){
           wxFileName fn = (wxString)pano.getImage(imgNr).getFilename().c_str();
-          std::stringstream filename;
+          filename.str("");
           filename << fn.GetPath(wxPATH_GET_SEPARATOR|wxPATH_GET_VOLUME).c_str()
                   <<_("preview")<<"_"<< imgNr <<".ppm" ;
           PanoImage image = preview_pano.getImage(imgNr);
@@ -250,11 +257,11 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
       // Send panoViewer the name of our image
       if ( panoviewer_enabled ) {
         server->projectionFormat = preview_opt.projectionFormat;
-        server->height = preview_opt.height;
-        server->width = preview_opt.width;
+        server->height = (int)180;
+        server->width = (int)preview_opt.HFOV;
         if (  preview_opt.projectionFormat != EQUIRECTANGULAR )
           server->resetView = TRUE;
-        server->showGrid = TRUE;
+//        server->showGrid = TRUE;
         server->SendFilename( (wxString) preview_opt.outfile.c_str() );
 //        panoviewer_started = TRUE;
       }
@@ -284,7 +291,8 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
           canvas->Refresh();
           delete s_img;
     } else {  // if ( panoviewer_enabled )
-      pano_panel->DoPreview(e);
+      if ( pano.getNrOfImages() > 0 )
+        pano_panel->DoPreview(e);
     }
 /*
     if ( !preview_dlg ) {
@@ -346,6 +354,30 @@ void PanoPanel::panoviewerEnabled ( wxCommandEvent & e )
         pano_dlg->pp->panoviewer_enabled = panoviewer_enabled;
         XRCCTRL(*pano_dlg->pp, "pano_cb_panoviewer_enabled", wxCheckBox)
                   ->SetValue(panoviewer_enabled);
+      }
+    }
+
+}
+void PanoPanel::panoviewerPrecise ( wxCommandEvent & e )
+{
+    if ( XRCCTRL(*this, "pano_cb_panoviewer_precise", wxCheckBox)
+         ->IsChecked() ) {
+        DEBUG_INFO ("set panoviewer_precise")
+        panoviewer_precise = true;
+    } else {
+        DEBUG_INFO ("unset panoviewer_precise")
+        panoviewer_precise = false;
+    }
+
+    if ( pano_dlg_run ) {  // tell the other window
+      if ( self_pano_dlg ) {
+        pano_panel->panoviewer_precise = panoviewer_precise;
+        XRCCTRL(*pano_panel, "pano_cb_panoviewer_precise", wxCheckBox)
+                  ->SetValue(panoviewer_precise);
+      } else {
+        pano_dlg->pp->panoviewer_precise = panoviewer_precise;
+        XRCCTRL(*pano_dlg->pp, "pano_cb_panoviewer_precise", wxCheckBox)
+                  ->SetValue(panoviewer_precise);
       }
     }
 
@@ -639,7 +671,7 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
           new PT::SetPanoOptionsCmd( pano, opt )
           );
   
-      DEBUG_INFO ( ": " << *val )
+      DEBUG_INFO ( ": " << *val << " " << Height )
       delete val;
     }
 }

@@ -159,10 +159,10 @@ class ImgPreview: public wxScrolledWindow
     ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano);
     ~ImgPreview(void) ;
 
- private:
     // Here we select the preview image
-    void ChangePreview ( long item );
-    void ChangePreview ( std::string filename );
+    void ChangePreview ( wxImage & s_img );
+
+ private:
     void OnMouse ( wxMouseEvent & event );
 
     void OnDraw(wxDC& dc);

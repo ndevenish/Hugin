@@ -712,49 +712,33 @@ void ImgPreview::OnDraw(wxDC & dc)
   }
 }
 
-void ImgPreview::ChangePreview ( std::string filename )
+void ImgPreview::ChangePreview ( wxImage & s_img )
 {
-    wxFileName fn = (wxString)filename.c_str();
-    if ( fn.IsOk() && fn.FileExists() ) {
-//    DEBUG_INFO ( "hier: is item " << fn.GetFullPath() );
           // right image preview
-          wxImage * s_img;
-          s_img = new wxImage (filename.c_str());
           wxImage r_img;
 
           int new_width;
           int new_height;
-          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
+          if ( ((float)s_img.GetWidth() / (float)s_img.GetHeight())
                 > 2.0 ) {
             new_width =  256;
-            new_height = (int)((float)s_img->GetHeight()/
-                                        (float)s_img->GetWidth()*256.0);
+            new_height = (int)((float)s_img.GetHeight()/
+                                        (float)s_img.GetWidth()*256.0);
           } else {
-            new_width = (int)((float)s_img->GetWidth()/
-                                        (float)s_img->GetHeight()*128.0);
+            new_width = (int)((float)s_img.GetWidth()/
+                                        (float)s_img.GetHeight()*128.0);
             new_height = 128;
           }
 
-          r_img = s_img->Scale( new_width, new_height );
+          r_img = s_img.Scale( new_width, new_height );
           delete p_img;
           p_img = new wxBitmap( r_img.ConvertToBitmap() );
           Refresh();
-          delete s_img;
-    }
-//    wxPoint pos = e.GetPosition();
-//    long item = HitTest( e.m_x ,e.m_y );
-//    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
-//    DEBUG_INFO ( "hier: is item " << filename );
 }
+
 
 void ImgPreview::OnMouse ( wxMouseEvent & e )
 {
-    if (e.Entering() || e.Leaving()) {
-      PanoramaOptions opt = pano.getOptions();
-      ChangePreview (opt.outfile);
-//      frame->SetStatusText(wxString::Format("set %s", opt.outfile.c_str()),0);
-    }
-
     double coord_x = (double)e.m_x/256.0*360.0 -180.0;
     double coord_y = (double)e.m_y/128.0* -180.0 + 90.0; 
 
@@ -790,7 +774,7 @@ void ImgPreview::OnMouse ( wxMouseEvent & e )
     if ((images_panel->imgNr[0] >= 1)) {
       if (e.Leaving() || (e.m_controlDown 
            && !(e.m_shiftDown && e.m_controlDown))) 
-        XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue(
+        XRCCTRL(*images_panel,"images_slider_pitch",wxSlider) ->SetValue( -1 *
              (int) pano.getVariable(images_panel->imgNr[1]) .pitch .getValue());
       if (e.Leaving() || (e.m_shiftDown
             && !(e.m_shiftDown && e.m_controlDown)))
