@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxFrame" name="main_frame">
+    <title>Hugin - Panorama Tools Frontend</title>
+    <style>wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER</style>
+    <centered>1</centered>
+    <object class="wxFlexGridSizer">
+      <cols>1</cols>
+      <rows>0</rows>
+      <vgap>0</vgap>
+      <hgap>0</hgap>
+      <growablecols>0</growablecols>
+      <growablerows>0</growablerows>
+      <object class="sizeritem">
+        <option>1</option>
+        <flag>wxALL|wxGROW</flag>
+        <border>5</border>
+        <object class="wxNotebook" name="controls_notebook">
+          <usenotebooksizer>1</usenotebooksizer>
+          <object class="notebookpage">
+            <label>Images</label>
+            <object class="wxPanel" name="images_panel">
+              <object class="wxFlexGridSizer">
+                <cols>1</cols>
+                <rows>0</rows>
+                <vgap>0</vgap>
+                <hgap>0</hgap>
+                <growablecols>0</growablecols>
+                <growablerows>0,1,2,3,4,5,6</growablerows>
+                <object class="sizeritem">
+                  <object class="wxListBox">
+                    <content/>
+                  </object>
+                </object>
+              </object>
+              <style></style>
+            </object>
+          </object>
+          <object class="notebookpage">
+            <label>Lens</label>
+            <object class="wxPanel" name="lens_panel"/>
+          </object>
+          <object class="notebookpage">
+            <label>Panorama</label>
+            <object class="wxPanel" name="panorama_panel"/>
+          </object>
+          <object class="notebookpage">
+            <label>Control Points</label>
+            <object class="unknown" name="cp_editor_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Optimizer</label>
+            <object class="wxPanel"/>
+          </object>
+        </object>
+        <minsize>600,400</minsize>
+      </object>
+    </object>
+  </object>
+</resource>

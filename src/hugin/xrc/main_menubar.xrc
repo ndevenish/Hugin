@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxMenuBar" name="main_menubar">
+    <style>wxMB_DOCKABLE</style>
+    <object class="wxMenu" name="file_tool_or_menuitem">
+      <label>_File</label>
+      <style>wxMENU_TEAROFF</style>
+      <object class="wxMenuItem" name="action_exit_hugin">
+        <label>E_xit\tAlt-X</label>
+        <help>Exit this application</help>
+      </object>
+    </object>
+    <object class="wxMenu" name="help_menu">
+      <label>_Help</label>
+      <object class="wxMenuItem" name="action_show_about">
+        <label>_About...</label>
+        <help>About this application</help>
+      </object>
+    </object>
+  </object>
+</resource>

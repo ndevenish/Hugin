@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<resource>
+  <object class="wxPanel" name="cp_editor_panel">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="unknown" name="cp_editor_left_img"/>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
+            <object class="unknown" name="cp_editor_right_img"/>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <option>10</option>
+        <flag>wxEXPAND</flag>
+        <border>10</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxListBox">
+          <content/>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>x:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <border>10</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="cp_editor_x1"/>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>y:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <border>10</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="cp_editor_y1"/>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>x:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="cp_editor_x2"/>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>y:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="cp_editor_y2"/>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>mode:</label>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxChoice" name="cp_editor_mode">
+              <content>
+                <item>normal</item>
+                <item>vertical line</item>
+                <item>horizontal line</item>
+              </content>
+            </object>
+          </object>
+        </object>
+        <option>0</option>
+        <flag>wxEXPAND</flag>
+        <border>5</border>
+      </object>
+    </object>
+    <size>400</size>
+  </object>
+</resource>
