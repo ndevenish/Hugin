@@ -1,0 +1,1613 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2003 Kai-Uwe Behrmann <web@tiscali.de>
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <web@tiscali.de>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-04-23 18:08+0200\n"
+"PO-Revision-Date: 2003-05-22 22:06--100\n"
+"Last-Translator: Kai-Uwe Behrmann <web@tiscali.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../ptopengui.cpp:68
+msgid "PTOpenGui is ready"
+msgstr "PTOpenGui startete"
+
+#: ../ptopengui.cpp:81
+#: ../ptopengui.cpp:1202
+msgid "New"
+msgstr "Neu"
+
+#: ../ptopengui.cpp:81
+msgid "New project"
+msgstr "Neues Projekt"
+
+#: ../ptopengui.cpp:82
+msgid "&Open project\tCtrl-o"
+msgstr "Öffne Pr&ojekt\tCtrl-o"
+
+#: ../ptopengui.cpp:83
+msgid "&Save project\tCtrl-s"
+msgstr "&Speichere Projekt\tCtrl-s"
+
+#: ../ptopengui.cpp:84
+msgid "Save project As"
+msgstr "Projekt Speichern unter"
+
+#: ../ptopengui.cpp:85
+msgid "Close project"
+msgstr "Projekt schließen"
+
+#: ../ptopengui.cpp:86
+msgid "Preferences"
+msgstr "Voreinstellungen"
+
+#: ../ptopengui.cpp:88
+msgid "E&xit\tCtrl-q"
+msgstr "&Beenden\tCtrl-q"
+
+#: ../ptopengui.cpp:88
+msgid "Quit PTOpenGui"
+msgstr "PTOpenGui beenden"
+
+#: ../ptopengui.cpp:91
+msgid "Project in text format\tF2"
+msgstr "Projekt als Text\tF2"
+
+#: ../ptopengui.cpp:91
+msgid "Set parameters. view datas"
+msgstr "setzte Parameter, betrachte Daten"
+
+#: ../ptopengui.cpp:92
+msgid "Fine tune control point"
+msgstr "Feiner Kontrollpunkt"
+
+#: ../ptopengui.cpp:92
+msgid "Experimental function"
+msgstr "Experimentelle Funktion"
+
+#: ../ptopengui.cpp:93
+msgid "Add control point"
+msgstr "Kontrollpunkt hinzufügen"
+
+#: ../ptopengui.cpp:93
+msgid "Same function as add button"
+msgstr "dieselbe Funktion wie Hinzufügen"
+
+#: ../ptopengui.cpp:94
+msgid "Update control point"
+msgstr "Kontrollpunkt auffrischen"
+
+#: ../ptopengui.cpp:94
+msgid "Same function as update button"
+msgstr "dieselbe Funktion wie Auffrischen"
+
+#: ../ptopengui.cpp:97
+msgid "&Control point table\tF3"
+msgstr "&Kontrollpunktliste\tF3"
+
+#: ../ptopengui.cpp:97
+msgid "Shows all controlpoint distances"
+msgstr "Zeige alle Kontrollpunktabstände"
+
+#: ../ptopengui.cpp:98
+msgid "&Optimized control points"
+msgstr "&Optimierte Kontrollpunkte"
+
+#: ../ptopengui.cpp:98
+msgid "Last optimization result"
+msgstr "letze Optimierungsergebnisse"
+
+#: ../ptopengui.cpp:99
+msgid "&Last preview stitch"
+msgstr "&Letzte Vorschau"
+
+#: ../ptopengui.cpp:102
+msgid "&Hide statusbar"
+msgstr "&Verberge Statusleiste"
+
+#: ../ptopengui.cpp:102
+msgid "Toggle statusbar visibility"
+msgstr "Statusbar zeigen/verstecken"
+
+#: ../ptopengui.cpp:103
+msgid "&Auto optimization\tF4"
+msgstr "&autom. Optimierung\tF4"
+
+#: ../ptopengui.cpp:103
+msgid "Toggle optimization status"
+msgstr "Optimierungsstatus umschalten"
+
+#: ../ptopengui.cpp:104
+msgid "&Other\tF8"
+msgstr "&Anderes\tF8"
+
+#: ../ptopengui.cpp:104
+msgid "General settings"
+msgstr "allgemeine Einstellungen"
+
+#: ../ptopengui.cpp:107
+msgid "&Optimization\tCtrl-r"
+msgstr "&Optimierung\tCtrl-r"
+
+#: ../ptopengui.cpp:107
+msgid "Optimize with current parameters"
+msgstr "optimieren mit aktuellen Einstellungen"
+
+#: ../ptopengui.cpp:108
+msgid "&Accept previous optimization result\tCtrl-Alt-a"
+msgstr "vorherige Optimierung &annehmen\tCtrl-Alt-a"
+
+#: ../ptopengui.cpp:108
+msgid "Last result was OK?"
+msgstr "Das letzte Ergebnis war gut?"
+
+#: ../ptopengui.cpp:109
+msgid "&Preview\tCtrl-p"
+msgstr "&Vorschau\tCtrl-p"
+
+#: ../ptopengui.cpp:112
+msgid "About"
+msgstr "Über"
+
+#: ../ptopengui.cpp:115
+msgid "&File"
+msgstr "&Datei"
+
+#: ../ptopengui.cpp:116
+msgid "&Edit"
+msgstr "&Editieren"
+
+#: ../ptopengui.cpp:117
+msgid "&View"
+msgstr "Ansicht"
+
+#: ../ptopengui.cpp:118
+msgid "&Options"
+msgstr "&Optionen"
+
+#: ../ptopengui.cpp:119
+msgid "&Execute"
+msgstr "Ausführ&en"
+
+#: ../ptopengui.cpp:120
+msgid "&Help"
+msgstr "&Hilfe"
+
+#: ../ptopengui.cpp:133
+msgid "Open project file"
+msgstr "Öffne Projekt Datei"
+
+#: ../ptopengui.cpp:137
+msgid "Open project: "
+msgstr "Öffne Projekt"
+
+#: ../ptopengui.cpp:144
+msgid "Open project: cancel"
+msgstr "Öffne Projekt: Abbrechen"
+
+#: ../ptopengui.cpp:202
+msgid "PTOpenGui - Text mode"
+msgstr "PTOpenGui - Text Modus"
+
+#: ../ptopengui.cpp:219
+#: ../ptopengui.cpp:264
+msgid "PTOpenGui"
+msgstr ""
+
+#: ../ptopengui.cpp:237
+msgid ""
+"PTOpenGui\n"
+"Version:           0.8pre_wx\n"
+"Compile date:   2003/04/11\n"
+"\n"
+"Copyright 2003 Juha Helminen  2003\n"
+"under the GPL\n"
+"\n"
+"URL: http://www.nic.fi/~juhe/ptbcgui/"
+msgstr ""
+
+#: ../ptopengui.cpp:238
+msgid "About PTOpenGui"
+msgstr "Über PTOpenGui"
+
+#: ../ptopengui.cpp:286
+msgid "Files"
+msgstr "Dateien"
+
+#: ../ptopengui.cpp:290
+msgid "Lens settings"
+msgstr "Objektiv Einstellungen"
+
+#: ../ptopengui.cpp:294
+msgid "Panorama settings"
+msgstr "Panorama Einstellungen"
+
+#: ../ptopengui.cpp:298
+msgid "Image settings"
+msgstr "Bild Einstellungen"
+
+#: ../ptopengui.cpp:302
+msgid "Control points"
+msgstr "Kontrollpunkte"
+
+#: ../ptopengui.cpp:306
+msgid "Optimize"
+msgstr "Optimieren"
+
+#: ../ptopengui.cpp:310
+msgid "Preview"
+msgstr "Vorschau"
+
+#: ../ptopengui.cpp:314
+#: ../ptopengui.cpp:1842
+msgid "Stitch"
+msgstr "Zusammenfügen"
+
+#: ../ptopengui.cpp:323
+msgid "OK"
+msgstr "Ja"
+
+#: ../ptopengui.cpp:327
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../ptopengui.cpp:352
+msgid "Image files"
+msgstr "Bilddateien"
+
+#: ../ptopengui.cpp:356
+msgid "image in project"
+msgstr "Bild im Projekt"
+
+#: ../ptopengui.cpp:359
+#: ../ptopengui.cpp:966
+msgid "Filename"
+msgstr "Dateiname"
+
+#: ../ptopengui.cpp:360
+msgid "width"
+msgstr "Breite"
+
+#: ../ptopengui.cpp:361
+msgid "height"
+msgstr "Höhe"
+
+#: ../ptopengui.cpp:362
+msgid "rotate"
+msgstr "Drehen"
+
+#: ../ptopengui.cpp:378
+msgid "Project file"
+msgstr "Projektdatei"
+
+#: ../ptopengui.cpp:383
+msgid "Edit project"
+msgstr "Editiere Projekt"
+
+#: ../ptopengui.cpp:384
+msgid "Show project in project parser"
+msgstr "zeige Projekt im Textfenster"
+
+#: ../ptopengui.cpp:389
+msgid "#- scanResolution 2900.00000"
+msgstr "#- Scanauflösung 2900.00000"
+
+#: ../ptopengui.cpp:390
+msgid "Project description"
+msgstr "Projektbeschreibung"
+
+#: ../ptopengui.cpp:399
+msgid "File operations"
+msgstr "Dateikommandos"
+
+#: ../ptopengui.cpp:402
+#: ../ptopengui.cpp:1237
+msgid "Add"
+msgstr "neu"
+
+#: ../ptopengui.cpp:403
+msgid "Add new image to project"
+msgstr "fügt ein neues Bild dem Projekt hinzu"
+
+#: ../ptopengui.cpp:406
+msgid "Remove"
+msgstr "löschen"
+
+#: ../ptopengui.cpp:407
+msgid "Remove image from project"
+msgstr "löscht das Bild vom Projekt"
+
+#: ../ptopengui.cpp:410
+msgid "Up"
+msgstr "hoch"
+
+#: ../ptopengui.cpp:411
+msgid "Move image up in list"
+msgstr "Bild nach oben"
+
+#: ../ptopengui.cpp:414
+msgid "Down"
+msgstr "runter"
+
+#: ../ptopengui.cpp:415
+msgid "Move image down in list"
+msgstr "Bild nach unten"
+
+#: ../ptopengui.cpp:420
+msgid "Export project"
+msgstr "Projekt exportieren"
+
+#: ../ptopengui.cpp:423
+msgid "Scale factor:"
+msgstr "Skalierfaktor"
+
+#: ../ptopengui.cpp:427
+msgid "image scale ratio"
+msgstr "Bildproportion"
+
+#: ../ptopengui.cpp:430
+msgid "Integer value"
+msgstr "Ganzzahl"
+
+#: ../ptopengui.cpp:431
+msgid "Round control point numbers to whole numbers"
+msgstr "Runde Kontrollpunktzahlen zu Ganzzahlen"
+
+#: ../ptopengui.cpp:434
+msgid "Export"
+msgstr "Exportieren"
+
+#: ../ptopengui.cpp:435
+msgid "Experimential function..."
+msgstr "experimentelle Funktion..."
+
+#: ../ptopengui.cpp:442
+msgid "Preview (source image)"
+msgstr "Vorschau (Bildquelle)"
+
+#: ../ptopengui.cpp:472
+msgid "Lens type:"
+msgstr "Objektivart:"
+
+#: ../ptopengui.cpp:473
+msgid "Lens type"
+msgstr "Objektivart"
+
+#: ../ptopengui.cpp:478
+msgid "Normal (rectlinear)"
+msgstr "normal (Zentralpersp.)"
+
+#: ../ptopengui.cpp:479
+msgid "Panoramic"
+msgstr "Panorama"
+
+#: ../ptopengui.cpp:480
+msgid "Circular"
+msgstr "Fischauge kreisförmig"
+
+#: ../ptopengui.cpp:481
+msgid "Full frame"
+msgstr "Fischauge Vollbild"
+
+#: ../ptopengui.cpp:482
+#: ../ptopengui.cpp:759
+msgid "Equirectangular"
+msgstr "gleichwinklig"
+
+#: ../ptopengui.cpp:487
+msgid "All images/names"
+msgstr "alle Bilder/Namen"
+
+#: ../ptopengui.cpp:492
+msgid "All"
+msgstr "Alles"
+
+#: ../ptopengui.cpp:495
+msgid "All or one image"
+msgstr "alle oder ein Bild"
+
+#: ../ptopengui.cpp:498
+msgid "Change single image only"
+msgstr "ändere ein einziges Bild"
+
+#: ../ptopengui.cpp:499
+msgid "Do not change values for all images at the one time"
+msgstr "Werte für Bilder einzeln verändern"
+
+#: ../ptopengui.cpp:506
+msgid "Horizontal Field of View"
+msgstr "horizontaler Bildwinkel"
+
+#: ../ptopengui.cpp:509
+#: ../ptopengui.cpp:523
+msgid "Degrees"
+msgstr "Grad"
+
+#: ../ptopengui.cpp:510
+msgid "Set lens type calculation method"
+msgstr "bestimme Objektivberechnungsmethode"
+
+#: ../ptopengui.cpp:513
+msgid "Lens in mm for 35mm film"
+msgstr "Objektivbrennweite bezogen auf 35mm Kammeras"
+
+#: ../ptopengui.cpp:514
+#: ../ptopengui.cpp:518
+msgid "Set lenstype calculation method"
+msgstr "Berechnunsmethode des Objektivtypes"
+
+#: ../ptopengui.cpp:517
+msgid "Scanned film"
+msgstr "gescannter Film"
+
+#: ../ptopengui.cpp:534
+msgid "Degrees (v):"
+msgstr "Grad (v):"
+
+#: ../ptopengui.cpp:538
+msgid "Calculated field of view"
+msgstr "berechnetes Bildwinkel"
+
+#: ../ptopengui.cpp:545
+msgid "Focal lenght:"
+msgstr "Brennweite"
+
+#: ../ptopengui.cpp:549
+msgid "Actual focal length if ppi setting is used "
+msgstr ""
+
+#: ../ptopengui.cpp:556
+msgid "image ppi:"
+msgstr "Bildauflösung in ppi:"
+
+#: ../ptopengui.cpp:560
+msgid "Set image resolution (film ppi or CCD cell ppi)"
+msgstr ""
+
+#: ../ptopengui.cpp:569
+msgid "(horizontal field of view)"
+msgstr ""
+
+#: ../ptopengui.cpp:574
+msgid "Orientation"
+msgstr "Orientierung"
+
+#: ../ptopengui.cpp:588
+msgid "Set for digi images also if they are cropped"
+msgstr ""
+
+#: ../ptopengui.cpp:595
+msgid "Degrees are calculated according to crop focal length"
+msgstr ""
+
+#: ../ptopengui.cpp:606
+msgid "Lens correction parameters"
+msgstr "Parameter zur Objektivkorrektur"
+
+#: ../ptopengui.cpp:615
+msgid "a - distortion value"
+msgstr "a - Verzerrung(k2)"
+
+#: ../ptopengui.cpp:624
+msgid "b:"
+msgstr ""
+
+#: ../ptopengui.cpp:628
+msgid "Barrel or pincusion distortion"
+msgstr "Tonnenverzeichnung"
+
+#: ../ptopengui.cpp:637
+msgid "c:"
+msgstr ""
+
+#: ../ptopengui.cpp:641
+msgid "c - distortion value"
+msgstr "c - Verzerrung(k1)"
+
+#: ../ptopengui.cpp:650
+msgid "Image shift"
+msgstr "Bildversatz"
+
+#: ../ptopengui.cpp:657
+msgid "Shift:"
+msgstr "Versatz:"
+
+#: ../ptopengui.cpp:662
+msgid "horizontal (d): "
+msgstr ""
+
+#: ../ptopengui.cpp:672
+msgid "vertical (e): "
+msgstr "vertikal (e); "
+
+#: ../ptopengui.cpp:680
+msgid "Shear:"
+msgstr "Scheren:"
+
+#: ../ptopengui.cpp:685
+msgid "horizontal (g): "
+msgstr ""
+
+#: ../ptopengui.cpp:695
+msgid "vertical (f): "
+msgstr "vertikal (f); "
+
+#: ../ptopengui.cpp:710
+msgid "Set rest in text file ..."
+msgstr ""
+
+#: ../ptopengui.cpp:713
+msgid "Edit text"
+msgstr "Text editieren"
+
+#: ../ptopengui.cpp:742
+msgid "Settings for final panorama"
+msgstr "Einstellungen für das fertige Panorama"
+
+#: ../ptopengui.cpp:749
+msgid "View type"
+msgstr "Betrachtungsart"
+
+#: ../ptopengui.cpp:752
+msgid "Panorama type (f)"
+msgstr "Panorama Projektion (f)"
+
+#: ../ptopengui.cpp:757
+msgid "Rectlinear"
+msgstr "rechtwinklig"
+
+#: ../ptopengui.cpp:758
+msgid "Cylindrical"
+msgstr "zylindrisch"
+
+#: ../ptopengui.cpp:762
+msgid "Panorama projection"
+msgstr "Panorama Projektion"
+
+#: ../ptopengui.cpp:767
+msgid "Field of view (v)"
+msgstr "Bildwinkel (v)"
+
+#: ../ptopengui.cpp:773
+msgid "Field of view in stitched panorama"
+msgstr "Bildwinkel im fertigen Panorama"
+
+#: ../ptopengui.cpp:776
+msgid "Get max"
+msgstr "nehme größtmöglichen Wert"
+
+#: ../ptopengui.cpp:783
+msgid "Stitching parameters"
+msgstr "Parameter für's Zusammenfügen"
+
+#: ../ptopengui.cpp:786
+msgid "Feather (u): "
+msgstr "Rand (u): "
+
+#: ../ptopengui.cpp:790
+msgid "Feather of images for stitching"
+msgstr "Breite des Überganges der Einzelbilder"
+
+#: ../ptopengui.cpp:793
+msgid "Gamma (g): "
+msgstr ""
+
+#: ../ptopengui.cpp:797
+msgid "Gamma correction (works best for 16bit images)"
+msgstr "Gammakorrektur (zu Empfehlen bei 16bit Farbtiefe "
+
+#: ../ptopengui.cpp:800
+msgid "Interpolator (i): "
+msgstr ""
+
+#: ../ptopengui.cpp:805
+#: ../ptopengui.cpp:1851
+msgid "Nearest neighbour"
+msgstr ""
+
+#: ../ptopengui.cpp:806
+#: ../ptopengui.cpp:1852
+msgid "Bilinear"
+msgstr ""
+
+#: ../ptopengui.cpp:807
+#: ../ptopengui.cpp:1853
+msgid "Poly3 (Bicubic)"
+msgstr ""
+
+#: ../ptopengui.cpp:808
+#: ../ptopengui.cpp:1854
+msgid "Spline 16"
+msgstr ""
+
+#: ../ptopengui.cpp:809
+#: ../ptopengui.cpp:1855
+msgid "Spline 32"
+msgstr ""
+
+#: ../ptopengui.cpp:810
+#: ../ptopengui.cpp:1856
+msgid "Spline 64"
+msgstr ""
+
+#: ../ptopengui.cpp:811
+#: ../ptopengui.cpp:1857
+msgid "Sinc 256"
+msgstr ""
+
+#: ../ptopengui.cpp:812
+#: ../ptopengui.cpp:1858
+msgid "Sinc 1024"
+msgstr ""
+
+#: ../ptopengui.cpp:815
+msgid "Method for resize/interpolate"
+msgstr "Methode zum vergrößern/interpolieren"
+
+#: ../ptopengui.cpp:824
+msgid "Output file"
+msgstr "fertiges Panorama"
+
+#: ../ptopengui.cpp:829
+#: ../ptopengui.cpp:1820
+msgid "Width"
+msgstr "Breite"
+
+#: ../ptopengui.cpp:833
+msgid "Width of panorama"
+msgstr "Breite des Panoramas"
+
+#: ../ptopengui.cpp:836
+#: ../ptopengui.cpp:1827
+msgid "Height"
+msgstr "Höhe"
+
+#: ../ptopengui.cpp:840
+msgid "Height of panorama"
+msgstr "Höhe des Panoramas"
+
+#: ../ptopengui.cpp:849
+msgid "Output file type"
+msgstr "Dateityp des Panoramas"
+
+#: ../ptopengui.cpp:854
+msgid "JPEG (*.jpg)"
+msgstr ""
+
+#: ../ptopengui.cpp:855
+msgid "PNG (*.png)"
+msgstr ""
+
+#: ../ptopengui.cpp:856
+msgid "TIFF (*.tif)"
+msgstr ""
+
+#: ../ptopengui.cpp:857
+msgid "TIFF_mask (*.tif)"
+msgstr ""
+
+#: ../ptopengui.cpp:858
+msgid "TIFF_nomask (*.tif)"
+msgstr ""
+
+#: ../ptopengui.cpp:859
+msgid "PICT Bitmap (*.bmp)"
+msgstr ""
+
+#: ../ptopengui.cpp:860
+msgid "PSD Photoshop (*.psd)"
+msgstr ""
+
+#: ../ptopengui.cpp:861
+msgid "PSD_mask"
+msgstr ""
+
+#: ../ptopengui.cpp:862
+msgid "PSD_nomask"
+msgstr ""
+
+#: ../ptopengui.cpp:863
+msgid "PAN"
+msgstr ""
+
+#: ../ptopengui.cpp:864
+msgid "IVR"
+msgstr ""
+
+#: ../ptopengui.cpp:865
+msgid "IVR_java"
+msgstr ""
+
+#: ../ptopengui.cpp:866
+msgid "VRML"
+msgstr ""
+
+#: ../ptopengui.cpp:867
+msgid "QTVR"
+msgstr ""
+
+#: ../ptopengui.cpp:870
+msgid "Image file type"
+msgstr "Bilddateityp"
+
+#: ../ptopengui.cpp:873
+msgid "Jpeg quality: (used in preview)"
+msgstr "Jpegqualität: (benutzt in Vorschau)"
+
+#: ../ptopengui.cpp:879
+msgid "Quality value, 100% best, 0% least space"
+msgstr "Qualität 100% gut-groß 0% schlecht-klein "
+
+#: ../ptopengui.cpp:882
+msgid "Progressive jpeg"
+msgstr ""
+
+#: ../ptopengui.cpp:883
+msgid "Jpeg advanced packing"
+msgstr ""
+
+#: ../ptopengui.cpp:894
+msgid "Color correction"
+msgstr "Farbkorrektur"
+
+#: ../ptopengui.cpp:897
+msgid "Modify colors"
+msgstr "verändere Farben"
+
+#: ../ptopengui.cpp:898
+msgid "Use panorama tools color correction"
+msgstr "benutze panorama tools Farbkorrektur"
+
+#: ../ptopengui.cpp:901
+msgid "Reference image type:"
+msgstr "Referenzbildtyp:"
+
+#: ../ptopengui.cpp:906
+#: ../ptopengui.cpp:917
+msgid "not in use"
+msgstr "nicht benutzt"
+
+#: ../ptopengui.cpp:909
+msgid "Wich image is reference"
+msgstr "Welches Bild soll als Referenz dienen?"
+
+#: ../ptopengui.cpp:912
+msgid "Correction type:"
+msgstr "Korrekturtyp:"
+
+#: ../ptopengui.cpp:918
+msgid "Correct both brightness and color (k)"
+msgstr "korrigiere Helligkeit und Farbe (k)"
+
+#: ../ptopengui.cpp:919
+msgid "Correct brightness (k)"
+msgstr "korrigiere Helligkeit (k)"
+
+#: ../ptopengui.cpp:920
+msgid "Correct color (k)"
+msgstr "korrigiere Farbe"
+
+#: ../ptopengui.cpp:923
+msgid "Type of correction"
+msgstr "Art der Korrektur"
+
+#: ../ptopengui.cpp:953
+msgid "Current status for image positions and correction factor. * means that parameter is/will be optimized. (0) value is linked to first image.\n"
+msgstr ""
+
+#: ../ptopengui.cpp:954
+msgid "Hint: Click cell and then right clock for popup-menu. Operation is for selected cell."
+msgstr ""
+
+#: ../ptopengui.cpp:963
+msgid "image parameters"
+msgstr "Bildparameter"
+
+#: ../ptopengui.cpp:967
+msgid "yaw (y)"
+msgstr "Schw.(y)"
+
+#: ../ptopengui.cpp:968
+msgid "pitch (p)"
+msgstr "Kipp.(p)"
+
+#: ../ptopengui.cpp:969
+msgid "roll (r)"
+msgstr "Neig. (r)"
+
+#: ../ptopengui.cpp:970
+msgid "a"
+msgstr ""
+
+#: ../ptopengui.cpp:971
+msgid "b"
+msgstr ""
+
+#: ../ptopengui.cpp:972
+msgid "c"
+msgstr ""
+
+#: ../ptopengui.cpp:973
+msgid "horiz. (d)"
+msgstr "waager. (d)"
+
+#: ../ptopengui.cpp:974
+msgid "vert. (e)"
+msgstr "senkr.(e)"
+
+#: ../ptopengui.cpp:975
+msgid "shear x (g)"
+msgstr "Scheren x (g)"
+
+#: ../ptopengui.cpp:976
+msgid "shear y (t)"
+msgstr "Scheren y (t)"
+
+#: ../ptopengui.cpp:998
+msgid "Predefined optimizations"
+msgstr "vordefinierte Optimierung"
+
+#: ../ptopengui.cpp:1003
+msgid "No change"
+msgstr "keine Änderung"
+
+#: ../ptopengui.cpp:1004
+msgid "Start (y,p,r)"
+msgstr ""
+
+#: ../ptopengui.cpp:1005
+msgid "Basic (y,p,r,b0,d0,e0)"
+msgstr ""
+
+#: ../ptopengui.cpp:1006
+msgid "First as reference [y,p,r.*,a-d:(0)]"
+msgstr "erstes Bild Referenz [y,p,r.*,a-d:(0)]"
+
+#: ../ptopengui.cpp:1007
+msgid "All but selected line untouched"
+msgstr "alles außer ausgewählte Zeile"
+
+#: ../ptopengui.cpp:1010
+msgid "Basic might be an good starting point"
+msgstr "Basic ist ein guter Anfang"
+
+#: ../ptopengui.cpp:1017
+msgid "Data of last selection"
+msgstr "Daten der letzten Auswahl"
+
+#: ../ptopengui.cpp:1021
+msgid "Edit image parameter"
+msgstr "Bildparameter editieren"
+
+#: ../ptopengui.cpp:1026
+#: ../ptopengui.cpp:1273
+msgid "Update"
+msgstr "auffrischen"
+
+#: ../ptopengui.cpp:1035
+msgid "Slice optimization"
+msgstr ""
+
+#: ../ptopengui.cpp:1036
+msgid "Optimize one column at one time"
+msgstr "Spalten einzeln optimieren "
+
+#: ../ptopengui.cpp:1039
+msgid "Slice in loop run"
+msgstr ""
+
+#: ../ptopengui.cpp:1040
+msgid "Run optimization until results keep the same"
+msgstr "optimieren solange wie möglich"
+
+#: ../ptopengui.cpp:1047
+msgid "loop change"
+msgstr "Abbruchwert"
+
+#: ../ptopengui.cpp:1051
+msgid "Minimum change in result"
+msgstr "kleinste akzeptierte Veränderung"
+
+#: ../ptopengui.cpp:1058
+msgid "Max seconds"
+msgstr "längste Dauer"
+
+#: ../ptopengui.cpp:1062
+msgid "Max time in seconds for loop"
+msgstr "längste Zeit für Itteration"
+
+#: ../ptopengui.cpp:1067
+msgid "Stop loop"
+msgstr "Itteration anhalten"
+
+#: ../ptopengui.cpp:1068
+msgid "Do not make new calls. Use chancel for current call."
+msgstr ""
+
+#: ../ptopengui.cpp:1075
+msgid "Default settings"
+msgstr "Vorgabewerte"
+
+#: ../ptopengui.cpp:1080
+msgid "Clear opt"
+msgstr "lösche Optimierungs."
+
+#: ../ptopengui.cpp:1081
+msgid "Set all optimized values to zero (except hfov), starts optimization from zero"
+msgstr "Setzt alle Optimierungsparameter zurück außer den horizontalen Bildwinkel (hfov)."
+
+#: ../ptopengui.cpp:1084
+msgid "Memorize"
+msgstr "merken"
+
+#: ../ptopengui.cpp:1085
+msgid "Set current optimization result to be fetched later. Store optimization parameters also."
+msgstr "Merkt sich die Optimierungsparameter und -ergebnisse für eine spätere Wiederverwendung intern."
+
+#: ../ptopengui.cpp:1088
+msgid "Take back"
+msgstr "erinnern"
+
+#: ../ptopengui.cpp:1089
+msgid "Set previous stored values to current status. Control point values are keept untouched."
+msgstr "Erinnert sich vormals intern gespeicherter Optimierungsparameter und -ergebnisse."
+
+#: ../ptopengui.cpp:1094
+msgid "Swap"
+msgstr "austauschen"
+
+#: ../ptopengui.cpp:1095
+msgid "Swap current status and memorized status"
+msgstr "Tausche derzeitige mit den gespeicherten Einstellungen"
+
+#: ../ptopengui.cpp:1124
+msgid "Left image"
+msgstr "linkes Bild"
+
+#: ../ptopengui.cpp:1129
+msgid "Right image"
+msgstr "rechtes Bild"
+
+#: ../ptopengui.cpp:1139
+msgid "Control point data"
+msgstr "Zeige Kontrollpunktfenster"
+
+#: ../ptopengui.cpp:1148
+msgid "Coord"
+msgstr "Koord"
+
+#: ../ptopengui.cpp:1152
+msgid "Left image X coordinate"
+msgstr "linkes Bild X Koordinate"
+
+#: ../ptopengui.cpp:1156
+msgid "Left image Y coordinate"
+msgstr "linkes Bild Y Koordinate"
+
+#: ../ptopengui.cpp:1160
+msgid "Right image X coordinate"
+msgstr "rechtes Bild X Koordinate"
+
+#: ../ptopengui.cpp:1164
+msgid "Right image Y coordinate"
+msgstr "rechtes Bild Y Koordinate"
+
+#: ../ptopengui.cpp:1174
+msgid "lX "
+msgstr ""
+
+#: ../ptopengui.cpp:1177
+msgid " lY "
+msgstr ""
+
+#: ../ptopengui.cpp:1180
+msgid " rX "
+msgstr ""
+
+#: ../ptopengui.cpp:1183
+msgid " rY "
+msgstr ""
+
+#: ../ptopengui.cpp:1186
+#: ../ptopengui.cpp:1982
+#: edit_text.xrc:22
+msgid "Line Nr."
+msgstr ""
+
+#: ../ptopengui.cpp:1193
+msgid "Comment"
+msgstr "Kommentar"
+
+#: ../ptopengui.cpp:1197
+msgid "Comment for control point"
+msgstr "Kommentar zum Kontrollpunkt"
+
+#: ../ptopengui.cpp:1205
+msgid "Number of line. (set same line numbers for at least two control point numbers)"
+msgstr ""
+
+#: ../ptopengui.cpp:1212
+msgid "Align (t)"
+msgstr "Ausrichtungstyp"
+
+#: ../ptopengui.cpp:1215
+msgid "H+V"
+msgstr "W+S"
+
+#: ../ptopengui.cpp:1216
+msgid "Control point type, default is H+V (= horizontal'-' + vertical '|' )"
+msgstr "Kontrollpunkttyp, üblich ist H+V (= waagerecht -- + senkrecht | )"
+
+#: ../ptopengui.cpp:1219
+msgid "Ver"
+msgstr "senk"
+
+#: ../ptopengui.cpp:1220
+msgid "Control point type - for vertical alignment"
+msgstr "Kontrollpunkttyp für senkrechtes ausrichten"
+
+#: ../ptopengui.cpp:1223
+msgid "Hor"
+msgstr "waag"
+
+#: ../ptopengui.cpp:1224
+msgid "Control point type - for horizontal alignment"
+msgstr "Kontrollpunkttyp für waagerechtes ausrichten"
+
+#: ../ptopengui.cpp:1227
+msgid "Line"
+msgstr "Linie"
+
+#: ../ptopengui.cpp:1228
+msgid "Control points type - for straighten of lens distorted lines"
+msgstr "Kontrollpunkttyp zur Korrektur von Abbildungsfehlern"
+
+#: ../ptopengui.cpp:1238
+msgid "Add new control point"
+msgstr "Neuen Kontrollpunkttyp hinzufügen"
+
+#: ../ptopengui.cpp:1241
+msgid "Delete"
+msgstr "löschen"
+
+#: ../ptopengui.cpp:1242
+msgid "Delete selected control point"
+msgstr "lösche den geählten Kontrollpunkttyp"
+
+#: ../ptopengui.cpp:1259
+msgid "Main window zoom"
+msgstr "Vergößerung im Haupfenster"
+
+#: ../ptopengui.cpp:1266
+msgid "Zoom by "
+msgstr "Vergrößerung"
+
+#: ../ptopengui.cpp:1274
+msgid "Update selected line"
+msgstr "auffrischen der gewählten Linie"
+
+#: ../ptopengui.cpp:1277
+msgid "Search"
+msgstr "Suchen"
+
+#: ../ptopengui.cpp:1278
+msgid "Tries to find best position for current control point. Check result and if nor correct use interactive menu..."
+msgstr ""
+
+#: ../ptopengui.cpp:1300
+msgid "Small \"finetune\" window zoom"
+msgstr "Zoom für kleine Fenster"
+
+#: ../ptopengui.cpp:1316
+msgid "left zoom image"
+msgstr "linkes vergrößertes Bild"
+
+#: ../ptopengui.cpp:1319
+#: ../ptopengui.cpp:1330
+msgid "text"
+msgstr "Text"
+
+#: ../ptopengui.cpp:1327
+msgid "right zoom image"
+msgstr "rechtes vergrößertes Bild"
+
+#: ../ptopengui.cpp:1360
+msgid "Left check box is to optimize parameter\n"
+msgstr "Das linke Kästchen ist für die Parameteroptimierung\n"
+
+#: ../ptopengui.cpp:1361
+msgid "Middle box links value to reference image\n"
+msgstr ""
+
+#: ../ptopengui.cpp:1362
+msgid "Right box os number where this references"
+msgstr ""
+
+#: ../ptopengui.cpp:1366
+msgid "Optimize image positions"
+msgstr "Optimiere Bild Positionen"
+
+#: ../ptopengui.cpp:1367
+msgid "Optimize project with given parameters"
+msgstr "Optimiere das Projekt mit den gegebenen Parametern"
+
+#: ../ptopengui.cpp:1372
+msgid "Reset script"
+msgstr "Skript zurücksetzen"
+
+#: ../ptopengui.cpp:1373
+msgid "Shows and set script"
+msgstr "zeige und setze das Skript"
+
+#: ../ptopengui.cpp:1376
+msgid "Show script"
+msgstr "zeige das Skript"
+
+#: ../ptopengui.cpp:1381
+msgid "Background optimize"
+msgstr "optimiere im Hintergrund"
+
+#: ../ptopengui.cpp:1383
+msgid "Run optimization when an control point has been changed"
+msgstr "optimieren nach veränderten Kontrollpunkten"
+
+#: ../ptopengui.cpp:1386
+msgid "Use written script"
+msgstr ""
+
+#: ../ptopengui.cpp:1398
+msgid "Yaw (y)"
+msgstr "Schw.(y)"
+
+#: ../ptopengui.cpp:1406
+#: ../ptopengui.cpp:1414
+#: ../ptopengui.cpp:1436
+#: ../ptopengui.cpp:1444
+#: ../ptopengui.cpp:1466
+#: ../ptopengui.cpp:1474
+#: ../ptopengui.cpp:1497
+#: ../ptopengui.cpp:1505
+#: ../ptopengui.cpp:1528
+#: ../ptopengui.cpp:1536
+#: ../ptopengui.cpp:1559
+#: ../ptopengui.cpp:1567
+#: ../ptopengui.cpp:1590
+#: ../ptopengui.cpp:1598
+#: ../ptopengui.cpp:1624
+#: ../ptopengui.cpp:1660
+#: ../ptopengui.cpp:1668
+#: ../ptopengui.cpp:1690
+#: ../ptopengui.cpp:1698
+#: ../ptopengui.cpp:1720
+#: ../ptopengui.cpp:1728
+#: ../ptopengui.cpp:1750
+#: ../ptopengui.cpp:1758
+msgid "Set"
+msgstr "Setze"
+
+#: ../ptopengui.cpp:1407
+#: ../ptopengui.cpp:1467
+#: ../ptopengui.cpp:1498
+#: ../ptopengui.cpp:1529
+#: ../ptopengui.cpp:1560
+#: ../ptopengui.cpp:1591
+#: ../ptopengui.cpp:1661
+#: ../ptopengui.cpp:1691
+#: ../ptopengui.cpp:1721
+#: ../ptopengui.cpp:1751
+msgid "Set optimization for all (y)"
+msgstr ""
+
+#: ../ptopengui.cpp:1410
+#: ../ptopengui.cpp:1418
+#: ../ptopengui.cpp:1440
+#: ../ptopengui.cpp:1448
+#: ../ptopengui.cpp:1470
+#: ../ptopengui.cpp:1478
+#: ../ptopengui.cpp:1501
+#: ../ptopengui.cpp:1509
+#: ../ptopengui.cpp:1532
+#: ../ptopengui.cpp:1540
+#: ../ptopengui.cpp:1563
+#: ../ptopengui.cpp:1571
+#: ../ptopengui.cpp:1594
+#: ../ptopengui.cpp:1602
+#: ../ptopengui.cpp:1628
+#: ../ptopengui.cpp:1664
+#: ../ptopengui.cpp:1672
+#: ../ptopengui.cpp:1694
+#: ../ptopengui.cpp:1702
+#: ../ptopengui.cpp:1724
+#: ../ptopengui.cpp:1732
+#: ../ptopengui.cpp:1754
+#: ../ptopengui.cpp:1762
+msgid "Clr"
+msgstr ""
+
+#: ../ptopengui.cpp:1411
+#: ../ptopengui.cpp:1441
+#: ../ptopengui.cpp:1471
+#: ../ptopengui.cpp:1502
+#: ../ptopengui.cpp:1533
+#: ../ptopengui.cpp:1564
+#: ../ptopengui.cpp:1595
+#: ../ptopengui.cpp:1665
+#: ../ptopengui.cpp:1695
+#: ../ptopengui.cpp:1725
+#: ../ptopengui.cpp:1755
+msgid "Clear optimize for all (y)"
+msgstr "kein Optimieren (y)"
+
+#: ../ptopengui.cpp:1415
+#: ../ptopengui.cpp:1445
+#: ../ptopengui.cpp:1475
+#: ../ptopengui.cpp:1506
+#: ../ptopengui.cpp:1537
+#: ../ptopengui.cpp:1568
+#: ../ptopengui.cpp:1599
+#: ../ptopengui.cpp:1669
+#: ../ptopengui.cpp:1699
+#: ../ptopengui.cpp:1729
+#: ../ptopengui.cpp:1759
+msgid "Set link for all (y)"
+msgstr "verknüpfe alle (y)"
+
+#: ../ptopengui.cpp:1419
+#: ../ptopengui.cpp:1449
+#: ../ptopengui.cpp:1479
+#: ../ptopengui.cpp:1510
+#: ../ptopengui.cpp:1541
+#: ../ptopengui.cpp:1572
+#: ../ptopengui.cpp:1603
+#: ../ptopengui.cpp:1673
+#: ../ptopengui.cpp:1703
+#: ../ptopengui.cpp:1733
+#: ../ptopengui.cpp:1763
+msgid "Clear link for all (y)"
+msgstr "lösche Verknüpfungen für alle (y)"
+
+#: ../ptopengui.cpp:1428
+msgid "Pitch (p)"
+msgstr "Kipp.(p)"
+
+#: ../ptopengui.cpp:1437
+msgid "Set optimization for all (p)"
+msgstr ""
+
+#: ../ptopengui.cpp:1458
+msgid "Roll (r)"
+msgstr "Neig.(r)"
+
+#: ../ptopengui.cpp:1488
+msgid "Hfov (v)"
+msgstr ""
+
+#: ../ptopengui.cpp:1489
+msgid "Horizontal field of view"
+msgstr "waagerechter Bildwinkel"
+
+#: ../ptopengui.cpp:1519
+msgid "Lens A (a)"
+msgstr "Objektiv A"
+
+#: ../ptopengui.cpp:1520
+msgid "Lens distortion factor a"
+msgstr "Objektivverzerrung a (k2)"
+
+#: ../ptopengui.cpp:1550
+msgid "Lens B (b)"
+msgstr "Objektiv B"
+
+#: ../ptopengui.cpp:1551
+msgid "Lens distortion factor b"
+msgstr "Objektivverzerrung b"
+
+#: ../ptopengui.cpp:1581
+msgid "Lens C (c)"
+msgstr "Objektiv C"
+
+#: ../ptopengui.cpp:1582
+msgid "Lens distortion factor c"
+msgstr "Objektivverzerrung c (k1)"
+
+#: ../ptopengui.cpp:1616
+msgid "Used control points"
+msgstr "benutzte Kontrollpunkte"
+
+#: ../ptopengui.cpp:1625
+msgid "Set selection for all"
+msgstr "auswahl für alle"
+
+#: ../ptopengui.cpp:1629
+msgid "Clear selection"
+msgstr "Auswahl löschen"
+
+#: ../ptopengui.cpp:1638
+msgid "Select reference image:"
+msgstr "Referenzbild wählen"
+
+#: ../ptopengui.cpp:1643
+msgid "no reference"
+msgstr "keine Referenz"
+
+#: ../ptopengui.cpp:1652
+msgid "Hor shift (d)"
+msgstr "waag. Versatz (d)"
+
+#: ../ptopengui.cpp:1682
+msgid "Vert shift (e)"
+msgstr "senkr. Versatz (e)"
+
+#: ../ptopengui.cpp:1712
+msgid "Hor shear (g)"
+msgstr "waag. Scher.(g)"
+
+#: ../ptopengui.cpp:1742
+msgid "Vert shear (t)"
+msgstr "senkr. Scher.(t)"
+
+#: ../ptopengui.cpp:1794
+msgid "Edit script"
+msgstr "Skript editieren"
+
+#: ../ptopengui.cpp:1795
+msgid "Write default stitching to memo"
+msgstr ""
+
+#: ../ptopengui.cpp:1800
+msgid "Make preview"
+msgstr "Vorschau erzeugen"
+
+#: ../ptopengui.cpp:1801
+msgid "Start preview stitching"
+msgstr "Vorschau berechnen"
+
+#: ../ptopengui.cpp:1804
+msgid "Auto preview update"
+msgstr "automatische Vorschau"
+
+#: ../ptopengui.cpp:1817
+msgid "Size"
+msgstr "Größe"
+
+#: ../ptopengui.cpp:1824
+msgid "Width of preview in pixel"
+msgstr "Breite der Vorschau in Bildpunkten (pixel)"
+
+#: ../ptopengui.cpp:1831
+msgid "Height of preview in pixel"
+msgstr "Höhe der Vorschau in Bildpunkten (pixel)"
+
+#: ../ptopengui.cpp:1835
+msgid "Proportional ratio"
+msgstr "proportional"
+
+#: ../ptopengui.cpp:1837
+msgid "Preserve ratio of 1:2 from height to width"
+msgstr "Proportion von 1:2 festlegen"
+
+#: ../ptopengui.cpp:1845
+msgid "Interpolator"
+msgstr "Interpolation"
+
+#: ../ptopengui.cpp:1850
+msgid "Same as panorama"
+msgstr "wie Panorama"
+
+#: ../ptopengui.cpp:1861
+msgid "Preview interpolator"
+msgstr "Interpolation der Vorschau"
+
+#: ../ptopengui.cpp:1864
+msgid "Proportional feather"
+msgstr "proportionaler Saum"
+
+#: ../ptopengui.cpp:1872
+#: ../ptopengui.cpp:1943
+msgid "Images"
+msgstr "Bilder"
+
+#: ../ptopengui.cpp:1904
+msgid "Show stitch script"
+msgstr "zeige Skript"
+
+#: ../ptopengui.cpp:1905
+msgid "Show script in this window"
+msgstr "zeige Skript in diesem Fenster"
+
+#: ../ptopengui.cpp:1910
+msgid "Hide script"
+msgstr "verberge Skript"
+
+#: ../ptopengui.cpp:1916
+msgid "Set panorama options in text window\n"
+msgstr "setze Optionen im Textfenster\n"
+
+#: ../ptopengui.cpp:1917
+msgid "P-line could look like:  p f0 h1000 w2000 v90 JPEG q90 u20 k0"
+msgstr "P-Zeile könnte aussehen wie:  p f0 h1000 w2000 v90 JPEG q90 u20 k0"
+
+#: ../ptopengui.cpp:1923
+msgid "Stitch images"
+msgstr "Bild berechnen"
+
+#: ../ptopengui.cpp:1930
+msgid "Output name"
+msgstr "Bildname"
+
+#: ../ptopengui.cpp:1933
+msgid "test"
+msgstr ""
+
+#: ../ptopengui.cpp:1934
+msgid "Name of resulting panorama file"
+msgstr "Dateiname des fertigen Panoramas"
+
+#: ../ptopengui.cpp:1980
+msgid "Editor in expert mode\n"
+msgstr "in Expertenmodus\n"
+
+#: ../ptopengui.cpp:1990
+msgid "Settings OK"
+msgstr "Einstellungen gut"
+
+#: ../ptopengui.cpp:1993
+msgid "Close"
+msgstr "Schließen"
+
+#: ../ptopengui.cpp:1997
+msgid "This text describes the \n"
+msgstr "Dieser Text beschreibt den \n"
+
+#: ../ptopengui.cpp:1998
+msgid "current status of project.\n"
+msgstr "Status des Projektes:\n"
+
+#: ../ptopengui.cpp:2001
+msgid "First error:"
+msgstr "Erster Fehler:"
+
+#: edit_text.xrc:4
+msgid "Text mode"
+msgstr "Text Modus"
+
+#: edit_text.xrc:49
+msgid "Editor in expert mode"
+msgstr "Expertenmodus"
+
+
+#: edit_text.xrc:64
+msgid "Messages"
+msgstr "Meldungen"
+
+#: frame.xrc:4
+msgid "Test program"
+msgstr "Test Programm"
+
+#: menu.xrc:8
+msgid "&New"
+msgstr "&Neu"
+
+#: menu.xrc:13
+msgid "&Open"
+msgstr "&Öffnen"
+
+#: menu.xrc:18
+msgid "&Save"
+msgstr "&Speichern"
+
+#: menu.xrc:24
+#: neu_menue.xrc:8
+msgid "&Quit"
+msgstr "&Beenden"
+
+#: menu.xrc:32
+msgid "&Copy"
+msgstr "&Kopieren"
+
+#: menu.xrc:37
+msgid "C&ut"
+msgstr "A&usschneiden"
+
+#: menu.xrc:42
+msgid "&Paste"
+msgstr "&Einfügen"
+
+#: menu.xrc:47
+msgid "&Delete"
+msgstr "&Löschen"
+
+#: menu.xrc:53
+msgid "Project in &text format"
+msgstr "Projekt in &Textansicht"
+
+#: menu.xrc:58
+msgid "&Fine tune control point"
+msgstr "&Feinjustieren des Justierpunktes"
+
+#: menu.xrc:62
+msgid "&Add control point"
+msgstr "Justierpunkt &hinzufügen"
+
+#: menu.xrc:66
+msgid "Updat&e control point"
+msgstr "Justierpunkt au&ffrischen"
+
+#: menu.xrc:73
+msgid "&Control point table"
+msgstr "&Justierpunkttabelle"
+
+#: menu.xrc:88
+#: neu_menue.xrc:16
+msgid "&About"
+msgstr "&Über"
+
+
+#: neu_ueber.xrc:21
+msgid "enough"
+msgstr "Reicht"
+
+#: tool.xrc:11
+msgid "Open project"
+msgstr "Öffne Projekt"
+
+#: tool.xrc:16
+msgid "Save project"
+msgstr "Speichere Projekt"
+
+#: tool.xrc:22
+msgid "Copy entry"
+msgstr "Kopere Eintrag"
+
+#: tool.xrc:27
+msgid "Cut entry"
+msgstr "Schneide Eintrag aus"
+
+#: tool.xrc:32
+msgid "Paste entry"
+msgstr "Füge Eintrag ein"
+
+#: tool.xrc:38
+msgid "Exit"
+msgstr "Beenden"
+
+#: tool.xrc:46
+msgid "Infos"
+msgstr ""
+
+#: edit_text.xrc:58
+msgid "This text describes the"
+msgstr "Meldungen zum jetzigen"
+
+
+#: edit_text.xrc:66
+msgid "current status of project."
+msgstr "Stand des Projektes."
+
+#: menu.xrc:26
+msgid "Exit program"
+msgstr "Programm beenden"
+
+#: menu.xrc:44
+msgid "Paste stored entry"
+msgstr "Gespeicherten Eintrag einfügen"
+
+#: menu.xrc:49
+msgid "Delete entry"
+msgstr "Eintrag löschen"
+
+#: menu.xrc:89
+msgid "About program"
+msgstr "Über das Programm"
+
+#: tool.xrc:47
+msgid "Informations about this program"
+msgstr "Informationen über dieses Programm"
+
+
