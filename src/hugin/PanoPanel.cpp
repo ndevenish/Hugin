@@ -304,9 +304,12 @@ void PanoPanel::ApplyQuickMode(int preset)
 
     // resize image for all but manual settings
     if (preset != 0) {
-        FDiff2D fov = pano.calcFOV();
-        opts.HFOV = fov.x;
-        opts.VFOV = fov.y;
+
+        // do not play with the panorama fov
+//        FDiff2D fov = pano.calcFOV();
+//        opts.HFOV = fov.x;
+//        opts.VFOV = fov.y;
+        
         // resize.
         if (preset == 3) {
             opts.width = 1024;
@@ -418,7 +421,7 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
         m_Stitcher = new NonaStitcherPanel(this, pano);
         break;
     default:
-        DEBUG_FATAL("Unknown Stitcher selecte, XRC file might be invalid");
+        DEBUG_FATAL("Unknown Stitcher selected, XRC file might be invalid");
         return;
     }
     // show the new stitcher
