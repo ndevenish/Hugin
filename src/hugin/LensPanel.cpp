@@ -318,7 +318,9 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
              ++it)
         {
             lenses.push_back(pano.getLens(*it));
+            double fl = lenses.back().getFocalLength();
             lenses.back().setCropFactor(val);
+            lenses.back().setFocalLength(fl);
         }
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensesCmd( pano, lensNrs, lenses)
@@ -701,7 +703,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
 {
-    
+
     if (!l.initFromFile(filename, cropFactor)) {
         if (cropFactor == -1) {
             cropFactor = 1;
@@ -712,7 +714,7 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
                 _("Adding Image"), tval);
             t.ToDouble(&cropFactor);
             wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
-            
+
             return l.initFromFile(filename, cropFactor);
         }
         return false;
