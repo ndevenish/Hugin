@@ -3,12 +3,26 @@
   <object class="wxFrame" name="cp_list_frame">
     <title>Control Points</title>
     <object class="wxBoxSizer">
-      <orient>wxHORIZONTAL</orient>
+      <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxListCtrl" name="cp_list_frame_list">
-          <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxLC_SORT_ASCENDING|wxSUNKEN_BORDER</style>
+          <style>wxLC_REPORT|wxLC_SORT_ASCENDING|wxSUNKEN_BORDER</style>
         </object>
         <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="cp_list_delete">
+          <label>Delete</label>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxButton" name="cp_list_select">
+          <label>Select by Distance</label>
+        </object>
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
       </object>

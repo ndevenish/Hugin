@@ -26,7 +26,6 @@
 
 class MainFrame;
 
-
 /** List all control points of this project
  *
  *  useful to jump to a specific point, or see which point are bad
@@ -48,10 +47,15 @@ public:
 
 private:
 
+    void SortList();
+
     void SetCPItem(int i, const PT::ControlPoint & p);
 
     void OnCPListSelect(wxListEvent & e);
     void OnCPListHeaderClick(wxListEvent & e);
+    void OnDeleteButton(wxCommandEvent & e);
+    void OnFineTuneButton(wxCommandEvent & e);
+    void OnSelectButton(wxCommandEvent & e);
 
     void updateList();
 
@@ -68,6 +72,9 @@ private:
     int m_sortCol;
 
     bool m_sortAscend;
+
+    // disable list updates..
+    bool m_freeze;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
