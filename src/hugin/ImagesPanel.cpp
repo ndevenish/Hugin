@@ -122,6 +122,8 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     ListSelectionChanged(ev);
     pano->addObserver(this);
     DEBUG_TRACE("end");
+
+    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
 }
 
 
@@ -366,13 +368,13 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
     const VariableMap & vars = pano.getImageVariables(imgNr);
 
     std::string val;
-    val = doubleToString(const_map_get(vars,"y").getValue());
+    val = doubleToString(const_map_get(vars,"y").getValue(),m_degDigits);
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->SetValue(val.c_str());
 
-    val = doubleToString(const_map_get(vars,"p").getValue());
+    val = doubleToString(const_map_get(vars,"p").getValue(),m_degDigits);
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->SetValue(val.c_str());
 
-    val = doubleToString(const_map_get(vars,"r").getValue());
+    val = doubleToString(const_map_get(vars,"r").getValue(),m_degDigits);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->SetValue(val.c_str());
 
     ShowImage(imgNr);
@@ -464,9 +466,9 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
             cpsToDelete.insert(it - cps.begin());
         }
     }
-    int r =wxMessageBox(wxString::Format(_("Really Delete %d control points?"), 
-                                         cpsToDelete.size()), 
-                        _("Delete Control Points"), 
+    int r =wxMessageBox(wxString::Format(_("Really Delete %d control points?"),
+                                         cpsToDelete.size()),
+                        _("Delete Control Points"),
                         wxICON_QUESTION | wxYES_NO);
     if (r == wxYES) {
         GlobalCmdHist::getInstance().addCommand(

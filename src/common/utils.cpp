@@ -84,10 +84,16 @@ std::string utils::stripPath(const std::string & filename)
     }
 }
 
-std::string utils::doubleToString(double d)
+std::string utils::doubleToString(double d, int digits)
 {
-    char c[10];
-    std::sprintf (c, "%.3f", d);
+    char fmt[10];
+    if (digits < 0) {
+        strcpy(fmt,"%f");
+    } else {
+        std::sprintf(fmt,"%%.%df",digits);
+    }
+    char c[80];
+    std::sprintf (c, fmt, d);
     std::string number (c);
 
     int l = number.length()-1;
@@ -108,3 +114,35 @@ std::string utils::doubleToString(double d)
     return number;
 }
 
+bool utils::stringToDouble(std::string str, double & dest)
+{
+    double res=0;
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    setlocale(LC_NUMERIC,"C");
+
+    // replace all kommas with points, independant of the locale..
+    for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
+        if (*it == ',') {
+            *it = '.';
+        }
+    }
+
+    const char * p = str.c_str();
+    char * pe=0;
+    res = strtod(p,&pe);
+
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+
+    if (pe == p) {
+        // conversion failed.
+        DEBUG_DEBUG("conversion failed: " << str << " to:" << dest);
+        return false;
+    } else {
+        // conversion ok.
+        dest = res;
+        DEBUG_DEBUG("converted: " << str << " to:" << dest);
+        return true;
+    }
+}

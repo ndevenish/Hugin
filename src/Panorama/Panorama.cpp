@@ -144,7 +144,9 @@ bool PT::getPTDoubleParam(double & value, int & link,
             link = utils::lexical_cast<int>(val.substr(1));
         } else {
             link = -1;
-            value = utils::lexical_cast<double>(val);
+            if (!stringToDouble(val, value)) {
+                return false;
+            }
         }
     } else {
         return false;
@@ -162,7 +164,11 @@ bool PT::readVar(Variable & var, int & link, const std::string & line)
             link = utils::lexical_cast<int>(val.substr(1));
         } else {
             link = -1;
-            var.setValue(utils::lexical_cast<double>(val));
+            double dest = 0;
+            if (!stringToDouble(val, dest)) {
+                return false;
+            }
+            var.setValue(dest);
         }
     } else {
         return false;
@@ -893,7 +899,10 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             if ((p=line.find(':')) == string::npos) assert(0);
             p++;
             DEBUG_DEBUG("parsing point " << pnr << " (idx:" << p << "): " << line.substr(p));
-            (*pointIt).error = utils::lexical_cast<double>(line.substr(p));
+            double err = -1;
+            
+            utils::stringToDouble(line.substr(p), err);
+            (*pointIt).error = err;
             DEBUG_DEBUG("read CP distance " << (*pointIt).error);
             pointIt++;
             pnr++;

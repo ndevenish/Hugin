@@ -112,6 +112,11 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
+    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
+    m_pixelDigits = wxConfigBase::Get()->Read("/Genera/PixelFractionalDigits",2);
+    m_distDigits = wxConfigBase::Get()->Read("/Genera/DistortionFractionalDigits",4);
+
+
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -167,28 +172,28 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 
     for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
         // update parameters
+        int ndigits = m_distDigits;
+        if (strcmp(*varname, "hfov") == 0 || strcmp(*varname, "d") == 0 ||
+            strcmp(*varname, "e") == 0 )
+        {
+            ndigits = m_pixelDigits;
+        }
         XRCCTRL(*this, wxString("lens_val_").append(*varname), wxTextCtrl)->SetValue(
-            doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
+            doubleToString(const_map_get(imgvars,*varname).getValue(),ndigits).c_str());
         bool linked = const_map_get(lens.variables, *varname).isLinked();
         XRCCTRL(*this, wxString("lens_inherit_").append(*varname), wxCheckBox)->SetValue(linked);
-    }
-
-    for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
-        // update parameters
-        XRCCTRL(*this, wxString("lens_val_").append(*varname), wxTextCtrl)->SetValue(
-            doubleToString(const_map_get(imgvars,*varname).getValue()).c_str());
     }
 
     double HFOV = const_map_get(imgvars,"v").getValue();
     // update focal length
     double focal_length = lens.calcFocalLength(HFOV);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
-        doubleToString(focal_length).c_str());
+        doubleToString(focal_length,m_distDigits).c_str());
 
     // update focal length factor
     double focal_length_factor = lens.getFLFactor();
     XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->SetValue(
-        doubleToString(focal_length_factor).c_str());
+        doubleToString(focal_length_factor,m_distDigits).c_str());
 
 
     DEBUG_TRACE("");

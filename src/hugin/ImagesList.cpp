@@ -44,7 +44,7 @@ END_EVENT_TABLE()
 // Define a constructor for the Images Panel
 ImagesList::ImagesList( wxWindow* parent, Panorama* pano)
     : wxListCtrl(parent, -1, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxSUNKEN_BORDER),   //|wxLC_HRULES),
-    pano(*pano)
+pano(*pano)
 {
     DEBUG_TRACE("");
 
@@ -60,6 +60,9 @@ ImagesList::ImagesList( wxWindow* parent, Panorama* pano)
     AssignImageList(m_smallIcons,wxIMAGE_LIST_SMALL);
     pano->addObserver(this);
     DEBUG_TRACE("");
+    m_degDigits = wxConfigBase::Get()->Read("/Genera/DegreeFractionalDigits",2);
+    m_pixelDigits = wxConfigBase::Get()->Read("/Genera/PixelFractionalDigits",2);
+    m_distDigits = wxConfigBase::Get()->Read("/Genera/DistortionFractionalDigits",4);
 }
 
 ImagesList::~ImagesList(void)
@@ -245,9 +248,9 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 1, fn.GetFullName() );
     SetItem(imgNr, 2, wxString::Format("%d", img.getWidth()));
     SetItem(imgNr, 3, wxString::Format("%d", img.getHeight()));
-    SetItem(imgNr, 4, doubleToString(map_get(var,"y").getValue()).c_str());
-    SetItem(imgNr, 5, doubleToString( map_get(var,"p").getValue()).c_str());
-    SetItem(imgNr, 6, doubleToString( map_get(var,"r").getValue()).c_str());
+    SetItem(imgNr, 4, doubleToString(map_get(var,"y").getValue(),m_degDigits).c_str());
+    SetItem(imgNr, 5, doubleToString( map_get(var,"p").getValue(),m_degDigits).c_str());
+    SetItem(imgNr, 6, doubleToString( map_get(var,"r").getValue(),m_degDigits).c_str());
     char flags[] = "--";
     if (pano.getOptions().optimizeReferenceImage == imgNr) {
         flags[0]='A';
@@ -302,13 +305,13 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     case Lens::EQUIRECTANGULAR_LENS: ps << _("Equirectangular"); break;
     }
     SetItem(imgNr, 3, ps);
-    SetItem(imgNr, 4, doubleToString( map_get(var, "v").getValue()).c_str());
-    SetItem(imgNr, 5, doubleToString( map_get(var, "a").getValue()).c_str());
-    SetItem(imgNr, 6, doubleToString( map_get(var, "b").getValue()).c_str());
-    SetItem(imgNr, 7, doubleToString( map_get(var, "c").getValue()).c_str());
-    SetItem(imgNr, 8, doubleToString( map_get(var, "d").getValue()).c_str());
-    SetItem(imgNr, 9, doubleToString( map_get(var, "e").getValue()).c_str());
-    SetItem(imgNr, 10, doubleToString( map_get(var, "g").getValue()).c_str());
-    SetItem(imgNr, 11, doubleToString( map_get(var, "t").getValue()).c_str());
+    SetItem(imgNr, 4, doubleToString( map_get(var, "v").getValue(),m_degDigits).c_str());
+    SetItem(imgNr, 5, doubleToString( map_get(var, "a").getValue(),m_distDigits).c_str());
+    SetItem(imgNr, 6, doubleToString( map_get(var, "b").getValue(),m_distDigits).c_str());
+    SetItem(imgNr, 7, doubleToString( map_get(var, "c").getValue(),m_distDigits).c_str());
+    SetItem(imgNr, 8, doubleToString( map_get(var, "d").getValue(),m_pixelDigits).c_str());
+    SetItem(imgNr, 9, doubleToString( map_get(var, "e").getValue(),m_pixelDigits).c_str());
+    SetItem(imgNr, 10, doubleToString( map_get(var, "g").getValue(),m_distDigits).c_str());
+    SetItem(imgNr, 11, doubleToString( map_get(var, "t").getValue(),m_distDigits).c_str());
 }
 
