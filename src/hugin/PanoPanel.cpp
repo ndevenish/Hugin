@@ -133,12 +133,14 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_ColorCorrModeChoice);
     m_ColorCorrRefSpin = XRCCTRL(*this, "pano_spin_color_corr_reference",
                                  wxSpinCtrl);
-    m_ColorCorrRefSpin->Disable();
     DEBUG_ASSERT(m_ColorCorrRefSpin);
+    m_ColorCorrRefSpin->Disable();
+    m_ColorCorrRefSpin->PushEventHandler(new TextKillFocusHandler(this));
 
     m_FeatherWidthSpin = XRCCTRL(*this, "pano_spin_feather_width",
                                  wxSpinCtrl);
     DEBUG_ASSERT(m_FeatherWidthSpin);
+    m_FeatherWidthSpin->PushEventHandler(new TextKillFocusHandler(this));
 
 // TODO remove
 #if 0
@@ -161,6 +163,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     DEBUG_ASSERT(m_FormatChoice);
     m_JPEGQualitySpin = XRCCTRL(*this, "pano_jpeg_quality", wxSpinCtrl);
     DEBUG_ASSERT(m_JPEGQualitySpin);
+    m_JPEGQualitySpin->PushEventHandler(new TextKillFocusHandler(this));
     m_editScriptCB = XRCCTRL(*this, "pano_edit_script", wxCheckBox);
     DEBUG_ASSERT(m_editScriptCB);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
