@@ -519,8 +519,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     bool skipNextLine = false;
 
     bool PTGUIScriptFile = false;
-
+    int PTGUIScriptVersion = 0;
     // PTGui lens line detected
+    int ctrlPointsImgNrOffset = 0;
     bool PTGUILensLine = false;
 
     bool PTGUILensLoaded = false;
@@ -660,7 +661,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             // read control points
             ControlPoint point;
             getIntParam(point.image1Nr, line, "n");
+            point.image1Nr += ctrlPointsImgNrOffset;
             getIntParam(point.image2Nr, line, "N");
+            point.image2Nr += ctrlPointsImgNrOffset;
             getDoubleParam(point.x1, line, "x");
             getDoubleParam(point.x2, line, "X");
             getDoubleParam(point.y1, line, "y");
@@ -669,10 +672,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 t = 0;
             }
 
-            if (PTGUIScriptFile) {
-                point.image1Nr -=1;
-                point.image2Nr -=1;
-            }
             point.mode = (ControlPoint::OptimizeMode) t;
             ctrlPoints.push_back(point);
             state = P_CP;
@@ -708,6 +707,41 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         case '#':
         {
             // parse special comments...
+            if (line.substr(0,20) == string("# ptGui project file")) {
+                PTGUIScriptFile = true;
+            }
+
+            if (PTGUIScriptFile) {
+                // parse special PTGUI stuff.
+                if (sscanf(line.c_str(), "#-fileversion %d", &PTGUIScriptVersion) > 0) {
+                    DEBUG_DEBUG("Detected PTGUI script version: " << PTGUIScriptVersion);
+                    switch (PTGUIScriptVersion) {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        default:
+                            ctrlPointsImgNrOffset = -1;
+                            // latest known version is 8
+                            break;
+                    }
+                }
+                if (line.substr(0,12) == "#-dummyimage") {
+                    PTGUILensLine = true;
+                }
+            }
 
             // PTGui and PTAssember project files:
             // #-imgfile 960 1280 "D:\data\bruno\074-098\087.jpg"
@@ -736,10 +770,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 cImgInfo.push_back(info);
             }
 
-            if (line.substr(0,12) == "#-dummyimage") {
-                PTGUILensLine = true;
-                PTGUIScriptFile = true;
-            }
 
             // parse our special options
             if (line.substr(0,14) == "#hugin_options") {
