@@ -41,15 +41,18 @@ then
     then
       AC_MSG_NOTICE([zlib home set to $ZLIB_HOME])
     else
-      AC_MSG_ERROR([cannot find the zlib directory],[1])
+      AC_MSG_NOTICE([cannot find the zlib directory, assuming it is specified in CFLAGS])
     fi
   fi
   failed=0;
   passed=0;
   ZLIB_OLD_LDFLAGS=$LDFLAGS
   ZLIB_OLD_CPPFLAGS=$LDFLAGS
-  LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
-  CPPFLAGS="$CPPFLAGS -I$ZLIB_HOME/include"
+  if test "x$ZLIB_HOME" != 'x'
+  then
+    LDFLAGS="$LDFLAGS -L$ZLIB_HOME/lib"
+    CPPFLAGS="$CPPFLAGS -I$ZLIB_HOME/include"
+  fi
   AC_LANG_SAVE
   AC_LANG_C
 dnl  AC_CHECK_HEADER(zconf.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`)
@@ -72,7 +75,7 @@ dnl  AC_CHECK_LIB(z,gztell,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
       AC_MSG_RESULT(no -- some components failed test)
       have_zlib='no (failed tests)'
     else
-      if test "x$with_zlib" = 'x'
+      if test "x$ZLIB_HOME" = 'x'
       then
         LIB_ZLIB="-lz"
         ZLIB_FLAGS="-DHasZLIB"
@@ -134,15 +137,18 @@ then
     then
       AC_MSG_NOTICE([png home set to $PNG_HOME])
     else
-      AC_MSG_ERROR([cannot find the png directory],[1])
+      AC_MSG_NOTICE([cannot find the png directory, assuming it is specified in CFLAGS])
     fi
   fi
   failed=0;
   passed=0;
   PNG_OLD_LDFLAGS=$LDFLAGS
   PNG_OLD_CPPFLAGS=$LDFLAGS
-  LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
-  CPPFLAGS="$CPPFLAGS -I$PNG_HOME/include"
+  if test "x$PNG_HOME" != 'x'
+  then
+    LDFLAGS="$LDFLAGS -L$PNG_HOME/lib"
+    CPPFLAGS="$CPPFLAGS -I$PNG_HOME/include"
+  fi
   AC_LANG_SAVE
   AC_LANG_C
   AC_CHECK_HEADER(png.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
@@ -159,7 +165,7 @@ then
       AC_MSG_RESULT(no -- some components failed test)
       have_png='no (failed tests)'
     else
-      if test "x$with_png" = 'x'
+      if test "x$PNG_HOME" = 'x'
       then
         LIB_PNG="-lpng"
         PNG_FLAGS="-DHasPNG"
@@ -223,15 +229,18 @@ then
     then
       AC_MSG_NOTICE([jpeg home set to $JPEG_HOME])
     else
-      AC_MSG_ERROR([cannot find the jpeg directory],[1])
+      AC_MSG_NOTICE([cannot find the jpeg directory, assuming it is specified in CFLAGS])
     fi
   fi
   failed=0;
   passed=0;
   JPEG_OLD_LDFLAGS=$LDFLAGS
   JPEG_OLD_CPPFLAGS=$LDFLAGS
-  LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
-  CPPFLAGS="$CPPFLAGS -I$JPEG_HOME/include"
+  if test "x$JPEG_HOME" != 'x'
+  then
+    LDFLAGS="$LDFLAGS -L$JPEG_HOME/lib"
+    CPPFLAGS="$CPPFLAGS -I$JPEG_HOME/include"
+  fi
   AC_LANG_SAVE
   AC_LANG_C
 dnl    AC_CHECK_HEADER(jconfig.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
@@ -276,13 +285,13 @@ dnl    AC_CHECK_HEADER(jmorecfg.h,passed=`expr $passed + 1`,failed=`expr $failed
       AC_MSG_RESULT(no -- some components failed test)
       have_jpeg='no (failed tests)'
     else
-      if test "x$with_jpeg" = 'x'
+      if test "x$JPEG_HOME" = 'x'
       then
         LIB_JPEG="-ljpeg"
         JPEG_FLAGS="-DHasJPEG"
       else
-        LIB_JPEG="-L$JPEG_HOME/lib -lpng"
-        JPEG_FLAGS="-I$JPEG_HOME/include -DHasPNG"
+        LIB_JPEG="-L$JPEG_HOME/lib -ljpeg"
+        JPEG_FLAGS="-I$JPEG_HOME/include -DHasJPEG"
       fi
       AC_DEFINE(HasJPEG,1,Define if you have JPEG library)
       AC_MSG_RESULT(yes)
@@ -339,15 +348,18 @@ then
     then
       AC_MSG_NOTICE([tiff home set to $TIFF_HOME])
     else
-      AC_MSG_ERROR([cannot find the tiff directory],[1])
+      AC_MSG_NOTICE([cannot find the tiff directory, assuming it is specified in CFLAGS])
     fi
   fi
   failed=0;
   passed=0;
   TIFF_OLD_LDFLAGS=$LDFLAGS
   TIFF_OLD_CPPFLAGS=$LDFLAGS
-  LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
-  CPPFLAGS="$CPPFLAGS -I$TIFF_HOME/include"
+  if test "x$TIFF_HOME" != 'x'
+  then
+    LDFLAGS="$LDFLAGS -L$TIFF_HOME/lib"
+    CPPFLAGS="$CPPFLAGS -I$TIFF_HOME/include"
+  fi    
   AC_LANG_SAVE
   AC_LANG_C
   AC_CHECK_HEADER(tiff.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
@@ -369,7 +381,7 @@ dnl    AC_CHECK_LIB(tiff,TIFFReadRGBAStrip,passed=`expr $passed + 1`,failed=`exp
       AC_MSG_RESULT(no -- some components failed test)
       have_tiff='no (failed tests)'
     else
-      if test "x$with_tiff" = 'x'
+      if test "x$TIFF_HOME" = 'x'
       then
         LIB_TIFF="-ltiff"
         TIFF_FLAGS="-DHasTIFF"

@@ -1,3 +1,16 @@
+2004-10-22 22:12  dwilkins42
+
+	* src/hugin/po/fr.po: Updated french translation
+
+2004-10-22 21:55  dwilkins42
+
+	* m4/: .cvsignore, ax_check_graphics.m4, ax_check_panotools.m4:
+	  Correct more typo's
+
+2004-10-22 19:19  dwilkins42
+
+	* ChangeLog, m4/ax_check_graphics.m4: Correct typo :-(
+
 2004-10-22 17:29  dwilkins42
 
 	* m4/: .cvsignore, Makefile.am: Add Makefile.am to m4 to distribute
