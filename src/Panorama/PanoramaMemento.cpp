@@ -38,14 +38,6 @@ PanoramaMemento::~PanoramaMemento()
 
 }
 
-
-PanoramaMemento::PanoramaMemento(const PanoramaMemento & o)
-{
-
-}
-
-
-
 ostream & Variable::print(ostream & o, bool printLinks) const
 {
     o << name;
@@ -155,7 +147,7 @@ void Lens::setFromXML(const QDomNode & node)
 
 bool Lens::readEXIF(const std::string & filename)
 {
-    
+
     bool isLandscape;
     int width, height;
     width = height = 0;
@@ -171,7 +163,7 @@ bool Lens::readEXIF(const std::string & filename)
                      << ext);
         return false;
     }
-    
+
     ImageInfo_t exif;
     ResetJpgfile();
 
@@ -196,7 +188,7 @@ bool Lens::readEXIF(const std::string & filename)
         // of ccd width. we assume that the pixels are squares
         ccdWidth = exif.CCDWidth * exif.Height / exif.Width;
     }
-    
+
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     DEBUG_DEBUG("CCD size: " << ccdWidth << " mm");

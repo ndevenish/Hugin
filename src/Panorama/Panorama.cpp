@@ -115,9 +115,6 @@ void Panorama::reset()
     // delete all images and control points.
     state.ctrlPoints.clear();
     state.lenses.clear();
-    for (ImagePtrVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
-        delete *it;
-    }
     state.images.clear();
     state.variables.clear();
     changeFinished();
@@ -263,10 +260,10 @@ unsigned int Panorama::addImage(const std::string & filename)
         state.lenses.back() = l;
     }
     unsigned int nr = state.images.size();
-    state.images.push_back(new PanoImage(filename));
-    ImageOptions opts = state.images.back()->getOptions();
+    state.images.push_back(PanoImage(filename));
+    ImageOptions opts = state.images.back().getOptions();
     opts.lensNr = 0;
-    state.images.back()->setOptions(opts);
+    state.images.back().setOptions(opts);
     state.variables.push_back(ImageVariables());
     updateLens(nr);
     adjustVarLinks();
@@ -294,25 +291,24 @@ void Panorama::removeImage(unsigned int imgNr)
 
     // remove Lens if needed
     bool removeLens = true;
-    unsigned int lens = state.images[imgNr]->getLens();
+    unsigned int lens = state.images[imgNr].getLens();
     unsigned int i = 0;
-    for (ImagePtrVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
-        if ((*it)->getLens() == lens && imgNr != i) {
+    for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
+        if ((*it).getLens() == lens && imgNr != i) {
             removeLens = false;
         }
         i++;
     }
     if (removeLens) {
-        for (ImagePtrVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
-            if((*it)->getLens() >= lens) {
-                (*it)->setLens((*it)->getLens() - 1);
+        for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
+            if((*it).getLens() >= lens) {
+                (*it).setLens((*it).getLens() - 1);
             }
         }
         state.lenses.erase(state.lenses.begin() + lens);
     }
 
     state.variables.erase(state.variables.begin() + imgNr);
-    delete state.images[imgNr];
     state.images.erase(state.images.begin() + imgNr);
     adjustVarLinks();
 }
@@ -393,21 +389,21 @@ void Panorama::printOptimizerScript(ostream & o,
     std::set<unsigned int> usedLenses;
     o << endl
       << "# image lines" << endl;
-    for (ImagePtrVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
-        o << "i w" << (*it)->getWidth() << " h" << (*it)->getHeight()
-          <<" f" << state.lenses[(*it)->getLens()].projectionFormat << " ";
+    for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
+        o << "i w" << (*it).getWidth() << " h" << (*it).getHeight()
+          <<" f" << state.lenses[(*it).getLens()].projectionFormat << " ";
         state.variables[i].print(o, true);
 /*
-        if (usedLenses.count((*it)->getLens()) == 0) {
+        if (usedLenses.count((*it).getLens()) == 0) {
             state.variables[i].print(o, true);
-            usedLenses.insert((*it)->getLens());
+            usedLenses.insert((*it).getLens());
         } else {
             state.variables[i].print(o, false);
         }
 */
-        o << " u" << (*it)->getOptions().featherWidth
-          << ((*it)->getOptions().morph ? " o" : "")
-          << " n\"" << (*it)->getFilename() << "\"" << std::endl;
+        o << " u" << (*it).getOptions().featherWidth
+          << ((*it).getOptions().morph ? " o" : "")
+          << " n\"" << (*it).getFilename() << "\"" << std::endl;
         i++;
     }
 
@@ -443,14 +439,14 @@ void Panorama::printStitcherScript(ostream & o,
     o << endl
       << "# output image lines" << endl;
     unsigned int i=0;
-    for (ImagePtrVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
+    for (ImageVector::const_iterator it = state.images.begin(); it != state.images.end(); ++it) {
 
-        o << "o w" << (*it)->getWidth() << " h" << (*it)->getHeight()
-          <<" f" << state.lenses[(*it)->getLens()].projectionFormat << " ";
+        o << "o w" << (*it).getWidth() << " h" << (*it).getHeight()
+          <<" f" << state.lenses[(*it).getLens()].projectionFormat << " ";
         state.variables[i].print(o,false);
-        o << " u" << (*it)->getOptions().featherWidth << " m" << (*it)->getOptions().ignoreFrameWidth
-          << ((*it)->getOptions().morph ? " o" : "")
-          << " n\"" << (*it)->getFilename() << "\"" << std::endl;
+        o << " u" << (*it).getOptions().featherWidth << " m" << (*it).getOptions().ignoreFrameWidth
+          << ((*it).getOptions().morph ? " o" : "")
+          << " n\"" << (*it).getFilename() << "\"" << std::endl;
         i++;
     }
     o << endl;
@@ -573,7 +569,7 @@ void Panorama::updateLens(unsigned int lensNr, const Lens & lens)
     assert(lensNr < state.lenses.size());
     state.lenses[lensNr] = lens;
     for ( unsigned int i = 0; i < state.variables.size(); ++i) {
-        if(state.images[i]->getLens() == lensNr) {
+        if(state.images[i].getLens() == lensNr) {
             // set variables
             updateLens(i);
         }
@@ -585,7 +581,7 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
 {
     assert(lensNr < state.lenses.size());
     assert(imgNr < state.images.size());
-    state.images[imgNr]->setLens(lensNr);
+    state.images[imgNr].setLens(lensNr);
     updateLens(imgNr);
     adjustVarLinks();
 }
@@ -596,12 +592,12 @@ void Panorama::adjustVarLinks()
     DEBUG_DEBUG("Panorama::adjustVarLinks()");
     unsigned int image = 0;
     std::map<unsigned int,unsigned int> usedLenses;
-    for (ImagePtrVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
-        unsigned int lens = (*it)->getLens();
+    for (ImageVector::iterator it = state.images.begin(); it != state.images.end(); ++it) {
+        unsigned int lens = (*it).getLens();
         if (usedLenses.count(lens) == 1) {
             unsigned int refImg = usedLenses[lens];
-            switch ((*it)->getOptions().source) {
-                case ImageOptions::DIGITAL_CAMERA:
+            switch ((*it).getOptions().source) {
+            case ImageOptions::DIGITAL_CAMERA:
                 state.variables[image].a.link(refImg);
                 state.variables[image].b.link(refImg);
                 state.variables[image].c.link(refImg);
@@ -635,7 +631,7 @@ unsigned int Panorama::addLens(const Lens & lens)
 
 void Panorama::updateLens(unsigned int imgNr)
 {
-    unsigned int lensNr = state.images[imgNr]->getLens();
+    unsigned int lensNr = state.images[imgNr].getLens();
     state.variables[imgNr].HFOV.setValue(state.lenses[lensNr].HFOV);
     state.variables[imgNr].a.setValue(state.lenses[lensNr].a);
     state.variables[imgNr].b.setValue(state.lenses[lensNr].b);
@@ -644,14 +640,13 @@ void Panorama::updateLens(unsigned int imgNr)
     state.variables[imgNr].e.setValue(state.lenses[lensNr].e);
 }
 
-void Panorama::setMemento(PanoramaMemento & state)
+void Panorama::setMemento(PanoramaMemento & memento)
 {
-    DEBUG_ERROR("setMemento() not implemented yet");
+    state = memento;
 }
 
 PanoramaMemento Panorama::getMemento(void) const
 {
-    DEBUG_ERROR("getMemento() not implemented yet");
     return PanoramaMemento(state);
 }
 

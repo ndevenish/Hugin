@@ -55,7 +55,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags) -I../ $(INCL_RESOURCES_FLAG)
+CFLAGS += $(shell wx-config --cxxflags) -I../ $(INCL_RESOURCES_FLAG) -O2
 LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
 
 # ====================================================================
@@ -84,7 +84,8 @@ APPS = 1
 # App 1
 
 APP_1_BIN = hugin
-APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o $(RES_O)
+APP_1_OBJ = huginApp.o CPImageCtrl.o CPEditorPanel.o MainFrame.o \
+            ImageCache.o CommandHistory.o $(RES_O)
 APP_1_LFLAGS = $(LFLAGS)
 
 # ====================================================================

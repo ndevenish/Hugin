@@ -43,47 +43,95 @@
 
 #include "wx/xrc/xmlres.h"              // XRC XML resouces
 #include "wx/notebook.h"
+
+#include <algorithm>
+
+#include <vigra/imageiterator.hxx>
+#include <vigra/stdimage.hxx>
+#include <vigra/transformimage.hxx>
+#include <vigra/copyimage.hxx>
+#include <vigra/functorexpression.hxx>
+#include <vigra/correlation.hxx>
+
 #include "common/utils.h"
+#include "common/stl_utils.h"
+#include "PT/PanoCommand.h"
+#include "hugin/CommandHistory.h"
+#include "hugin/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
-//#include "hugin/TabBar.h"
 #include "hugin/CPEditorPanel.h"
 
 
 using namespace std;
+using namespace PT;
+using namespace vigra;
+using namespace vigra::functor;
+
+typedef vigra::ImageIterator<vigra::RGBValue<unsigned char> > wxImageIterator;
+
+void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy)
+{
+    // iterate down the first column of the images
+    for(; sy.y != send.y; ++sy.y, ++dy.y)
+    {
+        // create image iterator that points to the first
+        // pixel of the current row of the source image
+        wxImageIterator sx = sy;
+
+        // create image iterator that points to the first
+        // pixel of the current row of the destination image
+        vigra::BImage::Iterator dx = dy;
+
+        // iterate across current row
+        for(; sx.x != send.x; ++sx.x, ++dx.x)
+        {
+            // calculate negative gray value
+            *dx = (unsigned char) ( (*sx).red()*0.3 + (*sx).green()*0.59
+                                    + (*sx).blue()*0.11);
+        }
+    }
+}
+
+wxImageIterator
+wxImageUpperLeft(wxImage & img)
+{
+    wxImageIterator it((vigra::RGBValue<unsigned char> *)img.GetData(), img.GetWidth());
+    return it;
+}
+
+wxImageIterator
+wxImageLowerRight(wxImage & img)
+{
+    return wxImageUpperLeft(img) + vigra::Dist2D(img.GetWidth(), img.GetHeight());
+}
 
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON( XRCID("button_wide"), CPEditorPanel::OnMyButtonClicked )
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
-    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_left_tabbar"),CPEditorPanel::OnLeftImgChange)
-    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_right_tabbar"),CPEditorPanel::OnRightImgChange)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange)
+
 END_EVENT_TABLE()
 
-CPEditorPanel::CPEditorPanel(wxWindow * parent)
+CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
+    : pano(pano), leftImage(0), rightImage(0),
+      cpCreationState(NO_POINT)
+
 {
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
     DEBUG_TRACE("Panel created");
 
-    // create custom controls
-
     // left image
+    m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
     m_leftImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
-//    TabBar * tb = new TabBar(this);
-//    m_leftTabs = new TabBarView(tb);
-//    tb->SetTabView(m_leftTabs);
-//    wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_tabs"),
-//                                               tb);
 
     // right image
+    m_rightTabs = XRCCTRL(*this, "cp_editor_right_tab", wxNotebook);
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
-//    tb = new TabBar(this);
-//    m_rightTabs = new TabBarView(tb);
-//    tb->SetTabView(m_rightTabs);
-//    wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_tabs"),
-//                                               tb);
 }
 
 
@@ -92,47 +140,278 @@ CPEditorPanel::~CPEditorPanel()
 }
 
 
-void CPEditorPanel::setLeftImage(wxImage & img)
+void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
-    m_leftImg->setImage(img);
+    // get image
+    m_leftTabs->SetSelection(imgNr);
 }
 
 
-void CPEditorPanel::setRightImage(wxImage & img)
+void CPEditorPanel::setRightImage(unsigned int imgNr)
 {
-    m_rightImg->setImage(img);
+    m_rightTabs->SetSelection(imgNr);
 }
 
 
 void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 {
     wxString text;
+    unsigned int nr = ev.getPointNr();
+    wxPoint point = ev.getPoint();
+    bool left;
+    if (ev.GetEventObject() == m_leftImg) {
+        left = true;
+    } else  if (ev.GetEventObject() == m_rightImg){
+        left = false;
+    } else {
+        DEBUG_FATAL("UNKOWN SOURCE OF CPEvent");
+    }
+
     switch (ev.getMode()) {
     case CPEvent::NONE:
         text = "NONE";
         break;
     case CPEvent::NEW_POINT_CHANGED:
-        text = "NEW_POINT_CHANGED";
+        if (left) {
+            CreateNewPointLeft(ev.getPoint());
+        } else {
+            CreateNewPointRight(ev.getPoint());
+        }
         break;
     case CPEvent::POINT_SELECTED:
-        text << "POINT_SELECTED: " << ev.getPointNr();
+        SelectLocalPoint(nr);
         break;
+
     case CPEvent::POINT_CHANGED:
-        text << "POINT_CHANGED: " << ev.getPointNr();
+    {
+        DEBUG_DEBUG("move point("<< nr << ")");
+        assert(nr < currentPoints.size());
+        ControlPoint cp = currentPoints[nr].second;
+
+        if (left) {
+            cp.x1 = point.x;
+            cp.y1 = point.y;
+        } else {
+            cp.x2 = point.x;
+            cp.y2 = point.y;
+        }
+        if (set_contains(mirroredPoints, nr)) {
+            cp.mirror();
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeCtrlPointCmd(*pano, currentPoints[nr].first, cp)
+            );
+
         break;
+    }
     case CPEvent::REGION_SELECTED:
+    {
         text = "REGION_SELECTED";
+        wxRect region = ev.getRect();
+        vigra::CorrelationResult pos;
+        ControlPoint point;
+        DEBUG_DEBUG("left img: " << leftImage
+                    << "  right img: " << rightImage);
+        if (left) {
+            if (FindTemplate(leftImage, region, rightImage, pos)) {
+                point.image1Nr = leftImage;
+                point.x1 = region.GetLeft();
+                point.y1 = region.GetTop();
+                point.image2Nr = rightImage;
+                point.x2 = pos.xMax;
+                point.y2 = pos.yMax;
+                point.mode = PT::ControlPoint::X_Y;
+            } else {
+                DEBUG_DEBUG("No matching point found");
+            }
+        } else {
+            if (FindTemplate(rightImage, region, leftImage, pos)) {
+                point.image1Nr = leftImage;
+                point.x1 = pos.xMax;
+                point.y1 = pos.yMax;
+                point.image2Nr = rightImage;
+                point.x2 = region.GetLeft();
+                point.y2 = region.GetTop();
+                point.mode = PT::ControlPoint::X_Y;
+            } else {
+                DEBUG_DEBUG("No matching point found");
+            }
+        }
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::AddCtrlPointCmd(*pano, point)
+            );
+        // select new control Point
+        unsigned int lPoint = pano->getNrOfCtrlPoints() -1;
+        SelectGlobalPoint(lPoint);
+
         break;
 //    default:
 //        text = "FATAL: unknown event mode";
     }
-
-    wxMessageBox( "CPEditorPanel recieved CPEvent event:" + text
-                  << " from:" << (unsigned long int) ev.GetEventObject(),
-                  "CPEditorPanel::OnCPEvent",
-                  wxOK | wxICON_INFORMATION,
-                  this );
+    }
 }
+
+
+void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
+{
+    DEBUG_TRACE("selectLocalPoint(" << LVpointNr << ")");
+
+    // FIXME: update point display (listview etc.) here
+}
+
+void CPEditorPanel::SelectGlobalPoint(unsigned int globalNr)
+{
+    unsigned int localNr;
+    if (globalPNr2LocalPNr(localNr,globalNr)) {
+        DEBUG_DEBUG("CPEditor::setGlobalPoint(" << globalNr << ") found local point " << localNr);
+        SelectLocalPoint(localNr);
+    } else {
+        DEBUG_ERROR("CPEditor::setGlobalPoint: point " << globalNr << " not found in currentPoints");
+    }
+}
+
+bool CPEditorPanel::globalPNr2LocalPNr(unsigned int & localNr, unsigned int globalNr) const
+{
+    vector<CPoint>::const_iterator it;
+    // just wanted to try the advanced stl stuff here.  this searches
+    // the currentPoints list for a CPoint (std::pair), whose first
+    // element (global point nr) matches pointNr
+    it = find_if(currentPoints.begin(),
+                 currentPoints.end(),
+                 compose1(std::bind2nd(std::equal_to<unsigned int>(), globalNr),
+                               select1st<CPoint>()));
+    if (it != currentPoints.end()) {
+        localNr = it - currentPoints.begin();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void CPEditorPanel::CreateNewPointLeft(wxPoint p)
+{
+    DEBUG_TRACE("CreateNewPointLeft");
+    switch (cpCreationState) {
+    case NO_POINT:
+        cpCreationState = FIRST_POINT;
+    case FIRST_POINT:
+        newPoint = p;
+        break;
+    case SECOND_POINT:
+        // FIXME: get OptimizeMode from somewhere
+        ControlPoint point(leftImage, p.x, p.y,
+                           rightImage, newPoint.x, newPoint.y,
+                           PT::ControlPoint::X_Y);
+
+        m_leftImg->clearNewPoint();
+        m_rightImg->clearNewPoint();
+        cpCreationState = NO_POINT;
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::AddCtrlPointCmd(*pano, point)
+            );
+        // select new control Point
+        unsigned int lPoint = pano->getNrOfCtrlPoints() -1;
+        SelectGlobalPoint(lPoint);
+    }
+}
+
+bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
+                                 unsigned int dstImgNr,
+                                 vigra::CorrelationResult & res)
+{
+    DEBUG_TRACE("FindTemplate(): tmpl img nr: " << tmplImgNr << " corr src: "
+                << dstImgNr);
+    wxImage * tmplImg = ImageCache::getInstance().getImage(
+        pano->getImage(tmplImgNr).getFilename());
+    wxImage * dstImg = ImageCache::getInstance().getImage(
+        pano->getImage(dstImgNr).getFilename());
+
+    // our template image
+    wxImageIterator tmplUpperCorner = wxImageUpperLeft(*tmplImg)
+                                      + vigra::Dist2D(region.GetLeft(), region.GetTop());
+    wxImageIterator tmplLowerCorner = wxImageUpperLeft(*tmplImg)
+                                      + vigra::Dist2D(region.GetRight(), region.GetBottom());
+    vigra::BImage templ(region.GetWidth(), region.GetHeight());
+
+    vigra::copyImage(tmplUpperCorner,
+                     tmplLowerCorner,
+                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
+                     templ.upperLeft(),
+                     StandardValueAccessor<unsigned char>());
+
+//    exportImage(srcImageRange(templ), vigra::ImageExportInfo("template_normal.gif"));
+//    exportImage(srcImageRange(templ), vigra::ImageExportInfo("template.gif"));
+    vigra::BImage dst(dstImg->GetWidth(), dstImg->GetHeight());
+
+    DEBUG_DEBUG("dest image to grey");
+    vigra::copyImage(wxImageUpperLeft(*dstImg),
+                     wxImageLowerRight(*dstImg),
+                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
+                     dst.upperLeft(),
+                     StandardValueAccessor<unsigned char>());
+
+//    ToGray(wxImageUpperLeft(*dstImg), wxImageLowerRight(*dstImg),
+//           dst.upperLeft());
+
+//    DEBUG_DEBUG("exporting image");
+//    exportImage(srcImageRange(dst), vigra::ImageExportInfo("src_correlation.gif"));
+
+    vigra::BImage corr_res(dst.width(), dst.height());
+    DEBUG_DEBUG("correlating image");
+    // correlate Image
+    res = vigra::correlateImage(dst.upperLeft(),
+                              dst.lowerRight(),
+                              StandardValueAccessor<unsigned char>(),
+                              corr_res.upperLeft(),
+                              StandardValueAccessor<unsigned char>(),
+                              templ.upperLeft(),
+                              StandardValueAccessor<unsigned char>(),
+                              Diff2D(0,0),
+                              templ.size()
+            );
+    DEBUG_DEBUG("correlation: max=" << res.max/127 - 1.0 << ", " << res.max
+                << " at: " << res.xMax << ","
+                << res.yMax);
+//    DEBUG_DEBUG("exporting correlated image");
+//    exportImage(srcImageRange(corr_res), vigra::ImageExportInfo("correlation.gif"));
+    // FIXME use a threshold set by the user, or calculate a sensible one.
+    if (res.max > 0.7) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void CPEditorPanel::CreateNewPointRight(wxPoint p)
+{
+    DEBUG_TRACE("CreateNewPointRight");
+    switch (cpCreationState) {
+    case NO_POINT:
+        cpCreationState = SECOND_POINT;
+    case SECOND_POINT:
+        newPoint = p;
+        break;
+    case FIRST_POINT:
+        // FIXME: get OptimizeMode from somewhere
+        ControlPoint point(leftImage, newPoint.x, newPoint.y,
+                           rightImage, p.x, p.y,
+                           PT::ControlPoint::X_Y);
+        m_leftImg->clearNewPoint();
+        m_rightImg->clearNewPoint();
+        cpCreationState = NO_POINT;
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::AddCtrlPointCmd(*pano, point)
+            );
+        // select new control Point
+        unsigned int lPoint = pano->getNrOfCtrlPoints() -1;
+        SelectGlobalPoint(lPoint);
+    }
+}
+
+
 
 void CPEditorPanel::OnMyButtonClicked(wxCommandEvent &e)
 {
@@ -141,31 +420,48 @@ void CPEditorPanel::OnMyButtonClicked(wxCommandEvent &e)
 
 void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
 {
-    DEBUG_TRACE("panoramChanged()");
-
     // update Tabs
     unsigned int nrImages = pano.getNrOfImages();
-    unsigned int nrTabs;
-    // = m_leftTabs->GetNumberOfTabs();
+    unsigned int nrTabs = m_leftTabs->GetPageCount();
     // update tab buttons
-/*    
+    DEBUG_TRACE("panoramChanged() images:" << nrImages
+                << " tabs:" << nrTabs);
     if (nrTabs < nrImages) {
-        // FIXME add buttons
         for (unsigned int img = nrTabs; img <nrImages; ++img) {
-            m_leftTabs->AddTab(img, wxString::Format("%d",img));
-            m_rightTabs->AddTab(img, wxString::Format("%d",img));
+            DEBUG_DEBUG("adding tab " << img);
+            // ugly.. but needed since we have to add something
+            // to wxNotebook to get the TabBar...
+            wxWindow * t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+            wxWindow * t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+            if (!m_leftTabs->AddPage(t1, wxString::Format("%d",img))) {
+                DEBUG_FATAL("could not add dummy window to left notebook");
+            }
+            if (!m_rightTabs->AddPage(t2, wxString::Format("%d",img))){
+                DEBUG_FATAL("could not add dummy window to right notebook");
+            }
         }
     } else if (nrTabs > nrImages) {
-        // FIXME delete buttons
         for (unsigned int img = nrImages; img > nrTabs; img--) {
-            m_leftTabs->RemoveTab(img);
-            m_rightTabs->RemoveTab(img);
+            m_leftTabs->DeletePage(img);
+            m_rightTabs->DeletePage(img);
         }
     }
-*/
 
+    // update the display
+    UpdateDisplay();
+}
+
+void CPEditorPanel::UpdateDisplay()
+{
+    int fI = m_leftTabs->GetSelection();
+    int sI = m_rightTabs->GetSelection();
+    if (fI < 0) {
+        return;
+    }
+    leftImage = (unsigned int) fI;
+    rightImage = (unsigned int) sI;
     // update control points
-    const PT::CPVector & controlPoints = pano.getCtrlPoints();
+    const PT::CPVector & controlPoints = pano->getCtrlPoints();
     currentPoints.clear();
     mirroredPoints.clear();
     std::vector<wxPoint> left;
@@ -175,12 +471,12 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
     unsigned int i = 0;
     for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
         PT::ControlPoint point = *it;
-        if ((point.image1Nr == firstImage) && (point.image2Nr == secondImage)){
+        if ((point.image1Nr == leftImage) && (point.image2Nr == rightImage)){
             left.push_back(wxPoint( (int) point.x1, (int) point.y1));
             right.push_back(wxPoint( (int) point.x2, (int) point.y2));
             currentPoints.push_back(make_pair(it - controlPoints.begin(), *it));
             i++;
-        } else if ((point.image2Nr == firstImage) && (point.image1Nr == secondImage)){
+        } else if ((point.image2Nr == leftImage) && (point.image1Nr == rightImage)){
             point.mirror();
             mirroredPoints.insert(i);
             left.push_back(wxPoint( (int) point.x1, (int) point.y1));
@@ -193,13 +489,27 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
     m_rightImg->setCtrlPoints(right);
 }
 
-
 void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
+    if (e.GetSelection() >= 0) {
+        leftImage = (unsigned int) e.GetSelection();
+        setLeftImage(leftImage);
+        wxImage * ptr = ImageCache::getInstance().getImage(
+            pano->getImage(leftImage).getFilename());
+        m_leftImg->setImage(*ptr);
+    }
 }
 
 void CPEditorPanel::OnRightImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnRightImgChange() to " << e.GetSelection());
+    if (e.GetSelection() >= 0) {
+        rightImage = (unsigned int) e.GetSelection();
+
+        setRightImage(rightImage);
+        wxImage *ptr = ImageCache::getInstance().getImage(
+            pano->getImage(rightImage).getFilename());
+        m_rightImg->setImage(*ptr);
+    }
 }

@@ -28,9 +28,9 @@
 #include <string>
 #include <vector>
 
-namespace PT {
+#include "PT/PanoImage.h"
 
-class PanoImage;
+namespace PT {
 
 /** a variable has a value, name and can be linked to another variable.
  *
@@ -201,14 +201,13 @@ public:
         X,        ///< evaluate x, points are on a vertical line
         Y         ///< evaluate y, points are on a horizontal line
     };
-/*
     ControlPoint()
-        : image1Nr(0), image1Nr(0),
+        : image1Nr(0), image2Nr(0),
           x1(0),y1(0),
           x2(0),y2(0),
           error(0), mode(X_Y)
         { };
-*/
+    
 //    ControlPoint(Panorama & pano, const QDomNode & node);
     ControlPoint(unsigned int img1, double sX, double sY,
                  unsigned int img2, double dX, double dY,
@@ -312,7 +311,7 @@ public:
 };
 
 typedef std::vector<ControlPoint> CPVector;
-typedef std::vector<PanoImage*> ImagePtrVector;
+typedef std::vector<PanoImage> ImageVector;
 typedef std::vector<ImageVariables> VariablesVector;
 typedef std::vector<OptimizerSettings> OptimizeVector;
 
@@ -336,15 +335,15 @@ public:
     PanoramaMemento()
         { };
     /// copy ctor.
-    PanoramaMemento(const PanoramaMemento & o);
+//    PanoramaMemento(const PanoramaMemento & o);
     /// assignment operator
-    PanoramaMemento & operator=(const PanoramaMemento & o);
+//    PanoramaMemento & operator=(const PanoramaMemento & o);
     virtual ~PanoramaMemento();
 private:
     friend class PT::Panorama;
     // state members for the state
 
-    ImagePtrVector images;
+    ImageVector images;
     VariablesVector variables;
 
     CPVector ctrlPoints;

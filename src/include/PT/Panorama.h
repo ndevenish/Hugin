@@ -138,7 +138,7 @@ public:
     const PanoImage & getImage(std::size_t nr) const
         {
             assert(nr < state.images.size());
-            return *(state.images[nr]);
+            return state.images[nr];
         };
     /// the the number for a specific image
 //    unsigned int getImageNr(const PanoImage * image) const;

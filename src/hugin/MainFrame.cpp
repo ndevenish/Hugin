@@ -39,7 +39,9 @@
 #include <wx/wxhtml.h>              // for about html
 #include <wx/listctrl.h>            // wxListCtrl
 
+#include "PT/PanoCommand.h"
 #include "hugin/config.h"
+#include "hugin/CommandHistory.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -58,6 +60,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnExit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
+    EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
+    EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
@@ -74,7 +78,7 @@ MainFrame::MainFrame(wxWindow* parent)
     // load our children. some children might need special
     // initialization. this will be done later.
     wxXmlResource::Get()->LoadFrame(this, parent, wxT("main_frame"));
-    
+
     // load our menu bar
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
@@ -107,17 +111,24 @@ MainFrame::MainFrame(wxWindow* parent)
     XRCCTRL(*this, "images_list", wxListCtrl)->SetItem(2,1,"Leon Li");
 */
     // create the custom widget referenced by the main_frame XRC
-    cpe = new CPEditorPanel(this);
+    cpe = new CPEditorPanel(this,&pano);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
     // set the minimize icon
     SetIcon(wxICON(gui));
+
+    // set ourselfs as our dnd handler
+    // lets hope wxwindows doesn't try to delete the drop handlers
+    SetDropTarget(this);
 
     // create a status bar
     // I hope that we can also add other widget (like a
     // progress dialog to the status bar
     CreateStatusBar(1);
     SetStatusText("Started");
+
+    // observe the panorama
+    pano.setObserver(this);
 
     // show the frame.
     Show(TRUE);
@@ -127,10 +138,31 @@ MainFrame::~MainFrame()
 {
 }
 
+void MainFrame::panoramaChanged(PT::Panorama &panorama)
+{
+    DEBUG_TRACE("panoramaChanged");
+    assert(&pano == &panorama);
+    cpe->panoramaChanged(pano);
+}
+
+
+bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
+                            const wxArrayString& filenames)
+{
+    DEBUG_TRACE("OnDropFiles");
+    std::vector<std::string> filesv;
+    for (unsigned int i=0; i< filenames.GetCount(); i++) {
+        filesv.push_back(filenames[i].c_str());
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::AddImagesCmd(pano,filesv)
+        );
+    return true;
+}
 
 void MainFrame::OnExit(wxCommandEvent & e)
 {
-    // FIXME ask to save is panorama is true
+    // FIXME ask to save is panorama if unsaved changes exist
     //Close(TRUE);
     this->Destroy();
 }
@@ -232,7 +264,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
       wxListCtrl* lst = XRCCTRL(*this, "images_list", wxListCtrl);
       char Nr[8] ;
       wxArrayString Filenames;
-      wxArrayString Pathnames; 
+      wxArrayString Pathnames;
       // get the selections
       dlg->GetFilenames(Filenames);
       dlg->GetPaths(Pathnames);
@@ -276,7 +308,7 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
       e_msg = _("Remove image:   ");
     else
       e_msg = _("Remove images:   ");
- 
+
     for ( int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
       if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
         e_msg += "  " + lst->GetItemText(Nr);
@@ -301,24 +333,19 @@ void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
-    wxString msg;
-    msg << _("Hugin (version")
-        << HUGIN_VERSION << _(", compiled on ") << __DATE__")\n"
-        << _("A program to generate panoramic images.\n"
-             "Uses Panorama Tools to do the actual work\n"
-             "\n"
-             "Licenced under the GPL\n"
-             "Authors (in alphabetical order): \n"
-             "Pablo d'Angelo\n"
-             "Kai-Uwe Behrmann\n"
-             "Juha Helminen\n\n"
-             "Homepage: http://hugin.sourceforge.net");
-    wxMessageBox(msg, _("About XML resources demo"),
-                 wxOK | wxICON_INFORMATION, this);
-//------------------------------------------------------------------------------
-    wxImage::AddHandler(new wxPNGHandler);
-
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
     dlg.ShowModal();
+}
+
+void MainFrame::OnUndo(wxCommandEvent & e)
+{
+    DEBUG_TRACE("OnUndo");
+    GlobalCmdHist::getInstance().undo();
+}
+
+void MainFrame::OnRedo(wxCommandEvent & e)
+{
+    DEBUG_TRACE("OnRedo");
+    GlobalCmdHist::getInstance().redo();
 }

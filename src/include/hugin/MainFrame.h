@@ -26,6 +26,7 @@
 
 
 #include "wx/frame.h"
+#include "wx/dnd.h"
 
 #include "PT/Panorama.h"
 using namespace PT;
@@ -35,13 +36,13 @@ class CPEditorPanel;
 
 /** The main window frame.
  *
- *  It contains the menu & statusbar and a tab widget for many
- *  ideas. It also holds the Panorama model.
+ *  It contains the menu & statusbar and a big notebook with
+ *  the different tabs. It also holds the Panorama model.
  *
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public wxFileDropTarget
 {
 public:
 
@@ -53,11 +54,32 @@ public:
      */
     virtual ~MainFrame();
 
+    /** this is called whenever the panorama has changed.
+     *
+     *  This function must now update all the gui representations
+     *  of the panorama to display the new state.
+     *
+     *  Functions that change the panororama must not update
+     *  the GUI directly. The GUI should always be updated
+     *  to reflect the current panorama state in this function.
+     *
+     *  This avoids unnessecary close coupling between the
+     *  controller and the view (even if they sometimes
+     *  are in the same object). See model view controller
+     *  pattern.
+     *
+     */
+    virtual void panoramaChanged(PT::Panorama &pano);
+
+    /** file drag and drop handler method */
+    bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 private:
 
     // event handlers
     void OnExit(wxCommandEvent & e);
     void OnAbout(wxCommandEvent & e);
+    void OnUndo(wxCommandEvent & e);
+    void OnRedo(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);

@@ -38,7 +38,7 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = 
+SUBDIRS =
 
 # ====================================================================
 # Files that should be considered while creating the dependencies
@@ -61,16 +61,9 @@ LIB_LFLAGS = $(LFLAGS)
 
 # Library 1
 LIB_1_BIN = panorama
-LIB_1_OBJ = Panorama.o PanoramaMemento.o PanoImage.o 
+LIB_1_OBJ = Panorama.o PanoramaMemento.o PanoImage.o utils.o
 LIB_1_CFLAGS =  $(LIB_CFLAGS)
 LIB_1_LFLAGS =  $(LIB_LFLAGS)
-
-
-# ====================================================================
-# The source files from which the applications should be built. The
-# applications will be given the same name as the source file but
-# without the suffix such as .cc
-# ====================================================================
 
 
 APP = 1 2 3 4 5 6

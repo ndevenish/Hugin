@@ -24,24 +24,30 @@
 #ifndef _UTILS_H
 #define _UTILS_H
 
+#include <string>
 #include <iostream>
 
 // misc utility functions / macros
 
 // debug trace
-#define DEBUG_TRACE(msg) { std::cerr << "TRACE (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_TRACE(msg) { std::cerr << "TRACE " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // low level debug info
-#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_DEBUG(msg) { std::cerr << "DEBUG " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // informational debug message,
-#define DEBUG_INFO(msg) { std::cerr << "INFO (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+#define DEBUG_INFO(msg) { std::cerr << "INFO " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE: " << msg << std::endl; }
+#define DEBUG_NOTICE(msg) { std::cerr << "NOTICE: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::cerr << "WARN: " << msg << std::endl; }
+#define DEBUG_WARN(msg) { std::cerr << "WARN: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << msg << std::endl; }
+#define DEBUG_ERROR(msg) { std::cerr << "ERROR: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
 // a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << msg << std::endl; }
+#define DEBUG_FATAL(msg) { std::cerr << "FATAL: " << utils::CurrentTime() << " (" << __FILE__ << ":" << __LINE__ << "): " << msg << std::endl; }
+
+namespace utils
+{
+    std::string CurrentTime();
+} // namespace
 
 
 #endif // _UTILS_H
