@@ -27,15 +27,22 @@
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
+#include <vigra/basicimageview.hxx>
+#include "vigra_ext/blend.h"
+#include "PT/Stitcher.h"
+
 #include "hugin/ImageCache.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/MainFrame.h"
-#include "hugin/ImageProcessing.h"
+//#include "hugin/ImageProcessing.h"
 
 using namespace PT;
 using namespace std;
 using namespace vigra;
+using namespace vigra_ext;
 using namespace utils;
+
+typedef RGBValue<unsigned char> BRGBValue;
 
 BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
 //    EVT_PAINT(CPImageCtrl::OnPaint)
@@ -51,7 +58,7 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
-    parentWindow(parent)
+    m_panoBitmap(0), parentWindow(parent)
 {
     DEBUG_TRACE("");
 }
@@ -59,8 +66,8 @@ PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
 PreviewPanel::~PreviewPanel()
 {
     DEBUG_TRACE("dtor");
-    for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
-         it != m_remappedBitmaps.end();
+    for (RemappedVector::iterator it = m_remapped.begin();
+         it != m_remapped.end();
          ++it)
     {
         delete *it;
@@ -91,7 +98,7 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
     opts = newOpts;
     if (m_autoPreview && dirty) {
         DEBUG_DEBUG("forcing preview update");
-        for (unsigned int i = 0; i < m_remappedBitmaps.size(); i++) {
+        for (unsigned int i = 0; i < m_remapped.size(); i++) {
             m_dirtyImgs.insert(i);
         }
         updatePreview();
@@ -106,31 +113,30 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     bool dirty = false;
 
     unsigned int nrImages = pano.getNrOfImages();
-    unsigned int nrRemapped = m_remappedBitmaps.size();
+    unsigned int nrRemapped = m_remapped.size();
 
     // remove items for nonexisting images
     for (int i=nrRemapped-1; i>=(int)nrImages; i--)
     {
         DEBUG_DEBUG("Deleting remapped wxImage" << i);
-        delete m_remappedBitmaps[i];
-        m_remappedBitmaps.pop_back();
-        m_outlines.pop_back();
+        delete m_remapped[i];
+        m_remapped.pop_back();
+//        m_outlines.pop_back();
         dirty = true;
     }
     // update existing items
 //    if ( nrImages >= nrRemapped ) {
-        for(PT::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
-            if (*it >= nrRemapped) {
-                // create new item.
+    for(PT::UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
+        if (*it >= nrRemapped) {
+            // create new item.
 //                wxImage * bmp = new wxImage(sz.GetWidth(), sz.GetHeight());
-                m_remappedBitmaps.push_back(new wxBitmap());
-                m_outlines.push_back(vector<FDiff2D>(512*4));
-                m_dirtyImgs.insert(*it);
-            } else {
-                // update existing item
-                m_dirtyImgs.insert(*it);
-            }
+            m_remapped.push_back(new RemappedImage());
+            m_dirtyImgs.insert(*it);
+        } else {
+            // update existing item
+            m_dirtyImgs.insert(*it);
         }
+    }
 //    }
     if (m_autoPreview) {
         updatePreview();
@@ -156,6 +162,7 @@ void PreviewPanel::ForceUpdate()
 void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
+    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
     bool dirty = false;
     // temporary bitmap for our remapped image
     // calculate the image size from panel widht, height from vfov
@@ -166,50 +173,80 @@ void PreviewPanel::updatePreview()
     double finalWidth = pano.getOptions().width;
     double finalHeight = pano.getOptions().getHeight();
 
-    m_panoImgSize = GetClientSize();
+    m_panoImgSize = Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
 
     double ratioPano = finalWidth / finalHeight;
-    double ratioPanel = (double)m_panoImgSize.GetWidth() / (double)m_panoImgSize.GetHeight();
+    double ratioPanel = (double)m_panoImgSize.x / (double)m_panoImgSize.y;
 
     DEBUG_DEBUG("panorama ratio: " << ratioPano << "  panel ratio: " << ratioPanel);
 
     if (ratioPano < ratioPanel) {
         // panel is wider than pano
-        m_panoImgSize.SetWidth((int) (m_panoImgSize.GetHeight() * ratioPano));
-        DEBUG_DEBUG("portrait: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
+        m_panoImgSize.x = ((int) (m_panoImgSize.y * ratioPano));
+        DEBUG_DEBUG("portrait: " << m_panoImgSize);
     } else {
         // panel is taller than pano
-        m_panoImgSize.SetHeight((int)(m_panoImgSize.GetWidth() / ratioPano));
-        DEBUG_DEBUG("landscape: w: " << m_panoImgSize.GetWidth() << " h: " << m_panoImgSize.GetHeight());
+        m_panoImgSize.y = ((int)(m_panoImgSize.x / ratioPano));
+        DEBUG_DEBUG("landscape: " << m_panoImgSize);
     }
-
 
     UIntSet::iterator it = m_dirtyImgs.begin();
     while(it != m_dirtyImgs.end()) {
-        if (set_contains(m_displayedImages, *it)) {
-            wxImage timg(m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
-            mapPreviewImage(timg, *it);
-            // FIXME.. we just mask out the black areas and hope that the
-            // image doesn't contain some..
-            timg.SetMaskColour(0,0,0);
-            // convert to a drawable bitmap, lets hope that the mask
-            // is transfered
-            DEBUG_ASSERT(*it < m_remappedBitmaps.size());
-            *(m_remappedBitmaps[*it]) = timg.ConvertToBitmap();
-            dirty = true;
-            UIntSet::iterator tit = it;
-            ++it;
-            m_dirtyImgs.erase(tit);
-        } else {
-            // do not update image if it is not shown.
-            ++it;
+        DEBUG_ASSERT(*it < m_remapped.size());
+        // remapp the image, using the given small image as default
+        mapPreviewImage(*it);
+        UIntSet::iterator tit = it;
+        ++it;
+        m_dirtyImgs.erase(tit);
+    }
+
+    // update the preview image
+
+    wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
+    vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
+    BImage alpha(m_panoImgSize);
+    // the empty panorama roi
+    ROI<Diff2D> panoROI;
+    for (RemappedVector::iterator it = m_remapped.begin();
+         it != m_remapped.end();
+         ++it)
+    {
+        // draw only images that are scheduled to be drawn
+        // TODO: blending order is different from final panorama..
+        // should fix that.
+        if (set_contains(m_displayedImages, it-m_remapped.begin())) {
+            if ((*it)->roi().size().x > 0) {
+                if (seaming) {
+                    DEBUG_DEBUG("drawing image " << it - m_remapped.begin());
+                    // merge into view!
+                    MultiProgressDisplay dummy;
+                    blend(*(*it),
+                          destImageRange(panoImg), destImage(alpha), panoROI,
+                          dummy);
+                } else {
+                    // copy image with mask.
+                    vigra::copyImageIf((*it)->image(),
+                                       destIter((*it)->alpha().first),
+                                       (*it)->roi().apply(destImage(panoImg),panoROI) );
+                    // copy mask
+                    vigra::copyImageIf((*it)->alpha(),
+                                       destIter((*it)->alpha().first),
+                                       (*it)->roi().apply(destImage(alpha),panoROI) );
+                }
+            } else {
+                DEBUG_WARN("image should be drawn, but has not been remapped");
+            }
         }
     }
-//    if (dirty) {
+
+    if (m_panoBitmap) {
+        delete m_panoBitmap;
+    }
+    m_panoBitmap = new wxBitmap(panoImage);
+
     // always redraw
     wxClientDC dc(this);
     DrawPreview(dc);
-//    }
 }
 
 void PreviewPanel::DrawPreview(wxDC & dc)
@@ -225,11 +262,11 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     int offsetY = 0;
 
     wxSize sz = GetClientSize();
-    if (sz.GetWidth() > m_panoImgSize.GetWidth()) {
-        offsetX = (sz.GetWidth() - m_panoImgSize.GetWidth()) / 2;
+    if (sz.GetWidth() > m_panoImgSize.x) {
+        offsetX = (sz.GetWidth() - m_panoImgSize.x) / 2;
     }
-    if (sz.GetHeight() > m_panoImgSize.GetHeight()) {
-        offsetY = (sz.GetHeight() - m_panoImgSize.GetHeight()) / 2;
+    if (sz.GetHeight() > m_panoImgSize.y) {
+        offsetY = (sz.GetHeight() - m_panoImgSize.y) / 2;
     }
 
     dc.SetPen(wxPen(GetBackgroundColour(),1,wxSOLID));
@@ -244,25 +281,16 @@ void PreviewPanel::DrawPreview(wxDC & dc)
     // set a clip region to draw stuff accordingly
     dc.DestroyClippingRegion();
     dc.SetClippingRegion(offsetX, offsetY,
-                         m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
+                         m_panoImgSize.x, m_panoImgSize.y);
 
     dc.SetPen(wxPen("BLACK",1,wxSOLID));
     dc.SetBrush(wxBrush("BLACK",wxSOLID));
-    dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.GetWidth(), m_panoImgSize.GetHeight());
+    dc.DrawRectangle(offsetX, offsetY, m_panoImgSize.x, m_panoImgSize.y);
 
 
-
-    for (vector<wxBitmap *>::iterator it = m_remappedBitmaps.begin();
-         it != m_remappedBitmaps.end();
-         ++it)
-    {
-        // draw only images that are scheduled to be drawn
-        if (set_contains(m_displayedImages, it-m_remappedBitmaps.begin())) {
-            if ((*it)->Ok()) {
-                DEBUG_DEBUG("drawing image " << it - m_remappedBitmaps.begin());
-                dc.DrawBitmap(*(*it), offsetX, offsetY, true);
-            }
-        }
+    // draw panorama image
+    if (m_panoBitmap) {
+        dc.DrawBitmap(*m_panoBitmap, offsetX, offsetY);
     }
 
     if (drawOutlines) {
@@ -271,12 +299,12 @@ void PreviewPanel::DrawPreview(wxDC & dc)
              ++it)
         {
             dc.SetPen(wxPen("GREY", 1, wxSOLID));
-            DrawOutline(m_outlines[*it], dc, offsetX, offsetY);
+            DrawOutline(m_remapped[*it]->getOutline(), dc, offsetX, offsetY);
         }
     }
 
-    wxCoord w = m_panoImgSize.GetWidth();
-    wxCoord h = m_panoImgSize.GetHeight();
+    wxCoord w = m_panoImgSize.x;
+    wxCoord h = m_panoImgSize.y;
 
 
     // draw center lines over display
@@ -298,7 +326,7 @@ void PreviewPanel::OnResize(wxSizeEvent & e)
 {
     DEBUG_TRACE("");
     wxSize sz = GetClientSize();
-    if (sz != m_panoImgSize) {
+    if (sz.GetWidth() != m_panoImgSize.x && sz.GetHeight() != m_panoImgSize.y) {
         if (m_autoPreview) {
             ForceUpdate();
         }
@@ -310,82 +338,30 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
     DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
 }
 
-void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
+void PreviewPanel::mapPreviewImage(unsigned int imgNr)
 {
-//    PT::SpaceTransform t;
-//    PT::SpaceTransform invT;
-    PTools::Transform t;
-    PTools::Transform invT;
+    DEBUG_ASSERT(imgNr < pano.getNrOfImages());
+    DEBUG_ASSERT(imgNr < m_remapped.size());
+
     const PanoImage & pimg = pano.getImage(imgNr);
     wxImage * src = ImageCache::getInstance().getSmallImage(
         pimg.getFilename());
 
     Diff2D srcSize(src->GetWidth(), src->GetHeight());
     PanoramaOptions opts = pano.getOptions();
-    opts.width = m_panoImgSize.GetWidth();
+    opts.width = m_panoImgSize.x;
+    // always use bilinear for preview.
+    opts.interpolator = PanoramaOptions::BILINEAR;
     Diff2D panoSize(opts.width, opts.getHeight());
-    DEBUG_DEBUG("imgnr: " << imgNr << "  panoSize.x: " << panoSize.x << " dest.x: " << dest.GetWidth());
-    DEBUG_DEBUG("imgnr: " << imgNr << "  panoSize.y: " << panoSize.y << " dest.y: " << dest.GetHeight());
-//    DEBUG_ASSERT(panoSize.x == dest.GetWidth());
-//    DEBUG_ASSERT(panoSize.y == dest.GetHeight());
 
-    t.createTransform(pano, imgNr, opts, srcSize);
-    invT.createInvTransform(pano, imgNr, opts, srcSize);
+    MultiProgressDisplay dummy;
 
-    // bounding box
-    FDiff2D ul;
-    FDiff2D lr;
-    // outline of this image in final panorama
-    m_outlines[imgNr].clear();
-    PT::calcBorderPoints(srcSize, invT, back_inserter(m_outlines[imgNr]),
-                             ul, lr);
-
-    if (opts.projectionFormat == PanoramaOptions::EQUIRECTANGULAR) {
-        // check if image overlaps the pole
-        double cw = opts.width / opts.HFOV * 360;
-        double startx = - (cw - opts.width)/2;
-        double stopx = opts.width + (cw-opts.width)/2;
-        
-        t.createTransform(pano, imgNr, opts, srcSize);
-        
-        // handle image overlaps pole case..
-        if (ul.x <= startx + opts.width * 0.1  && lr.x >= stopx - opts.width * 0.1) {
-            // image in northern hemisphere
-            if (ul.y < opts.getHeight() / 2 ) {
-                ul.y = 0;
-            }
-            // image in southern hemisphere
-            if (lr.y > opts.getHeight() / 2 ) {
-                lr.y = opts.getHeight();
-            }
-        }
-    }
-    
-    Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
-    Diff2D lrInt((int)ceil(lr.x), (int)ceil(lr.y));
-    if (ulInt.x < 0) ulInt.x = 0;
-    if (ulInt.y < 0) ulInt.y = 0;
-    if (ulInt.x >= panoSize.x) ulInt.x = panoSize.x -1;
-    if (ulInt.y >= panoSize.y) ulInt.y = panoSize.y -1;
-    if (lrInt.x < 0) lrInt.x = 0;
-    if (lrInt.y < 0) lrInt.y = 0;
-    if (lrInt.x >= panoSize.x) lrInt.x = panoSize.x -1;
-    if (lrInt.y >= panoSize.y) lrInt.y = panoSize.y -1;
-    DEBUG_DEBUG("after clipping: upper left: " << ulInt.x << "," << ulInt.y
-                << "  lower right: " << lrInt.x << "," << lrInt.y);
-
-    FImage empty(1,1);
-    // remap image with that transform
-    PT::transformImage(srcIterRange(wxImageUpperLeft(*src),
-                                        wxImageLowerRight(*src)),
-                       destIterRange(wxImageUpperLeft(dest)+ ulInt,
-                                     wxImageUpperLeft(dest)+lrInt),
-                       ulInt,
-                       t,
-                       vigra::make_triple(empty.upperLeft(), empty.upperLeft(),
-                                          empty.accessor()),
-                       interp_bilin(),
-                       *MainFrame::Get() );
+    vigra::BasicImageView<BRGBValue> img((BRGBValue*)src->GetData(), src->GetWidth(),
+                              src->GetHeight());
+    m_remapped[imgNr]->remapImage(pano, opts,
+                                 srcImageRange(img),
+                                 imgNr,
+                                 dummy);
 }
 
 
@@ -398,10 +374,10 @@ void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int of
         Diff2D point = pnt->toDiff2D();
         if (point.x < 0) point.x = 0;
         if (point.y < 0) point.y = 0;
-        if (point.x >= m_panoImgSize.GetWidth())
-            point.x = m_panoImgSize.GetWidth()-1;
-        if (point.y >= m_panoImgSize.GetHeight())
-            point.y = m_panoImgSize.GetHeight() -1;
+        if (point.x >= m_panoImgSize.x)
+            point.x = m_panoImgSize.y-1;
+        if (point.y >= m_panoImgSize.y)
+            point.y = m_panoImgSize.y -1;
         dc.DrawPoint(roundi(offX + point.x), roundi(offY + point.y));
     }
 }
