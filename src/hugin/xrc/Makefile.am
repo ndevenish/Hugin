@@ -40,4 +40,4 @@ stamp-xrs: $(XRS_FILES)
 dist_xrc_DATA = $(XRC_FILES)
 
 .xrc.xrs: 
-	-wxrc -g -o $@ $<
+	-wxrc -g -o $(srcdir)/$@ $<
