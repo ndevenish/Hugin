@@ -139,16 +139,6 @@ msgstr "allgemeine Einstellungen"
 #: ../ptopengui.cpp:107
 msgid "&Optimization\tCtrl-r"
 msgstr "&Optimierung\tCtrl-r"
-msgid "Optimization"
-msgstr "Optimierung"
-msgid "optimizer level:"
-msgstr "Optimierung von:"
-msgid "orientation"
-msgstr "Orientierung"
-msgid "lens settings"
-msgstr "Objektiv Parameter"
-msgid "all switched"
-msgstr "alles Gewählte"
 
 #: ../ptopengui.cpp:107
 msgid "Optimize with current parameters"
@@ -629,6 +619,8 @@ msgstr "Betrachtungsart"
 #: ../ptopengui.cpp:752
 msgid "Panorama type (f)"
 msgstr "Projektion (f)"
+msgid "type of projection for the panorama\nRectlinear = normal lens (for stitching conventional/architectural photos)\nCylindrical = qtvr (good for printing panoramas)/nEquirectangular = VirtualReality format (Shows an whole sphere in one image with ratio(w/h) 2:1. good for viewing in applications like ptviewer on internet and for environtmant maps)"
+msgstr "Abbildungsart des Panoramas\nrechtwinklig = wie normale Objektive (Perspektivisch korrekt für konventionelle Fotos und Architektur)\nzylindrisch = qtvr (Geeignet für Druck, ohne Betrachter)\ngleichwinklig = VR Format (Bildet eine volle Rundumsicht in einem Bild mit Seitenverhältnis(B/H) 2:1 ab. Geeignet für das Betrachten mittels eines Programmes wie ptviewer im Internet und als Umgebungsbild (environtmentmaps))"
 
 #: ../ptopengui.cpp:757
 msgid "Rectlinear"
@@ -677,6 +669,8 @@ msgstr "Gammakorrektur (zu Empfehlen bei 16bit Farbtiefe "
 #: ../ptopengui.cpp:800
 msgid "Interpolator (i): "
 msgstr ""
+msgid "approximation of values beetwen source pixels"
+msgstr "Methode zur Rundung der Werte zwischen den Ursprungspixeln"
 
 #: ../ptopengui.cpp:805
 #: ../ptopengui.cpp:1851
@@ -972,6 +966,31 @@ msgstr "keine Änderung"
 #: ../ptopengui.cpp:1004
 msgid "Start (y,p,r)"
 msgstr ""
+#: ../xrc/pano_panel.xrc
+msgid "Optimization"
+msgstr "Optimierung"
+msgid "optimizer level:"
+msgstr "Vorauswahl:"
+msgid "reference image:"
+msgstr "Ankerbild:"
+msgid "only for preseleted settings - optimizeable v,a,b,c,d,e, not(y,p,r);\nother images inherit v,a,b,c and optimizeable y,p,r, d,e"
+msgstr "nur für vorausgesuchte Eingestellungen - optimierbar v,a,b,c,d,e, nicht(y,p,r);\nandere Bilder erben v,a,b,c und optimierbar y,p,r, d,e"
+msgid "manual settings"
+msgstr "einzelne Auswahl"
+msgid "orientation (y,p,r,v)"
+msgstr "Orientierung (y,p,r,v)"
+msgid "lens settings (v,a,b,c)"
+msgstr "Objektiv (v,a,b,c)"
+msgid "extended lens settings (v,d,e)"
+msgstr "Objektiv erweitert (v,d,e)"
+msgid "full lens settings (v,a,b,c,(d,e))"
+msgstr "Objektiv alle (v,a,b,c,(d,e))"
+msgid "automatic optimization"
+msgstr "autom. optimieren"
+msgid "manual or preselected optimization settings"
+msgstr "einzelne oder vorausgewählte Einstellungen"
+msgid "optimize ControlPoints with preselected settings (left side)\n\"manual settings\" take the settings from the tabs"
+msgstr "optimiert Kontrollpunkte mit den vorausgewählten Einstellungen (von linker Seite)\n\"einzelne Auswahl\" übernimmt die Einstellungen von den Bedienfeldern"
 
 #: ../ptopengui.cpp:1005
 msgid "Basic (y,p,r,b0,d0,e0)"
@@ -1483,6 +1502,8 @@ msgid "panoviewer enabled"
 msgstr "externer Panoramabetrachter"
 msgid "precise"
 msgstr "genau"
+msgid "Cuts the height of an preview to quickly wath the horizont line of an panorama. To control the orientation."
+msgstr "Verkleinert die zu berechnende Höhe für eine shcnellere Horizontvorschau. Zur Kontrolle der Ausrichtung."
 
 #: ../ptopengui.cpp:1801
 msgid "Start preview stitching"

@@ -32,28 +32,34 @@
                           <size>0,0</size>
                           <orient>wxVERTICAL</orient>
                           <object class="sizeritem">
-                            <object class="wxBoxSizer">
-                              <orient>wxHORIZONTAL</orient>
+                            <object class="wxFlexGridSizer">
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   <label>optimizer level:</label>
                                   <style>wxALIGN_LEFT</style>
+                                  <tooltip>preselected optimization settings</tooltip>
                                 </object>
                                 <flag>wxALL|wxALIGN_CENTRE</flag>
-                                <minsize>120,20</minsize>
                               </object>
+                              <cols>2</cols>
+                              <rows>0</rows>
+                              <growablecols>1</growablecols>
                               <object class="sizeritem">
-                                <object class="wxComboBox" name="pano_optimizer_level">
+                                <object class="wxChoice" name="pano_optimizer_level">
                                   <selection>0</selection>
-                                  <style></style>
                                   <content>
-                                    <item>orientation</item>
-                                    <item>lens settings</item>
-                                    <item>all switched</item>
+                                    <item>manual settings</item>
+                                    <item>orientation (y,p,r,v)</item>
+                                    <item>lens settings (v,a,b,c)</item>
+                                    <item>extended lens settings (v,d,e)</item>
+                                    <item>full lens settings (v,a,b,c,(d,e))</item>
+                                    <item>automatic optimization</item>
                                   </content>
+                                  <bg>#D7D7D7</bg>
+                                  <tooltip>manual or preselected optimization settings</tooltip>
                                 </object>
                                 <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
-                                <minsize>150,25</minsize>
+                                <minsize>100,25</minsize>
                               </object>
                             </object>
                             <flag>wxEXPAND|wxGROW</flag>
@@ -64,21 +70,41 @@
                       <object class="sizeritem">
                         <object class="wxButton" name="pano_optimizer_start">
                           <label>Optimize</label>
+                          <tooltip>optimize ControlPoints with preselected settings (left side)\n&quot;manual settings&quot; take the settings from the tabs</tooltip>
                         </object>
                         <flag>wxLEFT|wxEXPAND|wxGROW</flag>
                         <border>5</border>
                       </object>
                       <growablecols>1</growablecols>
                       <growablerows>0</growablerows>
-                      <object class="spacer">
-                        <size>0,0</size>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>reference image:</label>
+                            </object>
+                            <flag>wxTOP</flag>
+                            <minsize>120,20</minsize>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxSpinCtrl" name="pano_optimizer_reference">
+                              <value>0</value>
+                              <tooltip>only for preseleted settings - optimizeable v,a,b,c,d,e, not(y,p,r);\nother images inherit v,a,b,c and optimizeable y,p,r, d,e</tooltip>
+                            </object>
+                            <flag>wxEXPAND|wxGROW</flag>
+                            <minsize>150,25</minsize>
+                          </object>
+                        </object>
+                        <flag>wxEXPAND|wxGROW</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="pano_cb_auto_optimize">
                           <label>auto optimize</label>
                           <checked>0</checked>
                         </object>
-                        <flag>wxEXPAND|wxGROW</flag>
+                        <flag>wxLEFT|wxEXPAND|wxGROW</flag>
+                        <border>5</border>
                       </object>
                     </object>
                     <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
@@ -115,6 +141,7 @@
                                     <item>Equirectangular</item>
                                   </content>
                                   <selection>2</selection>
+                                  <tooltip>type of projection for the panorama\nRectlinear = normal lens (for stitching conventional/architectural photos)\nCylindrical = qtvr (good for printing panoramas)/nEquirectangular = VirtualReality format (Shows an whole sphere in one image with ratio(w/h) 2:1. good for viewing in applications like ptviewer on internet and for environtmant maps)</tooltip>
                                 </object>
                                 <minsize>110,31</minsize>
                               </object>
@@ -188,6 +215,7 @@
                                     <item>Sinc 1024</item>
                                   </content>
                                   <selection>0</selection>
+                                  <tooltip>approximation of values beetwen source pixels</tooltip>
                                 </object>
                                 <minsize>150,31</minsize>
                               </object>
@@ -208,6 +236,7 @@
                                 <object class="wxTextCtrl" name="pano_val_gamma">
                                   <value>1</value>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                                  <tooltip></tooltip>
                                 </object>
                                 <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                                 <minsize>150,25</minsize>
@@ -337,6 +366,7 @@
                                         <item>700</item>
                                         <item>800</item>
                                         <item>1000</item></content>
+                                      <tooltip>Cuts the height of an preview to quickly wath the horizont line of an panorama. To control the orientation.</tooltip>
                                     </object>
                                     <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                                     <minsize>110,25</minsize>

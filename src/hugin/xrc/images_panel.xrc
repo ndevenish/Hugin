@@ -75,7 +75,7 @@
                               <size>256,128</size>
                               <style>wxSUNKEN_BORDER</style>
                               <bg>#808080</bg>
-                              <tooltip>image view/panopreview\nshift key + mouse left click  -> pitch\ncontrol key + mouse left click  -> yaw</tooltip>
+                              <tooltip>image view/panopreview\nshift key + mouse left click  -&gt; pitch\ncontrol key + mouse left click  -&gt; yaw</tooltip>
                             </object>
                             <flag>wxALL|wxEXPAND|wxGROW</flag>
                           </object>
@@ -339,6 +339,30 @@
                   </object>
                 </object>
                 <flag>wxEXPAND|wxGROW</flag>
+              </object>
+            </object>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxHORIZONTAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>colour reference image</label>
+                </object>
+                <flag>wxTOP|wxLEFT|wxRIGHT</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxSpinCtrl" name="images_spin_colour_reference">
+                  <size>55,-1</size>
+                </object>
+                <flag>wxTOP|wxRIGHT|wxALIGN_RIGHT</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="images_choice_colour_mode">
+                  <content/>
+                </object>
               </object>
             </object>
           </object>
