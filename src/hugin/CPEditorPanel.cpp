@@ -783,11 +783,13 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         cfg->Read(wxT("/Finetune/RotationStopAngle"),&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
         stopAngle=DEG_TO_RAD(stopAngle);
         int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
-
-        res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
-                                                subjImg, o_subjPoint.toDiff2D(),
-                                                sWidth,
-                                                startAngle, stopAngle, nSteps);
+        {
+            wxBusyCursor busy;
+            res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
+                                                    subjImg, o_subjPoint.toDiff2D(),
+                                                    sWidth,
+                                                    startAngle, stopAngle, nSteps);
+        }
     } else {
         res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
                                        subjImg, o_subjPoint.toDiff2D(),
