@@ -226,6 +226,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         PT::stitchPanorama(pano, opts,
                            pdisp, opts.outfile);
 
+        string output = stripExtension(opts.outfile);
         if (enblend) {
             wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
@@ -258,11 +259,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 cmd.append(" -v -o ");
             }
 
-            cmd.append(opts.outfile).append(" ");
+            cmd.append(output).append(".tif ");
 
             unsigned int nImg = pano.getNrOfImages();
             char imgname[256];
-            string output = stripExtension(opts.outfile);
             for(unsigned int i = 0; i < nImg; i++)
             {
                 snprintf(imgname,256,"%s%04d.tif", output.c_str(), i);
