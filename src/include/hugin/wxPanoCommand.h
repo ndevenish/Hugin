@@ -59,16 +59,34 @@ public:
                 int width = image->GetWidth();
                 int height = image->GetHeight();
 
-                // FIXME check if we need to add another lens
-                // query user if we need to.
+                Lens lens;
+                lens.isLandscape = (width > height);
+                if (lens.isLandscape) {
+                    lens.setRatio(((double)width)/height);
+                } else {
+                    lens.setRatio(((double)height)/width);
+                }
+
+                if (utils::tolower(ext) == "jpg") {
+                    // try to read exif data from jpeg files.
+                    lens.readEXIF(filename);
+                }
+
+                bool addNew = (pano.getNrOfLenses() == 0);
+#if 0
+                // FIXME: check if the exif information
+                // indicates other camera parameters
+                for (unsigned int lnr=0; lnr < pano.getNrOfLenses(); lnr++) {
+                    const Lens & l = pano.getLens(lnr);
+                    // compare lenses.
+                    // FIXME check if we need to add another lens
+                    // query user if we need to.
+                    
+                }
+#endif
+                    
                 int lensNr=0;
-                if (pano.getNrOfLenses() == 0) {
-                    Lens lens;
-                    lens.isLandscape = (width > height);
-                    if (utils::tolower(ext) == "jpg") {
-                        // try to read exif data from jpeg files.
-                        lens.readEXIF(filename);
-                    }
+                if (addNew) {
                     lensNr = pano.addLens(lens);
                 }
 
