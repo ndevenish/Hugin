@@ -32,7 +32,11 @@
 #include <vector>
 
 // BAD: sgi stl extension
-//#include <ext/algorithm>
+#if defined(__GNUC__)
+    #include <ext/algorithm>
+#elif defined(HAVE_STLport)
+    #include <stlport4/algorithm>
+#endif
 
 #include "common/utils.h"
 #include "common/stl_utils.h"
@@ -175,6 +179,7 @@ struct MatchFeatures
  *  This picks a number of random features from feat1
  *  and tries to match them agains feat2.
  */
+#if defined(__GNUC__) || defined(HAVE_STLport)
 template<class Matcher>
 struct RandomSampledMatcher
 {
@@ -187,13 +192,19 @@ struct RandomSampledMatcher
                     SIFTMatchVector & result)
         {
             std::vector<SIFTFeature> randomfeat(feat1.size()*m_percent/100);
+#if defined(__GNUC__)
             __gnu_cxx::random_sample(feat1.begin(), feat1.end(),
                                randomfeat.begin(), randomfeat.end());
+#elif defined(HAVE_STLport)
+            _STL::random_sample(feat1.begin(), feat1.end(),
+                               randomfeat.begin(), randomfeat.end());
+#endif
             return match(randomfeat, feat2, result);
         }
     int m_percent;
     Matcher & match;
 };
+#endif
 
 /**
  *  does a simple O(n^2*m^2) (n=images, m=nFeatures/image) search for
