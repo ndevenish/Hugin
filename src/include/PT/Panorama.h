@@ -65,7 +65,7 @@ bool getPTStringParam(std::string & output, const std::string & line,
 
 bool getPTDoubleParam(double & value, int & link,
                       const std::string & line, const std::string & var);
-		      
+		
 
 /** this handler class will receive change events from the Panorama.
  *
@@ -441,7 +441,7 @@ public:
 			      const std::string & stripPrefix="");
 
     /// create the stitcher script
-    void printStitcherScript(std::ostream & o, const PanoramaOptions & target);
+    void printStitcherScript(std::ostream & o, const PanoramaOptions & target) const;
 
     // subject interface
     /** notify observers about changes in this class

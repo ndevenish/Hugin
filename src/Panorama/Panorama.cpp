@@ -754,7 +754,7 @@ void Panorama::printOptimizerScript(ostream & o,
 
 
 void Panorama::printStitcherScript(ostream & o,
-                                   const PanoramaOptions & target)
+                                   const PanoramaOptions & target) const
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output

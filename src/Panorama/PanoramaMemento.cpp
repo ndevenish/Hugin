@@ -312,7 +312,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         o << " d" << colorReferenceImage;
         break;
     }
-
+    
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
@@ -321,7 +321,17 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << std::endl;
 
     // misc options
-    o << "m g" << gamma << " i" << interpolator << std::endl;
+    o << "m g" << gamma << " i" << interpolator;
+    switch (remapAcceleration) {
+    case NO_SPEEDUP:
+        break;
+    case MAX_SPEEDUP:
+        o << " f0";
+        break;
+    case MEDIUM_SPEEDUP:
+        o << " f1";
+    }
+    o << std::endl;
 }
 
 unsigned int PanoramaOptions::getHeight() const
@@ -525,6 +535,23 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             getParam(i,line,"i");
             options.interpolator = (PanoramaOptions::Interpolator) i;
             getParam(options.gamma,line,"g");
+            
+            if (getParam(i,line,"f")) {
+                switch(i) {
+                case 0:
+                    options.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+                    break;
+                case 1:
+                    options.remapAcceleration = PanoramaOptions::MEDIUM_SPEEDUP;
+                    break;
+                default:
+                    options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
+                    break;                    
+                }
+            } else {
+                options.remapAcceleration = PanoramaOptions::NO_SPEEDUP;
+            }
+            
             break;
         }
         case 'v':
@@ -532,6 +559,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             DEBUG_DEBUG("v line: " << line);
             if (firstOptVecParse) {
                 int nImg = max(iImgInfo.size(), oImgInfo.size());
+                DEBUG_DEBUG("nImg: " << nImg);
                 optvec = OptimizeVector(nImg);
                 firstOptVecParse = false;
             }

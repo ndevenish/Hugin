@@ -267,7 +267,6 @@ public:
                             CYLINDRICAL = 1,
                             EQUIRECTANGULAR = 2 };
 
-
     /** soften the stairs if they occur
      */
     enum Interpolator {
@@ -281,6 +280,12 @@ public:
         SINC_1024
     };
 
+    /** PTStitcher acceleration */
+    enum PTStitcherAcceleration {
+        NO_SPEEDUP,
+        MAX_SPEEDUP,
+        MEDIUM_SPEEDUP  // for projects with morphing.
+    };
 
     /** Fileformat
      */
@@ -328,7 +333,8 @@ public:
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(CUBIC),
           optimizeReferenceImage(0),
-          featherWidth(10)
+          featherWidth(10),
+          remapAcceleration(MAX_SPEEDUP)
         {};
 
     void reset()
@@ -346,6 +352,7 @@ public:
             interpolator = CUBIC;
             featherWidth = 10;
             outputFormat = JPEG;
+            remapAcceleration = MAX_SPEEDUP;
         }
     virtual ~PanoramaOptions() {};
 
@@ -396,6 +403,8 @@ public:
 
     unsigned int optimizeReferenceImage;
     unsigned int featherWidth;
+
+    PTStitcherAcceleration remapAcceleration;
 
 private:
     static const std::string fileformatNames[];
