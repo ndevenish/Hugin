@@ -207,6 +207,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
+    wxYield();
     if (bitmap.LoadFile(m_xrcPrefix + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
     {
 #ifdef __unix__
@@ -225,6 +226,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     } else {
         DEBUG_ERROR("splash image not found");
     }
+    splash->Refresh();
     wxYield();
 
     // save our pointer
@@ -250,7 +252,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
                                           &pano);
 
-    wxYield();
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_panel_unknown"),
                images_panel );
@@ -265,7 +266,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // the lens_panel, see as well images_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
                                 wxDefaultSize, &pano);
-    wxYield();
     // show the lens_panel
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("lens_panel_unknown"),
@@ -280,7 +280,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
        wxT("panorama_panel_unknown"),
        pano_panel);
 
-    wxYield();
     pano_panel->panoramaChanged (pano); // initialize from pano
 
     // create the custom widget referenced by the main_frame XRC
@@ -315,6 +314,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     int widths[fields] = {-1, 85};
     SetStatusWidths( fields, &widths[0]);
     SetStatusText(_("Started"), 0);
+    wxYield();
     DEBUG_TRACE("");
 
     // observe the panorama
@@ -378,6 +378,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     if(splash) {
         splash->Close();
     }
+    wxYield();
 #ifdef DEBUG
 #ifdef __WXMSW__
 
