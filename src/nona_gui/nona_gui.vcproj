@@ -282,7 +282,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswud&quot;"
-				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;__WXDEBUG__;WINVER=0x0400;STRICT;UNICODE;__WXMSW__"
+				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;__WXDEBUG__;WINVER=0x0400;STRICT;UNICODE;__WXMSW__;wxUSE_UNICODE=1"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/XrcDemoVC.pch"
@@ -297,7 +297,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswud.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexd.lib pano12.lib"
+				AdditionalDependencies="unicows.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswud.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexud.lib pano12.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -349,7 +349,7 @@
 				Optimization="1"
 				InlineFunctionExpansion="2"
 				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswu&quot;"
-				PreprocessorDefinitions="NDEBUG;WIN32;__WXMSW__;WINVER=0x0400;STRICT;UNICODE"
+				PreprocessorDefinitions="NDEBUG;WIN32;__WXMSW__;WINVER=0x0400;STRICT;UNICODE;wxUSE_UNICODE=1"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -364,7 +364,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswu.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib pano12.lib"
+				AdditionalDependencies="unicows.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswu.lib png.lib zlib.lib jpeg.lib tiff.lib regexu.lib pano12.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
