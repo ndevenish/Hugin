@@ -564,7 +564,7 @@ msgstr "Betrachtungsart"
 
 #: ../ptopengui.cpp:752
 msgid "Panorama type (f)"
-msgstr "Panorama Projektion (f)"
+msgstr "Projektion (f)"
 
 #: ../ptopengui.cpp:757
 msgid "Rectlinear"

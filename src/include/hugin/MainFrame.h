@@ -39,7 +39,7 @@ class CPEditorPanel;
 class LensPanel;
 class ImgPreview;
 class ImagesPanel;
-
+class PanoPanel;
 
 extern LensPanel* lens_panel;
 
@@ -100,6 +100,7 @@ private:
 
 
     ImagesPanel * images_panel;
+    PanoPanel * pano_panel;
     CPEditorPanel * cpe;
 
     // the model

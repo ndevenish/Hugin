@@ -75,9 +75,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 {
     pano->addObserver(this);
 
-    DEBUG_TRACE("");
     images_list = new List (parent, pano, images_layout);
-    DEBUG_TRACE("");
 //    CPEditorPanel * cpe = new CPEditorPanel(parent,pano);
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_list_unknown"),
@@ -86,17 +84,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     // Image Preview
 
-    DEBUG_TRACE("");
     img_icons = new wxImageList(24,24);
     img_bicons = new wxImageList(64,64);
-    DEBUG_TRACE("");
     images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );//_NORMAL );
 
-    DEBUG_TRACE("");
     p_img = new wxBitmap( 0, 0 );
     wxPanel * img_p = XRCCTRL(*parent, "img_preview_unknown", wxPanel);
     wxPaintDC dc (img_p);
-    DEBUG_TRACE("");
 
     canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(128, 128));
     DEBUG_TRACE("");;
@@ -106,7 +100,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
 ImagesPanel::~ImagesPanel(void)
 {
-    DEBUG_TRACE("");
     pano.removeObserver(this);
 //    delete p_img; // Dont know how to check for existing
     p_img = (wxBitmap *) NULL;
@@ -118,11 +111,9 @@ ImagesPanel::~ImagesPanel(void)
 //void ImagesPanel::panoramaChanged (PT::Panorama &pano)
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-    DEBUG_TRACE("");
     img_icons->RemoveAll();
-    DEBUG_TRACE("");
     img_bicons->RemoveAll();
-    DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+//    DEBUG_INFO( "after delete are " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
     // start the loop for every selected filename
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
         wxFileName fn = (wxString)pano.getImage(i).getFilename().c_str();
@@ -167,7 +158,7 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 
         img_icons->Add( i_img.ConvertToBitmap() );
         img_bicons->Add( b_img.ConvertToBitmap() );
-        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
+//        DEBUG_INFO( "now " << wxString::Format("%d", img_icons->GetImageCount() ) << " images inside img_icons")
 
     }
 
@@ -181,7 +172,6 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
 
 void ImagesPanel::ChangePreview ( wxListEvent & e )
 {
-    DEBUG_TRACE ("")
     long item (1);
 //    wxPoint pos = e.GetPosition();
 //    long item = HitTest( e.m_x ,e.m_y );
@@ -206,7 +196,6 @@ ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size)
 
 ImgPreview::~ImgPreview(void)
 {
-    DEBUG_TRACE("");
     p_img = (wxBitmap *) NULL;
     DEBUG_TRACE("");
 }
@@ -214,7 +203,6 @@ ImgPreview::~ImgPreview(void)
 // Define the repainting behaviour
 void ImgPreview::OnDraw(wxDC & dc)
 {
-  DEBUG_TRACE("");
   if ( p_img && p_img->Ok() )
   {
     wxMemoryDC memDC;
@@ -226,7 +214,6 @@ void ImgPreview::OnDraw(wxDC & dc)
 
     //img_icons->Draw( 0, dc, 0, 0, wxIMAGELIST_DRAW_NORMAL, FALSE);
 
-    DEBUG_TRACE("");
     memDC.SelectObject(wxNullBitmap);
   }
 }

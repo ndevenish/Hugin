@@ -97,6 +97,7 @@ APP_1_OBJ = huginApp.o \
             CommandHistory.o \
 	    ImageProcessing.o \
 	    wxVigraImage.o \
+            PanoPanel.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS)

@@ -46,7 +46,7 @@ void PanoImageTest()
     l.focalLength = l.exifFocalLength = 5.40625;
     l.focalLengthConversionFactor = l.exifFocalLengthConversionFactor = 6.88021;
     l.HFOV = l.exifHFOV = 51.6467;
-    l.projectionFormat = LensSettings::RECTILINEAR;
+    l.projectionFormat = LensSettings::RECTILINEAR_LENS;
     l.a = l.b = l.c = l.d = l.e = 0;
     BOOST_CHECK_EQUAL(l, pano.getLens());
     

@@ -130,11 +130,11 @@ public:
 
 /** Lens type
  */
-enum ProjectionFormat { RECTILINEAR = 0,
+enum LensProjectionFormat { RECTILINEAR_LENS = 0,
                         PANORAMIC = 1,
                         CIRCULAR_FISHEYE = 2,
                         FULL_FRAME_FISHEYE = 3,
-                        EQUIRECTANGULAR = 4};
+                        EQUIRECTANGULAR_LENS = 4};
 
 class Lens {
 
@@ -147,7 +147,7 @@ public:
           focalLength(0),
           focalLengthConversionFactor(1),
           HFOV(0),
-          projectionFormat(RECTILINEAR),
+          projectionFormat(RECTILINEAR_LENS),
           a(0),b(0),c(0),
           d(0),e(0)
         {}
@@ -184,7 +184,7 @@ public:
     double focalLength;
     double focalLengthConversionFactor;
     double HFOV;
-    ProjectionFormat projectionFormat;
+    LensProjectionFormat projectionFormat;
     // lens correction parameters
     double a,b,c;
     // horizontal & vertical offset
@@ -250,6 +250,51 @@ public:
     static std::string modeNames[];
 };
 
+/** Projection of final panorama
+ */
+    enum ProjectionFormat { RECTILINEAR = 0,
+                            CYLINDRICAL = 1,
+                            EQUIRECTANGULAR = 2 };
+
+/** type of color correction
+ */
+    enum ColorCorrection { NONE = 0,
+                           BRIGHTNESS_COLOR,
+                           BRIGHTNESS,
+                           COLOR };
+
+/** soften the stairs if they occure
+ */
+    enum Interpolator {
+        POLY_3 = 0,
+        SPLINE_16,
+        SPLINE_36,
+        SINC_256,
+        SPLINE_64,
+        BILINEAR,
+        NEAREST_NEIGHBOUR,
+        SINC_1024
+    };
+
+/** Fileformat
+ */
+enum FileFormat {
+    JPEG = 0,
+    PNG,
+    TIFF,
+    TIFF_mask,
+    TIFF_nomask,
+    PICT,
+    PSD,
+    PSD_mask,
+    PSD_nomask,
+    PAN,
+    IVR,
+    IVR_java,
+    VRML,
+    QTVR
+};
+
 /** Panorama image options
  *
  *  this holds the settings for the final panorama
@@ -269,26 +314,6 @@ public:
         {};
 
     virtual ~PanoramaOptions() {};
-
-    enum ProjectionFormat { RECTILINEAR = 0,
-                            CYLINDRICAL = 1,
-                            EQUIRECTANGULAR = 2 };
-
-    enum ColorCorrection { NONE = 0,
-                           BRIGHTNESS_COLOR,
-                           BRIGHTNESS,
-                           COLOR };
-
-    enum Interpolator {
-        POLY_3 = 0,
-        SPLINE_16,
-        SPLINE_36,
-        SINC_256,
-        SPLINE_64,
-        BILINEAR,
-        NEAREST_NEIGHBOUR,
-        SINC_1024
-    };
 
 //    QDomNode toXML(QDomDocument & doc) const;
 

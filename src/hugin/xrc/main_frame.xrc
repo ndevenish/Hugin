@@ -27,7 +27,7 @@
           </object>
           <object class="notebookpage">
             <label>Panorama settings</label>
-            <object class="wxPanel" name="panorama_panel"/>
+            <object class="unknown" name="panorama_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Control points</label>

@@ -43,6 +43,7 @@
 #include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/MainFrame.h"
@@ -113,6 +114,15 @@ MainFrame::MainFrame(wxWindow* parent)
     // the lens_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
                                                  wxDefaultSize, &pano);
+
+    // the pano_panel
+    // The xrc resources are loaded by the class itself.
+    DEBUG_TRACE("");
+    pano_panel = new PanoPanel( this, wxDefaultPosition,
+                                                 wxDefaultSize, &pano);
+    wxXmlResource::Get()->AttachUnknownControl (
+       wxT("panorama_panel_unknown"),
+       pano_panel);
 
     // create the custom widget referenced by the main_frame XRC
     DEBUG_TRACE("");

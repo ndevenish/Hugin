@@ -151,7 +151,7 @@ LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/
 {
     pano->addObserver(this);
 
-    // connects the ProjectionFormat/PanoramaMemento.h ComboBox
+    // connects the LensProjectionFormat/PanoramaMemento.h ComboBox
 //    ProjectionFormat_cb = XRCCTRL(*this, "lens_type_combobox", wxComboBox);
 
     // show the lens editing controls
@@ -188,7 +188,7 @@ void LensEdit::LensChanged ( wxListEvent & e )
     edit_Lens->readEXIF( pano.getImage(image).getFilename().c_str() );
 
     // FIXME support separate lenses
-    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
+//    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
 
     XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
                    edit_Lens->projectionFormat
@@ -196,19 +196,27 @@ void LensEdit::LensChanged ( wxListEvent & e )
 
     updateHFOV();
 
-    XRCCTRL(*this, "lens_val_a", wxTextCtrl)->SetValue(
+    if ( edit_Lens->a != 0 )
+      XRCCTRL(*this, "lens_val_a", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->a )
            );
-    XRCCTRL(*this, "lens_val_b", wxTextCtrl)->SetValue(
+
+    if ( edit_Lens->b != 0 )
+      XRCCTRL(*this, "lens_val_b", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->b )
            );
-    XRCCTRL(*this, "lens_val_c", wxTextCtrl)->SetValue(
+
+    if ( edit_Lens->c != 0 )
+      XRCCTRL(*this, "lens_val_c", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->c )
            );
-    XRCCTRL(*this, "lens_val_d", wxTextCtrl)->SetValue(
+
+    if ( edit_Lens->d != 0 )
+      XRCCTRL(*this, "lens_val_d", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->d )
            );
-    XRCCTRL(*this, "lens_val_e", wxTextCtrl)->SetValue(
+    if ( edit_Lens->e != 0 )
+      XRCCTRL(*this, "lens_val_e", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->e )
            );
 
@@ -220,25 +228,30 @@ void LensEdit::LensChanged ( wxListEvent & e )
 void LensEdit::updateHFOV()
 {
     wxString number;
-    number = number.Format ( "%f", edit_Lens->HFOV );
-    while ( number.Right(1) == "0" ) {
-      number.RemoveLast ();
-    }
-    if ( number.Right(1) == "," )
-      number.RemoveLast ();
-    if ( number.Right(1) == "." )
-      number.RemoveLast ();
-    XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number );
 
-    number = number.Format ( "%f", edit_Lens->focalLength * edit_Lens->focalLengthConversionFactor );
-    while ( number.Right(1) == "0" ) {
-      number.RemoveLast ();
+    if ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) {
+      number = number.Format ( "%f", edit_Lens->HFOV );
+      while ( number.Right(1) == "0" ) {
+        number.RemoveLast ();
+      }
+      if ( number.Right(1) == "," )
+        number.RemoveLast ();
+      if ( number.Right(1) == "." )
+        number.RemoveLast ();
+      XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number );
     }
-    if ( number.Right(1) == "," )
-      number.RemoveLast ();
-    if ( number.Right(1) == "." )
-      number.RemoveLast ();
-    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue( number );
+
+    if ( edit_Lens->focalLength != 0 ) {
+      number = number.Format ( "%f", edit_Lens->focalLength * edit_Lens->focalLengthConversionFactor );
+      while ( number.Right(1) == "0" ) {
+        number.RemoveLast ();
+      }
+      if ( number.Right(1) == "," )
+        number.RemoveLast ();
+      if ( number.Right(1) == "." )
+        number.RemoveLast ();
+      XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue( number );
+    }
 }
 
 
@@ -254,10 +267,10 @@ void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & im
 
 void LensEdit::LensTypeChanged ( wxCommandEvent & e )
 {
-    // uses enum ProjectionFormat from PanoramaMemento.h
+    // uses enum LensProjectionFormat from PanoramaMemento.h
     int lt = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
-    edit_Lens->projectionFormat = (ProjectionFormat) (lt);
+    edit_Lens->projectionFormat = (LensProjectionFormat) (lt);
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
@@ -282,6 +295,9 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
         );
 
     updateHFOV();
+
+//    edit_Lens->update ( pano.getLens(pano.getImage(image).getLens()) );
+
     DEBUG_TRACE ("")
 }
 
@@ -377,6 +393,7 @@ void LensEdit::eChanged ( wxCommandEvent & e )
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    delete val;
     DEBUG_TRACE ("")
 }
 

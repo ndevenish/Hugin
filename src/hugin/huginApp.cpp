@@ -144,6 +144,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_dialog.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("pano_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("main_tool.xrc"));

@@ -130,9 +130,8 @@ List::~List(void)
 
 void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)       
 {
-    DEBUG_TRACE("");
     DeleteAllItems() ;
-    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
+//    DEBUG_INFO( wxString::Format("modus %d", list_layout) )
 
     // start the loop for every selected filename
     for ( int i = 0 ; i <= (int)pano.getNrOfImages() - 1 ; i++ ) {
@@ -145,7 +144,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         sprintf(Nr ,"%d", i + 1);
         InsertItem ( i, Nr, i );
         EnsureVisible(i);
-        DEBUG_INFO( " icon at Item:" << wxString::Format("%d", i) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
+//        DEBUG_INFO( " icon at Item:" << wxString::Format("%d", i) << "/" << wxString::Format("%d", pano.getNrOfImages()) )
         SetItem ( i, 1, fn.GetFullName() );
         if ( list_layout == images_layout ) {
           sprintf(Nr, "%d", image->GetHeight() );
@@ -154,14 +153,14 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           SetItem ( i, 3, Nr );
           sprintf(Nr, "%d", image->GetImageCount ( fn.GetFullPath() ) );
           SetItem ( i, 4, Nr );
-        DEBUG_INFO( " images_layout" )
+//        DEBUG_INFO( " images_layout" )
         } else {
           switch ( (int) pano.getLens(pano.getImage(i).getLens()).projectionFormat ) {
-            case RECTILINEAR:        sprintf(Nr, _("Normal (rectlinear)") ); break;
+            case RECTILINEAR_LENS:   sprintf(Nr, _("Normal (rectlinear)") ); break;
             case PANORAMIC:          sprintf(Nr, _("Panoramic") ); break;
             case CIRCULAR_FISHEYE:   sprintf(Nr, _("Circular") ); break;
             case FULL_FRAME_FISHEYE: sprintf(Nr, _("Full frame") ); break;
-            case EQUIRECTANGULAR:    sprintf(Nr, _("Equirectangular") ); break;
+            case EQUIRECTANGULAR_LENS: sprintf(Nr,_("Equirectangular") ); break;
           }
           SetItem ( i, 2, Nr );
           wxString number;
@@ -185,7 +184,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           SetItem ( i, 7, Nr );
           sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).e );
           SetItem ( i, 8, Nr );
-        DEBUG_INFO( " else _layout" )
+//        DEBUG_INFO( " else _layout" )
         }
         SetColumnWidth(0, wxLIST_AUTOSIZE);
         SetColumnWidth(1, wxLIST_AUTOSIZE);

@@ -365,6 +365,8 @@ public:
      */
     void removeLens(unsigned int lensNr);
 
+    //=============================
+
     /** set new output settings
      *  This is not used directly for optimizing/stiching, but it can
      *  be feed into runOptimizer() and runStitcher().
