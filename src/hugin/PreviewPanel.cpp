@@ -310,7 +310,6 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
     DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
 }
 
-
 void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
 {
 //    PT::SpaceTransform t;
@@ -341,6 +340,27 @@ void PreviewPanel::mapPreviewImage(wxImage & dest, int imgNr)
     PT::calcBorderPoints(srcSize, invT, back_inserter(m_outlines[imgNr]),
                              ul, lr);
 
+    if (opts.projectionFormat == PanoramaOptions::EQUIRECTANGULAR) {
+        // check if image overlaps the pole
+        double cw = opts.width / opts.HFOV * 360;
+        double startx = - (cw - opts.width)/2;
+        double stopx = opts.width + (cw-opts.width)/2;
+        
+        t.createTransform(pano, imgNr, opts, srcSize);
+        
+        // handle image overlaps pole case..
+        if (ul.x <= startx + opts.width * 0.1  && lr.x >= stopx - opts.width * 0.1) {
+            // image in northern hemisphere
+            if (ul.y < opts.getHeight() / 2 ) {
+                ul.y = 0;
+            }
+            // image in southern hemisphere
+            if (lr.y > opts.getHeight() / 2 ) {
+                lr.y = opts.getHeight();
+            }
+        }
+    }
+    
     Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
     Diff2D lrInt((int)ceil(lr.x), (int)ceil(lr.y));
     if (ulInt.x < 0) ulInt.x = 0;
