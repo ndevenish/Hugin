@@ -92,3 +92,5 @@ include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)
 
 
+run_tests: panorama
+	./panorama
