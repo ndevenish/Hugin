@@ -51,7 +51,7 @@ DEPEND_FILES = *.cpp
 # ====================================================================
 
 CFLAGS += -O2 -I../ $(VIGRA_CFLAGS)
-LFLAGS += -lvigra_impex2 $(VIGRA_LFLAGS)
+LFLAGS += $(VIGRA_LFLAGS)
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a
