@@ -78,9 +78,6 @@
         <accel>Ctrl-p</accel>
         <help>Show the preview window</help>
       </object>
-      <object class="wxMenuItem" name="ID_LASTPREVIEWSTITCH">
-        <label>&amp;Last preview stitch</label>
-      </object>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
