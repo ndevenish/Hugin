@@ -32,10 +32,12 @@
 
 #include <vigra_ext/LayerImage.h>
 
+#include <vigra_impex2/impex.hxx>
+
 namespace vigra_ext
 {
 
-    
+
 /** blends two images, they overlap and the iterators point
  *  to excatly the same position.
  */
@@ -53,10 +55,10 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
 
 #ifdef DEBUG
     // save the masks
-    exportImage(srcIterRange(imageMask.first, imageMask.first + size),
-                vigra::ImageExportInfo("blendImageMask_before.tif"));
-    exportImage(srcIterRange(panoMask.first, panoMask.first + size),
-                vigra::ImageExportInfo("blendPanoMask_before.tif"));
+    vigra_impex2::exportImage(srcIterRange(imageMask.first, imageMask.first + size),
+                vigra_impex2::ImageExportInfo("blendImageMask_before.tif"));
+    vigra_impex2::exportImage(srcIterRange(panoMask.first, panoMask.first + size),
+                vigra_impex2::ImageExportInfo("blendPanoMask_before.tif"));
 	
 #endif
 
@@ -73,8 +75,8 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
 
 #ifdef DEBUG
      // save the masks
-     exportImage(srcImageRange(blendImageMask), vigra::ImageExportInfo("blendImageMask.tif"));
-     exportImage(srcImageRange(blendPanoMask), vigra::ImageExportInfo("blendPanoMask.tif"));
+     vigra_impex2::exportImage(srcImageRange(blendImageMask), vigra_impex2::ImageExportInfo("blendImageMask.tif"));
+     vigra_impex2::exportImage(srcImageRange(blendPanoMask), vigra_impex2::ImageExportInfo("blendPanoMask.tif"));
 	
 #endif
      // copy the image into the panorama
@@ -82,7 +84,7 @@ void blendOverlap(vigra::triple<ImgIter, ImgIter, ImgAccessor> image,
      // copy mask
      vigra::copyImageIf(vigra::srcImageRange(blendImageMask), vigra::maskImage(blendImageMask), panoMask);
 }
-    
+
 /** blend \p img into \p pano, using \p alpha mask and \p panoROI
  *
  *  updates \p pano, \p alpha and \p panoROI
