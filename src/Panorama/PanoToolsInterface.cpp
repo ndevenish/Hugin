@@ -31,13 +31,40 @@
 
 #include "PT/PanoToolsInterface.h"
 
+using namespace std;
 using namespace PT;
 using namespace PTools;
 
 using namespace vigra;
 
+
+// really strange. the pano12.dll for windows doesn't seem to
+// contain the SetCorrectionRadius function, so it is included here
+
+// Restrict radial correction to monotonous interval
+static void SetCorrectionRadius_copy( cPrefs *cP )
+{
+    double a[4];
+    int i,k;
+	
+    for( i=0; i<3; i++ )
+    {
+        for( k=0; k<4; k++ )
+        {
+            a[k] = 0.0;//1.0e-10;
+            if( cP->radial_params[i][k] != 0.0 )
+            {
+                a[k] = (k+1) * cP->radial_params[i][k];
+            }
+        }
+        cP->radial_params[i][4] = smallestRoot( a );
+    }
+}
+
+
 Transform::Transform()
-    : m_initialized(false)
+    : m_initialized(false), m_srcTX(0), m_srcTY(0),
+      m_destTX(0), m_destTY(0)
 {
 
 }
@@ -68,6 +95,23 @@ void Transform::updatePTData(const Diff2D &srcSize,
     setDestImage(m_dstImage, destSize, 0, destProj, destHFOV);
 }
 
+
+void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
+                                const PanoramaOptions & dest, Diff2D srcSize)
+{
+    const PanoImage & img = pano.getImage(imgNr);
+    if (srcSize.x == 0 && srcSize.y == 0) {
+        srcSize.x = img.getWidth();
+        srcSize.y = img.getHeight();
+    }
+    createTransform(srcSize,
+                    pano.getImageVariables(imgNr),
+                    pano.getLens(img.getLensNr()).projectionFormat,
+                    Diff2D(dest.width, dest.getHeight()),
+                    dest.projectionFormat, dest.HFOV);
+}
+
+
 void Transform::createTransform(const Diff2D & srcSize,
                                 const VariableMap & srcVars,
                                 Lens::LensProjectionFormat srcProj,
@@ -75,10 +119,32 @@ void Transform::createTransform(const Diff2D & srcSize,
                                 PanoramaOptions::ProjectionFormat destProj,
                                 double destHFOV)
 {
+    m_srcTX = destSize.x/2.0;
+    m_srcTY = destSize.y/2.0;
+
+    m_destTX = srcSize.x/2.0;
+    m_destTY = srcSize.y/2.0;
+
     updatePTData(srcSize, srcVars, srcProj,
                  destSize, destProj, destHFOV);
     // create the actual stack
     SetMakeParams( m_stack, &m_mp, &m_srcImage , &m_dstImage, 0 );
+}
+
+
+void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
+                                const PanoramaOptions & dest, Diff2D srcSize)
+{
+    const PanoImage & img = pano.getImage(imgNr);
+    if (srcSize.x == 0 && srcSize.y == 0) {
+        srcSize.x = img.getWidth();
+        srcSize.y = img.getHeight();
+    }
+    createInvTransform(srcSize,
+                       pano.getImageVariables(imgNr),
+                       pano.getLens(img.getLensNr()).projectionFormat,
+                       Diff2D(dest.width, dest.getHeight()),
+                       dest.projectionFormat, dest.HFOV);
 }
 
 void Transform::createInvTransform(const Diff2D & srcSize,
@@ -88,12 +154,16 @@ void Transform::createInvTransform(const Diff2D & srcSize,
                                    PanoramaOptions::ProjectionFormat destProj,
                                    double destHFOV)
 {
+    m_srcTX = srcSize.x/2.0;
+    m_srcTY = srcSize.y/2.0;
+
+    m_destTX = destSize.x/2.0;
+    m_destTY = destSize.y/2.0;
     updatePTData(srcSize, srcVars, srcProj,
                  destSize, destProj, destHFOV);
     // create the actual stack
     SetInvMakeParams( m_stack, &m_mp, &m_srcImage , &m_dstImage, 0 );
 }
-
 
 
 void PTools::setDestImage(Image & image, Diff2D size,
@@ -190,7 +260,7 @@ void PTools::setFullImage(Image & image, Diff2D size,
 void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
 {
     SetCorrectDefaults(&p);
-    
+
     double val;
     double a = const_map_get(vars,"a").getValue();
     double b = const_map_get(vars,"b").getValue();
@@ -229,10 +299,10 @@ void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
     p.luminance = FALSE;
     p.cutFrame = FALSE;
     p.fourier = FALSE;
-    
-    // calculate correction radius
-    SetCorrectionRadius(&p);
 
+    // calculate correction radius
+    // copied function from pano12.dll (missing under windows... strange)
+    SetCorrectionRadius_copy(&p);
 
 }
 
