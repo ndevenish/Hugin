@@ -242,8 +242,8 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="lens_button_center">
-                      <label>Center</label>
-                      <tooltip>center image shifting it with d and e</tooltip>
+                      <label>Set Crop</label>
+                      <tooltip>Set crop and image center</tooltip>
                     </object>
                     <flag>wxALL|wxEXPAND|wxGROW</flag>
                     <border>5</border>

@@ -463,7 +463,7 @@ void LensPanel::SetCenter ( wxCommandEvent & e )
         wxImage * wximg = ImageCache::getInstance().getImage(
             img.getFilename());
         bool circular_crop = pano.getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
-        
+
         ImageOptions opts = img.getOptions();
         dlg.SetImage(*wximg);
         VariableMap vars = pano.getImageVariables(imgNr);
@@ -495,6 +495,7 @@ void LensPanel::SetCenter ( wxCommandEvent & e )
 
             // allow setting of the d,e if automatic centering on d and e is switched off.
             if (wxConfigBase::Get()->Read(wxT("LensPanel/CropSetsCenter"), HUGIN_CROP_SETS_CENTER ) && ! opts.autoCenterCrop)
+//            if (opts.autoCenterCrop)
             {
                 double centerx = opts.cropRect.left() + opts.cropRect.width() / 2.0;
                 double centery = opts.cropRect.top() + opts.cropRect.height() / 2.0;
@@ -506,7 +507,7 @@ void LensPanel::SetCenter ( wxCommandEvent & e )
                     const PanoImage & pimg = pano.getImage(*iNrIt);
                     (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
                     (*it).insert(make_pair(std::string("e"), Variable("e", centerx - pimg.getHeight()/2.0 )));
-                }    
+                }
                 GlobalCmdHist::getInstance().addCommand(
                     new PT::UpdateImagesVariablesCmd(pano, m_selectedImages, vars)
                     );
@@ -815,7 +816,7 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
         }
     } else {
         wxLogError(_("Please select an image and try again"));
-    }       
+    }
 }
 
 

@@ -238,16 +238,32 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     PanoramaOptions opts = options;
     DEBUG_DEBUG("Stitching to " << opts.outfile);
 
-	UIntSet imgs;
-	if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
+    UIntSet imgs;
+    if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
 		                          HUGIN_USE_SELECTED_IMAGES))
-	{
-		// use only selected images.
-		imgs = pano.getActiveImages();
-	} else {
+    {
+        // use only selected images.
+        imgs = pano.getActiveImages();
+    } else {
         fill_set(imgs, 0, pano.getNrOfImages()-1);
-	}
+    }
 
+    // check if any images use a circular crop. If they do so,
+    // remind people that nona doesn't support that yet
+
+    bool warn_crop = false;
+    for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
+        if (pano.getImage(*it).getOptions().docrop) {
+            warn_crop = true;
+        }
+    }
+    if (warn_crop) {
+        if ( wxMessageBox(_("Nona does not support cropped images yet.\nThe crop settings will be ignored\nContinue anyway?"),_("Cropping not supported by nona"), wxOK | wxCANCEL | wxICON_EXCLAMATION) == wxCANCEL ) 
+        {
+            return;
+        }
+    }
+    
     bool enblend = m_EnblendCheckBox->IsChecked();
     try {
         if (enblend) {
@@ -318,7 +334,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             args.append(quoted);
 
             unsigned int nImg = imgs.size();
-            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) 
+            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
             {
                 quoted = output + wxString::Format(wxT("%04d.tif"), *it);
                 quoted = utils::wxQuoteFilename(quoted);
@@ -340,7 +356,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 		DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
 		int ret = system(cmdline.mb_str());
 		if (ret == -1) {
-                    wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") + 
+                    wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
 		               _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
 		} else {
 		    ret = WEXITSTATUS(ret);
@@ -389,7 +405,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         }
     if (wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) {
         // delete remapped tiff files
-        for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) 
+        for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             wxString f = output + wxString::Format(wxT("%04d.tif"), *it);
             wxRemoveFile(f);
