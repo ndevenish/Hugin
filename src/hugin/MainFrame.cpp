@@ -207,7 +207,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         else
         {
             CFIndex bufLen = 1024;
-            unsigned char buffer[1024];
+            unsigned char buffer[(int) bufLen];
             if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
             {
                 CFRelease(XRCurl);
@@ -215,9 +215,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             }
             else
             {
-                buffer[1023] = '\0';
+                buffer[((int) bufLen) - 1] = '\0';
                 CFRelease(XRCurl);
-                m_xrcPrefix = (wxString)buffer+ wxT("/");
+                m_xrcPrefix = wxString::FromAscii( (char *) buffer) + wxT("/");
                 DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
             }
         }
