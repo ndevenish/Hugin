@@ -243,51 +243,53 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     }
     case CPEvent::REGION_SELECTED:
     {
-        text = "REGION_SELECTED";
-        wxRect region = ev.getRect();
-        int dx = region.GetWidth() / 2;
-        int dy = region.GetHeight() / 2;
-        CorrelationResult pos;
-        ControlPoint point;
-        bool found(false);
-        DEBUG_DEBUG("left img: " << m_leftImageNr
-                    << "  right img: " << m_rightImageNr);
-        if (left) {
-            if (FindTemplate(m_leftImageNr, region, m_rightImageNr, pos)) {
-                point.image1Nr = m_leftImageNr;
-                point.x1 = region.GetLeft() + dx;
-                point.y1 = region.GetTop() + dy;
-                point.image2Nr = m_rightImageNr;
-                point.x2 = pos.pos.x + dx;
-                point.y2 = pos.pos.y + dy;
-                point.mode = PT::ControlPoint::X_Y;
-                found = true;
+	if (false) {
+            text = "REGION_SELECTED";
+            wxRect region = ev.getRect();
+            int dx = region.GetWidth() / 2;
+            int dy = region.GetHeight() / 2;
+            CorrelationResult pos;
+            ControlPoint point;
+            bool found(false);
+            DEBUG_DEBUG("left img: " << m_leftImageNr
+                        << "  right img: " << m_rightImageNr);
+            if (left) {
+                if (FindTemplate(m_leftImageNr, region, m_rightImageNr, pos)) {
+                    point.image1Nr = m_leftImageNr;
+                    point.x1 = region.GetLeft() + dx;
+                    point.y1 = region.GetTop() + dy;
+                    point.image2Nr = m_rightImageNr;
+                    point.x2 = pos.pos.x + dx;
+                    point.y2 = pos.pos.y + dy;
+                    point.mode = PT::ControlPoint::X_Y;
+                    found = true;
+                } else {
+                    DEBUG_DEBUG("No matching point found");
+                }
             } else {
-                DEBUG_DEBUG("No matching point found");
+                if (FindTemplate(m_rightImageNr, region, m_leftImageNr, pos)) {
+                    point.image1Nr = m_leftImageNr;
+                    point.x1 = pos.pos.x + dx;
+                    point.y1 = pos.pos.y + dy;
+                    point.image2Nr = m_rightImageNr;
+                    point.x2 = region.GetLeft() + dx;
+                    point.y2 = region.GetTop() + dy;
+                    point.mode = PT::ControlPoint::X_Y;
+                    found = true;
+                } else {
+                    DEBUG_DEBUG("No matching point found");
+                }
             }
-        } else {
-            if (FindTemplate(m_rightImageNr, region, m_leftImageNr, pos)) {
-                point.image1Nr = m_leftImageNr;
-                point.x1 = pos.pos.x + dx;
-                point.y1 = pos.pos.y + dy;
-                point.image2Nr = m_rightImageNr;
-                point.x2 = region.GetLeft() + dx;
-                point.y2 = region.GetTop() + dy;
-                point.mode = PT::ControlPoint::X_Y;
-                found = true;
+            if (found) {
+                GlobalCmdHist::getInstance().addCommand(
+                    new PT::AddCtrlPointCmd(*m_pano, point)
+                    );
+                // select new control Point
+                unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
+                SelectGlobalPoint(lPoint);
             } else {
-                DEBUG_DEBUG("No matching point found");
+                wxLogError("No corrosponding point found");
             }
-        }
-        if (found) {
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::AddCtrlPointCmd(*m_pano, point)
-                );
-            // select new control Point
-            unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-            SelectGlobalPoint(lPoint);
-        } else {
-            wxLogError("No corrosponding point found");
         }
         break;
 //    default:

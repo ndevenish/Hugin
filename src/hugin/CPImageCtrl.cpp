@@ -378,7 +378,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
       Scroll( x, y);
     }
 
-    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
+//    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
 
     // draw a rectangle
 
@@ -453,9 +453,7 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
         if (y<0) x = 0;
         Scroll( x, y);
     }
-
 }
-
 
 void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
 {

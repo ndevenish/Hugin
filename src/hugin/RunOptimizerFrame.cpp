@@ -42,6 +42,8 @@
 #include "wx/listctrl.h"
 #include "wx/process.h"
 #include "wx/txtstrm.h"
+#include "wx/config.h"
+#include "wx/file.h"
 
 #include <string>
 #include <iostream>
@@ -94,28 +96,46 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     
     // start PTOptimizer process
     
-    // FIXME get from Preferences
-    string optimizerExe("PTOptimizer");
-    string PTScriptFile("PT_script.txt");
+    wxConfigBase* config = wxConfigBase::Get();
+#ifdef __WXMSW__
+    wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer.exe");
+    if (!wxFile::Exists(optimizerExe)){
+        wxFileDialog dlg(this,_("Select PTOptimizer"),
+        "", "PTOptimizer.exe",
+        "Executables (*.exe)|*.exe",
+        wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            optimizerExe = dlg.GetPath();
+            config->Write("/PanoTools/PTOptimizerExe",optimizerExe);
+        } else {
+            wxLogError(_("No PTOptimizer.exe selected"));
+        }
+    }
+#else
+    wxString optimizerExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer");
+#endif
+    wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
     std::ofstream script(PTScriptFile.c_str());
     m_pano->printOptimizerScript(script, optvars, options);
     script.close();
 
-    string cmd = optimizerExe + " " + PTScriptFile;
+    wxString cmd(optimizerExe + " " + PTScriptFile);
 
     DEBUG_INFO("Executing cmd: " << cmd);
 
     // create our process
     m_process = new wxProcess(this);
     m_process->Redirect();
-    m_pid = wxExecute(cmd.c_str(), wxEXEC_ASYNC, m_process);
+    m_pid = wxExecute(cmd, wxEXEC_ASYNC, m_process);
 
+#if __unix__
     if (m_pid <= 0 )
     {
         wxLogError(_T("Failed to launch the PTOptimizer."));
         return;
     }
+#endif
 
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);
@@ -131,12 +151,10 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
 
     m_apply->Disable();
     m_cancel->SetLabel(_("Stop"));
-    Show();
     // start the timer to poll program output
-
-
     
 #ifdef __unix__
+    Show();
     m_timer.Start(100);
 #endif
 }
@@ -252,7 +270,11 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
 void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
 {
     DEBUG_TRACE("");
+#if __unix__
     m_timer.Stop();
+#else
+    Show();
+#endif
 
     // update buttons
     m_apply->Enable();

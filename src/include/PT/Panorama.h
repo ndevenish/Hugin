@@ -433,7 +433,8 @@ public:
     /// create an optimizer script
     void printOptimizerScript(std::ostream & o,
                               const OptimizeVector & optvars,
-                              const PanoramaOptions & options);
+                              const PanoramaOptions & options,
+			      const std::string & stripPrefix="");
 
     /// create the stitcher script
     void printStitcherScript(std::ostream & o, const PanoramaOptions & target);

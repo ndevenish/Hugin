@@ -324,7 +324,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
     if (sel.size() == 0) {
         DEBUG_DEBUG("no selection, disabling value display");
         // clear & disable display
-        XRCCTRL(*this, "lens_val_projectionFormat", wxTextCtrl)->Disable();
+        XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Disable();
         XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Disable();
         XRCCTRL(*this, "lens_val_a", wxTextCtrl)->Disable();
@@ -340,7 +340,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_inherit_e", wxCheckBox)->Disable();
     } else {
         // one or more images selected
-        if (XRCCTRL(*this, "lens_val_projectionFormat", wxTextCtrl)->Enable()) {
+        if (XRCCTRL(*this, "lens_val_projectionFormat", wxComboBox)->Enable()) {
             // enable all other textboxes as well.
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Enable();
             XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->Enable();

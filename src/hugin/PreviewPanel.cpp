@@ -40,11 +40,19 @@
 #include <wx/imaglist.h>
 #include <wx/spinctrl.h>
 
-#include "hugin/PreviewPanel.h"
 #include "hugin/ImageCache.h"
 #include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
 #include "hugin/PanoToolsInterface.h"
+
+#include "hugin/PreviewPanel.h"
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
 
 using namespace PT;
 using namespace std;
@@ -207,7 +215,7 @@ void PreviewPanel::updatePreview()
 
 void PreviewPanel::OnDraw(wxPaintEvent & event)
 {
-    wxPaintDC dc(this);
+    wxClientDC dc(this);
 
     if (!IsShown()){
         return;
@@ -235,9 +243,11 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
          ++it)
     {
         // draw only images that are scheduled to be drawn
-        if (set_contains(m_displayedImages, it -m_remappedBitmaps.begin())) {
-            DEBUG_DEBUG("drawing image " << it - m_remappedBitmaps.begin());
-            dc.DrawBitmap(*(*it), offsetX, offsetY, true);
+        if (set_contains(m_displayedImages, it-m_remappedBitmaps.begin())) {
+            if ((*it)->Ok()) {
+                DEBUG_DEBUG("drawing image " << it - m_remappedBitmaps.begin());
+                dc.DrawBitmap(*(*it), offsetX, offsetY, true);
+            }
         }
     }
 
@@ -245,9 +255,8 @@ void PreviewPanel::OnDraw(wxPaintEvent & event)
     wxCoord h = m_panoImgSize.GetHeight();
 
     // draw center lines over display
-    dc.SetPen(wxPen("DIM GREY", 1, wxLONG_DASH));
-    dc.SetBrush(wxBrush("DIM GREY",wxSOLID));
-    dc.SetBackground(wxBrush("DIM GREY",wxSOLID));
+    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+    dc.SetLogicalFunction(wxINVERT);
     dc.DrawLine(offsetX + w/2, offsetY,
                 offsetX + w/2, offsetY + h);
     dc.DrawLine(offsetX, offsetY + h/2,

@@ -42,6 +42,8 @@
 #include "wx/listctrl.h"
 #include "wx/process.h"
 #include "wx/txtstrm.h"
+#include "wx/config.h"
+#include "wx/file.h"
 
 #include <string>
 #include <iostream>
@@ -90,9 +92,25 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 
     // start PTStitcher process
 
-    // FIXME get from Preferences
-    string stitcherExe("PTStitcher");
-    string PTScriptFile("PT_script.txt");
+    wxConfigBase* config = wxConfigBase::Get();
+#ifdef __WXMSW__
+    wxString stitcherExe = config->Read("/PanoTools/PTStitcherExe","PTStitcher.exe");
+    if (!wxFile::Exists(stitcherExe)){
+        wxFileDialog dlg(this,_("Select PTStitcher.exe"),
+        "", "PTStitcher.exe",
+        "Executables (*.exe)|*.exe",
+        wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            stitcherExe = dlg.GetPath();
+            config->Write("/PanoTools/PTStitcherExe",stitcherExe);
+        } else {
+            wxLogError(_("No PTStitcher.exe selected"));
+        }
+    }
+#else
+    wxString stitcherExe = config->Read("/PanoTools/PTOptimizerExe","PTOptimizer");
+#endif
+    wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
     std::ofstream script(PTScriptFile.c_str());
     if (!script.good()) {
@@ -101,7 +119,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_pano->printStitcherScript(script, options);
     script.close();
 
-    string cmd = stitcherExe + string(" -o \"") + options.outfile + "\" " + PTScriptFile;
+    wxString cmd = stitcherExe + wxString(" -o \"") + wxString(options.outfile.c_str()) + "\" " + PTScriptFile;
 
     DEBUG_INFO("Executing cmd: " << cmd);
 
@@ -110,11 +128,13 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_process->Redirect();
     m_pid = wxExecute(cmd.c_str(), wxEXEC_ASYNC, m_process);
 
+#if __unix__
     if (m_pid <= 0 )
     {
         wxLogError(_T("Failed to launch the PTStitcher."));
         return;
     }
+#endif
 
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);
@@ -222,7 +242,11 @@ void RunStitcherFrame::OnClose(wxCloseEvent& event)
 void RunStitcherFrame::OnProcessTerm(wxProcessEvent& event)
 {
     DEBUG_TRACE("");
+#if __unix__
     m_timer.Stop();
+#else
+    Show();
+#endif
 
     DEBUG_DEBUG("before del process");
     delete m_process;

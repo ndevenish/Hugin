@@ -262,7 +262,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
     DEBUG_ASSERT(imgctrl);
     wxSize sz = imgctrl->GetSize();
-    wxImage * img = ImageCache::getInstance().getImageSmall(
+    const wxImage * img = ImageCache::getInstance().getImageSmall(
         pano.getImage(imgNr).getFilename());
 
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();

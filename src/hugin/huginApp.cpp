@@ -165,8 +165,6 @@ bool huginApp::OnInit()
 
     wxString wrkDir = config->Read("tempDir","");
     // create temporary directory.
-
-
     config->Write( "startDir", wxFileName::GetCwd() );
 #ifdef __unix__
     // create a temporary directory
@@ -181,14 +179,26 @@ bool huginApp::OnInit()
     free(dir);
 #else // windows
     if (wrkDir == "") {
-        DEBUG_INFO("No tempdir specified, using c:\\temp");
-        wrkDir = "C:\\Temp";
+        // tried to expand $TEMP into the temp dir..
+        // but wxFilename (or I) is so stupid and always adds the cwd.
+//        wxFileName dir("$TEMP\\hugin\\");
+//        dir.Assign();
+//        DEBUG_INFO("before normalize: " << dir.GetFullPath());
+//        dir.Normalize();
+//        wrkDir = dir.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
+//        DEBUG_INFO("after normalize: " << wrkDir);        
+//        DEBUG_INFO("No tempdir specified, using " << wrkDir );
+
+        wrkDir = "c:\temp\hugin";
     }
-    m_workDir = wrkDir + "\\hugin";
+    m_workDir = wrkDir;
 #endif
-    DEBUG_DEBUG("creating temp dir: " << m_workDir);
-    if (!wxMkdir(m_workDir)) {
-        DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
+    DEBUG_DEBUG("using temp dir: " << m_workDir);
+    if (!wxFile::Exists(m_workDir)) {
+        DEBUG_DEBUG("clreating temp dir: " << m_workDir);
+        if (!wxMkdir(m_workDir)) {
+            DEBUG_ERROR("Tempdir could not be created: " << m_workDir);
+        }
     }
 
     if (!wxSetWorkingDirectory(m_workDir)) {

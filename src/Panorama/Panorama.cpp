@@ -377,7 +377,8 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 unsigned int Panorama::addImage(const PanoImage &img, const VariableMap & vars)
 {
     // the lens must have been already created!
-    DEBUG_ASSERT(img.getOptions().lensNr < state.lenses.size());
+    bool ok = img.getOptions().lensNr < state.lenses.size();
+    DEBUG_ASSERT(ok);
     unsigned int nr = state.images.size();
     state.images.push_back(img);
     state.variables.push_back(vars);
@@ -534,7 +535,8 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 
 void Panorama::printOptimizerScript(ostream & o,
                                     const OptimizeVector & optvars,
-                                    const PanoramaOptions & output)
+                                    const PanoramaOptions & output,
+                                    const std::string & stripPrefix)
 {
     o << "# PTOptimizer script, written by hugin" << endl
       << endl;
@@ -582,8 +584,21 @@ void Panorama::printOptimizerScript(ostream & o,
         }
 
         o << " u" << (*it).getOptions().featherWidth
-          << ((*it).getOptions().morph ? " o" : "")
-          << " n\"" << (*it).getFilename() << "\"" << std::endl;
+          << ((*it).getOptions().morph ? " o" : "");
+        if (stripPrefix.size() > 0) {
+            // strip prefix from image names.
+            // check if the prefix is acutally the same
+            string fname = (*it).getFilename();
+            string tmp = fname.substr(0,stripPrefix.size());
+            if (tmp.compare(stripPrefix) == 0) {
+                DEBUG_DEBUG("striping " << stripPrefix << " from " << fname);
+                fname = fname.erase(0,stripPrefix.size());
+                DEBUG_DEBUG("after stripping: " <<  fname);
+            } else {
+                DEBUG_DEBUG(stripPrefix << " does not match " << fname);
+            }
+            o << " n\"" << fname << "\"" << std::endl;
+        }
         i++;
     }
 
@@ -927,9 +942,14 @@ void Panorama::imageChanged(unsigned int imgNr)
 
 void Panorama::copyLensVariablesToImage(unsigned int imgNr)
 {
+    unsigned int nImages = state.images.size();
+    unsigned int nLenses = state.lenses.size();
+    const PanoImage &img = state.images[imgNr];
+    unsigned int lensNr = img.getLensNr();
+    DEBUG_DEBUG("imgNr: " << imgNr << " of " << nImages);
+    DEBUG_DEBUG("img lens nr: " << img.getLensNr() << " nr of lenses: " << state.lenses.size());
     DEBUG_ASSERT(imgNr < state.images.size());
-    unsigned int lensNr = state.images[imgNr].getLensNr();
-    DEBUG_ASSERT(lensNr < state.lenses.size());
+    DEBUG_ASSERT(lensNr < nLenses);
     const Lens & lens = state.lenses[lensNr];
     for (LensVarMap::const_iterator it = lens.variables.begin();
          it != lens.variables.end();++it)

@@ -575,16 +575,17 @@ namespace PT {
     class LoadPTProjectCmd : public PanoCommand
     {
     public:
-        LoadPTProjectCmd(Panorama & p, std::istream & i)
+        LoadPTProjectCmd(Panorama & p, std::istream & i, const std::string & prefix = "")
             : PanoCommand(p),
-              in(i)
+              in(i),
+	      prefix(prefix)
             { }
 
         virtual void execute()
             {
                 PanoCommand::execute();
                 PanoramaMemento newPano;
-                if (newPano.loadPTScript(in)) {
+                if (newPano.loadPTScript(in,prefix)) {
                     pano.setMemento(newPano);
                 } else {
                     DEBUG_ERROR("could not load panotools script");
@@ -597,6 +598,7 @@ namespace PT {
             }
     private:
         std::istream & in;
+	const std::string &prefix;
     };
 
 } // namespace PT

@@ -41,8 +41,9 @@
 #include "common/utils.h"
 #include "common/stl_utils.h"
 #include "PT/PanoramaMemento.h"
-#include "hugin/PanoToolsInterface.h"
 #include "hugin/ImageCache.h"
+
+#include "hugin/PanoToolsInterface.h"
 
 using namespace PT;
 using namespace PTools;

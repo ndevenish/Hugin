@@ -206,17 +206,17 @@ bool Lens::readEXIF(const std::string & filename)
 
 
     isLandscape = (exif.Width > exif.Height);
-    double ccdWidth;
-    if (!isLandscape) {
+    double ccdWidth = 0;
+    if (isLandscape) {
         ccdWidth = exif.CCDWidth;
     } else {
         // portrait images must use the ccd height instead
         // of ccd width. we assume that the pixels are squares
-        ccdWidth = exif.CCDWidth * exif.Height / exif.Width;
+        ccdWidth = exif.CCDHeight;
     }
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     if ( !(HFOV  > 0.0) )
-        HFOV = 90.0;
+        HFOV = 50.0;
     if ( ccdWidth > 0.0 )
       focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     focalLength = exifFocalLength = exif.FocalLength;
@@ -415,7 +415,7 @@ const string PanoramaOptions::fileformatNames[] =
     "QTVR"
 };
 
-bool PanoramaMemento::loadPTScript(std::istream &i)
+bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
     DEBUG_TRACE("");
     PTParseState state;
@@ -561,7 +561,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             // create a new Image
             string file;
             getPTStringParam(file,line,"n");
-//            DEBUG_DEBUG("filename: " << file);
+            // add prefix if only a relative path.
+            // FIXME, make this more robust. it breaks if one saves the project in a different dir
+            // as the images
+            if (file.find_first_of("\\/") == string::npos) {
+                file.insert(0, prefix);
+            }
+            DEBUG_DEBUG("filename: " << file);
             int width, height;
             getParam(width, line, "w");
             getParam(height, line, "h");

@@ -47,23 +47,23 @@
 //#ifdef __WXMSW__
 #if __WXMSW__
 // debug trace
-#define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str());}
+#define DEBUG_TRACE(msg) { std::stringstream o; o << "TRACE " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str());}
 // low level debug info
-#define DEBUG_DEBUG(msg) { std::stringstream o; o << "DEBUG " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str()); }
+#define DEBUG_DEBUG(msg) { std::stringstream o; o << "DEBUG " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
 // informational debug message,
-#define DEBUG_INFO(msg) { std::stringstream o; o << "INFO " << DEBUG_HEADER << msg << std::endl; wxLogDebug(o.str().c_str()); }
+#define DEBUG_INFO(msg) { std::stringstream o; o << "INFO " << DEBUG_HEADER << msg; wxLogDebug(o.str().c_str()); }
 // major change/operation should use this
-#define DEBUG_NOTICE(msg) { std::stringstream o; o << "NOTICE " << DEBUG_HEADER << msg << std::endl; wxLogMessage(o.str().c_str()); }
+#define DEBUG_NOTICE(msg) { std::stringstream o; o << "NOTICE " << DEBUG_HEADER << msg; wxLogMessage(o.str().c_str()); }
 // when an error occured, but can be handled by the same function
-#define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg << std::endl; wxLogWarning(o.str().c_str());}
+#define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(o.str().c_str());}
 // an error occured, might be handled by a calling function
-#define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg << std::endl; wxLogError(o.str().c_str());}
+#define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(o.str().c_str());}
 // a fatal error occured. further program execution is unlikely
-#define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg << std::endl; wxLogError(o.str().c_str()); }
+#define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(o.str().c_str()); }
 #define DEBUG_ASSERT(cond) \
 do { \
-    if (!cond) { \
-        std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond << std::endl; \
+    if (!(cond)) { \
+        std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond; \
         wxLogFatalError(o.str().c_str()); \
    } \
 } while(0)

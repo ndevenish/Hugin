@@ -31,6 +31,16 @@ extern "C" {
 #include <pano12/panorama.h>
 #include <pano12/filter.h>
 }
+
+// remove fu'*!%$# min & max macros, that come from some windows include 
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
+
 class wxImage;
 
 /** mainly consists of wrapper around the pano tools library,

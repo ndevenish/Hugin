@@ -421,7 +421,7 @@ public:
      *
      *  initializes the PanoramaMemento from a PTScript file
      */
-    bool loadPTScript(std::istream & i);
+    bool loadPTScript(std::istream & i, const std::string & prefix = "");
 
 private:
 

@@ -34,7 +34,7 @@ OBJECTS = Panorama/PanoImage.o  \
           jhead/jpgfile.o
 
 EXTRAINC = -I$(WXDIR)/contrib/include -Iinclude -Ipano12
-EXTRALIBS = -lwxxrc -lpano12
+EXTRALIBS = -L. -lwxxrc -lpano12
 
 include $(WXDIR)/src/makeprog.g95
 

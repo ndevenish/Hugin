@@ -200,8 +200,8 @@ MainFrame::~MainFrame()
     // on every start of hugin, because setPosition sets
     // the upper left title bar position (at least in kwm)
     // netscape navigator had the same problem..
-    config->Write("MainFrameSize_x", wxString::Format("%d",GetRect().width)),
-    config->Write("MainFrameSize_y", wxString::Format("%d",GetRect().height));
+    config->Write("MainFrameSize_x", GetRect().width);
+    config->Write("MainFrameSize_y", GetRect().height);
     DEBUG_INFO( "saved last size and position" )
 
     config->Flush();
@@ -252,11 +252,14 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
-        std::ofstream script(dlg.GetPath());
+        wxFileName scriptName = dlg.GetPath();
+        std::string path(scriptName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR));
+        DEBUG_DEBUG("stripping " << path << " from image filenames");
+        std::ofstream script(scriptName.GetFullPath());
         int nImages = pano.getNrOfImages();
         // create fake optimize settings
         PT::OptimizeVector optvec(nImages);
-        pano.printOptimizerScript(script, optvec, pano.getOptions());
+        pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
         script.close();
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
     }
@@ -275,13 +278,14 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
+        wxString prefix = dlg.GetDirectory();
         SetStatusText( _("Open project:   ") + filename);
         config->Write("actualPath", dlg.GetDirectory());  // remember for later
         // open project.
         std::ifstream file(filename.c_str());
         if (file.good()) {
             GlobalCmdHist::getInstance().addCommand(
-                new LoadPTProjectCmd(pano,file)
+                new LoadPTProjectCmd(pano,file, std::string(prefix.c_str()))
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         } else {
@@ -312,7 +316,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     // a get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard ("Images files (*.jpg)|*.jpg|Images files (*.png)|*.png|Images files (*.tif)|*.tif|All files (*.*)|*.*");
+    wxString wildcard ("Images files (*.jpg)|*.jpg;*.JPG|Images files (*.png)|*.png;*.PNG|Images files (*.tif)|*.tif;*.TIF|All files (*.*)|*.*");
     wxFileDialog *dlg = new wxFileDialog(this,_("Add images"),
                                          config->Read("actualPath",""), "",
                                          wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
@@ -321,7 +325,7 @@ void MainFrame::OnAddImages( wxCommandEvent& WXUNUSED(event) )
     if (config->HasEntry(wxT("lastImageType"))){
       img_ext = config->Read("lastImageType").c_str();
     }
-    if      (img_ext == "png")
+    if (img_ext == "png")
       dlg->SetFilterIndex(1);
     else if (img_ext == "tif")
       dlg->SetFilterIndex(2);

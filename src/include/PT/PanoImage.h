@@ -25,13 +25,11 @@ class Panorama;
 class ImageOptions {
 
 public:
-    enum ImageSource { DIGITAL_CAMERA, SCANNER };
     ImageOptions()
         : featherWidth(10),
           ignoreFrameWidth(0),
           morph(false),
-          lensNr(0),
-          source(DIGITAL_CAMERA)
+          lensNr(0)
         { };
 #if 0
     // isn't the c++ compiler supposed to create a default operator== ?
@@ -60,8 +58,6 @@ public:
 
     // the lens of this image
     unsigned int lensNr;
-    /// image source, used to determine the linking of variables
-    ImageSource source;
 };
 
 

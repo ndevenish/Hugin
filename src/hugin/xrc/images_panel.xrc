@@ -77,14 +77,6 @@
               <label>image orientation</label>
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="unknown" name="img_preview_unknown">
-                  <tooltip>not implemented, todo pablo</tooltip>
-                </object>
-                <flag>wxALL|wxEXPAND</flag>
-                <border>5</border>
-                <minsize>256,128</minsize>
-              </object>
-              <object class="sizeritem">
                 <object class="wxBoxSizer">
                   <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
