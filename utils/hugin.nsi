@@ -2,7 +2,6 @@
 
 !define HUGIN_VERSION "0.5 beta2"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
-!define MSVC_DLLS
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
 ;!define HUGIN_EXPERIMENTAL_TOOLS
@@ -96,11 +95,6 @@ Section "Hugin program files"
   File /r "locale\*"
   SetOutPath "$INSTDIR\xrc"
   File /r "xrc\*"
-!ifdef MSVC_DLLS
-  File msvcp71.dll
-  File msvcr71.dll
-  File unicows.dll
-!endif
 !ifdef HUGIN_EXPERIMENTAL_TOOLS
   File "automatch.exe"
   File "autooptimiser.exe"
