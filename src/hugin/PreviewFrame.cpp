@@ -115,7 +115,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxALL,    // draw border all around
                   5);       // border width
 
-    
+
     m_druid = new PanoDruid(this);
     topsizer->Add(m_druid, 0, wxEXPAND | wxALL, 5);
     m_druid->Update(m_pano);
@@ -225,7 +225,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         dirty = true;
     }
 
-    // update existing itemsvoid PreviewFrame::OnFitPano(wxCommandEvent & e)
+    // update existing items
 
     if ( nrImages >= nrButtons ) {
         for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
@@ -257,7 +257,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("ndisplayed: " << m_displayedImgs.size());
         UIntSet copy = m_displayedImgs;
         m_PreviewPanel->SetDisplayedImages(copy);
-		m_druid->Update(m_pano);
+        m_druid->Update(m_pano);
     }
 }
 
@@ -324,7 +324,8 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCmd(m_pano, vars)
         );
-    m_PreviewPanel->ForceUpdate();
+    // fit pano afterwards
+    OnFitPano(e);
 }
 
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
@@ -339,8 +340,8 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     PanoramaOptions opt = m_pano.getOptions();
 
     FDiff2D fov = m_pano.calcFOV();
-    opt.HFOV = (int) ceil(fov.x);
-    opt.VFOV = (int) ceil(fov.y);
+    opt.HFOV = (int) round(fov.x);
+    opt.VFOV = (int) round(fov.y);
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
