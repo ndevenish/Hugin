@@ -20,7 +20,7 @@ OBJECTS = Panorama/PanoImage.o  \
           hugin/ImageProcessing.o \
           hugin/ImagesPanel.o \
           hugin/LensPanel.o \
-          hugin/OptimizeFrame.o \
+          hugin/OptimizePanel.o \
           hugin/PanoPanel.o \
           hugin/RunOptimizerFrame.o \
           hugin/RunStitcherFrame.o \

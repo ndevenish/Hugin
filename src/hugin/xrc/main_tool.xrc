@@ -39,11 +39,6 @@
       <longhelp>add image</longhelp>
     </object>
     <object class="separator"/>
-    <object class="tool" name="ID_SHOW_OPTIMIZE_FRAME">
-      <bitmap>data/optimize.xpm</bitmap>
-      <tooltip>Optimizer</tooltip>
-      <longhelp>show optimizer window, used to calculate image positions</longhelp>
-    </object>
     <bitmapsize>22,22</bitmapsize>
     <margins>2,2</margins>
     <style>wxTB_FLAT|wxTB_DOCKABLE</style>

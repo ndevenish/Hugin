@@ -75,10 +75,6 @@
         <accel>F3</accel>
         <help>Shows all controlpoint distances</help>
       </object>
-      <object class="wxMenuItem" name="ID_SHOW_OPTIMIZE_FRAME">
-        <label>&amp;Optimize Window</label>
-        <help>Open optimizer window</help>
-      </object>
       <object class="wxMenuItem" name="ID_SHOW_PREVIEW_FRAME">
         <label>&amp;Preview window</label>
         <accel>Ctrl-p</accel>

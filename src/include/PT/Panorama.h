@@ -454,6 +454,16 @@ public:
      *  Allows to compress multiple changes into one notification.
      */
     void changeFinished();
+    
+    /** clear dirty flag. call after save */
+    void clearDirty()
+        { dirty = false;}
+        
+    /** true if there are unsaved changes */
+    bool isDirty()
+        { return dirty; }
+    
+    
 
 
 protected:
@@ -515,7 +525,7 @@ private:
     std::set<PanoramaObserver *> observers;
     /// the images that have been changed since the last changeFinished()
     UIntSet changedImages;
-    
+
     bool m_forceImagesUpdate;
 
 };

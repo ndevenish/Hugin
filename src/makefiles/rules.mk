@@ -101,6 +101,7 @@ APPS_MO  =      $(foreach app, $(APPS),\
                     )\
                   ) \
                 )
+APPS_DESKTOP =      $(foreach app, $(APPS), $(APP_$(app)_DESKTOP))
 APPS_XRC =      $(foreach app, $(APPS), $(APP_$(app)_XRC))
 APPS_XRC_DATA = $(foreach app, $(APPS), $(APP_$(app)_XRC_DATA))
 
@@ -147,6 +148,10 @@ install.local: apps.local
 	$(if $(strip $(APPS_DATA)), \
 	  @[ -d $(INSTALL_DATA_DIR) ] || $(MKDIR) $(INSTALL_DATA_DIR); \
 	  $(SILENT)$(INSTALL_PROGRAM) $(APPS_DATA) $(INSTALL_DATA_DIR); \
+	)
+	$(if $(strip $(APPS_DESKTOP)), \
+	  [ -d $(INSTALL_DESKTOP_DIR) ] || $(MKDIR) $(INSTALL_DESKTOP_DIR); \
+	  $(SILENT)$(INSTALL_DATA) $(APPS_DESKTOP) $(INSTALL_DESKTOP_DIR); \
 	)
 	$(if $(strip $(APPS_XRC)), \
 	  [ -d $(INSTALL_XRC_DIR) ] || $(MKDIR) $(INSTALL_XRC_DIR); \

@@ -82,32 +82,6 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
-                            <object class="wxBoxSizer">
-                              <orient>wxVERTICAL</orient>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                                  <label>auto fine &amp;tune</label>
-                                </object>
-                                <flag>wxADJUST_MINSIZE</flag>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="cp_editor_auto_add">
-                                  <label>auto add</label>
-                                  <checked>1</checked>
-                                  <tooltip>immediately add control point when selecting a second point</tooltip>
-                                </object>
-                                <flag>wxADJUST_MINSIZE</flag>
-                              </object>
-                            </object>
-                            <flag>wxRIGHT</flag>
-                            <border>5</border>
-                          </object>
-                        </object>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
                             <object class="wxStaticText">
                               <label>Zoom:</label>
                             </object>
@@ -129,6 +103,38 @@
                               <bg>#DCDCDC</bg>
                             </object>
                             <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                          </object>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxButton" name="cp_editor_finetune_button">
+                          <label>Fine Tune</label>
+                          <tooltip>does a local fine tune, with a small search area</tooltip>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxVERTICAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
+                                  <label>auto fine &amp;tune</label>
+                                </object>
+                                <flag>wxADJUST_MINSIZE</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="cp_editor_auto_add">
+                                  <label>auto add</label>
+                                  <checked>1</checked>
+                                  <tooltip>immediately add control point when selecting a second point</tooltip>
+                                </object>
+                                <flag>wxADJUST_MINSIZE</flag>
+                              </object>
+                            </object>
+                            <flag>wxRIGHT</flag>
+                            <border>5</border>
                           </object>
                         </object>
                       </object>

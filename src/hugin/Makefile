@@ -105,13 +105,13 @@ APP_1_OBJ = \
 	    PreviewFrame.o \
 	    PreviewPanel.o \
 	    ImageCenter.o \
-	    OptimizeFrame.o \
+	    OptimizePanel.o \
 	    RunOptimizerFrame.o \
 	    RunStitcherFrame.o \
 	    CPListFrame.o \
 	    TextKillFocusHandler.o \
             $(RES_O)
-
+APP_1_DESKTOP = hugin.desktop
 APP_1_LFLAGS = $(LFLAGS) -lpano12
 
 # ====================================================================

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
-  <object class="wxDialog" name="optimizer_edit_dialog">
-    <title>Edit PTOptimizer Script</title>
+  <object class="wxDialog" name="edit_script_dialog">
+    <title>Edit Panorama Tools Script</title>
     <centered>1</centered>
     <object class="wxBoxSizer">
       <object class="sizeritem">
-        <object class="wxTextCtrl" name="optimizer_edit_text">
+        <object class="wxTextCtrl" name="script_edit_text">
           <style>wxTE_MULTILINE</style>
         </object>
         <option>1</option>
@@ -23,14 +23,14 @@
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
-              <label>Optimize</label>
+              <label>Ok</label>
             </object>
             <flag>wxALL</flag>
             <border>5</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
-              <label>Cancel</label>
+              <label>Discard Changes</label>
             </object>
             <flag>wxALL</flag>
             <border>5</border>

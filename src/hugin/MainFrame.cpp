@@ -50,7 +50,7 @@
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
-#include "hugin/OptimizeFrame.h"
+#include "hugin/OptimizePanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
@@ -68,6 +68,24 @@ using namespace PT;
     #include "xrc/data/gui.xpm"
 #endif
 
+
+/** file drag and drop handler method */
+bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
+{
+    
+    // FIXME check for Images / project files
+    DEBUG_TRACE("OnDropFiles");
+    std::vector<std::string> filesv;
+    for (unsigned int i=0; i< filenames.GetCount(); i++) {
+        filesv.push_back(filenames[i].c_str());
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::wxAddImagesCmd(pano,filesv)
+        );
+    return true;
+}
+
+
 // event table. this frame will recieve mostly global commands.
 BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_new_project"),  MainFrame::OnNewProject)
@@ -78,8 +96,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
-    EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
-    EVT_BUTTON(XRCID("ID_SHOW_OPTIMIZE_FRAME"),MainFrame::OnToggleOptimizeFrame)
+//    EVT_MENU(XRCID("ID_SHOW_OPTIMIZE_FRAME"), MainFrame::OnToggleOptimizeFrame)
+//    EVT_BUTTON(XRCID("ID_SHOW_OPTIMIZE_FRAME"),MainFrame::OnToggleOptimizeFrame)
     EVT_MENU(XRCID("ID_SHOW_PREVIEW_FRAME"), MainFrame::OnTogglePreviewFrame)
     EVT_BUTTON(XRCID("ID_SHOW_PREVIEW_FRAME"),MainFrame::OnTogglePreviewFrame)
 
@@ -130,6 +148,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     DEBUG_TRACE("");
 
+    m_notebook = XRCCTRL(*this, "controls_notebook", wxNotebook);
+    DEBUG_ASSERT(m_notebook);
+    
     // the lens_panel, see as well images_panel
     lens_panel = new LensPanel( this, wxDefaultPosition,
                                 wxDefaultSize, &pano);
@@ -155,7 +176,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_panel_unknown"),
                                                cpe);
 
-    opt_frame = new OptimizeFrame(this, &pano);
+    opt_panel = new OptimizePanel(this, &pano);
+    // create the custom widget referenced by the main_frame XRC
+    DEBUG_TRACE("");
+    wxXmlResource::Get()->AttachUnknownControl(wxT("optimizer_panel_unknown"),
+                                               opt_panel);
 
     preview_frame = new PreviewFrame(this, pano);
 
@@ -164,9 +189,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // set the minimize icon
     SetIcon(wxICON(gui));
 
-    // set ourselfs as our dnd handler
-    // lets hope wxwindows doesn't try to delete the drop handlers
-    SetDropTarget(this);
+    // create a new drop handler. wxwindows deletes the automaticall
+    SetDropTarget(new PanoDropTarget(pano));
     DEBUG_TRACE("");
 
     // create a status bar
@@ -237,27 +261,36 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
     assert(&pano == &panorama);
 }
 
-
-bool MainFrame::OnDropFiles(wxCoord x, wxCoord y,
-                            const wxArrayString& filenames)
-{
-    // FIXME check for Images / project files
-    DEBUG_TRACE("OnDropFiles");
-    std::vector<std::string> filesv;
-    for (unsigned int i=0; i< filenames.GetCount(); i++) {
-        filesv.push_back(filenames[i].c_str());
-    }
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::wxAddImagesCmd(pano,filesv)
-        );
-    return true;
-}
-
-void MainFrame::OnExit(wxCommandEvent & e)
+void MainFrame::OnExit(wxCloseEvent & e)
 {
     DEBUG_TRACE("");
-    ImageCache::getInstance().flush();
     // FIXME ask to save is panorama if unsaved changes exist
+    if (pano.isDirty()) {
+        int answer = wxMessageBox(_("The panorama has been changed\nSave changes?"), _("Save Panorama?"), wxYES_NO | wxCANCEL | wxICON_EXCLAMATION, this);
+        switch (answer){
+        case wxYES:
+        {
+            wxCommandEvent dummy;
+            OnSaveProject(dummy);
+            break;
+        }
+        case wxCANCEL:
+        {
+            // try to cancel quit
+            if (e.CanVeto()) {
+                e.Veto();
+                return;
+            }
+            wxLogError(_("forced close"));
+            break;
+        }
+        default:
+        {
+            // just quit
+        }
+        }
+    }   
+    ImageCache::getInstance().flush();
     //Close(TRUE);
     this->Destroy();
     DEBUG_TRACE("");
@@ -274,11 +307,12 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath());
         // read optimize vector from OptimizeFrame
-        PT::OptimizeVector optvec = opt_frame->getOptimizeVector();
+        PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
+    pano.clearDirty();
 }
 
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
@@ -296,12 +330,13 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath());
         // create fake optimize settings
-        PT::OptimizeVector optvec = opt_frame->getOptimizeVector();
+        PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         pano.printOptimizerScript(script, optvec, pano.getOptions(),path);
         script.close();
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
     }
     SetStatusText(wxString::Format(_("saved project %s"),m_filename.c_str()),0);
+    pano.clearDirty();
 }
 
 
@@ -333,7 +368,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                 new LoadPTProjectCmd(pano,file, prefix)
                 );
             DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
-	    opt_frame->setOptimizeVector(pano.getOptimizeVector());
+	    opt_panel->setOptimizeVector(pano.getOptimizeVector());
         } else {
             DEBUG_ERROR("Could not open file " << filename);
         }
@@ -342,6 +377,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         // nothing to open
         SetStatusText( _("Open project: cancel"));
     }
+    pano.clearDirty();
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
@@ -350,6 +386,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
     ImageCache::getInstance().flush();
+    pano.clearDirty();
 }
 
 void MainFrame::OnAddImages( wxCommandEvent& event )
@@ -498,12 +535,14 @@ void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
 }
 
 
+#if 0
 void MainFrame::OnToggleOptimizeFrame(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     opt_frame->Show();
     opt_frame->Raise();
 }
+#endif
 
 void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 {
@@ -535,6 +574,7 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
+    m_notebook->SetSelection(2);
     cpe->ShowControlPoint(cpNr);
 }
 

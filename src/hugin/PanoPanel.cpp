@@ -91,6 +91,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE   ( XRCID("pano_choice_format_final"),PanoPanel::FileFormatChanged)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
+    EVT_SPINCTRL(XRCID("m_JPEGQualitySpin"), PanoPanel::OnSetQuality)
     EVT_BUTTON   ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
 END_EVENT_TABLE()
 
@@ -107,7 +108,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     wxXmlResource::Get()->LoadPanel ( this, wxT("panorama_panel")); //);
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    TextKillFocusHandler * m_tkf = new TextKillFocusHandler(this);
+    m_tkf = new TextKillFocusHandler(this);
 
     // get gui controls
     m_ProjectionChoice = XRCCTRL(*this, "pano_choice_pano_type" ,wxChoice);
@@ -150,6 +151,10 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
     m_FormatChoice = XRCCTRL(*this, "pano_choice_format_final", wxChoice);
     DEBUG_ASSERT(m_FormatChoice);
+    m_JPEGQualitySpin = XRCCTRL(*this, "pano_jpeg_quality", wxSpinCtrl);
+    DEBUG_ASSERT(m_JPEGQualitySpin);
+    m_editScriptCB = XRCCTRL(*this, "pano_edit_script", wxCheckBox);
+    DEBUG_ASSERT(m_editScriptCB);
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
@@ -163,7 +168,10 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 PanoPanel::~PanoPanel(void)
 {
     DEBUG_TRACE("dtor");
-    delete(m_tkf);
+    // FIXME. why does the crash at exit?
+//    m_GammaText->PopEventHandler(false);
+//    m_WidthTxt->PopEventHandler(false);
+//    delete(m_tkf);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -229,6 +237,14 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     m_WidthTxt->SetValue(wxString::Format("%d", opt.width));
     m_HeightStaticText->SetLabel(wxString::Format("%d", opt.getHeight()));
     m_FormatChoice->SetSelection((int)opt.outputFormat);
+    
+    if (opt.outputFormat == PanoramaOptions::JPEG) {
+        m_JPEGQualitySpin->Enable();
+    } else {
+        m_JPEGQualitySpin->Disable();
+    }
+    m_JPEGQualitySpin->SetValue(opt.quality);
+        
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -462,9 +478,20 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
         std::ofstream script(dlg.GetPath());
         wxConfig::Get()->Write("actualPath", dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().c_str();
-        new RunStitcherFrame(this, &pano, opt);
+        new RunStitcherFrame(this, &pano, opt, m_editScriptCB->IsChecked());
     }
 }
+
+void PanoPanel::OnSetQuality(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano.getOptions();
+    
+    opt.quality = m_JPEGQualitySpin->GetValue();
+
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( pano, opt )
+        );
+}    
 
 // TODO remove
 #if 0

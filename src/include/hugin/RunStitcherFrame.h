@@ -45,7 +45,9 @@ class RunStitcherFrame : public wxFrame
 public:
     RunStitcherFrame(wxWindow *parent,
                      PT::Panorama * pano,
-                     const PT::PanoramaOptions & options);
+                     const PT::PanoramaOptions & options,
+                     bool editScript=false
+                     );
 
     ~RunStitcherFrame();
 
@@ -69,7 +71,7 @@ private:
 
     PT::Panorama * m_pano;
     wxTimer m_timer;
-    
+
     // the current parser state.
     wxString m_description;
     long m_percent;

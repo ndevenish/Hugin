@@ -32,7 +32,7 @@
 #include "wx/listctrl.h"
 
 #include "PT/Panorama.h"
-#include "hugin/OptimizeFrame.h"
+#include "hugin/OptimizePanel.h"
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -46,6 +46,20 @@ class CPListFrame;
 //class OptimizeFrame;
 
 
+/** simple class that forward the drop to the mainframe */
+class PanoDropTarget : public wxFileDropTarget
+{
+public:
+    PanoDropTarget(PT::Panorama & p)
+        : pano(p)
+        { }
+    bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
+        
+private:
+    PT::Panorama & pano;
+};
+
+
 /** The main window frame.
  *
  *  It contains the menu & statusbar and a big notebook with
@@ -54,7 +68,7 @@ class CPListFrame;
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public wxFileDropTarget
+class MainFrame : public wxFrame, public PT::PanoramaObserver
 {
 public:
 
@@ -84,8 +98,6 @@ public:
 // virtual void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** file drag and drop handler method */
-    bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
@@ -93,7 +105,7 @@ public:
 private:
 
     // event handlers
-    void OnExit(wxCommandEvent & e);
+    void OnExit(wxCloseEvent & e);
     void OnAbout(wxCommandEvent & e);
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
@@ -104,20 +116,21 @@ private:
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
-    void OnToggleOptimizeFrame(wxCommandEvent & e);
+//    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleCPFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);
 
+    wxNotebook * m_notebook;
     // tab panels
     ImagesPanel* images_panel;
     LensPanel* lens_panel;
     CPEditorPanel * cpe;
+    OptimizePanel * opt_panel;
     PanoPanel * pano_panel;
-
+    
     // flying windows
-    OptimizeFrame * opt_frame;
     PreviewFrame * preview_frame;
     CPListFrame * cp_frame;
 

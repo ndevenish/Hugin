@@ -50,7 +50,7 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 public:
     ImagesPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
                  Panorama * pano );
-    ~ImagesPanel(void) ;
+    virtual ~ImagesPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *
@@ -150,7 +150,7 @@ class ImgPreview: public wxScrolledWindow
 
     /** the model */
     Panorama &pano;
-    
+
 
     DECLARE_EVENT_TABLE()
 };

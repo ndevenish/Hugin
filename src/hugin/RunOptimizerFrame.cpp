@@ -72,7 +72,7 @@ BEGIN_EVENT_TABLE(RunOptimizerFrame, wxFrame)
     EVT_END_PROCESS(-1, RunOptimizerFrame::OnProcessTerm)
 END_EVENT_TABLE()
 
-RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
+RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
                                      Panorama * pano,
                                      const PanoramaOptions & options,
                                      const OptimizeVector & optvars,
@@ -100,8 +100,8 @@ RunOptimizerFrame::RunOptimizerFrame(wxFrame *parent,
     std::string script(script_stream.str());
     if (edit) {
         // open a text dialog with an editor inside
-        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "optimizer_edit_dialog");
-        wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"optimizer_edit_text",wxTextCtrl);
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "edit_script_dialog");
+        wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
         txtCtrl->SetValue(script.c_str());
 
         if (edit_dlg->ShowModal() == wxID_OK) {

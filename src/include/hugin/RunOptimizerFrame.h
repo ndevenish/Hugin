@@ -35,7 +35,7 @@ namespace PT {
 class RunOptimizerFrame : public wxFrame
 {
 public:
-    RunOptimizerFrame(wxFrame *parent,
+    RunOptimizerFrame(wxWindow *parent,
                       PT::Panorama * pano,
                       const PT::PanoramaOptions & options,
                       const PT::OptimizeVector & optvars,

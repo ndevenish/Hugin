@@ -127,6 +127,16 @@ while (<CONF_T>) {
 close (CONF_T);
 close (CONF);
 
+print "Creating src/hugin/hugin.desktop\n";
+open(CONF_T,"<src/hugin/hugin.desktop.tmpl");
+open(CONF,">src/hugin/hugin.desktop");
+
+while (<CONF_T>) {
+    s/__PREFIX__/$prefix/g;
+    print CONF;
+}
+close (CONF_T);
+close (CONF);
 
 print <<EOT
 

@@ -555,7 +555,7 @@ void Panorama::printOptimizerScript(ostream & o,
     char * old_locale = setlocale(LC_NUMERIC,NULL);
     setlocale(LC_NUMERIC,"C");
 #endif
-                        
+
     o << "# PTOptimizer script, written by hugin" << endl
       << endl;
     // output options..
@@ -675,7 +675,7 @@ void Panorama::printStitcherScript(ostream & o,
     char * old_locale = setlocale(LC_NUMERIC,NULL);
     setlocale(LC_NUMERIC,"C");
 #endif
-    
+
     o << "# PTStitcher script, written by hugin" << endl
       << endl;
     // output options..
@@ -840,6 +840,7 @@ void Panorama::changeFinished()
     // reset changed images
     changedImages.clear();
     m_forceImagesUpdate = false;
+    dirty = true;
     DEBUG_TRACE("end");
 }
 

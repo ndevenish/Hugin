@@ -72,7 +72,8 @@ END_EVENT_TABLE()
 
 RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
                                    Panorama * pano,
-                                   const PanoramaOptions & options)
+                                   const PanoramaOptions & options,
+                                   bool editScript)
     : m_pid(-1),
       m_in(0),
       m_pano(pano),
@@ -83,6 +84,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_stitcher_frame"));
     assert(ok);
 
+    
     m_stitcherStatus = XRCCTRL(*this, "stitcher_status", wxStaticText);
     assert(m_stitcherStatus);
     m_stitcherProgress = XRCCTRL(*this, "stitcher_progress", wxGauge);
@@ -90,7 +92,6 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_abort = XRCCTRL(*this, "stitcher_abort", wxButton);
     assert(m_abort);
 
-    // start PTStitcher process
 
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
@@ -113,12 +114,32 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
 #endif
     wxString PTScriptFile = config->Read("/PanoTools/ScriptFile","PT_script.txt");
 
-    std::ofstream script(PTScriptFile.c_str());
-    if (!script.good()) {
+    stringstream script_stream;
+    m_pano->printStitcherScript(script_stream, options);
+    std::string script(script_stream.str());
+    if (editScript) {
+        // open a text dialog with an editor inside
+        wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, "script_edit_dialog");
+        wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
+        txtCtrl->SetValue(script.c_str());
+
+        if (edit_dlg->ShowModal() == wxID_OK) {
+            script = txtCtrl->GetValue();
+        } else {
+            script = script_stream.str();
+        }
+    } else {
+        script = script_stream.str();
+    }
+
+    // start PTStitcher process
+
+    std::ofstream scriptfile(PTScriptFile.c_str());
+    if (!scriptfile.good()) {
         DEBUG_FATAL("could not open/create PTScript file");
     }
-    m_pano->printStitcherScript(script, options);
-    script.close();
+    scriptfile << script;
+    scriptfile.close();
 
     wxString cmd = stitcherExe + wxString(" -o \"") + wxString(options.outfile.c_str()) + "\" " + PTScriptFile;
 
@@ -156,7 +177,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     Show();
     // start the timer to poll program output
     m_timer.Start(1000);
-#endif 
+#endif
 }
 
 RunStitcherFrame::~RunStitcherFrame()

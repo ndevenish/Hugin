@@ -105,8 +105,8 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 //    images_list->AssignImageList(img_icons, wxIMAGE_LIST_SMALL );
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
-    TextKillFocusHandler * m_tkf = new TextKillFocusHandler(this);
-    
+    m_tkf = new TextKillFocusHandler(this);
+
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PushEventHandler(m_tkf);
@@ -114,7 +114,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PushEventHandler(m_tkf);
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PushEventHandler(m_tkf);
-    
+
     // dummy to disable controls
     wxListEvent ev;
     ListSelectionChanged(ev);
@@ -125,7 +125,9 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 LensPanel::~LensPanel(void)
 {
     DEBUG_TRACE("dtor");
-    
+
+    // FIXME. why does this crash at exit?
+/*
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PopEventHandler();
@@ -134,7 +136,8 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_d", wxTextCtrl)->PopEventHandler();
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler();
     delete(m_tkf);
-
+*/
+    
     pano.removeObserver(this);
     DEBUG_TRACE("dtor about to finish");
 }

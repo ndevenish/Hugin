@@ -49,7 +49,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
  public:
     LensPanel( wxWindow *parent, const wxPoint& pos, const wxSize& size,
                  Panorama * pano );
-    ~LensPanel(void) ;
+    virtual ~LensPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *

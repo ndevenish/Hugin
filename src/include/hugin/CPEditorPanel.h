@@ -48,6 +48,7 @@ class wxTabView;
 class wxNotebook;
 class wxNotebookEvent;
 class wxListCtrl;
+class TextKillFocusHandler;
 
 struct FDiff2D;
 struct CorrelationResult;
@@ -135,10 +136,12 @@ private:
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
 
     double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
-                                      const vigra::Diff2D &tmplPoint,
-                                      unsigned int subjImgNr,
-                                      const vigra::Diff2D &subjPoint,
-                                      FDiff2D & tunedPos);
+                                        const vigra::Diff2D &tmplPoint,
+                                        int tmplWidth,
+                                        unsigned int subjImgNr,
+                                        const vigra::Diff2D &subjPoint,
+                                        int searchWidth,
+                                        FDiff2D & tunedPos);
 
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
@@ -153,10 +156,12 @@ private:
     void OnKeyUp(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
     void OnAutoAddCB(wxCommandEvent & e);
-
     void OnPrevImg(wxCommandEvent & e);
     void OnNextImg(wxCommandEvent & e);
 
+    void OnFineTuneButton(wxCommandEvent & e);
+    void FineTuneSelectedPoint();
+    void FineTuneNewPoint();
 
     // experimental corner detector.
     void OnAutoCreateCP();
@@ -206,6 +211,8 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
+
+    TextKillFocusHandler * m_tkf;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

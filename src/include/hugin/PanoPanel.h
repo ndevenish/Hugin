@@ -50,7 +50,7 @@ class PanoPanel: public wxPanel, public PT::PanoramaObserver
 {
 public:
     PanoPanel(wxWindow *parent, PT::Panorama * pano);
-    ~PanoPanel(void) ;
+    virtual ~PanoPanel(void) ;
 
     /** this is called whenever the panorama has changed.
      *
@@ -90,6 +90,7 @@ public:
     void VFOVChanged ( wxCommandEvent & e );
     void InterpolatorChanged(wxCommandEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
+    void OnSetQuality(wxCommandEvent & e);
 
 // TODO remove
 //    void AutoPreviewChanged (wxCommandEvent & e);
@@ -145,8 +146,10 @@ public:
     wxTextCtrl  * m_WidthTxt;
     wxStaticText *m_HeightStaticText;
     wxChoice    * m_FormatChoice;
+    wxSpinCtrl  * m_JPEGQualitySpin;
+    wxCheckBox  * m_editScriptCB;
     wxButton    * m_StitchButton;
-    
+
     // to convert EVT_KILL_FOCUS to EVT_TEXT_ENTER
     TextKillFocusHandler * m_tkf;
 
