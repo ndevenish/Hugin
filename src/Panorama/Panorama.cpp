@@ -267,11 +267,6 @@ std::vector<unsigned int> Panorama::getCtrlPointsForImage(unsigned int imgNr) co
     std::vector<unsigned int> result;
     unsigned int i = 0;
     for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
-        std::cout << "c n" << it->image1Nr
-          << " N" << it->image2Nr
-          << " x" << it->x1 << " y" << it->y1
-          << " X" << it->x2 << " Y" << it->y2
-          << " t" << it->mode << std::endl;
         if ((it->image1Nr == imgNr) || (it->image2Nr == imgNr)) {
             result.push_back(i);
         }
@@ -301,6 +296,10 @@ FDiff2D Panorama::calcFOV() const
     glr.x = FLT_MIN;
     glr.y = FLT_MIN;
 
+    DEBUG_DEBUG("opening calcFOV_debug.txt");
+    ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
+    debug_out << endl;
+    
     PTools::Transform T;
     unsigned int nImg = state.images.size();
     for (unsigned int i=0; i<nImg; i++) {
@@ -332,8 +331,11 @@ FDiff2D Panorama::calcFOV() const
         if (gul.y > ul.y) gul.y = ul.y;
         if (glr.x < lr.x) glr.x = lr.x;
         if (glr.y < lr.y) glr.y = lr.y;
+        debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << endl;
     }
 
+    debug_out.close();
+    DEBUG_DEBUG("closed calcFOV_debug.txt");
     FDiff2D res;
     res.x = 2 * max(fabs(gul.x),fabs(glr.x));
     res.y = 2 * max(fabs(gul.y),fabs(glr.y));

@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <27-Oct-2003 20:27:32 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <18-Nov-2003 00:56:14 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -59,7 +59,7 @@ PanoImage::PanoImage(const std::string &filename, int width, int height,
     : filename(filename),
       height(height),
       width(width),
-      lensNr(0)
+      lensNr(lens)
 {
 }
 

@@ -28,6 +28,7 @@
 #define MY_MATH_H
 
 #include <vigra/basicimage.hxx>
+#include <iostream>
 
 // a simple vector class...
 struct FDiff2D
@@ -39,7 +40,7 @@ struct FDiff2D
         : x(x), y(y)
         { }
 
-    FDiff2D operator+(FDiff2D rhs) const 
+    FDiff2D operator+(FDiff2D rhs) const
         {
             return FDiff2D (x+rhs.x, y+rhs.y);
         }
@@ -56,6 +57,16 @@ struct FDiff2D
 
     float x,y;
 };
+
+inline std::ostream & operator<<(std::ostream & o, const FDiff2D & d)
+{
+    return o << "[ " << d.x << " " << d.y << " ]";
+}
+
+inline std::ostream & operator<<(std::ostream & o, const vigra::Diff2D & d)
+{
+    return o << "[ " << d.x << " " << d.y << " ]";
+}
 
 
 #endif // MY_MATH_H

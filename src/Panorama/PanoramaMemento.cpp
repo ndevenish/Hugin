@@ -620,11 +620,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                  it != l.variables.end();
                  ++it)
             {
+                DEBUG_DEBUG("reading variable " << it->first);
                 ok = readVar(it->second, link, line);
                 if (!ok) {
 #ifdef __unix__
-                // reset locale
-                setlocale(LC_NUMERIC,old_locale);
+                    // reset locale
+                    setlocale(LC_NUMERIC,old_locale);
 #endif
 
                     return false;
@@ -644,11 +645,13 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 #endif
                             return false;
                         }
+                        DEBUG_DEBUG("anchored to image " << link);
                         anchorImage = link;
                         lensNr = images[anchorImage].getLensNr();
                         // valid link. update the link state of the corrosponding
-                        // existing lens variable
+                        // existing lens 
                         lensNr = images[anchorImage].getLensNr();
+                        DEBUG_DEBUG("using lens nr " << lensNr);
                         map_get(lenses[lensNr].variables,it->first).setLinked(true);
                     } else if (anchorImage != link) {
                         // conflict, link parameters do not match!
@@ -666,6 +669,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     map_get(vars, it->first).setValue(val);
                     it->second.setValue(val);
                 } else {
+                    DEBUG_DEBUG("anchored to image " << link);
                     // not linked
                     // copy value to image variable.
                     map_get(vars,it->first).setValue(it->second.getValue());
@@ -673,6 +677,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             variables.push_back(vars);
 
+            DEBUG_DEBUG("lensNr after scanning " << lensNr);
             int lensProjInt;
             getParam(lensProjInt, line, "f");
             l.projectionFormat = (Lens::LensProjectionFormat) lensProjInt;
@@ -725,6 +730,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             DEBUG_DEBUG("filename: " << file);
             DEBUG_ASSERT(lensNr >= 0);
+            DEBUG_DEBUG("adding image with lens " << lensNr);
             images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
 
             ImageOptions opts = images.back().getOptions();

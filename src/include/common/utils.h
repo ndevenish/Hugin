@@ -169,7 +169,6 @@ namespace utils
         std::string last_msg;
     };
 
-
 } // namespace
 
 
