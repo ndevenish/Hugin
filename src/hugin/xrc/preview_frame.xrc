@@ -77,8 +77,8 @@
     </object>
     <object class="tool" name="preview_fit_pano_tool">
       <bitmap>data/fit_pano.xpm</bitmap>
-      <longhelp>show the whole panorama (doesn't work well for very tall rectilinear and cylindircal panorams)</longhelp>
-      <tooltip>estimage field of view</tooltip>
+      <longhelp>show the whole panorama</longhelp>
+      <tooltip>estimate field of view</tooltip>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_auto_update_tool">
