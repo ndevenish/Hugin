@@ -32,6 +32,8 @@
 #include <vigra/basicimage.hxx>
 #include <vigra/basicimageview.hxx>
 #include <vigra/rgbvalue.hxx>
+#include <vigra/impex.hxx>
+#include <vigra/impexalpha.hxx>
 #include "vigra_ext/Pyramid.h"
 
 #include "hugin/ImageCache.h"
@@ -180,9 +182,173 @@ ImageCache & ImageCache::getInstance()
         instance = new ImageCache();
     }
     return *instance;
-
 }
 
+template <class SrcPixelType,
+          class DestIterator, class DestAccessor>
+void importAndConvertImage(const ImageImportInfo & info,
+                           vigra::pair<DestIterator, DestAccessor> dest)
+{
+    typedef typename DestAccessor::value_type DestPixelType;
+    typedef typename DestPixelType::value_type DestComponentType;
+    typedef typename SrcPixelType::value_type SrcComponentType;
+
+    // load image into temporary buffer.
+    BasicImage<SrcPixelType> tmp(info.width(), info.height());
+    vigra::importImage(info, destImage(tmp));
+
+    // convert to destination type
+    typedef typename vigra::NumericTraits<SrcComponentType>::RealPromote ScaleType;
+
+    ScaleType s = GetAlphaScaleFactor<SrcComponentType, DestComponentType>::get();
+//    GetAlphaScaleFactor<float, unsigned char>::get();
+
+    // get the scaling factor
+    ScaleType scale = vigra::NumericTraits<DestComponentType>::one()/s;
+
+    std::cerr << " import scale factor: " << scale << std::endl;
+
+    // copy image to output
+    transformImage(srcImageRange(tmp), dest,
+                   linearIntensityTransform<DestPixelType>(scale));
+}
+
+
+template <class SrcPixelType,
+          class DestIterator, class DestAccessor>
+void importAndConvertGrayImage(const ImageImportInfo & info,
+                               vigra::pair<DestIterator, DestAccessor> dest)
+
+{
+    typedef typename DestAccessor::value_type DestPixelType;
+    typedef typename DestPixelType::value_type DestComponentType;
+    typedef SrcPixelType SrcComponentType;
+
+    // load image into temporary buffer.
+    BasicImage<SrcPixelType> tmp(info.width(), info.height());
+    vigra::importImage(info, destImage(tmp));
+
+    // convert to destination type
+    typedef typename vigra::NumericTraits<SrcComponentType>::RealPromote ScaleType;
+
+    ScaleType s = GetAlphaScaleFactor<SrcComponentType, DestComponentType>::get();
+//    GetAlphaScaleFactor<float, unsigned char>::get();
+
+    // get the scaling factor
+    ScaleType scale = vigra::NumericTraits<DestComponentType>::one()/s;
+
+    std::cerr << " import scale factor: " << scale << std::endl;
+
+    // copy image to output
+    transformImage(srcImageRange(tmp),
+                   make_pair(dest.first,
+                             RedAccessor<DestPixelType>()),
+                   linearIntensityTransform<DestComponentType>(scale));
+
+    copyImage(dest.first, dest.first + tmp.size(),
+              RedAccessor<DestPixelType>(),
+              dest.first, GreenAccessor<DestPixelType>());
+
+    copyImage(dest.first, dest.first + tmp.size(),
+              RedAccessor<DestPixelType>(),
+              dest.first, BlueAccessor<DestPixelType>());
+}
+
+template <class SrcPixelType,
+          class DestIterator, class DestAccessor>
+void importAndConvertGrayAlphaImage(const ImageImportInfo & info,
+                                    vigra::pair<DestIterator, DestAccessor> dest)
+{
+    typedef typename DestAccessor::value_type DestPixelType;
+    typedef typename DestPixelType::value_type DestComponentType;
+    typedef typename SrcPixelType::value_type SrcComponentType;
+
+    // load image into temporary buffer.
+    BasicImage<SrcPixelType> tmp(info.width(), info.height());
+    vigra::importImage(info, destImage(tmp));
+
+    // convert to destination type
+    typedef typename vigra::NumericTraits<SrcComponentType>::RealPromote ScaleType;
+
+    ScaleType s = GetAlphaScaleFactor<SrcComponentType, DestComponentType>::get();
+//    GetAlphaScaleFactor<float, unsigned char>::get();
+
+    // get the scaling factor
+    ScaleType scale = vigra::NumericTraits<DestComponentType>::one()/s;
+
+    std::cerr << " import scale factor: " << scale << std::endl;
+
+    // copy image to output
+    transformImageIf(tmp.upperLeft(), tmp.lowerRight(),
+                     VectorComponentAccessor<SrcPixelType>(0),
+                     tmp.upperLeft(), 
+                     VectorComponentAccessor<SrcPixelType>(1),
+                     dest.first, RedAccessor<DestPixelType>(),
+                     linearIntensityTransform<DestComponentType>(scale));
+
+    copyImage(dest.first, dest.first + tmp.size(),
+              RedAccessor<DestPixelType>() ,
+              dest.first, GreenAccessor<DestPixelType>());
+
+    copyImage(dest.first, dest.first + tmp.size(),
+              RedAccessor<DestPixelType>(),
+              dest.first, BlueAccessor<DestPixelType>());
+}
+
+
+template <class SrcPixelType,
+          class DestIterator, class DestAccessor>
+void importAndConvertAlphaImage(const ImageImportInfo & info,
+                                vigra::pair<DestIterator, DestAccessor> dest)
+{
+    typedef typename DestAccessor::value_type DestPixelType;
+    typedef typename DestPixelType::value_type DestComponentType;
+    typedef typename SrcPixelType::value_type SrcComponentType;
+
+    // load image into temporary buffer.
+    BasicImage<SrcPixelType> tmp(info.width(), info.height());
+    vigra::importImage(info, destImage(tmp));
+
+    tmp.upperLeft();
+
+    // convert to destination type
+    typedef typename vigra::NumericTraits<SrcComponentType>::RealPromote ScaleType;
+
+    ScaleType s = GetAlphaScaleFactor<SrcComponentType, DestComponentType>::get();
+//    GetAlphaScaleFactor<float, unsigned char>::get();
+
+    // get the scaling factor
+    ScaleType scale = vigra::NumericTraits<DestComponentType>::one()/s;
+
+    std::cerr << " import scale factor: " << scale << std::endl;
+    
+    // copy image to output
+    vigra::transformImageIf(tmp.upperLeft(), 
+                            tmp.lowerRight(),
+                            VectorComponentAccessor<SrcPixelType>(0),
+                            
+                            tmp.upperLeft(),
+                            VectorComponentAccessor<SrcPixelType>(3),
+                            
+                            dest.first, RedAccessor<DestPixelType>(),
+                            linearIntensityTransform<DestComponentType>(scale));
+
+    transformImageIf(tmp.upperLeft(), tmp.lowerRight(),
+                     VectorComponentAccessor<SrcPixelType>(1),
+                     tmp.upperLeft(),
+                     VectorComponentAccessor<SrcPixelType>(3),
+                     dest.first,
+                     GreenAccessor<DestPixelType>(),
+                     linearIntensityTransform<DestComponentType>(scale));
+    
+    transformImageIf(tmp.upperLeft(), tmp.lowerRight(),
+                     VectorComponentAccessor<SrcPixelType>(2),
+                     tmp.upperLeft(),
+                     VectorComponentAccessor<SrcPixelType>(3),
+                     dest.first,
+                     BlueAccessor<DestPixelType>(),
+                     linearIntensityTransform<DestComponentType>(scale));
+}
 
 
 ImagePtr ImageCache::getImage(const std::string & filename)
@@ -198,11 +364,101 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             char *str = wxT("Loading image");
             m_progress->pushTask(ProgressTask(wxString::Format("%s %s",str,utils::stripPath(filename).c_str()).c_str(), "", 0));
         }
-#if 0
+#if 1
         // load images with VIGRA impex, and scale to 8 bit
         ImageImportInfo info(filename.c_str());
-        if (info.numBands() < 3) {
-            // greyscale image
+
+        wxImage * image = new wxImage(info.width(), info.height());
+
+        BasicImageView<RGBValue<unsigned char> > imgview((RGBValue<unsigned char> *)image->GetData(),
+                                                         image->GetWidth(),
+                                                         image->GetHeight());
+
+        int bands = info.numBands();
+        int extraBands = info.numExtraBands();
+        const char * pixelType = info.getPixelType();
+
+
+        if ( bands == 1) {
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                importImage(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertGrayImage<short> (info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                importAndConvertGrayImage<unsigned short >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertGrayImage<unsigned int>(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertGrayImage<int>(info, destImage(imgview));
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                importAndConvertGrayImage<float>(info, destImage(imgview));
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                importAndConvertGrayImage<double>(info, destImage(imgview));
+            } else {
+                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+            }
+        } else if (bands == 3 && extraBands == 0) {
+            DEBUG_DEBUG( pixelType);
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                vigra::importImage(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertImage<RGBValue<short> > (info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                importAndConvertImage<RGBValue<unsigned short> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertImage<RGBValue<unsigned int> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertImage<RGBValue<int> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                importAndConvertImage<RGBValue<float> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                importAndConvertImage<RGBValue<double> >(info, destImage(imgview));
+            } else {
+                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+            }
+        } else if ( bands == 4 && extraBands == 1) {
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                importAndConvertAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
+            } else {
+                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+            }
+        } else if ( bands == 2 && extraBands == 1) {
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                importAndConvertGrayAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
+            } else {
+                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+            }
+            
+        } else {
+            DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported.");
         }
 #else
         // use wx for image loading
