@@ -42,7 +42,7 @@ public:
     virtual void execute()
         {
             PanoCommand::execute();
-            
+
             // FIXME make it possible to add other lenses,
             // for example if the exif data or image size
             // suggests it.
@@ -55,6 +55,10 @@ public:
                 }
                 std::string ext = filename.substr( idx+1 );
 
+                wxImage * image = ImageCache::getInstance().getImage(filename);
+                int width = image->GetWidth();
+                int height = image->GetHeight();
+                
                 // FIXME check if we need to add another lens
                 // query user if we need to.
                 int lensNr=0;
@@ -62,14 +66,11 @@ public:
                     Lens lens;
                     if (utils::tolower(ext) == "jpg") {
                         // try to read exif data from jpeg files.
-                        lens.readEXIF(filename);
+                        lens.readEXIF(filename, width > height);
                     }
                     lensNr = pano.addLens(lens);
                 }
-                
-                wxImage * image = ImageCache::getInstance().getImage(filename);
-                int width = image->GetWidth();
-                int height = image->GetHeight();
+
 
                 VariableMap vars;
                 fillVariableMap(vars);

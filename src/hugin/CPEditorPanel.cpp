@@ -378,7 +378,7 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
                                          m_leftImageNr,
                                          Diff2D(p.x, p.y),
                                          p2);
-            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.7");
+            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
             double thresh = utils::lexical_cast<double>(str);
             if (xcorr < thresh) {
                 // Bad correlation result.
@@ -434,7 +434,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
                                          m_rightImageNr,
                                          Diff2D(p.x, p.y),
                                          p2);
-            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.7");
+            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
             double thresh = utils::lexical_cast<double>(str);
             if (xcorr < thresh) {
                 // Bad correlation result.
@@ -540,7 +540,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     if (tmplUL.y + tmplPoint.y < 0) tmplUL.y = -tmplPoint.y;
     if (tmplLR.x + tmplPoint.x> tmplImg.width())
         tmplLR.x = tmplImg.width() - tmplPoint.x;
-    if (tmplLR.y + tmplPoint.y > tmplImg.width())
+    if (tmplLR.y + tmplPoint.y > tmplImg.height())
         tmplLR.y = tmplImg.height() - tmplPoint.y;
 
     FImage dest(searchSize);

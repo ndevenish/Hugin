@@ -176,7 +176,7 @@ public:
      *  @return true if focal length was found, lens will contain
      *          the correct data.
      */
-    bool readEXIF(const std::string & filename);
+    bool readEXIF(const std::string & filename, bool isLandscape=true);
 
     // updates everything, except the variables
     void update(const Lens & l)
@@ -325,7 +325,7 @@ public:
         {};
 
     void reset()
-        { 
+        {
             HFOV = 360;
             VFOV = 180;
             width = 3000;

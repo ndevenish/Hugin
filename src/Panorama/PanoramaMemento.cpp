@@ -169,12 +169,8 @@ void Lens::setFromXML(const QDomNode & node)
 #endif
 
 
-bool Lens::readEXIF(const std::string & filename)
+bool Lens::readEXIF(const std::string & filename, bool isLandscape)
 {
-
-    bool isLandscape;
-    int width, height;
-    width = height = 0;
 
     double HFOV = 0;
 
@@ -204,15 +200,15 @@ bool Lens::readEXIF(const std::string & filename)
     }
     ShowImageInfo(exif);
 
+    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
 
-    isLandscape = (exif.Width > exif.Height);
     double ccdWidth = 0;
     if (isLandscape) {
         ccdWidth = exif.CCDWidth;
     } else {
         // portrait images must use the ccd height instead
         // of ccd width. we assume that the pixels are squares
-        ccdWidth = exif.CCDHeight;
+        ccdWidth = exif.CCDWidth * exif.Width / exif.Height;
     }
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     if ( !(HFOV  > 0.0) )
@@ -438,7 +434,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             int height;
             getParam(height, line, "h");
             options.VFOV = options.HFOV * (double) height / options.width;
-            DEBUG_DEBUG("options.VFOV: " << options.VFOV << " ratio: " 
+            DEBUG_DEBUG("options.VFOV: " << options.VFOV << " ratio: "
                         << (double) height / options.width);
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
@@ -460,7 +456,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             }
             options.colorReferenceImage=cRefImg;
             break;
-            
+
         }
         case 'm':
         {
