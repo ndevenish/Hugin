@@ -113,6 +113,9 @@ public:
     virtual void progressMessage(const std::string & msg,
                                  int progress=-1);
 
+    /// get the path to the xrc directory
+    const wxString & GetXRCPath()
+    { return m_xrcPrefix;};
 
 private:
 
