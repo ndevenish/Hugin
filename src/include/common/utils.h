@@ -85,16 +85,16 @@
  #endif
 
  // when an error occured, but can be handled by the same function
- #define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(o.str().c_str());}
+ #define DEBUG_WARN(msg) { std::stringstream o; o << "WARN: " << DEBUG_HEADER << msg; wxLogWarning(wxString(o.str().c_str(), wxConvISO8859_1));}
  // an error occured, might be handled by a calling function
- #define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(o.str().c_str());}
+ #define DEBUG_ERROR(msg) { std::stringstream o; o << "ERROR: " << DEBUG_HEADER << msg; wxLogError(wxString(o.str().c_str(),wxConvISO8859_1));}
 // a fatal error occured. further program execution is unlikely
- #define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(o.str().c_str()); }
+ #define DEBUG_FATAL(msg) { std::stringstream o; o << "FATAL: " << DEBUG_HEADER << "(): " << msg; wxLogError(wxString(o.str().c_str(),wxConvISO8859_1)); }
  #define DEBUG_ASSERT(cond) \
  do { \
      if (!(cond)) { \
          std::stringstream o; o << "ASSERTATION: " << DEBUG_HEADER << "(): " << #cond; \
-         wxLogFatalError(o.str().c_str()); \
+         wxLogFatalError(wxString(o.str().c_str(),wxConvISO8859_1)); \
     } \
  } while(0)
 
@@ -141,7 +141,7 @@ namespace utils
      *     -1: not specified, use default.
      */
     std::string doubleToString(double d, int fractionaldigits=-1);
-    
+
     /** convert a string to a double, ignore localisation.
      *  always accept both.
      *
@@ -153,7 +153,42 @@ namespace utils
      *
      *  @return success
      */
-    bool stringToDouble(std::string str, double & dest);
+template <typename STR>
+bool stringToDouble(const STR & str_, double & dest)
+{
+    double res=0;
+    // set numeric locale to C, for correct number output
+    char * old_locale = setlocale(LC_NUMERIC,NULL);
+    old_locale = strdup(old_locale);
+    setlocale(LC_NUMERIC,"C");
+
+    STR str(str_);
+    // replace all kommas with points, independant of the locale..
+    for (typename STR::iterator it = str.begin(); it != str.end(); ++it) {
+        if (*it == ',') {
+            *it = '.';
+        }
+    }
+
+    const char * p = str.c_str();
+    char * pe=0;
+    res = strtod(p,&pe);
+
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
+
+    if (pe == p) {
+        // conversion failed.
+        DEBUG_DEBUG("conversion failed: " << str << " to:" << dest);
+        return false;
+    } else {
+        // conversion ok.
+        dest = res;
+//        DEBUG_DEBUG("converted: " << str << " to:" << dest);
+        return true;
+    }
+}
 
     /** Remove the extension from a filename */
     std::string stripExtension(const std::string & str);

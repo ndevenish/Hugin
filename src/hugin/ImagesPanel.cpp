@@ -220,7 +220,8 @@ void ImagesPanel::OnYawTextChanged ( wxCommandEvent & e )
         DEBUG_INFO ("yaw = " << text );
 
         double val;
-        if (!text.ToDouble(&val)) {
+        if (!str2double(text, val)) {
+//        if (!text.ToDouble(&val)) {
             wxLogError(_("Value must be numeric."));
             return;
         }
@@ -240,7 +241,8 @@ void ImagesPanel::OnPitchTextChanged ( wxCommandEvent & e )
         }
 
         double val;
-        if (!text.ToDouble(&val)) {
+        if (!str2double(text, val)) {
+//        if (!text.ToDouble(&val)) {
             wxLogError(_("Value must be numeric."));
             return;
         }
@@ -259,7 +261,8 @@ void ImagesPanel::OnRollTextChanged ( wxCommandEvent & e )
         }
 
         double val;
-        if (!text.ToDouble(&val)) {
+        if (!str2double(text, val)) {
+//        if (!text.ToDouble(&val)) {
             wxLogError(_("Value must be numeric."));
             return;
         }

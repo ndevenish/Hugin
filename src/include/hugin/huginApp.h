@@ -28,6 +28,11 @@
 
 #include "hugin/MainFrame.h"
 
+
+
+// utility functions
+bool str2double(wxString s, double & d);
+
 /** Resources Definition
  *
  */
@@ -61,7 +66,7 @@ public:
 
     /// hack.. kind of a pseudo singleton...
     static huginApp * Get();
-    
+
     wxString GetWorkDir()
     {
         return m_workDir;

@@ -283,7 +283,7 @@ void PTStitcherPanel::GammaChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano.getOptions();
     double val;
     wxString text = m_GammaText->GetValue();
-    if (text.ToDouble( &val )) {
+    if (str2double(text, val)) {
         opt.gamma = val;
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )

@@ -167,7 +167,7 @@ void LensPanel::UpdateLensDisplay ()
         // might be different for each image
         return;
     }
-    
+
 
     const Lens & lens = pano.getLens(*(m_selectedLenses.begin()));
     const VariableMap & imgvars = pano.getImageVariables(*m_selectedImages.begin());
@@ -232,7 +232,7 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
     DEBUG_TRACE ("")
     if (m_selectedLenses.size() > 0) {
         for (UIntSet::iterator it = m_selectedLenses.begin();
-             it != m_selectedLenses.end(); ++it) 
+             it != m_selectedLenses.end(); ++it)
         {
             // get lens from pano
             Lens lens = pano.getLens(*it);
@@ -256,8 +256,7 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
         DEBUG_TRACE ("");
         double val;
         wxString text=XRCCTRL(*this,"lens_val_focalLength",wxTextCtrl)->GetValue();
-        if (!text.ToDouble(&val)) {
-            wxLogError(_("Value must be numeric."));
+        if (!str2double(text, val)) {
             return;
         }
 
@@ -286,8 +285,7 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
         wxString text=XRCCTRL(*this,"lens_val_flFactor",wxTextCtrl)->GetValue();
         DEBUG_TRACE(text);
         double val;
-        if (!text.ToDouble(&val)) {
-            wxLogError(_("Value must be numeric."));
+        if (!str2double(text, val)) {
             return;
         }
 
@@ -345,8 +343,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         double val;
         wxString text = XRCCTRL(*this, ctrl_name.c_str(), wxTextCtrl)->GetValue();
         DEBUG_DEBUG("setting variable " << varname << " to " << text);
-        if (!text.ToDouble(&val)){
-            wxLogError(_("Value must be numeric."));
+        if (!str2double(text, val)){
             return;
         }
         Variable var(varname,val);
@@ -386,7 +383,7 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
         ctrl_name.append(varname);
         bool inherit = XRCCTRL(*this, ctrl_name.c_str(), wxCheckBox)->IsChecked();
         for (UIntSet::iterator it = m_selectedLenses.begin();
-             it != m_selectedLenses.end(); ++it) 
+             it != m_selectedLenses.end(); ++it)
         {
             // get the current Lens.
             unsigned int lensNr = *it;
@@ -425,7 +422,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
     m_selectedImages = images_list->GetSelected();
     m_selectedLenses.clear();
     for (UIntSet::iterator it = m_selectedImages.begin();
-         it != m_selectedImages.end(); it++) 
+         it != m_selectedImages.end(); it++)
     {
         m_selectedLenses.insert(pano.getImage(*it).getLensNr());
     }

@@ -114,37 +114,3 @@ std::string utils::doubleToString(double d, int digits)
     return number;
 }
 
-bool utils::stringToDouble(std::string str, double & dest)
-{
-    double res=0;
-    // set numeric locale to C, for correct number output
-    char * old_locale = setlocale(LC_NUMERIC,NULL);
-    old_locale = strdup(old_locale);
-    setlocale(LC_NUMERIC,"C");
-
-    // replace all kommas with points, independant of the locale..
-    for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
-        if (*it == ',') {
-            *it = '.';
-        }
-    }
-
-    const char * p = str.c_str();
-    char * pe=0;
-    res = strtod(p,&pe);
-
-    // reset locale
-    setlocale(LC_NUMERIC,old_locale);
-    free(old_locale);
-
-    if (pe == p) {
-        // conversion failed.
-        DEBUG_DEBUG("conversion failed: " << str << " to:" << dest);
-        return false;
-    } else {
-        // conversion ok.
-        dest = res;
-//        DEBUG_DEBUG("converted: " << str << " to:" << dest);
-        return true;
-    }
-}

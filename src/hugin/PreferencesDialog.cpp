@@ -235,12 +235,12 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write("/Finetune/LocalSearchWidth", MY_G_SPIN_VAL("prefs_ft_LocalSearchWidth"));
     wxString t = MY_G_STR_VAL("prefs_ft_CorrThreshold");
     double td= HUGIN_FT_CORR_THRESHOLD;
-    utils::stringToDouble(t.c_str(), td);
+    utils::stringToDouble(std::string(t.mb_str()), td);
     cfg->Write("/Finetune/CorrThreshold", td);
 
     t = MY_G_STR_VAL("prefs_ft_CurvThreshold");
     td = HUGIN_FT_CURV_THRESHOLD;
-    utils::stringToDouble(t.c_str(), td);
+    utils::stringToDouble(std::string(t.mb_str()), td);
     cfg->Write("/Finetune/CurvThreshold", td);
 
     cfg->Write("/Finetune/RotationSearch", MY_G_BOOL_VAL("prefs_ft_RotationSearch"));

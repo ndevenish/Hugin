@@ -39,6 +39,18 @@
 
 #include <tiffio.h>
 
+
+// utility functions
+bool str2double(wxString s, double & d)
+{
+    if (!utils::stringToDouble(std::string(s.mb_str()), d)) {
+        wxLogError(_("Value must be numeric."));
+        return false;
+    }
+    return true;
+}
+
+
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
 

@@ -1189,26 +1189,22 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     ControlPoint cp = currentPoints[nr].second;
 
     // update point state
-    if (!m_x1Text->GetValue().ToDouble(&cp.x1)) {
-        wxBell();
+    if (!str2double(m_x1Text->GetValue(), cp.x1)) {
         m_x1Text->Clear();
         *m_x1Text << cp.x1;
         return;
     }
-    if (!m_y1Text->GetValue().ToDouble(&cp.y1)) {
-        wxBell();
+    if (!str2double(m_y1Text->GetValue(), cp.y1)) {
         m_y1Text->Clear();
         *m_y1Text << cp.y1;
         return;
     }
-    if (!m_x2Text->GetValue().ToDouble(&cp.x2)) {
-        wxBell();
+    if (!str2double(m_x2Text->GetValue(),cp.x2)) {
         m_x2Text->Clear();
         *m_x2Text << cp.x2;
         return;
     }
-    if (!m_y2Text->GetValue().ToDouble(&cp.y2)) {
-        wxBell();
+    if (!str2double(m_y2Text->GetValue(),cp.y2)) {
         m_y2Text->Clear();
         *m_y2Text << cp.x2;
         return;
