@@ -934,20 +934,9 @@ msgstr ""
 msgid "Select PTStitcher"
 msgstr "PTStitcher Anweisungen bearbeiten"
 
-#: src/hugin/PreferencesDialog.cpp:166 src/hugin/RunOptimizerFrame.cpp:99
-#, fuzzy
-msgid "Select PTOptimizer"
-msgstr "Optimieren"
-
 #: src/hugin/PreferencesDialog.cpp:182
 msgid "Select Enblend"
 msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:198 src/hugin/PreferencesDialog.cpp:214
-#: src/hugin/xrc/pref_dialog.xrs:47
-#, fuzzy
-msgid "Select Autopano"
-msgstr "Abstand"
 
 #: src/hugin/PreviewFrame.cpp:74
 msgid "Panorama preview"
