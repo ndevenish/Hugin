@@ -742,10 +742,12 @@ void Panorama::printOptimizerScript(ostream & o,
                     // print only once
                     o << *sit << i << " ";
                     linkvars[lensNr].insert(*sit);
+                    optVarCounter++;
                 }
             } else {
                 // not a lens variable, print multiple times
                 o << *sit << i << " ";
+                optVarCounter++;
             }
             // insert line break after 10 variables
             if (optVarCounter++%10) {
