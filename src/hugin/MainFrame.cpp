@@ -831,7 +831,27 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxDialog dlg;
+	wxString strFile;
+	wxString langCode;
+	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
+
+    //if the language is not default, load custom About file (if exists)
+	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
+	if(langCode != wxString(wxT("en")))
+	{
+#ifdef UNICODE
+		strFile = m_xrcPrefix + wxT("data/about_") + langCode + wxT("-UTF8.htm");
+#else
+		strFile = m_xrcPrefix + wxT("data/about_") + langCode + wxT(".htm");
+#endif
+		if(wxFile::Exists(strFile))
+		{
+			DEBUG_TRACE("Using About: " << strFile.mb_str());
+  			XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+		}
+	}
     dlg.ShowModal();
 }
 
