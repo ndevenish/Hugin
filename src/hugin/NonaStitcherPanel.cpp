@@ -256,6 +256,21 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 }
             }
             wxString args(enblendExe);
+#elif defined (__WXMAC__)
+            wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
+            if (!wxFile::Exists(enblendExe)){
+                wxFileDialog dlg(this,_("Select enblend commandline tool"),
+                                 "", "",
+                                 "Any Files |*",
+                                 wxOPEN, wxDefaultPosition);
+                if (dlg.ShowModal() == wxID_OK) {
+                    enblendExe = dlg.GetPath();
+                    config->Write("/Enblend/EnblendExe",enblendExe);
+                } else {
+                    wxLogError(_("No enblend commndline tool selected"));
+                }
+            }
+            wxString args(enblendExe);
 #else
             wxString enblendExe = config->Read("/Enblend/EnblendExe","enblend");
             wxString args(enblendExe);
