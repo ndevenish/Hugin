@@ -26,12 +26,29 @@
 #
 # ========================================================================
 
+# this is set by the individual makefiles. it is not the install prefix!
+# do not change
 CODE_ROOT = $(PREFIX)
+
+# ========================================================================
+# install locations
+# ========================================================================
+
+INSTALL_PREFIX=/tmp/l
+INSTALL_ETC_DIR=__ETC_PREFIX__
+INSTALL_BIN_DIR=$(INSTALL_PREFIX)/bin
+INSTALL_DOC_DIR=$(INSTALL_PREFIX)/share/doc/hugin
+INSTALL_DATA_DIR=$(INSTALL_PREFIX)/share/hugin
+INSTALL_XRC_DIR=$(INSTALL_DATA_DIR)/xrc
+INSTALL_XRC_DATA_DIR=$(INSTALL_XRC_DIR)/data
+INSTALL_LOCALE_DIR=$(INSTALL_PREFIX)/locale
+
 
 # ========================================================================
 # General settings
 # ========================================================================
 
+# the programs we use (TODO: use configure to detect them)
 CC            = gcc
 CXX           = g++
 CPP	      = gcc -E
@@ -41,6 +58,21 @@ RANLIB        = ranlib
 ECHO          = @echo
 RM	      = rm -rf
 MKDIR         = install -d
+
+INSTALL       = install -c -p
+INSTALL_PROGRAM= ${INSTALL} $(INSTALL_STRIP_FLAG)
+INSTALL_DATA  = ${INSTALL} -m 644
+INSTALL_SCRIPT= ${INSTALL}
+INSTALL_HEADER= $(INSTALL_DATA)
+
+MSGFMT        = msgfmt -v
+MSGMERGE      = msgmerge
+XGETTEXT      = xgettext
+XARGS         = xargs
+
+# common xgettext args: C++ syntax, use the specified macro names as markers
+XGETTEXT_ARGS=-C -k_ -s -j
+
 
 OBJ_DIR       = .obj
 
@@ -73,4 +105,9 @@ CFLAGS     += -D_REENTRANT -D_POSIX_THREADS -D_POSIX_THREAD_SAFE_FUNCTIONS
 # set to @ if compile commands shouldn't be printed
 # ========================================================================
 
+ifeq ($(QUIET),1)
+SILENT=@
+else
 SILENT=
+endif
+

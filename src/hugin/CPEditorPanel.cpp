@@ -42,16 +42,20 @@
 #endif
 
 #include "wx/xrc/xmlres.h"              // XRC XML resouces
+#include "wx/notebook.h"
 #include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
-
+//#include "hugin/TabBar.h"
 #include "hugin/CPEditorPanel.h"
 
+
+using namespace std;
 
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON( XRCID("button_wide"), CPEditorPanel::OnMyButtonClicked )
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
-
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_left_tabbar"),CPEditorPanel::OnLeftImgChange)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("cp_editor_right_tabbar"),CPEditorPanel::OnRightImgChange)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent)
@@ -59,13 +63,27 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent)
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
     DEBUG_TRACE("Panel created");
 
+    // create custom controls
+
+    // left image
     m_leftImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
+//    TabBar * tb = new TabBar(this);
+//    m_leftTabs = new TabBarView(tb);
+//    tb->SetTabView(m_leftTabs);
+//    wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_tabs"),
+//                                               tb);
+
+    // right image
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
-
+//    tb = new TabBar(this);
+//    m_rightTabs = new TabBarView(tb);
+//    tb->SetTabView(m_rightTabs);
+//    wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_tabs"),
+//                                               tb);
 }
 
 
@@ -119,4 +137,69 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 void CPEditorPanel::OnMyButtonClicked(wxCommandEvent &e)
 {
     DEBUG_DEBUG("on my button");
+}
+
+void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
+{
+    DEBUG_TRACE("panoramChanged()");
+
+    // update Tabs
+    unsigned int nrImages = pano.getNrOfImages();
+    unsigned int nrTabs;
+    // = m_leftTabs->GetNumberOfTabs();
+    // update tab buttons
+/*    
+    if (nrTabs < nrImages) {
+        // FIXME add buttons
+        for (unsigned int img = nrTabs; img <nrImages; ++img) {
+            m_leftTabs->AddTab(img, wxString::Format("%d",img));
+            m_rightTabs->AddTab(img, wxString::Format("%d",img));
+        }
+    } else if (nrTabs > nrImages) {
+        // FIXME delete buttons
+        for (unsigned int img = nrImages; img > nrTabs; img--) {
+            m_leftTabs->RemoveTab(img);
+            m_rightTabs->RemoveTab(img);
+        }
+    }
+*/
+
+    // update control points
+    const PT::CPVector & controlPoints = pano.getCtrlPoints();
+    currentPoints.clear();
+    mirroredPoints.clear();
+    std::vector<wxPoint> left;
+    std::vector<wxPoint> right;
+
+    // create a list of all control points
+    unsigned int i = 0;
+    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
+        PT::ControlPoint point = *it;
+        if ((point.image1Nr == firstImage) && (point.image2Nr == secondImage)){
+            left.push_back(wxPoint( (int) point.x1, (int) point.y1));
+            right.push_back(wxPoint( (int) point.x2, (int) point.y2));
+            currentPoints.push_back(make_pair(it - controlPoints.begin(), *it));
+            i++;
+        } else if ((point.image2Nr == firstImage) && (point.image1Nr == secondImage)){
+            point.mirror();
+            mirroredPoints.insert(i);
+            left.push_back(wxPoint( (int) point.x1, (int) point.y1));
+            right.push_back(wxPoint( (int) point.x2, (int) point.y2));
+            currentPoints.push_back(std::make_pair(it - controlPoints.begin(), point));
+            i++;
+        }
+    }
+    m_leftImg->setCtrlPoints(left);
+    m_rightImg->setCtrlPoints(right);
+}
+
+
+void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
+{
+    DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
+}
+
+void CPEditorPanel::OnRightImgChange(wxNotebookEvent & e)
+{
+    DEBUG_TRACE("OnRightImgChange() to " << e.GetSelection());
 }

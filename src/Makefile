@@ -43,41 +43,23 @@ include $(PREFIX)/makefiles/config.mk
 # the order they are written here.
 # ====================================================================
 
-SUBDIRS = jhead Panorama hugin po
+SUBDIRS = jhead Panorama hugin
 
 # ====================================================================
-# Files that should be considered while creating the dependencies
+# include common rules
 # ====================================================================
 
-DEPEND_FILES = 
+include $(PREFIX)/makefiles/rules.mk
 
 # ====================================================================
-# Some of the object in this directory you might want to put in a
-# library to make them easily available from other locations. The
-# library name should be without the leading lib and trailing
-# .a. Those are added automatically.
+# local rules
 # ====================================================================
 
-LIBS = 
-
-# ====================================================================
-# The source files from which the applications should be built. The
-# applications will be given the same name as the source file but
-# without the suffix such as .cc
-# ====================================================================
-
-APPS = 
-
-# ====================================================================
-# Some applications are only for testing. To make these compile you
-# must explicitly type "make tests"
-# ====================================================================
-
-TESTS =
+docs:
+	doxygen
 
 # ====================================================================
 # Do not edit anything below this
 # ====================================================================
 
-include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)

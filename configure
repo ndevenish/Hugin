@@ -1,0 +1,68 @@
+#!/usr/bin/perl -w
+
+# this is a very simple configure script, it just writes
+# the config.h and path.mk files
+
+
+sub print_help{
+print <<EOF;
+configure - prepare hugin for compilation
+
+options:
+  --help           this text
+  --prefix prefix  install program to prefix
+EOF
+}
+
+
+
+use Getopt::Long;
+my $prefix = "/usr/local";
+
+$result = GetOptions ("prefix=s" => \$prefix,    # string
+                      "help"  => \$help);  # flag
+
+if (!$result) {
+    print_help();
+    exit(1);
+}
+if ($help) {
+    print_help();
+    exit(0);
+}
+
+print "checking for wxwindows 2.4 or greater: ";
+$_ = `wx-config --version`;
+
+chomp;
+m/^(\d).(\d).(\d)/;
+if (($1 == 2 && $2 >= 4) || $1 >2 ) {
+    print "found\n";
+} else {
+    print "not found\n";
+    exit(1);
+}
+
+print "Configuration summary for hugin:\n\n";
+print "  prefix: $prefix\n\n";
+
+print "Creating src/makefiles/config.mk\n";
+open(CONF_T,"<src/makefiles/config.mk.tmpl");
+open(CONF,">src/makefiles/config.mk");
+
+while (<CONF_T>) {
+    s/__PREFIX__/$prefix/g;
+    print CONF;
+}
+close (CONF_T);
+close (CONF);
+
+print <<EOT
+
+Configuration finished.
+
+Run "make" to compile hugin.
+After compilation use "make install" to install hugin
+into the system
+
+EOT

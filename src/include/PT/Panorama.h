@@ -51,7 +51,7 @@ class PanoramaObserver
 public:
     virtual ~PanoramaObserver()
         { };
-    virtual void panoramaChanged() = 0;
+    virtual void panoramaChanged(Panorama &pano) = 0;
 };
 
 

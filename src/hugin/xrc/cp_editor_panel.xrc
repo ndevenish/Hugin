@@ -4,7 +4,15 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
+        <object class="wxFlexGridSizer">
+          <object class="sizeritem">
+            <object class="unknown" name="cp_editor_left_tabbar"/>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="unknown" name="cp_editor_right_tabbar"/>
+            <flag>wxEXPAND</flag>
+          </object>
           <object class="sizeritem">
             <object class="unknown" name="cp_editor_left_img"/>
             <option>1</option>
@@ -17,7 +25,13 @@
             <flag>wxEXPAND</flag>
             <border>5</border>
           </object>
-          <orient>wxHORIZONTAL</orient>
+          <cols>2</cols>
+          <rows>2</rows>
+          <vgap>5</vgap>
+          <hgap>5</hgap>
+          <growablecols>0</growablecols>
+          <growablecols>1</growablecols>
+          <growablerows>1</growablerows>
         </object>
         <option>10</option>
         <flag>wxEXPAND</flag>

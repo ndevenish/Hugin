@@ -63,14 +63,14 @@ bool huginApp::OnInit()
     wxConfigBase *config = new wxConfig ( GetAppName().c_str(),
 			"hugin Team", ".huginrc", "huginrc",
 			 wxCONFIG_USE_LOCAL_FILE );
+    // set as global config, so that other parts of hugin and wxWindows
+    // controls can use it easily
+    wxConfigBase::Set(config);
     config->SetRecordDefaults(TRUE);
     printf( "GetPath(): %s\n",config->GetPath().c_str());
     printf( "GetVendorName(): %s\n",config->GetVendorName().c_str() );
     config->SetRecordDefaults(TRUE);
-    printf ("saved locale path at:  %s\n", config->Read("locale_path").c_str());
-
-    wxString locale_path ( "../po" );
-    config->Write("locale_path", locale_path);
+    
     printf ("entries in config:  %i\n", config->GetNumberOfEntries() );
     if ( config->IsRecordingDefaults() )
       printf ("writes in config:  %i\n", config->GetNumberOfEntries() );
@@ -80,8 +80,11 @@ bool huginApp::OnInit()
     locale.Init(wxLANGUAGE_DEFAULT);
 
     // add local Path
-    locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
-    printf ("locale at:  %s\n", config->Read("locale_path").c_str());
+    locale.AddCatalogLookupPathPrefix(wxT("po"));
+    // add path from config file
+    if (config->HasEntry(wxT("locale_path"))){
+        locale.AddCatalogLookupPathPrefix(  config->Read("locale_path").c_str() );
+    }
 
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
@@ -96,13 +99,23 @@ bool huginApp::OnInit()
 #ifdef _INCLUDE_UI_RESOURCES
     InitXmlResource();
 #else
-    wxXmlResource::Get()->Load(wxT("xrc/main_frame.xrc"));
+    // try local xrc files first
+    wxString xrcPrefix;
+    wxFile testfile("xrc/main_frame.xrc");
+    if (testfile.IsOpened()) {
+        std::cerr << "using local xrc files" << std::endl;
+        xrcPrefix = "";
+    } else {
+        std::cerr << "using xrc prefix from config" << std::endl;
+        xrcPrefix = config->Read("xrc_path") + wxT("/");
+    }
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_frame.xrc"));
 //    wxXmlResource::Get()->Load(wxT("xrc/main_menubar.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/cp_editor_panel.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/main_menu.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/main_tool.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/edit_text.xrc"));
-    wxXmlResource::Get()->Load(wxT("xrc/about.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/cp_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_menu.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/main_tool.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/edit_text.xrc"));
+    wxXmlResource::Get()->Load(xrcPrefix + wxT("xrc/about.xrc"));
 #endif
 
     // create main frame
@@ -113,3 +126,4 @@ bool huginApp::OnInit()
 
     return true;
 }
+

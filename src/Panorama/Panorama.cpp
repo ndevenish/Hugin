@@ -556,7 +556,7 @@ void Panorama::changeFinished()
 {
     DEBUG_DEBUG("Panorama changed");
     if (observer) {
-        observer->panoramaChanged();
+        observer->panoramaChanged(*this);
     }
 }
 

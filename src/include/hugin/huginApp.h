@@ -24,10 +24,11 @@
 #ifndef _HUGINAPP_H
 #define _HUGINAPP_H
 
+#include "config.h"
 #include <wx/app.h>
 
 /** Resources Definition
- * 
+ *
  */
 
 #ifdef _INCLUDE_UI_RESOURCES
@@ -52,12 +53,20 @@ public:
 
     /** pseudo constructor. with the ability to fail gracefully.
      */
-
     virtual bool OnInit();
 
+    /** create a default config.
+     *
+     *  Might be useful to initialize the .huginrc
+     *  On the other hand, huginrc is installation
+     *  specific so we cant create the entries for locale and xrc
+     *  pathes here
+     */
+    bool createInitialConfig();
+    
+private:
     /** locale for internationalication
      */
-
     wxLocale locale;
 
 };

@@ -5,9 +5,9 @@ this is very unfinished.. do a grep FIXME on all sourcefile to get more TODO's ;
 - control point editor
 - panorama output properties
 
-- (semi) automatic control point creator
-
 after initial release.
+
+- (semi) automatic control point creator
 
 - rewrite of Panorama/* classes
   - move intelligence into Panorama class
@@ -15,4 +15,7 @@ after initial release.
       (DAG change manager from GOF book?)
   - move all optimizeable variables into a Variables class.
   - provide a separate OptimizeSettings class, that tells wich
-    variables should be optimized...
+    variables should be optimized... so that the optimization
+    is 
+
+  - relative path in project files

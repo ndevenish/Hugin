@@ -1,32 +1,21 @@
 Overview:
 
-qmake from trolltech is used to create the makefiles etc.
-
 hugin uses the following libraries. make sure that they are completely installed (including dev packages)
 
 REQUIRED LIBRARIES/PACKAGES:
 
+wxwindows 2.4.0 or higher (libary and development packages)
+wxwindows needs to be compiled with the xrc extension. You might need to install
+wxwin-contrib or similar.
 
-Panorama Tools, get it from http://www.path.unimelb.edu.au/~dersch and unpack
-it somewhere. Add the Helpers/ subdir to your path.
-
-QT, version 3.1 (it might be rewritten to use only 2.3 features)
-libjpeg, version 6b (to read jpeg image properties without loading the whole image)
-libexif, version 0.5.9 (to read digital camera information, to calculate the focal length)
-
-lower version numbers of the libs work as well. I'm using debian unstable, so the libs I use tend to be
-quite new.
-
-All these libraries must be installed properly and compile without additional
-flags. If additional compiler flags are needed, add them to src/hugin.pro.
-This is alpha software. If you cant make it compile don't bother using it at the current state.
-
+Panorama Tools, get it from
+http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux)
+or
+http://www.tawbaware.com/maxlyons/pano12ml.htm (windows)
 
 Compilation:
 
 do the following:
-$ cd src
-$ qmake
+$ ./configure
 $ make
-
-this will create the hugin binary. copy it somewhere in your path.
+$ make install

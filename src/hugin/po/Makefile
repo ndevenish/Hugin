@@ -29,7 +29,7 @@
 # relative path to the src directory
 # ====================================================================
 
-PREFIX = ..
+PREFIX = ../..
 
 # ====================================================================
 # include config
@@ -46,50 +46,10 @@ include $(PREFIX)/makefiles/config.mk
 SUBDIRS =
 
 # ====================================================================
-# Files that should be considered while creating the dependencies
-# ====================================================================
-
-DEPEND_FILES = *.cpp
-
-# ====================================================================
-# special compiler/linker flags needed in this directory
-# ====================================================================
-
-CFLAGS +=
-LFLAGS +=
-
-# ====================================================================
-# Some of the object in this directory you might want to put in a
-# library to make them easily available from other locations. The
-# library name should be without the leading lib and trailing
-# .a. Those are added automatically.
-# This is useful for code that is needed from other directories.
-#
-# Multiple libraries can be defined here, by adding them to the
-# LIBS list and specifying details in LIB_x_BIN LIB_x_OBJ
-# LIB_x_LFLAGS
-# ====================================================================
-LIBS =
-#LIBS = 1
-
-# Defaults
-LIB_LFLAGS = $(LFLAGS)
-
-# Library 1
-LIB_1_BIN = somelib
-LIB_1_OBJ = somelib.o other.o
-LIB_1_LFLAGS =  $(LIB_LFLAGS)
-
-
-# ====================================================================
 # Applications
-#
-# Note: All the files referenced here should be in the local directory
-# This also applies to XRC and XRC_DATA, they should have separate
-# Makefile's in their directory.
 # ====================================================================
 
-APPS =
+APPS = 1
 #APPS = 1 2
 
 # Defaults
@@ -98,40 +58,8 @@ APP_LFLAGS =   $(LFLAGS)
 
 # App 1
 
-APP_1_BIN = bla
-APP_1_OBJ = bla.o bla2.o
-APP_1_LFLAGS = $(TEST_LFLAGS)
-# if there are po files in the current directory
-APP_1_LINGUAS = en de se
-# for XRC files (in the current directory)
-APP_1_XRC = main_window.xrc
-# for XRC data files, icons, images etc.
-APP_1_XRC_DATA = about.hmtl
-
-# App 2
-
-APP_2_BIN = alb
-APP_2_OBJ = alb.o alb2.o
-APP_2_LFLAGS = $(TEST_LFLAGS)
-
-
-# ====================================================================
-# Some applications are only for testing. To make these compile you
-# must explicitly type "make tests"
-# ====================================================================
-
-
-TESTS =
-
-# Defaults
-
-TEST_LFLAGS =   $(LFLAGS)
-
-# Test 1
-
-TEST_1_BIN =
-TEST_1_OBJ =
-TEST_1_LFLAGS = $(TEST_LFLAGS)
+APP_1_BIN = hugin
+APP_1_LINGUAS = de
 
 
 # ====================================================================
@@ -142,7 +70,28 @@ include $(PREFIX)/makefiles/rules.mk
 
 # ====================================================================
 # add custom rules here if needed
+# FIXME hugin.pot creation should consider xrc files also
 # ====================================================================
+
+LINGUAS = $(APP_1_LINGUAS)
+POTFILE = $(APP_1_BIN).pot
+
+updatepo: $(POTFILE)
+	linguas='$(LINGUAS)'; for lang in $$linguas ; do \
+	    pofile="$$lang.po"; \
+	    if [ -f $$pofile ]; then \
+		    echo "Updating catalog: $$pofile"; \
+		    $(MSGMERGE) $$pofile $(POTFILE) > $$pofile.new && mv $$pofile.new $$pofile; \
+	    else \
+		    echo "Creating new catalog: $$pofile"; \
+		    cp $(POTFILE) $$pofile; \
+	    fi; \
+	done
+
+$(POTFILE):
+	touch $@
+	find .. -name "*.cpp" -or -name "*.h" \
+		| $(XARGS) $(XGETTEXT) $(XGETTEXT_ARGS) -o $(POTFILE)
 
 
 # ====================================================================

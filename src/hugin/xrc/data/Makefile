@@ -29,7 +29,7 @@
 # relative path to the src directory
 # ====================================================================
 
-PREFIX = ..
+PREFIX = ../../..
 
 # ====================================================================
 # include config
@@ -49,7 +49,7 @@ SUBDIRS =
 # Files that should be considered while creating the dependencies
 # ====================================================================
 
-DEPEND_FILES = *.cpp
+DEPEND_FILES =
 
 # ====================================================================
 # special compiler/linker flags needed in this directory
@@ -89,7 +89,7 @@ LIB_1_LFLAGS =  $(LIB_LFLAGS)
 # Makefile's in their directory.
 # ====================================================================
 
-APPS =
+APPS = 1
 #APPS = 1 2
 
 # Defaults
@@ -98,15 +98,10 @@ APP_LFLAGS =   $(LFLAGS)
 
 # App 1
 
-APP_1_BIN = bla
-APP_1_OBJ = bla.o bla2.o
-APP_1_LFLAGS = $(TEST_LFLAGS)
-# if there are po files in the current directory
-APP_1_LINGUAS = en de se
-# for XRC files (in the current directory)
-APP_1_XRC = main_window.xrc
+APP_1_BIN = hugin
+APP_1_OBJ =
 # for XRC data files, icons, images etc.
-APP_1_XRC_DATA = about.hmtl
+APP_1_XRC_DATA = *.htm *.xpm *.png
 
 # App 2
 

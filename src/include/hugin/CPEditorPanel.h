@@ -30,11 +30,16 @@
 // Headers
 //-----------------------------------------------------------------------------
 
-#include "wx/panel.h"
+#include <vector>
+#include <set>
+#include <wx/panel.h>
+#include <PT/Panorama.h>
 
 // forward declarations
 class CPImageCtrl;
 class CPEvent;
+class wxTabView;
+class wxNotebookEvent;
 
 /** control point editor panel.
  *
@@ -42,7 +47,7 @@ class CPEvent;
  *
  *  @todo support control lines
  */
-class CPEditorPanel : public wxPanel
+class CPEditorPanel : public wxPanel, public PT::PanoramaObserver
 {
 public:
 
@@ -56,19 +61,44 @@ public:
 
     void setLeftImage(wxImage & img);
     void setRightImage(wxImage & img);
+    
+    /** called when the panorama changes and we should
+     *  update our display
+     */
+    void panoramaChanged(PT::Panorama &pano);
 
 private:
 
+    // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
     void OnCPEvent(CPEvent &ev);
+    void OnLeftImgChange(wxNotebookEvent & e);
+    void OnRightImgChange(wxNotebookEvent & e);
 
+
+    // GUI controls
+    CPImageCtrl *m_leftImg, *m_rightImg;
+//    wxTabView *m_leftTabs, *m_rightTabs;
+    
     // my data
-    CPImageCtrl * m_leftImg, *m_rightImg;
+    
+    // the current images
+    unsigned int firstImage;
+    unsigned int secondImage;
+    
+    wxPoint newPoint;
+    enum CPCreationState { NO_POINT, FIRST_POINT, SECOND_POINT};
+    CPCreationState cpCreationState;
 
+    typedef std::pair<unsigned int, PT::ControlPoint> CPoint;
+    std::vector<CPoint> currentPoints;
+    // this set contains all points that are mirrored (point 1 in right window,
+    // point 2 in left window), in local point numbers
+    std::set<unsigned int> mirroredPoints;
+
+    
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
 };
-
-
 
 #endif // _CPEDITORPANEL_H

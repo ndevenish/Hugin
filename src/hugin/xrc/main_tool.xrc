@@ -2,39 +2,39 @@
 <resource>
   <object class="wxToolBar" name="main_toolbar">
     <object class="tool" name="ID_NEW">
-      <bitmap>images/filenew.xpm</bitmap>
+      <bitmap>data/filenew.xpm</bitmap>
       <tooltip>New</tooltip>
       <longhelp>New project</longhelp>
     </object>
     <object class="tool" name="ID_OPEN">
-      <bitmap>images/fileopen.xpm</bitmap>
+      <bitmap>data/fileopen.xpm</bitmap>
       <tooltip>Open project</tooltip>
       <longhelp>Open project</longhelp>
     </object>
     <object class="tool" name="ID_SAVE">
-      <bitmap>images/filesave.xpm</bitmap>
+      <bitmap>data/filesave.xpm</bitmap>
       <tooltip>Save project</tooltip>
       <longhelp>Save project</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="ID_EDITCOPY">
-      <bitmap>images/editcopy.xpm</bitmap>
+      <bitmap>data/editcopy.xpm</bitmap>
       <tooltip>Copy entry</tooltip>
       <longhelp>Copy entry</longhelp>
     </object>
     <object class="tool" name="ID_EDITCUT">
-      <bitmap>images/editcut.xpm</bitmap>
+      <bitmap>data/editcut.xpm</bitmap>
       <tooltip>Cut entry</tooltip>
       <longhelp>Cut entry</longhelp>
     </object>
     <object class="tool" name="ID_EDITPASTE">
-      <bitmap>images/editpaste.xpm</bitmap>
+      <bitmap>data/editpaste.xpm</bitmap>
       <tooltip>Paste entry</tooltip>
       <longhelp>Paste stored entry</longhelp>
     </object>
     <object class="separator"/>
     <object class="tool" name="action_exit_hugin">
-      <bitmap>images/close.xpm</bitmap>
+      <bitmap>data/close.xpm</bitmap>
       <tooltip>Exit</tooltip>
       <longhelp>Exit program</longhelp>
     </object>
@@ -42,7 +42,7 @@
     <style>wxTB_FLAT|wxTB_DOCKABLE</style>
     <object class="separator"/>
     <object class="tool" name="action_show_about">
-      <bitmap>images/info.xpm</bitmap>
+      <bitmap>data/info.xpm</bitmap>
       <tooltip>Infos</tooltip>
       <longhelp>Informations about this program</longhelp>
     </object>
