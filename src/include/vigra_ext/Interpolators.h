@@ -322,7 +322,7 @@ public:
     /** Interpolate the data item at a non-integer position @p x, @p y
      *
      *  It checks if the interpolation would access a pixel with alpha = 0
-     *  and removes returns false in that case.
+     *  and returns false in that case.
      *
      *  be careful, no bounds checking is done here. take
      *  INTERPOLATOR::size into accout before iterating over the
@@ -367,7 +367,7 @@ public:
             ITERATOR xs(ys);
             ALPHAITERATOR axs(ays);
             for(int x = 0; x < inter_x.size; x++, ++xs.x, ++axs.x) {
-                if (alpha.second(axs) > 0 ) {
+                if (alpha.second(axs) <= 0 ) {
                     return false;
                 }
                 ret += wx[x] * wy[y] * a_(xs);
