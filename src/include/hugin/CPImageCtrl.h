@@ -41,9 +41,11 @@ class CPEvent : public wxCommandEvent
 {
     DECLARE_DYNAMIC_CLASS(CPEvent)
 
-    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED };
+    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK };
 public:
     CPEvent( );
+    /// create a specific CPEvent
+    CPEvent(wxWindow* win, CPEventMode mode);
     /// a new point has been created.
     CPEvent(wxWindow* win, wxPoint & p);
     /// a point has been selected
@@ -52,6 +54,9 @@ public:
     CPEvent(wxWindow* win, unsigned int cpNr, const wxPoint & p);
     /// region selected
     CPEvent(wxWindow* win, wxRect & reg);
+    /// right mouse click
+    CPEvent(wxWindow* win, CPEventMode mode, const wxPoint & p);
+    
     virtual wxEvent* Clone() const;
 
     /// accessor functions (they could check mode to see if a getXYZ() is
@@ -123,12 +128,16 @@ public:
 
     /// clear new point
     void clearNewPoint();
+    
+    /// set new point to a specific point
+    void setNewPoint(const wxPoint & p);
 
     /// select a point for usage
     void selectPoint(unsigned int);
 
-    void mousePressEvent(wxMouseEvent *mouse);
-    void mouseReleaseEvent(wxMouseEvent *mouse);
+    void mousePressLMBEvent(wxMouseEvent *mouse);
+    void mouseReleaseLMBEvent(wxMouseEvent *mouse);
+    void mouseReleaseRMBEvent(wxMouseEvent *mouse);
     void mouseMoveEvent(wxMouseEvent *mouse);
 
     wxSize DoGetBestSize() const;
@@ -140,7 +149,7 @@ public:
      *  @param factor zoom factor, 0 means fit to window.
      */
     void setScale(double factor);
-    
+
     /// return scale factor, 0 for autoscale
     double getScale()
         { return fitToWindow ? 0 : scaleFactor; }
@@ -159,11 +168,24 @@ public:
 
     void hideSearchArea()
         { m_showSearchArea = false ; update(); }
+    
+    void showTemplateArea(int width)
+        { m_showTemplateRect = true; m_templateRectWidth = width; };
+    void hideTemplateArea()
+        { m_showTemplateRect = false ; update(); }
+    
+    
+    /// get the new point
+    wxPoint getNewPoint();
 
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
+    void OnKeyUp(wxKeyEvent & e);
+    void OnKeyDown(wxKeyEvent & e);
+    void OnMouseLeave(wxMouseEvent & e);
+    void OnMouseEnter(wxMouseEvent & e);
 
     /// helper func to emit a region
     bool emit(CPEvent & ev);
@@ -173,7 +195,7 @@ protected:
 
     /// calculate new scale factor for this image
     double calcAutoScaleFactor(wxSize size);
-    
+
     // rescale image
     void rescaleImage();
 
@@ -276,8 +298,15 @@ private:
 
     bool m_showSearchArea;
     bool m_drawSearchRect;
+    
     wxPoint m_mousePos;
     int m_searchRectWidth;
+
+    bool m_showTemplateRect;
+    int m_templateRectWidth;
+    
+    bool m_tempZoom;
+    double m_savedScale;
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point

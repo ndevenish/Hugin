@@ -173,7 +173,6 @@ void PreviewPanel::updatePreview()
 
 //    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
 //    bool corrLens = cor != 0;
-    bool corrLens = false;
 
     double finalWidth = pano.getOptions().width;
     double finalHeight = pano.getOptions().getHeight();

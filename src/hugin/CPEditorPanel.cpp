@@ -107,9 +107,12 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_TEXT_ENTER(XRCID("cp_editor_x2"), CPEditorPanel::OnTextPointChange )
     EVT_TEXT_ENTER(XRCID("cp_editor_y2"), CPEditorPanel::OnTextPointChange )
     EVT_CHOICE(XRCID("cp_editor_mode"), CPEditorPanel::OnTextPointChange )
-    EVT_CHAR(CPEditorPanel::OnKeyDown)
+    EVT_CHAR(CPEditorPanel::OnKey)
+    EVT_KEY_UP(CPEditorPanel::OnKeyUp)
+    EVT_KEY_DOWN(CPEditorPanel::OnKeyDown)
     EVT_BUTTON(XRCID("cp_editor_delete"), CPEditorPanel::OnDeleteButton)
-    EVT_BUTTON(XRCID("cp_editor_auto_create"), CPEditorPanel::OnAutoCreateCP)
+    EVT_BUTTON(XRCID("cp_editor_add_button"), CPEditorPanel::OnAddButton)
+    EVT_CHECKBOX(XRCID("cp_editor_auto_add_cb"), CPEditorPanel::OnAutoAddCB)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -156,6 +159,17 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_y2Text = XRCCTRL(*this,"cp_editor_y2", wxTextCtrl);
     m_cpModeChoice = XRCCTRL(*this, "cp_editor_mode", wxChoice);
 
+    m_autoAddCB = XRCCTRL(*this,"cp_editor_auto_add", wxCheckBox);
+    DEBUG_ASSERT(m_autoAddCB);
+
+    wxConfigBase *config = wxConfigBase::Get();
+    
+    m_rightImg->showTemplateArea( config->Read("/CPEditorPanel/templateSize",14l));
+    m_leftImg->showTemplateArea( config->Read("/CPEditorPanel/templateSize",14l));
+    
+    bool autoAdd = config->Read("/CPEditorPanel/autoAdd",1l);
+    m_autoAddCB->SetValue(autoAdd);
+    
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -164,6 +178,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
+    wxConfigBase::Get()->Write("/CPEditorPanel/autoAdd", m_autoAddCB->IsChecked() ? 1 : 0);
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -204,6 +219,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
 
 void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 {
+    DEBUG_TRACE("");
     wxString text;
     unsigned int nr = ev.getPointNr();
     wxPoint point = ev.getPoint();
@@ -221,10 +237,13 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         text = "NONE";
         break;
     case CPEvent::NEW_POINT_CHANGED:
-        CreateNewPoint(ev.getPoint(),left);
+        NewPointChange(ev.getPoint(),left);
         break;
     case CPEvent::POINT_SELECTED:
+        // need to reset cpEditState
+        DEBUG_DEBUG("selected point " << nr);
         SelectLocalPoint(nr);
+        cpCreationState = NO_POINT;
         break;
 
     case CPEvent::POINT_CHANGED:
@@ -232,6 +251,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         DEBUG_DEBUG("move point("<< nr << ")");
         assert(nr < currentPoints.size());
         ControlPoint cp = currentPoints[nr].second;
+        cpCreationState = NO_POINT;
 
         if (left) {
             cp.x1 = point.x;
@@ -251,6 +271,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     }
     case CPEvent::REGION_SELECTED:
     {
+        cpCreationState = NO_POINT;
 	if (false) {
             text = "REGION_SELECTED";
             wxRect region = ev.getRect();
@@ -300,18 +321,67 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
             }
         }
         break;
+    }
+    case CPEvent::RIGHT_CLICK:
+    {
+        if (cpCreationState == BOTH_POINTS_SELECTED) {
+            DEBUG_DEBUG("right click -> adding point");
+            CreateNewPoint();
+        } else {
+            DEBUG_DEBUG("right click without two points..");
+        }
+        break;
+    }
 //    default:
 //        text = "FATAL: unknown event mode";
     }
-    }
 }
 
+
+void CPEditorPanel::CreateNewPoint()
+{
+    DEBUG_TRACE("");
+//    DEBUG_ASSERT(m_leftImg->GetState == NEW_POINT_SELECTED);
+//    DEBUG_ASSERT(m_rightImg->GetState == NEW_POINT_SELECTED);
+    wxPoint p1 = m_leftImg->getNewPoint();
+    wxPoint p2 = m_rightImg->getNewPoint();
+    ControlPoint point;
+    point.image1Nr = m_leftImageNr;
+    point.x1 = p1.x;
+    point.y1 = p1.y;
+    point.image2Nr = m_rightImageNr;
+    point.x2 = p2.x;
+    point.y2 = p2.y;
+    point.mode = PT::ControlPoint::X_Y;
+
+    m_leftImg->clearNewPoint();
+    m_rightImg->clearNewPoint();
+    cpCreationState = NO_POINT;
+
+    // create points
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::AddCtrlPointCmd(*m_pano, point)
+        );
+
+    // reset zoom to previous setting
+    wxCommandEvent tmpEvt;
+    tmpEvt.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
+    OnZoom(tmpEvt);
+
+    m_leftImg->hideSearchArea();
+    m_rightImg->hideSearchArea();
+
+    // select new control Point
+    unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
+    SelectGlobalPoint(lPoint);
+}
 
 void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
 {
     DEBUG_TRACE("selectLocalPoint(" << LVpointNr << ")");
 
     if ( m_selectedPoint == LVpointNr) {
+        DEBUG_DEBUG("already selected");
         return;
     }
     m_selectedPoint = LVpointNr;
@@ -363,10 +433,10 @@ unsigned int CPEditorPanel::localPNr2GlobalPNr(unsigned int localNr) const
 }
 
 
-void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
+void CPEditorPanel::NewPointChange(wxPoint p, bool left)
 {
-    DEBUG_TRACE("CreateNewPoint");
-    
+    DEBUG_TRACE("");
+
     CPImageCtrl * thisImg = m_leftImg;
     unsigned int thisImgNr = m_leftImageNr;
     CPImageCtrl * otherImg = m_rightImg;
@@ -375,7 +445,7 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
     CPCreationState THIS_POINT_RETRY = LEFT_POINT_RETRY;
     CPCreationState OTHER_POINT = RIGHT_POINT;
     CPCreationState OTHER_POINT_RETRY = RIGHT_POINT_RETRY;
-    
+
     if (!left) {
         thisImg = m_rightImg;
         thisImgNr = m_rightImageNr;
@@ -386,18 +456,17 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
         OTHER_POINT = LEFT_POINT;
         OTHER_POINT_RETRY = LEFT_POINT_RETRY;
     }
-        
-    
+
+
     if (cpCreationState == NO_POINT) {
         //case NO_POINT
-        newPoint = p;
         cpCreationState = THIS_POINT;
         // zoom into our window
         if (thisImg->getScale() < 1) {
             thisImg->setScale(1);
             thisImg->showPosition(p.x,p.y);
         }
-        
+
         // display search area for the other image
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
             int width = m_pano->getImage(otherImgNr).getWidth();
@@ -407,7 +476,6 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
             g_MainFrame->SetStatusText("Select Point in other image",0);
         }
     } else if (cpCreationState == THIS_POINT || cpCreationState == OTHER_POINT_RETRY) {
-        newPoint = p;
         thisImg->showPosition(p.x,p.y);
         // FIXME approximate position in the other image, and warp cursor
         // there.
@@ -415,11 +483,13 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
         FDiff2D p2;
         p2.x = -1;
         p2.y = -1;
+        // the try for the second point.
         if (cpCreationState == OTHER_POINT) {
             // other point already selected, finalize point.
 
             if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
                 g_MainFrame->SetStatusText("searching similar point...",0);
+                wxPoint newPoint = otherImg->getNewPoint();
                 double xcorr = PointFineTune(otherImgNr,
                                              Diff2D(newPoint.x, newPoint.y),
                                              thisImgNr,
@@ -428,11 +498,13 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
                 wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
                 double thresh = utils::lexical_cast<double>(str);
                 if (xcorr < thresh) {
+                    // low xcorr
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
                     thisImg->setScale(1);
-                    thisImg->showPosition(p.x, p.y);
-                    
+                    thisImg->setNewPoint(wxPoint((int)round(p2.x), 
+                                                 (int)round(p2.y) ));
+
                     // Bad correlation result.
                     int answer = wxMessageBox(
                         wxString::Format(_("low correlation coefficient: %f, (threshold: %f)\nPoint might be wrong. Select anyway?"),  xcorr, thresh),
@@ -440,50 +512,58 @@ void CPEditorPanel::CreateNewPoint(wxPoint p, bool left)
                         wxYES_NO|wxICON_QUESTION, this);
                     if (answer == wxNO) {
                         cpCreationState = THIS_POINT_RETRY;
+                        thisImg->clearNewPoint();
                         return;
+                    } else {
+                        cpCreationState = BOTH_POINTS_SELECTED;
                     }
+                } else {
+                    // show point & zoom in if auto add is not set
+                    cpCreationState = BOTH_POINTS_SELECTED;
+                    if (!m_autoAddCB->IsChecked()) {
+                        thisImg->setScale(1);
+                    }
+                    thisImg->setNewPoint(wxPoint((int)round(p2.x), 
+                                                 (int)round(p2.y) ));
                 }
+
                 g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-                // FIXME optionally show point for a short time to check finetune
+                
             } else {
                 // no finetune. but zoom into picture, when we where zoomed out
                 if (thisImg->getScale() < 1) {
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
                     thisImg->setScale(1);
+                    thisImg->clearNewPoint();
                     thisImg->showPosition(p.x, p.y);
+                    //thisImg->setNewPoint(p.x, p.y);
                     cpCreationState = THIS_POINT_RETRY;
                     return;
                 } else {
-                    p2.x = p.x;
-                    p2.y = p.y;
+                    // point is already set. no need to move.
+                    //setNewPoint(p);
+                    cpCreationState = BOTH_POINTS_SELECTED;
                 }
             }
         } else {
             // selection retry
-            p2.x = p.x;
-            p2.y = p.y;
-            
+            // nothing special, no second stage fine tune yet.
         }
-        // FIXME: get OptimizeMode from somewhere
-        ControlPoint point(thisImgNr, p2.x, p2.y,
-                           otherImgNr, newPoint.x, newPoint.y,
-                           PT::ControlPoint::X_Y);
-        thisImg->clearNewPoint();
-        otherImg->clearNewPoint();
-        cpCreationState = NO_POINT;
-        // reset zoom to previous setting
-        wxCommandEvent tmpEvt;
-        tmpEvt.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
-        OnZoom(tmpEvt);
+        
+        // ok, we have determined the other point.. apply if auto add is on
+        if (m_autoAddCB->IsChecked()) {
+            CreateNewPoint();
+        } else {
+            // keep both point floating around, until they are
+            // added with a right mouse click or the add button
+            cpCreationState = BOTH_POINTS_SELECTED;
+        }
             
-        thisImg->hideSearchArea();
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointCmd(*m_pano, point)
-            );
-            // select new control Point
-//            unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-//            SelectGlobalPoint(lPoint);
+    } else if (cpCreationState == BOTH_POINTS_SELECTED) {
+        // nothing to do.. maybe a special fine tune with
+        // a small search region
+        
     } else {
         // should never reach this, else state machine is broken.
         DEBUG_ASSERT(0);
@@ -827,7 +907,6 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,2,wxString::Format("%.1f",p.y1));
         m_cpList->SetItem(i,3,wxString::Format("%.1f",p.x2));
         m_cpList->SetItem(i,4,wxString::Format("%.1f",p.y2));
-        m_cpList->EnsureVisible(i);
         wxString mode;
         switch (p.mode) {
         case ControlPoint::X_Y:
@@ -842,16 +921,18 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format("%.1f",p.error));
     }
-    if ( selectedCP < m_cpList->GetItemCount() ) // sets an old selection again
+    if ( selectedCP < m_cpList->GetItemCount() ) { // sets an old selection again
         m_cpList->SetItemState( selectedCP,
                                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
+        m_cpList->EnsureVisible(selectedCP);
+    }
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
 /*    for (int i=0; i<7; i++) {
         m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
     }*/
     m_cpList->Show();
     // clear selectedPoint marker
-    m_selectedPoint = UINT_MAX;
+    m_selectedPoint = selectedCP;
 }
 
 void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
@@ -981,9 +1062,9 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
     m_rightImg->setScale(factor);
 }
 
-void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
+void CPEditorPanel::OnKey(wxKeyEvent & e)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("key:" << e.m_keyCode);
     if (e.m_keyCode == WXK_DELETE){
         DEBUG_DEBUG("Delete pressed");
         // find selected point
@@ -994,13 +1075,37 @@ void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
         // no selected item.
         if (item == -1) {
             wxBell();
+            return;
         }
+        unsigned int pNr = localPNr2GlobalPNr((unsigned int) item);
+        DEBUG_DEBUG("about to delete point " << pNr);
         GlobalCmdHist::getInstance().addCommand(
-            new PT::RemoveCtrlPointCmd(*m_pano,(unsigned int) item )
+            new PT::RemoveCtrlPointCmd(*m_pano,pNr)
             );
     } else {
         e.Skip();
     }
+}
+
+void CPEditorPanel::OnKeyUp(wxKeyEvent & e)
+{
+    DEBUG_TRACE("key:" << e.m_keyCode);
+    if (e.ShiftDown()) {
+        DEBUG_DEBUG("shift down");
+    } else {
+        e.Skip();
+    }
+
+}
+void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
+{
+    DEBUG_TRACE("key:" << e.m_keyCode);
+    if (e.ShiftDown()) {
+        DEBUG_DEBUG("shift down");
+    } else {
+        e.Skip();
+    }
+
 }
 
 void CPEditorPanel::OnDeleteButton(wxCommandEvent & e)
@@ -1081,5 +1186,17 @@ void CPEditorPanel::OnAutoCreateCP()
     // save image
 
     saveScaledImage(leftCornerResponse,"corners.png");
+}
 
+
+void CPEditorPanel::OnAddButton(wxCommandEvent & e)
+{
+    // add a point
+    
+}
+
+void CPEditorPanel::OnAutoAddCB(wxCommandEvent & e)
+{
+    // toggle auto add button
+    
 }

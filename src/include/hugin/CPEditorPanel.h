@@ -119,13 +119,17 @@ private:
 
     /// map a global point nr to a local one, if possible
     bool globalPNr2LocalPNr(unsigned int & localNr, unsigned int globalNr) const;
-    /// find a
+    /// find a local point
     unsigned int localPNr2GlobalPNr(unsigned int localNr) const;
 
-    // function called when a new point has been selected in the first or
-    // second image
-    void CreateNewPoint(wxPoint p, bool left);
+    // function called when a new point has been selected or changed
+    // in on of your images
+    void NewPointChange(wxPoint p, bool left);
 //    void CreateNewPointRight(wxPoint p);
+    
+    /// this is used to finally create the point in the panorama model
+    void CPEditorPanel::CreateNewPoint();
+
 
     /// search for region in destImg
     bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, CorrelationResult & res);
@@ -144,8 +148,14 @@ private:
     void OnCPListSelect(wxListEvent & e);
     void OnZoom(wxCommandEvent & e);
     void OnTextPointChange(wxCommandEvent &e);
+    void OnKey(wxKeyEvent & e);
     void OnKeyDown(wxKeyEvent & e);
+    void OnKeyUp(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
+    void OnAddButton(wxCommandEvent & e);
+    void OnAutoAddCB(wxCommandEvent & e);
+
+
 
     // experimental corner detector.
     void OnAutoCreateCP();
@@ -157,6 +167,7 @@ private:
 
     wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;
     wxChoice *m_cpModeChoice;
+    wxCheckBox *m_autoAddCB;
 
     // my data
     PT::Panorama * m_pano;
@@ -167,7 +178,6 @@ private:
     std::string m_rightFile;
     bool m_listenToPageChange;
 
-    wxPoint newPoint;
     /** the state machine for point selection:
      *  it is set to the current selection
      */
@@ -175,10 +185,11 @@ private:
                            LEFT_POINT, ///< point in left image selected
                            RIGHT_POINT, ///< selected point in right image
                            RIGHT_POINT_RETRY, ///< point in left image selected, finetune failed in right image
-                           LEFT_POINT_RETRY  ///< right point, finetune for left point failed
+                           LEFT_POINT_RETRY,  ///< right point, finetune for left point failed
+                           BOTH_POINTS_SELECTED ///< left and right point selected, waiting for add point.
     };
     CPCreationState cpCreationState;
-    
+
     unsigned int m_selectedPoint;
 
     // pair of global control point number and corrosponding control point

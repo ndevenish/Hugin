@@ -89,6 +89,14 @@ CPEvent::CPEvent(wxWindow* win, wxRect & reg)
     region = reg;
 }
 
+CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const wxPoint & p)
+{
+    SetEventType(EVT_CPEVENT);
+    SetEventObject(win);
+    mode = evt_mode;
+    point = p;
+}
+
 wxEvent * CPEvent::Clone() const
 {
     return new CPEvent(*this);
@@ -101,10 +109,15 @@ IMPLEMENT_DYNAMIC_CLASS(CPImageCtrl, wxScrolledWindow);
 
 BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
 //    EVT_PAINT(CPImageCtrl::OnPaint)
-    EVT_LEFT_DOWN(CPImageCtrl::mousePressEvent)
+    EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
     EVT_MOTION(CPImageCtrl::mouseMoveEvent)
-    EVT_LEFT_UP(CPImageCtrl::mouseReleaseEvent)
+    EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
+    EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
     EVT_SIZE(CPImageCtrl::OnSize)
+    EVT_KEY_UP(CPImageCtrl::OnKeyUp)
+    EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
+    EVT_LEAVE_WINDOW(CPImageCtrl::OnMouseLeave)
+    EVT_ENTER_WINDOW(CPImageCtrl::OnMouseEnter)
 END_EVENT_TABLE()
 
 CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
@@ -114,7 +127,9 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
       scaleFactor(1), fitToWindow(false),
-      m_showSearchArea(false), m_searchRectWidth(10)
+      m_showSearchArea(false), m_searchRectWidth(10),
+      m_showTemplateRect(false),
+      m_tempZoom(false),m_savedScale(1)
 {
     SetCursor(wxCursor(wxCURSOR_BULLSEYE));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
@@ -154,7 +169,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (i==selectedPointNr) {
-            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("GOLD"));
         } else {
             drawPoint(dc,*it,pointColors[i%pointColors.size()]);
         }
@@ -177,6 +192,17 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NEW_POINT_SELECTED:
         drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
+        if (m_showTemplateRect) {
+            dc.SetLogicalFunction(wxINVERT);
+            dc.SetPen(wxPen("RED", 1, wxSOLID));
+            dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+            wxPoint upperLeft = scale(m_mousePos - wxPoint(m_templateRectWidth, m_templateRectWidth));
+            int width = scale(m_templateRectWidth);
+
+            dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
+            dc.SetLogicalFunction(wxCOPY);
+        }
+
         break;
     case KNOWN_POINT_SELECTED:
         break;
@@ -197,6 +223,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
     }
+    
+        
 }
 
 
@@ -221,7 +249,7 @@ void CPImageCtrl::setImage(const std::string & file)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
-   
+
     if (imageFilename != "") {
         rescaleImage();
         editState = NO_SELECTION;
@@ -278,6 +306,7 @@ void CPImageCtrl::clearNewPoint()
 
 void CPImageCtrl::selectPoint(unsigned int nr)
 {
+    DEBUG_TRACE("nr: " << nr);
     assert(nr < points.size());
     selectedPointNr = nr;
     showPosition(points[nr].x, points[nr].y);
@@ -417,7 +446,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
 }
 
 
-void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mousePressLMBEvent(wxMouseEvent *mouse)
 {
     wxPoint mpos;
     CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
@@ -435,10 +464,8 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
             selectedPointNr = selPointNr;
             point = points[selectedPointNr];
             editState = clickState;
-            if (selectedPointNr != selPointNr) {
-                CPEvent e( this, selectedPointNr);
-                emit(e);
-            }
+            CPEvent e( this, selectedPointNr);
+            emit(e);
         } else if (clickState == NEW_POINT_SELECTED) {
             DEBUG_DEBUG("click on new space, select region/new point");
             editState = SELECT_REGION;
@@ -451,7 +478,7 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
         DEBUG_DEBUG("ImageDisplay: mouse down, state change: " << oldstate
                     << " -> " << editState);
     }
-    if (mouse->MiddleIsDown() ) {  // scrolling with the mouse
+    if (mouse->MiddleDown() ) {  // scrolling with the mouse
         int x,y;
         wxSize vs;
         GetVirtualSize( &vs.x, &vs.y );
@@ -466,9 +493,12 @@ void CPImageCtrl::mousePressEvent(wxMouseEvent *mouse)
         if (y<0) x = 0;
         Scroll( x, y);
     }
+    if (mouse->RightDown()) {
+        DEBUG_DEBUG("right mouse button pressed down");
+    }
 }
 
-void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
+void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent *mouse)
 {
     wxPoint mpos;
     CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
@@ -483,13 +513,15 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
             DEBUG_WARN("mouse release without selection");
             break;
         case KNOWN_POINT_SELECTED:
+        {
             DEBUG_DEBUG("mouse release with known point " << selectedPointNr);
             if (point != points[selectedPointNr]) {
                 CPEvent e( this, selectedPointNr, points[selectedPointNr]);
                 emit(e);
-                //emit(pointChanged(selectedPointNr, points[selectedPointNr]));
+            //emit(pointChanged(selectedPointNr, points[selectedPointNr]));
             }
             break;
+        }
         case NEW_POINT_SELECTED:
         {
 //            assert(drawNewPoint);
@@ -501,6 +533,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
             break;
         }
         case SELECT_REGION:
+        {
             if (region.GetPosition() == mpos) {
                 // create a new point.
                 editState = NEW_POINT_SELECTED;
@@ -526,12 +559,31 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
                 update();
             }
             break;
+        }
         case NO_IMAGE:
             break;
 
         }
         DEBUG_DEBUG("ImageDisplay: mouse release, state change: " << oldState
                     << " -> " << editState);
+    } 
+    
+}
+
+void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent *mouse)
+{
+    wxPoint mpos;
+    CalcUnscrolledPosition(mouse->GetPosition().x, mouse->GetPosition().y,
+                           &mpos.x, & mpos.y);
+    mpos = invScale(mpos);
+    DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
+                << ", " << mpos.y);
+
+    if (mouse->RightUp()) {
+        // set right up event
+        DEBUG_DEBUG("Emitting right click (rmb release)");
+        CPEvent e(this, CPEvent::RIGHT_CLICK, mpos);
+        emit(e);
     }
 }
 
@@ -593,3 +645,81 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
         }
     }
 }
+
+void CPImageCtrl::OnKeyUp(wxKeyEvent & e)
+{
+    DEBUG_TRACE("key:" << e.m_keyCode);
+    if (e.m_keyCode == WXK_SHIFT) {
+        // zoom to original zoom
+        DEBUG_DEBUG("shift down");
+        if (m_tempZoom) {
+            setScale(m_savedScale);
+            m_tempZoom = false;
+        }
+    } else {
+        e.Skip();
+    }
+
+}
+
+void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
+{
+    DEBUG_TRACE("key:" << e.m_keyCode);
+    if (e.m_keyCode == WXK_SHIFT) {
+        DEBUG_DEBUG("shift down");
+        double scale = getScale();
+        if ((scale != 1) && (!m_tempZoom)) {
+            wxPoint mpos;
+            CalcUnscrolledPosition(e.m_x, e.m_y,
+                                   &mpos.x, & mpos.y);
+            mpos = invScale(mpos);
+            m_tempZoom = true;
+            m_savedScale = scale;
+            DEBUG_DEBUG("zoom into");
+            setScale(1);
+            showPosition(mpos.x, mpos.y);
+        }
+    } else {
+        e.Skip();
+    }
+
+}
+
+void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
+{
+    DEBUG_TRACE("");
+    if (m_tempZoom) {
+        setScale(m_savedScale);
+        m_tempZoom = false;
+    }
+}
+
+void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
+{
+    DEBUG_TRACE("");
+    SetFocus();
+}
+
+wxPoint CPImageCtrl::getNewPoint() 
+{
+    // only possible if a new point is actually selected
+    DEBUG_ASSERT(editState == NEW_POINT_SELECTED);
+    return newPoint;
+}
+
+void CPImageCtrl::setNewPoint(const wxPoint & p)
+{
+    DEBUG_DEBUG("setting new point " << p.x << "," << p.y);
+    // should we need to check for some precondition?
+    newPoint = p;
+    editState = NEW_POINT_SELECTED;
+    
+    // show new point.
+    showPosition(p.x, p.y);
+    
+    // we do not send an event, since CPEditorPanel
+    // caused the change.. so it doesn't need to filter
+    // out its own change messages.
+    update();
+}
+

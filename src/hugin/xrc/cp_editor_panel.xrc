@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxPanel" name="cp_editor_panel">
     <object class="wxBoxSizer">
@@ -58,6 +58,70 @@
                     </object>
                     <option>4</option>
                     <flag>wxEXPAND</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxVERTICAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>Zoom:</label>
+                                </object>
+                                <flag>wxALIGN_CENTRE</flag>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxComboBox" name="cp_editor_zoom_box">
+                                  <content>
+                                    <item>100%</item>
+                                    <item>fit to window</item>
+                                    <item>200%</item>
+                                    <item>150%</item>
+                                    <item>75%</item>
+                                    <item>50%</item>
+                                    <item>25%</item>
+                                  </content>
+                                  <style>wxCB_READONLY|wxCB_DROPDOWN</style>
+                                  <bg>#DCDCDC</bg>
+                                </object>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxCheckBox" name="cp_editor_fine_tune_check">
+                          <label>auto fine tune</label>
+                        </object>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxButton" name="cp_editor_add_button">
+                              <label>&amp;Add</label>
+                              <enabled>0</enabled>
+                              <tooltip>add a new point, right mouse button on the image does the same</tooltip>
+                            </object>
+                            <flag>wxRIGHT</flag>
+                            <border>5</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="cp_editor_auto_add">
+                              <label>auto add</label>
+                              <checked>1</checked>
+                              <tooltip>immediately add control point when selecting a second point</tooltip>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                    <flag>wxALL</flag>
+                    <border>3</border>
                   </object>
                 </object>
                 <option>1</option>
@@ -150,63 +214,6 @@
               </object>
             </object>
             <flag>wxALL|wxEXPAND</flag>
-            <border>3</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticBoxSizer">
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxBoxSizer">
-                      <orient>wxHORIZONTAL</orient>
-                      <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>Zoom:</label>
-                        </object>
-                        <flag>wxALIGN_CENTRE</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxComboBox" name="cp_editor_zoom_box">
-                          <content>
-                            <item>100%</item>
-                            <item>fit to window</item>
-                            <item>200%</item>
-                            <item>150%</item>
-                            <item>75%</item>
-                            <item>50%</item>
-                            <item>25%</item>
-                          </content>
-                          <style>wxCB_READONLY|wxCB_DROPDOWN</style>
-                          <bg>#DCDCDC</bg>
-                        </object>
-                      </object>
-                    </object>
-                  </object>
-                </object>
-              </object>
-              <orient>wxVERTICAL</orient>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="cp_editor_fine_tune_check">
-                  <label>auto fine tune</label>
-                </object>
-              </object>
-              <label>options</label>
-              <object class="sizeritem">
-                <object class="wxStaticBoxSizer">
-                  <label>experimental stuff</label>
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxButton" name="cp_editor_auto_create">
-                      <label>harris corner detection</label>
-                    </object>
-                    <flag>wxALL</flag>
-                    <border>5</border>
-                  </object>
-                </object>
-              </object>
-            </object>
-            <flag>wxALL</flag>
             <border>3</border>
           </object>
         </object>

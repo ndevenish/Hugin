@@ -332,7 +332,7 @@ msgstr "Dateikommandos"
 #: ../ptopengui.cpp:402
 #: ../ptopengui.cpp:1237
 msgid "Add"
-msgstr "neu"
+msgstr "Hinzufügen"
 
 #: ../ptopengui.cpp:403
 msgid "Add image(s) to project"
