@@ -532,6 +532,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 
 void MainFrame::OnAddImages( wxCommandEvent& event )
 {
+    DEBUG_TRACE("");
     wxString e_stat;
 
     // To get users path we do following:
@@ -734,21 +735,21 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
 
     DEBUG_TRACE("");
     // get the list to read from
-    wxListCtrl* lst =  XRCCTRL(*this, "images_list_unknown", wxListCtrl);
+    ImagesListImage* lst =  XRCCTRL(*this, "images_list_unknown", ImagesListImage);
 
-    UIntSet selImg;
+    UIntSet selImg = lst->GetSelected();
     vector<string> filenames;
-    for (unsigned int Nr=pano.getNrOfImages()-1 ; Nr>=0 ; --Nr ) {
-        if ( lst->GetItemState( Nr, wxLIST_STATE_SELECTED ) ) {
-            selImg.insert(Nr);
-            filenames.push_back(pano.getImage(Nr).getFilename());
-        }
+    lst->GetSelected();
+  
+    for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
+        filenames.push_back(pano.getImage(*it).getFilename());
     }
-
+    DEBUG_TRACE("Sending remove images command");
     GlobalCmdHist::getInstance().addCommand(
         new PT::RemoveImagesCmd(pano, selImg)
         );
 
+    DEBUG_TRACE("Removing " << filenames.size() << " images from cache");
     for (vector<string>::iterator it = filenames.begin();
          it != filenames.end(); ++it)
     {
