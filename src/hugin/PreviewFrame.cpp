@@ -136,9 +136,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     long aup = config->Read("/PreviewFrame/autoUpdate",0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
-    
+
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
-        
+
 }
 
 PreviewFrame::~PreviewFrame()
@@ -286,7 +286,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
 {
-    DEBUG_ASSERT(m_pano.getNrOfImages() != m_ToggleButtons.size());
+    DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         m_displayedImgs.insert(i);
         m_ToggleButtons[i]->SetValue(true);
@@ -296,7 +296,7 @@ void PreviewFrame::OnShowAll(wxCommandEvent & e)
 
 void PreviewFrame::OnShowNone(wxCommandEvent & e)
 {
-    DEBUG_ASSERT(m_pano.getNrOfImages() != m_ToggleButtons.size());
+    DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         m_ToggleButtons[i]->SetValue(false);
     }

@@ -171,8 +171,9 @@ void PreviewPanel::updatePreview()
     // temporary bitmap for our remapped image
     // calculate the image size from panel widht, height from vfov
 
-    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
-    bool corrLens = cor != 0;
+//    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
+//    bool corrLens = cor != 0;
+    bool corrLens = false;
 
     double finalWidth = pano.getOptions().width;
     double finalHeight = pano.getOptions().getHeight();
@@ -199,7 +200,7 @@ void PreviewPanel::updatePreview()
     UIntSet::iterator it = m_dirtyImgs.begin();
     while(it != m_dirtyImgs.end()) {
         if (set_contains(m_displayedImages, *it)) {
-            if (!PTools::mapImage(timg, pano, *it, pano.getOptions()),corrLens) {
+            if (!PTools::mapImage(timg, pano, *it, pano.getOptions()),false) {
                 DEBUG_ERROR("mapImage for image " << *it << " failed" );
             }
             // FIXME.. we just mask out the black areas and hope that the

@@ -297,7 +297,8 @@ bool PTools::mapImage(wxImage & dest, const Panorama & pano,
                       unsigned imgNr, const PanoramaOptions & opts,
                       bool correctLensDistortion)
 {
-
+    // not working properly
+    correctLensDistortion = false;
     TrformStr tform;
     createAdjustTrform(tform);
 

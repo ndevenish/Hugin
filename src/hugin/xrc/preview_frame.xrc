@@ -50,17 +50,21 @@
     <object class="separator"/>
     <object class="tool" name="preview_auto_update_tool">
       <bitmap>data/preview_auto_update.png</bitmap>
+      <tooltip>auto update</tooltip>
       <toggle>1</toggle>
     </object>
     <object class="tool" name="preview_update_tool">
       <bitmap>data/reload.png</bitmap>
+      <tooltip>update</tooltip>
     </object>
     <object class="separator"/>
     <object class="tool" name="preview_show_all_tool">
       <bitmap>data/preview_show_all.png</bitmap>
+      <tooltip>show all</tooltip>
     </object>
     <object class="tool" name="preview_show_none_tool">
       <bitmap>data/preview_show_none.png</bitmap>
+      <tooltip>show none</tooltip>
     </object>
     <bitmapsize>22,22</bitmapsize>
     <packing>3</packing>
