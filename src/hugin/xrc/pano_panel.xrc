@@ -273,6 +273,7 @@
                         <item>TIFF</item>
                         <item>Multiple TIFF</item>
                         <item>Multiple TIFF with masks</item>
+                        <item>Layered TIFF</item>
                         <item>PICT</item>
                         <item>PSD</item>
                         <item>Layered PSD</item>
