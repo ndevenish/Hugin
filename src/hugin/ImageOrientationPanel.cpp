@@ -288,8 +288,8 @@ void ImageOrientationPanel::ScaleBitmap()
     double s2 = (double)csize.GetHeight()/m_imageSize.GetHeight();
     m_scaleFactor = s1 < s2 ? s1 : s2;
 
-    m_bitmap = img->Scale((int) floor(m_scaleFactor * m_imageSize.GetWidth()),
-                          (int) floor(m_scaleFactor * m_imageSize.GetHeight())).ConvertToBitmap();
+    m_bitmap = wxBitmap(img->Scale((int) floor(m_scaleFactor * m_imageSize.GetWidth()),
+                                   (int) floor(m_scaleFactor * m_imageSize.GetHeight())));
 }
 
 /*

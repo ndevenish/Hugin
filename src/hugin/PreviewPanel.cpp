@@ -77,6 +77,8 @@ PreviewPanel::~PreviewPanel()
 
 void PreviewPanel::panoramaChanged(Panorama &pano)
 {
+    // avoid recursive calls.. don't know if they can happen at all,
+    // but they might lead to crashes.
     bool dirty = false;
 
     const PanoramaOptions & newOpts = pano.getOptions();
@@ -159,11 +161,12 @@ void PreviewPanel::ForceUpdate()
     updatePreview();
 }
 
+
 void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
     bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
-    bool dirty = false;
+
     // temporary bitmap for our remapped image
     // calculate the image size from panel widht, height from vfov
 
@@ -190,54 +193,27 @@ void PreviewPanel::updatePreview()
         DEBUG_DEBUG("landscape: " << m_panoImgSize);
     }
 
-    UIntSet::iterator it = m_dirtyImgs.begin();
-    while(it != m_dirtyImgs.end()) {
-        DEBUG_ASSERT(*it < m_remapped.size());
-        // remapp the image, using the given small image as default
-        mapPreviewImage(*it);
-        UIntSet::iterator tit = it;
-        ++it;
-        m_dirtyImgs.erase(tit);
-    }
+    PanoramaOptions opts = pano.getOptions();
+    opts.width = m_panoImgSize.x;
+    // always use bilinear for preview.
+    opts.interpolator = PanoramaOptions::BILINEAR;
 
-    // update the preview image
-
+    // create images
     wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
     vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
     BImage alpha(m_panoImgSize);
     // the empty panorama roi
     ROI<Diff2D> panoROI;
-    for (RemappedVector::iterator it = m_remapped.begin();
-         it != m_remapped.end();
-         ++it)
-    {
-        // draw only images that are scheduled to be drawn
-        // TODO: blending order is different from final panorama..
-        // should fix that.
-        if (set_contains(m_displayedImages, it-m_remapped.begin())) {
-            if ((*it)->roi().size().x > 0) {
-                if (seaming) {
-                    DEBUG_DEBUG("drawing image " << it - m_remapped.begin());
-                    // merge into view!
-                    MultiProgressDisplay dummy;
-                    blend(*(*it),
-                          destImageRange(panoImg), destImage(alpha), panoROI,
-                          dummy);
-                } else {
-                    // copy image with mask.
-                    vigra::copyImageIf((*it)->image(),
-                                       destIter((*it)->alpha().first),
-                                       (*it)->roi().apply(destImage(panoImg),panoROI) );
-                    // copy mask
-                    vigra::copyImageIf((*it)->alpha(),
-                                       destIter((*it)->alpha().first),
-                                       (*it)->roi().apply(destImage(alpha),panoROI) );
-                }
-            } else {
-                DEBUG_WARN("image should be drawn, but has not been remapped");
-            }
+    DEBUG_DEBUG("about to stitch images");
+    if (m_displayedImages.size() > 0) {
+        if (seaming) {
+            WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+            stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
+        } else {
+            WeightedStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+            stitcher.stitch(opts, m_displayedImages, destImageRange(panoImg), destImage(alpha));
         }
-    }
+    }            
 
     if (m_panoBitmap) {
         delete m_panoBitmap;
@@ -246,8 +222,122 @@ void PreviewPanel::updatePreview()
 
     // always redraw
     wxClientDC dc(this);
-    DrawPreview(dc);
+    DrawPreview(dc);        
 }
+
+
+#if 0
+
+void PreviewPanel::updatePreview()
+{
+    DEBUG_TRACE("");
+    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
+    // in case of recursive calls, do not start to reupdate.
+    if (!m_updating) {
+        m_updating = true;
+
+        // temporary bitmap for our remapped image
+        // calculate the image size from panel widht, height from vfov
+
+//    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
+//    bool corrLens = cor != 0;
+
+        double finalWidth = pano.getOptions().width;
+        double finalHeight = pano.getOptions().getHeight();
+
+        m_panoImgSize = Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
+
+        double ratioPano = finalWidth / finalHeight;
+        double ratioPanel = (double)m_panoImgSize.x / (double)m_panoImgSize.y;
+
+        DEBUG_DEBUG("panorama ratio: " << ratioPano << "  panel ratio: " << ratioPanel);
+
+        if (ratioPano < ratioPanel) {
+            // panel is wider than pano
+            m_panoImgSize.x = ((int) (m_panoImgSize.y * ratioPano));
+            DEBUG_DEBUG("portrait: " << m_panoImgSize);
+        } else {
+            // panel is taller than pano
+            m_panoImgSize.y = ((int)(m_panoImgSize.x / ratioPano));
+            DEBUG_DEBUG("landscape: " << m_panoImgSize);
+        }
+
+        UIntSet::iterator it = m_dirtyImgs.begin();
+        while(it != m_dirtyImgs.end()) {
+//            DEBUG_ASSERT(*it < m_remapped.size());
+            if (*it >= m_remapped.size()) {
+                // I don't understand how this can happen,
+                // as a workaround, ignore the image.
+                continue;
+            }
+            // remapp the image, using the given small image as default
+            mapPreviewImage(*it);
+            UIntSet::iterator tit = it;
+            ++it;
+            m_dirtyImgs.erase(tit);
+        }
+
+        // update the preview image
+
+        wxImage panoImage(m_panoImgSize.x, m_panoImgSize.y);
+        vigra::BasicImageView<RGBValue<unsigned char> > panoImg((RGBValue<unsigned char> *)panoImage.GetData(), panoImage.GetWidth(), panoImage.GetHeight());
+        BImage alpha(m_panoImgSize);
+        // the empty panorama roi
+        ROI<Diff2D> panoROI;
+        DEBUG_DEBUG("about to merge images");
+        for (RemappedVector::iterator it = m_remapped.begin();
+             it != m_remapped.end();
+             ++it)
+        {
+            // draw only images that are scheduled to be drawn
+            // TODO: blending order is different from final panorama..
+            // should fix that.
+            if (set_contains(m_displayedImages, it-m_remapped.begin())) {
+                if ((*it)->roi().size().x > 0) {
+                    DEBUG_DEBUG("about to copy/seam image " << it - m_remapped.begin()
+                                << " pano roi: " << panoROI << " img roi: " << (*it)->roi());
+
+                    // calculate the currently active roi (union of pano and image)
+                    vigra_ext::ROI<vigra::Diff2D> overlap;
+
+                    if (seaming) {
+                        DEBUG_DEBUG("drawing image " << it - m_remapped.begin());
+                        // merge into view!
+                        MultiProgressDisplay dummy;
+                        blend(*(*it),
+                              destImageRange(panoImg), destImage(alpha), panoROI,
+                              dummy);
+                    } else {
+                        // copy image with mask.
+                        vigra::copyImageIf((*it)->image(),
+                                           destIter((*it)->alpha().first),
+                                           (*it)->roi().apply(destImage(panoImg),panoROI) );
+                        // copy mask
+                        vigra::copyImageIf((*it)->alpha(),
+                                           destIter((*it)->alpha().first),
+                                           (*it)->roi().apply(destImage(alpha),panoROI) );
+                        img.roi().unite(panoROI, panoROI);
+                    }
+                } else {
+                    DEBUG_WARN("image should be drawn, but has not been remapped");
+                }
+            }
+        }
+
+        if (m_panoBitmap) {
+            delete m_panoBitmap;
+        }
+        m_panoBitmap = new wxBitmap(panoImage);
+
+        // always redraw
+        wxClientDC dc(this);
+        DrawPreview(dc);
+
+        m_updating = false;
+    }
+}
+
+#endif
 
 void PreviewPanel::DrawPreview(wxDC & dc)
 {

@@ -57,7 +57,7 @@ DEPEND_FILES = *.cpp
 
 CFLAGS += $(WXWIN_CFLAGS) -I../ $(INCL_RESOURCES_FLAG) $(VIGRA_CFLAGS)
 LFLAGS += $(XRC_LFLAGS) $(WXWIN_LFLAGS)  -lpanorama \
-           -ljhead -lcommon -lvigra_ext ${VIGRA_LFLAGS}
+           -ljhead -lcommon -lvigra_ext -lvigra_impex2 ${VIGRA_LFLAGS}
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a

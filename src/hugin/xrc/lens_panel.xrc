@@ -319,34 +319,42 @@
           <object class="sizeritem">
             <object class="wxStaticBoxSizer">
               <label>Lens management</label>
-              <orient>wxHORIZONTAL</orient>
-              <object class="spacer">
-                <size>0,0</size>
-                <option>1</option>
-                <flag>wxEXPAND</flag>
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_load">
+                      <label>Load</label>
+                      <tooltip>Load lens parameters from a file</tooltip>
+                    </object>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_save">
+                      <label>Save</label>
+                      <tooltip>Save lens parameters to an file</tooltip>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
+                </object>
               </object>
               <object class="sizeritem">
-                <object class="wxButton" name="lens_button_save">
-                  <label>Save</label>
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_loadEXIF">
+                      <label>Load EXIF</label>
+                      <tooltip>Try to read HFOV from the EXIF data</tooltip>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
+                  </object>
                 </object>
-                <option>1</option>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="spacer">
-                <option>1</option>
-                <flag>wxEXPAND</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxButton" name="lens_button_load">
-                  <label>Load</label>
-                </object>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>5</border>
-              </object>
-              <object class="spacer">
-                <option>1</option>
-                <flag>wxEXPAND</flag>
               </object>
             </object>
             <flag>wxALL|wxEXPAND</flag>

@@ -570,7 +570,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
         w = (int) (h * iRatio);
     }
     wxImage scaled = img->Scale(w,h);
-    imgctrl->SetBitmap(scaled.ConvertToBitmap());
+    imgctrl->SetBitmap(wxBitmap(scaled));
 }
 
 
@@ -591,7 +591,7 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
             i++;
         }
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateVariablesCmd( pano, vars ));
+            new PT::UpdateImagesVariablesCmd( pano, selImg, vars ));
     }
 
 }

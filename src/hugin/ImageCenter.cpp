@@ -167,11 +167,11 @@ void CenterCanvas::Resize( wxSizeEvent & e )
             zoom = (float)img.GetHeight()/(float)y;
           }
 
-          c_img = img.Scale (new_width, new_height)
-                                         .ConvertToBitmap();
+          c_img = wxBitmap(img.Scale (new_width, new_height));
       }
 
-      dirty_img = c_img.ConvertToImage().ConvertToBitmap();
+      // why???
+//      dirty_img = c_img.ConvertToImage().ConvertToBitmap();
       DEBUG_TRACE ("")
 
       // now show the position of current PT shift (d,e)

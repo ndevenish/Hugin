@@ -274,6 +274,7 @@
                         <item>Multiple TIFF</item>
                         <item>Multiple TIFF with masks</item>
                         <item>Layered TIFF</item>
+                        <item>Layered TIFF with Masks</item>
                         <item>PICT</item>
                         <item>PSD</item>
                         <item>Layered PSD</item>
@@ -344,7 +345,7 @@
                     <item>nona</item>
                     <item>PTStitcher</item>
                   </content>
-                  <selection>0</selection>
+                  <selection>1</selection>
                 </object>
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>5</border>

@@ -307,7 +307,6 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
                      "Please optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\n"
                      "The Field of View (v) can sometimes be optimized for partial panoramas as well,\n"
                      "when the images are already aligned well."));
-        m_apply->Disable();
     } else {
         msg.Printf(_("Optimizer run finished.\n"
                      "Results:\n"

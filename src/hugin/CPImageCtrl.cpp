@@ -316,14 +316,14 @@ void CPImageCtrl::rescaleImage()
     DEBUG_DEBUG("src image size "
                 << imageSize.GetHeight() << "x" << imageSize.GetWidth());
     if (getScaleFactor() == 1.0) {
-        bitmap = img->ConvertToBitmap();
+        bitmap = wxBitmap(img);
     } else {
         imageSize.SetWidth( scale(imageSize.GetWidth()) );
         imageSize.SetHeight( scale(imageSize.GetHeight()) );
         DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
                     << imageSize.GetHeight() );
-        bitmap = img->Scale(imageSize.GetWidth(),
-                            imageSize.GetHeight()).ConvertToBitmap();
+        bitmap = wxBitmap(img->Scale(imageSize.GetWidth(),
+                                     imageSize.GetHeight()).ConvertToBitmap());
         DEBUG_DEBUG("rescaling finished");
     }
 

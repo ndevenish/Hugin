@@ -95,7 +95,6 @@ private:
     RemappedVector m_remapped;
     wxBitmap * m_panoBitmap;
     // currently updating the preview.
-    bool m_updating;
 
     PT::UIntSet m_dirtyImgs;
 
