@@ -51,6 +51,36 @@ std::string utils::CurrentTime()
 }
 #endif
 
+
+std::string utils::stripExtension(const std::string & basename2)
+{
+    std::string::size_type idx = basename2.rfind('.');
+    // check if the dot is not followed by a \ or a /
+    // to avoid cutting pathes.
+    std::string::size_type slashidx = basename2.rfind('/', idx);
+    std::string::size_type backslashidx = basename2.rfind('\\', idx);
+    if (idx != std::string::npos
+        && (slashidx < idx || slashidx == std::string::npos)
+        && (backslashidx < idx || backslashidx == std::string::npos) ) 
+    {
+        return basename2.substr(0, idx);
+    } else {
+        return basename2;
+    }
+}
+
+std::string utils::stripPath(const std::string & filename)
+{
+    std::string::size_type idx1 = filename.rfind('\\');
+    std::string::size_type idx2 = filename.rfind('/');
+    std::string::size_type idx = std::min(idx1, idx2);
+    if (idx != std::string::npos) {
+        return filename.substr(idx + 1);
+    } else {
+        return filename;
+    }
+}
+
 std::string utils::doubleToString(double d)
 {
     char c[10];

@@ -116,9 +116,21 @@
 
 namespace utils
 {
+    /** current time as a string */
     std::string CurrentTime();
 
+    /** convert a double to a string, suitable for display
+     *  within a GUI
+     */
     std::string doubleToString(double d);
+
+    /** Remove the extension from a filename */
+    std::string stripExtension(const std::string & str);
+
+    /** remove the path of a filename (mainly useful for gui
+     *  display of filenames)
+     */
+    std::string stripPath(const std::string & filename);
 
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {
