@@ -174,6 +174,7 @@ public:
                             pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str());
                             // save used path
                             basedir = dlg.GetDirectory();
+							DEBUG_INFO("basedir is: " << basedir.mb_str());
                         } else {
                             PanoramaMemento emptyPano;
                             pano.setMemento(emptyPano);

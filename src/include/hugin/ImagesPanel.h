@@ -74,6 +74,10 @@ private:
     // event handlers
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
+#ifdef USE_WX25x
+	void OnPositionChanged(wxSplitterEvent& event);
+#endif
+
     // Here we select the preview image
 
     /**  gui -> pano */
@@ -130,7 +134,7 @@ private:
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;
 	
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
 	wxScrolledWindow *m_img_ctrls;
 	wxSplitterWindow *m_img_splitter;
 #endif

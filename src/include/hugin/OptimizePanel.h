@@ -100,7 +100,7 @@ protected:
     wxCheckBox * m_edit_cb;
     wxChoice * m_mode_cb;
 	
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
 	wxScrolledWindow *m_opt_ctrls;
 #endif
 	

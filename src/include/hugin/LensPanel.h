@@ -124,7 +124,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     int m_distDigitsEdit;
     int m_pixelDigits;
 
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
     wxScrolledWindow *m_lens_ctrls;
 	wxSplitterWindow *m_lens_splitter;
 #endif

@@ -174,7 +174,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
     m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
 	DEBUG_ASSERT(m_cp_ctrls);
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
@@ -183,6 +183,8 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 	m_cp_ctrls->SetSizeHints(20, 20);
 	m_cp_ctrls->FitInside();
 	m_cp_ctrls->SetScrollRate(10, 10);
+	// wx 2.5.4
+	// m_cp_splitter->SetSashGravity(0.5);
 	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
 	m_cp_splitter->SetMinimumPaneSize(20);
 #endif
@@ -208,7 +210,7 @@ CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
 
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
     int sashPos;
 	sashPos = m_cp_splitter->GetSashPosition();
 	DEBUG_INFO("CP Editor panel sash pos: " << sashPos);

@@ -130,9 +130,11 @@
                                     <style>wxCB_READONLY|wxCB_DROPDOWN</style>
                                     <bg>#DCDCDC</bg>
                                   </object>
+                                  <option>1</option>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                               </object>
+                              <flag>wxEXPAND</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="cp_editor_finetune_button">
@@ -284,6 +286,7 @@
             </object>
           </object>
           <orientation>horizontal</orientation>
+          <sashpos>100</sashpos>
           <style>wxSP_3DSASH</style>
         </object>
         <option>1</option>

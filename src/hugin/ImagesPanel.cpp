@@ -60,6 +60,9 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SIZE   ( ImagesPanel::FitParent )
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
+#ifdef USE_WX25x
+	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
+#endif
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
@@ -104,7 +107,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
 
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_img_ctrls);
     m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
@@ -112,7 +115,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     m_img_ctrls->FitInside();
     m_img_ctrls->SetScrollRate(10, 10);
-    m_img_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300));
+	{
+		int sashPos;
+		sashPos = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300);
+		// wx 2.5.4
+		//m_img_splitter->SetSashGravity(0.5);
+		m_img_splitter->SetSashPosition(sashPos);
+	}
     m_img_splitter->SetMinimumPaneSize(20);
 #endif
 
@@ -143,7 +152,7 @@ ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
 
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
 	int sashPos;
 	sashPos = m_img_splitter->GetSashPosition();
     DEBUG_INFO("Image panel sash pos: " << sashPos);
@@ -164,7 +173,7 @@ ImagesPanel::~ImagesPanel(void)
 
 void ImagesPanel::FitParent( wxSizeEvent & e )
 {
-#if wxCHECK_VERSION(2,5,3)
+#ifdef USE_WX25x
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     // winHeight -= ConvertDialogToPixels(wxPoint(0, 30)).y;   // sizes of tabs and toolbar
@@ -181,6 +190,13 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 #endif
 }
 
+#ifdef USE_WX25x
+void ImagesPanel::OnPositionChanged(wxSplitterEvent& event)
+{
+	DEBUG_INFO("Sash Position now:" << event.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
+    event.Skip();
+}
+#endif
 
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
