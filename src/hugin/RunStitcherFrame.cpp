@@ -163,10 +163,10 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
         return;
     }
 
-	// child process should be nice to the poor user;
-	// if the user wants the stitch to go fast, they'll stop mousing around.
-	setpriority(PRIO_PROCESS, m_pid,
-				getpriority(PRIO_PROCESS, m_pid) + 5);
+    // child process should be nice to the poor user;
+    // if the user wants the stitch to go fast, they'll stop mousing around.
+    setpriority(PRIO_PROCESS, m_pid,
+		getpriority(PRIO_PROCESS, m_pid) + 5);
 
     wxInputStream * t_in = m_process->GetInputStream();
     assert(t_in);

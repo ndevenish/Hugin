@@ -58,15 +58,16 @@ public:
                 wxImage * image = ImageCache::getInstance().getImage(filename);
                 int width = image->GetWidth();
                 int height = image->GetHeight();
-                
+
                 // FIXME check if we need to add another lens
                 // query user if we need to.
                 int lensNr=0;
                 if (pano.getNrOfLenses() == 0) {
                     Lens lens;
+                    lens.isLandscape = (width > height);
                     if (utils::tolower(ext) == "jpg") {
                         // try to read exif data from jpeg files.
-                        lens.readEXIF(filename, width > height);
+                        lens.readEXIF(filename);
                     }
                     lensNr = pano.addLens(lens);
                 }

@@ -33,6 +33,8 @@
 #include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 
+#include "common/math.h"
+
 namespace PT {
 
 class Panorama;
@@ -274,21 +276,11 @@ public:
     const PanoramaOptions & getOptions() const
         { return state.options; }
 
-    /** calculates the horizontal fov of the complete panorama
+    /** calculates the horizontal and vertial FOV of the complete panorama
      *
-     *  The panorama center is always at yaw=0, pitch=0.
-     *
-     *  @bug doesn't consider roll & lens distortion, cylindrical & rectilinear
+     *  @return HFOV,VFOV
      */
-    double calcHFOV() const;
-
-    /** calculates the vertical fov of the complete panorama
-     *
-     *  The panorama center is always at yaw=0, pitch=0.
-     *
-     *  @bug doesn't consider roll & lens distortion, cylindrical & rectilinear
-     */
-    double calcVFOV() const;
+    FDiff2D calcFOV() const;
 
 
     // iterator like interface for the images and control points

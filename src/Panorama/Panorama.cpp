@@ -35,14 +35,16 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <limits.h>
 
 #include "PT/Panorama.h"
-#include "PT/Process.h"
+#include "PT/PanoToolsInterface.h"
 #include "common/utils.h"
 #include "common/stl_utils.h"
 
 using namespace PT;
 using namespace std;
+using namespace vigra;
 
 //const Map::data_type & map_get(const Map &m, const Map::key_type & key)
 const Variable & const_map_get(const VariableMap &m, const string & key)
@@ -290,34 +292,55 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
 }
 
 
-double Panorama::calcHFOV() const
+FDiff2D Panorama::calcFOV() const
 {
-    double hfov = 0;
-    int nImages = state.images.size();
-    for (int i = 0; i <nImages; i++) {
-        double c = fabs(const_map_get(state.variables[i],"y").getValue());
-        c += const_map_get(state.variables[i],"v").getValue() / 2;
-        if (c > hfov) {
-            hfov = c;
-        }
-    }
-    return 2 * hfov;
-}
+    // trace all outlines.
+    FDiff2D gul, glr;
+    gul.x = FLT_MAX;
+    gul.y = FLT_MAX;
+    glr.x = FLT_MIN;
+    glr.y = FLT_MIN;
 
-double Panorama::calcVFOV() const
-{
-    double vfov = 0;
-    int nImages = state.images.size();
-    for (int i = 0; i <nImages; i++) {
-        double c = fabs(const_map_get(state.variables[i],"p").getValue());
-        double w = state.images[i].getWidth();
-        double h = state.images[i].getHeight();
-        c += const_map_get(state.variables[i],"v").getValue() * h/w / 2;
-        if (c > vfov) {
-            vfov = c;
+    PTools::Transform T;
+    unsigned int nImg = state.images.size();
+    for (unsigned int i=0; i<nImg; i++) {
+        // create suitable transform, pano -> image
+        double ratio =  ((double) state.images[i].getWidth())/state.images[i].getHeight();
+        int w = 20;
+        int h = (int) round(20*ratio);
+        if (ratio > 1) {
+            w = (int) round(20*ratio);
+            h = 20;
         }
+        T.createInvTransform(Diff2D(w, h),
+                             state.variables[i],
+                             getLens(state.images[i].getLensNr()).projectionFormat,
+                             Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
+                             360);
+        FDiff2D ul;
+        FDiff2D lr;
+        // outline of this image in final panorama
+        vector<FDiff2D> outline;
+        PTools::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
+                                 ul, lr);
+        // equirect image coordinates -> equirectangular coordinates
+        ul.x -= 180;
+        ul.y -= 90;
+        lr.x -= 180;
+        lr.y -= 90;
+        if (gul.x > ul.x) gul.x = ul.x;
+        if (gul.y > ul.y) gul.y = ul.y;
+        if (glr.x < lr.x) glr.x = lr.x;
+        if (glr.y < lr.y) glr.y = lr.y;
     }
-    return 2 * vfov;
+    
+    FDiff2D res;
+    res.x = 2 * max(fabs(gul.x),fabs(glr.x));
+    res.y = 2 * max(fabs(gul.y),fabs(glr.y));
+    DEBUG_DEBUG("ul: " << gul.x << "," << gul.y 
+                << "  lr: " << glr.x << "," << gul.y 
+                << "  fov: " << res.x << "," << res.y);
+    return res;
 }
 
 void Panorama::updateCtrlPointErrors(const CPVector & cps)
@@ -974,7 +997,7 @@ void Panorama::setOptions(const PanoramaOptions & opt)
         state.options.HFOV = maxh;
     if (state.options.VFOV > maxv)
         state.options.VFOV = maxv;
-    
+
     if (state.options.HFOV <= 0)
         state.options.HFOV = 1;
     if (state.options.VFOV <= 0)

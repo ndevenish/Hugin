@@ -329,8 +329,9 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     DEBUG_TRACE("");
     PanoramaOptions opt = m_pano.getOptions();
 
-    opt.HFOV = (int) m_pano.calcHFOV() + 1;
-    opt.VFOV = (int) m_pano.calcVFOV() + 1;
+    FDiff2D fov = m_pano.calcFOV();
+    opt.HFOV = (int) ceil(fov.x);
+    opt.VFOV = (int) ceil(fov.y);
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )

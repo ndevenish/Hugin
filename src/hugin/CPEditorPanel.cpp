@@ -179,11 +179,11 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     wxCommandEvent dummy;
     dummy.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
     OnZoom(dummy);
-    
-    
+
+
     wxConfigBase *config = wxConfigBase::Get();
-    
-    
+
+
 
     m_autoAddCB->SetValue(config->Read("/CPEditorPanel/autoAdd",0l));
     m_fineTuneCB->SetValue(config->Read("/CPEditorPanel/fineTune",1l));
@@ -216,7 +216,13 @@ CPEditorPanel::~CPEditorPanel()
 void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
-    if (m_leftImageNr != imgNr) {
+    if (imgNr == UINT_MAX) {
+        m_leftImg->setImage("");
+        m_leftImageNr = imgNr;
+        m_leftFile = "";
+        changeState(NO_POINT);
+        UpdateDisplay();
+    } else if (m_leftImageNr != imgNr) {
         m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
         if (m_leftTabs->GetSelection() != (int) imgNr) {
             m_leftTabs->SetSelection(imgNr);
@@ -232,7 +238,13 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
 void CPEditorPanel::setRightImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
-    if (m_rightImageNr != imgNr) {
+    if (imgNr == UINT_MAX) {
+        m_rightImg->setImage("");
+        m_rightImageNr = imgNr;
+        m_rightFile = "";
+        changeState(NO_POINT);
+        UpdateDisplay();
+    } else if (m_rightImageNr != imgNr) {
         // set the new image
         m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
         // select tab
@@ -912,6 +924,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
                 m_rightImg->setImage(m_rightFile);
             }
         } else {
+            DEBUG_DEBUG("setting no images");
             m_leftImageNr = UINT_MAX;
             m_leftFile = "";
             m_rightImageNr = UINT_MAX;
@@ -951,15 +964,16 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         }
     }
 
-    if (update) {
-        UpdateDisplay();
-    }
-
     // if there is no selection, select the first one.
     if (nrImages > 0 && nrTabs == 0) {
         setLeftImage(0);
         setRightImage(0);
     }
+    
+    if (update) {
+        UpdateDisplay();
+    }
+
 }
 
 void CPEditorPanel::UpdateDisplay()

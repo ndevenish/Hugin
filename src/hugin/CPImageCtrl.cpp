@@ -281,7 +281,6 @@ void CPImageCtrl::setImage(const std::string & file)
         bitmap = wxBitmap();
         SetSizeHints(0,0,0,0,1,1);
     }
-    editState = NO_SELECTION;
 }
 
 

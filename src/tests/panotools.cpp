@@ -27,6 +27,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
+#include <fstream>
+
 #include "common/utils.h"
 #include "common/stl_utils.h"
 #include "hugin/ImageCache.h"
@@ -53,21 +55,21 @@ void remap_test()
 
     VariableMap vars;
     fillVariableMap(vars);
-    map_get(vars,"y").setValue(5);
-    map_get(vars,"p").setValue(0);
+    map_get(vars,"y").setValue(0);
+    map_get(vars,"p").setValue(-80);
     map_get(vars,"r").setValue(0);
     map_get(vars,"v").setValue(50);
-    map_get(vars,"b").setValue(-0.02);
+    map_get(vars,"b").setValue(0);
 
     pano.addImage(PanoImage("photo.jpg", 1600, 1200, 0),vars);
 
 //    wxImage output(1600,1200);
 
-    int w = 200;
+    int w = 400;
     PanoramaOptions opts = pano.getOptions();
-    opts.projectionFormat = PanoramaOptions::RECTILINEAR;
-    opts.HFOV=50;
-    opts.VFOV=50;
+    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.HFOV=100;
+    opts.VFOV=180;
     opts.width=w;
     pano.setOptions(opts);
 
@@ -78,7 +80,7 @@ void remap_test()
     unsigned char * data = output.GetData();
     std::cout << std::hex << (void *) data << std::endl;
     for (int i=0 ; i < w*h*3; i++) {
-        data[i] = 0xAB;
+        data[i] = 0xFF;
     }
 
     //====================================================================
@@ -99,7 +101,7 @@ void remap_test()
     std::cout << std::hex << (void *) data << std::endl;
     for (int i=0 ; i < w*h*3; i++) {
         //data[i] = (unsigned char) (exp((double)(i/w))/sin(i/1000.0));
-        data[i] = 0;
+        data[i] = 0xFF;
     }
     //====================================================================
     //====================================================================
@@ -110,7 +112,7 @@ void remap_test()
 
 
     wxImage * src= ImageCache::getInstance().getImage("photo.jpg");
-    
+
     // outline of this image in final panorama
     vector<FDiff2D> outline;
     // bounding box
@@ -141,14 +143,18 @@ void remap_test()
                            transf);
     DEBUG_TRACE("own end stitching");
 
-    
-    
+
+
+    ofstream border("border.m");
+    border << "border = [ ";
     for(vector<FDiff2D>::iterator it = outline.begin(); it != outline.end();
-        ++it) 
+        ++it)
     {
         *(wxImageUpperLeft(output)+it->toDiff2D()) =  RGBValue<unsigned char>(255,0,0);
+        border << it->x << ", " << it->y << "; ..." << endl;
     }
-    
+    border << " ]; ";
+
     output.SaveFile("stich_result_own.jpg");
 
 

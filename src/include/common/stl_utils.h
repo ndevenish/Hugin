@@ -41,6 +41,8 @@
 #include <ctype.h>
 #include <stdexcept>
 
+#include <common/utils.h>
+
 namespace utils {
     /// convert a string to lowercase
     inline std::string tolower(const std::string& s)

@@ -176,8 +176,16 @@ public:
      *  @return true if focal length was found, lens will contain
      *          the correct data.
      */
-    bool readEXIF(const std::string & filename, bool isLandscape=true);
-
+    bool readEXIF(const std::string & filename);
+    
+    /** HFOV -> 35mm focal length
+     */
+    double calcHFOV35mm(double focalLength35mm) const;
+    
+    /** 35 mm focal length -> HFOV
+     */
+    double calcFL35mm(double HFOV) const;
+    
     // updates everything, except the variables
     void update(const Lens & l)
         {
@@ -186,15 +194,13 @@ public:
             projectionFormat = l.projectionFormat;
         }
 
-    double exifFocalLength;
+    double focalLength;
     // factor for conversion of focal length to
     // 35 mm film equivalent.
-    double exifFocalLengthConversionFactor;
-    double exifHFOV;
-
-    double focalLength;
     double focalLengthConversionFactor;
     LensProjectionFormat projectionFormat;
+    
+    bool isLandscape;
     // these are the lens specific settings.
     // lens correction parameters
     LensVarMap variables;

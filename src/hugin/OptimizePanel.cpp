@@ -105,14 +105,19 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_ASSERT(m_projectionChoice);
     m_mode_cb = XRCCTRL(*this, "optimize_panel_mode", wxChoice);
     DEBUG_ASSERT(m_mode_cb);
-
+    
+    
     wxConfigBase * config = wxConfigBase::Get();
     long w = config->Read("/OptimizerPanel/width",-1);
     long h = config->Read("/OptimizerPanel/height",-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
-
+    
+    wxCommandEvent dummy;
+    dummy.m_commandInt = m_mode_cb->GetSelection();
+    OnChangeMode(dummy);
+    
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -208,14 +213,14 @@ void OptimizePanel::panoramaChanged(PT::Panorama & pano)
     m_projectionChoice->SetSelection(pano.getOptions().projectionFormat);
 
     // update accordingly to the choosen mode
-    wxCommandEvent dummy;
-    OnChangeMode(dummy);
+//    wxCommandEvent dummy;
+//    OnChangeMode(dummy);
 }
 
 void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                           const PT::UIntSet & imgNr)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("nr of changed images: " << imgNr.size());
 
     // update lens values
     int nrLensList = m_v_list->GetCount();
@@ -270,6 +275,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     // display values of the variables.
     UIntSet::iterator it;
     for (it = imgNr.begin(); it != imgNr.end(); it++) {
+        DEBUG_DEBUG("setting checkmarks for image " << *it)
         const VariableMap & vars = pano.getImageVariables(*it);
         // keep selections
         bool sel = m_yaw_list->IsChecked(*it);
@@ -287,6 +293,12 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
+    
+    // update automatic checkmarks
+    wxCommandEvent dummy;
+    dummy.m_commandInt = m_mode_cb->GetSelection();
+    OnChangeMode(dummy);
+
 }
 
 void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
@@ -370,6 +382,7 @@ void OptimizePanel::OnClose(wxCloseEvent& event)
 
 void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 {
+    DEBUG_TRACE("");
     int mode = m_mode_cb->GetSelection();
     DEBUG_ASSERT(mode >= 0 && mode <=5);
     switch (mode) {
@@ -440,7 +453,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
     }
     // do not try to do anything on our own
     // if the user selected custom
-    if (mode != 5) {
+    if (mode != 5 && m_pano->getNrOfImages() > 0) {
         // get anchor image
         unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
 

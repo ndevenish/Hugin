@@ -186,7 +186,7 @@ void LensPanel::UpdateLensDisplay (unsigned int imgNr)
 
     double hfov = const_map_get(imgvars,"v").getValue();
     // update focal length
-    double focal_length = 18.0/tan(hfov/360*M_PI);
+    double focal_length = lens.calcFL35mm(hfov);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
         doubleToString(focal_length).c_str());
 
@@ -236,12 +236,12 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
             wxLogError(_("Value must be numeric."));
             return;
         }
+        
         // this command is complicated and need the different lenses
         // conversion factors, FIXME change for multiple lenses
-//        int first = *(selected.begin());
-//        double factor = pano.getLens(pano.getImage(first).getLensNr()).focalLengthConversionFactor;
-        double focalLength35mm = val;
-        double HFOV = 2.0 * atan((36/2) / focalLength35mm) * 180/M_PI;
+        int first = *(selected.begin());
+        const Lens & lens = pano.getLens(pano.getImage(first).getLensNr());
+        double HFOV = lens.calcHFOV35mm(val);
         Variable var("v",HFOV);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetVariableCmd( pano, selected, var)

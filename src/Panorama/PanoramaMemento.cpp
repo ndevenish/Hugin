@@ -36,15 +36,10 @@
 #include <jhead/jhead.h>
 
 #include <PT/Panorama.h>
+#include <PT/PanoToolsInterface.h>
 
 using namespace PT;
 using namespace std;
-
-// Convert degree to radian
-#define DEG_TO_RAD( x )		( (x) * 2.0 * M_PI / 360.0 )
-
-// and reverse
-#define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * M_PI ) )
 
 
 PanoramaMemento::~PanoramaMemento()
@@ -126,12 +121,10 @@ QString PT::getAttrib(QDomNamedNodeMap map, QString name)
 
 
 Lens::Lens()
-    : exifFocalLength(0.0),
-      exifFocalLengthConversionFactor(0.0),
-      exifHFOV(90.0),
-      focalLength(0),
+    : focalLength(35),
       focalLengthConversionFactor(1),
-      projectionFormat(RECTILINEAR)
+      projectionFormat(RECTILINEAR),
+      isLandscape(false)
 {
     variables.insert(pair<const char*, LensVariable>("v",LensVariable("v",50.0, true)));
     variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
@@ -179,7 +172,7 @@ void Lens::setFromXML(const QDomNode & node)
 #endif
 
 
-bool Lens::readEXIF(const std::string & filename, bool isLandscape)
+bool Lens::readEXIF(const std::string & filename)
 {
 
     double HFOV = 0;
@@ -220,22 +213,40 @@ bool Lens::readEXIF(const std::string & filename, bool isLandscape)
         // of ccd width. we assume that the pixels are squares
         ccdWidth = exif.CCDWidth * exif.Width / exif.Height;
     }
-    HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
+    HFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     if ( !(HFOV  > 0.0) )
         HFOV = 50.0;
     if ( ccdWidth > 0.0 )
-      focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
-    focalLength = exifFocalLength = exif.FocalLength;
-    focalLengthConversionFactor = exifFocalLengthConversionFactor = focalLengthConversionFactor;
+        focalLengthConversionFactor = 36 / ccdWidth;
+    focalLength = exif.FocalLength;
     DEBUG_DEBUG("CCD size: " << ccdWidth << " mm");
-    DEBUG_DEBUG("focal length: " << exifFocalLength << ", 35mm equiv: "
-              << exifFocalLength * exifFocalLengthConversionFactor
-              << " HFOV: " << HFOV);
+    DEBUG_DEBUG("focal length: " << focalLength << ", 35mm equiv: "
+                << focalLength * focalLengthConversionFactor
+                << " HFOV: " << HFOV);
 
     map_get(variables,"v").setValue(HFOV);
 
     return true;
 }
+
+double Lens::calcHFOV35mm(double focalLength35mm) const
+{
+    if (isLandscape) {
+        return RAD_TO_DEG(2.0 * atan((36/2) / focalLength35mm));
+    } else {
+        return RAD_TO_DEG(2.0 * atan((24/2) / focalLength35mm));
+    }
+}
+
+double Lens::calcFL35mm(double hfov) const
+{
+    if (isLandscape) {
+        return 18.0/tan(hfov/360.0*M_PI);
+    } else {
+        return 12.0/tan(hfov/360.0*M_PI);
+    }
+}
+
 
 
 //=========================================================================
@@ -402,13 +413,16 @@ unsigned int PanoramaOptions::getHeight() const
 {
     switch (projectionFormat) {
     case RECTILINEAR:
+        // FIXME. wrong
         return (int) ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
     case CYLINDRICAL:
+        // FIXME. wrong
         return (int) ( width * atan(DEG_TO_RAD(VFOV/2.0)) / DEG_TO_RAD(HFOV/2.0));
     case EQUIRECTANGULAR:
         return (int) (width * VFOV/HFOV);
     }
     return 0;
+
 }
 
 const string PanoramaOptions::fileformatNames[] =
