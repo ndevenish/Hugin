@@ -153,6 +153,8 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     for ( int i = 0 ; i < 512 ; i++ )
       imgNr[i] = 0;
 
+    changePano = FALSE;
+
     DEBUG_TRACE("");;
 }
 
@@ -398,7 +400,7 @@ void LensPanel::HFOVChanged ( wxCommandEvent & e )
 
 //    edit_Lens->update ( pano.getLens(lensEditRef_lensNr) );
 
-    DEBUG_TRACE ("")
+    DEBUG_TRACE (""<< imgNr[0] )
 }
 
 void LensPanel::focalLengthChanged ( wxCommandEvent & e )
