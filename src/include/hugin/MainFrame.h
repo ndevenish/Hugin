@@ -34,6 +34,9 @@ using namespace PT;
 // forward declarations, to save the #include statements
 class CPEditorPanel;
 
+// Define a new frame
+class ImgPreview;
+
 /** The main window frame.
  *
  *  It contains the menu & statusbar and a big notebook with
@@ -86,15 +89,31 @@ private:
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
+    void UpdatePanels(wxCommandEvent & e);
 
     CPEditorPanel * cpe;
 
     // the model
     Panorama pano;
 
+    // Image Preview
+    ImgPreview *canvas;
+
     DECLARE_EVENT_TABLE()
 };
 
+//------------------------------------------------------------------------------
 
+// Define a new canvas which can receive some events
+class ImgPreview: public wxScrolledWindow
+{
+  public:
+    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size);
+    ~ImgPreview(void) ;
+
+    void OnDraw(wxDC& dc);
+    //void OnPaint(wxPaintEvent& event);
+//DECLARE_EVENT_TABLE()
+};
 
 #endif // _MAINFRAME_H
