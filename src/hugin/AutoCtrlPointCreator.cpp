@@ -157,8 +157,8 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano-sift frontend script"),
-                         "", "",
-                         "Shell Scripts (*.sh)|*.sh",
+                         wxT(""), wxT(""),
+                         wxT("Shell Scripts (*.sh)|*.sh"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
