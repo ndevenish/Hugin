@@ -95,7 +95,7 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 4, _("No."), wxLIST_FORMAT_RIGHT, 30 );
       DEBUG_INFO( " images_layout" )
     } else {
-      SetSingleStyle(wxLC_SINGLE_SEL, true); 
+//      SetSingleStyle(wxLC_SINGLE_SEL, true); 
       InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
@@ -141,7 +141,7 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             pano.getImage(i).getFilename());
 
         // fill in the table
-        char Nr[32] ;
+        char Nr[128] ;
         sprintf(Nr ,"%d", i + 1);
         InsertItem ( i, Nr, i );
         EnsureVisible(i);
@@ -164,9 +164,17 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             case EQUIRECTANGULAR:    sprintf(Nr, _("Equirectangular") ); break;
           }
           SetItem ( i, 2, Nr );
-          // FIXME format it better - less null
-          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
-          SetItem ( i, 3, Nr );
+          wxString number;
+          number = number.Format ( "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
+          while ( number.Right(1) == "0" ) {
+            number.RemoveLast ();
+          }
+          if ( number.Right(1) == "," )
+            number.RemoveLast ();
+          if ( number.Right(1) == "." )
+            number.RemoveLast ();
+//          sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).focalLength );
+          SetItem ( i, 3, number );
           sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).a );
           SetItem ( i, 4, Nr );
           sprintf(Nr, "%f", pano.getLens (pano.getImage(i).getLens()).b );

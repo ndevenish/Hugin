@@ -1618,4 +1618,51 @@ msgstr "Über das Programm"
 msgid "Informations about this program"
 msgstr "Informationen über dieses Programm"
 
+#: CPEditorPanel.cpp:122
+msgid "left x"
+msgstr "links x"
+
+#: CPEditorPanel.cpp:123
+msgid "left y"
+msgstr "links y"
+
+#: CPEditorPanel.cpp:124
+msgid "right x"
+msgstr "techts x"
+
+#: CPEditorPanel.cpp:125
+msgid "right y"
+msgstr "rechts y"
+
+#: CPEditorPanel.cpp:126
+msgid "Alignment"
+msgstr "Ausrichtung"
+
+#: CPEditorPanel.cpp:127
+msgid "Distance"
+msgstr "Abstand"
+
+#: cp_editor_panel.xrc:100
+msgid "mode:"
+msgstr "Modus:"
+
+#: cp_editor_panel.xrc:108
+msgid "vertical line"
+msgstr "senkrechte Linie"
+
+#: cp_editor_panel.xrc:109
+msgid "horizontal line"
+msgstr "waagerechte Linie"
+
+#: cp_editor_panel.xrc:128
+msgid "Zoom:"
+msgstr "Größe:"
+
+#: cp_editor_panel.xrc:135
+msgid "fit to window"
+msgstr "anpassen"
+
+#: cp_editor_panel.xrc:149
+msgid "auto fine tune"
+msgstr "automat. Punktsuche"
 

@@ -127,6 +127,7 @@
                     <object class="wxStaticText">
                       <label>Zoom:</label>
                     </object>
+                    <flag>wxALIGN_CENTRE</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxComboBox" name="cp_editor_zoom_box">
@@ -151,7 +152,6 @@
               </object>
               <orient>wxVERTICAL</orient>
             </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
           </object>
         </object>
         <option>4</option>

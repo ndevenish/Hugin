@@ -101,6 +101,8 @@ class LensEdit: public wxPanel, public PT::PanoramaObserver
     // Lens to change settings
     Lens * edit_Lens;
 
+    void updateHFOV(void);
+
     DECLARE_EVENT_TABLE()
 };
 

@@ -81,7 +81,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
 END_EVENT_TABLE()
 
 
-// Define a constructor for the Images Panel
+// Define a constructor for the Lenses Panel
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : pano(*pano)
 {
@@ -193,14 +193,9 @@ void LensEdit::LensChanged ( wxListEvent & e )
     XRCCTRL(*this, "lens_type_combobox", wxComboBox)->SetSelection(
                    edit_Lens->projectionFormat
            );
-    // FIXME format better
-    XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->HFOV)
-           );
-    // FIXME format better
-    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue(
-                   wxString::Format ( "%f", edit_Lens->focalLength )
-           );
+
+    updateHFOV();
+
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->SetValue(
                    wxString::Format ( "%f", edit_Lens->a )
            );
@@ -217,8 +212,35 @@ void LensEdit::LensChanged ( wxListEvent & e )
                    wxString::Format ( "%f", edit_Lens->e )
            );
 
+
+
     DEBUG_INFO ( "hier is item: " << wxString::Format("%d", image) );
 }
+
+void LensEdit::updateHFOV()
+{
+    wxString number;
+    number = number.Format ( "%f", edit_Lens->HFOV );
+    while ( number.Right(1) == "0" ) {
+      number.RemoveLast ();
+    }
+    if ( number.Right(1) == "," )
+      number.RemoveLast ();
+    if ( number.Right(1) == "." )
+      number.RemoveLast ();
+    XRCCTRL(*this, "lens_val_HFOV", wxTextCtrl)->SetValue( number );
+
+    number = number.Format ( "%f", edit_Lens->focalLength * edit_Lens->focalLengthConversionFactor );
+    while ( number.Right(1) == "0" ) {
+      number.RemoveLast ();
+    }
+    if ( number.Right(1) == "," )
+      number.RemoveLast ();
+    if ( number.Right(1) == "." )
+      number.RemoveLast ();
+    XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->SetValue( number );
+}
+
 
 void LensEdit::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
@@ -252,11 +274,14 @@ void LensEdit::HFOVChanged ( wxCommandEvent & e )
     text.ToDouble( val );
 
     edit_Lens->HFOV = *val;
+    edit_Lens->focalLength = 18.0 / tan( edit_Lens->HFOV * M_PI / 360);
+    edit_Lens->focalLength = edit_Lens->focalLength / edit_Lens->focalLengthConversionFactor;
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
 
+    updateHFOV();
     DEBUG_TRACE ("")
 }
 
@@ -266,11 +291,16 @@ void LensEdit::focalLengthChanged ( wxCommandEvent & e )
     wxString text=XRCCTRL(*this,"lens_val_focalLength", wxTextCtrl)->GetValue();
     text.ToDouble( val );
 
-    edit_Lens->focalLength = *val;
+    edit_Lens->focalLength = *val / edit_Lens->focalLengthConversionFactor;
+    edit_Lens->HFOV = 2.0 * atan((36/2) 
+                      / (edit_Lens->focalLength 
+                         * edit_Lens->focalLengthConversionFactor))  
+                      * 180/M_PI;
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, pano.getImage(image).getLens(),*edit_Lens )
         );
+    updateHFOV();
 
     DEBUG_TRACE ("")
 }
@@ -349,5 +379,6 @@ void LensEdit::eChanged ( wxCommandEvent & e )
 
     DEBUG_TRACE ("")
 }
+
 
 

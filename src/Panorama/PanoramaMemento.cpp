@@ -190,7 +190,8 @@ bool Lens::readEXIF(const std::string & filename)
     }
 
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
-    focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
+    if ( ccdWidth > 0.0 )
+      focalLengthConversionFactor = exifFocalLengthConversionFactor = 36 / ccdWidth;
     focalLength = exifFocalLength = exif.FocalLength;
     focalLengthConversionFactor = exifFocalLengthConversionFactor = focalLengthConversionFactor;
     DEBUG_DEBUG("CCD size: " << ccdWidth << " mm");
