@@ -22,7 +22,7 @@
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_pano_type">
                   <content>
-                    <item>Rectlinear</item>
+                    <item>Rectilinear</item>
                     <item>Cylindrical</item>
                     <item>Equirectangular</item>
                   </content>
@@ -72,7 +72,7 @@
             <border>5</border>
           </object>
         </object>
-        <flag>wxALIGN_CENTRE</flag>
+        <flag>wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
         <border>5</border>
       </object>
       <object class="spacer">
@@ -161,7 +161,7 @@
             <border>6</border>
           </object>
         </object>
-        <flag>wxALIGN_CENTRE</flag>
+        <flag>wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
         <border>5</border>
       </object>
       <object class="spacer">
@@ -242,22 +242,38 @@
               </object>
               <vgap>5</vgap>
               <hgap>5</hgap>
+              <growablecols>1</growablecols>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxHORIZONTAL</orient>
+                  <object class="spacer">
+                    <size>0,0</size>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Quality</label>
+                      <tooltip>JPEG compression (0-100)</tooltip>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="pano_jpeg_quality">
+                      <min>0</min>
+                      <max>100</max>
+                    </object>
+                  </object>
+                  <object class="spacer">
+                    <size>0,0</size>
+                    <flag>wxLEFT|wxRIGHT</flag>
+                    <border>65</border>
+                  </object>
+                </object>
+              </object>
               <object class="spacer">
                 <size>0,0</size>
               </object>
-              <growablecols>1</growablecols>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Quality</label>
-                  <tooltip>JPEG compression (0-100)</tooltip>
-                </object>
-                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxSpinCtrl" name="pano_jpeg_quality">
-                  <min>0</min>
-                  <max>100</max>
-                </object>
+              <object class="spacer">
+                <size>0,0</size>
               </object>
               <object class="spacer">
                 <size>0,0</size>
@@ -286,7 +302,7 @@
             <border>5</border>
           </object>
         </object>
-        <flag>wxALL|wxALIGN_CENTRE</flag>
+        <flag>wxALL|wxEXPAND|wxGROW|wxALIGN_CENTRE</flag>
         <border>5</border>
       </object>
       <orient>wxVERTICAL</orient>

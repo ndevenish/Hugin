@@ -87,7 +87,8 @@ ImagePtr ImageCache::getImage(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->progressMessage(wxString::Format("Loading image %s",filename.c_str()).c_str(),0);
+            char *str = wxT("Loading image");
+            m_progress->progressMessage(wxString::Format("%s %s",str,filename.c_str()).c_str(),0);
         }
         wxImage * image = new wxImage(filename.c_str());
         if (!image->Ok()){
@@ -110,7 +111,8 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
         return it->second;
     } else {
         if (m_progress) {
-            m_progress->progressMessage(wxString::Format("Scaling image %s",filename.c_str()).c_str(),0);
+            char *str = wxT("Scaling image");
+            m_progress->progressMessage(wxString::Format("%s %s",str,filename.c_str()).c_str(),0);
         }
         DEBUG_DEBUG("creating small image " << name );
         ImagePtr image = getImage(filename);
