@@ -29,9 +29,12 @@
 #include <vigra/copyimage.hxx>
 #include <vigra/resizeimage.hxx>
 
+#include <vigra/impex.hxx>
+
 #include "common/utils.h"
 #include "common/math.h"
 #include "vigra_ext/Pyramid.h"
+#include "vigra_ext/FitPolynom.h"
 
 namespace vigra_ext{
 
@@ -45,7 +48,6 @@ struct CorrelationResult
     FDiff2D maxpos;
 };
 
-#if 0
 /** find the subpixel maxima by fitting
  *  2nd order polynoms to x and y.
  *
@@ -54,26 +56,82 @@ struct CorrelationResult
  *  best way, but it should work.
  */
 template <class Iterator, class Accessor>
-FDiff2D subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img,
-                       vigra::Diff2D max)
+CorrelationResult subpixelMaxima(vigra::triple<Iterator, Iterator, Accessor> img,
+                                 vigra::Diff2D max)
 {
-    vigra_precondition(max.x >= 2 && max.y >= 2,
+    const int interpWidth = 1;
+    CorrelationResult res;
+    vigra_precondition(max.x > interpWidth && max.y > interpWidth,
                  "subpixelMaxima(): coordinates of "
-                 "maxima must be >= 2,2.");
-    Diff2D sz = img.second - img.first;
-    vigra_precondition(sz.x - max.x >= 2 0 && sz.y - max.y >= 2,
+                 "maxima must be > interpWidth, interpWidth.");
+    vigra::Diff2D sz = img.second - img.first;
+    vigra_precondition(sz.x - max.x >= interpWidth && sz.y - max.y >= interpWidth,
                  "subpixelMaxima(): coordinates of "
-                 "maxima must 2 pixels from the border.");
-    typedef Accessor::value_type T;
-    T x[10];
-    T z[10];
+                 "maxima must interpWidth pixels from the border.");
+    typedef typename Accessor::value_type T;
 
-    Accessor a = img.third;
-    for (int i=0; i<5; i++) {
-        x[0] =
+    T x[2*interpWidth+1];
+    T zx[2*interpWidth+1];
+    T zy[2*interpWidth+1];
+    
+    exportImage(img,vigra::ImageExportInfo("test.tif"));
+
+    Accessor acc = img.third;
+    Iterator begin=img.first;
+    for (int i=-interpWidth; i<=interpWidth; i++) {
+        // collect first row
+        x[i+interpWidth] = i;
+        zx[i+interpWidth] = acc(begin, max + vigra::Diff2D(i,0));
+        zy[i+interpWidth] = acc(begin, max + vigra::Diff2D(0,i));
     }
+
+    cout << "zx = [";
+    for (int i=0; i<2*interpWidth+1; i++) {
+        cout << zx[i] << " ";
+    }
+    cout << "];" << std::endl;
+
+    cout << "zy = [";
+    for (int i=0; i<interpWidth*2+1; i++) {
+        cout << zy[i] << " ";
+    }
+    cout << "];" << std::endl;
+    
+    
+    double a,b,c;
+    FitPolynom(x, x + 2*interpWidth+1, zx, a,b,c);
+    // calculate extrema of x position by setting
+    // the 1st derivate to zero
+    // 2*c*x + b = 0
+    res.maxpos.x = -b/(2*c);
+
+    // calculate result at maxima
+    double maxx = c*res.maxpos.x*res.maxpos.x + b*res.maxpos.x + a;
+
+    FitPolynom(x, x + 2*interpWidth+1, zy, a,b,c);
+    // calculate extrema of y position
+    res.maxpos.y = -b/(2*c);
+    double maxy = c*res.maxpos.y*res.maxpos.y + b*res.maxpos.y + a;
+
+    // use mean of both maxima as new interpolation result
+    res.maxi = (maxx + maxy) / 2;
+    DEBUG_DEBUG("value at subpixel maxima (" << res.maxpos.x << " , " 
+                <<res.maxpos.y << "): " << maxx << "," << maxy
+                << " mean:" << res.maxi << " coeff: a=" << a
+                << "; b=" << b << "; c=" << c);
+
+    // test if the point has moved too much ( more than 1.5 pixel).
+    // actually, I should also test the confidence of the fit.
+    if (fabs(res.maxpos.x) > 1 || fabs(res.maxpos.y) > 1) {
+        DEBUG_NOTICE("subpixel Maxima has moved to much, ignoring");
+        res.maxpos.x = max.x;
+        res.maxpos.y = max.y;
+    } else {
+        res.maxpos.x = res.maxpos.x + max.x;
+        res.maxpos.y = res.maxpos.y + max.y;
+    }
+    return res;
 }
-#endif
 
 /** fine tune a point with normalized cross correlation
  *
@@ -110,9 +168,11 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
         tmplLR.y = templImg.height() - templPos.y;
 
     // extract patch from search region
-    int swidth = sWidth/2;
+    // make search region bigger, so that interpolation can always be done
+    int swidth = sWidth/2 +(2+templWidth);
 //    DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
 //    Diff2D subjPoint(searchPos);
+    // clip search window
     if (searchPos.x < 0) searchPos.x = 0;
     if (searchPos.x > (int) searchImg.width()) searchPos.x = searchImg.width()-1;
     if (searchPos.y < 0) searchPos.y = 0;
@@ -135,7 +195,7 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
     // create output image
 
     vigra::FImage dest(searchSize);
-    dest.init(1);
+    dest.init(-1);
     // we could use the multiresolution version as well.
     // but usually the region is quite small.
     CorrelationResult res;
@@ -147,13 +207,25 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
                          templImg.upperLeft() + templPos,
                          templImg.accessor(),
                          tmplUL, tmplLR, -1);
-    res.maxpos = res.maxpos + searchUL;
-
+    DEBUG_DEBUG("normal search finished, max:" << res.maxi
+                << " at " << res.maxpos);
     // do a subpixel maxima estimation
+    // check if the max is inside the pixel boundaries,
+    // and there are enought correlation values for the subpixel
+    // estimation, (2 + templWidth)
+    if (res.maxpos.x > 2 + templWidth && res.maxpos.x < 2*swidth+1-2-templWidth
+        && res.maxpos.y > 2+templWidth && res.maxpos.y < 2*swidth+1-2-templWidth)
+    {
+        // subpixel estimation
+        res = subpixelMaxima(vigra::srcImageRange(dest), res.maxpos.toDiff2D());
+        DEBUG_DEBUG("subpixel position: max:" << res.maxi
+                    << " at " << res.maxpos);
+    } else {
+        // not enough values for subpixel estimation.
+        DEBUG_ERROR("subpixel estimation not done, maxima to close to border");
+    }
 
-//    DEBUG_DEBUG("normal search finished, max:" << res.maxi
-//                << " at " << res.maxpos);
-
+    res.maxpos = res.maxpos + searchUL;
     return res;
 }
 

@@ -49,6 +49,7 @@
 using namespace std;
 using namespace PT;
 using namespace vigra;
+using namespace vigra_ext;
 using namespace vigra::functor;
 using namespace utils;
 
@@ -751,6 +752,34 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 
     const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
         img.getFilename(),0);
+    const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
+        m_pano->getImage(tmplImgNr).getFilename(),0);
+
+    vigra_ext::CorrelationResult res;
+    res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
+                                   subjImg, o_subjPoint.toDiff2D(),
+                                   sWidth);
+    tunedPos.x = res.maxpos.x;
+    tunedPos.y = res.maxpos.y;
+    return res.maxi;
+}
+
+#if 0
+double CPEditorPanel::PointFineTune_old(unsigned int tmplImgNr,
+                                    const Diff2D & tmplPoint,
+                                    int templSize,
+                                    unsigned int subjImgNr,
+                                    const FDiff2D & o_subjPoint,
+                                    int sWidth,
+                                    FDiff2D & tunedPos)
+{
+    DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
+                << subjImgNr);
+
+    const PanoImage & img = m_pano->getImage(subjImgNr);
+
+    const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
+        img.getFilename(),0);
 
     int swidth = sWidth/2;
     DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
@@ -863,6 +892,7 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     tunedPos.y = res.maxpos.y;
     return res.maxi;
 }
+#endif
 
 
 void CPEditorPanel::panoramaChanged(PT::Panorama &pano)

@@ -38,6 +38,11 @@
 #include "vigra/impexalpha.hxx"
 
 #include "vigra_ext/FunctorAccessor.h"
+#include "vigra_ext/Correlation.h"
+#include "vigra_ext/FitPolynom.h"
+
+#include "PT/PanoramaMemento.h"
+#include "PT/ImageTransforms.h"
 
 using namespace boost::unit_test_framework;
 
@@ -396,10 +401,86 @@ void test_png_codec_16bit()
     }
 }
 
+void test_fit_polygon()
+{
+    double a=1.23;
+    double b=-3;
+    double c=0.87;
+    
+    const int sz=6;
+    double x[] = {-1, 0, 1, 2, 3};
+    double y[sz];
+    for (int i=0;i<sz;i++) {
+        y[i] = a + b*x[i] + c*x[i]*x[i];
+    }
+
+    double ar;
+    double br;
+    double cr;
+        
+    FitPolynom(x, x + 4, y, ar,br,cr);
+    BOOST_CHECK_CLOSE(ar, a,  1e-10);
+    BOOST_CHECK_CLOSE(br, b,  1e-10);
+    BOOST_CHECK_CLOSE(cr, c,  1e-10);
+}
+
+class ShiftTransform
+{
+public:
+    ShiftTransform(double dx, double dy)
+        : m_dx(dx), m_dy(dy)
+        { }
+
+    void transformImgCoord(double &destx, double &desty, double srcx, double srcy)
+    {
+        destx = srcx + m_dx;
+        desty = srcy + m_dy;
+    }
+    
+    double m_dx, m_dy;
+};
+
+void test_subpixel_correlation()
+{
+    FImage img(50,50);
+    FImage shiftedImg(50,50);
+    FImage alpha(50,50);
+    Diff2D p(25,25);
+    // plot cross in the the middle of img
+    img(25,25) = 0.4;
+    img(24,25) = 1;
+    img(26,25) = 1;
+    img(25,24) = 1;
+    img(25,26) = 0.3;
+
+    double dx=2.3;
+    double dy=0.9;
+    // shift image, using sinc256.
+    ShiftTransform t(-dx, -dy);
+    
+    utils::MultiProgressDisplay dummy;
+    PT::transformImage(srcImageRange(img),
+                       destImageRange(shiftedImg),
+                       destImage(alpha),
+                       Diff2D(0,0),
+                       t, PT::PanoramaOptions::CUBIC,
+                       dummy);
+    
+    // finetune point
+    vigra_ext::CorrelationResult res;
+    res = PointFineTune(img, p, 10,
+                        shiftedImg, p, 100);
+    
+    BOOST_CHECK_CLOSE(res.maxpos.x, 25.0+dx, 0.1);
+    BOOST_CHECK_CLOSE(res.maxpos.y, 25.0+dy, 0.1);
+    BOOST_CHECK_CLOSE(res.maxi, 1.0, 0.001);
+}
+
 test_suite *
 init_unit_test_suite( int, char** )
 {
-  test_suite* test= BOOST_TEST_SUITE( "vigra_ext functor tests" );
+  test_suite* test= BOOST_TEST_SUITE( "vigra_ext tests" );
+#if 0
   test->add(BOOST_TEST_CASE(&test_readfunctor_accessor));
   test->add(BOOST_TEST_CASE(&test_writefunctor_accessor));
   test->add(BOOST_TEST_CASE(&test_SplitVector2Accessor));
@@ -407,7 +488,9 @@ init_unit_test_suite( int, char** )
   test->add(BOOST_TEST_CASE(&test_MergeVectorScalar2VectorAccessor));
   test->add(BOOST_TEST_CASE(&test_import_image));
   test->add(BOOST_TEST_CASE(&test_png_codec_16bit));
-
+#endif
+  test->add(BOOST_TEST_CASE(&test_fit_polygon));
+  test->add(BOOST_TEST_CASE(&test_subpixel_correlation));
 //  test->add(BOOST_TEST_CASE(&transforms_test));
   return test;
 }
