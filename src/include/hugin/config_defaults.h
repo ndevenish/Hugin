@@ -45,40 +45,42 @@
 
 
 // Program defaults
-#ifdef __WXWIN__
-
+#ifdef WIN32
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer.exe"
 
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 
-#define HUGIN_AP_TYPE                         0
+#define HUGIN_AP_TYPE                         0l
 #define HUGIN_APKOLOR_EXE                     "autopano.exe"
 #define HUGIN_APKOLOR_ARGS   "/path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
 
 #define HUGIN_APSIFT_EXE                      "autopano-commandline.vbs"
 
-#elif __WXMAC__
+#endif
+
+#ifdef __WXMAC__
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 
-#define HUGIN_AP_TYPE                         1
+#define HUGIN_AP_TYPE                         1l
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
 #define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
+#endif
 
-#else
+#ifdef unix
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 
-#define HUGIN_AP_TYPE                         1
+#define HUGIN_AP_TYPE                         1l
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 

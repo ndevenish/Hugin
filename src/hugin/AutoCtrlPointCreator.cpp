@@ -87,7 +87,7 @@ void AutoCtrlPointCreator::automatch(Panorama & pano,
 		                     const UIntSet & imgs,
 				     int nFeatures)
 {
-    int t = wxConfigBase::Get()->Read("/AutoPano/Type",-1);
+    int t = wxConfigBase::Get()->Read("/AutoPano/Type",HUGIN_AP_TYPE);
     if (t < 0) {
 
 	wxString tmp[2];
