@@ -265,6 +265,19 @@ void MainFrame::OnExit(wxCommandEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+
+    wxString current_dir;
+    wxString changed_dir;
+    current_dir = wxFileName::GetCwd();
+
+    // remember the last location from config
+    if (config->HasEntry(wxT("actualPath"))){
+      wxFileName::SetCwd(  config->Read("actualPath").c_str() );
+      DEBUG_INFO((wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
+    }
+
     wxFileDialog dlg(this,_("Save project file"), "", "",
                      "Project files (*.pto)|*.pto|All files (*.*)|*.*",
                      wxSAVE, wxDefaultPosition);
@@ -279,7 +292,12 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         }
         pano.printOptimizerScript(script, optvec, pano.getOptions());
         script.close();
+        wxFileName::SetCwd( changed_dir );
+        config->Write("actualPath", changed_dir);  // remember for later
+        DEBUG_INFO( (wxString)"save Cwd to - " + changed_dir );
     }
+    wxFileName::SetCwd( current_dir );
+    DEBUG_INFO ( (wxString)"set Cwd to: " + current_dir )
 }
 
 
@@ -289,8 +307,9 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString current;
-    current = wxFileName::GetCwd();
+    wxString current_dir;
+    wxString changed_dir;
+    current_dir = wxFileName::GetCwd();
 
   // remember the last location from config
   if (config->HasEntry(wxT("actualPath"))){
@@ -298,18 +317,17 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     DEBUG_INFO ( (wxString)"set Cwd to: " + config->Read("actualPath").c_str() )
   }
 
-  wxString str;         // look data at debug
   wxFileDialog *dlg = new wxFileDialog(this,_("Open project file"), "", "",
         "Project files (*.pto)|*.pto|All files (*.*)|*.*", wxOPEN, wxDefaultPosition);
   if (dlg->ShowModal() == wxID_OK) {
       wxString filename = dlg->GetFilename();
         SetStatusText( _("Open project:   ") + filename);
         // read to memo
-        str = dlg->GetDirectory();
+        changed_dir = dlg->GetDirectory();
         // If we load here out project, we should have all other as well in place.
-        wxFileName::SetCwd( str );
-        config->Write("actualPath", str);  // remember for later
-        DEBUG_INFO( (wxString)"save Cwd to - " + str );
+        wxFileName::SetCwd( changed_dir );
+        config->Write("actualPath", changed_dir);  // remember for later
+        DEBUG_INFO( (wxString)"save Cwd to - " + changed_dir );
         // open project.
         std::ifstream file(filename.c_str());
         if (file.good()) {
@@ -326,13 +344,13 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         SetStatusText( _("Open project: cancel"));
   }
   dlg->Destroy();
-  if (str == wxT("")) {
+/*  if (changed_dir == wxT("")) {
     wxFileName::SetCwd( current );
     DEBUG_INFO ( (wxString)"set Cwd to: " + current )
         return;
-  }
-  wxFileName::SetCwd( current );
-  DEBUG_INFO ( (wxString)"set Cwd to: " + current )
+  }*/
+  wxFileName::SetCwd( current_dir );
+  DEBUG_INFO ( (wxString)"set Cwd to: " + current_dir )
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
