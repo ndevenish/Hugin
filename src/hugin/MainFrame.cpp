@@ -569,7 +569,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
     wxFileDialog dlg(this,
                      _("Open project file"),
                      config->Read("actualPath",""), "",
-                     "Project files (*.pto)|*.pto;*.ptp;*.pts|"
+                     "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|"
                      "All files (*.*)|*.*",
                      wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
@@ -689,8 +689,8 @@ struct sortbytime
     sortbytime(map<string, time_t> & h)
         : m_time(h)
     { }
-    
-    bool operator()(const std::string & s1, const std::string & s2) 
+
+    bool operator()(const std::string & s1, const std::string & s2)
     {
         time_t t1 = m_time[s1];
         time_t t2 = m_time[s2];
