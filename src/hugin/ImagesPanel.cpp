@@ -70,6 +70,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
     EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
     EVT_BUTTON     ( XRCID("images_reset_pos"), ImagesPanel::OnResetImagePositions)
+    EVT_BUTTON     ( XRCID("action_remove_images"),  ImagesPanel::OnRemoveImages)
+
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_roll"), ImagesPanel::OnRollTextChanged )
@@ -90,8 +92,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     wxXmlResource::Get()->AttachUnknownControl (
         "images_list_unknown",
         images_list );
-
-    DEBUG_TRACE("");
 
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
     DEBUG_ASSERT(m_optAnchorButton);
@@ -444,6 +444,28 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
             new PT::UpdateImagesVariablesCmd( pano, selImg, vars ));
     }
 
+}
+
+void ImagesPanel::OnRemoveImages(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+
+    UIntSet selImg = images_list->GetSelected();
+    vector<string> filenames;
+    for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
+        filenames.push_back(pano.getImage(*it).getFilename());
+    }
+    DEBUG_TRACE("Sending remove images command");
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveImagesCmd(pano, selImg)
+        );
+
+    DEBUG_TRACE("Removing " << filenames.size() << " images from cache");
+    for (vector<string>::iterator it = filenames.begin();
+         it != filenames.end(); ++it)
+    {
+        ImageCache::getInstance().removeImage(*it);
+    }
 }
 
 

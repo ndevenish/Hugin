@@ -137,8 +137,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
-    EVT_MENU(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
-    EVT_BUTTON(XRCID("action_remove_images"),  MainFrame::OnRemoveImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
     //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
     EVT_CLOSE(  MainFrame::OnExit)
@@ -500,10 +498,10 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     // remove old images from cache
     // hmm probably not a good idea, if the project is reloaded..
     //ImageCache::getInstance().flush();
-    
+
     wxFileName fname(filename);
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
-    
+
     SetStatusText( _("Open project:   ") + filename);
 
     // get the global config object
@@ -523,7 +521,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
-    
+
     pano.clearDirty();
 }
 
@@ -762,30 +760,6 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         );
 }
 
-void MainFrame::OnRemoveImages(wxCommandEvent & e)
-{
-
-    DEBUG_TRACE("");
-    // get the list to read from
-    ImagesListImage* lst =  XRCCTRL(*this, "images_list_unknown", ImagesListImage);
-
-    UIntSet selImg = lst->GetSelected();
-    vector<string> filenames;
-    for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
-        filenames.push_back(pano.getImage(*it).getFilename());
-    }
-    DEBUG_TRACE("Sending remove images command");
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::RemoveImagesCmd(pano, selImg)
-        );
-
-    DEBUG_TRACE("Removing " << filenames.size() << " images from cache");
-    for (vector<string>::iterator it = filenames.begin();
-         it != filenames.end(); ++it)
-    {
-        ImageCache::getInstance().removeImage(*it);
-    }
-}
 
 void MainFrame::OnTextEdit( wxCommandEvent& WXUNUSED(event) )
 {
@@ -1019,7 +993,7 @@ void MainFrame::updateProgressDisplay()
         }
     }
     SetStatusText(msg,0);
-    wxYield();
+//    wxYield();
 }
 
 
