@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.59)
+AC_PREREQ(2.5)
 AC_INIT([hugin], [0.4], [douglasw@zahav.net.il])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_HOST
@@ -14,7 +14,7 @@ AC_DISABLE_SHARED
 # debugging options
 AC_ARG_ENABLE([debug],
               AC_HELP_STRING([--enable-debug],
-	                     [enable debugging of the hugin applictions(default=no)]),
+	                     [enable debugging of the hugin applictions(default=no). Note: -g is removed from flags if this is not defined]),
 	      [enable_debug=$enableval
 	      CFLAGS="$CFLAGS -g -DDEBUG"
 	      CXXFLAGS="$CXXFLAGS -g -DDEBUG"
@@ -37,13 +37,6 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
 
-# If we are not debugging then do not generate symbol information
-# we do it here since AC_PROG_CC automatically defines it
-if test "x$enable_debug" = xno ; then
-  CFLAGS=`echo $CFLAGS | sed -e 's/-g//g'`
-  CXXFLAGS=`echo $CXXFLAGS | sed -e 's/-g//g'`
-fi
-
 # Checks for libraries.
 AM_OPTIONS_WXCONFIG
 AM_OPTIONS_GRAPHICS
@@ -55,7 +48,7 @@ AX_CHECK_TIFF
 AX_CHECK_PANO
 AC_PATH_FFTW
 
-RS_BOOST([1.30.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
+RS_BOOST([1.31.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
 RS_BOOST_UNIT_TEST_FRAMEWORK
 
 AM_PATH_WXCONFIG(2.4.2, wxWin=1)
@@ -63,7 +56,7 @@ if test "x$wxWin" != x1; then
     AC_MSG_ERROR([
 	wxWidgets must be installed on your system
  	but wx-config script couldn't be found.
-
+ 
  	Please check that wx-config is in path, the directory
  	where wxWidgets libraries are installed (returned by
  	'wx-config --libs' command) is in LD_LIBRARY_PATH or
@@ -73,7 +66,7 @@ fi
 
 # xrc ressources are used
 WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
-
+    
 CHECK_WX_BUILT_WITH_GTK2
 
 if test "x$GTK_USEDVERSION" = x2 ; then
@@ -123,7 +116,7 @@ if test "x$prefix" != xNONE; then
 else
     AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/hugin/xrc")
-fi	
+fi	      
 
 #
 # Remove extraneous spaces from output variables (aesthetic)
@@ -141,7 +134,7 @@ GTK_LIBS=`echo $GTK_LIBS | sed -e 's/  */ /g'`
 # Over-ride LIBS so that libraries are supplied by Makefiles instead
 LIBS=""
 
-AC_CONFIG_FILES([Makefile
+AC_CONFIG_FILES([Makefile 
 		 src/hugin/po/Makefile.in
 		 src/nona_gui/po/Makefile.in
                  src/Makefile

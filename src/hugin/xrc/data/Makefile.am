@@ -1,0 +1,21 @@
+# Over-ride default includes so that we have finer control in the makefiles
+DEFAULT_INCLUDES="-I."
+
+HTM_FILES = $(wildcard $(srcdir)/*.htm)
+HTML_FILES = $(wildcard $(srcdir)/*.html)
+ICO_FILES = $(wildcard $(srcdir)/*.ico)
+JPG_FILES = $(wildcard $(srcdir)/*.jpg)
+PNG_FILES = $(wildcard $(srcdir)/*.png)
+XPM_FILES = $(wildcard $(srcdir)/*.xpm)
+
+xrcdatadir = @datadir@/hugin/xrc/data
+
+all-local:
+	datalist='$(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES)'; \
+	for p in $$datalist; do \
+	    if test -e `basename $$p`; then :; else \
+		( $(LN_S) $$p ) ; \
+	    fi; \
+	done
+							
+dist_xrcdata_DATA = $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES)

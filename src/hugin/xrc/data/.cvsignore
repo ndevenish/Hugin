@@ -3,3 +3,7 @@ Makefile.depend
 help.htm
 hugin-icon.xcf
 splash.xcf
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

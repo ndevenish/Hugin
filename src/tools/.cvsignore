@@ -9,3 +9,12 @@ autooptimiser
 nona
 panosifter
 zoneplate.gif
+*.o
+*.lo
+*.la
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

@@ -1,3 +1,11 @@
 .obj
 nona_gui
 Makefile.depend
+*.lo
+*.la
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

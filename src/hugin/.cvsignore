@@ -4,3 +4,12 @@ hugin
 Makefile.depend
 hugin.desktop
 .kdbgrc.hugin
+*.o
+*.lo
+*.la
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

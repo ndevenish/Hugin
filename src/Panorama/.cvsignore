@@ -1,2 +1,11 @@
 .obj
 Makefile.depend
+*.o
+*.lo
+*.la
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

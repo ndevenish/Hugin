@@ -1,0 +1,148 @@
+#!/bin/sh
+# Run this to generate all the initial makefiles, etc.
+
+srcdir=`dirname $0`
+test -z "$srcdir" && srcdir=.
+
+ORIGDIR=`pwd`
+cd $srcdir
+PROJECT=hugin
+TEST_TYPE=-d
+FILE=src/hugin
+
+LIBTOOLIZE=${LIBTOOLIZE:-libtoolize}
+GETTEXTIZE=${GETTEXTIZE:-gettextize}
+ACLOCAL=${ACLOCAL:-aclocal}
+AUTOMAKE=${AUTOMAKE:-automake}
+AUTOCONF=${AUTOCONF:-autoconf}
+AUTOHEADER=${AUTOHEADER:-autoheader}
+
+DIE=0
+
+have_libtool=false
+if $LIBTOOLIZE --version < /dev/null > /dev/null 2>&1 ; then
+	libtool_version=`$LIBTOOLIZE --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
+#	echo libtool version: $libtool_version
+	case $libtool_version in
+	    1.4*|1.5*)
+		have_libtool=true
+		;;
+	esac
+fi
+if $have_libtool ; then : ; else
+	echo
+	echo "You must have libtool 1.4 installed to compile $PROJECT."
+	echo "Install the appropriate package for your distribution,"
+	echo "or get the source tarball at http://ftp.gnu.org/gnu/libtool/"
+	DIE=1
+fi
+
+have_gettextize=false
+if $GETTEXTIZE --version < /dev/null > /dev/null 2>&1 ; then
+	gettextize_version=`$GETTEXTIZE --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
+#	echo gettextize version: $gettextize_version
+	case $gettextize_version in
+	    0.11*|*0.12|0.14*)
+		have_gettextize=true
+		;;
+	esac
+fi
+if $have_gettextize ; then : ; else
+	echo
+	echo "You must have gettextize 0.11.0 or later installed to compile $PROJECT."
+	echo "Install the appropriate package for your distribution,"
+	echo "or get the source tarball at http://ftp.gnu.org/gnu/gettext/"
+	DIE=1
+fi
+
+# Assume if we have this that aclocal and autoheader are available
+have_autoconf=false
+if $AUTOCONF --version < /dev/null > /dev/null 2>&1 ; then
+	autoconf_version=`$AUTOCONF --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
+#	echo autoconf version: $autoconf_version
+	case $autoconf_version in
+	    2.5*)
+		have_autoconf=true
+		;;
+	esac
+fi
+if $have_autoconf ; then : ; else
+	echo
+	echo "You must have autoconf installed to compile $PROJECT."
+	echo "Install the appropriate package for your distribution,"
+	echo "or get the source tarball at http://ftp.gnu.org/gnu/autoconf/"
+	DIE=1
+fi
+
+have_automake=false
+if $AUTOMAKE --version < /dev/null > /dev/null 2>&1 ; then
+	automake_version=`$AUTOMAKE --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
+#	echo automake version: $automake_version
+	case $autoconf_version in
+	    1.7*|1.8*|1.9*)
+		have_autoconf=true
+		;;
+	esac
+fi
+if $have_autoconf ; then : ; else
+	echo
+	echo "You must have automake 1.7.x or later installed to compile $PROJECT."
+	echo "Install the appropriate package for your distribution,"
+	echo "or get the source tarball at http://ftp.gnu.org/gnu/automake/"
+	DIE=1
+fi
+
+if test "$DIE" -eq 1; then
+	exit 1
+fi
+
+test $TEST_TYPE $FILE || {
+	echo "You must run this script in the top-level $PROJECT directory"
+	exit 1
+}
+
+# make sure that the config dir exists
+if test -d ./config; then : ; else
+    mkdir -p ./config
+fi
+
+echo
+echo "*** WARNING ***"
+echo "*** We're about to run \"gettextize\" which may spew a few paragraphs"
+echo "*** at you and ask you to acknowledge it.  If it does this,"
+echo "*** just hit return to acknowledge gettext.  You DO NOT need to do"
+echo "*** anything that it asks of you except hitting return."
+echo
+
+$GETTEXTIZE --copy --force || exit $?
+
+# Now we have to do a bit of hackery to setup for hugin
+# first reverse the changes to configure.ac
+if test -f ./configure.ac~; then
+    mv -f ./configure.ac~ ./configure.ac
+fi
+if test -f ./ChangeLog~; then
+    mv -f ./ChangeLog~ ./ChangeLog
+fi
+
+# then copy and move changes in srcdir/po to srcdir/src/hugin/po and srcdir/src/nona_gui/po
+cp -f ./po/* ./src/hugin/po
+mv -f ./po/* ./src/nona_gui/po
+
+#finally clean up
+rm -rf `find ./src/hugin/po ./src/nona_gui/po ./m4 -name *~`
+
+$ACLOCAL -I m4 || exit $?
+
+$LIBTOOLIZE --force --copy || exit $?
+
+$AUTOHEADER --force || exit $?
+
+$AUTOMAKE --add-missing --copy || exit $?
+
+$AUTOCONF || exit $?
+
+cd $ORIGDIR || exit $?
+
+echo "Files generated successfully"
+echo "Now run '$srcdir/configure' to setup $PROJECT."

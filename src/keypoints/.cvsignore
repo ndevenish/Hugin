@@ -1,4 +1,11 @@
 Makefile.depend
 .obj
 sift_keypoints
-lowe_keypoints
+lowe_keypoints*.lo
+*.la
+.deps
+.libs
+Makefile
+Makefile.in
+stamp-h
+stamp-h.in

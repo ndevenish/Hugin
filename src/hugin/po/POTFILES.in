@@ -1,0 +1,23 @@
+# Files containing translateable strings
+
+src/hugin/CPEditorPanel.cpp
+src/hugin/CPListFrame.cpp
+src/hugin/ImageCache.cpp
+src/hugin/ImageCenter.cpp
+src/hugin/ImageOrientationPanel.cpp
+src/hugin/ImagesList.cpp
+src/hugin/ImagesPanel.cpp
+src/hugin/LensPanel.cpp
+src/hugin/MainFrame.cpp
+src/hugin/PanoDruid.cpp
+src/hugin/PanoPanel.cpp
+src/hugin/PreviewFrame.cpp
+src/hugin/PreviewPanel.cpp
+src/hugin/RunOptimizerFrame.cpp
+src/hugin/RunStitcherFrame.cpp
+src/hugin/AutoCtrlPointCreator.cpp
+src/hugin/NonaStitcherPanel.cpp
+src/hugin/PTStitcherPanel.cpp
+src/hugin/CPFineTuneFrame.cpp
+src/include/hugin/MyProgressDialog.h
+
