@@ -389,7 +389,8 @@ void List::itemSelected ( wxListEvent & e )
 // set a new image of the actual selected item
 void List::Change ( wxMouseEvent & e )
 {
-    if (e.Leaving() && pano.getNrOfImages() > 0) {
+    if (e.Leaving() && (list_layout == images_layout) 
+        && (pano.getNrOfImages() > 0)) {
       std::stringstream filename;
       filename <<_("preview")<<".JPG" ;
       wxFileName fn = (wxString)filename.str().c_str();

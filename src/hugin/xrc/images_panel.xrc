@@ -74,7 +74,8 @@
                             <object class="wxPanel" name="img_preview_unknown">
                               <size>256,128</size>
                               <style>wxSUNKEN_BORDER</style>
-                              <tooltip>image view/panopreview\nshift key + mouse left klick  -> pitch\ncontrol key + mouse left klick  -> yaw</tooltip>
+                              <bg>#808080</bg>
+                              <tooltip>image view/panopreview\nshift key + mouse left click  -> pitch\ncontrol key + mouse left click  -> yaw</tooltip>
                             </object>
                             <flag>wxALL|wxEXPAND|wxGROW</flag>
                           </object>
@@ -176,7 +177,7 @@
                                 <object class="wxTextCtrl" name="images_text_yaw">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                                <tooltip>set yaw for selected image(s)</tooltip>
+                                  <tooltip>set yaw for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -234,7 +235,7 @@
                                 <object class="wxTextCtrl" name="images_text_pitch">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                                <tooltip>set pitch for selected image(s)</tooltip>
+                                  <tooltip>set pitch for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
@@ -292,7 +293,7 @@
                                 <object class="wxTextCtrl" name="images_text_roll">
                                   <size>55,20</size>
                                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                                <tooltip>set roll for selected image(s)</tooltip>
+                                  <tooltip>set roll for selected image(s)</tooltip>
                                 </object>
                                 <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                                 <border>5</border>
