@@ -1,0 +1,4 @@
+AppIcon ICON   "../hugin/xrc/data/icon.ico"
+IDI_ICON1  ICON "../hugin/xrc/data/icon.ico"
+				 
+#include "wx/msw/wx.rc"

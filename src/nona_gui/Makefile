@@ -73,7 +73,7 @@ APP_1_BIN = nona_gui
 APP_1_OBJ = nona_gui.o
 
 ifeq ($(PLATFORM),win32)
-   APP_1_OBJ += nona_rc.o
+   APP_1_OBJ += nona_gui_rc.o
 endif
 
 APP_1_DESKTOP = hugin.desktop
