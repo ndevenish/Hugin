@@ -27,24 +27,28 @@
 
 #include <string>
 #include <vector>
+#include <map>
+#include <algorithm>
+#include <set>
 #include <math.h>
 
 #include "PT/PanoImage.h"
 
 namespace PT {
 
-/** a variable has a value, name and can be linked to another variable.
+/** a variable has a value and a name.
  *
- *  (I believe linking is only possible for HFOV,a,b,c,d and
- *  e. linking the position might not be a good idea ;)
+ *  linking is only supported by LinkedVariable, which
+ *  is only used by Lens.
  */
 class Variable
 {
 public:
-    Variable(const std::string & name)
-        : name(name), value(0), linkImage(0), linked(false)
+    Variable(const std::string & name, double val = 0.0)
+        : name(name), value(val)
         { };
-
+    virtual ~Variable() {};
+#if 0
     bool operator==(const Variable & o) const
         {
             if (linked) {
@@ -59,18 +63,11 @@ public:
 
             }
         }
+#endif
 
     /// print this variable
-    std::ostream & print(std::ostream & o, bool printLinks = true) const;
+    virtual std::ostream & print(std::ostream & o) const;
 
-    void link(unsigned int imgNr)
-        { linkImage = imgNr; linked = true; }
-    bool isLinked()
-        { return linked; }
-    unsigned int getLink()
-        { return linkImage; }
-    void unlink()
-        { linked = false; };
     const std::string & getName() const
         { return name; }
     void setValue(double v)
@@ -78,14 +75,53 @@ public:
     double getValue() const
         { return value; }
 
-private:
+protected:
 
     std::string name;
     double value;
-    unsigned int linkImage;
+};
+
+
+/** A lens variable can be linked.
+ *
+ *  It is only used in the lens class, not directly in the images.
+ */
+class LensVariable : public Variable
+{
+public:
+    LensVariable(const std::string & name, double value, bool link=false)
+        : Variable(name, value), linked(link)
+        { };
+    virtual ~LensVariable() {}
+    virtual std::ostream & printLink(std::ostream & o, unsigned int link) const;
+
+    bool isLinked() const
+        { return linked; }
+    void setLinked(bool l=true)
+        { linked = l; }
+private:
     bool linked;
 };
 
+
+
+/** functor to print a variable. */
+struct PrintVar : public std::unary_function<Variable, void>
+{
+    PrintVar(std::ostream & o) : os(o) { }
+    void operator() (Variable x) const { x.print(os) << " "; }
+    std::ostream& os;
+};
+
+typedef std::map<std::string,Variable> VariableMap;
+typedef std::vector<VariableMap> VariableMapVector;
+typedef std::map<std::string,LensVariable> LensVarMap;
+
+
+/** fill map with all image & lens variables */
+void PT::fillVariableMap(VariableMap & vars);
+
+#if 0
 /// variables of an image
 class ImageVariables
 {
@@ -94,6 +130,8 @@ public:
         : roll("r"), pitch("p"), yaw("y"), HFOV("v"),
           a("a"), b("b"), c("c"),d("d"),e("e")
         { };
+
+#if 0
     bool operator==(const ImageVariables & o) const
         { return ( roll == o.roll &&
                    pitch == o.pitch &&
@@ -105,6 +143,7 @@ public:
                    d == o.d &&
                    e == o.e);
         }
+#endif
 
     void updateValues(const ImageVariables & vars);
 
@@ -113,18 +152,7 @@ public:
     Variable roll, pitch, yaw, HFOV, a, b, c, d, e;
 };
 
-/// specifies which variables should be optimized
-class OptimizerSettings
-{
-public:
-    OptimizerSettings()
-        : roll(true), pitch(true), yaw(true),
-          HFOV(false), a(false), b(false), c(false), d(false), e(false)
-        { };
-    bool roll, pitch, yaw, HFOV, a, b, c, d, e;
-    std::ostream & printOptimizeLine(std::ostream & o, unsigned int nr) const;
-};
-
+#endif
 
 class Lens {
 
@@ -138,17 +166,7 @@ public:
                                 EQUIRECTANGULAR_LENS = 4};
 
 
-    Lens()
-        : exifFocalLength(0.0),
-          exifFocalLengthConversionFactor(0.0),
-          exifHFOV(90.0),
-          focalLength(0),
-          focalLengthConversionFactor(1),
-          HFOV(90),
-          projectionFormat(RECTILINEAR),
-          a(0),b(0),c(0),
-          d(0),e(0)
-        {}
+    Lens();
 
 //    QDomElement toXML(QDomDocument & doc);
 //    void setFromXML(const QDomNode & node);
@@ -160,17 +178,12 @@ public:
      */
     bool readEXIF(const std::string & filename);
 
+    // updates everything, except the variables
     void update(const Lens & l)
         {
             focalLength = l.focalLength;
             focalLengthConversionFactor = l.focalLengthConversionFactor;
-            HFOV = l.HFOV;
             projectionFormat = l.projectionFormat;
-            a = l.a;
-            b = l.b;
-            c = l.c;
-            d = l.d;
-            e = l.e;
         }
 
     double exifFocalLength;
@@ -181,14 +194,11 @@ public:
 
     double focalLength;
     double focalLengthConversionFactor;
-    double HFOV;
     LensProjectionFormat projectionFormat;
+    // these are the lens specific settings.
     // lens correction parameters
-    double a,b,c;
-    // horizontal & vertical offset
-    // FIXME maybe these are not really lens settings.
-    // FIXME can be different between scanned images as well.
-    double d,e;
+    LensVarMap variables;
+    static char *variableNames[];
 };
 
 
@@ -256,7 +266,7 @@ class PanoramaOptions
 {
 public:
 
-    
+
     /** Projection of final panorama
      */
     enum ProjectionFormat { RECTILINEAR = 0,
@@ -306,10 +316,10 @@ public:
 
     PanoramaOptions()
         : projectionFormat(EQUIRECTANGULAR),
-          HFOV(360),
-          width(300), height(600),
-          outfile("panorama.JPG"),outputFormat("JPEG"),
-          quality(80),progressive(false),
+          HFOV(360), VFOV(180),
+          width(300),
+          outfile("panorama.JPG"),outputFormat(JPEG),
+          quality(90),progressive(true),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(POLY_3)
         {};
@@ -322,15 +332,33 @@ public:
 
     void printScriptLine(std::ostream & o) const;
 
+    /// return string name of output file format
+    static const std::string & PanoramaOptions::getFormatName(FileFormat f);
+
+    /** returns the FileFormat corrosponding to name.
+     *
+     *  if name is not recognized, FileFormat::TIFF is returned
+     */
+    static FileFormat PanoramaOptions::getFormatFromName(const std::string & name);
+
+    /** calculate height of the output panorama
+     *
+     *  height is derived from HFOV and VFOV.
+     *  formula: widht * VFOV/HFOV
+     *
+     */
+    unsigned int getHeight() const;
+
+
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
     ProjectionFormat projectionFormat;
     double HFOV;
+    double VFOV;
     unsigned int width;
-    unsigned int height;
     std::string outfile;
-    std::string outputFormat;
+    FileFormat outputFormat;
     // jpeg options
     int quality;
     bool progressive;
@@ -341,12 +369,14 @@ public:
     double gamma;
     Interpolator interpolator;
 
+
+private:
+    static const std::string fileformatNames[];
 };
 
 typedef std::vector<ControlPoint> CPVector;
 typedef std::vector<PanoImage> ImageVector;
-typedef std::vector<ImageVariables> VariablesVector;
-typedef std::vector<OptimizerSettings> OptimizeVector;
+typedef std::vector<std::set<std::string> > OptimizeVector;
 typedef std::vector<Lens> LensVector;
 
 
@@ -395,7 +425,7 @@ private:
     // state members for the state
 
     ImageVector images;
-    VariablesVector variables;
+    VariableMapVector variables;
 
     CPVector ctrlPoints;
 

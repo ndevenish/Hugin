@@ -57,10 +57,9 @@ bool PT::getParam(T & value, const std::string & line, const std::string & name)
     return true;
 }
 
-bool readVar(Variable & var, const std::string & line);
+bool PT::readVar(Variable & var, int & link, const std::string & line);
 
-bool getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
-
+bool PT::getPTStringParam(std::string & output, const std::string & line, const std::string & parameter);
 
 /** this handler class will receive change events from the Panorama.
  *
@@ -84,7 +83,7 @@ public:
      *
      */
     virtual void panoramaChanged(Panorama &pano)
-        { DEBUG_WARN("Default panoramaChanged called"); };
+        { DEBUG_DEBUG("Default panoramaChanged called"); };
 
     /** notifies about changes to images
      *
@@ -128,15 +127,15 @@ public:
  *
  *  This class contains the properties of a panorama
  *  That is:
- *       - pictures
+ *       - images
  *       - variables that can be optimized, they will not be stored
  *         inside the pictures, because some of them are related to other variables.
  *         for example linked lens parameters.
  *       - control points
- *       - properites of the output (?).
+ *       - properites of the output panorama.
  *
  *  view and controller classes can get information about these
- *  with the getFunctions.
+ *  with the getXXX Functions.
  *
  *  Images, Lens, and Control points are numbered, and const references are
  *  handed out.  this means that all interaction will be based on
@@ -147,9 +146,21 @@ public:
  *  This also means that the whole object is not threadsafe and concurrent
  *  access has to be synchronized from the outside.
  *
+ *  The Lens handling is a quite complicated thing. I divide the variables
+ *  into two groups:
+ *     - image variables (yaw, pitch, roll). They specify the placement
+ *       in the final panorama
+ *     - lens variables. They are connected to the process of image
+ *       creation and are used to correct various defects that
+ *       occur during image creation. They might be the same
+ *       for each picture taken with the same equipment and settings or
+ *       change even if the settings were the same, because of sloppy
+ *       mechanic or other random infuences.
+ *
+ *
  *  Changes should be made through command objects, not with direct calls.
  *
- *  @todo should the changer must call the report() functions?
+ *  @todo should the changer call the report() functions?
  *
  *  @todo should we add constraints for the simple / advanced functionality
  *        to the model? I have to think a bit more about that issue. maybe the
@@ -160,7 +171,6 @@ public:
  *  also, it is useful to use the memento pattern for the internal
  *  state, so that redo/undo for complex interactions can be
  *  implemented without too much pain.
- *
  */
 
 class Panorama
@@ -174,19 +184,6 @@ public:
     /** dtor.
      */
     virtual ~Panorama();
-
-    /// serialize to an xml document
-//    QDomElement toXML(QDomDocument & doc);
-
-    /// read from an xml document
-//    void setFromXML(const QDomNode & elem);
-
-    /** set a handler that is notified when the panorama changes.
-     *
-     *  only one handler is possible, this will overwrite the old handler
-     */
-//    void setObserver(PanoramaObserver * o)
-//        { observer = o; }
 
     /** add a panorama observer.
      *
@@ -208,6 +205,7 @@ public:
 
     /** remove all panorama observers.
      *
+     *  @warning this is a hack. it must not be used on normal Panorama's.
      */
     void clearObservers();
 
@@ -223,6 +221,7 @@ public:
             assert(nr < state.images.size());
             return state.images[nr];
         };
+
     /// set a panorama image, counting starts with 0
     void setImage(std::size_t nr, PanoImage img)
         {
@@ -252,10 +251,10 @@ public:
         { return state.ctrlPoints; }
 
     /// get variables of this panorama
-    const VariablesVector & getVariables() const;
+    const VariableMapVector & getVariables() const;
 
     /// get variables of an image
-    const ImageVariables & getVariable(unsigned int imgNr) const;
+    const VariableMap & getImageVariables(unsigned int imgNr) const;
 
 
     /** get a lens
@@ -266,9 +265,25 @@ public:
     unsigned int getNrOfLenses() const
         { return state.lenses.size(); }
 
-
+    /** returns the options for this panorama */
     const PanoramaOptions & getOptions() const
         { return state.options; }
+
+    /** calculates the horizontal fov of the complete panorama
+     *
+     *  The panorama center is always at yaw=0, pitch=0.
+     *
+     *  @bug doesn't consider roll & lens distortion
+     */
+    double calcHFOV() const;
+
+    /** calculates the vertical fov of the complete panorama
+     *
+     *  The panorama center is always at yaw=0, pitch=0.
+     *
+     *  @bug doesn't consider roll & lens distortion
+     */
+    double calcVFOV() const;
 
 
     // iterator like interface for the images and control points
@@ -310,7 +325,7 @@ public:
      *
      *  @return false on error (could not read optimizer output, parse error)
      */
-    void readOptimizerOutput(VariablesVector & vars, CPVector & ctrlPoints) const;
+    void readOptimizerOutput(VariableMapVector & vars, CPVector & ctrlPoints) const;
 
     // ============================================================
     //
@@ -320,14 +335,24 @@ public:
 
 
     /** Set the variables.
+     *
      *  Usually used when the optimizer results should be applied.
+     *
      */
-    void updateVariables(const VariablesVector & vars);
+    void updateVariables(const VariableMapVector & vars);
 
     /** Set variables for a single picture.
      *
      */
-    void updateVariables(unsigned int imgNr, const ImageVariables & var);
+    void updateVariables(unsigned int imgNr, const VariableMap & var);
+
+    /** update a single variable
+     *
+     *  It knows lenses etc and updates other images when the
+     *  variable is linked
+     */
+    void updateVariable(unsigned int imgNr, const Variable &var);
+
 
     /** update control points distances.
      *
@@ -342,7 +367,7 @@ public:
      *  The Image must be initialized, the Lens must exist.
      *
      */
-    unsigned int addImage(PanoImage &img, ImageVariables &vars);
+    unsigned int addImage(const PanoImage &img, const VariableMap &vars);
 
     /** add an Image to the panorama
      *  @return image number
@@ -352,7 +377,7 @@ public:
     /** remove an Image.
      *
      *  also deletes/updates all associated control points
-     *
+     *  and the Lens, if it was only used by this image.
      */
     void removeImage(unsigned int nr);
 
@@ -361,9 +386,12 @@ public:
      *  @todo what should be changed? Lens settings etc. they are part
      *        of OptimizeVariables, but might need extra fields.
      */
-    void changeImage();
+//    void changeImage();
 
-    /** set a lens for this image. */
+    /** set a lens for this image.
+     *
+     *  copies all lens variables into the image.
+     */
     void setLens(unsigned int imgNr, unsigned int lensNr);
 
     //===================================
@@ -383,16 +411,29 @@ public:
     //=============================
 
     /** add a new lens.
+     *
      */
     unsigned int addLens(const Lens & lens);
 
+
+    /** Change the variable for a single lens
+     *
+     *  updates a lens variable, copies it into
+     *  all images.
+     *
+     */
+    void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var);
+
+
     /** update a lens
+     *
+     *  Changes the lens variables in all images of this lens.
      */
     void updateLens(unsigned int lensNr, const Lens & lens);
 
     /** remove a lens
      *
-     *  The last lens can't be removed.
+     *  it is only possible when it is not used by any image.
      */
     void removeLens(unsigned int lensNr);
 
@@ -412,15 +453,15 @@ public:
     void setMemento(PanoramaMemento & state);
 
     /// read after optimization, fills in control point errors.
-    void parseOptimizerScript(std::istream & i, VariablesVector & imgVars, CPVector & ctrlPoints) const;
+    void parseOptimizerScript(std::istream & i, VariableMapVector & imgVars, CPVector & ctrlPoints) const;
 
     /// create an optimizer script
     void printOptimizerScript(std::ostream & o,
                               const OptimizeVector & optvars,
-                              const PanoramaOptions & options) const;
+                              const PanoramaOptions & options);
 
     /// create the stitcher script
-    void printStitcherScript(std::ostream & o, const PanoramaOptions & target) const;
+    void printStitcherScript(std::ostream & o, const PanoramaOptions & target);
 
     // subject interface
     /** notify observers about changes in this class
@@ -441,8 +482,22 @@ protected:
     /// when a lens has been changed.
     void adjustVarLinks();
 
-    /// copy lens data to variables of this image
-    void updateLens(unsigned int imgNr);
+    /** copy inherited variables to image variables
+     *
+     *  only copies inherited variables
+     */
+    void Panorama::updateLensToImages(unsigned int lensNr);
+
+    /** copy lens variables to image variables.
+     *  update all images that use lensNr
+     */
+    void copyLensToImages(unsigned int lensNr);
+
+    /** copy the lens variables to image.
+     *
+     *  just update imgNr
+     */
+    void copyLensVariablesToImage(unsigned int imgNr);
 
     /// image addition notification
 //    void notifyImageAdded(unsigned int imgNr);
@@ -480,8 +535,6 @@ private:
     /// the images that have been changed since the last changeFinished()
     UIntSet changedImages;
 
-    // as long as there is no image inside Panorama
-    bool initialize;
 };
 
 } // namespace

@@ -26,9 +26,11 @@
 
 #include <iostream>
 
-#include <common/utils.h>
-#include <jhead/jhead.h>
 #include <PT/PanoramaMemento.h>
+
+#include <common/utils.h>
+#include <common/stl_utils.h>
+#include <jhead/jhead.h>
 
 #include <PT/Panorama.h>
 
@@ -40,19 +42,38 @@ PanoramaMemento::~PanoramaMemento()
 
 }
 
-ostream & Variable::print(ostream & o, bool printLinks) const
+void PT::fillVariableMap(VariableMap & vars)
 {
-    o << name;
-    if (linked && printLinks) {
-        o << "=" << linkImage;
-    } else {
-        o << value;
-    }
-    return o;
+
+    vars.insert(make_pair("y",Variable("y",0)));
+    vars.insert(make_pair("r",Variable("r",0)));
+    vars.insert(make_pair("p",Variable("p",0)));
+
+    // Lens variables
+    vars.insert(make_pair("v",Variable("v",51)));
+    vars.insert(make_pair("a",Variable("a",0)));
+    vars.insert(make_pair("b",Variable("b",0)));
+    vars.insert(make_pair("c",Variable("c",0)));
+    vars.insert(make_pair("d",Variable("d",0)));
+    vars.insert(make_pair("e",Variable("e",0)));
+};
+
+
+ostream & Variable::print(ostream & o) const
+{
+    return o << name << value;
 }
 
+std::ostream & LensVariable::printLink(std::ostream & o,
+                                       unsigned int linkImage) const
+{
+    return o << name << "=" << linkImage;
+}
+
+#if 0
 std::ostream & ImageVariables::print(std::ostream & o, bool printLinks) const
 {
+    for (const_iterator it = begin()
     yaw.print(o, printLinks) << " ";
     roll.print(o, printLinks) << " ";
     pitch.print(o, printLinks) << " ";
@@ -64,10 +85,11 @@ std::ostream & ImageVariables::print(std::ostream & o, bool printLinks) const
     e.print(o, printLinks);
     return o;
 };
+#endif
 
+#if 0
 void ImageVariables::updateValues(const ImageVariables & vars)
 {
-#if 0
     yaw.setValue(vars.yaw.getValue());
     roll.setValue(vars.roll.getValue());
     pitch.setValue(vars.pitch.getValue());
@@ -77,35 +99,10 @@ void ImageVariables::updateValues(const ImageVariables & vars)
     c.setValue(vars.c.getValue());
     d.setValue(vars.d.getValue());
     e.setValue(vars.e.getValue());
-#else
-    yaw=vars.yaw;
-    roll=vars.roll;
-    pitch=vars.pitch;
-    HFOV=vars.HFOV;
-    a=vars.a;
-    b=vars.b;
-    c=vars.c;
-    d=vars.d;
-    e=vars.e;
+}
+
 #endif
-}
 
-
-std::ostream & OptimizerSettings::printOptimizeLine(std::ostream & o,
-                                                    unsigned int num) const
-{
-    o << "v";
-    if (yaw) o << " y" << num;
-    if (roll) o << " r" << num;
-    if (pitch) o << " p" << num;
-    if (HFOV) o << " v" << num;
-    if (a) o << " a" << num;
-    if (b) o << " b" << num;
-    if (c) o << " c" << num;
-    if (d) o << " d" << num;
-    if (e) o << " e" << num;
-    return o << std::endl;
-}
 
 /*
 QString PT::getAttrib(QDomNamedNodeMap map, QString name)
@@ -116,6 +113,25 @@ QString PT::getAttrib(QDomNamedNodeMap map, QString name)
 
 //=========================================================================
 //=========================================================================
+
+
+Lens::Lens()
+    : exifFocalLength(0.0),
+      exifFocalLengthConversionFactor(0.0),
+      exifHFOV(90.0),
+      focalLength(0),
+      focalLengthConversionFactor(1),
+      projectionFormat(RECTILINEAR)
+{
+    variables.insert(make_pair("v",LensVariable("v",50.0, true)));
+    variables.insert(make_pair("a",LensVariable("a", 0.0, true )));
+    variables.insert(make_pair("b",LensVariable("b",-0.01, true)));
+    variables.insert(make_pair("c",LensVariable("c", 0.0, true)));
+    variables.insert(make_pair("d",LensVariable("d", 0.0)));
+    variables.insert(make_pair("e",LensVariable("e", 0.0)));
+}
+
+char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", 0};
 
 #if 0
 void Lens::toXML(std::ostream & o)
@@ -160,6 +176,8 @@ bool Lens::readEXIF(const std::string & filename)
     int width, height;
     width = height = 0;
 
+    double HFOV = 0;
+
     std::string::size_type idx = filename.rfind('.');
     if (idx == std::string::npos) {
         DEBUG_DEBUG("could not find extension in filename");
@@ -196,7 +214,6 @@ bool Lens::readEXIF(const std::string & filename)
         // of ccd width. we assume that the pixels are squares
         ccdWidth = exif.CCDWidth * exif.Height / exif.Width;
     }
-
     HFOV = exifHFOV = 2.0 * atan((ccdWidth/2)/exif.FocalLength) * 180/M_PI;
     if ( !(HFOV  > 0.0) )
         HFOV = 90.0;
@@ -208,6 +225,9 @@ bool Lens::readEXIF(const std::string & filename)
     DEBUG_DEBUG("focal length: " << exifFocalLength << ", 35mm equiv: "
               << exifFocalLength * exifFocalLengthConversionFactor
               << " HFOV: " << HFOV);
+
+    map_get(variables,"v").setValue(HFOV);
+
     return true;
 }
 
@@ -316,16 +336,38 @@ void PanoramaOptions::setFromXML(const QDomNode & elem)
 
 #endif
 
+const std::string & PanoramaOptions::getFormatName(FileFormat f)
+{
+    assert((int)f <= (int)QTVR);
+    return fileformatNames[(int) f];
+}
+
+PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string & name)
+{
+    int max = (int) QTVR;
+    int i;
+    for (i=0; i<max; i++) {
+        if (name == fileformatNames[i]) {
+            break;
+        }
+    }
+    if (i == max) {
+        DEBUG_ERROR("could not parse format " << name );
+        return TIFF;
+    }
+    return (FileFormat) i;
+}
+
 
 void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
-    o << "p f" << projectionFormat << " w" << width << " h" << height << " v" << HFOV
-      << " n\"" << outputFormat;
-    if ( outputFormat == "JPEG" ) {
-      o << " q" << quality;
-      if (progressive) {
-          o << " g";
-      }
+    o << "p f" << projectionFormat << " w" << width << " h" << getHeight()
+      << " v" << HFOV << " n\"" << getFormatName(outputFormat);
+    if ( outputFormat == JPEG ) {
+        o << " q" << quality;
+        if (progressive) {
+            o << " g";
+        }
     }
     o << "\"";
     switch (colorCorrection) {
@@ -347,6 +389,28 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << "m g" << gamma << " i" << interpolator << std::endl;
 }
 
+unsigned int PanoramaOptions::getHeight() const
+{
+    return (int) nearbyint(width * VFOV/HFOV);
+}
+
+const string PanoramaOptions::fileformatNames[] =
+{
+    "JPEG",
+    "PNG",
+    "TIFF",
+    "TIFF_mask",
+    "TIFF_nomask",
+    "PICT",
+    "PSD",
+    "PSD_mask",
+    "PSD_nomask",
+    "PAN",
+    "IVR",
+    "IVR_java",
+    "VRML",
+    "QTVR"
+};
 
 bool PanoramaMemento::loadPTScript(std::istream &i)
 {
@@ -367,15 +431,18 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
             getParam(i,line,"f");
             options.projectionFormat = (PanoramaOptions::ProjectionFormat) i;
             getParam(options.width, line, "w");
-            getParam(options.height, line, "h");
             getParam(options.HFOV, line, "v");
+            int height;
+            getParam(height, line, "h");
+            options.VFOV = height / ( options.width * options.HFOV);
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"
             getPTStringParam(format,line,"n");
             int t = format.find(' ');
-            options.outputFormat = format.substr(0,t);
             // FIXME. add argument parsing for output formats
+            options.outputFormat = options.getFormatFromName(format.substr(0,t));
+
             // FIXME add color correction parsing.
             int cRefImg = 0;
             if (getParam(cRefImg, line,"k")) {
@@ -404,59 +471,109 @@ bool PanoramaMemento::loadPTScript(std::istream &i)
         {
             DEBUG_DEBUG("i line: " << line);
             // parse image lines
+
+            bool ok;
+
+            // read the variables & decide if to create a new lens or not
+            VariableMap vars;
+            fillVariableMap(vars);
+            int link;
+            ok = readVar(map_get(vars, "r"), link, line);
+            if (!ok)  return false;
+            DEBUG_ASSERT(link == -1);
+            ok = readVar(map_get(vars, "p"), link, line);
+            if (!ok)  return false;
+            DEBUG_ASSERT(link == -1);
+            ok = readVar(map_get(vars, "y"), link, line);
+            if (!ok)  return false;
+            DEBUG_ASSERT(link == -1);
+
+            Lens l;
+            int anchorImage = -1;
+            int lensNr = -1;
+            for (LensVarMap::iterator it = l.variables.begin();
+                 it != l.variables.end();
+                 ++it)
+            {
+                ok = readVar(it->second, link, line);
+                if (!ok)  return false;
+                if (link !=-1) {
+                    // linked variable
+                    if ( anchorImage < 0) {
+                        // first occurance of a link for this image.
+                        if ((int) images.size() <= anchorImage) {
+                            DEBUG_ERROR("variables must be linked to an image with a lower number" << endl
+                                        << "number links: " << link << " images: " << images.size() << endl
+                                        << "error on line " << lineNr << ":" << endl
+                                        << line);
+                            return false;
+                        }
+                        anchorImage = link;
+                        lensNr = images[anchorImage].getLensNr();
+                        // valid link. update the link state of the corrosponding
+                        // existing lens variable
+                        lensNr = images[anchorImage].getLensNr();
+                        map_get(lenses[lensNr].variables,it->first).setLinked(true);                        
+                    } else if (anchorImage != link) {
+                        // conflict, link parameters do not match!
+                        DEBUG_ERROR("cannot process images whos variables are linked "
+                                    "to different anchor images, on line " << lineNr
+                                    << ":\n" << line);
+                        return false;
+                    }
+                    // get variable value of the link target
+                    double val = map_get(variables[anchorImage], it->first).getValue();
+                    map_get(vars, it->first).setValue(val);
+                    it->second.setValue(val);
+                } else {
+                    // not linked
+                    // copy value to image variable.
+                    map_get(vars,it->first).setValue(it->second.getValue());
+                }
+            }
+            variables.push_back(vars);
+
+            int lensProjInt;
+            getParam(lensProjInt, line, "f");
+            l.projectionFormat = (Lens::LensProjectionFormat) lensProjInt;
+
+            if (lensNr != -1) {
+                lensNr = images[anchorImage].getLensNr();
+                if (l.projectionFormat != lenses[lensNr].projectionFormat) {
+                    DEBUG_ERROR("cannot link images with different projections");
+                    return false;
+                }
+            }
+
+            if (lensNr == -1) {
+                // no links -> create a new lens
+                // create a new lens.
+                lenses.push_back(l);
+                lensNr = lenses.size()-1;
+            }
+
+
             // create a new Image
             string file;
             getPTStringParam(file,line,"n");
-            DEBUG_DEBUG("filename: " << file);
-            // load the image somehow..
-
-            // create lens for this image
-            Lens l;
-            getParam(l.HFOV, line, "v");
-            getParam(l.a, line, "a");
-            getParam(l.b, line, "b");
-            getParam(l.c, line, "c");
-            getParam(l.d, line, "d");
-            getParam(l.e, line, "e");
-            int t;
-            getParam(t, line, "f");
-            l.projectionFormat = (Lens::LensProjectionFormat) t;
-
-            lenses.push_back(l);
-            unsigned int lnr = lenses.size()-1;
+//            DEBUG_DEBUG("filename: " << file);
             int width, height;
             getParam(width, line, "w");
             getParam(height, line, "h");
+            DEBUG_ASSERT(lensNr >= 0);
+            images.push_back(PanoImage(file,width, height, (unsigned int) lensNr));
 
-            images.push_back(PanoImage(file,width, height, lnr));
             ImageOptions opts = images.back().getOptions();
             getParam(opts.featherWidth, line, "u");
             images.back().setOptions(opts);
 
-            ImageVariables var;
-            readVar(var.roll, line);
-            readVar(var.pitch, line);
-            readVar(var.yaw, line);
-
-            // FIXME support linking.
-            readVar(var.HFOV, line);
-            readVar(var.a, line);
-            readVar(var.b, line);
-            readVar(var.c, line);
-            readVar(var.d, line);
-            readVar(var.e, line);
-            variables.push_back(var);
             state = P_IMAGE;
-
-            // FIXME add lens here.
-
-
 
             break;
         }
         case 'v':
             DEBUG_DEBUG("v line: " << line);
-            // FIXME add optimize flags to Panorama and parse it here.
+            // FIXME add optimize flags to Panorama and parse them here ??
             state = P_OPTIMIZE;
             break;
         case 'c':

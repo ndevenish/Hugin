@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <10-Aug-2003 02:15:43 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <09-Sep-2003 17:56:06 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -44,7 +44,7 @@ public:
                     source == o.source
                 );
         }
-    
+
 #endif
 //        QDomElement toXML(QDomDocument & doc);
 //        void setFromXML(const QDomNode & node);
@@ -106,11 +106,11 @@ public:
         unsigned int getWidth() const
             { return width; }
 
-        void setLens(unsigned int l)
+        void setLensNr(unsigned int l)
             { options.lensNr = l; }
-        unsigned int getLens() const
+        unsigned int getLensNr() const
             { return options.lensNr; }
-        
+
     private:
         /// common init for all constructors
         void init();

@@ -50,8 +50,8 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(WXWIN_CFLAGS) -I../
-LFLAGS += $(WXWIN_LFLAGS)
+CFLAGS += -I../
+LFLAGS += 
 
 # ====================================================================
 # Some of the object in this directory you might want to put in a

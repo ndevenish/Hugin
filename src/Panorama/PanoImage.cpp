@@ -2,7 +2,7 @@
 // PanoImage.cpp
 //
 // Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
-// Last change: Time-stamp: <10-Aug-2003 02:17:50 pablo@island.wh-wurm.uni-ulm.de>
+// Last change: Time-stamp: <12-Sep-2003 18:31:53 pablo@island.wh-wurm.uni-ulm.de>
 //
 //
 
@@ -16,7 +16,7 @@
 #include <PT/PanoImage.h>
 #include <PT/Panorama.h>
 #include <common/utils.h>
-#include "hugin/ImageCache.h"
+//#include "hugin/ImageCache.h"
 
 using namespace PT;
 using namespace std;
@@ -134,10 +134,11 @@ bool PanoImage::readImageInformation()
   }
   std::string ext = filename.substr( idx+1 );
 
+  DEBUG_ERROR("readImageInformation should be set Image information");
   // this depends on wxWindow
-  wxImage * image = ImageCache::getInstance().getImage(filename);
-  width = image->GetWidth();
-  height = image->GetHeight();
+//  wxImage * image = ImageCache::getInstance().getImage(filename);
+//  width = image->GetWidth();
+//  height = image->GetHeight();
 
   /*
   try {
