@@ -4,7 +4,7 @@
 
 bool MyApp::OnInit()
 {
-	frame = new MyFrame("wxWindows Panorama Viewer, v0.4.1",
+	frame = new MyFrame("wxWindows Panorama Viewer, v0.4.2",
 	                           wxPoint(50, 50), wxSize(400, 300), argc, argv);
 
 	frame->Show(TRUE);

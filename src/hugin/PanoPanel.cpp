@@ -41,7 +41,7 @@
 #include "PT/PanoCommand.h"
 #include "PT/PanoramaMemento.h"
 #include "PT/Panorama.h"
-#include "hugin/config.h"
+//#include "hugin/config.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
 //#include "hugin/CPEditorPanel.h"
@@ -78,8 +78,10 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
   EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PanoPanel::GammaChanged )
 
   EVT_COMBOBOX ( XRCID("pano_val_previewWidth"),PanoPanel::previewWidthChanged )
+  EVT_COMBOBOX (XRCID("pano_val_previewHeight"),PanoPanel::previewHeightChanged)
   EVT_BUTTON   ( XRCID("pano_button_preview"),PanoPanel::DoPreview )
   EVT_CHECKBOX ( XRCID("pano_cb_auto_preview"),PanoPanel::autoPreview )
+  EVT_CHECKBOX ( XRCID("pano_cb_auto_optimize"),PanoPanel::autoOptimize )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_enabled"),
                                                PanoPanel::panoviewerEnabled )
   EVT_CHECKBOX ( XRCID("pano_cb_panoviewer_precise"),
@@ -107,6 +109,8 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     // set defaults from gui;
     auto_preview = TRUE;
+    auto_optimize = TRUE;
+    auto_optimize_run = FALSE;
     panoviewer_enabled = TRUE;
     panoviewer_precise = FALSE;
     panoviewer_started = FALSE;
@@ -188,6 +192,7 @@ void PanoPanel::DoDialog ( wxCommandEvent & e )
       pano_dlg->pp->pano_dlg_run = TRUE;
       pano_dlg->pp->self_pano_dlg = TRUE;
       pano_dlg->pp->previewWidth = previewWidth;
+      pano_dlg->pp->previewHeight = previewHeight;
       pano_dlg->pp->PanoOptionsChanged (opt);
 
     }
@@ -202,15 +207,24 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 
       // update all options for dialog and notebook tab
       PanoOptionsChanged (opt);
-      DEBUG_INFO (XRCID("pano_button_preview"))
-      int id (XRCID("pano_button_preview"));
-      wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
-      e.SetId(id);
-      if (auto_preview && !self_pano_dlg && !panoviewer_started)
-        DoPreview (e);
-//    PanoChanged (e);
-//      if (panoviewer_started)
-//        panoviewer_started = FALSE;
+
+      if ( !auto_optimize_run ) {
+        if ( auto_optimize && !self_pano_dlg ) {
+          DEBUG_TRACE ("")
+          auto_optimize_run = TRUE;
+          wxCommandEvent e;
+          DoOptimization(e);
+        }
+
+        int id (XRCID("pano_button_preview"));
+        wxCommandEvent  e;
+        e.SetId(id);
+        if (auto_preview && !self_pano_dlg && !panoviewer_started)
+          DoPreview (e);
+
+      } else {
+        auto_optimize_run = FALSE;
+      }
     }
     changePano = FALSE;
 }
@@ -232,6 +246,29 @@ void PanoPanel::DoOptimization (wxCommandEvent & e)
     // TODO ask which variables to optimize - > wxComboBox pano_optimizer_level
     Optimize(*optset, opt);
 }
+void PanoPanel::autoOptimize ( wxCommandEvent & e )
+{
+    if ( XRCCTRL(*this, "pano_cb_auto_optimize", wxCheckBox)
+         ->IsChecked() ) {
+        DEBUG_INFO ("set auto optimize")
+        auto_optimize = true;
+    } else {
+        DEBUG_INFO ("unset auto optimize")
+        auto_optimize = false;
+    }
+
+    if ( pano_dlg_run ) {  // tell the other window
+      if ( self_pano_dlg ) {
+        pano_panel->auto_optimize = auto_optimize;
+        XRCCTRL(*pano_panel, "pano_cb_auto_optimize", wxCheckBox)
+                  ->SetValue(auto_optimize);
+      } else {
+        pano_dlg->pp->auto_optimize = auto_optimize;
+        XRCCTRL(*pano_dlg->pp, "pano_cb_auto_optimize", wxCheckBox)
+                  ->SetValue(auto_optimize);
+      }
+    }
+}
 
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
@@ -240,13 +277,17 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
     if (!self_pano_dlg && (pano.getNrOfImages() > 0) ) {
       std::stringstream filename;
       int old_previewWidth = previewWidth;
+      int old_previewHeight = previewHeight;
       Panorama preview_pano = pano;
       PanoramaOptions preview_opt = opt;
       if ( !panoviewer_enabled ) {
         previewWidth = 256;
+        previewHeight = 128;
       }
       preview_opt.width = previewWidth;
-      preview_opt.height = previewWidth / 2;
+      preview_opt.height = previewHeight;
+      if ( previewHeight <= 0 )
+        preview_opt.height = previewWidth / 2;
       wxString outputFormat = preview_opt.outputFormat.c_str();
       filename <<_("preview")<<".JPG" ;
       preview_opt.outfile = filename.str();
@@ -291,6 +332,7 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 #endif
 
       previewWidth = old_previewWidth;
+      previewHeight = old_previewHeight;
 
       // Send panoViewer the name of our image
       if ( panoviewer_enabled ) {
@@ -463,6 +505,8 @@ void PanoPanel::PanoOptionsChanged ( PanoramaOptions &o )
                             ->SetSelection(opt.projectionFormat);
 //    previewWidthChanged (e);
     OPT_TO_COMBOBOX ( "pano_val_previewWidth", previewWidth )
+//    previewHeightChanged (e);
+    OPT_TO_COMBOBOX ( "pano_val_previewHeight", previewHeight )
 //    FinalFormatChanged (e);
     lt = XRCCTRL(*this, "pano_choice_formatFinal", wxChoice)
                         ->FindString(opt.outputFormat.c_str());
@@ -500,9 +544,11 @@ void PanoPanel::PanoChanged ( wxCommandEvent & e )
       JpegPChanged (e);
 
       autoPreview (e);
+      autoOptimize (e);
       panoviewerEnabled (e);
       panoviewerPrecise (e);
       previewWidthChanged (e);
+      previewHeightChanged (e);
     }
 
     DEBUG_TRACE ( "" )
@@ -608,6 +654,37 @@ void PanoPanel::previewWidthChanged ( wxCommandEvent & e )
           pano_dlg->pp->previewWidth = previewWidth;
           XRCCTRL(*pano_dlg->pp, "pano_val_previewWidth", wxComboBox)
                               ->SetValue(wxString::Format ("%d", previewWidth));
+        }
+      }
+
+      GlobalCmdHist::getInstance().addCommand(
+          new PT::SetPanoOptionsCmd( pano, opt )
+          );
+
+      DEBUG_INFO ( ": " << *val )
+      delete val;
+    }
+}
+
+void PanoPanel::previewHeightChanged ( wxCommandEvent & e )
+{
+    if ( ! changePano ) {
+      double * val = new double ();
+      int lt = XRCCTRL(*this, "pano_val_previewHeight", wxComboBox)
+                              ->GetSelection() ;
+      XRCCTRL(*this, "pano_val_previewHeight", wxComboBox)
+                              ->GetString(lt).ToDouble(val) ;
+      previewHeight = (int)*val;
+
+      if ( pano_dlg_run ) {
+        if ( self_pano_dlg ) {
+          pano_panel->previewHeight = previewHeight;
+          XRCCTRL(*pano_panel, "pano_val_previewHeight", wxComboBox)
+                             ->SetValue(wxString::Format ("%d", previewHeight));
+        } else {
+          pano_dlg->pp->previewHeight = previewHeight;
+          XRCCTRL(*pano_dlg->pp, "pano_val_previewHeight", wxComboBox)
+                             ->SetValue(wxString::Format ("%d", previewHeight));
         }
       }
 

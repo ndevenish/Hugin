@@ -168,6 +168,8 @@ bool huginApp::OnInit()
     wxString wrkDir = config->Read("tempDir","");
     // create temporary directory.
     
+
+    config->Write( "startDir", wxFileName::GetCwd() );
 #ifdef __unix__
     // create a temporary directory
     char * dir;

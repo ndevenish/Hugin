@@ -252,17 +252,17 @@ void MyFrame::ShowFile ( wxFileName file )
           wxMemoryDC mdc;
           mdc.SelectObject(bmp);
           mdc.BeginDrawing();
-          double v_lines = 36.0;   // TODO work for the other projections
-          double h_lines = 18.0;
-          for ( double i = 0.0 ; i < v_lines ; i++ ) {
+          double space = 10.0;   // TODO work for the other projections
+          double step = (double)p.GetWidth()/360.0; 
+          for ( double i = 0.0 ; i * space <= 360 ; i++ ) {
             mdc.CrossHair((int)((double)p.GetWidth()/2
-                              + (double)p.GetWidth()/v_lines * i),
+                              + step * space * i),
                           (int)((double)p.GetHeight()/2
-                              + (double)p.GetHeight()/h_lines * i));
+                              + step * space * i));
             mdc.CrossHair((int)((double)p.GetWidth()/2
-                              + (double)p.GetWidth()/v_lines * -i),
+                              + step * space * -i),
                           (int)((double)p.GetHeight()/2
-                              + (double)p.GetHeight()/h_lines * -i));
+                              + step * space * -i));
           }
           mdc.EndDrawing();
           p = bmp;

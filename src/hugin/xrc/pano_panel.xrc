@@ -70,6 +70,16 @@
                       </object>
                       <growablecols>1</growablecols>
                       <growablerows>0</growablerows>
+                      <object class="spacer">
+                        <size>0,0</size>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxCheckBox" name="pano_cb_auto_optimize">
+                          <label>auto optimize</label>
+                          <checked>0</checked>
+                        </object>
+                        <flag>wxEXPAND|wxGROW</flag>
+                      </object>
                     </object>
                     <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
                   </object>
@@ -302,6 +312,38 @@
                                 </object>
                                 <flag>wxEXPAND|wxGROW</flag>
                               </object>
+                              <object class="sizeritem">
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Height</label>
+                                      <style>wxALIGN_LEFT</style>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_CENTRE</flag>
+                                    <minsize>120,20</minsize>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxComboBox" name="pano_val_previewHeight">
+                                      <selection>0</selection>
+                                      <style></style>
+                                      <content>
+                                        <item/>
+                                        <item>64</item>
+                                        <item>128</item>
+                                        <item>256</item>
+                                        <item>375</item>
+                                        <item>620</item>
+                                        <item>700</item>
+                                        <item>800</item>
+                                        <item>1000</item></content>
+                                    </object>
+                                    <flag>wxEXPAND|wxGROW|wxALIGN_RIGHT</flag>
+                                    <minsize>110,25</minsize>
+                                  </object>
+                                </object>
+                                <flag>wxEXPAND|wxGROW</flag>
+                              </object>
                             </object>
                           </object>
                         </object>
@@ -346,6 +388,7 @@
                                     <item>VRML</item>
                                     <item>QTVR</item>
                                   </content>
+                                  <selection>2</selection>
                                 </object>
                                 <minsize>150,31</minsize>
                               </object>

@@ -28,10 +28,13 @@
 #endif
 
 #include <wx/filename.h>
+#include <wx/config.h>
 
 #include "hugin/Server.h"
 #include "hugin/huginApp.h"
 #include "hugin/MainFrame.h"
+
+#include <fstream>
 
 // --------------------------------------------------------------------------
 // event tables and other macros for wxWindows
@@ -148,7 +151,11 @@ void Server::SendFilename( wxString filename )
     if ( Connected() ) {
       send = "";
     } else {
-      wxFileName pv ("../PanoImage/panoviewer");
+      // get the global config object
+      wxConfigBase* config = wxConfigBase::Get();
+      std::string dir = config->Read("startDir","").c_str();
+      dir.append( "/../PanoImage/panoviewer" );
+      wxFileName pv (dir.c_str());
       char viewer_bin[] = "panoviewer";
       wxString viewer (viewer_bin);
       if ( pv.FileExists() ) // get panoviewer from sourcetree

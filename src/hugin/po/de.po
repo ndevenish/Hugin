@@ -121,6 +121,8 @@ msgstr "Statusbar zeigen/verstecken"
 #: ../ptopengui.cpp:103
 msgid "&Auto optimization\tF4"
 msgstr "&autom. Optimierung\tF4"
+msgid "auto optimize"
+msgstr "automatische Optimierung"
 
 #: ../ptopengui.cpp:103
 msgid "Toggle optimization status"
