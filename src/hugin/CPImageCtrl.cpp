@@ -186,7 +186,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (i==selectedPointNr) {
-            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("YELLOW"));
+            if (editState != NEW_POINT_SELECTED) {
+                drawPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+            } else {
+                drawPoint(dc,*it,*wxTheColourDatabase->FindColour("YELLOW"));
+            }
         } else {
             drawPoint(dc,*it,pointColors[i%pointColors.size()]);
         }

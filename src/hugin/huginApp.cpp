@@ -49,7 +49,6 @@
 #include "hugin/PanoPanel.h"
 
 
-MainFrame * g_MainFrame;
 Server * server;
 
 // make wxwindows use this class as the main application
@@ -168,20 +167,21 @@ bool huginApp::OnInit()
 
     // create main frame
     frame = new MainFrame(NULL, pano);
-    g_MainFrame = frame;
     SetTopWindow(frame);
 
 
     config->Write( "startDir", wxFileName::GetCwd() );
-    
+
     m_workDir = config->Read("tempDir","");
     // FIXME, make secure against some symlink attacks
     // get a temp dir
 #ifdef __unix__
+    DEBUG_DEBUG("on unix..");
     if (m_workDir == "") {
-        m_workDir == "/tmp";
+        m_workDir = "/tmp";
     }
 #elif __WXMSW__
+    DEBUG_DEBUG("figuring out windows temp dir");
     if (m_workDir == "") {
         /* added by Yili Zhao */
         char buffer[255];
@@ -192,7 +192,7 @@ bool huginApp::OnInit()
     DEBUG_ERROR("don't know how to find the temp dir on mac");
     m_workDir = "";
 #endif
-    DEBUG_DEBUG("using temp dir: " << m_workDir);
+    DEBUG_DEBUG("using temp dir: " << m_workDir.c_str());
     if (!wxFileName::DirExists(m_workDir)) {
         DEBUG_DEBUG("creating temp dir: " << m_workDir);
         if (!wxMkdir(m_workDir)) {

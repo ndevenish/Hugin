@@ -6,8 +6,41 @@
       <label></label>
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="unknown" name="preview_panel"/>
-        <minsize>256,128</minsize>
+        <object class="wxFlexGridSizer">
+          <object class="sizeritem">
+            <object class="unknown" name="preview_panel"/>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+            <minsize>256,128</minsize>
+          </object>
+          <object class="sizeritem">
+            <object class="wxSlider">
+              <value></value>
+              <min></min>
+              <max></max>
+              <style>wxSL_VERTICAL</style>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <cols>2</cols>
+          <rows>2</rows>
+          <object class="sizeritem">
+            <object class="wxSlider">
+              <value></value>
+              <min></min>
+              <max></max>
+              <style>wxSL_HORIZONTAL</style>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="spacer">
+            <size>0,0</size>
+          </object>
+          <growablerows>0</growablerows>
+          <growablecols>0</growablecols>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">

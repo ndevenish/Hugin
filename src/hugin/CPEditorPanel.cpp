@@ -345,7 +345,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         if (cpCreationState == BOTH_POINTS_SELECTED) {
             DEBUG_DEBUG("right click -> adding point");
             CreateNewPoint();
-            g_MainFrame->SetStatusText("new control point added");
+            MainFrame::Get()->SetStatusText("new control point added");
         } else {
             DEBUG_DEBUG("right click without two points..");
             changeState(NO_POINT);
@@ -501,7 +501,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
             // other point already selected, finalize point.
 
             if (m_fineTuneCB->IsChecked()) {
-                g_MainFrame->SetStatusText("searching similar point...",0);
+                MainFrame::Get()->SetStatusText("searching similar point...",0);
                 wxPoint newPoint = otherImg->getNewPoint();
 
                 long templWidth = wxConfigBase::Get()->Read("/CPEditorPanel/templateSize",14);
@@ -547,7 +547,7 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
                                                  (int)round(p2.y) ));
                 }
 
-                g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+                MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
 
             } else {
                 // no finetune. but zoom into picture, when we where zoomed out
@@ -604,7 +604,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
             int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
             int swidth = (int) (width * templSearchAreaPercent / 200);
             m_leftImg->showSearchArea(swidth);
-            g_MainFrame->SetStatusText("Select Point in right image",0);
+            MainFrame::Get()->SetStatusText("Select Point in right image",0);
         }
     case RIGHT_POINT:
         newPoint = p;
@@ -614,7 +614,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
     case LEFT_POINT:
         FDiff2D p2;
         if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            g_MainFrame->SetStatusText("searching similar point...",0);
+            MainFrame::Get()->SetStatusText("searching similar point...",0);
             double xcorr = PointFineTune(m_leftImageNr,
                                          Diff2D(newPoint.x,newPoint.y),
                                          m_rightImageNr,
@@ -628,7 +628,7 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
                 m_rightImg->clearNewPoint();
                 return;
             }
-            g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+            MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
         } else {
             p2.x = p.x;
             p2.y = p.y;
@@ -1246,7 +1246,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
 
         m_leftImg->showTemplateArea(fineTune);
         m_rightImg->showTemplateArea(false);
-        g_MainFrame->SetStatusText("Select Point in right image",0);
+        MainFrame::Get()->SetStatusText("Select Point in right image",0);
         break;
     case RIGHT_POINT:
         m_leftImg->showSearchArea(fineTune);
@@ -1254,7 +1254,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
 
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(fineTune);
-        g_MainFrame->SetStatusText("Select Point in left image",0);
+        MainFrame::Get()->SetStatusText("Select Point in left image",0);
         break;
     case LEFT_POINT_RETRY:
     case RIGHT_POINT_RETRY:
@@ -1264,14 +1264,14 @@ void CPEditorPanel::changeState(CPCreationState newState)
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(false);
 
-        g_MainFrame->SetStatusText("select point selection",0);
+        MainFrame::Get()->SetStatusText("select point selection",0);
         break;
     case BOTH_POINTS_SELECTED:
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(false);
         m_leftImg->showSearchArea(false);
         m_rightImg->showSearchArea(false);
-        g_MainFrame->SetStatusText("change points, or press right mouse button to add the pair");
+        MainFrame::Get()->SetStatusText("change points, or press right mouse button to add the pair");
     }
     // apply the change
     cpCreationState = newState;
@@ -1346,7 +1346,7 @@ void CPEditorPanel::FineTuneSelectedPoint()
                                  sWidth,
                                  result);
 
-    g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
 
     wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
     double thresh = utils::lexical_cast<double>(str);
@@ -1393,7 +1393,7 @@ void CPEditorPanel::FineTuneNewPoint()
                                  sWidth,
                                  result);
     wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-    g_MainFrame->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
+    MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
     double thresh = utils::lexical_cast<double>(str);
     if (xcorr < thresh) {
         // low xcorr

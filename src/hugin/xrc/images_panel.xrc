@@ -81,53 +81,53 @@
                   <orient>wxHORIZONTAL</orient>
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
-                      <label>yaw</label>
-                      <size>35,15</size>
+                      <label>yaw:</label>
                     </object>
-                    <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="images_text_yaw">
-                      <size>55,20</size>
-                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set yaw for selected image(s)</tooltip>
                     </object>
                     <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
-                    <border>5</border>
+                    <minsize>55,20</minsize>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
-                      <label>pitch</label>
-                      <size>35,15</size>
+                      <label>pitch:</label>
                     </object>
-                    <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="images_text_pitch">
-                      <size>55,20</size>
-                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set pitch for selected image(s)</tooltip>
                     </object>
                     <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
-                    <border>5</border>
+                    <minsize>55,20</minsize>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
-                      <label>roll</label>
-                      <size>35,15</size>
+                      <label>roll:</label>
                     </object>
-                    <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    <border>5</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="images_text_roll">
-                      <size>55,20</size>
-                      <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
+                      <style>wxTE_PROCESS_ENTER</style>
                       <tooltip>set pitch for selected image(s)</tooltip>
                     </object>
                     <flag>wxRIGHT|wxEXPAND|wxGROW</flag>
                     <border>5</border>
+                    <minsize>55,20</minsize>
                   </object>
                 </object>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>5</border>
               </object>
             </object>
             <flag>wxALL|wxEXPAND|wxGROW</flag>
@@ -143,7 +143,8 @@
                   <style></style>
                 </object>
                 <option>1</option>
-                <flag>wxEXPAND|wxALIGN_CENTRE</flag>
+                <flag>wxTOP|wxEXPAND|wxALIGN_CENTRE</flag>
+                <border>5</border>
               </object>
             </object>
             <option>1</option>

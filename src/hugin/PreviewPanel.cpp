@@ -96,12 +96,22 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
     const PanoramaOptions & newOpts = pano.getOptions();
 
     // check if an important options has been changed
-    if (newOpts.HFOV != opts.HFOV) dirty = true;
-    if (newOpts.VFOV != opts.VFOV) dirty = true;
-    if (newOpts.projectionFormat != opts.projectionFormat) dirty = true;
+    if (newOpts.HFOV != opts.HFOV) {
+        DEBUG_DEBUG("HFOV changed");
+        dirty = true;
+    }
+    if (newOpts.VFOV != opts.VFOV) {
+        DEBUG_DEBUG("VFOV changed");
+        dirty = true;
+    }
+    if (newOpts.projectionFormat != opts.projectionFormat) {
+        DEBUG_DEBUG("projection changed");
+        dirty = true;
+    }
 
     opts = newOpts;
     if (m_autoPreview && dirty) {
+        DEBUG_DEBUG("forcing preview update");
         for (unsigned int i = 0; i < m_remappedBitmaps.size(); i++) {
             m_dirtyImgs.insert(i);
         }

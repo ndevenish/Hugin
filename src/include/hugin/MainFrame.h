@@ -103,7 +103,7 @@ public:
 
     // called when a control point in CPListFrame is selected
     void ShowCtrlPoint(unsigned int cpNr);
-    
+
     // called when a progress message should be displayed
     /** receive notification about progress
      *
@@ -116,6 +116,9 @@ public:
     /// get the path to the xrc directory
     const wxString & GetXRCPath()
     { return m_xrcPrefix;};
+    
+    /// hack.. kind of a pseudo singleton...
+    static MainFrame * Get();
 
 private:
 
@@ -157,13 +160,12 @@ private:
 
     // filename of the current project
     wxString m_filename;
-    
+
     // data prefix
     wxString m_xrcPrefix;
 
-
     // self
-    MainFrame* GetFrame(void);
+    static MainFrame* m_this;
 
     DECLARE_EVENT_TABLE()
 };

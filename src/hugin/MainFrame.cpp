@@ -58,6 +58,8 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
 
+//#include "xrc/data/icon.xpm"
+
 #include "PT/Panorama.h"
 
 
@@ -155,7 +157,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         DEBUG_ERROR("splash image not found");
     }
     wxYield();
-  
+
+    // save our pointer
+    m_this = this;
+    
     DEBUG_TRACE("");
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -255,16 +260,16 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // show the frame.
 //    Show(TRUE);
-    
+
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
-    
+
 #ifdef __unix__
     if(splash) {
         delete splash;
     }
 #endif
-    
+
     DEBUG_TRACE("");
 }
 
@@ -467,7 +472,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
         // e safe the current path to config
         config->Write("actualPath", dlg->GetDirectory());  // remember for later
-        
+
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
             filesv.push_back(Pathnames[i].c_str());
@@ -497,7 +502,6 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     }
 
     dlg->Destroy();
-    config->Flush();
     DEBUG_TRACE("");
 }
 
@@ -619,14 +623,6 @@ void MainFrame::ShowCtrlPoint(unsigned int cpNr)
     cpe->ShowControlPoint(cpNr);
 }
 
-MainFrame* MainFrame::GetFrame(void)
-{
-    DEBUG_TRACE("");
-//    MainFrame* dummy( parent);//, -1, wxDefaultPosition, wxDefaultPosition);
-    return this;
-}
-
-
 void MainFrame::progressMessage(const std::string & msg,
                                 int progress)
 {
@@ -639,3 +635,16 @@ void MainFrame::progressMessage(const std::string & msg,
     wxYield();
 }
 
+    /// hack.. kind of a pseudo singleton...
+MainFrame * MainFrame::Get()
+{
+    if (m_this) {
+        return m_this;
+    } else {
+        DEBUG_FATAL("MainFrame not yet created");
+        DEBUG_ASSERT(m_this);
+        return 0;
+    }
+}
+
+MainFrame * MainFrame::m_this = 0;

@@ -55,14 +55,16 @@
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_CLOSE(PreviewFrame::OnClose)
 //    EVT_CHECKBOX(-1, PreviewFrame::OnAutoPreviewToggle)
-    EVT_BUTTON(ID_UPDATE_BUTTON, PreviewFrame::OnUpdateButton)
     EVT_TOOL(XRCID("preview_center_tool"), PreviewFrame::OnCenterHorizontally)
     EVT_TOOL(XRCID("preview_fit_pano_tool"), PreviewFrame::OnFitPano)
     EVT_TOOL(XRCID("preview_auto_update_tool"), PreviewFrame::OnAutoPreviewToggle)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdateButton)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
-    EVT_TOGGLEBUTTON(-1,PreviewFrame::OnChangeDisplayedImgs)
+    EVT_TOGGLEBUTTON(-1, PreviewFrame::OnChangeDisplayedImgs)
+    EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
+    EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
+    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
@@ -86,49 +88,56 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 1);
 
+    wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
+
+    flexSizer->AddGrowableCol(0);
+    flexSizer->AddGrowableRow(0);
+    
     // create our preview panel
     m_PreviewPanel = new PreviewPanel(this, &pano);
 
-    topsizer->Add(m_PreviewPanel,
+    flexSizer->Add(m_PreviewPanel,
                   1,        // not vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
 
-#if 0
-    wxBoxSizer *ctrlSizer = new wxBoxSizer( wxHORIZONTAL );
+    
+    m_VFOVSlider = new wxSlider(this, -1, 0, 
+                                0, 180,
+                                wxDefaultPosition, wxDefaultSize,
+                                wxSL_VERTICAL | wxSL_AUTOTICKS,
+                                wxDefaultValidator,
+                                "VFOV");
+    m_VFOVSlider->SetToolTip(_("drag to change the vertical field of view"));
+    
+    flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
 
-    m_autoCB = new wxCheckBox(this, -1, _("auto update"));
-    ctrlSizer->Add(m_autoCB,
-                  0,        // not horizontally stretchable
-                  wxCENTER |
+    m_HFOVSlider = new wxSlider(this, -1, 0, 
+                                0, 360,
+                                wxDefaultPosition, wxDefaultSize,
+                                wxSL_HORIZONTAL | wxSL_AUTOTICKS,
+                                wxDefaultValidator,
+                                "HFOV");
+    m_HFOVSlider->SetToolTip(_("drag to change the horizontal field of view"));
+    
+    flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
+    
+
+    topsizer->Add(flexSizer,
+                  1,        // vertically stretchable
+                  wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
 
-    // create the update button
-    wxButton *m_updatePreview = new wxButton(this,
-                                             ID_UPDATE_BUTTON,
-                                             _("Update Preview"),
-                                             wxDefaultPosition);
-
-    ctrlSizer->Add(m_updatePreview,
-                  0,        // not horizontally stretchable
-                  wxCENTER |
-                  wxALL,    // draw border all around
-                  5);       // border width
-
-    // don't allow frame to get smaller than what the sizers tell it and also set
-    topsizer->Add(ctrlSizer, 0, wxEXPAND, 0);
-#endif
 
     // the initial size as calculated by the sizers
     topsizer->SetSizeHints( this );
     SetSizer( topsizer );
 
     // set the minimize icon
-    SetIcon(wxIcon(g_MainFrame->GetXRCPath() + "/data/icon.xpm", wxBITMAP_TYPE_XPM));
-     
-    
+    SetIcon(wxIcon(MainFrame::Get()->GetXRCPath() + "/data/icon.xpm", wxBITMAP_TYPE_XPM));
+
     m_pano.addObserver(this);
 
     wxConfigBase * config = wxConfigBase::Get();
@@ -142,7 +151,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
-
+    
+    // add a status bar
+    CreateStatusBar(2);
+    int widths[2] = {-1, 150};
+    SetStatusWidths(2, widths);
 }
 
 PreviewFrame::~PreviewFrame()
@@ -173,12 +186,37 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
     }
 }
 
+
+void PreviewFrame::panoramaChanged(Panorama &pano) 
+{
+    m_PreviewPanel->panoramaChanged(pano);
+    const PanoramaOptions & opts = pano.getOptions();
+    
+    wxString projection;
+    switch (opts.projectionFormat) {
+    case PanoramaOptions::RECTILINEAR:
+        projection = _("rectilinear");
+        break;
+    case PanoramaOptions::CYLINDRICAL:
+        projection = _("cylindrical");
+        break;
+    case PanoramaOptions::EQUIRECTANGULAR:
+        projection = _("equirectangular");
+        break;
+    }
+    SetStatusText(wxString::Format("%.1f° x %.1f°, %s", opts.HFOV, opts.VFOV,
+                                   projection.c_str()),1);
+    m_HFOVSlider->SetValue((int) round(opts.HFOV));
+    m_VFOVSlider->SetValue((int) round(opts.VFOV));
+    
+}
+
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
     m_PreviewPanel->panoramaImagesChanged(pano,changed);
-    
+
     bool dirty = false;
 
     unsigned int nrImages = pano.getNrOfImages();
@@ -267,6 +305,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCmd(m_pano, vars)
         );
+    m_PreviewPanel->ForceUpdate();
 }
 
 void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
@@ -287,7 +326,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
         );
 
     DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
-
+    m_PreviewPanel->ForceUpdate();
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
@@ -308,4 +347,25 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     }
     m_displayedImgs.clear();
     m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+}
+
+void PreviewFrame::OnChangeFOV(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    
+    PanoramaOptions opt = m_pano.getOptions();
+
+    if (e.GetEventObject() == m_HFOVSlider) {
+        DEBUG_DEBUG("HFOV changed (slider): " << e.GetInt() << " == " << m_HFOVSlider->GetValue());
+        opt.HFOV = e.GetInt();
+    } else if (e.GetEventObject() == m_VFOVSlider) {
+        DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
+        opt.VFOV = e.GetInt();
+    } else {
+        DEBUG_FATAL("Slider event from unknown control received");
+    }
+    
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd( m_pano, opt )
+        );
 }

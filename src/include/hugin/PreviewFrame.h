@@ -51,6 +51,7 @@ public:
      */
     virtual ~PreviewFrame();
 
+    void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
 
 protected:
@@ -63,6 +64,7 @@ protected:
     void OnFitPano(wxCommandEvent& e);
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
+    void OnChangeFOV(wxCommandEvent & e);
 
 private:
 
@@ -70,6 +72,9 @@ private:
 
     PreviewPanel * m_PreviewPanel;
     wxToolBar * m_ToolBar;
+    wxSlider * m_HFOVSlider;
+    wxSlider * m_VFOVSlider;
+    
 //    wxButton * m_updatePreview;
 //    wxCheckBox * m_autoCB;
 
