@@ -763,7 +763,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
         DEBUG_FATAL("CheckParams() returned false!");
         return false;
     }
-    gl.fcn	= (int(*)())PTools::fcnPano2;
+    gl.fcn	= fcnPano;
     return true;
 }
 
@@ -795,7 +795,8 @@ const PT::CPVector & PTools::AlignInfoWrap::getCtrlPoints()
 {
     if (gl.cpt) {
         for (int i = 0; i < gl.numPts; i++) {
-            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i));
+//            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i));
+            m_controlPoints[m_ctrlPointMap[i]].error = 0;
 //            res[i] = ControlPoint(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
 //                                  gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].mode[];
         }
