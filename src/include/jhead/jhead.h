@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <limits.h>
+#include <sys/time.h>
 
 typedef unsigned char uchar;
 
