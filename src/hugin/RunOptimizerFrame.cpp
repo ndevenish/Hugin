@@ -55,6 +55,7 @@
 #include "hugin/CommandHistory.h"
 
 #include "hugin/RunOptimizerFrame.h"
+#include "hugin/huginApp.h"
 
 
 using namespace std;
@@ -217,6 +218,9 @@ void RunOptimizerFrame::OnTimer(wxTimerEvent & e)
         m_optimizer_status->SetLabel(
             wxString::Format(_("Iteration %d, average distance: %f"),
                              iteration,diff));
+        Layout();
+		Fit();
+		wxGetApp().Yield();
     }
 
 }
