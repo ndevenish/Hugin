@@ -72,8 +72,7 @@ LIB_1_OBJ = Panorama.o \
 	    PanoramaMemento.o \
             PanoImage.o \
             PanoToolsInterface.o \
-            SpaceTransform.o \
-            utils.o
+            SpaceTransform.o
 
 LIB_1_CFLAGS =  $(LIB_CFLAGS)
 LIB_1_LFLAGS =  $(LIB_LFLAGS)

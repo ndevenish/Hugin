@@ -339,7 +339,7 @@ public:
         PICT,
         PSD,
         PSD_m,
-        PSD_nomask,
+        PSD_mask,
         PAN,
         IVR,
         IVR_java,

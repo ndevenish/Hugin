@@ -37,6 +37,8 @@
 #include <math.h>
 #include <limits.h>
 
+#include <vigra/impex.hxx>
+
 #include "panoinc.h"
 
 using namespace PT;
@@ -1010,6 +1012,64 @@ void Panorama::setOptions(const PanoramaOptions & opt)
         state.options.VFOV = 1;
 
 }
+
+
+int Panorama::addImageAndLens(const std::string & filename, double HFOV)
+{
+    // load image
+    vigra::ImageImportInfo img(filename.c_str());
+    // FIXME.. check for grayscale / color
+
+    Lens lens;
+    map_get(lens.variables,"v").setValue(HFOV);
+
+    lens.isLandscape = (img.width() > img.height());
+    if (lens.isLandscape) {
+        lens.setRatio(((double)img.width())/img.height());
+    } else {
+        lens.setRatio(((double)img.height())/img.width());
+    }
+
+    std::string::size_type idx = filename.rfind('.');
+    if (idx == std::string::npos) {
+        DEBUG_DEBUG("could not find extension in filename");
+    }
+    std::string ext = filename.substr( idx+1 );
+
+    if (utils::tolower(ext) == "jpg") {
+        // try to read exif data from jpeg files.
+        lens.readEXIF(filename);
+    }
+
+    int matchingLensNr=-1;
+    // FIXME: check if the exif information
+    // indicates other camera parameters
+    for (unsigned int lnr=0; lnr < getNrOfLenses(); lnr++) {
+        const Lens & l = getLens(lnr);
+
+        // use a lens if hfov and ratio are the same
+        // should add a check for exif camera information as
+        // well.
+        if ((l.getRatio() == lens.getRatio()) &&
+            (l.isLandscape == lens.isLandscape) &&
+            (const_map_get(l.variables,"v").getValue() == const_map_get(lens.variables,"v").getValue()) )
+        {
+            matchingLensNr= lnr;
+        }
+    }
+
+    if (matchingLensNr == -1) {
+        matchingLensNr = addLens(lens);
+    }
+
+    VariableMap vars;
+    fillVariableMap(vars);
+
+    DEBUG_ASSERT(matchingLensNr >= 0);
+    PanoImage pimg(filename, img.width(), img.height(), (unsigned int) matchingLensNr);
+    return addImage(pimg, vars);
+}
+
 
 void Panorama::addObserver(PanoramaObserver * o)
 {
