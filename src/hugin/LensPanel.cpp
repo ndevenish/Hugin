@@ -191,12 +191,20 @@ void LensPanel::LensApply ( wxCommandEvent & e )
         
     update_edit_LensGui ( lensEditRef_lensNr );
 
-    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+    for ( unsigned int i = 1; imgNr[0] > i ; i++ ) {
+        PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens );
+          //pano.setLens (imgNr[i], lensEditRef_lensNr);
+    }
+    // Add the last in the history
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::ChangeLensCmd( pano, imgNr[imgNr[0]], *edit_Lens )
+            );
+/*    for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
         GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensCmd( pano, imgNr[i], *edit_Lens )
             );
           //pano.setLens (imgNr[i], lensEditRef_lensNr);
-    }
+    }*/
     DEBUG_TRACE("");
 }
 
@@ -288,11 +296,11 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
         DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
         if ( !(new_var. HFOV .getValue() > 0.0) ) {
 //          new_var. HFOV .setValue(90.0);
-          edit_Lens-> HFOV = 90.0;   // zere lenses are not allowed in gui!!
+          edit_Lens-> HFOV = 90.0;   // zero lenses are not allowed in gui!!
           DEBUG_INFO ( "HFOV = "<< new_var. HFOV .getValue() )
           GlobalCmdHist::getInstance().addCommand(
             new PT::ChangeLensCmd( pano, imageNr, *edit_Lens )
-          );
+            );
         }
       } 
     }
@@ -308,7 +316,9 @@ void LensPanel::ChangePano ( std::string type, double var )
 
     // we ask for each images Lens
     Lens new_Lens;
+    UIntSet lensesNr;
     for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
+        lensesNr.insert(imgNr[i]);
         new_Lens = pano.getLens(imgNr[i]);
         // set values
         if ( type == "projectionFormat" ) {
@@ -332,15 +342,14 @@ void LensPanel::ChangePano ( std::string type, double var )
         if ( type == "e" ) {
           new_Lens.e = var;
         }
-        GlobalCmdHist::getInstance().addCommand(
-//          new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_Lens)
-          new PT::ChangeLensCmd( pano, imgNr[i], new_Lens )
-          );
-
 //        pano.updateVariables( imgNr[i], new_Lens ); 
-
         DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
+
+    // go into the history
+    GlobalCmdHist::getInstance().addCommand(
+          new PT::ChangeLensesCmd( pano, lensesNr, new_Lens )
+          );
 
 /*    GlobalCmdHist::getInstance().addCommand(
         new PT::ChangeLensCmd( pano, //lensEditRef_lensNr,*edit_Lens )
@@ -659,10 +668,13 @@ void LensPanel::SetInherit( std::string type )
             if ( type == "e" )
               optset->at(imgNr[i]).e = FALSE;
           }
-          GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var)
-            );
+          if ( imgNr[0] > i )
+            PT::UpdateImageVariablesCmd(pano, imgNr[i], new_var);
         }
+        // lets do the update of history and gui
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_var)
+            );
 
         // activate an undoable command, not for the optimize settings
 /*        GlobalCmdHist::getInstance().addCommand(
@@ -762,7 +774,7 @@ void LensPanel::SetImages ( wxListEvent & e )
       }
       // We need a valid image to take the lens from.
       if ( !lensEdit_ReferenceImage_valid ) {
-        DEBUG_WARN( "leafing early !!!");
+        DEBUG_INFO( "no selection");
         return;
       }
 

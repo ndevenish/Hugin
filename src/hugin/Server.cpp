@@ -63,6 +63,13 @@ Server::Server()  : server_timer(this, TIMER_ID)
   DEBUG_INFO ( "" )
 
   port = 3000;
+
+    projectionFormat = EQUIRECTANGULAR;
+    height = 180;
+    width = 360;
+    resetView = FALSE;
+    showGrid = FALSE;
+
   if ( !Start() ) {
 //    wxMessageBox(_("Can't connect to post 3000\nmaybe another hugin is running\n"), _("Alert !"));
   }
@@ -170,12 +177,27 @@ void Server::SendFilename( wxString filename )
       }
       viewer.Append (" ");
       viewer.Append (filename);
-//      viewer.Append (" ");
+      viewer.Append (" ");
       wxString p;
       p.sprintf(" %d", port);
       viewer.Append (p);
       DEBUG_INFO ( "port = " << port )
 //      viewer.sprintf("panoviewer %s %d", filename, port);
+      viewer.Append (" ");
+      p=""; p.sprintf(" %d", (int)projectionFormat);
+      viewer.Append (p);
+      viewer.Append (" ");
+      p=""; p.sprintf(" %d", width);
+      viewer.Append (p);
+      viewer.Append (" ");
+      p=""; p.sprintf(" %d", height);
+      viewer.Append (p);
+      viewer.Append (" ");
+      p=""; p.sprintf(" %d", resetView);
+      viewer.Append (p);
+      viewer.Append (" ");
+      p=""; p.sprintf(" %d", showGrid);
+      viewer.Append (p);
 
       DEBUG_INFO ( "command = " << viewer )
       if ( Connected() == false ) {

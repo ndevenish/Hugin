@@ -49,6 +49,8 @@
 
 #include "wx/socket.h"
 #include "common/utils.h"
+#include "PT/PanoramaMemento.h"
+
 // --------------------------------------------------------------------------
 // resources
 // --------------------------------------------------------------------------
@@ -71,6 +73,13 @@ public:
 
   void SendFilename( wxString filename );
   bool Connected( void );
+
+  /** panorama projection format to send to panoviewer */
+  PT::ProjectionFormat  projectionFormat;
+  int height;
+  int width;
+  bool resetView;
+  bool showGrid;
 
   // convenience functions
   void UpdateStatusBar();

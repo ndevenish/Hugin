@@ -249,6 +249,12 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 
       // Send panoViewer the name of our image
       if ( panoviewer_enabled ) {
+        server->projectionFormat = preview_opt.projectionFormat;
+        server->height = preview_opt.height;
+        server->width = preview_opt.width;
+        if (  preview_opt.projectionFormat != EQUIRECTANGULAR )
+          server->resetView = TRUE;
+        server->showGrid = TRUE;
         server->SendFilename( (wxString) preview_opt.outfile.c_str() );
 //        panoviewer_started = TRUE;
       }

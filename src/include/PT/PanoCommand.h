@@ -356,6 +356,32 @@ namespace PT {
     };
 
 
+    /** change lenses */
+    class ChangeLensesCmd : public PanoCommand
+    {
+    public:
+        ChangeLensesCmd(Panorama & p, UIntSet & lensesNr, const Lens & lens)
+            : PanoCommand(p), lensesNr(lensesNr), newLens(lens)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                UIntSet::iterator it;
+                for (it = lensesNr.begin(); it != lensesNr.end(); ++it) {
+                    pano.updateLens(*it, newLens);
+                }
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "change lens";
+            }
+    private:
+        UIntSet lensesNr;
+        Lens newLens;
+    };
+
+
     //=========================================================================
     //=========================================================================
 
