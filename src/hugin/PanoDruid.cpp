@@ -24,6 +24,7 @@
  *
  */
 
+#define DEBUG
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "hugin/PanoDruid.h"
@@ -337,9 +338,9 @@ void PanoDruid::Update(const PT::Panorama& pano)
     {
         DEBUG_INFO( "updatePanoDruid() updating the visuals" );
 
-        wxString full = sm_advice[hint]->brief;
+        wxString full = wxGetTranslation(sm_advice[hint]->brief);
         full += '\n';
-        full += sm_advice[hint]->text;
+        full += wxGetTranslation(sm_advice[hint]->text);
         m_text->SetLabel(full);
         m_bitmap.LoadFile(MainFrame::Get()->GetXRCPath() +
                           "/data/" + sm_advice[hint]->graphic,
