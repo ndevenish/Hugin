@@ -37,9 +37,9 @@
 
 #include <vigra_ext/NearestFeatureTransform.h>
 #include <vigra_ext/tiffUtils.h>
+#include <vigra_ext/blend.h>
 
 #include <PT/ImageTransforms.h>
-#include <PT/blend.h>
 
 namespace vigra {
 
@@ -92,7 +92,7 @@ VIGRA_EXT_DEFINE_ITERATORTRAITS(unsigned int, StandardValueAccessor,
                                 StandardConstValueAccessor)
 typedef BasicImage<unsigned int> UIImage;
 
-    
+
 VIGRA_EXT_DEFINE_ITERATORTRAITS(RGBValue<short>, RGBAccessor,
                             RGBAccessor)
 typedef BasicImage<RGBValue<short> > SRGBImage;
