@@ -751,6 +751,10 @@ void Panorama::printOptimizerScript(ostream & o,
                     o << *sit << i << " ";
                     linkvars[lensNr].insert(*sit);
                     optVarCounter++;
+                } else {
+                    // unlinked lens variable, print as usual
+                    o << *sit << i << " ";
+                    optVarCounter++;
                 }
             } else {
                 // not a lens variable, print multiple times
@@ -758,7 +762,7 @@ void Panorama::printOptimizerScript(ostream & o,
                 optVarCounter++;
             }
             // insert line break after 10 variables
-            if (optVarCounter++%10) {
+            if (optVarCounter%10) {
                 o << std::endl << "v ";
             }
         }
