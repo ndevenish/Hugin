@@ -128,17 +128,17 @@ public:
 };
 
 
-/** Lens type
- */
-enum LensProjectionFormat { RECTILINEAR_LENS = 0,
-                        PANORAMIC = 1,
-                        CIRCULAR_FISHEYE = 2,
-                        FULL_FRAME_FISHEYE = 3,
-                        EQUIRECTANGULAR_LENS = 4};
-
 class Lens {
 
 public:
+    /** Lens type
+     */
+    enum LensProjectionFormat { RECTILINEAR = 0,
+                                PANORAMIC = 1,
+                                CIRCULAR_FISHEYE = 2,
+                                FULL_FRAME_FISHEYE = 3,
+                                EQUIRECTANGULAR_LENS = 4};
+
 
     Lens()
         : exifFocalLength(0.0),
@@ -147,7 +147,7 @@ public:
           focalLength(0),
           focalLengthConversionFactor(1),
           HFOV(0),
-          projectionFormat(RECTILINEAR_LENS),
+          projectionFormat(RECTILINEAR),
           a(0),b(0),c(0),
           d(0),e(0)
         {}
@@ -230,7 +230,7 @@ public:
                     mode == o.mode &&
                     error == o.error);
         }
-    
+
     const std::string & getModeName(OptimizeMode mode) const;
 
 //    QDomNode toXML(QDomDocument & doc) const;
@@ -246,7 +246,7 @@ public:
     double x2,y2;
     double error;
     OptimizeMode mode;
-    
+
     static std::string modeNames[];
 };
 

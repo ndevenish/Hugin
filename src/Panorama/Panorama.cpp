@@ -575,7 +575,7 @@ void Panorama::parseOptimizerScript(istream & i, VariablesVector & imgVars, CPVe
 void Panorama::changeFinished()
 {
     // remove change notification for nonexisting images from set.
-    UIntSet::iterator uB = changedImages.lower_bound(state.images.size()-1);
+    UIntSet::iterator uB = changedImages.lower_bound(state.images.size());
     changedImages.erase(uB,changedImages.end());
 
     stringstream t;
@@ -730,4 +730,11 @@ void Panorama::addObserver(PanoramaObserver * o)
 bool Panorama::removeObserver(PanoramaObserver * o)
 {
     return observers.erase(o) > 0;
+}
+
+void Panorama::imageChanged(unsigned int imgNr)
+{
+    DEBUG_TRACE("adding image " << imgNr);
+    changedImages.insert(imgNr);
+    assert(changedImages.find(imgNr) != changedImages.end());
 }

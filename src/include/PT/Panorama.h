@@ -427,8 +427,7 @@ protected:
      *  Does not send the notification, this is left
      *  to changedFinished()
      */
-    void imageChanged(unsigned int imgNr)
-        { changedImages.insert(imgNr); }
+    void imageChanged(unsigned int imgNr);
 
 
 private:

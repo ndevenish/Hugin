@@ -202,7 +202,7 @@ void LensEdit::updateHFOV()
 {
 //    DEBUG_TRACE("");
 
-/*    if ( ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) && 
+/*    if ( ( wxString::Format ("%f", edit_Lens->HFOV) != "nan" ) &&
          ( edit_Lens->HFOV != 0.0 ) ) {
       number =        doubleToString (
                         pano.getLens (pano.getImage(lensEdit_RefImg).getLens()).
@@ -254,12 +254,12 @@ void LensEdit::ChangePano ( )
         notSelImgNr[i] = 0;
       bool new_Lens = FALSE;
 //      DEBUG_INFO( "new_Lens = " << new_Lens )
-      for ( unsigned int all_img = 0 
+      for ( unsigned int all_img = 0
             ; all_img < (unsigned int) pano.getNrOfImages() ; all_img++ ) {
         bool selected_image = FALSE;
         for ( unsigned int i = 1; imgNr[0] >= i ; i++ ) {
           // Are You in the group of selected images?
-          if ( imgNr[i] == all_img ) 
+          if ( imgNr[i] == all_img )
             selected_image = TRUE;
         }
         if ( !selected_image ) { // But we ask for not selected - indirect.
@@ -292,11 +292,10 @@ void LensEdit::ChangePano ( )
         // Is the new lens in the group of the not selected images?
         if ( pano.getImage(lensEdit_RefImg).getLens() ==
              pano.getImage(notSelImgNr[j]).getLens() )
-          new_Lens = TRUE; 
+          new_Lens = TRUE;
 //        DEBUG_INFO( "new_Lens = " << new_Lens )
       }
 
-//      DEBUG_INFO( "new_Lens = " << new_Lens )
       unsigned int lensNr;
       // set the edit_lens
       if ( new_Lens )
@@ -342,7 +341,7 @@ void LensEdit::LensTypeChanged ( wxCommandEvent & e )
       // uses enum LensProjectionFormat from PanoramaMemento.h
       int var = XRCCTRL(*this, "lens_type_combobox",
                                    wxComboBox)->GetSelection();
-      edit_Lens->projectionFormat = (LensProjectionFormat) (var);
+      edit_Lens->projectionFormat = (Lens::LensProjectionFormat) (var);
 
       ChangePano ();
       DEBUG_INFO ( wxString::Format ("lensEdit_RefImg %d lens %d Lenstype %d",lensEdit_RefImg,pano.getImage(lensEdit_RefImg).getLens(),var) )
@@ -381,9 +380,9 @@ void LensEdit::focalLengthChanged ( wxCommandEvent & e )
       text.ToDouble( var );
 
       edit_Lens->focalLength = *var / edit_Lens->focalLengthConversionFactor;
-      edit_Lens->HFOV = 2.0 * atan((36/2) 
-                      / (edit_Lens->focalLength 
-                         * edit_Lens->focalLengthConversionFactor))  
+      edit_Lens->HFOV = 2.0 * atan((36/2)
+                      / (edit_Lens->focalLength
+                         * edit_Lens->focalLengthConversionFactor))
                       * 180/M_PI;
 
       ChangePano ();
@@ -419,7 +418,7 @@ void LensEdit::bChanged ( wxCommandEvent & e )
       text.ToDouble( var );
 
       edit_Lens->b = *var;
- 
+
       ChangePano ();
       SET_WXTEXTCTRL_TEXT( "lens_val_b"  , b )
 

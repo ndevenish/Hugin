@@ -149,7 +149,6 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
-    
 
     DEBUG_INFO ( Ip )
 }
@@ -183,9 +182,9 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 {
     double * val = new double ();
     int lt = XRCCTRL(*this, "pano_val_hfov", wxComboBox)
-                            ->GetSelection() ; 
+                            ->GetSelection() ;
     XRCCTRL(*this, "pano_val_hfov", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ; 
+                            ->GetString(lt).ToDouble(val) ;
 
     opt->HFOV = *val;
     GlobalCmdHist::getInstance().addCommand(
@@ -214,9 +213,9 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
 {
     double * val = new double ();
     int lt = XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
-                            ->GetSelection() ; 
+                            ->GetSelection() ;
     XRCCTRL(*this, "pano_val_previewWidth", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ; 
+                            ->GetString(lt).ToDouble(val) ;
 
     previewWidth = (int)*val;
     GlobalCmdHist::getInstance().addCommand(
@@ -320,16 +319,16 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
     double * val = new double ();
     int lt = XRCCTRL(*this, "pano_val_width", wxComboBox)
-                            ->GetSelection() ; 
+                            ->GetSelection() ;
     XRCCTRL(*this, "pano_val_width", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ; 
+                            ->GetString(lt).ToDouble(val) ;
 
     opt->width = Width = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, *opt )
         );
 
-    DEBUG_INFO ( ": " << *val << " " << Width )
+    DEBUG_INFO( ": " << *val << " " << Width );
     delete val;
 }
 
@@ -337,9 +336,9 @@ void PanoPanel::HeightChanged ( wxCommandEvent & e )
 {
     double * val = new double ();
     int lt = XRCCTRL(*this, "pano_val_height", wxComboBox)
-                            ->GetSelection() ; 
+                            ->GetSelection() ;
     XRCCTRL(*this, "pano_val_height", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ; 
+                            ->GetString(lt).ToDouble(val) ;
 
     opt->height = Height = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
@@ -354,9 +353,9 @@ void PanoPanel::JpegQChanged ( wxCommandEvent & e )
 {
     double * val = new double ();
     int lt = XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
-                            ->GetSelection() ; 
+                            ->GetSelection() ;
     XRCCTRL(*this, "pano_val_jpegQuality", wxComboBox)
-                            ->GetString(lt).ToDouble(val) ; 
+                            ->GetString(lt).ToDouble(val) ;
 
     opt->quality = (int) *val;
     GlobalCmdHist::getInstance().addCommand(
@@ -370,7 +369,7 @@ void PanoPanel::JpegQChanged ( wxCommandEvent & e )
 void PanoPanel::JpegPChanged ( wxCommandEvent & e )
 {
     int lt = XRCCTRL(*this, "pano_bool_jpegProgressive", wxCheckBox)
-                            ->GetValue() ; 
+                            ->GetValue() ;
 
     opt->progressive = lt;
     GlobalCmdHist::getInstance().addCommand(

@@ -104,7 +104,7 @@ List::List( wxWindow* parent, Panorama* pano, int layout)
       InsertColumn( 7, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
       DEBUG_INFO( " images_layout" )
     } else {
-//      SetSingleStyle(wxLC_SINGLE_SEL, true); 
+//      SetSingleStyle(wxLC_SINGLE_SEL, true);
       InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
       InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
       InsertColumn( 2, _("Lens type"), wxLIST_FORMAT_LEFT, 100 );
@@ -143,7 +143,7 @@ List::~List(void)
 
 //void List::panoramaChanged (PT::Panorama &pano) {}
 
-void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)       
+void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
@@ -186,11 +186,11 @@ void List::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
           }
         } else {
           switch ( (int) pano.getLens(pano.getImage(i).getLens()).projectionFormat ) {
-            case RECTILINEAR_LENS:   sprintf(Nr, _("Normal (rectlinear)") ); break;
-            case PANORAMIC:          sprintf(Nr, _("Panoramic") ); break;
-            case CIRCULAR_FISHEYE:   sprintf(Nr, _("Circular") ); break;
-            case FULL_FRAME_FISHEYE: sprintf(Nr, _("Full frame") ); break;
-            case EQUIRECTANGULAR_LENS: sprintf(Nr,_("Equirectangular") ); break;
+            case Lens::RECTILINEAR:   sprintf(Nr, _("Normal (rectlinear)") ); break;
+            case Lens::PANORAMIC:          sprintf(Nr, _("Panoramic") ); break;
+            case Lens::CIRCULAR_FISHEYE:   sprintf(Nr, _("Circular") ); break;
+            case Lens::FULL_FRAME_FISHEYE: sprintf(Nr, _("Full frame") ); break;
+            case Lens::EQUIRECTANGULAR_LENS: sprintf(Nr,_("Equirectangular") ); break;
           }
           SetItem ( i, 2, Nr );
           number = doubleToString (
@@ -295,7 +295,7 @@ void List::Change ( wxMouseEvent & e )
 //    DEBUG_TRACE ("")
         int flags = wxLIST_HITTEST_ONITEM;
         long item = HitTest( e.GetPosition(),  flags);
-    
+
         if ( item != -1 && item != prevItem ) {
           // preview selected images
           wxImage * s_img = ImageCache::getInstance().getImageSmall(
