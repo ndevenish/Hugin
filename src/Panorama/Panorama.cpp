@@ -831,7 +831,9 @@ void Panorama::parseOptimizerScript(istream & i, VariableMapVector & imgVars, CP
             if ((line.compare("# Control Points: Distance between desired and fitted Position") == 0 )
              || (line.compare("# Control Points: Distance between desired and fitted Position (in Pixels)")) == 0 ) {
                 // switch to reading the control point distance
-                DEBUG_ASSERT( varIt == imgVars.end() && "Not all image parameters have been read");
+                if (varIt != imgVars.end()) {
+                    DEBUG_ERROR("Read only " << varIt -imgVars.begin() << " images from PTOptimizer file");
+                }
                 state = 1;
                 break;
             }
