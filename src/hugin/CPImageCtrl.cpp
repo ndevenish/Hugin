@@ -37,6 +37,7 @@
 #include "hugin/UniversalCursor.h"
 
 using namespace std;
+using namespace utils;
 
 // event stuff
 
@@ -109,8 +110,8 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
     EVT_LEAVE_WINDOW(CPImageCtrl::OnMouseLeave)
     EVT_ENTER_WINDOW(CPImageCtrl::OnMouseEnter)
-	EVT_MOTION(CPImageCtrl::mouseMoveEvent)
-	EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
+    EVT_MOTION(CPImageCtrl::mouseMoveEvent)
+    EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
     EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
     EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
     EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
@@ -154,10 +155,10 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
     pointColors.push_back(*(wxTheColourDatabase->FindColour("CYAN")));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("MAGENTA")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("GOLD")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("ORANGE")));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour("ORANGE")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("NAVY")));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("FIREBRICK")));
-    pointColors.push_back(*(wxTheColourDatabase->FindColour("SIENNA")));
+//    pointColors.push_back(*(wxTheColourDatabase->FindColour("SIENNA")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("DARK TURQUOISE")));
 //    pointColors.push_back(*(wxTheColourDatabase->FindColour("SALMON")));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("MAROON")));
@@ -168,10 +169,10 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
     pointColors.push_back(wxTheColourDatabase->Find("CYAN"));
 //    pointColors.push_back(wxTheColourDatabase->Find("MAGENTA"));
     pointColors.push_back(wxTheColourDatabase->Find("GOLD"));
-    pointColors.push_back(wxTheColourDatabase->Find("ORANGE"));
+//    pointColors.push_back(wxTheColourDatabase->Find("ORANGE"));
     pointColors.push_back(wxTheColourDatabase->Find("NAVY"));
 //    pointColors.push_back(wxTheColourDatabase->Find("FIREBRICK"));
-    pointColors.push_back(wxTheColourDatabase->Find("SIENNA"));
+//    pointColors.push_back(wxTheColourDatabase->Find("SIENNA"));
     pointColors.push_back(wxTheColourDatabase->Find("DARK TURQUOISE"));
 //    pointColors.push_back(wxTheColourDatabase->Find("SALMON"));
     pointColors.push_back(wxTheColourDatabase->Find("MAROON"));
@@ -214,30 +215,20 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     unsigned int i=0;
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        if (i==selectedPointNr) {
-            if (editState != NEW_POINT_SELECTED) {
+        if (i==selectedPointNr && editState == KNOWN_POINT_SELECTED) {
+
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-                drawPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+                drawHighlightPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
 #else
-                drawPoint(dc,*it,wxTheColourDatabase->Find("RED"));
+                drawHighlightPoint(dc,*it,wxTheColourDatabase->Find("RED"));
 #endif
-            } else {
-#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-                drawPoint(dc,*it,*wxTheColourDatabase->FindColour("YELLOW"));
-#else
-                drawPoint(dc,*it,wxTheColourDatabase->Find("YELLOW"));
-#endif
-            }
+
         } else {
             drawPoint(dc,*it,pointColors[i%pointColors.size()]);
         }
         i++;
     }
-/*
-    if (drawNewPoint) {
-        drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
-    }
-*/
+
     switch(editState) {
     case SELECT_REGION:
         dc.SetLogicalFunction(wxINVERT);
@@ -250,9 +241,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NEW_POINT_SELECTED:
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
-        drawPoint(dc, newPoint, *wxTheColourDatabase->FindColour("RED"));
+        drawHighlightPoint(dc, newPoint, *wxTheColourDatabase->FindColour("YELLOW"));
 #else
-        drawPoint(dc, newPoint, wxTheColourDatabase->Find("RED"));
+        drawHighlightPoint(dc, newPoint, wxTheColourDatabase->Find("YELLOW"));
 #endif
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
@@ -292,14 +283,37 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
 void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & color) const
 {
+    double f = getScaleFactor();
+    if (f < 1) {
+        f = 1;
+    }
+    
     dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
-    dc.SetPen(wxPen(color, 3, wxSOLID));
-    dc.DrawCircle(scale(point), 6);
-    dc.SetPen(wxPen("BLACK", 1, wxSOLID));
-    dc.DrawCircle(scale(point), 7);
+    dc.SetPen(wxPen(color, 2, wxSOLID));
+    dc.DrawCircle(scale(point), roundi(6*f));
+    dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
+    dc.DrawCircle(scale(point), roundi(7*f));
     dc.SetPen(wxPen("WHITE", 1, wxSOLID));
 //    dc.DrawCircle(scale(point), 4);
 }
+
+
+void CPImageCtrl::drawHighlightPoint(wxDC & dc, const wxPoint & point, const wxColor & color) const
+{
+    double f = getScaleFactor();
+    if (f < 1) {
+        f = 1;
+    }
+
+    dc.SetBrush(wxBrush("WHITE",wxTRANSPARENT));
+    dc.SetPen(wxPen(color, 3, wxSOLID));
+    dc.DrawCircle(scale(point), roundi(7*f));
+    dc.SetPen(wxPen("BLACK", roundi(1*f), wxSOLID));
+    dc.DrawCircle(scale(point), roundi(8*f));
+    dc.SetPen(wxPen("WHITE", 1, wxSOLID));
+//    dc.DrawCircle(scale(point), 4);
+}
+
 
 wxSize CPImageCtrl::DoGetBestSize() const
 {
@@ -378,9 +392,20 @@ void CPImageCtrl::selectPoint(unsigned int nr)
     DEBUG_TRACE("nr: " << nr);
     assert(nr < points.size());
     selectedPointNr = nr;
+    editState = KNOWN_POINT_SELECTED;
     showPosition(points[nr].x, points[nr].y);
     update();
 }
+
+void CPImageCtrl::deselect()
+    {
+        DEBUG_TRACE("deselecting points");
+        if (editState == KNOWN_POINT_SELECTED) {
+            editState = NO_SELECTION;
+        }
+        // update view
+        update();
+    }
 
 void CPImageCtrl::showPosition(int x, int y, bool warpPointer)
 {
@@ -531,7 +556,9 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     unsigned int selPointNr = 0;
 //    EditorState oldstate = editState;
     EditorState clickState = isOccupied(mpos, selPointNr);
-    if (mouse.LeftDown() && editState != NO_IMAGE) {
+    if (mouse.LeftDown() && editState != NO_IMAGE
+        && mpos.x < m_realSize.x && mpos.y < m_realSize.y)
+    {
         // we can always select a new point
         if (clickState == KNOWN_POINT_SELECTED) {
             DEBUG_DEBUG("click on point: " << selPointNr);

@@ -337,6 +337,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
                 // select new control Point
                 unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
                 SelectGlobalPoint(lPoint);
+                changeState(NO_POINT);
             } else {
                 wxLogError("No corrosponding point found");
             }
@@ -406,6 +407,23 @@ void CPEditorPanel::CreateNewPoint()
     // select new control Point
     unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
     SelectGlobalPoint(lPoint);
+    changeState(NO_POINT);
+}
+
+void CPEditorPanel::ClearSelection()
+{
+    if (m_selectedPoint == UINT_MAX) {
+        DEBUG_ASSERT(m_cpList->GetSelectedItemCount() == 0);
+        // no point selected, no need to select one.
+        return;
+    }
+    m_cpList->SetItemState(m_selectedPoint, 0, wxLIST_STATE_SELECTED);
+    
+    m_selectedPoint=UINT_MAX;
+    changeState(NO_POINT);
+    m_leftImg->deselect();
+    m_rightImg->deselect();
+    UpdateDisplay();
 }
 
 void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
@@ -429,6 +447,7 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     m_cpList->SetItemState(LVpointNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
     m_cpList->EnsureVisible(LVpointNr);
 
+    EnablePointEdit(true);
 }
 
 void CPEditorPanel::SelectGlobalPoint(unsigned int globalNr)
@@ -496,13 +515,18 @@ void CPEditorPanel::estimateAndAddOtherPoint(const wxPoint & p,
             double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
             FDiff2D p2;
-            double xcorr = PointFineTune(thisImgNr,
-                                         Diff2D(p.x, p.y),
-                                         templWidth,
-                                         otherImgNr,
-                                         Diff2D(newPoint.x, newPoint.y),
-                                         sWidth,
-                                         p2);
+            double xcorr=-1;
+            try {
+                xcorr = PointFineTune(thisImgNr,
+                                      Diff2D(p.x, p.y),
+                                      templWidth,
+                                      otherImgNr,
+                                      Diff2D(newPoint.x, newPoint.y),
+                                      sWidth,
+                                      p2);
+            } catch (std::exception & e) {
+                wxMessageBox(e.what(), _("Error during Fine Tune"));
+            }
             wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
             wxPoint corrPoint(roundi(p2.x),
                               roundi(p2.y) );
@@ -568,8 +592,6 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
 
     bool estimate = m_estimateCB->IsChecked();
 
-
-
     if (!left) {
         thisImg = m_rightImg;
         thisImgNr = m_rightImageNr;
@@ -624,13 +646,19 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
                 const PanoImage & img = m_pano->getImage(thisImgNr);
                 double sAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
                 int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
-                double xcorr = PointFineTune(otherImgNr,
-                                             Diff2D(newPoint.x, newPoint.y),
-                                             templWidth,
-                                             thisImgNr,
-                                             Diff2D(p.x, p.y),
-                                             sWidth,
-                                             p2);
+                double xcorr = -1;
+                try {
+                    xcorr = PointFineTune(otherImgNr,
+                                          Diff2D(newPoint.x, newPoint.y),
+                                          templWidth,
+                                          thisImgNr,
+                                          Diff2D(p.x, p.y),
+                                          sWidth,
+                                          p2);
+                } catch (std::exception & e) {
+                    wxMessageBox(e.what(), _("Error during Finetune"));
+                }
+
                 wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
                 double thresh = utils::lexical_cast<double>(str);
                 if (xcorr < thresh) {
@@ -705,105 +733,6 @@ void CPEditorPanel::NewPointChange(wxPoint p, bool left)
         DEBUG_ASSERT(0);
     }
 }
-
-
-#if 0
-void CPEditorPanel::CreateNewPointRight(wxPoint p)
-{
-    DEBUG_TRACE("CreateNewPointRight");
-    switch (cpCreationState) {
-    case NO_POINT:
-        changeState(RIGHT_POINT);
-        // show search area
-        if (m_fineTune->IsChecked()) {
-            int width = m_pano->getImage(m_leftImageNr).getWidth();
-            int templSearchAreaPercent = wxConfigBase::Get()->Read("/CPEditorPanel/templateSearchAreaPercent",10);
-            int swidth = (int) (width * templSearchAreaPercent / 200);
-            m_leftImg->showSearchArea(swidth);
-            MainFrame::Get()->SetStatusText("Select Point in right image",0);
-        }
-    case RIGHT_POINT:
-        newPoint = p;
-        // FIXME approximate position in left image
-
-        break;
-    case LEFT_POINT:
-        FDiff2D p2;
-        if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
-            MainFrame::Get()->SetStatusText("searching similar point...",0);
-            double xcorr = PointFineTune(m_leftImageNr,
-                                         Diff2D(newPoint.x,newPoint.y),
-                                         m_rightImageNr,
-                                         Diff2D(p.x, p.y),
-                                         p2);
-            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-            double thresh = utils::lexical_cast<double>(str);
-            if (xcorr < thresh) {
-                // Bad correlation result.
-                wxLogError(wxString::Format(_("could not find corrosponding point, low xcorr: %f, (threshold: %f)"),  xcorr, thresh));
-                m_rightImg->clearNewPoint();
-                return;
-            }
-            MainFrame::Get()->SetStatusText(wxString::Format("found corrosponding point, mean xcorr coefficient: %f",xcorr),0);
-        } else {
-            p2.x = p.x;
-            p2.y = p.y;
-        }
-        // FIXME: get OptimizeMode from somewhere
-        ControlPoint point(m_leftImageNr, newPoint.x, newPoint.y,
-                           m_rightImageNr, p2.x, p2.y,
-                           PT::ControlPoint::X_Y);
-        changeState(NO_POINT);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointCmd(*m_pano, point)
-            );
-        // select new control Point
-        unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-        SelectGlobalPoint(lPoint);
-
-    }
-}
-
-#endif
-
-#if 0
-// complete image scanning disabled
-bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
-                                 unsigned int dstImgNr,
-                                 CorrelationResult & res)
-{
-    wxBusyCursor();
-    DEBUG_TRACE("FindTemplate(): tmpl img nr: " << tmplImgNr << " corr src: "
-                << dstImgNr);
-    if (region.GetWidth() < 1 || region.GetHeight() < 1) {
-        DEBUG_DEBUG("Can't correlate with templates < 1x1");
-        return false;
-    }
-    const BImage & tmplsrc = ImageCache::getInstance().getPyramidImage(
-        m_pano->getImage(tmplImgNr).getFilename(),0);
-
-    Diff2D tOrigin(region.x, region.y);
-    Diff2D tSize(region.width, region.height);
-    vigra::BImage templ(tSize);
-
-    vigra::copyImage(tmplsrc.upperLeft() + tOrigin,
-                     tmplsrc.upperLeft() + tOrigin + tSize,
-                     tmplsrc.accessor(),
-                     templ.upperLeft(),
-                     templ.accessor()
-        );
-
-    vigra_ext::findTemplate(templ, m_pano->getImage(dstImgNr).getFilename(), res);
-    // FIXME. make this configureable. 0.5 is a quite low value. 0.7 or
-    // so is more acceptable. but some features only match with 0.5.
-    // but we get more false positives..
-    if (res.maxi > 0.5) {
-        return true;
-    }
-    return false;
-}
-
-#endif
 
 double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                     const Diff2D & tmplPoint,
@@ -1046,6 +975,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 
 void CPEditorPanel::UpdateDisplay()
 {
+    DEBUG_DEBUG("")
     int fI = m_leftTabs->GetSelection();
     int sI = m_rightTabs->GetSelection();
     if (fI < 0 || m_leftImageNr == UINT_MAX || m_rightImageNr == UINT_MAX) {
@@ -1090,7 +1020,7 @@ void CPEditorPanel::UpdateDisplay()
     m_rightImg->setCtrlPoints(right);
 
     // put these control points into our listview.
-    int selectedCP = INT_MAX;
+    unsigned int selectedCP = UINT_MAX;
     for ( int i=0; i < m_cpList->GetItemCount() ; i++ ) {
       if ( m_cpList->GetItemState( i, wxLIST_STATE_SELECTED ) ) {
         selectedCP = i;            // remembers the old selection
@@ -1121,13 +1051,25 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format("%.1f",p.error));
     }
-    if ( selectedCP < m_cpList->GetItemCount() ) { // sets an old selection again
+    if ( selectedCP < (unsigned int) m_cpList->GetItemCount() ) { // sets an old selection again
         m_cpList->SetItemState( selectedCP,
                                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
         m_cpList->EnsureVisible(selectedCP);
         m_selectedPoint = selectedCP;
+        EnablePointEdit(true);
+
+        const ControlPoint & p = currentPoints[m_selectedPoint].second;
+        m_x1Text->SetValue(wxString::Format("%.1f",p.x1));
+        m_y1Text->SetValue(wxString::Format("%.1f",p.y1));
+        m_x2Text->SetValue(wxString::Format("%.1f",p.x2));
+        m_y2Text->SetValue(wxString::Format("%.1f",p.y2));
+        m_cpModeChoice->SetSelection(p.mode);
+        m_leftImg->selectPoint(m_selectedPoint);
+        m_rightImg->selectPoint(m_selectedPoint);
+        
     } else {
         m_selectedPoint = UINT_MAX;
+        EnablePointEdit(false);
     }
 
     // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
@@ -1137,6 +1079,15 @@ void CPEditorPanel::UpdateDisplay()
     m_cpList->Show();
     // clear selectedPoint marker
 }
+
+void CPEditorPanel::EnablePointEdit(bool state)
+    {
+        m_x1Text->Enable(state);
+        m_y1Text->Enable(state);
+        m_x2Text->Enable(state);
+        m_y2Text->Enable(state);
+        m_cpModeChoice->Enable(state);
+    }
 
 void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
 {
@@ -1228,6 +1179,7 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
     DEBUG_TRACE("selected: " << t);
     if (t >=0) {
         SelectLocalPoint((unsigned int) t);
+        changeState(NO_POINT);
     }
 }
 
@@ -1513,11 +1465,17 @@ void CPEditorPanel::changeState(CPCreationState newState)
         }
         break;
     case LEFT_POINT:
+        // disable search area on left window
         m_leftImg->showSearchArea(false);
+        // show search area on right window
         m_rightImg->showSearchArea(fineTune);
 
+        // show template area
         m_leftImg->showTemplateArea(fineTune);
         m_rightImg->showTemplateArea(false);
+
+        // unselect point
+        ClearSelection();
         MainFrame::Get()->SetStatusText("Select Point in right image",0);
         break;
     case RIGHT_POINT:
@@ -1526,6 +1484,9 @@ void CPEditorPanel::changeState(CPCreationState newState)
 
         m_leftImg->showTemplateArea(false);
         m_rightImg->showTemplateArea(fineTune);
+
+        ClearSelection();
+        
         MainFrame::Get()->SetStatusText("Select Point in left image",0);
         break;
     case LEFT_POINT_RETRY:

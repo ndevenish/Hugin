@@ -71,14 +71,14 @@ void ImageCache::removeImage(const std::string & filename)
         delete it->second;
         images.erase(it);
     }
-    
+
     int level = 0;
     bool found = true;
     do {
         // found. xyz
         PyramidKey key(filename,level);
         map<string, vigra::BImage*>::iterator it = pyrImages.find(key.toString());
-        found = it != pyrImages.end();
+        found = (it != pyrImages.end());
         if (found) {
             delete it->second;
             pyrImages.erase(it);

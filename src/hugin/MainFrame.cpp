@@ -295,7 +295,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
 #ifdef __unix__
     if(splash) {
-        delete splash;
+        splash->Close();
     }
 #endif
 
@@ -740,9 +740,9 @@ void MainFrame::OnRemoveImages(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::RemoveImagesCmd(pano, selImg)
         );
-    
+
     for (vector<string>::iterator it = filenames.begin();
-         it != filenames.end(); ++it) 
+         it != filenames.end(); ++it)
     {
         ImageCache::getInstance().removeImage(*it);
     }

@@ -130,8 +130,11 @@ public:
 
     /// select a point for usage
     void selectPoint(unsigned int);
+    
+    /// remove selection.
+    void deselect();
 
-	void mousePressLMBEvent(wxMouseEvent& mouse);
+    void mousePressLMBEvent(wxMouseEvent& mouse);
     void mouseReleaseLMBEvent(wxMouseEvent& mouse);
     void mouseReleaseRMBEvent(wxMouseEvent& mouse);
     void mouseMoveEvent(wxMouseEvent& mouse);
@@ -178,6 +181,7 @@ public:
 
 protected:
     void drawPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
+    void drawHighlightPoint(wxDC & p, const wxPoint & point, const wxColor & color) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);
