@@ -179,13 +179,23 @@ case "$HSYS" in
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "./xrc")
     ;;
   *)
-    if test "$datadir" != '${prefix}/share' ; then
-      AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
-      AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+    if test "x$prefix" != 'xNONE' ; then
+      if test "$datadir" != '${prefix}/share' ; then
+        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
+        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+      else
+        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$prefix/share/locale")
+        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/share/hugin/xrc")
+      fi
     else
-      AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
-      AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
-    fi
+      if test "$datadir" != '${prefix}/share' ; then
+        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
+        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+      else
+        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
+        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
+      fi
+    fi  
     ;;
 esac
 						
