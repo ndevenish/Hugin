@@ -110,7 +110,7 @@ bool loweDetectSIFT(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> input,
     // check for original lowe keypoints
     if (keypointExe == "keypoints") {
         cmd = keypointExe + " <__keypoints_in.pgm >__keypoints_out.txt";
-    } else {        
+    } else {
         std::string cmd = keypointExe + " __keypoints_in.pgm __keypoints_out.txt";
     }
     int res = system(cmd.c_str());
@@ -120,13 +120,20 @@ bool loweDetectSIFT(vigra::triple<SrcIterator, SrcIterator, SrcAccessor> input,
     }
 #endif
     // add keypoints to vector
-    std::ifstream kp("/tmp/__keypoints_out.txt");
-    if (kp.bad()) {
+    std::ifstream kp("__keypoints_out.txt");
+    if (kp.bad() || kp.eof()) {
         DEBUG_ERROR("can't read keypoint output");
         return false;
     }
     int nKP, dLen;
+    nKP = -1;
     kp >> nKP >> dLen;
+    if(kp.bad()) {
+        DEBUG_FATAL("couldn't read keypoint file header");
+    }
+    if (nKP < 0) {
+        DEBUG_FATAL("keypoint reading failed");
+    }
     DEBUG_DEBUG( nKP << " features detected. descriptor length: " << dLen);
     for (int i=0; i<nKP; i++) {
         features.push_back(SIFTFeature(kp,dLen));
