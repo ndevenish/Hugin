@@ -48,7 +48,7 @@ AX_CHECK_TIFF
 AX_CHECK_PANO
 AC_PATH_FFTW
 
-RS_BOOST([1.31.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
+RS_BOOST([1.30.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
 RS_BOOST_UNIT_TEST_FRAMEWORK
 
 AM_PATH_WXCONFIG(2.4.2, wxWin=1)
@@ -56,7 +56,7 @@ if test "x$wxWin" != x1; then
     AC_MSG_ERROR([
 	wxWidgets must be installed on your system
  	but wx-config script couldn't be found.
- 
+
  	Please check that wx-config is in path, the directory
  	where wxWidgets libraries are installed (returned by
  	'wx-config --libs' command) is in LD_LIBRARY_PATH or
@@ -66,7 +66,7 @@ fi
 
 # xrc ressources are used
 WX_LIBS="${WX_LIBS} -l`$WX_CONFIG_WITH_ARGS --basename`_xrc-`$WX_CONFIG_WITH_ARGS --release`"
-    
+
 CHECK_WX_BUILT_WITH_GTK2
 
 if test "x$GTK_USEDVERSION" = x2 ; then
@@ -116,7 +116,7 @@ if test "x$prefix" != xNONE; then
 else
     AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/hugin/xrc")
-fi	      
+fi	
 
 #
 # Remove extraneous spaces from output variables (aesthetic)
@@ -134,7 +134,7 @@ GTK_LIBS=`echo $GTK_LIBS | sed -e 's/  */ /g'`
 # Over-ride LIBS so that libraries are supplied by Makefiles instead
 LIBS=""
 
-AC_CONFIG_FILES([Makefile 
+AC_CONFIG_FILES([Makefile
 		 src/hugin/po/Makefile.in
 		 src/nona_gui/po/Makefile.in
                  src/Makefile
