@@ -25,6 +25,7 @@
 #define _UTILS_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 #include <sstream>
 #include <cassert>
@@ -137,13 +138,6 @@ namespace utils
 
     }; // lexical cast
 
-    /** The progress display is used to report progress to another
-     *  part of the program.
-     *
-     *  This enables the utility classes to report progress both to
-     *  the statusbar if there is one, or a textmode, for applications
-     *  without GUI
-     */
     class ProgressDisplay
     {
     public:
@@ -155,6 +149,60 @@ namespace utils
          */
         virtual void progressMessage(const std::string & msg,
                                      double progress=-1) = 0;
+        
+    };
+
+    /** The progress display is used to report progress to another
+     *  part of the program.
+     *
+     *  This enables the utility classes to report progress both to
+     *  the statusbar if there is one, or a textmode, for applications
+     *  without GUI, or no progress at all, with this default class
+     */
+    class MultiProgressDisplay
+    {
+        struct ProgressTask
+        {
+            ProgressTask()
+                : progress(0), subStepProgress(0) { };
+            double progress;
+            std::string message;
+            double subStepProgress;
+        };
+    public:
+        virtual ~MultiProgressDisplay() {};
+        
+        /** create a new progress display for a task.
+         *
+         *  once the operation is finished int must popTask()
+         *  the progress display.
+         *
+         *  @param msg string of the message
+         *  @param subStepIncr finishing the subtask below increases
+         *                     the current progress by subTaskIncr
+         *
+         */
+        virtual void pushTask(const std::string & msg, double substepIncr=0)
+            { };
+        
+        /** remove a task from the progress display */
+        virtual void popTask();
+        
+        /** change the message text */
+        virtual void setMessage(const std::string & msg);
+        
+        /** change the unit of a substep. */
+        virtual void setSubtaskStep(double substepIncr);
+        
+        /** set progress (affects this task and all tasks above it) */
+        virtual void setProgress(double progress);
+        
+    protected:
+        
+        /** propagate progress to next level */
+        void propagateProgress();
+        
+        std::vector<ProgressTask> tasks;
     };
 
     // print progress to cout.

@@ -97,7 +97,6 @@ protected:
 
     wxCheckBox * m_edit_cb;
     wxChoice * m_mode_cb;
-    wxChoice * m_projectionChoice;
     PT::Panorama * m_pano;
 private:
     DECLARE_EVENT_TABLE()

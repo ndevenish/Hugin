@@ -9,7 +9,7 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              <label>Optimize for</label>
+              <label>Optimize</label>
             </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>5</border>
@@ -17,6 +17,7 @@
           <object class="sizeritem">
             <object class="wxChoice" name="optimize_panel_mode">
               <content>
+                <item>Positions (smart optimize)</item>
                 <item>Positions (y,p,r)</item>
                 <item>Positions and View (y,p,r,v)</item>
                 <item>Positions and Barrel Distortion (y,p,r,b)</item>
@@ -28,25 +29,6 @@
               <style></style>
             </object>
             <option>1</option>
-            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxChoice" name="optimizer_projection_choice">
-              <content>
-                <item>with a Rectilinear</item>
-                <item>with a Cylindrical</item>
-                <item>with an Equirectangular</item>
-              </content>
-              <selection>3</selection>
-            </object>
-            <flag>wxALL</flag>
-            <border>5</border>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>projection.</label>
-            </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>5</border>
           </object>

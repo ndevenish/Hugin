@@ -33,9 +33,12 @@
 #include "wx/txtstrm.h"
 #include <wx/config.h>
 
+#include "PT/PTOptimise.h"
+
 #include "hugin/OptimizePanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/RunOptimizerFrame.h"
+#include "hugin/MainFrame.h"
 
 using namespace std;
 using namespace PT;
@@ -76,24 +79,22 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
     m_e_list = XRCCTRL(*this, "optimizer_e_list", wxCheckListBox);
 
     m_edit_cb = XRCCTRL(*this, "optimizer_edit_script", wxCheckBox);
-    m_projectionChoice = XRCCTRL(*this, "optimizer_projection_choice",
-                                 wxChoice);
-    DEBUG_ASSERT(m_projectionChoice);
+    DEBUG_ASSERT(m_edit_cb);
     m_mode_cb = XRCCTRL(*this, "optimize_panel_mode", wxChoice);
     DEBUG_ASSERT(m_mode_cb);
-    
-    
+
+
     wxConfigBase * config = wxConfigBase::Get();
     long w = config->Read("/OptimizerPanel/width",-1);
     long h = config->Read("/OptimizerPanel/height",-1);
     if (w != -1) {
         SetClientSize(w,h);
     }
-    
+
     wxCommandEvent dummy;
     dummy.m_commandInt = m_mode_cb->GetSelection();
     OnChangeMode(dummy);
-    
+
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -117,7 +118,6 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
 
     OptimizeVector optvars = getOptimizeVector();
     PanoramaOptions opts = m_pano->getOptions();
-    opts.projectionFormat = (PanoramaOptions::ProjectionFormat) m_projectionChoice->GetSelection();
     runOptimizer(optvars, opts);
 }
 
@@ -186,7 +186,6 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 
 void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 {
-    m_projectionChoice->SetSelection(pano.getOptions().projectionFormat);
 
     // update accordingly to the choosen mode
 //    wxCommandEvent dummy;
@@ -269,7 +268,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
                                 *it, const_map_get(vars,"r").getValue()));
         m_roll_list->Check(*it,sel);
     }
-    
+
     // update automatic checkmarks
     wxCommandEvent dummy;
     dummy.m_commandInt = m_mode_cb->GetSelection();
@@ -337,8 +336,13 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaO
     DEBUG_TRACE("");
     // open window that shows a status dialog, and allows to
     // apply the results
-    bool edit = m_edit_cb->IsChecked();
-    new RunOptimizerFrame(this, m_pano, options, optvars, edit);
+    int mode = m_mode_cb->GetSelection();
+    if (mode != 0) {
+        bool edit = m_edit_cb->IsChecked();
+        new RunOptimizerFrame(this, m_pano, options, optvars, edit);
+    } else {
+        PTools::autoOptimise(*m_pano, *(MainFrame::Get()));
+    }
 }
 
 
@@ -363,6 +367,17 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
     DEBUG_ASSERT(mode >= 0 && mode <=5);
     switch (mode) {
     case 0:
+        // smart auto optimize
+        SetCheckMark(m_yaw_list,true);
+        SetCheckMark(m_roll_list,true);
+        SetCheckMark(m_pitch_list,true);
+        SetCheckMark(m_v_list,false);
+        SetCheckMark(m_a_list,false);
+        SetCheckMark(m_b_list,false);
+        SetCheckMark(m_c_list,false);
+        SetCheckMark(m_d_list,false);
+        SetCheckMark(m_e_list,false);
+    case 1:
         // simple position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -374,7 +389,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 1:
+    case 2:
         // v + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -386,7 +401,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 2:
+    case 3:
         // important lens distortion + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -398,7 +413,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 3:
+    case 4:
         // important lens distortion + v + position
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -410,7 +425,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,false);
         SetCheckMark(m_e_list,false);
         break;
-    case 4:
+    case 5:
         // everything
         SetCheckMark(m_yaw_list,true);
         SetCheckMark(m_roll_list,true);
@@ -422,7 +437,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         SetCheckMark(m_d_list,true);
         SetCheckMark(m_e_list,true);
         break;
-    case 5:
+    case 6:
     default:
         // do not change anything.
         break;

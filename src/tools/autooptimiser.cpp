@@ -49,8 +49,6 @@ static void usage(const char * name)
          << endl;
 }
 
-
-
 int main(int argc, char *argv[])
 {
     // parse arguments
@@ -92,11 +90,11 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    VariableMapVector newvars = PTools::autoOptimise(pano);
+    VariableMapVector newvars = PTools::autoOptimise(pano,pdisp);
 
     // run a global optimisation...
 
-//    pano.updateVariables(newvars);
+    pano.updateVariables(newvars);
 
     unsigned int nImages = pano.getNrOfImages();
     OptimizeVector optvec(nImages);
