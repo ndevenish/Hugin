@@ -74,11 +74,55 @@ void AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
         }
     }
 
+    wxString msg;
+    wxMessageBox(wxString::Format(_("Added %d control points"), ctrlPoints.size()), _("Autopano result"));
     GlobalCmdHist::getInstance().addCommand(
         new PT::AddCtrlPointsCmd(pano, ctrlPoints)
         );
 }
 
+
+void AutoCtrlPointCreator::automatch(Panorama & pano, 
+		                     const UIntSet & imgs,
+				     int nFeatures)
+{
+    int t = wxConfigBase::Get()->Read("/AutoPano/Type",-1);
+    if (t < 0) {
+
+	wxString tmp[2];
+    	tmp[0] = _("Autopano (version 1.03 or greater), from http://autopano.kolor.com");
+    	tmp[1] = _("Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/");
+    	// determine autopano type
+    	wxSingleChoiceDialog d(NULL,  _("Choose which autopano program should be used\n"), _("Select autopano type"),
+	   	 	       2, tmp, NULL);
+
+	if (d.ShowModal() == wxID_OK) {
+	    t = d.GetSelection();
+	} else {
+	    return;
+	}
+    }
+    switch (t) {
+	case 0:
+	{
+	    // autopano@kolor
+	    AutoPanoKolor matcher;
+	    matcher.automatch(pano, imgs, nFeatures);
+	    break;
+	}
+	case 1:
+	{
+	    // autopano-sift
+	    AutoPanoSift matcher;
+	    matcher.automatch(pano, imgs, nFeatures);
+	    break;
+	}
+	default:
+	    DEBUG_ERROR("Invalid autopano type, delete registry if needed");
+    }
+    wxConfigBase::Get()->Write("/AutoPano/Type",t);
+
+}
 
 void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                                      int nFeatures)
@@ -86,7 +130,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     // create suitable command line..
 
 #ifdef __WXMSW__
-    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPano/AutopanoExe","");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","");
     if (!wxFile::Exists(autopanoExe)){
         wxFileDialog dlg(0,_("Select autopano program / frontend script"),
                          "", "",
@@ -94,16 +138,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write("/Autopano/AutopanoExe",autopanoExe);
-            // check for autopano.exe
-            wxFilename exe(autopanoExe);
-            if (exe.GetName().Lower() == "autopano.exe") {
-                // write default autopano.kolor.com flags
-                wxConfigBase::Get()->Write("/Autopano/Args"," /size:1024 /keys:%p /allinone /project:oto /name:%o /f %i");
-            } else {
-                // assume autopano-sift calling script
-                wxConfigBase::Get()->Write("/Autopano/Args"," -o %o -p %p %i");
-            }
+            wxConfigBase::Get()->Write("/Autopano/AutoPanoSiftExe",autopanoExe);
         } else {
             wxLogError(_("No autopano selected"));
             return;
@@ -111,10 +146,10 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #else
     // todo: selection of autopano on linux..
-    wxString autopanoExe = wxConfigBase::Get()->Read("/Autopano/AutopanoExe","autopano-complete.sh");
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoSift/AutopanoExe","autopano-complete.sh");
 #endif
 
-    wxString autopanoArgs = wxConfigBase::Get()->Read("/Autopano/Args"," -o %o -p %p %i");
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoSift/Args"," -o %o -p %p %i");
 
     // build a list of all image files, and a corrosponding connection map.
     // local img nr -> global (panorama) img number
@@ -135,10 +170,10 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     autopanoArgs.Replace("%p", tmp);
     autopanoArgs.Replace("%i", imgFiles.c_str());
     wxString cmd;
-    cmd.Printf("%s %s",quoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
+    cmd.Printf("%s %s", autopanoExe.c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 1950) {
-        wxMessageBox(_("Can not call autopano with a command line > 2000 characters.\n"
+        wxMessageBox(_("autopano command line too long.\n"
                        "This is a windows limitation\n"
                        "Please select less images, or place the images in a folder with\n"
                        "a shorter pathname"), _("Too many images selected"),
@@ -153,11 +188,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     int ret = wxExecute(cmd, wxEXEC_SYNC);
 
     if (ret == -1) {
-        wxMessageBox(_("wxExecute Error"), _("Could not execute command: " + cmd));
+        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"));
         return;
     } else if (ret > 0) {
-        wxMessageBox(_("wxExecute Error"), _("command: ") + cmd +
+        wxMessageBox(_("command: ") + cmd +
                      _(" failed with error code: ") + wxString::Format("%d",ret),
+		     _("wxExecute Error"),
                      wxCANCEL );
         return;
     }
@@ -176,3 +212,100 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
     }
 }
+
+
+void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
+                              int nFeatures)
+{
+#ifdef __WXMSW__
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe","");
+    if (!wxFile::Exists(autopanoExe)){
+        wxFileDialog dlg(0,_("Select autopano program / frontend script"),
+                         "", "",
+                         "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd",
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            autopanoExe = dlg.GetPath();
+            wxConfigBase::Get()->Write("/AutoPanoKolor/AutopanoExe",autopanoExe);
+        } else {
+            wxLogError(_("No autopano selected"));
+            return;
+        }
+    }
+#else
+    // todo: selection of autopano on linux..
+    wxString autopanoExe = wxConfigBase::Get()->Read("/AutoPanoKolor/AutopanoExe","autopano");
+#endif
+
+    // write default autopano.kolor.com flags
+    wxString autopanoArgs = wxConfigBase::Get()->Read("/AutoPanoKolor/Args"," /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i");
+    
+    // build a list of all image files, and a corrosponding connection map.
+    // local img nr -> global (panorama) img number
+    std::map<int,int> imgMapping;
+    string imgFiles;
+    int imgNr=0;
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    {
+        imgMapping[imgNr] = *it;
+        imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
+        imgNr++;
+    }
+
+    wxString ptofile("autopano_result_tempfile");
+    autopanoArgs.Replace("%o", ptofile);
+    wxString tmp;
+    tmp.Printf("%d", nFeatures);
+    autopanoArgs.Replace("%p", tmp);
+    autopanoArgs.Replace("%i", imgFiles.c_str());
+
+    wxString tempdir = wxConfigBase::Get()->Read("tempDir","");
+    autopanoArgs.Replace("%d", tempdir);
+    wxString cmd;
+    cmd.Printf("%s %s", autopanoExe.c_str(), autopanoArgs.c_str());
+#ifdef __WXMSW__
+    if (cmd.size() > 1950) {
+        wxMessageBox(_("autopano command line too long.\n"
+                       "This is a windows limitation\n"
+                       "Please select less images, or place the images in a folder with\n"
+                       "a shorter pathname"), _("Too many images selected"),
+                     wxCANCEL );
+        return;
+    }
+#endif
+    DEBUG_DEBUG("Executing: " << cmd.c_str());
+    
+    wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
+    // run autopano in an own output window
+    int ret = wxExecute(cmd, wxEXEC_SYNC);
+
+    if (ret == -1) {
+        wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"));
+        return;
+    } else if (ret > 0) {
+        wxMessageBox(_("command: ") + cmd +
+                     _(" failed with error code: ") + wxString::Format("%d",ret),
+		     _("wxExecute Error"),
+                     wxCANCEL );
+        return;
+    }
+
+    ptofile.append("0.oto");
+    if (! wxFileExists(ptofile.c_str()) ) {
+        wxMessageBox(wxString(_("Could not open ")) + ptofile + _(" for reading\n"
+                       "This is an indicator that the autopano call failed,\n"
+                       "or wrong command line parameters have been used.\n\n"
+                       "Autopano command: ") + cmd + "\n current directory:" + 
+			wxGetCwd(),
+		       _("autopano failure"), wxCANCEL );
+        return;
+    }
+    // read and update control points
+    readUpdatedControlPoints(ptofile.c_str(), imgMapping, pano);
+
+    if (!wxRemoveFile(ptofile)) {
+        DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
+    }
+}
+
+

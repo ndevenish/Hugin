@@ -42,9 +42,11 @@ public:
      */
     virtual ~AutoCtrlPointCreator() {};
 
-
+    /** Do sift matching, calles the right routines, based
+     *  on the matcher selected
+     */
     virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
-                           int nFeatures) = 0;
+                           int nFeatures);
 
 protected:
 
@@ -67,6 +69,27 @@ public:
     /** dtor.
      */
     virtual ~AutoPanoSift() {} ;
+
+    virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+                           int nFeatures);
+
+private:
+
+
+};
+
+/** A matcher that uses Alexandres sift matcher */
+class AutoPanoKolor : public AutoCtrlPointCreator
+{
+public:
+
+    /** ctor.
+     */
+    AutoPanoKolor() {};
+
+    /** dtor.
+     */
+    virtual ~AutoPanoKolor() {} ;
 
     virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures);
