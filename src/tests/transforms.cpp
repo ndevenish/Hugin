@@ -37,6 +37,7 @@
 
 using namespace boost::unit_test_framework;
 
+using namespace std;
 using namespace vigra;
 using namespace PT;
 using namespace PT::TRANSFORM;
@@ -46,7 +47,7 @@ void transforms_test()
 {
     int width = 2000;
     int height = 2000;
-    
+
     VariableMap vars;
     fillVariableMap(vars);
     map_get(vars,"v").setValue(50.0);
@@ -64,7 +65,7 @@ void transforms_test()
     PTools::Transform invTrans;
     invTrans.createInvTransform(Diff2D(width, height),
                                 vars, Lens::RECTILINEAR,
-                                Diff2D(360,180), 
+                                Diff2D(360,180),
                                 PanoramaOptions::EQUIRECTANGULAR,
                                 360);
 
@@ -83,11 +84,11 @@ void transforms_test()
     BOOST_CHECK_CLOSE((double)dest.x, 25.0, 1e-4);
     BOOST_CHECK_CLOSE((double)dest.y, 25.0, 1e-4);
 
-    
+
     // transfrom back to equirect
     trans.transform(dest,FDiff2D(0,0));
     std::cout << "0, 0 -> img: " << dest.x << "," << dest.y << std::endl;
-    
+
     // transforms img -> dest
     invTrans.transform(dest,FDiff2D(10,10));
     std::cout << "10, 10 inv -> erect: " << dest.x << "," << dest.y << std::endl;
@@ -126,6 +127,48 @@ void transforms_test()
 
 }
 
+void transform_img_test()
+{
+    const int w=10;
+    const int h=10;
+        
+    VariableMap vars;
+    fillVariableMap(vars);
+    map_get(vars,"v").setValue(50.0);
+    map_get(vars,"a").setValue(0.0);
+    map_get(vars,"b").setValue(0.0);
+    map_get(vars,"c").setValue(0.0);
+    map_get(vars,"d").setValue(0.0);
+    map_get(vars,"e").setValue(0.0);
+
+    
+    PTools::Transform trans;
+    trans.createTransform(Diff2D(2*w, 2*h),
+                          vars, Lens::RECTILINEAR,
+                          Diff2D(w,h), PanoramaOptions::EQUIRECTANGULAR,
+                          50);
+    cout.precision(2);
+    for (int x=0; x<w; x++) {
+        for (int y=0; y<h; y++) {
+            double sx, sy;
+            trans.transform(sx, sy, x,y);
+            cout << sx << "," << sy << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+    cout << endl;
+
+    for (int x=0; x<w; x++) {
+        for (int y=0; y<h; y++) {
+            double sx, sy;
+            trans.transformImgCoord(sx, sy, x,y);
+            cout << sx << "," << sy << " ";
+        }
+        cout << endl;
+    }
+}
+
 test_suite*
 init_unit_test_suite( int, char** )
 {
@@ -133,6 +176,7 @@ init_unit_test_suite( int, char** )
 
   test_suite* test= BOOST_TEST_SUITE( "transformation routine tests" );
   test->add(BOOST_TEST_CASE(&transforms_test));
+  test->add(BOOST_TEST_CASE(&transform_img_test));
   return test;
 }
 

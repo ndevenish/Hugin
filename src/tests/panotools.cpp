@@ -32,6 +32,7 @@
 #include "hugin/ImageCache.h"
 #include "hugin/ImageProcessing.h"
 #include "PT/Panorama.h"
+#include "PT/PanoToolsInterface.h"
 #include "hugin/PanoToolsInterface.h"
 #include "PT/Transforms.h"
 
@@ -40,8 +41,10 @@ using namespace boost::unit_test_framework;
 using namespace vigra;
 using namespace PT;
 using namespace PT::TRANSFORM;
+using namespace PTools;
+using namespace std;
 
-void stitch_test()
+void remap_test()
 {
     Panorama pano;
 
@@ -50,33 +53,105 @@ void stitch_test()
 
     VariableMap vars;
     fillVariableMap(vars);
-    map_get(vars,"y").setValue(10);
-    map_get(vars,"p").setValue(30);
-    map_get(vars,"r").setValue(10);
-    map_get(vars,"v").setValue(51);
-    map_get(vars,"b").setValue(-0.015);
+    map_get(vars,"y").setValue(5);
+    map_get(vars,"p").setValue(0);
+    map_get(vars,"r").setValue(0);
+    map_get(vars,"v").setValue(50);
+    map_get(vars,"b").setValue(-0.02);
 
     pano.addImage(PanoImage("photo.jpg", 1600, 1200, 0),vars);
 
 //    wxImage output(1600,1200);
-    int w = 1600;
-    int h = 1200;
+
+    int w = 200;
+    PanoramaOptions opts = pano.getOptions();
+    opts.projectionFormat = PanoramaOptions::RECTILINEAR;
+    opts.HFOV=50;
+    opts.VFOV=50;
+    opts.width=w;
+    pano.setOptions(opts);
+
+    int h = opts.getHeight();
+
     wxImage output(w,h);
 
     unsigned char * data = output.GetData();
     std::cout << std::hex << (void *) data << std::endl;
-    for (int i=0 ; i < w*h; i++) {
+    for (int i=0 ; i < w*h*3; i++) {
         data[i] = 0xAB;
     }
 
+    //====================================================================
+    //====================================================================
+    // the pt remap routines
     UIntSet imgs;
     imgs.insert(0);
     DEBUG_DEBUG("begin stitching");
-    const PanoramaOptions & opts = pano.getOptions();
+    opts = pano.getOptions();
     BOOST_CHECK(PTools::stitchImage(output, pano, imgs, opts));
     DEBUG_TRACE("end stitching");
+    output.SaveFile("stich_result_PT.jpg");
 
-    output.SaveFile("stich_result.jpg");
+
+    //====================================================================
+    //====================================================================
+    data = output.GetData();
+    std::cout << std::hex << (void *) data << std::endl;
+    for (int i=0 ; i < w*h*3; i++) {
+        //data[i] = (unsigned char) (exp((double)(i/w))/sin(i/1000.0));
+        data[i] = 0;
+    }
+    //====================================================================
+    //====================================================================
+    // my remap routine
+    DEBUG_DEBUG("own begin stitching");
+    Transform transf;
+    transf.createTransform(pano,0, pano.getOptions());
+
+
+    wxImage * src= ImageCache::getInstance().getImage("photo.jpg");
+    
+    // outline of this image in final panorama
+    vector<FDiff2D> outline;
+    // bounding box
+    FDiff2D ul;
+    FDiff2D lr;
+    Transform invT;
+    invT.createInvTransform(pano, 0, opts);
+    PTools::calcBorderPoints(Diff2D(1600,1200), invT, back_inserter(outline),
+                             ul, lr);
+
+    Diff2D ulInt((int)floor(ul.x), (int)floor(ul.y));
+    Diff2D lrInt((int)ceil(lr.x), (int)ceil(lr.y));
+    if (ulInt.x < 0) ulInt.x = 0;
+    if (ulInt.y < 0) ulInt.y = 0;
+    if (ulInt.x >= w) ulInt.x = w -1;
+    if (ulInt.y >= h) ulInt.y = h -1;
+    if (lrInt.x < 0) lrInt.x = 0;
+    if (lrInt.y < 0) lrInt.y = 0;
+    if (lrInt.x >= w) lrInt.x = w -1;
+    if (lrInt.y >= h) lrInt.y = h -1;
+
+    // remap image with that transform
+    PTools::transformImage(srcIterRange(wxImageUpperLeft(*src),
+                                        wxImageLowerRight(*src)),
+                           destIterRange(wxImageUpperLeft(output)+ulInt,
+                                         wxImageUpperLeft(output)+lrInt),
+                           ulInt,
+                           transf);
+    DEBUG_TRACE("own end stitching");
+
+    
+    
+    for(vector<FDiff2D>::iterator it = outline.begin(); it != outline.end();
+        ++it) 
+    {
+        *(wxImageUpperLeft(output)+it->toDiff2D()) =  RGBValue<unsigned char>(255,0,0);
+    }
+    
+    output.SaveFile("stich_result_own.jpg");
+
+
 }
 
 test_suite*
@@ -85,8 +160,8 @@ init_unit_test_suite( int, char** )
   wxInitAllImageHandlers();
 
   test_suite* test= BOOST_TEST_SUITE( "panotool interfaces tests" );
-  test->add(BOOST_TEST_CASE(&stitch_test));
-  test->add(BOOST_TEST_CASE(&transforms_test));
+  test->add(BOOST_TEST_CASE(&remap_test));
+//  test->add(BOOST_TEST_CASE(&transforms_test));
   return test;
 }
 

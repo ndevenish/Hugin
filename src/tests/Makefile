@@ -55,7 +55,7 @@ DEPEND_FILES = *.cpp
 # special compiler and linker flags for this directory
 # ====================================================================
 
-CFLAGS += $(shell wx-config --cxxflags)
+CFLAGS += $(shell wx-config --cxxflags) 
 LFLAGS += $(shell wx-config --libs) -lwximageproc -lpanorama -ljhead -lboost_unit_test_framework
 
 # ====================================================================
@@ -88,10 +88,10 @@ TEST_3_OBJ = panotools.o
 TEST_3_CFLAGS = $(TEST_CFLAGS)
 TEST_3_LFLAGS = $(TEST_LFLAGS) -lpano12
 
-TEST_3_BIN = transforms
-TEST_3_OBJ = transforms.o
-TEST_3_CFLAGS = $(TEST_CFLAGS)
-TEST_3_LFLAGS = $(TEST_LFLAGS) -lpano12
+TEST_4_BIN = transforms
+TEST_4_OBJ = transforms.o
+TEST_4_CFLAGS = $(TEST_CFLAGS)
+TEST_4_LFLAGS = $(TEST_LFLAGS) -lpano12
 
 
 # ====================================================================
@@ -102,5 +102,5 @@ include $(PREFIX)/makefiles/rules.mk
 -include $(DEPEND)
 
 
-run_tests: panorama
-	./panorama
+#run_tests: panorama
+#	./panorama
