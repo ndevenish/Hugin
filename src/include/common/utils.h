@@ -27,6 +27,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <cassert>
 
 #if __WXMSW__
 #include <wx/log.h>

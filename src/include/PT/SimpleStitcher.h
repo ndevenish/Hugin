@@ -114,7 +114,7 @@ void stitchPanoramaSimple(const PT::Panorama & pano,
         typename DestImageType::Iterator xd(yd);
         for(int x=xstart; x < xend; ++x, ++xd.x)
         {
-            // find the image where this pixel is closes to the image center
+            // find the image where this pixel is closest to the image center
             float minDist = FLT_MAX;
             unsigned int minImgNr = 0;
             vigra::Diff2D cp(x,y);
