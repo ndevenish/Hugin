@@ -65,12 +65,13 @@ LFLAGS += $(shell wx-config --libs) -lwx_gtk_xrc-2.4 -lpanorama -ljhead
 # .a. Those are added automatically.
 # ====================================================================
 
-LIBS =
+LIBS = 1
 
-# extension libary to use TabCtrl in XRC files.
-# not used, since TabCtrl is not available on gtk/mac.
-LIB_1_BIN = my_xrc_extension
-LIB_1_OBJ = xh_tbctl.o
+# our image processing functions. separarte lib, to test them
+# with a programm in tests/
+LIB_1_BIN = wximageproc
+LIB_1_OBJ = ImageProcessing.o \
+	    wxVigraImage.o
 LIB_1_LFLAGS =  $(LFLAGS)
 
 # ====================================================================
@@ -94,6 +95,8 @@ APP_1_OBJ = huginApp.o \
             ImageCache.o \
             List.o \
             CommandHistory.o \
+	    ImageProcessing.o \
+	    wxVigraImage.o \
             $(RES_O)
 
 APP_1_LFLAGS = $(LFLAGS)

@@ -37,6 +37,7 @@
 #include "wx/image.h"
 #include "common/utils.h"
 #include "hugin/CPImageCtrl.h"
+#include "hugin/ImageCache.h"
 
 using namespace std;
 
@@ -103,6 +104,7 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_LEFT_DOWN(CPImageCtrl::mousePressEvent)
     EVT_MOTION(CPImageCtrl::mouseMoveEvent)
     EVT_LEFT_UP(CPImageCtrl::mouseReleaseEvent)
+    EVT_SIZE(CPImageCtrl::OnSize)
 END_EVENT_TABLE()
 
 CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
@@ -111,7 +113,7 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
                          long style,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
-      bitmap(0), drawNewPoint(false), scaleFactor(1)
+      drawNewPoint(false), scaleFactor(1), fitToWindow(false)
 {
     SetCursor(wxCursor(wxCURSOR_MAGNIFIER));
     pointColors.push_back(*(wxTheColourDatabase->FindColour("BLUE")));
@@ -131,27 +133,26 @@ CPImageCtrl::CPImageCtrl(wxWindow* parent, wxWindowID id,
 
 CPImageCtrl::~CPImageCtrl()
 {
-    delete bitmap;
+    DEBUG_TRACE("")
 }
 
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
-    if (scaleFactor != 1.0) {
-        dc.SetUserScale(scaleFactor, scaleFactor);
-    }
-    
     // draw image (FIXME, redraw only visible regions.)
-    if (bitmap) {
-        dc.DrawBitmap(*bitmap,0,0);
+    if (imageFilename != "") {
+        dc.DrawBitmap(bitmap,0,0);
     }
-    dc.SetUserScale(1.0,1.0);
 
     // draw known points.
-    int i=0;
+    unsigned int i=0;
     vector<wxPoint>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        drawPoint(dc,*it,pointColors[i%pointColors.size()]);
+        if (i==selectedPointNr) {
+            drawPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
+        } else {
+            drawPoint(dc,*it,pointColors[i%pointColors.size()]);
+        }
         i++;
     }
 
@@ -170,7 +171,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
                     scale(region.GetHeight()));
         break;
     case NEW_POINT_SELECTED:
+        break;
     case KNOWN_POINT_SELECTED:
+        break;
     case NO_SELECTION:
         break;
     }
@@ -190,27 +193,44 @@ void CPImageCtrl::drawPoint(wxDC & dc, const wxPoint & point, const wxColor & co
 
 wxSize CPImageCtrl::DoGetBestSize() const
 {
-    if (bitmap) {
-        return wxSize(bitmap->GetWidth(),bitmap->GetHeight());
-    } else {
-        return wxSize(0,0);
-    }
+    return wxSize(imageSize.GetWidth(),imageSize.GetHeight());
 }
 
 
-void CPImageCtrl::setImage(const wxImage & img)
+void CPImageCtrl::setImage(const std::string & file)
 {
-    DEBUG_TRACE("setting Image image w:" << img.GetWidth()
-                << "h: " << img.GetHeight());
-    delete bitmap;
-    bitmap = new wxBitmap(img);
+    DEBUG_TRACE("setting Image " << file);
+    imageFilename = file;
+    if (imageFilename != "") {
+        wxImage * img = ImageCache::getInstance().getImage(file);
+        imageSize = wxSize(img->GetWidth(), img->GetHeight());
+        if (fitToWindow) {
+            scaleFactor = calcAutoScaleFactor(imageSize);
+        }
+        DEBUG_DEBUG("src image size "
+                    << imageSize.GetHeight() << "x" << imageSize.GetWidth());
+        if (getScaleFactor() == 1.0) {
+            bitmap = img->ConvertToBitmap();
+        } else {
+            DEBUG_DEBUG("rescaling to " << scale(imageSize.GetWidth()) << "x"
+                        << scale(imageSize.GetHeight()) );
+            bitmap = img->Scale(scale(imageSize.GetWidth()),
+                                scale(imageSize.GetHeight())).ConvertToBitmap();
+            DEBUG_DEBUG("rescaling finished");
+        }
+    } else {
+        wxImage empty;
+        bitmap = empty.ConvertToBitmap();
+    }
     // FIXME update size & relayout dialog
-    SetSizeHints(-1,-1,img.GetWidth(), img.GetHeight(),1,1);
+    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
+    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
+//    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+//    SetVirtualSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight());
     //SetVirtualSizeHints(-1,-1,img.GetWidth(), img.GetHeight());
 //    SetVirtualSizeHints(bitmap->GetWidth(),bitmap->GetHeight(),bitmap->GetWidth(), bitmap->GetHeight());
-    SetScrollbars(16, 16, bitmap->GetWidth()/16 ,bitmap->GetHeight()/16 );
     // redraw
-    Refresh();
+    update();
 }
 
 
@@ -231,9 +251,21 @@ void CPImageCtrl::clearNewPoint()
 
 void CPImageCtrl::selectPoint(unsigned int nr)
 {
+    assert(nr < points.size());
     selectedPointNr = nr;
+    wxSize sz = GetClientSize();
+    int x = invScale(points[nr].x)- sz.GetWidth()/2;
+    if (x<0) x = 0;
+    int y = invScale(points[nr].y)- sz.GetHeight()/2;
+    if (y<0) x = 0;
+    showPosition(x,y);
+    update();
 }
 
+void CPImageCtrl::showPosition(int x, int y)
+{
+    Scroll(x/16, y/16);
+}
 
 CPImageCtrl::EditorState CPImageCtrl::isOccupied(const wxPoint &p, unsigned int & pointNr) const
 {
@@ -278,20 +310,20 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent *mouse)
             assert(0);
             break;
         case KNOWN_POINT_SELECTED:
-            if (mpos.x >= 0 && mpos.x <= bitmap->GetWidth()){
+            if (mpos.x >= 0 && mpos.x <= imageSize.GetWidth()){
                 points[selectedPointNr].x = mpos.x;
             } else if (mpos.x < 0) {
                 points[selectedPointNr].x = 0;
-            } else if (mpos.x > bitmap->GetWidth()) {
-                points[selectedPointNr].x = bitmap->GetWidth();
+            } else if (mpos.x > imageSize.GetWidth()) {
+                points[selectedPointNr].x = imageSize.GetWidth();
             }
 
-            if (mpos.y >= 0 && mpos.y <= bitmap->GetHeight()){
+            if (mpos.y >= 0 && mpos.y <= imageSize.GetHeight()){
                 points[selectedPointNr].y = mpos.y;
             } else if (mpos.y < 0) {
                 points[selectedPointNr].y = 0;
-            } else if (mpos.y > bitmap->GetHeight()) {
-                points[selectedPointNr].y = bitmap->GetHeight();
+            } else if (mpos.y > imageSize.GetHeight()) {
+                points[selectedPointNr].y = imageSize.GetHeight();
             }
             // emit a notify event here.
             //
@@ -396,7 +428,7 @@ void CPImageCtrl::mouseReleaseEvent(wxMouseEvent *mouse)
                 update();
             } else {
                 editState = NO_SELECTION;
-                DEBUG_DEBUG("new Region selected " << region.GetTop() << "," << region.GetLeft() << " " << region.GetRight() << "," << region.GetBottom());
+                DEBUG_DEBUG("new Region selected " << region.GetLeft() << "," << region.GetTop() << " " << region.GetRight() << "," << region.GetBottom());
                 // normalize region
                 if (region.GetWidth() < 0) {
                     region.SetX(region.GetRight());
@@ -431,3 +463,45 @@ bool CPImageCtrl::emit(CPEvent & ev)
     }
 }
 
+void CPImageCtrl::setScale(double factor)
+{
+    if (factor == 0) {
+        fitToWindow = true;
+        factor = calcAutoScaleFactor(imageSize);
+    } else {
+        fitToWindow = false;
+    }
+    DEBUG_DEBUG("new scale factor:" << factor);
+    // update if factor changed
+    if (factor != scaleFactor) {
+        scaleFactor = factor;
+        setImage(imageFilename);
+        update();
+    }
+}
+
+double CPImageCtrl::calcAutoScaleFactor(wxSize size)
+{
+    wxSize csize = GetClientSize();
+    double s1 = (double)csize.GetWidth()/size.GetWidth();
+    double s2 = (double)csize.GetHeight()/size.GetHeight();
+    return s1 < s2 ? s1 : s2;
+}
+
+double CPImageCtrl::getScaleFactor() const
+{
+    return scaleFactor;
+}
+
+void CPImageCtrl::OnSize(wxSizeEvent &e)
+{
+    DEBUG_TRACE("");
+    // rescale bitmap if needed.
+    // on the fly rescaling in OnDraw is terribly slow. I wonder
+    // how anybody can use it..
+    if (imageFilename != "") {
+        if (fitToWindow) {
+            setScale(0);
+        }
+    }
+}

@@ -47,16 +47,11 @@
 
 #include <algorithm>
 
-#include <vigra/imageiterator.hxx>
-#include <vigra/stdimage.hxx>
-#include <vigra/transformimage.hxx>
-#include <vigra/copyimage.hxx>
-#include <vigra/functorexpression.hxx>
-#include <vigra/correlation.hxx>
-
 #include "common/utils.h"
 #include "common/stl_utils.h"
 #include "PT/PanoCommand.h"
+
+#include "hugin/ImageProcessing.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/CPImageCtrl.h"
@@ -68,8 +63,7 @@ using namespace PT;
 using namespace vigra;
 using namespace vigra::functor;
 
-typedef vigra::ImageIterator<vigra::RGBValue<unsigned char> > wxImageIterator;
-
+/*
 void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy)
 {
     // iterate down the first column of the images
@@ -92,24 +86,14 @@ void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy
         }
     }
 }
-
-wxImageIterator
-wxImageUpperLeft(wxImage & img)
-{
-    return wxImageIterator((vigra::RGBValue<unsigned char> *)img.GetData(), img.GetWidth());
-}
-
-wxImageIterator
-wxImageLowerRight(wxImage & img)
-{
-    return wxImageUpperLeft(img) + vigra::Dist2D(img.GetWidth(), img.GetHeight());
-}
+*/
 
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange )
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
+    EVT_COMBOBOX(XRCID("cp_editor_zoom_box"), CPEditorPanel::OnZoom)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
@@ -142,7 +126,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_cpList->InsertColumn( 5, _("Alignment"), wxLIST_FORMAT_LEFT,110 );
     m_cpList->InsertColumn( 6, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
 
-    
+
     // other controls
     m_x1Text = XRCCTRL(*this,"cp_editor_x1", wxTextCtrl);
     m_y1Text = XRCCTRL(*this,"cp_editor_y1", wxTextCtrl);
@@ -166,15 +150,12 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
     if (m_leftImageNr != imgNr) {
-        wxImage *ptr = ImageCache::getInstance().getImage(
-            m_pano->getImage(imgNr).getFilename());
-        m_leftImg->setImage(*ptr);
+        m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
         m_leftTabs->SetSelection(imgNr);
         m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         UpdateDisplay();
     }
-
 }
 
 
@@ -183,9 +164,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
     DEBUG_TRACE("image " << imgNr);
     if (m_rightImageNr != imgNr) {
         // set the new image
-        wxImage *ptr = ImageCache::getInstance().getImage(
-            m_pano->getImage(imgNr).getFilename());
-        m_rightImg->setImage(*ptr);
+        m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
         // select tab
         m_rightTabs->SetSelection(imgNr);
         m_rightImageNr = imgNr;
@@ -251,43 +230,50 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     {
         text = "REGION_SELECTED";
         wxRect region = ev.getRect();
-        vigra::CorrelationResult pos;
+        int dx = region.GetWidth() / 2;
+        int dy = region.GetHeight() / 2;
+        CorrelationResult pos;
         ControlPoint point;
+        bool found(false);
         DEBUG_DEBUG("left img: " << m_leftImageNr
                     << "  right img: " << m_rightImageNr);
         if (left) {
             if (FindTemplate(m_leftImageNr, region, m_rightImageNr, pos)) {
                 point.image1Nr = m_leftImageNr;
-                point.x1 = region.GetLeft();
-                point.y1 = region.GetTop();
+                point.x1 = region.GetLeft() + dx;
+                point.y1 = region.GetTop() + dy;
                 point.image2Nr = m_rightImageNr;
-                point.x2 = pos.xMax;
-                point.y2 = pos.yMax;
+                point.x2 = pos.pos.x + dx;
+                point.y2 = pos.pos.y + dy;
                 point.mode = PT::ControlPoint::X_Y;
+                found = true;
             } else {
                 DEBUG_DEBUG("No matching point found");
             }
         } else {
             if (FindTemplate(m_rightImageNr, region, m_leftImageNr, pos)) {
                 point.image1Nr = m_leftImageNr;
-                point.x1 = pos.xMax;
-                point.y1 = pos.yMax;
+                point.x1 = pos.pos.x + dx;
+                point.y1 = pos.pos.y + dy;
                 point.image2Nr = m_rightImageNr;
-                point.x2 = region.GetLeft();
-                point.y2 = region.GetTop();
+                point.x2 = region.GetLeft() + dx;
+                point.y2 = region.GetTop() + dy;
                 point.mode = PT::ControlPoint::X_Y;
+                found = true;
             } else {
                 DEBUG_DEBUG("No matching point found");
             }
         }
-
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointCmd(*m_pano, point)
-            );
-        // select new control Point
-        unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-        SelectGlobalPoint(lPoint);
-
+        if (found) {
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::AddCtrlPointCmd(*m_pano, point)
+                );
+            // select new control Point
+            unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
+            SelectGlobalPoint(lPoint);
+        } else {
+            wxLogError("No corrosponding point found");
+        }
         break;
 //    default:
 //        text = "FATAL: unknown event mode";
@@ -308,8 +294,8 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
     m_x2Text->SetValue(wxString::Format("%.1f",p.x2));
     m_y2Text->SetValue(wxString::Format("%.1f",p.y2));
     m_cpModeChoice->SetSelection(p.mode);
-//        m_leftImg->selectPoint(LVpointNr);
-//        m_rightImg->selectPoint(LVpointNr);
+    m_leftImg->selectPoint(LVpointNr);
+    m_rightImg->selectPoint(LVpointNr);
 
 }
 
@@ -351,8 +337,20 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
         cpCreationState = FIRST_POINT;
     case FIRST_POINT:
         newPoint = p;
+        // FIXME approximate position in the right image
         break;
     case SECOND_POINT:
+        if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
+            Diff2D result;
+            if (PointFineTune(m_rightImageNr,
+                              Diff2D(newPoint.x, newPoint.y),
+                              m_leftImageNr,
+                              Diff2D(p.x, p.y),
+                              result)) {
+                p.x = result.x;
+                p.y = result.y;
+            }
+        }
         // FIXME: get OptimizeMode from somewhere
         ControlPoint point(m_leftImageNr, p.x, p.y,
                            m_rightImageNr, newPoint.x, newPoint.y,
@@ -370,76 +368,6 @@ void CPEditorPanel::CreateNewPointLeft(wxPoint p)
     }
 }
 
-bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
-                                 unsigned int dstImgNr,
-                                 vigra::CorrelationResult & res)
-{
-    DEBUG_TRACE("FindTemplate(): tmpl img nr: " << tmplImgNr << " corr src: "
-                << dstImgNr);
-    if (region.GetWidth() < 1 || region.GetHeight() < 1) {
-        DEBUG_DEBUG("Can't correlate with templates < 1x1");
-        return false;
-    }
-    wxImage * tmplImg = ImageCache::getInstance().getImage(
-        m_pano->getImage(tmplImgNr).getFilename());
-    wxImage * dstImg = ImageCache::getInstance().getImage(
-        m_pano->getImage(dstImgNr).getFilename());
-
-    // our template image
-    wxImageIterator tmplUpperCorner = wxImageUpperLeft(*tmplImg)
-                                      + vigra::Dist2D(region.GetLeft(), region.GetTop());
-    wxImageIterator tmplLowerCorner = wxImageUpperLeft(*tmplImg)
-                                      + vigra::Dist2D(region.GetRight(), region.GetBottom());
-    vigra::BImage templ(region.GetWidth(), region.GetHeight());
-
-    vigra::copyImage(tmplUpperCorner,
-                     tmplLowerCorner,
-                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
-                     templ.upperLeft(),
-                     StandardValueAccessor<unsigned char>());
-
-//    exportImage(srcImageRange(templ), vigra::ImageExportInfo("template_normal.gif"));
-//    exportImage(srcImageRange(templ), vigra::ImageExportInfo("template.gif"));
-    vigra::BImage dst(dstImg->GetWidth(), dstImg->GetHeight());
-
-    DEBUG_DEBUG("dest image to grey");
-    vigra::copyImage(wxImageUpperLeft(*dstImg),
-                     wxImageLowerRight(*dstImg),
-                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
-                     dst.upperLeft(),
-                     StandardValueAccessor<unsigned char>());
-
-//    ToGray(wxImageUpperLeft(*dstImg), wxImageLowerRight(*dstImg),
-//           dst.upperLeft());
-
-//    DEBUG_DEBUG("exporting image");
-//    exportImage(srcImageRange(dst), vigra::ImageExportInfo("src_correlation.gif"));
-
-    vigra::BImage corr_res(dst.width(), dst.height());
-    DEBUG_DEBUG("correlating image");
-    // correlate Image
-    res = vigra::correlateImage(dst.upperLeft(),
-                              dst.lowerRight(),
-                              StandardValueAccessor<unsigned char>(),
-                              corr_res.upperLeft(),
-                              StandardValueAccessor<unsigned char>(),
-                              templ.upperLeft(),
-                              StandardValueAccessor<unsigned char>(),
-                              Diff2D(0,0),
-                              templ.size()
-            );
-    DEBUG_DEBUG("correlation: max=" << res.max/127 - 1.0 << ", " << res.max
-                << " at: " << res.xMax << ","
-                << res.yMax);
-//    DEBUG_DEBUG("exporting correlated image");
-//    exportImage(srcImageRange(corr_res), vigra::ImageExportInfo("correlation.gif"));
-    // FIXME use a threshold set by the user, or calculate a sensible one.
-    if (res.max > 0.7) {
-        return true;
-    }
-    return false;
-}
-
 
 void CPEditorPanel::CreateNewPointRight(wxPoint p)
 {
@@ -449,8 +377,21 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
         cpCreationState = SECOND_POINT;
     case SECOND_POINT:
         newPoint = p;
+        // FIXME approximate position in left image
         break;
     case FIRST_POINT:
+        if (XRCCTRL(*this,"cp_editor_fine_tune_check",wxCheckBox)->IsChecked()) {
+            Diff2D result;
+            if (PointFineTune(m_leftImageNr,
+                              Diff2D(newPoint.x,newPoint.y),
+                              m_rightImageNr,
+                              Diff2D(p.x, p.y),
+                              result)) {
+                p.x = result.x;
+                p.y = result.y;
+            }
+        }
+
         // FIXME: get OptimizeMode from somewhere
         ControlPoint point(m_leftImageNr, newPoint.x, newPoint.y,
                            m_rightImageNr, p.x, p.y,
@@ -468,6 +409,113 @@ void CPEditorPanel::CreateNewPointRight(wxPoint p)
 }
 
 
+bool CPEditorPanel::FindTemplate(unsigned int tmplImgNr, const wxRect &region,
+                                 unsigned int dstImgNr,
+                                 CorrelationResult & res)
+{
+    DEBUG_TRACE("FindTemplate(): tmpl img nr: " << tmplImgNr << " corr src: "
+                << dstImgNr);
+    if (region.GetWidth() < 1 || region.GetHeight() < 1) {
+        DEBUG_DEBUG("Can't correlate with templates < 1x1");
+        return false;
+    }
+    const BImage & tmplsrc = ImageCache::getInstance().getPyramidImage(
+        m_pano->getImage(tmplImgNr).getFilename(),0);
+
+    Diff2D tOrigin(region.x, region.y);
+    Diff2D tSize(region.width, region.height);
+    vigra::BImage templ(tSize);
+
+    vigra::copyImage(tmplsrc.upperLeft() + tOrigin,
+                     tmplsrc.upperLeft() + tOrigin + tSize,
+                     tmplsrc.accessor(),
+                     templ.upperLeft(),
+                     templ.accessor()
+        );
+
+    findTemplate(templ, m_pano->getImage(dstImgNr).getFilename(), res);
+    // FIXME. make this configureable. 0.5 is a quite low value. 0.7 or
+    // so is more acceptable. but some features only match with 0.5.
+    // but we get more false positives..
+    if (res.max > 0.5) {
+        return true;
+    }
+    return false;
+}
+
+
+bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
+                                  const Diff2D & tmplPoint,
+                                  unsigned int subjImgNr,
+                                  const Diff2D & subjPoint,
+                                  Diff2D & tunedPos)
+{
+    DEBUG_TRACE("tmpl img nr: " << tmplImgNr << " corr src: "
+                << subjImgNr);
+
+    // region, should be changeable though preferences, defaults to
+    // a window with 5 by 5 deg.
+    const PanoImage & img = m_pano->getImage(subjImgNr);
+    unsigned int lensNr = img.getLens();
+    const Lens & l = m_pano->getLens(lensNr);
+    // FIXME user configurable search window (in horizontal degrees).
+//    int swidth = (int) (img.getWidth()*5.0/l.HFOV);
+//    int swidth = (int) ( img.getWidth() * 5.0 /l.HFOV);
+
+    const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
+        m_pano->getImage(subjImgNr).getFilename(),0);
+
+    int swidth = subjImg.width() / 10;
+    DEBUG_DEBUG("search window: " << swidth << "x" << swidth);
+    Diff2D searchSize(swidth, swidth);
+
+    Diff2D searchUL(subjPoint.x - swidth/2, subjPoint.y - swidth/2);
+    Diff2D searchLR(subjPoint.x + swidth/2, subjPoint.y + swidth/2);
+    // clip search window
+    if (searchUL.x < 0) searchUL.x = 0;
+    if (searchUL.y <0) searchUL.y = 0;
+    if (searchLR.x > subjImg.width()) searchLR.x = subjImg.width();
+    if (searchLR.y > subjImg.width()) searchLR.y = subjImg.height();
+    searchSize = searchLR - searchUL;
+
+    const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
+        m_pano->getImage(tmplImgNr).getFilename(),0);
+
+    // make template size user configurable as well?
+    Diff2D halfTmplS(6,6);
+    Diff2D templS(13,13);
+    Diff2D tmplUL = tmplPoint - halfTmplS;
+    Diff2D tmplLR = tmplPoint + halfTmplS;
+    // clip template
+    if (tmplUL.x < 0) tmplUL.x = 0;
+    if (tmplUL.y <0) tmplUL.y = 0;
+    if (tmplLR.x > tmplImg.width()) tmplLR.x = tmplImg.width();
+    if (tmplLR.y > tmplImg.width()) tmplLR.y = tmplImg.height();
+
+    FImage dest(searchSize);
+    dest.init(1);
+    DEBUG_DEBUG("starting fine tune")
+    // we could use the multiresolution version as well.
+    // but usually the region is quite small.
+    CorrelationResult res;
+    res = correlateImage(subjImg.upperLeft() + searchUL,
+                         subjImg.upperLeft() + searchLR,
+                         subjImg.accessor(),
+                         dest.upperLeft(),
+                         dest.accessor(),
+                         tmplImg.upperLeft() + tmplUL,
+                         tmplImg.accessor(),
+                         Diff2D(0,0), templS, -1);
+    DEBUG_DEBUG("finished fine tune")
+    // FIXME make configurable
+    if (res.max < 0.7) {
+        return false;
+    }
+    tunedPos = res.pos + searchUL + halfTmplS;
+    return true;
+}
+
+
 void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
 {
     DEBUG_TRACE("");
@@ -478,7 +526,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrTabs = m_leftTabs->GetPageCount();
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
-    
+
     // add tab bar entries, if needed
     if (nrTabs < nrImages) {
         for (unsigned int i=nrTabs; i < nrImages; i++) {
@@ -510,25 +558,25 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             // select some other image if we deleted the current image
             if (left >= (int) nrImages) {
                 setLeftImage(nrImages -1);
-                wxImage *ptr = ImageCache::getInstance().getImage(
-                    pano.getImage(nrImages-1).getFilename());
-                m_leftImg->setImage(*ptr);
+                m_leftFile = pano.getImage(nrImages-1).getFilename();
+                m_leftImg->setImage(m_leftFile);
             }
             if (right >= (int)nrImages) {
                 setRightImage(nrImages -1);
-                wxImage *ptr = ImageCache::getInstance().getImage(
-                    pano.getImage(nrImages-1).getFilename());
-                m_rightImg->setImage(*ptr);
+                m_rightFile = pano.getImage(nrImages-1).getFilename();
+                m_rightImg->setImage(m_rightFile);
             }
         } else {
             m_leftImageNr = UINT_MAX;
+            m_leftFile = "";
             m_rightImageNr = UINT_MAX;
+            m_rightFile = "";
             // no image anymore..
-            m_leftImg->setImage(0);
-            m_rightImg->setImage(0);
+            m_leftImg->setImage(m_leftFile);
+            m_rightImg->setImage(m_rightFile);
         }
     }
-    
+
     // update changed images
     bool update(false);
     for(UIntSet::iterator it = changed.begin(); it != changed.end(); ++it) {
@@ -539,30 +587,28 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         // take the current state directly from the pano
         // object
         if (m_leftImageNr == imgNr) {
+            DEBUG_DEBUG("left image dirty");
             if (m_leftFile != pano.getImage(imgNr).getFilename()) {
-                wxImage *ptr = ImageCache::getInstance().getImage(
-                    pano.getImage(imgNr).getFilename());
-                m_leftImg->setImage(*ptr);
                 m_leftFile = pano.getImage(imgNr).getFilename();
+                m_leftImg->setImage(m_leftFile);
             }
             update=true;
         }
 
         if (m_rightImageNr == imgNr) {
+            DEBUG_DEBUG("right image dirty");
             if (m_rightFile != pano.getImage(imgNr).getFilename()) {
-                wxImage *ptr = ImageCache::getInstance().getImage(
-                    pano.getImage(imgNr).getFilename());
-                m_rightImg->setImage(*ptr);
                 m_rightFile = pano.getImage(imgNr).getFilename();
+                m_rightImg->setImage(m_rightFile);
             }
             update=true;
         }
     }
-    
+
     if (update) {
         UpdateDisplay();
     }
-    
+
     // if there is no selection, select the first one.
     if (nrImages > 0 && nrTabs == 0) {
         setLeftImage(0);
@@ -610,7 +656,7 @@ void CPEditorPanel::UpdateDisplay()
     // put these control points into our listview.
     m_cpList->Hide();
     m_cpList->DeleteAllItems();
-    
+
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
         const ControlPoint & p = currentPoints[i].second;
         m_cpList->InsertItem(i,wxString::Format("%d",currentPoints[i].first));
@@ -663,4 +709,38 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
     if (t >0) {
         SelectLocalPoint((unsigned int) t);
     }
+}
+
+void CPEditorPanel::OnZoom(wxCommandEvent & e)
+{
+    double factor;
+    switch (e.GetSelection()) {
+    case 0:
+        factor = 1;
+        break;
+    case 1:
+        // fit to window
+        factor = 0;
+        break;
+    case 2:
+        factor = 2;
+        break;
+    case 3:
+        factor = 1.5;
+        break;
+    case 4:
+        factor = 0.75;
+        break;
+    case 5:
+        factor = 0.5;
+        break;
+    case 6:
+        factor = 0.25;
+        break;
+    default:
+        DEBUG_ERROR("unknown scale factor");
+        factor = 1;
+    }
+    m_leftImg->setScale(factor);
+    m_rightImg->setScale(factor);
 }

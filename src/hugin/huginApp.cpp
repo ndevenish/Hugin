@@ -82,9 +82,9 @@ bool huginApp::OnInit()
 
     DEBUG_INFO((wxString)"GetVendorName(): " + config->GetVendorName().c_str());
     config->SetRecordDefaults(TRUE);
-    
+
     if ( config->IsRecordingDefaults() ) {
-      char e_dbg[128] = "writes in config: "; 
+      char e_dbg[128] = "writes in config: ";
       sprintf ( e_dbg ,"%s %d\n", e_dbg, config->GetNumberOfEntries() );
       DEBUG_INFO(e_dbg);
     }

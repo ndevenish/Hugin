@@ -85,9 +85,10 @@ END_EVENT_TABLE()
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : pano(*pano)
 {
+    DEBUG_TRACE("ctor");
     pano->addObserver(this);
 
-    // The following control creates itself. We dont care about xrc loading. 
+    // The following control creates itself. We dont care about xrc loading.
     images_list2 = new List (parent, pano, lens_layout);
     wxXmlResource::Get()->AttachUnknownControl (
                wxT("images_list2_unknown"),
@@ -101,7 +102,6 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
                wxT("lens_list_unknown"),
                lens_edit);
 //               wxXmlResource::Get()->LoadPanel (parent, wxT("lens_dialog")) );
-
 
     p_img = new wxBitmap( 0, 0 );
     DEBUG_TRACE("");;
@@ -164,7 +164,7 @@ LensEdit::LensEdit(wxWindow *parent, /*const wxPoint& pos, const wxSize& size,*/
     PushEventHandler( new MyEvtHandler((size_t) 2) );
 
     edit_Lens = new Lens ();
-    AddLensCmd ( *pano, *edit_Lens ); 
+    AddLensCmd ( *pano, *edit_Lens );
     // FIXME with no image in pano hugin crashes
     DEBUG_INFO ( wxString::Format ("Lensesnumber: %d", pano->getNrOfLenses()) )
 

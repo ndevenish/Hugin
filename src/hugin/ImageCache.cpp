@@ -25,11 +25,16 @@
  */
 
 #include <string>
+
 #include "include/common/utils.h"
+#include "hugin/ImageProcessing.h"
 #include "hugin/ImageCache.h"
 
-ImageCache * ImageCache::instance = 0;
+using namespace std;
+using namespace vigra;
 
+
+ImageCache * ImageCache::instance = 0;
 
 ImageCache::ImageCache()
 {
@@ -99,7 +104,52 @@ ImagePtr ImageCache::getImageSmall(const std::string & filename)
     return nix;
 }
 
-void ImageCache::notify(wxImage & img)
+const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
+                                                  int level)
 {
-    DEBUG_DEBUG("ImageCache::notify for image 0x" << std::hex << &img);
+    DEBUG_TRACE(filename << " level:" << level);
+    std::map<std::string, vigra::BImage *>::iterator it;
+    PyramidKey key(filename,level);
+    it = pyrImages.find(key.toString());
+    if (it != pyrImages.end()) {
+        DEBUG_DEBUG("pyramid image already in cache");
+        return *(it->second);
+    } else {
+        // the image is not in cache.. go and create it.
+        vigra::BImage * img = 0;
+        for(int i=0; i<=level; i++) {
+            key.level=i;
+            DEBUG_DEBUG("loop level:" << key.level);
+            it = pyrImages.find(key.toString());
+            if (it != pyrImages.end()) {
+                // image is already known
+                DEBUG_DEBUG("level " << key.level << " already in cache");
+                img = (it->second);
+            } else {
+                // we need to create this resolution step
+                if (key.level == 0) {
+                    // special case, create first gray image
+                    wxImage * srcImg = getImage(filename);
+                    img = new vigra::BImage(srcImg->GetWidth(), srcImg->GetHeight());
+                    DEBUG_DEBUG("creating level 0 pyramid image for "<< filename);
+                    vigra::copyImage(wxImageUpperLeft(*srcImg),
+                                     wxImageLowerRight(*srcImg),
+                                     RGBToGrayAccessor<RGBValue<unsigned char> >(),
+                                     img->upperLeft(),
+                                     BImage::Accessor());
+                } else {
+                    // reduce previous level to current level
+                    DEBUG_DEBUG("reducing level " << key.level-1 << " to level " << key.level);
+                    assert(img);
+                    BImage *smallImg = new BImage();
+                    reduceToNextLevel(*img, *smallImg);
+                    img = smallImg;
+                }
+                pyrImages[key.toString()]=img;
+            }
+        }
+        // we have found our image
+        return *img;
+    }
 }
+
