@@ -71,7 +71,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 END_EVENT_TABLE()
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
-    : wxFrame(frame,-1, _("Panorama preview"))
+    : wxFrame(frame,-1, _("Panorama preview")),
       m_pano(pano)
 {
 	DEBUG_TRACE("");
