@@ -92,7 +92,7 @@ private:
 
     PT::UIntSet m_displayedImages;
 
-    wxBitmap * m_panoBitmap;
+	wxBitmap * m_panoBitmap;
     // currently updating the preview.
 
     PT::UIntSet m_dirtyImgs;

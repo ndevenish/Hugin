@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 /** @file ImagesPanel.h
  *
- *  @author Kai-Uwe Behrmann <web@tiscali.de>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de
  *
  *  $Id$
  *
@@ -32,21 +32,51 @@ class CenterCanvas;
 class ImgCenter: public wxDialog
 {
  public:
-    ImgCenter(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
-    virtual ~ImgCenter(void) ;
+    ImgCenter(wxWindow *parent);
+    virtual ~ImgCenter(void);
 
     /** select the preview image */
-    void ChangeView ( wxImage & s_img );
+    void SetImage(wxImage & img);
+
+    void SetParameters (const vigra::Rect2D & crop, bool circle, const vigra::Point2D & p, bool useCenter);
+
+    void CropChanged(vigra::Rect2D & crop);
+
+    vigra::Rect2D & getCrop();
+    bool getCenterOnDE();
+
+protected:
+
+    /** update text */
+    void UpdateDisplay();
+
+    void OnClose ( wxCloseEvent & e );
+
+    // reset crop area. 
+    void OnResetButton(wxCommandEvent & e);
+
+    void OnSetLeft(wxCommandEvent & e);
+    void OnSetRight(wxCommandEvent & e);
+    void OnSetTop(wxCommandEvent & e);
+    void OnSetBottom(wxCommandEvent & e);
+    void OnAutoCenter(wxCommandEvent & e);
+
+    // ensure that the crop roi is centered
+    void CenterCrop();
+
+    wxTextCtrl * m_left_textctrl;
+    wxTextCtrl * m_right_textctrl;
+    wxTextCtrl * m_top_textctrl;
+    wxTextCtrl * m_bottom_textctrl;
+    wxCheckBox * m_autocenter_cb;
+
 
  private:
-    PT::Panorama &pano;
+    CenterCanvas *m_Canvas;
 
-    void FitParent ( wxSizeEvent & e );
-
-    void OnApply ( wxCommandEvent & e );
-    void OnClose ( wxCommandEvent & e );
-
-    CenterCanvas *c_canvas;
+    vigra::Rect2D m_roi;
+    bool m_circle;
+    vigra::Point2D m_center;
 
     DECLARE_EVENT_TABLE()
 };
@@ -57,48 +87,67 @@ class ImgCenter: public wxDialog
  */
 class CenterCanvas: public wxPanel
 {
- public:
-    CenterCanvas(wxWindow *parent, const wxPoint& pos, const wxSize& size, PT::Panorama& pano, const PT::UIntSet & i );
+public:
+    CenterCanvas(wxWindow *parent, ImgCenter * listener);
     virtual ~CenterCanvas(void) ;
 
-    /** Here we select the preview image */
-    void ChangeView ( wxImage & s_img );
+    /** set image and crop parameters */
+    void SetImage(wxImage & img);
+    void SetParameters (const vigra::Rect2D & crop, bool circle, const vigra::Point2D & center, bool centered);
 
-    /** change the pano variables */
-    void ChangePano ( void );
+    /** get the user selected crop area */
+    vigra::Rect2D & getCrop()
+    {
+        return m_roi;
+    }
 
- private:
+protected:
+    /** draw the view into the offscreen buffer */
+    void DrawView();
+    void UpdateCropCircle();
+
+    wxCursor * m_cursor_no_sel;
+    wxCursor * m_cursor_circ_drag;
+    wxCursor * m_cursor_move_crop;
+    wxCursor * m_cursor_drag_vert;
+    wxCursor * m_cursor_drag_horiz;
+
+private:
     void Resize ( wxSizeEvent & e );
     void OnPaint(wxPaintEvent & dc);
     void OnMouse ( wxMouseEvent & event );
 
-    /** the model */
-    PT::Panorama &pano;
-
     // the image to adjust ( full scale )
     wxImage img;
     // the scaled image (clear/dirty)
-    wxBitmap c_img;
-    wxBitmap dirty_img;
-    // first mouse click
-    int first_x;
-    int first_y;
-    bool first_is_set;
-    // second mouse click
-    int second_x;
-    int second_y;
-    bool second_is_set;
-    // zoom of view
-    float zoom;
-    // the values of the panorama
-    float pt_d;
-    float pt_e;
-    // mouse coordinates
-    int old_m_x;
-    int old_m_y;
+    wxBitmap m_scaled_img;
+    // image with center cross and circle
+    wxBitmap m_display_img;
 
-//    unsigned int *imgNr;
-    PT::UIntSet imgNr;
+    ImgCenter * m_listener;
+    
+    enum PointState { NO_SEL, RECT_DRAGGING, CIRC_DRAGGING, CROP_SELECTED, CROP_MOVE,
+                      RECT_LEFT_DRAG, RECT_RIGHT_DRAG, RECT_TOP_DRAG, RECT_BOTTOM_DRAG};
+
+    void ChangeMode(PointState m);
+    
+    wxPoint m_moveAnchor;
+
+    PointState m_state;
+    // the selected rectangle
+    vigra::Rect2D m_roi;
+
+    // circular crop
+    bool m_circle;
+    vigra::Point2D m_circ_first_point;
+    vigra::Point2D m_circ_second_point;
+
+    // center
+    vigra::Point2D m_center;
+    bool m_centered;
+
+    // scale factor
+    float m_scale;
 
     DECLARE_EVENT_TABLE()
 };

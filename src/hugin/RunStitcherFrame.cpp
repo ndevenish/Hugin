@@ -52,6 +52,7 @@ END_EVENT_TABLE()
 RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
                                    const Panorama * pano,
                                    const PanoramaOptions & options,
+                                   const PT::UIntSet & imgs,
                                    bool editScript)
     : m_pid(-1),
       m_in(0),
@@ -100,7 +101,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt"));
 
     stringstream script_stream;
-    m_pano->printStitcherScript(script_stream, options);
+    m_pano->printStitcherScript(script_stream, options, imgs);
     std::string script(script_stream.str());
     if (editScript) {
         // open a text dialog with an editor inside

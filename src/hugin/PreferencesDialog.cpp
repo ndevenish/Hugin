@@ -491,6 +491,10 @@ void PreferencesDialog::UpdateDisplayData()
     // show druid
     MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
 
+    // use preview images as active images
+    t = cfg->Read(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES) == 1;
+    MY_BOOL_VAL("prefs_misc_UseSelectedImages", t);
+
     /////
     /// AUTOPANO
 
@@ -516,6 +520,8 @@ void PreferencesDialog::UpdateDisplayData()
                                                      wxT(HUGIN_ENBLEND_EXE)));
     MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/EnblendArgs"),
                                                       wxT(HUGIN_ENBLEND_ARGS)));
+    t = cfg->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) == 1;
+    MY_BOOL_VAL("prefs_enblend_DeleteRemapped", t);
     /////
 	/// Display Panotools version if we can
 	if (GetPanoVersion())
@@ -575,7 +581,8 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
     // druid
     cfg->Write(wxT("/PreviewFrame/showDruid"), MY_G_BOOL_VAL("prefs_misc_showDruid"));
-
+    // use preview images as active images
+    cfg->Write(wxT("/General/UseOnlySelectedImages"), MY_G_BOOL_VAL("prefs_misc_UseSelectedImages"));
 
     /////
     /// AUTOPANO
@@ -592,5 +599,6 @@ void PreferencesDialog::UpdateConfigData()
     /// ENBLEND
     cfg->Write(wxT("/Enblend/EnblendExe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
     cfg->Write(wxT("/Enblend/EnblendArgs"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
+    cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), MY_G_BOOL_VAL("prefs_enblend_DeleteRemapped"));
 
 }

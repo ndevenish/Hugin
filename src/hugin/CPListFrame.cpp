@@ -445,7 +445,7 @@ void CPListFrame::updateList()
     const CPVector & cps = m_pano.getCtrlPoints();
 
     int sortCol = m_sortCol;
-    int sortAscend = m_sortAscend;
+    bool sortAscend = m_sortAscend;
 
     // sort by number, else the updating will shuffle the selected points..
     // it seems that the list is traversed in order it is visible on screen
@@ -609,7 +609,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
 
     m_list->Freeze();
     int sortCol = m_sortCol;
-    int sortAscend = m_sortAscend;
+    bool sortAscend = m_sortAscend;
 
     // sort by number, else the selection won't work..
     // it seems that the list is traversed in a different order

@@ -238,6 +238,16 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     PanoramaOptions opts = options;
     DEBUG_DEBUG("Stitching to " << opts.outfile);
 
+	UIntSet imgs;
+	if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
+		                          HUGIN_USE_SELECTED_IMAGES))
+	{
+		// use only selected images.
+		imgs = pano.getActiveImages();
+	} else {
+        fill_set(imgs, 0, pano.getNrOfImages()-1);
+	}
+
     bool enblend = m_EnblendCheckBox->IsChecked();
     try {
         if (enblend) {
@@ -249,7 +259,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
-                           pdisp, opts.outfile);
+                           pdisp, opts.outfile, imgs);
+    } catch (std::exception & e) {
+        DEBUG_FATAL(_("error during stitching:") << e.what());
+        return;
+    }
 
 	wxString outpath;
 	wxString outname;
@@ -303,12 +317,12 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             quoted = utils::wxQuoteFilename(quoted);
             args.append(quoted);
 
-            unsigned int nImg = pano.getNrOfImages();
-            for(unsigned int i = 0; i < nImg; i++)
+            unsigned int nImg = imgs.size();
+            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) 
             {
-                quoted = output + wxString::Format(wxT("%04d.tif"), i);
+                quoted = output + wxString::Format(wxT("%04d.tif"), *it);
                 quoted = utils::wxQuoteFilename(quoted);
-		args.append(wxT(" "));
+                args.append(wxT(" "));
                 args.append(quoted);
             }
 
@@ -373,9 +387,13 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 }
             }
         }
-    } catch (std::exception & e) {
-        DEBUG_FATAL(_("error during stitching:") << e.what());
-        return;
+    if (wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) {
+        // delete remapped tiff files
+        for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) 
+        {
+            wxString f = output + wxString::Format(wxT("%04d.tif"), *it);
+            wxRemoveFile(f);
+        }
     }
 }
 

@@ -128,6 +128,26 @@ T sqr_dist(InputIterator1 first1, InputIterator1 last1,
     return res;
 }
 
+/** calculate the bounding box of a circle that goes through
+ *  both points. the center of the circle is halfway between
+ *  the two points
+ */
+template <class POINT>
+vigra::Rect2D calcCircleROIFromPoints(const POINT& p1, const POINT & p2)
+{
+    double dx = p2.x - p1.x;
+    double dy = p2.y - p1.y;
+    double r = sqrt(dx*dx + dy*dy) / 2.0;
+    double mx = p1.x + dx/2;
+    double my = p1.y + dy/2;
+    
+    vigra::Rect2D rect;
+    rect.setUpperLeft(vigra::Point2D(roundi(mx-r), roundi(my -r)));
+    rect.setLowerRight(vigra::Point2D(roundi(mx+r), roundi(my+r)));
+    return rect;
+}
+
+
 
 } // namespace
 

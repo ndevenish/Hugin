@@ -483,7 +483,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str());
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
-        pano.printOptimizerScript(script, optvec, pano.getOptions(), path);
+        PT::UIntSet all;
+        fill_set(all, 0, pano.getNrOfImages()-1);
+        pano.printOptimizerScript(script, optvec, pano.getOptions(), all, path);
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
@@ -518,8 +520,10 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
         wxString fname = dlg.GetPath();
         // the project file is just a PTStitcher script...
         wxFileName scriptName = fname;
+        PT::UIntSet all;
+        fill_set(all, 0, pano.getNrOfImages()-1);
         std::ofstream script(scriptName.GetFullPath().mb_str());
-        pano.printStitcherScript(script, pano.getOptions());
+        pano.printStitcherScript(script, pano.getOptions(), all);
         script.close();
     }
 

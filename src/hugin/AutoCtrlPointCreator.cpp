@@ -176,6 +176,14 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString autopanoArgs = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/Args"),
                                                       wxT(HUGIN_APSIFT_ARGS));
 
+#ifdef __WXMSW__
+	// remember cwd.
+	wxString cwd = wxGetCwd();
+	wxString apDir = wxPathOnly(autopanoExe);
+	if (apDir.Length() > 0) {
+		wxSetWorkingDirectory(apDir);
+	}
+#endif
 
     wxString ptofile(wxT("autopano_result_tempfile.pto"));
     autopanoArgs.Replace(wxT("%o"), ptofile);
@@ -301,6 +309,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
     // read and update control points
     readUpdatedControlPoints((const char *)ptofile.mb_str(), pano);
+
+#ifdef __WXMSW__
+	// set old cwd.
+	wxSetWorkingDirectory(cwd);
+#endif
+
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

@@ -46,6 +46,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/MyProgressDialog.h"
+#include "hugin/config_defaults.h"
 
 using namespace PT;
 using namespace std;
@@ -424,6 +425,7 @@ void PTStitcherPanel::Stitch(const Panorama & pano,
     {
         opts.outfile = stripExtension(opts.outfile);
     }
+    
 #if __unix__ || WIN32
     if ( opts.outputFormat == PanoramaOptions::QTVR ) {
         wxMessageBox(_("PTStitcher.exe does not support QTVR output on Windows and Linux"), _("PTStitcher note"));
@@ -431,7 +433,17 @@ void PTStitcherPanel::Stitch(const Panorama & pano,
     }
 
 #endif
-    new RunStitcherFrame(this, &pano, opts, m_editScriptCB->IsChecked());
+	UIntSet imgs;
+	if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
+		                          HUGIN_USE_SELECTED_IMAGES))
+	{
+		// use only selected images.
+		imgs = pano.getActiveImages();
+	} else {
+        fill_set(imgs, 0, pano.getNrOfImages()-1);
+	}
+
+    new RunStitcherFrame(this, &pano, opts, imgs, m_editScriptCB->IsChecked());
 }
 
 void PTStitcherPanel::OnSetQuality(wxSpinEvent & e)

@@ -44,6 +44,7 @@ public:
     RunStitcherFrame(wxWindow *parent,
                      const PT::Panorama * pano,
                      const PT::PanoramaOptions & options,
+                     const PT::UIntSet & imgs,
                      bool editScript=false
                      );
 

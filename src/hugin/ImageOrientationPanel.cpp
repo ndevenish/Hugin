@@ -105,7 +105,7 @@ void ImageOrientationPanel::updateTransforms()
     m_transform.createTransform(Diff2D(img.getWidth(), img.getHeight()),
                                 m_vars, pano.getLens(img.getLensNr()).getProjection(),
                                 Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
-                                360);
+                                360, Diff2D(img.getWidth(), img.getHeight()));
     VariableMap nullvars = m_vars;
     double roll = map_get(nullvars,"r").getValue();
     map_get(nullvars,"r").setValue(-roll);
@@ -115,7 +115,7 @@ void ImageOrientationPanel::updateTransforms()
     m_invTransform.createInvTransform(Diff2D(img.getWidth(), img.getHeight()),
                                       nullvars, pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
-                                      360);
+                                      360,Diff2D(img.getWidth(), img.getHeight()));
 
     // update image transforms
     m_tCartToImg = CartToImg(img.getWidth(), img.getHeight());

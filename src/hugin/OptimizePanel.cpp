@@ -37,6 +37,7 @@
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/MainFrame.h"
 #include "hugin/MyProgressDialog.h"
+#include "hugin/config_defaults.h"
 
 using namespace std;
 using namespace PT;
@@ -130,7 +131,20 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
 
     OptimizeVector optvars = getOptimizeVector();
     PanoramaOptions opts = m_pano->getOptions();
-    runOptimizer(optvars, opts);
+
+	UIntSet imgs;
+	if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
+		                          HUGIN_USE_SELECTED_IMAGES))
+	{
+		// use only selected images.
+		imgs = m_pano->getActiveImages();
+	} else {
+		for (unsigned int i = 0 ; i < m_pano->getNrOfImages(); i++) {
+			imgs.insert(i);
+		}
+	}
+
+    runOptimizer(optvars, opts, imgs);
 }
 
 
@@ -138,7 +152,7 @@ void OptimizePanel::SetCheckMark(wxCheckListBox * l, int check)
 {
     int n = l->GetCount();
     for (int i=0; i < n; i++) {
-        l->Check(i, check);
+        l->Check(i, check != 0);
     }
 }
 
@@ -401,13 +415,16 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
     }
 }
 
-void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaOptions & options)
+void OptimizePanel::runOptimizer(const OptimizeVector & optvars, 
+								 const PanoramaOptions & options,
+								 const UIntSet & imgs)
 {
     DEBUG_TRACE("");
     if (m_pano->getNrOfImages() == 0) {
         // nothing to optimize
         return;
     }
+
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode = m_mode_cb->GetSelection();
@@ -424,10 +441,12 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars, const PanoramaO
             );
         // run the usual optimizer afterwards.
         bool edit = m_edit_cb->IsChecked();
-        new RunOptimizerFrame(this, m_pano, options, optvars, edit);
+        PT::UIntSet all;
+        fill_set(all, 0, m_pano->getNrOfImages()-1);
+        new RunOptimizerFrame(this, m_pano, options, optvars, all, edit);
     } else {
         bool edit = m_edit_cb->IsChecked();
-        new RunOptimizerFrame(this, m_pano, options, optvars, edit);
+        new RunOptimizerFrame(this, m_pano, options, optvars, imgs, edit);
     }
 }
 
@@ -558,6 +577,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
             m_yaw_list->Check(refImg,false);
             m_pitch_list->Check(refImg, (nHCP+nVCP > 1));
             m_roll_list->Check(refImg, (nHCP+nVCP >= 1));
+			break;
         }
 
 	// disable all manual settings

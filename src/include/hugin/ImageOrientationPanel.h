@@ -25,6 +25,7 @@
 #define _IMAGE_ORIENTATION_PANEL_H
 
 #include "PT/Transforms.h"
+#include "PT/PanoToolsInterface.h"
 #include "hugin/ImageProcessing.h"
 
 /** Select image orientation
@@ -80,8 +81,8 @@ private:
     double m_scaleFactor;
     PT::VariableMap m_vars;
 
-    PT::SpaceTransform m_transform;
-    PT::SpaceTransform m_invTransform;
+    PTools::Transform m_transform;
+    PTools::Transform m_invTransform;
 
     PT::TRANSFORM::CartToImg m_tCartToImg;
     PT::TRANSFORM::ImgToCart m_tImgToCart;

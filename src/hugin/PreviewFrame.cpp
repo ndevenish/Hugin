@@ -275,6 +275,9 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
             m_displayedImgs.erase(id);
         }
         m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+    	GlobalCmdHist::getInstance().addCommand(
+            new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+        );
     } else {
         DEBUG_ERROR("invalid Togglebutton ID");
     }
@@ -351,6 +354,9 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // better than all that stupid dialogunit stuff, that
                 // breaks on wxWin 2.5
                 but->SetSize(20, sz.GetHeight());
+                wxSize szm = sz;
+                szm.SetWidth(20);
+                but->SetMaxSize(szm);
                 but->SetValue(true);
 				m_ButtonSizer->Add(but,
                                          0,

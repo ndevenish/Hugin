@@ -257,7 +257,13 @@ void LensPanel::UpdateLensDisplay ()
 
 void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & imgNr)
 {
-
+    // rebuild lens selection, in case a selected lens has been removed.
+    m_selectedLenses.clear();
+    for (UIntSet::iterator it = m_selectedImages.begin();
+         it != m_selectedImages.end(); it++)
+    {
+        m_selectedLenses.insert(pano.getImage(*it).getLensNr());
+    }
     // we need to do something if the image we are editing has changed.
     bool update=false;
     UIntSet intersection;
@@ -449,16 +455,63 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
 void LensPanel::SetCenter ( wxCommandEvent & e )
 {
 //    wxLogError(_("temporarily disabled"));
-    if (m_selectedImages.size() == 1) {
-        ImgCenter *dlg = new ImgCenter((wxWindow*)this, wxDefaultPosition, wxDefaultSize, pano, m_selectedImages);
-
+    if (m_selectedImages.size() > 0) {
+        ImgCenter dlg(this);
+        int imgNr = *(m_selectedImages.begin());
+        const PanoImage & img = pano.getImage(imgNr);
         // show an image preview
-        wxImage * img = ImageCache::getInstance().getImage(
-            pano.getImage(*(m_selectedImages.begin())).getFilename());
-        dlg->ChangeView(*img);
-        dlg->CentreOnParent ();
-        dlg->Refresh();
-        dlg->Show(true);
+        wxImage * wximg = ImageCache::getInstance().getImage(
+            img.getFilename());
+        bool circular_crop = pano.getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
+        
+        ImageOptions opts = img.getOptions();
+        dlg.SetImage(*wximg);
+        VariableMap vars = pano.getImageVariables(imgNr);
+        int dx = roundi(map_get(vars,"d").getValue());
+        int dy = roundi(map_get(vars,"e").getValue());
+        vigra::Point2D center(wximg->GetWidth()/2 + dx, wximg->GetHeight()/2 + dy);
+
+        dlg.SetParameters(opts.cropRect, circular_crop, center, opts.autoCenterCrop);
+        dlg.CentreOnParent ();
+//        dlg->Refresh();
+        if ( dlg.ShowModal() == wxID_OK ) {
+            // get crop parameters
+            opts.cropRect = dlg.getCrop();
+            if (! opts.cropRect.isEmpty()) {
+                opts.docrop = true;
+            } else {
+                opts.docrop = false;
+            }
+            if (dlg.getCenterOnDE()) {
+                opts.autoCenterCrop = true;
+            } else {
+                opts.autoCenterCrop = false;
+            }
+
+            // set image options.
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::SetImageOptionsCmd(pano, opts, m_selectedImages)
+                );
+
+            // allow setting of the d,e if automatic centering on d and e is switched off.
+            if (wxConfigBase::Get()->Read(wxT("LensPanel/CropSetsCenter"), HUGIN_CROP_SETS_CENTER ) && ! opts.autoCenterCrop)
+            {
+                double centerx = opts.cropRect.left() + opts.cropRect.width() / 2.0;
+                double centery = opts.cropRect.top() + opts.cropRect.height() / 2.0;
+
+                VariableMapVector vars(m_selectedImages.size());
+                UIntSet::iterator iNrIt = m_selectedImages.begin();
+                for (VariableMapVector::iterator it = vars.begin(); it != vars.end(); ++it)
+                {
+                    const PanoImage & pimg = pano.getImage(*iNrIt);
+                    (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
+                    (*it).insert(make_pair(std::string("e"), Variable("e", centerx - pimg.getHeight()/2.0 )));
+                }    
+                GlobalCmdHist::getInstance().addCommand(
+                    new PT::UpdateImagesVariablesCmd(pano, m_selectedImages, vars)
+                    );
+            }
+        }
     }
     DEBUG_TRACE ("")
 }
@@ -529,6 +582,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_center", wxButton)->Enable();
         }
 
         if (m_selectedImages.size() == 1) {
@@ -536,7 +590,6 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             // update values
             unsigned int img = *(m_selectedImages.begin());
             DEBUG_DEBUG("updating LensPanel with Image " << img);
-            XRCCTRL(*this, "lens_button_center", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_load", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Enable();
             UpdateLensDisplay();
@@ -560,7 +613,6 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_inherit_g", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->SetValue(false);
 
-            XRCCTRL(*this, "lens_button_center", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
         }
@@ -694,28 +746,28 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 
                 integer = 1;
                 cfg.Read(wxT("Lens/hfov_link"), &integer);
-                map_get(lens.variables, "v").setLinked(integer);
+                map_get(lens.variables, "v").setLinked(integer != 0);
                 integer = 1;
                 cfg.Read(wxT("Lens/a_link"), &integer);
-                map_get(lens.variables, "a").setLinked(integer);
+                map_get(lens.variables, "a").setLinked(integer != 0);
                 integer = 1;
                 cfg.Read(wxT("Lens/b_link"), &integer);
-                map_get(lens.variables, "b").setLinked(integer);
+                map_get(lens.variables, "b").setLinked(integer != 0);
                 integer = 1;
                 cfg.Read(wxT("Lens/c_link"), &integer);
-                map_get(lens.variables, "c").setLinked(integer);
+                map_get(lens.variables, "c").setLinked(integer != 0);
                 integer = 1;
                 cfg.Read(wxT("Lens/d_link"), &integer);
-                map_get(lens.variables, "d").setLinked(integer);
+                map_get(lens.variables, "d").setLinked(integer != 0);
                 integer = 1;
                 cfg.Read(wxT("Lens/e_link"), &integer);
-                map_get(lens.variables, "e").setLinked(integer);
+                map_get(lens.variables, "e").setLinked(integer != 0);
                 integer = 0;
                 cfg.Read(wxT("Lens/t_link"), &integer);
-                map_get(lens.variables, "t").setLinked(integer);
+                map_get(lens.variables, "t").setLinked(integer != 0);
                 integer = 0;
                 cfg.Read(wxT("Lens/g_link"), &integer);
-                map_get(lens.variables, "g").setLinked(integer);
+                map_get(lens.variables, "g").setLinked(integer != 0);
             }
             // reset locale
             setlocale(LC_NUMERIC,old_locale);

@@ -197,9 +197,9 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     wxConfigBase *config = wxConfigBase::Get();
 
-    m_autoAddCB->SetValue(config->Read(wxT("/CPEditorPanel/autoAdd"),0l));
-    m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l));
-    m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l));
+    m_autoAddCB->SetValue(config->Read(wxT("/CPEditorPanel/autoAdd"),0l) != 0 );
+    m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l) != 0 );
+    m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l) != 0 );
 
     // observe the panorama
     m_pano->addObserver(this);
@@ -607,6 +607,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                 } else {
                     // add point
                     otherImg->setNewPoint(corrPoint.maxpos);
+                    changeState(BOTH_POINTS_SELECTED);
                     CreateNewPoint();
                 }
             }

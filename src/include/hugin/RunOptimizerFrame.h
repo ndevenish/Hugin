@@ -41,6 +41,7 @@ public:
                       PT::Panorama * pano,
                       const PT::PanoramaOptions & options,
                       const PT::OptimizeVector & optvars,
+                      const PT::UIntSet & imgs,
                       bool edit);
 
     ~RunOptimizerFrame();
@@ -71,6 +72,7 @@ private:
 
     PT::VariableMapVector m_vars;
     PT::CPVector m_cps;
+    PT::UIntSet m_imgSet;
 
     DECLARE_EVENT_TABLE()
 };

@@ -64,6 +64,15 @@ inline bool set_contains(const _Container & c, const typename _Container::key_ty
     return c.find(key) != c.end();
 }
 
+template<typename _Container>
+inline void fill_set(_Container & c, typename _Container::key_type begin,
+					 typename _Container::key_type end)
+{
+	for (typename _Container::key_type i=begin; i <= end; i++) {
+		c.insert(i);
+	}
+}
+
 
 template<typename Map>
 //const Map::data_type & map_get(const Map &m, const Map::key_type & key)

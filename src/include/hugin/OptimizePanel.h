@@ -84,7 +84,9 @@ protected:
 
 
 
-    void runOptimizer(const PT::OptimizeVector & optvars, const PT::PanoramaOptions & options);
+    void runOptimizer(const PT::OptimizeVector & optvars,
+		              const PT::PanoramaOptions & options, 
+                      const PT::UIntSet & img);
 
     wxCheckListBox * m_yaw_list;
     wxCheckListBox * m_pitch_list;

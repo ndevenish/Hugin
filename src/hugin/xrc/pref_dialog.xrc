@@ -468,6 +468,13 @@ requires restarting hugin</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+
+                <object class="sizeritem">
+                   <object class="wxCheckBox" name="prefs_misc_UseSelectedImages">
+                     <label>Optimize and stitch only images selected in preview window</label>
+                   </object>
+                 </object>
+
               </object>
             </object>
           </object>
@@ -665,6 +672,13 @@ requires restarting hugin</label>
                       <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                       <border>10</border>
                     </object>
+
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_enblend_DeleteRemapped">
+                        <label>Delete remapped tiff files</label>
+                      </object>
+                    </object>
+
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>

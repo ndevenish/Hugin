@@ -47,6 +47,9 @@
 #define HUGIN_CAPTURE_TIMESPAN                60l
 
 #define HUGIN_PREVIEW_SHOW_DRUID              1l
+#define HUGIN_USE_SELECTED_IMAGES             0l
+#define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   1l
+#define HUGIN_CROP_SETS_CENTER                1l
 
 // GUI defaults
 #define HUGIN_LANGUAGE                        wxLANGUAGE_DEFAULT

@@ -54,11 +54,13 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
                                      Panorama * pano,
                                      const PanoramaOptions & options,
                                      const OptimizeVector & optvars,
+                                     const UIntSet & imgs,
                                      bool edit)
     : m_pid(-1),
       m_in(0),
       m_pano(pano),
-      m_timer(this)
+      m_timer(this),
+      m_imgSet(imgs)
 {
     DEBUG_TRACE("");
     bool ok = wxXmlResource::Get()->LoadFrame(this, parent, wxT("run_optimizer_frame"));
@@ -81,7 +83,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     assert(m_optimizer_result_text);
 
     stringstream script_stream;
-    m_pano->printOptimizerScript(script_stream, optvars, options);
+    m_pano->printOptimizerScript(script_stream, optvars, options, imgs);
     std::string script(script_stream.str());
     if (edit) {
         // open a text dialog with an editor inside
@@ -296,7 +298,7 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     m_vars = m_pano->getVariables();
     m_cps = m_pano->getCtrlPoints();
     // update them
-    m_pano->readOptimizerOutput(m_vars,m_cps);
+    m_pano->readOptimizerOutput(m_imgSet, m_vars, m_cps);
 
     // calculate average cp distance
     double mean_error = 0;
