@@ -63,6 +63,9 @@ AM_GNU_GETTEXT([external])
 dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
+dnl AC_PROG_LIBTOOL is going to check for this anyway 
+dnl so keep it to a minimum
+AC_PROG_F77(g77)
 AC_PROG_LIBTOOL
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
@@ -73,33 +76,37 @@ AM_OPTIONS_WXCONFIG
 
 AX_CHECK_ZLIB
 if test "x$have_zlib" != xyes; then
-    AC_MSG_WARN([
+    AC_MSG_ERROR([
 	the zlib library must be installed on your system
- 	but configure could not find it.
+ 	but configure could not find it. Use --with-zlib to
+	specify the location of the zlib library
     ])
 fi
 
 AX_CHECK_PNG
 if test "x$have_png" != xyes; then
-    AC_MSG_WARN([
+    AC_MSG_ERROR([
 	the png library must be installed on your system
- 	but configure could not find it.
+ 	but configure could not find it. Use --with-png to
+	specify the location of the PNG library
     ])
 fi
 
 AX_CHECK_JPEG
 if test "x$have_jpeg" != xyes; then
-    AC_MSG_WARN([
+    AC_MSG_ERROR([
 	the jpeg library must be installed on your system
- 	but configure could not find it.
+ 	but configure could not find it. Use --with-jpeg to
+	specify the location of the JPEG library
     ])
 fi
 
 AX_CHECK_TIFF
 if test "x$have_tiff" != xyes; then
-    AC_MSG_WARN([
+    AC_MSG_ERROR([
 	the tiff library must be installed on your system
- 	but configure could not find it.
+ 	but configure could not find it. Use --with-tiff to
+	specify the location of the TIFF library
     ])
 fi
 
@@ -107,14 +114,22 @@ AX_CHECK_PANO
 if test "x$have_pano" != xyes; then
     AC_MSG_ERROR([
 	the panorama tools library must be installed on your system
- 	but configure could not find it.
+ 	but configure could not find it. Use --with-pano to
+	specify the location of the panotools library
     ])
 fi
 
 AC_PATH_FFTW
 
-RS_BOOST([1.30.0],[],[AC_MSG_NOTICE([Package requires the Boost C++ libraries only for test programs])])
-RS_BOOST_UNIT_TEST_FRAMEWORK
+AX_CHECK_BOOST_TEST
+if test "x$have_boost" != xyes; then
+    AC_MSG_ERROR([
+	the boost headers must be installed on your system
+ 	but configure could not find it. Use --with-boost to
+	specify the location of the boost library and 
+	--with-boost-version to specify your version
+    ])
+fi
 
 AM_PATH_WXCONFIG(2.4.2, wxWin=1)
 if test "x$wxWin" != x1; then
@@ -140,36 +155,6 @@ else
     GTK_DEFS=""
   fi
 fi
-
-dnl Checks for header files.
-dnl AC_HEADER_DIRENT
-dnl AC_HEADER_STDC
-dnl AC_HEADER_SYS_WAIT
-dnl AC_CHECK_HEADERS([float.h limits.h locale.h memory.h paths.h stdlib.h string.h sys/time.h unistd.h utime.h])
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-dnl AC_HEADER_STDBOOL
-dnl AC_C_CONST
-dnl AC_C_INLINE
-dnl AC_C_RESTRICT
-dnl AC_TYPE_SIZE_T
-dnl AC_HEADER_TIME
-dnl AC_STRUCT_TM
-dnl AC_CHECK_TYPES([ptrdiff_t])
-
-dnl Checks for library functions.
-dnl AC_FUNC_CLOSEDIR_VOID
-dnl dnl AC_FUNC_ERROR_AT_LINE
-dnl AC_FUNC_FORK
-dnl AC_FUNC_MALLOC
-dnl AC_FUNC_MEMCMP
-dnl AC_FUNC_MKTIME
-dnl AC_FUNC_SELECT_ARGTYPES
-dnl AC_FUNC_SETVBUF_REVERSED
-dnl AC_FUNC_STRFTIME
-dnl AC_FUNC_STRTOD
-dnl AC_FUNC_VPRINTF
-dnl AC_CHECK_FUNCS([dup2 floor gettimeofday localtime_r memmove memset pow select setlocale sqrt])
 
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
 
@@ -246,13 +231,15 @@ echo "Host system type : $host"
 echo ""
 echo "                  Option                        Value"
 echo "-------------------------------------------------------------------------"
-echo "Shared libraries  --enable-shared=$enable_shared		$libtool_build_shared_libs"
-echo "Static libraries  --enable-static=$enable_static		$libtool_build_static_libs"
-echo "JPEG              --with-jpeg=$with_jpeg		have_jpeg = $have_jpeg"
-echo "PNG               --with-png=$with_png		have_png  = $have_png"
-echo "TIFF              --with-tiff=$with_tiff		have_tiff = $have_tiff"
-echo "ZLIB              --with-zlib=$with_zlib		have_zlib = $have_zlib"
-echo "PANO              --with-pano=$with_pano		have_pano = $have_pano"
+echo "Shared libraries --enable-shared=$enable_shared		$libtool_build_shared_libs"
+echo "Static libraries --enable-static=$enable_static		$libtool_build_static_libs"
+echo "JPEG             --with-jpeg=$with_jpeg		have_jpeg  = $have_jpeg"
+echo "PNG              --with-png=$with_png		have_png   = $have_png"
+echo "TIFF             --with-tiff=$with_tiff		have_tiff  = $have_tiff"
+echo "ZLIB             --with-zlib=$with_zlib		have_zlib  = $have_zlib"
+echo "PANO             --with-pano=$with_pano		have_pano  = $have_pano"
+echo "BOOST            --with-boost=$with_boost		have_boost = $have_boost"
+echo "BOOST            --with-boost-version=$with_boost_version"
 echo ""
 echo "Options used to compile and link:"
 echo "  PREFIX         = $prefix"
@@ -281,8 +268,10 @@ echo "  GTK_CFLAGS     = $GTK_CFLAGS"
 echo "  GTK_LIBS       = $GTK_LIBS"
 echo "  FFTW_INCLUDES  = $FFTW_INCLUDES"
 echo "  FFTW_LDFLAGS   = $FFTW_LDFLAGS"
-echo "  BOOST_CPPFLAGS = $BOOST_CPPFLAGS"
+echo "  BOOST_VERSION  = $BOOST_VERSION"
+echo "  BOOST_CFLAGS   = $BOOST_CFLAGS"
 echo "  BOOST_LIBS     = $BOOST_LIBS"
+echo "  BOOST_TEST_LIB = $BOOST_TEST_LIB"
 echo "  BUILD          = $HSYS"
 echo ""
 
