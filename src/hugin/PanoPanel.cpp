@@ -234,22 +234,21 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         );
 
     
-    wxString viewer ( "panoviewer " );
+/*    wxString viewer ( "panoviewer " );
     viewer += opt->outfile.c_str();
 
     DEBUG_INFO ( "command = " << viewer )
-    if ( frame->viewer_run == false ) {
-      wxExecute( viewer, FALSE /* sync */);
+    if ( server->Connected() == false ) {
+      wxExecute( viewer, FALSE); // sync 
 //      wxSleep (2);
-      frame->viewer_run = true;
-      DEBUG_INFO ( "viewer_run = " << frame->viewer_run )
+      DEBUG_INFO ( "server->Connected() = " << server->Connected() )
     };
 
-    DEBUG_INFO ( "viewer_run = " << frame->viewer_run )
+    DEBUG_INFO ( "server->Connected() = " << server->Connected() )
     // Hopefully panoViewer has stared; send him the name of our image
-    server->SendFilename( (wxString) opt->outfile.c_str() );
-
-/*    if ( !preview_dlg ) {
+*/    server->SendFilename( (wxString) opt->outfile.c_str() );
+/*
+    if ( !preview_dlg ) {
         wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
     DEBUG_INFO ( "" )
 //        preview_dlg = XRCCTRL(*this, "pano_dlg_preview", wxDialog);

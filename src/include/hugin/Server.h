@@ -35,7 +35,8 @@
 #endif
 
 // For compilers that support precompilation, includes "wx/wx.h".
-#include "wx/wxprec.h"
+#include <wx/wxprec.h>
+#include <wx/timer.h>
 
 #ifdef __BORLANDC__
 #  pragma hdrstop
@@ -66,8 +67,10 @@ public:
   // event handlers (these functions should _not_ be virtual)
   void OnServerEvent(wxSocketEvent& event);
   void OnSocketEvent(wxSocketEvent& event);
+  void OnServerTimer( wxTimerEvent& event );
 
-  void SendFilename(wxString filename);
+  void SendFilename( wxString filename );
+  bool Connected( void );
 
   // convenience functions
   void UpdateStatusBar();
@@ -75,9 +78,13 @@ public:
 private:
   wxSocketBase   *m_sock;
   wxSocketServer *m_server;
+  bool            Start (void);
+  int             port;
   bool            m_busy;
   int             m_numClients;
-  bool            connected;
+  wxTimer         server_timer;
+  // the image name yet to send to panoviewer
+  wxString        send;
 
   // any class wishing to process wxWindows events must use this macro
   DECLARE_EVENT_TABLE()
@@ -91,8 +98,9 @@ private:
 enum
 {
   // id for sockets
-  SERVER_ID,
-  SOCKET_ID
+  SERVER_ID = 1000,
+  SOCKET_ID,
+  TIMER_ID
 };
 
 #endif // _SERVER_H

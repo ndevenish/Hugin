@@ -17,7 +17,7 @@
 // event tables and other macros for wxWindows
 // --------------------------------------------------------------------------
 
-BEGIN_EVENT_TABLE(Client, wxFrame)
+BEGIN_EVENT_TABLE(Client, wxWindow)
   EVT_SOCKET(SOCKET_ID,     Client::OnSocketEvent)
 END_EVENT_TABLE()
 
@@ -25,32 +25,53 @@ END_EVENT_TABLE()
 // implementation
 // ==========================================================================
 
+Client * m_client;
+
 // --------------------------------------------------------------------------
 // the application class
 // --------------------------------------------------------------------------
 
 // --------------------------------------------------------------------------
-// frame
+// classes
 // --------------------------------------------------------------------------
 
 // constructor
 Client::Client() 
 {
   DEBUG_INFO ( "" )
-  connected = FALSE;
+    // start with Start(port)
+  DEBUG_INFO ( "" )
+}
 
+Client::~Client()
+{
+  DEBUG_INFO ( "" )
+  // No delayed deletion here, as the frame is dying anyway
+/*  if ( m_sock->Ok() ) {
+    DEBUG_INFO ( "" )
+    m_sock->Destroy();
+    delete m_sock;
+  }*/
+  DEBUG_INFO ( "" )
+}
+
+bool Client::Start(int port)
+{
+  DEBUG_INFO ( _("start") )
+  m_busy = TRUE;
+  DEBUG_INFO ( "" )
   // Create the socket
   m_sock = new wxSocketClient();
 
   // Setup the event handler and subscribe to most events
+  DEBUG_INFO ( "" )
   m_sock->SetEventHandler(*this, SOCKET_ID);
+  DEBUG_INFO ( "" )
   m_sock->SetNotify(wxSOCKET_CONNECTION_FLAG |
                     wxSOCKET_INPUT_FLAG |
                     wxSOCKET_LOST_FLAG);
+  DEBUG_INFO ( "" )
   m_sock->Notify(TRUE);
-
-  m_busy = FALSE;
-  UpdateStatusBar();
 
   DEBUG_INFO ( "" )
   // direct connect
@@ -60,36 +81,32 @@ Client::Client()
   wxString hostname = _("localhost");
 
   addr.Hostname(hostname);
-  addr.Service(3000);
+  addr.Service(port);
 
+  DEBUG_INFO ( "" )
   m_sock->Connect(addr, FALSE);
-  m_sock->WaitOnConnect(100);
+/*  DEBUG_INFO ( "" )
+  m_sock->WaitOnConnect(1);
 
 
   DEBUG_INFO ( "" )
   if (m_sock->IsConnected()) {
-    connected = TRUE;
   } else {
     m_sock->Close();
     wxMessageBox(_("Can't connect to the specified host"), _("Alert !"));
   }
-  
-  UpdateStatusBar();
-  DEBUG_INFO ( "" )
-}
+*/  
+  m_busy = FALSE;
+//  UpdateStatusBar();
+  DEBUG_INFO ( _("end") )
 
-Client::~Client()
-{
-  DEBUG_INFO ( "" )
-  // No delayed deletion here, as the frame is dying anyway
-  m_sock->Destroy();
-  delete m_sock;
-  DEBUG_INFO ( "" )
+  return TRUE;
 }
 
 // event handlers
 void Client::GetServerData(wxSocketBase *sock)
 { 
+  DEBUG_INFO ( _("start") )
   unsigned char len;
   char *buf;
 
@@ -99,52 +116,79 @@ void Client::GetServerData(wxSocketBase *sock)
   // disabled input events so we won't have unwanted reentrance.
   // This way we can avoid the infamous wxSOCKET_BLOCK flag.
   
-  sock->SetFlags(wxSOCKET_WAITALL);
+  DEBUG_INFO ( "" )
+  sock->SetFlags(wxSOCKET_WAITALL|wxSOCKET_BLOCK);
   
   // Read the size
-  sock->Read(&len, 1);
+  DEBUG_INFO ( "" )
+  if ( sock->Ok() )  {   // needed to connect imideately
+    sock->Read(&len, 1);
+    DEBUG_INFO ( "read " << (int) len )
+  } else {
+    DEBUG_INFO ( "Closed" )
+    return;
+  }
+  DEBUG_INFO ( "" )
   buf = new char[len];
+  DEBUG_INFO ( "" )
   
   // Read the data
   sock->Read(buf, len);
+  DEBUG_INFO ( "read " << buf )
 
+  DEBUG_INFO ( buf )
   wxString s = buf;
-  frame->SetStatusText(s, 1);
+  frame->SetStatusText(s << " loaded", 0);
 
   // Write it back
   sock->Write(buf, len);
 
+  DEBUG_INFO ( "" )
   // load file
   frame->ShowFile (buf);
 
-  DEBUG_INFO ( s << buf )
+  DEBUG_INFO ( s << " " << buf )
   delete[] buf;
   
+  frame->SetStatusText(_("ready"), 1);
+  DEBUG_INFO ( _("end") )
 } 
 
 void Client::OnSocketEvent(wxSocketEvent& event)
 {
-  wxString s = _("OnSocketEvent: ");
+  DEBUG_INFO ( _("begin") << "  busy " << m_busy )
+  UpdateStatusBar();
+  if ( m_busy ) {
+    event.Skip();
+    DEBUG_INFO ( _("skipping event!!") )
+    return;
+  }
+  wxString s = ("now  ");
   wxSocketBase *sock = event.GetSocket();
 
-/*  switch(event.GetSocketEvent())
+  switch(event.GetSocketEvent())
   {
     case wxSOCKET_INPUT      : s.Append(_("wxSOCKET_INPUT\n")); break;
     case wxSOCKET_LOST       : s.Append(_("wxSOCKET_LOST\n")); break;
     case wxSOCKET_CONNECTION : s.Append(_("wxSOCKET_CONNECTION\n")); break;
     default                  : s.Append(_("Unexpected event !\n")); break;
   }
-*/
+
   // Now we process the event
+  DEBUG_INFO ( s )
   switch(event.GetSocketEvent())
   {
     case wxSOCKET_CONNECTION: {
-      connected = TRUE;
-      sock->Write ( 0xBF, 1 );
+      DEBUG_INFO ( "" )
+      unsigned char handshake (0xBF);  // send handshake
+      sock->Write ( &handshake, 1 );
+      shaking = TRUE;
+      DEBUG_INFO ( "handshake to server sent" )
       break;
       }
     case wxSOCKET_INPUT:
     {
+      DEBUG_INFO ( "" )
       // We disable input events, so that the test doesn't trigger
       // wxSocketEvent again.
       sock->SetNotify(wxSOCKET_LOST_FLAG);
@@ -152,28 +196,45 @@ void Client::OnSocketEvent(wxSocketEvent& event)
       // Which test are we going to run?
       unsigned char c;
       sock->Read(&c, 1);
+      DEBUG_INFO ( "read " << c )
+
+      // Handshake section
+      if ( shaking ) {    // We are in Handshake with server.
+        if ( c == 0xBA ) {// Is the server answere ours.
+          sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
+          DEBUG_INFO ( "connection to server accepted" )
+        } else {
+          sock->Close();  // refusing
+        }
+        shaking = FALSE;  // We shake only once per handshake.
+      }
 
       switch (c)
       {
         case 0xBE: GetServerData(sock); break;
+        case 0xBA: s = "Connection ok"; break;      // let the handshake pass
 //        case 0xCE: Test2(sock); break;
 //        case 0xDE: Test3(sock); break;
+        default : s = "Unexpected event !\nLeaving!";sock->Close();return;break;
       }
+      DEBUG_INFO ( s )
+      sock->Discard();    // cleanup 
+      if ( sock->LastCount() > 0 )
+        DEBUG_INFO ( "bytes " << sock->LastCount() )
 
       // Enable input events again.
-      sock->SetNotify(wxSOCKET_LOST_FLAG | wxSOCKET_INPUT_FLAG);
       break;
     }
     case wxSOCKET_LOST:
     {
-      sock->Destroy();
-      connected = FALSE;
+//      sock->Destroy();
       break;
     }
     default: ;
   }
 
-//  UpdateStatusBar();
+//  sock->Write ( "0", 1 );
+  DEBUG_INFO ( _("end") << " sent " << "0 " << sock->LastCount() )
 }
 
 // convenience functions
@@ -189,9 +250,11 @@ void Client::UpdateStatusBar()
   else
   {
     wxIPV4address addr;
-//    m_sock->GetPeer(addr);
-//    s.Printf(_("%s : %d"), (addr.Hostname()).c_str(), addr.Service());
+    m_sock->GetPeer(addr);
+    s.Printf(_("%s : %d"), (addr.Hostname()).c_str(), addr.Service());
   }
 
   frame->SetStatusText(s, 1);
+  DEBUG_INFO ( _("end") )
 }
+

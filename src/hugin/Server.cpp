@@ -26,8 +26,9 @@
 // --------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(Server, wxWindow)
-  EVT_SOCKET(SERVER_ID,  Server::OnServerEvent)
-  EVT_SOCKET(SOCKET_ID,  Server::OnSocketEvent)
+  EVT_SOCKET (SERVER_ID,  Server::OnServerEvent)
+  EVT_SOCKET (SOCKET_ID,  Server::OnSocketEvent)
+  EVT_TIMER  (TIMER_ID,   Server::OnServerTimer)
 END_EVENT_TABLE()
 
 // ==========================================================================
@@ -45,39 +46,16 @@ END_EVENT_TABLE()
 
 // constructor
 
-Server::Server()
+Server::Server()  : server_timer(this, TIMER_ID)
 {
   DEBUG_INFO ( "" )
 
-  // Create the address - defaults to localhost:0 initially
-  wxIPV4address addr;
-  addr.Service(3000);
-
-  // Create the socket
-  m_server = new wxSocketServer(addr);
-  DEBUG_INFO ( "" )
-
-  // We use Ok() here to see if the server is really listening
-  if (! m_server->Ok())
-  {
+  port = 3000;
+  if ( !Start() ) {
+//    wxMessageBox(_("Can't connect to post 3000\nmaybe another hugin is running\n"), _("Alert !"));
   }
-  else
-  {
-//    m_text->AppendText(_("Server listening.\n\n"));
-  }
+  DEBUG_INFO ( "" )
 
-  DEBUG_INFO ( "" )
-  // Setup the event handler and subscribe to connection events
-  m_server->SetEventHandler(*this, SERVER_ID);
-  m_server->SetNotify(wxSOCKET_CONNECTION_FLAG);
-  m_server->Notify(TRUE);
-
-  m_busy = FALSE;
-  connected = TRUE;
-  m_numClients = 0;
-  DEBUG_INFO ( "" )
-  UpdateStatusBar();
-  DEBUG_INFO ( "" )
 }
 
 Server::~Server()
@@ -87,163 +65,227 @@ Server::~Server()
   delete m_server;
 }
 
-// event handlers
+bool Server::Start( void )
+{
+  bool success (TRUE);
 
+  // Create the address - defaults to localhost:0 initially
+  wxIPV4address addr;
+  addr.Service(port);
+
+  // Create the socket
+  m_server = new wxSocketServer(addr);
+
+  // We use Ok() here to see if the server is really listening
+  if (! m_server->Ok())
+  {
+    send = "start server";
+    success = FALSE;
+    DEBUG_INFO ( "Server not active: " << m_server->Ok() )
+    if ( !server_timer.IsRunning() )
+      server_timer.Start(500);  // let's try it further
+  }
+  else
+  {
+    server_timer.Stop();
+    send = "";        // Leave eventually the timer loop
+    DEBUG_INFO ( "Server listening: " << _("Yes") )
+  }
+
+  // Setup the event handler and subscribe to connection events
+  m_server->SetEventHandler(*this, SERVER_ID);
+  m_server->SetNotify(wxSOCKET_CONNECTION_FLAG);
+  m_server->Notify(TRUE);
+
+  m_busy = FALSE;
+  m_numClients = 0;
+
+  return success;
+}
+
+bool Server::Connected( void )
+{
+    if ( m_numClients > 0 ) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+}
 
 void Server::SendFilename( wxString filename )
 {
-  DEBUG_INFO ( "" )
+  DEBUG_INFO ( _("start") )
   const wxChar *buf1;
   wxChar       *buf2;
   unsigned char len;
 
   // Disable socket menu entries (exception: Close Session)
-  m_busy = TRUE;
+//  m_busy = TRUE;
   UpdateStatusBar();
 
-  if ( m_numClients > 0 ) {
-  } else {
-    return;
-  }
   DEBUG_INFO ( "" )
 
-  if ( connected == FALSE ) {
-    if ( m_sock->Ok() )
-    {
-//    m_text->AppendText(_("New client connection accepted\n\n"));
-      DEBUG_INFO ( "connected: " << m_sock << "Ok? " << m_sock->Ok() )
-    }
-    else
-    {
-//    m_text->AppendText(_("Error: couldn't accept a new connection\n\n"));
-      DEBUG_INFO ( "no conection" )
+    // we send the command only once to panoviewer
+    if ( Connected() ) {
+      send = "";
+    } else {
+      wxString viewer;
+      viewer.sprintf("panoviewer %d", port); //filename;
+
+      DEBUG_INFO ( "command = " << viewer )
+      if ( Connected() == false ) {
+        wxExecute( viewer, FALSE /* sync */);
+      };
+
+      send = filename;
+      server_timer.Start(1000);    // 1 second interval
       return;
     };
-  } else {
-    connected = FALSE;
-    DEBUG_INFO ( "connected: " << connected )
-    return;
-  }
+
   // Tell the other which test we are running
   unsigned char c = 0xBE;
-  DEBUG_INFO ( "" )
   m_sock->Write(&c, 1);
-  DEBUG_INFO ( "" )
-
   m_sock->SetFlags(wxSOCKET_WAITALL);
-  DEBUG_INFO ( "" )
 
 // ---------------------------------------------------------------------
-  buf1 = filename;
+  buf1 = filename;      // command to panoviewer
 // ---------------------------------------------------------------------
   len  = (wxStrlen(buf1) + 1) * sizeof(wxChar);
-  buf2 = new wxChar[wxStrlen(buf1) + 1];
+  buf2 = new wxChar[(len)];
 
-  DEBUG_INFO ( "" )
   m_sock->Write(&len, 1);
   m_sock->Write(buf1, len);
+  DEBUG_INFO ( "sent " << buf1 )
+  DEBUG_INFO ( m_sock->LastCount() )
+  m_sock->Read (buf2, len);
+  DEBUG_INFO ( "read " << buf2 )
+  DEBUG_INFO ( m_sock->LastCount() )
 
-  DEBUG_INFO ( "" )
-  m_sock->Read(buf2, len);
-
-  DEBUG_INFO ( "" )
   if (memcmp(buf1, buf2, len) != 0)
   {
-//    m_text->AppendText(_("failed!\n"));
-//    m_text->AppendText(_("Test 1 failed !\n"));
-  }
-  else
-  {
-//    m_text->AppendText(_("done\n"));
-//    m_text->AppendText(_("Test 1 passed !\n"));
+      DEBUG_INFO("test failed; starting timer "<<buf1<<" "<<buf2<<" "<<(int)len)
+      send = filename;
+      server_timer.Start(1000);    // 1 second interval
+  } else {
+      DEBUG_INFO ( "test passed, sent - " << filename )
+      send = "";
   }
 
-  DEBUG_INFO ( "" )
   delete[] buf2;
   m_busy = FALSE;
-  DEBUG_INFO ( "" )
+      m_sock->Discard();    // cleanup
+      if ( m_sock->LastCount() > 0 )
+        DEBUG_INFO ( "bytes " << m_sock->LastCount() )
+  DEBUG_INFO ( _("end") )
   UpdateStatusBar();
-  DEBUG_INFO ( ": " << filename )
+}
+
+// event handlers
+
+void Server::OnServerTimer(wxTimerEvent& event)
+{
+    if ( send == "start server" ) {
+       port++;
+       Start();
+       return;
+    }
+
+    if ( !send.IsEmpty() ) {
+      DEBUG_INFO ( _("send") << " " << send )
+      if ( Connected() ) {
+        SendFilename ( send );
+        server_timer.Stop();      // stop here and let SendFilename decide 
+      } else {
+        ;                         // hope the connection will establish
+      }
+    } else { // OnServerTimer is only useful with an imagename.
+      server_timer.Stop();
+    }
+    wxString s;
+    if ( send.IsEmpty() )
+      s = _("Yes");
+    else
+      s = _("No");
+    DEBUG_INFO ( _("send empty? ") << s  )
 }
 
 void Server::OnServerEvent(wxSocketEvent& event)
 {
-  DEBUG_INFO ( "connected " << connected)
-  wxString s = _("OnServerEvent: ");
-  wxSocketBase *sock;
+  wxString s = ("now ");
 
   switch(event.GetSocketEvent())
   {
-    case wxSOCKET_CONNECTION : s.Append(_("wxSOCKET_CONNECTION\n"));
-                               connected = TRUE; break;
+    case wxSOCKET_CONNECTION : s.Append(_("wxSOCKET_CONNECTION")); break;
     default                  : s.Append(_("Unexpected event !\n")); break;
   }
+  DEBUG_INFO ( s )
 
   // Accept new connection if there is one in the pending
   // connections queue, else exit. We use Accept(FALSE) for
   // non-blocking accept (although if we got here, there
   // should ALWAYS be a pending connection).
 
-  sock = m_server->Accept(FALSE);
+  m_sock = m_server->Accept(FALSE);
 
-  DEBUG_INFO ( "connected " << connected)
-  if ( connected )//sock->Ok() )
+  if ( m_sock->Ok() )
   {
-    // connection test
+    // handshake for proofing the client
     unsigned char handshake;
-    DEBUG_INFO ( "" )
-    sock->SetTimeout(2); 
-    sock->Read(&handshake, 1);
-    DEBUG_INFO ( "sock->Ok " << sock->Ok() )
+    m_sock->SetTimeout(2); 
+    m_sock->Read(&handshake, 1);
 
     m_sock->SetFlags(wxSOCKET_WAITALL);
-    DEBUG_INFO ( "" )
 
-    if ( handshake == 0xBF ) {
-      handshake = 0xBE;
-      sock->Write(&handshake, 1);
-      DEBUG_INFO ( "handshake" )
+    if ( handshake == 0xBF ) {  // handshake we await
+      handshake = 0xBA;         // handshake signal we send back
+      m_sock->Write(&handshake, 1);
+      DEBUG_INFO ( "New client connection accepted: send handshake" )
     } else {
-      DEBUG_INFO ( "no handshake" )
-      sock->Close(); 
+      DEBUG_INFO ( "handshake failed - refusing" )
+      m_sock->Close(); 
+      UpdateStatusBar();
+      return;
     };
-//    m_text->AppendText(_("New client connection accepted\n\n"));
   }
   else
   {
-//    m_text->AppendText(_("Error: couldn't accept a new connection\n\n"));
     DEBUG_INFO ( "do no handshake" )
-//    sock->Close();
+    m_sock->Close();
     return;
   }
 
-  sock->SetEventHandler(*this, SOCKET_ID);
-  sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
-  sock->Notify(TRUE);
+  m_sock->SetEventHandler(*this, SOCKET_ID);
+  m_sock->SetNotify(wxSOCKET_INPUT_FLAG | wxSOCKET_LOST_FLAG);
+  m_sock->Notify(TRUE);
 
-  m_sock = sock;
+      m_sock->Discard();    // cleanup
+      if ( m_sock->LastCount() > 0 )
+        DEBUG_INFO ( "bytes " << m_sock->LastCount() )
   m_numClients++;
   UpdateStatusBar();
-  DEBUG_INFO ( "" )
 }
 
 void Server::OnSocketEvent(wxSocketEvent& event)
 {
   DEBUG_INFO ( "" )
-  wxString s = _("OnSocketEvent: ");
-//  wxSocketBase *sock = event.GetSocket();
+  wxString s ("now ");
 
+  // We dont revieve anything here.
   // First, print a message
   switch(event.GetSocketEvent())
   {
     case wxSOCKET_INPUT : s.Append(_("wxSOCKET_INPUT\n")); break;
-    case wxSOCKET_LOST  : s.Append(_("wxSOCKET_LOST\n")); connected=TRUE; break;
+    case wxSOCKET_LOST  : s.Append(_("wxSOCKET_LOST\n"));
+                          m_numClients--;
+                          break;
     case wxSOCKET_CONNECTION : s.Append(_("wxSOCKET_CONNECTION\n")); break;
     default             : s.Append(_("Unexpected event !\n")); break;
   }
+    DEBUG_INFO ( s );
 
-//  m_text->AppendText(s);
-
+      m_sock->Discard();    // cleanup
+      if ( m_sock->LastCount() > 0 )
+        DEBUG_INFO ( "bytes " << m_sock->LastCount() )
   UpdateStatusBar();
 }
 
@@ -251,11 +293,9 @@ void Server::OnSocketEvent(wxSocketEvent& event)
 
 void Server::UpdateStatusBar()
 {
-  DEBUG_INFO ( "" )
   wxString s;
-  DEBUG_INFO ( "" )
-  s.Printf(_("%d clients connected"), m_numClients);
-  DEBUG_INFO ( "m_numClients= " << m_numClients )
-//  frame->SetStatusText(s, 1);
-  DEBUG_INFO ( "" )
+  s.sprintf(_("%d "), m_numClients);
+  s.Append(_("clients"));
+//  DEBUG_INFO ( "m_numClients= " << s )
+  frame->SetStatusText(s,1);
 }

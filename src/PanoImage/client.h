@@ -54,11 +54,12 @@
 // --------------------------------------------------------------------------
 
 // Define a new frame type: this is going to be an dummy frame
-class Client : public wxFrame
+class Client : public wxWindow
 {
 public:
   Client();
   ~Client();
+    bool Start(int port);
 
   void GetServerData(wxSocketBase *sock);
 
@@ -71,7 +72,7 @@ public:
 private:
   wxSocketClient *m_sock;
   bool            m_busy;
-  bool            connected;
+  bool            shaking;
 
   // any class wishing to process wxWindows events must use this macro
   DECLARE_EVENT_TABLE()

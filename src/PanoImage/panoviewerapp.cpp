@@ -5,7 +5,7 @@
 bool MyApp::OnInit()
 {
 	frame = new MyFrame("wxWindows Panorama Viewer, v0.4.1",
-	                           wxPoint(50, 50), wxSize(400, 300));
+	                           wxPoint(50, 50), wxSize(400, 300), argc, argv);
 
 	frame->Show(TRUE);
 	//frame->ShowFullScreen(TRUE);

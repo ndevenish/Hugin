@@ -7,11 +7,11 @@
 
 #include "panoviewer.h"
 
-
 class MyFrame : public wxFrame
 {
 public:
-    MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
+    MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size,
+            int& argc, char *argv[]);
     ~MyFrame();
 
     void OnFullScreen( wxMenuEvent &event);

@@ -307,7 +307,7 @@ public:
         : projectionFormat(EQUIRECTANGULAR),
           HFOV(360),
           width(0), height(0),
-          outfile("panorama.jpg"),outputFormat("JPEG"),
+          outfile("panorama.JPG"),outputFormat("JPEG"),
           quality(80),progressive(false),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(POLY_3)

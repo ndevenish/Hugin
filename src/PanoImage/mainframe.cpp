@@ -8,8 +8,11 @@
 #endif
 
 #include "mainframe.h"
+#include "client.h"
+#include "../include/common/utils.h"
 
 MyFrame * frame;
+extern Client * m_client;
 
 
 BEGIN_EVENT_TABLE(MyFrame, wxFrame)
@@ -21,7 +24,7 @@ END_EVENT_TABLE()
 
 
 
-MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
+MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, int& argc, char **argv)
        : wxFrame((wxFrame *)NULL, -1, title, pos, size)
 {
     wxMenu *menuFile = new wxMenu("", wxMENU_TEAROFF);
@@ -75,6 +78,29 @@ MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
    new wxStaticText(pref, -1, "Low", wxPoint(10, 130));
    new wxStaticText(pref, -1, "High", wxPoint(270, 130));
 
+    m_client = new Client();
+    // Do something with the arguments
+    if ( argc > 1 ) {
+      DEBUG_INFO ( "argc" << argc )
+      wxString m_argv ( argv[1] );
+      double d;
+      if ( m_argv.IsNumber() ) {
+        DEBUG_INFO ( m_argv )
+        if ( m_argv.ToDouble(&d) ) {
+          DEBUG_INFO ( m_argv << " " << ((int)d) )
+          m_client->Start ((int)d);
+        } else {
+          DEBUG_INFO ( m_argv )
+          m_client->Start (3000);
+        }
+      } else {
+        if ( m_argv.IsAscii() )
+          ShowFile( argv[1] );
+        DEBUG_INFO ( m_argv )
+      }
+      DEBUG_INFO ( "argv[1] " << argv[1] << m_argv)
+    }
+    
 }
 
 MyFrame::~MyFrame ()
@@ -97,6 +123,7 @@ void MyFrame::OnFullScreen ( wxMenuEvent &event )
 
 void MyFrame::OnLoadFile ( wxMenuEvent &event )
 {
+    DEBUG_INFO ( load->GetWildcard() )
 	if ( load->ShowModal() == wxID_OK )
 	{
 		wxImage p;
@@ -120,7 +147,10 @@ void MyFrame::OnPref ( wxMenuEvent &event )
 void MyFrame::ShowFile ( wxString fn )
 {
     wxImage p;
-    p.LoadFile(fn);
-    pano1->SetPano(p);
+    if ( p.LoadFile(fn) ) {
+      pano1->SetPano(p); 
+      DEBUG_INFO ( " " << fn ) }
+    else 
+      DEBUG_INFO ( "failed " << fn )
 }
 

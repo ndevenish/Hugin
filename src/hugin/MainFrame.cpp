@@ -153,9 +153,6 @@ MainFrame::MainFrame(wxWindow* parent)
     pano.addObserver(this);
     DEBUG_TRACE("");
 
-    // the viewer is not yet running
-    viewer_run = false;
-
     // show the frame.
 //    Show(TRUE);
     DEBUG_TRACE("");

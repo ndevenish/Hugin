@@ -84,9 +84,6 @@ public:
     /** file drag and drop handler method */
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
-    /** the viewer test */
-    bool viewer_run;
-
 private:
 
     // event handlers
