@@ -32,6 +32,7 @@
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
+#include "hugin/CPFineTuneFrame.h"
 
 
 // more standard includes if needed
@@ -125,6 +126,17 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
+#ifdef USE_FINETUNEFRAME
+    // setup finetune frame
+    m_fineTuneFrame = new CPFineTuneFrame(this, *pano);
+    m_fineTuneFrame->Show();
+    // connect to image displays for editing (urgh.. not really that nice,
+    // from a software design viewpoint)
+    m_leftImg->SetZoomView(m_fineTuneFrame->GetLeftImg());
+    m_rightImg->SetZoomView(m_fineTuneFrame->GetRightImg());
+#else
+    m_fineTuneFrame=0;
+#endif
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
@@ -201,6 +213,9 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         m_leftImg->setImage("");
         m_leftImageNr = imgNr;
         m_leftFile = "";
+        if (m_fineTuneFrame) {
+            m_fineTuneFrame->GetLeftImg()->Clear();
+        }
         changeState(NO_POINT);
         UpdateDisplay();
     } else if (m_leftImageNr != imgNr) {
@@ -211,6 +226,9 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         changeState(NO_POINT);
+        if (m_fineTuneFrame) {
+            m_fineTuneFrame->GetLeftImg()->SetImage(imgNr);
+        }
         UpdateDisplay();
     }
     m_selectedPoint = UINT_MAX;
@@ -224,6 +242,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightImg->setImage("");
         m_rightImageNr = imgNr;
         m_rightFile = "";
+        if (m_fineTuneFrame) {
+            m_fineTuneFrame->GetLeftImg()->Clear();
+        }
         changeState(NO_POINT);
         UpdateDisplay();
     } else if (m_rightImageNr != imgNr) {
@@ -237,6 +258,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
         changeState(NO_POINT);
+        if (m_fineTuneFrame) {
+            m_fineTuneFrame->GetRightImg()->SetImage(imgNr);
+        }
         UpdateDisplay();
     }
     m_selectedPoint = UINT_MAX;
@@ -276,7 +300,9 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::POINT_CHANGED:
     {
         DEBUG_DEBUG("move point("<< nr << ")");
-        assert(nr < currentPoints.size());
+        if (nr < currentPoints.size()) {
+            return;
+        }
         ControlPoint cp = currentPoints[nr].second;
         changeState(NO_POINT);
 
@@ -535,8 +561,9 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             } catch (std::exception & e) {
                 wxMessageBox(e.what(), _("Error during Fine Tune"));
             }
-            wxString str = wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold","0.8");
-            double thresh = utils::lexical_cast<double>(str);
+            double thresh=0.8;
+
+            wxConfigBase::Get()->Read("/CPEditorPanel/finetuneThreshold",&thresh, 0.8);
             if (xcorr < thresh) {
                 // low xcorr
                 // zoom to 100 percent. & set second stage
@@ -756,9 +783,28 @@ double CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         m_pano->getImage(tmplImgNr).getFilename(),0);
 
     vigra_ext::CorrelationResult res;
-    res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
-                                   subjImg, o_subjPoint.toDiff2D(),
-                                   sWidth);
+    wxConfigBase *cfg = wxConfigBase::Get();
+    bool rotatingFinetune = cfg->Read("/CPEditorPanel/RotationSearch", 0l) == 1;
+
+    if (rotatingFinetune) {
+        double startAngle=0;
+        cfg->Read("/CPEditorPanel/RotationStartAngle",&startAngle,-90);
+        startAngle=DEG_TO_RAD(startAngle);
+        double stopAngle=0;
+        cfg->Read("/CPEditorPanel/RotationStopAngle",&stopAngle,90);
+        stopAngle=DEG_TO_RAD(stopAngle);
+        int nSteps = cfg->Read("/CPEditorPanel/RotationSteps",10);
+
+        res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
+                                                subjImg, o_subjPoint.toDiff2D(),
+                                                sWidth,
+                                                startAngle, stopAngle, nSteps);
+    } else {
+        res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
+                                       subjImg, o_subjPoint.toDiff2D(),
+                                       sWidth);
+    }
+
     tunedPos.x = res.maxpos.x;
     tunedPos.y = res.maxpos.y;
     return res.maxi;

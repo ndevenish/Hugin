@@ -59,6 +59,8 @@
 #include <wx/dnd.h>
 #include <wx/tglbtn.h>
 #include <wx/txtstrm.h>
+#include <wx/statline.h>
+#include <wx/regex.h>
 
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__

@@ -44,6 +44,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPListFrame.h"
+#include "hugin/MyProgressDialog.h"
 
 
 
@@ -843,6 +844,27 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
         unoptimized.insert(i);
     }
 
+    unsigned int nGood=0;
+    unsigned int nBad=0;
+
+    wxConfigBase *cfg = wxConfigBase::Get();
+    bool rotatingFinetune = cfg->Read("/CPEditorPanel/RotationSearch", 1l) == 1;
+    double startAngle=0;
+    cfg->Read("/CPEditorPanel/RotationStartAngle",&startAngle,-90);
+    startAngle=DEG_TO_RAD(startAngle);
+    double stopAngle=0;
+    cfg->Read("/CPEditorPanel/RotationStopAngle",&stopAngle,90);
+    stopAngle=DEG_TO_RAD(stopAngle);
+    int nSteps = cfg->Read("/CPEditorPanel/RotationSteps",10);
+
+    double threshold=0.8;
+    cfg->Read("/CPEditorPanel/finetuneThreshold", &threshold, 0.8);
+
+    {
+    MyProgressDialog pdisp(_("Finetuning all points"), "", NULL, wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
+
+    pdisp.pushTask(ProgressTask("Finetuning","",1.0/unoptimized.size()));
+
     // do not process the control points in random order,
     // but walk from image to image, to reduce image reloading
     // in low mem situations.
@@ -850,6 +872,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
         std::set<unsigned int>::iterator it=unoptimized.begin();
         while (it != unoptimized.end()) {
             if (cps[*it].image1Nr == imgNr || cps[*it].image2Nr == imgNr) {
+                pdisp.increase();
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
@@ -864,18 +887,37 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     long sWidth = templWidth + wxConfigBase::Get()->Read(
                         "/CPEditorPanel/smallSearchWidth",14);
                     vigra_ext::CorrelationResult res;
-                    res = vigra_ext::PointFineTune(templImg,
-                                                   vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
-                                                   templWidth,
-                                                   searchImg,
-                                                   vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
-                                                   sWidth);
-                    if (res.maxi > 0.75) {
+                    if (rotatingFinetune) {
+                        res = vigra_ext::PointFineTuneRotSearch(
+                            templImg,
+                            vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
+                            templWidth,
+                            searchImg,
+                            vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
+                            sWidth,
+                            startAngle, stopAngle, nSteps
+                            );
+
+                    } else {
+                        res = vigra_ext::PointFineTune(
+                            templImg,
+                            vigra::Diff2D(roundi(cps[*it].x1), roundi(cps[*it].y1)),
+                            templWidth,
+                            searchImg,
+                            vigra::Diff2D(roundi(cps[*it].x2), roundi(cps[*it].y2)),
+                            sWidth
+                            );
+
+                    }
+                    if (res.maxi > threshold) {
+                        nGood++;
                         // only update if a good correlation was found
                         cps[*it].x2 = res.maxpos.x;
                         cps[*it].y2 = res.maxpos.y;
-                        cps[*it].error = 0;
+                        cps[*it].error = res.maxi;
                     } else {
+                        nBad++;
+                        cps[*it].error = res.maxi;
                         DEBUG_DEBUG("low correlation:" << res.maxi);
                     }
                 }
@@ -887,6 +929,15 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
             }
         }
     }
+    }
+    wxString result;
+    result.Printf(_("%d points fine tuned, %d points not updated due to low correlation\n\n"
+                    "Hint: The errors of the fine tuned points have been set to the, correlation coefficient\n"
+                    "Problematic point can be spotted (just after finetune, before optimizing)\n"
+                    "by an error <= %f.\n"
+                    "Use the Control Point list (F3) to see all point of the current project\n"),
+                  nGood, nBad, threshold);
+    wxMessageBox(result, _("Fine tune result"), wxOK);
     // set newly optimized points
     GlobalCmdHist::getInstance().addCommand(
         new UpdateCPsCmd(pano,cps)

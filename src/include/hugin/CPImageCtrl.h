@@ -28,7 +28,7 @@
 #include <vector>
 
 class CPEditorPanel;
-
+class CPZoomDisplayPanel;
 /** Events to notify about new point / region / point change
  *
  */
@@ -114,6 +114,9 @@ public:
     /** dtor.
      */
     ~CPImageCtrl();
+    
+    /// associate a zoomed display with this image
+    void SetZoomView(CPZoomDisplayPanel * display);
 
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
@@ -201,6 +204,10 @@ protected:
 
     // rescale image
     void rescaleImage();
+    
+    /// update display of zoomed point
+    void updateZoomed();
+
 
 
 private:
@@ -352,6 +359,8 @@ private:
 
     CPEditorPanel * m_editPanel;
 
+    CPZoomDisplayPanel * m_zoomDisplay;
+    
     DECLARE_EVENT_TABLE();
 };
 

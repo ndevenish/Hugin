@@ -35,6 +35,7 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/UniversalCursor.h"
+#include "hugin/CPZoomDisplayPanel.h"
 
 using namespace std;
 using namespace utils;
@@ -124,11 +125,13 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
                          long style,
                          const wxString& name)
     : wxScrolledWindow(parent, id, pos, size, style, name),
+      selectedPointNr(0),
       editState(NO_IMAGE),
       scaleFactor(1), fitToWindow(false),
       m_showSearchArea(false), m_searchRectWidth(0),
       m_showTemplateArea(false), m_templateRectWidth(0),
-      m_tempZoom(false),m_savedScale(1), m_editPanel(parent)
+      m_tempZoom(false),m_savedScale(1), m_editPanel(parent),
+      m_zoomDisplay(0)
 {
 
     wxString filename;
@@ -190,6 +193,11 @@ CPImageCtrl::~CPImageCtrl()
     DEBUG_TRACE("dtor end");
 }
 
+void CPImageCtrl::SetZoomView(CPZoomDisplayPanel * d)
+{
+    m_zoomDisplay = d;
+}
+
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
@@ -215,7 +223,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     unsigned int i=0;
     vector<FDiff2D>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        if (i==selectedPointNr && editState == KNOWN_POINT_SELECTED) {
+        if (editState == KNOWN_POINT_SELECTED && i==selectedPointNr) {
 
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
                 drawHighlightPoint(dc,*it,*wxTheColourDatabase->FindColour("RED"));
@@ -522,8 +530,8 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             double speed = (double)GetVirtualSize().GetHeight() / GetClientSize().GetHeight();
 //          int speed = wxConfigBase::Get()->Read("/CPEditorPanel/scrollSpeed",5);
             wxPoint delta;
-            delta.x = (delta_.x * speed);
-            delta.y =  (delta_.y * speed);
+            delta.x = roundi(delta_.x * speed);
+            delta.y =  roundi(delta_.y * speed);
             ScrollDelta(delta);
             if (mouse.ShiftDown()) {
                 // emit scroll event, so that other window can be scrolled
@@ -579,8 +587,8 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 //            editState = SELECT_REGION;
             editState = NEW_POINT_SELECTED;
             newPoint = mpos;
-            region.x = mpos.x;
-            region.y = mpos.y;
+            region.x = roundi(mpos.x);
+            region.y = roundi(mpos.y);
         } else {
             DEBUG_ERROR("invalid state " << clickState << " on mouse down");
         }
@@ -705,6 +713,26 @@ void CPImageCtrl::update()
     wxClientDC dc(this);
     PrepareDC(dc);
     OnDraw(dc);
+
+    updateZoomed();
+}
+
+void CPImageCtrl::updateZoomed()
+{
+    if (!m_zoomDisplay) return;
+
+    // update zoom view
+    switch(editState) {
+    case KNOWN_POINT_SELECTED:
+        // update known point
+        m_zoomDisplay->SetPoint(points[selectedPointNr]);
+        break;
+    case NEW_POINT_SELECTED:
+        m_zoomDisplay->SetPoint(newPoint);
+        break;
+    default:
+        break;
+    }
 }
 
 bool CPImageCtrl::emit(CPEvent & ev)
@@ -917,5 +945,4 @@ void CPImageCtrl::ScrollDelta(const wxPoint & delta)
     if (y<0) y = 0;
     Scroll( x, y);
 }
-
 
