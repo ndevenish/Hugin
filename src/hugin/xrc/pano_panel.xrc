@@ -133,8 +133,9 @@
                                     <item>120</item>
                                     <item>180</item>
                                     <item>240</item>
-                                    <item>260</item>
+                                    <item>270</item>
                                     <item>360</item>
+                                    <item>420</item>
                                     <item>720</item>
                                   </content>
                                 </object>
@@ -242,13 +243,13 @@
                                   </object>
                                   <object class="sizeritem">
                                     <object class="wxComboBox" name="pano_val_previewWidth">
-                                      <selection>3</selection>
+                                      <selection>1</selection>
                                       <style></style>
                                       <content>
-                                        <item>120</item>
-                                        <item>240</item>
-                                        <item>450</item>
-                                        <item>600</item>
+                                        <item>128</item>
+                                        <item>256</item>
+                                        <item>512</item>
+                                        <item>750</item>
                                         <item>1000</item>
                                         <item>1240</item>
                                         <item>1400</item>

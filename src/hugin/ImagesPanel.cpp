@@ -126,7 +126,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     wxPaintDC dc (img_p);
 
     DEBUG_TRACE("");
-    canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(256, 128));
+    canvas = new ImgPreview(img_p, wxPoint(0, 0), wxSize(256, 128), pano);
 
     DEBUG_TRACE("end");
     pano->addObserver(this);
@@ -320,6 +320,11 @@ void ImagesPanel::SetRoll ( wxCommandEvent & e )
                                               (double) var ).c_str() );
     }
     DEBUG_INFO( wxString::Format("%d+%d+%d+%d+%d",imgNr[0], imgNr[1],imgNr[2], imgNr[3],imgNr[4]) );
+}
+void ImagesPanel::SetYawPitch ( double coord_x, double coord_y ) {
+    wxCommandEvent e;
+    SetYaw (e);
+    SetPitch (e);
 }
 
 // Yaw by text -> double
@@ -654,12 +659,13 @@ void ImagesPanel::SetImages ( wxListEvent & e )
 
 BEGIN_EVENT_TABLE(ImgPreview, wxScrolledWindow)
     //EVT_PAINT(ImgPreview::OnPaint)
-//    EVT_MOTION ( ImagesPanel::ChangePreview )
+    EVT_MOUSE_EVENTS ( ImgPreview::OnMouse )
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
-ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size):
- wxScrolledWindow(parent, -1, pos, size)
+ImgPreview::ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano)
+  : wxScrolledWindow(parent, -1, pos, size),
+    pano(*pano)
 {
     DEBUG_TRACE("");
 }
@@ -688,13 +694,70 @@ void ImgPreview::OnDraw(wxDC & dc)
   }
 }
 
-void ImgPreview::ChangePreview ( long item )
+void ImgPreview::ChangePreview ( std::string filename )
 {
+          // right image preview
+          wxImage * s_img;
+          s_img = new wxImage (filename.c_str());
+          wxImage r_img;
+
+          int new_width;
+          int new_height;
+          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
+                > 2.0 ) {
+            new_width =  256;
+            new_height = (int)((float)s_img->GetHeight()/
+                                        (float)s_img->GetWidth()*256.0);
+          } else {
+            new_width = (int)((float)s_img->GetWidth()/
+                                        (float)s_img->GetHeight()*128.0);
+            new_height = 128;
+          }
+
+          r_img = s_img->Scale( new_width, new_height );
+          delete p_img;
+          p_img = new wxBitmap( r_img.ConvertToBitmap() );
+          Refresh();
+          delete s_img;
 //    wxPoint pos = e.GetPosition();
 //    long item = HitTest( e.m_x ,e.m_y );
 //    DEBUG_INFO ( "hier:" << wxString::Format(" %d is item %ld", e.GetPosition(), item) );
-    DEBUG_INFO ( "hier: is item " << wxString::Format("%ld", item) );
+//    DEBUG_INFO ( "hier: is item " << filename );
 }
 
+void ImgPreview::OnMouse ( wxMouseEvent & e )
+{
+    if (e.Entering() || e.Leaving()) {
+      PanoramaOptions opt = pano.getOptions();
+      ChangePreview (opt.outfile);
+//      frame->SetStatusText(wxString::Format("set %s", opt.outfile.c_str()),0);
+    }
 
+    double coord_x = (double)e.m_x/256.0*360.0 -180.0;
+    double coord_y = (double)e.m_y/128.0* -180.0 + 90.0; 
+
+    frame->SetStatusText(wxString::Format("%d°,%d°",
+              (int)coord_x,
+              (int)coord_y ), 1);
+
+    if ( e.m_shiftDown || (!e.m_shiftDown && !e.m_controlDown) )
+      XRCCTRL(*images_panel,"images_slider_pitch",wxSlider)
+                                       ->SetValue((int) -coord_y);
+    if ( e.m_controlDown || (!e.m_shiftDown && !e.m_controlDown) )
+      XRCCTRL(*images_panel,"images_slider_yaw", wxSlider)
+                                       ->SetValue((int) coord_x);
+
+    wxCommandEvent event;
+    if ( e.m_leftDown ) {
+      if ( e.m_shiftDown ) {
+        images_panel->SetPitch (event);
+      } else if ( e.m_controlDown ) {
+        images_panel->SetYaw (event);
+      } else {
+        images_panel->SetYawPitch( coord_x, coord_y );
+      }
+    }
+
+//    DEBUG_INFO ( "Mouse " << e.Entering() << e.Leaving());
+} 
 

@@ -1470,7 +1470,9 @@ msgstr "automatische Vorschau"
 
 #: ../ptopengui.cpp:1804
 msgid "image view"
-msgstr "Bildansicht"
+msgstr "BildansichtKippen"
+msgid "image view/panopreview\nshift key + mouse left click  -> pitch\ncontrol key + mouse left click  -> yaw"
+msgstr "Bild-/Panoansicht\nGroß Taste + Mausklick links  -> Richtung\nStrg Taste + Mausklick links  -> Kippen"
 
 #: ../ptopengui.cpp:1817
 msgid "Size"

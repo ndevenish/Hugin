@@ -74,7 +74,7 @@
                             <object class="wxPanel" name="img_preview_unknown">
                               <size>256,128</size>
                               <style>wxSUNKEN_BORDER</style>
-                              <tooltip>image view</tooltip>
+                              <tooltip>image view/panopreview\nshift key + mouse left klick  -> pitch\ncontrol key + mouse left klick  -> yaw</tooltip>
                             </object>
                             <flag>wxALL|wxEXPAND|wxGROW</flag>
                           </object>
@@ -94,8 +94,8 @@
                           <object class="sizeritem">
                             <object class="wxSlider" name="images_slider_yaw">
                               <value>0</value>
-                              <min>0</min>
-                              <max>360</max>
+                              <min>-180</min>
+                              <max>180</max>
                               <style>wxSL_HORIZONTAL|wxSL_AUTOTICKS|wxSL_SELRANGE</style>
                               <pagesize>15</pagesize>
                               <linesize>1</linesize>

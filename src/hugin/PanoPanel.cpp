@@ -56,6 +56,10 @@
 
 using namespace PT;
 
+// image preview
+extern wxBitmap *p_img;
+extern ImgPreview *canvas;
+
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
@@ -101,6 +105,9 @@ PanoPanel::PanoPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     autoPreview = FALSE;
 
     changePano = FALSE;
+
+    wxCommandEvent e;
+    PreviewWidthChanged (e);
 
     pano->addObserver (this);
 
@@ -176,7 +183,8 @@ void PanoPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
       int id (XRCID("pano_button_preview"));
       wxCommandEvent  e;// = new wxCommandEvent( /*id , wxEVT_COMMAND_BUTTON_CLICKED*/ );
       e.SetId(id);
-      DoPreview (e);
+      if (autoPreview && !self_pano_dlg)
+        DoPreview (e);
 //    PanoChanged (e);
     }
     changePano = FALSE;
@@ -414,7 +422,7 @@ void PanoPanel::PreviewWidthChanged ( wxCommandEvent & e )
 void PanoPanel::DoPreview ( wxCommandEvent & e )
 {
 
-    if (autoPreview && !self_pano_dlg) {
+    if (!self_pano_dlg) {
       opt.width = previewWidth;
       opt.height = previewWidth / 2;
       wxString outputFormat = opt.outputFormat.c_str();
@@ -436,6 +444,34 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
 
       // Send panoViewer the name of our image
       server->SendFilename( (wxString) opt.outfile.c_str() );
+
+      // Show the result image in the first tab
+          // right image preview
+          wxImage * s_img;
+          s_img = new wxImage (opt.outfile.c_str());
+          wxImage r_img;
+
+          int new_width;
+          int new_height;
+          if ( ((float)s_img->GetWidth() / (float)s_img->GetHeight())
+                > 2.0 ) {
+            new_width =  256;
+            new_height = (int)((float)s_img->GetHeight()/
+                                        (float)s_img->GetWidth()*256.0);
+          } else {
+            new_width = (int)((float)s_img->GetWidth()/
+                                        (float)s_img->GetHeight()*128.0);
+            new_height = 128;
+          }
+
+          r_img = s_img->Scale( new_width, new_height );
+          delete p_img;
+          p_img = new wxBitmap( r_img.ConvertToBitmap() );
+          canvas->Refresh();
+          delete s_img;
+    } else {
+      pano_panel->DoPreview(e);
+    }
 /*
     if ( !preview_dlg ) {
         wxTheXmlResource->LoadDialog(preview_dlg, frame, "pano_dlg_preview");
@@ -450,8 +486,6 @@ void PanoPanel::DoPreview ( wxCommandEvent & e )
         preview_dlg->ShowModal();
     DEBUG_INFO ( "" )
     }*/
-    }
-
     DEBUG_INFO ( "" )
 }
 void PanoPanel::AutoPreview ( wxCommandEvent & e )

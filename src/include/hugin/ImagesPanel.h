@@ -83,6 +83,11 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
      */
     void SetImages ( wxListEvent & e );
 
+    void SetYawPitch ( double coord_x, double coord_y );
+    /**  take sliders */
+    void SetYaw ( wxCommandEvent & e );
+    void SetPitch ( wxCommandEvent & e );
+    void SetRoll ( wxCommandEvent & e );
  private:
     // a window event
     void FitParent(wxSizeEvent & e);
@@ -99,10 +104,6 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
       *  in conjunction with SetImages()
       */
     unsigned int imgNr[512];
-    /**  take sliders */
-    void SetYaw ( wxCommandEvent & e );
-    void SetPitch ( wxCommandEvent & e );
-    void SetRoll ( wxCommandEvent & e );
     /**  take text */
     void SetYawText ( wxCommandEvent & e );
     void SetPitchText ( wxCommandEvent & e );
@@ -154,15 +155,20 @@ class ImagesPanel: public wxPanel, public PT::PanoramaObserver
 class ImgPreview: public wxScrolledWindow
 {
  public:
-    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size);
+    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano);
     ~ImgPreview(void) ;
 
  private:
     // Here we select the preview image
     void ChangePreview ( long item );
+    void ChangePreview ( std::string filename );
+    void OnMouse ( wxMouseEvent & event );
 
     void OnDraw(wxDC& dc);
     //void OnPaint(wxPaintEvent& event);
+
+    /** the model */
+    Panorama &pano;
 
     DECLARE_EVENT_TABLE()
 };
