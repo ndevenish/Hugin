@@ -1,20 +1,23 @@
+# translation of de.po to Deutsch
 # German translations for hugin package.
-# Copyright (C) 2004 Pablo dAngelo 
+# Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Douglas Wilkins <douglasw@zahav.co.il>, 2004.
+# Pablo dAngelo <pablo.dangelo@web.de>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.4\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2004-10-15 07:33+0200\n"
 "PO-Revision-Date: 2004-10-09 18:05+0200\n"
 "Last-Translator: Douglas Wilkins <douglasw@zahav.co.il>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: src/hugin/CPEditorPanel.cpp:143 src/hugin/CPListFrame.cpp:267
 #: src/hugin/CPListFrame.cpp:277 src/hugin/ImagesList.cpp:50
@@ -23,19 +26,19 @@ msgstr ""
 
 #: src/hugin/CPEditorPanel.cpp:144
 msgid "left x"
-msgstr "links x"
+msgstr "x links"
 
 #: src/hugin/CPEditorPanel.cpp:145
 msgid "left y"
-msgstr "links y"
+msgstr "y links"
 
 #: src/hugin/CPEditorPanel.cpp:146
 msgid "right x"
-msgstr "rechts x"
+msgstr "x rechts"
 
 #: src/hugin/CPEditorPanel.cpp:147
 msgid "right y"
-msgstr "rechts y"
+msgstr "y rechts"
 
 #: src/hugin/CPEditorPanel.cpp:148 src/hugin/CPListFrame.cpp:274
 #: src/hugin/CPListFrame.cpp:280
@@ -49,12 +52,12 @@ msgstr "Abstand"
 
 #: src/hugin/CPEditorPanel.cpp:550 src/hugin/CPEditorPanel.cpp:678
 msgid "searching similar point..."
-msgstr ""
+msgstr "suche ähnlichen Punkt"
 
 #: src/hugin/CPEditorPanel.cpp:569 src/hugin/CPEditorPanel.cpp:697
 #, fuzzy
 msgid "Error during Fine-tune"
-msgstr "Vorschau berechnen"
+msgstr "Feher während der Feinsuche"
 
 #: src/hugin/CPEditorPanel.cpp:585
 #, c-format
@@ -62,15 +65,21 @@ msgid ""
 "low correlation coefficient: %.3f, (threshold: %.3f)\n"
 "Point might be wrong."
 msgstr ""
+"Kontrollpunkt möglicherweise falsch plaziert.\n"
+"Niedriger Korrelationskoeffizient: %.3f, (Schwellwert: %.3f)"
 
 #: src/hugin/CPEditorPanel.cpp:601
 #, c-format
 msgid "found corrosponding point, mean xcorr coefficient: %f"
-msgstr ""
+msgstr "Kontrollpunkt gefunden, Korrelationskoeffizient: %f"
 
 #: src/hugin/CPEditorPanel.cpp:612
 msgid "Estimated point outside image"
-msgstr ""
+msgstr "Geschätzer Punkt ausserhalb des Bildes"
+
+#: src/hugin/CPEditorPanel.cpp:697
+msgid "Error during Finetune"
+msgstr "Fehler während Feinsuche"
 
 #: src/hugin/CPEditorPanel.cpp:713
 #, c-format
@@ -78,71 +87,70 @@ msgid ""
 "low correlation coefficient: %.3f, (threshold: %.3f)\n"
 "Point might be wrong. Select anyway?"
 msgstr ""
+"Kontrollpunkt möglicherweise falsch plaziert.\n"
+"Niedriger Korrelationskoeffizient: %.3f, (Schwellwert: %.3f)\n"
+"Punkt trotzdem verwenden"
 
 #: src/hugin/CPEditorPanel.cpp:1129 src/hugin/CPListFrame.cpp:351
 #: src/hugin/PreviewFrame.cpp:148
 msgid "normal"
-msgstr ""
+msgstr "normal"
 
 #: src/hugin/CPEditorPanel.cpp:1132 src/hugin/CPListFrame.cpp:354
-#, fuzzy
 msgid "vert. Line"
-msgstr "senkr.(e)"
+msgstr "vert. Linie"
 
 #: src/hugin/CPEditorPanel.cpp:1135 src/hugin/CPListFrame.cpp:357
-#, fuzzy
 msgid "horiz. Line"
-msgstr "waagerechte Linie"
+msgstr "horiz. Linie"
 
 #: src/hugin/CPEditorPanel.cpp:1391
 msgid "Cannot estimate image position without control points"
-msgstr ""
+msgstr "Bildposition kann ohne Kontrollpunkte nicht geschätzt werden"
 
 #: src/hugin/CPListFrame.cpp:268 src/hugin/CPListFrame.cpp:278
-#, fuzzy
 msgid "left Img."
-msgstr "links y"
+msgstr "linkes Bild"
 
 #: src/hugin/CPListFrame.cpp:269 src/hugin/CPListFrame.cpp:272
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: src/hugin/CPListFrame.cpp:270 src/hugin/CPListFrame.cpp:273
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: src/hugin/CPListFrame.cpp:271 src/hugin/CPListFrame.cpp:279
-#, fuzzy
 msgid "right Img."
-msgstr "rechts x"
+msgstr "rechtes Bild"
 
 #: src/hugin/CPListFrame.cpp:546 src/hugin/CPListFrame.cpp:555
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
 msgstr ""
+"Größten zulässigen Kontrollpunktfehler eingeben\n"
+"Alle Punkte mit höherem Fehler werden ausgewählt"
 
 #: src/hugin/CPListFrame.cpp:546 src/hugin/CPListFrame.cpp:555
-#, fuzzy
 msgid "Select Control Points"
-msgstr "Kontrollpunkte"
+msgstr "Kontrollpunkte auswählen"
 
 #: src/hugin/CPListFrame.cpp:554
 msgid "Error: please enter a valid number."
-msgstr ""
+msgstr "Fehler: Bitte eine Nummer eingeben"
 
 #: src/hugin/CPListFrame.cpp:554
 msgid "Could not read number"
-msgstr ""
+msgstr "Konnte Nummer nicht lesen"
 
 #: src/hugin/ImageCache.cpp:214
 msgid "Cannot load image: "
-msgstr ""
+msgstr "Konnte Bild nicht landen:"
 
 #: src/hugin/ImageCache.cpp:237
-#, fuzzy
 msgid "Scaling image"
-msgstr "rechtes Bild"
+msgstr "Bild skalieren"
 
 #: src/hugin/ImageCenter.cpp:47
 msgid "Center dialog"
@@ -151,7 +159,7 @@ msgstr ""
 #: src/hugin/ImageOrientationPanel.cpp:132
 #, c-format
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-msgstr ""
+msgstr "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 
 #: src/hugin/ImagesList.cpp:227 src/hugin/ImagesList.cpp:275
 msgid "Filename"
@@ -167,15 +175,15 @@ msgstr "Höhe"
 
 #: src/hugin/ImagesList.cpp:230
 msgid "yaw (y)"
-msgstr "Richt.(y)"
+msgstr "yaw (y)"
 
 #: src/hugin/ImagesList.cpp:231
 msgid "pitch (p)"
-msgstr "Kipp.(p)"
+msgstr "pitch (p)"
 
 #: src/hugin/ImagesList.cpp:232
 msgid "roll (r)"
-msgstr "Neig. (r)"
+msgstr "roll (r)"
 
 #: src/hugin/ImagesList.cpp:233
 msgid "Anchor"
@@ -200,40 +208,39 @@ msgstr "Bildwinkel (v)"
 
 #: src/hugin/ImagesList.cpp:279
 msgid "a"
-msgstr ""
+msgstr "a"
 
 #: src/hugin/ImagesList.cpp:280
 msgid "b"
-msgstr ""
+msgstr "b"
 
 #: src/hugin/ImagesList.cpp:281
 msgid "c"
-msgstr ""
+msgstr "c"
 
 #: src/hugin/ImagesList.cpp:282
 msgid "d"
-msgstr ""
+msgstr "d"
 
 #: src/hugin/ImagesList.cpp:283
 msgid "e"
-msgstr ""
+msgstr "e"
 
 #: src/hugin/ImagesList.cpp:284
 msgid "g"
-msgstr ""
+msgstr "g"
 
 #: src/hugin/ImagesList.cpp:285
 msgid "t"
-msgstr ""
+msgstr "t"
 
 #: src/hugin/ImagesList.cpp:300
-#, fuzzy
 msgid "Normal (rectilinear)"
-msgstr "normal (Zentralpersp.)"
+msgstr "normal (rectilinear)"
 
 #: src/hugin/ImagesList.cpp:301
 msgid "Panoramic (cylindrical)"
-msgstr ""
+msgstr "zylindrisch"
 
 #: src/hugin/ImagesList.cpp:302
 #, fuzzy
@@ -248,52 +255,52 @@ msgstr "Fischauge Vollbild"
 #: src/hugin/ImagesList.cpp:304 src/hugin/PanoPanel.cpp:187
 #: src/hugin/PreviewFrame.cpp:361
 msgid "Equirectangular"
-msgstr "gleichwinklig"
+msgstr "Sphärisch"
 
 #: src/hugin/ImagesPanel.cpp:222 src/hugin/ImagesPanel.cpp:242
 #: src/hugin/ImagesPanel.cpp:261 src/hugin/LensPanel.cpp:242
 #: src/hugin/LensPanel.cpp:272 src/hugin/LensPanel.cpp:331
 msgid "Value must be numeric."
-msgstr ""
+msgstr "Wert muss numerisch sein"
 
 #: src/hugin/ImagesPanel.cpp:497
-#, fuzzy, c-format
+#, c-format
 msgid "Really Delete %d control points?"
-msgstr "lösche den geählten Kontrollpunkttyp"
+msgstr "%d Kontrollpunkte wirklich löschen?"
 
 #: src/hugin/ImagesPanel.cpp:499
 #, fuzzy
 msgid "Delete Control Points"
-msgstr "Kontrollpunkte"
+msgstr "Kontrollpunkte löschen"
 
 #: src/hugin/LensPanel.cpp:517
 msgid "Not a jpeg file"
-msgstr ""
+msgstr "Kein JPEG Bild"
 
 #: src/hugin/LensPanel.cpp:520 src/hugin/LensPanel.cpp:559
 msgid "Please select an image and try again"
-msgstr ""
+msgstr "Bitte Bild auswählen und erneut versuchen"
 
 #: src/hugin/LensPanel.cpp:537
-#, fuzzy
 msgid "Save lens parameters file"
-msgstr "Parameter zur Objektivkorrektur"
+msgstr "Objektivparameter speichern"
 
+=======
 #: src/hugin/LensPanel.cpp:574
-#, fuzzy
 msgid "Load lens parameters"
-msgstr "Parameter zur Objektivkorrektur"
+msgstr "Objektivparameter laden"
 
 #: src/hugin/MainFrame.cpp:407
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
 msgstr ""
+"Das Panorama wurde verändert\n"
+"Änderungen speichern?"
 
 #: src/hugin/MainFrame.cpp:407
-#, fuzzy
 msgid "Save Panorama?"
-msgstr "wie Panorama"
+msgstr "Speichere Panorama"
 
 #: src/hugin/MainFrame.cpp:422
 #, fuzzy
@@ -885,1205 +892,3 @@ msgstr "&Justierpunkttabelle"
 msgid "Optimizing Panorama"
 msgstr ""
 
-#~ msgid "equivalent to 35mm film optics"
-#~ msgstr "Äquivalent zu 35mm Film (KB) Optiken"
-
-#~ msgid "PTOpenGui is ready"
-#~ msgstr "PTOpenGui startete"
-
-#~ msgid "New"
-#~ msgstr "Neu"
-
-#~ msgid "New project"
-#~ msgstr "Neues Projekt"
-
-#~ msgid "&Open project\tCtrl-o"
-#~ msgstr "Öffne Pr&ojekt\tCtrl-o"
-
-#~ msgid "&Save project\tCtrl-s"
-#~ msgstr "&Speichere Projekt\tCtrl-s"
-
-#~ msgid "Close project"
-#~ msgstr "Projekt schließen"
-
-#~ msgid "E&xit\tCtrl-q"
-#~ msgstr "&Beenden\tCtrl-q"
-
-#~ msgid "Quit PTOpenGui"
-#~ msgstr "PTOpenGui beenden"
-
-#~ msgid "Project in text format\tF2"
-#~ msgstr "Projekt als Text\tF2"
-
-#~ msgid "Set parameters. view datas"
-#~ msgstr "setzte Parameter, betrachte Daten"
-
-#~ msgid "Experimental function"
-#~ msgstr "Experimentelle Funktion"
-
-#~ msgid "Same function as add button"
-#~ msgstr "dieselbe Funktion wie Hinzufügen"
-
-#~ msgid "Update control point"
-#~ msgstr "Kontrollpunkt auffrischen"
-
-#~ msgid "Same function as update button"
-#~ msgstr "dieselbe Funktion wie Auffrischen"
-
-#~ msgid "&Control point table\tF3"
-#~ msgstr "&Kontrollpunktliste\tF3"
-
-#~ msgid "Shows all controlpoint distances"
-#~ msgstr "Zeige alle Kontrollpunktabstände"
-
-#~ msgid "&Optimized control points"
-#~ msgstr "&Optimierte Kontrollpunkte"
-
-#~ msgid "&Last preview stitch"
-#~ msgstr "&Letzte Vorschau"
-
-#~ msgid "&Hide statusbar"
-#~ msgstr "&Verberge Statusleiste"
-
-#~ msgid "Toggle statusbar visibility"
-#~ msgstr "Statusbar zeigen/verstecken"
-
-#~ msgid "&Auto optimization\tF4"
-#~ msgstr "&autom. Optimierung\tF4"
-
-#~ msgid "auto optimize"
-#~ msgstr "automatische Optimierung"
-
-#~ msgid "Toggle optimization status"
-#~ msgstr "Optimierungsstatus umschalten"
-
-#~ msgid "&Other\tF8"
-#~ msgstr "&Anderes\tF8"
-
-#~ msgid "General settings"
-#~ msgstr "allgemeine Einstellungen"
-
-#~ msgid "&Optimization\tCtrl-r"
-#~ msgstr "&Optimierung\tCtrl-r"
-
-#~ msgid "Optimize with current parameters"
-#~ msgstr "optimieren mit aktuellen Einstellungen"
-
-#~ msgid "&Accept previous optimization result\tCtrl-Alt-a"
-#~ msgstr "vorherige Optimierung &annehmen\tCtrl-Alt-a"
-
-#~ msgid "Last result was OK?"
-#~ msgstr "Das letzte Ergebnis war gut?"
-
-#~ msgid "&Preview\tCtrl-p"
-#~ msgstr "&Vorschau\tCtrl-p"
-
-#~ msgid "About"
-#~ msgstr "Über"
-
-#~ msgid "&File"
-#~ msgstr "&Datei"
-
-#~ msgid "&Edit"
-#~ msgstr "&Editieren"
-
-#~ msgid "&View"
-#~ msgstr "&Ansicht"
-
-#~ msgid "&Options"
-#~ msgstr "&Optionen"
-
-#~ msgid "&Help"
-#~ msgstr "&Hilfe"
-
-#~ msgid "PTOpenGui - Text mode"
-#~ msgstr "PTOpenGui - Text Modus"
-
-#~ msgid "About PTOpenGui"
-#~ msgstr "Über PTOpenGui"
-
-#~ msgid "Files"
-#~ msgstr "Dateien"
-
-#~ msgid "Lens settings"
-#~ msgstr "Objektiv Einstellungen"
-
-#~ msgid "Lens"
-#~ msgstr "Objektiv Einstellungen"
-
-#~ msgid "Panorama settings"
-#~ msgstr "Panorama Einstellungen"
-
-#~ msgid "tear off this tab"
-#~ msgstr "in neuem Fenster anzeigen"
-
-#~ msgid "Close child window"
-#~ msgstr "Schließe getrenntes Fenster"
-
-#~ msgid "Image settings"
-#~ msgstr "Bild Einstellungen"
-
-#~ msgid "Inherit"
-#~ msgstr "Erben"
-
-#~ msgid "optimize"
-#~ msgstr "Optimieren"
-
-#~ msgid "Optimize"
-#~ msgstr "Optimieren"
-
-#~ msgid "Optimize window"
-#~ msgstr "Optimierfenster"
-
-#~ msgid "open optimizer window"
-#~ msgstr "öffnet ein Fenster für's Optimieren"
-
-#~ msgid "Edit values and view output in an own window."
-#~ msgstr "optimierbare Werte einstellen und Ergebnisse betrachten"
-
-#~ msgid "Preview"
-#~ msgstr "Vorschau"
-
-#~ msgid "Stitch"
-#~ msgstr "Zusammenfügen"
-
-#~ msgid "OK"
-#~ msgstr "Ja"
-
-#~ msgid "Image files"
-#~ msgstr "Bilddateien"
-
-#~ msgid "image in project"
-#~ msgstr "Bild im Projekt"
-
-#~ msgid "rotate"
-#~ msgstr "Drehen"
-
-#~ msgid "Edit project"
-#~ msgstr "Editiere Projekt"
-
-#~ msgid "Show project in project parser"
-#~ msgstr "zeige Projekt im Textfenster"
-
-#~ msgid "#- scanResolution 2900.00000"
-#~ msgstr "#- Scanauflösung 2900.00000"
-
-#~ msgid "Project description"
-#~ msgstr "Projektbeschreibung"
-
-#~ msgid "File operations"
-#~ msgstr "Dateikommandos"
-
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
-
-#~ msgid "Add image(s) to project"
-#~ msgstr "fügt Bilder dem Projekt hinzu"
-
-#~ msgid "add image"
-#~ msgstr "neues Bild"
-
-#~ msgid "add an image to the panorama"
-#~ msgstr "ein neues Bild dem Panorama hinzufügen"
-
-#~ msgid "Number of panoimages"
-#~ msgstr "Zahl der Bilder"
-
-#~ msgid "Remove image:   "
-#~ msgstr "Lösche Bild:   "
-
-#~ msgid "Remove images:   "
-#~ msgstr "Lösche Bilder:   "
-
-#~ msgid "Remove"
-#~ msgstr "löschen"
-
-#~ msgid "Remove image(s) from project"
-#~ msgstr "löscht Bilder vom Projekt"
-
-#~ msgid "Up"
-#~ msgstr "hoch"
-
-#~ msgid "Move image up in list"
-#~ msgstr "Bild nach oben"
-
-#~ msgid "Down"
-#~ msgstr "runter"
-
-#~ msgid "Move image down in list"
-#~ msgstr "Bild nach unten"
-
-#~ msgid "Export project"
-#~ msgstr "Projekt exportieren"
-
-#~ msgid "Scale factor:"
-#~ msgstr "Skalierfaktor"
-
-#~ msgid "image scale ratio"
-#~ msgstr "Bildproportion"
-
-#~ msgid "Integer value"
-#~ msgstr "Ganzzahl"
-
-#~ msgid "Round control point numbers to whole numbers"
-#~ msgstr "Runde Kontrollpunktzahlen zu Ganzzahlen"
-
-#~ msgid "Export"
-#~ msgstr "Exportieren"
-
-#~ msgid "Experimential function..."
-#~ msgstr "experimentelle Funktion..."
-
-#~ msgid "Preview (source image)"
-#~ msgstr "Vorschau (Bildquelle)"
-
-#~ msgid "Lens type:"
-#~ msgstr "Abbildungsart:"
-
-#~ msgid "Panoramic"
-#~ msgstr "Panorama"
-
-#~ msgid "All images/names"
-#~ msgstr "alle Bilder/Namen"
-
-#~ msgid "All"
-#~ msgstr "Alles"
-
-#~ msgid "All or one image"
-#~ msgstr "alle oder ein Bild"
-
-#~ msgid "Change single image only"
-#~ msgstr "ändere ein einziges Bild"
-
-#~ msgid "Do not change values for all images at the one time"
-#~ msgstr "Werte für Bilder einzeln verändern"
-
-#~ msgid "Horizontal Field of View"
-#~ msgstr "horizontaler Bildwinkel"
-
-#~ msgid "Degrees"
-#~ msgstr "Grad"
-
-#~ msgid "Lens degrees"
-#~ msgstr "Objektivwinkel"
-
-#~ msgid "lens"
-#~ msgstr "Objektiv"
-
-#~ msgid "lens No."
-#~ msgstr "Objektiv Nr."
-
-#~ msgid "apply selected lens"
-#~ msgstr "Objektiv zuweisen"
-
-#~ msgid "Lens No. :"
-#~ msgstr "Objektiv Nr. :"
-
-#~ msgid "Set lens type calculation method"
-#~ msgstr "bestimme Objektivberechnungsmethode"
-
-#~ msgid "Lens in mm for 35mm film"
-#~ msgstr "Objektivbrennweite bezogen auf 35mm Kammeras"
-
-#~ msgid "Set lenstype calculation method"
-#~ msgstr "Berechnunsmethode des Objektivtypes"
-
-#~ msgid "Scanned film"
-#~ msgstr "gescannter Film"
-
-#~ msgid "Degrees (v):"
-#~ msgstr "Grad (v):"
-
-#~ msgid "Calculated field of view"
-#~ msgstr "berechnetes Bildwinkel"
-
-#~ msgid "Focal length:"
-#~ msgstr "Brennweite:"
-
-#~ msgid "Focal length"
-#~ msgstr "Brennweite"
-
-#~ msgid "image ppi:"
-#~ msgstr "Bildauflösung in ppi:"
-
-#~ msgid "Orientation"
-#~ msgstr "Orientierung"
-
-#~ msgid "Primary parameters"
-#~ msgstr "Hauptparameter"
-
-#~ msgid "Lens correction parameters"
-#~ msgstr "Objektivkorrektur"
-
-#~ msgid "a - distortion value"
-#~ msgstr "a - Verzerrung(k2)"
-
-#~ msgid "distortion value (a)"
-#~ msgstr ""
-#~ "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt "
-#~ "des Bilder) Tonnen-/Kissenverzeichnung - k2"
-
-#~ msgid "distortion value (b)"
-#~ msgstr ""
-#~ "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt "
-#~ "des Bilder) Tonnen-/Kissenverzeichnung"
-
-#~ msgid "Barrel or pincusion distortion"
-#~ msgstr "Tonnenverzeichnung"
-
-#~ msgid "distortion value (c)"
-#~ msgstr ""
-#~ "Entzerren senkrecht zur optischen Achse des Objektives (zum Mittelpunkt "
-#~ "des Bilder) Tonnen-/Kissenverzeichnung - k1"
-
-#~ msgid "c - distortion value"
-#~ msgstr "c - Verzerrung(k1)"
-
-#~ msgid "Image shift"
-#~ msgstr "Bildversatz"
-
-#~ msgid "Shift:"
-#~ msgstr "Versatz:"
-
-#~ msgid "horizontal (d):"
-#~ msgstr "waagerecht (d):"
-
-#~ msgid "image shift horizontal (d)"
-#~ msgstr "Bildversatz waagerecht (d)"
-
-#~ msgid "vertical (e):"
-#~ msgstr "senkrecht (e):"
-
-#~ msgid "image shift vertical (e)"
-#~ msgstr "Bildversatz senkrecht (e):"
-
-#~ msgid "center"
-#~ msgstr "Zentrieren"
-
-#~ msgid "center image shifting it with d and e"
-#~ msgstr "die Mitte des Bildes bestimmen"
-
-#~ msgid "Shear:"
-#~ msgstr "Scheren:"
-
-#~ msgid "horizontal (g):"
-#~ msgstr "waagerecht (g):"
-
-#~ msgid "vertical (f):"
-#~ msgstr "senkrecht (f):"
-
-#~ msgid "Edit text"
-#~ msgstr "Text editieren"
-
-#~ msgid "Settings for final panorama"
-#~ msgstr "Einstellungen für das fertige Panorama"
-
-#~ msgid "View type"
-#~ msgstr "Betrachtungsart"
-
-#~ msgid "Panorama type (f)"
-#~ msgstr "Projektion (f)"
-
-#~ msgid ""
-#~ "type of projection for the panorama\n"
-#~ "Rectilinear = normal lens (for stitching conventional/architectural "
-#~ "photos)\n"
-#~ "Cylindrical = qtvr (good for printing panoramas)/nEquirectangular = "
-#~ "VirtualReality format (Shows an whole sphere in one image with ratio(w/h) "
-#~ "2:1. good for viewing in applications like ptviewer on internet and for "
-#~ "environtmant maps)"
-#~ msgstr ""
-#~ "Abbildungsart des Panoramas\n"
-#~ "rechtwinklig = wie normale Objektive (Perspektivisch korrekt für "
-#~ "konventionelle Fotos und Architektur)\n"
-#~ "zylindrisch = qtvr (Geeignet für Druck, ohne Betrachter)\n"
-#~ "gleichwinklig = VR Format (Bildet eine volle Rundumsicht in einem Bild "
-#~ "mit Seitenverhältnis(B/H) 2:1 ab. Geeignet für das Betrachten mittels "
-#~ "eines Programmes wie ptviewer im Internet und als Umgebungsbild "
-#~ "(environtmentmaps))"
-
-#~ msgid "calc"
-#~ msgstr "Berechnen"
-
-#~ msgid "calculate highest sensible width. (uses every image pixel)"
-#~ msgstr "Berechnet die größte Breite und benutzt dabei jeden Bildpunkt."
-
-#~ msgid "Panorama projection"
-#~ msgstr "Panorama Projektion"
-
-#~ msgid "Field of view (v)"
-#~ msgstr "Bildwinkel (v)"
-
-#~ msgid "calculate visible Field of View"
-#~ msgstr "Sichtbarer Bildwinkel"
-
-#~ msgid "Field of view in stitched panorama"
-#~ msgstr "Bildwinkel im fertigen Panorama"
-
-#~ msgid "Get max"
-#~ msgstr "nehme größtmöglichen Wert"
-
-#~ msgid "Feather (u): "
-#~ msgstr "Rand (u): "
-
-#~ msgid "Feather of images for stitching"
-#~ msgstr "Breite des Überganges der Einzelbilder"
-
-#~ msgid "Gamma correction (works best for 16bit images)"
-#~ msgstr "Gammakorrektur (zu Empfehlen bei 16bit Farbtiefe "
-
-#~ msgid "approximation of values beetwen source pixels"
-#~ msgstr "Methode zur Rundung der Werte zwischen den Ursprungspixeln"
-
-#~ msgid "Method for resize/interpolate"
-#~ msgstr "Methode zum vergrößern/interpolieren"
-
-#~ msgid "Output file"
-#~ msgstr "fertiges Panorama"
-
-#~ msgid "Width"
-#~ msgstr "Breite"
-
-#~ msgid "Width of panorama"
-#~ msgstr "Breite des Panoramas"
-
-#~ msgid "Height"
-#~ msgstr "Höhe"
-
-#~ msgid "Height of panorama"
-#~ msgstr "Höhe des Panoramas"
-
-#~ msgid "Output file type"
-#~ msgstr "Dateityp des Panoramas"
-
-#~ msgid "Image file type"
-#~ msgstr "Bilddateityp"
-
-#~ msgid "Jpeg quality: (used in preview)"
-#~ msgstr "Jpegqualität: (benutzt in Vorschau)"
-
-#~ msgid "Quality value, 100% best, 0% least space"
-#~ msgstr "Qualität 100% gut-groß 0% schlecht-klein "
-
-#~ msgid "Progressive jpeg"
-#~ msgstr "progressives JPEG"
-
-#~ msgid "Colour correction"
-#~ msgstr "Farbkorrektur"
-
-#~ msgid ""
-#~ "select kind of colour correction relative to the right side reference "
-#~ "image"
-#~ msgstr "Korrekturart wählen."
-
-#~ msgid ""
-#~ "image used as anchor for colour correction (will itself remain unchanged)"
-#~ msgstr ""
-#~ "Ankerbild für die Farbkorrektur. Das gewählte Bild wird nicht selbst "
-#~ "verändert."
-
-#~ msgid "misc"
-#~ msgstr "Verschiedenes"
-
-#~ msgid ""
-#~ "use currently selected image as anchor image. That is, do not optimize "
-#~ "the (complete) position of this image."
-#~ msgstr ""
-#~ "Setzte gerade gewähltes Bild als Ankerbild. Beim Optimieren verbleibt "
-#~ "dieses Bild in seiner jetzigen Lage."
-
-#~ msgid "Modify colors"
-#~ msgstr "verändere Farben"
-
-#~ msgid "Use panorama tools color correction"
-#~ msgstr "benutze panorama tools Farbkorrektur"
-
-#~ msgid "Reference image type:"
-#~ msgstr "Referenzbildtyp:"
-
-#~ msgid "not in use"
-#~ msgstr "nicht benutzt"
-
-#~ msgid "none"
-#~ msgstr "nicht benutzt"
-
-#~ msgid "Wich image is reference"
-#~ msgstr "Welches Bild soll als Referenz dienen?"
-
-#~ msgid "Correction type:"
-#~ msgstr "Korrekturtyp:"
-
-#~ msgid "Correct both brightness and color (k)"
-#~ msgstr "korrigiere Helligkeit und Farbe (k)"
-
-#~ msgid "brightness and color (k)"
-#~ msgstr "Helligkeit und Farbe (k)"
-
-#~ msgid "Correct brightness (b)"
-#~ msgstr "korrigiere Helligkeit (b)"
-
-#~ msgid "brightness (b)"
-#~ msgstr "Helligkeit (b)"
-
-#~ msgid "Correct color (d)"
-#~ msgstr "korrigiere Farbe (d)"
-
-#~ msgid "color (d)"
-#~ msgstr "Farbe (d)"
-
-#~ msgid "Type of correction"
-#~ msgstr "Art der Korrektur"
-
-#~ msgid "image parameters"
-#~ msgstr "Bildparameter"
-
-#~ msgid "yaw"
-#~ msgstr "Richt."
-
-#~ msgid "yaw:"
-#~ msgstr "Richt."
-
-#~ msgid "set yaw for selected image(s)"
-#~ msgstr "Blickrichtung der Kamera"
-
-#~ msgid "selected Image"
-#~ msgstr "ausgewähltes Bild"
-
-#~ msgid "set roll for selected image(s)"
-#~ msgstr "seitliches Neigen; nach links - , nach rechts +"
-
-#~ msgid "Bitmap"
-#~ msgstr "Bild"
-
-#~ msgid "pitch"
-#~ msgstr "Kipp."
-
-#~ msgid "pitch:"
-#~ msgstr "Kipp."
-
-#~ msgid "set pitch for selected image(s)"
-#~ msgstr "Kippen; nach oben + , nach unten -"
-
-#~ msgid "roll"
-#~ msgstr "Neig."
-
-#~ msgid "roll:"
-#~ msgstr "Neig."
-
-#~ msgid "Camera orientation"
-#~ msgstr "Kamera Richtung"
-
-#~ msgid "yaw -"
-#~ msgstr "Richtung -"
-
-#~ msgid "pitch | "
-#~ msgstr "Kippen | "
-
-#~ msgid "roll O"
-#~ msgstr "Neigen O"
-
-#~ msgid "horiz. (d)"
-#~ msgstr "waager. (d)"
-
-#~ msgid "shear x (g)"
-#~ msgstr "Scheren x (g)"
-
-#~ msgid "shear y (t)"
-#~ msgstr "Scheren y (t)"
-
-#~ msgid "Predefined optimizations"
-#~ msgstr "vordefinierte Optimierung"
-
-#~ msgid "No change"
-#~ msgstr "keine Änderung"
-
-#~ msgid "Optimization"
-#~ msgstr "Optimierung"
-
-#~ msgid "Projection for optimization"
-#~ msgstr "Projektion für Optimierung"
-
-#~ msgid "edit script"
-#~ msgstr "Script bearbeiten"
-
-#~ msgid "Edit the PTOptimizer script by hand."
-#~ msgstr "Das Script von PTOptimizer händisch bearbeiten."
-
-#~ msgid "Reference image:"
-#~ msgstr "Ankerbild:"
-
-#~ msgid ""
-#~ "only for preseleted settings - optimizeable v,a,b,c,d,e, not(y,p,r);\n"
-#~ "other images inherit v,a,b,c and optimizeable y,p,r, d,e"
-#~ msgstr ""
-#~ "nur für vorausgesuchte Eingestellungen - optimierbar v,a,b,c,d,e, nicht(y,"
-#~ "p,r);\n"
-#~ "andere Bilder erben v,a,b,c und optimierbar y,p,r, d,e"
-
-#~ msgid "manual settings"
-#~ msgstr "einzelne Auswahl"
-
-#~ msgid "orientation (y,p,r,v)"
-#~ msgstr "Orientierung (y,p,r,v)"
-
-#~ msgid "lens settings (v,a,b,c)"
-#~ msgstr "Objektiv (v,a,b,c)"
-
-#~ msgid "extended lens settings (v,d,e)"
-#~ msgstr "Objektiv erweitert (v,d,e)"
-
-#~ msgid "full lens settings (v,a,b,c,(d,e))"
-#~ msgstr "Objektiv alle (v,a,b,c,(d,e))"
-
-#~ msgid "automatic optimization"
-#~ msgstr "autom. optimieren"
-
-#~ msgid "manual or preselected optimization settings"
-#~ msgstr "einzelne oder vorausgewählte Einstellungen"
-
-#~ msgid ""
-#~ "optimize ControlPoints with preselected settings (left side)\n"
-#~ "\"manual settings\" take the settings from the tabs"
-#~ msgstr ""
-#~ "optimiert Kontrollpunkte mit den vorausgewählten Einstellungen (von "
-#~ "linker Seite)\n"
-#~ "\"einzelne Auswahl\" übernimmt die Einstellungen von den Bedienfeldern"
-
-#~ msgid "First as reference [y,p,r.*,a-d:(0)]"
-#~ msgstr "erstes Bild Referenz [y,p,r.*,a-d:(0)]"
-
-#~ msgid "All but selected line untouched"
-#~ msgstr "alles außer ausgewählte Zeile"
-
-#~ msgid "Basic might be an good starting point"
-#~ msgstr "Basic ist ein guter Anfang"
-
-#~ msgid "Data of last selection"
-#~ msgstr "Daten der letzten Auswahl"
-
-#~ msgid "Edit image parameter"
-#~ msgstr "Bildparameter editieren"
-
-#~ msgid "Update"
-#~ msgstr "auffrischen"
-
-#~ msgid "Optimize one column at one time"
-#~ msgstr "Spalten einzeln optimieren "
-
-#~ msgid "Run optimization until results keep the same"
-#~ msgstr "optimieren solange wie möglich"
-
-#~ msgid "loop change"
-#~ msgstr "Abbruchwert"
-
-#~ msgid "Minimum change in result"
-#~ msgstr "kleinste akzeptierte Veränderung"
-
-#~ msgid "Max seconds"
-#~ msgstr "längste Dauer"
-
-#~ msgid "Max time in seconds for loop"
-#~ msgstr "längste Zeit für Itteration"
-
-#~ msgid "Default settings"
-#~ msgstr "Vorgabewerte"
-
-#~ msgid "Clear opt"
-#~ msgstr "lösche Optimierungs."
-
-#~ msgid ""
-#~ "Set all optimized values to zero (except hfov), starts optimization from "
-#~ "zero"
-#~ msgstr ""
-#~ "Setzt alle Optimierungsparameter zurück außer den horizontalen Bildwinkel "
-#~ "(hfov)."
-
-#~ msgid "Memorize"
-#~ msgstr "merken"
-
-#~ msgid ""
-#~ "Set current optimization result to be fetched later. Store optimization "
-#~ "parameters also."
-#~ msgstr ""
-#~ "Merkt sich die Optimierungsparameter und -ergebnisse für eine spätere "
-#~ "Wiederverwendung intern."
-
-#~ msgid "Take back"
-#~ msgstr "erinnern"
-
-#~ msgid ""
-#~ "Set previous stored values to current status. Control point values are "
-#~ "keept untouched."
-#~ msgstr ""
-#~ "Erinnert sich vormals intern gespeicherter Optimierungsparameter und -"
-#~ "ergebnisse."
-
-#~ msgid "Swap"
-#~ msgstr "austauschen"
-
-#~ msgid "Swap current status and memorized status"
-#~ msgstr "Tausche derzeitige mit den gespeicherten Einstellungen"
-
-#~ msgid "Left image"
-#~ msgstr "linkes Bild"
-
-#~ msgid "Control point data"
-#~ msgstr "Zeige Kontrollpunktfenster"
-
-#~ msgid "Coord"
-#~ msgstr "Koord"
-
-#~ msgid "Left image X coordinate"
-#~ msgstr "linkes Bild X Koordinate"
-
-#~ msgid "Left image Y coordinate"
-#~ msgstr "linkes Bild Y Koordinate"
-
-#~ msgid "Right image X coordinate"
-#~ msgstr "rechtes Bild X Koordinate"
-
-#~ msgid "Right image Y coordinate"
-#~ msgstr "rechtes Bild Y Koordinate"
-
-#~ msgid "Comment"
-#~ msgstr "Kommentar"
-
-#~ msgid "Comment for control point"
-#~ msgstr "Kommentar zum Kontrollpunkt"
-
-#~ msgid "Align (t)"
-#~ msgstr "Ausrichtungstyp"
-
-#~ msgid "H+V"
-#~ msgstr "W+S"
-
-#~ msgid "Control point type, default is H+V (= horizontal'-' + vertical '|' )"
-#~ msgstr "Kontrollpunkttyp, üblich ist H+V (= waagerecht -- + senkrecht | )"
-
-#~ msgid "Ver"
-#~ msgstr "senk"
-
-#~ msgid "Control point type - for vertical alignment"
-#~ msgstr "Kontrollpunkttyp für senkrechtes ausrichten"
-
-#~ msgid "Hor"
-#~ msgstr "waag"
-
-#~ msgid "Control point type - for horizontal alignment"
-#~ msgstr "Kontrollpunkttyp für waagerechtes ausrichten"
-
-#~ msgid "Line"
-#~ msgstr "Linie"
-
-#~ msgid "Control points type - for straighten of lens distorted lines"
-#~ msgstr "Kontrollpunkttyp zur Korrektur von Abbildungsfehlern"
-
-#~ msgid "Add new control point"
-#~ msgstr "Neuen Kontrollpunkttyp hinzufügen"
-
-#~ msgid "Delete"
-#~ msgstr "löschen"
-
-#~ msgid "Main window zoom"
-#~ msgstr "Vergößerung im Haupfenster"
-
-#~ msgid "Zoom by "
-#~ msgstr "Vergrößerung"
-
-#~ msgid "Update selected line"
-#~ msgstr "auffrischen der gewählten Linie"
-
-#~ msgid "Search"
-#~ msgstr "Suchen"
-
-#~ msgid "Small \"finetune\" window zoom"
-#~ msgstr "Zoom für kleine Fenster"
-
-#~ msgid "left zoom image"
-#~ msgstr "linkes vergrößertes Bild"
-
-#~ msgid "text"
-#~ msgstr "Text"
-
-#~ msgid "right zoom image"
-#~ msgstr "rechtes vergrößertes Bild"
-
-#~ msgid "Left check box is to optimize parameter\n"
-#~ msgstr "Das linke Kästchen ist für die Parameteroptimierung\n"
-
-#~ msgid "Optimize project with given parameters"
-#~ msgstr "Optimiere das Projekt mit den gegebenen Parametern"
-
-#~ msgid "Reset script"
-#~ msgstr "Skript zurücksetzen"
-
-#~ msgid "Shows and set script"
-#~ msgstr "zeige und setze das Skript"
-
-#~ msgid "Show script"
-#~ msgstr "zeige das Skript"
-
-#~ msgid "Background optimize"
-#~ msgstr "optimiere im Hintergrund"
-
-#~ msgid "Run optimization when an control point has been changed"
-#~ msgstr "optimieren nach veränderten Kontrollpunkten"
-
-#~ msgid "Yaw"
-#~ msgstr "Schwenken"
-
-#~ msgid "Yaw (y)"
-#~ msgstr "Schw.(y)"
-
-#~ msgid "select"
-#~ msgstr "Wählen"
-
-#~ msgid "clear"
-#~ msgstr "Nichts"
-
-#~ msgid "Set"
-#~ msgstr "Setze"
-
-#~ msgid "Clear optimize for all (y)"
-#~ msgstr "kein Optimieren (y)"
-
-#~ msgid "Set link for all (y)"
-#~ msgstr "verknüpfe alle (y)"
-
-#~ msgid "Clear link for all (y)"
-#~ msgstr "lösche Verknüpfungen für alle (y)"
-
-#~ msgid "Pitch"
-#~ msgstr "Kippen"
-
-#~ msgid "Pitch (p)"
-#~ msgstr "Kipp.(p)"
-
-#~ msgid "Roll"
-#~ msgstr "Neigen"
-
-#~ msgid "Roll (r)"
-#~ msgstr "Neig.(r)"
-
-#~ msgid "Lens A (a)"
-#~ msgstr "Objektiv A"
-
-#~ msgid "Lens distortion factor a"
-#~ msgstr "Objektivverzerrung a (k2)"
-
-#~ msgid "Lens B (b)"
-#~ msgstr "Objektiv B"
-
-#~ msgid "Lens distortion factor b"
-#~ msgstr "Objektivverzerrung b"
-
-#~ msgid "Lens C (c)"
-#~ msgstr "Objektiv C"
-
-#~ msgid "Lens distortion factor c"
-#~ msgstr "Objektivverzerrung c (k1)"
-
-#~ msgid "Used control points"
-#~ msgstr "benutzte Kontrollpunkte"
-
-#~ msgid "Set selection for all"
-#~ msgstr "auswahl für alle"
-
-#~ msgid "Clear selection"
-#~ msgstr "Auswahl löschen"
-
-#~ msgid "Select reference image:"
-#~ msgstr "Referenzbild wählen"
-
-#~ msgid "no reference"
-#~ msgstr "keine Referenz"
-
-#~ msgid "Hor shift (d)"
-#~ msgstr "waag. Versatz (d)"
-
-#~ msgid "Vert shift (e)"
-#~ msgstr "senkr. Versatz (e)"
-
-#~ msgid "Hor shear (g)"
-#~ msgstr "waag. Scher.(g)"
-
-#~ msgid "Vert shear (t)"
-#~ msgstr "senkr. Scher.(t)"
-
-#~ msgid "Edit script"
-#~ msgstr "Skript editieren"
-
-#~ msgid "Make preview"
-#~ msgstr "Vorschau erzeugen"
-
-#~ msgid "preview"
-#~ msgstr "Vorschau"
-
-#~ msgid "panoviewer enabled"
-#~ msgstr "externer Panoramabetrachter"
-
-#~ msgid "precise"
-#~ msgstr "genau"
-
-#~ msgid ""
-#~ "Cuts the height of an preview to quickly wath the horizont line of an "
-#~ "panorama. To control the orientation."
-#~ msgstr ""
-#~ "Verkleinert die zu berechnende Höhe für eine schnellere Horizontvorschau. "
-#~ "Zur Kontrolle der Ausrichtung."
-
-#~ msgid "single preview"
-#~ msgstr "Einzelvorschau"
-
-#~ msgid "Render this image in single display mode."
-#~ msgstr "Zeigt dieses Bild als einziges."
-
-#~ msgid "Stitch!"
-#~ msgstr "Panorama berechnen"
-
-#~ msgid "Auto preview update"
-#~ msgstr "automatische Vorschau"
-
-#~ msgid "image view"
-#~ msgstr "BildansichtKippen"
-
-#~ msgid ""
-#~ "image view/panopreview\n"
-#~ "shift key + mouse left click  -> pitch\n"
-#~ "control key + mouse left click  -> yaw"
-#~ msgstr ""
-#~ "Bild-/Panoansicht\n"
-#~ "Groß Taste + Mausklick links  -> Richtung\n"
-#~ "Strg Taste + Mausklick links  -> Kippen"
-
-#~ msgid "Size"
-#~ msgstr "Größe"
-
-#~ msgid "Width of preview in pixel"
-#~ msgstr "Breite der Vorschau in Bildpunkten (pixel)"
-
-#~ msgid "Height of preview in pixel"
-#~ msgstr "Höhe der Vorschau in Bildpunkten (pixel)"
-
-#~ msgid "Proportional ratio"
-#~ msgstr "proportional"
-
-#~ msgid "Preserve ratio of 1:2 from height to width"
-#~ msgstr "Proportion von 1:2 festlegen"
-
-#~ msgid "Interpolator"
-#~ msgstr "Interpolation"
-
-#~ msgid "Preview interpolator"
-#~ msgstr "Interpolation der Vorschau"
-
-#~ msgid "Proportional feather"
-#~ msgstr "proportionaler Saum"
-
-#~ msgid "Images"
-#~ msgstr "Bilder"
-
-#~ msgid "Show stitch script"
-#~ msgstr "zeige Skript"
-
-#~ msgid "Show script in this window"
-#~ msgstr "zeige Skript in diesem Fenster"
-
-#~ msgid "Hide script"
-#~ msgstr "verberge Skript"
-
-#~ msgid "Set panorama options in text window\n"
-#~ msgstr "setze Optionen im Textfenster\n"
-
-#~ msgid "P-line could look like:  p f0 h1000 w2000 v90 JPEG q90 u20 k0"
-#~ msgstr "P-Zeile könnte aussehen wie:  p f0 h1000 w2000 v90 JPEG q90 u20 k0"
-
-#~ msgid "Stitch images"
-#~ msgstr "Bild berechnen"
-
-#~ msgid "Output name"
-#~ msgstr "Bildname"
-
-#~ msgid "Name of resulting panorama file"
-#~ msgstr "Dateiname des fertigen Panoramas"
-
-#~ msgid "Editor in expert mode\n"
-#~ msgstr "in Expertenmodus\n"
-
-#~ msgid "Settings OK"
-#~ msgstr "Einstellungen gut"
-
-#~ msgid "Close"
-#~ msgstr "Schließen"
-
-#~ msgid "close window"
-#~ msgstr "Schließe Fenster"
-
-#~ msgid "Apply"
-#~ msgstr "Anwenden"
-
-#~ msgid "apply changed values to actual selected images from panorama"
-#~ msgstr "momentan ausgewählte Bilder des Panoramas ändern"
-
-#~ msgid "This text describes the \n"
-#~ msgstr "Dieser Text beschreibt den \n"
-
-#~ msgid "current status of project.\n"
-#~ msgstr "Status des Projektes:\n"
-
-#~ msgid "First error:"
-#~ msgstr "Erster Fehler:"
-
-#~ msgid "Text mode"
-#~ msgstr "Text Modus"
-
-#~ msgid "Editor in expert mode"
-#~ msgstr "Expertenmodus"
-
-#~ msgid "Messages"
-#~ msgstr "Meldungen"
-
-#~ msgid "Test program"
-#~ msgstr "Test Programm"
-
-#~ msgid "&New"
-#~ msgstr "&Neu"
-
-#~ msgid "&Open"
-#~ msgstr "&Öffnen"
-
-#~ msgid "&Save"
-#~ msgstr "&Speichern"
-
-#~ msgid "&Save as"
-#~ msgstr "&Speichern unter"
-
-#~ msgid "&Quit"
-#~ msgstr "&Beenden"
-
-#~ msgid "&Copy"
-#~ msgstr "&Kopieren"
-
-#~ msgid "C&ut"
-#~ msgstr "A&usschneiden"
-
-#~ msgid "&Paste"
-#~ msgstr "&Einfügen"
-
-#~ msgid "&Delete"
-#~ msgstr "&Löschen"
-
-#~ msgid "Project in &text format"
-#~ msgstr "Projekt in &Textansicht"
-
-#~ msgid "&Fine tune control point"
-#~ msgstr "&Feinjustieren des Justierpunktes"
-
-#~ msgid "&Add control point"
-#~ msgstr "Justierpunkt &hinzufügen"
-
-#~ msgid "Updat&e control point"
-#~ msgstr "Justierpunkt au&ffrischen"
-
-#~ msgid "preview panorama"
-#~ msgstr "Vorschau des Panoramas"
-
-#~ msgid "show the preview image"
-#~ msgstr "zeigt Voransichtsfenster"
-
-#~ msgid "show the preview window"
-#~ msgstr "zeigt Voransichtsfenster"
-
-#~ msgid "&About"
-#~ msgstr "&Über"
-
-#~ msgid "enough"
-#~ msgstr "Reicht"
-
-#~ msgid "Open project"
-#~ msgstr "Öffne Projekt"
-
-#~ msgid "Save as new project"
-#~ msgstr "Speichere als neues Projekt"
-
-#~ msgid "Undo"
-#~ msgstr "Rückgängig"
-
-#~ msgid "Undo the last action"
-#~ msgstr "Letzter Eingriff rückgängig"
-
-#~ msgid "Redo"
-#~ msgstr "Wiederholen"
-
-#~ msgid "Redo the last action"
-#~ msgstr "Letzten Eingriff wiederherstellen"
-
-#~ msgid "Copy entry"
-#~ msgstr "Kopere Eintrag"
-
-#~ msgid "Cut entry"
-#~ msgstr "Schneide Eintrag aus"
-
-#~ msgid "Paste entry"
-#~ msgstr "Füge Eintrag ein"
-
-#~ msgid "Exit"
-#~ msgstr "Beenden"
-
-#~ msgid "This text describes the"
-#~ msgstr "Meldungen zum jetzigen"
-
-#~ msgid "current status of project."
-#~ msgstr "Stand des Projektes."
-
-#~ msgid "Exit program"
-#~ msgstr "Programm beenden"
-
-#~ msgid "Paste stored entry"
-#~ msgstr "Gespeicherten Eintrag einfügen"
-
-#~ msgid "Delete entry"
-#~ msgstr "Eintrag löschen"
-
-#~ msgid "About program"
-#~ msgstr "Über das Programm"
-
-#~ msgid "Informations about this program"
-#~ msgstr "Informationen über dieses Programm"
-
-#~ msgid "previous image pair"
-#~ msgstr "vorheriges Paar"
-
-#~ msgid "next image pair"
-#~ msgstr "nächstes Paar"
-
-#~ msgid "Fine Tune"
-#~ msgstr "Feinkorrektur"
-
-#~ msgid "tries to optimize the currently active point."
-#~ msgstr "Versucht das gewählte Kontrollpunktpaar zu ptimiere."
-
-#~ msgid "auto fine &tune"
-#~ msgstr "autom. Feinkorrektur"
-
-#~ msgid "auto add"
-#~ msgstr "autom. Hinzufügen"
-
-#~ msgid "immediately add control point when selecting a second point"
-#~ msgstr ""
-#~ "fügt mit dem Setzen des zweiten Kontrollpunktes das Paar der Liste zu."
-
-#~ msgid "vertical line"
-#~ msgstr "senkrechte Linie"
-
-#~ msgid "Zoom:"
-#~ msgstr "Größe:"
-
-#~ msgid "fit to window"
-#~ msgstr "anpassen"
-
-#~ msgid "options"
-#~ msgstr "Optionen"
-
-#~ msgid "experimental stuff"
-#~ msgstr "Versuchs Funktionen"
