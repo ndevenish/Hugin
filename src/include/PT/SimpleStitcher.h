@@ -26,9 +26,9 @@
 #ifndef _SIMPLESTITCHER_H
 #define _SIMPLESTITCHER_H
 
+#include <vigra/impex.hxx>
 
 #include <PT/PanoToolsInterface.h>
-#include <vigra/impex.hxx>
 
 namespace PTools {
 

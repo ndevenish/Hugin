@@ -24,12 +24,12 @@
 #ifndef PT_PANOTOOLSINTERFACE_H
 #define PT_PANOTOOLSINTERFACE_H
 
+#include <vigra/accessor.hxx>
+#include <vigra/interpolating_accessor.hxx>
+
 #include <PT/Panorama.h>
 #include <PT/PanoramaMemento.h>
 #include <common/math.h>
-
-#include <vigra/accessor.hxx>
-#include <vigra/interpolating_accessor.hxx>
 
 extern "C" {
 #include <pano12/panorama.h>
@@ -197,7 +197,7 @@ struct RemappedPanoImage
             }
             return dist.accessor()(dist.upperLeft()+(p-ul));
         }
-    
+
     typename RemapImage::value_type get(const vigra::Diff2D & p)
         {
 //            vigra::Diff2D lr = ul + image.size() - vigra::Diff2D(1,1);
@@ -206,7 +206,7 @@ struct RemappedPanoImage
 //            }
             return image.accessor()(image.upperLeft()+(p-ul));
         }
-    
+
 };
 
 

@@ -27,13 +27,14 @@
 #include <fstream>
 #include <sstream>
 
+#include <vigra/impex.hxx>
+#include <vigra/error.hxx>
+#include "PT/SimpleStitcher.h"
+
 #include "common/utils.h"
 #include "common/stl_utils.h"
 #include "PT/Panorama.h"
-#include "PT/SimpleStitcher.h"
 
-#include <vigra/impex.hxx>
-#include <vigra/error.hxx>
 
 using namespace vigra;
 using namespace PT;
@@ -43,8 +44,8 @@ void usage(char * name)
 {
     cerr << name << ": stitch a panorama image, with bilinear interpolation" << endl
          << endl
-         << " It uses the transform function from PanoTools, the stitching itself" << endl 
-         << " is quite simple, no seam feathering is done. Seams are placed" << endl 
+         << " It uses the transform function from PanoTools, the stitching itself" << endl
+         << " is quite simple, no seam feathering is done. Seams are placed" << endl
          << endl
          << "Usage: " << name  << " hugin_project outputimageprefix" << endl;
 }
@@ -57,7 +58,7 @@ int main(int argc, char *argv[])
     }
 
     utils::CoutProgressDisplay pdisp;
-    
+
     char * scriptFile = argv[1];
     // output settings
     string basename(argv[2]);
@@ -99,7 +100,7 @@ int main(int argc, char *argv[])
         DEBUG_ERROR("unsupported file format, using jpeg");
         format = "jpg";
     }
-    
+
     // check for some options
 
     int w = opts.width;

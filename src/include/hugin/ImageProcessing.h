@@ -37,6 +37,7 @@
 
 #include "hugin/wxVigraImage.h"
 #include "hugin/ImageCache.h"
+
 #include "common/utils.h"
 #include "common/math.h"
 
