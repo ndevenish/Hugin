@@ -252,14 +252,14 @@ void ImagesPanel::ChangePano ( std::string type, double var )
         if ( type == "roll" ) {
           new_var.roll.setValue(var);
         }
-        pano.updateVariables( imgNr[i], new_var ); 
+        GlobalCmdHist::getInstance().addCommand(
+          new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], new_var)
+          );
+
+//        pano.updateVariables( imgNr[i], new_var ); 
 
         DEBUG_INFO( type <<" for image "<< imgNr[i] );
     }
-
-    GlobalCmdHist::getInstance().addCommand(
-         new PT::UpdateImageVariablesCmd(pano, imgNr[imgNr[0]], pano.getVariable(imgNr[imgNr[0]]))
-         );
 
     changePano = FALSE;
 
