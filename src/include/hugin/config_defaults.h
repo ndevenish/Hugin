@@ -56,7 +56,8 @@
 #define HUGIN_GUI_SORT_IMG_BY_DATE            0l
 
 // Program defaults
-#ifdef WIN32
+#if defined WIN32
+
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer.exe"
 
@@ -68,9 +69,8 @@
 
 #define HUGIN_APSIFT_EXE                      "autopano-win32.exe"
 
-#endif
 
-#ifdef __WXMAC__
+#elif defined __WXMAC__
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
@@ -83,9 +83,9 @@
 
 #define HUGIN_APSIFT_EXE                      "autopano-complete-mac.sh"
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
-#endif
 
-#ifdef unix
+
+#elif defined unix
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
@@ -97,6 +97,7 @@
 #define HUGIN_APKOLOR_ARGS                    ""
 
 #define HUGIN_APSIFT_EXE                      "autopanog.exe"
+
 
 #endif
 
