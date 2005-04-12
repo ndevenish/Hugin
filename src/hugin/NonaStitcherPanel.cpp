@@ -302,7 +302,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     wxLogError(_("No enblend.exe selected"));
                 }
             }
-#elif defined (__WXMAC__)
+#elif defined __WXMAC__
             wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
             if (!wxFile::Exists(enblendExe)){
                 wxFileDialog dlg(this,_("Select enblend commandline tool"),
@@ -314,6 +314,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
                 } else {
                     wxLogError(_("No enblend commandline tool selected"));
+                    return;
                 }
             }
 #else
@@ -390,7 +391,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                     wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
                 }
 #else
-                int ret = wxExecute(args, wxEXEC_SYNC);
+                cmdline = enblendExe + wxT(" ") + args;
+                int ret = wxExecute(cmdline, wxEXEC_SYNC);
 #endif
 		DEBUG_NOTICE("enblend returned with: " << ret);
 
