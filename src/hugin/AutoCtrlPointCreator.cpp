@@ -38,6 +38,11 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
 
+#ifdef __WXMAC__
+#include <CFBundle.h>
+#include <wx/utils.h>
+#endif
+
 using namespace std;
 using namespace PT;
 using namespace utils;
@@ -153,19 +158,57 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             return;
         }
     }
-#elif defined (__WXMAC__)
-    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
-    if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select autopano-sift frontend script"),
-                         wxT(""), wxT(""),
-                         wxT("Shell Scripts (*.sh)|*.sh"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            autopanoExe = dlg.GetPath();
-            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"),autopanoExe);
-        } else {
-            wxLogError(_("No autopano selected"));
-            return;
+#elif (defined __WXMAC__)
+    wxString autopanoExe;
+    
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR(HUGIN_APSIFT_EXE), NULL, NULL);
+        if(!XRCurl)
+        {
+            DEBUG_INFO("Mac: Cannot locate autopano-sift frontend script in the bundle.");
+        }
+        else
+        {
+            CFIndex bufLen = 1024;
+            unsigned char buffer[(int) bufLen];
+            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            {
+                CFRelease(XRCurl);
+                DEBUG_INFO("Mac: Failed to get file system representation");
+            }
+            else
+            {
+                buffer[((int) bufLen) - 1] = '\0';
+                CFRelease(XRCurl);
+                autopanoExe = wxString::FromAscii( (char *) buffer);
+                DEBUG_INFO("Mac: using bundled autopano-sift frontend script");
+                
+                wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
+            }
+        }
+    }
+    
+    if(!autopanoExe)
+    {
+        autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
+        if (!wxFile::Exists(autopanoExe)){
+            wxFileDialog dlg(0,_("Select autopano frontend script"),
+                             wxT(""), wxT(""),
+                             _("Shell Scripts (*.sh)|*.sh"),
+                             wxOPEN, wxDefaultPosition);
+            if (dlg.ShowModal() == wxID_OK) {
+                autopanoExe = dlg.GetPath();
+                wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
+            } else {
+                wxLogError(_("No autopano selected"));
+                return;
+            }
         }
     }
 #else
@@ -238,6 +281,25 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
     }
+    
+#ifdef __WXMAC__
+    wxString autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
+    if (! wxFileExists( autopanoExeDir + wxT("/autopano.exe") )){
+        wxFileDialog dlg(0, _("Select autopano .Net executable."),
+                         wxT(""), wxT(""),
+                         wxT("Mono executables (*.exe)|*.exe"),
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            autopanoExeDir = wxPathOnly( dlg.GetPath() );
+            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
+            autopanoArgs = wxT("-a ") + autopanoExeDir + wxT(" ") + autopanoArgs;
+        } else {
+            wxLogError(_("No autopano directory selected"));
+            return;
+        }
+    }
+#endif
+    
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 1930) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
