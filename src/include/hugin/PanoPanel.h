@@ -140,7 +140,7 @@ public:
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
 
-#ifdef USE_WX25x
+#ifdef USE_WX26x
 	wxScrolledWindow *m_pano_ctrls;
 #endif
 

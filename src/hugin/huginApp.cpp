@@ -210,7 +210,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(xrcPrefix + wxT("help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("keyboard_help.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("pref_dialog.xrc"));
-#ifdef USE_WX25x
+#ifdef USE_WX26x
     wxXmlResource::Get()->Load(xrcPrefix + wxT("cp_editor_panel-2.5.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("images_panel-2.5.xrc"));
     wxXmlResource::Get()->Load(xrcPrefix + wxT("lens_panel-2.5.xrc"));

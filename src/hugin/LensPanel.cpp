@@ -134,7 +134,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigitsEdit"),2);
     m_distDigitsEdit = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigitsEdit"),5);
 
-#ifdef USE_WX25x
+#ifdef USE_WX26x
     m_lens_ctrls = XRCCTRL(*this, "lens_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_lens_ctrls);
     m_lens_splitter = XRCCTRL(*this, "lens_panel_splitter", wxSplitterWindow);
@@ -143,6 +143,7 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
     m_lens_ctrls->FitInside();
     m_lens_ctrls->SetScrollRate(10, 10);
     m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
+    m_lens_splitter->SetSashGravity(0.5);
     m_lens_splitter->SetMinimumPaneSize(20);
 #endif
 
@@ -157,7 +158,7 @@ LensPanel::~LensPanel(void)
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX25x
+#ifdef USE_WX26x
     int sashPos;
     sashPos = m_lens_splitter->GetSashPosition();
     DEBUG_INFO("Lens panel sash pos: " << sashPos);
@@ -182,7 +183,7 @@ LensPanel::~LensPanel(void)
 
 void LensPanel::FitParent( wxSizeEvent & e )
 {
-#ifdef USE_WX25x
+#ifdef USE_WX26x
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     // winHeight -= ConvertDialogToPixels(wxPoint(0, 30)).y;   // sizes of tabs and toolbar

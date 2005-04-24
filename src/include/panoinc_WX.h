@@ -63,13 +63,15 @@
 #include <wx/regex.h>
 #include <wx/valtext.h>
 #include <wx/valgen.h>
+
 #if wxCHECK_VERSION(2,5,3)
-#ifdef __WXGTK__
-// At present we can only use wxSplitterWindows on GTK
-#define USE_WX25x
-#endif
 #include <wx/imaglist.h>
 #endif
+
+#if wxCHECK_VERSION(2,6,0)
+#define USE_WX26x
+#endif
+
 // remove stupid #defines from the evil windows.h
 #ifdef __WXMSW__
 #include <wx/msw/winundef.h>

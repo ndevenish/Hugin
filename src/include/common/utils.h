@@ -34,14 +34,14 @@
 
 #ifdef __WXMSW__
 // has to be included before!
-//#include <wx/log.h>
+#include <wx/log.h>
 
 #define snprintf _snprintf
 #endif
 
 #ifdef WIN32
 // has to be included before!
-//#include <wx/log.h>
+#include <wx/log.h>
 
 #define snprintf _snprintf
 #endif

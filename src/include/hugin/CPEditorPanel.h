@@ -237,7 +237,7 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-#ifdef USE_WX25x
+#ifdef USE_WX26x
 	wxScrolledWindow *m_cp_ctrls;
     wxSplitterWindow *m_cp_splitter;
 #endif
