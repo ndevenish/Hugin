@@ -1682,7 +1682,7 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 {
     if (cpCreationState == NO_POINT) {
         FineTuneSelectedPoint(false);
-    } else if (BOTH_POINTS_SELECTED) {
+    } else if (cpCreationState == BOTH_POINTS_SELECTED) {
         FineTuneNewPoint(false);
     }
 }
