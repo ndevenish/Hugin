@@ -422,6 +422,7 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars,
     DEBUG_TRACE("");
     if (m_pano->getNrOfImages() == 0) {
         // nothing to optimize
+		wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
         return;
     }
 

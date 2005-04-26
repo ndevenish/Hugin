@@ -491,6 +491,10 @@ unsigned int PanoPanel::CalcOptimalWidth()
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )
 {
+    if (pano.getNrOfImages() == 0) {
+	    wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
+		return;
+	}
     int preset = m_QuickChoice->GetSelection();
     // apply preset mode. (recalculates width etc)
     ApplyQuickMode(preset);
