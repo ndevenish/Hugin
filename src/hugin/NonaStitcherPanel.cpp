@@ -408,8 +408,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 }
             }
         }
-    if (wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) {
-        // delete remapped tiff files
+    if ((wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) && enblend) {
+        // delete remapped tiff files only if enblend was used for the stitching
         for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             wxString f = output + wxString::Format(wxT("%04d.tif"), *it);
