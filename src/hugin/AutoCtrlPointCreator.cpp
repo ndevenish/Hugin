@@ -292,12 +292,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExeDir = wxPathOnly( dlg.GetPath() );
             wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
-            autopanoArgs = wxT("-a ") + autopanoExeDir + wxT(" ") + autopanoArgs;
         } else {
             wxLogError(_("No autopano directory selected"));
             return;
         }
     }
+    autopanoArgs = wxT("-a ") + autopanoExeDir + wxT(" ") + autopanoArgs;
 #endif
     
 #ifdef __WXMSW__
