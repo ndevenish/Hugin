@@ -1,0 +1,118 @@
+= getopt port =
+
+This is a modified package of a famous command-line options parser refined for build in Microsoft Visual Studios and optimized for Intel processors Pentium Pro or newer.
+
+* built by Microsoft Visual C++ release/debug as static library
+
+<toc>
+
+----
+
+== developer installation ==
+
+* create a directory for the package
+
+It is sensible to create a common master directory for sources of the others packages, either dependencies of this package or other new ones. It helps keeping all the unpacked packages in good order, for example:
+
+ d:\packages
+ d:\packages\package1
+ d:\packages\package2
+ ...
+
+Names of the packages rarely clash with the others. It is usual to use the name of the package for the name of the directory, for example:
+
+ d:\packages\getopt
+
+* unpack the package into this directory
+
+ cd d:\packages\getopt
+ unzip getopt-port-msvs6.zip
+
+----
+
+== list of deliverables ==
+
+Sources:
+
+* getopt-port.tar.bz2 - source
+
+Binaries from Microsoft Visual Studio 97 (C++ 6.0):
+
+* getopt-port-msvs6.zip - headers and libraries for developers
+
+Binaries from Microsoft Visual Studio .NET 2003 (C++ 7.1):
+
+* getopt-port-msvs71.zip - headers and libraries for developers
+
+----
+
+== package structure ==
+
+There are several files in the master directory introducing briefly the package, its version, history, authors and license. The subdirectories are:
+
+* include - headers
+* lib - import and archive libraries
+
+----
+
+== related links ==
+
+Home with the latest version:
+
+* http://prantl.host.sk/getopt
+
+Bug reports, questions and suggestions are kindly expected at prantl@host.sk.
+
+----
+
+== build from sources ==
+
+* create a directory for the package sources
+
+It is sensible to create a common master directory for the others packages, either dependencies of this package or other new ones. It helps keeping all the unpacked packages in good order, for example:
+
+ d:\packages
+ d:\packages\package1-version1
+ d:\packages\package2-version2
+ ...
+
+Names of the packages rarely clash with the others. It is usual to use the name of the package with the version stamp for the name of the directory (name without version is used for the compiled installation package), for example:
+
+ d:\packages\getopt-port
+
+* unpack the chosen source package package into this directory (if there is a common master directory inside the source package, unpack its content into the new directory)
+
+ cd d:\packages\getopt-port
+ bzip2 -cd getopt-port.tar.bz2 | tar xf -
+
+* build the binary package
+
+Try to search README.THIS under the source package directory (it is usually in a msvs subdirectory), go to this subdirectory and run the following batches:
+
+ vcvars32 (from your selected Microsoft Visual C++)
+ _makebin
+ _makedist
+ _makeclean
+
+Should this package be needed to build another one, just unpack the resulting archive into the new directory:
+
+ d:\packages\getopt
+
+and continue with another package.
+
+----
+
+== history of changes ==
+
+2003/05/24
+
+ * version from the year 1993 used
+ + native build projects created for most of the libraries for C++ 6.0
+ + native build projects created for most of the libraries for C++ 7.1
+ ~ build batches producing release and debug targets,
+   static library and the package archive
+ ~ optimization settings set to Pentium Pro and inlining of anything
+ + automatic linking of the right archive library added
+ ~ file naming conventions unified with my other packages
+ ~ fixes for build with msvc
+ ~ tiny mistakes causing warnings corrected
