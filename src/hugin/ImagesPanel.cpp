@@ -483,7 +483,7 @@ void ImagesPanel::UpdatePreviewImage()
 #else
     wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
     DEBUG_ASSERT(imgctrlpanel);
-    wxSize sz = imgctrlpanel->GetSize();
+    sz = imgctrlpanel->GetSize();
     DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
     double sRatio = (double)sz.GetWidth() / sz.GetHeight();
 #endif
