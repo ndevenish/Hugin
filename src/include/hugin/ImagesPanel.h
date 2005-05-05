@@ -45,6 +45,9 @@ public:
                  Panorama * pano );
     virtual ~ImagesPanel(void) ;
 
+    /** restore layout after hugin start */
+    void RestoreLayout();
+
     /** this is called whenever the panorama has changed.
      *
      *  This function must now update all the gui representations
@@ -121,12 +124,16 @@ private:
 
     /** show a bigger thumbnail */
     void ShowImage(unsigned int imgNr);
+    void UpdatePreviewImage();
 
     /** bitmap with default image */
     wxBitmap m_empty;
 
     /** pointer to the list control */
     ImagesListImage* images_list;
+    wxStaticBitmap * m_smallImgCtrl;
+    unsigned m_showImgNr;
+
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
     wxButton * m_setAnchorOrientButton;

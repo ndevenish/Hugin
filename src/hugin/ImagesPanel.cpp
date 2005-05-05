@@ -88,6 +88,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 {
     DEBUG_TRACE("");
 
+    m_showImgNr = INT_MAX;
     wxXmlResource::Get()->LoadPanel (this, wxT("images_panel"));
 
     images_list = new ImagesListImage (parent, pano);
@@ -115,16 +116,13 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     m_img_ctrls->FitInside();
     m_img_ctrls->SetScrollRate(10, 10);
-	{
-		int sashPos;
-		sashPos = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300);
-		m_img_splitter->SetSashGravity(0.5);
-		m_img_splitter->SetSashPosition(sashPos);
-	}
+    m_img_splitter->SetSashGravity(1);
     m_img_splitter->SetMinimumPaneSize(20);
 #endif
 
     // Image Preview
+    m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
+    DEBUG_ASSERT(m_smallImgCtrl);
 
     // converts KILL_FOCUS events to usable TEXT_ENTER events
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
@@ -170,6 +168,14 @@ ImagesPanel::~ImagesPanel(void)
     DEBUG_TRACE("dtor end");
 }
 
+void ImagesPanel::RestoreLayout()
+{
+#ifdef USE_WX26x
+    m_img_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300));
+#endif
+
+}
+
 void ImagesPanel::FitParent( wxSizeEvent & e )
 {
 #ifdef USE_WX26x
@@ -187,6 +193,7 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 #endif
+    UpdatePreviewImage();
 }
 
 #ifdef USE_WX26x
@@ -435,6 +442,7 @@ void ImagesPanel::ShowImgParameters(unsigned int imgNr)
     ShowImage(imgNr);
 }
 
+
 void ImagesPanel::ClearImgParameters()
 {
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl) ->Clear();
@@ -445,6 +453,54 @@ void ImagesPanel::ClearImgParameters()
         SetBitmap(m_empty);
 }
 
+
+void ImagesPanel::ShowImage(unsigned int imgNr)
+{
+    m_showImgNr = imgNr;
+    UpdatePreviewImage();
+}
+
+
+void ImagesPanel::UpdatePreviewImage()
+{
+    if (m_showImgNr < 0 || m_showImgNr >= pano.getNrOfImages()) {
+        return;
+    }
+    const wxImage * img = ImageCache::getInstance().getSmallImage(
+                      pano.getImage(m_showImgNr).getFilename());
+
+    double iRatio = (double)img->GetWidth() / img->GetHeight();
+
+    wxSize sz;
+#ifdef USE_WX26x
+    // estimate image size
+    sz = m_img_splitter->GetWindow2()->GetSize();
+    int maxw = sz.GetWidth() - 40;
+    int maxh = sz.GetHeight() - m_smallImgCtrl->GetPosition().y - 20;
+    sz.SetHeight(std::max(maxh, 20));
+    sz.SetWidth(std::max(maxw, 20));
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+#else
+    wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
+    DEBUG_ASSERT(imgctrlpanel);
+    wxSize sz = imgctrlpanel->GetSize();
+    DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+#endif
+    if (iRatio > sRatio) {
+        // image is wider than screen, display landscape
+        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    } else {
+        // portrait
+        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+    }
+    wxImage scaled = img->Scale(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetSize(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
+}
+
+
+#if 0
 void ImagesPanel::ShowImage(unsigned int imgNr)
 {
     // show preview image
@@ -454,39 +510,63 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     // a new image is set, else it will keep the old size..
     // however, I'm not sure how this should be done with wxWindows
 
+
+    const wxImage * img = ImageCache::getInstance().getSmallImage(
+    pano.getImage(imgNr).getFilename());
+
+    double iRatio = (double)img->GetWidth() / img->GetHeight();
+
+    wxSize sz;
+#ifdef USE_WX26x
+    // get width from splitter window
+    wxSize szs = m_img_splitter->GetSize();
+    wxSize sz1 = m_img_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_img_splitter->GetWindow2()->GetSize();
+
+    // estimate image size
+    sz = m_img_splitter->GetWindow2()->GetSize();
+    int maxw = sz.GetWidth() - 40;
+    int maxh = sz.GetHeight() - m_smallImgCtrl->GetPosition().y - 20;
+    sz.SetHeight(std::max(maxh, 20));
+    sz.SetWidth(std::max(maxw, 20));
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+    if (iRatio > sRatio) {
+        // image is wider than screen, display landscape
+        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    } else {
+        // portrait
+        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+    }
+
+#else
     // get size from parent panel (its just there, to provide the size..
     wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
     DEBUG_ASSERT(imgctrlpanel);
     wxSize sz = imgctrlpanel->GetSize();
     DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+
+    if (iRatio > sRatio) {
+        // image is wider than screen, display landscape
+        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    } else {
+        // portrait
+        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+    }
 #if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
     imgctrlpanel->Clear();
 #else
     imgctrlpanel->ClearBackground();
 #endif
-    wxStaticBitmap * imgctrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
-    DEBUG_ASSERT(imgctrl);
-    const wxImage * img = ImageCache::getInstance().getSmallImage(
-        pano.getImage(imgNr).getFilename());
+    imgctrlpanel->SetSize(sz.GetWidth(),sz.GetHeight());
 
-    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
-    double iRatio = (double)img->GetWidth() / img->GetHeight();
+#endif
 
-    int w,h;
-    if (iRatio > sRatio) {
-        // image is wider than screen, display landscape
-        w = sz.GetWidth();
-        h = (int) (w / iRatio);
-    } else {
-        // portrait
-        h = sz.GetHeight();
-        w = (int) (h * iRatio);
-    }
-    wxImage scaled = img->Scale(w,h);
-    imgctrl->SetSize(w,h);
-    imgctrl->SetBitmap(wxBitmap(scaled));
+    wxImage scaled = img->Scale(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetSize(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
 }
-
+#endif
 
 void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
 {

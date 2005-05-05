@@ -45,6 +45,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
                  Panorama * pano );
     virtual ~LensPanel(void) ;
 
+    /** restore layout after hugin start */
+    void RestoreLayout();
+
     /** this is called whenever the panorama has changed.
      *
      *  This function must now update all the gui representations

@@ -25,7 +25,6 @@
 #define _CPEDITORPANEL_H
 
 
-
 //-----------------------------------------------------------------------------
 // Headers
 //-----------------------------------------------------------------------------
@@ -37,6 +36,9 @@
 #include <string>
 
 #include <PT/Panorama.h>
+
+// use wxChoice instead of tabnotebook
+//#define HUGIN_CP_IMG_CHOICE
 
 #include "CPImageCtrl.h"
 
@@ -61,6 +63,7 @@ namespace vigra_ext{
     struct CorrelationResult;
 }
 
+
 /** control point editor panel.
  *
  *  This panel is used to create/change/edit control points
@@ -77,6 +80,12 @@ public:
     /** dtor.
      */
     virtual ~CPEditorPanel();
+
+    /** restore the layout of this panel.
+     *  should be called after it has been intitalized and is shown
+     */
+    void RestoreLayout();
+
 
     /// set left image
     void setLeftImage(unsigned int imgNr);
@@ -155,8 +164,13 @@ private:
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
     void OnCPEvent(CPEvent &ev);
+#ifdef HUGIN_CP_IMG_CHOICE
+    void OnLeftChoiceChange(wxCommandEvent & e);
+    void OnRightChoiceChange(wxCommandEvent & e);
+#else
     void OnLeftImgChange(wxNotebookEvent & e);
     void OnRightImgChange(wxNotebookEvent & e);
+#endif
     void OnCPListSelect(wxListEvent & e);
     void OnAddButton(wxCommandEvent & e);
     void OnZoom(wxCommandEvent & e);
@@ -225,7 +239,12 @@ private:
 
 
     // GUI controls
+#ifdef HUGIN_CP_IMG_CHOICE
+    wxChoice *m_leftChoice;
+    wxChoice *m_rightChoice;
+#else
     wxNotebook *m_leftTabs, *m_rightTabs;
+#endif
     CPImageCtrl *m_leftImg, *m_rightImg;
     CPFineTuneFrame * m_fineTuneFrame;
     wxListCtrl *m_cpList;
@@ -237,9 +256,10 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-#ifdef USE_WX26x
+#ifdef USE_WX26x_CP
 	wxScrolledWindow *m_cp_ctrls;
     wxSplitterWindow *m_cp_splitter;
+    wxSplitterWindow *m_cp_splitter_img;
 #endif
 
     // my data

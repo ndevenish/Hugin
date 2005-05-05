@@ -142,8 +142,10 @@ LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, P
 
     m_lens_ctrls->FitInside();
     m_lens_ctrls->SetScrollRate(10, 10);
-    m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
-    m_lens_splitter->SetSashGravity(0.5);
+    // set sash position in RestoreLayout(), when the widget has the right size
+//    m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
+    // resize only the images list, and keep the control parameters at the same size
+    m_lens_splitter->SetSashGravity(1);
     m_lens_splitter->SetMinimumPaneSize(20);
 #endif
 
@@ -181,6 +183,13 @@ LensPanel::~LensPanel(void)
     DEBUG_TRACE("dtor about to finish");
 }
 
+void LensPanel::RestoreLayout()
+{
+#ifdef USE_WX26x
+    m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
+#endif
+}
+
 void LensPanel::FitParent( wxSizeEvent & e )
 {
 #ifdef USE_WX26x
@@ -204,6 +213,11 @@ void LensPanel::FitParent( wxSizeEvent & e )
 void LensPanel::UpdateLensDisplay ()
 {
     DEBUG_TRACE("");
+    if (m_selectedLenses.size() == 0) {
+        // no lens selected
+        return;
+    }
+
     if (m_selectedImages.size() == 0) {
         // no image selected
         return;
@@ -214,7 +228,6 @@ void LensPanel::UpdateLensDisplay ()
         // might be different for each image
         return;
     }
-
 
     const Lens & lens = pano.getLens(*(m_selectedLenses.begin()));
     const VariableMap & imgvars = pano.getImageVariables(*m_selectedImages.begin());
@@ -263,7 +276,10 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); it++)
     {
-        m_selectedLenses.insert(pano.getImage(*it).getLensNr());
+        // need to check, since the m_selectedImages list might still be in an old state
+        if (*it < pano.getNrOfImages()) {
+            m_selectedLenses.insert(pano.getImage(*it).getLensNr());
+        }
     }
     // we need to do something if the image we are editing has changed.
     bool update=false;

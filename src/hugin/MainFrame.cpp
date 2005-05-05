@@ -371,6 +371,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             Move(0, 44);
         }
     }
+
+    // restore layout of child widgets, now that all widgets have been created,
+    // are of similar size
+    cpe->RestoreLayout();
+    lens_panel->RestoreLayout();
+    images_panel->RestoreLayout();
     
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);

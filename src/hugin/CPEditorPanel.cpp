@@ -84,8 +84,13 @@ void ToGray(wxImageIterator sy, wxImageIterator send, vigra::BImage::Iterator dy
 
 BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
+#ifdef HUGIN_CP_IMG_CHOICE
+    EVT_CHOICE(XRCID("cp_editor_left_choice"), CPEditorPanel::OnLeftChoiceChange )
+    EVT_CHOICE(XRCID("cp_editor_right_choice"), CPEditorPanel::OnLeftChoiceChange )
+#else
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange )
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
+#endif
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
     EVT_COMBOBOX(XRCID("cp_editor_zoom_box"), CPEditorPanel::OnZoom)
     EVT_TEXT_ENTER(XRCID("cp_editor_x1"), CPEditorPanel::OnTextPointChange )
@@ -96,9 +101,9 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CHAR(CPEditorPanel::OnKey)
     EVT_KEY_UP(CPEditorPanel::OnKeyUp)
     EVT_KEY_DOWN(CPEditorPanel::OnKeyDown)
+    EVT_CHECKBOX(XRCID("cp_editor_auto_add_cb"), CPEditorPanel::OnAutoAddCB)
     EVT_BUTTON(XRCID("cp_editor_delete"), CPEditorPanel::OnDeleteButton)
     EVT_BUTTON(XRCID("cp_editor_add"), CPEditorPanel::OnAddButton)
-    EVT_CHECKBOX(XRCID("cp_editor_auto_add_cb"), CPEditorPanel::OnAutoAddCB)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
     EVT_BUTTON(XRCID("cp_editor_finetune_button"), CPEditorPanel::OnFineTuneButton)
@@ -113,19 +118,28 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
 
+#ifndef HUGIN_CP_IMG_CHOICE
     wxPoint tabsz(1,14);
     tabsz = ConvertDialogToPixels(tabsz);
     int tabH = tabsz.y;
     // left image
     m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
     m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
+#else
+    m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
+#endif
+
     m_leftImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_left_img"),
                                                m_leftImg);
 
     // right image
+#ifndef HUGIN_CP_IMG_CHOICE
     m_rightTabs = XRCCTRL(*this, "cp_editor_right_tab", wxNotebook);
     m_rightTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
+#else
+    m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
+#endif
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
                                                m_rightImg);
@@ -140,6 +154,8 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #else
     m_fineTuneFrame=0;
 #endif
+
+
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
@@ -174,18 +190,75 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-#ifdef USE_WX26x
-    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
-	DEBUG_ASSERT(m_cp_ctrls);
-    m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
+#if 0
+    wxSplitterWindow * m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
 	DEBUG_ASSERT(m_cp_splitter);
 
-	m_cp_ctrls->SetSizeHints(20, 20);
-	m_cp_ctrls->FitInside();
-	m_cp_ctrls->SetScrollRate(10, 10);
+    if ( m_cp_splitter->IsSplit() )
+        m_cp_splitter->Unsplit();
+    wxStaticText * leftWindow =     XRCCTRL(*this, "cp_text_1", wxStaticText);
+    leftWindow->Show(true);
+    wxStaticText * rightWindow = XRCCTRL(*this, "cp_text_2", wxStaticText);
+    rightWindow->Show(true);
+    m_cp_splitter->SplitVertically( leftWindow, rightWindow );
+
 	m_cp_splitter->SetSashGravity(0.5);
 	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
 	m_cp_splitter->SetMinimumPaneSize(20);
+
+    wxSize sz = m_cp_splitter->GetSize();
+    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
+#endif
+
+#ifdef USE_WX26x
+
+    // setup scroll window for the controls under the images
+    m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
+	DEBUG_ASSERT(m_cp_ctrls);
+	m_cp_ctrls->SetSizeHints(20, 20);
+	m_cp_ctrls->FitInside();
+	m_cp_ctrls->SetScrollRate(10, 10);
+
+    // setup splitter between the images.
+    m_cp_splitter_img = XRCCTRL(*this, "cp_editor_panel_img_splitter", wxSplitterWindow);
+	DEBUG_ASSERT(m_cp_splitter_img);
+    wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
+    DEBUG_ASSERT(leftWindow);
+    wxPanel * rightWindow = XRCCTRL(*this, "cp_editor_split_img_right", wxPanel);
+    DEBUG_ASSERT(rightWindow);
+    if ( m_cp_splitter_img->IsSplit() ) {
+        m_cp_splitter_img->Unsplit();
+    }
+    leftWindow->Show(true);
+    rightWindow->Show(true);
+	m_cp_splitter_img->SetSashGravity(0.5);
+    m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
+	m_cp_splitter_img->SetMinimumPaneSize(20);
+
+
+    // setup splitter between images and bottom row.
+    m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
+	DEBUG_ASSERT(m_cp_splitter);
+
+    leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
+    DEBUG_ASSERT(leftWindow);
+    rightWindow = XRCCTRL(*this, "cp_editor_split_bottom", wxPanel);
+    DEBUG_ASSERT(rightWindow);
+    if ( m_cp_splitter->IsSplit() ) {
+        m_cp_splitter->Unsplit();
+    }
+    leftWindow->Show(true);
+    rightWindow->Show(true);
+	m_cp_splitter->SetSashGravity(0.5);
+	m_cp_splitter->SetMinimumPaneSize(20);
+    m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
+	m_cp_splitter->SetMinimumPaneSize(20);
+	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
+
+    wxSize sz = m_cp_splitter->GetSize();
+    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
 #endif
 
     // apply selection from xrc file
@@ -230,6 +303,28 @@ CPEditorPanel::~CPEditorPanel()
     DEBUG_TRACE("dtor end");
 }
 
+
+void CPEditorPanel::RestoreLayout()
+{
+#ifdef USE_WX26x
+	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),300));
+	DEBUG_ASSERT(m_cp_splitter_img);
+
+    wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
+    DEBUG_ASSERT(leftWindow);
+    wxPanel * rightWindow = XRCCTRL(*this, "cp_editor_split_img_right", wxPanel);
+    DEBUG_ASSERT(rightWindow);
+    if ( m_cp_splitter_img->IsSplit() ) {
+        m_cp_splitter_img->Unsplit();
+    }
+    leftWindow->Show(true);
+    rightWindow->Show(true);
+	m_cp_splitter_img->SetSashGravity(0.5);
+    m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
+	m_cp_splitter_img->SetMinimumPaneSize(20);
+#endif
+}
+
 void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
@@ -244,9 +339,16 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         UpdateDisplay();
     } else if (m_leftImageNr != imgNr) {
         m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
+#ifdef HUGIN_CP_IMG_CHOICE
+        if (m_leftChoice->GetSelection() != (int) imgNr) {
+            m_leftChoice->SetSelection(imgNr);
+        }
+
+#else
         if (m_leftTabs->GetSelection() != (int) imgNr) {
             m_leftTabs->SetSelection(imgNr);
         }
+#endif
         m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         changeState(NO_POINT);
@@ -275,9 +377,15 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         // set the new image
         m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
         // select tab
+#ifdef HUGIN_CP_IMG_CHOICE
+        if (m_rightChoice->GetSelection() != (int) imgNr) {
+            m_rightChoice->SetSelection(imgNr);
+        }
+#else
         if (m_rightTabs->GetSelection() != (int) imgNr) {
             m_rightTabs->SetSelection(imgNr);
         }
+#endif
         m_rightImageNr = imgNr;
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
@@ -420,11 +528,13 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         break;
     }
     case CPEvent::SCROLLED:
-	if (left) {
-	    m_rightImg->ScrollDelta(wxPoint(roundi(point.x), roundi(point.y)) );
-	} else {
-	    m_leftImg->ScrollDelta(wxPoint(roundi(point.x), roundi(point.y)));
-	}
+    {
+        wxPoint d(roundi(point.x), roundi(point.y));
+        d = m_rightImg->MaxScrollDelta(d);
+        d = m_leftImg->MaxScrollDelta(d);
+        m_rightImg->ScrollDelta(d);
+        m_leftImg->ScrollDelta(d);
+    }
 	break;
 
 //    default:
@@ -978,7 +1088,11 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
 void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     unsigned int nrImages = pano.getNrOfImages();
+#ifdef HUGIN_CP_IMG_CHOICE
+    unsigned int nrTabs = m_leftChoice->GetCount();
+#else
     unsigned int nrTabs = m_leftTabs->GetPageCount();
+#endif
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
 
     // FIXME: lets hope that nobody holds references to these images..
@@ -987,12 +1101,30 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     // add tab bar entries, if needed
     if (nrTabs < nrImages) {
         for (unsigned int i=nrTabs; i < nrImages; i++) {
+#ifdef HUGIN_CP_IMG_CHOICE
+//            int newi = m_leftChoice->Insert(wxString::Format(wxT("%d"), i), i);
+            m_leftChoice->Append(wxString::Format(wxT("%d"), i));
+
+//            if (newi != i) {
+//                DEBUG_FATAL("wxChoice indicies do not match image numbers");
+//            }
+//            newi = m_rightChoice->Insert(wxString::Format(wxT("%d"), i), i);
+            m_rightChoice->Append(wxString::Format(wxT("%d"), i));
+//            if (newi != i) {
+//                DEBUG_FATAL("wxChoice indicies do not match image numbers");
+//            }
+#else
             wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
             t1->SetSize(0,0);
             t1->SetSizeHints(0,0,0,0);
+            wxSize sz(0,0);
+            t1->SetMaxSize(sz);
+            t1->SetMinSize(sz);
             wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             t2->SetSize(0,0);
             t2->SetSizeHints(0,0,0,0);
+            t2->SetMaxSize(sz);
+            t2->SetMinSize(sz);
             // update tab buttons
             if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
@@ -1000,32 +1132,39 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
+#endif
         }
     }
     if (nrTabs > nrImages) {
         // remove tab bar entries if needed
         // we have to disable listening to notebook selection events,
         // else we might update to a noexisting image
-        int left = m_leftTabs->GetSelection();
-        int right = m_rightTabs->GetSelection();
+
+//        int left = m_leftTabs->GetSelection();
+//        int right = m_rightTabs->GetSelection();
         m_listenToPageChange = false;
         for (int i=nrTabs-1; i >= (int)nrImages; i--) {
+#ifdef HUGIN_CP_IMG_CHOICE
+            m_leftChoice->Delete(i);
+            m_rightChoice->Delete(i);
+#else
             DEBUG_DEBUG("removing tab " << i);
             m_leftTabs->DeletePage(i);
             m_rightTabs->DeletePage(i);
+#endif
         }
         m_listenToPageChange = true;
         if (nrImages > 0) {
             // select some other image if we deleted the current image
-            if (left >= (int) nrImages) {
+            if (m_leftImageNr >= (int) nrImages) {
                 setLeftImage(nrImages -1);
-                m_leftFile = pano.getImage(nrImages-1).getFilename();
-                m_leftImg->setImage(m_leftFile);
+//                m_leftFile = pano.getImage(nrImages-1).getFilename();
+//                m_leftImg->setImage(m_leftFile);
             }
-            if (right >= (int)nrImages) {
+            if (m_rightImageNr >= (int)nrImages) {
                 setRightImage(nrImages -1);
-                m_rightFile = pano.getImage(nrImages-1).getFilename();
-                m_rightImg->setImage(m_rightFile);
+//                m_rightFile = pano.getImage(nrImages-1).getFilename();
+//                m_rightImg->setImage(m_rightFile);
             }
         } else {
             DEBUG_DEBUG("setting no images");
@@ -1083,8 +1222,13 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 void CPEditorPanel::UpdateDisplay()
 {
     DEBUG_DEBUG("")
+#ifdef HUGIN_CP_IMG_CHOICE
+    int fI = m_leftChoice->GetSelection();
+    int sI = m_rightChoice->GetSelection();
+#else
     int fI = m_leftTabs->GetSelection();
     int sI = m_rightTabs->GetSelection();
+#endif
     if (fI < 0 || m_leftImageNr == UINT_MAX || m_rightImageNr == UINT_MAX) {
         return;
     }
@@ -1260,6 +1404,25 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
 
 }
 
+
+#ifdef HUGIN_CP_IMG_CHOICE
+void CPEditorPanel::OnLeftChoiceChange(wxCommandEvent & e)
+{
+    DEBUG_TRACE("OnLeftChoiceChange() to " << e.GetSelection());
+    if (m_listenToPageChange && e.GetSelection() >= 0) {
+        setLeftImage((unsigned int) e.GetSelection());
+    }
+}
+
+void CPEditorPanel::OnRightChoiceChange(wxCommandEvent & e)
+{
+    DEBUG_TRACE("OnRightChoiceChange() to " << e.GetSelection());
+    if (m_listenToPageChange && e.GetSelection() >= 0) {
+        setRightImage((unsigned int) e.GetSelection());
+    }
+}
+
+#else
 void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
@@ -1275,6 +1438,7 @@ void CPEditorPanel::OnRightImgChange(wxNotebookEvent & e)
         setRightImage((unsigned int) e.GetSelection());
     }
 }
+#endif
 
 void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
 {
@@ -1639,7 +1803,8 @@ void CPEditorPanel::changeState(CPCreationState newState)
 void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 {
     if (m_pano->getNrOfImages() < 2) return;
-    int nImgs = m_leftTabs->GetPageCount();
+//    int nImgs = m_leftTabs->GetPageCount();
+    int nImgs = m_pano->getNrOfImages();
     int left = m_leftImageNr -1;
     int right = m_rightImageNr -1;
     if (left < 0) {
@@ -1660,7 +1825,8 @@ void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 void CPEditorPanel::OnNextImg(wxCommandEvent & e)
 {
     if (m_pano->getNrOfImages() < 2) return;
-    int nImgs = m_leftTabs->GetPageCount();
+//    int nImgs = m_leftTabs->GetPageCount();
+    int nImgs = m_pano->getNrOfImages();
     int left = m_leftImageNr + 1;
     int right = m_rightImageNr + 1;
     if (left < 0) {
@@ -1816,3 +1982,4 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
     return t;
 }
+
