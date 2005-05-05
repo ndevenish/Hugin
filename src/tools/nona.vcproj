@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\getopt\include"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\foreign\getopt\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -33,9 +33,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pngd.lib zlibd.lib jpegd.lib tiffd.lib pano12.lib"
+				AdditionalDependencies="wxpngd.lib wxzlibd.lib wxjpegd.lib wxtiffd.lib pano12.lib"
 				OutputFile="$(OutDir)/nona.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreAllDefaultLibraries="FALSE"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
@@ -71,20 +72,21 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../include;../foreign;..\..\..\libs\getopt\include"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\foreign\getopt\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="png.lib zlib.lib jpeg.lib tiff.lib pano12.lib"
+				AdditionalDependencies="wxpng.lib wxzlib.lib wxjpeg.lib wxtiff.lib pano12.lib"
 				OutputFile="$(OutDir)/nona.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -113,9 +115,6 @@
 		</Configuration>
 	</Configurations>
 	<References>
-		<ProjectReference
-			ReferencedProjectIdentifier="{621C0B14-F003-4961-8D14-7A1679087977}"
-			Name="getopt"/>
 	</References>
 	<Files>
 		<Filter

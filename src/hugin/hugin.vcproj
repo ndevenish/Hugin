@@ -12,71 +12,6 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Release DLL|Win32"
-			OutputDirectory=".\ReleaseDLL"
-			IntermediateDirectory=".\ReleaseDLL"
-			ConfigurationType="1"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../../../include,../../../contrib/include,../../../lib/mswdll"
-				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;__WINDOWS__;__WXMSW__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT;WXUSINGDLL=1"
-				StringPooling="TRUE"
-				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\ReleaseDLL/XrcDemoVC.pch"
-				AssemblerListingLocation=".\ReleaseDLL/"
-				ObjectFile=".\ReleaseDLL/"
-				ProgramDataBaseFileName=".\ReleaseDLL/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				CompileAs="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw24.lib wxxrc.lib"
-				OutputFile="$(OutDir)/$(ProjectName).exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
-				IgnoreDefaultLibraryNames="libc.lib,libci.lib"
-				ProgramDatabaseFile=".\ReleaseDLL/xmldemo.pdb"
-				SubSystem="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\ReleaseDLL/XrcDemoVC.tlb"
-				HeaderFileName=""/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="2057"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\Debug"
 			IntermediateDirectory=".\Debug"
@@ -86,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswd&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\mswd;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;DEBUG=1;__WXDEBUG__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="TRUE"
@@ -102,11 +37,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswd.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexd.lib pano12.lib"
+				AdditionalDependencies="wxmsw26d_xrc.lib wxmsw26d_html.lib wxmsw26d_adv.lib wxmsw26d_core.lib wxbase26d_xml.lib wxbase26d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
@@ -130,71 +65,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Debug DLL|Win32"
-			OutputDirectory=".\DebugDLL"
-			IntermediateDirectory=".\DebugDLL"
-			ConfigurationType="1"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="../../../include,../../../contrib/include,../../../lib/mswdlld"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;DEBUG=1;__WXDEBUG__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT;WXUSINGDLL=1"
-				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\DebugDLL/XrcDemoVC.pch"
-				AssemblerListingLocation=".\DebugDLL/"
-				ObjectFile=".\DebugDLL/"
-				ProgramDataBaseFileName=".\DebugDLL/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"
-				CompileAs="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw24d.lib wxxrcd.lib"
-				OutputFile="$(OutDir)/$(ProjectName).exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
-				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib"
-				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\DebugDLL/xmldemo.pdb"
-				SubSystem="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\DebugDLL/XrcDemoVC.tlb"
-				HeaderFileName=""/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2057"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -217,7 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="1"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\msw&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\msw;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;__WINDOWS__;__WXMSW__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -233,11 +104,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib pano12.lib"
+				AdditionalDependencies="wxmsw26_xrc.lib wxmsw26_html.lib wxmsw26_adv.lib wxmsw26_core.lib wxbase26_xml.lib wxbase26.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libc.lib,libci.lib,msvcrtd.lib"
 				ProgramDatabaseFile=".\Release/xmldemo.pdb"
 				SubSystem="2"
@@ -262,73 +133,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Debug Unicode|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			UseOfMFC="1"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswud&quot;"
-				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;__WXDEBUG__;WINVER=0x0400;STRICT;UNICODE;__WXMSW__;wxUSE_UNICODE=1"
-				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/XrcDemoVC.pch"
-				AssemblerListingLocation=".\Debug Unicode"
-				ObjectFile=".\Debug Unicode/"
-				ProgramDataBaseFileName=".\Debug Unicode/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"
-				CompileAs="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="unicows.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswud.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexud.lib pano12.lib"
-				OutputFile="$(OutDir)/$(ProjectName).exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories=""
-				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
-				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug Unicode/xmldemo.pdb"
-				SubSystem="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="TRUE"
-				SuppressStartupBanner="TRUE"
-				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/XrcDemoVC.tlb"
-				HeaderFileName=""/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -351,7 +156,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="1"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswu&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\mswu;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;__WXMSW__;WINVER=0x0400;STRICT;UNICODE;wxUSE_UNICODE=1"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -368,11 +173,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="unicows.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswu.lib png.lib zlib.lib jpeg.lib tiff.lib regexu.lib pano12.lib"
+				AdditionalDependencies="wxmsw26u_xrc.lib wxmsw26u_html.lib wxmsw26u_adv.lib wxmsw26u_core.lib wxbase26u_xml.lib wxbase26u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libc.lib,libci.lib,msvcrtd.lib"
 				ProgramDatabaseFile=".\Release/xmldemo.pdb"
 				SubSystem="2"
@@ -398,7 +203,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
