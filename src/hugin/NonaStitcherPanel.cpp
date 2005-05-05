@@ -247,22 +247,6 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     } else {
         fill_set(imgs, 0, pano.getNrOfImages()-1);
     }
-
-    // check if any images use a circular crop. If they do so,
-    // remind people that nona doesn't support that yet
-
-    bool warn_crop = false;
-    for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-        if (pano.getImage(*it).getOptions().docrop) {
-            warn_crop = true;
-        }
-    }
-    if (warn_crop) {
-        if ( wxMessageBox(_("Nona does not support cropped images yet.\nThe crop settings will be ignored\nContinue anyway?"),_("Cropping not supported by nona"), wxOK | wxCANCEL | wxICON_EXCLAMATION) == wxCANCEL ) 
-        {
-            return;
-        }
-    }
     
     bool enblend = m_EnblendCheckBox->IsChecked();
     try {
@@ -285,137 +269,134 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 	wxString outname;
 	wxString output;
 	wxFileName::SplitPath(wxString(opts.outfile.c_str(), *wxConvCurrent), &outpath, &outname, NULL);
-	output = outpath + wxFileName::GetPathSeparator() + outname;
-        if (enblend) {
-            wxConfigBase* config = wxConfigBase::Get();
+    output = outpath + wxFileName::GetPathSeparator() + outname;
+    if (enblend) {
+        wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE));
-            if (!wxFile::Exists(enblendExe)){
-                wxFileDialog dlg(this,_("Select enblend.exe"),
-                                 wxT(""), wxT("enblend.exe"),
-                                 wxT("Executables (*.exe)|*.exe"),
-                                 wxOPEN, wxDefaultPosition);
-                if (dlg.ShowModal() == wxID_OK) {
-                    enblendExe = dlg.GetPath();
-                    config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
-                } else {
-                    wxLogError(_("No enblend.exe selected"));
-                }
-            }
-#elif defined __WXMAC__
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
-            if (!wxFile::Exists(enblendExe)){
-                wxFileDialog dlg(this,_("Select enblend commandline tool"),
-                                 wxT(""), wxT(""),
-                                 wxT("Any Files |*"),
-                                 wxOPEN, wxDefaultPosition);
-                if (dlg.ShowModal() == wxID_OK) {
-                    enblendExe = dlg.GetPath();
-                    config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
-                } else {
-                    wxLogError(_("No enblend commandline tool selected"));
-                    return;
-                }
-            }
-#else
-            wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
-#endif
-            // call enblend, and create the right output file
-            // I hope this works correctly with filenames that contain
-            // spaces
-
-            wxString args;
-			args.append(config->Read(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS)));
-            if (opts.HFOV == 360.0) {
-                // blend over the border
-                args.append(wxT(" -w"));
-            }
-            args.append(wxT(" -o "));
-            wxString quoted = output + wxT(".tif");
-            quoted = utils::wxQuoteFilename(quoted);
-            args.append(quoted);
-
-            unsigned int nImg = imgs.size();
-            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
-            {
-                quoted = output + wxString::Format(wxT("%04d.tif"), *it);
-                quoted = utils::wxQuoteFilename(quoted);
-                args.append(wxT(" "));
-                args.append(quoted);
-            }
-
-#ifdef __WXMSW__
-            if (args.size() > 1950) {
-                wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitiation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
-                    _("Too many images selected"));
-        return;
-    }
-#endif
-            {
-                wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
-                
-                wxString cmdline;
-#ifdef unix
-        cmdline = enblendExe + wxT(" ") + args;
-		DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
-		int ret = system(cmdline.mb_str());
-		if (ret == -1) {
-                    wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
-		               _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
-		} else {
-		    ret = WEXITSTATUS(ret);
-		}
-#elif __WXMSW__
-                cmdline = wxString(wxT("enblend.exe ")) + args;
-                // using CreateProcess on windows
-                /* CreateProcess API initialization */
-                STARTUPINFO siStartupInfo;
-                PROCESS_INFORMATION piProcessInfo;
-                memset(&siStartupInfo, 0, sizeof(siStartupInfo));
-                memset(&piProcessInfo, 0, sizeof(piProcessInfo));
-                siStartupInfo.cb = sizeof(siStartupInfo);
-//#ifdef wxUSE_UNICODE
-#if wxUSE_UNICODE
-                WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
-                WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
-#else //ANSI
-                char * cmdline_c = (char*) cmdline.mb_str();
-                char * exe_c = (char*) enblendExe.mb_str();
-#endif
-                int ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
-                                        IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
-                                        NULL, &siStartupInfo, &piProcessInfo);
-                if (ret) {
-                    ret = 0;
-                } else {
-                    ret = -1;
-                    wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
-                }
-#else
-                cmdline = enblendExe + wxT(" ") + args;
-                int ret = wxExecute(cmdline, wxEXEC_SYNC);
-#endif
-		DEBUG_NOTICE("enblend returned with: " << ret);
-
-                if (ret == -1) {
-                    wxLogError( _("Could not execute command: ") + cmdline, _("wxExecute Error"));
-                    return;
-                } else if (ret > 0) {
-                    wxLogError(_("command: ") + cmdline +
-                                 _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
-				 _("enblend error"));
-                    return;
-                }
+        wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE));
+        if (!wxFile::Exists(enblendExe)){
+            wxFileDialog dlg(this,_("Select enblend.exe"),
+                             wxT(""), wxT("enblend.exe"),
+                             wxT("Executables (*.exe)|*.exe"),
+                              wxOPEN, wxDefaultPosition);
+            if (dlg.ShowModal() == wxID_OK) {
+                enblendExe = dlg.GetPath();
+                config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
+            } else {
+                wxLogError(_("No enblend.exe selected"));
+                return;
             }
         }
-    if ((wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) && enblend) {
-        // delete remapped tiff files only if enblend was used for the stitching
+#elif defined __WXMAC__
+        wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
+        if (!wxFile::Exists(enblendExe)){
+            wxFileDialog dlg(this,_("Select enblend commandline tool"),
+                             wxT(""), wxT(""),
+                             wxT("Any Files |*"),
+                             wxOPEN, wxDefaultPosition);
+            if (dlg.ShowModal() == wxID_OK) {
+                enblendExe = dlg.GetPath();
+                config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
+            } else {
+                wxLogError(_("No enblend commandline tool selected"));
+                return;
+            }
+        }
+#else
+        wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
+#endif
+        // call enblend, and create the right output file
+        // I hope this works correctly with filenames that contain
+        // spaces
+
+        wxString args = config->Read(wxT("/Enblend/EnblendArgs"));
+        if (opts.HFOV == 360.0) {
+            // blend over the border
+            args.append(wxT(" -w"));
+        }
+        args.append(wxT(" -o "));
+        wxString quoted = output + wxT(".tif");
+        quoted = utils::wxQuoteFilename(quoted);
+        args.append(quoted);
+
+        unsigned int nImg = imgs.size();
         for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
-            wxString f = output + wxString::Format(wxT("%04d.tif"), *it);
-            wxRemoveFile(f);
+            quoted = output + wxString::Format(wxT("%04d.tif"), *it);
+            quoted = utils::wxQuoteFilename(quoted);
+            args.append(wxT(" "));
+            args.append(quoted);
         }
-    }
+
+#ifdef __WXMSW__
+        if (args.size() > 1950) {
+            wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitiation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
+                _("Too many images selected"));
+            return;
+        }
+#endif
+        int ret = -1;
+        wxString cmdline = enblendExe + wxT(" ") + args;
+        {
+            wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
+#ifdef unix
+            DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
+            ret = system(cmdline.mb_str());
+            if (ret == -1) {
+                wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
+                    _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
+            } else {
+                ret = WEXITSTATUS(ret);
+            }
+#elif __WXMSW__
+            // using CreateProcess on windows
+            /* CreateProcess API initialization */
+            STARTUPINFO siStartupInfo;
+            PROCESS_INFORMATION piProcessInfo;
+            memset(&siStartupInfo, 0, sizeof(siStartupInfo));
+            memset(&piProcessInfo, 0, sizeof(piProcessInfo));
+            siStartupInfo.cb = sizeof(siStartupInfo);
+#if wxUSE_UNICODE
+            WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
+            WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
+#else //ANSI
+            char * cmdline_c = (char*) cmdline.mb_str();
+            char * exe_c = (char*) enblendExe.mb_str();
+#endif
+            ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
+                                    IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
+                                    NULL, &siStartupInfo, &piProcessInfo);
+            if (ret) {
+                ret = 0;
+            } else {
+                ret = -1;
+                wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
+            }
+#else
+            // use stock wxWindows wxExecute on other platforms.
+            ret = wxExecute(cmdline, wxEXEC_SYNC);
+#endif
+        }
+        DEBUG_NOTICE("enblend returned with: " << ret);
+
+        if (ret == -1) {
+            wxLogError( _("Could not execute command: ") + cmdline, _("wxExecute Error"));
+            return;
+        } else if (ret > 0) {
+            wxLogError(_("command: ") + cmdline +
+                _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
+                _("enblend error"));
+            return;
+        }
+        if (wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) {
+            // delete remapped tiff files
+            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
+            {
+                wxString f = output + wxString::Format(wxT("%04d.tif"), *it);
+                wxRemoveFile(f);
+            }
+        }
+    }    
 }
 
 void NonaStitcherPanel::OnSetQuality(wxSpinEvent & e)
