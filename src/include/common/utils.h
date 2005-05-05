@@ -35,11 +35,13 @@
 #ifdef __WXMSW__
 // has to be included before!
 #include <wx/log.h>
-
-#define snprintf _snprintf
 #endif
 
 #ifdef WIN32
+#define snprintf _snprintf
+#endif
+
+#ifdef __WXMSW__
 // has to be included before!
 #include <wx/log.h>
 

@@ -26,6 +26,8 @@
 #ifndef VIGRA_EXT_UTILS_H
 #define VIGRA_EXT_UTILS_H
 
+#include <common/math.h>
+
 namespace vigra_ext {
 /** count pixels that are > 0 in both images */
 struct OverlapSizeCounter
@@ -72,6 +74,37 @@ struct MaskPixelCounter
 
     int count;
 };
+
+/** Apply a circular crop to \p img
+ *
+ *  Sets all pixels that are outside of
+ *  the circle specified by \p middle and \p radius
+ *  to zero.
+ */
+template <class SrcImageIterator, class SrcAccessor>
+void circularCrop(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> img,
+                  FDiff2D middle, double radius)
+{
+    vigra::Diff2D imgSize = img.second - img.first;
+    double r2 = radius*radius;
+
+    // create dest y iterator
+    SrcImageIterator yd(img.first);
+    // loop over the image and transform
+    for(int y=0; y < imgSize.y; ++y, ++yd.y)
+    {
+        // create x iterators
+        SrcImageIterator xd(yd);
+        for(int x=0; x < imgSize.x; ++x, ++xd.x)
+        {
+            double dx = x-middle.x;
+            double dy = y-middle.y;
+            if (dx*dx+dy*dy > r2) {
+                *xd = 0;
+            }
+        }
+    }
+}
 
 } // namespace
 
