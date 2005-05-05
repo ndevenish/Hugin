@@ -224,6 +224,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
             Move(0, 44);
         }
     }
+
+    m_PreviewPanel->SetBlendMode((PreviewPanel::BlendMode)oldMode );
+
     long aup = config->Read(wxT("/PreviewFrame/autoUpdate"),0l);
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
@@ -424,21 +427,8 @@ void PreviewFrame::OnProjectionChanged()
 
 void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 {
-    VariableMapVector vars = m_pano.getVariables();
-    VariableMapVector::iterator it;
-    double min = 1000;
-    double max = -1000;
-    for(it = vars.begin(); it != vars.end(); it++) {
-        double val = map_get(*it,"y").getValue();
-        if (val < min) min = val;
-        if (val > max) max = val;
-    }
-    double shift = min + (max-min)/2;
-    for(it = vars.begin(); it != vars.end(); it++) {
-        map_get(*it, "y").setValue( map_get(*it, "y").getValue() - shift);
-    }
     GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateVariablesCmd(m_pano, vars)
+        new PT::CenterPanoCmd(m_pano)
         );
     // fit pano afterwards
     OnFitPano(e);

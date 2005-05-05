@@ -124,8 +124,6 @@ private:
 
 /** dump the current project and load a new one.
  *
- *  Use this for  style projects.
- *
  */
 class wxLoadPTProjectCmd : public PanoCommand
 {
@@ -144,6 +142,8 @@ public:
                 pano.setMemento(newPano);
                 unsigned int nImg = pano.getNrOfImages();
                 wxString basedir;
+                double defaultCropFactor = -1;
+                double defaultHFOV = -1;
                 for (unsigned int i = 0; i < nImg; i++) {
                     wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
                     while (! fname.FileExists()){
@@ -183,6 +183,40 @@ public:
                             return;
                         }
                         fname.Assign(dlg.GetPath());
+                    }
+                    // check if script contains invalid HFOV
+                    unsigned lNr = pano.getImage(i).getLensNr();
+                    Lens cLens = pano.getLens(lNr);
+                    double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
+                    if (cLens.getProjection() == Lens::RECTILINEAR
+                        && hfov >= 180) 
+                    {
+                        // try to load hfov from exif info
+                        initLensFromFile(pano.getImage(i).getFilename(),
+                                         defaultCropFactor, cLens);
+                        if ( cLens.getImageSize().x == 0)
+                        {
+                            // if image size is invalid, abort script reading
+                            PanoramaMemento emptyPano;
+                            pano.setMemento(emptyPano);
+                            pano.changeFinished();
+                            wxLogError(wxString::Format(_("Could not read image size of file %s"),
+                                                        pano.getImage(i).getFilename().c_str()) );
+                            return;
+                        }
+
+                        if (cLens.getHFOV() >= 180 && defaultHFOV <= 0) {
+                            // failed to load a better hfov.. Ask user
+                            wxString tval(wxT("50"));
+                            wxString t = wxGetTextFromUser(wxString::Format(_("Enter focal length for image\n%s\n"), pano.getImage(i).getFilename().c_str()),
+                                                           _("Loading project"), tval);
+                            t.ToDouble(&defaultHFOV);
+                            cLens.setFocalLength(defaultHFOV);
+                        }
+                        // update lens (and concerning variables) with
+                        // useful data...
+                        PT::Variable var_v("v", cLens.getHFOV());
+                        pano.updateLens(lNr, cLens);
                     }
                 }
             } else {
