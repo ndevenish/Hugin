@@ -182,6 +182,9 @@ public:
     /// scroll the window by @p delta pixels
     void ScrollDelta(const wxPoint & delta);
 
+    /// calculate maximum delta that is allowed when scrolling
+    wxPoint MaxScrollDelta(wxPoint delta);
+
 protected:
     void drawPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;
     void drawHighlightPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;

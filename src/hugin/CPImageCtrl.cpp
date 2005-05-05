@@ -491,6 +491,11 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     bool doUpdate = false;
     mpos = invScale(mpos);
     mpos_ = invScale(mpos_);
+    // if mouseclick is out of image, ignore
+    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+        return;
+    }
+
 //    DEBUG_DEBUG(" pos:" << mpos.x << ", " << mpos.y);
     // only if the shift key is not pressed.
     if (mouse.LeftIsDown() && ! mouse.ShiftDown()) {
@@ -548,12 +553,15 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             wxPoint delta;
             delta.x = roundi(delta_.x * speed);
             delta.y =  roundi(delta_.y * speed);
-            ScrollDelta(delta);
+            // scrolling is done later
             if (mouse.ShiftDown()) {
                 // emit scroll event, so that other window can be scrolled
                 // as well.
                 CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
                 emit(e);
+            } else {
+                // scroll only our window
+                ScrollDelta(delta);
             }
             m_mouseScrollPos = mouse.GetPosition();
         }
@@ -584,6 +592,10 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     mpos_ = invScale(mpos_);
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
+    // if mouseclick is out of image, ignore
+    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+        return;
+    }
     unsigned int selPointNr = 0;
 //    EditorState oldstate = editState;
     EditorState clickState = isOccupied(mpos, selPointNr);
@@ -623,6 +635,10 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
+    // if mouseclick is out of image, ignore
+    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+        return;
+    }
 //    EditorState oldState = editState;
     if (mouse.LeftUp()) {
         switch(editState) {
@@ -713,6 +729,10 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
     mpos = invScale(mpos);
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
+    // if mouseclick is out of image, ignore
+    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+        return;
+    }
 
     if (mouse.RightUp()) {
         // set right up event
@@ -795,8 +815,6 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 {
     DEBUG_TRACE("");
     // rescale bitmap if needed.
-    // on the fly rescaling in OnDraw is terribly slow. I wonder
-    // how anybody can use it..
     if (imageFilename != "") {
         if (fitToWindow) {
             setScale(0);
@@ -828,7 +846,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         double speed = (double) GetClientSize().GetWidth()/10;
         delta.x = (int) (delta.x * speed);
         delta.y = (int) (delta.y * speed);
-        ScrollDelta(delta);
+//        ScrollDelta(delta);
         if (e.ShiftDown()) {
             // emit scroll event, so that other window can be scrolled
             // as well.
@@ -951,8 +969,45 @@ void CPImageCtrl::showTemplateArea(bool show)
     }
 }
 
+wxPoint CPImageCtrl::MaxScrollDelta(wxPoint delta)
+{
+    int x,y;
+    GetViewStart( &x, &y );
+    
+    wxSize winSize = GetClientSize();
+    wxSize imgSize;
+    imgSize.x = bitmap.GetWidth();
+    imgSize.y = bitmap.GetHeight();
+    // check for top and left border
+    if (x + delta.x < 0) {
+        delta.x = -x;
+    }
+    if (y + delta.y < 0) {
+        delta.y = -y;
+    }
+    // check for right and bottom border
+    int right = x + delta.x + winSize.x ;
+    if (right > imgSize.x) {
+        delta.x = imgSize.x - right;
+        if (delta.x < 0) {
+            delta.x = 0;
+        }
+    }
+    int bottom = y + delta.y + winSize.y ;
+    if (bottom > imgSize.y) {
+        delta.y = imgSize.y - bottom;
+        if (delta.y < 0) {
+            delta.y = 0;
+        }
+    }
+    return delta;
+}
+
 void CPImageCtrl::ScrollDelta(const wxPoint & delta)
 {
+    if (delta.x == 0 && delta.y == 0) {
+        return;
+    }
     int x,y;
     GetViewStart( &x, &y );
     x = x + delta.x;
