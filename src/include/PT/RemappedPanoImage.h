@@ -170,7 +170,7 @@ void estimateImageRect(vigra::Diff2D destSize,
                        TRANSFORM & transf,
                        vigra::Rect2D & imgRect)
 {
-    BImage img;
+    vigra::BImage img;
     double scale;
     estimateImageAlpha(destSize, srcSize, doCrop, cropRect, circularCrop, transf, imgRect, img, scale);
 }
