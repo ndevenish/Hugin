@@ -327,94 +327,157 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
     return state.variables[imgNr];
 }
 
+
 FDiff2D Panorama::calcFOV() const
 {
-    if(getNrOfImages() == 0) {
-	// dummy value if no image in pano
-	return FDiff2D(40,40);
+    Size2D panoSize(360,180);
+    
+    // remap into minature pano.
+    PanoramaOptions opts;
+    opts.HFOV=360;
+    opts.VFOV=180;
+    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.width = 360;
+
+    // remap image
+    vigra::BImage panoAlpha(panoSize);
+    RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
+    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
+        remapped.setPanoImage(*this, imgNr, opts);
+        // calculate alpha channel
+        remapped.calcAlpha(*this, opts, imgNr);
+        // copy into global alpha channel.
+        vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
+                                              vigra_ext::srcMaskRange(remapped)),
+                           vigra_ext::applyRect(remapped.boundingBox(),
+                                              vigra_ext::srcMask(remapped)),
+                           vigra_ext::applyRect(remapped.boundingBox(),
+                                              destImage(panoAlpha)));
     }
-    // trace all outlines.
-    FDiff2D gul, glr;
-    gul.x = FLT_MAX;
-    gul.y = -FLT_MAX;
-    glr.x = -FLT_MAX;
-    glr.y = FLT_MAX;
+//    vigra::ImageExportInfo imge("c:/hugin_calcfov_alpha.png");
+//    exportImage(vigra::srcImageRange(panoAlpha), imge);
 
-#ifdef DEBUG
-    DEBUG_DEBUG("opening calcFOV_debug.txt");
-    ofstream debug_out("calcFOV_debug.txt",ios_base::ate);
-    debug_out << std::endl;
-#endif
-
-    //PT::SpaceTransform T;
-    PTools::Transform T;
-    unsigned int nImg = state.images.size();
-    for (unsigned int i=0; i<nImg; i++) {
-        // create suitable transform, pano -> image
-        int w = state.images[i].getWidth();
-        int h = state.images[i].getHeight();
-        T.createInvTransform(Diff2D(w, h),
-                             state.variables[i],
-                             getLens(state.images[i].getLensNr()).getProjection(),
-                             Diff2D(360,180), PanoramaOptions::EQUIRECTANGULAR,
-                             360, Diff2D(w,h));
-        FDiff2D ul;
-        FDiff2D lr;
-        // outline of this image in final panorama
-        vector<FDiff2D> outline;
-        PT::calcBorderPoints(Diff2D(w,h), T, back_inserter(outline),
-                                 ul, lr);
-#ifdef DEBUG
-        debug_out << "image coord:" << ul << " - " << lr << std::endl;
-#endif
-        // equirect image coordinates -> equirectangular coordinates
-        ul.x = (ul.x + 0.5) - 180;
-        ul.y = 90 - (ul.y + 0.5);
-        lr.x = (lr.x + 0.5) - 180;
-        lr.y = 90 - (lr.y + 0.5);
-#ifdef DEBUG
-        debug_out << "image coord (long lat):" << ul << " - " << lr << std::endl;
-#endif
-
-        // handle image overlaps pole case
-        // check if the image width is quite big. (almost
-        // 360 deg). This is true for overlapping images
-        // but also for other images that lay over the 180 deg
-        // border
-
-        // FIXME .. disinguish between these two overlaps
-        if (ul.x <= -150.0 && lr.x >= 150) {
-            // image in northern hemisphere
-            if (ul.y > 0 ) {
-                ul.y = 90;
-            }
-            // image in southern hemisphere
-            if (lr.y < 0) {
-                lr.y = -90;
+    // get field of view
+    FDiff2D ul,lr;
+    ul.x = DBL_MAX;
+    ul.y = DBL_MAX;
+    lr.x = -DBL_MAX;
+    lr.y = -DBL_MAX;  
+    for (int v=0; v< 180; v++) {
+        for (int h=0; h < 360; h++) {
+            if (panoAlpha(h,v)) {
+                // pixel is valid
+                if ( ul.x > h ) {
+                    ul.x = h;
+                }
+                if ( ul.y > v ) {
+                    ul.y = v;
+                }
+                if ( lr.x < h) {
+                    lr.x = h;
+                }
+                if ( lr.y < v) {
+                    lr.y = v;
+                }
             }
         }
-
-        if (gul.x > ul.x) gul.x = ul.x;
-        if (gul.y < ul.y) gul.y = ul.y;
-        if (glr.x < lr.x) glr.x = lr.x;
-        if (glr.y > lr.y) glr.y = lr.y;
-
-#ifdef DEBUG
-        debug_out << ul << " - " << lr << "  -> global: " << gul << " - " << glr << std::endl;
-#endif
     }
-#ifdef DEBUG
-    debug_out.close();
-    DEBUG_DEBUG("closed calcFOV_debug.txt");
-#endif
-    FDiff2D res;
-    res.x = 2 * max(fabs(gul.x),fabs(glr.x));
-    res.y = 2 * max(fabs(gul.y),fabs(glr.y));
-    DEBUG_DEBUG("ul: " << gul.x << "," << gul.y
-                << "  lr: " << glr.x << "," << gul.y
-                << "  fov: " << res.x << "," << res.y);
-    return res;
+
+    ul.x = ul.x - 180;
+    ul.y = ul.y - 90;
+    lr.x = lr.x - 180;
+    lr.y = lr.y - 90;
+    FDiff2D fov (2*max(fabs(ul.x), fabs(lr.x)), 2*max(fabs(ul.y), fabs(lr.y)));
+    return fov;
 }
+
+void Panorama::centerHorizontically()
+{
+    Size2D panoSize(360,180);
+    
+    // remap into minature pano.
+    PanoramaOptions opts;
+    opts.HFOV=360;
+    opts.VFOV=180;
+    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.width = 360;
+
+    // remap image
+    vigra::BImage panoAlpha(panoSize);
+    RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
+    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
+        remapped.setPanoImage(*this, imgNr, opts);
+        // calculate alpha channel
+        remapped.calcAlpha(*this, opts, imgNr);
+        // copy into global alpha channel.
+        vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
+                                              vigra_ext::srcMaskRange(remapped)),
+                           vigra_ext::applyRect(remapped.boundingBox(),
+                                              vigra_ext::srcMask(remapped)),
+                           vigra_ext::applyRect(remapped.boundingBox(),
+                                              destImage(panoAlpha)));
+    }
+//    vigra::ImageExportInfo imge("c:/hugin_calcfov_alpha.png");
+//    exportImage(vigra::srcImageRange(panoAlpha), imge);
+
+    // get field of view
+    std::vector<int> borders;
+    bool colOccupied = false;
+    for (int h=0; h < 360; h++) {
+        bool curColOccupied = false;
+        for (int v=0; v< 180; v++) {
+            if (panoAlpha(h,v)) {
+                // pixel is valid
+                curColOccupied = true;
+            }
+        }
+        if (colOccupied && (! curColOccupied) || 
+            (!colOccupied) && curColOccupied ) 
+        {
+            // change in position, save point.
+            borders.push_back(h-180);
+            colOccupied = curColOccupied;
+        }
+    }
+    
+
+    size_t lastidx = borders.size() -1;
+    if (lastidx == -1) {
+        // empty pano
+        return;
+    }
+
+    if (colOccupied) {
+        // we have reached the right border, and the pano is still valid
+        // shift right fragments by 360 deg
+        // |11    2222|  -> |      222211     |
+        std::vector<int> newBorders;
+        newBorders.push_back(borders[lastidx]);
+        for (size_t i = 0; i < lastidx; i++) {
+            newBorders.push_back(borders[i]+360);
+        }
+        borders = newBorders;
+    }
+
+    double dYaw=(borders[0] + borders[lastidx])/2;
+
+    // apply yaw shift
+    unsigned int nImg = getNrOfImages();
+    for (unsigned int i=0; i < nImg; i++) {
+        Variable & v = map_get(state.variables[i], "y");
+        double yaw = v.getValue();
+        yaw = yaw - dYaw;
+        while (yaw < 180) {
+            yaw += 360;
+        }
+        while (yaw > 180) {
+            yaw -= 360;
+        }
+        v.setValue(yaw);
+        imageChanged(i);
+    }
+}
+
 
 void Panorama::updateCtrlPointErrors(const CPVector & cps)
 {

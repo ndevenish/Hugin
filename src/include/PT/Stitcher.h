@@ -60,6 +60,71 @@ namespace PT{
 void estimateBlendingOrder(const PT::Panorama & pano, PT::UIntSet images,
 	                   std::vector<unsigned int> & blendOrder);
 
+#if 0
+/**
+ * remap a single image to a multiple/multilayer tiff files.
+ *
+ * If tiff already contains tiff files, append to the file
+ */
+template <typename ImageType, typename AlphaType>
+bool remapToTiff(const PT::Panorama & pano, const PT::PanoramaOptions &opts,
+                 unsigned imgNr, TIFF * tiff
+                 utils::MultiProgressDisplay & progress)
+{
+    bool saveRoi = false;
+    // save only region of interest
+    if (opts.outputFormat == PT::PanoramaOptions::TIFF_partial
+        || opts.outputFormat == PT::PanoramaOptions::TIFF_multilayer)
+    {
+        saveRoi = true;
+    }
+
+    const PT::PanoImage & img = pano.getImage(imgNr);
+	vigra::Diff2D srcSize;
+	srcSize.x = img.getWidth();
+	srcSize.y = img.getHeight();
+
+	// create transforms
+	//    SpaceTransform t;
+	//    SpaceTransform invT;
+	PTools::Transform transf;
+	PTools::Transform invTransf;
+	
+	transf.createTransform(pano, imgNr, opts, srcSize);
+	invTransf.createInvTransform(pano, imgNr, opts, srcSize);
+
+	// calculate ROI for this image.
+
+    ImageOptions imgOpts = img.getOptions();
+    vigra::Rect2D imageRect;
+    vigra::BImage miniAlpha;
+    double alphaScale;
+    bool circCrop = pano.getLens(pano.getImage(imgNr).getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE;
+    estimateImageRect(Size2D(opts.width, opts.getHeight()), srcSize,
+                      imgOpts.docrop, imgOpts.cropRect, circCrop,  
+                      transf,
+                      imageRect, miniAlpha, alphaScale);
+
+    /** the scanlines */
+    ImageType img(;
+    AlphaType alpha;
+
+    // write TIFF header
+    if (saveRoi) {
+        vigra_ext::createTiffDirectory(tiff,
+                                       img.getFilename(),
+                                       m_basename,
+                                       imgNr+1, nImg,
+                                       imageRect.upperLeft());
+    } else {
+        vigra_ext::createTiffDirectory(tiff,
+                                       img.getFilename(),
+                                       m_basename,
+                                       imgNr+1, nImg,
+                                       vigra::Diff2D(0,0));
+}
+#endif
+
 /** implements a stitching algorithm */
 template <typename ImageType, typename AlphaType>
 class Stitcher

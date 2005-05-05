@@ -440,6 +440,32 @@ namespace PT {
     //=========================================================================
 
 
+    /** center panorama horizontically */
+    class CenterPanoCmd : public PanoCommand
+    {
+    public:
+        CenterPanoCmd(Panorama & p )
+            : PanoCommand(p)
+            { }
+
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.centerHorizontically();
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "center panorama";
+            }
+    private:
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
     /** add a control point */
     class AddCtrlPointCmd : public PanoCommand
     {

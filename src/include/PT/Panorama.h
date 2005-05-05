@@ -304,7 +304,6 @@ public:
      */
     FDiff2D calcFOV() const;
 
-
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
@@ -351,6 +350,8 @@ public:
      */
     void updateVariable(unsigned int imgNr, const Variable &var);
 
+    /** center panorama horizontically */
+    void centerHorizontically();
 
     /** update control points distances.
      *

@@ -28,10 +28,12 @@
 #define _REMAPPEDPANOIMAGE_H
 
 #include <fstream>
+#include <algorithm>
 
 #include <vigra/basicimage.hxx>
 #include <vigra/impex.hxx>
 #include <vigra/impexalpha.hxx>
+#include <vigra/flatmorphology.hxx>
 
 #include <vigra_ext/Interpolators.h>
 #include <vigra_ext/ROIImage.h>
@@ -40,98 +42,139 @@
 #include <PT/PanoToolsInterface.h>
 #include <common/math.h>
 
+#ifdef min
+#undef min
+#endif
 
 namespace PT
 {
 
-/** calculate the outline of the image
- *
- *  @param srcSize Size of source picture ( an be small, to
- *                 if not every point is needed)
- *  @param transf  Transformation from image to pano
- *  @param result  insert border point into result container
- *  @param ul      Upper Left corner of the image roi
- *  @param lr      Lower right corner of the image roi
- */
-template <class OutputIterator, class TRANSFORM>
-void calcBorderPoints(vigra::Diff2D srcSize,
-                      TRANSFORM & transf,
-                      OutputIterator result,
-                      FDiff2D & ul,
-                      FDiff2D & lr)
+    
+template <class TRANSFORM>
+void estimateImageAlpha(vigra::Diff2D destSize,
+                       vigra::Diff2D srcSize,
+                       bool doCrop,
+                       vigra::Rect2D cropRect,
+                       bool circularCrop,
+                       TRANSFORM & transf,
+                       vigra::Rect2D & imgRect,
+                       vigra::BImage & alpha,
+                       double & scale)
 {
+    FDiff2D ul,lr;
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
     lr.x = -DBL_MAX;
     lr.y = -DBL_MAX;
 
-    int x = 0;
-    int y = 0;
+    // remap into a miniature version of the pano and use
+    // that to check for boundaries. This should be much more
+    // robust than the old code that tried to trace the boundaries
+    // of the images using the inverse transform, which could be fooled
+    // easily by fisheye images.
 
-#ifdef DEBUG
-    std::ofstream o("border_curve.txt");
-#endif
+    double maxLength = 180;
+    scale = min(maxLength/destSize.x, maxLength/destSize.y);
 
-    for (x=0; x<srcSize.x ; x++) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << std::endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    x = srcSize.x-1;
-    for (y=0; y<srcSize.y ; y++) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << std::endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    y = srcSize.y-1;
-    for (x=srcSize.x-1; x>0 ; --x) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << std::endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
-    }
-    x = 0;
-    for (y=srcSize.y-1 ; y > 0 ; --y) {
-        double sx,sy;
-        transf.transformImgCoord(sx,sy,x,y);
-#ifdef DEBUG
-        o << x << ", " << y << "\t"
-          << sx << ", " << sy << std::endl;
-#endif
-        if (ul.x > sx) ul.x = sx;
-        if (ul.y > sy) ul.y = sy;
-        if (lr.x < sx) lr.x = sx;
-        if (lr.y < sy) lr.y = sy;
-        *result = FDiff2D((float)sx, (float) sy);
+    vigra::Diff2D destSz( utils::roundi(ceil(destSize.x * scale)), 
+		          utils::roundi(ceil(destSize.y * scale)));
+
+    FDiff2D cropCenter;
+    double radius2;
+    if (doCrop && circularCrop) {
+        cropCenter.x = cropRect.left() + cropRect.width()/2.0;
+        cropCenter.y = cropRect.top() + cropRect.height()/2.0;
+        radius2 = std::min(cropRect.width()/2.0, cropRect.height()/2.0);
+        radius2 = radius2 * radius2;
     }
 
+    // remap image
+    vigra::BImage img(destSz);
+    for (int y=0; y < destSz.y; y++) {
+        for (int x=0; x < destSz.x; x++) {
+            // sample image
+            // coordinates in real image pixels
+            double sx,sy;
+            transf.transformImgCoord(sx,sy, x/scale, y/scale);
+            if (sx >= 0 && sx < srcSize.x && sy >= 0 && sy < srcSize.y) {
+                // remapped point is inside image
+//                img(y,x) = 255;
+                bool valid=true;
+                if (doCrop) {
+                    if (circularCrop) {
+                        sx = sx - cropCenter.x;
+                        sy = sy - cropCenter.y;
+                        if (sx*sx + sy*sy > radius2) {
+                            valid = false;
+                        }
+                    } else {
+                        if (!cropRect.contains(vigra::Point2D(utils::roundi(sx), utils::roundi(sy))) ) {
+                            valid = false;
+                        }
+                    }
+                }
 
-    DEBUG_DEBUG("bounding box: upper left: " << ul.x << "," << ul.y
-                << "  lower right: " << lr.x << "," << lr.y);
+                if (valid) {
+                    img(x,y) = 255;
+                    if ( ul.x > (x-1)/scale ) {
+                        ul.x = (x-1)/scale;
+                    }
+                    if ( ul.y > (y-1)/scale ) {
+                        ul.y = (y-1)/scale;
+                    }
+
+                    if ( lr.x < (x+1)/scale ) {
+                        lr.x = (x+1)/scale;
+                    }
+                    if ( lr.y < (y+1)/scale ) {
+                        lr.y = (y+1)/scale;
+                    }
+                } else {
+                    img(x,y) = 0;
+                }
+            }
+        }
+    }
+
+    imgRect.setUpperLeft(vigra::Point2D(utils::roundi(ul.x), utils::roundi(ul.y)));
+    imgRect.setLowerRight(vigra::Point2D(utils::roundi(lr.x), utils::roundi(lr.y)));
+
+    // ensure that the roi is inside the panorama
+    vigra::Rect2D panoRect(0,0, destSize.x, destSize.y);
+    imgRect = panoRect & imgRect;
+    DEBUG_DEBUG("bounding box: " << imgRect);
+
+    alpha.resize(img.size());
+    // dilate alpha image, to cover neighbouring pixels,
+    // that may be valid in the full resolution image
+    vigra::discDilation(vigra::srcImageRange(img),
+                        vigra::destImage(alpha), 1);
+
 }
+
+/** calculate the outline of the image
+ *
+ *  @param destSize  Size of the dest picture (panorama)
+ *  @param srcSize   Size of source picture
+ *  @param transf    Transformation from image to pano
+ *  @param result    insert border point into result container
+ *  @param ul        Upper Left corner of the image roi
+ *  @param lr        Lower right corner of the image roi
+ */
+template <class TRANSFORM>
+void estimateImageRect(vigra::Diff2D destSize,
+                       vigra::Diff2D srcSize,
+                       bool doCrop,
+                       vigra::Rect2D cropRect,
+                       bool circularCrop,
+                       TRANSFORM & transf,
+                       vigra::Rect2D & imgRect)
+{
+    BImage img;
+    double scale;
+    estimateImageAlpha(destSize, srcSize, doCrop, cropRect, circularCrop, transf, imgRect, img, scale);
+}
+
 
 /** struct to hold a image state for stitching
  *
@@ -169,7 +212,7 @@ public:
      */
     void setPanoImage(const PT::Panorama & pano, unsigned int imgNr, const PT::PanoramaOptions & opts)
     {
-        const PT::PanoImage & img = pano.getImage(imgNr);
+    const PT::PanoImage & img = pano.getImage(imgNr);
 
 	vigra::Diff2D srcSize;
 	srcSize.x = img.getWidth();
@@ -185,50 +228,17 @@ public:
 	invTransf.createInvTransform(pano, imgNr, opts, srcSize);
 
 	// calculate ROI for this image.
-	// outline of this image in final panorama
-	FDiff2D ulFloat;
-	FDiff2D lrFloat;
-	
-	m_outline.clear();
-	calcBorderPoints(srcSize, invTransf, back_inserter(m_outline),
-			 ulFloat, lrFloat);
-	if (opts.projectionFormat == PanoramaOptions::EQUIRECTANGULAR) {
 
-	    // check if image overlaps the pole
-	    double cw = opts.width / opts.HFOV * 360;
-	    double startx = - (cw - opts.width)/2;
-	    double stopx = opts.width + (cw-opts.width)/2;
+    ImageOptions imgOpts = pano.getImage(imgNr).getOptions();
+    vigra::Rect2D imageRect;
+    bool circCrop = pano.getLens(pano.getImage(imgNr).getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE;
+    estimateImageRect(vigra::Size2D(opts.width, opts.getHeight()), srcSize,
+                      imgOpts.docrop, imgOpts.cropRect, circCrop,  
+                      transf,
+                      imageRect);
 
-	    // handle image overlaps pole case..
-	    if (ulFloat.x <= startx + opts.width * 0.1  && lrFloat.x >= stopx - opts.width * 0.1) {
-		// image in northern hemisphere
-		if (ulFloat.y < opts.getHeight() / 2 ) {
-		    ulFloat.y = 0;
-		}
-		// image in southern hemisphere
-		if (lrFloat.y > opts.getHeight() / 2 ) {
-		    lrFloat.y = opts.getHeight();
-		}
-	    }
-	}
-	// restrict to panorama size
-	ulFloat = simpleClipPoint(ulFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
-	lrFloat = simpleClipPoint(lrFloat, FDiff2D(0,0), FDiff2D(opts.width, opts.getHeight()));
-
-	DEBUG_DEBUG("imgnr: " << imgNr << " ROI: " << ulFloat << ", " << lrFloat << std::endl);
-
-	// create an image with the right size..
-	vigra::Point2D ulInt(static_cast<int>(ceil(ulFloat.x)),
-                            static_cast<int>(ceil(ulFloat.y)));
-	vigra::Point2D lrInt(static_cast<int>(floor(lrFloat.x)),
-                            static_cast<int>(floor(lrFloat.y)));
-        DEBUG_DEBUG("after rounding: " << ulInt << ", " << lrInt << ", size: "
-                    << lrInt - ulInt);
-
-        // restrict to panorama size
-        vigra::Rect2D imageRect(ulInt, lrInt + vigra::Point2D(1,1));
-        vigra::Rect2D panoRect(0,0, opts.getWidth(), opts.getHeight());
-	Base::resize(imageRect & panoRect);
+    // restrict to panorama size
+	Base::resize(imageRect);
 	DEBUG_DEBUG("after resize: " << Base::m_region);
     }
 
@@ -323,7 +333,6 @@ public:
      *  better transform all images, and get the alpha channel for free!
      *
      *  this is a hack!
-
      */
     void calcAlpha(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
 		   unsigned int imgNr)
@@ -400,7 +409,7 @@ public:
 	 }
     }
 
-    /** remap a image */
+    /** remap a image without alpha channel*/
     template <class ImgIter, class ImgAccessor>
     void remapImage(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
@@ -411,24 +420,54 @@ public:
         DEBUG_TRACE("Image: " << imgNr);
         setPanoImage(pano, imgNr, opts);
 
-//        std::ostringstream msg;
-//        msg <<"remapping image "  << imgNr;
-//        progress.setMessage(msg.str().c_str());
+        //        std::ostringstream msg;
+        //        msg <<"remapping image "  << imgNr;
+        //        progress.setMessage(msg.str().c_str());
 
-	PTools::Transform transf;
+        PTools::Transform transf;
         vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
-	transf.createTransform(pano, imgNr, opts, srcImgSize);
+        transf.createTransform(pano, imgNr, opts, srcImgSize);
 
-	transformImage(srcImg,
-                       destImageRange(Base::m_image),
-                       destImage(Base::m_alpha),
-                       Base::boundingBox().upperLeft(),
-                       transf,
-                       opts.interpolator,
-                       progress);
+        const PanoImage & img = pano.getImage(imgNr);
+        const ImageOptions & imgOpts = img.getOptions();
+
+        double scale = srcImgSize.x / (double) img.getWidth();
+
+        if (imgOpts.docrop) {
+            vigra::BImage alpha(srcImgSize,255);
+
+            if (pano.getLens(pano.getImage(imgNr)).getProjection() == Lens::CIRCULAR_FISHEYE) {
+                FDiff2D m( (imgOpts.cropRect.left() + imgOpts.cropRect.width()/2.0) * scale,
+                           (imgOpts.cropRect.top() + imgOpts.cropRect.height()/2.0) * scale);
+
+                double radius = std::min(imgOpts.cropRect.width(), imgOpts.cropRect.height())/2.0;
+                radius = radius * scale;
+                vigra_ext::circularCrop(vigra::destImageRange(alpha), m, radius);
+            } else {
+                //todo implement rectangular crop
+            }
+
+            transformImageAlpha(srcImg,
+                                vigra::srcImage(alpha),
+                                destImageRange(Base::m_image),
+                                destImage(Base::m_mask),
+                                Base::boundingBox().upperLeft(),
+                                transf,
+                                opts.interpolator,
+                                progress);
+        } else {
+            transformImage(srcImg,
+                           destImageRange(Base::m_image),
+                           destImage(Base::m_alpha),
+                           Base::boundingBox().upperLeft(),
+                           transf,
+                           opts.interpolator,
+                           progress);
+        }
     }
 
-    /** remap a image */
+
+    /** remap a image, with alpha channel */
     template <class ImgIter, class ImgAccessor,
               class AlphaIter, class AlphaAccessor>
     void remapImage(const PT::Panorama & pano,
@@ -444,8 +483,38 @@ public:
         PTools::Transform transf;
         vigra::Diff2D srcImgSize = srcImg.second - srcImg.first;
         transf.createTransform(pano, imgNr, opts, srcImgSize);
+        
+        const PanoImage & img = pano.getImage(imgNr);
+        const ImageOptions & imgOpts = img.getOptions();
 
-        transformImageAlpha(srcImg,
+        double scale = srcImgSize.x / (double) img.getWidth();
+
+        if (imgOpts.docrop) {
+            vigra::BImage alpha(srcImgSize);
+            vigra::copyImage(vigra::make_triple(alphaImg.first, alphaImg.first + srcImgSize, alphaImg.second),
+                             vigra::destImage(alpha));
+
+            if (pano.getLens(img.getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE) {
+                FDiff2D m( (imgOpts.cropRect.left() + imgOpts.cropRect.width()/2.0) * scale,
+                           (imgOpts.cropRect.top() + imgOpts.cropRect.height()/2.0) * scale);
+
+                double radius = std::min(imgOpts.cropRect.width(), imgOpts.cropRect.height())/2.0;
+                radius = radius * scale;
+                vigra_ext::circularCrop(vigra::destImageRange(alpha), m, radius);
+            } else {
+                //todo implement rectangular crop
+            }
+
+            transformImageAlpha(srcImg,
+                                vigra::srcImage(alpha),
+                                destImageRange(Base::m_image),
+                                destImage(Base::m_mask),
+                                Base::boundingBox().upperLeft(),
+                                transf,
+                                opts.interpolator,
+                                progress);
+        } else {
+            transformImageAlpha(srcImg,
                         alphaImg,
                         destImageRange(Base::m_image),
                         destImage(Base::m_mask),
@@ -453,6 +522,8 @@ public:
                         transf,
                         opts.interpolator,
                         progress);
+        }
+
     }
 
 
@@ -463,7 +534,7 @@ public:
 
 protected:
     /// outline of panorama
-    std::vector<FDiff2D> m_outline;
+//    std::vector<FDiff2D> m_outline;
 };
 
 
@@ -525,9 +596,9 @@ public:
         m_remapped = new RemappedPanoImage<ImageType, AlphaType>;
         DEBUG_TRACE("starting remap of image: " << imgNr);
         m_remapped->remapImage(pano, opts,
-                             vigra::srcImageRange(srcImg),
-                             vigra::srcImage(srcAlpha),
-                             imgNr, progress);
+                               vigra::srcImageRange(srcImg),
+                               vigra::srcImage(srcAlpha),
+                               imgNr, progress);
         return m_remapped;
     }
 
