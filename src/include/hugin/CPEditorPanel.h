@@ -256,10 +256,12 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-#ifdef USE_WX26x_CP
+#ifdef USE_WX26x
+  #ifndef HUGIN_CP_IMG_CHOICE
 	wxScrolledWindow *m_cp_ctrls;
     wxSplitterWindow *m_cp_splitter;
     wxSplitterWindow *m_cp_splitter_img;
+  #endif
 #endif
 
     // my data

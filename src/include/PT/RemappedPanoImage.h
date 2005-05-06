@@ -37,6 +37,8 @@
 
 #include <vigra_ext/Interpolators.h>
 #include <vigra_ext/ROIImage.h>
+#include <vigra_ext/utils.h>
+
 #include <PT/Panorama.h>
 
 #include <PT/PanoToolsInterface.h>
@@ -74,7 +76,7 @@ void estimateImageAlpha(vigra::Diff2D destSize,
     // easily by fisheye images.
 
     double maxLength = 180;
-    scale = min(maxLength/destSize.x, maxLength/destSize.y);
+    scale = std::min(maxLength/destSize.x, maxLength/destSize.y);
 
     vigra::Diff2D destSz( utils::roundi(ceil(destSize.x * scale)), 
 		          utils::roundi(ceil(destSize.y * scale)));
@@ -527,10 +529,10 @@ public:
     }
 
 
-    const std::vector<FDiff2D> & getOutline()
-    {
-        return m_outline;
-    }
+//    const std::vector<FDiff2D> & getOutline()
+//    {
+//        return m_outline;
+//    }
 
 protected:
     /// outline of panorama
