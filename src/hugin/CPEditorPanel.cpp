@@ -1118,13 +1118,17 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             t1->SetSize(0,0);
             t1->SetSizeHints(0,0,0,0);
             wxSize sz(0,0);
+#ifdef USE_WX26x
             t1->SetMaxSize(sz);
             t1->SetMinSize(sz);
+#else
             wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             t2->SetSize(0,0);
             t2->SetSizeHints(0,0,0,0);
+#ifdef USE_WX26x
             t2->SetMaxSize(sz);
             t2->SetMinSize(sz);
+#endif
             // update tab buttons
             if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
