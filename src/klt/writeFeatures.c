@@ -367,7 +367,7 @@ void KLTWriteFeatureList(
 
   if (fmt != NULL) {  /* text file or stderr */
     fp = _printSetupTxt(fname, fmt, format, &type);
-    _printHeader(fp, format, FEATURE_LIST, NULL, fl->nFeatures);
+    _printHeader(fp, format, FEATURE_LIST, 0, fl->nFeatures);
 	
     for (i = 0 ; i < fl->nFeatures ; i++)  {
       fprintf(fp, "%7d | ", i);
@@ -405,7 +405,7 @@ void KLTWriteFeatureHistory(
 
   if (fmt != NULL) {  /* text file or stderr */
     fp = _printSetupTxt(fname, fmt, format, &type);
-    _printHeader(fp, format, FEATURE_HISTORY, fh->nFrames, NULL);
+    _printHeader(fp, format, FEATURE_HISTORY, fh->nFrames, 0);
 	
     for (i = 0 ; i < fh->nFrames ; i++)  {
       fprintf(fp, "%5d | ", i);
