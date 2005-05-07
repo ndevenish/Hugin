@@ -310,7 +310,7 @@ void ppmWrite(
  */
 
 void ppmWriteFileRGB(
-  char *fname, 
+  const char *fname, 
   unsigned char *redimg,
   unsigned char *greenimg,
   unsigned char *blueimg,
