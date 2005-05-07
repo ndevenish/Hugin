@@ -1121,7 +1121,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 #ifdef USE_WX26x
             t1->SetMaxSize(sz);
             t1->SetMinSize(sz);
-#else
+#endif
             wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             t2->SetSize(0,0);
             t2->SetSizeHints(0,0,0,0);
