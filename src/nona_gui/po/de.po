@@ -59,4 +59,3 @@ msgstr "Fehler während dem einlesen des Skriptes: %s"
 #: src/nona_gui/nona_gui.cpp:215
 msgid "output image size: "
 msgstr "Größe des Ausgabebildes:"
-

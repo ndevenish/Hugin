@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-04-26 12:54+0300\n"
+"POT-Creation-Date: 2005-05-06 13:11+0300\n"
 "PO-Revision-Date: 2005-03-08 22:02+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Select autopano .Net executable."
 msgstr "Wählen sie den Autopano Typ"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:297
+#: src/hugin/AutoCtrlPointCreator.cpp:296
 #, fuzzy
 msgid "No autopano directory selected"
 msgstr "Kein Autopano Programm ausgewählt"
@@ -117,7 +117,7 @@ msgstr ""
 "Ordner mit einem kürzeren Pfadnamen"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:306
-#: src/hugin/AutoCtrlPointCreator.cpp:440 src/hugin/NonaStitcherPanel.cpp:350
+#: src/hugin/AutoCtrlPointCreator.cpp:440 src/hugin/NonaStitcherPanel.cpp:334
 msgid "Too many images selected"
 msgstr "Zu viele Bilder ausgewählt"
 
@@ -137,8 +137,8 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:344
 #: src/hugin/AutoCtrlPointCreator.cpp:357
-#: src/hugin/AutoCtrlPointCreator.cpp:462 src/hugin/NonaStitcherPanel.cpp:392
-#: src/hugin/NonaStitcherPanel.cpp:401
+#: src/hugin/AutoCtrlPointCreator.cpp:462 src/hugin/NonaStitcherPanel.cpp:373
+#: src/hugin/NonaStitcherPanel.cpp:383
 msgid "Could not execute command: "
 msgstr "Kann den Befehl nicht ausführen:"
 
@@ -149,17 +149,17 @@ msgstr "ShellExecuteEx fehlgeschlagen"
 #: src/hugin/AutoCtrlPointCreator.cpp:357
 #: src/hugin/AutoCtrlPointCreator.cpp:362
 #: src/hugin/AutoCtrlPointCreator.cpp:462
-#: src/hugin/AutoCtrlPointCreator.cpp:468 src/hugin/NonaStitcherPanel.cpp:401
+#: src/hugin/AutoCtrlPointCreator.cpp:468 src/hugin/NonaStitcherPanel.cpp:383
 msgid "wxExecute Error"
 msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:360
-#: src/hugin/AutoCtrlPointCreator.cpp:466 src/hugin/NonaStitcherPanel.cpp:404
+#: src/hugin/AutoCtrlPointCreator.cpp:466 src/hugin/NonaStitcherPanel.cpp:386
 msgid "command: "
 msgstr "Kommando:"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:361
-#: src/hugin/AutoCtrlPointCreator.cpp:467 src/hugin/NonaStitcherPanel.cpp:405
+#: src/hugin/AutoCtrlPointCreator.cpp:467 src/hugin/NonaStitcherPanel.cpp:387
 msgid ""
 "\n"
 "failed with error code: "
@@ -212,58 +212,58 @@ msgstr "Kein Kommando im Rücknahmeprotokoll"
 msgid "no command in redo history"
 msgstr "Kein Kommando im Wiederherstellenprotokoll"
 
-#: src/hugin/CPEditorPanel.cpp:146 src/hugin/CPListFrame.cpp:276
+#: src/hugin/CPEditorPanel.cpp:162 src/hugin/CPListFrame.cpp:276
 #: src/hugin/CPListFrame.cpp:286 src/hugin/ImagesList.cpp:52
 msgid "#"
 msgstr "#"
 
-#: src/hugin/CPEditorPanel.cpp:147
+#: src/hugin/CPEditorPanel.cpp:163
 msgid "left x"
 msgstr "x links"
 
-#: src/hugin/CPEditorPanel.cpp:148
+#: src/hugin/CPEditorPanel.cpp:164
 msgid "left y"
 msgstr "y links"
 
-#: src/hugin/CPEditorPanel.cpp:149
+#: src/hugin/CPEditorPanel.cpp:165
 msgid "right x"
 msgstr "x rechts"
 
-#: src/hugin/CPEditorPanel.cpp:150
+#: src/hugin/CPEditorPanel.cpp:166
 msgid "right y"
 msgstr "y rechts"
 
-#: src/hugin/CPEditorPanel.cpp:151 src/hugin/CPListFrame.cpp:283
+#: src/hugin/CPEditorPanel.cpp:167 src/hugin/CPListFrame.cpp:283
 #: src/hugin/CPListFrame.cpp:289
 msgid "Alignment"
 msgstr "Ausrichtung"
 
-#: src/hugin/CPEditorPanel.cpp:152 src/hugin/CPListFrame.cpp:284
+#: src/hugin/CPEditorPanel.cpp:168 src/hugin/CPListFrame.cpp:284
 #: src/hugin/CPListFrame.cpp:290
 msgid "Distance"
 msgstr "Abstand"
 
-#: src/hugin/CPEditorPanel.cpp:405
+#: src/hugin/CPEditorPanel.cpp:513
 msgid "No corresponding point found"
 msgstr "Kein korrespondierender Punkt gefunden"
 
-#: src/hugin/CPEditorPanel.cpp:474
+#: src/hugin/CPEditorPanel.cpp:584
 msgid "new control point added"
 msgstr "Neuer Kontrollpunkt hinzugefügt"
 
-#: src/hugin/CPEditorPanel.cpp:574 src/hugin/CPEditorPanel.cpp:780
+#: src/hugin/CPEditorPanel.cpp:684 src/hugin/CPEditorPanel.cpp:890
 msgid "searching similar point..."
 msgstr "Suche ähnlichen Punkt..."
 
-#: src/hugin/CPEditorPanel.cpp:593 src/hugin/CPEditorPanel.cpp:708
+#: src/hugin/CPEditorPanel.cpp:703 src/hugin/CPEditorPanel.cpp:818
 msgid "Error during Fine-tune"
 msgstr "Fehler während der Feinabstimmung"
 
-#: src/hugin/CPEditorPanel.cpp:624
+#: src/hugin/CPEditorPanel.cpp:734
 msgid "Estimated point outside image"
 msgstr "Geschätzter Punkt außerhalb des Bildes"
 
-#: src/hugin/CPEditorPanel.cpp:826
+#: src/hugin/CPEditorPanel.cpp:936
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -272,7 +272,7 @@ msgstr ""
 "Punkt verfeinert, Winkel: %.0f °, Korrelationskoeffizient: %0.3f, Krümmung: %"
 "0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:832
+#: src/hugin/CPEditorPanel.cpp:942
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -283,36 +283,36 @@ msgstr ""
 "Korrelationskoeffizient: %.3f (sollte > %.3f)\n"
 "Größte Krümmung: (%.3f, %.3f) ( sollte > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:834
+#: src/hugin/CPEditorPanel.cpp:944
 msgid "No similar point found"
 msgstr "Keinen ähnlichen Punkt gefunden"
 
-#: src/hugin/CPEditorPanel.cpp:1150 src/hugin/CPListFrame.cpp:402
+#: src/hugin/CPEditorPanel.cpp:1294 src/hugin/CPListFrame.cpp:402
 #: src/hugin/PreviewFrame.cpp:156 src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "normal"
 msgstr "normal"
 
-#: src/hugin/CPEditorPanel.cpp:1153 src/hugin/CPListFrame.cpp:405
+#: src/hugin/CPEditorPanel.cpp:1297 src/hugin/CPListFrame.cpp:405
 msgid "vert. Line"
 msgstr "vert. Linie"
 
-#: src/hugin/CPEditorPanel.cpp:1156 src/hugin/CPListFrame.cpp:408
+#: src/hugin/CPEditorPanel.cpp:1300 src/hugin/CPListFrame.cpp:408
 msgid "horiz. Line"
 msgstr "horiz. Linie"
 
-#: src/hugin/CPEditorPanel.cpp:1411
+#: src/hugin/CPEditorPanel.cpp:1575
 msgid "Cannot estimate image position without control points"
 msgstr "Bildposition kann ohne Kontrollpunkte nicht geschätzt werden"
 
-#: src/hugin/CPEditorPanel.cpp:1602
+#: src/hugin/CPEditorPanel.cpp:1766
 msgid "Select Point in right image"
 msgstr "Punkt im rechten Bild wählen"
 
-#: src/hugin/CPEditorPanel.cpp:1614
+#: src/hugin/CPEditorPanel.cpp:1778
 msgid "Select Point in left image"
 msgstr "Punkt im linken Bild wählen"
 
-#: src/hugin/CPEditorPanel.cpp:1633
+#: src/hugin/CPEditorPanel.cpp:1797
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Punkte wechseln oder mit der rechten Maustaste ein Paar hinzufügen"
 
@@ -320,7 +320,7 @@ msgstr "Punkte wechseln oder mit der rechten Maustaste ein Paar hinzufügen"
 msgid "Control point finetune"
 msgstr "Kontrollpunktfeineinstellung"
 
-#: src/hugin/CPImageCtrl.cpp:757
+#: src/hugin/CPImageCtrl.cpp:777
 msgid "Could not process event!"
 msgstr "Interner Fehler: Konnte Ereignis nicht verarbeiten"
 
@@ -524,59 +524,59 @@ msgid "Full frame fisheye"
 msgstr "Fischauge Vollbild"
 
 #: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:195
-#: src/hugin/PreviewFrame.cpp:413 src/hugin/xrc/lens_panel.xrs:6
+#: src/hugin/PreviewFrame.cpp:416 src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
 
-#: src/hugin/ImagesPanel.cpp:270 src/hugin/ImagesPanel.cpp:291
-#: src/hugin/ImagesPanel.cpp:311
+#: src/hugin/ImagesPanel.cpp:277 src/hugin/ImagesPanel.cpp:298
+#: src/hugin/ImagesPanel.cpp:318
 msgid "Value must be numeric."
 msgstr "Wert muß numerisch sein"
 
-#: src/hugin/ImagesPanel.cpp:562
+#: src/hugin/ImagesPanel.cpp:642
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "%d Kontrollpunkte wirklich löschen?"
 
-#: src/hugin/ImagesPanel.cpp:564
+#: src/hugin/ImagesPanel.cpp:644
 msgid "Delete Control Points"
 msgstr "Kontrollpunkte löschen"
 
-#: src/hugin/LensPanel.cpp:650
+#: src/hugin/LensPanel.cpp:666
 msgid "Not a jpeg file:"
 msgstr "Kein JPEG Bild"
 
-#: src/hugin/LensPanel.cpp:655 src/hugin/LensPanel.cpp:709
-#: src/hugin/LensPanel.cpp:785 src/hugin/LensPanel.cpp:801
-#: src/hugin/LensPanel.cpp:819
+#: src/hugin/LensPanel.cpp:671 src/hugin/LensPanel.cpp:725
+#: src/hugin/LensPanel.cpp:801 src/hugin/LensPanel.cpp:817
+#: src/hugin/LensPanel.cpp:835
 msgid "Please select an image and try again"
 msgstr "Bitte Bild auswählen und erneut versuchen"
 
-#: src/hugin/LensPanel.cpp:673
+#: src/hugin/LensPanel.cpp:689
 msgid "Save lens parameters file"
 msgstr "Objektivparameter speichern"
 
-#: src/hugin/LensPanel.cpp:675 src/hugin/LensPanel.cpp:725
+#: src/hugin/LensPanel.cpp:691 src/hugin/LensPanel.cpp:741
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Objektiv Projekt Datei (*.ini)|*.ini|Alle Dateien (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:723
+#: src/hugin/LensPanel.cpp:739
 msgid "Load lens parameters"
 msgstr "Objektivparameter laden"
 
-#: src/hugin/LensPanel.cpp:809
+#: src/hugin/LensPanel.cpp:825
 msgid "Enter new lens number"
 msgstr "Neue Objektivnummer eingeben"
 
-#: src/hugin/LensPanel.cpp:809
+#: src/hugin/LensPanel.cpp:825
 msgid "Lens number"
 msgstr "Objektiv Nr."
 
-#: src/hugin/LensPanel.cpp:810
+#: src/hugin/LensPanel.cpp:826
 msgid "Change lens number"
 msgstr "Objektivnummer ändern"
 
-#: src/hugin/LensPanel.cpp:834
+#: src/hugin/LensPanel.cpp:850
 msgid ""
 "Enter Crop Factor for image\n"
 "\n"
@@ -593,7 +593,7 @@ msgstr ""
 "berechnet, wobei d die Diagonale des Films oder Bildaufnahmechips in mm "
 "angibt."
 
-#: src/hugin/LensPanel.cpp:835
+#: src/hugin/LensPanel.cpp:851
 msgid "Adding Image"
 msgstr "Bild hinzufügen"
 
@@ -611,7 +611,7 @@ msgstr ""
 msgid "Started"
 msgstr "Gestartet"
 
-#: src/hugin/MainFrame.cpp:442
+#: src/hugin/MainFrame.cpp:448
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -619,62 +619,62 @@ msgstr ""
 "Das Panorama wurde verändert\n"
 "Änderungen speichern?"
 
-#: src/hugin/MainFrame.cpp:442
+#: src/hugin/MainFrame.cpp:448
 msgid "Save Panorama?"
 msgstr "Panorama speichern?"
 
-#: src/hugin/MainFrame.cpp:457
+#: src/hugin/MainFrame.cpp:463
 msgid "forced close"
 msgstr "Erzwungenes Beenden"
 
-#: src/hugin/MainFrame.cpp:476 src/hugin/MainFrame.cpp:504
-#: src/hugin/MainFrame.cpp:523 src/hugin/PanoPanel.cpp:495
+#: src/hugin/MainFrame.cpp:482 src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:529 src/hugin/PanoPanel.cpp:495
 msgid "No images - Nothing to do"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:476 src/hugin/MainFrame.cpp:504
-#: src/hugin/MainFrame.cpp:523 src/hugin/PanoPanel.cpp:495
+#: src/hugin/MainFrame.cpp:482 src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:529 src/hugin/PanoPanel.cpp:495
 msgid "Warning"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:495
+#: src/hugin/MainFrame.cpp:501
 #, c-format
 msgid "saved project %s"
 msgstr "Projekt speichern unter %s"
 
-#: src/hugin/MainFrame.cpp:508
+#: src/hugin/MainFrame.cpp:514
 msgid "Save project file"
 msgstr "Projekt speichern"
 
-#: src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:516
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr "Projekt Dateien (*.pto)|*.pto|Alle Dateien (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:527
+#: src/hugin/MainFrame.cpp:533
 msgid "Save PTStitcher script file"
 msgstr "PTStitcher Skript Datei speichern"
 
-#: src/hugin/MainFrame.cpp:529
+#: src/hugin/MainFrame.cpp:535
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "PTStitcher Dateien (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:555
+#: src/hugin/MainFrame.cpp:561
 msgid "Open project:   "
 msgstr "Projekt öffnen:   "
 
-#: src/hugin/MainFrame.cpp:567
+#: src/hugin/MainFrame.cpp:573
 msgid "Project opened"
 msgstr "Projektdatei geöffnet"
 
-#: src/hugin/MainFrame.cpp:577
+#: src/hugin/MainFrame.cpp:583
 msgid "Error opening project:   "
 msgstr "Fehler beim öffnen des Projekt:"
 
-#: src/hugin/MainFrame.cpp:595
+#: src/hugin/MainFrame.cpp:601
 msgid "Open project file"
 msgstr "Projekt Datei öffnen"
 
-#: src/hugin/MainFrame.cpp:597
+#: src/hugin/MainFrame.cpp:603
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
@@ -682,11 +682,11 @@ msgstr ""
 "Projekt Dateien (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Alle "
 "Dateien (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:605
+#: src/hugin/MainFrame.cpp:611
 msgid "Open project: cancel"
 msgstr "Projekt öffnen: Abbrechen"
 
-#: src/hugin/MainFrame.cpp:627 src/include/hugin/wxPanoCommand.h:169
+#: src/hugin/MainFrame.cpp:633 src/include/hugin/wxPanoCommand.h:169
 msgid ""
 "Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files "
 "(*.tif)|*.tif;*.TIF|All files (*.*)|*.*"
@@ -694,27 +694,27 @@ msgstr ""
 "Bilddateien (*.jpg)|*.jpg;*.JPG|Bilddateien (*.png)|*.png;*.PNG|Bilddateien "
 "(*.tif)|*.tif;*.TIF|Alle Dateien (*.*)|*."
 
-#: src/hugin/MainFrame.cpp:628 src/include/hugin/wxPanoCommand.h:170
+#: src/hugin/MainFrame.cpp:634 src/include/hugin/wxPanoCommand.h:170
 msgid "Add images"
 msgstr "Bilder hinzufügen"
 
-#: src/hugin/MainFrame.cpp:672
+#: src/hugin/MainFrame.cpp:678
 msgid "Add Image: cancel"
 msgstr "Bilder hinzufügen: abgebrochen"
 
-#: src/hugin/MainFrame.cpp:997
+#: src/hugin/MainFrame.cpp:1003
 msgid "hugin - FAQ"
 msgstr "hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:1076
+#: src/hugin/MainFrame.cpp:1082
 msgid "Fine-tuning all points"
 msgstr "Alle Kontrollpunkt verfeinern"
 
-#: src/hugin/MainFrame.cpp:1078
+#: src/hugin/MainFrame.cpp:1084
 msgid "Finetuning"
 msgstr "Verfeinern"
 
-#: src/hugin/MainFrame.cpp:1162
+#: src/hugin/MainFrame.cpp:1168
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -743,7 +743,7 @@ msgstr ""
 "Benutze die Kontrollliste (F3) um alle Punkte des aktuellen Projekts zu "
 "sehen\n"
 
-#: src/hugin/MainFrame.cpp:1164
+#: src/hugin/MainFrame.cpp:1170
 msgid "Fine-tune result"
 msgstr "Verfeinerungsergebnis"
 
@@ -755,41 +755,27 @@ msgstr "Verstrichene Zeit:"
 msgid "Stitching Panorama"
 msgstr "Panorama zusammenfügen"
 
-#: src/hugin/NonaStitcherPanel.cpp:261
-msgid ""
-"Nona does not support cropped images yet.\n"
-"The crop settings will be ignored\n"
-"Continue anyway?"
-msgstr ""
-"Nona unterstützt noch kein Zuschneiden von Bildern\n"
-"Die Schnittmarken werden ignoriert.\n"
-"Trotzdem fortfahren?"
-
-#: src/hugin/NonaStitcherPanel.cpp:261
-msgid "Cropping not supported by nona"
-msgstr "Zuschneiden von nona nicht unterstützt"
-
-#: src/hugin/NonaStitcherPanel.cpp:280
+#: src/hugin/NonaStitcherPanel.cpp:264
 msgid "error during stitching:"
 msgstr "Fehler während des Zusammenfügens"
 
-#: src/hugin/NonaStitcherPanel.cpp:294
+#: src/hugin/NonaStitcherPanel.cpp:278
 msgid "Select enblend.exe"
 msgstr "Wählen sie das Enblend Programm"
 
-#: src/hugin/NonaStitcherPanel.cpp:302
+#: src/hugin/NonaStitcherPanel.cpp:286
 msgid "No enblend.exe selected"
 msgstr "Kein Enblend Programm ausgewählt"
 
-#: src/hugin/NonaStitcherPanel.cpp:308
+#: src/hugin/NonaStitcherPanel.cpp:293
 msgid "Select enblend commandline tool"
 msgstr "Wählen sie das Enblend Kommando"
 
-#: src/hugin/NonaStitcherPanel.cpp:316
+#: src/hugin/NonaStitcherPanel.cpp:301
 msgid "No enblend commandline tool selected"
 msgstr "Kein Enblend Kommando ausgewählt"
 
-#: src/hugin/NonaStitcherPanel.cpp:349
+#: src/hugin/NonaStitcherPanel.cpp:333
 msgid ""
 "Can not call enblend with a command line > 2000 characters.\n"
 "This is a Windows limitiation\n"
@@ -802,11 +788,11 @@ msgstr ""
 "Bitte wählen sie weniger Bilder oder plazieren sie die Bilder in einem\n"
 "Ordner mit einem kürzeren Pfadnamen"
 
-#: src/hugin/NonaStitcherPanel.cpp:355
+#: src/hugin/NonaStitcherPanel.cpp:341
 msgid "Running Enblend"
 msgstr "Starte Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:355
+#: src/hugin/NonaStitcherPanel.cpp:341
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
@@ -814,7 +800,7 @@ msgstr ""
 "Enblend wird einige Zeit für das Panorama benötigen\n"
 "Sie können den Fortschritt im Kommandofenster beobachten"
 
-#: src/hugin/NonaStitcherPanel.cpp:363
+#: src/hugin/NonaStitcherPanel.cpp:346
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -822,15 +808,15 @@ msgstr ""
 "Enblend konnte nicht ausgeführt werden, system() Aufruf fehlgeschlagen:\n"
 "Kommando :"
 
-#: src/hugin/NonaStitcherPanel.cpp:364
+#: src/hugin/NonaStitcherPanel.cpp:347
 msgid "Error returned was :"
 msgstr "Fehler:"
 
-#: src/hugin/NonaStitcherPanel.cpp:392
+#: src/hugin/NonaStitcherPanel.cpp:373
 msgid "CreateProcess Error"
 msgstr "CreateProccess() meldete einen Fehler zurück"
 
-#: src/hugin/NonaStitcherPanel.cpp:406
+#: src/hugin/NonaStitcherPanel.cpp:388
 msgid "enblend error"
 msgstr "Enblend Fehler"
 
@@ -838,11 +824,11 @@ msgstr "Enblend Fehler"
 msgid "The druid has no advice."
 msgstr "Der Druide hat keinen Vorschlag"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:544
 msgid "The druid finds no problems with your panorama."
 msgstr "Der Druide hat kein Problem in ihrem Panorama gefunden"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:555
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:545
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -851,11 +837,11 @@ msgstr ""
 "Füge jetzt dein endgültiges Panorama zusammen und benutzt dann eine\n"
 "Bildverarbeitung, (z.B. GIMP) um dem Panorama den letzten Schliff zu geben."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:574
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:564
 msgid "Warning:  you haven't saved the current project."
 msgstr "Warnung: Sie haben das aktuelle Projekt nicht gesichert."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:575
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:565
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -866,11 +852,11 @@ msgstr ""
 "können sie noch weiter herumprobieren\n"
 "oder die Einstellungen später verändern."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:570
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:560
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Warnung: Derzeitiges Panorama ist sehr groß"
 
-#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:571
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:561
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -886,11 +872,11 @@ msgstr ""
 "im Panorama Optionen Reiter. Damit können sie die optimale Bildgröße des "
 "Panoramas berechnen."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:566
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:556
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Der Horizontaler Bildwinkel (HFOV) ist wahrscheinlich zu klein"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:567
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:557
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -987,20 +973,20 @@ msgstr ""
 "im Kontrollpunkt Karteireiter, für jedes identische optische Merkmal\n"
 " von überlappenden Bildern hinzu."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:562
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:552
 msgid "Add at least one more image."
 msgstr "Noch ein weiteres Bild anfügen."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:563
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:553
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 "Sie sollten mindestens zwei Dateien im Bild-Karteireiter aufgelistet sein."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:558
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:548
 msgid "To get started, add some image files."
 msgstr "Am Anfang fügen sie einige Bilder hinzu."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:559
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:549
 msgid "You can add any number of images using the Images tab."
 msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 
@@ -1008,11 +994,11 @@ msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 msgid "the Panorama druid"
 msgstr "Der Panorama Druide"
 
-#: src/hugin/PanoPanel.cpp:193 src/hugin/PreviewFrame.cpp:411
+#: src/hugin/PanoPanel.cpp:193 src/hugin/PreviewFrame.cpp:414
 msgid "Rectilinear"
 msgstr "Rectilinear"
 
-#: src/hugin/PanoPanel.cpp:194 src/hugin/PreviewFrame.cpp:412
+#: src/hugin/PanoPanel.cpp:194 src/hugin/PreviewFrame.cpp:415
 msgid "Cylindrical"
 msgstr "Zylindrisch"
 
@@ -1126,19 +1112,19 @@ msgstr "Unterschiede"
 msgid "seams"
 msgstr "Nähte"
 
-#: src/hugin/PreviewFrame.cpp:295
+#: src/hugin/PreviewFrame.cpp:298
 msgid "rectilinear"
 msgstr "rectilinear"
 
-#: src/hugin/PreviewFrame.cpp:298
+#: src/hugin/PreviewFrame.cpp:301
 msgid "cylindrical"
 msgstr "zylindrisch"
 
-#: src/hugin/PreviewFrame.cpp:301
+#: src/hugin/PreviewFrame.cpp:304
 msgid "equirectangular"
 msgstr "Sphärisch"
 
-#: src/hugin/PreviewFrame.cpp:551
+#: src/hugin/PreviewFrame.cpp:541
 msgid "The druid has no advice at this time."
 msgstr "Der Druide hat zur Zeit keinen Vorschlag"
 
@@ -1311,6 +1297,23 @@ msgstr ""
 #: src/include/hugin/wxPanoCommand.h:163
 msgid "Image file not found"
 msgstr "Bilddatei nicht gefunden"
+
+#: src/include/hugin/wxPanoCommand.h:203
+#, fuzzy, c-format
+msgid "Could not read image size of file %s"
+msgstr "Konnte Bildgröße nicht lesen"
+
+#: src/include/hugin/wxPanoCommand.h:211
+#, fuzzy, c-format
+msgid ""
+"Enter focal length for image\n"
+"%s\n"
+msgstr "Reale Brennweite in mm"
+
+#: src/include/hugin/wxPanoCommand.h:212
+#, fuzzy
+msgid "Loading project"
+msgstr "Projekt speichern"
 
 #: src/hugin/xrc/about.xrs:1 src/hugin/xrc/main_tool.xrs:31
 msgid "About Hugin"
@@ -2791,3 +2794,15 @@ msgstr "Zusammenfügen"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Abbrechen"
+
+#~ msgid ""
+#~ "Nona does not support cropped images yet.\n"
+#~ "The crop settings will be ignored\n"
+#~ "Continue anyway?"
+#~ msgstr ""
+#~ "Nona unterstützt noch kein Zuschneiden von Bildern\n"
+#~ "Die Schnittmarken werden ignoriert.\n"
+#~ "Trotzdem fortfahren?"
+
+#~ msgid "Cropping not supported by nona"
+#~ msgstr "Zuschneiden von nona nicht unterstützt"
