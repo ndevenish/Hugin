@@ -190,27 +190,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-#if 0
-    wxSplitterWindow * m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
-	DEBUG_ASSERT(m_cp_splitter);
-
-    if ( m_cp_splitter->IsSplit() )
-        m_cp_splitter->Unsplit();
-    wxStaticText * leftWindow =     XRCCTRL(*this, "cp_text_1", wxStaticText);
-    leftWindow->Show(true);
-    wxStaticText * rightWindow = XRCCTRL(*this, "cp_text_2", wxStaticText);
-    rightWindow->Show(true);
-    m_cp_splitter->SplitVertically( leftWindow, rightWindow );
-
-	m_cp_splitter->SetSashGravity(0.5);
-	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
-	m_cp_splitter->SetMinimumPaneSize(20);
-
-    wxSize sz = m_cp_splitter->GetSize();
-    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
-    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
-#endif
-
 #ifdef USE_WX26x
 
     // setup scroll window for the controls under the images
@@ -1115,27 +1094,33 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 //            }
 #else
             wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
-            t1->SetSize(0,0);
-            t1->SetSizeHints(0,0,0,0);
-            wxSize sz(0,0);
-#ifdef USE_WX26x
-            t1->SetMaxSize(sz);
-            t1->SetMinSize(sz);
-#endif
-            wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
-            t2->SetSize(0,0);
-            t2->SetSizeHints(0,0,0,0);
-#ifdef USE_WX26x
-            t2->SetMaxSize(sz);
-            t2->SetMinSize(sz);
-#endif
             // update tab buttons
             if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
                 DEBUG_FATAL("could not add dummy window to left notebook");
             }
+            wxSize sz(0,0);
+            // resize dummy window..
+            t1->SetSize(0,0);
+            t1->SetSizeHints(0,0,0,0);
+            // to make the window visible...
+//            t1->SetBackgroundColour(wxColour(255,0,0));
+#ifdef USE_WX26x
+            t1->SetMaxSize(sz);
+            t1->SetMinSize(sz);
+#endif
+
+            wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
             if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
                 DEBUG_FATAL("could not add dummy window to right notebook");
             }
+            // resize dummy window
+            t2->SetSize(0,0);
+            t2->SetSizeHints(0,0,0,0);
+//            t2->SetBackgroundColour(wxColour(255,0,0));
+#ifdef USE_WX26x
+            t2->SetMaxSize(sz);
+            t2->SetMinSize(sz);
+#endif
 #endif
         }
     }
@@ -1182,6 +1167,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         }
     }
 
+
     // update changed images
     bool update(false);
     for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
@@ -1220,7 +1206,6 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     if (update) {
         UpdateDisplay();
     }
-
 }
 
 void CPEditorPanel::UpdateDisplay()
