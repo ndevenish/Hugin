@@ -8,4 +8,5 @@ Makefile.in
 stamp-h
 stamp-h.in
 Release
+Release*Unicode
 Debug

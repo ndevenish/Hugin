@@ -10,3 +10,4 @@ stamp-h
 stamp-h.in
 Release
 Debug
+Release*Unicode
