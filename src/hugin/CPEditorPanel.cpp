@@ -285,8 +285,8 @@ CPEditorPanel::~CPEditorPanel()
 
 void CPEditorPanel::RestoreLayout()
 {
+	DEBUG_TRACE("");
 #ifdef USE_WX26x
-	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),300));
 	DEBUG_ASSERT(m_cp_splitter_img);
 
     wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
@@ -301,6 +301,7 @@ void CPEditorPanel::RestoreLayout()
 	m_cp_splitter_img->SetSashGravity(0.5);
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
+	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),300));
 #endif
 }
 
