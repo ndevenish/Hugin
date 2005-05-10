@@ -281,6 +281,13 @@ void ImageOrientationPanel::ScaleBitmap()
     double s1 = (double)csize.GetWidth()/m_imageSize.GetWidth();
     double s2 = (double)csize.GetHeight()/m_imageSize.GetHeight();
     m_scaleFactor = s1 < s2 ? s1 : s2;
+	
+	// Make sure scaleFactor is always greater than 0.0 or we will 
+	// trigger an assert in wxBitmap
+	if (m_scaleFactor < 1.0e-4) {
+		int minDim = img->GetWidth() < img->GetHeight() ? img->GetWidth() : img->GetHeight();
+		m_scaleFactor = (double)(2.0/minDim);
+	}
 
     m_bitmap = wxBitmap(img->Scale((int) floor(m_scaleFactor * m_imageSize.GetWidth()),
                                    (int) floor(m_scaleFactor * m_imageSize.GetHeight())));
