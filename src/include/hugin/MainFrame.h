@@ -115,6 +115,9 @@ public:
 
     // load a project
     void LoadProjectFile(const wxString & filename);
+	
+	// Restore the layout
+	void RestoreLayout();
 
 protected:
     // called when a progress message should be displayed

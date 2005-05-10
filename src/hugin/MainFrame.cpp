@@ -144,7 +144,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
     //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
-    EVT_CLOSE(  MainFrame::OnExit)
+	EVT_CLOSE(  MainFrame::OnExit)
 END_EVENT_TABLE()
 
 // change this variable definition
@@ -347,7 +347,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pano.addObserver(this);
 
     // Set sizing characteristics
-#ifdef USE_WX25x
+#ifdef USE_WX26x
     SetSizeHints(600,400);
 #endif
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
@@ -372,12 +372,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         }
     }
 
-    // restore layout of child widgets, now that all widgets have been created,
-    // are of similar size
-    cpe->RestoreLayout();
-    lens_panel->RestoreLayout();
-    images_panel->RestoreLayout();
-    
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 
@@ -427,6 +421,16 @@ MainFrame::~MainFrame()
     DEBUG_TRACE("dtor end");
 }
 
+void MainFrame::RestoreLayout()
+{
+	DEBUG_TRACE("");	
+    // restore layout of child widgets, now that all widgets have been created,
+    // are of similar size
+    cpe->RestoreLayout();
+    lens_panel->RestoreLayout();
+    images_panel->RestoreLayout();
+	DEBUG_TRACE("");	
+}
 
 //void MainFrame::panoramaChanged(PT::Panorama &panorama)
 void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet & changed)

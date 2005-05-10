@@ -69,9 +69,6 @@ public:
 
  private:
 
-    // resize if the notebook page changes size
-    void FitParent(wxSizeEvent & e);
-
     // apply changes from the model
     void UpdateDisplay(const PT::PanoramaOptions & opt);
 

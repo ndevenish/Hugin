@@ -76,7 +76,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
  private:
     // a window event
-    void FitParent(wxSizeEvent & e);
+    void OnSize(wxSizeEvent & e);
 
     // event handlers
     /**  changes lens type */

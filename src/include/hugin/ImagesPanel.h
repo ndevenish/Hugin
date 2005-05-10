@@ -69,7 +69,7 @@ public:
 
 private:
     // a window event
-    void FitParent(wxSizeEvent & e);
+    void OnSize(wxSizeEvent & e);
 
     /** the model */
     Panorama &pano;

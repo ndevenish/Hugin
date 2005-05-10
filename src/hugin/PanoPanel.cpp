@@ -53,7 +53,7 @@ using namespace std;
 using namespace utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
-    EVT_SIZE   ( PanoPanel::FitParent )
+    EVT_SIZE   ( PanoPanel::OnSize )
     EVT_CHOICE ( XRCID("stitch_quick_mode"),PanoPanel::QuickModeChanged )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
     EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
@@ -515,13 +515,16 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
     }
 }
 
+// We need to override the default handling of size events because the
+// sizers set the virtual size but not the actual size. We reverse
+// the standard handling and fit the child to the parent rather than
+// fitting the parent around the child
 
-void PanoPanel::FitParent( wxSizeEvent & e )
+void PanoPanel::OnSize( wxSizeEvent & e )
 {
     DEBUG_TRACE("");
-    Layout();
     wxSize new_size = e.GetSize();
-//    this->SetSize(new_size);
     XRCCTRL(*this, "panorama_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+	e.Skip();
 }

@@ -57,7 +57,7 @@ ImgPreview * canvas;
 #define GET_VAR(val) pano.getVariable(orientationEdit_RefImg).val.getValue()
 
 BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
-    EVT_SIZE   ( ImagesPanel::FitParent )
+    EVT_SIZE   ( ImagesPanel::OnSize )
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
 #ifdef USE_WX26x
@@ -170,18 +170,26 @@ ImagesPanel::~ImagesPanel(void)
 
 void ImagesPanel::RestoreLayout()
 {
+	DEBUG_TRACE("");
 #ifdef USE_WX26x
+    int winWidth, winHeight;
+    GetClientSize(&winWidth, &winHeight);
+    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
     m_img_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300));
 #endif
 
 }
 
-void ImagesPanel::FitParent( wxSizeEvent & e )
+// We need to override the default handling of size events because the 
+// sizers set the virtual size but not the actual size. We reverse
+// the standard handling and fit the child to the parent rather than
+// fitting the parent around the child
+
+void ImagesPanel::OnSize( wxSizeEvent & e )
 {
 #ifdef USE_WX26x
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    // winHeight -= ConvertDialogToPixels(wxPoint(0, 30)).y;   // sizes of tabs and toolbar
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize (winWidth, winHeight);
     DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
     m_img_splitter->SetSize( winWidth, winHeight );
@@ -191,16 +199,17 @@ void ImagesPanel::FitParent( wxSizeEvent & e )
 #else
     wxSize new_size = GetSize();
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+    DEBUG_INFO( "image panel: " << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 #endif
     UpdatePreviewImage();
+	e.Skip();
 }
 
 #ifdef USE_WX26x
-void ImagesPanel::OnPositionChanged(wxSplitterEvent& event)
+void ImagesPanel::OnPositionChanged(wxSplitterEvent& e)
 {
-	DEBUG_INFO("Sash Position now:" << event.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
-    event.Skip();
+	DEBUG_INFO("Sash Position now:" << e.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
+    e.Skip();
 }
 #endif
 

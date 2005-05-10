@@ -51,8 +51,6 @@ using namespace utils;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
-    EVT_SIZE   ( NonaStitcherPanel::FitParent )
-
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
     EVT_SPINCTRL(XRCID("nona_jpeg_quality"), NonaStitcherPanel::OnSetQuality)
     EVT_CHECKBOX( XRCID("nona_check_enblend"), NonaStitcherPanel::OnEnblendChanged)
@@ -410,12 +408,3 @@ void NonaStitcherPanel::OnSetQuality(wxSpinEvent & e)
         );
 }
 
-void NonaStitcherPanel::FitParent( wxSizeEvent & e )
-{
-    DEBUG_TRACE("");
-//    Layout();
-    wxSize new_size = e.GetSize();
-//    this->SetSize(new_size);
-    XRCCTRL(*this, "nona_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-}

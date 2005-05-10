@@ -59,8 +59,6 @@ extern ImgPreview *canvas;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(PTStitcherPanel, wxWindow)
-    EVT_SIZE   ( PTStitcherPanel::FitParent )
-
     EVT_CHOICE ( XRCID("pano_choice_interpolator"),PTStitcherPanel::InterpolatorChanged)
     EVT_TEXT_ENTER ( XRCID("pano_val_gamma"),PTStitcherPanel::GammaChanged )
     EVT_CHOICE ( XRCID("pano_choice_color_corr_mode"),PTStitcherPanel::ColourModeChanged)
@@ -469,12 +467,3 @@ void PTStitcherPanel::OnFeatherWidthChanged(wxSpinEvent & e)
         );
 }
 
-
-void PTStitcherPanel::FitParent( wxSizeEvent & e )
-{
-    wxSize new_size = e.GetSize();
-//    this->SetSize(new_size);
-//    XRCCTRL(*this, "images_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( " size event:" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-
-}

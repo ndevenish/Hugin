@@ -97,12 +97,12 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
     m_opt_ctrls->SetScrollRate(10, 10);
 #endif
 
-    wxConfigBase * config = wxConfigBase::Get();
-    long w = config->Read(wxT("/OptimizerPanel/width"),-1);
-    long h = config->Read(wxT("/OptimizerPanel/height"),-1);
-    if (w != -1) {
-        SetClientSize(w,h);
-    }
+//    wxConfigBase * config = wxConfigBase::Get();
+//    long w = config->Read(wxT("/OptimizerPanel/width"),-1);
+//    long h = config->Read(wxT("/OptimizerPanel/height"),-1);
+//    if (w != -1) {
+//        SetClientSize(w,h);
+//    }
 
     wxCommandEvent dummy;
     dummy.m_commandInt = m_mode_cb->GetSelection();
@@ -615,3 +615,5 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
     }
 }
+
+							

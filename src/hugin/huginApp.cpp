@@ -270,6 +270,7 @@ bool huginApp::OnInit()
 
     // show the frame.
     frame->Show(TRUE);
+	frame->RestoreLayout();
 
     // TODO: check if we need to load images.
     if (argc == 2) {

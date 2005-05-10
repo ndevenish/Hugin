@@ -80,7 +80,7 @@ public:
                             PROFILE_LAYER_TIFF, PROFILE_LAYER_PSD };
 
     // resize if the notebook page changes size
-    void FitParent(wxSizeEvent & e);
+    void OnSize(wxSizeEvent & e);
 
     // apply changes from the model
     void UpdateDisplay(const PT::PanoramaOptions & opt);

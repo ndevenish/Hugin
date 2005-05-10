@@ -67,7 +67,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
-    EVT_SIZE   ( LensPanel::FitParent )
+    EVT_SIZE   ( LensPanel::OnSize )
     EVT_LIST_ITEM_SELECTED( XRCID("lenses_list_unknown"),
                             LensPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("lenses_list_unknown"),
@@ -185,17 +185,22 @@ LensPanel::~LensPanel(void)
 
 void LensPanel::RestoreLayout()
 {
+	DEBUG_TRACE("");
 #ifdef USE_WX26x
     m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
 #endif
 }
 
-void LensPanel::FitParent( wxSizeEvent & e )
+// We need to override the default handling of size events because the
+// sizers set the virtual size but not the actual size. We reverse
+// the standard handling and fit the child to the parent rather than
+// fitting the parent around the child
+
+void LensPanel::OnSize( wxSizeEvent & e )
 {
 #ifdef USE_WX26x
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    // winHeight -= ConvertDialogToPixels(wxPoint(0, 30)).y;   // sizes of tabs and toolbar
     XRCCTRL(*this, "lens_panel", wxPanel)->SetSize (winWidth, winHeight);
     DEBUG_INFO( "lens panel: " << winWidth <<"x"<< winHeight );
     m_lens_splitter->SetSize( winWidth, winHeight );
@@ -204,9 +209,8 @@ void LensPanel::FitParent( wxSizeEvent & e )
     m_lens_ctrls->SetSize(winWidth, winHeight);
 #else
     wxSize new_size = GetSize();
-//    wxSize new_size = GetParent()->GetSize();
     XRCCTRL(*this, "lens_panel", wxPanel)->SetSize ( new_size );
-//    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
+    DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 #endif
 }
 

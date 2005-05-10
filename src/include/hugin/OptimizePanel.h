@@ -82,8 +82,6 @@ protected:
     // called whenever the optimize mode changes
     void OnChangeMode(wxCommandEvent & e);
 
-
-
     void runOptimizer(const PT::OptimizeVector & optvars,
 		              const PT::PanoramaOptions & options, 
                       const PT::UIntSet & img);
@@ -108,6 +106,7 @@ protected:
 	
     PT::Panorama * m_pano;
 private:
+	
     DECLARE_EVENT_TABLE()
 };
 
