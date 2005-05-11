@@ -1,3 +1,11 @@
+2005-05-11 13:44  dwilkins42
+
+	* ChangeLog, src/hugin/MyProgressDialog.cpp,
+	  src/hugin/NonaStitcherPanel.cpp,
+	  src/include/hugin/MyProgressDialog.h: Make progress dialogs
+	  slightly more readable by working around wxProgressDialog
+	  vertical resizing issue
+
 2005-05-10 14:01  dwilkins42
 
 	* src/: hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,

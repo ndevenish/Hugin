@@ -44,7 +44,7 @@ namespace vigra_ext
 
 /** Transform an image into the panorama
  *
- *  It can be used for partial transformations as well, if the boundig
+ *  It can be used for partial transformations as well, if the bounding
  *  box of a remapped image is known.
  *
  *  Usage: create an output image @dest that should contain the remapped

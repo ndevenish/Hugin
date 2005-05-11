@@ -331,7 +331,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 
 #ifdef __WXMSW__
         if (args.size() > 1950) {
-            wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitiation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
+            wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
                 _("Too many images selected"));
             return;
         }

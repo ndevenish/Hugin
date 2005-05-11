@@ -51,7 +51,6 @@
 namespace PT
 {
 
-    
 template <class TRANSFORM>
 void estimateImageAlpha(vigra::Diff2D destSize,
                        vigra::Diff2D srcSize,
