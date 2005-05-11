@@ -220,6 +220,10 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     // update text field if selected
     const UIntSet & selected = images_list->GetSelected();
     DEBUG_DEBUG("nr of sel Images: " << selected.size());
+	if (pano.getNrOfImages() == 0)
+	{
+	  DisableImageCtrls();
+	}
     if (selected.size() == 1 &&
         *(selected.begin()) < pano.getNrOfImages() &&
         set_contains(_imgNr, *(selected.begin())))
@@ -423,6 +427,11 @@ void ImagesPanel::DisableImageCtrls()
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
     m_setAnchorOrientButton->Disable();
+	m_matchingButton->Disable();
+	m_removeCPButton->Disable();
+	XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
+	XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
+	
 }
 
 void ImagesPanel::EnableImageCtrls()
@@ -431,6 +440,10 @@ void ImagesPanel::EnableImageCtrls()
     if (XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->Enable()) {
         XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Enable();
         XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
+		m_matchingButton->Enable();
+		m_removeCPButton->Enable();
+		XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
+		XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
     }
 }
 
