@@ -1,3 +1,46 @@
+2005-05-10 14:01  dwilkins42
+
+	* src/: hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/NonaStitcherPanel.cpp,
+	  hugin/OptimizePanel.cpp, hugin/PTStitcherPanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/huginApp.cpp,
+	  include/hugin/ImagesPanel.h, include/hugin/LensPanel.h,
+	  include/hugin/MainFrame.h, include/hugin/NonaStitcherPanel.h,
+	  include/hugin/OptimizePanel.h, include/hugin/PTStitcherPanel.h,
+	  include/hugin/PanoPanel.h: Rename FitParent to OnSize to reflect
+	  real usage. Fix sash position restoration on wxGTK. Remove
+	  unneeded/commented code
+
+2005-05-10 13:58  dwilkins42
+
+	* src/hugin/CPEditorPanel.cpp: Remove DOS line endings
+
+2005-05-10 13:53  dwilkins42
+
+	* src/hugin/ImageOrientationPanel.cpp: Avoid possible assert
+
+2005-05-09 00:43  dangelo
+
+	* src/include/config_msvc.h: config.h file for Visual Studio.Net
+	  build
+
+2005-05-08 21:08  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed the "hidden image number tab"
+	  on windows.
+
+2005-05-08 21:02  dangelo
+
+	* src/: .cvsignore, Panorama/.cvsignore, common/.cvsignore,
+	  hugin/.cvsignore, jhead/.cvsignore, nona_gui/.cvsignore,
+	  tools/.cvsignore, vigra_ext/.cvsignore,
+	  foreign/vigra_impex/.cvsignore: updated .cvsignore with windows
+	  build directories
+
+2005-05-07 19:12  dwilkins42
+
+	* ChangeLog, src/hugin/CPEditorPanel.cpp: Fix my stupid error
+
 2005-05-07 13:02  dwilkins42
 
 	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
@@ -3104,13 +3147,4 @@
 	* src/hugin/xrc/data/: CPCursor0.png, CPCursor1.png, CPCursor2.png,
 	  CPCursor3.png, CPCursor4.png, CPCursor5.png, CPCursor6.png:
 	  forgot checkin.. stupid me
-
-2004-05-07 19:07  dangelo
-
-	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
-	  hugin/Makefile, hugin/PanoPanel.cpp, hugin/UniversalCursor.cpp,
-	  include/hugin/CPEditorPanel.h, include/hugin/CPImageCtrl.h,
-	  include/hugin/UniversalCursor.h: Added alternative cursors for
-	  point selection. didn't know that they looked so horrible under
-	  some windows versions.
 

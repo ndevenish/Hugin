@@ -64,9 +64,11 @@ private:
 class OptProgressDialog : public MyProgressDialog
 {
 public:
+    // work around a flaw in wxProgresDialog that results in incorrect layout
+	// by pre-allocting sufficient horizontal and vertical space
     OptProgressDialog(wxWindow * parent = NULL,
                       int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT )
-        : MyProgressDialog(_("Optimizing Panorama"), wxT(""), parent, style)
+        : MyProgressDialog(_("Optimizing Panorama"), (wxString((wxChar)' ', 80) + wxT("\n \n \n \n ")), parent, style)
         { }
 
     virtual void abortOperation();

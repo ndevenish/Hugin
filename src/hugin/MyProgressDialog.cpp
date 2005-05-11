@@ -64,24 +64,8 @@ void MyProgressDialog::updateProgressDisplay()
         abortOperation();
     }
 
-    bool resized=false;
-    const wxSize & sz = GetBestSize();
-    wxSize csz = GetClientSize();
-    if (sz.GetWidth() > csz.GetWidth()) {
-        SetClientSize(sz.GetWidth(),csz.GetHeight());
-        resized = true;
-    }
-    csz.SetWidth(sz.GetWidth());
-    if (sz.GetHeight() > csz.GetHeight()) {
-        SetClientSize(csz.GetWidth(),sz.GetHeight());
-        resized = true;
-    }
-
-    if (resized) {
-        Layout();
-//    Fit();
-    }
-    wxDialog::Update();
+    // finally redraw
+	Layout();
 }
 
 void OptProgressDialog::abortOperation()
