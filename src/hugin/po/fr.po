@@ -1,21 +1,23 @@
+# translation of fr.po to 
 # French translations for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-05-12 06:25+0300\n"
-"PO-Revision-Date: 2005-02-12 11:51+0100\n"
-"Last-Translator:  <jean-luc.coulon@wanadoo.fr>\n"
+"PO-Revision-Date: 2005-05-11 09:19+0200\n"
+"Last-Translator: <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:92
 #, c-format
@@ -48,7 +50,7 @@ msgstr "Sélectionner le type d'autopano"
 #: src/hugin/AutoCtrlPointCreator.cpp:149
 #: src/hugin/AutoCtrlPointCreator.cpp:393
 msgid "Select autopano program / frontend script"
-msgstr "Choisir le programme autopano / script frontal"
+msgstr "Choisir le programme ou script frontal autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:151 src/hugin/PreferencesDialog.cpp:175
 #: src/hugin/PreferencesDialog.cpp:191 src/hugin/PreferencesDialog.cpp:207
@@ -64,19 +66,18 @@ msgid "No autopano selected"
 msgstr "Pas d'autopano sélectionné"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:201
-#, fuzzy
 msgid "Select autopano frontend script"
-msgstr "Sélectionner le script frontal d'autopano-sift"
+msgstr "Sélectionner le script frontal d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:203
 msgid "Shell Scripts (*.sh)|*.sh"
-msgstr ""
+msgstr "Scripts de l'interpréteur de commandes (*.sh)|*.sh"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:248
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
-"Veuillez entrer soit %namefile soit %i sur la ligne de commande d'autopano-"
+"Veuillez entrer soit %namefile soit %i sur la ligne de commande d'Autopano-"
 "sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:249
@@ -90,17 +91,15 @@ msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
-"d'autopano-sift"
+"d'Autopano-sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:288
-#, fuzzy
 msgid "Select autopano .Net executable."
-msgstr "Sélectionner le type d'autopano"
+msgstr "Sélectionner l'exécutable .Net d'Autopano."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:296
-#, fuzzy
 msgid "No autopano directory selected"
-msgstr "Pas d'autopano sélectionné"
+msgstr "Pas de répertoire sélectionné pour Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:305
 #: src/hugin/AutoCtrlPointCreator.cpp:439
@@ -110,7 +109,7 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"La ligne de commande d'autopano est trop longue.\n"
+"La ligne de commande d'Autopano est trop longue.\n"
 "C'est une limitation de Windows\n"
 "Veuillez sélectionner moins d'images ou placez les images\n"
 "dans un dossier avec un chemin plus court."
@@ -123,7 +122,7 @@ msgstr "Trop d'images ont été sélectionnées"
 #: src/hugin/AutoCtrlPointCreator.cpp:315
 #: src/hugin/AutoCtrlPointCreator.cpp:447
 msgid "Running autopano"
-msgstr "Lancement d'autopano"
+msgstr "Lancement d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:315
 #: src/hugin/AutoCtrlPointCreator.cpp:447
@@ -132,7 +131,7 @@ msgid ""
 "See the command window for autopanos' progress"
 msgstr ""
 "Veuillez patienter pendant qu'Autopano recherche les points de contrôle\n"
-"Vous pouvez suivre l'évolution du travail d'autopano dans la fenêtre de "
+"Vous pouvez suivre l'évolution du travail d'Autopano dans la fenêtre de "
 "commande"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:344
@@ -387,27 +386,24 @@ msgid "Creating pyramid image for %s, level %d"
 msgstr "Création de la pyramide image pour %s, niveau %d"
 
 #: src/hugin/ImageCenter.cpp:61
-#, fuzzy
 msgid "Crop Image"
-msgstr "Ancrer l'image"
+msgstr "Recadrer l'image"
 
 #: src/hugin/ImageCenter.cpp:80
 msgid "Left:"
-msgstr ""
+msgstr "Gauche :"
 
 #: src/hugin/ImageCenter.cpp:85
-#, fuzzy
 msgid "Right:"
-msgstr "hauteur"
+msgstr "Droite :"
 
 #: src/hugin/ImageCenter.cpp:90
 msgid "Top:"
-msgstr ""
+msgstr "Haut :"
 
 #: src/hugin/ImageCenter.cpp:95
-#, fuzzy
 msgid "Bottom:"
-msgstr "Zoom :"
+msgstr "Bas :"
 
 #: src/hugin/ImageCenter.cpp:100 src/hugin/xrc/images_panel.xrs:31
 msgid "Reset"
@@ -415,7 +411,7 @@ msgstr "Valeurs par défaut"
 
 #: src/hugin/ImageCenter.cpp:102
 msgid "Always center Crop on d,e"
-msgstr ""
+msgstr "Toujours centrer l'image recadrée sur d, e"
 
 #: src/hugin/ImageCenter.cpp:105 src/hugin/xrc/pref_dialog.xrs:68
 msgid "Ok"
@@ -428,9 +424,8 @@ msgstr "Abandonner"
 
 #: src/hugin/ImageCenter.cpp:207 src/hugin/ImageCenter.cpp:222
 #: src/hugin/ImageCenter.cpp:237 src/hugin/ImageCenter.cpp:252
-#, fuzzy
 msgid "Please enter a valid number"
-msgstr "Erreur, veuillez entrer un nombre valable."
+msgstr "Veuillez entrer un nombre valable"
 
 #: src/hugin/ImageOrientationPanel.cpp:132
 #, c-format
@@ -511,7 +506,7 @@ msgstr "t"
 
 #: src/hugin/ImagesList.cpp:291
 msgid "Crop"
-msgstr ""
+msgstr "Recadrer"
 
 #: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
@@ -576,7 +571,7 @@ msgstr "Entrer le numéro du nouvel objectif"
 
 #: src/hugin/LensPanel.cpp:829
 msgid "Lens number"
-msgstr "Objectif numéo"
+msgstr "Objectif numéro"
 
 #: src/hugin/LensPanel.cpp:830
 msgid "Change lens number"
@@ -635,12 +630,12 @@ msgstr "Fermeture forcée"
 #: src/hugin/MainFrame.cpp:486 src/hugin/MainFrame.cpp:514
 #: src/hugin/MainFrame.cpp:533 src/hugin/PanoPanel.cpp:495
 msgid "No images - Nothing to do"
-msgstr ""
+msgstr "Pas d'image - Rien à faire"
 
 #: src/hugin/MainFrame.cpp:486 src/hugin/MainFrame.cpp:514
 #: src/hugin/MainFrame.cpp:533 src/hugin/PanoPanel.cpp:495
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 #: src/hugin/MainFrame.cpp:505
 #, c-format
@@ -774,24 +769,23 @@ msgstr "Pas d'enblend.exe sélectionné"
 
 #: src/hugin/NonaStitcherPanel.cpp:294
 msgid "Select enblend commandline tool"
-msgstr "Sélectionner l'outil en ligne de commande enblend"
+msgstr "Sélectionner l'outil en ligne de commande Enblend"
 
 #: src/hugin/NonaStitcherPanel.cpp:302
 msgid "No enblend commandline tool selected"
-msgstr "Aucun outil en ligne de commande enblend sélectionné"
+msgstr "Aucun outil en ligne de commande Enblend sélectionné"
 
 #: src/hugin/NonaStitcherPanel.cpp:334
-#, fuzzy
 msgid ""
 "Can not call enblend with a command line > 2000 characters.\n"
 "This is a Windows limitation\n"
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Impossible d'appeler enblend avec une ligne de commande de\n"
+"Impossible d'appeler Enblend avec une ligne de commande de\n"
 "plus de 2000 caractères\n"
 "Ceci est une limitation de Windows.\n"
-"veuillez utiliser moins d'images ou placez les images dans un dossier\n"
+"Veuillez utiliser moins d'images ou placez les images dans un dossier\n"
 "dont le chemin est plus court."
 
 #: src/hugin/NonaStitcherPanel.cpp:342
@@ -805,14 +799,14 @@ msgid ""
 msgstr ""
 "Il faudra un certain temps à Enblend pour terminer le traitement du "
 "panorama\n"
-"Vous pouvez suivre la progression d'enblend dans la fenêtre de lancement."
+"Vous pouvez suivre la progression d'Enblend dans la fenêtre de lancement."
 
 #: src/hugin/NonaStitcherPanel.cpp:347
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
 msgstr ""
-"Impossible d'exécuter enblend, system() a échoué :\n"
+"Impossible d'exécuter Enblend, system() a échoué :\n"
 "La commande était :"
 
 #: src/hugin/NonaStitcherPanel.cpp:348
@@ -825,7 +819,7 @@ msgstr "Erreur de CreateProcess"
 
 #: src/hugin/NonaStitcherPanel.cpp:389
 msgid "enblend error"
-msgstr "Erreur d'enblend"
+msgstr "Erreur d'Enblend"
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1199,9 +1193,8 @@ msgid "No PTOptimizer.exe selected"
 msgstr "PTOptimizer.exe n'a pas été sélectionné"
 
 #: src/hugin/RunOptimizerFrame.cpp:131
-#, fuzzy
 msgid "No PTOptimizer selected"
-msgstr "PTOptimizer.exe n'a pas été sélectionné"
+msgstr "Pas de PTOptimizer sélectionné"
 
 #: src/hugin/RunOptimizerFrame.cpp:155
 msgid "Failed to launch PTOptimizer."
@@ -1315,21 +1308,22 @@ msgid "Image file not found"
 msgstr "Fichier image introuvable"
 
 #: src/include/hugin/wxPanoCommand.h:203
-#, fuzzy, c-format
+#, c-format
 msgid "Could not read image size of file %s"
-msgstr "Impossible de lire la taille de l'image"
+msgstr "Impossible de lire la taille d'image du fichier %s"
 
 #: src/include/hugin/wxPanoCommand.h:211
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Enter focal length for image\n"
 "%s\n"
-msgstr "Distance focale vraie en mm"
+msgstr ""
+"Entrer la distance focale pour l'image\n"
+"%s\n"
 
 #: src/include/hugin/wxPanoCommand.h:212
-#, fuzzy
 msgid "Loading project"
-msgstr "Enregistrer le projet"
+msgstr "Chargement du projet"
 
 #: src/hugin/xrc/about.xrs:1 src/hugin/xrc/main_tool.xrs:31
 msgid "About Hugin"
@@ -1482,7 +1476,7 @@ msgid ""
 "these lines is an advanced technique."
 msgstr ""
 "Ceci est le script qui va être passé au moteur des Outils de Panorama "
-"(« Panorama Tools »).Éditer ces lignes est une technique avancée."
+"(« Panorama Tools »). Éditer ces lignes est une technique avancée."
 
 #: src/hugin/xrc/edit_script_dialog.xrs:3
 msgid "Continue with these changes"
@@ -1743,13 +1737,12 @@ msgid "vertical (e):"
 msgstr "Verticalement (e) :"
 
 #: src/hugin/xrc/lens_panel.xrs:35
-#, fuzzy
 msgid "Set Crop"
-msgstr "Arrêt"
+msgstr "Définir le recadrage"
 
 #: src/hugin/xrc/lens_panel.xrs:36
 msgid "Set crop and image center"
-msgstr ""
+msgstr "Définir le recadrage et le centre de l'image"
 
 #: src/hugin/xrc/lens_panel.xrs:37
 msgid "Camera and Lens Information"
@@ -2115,14 +2108,14 @@ msgstr "Approximation des valeurs entre les pixels source"
 
 #: src/hugin/xrc/nona_panel.xrs:12
 msgid "Soft Blending (requires enblend, only TIFF output)"
-msgstr "Fusion (nécessite enblend, valable uniquement pour des sorties TIFF)"
+msgstr "Fusion (nécessite Enblend, valable uniquement pour des sorties TIFF)"
 
 #: src/hugin/xrc/nona_panel.xrs:13
 msgid ""
 "Use the external enblend program for seamless blending. Can only produce "
 "TIFF output. Select TIFF to enable this option"
 msgstr ""
-"Utiliser le programme externe enblend pour une fusion sans joints apparents. "
+"Utiliser le programme externe Enblend pour une fusion sans joints apparents. "
 "Ne peut produire que des sorties TIFF. Sélectionner TIFF pour valider cette "
 "option."
 
@@ -2525,7 +2518,7 @@ msgstr "Langue"
 
 #: src/hugin/xrc/pref_dialog.xrs:39
 msgid "requires restarting hugin"
-msgstr "nécessite de redémarrer hugin"
+msgstr "nécessite de redémarrer Hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
 msgid "Cursor Type"
@@ -2537,11 +2530,13 @@ msgid ""
 "requires restarting hugin"
 msgstr ""
 "disponible uniquement sous linux\n"
-"nécessite de redémarrer hugin"
+"nécessite de redémarrer Hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:42
 msgid "Optimize and stitch only images selected in preview window"
 msgstr ""
+"Optimiser et assembler uniquement les images sélectionnées dans la fenêtre "
+"d'aperçu"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
 msgid "File options"
@@ -2557,7 +2552,7 @@ msgstr "laisser blanc pour utiliser la valeur par défaut du système"
 
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Show Druid (requires restarting hugin)"
-msgstr "Afficher l'assistant (nécessite de redémarrer hugin)"
+msgstr "Afficher l'assistant (nécessite de redémarrer Hugin)"
 
 #: src/hugin/xrc/pref_dialog.xrs:48 src/hugin/xrc/pref_dialog.xrs:56
 msgid "Autopano"
@@ -2600,7 +2595,7 @@ msgstr ""
 "%o  -- sortie du projet (0.oto sera ajouté si on utilise Autopano)\n"
 "%p  -- nombre de points de contrôle pour chaque paire d'images\n"
 "%i  -- fichiers image\n"
-"%namefile -- fichier contenantant les noms des fichiers images"
+"%namefile -- fichier contenant les noms des fichiers images"
 
 #: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Enblend"
@@ -2620,11 +2615,11 @@ msgstr "Arguments supplémentaires :"
 
 #: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr "Ne pas positionner les arguments -w et -o, ce sera fait par hugin"
+msgstr "Ne pas positionner les arguments -w et -o, ce sera fait par Hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Delete remapped tiff files"
-msgstr ""
+msgstr "Effacer les fichier tiff remappés"
 
 #: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Load Defaults"
