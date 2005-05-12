@@ -1,3 +1,20 @@
+2005-05-11 21:17  dwilkins42
+
+	* src/hugin/ImagesPanel.cpp: Enable/Disable controls on Images tab
+	  consistently
+
+2005-05-11 21:13  dwilkins42
+
+	* ChangeLog, src/foreign/getopt/include/getopt.h,
+	  src/hugin/ImageCenter.cpp, src/hugin/NonaStitcherPanel.cpp,
+	  src/hugin/po/de.po, src/hugin/po/fr.po, src/hugin/po/hugin.pot,
+	  src/hugin/po/it.po, src/hugin/po/pl.po,
+	  src/include/PT/RemappedPanoImage.h,
+	  src/include/hugin/PTStitcherPanel.h,
+	  src/include/hugin/wxPanoCommand.h,
+	  src/include/vigra_ext/ImageTransforms.h: Correct spelling error.
+	  Correct line endings. Correct permissions
+
 2005-05-11 13:44  dwilkins42
 
 	* ChangeLog, src/hugin/MyProgressDialog.cpp,

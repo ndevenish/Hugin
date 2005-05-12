@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-11 20:08+0300\n"
+"POT-Creation-Date: 2005-05-12 06:25+0300\n"
 "PO-Revision-Date: 2005-04-02 12:45-0500\n"
 "Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -522,17 +522,17 @@ msgstr "Pełnoramowe rybie oko"
 msgid "Equirectangular"
 msgstr "Sferyczny"
 
-#: src/hugin/ImagesPanel.cpp:286 src/hugin/ImagesPanel.cpp:307
-#: src/hugin/ImagesPanel.cpp:327
+#: src/hugin/ImagesPanel.cpp:290 src/hugin/ImagesPanel.cpp:311
+#: src/hugin/ImagesPanel.cpp:331
 msgid "Value must be numeric."
 msgstr "Wartość musi być numeryczna."
 
-#: src/hugin/ImagesPanel.cpp:651
+#: src/hugin/ImagesPanel.cpp:664
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Na pewno usunąć %d punktów kontrolnych?"
 
-#: src/hugin/ImagesPanel.cpp:653
+#: src/hugin/ImagesPanel.cpp:666
 msgid "Delete Control Points"
 msgstr "Usuń punkty kontrolne"
 

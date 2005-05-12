@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-11 20:08+0300\n"
+"POT-Creation-Date: 2005-05-12 06:25+0300\n"
 "PO-Revision-Date: 2005-02-23 01:13+0100\n"
 "Last-Translator: Luca Vascon <crimsonkingit@yahoo.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -527,17 +527,17 @@ msgstr "Fisheye full-frame"
 msgid "Equirectangular"
 msgstr "Equirettangolare"
 
-#: src/hugin/ImagesPanel.cpp:286 src/hugin/ImagesPanel.cpp:307
-#: src/hugin/ImagesPanel.cpp:327
+#: src/hugin/ImagesPanel.cpp:290 src/hugin/ImagesPanel.cpp:311
+#: src/hugin/ImagesPanel.cpp:331
 msgid "Value must be numeric."
 msgstr "Il valore deve essere numerico"
 
-#: src/hugin/ImagesPanel.cpp:651
+#: src/hugin/ImagesPanel.cpp:664
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Eliminare veramente %d punti di controllo?"
 
-#: src/hugin/ImagesPanel.cpp:653
+#: src/hugin/ImagesPanel.cpp:666
 msgid "Delete Control Points"
 msgstr "Eliminare Punti di Controllo"
 

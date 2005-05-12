@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-11 20:08+0300\n"
+"POT-Creation-Date: 2005-05-12 06:25+0300\n"
 "PO-Revision-Date: 2005-03-08 22:02+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -528,17 +528,17 @@ msgstr "Fischauge Vollbild"
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
 
-#: src/hugin/ImagesPanel.cpp:286 src/hugin/ImagesPanel.cpp:307
-#: src/hugin/ImagesPanel.cpp:327
+#: src/hugin/ImagesPanel.cpp:290 src/hugin/ImagesPanel.cpp:311
+#: src/hugin/ImagesPanel.cpp:331
 msgid "Value must be numeric."
 msgstr "Wert muß numerisch sein"
 
-#: src/hugin/ImagesPanel.cpp:651
+#: src/hugin/ImagesPanel.cpp:664
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "%d Kontrollpunkte wirklich löschen?"
 
-#: src/hugin/ImagesPanel.cpp:653
+#: src/hugin/ImagesPanel.cpp:666
 msgid "Delete Control Points"
 msgstr "Kontrollpunkte löschen"
 
