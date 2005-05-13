@@ -434,12 +434,6 @@ void OptimizePanel::runOptimizer(const OptimizeVector & optvars,
 								 const UIntSet & imgs)
 {
     DEBUG_TRACE("");
-    if (m_pano->getNrOfImages() == 0) {
-        // nothing to optimize
-		wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
-        return;
-    }
-
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode = m_mode_cb->GetSelection();

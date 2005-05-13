@@ -1,7 +1,7 @@
 # Tips for hugin
 Pour faire défiler ensemble les deux images de l'onglet des points de contrôle, maitenir enfoncé la touche majuscule en déplaçant la souris.
 La touche « Crtrl » ou le bouton du milieu de la souris peuvent être utilisés pour déplacer une image dans l'onglet des points de contrôle.
-Faier pivoter l'appreil photo autour de sa pupille d'netrée lors de la prise de vue rend la création de panorama beaucoup plus facile.
+Faire pivoter l'appareil photo autour de sa pupille d'entrée (souvent appelée, à tort,  « point nodal ») lors de la prise de vue rend la création des panoramas beaucoup plus facile.
 Si le panorama semble correct mais que l'horizon est courbe, sélectionnez une nouvelle position d'ancrage ou ajoutez des points de contrôle pour une ligne verticale ou horizontale.
 Des paires de points de contrôle horizontaux ou verticaux peuvent être configurés en sélectionnant la même image des deux côtés dans l'onglet des points de contrôle.
 Des points de contrôle doivent être placés sur des objets statiques. Évitez de les placer sur des personnes, des arbres ou d'autres objets en mouvement ou qui se déforment.
