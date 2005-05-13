@@ -579,6 +579,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_newlens", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_changelens", wxButton)->Disable();
     } else {
 //        m_editImageNr = *sel.begin();
 
@@ -605,6 +607,8 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_inherit_t", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_center", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_newlens", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_changelens", wxButton)->Enable();
         }
 
         if (m_selectedImages.size() == 1) {

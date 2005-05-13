@@ -149,6 +149,7 @@ PTStitcherPanel::~PTStitcherPanel(void)
 
 void PTStitcherPanel::panoramaChanged (PT::Panorama &pano)
 {
+	DEBUG_TRACE("");
     PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);
@@ -159,13 +160,27 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
     unsigned int nImages = pano.getNrOfImages();
 
-    if (nImages < 1) {
+    if (nImages == 0) {
         // disable some controls
         m_ColorCorrModeChoice->Disable();
         m_ColorCorrRefSpin->Disable();
+  		m_FormatChoice->Disable();
+    	m_InterpolatorChoice->Disable();
+    	m_GammaText->Disable();
+    	m_FeatherWidthSpin->Disable();
+    	m_JPEGQualitySpin->Disable();
+    	m_editScriptCB->Disable();
+    	m_SpeedupChoice->Disable();
     } else {
         m_ColorCorrRefSpin->Enable();
         m_ColorCorrModeChoice->Enable();
+  		m_FormatChoice->Enable();
+    	m_InterpolatorChoice->Enable();
+    	m_GammaText->Enable();
+    	m_FeatherWidthSpin->Enable();
+    	m_JPEGQualitySpin->Enable();
+    	m_editScriptCB->Enable();
+    	m_SpeedupChoice->Enable();
    }
 
     int maximg = ((int)nImages) -1;
@@ -466,4 +481,3 @@ void PTStitcherPanel::OnFeatherWidthChanged(wxSpinEvent & e)
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 }
-

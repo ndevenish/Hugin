@@ -151,6 +151,30 @@ PanoPanel::~PanoPanel(void)
 
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
+	DEBUG_TRACE("");
+	if (pano.getNrOfImages() == 0) {
+      m_ProjectionChoice->Disable();
+      m_HFOVSpin->Disable();
+      m_CalcHFOVButton->Disable();
+      m_VFOVSpin->Disable();
+      m_WidthTxt->Disable();
+      m_CalcOptWidthButton->Disable();
+      m_HeightStaticText->Disable();
+      m_StitcherChoice->Disable();
+      m_QuickChoice->Disable();
+      m_StitchButton->Disable();
+	} else {
+  	  m_ProjectionChoice->Enable();
+      m_HFOVSpin->Enable();
+      m_CalcHFOVButton->Enable();
+      m_VFOVSpin->Enable();
+      m_WidthTxt->Enable();
+      m_CalcOptWidthButton->Enable();
+      m_HeightStaticText->Enable();
+      m_StitcherChoice->Enable();
+      m_QuickChoice->Enable();
+      m_StitchButton->Enable();
+	}
     PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);

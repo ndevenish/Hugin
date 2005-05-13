@@ -105,6 +105,7 @@ NonaStitcherPanel::~NonaStitcherPanel(void)
 
 void NonaStitcherPanel::panoramaChanged (PT::Panorama &pano)
 {
+	DEBUG_TRACE("");
     PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);
@@ -113,53 +114,73 @@ void NonaStitcherPanel::panoramaChanged (PT::Panorama &pano)
 
 void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
-    m_InterpolatorChoice->SetSelection(opt.interpolator);
+    unsigned int nImages = pano.getNrOfImages();
+	
+	if (nImages == 0) {
+		// disable controls
+  		m_InterpolatorChoice->Disable();
+  		m_FormatChoice->Disable();
+  		m_JPEGQualitySpin->Disable();
+  		m_EnblendCheckBox->Disable();
+		//
+	} else {
+		// enable controls
+  		if (m_InterpolatorChoice->Enable()) 
+		{
+  		  m_FormatChoice->Enable();
+  		  m_JPEGQualitySpin->Enable();
+  		  m_EnblendCheckBox->Enable();
+		}
+		//
 
-    // translate format
-    int format;
-    switch (opt.outputFormat) {
-    case PanoramaOptions::JPEG:
-        format = 0;
-        break;
-    case PanoramaOptions::PNG:
-        format = 1;
-        break;
-    case PanoramaOptions::TIFF:
-        format = 2;
-        break;
-    case PanoramaOptions::TIFF_m:
-        format = 3;
-        break;
-    case PanoramaOptions::TIFF_multilayer:
-        format = 4;
-        break;
-    default:
-        {
-            PanoramaOptions opts = pano.getOptions();
-            opts.outputFormat = PanoramaOptions::JPEG;
-            GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd( pano, opts )
-                );
-            format = 0;
-        }
-    }
-    m_FormatChoice->SetSelection(format);
+  	  m_InterpolatorChoice->SetSelection(opt.interpolator);
 
-    if (opt.outputFormat == PanoramaOptions::JPEG) {
-        m_JPEGQualitySpin->Enable();
-    } else {
-        m_JPEGQualitySpin->Disable();
-    }
-    m_JPEGQualitySpin->SetValue(opt.quality);
+      // translate format
+      int format;
+      switch (opt.outputFormat) {
+      case PanoramaOptions::JPEG:
+          format = 0;
+          break;
+      case PanoramaOptions::PNG:
+          format = 1;
+          break;
+      case PanoramaOptions::TIFF:
+          format = 2;
+          break;
+      case PanoramaOptions::TIFF_m:
+          format = 3;
+          break;
+      case PanoramaOptions::TIFF_multilayer:
+          format = 4;
+          break;
+      default:
+          {
+              PanoramaOptions opts = pano.getOptions();
+              opts.outputFormat = PanoramaOptions::JPEG;
+              GlobalCmdHist::getInstance().addCommand(
+                  new PT::SetPanoOptionsCmd( pano, opts )
+                  );
+              format = 0;
+          }
+      }
+      m_FormatChoice->SetSelection(format);
 
-    if (opt.outputFormat == PanoramaOptions::TIFF) {
-    // enable enblend
-        m_EnblendCheckBox->Enable();
-        m_EnblendCheckBox->SetValue(opt.blendMode == PanoramaOptions::SPLINE_BLEND);
-    } else {
-        m_EnblendCheckBox->SetValue(false);
-        m_EnblendCheckBox->Disable();
-    }
+      if (opt.outputFormat == PanoramaOptions::JPEG) {
+          m_JPEGQualitySpin->Enable();
+      } else {
+          m_JPEGQualitySpin->Disable();
+      }
+      m_JPEGQualitySpin->SetValue(opt.quality);
+
+      if (opt.outputFormat == PanoramaOptions::TIFF) {
+      // enable enblend
+          m_EnblendCheckBox->Enable();
+          m_EnblendCheckBox->SetValue(opt.blendMode == PanoramaOptions::SPLINE_BLEND);
+      } else {
+          m_EnblendCheckBox->SetValue(false);
+          m_EnblendCheckBox->Disable();
+      }
+	}
 }
 
 

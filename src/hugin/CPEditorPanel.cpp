@@ -252,6 +252,16 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_fineTuneCB->SetValue(config->Read(wxT("/CPEditorPanel/fineTune"),1l) != 0 );
     m_estimateCB->SetValue(config->Read(wxT("/CPEditorPanel/autoEstimate"),1l) != 0 );
 
+	// disable controls by default
+  	m_cpModeChoice->Disable();
+    m_addButton->Disable();
+    m_delButton->Disable();
+    m_autoAddCB->Disable();
+    m_fineTuneCB->Disable();
+    m_estimateCB->Disable();
+	XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+	XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+
     // observe the panorama
     m_pano->addObserver(this);
 }
@@ -1074,64 +1084,86 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     unsigned int nrTabs = m_leftTabs->GetPageCount();
 #endif
     DEBUG_TRACE("nrImages:" << nrImages << " nrTabs:" << nrTabs);
+	
+	if (nrImages == 0) {
+	  // disable controls
+  	  m_cpModeChoice->Disable();
+      m_addButton->Disable();
+      m_delButton->Disable();
+      m_autoAddCB->Disable();
+      m_fineTuneCB->Disable();
+      m_estimateCB->Disable();
+	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+	} else {
+	  // enable controls
+  	  m_cpModeChoice->Enable();
+      //m_addButton->Enable();
+      //m_delButton->Enable();
+      m_autoAddCB->Enable();
+      m_fineTuneCB->Enable();
+      m_estimateCB->Enable();
+	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
+	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
 
-    // FIXME: lets hope that nobody holds references to these images..
-    ImageCache::getInstance().softFlush();
+  	  // FIXME: lets hope that nobody holds references to these images..
+      ImageCache::getInstance().softFlush();
 
-    // add tab bar entries, if needed
-    if (nrTabs < nrImages) {
-        for (unsigned int i=nrTabs; i < nrImages; i++) {
+      // add tab bar entries, if needed
+      if (nrTabs < nrImages) {
+          for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
 //            int newi = m_leftChoice->Insert(wxString::Format(wxT("%d"), i), i);
-            m_leftChoice->Append(wxString::Format(wxT("%d"), i));
+              m_leftChoice->Append(wxString::Format(wxT("%d"), i));
 
 //            if (newi != i) {
 //                DEBUG_FATAL("wxChoice indicies do not match image numbers");
 //            }
 //            newi = m_rightChoice->Insert(wxString::Format(wxT("%d"), i), i);
-            m_rightChoice->Append(wxString::Format(wxT("%d"), i));
+              m_rightChoice->Append(wxString::Format(wxT("%d"), i));
 //            if (newi != i) {
 //                DEBUG_FATAL("wxChoice indicies do not match image numbers");
 //            }
 #else
-            wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
-            // update tab buttons
-            if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
-                DEBUG_FATAL("could not add dummy window to left notebook");
-            }
-            wxSize sz(0,0);
-            // resize dummy window..
-            t1->SetSize(0,0);
-            t1->SetSizeHints(0,0,0,0);
-            // to make the window visible...
+              wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
+              // update tab buttons
+              if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
+                  DEBUG_FATAL("could not add dummy window to left notebook");
+              }
+              wxSize sz(0,0);
+              // resize dummy window..
+              t1->SetSize(0,0);
+              t1->SetSizeHints(0,0,0,0);
+              // to make the window visible...
 //            t1->SetBackgroundColour(wxColour(255,0,0));
 #ifdef USE_WX26x
-            t1->SetMaxSize(sz);
-            t1->SetMinSize(sz);
+              t1->SetMaxSize(sz);
+              t1->SetMinSize(sz);
 #endif
 
-            wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
-            if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
-                DEBUG_FATAL("could not add dummy window to right notebook");
-            }
-            // resize dummy window
-            t2->SetSize(0,0);
-            t2->SetSizeHints(0,0,0,0);
+              wxWindow* t2= new wxWindow(m_rightTabs,-1,wxPoint(0,0),wxSize(0,0));
+              if (!m_rightTabs->AddPage(t2, wxString::Format(wxT("%d"),i))){
+                  DEBUG_FATAL("could not add dummy window to right notebook");
+              }
+              // resize dummy window
+              t2->SetSize(0,0);
+              t2->SetSizeHints(0,0,0,0);
 //            t2->SetBackgroundColour(wxColour(255,0,0));
 #ifdef USE_WX26x
-            t2->SetMaxSize(sz);
-            t2->SetMinSize(sz);
+              t2->SetMaxSize(sz);
+              t2->SetMinSize(sz);
 #endif
 #endif
-        }
-    }
+          }
+      }
+	}
     if (nrTabs > nrImages) {
         // remove tab bar entries if needed
         // we have to disable listening to notebook selection events,
         // else we might update to a noexisting image
 
-//        int left = m_leftTabs->GetSelection();
-//        int right = m_rightTabs->GetSelection();
+//      int left = m_leftTabs->GetSelection();
+//      int right = m_rightTabs->GetSelection();
         m_listenToPageChange = false;
         for (int i=nrTabs-1; i >= (int)nrImages; i--) {
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -1169,7 +1201,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     }
 
 
-    // update changed images
+      // update changed images
     bool update(false);
     for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
         unsigned int imgNr = *it;
