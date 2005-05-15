@@ -40,6 +40,7 @@
 
 #ifdef __WXMAC__
 #include <CFBundle.h>
+#include "wx/mac/private.h"
 #include <wx/utils.h>
 #endif
 
@@ -175,18 +176,18 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
         else
         {
-            CFIndex bufLen = 1024;
-            unsigned char buffer[(int) bufLen];
-            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
             {
-                CFRelease(XRCurl);
-                DEBUG_INFO("Mac: Failed to get file system representation");
+                CFRelease( XRCurl );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
             }
             else
             {
-                buffer[((int) bufLen) - 1] = '\0';
-                CFRelease(XRCurl);
-                autopanoExe = wxString::FromAscii( (char *) buffer);
+                CFRelease( XRCurl );
+                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                
+                autopanoExe = pathInWXString;
                 DEBUG_INFO("Mac: using bundled autopano-sift frontend script");
                 
                 wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));

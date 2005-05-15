@@ -32,6 +32,7 @@
 //Mac bundle code by Ippei
 #ifdef __WXMAC__
 #include <CFBundle.h>
+#include "wx/mac/private.h"
 #endif
 
 #include "vigra_ext/Correlation.h"
@@ -206,18 +207,18 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         }
         else
         {
-            CFIndex bufLen = 1024;
-            unsigned char buffer[(int) bufLen];
-            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
             {
-                CFRelease(XRCurl);
-                DEBUG_INFO("Mac: Failed to get file system representation");
+                CFRelease( XRCurl );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
             }
             else
             {
-                buffer[((int) bufLen) - 1] = '\0';
-                CFRelease(XRCurl);
-                m_xrcPrefix = wxString::FromAscii( (char *) buffer) + wxT("/");
+                CFRelease( XRCurl );
+                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                
+                m_xrcPrefix = pathInWXString + wxT("/");
                 DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
             }
         }

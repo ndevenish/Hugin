@@ -29,6 +29,7 @@
 //Mac bundle code by Ippei
 #ifdef __WXMAC__
 #include <CFBundle.h>
+#include "wx/mac/private.h"
 #endif
 
 #include "panoinc_WX.h"
@@ -124,6 +125,45 @@ bool huginApp::OnInit()
     if (config->HasEntry(wxT("locale_path"))){
         locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
     }
+    
+    /* start: Mac code by Ippei*/
+#ifdef __WXMAC__
+    
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    
+    
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("locale"), NULL, NULL);
+        if(!XRCurl)
+        {
+            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
+        }
+        else
+        {
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
+            {
+                CFRelease( XRCurl );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
+            }
+            else
+            {
+                CFRelease( XRCurl );
+                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                
+                locale.AddCatalogLookupPathPrefix(pathInWXString);
+                DEBUG_INFO("Mac: locale.AddCatalogLookupPathPrefix; using mac bundled locale directories");
+            }
+        }
+    }
+    
+    /* end: Mac code by Ippei*/
+#endif
 
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
@@ -159,7 +199,8 @@ bool huginApp::OnInit()
     /* start: Mac code by Ippei*/
 #ifdef __WXMAC__
 
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
+//    CFBundleRef mainbundle = CFBundleGetMainBundle();
+
     if(!mainbundle)
     {
         DEBUG_INFO("Mac: Not bundled");
@@ -173,18 +214,18 @@ bool huginApp::OnInit()
         }
         else
         {
-            CFIndex bufLen = 1024;
-            unsigned char buffer[(int) bufLen];
-            if(!CFURLGetFileSystemRepresentation(XRCurl, TRUE, buffer, bufLen))
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
             {
-                CFRelease(XRCurl);
-                DEBUG_INFO("Mac: Failed to get file system representation");
+                CFRelease( XRCurl );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
             }
             else
             {
-                buffer[((int) bufLen) - 1] = '\0';
-                CFRelease(XRCurl);
-                xrcPrefix = wxString::FromAscii( (char *) buffer) + wxT("/");
+                CFRelease( XRCurl );
+                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                
+                xrcPrefix = pathInWXString + wxT("/");
                 DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
                 
             }
