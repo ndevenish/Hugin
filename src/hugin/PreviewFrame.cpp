@@ -26,9 +26,10 @@
 
 // use toggle buttons or uncomment check boxes
 
-#ifndef __WXMAC__
+//#ifndef __WXMAC__
 #define USE_TOGGLE_BUTTON 1
-#endif
+//#endif
+//wxMac now has toggle buttons.
 
 #include <config.h>
 
@@ -80,8 +81,13 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(m_ToolBar);
     // create tool bar
     SetToolBar(m_ToolBar);
-
+    
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    
+    m_ToggleButtonSizer = new wxStaticBoxSizer(
+        new wxStaticBox(this, -1, _("displayed images")),
+        wxHORIZONTAL);
+    
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
     m_ButtonPanel->SetSizeHints(20, 42);
@@ -91,11 +97,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ButtonPanel->SetAutoLayout(true);
 	m_ButtonPanel->SetSizer(m_ButtonSizer);
 						
-    m_ToggleButtonSizer = new wxStaticBoxSizer(
-        new wxStaticBox(this, -1, _("displayed images")),
-        wxHORIZONTAL);
 	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
-    topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 1);
+    
+    topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
