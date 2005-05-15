@@ -1,12 +1,17 @@
+Newsworthy changes in 0.5 beta6
+-------------------------------
+* All files are now in source tarball
+* French translation now complete
+
 Newsworthy changes in 0.5 beta5
 -------------------------------
 
-Support for modifying the size of the right/left panes in many tabs.
-All controls can now be reached on smaller displays as many areas of the interface are now scrollable.
-All image control buttons in the preview tab can now be accessed, allowing support for far more images.
+* Support for modifying the size of the right/left panes in many tabs.
+* All controls can now be reached on smaller displays as many areas of the interface are now scrollable.
+* All image control buttons in the preview tab can now be accessed, allowing support for far more images.
 
-OSX build now supports unicode.
+* OSX build now supports unicode.
 
-Enblend arguments specified in preferences are now passed on correctly.
-Multiple tiff file outputs are no longer deleted incorrectly.
-Simultaneous scrolling in control points editor tabs respects borders properly
+* Enblend arguments specified in preferences are now passed on correctly.
+* Multiple tiff file outputs are no longer deleted incorrectly.
+* Simultaneous scrolling in control points editor tabs respects borders properly

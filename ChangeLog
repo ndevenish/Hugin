@@ -1,3 +1,9 @@
+2005-05-13 11:11  dwilkins42
+
+	* ChangeLog, src/hugin/OptimizePanel.cpp, src/hugin/PanoPanel.cpp,
+	  src/hugin/xrc/data/tips_fr-UTF8.txt: Remove redundant code.
+	  Update unicode french tips
+
 2005-05-13 10:45  dwilkins42
 
 	* src/hugin/: CPEditorPanel.cpp, LensPanel.cpp,
