@@ -95,8 +95,10 @@ bool nonaApp::OnInit()
     m_locale.Init(wxLANGUAGE_DEFAULT);
     // add local Paths
     m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
+#ifndef __WXMAC__
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
+#endif
 
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("nona_gui"));
