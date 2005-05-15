@@ -446,8 +446,10 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
     }
     switch (stitcher) {
     case 0:
+#ifndef __WXMAC__
         m_Stitcher = new PTStitcherPanel(this, pano);
-        break;
+        break;        
+#endif
     case 1:
         m_Stitcher = new NonaStitcherPanel(this, pano);
         break;
