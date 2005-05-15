@@ -1,3 +1,11 @@
+2005-05-15 07:28  dwilkins42
+
+	* ChangeLog, Makefile.am, NEWS, m4/Makefile.am, src/hugin/po/de.po,
+	  src/hugin/po/fr.po, src/hugin/po/hugin.pot, src/hugin/po/it.po,
+	  src/hugin/po/pl.po, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  Update build system to include all m4 files. Update to beta 6
+
 2005-05-13 11:11  dwilkins42
 
 	* ChangeLog, src/hugin/OptimizePanel.cpp, src/hugin/PanoPanel.cpp,
@@ -3171,9 +3179,4 @@
 
 	  note: this depends on a slightly patched vigra. (type traits that
 	  indicate the signeness of integral types are needed).
-
-2004-05-13 14:35  dangelo
-
-	* src/include/hugin/: LensPanel.h, PreviewPanel.h: forgot some more
-	  stuff
 

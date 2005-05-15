@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxPanel" name="lens_panel">
     <style>wxTAB_TRAVERSAL</style>

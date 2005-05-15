@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxFrame" name="main_frame">
     <title>Hugin - Panorama Tools Frontend</title>
