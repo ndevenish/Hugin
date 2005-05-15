@@ -230,7 +230,6 @@ dnl Over-ride LIBS so that libraries are supplied by Makefiles instead
 LIBS=""
 
 AC_CONFIG_FILES([Makefile
-		 m4/Makefile
                  src/Makefile
                  src/Panorama/Makefile
                  src/common/Makefile

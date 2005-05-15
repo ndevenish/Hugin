@@ -1,3 +1,43 @@
+2005-05-15 22:26  dwilkins42
+
+	* ChangeLog, src/hugin/xrc/anchor_orientation.xrc,
+	  src/hugin/xrc/cp_list_frame.xrc, src/hugin/xrc/image_center.xrc,
+	  src/hugin/xrc/images_panel.xrc, src/hugin/xrc/lens_panel.xrc,
+	  src/hugin/xrc/main_frame-2.5.xrc, src/hugin/xrc/main_frame.xrc,
+	  src/hugin/xrc/main_menubar.xrc, src/hugin/xrc/nona_panel.xrc,
+	  src/hugin/xrc/optimize_panel-2.5.xrc,
+	  src/hugin/xrc/optimize_panel.xrc,
+	  src/hugin/xrc/pano_panel-2.5.xrc, src/hugin/xrc/pano_panel.xrc,
+	  src/hugin/xrc/pref_dialog.xrc, src/hugin/xrc/preview_frame.xrc,
+	  src/hugin/xrc/ptstitcher_panel.xrc,
+	  src/hugin/xrc/run_optimizer_frame.xrc,
+	  src/hugin/xrc/run_stitcher_frame.xrc: Ensure all xrc files have
+	  coding specified. wx 2.6.x is picky (aka fix -cannot convert from
+	  charset- error)
+
+2005-05-15 17:03  ippei
+
+	* src/hugin/: AutoCtrlPointCreator.cpp, MainFrame.cpp,
+	  huginApp.cpp: Mac: changed application bundle code with
+	  wxMacCFStringHolder hack so that the path can contain unicode
+	  characters.
+
+2005-05-15 16:59  ippei
+
+	* src/nona_gui/nona_gui.cpp: Mac: no install_locale_dir will be
+	  used
+
+2005-05-15 16:58  ippei
+
+	* src/hugin/PanoPanel.cpp: Mac hack; avoiding PTStitcher from being
+	  chosen.
+
+2005-05-15 16:55  ippei
+
+	* src/hugin/PreviewFrame.cpp: Now, mac build as well uses toggle
+	  button. Fixed instantion order of toggle button panel following
+	  the wxWidgets documentation that was causing a problem on Mac.
+
 2005-05-15 07:28  dwilkins42
 
 	* ChangeLog, Makefile.am, NEWS, m4/Makefile.am, src/hugin/po/de.po,

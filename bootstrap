@@ -127,11 +127,10 @@ fi
 if test -f ./Makefile.am~; then
     mv -f ./Makefile.am~ ./Makefile.am
 fi
-if test -f ./m4/Makefile.am~; then
-    mv -f ./m4/Makefile.am~ ./m4/Makefile.am
-fi
 
 # then copy and move changes in srcdir/po to srcdir/src/hugin/po and srcdir/src/nona_gui/po
+# but be careful about POTFILES.in
+rm -f ./po/POTFILES.in
 cp -f ./po/* ./src/hugin/po
 mv -f ./po/* ./src/nona_gui/po
 
