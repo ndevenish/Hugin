@@ -1,3 +1,17 @@
+2005-05-16 13:47  dwilkins42
+
+	* src/foreign/Makefile.am: Add getopt to the distribution target
+
+2005-05-16 12:09  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Allow debug build to output to console.
+	  See comments in MainFrame.cpp
+
+2005-05-16 09:35  dwilkins42
+
+	* ChangeLog, src/Panorama/Panorama.cpp: Fix off by one error that
+	  resulted in debug message
+
 2005-05-16 00:38  dwilkins42
 
 	* ChangeLog, bootstrap, configure.ac, m4/.cvsignore: Update build
