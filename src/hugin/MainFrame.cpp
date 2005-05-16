@@ -381,6 +381,13 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     }
     wxYield();
 	
+// By using /SUBSYSTEM:CONSOLE /ENTRY:"WinMainCRTStartup" in the linker
+// options for the debug build, a console window will be used for stdout
+// and stderr. No need to redirect to a file. Better security since we can't
+// guarantee that c: exists and writing a file to the root directory is
+// never a good idea. release build still uses /SUBSYSTEM:WINDOWS
+
+#if 0
 #ifdef DEBUG
 #ifdef __WXMSW__
 
@@ -389,7 +396,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
 #endif
 #endif
-
+#endif
     DEBUG_TRACE("");
 }
 
