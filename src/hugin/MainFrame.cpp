@@ -134,7 +134,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_BUTTON(XRCID("action_optimize"),  MainFrame::OnOptimize)
     EVT_MENU(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
-    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
+//    EVT_BUTTON(XRCID("action_finetune_all_cp"), MainFrame::OnFineTuneAll)
 
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnToggleCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnToggleCPFrame)
@@ -266,6 +266,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // create tool bar
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
 
+    // Disable tools by default
+	enableTools(false);
+	
     // image_panel
     // put an "unknown" object in an xrc file and
     // take as wxObject (second argument) the return value of wxXmlResource::Get
@@ -445,6 +448,11 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
 {
     DEBUG_TRACE("");
     assert(&pano == &panorama);
+    if (pano.getNrOfImages() == 0) {
+	  enableTools(false);
+	} else {
+	  enableTools(true);
+	}
 }
 
 void MainFrame::OnUserQuit(wxCommandEvent & e)
@@ -1244,6 +1252,25 @@ void MainFrame::updateProgressDisplay()
 #endif
 }
 
+void MainFrame::enableTools(bool option)
+{
+	{
+	  wxToolBar* theToolBar = GetToolBar();
+	  theToolBar->EnableTool(XRCID("action_optimize"), option);
+	  theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	  theToolBar->EnableTool(XRCID("action_save_project"), option);
+	  theToolBar->EnableTool(XRCID("action_save_as_project"), option);
+	}
+	{
+	  wxMenuBar* theMenuBar = GetMenuBar();
+	  theMenuBar->Enable(XRCID("action_optimize"), option);
+	  theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
+	  theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	  theMenuBar->Enable(XRCID("action_save_project"), option);
+	  theMenuBar->Enable(XRCID("action_save_as_project"), option);
+	  theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);
+	}
+}
 
 /// hack.. kind of a pseudo singleton...
 MainFrame * MainFrame::Get()

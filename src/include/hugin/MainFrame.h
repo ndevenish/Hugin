@@ -155,6 +155,7 @@ private:
     void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);
+	void enableTools(bool option);
 
     wxNotebook * m_notebook;
     // tab panels
