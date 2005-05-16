@@ -1,6 +1,6 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5 beta2"
+!define HUGIN_VERSION "0.5 beta7"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
@@ -18,9 +18,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_beta2_allinone_setup.exe"
+OutFile "hugin-0.5_beta7_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_beta2_setup.exe"
+OutFile "hugin-0.5_beta7_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -191,6 +191,10 @@ Section "Uninstall"
   Delete "$INSTDIR\nona_gui.exe"
   Delete "$INSTDIR\panoglview.exe"
   Delete "$INSTDIR\uninstall.exe"
+  Delete "$INSTDIR\LICENCE.txt"
+  Delete "$INSTDIR\VIGRA_LICENSE.txt"
+  Delete "$INSTDIR\AUTHORS.txt"
+  Delete "$INSTDIR\README_WINDOWS.txt"
   RMDir /r "$INSTDIR\locale"
   RMDir /r "$INSTDIR\xrc"
   RMDir "$INSTDIR"
