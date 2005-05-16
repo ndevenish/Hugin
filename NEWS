@@ -1,3 +1,8 @@
+Newsworthy changes in 0.5 beta7
+-------------------------------
+* Updated translations
+* Fixes to the build system on linux and windows
+
 Newsworthy changes in 0.5 beta6
 -------------------------------
 * All files are now in source tarball

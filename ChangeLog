@@ -1,3 +1,16 @@
+2005-05-16 16:05  dwilkins42
+
+	* utils/hugin.nsi: Make sure the windows installer removes all
+	  files
+
+2005-05-16 13:50  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po,
+	  src/nona_gui/po/de.po, src/nona_gui/po/fr.po,
+	  src/nona_gui/po/nona_gui.pot, src/nona_gui/po/pl.po: Update
+	  translations (typo in french)
+
 2005-05-16 13:47  dwilkins42
 
 	* src/foreign/Makefile.am: Add getopt to the distribution target
