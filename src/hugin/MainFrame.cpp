@@ -498,10 +498,6 @@ void MainFrame::OnExit(wxCloseEvent & e)
 void MainFrame::OnSaveProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    if (pano.getNrOfImages() == 0) {
-	    wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
-		return;
-	}
     wxFileName scriptName = m_filename;
     if (m_filename == wxT("")) {
         OnSaveProjectAs(e);
@@ -526,10 +522,6 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    if (pano.getNrOfImages() == 0) {
-	    wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
-		return;
-	}
     wxFileDialog dlg(this,
                      _("Save project file"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
@@ -545,10 +537,6 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    if (pano.getNrOfImages() == 0) {
-	    wxMessageBox(_("No images - Nothing to do"),_("Warning"), wxOK | wxICON_EXCLAMATION);
-		return;
-	}
     wxFileDialog dlg(this,
                      _("Save PTStitcher script file"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
