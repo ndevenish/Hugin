@@ -1,3 +1,9 @@
+2005-05-16 16:11  dwilkins42
+
+	* ChangeLog, NEWS, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  Update and tag as beta7
+
 2005-05-16 16:05  dwilkins42
 
 	* utils/hugin.nsi: Make sure the windows installer removes all
