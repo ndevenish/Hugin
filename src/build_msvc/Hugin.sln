@@ -1,0 +1,126 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vigra_ext", "..\vigra_ext\vigra_ext.vcproj", "{609891D5-B1A9-43E3-9B67-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panorama", "..\Panorama\Panorama.vcproj", "{609891D5-B1A9-43E3-9B66-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hugin", "..\hugin\hugin.vcproj", "{609891D5-B1A9-43E3-9B64-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
+		{609891D5-B1A9-43E3-9B61-AD53D6008158} = {609891D5-B1A9-43E3-9B61-AD53D6008158}
+		{609891D5-B1A9-43E3-9B63-AD53D6008158} = {609891D5-B1A9-43E3-9B63-AD53D6008158}
+		{609891D5-B1A9-43E3-9B66-AD53D6008158} = {609891D5-B1A9-43E3-9B66-AD53D6008158}
+		{609891D5-B1A9-43E3-9B67-AD53D6008158} = {609891D5-B1A9-43E3-9B67-AD53D6008158}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jhead", "..\jhead\jhead.vcproj", "{E974EF12-9647-400A-AF30-1D0E70D1C32C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panotools", "..\..\..\libs\libpano\pano12\libpano.vcproj", "{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nona_gui", "..\nona_gui\nona_gui.vcproj", "{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
+		{621C0B14-F003-4961-8D14-7A1679087977} = {621C0B14-F003-4961-8D14-7A1679087977}
+		{609891D5-B1A9-43E3-9B61-AD53D6008158} = {609891D5-B1A9-43E3-9B61-AD53D6008158}
+		{609891D5-B1A9-43E3-9B63-AD53D6008158} = {609891D5-B1A9-43E3-9B63-AD53D6008158}
+		{609891D5-B1A9-43E3-9B66-AD53D6008158} = {609891D5-B1A9-43E3-9B66-AD53D6008158}
+		{609891D5-B1A9-43E3-9B67-AD53D6008158} = {609891D5-B1A9-43E3-9B67-AD53D6008158}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nona", "..\tools\nona.vcproj", "{FADF17E6-3037-47E7-B556-DE1112D3237A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
+		{621C0B14-F003-4961-8D14-7A1679087977} = {621C0B14-F003-4961-8D14-7A1679087977}
+		{609891D5-B1A9-43E3-9B61-AD53D6008158} = {609891D5-B1A9-43E3-9B61-AD53D6008158}
+		{609891D5-B1A9-43E3-9B63-AD53D6008158} = {609891D5-B1A9-43E3-9B63-AD53D6008158}
+		{609891D5-B1A9-43E3-9B66-AD53D6008158} = {609891D5-B1A9-43E3-9B66-AD53D6008158}
+		{609891D5-B1A9-43E3-9B67-AD53D6008158} = {609891D5-B1A9-43E3-9B67-AD53D6008158}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "..\common\common.vcproj", "{609891D5-B1A9-43E3-9B61-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vigra_impex", "..\foreign\vigra_impex\vigra_impex.vcproj", "{609891D5-B1A9-43E3-9B63-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "getopt", "..\foreign\getopt\src\msvs\getopt.vcproj", "{621C0B14-F003-4961-8D14-7A1679087977}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+		Release Unicode = Release Unicode
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Debug.Build.0 = Debug|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Debug.Build.0 = Debug|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B66-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Debug.Build.0 = Debug|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B64-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug.ActiveCfg = Debug Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Debug.Build.0 = Debug Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release.ActiveCfg = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release.Build.0 = Release Static|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Unicode.Build.0 = Release Unicode|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.ActiveCfg = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.ActiveCfg = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Debug.ActiveCfg = Debug|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release.ActiveCfg = Release|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release.Build.0 = Release|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release Unicode.Build.0 = Release Unicode|Win32
+		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Debug.ActiveCfg = Debug|Win32
+		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release.ActiveCfg = Release|Win32
+		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release.Build.0 = Release|Win32
+		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release Unicode.ActiveCfg = Release|Win32
+		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release Unicode.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Debug.Build.0 = Debug|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B61-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Debug.Build.0 = Debug|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release.Build.0 = Release|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B63-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Debug.ActiveCfg = Debug|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Debug.Build.0 = Debug|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Release.ActiveCfg = Release|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Release.Build.0 = Release|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Release Unicode.ActiveCfg = Release Unicode|Win32
+		{621C0B14-F003-4961-8D14-7A1679087977}.Release Unicode.Build.0 = Release Unicode|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
