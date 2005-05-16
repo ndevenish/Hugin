@@ -1,3 +1,8 @@
+2005-05-16 00:38  dwilkins42
+
+	* ChangeLog, bootstrap, configure.ac, m4/.cvsignore: Update build
+	  system to fix m4/makefile.in not found error. Fix bootstrap
+
 2005-05-15 22:26  dwilkins42
 
 	* ChangeLog, src/hugin/xrc/anchor_orientation.xrc,

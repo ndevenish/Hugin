@@ -1019,8 +1019,8 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
              || (line.compare("# Control Points: Distance between desired and fitted Position (in \"Pixels\")") == 0 )) {
 		
                 // switch to reading the control point distance
-                if (scriptImgCounter != imgs.size()-1) {
-                    DEBUG_ERROR("Read only " << scriptImgCounter+1 << " images from PTOptimizer file");
+                if (scriptImgCounter != imgs.size()) {
+                    DEBUG_ERROR("Read only " << scriptImgCounter << " images from PTOptimizer file");
                 }
                 DEBUG_DEBUG("Changing state to read control point distances");
                 state = 1;
@@ -1029,7 +1029,7 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
             if (line[0] != 'o') continue;
             // select variables of the image
             VariableMap & var = imgVars[script2ImgMap[scriptImgCounter]];
-            DEBUG_DEBUG("reading image variables");
+            DEBUG_DEBUG("reading image variables for image:" << scriptImgCounter);
             // read position variables
             int link;
             readVar(map_get(var, "r"), link, line);
