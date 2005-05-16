@@ -1,51 +1,35 @@
 
-WARNING: this hasn't been tried since quite some time..
+How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
 
-Hugin windows compilation with Visual Studio.NET 2003
+1. download wxWidgets 2.6.0, from http://www.wxwidgets.org
+2. download boost            from http://www.boost.org
+3. download panorama tools source and .dll file, from http://panotools.sf.net
 
-A step by step guide
+4. unpack everything so that the following directory is created:
 
-0. Decision
-   
-   At startup, you have to choose if you want the runtime library statically linked or dynamically link.
-   When decided, you have to compile every project with the same settings.
-   Let says it's dynamically linked (best performance in wxWindows)
+  hugin                  <- hugin sourcecode
+  libs/wxWidgets         <- wxwidgets, remove version number from directory name
+  libs/boost_1_31_0      <- boost (a newer version might also work,
+                            but the project files will have to be
+                            changed)
+  libs/panotools/pano12  <- pano tools sourcecode, together with
+                            pano12.lib
 
-1. Compilation of wxWindows
- 
-   WARNING : read carefully this, it will not work if not :
-     In every dsp files from wxWindows, you have to check 2 properties lines
-      "C/C++/Preprocessor/Preprocessors Definitions" : If _MT or _DLL is defined, remove them
-      "C/C++/Code Generation/Runtime Library" : 
-         - for debug   : Multi-threaded Debug DLL (/MTd)
-         - for release : Multi-threaded DLL (/MT) 
-   
-   - Grab the latest package at www.wxwindows.org
-     Name : wxMSW-2.4.2-setup.zip, extract and install.
-   - In the yourpath\Windows-2.4.2\src, open the wxWindows.dsp into visual studio 
-   - save the sln file project
-   - build the solution : choose the right configuration you want : debug / release, static / linked, ansi / unicode
-     for hugin : Static / Ansi / ( debug or release )
-   - go to contrib\src\xrc and open the XrcVC.dsp
-     -> save the .sln file 
-   - compile with desired configuration DLL / (Debug | Release)
-   In yourpath\Windows-2.4.2\lib, you should at least have :
-      wxmsw.lib or wxmswd.lib (for wxWindows DLL release or debug)
-      wxxrc.lib or wxxrcd.lib
-   - Then you should do the same with the following libraries : jpeg, png, zlib, tiff, regex
-      You should get jpegd.lib (for debug), jpeg.lib (for release), etc
-     => take care also here that the project properties are correct
-    
-2. Compilation of Pano12.dll
+5. Open libs/wxWidgets/src/tiff/tiffconf.h in your favorite editor, and
+   add
+   #define ZIP_SUPPORT
+   near line 90 to support ZIP compressed tiff files
 
-   I used the max-lyon release : Look at here : http://www.tawbaware.com/maxlyons/pano12ml.htm
-   
-   You should have this project compiled with visual. I provide the right sln file for doing it.
-   I put the code in the pano12 folder near jhead. I do not provide source code but you will find
-   the files which have differences from Max's release.
+6. build wxWidgets: start the msvc command line shell (from the startmenu)
+   and execute the following commands
+     cd hugin/utils
+     build_wxwin_msvc.bat
 
-   => the output of the compilation : pano12.dll, pano12.lib (in either debug or release folder) 
+   This should build wxWidgets.
 
-3. Compilation of hugin
+7. Open hugin/src/Hugin.sln and compile.
 
-   => open hugin.sln and compile
+8. If you want to run hugin from the debugger, the xrc folder needs to be copied to
+   the directory where hugin is located, else hugin won't find its ressources, icons
+   and xrc layout files.
+   For example copy it from hugin/src/hugin/xrc to hugin/src/hugin/Debug/xrc
