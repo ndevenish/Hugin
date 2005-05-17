@@ -35,6 +35,12 @@
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/huginApp.h"
 
+//Mac bundle code by Ippei
+#ifdef __WXMAC__
+#include <CFBundle.h>
+#include "wx/mac/private.h"
+#endif
+
 using namespace std;
 using namespace PT;
 using namespace utils;
@@ -119,6 +125,43 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     }
 #elif (defined __WXMAC__)
     wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE));
+    
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef PTOurl = CFBundleCopyAuxiliaryExecutableURL(mainbundle, CFSTR("PTOptimizer"));
+        CFURLRef PTOAbsURL;
+        if(PTOurl)
+        {
+            PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
+            CFRelease( PTOurl );
+        }
+            
+        if(!PTOAbsURL)
+        {
+            DEBUG_INFO("Mac: Cannot locate PTOptimizer in the bundle.");
+        }
+        else
+        {
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
+            {
+                CFRelease( PTOAbsURL );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
+            }
+            else
+            {
+                CFRelease( PTOAbsURL );
+                optimizerExe = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                DEBUG_INFO("Mac: using PTOptimizer in the application bundle");
+            }
+        }
+    }
+
     if (!wxFile::Exists(optimizerExe)){
         wxFileDialog dlg(this,_("Select PTOptimizer"),
                          wxT(""), optimizerExe,
@@ -126,7 +169,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             optimizerExe = dlg.GetPath();
-            config->Write(wxT("/PanoTools/PTOptimizerExe"),optimizerExe);
+            config->Write(wxT("/PanoTools/PTOptimizerExe"), optimizerExe);
         } else {
             wxLogError(_("No PTOptimizer selected"));
         }
