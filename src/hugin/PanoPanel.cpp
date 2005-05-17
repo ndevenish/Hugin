@@ -122,6 +122,10 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 
     // setup the stitcher
     int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),0l);
+#ifdef __WXMAC__
+    if(t == 5) t = 0; // photoshop output uses PTStitcher
+    m_macOldQuickmodeChoice = t;
+#endif
     m_StitcherChoice->SetSelection(t);
 
     // trigger creation of apropriate stitcher control, if
@@ -422,7 +426,18 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
 {
     int preset = m_QuickChoice->GetSelection();
     DEBUG_DEBUG("changing quick stitch preset to " << preset);
-
+    
+#ifdef __WXMAC__
+    if(preset == 5) // multilayer PSD file (uses PTStitcher)
+    {
+        m_QuickChoice->SetSelection(m_macOldQuickmodeChoice);
+        QuickModeChanged(e);
+        return;
+    }
+    
+    m_macOldQuickmodeChoice = preset;
+#endif
+    
     ApplyQuickMode(preset);
 
     switch (preset) {
@@ -448,7 +463,9 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
     case 0:
 #ifndef __WXMAC__
         m_Stitcher = new PTStitcherPanel(this, pano);
-        break;        
+        break;
+#else
+        m_StitcherChoice->SetSelection(1);
 #endif
     case 1:
         m_Stitcher = new NonaStitcherPanel(this, pano);
