@@ -358,8 +358,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         }
 #endif
         int ret = -1;
-        wxString cmdline = enblendExe + wxT(" ") + args;
-        {
+
+        wxString cmdline = utils::wxQuoteFilename(enblendExe) + wxT(" ") + args;
+
+		{
             wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
 #ifdef unix
             DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
@@ -385,6 +387,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             char * cmdline_c = (char*) cmdline.mb_str();
             char * exe_c = (char*) enblendExe.mb_str();
 #endif
+            DEBUG_DEBUG("using CreateProcess() to execute enblend:" << enblendExe.mb_str());
+            DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
             ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
                                     IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
                                     NULL, &siStartupInfo, &piProcessInfo);
