@@ -190,10 +190,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
     DEBUG_INFO("XRC prefix set to: " << m_xrcPrefix.mb_str());
 
-    /* start: Mac bundle code by Ippei*/
 #ifdef __WXMAC__
-
     CFBundleRef mainbundle = CFBundleGetMainBundle();
+
     if(!mainbundle)
     {
         DEBUG_INFO("Mac: Not bundled");
@@ -223,7 +222,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             }
         }
     }
-    /* end: Mac bundle code by Ippei*/
 #endif
 
     wxBitmap bitmap;
@@ -375,9 +373,15 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             Move(0, 44);
         }
     }
-
+    
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
+    
+#ifdef __WXMAC__
+    wxApp::s_macAboutMenuItemId = XRCID("action_show_about");
+    wxApp::s_macPreferencesMenuItemId = XRCID("action_show_prefs");
+    wxApp::s_macHelpMenuTitleName = _("&Help");
+#endif
 
     if(splash) {
         splash->Close();
@@ -396,7 +400,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     freopen("c:\\hugin_stdout.txt", "w", stdout);    // redirect stdout to file
     freopen("c:\\hugin_stderr.txt", "w", stderr);    // redirect stderr to file
-
 #endif
 #endif
 #endif
@@ -460,34 +463,44 @@ void MainFrame::OnUserQuit(wxCommandEvent & e)
     Close();
 }
 
+bool MainFrame::CloseProject(bool cnacelable)
+{
+    if (pano.isDirty()) {
+        int answer = wxMessageBox(_("The panorama has been changed\nSave changes?"), _("Save Panorama?"),
+                                  cnacelable? (wxYES_NO | wxCANCEL | wxICON_EXCLAMATION):(wxYES_NO | wxICON_EXCLAMATION), 
+                                  this);
+        switch (answer){
+            case wxYES:
+            {
+                wxCommandEvent dummy;
+                OnSaveProject(dummy);
+                return true;
+            }
+            case wxCANCEL:
+            {
+                return false;
+            }
+            default: //no save
+            {
+                return true;
+            }
+        }
+    }
+    else return true;
+}
+
 void MainFrame::OnExit(wxCloseEvent & e)
 {
     DEBUG_TRACE("");
     // FIXME ask to save is panorama if unsaved changes exist
-    if (pano.isDirty()) {
-        int answer = wxMessageBox(_("The panorama has been changed\nSave changes?"), _("Save Panorama?"), wxYES_NO | wxCANCEL | wxICON_EXCLAMATION, this);
-        switch (answer){
-        case wxYES:
-        {
-            wxCommandEvent dummy;
-            OnSaveProject(dummy);
-            break;
-        }
-        case wxCANCEL:
-        {
-            // try to cancel quit
-            if (e.CanVeto()) {
-                e.Veto();
-                return;
-            }
-            wxLogError(_("forced close"));
-            break;
-        }
-        default:
-        {
-            // just quit
-        }
-        }
+    if(!CloseProject(e.CanVeto()))
+    {
+       if (e.CanVeto())
+       {
+            e.Veto();
+            return;
+       }
+       wxLogError(_("forced close"));
     }
     ImageCache::getInstance().flush();
     //Close(TRUE);
@@ -595,33 +608,48 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     pano.clearDirty();
 }
 
+#ifdef __WXMAC__
+void MainFrame::MacOnOpenFile(const wxString & filename)
+{
+    if(!CloseProject(true)) return; //if closing old project is canceled do nothing.
+    
+    ImageCache::getInstance().flush();
+    LoadProjectFile(filename);
+}
+#endif
+
 void MainFrame::OnLoadProject(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
 
-    // remove old images from cache
-    ImageCache::getInstance().flush();
+    if(CloseProject(true)) //if closing old project is canceled do nothing.
+    {
+        // get the global config object
+        wxConfigBase* config = wxConfigBase::Get();
 
-    // get the global config object
-    wxConfigBase* config = wxConfigBase::Get();
-
-    wxFileDialog dlg(this,
-                     _("Open project file"),
-                     config->Read(wxT("actualPath"),wxT("")), wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*.*)|*.*"),
-                     wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-        wxString filename = dlg.GetPath();
-        LoadProjectFile(filename);
-    } else {
-        // do not close old project
-        // nothing to open
-        SetStatusText( _("Open project: cancel"));
+        wxFileDialog dlg(this,
+                         _("Open project file"),
+                         config->Read(wxT("actualPath"),wxT("")), wxT(""),
+                         _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*.*)|*.*"),
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            // remove old images from cache
+            ImageCache::getInstance().flush();
+            
+            wxString filename = dlg.GetPath();
+            LoadProjectFile(filename);
+            return;
+        }
     }
+    // do not close old project
+    // nothing to open
+    SetStatusText( _("Open project: cancel"));
 }
 
 void MainFrame::OnNewProject(wxCommandEvent & e)
 {
+    if(!CloseProject(true)) return; //if closing current project is canceled
+        
     m_filename = wxT("");
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache

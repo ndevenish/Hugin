@@ -118,7 +118,11 @@ public:
 	
 	// Restore the layout
 	void RestoreLayout();
-
+    
+#ifdef __WXMAC__
+    void MacOnOpenFile(const wxString & filename);
+#endif
+    
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.
@@ -154,7 +158,8 @@ private:
     void OnToggleCPFrame(wxCommandEvent & e);
     void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
-    void Resize(wxSizeEvent & e);
+    void Resize(wxSizeEvent & e);    
+    bool CloseProject(bool cnacelable);
 	void enableTools(bool option);
 
     wxNotebook * m_notebook;
