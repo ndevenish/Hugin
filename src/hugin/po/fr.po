@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-16 12:27+0300\n"
+"POT-Creation-Date: 2005-05-17 17:20+0300\n"
 "PO-Revision-Date: 2005-05-11 09:19+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -136,8 +136,8 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:345
 #: src/hugin/AutoCtrlPointCreator.cpp:358
-#: src/hugin/AutoCtrlPointCreator.cpp:463 src/hugin/NonaStitcherPanel.cpp:395
-#: src/hugin/NonaStitcherPanel.cpp:405
+#: src/hugin/AutoCtrlPointCreator.cpp:463 src/hugin/NonaStitcherPanel.cpp:399
+#: src/hugin/NonaStitcherPanel.cpp:409
 msgid "Could not execute command: "
 msgstr "Impossible d'exécuter la commande : "
 
@@ -148,17 +148,17 @@ msgstr "Échec de ShellExecuteEx"
 #: src/hugin/AutoCtrlPointCreator.cpp:358
 #: src/hugin/AutoCtrlPointCreator.cpp:363
 #: src/hugin/AutoCtrlPointCreator.cpp:463
-#: src/hugin/AutoCtrlPointCreator.cpp:469 src/hugin/NonaStitcherPanel.cpp:405
+#: src/hugin/AutoCtrlPointCreator.cpp:469 src/hugin/NonaStitcherPanel.cpp:409
 msgid "wxExecute Error"
 msgstr "Erreur wxExecute"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:361
-#: src/hugin/AutoCtrlPointCreator.cpp:467 src/hugin/NonaStitcherPanel.cpp:408
+#: src/hugin/AutoCtrlPointCreator.cpp:467 src/hugin/NonaStitcherPanel.cpp:412
 msgid "command: "
 msgstr "commande : "
 
 #: src/hugin/AutoCtrlPointCreator.cpp:362
-#: src/hugin/AutoCtrlPointCreator.cpp:468 src/hugin/NonaStitcherPanel.cpp:409
+#: src/hugin/AutoCtrlPointCreator.cpp:468 src/hugin/NonaStitcherPanel.cpp:413
 msgid ""
 "\n"
 "failed with error code: "
@@ -607,11 +607,11 @@ msgstr ""
 "Répertoire xrc introuvable.\n"
 "Veuillez vous assurer qu'il se trouve dans le même répertoire que hugin.exe"
 
-#: src/hugin/MainFrame.cpp:343
+#: src/hugin/MainFrame.cpp:346
 msgid "Started"
 msgstr "Lancé"
 
-#: src/hugin/MainFrame.cpp:460
+#: src/hugin/MainFrame.cpp:468
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -619,25 +619,15 @@ msgstr ""
 "Le panorama a été modifié\n"
 "Enregistrer les modifications ?"
 
-#: src/hugin/MainFrame.cpp:460
+#: src/hugin/MainFrame.cpp:468
 msgid "Save Panorama?"
 msgstr "Enregistrer le panorama ?"
 
-#: src/hugin/MainFrame.cpp:475
+#: src/hugin/MainFrame.cpp:483
 msgid "forced close"
 msgstr "Fermeture forcée"
 
-#: src/hugin/MainFrame.cpp:494 src/hugin/MainFrame.cpp:522
-#: src/hugin/MainFrame.cpp:541
-msgid "No images - Nothing to do"
-msgstr "Pas d'image - Rien à faire"
-
-#: src/hugin/MainFrame.cpp:494 src/hugin/MainFrame.cpp:522
-#: src/hugin/MainFrame.cpp:541
-msgid "Warning"
-msgstr "Attention"
-
-#: src/hugin/MainFrame.cpp:513
+#: src/hugin/MainFrame.cpp:517
 #, c-format
 msgid "saved project %s"
 msgstr "Projet %s enregistré"
@@ -650,31 +640,31 @@ msgstr "Enregistrer le fichier de projet"
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr "Fichiers de projets (*.pto)|*.pto|Tous les fichiers (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:545
+#: src/hugin/MainFrame.cpp:541
 msgid "Save PTStitcher script file"
 msgstr "Enregistrer le fichier script PTStitcher"
 
-#: src/hugin/MainFrame.cpp:547
+#: src/hugin/MainFrame.cpp:543
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Fichiers PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:573
+#: src/hugin/MainFrame.cpp:569
 msgid "Open project:   "
 msgstr "Ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:585
+#: src/hugin/MainFrame.cpp:581
 msgid "Project opened"
 msgstr "Projet ouvert"
 
-#: src/hugin/MainFrame.cpp:595
+#: src/hugin/MainFrame.cpp:591
 msgid "Error opening project:   "
 msgstr "Erreur lors de l'ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:613
+#: src/hugin/MainFrame.cpp:609
 msgid "Open project file"
 msgstr "Ouverture du fichier de projet"
 
-#: src/hugin/MainFrame.cpp:615
+#: src/hugin/MainFrame.cpp:611
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
@@ -682,11 +672,11 @@ msgstr ""
 "Fichiers de Projet (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tous les "
 "fichiers (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:623
+#: src/hugin/MainFrame.cpp:619
 msgid "Open project: cancel"
 msgstr "Ouverture du projet : abandon"
 
-#: src/hugin/MainFrame.cpp:645 src/include/hugin/wxPanoCommand.h:169
+#: src/hugin/MainFrame.cpp:641 src/include/hugin/wxPanoCommand.h:169
 msgid ""
 "Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files "
 "(*.tif)|*.tif;*.TIF|All files (*.*)|*.*"
@@ -694,27 +684,27 @@ msgstr ""
 "Fichiers image (*.jpg)|*.jpg;*.JPG|Fichiers image (*.png);*.png;*.PNG|"
 "Fichiers image (*.tif)|*.tif;*.TIF|Tous les fichiers (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:646 src/include/hugin/wxPanoCommand.h:170
+#: src/hugin/MainFrame.cpp:642 src/include/hugin/wxPanoCommand.h:170
 msgid "Add images"
 msgstr "Ajouter des images"
 
-#: src/hugin/MainFrame.cpp:690
+#: src/hugin/MainFrame.cpp:686
 msgid "Add Image: cancel"
 msgstr "Ajout d'images : abandon"
 
-#: src/hugin/MainFrame.cpp:1015
+#: src/hugin/MainFrame.cpp:1011
 msgid "hugin - FAQ"
 msgstr "Hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:1094
+#: src/hugin/MainFrame.cpp:1090
 msgid "Fine-tuning all points"
 msgstr "Ajuster précisément tous les points"
 
-#: src/hugin/MainFrame.cpp:1096
+#: src/hugin/MainFrame.cpp:1092
 msgid "Finetuning"
 msgstr "Ajustement précis"
 
-#: src/hugin/MainFrame.cpp:1180
+#: src/hugin/MainFrame.cpp:1176
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -743,7 +733,7 @@ msgstr ""
 "Utiliser la liste des points de contrôle (F3) pour afficher tous les points "
 "du projet actuel.\n"
 
-#: src/hugin/MainFrame.cpp:1182
+#: src/hugin/MainFrame.cpp:1178
 msgid "Fine-tune result"
 msgstr "Résultat de l'ajustement précis"
 
@@ -788,11 +778,11 @@ msgstr ""
 "Veuillez utiliser moins d'images ou placez les images dans un dossier\n"
 "dont le chemin est plus court."
 
-#: src/hugin/NonaStitcherPanel.cpp:363
+#: src/hugin/NonaStitcherPanel.cpp:365
 msgid "Running Enblend"
 msgstr "Lancement d'Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:363
+#: src/hugin/NonaStitcherPanel.cpp:365
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
@@ -801,7 +791,7 @@ msgstr ""
 "panorama\n"
 "Vous pouvez suivre la progression d'Enblend dans la fenêtre de lancement."
 
-#: src/hugin/NonaStitcherPanel.cpp:368
+#: src/hugin/NonaStitcherPanel.cpp:370
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -809,15 +799,15 @@ msgstr ""
 "Impossible d'exécuter Enblend, system() a échoué :\n"
 "La commande était :"
 
-#: src/hugin/NonaStitcherPanel.cpp:369
+#: src/hugin/NonaStitcherPanel.cpp:371
 msgid "Error returned was :"
 msgstr "L'erreur retournée a été :"
 
-#: src/hugin/NonaStitcherPanel.cpp:395
+#: src/hugin/NonaStitcherPanel.cpp:399
 msgid "CreateProcess Error"
 msgstr "Erreur de CreateProcess"
 
-#: src/hugin/NonaStitcherPanel.cpp:410
+#: src/hugin/NonaStitcherPanel.cpp:414
 msgid "enblend error"
 msgstr "Erreur d'Enblend"
 
@@ -2813,6 +2803,12 @@ msgstr "Assemblage"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Abandonner"
+
+#~ msgid "No images - Nothing to do"
+#~ msgstr "Pas d'image - Rien à faire"
+
+#~ msgid "Warning"
+#~ msgstr "Attention"
 
 #~ msgid "Center dialog"
 #~ msgstr "Dialogue de centrage"

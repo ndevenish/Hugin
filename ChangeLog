@@ -1,3 +1,51 @@
+2005-05-17 17:16  dwilkins42
+
+	* src/hugin/NonaStitcherPanel.cpp: Allow enblend to be on a path
+	  with spaces
+
+2005-05-17 00:27  dwilkins42
+
+	* src/hugin/MainFrame.cpp: Remove redundant code
+
+2005-05-17 00:18  dwilkins42
+
+	* src/Makefile.am: Update autotools for new directory
+
+2005-05-16 23:53  dwilkins42
+
+	* src/hugin/xrc/data/: about.htm, about_fr.htm, about_pl.htm:
+	  Update copyright
+
+2005-05-16 23:52  dwilkins42
+
+	* src/: hugin/MainFrame.cpp, include/hugin/MainFrame.h:
+	  Enable/Disable menu and toolbar consistently
+
+2005-05-16 22:47  dangelo
+
+	* utils/build_wxwin_msvc.bat: updated build script for wxwidgets
+	  2.6
+
+2005-05-16 22:43  dangelo
+
+	* src/Hugin.sln: move .sln file to msvc dir
+
+2005-05-16 22:19  dangelo
+
+	* src/build_msvc/: .cvsignore, Hugin.sln, hugin_msvc_install.bat,
+	  hugin_msvc_install_win98.bat: updated msvc build files and added
+	  utility scripts that install hugin after compiling
+
+2005-05-16 22:17  dangelo
+
+	* windows_DOT_NET_compile.txt: updated instructions for MSVC
+	  compilation with something that resembles the real steps needed
+	  ;)
+
+2005-05-16 17:42  dwilkins42
+
+	* ChangeLog: [no log message]
+
 2005-05-16 16:11  dwilkins42
 
 	* ChangeLog, NEWS, src/hugin/xrc/data/about.htm,
