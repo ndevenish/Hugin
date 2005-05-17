@@ -86,8 +86,15 @@ public:
      *  pathes here
      */
     bool createInitialConfig();
-
+    
+#ifdef __WXMAC__
+    //Defined in wxApp.h; This one lets project file to be opened from Finder and other applications.
+    void MacOpenFile(const wxString &fileName);
+#endif
+    
 private:
+
+    
     /** locale for internationalisation */
     wxLocale locale;
 
@@ -102,7 +109,12 @@ private:
     // the model
     Panorama pano;
 
-
+#ifdef __WXMAC__
+    bool m_macInitDone;
+    bool m_macOpenFileOnStart;
+    wxString m_macFileNameToOpenOnStart;
+#endif
+    
 };
 
 DECLARE_APP(huginApp)

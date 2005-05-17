@@ -126,11 +126,8 @@ bool huginApp::OnInit()
         locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
     }
     
-    /* start: Mac code by Ippei*/
 #ifdef __WXMAC__
-    
     CFBundleRef mainbundle = CFBundleGetMainBundle();
-    
     
     if(!mainbundle)
     {
@@ -161,8 +158,6 @@ bool huginApp::OnInit()
             }
         }
     }
-    
-    /* end: Mac code by Ippei*/
 #endif
 
     // set the name of locale recource to look for
@@ -196,9 +191,7 @@ bool huginApp::OnInit()
         xrcPrefix = config->Read(wxT("xrc_path")) + wxT("/");
     }
 
-    /* start: Mac code by Ippei*/
 #ifdef __WXMAC__
-
 //    CFBundleRef mainbundle = CFBundleGetMainBundle();
 
     if(!mainbundle)
@@ -231,8 +224,6 @@ bool huginApp::OnInit()
             }
         }
     }
-
-    /* end: Mac code by Ippei*/
 #endif
 
     wxXmlResource::Get()->Load(xrcPrefix + wxT("image_center.xrc"));
@@ -268,7 +259,13 @@ bool huginApp::OnInit()
 #endif
 
 #endif
-
+    
+#ifdef __WXMAC__
+    // If hugin is starting with file opening AppleEvent, MacOpenFile will be called on first wxYield().
+    // Those need to be initialised before first call of Yield which happens in Mainframe constructor.
+    m_macInitDone=false;
+    m_macOpenFileOnStart=false;
+#endif
     // create main frame
     frame = new MainFrame(NULL, pano);
     SetTopWindow(frame);
@@ -322,6 +319,11 @@ bool huginApp::OnInit()
         }
         frame->LoadProjectFile(filename);
     }
+#ifdef __WXMAC__
+    m_macInitDone = true;
+    if(m_macOpenFileOnStart) {frame->LoadProjectFile(m_macFileNameToOpenOnStart);}
+    m_macOpenFileOnStart = false;
+#endif
 
     //load tip startup preferences (tips will be started after splash terminates)
 	int nValue = config->Read(wxT("/MainFrame/ShowStartTip"), 1l);
@@ -357,5 +359,18 @@ huginApp * huginApp::Get()
     }
 }
 
+#ifdef __WXMAC__
+void huginApp::MacOpenFile(const wxString &fileName)
+{    
+    if(!m_macInitDone)
+    {
+        m_macOpenFileOnStart=true;
+        m_macFileNameToOpenOnStart = fileName;
+        return;
+    }
+    
+    if(frame) frame->MacOnOpenFile(fileName);
+}
+#endif
 
 huginApp * huginApp::m_this = 0;
