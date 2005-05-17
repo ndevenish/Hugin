@@ -39,6 +39,8 @@
 #include "hugin/CommandHistory.h"
 
 #ifdef __WXMAC__
+#include "hugin/MyExternalCmdExecDialog.h"
+
 #include <CFBundle.h>
 #include "wx/mac/private.h"
 #include <wx/utils.h>
@@ -350,6 +352,9 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         // normal wxExecute
         ret = wxExecute(cmd, wxEXEC_SYNC);
     }
+#elif __WXMAC__
+    // use MyExternalCmdExecDialog
+    ret = MyExecuteCommandOnDialog(cmd, 0);
 #else
     ret = wxExecute(cmd, wxEXEC_SYNC);
 #endif
@@ -455,6 +460,9 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     } else {
 	ret = WEXITSTATUS(ret);
     }
+#elif __WXMAC__
+    // use MyExternalCmdExecDialog
+    int ret = MyExecuteCommandOnDialog(cmd, 0);
 #else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
 #endif

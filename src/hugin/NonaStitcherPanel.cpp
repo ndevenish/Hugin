@@ -44,11 +44,15 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/MyProgressDialog.h"
 
+#ifdef __WXMAC__
+#include "hugin/MyExternalCmdExecDialog.h"
+#endif
+
 using namespace PT;
 using namespace std;
 using namespace utils;
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
@@ -358,11 +362,9 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         }
 #endif
         int ret = -1;
-
-        wxString cmdline = utils::wxQuoteFilename(enblendExe) + wxT(" ") + args;
-
-		{
-            wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
+        
+        wxString cmdline = enblendExe + wxT(" ") + args;
+        {
 #ifdef unix
             DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
             ret = system(cmdline.mb_str());
@@ -398,6 +400,9 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 ret = -1;
                 wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
             }
+#elif __WXMAC__
+            // use MyExternalCmdExecDialog
+            ret = MyExecuteCommandOnDialog(cmdline, this);
 #else
             // use stock wxWindows wxExecute on other platforms.
             ret = wxExecute(cmdline, wxEXEC_SYNC);
