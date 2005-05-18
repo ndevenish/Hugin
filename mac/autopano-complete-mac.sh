@@ -6,6 +6,12 @@
 set -e
 
 MONO=$(which mono)
+if [ $MONO = "" ]
+then 
+ echo "Error: Mono not found"
+ echo "You need Mono the .Net environment to use autopano-sift."
+ exit 2;
+fi
 
 # Set this to the directory you installed autopano-sift into, for example
 #AUTOPANO_PATH="/Users/ippei/Download/HuginOSX/autopano-sift"
@@ -55,7 +61,7 @@ SIZE=800;
 while true ; do
         case "$1" in
                 -o) PANOFILE=$2; shift 2;;
-		-a) AUTOPANO_PATH=$2; shift 2;;
+                -a) AUTOPANO_PATH=$2; shift 2;;
                 -s) SIZE=$2; shift 2;;
                 -p) POINTS=$2; shift 2 ;;
                 -n) RANSAC=0; shift 1;;
