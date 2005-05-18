@@ -330,14 +330,18 @@
 		};
 		57114E9E06BC2301004F4FA7 = {
 			children = (
-				57D5DCD6073FD86D0027E52F,
-				57A91BD707FD85E30013AE47,
 				57B9DC360701D3D6008D260E,
+				57D5DCD6073FD86D0027E52F,
 				57114E9F06BC2301004F4FA7,
+				57CF926B06BD7AD100780AC5,
+				57A91BD707FD85E30013AE47,
 				57114EA006BC2301004F4FA7,
 				5702996D07F967CB00F1FF15,
-				574F517D0820413B0086E561,
-				57CF926B06BD7AD100780AC5,
+				57B8C693083AB7F400283C06,
+				57B8C692083AB7F400283C06,
+				5731558C083BA79A00017987,
+				573154D5083B9CA500017987,
+				573154D6083B9CA500017987,
 			);
 			isa = PBXGroup;
 			path = mac;
@@ -3262,6 +3266,29 @@
 			settings = {
 			};
 		};
+		573154D5083B9CA500017987 = {
+			explicitFileType = sourcecode.applescript;
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = PutAutopanoSiftToHuginOSX.applescript;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		573154D6083B9CA500017987 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.applescript;
+			path = PutEnblendToHuginOSX.applescript;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		5731558C083BA79A00017987 = {
+			isa = PBXFileReference;
+			lastKnownFileType = wrapper.rtfd;
+			path = "ReadMe-HuginOSX.rtfd";
+			refType = 4;
+			sourceTree = "<group>";
+		};
 		573B8F30067B889700B7B355 = {
 			isa = PBXFileReference;
 			lastKnownFileType = archive.ar;
@@ -4715,66 +4742,6 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		574F517D0820413B0086E561 = {
-			children = (
-				574F517E0820413B0086E561,
-				574F51810820413B0086E561,
-				574F51840820413B0086E561,
-				574F51870820413B0086E561,
-				574F518A0820413B0086E561,
-			);
-			isa = PBXVariantGroup;
-			name = locale;
-			path = "";
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F517E0820413B0086E561 = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder;
-			name = pl;
-			path = pl.lproj/locale;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F51810820413B0086E561 = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder;
-			name = fr;
-			path = fr.lproj/locale;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F51840820413B0086E561 = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder;
-			name = de;
-			path = de.lproj/locale;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F51870820413B0086E561 = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder;
-			name = it;
-			path = it.lproj/locale;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F518A0820413B0086E561 = {
-			isa = PBXFileReference;
-			lastKnownFileType = folder;
-			name = en;
-			path = en.lproj/locale;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		574F518D0820413B0086E561 = {
-			fileRef = 574F517D0820413B0086E561;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		5750CC8406774D0300B049DC = {
 			buildActionMask = 2147483647;
 			files = (
@@ -5066,19 +5033,23 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = default;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
 				HEADER_SEARCH_PATHS = "../src/foreign/ $(value) /Developer/Headers/FlatCarbon ../src/include /usr/include /usr/local/include /usr/local/include/boost-1_32 /usr/local/include/pano12";
 				OTHER_CFLAGS = "$(value) -I/usr/local/lib/wx/include/mac-unicode-release-static-2.6 -I/usr/local/include/wx-2.6 -D__WXMAC__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA ";
 				OTHER_CPLUSPLUSFLAGS = "$(value) -I/usr/local/lib/wx/include/mac-unicode-release-static-2.6 -I/usr/local/include/wx-2.6 -D__WXMAC__ -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -DNO_GCC_PRAGMA ";
 				PREBINDING = YES;
 				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
+				WARNING_CFLAGS = "-Wno-long-double -Wstrict-aliasing";
+				ZERO_LINK = NO;
 			};
 			isa = PBXBuildStyle;
 			name = "Experimental Release";
@@ -5104,6 +5075,36 @@
 			isa = PBXBuildFile;
 			settings = {
 			};
+		};
+		57B8C68E083A951000283C06 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			isa = PBXShellScriptBuildPhase;
+			name = "Resouce Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ./localised.sh\n rm -f build/HuginOSX.app/Contents/Resources/xrc/Makefil*\n rm -f build/HuginOSX.app/Contents/Resources/xrc/data/Makefil*\nfi";
+		};
+		57B8C692083AB7F400283C06 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = text;
+			path = languages;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		57B8C693083AB7F400283C06 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = text.script.sh;
+			path = localised.sh;
+			refType = 4;
+			sourceTree = "<group>";
 		};
 		57B9DC360701D3D6008D260E = {
 			isa = PBXFileReference;
@@ -5923,11 +5924,10 @@
 		57E7825A068107210070F6AA = {
 			buildActionMask = 2147483647;
 			files = (
-				57CBF1B706BC9C3300C43FF5,
 				57CF89C406BCA06B00998705,
 				5702996E07F967CB00F1FF15,
 				57A91BD807FD85E30013AE47,
-				574F518D0820413B0086E561,
+				57CBF1B706BC9C3300C43FF5,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5999,10 +5999,11 @@
 		};
 		57E7825E068107210070F6AA = {
 			buildPhases = (
-				57E7825A068107210070F6AA,
-				570D580E082A9DCD0030E768,
 				57E7825B068107210070F6AA,
 				57E7825D068107210070F6AA,
+				570D580E082A9DCD0030E768,
+				57E7825A068107210070F6AA,
+				57B8C68E083A951000283C06,
 			);
 			buildRules = (
 			);
