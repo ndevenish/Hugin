@@ -397,6 +397,13 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                                     NULL, &siStartupInfo, &piProcessInfo);
             if (ret) {
                 ret = 0;
+                // Wait until child process exits.
+                WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
+
+                // Close process and thread handles. 
+                CloseHandle( piProcessInfo.hProcess );
+                CloseHandle( piProcessInfo.hThread );
+
             } else {
                 ret = -1;
                 wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
