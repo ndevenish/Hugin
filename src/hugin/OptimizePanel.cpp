@@ -89,7 +89,7 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
     m_mode_cb = XRCCTRL(*this, "optimize_panel_mode", wxChoice);
     DEBUG_ASSERT(m_mode_cb);
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
     m_opt_ctrls = XRCCTRL(*this, "optimize_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_opt_ctrls);
     m_opt_ctrls->SetSizeHints(20, 20);

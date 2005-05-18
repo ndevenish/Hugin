@@ -1,3 +1,103 @@
+2005-05-18 11:02  dwilkins42
+
+	* utils/hugin.nsi: Update for rc1. Fix order of calling SetOutPath
+	  so files are installed in the correct place
+
+2005-05-18 10:16  dangelo
+
+	* src/include/hugin/config_defaults.h: default to delete enblend
+	  input files
+
+2005-05-18 10:15  dangelo
+
+	* src/hugin/NonaStitcherPanel.cpp: windows bugfix: wait for enblend
+	  executable before deleting its input files
+
+2005-05-18 09:58  dangelo
+
+	* src/hugin/MainFrame.cpp: show all supported images files during
+	  "add" image by default. This tries to avoid that users might
+	  think hugin only supports jpeg files.
+
+2005-05-18 09:52  dangelo
+
+	* src/include/hugin/config_defaults.h: disable "deletion of
+	  multiple tiff files" for enblend by default
+
+2005-05-18 09:31  dangelo
+
+	* src/hugin/NonaStitcherPanel.cpp: fixed quotation of enblend
+	  executable that was broken by commiting of mac specific changes.
+
+2005-05-17 22:36  ippei
+
+	* mac/: HuginFiles.icns, HuginOSX-Info.plist, HuginOSX.icns,
+	  autopano-complete-mac.sh, config.h, nona_gui-Info.plist,
+	  HuginOSX.xcode/project.pbxproj: Mac: current HuginOSX files
+	  except localised files which I am changing the structure at the
+	  moment.
+
+2005-05-17 22:10  ippei
+
+	* src/: include/hugin/PanoPanel.h, hugin/PanoPanel.cpp: Mac:
+	  disabled any choosing PTStitcher completely. I could not find a
+	  quick way of deleting the choice itself, so I have put a code
+	  which changes back to the last choice whenever PTStitcher and
+	  photoshop output is selected.
+
+2005-05-17 22:06  ippei
+
+	* src/hugin/RunOptimizerFrame.cpp: Mac: Putting PTOptimizer inside
+	  the application bundle. I can do this to enblend and
+	  autopano-sift as well. What do you think? (They are completely
+	  external programs while PTOptimizer is from the project on which
+	  hugin's functionality is wholely depended.)
+
+2005-05-17 22:01  ippei
+
+	* src/: include/hugin/huginApp.h, hugin/huginApp.cpp: Mac: Let
+	  hugin respond to file opening AppleEvent so that users can open
+	  file from the file browser (i.e. Finder) or other applications.
+
+2005-05-17 21:55  ippei
+
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp: Mac:
+	  enblend/autopano using external execution dialog
+
+2005-05-17 21:48  ippei
+
+	* src/include/hugin/MainFrame.h: Added confirmation for closing
+	  unsaved projects.  Mac: added the responding function to
+	  file-opening AppleEvent
+
+	  Sorry for putting two changes together.
+
+2005-05-17 21:43  ippei
+
+	* src/hugin/MainFrame.cpp: Added confirmation for closing unsaved
+	  projects.  Mac: added the responding function to file-opening
+	  AppleEvent
+
+	  Sorry for putting two changes together.
+
+2005-05-17 21:29  ippei
+
+	* src/: hugin/MyExternalCmdExecDialog.cpp,
+	  include/hugin/MyExternalCmdExecDialog.h: Dialogbox that executes
+	  external command line tool showing the standard out messages.
+
+2005-05-17 17:35  dwilkins42
+
+	* NEWS, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  Release Candidate 1 (rc1)
+
+2005-05-17 17:24  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Update translations
+
 2005-05-17 17:16  dwilkins42
 
 	* src/hugin/NonaStitcherPanel.cpp: Allow enblend to be on a path

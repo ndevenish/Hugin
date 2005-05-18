@@ -109,7 +109,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_StitchButton = XRCCTRL(*this, "pano_button_stitch", wxButton);
     DEBUG_ASSERT(m_StitchButton);
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
     m_pano_ctrls = XRCCTRL(*this, "pano_controls_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_pano_ctrls);
     m_pano_ctrls->SetSizeHints(20, 20);
@@ -480,7 +480,7 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
                m_Stitcher );
     // redo layout.
 //    Layout();
-#ifdef USE_WX26x
+#ifdef USE_WX253
     m_pano_ctrls->FitInside();
 #endif
 }

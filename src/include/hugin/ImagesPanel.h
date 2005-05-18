@@ -77,7 +77,7 @@ private:
     // event handlers
     void OnAddImages(wxCommandEvent & e);
     void OnRemoveImages(wxCommandEvent & e);
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	void OnPositionChanged(wxSplitterEvent& event);
 #endif
 
@@ -141,7 +141,7 @@ private:
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;
 	
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	wxScrolledWindow *m_img_ctrls;
 	wxSplitterWindow *m_img_splitter;
 #endif

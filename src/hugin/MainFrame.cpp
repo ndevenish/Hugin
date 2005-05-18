@@ -349,7 +349,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     pano.addObserver(this);
 
     // Set sizing characteristics
-#ifdef USE_WX26x
+#ifdef USE_WX253
     SetSizeHints(600,400);
 #endif
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;

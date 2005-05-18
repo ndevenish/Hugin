@@ -190,7 +190,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB = XRCCTRL(*this,"cp_editor_auto_estimate", wxCheckBox);
     DEBUG_ASSERT(m_estimateCB);
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
 
     // setup scroll window for the controls under the images
     m_cp_ctrls = XRCCTRL(*this, "cp_controls_panel", wxScrolledWindow);
@@ -211,7 +211,9 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
+#ifdef USE_WX26x
 	m_cp_splitter_img->SetSashGravity(0.5);
+#endif
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
 
@@ -229,7 +231,9 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
+#ifdef USE_WX26x
 	m_cp_splitter->SetSashGravity(0.5);
+#endif
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
 	m_cp_splitter->SetMinimumPaneSize(20);
@@ -271,7 +275,7 @@ CPEditorPanel::~CPEditorPanel()
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
     int sashPos;
 	sashPos = m_cp_splitter->GetSashPosition();
 	DEBUG_INFO("CP Editor panel sash pos: " << sashPos);
@@ -296,7 +300,7 @@ CPEditorPanel::~CPEditorPanel()
 void CPEditorPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	DEBUG_ASSERT(m_cp_splitter_img);
 
     wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
@@ -308,7 +312,9 @@ void CPEditorPanel::RestoreLayout()
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
+#ifdef USE_WX26x
 	m_cp_splitter_img->SetSashGravity(0.5);
+#endif
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
 	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),300));
@@ -1136,7 +1142,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
               t1->SetSizeHints(0,0,0,0);
               // to make the window visible...
 //            t1->SetBackgroundColour(wxColour(255,0,0));
-#ifdef USE_WX26x
+#ifdef USE_WX253
               t1->SetMaxSize(sz);
               t1->SetMinSize(sz);
 #endif
@@ -1149,7 +1155,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
               t2->SetSize(0,0);
               t2->SetSizeHints(0,0,0,0);
 //            t2->SetBackgroundColour(wxColour(255,0,0));
-#ifdef USE_WX26x
+#ifdef USE_WX253
               t2->SetMaxSize(sz);
               t2->SetMinSize(sz);
 #endif

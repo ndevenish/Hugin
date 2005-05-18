@@ -60,7 +60,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_SIZE   ( ImagesPanel::OnSize )
 //    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
 //    EVT_MOTION ( ImagesPanel::ChangePreview )
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
 #endif
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
@@ -108,7 +108,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
     DEBUG_ASSERT(m_img_ctrls);
     m_img_splitter = XRCCTRL(*this, "image_panel_splitter", wxSplitterWindow);
@@ -116,7 +116,9 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 
     m_img_ctrls->FitInside();
     m_img_ctrls->SetScrollRate(10, 10);
+#ifdef USE_WX26x
     m_img_splitter->SetSashGravity(1);
+#endif
     m_img_splitter->SetMinimumPaneSize(20);
 #endif
 
@@ -149,7 +151,7 @@ ImagesPanel::~ImagesPanel(void)
 {
     DEBUG_TRACE("dtor");
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	int sashPos;
 	sashPos = m_img_splitter->GetSashPosition();
     DEBUG_INFO("Image panel sash pos: " << sashPos);
@@ -171,7 +173,7 @@ ImagesPanel::~ImagesPanel(void)
 void ImagesPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
-#ifdef USE_WX26x
+#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
@@ -187,7 +189,7 @@ void ImagesPanel::RestoreLayout()
 
 void ImagesPanel::OnSize( wxSizeEvent & e )
 {
-#ifdef USE_WX26x
+#ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
     XRCCTRL(*this, "images_panel", wxPanel)->SetSize (winWidth, winHeight);
@@ -205,7 +207,7 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
 	e.Skip();
 }
 
-#ifdef USE_WX26x
+#ifdef USE_WX253
 void ImagesPanel::OnPositionChanged(wxSplitterEvent& e)
 {
 	DEBUG_INFO("Sash Position now:" << e.GetSashPosition() << " or: " << m_img_splitter->GetSashPosition());
@@ -494,7 +496,7 @@ void ImagesPanel::UpdatePreviewImage()
     double iRatio = (double)img->GetWidth() / img->GetHeight();
 
     wxSize sz;
-#ifdef USE_WX26x
+#ifdef USE_WX253
     // estimate image size
     sz = m_img_splitter->GetWindow2()->GetSize();
     int maxw = sz.GetWidth() - 40;
@@ -539,7 +541,7 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     double iRatio = (double)img->GetWidth() / img->GetHeight();
 
     wxSize sz;
-#ifdef USE_WX26x
+#ifdef USE_WX253
     // get width from splitter window
     wxSize szs = m_img_splitter->GetSize();
     wxSize sz1 = m_img_splitter->GetWindow1()->GetSize();

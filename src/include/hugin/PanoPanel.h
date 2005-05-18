@@ -144,7 +144,7 @@ public:
     int m_macOldQuickmodeChoice;
 #endif
     
-#ifdef USE_WX26x
+#ifdef USE_WX253
 	wxScrolledWindow *m_pano_ctrls;
 #endif
 
