@@ -666,22 +666,22 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard (_("Image files (*.jpg)|*.jpg;*.JPG|Image files (*.png)|*.png;*.PNG|Image files (*.tif)|*.tif;*.TIF|All files (*.*)|*.*"));
+    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*.*)|*.*"));
     wxFileDialog dlg(this,_("Add images"),
                      config->Read(wxT("actualPath"),wxT("")), wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
 
     // remember the image extension
-    wxString img_ext (wxT(""));
+    wxString img_ext;
     if (config->HasEntry(wxT("lastImageType"))){
       img_ext = config->Read(wxT("lastImageType")).c_str();
     }
-    if (img_ext == wxT("png"))
+    if (img_ext == wxT("all images"))
+      dlg.SetFilterIndex(0);
+    else if (img_ext == wxT("jpg"))
       dlg.SetFilterIndex(1);
-    else if (img_ext == wxT("tif"))
+    else if (img_ext == wxT("all files"))
       dlg.SetFilterIndex(2);
-    else if (img_ext == wxT("all"))
-      dlg.SetFilterIndex(3);
     DEBUG_INFO ( "Image extention: " << img_ext.mb_str() )
 
     // call the file dialog
@@ -717,10 +717,9 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
     // save the image extension
     switch ( dlg.GetFilterIndex() ) {
-      case 0: config->Write(wxT("lastImageType"), wxT("jpg")); break;
-      case 1: config->Write(wxT("lastImageType"), wxT("png")); break;
-      case 2: config->Write(wxT("lastImageType"), wxT("tif")); break;
-      case 3: config->Write(wxT("lastImageType"), wxT("all")); break;
+      case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
+      case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
+      case 2: config->Write(wxT("lastImageType"), wxT("all files")); break;
     }
 
     DEBUG_TRACE("");
