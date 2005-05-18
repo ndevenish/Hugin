@@ -1,3 +1,22 @@
+2005-05-18 16:17  dwilkins42
+
+	* utils/hugin.nsi: Enable enblend in windows installer
+
+2005-05-18 16:16  dwilkins42
+
+	* Makefile.am: Add new directory to build
+
+2005-05-18 15:50  dwilkins42
+
+	* ChangeLog, src/hugin/CPEditorPanel.cpp,
+	  src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
+	  src/hugin/MainFrame.cpp, src/hugin/OptimizePanel.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/huginApp.cpp,
+	  src/include/panoinc_WX.h, src/include/hugin/CPEditorPanel.h,
+	  src/include/hugin/ImagesPanel.h, src/include/hugin/LensPanel.h,
+	  src/include/hugin/OptimizePanel.h, src/include/hugin/PanoPanel.h:
+	  Re-enable building hugin on wxGTK-2.5.3
+
 2005-05-18 11:02  dwilkins42
 
 	* utils/hugin.nsi: Update for rc1. Fix order of calling SetOutPath
