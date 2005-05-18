@@ -44,9 +44,9 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/MyProgressDialog.h"
 
-#ifdef __WXMAC__
+//#ifdef __WXMAC__
 #include "hugin/MyExternalCmdExecDialog.h"
-#endif
+//#endif
 
 using namespace PT;
 using namespace std;
@@ -363,9 +363,10 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 #endif
         int ret = -1;
         
-        wxString cmdline = enblendExe + wxT(" ") + args;
+        wxString cmdline = utils::wxQuoteFilename(enblendExe) + wxT(" ") + args;
         {
 #ifdef unix
+            wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
             DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
             ret = system(cmdline.mb_str());
             if (ret == -1) {
