@@ -124,43 +124,10 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
         }
     }
 #elif (defined __WXMAC__)
-    wxString optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE));
+    wxString optimizerExe = MacGetPathTOBundledExecutableFile(CFSTR("PTOptimizer"));
     
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-    if(!mainbundle)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef PTOurl = CFBundleCopyAuxiliaryExecutableURL(mainbundle, CFSTR("PTOptimizer"));
-        CFURLRef PTOAbsURL;
-        if(PTOurl)
-        {
-            PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
-            CFRelease( PTOurl );
-        }
-            
-        if(!PTOAbsURL)
-        {
-            DEBUG_INFO("Mac: Cannot locate PTOptimizer in the bundle.");
-        }
-        else
-        {
-            CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
-            if(!pathInCFString)
-            {
-                CFRelease( PTOAbsURL );
-                DEBUG_INFO("Mac: Failed to get URL in CFString");
-            }
-            else
-            {
-                CFRelease( PTOAbsURL );
-                optimizerExe = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                DEBUG_INFO("Mac: using PTOptimizer in the application bundle");
-            }
-        }
-    }
+    if(optimizerExe == wxT(""))
+        optimizerExe = config->Read(wxT("/PanoTools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE));
 
     if (!wxFile::Exists(optimizerExe)){
         wxFileDialog dlg(this,_("Select PTOptimizer"),

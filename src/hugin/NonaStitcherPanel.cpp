@@ -314,7 +314,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             }
         }
 #elif defined __WXMAC__
-        wxString enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
+        wxString enblendExe = MacGetPathTOBundledExecutableFile(CFSTR("enblend"));
+        
+        if(enblendExe == wxT(""))
+            enblendExe = config->Read(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
+        
         if (!wxFile::Exists(enblendExe)){
             wxFileDialog dlg(this,_("Select enblend commandline tool"),
                              wxT(""), wxT(""),

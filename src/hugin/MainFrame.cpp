@@ -29,12 +29,6 @@
 #include <wx/tipdlg.h>
 #include "panoinc.h"
 
-//Mac bundle code by Ippei
-#ifdef __WXMAC__
-#include <CFBundle.h>
-#include "wx/mac/private.h"
-#endif
-
 #include "vigra_ext/Correlation.h"
 
 #include "jhead/jhead.h"
@@ -191,37 +185,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     DEBUG_INFO("XRC prefix set to: " << m_xrcPrefix.mb_str());
 
 #ifdef __WXMAC__
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-
-    if(!mainbundle)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("xrc"), NULL, NULL);
-        if(!XRCurl)
-        {
-            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
-        }
-        else
-        {
-            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
-            if(!pathInCFString)
-            {
-                CFRelease( XRCurl );
-                DEBUG_INFO("Mac: Failed to get URL in CFString");
-            }
-            else
-            {
-                CFRelease( XRCurl );
-                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                
-                m_xrcPrefix = pathInWXString + wxT("/");
-                DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
-            }
-        }
-    }
+    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
+    if( thePath != wxT(""))
+        m_xrcPrefix = thePath + wxT("/");
 #endif
 
     wxBitmap bitmap;
@@ -901,6 +867,7 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("about_dlg"));
 
+#ifndef __WXMAC__
     //if the language is not default, load custom About file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_INFO("Lang Code: " << langCode.mb_str());
@@ -913,6 +880,10 @@ void MainFrame::OnAbout(wxCommandEvent & e)
   			XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
 		}
 	}
+#else
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
+    if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+#endif
     dlg.ShowModal();
 }
 
@@ -925,7 +896,8 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 	bool bHelpExists = false;
 
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-
+    
+#ifndef __WXMAC__
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
@@ -935,6 +907,10 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 		if(wxFile::Exists(strFile))
 			bHelpExists = true;
 	}
+#else
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("manual.html"));
+    if(strFile!=wxT("")) bHelpExists = true;
+#endif
 	if(!bHelpExists)
 		strFile = m_xrcPrefix + wxT("data/manual.html");  //load default file
 
@@ -954,7 +930,8 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
     wxConfigBase * config = wxConfigBase::Get();
 	nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
-
+    
+#ifndef __WXMAC__
     //if the language is not default, load custom tip file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_INFO("Lang Code: " << langCode.mb_str());
@@ -969,6 +946,10 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 		if(wxFile::Exists(strFile))
 			bTipsExist = true;
 	}
+#elif (defined UNICODE)
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("tips-UTF8.txt"));
+    if(strFile!=wxT("")) bTipsExist = true;
+#endif
 	if(!bTipsExist)
 		strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
 	
@@ -993,6 +974,7 @@ void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("keyboard_help_dlg"));
 
+#ifndef __WXMAC__
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_INFO("Lang Code: " << langCode.mb_str());
@@ -1002,6 +984,10 @@ void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
 		if(wxFile::Exists(strFile))
 			bKBDExists = true;
 	}
+#else
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("keyboard.html"));
+    if(strFile!=wxT("")) bKBDExists = true;
+#endif
 	if(!bKBDExists)
 		strFile = m_xrcPrefix + wxT("data/keyboard.html");  //load default file
 
@@ -1020,7 +1006,8 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
 	bool bFAQExists = false;
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-
+    
+#ifndef __WXMAC__
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
 	DEBUG_INFO("Lang Code: " << langCode.mb_str());
@@ -1030,6 +1017,10 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
 		if(wxFile::Exists(strFile))
 			bFAQExists = true;
 	}
+#else
+    strFile = MacGetPathTOBundledResourceFile(CFSTR("FAQ.html"));
+    if(strFile!=wxT("")) bFAQExists = true;
+#endif
 	if(!bFAQExists)
 		strFile = m_xrcPrefix + wxT("data/FAQ.html");  //load default file
 

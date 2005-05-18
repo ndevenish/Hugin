@@ -26,12 +26,6 @@
 
 #include <config.h>
 
-//Mac bundle code by Ippei
-#ifdef __WXMAC__
-#include <CFBundle.h>
-#include "wx/mac/private.h"
-#endif
-
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -53,6 +47,79 @@ bool str2double(wxString s, double & d)
     }
     return true;
 }
+
+#ifdef __WXMAC__
+wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
+{
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, filename, NULL, NULL);
+        if(!XRCurl)
+        {
+            DEBUG_INFO("Mac: Cannot locate the file in bundle.");
+        }
+        else
+        {
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
+            {
+                CFRelease( XRCurl );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
+            }
+            else
+            {
+                CFRelease( XRCurl );
+                return wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+            }
+        }
+    }
+    return wxT("");
+}
+
+wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
+{
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(!mainbundle)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef PTOurl = CFBundleCopyAuxiliaryExecutableURL(mainbundle, filename);
+        CFURLRef PTOAbsURL;
+        if(PTOurl)
+        {
+            PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
+            CFRelease( PTOurl );
+        }
+        if(!PTOAbsURL)
+        {
+            DEBUG_INFO("Mac: Cannot locate the file in the bundle.");
+        }
+        else
+        {
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
+            if(!pathInCFString)
+            {
+                CFRelease( PTOAbsURL );
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
+            }
+            else
+            {
+                CFRelease( PTOAbsURL );
+                return wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                DEBUG_INFO("Mac: returned file in the application bundle");
+            }
+        }
+    }
+    return wxT("");
+}
+#endif
 
 
 // make wxwindows use this class as the main application
@@ -127,37 +194,9 @@ bool huginApp::OnInit()
     }
     
 #ifdef __WXMAC__
-    CFBundleRef mainbundle = CFBundleGetMainBundle();
-    
-    if(!mainbundle)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("locale"), NULL, NULL);
-        if(!XRCurl)
-        {
-            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
-        }
-        else
-        {
-            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
-            if(!pathInCFString)
-            {
-                CFRelease( XRCurl );
-                DEBUG_INFO("Mac: Failed to get URL in CFString");
-            }
-            else
-            {
-                CFRelease( XRCurl );
-                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                
-                locale.AddCatalogLookupPathPrefix(pathInWXString);
-                DEBUG_INFO("Mac: locale.AddCatalogLookupPathPrefix; using mac bundled locale directories");
-            }
-        }
-    }
+    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
+    if(thePath != wxT(""))
+        locale.AddCatalogLookupPathPrefix(thePath);
 #endif
 
     // set the name of locale recource to look for
@@ -192,38 +231,9 @@ bool huginApp::OnInit()
     }
 
 #ifdef __WXMAC__
-//    CFBundleRef mainbundle = CFBundleGetMainBundle();
-
-    if(!mainbundle)
-    {
-        DEBUG_INFO("Mac: Not bundled");
-    }
-    else
-    {
-        CFURLRef XRCurl = CFBundleCopyResourceURL(mainbundle, CFSTR("xrc"), NULL, NULL);
-        if(!XRCurl)
-        {
-            DEBUG_INFO("Mac: Cannot locate xrc in the bundle.");
-        }
-        else
-        {
-            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
-            if(!pathInCFString)
-            {
-                CFRelease( XRCurl );
-                DEBUG_INFO("Mac: Failed to get URL in CFString");
-            }
-            else
-            {
-                CFRelease( XRCurl );
-                wxString pathInWXString = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
-                
-                xrcPrefix = pathInWXString + wxT("/");
-                DEBUG_INFO("Mac: overriding xrc prefix; using mac bundled xrc files");
-                
-            }
-        }
-    }
+    wxString thePath2 = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
+    if( thePath2 != wxT(""))
+        xrcPrefix = thePath2 + wxT("/");
 #endif
 
     wxXmlResource::Get()->Load(xrcPrefix + wxT("image_center.xrc"));
