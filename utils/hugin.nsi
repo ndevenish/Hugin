@@ -1,11 +1,11 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5 beta7"
+!define HUGIN_VERSION "0.5 rc1"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
 ;!define HUGIN_EXPERIMENTAL_TOOLS
-;!define HUGIN_ALLINONE
+!define HUGIN_ALLINONE
 
 ;--------------------------------
 ;Include Modern UI
@@ -18,9 +18,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_beta7_allinone_setup.exe"
+OutFile "hugin-0.5_rc1_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_beta7_setup.exe"
+OutFile "hugin-0.5_rc1_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -85,16 +85,13 @@ Section "Hugin program files"
   SetOutPath "$INSTDIR"
   File "hugin.exe"
   File "LICENCE.txt"
+  File "NEWS.txt"
   File "VIGRA_LICENSE.txt"
   File "AUTHORS.txt"
   File "README_WINDOWS.txt"
   File "nona.exe"
   File "nona_gui.exe"
   File "panoglview.exe"
-  SetOutPath "$INSTDIR\locale"
-  File /r "locale\*"
-  SetOutPath "$INSTDIR\xrc"
-  File /r "xrc\*"
 !ifdef HUGIN_EXPERIMENTAL_TOOLS
   File "automatch.exe"
   File "autooptimiser.exe"
@@ -108,15 +105,19 @@ Section "Hugin program files"
 !endif
 !ifdef HUGIN_ALLINONE
   File "pano12.dll"
-  File "PTStitcher.exe"
+  ;File "PTStitcher.exe"
   File "PTOptimizer.exe"
-  File "autopano.exe"
-  File "enblend.exe"
-  WriteRegStr HKCU "Software\hugin\AutoPanoKolor" "AutopanoExe" "$INSTDIR\autopano.exe"
-  WriteRegStr HKCU "Software\hugin\Enblend" "EnblendExe" "$INSTDIR\enblend.exe"
-  WriteRegStr HKCU "Software\hugin\Panotools" "PTStitcherExe" "$INSTDIR\PTStitcher.exe"
+  ;File "autopano.exe"
+  ;File "enblend.exe"
+  ;WriteRegStr HKCU "Software\hugin\AutoPanoKolor" "AutopanoExe" "$INSTDIR\autopano.exe"
+  ;WriteRegStr HKCU "Software\hugin\Enblend" "EnblendExe" "$INSTDIR\enblend.exe"
+  ;WriteRegStr HKCU "Software\hugin\Panotools" "PTStitcherExe" "$INSTDIR\PTStitcher.exe"
   WriteRegStr HKCU "Software\hugin\Panotools" "PTOptimizerExe" "$INSTDIR\PTOptimizer.exe"
 !endif
+  SetOutPath "$INSTDIR\locale"
+  File /r "locale\*"
+  SetOutPath "$INSTDIR\xrc"
+  File /r "xrc\*"
 
 
   ; Write the installation path into the registry
@@ -186,18 +187,15 @@ ShowUninstDetails show
 
 Section "Uninstall"
   Delete "$INSTDIR\hugin.exe"
-  Delete "$INSTDIR\LICENCE"
   Delete "$INSTDIR\nona.exe"
   Delete "$INSTDIR\nona_gui.exe"
   Delete "$INSTDIR\panoglview.exe"
   Delete "$INSTDIR\uninstall.exe"
+  Delete "$INSTDIR\NEWS.txt"
   Delete "$INSTDIR\LICENCE.txt"
   Delete "$INSTDIR\VIGRA_LICENSE.txt"
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\README_WINDOWS.txt"
-  RMDir /r "$INSTDIR\locale"
-  RMDir /r "$INSTDIR\xrc"
-  RMDir "$INSTDIR"
 !ifdef HUGIN_NEED_MINGW
   File "mingwm10.dll"
 !endif
@@ -212,18 +210,22 @@ Section "Uninstall"
     
 !ifdef HUGIN_ALLINONE
   Delete "$INSTDIR\pano12.dll"
-  Delete "$INSTDIR\PTStitcher.exe"
+  ;Delete "$INSTDIR\PTStitcher.exe"
   Delete "$INSTDIR\PTOptimizer.exe"
-  Delete "$INSTDIR\autopano.exe"
-  Delete "$INSTDIR\enblend.exe"
+  ;Delete "$INSTDIR\autopano.exe"
+  ;Delete "$INSTDIR\enblend.exe"
 !endif
 
+  RMDir /r "$INSTDIR\locale"
+  RMDir /r "$INSTDIR\xrc"
+  RMDir "$INSTDIR"
 
   ; Remove icons
   ReadRegStr $0 HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin\Backup" \
       "Shortcuts"
   Delete "$0\Hugin\Hugin.lnk"
   Delete "$0\Hugin\nona_gui.lnk"
+  Delete "$0\Hugin\PanoGLView.lnk"
   Delete "$0\Hugin\Uninstall Hugin.lnk"
   RMDir  "$0\Hugin"
   SetShellVarContext current
