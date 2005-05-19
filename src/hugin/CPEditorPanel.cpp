@@ -27,6 +27,7 @@
 #include <config.h>
 
 #include "panoinc_WX.h"
+
 // hugin's
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
@@ -279,16 +280,17 @@ CPEditorPanel::~CPEditorPanel()
 #ifdef USE_WX253
     int sashPos;
 	sashPos = m_cp_splitter->GetSashPosition();
+#ifdef __WXMSW__
+	// Work around a bug in GetSashPosition/SetSashPosition on wxMSW when the
+	// splitter is housed in a wxNotebook. We adjust the sash position by the 
+	// height of the notebook tabs
     wxSize sz = m_cp_splitter->GetSize();
-    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
-    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
-    // store relative sash position, avoids problems with
-    // window resize that seems to happen after RestoreLayout() is called.
-    // this is not the ideal solution either, but the sash position
-    // shift after each restart of hugin
-    int yall = sz1.y + sz2.y;
-    sashPos = sz1.y *1000 / yall;
-    DEBUG_INFO("CP Editor panel sash pos: " << sashPos);
+    wxSize szp = m_cp_splitter->GetParent()->GetParent()->GetParent()->GetClientSize();
+
+    sashPos -= (szp.y - sz.y) + 1;
+#endif
+	DEBUG_INFO("CP Editor panel adjusted sash pos: " << sashPos);
+	
 	wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
 #endif
 				
@@ -339,18 +341,13 @@ void CPEditorPanel::RestoreLayout()
     }
     leftWindow->Show(true);
     rightWindow->Show(true);
+#ifdef USE_WX26x
 	m_cp_splitter->SetSashGravity(0.5);
+#endif
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
-	m_cp_splitter->SetMinimumPaneSize(20);
     int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
-    wxSize sz = m_cp_splitter->GetSize();
-    // convert from relative sash position back to absolute sash position
-    sashPos = sashPos * (sz.y-7) / 1000;
 	m_cp_splitter->SetSashPosition(sashPos);
-    sashPos = m_cp_splitter->GetSashPosition();
-    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
-    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
 #endif
 }
 
