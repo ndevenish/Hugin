@@ -57,7 +57,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_center_tool"), PreviewFrame::OnCenterHorizontally)
     EVT_TOOL(XRCID("preview_fit_pano_tool"), PreviewFrame::OnFitPano)
     EVT_TOOL(XRCID("preview_auto_update_tool"), PreviewFrame::OnAutoPreviewToggle)
-    EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdateButton)
+    EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdate)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
     EVT_CHOICE(-1, PreviewFrame::OnBlendChoice)
@@ -438,7 +438,7 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
     OnFitPano(e);
 }
 
-void PreviewFrame::OnUpdateButton(wxCommandEvent& event)
+void PreviewFrame::OnUpdate(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
     if (m_druid) m_druid->Update(m_pano);

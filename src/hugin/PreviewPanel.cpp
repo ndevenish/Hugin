@@ -156,6 +156,19 @@ void PreviewPanel::SetAutoUpdate(bool enabled)
 void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
+	{
+	  // Even though the frame is hidden, the panel is not
+	  // so check the parent instead
+	  wxWindow* pParent = GetParent();
+	  if (pParent) {
+  		if (pParent->IsShown()) {
+		  DEBUG_INFO("Parent window shown - updating");
+		} else {
+		  DEBUG_INFO("Parent window hidden - not updating");
+		  return;
+		}
+	  }
+	}
 //    bool seaming = wxConfigBase::Get()->Read("/PreviewPanel/UseSeaming",0l) != 0;
 
     // temporary bitmap for our remapped image

@@ -1051,6 +1051,11 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
     }
     preview_frame->Show();
     preview_frame->Raise();
+	
+	// we need to force an update since autoupdate fires
+	// before the preview frame is shown
+    wxCommandEvent dummy;
+	preview_frame->OnUpdate(dummy);
 }
 
 void MainFrame::OnToggleCPFrame(wxCommandEvent & e)

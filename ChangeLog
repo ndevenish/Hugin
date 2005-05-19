@@ -1,3 +1,43 @@
+2005-05-19 09:13  dwilkins42
+
+	* src/hugin/po/de.po: Update german translation with contribution
+	  from Joachim Schneider
+
+2005-05-18 22:20  ippei
+
+	* src/hugin/xrc/data/FAQ.html, mac/HuginOSX-Info.plist: Mac: ready
+	  for beta! HuginOSX 0.5rc1-OSXb1
+
+2005-05-18 22:18  ippei
+
+	* mac/ReadMe-HuginOSX.rtfd/: HuginOSX.icns, TXT.rtf: Mac: readme
+	  file
+
+2005-05-18 22:13  ippei
+
+	* mac/: PutAutopanoSiftToHuginOSX.applescript,
+	  PutEnblendToHuginOSX.applescript, languages, localised.sh,
+	  HuginOSX.xcode/project.pbxproj: Mac: the rest of Mac files
+
+2005-05-18 22:11  ippei
+
+	* mac/autopano-complete-mac.sh: Mac: exits if no mono was found.
+
+2005-05-18 22:09  ippei
+
+	* src/: include/hugin/huginApp.h, hugin/MainFrame.cpp,
+	  hugin/AutoCtrlPointCreator.cpp, hugin/RunOptimizerFrame.cpp,
+	  hugin/huginApp.cpp, hugin/NonaStitcherPanel.cpp: Mac: putting
+	  bundle access into utility functions and enabled enblend and
+	  autopano-sift to be bundled as well, improved autopano-sift
+	  directory choosing
+
+2005-05-18 16:20  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Update translations
+
 2005-05-18 16:17  dwilkins42
 
 	* utils/hugin.nsi: Enable enblend in windows installer

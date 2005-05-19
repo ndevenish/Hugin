@@ -52,13 +52,13 @@ public:
 
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
+    void OnUpdate(wxCommandEvent& event);
 
 protected:
     void OnClose(wxCloseEvent& e);
 
     void OnChangeDisplayedImgs(wxCommandEvent & e);
     void OnAutoPreviewToggle(wxCommandEvent & e);
-    void OnUpdateButton(wxCommandEvent& event);
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
     void OnShowAll(wxCommandEvent & e);
