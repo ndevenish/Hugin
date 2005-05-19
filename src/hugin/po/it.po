@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-18 16:03+0300\n"
+"POT-Creation-Date: 2005-05-19 10:03+0300\n"
 "PO-Revision-Date: 2005-02-23 01:13+0100\n"
 "Last-Translator: Luca Vascon <crimsonkingit@yahoo.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -16,71 +16,71 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:95
+#: src/hugin/AutoCtrlPointCreator.cpp:93
 #, c-format
 msgid "Added %d control points"
 msgstr "Aggiunti %d punti di controllo"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:95
+#: src/hugin/AutoCtrlPointCreator.cpp:93
 msgid "Autopano result"
 msgstr "Risultati di Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:110
+#: src/hugin/AutoCtrlPointCreator.cpp:108
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr ""
 "Autopano (a partire dalla versione  1.03), da http://autopano.kolor.com"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift, da: http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:113
+#: src/hugin/AutoCtrlPointCreator.cpp:111
 msgid "Choose which autopano program should be used\n"
 msgstr "Scegliere quale versione di Autopano utilizzare\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:113
+#: src/hugin/AutoCtrlPointCreator.cpp:111
 msgid "Select autopano type"
 msgstr "Selezionare il tipo di autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:152
-#: src/hugin/AutoCtrlPointCreator.cpp:399
+#: src/hugin/AutoCtrlPointCreator.cpp:150
+#: src/hugin/AutoCtrlPointCreator.cpp:371
 msgid "Select autopano program / frontend script"
 msgstr "Scegliere il programma Autopano / script"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:154 src/hugin/PreferencesDialog.cpp:175
+#: src/hugin/AutoCtrlPointCreator.cpp:152 src/hugin/PreferencesDialog.cpp:175
 #: src/hugin/PreferencesDialog.cpp:191 src/hugin/PreferencesDialog.cpp:207
 #: src/hugin/PreferencesDialog.cpp:223 src/hugin/RunOptimizerFrame.cpp:117
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Eseguibili (*.exe)|*.exe"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:160
-#: src/hugin/AutoCtrlPointCreator.cpp:212
-#: src/hugin/AutoCtrlPointCreator.cpp:407
+#: src/hugin/AutoCtrlPointCreator.cpp:158
+#: src/hugin/AutoCtrlPointCreator.cpp:178
+#: src/hugin/AutoCtrlPointCreator.cpp:379
 msgid "No autopano selected"
 msgstr "Non e' stata selezionata una versione di Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:204
+#: src/hugin/AutoCtrlPointCreator.cpp:170
 #, fuzzy
 msgid "Select autopano frontend script"
 msgstr "Selezionare uno script per autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:206
+#: src/hugin/AutoCtrlPointCreator.cpp:172
 msgid "Shell Scripts (*.sh)|*.sh"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:251
+#: src/hugin/AutoCtrlPointCreator.cpp:217
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
 "Per favore, usare %namefile o %i nella linea di comando di autopano-sift."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:252
-#: src/hugin/AutoCtrlPointCreator.cpp:257
+#: src/hugin/AutoCtrlPointCreator.cpp:218
+#: src/hugin/AutoCtrlPointCreator.cpp:223
 msgid "Error in Autopano command"
 msgstr "Erore di comando in Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:256
+#: src/hugin/AutoCtrlPointCreator.cpp:222
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
@@ -88,18 +88,18 @@ msgstr ""
 "Per favore, usare %namefile o %i per specificare i files da usare in "
 "autopano-sift."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:291
+#: src/hugin/AutoCtrlPointCreator.cpp:262
 #, fuzzy
-msgid "Select autopano .Net executable."
+msgid "Select the directory where autopano-sift .Net executables can be found."
 msgstr "Selezionare il tipo di autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:270
 #, fuzzy
 msgid "No autopano directory selected"
 msgstr "Non e' stata selezionata una versione di Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:308
-#: src/hugin/AutoCtrlPointCreator.cpp:445
+#: src/hugin/AutoCtrlPointCreator.cpp:280
+#: src/hugin/AutoCtrlPointCreator.cpp:417
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -111,18 +111,18 @@ msgstr ""
 "Usare meno immagini, un nome piu' breve per l'immagine\n"
 "finale, un percorso path piu' corto nell'HD."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:309
-#: src/hugin/AutoCtrlPointCreator.cpp:446 src/hugin/NonaStitcherPanel.cpp:360
+#: src/hugin/AutoCtrlPointCreator.cpp:281
+#: src/hugin/AutoCtrlPointCreator.cpp:418 src/hugin/NonaStitcherPanel.cpp:364
 msgid "Too many images selected"
 msgstr "Troppe immagini selezionate"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:318
-#: src/hugin/AutoCtrlPointCreator.cpp:453
+#: src/hugin/AutoCtrlPointCreator.cpp:290
+#: src/hugin/AutoCtrlPointCreator.cpp:425
 msgid "Running autopano"
 msgstr "Autopano in esecuzione"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:318
-#: src/hugin/AutoCtrlPointCreator.cpp:453
+#: src/hugin/AutoCtrlPointCreator.cpp:290
+#: src/hugin/AutoCtrlPointCreator.cpp:425
 msgid ""
 "Please wait while autopano searches control points\n"
 "See the command window for autopanos' progress"
@@ -131,31 +131,31 @@ msgstr ""
 "controllo E' possibile sorvegliare\n"
 " il progresso di Autopano nella finestra dos."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:347
-#: src/hugin/AutoCtrlPointCreator.cpp:363
-#: src/hugin/AutoCtrlPointCreator.cpp:471 src/hugin/NonaStitcherPanel.cpp:409
-#: src/hugin/NonaStitcherPanel.cpp:422
+#: src/hugin/AutoCtrlPointCreator.cpp:319
+#: src/hugin/AutoCtrlPointCreator.cpp:335
+#: src/hugin/AutoCtrlPointCreator.cpp:443 src/hugin/NonaStitcherPanel.cpp:413
+#: src/hugin/NonaStitcherPanel.cpp:426
 msgid "Could not execute command: "
 msgstr "Comando non eseguito:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:347
+#: src/hugin/AutoCtrlPointCreator.cpp:319
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx fallito"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:363
-#: src/hugin/AutoCtrlPointCreator.cpp:368
-#: src/hugin/AutoCtrlPointCreator.cpp:471
-#: src/hugin/AutoCtrlPointCreator.cpp:477 src/hugin/NonaStitcherPanel.cpp:422
+#: src/hugin/AutoCtrlPointCreator.cpp:335
+#: src/hugin/AutoCtrlPointCreator.cpp:340
+#: src/hugin/AutoCtrlPointCreator.cpp:443
+#: src/hugin/AutoCtrlPointCreator.cpp:449 src/hugin/NonaStitcherPanel.cpp:426
 msgid "wxExecute Error"
 msgstr "Errore di wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:366
-#: src/hugin/AutoCtrlPointCreator.cpp:475 src/hugin/NonaStitcherPanel.cpp:425
+#: src/hugin/AutoCtrlPointCreator.cpp:338
+#: src/hugin/AutoCtrlPointCreator.cpp:447 src/hugin/NonaStitcherPanel.cpp:429
 msgid "command: "
 msgstr "command:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:367
-#: src/hugin/AutoCtrlPointCreator.cpp:476 src/hugin/NonaStitcherPanel.cpp:426
+#: src/hugin/AutoCtrlPointCreator.cpp:339
+#: src/hugin/AutoCtrlPointCreator.cpp:448 src/hugin/NonaStitcherPanel.cpp:430
 msgid ""
 "\n"
 "failed with error code: "
@@ -163,13 +163,13 @@ msgstr ""
 "\n"
 "fallito, codice errore:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:374
-#: src/hugin/AutoCtrlPointCreator.cpp:484
+#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:456
 msgid "Could not open "
 msgstr "Apertura fallita"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:374
-#: src/hugin/AutoCtrlPointCreator.cpp:484
+#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:456
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -182,16 +182,16 @@ msgstr ""
 "oppure che hai sbagliato qualcosa \n"
 "nel dargli la linea di comando."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:375
-#: src/hugin/AutoCtrlPointCreator.cpp:487
+#: src/hugin/AutoCtrlPointCreator.cpp:347
+#: src/hugin/AutoCtrlPointCreator.cpp:459
 msgid "autopano failure"
 msgstr "autopano in palla."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/PreferencesDialog.cpp:239
+#: src/hugin/AutoCtrlPointCreator.cpp:373 src/hugin/PreferencesDialog.cpp:239
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Eseguibili (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:485
+#: src/hugin/AutoCtrlPointCreator.cpp:457
 msgid ""
 "\n"
 " current directory:"
@@ -238,27 +238,27 @@ msgstr "Allineamento"
 msgid "Distance"
 msgstr "Distanza"
 
-#: src/hugin/CPEditorPanel.cpp:509
+#: src/hugin/CPEditorPanel.cpp:542
 msgid "No corresponding point found"
 msgstr "Nessuna corrispondenza trovata"
 
-#: src/hugin/CPEditorPanel.cpp:580
+#: src/hugin/CPEditorPanel.cpp:613
 msgid "new control point added"
 msgstr "nessun punto di controllo aggiunto."
 
-#: src/hugin/CPEditorPanel.cpp:680 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:713 src/hugin/CPEditorPanel.cpp:919
 msgid "searching similar point..."
 msgstr "Ricerca punto simile..."
 
-#: src/hugin/CPEditorPanel.cpp:699 src/hugin/CPEditorPanel.cpp:814
+#: src/hugin/CPEditorPanel.cpp:732 src/hugin/CPEditorPanel.cpp:847
 msgid "Error during Fine-tune"
 msgstr "Errore  durante la calibrazione"
 
-#: src/hugin/CPEditorPanel.cpp:730
+#: src/hugin/CPEditorPanel.cpp:763
 msgid "Estimated point outside image"
 msgstr "Punto stimato fuori dall'immagine"
 
-#: src/hugin/CPEditorPanel.cpp:932
+#: src/hugin/CPEditorPanel.cpp:965
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -267,7 +267,7 @@ msgstr ""
 "Punto calibrato, angolo: %.0f grad, coefficente correlazionet: %0.3f, "
 "curvatura: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:938
+#: src/hugin/CPEditorPanel.cpp:971
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -278,36 +278,36 @@ msgstr ""
 "Coeff. correlazione: %.3f (dovrebbe essere > %.3f)\n"
 "Curvatura picco: (%.3f, %.3f) ( dovrebbe essere > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:940
+#: src/hugin/CPEditorPanel.cpp:973
 msgid "No similar point found"
 msgstr "Nessun punto simile trovato"
 
-#: src/hugin/CPEditorPanel.cpp:1322 src/hugin/CPListFrame.cpp:402
+#: src/hugin/CPEditorPanel.cpp:1355 src/hugin/CPListFrame.cpp:402
 #: src/hugin/PreviewFrame.cpp:160 src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "normal"
 msgstr "normale"
 
-#: src/hugin/CPEditorPanel.cpp:1325 src/hugin/CPListFrame.cpp:405
+#: src/hugin/CPEditorPanel.cpp:1358 src/hugin/CPListFrame.cpp:405
 msgid "vert. Line"
 msgstr "linea vert."
 
-#: src/hugin/CPEditorPanel.cpp:1328 src/hugin/CPListFrame.cpp:408
+#: src/hugin/CPEditorPanel.cpp:1361 src/hugin/CPListFrame.cpp:408
 msgid "horiz. Line"
 msgstr "Linea orizz."
 
-#: src/hugin/CPEditorPanel.cpp:1603
+#: src/hugin/CPEditorPanel.cpp:1636
 msgid "Cannot estimate image position without control points"
 msgstr "Senza punti di controllo non posso posizionare le immagini "
 
-#: src/hugin/CPEditorPanel.cpp:1794
+#: src/hugin/CPEditorPanel.cpp:1827
 msgid "Select Point in right image"
 msgstr "Scelglere punto in immagine dx"
 
-#: src/hugin/CPEditorPanel.cpp:1806
+#: src/hugin/CPEditorPanel.cpp:1839
 msgid "Select Point in left image"
 msgstr "Scelglere punto in immagine sx"
 
-#: src/hugin/CPEditorPanel.cpp:1825
+#: src/hugin/CPEditorPanel.cpp:1858
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Cambiare i punti, o premere tasto DX per aggiungere la coppia"
 
@@ -414,7 +414,7 @@ msgstr ""
 msgid "Ok"
 msgstr "Ok"
 
-#: src/hugin/ImageCenter.cpp:110 src/hugin/RunOptimizerFrame.cpp:353
+#: src/hugin/ImageCenter.cpp:110 src/hugin/RunOptimizerFrame.cpp:320
 #: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:70
 msgid "Cancel"
 msgstr "Cancella"
@@ -595,7 +595,7 @@ msgstr ""
 msgid "Adding Image"
 msgstr "Aggiungere immagine"
 
-#: src/hugin/MainFrame.cpp:246
+#: src/hugin/MainFrame.cpp:212
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -605,16 +605,16 @@ msgstr ""
 "Non trovata la directory xrc.\n"
 "Assicurarsi che sia nella stessa directory di hugin.exe"
 
-#: src/hugin/MainFrame.cpp:344
+#: src/hugin/MainFrame.cpp:310
 msgid "Started"
 msgstr "Partenza"
 
-#: src/hugin/MainFrame.cpp:383 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:349 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Aiuto"
 
-#: src/hugin/MainFrame.cpp:469
+#: src/hugin/MainFrame.cpp:435
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -622,52 +622,52 @@ msgstr ""
 "Il panorama e' stato modificato\n"
 "Salvare i cambiamenti?"
 
-#: src/hugin/MainFrame.cpp:469
+#: src/hugin/MainFrame.cpp:435
 msgid "Save Panorama?"
 msgstr "Salva panorama?"
 
-#: src/hugin/MainFrame.cpp:503
+#: src/hugin/MainFrame.cpp:469
 msgid "forced close"
 msgstr "chiusura forzata"
 
-#: src/hugin/MainFrame.cpp:530
+#: src/hugin/MainFrame.cpp:496
 #, c-format
 msgid "saved project %s"
 msgstr "Salva progetto %s"
 
-#: src/hugin/MainFrame.cpp:539
+#: src/hugin/MainFrame.cpp:505
 msgid "Save project file"
 msgstr "Salva file progetto"
 
-#: src/hugin/MainFrame.cpp:541
+#: src/hugin/MainFrame.cpp:507
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr "files di progetto (*.pto)|*.pto|All files (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:554
+#: src/hugin/MainFrame.cpp:520
 msgid "Save PTStitcher script file"
 msgstr "Salva script per PTStitcher"
 
-#: src/hugin/MainFrame.cpp:556
+#: src/hugin/MainFrame.cpp:522
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Files di PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:548
 msgid "Open project:   "
 msgstr "Apri progetto:"
 
-#: src/hugin/MainFrame.cpp:594
+#: src/hugin/MainFrame.cpp:560
 msgid "Project opened"
 msgstr "Progetto aperto"
 
-#: src/hugin/MainFrame.cpp:604
+#: src/hugin/MainFrame.cpp:570
 msgid "Error opening project:   "
 msgstr "Errore nell'aprire il progetto"
 
-#: src/hugin/MainFrame.cpp:631
+#: src/hugin/MainFrame.cpp:597
 msgid "Open project file"
 msgstr "Apri file progetto"
 
-#: src/hugin/MainFrame.cpp:633
+#: src/hugin/MainFrame.cpp:599
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
@@ -675,37 +675,37 @@ msgstr ""
 "Files progetto (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:646
+#: src/hugin/MainFrame.cpp:612
 msgid "Open project: cancel"
 msgstr "Apri progetto: annulla"
 
-#: src/hugin/MainFrame.cpp:669
+#: src/hugin/MainFrame.cpp:635
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;"
 "*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*.*)|*.*"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:670 src/include/hugin/wxPanoCommand.h:170
+#: src/hugin/MainFrame.cpp:636 src/include/hugin/wxPanoCommand.h:170
 msgid "Add images"
 msgstr "Aggiungi immagini"
 
-#: src/hugin/MainFrame.cpp:714
+#: src/hugin/MainFrame.cpp:680
 msgid "Add Image: cancel"
 msgstr "Aggiungi immagine: annulla"
 
-#: src/hugin/MainFrame.cpp:1038
+#: src/hugin/MainFrame.cpp:1029
 msgid "hugin - FAQ"
 msgstr "hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:1117
+#: src/hugin/MainFrame.cpp:1113
 msgid "Fine-tuning all points"
 msgstr "Ricalibra tutti i punti "
 
-#: src/hugin/MainFrame.cpp:1119
+#: src/hugin/MainFrame.cpp:1115
 msgid "Finetuning"
 msgstr "Calibrazione"
 
-#: src/hugin/MainFrame.cpp:1203
+#: src/hugin/MainFrame.cpp:1199
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -733,7 +733,7 @@ msgstr ""
 "\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
 
-#: src/hugin/MainFrame.cpp:1205
+#: src/hugin/MainFrame.cpp:1201
 msgid "Fine-tune result"
 msgstr "Risultato calibrazione"
 
@@ -757,15 +757,15 @@ msgstr "Seleziona Enblend.exe"
 msgid "No enblend.exe selected"
 msgstr "Non hai selezionato il percorso di Enblend.exe"
 
-#: src/hugin/NonaStitcherPanel.cpp:319
+#: src/hugin/NonaStitcherPanel.cpp:323
 msgid "Select enblend commandline tool"
 msgstr "Imposta una linea di comando per Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:327
+#: src/hugin/NonaStitcherPanel.cpp:331
 msgid "No enblend commandline tool selected"
 msgstr "Non e' stato impostato alcun comando per Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:359
+#: src/hugin/NonaStitcherPanel.cpp:363
 #, fuzzy
 msgid ""
 "Can not call enblend with a command line > 2000 characters.\n"
@@ -778,11 +778,11 @@ msgstr ""
 "Usare meno immagini, un nome piu' breve per l'immagine\n"
 "finale, un percorso path piu' corto nell'HD."
 
-#: src/hugin/NonaStitcherPanel.cpp:369
+#: src/hugin/NonaStitcherPanel.cpp:373
 msgid "Running Enblend"
 msgstr "Enblend in esecuzione"
 
-#: src/hugin/NonaStitcherPanel.cpp:369
+#: src/hugin/NonaStitcherPanel.cpp:373
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
@@ -790,7 +790,7 @@ msgstr ""
 "Enblend impiegherà del tempo a terminare il panorama\n"
 "e' possibile sorvegliare il processo nella finestra di comando"
 
-#: src/hugin/NonaStitcherPanel.cpp:373
+#: src/hugin/NonaStitcherPanel.cpp:377
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -798,15 +798,15 @@ msgstr ""
 "Enblend non eseguito, system() failed: \n"
 "Il comando era :"
 
-#: src/hugin/NonaStitcherPanel.cpp:374
+#: src/hugin/NonaStitcherPanel.cpp:378
 msgid "Error returned was :"
 msgstr "L'errore riportato e' :"
 
-#: src/hugin/NonaStitcherPanel.cpp:409
+#: src/hugin/NonaStitcherPanel.cpp:413
 msgid "CreateProcess Error"
 msgstr "CreateProcess Error"
 
-#: src/hugin/NonaStitcherPanel.cpp:427
+#: src/hugin/NonaStitcherPanel.cpp:431
 msgid "enblend error"
 msgstr "errore in Enblend"
 
@@ -1032,7 +1032,7 @@ msgid "Select PTStitcher"
 msgstr "Seleziona  PTStitcher.exe"
 
 #: src/hugin/PreferencesDialog.cpp:188 src/hugin/RunOptimizerFrame.cpp:115
-#: src/hugin/RunOptimizerFrame.cpp:166
+#: src/hugin/RunOptimizerFrame.cpp:133
 msgid "Select PTOptimizer"
 msgstr "Seleziona PTOptimizer"
 
@@ -1117,7 +1117,7 @@ msgstr "equirettangolare"
 msgid "The druid has no advice at this time."
 msgstr "Il Druido non sa che pesci pigliare, stavolta."
 
-#: src/hugin/PreviewPanel.cpp:245
+#: src/hugin/PreviewPanel.cpp:258
 msgid "Error during Stitching"
 msgstr "Errore durante lo Stitching"
 
@@ -1176,29 +1176,29 @@ msgstr "nota PTStitcher"
 msgid "No PTOptimizer.exe selected"
 msgstr "Non hai selezionato il PTOptimizer.exe"
 
-#: src/hugin/RunOptimizerFrame.cpp:174
+#: src/hugin/RunOptimizerFrame.cpp:141
 #, fuzzy
 msgid "No PTOptimizer selected"
 msgstr "Non hai selezionato il PTOptimizer.exe"
 
-#: src/hugin/RunOptimizerFrame.cpp:198
+#: src/hugin/RunOptimizerFrame.cpp:165
 msgid "Failed to launch PTOptimizer."
 msgstr "Avvio di PTOptimizer fallito."
 
-#: src/hugin/RunOptimizerFrame.cpp:209
+#: src/hugin/RunOptimizerFrame.cpp:176
 msgid "Could not obtain PTOptimizer output"
 msgstr "PTOptimizer output non ottenuto"
 
-#: src/hugin/RunOptimizerFrame.cpp:219
+#: src/hugin/RunOptimizerFrame.cpp:186
 msgid "Stop"
 msgstr "Stop"
 
-#: src/hugin/RunOptimizerFrame.cpp:281
+#: src/hugin/RunOptimizerFrame.cpp:248
 #, c-format
 msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr "Strategy %d, Iteration %d, distanza media: %f"
 
-#: src/hugin/RunOptimizerFrame.cpp:385
+#: src/hugin/RunOptimizerFrame.cpp:352
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1221,7 +1221,7 @@ msgstr ""
 "well,\n"
 "when the images are already aligned well."
 
-#: src/hugin/RunOptimizerFrame.cpp:387
+#: src/hugin/RunOptimizerFrame.cpp:354
 #, c-format
 msgid ""
 "Optimizer run finished.\n"

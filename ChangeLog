@@ -1,3 +1,20 @@
+2005-05-19 09:22  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: bugfix: forgot to apply the
+	  SearchAreaPercent setting.
+
+2005-05-19 09:21  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: Store relative sash position. Does
+	  not fix the shifting of the sash position after each restart
+	  completely but its a little better than before.
+
+2005-05-19 09:19  dwilkins42
+
+	* ChangeLog, src/hugin/MainFrame.cpp, src/hugin/PreviewFrame.cpp,
+	  src/hugin/PreviewPanel.cpp, src/include/hugin/PreviewFrame.h:
+	  Make sure that preview window is not updated if it is hidden
+
 2005-05-19 09:13  dwilkins42
 
 	* src/hugin/po/de.po: Update german translation with contribution
