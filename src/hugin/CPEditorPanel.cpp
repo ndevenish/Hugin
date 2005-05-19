@@ -221,7 +221,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     // setup splitter between images and bottom row.
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
 	DEBUG_ASSERT(m_cp_splitter);
-
+/*
     leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
     DEBUG_ASSERT(leftWindow);
     rightWindow = XRCCTRL(*this, "cp_editor_split_bottom", wxPanel);
@@ -237,8 +237,9 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
 	m_cp_splitter->SetMinimumPaneSize(20);
-	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200));
-
+    int sashpos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
+	m_cp_splitter->SetSashPosition(sashpos);
+*/
     wxSize sz = m_cp_splitter->GetSize();
     wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
     wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
@@ -278,7 +279,16 @@ CPEditorPanel::~CPEditorPanel()
 #ifdef USE_WX253
     int sashPos;
 	sashPos = m_cp_splitter->GetSashPosition();
-	DEBUG_INFO("CP Editor panel sash pos: " << sashPos);
+    wxSize sz = m_cp_splitter->GetSize();
+    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
+    // store relative sash position, avoids problems with
+    // window resize that seems to happen after RestoreLayout() is called.
+    // this is not the ideal solution either, but the sash position
+    // shift after each restart of hugin
+    int yall = sz1.y + sz2.y;
+    sashPos = sz1.y *1000 / yall;
+    DEBUG_INFO("CP Editor panel sash pos: " << sashPos);
 	wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
 #endif
 				
@@ -303,6 +313,7 @@ void CPEditorPanel::RestoreLayout()
 #ifdef USE_WX253
 	DEBUG_ASSERT(m_cp_splitter_img);
 
+    // reset splitter between the two images
     wxPanel * leftWindow = XRCCTRL(*this, "cp_editor_split_img_left", wxPanel);
     DEBUG_ASSERT(leftWindow);
     wxPanel * rightWindow = XRCCTRL(*this, "cp_editor_split_img_right", wxPanel);
@@ -317,7 +328,29 @@ void CPEditorPanel::RestoreLayout()
 #endif
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
-	m_cp_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),300));
+    
+    // setup splitter between images and bottom row.
+    leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
+    DEBUG_ASSERT(leftWindow);
+    rightWindow = XRCCTRL(*this, "cp_editor_split_bottom", wxPanel);
+    DEBUG_ASSERT(rightWindow);
+    if ( m_cp_splitter->IsSplit() ) {
+        m_cp_splitter->Unsplit();
+    }
+    leftWindow->Show(true);
+    rightWindow->Show(true);
+	m_cp_splitter->SetSashGravity(0.5);
+	m_cp_splitter->SetMinimumPaneSize(20);
+    m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
+	m_cp_splitter->SetMinimumPaneSize(20);
+    int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
+    wxSize sz = m_cp_splitter->GetSize();
+    // convert from relative sash position back to absolute sash position
+    sashPos = sashPos * (sz.y-7) / 1000;
+	m_cp_splitter->SetSashPosition(sashPos);
+    sashPos = m_cp_splitter->GetSashPosition();
+    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
 #endif
 }
 
@@ -682,7 +715,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
 
             long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
             const PanoImage & img = m_pano->getImage(thisImgNr);
-            double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),10);
+            double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),HUGIN_FT_SEARCH_AREA_PERCENT);
             int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
             CorrelationResult corrPoint;
             double corrOk=false;
