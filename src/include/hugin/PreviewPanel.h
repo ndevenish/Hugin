@@ -44,7 +44,7 @@ public:
 
     /** ctor.
      */
-    PreviewPanel(wxWindow *parent, PT::Panorama * pano );
+    PreviewPanel(wxFrame *parent, PT::Panorama * pano );
 
     /** dtor.
      */
@@ -105,7 +105,7 @@ private:
     
     BlendMode m_blendMode;
 
-    wxWindow * parentWindow;
+    wxFrame * parentWindow;
 
     DECLARE_EVENT_TABLE()
 };

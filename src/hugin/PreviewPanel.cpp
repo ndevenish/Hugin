@@ -56,7 +56,7 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
 
-PreviewPanel::PreviewPanel(wxWindow *parent, Panorama * pano)
+PreviewPanel::PreviewPanel(wxFrame *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
@@ -159,9 +159,8 @@ void PreviewPanel::updatePreview()
 	{
 	  // Even though the frame is hidden, the panel is not
 	  // so check the parent instead
-	  wxWindow* pParent = GetParent();
-	  if (pParent) {
-  		if (pParent->IsShown()) {
+	  if (parentWindow) {
+  		if (parentWindow->IsShown() && (! parentWindow->IsIconized())) {
 		  DEBUG_INFO("Parent window shown - updating");
 		} else {
 		  DEBUG_INFO("Parent window hidden - not updating");
