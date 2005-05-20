@@ -35,12 +35,6 @@
 #include "hugin/RunOptimizerFrame.h"
 #include "hugin/huginApp.h"
 
-//Mac bundle code by Ippei
-#ifdef __WXMAC__
-#include <CFBundle.h>
-#include "wx/mac/private.h"
-#endif
-
 using namespace std;
 using namespace PT;
 using namespace utils;
@@ -150,7 +144,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     scriptfile << script;
     scriptfile.close();
 
-    wxString cmd(optimizerExe + wxT(" ") + wxQuoteFilename(PTScriptFile));
+    wxString cmd(utils::wxQuoteFilename(optimizerExe) + wxT(" ") + wxQuoteFilename(PTScriptFile));
 
     DEBUG_INFO("Executing cmd: " << cmd.mb_str());
 
