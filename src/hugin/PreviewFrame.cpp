@@ -71,9 +71,15 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
+#ifdef USE_WX253
+#define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
+#else
+#define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION)
+#endif
+
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Panorama preview"), wxDefaultPosition, wxDefaultSize,
-              wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN),
+              PF_STYLE),
       m_pano(pano)
 {
 	DEBUG_TRACE("");
