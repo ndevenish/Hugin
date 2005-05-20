@@ -98,6 +98,18 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_LN_S
 
+dnl desktop integration options
+AC_ARG_ENABLE([desktop],
+          AC_HELP_STRING([--enable-desktop],
+	    			     [enable desktop integration using freedesktop standards(default=yes).]),
+	      [enable_desktop=$enableval],
+	      [enable_desktop=yes])
+
+if test "x$enable_desktop" = xyes; then
+	AC_PATH_PROG(UPDATE_MIME_DATABASE, update-mime-database)
+	AC_PATH_PROG(UPDATE_DESKTOP_DATABASE, update-desktop-database)
+fi
+
 dnl Checks for libraries.
 AM_OPTIONS_WXCONFIG
 

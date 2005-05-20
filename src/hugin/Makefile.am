@@ -34,12 +34,56 @@ bin_PROGRAMS   = hugin
 hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)
 hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
-                 ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
-                 ${top_builddir}/src/vigra_ext/libvigra_ext.la libhuginwxutils.la
+	             ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
+	             ${top_builddir}/src/vigra_ext/libvigra_ext.la libhuginwxutils.la
 noinst_HEADERS = win_prep.h
 
-EXTRA_DIST = hugin.vcproj hugin_rc.rc hugin.desktop.tmpl
+desktopdir = $(datadir)/applications
+desktop_DATA = hugin.desktop
+
+sharedmimedir = $(datadir)/mime
+sharedmimepackagedir = $(sharedmimedir)/packages
+sharedmimepackage_DATA = hugin.xml
+
+gnomemimeicondir = $(datadir)/icons/gnome/48x48/mimetypes
+gnomemimeicon_DATA = gnome-mime-application-x-ptoptimizer-script.png
+
+EXTRA_DIST = hugin.vcproj hugin_rc.rc
 
 .rc.o:
 	$(RCCOMPILE) -i $< -o $@
+
+install-data-hook:
+	if test -n "$(UPDATE_MIME_DATABASE)"; then \
+	  if test -z "${DESTDIR}" ; then \
+		echo "*** calling $(UPDATE_MIME_DATABASE) \"${sharedmimedir}\""; \
+		$(UPDATE_MIME_DATABASE) "${sharedmimedir}"; \
+	  else \
+		echo "*** After installation call $(UPDATE_MIME_DATABASE) \"${sharedmimedir}\""; \
+	  fi; \
+	fi
+	if test -n "$(UPDATE_DESKTOP_DATABASE)"; then \
+	  if test -z "${DESTDIR}" ; then \
+		echo "*** calling $(UPDATE_DESKTOP_DATABASE)"; \
+		$(UPDATE_DESKTOP_DATABASE) \"\"; \
+	  else \
+		echo "*** After installation call $(UPDATE_DESKTOP_DATABASE)"; \
+	  fi; \
+	fi
+
+uninstall-local: uninstall-sharedmimepackageDATA uninstall-desktopDATA
+	if test -n "$(UPDATE_MIME_DATABASE)"; then \
+	  if test -z "${DESTDIR}" ; then \
+		$(UPDATE_MIME_DATABASE) "${sharedmimedir}"; \
+	  else \
+		echo "*** After uninstallation call $(UPDATE_MIME_DATABASE) \"${sharedmimedir}\""; \
+	  fi; \
+	fi
+	if test -n "$(UPDATE_DESKTOP_DATABASE)"; then \
+	  if test -z "${DESTDIR}" ; then \
+		$(UPDATE_DESKTOP_DATABASE); \
+	  else \
+		echo "*** After uninstallation call $(UPDATE_DESKTOP_DATABASE)"; \
+	  fi; \
+	fi
 

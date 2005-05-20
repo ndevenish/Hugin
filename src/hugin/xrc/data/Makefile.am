@@ -10,9 +10,9 @@ XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 TXT_FILES = $(wildcard $(srcdir)/*.txt)
 
 if HAVE_MINGW
-xrcdatadir = @bindir@/xrc/data
+xrcdatadir = $(bindir)/xrc/data
 else
-xrcdatadir = @datadir@/hugin/xrc/data
+xrcdatadir = $(datadir)/hugin/xrc/data
 endif
 
 all-local: stamp-data
@@ -28,3 +28,9 @@ stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(
 	@mv stamp-dataT stamp-data
 
 dist_xrcdata_DATA = $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES)
+
+pixmapsdir = $(datadir)/pixmaps
+pixmaps_DATA = hugin.png
+hugin.png: $(srcdir)/icon.png
+	cp $(srcdir)/icon.png hugin.png
+
