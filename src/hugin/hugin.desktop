@@ -1,15 +1,18 @@
 [Desktop Entry]
 Name=Hugin panorama creator
+Name[cs]=Hugin pro skládání panoramat
 Name[de]=Hugin panorama creator
 Comment=Stitch photographs together
+Comment[cs]=Skládání panoramatických snímků
 Comment[de]=Erzeugt Panoramabildern aus mehreren Einzelbildern.
 GenericName=Panorama stitcher
 GenericName[de]=Panorama Stitcher
+GenericName[cs]=Nástroj pro skládání panoramat
 Categories=Application;Graphics;
 Encoding=UTF-8
 Exec=hugin
-Icon=__PREFIX__/share/hugin/xrc/data/icon.png
+Icon=hugin
 StartupNotify=false
 Terminal=false
 Type=Application
-
+MimeType=application/x-ptoptimizer-script;
