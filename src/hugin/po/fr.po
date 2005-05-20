@@ -1,23 +1,22 @@
-# translation of fr.po to 
 # French translations for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005.
-#
-#
+#  <jean-luc.coulon@wanadoo.fr>, 2005.
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-05-19 10:03+0300\n"
-"PO-Revision-Date: 2005-05-11 09:19+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2005-05-19 15:59+0200\n"
+"Last-Translator: Jena-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
+"Language-Team: French <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:93
 #, c-format
@@ -30,8 +29,7 @@ msgstr "Résultat d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:108
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr ""
-"Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
+msgstr "Autopano (version 1.03 ou supérieure), voir le site http://autopano.kolor.com"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
@@ -45,7 +43,7 @@ msgstr "Choisir quel programme autopano doit être utilisé\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:111
 msgid "Select autopano type"
-msgstr "Sélectionner le type d'autopano"
+msgstr "Choisir le type d'autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:150
 #: src/hugin/AutoCtrlPointCreator.cpp:371
@@ -67,7 +65,7 @@ msgstr "Pas d'autopano sélectionné"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:170
 msgid "Select autopano frontend script"
-msgstr "Sélectionner le script frontal d'Autopano"
+msgstr "Choisir le script frontal d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:172
 msgid "Shell Scripts (*.sh)|*.sh"
@@ -87,16 +85,14 @@ msgstr "Erreur dans la commande Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:222
 #, c-format
-msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
 "d'Autopano-sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:262
-#, fuzzy
 msgid "Select the directory where autopano-sift .Net executables can be found."
-msgstr "Sélectionner l'exécutable .Net d'Autopano."
+msgstr "Choisir le répertoire où se trouvent les exécutables .Net d'autopano-sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:270
 msgid "No autopano directory selected"
@@ -687,6 +683,9 @@ msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;"
 "*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*.*)|*.*"
 msgstr ""
+"Tous les fichiers image|*.jpg;*.JPG;*.tif;*.TIF;*.png;*.PNG;*.bmp;*.BMP;*.gif;"
+"*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG·files·(*.jpg)|*.jpg;*.JPG|"
+"Tous les fichiers·(*.*)|*.*"
 
 #: src/hugin/MainFrame.cpp:636 src/include/hugin/wxPanoCommand.h:170
 msgid "Add images"
@@ -954,8 +953,7 @@ msgstr ""
 
 #: src/hugin/PanoDruid.cpp:203
 msgid "Add stitching control points to each pair of images."
-msgstr ""
-"Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
+msgstr "Ajoutez des points de contrôle d'assemblage pour chaque paire d'images."
 
 #: src/hugin/PanoDruid.cpp:204
 msgid ""
@@ -976,8 +974,7 @@ msgstr "Ajoutez encore au moins une image."
 
 #: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:557
 msgid "You should have at least two files listed in the Images tab."
-msgstr ""
-"Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
+msgstr "Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
 
 #: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:552
 msgid "To get started, add some image files."
@@ -1295,7 +1292,7 @@ msgid ""
 msgstr ""
 "Fichier image introuvable :\n"
 "%s\n"
-"Veuillez sélectionner l'image correcte"
+"Veuillez sélectionner une image correcte"
 
 #: src/include/hugin/wxPanoCommand.h:163
 msgid "Image file not found"
@@ -1340,8 +1337,7 @@ msgid "Anchor Image"
 msgstr "Ancrer l'image"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Positionner le Lacet et le Tangage avec le bouton gauche de la souris. "
 "Utiliser le bouton droit de la souris pour positionner le Roulis"
@@ -1579,9 +1575,7 @@ msgstr "Ajuster le point d'ancrage..."
 
 #: src/hugin/xrc/images_panel.xrs:14
 msgid "opens a window to select the anchor orientation graphically"
-msgstr ""
-"Ouvrir une fenêtre pour sélectionner graphiquement l'orientation de l'image "
-"d'ancrage "
+msgstr "Ouvrir une fenêtre pour orienter graphiquement l'image d'ancrage "
 
 #: src/hugin/xrc/images_panel.xrs:15
 msgid "Anchor this image for exposure"
@@ -2113,7 +2107,7 @@ msgid ""
 "TIFF output. Select TIFF to enable this option"
 msgstr ""
 "Utiliser le programme externe Enblend pour une fusion sans joints apparents. "
-"Ne peut produire que des sorties TIFF. Sélectionner TIFF pour valider cette "
+"Ne peut produire que des sorties TIFF. Choisir TIFF pour pouvoir valider cette "
 "option."
 
 #: src/hugin/xrc/nona_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:28
@@ -2636,8 +2630,7 @@ msgstr "Aperçu automatique"
 
 #: src/hugin/xrc/preview_frame.xrs:5
 msgid "Automatically update preview on relevant changes"
-msgstr ""
-"Mettre à jour automatiquement l'aperçu lors de changements significatifs"
+msgstr "Mettre à jour automatiquement l'aperçu lors de changements significatifs"
 
 #: src/hugin/xrc/preview_frame.xrs:6 src/hugin/xrc/preview_frame.xrs:16
 msgid "Update"
@@ -2710,9 +2703,7 @@ msgstr "Couleur (d)"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:18
 msgid "select kind of exposure correction relative to the anchor image"
-msgstr ""
-"Sélectionner le type de correction d'exposition par rapport à l'image "
-"d'ancrage"
+msgstr "Sélectionner le type de correction d'exposition par rapport à l'image d'ancrage"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:19
 msgid "exposure anchor:"
@@ -2811,14 +2802,3 @@ msgstr "Assemblage"
 msgid "Abort"
 msgstr "Abandonner"
 
-#~ msgid "No images - Nothing to do"
-#~ msgstr "Pas d'image - Rien à faire"
-
-#~ msgid "Warning"
-#~ msgstr "Attention"
-
-#~ msgid "Center dialog"
-#~ msgstr "Dialogue de centrage"
-
-#~ msgid "center image shifting it with d and e"
-#~ msgstr "Centrer l'image en la décalant de « d » et « e »"
