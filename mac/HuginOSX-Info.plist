@@ -38,10 +38,8 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string></string>
+	<string>0.5OSXb2</string>
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
-	<key>CFBundleVersion</key>
-	<string>0.5rc1-OSXb1</string>
 </dict>
 </plist>
