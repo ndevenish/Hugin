@@ -10,7 +10,7 @@ if [ $MONO = "" ]
 then 
  echo "Error: Mono not found"
  echo "You need Mono the .Net environment to use autopano-sift."
- exit 2;
+ exit 1;
 fi
 
 # Set this to the directory you installed autopano-sift into, for example
@@ -84,15 +84,18 @@ for arg do
 	KEYFILES="$KEYFILES $FILENAME"
 	if [ -f $FILENAME ]; then
 		if [ $CLEAN -ne 0 ]; then
+            echo "$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE"
 			$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE
 		else
 			echo "Using previously generated keypoint file: $FILENAME"
 		fi
 	else
+		echo "$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE"
 		$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE
 	fi
 done
 
 echo "keyfiles: $KEYFILES"
 ARG="--ransac $RANSAC --maxmatches $POINTS";
+echo "$MONO $AUTOPANO_PATH/autopano.exe $ARG $PANOFILE $KEYFILES"
 $MONO $AUTOPANO_PATH/autopano.exe $ARG $PANOFILE $KEYFILES
