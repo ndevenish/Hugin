@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-19 10:03+0300\n"
+"POT-Creation-Date: 2005-05-21 13:38+0300\n"
 "PO-Revision-Date: 2005-02-23 01:13+0100\n"
 "Last-Translator: Luca Vascon <crimsonkingit@yahoo.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -49,7 +49,7 @@ msgstr "Scegliere il programma Autopano / script"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:152 src/hugin/PreferencesDialog.cpp:175
 #: src/hugin/PreferencesDialog.cpp:191 src/hugin/PreferencesDialog.cpp:207
-#: src/hugin/PreferencesDialog.cpp:223 src/hugin/RunOptimizerFrame.cpp:117
+#: src/hugin/PreferencesDialog.cpp:223 src/hugin/RunOptimizerFrame.cpp:111
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Eseguibili (*.exe)|*.exe"
@@ -207,58 +207,58 @@ msgstr "nessun comando da annullare"
 msgid "no command in redo history"
 msgstr "Non ci sono comandi da ripristinare"
 
-#: src/hugin/CPEditorPanel.cpp:162 src/hugin/CPListFrame.cpp:276
+#: src/hugin/CPEditorPanel.cpp:163 src/hugin/CPListFrame.cpp:276
 #: src/hugin/CPListFrame.cpp:286 src/hugin/ImagesList.cpp:52
 msgid "#"
 msgstr "#"
 
-#: src/hugin/CPEditorPanel.cpp:163
+#: src/hugin/CPEditorPanel.cpp:164
 msgid "left x"
 msgstr "sinistra x"
 
-#: src/hugin/CPEditorPanel.cpp:164
+#: src/hugin/CPEditorPanel.cpp:165
 msgid "left y"
 msgstr "sinistra y"
 
-#: src/hugin/CPEditorPanel.cpp:165
+#: src/hugin/CPEditorPanel.cpp:166
 msgid "right x"
 msgstr "destra x"
 
-#: src/hugin/CPEditorPanel.cpp:166
+#: src/hugin/CPEditorPanel.cpp:167
 msgid "right y"
 msgstr "destra y"
 
-#: src/hugin/CPEditorPanel.cpp:167 src/hugin/CPListFrame.cpp:283
+#: src/hugin/CPEditorPanel.cpp:168 src/hugin/CPListFrame.cpp:283
 #: src/hugin/CPListFrame.cpp:289
 msgid "Alignment"
 msgstr "Allineamento"
 
-#: src/hugin/CPEditorPanel.cpp:168 src/hugin/CPListFrame.cpp:284
+#: src/hugin/CPEditorPanel.cpp:169 src/hugin/CPListFrame.cpp:284
 #: src/hugin/CPListFrame.cpp:290
 msgid "Distance"
 msgstr "Distanza"
 
-#: src/hugin/CPEditorPanel.cpp:542
+#: src/hugin/CPEditorPanel.cpp:539
 msgid "No corresponding point found"
 msgstr "Nessuna corrispondenza trovata"
 
-#: src/hugin/CPEditorPanel.cpp:613
+#: src/hugin/CPEditorPanel.cpp:610
 msgid "new control point added"
 msgstr "nessun punto di controllo aggiunto."
 
-#: src/hugin/CPEditorPanel.cpp:713 src/hugin/CPEditorPanel.cpp:919
+#: src/hugin/CPEditorPanel.cpp:710 src/hugin/CPEditorPanel.cpp:916
 msgid "searching similar point..."
 msgstr "Ricerca punto simile..."
 
-#: src/hugin/CPEditorPanel.cpp:732 src/hugin/CPEditorPanel.cpp:847
+#: src/hugin/CPEditorPanel.cpp:729 src/hugin/CPEditorPanel.cpp:844
 msgid "Error during Fine-tune"
 msgstr "Errore  durante la calibrazione"
 
-#: src/hugin/CPEditorPanel.cpp:763
+#: src/hugin/CPEditorPanel.cpp:760
 msgid "Estimated point outside image"
 msgstr "Punto stimato fuori dall'immagine"
 
-#: src/hugin/CPEditorPanel.cpp:965
+#: src/hugin/CPEditorPanel.cpp:962
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -267,7 +267,7 @@ msgstr ""
 "Punto calibrato, angolo: %.0f grad, coefficente correlazionet: %0.3f, "
 "curvatura: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:971
+#: src/hugin/CPEditorPanel.cpp:968
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -278,36 +278,36 @@ msgstr ""
 "Coeff. correlazione: %.3f (dovrebbe essere > %.3f)\n"
 "Curvatura picco: (%.3f, %.3f) ( dovrebbe essere > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:973
+#: src/hugin/CPEditorPanel.cpp:970
 msgid "No similar point found"
 msgstr "Nessun punto simile trovato"
 
-#: src/hugin/CPEditorPanel.cpp:1355 src/hugin/CPListFrame.cpp:402
-#: src/hugin/PreviewFrame.cpp:160 src/hugin/xrc/cp_editor_panel.xrs:24
+#: src/hugin/CPEditorPanel.cpp:1352 src/hugin/CPListFrame.cpp:402
+#: src/hugin/PreviewFrame.cpp:167 src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "normal"
 msgstr "normale"
 
-#: src/hugin/CPEditorPanel.cpp:1358 src/hugin/CPListFrame.cpp:405
+#: src/hugin/CPEditorPanel.cpp:1355 src/hugin/CPListFrame.cpp:405
 msgid "vert. Line"
 msgstr "linea vert."
 
-#: src/hugin/CPEditorPanel.cpp:1361 src/hugin/CPListFrame.cpp:408
+#: src/hugin/CPEditorPanel.cpp:1358 src/hugin/CPListFrame.cpp:408
 msgid "horiz. Line"
 msgstr "Linea orizz."
 
-#: src/hugin/CPEditorPanel.cpp:1636
+#: src/hugin/CPEditorPanel.cpp:1633
 msgid "Cannot estimate image position without control points"
 msgstr "Senza punti di controllo non posso posizionare le immagini "
 
-#: src/hugin/CPEditorPanel.cpp:1827
+#: src/hugin/CPEditorPanel.cpp:1824
 msgid "Select Point in right image"
 msgstr "Scelglere punto in immagine dx"
 
-#: src/hugin/CPEditorPanel.cpp:1839
+#: src/hugin/CPEditorPanel.cpp:1836
 msgid "Select Point in left image"
 msgstr "Scelglere punto in immagine sx"
 
-#: src/hugin/CPEditorPanel.cpp:1858
+#: src/hugin/CPEditorPanel.cpp:1855
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Cambiare i punti, o premere tasto DX per aggiungere la coppia"
 
@@ -315,7 +315,7 @@ msgstr "Cambiare i punti, o premere tasto DX per aggiungere la coppia"
 msgid "Control point finetune"
 msgstr "Calibrazione punti di controllo"
 
-#: src/hugin/CPImageCtrl.cpp:777
+#: src/hugin/CPImageCtrl.cpp:781
 msgid "Could not process event!"
 msgstr "Could not process event!"
 
@@ -414,7 +414,7 @@ msgstr ""
 msgid "Ok"
 msgstr "Ok"
 
-#: src/hugin/ImageCenter.cpp:110 src/hugin/RunOptimizerFrame.cpp:320
+#: src/hugin/ImageCenter.cpp:110 src/hugin/RunOptimizerFrame.cpp:314
 #: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:70
 msgid "Cancel"
 msgstr "Cancella"
@@ -523,7 +523,7 @@ msgid "Full frame fisheye"
 msgstr "Fisheye full-frame"
 
 #: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:223
-#: src/hugin/PreviewFrame.cpp:420 src/hugin/xrc/lens_panel.xrs:6
+#: src/hugin/PreviewFrame.cpp:427 src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr "Equirettangolare"
 
@@ -814,11 +814,11 @@ msgstr "errore in Enblend"
 msgid "The druid has no advice."
 msgstr "Il Druido scuote la testa."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:548
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:555
 msgid "The druid finds no problems with your panorama."
 msgstr "Il druido non ha rilevato problemi nel tuo panorama."
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:549
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:556
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -827,11 +827,11 @@ msgstr ""
 "Assembla ora l'immagine panoramica finale, usa poi un editor\n"
 "di immagini come GIMP per fare gli ultimi ritocchi."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:568
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:575
 msgid "Warning:  you haven't saved the current project."
 msgstr "Attenzione: il progetto corrente non e' stato salvato."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:576
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -841,11 +841,11 @@ msgstr ""
 "non dimenticare di salvare il file di progetto\n"
 "per poter correggere i valori in un secondo tempo."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:564
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:571
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Attenzione : il file da assemblare ha dimensioni considerevoli."
 
-#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:565
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:572
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -861,11 +861,11 @@ msgstr ""
 "automatico nelle Opzioni Panorama per determinare\n"
 "le dimensioni in pixel che daranno la qualità migliore."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:560
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:567
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "L' Angolo di campo orizzontale (HFOV) potrebbe essere troppo piccolo"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:561
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:568
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -961,19 +961,19 @@ msgstr ""
 "dei punti di controllo, si aggiungano coppie di punti che\n"
 "indichino luoghi di sovrapposizione tra immagini contigue."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:556
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:563
 msgid "Add at least one more image."
 msgstr "Aggiungere almeno un'altra immagine."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:557
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:564
 msgid "You should have at least two files listed in the Images tab."
 msgstr "E' necesario avere almeno due files selezionati nella tab immagini."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:552
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:559
 msgid "To get started, add some image files."
 msgstr "Per cominciare, aggiungere delle immagini da file."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:553
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:560
 msgid "You can add any number of images using the Images tab."
 msgstr ""
 "E' possibile aggiungere immagini in qualsiasi numero, usando il pannello "
@@ -983,11 +983,11 @@ msgstr ""
 msgid "the Panorama druid"
 msgstr "il druido Panoramix"
 
-#: src/hugin/PanoPanel.cpp:221 src/hugin/PreviewFrame.cpp:418
+#: src/hugin/PanoPanel.cpp:221 src/hugin/PreviewFrame.cpp:425
 msgid "Rectilinear"
 msgstr "Rettilineare"
 
-#: src/hugin/PanoPanel.cpp:222 src/hugin/PreviewFrame.cpp:419
+#: src/hugin/PanoPanel.cpp:222 src/hugin/PreviewFrame.cpp:426
 msgid "Cylindrical"
 msgstr "Cilindrica"
 
@@ -1031,8 +1031,8 @@ msgstr "Italiano"
 msgid "Select PTStitcher"
 msgstr "Seleziona  PTStitcher.exe"
 
-#: src/hugin/PreferencesDialog.cpp:188 src/hugin/RunOptimizerFrame.cpp:115
-#: src/hugin/RunOptimizerFrame.cpp:133
+#: src/hugin/PreferencesDialog.cpp:188 src/hugin/RunOptimizerFrame.cpp:109
+#: src/hugin/RunOptimizerFrame.cpp:127
 msgid "Select PTOptimizer"
 msgstr "Seleziona PTOptimizer"
 
@@ -1061,63 +1061,63 @@ msgstr "panoinfo"
 msgid "Unknown Version"
 msgstr "Versione sconosciuta"
 
-#: src/hugin/PreviewFrame.cpp:75
+#: src/hugin/PreviewFrame.cpp:81
 msgid "Panorama preview"
 msgstr "Anteprima panorama"
 
-#: src/hugin/PreviewFrame.cpp:88
+#: src/hugin/PreviewFrame.cpp:95
 msgid "displayed images"
 msgstr "immagini visibili"
 
-#: src/hugin/PreviewFrame.cpp:123
+#: src/hugin/PreviewFrame.cpp:130
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:127
+#: src/hugin/PreviewFrame.cpp:134
 msgid "drag to change the vertical field of view"
 msgstr "trascina per cambiare l'angolo di campo vert."
 
-#: src/hugin/PreviewFrame.cpp:136
+#: src/hugin/PreviewFrame.cpp:143
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:141
+#: src/hugin/PreviewFrame.cpp:148
 msgid "drag to change the horizontal field of view"
 msgstr "trascina per cambiare l'angolo di campo orizz."
 
-#: src/hugin/PreviewFrame.cpp:152
+#: src/hugin/PreviewFrame.cpp:159
 msgid "Preview Options"
 msgstr "Opzioni Anteprima"
 
-#: src/hugin/PreviewFrame.cpp:155
+#: src/hugin/PreviewFrame.cpp:162
 msgid "Blend mode:"
 msgstr "Unione:"
 
-#: src/hugin/PreviewFrame.cpp:161
+#: src/hugin/PreviewFrame.cpp:168
 msgid "difference"
 msgstr "differenza"
 
-#: src/hugin/PreviewFrame.cpp:162
+#: src/hugin/PreviewFrame.cpp:169
 msgid "seams"
 msgstr "giunture"
 
-#: src/hugin/PreviewFrame.cpp:302
+#: src/hugin/PreviewFrame.cpp:309
 msgid "rectilinear"
 msgstr "rettilineare"
 
-#: src/hugin/PreviewFrame.cpp:305
+#: src/hugin/PreviewFrame.cpp:312
 msgid "cylindrical"
 msgstr "cilindrica"
 
-#: src/hugin/PreviewFrame.cpp:308
+#: src/hugin/PreviewFrame.cpp:315
 msgid "equirectangular"
 msgstr "equirettangolare"
 
-#: src/hugin/PreviewFrame.cpp:545
+#: src/hugin/PreviewFrame.cpp:552
 msgid "The druid has no advice at this time."
 msgstr "Il Druido non sa che pesci pigliare, stavolta."
 
-#: src/hugin/PreviewPanel.cpp:258
+#: src/hugin/PreviewPanel.cpp:257
 msgid "Error during Stitching"
 msgstr "Errore durante lo Stitching"
 
@@ -1172,33 +1172,33 @@ msgstr "PTStitcher.exe non supporta il formato QTVR in Windows e Linux"
 msgid "PTStitcher note"
 msgstr "nota PTStitcher"
 
-#: src/hugin/RunOptimizerFrame.cpp:123
+#: src/hugin/RunOptimizerFrame.cpp:117
 msgid "No PTOptimizer.exe selected"
 msgstr "Non hai selezionato il PTOptimizer.exe"
 
-#: src/hugin/RunOptimizerFrame.cpp:141
+#: src/hugin/RunOptimizerFrame.cpp:135
 #, fuzzy
 msgid "No PTOptimizer selected"
 msgstr "Non hai selezionato il PTOptimizer.exe"
 
-#: src/hugin/RunOptimizerFrame.cpp:165
+#: src/hugin/RunOptimizerFrame.cpp:159
 msgid "Failed to launch PTOptimizer."
 msgstr "Avvio di PTOptimizer fallito."
 
-#: src/hugin/RunOptimizerFrame.cpp:176
+#: src/hugin/RunOptimizerFrame.cpp:170
 msgid "Could not obtain PTOptimizer output"
 msgstr "PTOptimizer output non ottenuto"
 
-#: src/hugin/RunOptimizerFrame.cpp:186
+#: src/hugin/RunOptimizerFrame.cpp:180
 msgid "Stop"
 msgstr "Stop"
 
-#: src/hugin/RunOptimizerFrame.cpp:248
+#: src/hugin/RunOptimizerFrame.cpp:242
 #, c-format
 msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr "Strategy %d, Iteration %d, distanza media: %f"
 
-#: src/hugin/RunOptimizerFrame.cpp:352
+#: src/hugin/RunOptimizerFrame.cpp:346
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1221,7 +1221,7 @@ msgstr ""
 "well,\n"
 "when the images are already aligned well."
 
-#: src/hugin/RunOptimizerFrame.cpp:354
+#: src/hugin/RunOptimizerFrame.cpp:348
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
