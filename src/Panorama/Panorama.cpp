@@ -108,8 +108,8 @@ bool PT::getPTParam(std::string & output, const std::string & line, const std::s
 {
     std::string::size_type p;
     if ((p=line.find(std::string(" ") + parameter)) == std::string::npos) {
-//        DEBUG_ERROR("could not find param " << parameter
-//                    << " in line: " << line);
+        DEBUG_INFO("could not find param " << parameter
+                    << " in line: " << line);
         return false;
     }
     p += 2;
@@ -123,7 +123,7 @@ bool PT::getPTStringParam(std::string & output, const std::string & line, const 
 {
     std::string::size_type p;
     if ((p=line.find(std::string(" ") + parameter + "\"")) == std::string::npos) {
-        DEBUG_ERROR("could not find string param " << parameter
+        DEBUG_INFO("could not find string param " << parameter
                     << " in line: " << line);
         return false;
     }
