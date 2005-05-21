@@ -215,7 +215,11 @@ void CPImageCtrl::SetZoomView(CPZoomDisplayPanel * d)
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
+#ifdef USE_WX253
+    wxSize vSize = GetClientSize();
+#else
     wxSize vSize = GetVirtualSize();
+#endif
     // draw image (FIXME, redraw only visible regions.)
     if (editState != NO_IMAGE) {
         if (bitmap.GetWidth() < vSize.GetWidth()) {
