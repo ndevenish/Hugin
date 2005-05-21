@@ -1,3 +1,81 @@
+2005-05-21 15:09  dwilkins42
+
+	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update
+	  source code lines in translations
+
+2005-05-21 15:07  dwilkins42
+
+	* src/jhead/exif.cpp: Convert spurious error to info msg
+
+2005-05-21 15:06  dwilkins42
+
+	* src/hugin/CPImageCtrl.cpp: Fix redraw error on windows for
+	  control points editor tab
+
+2005-05-20 18:18  dwilkins42
+
+	* src/hugin/: po/fr.po, xrc/data/about_fr.htm: New french
+	  translation and fixes
+
+2005-05-20 18:07  dwilkins42
+
+	* src/hugin/: gnome-mime-application-x-ptoptimizer-script.png,
+	  hugin.desktop, hugin.desktop.tmpl, hugin.xml: add new files
+	  required for desktop integration
+
+2005-05-20 18:03  dwilkins42
+
+	* configure.ac, src/hugin/.cvsignore, src/hugin/Makefile.am,
+	  src/hugin/xrc/data/Makefile.am: Add GNOME desktop integration
+
+2005-05-20 17:57  dwilkins42
+
+	* src/hugin/PreviewFrame.cpp: Fix compilation on wx 2.4.2
+
+2005-05-20 17:12  ippei
+
+	* mac/HuginOSX-Info.plist: Mac: changed the version to osxb2
+
+2005-05-20 17:10  ippei
+
+	* src/hugin/RunOptimizerFrame.cpp: Mac: removing header include
+	  which is already moved to huginApp.h
+
+2005-05-20 17:09  ippei
+
+	* src/hugin/huginApp.cpp: Mac: bundle access code hopefully fixed
+	  the bug.
+
+2005-05-20 17:05  ippei
+
+	* mac/autopano-complete-mac.sh: Mac: more verbose autopano script
+
+2005-05-19 23:34  dangelo
+
+	* src/hugin/hugin.vcproj: windows debug build uses
+	  SUBSYSTEM:Console now. (nice trick, doug, didn't know that this
+	  is possible)
+
+2005-05-19 23:32  dangelo
+
+	* src/: hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/hugin/PreviewPanel.h: do not update when preview window
+	  is minimized. Unfortunately, we can't be notified when the
+	  preview window is un-minimized. Therefore we cannot update the
+	  preview then, even if it is desired by the auto-update.
+	  Workaround: removed minimize box from Preview Frame
+
+2005-05-19 14:16  dwilkins42
+
+	* src/hugin/CPEditorPanel.cpp: Better fix for sash position issue
+	  on wxMSW
+
+2005-05-19 10:13  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Update translations
+
 2005-05-19 09:22  dangelo
 
 	* src/hugin/PreferencesDialog.cpp: bugfix: forgot to apply the
