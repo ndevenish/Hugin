@@ -780,7 +780,7 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
     if (FirstOffset < 8 || FirstOffset > 16){
         // I used to ensure this was set to 8 (website I used indicated its 8)
         // but PENTAX Optio 230 has it set differently, and uses it as offset. (Sept 11 2002)
-        DEBUG_ERROR("Suspicious offset of first IFD value");
+        DEBUG_INFO("Suspicious offset of first IFD value");
     }
 
     LastExifRefd = ExifSection;
