@@ -1,3 +1,17 @@
+2005-05-22 05:35  dwilkins42
+
+	* src/hugin/Makefile.am: Add desktop integration files to dist
+	  target
+
+2005-05-21 21:38  dwilkins42
+
+	* src/Panorama/Panorama.cpp: Change DEBUG_ERROR to DEBUG_INFO to
+	  avoid error on .oto import
+
+2005-05-21 17:14  dwilkins42
+
+	* ChangeLog: Update changelog for snapshot 050521
+
 2005-05-21 15:09  dwilkins42
 
 	* src/hugin/po/: de.po, fr.po, hugin.pot, it.po, pl.po: Update

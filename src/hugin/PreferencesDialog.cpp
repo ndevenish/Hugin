@@ -242,7 +242,7 @@ void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
 #endif
                     wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_AutoPanoSiftExe", wxTextCtrl)->SetValue(
+	XRCCTRL(*this, "prefs_AutoPanoSIFTExe", wxTextCtrl)->SetValue(
 		dlg.GetPath());
     }
 }
