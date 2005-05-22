@@ -48,7 +48,7 @@ sharedmimepackage_DATA = hugin.xml
 gnomemimeicondir = $(datadir)/icons/gnome/48x48/mimetypes
 gnomemimeicon_DATA = gnome-mime-application-x-ptoptimizer-script.png
 
-EXTRA_DIST = hugin.vcproj hugin_rc.rc
+EXTRA_DIST = hugin.vcproj hugin_rc.rc hugin.desktop hugin.xml gnome-mime-application-x-ptoptimizer-script.png
 
 .rc.o:
 	$(RCCOMPILE) -i $< -o $@
