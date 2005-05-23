@@ -1,4 +1,10 @@
 tell application "Finder"
+	display alert "This feature is currently not supported." message Â
+		"Using autopano-sift files inside HuginOSX application package is not stable and hence not recommended. If it did not work for you and would like to remove it from the package, please use 'Show Package Contents' in Finder and delete autopano-sift folder in Resources folder.  You will also need to install Mono in order to use autopano-sift." as warning
+	
+	display alert "autopano-sift uses patented algorithm." message Â
+		"Please read its readme and license files carefully before use." as warning
+	
 	copy "" to autopanoDirPath
 	repeat while autopanoDirPath is equal to ""
 		copy (choose folder with prompt "Where is autopano-sift bin folder?" without invisibles) to autopanoDirPath
