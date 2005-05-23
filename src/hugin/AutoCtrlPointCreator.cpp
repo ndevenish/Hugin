@@ -40,6 +40,7 @@
 
 #ifdef __WXMAC__
 #include "hugin/MyExternalCmdExecDialog.h"
+#include "common/wxPlatform.h"
 
 #include <wx/utils.h>
 #endif
@@ -104,19 +105,31 @@ void AutoCtrlPointCreator::automatch(Panorama & pano,
     int t = wxConfigBase::Get()->Read(wxT("/AutoPano/Type"),HUGIN_AP_TYPE);
     if (t < 0) {
 
-	wxString tmp[2];
+        wxString tmp[2];
     	tmp[0] = _("Autopano (version 1.03 or greater), from http://autopano.kolor.com");
     	tmp[1] = _("Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/");
     	// determine autopano type
     	wxSingleChoiceDialog d(NULL,  _("Choose which autopano program should be used\n"), _("Select autopano type"),
 	   	 	       2, tmp, NULL);
-
-	if (d.ShowModal() == wxID_OK) {
-	    t = d.GetSelection();
-	} else {
-	    return;
-	}
+        
+        if (d.ShowModal() == wxID_OK) {
+            t = d.GetSelection();
+        } else {
+            return;
+        }
     }
+    
+#ifdef __WXMAC__
+    if(t==0)
+    {
+        if(wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for Mac"), 
+                        _("Would you select to use Autopano-Sift instead?"),
+                        wxOK|wxCANCEL|wxICON_EXCLAMATION)
+           == wxOK) t=1;
+        else return;
+    }
+#endif
+    
     switch (t) {
 	case 0:
 	{
@@ -160,24 +173,22 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
 #elif (defined __WXMAC__)
-    wxString autopanoExe = MacGetPathTOBundledResourceFile(CFSTR(HUGIN_APSIFT_EXE));
+    wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT("autopano-complete.sh"));
 
-    if(autopanoExe == wxT(""))
+    if (!wxFile::Exists(autopanoExe)) autopanoExe = MacGetPathTOBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
+
+    if(autopanoExe == wxT("") || !wxFile::Exists(autopanoExe))
     {
-        autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
-        
-        if (!wxFile::Exists(autopanoExe)){
-            wxFileDialog dlg(0,_("Select autopano frontend script"),
-                             wxT(""), wxT(""),
-                             _("Shell Scripts (*.sh)|*.sh"),
-                             wxOPEN, wxDefaultPosition);
-            if (dlg.ShowModal() == wxID_OK) {
-                autopanoExe = dlg.GetPath();
-                wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
-            } else {
-                wxLogError(_("No autopano selected"));
-                return;
-            }
+        wxFileDialog dlg(0,_("Select autopano frontend script"),
+                         wxT(""), wxT(""),
+                         _("Shell Scripts (*.sh)|*.sh"),
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            autopanoExe = dlg.GetPath();
+            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExe"), autopanoExe);
+        } else {
+            wxLogError(_("No autopano selected"));
+            return;
         }
     }
 #else
@@ -257,9 +268,9 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     if(autopanoExeDir == wxT(""))
         autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
     
-    while (!wxFileExists(autopanoExeDir+wxT("/autopano.exe")) || !wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe")) )
+    while (!( wxFileExists(autopanoExeDir+wxT("/autopano.exe")) && wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe")) && wxFileExists(autopanoExeDir+wxT("/libsift.dll")) ))
     {
-        wxDirDialog dlg(0, _("Select the directory where autopano-sift .Net executables can be found."));
+        wxDirDialog dlg(0, _("Select the directory where autopano-sift's .Net executables can be found."));
         if (dlg.ShowModal() == wxID_OK)
         {
             autopanoExeDir = dlg.GetPath();
@@ -272,7 +283,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
     
-    autopanoArgs = ( wxT("-a ") + autopanoExeDir + wxT(" ") ) + autopanoArgs;
+    autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
 #endif
     
 #ifdef __WXMSW__
@@ -432,9 +443,6 @@ void AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     } else {
 	ret = WEXITSTATUS(ret);
     }
-#elif __WXMAC__
-    // use MyExternalCmdExecDialog
-    int ret = MyExecuteCommandOnDialog(cmd, 0);
 #else
     int ret = wxExecute(cmd, wxEXEC_SYNC);
 #endif
