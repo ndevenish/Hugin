@@ -81,7 +81,7 @@
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
-#define HUGIN_APSIFT_EXE                      "autopano-complete-mac.sh"
+#define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
 
 
