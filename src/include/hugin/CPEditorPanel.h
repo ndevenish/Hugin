@@ -37,8 +37,13 @@
 
 #include <PT/Panorama.h>
 
-// use wxChoice instead of tabnotebook
-//#define HUGIN_CP_IMG_CHOICE
+#ifdef __WXMAC__
+// use wxChoice
+#define HUGIN_CP_IMG_CHOICE
+#endif
+
+// use wxNotebook tab
+#define HUGIN_CP_IMG_TAB
 
 #include "CPImageCtrl.h"
 
@@ -167,7 +172,8 @@ private:
 #ifdef HUGIN_CP_IMG_CHOICE
     void OnLeftChoiceChange(wxCommandEvent & e);
     void OnRightChoiceChange(wxCommandEvent & e);
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
     void OnLeftImgChange(wxNotebookEvent & e);
     void OnRightImgChange(wxNotebookEvent & e);
 #endif
@@ -242,7 +248,8 @@ private:
 #ifdef HUGIN_CP_IMG_CHOICE
     wxChoice *m_leftChoice;
     wxChoice *m_rightChoice;
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
     wxNotebook *m_leftTabs, *m_rightTabs;
 #endif
     CPImageCtrl *m_leftImg, *m_rightImg;

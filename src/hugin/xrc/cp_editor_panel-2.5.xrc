@@ -25,14 +25,14 @@
                           
                               
                               <tooltip>previous image pair</tooltip>
-                        </object>
+                            </object>
                         
                             
                             <flag>wxALL|wxEXPAND</flag>
                         
                             
                             <border>3</border>
-                      </object>
+                          </object>
                           <object class="sizeritem">
                             <object class="wxNotebook" name="cp_editor_left_tab"/>
                         
@@ -47,7 +47,14 @@
                         
                             
                             <minsize>1,15</minsize>
-                      </object>
+                          </object>
+                          <object class="sizeritem" platform="mac">
+                                <object class="wxChoice" name="cp_editor_left_choice" platform="mac"/>
+                                <option>0</option>
+                                <flag>wxALL|wxADJUST_MINSIZE|wxALIGN_CENTRE_VERTICAL</flag>
+                                <border>1</border>
+                                <minsize>56,15</minsize>
+                          </object>
                         </object>
                     
                         
@@ -79,6 +86,13 @@
                       <object class="sizeritem">
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
+                          <object class="sizeritem" platform="mac">
+                                <object class="wxChoice" name="cp_editor_right_choice" platform="mac"/>
+                                <option>0</option>
+                                <flag>wxALL|wxADJUST_MINSIZE|wxALIGN_CENTRE_VERTICAL</flag>
+                                <border>1</border>
+                                <minsize>56,15</minsize>
+                          </object>
                           <object class="sizeritem">
                             <object class="wxNotebook" name="cp_editor_right_tab"/>
                         

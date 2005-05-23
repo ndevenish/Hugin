@@ -87,8 +87,9 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_CPEVENT(CPEditorPanel::OnCPEvent)
 #ifdef HUGIN_CP_IMG_CHOICE
     EVT_CHOICE(XRCID("cp_editor_left_choice"), CPEditorPanel::OnLeftChoiceChange )
-    EVT_CHOICE(XRCID("cp_editor_right_choice"), CPEditorPanel::OnLeftChoiceChange )
-#else
+    EVT_CHOICE(XRCID("cp_editor_right_choice"), CPEditorPanel::OnRightChoiceChange )
+#endif
+#ifdef HUGIN_CP_IMG_TAB
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_left_tab"),CPEditorPanel::OnLeftImgChange )
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
 #endif
@@ -119,14 +120,15 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
 
-#ifndef HUGIN_CP_IMG_CHOICE
+#ifdef HUGIN_CP_IMG_TAB
     wxPoint tabsz(1,14);
     tabsz = ConvertDialogToPixels(tabsz);
     int tabH = tabsz.y;
     // left image
     m_leftTabs = XRCCTRL(*this, "cp_editor_left_tab", wxNotebook);
     m_leftTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
-#else
+#endif
+#ifdef HUGIN_CP_IMG_CHOICE
     m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
 #endif
 
@@ -135,10 +137,11 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
                                                m_leftImg);
 
     // right image
-#ifndef HUGIN_CP_IMG_CHOICE
+#ifdef HUGIN_CP_IMG_TAB
     m_rightTabs = XRCCTRL(*this, "cp_editor_right_tab", wxNotebook);
     m_rightTabs->SetSizeHints(1,tabH,1000,tabH,-1,-1);
-#else
+#endif
+#ifdef HUGIN_CP_IMG_CHOICE
     m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
 #endif
     m_rightImg = new CPImageCtrl(this);
@@ -369,8 +372,8 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         if (m_leftChoice->GetSelection() != (int) imgNr) {
             m_leftChoice->SetSelection(imgNr);
         }
-
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
         if (m_leftTabs->GetSelection() != (int) imgNr) {
             m_leftTabs->SetSelection(imgNr);
         }
@@ -407,7 +410,8 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         if (m_rightChoice->GetSelection() != (int) imgNr) {
             m_rightChoice->SetSelection(imgNr);
         }
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
         if (m_rightTabs->GetSelection() != (int) imgNr) {
             m_rightTabs->SetSelection(imgNr);
         }
@@ -1160,7 +1164,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 //            if (newi != i) {
 //                DEBUG_FATAL("wxChoice indicies do not match image numbers");
 //            }
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
               wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
               // update tab buttons
               if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
@@ -1205,7 +1210,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 #ifdef HUGIN_CP_IMG_CHOICE
             m_leftChoice->Delete(i);
             m_rightChoice->Delete(i);
-#else
+#endif
+#ifdef HUGIN_CP_IMG_TAB
             DEBUG_DEBUG("removing tab " << i);
             m_leftTabs->DeletePage(i);
             m_rightTabs->DeletePage(i);
@@ -1479,8 +1485,9 @@ void CPEditorPanel::OnRightChoiceChange(wxCommandEvent & e)
         setRightImage((unsigned int) e.GetSelection());
     }
 }
+#endif
 
-#else
+#ifdef HUGIN_CP_IMG_TAB
 void CPEditorPanel::OnLeftImgChange(wxNotebookEvent & e)
 {
     DEBUG_TRACE("OnLeftImgChange() to " << e.GetSelection());
