@@ -68,7 +68,7 @@ using namespace std;
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
     DEBUG_TRACE("OnDropFiles");
-    if (filenames.GetCount() == 1) {
+    if (!m_imageOnly && filenames.GetCount() == 1) {
         wxFileName file(filenames[0]);
         if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
             file.GetExt().CmpNoCase(wxT("ptp")) == 0 ||

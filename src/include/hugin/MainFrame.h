@@ -51,13 +51,15 @@ class CPListFrame;
 class PanoDropTarget : public wxFileDropTarget
 {
 public:
-    PanoDropTarget(PT::Panorama & p)
+    PanoDropTarget(PT::Panorama & p, bool imageOnly = false)
         : pano(p)
-        { }
+    { m_imageOnly = imageOnly; }
+    
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
 private:
     PT::Panorama & pano;
+    bool m_imageOnly;
 };
 
 

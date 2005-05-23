@@ -32,6 +32,10 @@
 #include "hugin/ImagesList.h"
 #include "hugin/ImageCache.h"
 
+#ifdef __WXMAC__
+#include "hugin/MainFrame.h"
+#endif
+
 using namespace PT;
 using namespace utils;
 
@@ -64,6 +68,9 @@ pano(*pano)
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigits"),1);
     m_distDigits = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigits"),3);
+#ifdef __WXMAC__
+    SetDropTarget(new PanoDropTarget(*pano, true));
+#endif
 }
 
 ImagesList::~ImagesList(void)
