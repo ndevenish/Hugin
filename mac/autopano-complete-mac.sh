@@ -1,16 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 # by Pablo d'Angelo <pablo.dangelo@web.de>
 # modified by Ippei UKAI <ippei_ukai@mac.com> for HuginOSX
 
 set -e
 
+myexit()
+{
+    sleep 10
+    exit 1
+}
+
 MONO=$(which mono)
-if [ $MONO = "" ]
+if [ "$MONO" = "" -o ! -x "$MONO" ]
 then 
  echo "Error: Mono not found"
- echo "You need Mono the .Net environment to use autopano-sift."
- exit 1;
+ echo "You need to install Mono the .Net environment to use autopano-sift."
+ myexit
 fi
 
 # Set this to the directory you installed autopano-sift into, for example
@@ -35,7 +41,7 @@ usage()
 	echo "  -n           no ransac detection, useful for fisheye images"
 	echo "  -c           do not reuse keypoints detected in earlier runs,"
 	echo "              deletes old keypoint files."
-	exit 1
+	myexit
 }
 
 echo `basename "$0"` "$@"
@@ -50,7 +56,7 @@ echo `basename "$0"` "$@"
 args=`getopt o:a:s:p:nch $*`
 set -- $args
 
-if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+if [ $? != 0 ] ; then echo "Error! (parsing arguments failed)"; echo "Terminating..." >&2 ; myexit; fi
 
 
 POINTS=10;
@@ -68,7 +74,7 @@ while true ; do
                 -c) CLEAN=1; shift 1;;
                 -h) usage; shift 1;;
                 --) shift ; break ;;
-                *) echo "Command line parsing error at: $1" ; exit 1 ;;
+                *) echo "Command line parsing error at: $1" ; myexit ;;
         esac
 done
 
@@ -78,24 +84,31 @@ for arg do echo '--> '"\`$arg'" ; done
 # Allow user to override temporary directory.
 TMP=${TMPDIR:-/tmp}
 
+if [ ! -f "$AUTOPANO_PATH/generatekeys-sd.exe" ]
+then echo error "Cannot locate generatekeys-sd.exe in $AUTOPANO_PATH"; myexit; fi
+if [ ! -f "$AUTOPANO_PATH/autopano.exe" ]
+then echo error "Cannot locate autopano.exe in $AUTOPANO_PATH"; myexit; fi
+
 KEYFILES=""
 for arg do
         FILENAME=$(basename $arg).key.gz
 	KEYFILES="$KEYFILES $FILENAME"
 	if [ -f $FILENAME ]; then
 		if [ $CLEAN -ne 0 ]; then
-            echo "$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE"
-			$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE
+            echo "$MONO \"$AUTOPANO_PATH/generatekeys-sd.exe\" $arg $FILENAME $SIZE"
+			$MONO "$AUTOPANO_PATH/generatekeys-sd.exe" $arg $FILENAME $SIZE
 		else
 			echo "Using previously generated keypoint file: $FILENAME"
 		fi
 	else
-		echo "$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE"
-		$MONO $AUTOPANO_PATH/generatekeys-sd.exe $arg $FILENAME $SIZE
+		echo "$MONO \"$AUTOPANO_PATH/generatekeys-sd.exe\" $arg $FILENAME $SIZE"
+		$MONO "$AUTOPANO_PATH/generatekeys-sd.exe" $arg $FILENAME $SIZE
 	fi
 done
 
 echo "keyfiles: $KEYFILES"
 ARG="--ransac $RANSAC --maxmatches $POINTS";
-echo "$MONO $AUTOPANO_PATH/autopano.exe $ARG $PANOFILE $KEYFILES"
-$MONO $AUTOPANO_PATH/autopano.exe $ARG $PANOFILE $KEYFILES
+echo "$MONO \"$AUTOPANO_PATH/autopano.exe\" $ARG $PANOFILE $KEYFILES"
+$MONO "$AUTOPANO_PATH/autopano.exe" $ARG $PANOFILE $KEYFILES
+
+sleep 3;
