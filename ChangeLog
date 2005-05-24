@@ -1,3 +1,9 @@
+2005-05-24 10:32  dwilkins42
+
+	* ChangeLog, src/hugin/po/de.po, src/hugin/po/fr.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/pl.po:
+	  Remove obviously wrong fuzzy translations. Add OSX strings
+
 2005-05-24 10:12  dwilkins42
 
 	* ChangeLog, src/hugin/AutoCtrlPointCreator.cpp,

@@ -130,7 +130,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
     m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
-    DEBUG_ASSERT(m_leftChoice);
 #endif
 
     m_leftImg = new CPImageCtrl(this);
@@ -144,7 +143,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
     m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
-    DEBUG_ASSERT(m_rightChoice);
 #endif
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
@@ -1115,10 +1113,6 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_autoAddCB->Disable();
       m_fineTuneCB->Disable();
       m_estimateCB->Disable();
-#ifdef HUGIN_CP_IMG_CHOICE
-	  m_leftChoice->Disable();
-	  m_rightChoice->Disable();
-#endif
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
@@ -1129,10 +1123,6 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_autoAddCB->Enable();
       m_fineTuneCB->Enable();
       m_estimateCB->Enable();
-#ifdef HUGIN_CP_IMG_CHOICE
-	  m_leftChoice->Enable();
-	  m_rightChoice->Enable();
-#endif
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
@@ -1145,9 +1135,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       if (nrTabs < nrImages) {
           for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
-			  wxFileName lrFileName(wxString(pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
-              m_leftChoice->Append(lrFileName.GetFullName());
-              m_rightChoice->Append(lrFileName.GetFullName());
+              m_leftChoice->Append(wxString::Format(wxT("%d"), i));
+              m_rightChoice->Append(wxString::Format(wxT("%d"), i));
 #endif
 #ifdef HUGIN_CP_IMG_TAB
               wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
@@ -1372,7 +1361,6 @@ void CPEditorPanel::UpdateDisplay()
     }
 
     m_cpList->Show();
-    // clear selectedPoint marker
 }
 
 void CPEditorPanel::EnablePointEdit(bool state)
@@ -1848,7 +1836,6 @@ void CPEditorPanel::changeState(CPCreationState newState)
 void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 {
     if (m_pano->getNrOfImages() < 2) return;
-//    int nImgs = m_leftTabs->GetPageCount();
     int nImgs = m_pano->getNrOfImages();
     int left = m_leftImageNr -1;
     int right = m_rightImageNr -1;
@@ -1870,7 +1857,6 @@ void CPEditorPanel::OnPrevImg(wxCommandEvent & e)
 void CPEditorPanel::OnNextImg(wxCommandEvent & e)
 {
     if (m_pano->getNrOfImages() < 2) return;
-//    int nImgs = m_leftTabs->GetPageCount();
     int nImgs = m_pano->getNrOfImages();
     int left = m_leftImageNr + 1;
     int right = m_rightImageNr + 1;
@@ -1905,7 +1891,7 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           const FDiff2D & movePnt)
 {
     long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
-    long sWidth = templWidth + wxConfigBase::Get()->Read(wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
+	long sWidth = templWidth + wxConfigBase::Get()->Read(wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
     CorrelationResult result;
     PointFineTune(srcNr,
                   srcPnt,
