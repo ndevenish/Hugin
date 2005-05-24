@@ -1,3 +1,51 @@
+2005-05-24 10:12  dwilkins42
+
+	* ChangeLog, src/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin/CPEditorPanel.cpp,
+	  src/hugin/xrc/cp_editor_panel-2.5.xrc,
+	  src/include/hugin/CPEditorPanel.h: Use wxChoice for cp Editor Tab
+	  on all platforms for wx > 2.5.3
+
+2005-05-23 17:47  ippei
+
+	* mac/PutAutopanoSiftToHuginOSX.applescript: Mac: no support for
+	  including autopano files inside the application bundle, also
+	  license warning for sift algorithm
+
+2005-05-23 17:41  ippei
+
+	* src/: hugin/ImagesList.cpp, hugin/MainFrame.cpp,
+	  include/hugin/MainFrame.h: Mac: DnD support for image list
+
+2005-05-23 17:38  ippei
+
+	* src/: hugin/NonaStitcherPanel.cpp,
+	  include/hugin/config_defaults.h: Mac: use the executable
+	  specified in preference if it exists
+
+2005-05-23 17:36  ippei
+
+	* src/hugin/AutoCtrlPointCreator.cpp: Mac: attempt to solve the
+	  pano-sift bug.  Mac: use the executable specified in preference
+	  if it exists
+
+2005-05-23 17:28  ippei
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/xrc/cp_editor_panel-2.5.xrc,
+	  include/hugin/CPEditorPanel.h: Mac: adding chooser in addition to
+	  tabs so that you can handle images when tab is too long
+
+2005-05-23 17:17  ippei
+
+	* mac/autopano-complete-mac.sh: Mac: as verbose as possible; still
+	  buggy...
+
+2005-05-23 17:01  ippei
+
+	* mac/Notes/: install-JpegPngTiff.rtf, install-boost.rtf,
+	  install-fftw.rtf, install-pano12.rtf, install-wx.rtf: Mac:
+	  Developer notes
+
 2005-05-22 06:52  dwilkins42
 
 	* ChangeLog, src/hugin/PreferencesDialog.cpp: Avoid crash when

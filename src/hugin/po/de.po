@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-21 13:38+0300\n"
+"POT-Creation-Date: 2005-05-24 10:13+0300\n"
 "PO-Revision-Date: 2005-05-18 08:55+0100\n"
 "Last-Translator: Joachim Schneider\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -22,88 +22,95 @@ msgstr ""
 "X-Poedit-Basepath: /home/pablo/src/my/hugin-0.4\n"
 "X-Poedit-SearchPath-0: /home/pablo/src/my/hugin-0.4\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:93
+#: src/hugin/AutoCtrlPointCreator.cpp:94
 #, c-format
 msgid "Added %d control points"
 msgstr "%d Kontrollpunkte hinzugefügt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:93
+#: src/hugin/AutoCtrlPointCreator.cpp:94
 msgid "Autopano result"
 msgstr "Autopano-Ergebnisse"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:108
+#: src/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (Version 1.03 oder höher), von http://autopano.kolor.com"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:109
+#: src/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift, von http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Choose which autopano program should be used\n"
 msgstr "Wählen Sie, welches Autopano-Programm sie verwenden wollen\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Select autopano type"
 msgstr "Wählen Sie den Autopano-Typ"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:150
-#: src/hugin/AutoCtrlPointCreator.cpp:371
+#: src/hugin/AutoCtrlPointCreator.cpp:125
+msgid "Autopano from http://autopano.kolor.com is not available for OSX"
+msgstr ""
+
+#: src/hugin/AutoCtrlPointCreator.cpp:126
+msgid "Would you like to use Autopano-Sift instead?"
+msgstr ""
+
+#: src/hugin/AutoCtrlPointCreator.cpp:163
+#: src/hugin/AutoCtrlPointCreator.cpp:382
 msgid "Select autopano program / frontend script"
 msgstr "Wählen Sie das Autopano-Programm / Oberflächenskript"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:152 src/hugin/PreferencesDialog.cpp:175
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:175
 #: src/hugin/PreferencesDialog.cpp:191 src/hugin/PreferencesDialog.cpp:207
 #: src/hugin/PreferencesDialog.cpp:223 src/hugin/RunOptimizerFrame.cpp:111
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Ausführbare Dateien (*.exe)|*.exe"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:158
-#: src/hugin/AutoCtrlPointCreator.cpp:178
-#: src/hugin/AutoCtrlPointCreator.cpp:379
+#: src/hugin/AutoCtrlPointCreator.cpp:171
+#: src/hugin/AutoCtrlPointCreator.cpp:190
+#: src/hugin/AutoCtrlPointCreator.cpp:390
 msgid "No autopano selected"
 msgstr "Kein Autopano-Programm ausgewählt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:170
-#, fuzzy
+#: src/hugin/AutoCtrlPointCreator.cpp:182
 msgid "Select autopano frontend script"
-msgstr "Autopano-Sift auswählen"
+msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:172
+#: src/hugin/AutoCtrlPointCreator.cpp:184
 msgid "Shell Scripts (*.sh)|*.sh"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:217
+#: src/hugin/AutoCtrlPointCreator.cpp:228
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
 "Bitte benutzen Sie entweder %namefile oder %i in der Autopano-Sift-"
 "Kommandozeile"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:218
-#: src/hugin/AutoCtrlPointCreator.cpp:223
+#: src/hugin/AutoCtrlPointCreator.cpp:229
+#: src/hugin/AutoCtrlPointCreator.cpp:234
 msgid "Error in Autopano command"
 msgstr "Fehler im Autopano-Kommando"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:222
+#: src/hugin/AutoCtrlPointCreator.cpp:233
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Bitte benutzen Sie %namefile oder %i für die Eingabedatei von Autopano-Sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:262
-#, fuzzy
-msgid "Select the directory where autopano-sift .Net executables can be found."
-msgstr "Wählen sie den Autopano Typ"
+#: src/hugin/AutoCtrlPointCreator.cpp:273
+msgid ""
+"Select the directory where autopano-sift's .Net executables can be found."
+msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:270
+#: src/hugin/AutoCtrlPointCreator.cpp:281
 msgid "No autopano directory selected"
 msgstr "Kein Autopano-Verzeichnis ausgewählt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:280
-#: src/hugin/AutoCtrlPointCreator.cpp:417
+#: src/hugin/AutoCtrlPointCreator.cpp:291
+#: src/hugin/AutoCtrlPointCreator.cpp:428
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -115,18 +122,18 @@ msgstr ""
 "Bitte wählen Sie weniger Bilder oder plazieren Sie die Bilder in einem\n"
 "Ordner mit einem kürzeren Pfadnamen"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:281
-#: src/hugin/AutoCtrlPointCreator.cpp:418 src/hugin/NonaStitcherPanel.cpp:364
+#: src/hugin/AutoCtrlPointCreator.cpp:292
+#: src/hugin/AutoCtrlPointCreator.cpp:429 src/hugin/NonaStitcherPanel.cpp:364
 msgid "Too many images selected"
 msgstr "Zu viele Bilder ausgewählt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:290
-#: src/hugin/AutoCtrlPointCreator.cpp:425
+#: src/hugin/AutoCtrlPointCreator.cpp:301
+#: src/hugin/AutoCtrlPointCreator.cpp:436
 msgid "Running autopano"
 msgstr "Starte Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:290
-#: src/hugin/AutoCtrlPointCreator.cpp:425
+#: src/hugin/AutoCtrlPointCreator.cpp:301
+#: src/hugin/AutoCtrlPointCreator.cpp:436
 msgid ""
 "Please wait while autopano searches control points\n"
 "See the command window for autopanos' progress"
@@ -134,31 +141,31 @@ msgstr ""
 "Bitte warten Sie, während Autopano die Kontrollpunkte sucht\n"
 "Der Fortschritt kann im Kommando-Fenster beobachtet werden."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319
-#: src/hugin/AutoCtrlPointCreator.cpp:335
-#: src/hugin/AutoCtrlPointCreator.cpp:443 src/hugin/NonaStitcherPanel.cpp:413
+#: src/hugin/AutoCtrlPointCreator.cpp:330
+#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:451 src/hugin/NonaStitcherPanel.cpp:413
 #: src/hugin/NonaStitcherPanel.cpp:426
 msgid "Could not execute command: "
 msgstr "Konnte den Befehl nicht ausführen:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:319
+#: src/hugin/AutoCtrlPointCreator.cpp:330
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteEx fehlgeschlagen"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:335
-#: src/hugin/AutoCtrlPointCreator.cpp:340
-#: src/hugin/AutoCtrlPointCreator.cpp:443
-#: src/hugin/AutoCtrlPointCreator.cpp:449 src/hugin/NonaStitcherPanel.cpp:426
+#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:351
+#: src/hugin/AutoCtrlPointCreator.cpp:451
+#: src/hugin/AutoCtrlPointCreator.cpp:457 src/hugin/NonaStitcherPanel.cpp:426
 msgid "wxExecute Error"
 msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:338
-#: src/hugin/AutoCtrlPointCreator.cpp:447 src/hugin/NonaStitcherPanel.cpp:429
+#: src/hugin/AutoCtrlPointCreator.cpp:349
+#: src/hugin/AutoCtrlPointCreator.cpp:455 src/hugin/NonaStitcherPanel.cpp:429
 msgid "command: "
 msgstr "Kommando:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:339
-#: src/hugin/AutoCtrlPointCreator.cpp:448 src/hugin/NonaStitcherPanel.cpp:430
+#: src/hugin/AutoCtrlPointCreator.cpp:350
+#: src/hugin/AutoCtrlPointCreator.cpp:456 src/hugin/NonaStitcherPanel.cpp:430
 msgid ""
 "\n"
 "failed with error code: "
@@ -166,13 +173,13 @@ msgstr ""
 "\n"
 "Fehlgeschlagen mit Fehlerkode:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:346
-#: src/hugin/AutoCtrlPointCreator.cpp:456
+#: src/hugin/AutoCtrlPointCreator.cpp:357
+#: src/hugin/AutoCtrlPointCreator.cpp:464
 msgid "Could not open "
 msgstr "Konnte nicht öffnen"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:346
-#: src/hugin/AutoCtrlPointCreator.cpp:456
+#: src/hugin/AutoCtrlPointCreator.cpp:357
+#: src/hugin/AutoCtrlPointCreator.cpp:464
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -186,16 +193,16 @@ msgstr ""
 "\n"
 "Autopano Kommando:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:347
-#: src/hugin/AutoCtrlPointCreator.cpp:459
+#: src/hugin/AutoCtrlPointCreator.cpp:358
+#: src/hugin/AutoCtrlPointCreator.cpp:467
 msgid "autopano failure"
 msgstr "Autopano-Fehler"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:373 src/hugin/PreferencesDialog.cpp:239
+#: src/hugin/AutoCtrlPointCreator.cpp:384 src/hugin/PreferencesDialog.cpp:239
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Ausführbare (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:457
+#: src/hugin/AutoCtrlPointCreator.cpp:465
 msgid ""
 "\n"
 " current directory:"
@@ -211,58 +218,58 @@ msgstr "Kein Kommando im Rücknahmeprotokoll"
 msgid "no command in redo history"
 msgstr "Kein Kommando im Wiederherstellenprotokoll"
 
-#: src/hugin/CPEditorPanel.cpp:163 src/hugin/CPListFrame.cpp:276
-#: src/hugin/CPListFrame.cpp:286 src/hugin/ImagesList.cpp:52
+#: src/hugin/CPEditorPanel.cpp:168 src/hugin/CPListFrame.cpp:276
+#: src/hugin/CPListFrame.cpp:286 src/hugin/ImagesList.cpp:56
 msgid "#"
 msgstr "#"
 
-#: src/hugin/CPEditorPanel.cpp:164
+#: src/hugin/CPEditorPanel.cpp:169
 msgid "left x"
 msgstr "x links"
 
-#: src/hugin/CPEditorPanel.cpp:165
+#: src/hugin/CPEditorPanel.cpp:170
 msgid "left y"
 msgstr "y links"
 
-#: src/hugin/CPEditorPanel.cpp:166
+#: src/hugin/CPEditorPanel.cpp:171
 msgid "right x"
 msgstr "x rechts"
 
-#: src/hugin/CPEditorPanel.cpp:167
+#: src/hugin/CPEditorPanel.cpp:172
 msgid "right y"
 msgstr "y rechts"
 
-#: src/hugin/CPEditorPanel.cpp:168 src/hugin/CPListFrame.cpp:283
+#: src/hugin/CPEditorPanel.cpp:173 src/hugin/CPListFrame.cpp:283
 #: src/hugin/CPListFrame.cpp:289
 msgid "Alignment"
 msgstr "Ausrichtung"
 
-#: src/hugin/CPEditorPanel.cpp:169 src/hugin/CPListFrame.cpp:284
+#: src/hugin/CPEditorPanel.cpp:174 src/hugin/CPListFrame.cpp:284
 #: src/hugin/CPListFrame.cpp:290
 msgid "Distance"
 msgstr "Abstand"
 
-#: src/hugin/CPEditorPanel.cpp:539
+#: src/hugin/CPEditorPanel.cpp:525
 msgid "No corresponding point found"
 msgstr "Kein korrespondierender Punkt gefunden"
 
-#: src/hugin/CPEditorPanel.cpp:610
+#: src/hugin/CPEditorPanel.cpp:596
 msgid "new control point added"
 msgstr "Neuer Kontrollpunkt hinzugefügt"
 
-#: src/hugin/CPEditorPanel.cpp:710 src/hugin/CPEditorPanel.cpp:916
+#: src/hugin/CPEditorPanel.cpp:696 src/hugin/CPEditorPanel.cpp:902
 msgid "searching similar point..."
 msgstr "Suche ähnlichen Punkt..."
 
-#: src/hugin/CPEditorPanel.cpp:729 src/hugin/CPEditorPanel.cpp:844
+#: src/hugin/CPEditorPanel.cpp:715 src/hugin/CPEditorPanel.cpp:830
 msgid "Error during Fine-tune"
 msgstr "Fehler während der Feinabstimmung"
 
-#: src/hugin/CPEditorPanel.cpp:760
+#: src/hugin/CPEditorPanel.cpp:746
 msgid "Estimated point outside image"
 msgstr "Geschätzter Punkt außerhalb des Bildes"
 
-#: src/hugin/CPEditorPanel.cpp:962
+#: src/hugin/CPEditorPanel.cpp:948
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -271,7 +278,7 @@ msgstr ""
 "Punkt feinjustiert, Winkel: %.0f °, Korrelationskoeffizient: %0.3f, "
 "Krümmung: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:968
+#: src/hugin/CPEditorPanel.cpp:954
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -282,36 +289,36 @@ msgstr ""
 "Korrelationskoeffizient: %.3f (sollte > %.3f)\n"
 "Größte Krümmung: (%.3f, %.3f) ( sollte > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:970
+#: src/hugin/CPEditorPanel.cpp:956
 msgid "No similar point found"
 msgstr "Keinen ähnlichen Punkt gefunden"
 
-#: src/hugin/CPEditorPanel.cpp:1352 src/hugin/CPListFrame.cpp:402
+#: src/hugin/CPEditorPanel.cpp:1342 src/hugin/CPListFrame.cpp:402
 #: src/hugin/PreviewFrame.cpp:167 src/hugin/xrc/cp_editor_panel.xrs:24
 msgid "normal"
 msgstr "normal"
 
-#: src/hugin/CPEditorPanel.cpp:1355 src/hugin/CPListFrame.cpp:405
+#: src/hugin/CPEditorPanel.cpp:1345 src/hugin/CPListFrame.cpp:405
 msgid "vert. Line"
 msgstr "vert. Linie"
 
-#: src/hugin/CPEditorPanel.cpp:1358 src/hugin/CPListFrame.cpp:408
+#: src/hugin/CPEditorPanel.cpp:1348 src/hugin/CPListFrame.cpp:408
 msgid "horiz. Line"
 msgstr "horiz. Linie"
 
-#: src/hugin/CPEditorPanel.cpp:1633
+#: src/hugin/CPEditorPanel.cpp:1620
 msgid "Cannot estimate image position without control points"
 msgstr "Bildposition kann ohne Kontrollpunkte nicht geschätzt werden"
 
-#: src/hugin/CPEditorPanel.cpp:1824
+#: src/hugin/CPEditorPanel.cpp:1811
 msgid "Select Point in right image"
 msgstr "Punkt im rechten Bild wählen"
 
-#: src/hugin/CPEditorPanel.cpp:1836
+#: src/hugin/CPEditorPanel.cpp:1823
 msgid "Select Point in left image"
 msgstr "Punkt im linken Bild wählen"
 
-#: src/hugin/CPEditorPanel.cpp:1855
+#: src/hugin/CPEditorPanel.cpp:1842
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Punkte ändern oder mit der rechten Maustaste das Paar hinzufügen"
 
@@ -430,99 +437,99 @@ msgstr "Bitte eine gültige Zahl eingeben"
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 msgstr "Drehung: %.1f Neigung:%.1f Rollen:%.1f"
 
-#: src/hugin/ImagesList.cpp:232 src/hugin/ImagesList.cpp:280
+#: src/hugin/ImagesList.cpp:239 src/hugin/ImagesList.cpp:287
 msgid "Filename"
 msgstr "Dateiname"
 
-#: src/hugin/ImagesList.cpp:233
+#: src/hugin/ImagesList.cpp:240
 msgid "width"
 msgstr "Breite"
 
-#: src/hugin/ImagesList.cpp:234
+#: src/hugin/ImagesList.cpp:241
 msgid "height"
 msgstr "Höhe"
 
-#: src/hugin/ImagesList.cpp:235
+#: src/hugin/ImagesList.cpp:242
 msgid "yaw (y)"
 msgstr "Drehung (y)"
 
-#: src/hugin/ImagesList.cpp:236
+#: src/hugin/ImagesList.cpp:243
 msgid "pitch (p)"
 msgstr "Neigung (p)"
 
-#: src/hugin/ImagesList.cpp:237
+#: src/hugin/ImagesList.cpp:244
 msgid "roll (r)"
 msgstr "Rollen (r)"
 
-#: src/hugin/ImagesList.cpp:238
+#: src/hugin/ImagesList.cpp:245
 msgid "Anchor"
 msgstr "Anker"
 
-#: src/hugin/ImagesList.cpp:239
+#: src/hugin/ImagesList.cpp:246
 msgid "# Ctrl Pnts"
 msgstr "# Punkte"
 
-#: src/hugin/ImagesList.cpp:281
+#: src/hugin/ImagesList.cpp:288
 msgid "Lens no."
 msgstr "Objektiv Nr."
 
-#: src/hugin/ImagesList.cpp:282
+#: src/hugin/ImagesList.cpp:289
 msgid "Lens type (f)"
 msgstr "Projektion (f)"
 
-#: src/hugin/ImagesList.cpp:283
+#: src/hugin/ImagesList.cpp:290
 msgid "hfov (v)"
 msgstr "Bildwinkel (v)"
 
-#: src/hugin/ImagesList.cpp:284
+#: src/hugin/ImagesList.cpp:291
 msgid "a"
 msgstr "a"
 
-#: src/hugin/ImagesList.cpp:285
+#: src/hugin/ImagesList.cpp:292
 msgid "b"
 msgstr "b"
 
-#: src/hugin/ImagesList.cpp:286
+#: src/hugin/ImagesList.cpp:293
 msgid "c"
 msgstr "c"
 
-#: src/hugin/ImagesList.cpp:287
+#: src/hugin/ImagesList.cpp:294
 msgid "d"
 msgstr "d"
 
-#: src/hugin/ImagesList.cpp:288
+#: src/hugin/ImagesList.cpp:295
 msgid "e"
 msgstr "e"
 
-#: src/hugin/ImagesList.cpp:289
+#: src/hugin/ImagesList.cpp:296
 msgid "g"
 msgstr "g"
 
-#: src/hugin/ImagesList.cpp:290
+#: src/hugin/ImagesList.cpp:297
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:291
+#: src/hugin/ImagesList.cpp:298
 msgid "Crop"
 msgstr "Crop"
 
-#: src/hugin/ImagesList.cpp:305 src/hugin/xrc/lens_panel.xrs:2
+#: src/hugin/ImagesList.cpp:312 src/hugin/xrc/lens_panel.xrs:2
 msgid "Normal (rectilinear)"
 msgstr "Normal (rectilinear)"
 
-#: src/hugin/ImagesList.cpp:306 src/hugin/xrc/lens_panel.xrs:3
+#: src/hugin/ImagesList.cpp:313 src/hugin/xrc/lens_panel.xrs:3
 msgid "Panoramic (cylindrical)"
 msgstr "Zylindrisch"
 
-#: src/hugin/ImagesList.cpp:307 src/hugin/xrc/lens_panel.xrs:4
+#: src/hugin/ImagesList.cpp:314 src/hugin/xrc/lens_panel.xrs:4
 msgid "Circular fisheye"
 msgstr "Fischauge kreisförmig"
 
-#: src/hugin/ImagesList.cpp:308 src/hugin/xrc/lens_panel.xrs:5
+#: src/hugin/ImagesList.cpp:315 src/hugin/xrc/lens_panel.xrs:5
 msgid "Full frame fisheye"
 msgstr "Fischauge Vollbild"
 
-#: src/hugin/ImagesList.cpp:309 src/hugin/PanoPanel.cpp:223
+#: src/hugin/ImagesList.cpp:316 src/hugin/PanoPanel.cpp:223
 #: src/hugin/PreviewFrame.cpp:427 src/hugin/xrc/lens_panel.xrs:6
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
