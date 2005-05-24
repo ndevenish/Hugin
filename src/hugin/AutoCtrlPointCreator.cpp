@@ -122,8 +122,8 @@ void AutoCtrlPointCreator::automatch(Panorama & pano,
 #ifdef __WXMAC__
     if(t==0)
     {
-        if(wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for Mac"), 
-                        _("Would you select to use Autopano-Sift instead?"),
+        if(wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for OSX"), 
+                        _("Would you like to use Autopano-Sift instead?"),
                         wxOK|wxCANCEL|wxICON_EXCLAMATION)
            == wxOK) t=1;
         else return;

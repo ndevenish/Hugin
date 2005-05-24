@@ -130,6 +130,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
     m_leftChoice = XRCCTRL(*this, "cp_editor_left_choice", wxChoice);						
+    DEBUG_ASSERT(m_leftChoice);
 #endif
 
     m_leftImg = new CPImageCtrl(this);
@@ -143,6 +144,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 #endif
 #ifdef HUGIN_CP_IMG_CHOICE
     m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", wxChoice);						
+    DEBUG_ASSERT(m_rightChoice);
 #endif
     m_rightImg = new CPImageCtrl(this);
     wxXmlResource::Get()->AttachUnknownControl(wxT("cp_editor_right_img"),
@@ -225,28 +227,6 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     // setup splitter between images and bottom row.
     m_cp_splitter = XRCCTRL(*this, "cp_editor_panel_splitter", wxSplitterWindow);
 	DEBUG_ASSERT(m_cp_splitter);
-/*
-    leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
-    DEBUG_ASSERT(leftWindow);
-    rightWindow = XRCCTRL(*this, "cp_editor_split_bottom", wxPanel);
-    DEBUG_ASSERT(rightWindow);
-    if ( m_cp_splitter->IsSplit() ) {
-        m_cp_splitter->Unsplit();
-    }
-    leftWindow->Show(true);
-    rightWindow->Show(true);
-#ifdef USE_WX26x
-	m_cp_splitter->SetSashGravity(0.5);
-#endif
-	m_cp_splitter->SetMinimumPaneSize(20);
-    m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
-	m_cp_splitter->SetMinimumPaneSize(20);
-    int sashpos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
-	m_cp_splitter->SetSashPosition(sashpos);
-*/
-    wxSize sz = m_cp_splitter->GetSize();
-    wxSize sz1 = m_cp_splitter->GetWindow1()->GetSize();
-    wxSize sz2 = m_cp_splitter->GetWindow2()->GetSize();
 #endif
 
     // apply selection from xrc file
@@ -270,6 +250,8 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_estimateCB->Disable();
 	XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
 	XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+	XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
+	XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
 
     // observe the panorama
     m_pano->addObserver(this);
@@ -1133,18 +1115,28 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_autoAddCB->Disable();
       m_fineTuneCB->Disable();
       m_estimateCB->Disable();
+#ifdef HUGIN_CP_IMG_CHOICE
+	  m_leftChoice->Disable();
+	  m_rightChoice->Disable();
+#endif
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
+	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
 	} else {
 	  // enable controls
   	  m_cpModeChoice->Enable();
-      //m_addButton->Enable();
-      //m_delButton->Enable();
       m_autoAddCB->Enable();
       m_fineTuneCB->Enable();
       m_estimateCB->Enable();
+#ifdef HUGIN_CP_IMG_CHOICE
+	  m_leftChoice->Enable();
+	  m_rightChoice->Enable();
+#endif
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
+	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
+	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Enable();
 
   	  // FIXME: lets hope that nobody holds references to these images..
       ImageCache::getInstance().softFlush();
@@ -1153,17 +1145,9 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       if (nrTabs < nrImages) {
           for (unsigned int i=nrTabs; i < nrImages; i++) {
 #ifdef HUGIN_CP_IMG_CHOICE
-//            int newi = m_leftChoice->Insert(wxString::Format(wxT("%d"), i), i);
-              m_leftChoice->Append(wxString::Format(wxT("%d"), i));
-
-//            if (newi != i) {
-//                DEBUG_FATAL("wxChoice indicies do not match image numbers");
-//            }
-//            newi = m_rightChoice->Insert(wxString::Format(wxT("%d"), i), i);
-              m_rightChoice->Append(wxString::Format(wxT("%d"), i));
-//            if (newi != i) {
-//                DEBUG_FATAL("wxChoice indicies do not match image numbers");
-//            }
+			  wxFileName lrFileName(wxString(pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
+              m_leftChoice->Append(lrFileName.GetFullName());
+              m_rightChoice->Append(lrFileName.GetFullName());
 #endif
 #ifdef HUGIN_CP_IMG_TAB
               wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
@@ -1387,10 +1371,6 @@ void CPEditorPanel::UpdateDisplay()
         EnablePointEdit(false);
     }
 
-    // autosize all columns // not needed , set defaults on InsertColum Kai-Uwe
-/*    for (int i=0; i<7; i++) {
-        m_cpList->SetColumnWidth(i,wxLIST_AUTOSIZE);
-    }*/
     m_cpList->Show();
     // clear selectedPoint marker
 }
@@ -1642,7 +1622,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
 #endif
 
     } else if (e.ControlDown() && e.GetKeyCode() == WXK_LEFT) {
-        // move to next
+        // move to previous
         wxCommandEvent dummy;
         OnPrevImg(dummy);
     } else if (e.ControlDown() && e.GetKeyCode() == WXK_RIGHT) {

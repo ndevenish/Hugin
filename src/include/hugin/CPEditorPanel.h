@@ -37,13 +37,13 @@
 
 #include <PT/Panorama.h>
 
-#ifdef __WXMAC__
+#ifdef USE_WX253
 // use wxChoice
 #define HUGIN_CP_IMG_CHOICE
-#endif
-
+#else
 // use wxNotebook tab
 #define HUGIN_CP_IMG_TAB
+#endif
 
 #include "CPImageCtrl.h"
 
