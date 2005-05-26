@@ -95,6 +95,9 @@ private:
     void OnRemoveCtrlPoints(wxCommandEvent & e);
     void OnResetImagePositions(wxCommandEvent & e);
 
+    void OnMoveImageUp(wxCommandEvent & e);
+    void OnMoveImageDown(wxCommandEvent & e);
+
     /** gui -> pano
      *
      *  usually for events to set the new pano state
@@ -137,6 +140,8 @@ private:
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
     wxButton * m_setAnchorOrientButton;
+    wxButton * m_moveUpButton;
+    wxButton * m_moveDownButton;
 
     wxButton * m_matchingButton;
     wxButton * m_removeCPButton;

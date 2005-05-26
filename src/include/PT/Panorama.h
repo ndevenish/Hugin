@@ -401,6 +401,12 @@ public:
      */
     void setLens(unsigned int imgNr, unsigned int lensNr);
 
+    /** swap images.
+     *
+     *  swaps the images, image @p img1 becomes @p img2 and the other way round
+     */
+    void swapImages(unsigned int img1, unsigned int img2);
+
     //===================================
 
     /** add a new control point.

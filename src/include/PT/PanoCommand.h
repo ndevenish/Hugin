@@ -759,6 +759,33 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+    /** swap two images */
+    class SwapImagesCmd : public PanoCommand
+    {
+    public:
+        SwapImagesCmd(Panorama & p, unsigned int i1, unsigned int i2)
+            : PanoCommand(p), m_i1(i1), m_i2(i2)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.swapImages(m_i1, m_i2);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "change lens";
+            }
+    private:
+        unsigned int m_i1;
+        unsigned int m_i2;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
+
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */

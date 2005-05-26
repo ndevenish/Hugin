@@ -65,7 +65,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
 #endif
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
-    EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
+    EVT_LIST_ITEM_DESELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
     EVT_BUTTON     ( XRCID("images_set_orientation_button"), ImagesPanel::OnSelectAnchorPosition)
@@ -74,6 +74,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
     EVT_BUTTON     ( XRCID("images_reset_pos"), ImagesPanel::OnResetImagePositions)
     EVT_BUTTON     ( XRCID("action_remove_images"),  ImagesPanel::OnRemoveImages)
+    EVT_BUTTON     ( XRCID("images_move_image_down"),  ImagesPanel::OnMoveImageDown)
+    EVT_BUTTON     ( XRCID("images_move_image_up"),  ImagesPanel::OnMoveImageUp)
 
     EVT_TEXT_ENTER ( XRCID("images_text_yaw"), ImagesPanel::OnYawTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_pitch"), ImagesPanel::OnPitchTextChanged )
@@ -107,6 +109,10 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     DEBUG_ASSERT(m_matchingButton);
     m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
     DEBUG_ASSERT(m_removeCPButton);
+    m_moveUpButton = XRCCTRL(*this, "images_move_image_up", wxButton);
+    DEBUG_ASSERT(m_moveUpButton);
+    m_moveDownButton = XRCCTRL(*this, "images_move_image_down", wxButton);
+    DEBUG_ASSERT(m_moveDownButton);
 
 #ifdef USE_WX253
     m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxScrolledWindow);
@@ -403,6 +409,8 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_optAnchorButton->Enable();
             m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
+            m_moveDownButton->Enable();
+            m_moveUpButton->Enable();
         } else {
             DEBUG_DEBUG("Multiselection, or no image selected");
             // multiselection, clear all values
@@ -411,6 +419,8 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             m_optAnchorButton->Disable();
             m_setAnchorOrientButton->Disable();
             m_colorAnchorButton->Disable();
+            m_moveDownButton->Disable();
+            m_moveUpButton->Disable();
         }
     }
 }
@@ -431,6 +441,8 @@ void ImagesPanel::DisableImageCtrls()
     m_setAnchorOrientButton->Disable();
 	m_matchingButton->Disable();
 	m_removeCPButton->Disable();
+    m_moveDownButton->Disable();
+    m_moveUpButton->Disable();
 	XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
 	XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
 	
@@ -444,6 +456,8 @@ void ImagesPanel::EnableImageCtrls()
         XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
 		m_matchingButton->Enable();
 		m_removeCPButton->Enable();
+        m_moveDownButton->Enable();
+        m_moveUpButton->Enable();
 		XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
 		XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
     }
@@ -672,4 +686,37 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
             new PT::RemoveCtrlPointsCmd( pano, cpsToDelete ));
     }
 }
+
+void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
+{
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() == 1) {
+        unsigned int i1 = *selImg.begin();
+        unsigned int i2 = i1+1;
+        if (i2 < pano.getNrOfImages() ) {
+            GlobalCmdHist::getInstance().addCommand(
+                new SwapImagesCmd(pano,i1, i2)
+            );
+            // set new selection
+            images_list->SelectSingleImage(i2);
+        }
+    }
+}
+
+void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
+{
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() == 1) {
+        unsigned int i1 = *selImg.begin();
+        unsigned int i2 = i1 -1;
+        if (i1 > 0) {
+            GlobalCmdHist::getInstance().addCommand(
+                new SwapImagesCmd(pano,i1, i2)
+            );
+            // set new selection
+            images_list->SelectSingleImage(i2);
+        }
+    }
+}
+
 

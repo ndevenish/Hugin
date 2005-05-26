@@ -1208,6 +1208,57 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
     removeUnusedLenses();
 }
 
+void Panorama::swapImages(unsigned int img1, unsigned int img2)
+{
+    DEBUG_TRACE("swapping images " << img1 << ", " << img2);
+    DEBUG_ASSERT(img1 < state.images.size());
+    DEBUG_ASSERT(img2 < state.images.size());
+
+    // first, swap image struct
+    PanoImage pimg1 = state.images[img1];
+    state.images[img1] = state.images[img2];
+    state.images[img2] = pimg1;
+
+    // swap variables
+    VariableMap vars1 = state.variables[img1];
+    state.variables[img1] = state.variables[img2];
+    state.variables[img2] = vars1;
+
+    // update control points
+    for (CPVector::iterator it=state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
+        int n1 = (*it).image1Nr;
+        int n2 = (*it).image2Nr;
+        if ((*it).image1Nr == img1) {
+            n1 = img2;
+        } else if ((*it).image1Nr == img2) {
+            n1 = img1;
+        }
+        if ((*it).image2Nr == img1) {
+            n2 = img2;
+        } else if ((*it).image2Nr == img2) {
+            n2 = img1;
+        }
+        (*it).image1Nr = n1;
+        (*it).image2Nr = n2;
+    }    
+
+    // update panorama options
+    if (state.options.colorReferenceImage == img1) {
+        state.options.colorReferenceImage = img2;
+    } else if (state.options.colorReferenceImage == img2) {
+        state.options.colorReferenceImage = img1;
+    }
+    if (state.options.optimizeReferenceImage == img1) {
+        state.options.optimizeReferenceImage = img2;
+    } else if (state.options.optimizeReferenceImage == img2) {
+        state.options.optimizeReferenceImage = img1;
+    }
+
+
+    imageChanged(img1);
+    imageChanged(img2);
+}
+
 void Panorama::removeUnusedLenses()
 {
     for (unsigned int lNr=0; lNr < state.lenses.size(); lNr++) {

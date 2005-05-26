@@ -82,6 +82,12 @@ class ImagesList: public wxListCtrl, public PT::PanoramaObserver
      */
     virtual void RemoveItem(unsigned int imgNr);
 
+    /** Select an image
+     *
+     *  selects image @p imgNr, and deselects all other images
+     */
+    void SelectSingleImage(unsigned int imgNr);
+
     /** get the currently selected images */
     const UIntSet & GetSelected() const
         { return selectedItems; }

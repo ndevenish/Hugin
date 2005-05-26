@@ -196,6 +196,18 @@ void ImagesList::RemoveItem(unsigned int imgNr)
     wxListCtrl::DeleteItem(imgNr);
 }
 
+void ImagesList::SelectSingleImage(unsigned int imgNr)
+{
+    unsigned int nrItems = GetItemCount();
+    for (unsigned int i=0; i < nrItems ; i++) {
+        int selected = GetItemState(i, wxLIST_STATE_SELECTED);
+        if (i != imgNr && selected) {
+            SetItemState(i, 0, wxLIST_STATE_SELECTED);
+        }
+    }
+    SetItemState(imgNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+}
+
 void ImagesList::OnItemSelected ( wxListEvent & e )
 {
     DEBUG_TRACE(e.GetIndex());

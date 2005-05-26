@@ -1254,11 +1254,11 @@ void MainFrame::updateProgressDisplay()
     DEBUG_TRACE("Statusmb : " << msg.mb_str());
     m_statbar->SetStatusText(msg,0);
 
-    // This is a bad call.. we just want to repaint the window, instead we will
-    // process user events as well :( Unfortunately, there is not portable workaround...
 #ifdef __WXMSW__
     UpdateWindow(NULL);
 #else
+    // This is a bad call.. we just want to repaint the window, instead we will
+    // process user events as well :( Unfortunately, there is not portable workaround...
     wxYield();
 #endif
 }

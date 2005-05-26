@@ -500,7 +500,6 @@ private:
 
     CPVector ctrlPoints;
 
-    // FIXME support lenses
     std::vector<Lens> lenses;
     PanoramaOptions options;
 
