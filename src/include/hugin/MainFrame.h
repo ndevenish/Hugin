@@ -124,6 +124,7 @@ public:
 #ifdef __WXMAC__
     void MacOnOpenFile(const wxString & filename);
 #endif
+    bool CloseProject(bool cnacelable);
     
 protected:
     // called when a progress message should be displayed
@@ -161,7 +162,6 @@ private:
     void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void Resize(wxSizeEvent & e);    
-    bool CloseProject(bool cnacelable);
 	void enableTools(bool option);
 
     wxNotebook * m_notebook;

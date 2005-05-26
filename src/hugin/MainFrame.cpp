@@ -74,9 +74,14 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("ptp")) == 0 ||
             file.GetExt().CmpNoCase(wxT("pts")) == 0 )
         {
-            if (MainFrame::Get()) {
+            MainFrame * mf = MainFrame::Get();
+            if (mf) {
                 // load project
-                MainFrame::Get()->LoadProjectFile(file.GetFullPath());
+                if (mf->CloseProject(true)) {
+                    mf->LoadProjectFile(file.GetFullPath());
+                    // remove old images from cache
+                    ImageCache::getInstance().flush();
+                }
             }
             return true;
         }
