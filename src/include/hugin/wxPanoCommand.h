@@ -57,9 +57,20 @@ public:
 
             std::vector<std::string> files = newfiles;
             // check if the files should be sorted by date
-            long sortbydate = wxConfigBase::Get()->Read(wxT("General/SortNewImgByDate"), HUGIN_GUI_SORT_IMG_BY_DATE);
-            if (sortbydate) {
+            long sort = wxConfigBase::Get()->Read(wxT("General/SortNewImgOnAdd"), HUGIN_GUI_SORT_NEW_IMG_ON_ADD);
+
+            switch (sort) {
+            case 1:
+                // sort by filename
+                std::sort(newfiles.begin(), newfiles.end());
+                break;
+            case 2:
+                // sort by date
                 std::sort(newfiles.begin(), newfiles.end(), FileIsNewer());
+                break;
+            default:
+                // no or unknow sort method
+                break;
             }
             
             std::vector<std::string>::const_iterator it;
