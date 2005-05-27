@@ -123,8 +123,10 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     // setup the stitcher
     int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),0l);
 #ifdef __WXMAC__
-    if(t == 5) t = 0; // photoshop output uses PTStitcher
-    m_macOldQuickmodeChoice = t;
+    // disable stitcher choice and select nona,
+    // since PTStitcher is not available on OSX
+    t = 1;
+    m_StitcherChoice->Disable();
 #endif
     m_StitcherChoice->SetSelection(t);
 
@@ -144,7 +146,6 @@ PanoPanel::~PanoPanel(void)
     DEBUG_TRACE("dtor");
     wxConfigBase::Get()->Write(wxT("Stitcher/DefaultStitcher"),m_StitcherChoice->GetSelection());
 
-    // FIXME. why does the crash at exit?
     m_HFOVSpin->PopEventHandler(true);
     m_VFOVSpin->PopEventHandler(true);
     m_WidthTxt->PopEventHandler(true);
@@ -155,30 +156,30 @@ PanoPanel::~PanoPanel(void)
 
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
-	DEBUG_TRACE("");
-	if (pano.getNrOfImages() == 0) {
-      m_ProjectionChoice->Disable();
-      m_HFOVSpin->Disable();
-      m_CalcHFOVButton->Disable();
-      m_VFOVSpin->Disable();
-      m_WidthTxt->Disable();
-      m_CalcOptWidthButton->Disable();
-      m_HeightStaticText->Disable();
-      m_StitcherChoice->Disable();
-      m_QuickChoice->Disable();
-      m_StitchButton->Disable();
-	} else {
-  	  m_ProjectionChoice->Enable();
-      m_HFOVSpin->Enable();
-      m_CalcHFOVButton->Enable();
-      m_VFOVSpin->Enable();
-      m_WidthTxt->Enable();
-      m_CalcOptWidthButton->Enable();
-      m_HeightStaticText->Enable();
-      m_StitcherChoice->Enable();
-      m_QuickChoice->Enable();
-      m_StitchButton->Enable();
-	}
+    DEBUG_TRACE("");
+    if (pano.getNrOfImages() == 0) {
+        m_ProjectionChoice->Disable();
+        m_HFOVSpin->Disable();
+        m_CalcHFOVButton->Disable();
+        m_VFOVSpin->Disable();
+        m_WidthTxt->Disable();
+        m_CalcOptWidthButton->Disable();
+        m_HeightStaticText->Disable();
+        m_StitcherChoice->Disable();
+        m_QuickChoice->Disable();
+        m_StitchButton->Disable();
+    } else {
+        m_ProjectionChoice->Enable();
+        m_HFOVSpin->Enable();
+        m_CalcHFOVButton->Enable();
+        m_VFOVSpin->Enable();
+        m_WidthTxt->Enable();
+        m_CalcOptWidthButton->Enable();
+        m_HeightStaticText->Enable();
+        m_StitcherChoice->Enable();
+        m_QuickChoice->Enable();
+        m_StitchButton->Enable();
+    }
     PanoramaOptions opt = pano.getOptions();
     // update all options for dialog and notebook tab
     UpdateDisplay(opt);
@@ -332,8 +333,9 @@ void PanoPanel::EnableControls(bool enable)
 
 void PanoPanel::ApplyQuickMode(int preset)
 {
-    if (preset == 0)
-        return;
+#ifdef __WXMAC__
+    if(preset == 5) preset = 4; // photoshop output uses PTStitcher
+#endif
 
     PanoramaOptions opts = pano.getOptions();
 
@@ -426,18 +428,7 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
 {
     int preset = m_QuickChoice->GetSelection();
     DEBUG_DEBUG("changing quick stitch preset to " << preset);
-    
-#ifdef __WXMAC__
-    if(preset == 5) // multilayer PSD file (uses PTStitcher)
-    {
-        m_QuickChoice->SetSelection(m_macOldQuickmodeChoice);
-        QuickModeChanged(e);
-        return;
-    }
-    
-    m_macOldQuickmodeChoice = preset;
-#endif
-    
+
     ApplyQuickMode(preset);
 
     switch (preset) {

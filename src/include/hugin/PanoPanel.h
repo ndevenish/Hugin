@@ -139,11 +139,7 @@ public:
     wxButton    * m_StitchButton;
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
-    
-#ifdef __WXMAC__
-    int m_macOldQuickmodeChoice;
-#endif
-    
+
 #ifdef USE_WX253
 	wxScrolledWindow *m_pano_ctrls;
 #endif
