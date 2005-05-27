@@ -143,7 +143,7 @@ if test "x$with_png" != 'xno' ; then
   AC_LANG_SAVE
   AC_LANG_C
   AC_CHECK_HEADER(png.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-  AC_CHECK_LIB([png],[png_get_io_ptr],passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz])
+  AC_CHECK_LIB([png],[png_get_io_ptr],passed=`expr $passed + 1`,failed=`expr $failed + 1`,[-lz -lm])
   AC_LANG_RESTORE
   LDFLAGS="$PNG_OLD_LDFLAGS"
   CPPFLAGS="$PNG_OLD_CPPFLAGS"
