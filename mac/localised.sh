@@ -49,3 +49,10 @@ do
  done
 
 done
+
+
+for xrcfile in `ls | grep mac.xrc`
+do
+  echo copying $xrcfile to build/HuginOSX.app/Contents/Resources/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
+ cp -f $xrcfile build/HuginOSX.app/Contents/Resources/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
+done

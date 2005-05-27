@@ -19,58 +19,30 @@
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
                             <object class="wxBitmapButton" name="cp_editor_previous_img">
-                          
-                              
                               <bitmap stock_id="wxART_GO_BACK"></bitmap>
-                          
-                              
                               <tooltip>previous image pair</tooltip>
                             </object>
-                        
-                            
                             <flag>wxALL|wxEXPAND</flag>
-                        
-                            
                             <border>3</border>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxNotebook" name="cp_editor_left_tab"/>
-                        
-                            
+                            <object class="wxChoice" name="cp_editor_left_choice"/>
                             <option>1</option>
-                        
-                            
-                            <flag>wxALL|wxADJUST_MINSIZE</flag>
-                        
-                            
+                            <flag>wxALL|wxADJUST_MINSIZE|wxALIGN_CENTER</flag>
                             <border>3</border>
-                        
-                            
-                            <minsize>1,15</minsize>
+                            <minsize>1,20</minsize>
                           </object>
                         </object>
-                    
-                        
                         <option>0</option>
-                    
-                        
                         <flag>wxALL|wxEXPAND</flag>
-                    
-                        
                         <border>3</border>
-                  </object>
+                      </object>
                       <object class="sizeritem">
-                        <object class="unknown" name="cp_editor_left_img"/>
-                    
-                        
-                        <option>1</option>
-                    
-                        
-                        <flag>wxALL|wxEXPAND</flag>
-                    
-                        
+                        <object class="unknown" name="cp_editor_left_img"/>                        
+                        <option>1</option>                                        
+                        <flag>wxALL|wxEXPAND</flag>                        
                         <border>3</border>
-                  </object>
+                      </object>
                     </object>
                   </object>
                   <object class="wxPanel" name="cp_editor_split_img_right">
@@ -80,59 +52,31 @@
                         <object class="wxBoxSizer">
                           <orient>wxHORIZONTAL</orient>
                           <object class="sizeritem">
-                            <object class="wxNotebook" name="cp_editor_right_tab"/>
-                        
-                            
+                            <object class="wxChoice" name="cp_editor_right_choice"/>
                             <option>1</option>
-                        
-                            
-                            <flag>wxALL|wxADJUST_MINSIZE</flag>
-                        
-                            
+                            <flag>wxALL|wxADJUST_MINSIZE|wxALIGN_CENTER</flag>
                             <border>3</border>
-                        
-                            
-                            <minsize>1,15</minsize>
-                      </object>
+                            <minsize>1,20</minsize>
+                          </object>
                           <object class="sizeritem">
-                            <object class="wxBitmapButton" name="cp_editor_next_img">
-                          
-                              
-                              <bitmap stock_id="wxART_GO_FORWARD"></bitmap>
-                          
-                              
+                            <object class="wxBitmapButton" name="cp_editor_next_img">                              
+                              <bitmap stock_id="wxART_GO_FORWARD"></bitmap>                              
                               <tooltip>next image pair</tooltip>
-                        </object>
-                        
-                            
+                            </object>
                             <flag>wxALL|wxEXPAND</flag>
-                        
-                            
                             <border>3</border>
-                      </object>
+                          </object>
                         </object>
-                    
-                        
-                        <option>0</option>
-                    
-                        
-                        <flag>wxALL|wxEXPAND</flag>
-                    
-                        
+                        <option>0</option>                        
+                        <flag>wxALL|wxEXPAND</flag>                        
                         <border>3</border>
-                  </object>
+                      </object>
                       <object class="sizeritem">
-                        <object class="unknown" name="cp_editor_right_img"/>
-                    
-                        
-                        <option>1</option>
-                    
-                        
-                        <flag>wxALL|wxEXPAND</flag>
-                    
-                        
+                        <object class="unknown" name="cp_editor_right_img"/>                        
+                        <option>1</option>                        
+                        <flag>wxALL|wxEXPAND</flag>                        
                         <border>3</border>
-                  </object>
+                      </object>
                     </object>
                   </object>
                   <orientation>vertical</orientation>
@@ -140,9 +84,7 @@
                   <minsize>20</minsize>
                   <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
                 </object>
-                
-                <option>1</option>
-                
+                <option>1</option>                
                 <flag>wxEXPAND</flag>
               </object>
             </object>
@@ -159,19 +101,11 @@
                       <object class="wxBoxSizer">
                         <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
-                          <object class="wxListCtrl" name="cp_editor_cp_list">
-                            
-                            
-                            <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
-                            
-                            
+                          <object class="wxListCtrl" name="cp_editor_cp_list">                            
+                            <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>                            
                             <bg>#DCDCDC</bg>
-                          </object>
-                          
-                          
-                          <option>1</option>
-                          
-                          
+                          </object>                          
+                          <option>1</option>                          
                           <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
@@ -181,22 +115,14 @@
                               <object class="wxBoxSizer">
                                 <orient>wxHORIZONTAL</orient>
                                 <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    
-                                    
+                                  <object class="wxStaticText">                                    
                                     <label>Zoom:</label>
-                                  </object>
-                                  
-                                  
-                                  <flag>wxALL|wxALIGN_CENTRE</flag>
-                                  
-                                  
+                                  </object>                                  
+                                  <flag>wxALL|wxALIGN_CENTRE</flag>                                  
                                   <border>3</border>
                                 </object>
                                 <object class="sizeritem">
-                                  <object class="wxComboBox" name="cp_editor_zoom_box">
-                                    
-                                    
+                                  <object class="wxComboBox" name="cp_editor_zoom_box">                                    
                                     <content>
                                       <item>100%</item>
                                       <item>fit to window</item>
@@ -205,43 +131,23 @@
                                       <item>75%</item>
                                       <item>50%</item>
                                       <item>25%</item>
-                                    </content>
-                                    
-                                    
-                                    <selection>1</selection>
-                                    
-                                    
+                                    </content>                                                            
+                                    <selection>1</selection>                                    
                                     <style>wxCB_READONLY|wxCB_DROPDOWN</style>
-                                    
-                                    
                                     <bg>#DCDCDC</bg>
                                   </object>
-                                  
-                                  
                                   <option>1</option>
-                                  
-                                  
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                 </object>
                               </object>
-                              
-                              
                               <flag>wxEXPAND</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="cp_editor_finetune_button">
-                                
-                                
                                 <label>Fine-tune</label>
-                                
-                                
                                 <tooltip>tries to optimize the currently active point.</tooltip>
                               </object>
-                              
-                              
                               <flag>wxLEFT|wxRIGHT</flag>
-                              
-                              
                               <border>3</border>
                             </object>
                             <object class="sizeritem">

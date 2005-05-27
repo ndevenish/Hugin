@@ -40,10 +40,10 @@
 #ifdef __WXMAC__
 // use wxChoice
 #define HUGIN_CP_IMG_CHOICE
-#endif
-
+#else
 // use wxNotebook tab
 #define HUGIN_CP_IMG_TAB
+#endif
 
 #include "CPImageCtrl.h"
 
