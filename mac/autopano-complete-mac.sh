@@ -23,7 +23,7 @@ fi
 #AUTOPANO_PATH="/Users/ippei/Download/HuginOSX/autopano-sift"
 # Do not use a trailing backslash. If the executeables are within your path
 # (recommended, you can leave the line below).
-#AUTOPANO_PATH=$(dirname $(which generatekeys.exe))
+#AUTOPANO_PATH=$(dirname $(which generatekeys-sd.exe))
 
 usage()
 {
