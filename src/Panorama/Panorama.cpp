@@ -888,7 +888,20 @@ void Panorama::printOptimizerScript(ostream & o,
     o << std::endl;
 
     // special line with hugins options.
-    o << "#hugin_options r" << output.optimizeReferenceImage << std::endl;
+    o << "#hugin_options r" << output.optimizeReferenceImage;
+    switch (output.blendMode) {
+    case PanoramaOptions::NO_BLEND:
+        o << " e0";
+        break;
+	case PanoramaOptions::WEIGHTED_BLEND:
+        o << " e1";
+        break;
+    case PanoramaOptions::SPLINE_BLEND:
+        o << " e2";
+    case PanoramaOptions::CHESSBOARD_BLEND:
+        o << " e3";
+    }
+	o << std::endl;
 
 #ifdef __unix__
     // reset locale

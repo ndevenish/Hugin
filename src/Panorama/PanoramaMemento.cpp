@@ -803,6 +803,28 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             if (line.substr(0,14) == "#hugin_options") {
                 DEBUG_DEBUG("parsing special line");
                 getIntParam(options.optimizeReferenceImage, line, "r");
+				int val;
+				if (getIntParam(val,line,"e")) {
+					switch(val) {
+					case 0:
+						options.blendMode = PanoramaOptions::NO_BLEND;
+						break;
+					case 1:
+						options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+						break;
+					case 2:
+						options.blendMode = PanoramaOptions::SPLINE_BLEND;
+						break;
+					case 3:
+						options.blendMode = PanoramaOptions::CHESSBOARD_BLEND;
+						break;
+					default:
+						options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+						break;
+					}
+				} else {
+					options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+				}
             }
             break;
         }
