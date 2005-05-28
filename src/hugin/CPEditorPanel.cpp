@@ -1132,16 +1132,21 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       ImageCache::getInstance().softFlush();
 
 #ifdef HUGIN_CP_IMG_CHOICE
-      for (unsigned int i=0; i < nrImages; i++) {
+      for (unsigned int i=0; i < ((nrTabs < nrImages)? nrTabs: nrImages); i++) {
           wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
-          m_leftChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
-          m_rightChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+          m_leftChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+          m_rightChoice->SetString(i, wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
       }
 #endif
-#ifdef HUGIN_CP_IMG_TAB
       // add tab bar entries, if needed
       if (nrTabs < nrImages) {
           for (unsigned int i=nrTabs; i < nrImages; i++) {
+#ifdef HUGIN_CP_IMG_CHOICE
+              wxFileName fileName(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
+              m_leftChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+              m_rightChoice->Append(wxString::Format(wxT("%2d"), i) + wxT(". - ") + fileName.GetFullName());
+#endif
+#ifdef HUGIN_CP_IMG_TAB
               wxWindow* t1= new wxWindow(m_leftTabs,-1,wxPoint(0,0),wxSize(0,0));
               // update tab buttons
               if (!m_leftTabs->AddPage(t1, wxString::Format(wxT("%d"),i))) {
@@ -1170,9 +1175,9 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
               t2->SetMaxSize(sz);
               t2->SetMinSize(sz);
 #endif
+#endif
           }
       }
-#endif
 	}
     if (nrTabs > nrImages) {
         // remove tab bar entries if needed
