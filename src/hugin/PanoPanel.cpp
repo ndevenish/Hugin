@@ -67,6 +67,9 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
 END_EVENT_TABLE()
 
+#ifdef __WXMAC__
+#define NO_PTSTITCHER
+#endif
 
 // Define a constructor for the Pano Panel
 PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
@@ -122,11 +125,14 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 
     // setup the stitcher
     int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),0l);
-#ifdef __WXMAC__
+#ifdef NO_PTSTITCHER
     // disable stitcher choice and select nona,
     // since PTStitcher is not available on OSX
-    t = 1;
+    if(t == 0) t = 1;
     m_StitcherChoice->Disable();
+    //Photoshop output requires PTStitcher so should be deleted.
+    //This only works as Photoshop is the last option of the choice.
+    m_QuickChoice->Delete(5);
 #endif
     m_StitcherChoice->SetSelection(t);
 
@@ -176,7 +182,9 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
         m_WidthTxt->Enable();
         m_CalcOptWidthButton->Enable();
         m_HeightStaticText->Enable();
+#ifndef NO_PTSTITCHER
         m_StitcherChoice->Enable();
+#endif
         m_QuickChoice->Enable();
         m_StitchButton->Enable();
     }
@@ -325,7 +333,9 @@ void PanoPanel::EnableControls(bool enable)
 //    m_HFOVSpin->Enable(enable);
 //    m_VFOVSpin->Enable(enable);
     m_WidthTxt->Enable(enable);
+#ifndef NO_PTSTITCHER
     m_StitcherChoice->Enable(enable);
+#endif
     m_Stitcher->Enable(enable);
 //    m_CalcHFOVButton->Enable(enable);
     m_CalcOptWidthButton->Enable(enable);
@@ -333,8 +343,12 @@ void PanoPanel::EnableControls(bool enable)
 
 void PanoPanel::ApplyQuickMode(int preset)
 {
-#ifdef __WXMAC__
-    if(preset == 5) preset = 4; // photoshop output uses PTStitcher
+#ifdef NO_PTSTITCHER
+    if(preset == 5) // photoshop output uses PTStitcher
+    {
+        preset = 4;
+        m_QuickChoice->SetSelection(4);
+    }
 #endif
 
     PanoramaOptions opts = pano.getOptions();
@@ -429,7 +443,7 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
     int preset = m_QuickChoice->GetSelection();
     DEBUG_DEBUG("changing quick stitch preset to " << preset);
 
-    ApplyQuickMode(preset);
+    if(preset != 0) ApplyQuickMode(preset);
 
     switch (preset) {
     case 0:
@@ -452,7 +466,7 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
     }
     switch (stitcher) {
     case 0:
-#ifndef __WXMAC__
+#ifndef NO_PTSTITCHER
         m_Stitcher = new PTStitcherPanel(this, pano);
         break;
 #else
