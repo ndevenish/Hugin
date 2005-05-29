@@ -407,7 +407,7 @@ void PanoPanel::ApplyQuickMode(int preset)
         break;
     case 4:
         // multilayer TIFF file
-        opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.outputFormat = PanoramaOptions::TIFF_multilayer;
         opts.interpolator = vigra_ext::INTERP_CUBIC;
         opts.colorCorrection = PanoramaOptions::NONE;
         opts.gamma = 1.0;
