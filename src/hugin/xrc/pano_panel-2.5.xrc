@@ -10,7 +10,7 @@
           <label>Stitch Panorama</label>
           <font>
             <style>normal</style>
-            <family>default</family>
+            <family>swiss</family>
             <weight>bold</weight>
             <underlined>0</underlined>
             <size>10</size>
@@ -50,7 +50,7 @@
                     <label>Field of View</label>
                     <font>
                       <style>normal</style>
-                      <family>default</family>
+                      <family>swiss</family>
                       <weight>bold</weight>
                       <underlined>0</underlined>
                       <size>10</size>
@@ -145,7 +145,7 @@
                     <label>Stitcher</label>
                     <font>
                       <style>normal</style>
-                      <family>default</family>
+                      <family>swiss</family>
                       <weight>bold</weight>
                       <underlined>0</underlined>
                       <size>10</size>
@@ -198,7 +198,7 @@
                     <label>Image</label>
                     <font>
                       <style>normal</style>
-                      <family>default</family>
+                      <family>swiss</family>
                       <weight>bold</weight>
                       <underlined>0</underlined>
                       <size>10</size>

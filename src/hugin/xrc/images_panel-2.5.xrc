@@ -21,7 +21,7 @@
                           <label>Image Collection</label>
                           <font>
                             <style>normal</style>
-                            <family>default</family>
+                            <family>swiss</family>
                             <weight>bold</weight>
                             <underlined>0</underlined>
                             <size>10</size>
@@ -101,7 +101,7 @@
                           <label>Reference Image</label>
                           <font>
                             <style>normal</style>
-                            <family>default</family>
+                            <family>swiss</family>
                             <weight>bold</weight>
                             <underlined>0</underlined>
                             <size>10</size>
@@ -158,7 +158,7 @@
                       <label>Feature Matching (Autopano)</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -218,7 +218,7 @@
                       <label>Image Orientation</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -297,7 +297,7 @@
                       <label>This Image</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>

@@ -97,7 +97,7 @@
                   <label>Control points</label>
                   <font>
                     <style>normal</style>
-                    <family>default</family>
+                    <family>swiss</family>
                     <weight>bold</weight>
                     <underlined>0</underlined>
                     <size>10</size>

@@ -20,7 +20,7 @@
                       <label>Camera and Lens Information</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -74,7 +74,7 @@
                       <label>Design Parameters</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -155,7 +155,7 @@
                       <label>Lens Correction Parameters</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -240,7 +240,7 @@
                       <label>Image Center Shift</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -319,7 +319,7 @@
                       <label>Image Shearing</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>
@@ -388,7 +388,7 @@
                       <label>Lens management</label>
                       <font>
                         <style>normal</style>
-                        <family>default</family>
+                        <family>swiss</family>
                         <weight>bold</weight>
                         <underlined>0</underlined>
                         <size>10</size>

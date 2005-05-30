@@ -11,7 +11,7 @@
               <label>Quick Optimizer</label>
               <font>
                 <style>normal</style>
-                <family>default</family>
+                <family>swiss</family>
                 <weight>bold</weight>
                 <underlined>0</underlined>
                 <size>10</size>
@@ -73,7 +73,7 @@
               <label>Custom Optimization Variables</label>
               <font>
                 <style>normal</style>
-                <family>default</family>
+                <family>swiss</family>
                 <weight>bold</weight>
                 <underlined>0</underlined>
                 <size>10</size>
@@ -104,7 +104,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <label>Image Orientation</label>
                         <font>
                           <style>normal</style>
-                          <family>default</family>
+                          <family>swiss</family>
                           <weight>bold</weight>
                           <underlined>0</underlined>
                           <size>10</size>
@@ -262,7 +262,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <label>Lens Parameters</label>
                         <font>
                           <style>normal</style>
-                          <family>default</family>
+                          <family>swiss</family>
                           <weight>bold</weight>
                           <underlined>0</underlined>
                           <size>10</size>
