@@ -235,7 +235,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
 	} else {
 	  XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Enable();
 	  m_mode_cb->Enable();
-	  m_edit_cb->Disable();
+	  m_edit_cb->Enable();
 	}
     // update lens values
     int nrLensList = m_v_list->GetCount();
