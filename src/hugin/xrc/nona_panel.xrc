@@ -3,15 +3,17 @@
   <object class="wxPanel" name="nona_panel">
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
+      <object class="spacer">
+        <size>0,6</size>
+      </object>
       <object class="sizeritem">
         <object class="wxFlexGridSizer">
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>interpolator (i):</label>
-      		</object>
-            <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>12</border>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <object class="sizeritem">
             <object class="wxChoice" name="nona_choice_interpolator">
               <content>
@@ -26,16 +28,15 @@
               </content>
               <selection>0</selection>
               <tooltip>approximation of values beetwen source pixels</tooltip>
-      		</object>
-            <flag>wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>image format:</label>
-      		</object>
-            <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>12</border>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <object class="sizeritem">
             <object class="wxChoice" name="nona_choice_format_final">
               <content>
@@ -46,38 +47,37 @@
                 <item>Multilayer TIFF</item>
               </content>
               <selection>0</selection>
-      		</object>
-            <flag>wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>compression:</label>
               <tooltip>JPEG compression (0-100)</tooltip>
-      		</object>
-            <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>12</border>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <object class="sizeritem">
             <object class="wxSpinCtrl" name="nona_jpeg_quality">
               <min>0</min>
               <max>100</max>
-      		</object>
-            <flag>wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-    	  </object>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
           <cols>2</cols>
           <rows>3</rows>
-          <vgap>3</vgap>
-          <hgap>3</hgap>
+          <vgap>6</vgap>
+          <hgap>12</hgap>
         </object>
       </object>
       <object class="sizeritem">
         <object class="wxCheckBox" name="nona_check_enblend">
-          <label>Soft Blending</label>
+          <label>Soft Blending (requires enblend, only TIFF output)</label>
           <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
         </object>
-        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-        <border>12</border>
+        <flag>wxALIGN_CENTRE_VERTICAL</flag>
       </object>
     </object>
+    <bg>#E6E6FA</bg>
   </object>
 </resource>

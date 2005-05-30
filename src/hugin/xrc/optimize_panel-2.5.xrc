@@ -25,8 +25,7 @@
                 <object class="wxStaticText">
                   <label>Optimize</label>
                 </object>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>3</border>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="optimize_panel_mode">
@@ -43,8 +42,8 @@
                   <style></style>
                 </object>
                 <option>1</option>
-                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>3</border>
+                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>12</border>
               </object>
               <object class="sizeritem">
                 <object class="wxButton" name="optimize_frame_optimize">
@@ -52,18 +51,23 @@
                   <tooltip>execute the PTOptimizer engine</tooltip>
                 </object>
                 <option>0</option>
-                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>3</border>
+                <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>12</border>
               </object>
             </object>
+            <flag>wxLEFT</flag>
+            <border>12</border>
           </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>
-        <border>3</border>
+        <border>6</border>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
           <orient>wxVERTICAL</orient>
+          <object class="spacer">
+            <size>0,20</size>
+          </object>
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>Custom Optimization Variables</label>
@@ -75,15 +79,19 @@
                 <size>10</size>
               </font>
             </object>
+            <flag>wxBOTTOM</flag>
+            <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxStaticText">
               <label>Any variables below which are marked [x] will be optimized.
-Variables which are cleared [ ] will act as references or anchors.
-              </label>
+Variables which are cleared [ ] will act as references or anchors.</label>
             </object>
-            <flag>wxALL</flag>
-            <border>3</border>
+            <flag>wxLEFT</flag>
+            <border>12</border>
+          </object>
+          <object class="spacer">
+            <size>0,20</size>
           </object>
           <object class="sizeritem">
             <object class="wxScrolledWindow" name="optimize_controls_panel">
@@ -102,11 +110,12 @@ Variables which are cleared [ ] will act as references or anchors.
                           <size>10</size>
                         </font>
                       </object>
+                      <flag>wxBOTTOM</flag>
+                      <border>6</border>
                     </object>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
+                      <object class="wxGridSizer">
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
                             <orient>wxVERTICAL</orient>
@@ -123,8 +132,7 @@ Variables which are cleared [ ] will act as references or anchors.
                               <border>3</border>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxHORIZONTAL</orient>
+                              <object class="wxGridSizer">
                                 <object class="sizeritem">
                                   <object class="wxButton" name="opt_yaw_select">
                                     <label>select</label>
@@ -139,13 +147,15 @@ Variables which are cleared [ ] will act as references or anchors.
                                   <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
                                   <border>3</border>
                                 </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -163,8 +173,7 @@ Variables which are cleared [ ] will act as references or anchors.
                               <border>3</border>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxHORIZONTAL</orient>
+                              <object class="wxGridSizer">
                                 <object class="sizeritem">
                                   <object class="wxButton" name="opt_pitch_select">
                                     <label>select</label>
@@ -179,13 +188,15 @@ Variables which are cleared [ ] will act as references or anchors.
                                   <flag>wxRIGHT</flag>
                                   <border>3</border>
                                 </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -203,8 +214,7 @@ Variables which are cleared [ ] will act as references or anchors.
                               <border>3</border>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxHORIZONTAL</orient>
+                              <object class="wxGridSizer">
                                 <object class="sizeritem">
                                   <object class="wxButton" name="opt_roll_select">
                                     <label>select</label>
@@ -219,26 +229,34 @@ Variables which are cleared [ ] will act as references or anchors.
                                   <flag>wxRIGHT</flag>
                                   <border>3</border>
                                 </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
+                        <cols>3</cols>
+                        <rows>1</rows>
+                        <hgap>12</hgap>
                       </object>
                       <option>1</option>
-                      <flag>wxEXPAND</flag>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
                     </object>
                   </object>
-                  <option>1</option>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>3</border>
+                  <option>3</option>
+                  <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <orient>wxVERTICAL</orient>
+                    <object class="spacer">
+                      <size>0,20</size>
+                    </object>
                     <object class="sizeritem">
                       <object class="wxStaticText">
                         <label>Lens Parameters</label>
@@ -250,10 +268,11 @@ Variables which are cleared [ ] will act as references or anchors.
                           <size>10</size>
                         </font>
                       </object>
+                      <flag>wxBOTTOM</flag>
+                      <border>6</border>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
+                      <object class="wxGridSizer">
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
                             <orient>wxVERTICAL</orient>
@@ -266,14 +285,12 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_v_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -287,14 +304,12 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_a_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -308,14 +323,12 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_b_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -329,14 +342,12 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_c_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -350,14 +361,12 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_d_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
@@ -371,26 +380,28 @@ Variables which are cleared [ ] will act as references or anchors.
                               <object class="wxCheckList" name="optimizer_e_list">
                               </object>
                               <option>1</option>
-                              <flag>wxALL|wxEXPAND</flag>
-                              <border>3</border>
-                              <minsize>20,20</minsize>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
                             </object>
                           </object>
                           <option>1</option>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND</flag>
                         </object>
+                        <cols>6</cols>
+                        <rows>1</rows>
+                        <vgap>6</vgap>
+                        <hgap>12</hgap>
                       </object>
                       <option>1</option>
-                      <flag>wxALL|wxEXPAND</flag>
-                      <border>3</border>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
                     </object>
                   </object>
-                  <option>1</option>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>3</border>
+                  <option>2</option>
+                  <flag>wxEXPAND</flag>
                 </object>
               </object>
+              <bg>#E6E6FA</bg>
             </object>
             <option>1</option>
             <flag>wxEXPAND</flag>
@@ -404,9 +415,10 @@ Variables which are cleared [ ] will act as references or anchors.
           </object>
         </object>
         <option>1</option>
-        <flag>wxALL|wxEXPAND</flag>
-        <border>3</border>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+        <border>6</border>
       </object>
     </object>
+    <bg>#E6E6FA</bg>
   </object>
 </resource>
