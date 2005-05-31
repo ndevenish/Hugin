@@ -356,10 +356,10 @@ void PanoPanel::ApplyQuickMode(int preset)
     // resize image for all but manual settings
     if (preset != 0) {
 
-        // do not play with the panorama fov
-//        FDiff2D fov = pano.calcFOV();
-//        opts.HFOV = fov.x;
-//        opts.VFOV = fov.y;
+		// do not play with the panorama fov
+		//        FDiff2D fov = pano.calcFOV();
+		//        opts.HFOV = fov.x;
+		//        opts.VFOV = fov.y;
 
         // resize.
         if (preset == 3) {
@@ -367,66 +367,66 @@ void PanoPanel::ApplyQuickMode(int preset)
         } else {
             opts.width = CalcOptimalWidth();
         }
-    }
 
-    switch (preset) {
-    case 1:
-        // high quality tiff file
-        // nona + enblend
-        opts.outputFormat = PanoramaOptions::TIFF;
-        opts.interpolator = vigra_ext::INTERP_CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        opts.blendMode = PanoramaOptions::SPLINE_BLEND;
-        m_StitcherChoice->SetSelection(1);
-        break;
-    case 2:
-        // high quality jpeg file
-        // nona + jpg output + cubic interpolator
-        // fixme: this should be an enblended pano...
-        opts.outputFormat = PanoramaOptions::JPEG;
-        opts.interpolator = vigra_ext::INTERP_CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(1);
-        break;
-    case 3:
-        // draft quality jpeg file
-        // nona + jpg output
-        opts.outputFormat = PanoramaOptions::JPEG;
-        opts.interpolator = vigra_ext::INTERP_CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(1);
-        break;
-    case 4:
-        // multilayer TIFF file
-        opts.outputFormat = PanoramaOptions::TIFF_multilayer;
-        opts.interpolator = vigra_ext::INTERP_CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(1);
-        break;
-    case 5:
-        // multilayer PSD file
-        opts.outputFormat = PanoramaOptions::PSD_mask;
-        opts.interpolator = vigra_ext::INTERP_CUBIC;
-        opts.colorCorrection = PanoramaOptions::NONE;
-        opts.gamma = 1.0;
-        opts.featherWidth = 10;
-        opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-        m_StitcherChoice->SetSelection(0);
-    default:
-	DEBUG_ERROR("unknown stitcher preset selected");
-	break;
+		switch (preset) {
+		case 1:
+			// high quality tiff file
+			// nona + enblend
+			opts.outputFormat = PanoramaOptions::TIFF;
+			opts.interpolator = vigra_ext::INTERP_CUBIC;
+			opts.colorCorrection = PanoramaOptions::NONE;
+			opts.gamma = 1.0;
+			opts.featherWidth = 10;
+			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+			opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+			m_StitcherChoice->SetSelection(1);
+			break;
+		case 2:
+			// high quality jpeg file
+			// nona + jpg output + cubic interpolator
+			// fixme: this should be an enblended pano...
+			opts.outputFormat = PanoramaOptions::JPEG;
+			opts.interpolator = vigra_ext::INTERP_CUBIC;
+			opts.colorCorrection = PanoramaOptions::NONE;
+			opts.gamma = 1.0;
+			opts.featherWidth = 10;
+			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+			m_StitcherChoice->SetSelection(1);
+			break;
+		case 3:
+			// draft quality jpeg file
+			// nona + jpg output
+			opts.outputFormat = PanoramaOptions::JPEG;
+			opts.interpolator = vigra_ext::INTERP_CUBIC;
+			opts.colorCorrection = PanoramaOptions::NONE;
+			opts.gamma = 1.0;
+			opts.featherWidth = 10;
+			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+			m_StitcherChoice->SetSelection(1);
+			break;
+		case 4:
+			// multilayer TIFF file
+			opts.outputFormat = PanoramaOptions::TIFF_multilayer;
+			opts.interpolator = vigra_ext::INTERP_CUBIC;
+			opts.colorCorrection = PanoramaOptions::NONE;
+			opts.gamma = 1.0;
+			opts.featherWidth = 10;
+			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+			m_StitcherChoice->SetSelection(1);
+			break;
+		case 5:
+			// multilayer PSD file
+			opts.outputFormat = PanoramaOptions::PSD_mask;
+			opts.interpolator = vigra_ext::INTERP_CUBIC;
+			opts.colorCorrection = PanoramaOptions::NONE;
+			opts.gamma = 1.0;
+			opts.featherWidth = 10;
+			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
+			m_StitcherChoice->SetSelection(0);
+		default:
+		DEBUG_ERROR("unknown stitcher preset selected");
+		break;
+		}
     }
 
     GlobalCmdHist::getInstance().addCommand(
