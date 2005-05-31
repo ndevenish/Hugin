@@ -401,7 +401,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                   <flag>wxEXPAND</flag>
                 </object>
               </object>
-              <bg>#E6E6FA</bg>
             </object>
             <option>1</option>
             <flag>wxEXPAND</flag>
@@ -419,6 +418,5 @@ Variables which are cleared [ ] will act as references or anchors.</label>
         <border>6</border>
       </object>
     </object>
-    <bg>#E6E6FA</bg>
   </object>
 </resource>

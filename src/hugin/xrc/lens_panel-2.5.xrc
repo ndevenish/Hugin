@@ -463,7 +463,6 @@
               </object>
             </object>
             <size>200,200</size>
-            <bg>#E6E6FA</bg>
           </object>
         </object>
         <flag>wxEXPAND</flag>

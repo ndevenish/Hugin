@@ -179,6 +179,7 @@
                         <object class="wxSpinCtrl" name="images_points_per_overlap">
                           <value>10</value>
                           <min>1</min>
+                          <size>50,-1</size>
                           <tooltip>number of points created at each overlap</tooltip>
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
@@ -197,7 +198,7 @@
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
-                      <cols>5</cols>
+                      <cols>4</cols>
                       <hgap>12</hgap>
                     </object>
                     <flag>wxLEFT</flag>
@@ -237,6 +238,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="images_text_yaw">
+                          <size>50,-1</size>
                           <style>wxTE_PROCESS_ENTER</style>
                           <tooltip>set yaw for selected image(s)</tooltip>
                         </object>
@@ -250,6 +252,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="images_text_pitch">
+                          <size>50,-1</size>
                           <style>wxTE_PROCESS_ENTER</style>
                           <tooltip>set pitch for selected image(s)</tooltip>
                         </object>
@@ -263,6 +266,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="images_text_roll">
+                          <size>50,-1</size>
                           <style>wxTE_PROCESS_ENTER</style>
                           <tooltip>set roll for selected image(s)</tooltip>
                         </object>
@@ -277,9 +281,10 @@
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <cols>7</cols>
+                      <vgap>6</vgap>
                       <hgap>12</hgap>
                     </object>
-                    <flag>wxLEFT|wxEXPAND</flag>
+                    <flag>wxLEFT</flag>
                     <border>12</border>
                   </object>
                 </object>
@@ -321,7 +326,6 @@
               </object>
             </object>
             <size>200,200</size>
-            <bg>#E6E6FA</bg>
           </object>
           <orientation>vertical</orientation>
           <sashpos>0</sashpos>
