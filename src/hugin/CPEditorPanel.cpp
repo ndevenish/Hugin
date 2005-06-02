@@ -250,6 +250,10 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 	XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
 	XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
 	XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
+#ifdef HUGIN_CP_IMG_CHOICE
+    m_leftChoice->Disable();
+    m_rightChoice->Disable();
+#endif
 
     // observe the panorama
     m_pano->addObserver(this);
@@ -378,7 +382,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightImageNr = imgNr;
         m_rightFile = "";
         if (m_fineTuneFrame) {
-            m_fineTuneFrame->GetLeftImg()->Clear();
+            m_fineTuneFrame->GetRightImg()->Clear();
         }
         changeState(NO_POINT);
         UpdateDisplay();
@@ -1117,6 +1121,10 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
+#ifdef HUGIN_CP_IMG_CHOICE
+      m_leftChoice->Disable();
+      m_rightChoice->Disable();
+#endif
 	} else {
 	  // enable controls
   	  m_cpModeChoice->Enable();
@@ -1127,7 +1135,11 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
 	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Enable();
-
+#ifdef HUGIN_CP_IMG_CHOICE
+      m_leftChoice->Enable();
+      m_rightChoice->Enable();
+#endif
+      
   	  // FIXME: lets hope that nobody holds references to these images..
       ImageCache::getInstance().softFlush();
 
