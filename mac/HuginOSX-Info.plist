@@ -37,9 +37,15 @@
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>0.5OSXb2</string>
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
+	<key>CFBundleVersion</key>
+	<string>0.5osxβ3</string>
+	<key>CFBundleName</key>
+	<string>HuginOSX</string>
+	<key>CFBundleGetInfoString</key>
+	<string>0.5osxβ3, Ippei UKAI / hugin Project, released under GPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.5-osxβ3</string>
 </dict>
 </plist>
