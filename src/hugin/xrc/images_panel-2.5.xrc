@@ -83,8 +83,6 @@
                         <border>12</border>
                       </object>
                     </object>
-                    <flag>wxLEFT</flag>
-                    <border>6</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxStaticLine">
