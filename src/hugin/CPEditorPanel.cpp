@@ -1259,7 +1259,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         setRightImage(0);
     }
 
-    if (update) {
+    if (update || nrImages == 0) {
         UpdateDisplay();
     }
 }
@@ -1274,12 +1274,10 @@ void CPEditorPanel::UpdateDisplay()
     int fI = m_leftTabs->GetSelection();
     int sI = m_rightTabs->GetSelection();
 #endif
-    if (fI < 0 || m_leftImageNr == UINT_MAX || m_rightImageNr == UINT_MAX) {
-        return;
-    }
-    m_leftImageNr = (unsigned int) fI;
-    m_rightImageNr = (unsigned int) sI;
-
+    if (fI >= 0 && m_leftImageNr != UINT_MAX && m_rightImageNr != UINT_MAX) {
+		m_leftImageNr = (unsigned int) fI;
+		m_rightImageNr = (unsigned int) sI;
+	}
     // reset selection
     m_x1Text->Clear();
     m_y1Text->Clear();

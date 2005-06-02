@@ -222,20 +222,28 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 #endif
     // draw image (FIXME, redraw only visible regions.)
     if (editState != NO_IMAGE) {
+		//clear the blank rectangle to the left of the image
         if (bitmap.GetWidth() < vSize.GetWidth()) {
             dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
             dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
             dc.DrawRectangle(bitmap.GetWidth(), 0,
                              vSize.GetWidth() - bitmap.GetWidth(),vSize.GetHeight());
         }
+		//clear the blank rectangle below the image
         if (bitmap.GetHeight() < vSize.GetHeight()) {
             dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
             dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
-            dc.DrawRectangle(0, bitmap.GetHeight(),
+			dc.DrawRectangle(0, bitmap.GetHeight(),
                              vSize.GetWidth(), vSize.GetHeight() - bitmap.GetHeight());
         }
         dc.DrawBitmap(bitmap,0,0);
-    }
+	} else {
+		// clear the rectangle and exit
+        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
+        dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+        dc.Clear();
+		return;
+	}
 
     // draw known points.
     unsigned int i=0;
@@ -748,7 +756,6 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::update()
 {
-    if (editState == NO_IMAGE) return;
     DEBUG_TRACE("edit state:" << editState);
     wxClientDC dc(this);
     PrepareDC(dc);
