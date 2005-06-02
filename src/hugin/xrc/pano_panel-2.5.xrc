@@ -19,19 +19,33 @@
         <border>6</border>
       </object>
       <object class="sizeritem">
-        <object class="wxChoice" name="stitch_quick_mode">
-          <content>
-            <item>with custom settings below</item>
-            <item>into a high quality TIFF file</item>
-            <item>into a high-quality JPEG file</item>
-            <item>into a draft-quality JPEG file</item>
-            <item>into a layered TIFF file</item>
-            <item>into a layered Photoshop file</item>
-          </content>
-          <selection>0</selection>
+        <flag>wxEXPAND</flag>
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxChoice" name="stitch_quick_mode">
+              <content>
+                <item>with custom settings below</item>
+                <item>into a high quality TIFF file</item>
+                <item>into a high-quality JPEG file</item>
+                <item>into a draft-quality JPEG file</item>
+                <item>into a layered TIFF file</item>
+                <item>into a layered Photoshop file</item>
+              </content>
+              <selection>0</selection>
         </object>
-        <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-        <border>18</border>
+            <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>18</border>
+      </object>
+          <object class="sizeritem">
+            <flag>wxLEFT</flag>
+            <border>6</border>
+            <object class="wxButton" name="pano_button_stitch">
+              <label>Stitch now!</label>
+              <tooltip>execute the PTStitcher engine</tooltip>
+            </object>
+          </object>
+        </object>
       </object>
       <object class="spacer">
         <size>0,20</size>
@@ -264,24 +278,6 @@
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
-      </object>
-      <object class="sizeritem">
-        <flag>wxEXPAND</flag>
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <flag>wxALL</flag>
-            <border>3</border>
-            <object class="wxButton" name="pano_button_stitch">
-              <label>Stitch now!</label>
-              <tooltip>execute the PTStitcher engine</tooltip>
-            </object>
-          </object>
-        </object>
       </object>
     </object>
   </object>
