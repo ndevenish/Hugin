@@ -48,7 +48,9 @@ using namespace PT;
  *  parent controls can use
  *     EVT_LIST_ITEM_SELECTED(id, func)
  *     EVT_LIST_ITEM_DESELECTED(id, func)
- *  to get notified when the selection changes.
+ *  to get notified when the selection changes. 
+ *  WARNING: Do not read the event in the parent control, just
+ *           use GetSelected()!
  *
  *  @todo   make the listcontents editable -> wxListCtrl->wxGrid?
  */
@@ -89,8 +91,7 @@ class ImagesList: public wxListCtrl, public PT::PanoramaObserver
     void SelectSingleImage(unsigned int imgNr);
 
     /** get the currently selected images */
-    const UIntSet & GetSelected() const
-        { return selectedItems; }
+    const UIntSet & GetSelected() const;
 
 protected:
     // the model
@@ -112,6 +113,9 @@ protected:
     int m_degDigits;
     int m_distDigits;
     int m_pixelDigits;
+
+    // propagate list selections/deselections to client.
+    bool m_notifyParents;
 
     DECLARE_EVENT_TABLE()
 };
