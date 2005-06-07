@@ -174,9 +174,14 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #elif (defined __WXMAC__)
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT("autopano-complete.sh"));
-
-    if (!wxFile::Exists(autopanoExe)) autopanoExe = MacGetPathTOBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
-
+    bool bundledScript = false;
+    
+    if (!wxFile::Exists(autopanoExe))
+    {
+        autopanoExe = MacGetPathTOBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
+        bundledScript = true;
+    }
+    
     if(autopanoExe == wxT("") || !wxFile::Exists(autopanoExe))
     {
         wxFileDialog dlg(0,_("Select autopano frontend script"),
@@ -283,7 +288,7 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
     }
     
-    autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
+    if(bundledScript) autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
 #endif
     
 #ifdef __WXMSW__
