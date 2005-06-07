@@ -1,5 +1,6 @@
 #!/bin/sh
 
+wxVersion="2.6.1"
 resdir="build/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
@@ -14,8 +15,8 @@ rm -fR $resdir/xrc/data/CVS
 
 #for xrcfile in `ls $resdir/xrc | grep mac.xrc`
 #do
-#  echo copying $xrcfile to $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
-#  cp -f $xrcfile $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
+#  echo using $resdir/xrc/$xrcfile instead of $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
+#  mv -f $resdir/xrc/$xrcfile $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
 #done
 
 echo patching $resdir/xrc/cp_editor_panel-2.5.xrc to use wxChoice instead of wxNotebook
@@ -46,7 +47,7 @@ do
  fi
 
  echo "wxstd.mo to $lang.po"
- msgfmt -v -o "$localedir/wxstd.mo" "../../wxMac-2.6.0/locale/$lang.po"
+ msgfmt -v -o "$localedir/wxstd.mo" "../../wxMac-$wxVersion/locale/$lang.po"
  echo "hugin.mo to $lang.po"
  msgfmt -v -o "$localedir/hugin.mo" "../src/hugin/po/$lang.po"
 
