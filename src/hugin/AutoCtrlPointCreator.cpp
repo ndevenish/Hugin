@@ -268,27 +268,28 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
     
 #ifdef __WXMAC__
-    wxString autopanoExeDir = MacGetPathTOBundledResourceFile(CFSTR("autopano-sift"));
-    
-    if(autopanoExeDir == wxT(""))
-        autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
-    
-    while (!( wxFileExists(autopanoExeDir+wxT("/autopano.exe")) && wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe")) && wxFileExists(autopanoExeDir+wxT("/libsift.dll")) ))
+    if(bundledScript)
     {
-        wxDirDialog dlg(0, _("Select the directory where autopano-sift's .Net executables can be found."));
-        if (dlg.ShowModal() == wxID_OK)
+        wxString autopanoExeDir = MacGetPathTOBundledResourceFile(CFSTR("autopano-sift"));
+        
+        if(autopanoExeDir == wxT(""))
+            autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
+        
+        while (!( wxFileExists(autopanoExeDir+wxT("/autopano.exe")) && wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe")) && wxFileExists(autopanoExeDir+wxT("/libsift.dll")) ))
         {
-            autopanoExeDir = dlg.GetPath();
-            wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
+            wxDirDialog dlg(0, _("Select the directory where autopano-sift's .Net executables can be found."));
+            if(dlg.ShowModal() == wxID_OK) {
+                autopanoExeDir = dlg.GetPath();
+                wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
+            } else {
+                //cancel
+                wxLogError(_("No autopano directory selected"));
+                return;
+            }
         }
-        else //canceled
-        {
-            wxLogError(_("No autopano directory selected"));
-            return;
-        }
+        
+        autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
     }
-    
-    if(bundledScript) autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
 #endif
     
 #ifdef __WXMSW__
