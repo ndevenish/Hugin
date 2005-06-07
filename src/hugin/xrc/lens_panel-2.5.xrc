@@ -49,7 +49,7 @@
                           </content>
                           <style>wxCB_READONLY|wxCB_DROPDOWN</style>
                         </object>
-                        <flag>wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                        <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                         <border>6</border>
                       </object>
                       <cols>2</cols>
@@ -94,6 +94,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_v">
+                          <size>70,-1</size>
                           <tooltip>Horizontal Field of View</tooltip>
                           <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
@@ -103,6 +104,7 @@
                         <object class="wxCheckBox" name="lens_inherit_v">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -112,14 +114,15 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_focalLength">
+                          <size>70,-1</size>
                           <tooltip>true focal length in mm</tooltip>
                           <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                         </object>
                         <flag>wxEXPAND</flag>
                       </object>
                       <rows>3</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <vgap>5</vgap>
+                      <hgap>6</hgap>
                       <object class="spacer">
                         <size>0,0</size>
                       </object>
@@ -131,6 +134,7 @@
                       </object>
                       <object class="sizeritem">
                         <object class="wxTextCtrl" name="lens_val_flFactor">
+                          <size>70,-1</size>
                           <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
                           <tooltip>35mm film diameter / ccd diameter</tooltip>
                         </object>
@@ -183,6 +187,7 @@
                         <object class="wxCheckBox" name="lens_inherit_a">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -200,6 +205,7 @@
                         <object class="wxCheckBox" name="lens_inherit_b">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -217,10 +223,11 @@
                         <object class="wxCheckBox" name="lens_inherit_c">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <rows>3</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <vgap>5</vgap>
+                      <hgap>6</hgap>
                     </object>
                     <flag>wxLEFT|wxEXPAND</flag>
                     <border>12</border>
@@ -269,6 +276,7 @@
                           <label>Inherit</label>
                           <style></style>
                         </object>
+                        <style>wxALIGN_CENTRE_VERTICAL</style>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -280,17 +288,17 @@
                         <object class="wxTextCtrl" name="lens_val_e">
                           <style>wxTE_PROCESS_ENTER</style>
                         </object>
-                        <flag>wxBOTTOM|wxEXPAND</flag>
-                        <border>6</border>
+                        <flag>wxEXPAND</flag>
                       </object>
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="lens_inherit_e">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
-                      <rows>3</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <rows>2</rows>
+                      <vgap>5</vgap>
+                      <hgap>6</hgap>
                     </object>
                     <flag>wxLEFT|wxEXPAND</flag>
                     <border>12</border>
@@ -346,8 +354,8 @@
                       <object class="sizeritem">
                         <object class="wxCheckBox" name="lens_inherit_g">
                           <label>Inherit</label>
-                          <style></style>
                         </object>
+                        <style>wxALIGN_CENTRE_VERTICAL</style>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -365,10 +373,11 @@
                         <object class="wxCheckBox" name="lens_inherit_t">
                           <label>Inherit</label>
                         </object>
+                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <rows>3</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <vgap>5</vgap>
+                      <hgap>6</hgap>
                     </object>
                     <flag>wxLEFT|wxEXPAND</flag>
                     <border>12</border>
@@ -413,6 +422,9 @@
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
+                      <object class="spacer">
+                        <size>12,0</size>
+                      </object>
                       <object class="sizeritem">
                         <object class="wxButton" name="lens_button_loadEXIF">
                           <label>Load EXIF</label>
@@ -420,12 +432,11 @@
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
-                      <cols>2</cols>
-                      <rows>2</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <cols>4</cols>
+                      <rows>1</rows>
+                      <hgap>6</hgap>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxLEFT|wxRIGHT</flag>
                     <border>12</border>
                   </object>
                   <object class="sizeritem">
@@ -451,14 +462,14 @@
                       </object>
                       <cols>2</cols>
                       <rows>1</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <vgap>5</vgap>
+                      <hgap>6</hgap>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxLEFT|wxRIGHT</flag>
                     <border>12</border>
                   </object>
                 </object>
-                <flag>wxLEFT|wxEXPAND</flag>
+                <flag>wxLEFT|wxRIGHT</flag>
                 <border>6</border>
               </object>
             </object>
