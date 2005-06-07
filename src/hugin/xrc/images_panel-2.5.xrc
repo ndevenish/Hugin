@@ -60,36 +60,46 @@
                                   <label>Move up</label>
                                 </object>
                                 <option>1</option>
-                                <flag>wxRIGHT</flag>
-                                <border>3</border>
+                                <flag>wxEXPAND</flag>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxButton" name="images_move_image_down">
                                   <label>Move down</label>
                                 </object>
                                 <option>1</option>
+                                <flag>wxEXPAND</flag>
                               </object>
                               <cols>2</cols>
                               <rows>1</rows>
-                              <hgap>12</hgap>
+                              <hgap>6</hgap>
                             </object>
                             <flag>wxALL|wxEXPAND</flag>
                           </object>
                           <cols>1</cols>
-                          <vgap>6</vgap>
-                          <rows>2</rows>
+                          <rows>4</rows>
+                          <vgap>10</vgap>
                         </object>
-                        <flag>wxLEFT|wxEXPAND</flag>
+                        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
                         <border>12</border>
                       </object>
                     </object>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxStaticLine">
-                      <style>wxLI_VERTICAL</style>
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="spacer">
+                        <size>0,20</size>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxStaticLine">
+                          <style>wxLI_VERTICAL</style>
+                        </object>
+                        <option>1</option>
+                        <flag>wxEXPAND</flag>
+                      </object>
                     </object>
                     <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
-                    <border>6</border>
+                    <border>12</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
@@ -126,6 +136,13 @@
                             <flag>wxEXPAND</flag>
                           </object>
                           <object class="sizeritem">
+                            <object class="wxStaticLine">
+                              <style>wxLI_HORIZONTAL</style>
+                            </object>
+                            <border>6</border>
+                            <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                          </object>
+                          <object class="sizeritem">
                             <object class="wxButton" name="images_color_anchor_button">
                               <label>Anchor this image for exposure</label>
                               <enabled>0</enabled>
@@ -134,16 +151,17 @@
                             <flag>wxEXPAND</flag>
                           </object>
                           <cols>1</cols>
-                          <vgap>6</vgap>
+                          <vgap>10</vgap>
                         </object>
-                        <flag>wxLEFT|wxEXPAND</flag>
+                        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
                         <border>12</border>
                       </object>
                     </object>
+                    <flag>wxEXPAND</flag>
+                    <option>1</option>
                   </object>
                 </object>
-                <flag>wxTOP|wxLEFT</flag>
-                <border>6</border>
+                <flag>wxEXPAND</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxBoxSizer">
@@ -176,8 +194,7 @@
                       <object class="sizeritem">
                         <object class="wxSpinCtrl" name="images_points_per_overlap">
                           <value>10</value>
-                          <min>1</min>
-                          <size>50,-1</size>
+                          <size>60,-1</size>
                           <tooltip>number of points created at each overlap</tooltip>
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
@@ -190,21 +207,27 @@
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <object class="sizeritem">
+                        <object class="wxStaticLine">
+                          <style>wxLI_VERTICAL</style>
+                        </object>
+                        <border>6</border>
+                        <flag>wxALL|wxEXPAND</flag>
+                      </object>
+                      <object class="sizeritem">
                         <object class="wxButton" name="images_remove_cp">
                           <label>Remove Points</label>
                           <tooltip>Remove control points connecting the selected images</tooltip>
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
-                      <cols>4</cols>
-                      <hgap>12</hgap>
+                      <cols>5</cols>
+                      <hgap>6</hgap>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxLEFT|wxRIGHT</flag>
                     <border>12</border>
                   </object>
                 </object>
-                <flag>wxLEFT|wxEXPAND</flag>
-                <border>6</border>
+                    <flag>wxEXPAND</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxBoxSizer">
@@ -229,7 +252,7 @@
                   <object class="sizeritem">
                     <object class="wxFlexGridSizer">
                       <object class="sizeritem">
-                        <object class="wxStaticText" name="">
+                        <object class="wxStaticText">
                           <label>yaw:</label>
                         </object>
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
@@ -279,15 +302,13 @@
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                       <cols>7</cols>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <hgap>6</hgap>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxLEFT|wxRIGHT</flag>
                     <border>12</border>
                   </object>
                 </object>
-                <flag>wxLEFT|wxEXPAND</flag>
-                <border>6</border>
+                    <flag>wxEXPAND</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxBoxSizer">
@@ -314,13 +335,12 @@
                       <bitmap>data/druid.images.128.png</bitmap>
                       <style></style>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxLEFT|wxRIGHT</flag>
                     <border>12</border>
                   </object>
                 </object>
                 <option>1</option>
-                <flag>wxLEFT|wxEXPAND</flag>
-                <border>6</border>
+                <flag>wxEXPAND</flag>
               </object>
             </object>
             <size>200,200</size>
