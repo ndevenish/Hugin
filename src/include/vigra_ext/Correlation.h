@@ -42,6 +42,8 @@
 
 #define VIGRA_EXT_USE_FAST_CORR
 
+//#define DEBUG_WRITE_FILES
+
 namespace vigra_ext{
 
 /** Maximum of correlation, position and value */
@@ -321,18 +323,15 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
 
     // extract patch from template
 
-    // make template size user configurable as well?
     int templWidth = templSize/2;
-    vigra::Diff2D tmplUL(-templWidth, -templWidth);
-    vigra::Diff2D tmplLR(templWidth, templWidth);
-    // clip template
-    if (tmplUL.x + templPos.x < 0) tmplUL.x = -templPos.x;
-    if (tmplUL.y + templPos.y < 0) tmplUL.y = -templPos.y;
-    if (tmplLR.x + templPos.x> templImg.width())
-        tmplLR.x = templImg.width() - templPos.x;
-    if (tmplLR.y + templPos.y > templImg.height())
-        tmplLR.y = templImg.height() - templPos.y;
-    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1,1);
+    vigra::Diff2D tmplUL(templPos.x - templWidth, templPos.y-templWidth);
+    // lower right iterators "are past the end"
+    vigra::Diff2D tmplLR(templPos.x + templWidth + 1, templPos.y + templWidth + 1);
+    // clip corners to ensure the template is inside the image.
+    vigra::Diff2D tmplImgSize(templImg.size());
+    tmplUL = utils::simpleClipPoint(tmplUL, vigra::Diff2D(0,0), tmplImgSize);
+    tmplLR = utils::simpleClipPoint(tmplLR, vigra::Diff2D(0,0), tmplImgSize);
+    vigra::Diff2D tmplSize = tmplLR - tmplUL;
     DEBUG_DEBUG("template position: " << templPos << "  tmplUL: " << tmplUL
 		    << "  templLR:" << tmplLR << "  size:" << tmplSize);
 
@@ -348,16 +347,12 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
     if (searchPos.y > (int) searchImg.height()) searchPos.x = searchImg.height()-1;
 
     vigra::Diff2D searchUL(searchPos.x - swidth, searchPos.y - swidth);
-    vigra::Diff2D searchLR(searchPos.x + swidth, searchPos.y + swidth);
+    // point past the end
+    vigra::Diff2D searchLR(searchPos.x + swidth+1, searchPos.y + swidth+1);
     // clip search window
-    if (searchUL.x < 0) searchUL.x = 0;
-    if (searchUL.x > searchImg.width()) searchUL.x = searchImg.width();
-    if (searchUL.y < 0) searchUL.y = 0;
-    if (searchUL.y > searchImg.height()) searchUL.y = searchImg.height();
-    if (searchLR.x > searchImg.width()) searchLR.x = searchImg.width();
-    if (searchLR.x < 0) searchLR.x = 0;
-    if (searchLR.y > searchImg.height()) searchLR.y = searchImg.height();
-    if (searchLR.y < 0) searchLR.y = 0;
+    vigra::Diff2D srcImgSize(searchImg.size());
+    searchUL = utils::simpleClipPoint(searchUL, vigra::Diff2D(0,0), srcImgSize);
+    searchLR = utils::simpleClipPoint(searchLR, vigra::Diff2D(0,0), srcImgSize);
 //    DEBUG_DEBUG("search borders: " << searchLR.x << "," << searchLR.y);
 
     vigra::Diff2D searchSize = searchLR - searchUL;
@@ -372,10 +367,17 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
                      destImage(srcImage) );
 
     vigra::FImage templateImage(tmplSize);
-    vigra::copyImage(vigra::make_triple(templImg.upperLeft() + templPos + tmplUL,
-                                        templImg.upperLeft() + templPos + tmplLR + vigra::Diff2D(1,1),
+    vigra::copyImage(vigra::make_triple(templImg.upperLeft() + tmplUL,
+                                        templImg.upperLeft() + tmplLR,
                                         templImg.accessor()),
                      destImage(templateImage));
+#ifdef DEBUG_WRITE_FILES
+    vigra::ImageExportInfo tmpli("c:/hugin_templ.tif");
+    vigra::exportImage(vigra::srcImageRange(templateImage), tmpli);
+
+    vigra::ImageExportInfo srci("c:/hugin_searchregion.tif");
+    vigra::exportImage(vigra::srcImageRange(srcImage), srci);
+#endif
 
 //#endif
 
@@ -389,7 +391,7 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
     res = correlateImageFast(srcImage,
                              dest,
                              templateImage,
-                             tmplUL, tmplLR,
+                             tmplUL-templPos, tmplLR-templPos - vigra::Diff2D(1,1),
                              -1);
 #else
     DEBUG_DEBUG("+++++ starting normal correlation");
