@@ -116,7 +116,7 @@
                         <object class="sizeritem">
                           <object class="wxListCtrl" name="cp_editor_cp_list">
                             <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
-                            <bg>#DCDCDC</bg>
+                            
                           </object>
                           <option>1</option>
                           <flag>wxEXPAND</flag>
@@ -147,7 +147,7 @@
                                     </content>
                                     <selection>1</selection>
                                     <style>wxCB_READONLY|wxCB_DROPDOWN</style>
-                                    <bg>#DCDCDC</bg>
+                                    
                                   </object>
                                   <option>1</option>
                                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
@@ -215,7 +215,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_x1">
                             <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                            <bg>#DCDCDC</bg>
+                            
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
@@ -229,7 +229,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_y1">
                             <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                            <bg>#DCDCDC</bg>
+                            
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
@@ -243,7 +243,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_x2">
                             <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                            <bg>#DCDCDC</bg>
+                            
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
@@ -257,7 +257,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="cp_editor_y2">
                             <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-                            <bg>#DCDCDC</bg>
+                            
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
