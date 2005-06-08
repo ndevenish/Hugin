@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-06-08 00:11+0200\n"
+"POT-Creation-Date: 2005-06-08 22:47+0200\n"
 "PO-Revision-Date: 2005-02-23 01:13+0100\n"
 "Last-Translator: Luca Vascon <crimsonkingit@yahoo.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -290,6 +290,7 @@ msgstr "Nessun punto simile trovato"
 
 #: src/hugin/CPEditorPanel.cpp:1349 src/hugin/CPListFrame.cpp:402
 #: src/hugin/PreviewFrame.cpp:167 src/hugin/xrc/cp_editor_panel.xrs:24
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normale"
 
@@ -407,6 +408,7 @@ msgid "Bottom:"
 msgstr ""
 
 #: src/hugin/ImageCenter.cpp:100 src/hugin/xrc/images_panel.xrs:31
+#: src/hugin/xrc/images_panel-2.5.xrs:31
 msgid "Reset"
 msgstr "Ripristina"
 
@@ -511,23 +513,28 @@ msgid "Crop"
 msgstr ""
 
 #: src/hugin/ImagesList.cpp:350 src/hugin/xrc/lens_panel.xrs:2
+#: src/hugin/xrc/lens_panel-2.5.xrs:2
 msgid "Normal (rectilinear)"
 msgstr "Normale (rettilineare)"
 
 #: src/hugin/ImagesList.cpp:351 src/hugin/xrc/lens_panel.xrs:3
+#: src/hugin/xrc/lens_panel-2.5.xrs:3
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramica (cilindrica)"
 
 #: src/hugin/ImagesList.cpp:352 src/hugin/xrc/lens_panel.xrs:4
+#: src/hugin/xrc/lens_panel-2.5.xrs:4
 msgid "Circular fisheye"
 msgstr "Fisheye circolare"
 
 #: src/hugin/ImagesList.cpp:353 src/hugin/xrc/lens_panel.xrs:5
+#: src/hugin/xrc/lens_panel-2.5.xrs:5
 msgid "Full frame fisheye"
 msgstr "Fisheye full-frame"
 
 #: src/hugin/ImagesList.cpp:354 src/hugin/PanoPanel.cpp:232
 #: src/hugin/PreviewFrame.cpp:427 src/hugin/xrc/lens_panel.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Equirettangolare"
 
@@ -599,7 +606,7 @@ msgstr ""
 msgid "Adding Image"
 msgstr "Aggiungere immagine"
 
-#: src/hugin/MainFrame.cpp:217
+#: src/hugin/MainFrame.cpp:220
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -609,16 +616,16 @@ msgstr ""
 "Non trovata la directory xrc.\n"
 "Assicurarsi che sia nella stessa directory di hugin.exe"
 
-#: src/hugin/MainFrame.cpp:315
+#: src/hugin/MainFrame.cpp:318
 msgid "Started"
 msgstr "Partenza"
 
-#: src/hugin/MainFrame.cpp:354 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:357 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Aiuto"
 
-#: src/hugin/MainFrame.cpp:440
+#: src/hugin/MainFrame.cpp:443
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -626,52 +633,52 @@ msgstr ""
 "Il panorama e' stato modificato\n"
 "Salvare i cambiamenti?"
 
-#: src/hugin/MainFrame.cpp:440
+#: src/hugin/MainFrame.cpp:443
 msgid "Save Panorama?"
 msgstr "Salva panorama?"
 
-#: src/hugin/MainFrame.cpp:474
+#: src/hugin/MainFrame.cpp:477
 msgid "forced close"
 msgstr "chiusura forzata"
 
-#: src/hugin/MainFrame.cpp:501
+#: src/hugin/MainFrame.cpp:504
 #, c-format
 msgid "saved project %s"
 msgstr "Salva progetto %s"
 
-#: src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:513
 msgid "Save project file"
 msgstr "Salva file progetto"
 
-#: src/hugin/MainFrame.cpp:512
+#: src/hugin/MainFrame.cpp:515
 msgid "Project files (*.pto)|*.pto|All files (*.*)|*.*"
 msgstr "files di progetto (*.pto)|*.pto|All files (*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:525
+#: src/hugin/MainFrame.cpp:528
 msgid "Save PTStitcher script file"
 msgstr "Salva script per PTStitcher"
 
-#: src/hugin/MainFrame.cpp:527
+#: src/hugin/MainFrame.cpp:530
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Files di PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:553
+#: src/hugin/MainFrame.cpp:556
 msgid "Open project:   "
 msgstr "Apri progetto:"
 
-#: src/hugin/MainFrame.cpp:565
+#: src/hugin/MainFrame.cpp:568
 msgid "Project opened"
 msgstr "Progetto aperto"
 
-#: src/hugin/MainFrame.cpp:575
+#: src/hugin/MainFrame.cpp:578
 msgid "Error opening project:   "
 msgstr "Errore nell'aprire il progetto"
 
-#: src/hugin/MainFrame.cpp:602
+#: src/hugin/MainFrame.cpp:605
 msgid "Open project file"
 msgstr "Apri file progetto"
 
-#: src/hugin/MainFrame.cpp:604
+#: src/hugin/MainFrame.cpp:607
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
@@ -679,38 +686,38 @@ msgstr ""
 "Files progetto (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*.*)|*.*"
 
-#: src/hugin/MainFrame.cpp:617
+#: src/hugin/MainFrame.cpp:620
 msgid "Open project: cancel"
 msgstr "Apri progetto: annulla"
 
-#: src/hugin/MainFrame.cpp:640 src/include/hugin/wxPanoCommand.h:180
+#: src/hugin/MainFrame.cpp:643 src/include/hugin/wxPanoCommand.h:180
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All "
 "files (*.*)|*.*"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:641 src/include/hugin/wxPanoCommand.h:181
+#: src/hugin/MainFrame.cpp:644 src/include/hugin/wxPanoCommand.h:181
 msgid "Add images"
 msgstr "Aggiungi immagini"
 
-#: src/hugin/MainFrame.cpp:685
+#: src/hugin/MainFrame.cpp:688
 msgid "Add Image: cancel"
 msgstr "Aggiungi immagine: annulla"
 
-#: src/hugin/MainFrame.cpp:1034
+#: src/hugin/MainFrame.cpp:1037
 msgid "hugin - FAQ"
 msgstr "hugin - FAQ"
 
-#: src/hugin/MainFrame.cpp:1118
+#: src/hugin/MainFrame.cpp:1121
 msgid "Fine-tuning all points"
 msgstr "Ricalibra tutti i punti "
 
-#: src/hugin/MainFrame.cpp:1120
+#: src/hugin/MainFrame.cpp:1123
 msgid "Finetuning"
 msgstr "Calibrazione"
 
-#: src/hugin/MainFrame.cpp:1204
+#: src/hugin/MainFrame.cpp:1207
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -738,7 +745,7 @@ msgstr ""
 "\n"
 "Use the Control Point list (F3) to see all point of the current project\n"
 
-#: src/hugin/MainFrame.cpp:1206
+#: src/hugin/MainFrame.cpp:1209
 msgid "Fine-tune result"
 msgstr "Risultato calibrazione"
 
@@ -989,10 +996,12 @@ msgid "the Panorama druid"
 msgstr "il druido Panoramix"
 
 #: src/hugin/PanoPanel.cpp:230 src/hugin/PreviewFrame.cpp:425
+#: src/hugin/xrc/pano_panel-2.5.xrs:3
 msgid "Rectilinear"
 msgstr "Rettilineare"
 
 #: src/hugin/PanoPanel.cpp:231 src/hugin/PreviewFrame.cpp:426
+#: src/hugin/xrc/pano_panel-2.5.xrs:4
 msgid "Cylindrical"
 msgstr "Cilindrica"
 
@@ -1336,11 +1345,11 @@ msgstr ""
 msgid "Set Anchor Image Orientation"
 msgstr "Imposta orientamento immagine di riferimento"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:1
+#: src/hugin/xrc/cp_editor_panel.xrs:1 src/hugin/xrc/cp_editor_panel-2.5.xrs:1
 msgid "previous image pair"
 msgstr "coppia prec."
 
-#: src/hugin/xrc/cp_editor_panel.xrs:2
+#: src/hugin/xrc/cp_editor_panel.xrs:2 src/hugin/xrc/cp_editor_panel-2.5.xrs:2
 msgid "next image pair"
 msgstr "coppia succ."
 
@@ -1349,64 +1358,79 @@ msgid "Control points"
 msgstr "Punti di controllo"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:11
 msgid "Zoom:"
 msgstr "Zoom:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:5
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:12
 msgid "100%"
 msgstr "100%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:6
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:13
 msgid "fit to window"
 msgstr "adatta alla finestra"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:7
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:14
 msgid "200%"
 msgstr "200%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:8
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:15
 msgid "150%"
 msgstr "150%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:9
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:16
 msgid "75%"
 msgstr "75%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:10
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:17
 msgid "50%"
 msgstr "50%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:11
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:18
 msgid "25%"
 msgstr "25%"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:12
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:19
 msgid "Fine-tune"
 msgstr "Calibrazione"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:20
 msgid "tries to optimize the currently active point."
 msgstr "ottimizza il punto di controllo attivo."
 
 #: src/hugin/xrc/cp_editor_panel.xrs:14
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:21
 msgid "auto fine-&tune"
 msgstr "auto fine-&tune"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:15
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:22
 msgid "auto add"
 msgstr "agg. automatica"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:16
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:23
 msgid "immediately add control point when selecting a second point"
 msgstr ""
 "aggiunge immadiatamente un punto di controllo alla selezione del secondo "
 "punto"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:17
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:24
 msgid "auto estimate"
 msgstr "stima automatica"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:18
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:25
 msgid ""
 "tries to estimate shift between the images and use it while placing control "
 "points"
@@ -1415,34 +1439,44 @@ msgstr ""
 "di controllo"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:19 src/hugin/xrc/cp_editor_panel.xrs:21
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:3
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:5
 msgid "x:"
 msgstr "x:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:20 src/hugin/xrc/cp_editor_panel.xrs:22
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6
 msgid "y:"
 msgstr "y:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:23
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:7
 msgid "mode:"
 msgstr "modalità:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:25
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:9
 msgid "vertical line"
 msgstr "linea verticale"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:26
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:10
 msgid "horizontal line"
 msgstr "linea orizzontale"
 
-#: src/hugin/xrc/cp_editor_panel.xrs:27 src/hugin/xrc/cp_list_frame.xrs:2
+#: src/hugin/xrc/cp_editor_panel.xrs:27
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:26 src/hugin/xrc/cp_list_frame.xrs:2
 msgid "Delete"
 msgstr "Cancella"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:28
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:27
 msgid "&Add"
 msgstr "&Aggiungi"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:29
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:28
 msgid "add a new Point"
 msgstr "Aggiungi Punto"
 
@@ -1505,51 +1539,51 @@ msgstr "applica i nuovi valori alle immagini attualmente selezionate"
 msgid "close window"
 msgstr "chiudi finestra"
 
-#: src/hugin/xrc/images_panel.xrs:1
+#: src/hugin/xrc/images_panel.xrs:1 src/hugin/xrc/images_panel-2.5.xrs:1
 msgid "Image Collection"
 msgstr "Insieme immagini"
 
-#: src/hugin/xrc/images_panel.xrs:2
+#: src/hugin/xrc/images_panel.xrs:2 src/hugin/xrc/images_panel-2.5.xrs:2
 msgid "Add individual images..."
 msgstr "Aggiungi immagini..."
 
-#: src/hugin/xrc/images_panel.xrs:3
+#: src/hugin/xrc/images_panel.xrs:3 src/hugin/xrc/images_panel-2.5.xrs:3
 msgid "load one or more photos for this project"
 msgstr "Carica una o piu' fotografie per questo progetto"
 
-#: src/hugin/xrc/images_panel.xrs:4
+#: src/hugin/xrc/images_panel.xrs:4 src/hugin/xrc/images_panel-2.5.xrs:4
 msgid "Add time-series of images..."
 msgstr "Aggiungi immagini per data..."
 
-#: src/hugin/xrc/images_panel.xrs:5
+#: src/hugin/xrc/images_panel.xrs:5 src/hugin/xrc/images_panel-2.5.xrs:5
 msgid "load a set of photos taken at the same time"
 msgstr "Aggiunge una serie di foto scattate nello stesso momento"
 
-#: src/hugin/xrc/images_panel.xrs:6
+#: src/hugin/xrc/images_panel.xrs:6 src/hugin/xrc/images_panel-2.5.xrs:6
 msgid "Remove this image"
 msgstr "Rimuovi immagine"
 
-#: src/hugin/xrc/images_panel.xrs:7
+#: src/hugin/xrc/images_panel.xrs:7 src/hugin/xrc/images_panel-2.5.xrs:7
 msgid "dismiss the current photo from this project"
 msgstr "Non usare l'immagine corrente in questo progetto"
 
-#: src/hugin/xrc/images_panel.xrs:8
+#: src/hugin/xrc/images_panel.xrs:8 src/hugin/xrc/images_panel-2.5.xrs:8
 msgid "Move up"
 msgstr ""
 
-#: src/hugin/xrc/images_panel.xrs:9
+#: src/hugin/xrc/images_panel.xrs:9 src/hugin/xrc/images_panel-2.5.xrs:9
 msgid "Move down"
 msgstr ""
 
-#: src/hugin/xrc/images_panel.xrs:10
+#: src/hugin/xrc/images_panel.xrs:10 src/hugin/xrc/images_panel-2.5.xrs:10
 msgid "Reference Image"
 msgstr "Immagine di riferimento"
 
-#: src/hugin/xrc/images_panel.xrs:11
+#: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:11
 msgid "Anchor this image for position"
 msgstr "Ancora la posizione di questa immagine"
 
-#: src/hugin/xrc/images_panel.xrs:12
+#: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:12
 msgid ""
 "use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image."
@@ -1557,83 +1591,84 @@ msgstr ""
 "Usa l'immagine selezionata come riferimento di posizione. Non ottimizzare "
 "quindi i valori di posizione di questa immagine tutti assieme."
 
-#: src/hugin/xrc/images_panel.xrs:13
+#: src/hugin/xrc/images_panel.xrs:13 src/hugin/xrc/images_panel-2.5.xrs:13
 msgid "Adjust the anchor spot..."
 msgstr "Regola il punto d'ancoraggio"
 
-#: src/hugin/xrc/images_panel.xrs:14
+#: src/hugin/xrc/images_panel.xrs:14 src/hugin/xrc/images_panel-2.5.xrs:14
 msgid "opens a window to select the anchor orientation graphically"
 msgstr "apre una finestra per impostare visivamente l'ancoraggio"
 
-#: src/hugin/xrc/images_panel.xrs:15
+#: src/hugin/xrc/images_panel.xrs:15 src/hugin/xrc/images_panel-2.5.xrs:15
 msgid "Anchor this image for exposure"
 msgstr "Immagine riferimento esposizione"
 
-#: src/hugin/xrc/images_panel.xrs:16
+#: src/hugin/xrc/images_panel.xrs:16 src/hugin/xrc/images_panel-2.5.xrs:16
 msgid "use the currently selected images as color correction anchor image"
 msgstr "Usa le immagini selezionate come riferimento di correzione colore"
 
-#: src/hugin/xrc/images_panel.xrs:17
+#: src/hugin/xrc/images_panel.xrs:17 src/hugin/xrc/images_panel-2.5.xrs:17
 msgid "Feature Matching (Autopano)"
 msgstr "Ricerca sovrapposizione (Autopano)"
 
-#: src/hugin/xrc/images_panel.xrs:18
+#: src/hugin/xrc/images_panel.xrs:18 src/hugin/xrc/images_panel-2.5.xrs:18
 msgid "Points per Overlap:"
 msgstr "Punti per Coppia:"
 
-#: src/hugin/xrc/images_panel.xrs:19
+#: src/hugin/xrc/images_panel.xrs:19 src/hugin/xrc/images_panel-2.5.xrs:19
 msgid "number of points created at each overlap"
 msgstr "Numero punti di controllo per ogni coppia di immagini"
 
-#: src/hugin/xrc/images_panel.xrs:20
+#: src/hugin/xrc/images_panel.xrs:20 src/hugin/xrc/images_panel-2.5.xrs:20
 msgid "Create Ctrl Points"
 msgstr "Crea punti di controllo"
 
-#: src/hugin/xrc/images_panel.xrs:21
+#: src/hugin/xrc/images_panel.xrs:21 src/hugin/xrc/images_panel-2.5.xrs:21
 msgid "Run external autopano program on the selected images"
 msgstr "Passa ad Autopano le immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:22
+#: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:22
 msgid "Remove Points"
 msgstr "Rimuovi punti"
 
-#: src/hugin/xrc/images_panel.xrs:23
+#: src/hugin/xrc/images_panel.xrs:23 src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Remove control points connecting the selected images"
 msgstr "Rimuovi i punti di controllo che connettono le immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/optimize_panel.xrs:23
+#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:24
+#: src/hugin/xrc/optimize_panel.xrs:23
 msgid "Image Orientation"
 msgstr "Orientazione immagini"
 
-#: src/hugin/xrc/images_panel.xrs:25
+#: src/hugin/xrc/images_panel.xrs:25 src/hugin/xrc/images_panel-2.5.xrs:25
 msgid "yaw:"
 msgstr "yaw:"
 
-#: src/hugin/xrc/images_panel.xrs:26
+#: src/hugin/xrc/images_panel.xrs:26 src/hugin/xrc/images_panel-2.5.xrs:26
 msgid "set yaw for selected image(s)"
 msgstr "imposta yaw delle immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:27
+#: src/hugin/xrc/images_panel.xrs:27 src/hugin/xrc/images_panel-2.5.xrs:27
 msgid "pitch:"
 msgstr "pitch:"
 
-#: src/hugin/xrc/images_panel.xrs:28
+#: src/hugin/xrc/images_panel.xrs:28 src/hugin/xrc/images_panel-2.5.xrs:28
 msgid "set pitch for selected image(s)"
 msgstr "imposta pitch delle immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:29
+#: src/hugin/xrc/images_panel.xrs:29 src/hugin/xrc/images_panel-2.5.xrs:29
 msgid "roll:"
 msgstr "roll:"
 
-#: src/hugin/xrc/images_panel.xrs:30
+#: src/hugin/xrc/images_panel.xrs:30 src/hugin/xrc/images_panel-2.5.xrs:30
 msgid "set roll for selected image(s)"
 msgstr "imposta roll delle immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:32
+#: src/hugin/xrc/images_panel.xrs:32 src/hugin/xrc/images_panel-2.5.xrs:32
 msgid "Reset position of selected image(s)"
 msgstr "Ripristina posizione delle immagini selezionate"
 
-#: src/hugin/xrc/images_panel.xrs:33
+#: src/hugin/xrc/images_panel.xrs:33 src/hugin/xrc/images_panel-2.5.xrs:33
 msgid "This Image"
 msgstr "Questa Immagine"
 
@@ -1641,20 +1676,20 @@ msgstr "Questa Immagine"
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie Tastiera"
 
-#: src/hugin/xrc/lens_panel.xrs:1
+#: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:1
 msgid "Lens type:"
 msgstr "Tipo di obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:7
+#: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:7
 msgid "Design Parameters"
 msgstr "Parametri design"
 
-#: src/hugin/xrc/lens_panel.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:8
 msgid "degrees of view (v):"
 msgstr "angolo di campo (v):"
 
 #: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel.xrs:10
-#: src/hugin/xrc/lens_panel.xrs:11
+#: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:9
 msgid "Horizontal Field of View"
 msgstr "Angolo di campo orizzontale"
 
@@ -1662,10 +1697,14 @@ msgstr "Angolo di campo orizzontale"
 #: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel.xrs:34
 #: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel.xrs:42
+#: src/hugin/xrc/lens_panel-2.5.xrs:10 src/hugin/xrc/lens_panel-2.5.xrs:17
+#: src/hugin/xrc/lens_panel-2.5.xrs:19 src/hugin/xrc/lens_panel-2.5.xrs:21
+#: src/hugin/xrc/lens_panel-2.5.xrs:24 src/hugin/xrc/lens_panel-2.5.xrs:26
+#: src/hugin/xrc/lens_panel-2.5.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:33
 msgid "Inherit"
 msgstr "Eredita"
 
-#: src/hugin/xrc/lens_panel.xrs:13
+#: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:11
 msgid "focal length:"
 msgstr "lunghezza focale:"
 
@@ -1673,16 +1712,16 @@ msgstr "lunghezza focale:"
 msgid "real focal length of the optic"
 msgstr "Lunghezza focale reale dell'ottica"
 
-#: src/hugin/xrc/lens_panel.xrs:16
+#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:12
 msgid "true focal length in mm"
 msgstr "Lunghezza focale reale in mm"
 
-#: src/hugin/xrc/lens_panel.xrs:17
+#: src/hugin/xrc/lens_panel.xrs:17 src/hugin/xrc/lens_panel-2.5.xrs:13
 msgid "crop factor:"
 msgstr "fattore di moltiplicazione:"
 
 #: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel.xrs:19
-#: src/hugin/xrc/lens_panel.xrs:22
+#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:14
 msgid "35mm film diameter / ccd diameter"
 msgstr "diametro su formato 35mm / diametro su ccd"
 
@@ -1690,39 +1729,42 @@ msgstr "diametro su formato 35mm / diametro su ccd"
 msgid "equivalent to 35mm film optics"
 msgstr "equivalente ad ottica su formato 35mm"
 
-#: src/hugin/xrc/lens_panel.xrs:23
+#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:15
 msgid "Lens Correction Parameters"
 msgstr "Parametri di correzione obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/optimize_panel.xrs:26
+#: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/lens_panel-2.5.xrs:16
+#: src/hugin/xrc/optimize_panel.xrs:26
 msgid "distortion (a):"
 msgstr "distorsione (a):"
 
-#: src/hugin/xrc/lens_panel.xrs:26 src/hugin/xrc/optimize_panel.xrs:27
+#: src/hugin/xrc/lens_panel.xrs:26 src/hugin/xrc/lens_panel-2.5.xrs:18
+#: src/hugin/xrc/optimize_panel.xrs:27
 msgid "barrel (b):"
 msgstr "distorsione princ. (b):"
 
-#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/optimize_panel.xrs:28
+#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:20
+#: src/hugin/xrc/optimize_panel.xrs:28
 msgid "distortion (c):"
 msgstr "distorsione (c):"
 
-#: src/hugin/xrc/lens_panel.xrs:30
+#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:22
 msgid "Image Center Shift"
 msgstr "Shift asse ottico"
 
-#: src/hugin/xrc/lens_panel.xrs:31
+#: src/hugin/xrc/lens_panel.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:23
 msgid "horizontal (d):"
 msgstr "orizzontale (d):"
 
-#: src/hugin/xrc/lens_panel.xrs:33
+#: src/hugin/xrc/lens_panel.xrs:33 src/hugin/xrc/lens_panel-2.5.xrs:25
 msgid "vertical (e):"
 msgstr "verticale (e):"
 
-#: src/hugin/xrc/lens_panel.xrs:35
+#: src/hugin/xrc/lens_panel.xrs:35 src/hugin/xrc/lens_panel-2.5.xrs:27
 msgid "Set Crop"
 msgstr ""
 
-#: src/hugin/xrc/lens_panel.xrs:36
+#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:28
 msgid "Set crop and image center"
 msgstr ""
 
@@ -1730,59 +1772,60 @@ msgstr ""
 msgid "Camera and Lens Information"
 msgstr "Info su fotocamera e obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:38
+#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:29
 msgid "Image Shearing"
 msgstr "Shearing immagine"
 
-#: src/hugin/xrc/lens_panel.xrs:39
+#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:30
 msgid "horizontal (g):"
 msgstr "orizzontale (g):"
 
-#: src/hugin/xrc/lens_panel.xrs:41
+#: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:32
 msgid "vertical (t):"
 msgstr "verticale (t):"
 
-#: src/hugin/xrc/lens_panel.xrs:43
+#: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:34
 msgid "Lens management"
 msgstr "Gestione parametri obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:44
+#: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:35
 msgid "Load"
 msgstr "Carica"
 
-#: src/hugin/xrc/lens_panel.xrs:45
+#: src/hugin/xrc/lens_panel.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:36
 msgid "Load lens parameters from a file"
 msgstr "Carica i parametri dell'obiettivo da file"
 
-#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/main_tool.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:37
+#: src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
 msgstr "Salva"
 
-#: src/hugin/xrc/lens_panel.xrs:47
+#: src/hugin/xrc/lens_panel.xrs:47 src/hugin/xrc/lens_panel-2.5.xrs:38
 msgid "Save lens parameters to an file"
 msgstr "Salva i parametri dell'obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:48
+#: src/hugin/xrc/lens_panel.xrs:48 src/hugin/xrc/lens_panel-2.5.xrs:39
 msgid "Load EXIF"
 msgstr "Leggi EXIF"
 
-#: src/hugin/xrc/lens_panel.xrs:49
+#: src/hugin/xrc/lens_panel.xrs:49 src/hugin/xrc/lens_panel-2.5.xrs:40
 msgid "Try to read HFOV from the EXIF data"
 msgstr "Leggere angolo di campo orizzontale dai dati EXIF"
 
-#: src/hugin/xrc/lens_panel.xrs:50
+#: src/hugin/xrc/lens_panel.xrs:50 src/hugin/xrc/lens_panel-2.5.xrs:41
 msgid "New Lens"
 msgstr "Nuovo Obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:51
+#: src/hugin/xrc/lens_panel.xrs:51 src/hugin/xrc/lens_panel-2.5.xrs:42
 msgid "Create a new lens and assign it to selected images"
 msgstr "Crea un nuovo obiettivo ed assegnalo alle immagini selezionate"
 
-#: src/hugin/xrc/lens_panel.xrs:52
+#: src/hugin/xrc/lens_panel.xrs:52 src/hugin/xrc/lens_panel-2.5.xrs:43
 msgid "Change lens"
 msgstr "Cambia obiettivo"
 
-#: src/hugin/xrc/lens_panel.xrs:53
+#: src/hugin/xrc/lens_panel.xrs:53 src/hugin/xrc/lens_panel-2.5.xrs:44
 msgid "change lens of selected images"
 msgstr "cambia obiettivo pel le immagini selezionate"
 
@@ -2083,53 +2126,53 @@ msgstr "Poly3 (Bicubica)"
 msgid "approximation of values beetwen source pixels"
 msgstr "approssimazione dei valori tra i pixel sorgenti"
 
-#: src/hugin/xrc/nona_panel.xrs:12
+#: src/hugin/xrc/nona_panel.xrs:12 src/hugin/xrc/ptstitcher_panel.xrs:28
+msgid "Output File Options"
+msgstr "Opzioni file di output"
+
+#: src/hugin/xrc/nona_panel.xrs:13 src/hugin/xrc/ptstitcher_panel.xrs:29
+msgid "image format:"
+msgstr "formato immagine:"
+
+#: src/hugin/xrc/nona_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:30
+msgid "JPG"
+msgstr "JPG"
+
+#: src/hugin/xrc/nona_panel.xrs:15 src/hugin/xrc/ptstitcher_panel.xrs:31
+msgid "PNG"
+msgstr "PNG"
+
+#: src/hugin/xrc/nona_panel.xrs:16 src/hugin/xrc/ptstitcher_panel.xrs:32
+msgid "TIFF"
+msgstr "TIFF"
+
+#: src/hugin/xrc/nona_panel.xrs:17 src/hugin/xrc/ptstitcher_panel.xrs:33
+msgid "Multiple TIFF"
+msgstr "TIFF multipli"
+
+#: src/hugin/xrc/nona_panel.xrs:18
+msgid "Multilayer TIFF"
+msgstr "TIFF multilivello"
+
+#: src/hugin/xrc/nona_panel.xrs:19 src/hugin/xrc/ptstitcher_panel.xrs:44
+msgid "compression:"
+msgstr "compressione:"
+
+#: src/hugin/xrc/nona_panel.xrs:20 src/hugin/xrc/ptstitcher_panel.xrs:45
+msgid "JPEG compression (0-100)"
+msgstr "Compressione JPEG (0-100)"
+
+#: src/hugin/xrc/nona_panel.xrs:21
 msgid "Soft Blending (requires enblend, only TIFF output)"
 msgstr "Blending morbido (richiede Enblend, solo files TIFF)"
 
-#: src/hugin/xrc/nona_panel.xrs:13
+#: src/hugin/xrc/nona_panel.xrs:22
 msgid ""
 "Use the external enblend program for seamless blending. Can only produce "
 "TIFF output. Select TIFF to enable this option"
 msgstr ""
 "Usa il software esterno Enblend per la fusione accurata delle immagini. "
 "Produce solo TIFF. Selezionare TIFF output per abilitare questa opzione."
-
-#: src/hugin/xrc/nona_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:28
-msgid "Output File Options"
-msgstr "Opzioni file di output"
-
-#: src/hugin/xrc/nona_panel.xrs:15 src/hugin/xrc/ptstitcher_panel.xrs:29
-msgid "image format:"
-msgstr "formato immagine:"
-
-#: src/hugin/xrc/nona_panel.xrs:16 src/hugin/xrc/ptstitcher_panel.xrs:30
-msgid "JPG"
-msgstr "JPG"
-
-#: src/hugin/xrc/nona_panel.xrs:17 src/hugin/xrc/ptstitcher_panel.xrs:31
-msgid "PNG"
-msgstr "PNG"
-
-#: src/hugin/xrc/nona_panel.xrs:18 src/hugin/xrc/ptstitcher_panel.xrs:32
-msgid "TIFF"
-msgstr "TIFF"
-
-#: src/hugin/xrc/nona_panel.xrs:19 src/hugin/xrc/ptstitcher_panel.xrs:33
-msgid "Multiple TIFF"
-msgstr "TIFF multipli"
-
-#: src/hugin/xrc/nona_panel.xrs:20
-msgid "Multilayer TIFF"
-msgstr "TIFF multilivello"
-
-#: src/hugin/xrc/nona_panel.xrs:21 src/hugin/xrc/ptstitcher_panel.xrs:44
-msgid "compression:"
-msgstr "compressione:"
-
-#: src/hugin/xrc/nona_panel.xrs:22 src/hugin/xrc/ptstitcher_panel.xrs:45
-msgid "JPEG compression (0-100)"
-msgstr "Compressione JPEG (0-100)"
 
 #: src/hugin/xrc/optimize_panel.xrs:1
 msgid "Quick Optimizer"
@@ -2229,35 +2272,35 @@ msgstr "Modifica lo script prima di ottimizzare"
 msgid "for advanced users"
 msgstr "per utenti avanzati"
 
-#: src/hugin/xrc/pano_panel.xrs:1
+#: src/hugin/xrc/pano_panel.xrs:1 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "Quick Stitcher"
 msgstr "Stitcher rapido"
 
-#: src/hugin/xrc/pano_panel.xrs:2
+#: src/hugin/xrc/pano_panel.xrs:2 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Stitch the images"
 msgstr "Unisci le immagini"
 
-#: src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/xrc/pano_panel.xrs:3 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "with custom settings below"
 msgstr "Personalizzando le impostazioni sotto."
 
-#: src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/xrc/pano_panel.xrs:4 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "into a high quality TIFF file"
 msgstr "in formato TIFF di qualità alta"
 
-#: src/hugin/xrc/pano_panel.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:5 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "into a high-quality JPEG file"
 msgstr "in formato JPG di qualità alta"
 
-#: src/hugin/xrc/pano_panel.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "into a draft-quality JPEG file"
 msgstr "in formato JPG di qualità bassa"
 
-#: src/hugin/xrc/pano_panel.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "into a layered TIFF file"
 msgstr "in formato TIFF multilivello"
 
-#: src/hugin/xrc/pano_panel.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered Photoshop file"
 msgstr "in formato Photoshop multilivello"
 
@@ -2277,11 +2320,11 @@ msgstr "proiezione Equirettangolare"
 msgid "panorama."
 msgstr "panorama."
 
-#: src/hugin/xrc/pano_panel.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "Stitch now!"
 msgstr "Stitcha adesso!"
 
-#: src/hugin/xrc/pano_panel.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "execute the PTStitcher engine"
 msgstr "avviare PTStitcher"
 
@@ -2289,11 +2332,11 @@ msgstr "avviare PTStitcher"
 msgid "Custom Stitching Options"
 msgstr "Opzioni personalizzate di stitching"
 
-#: src/hugin/xrc/pano_panel.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Field of View"
 msgstr "Angolo di Campo"
 
-#: src/hugin/xrc/pano_panel.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "horizontal (v):"
 msgstr "orizzontale (v):"
 
@@ -2301,45 +2344,61 @@ msgstr "orizzontale (v):"
 msgid " Calculate Field of View "
 msgstr "Calcolare angolo di campo"
 
-#: src/hugin/xrc/pano_panel.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "vertical:"
 msgstr "verticale:"
 
-#: src/hugin/xrc/pano_panel.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "Panorama Image Size"
 msgstr "Dimensioni dell'immagine panoramica"
 
-#: src/hugin/xrc/pano_panel.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "pixel width:"
 msgstr "larghezza in pixel:"
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:22 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "pixel height:"
 msgstr "altezza in pixel:"
 
-#: src/hugin/xrc/pano_panel.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "Calculate Optimal Size"
 msgstr "Calcola dimensioni ottimali"
 
-#: src/hugin/xrc/pano_panel.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr "Calcola la massima grandezza utile (nessun ricampionamento)"
 
-#: src/hugin/xrc/pano_panel.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
 msgid "Stitching engine:"
 msgstr "Motore di stitching:"
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/run_stitcher_frame.xrs:1
+#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 msgid "nona"
 msgstr "nona"
+
+#: src/hugin/xrc/pano_panel-2.5.xrs:1
+#, fuzzy
+msgid "Panorama"
+msgstr "panorama."
+
+#: src/hugin/xrc/pano_panel-2.5.xrs:2
+#, fuzzy
+msgid "Projection (f):"
+msgstr "Approssimazione (f)"
+
+#: src/hugin/xrc/pano_panel-2.5.xrs:8
+#, fuzzy
+msgid "Calculate Field of View"
+msgstr "Calcolare angolo di campo"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
