@@ -56,14 +56,14 @@
                       <hgap>6</hgap>
                       <growablecols>1</growablecols>
                     </object>
-                    <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>6</border>
                   </object>                  
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
                       <orient>wxVERTICAL</orient>
                       <object class="spacer">
-                        <size>0,20</size>
+                        <size>0,10</size>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -141,14 +141,14 @@
                         <border>12</border>
                       </object>
                     </object>
-                    <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>6</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
                       <orient>wxVERTICAL</orient>
                       <object class="spacer">
-                        <size>0,20</size>
+                        <size>0,10</size>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -229,14 +229,14 @@
                         <border>12</border>
                       </object>
                     </object>
-                    <flag>wxLEFT|wxEXPAND</flag>
+                    <flag>wxALL|wxEXPAND</flag>
                     <border>6</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
                       <orient>wxVERTICAL</orient>
                       <object class="spacer">
-                        <size>0,20</size>
+                        <size>0,10</size>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -311,7 +311,7 @@
                         <border>20</border>
                       </object>
                     </object>
-                    <flag>wxLEFT</flag>
+                    <flag>wxALL</flag>
                     <border>6</border>
                   </object>
                   <orient>wxVERTICAL</orient>
@@ -319,7 +319,7 @@
                     <object class="wxBoxSizer">
                       <orient>wxVERTICAL</orient>
                       <object class="spacer">
-                        <size>0,20</size>
+                        <size>0,10</size>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -382,14 +382,14 @@
                         <border>12</border>
                       </object>
                     </object>
-                    <flag>wxLEFT|wxEXPAND</flag>
+                    <flag>wxALL</flag>
                     <border>6</border>
                   </object>
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
                       <orient>wxVERTICAL</orient>
                       <object class="spacer">
-                        <size>0,20</size>
+                        <size>0,10</size>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
@@ -480,11 +480,11 @@
                         <border>12</border>
                       </object>
                     </object>
-                    <flag>wxLEFT|wxRIGHT</flag>
+                    <flag>wxALL</flag>
                     <border>6</border>
                   </object>
                 </object>
-                <flag>wxTOP|wxLEFT|wxEXPAND</flag>
+                <flag>wxLEFT|wxEXPAND</flag>
                 <border>12</border>
               </object>
             </object>
