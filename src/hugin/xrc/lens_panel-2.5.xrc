@@ -24,7 +24,7 @@
                     <size>10</size>
                   </font>
                 </object>
-                <flag>wxBOTTOM</flag>
+                <flag>wxLEFT|wxTOP|wxBOTTOM|wxEXPAND</flag>
                 <border>6</border>
               </object>             
               <object class="sizeritem">
@@ -485,7 +485,7 @@
                   </object>
                 </object>
                 <flag>wxTOP|wxLEFT|wxEXPAND</flag>
-                <border>6</border>
+                <border>12</border>
               </object>
             </object>
             <size>200,200</size>
