@@ -16,7 +16,7 @@
                 <size>10</size>
               </font>
             </object>
-            <flag>wxBOTTOM</flag>
+            <flag></flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
@@ -97,7 +97,7 @@
                 <size>10</size>
               </font>
             </object>
-            <flag>wxBOTTOM</flag>
+            <flag></flag>
             <border>6</border>
           </object>
           <object class="sizeritem">
@@ -124,7 +124,7 @@
                               <size>10</size>
                             </font>
                           </object>
-                          <flag>wxBOTTOM</flag>
+                          <flag></flag>
                           <border>6</border>
                         </object>
                         <object class="sizeritem">
@@ -203,7 +203,7 @@
                               <size>10</size>
                             </font>
                           </object>
-                          <flag>wxBOTTOM</flag>
+                          <flag></flag>
                           <border>6</border>
                         </object>
                         <object class="sizeritem">
@@ -278,7 +278,7 @@
                               <border>6</border>
                             </object>
                           </object>
-                          <flag>wxBOTTOM|wxEXPAND|wxADJUST_MINSIZE</flag>
+                          <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
                           <border>6</border>
                         </object>
                         <object class="sizeritem">
