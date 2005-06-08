@@ -2,81 +2,157 @@
 <resource>
   <object class="wxPanel" name="nona_panel">
     <object class="wxBoxSizer">
-      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+      
+        <object class="wxBoxSizer">
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Stitching Options</label>
+              <font>
+                <style>normal</style>
+                <family>swiss</family>
+                <weight>bold</weight>
+                <underlined>0</underlined>
+                <size>10</size>
+              </font>
+            </object>
+            <flag>wxBOTTOM</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>2</cols>
+                  <rows>1</rows>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>interpolator (i):</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="nona_choice_interpolator">
+                      <content>
+                        <item>Poly3 (Bicubic)</item>
+                        <item>Spline 16</item>
+                        <item>Spline 36</item>
+                        <item>Sinc 256</item>
+                        <item>Spline 64</item>
+                        <item>Bilinear</item>
+                        <item>Nearest neighbour</item>
+                        <item>Sinc 1024</item>
+                      </content>
+                      <selection>0</selection>
+                      <tooltip>approximation of values beetwen source pixels</tooltip>
+                    </object>
+                  </object>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                <border>6</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="nona_check_enblend">
+                  <label>Soft Blending (requires enblend, only TIFF output)</label>
+                  <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>6</border>
+              </object>              
+            </object>
+            <flag>wxLEFT|wxRIGHT|wxEXPAND|wxADJUST_MINSIZE</flag>
+            <border>6</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>6</border>
+      </object>
       <object class="spacer">
-        <size>0,6</size>
+        <size>0,5</size>
       </object>
       <object class="sizeritem">
-        <object class="wxFlexGridSizer">
+        <object class="wxBoxSizer">
+          <orient>wxVERTICAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              <label>interpolator (i):</label>
+              <label>Output File Options</label>
+              <font>
+                <style>normal</style>
+                <family>swiss</family>
+                <weight>bold</weight>
+                <underlined>0</underlined>
+                <size>10</size>
+              </font>
             </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxBOTTOM</flag>
+            <border>6</border>
           </object>
           <object class="sizeritem">
-            <object class="wxChoice" name="nona_choice_interpolator">
-              <content>
-                <item>Poly3 (Bicubic)</item>
-                <item>Spline 16</item>
-                <item>Spline 36</item>
-                <item>Sinc 256</item>
-                <item>Spline 64</item>
-                <item>Bilinear</item>
-                <item>Nearest neighbour</item>
-                <item>Sinc 1024</item>
-              </content>
-              <selection>0</selection>
-              <tooltip>approximation of values beetwen source pixels</tooltip>
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxFlexGridSizer">
+                  <cols>3</cols>
+                  <vgap>5</vgap>
+                  <hgap>5</hgap>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>image format:</label>
+                    </object>
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="nona_choice_format_final">
+                      <content>
+                        <item>JPG</item>
+                        <item>PNG</item>
+                        <item>TIFF</item>
+                        <item>Multiple TIFF</item>
+                        <item>Multilayer TIFF</item>
+                      </content>
+                      <selection>0</selection>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <orient>wxHORIZONTAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>compression:</label>
+                          <tooltip>JPEG compression (0-100)</tooltip>
+                        </object>
+                        <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                        <border>5</border>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxSpinCtrl" name="nona_jpeg_quality">
+                          <min>0</min>
+                          <max>100</max>
+                        </object>
+                      </object>
+                    </object>
+                    <border>6</border>
+                    <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
+                  </object>
+                </object>
+                <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                <border>6</border>
+              </object>
             </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <flag>wxLEFT|wxRIGHT|wxEXPAND|wxADJUST_MINSIZE</flag>
+            <border>6</border>
           </object>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>image format:</label>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxChoice" name="nona_choice_format_final">
-              <content>
-                <item>JPG</item>
-                <item>PNG</item>
-                <item>TIFF</item>
-                <item>Multiple TIFF</item>
-                <item>Multilayer TIFF</item>
-              </content>
-              <selection>0</selection>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>compression:</label>
-              <tooltip>JPEG compression (0-100)</tooltip>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxSpinCtrl" name="nona_jpeg_quality">
-              <min>0</min>
-              <max>100</max>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
-          <cols>2</cols>
-          <rows>3</rows>
-          <vgap>6</vgap>
-          <hgap>12</hgap>
         </object>
+        <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        <border>6</border>
       </object>
-      <object class="sizeritem">
-        <object class="wxCheckBox" name="nona_check_enblend">
-          <label>Soft Blending (requires enblend, only TIFF output)</label>
-          <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
-        </object>
-        <flag>wxALIGN_CENTRE_VERTICAL</flag>
-      </object>
+      <orient>wxVERTICAL</orient>
     </object>
   </object>
 </resource>
