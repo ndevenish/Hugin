@@ -46,25 +46,6 @@
                 <border>6</border>
               </object>
               <object class="sizeritem">
-                <object class="wxChoice" name="pano_choice_pano_type">
-                  <content>
-                    <item>as a Rectilinear</item>
-                    <item>as a Cylindrical</item>
-                    <item>as an Equirectangular</item>
-                  </content>
-                  <selection>2</selection>
-                </object>
-                <flag>wxALL|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>6</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>panorama.</label>
-                </object>
-                <flag>wxALL|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>6</border>
-              </object>
-              <object class="sizeritem">
                 <object class="wxButton" name="pano_button_stitch">
                   <label>Stitch now!</label>
                   <tooltip>execute the PTStitcher engine</tooltip>
@@ -80,39 +61,6 @@
         <flag>wxALL|wxEXPAND</flag>
         <border>6</border>
       </object>
-      <object class="spacer">
-        <size>0,5</size>
-      </object>
-      <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxVERTICAL</orient>
-          <object class="sizeritem">
-            <object class="wxStaticText">
-              <label>Custom Stitching Options</label>
-              <font>
-                <style>normal</style>
-                <family>swiss</family>
-                <weight>bold</weight>
-                <underlined>0</underlined>
-                <size>10</size>
-              </font>
-            </object>
-            <flag></flag>
-            <border>6</border>
-          </object>
-          <object class="spacer">
-            <size>0,10</size>
-          </object>
-          <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxVERTICAL</orient>
-              <object class="spacer">
-                <size>0,5</size>
-              </object>
-              <object class="sizeritem">
-                <object class="wxScrolledWindow" name="pano_controls_panel">
-                  <object class="wxBoxSizer">
-                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
@@ -184,6 +132,33 @@
                               <flag>wxALL|wxEXPAND</flag>
                               <border>6</border>
                             </object>
+                                <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+                            
+                            
+                                <object class="sizeritem">
+                                  <object class="wxChoice" name="pano_choice_pano_type">
+                                    <content>
+                                      <item>as a Rectilinear</item>
+                                      <item>as a Cylindrical</item>
+                                      <item>as an Equirectangular</item>
+                                    </content>
+                                    <selection>2</selection>
+                                  </object>
+                                  <flag>wxALL|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                  <border>6</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>panorama.</label>
+                                  </object>
+                                  <flag>wxALL|wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                  <border>6</border>
+                                </object>
+                                
+                                </object>
+                                </object>
                           </object>
                           <border>6</border>
                           <flag>wxLEFT|wxRIGHT</flag>
@@ -192,6 +167,39 @@
                       <flag>wxALL|wxEXPAND</flag>
                       <border>6</border>
                     </object>
+      <object class="spacer">
+        <size>0,5</size>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Custom Stitching Options</label>
+              <font>
+                <style>normal</style>
+                <family>swiss</family>
+                <weight>bold</weight>
+                <underlined>0</underlined>
+                <size>10</size>
+              </font>
+            </object>
+            <flag></flag>
+            <border>6</border>
+          </object>
+          <object class="spacer">
+            <size>0,10</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="spacer">
+                <size>0,5</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxScrolledWindow" name="pano_controls_panel">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
