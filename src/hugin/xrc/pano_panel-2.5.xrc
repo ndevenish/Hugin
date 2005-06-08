@@ -100,6 +100,9 @@
             <flag></flag>
             <border>6</border>
           </object>
+          <object class="spacer">
+            <size>0,10</size>
+          </object>
           <object class="sizeritem">
             <object class="wxBoxSizer">
               <orient>wxVERTICAL</orient>
@@ -280,6 +283,9 @@
                           </object>
                           <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
                           <border>6</border>
+                        </object>
+                        <object class="spacer">
+                          <size>0,10</size>
                         </object>
                         <object class="sizeritem">
                           <object class="unknown" name="pano_stitcher_unknown"/>

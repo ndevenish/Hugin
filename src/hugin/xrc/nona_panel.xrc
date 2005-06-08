@@ -65,7 +65,7 @@
                 <border>6</border>
               </object>              
             </object>
-            <flag>wxLEFT|wxRIGHT|wxEXPAND|wxADJUST_MINSIZE</flag>
+            <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>6</border>
           </object>
         </object>
