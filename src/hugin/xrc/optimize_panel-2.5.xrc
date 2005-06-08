@@ -17,6 +17,8 @@
                 <size>10</size>
               </font>
             </object>
+            <flag>wxBOTTOM</flag>
+            <border>6</border>
           </object>
           <object class="sizeritem">
             <object class="wxBoxSizer">
@@ -403,7 +405,8 @@ Variables which are cleared [ ] will act as references or anchors.</label>
               </object>
             </object>
             <option>1</option>
-            <flag>wxEXPAND</flag>
+            <flag>wxEXPAND|wxLEFT</flag>
+            <border>12</border>
           </object>
           <object class="sizeritem">
             <object class="wxCheckBox" name="optimizer_edit_script">
