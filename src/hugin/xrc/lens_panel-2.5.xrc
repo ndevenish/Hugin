@@ -11,25 +11,13 @@
           <sashpos>0</sashpos>
           <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
           <object class="wxScrolledWindow" name="lens_control_panel">
-            <object class="wxBoxSizer">
-              <orient>wxVERTICAL</orient>       
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Camera and Lens Information</label>
-                  <font>
-                    <style>normal</style>
-                    <family>swiss</family>
-                    <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
-                  </font>
-                </object>
-                <flag>wxLEFT|wxTOP|wxBOTTOM|wxEXPAND</flag>
-                <border>6</border>
-              </object>             
-              <object class="sizeritem">
+
+              
                 <object class="wxBoxSizer">
-                  <orient>wxVERTICAL</orient>                 
+                  <orient>wxVERTICAL</orient> 
+                  <object class="spacer">
+                    <size>0,10</size>
+                  </object>                
                   <object class="sizeritem">
                     <object class="wxFlexGridSizer">
                       <object class="sizeritem">
@@ -484,10 +472,8 @@
                     <border>6</border>
                   </object>
                 </object>
-                <flag>wxLEFT|wxEXPAND</flag>
-                <border>12</border>
-              </object>
-            </object>
+                
+                
             <size>200,200</size>
           </object>
         </object>

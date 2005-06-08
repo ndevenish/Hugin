@@ -93,20 +93,6 @@
             <object class="wxBoxSizer">
               <orient>wxVERTICAL</orient>
               <object class="sizeritem">
-                <object class="wxStaticText">
-                  <label>Control points</label>
-                  <font>
-                    <style>normal</style>
-                    <family>swiss</family>
-                    <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
-                  </font>
-                </object>
-                <flag>wxALL</flag>
-                <border>3</border>
-              </object>
-              <object class="sizeritem">
                 <object class="wxScrolledWindow" name="cp_controls_panel">
                   <object class="wxBoxSizer">
                     <orient>wxHORIZONTAL</orient>
@@ -116,7 +102,6 @@
                         <object class="sizeritem">
                           <object class="wxListCtrl" name="cp_editor_cp_list">
                             <style>wxLC_REPORT|wxLC_SINGLE_SEL|wxSUNKEN_BORDER</style>
-                          
                           </object>
                           <option>1</option>
                           <flag>wxEXPAND</flag>
