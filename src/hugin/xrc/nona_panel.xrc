@@ -55,14 +55,6 @@
                 <option>1</option>
                 <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>6</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="nona_check_enblend">
-                  <label>Soft Blending (requires enblend, only TIFF output)</label>
-                  <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
-                </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>6</border>
               </object>              
             </object>
             <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
@@ -144,6 +136,16 @@
                 <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                 <border>6</border>
               </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="nona_check_enblend">
+                  <label>Soft Blending (requires enblend, only TIFF output)</label>
+                  <tooltip>Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option</tooltip>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>6</border>
+              </object>
+              
+              
             </object>
             <flag>wxLEFT|wxRIGHT|wxEXPAND|wxADJUST_MINSIZE</flag>
             <border>6</border>
