@@ -19,19 +19,16 @@
           </object>
           <object class="sizeritem">
             <object class="wxFlexGridSizer">
-              <cols>2</cols>
+              <cols>4</cols>
               <rows>6</rows>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>interpolator (i):</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_interpolator">
-              
                   <content>
                     <item>Poly3 (Bicubic)</item>
                     <item>Spline 16</item>
@@ -42,121 +39,111 @@
                     <item>Nearest neighbour</item>
                     <item>Sinc 1024</item>
                   </content>
-              
                   <selection>0</selection>
-              
                   <tooltip>approximation of values between source pixels</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText" name="">
-              
                   <label>gamma (g):</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="pano_val_gamma">
-              
                   <value>1</value>
-              
+                  <size>50,-1</size>
                   <style>wxTE_PROCESS_ENTER|wxTE_PROCESS_TAB</style>
-              
                   <tooltip></tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>exposure correction:</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_color_corr_mode">
-              
                   <content>
                     <item>None</item>
                     <item>Brightness and Color (k)</item>
                     <item>Brightness (b)</item>
                     <item>Color (d)</item>
                   </content>
-              
                   <selection>0</selection>
-              
                   <tooltip>select kind of exposure correction relative to the anchor image</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>exposure anchor:</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxSpinCtrl" name="pano_spin_color_corr_reference">
-              
                   <value>0</value>
-              
+                  <size>50,-1</size>
                   <tooltip>image used as reference for exposure correction</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>feather width:</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxSpinCtrl" name="pano_spin_feather_width">
-              
+                  <size>50,-1</size>
                   <tooltip>width of the transition between images</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>Approximation (f):</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_speedup">
-              
                   <content>
                     <item>None</item>
                     <item>Fast (0)</item>
                     <item>Medium (1)</item>
                   </content>
-              
                   <selection>0</selection>
-              
                   <tooltip>approximate remapping, faster but slightly less accurate. Fast should work well with usual panos, Medium even with morphed panos</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <vgap>6</vgap>
               <hgap>12</hgap>
             </object>
-      
             <flag>wxALL</flag>
             <border>6</border>
           </object>
@@ -180,15 +167,12 @@
               <rows>6</rows>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>image format:</label>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="pano_choice_format_final">
-              
                   <content>
                     <item>JPG</item>
                     <item>PNG</item>
@@ -205,59 +189,44 @@
                     <item>VRML</item>
                     <item>QTVR</item>
                   </content>
-              
                   <selection>2</selection>
-              
                   <style></style>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-              
                   <label>compression:</label>
-              
                   <tooltip>JPEG compression (0-100)</tooltip>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <object class="sizeritem">
                 <object class="wxSpinCtrl" name="pano_jpeg_quality">
-              
                   <min>0</min>
-              
                   <max>100</max>
-            </object>
-            
+                </object>
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
-          </object>
+              </object>
               <vgap>6</vgap>
               <hgap>12</hgap>
             </object>
-      
             <flag>wxALL</flag>
             <border>6</border>
           </object>
           <object class="spacer">
-        
             <size>0,6</size>
-      </object>
+          </object>
           <object class="sizeritem">
             <object class="wxCheckBox" name="pano_edit_script">
-          
               <label>edit script before stitching</label>
-          
               <tooltip>for advanced users</tooltip>
-        </object>
-        
-            <flag>wxTOP|wxBOTTOM|wxALIGN_CENTRE_VERTICAL</flag>
-        
+            </object>
+            <flag>wxTOP|wxALIGN_CENTRE_VERTICAL</flag>
             <border>6</border>
-      </object>
+          </object>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxTOP|wxLEFT|wxRIGHT|wxEXPAND</flag>
         <border>6</border>
       </object>
       <orient>wxVERTICAL</orient>
