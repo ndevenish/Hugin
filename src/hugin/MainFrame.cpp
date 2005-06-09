@@ -86,13 +86,10 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             return true;
         }
     }
-    
-    wxSortedArrayString sortedFilenames(filenames);
-    
     // try to add as images
     std::vector<std::string> filesv;
-    for (unsigned int i=0; i< sortedFilenames.GetCount(); i++) {
-        wxFileName file(sortedFilenames[0]);
+    for (unsigned int i=0; i< filenames.GetCount(); i++) {
+        wxFileName file(filenames[0]);
 
         if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
             file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
@@ -104,7 +101,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            filesv.push_back((const char *)sortedFilenames[i].mb_str());
+            filesv.push_back((const char *)filenames[i].mb_str());
         }
     }
     GlobalCmdHist::getInstance().addCommand(
@@ -661,8 +658,8 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // call the file dialog
     if (dlg.ShowModal() == wxID_OK) {
         // get the selections
-        wxSortedArrayString Pathnames;
-        wxSortedArrayString Filenames;
+        wxArrayString Pathnames;
+        wxArrayString Filenames;
         dlg.GetPaths(Pathnames);
         dlg.GetFilenames(Filenames);
 
