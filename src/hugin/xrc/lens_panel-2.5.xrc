@@ -57,11 +57,11 @@
                         <object class="wxStaticText">
                           <label>Design Parameters</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag>wxBOTTOM</flag>
@@ -142,11 +142,11 @@
                         <object class="wxStaticText">
                           <label>Lens Correction Parameters</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag>wxBOTTOM</flag>
@@ -230,11 +230,11 @@
                         <object class="wxStaticText">
                           <label>Image Center Shift</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag>wxBOTTOM</flag>
@@ -313,11 +313,11 @@
                         <object class="wxStaticText">
                           <label>Image Shearing</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag>wxBOTTOM</flag>
@@ -383,11 +383,11 @@
                         <object class="wxStaticText">
                           <label>Lens management</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag>wxBOTTOM</flag>

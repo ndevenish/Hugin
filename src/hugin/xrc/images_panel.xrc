@@ -22,11 +22,11 @@
                     <object class="wxStaticText">
                       <label>Image Collection</label>
                       <font>
-                        <style>normal</style>
-                        <family>swiss</family>
+                        <style platform="mac">normal</style>
+                        <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        <underlined>0</underlined>
-                        <size>10</size>
+                        <underlined platform="mac">0</underlined>
+                        <size platform="mac">10</size>
                       </font>
                     </object>
                     <flag>wxBOTTOM</flag>
@@ -110,11 +110,11 @@
                     <object class="wxStaticText">
                       <label>Reference Image</label>
                       <font>
-                        <style>normal</style>
-                        <family>swiss</family>
+                        <style platform="mac">normal</style>
+                        <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        <underlined>0</underlined>
-                        <size>10</size>
+                        <underlined platform="mac">0</underlined>
+                        <size platform="mac">10</size>
                       </font>
                     </object>
                     <flag>wxBOTTOM</flag>
@@ -176,11 +176,11 @@
                 <object class="wxStaticText">
                   <label>Feature Matching (Autopano)</label>
                   <font>
-                    <style>normal</style>
-                    <family>swiss</family>
+                    <style platform="mac">normal</style>
+                    <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
+                    <underlined platform="mac">0</underlined>
+                    <size platform="mac">10</size>
                   </font>
                 </object>
                 <flag>wxBOTTOM</flag>
@@ -243,11 +243,11 @@
                 <object class="wxStaticText">
                   <label>Image Orientation</label>
                   <font>
-                    <style>normal</style>
-                    <family>swiss</family>
+                    <style platform="mac">normal</style>
+                    <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
+                    <underlined platform="mac">0</underlined>
+                    <size platform="mac">10</size>
                   </font>
                 </object>
                 <flag>wxBOTTOM</flag>
@@ -325,11 +325,11 @@
                 <object class="wxStaticText">
                   <label>This Image</label>
                   <font>
-                    <style>normal</style>
-                    <family>swiss</family>
+                    <style platform="mac">normal</style>
+                    <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
+                    <underlined platform="mac">0</underlined>
+                    <size platform="mac">10</size>
                   </font>
                 </object>
                 <flag>wxBOTTOM</flag>

@@ -9,11 +9,11 @@
             <object class="wxStaticText">
               <label>Panorama</label>
               <font>
-                <style>normal</style>
-                <family>swiss</family>
+                <style platform="mac">normal</style>
+                <family platform="mac">swiss</family>
                 <weight>bold</weight>
-                <underlined>0</underlined>
-                <size>10</size>
+                <underlined platform="mac">0</underlined>
+                <size platform="mac">10</size>
               </font>
             </object>
             <flag></flag>
@@ -52,11 +52,11 @@
                 <object class="wxStaticText">
                   <label>Field of View</label>
                   <font>
-                    <style>normal</style>
-                    <family>swiss</family>
+                    <style platform="mac">normal</style>
+                    <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    <underlined>0</underlined>
-                    <size>10</size>
+                    <underlined platform="mac">0</underlined>
+                    <size platform="mac">10</size>
                   </font>
                 </object>
                 <flag></flag>
@@ -129,11 +129,11 @@
             <object class="wxStaticText">
               <label>Quick Stitcher</label>
               <font>
-                <style>normal</style>
-                <family>swiss</family>
+                <style platform="mac">normal</style>
+                <family platform="mac">swiss</family>
                 <weight>bold</weight>
-                <underlined>0</underlined>
-                <size>10</size>
+                <underlined platform="mac">0</underlined>
+                <size platform="mac">10</size>
               </font>
             </object>
             <flag></flag>
@@ -193,11 +193,11 @@
                         <object class="wxStaticText">
                           <label>Panorama Image Size</label>
                           <font>
-                            <style>normal</style>
-                            <family>swiss</family>
+                            <style platform="mac">normal</style>
+                            <family platform="mac">swiss</family>
                             <weight>bold</weight>
-                            <underlined>0</underlined>
-                            <size>10</size>
+                            <underlined platform="mac">0</underlined>
+                            <size platform="mac">10</size>
                           </font>
                         </object>
                         <flag></flag>
