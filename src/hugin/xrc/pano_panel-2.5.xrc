@@ -208,13 +208,14 @@
                             <orient>wxHORIZONTAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticText">
-                                <label>pixel width:</label>
+                                <label>width</label>
                               </object>
                               <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                               <border>6</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxTextCtrl" name="pano_val_width">
+                                <size>50,-1</size>
                                 <style>wxTE_PROCESS_ENTER</style>
                               </object>
                               <flag>wxRIGHT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -222,7 +223,7 @@
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
-                                <label>pixel height:</label>
+                                <label>height</label>
                                 <style>wxALIGN_RIGHT</style>
                               </object>
                               <flag>wxRIGHT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
