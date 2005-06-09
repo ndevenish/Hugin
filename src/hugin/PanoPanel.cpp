@@ -423,9 +423,10 @@ void PanoPanel::ApplyQuickMode(int preset)
 			opts.featherWidth = 10;
 			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
 			m_StitcherChoice->SetSelection(0);
+            break;
 		default:
-		DEBUG_ERROR("unknown stitcher preset selected");
-		break;
+		    DEBUG_ERROR("unknown stitcher preset selected");
+		    break;
 		}
     }
 
