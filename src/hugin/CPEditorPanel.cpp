@@ -163,7 +163,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
-    m_cpList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25);
+    m_cpList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35);
     m_cpList->InsertColumn( 1, _("left x"), wxLIST_FORMAT_RIGHT, 65);
     m_cpList->InsertColumn( 2, _("left y"), wxLIST_FORMAT_RIGHT, 65);
     m_cpList->InsertColumn( 3, _("right x"), wxLIST_FORMAT_RIGHT, 65);
