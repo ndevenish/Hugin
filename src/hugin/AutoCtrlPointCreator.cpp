@@ -174,15 +174,48 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #elif (defined __WXMAC__)
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExe"), wxT("autopano-complete.sh"));
-    bool bundledScript = false;
     
+    //if the autopano-sift front end specified in preference does not exist:
     if (!wxFile::Exists(autopanoExe))
     {
         autopanoExe = MacGetPathTOBundledResourceFile(CFSTR("autopano-complete-mac.sh"));
-        bundledScript = true;
+        
+        //if the script exists inside the bundle (which should), then check if there is autopano-sift files inside bundle:
+        if(autopanoExe != wxT(""))
+        {
+            wxString autopanoExeDir = MacGetPathTOBundledResourceFile(CFSTR("autopano-sift"));
+            
+//            if(autopanoExeDir == wxT(""))
+//                autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
+            
+//            if(!( wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
+//                  && wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe"))
+//                  && wxFileExists(autopanoExeDir+wxT("/libsift.dll")) ))
+//            {
+//                wxDirDialog dlg(0, _("Select the directory where autopano-sift's .Net executables can be found."));
+//                if(dlg.ShowModal() == wxID_OK) {
+//                    autopanoExeDir = dlg.GetPath();
+//                    wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
+//                } else {
+//                    //cancel
+//                    wxLogError(_("No autopano directory selected"));
+//                    return;
+//                }
+//            }
+            
+            //if they are not in bundle, then do not use the script included in the bundle
+            if( autopanoExeDir == wxT("")
+                || !wxFileExists(autopanoExeDir+wxT("/autopano.exe"))
+                || !wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe"))
+                || !wxFileExists(autopanoExeDir+wxT("/libsift.dll")) )
+            {
+                autopanoExe = wxT("");
+            }
+        }
     }
     
-    if(autopanoExe == wxT("") || !wxFile::Exists(autopanoExe))
+    //if we autopano-sift path is still empty, then let the user choose:
+    if(autopanoExe == wxT(""))
     {
         wxFileDialog dlg(0,_("Select autopano frontend script"),
                          wxT(""), wxT(""),
@@ -266,31 +299,6 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
         }
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), *wxConvCurrent));
     }
-    
-#ifdef __WXMAC__
-    if(bundledScript)
-    {
-        wxString autopanoExeDir = MacGetPathTOBundledResourceFile(CFSTR("autopano-sift"));
-        
-        if(autopanoExeDir == wxT(""))
-            autopanoExeDir = wxConfigBase::Get()->Read(wxT("/AutoPanoSift/AutopanoExeDir"), wxT(""));
-        
-        while (!( wxFileExists(autopanoExeDir+wxT("/autopano.exe")) && wxFileExists(autopanoExeDir+wxT("/generatekeys-sd.exe")) && wxFileExists(autopanoExeDir+wxT("/libsift.dll")) ))
-        {
-            wxDirDialog dlg(0, _("Select the directory where autopano-sift's .Net executables can be found."));
-            if(dlg.ShowModal() == wxID_OK) {
-                autopanoExeDir = dlg.GetPath();
-                wxConfigBase::Get()->Write(wxT("/AutopanoSift/AutopanoExeDir"), autopanoExeDir);
-            } else {
-                //cancel
-                wxLogError(_("No autopano directory selected"));
-                return;
-            }
-        }
-        
-        autopanoArgs = ( wxT("-a ") + utils::wxQuoteFilename(autopanoExeDir) + wxT(" ") ) + autopanoArgs;
-    }
-#endif
     
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 1930) {

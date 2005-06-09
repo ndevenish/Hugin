@@ -24,6 +24,7 @@ fi
 # Do not use a trailing backslash. If the executeables are within your path
 # (recommended, you can leave the line below).
 #AUTOPANO_PATH=$(dirname $(which generatekeys-sd.exe))
+AUTOPANO_PATH=`dirname "$0"`/autopano-sift
 
 usage()
 {
@@ -32,8 +33,8 @@ usage()
 	echo "  -o name      filename of created panorama project"
 	echo
 	echo "[options]:"
-	echo "  -a path      specifies path to the directory where"
-	echo "              autopano.exe and generatekeys-sd.exe are."
+#	echo "  -a path      specifies path to the directory where"
+#	echo "              autopano.exe and generatekeys-sd.exe are."
 	echo "  -s number    downsize images until width and height is"
 	echo "              smaller than number, default 700"
 	echo "  -p number    number of generated control points between,"
@@ -45,7 +46,7 @@ usage()
 }
 
 echo `basename "$0"` "$@"
-
+echo "AUTOPANO_PATH = \"$AUTOPANO_PATH\""
 
 #NARG=$#
 #if [ $NARG -lt 2 ]; then
@@ -53,7 +54,8 @@ echo `basename "$0"` "$@"
 #	exit 1
 #fi
 
-args=`getopt o:a:s:p:nch $*`
+#args=`getopt o:a:s:p:nch $*`
+args=`getopt o:s:p:nch $*`
 set -- $args
 
 if [ $? != 0 ] ; then echo "Error! (parsing arguments failed)"; echo "Terminating..." >&2 ; myexit; fi
@@ -67,7 +69,7 @@ SIZE=800;
 while true ; do
         case "$1" in
                 -o) PANOFILE=$2; shift 2;;
-                -a) AUTOPANO_PATH=$2; shift 2;;
+#                -a) AUTOPANO_PATH=$2; shift 2;;
                 -s) SIZE=$2; shift 2;;
                 -p) POINTS=$2; shift 2 ;;
                 -n) RANSAC=0; shift 1;;
