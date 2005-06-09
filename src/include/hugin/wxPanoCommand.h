@@ -49,27 +49,26 @@ class wxAddImagesCmd : public PanoCommand
 {
 public:
     wxAddImagesCmd(Panorama & pano, const std::vector<std::string> & newfiles)
-    : PanoCommand(pano), newfiles(newfiles)
+    : PanoCommand(pano), files(newfiles)
     { };
     virtual void execute()
         {
             PanoCommand::execute();
 
-            std::vector<std::string> files = newfiles;
             // check if the files should be sorted by date
             long sort = wxConfigBase::Get()->Read(wxT("General/SortNewImgOnAdd"), HUGIN_GUI_SORT_NEW_IMG_ON_ADD);
 
             switch (sort) {
             case 1:
                 // sort by filename
-                std::sort(newfiles.begin(), newfiles.end());
+                std::sort(files.begin(), files.end());
                 break;
             case 2:
                 // sort by date
-                std::sort(newfiles.begin(), newfiles.end(), FileIsNewer());
+                std::sort(files.begin(), files.end(), FileIsNewer());
                 break;
             default:
-                // no or unknow sort method
+                // no or unknown sort method
                 break;
             }
             
@@ -128,7 +127,7 @@ public:
             return "add images";
         }
 private:
-    std::vector<std::string> newfiles;
+    std::vector<std::string> files;
 };
 
 
