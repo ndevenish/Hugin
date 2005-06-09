@@ -203,6 +203,7 @@
               </object>
               <object class="sizeritem">
                 <object class="wxSpinCtrl" name="pano_jpeg_quality">
+                  <size>50,-1</size>
                   <min>0</min>
                   <max>100</max>
                 </object>
