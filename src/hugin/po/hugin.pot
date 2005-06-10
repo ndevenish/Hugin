@@ -2246,7 +2246,7 @@ msgid "Panorama"
 msgstr ""
 
 #: src/hugin/xrc/pano_panel-2.5.xrs:2
-msgid "Projection (f):"
+msgid "projection (f):"
 msgstr ""
 
 #: src/hugin/xrc/pano_panel-2.5.xrs:8
