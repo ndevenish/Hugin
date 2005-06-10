@@ -244,6 +244,7 @@ BEGIN_EVENT_TABLE(CPListFrame, wxFrame)
     EVT_CLOSE(CPListFrame::OnClose)
     EVT_LIST_ITEM_SELECTED(XRCID("cp_list_frame_list"), CPListFrame::OnCPListSelect)
     EVT_LIST_COL_CLICK(XRCID("cp_list_frame_list"), CPListFrame::OnCPListHeaderClick)
+    EVT_LIST_COL_END_DRAG(XRCID("cp_list_frame_list"), CPListFrame::OnColumnWidthChange)
     EVT_BUTTON(XRCID("cp_list_delete"), CPListFrame::OnDeleteButton)
     EVT_BUTTON(XRCID("cp_list_select"), CPListFrame::OnSelectButton)
     EVT_BUTTON(XRCID("cp_list_finetune"), CPListFrame::OnFineTuneButton)
@@ -290,6 +291,15 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         m_list->InsertColumn( 4, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
     }
 
+    //get saved width
+    for ( int j=0; j < m_list->GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPListFrame/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            m_list->SetColumnWidth(j, width);
+    }
+    
     //size
     bool maximized = config->Read(wxT("/CPListFrame/maximized"), 0l) != 0;
     if (maximized) {
@@ -390,6 +400,11 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     int nrCol = m_verbose ? 9 : 5;
     for (int col=0; col < nrCol ; col++) {
         m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
+        
+        //saved column width
+        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPListFrame/ColumnWidth%d"), col ), -1);
+        if(width != -1)
+            m_list->SetColumnWidth(col, width);
     }
 }
 
@@ -698,4 +713,11 @@ void CPListFrame::DeleteSelected()
 void CPListFrame::OnFineTuneButton(wxCommandEvent & e)
 {
     DEBUG_WARN("Not yet implemented");
+}
+
+
+void CPListFrame::OnColumnWidthChange( wxListEvent & e )
+{
+    int colNum = e.GetColumn();
+    wxConfigBase::Get()->Write( wxString::Format(wxT("/CPListFrame/ColumnWidth%d"),colNum), m_list->GetColumnWidth(colNum) );
 }

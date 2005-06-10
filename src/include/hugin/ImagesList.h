@@ -101,6 +101,8 @@ protected:
     void OnItemSelected ( wxListEvent & e );
     // update selected map
     void OnItemDeselected ( wxListEvent & e );
+    // save the column width when changed
+    void OnColumnWidthChange( wxListEvent & e );
 
     /** create icons for an image */
     void createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size);
@@ -117,6 +119,9 @@ protected:
     // propagate list selections/deselections to client.
     bool m_notifyParents;
 
+    //for saving column width
+    wxString m_configClassName;
+        
     DECLARE_EVENT_TABLE()
 };
 

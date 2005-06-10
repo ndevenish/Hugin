@@ -188,6 +188,8 @@ private:
     void OnAutoAddCB(wxCommandEvent & e);
     void OnPrevImg(wxCommandEvent & e);
     void OnNextImg(wxCommandEvent & e);
+    
+    void OnColumnWidthChange( wxListEvent & e );
 
     void OnFineTuneButton(wxCommandEvent & e);
     void FineTuneSelectedPoint(bool left);

@@ -44,6 +44,7 @@ using namespace utils;
 BEGIN_EVENT_TABLE(ImagesList, wxListCtrl)
     EVT_LIST_ITEM_SELECTED(-1, ImagesList::OnItemSelected)
     EVT_LIST_ITEM_DESELECTED(-1, ImagesList::OnItemDeselected)
+    EVT_LIST_COL_END_DRAG(-1, ImagesList::OnColumnWidthChange)
 END_EVENT_TABLE()
 
 // Define a constructor for the Images Panel
@@ -54,7 +55,7 @@ pano(*pano)
     DEBUG_TRACE("");
 
     m_notifyParents = true;
-    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 25 );
+    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35 );
 
     // get a good size for the images
     wxPoint sz(1,11);
@@ -132,11 +133,20 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         SetColumnWidth(j, wxLIST_AUTOSIZE);
         if ( GetColumnWidth(j) < 40 )
             SetColumnWidth(j, 40);
-    }
 #ifdef __WXMAC__
-    SetColumnWidth(0, GetColumnWidth(0) + 12); //somehow wxMac does not set the first column's width very well.
+        if(j == 0) //somehow wxMac does not set the first column's width very well.
+            SetColumnWidth(j, GetColumnWidth(j) + 12); 
 #endif
-
+        //get saved width
+        if(m_configClassName != wxT(""))
+        {
+            // -1 is auto
+            int width = wxConfigBase::Get()->Read( m_configClassName + wxString::Format(wxT("/ColumnWidth%d"), j), -1);
+            if(width != -1)
+                SetColumnWidth(j, width);
+        }
+    }
+    
     Thaw();
     m_notifyParents = true;
     
@@ -274,9 +284,20 @@ void ImagesList::OnItemSelected ( wxListEvent & e )
 }
 #endif
 
+void ImagesList::OnColumnWidthChange( wxListEvent & e )
+{
+    if(m_configClassName != wxT(""))
+    {
+        int colNum = e.GetColumn();
+        wxConfigBase::Get()->Write( m_configClassName+wxString::Format(wxT("/ColumnWidth%d"),colNum), GetColumnWidth(colNum) );
+    }
+}
+
 ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     : ImagesList(parent, pano)
 {
+    m_configClassName = wxT("/ImagesListImage");
+        
     InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
     InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
     InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
@@ -285,6 +306,15 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 40);
+    
+    //get saved width
+    for ( int j=0; j < GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            SetColumnWidth(j, width);
+    }
 }
 
 void ImagesListImage::UpdateItem(unsigned int imgNr)
@@ -325,6 +355,8 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
 ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     : ImagesList(parent, pano)
 {
+    m_configClassName = wxT("/ImagesListLens");
+        
     InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
     InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 40);
     InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
@@ -337,6 +369,15 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     InsertColumn( 10, _("g"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 11, _("t"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 12, _("Crop"), wxLIST_FORMAT_RIGHT,40);
+    
+    //get saved width
+    for ( int j=0; j < GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            SetColumnWidth(j, width);
+    }
 }
 
 void ImagesListLens::UpdateItem(unsigned int imgNr)
@@ -372,4 +413,3 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     }
     SetItem(imgNr, 12, cropstr);
 }
-

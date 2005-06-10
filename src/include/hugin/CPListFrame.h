@@ -59,6 +59,8 @@ private:
 
     void updateList();
 
+    void OnColumnWidthChange( wxListEvent & e );
+    
     void OnClose(wxCloseEvent& event);
 
     MainFrame * m_mainFrame;

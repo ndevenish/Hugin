@@ -94,6 +94,7 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
 #endif
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
+    EVT_LIST_COL_END_DRAG(XRCID("cp_editor_cp_list"), CPEditorPanel::OnColumnWidthChange)
     EVT_COMBOBOX(XRCID("cp_editor_zoom_box"), CPEditorPanel::OnZoom)
     EVT_TEXT_ENTER(XRCID("cp_editor_x1"), CPEditorPanel::OnTextPointChange )
     EVT_TEXT_ENTER(XRCID("cp_editor_y1"), CPEditorPanel::OnTextPointChange )
@@ -171,6 +172,14 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_cpList->InsertColumn( 5, _("Alignment"), wxLIST_FORMAT_LEFT,110 );
     m_cpList->InsertColumn( 6, _("Distance"), wxLIST_FORMAT_RIGHT, 110);
 
+    //get saved width
+    for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPEditorPanel/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            m_cpList->SetColumnWidth(j, width);
+    }
 
     // other controls
     m_x1Text = XRCCTRL(*this,"cp_editor_x1", wxTextCtrl);
@@ -1378,6 +1387,15 @@ void CPEditorPanel::UpdateDisplay()
         EnablePointEdit(false);
     }
 
+    for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
+    {
+        //get saved width
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPEditorPanel/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            m_cpList->SetColumnWidth(j, width);
+    }
+    
     m_cpList->Show();
 }
 
@@ -2032,3 +2050,8 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     return t;
 }
 
+void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )
+{
+    int colNum = e.GetColumn();
+    wxConfigBase::Get()->Write( wxString::Format(wxT("/CPEditorPanel/ColumnWidth%d"),colNum), m_cpList->GetColumnWidth(colNum) );
+}
