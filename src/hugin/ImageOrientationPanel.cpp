@@ -369,8 +369,6 @@ void ImageOrientationPanel::UpdateYawPitch(wxPoint p)
 
     map_get(m_vars,"y").setValue(origin.x);
     map_get(m_vars,"p").setValue(origin.y);
-    map_get(m_vars,"r").setValue(0);
-
 
 #if 0
     // fixme.. should use the real image center (a transform stack
@@ -385,7 +383,7 @@ void ImageOrientationPanel::UpdateYawPitch(wxPoint p)
     DEBUG_DEBUG("erect: " << origin.x << "," << origin.y);
 
 #endif
-
+    updateTransforms();
     updateDisplay();
 
 }
