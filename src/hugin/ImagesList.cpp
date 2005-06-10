@@ -133,6 +133,9 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         if ( GetColumnWidth(j) < 40 )
             SetColumnWidth(j, 40);
     }
+#ifdef __WXMAC__
+    SetColumnWidth(0, GetColumnWidth(0) + 12); //somehow wxMac does not set the first column's width very well.
+#endif
 
     Thaw();
     m_notifyParents = true;
