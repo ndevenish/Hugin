@@ -23,6 +23,10 @@ echo patching $resdir/xrc/cp_editor_panel-2.5.xrc to use wxChoice instead of wxN
 mv $resdir/xrc/cp_editor_panel-2.5.xrc $resdir/xrc/cp_editor_panel-2.5.xrc-bk
 sed -e s/wxNotebook/wxChoice/ -e s/cp_editor_left_tab/cp_editor_left_choice/ -e s/cp_editor_right_tab/cp_editor_right_choice/ $resdir/xrc/cp_editor_panel-2.5.xrc-bk > $resdir/xrc/cp_editor_panel-2.5.xrc
 
+echo patching $resdir/xrc/main_frame-2.5.xrc to have no border around the tab control.
+mv $resdir/xrc/main_frame-2.5.xrc $resdir/xrc/main_frame-2.5.xrc-bk
+sed -e s/wxALL// $resdir/xrc/main_frame-2.5.xrc-bk > $resdir/xrc/main_frame-2.5.xrc
+
 
 for lang in `cat languages`
 do
