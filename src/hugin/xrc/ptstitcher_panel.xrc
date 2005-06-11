@@ -9,11 +9,11 @@
             <object class="wxStaticText">
               <label>Stitching Options</label>
               <font>
-                <size platform="mac">10</size>
+                <size platform="mac">12</size>
                 <style platform="mac">normal</style>
                 <weight>bold</weight>
                 <family platform="mac">swiss</family>
-                <underlined platform="mac">0</underlined>
+                
               </font>
             </object>
           </object>
@@ -151,11 +151,11 @@
             <object class="wxStaticText">
               <label>Output File Options</label>
               <font>
-                <size platform="mac">10</size>
+                <size platform="mac">12</size>
                 <style platform="mac">normal</style>
                 <weight>bold</weight>
                 <family platform="mac">swiss</family>
-                <underlined platform="mac">0</underlined>
+                
               </font>
             </object>
             <flag>wxTOP</flag>

@@ -13,8 +13,8 @@
                 <style platform="mac">normal</style>
                 <family platform="mac">swiss</family>
                 <weight>bold</weight>
-                <underlined platform="mac">0</underlined>
-                <size platform="mac">10</size>
+                
+                <size platform="mac">12</size>
               </font>
             </object>
             <flag>wxBOTTOM</flag>
@@ -93,8 +93,8 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <style platform="mac">normal</style>
                         <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        <underlined platform="mac">0</underlined>
-                        <size platform="mac">10</size>
+                        
+                        <size platform="mac">12</size>
                       </font>
                     </object>
                     <flag>wxBOTTOM</flag>
@@ -254,8 +254,8 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         <style platform="mac">normal</style>
                         <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        <underlined platform="mac">0</underlined>
-                        <size platform="mac">10</size>
+                        
+                        <size platform="mac">12</size>
                       </font>
                     </object>
                     <flag>wxBOTTOM</flag>
