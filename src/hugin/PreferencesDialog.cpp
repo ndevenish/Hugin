@@ -269,6 +269,8 @@ typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
 
 bool PreferencesDialog::GetPanoVersion()
 {
+
+        
 #ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifdef __WXMSW__
 	HINSTANCE		hDll		= NULL;
@@ -302,6 +304,13 @@ bool PreferencesDialog::GetPanoVersion()
 	pfQFInt     = (PROC_QFINT) GetProcAddress( hDll, "queryFeatureInt" );
 	pfQFDouble  = (PROC_QFDOUBLE) GetProcAddress( hDll, "queryFeatureDouble" );
 	pfQFString  = (PROC_QFSTRING) GetProcAddress( hDll, "queryFeatureString" );
+#elif (defined __WXMAC__)
+//HuginOSX has libpano12 statically linked; hard code the query functions instead
+	pfQF		= (PROC_QF) queryFeatures;
+	pfQFNum		= (PROC_QFNUM) queryFeatureCount;
+	pfQFInt     = (PROC_QFINT) queryFeatureInt;
+	pfQFDouble  = (PROC_QFDOUBLE) queryFeatureDouble;
+	pfQFString  = (PROC_QFSTRING) queryFeatureString;
 #else
 	hDll = dlopen("libpano12.so.0", RTLD_NOW);
 	if(!hDll)
@@ -415,6 +424,8 @@ cleanup:
   {
 #ifdef __WXMSW__
 	FreeLibrary(hDll);
+#elif defined __WXMAC__
+//nothing to do
 #else
 	dlclose(hDll);
 #endif
