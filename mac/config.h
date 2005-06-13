@@ -4,6 +4,23 @@
    language is requested. */
 #undef ENABLE_NLS
 
+/* have boost */
+#define HAVE_BOOST
+
+/* have boost unit test framework library */
+#define HAVE_BOOST_TEST
+
+/* Define to 1 if you have the <boost/test/test_tools.hpp> header file. */
+#define HAVE_BOOST_TEST_TEST_TOOLS_HPP
+
+/* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+#define HAVE_CFLOCALECOPYCURRENT
+
+/* Define to 1 if you have the MacOS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+#define HAVE_CFPREFERENCESCOPYAPPVALUE
+
 /* Define if the GNU dcgettext() function is already present or preinstalled.
    */
 #define HAVE_DCGETTEXT
@@ -25,6 +42,9 @@
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H
+
+/* Define to 1 if you have the <pano12/queryfeature.h> header file. */
+#define HAVE_PANO12_QUERYFEATURE_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H
