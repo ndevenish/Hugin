@@ -250,7 +250,27 @@ void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
 void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
 {
 	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str());
+    
+#ifdef __WXMAC__ // Limiting the dialog to first 25 lines (apprrox. height of display)
+    wxString temp1 = m_PTDetails;
+    wxString temp2 = wxT("");
+    
+    if(m_PTDetails.Freq('\n') > 25)
+    {
+        for(int i = 0; i < 25; i++)
+        {
+            temp2 += temp1.BeforeFirst('\n') + wxT("\n");
+            temp1 = temp1.AfterFirst('\n');
+        }
+        temp2 += wxT("\n\t...");
+    } else {
+        temp2 = m_PTDetails;
+    }
+    
+	wxMessageDialog dlg(this, temp2, _("Panotools details"), wxOK|wxICON_INFORMATION);
+#else
 	wxMessageDialog dlg(this, m_PTDetails, _("Panotools details"), wxOK);
+#endif
 	dlg.ShowModal();
 }
 
