@@ -1,0 +1,22 @@
+*** ../wxMac-2.6.1/src/mac/carbon/window.cpp	Thu Jun  2 10:28:26 2005
+--- src/mac/carbon/window.cpp	Mon Jun  6 18:21:58 2005
+***************
+*** 3239,3241 ****
+--- 3239,3255 ----
+  }
+  
+  
++ bool wxWindowMac::Reparent(wxWindowBase *newParentBase)
++ {
++     wxWindowMac *newParent = (wxWindowMac *)newParentBase;
++     
++     if ( !wxWindowBase::Reparent(newParent) )
++         return FALSE;
++     
++     //copied from MacPostControlCreate
++     ControlRef container = (ControlRef) GetParent()->GetHandle() ;
++     wxASSERT_MSG( container != NULL , wxT("No valid mac container control") ) ;
++     ::EmbedControl( m_peer->GetControlRef() , container ) ;
++     
++     return TRUE;
++ }

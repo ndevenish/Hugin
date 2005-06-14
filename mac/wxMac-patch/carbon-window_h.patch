@@ -1,0 +1,13 @@
+*** ../wxMac-2.6.1/include/wx/mac/carbon/window.h	Sun Apr  3 09:12:59 2005
+--- include/wx/mac/carbon/window.h	Mon Jun  6 18:21:38 2005
+***************
+*** 110,115 ****
+--- 110,117 ----
+      virtual void ScrollWindow( int dx, int dy,
+                                 const wxRect* rect = (wxRect *) NULL );
+  
++     virtual bool Reparent( wxWindowBase *newParent );
++         
+  #if wxUSE_DRAG_AND_DROP
+      virtual void SetDropTarget( wxDropTarget *dropTarget );
+  #endif // wxUSE_DRAG_AND_DROP
