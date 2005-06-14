@@ -110,6 +110,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->Append(_("French"), (void *) wxLANGUAGE_FRENCH);
     lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);
     lang_choice->Append(_("Italian"), (void *) wxLANGUAGE_ITALIAN);
+    lang_choice->Append(_("Japanese"), (void *) wxLANGUAGE_JAPANESE);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
