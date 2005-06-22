@@ -28,7 +28,7 @@ mv $resdir/xrc/main_frame-2.5.xrc $resdir/xrc/main_frame-2.5.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame-2.5.xrc-bk > $resdir/xrc/main_frame-2.5.xrc
 
 
-for lang in `cat languages`
+for lang in `cat ../src/hugin/po/LINGUAS|grep -v "#.*"`
 do
  
  echo 
