@@ -1436,7 +1436,7 @@ msgstr "選択されたポイントを最適化します"
 #: src/hugin/xrc/cp_editor_panel.xrs:14
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:21
 msgid "auto fine-&tune"
-msgstr "自動&微調整"
+msgstr "自動的に&微調整"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:15
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:22
@@ -1931,7 +1931,7 @@ msgstr "Hugin - Panorama Tools Frontend"
 
 #: src/hugin/xrc/main_frame.xrs:2
 msgid "Images"
-msgstr "Images"
+msgstr "画像"
 
 #: src/hugin/xrc/main_frame.xrs:3
 msgid "Camera and Lens"
@@ -2076,7 +2076,7 @@ msgstr "もう一枚プロジェクトに画像を追加します"
 
 #: src/hugin/xrc/main_menu.xrs:26
 msgid "&View"
-msgstr "&ビュー"
+msgstr "&表示"
 
 #: src/hugin/xrc/main_menu.xrs:27
 msgid "&Control point table"
