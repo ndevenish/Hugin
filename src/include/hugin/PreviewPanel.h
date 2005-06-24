@@ -62,7 +62,7 @@ public:
     void SetDisplayedImages(const PT::UIntSet &images);
     
     // blending modes available
-    enum BlendMode { BLEND_COPY, BLEND_SEAMING, BLEND_DIFFERENCE };
+    enum BlendMode { BLEND_COPY, BLEND_DIFFERENCE };
     
     void SetBlendMode(BlendMode b);
 

@@ -166,13 +166,12 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_choices[0] = _("normal");
     m_choices[1] = _("difference");
-    m_choices[2] = _("seams");
 
     int oldMode = wxConfigBase::Get()->Read(wxT("/PreviewFrame/blendMode"), 0l);
-    DEBUG_ASSERT(oldMode >= 0 && oldMode < 3);
+    if (oldMode > 1) oldMode = 0;
     m_BlendModeChoice = new wxChoice(this, -1,
                                      wxDefaultPosition, wxDefaultSize,
-                                     3, m_choices);
+                                     2, m_choices);
     m_BlendModeChoice->SetSelection((PreviewPanel::BlendMode) oldMode);
 
     blendModeSizer->Add(m_BlendModeChoice,
@@ -520,9 +519,6 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
             break;
         case 1:
             m_PreviewPanel->SetBlendMode(PreviewPanel::BLEND_DIFFERENCE);
-            break;
-        case 2:
-            m_PreviewPanel->SetBlendMode(PreviewPanel::BLEND_SEAMING);
             break;
         default:
             DEBUG_WARN("Unknown blend mode selected");

@@ -135,9 +135,7 @@ void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
 void PreviewPanel::SetBlendMode(BlendMode b)
 {
     m_blendMode = b;
-    if (m_autoPreview) {
-        updatePreview();
-    }
+    updatePreview();
 }
 
 void PreviewPanel::ForceUpdate()
@@ -223,7 +221,7 @@ void PreviewPanel::updatePreview()
                                 blender);
                 break;
             }
-            case BLEND_SEAMING:
+            case BLEND_DIFFERENCE:
             {
 
                 MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
@@ -240,6 +238,7 @@ void PreviewPanel::updatePreview()
                 break;
 */
             }
+/*
             case BLEND_DIFFERENCE:
             {
                 DifferenceBlender blender;
@@ -250,6 +249,7 @@ void PreviewPanel::updatePreview()
                                 blender);
                 break;
             }
+*/
             }
         }
     } catch (std::exception & e) {
