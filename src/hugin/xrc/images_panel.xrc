@@ -25,7 +25,6 @@
                         <style platform="mac">normal</style>
                         <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        
                         <size platform="mac">12</size>
                       </font>
                     </object>
@@ -113,7 +112,6 @@
                         <style platform="mac">normal</style>
                         <family platform="mac">swiss</family>
                         <weight>bold</weight>
-                        
                         <size platform="mac">12</size>
                       </font>
                     </object>
@@ -179,7 +177,6 @@
                     <style platform="mac">normal</style>
                     <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    
                     <size platform="mac">12</size>
                   </font>
                 </object>
@@ -246,7 +243,6 @@
                     <style platform="mac">normal</style>
                     <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    
                     <size platform="mac">12</size>
                   </font>
                 </object>
@@ -328,7 +324,6 @@
                     <style platform="mac">normal</style>
                     <family platform="mac">swiss</family>
                     <weight>bold</weight>
-                    
                     <size platform="mac">12</size>
                   </font>
                 </object>
@@ -336,12 +331,14 @@
                 <border>6</border>
               </object>
               <object class="sizeritem">
-                <object class="wxStaticBitmap" name="images_selected_image">
-                  <bitmap>data/druid.images.128.png</bitmap>
-                  <style></style>
+                <object class="wxPanel" name="images_selected_image_panel">
+                  <object class="wxStaticBitmap" name="images_selected_image">
+                    <bitmap>data/druid.images.128.png</bitmap>
+                    <style></style>
+                  </object>
                 </object>
-                <flag>wxLEFT|wxRIGHT</flag>
-                <border>12</border>
+                <option>1</option>
+                <flag>wxEXPAND</flag>
               </object>
             </object>
             <option>1</option>
