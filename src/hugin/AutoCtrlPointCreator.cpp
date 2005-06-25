@@ -274,11 +274,12 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 
     wxFile namefile;
+    wxString namefile_name;
     if (use_namefile) {
         // create temporary file with image names.
-        wxString fname = wxFileName::CreateTempFileName(wxT("ap_imgnames"), &namefile);
+        namefile_name = wxFileName::CreateTempFileName(wxT("ap_imgnames"), &namefile);
         DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str());
-        autopanoArgs.Replace(wxT("%namefile"), fname);
+        autopanoArgs.Replace(wxT("%namefile"), namefile_name);
         DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str());
         int imgNr=0;
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
@@ -325,6 +326,11 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 	ret = WEXITSTATUS(ret);
     }
 #elif WIN32
+
+    if (namefile_name != wxString(wxT(""))) {
+        namefile.Close();
+    }
+
     wxFileName tname(autopanoExe);
     wxString ext = tname.GetExt();
     if (ext == wxT("vbs")) {
@@ -380,6 +386,10 @@ void AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
 	wxSetWorkingDirectory(cwd);
 #endif
 
+    if (namefile_name != wxString(wxT(""))) {
+        namefile.Close();
+        wxRemoveFile(namefile_name);
+    }
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
