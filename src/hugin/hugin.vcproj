@@ -57,7 +57,9 @@
 				TypeLibraryName=".\Debug/XrcDemoVC.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="xcopy xrc Debug\xrc /I /Y
+xcopy xrc\data Debug\xrc\data /I /Y"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
