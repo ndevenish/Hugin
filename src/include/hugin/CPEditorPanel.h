@@ -130,7 +130,7 @@ private:
     /** updates the display after another image has been selected.
      *  updates control points, and other widgets
      */
-    void UpdateDisplay();
+    void UpdateDisplay(bool newImages);
 
     /** enable or disable controls for editing other points */
     void EnablePointEdit(bool state);

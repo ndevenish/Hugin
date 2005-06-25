@@ -358,7 +358,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
             m_fineTuneFrame->GetLeftImg()->Clear();
         }
         changeState(NO_POINT);
-        UpdateDisplay();
+        UpdateDisplay(true);
     } else if (m_leftImageNr != imgNr) {
         m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -377,7 +377,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         if (m_fineTuneFrame) {
             m_fineTuneFrame->GetLeftImg()->SetImage(imgNr);
         }
-        UpdateDisplay();
+        UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
 }
@@ -394,7 +394,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
             m_fineTuneFrame->GetRightImg()->Clear();
         }
         changeState(NO_POINT);
-        UpdateDisplay();
+        UpdateDisplay(true);
     } else if (m_rightImageNr != imgNr) {
         // set the new image
         m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
@@ -416,7 +416,7 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         if (m_fineTuneFrame) {
             m_fineTuneFrame->GetRightImg()->SetImage(imgNr);
         }
-        UpdateDisplay();
+        UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
 
@@ -610,7 +610,7 @@ void CPEditorPanel::CreateNewPoint()
 void CPEditorPanel::ClearSelection()
 {
     if (m_selectedPoint == UINT_MAX) {
-        DEBUG_ASSERT(m_cpList->GetSelectedItemCount() == 0);
+//        DEBUG_ASSERT(m_cpList->GetSelectedItemCount() == 0);
         // no point selected, no need to select one.
         return;
     }
@@ -620,7 +620,7 @@ void CPEditorPanel::ClearSelection()
     changeState(NO_POINT);
     m_leftImg->deselect();
     m_rightImg->deselect();
-    UpdateDisplay();
+    UpdateDisplay(false);
 }
 
 void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
@@ -1281,11 +1281,11 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
     }
 
     if (update || nrImages == 0) {
-        UpdateDisplay();
+        UpdateDisplay(false);
     }
 }
 
-void CPEditorPanel::UpdateDisplay()
+void CPEditorPanel::UpdateDisplay(bool newPair)
 {
     DEBUG_DEBUG("")
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -1295,6 +1295,7 @@ void CPEditorPanel::UpdateDisplay()
     int fI = m_leftTabs->GetSelection();
     int sI = m_rightTabs->GetSelection();
 #endif
+
     if (fI >= 0 && m_leftImageNr != UINT_MAX && m_rightImageNr != UINT_MAX) {
 		m_leftImageNr = (unsigned int) fI;
 		m_rightImageNr = (unsigned int) sI;
@@ -1366,7 +1367,9 @@ void CPEditorPanel::UpdateDisplay()
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format(wxT("%.2f"),p.error));
     }
-    if ( selectedCP < (unsigned int) m_cpList->GetItemCount() ) { // sets an old selection again
+
+    if ( selectedCP < (unsigned int) m_cpList->GetItemCount() && ! newPair) {
+        // sets an old selection again, only if the images have not changed
         m_cpList->SetItemState( selectedCP,
                                 wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED );
         m_cpList->EnsureVisible(selectedCP);
@@ -1386,6 +1389,8 @@ void CPEditorPanel::UpdateDisplay()
         m_selectedPoint = UINT_MAX;
         EnablePointEdit(false);
     }
+
+    int debug_sel_items = m_cpList->GetSelectedItemCount();
 
     for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
     {
