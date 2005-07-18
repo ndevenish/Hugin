@@ -135,3 +135,9 @@ std::string utils::doubleToString(double d, int digits)
     return number;
 }
 
+utils::MultiProgressDisplay::MultiProgressDisplay(double minPrintStep)
+  : m_minProgressStep(minPrintStep) 
+{
+
+}
+

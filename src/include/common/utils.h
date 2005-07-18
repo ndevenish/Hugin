@@ -308,9 +308,7 @@ bool stringToDouble(const STR & str_, double & dest)
     {
     public:
 
-        MultiProgressDisplay(double minPrintStep=0.02)
-            : m_minProgressStep(minPrintStep)
-        { }
+        MultiProgressDisplay(double minPrintStep=0.02);
 
         virtual ~MultiProgressDisplay() {};
 
