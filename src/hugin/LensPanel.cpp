@@ -282,7 +282,8 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     {
         // need to check, since the m_selectedImages list might still be in an old state
         if (*it < pano.getNrOfImages()) {
-            m_selectedLenses.insert(pano.getImage(*it).getLensNr());
+            unsigned int lNr = pano.getImage(*it).getLensNr();
+            m_selectedLenses.insert(lNr);
         }
     }
     // we need to do something if the image we are editing has changed.
@@ -307,7 +308,8 @@ void LensPanel::LensTypeChanged ( wxCommandEvent & e )
              it != m_selectedLenses.end(); ++it)
         {
             // get lens from pano
-            Lens lens = pano.getLens(*it);
+            unsigned int lNr = *it;
+            Lens lens = pano.getLens(lNr);
             // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
             int var = XRCCTRL(*this, "lens_val_projectionFormat",
                               wxComboBox)->GetSelection();

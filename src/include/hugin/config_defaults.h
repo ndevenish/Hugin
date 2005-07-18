@@ -53,7 +53,7 @@
 
 // GUI defaults
 #define HUGIN_LANGUAGE                        wxLANGUAGE_DEFAULT
-// sort by filename
+// sort by filename (1), sort by date (2)
 #define HUGIN_GUI_SORT_NEW_IMG_ON_ADD         1l
 
 // Program defaults

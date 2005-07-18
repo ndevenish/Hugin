@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswd&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\mswd;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="DEBUG;WIN32;_DEBUG;_WINDOWS;__WINDOWS__;__WXMSW__;DEBUG=1;__WXDEBUG__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="TRUE"
@@ -37,11 +37,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswd.lib pngd.lib zlibd.lib jpegd.lib tiffd.lib regexd.lib pano12.lib"
+				AdditionalDependencies="wxmsw26d_xrc.lib wxmsw26d_html.lib wxmsw26d_adv.lib wxmsw26d_core.lib wxbase26d_xml.lib wxbase26d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
@@ -65,7 +65,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -88,7 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="1"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\msw&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\msw;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;__WINDOWS__;__WXMSW__;__WIN95__;__WIN32__;WINVER=0x0400;STRICT"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -104,11 +104,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmsw.lib png.lib zlib.lib jpeg.lib tiff.lib regex.lib pano12.lib"
+				AdditionalDependencies="wxmsw26_xrc.lib wxmsw26_html.lib wxmsw26_adv.lib wxmsw26_core.lib wxbase26_xml.lib wxbase26.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;..\..\..\libs\wxWindows\lib&quot;;..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames=""
 				ProgramDatabaseFile=".\Release/xmldemo.pdb"
 				SubSystem="2"
@@ -131,7 +131,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -154,7 +154,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="1"
 				InlineFunctionExpansion="2"
-				AdditionalIncludeDirectories="../include;../foreign;&quot;..\..\..\libs\wxWindows\lib\mswu&quot;"
+				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost;..\..\..\libs\wxWidgets\lib\vc_lib\mswu;..\..\..\libs\wxWidgets\include"
 				PreprocessorDefinitions="NDEBUG;WIN32;__WXMSW__;WINVER=0x0400;STRICT;UNICODE;wxUSE_UNICODE=1"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -170,11 +170,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib winmm.lib wxmswu.lib png.lib zlib.lib jpeg.lib tiff.lib regexu.lib pano12.lib"
+				AdditionalDependencies="wxmsw26u_xrc.lib wxmsw26u_html.lib wxmsw26u_adv.lib wxmsw26u_core.lib wxbase26u_xml.lib wxbase26u.lib wxtiff.lib wxjpeg.lib wxpng.lib wxzlib.lib wxregex.lib wxexpat.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\..\libs\libpano\pano12"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12"
 				IgnoreDefaultLibraryNames=""
 				ProgramDatabaseFile=".\Release/xmldemo.pdb"
 				SubSystem="2"
@@ -200,7 +200,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="2057"
-				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWindows\include&quot;"/>
+				AdditionalIncludeDirectories="&quot;..\..\..\libs\wxWidgets\include&quot;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool

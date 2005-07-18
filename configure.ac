@@ -253,11 +253,9 @@ AC_CONFIG_FILES([Makefile
                  src/hugin/xrc/data/Makefile
                  src/jhead/Makefile
                  src/keypoints/Makefile
-                 src/klt/Makefile
                  src/nona_gui/Makefile
 		 src/nona_gui/po/Makefile.in
-                 src/tools/Makefile
-                 src/vigra_ext/Makefile])
+                 src/tools/Makefile])
 
 AC_SUBST(ac_aux_dir)
 
