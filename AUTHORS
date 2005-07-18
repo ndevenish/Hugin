@@ -2,11 +2,12 @@ Main author:
    Pablo d'Angelo <pablo.dangelo@web.de>
 Authors:
    Kai-Uwe Behrmann <ku.b@gmx.de>               gui, panoviewer adds
+   Douglas Wilkins                              packaging, translation
+                                                bugfixes
    Ed Halley                                    gui, documentation
-   Douglas Wilkins                                 packaging, translation
-                                                bugfixes fixes
    Bruno Postle                                 packaging, website,
                                                 documentation
+   Alexandre Jenny                              SpaceTransform class
    Luca Vascon                                  splash screen, icons
 
 Translators

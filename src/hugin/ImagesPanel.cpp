@@ -31,8 +31,8 @@
 
 #include <map>
 
-#include <vigra_ext/PointMatching.h>
-#include <vigra_ext/LoweSIFT.h>
+//#include <vigra_ext/PointMatching.h>
+//#include <vigra_ext/LoweSIFT.h>
 
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
@@ -188,7 +188,7 @@ void ImagesPanel::RestoreLayout()
 
 }
 
-// We need to override the default handling of size events because the 
+// We need to override the default handling of size events because the
 // sizers set the virtual size but not the actual size. We reverse
 // the standard handling and fit the child to the parent rather than
 // fitting the parent around the child

@@ -35,7 +35,7 @@ hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)
 hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
 	             ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
-	             ${top_builddir}/src/vigra_ext/libvigra_ext.la libhuginwxutils.la
+	             libhuginwxutils.la
 noinst_HEADERS = win_prep.h
 
 desktopdir = $(datadir)/applications

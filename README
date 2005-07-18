@@ -9,33 +9,25 @@ This package contains the following programs:
  - nona, a simple replacement for PTStitcher (doesn't support most
    features of PTStitcher, but is several times faster, opensource and
    will be extended in the future).
-
- - autopano, creates hugin project files, for single row panoramas.
-
- - panosifter, creates hugin project files, from arbitrary images,
-   uses a simple matching algorithm and a sift featue detector
-   [only works on linux right now.]
+ 
+ - nona_gui, nona with a graphical progress bar.
 
  - autooptimiser, optimise a panorama pairwise, starting from an
    anchor image. cmd line version of the pairwise mode in hugin
 
- - keypoints, an implementation of the SIFT feature detection algorithm.
-    Beware, it's licenced under a special LICENCE found in the SIFT_LICENCE
-    file, due to a possible patent on the SIFT algorithm.
+These programs are build on top of the panorama tools library,
+http://panotools.sf.net
 
 The following external programs are highly recommended:
 
-1. panotools
-2. enblend
+1. enblend
+2. autopano or autopano-sift
     
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution
 pictures by combining multiple images.
 
-It uses the Panorama Tools (http://www.path.unimelb.edu.au/~dersch/)
-as backend, to create high quality images
-
-see our homepage for more information: http://hugin.sf.net
+See http://hugin.sf.net for more information an tutorials.
 
 typical use:
 
@@ -46,17 +38,6 @@ typical use:
 5. set output parameters and stich images together.
 
 
-Knowledge of Panorama Tools is needed to use hugin.
-Good introductions are the tutorials from PTGUI and PTAssembler.
-The steps are approximately the same.
-
-Some links to get you started:
-
-http://hugin.sf.net
-http://www.tawbaware.com/ptasmblr.htm
-http://www.ptgui.org
-http://www.nic.fi/~juhe/ptbcbgui/
-http://www.bigbenpublishing.com.au/
-
 Please use the ptx mailing list if you have questions or suggestions:
 ptx@email-lists.org (or http://www.email-lists.org/mailman/listinfo/ptx)
+

@@ -29,7 +29,3 @@ How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
 
 7. Open hugin/src/Hugin.sln and compile.
 
-8. If you want to run hugin from the debugger, the xrc folder needs to be copied to
-   the directory where hugin is located, else hugin won't find its ressources, icons
-   and xrc layout files.
-   For example copy it from hugin/src/hugin/xrc to hugin/src/hugin/Debug/xrc
