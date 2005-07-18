@@ -251,11 +251,11 @@ void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
 void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
 {
 	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str());
-    
+
 #ifdef __WXMAC__ // Limiting the dialog to first 25 lines (apprrox. height of display)
     wxString temp1 = m_PTDetails;
     wxString temp2 = wxT("");
-    
+
     if(m_PTDetails.Freq('\n') > 25)
     {
         for(int i = 0; i < 25; i++)
@@ -267,7 +267,7 @@ void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
     } else {
         temp2 = m_PTDetails;
     }
-    
+
 	wxMessageDialog dlg(this, temp2, _("Panotools details"), wxOK|wxICON_INFORMATION);
 #else
 	wxMessageDialog dlg(this, m_PTDetails, _("Panotools details"), wxOK);
@@ -283,7 +283,7 @@ void PreferencesDialog::EnableRotationCtrls(bool enable)
 #ifdef HAVE_PANO12_QUERYFEATURE_H
 typedef int (*PROC_QF)			(int ,char** ,Tp12FeatureType* );
 typedef int (*PROC_QFNUM)		(void);
-typedef int (*PROC_QFINT)		(const char *, int *); 
+typedef int (*PROC_QFINT)		(const char *, int *);
 typedef int (*PROC_QFDOUBLE)	(const char *, double *);
 typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
 #endif
@@ -291,7 +291,7 @@ typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
 bool PreferencesDialog::GetPanoVersion()
 {
 
-        
+
 #ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifdef __WXMSW__
 	HINSTANCE		hDll		= NULL;
@@ -602,10 +602,10 @@ void PreferencesDialog::UpdateConfigData()
     // locale
     // language
     wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-	DEBUG_INFO("Language Selection ID: " << (long)((int) lang->GetClientData(lang->GetSelection())));
-	// DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str());
-	DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
-	DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
+    DEBUG_INFO("Language Selection ID: " << (long)((int) lang->GetClientData(lang->GetSelection())));
+    // DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str());
+    //DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
+    //DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
 
     cfg->Write(wxT("language"), (long)((int) lang->GetClientData(lang->GetSelection())));
     // cursor
