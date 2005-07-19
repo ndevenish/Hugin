@@ -252,7 +252,6 @@ AC_CONFIG_FILES([Makefile
                  src/hugin/xrc/Makefile
                  src/hugin/xrc/data/Makefile
                  src/jhead/Makefile
-                 src/keypoints/Makefile
                  src/nona_gui/Makefile
 		 src/nona_gui/po/Makefile.in
                  src/tools/Makefile])
