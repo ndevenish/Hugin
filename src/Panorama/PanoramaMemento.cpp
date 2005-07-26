@@ -605,13 +605,42 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             // n"JPEG q80"
             getPTStringParam(format,line,"n");
             int t = format.find(' ');
-            // FIXME. add argument parsing for output formats
+ 
             options.outputFormat = options.getFormatFromName(format.substr(0,t));
-            // "parse" jpg quality
-            unsigned int q = format.find('q',t);
-            if (q != string::npos) {
-                DEBUG_DEBUG("found jpg quality: " << format.substr(q+1));
-                options.quality = utils::lexical_cast<int, string>(format.substr(q+1));
+
+            // parse output format options.
+            switch (options.outputFormat)
+            {
+            case PanoramaOptions::JPEG:
+                {
+                    // "parse" jpg quality
+                    int q;
+                    if (getIntParam(q, format, "q") ) {
+                        options.quality = (int) q;
+                    }
+                }
+                break;
+            case PanoramaOptions::TIFF:
+            case PanoramaOptions::TIFF_m:
+            case PanoramaOptions::TIFF_mask:
+            case PanoramaOptions::TIFF_multilayer:
+            case PanoramaOptions::TIFF_multilayer_mask:
+                {
+                    // parse tiff compression mode
+                    std::string comp;
+                    if (getPTStringParamColon(comp, format, "c")) {
+                        if (comp == "NONE" || comp == "LZW" ||
+                            comp == "DEFLATE") 
+                        {
+                            options.tiffCompression = comp;
+                        } else {
+                            DEBUG_WARN("No valid tiff compression found");
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
             }
 
             int cRefImg = 0;

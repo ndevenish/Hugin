@@ -211,7 +211,7 @@ public:
 
     /** try to read image information from file */
     bool initFromFile(const std::string & filename, double &cropFactor);
-    
+
 //    double isLandscape() const {
 //        return sensorRatio >=1;
 //    }
@@ -354,6 +354,7 @@ public:
           width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
+          tiffCompression("none"),
 	  tiff_saveROI(false),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(vigra_ext::INTERP_CUBIC),
@@ -370,6 +371,7 @@ public:
             width = 3000;
             outfile = "panorama.JPG";
             quality = 90;
+            tiffCompression = "none";
 	    tiff_saveROI = false;
             colorCorrection = NONE;
             colorReferenceImage = 0;
@@ -419,6 +421,7 @@ public:
     // jpeg options
     int quality;
     // TIFF options
+    std::string tiffCompression;
     bool tiff_saveROI;
 
     ColorCorrection colorCorrection;

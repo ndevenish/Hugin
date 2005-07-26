@@ -101,7 +101,7 @@ bool remapToTiff(const PT::Panorama & pano, const PT::PanoramaOptions &opts,
     double alphaScale;
     bool circCrop = pano.getLens(pano.getImage(imgNr).getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE;
     estimateImageRect(Size2D(opts.width, opts.getHeight()), srcSize,
-                      imgOpts.docrop, imgOpts.cropRect, circCrop,  
+                      imgOpts.docrop, imgOpts.cropRect, circCrop,
                       transf,
                       imageRect, miniAlpha, alphaScale);
 
@@ -114,12 +114,14 @@ bool remapToTiff(const PT::Panorama & pano, const PT::PanoramaOptions &opts,
         vigra_ext::createTiffDirectory(tiff,
                                        img.getFilename(),
                                        m_basename,
+                                       opts.tiffCompression,
                                        imgNr+1, nImg,
                                        imageRect.upperLeft());
     } else {
         vigra_ext::createTiffDirectory(tiff,
                                        img.getFilename(),
                                        m_basename,
+                                       opts.tiffCompression,
                                        imgNr+1, nImg,
                                        vigra::Diff2D(0,0));
 }
@@ -274,6 +276,7 @@ public:
             vigra_ext::createTiffDirectory(tiff,
                                            Base::m_pano.getImage(imgNr).getFilename(),
                                            m_basename,
+                                           opts.tiffCompression,
                                            imgNr+1, nImg,
                                            vigra::Diff2D(0,0));
             vigra_ext::createAlphaTiffImage(srcImageRange(complete),
@@ -353,6 +356,7 @@ public:
         vigra_ext::createTiffDirectory(m_tiff,
                                        Base::m_pano.getImage(imgNr).getFilename(),
                                        Base::m_basename,
+                                       opts.tiffCompression,
                                        imgNr+1, nImg, remapped.boundingBox().upperLeft());
         vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                                         vigra::maskImage(remapped.m_mask),

@@ -135,6 +135,22 @@ bool PT::getPTStringParam(std::string & output, const std::string & line, const 
     return true;
 }
 
+bool PT::getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter)
+{
+    std::string::size_type p;
+    if ((p=line.find(std::string(" ") + parameter + ":")) == std::string::npos) {
+        DEBUG_INFO("could not find string param " << parameter
+                    << " in line: " << line);
+        return false;
+    }
+    p += 3;
+    std::string::size_type e = line.find(" ",p);
+    DEBUG_DEBUG("p:" << p << " e:" << e);
+    output = line.substr(p,e-p);
+    DEBUG_DEBUG("output: ##" << output << "##");
+    return true;
+}
+
 bool PT::getDoubleParam(double & d, const std::string & line, const std::string & name)
 {
     std::string s;
@@ -331,7 +347,7 @@ const VariableMap & Panorama::getImageVariables(unsigned int imgNr) const
 FDiff2D Panorama::calcFOV() const
 {
     Size2D panoSize(360,180);
-    
+
     // remap into minature pano.
     PanoramaOptions opts;
     opts.HFOV=360;
@@ -362,7 +378,7 @@ FDiff2D Panorama::calcFOV() const
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
     lr.x = -DBL_MAX;
-    lr.y = -DBL_MAX;  
+    lr.y = -DBL_MAX;
     for (int v=0; v< 180; v++) {
         for (int h=0; h < 360; h++) {
             if (panoAlpha(h,v)) {
@@ -394,7 +410,7 @@ FDiff2D Panorama::calcFOV() const
 void Panorama::centerHorizontically()
 {
     Size2D panoSize(360,180);
-    
+
     // remap into minature pano.
     PanoramaOptions opts;
     opts.HFOV=360;
@@ -431,15 +447,15 @@ void Panorama::centerHorizontically()
                 curColOccupied = true;
             }
         }
-        if (colOccupied && (! curColOccupied) || 
-            (!colOccupied) && curColOccupied ) 
+        if (colOccupied && (! curColOccupied) ||
+            (!colOccupied) && curColOccupied )
         {
             // change in position, save point.
             borders.push_back(h-180);
             colOccupied = curColOccupied;
         }
     }
-    
+
 
     size_t lastidx = borders.size() -1;
     if (lastidx == -1) {
@@ -1253,7 +1269,7 @@ void Panorama::swapImages(unsigned int img1, unsigned int img2)
         }
         (*it).image1Nr = n1;
         (*it).image2Nr = n2;
-    }    
+    }
 
     // update panorama options
     if (state.options.colorReferenceImage == img1) {

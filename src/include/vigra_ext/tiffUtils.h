@@ -55,6 +55,7 @@ namespace vigra_ext {
  */
 inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pagename,
 				const std::string & documentname,
+                                const std::string comp,
 				uint16 page, uint16 nImg,
 				vigra::Diff2D offset)
 {
@@ -62,9 +63,9 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     // create a new directory for our image
     // hopefully I didn't forget too much stuff..
     // TIFF tag reference at http://www.awaresystems.be/imaging/tiff/tifftags.html
-    
+
     // FIXME: Should not create a new directory unless this is a new layer since TIFFOpen
-    //        already creates a new directory and this breaks some windows builds. 
+    //        already creates a new directory and this breaks some windows builds.
     //        Maybe move the create into the multilayer stuff
     //        or write a createMultiTiffDirectory?
     //TIFFCreateDirectory (tiff);
@@ -87,8 +88,20 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     TIFFSetField (tiff, TIFFTAG_PAGENAME, pagename.c_str() );
     //
     TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "stitched with hugin");
-    // FIXME: what should this be set to? 
-    TIFFSetField(tiff, TIFFTAG_COMPRESSION, COMPRESSION_ADOBE_DEFLATE);
+    // FIXME: what should this be set to?
+    
+    // set compression
+    unsigned short tiffcomp;
+    if ( comp == "JPEG" )
+        tiffcomp = COMPRESSION_OJPEG;
+    else if ( comp == "LZW" )
+        tiffcomp = COMPRESSION_LZW;
+    else if ( comp == "DEFLATE" )
+        tiffcomp = COMPRESSION_DEFLATE;
+    else
+        tiffcomp = COMPRESSION_NONE;
+    
+    TIFFSetField(tiff, TIFFTAG_COMPRESSION, tiffcomp);
 }
 
 
@@ -176,7 +189,7 @@ createRGBATiffImage(ImageIterator upperleft, ImageIterator lowerright,
     TIFFSetField(tiff, TIFFTAG_SAMPLEFORMAT, sampleformat);
     TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
     TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, 1);
-		      
+		
     // for alpha stuff, do not uses premultilied data
     // We do not want to throw away data & accuracy by premultiplying
     uint16 nextra_samples = 1;

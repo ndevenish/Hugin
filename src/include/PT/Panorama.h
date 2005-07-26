@@ -77,6 +77,8 @@ bool readVar(Variable & var, int & link, const std::string & line);
 bool getPTStringParam(std::string & output, const std::string & line,
 	              const std::string & parameter);
 
+bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
+
 bool getDoubleParam(double & d, const std::string & line, const std::string & name);
 
 bool getPTDoubleParam(double & value, int & link,
