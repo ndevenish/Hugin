@@ -278,7 +278,7 @@ CPEditorPanel::~CPEditorPanel()
 	sashPos = m_cp_splitter->GetSashPosition();
 #ifdef __WXMSW__
 	// Work around a bug in GetSashPosition/SetSashPosition on wxMSW when the
-	// splitter is housed in a wxNotebook. We adjust the sash position by the 
+	// splitter is housed in a wxNotebook. We adjust the sash position by the
 	// height of the notebook tabs
     wxSize sz = m_cp_splitter->GetSize();
     wxSize szp = m_cp_splitter->GetParent()->GetParent()->GetParent()->GetClientSize();
@@ -326,7 +326,7 @@ void CPEditorPanel::RestoreLayout()
 #endif
     m_cp_splitter_img->SplitVertically( leftWindow, rightWindow );
 	m_cp_splitter_img->SetMinimumPaneSize(20);
-    
+
     // setup splitter between images and bottom row.
     leftWindow = XRCCTRL(*this, "cp_editor_split_top", wxPanel);
     DEBUG_ASSERT(leftWindow);
@@ -1148,7 +1148,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_leftChoice->Enable();
       m_rightChoice->Enable();
 #endif
-      
+
   	  // FIXME: lets hope that nobody holds references to these images..
       ImageCache::getInstance().softFlush();
 
@@ -1400,7 +1400,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         if(width != -1)
             m_cpList->SetColumnWidth(j, width);
     }
-    
+
     m_cpList->Show();
 }
 
