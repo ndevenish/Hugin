@@ -27,10 +27,13 @@
 
 #include <vector>
 
-#include "common/Command.h"
+#include <common/Command.h>
+#include <common/utils.h>
+#include <common/stl_utils.h>
 
 #include "PanoImage.h"
 #include "Panorama.h"
+#include "PanoToolsInterface.h"
 
 namespace PT {
 
@@ -489,6 +492,7 @@ namespace PT {
     };
 
 
+
     //=========================================================================
     //=========================================================================
 
@@ -738,7 +742,7 @@ namespace PT {
                 UIntSet::iterator it;
                 LensVector::const_iterator v_it = vect.begin();
 				for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
-					if (set_contains(m_active, i)) {
+                    if (set_contains(m_active, i)) {
 						pano.activateImage(i, true);
 					} else {
 						pano.activateImage(i, false);

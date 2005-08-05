@@ -358,10 +358,12 @@ FDiff2D Panorama::calcFOV() const
     // remap image
     vigra::BImage panoAlpha(panoSize);
     RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
-    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        remapped.setPanoImage(*this, imgNr, opts);
+    UIntSet activeImgs = getActiveImages();
+    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
+//    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
+        remapped.setPanoImage(*this, *it, opts);
         // calculate alpha channel
-        remapped.calcAlpha(*this, opts, imgNr);
+        remapped.calcAlpha(*this, opts, *it);
         // copy into global alpha channel.
         vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
                                               vigra_ext::srcMaskRange(remapped)),
@@ -421,10 +423,14 @@ void Panorama::centerHorizontically()
     // remap image
     vigra::BImage panoAlpha(panoSize);
     RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
-    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        remapped.setPanoImage(*this, imgNr, opts);
+
+    // use selected images.
+    UIntSet activeImgs = getActiveImages();
+    for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
+//    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
+        remapped.setPanoImage(*this, *it, opts);
         // calculate alpha channel
-        remapped.calcAlpha(*this, opts, imgNr);
+        remapped.calcAlpha(*this, opts, *it);
         // copy into global alpha channel.
         vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
                                               vigra_ext::srcMaskRange(remapped)),

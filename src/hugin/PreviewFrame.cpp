@@ -476,6 +476,9 @@ void PreviewFrame::OnShowAll(wxCommandEvent & e)
         m_ToggleButtons[i]->SetValue(true);
     }
     m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+        );
 }
 
 void PreviewFrame::OnShowNone(wxCommandEvent & e)
@@ -486,6 +489,9 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     }
     m_displayedImgs.clear();
     m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+        );
 }
 
 void PreviewFrame::OnChangeFOV(wxScrollEvent & e)

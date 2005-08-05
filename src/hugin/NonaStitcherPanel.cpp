@@ -258,7 +258,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 {
 	// work around a flaw in wxProgresDialog that results in incorrect layout  
 	// by pre-allocting sufficient horizontal and vertical space 
-    MyProgressDialog pdisp(_("Stitching Panorama"), (wxString((wxChar)' ', 60) + wxT("\n ")), NULL, 
+    MyProgressDialog pdisp(_("Stitching Panorama"), (wxString((wxChar)' ', 60) + wxT("\n \n ") ), NULL, 
 						   wxPD_ELAPSED_TIME | wxPD_AUTO_HIDE | wxPD_APP_MODAL );
 
     PanoramaOptions opts = options;

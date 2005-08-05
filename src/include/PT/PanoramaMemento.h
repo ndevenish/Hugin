@@ -354,7 +354,7 @@ public:
           width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
-          tiffCompression("none"),
+          tiffCompression("NONE"),
 	  tiff_saveROI(false),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(vigra_ext::INTERP_CUBIC),
@@ -366,13 +366,14 @@ public:
 
     void reset()
         {
+            projectionFormat = EQUIRECTANGULAR;
             HFOV = 360;
             VFOV = 180;
             width = 3000;
             outfile = "panorama.JPG";
             quality = 90;
-            tiffCompression = "none";
-	    tiff_saveROI = false;
+            tiff_saveROI = false;
+            tiffCompression = "NONE";
             colorCorrection = NONE;
             colorReferenceImage = 0;
             optimizeReferenceImage = 0;
@@ -446,8 +447,6 @@ typedef std::vector<PanoImage> ImageVector;
 typedef std::vector<std::set<std::string> > OptimizeVector;
 typedef std::vector<Lens> LensVector;
 
-
-
 class Panorama;
 /** Memento class for a Panorama object
  *
@@ -481,9 +480,6 @@ public:
      */
     bool loadPTScript(std::istream & i, const std::string & prefix = "");
 
-    /** improved and robustified PTScript loader */
-    bool loadPTScript2_old(std::istream &i, const std::string &prefix);
-
 private:
 
     enum PTParseState { P_NONE,
@@ -507,7 +503,6 @@ private:
     PanoramaOptions options;
 
     OptimizeVector optvec;
-
 };
 
 } // namespace
