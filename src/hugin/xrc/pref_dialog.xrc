@@ -382,29 +382,6 @@
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Cursor Type</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxSpinCtrl" name="prefs_cp_CursorType">
-                            <min>0</min>
-                            <max>7</max>
-                          </object>
-                          <flag>wxALL|wxGROW|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>available on linux only
-requires restarting hugin</label>
-                          </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
                         <rows>2</rows>
                         <growablecols>1</growablecols>
                       </object>

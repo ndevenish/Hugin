@@ -344,10 +344,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             Move(0, 44);
         }
     }
-    
+
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
-    
+
 #ifdef __WXMAC__
     wxApp::s_macAboutMenuItemId = XRCID("action_show_about");
     wxApp::s_macPreferencesMenuItemId = XRCID("action_show_prefs");
@@ -400,7 +400,7 @@ MainFrame::~MainFrame()
     } else {
         config->Write(wxT("/MainFrame/maximized"), 1l);
     }
-        
+
     config->Flush();
 
     DEBUG_TRACE("dtor end");
@@ -438,7 +438,7 @@ bool MainFrame::CloseProject(bool cnacelable)
 {
     if (pano.isDirty()) {
         int answer = wxMessageBox(_("The panorama has been changed\nSave changes?"), _("Save Panorama?"),
-                                  cnacelable? (wxYES_NO | wxCANCEL | wxICON_EXCLAMATION):(wxYES_NO | wxICON_EXCLAMATION), 
+                                  cnacelable? (wxYES_NO | wxCANCEL | wxICON_EXCLAMATION):(wxYES_NO | wxICON_EXCLAMATION),
                                   this);
         switch (answer){
             case wxYES:
@@ -509,7 +509,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     wxFileDialog dlg(this,
                      _("Save project file"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
-                     _("Project files (*.pto)|*.pto|All files (*.*)|*.*"),
+                     _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
@@ -583,7 +583,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
 void MainFrame::MacOnOpenFile(const wxString & filename)
 {
     if(!CloseProject(true)) return; //if closing old project is canceled do nothing.
-    
+
     ImageCache::getInstance().flush();
     LoadProjectFile(filename);
 }
@@ -601,12 +601,12 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         wxFileDialog dlg(this,
                          _("Open project file"),
                          config->Read(wxT("actualPath"),wxT("")), wxT(""),
-                         _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*.*)|*.*"),
+                         _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             // remove old images from cache
             ImageCache::getInstance().flush();
-            
+
             wxString filename = dlg.GetPath();
             LoadProjectFile(filename);
             return;
@@ -620,7 +620,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
 void MainFrame::OnNewProject(wxCommandEvent & e)
 {
     if(!CloseProject(true)) return; //if closing current project is canceled
-        
+
     m_filename = wxT("");
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
@@ -637,7 +637,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*.*)|*.*"));
+    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
     wxFileDialog dlg(this,_("Add images"),
                      config->Read(wxT("actualPath"),wxT("")), wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
@@ -901,7 +901,7 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 	bool bHelpExists = false;
 
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-    
+
 #ifndef __WXMAC__
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
@@ -935,7 +935,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
     wxConfigBase * config = wxConfigBase::Get();
 	nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
-    
+
 #ifndef __WXMAC__
     //if the language is not default, load custom tip file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
@@ -1011,7 +1011,7 @@ void MainFrame::OnFAQ(wxCommandEvent & e)
 	bool bFAQExists = false;
 	
     wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-    
+
 #ifndef __WXMAC__
     //if the language is not default, load custom FAQ file (if exists)
 	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();

@@ -71,7 +71,7 @@ public:
                 // no or unknown sort method
                 break;
             }
-            
+
             std::vector<std::string>::const_iterator it;
 
 
@@ -157,7 +157,7 @@ public:
                 for (unsigned int i = 0; i < nImg; i++) {
                     wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
                     while (! fname.FileExists()){
-						// Is file in the new path 
+						// Is file in the new path
 						if (basedir != wxT("")) {
 						  wxString newname = fname.GetFullName();
 						  fname.AssignDir(basedir);
@@ -176,7 +176,7 @@ public:
                             basedir = fname.GetPath();
                         }
                         // open file dialog
-                        wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*.*)|*.*"));
+                        wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
                         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                          basedir, fname.GetFullName(),
                                          wildcard, wxOPEN, wxDefaultPosition);
@@ -199,7 +199,7 @@ public:
                     Lens cLens = pano.getLens(lNr);
                     double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
                     if (cLens.getProjection() == Lens::RECTILINEAR
-                        && hfov >= 180) 
+                        && hfov >= 180)
                     {
                         // try to load hfov from exif info
                         initLensFromFile(pano.getImage(i).getFilename(),

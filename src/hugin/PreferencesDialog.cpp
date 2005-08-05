@@ -111,6 +111,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);
     lang_choice->Append(_("Italian"), (void *) wxLANGUAGE_ITALIAN);
     lang_choice->Append(_("Japanese"), (void *) wxLANGUAGE_JAPANESE);
+    lang_choice->Append(_("Russian"), (void *) wxLANGUAGE_RUSSIAN);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
@@ -514,8 +515,8 @@ void PreferencesDialog::UpdateDisplayData()
     MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
     // cursor setting
-    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
-    MY_SPIN_VAL("prefs_cp_CursorType", mem);
+//    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
+//    MY_SPIN_VAL("prefs_cp_CursorType", mem);
 
     // tempdir
     MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
@@ -609,7 +610,7 @@ void PreferencesDialog::UpdateConfigData()
 
     cfg->Write(wxT("language"), (long)((int) lang->GetClientData(lang->GetSelection())));
     // cursor
-    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
+//    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
     // druid
