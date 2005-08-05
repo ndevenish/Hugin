@@ -1,6 +1,6 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5 rc1"
+!define HUGIN_VERSION "0.5 rc2"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
@@ -18,9 +18,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_rc1_allinone_setup.exe"
+OutFile "hugin-0.5_rc2_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_rc1_setup.exe"
+OutFile "hugin-0.5_rc2_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -86,7 +86,8 @@ Section "Hugin program files"
   File "hugin.exe"
   File "LICENCE.txt"
   File "NEWS.txt"
-  File "VIGRA_LICENSE.txt"
+  File "LICENCE_VIGRA.txt"
+  File "LICENCE_JHEAD.txt"
   File "AUTHORS.txt"
   File "README_WINDOWS.txt"
   File "nona.exe"
@@ -109,6 +110,9 @@ Section "Hugin program files"
   File "PTOptimizer.exe"
   ;File "autopano.exe"
   File "enblend.exe"
+  File "ENBLEND_README.txt"
+  File "ENBLEND_AUTHORS.txt"
+  File "ENBLEND_NEWS.txt"
   ;WriteRegStr HKCU "Software\hugin\AutoPanoKolor" "AutopanoExe" "$INSTDIR\autopano.exe"
   WriteRegStr HKCU "Software\hugin\Enblend" "EnblendExe" "$INSTDIR\enblend.exe"
   ;WriteRegStr HKCU "Software\hugin\Panotools" "PTStitcherExe" "$INSTDIR\PTStitcher.exe"
@@ -193,7 +197,8 @@ Section "Uninstall"
   Delete "$INSTDIR\uninstall.exe"
   Delete "$INSTDIR\NEWS.txt"
   Delete "$INSTDIR\LICENCE.txt"
-  Delete "$INSTDIR\VIGRA_LICENSE.txt"
+  Delete "$INSTDIR\LICENSE_VIGRA.txt"
+  Delete "$INSTDIR\LICENSE_JHEAD.txt"
   Delete "$INSTDIR\AUTHORS.txt"
   Delete "$INSTDIR\README_WINDOWS.txt"
 !ifdef HUGIN_NEED_MINGW
@@ -214,6 +219,9 @@ Section "Uninstall"
   Delete "$INSTDIR\PTOptimizer.exe"
   ;Delete "$INSTDIR\autopano.exe"
   Delete "$INSTDIR\enblend.exe"
+  Delete "$INSTDIR\ENBLEND_README.txt"
+  Delete "$INSTDIR\ENBLEND_AUTHORS.txt"
+  Delete "$INSTDIR\ENBLEND_NEWS.txt"
 !endif
 
   RMDir /r "$INSTDIR\locale"

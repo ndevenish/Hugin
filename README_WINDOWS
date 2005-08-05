@@ -7,7 +7,7 @@ This package contains the following programs:
    and some programs included here.
 
  - nona, a simple replacement for PTStitcher (doesn't support most
-   features of PTStitcher, but is several times faster, opensource and
+   features of PTStitcher, but faster, opensource and
    will be extended in the future).
  
  - nona_gui, nona with a graphical progress bar.

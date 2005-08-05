@@ -4,7 +4,7 @@ rem create installation directory
 set DESTDIR=D:\hugin\vc\hugin_install_win98
 set SRCDIR=D:\hugin\vc\hugin\src
 
-set LINGUAS=de fr pl
+set LINGUAS=de fr pl it ja ru
 set NLINGUAS=de pl fr
 
 set MSGFMT=C:\Programme\poEdit\bin\msgfmt.exe
@@ -21,15 +21,27 @@ for %%l in ( %LINGUAS% ) do mkdir %DESTDIR%\locale\%%l
 rem copy panoglview
 copy %SRCDIR%\..\..\panoglview\panoglview.exe %DESTDIR%\
 
+rem copy panotools
+copy %SRCDIR%\..\..\panotools\PTOptimizer.exe %DESTDIR%\
+copy %SRCDIR%\..\..\panotools\pano12.dll %DESTDIR%\
+
+rem copy enblend
+copy %SRCDIR%\..\..\enblend\enblend.exe %DESTDIR%\
+copy %SRCDIR%\..\..\enblend\AUTHORS %DESTDIR%\ENBLEND_AUTHORS.txt
+copy %SRCDIR%\..\..\enblend\README %DESTDIR%\ENBLEND_README.txt
+copy %SRCDIR%\..\..\enblend\NEWS %DESTDIR%\ENBLEND_NEWS.txt
+
 rem copy installer script
 copy %SRCDIR%\..\utils\hugin.nsi %DESTDIR%\
 
 
 rem copy licence and other text documents
 copy %SRCDIR%\..\LICENCE %DESTDIR%\LICENCE.txt
-copy %SRCDIR%\foreign\VIGRA_LICENSE %DESTDIR%\VIGRA_LICENSE.txt
+copy %SRCDIR%\..\LICENCE_VIGRA %DESTDIR%\LICENCE_VIGRA.txt
+copy %SRCDIR%\..\LICENCE_JHEAD %DESTDIR%\LICENCE_JHEAD.txt
 copy %SRCDIR%\..\README_WINDOWS %DESTDIR%\README_WINDOWS.txt
 copy %SRCDIR%\..\AUTHORS %DESTDIR%\AUTHORS.txt
+copy %SRCDIR%\..\NEWS %DESTDIR%\NEWS.txt
 
 
 rem

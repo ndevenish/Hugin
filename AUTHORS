@@ -5,6 +5,7 @@ Authors:
    Douglas Wilkins                              packaging, translation
                                                 bugfixes
    Ed Halley                                    gui, documentation
+   Ippei Ukai                                   MacOSX port
    Bruno Postle                                 packaging, website,
                                                 documentation
    Alexandre Jenny                              SpaceTransform class
@@ -14,7 +15,7 @@ Translators
    Marek Januszewski <spec@webtech.pl>          polish translation
    Jean-Luc Coulon				french translation
 
-Panoglview was written by Fabial Wetzel
+Panoglview was written by Fabian Wetzel
 
 This package also includes a code from
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
