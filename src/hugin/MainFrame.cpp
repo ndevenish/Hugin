@@ -625,6 +625,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand( new NewPanoCmd(pano));
     // remove old images from cache
     ImageCache::getInstance().flush();
+    this->SetTitle(wxT("hugin"));
     pano.clearDirty();
 }
 
