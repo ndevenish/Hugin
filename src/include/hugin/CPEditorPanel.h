@@ -91,6 +91,12 @@ public:
      */
     void RestoreLayout();
 
+    /// hack to restore the layout on next resize
+    void RestoreLayoutOnNextResize()
+    {
+        m_restoreLayoutOnResize = true;
+    }
+
 
     /// set left image
     void setLeftImage(unsigned int imgNr);
@@ -188,10 +194,13 @@ private:
     void OnAutoAddCB(wxCommandEvent & e);
     void OnPrevImg(wxCommandEvent & e);
     void OnNextImg(wxCommandEvent & e);
-    
+
     void OnColumnWidthChange( wxListEvent & e );
 
     void OnFineTuneButton(wxCommandEvent & e);
+    
+    void OnSize(wxSizeEvent & e);
+    
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
     // local fine tune
@@ -292,6 +301,8 @@ private:
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;
+
+    bool m_restoreLayoutOnResize;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

@@ -110,12 +110,13 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("cp_editor_previous_img"), CPEditorPanel::OnPrevImg)
     EVT_BUTTON(XRCID("cp_editor_next_img"), CPEditorPanel::OnNextImg)
     EVT_BUTTON(XRCID("cp_editor_finetune_button"), CPEditorPanel::OnFineTuneButton)
+    EVT_SIZE(CPEditorPanel::OnSize)
 END_EVENT_TABLE()
 
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     : cpCreationState(NO_POINT), m_pano(pano), m_leftImageNr(UINT_MAX),
       m_rightImageNr(UINT_MAX), m_listenToPageChange(true), m_detailZoomFactor(1),
-      m_selectedPoint(UINT_MAX)
+      m_selectedPoint(UINT_MAX), m_restoreLayoutOnResize(false)
 
 {
     DEBUG_TRACE("");
@@ -2059,4 +2060,13 @@ void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )
 {
     int colNum = e.GetColumn();
     wxConfigBase::Get()->Write( wxString::Format(wxT("/CPEditorPanel/ColumnWidth%d"),colNum), m_cpList->GetColumnWidth(colNum) );
+}
+
+void CPEditorPanel::OnSize(wxSizeEvent & e)
+{
+    Layout();
+    if (m_restoreLayoutOnResize) {
+        m_restoreLayoutOnResize = false;
+        RestoreLayout();
+    }
 }

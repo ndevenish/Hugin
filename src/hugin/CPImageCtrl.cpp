@@ -871,6 +871,9 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
         emit(ev);
     } else {
+        // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
+        // properly.. do it here by hand
+        e.SetEventObject(this);
         DEBUG_DEBUG("forwarding key " << e.m_keyCode
                     << " origin: id:" << e.m_id << " obj: "
                     << e.GetEventObject());
@@ -878,6 +881,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         //GetParent()->GetEventHandler()->ProcessEvent(e);
         m_editPanel->GetEventHandler()->ProcessEvent(e);
     }
+    e.Skip();
 }
 
 void CPImageCtrl::OnKeyUp(wxKeyEvent & e)
@@ -931,7 +935,7 @@ void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("MOUSE Enter, setting focus");
     SetFocus();
 }
 
@@ -984,7 +988,7 @@ wxPoint CPImageCtrl::MaxScrollDelta(wxPoint delta)
 {
     int x,y;
     GetViewStart( &x, &y );
-    
+
     wxSize winSize = GetClientSize();
     wxSize imgSize;
     imgSize.x = bitmap.GetWidth();

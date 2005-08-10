@@ -47,6 +47,12 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 
     /** restore layout after hugin start */
     void RestoreLayout();
+    
+    /// hack to restore the layout on next resize
+    void RestoreLayoutOnNextResize()
+    {
+        m_restoreLayoutOnResize = true;
+    }
 
     /** this is called whenever the panorama has changed.
      *
@@ -103,7 +109,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void OnChangeLens(wxCommandEvent & e);
 
     /** create a new lens and assign it to the
-     *  selected images 
+     *  selected images
      */
     void OnNewLens(wxCommandEvent & e);
 
@@ -131,7 +137,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     wxScrolledWindow *m_lens_ctrls;
 	wxSplitterWindow *m_lens_splitter;
 #endif
-		
+    
+    bool m_restoreLayoutOnResize;
+
     DECLARE_EVENT_TABLE()
 };
 

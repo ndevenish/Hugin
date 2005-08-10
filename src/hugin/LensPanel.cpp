@@ -212,6 +212,11 @@ void LensPanel::OnSize( wxSizeEvent & e )
     XRCCTRL(*this, "lens_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "" << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 #endif
+    
+    if (m_restoreLayoutOnResize) {
+        m_restoreLayoutOnResize = false;
+        RestoreLayout();
+    }
 }
 
 void LensPanel::UpdateLensDisplay ()

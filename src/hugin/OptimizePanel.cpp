@@ -120,10 +120,10 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
 OptimizePanel::~OptimizePanel()
 {
     DEBUG_TRACE("dtor, writing config");
-    wxSize sz = GetClientSize();
-    wxConfigBase * config = wxConfigBase::Get();
-    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
-    config->Write(wxT("/OptimizerPanel/height"),sz.GetHeight());
+//    wxSize sz = GetClientSize();
+//    wxConfigBase * config = wxConfigBase::Get();
+//    config->Write(wxT("/OptimizerPanel/width"),sz.GetWidth());
+//    config->Write(wxT("/OptimizerPanel/height"),sz.GetHeight());
     m_pano->removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -429,7 +429,7 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
     }
 }
 
-void OptimizePanel::runOptimizer(const OptimizeVector & optvars, 
+void OptimizePanel::runOptimizer(const OptimizeVector & optvars,
 								 const PanoramaOptions & options,
 								 const UIntSet & imgs)
 {
@@ -565,7 +565,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
   	  }
       // do not try to do anything on our own
       // if the user selected custom
-      if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0) 
+      if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0)
 	  {
         // get anchor image
         unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
@@ -574,13 +574,13 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         int nHCP = 0;
         int nVCP = 0;
         const CPVector & cps = m_pano->getCtrlPoints();
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) 
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
 	    {
           // control points
-          if (it->mode == ControlPoint::X) 
+          if (it->mode == ControlPoint::X)
 	    	{
               nVCP++;
-            } else if (it->mode == ControlPoint::Y) 
+            } else if (it->mode == ControlPoint::Y)
 		      {
                 nHCP++;
               }

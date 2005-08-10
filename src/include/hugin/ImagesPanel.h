@@ -48,6 +48,12 @@ public:
     /** restore layout after hugin start */
     void RestoreLayout();
 
+    /// hack to restore the layout on next resize
+    void RestoreLayoutOnNextResize()
+    {
+        m_restoreLayoutOnResize = true;
+    }
+
     /** this is called whenever the panorama has changed.
      *
      *  This function must now update all the gui representations
@@ -152,6 +158,8 @@ private:
 #endif
 	
     int m_degDigits;
+    
+    bool m_restoreLayoutOnResize;
 
     DECLARE_EVENT_TABLE()
 };

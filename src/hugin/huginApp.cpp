@@ -52,7 +52,7 @@ bool str2double(wxString s, double & d)
 wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
-    
+
     CFBundleRef mainbundle = CFBundleGetMainBundle();
     if(mainbundle == NULL)
     {
@@ -87,7 +87,7 @@ wxString MacGetPathTOBundledResourceFile(CFStringRef filename)
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
 {
     wxString theResult = wxT("");
-    
+
     CFBundleRef mainbundle = CFBundleGetMainBundle();
     if(mainbundle == NULL)
     {
@@ -153,6 +153,7 @@ huginApp::~huginApp()
 
 bool huginApp::OnInit()
 {
+    DEBUG_TRACE("=========================== huginApp::OnInit() begin ===================");
     SetAppName(wxT("hugin"));
 
     wxString m_huginPath;
@@ -200,7 +201,7 @@ bool huginApp::OnInit()
     if (config->HasEntry(wxT("locale_path"))){
         locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
     }
-    
+
 #ifdef __WXMAC__
     wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
     if(thePath != wxT(""))
@@ -277,7 +278,7 @@ bool huginApp::OnInit()
 #endif
 
 #endif
-    
+
 #ifdef __WXMAC__
     // If hugin is starting with file opening AppleEvent, MacOpenFile will be called on first wxYield().
     // Those need to be initialised before first call of Yield which happens in Mainframe constructor.
@@ -326,7 +327,35 @@ bool huginApp::OnInit()
 
     // show the frame.
     frame->Show(TRUE);
-	frame->RestoreLayout();
+
+    // restore layout
+    frame->RestoreLayoutOnNextResize();
+
+    // setup main frame size, after it has been created.
+    bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
+    if (maximized) {
+        frame->Maximize();
+        // explicitly layout after maximize
+    } else {
+        //size
+        int w = config->Read(wxT("/MainFrame/width"),-1l);
+        int h = config->Read(wxT("/MainFrame/height"),-1l);
+        if (w >0) {
+            frame->SetClientSize(w,h);
+        } else {
+            frame->Fit();
+        }
+        //position
+        int x = config->Read(wxT("/MainFrame/positionX"),-1l);
+        int y = config->Read(wxT("/MainFrame/positionY"),-1l);
+        if ( y > 0) {
+            frame->Move(x, y);
+        } else {
+            frame->Move(0, 44);
+        }
+    }
+
+
 
     // TODO: check if we need to load images.
     if (argc == 2) {
@@ -356,7 +385,7 @@ bool huginApp::OnInit()
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    DEBUG_TRACE("");
+    DEBUG_TRACE("=========================== huginApp::OnInit() end ===================");
     return true;
 }
 
@@ -379,14 +408,14 @@ huginApp * huginApp::Get()
 
 #ifdef __WXMAC__
 void huginApp::MacOpenFile(const wxString &fileName)
-{    
+{
     if(!m_macInitDone)
     {
         m_macOpenFileOnStart=true;
         m_macFileNameToOpenOnStart = fileName;
         return;
     }
-    
+
     if(frame) frame->MacOnOpenFile(fileName);
 }
 #endif

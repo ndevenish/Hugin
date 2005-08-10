@@ -145,6 +145,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID( "action_edit_text_dialog"),  MainFrame::OnTextEdit)
     //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
 	EVT_CLOSE(  MainFrame::OnExit)
+    EVT_SIZE(MainFrame::OnSize)
 END_EVENT_TABLE()
 
 // change this variable definition
@@ -154,7 +155,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : pano(pano)
+    : pano(pano), m_doRestoreLayout(false)
 {
     wxString splashPath;
     wxFileName::SplitPath( wxTheApp->argv[0], &splashPath, NULL, NULL );
@@ -323,9 +324,13 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #ifdef USE_WX253
     SetSizeHints(600,400);
 #endif
+
+    #if 0
     bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
     if (maximized) {
         this->Maximize();
+        // explicitly layout after maximize
+        this->Layout();
     } else {
         //size
         int w = config->Read(wxT("/MainFrame/width"),-1l);
@@ -344,6 +349,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             Move(0, 44);
         }
     }
+#endif
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
@@ -359,6 +365,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     }
     wxYield();
 	
+    
+    // disable automatic Layout() calls, to it by hand
+    SetAutoLayout(false);
+    
+    
 // By using /SUBSYSTEM:CONSOLE /ENTRY:"WinMainCRTStartup" in the linker
 // options for the debug build, a console window will be used for stdout
 // and stderr. No need to redirect to a file. Better security since we can't
@@ -408,13 +419,13 @@ MainFrame::~MainFrame()
 
 void MainFrame::RestoreLayout()
 {
-	DEBUG_TRACE("");	
+    DEBUG_TRACE("");	
     // restore layout of child widgets, now that all widgets have been created,
     // are of similar size
-    cpe->RestoreLayout();
-    lens_panel->RestoreLayout();
-    images_panel->RestoreLayout();
-	DEBUG_TRACE("");	
+//    cpe->RestoreLayout();
+//    lens_panel->RestoreLayout();
+//    images_panel->RestoreLayout();
+    DEBUG_TRACE("");	
 }
 
 //void MainFrame::panoramaChanged(PT::Panorama &panorama)
@@ -1287,6 +1298,36 @@ void MainFrame::enableTools(bool option)
 	  theMenuBar->Enable(XRCID("action_save_as_project"), option);
 	  theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);
 	}
+}
+
+
+void MainFrame::OnSize(wxSizeEvent &e)
+{
+    wxSize sz = this->GetSize();
+    wxSize csz = this->GetClientSize();
+    wxSize vsz = this->GetVirtualSize();
+    DEBUG_TRACE(" size:" << sz.x << "," << sz.y <<
+                " client: "<< csz.x << "," << csz.y <<
+                " virtual: "<< vsz.x << "," << vsz.y);
+    
+    Layout();
+    // redo layout if requested
+    if (m_doRestoreLayout) {
+        m_doRestoreLayout = false;
+        // first, layout everything. This should ensure that the
+        // children have the correct size
+        // then restore the layout
+        RestoreLayout();
+    }
+    e.Skip();
+}
+
+void MainFrame::RestoreLayoutOnNextResize()
+{
+    m_doRestoreLayout = true;
+    cpe->RestoreLayoutOnNextResize();
+    lens_panel->RestoreLayoutOnNextResize();
+    images_panel->RestoreLayoutOnNextResize();
 }
 
 /// hack.. kind of a pseudo singleton...

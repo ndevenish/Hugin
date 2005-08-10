@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-08-05 21:39+0200\n"
+"POT-Creation-Date: 2005-08-06 23:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -760,33 +760,33 @@ msgstr ""
 msgid "The druid has no advice."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:551
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:557
 msgid "The druid finds no problems with your panorama."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:552
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:558
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:571
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:577
 msgid "Warning:  you haven't saved the current project."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:572
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:578
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:567
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:573
 msgid "Warning:  current stitch has huge dimensions."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:568
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:574
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -796,11 +796,11 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:563
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:569
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:564
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:570
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -868,19 +868,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:559
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:565
 msgid "Add at least one more image."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:560
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:566
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:555
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:561
 msgid "To get started, add some image files."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:556
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:562
 msgid "You can add any number of images using the Images tab."
 msgstr ""
 
@@ -1024,7 +1024,7 @@ msgstr ""
 msgid "equirectangular"
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:548
+#: src/hugin/PreviewFrame.cpp:554
 msgid "The druid has no advice at this time."
 msgstr ""
 

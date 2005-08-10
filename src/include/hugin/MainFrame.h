@@ -54,7 +54,7 @@ public:
     PanoDropTarget(PT::Panorama & p, bool imageOnly = false)
         : pano(p)
     { m_imageOnly = imageOnly; }
-    
+
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 
 private:
@@ -118,14 +118,18 @@ public:
     // load a project
     void LoadProjectFile(const wxString & filename);
 	
-	// Restore the layout
-	void RestoreLayout();
+    // Restore the layout
+    void RestoreLayout();
     
+    /// hack to restore the layout on next resize
+    void RestoreLayoutOnNextResize();
+    
+
 #ifdef __WXMAC__
     void MacOnOpenFile(const wxString & filename);
 #endif
     bool CloseProject(bool cnacelable);
-    
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.
@@ -161,8 +165,9 @@ private:
     void OnToggleCPFrame(wxCommandEvent & e);
     void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
-    void Resize(wxSizeEvent & e);    
-	void enableTools(bool option);
+    void OnSize(wxSizeEvent &e);
+    void enableTools(bool option);
+
 
     wxNotebook * m_notebook;
     // tab panels
@@ -178,7 +183,7 @@ private:
 
     // Image Preview
     ImgPreview *canvas;
-    
+
     // Preferences
     PreferencesDialog * pref_dlg;
 
@@ -191,6 +196,8 @@ private:
     // data prefix
     wxString m_xrcPrefix;
 
+    bool m_doRestoreLayout;
+    
     // self
     static MainFrame* m_this;
 

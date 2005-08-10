@@ -86,7 +86,7 @@ END_EVENT_TABLE()
 // Define a constructor for the Images Panel
 ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano)
+      pano(*pano), m_restoreLayoutOnResize(false)
 {
     DEBUG_TRACE("");
 
@@ -149,6 +149,10 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     pano->addObserver(this);
     DEBUG_TRACE("end");
 
+#ifdef USE_WX253
+    SetAutoLayout(false);
+#endif
+    
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
 }
 
@@ -158,8 +162,8 @@ ImagesPanel::~ImagesPanel(void)
     DEBUG_TRACE("dtor");
 
 #ifdef USE_WX253
-	int sashPos;
-	sashPos = m_img_splitter->GetSashPosition();
+    int sashPos;
+    sashPos = m_img_splitter->GetSashPosition();
     DEBUG_INFO("Image panel sash pos: " << sashPos);
     wxConfigBase::Get()->Write(wxT("/ImageFrame/sashPos"), sashPos);
 #endif
@@ -182,8 +186,9 @@ void ImagesPanel::RestoreLayout()
 #ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight );
-    m_img_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),300));
+    int sP = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),winWidth/2);
+    m_img_splitter->SetSashPosition(sP);
+    DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
 #endif
 
 }
@@ -195,6 +200,7 @@ void ImagesPanel::RestoreLayout()
 
 void ImagesPanel::OnSize( wxSizeEvent & e )
 {
+    
 #ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
@@ -210,7 +216,13 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
     DEBUG_INFO( "image panel: " << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
 #endif
     UpdatePreviewImage();
-	e.Skip();
+
+    if (m_restoreLayoutOnResize) {
+        m_restoreLayoutOnResize = false;
+        RestoreLayout();
+    }
+    
+    e.Skip();
 }
 
 #ifdef USE_WX253
