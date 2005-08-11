@@ -365,11 +365,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     }
     wxYield();
 	
-    
+
     // disable automatic Layout() calls, to it by hand
     SetAutoLayout(false);
-    
-    
+
+
 // By using /SUBSYSTEM:CONSOLE /ENTRY:"WinMainCRTStartup" in the linker
 // options for the debug build, a console window will be used for stdout
 // and stderr. No need to redirect to a file. Better security since we can't
@@ -400,17 +400,7 @@ MainFrame::~MainFrame()
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    if (! this->IsMaximized() ) {
-        wxSize sz = GetClientSize();
-        config->Write(wxT("/MainFrame/width"), sz.GetWidth());
-        config->Write(wxT("/MainFrame/height"), sz.GetHeight());
-        wxPoint ps = GetPosition();
-        config->Write(wxT("/MainFrame/positionX"), ps.x);
-        config->Write(wxT("/MainFrame/positionY"), ps.y);
-        config->Write(wxT("/MainFrame/maximized"), 0);
-    } else {
-        config->Write(wxT("/MainFrame/maximized"), 1l);
-    }
+    StoreFramePosition(this, wxT("MainFrame"));
 
     config->Flush();
 
@@ -1309,7 +1299,7 @@ void MainFrame::OnSize(wxSizeEvent &e)
     DEBUG_TRACE(" size:" << sz.x << "," << sz.y <<
                 " client: "<< csz.x << "," << csz.y <<
                 " virtual: "<< vsz.x << "," << vsz.y);
-    
+
     Layout();
     // redo layout if requested
     if (m_doRestoreLayout) {

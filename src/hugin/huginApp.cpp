@@ -289,6 +289,15 @@ bool huginApp::OnInit()
     frame = new MainFrame(NULL, pano);
     SetTopWindow(frame);
 
+    // restore layout
+    frame->RestoreLayoutOnNextResize();
+
+    // setup main frame size, after it has been created.
+    RestoreFramePosition(frame, wxT("MainFrame"));
+    
+    // show the frame.
+    frame->Show(TRUE);
+
     wxString cwd = wxFileName::GetCwd();
     config->Write( wxT("startDir"), cwd );
 
@@ -324,38 +333,6 @@ bool huginApp::OnInit()
         DEBUG_ERROR("could not change to temp. dir: " << m_workDir.mb_str());
     }
     DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str());
-
-    // show the frame.
-    frame->Show(TRUE);
-
-    // restore layout
-    frame->RestoreLayoutOnNextResize();
-
-    // setup main frame size, after it has been created.
-    bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
-    if (maximized) {
-        frame->Maximize();
-        // explicitly layout after maximize
-    } else {
-        //size
-        int w = config->Read(wxT("/MainFrame/width"),-1l);
-        int h = config->Read(wxT("/MainFrame/height"),-1l);
-        if (w >0) {
-            frame->SetClientSize(w,h);
-        } else {
-            frame->Fit();
-        }
-        //position
-        int x = config->Read(wxT("/MainFrame/positionX"),-1l);
-        int y = config->Read(wxT("/MainFrame/positionY"),-1l);
-        if ( y > 0) {
-            frame->Move(x, y);
-        } else {
-            frame->Move(0, 44);
-        }
-    }
-
-
 
     // TODO: check if we need to load images.
     if (argc == 2) {
@@ -421,3 +398,56 @@ void huginApp::MacOpenFile(const wxString &fileName)
 #endif
 
 huginApp * huginApp::m_this = 0;
+
+
+// utility functions
+
+void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
+{
+    DEBUG_TRACE(basename);
+
+    wxConfigBase * config = wxConfigBase::Get();
+
+    bool maximized = config->Read(wxT("/") + basename + wxT("/maximized"), 0l) != 0;
+    if (maximized) {
+        frame->Maximize();
+        // explicitly layout after maximize
+    } else {
+        //size
+        int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
+        int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
+        if (w >0) {
+            frame->SetClientSize(w,h);
+        } else {
+            frame->Fit();
+        }
+        //position
+        int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
+        int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
+        if ( y >= 0 && x >= 0 && x < 4000 && y < 4000) {
+            frame->Move(x, y);
+        } else {
+            frame->Move(0, 44);
+        }        
+    }
+}
+
+
+void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
+{
+    DEBUG_TRACE(basename);
+
+    wxConfigBase * config = wxConfigBase::Get();
+
+    if (! frame->IsMaximized() ) {
+        wxSize sz = frame->GetClientSize();
+        config->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
+        config->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
+        wxPoint ps = frame->GetPosition();
+        config->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
+        config->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
+        config->Write(wxT("/") + basename + wxT("/maximized"), 0);
+    } else {
+        config->Write(wxT("/") + basename + wxT("/maximized"), 1l);
+    }
+}

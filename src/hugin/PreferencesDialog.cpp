@@ -116,12 +116,17 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 
     // Load configuration values from wxConfig
     UpdateDisplayData();
+
+    RestoreFramePosition(this, wxT("PreferencesDialog"));
 }
 
 
 PreferencesDialog::~PreferencesDialog()
 {
     DEBUG_TRACE("begin dtor");
+    
+    StoreFramePosition(this, wxT("PreferencesDialog"));
+
     DEBUG_TRACE("end dtor");
 }
 

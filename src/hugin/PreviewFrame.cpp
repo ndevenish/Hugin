@@ -88,13 +88,13 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(m_ToolBar);
     // create tool bar
     SetToolBar(m_ToolBar);
-    
+
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
-    
+
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
         wxHORIZONTAL);
-    
+
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
     m_ButtonPanel->SetSizeHints(20, 42);
@@ -105,7 +105,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 	m_ButtonPanel->SetSizer(m_ButtonSizer);
 						
 	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
-    
+
     topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
@@ -213,28 +213,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_pano.addObserver(this);
 
-    bool maximized = config->Read(wxT("/PreviewFrame/maximized"), 0l) != 0;
-    if (maximized) {
-        this->Maximize();
-    } else {
-        //size
-        int w = config->Read(wxT("/PreviewFrame/width"),-1l);
-        int h = config->Read(wxT("/PreviewFrame/height"),-1l);
-        if (w > 0) {
-            SetClientSize(w,h);
-        } else {
-            Fit();
-        }
-        //position
-        int x = config->Read(wxT("/PreviewFrame/positionX"),-1l);
-        int y = config->Read(wxT("/PreviewFrame/positionY"),-1l);
-        if ( y > 0) {
-            Move(x, y);
-        } else {
-            Move(0, 44);
-        }
-    }
-
+    RestoreFramePosition(this, wxT("PreviewFrame"));
+    
     m_PreviewPanel->SetBlendMode((PreviewPanel::BlendMode)oldMode );
 
     long aup = config->Read(wxT("/PreviewFrame/autoUpdate"),0l);
@@ -253,17 +233,8 @@ PreviewFrame::~PreviewFrame()
     DEBUG_TRACE("dtor writing config");
     wxConfigBase * config = wxConfigBase::Get();
     wxSize sz = GetClientSize();
-    if (! this->IsMaximized() ) {
-        wxSize sz = GetClientSize();
-        config->Write(wxT("/PreviewFrame/width"), sz.GetWidth());
-        config->Write(wxT("/PreviewFrame/height"), sz.GetHeight());
-        wxPoint ps = GetPosition();
-        config->Write(wxT("/PreviewFrame/positionX"), ps.x);
-        config->Write(wxT("/PreviewFrame/positionY"), ps.y);
-        config->Write(wxT("/PreviewFrame/maximized"), 0);
-    } else {
-        config->Write(wxT("/PreviewFrame/maximized"), 1l);
-    }
+
+    StoreFramePosition(this, wxT("PreviewFrame"));
 
     if ( (!this->IsIconized()) && (! this->IsMaximized()) && this->IsShown()) {
         config->Write(wxT("/PreviewFrame/isShown"), 1l);

@@ -36,6 +36,7 @@
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
+#include "hugin/huginApp.h"
 
 using namespace PT;
 using namespace std;
@@ -299,29 +300,10 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
         if(width != -1)
             m_list->SetColumnWidth(j, width);
     }
-    
-    //size
-    bool maximized = config->Read(wxT("/CPListFrame/maximized"), 0l) != 0;
-    if (maximized) {
-        this->Maximize();
-    } else {
-        int w = config->Read(wxT("/CPListFrame/width"),-1l);
-        int h = config->Read(wxT("/CPListFrame/height"),-1l);
-        if (w > 0) {
-            SetClientSize(w,h);
-        } else {
-            Fit();
-        }
-        //position
-        int x = config->Read(wxT("/CPListFrame/positionX"),-1l);
-        int y = config->Read(wxT("/CPListFrame/positionY"),-1l);
-        if ( y > 0) {
-            Move(x, y);
-        } else {
-            Move(0, 44);
-        }
-    }
 
+    //size
+    RestoreFramePosition(this, wxT("CPListFrame"));
+    
     m_list->PushEventHandler(new DelKeyHandler(*this));
 
     m_list->Show();
@@ -343,19 +325,10 @@ CPListFrame::~CPListFrame()
     DEBUG_TRACE("dtor");
     // delete our event handler
     m_list->PopEventHandler(true);
-    wxConfigBase * config = wxConfigBase::Get();
-    if (! this->IsMaximized() ) {
-        wxSize sz = GetClientSize();
-        config->Write(wxT("/CPListFrame/width"), sz.GetWidth());
-        config->Write(wxT("/CPListFrame/height"), sz.GetHeight());
-        wxPoint ps = GetPosition();
-        config->Write(wxT("/CPListFrame/positionX"), ps.x);
-        config->Write(wxT("/CPListFrame/positionY"), ps.y);
-        config->Write(wxT("/CPListFrame/maximized"), 0l);
-    } else {
-        config->Write(wxT("/CPListFrame/maximized"), 1l);
-    }
 
+    StoreFramePosition(this, wxT("CPListFrame"));
+
+    wxConfigBase * config = wxConfigBase::Get();
 
     if ( (!this->IsIconized()) && (!this->IsMaximized()) && this->IsShown()) {
         DEBUG_DEBUG("IsShown()");
@@ -400,7 +373,7 @@ void CPListFrame::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     int nrCol = m_verbose ? 9 : 5;
     for (int col=0; col < nrCol ; col++) {
         m_list->SetColumnWidth(col,wxLIST_AUTOSIZE);
-        
+
         //saved column width
         int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/CPListFrame/ColumnWidth%d"), col ), -1);
         if(width != -1)

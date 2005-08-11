@@ -40,6 +40,12 @@ wxString MacGetPathTOBundledResourceFile(CFStringRef filename);
 wxString MacGetPathTOBundledExecutableFile(CFStringRef filename);
 #endif
 
+/// Store window size and position in configfile/registry
+void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
+/// Restore window size and position from configfile/registry
+void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
+
+
 /** Resources Definition
  *
  */
@@ -79,7 +85,7 @@ public:
     {
         return locale;
     }
-    
+
     wxString GetWorkDir()
     {
         return m_workDir;
@@ -93,15 +99,15 @@ public:
      *  pathes here
      */
     bool createInitialConfig();
-    
+
 #ifdef __WXMAC__
     //Defined in wxApp.h; This one lets project file to be opened from Finder and other applications.
     void MacOpenFile(const wxString &fileName);
 #endif
-    
+
 private:
 
-    
+
     /** locale for internationalisation */
     wxLocale locale;
 
@@ -121,7 +127,7 @@ private:
     bool m_macOpenFileOnStart;
     wxString m_macFileNameToOpenOnStart;
 #endif
-    
+
 };
 
 DECLARE_APP(huginApp)

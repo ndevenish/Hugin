@@ -29,6 +29,7 @@
 
 #include "panoinc.h"
 
+#include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/ImageCenter.h"
@@ -120,10 +121,8 @@ ImgCenter::ImgCenter(wxWindow *parent)
     SetSizer( topsizer );
     topsizer->SetSizeHints( this );
 
-    wxConfigBase* config = wxConfigBase::Get();
-    SetSize(config->Read(wxT("CenterDialog/Width"),200l),
-            config->Read(wxT("CenterDialog/Height"),200l));
-
+    RestoreFramePosition(this, wxT("CenterDialog"));
+    
     m_Canvas->Show();
     DEBUG_TRACE("");
 }
@@ -135,6 +134,9 @@ ImgCenter::~ImgCenter(void)
     m_right_textctrl->PopEventHandler(true);
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
+
+    // save old size
+    StoreFramePosition(this, wxT("CenterDialog"));
 }
 
 vigra::Rect2D & ImgCenter::getCrop()
