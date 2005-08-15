@@ -281,10 +281,14 @@ CPEditorPanel::~CPEditorPanel()
 	// Work around a bug in GetSashPosition/SetSashPosition on wxMSW when the
 	// splitter is housed in a wxNotebook. We adjust the sash position by the
 	// height of the notebook tabs
+
+    // dangelo: this doesn't work on wxMSW 2.6.1 anymore. also obmitting it doesn't work...
+    // we just set a fixed ratio in RestoreLayout()
     wxSize sz = m_cp_splitter->GetSize();
     wxSize szp = m_cp_splitter->GetParent()->GetParent()->GetParent()->GetClientSize();
-
     sashPos -= (szp.y - sz.y) + 1;
+
+
 #endif
 	DEBUG_INFO("CP Editor panel adjusted sash pos: " << sashPos);
 	
@@ -339,11 +343,17 @@ void CPEditorPanel::RestoreLayout()
     leftWindow->Show(true);
     rightWindow->Show(true);
 #ifdef USE_WX26x
-	m_cp_splitter->SetSashGravity(0.5);
+	m_cp_splitter->SetSashGravity(1);
 #endif
 	m_cp_splitter->SetMinimumPaneSize(20);
     m_cp_splitter->SplitHorizontally( leftWindow, rightWindow );
+#ifdef __WXMSW__
+    wxSize splitsize = m_cp_splitter->GetClientSize();
+    int sashPos = int(splitsize.GetHeight() * 0.7);
+#else
+    // the saved sash position 
     int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
+#endif
 	m_cp_splitter->SetSashPosition(sashPos);
 #endif
 }
@@ -2064,6 +2074,12 @@ void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )
 
 void CPEditorPanel::OnSize(wxSizeEvent & e)
 {
+    wxSize sz = this->GetSize();
+    wxSize csz = this->GetClientSize();
+    wxSize vsz = this->GetVirtualSize();
+    DEBUG_TRACE(" size:" << sz.x << "," << sz.y <<
+                " client: "<< csz.x << "," << csz.y <<
+                " virtual: "<< vsz.x << "," << vsz.y);
     Layout();
     if (m_restoreLayoutOnResize) {
         m_restoreLayoutOnResize = false;
