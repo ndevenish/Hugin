@@ -125,7 +125,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 PreferencesDialog::~PreferencesDialog()
 {
     DEBUG_TRACE("begin dtor");
-    
+
     StoreFramePosition(this, wxT("PreferencesDialog"));
 
     DEBUG_TRACE("end dtor");
@@ -583,13 +583,13 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
                                 wxYES_NO, this);
     if ( really == wxYES)
     {
-        if (noteb->GetCurrentPage() == noteb->GetPage(0)) {
+        if (noteb->GetSelection() == 0) {
             cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE) );
             cfg->Write(wxT("/Panotools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE) );
             cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
 
-        if (noteb->GetCurrentPage() == noteb->GetPage(1)) {
+        if (noteb->GetSelection() == 1) {
             // Fine tune settings
             cfg->Write(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
             cfg->Write(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
@@ -603,7 +603,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Finetune/RotationStopAngle"), HUGIN_FT_ROTATION_STOP_ANGLE);
             cfg->Write(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         }
-        if (noteb->GetCurrentPage() == noteb->GetPage(2)) {
+        if (noteb->GetSelection() == 2) {
             // MISC
             // cache
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
@@ -614,7 +614,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // use preview images as active images
             cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
         }
-        if (noteb->GetCurrentPage() == noteb->GetPage(3)) {
+        if (noteb->GetSelection() == 3) {
             /////
             /// AUTOPANO
             cfg->Write(wxT("/AutoPano/Type"), HUGIN_AP_TYPE);
@@ -625,13 +625,13 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
             cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
         }
-        if (noteb->GetCurrentPage() == noteb->GetPage(3)) {
+        if (noteb->GetSelection() == 4) {
             /// ENBLEND
             cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS));
             cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES);
         }
-        
+
         UpdateDisplayData();
     }
 }
