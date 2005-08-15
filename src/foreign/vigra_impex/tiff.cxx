@@ -127,8 +127,8 @@ namespace vigra {
         stripbuffer = 0;
         strip = 0;
         stripindex = 0;
-        x_resolution = 0;
-        y_resolution = 0;
+        x_resolution = 150;
+        y_resolution = 150;
         extra_samples_per_pixel = 0;
     }
 
@@ -439,12 +439,12 @@ namespace vigra {
 
         // XPosition
         if (TIFFGetField( tiff, TIFFTAG_XPOSITION, &fvalue )) {
-            fvalue = fvalue / unitLength;
+            fvalue = fvalue * x_resolution;
             position.x = (int)floor(fvalue + 0.5);
         }
         // YPosition
         if (TIFFGetField( tiff, TIFFTAG_YPOSITION, &fvalue )) {
-            fvalue = fvalue / unitLength;
+            fvalue = fvalue * y_resolution;
             position.y = (int)floor(fvalue + 0.5);
         }
 

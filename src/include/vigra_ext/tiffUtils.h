@@ -55,7 +55,7 @@ namespace vigra_ext {
  */
 inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pagename,
 				const std::string & documentname,
-                                const std::string comp,
+                const std::string comp,
 				uint16 page, uint16 nImg,
 				vigra::Diff2D offset)
 {
@@ -64,17 +64,17 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     // hopefully I didn't forget too much stuff..
     // TIFF tag reference at http://www.awaresystems.be/imaging/tiff/tifftags.html
 
-    // FIXME: Should not create a new directory unless this is a new layer since TIFFOpen
-    //        already creates a new directory and this breaks some windows builds.
-    //        Maybe move the create into the multilayer stuff
-    //        or write a createMultiTiffDirectory?
-    //TIFFCreateDirectory (tiff);
-
     // set page
     // FIXME: Also only needed for multilayer images
-    TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
-    TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)page, (unsigned short)nImg);
-
+    if (nImg > 1) {
+        // create tiff directory for the new layers
+        // TIFFOpen already created the first one.
+        if (page > 1) {
+            TIFFCreateDirectory (tiff);
+        }
+        TIFFSetField (tiff, TIFFTAG_SUBFILETYPE, FILETYPE_PAGE);
+        TIFFSetField (tiff, TIFFTAG_PAGENUMBER, (unsigned short)page, (unsigned short)nImg);
+    }
     TIFFSetField (tiff, TIFFTAG_XRESOLUTION, (float) dpi);
     TIFFSetField (tiff, TIFFTAG_YRESOLUTION, (float) dpi);
     // offsets must allways be positive so correct them
