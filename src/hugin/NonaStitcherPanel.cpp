@@ -254,7 +254,7 @@ void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
 }
 
 void NonaStitcherPanel::Stitch( const Panorama & pano,
-                                const PanoramaOptions & options)
+                                PanoramaOptions options)
 {
 	// work around a flaw in wxProgresDialog that results in incorrect layout  
 	// by pre-allocting sufficient horizontal and vertical space 

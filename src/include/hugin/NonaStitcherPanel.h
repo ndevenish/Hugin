@@ -81,7 +81,7 @@ public:
 
     // actions
     virtual void Stitch(const PT::Panorama & pano,
-                        const PT::PanoramaOptions & opts);
+                        PT::PanoramaOptions opts);
 
     // the model
     PT::Panorama &pano;

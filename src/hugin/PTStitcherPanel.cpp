@@ -428,7 +428,7 @@ void PTStitcherPanel::OnSpeedupChanged ( wxCommandEvent & e )
 
 
 void PTStitcherPanel::Stitch(const Panorama & pano,
-                             const PanoramaOptions & opts_)
+                             PanoramaOptions opts_)
 {
     PanoramaOptions opts(opts_);
     // work around a bug in PTStitcher, which doesn't
