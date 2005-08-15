@@ -104,7 +104,7 @@
 
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    "-v -z"
-
+#define HUGIN_ENBLEND_WRITE_CROPPED_IMAGES    0l
 // Autopano-SIFT args
 #ifndef HUGIN_APSIFT_ARGS
 #define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"

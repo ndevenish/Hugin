@@ -71,13 +71,7 @@ bool remapToTiff(const PT::Panorama & pano, const PT::PanoramaOptions &opts,
                  unsigned imgNr, TIFF * tiff
                  utils::MultiProgressDisplay & progress)
 {
-    bool saveRoi = false;
-    // save only region of interest
-    if (opts.outputFormat == PT::PanoramaOptions::TIFF_partial
-        || opts.outputFormat == PT::PanoramaOptions::TIFF_multilayer)
-    {
-        saveRoi = true;
-    }
+    bool saveRoi = opts.tiff_saveROI;
 
     const PT::PanoImage & img = pano.getImage(imgNr);
 	vigra::Diff2D srcSize;
@@ -227,88 +221,108 @@ public:
                               unsigned int imgNr, unsigned int nImg,
                               const PT::PanoramaOptions & opts)
     {
-        // save image in full size
-        ImageType complete(opts.width, opts.getHeight());
-        vigra::BImage alpha(opts.width, opts.getHeight());
-        vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcImageRange(remapped)),
-                         vigra_ext::applyRect(remapped.boundingBox(),
-                                              destImage(complete)));
+        if ( !(opts.outputFormat == PanoramaOptions::TIFF_m && opts.tiff_saveROI) ) {
+            // save image in full size
+            ImageType complete(opts.width, opts.getHeight());
+            vigra::BImage alpha(opts.width, opts.getHeight());
+            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+                                                vigra_ext::srcImageRange(remapped)),
+                            vigra_ext::applyRect(remapped.boundingBox(),
+                                                destImage(complete)));
 
-        vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
-                                              vigra_ext::srcMaskRange(remapped)),
-                         vigra_ext::applyRect(remapped.boundingBox(),
-                                              destImage(alpha)));
+            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+                                                vigra_ext::srcMaskRange(remapped)),
+                            vigra_ext::applyRect(remapped.boundingBox(),
+                                                destImage(alpha)));
 
-        switch (opts.outputFormat) {
-        case PanoramaOptions::JPEG:
-        {
-            std::ostringstream filename;
-            filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".jpg";
+            switch (opts.outputFormat) {
+            case PanoramaOptions::JPEG:
+            {
+                std::ostringstream filename;
+                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".jpg";
 
-            vigra::ImageExportInfo exinfo(filename.str().c_str());
-            exinfo.setXResolution(150);
-            exinfo.setYResolution(150);
-            // set compression options here.
-            char jpgCompr[4];
-            snprintf(jpgCompr,4,"%d", opts.quality);
-            exinfo.setCompression(jpgCompr);
-            vigra::exportImage(srcImageRange(complete), exinfo);
-            break;
-        }
-        case PanoramaOptions::PNG:
-        {
-            std::ostringstream filename;
-            filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".png";
-            vigra::ImageExportInfo exinfo(filename.str().c_str());
-            exinfo.setXResolution(150);
-            exinfo.setYResolution(150);
-            vigra::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
-                                           exinfo);
-            break;
-        }
-        case PanoramaOptions::TIFF_m:
-        {
+                vigra::ImageExportInfo exinfo(filename.str().c_str());
+                exinfo.setXResolution(150);
+                exinfo.setYResolution(150);
+                // set compression options here.
+                char jpgCompr[4];
+                snprintf(jpgCompr,4,"%d", opts.quality);
+                exinfo.setCompression(jpgCompr);
+                vigra::exportImage(srcImageRange(complete), exinfo);
+                break;
+            }
+            case PanoramaOptions::PNG:
+            {
+                std::ostringstream filename;
+                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".png";
+                vigra::ImageExportInfo exinfo(filename.str().c_str());
+                exinfo.setXResolution(150);
+                exinfo.setYResolution(150);
+                vigra::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
+                                            exinfo);
+                break;
+            }
+            case PanoramaOptions::TIFF_m:
+            {
+                std::ostringstream filename;
+                filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
+                vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
+
+                vigra_ext::createTiffDirectory(tiff,
+                                            Base::m_pano.getImage(imgNr).getFilename(),
+                                            m_basename,
+                                            opts.tiffCompression,
+                                            1, 1,
+                                            vigra::Diff2D(0,0));
+                vigra_ext::createAlphaTiffImage(srcImageRange(complete),
+                                                srcImage(alpha),
+                                                tiff);
+                TIFFFlush(tiff);
+                TIFFClose(tiff);
+
+#if STITCHER_CALC_DIST_IMG
+                vigra::USImage distImg;
+                remapped.calcDistMap(Base::m_pano, opts, imgNr, distImg);
+
+                vigra::USImage distFull(opts.width, opts.getHeight());
+                vigra::copyImage(srcImageRange(distImg),
+                                vigra_ext::applyRect(remapped.boundingBox(),
+                                                    destImage(distFull)));
+
+
+                std::ostringstream filename2;
+                filename2 << m_basename << "_dist_" << std::setfill('0') << std::setw(4) << imgNr << ".tif";
+
+                vigra::ImageExportInfo exinfo(filename2.str().c_str());
+                exinfo.setXResolution(150);
+                exinfo.setYResolution(150);
+                vigra::exportImage(srcImageRange(distFull), exinfo);
+#endif
+
+                break;
+            }
+            default:
+                DEBUG_FATAL("invalid output format specified:" << opts.outputFormat);
+                break;
+            }
+        } else {
+            // cropped TIFF_m, just save actually used crop
+            DEBUG_DEBUG("Saving TIFF_m ROI, image " << imgNr);
             std::ostringstream filename;
             filename << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
             vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
             vigra_ext::createTiffDirectory(tiff,
-                                           Base::m_pano.getImage(imgNr).getFilename(),
+                                           m_pano.getImage(imgNr).getFilename(),
                                            m_basename,
                                            opts.tiffCompression,
-                                           imgNr+1, nImg,
-                                           vigra::Diff2D(0,0));
-            vigra_ext::createAlphaTiffImage(srcImageRange(complete),
-                                            srcImage(alpha),
+                                           1, 1, remapped.boundingBox().upperLeft());
+            vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
+                                            vigra::maskImage(remapped.m_mask),
                                             tiff);
+
             TIFFFlush(tiff);
             TIFFClose(tiff);
-
-#if STITCHER_CALC_DIST_IMG
-            vigra::USImage distImg;
-            remapped.calcDistMap(Base::m_pano, opts, imgNr, distImg);
-
-            vigra::USImage distFull(opts.width, opts.getHeight());
-            vigra::copyImage(srcImageRange(distImg),
-                             vigra_ext::applyRect(remapped.boundingBox(),
-                                                  destImage(distFull)));
-
-
-            std::ostringstream filename2;
-            filename2 << m_basename << "_dist_" << std::setfill('0') << std::setw(4) << imgNr << ".tif";
-
-            vigra::ImageExportInfo exinfo(filename2.str().c_str());
-            exinfo.setXResolution(150);
-            exinfo.setYResolution(150);
-            vigra::exportImage(srcImageRange(distFull), exinfo);
-#endif
-
-            break;
-        }
-        default:
-            DEBUG_FATAL("invalid output format specified:" << opts.outputFormat);
-            break;
         }
     }
 

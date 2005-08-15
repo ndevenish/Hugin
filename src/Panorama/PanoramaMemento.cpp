@@ -397,6 +397,16 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
+    } else if ( outputFormat == TIFF ||
+                outputFormat == TIFF_m ||
+                outputFormat == TIFF_mask ||
+                outputFormat == TIFF_multilayer ||
+                outputFormat == TIFF_multilayer_mask)
+    {
+        o << " c:" << tiffCompression;
+        if (tiff_saveROI) {
+            o << " r:CROP";
+        }
     }
     o << "\"";
     o << std::endl;
@@ -635,6 +645,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                             options.tiffCompression = comp;
                         } else {
                             DEBUG_WARN("No valid tiff compression found");
+                        }
+                    }
+                    // read tiff roi
+                    if (getPTStringParamColon(comp, format, "r")) {
+                        if (comp == "CROP") {
+                            options.tiff_saveROI = true;
+                        } else {
+                            options.tiff_saveROI = false;
                         }
                     }
                 }

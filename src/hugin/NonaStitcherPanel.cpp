@@ -282,6 +282,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // set output to multiple tiff.
             // hope the next enblend will also contain multilayer support
             opts.outputFormat = PanoramaOptions::TIFF_m;
+            if (wxConfigBase::Get()->Read(wxT("/Enblend/WriteCroppedImages"),
+		                          HUGIN_ENBLEND_WRITE_CROPPED_IMAGES))
+            {
+                opts.tiff_saveROI = true;
+            }
         }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
