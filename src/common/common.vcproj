@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="common"
 	ProjectGUID="{609891D5-B1A9-43E3-9B61-AD53D6008158}"
+	RootNamespace="common"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -39,7 +40,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="copy $(SolutionDir)\..\include\config_msvc.h $(SolutionDir)\..\include\config.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -78,7 +80,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="copy $(SolutionDir)\..\include\config_msvc.h $(SolutionDir)\..\include\config.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -117,7 +120,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="copy $(SolutionDir)\..\include\config_msvc.h $(SolutionDir)\..\include\config.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
