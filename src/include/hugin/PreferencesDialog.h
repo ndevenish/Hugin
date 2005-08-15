@@ -66,6 +66,7 @@ protected:
     void OnEnblendExe(wxCommandEvent & e);
     void OnAutopanoSiftExe(wxCommandEvent & e);
     void OnAutopanoKolorExe(wxCommandEvent & e);
+    void OnRestoreDefaults(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 

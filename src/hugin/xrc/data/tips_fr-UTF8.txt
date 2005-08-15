@@ -17,7 +17,7 @@ Presser la touche « 0 » dans l'onglet des points de contrôle affichera l'im
 Presser la touche « 1  » dans l'onglet des points de contrôle permettra d'effectuer un zoom à 100%.
 Les outils externes autopano et autopano-sift peuvent être utilisés pour créer automatiquement des points de contrôle.
 Enblend peut être utilisé pour effectuer un « fondu » du panorama. Vous pouvez l'appeler depuis Hugin en sélectionnant comme fichier de sortie « fichier tiff de haute qualité ».
-Une fois qu'enblend aura effectué le fondu de votre panorama, les images de sortie reformatées (disponibles dans le même répertoire que les images du panorama) peuvent êtres utilisées pour retoucher le panorama dans The Gimp ou Photoshop.  Enblend 2.1 pour Windows ne sait pas gérer les images au format TIFF compressé. Utilisez une autre version si ça ne fonctionne pas.
+Une fois qu'enblend aura effectué le fondu de votre panorama, les images de sortie reformatées (disponibles dans le même répertoire que les images du panorama) peuvent êtres utilisées pour retoucher le panorama dans The Gimp ou Photoshop.
 Des discussions concernant Hugin et d'autre logiciels libres servant à la réalisation de panoramas ont lieu sur la liste de diffusion http://www.email-lists.org/mailman/listinfo/ptx
 Les « Panorama Tools », sur lesquels repose Hugin ont été écrits par Helmut Dersch.
 La précision de « l'ajustement précis » des points de contrôle peut être améliorée en validant la recherche par rotation. C'est essentiel pour traiter des images provenant d'un fisheye ou d'un objectif grand angulaire.

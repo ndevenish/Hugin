@@ -42,7 +42,7 @@ public:
 
     /** perform stitching */
     virtual void Stitch(const PT::Panorama & pano,
-                        const PT::PanoramaOptions & opts) = 0;
+                        PT::PanoramaOptions opts) = 0;
 private:
 
 };

@@ -710,7 +710,6 @@
           <object class="sizeritem">
             <object class="wxButton" name="prefs_defaults">
               <label>Load Defaults</label>
-              <enabled>0</enabled>
             </object>
             <flag>wxALL|wxEXPAND</flag>
             <border>5</border>

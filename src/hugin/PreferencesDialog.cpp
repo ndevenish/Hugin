@@ -69,6 +69,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
     EVT_BUTTON(wxID_APPLY,PreferencesDialog::OnApply)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
+    EVT_BUTTON(XRCID("prefs_defaults"), PreferencesDialog::OnRestoreDefaults)
     EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
     EVT_BUTTON(XRCID("prefs_ptoptimizer_select"), PreferencesDialog::OnPTOptimizerExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
@@ -572,6 +573,69 @@ void PreferencesDialog::UpdateDisplayData()
 	}
 }
 
+void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    wxConfigBase *cfg = wxConfigBase::Get();
+    // check which tab is enabled
+    wxNotebook * noteb = XRCCTRL(*this, "prefs_tab", wxNotebook);
+    int really = wxMessageBox(_("Really reset displayed preferences to default values?"), _("Load Defaults"),
+                                wxYES_NO, this);
+    if ( really == wxYES)
+    {
+        if (noteb->GetCurrentPage() == noteb->GetPage(0)) {
+            cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE) );
+            cfg->Write(wxT("/Panotools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE) );
+            cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
+        }
+
+        if (noteb->GetCurrentPage() == noteb->GetPage(1)) {
+            // Fine tune settings
+            cfg->Write(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
+            cfg->Write(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
+            cfg->Write(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
+
+            cfg->Write(wxT("/Finetune/CorrThreshold"), HUGIN_FT_CORR_THRESHOLD);
+            cfg->Write(wxT("/Finetune/CurvThreshold"), HUGIN_FT_CURV_THRESHOLD);
+
+            cfg->Write(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH);
+            cfg->Write(wxT("/Finetune/RotationStartAngle"), HUGIN_FT_ROTATION_START_ANGLE);
+            cfg->Write(wxT("/Finetune/RotationStopAngle"), HUGIN_FT_ROTATION_STOP_ANGLE);
+            cfg->Write(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
+        }
+        if (noteb->GetCurrentPage() == noteb->GetPage(2)) {
+            // MISC
+            // cache
+            cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+            // locale
+            cfg->Write(wxT("language"), HUGIN_LANGUAGE);
+            // druid
+            cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
+            // use preview images as active images
+            cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
+        }
+        if (noteb->GetCurrentPage() == noteb->GetPage(3)) {
+            /////
+            /// AUTOPANO
+            cfg->Write(wxT("/AutoPano/Type"), HUGIN_AP_TYPE);
+
+            cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
+            cfg->Write(wxT("/AutoPanoSift/Args"), wxT(HUGIN_APSIFT_ARGS));
+
+            cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
+            cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
+        }
+        if (noteb->GetCurrentPage() == noteb->GetPage(3)) {
+            /// ENBLEND
+            cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
+            cfg->Write(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS));
+            cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES);
+        }
+        
+        UpdateDisplayData();
+    }
+}
+
 void PreferencesDialog::UpdateConfigData()
 {
 	DEBUG_TRACE("");
@@ -639,5 +703,4 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enblend/EnblendExe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
     cfg->Write(wxT("/Enblend/EnblendArgs"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
     cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), MY_G_BOOL_VAL("prefs_enblend_DeleteRemapped"));
-
 }

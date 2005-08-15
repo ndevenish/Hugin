@@ -18,7 +18,6 @@ Press "1" in the control points tab to zoom out to 100% view.
 The external tools autopano and autopano-sift can be used to create control points automatically.
 Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting "high quality tiff file" as output.
 After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop.
-enblend 2.1 for Windows cannot handle compressed TIFF images. Switch to another version if it doesn't work.
 hugin and other free panoramic software is discussed on the ptx email list. http://www.email-lists.org/mailman/listinfo/ptx
 The Panorama Tools, on which hugin is based were written by Helmut Dersch.
 The precision of "fine tuning" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images.
