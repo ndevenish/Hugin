@@ -2,17 +2,16 @@
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005.
-#  <jean-luc.coulon@wanadoo.fr>, 2005.
 # 
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-08-06 23:55+0200\n"
-"PO-Revision-Date: 2005-08-05 21:42+0100\n"
-"Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
-"Language-Team: French <gnomefr@traduc.org>\n"
+"POT-Creation-Date: 2005-08-05 21:39+0200\n"
+"PO-Revision-Date: 2005-08-12 08:57+0200\n"
+"Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
+"Language-Team: French <ll@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,24 +39,25 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Choose which autopano program should be used\n"
-msgstr "Choisir quel programme autopano doit être utilisé\n"
+msgstr "Choisir quel programme Autopano doit être utilisé\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Select autopano type"
-msgstr "Choisir le type d'autopano"
+msgstr "Choisir le type d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:125
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr ""
+"Autopano de http://autopano.kolor.com n'est pas disponible pour Mac OSX"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:126
 msgid "Would you like to use Autopano-Sift instead?"
-msgstr ""
+msgstr "Voulez-vous utiliser Autopano-Sift à la place ?"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:163
 #: src/hugin/AutoCtrlPointCreator.cpp:406
 msgid "Select autopano program / frontend script"
-msgstr "Choisir le programme ou script frontal autopano"
+msgstr "Choisir le programme ou script frontal Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:177
 #: src/hugin/PreferencesDialog.cpp:193 src/hugin/PreferencesDialog.cpp:209
@@ -70,7 +70,7 @@ msgstr "Exécutables (*.exe)|*.exe"
 #: src/hugin/AutoCtrlPointCreator.cpp:228
 #: src/hugin/AutoCtrlPointCreator.cpp:414
 msgid "No autopano selected"
-msgstr "Pas d'autopano sélectionné"
+msgstr "Pas d'Autopano sélectionné"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:220
 msgid "Select autopano frontend script"
@@ -85,7 +85,7 @@ msgstr "Scripts de l'interpréteur de commandes (*.sh)|*.sh"
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
 "Veuillez entrer soit %namefile soit %i sur la ligne de commande d'Autopano-"
-"sift."
+"Sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:267
 #: src/hugin/AutoCtrlPointCreator.cpp:272
@@ -98,7 +98,7 @@ msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
-"d'Autopano-sift"
+"d'Autopano-Sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:306
 #: src/hugin/AutoCtrlPointCreator.cpp:452
@@ -180,15 +180,15 @@ msgid ""
 "Autopano command: "
 msgstr ""
 " en lecture\n"
-"Ceci indique que l'appel à autopano a échoué\n"
+"Ceci indique que l'appel à Autopano a échoué\n"
 "ou qu'un paramètre incorrect de la ligne de commande a été utilisé.\n"
 "\n"
-"Commande autopano : "
+"Commande Autopano : "
 
 #: src/hugin/AutoCtrlPointCreator.cpp:378
 #: src/hugin/AutoCtrlPointCreator.cpp:491
 msgid "autopano failure"
-msgstr "Échec d'autopano"
+msgstr "Échec d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:241
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
@@ -416,7 +416,7 @@ msgstr "Toujours centrer l'image recadrée sur d, e"
 
 #: src/hugin/ImageCenter.cpp:105 src/hugin/xrc/pref_dialog.xrs:66
 msgid "Ok"
-msgstr "Valider"
+msgstr "Accepter"
 
 #: src/hugin/ImageCenter.cpp:110 src/hugin/RunOptimizerFrame.cpp:314
 #: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:68
@@ -833,11 +833,11 @@ msgstr "Erreur d'Enblend"
 msgid "The druid has no advice."
 msgstr "L'assistant ne peut vous aider."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:557
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:551
 msgid "The druid finds no problems with your panorama."
 msgstr "L'assistant n'a trouvé aucun problème avec votre panorama."
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:558
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:552
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -846,11 +846,11 @@ msgstr ""
 "Assemblez votre image finale maintenant, utilisez ensuite un\n"
 "éditeur d'images tel que The Gimp pour y apporter une touche finale."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:571
 msgid "Warning:  you haven't saved the current project."
 msgstr "Attention : vous n'avez pas enregistré votre projet actuel."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:578
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:572
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -861,11 +861,11 @@ msgstr ""
 "à pouvoir faire d'autres tests et de procéder ultérieurement\n"
 "à des ajustements de paramètres."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:573
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:567
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Attention : l'assemblage en cours a des dimensions énormes."
 
-#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:574
+#: src/hugin/PanoDruid.cpp:74 src/hugin/PreviewFrame.cpp:568
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -881,11 +881,11 @@ msgstr ""
 "de l'onglet « Options du Panorama » pour déterminer les\n"
 "dimensions en pixels qui vous donneront la meilleure qualité."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:563
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Le champ de vision horizontal (hfov) est peut-être trop faible."
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:570
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:564
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -984,20 +984,20 @@ msgstr ""
 "à des éléments visuels identiques pour chaque paire d'images\n"
 "en recouvrement."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:565
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:559
 msgid "Add at least one more image."
 msgstr "Ajoutez encore au moins une image."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:566
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:560
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 "Vous devez avoir au moins deux fichiers listés dans l'onglet « Images »."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:561
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:555
 msgid "To get started, add some image files."
 msgstr "Pour démarrer, ajoutez quelques fichiers d'images."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:562
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:556
 msgid "You can add any number of images using the Images tab."
 msgstr ""
 "Vous pouvez ajouter autant d'images que vous le voulez en utilisant\n"
@@ -1055,11 +1055,11 @@ msgstr "Italien"
 
 #: src/hugin/PreferencesDialog.cpp:113
 msgid "Japanese"
-msgstr ""
+msgstr "Japonais"
 
 #: src/hugin/PreferencesDialog.cpp:114
 msgid "Russian"
-msgstr ""
+msgstr "Russe"
 
 #: src/hugin/PreferencesDialog.cpp:174
 msgid "Select PTStitcher"
@@ -1143,7 +1143,7 @@ msgstr "Cylindrique"
 msgid "equirectangular"
 msgstr "Équirectangulaire"
 
-#: src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PreviewFrame.cpp:548
 msgid "The druid has no advice at this time."
 msgstr "L'assistant ne peut pas vous aider en ce moment."
 
@@ -1345,7 +1345,7 @@ msgstr "A propos d'Hugin"
 
 #: src/hugin/xrc/about.xrs:2
 msgid "OK"
-msgstr "Valider"
+msgstr "Accepter"
 
 #: src/hugin/xrc/anchor_orientation.xrs:1
 msgid "Anchor Image"
@@ -1640,7 +1640,7 @@ msgstr "Créer les points de contrôle"
 
 #: src/hugin/xrc/images_panel.xrs:21 src/hugin/xrc/images_panel-2.5.xrs:21
 msgid "Run external autopano program on the selected images"
-msgstr "Lancer le programme externe autopano sur les images sélectionnées "
+msgstr "Lancer le programme externe Autopano sur les images sélectionnées "
 
 #: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:22
 msgid "Remove Points"
@@ -2210,7 +2210,7 @@ msgstr "les paramètres personnalisés ci-dessous"
 
 #: src/hugin/xrc/optimize_panel.xrs:10
 msgid "Optimize now!"
-msgstr "Optimiser maintenant !"
+msgstr "Optimiser"
 
 #: src/hugin/xrc/optimize_panel.xrs:11
 msgid "execute the PTOptimizer engine"
@@ -2277,7 +2277,7 @@ msgstr " Panorama"
 
 #: src/hugin/xrc/pano_panel.xrs:2 src/hugin/xrc/pano_panel-2.5.xrs:2
 msgid "projection (f):"
-msgstr "Projection (f):"
+msgstr "Projection (f) :"
 
 #: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Field of View"
@@ -2329,7 +2329,7 @@ msgstr "sous la forme d'un fichier Photoshop avec calques"
 
 #: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "Stitch now!"
-msgstr "Assembler maintenant !"
+msgstr "Assembler"
 
 #: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "execute the PTStitcher engine"
@@ -2695,7 +2695,7 @@ msgstr "Correction d'exposition :"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:15
 msgid "Brightness and Color (k)"
-msgstr "Luminosité et contraste (k)"
+msgstr "Luminosité et couleur (k)"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:16
 msgid "Brightness (b)"
@@ -2744,9 +2744,9 @@ msgid ""
 "approximate remapping, faster but slightly less accurate. Fast should work "
 "well with usual panos, Medium even with morphed panos"
 msgstr ""
-"Approximation du remapping, plus rapide mais moins précis. « Rapide » "
-"devrait bien fonctionner avec les panoramas usuels. « Moyenne » même avec "
-"les panoramas ayant du morphing"
+"Approximation du remapping, plus rapide mais légèrement moins précis. "
+"« Rapide » devrait bien fonctionner avec les panoramas usuels. "
+"« Moyenne » même avec les panoramas ayant du morphing"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:34
 msgid "Multiple TIFF with masks"
@@ -2807,3 +2807,4 @@ msgstr "Assemblage"
 #: src/hugin/xrc/run_stitcher_frame.xrs:3
 msgid "Abort"
 msgstr "Abandonner"
+
