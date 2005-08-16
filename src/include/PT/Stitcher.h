@@ -313,7 +313,7 @@ public:
             vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
             vigra_ext::createTiffDirectory(tiff,
-                                           m_pano.getImage(imgNr).getFilename(),
+                                           Base::m_pano.getImage(imgNr).getFilename(),
                                            m_basename,
                                            opts.tiffCompression,
                                            1, 1, remapped.boundingBox().upperLeft());
