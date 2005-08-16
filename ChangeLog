@@ -1,3 +1,94 @@
+2005-08-16 22:43  dangelo
+
+	* src/hugin/: CPListFrame.cpp, MainFrame.cpp,
+	  NonaStitcherPanel.cpp, PreferencesDialog.cpp, PreviewFrame.cpp,
+	  xrc/pref_dialog.xrc: Display meaningful message when nona is out
+	  of memory.  Fixed wxFrame background color on wxMSW.
+
+2005-08-15 23:38  dangelo
+
+	* src/: hugin/PreferencesDialog.cpp,
+	  include/hugin/config_defaults.h: use wxNotebook::GetSelection(),
+	  its compatible with wx 2.4.  disabled deleting of tiff input by
+	  default.
+
+2005-08-15 23:06  dangelo
+
+	* src/: foreign/vigra_impex/tiff.cxx,
+	  include/vigra_ext/tiffUtils.h: fixed bugs in tiff importer and
+	  exporters
+
+2005-08-15 23:05  dangelo
+
+	* src/: common/common.vcproj, include/config_msvc.h: updated
+	  windows build system
+
+2005-08-15 23:03  dangelo
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/xrc/pref_dialog.xrc,
+	  hugin/xrc/data/tips.txt, hugin/xrc/data/tips_fr-UTF8.txt,
+	  hugin/xrc/data/tips_fr.txt, hugin/xrc/data/tips_pl-UTF8.txt,
+	  hugin/xrc/data/tips_pl.txt, include/hugin/PreferencesDialog.h,
+	  include/hugin/StitcherPanel.h, include/hugin/config_defaults.h:
+	  implemented "load defaults" button in preferences dialog
+
+2005-08-15 23:02  dangelo
+
+	* src/hugin/po/fr.po: updated french translation
+
+2005-08-15 19:07  dangelo
+
+	* src/: hugin/NonaStitcherPanel.cpp, hugin/PTStitcherPanel.cpp,
+	  include/hugin/NonaStitcherPanel.h,
+	  include/hugin/PTStitcherPanel.h: bugfix: do not change project
+	  when cropped TIFF_m output it temporarily enabled during
+	  remapping for enblend
+
+2005-08-15 18:22  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: Workaround a bug in wxWSW 2.6.1.
+	  Setting the horizontal splitter position doesn't work properly.
+
+2005-08-15 18:03  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, hugin/NonaStitcherPanel.cpp,
+	  include/PT/Stitcher.h, include/hugin/config_defaults.h: Added
+	  functionality to create cropped TIFF_m output. Not enabled in the
+	  GUI yet, enblend needs to be patched first.
+
+2005-08-11 19:42  dangelo
+
+	* src/: hugin/CPListFrame.cpp, hugin/ImageCenter.cpp,
+	  hugin/MainFrame.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/PreviewFrame.cpp, hugin/huginApp.cpp,
+	  include/hugin/huginApp.h: resize main window before showing it.
+	  Tested code on linux with wxWidgets 2.4, 2.5.3 and 2.6.1 Use
+	  common function to restore window size and position
+
+2005-08-11 00:05  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/OptimizePanel.cpp, hugin/huginApp.cpp, hugin/po/de.po,
+	  hugin/po/fr.po, hugin/po/hugin.pot, hugin/po/it.po,
+	  hugin/po/ja.po, hugin/po/pl.po, hugin/po/ru.po,
+	  include/hugin/CPEditorPanel.h, include/hugin/ImagesPanel.h,
+	  include/hugin/LensPanel.h, include/hugin/MainFrame.h: work around
+	  some changed behaviour and bugs in wxWidgets 2.6.1 on unix
+	  (wxgtk).  Splitters are restored to their original size and 'f'
+	  key finetunes on the image with the mouse cursor over it.
+
+	  also updated translations.
+
+2005-08-09 07:27  dangelo
+
+	* src/hugin/MainFrame.cpp: removed project filename from titlebar
+	  when starting a new project
+
+2005-08-06 23:39  dangelo
+
+	* ChangeLog, NEWS, src/hugin/po/de.po: Updated NEWS file
+
 2005-08-06 00:43  dangelo
 
 	* AUTHORS, README, README_WINDOWS, src/build_msvc/Hugin.sln,
