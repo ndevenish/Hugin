@@ -1,3 +1,16 @@
+2005-08-16 23:06  dangelo
+
+	* src/hugin/hugin.desktop: added russian description
+
+2005-08-16 22:59  dangelo
+
+	* src/include/PT/Stitcher.h: fixed compile error on some newer
+	  versions of gcc 3.4 and higher
+
+2005-08-16 22:55  dangelo
+
+	* ChangeLog: updated changelog
+
 2005-08-16 22:43  dangelo
 
 	* src/hugin/: CPListFrame.cpp, MainFrame.cpp,
