@@ -365,10 +365,14 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     }
     wxYield();
 	
-
     // disable automatic Layout() calls, to it by hand
     SetAutoLayout(false);
 
+
+#if __WXMSW__
+    // wxFrame does have a strange background color on Windows, copy color from a child widget
+    this->SetBackgroundColour(images_panel->GetBackgroundColour());
+#endif
 
 // By using /SUBSYSTEM:CONSOLE /ENTRY:"WinMainCRTStartup" in the linker
 // options for the debug build, a console window will be used for stdout

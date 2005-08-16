@@ -267,6 +267,10 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
     m_verbose = (config->Read(wxT("/CPListFrame/verbose"),0l) != 0);
 
 #if __WXMSW__
+    // wxFrame does have a strange background color on Windows, copy color from a child widget
+    this->SetBackgroundColour(XRCCTRL(*this, "cp_list_select", wxButton)->GetBackgroundColour());
+#endif
+#if __WXMSW__
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
     wxIcon myIcon(MainFrame::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);

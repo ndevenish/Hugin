@@ -291,8 +291,15 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         // stitch panorama
         PT::stitchPanorama(pano, opts,
                            pdisp, opts.outfile, imgs);
+    } catch (std::bad_alloc & e) {
+        wxMessageBox(_("Out of memory.\nTry again with a smaller panorama image size\n"),
+                     _("Error during stitching"),
+                     wxICON_ERROR | wxOK);
+        return;
     } catch (std::exception & e) {
-        DEBUG_FATAL(_("error during stitching:") << e.what());
+        wxMessageBox(wxString(e.what(), *wxConvCurrent),
+                     _("Error during stitching"),
+                     wxICON_ERROR | wxOK);
         return;
     }
 

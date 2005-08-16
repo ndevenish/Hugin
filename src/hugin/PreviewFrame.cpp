@@ -200,7 +200,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     SetStatusText(wxT(""),1);
 
     // the initial size as calculated by the sizers
-    SetSizer( topsizer );
+    this->SetSizer( topsizer );
     topsizer->SetSizeHints( this );
 
     // set the minimize icon
@@ -221,6 +221,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_PreviewPanel->SetAutoUpdate(aup != 0);
 
     m_ToolBar->ToggleTool(XRCID("preview_auto_update_tool"), aup !=0);
+
+#if __WXMSW_
+    // wxFrame does have a strange background color on Windows..
+    this->SetBackgroundColour(m_PreviewPanel->GetBackgroundColour());
+#endif
 
     if (config->Read(wxT("/PreviewFrame/isShown"), 0l) != 0) {
         Show();

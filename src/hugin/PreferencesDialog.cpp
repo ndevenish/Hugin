@@ -118,6 +118,11 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     // Load configuration values from wxConfig
     UpdateDisplayData();
 
+#if __WXMSW__
+    // wxFrame does have a strange background color on Windows, copy color from a child widget
+    this->SetBackgroundColour(XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->GetBackgroundColour());
+#endif
+
     RestoreFramePosition(this, wxT("PreferencesDialog"));
 }
 
