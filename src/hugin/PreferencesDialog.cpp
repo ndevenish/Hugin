@@ -104,15 +104,30 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
 
     // add languages to choice
-    lang_choice->Append(_("Select one"), (void *) huginApp::Get()->GetLocale().GetLanguage());
-    lang_choice->Append(_("System default"), (void *) wxLANGUAGE_DEFAULT);
-    lang_choice->Append(_("English"), (void *) wxLANGUAGE_ENGLISH);
-    lang_choice->Append(_("German"), (void *) wxLANGUAGE_GERMAN);
-    lang_choice->Append(_("French"), (void *) wxLANGUAGE_FRENCH);
-    lang_choice->Append(_("Polish"), (void *) wxLANGUAGE_POLISH);
-    lang_choice->Append(_("Italian"), (void *) wxLANGUAGE_ITALIAN);
-    lang_choice->Append(_("Japanese"), (void *) wxLANGUAGE_JAPANESE);
-    lang_choice->Append(_("Russian"), (void *) wxLANGUAGE_RUSSIAN);
+    long * lp = new long;
+    *lp = wxLANGUAGE_DEFAULT;
+    lang_choice->Append(_("System default"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_ENGLISH;
+    lang_choice->Append(_("English"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_GERMAN;    
+    lang_choice->Append(_("German"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_FRENCH;
+    lang_choice->Append(_("French"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_POLISH;
+    lang_choice->Append(_("Polish"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_ITALIAN;
+    lang_choice->Append(_("Italian"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_JAPANESE;
+    lang_choice->Append(_("Japanese"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_RUSSIAN;
+    lang_choice->Append(_("Russian"), lp);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
@@ -133,6 +148,12 @@ PreferencesDialog::~PreferencesDialog()
 
     StoreFramePosition(this, wxT("PreferencesDialog"));
 
+    // delete custom list data
+    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    for (int i = 0; i < lang_choice->GetCount(); i++) {
+        delete static_cast<long*>(lang_choice->GetClientData(i));
+    }
+    
     DEBUG_TRACE("end dtor");
 }
 
@@ -525,6 +546,29 @@ void PreferencesDialog::UpdateDisplayData()
     long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
     MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
+    // language
+    // check if current language is in list and activate it then.
+    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    int curlang = cfg->Read(wxT("language"), HUGIN_LANGUAGE);
+    bool found = false;
+    int idx = 0;
+    for (int i = 0; i < lang_choice->GetCount(); i++) {
+        long lang = * static_cast<long *>(lang_choice->GetClientData(i));
+        if (curlang == lang) {
+            found = true;
+            idx = i;
+        }
+    }
+    if (found) {
+        DEBUG_DEBUG("wxChoice language updated:" << curlang);
+        // update language
+        lang_choice->SetSelection(idx);
+    } else {
+        // unknown language selected..
+        DEBUG_WARN("Unknown language configured");
+    }
+    
+
     // cursor setting
 //    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
 //    MY_SPIN_VAL("prefs_cp_CursorType", mem);
@@ -677,12 +721,15 @@ void PreferencesDialog::UpdateConfigData()
     // locale
     // language
     wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    DEBUG_INFO("Language Selection ID: " << (long)((int) lang->GetClientData(lang->GetSelection())));
     // DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str());
     //DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str());
     //DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
 
-    cfg->Write(wxT("language"), (long)((int) lang->GetClientData(lang->GetSelection())));
+    void * tmplp = lang->GetClientData(lang->GetSelection());
+    long templ =  * static_cast<long *>(tmplp);
+    cfg->Write(wxT("language"), templ);
+    DEBUG_INFO("Language Selection ID: " << templ);
+
     // cursor
 //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
