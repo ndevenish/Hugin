@@ -1,3 +1,12 @@
+2005-08-17 22:48  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: removed "select one" from
+	  language chooser, gcc 4.0 compile fix
+
+2005-08-16 23:10  dangelo
+
+	* ChangeLog: updated changelog
+
 2005-08-16 23:06  dangelo
 
 	* src/hugin/hugin.desktop: added russian description
@@ -7294,8 +7303,7 @@
 	  PT/Process.h, hugin/CPEditorPanel.h,
 	  hugin/CPEditorPanelHandler.h, hugin/CPEditorTest.h,
 	  hugin/CPImageCtrl.h, hugin/MainFrame.h, hugin/config.h,
-	  hugin/huginApp.h, hugin/xrc/xh_tbctl.h, common/Command.h: moved
-	  includes
+	  hugin/huginApp.h, common/Command.h: moved includes
 
 2003-05-23 01:43  dangelo
 
