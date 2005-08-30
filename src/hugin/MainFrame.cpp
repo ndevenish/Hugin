@@ -933,46 +933,27 @@ void MainFrame::OnHelp(wxCommandEvent & e)
 
 void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 {
-	wxString strFile;
-	wxString langCode;
-	bool bShowAtStartup;
-	bool bTipsExist = false;
-	int nValue;
+    wxString strFile;
+    bool bShowAtStartup;
+    bool bTipsExist = false;
+    int nValue;
 
     wxConfigBase * config = wxConfigBase::Get();
-	nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
+    nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
 
-#ifndef __WXMAC__
-    //if the language is not default, load custom tip file (if exists)
-	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_INFO("Lang Code: " << langCode.mb_str());
-	DEBUG_INFO("Tip index: " << nValue);
-	if(langCode != wxString(wxT("en")))
-	{
-#ifdef UNICODE
-		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT("-UTF8.txt");
-#else
-		strFile = m_xrcPrefix + wxT("data/tips_") + langCode + wxT(".txt");
-#endif
-		if(wxFile::Exists(strFile))
-			bTipsExist = true;
-	}
-#elif (defined UNICODE)
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("tips-UTF8.txt"));
-    if(strFile!=wxT("")) bTipsExist = true;
-#endif
-	if(!bTipsExist)
-		strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
+        
+    DEBUG_INFO("Tip index: " << nValue);
+    strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
 	
-	DEBUG_INFO("Reading tips from " << strFile.mb_str());
-	wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
-	bShowAtStartup = wxShowTip(this, tipProvider);
+    DEBUG_INFO("Reading tips from " << strFile.mb_str());
+    wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
+    bShowAtStartup = wxShowTip(this, tipProvider);
 
-	//store startup preferences
-	nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
-	DEBUG_INFO("Writing tip index: " << nValue);
+    //store startup preferences
+    nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
+    DEBUG_INFO("Writing tip index: " << nValue);
     config->Write(wxT("/MainFrame/ShowStartTip"), nValue);
-	delete tipProvider;
+    delete tipProvider;
 }
 
 void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
