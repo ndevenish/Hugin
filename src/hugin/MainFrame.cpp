@@ -48,6 +48,7 @@
 #include "hugin/CPListFrame.h"
 #include "hugin/MyProgressDialog.h"
 #include "hugin/ImageCache.h"
+#include "hugin/LocalizedFileTipProvider.h"
 
 
 
@@ -941,12 +942,12 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
     wxConfigBase * config = wxConfigBase::Get();
     nValue = config->Read(wxT("/MainFrame/ShowStartTip"),1l);
 
-        
+
     DEBUG_INFO("Tip index: " << nValue);
     strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
 	
     DEBUG_INFO("Reading tips from " << strFile.mb_str());
-    wxTipProvider *tipProvider = wxCreateFileTipProvider(strFile, nValue);
+    wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
     bShowAtStartup = wxShowTip(this, tipProvider);
 
     //store startup preferences

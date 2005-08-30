@@ -27,6 +27,7 @@
  */
 
 #include <config.h>
+#include "common/utils.h"
 #include "panoinc_WX.h"
 
 #include "hugin/LocalizedFileTipProvider.h"
@@ -91,8 +92,10 @@ wxString LocalizedFileTipProvider::GetTip()
         // ...and replace escaped quotes
         tip.Replace(wxT("\\\""), wxT("\""));
 
+        DEBUG_DEBUG("Tip before translation " << tip);
         // translate tip
         tip = wxGetTranslation(tip);
+        DEBUG_DEBUG("Tip after translation " << tip);
     }
 
     return tip;
