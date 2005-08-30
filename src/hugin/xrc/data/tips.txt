@@ -2,7 +2,7 @@
 # These tips are translated via gettext.
 _("To scroll both the images in the control points tab, hold the shift key while moving the mouse.")
 _("The control key or the middle mouse button can be used to pan one image in the control points tab.")
-_("Rotating the camera around the nodal point makes panorama creation a lot easier.")
+_("Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier.")
 _("Tutorials on hugin are available on http://hugin.sf.net/tutorials");
 _("If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information")
 _("Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab.")
