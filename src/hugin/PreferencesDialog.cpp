@@ -111,20 +111,23 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_ENGLISH;
     lang_choice->Append(_("English"), lp);
     lp = new long;
-    *lp = wxLANGUAGE_GERMAN;    
-    lang_choice->Append(_("German"), lp);
-    lp = new long;
     *lp = wxLANGUAGE_FRENCH;
     lang_choice->Append(_("French"), lp);
     lp = new long;
-    *lp = wxLANGUAGE_POLISH;
-    lang_choice->Append(_("Polish"), lp);
+    *lp = wxLANGUAGE_GERMAN;
+    lang_choice->Append(_("German"), lp);
     lp = new long;
     *lp = wxLANGUAGE_ITALIAN;
     lang_choice->Append(_("Italian"), lp);
     lp = new long;
     *lp = wxLANGUAGE_JAPANESE;
     lang_choice->Append(_("Japanese"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_POLISH;
+    lang_choice->Append(_("Polish"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_PORTUGUESE_BRAZILIAN;
+    lang_choice->Append(_("Portuguese (Brazilian)"), lp);
     lp = new long;
     *lp = wxLANGUAGE_RUSSIAN;
     lang_choice->Append(_("Russian"), lp);
@@ -153,7 +156,7 @@ PreferencesDialog::~PreferencesDialog()
     for (int i = 0; i < lang_choice->GetCount(); i++) {
         delete static_cast<long*>(lang_choice->GetClientData(i));
     }
-    
+
     DEBUG_TRACE("end dtor");
 }
 
@@ -567,7 +570,7 @@ void PreferencesDialog::UpdateDisplayData()
         // unknown language selected..
         DEBUG_WARN("Unknown language configured");
     }
-    
+
 
     // cursor setting
 //    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
