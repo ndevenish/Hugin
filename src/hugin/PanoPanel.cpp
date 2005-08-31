@@ -428,16 +428,14 @@ void PanoPanel::ApplyQuickMode(int preset)
 		    DEBUG_ERROR("unknown stitcher preset selected");
 		    break;
 		}
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opts )
+            );
+        wxCommandEvent dummy;
+        StitcherChanged(dummy);
     }
-
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opts )
-        );
-    wxCommandEvent dummy;
-
-    StitcherChanged(dummy);
-
-    }
+}
 
 void PanoPanel::QuickModeChanged(wxCommandEvent & e)
 {

@@ -431,8 +431,6 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
     bool maximized = config->Read(wxT("/") + basename + wxT("/maximized"), 0l) != 0;
     if (maximized) {
         frame->Maximize();
-        // explicitly layout after maximize
-        frame->Fit();
     } else {
         //size
         int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);

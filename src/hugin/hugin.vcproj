@@ -59,7 +59,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine="xcopy xrc Debug\xrc /I /Y
-xcopy xrc\data Debug\xrc\data /I /Y"/>
+xcopy xrc\data Debug\xrc\data /I /Y
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -271,6 +272,9 @@ xcopy xrc\data Debug\xrc\data /I /Y"/>
 				RelativePath=".\LensPanel.cpp">
 			</File>
 			<File
+				RelativePath=".\LocalizedFileTipProvider.cpp">
+			</File>
+			<File
 				RelativePath=".\MainFrame.cpp">
 			</File>
 			<File
@@ -378,6 +382,9 @@ xcopy xrc\data Debug\xrc\data /I /Y"/>
 			</File>
 			<File
 				RelativePath="..\include\hugin\LensPanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\LocalizedFileTipProvider.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\MainFrame.h">
