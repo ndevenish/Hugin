@@ -4,14 +4,14 @@
 # Copyright (C) 2005 Ademar de Souza Reis Jr.
 # This file is distributed under the same license as the hugin package.
 # Ademar de Souza Reis Jr. <ademar@ademar.org>, 2005.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin-cvs2005-08-22\n"
+"Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-08-31 00:12+0200\n"
-"PO-Revision-Date: 2005-08-31 00:24+0100\n"
-"Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
+"PO-Revision-Date: 2005-08-31 10:06-0300\n"
+"Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team:  <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -786,6 +786,8 @@ msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
 msgstr ""
+"Falta de memória. \n"
+"Tente novamente com uma imagem panorâmica menor\n"
 
 #: src/hugin/NonaStitcherPanel.cpp:370
 #: src/hugin/NonaStitcherPanel.cpp:375
@@ -1085,7 +1087,7 @@ msgstr "Polonês"
 
 #: src/hugin/PreferencesDialog.cpp:130
 msgid "Portuguese (Brazilian)"
-msgstr ""
+msgstr "Português Brasileiro"
 
 #: src/hugin/PreferencesDialog.cpp:133
 msgid "Russian"
@@ -1130,7 +1132,7 @@ msgstr "Versão desconhecida"
 
 #: src/hugin/PreferencesDialog.cpp:634
 msgid "Really reset displayed preferences to default values?"
-msgstr ""
+msgstr "Realmente deseja resetar preferências para os valores padrão?"
 
 #: src/hugin/PreferencesDialog.cpp:634
 #: src/hugin/xrc/pref_dialog.xrs:71
@@ -1345,7 +1347,7 @@ msgstr "Erro executando o PTStitcher.exe"
 
 #: src/hugin/LocalizedFileTipProvider.cpp:47
 msgid "Tips not available, sorry!"
-msgstr ""
+msgstr "Sinto muito, dicas não disponíveis!"
 
 #: src/include/hugin/MyProgressDialog.h:71
 msgid "Optimizing Panorama"
@@ -2428,9 +2430,8 @@ msgstr "horizontal (v):"
 
 #: src/hugin/xrc/pano_panel.xrs:8
 #: src/hugin/xrc/pano_panel-2.5.xrs:8
-#, fuzzy
 msgid "Calculate Field of View"
-msgstr " Calcular Campo de Visão "
+msgstr "Calcular Campo de Visão"
 
 #: src/hugin/xrc/pano_panel.xrs:9
 #: src/hugin/xrc/pano_panel-2.5.xrs:9
@@ -2688,14 +2689,15 @@ msgstr "requer reinicialização do hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
 msgid "Cursor Type"
-msgstr ""
+msgstr "Tipo do Cursor"
 
 #: src/hugin/xrc/pref_dialog.xrs:41
-#, fuzzy
 msgid ""
 "available on linux only\n"
 "requires restarting hugin"
-msgstr "requer reinicialização do hugin"
+msgstr ""
+"disponível apenas no linux\n"
+"requer reinicialização do hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:42
 msgid "Optimize and stitch only images selected in preview window"
@@ -2986,11 +2988,11 @@ msgstr "Rotacionar a câmera ao redor de seu eixo facilita em muito a criação 
 
 #: src/hugin/xrc/data/tips.txt:6
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr ""
+msgstr "Em http://hugin.sf.net/tutorials você encontra tutoriais do hugin."
 
 #: src/hugin/xrc/data/tips.txt:7
 msgid "If the panorama looks nice but the horizon is curved add vertical control points. See http://hugin.sf.net/tutorials for more information"
-msgstr ""
+msgstr "Se o panorama tem uma boa aparência mas o horizonte está curvo, adicione pontos de controle verticais. Confira os tutoriais em http://hugin.sf.net/tutorials para mais informações."
 
 #: src/hugin/xrc/data/tips.txt:8
 msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
@@ -3018,7 +3020,7 @@ msgstr "Editar o panorama usando múltiplas camadas (layers) com o Gimp ou Photo
 
 #: src/hugin/xrc/data/tips.txt:14
 msgid "The PanoTools wiki at http://www.panotools.info/mediawiki offers comprehensive information about creating panoramas and other images with panotools."
-msgstr ""
+msgstr "O wiki do PanoTools (http://www.panotools.info/mediawiki) contém uma grande quantidade de informações e dicas a respeito da criação de imagens panorâmicas."
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
