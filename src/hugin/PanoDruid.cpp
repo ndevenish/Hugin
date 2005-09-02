@@ -71,7 +71,7 @@ END_HINT(UNSAVED);
 
 NEW_HINT(20, HUGE_FINAL, wxT("druid.stitch.128.png"),
          _("Warning:  current stitch has huge dimensions."),
-         _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the automatic Calc button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality."))
+         _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the Calculate Optimal Size button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality."))
 {
     unsigned long dst_mp = (unsigned long)opts.width * opts.getHeight();
 
