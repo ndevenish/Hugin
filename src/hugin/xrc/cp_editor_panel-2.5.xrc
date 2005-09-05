@@ -202,10 +202,6 @@
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
                             <orient>wxHORIZONTAL</orient>
-                            <object class="spacer">
-                              <size>0,0</size>
-                              <option>1</option>
-                            </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Zoom:</label>
@@ -214,6 +210,7 @@
                               <border>3</border>
                             </object>
                             <object class="sizeritem">
+                              <option>1</option>
                               <object class="wxComboBox" name="cp_editor_zoom_box">
                                 <content>
                                   <item>100%</item>
