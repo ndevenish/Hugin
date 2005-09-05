@@ -1,3 +1,38 @@
+2005-09-05 20:42  dangelo
+
+	* src/hugin/xrc/: cp_editor_panel-2.5.xrc, cp_editor_panel.xrc:
+	  increased width of Zoom field
+
+2005-09-05 08:11  dangelo
+
+	* src/hugin/po/fr.po: updated french translation
+
+2005-09-02 21:44  dangelo
+
+	* src/hugin/: PanoDruid.cpp, po/de.po, po/fr.po, po/hugin.pot,
+	  po/it.po, po/ja.po, po/pl.po, po/pt_BR.po, po/ru.po: small update
+	  to strings
+
+2005-09-01 17:15  dangelo
+
+	* src/hugin/xrc/data/tips.txt: escaped " in tips.txt
+
+2005-08-31 23:00  dangelo
+
+	* src/hugin/: PanoPanel.cpp, hugin.vcproj, huginApp.cpp: restore
+	  splitters when starting up maximised works again (only in
+	  windows) PanoPanel: Bugfix: edit PTStitcher script button works
+	  again
+
+2005-08-31 22:58  dangelo
+
+	* src/hugin/xrc/data/: about.htm, about_fr.htm, about_pl.htm:
+	  increased version number
+
+2005-08-31 21:42  dangelo
+
+	* ChangeLog: update changelog
+
 2005-08-31 21:13  dangelo
 
 	* src/hugin/po/pt_BR.po: updated translation
@@ -346,13 +381,6 @@
 2005-06-13 12:51  ippei
 
 	* mac/config.h: Mac: renew config.h from the newest .in
-
-2005-06-11 22:39  ippei
-
-	* mac/ReadMe-HuginOSX.rtfd/: HuginOSX.icns, TXT.rtf: Using plain
-	  text instead in order to ease the version controling.  OSX style
-	  bundle files do not work very well with cvs, especially with
-	  sourceforge's configuration.
 
 2005-06-11 11:50  ippei
 
@@ -942,11 +970,6 @@
 
 	* src/hugin/xrc/data/FAQ.html, mac/HuginOSX-Info.plist: Mac: ready
 	  for beta! HuginOSX 0.5rc1-OSXb1
-
-2005-05-18 21:18  ippei
-
-	* mac/ReadMe-HuginOSX.rtfd/: HuginOSX.icns, TXT.rtf: Mac: readme
-	  file
 
 2005-05-18 21:13  ippei
 
@@ -3972,10 +3995,6 @@
 	  viff.hxx, void_vector.cxx, void_vector.hxx, Makefile,
 	  auto_file.hxx, bmp.cxx: ups, forgot to add moved vigra stuff
 
-2004-07-03 11:50  dangelo
-
-	* patches/vigra_typetraits_extension.diff: patch is obselete
-
 2004-07-03 11:45  dangelo
 
 	* src/: hugin/NonaStitcherPanel.cpp, hugin/PanoPanel.cpp,
@@ -4190,11 +4209,6 @@
 
 	* INSTALL: added patch to INSTALL
 
-2004-06-22 23:26  dangelo
-
-	* patches/vigra_typetraits_extension.diff: new patch, includes the
-	  unsigned versions of most standart image types
-
 2004-06-22 22:51  dangelo
 
 	* src/: Panorama/Stitcher.cpp, hugin/PreviewPanel.cpp: print
@@ -4225,11 +4239,6 @@
 
 	* src/hugin/huginApp.cpp: use /tmp on all platforms other than
 	  windows
-
-2004-06-14 23:26  dangelo
-
-	* patches/vigra_typetraits_extension.diff: added signedness to
-	  vigra typetraits
 
 2004-06-14 00:34  dangelo
 
