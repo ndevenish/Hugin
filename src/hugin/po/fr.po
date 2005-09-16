@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-09-03 07:03+0200\n"
-"PO-Revision-Date: 2005-09-03 07:31+0200\n"
+"PO-Revision-Date: 2005-09-10 14:31+0200\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
-"Language-Team: French <ll@traduc.org>\n"
+"Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -346,7 +346,7 @@ msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
 msgstr ""
-"Entrer l'erreur minimale pour les points de contrôle\n"
+"Entrer l'erreur minimale pour les points de contrôle.\n"
 "Tout point avec une erreur supérieure sera sélectionné"
 
 #: src/hugin/CPListFrame.cpp:597 src/hugin/CPListFrame.cpp:606
@@ -685,7 +685,7 @@ msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
 msgstr ""
-"Fichiers de Projet (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tous les "
+"Fichiers de projet (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tous les "
 "fichiers (*)|*"
 
 #: src/hugin/MainFrame.cpp:623
@@ -768,7 +768,7 @@ msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
 msgstr ""
-"Débordement mémoire.\n"
+"Mémoire insuffisante.\n"
 "Veuillez réessayer avec une image du panorama de plus petite taille.\n"
 
 #: src/hugin/NonaStitcherPanel.cpp:296 src/hugin/NonaStitcherPanel.cpp:301
@@ -1280,7 +1280,7 @@ msgstr ""
 "ATTENTION : un très petit champ de vision (v) a été estimé\n"
 "\n"
 "Le résultat n'est probablement pas valable.\n"
-"Veuillez n'optimiser la Vue que pour les panoramas faisant un 360°\n"
+"Veuillez n'optimiser la vue que pour les panoramas faisant un 360°\n"
 "complet ou si vous savez ce que vous faites.\n"
 "\n"
 "Le champ de vision (v) peut parfois être optimisé pour des panoramas "
@@ -1381,7 +1381,7 @@ msgstr "Chargement du projet"
 
 #: src/hugin/xrc/about.xrs:1 src/hugin/xrc/main_tool.xrs:31
 msgid "About Hugin"
-msgstr "A propos d'Hugin"
+msgstr "À propos d'Hugin"
 
 #: src/hugin/xrc/about.xrs:2
 msgid "OK"
@@ -1557,7 +1557,7 @@ msgstr "Poursuivre en utilisant ces modifications"
 
 #: src/hugin/xrc/edit_script_dialog.xrs:4
 msgid "Discard changes and cancel"
-msgstr "Abandonner les changement"
+msgstr "Abandonner les modifications"
 
 #: src/hugin/xrc/edit_text.xrs:1
 msgid "Text mode"
@@ -1624,11 +1624,15 @@ msgstr "Supprimer cette image du projet"
 
 #: src/hugin/xrc/images_panel.xrs:8 src/hugin/xrc/images_panel-2.5.xrs:8
 msgid "Move up"
-msgstr "vers le haut"
+msgstr ""
+"Déplacer\n"
+"vers le haut"
 
 #: src/hugin/xrc/images_panel.xrs:9 src/hugin/xrc/images_panel-2.5.xrs:9
 msgid "Move down"
-msgstr "vers le bas"
+msgstr ""
+"Déplacer\n"
+"vers le bas"
 
 #: src/hugin/xrc/images_panel.xrs:10 src/hugin/xrc/images_panel-2.5.xrs:10
 msgid "Reference Image"
@@ -1908,11 +1912,11 @@ msgstr "Quitter cette application"
 
 #: src/hugin/xrc/main_menubar.xrs:5
 msgid "&About..."
-msgstr "A &propos..."
+msgstr "À &propos..."
 
 #: src/hugin/xrc/main_menubar.xrs:6
 msgid "About this application"
-msgstr "A propos de cette application"
+msgstr "À propos de cette application"
 
 #: src/hugin/xrc/main_menu.xrs:2
 msgid "&New"
@@ -2040,11 +2044,11 @@ msgstr "Afficher la fenêtre d'aperçu"
 
 #: src/hugin/xrc/main_menu.xrs:32
 msgid "&About"
-msgstr "A &propos"
+msgstr "À &propos"
 
 #: src/hugin/xrc/main_menu.xrs:33
 msgid "About program"
-msgstr "A propos du programme"
+msgstr "À propos du programme"
 
 #: src/hugin/xrc/main_menu.xrs:35
 msgid "Some information on the different buttons and so on."
@@ -2149,7 +2153,7 @@ msgstr "Afficher les points de contrôle dans un seul tableau"
 
 #: src/hugin/xrc/main_tool.xrs:32
 msgid "About"
-msgstr "A propos"
+msgstr "À propos"
 
 #: src/hugin/xrc/main_tool.xrs:33
 msgid "Display credits for the creators of Hugin"
@@ -2317,7 +2321,7 @@ msgstr "Pour les utilisateurs avancés"
 
 #: src/hugin/xrc/pano_panel.xrs:1 src/hugin/xrc/pano_panel-2.5.xrs:1
 msgid "Panorama"
-msgstr " Panorama"
+msgstr "Panorama"
 
 #: src/hugin/xrc/pano_panel.xrs:2 src/hugin/xrc/pano_panel-2.5.xrs:2
 msgid "projection (f):"
@@ -2870,13 +2874,13 @@ msgid ""
 "point\") avoids parallax errors and makes panorama creation a lot easier."
 msgstr ""
 "Faire pivoter l'appareil photo autour de sa pupille d'entrée (souvent "
-"appelée, à tort, « point nodal ») lors de la prise de vue rend la création "
-"des panoramas beaucoup plus facile."
+"appelée, à tort, « point nodal ») permet d'éviter des erreurs de parallaxe "
+"lors de la prise de vue rend la création des panoramas beaucoup plus facile."
 
 #: src/hugin/xrc/data/tips.txt:6
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
 msgstr ""
-"Des didacticiels sur Hugin sont disponible sur http://hugin.sf.net/tutorials"
+"Des didacticiels sur Hugin sont disponibles sur http://hugin.sf.net/tutorials"
 
 #: src/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -2986,7 +2990,7 @@ msgid ""
 "The external tools autopano and autopano-sift can be used to create control "
 "points automatically."
 msgstr ""
-"Les outils externe Autopano et Autopano-Sift peuvent être utilisés pour "
+"Les outils externes Autopano et Autopano-Sift peuvent être utilisés pour "
 "créer automatiquement des points de contrôle."
 
 #: src/hugin/xrc/data/tips.txt:22
@@ -3006,7 +3010,7 @@ msgid ""
 msgstr ""
 "Après qu'Enblend aura effectué la fusion du panorama, les images remappées "
 "(disponibles dans le même répertoire que l'image du panorama) peuvent être "
-"utilisé pour retoucher le panorama dans The Gimp ou Photoshop."
+"utilisées pour retoucher le panorama dans The Gimp ou Photoshop."
 
 #: src/hugin/xrc/data/tips.txt:24
 msgid ""
