@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2005-09-02 21:38+0200\n"
 "PO-Revision-Date: 2005-09-16 16:01+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@hccnet.nl>\n"
-"Language-Team: Dutch <nl@li.org>\n"
+"Language-Team: Dutch <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -218,19 +218,19 @@ msgstr "#"
 
 #: src/hugin/CPEditorPanel.cpp:169
 msgid "left x"
-msgstr "linkse x"
+msgstr "x links"
 
 #: src/hugin/CPEditorPanel.cpp:170
 msgid "left y"
-msgstr "linkse y"
+msgstr "y links"
 
 #: src/hugin/CPEditorPanel.cpp:171
 msgid "right x"
-msgstr "rechter x"
+msgstr "x rechts"
 
 #: src/hugin/CPEditorPanel.cpp:172
 msgid "right y"
-msgstr "rechter y"
+msgstr "y rechts"
 
 #: src/hugin/CPEditorPanel.cpp:173
 #: src/hugin/CPListFrame.cpp:289
@@ -446,7 +446,7 @@ msgstr "Voer a.u.b. een geldig nummer in"
 #: src/hugin/ImageOrientationPanel.cpp:132
 #, c-format
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-msgstr "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+msgstr "horiz. verschuiving: %.1f vert. verschuiving:%.1f rotatie:%.1f"
 
 #: src/hugin/ImagesList.cpp:301
 #: src/hugin/ImagesList.cpp:360
@@ -465,15 +465,15 @@ msgstr "hoogte"
 
 #: src/hugin/ImagesList.cpp:304
 msgid "yaw (y)"
-msgstr "yaw (y)"
+msgstr "horiz. verschuiving (y)"
 
 #: src/hugin/ImagesList.cpp:305
 msgid "pitch (p)"
-msgstr "pitch (p)"
+msgstr "vert. verschuiving (p)"
 
 #: src/hugin/ImagesList.cpp:306
 msgid "roll (r)"
-msgstr "roll (r)"
+msgstr "rotatie (r)"
 
 #: src/hugin/ImagesList.cpp:307
 msgid "Anchor"
@@ -1414,7 +1414,7 @@ msgstr "Veranker afbeelding"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
 msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
-msgstr "Zet Yaw en Pitch met de linker muis knop. Gebruik de rechter muis knop om de roll in te stellen"
+msgstr "Zet horiz. verschuiving en vert. verschuiving met de linker muis knop. Gebruik de rechter muis knop om de rotatie in te stellen"
 
 #: src/hugin/xrc/anchor_orientation.xrs:3
 msgid "Set Anchor Image Orientation"
@@ -1523,7 +1523,7 @@ msgstr "Fijn afstemming"
 #: src/hugin/xrc/cp_editor_panel.xrs:23
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:20
 msgid "tries to optimize the currently active point."
-msgstr "proberen huidige actieve punt te optimaliseren"
+msgstr "probeer geselecteerde punt(en) te optimaliseren"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:24
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:21
@@ -1712,7 +1712,7 @@ msgstr "Maak controle punten"
 #: src/hugin/xrc/images_panel.xrs:21
 #: src/hugin/xrc/images_panel-2.5.xrs:21
 msgid "Run external autopano program on the selected images"
-msgstr "Start externe autopano programma voor de geslecteerde afbeeldingen"
+msgstr "Start externe autopano programma voor de geselecteerde afbeeldingen"
 
 #: src/hugin/xrc/images_panel.xrs:22
 #: src/hugin/xrc/images_panel-2.5.xrs:22
@@ -1733,32 +1733,32 @@ msgstr "Afbeelding orientatie"
 #: src/hugin/xrc/images_panel.xrs:25
 #: src/hugin/xrc/images_panel-2.5.xrs:25
 msgid "yaw:"
-msgstr "yaw:"
+msgstr "horiz. verschuiving:"
 
 #: src/hugin/xrc/images_panel.xrs:26
 #: src/hugin/xrc/images_panel-2.5.xrs:26
 msgid "set yaw for selected image(s)"
-msgstr "Stel yaw in voor de geselecteerde afbeelding(en)"
+msgstr "Stel horiz. verschuiving in voor de geselecteerde afbeelding(en)"
 
 #: src/hugin/xrc/images_panel.xrs:27
 #: src/hugin/xrc/images_panel-2.5.xrs:27
 msgid "pitch:"
-msgstr "pitch:"
+msgstr "vert. verschuiving:"
 
 #: src/hugin/xrc/images_panel.xrs:28
 #: src/hugin/xrc/images_panel-2.5.xrs:28
 msgid "set pitch for selected image(s)"
-msgstr "Stel pitch in voor de geselecteerde afbeelding(en)"
+msgstr "Stel vert. verschuiving in voor de geselecteerde afbeelding(en)"
 
 #: src/hugin/xrc/images_panel.xrs:29
 #: src/hugin/xrc/images_panel-2.5.xrs:29
 msgid "roll:"
-msgstr "roll:"
+msgstr "rotatie:"
 
 #: src/hugin/xrc/images_panel.xrs:30
 #: src/hugin/xrc/images_panel-2.5.xrs:30
 msgid "set roll for selected image(s)"
-msgstr "Stel roll in voor de geselecteerde afbeelding(en)"
+msgstr "Stel rotatie in voor de geselecteerde afbeelding(en)"
 
 #: src/hugin/xrc/images_panel.xrs:32
 #: src/hugin/xrc/images_panel-2.5.xrs:32
@@ -1768,7 +1768,7 @@ msgstr "Reset positie van de geselecteerde afbeelding(en)"
 #: src/hugin/xrc/images_panel.xrs:33
 #: src/hugin/xrc/images_panel-2.5.xrs:33
 msgid "This Image"
-msgstr "Deze afbeelding"
+msgstr "Geselecteerde afbeelding"
 
 #: src/hugin/xrc/keyboard_help.xrs:1
 msgid "Keyboard Shortcuts"
@@ -1884,7 +1884,7 @@ msgstr "Stel versnijdings en afbeeldings middelpunt in"
 #: src/hugin/xrc/lens_panel.xrs:29
 #: src/hugin/xrc/lens_panel-2.5.xrs:29
 msgid "Image Shearing"
-msgstr "Image verschuiving"
+msgstr "Verschuiving afbeelding"
 
 #: src/hugin/xrc/lens_panel.xrs:30
 #: src/hugin/xrc/lens_panel-2.5.xrs:30
@@ -2103,7 +2103,7 @@ msgstr "&Bekijk"
 
 #: src/hugin/xrc/main_menu.xrs:27
 msgid "&Control point table"
-msgstr "&controle punt tabel"
+msgstr "&controle punten tabel"
 
 #: src/hugin/xrc/main_menu.xrs:28
 msgid "Shows all control point distances"
@@ -2135,7 +2135,7 @@ msgstr "&Tip van de dag"
 
 #: src/hugin/xrc/main_menu.xrs:37
 msgid "Show one of the tips of the day."
-msgstr "Toon een van de tip van de dag tips."
+msgstr "Toon een van de tips van de dag."
 
 #: src/hugin/xrc/main_menu.xrs:38
 msgid "&Keyboard Shortcuts"
@@ -2358,7 +2358,7 @@ msgstr ""
 
 #: src/hugin/xrc/optimize_panel.xrs:14
 msgid "yaw (y):"
-msgstr "yaw (y):"
+msgstr "horiz. verschuiving (y):"
 
 #: src/hugin/xrc/optimize_panel.xrs:15
 #: src/hugin/xrc/optimize_panel.xrs:18
@@ -2374,11 +2374,11 @@ msgstr "wis"
 
 #: src/hugin/xrc/optimize_panel.xrs:17
 msgid "pitch (p):"
-msgstr "pitch (p):"
+msgstr "vert. verschuiving (p):"
 
 #: src/hugin/xrc/optimize_panel.xrs:20
 msgid "roll (r):"
-msgstr "roll (r):"
+msgstr "rotatie (r):"
 
 #: src/hugin/xrc/optimize_panel.xrs:23
 msgid "Lens Parameters"
@@ -2488,7 +2488,7 @@ msgstr "Voer het PTStitcher programma uit"
 #: src/hugin/xrc/pano_panel.xrs:20
 #: src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "Panorama Image Size"
-msgstr "Panorama Afbeeldings grootte"
+msgstr "Panorama grootte"
 
 #: src/hugin/xrc/pano_panel.xrs:21
 msgid "pixel width:"
@@ -2511,7 +2511,7 @@ msgstr "Bereken de optimale grootte"
 #: src/hugin/xrc/pano_panel.xrs:25
 #: src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr "Berekende hoogst zinvolle breedte. (gebruik elke afbeeldings pixel)"
+msgstr "Bereken de hoogst zinvolle breedte. (gebruik elke afbeeldings pixel)"
 
 #: src/hugin/xrc/pano_panel.xrs:26
 #: src/hugin/xrc/pano_panel-2.5.xrs:26
@@ -2597,11 +2597,11 @@ msgstr "Breedte zoek gebied:"
 
 #: src/hugin/xrc/pref_dialog.xrs:18
 msgid "percent of image width"
-msgstr "percentage van de afbeeldings breedte"
+msgstr "perc. breedte afbeelding"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
 msgid "Local search area width:"
-msgstr "locaal zoeken naar afbeeldings breedte:"
+msgstr "zoek breedte lokaal:"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
 msgid "Correlation Threshold:"
@@ -2785,7 +2785,7 @@ msgstr "Centreer het voorbeeld horizontaal"
 
 #: src/hugin/xrc/preview_frame.xrs:4
 msgid "Auto Preview"
-msgstr "auto voorbeeld"
+msgstr "Auto Voorbeeld"
 
 #: src/hugin/xrc/preview_frame.xrs:5
 msgid "Automatically update preview on relevant changes"
@@ -3057,7 +3057,7 @@ msgstr "De precisie van het \"fijn afstemmen\" van controle punten kan verbeterd
 
 #: src/hugin/xrc/data/tips.txt:27
 msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
-msgstr "Meerdere afbeeldingen kunnen geslecteerd worden in het afbeelding en lens tabblad. Commando's worden uitgevoerd op alle afbeeldingen."
+msgstr "Meerdere afbeeldingen kunnen geselecteerd worden in het afbeelding en lens tabblad. Commando's worden uitgevoerd op alle afbeeldingen."
 
 #: src/hugin/xrc/data/tips.txt:28
 msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
