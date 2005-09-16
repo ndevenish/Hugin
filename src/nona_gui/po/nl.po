@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Pablo dAngelo 
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: nl\n"
+"Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
+"POT-Creation-Date: 2005-05-16 12:27+0300\n"
+"PO-Revision-Date: 2005-09-16 14:34+0100\n"
+"Last-Translator: Harry van der Wolf <harryvanderwolf@hccnet.nl>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/nona_gui/nona_gui.cpp:133
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Syntax fout ontdekt in de parameters, programma wordt afgebroken."
+
+#: src/nona_gui/nona_gui.cpp:142
+msgid "Specify project source project file"
+msgstr "Geef project bron bestand aan."
+
+#: src/nona_gui/nona_gui.cpp:158
+msgid "Too many project files specified"
+msgstr "Te veel project bestanden opgegeven"
+
+#: src/nona_gui/nona_gui.cpp:166
+msgid "Could not find project file"
+msgstr "Kan project bestand niet vinden"
+
+#: src/nona_gui/nona_gui.cpp:175
+msgid "Specify output image filename"
+msgstr "Geef uitvoer bestands naam"
+
+#: src/nona_gui/nona_gui.cpp:183
+msgid "No project files specified"
+msgstr "Geen project bestanden opgegeven"
+
+#: src/nona_gui/nona_gui.cpp:194
+msgid "Stitching Panorama"
+msgstr "Panorama samenvoegen"
+
+#: src/nona_gui/nona_gui.cpp:200
+#, c-format
+msgid "could not open script : %s"
+msgstr "Kan script: %s  niet openen"
+
+#: src/nona_gui/nona_gui.cpp:206
+#, c-format
+msgid "error while parsing panos tool script: %s"
+msgstr "fout tijdens verwerking panos tool script: %s"
+
+#: src/nona_gui/nona_gui.cpp:217
+msgid "output image size: "
+msgstr "grootte uitvoer bestand:"
+
+

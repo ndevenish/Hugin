@@ -129,6 +129,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_PORTUGUESE_BRAZILIAN;
     lang_choice->Append(_("Portuguese (Brazilian)"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_DUTCH;
+    lang_choice->Append(_("Dutch"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_RUSSIAN;
     lang_choice->Append(_("Russian"), lp);
     lang_choice->SetSelection(0);
