@@ -1,8 +1,8 @@
 Newsworthy changes in 0.5 rc2
 -----------------------------
-* Removed all non-opensource sourcecode
+* Removed all non-opensource sourcecode from CVS
 * Fixed various crashes
-* Japanese, Russian and Brazilian translation
+* Japanese, Russian, Brazilian and Dutch translation
 * Proper default arguments for Autopano-SIFT on Windows
   (users of hugin 0.5 r1 or less need to restore the default
    config)

@@ -1,3 +1,32 @@
+2005-09-17 00:27  dangelo
+
+	* src/hugin/po/fr.po: updated french translation
+
+2005-09-16 23:11  brunopostle
+
+	* src/hugin/po/nl.po: more nl.po updates (Harry van der Wolf
+	  <harryvanderwolf@hccnet.nl>)
+
+2005-09-16 16:43  brunopostle
+
+	* src/nona_gui/po/nl.po: fixed incorrect language-team
+
+2005-09-16 16:29  brunopostle
+
+	* src/hugin/po/nl.po: updated dutch translation from Harry van der
+	  Wolf <harryvanderwolf@hccnet.nl>
+
+2005-09-16 16:09  brunopostle
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/po/LINGUAS,
+	  hugin/po/nl.po, nona_gui/po/LINGUAS, nona_gui/po/nl.po: Added
+	  Dutch translation (Harry van der Wolf
+	  <harryvanderwolf@hccnet.nl>)
+
+2005-09-05 20:46  dangelo
+
+	* ChangeLog: updated changelog
+
 2005-09-05 20:42  dangelo
 
 	* src/hugin/xrc/: cp_editor_panel-2.5.xrc, cp_editor_panel.xrc:

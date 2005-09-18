@@ -9,29 +9,33 @@ installed (including dev packages)
 REQUIRED LIBRARIES/PACKAGES:
 
  - wxwindows 2.4.0 or higher (libary and development packages)
-    hugin uses the XRC extension of wxwindows to build its
-    dialogs.
+    
+    wxWidgets >= 2.6 is recommended
 
-    the XRC extension needs to be installed. You might
-    need to install a wxwin-contrib (debian) or similar package if provided
-    by your distribution, since most distributions do not include it
-    in their default package.
+    Special instructions for wxWindows 2.4.x:
 
-    If you compile wxwindows from scratch, go to the contrib/src/xrc folder
-    and compile and install xrc from there.
+      hugin uses the XRC extension of wxwindows to build its
+      dialogs.
+
+      the XRC extension needs to be installed. You might
+      need to install a wxwin-contrib (debian) or similar package if provided
+      by your distribution, since most distributions do not include it
+      in their default package.
+
+      If you compile wxwindows from scratch, go to the contrib/src/xrc folder
+      and compile and install xrc from there.
 
  - Panorama tools. Please DO NOT USE the versions from the original site.
    I'm using the version maintaned on sourceforge, http://panotools.sf.net
 
-   Download it from:
-   http://www.photocreations.ca/panotools/index.html (windows builds)
-   or
-   http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
-   see below if you want to compile the panorama tools yourself.
+   Prebuild packages are available from:
+    http://www.photocreations.ca/panotools/index.html (windows builds)
+      or
+    http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
 
  - make,
  - boost, get it from www.boost.org (only needed for compilation)
- - gcc (tested with 3.2, 2.95 might also work)
+ - gcc (tested with 3.2, 3.3, 3.4 and 4.0)
 
 COMPILATION:
 
