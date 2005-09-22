@@ -1,3 +1,6 @@
+display alert "Enblend is not a part of hugin." message Â
+	"Enblend is developed by different author and maintained by separate project from hugin. Please read its readme and license files carefully before use." as warning
+
 tell application "Finder"
 	copy "" to enblendPath
 	repeat while enblendPath is equal to ""

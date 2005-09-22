@@ -14,7 +14,7 @@ The programs included in this package are mainly released under GPL although som
 
 Usage
 
-Basic usage of HuginOSX is not different from that of other platforms. Some of helpful resources are found in the "Help" menu, and you can find more on the web. The basic steps are: 1.add images to the project, 2.set the degrees of view etc. of your lens, 3.add control points, 4.execute optimiser that puts the images in the best place according to the control points, 5.stitch the images together.
+Basic usage of HuginOSX is not different from that of other platforms. Some of helpful resources are found in the "Help" menu, and you can find more on the web. The basic steps are: 1.add images to the project, 2.set the degrees of view etc of your lens, 3.add control points, 4.set the anchor point, which becomes the centre point of the resulting photo 5.execute optimiser that puts the images in the best place according to the control points, 6.stitch the images together.
 
 
 External commnad-line tools that can be used from inside hugin
@@ -49,11 +49,14 @@ Other recommended free tools
 
 Known Problems 
 
+- Optimizer on HuginOSX does not work on certain environment. We are trying to determine the cause. If you encounter this, please send me 1. where HuginOSX is installed, 2. where your project file is located, and 3. result of "ls -l Applications/HuginOSX.app/Contents/*". This bug seems to have something to do with paths with space or non-ASCII characters. You may be able to work around if you put HuginOSX and your project file in to a 'safe' locations like "/Applications" or "~/".
+
 - autopano-sift sometimes does not work when nested inside the application package.
 
 
 TODO (Any help appreciated.)
 
+- fix Optimiser bug
 - find bugs. 
 
 
@@ -66,7 +69,7 @@ Contacts
 
 
 Last modified for HuginOSX 0.5rc2
-on: 2005-06-10
+on: 2005-09-22
 by: Ippei UKAI (ippei_ukai@mac.com)
 
 This document was originally created by Ippei UKAI (Copyleft 2005)

@@ -1,17 +1,19 @@
 #!/bin/sh
 
 wxVersion="2.6.1"
-resdir="build/HuginOSX.app/Contents/Resources"
+resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
 rm -fR $resdir/xrc
 echo copying xrc folder to $resdir/xrc
-cp -r $xrcsrcdir $resdir/
+cp -R $xrcsrcdir $resdir/
 echo removing extra files from xrc folder
 rm -f $resdir/xrc/.??*
 rm -fR $resdir/xrc/CVS
+rm -f $resdir/xrc/Makefil*
 rm -f $resdir/xrc/data/.??*
 rm -fR $resdir/xrc/data/CVS
+rm -f $resdir/xrc/data/Makefil*
 
 #for xrcfile in `ls $resdir/xrc | grep mac.xrc`
 #do
@@ -28,7 +30,7 @@ mv $resdir/xrc/main_frame-2.5.xrc $resdir/xrc/main_frame-2.5.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame-2.5.xrc-bk > $resdir/xrc/main_frame-2.5.xrc
 
 
-for lang in `cat ../src/hugin/po/LINGUAS|grep -v "#.*"`
+for lang in "en" `cat ../src/hugin/po/LINGUAS|grep -v "#.*"`
 do
  
  echo 

@@ -40,12 +40,12 @@
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
 	<key>CFBundleVersion</key>
-	<string>0.5osxβ3</string>
+	<string>0.5rc2-OSX</string>
 	<key>CFBundleName</key>
 	<string>HuginOSX</string>
 	<key>CFBundleGetInfoString</key>
-	<string>0.5osxβ3, Ippei UKAI / hugin Project, released under GPL</string>
+	<string>HuginOSX 0.5rc2 (built by Ippei UKAI); Released under GPL from hugin Project (http://hugin.sf.net/)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.5-osxβ3</string>
+	<string>0.5rc2-OSX</string>
 </dict>
 </plist>
