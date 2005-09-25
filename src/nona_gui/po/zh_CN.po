@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nona_gui\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2005-09-25 21:05+0800\n"
+"Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
+"Language-Team: Chinese Simplified <N/A>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+
+#: src/nona_gui/nona_gui.cpp:133
+msgid "Syntax error in parameters detected, aborting."
+msgstr "参数语法错误, 中断."
+
+#: src/nona_gui/nona_gui.cpp:142
+msgid "Specify project source project file"
+msgstr "指定项目源文件"
+
+#: src/nona_gui/nona_gui.cpp:158
+msgid "Too many project files specified"
+msgstr "指定了太多项目文件"
+
+#: src/nona_gui/nona_gui.cpp:166
+msgid "Could not find project file"
+msgstr "无法找到项目文件"
+
+#: src/nona_gui/nona_gui.cpp:175
+msgid "Specify output image filename"
+msgstr "指定输出图像名称"
+
+#: src/nona_gui/nona_gui.cpp:183
+msgid "No project files specified"
+msgstr "没有指定项目文件"
+
+#: src/nona_gui/nona_gui.cpp:194
+msgid "Stitching Panorama"
+msgstr "缝合全景"
+
+#: src/nona_gui/nona_gui.cpp:200
+#, c-format
+msgid "could not open script : %s"
+msgstr "无法打开脚本: %s"
+
+#: src/nona_gui/nona_gui.cpp:206
+#, c-format
+msgid "error while parsing panos tool script: %s"
+msgstr "分析全景工具脚本时出错: %s"
+
+#: src/nona_gui/nona_gui.cpp:217
+msgid "output image size: "
+msgstr "输出图像尺寸:"
+
