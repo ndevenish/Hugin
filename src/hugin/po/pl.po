@@ -2,15 +2,17 @@
 # Copyright (C) 2004 Pablo dAngelo 
 # This file is distributed under the same license as the hugin package.
 # Marek Januszewski <spec@webtech.pl>, 2004.
+# Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>, 2005.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.5\n"
+"Project-Id-Version: hugin 0.5-rc2\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-09-02 21:38+0200\n"
-"PO-Revision-Date: 2005-08-30 23:49+0100\n"
-"Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2005-09-23 14:01+0200\n"
+"Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -70,7 +72,7 @@ msgstr "Nie wybrano autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:220
 msgid "Select autopano frontend script"
-msgstr "Wybierz autopano-sift skrypt interfejsu"
+msgstr "Wybierz skrypt interfejsu autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:222
 msgid "Shell Scripts (*.sh)|*.sh"
@@ -382,7 +384,7 @@ msgstr "Ucięcie zdjecia"
 
 #: src/hugin/ImageCenter.cpp:81
 msgid "Left:"
-msgstr "Lewy:"
+msgstr "Lewo:"
 
 #: src/hugin/ImageCenter.cpp:86
 msgid "Right:"
@@ -417,7 +419,7 @@ msgstr "Anuluj"
 #: src/hugin/ImageCenter.cpp:209 src/hugin/ImageCenter.cpp:224
 #: src/hugin/ImageCenter.cpp:239 src/hugin/ImageCenter.cpp:254
 msgid "Please enter a valid number"
-msgstr "Proszę wpisać poprawny numer"
+msgstr "Proszę wpisać poprawną liczbę"
 
 #: src/hugin/ImageOrientationPanel.cpp:132
 #, c-format
@@ -653,7 +655,7 @@ msgstr "Zapisz plik skryptu PTStitcher"
 
 #: src/hugin/MainFrame.cpp:536
 msgid "PTStitcher files (*.txt)|*.txt"
-msgstr "Pliki PTStitcher'a (*.txt)|*.txt"
+msgstr "Pliki PTStitchera (*.txt)|*.txt"
 
 #: src/hugin/MainFrame.cpp:562
 msgid "Open project:   "
@@ -760,9 +762,10 @@ msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
 msgstr ""
+"Brak pamięci.\n"
+"Spróbuj ponownie z mniejszym rozmiarem obrazu panoramy.\n"
 
 #: src/hugin/NonaStitcherPanel.cpp:296 src/hugin/NonaStitcherPanel.cpp:301
-#, fuzzy
 msgid "Error during stitching"
 msgstr "Błąd podczas składania"
 
@@ -789,9 +792,9 @@ msgid ""
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Nie można uruchomić enblend'a z linią poleceń > 2000 znaków.\n"
-"To jest ograniczenie Windows'a\n"
-"Proszę użyć mniejszej ilości zdjęć, lub skopiować je do folderu\n"
+"Nie można uruchomić enblenda z linią poleceń > 2000 znaków.\n"
+"To jest ograniczenie Windows\n"
+"Proszę użyć mniejszej liczby zdjęć, lub skopiować je do folderu\n"
 "o krótszej nazwie ścieżki"
 
 #: src/hugin/NonaStitcherPanel.cpp:385
@@ -863,7 +866,6 @@ msgid "Warning:  current stitch has huge dimensions."
 msgstr "Uwaga: złożone zdjęcie ma ogromne rozmiary."
 
 #: src/hugin/PanoDruid.cpp:74
-#, fuzzy
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -875,9 +877,9 @@ msgstr ""
 "Obecnie wpisane są bardzo duże wymiary w punktach.\n"
 "Niektóre komputery mogą potrzebować nadmiernie dużo czasu\n"
 "na renderowanie tak dużego finalnego zdjęcia.\n"
-"Aby uzyskac najlepszy wynik, użyj przycisków Calc w\n"
-"zakładce Opcje Panoramy, aby ustalić\n"
-"wielkość w pikselach, która da najlepszą jakość."
+"Aby uzyskac najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
+"zakładce Opcje Panoramy, aby ustalić wielkość w pikselach,\n"
+"która da najlepszą jakość."
 
 #: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:545
 msgid "The Horizontal Field of View (HFOV) may be too low."
@@ -1035,7 +1037,7 @@ msgstr "Włoski"
 
 #: src/hugin/PreferencesDialog.cpp:124
 msgid "Japanese"
-msgstr ""
+msgstr "Japoński"
 
 #: src/hugin/PreferencesDialog.cpp:127
 msgid "Polish"
@@ -1043,11 +1045,11 @@ msgstr "Polski"
 
 #: src/hugin/PreferencesDialog.cpp:130
 msgid "Portuguese (Brazilian)"
-msgstr ""
+msgstr "Portugalski (brazylijski)"
 
 #: src/hugin/PreferencesDialog.cpp:133
 msgid "Russian"
-msgstr ""
+msgstr "Rosyjski"
 
 #: src/hugin/PreferencesDialog.cpp:209
 msgid "Select PTStitcher"
@@ -1085,7 +1087,7 @@ msgstr "Nieznana wersja"
 
 #: src/hugin/PreferencesDialog.cpp:634
 msgid "Really reset displayed preferences to default values?"
-msgstr ""
+msgstr "Naprawdę przywrócić domyślne ustawienia wyświetlania?"
 
 #: src/hugin/PreferencesDialog.cpp:634 src/hugin/xrc/pref_dialog.xrs:69
 msgid "Load Defaults"
@@ -1212,7 +1214,7 @@ msgstr "PTStitcher.exe nie ma możliwości tworzy QTVR w Windowsie i Linuksie"
 
 #: src/hugin/PTStitcherPanel.cpp:444
 msgid "PTStitcher note"
-msgstr "uwaga PTStitcher'a"
+msgstr "uwaga PTStitchera"
 
 #: src/hugin/RunOptimizerFrame.cpp:117
 msgid "No PTOptimizer.exe selected"
@@ -1220,15 +1222,15 @@ msgstr "Nie wybrano PTOptimizer.exe"
 
 #: src/hugin/RunOptimizerFrame.cpp:135
 msgid "No PTOptimizer selected"
-msgstr "Nie wybrano PTOptimizer'a"
+msgstr "Nie wybrano PTOptimizera"
 
 #: src/hugin/RunOptimizerFrame.cpp:159
 msgid "Failed to launch PTOptimizer."
-msgstr "Błąd uruchamiania PTOptimizer"
+msgstr "Błąd uruchamiania PTOptimizera."
 
 #: src/hugin/RunOptimizerFrame.cpp:170
 msgid "Could not obtain PTOptimizer output"
-msgstr "Błąd w wyników rezultatu z PTOptimizer'a"
+msgstr "Nie udało się uzyskać wyjścia z PTOptimizera"
 
 #: src/hugin/RunOptimizerFrame.cpp:180
 msgid "Stop"
@@ -1277,7 +1279,7 @@ msgstr ""
 "Optymalizator zakończył pracę.\n"
 "Rezultaty:\n"
 " średnia odległość punktów kontrolnych: %f\n"
-" standardowa dewiacja: %f\n"
+" odchylenie standardowe: %f\n"
 " maximum: %f\n"
 "\n"
 "Zastosować zmiany?"
@@ -1296,7 +1298,7 @@ msgstr "Błąd uruchamiania PTStitcher.exe"
 
 #: src/hugin/RunStitcherFrame.cpp:158
 msgid "Could not obtain PTStitcher output"
-msgstr "Błąd w wyników rezultatu z PTStitcher'a"
+msgstr "Nie udało się uzyskać wyjścia z PTStitchera"
 
 #: src/hugin/RunStitcherFrame.cpp:282
 msgid ""
@@ -1312,7 +1314,7 @@ msgstr "Błąd podcza uruchamiania PTSTitcher.exe"
 
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
-msgstr ""
+msgstr "Podpowiedzi niestety nie są dostępne!"
 
 #: src/include/hugin/MyProgressDialog.h:71
 msgid "Optimizing Panorama"
@@ -1340,7 +1342,7 @@ msgstr "Nie znaleziono zdjęcia"
 #: src/include/hugin/wxPanoCommand.h:213
 #, c-format
 msgid "Could not read image size of file %s"
-msgstr "Nie można odczytać rozmiaru zdjęcia pliku %s"
+msgstr "Nie można odczytać rozmiaru zdjęcia z pliku %s"
 
 #: src/include/hugin/wxPanoCommand.h:221
 #, c-format
@@ -1469,7 +1471,7 @@ msgstr "Usuń"
 #: src/hugin/xrc/cp_editor_panel.xrs:22
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:19
 msgid "Fine-tune"
-msgstr "Dostroj"
+msgstr "Dostrój"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:23
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:20
@@ -1545,7 +1547,7 @@ msgstr "Optymalizuj"
 
 #: src/hugin/xrc/help.xrs:1
 msgid "Hugin Reference"
-msgstr "Instrukcja Hugin'a"
+msgstr "Instrukcja Hugina"
 
 #: src/hugin/xrc/help.xrs:2 src/hugin/xrc/image_center.xrs:3
 #: src/hugin/xrc/keyboard_help.xrs:2
@@ -2119,7 +2121,7 @@ msgstr "O"
 
 #: src/hugin/xrc/main_tool.xrs:33
 msgid "Display credits for the creators of Hugin"
-msgstr "Wyświetl autorów Hugin'a"
+msgstr "Wyświetl autorów Hugina"
 
 #: src/hugin/xrc/nona_panel.xrs:1 src/hugin/xrc/ptstitcher_panel.xrs:1
 msgid "Stitching Options"
@@ -2175,7 +2177,7 @@ msgstr "kompresja JPEG (0-100)"
 
 #: src/hugin/xrc/nona_panel.xrs:21
 msgid "Soft Blending (requires enblend, only TIFF output)"
-msgstr "Miękkie łączenie (wymaga enblend'a, tylko dla plików TIFF)"
+msgstr "Miękkie łączenie (wymaga enblenda, tylko dla plików TIFF)"
 
 #: src/hugin/xrc/nona_panel.xrs:22
 msgid ""
@@ -2223,7 +2225,7 @@ msgstr "Optymalizuj teraz!"
 
 #: src/hugin/xrc/optimize_panel.xrs:11
 msgid "execute the PTOptimizer engine"
-msgstr "uruchom PTOptimizer'a"
+msgstr "uruchom PTOptimizera"
 
 #: src/hugin/xrc/optimize_panel.xrs:12
 msgid ""
@@ -2333,7 +2335,7 @@ msgstr "w plik TIFF z warstwami"
 
 #: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered Photoshop file"
-msgstr "w plik Photoshop'a z warstwami"
+msgstr "w plik Photoshopa z warstwami"
 
 #: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "Stitch now!"
@@ -2530,7 +2532,7 @@ msgstr "Język"
 
 #: src/hugin/xrc/pref_dialog.xrs:39
 msgid "requires restarting hugin"
-msgstr "wymaga restartu hugin'a"
+msgstr "wymaga restartu hugina"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
 msgid "Optimize and stitch only images selected in preview window"
@@ -2546,11 +2548,11 @@ msgstr "Folder tymczasowy:"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
 msgid "leave empty for OS default"
-msgstr "Dla domyślnych OS'a nie wypełniaj"
+msgstr "Dla domyślnych wartości systemu nie wypełniaj"
 
 #: src/hugin/xrc/pref_dialog.xrs:45
 msgid "Show Druid (requires restarting hugin)"
-msgstr "Pokaż asystenta (wymaga restartu hugin'a)"
+msgstr "Pokaż asystenta (wymaga restartu hugina)"
 
 #: src/hugin/xrc/pref_dialog.xrs:46 src/hugin/xrc/pref_dialog.xrs:54
 msgid "Autopano"
@@ -2678,7 +2680,7 @@ msgstr "Schowaj wszystkie zdjęcia"
 #: src/hugin/xrc/preview_frame.xrs:20 src/hugin/xrc/ptstitcher_panel.xrs:14
 #: src/hugin/xrc/ptstitcher_panel.xrs:24
 msgid "None"
-msgstr "Żaden"
+msgstr "Brak"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:11
 msgid "approximation of values between source pixels"
@@ -2817,34 +2819,39 @@ msgid ""
 "The control key or the middle mouse button can be used to pan one image in "
 "the control points tab."
 msgstr ""
+"Można użyć klawisza control lub środkowego przycisku myszy do przewijania jednego obrazu w zakładce pubktów kontrolnych."
 
 #: src/hugin/xrc/data/tips.txt:5
 msgid ""
 "Rotating the camera around the entrance pupil (sometimes also called \"nodal "
 "point\") avoids parallax errors and makes panorama creation a lot easier."
 msgstr ""
+"Obracanie aparatu wokół wejścia źrenicy (czasem zwanego \"punktem nodalnym\") zapobiega błędom paralaksy i czyni tworzenie panoramy dużo łatwiejszym."
 
 #: src/hugin/xrc/data/tips.txt:6
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr ""
+msgstr "Wprowadzenie do hugina jest dostępne pod http://hugin.sf.net/tutorials"
 
 #: src/hugin/xrc/data/tips.txt:7
 msgid ""
 "If the panorama looks nice but the horizon is curved add vertical control "
 "points. See http://hugin.sf.net/tutorials for more information"
 msgstr ""
+"Jeśli panorama wygląda ładnie, ale horyzont jest zakrzywiony, można dodać pionowe punkty kontrolne. Więcej informacji pod http://hugin.sf.net/tutorials"
 
 #: src/hugin/xrc/data/tips.txt:8
 msgid ""
 "Horizontal or vertical control point pairs can be set by selecting the same "
 "image on both sides of the control points tab."
 msgstr ""
+"Pary poziomych lub pionowych punktów kontrolnych można ustawiać wybierając ten sam obraz po obu stronach zakładki punktów kontrolnych."
 
 #: src/hugin/xrc/data/tips.txt:9
 msgid ""
 "Control points should be placed on static objects. Avoid placing them "
 "people, trees and other moving or deforming objects."
 msgstr ""
+"Punkty kontrolne powinny być umieszczone na obiektach statycznych. Należy unikać umieszczania ich na ludziach, drzewach i innych poruszających lub deformujących się obiektach."
 
 #: src/hugin/xrc/data/tips.txt:10
 msgid "Images can also be added to hugin via drag and drop."
@@ -2855,18 +2862,21 @@ msgid ""
 "Spread control points as far as possible. Close control points do not define "
 "the relative orientation between images well."
 msgstr ""
+"Punkty kontrolne należy rozprzestrzeniać tak daleko, jak tylko możliwe. Bliskie punkty nie określają dobrze względnej orientacji między obrazami."
 
 #: src/hugin/xrc/data/tips.txt:12
 msgid ""
 "The Fine Tune button can be used to find a better position for the point in "
 "the right image for an already selected point."
 msgstr ""
+"Przycisku Dostrój można użyć do znalezienia lepszego położenia dla punktu na prawym obrazie dla już wybranego punktu."
 
 #: src/hugin/xrc/data/tips.txt:13
 msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
 msgstr ""
+"Modyfikowanie panoramy w wielu warstwach przy użyciu Gimpa lub Photoshopa daje wiele twórczych możliwości."
 
 #: src/hugin/xrc/data/tips.txt:14
 msgid ""
@@ -2874,16 +2884,18 @@ msgid ""
 "comprehensive information about creating panoramas and other images with "
 "panotools."
 msgstr ""
+"Wiki PanoTools pod http://www.panotools.info/mediawiki zawiera obszerne informacje o tworzeniu panoram i innych obrazów przy użyciu panotools."
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr ""
+msgstr "Wyjście w postaci wielowarstwowych plików tiff można wczytać do Gimpa 2.0 lub nowszego."
 
 #: src/hugin/xrc/data/tips.txt:16
 msgid ""
 "You can press the middle mouse button to pan images in the control points "
 "tab."
 msgstr ""
+"Można nacisnąć środkowy klawisz myszy, aby przewinąć obrazy w zakładce punktów kontrolnych."
 
 #: src/hugin/xrc/data/tips.txt:17
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -2909,12 +2921,14 @@ msgid ""
 "The external tools autopano and autopano-sift can be used to create control "
 "points automatically."
 msgstr ""
+"Zewnętrzne narzędzia autopano i autopano-sift mogą być używane do automatycznego tworzenia punktów kontrolnych."
 
 #: src/hugin/xrc/data/tips.txt:22
 msgid ""
 "Enblend can be used to smoothly blend the panorama. Use it from within hugin "
 "by selecting \"high quality tiff file\" as output."
 msgstr ""
+"Można użyć Enblenda do gładkiego złożenia panoramy. Można go wywołać z hugina poprzez wybranie \"wysokiej jakości pliku TIFF\" jako wyjścia."
 
 #: src/hugin/xrc/data/tips.txt:23
 msgid ""
@@ -2922,53 +2936,45 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
+"Po złożeniu ponoramy przez enblenda przemapowane obrazy wyjściowe (dostępne w tym samym katalogu co obraz panoramy) można wykorzystać do retuszu panoramy w Gimpie lub Photoshopie."
 
 #: src/hugin/xrc/data/tips.txt:24
 msgid ""
 "hugin and other free panoramic software is discussed on the ptx email list. "
 "http://www.email-lists.org/mailman/listinfo/ptx"
 msgstr ""
+"O huginie i innych darmowych programach do panoram można dyskutować na liście dyskusyjnej ptx: http://www.email-lists.org/mailman/listinfo/ptx"
 
 #: src/hugin/xrc/data/tips.txt:25
 msgid ""
 "The Panorama Tools, on which hugin is based were written by Helmut Dersch."
 msgstr ""
+"Panorama Tools, na których oparty jest hugin, zostały napisane przez Helmuta Derscha."
 
 #: src/hugin/xrc/data/tips.txt:26
 msgid ""
 "The precision of \"fine tuning\" control points can be improved by enabling "
 "rotation search. This is essential for fisheye and wide angle images."
 msgstr ""
+"Precyzja \"dostrajania\" punktów kontrolnych może być poprawiona poprzez włączenie wyszukiwania obrotów. Jest to istotne dla obrazów szerokokątnych i z \"rybiego oka\"."
 
 #: src/hugin/xrc/data/tips.txt:27
 msgid ""
 "Multiple images can be selected in the image and lens tabs. Commands will "
 "act on all selected images."
 msgstr ""
+"W zakładkach obrazów i soczewek można wybrać wiele obrazów. Polecenia będą wykonywane na wszystkich wybranych obrazach."
 
 #: src/hugin/xrc/data/tips.txt:28
 msgid ""
 "Lens parameters may vary with changing focus. For best results, calibrate "
 "the parameters using know settings and reuse them later."
 msgstr ""
+"Parametry soczewki mogą się różnić wraz ze zmianą ogniskowej. Dla najlepszych wyników należy skalibrować parametry przy użyciu znanych ustawień i później używać ich ponownie."
 
 #: src/hugin/xrc/data/tips.txt:29
 msgid ""
 "Optimisation of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-
-#~ msgid "NONE"
-#~ msgstr "NONE"
-
-#~ msgid "DEFLATE"
-#~ msgstr "DEFLATE"
-
-#~ msgid "LZW"
-#~ msgstr "LZW"
-
-#, fuzzy
-#~ msgid ""
-#~ "available on linux only\n"
-#~ "requires restarting hugin"
-#~ msgstr "wymaga restartu hugin'a"
+"Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze rozproszonych punktów kontrolnych."
