@@ -160,6 +160,7 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
     unsigned int nImages = pano.getNrOfImages();
 
+    /*
     if (nImages == 0) {
         // disable some controls
         m_ColorCorrModeChoice->Disable();
@@ -181,7 +182,8 @@ void PTStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
     	m_JPEGQualitySpin->Enable();
     	m_editScriptCB->Enable();
     	m_SpeedupChoice->Enable();
-   }
+    }
+    */
 
     int maximg = ((int)nImages) -1;
     // set spinctrl limits
@@ -431,12 +433,26 @@ void PTStitcherPanel::Stitch(const Panorama & pano,
                              PanoramaOptions opts_)
 {
     PanoramaOptions opts(opts_);
+
+    /*
     // work around a bug in PTStitcher, which doesn't
     // allow multilayer tif files to end with .tif
     if ( opts.outputFormat == PanoramaOptions::TIFF_m
          || opts.outputFormat == PanoramaOptions::TIFF_mask )
     {
         opts.outfile = stripExtension(opts.outfile);
+    }
+    */
+
+    opts.outfile = stripExtension(opts.outfile);
+    // check if the path contains a .
+    if (opts.outfile.find('.') != std::string::npos) {
+	int r = wxMessageBox(_("PTStitcher does not support output filenames that include a dot character (.).\nPlease save your projects in a directory without dot in the pathname.\n\nDo you want to continue anyway?"),
+			     _("PTStitcher problem"),
+			     wxYES_NO);
+	if (r == wxNO) {
+	    return;
+	}
     }
     
 #if __unix__ || WIN32

@@ -124,7 +124,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     pano->addObserver (this);
 
     // setup the stitcher
-    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),0l);
+    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),1l);
 #ifdef NO_PTSTITCHER
     // disable stitcher choice and select nona,
     // since PTStitcher is not available on OSX
@@ -164,24 +164,24 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
     if (pano.getNrOfImages() == 0) {
-        m_ProjectionChoice->Disable();
-        m_HFOVSpin->Disable();
+        //m_ProjectionChoice->Disable();
+        //m_HFOVSpin->Disable();
         m_CalcHFOVButton->Disable();
-        m_VFOVSpin->Disable();
-        m_WidthTxt->Disable();
+        //m_VFOVSpin->Disable();
+        //m_WidthTxt->Disable();
         m_CalcOptWidthButton->Disable();
-        m_HeightStaticText->Disable();
-        m_StitcherChoice->Disable();
+        //m_HeightStaticText->Disable();
+        //m_StitcherChoice->Disable();
         m_QuickChoice->Disable();
         m_StitchButton->Disable();
     } else {
-        m_ProjectionChoice->Enable();
-        m_HFOVSpin->Enable();
+        //m_ProjectionChoice->Enable();
+        //m_HFOVSpin->Enable();
         m_CalcHFOVButton->Enable();
-        m_VFOVSpin->Enable();
-        m_WidthTxt->Enable();
+        //m_VFOVSpin->Enable();
+        //m_WidthTxt->Enable();
         m_CalcOptWidthButton->Enable();
-        m_HeightStaticText->Enable();
+        //m_HeightStaticText->Enable();
 #ifndef NO_PTSTITCHER
         m_StitcherChoice->Enable();
 #endif
