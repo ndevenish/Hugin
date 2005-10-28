@@ -59,11 +59,12 @@ namespace vigra {
         desc.pixelTypes[7] = "DOUBLE";
 
         // init compression types
-        desc.compressionTypes.resize(4);
-        desc.compressionTypes[0] = "RLE";
-        desc.compressionTypes[1] = "JPEG";
-        desc.compressionTypes[2] = "LZW";
-        desc.compressionTypes[3] = "DEFLATE";
+        desc.compressionTypes.resize(5);
+        desc.compressionTypes[0] = "NONE";
+        desc.compressionTypes[1] = "RLE";
+        desc.compressionTypes[2] = "JPEG";
+        desc.compressionTypes[3] = "LZW";
+        desc.compressionTypes[4] = "DEFLATE";
 
         // init magic strings
         desc.magicStrings.resize(2);
@@ -654,7 +655,9 @@ namespace vigra {
     {
         // if any compression type is set that we do not support,
         // the expected behavior is to do nothing
-        if ( ( comp == "JPEG" ) && ( quality != -1 ) )
+        if ( comp == "NONE" )
+            tiffcomp = COMPRESSION_NONE;
+        else if ( ( comp == "JPEG" ) && ( quality != -1 ) )
             tiffcomp = COMPRESSION_OJPEG;
         else if ( comp == "RLE" )
             tiffcomp = COMPRESSION_CCITTRLE;
