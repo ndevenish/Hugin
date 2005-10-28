@@ -362,6 +362,15 @@ bool huginApp::OnInit()
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
+    // set some suitable defaults
+    PanoramaOptions opts = pano.getOptions();
+    opts.outputFormat = PanoramaOptions::TIFF;
+    opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+    pano.setOptions(opts);
+
+    pano.changeFinished();
+    pano.clearDirty();
+
     DEBUG_TRACE("=========================== huginApp::OnInit() end ===================");
     return true;
 }
