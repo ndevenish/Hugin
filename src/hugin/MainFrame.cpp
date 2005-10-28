@@ -238,7 +238,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
 
     // Disable tools by default
-	enableTools(false);
+    enableTools(false);
 	
     // image_panel
     // put an "unknown" object in an xrc file and
@@ -500,7 +500,9 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         std::ofstream script(scriptName.GetFullPath().mb_str());
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
-        fill_set(all, 0, pano.getNrOfImages()-1);
+	if (pano.getNrOfImages() > 0) {
+	    fill_set(all, 0, pano.getNrOfImages()-1);
+	}
         pano.printOptimizerScript(script, optvec, pano.getOptions(), all, path);
         script.close();
     }
@@ -519,6 +521,9 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
+	if (m_filename.Right(4) != wxT(".pto")) {
+	    m_filename.Append(wxT(".pto"));
+	}
         OnSaveProject(e);
         wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
     }
@@ -537,7 +542,9 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
         // the project file is just a PTStitcher script...
         wxFileName scriptName = fname;
         PT::UIntSet all;
-        fill_set(all, 0, pano.getNrOfImages()-1);
+	if (pano.getNrOfImages() > 0) {
+	    fill_set(all, 0, pano.getNrOfImages()-1);
+	}
         std::ofstream script(scriptName.GetFullPath().mb_str());
         pano.printStitcherScript(script, pano.getOptions(), all);
         script.close();
@@ -1258,22 +1265,22 @@ void MainFrame::updateProgressDisplay()
 
 void MainFrame::enableTools(bool option)
 {
-	{
-	  wxToolBar* theToolBar = GetToolBar();
-	  theToolBar->EnableTool(XRCID("action_optimize"), option);
-	  theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
-	  theToolBar->EnableTool(XRCID("action_save_project"), option);
-	  theToolBar->EnableTool(XRCID("action_save_as_project"), option);
-	}
-	{
-	  wxMenuBar* theMenuBar = GetMenuBar();
-	  theMenuBar->Enable(XRCID("action_optimize"), option);
-	  theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
-	  theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
-	  theMenuBar->Enable(XRCID("action_save_project"), option);
-	  theMenuBar->Enable(XRCID("action_save_as_project"), option);
-	  theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);
-	}
+    {
+	wxToolBar* theToolBar = GetToolBar();
+	theToolBar->EnableTool(XRCID("action_optimize"), option);
+	theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	//theToolBar->EnableTool(XRCID("action_save_project"), option);
+	//theToolBar->EnableTool(XRCID("action_save_as_project"), option);
+    }
+    {
+	wxMenuBar* theMenuBar = GetMenuBar();
+	theMenuBar->Enable(XRCID("action_optimize"), option);
+	theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
+	theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+	//theMenuBar->Enable(XRCID("action_save_project"), option);
+	//theMenuBar->Enable(XRCID("action_save_as_project"), option);
+	//theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);
+    }
 }
 
 
