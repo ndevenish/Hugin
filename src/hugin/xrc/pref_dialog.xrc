@@ -22,25 +22,32 @@
                         <object class="sizeritem">
                           <object class="wxStaticText" name="">
                             
+                            
                             <label>PTStitcher:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_pt_PTStitcherEXE"/>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_ptstitcher_select">
                             
+                            
                             <label>...</label>
                           </object>
+                          
                           
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
@@ -48,89 +55,115 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>PTOptimizer</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_pt_PTOptimizerEXE"/>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_ptoptimizer_select">
                             
+                            
                             <label>...</label>
                           </object>
+                          
                           
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Scriptfile</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_pt_ScriptFile">
                             
+                            
                             <tooltip>Name of the temporary script file used by Panotools</tooltip>
                           </object>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="spacer">
+                          
                           
                           <size>0,0</size>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Panotools:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="prefs_panotools_version">
                             
+                            
                             <label>Panotools</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_panotools_details">
                             
+                            
                             <label>Details</label>
+                            
                             
                             <enabled>0</enabled>
                           </object>
+                          
                           
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -153,163 +186,213 @@
                         <object class="sizeritem">
                           <object class="wxStaticText" name="">
                             
+                            
                             <label>Patch width:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ft_TemplateSize">
                             
+                            
                             <min>3</min>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
+                            
                             
                             <label>pixels</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Search area width:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ft_SearchAreaPercent">
                             
+                            
                             <min>1</min>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>percent of image width</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="">
                             
+                            
                             <label>Local search area width:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_ft_LocalSearchWidth">
                             
+                            
                             <min>1</min>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>pixels</label>
+                            
                             
                             <tooltip></tooltip>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Correlation Threshold:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_ft_CorrThreshold"/>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>0: no similarity\n1: maximum similarity</label>
+                            
                             
                             <tooltip></tooltip>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Peak Curvature Threshold:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_ft_CurvThreshold"/>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>0: no peak\n 0.2: distinctive peak</label>
+                            
                             
                             <tooltip></tooltip>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <growablecols>2</growablecols>
                       </object>
                       
+                      
                       <option>1</option>
+                      
                       
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -319,6 +402,7 @@
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_ft_RotationSearch">
+                        
                         
                         <label>Enable rotation search (slower, but more accurate)</label>
                       </object>
@@ -330,82 +414,106 @@
                           <object class="sizeritem">
                             <object class="wxStaticText" name="">
                               
+                              
                               <label>Start angle:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationStartAngle">
                               
+                              
                               <style></style>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
+                              
                               
                               <label>degrees</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Stop angle:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationStopAngle"/>
                             
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
+                              
                               
                               <label>degrees</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Steps:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationSteps">
                               
+                              
                               <min>0</min>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <growablecols>2</growablecols>
                           <object class="spacer">
+                            
                             
                             <size>0,0</size>
                           </object>
@@ -414,7 +522,9 @@
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -437,42 +547,55 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Image cache memory:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxSpinCtrl" name="prefs_cache_UpperBound">
                             
+                            
                             <min>1</min>
+                            
                             
                             <tooltip>Keep fullsize images in memory, until this limit is exceeded</tooltip>
                           </object>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>MB</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -486,32 +609,42 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Language</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxChoice" name="prefs_gui_language">
                             
+                            
                             <content/>
                           </object>
                           
+                          
                           <flag>wxALL|wxEXPAND</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>requires restarting hugin</label>
+                            
                             
                             <style></style>
                           </object>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
@@ -519,21 +652,27 @@
                         <growablecols>1</growablecols>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_misc_UseSelectedImages">
                         
+                        
                         <label>Optimize and stitch only images selected in preview window</label>
                       </object>
                       
+                      
                       <flag>wxALL</flag>
+                      
                       
                       <border>5</border>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -547,39 +686,51 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Tempdir:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_misc_tempdir"/>
                           
+                          
                           <option>1</option>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>leave empty for OS default</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -593,18 +744,23 @@
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="prefs_misc_showDruid">
                             
+                            
                             <label>Show Druid (requires restarting hugin)</label>
                           </object>
                         </object>
                       </object>
                       
+                      
                       <option>1</option>
+                      
                       
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -621,15 +777,19 @@
                     <object class="sizeritem">
                       <object class="wxStaticText">
                         
+                        
                         <label>Select Autopano</label>
                       </object>
                       
+                      
                       <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      
                       
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxChoice" name="prefs_AutoPanoType">
+                        
                         
                         <content>
                           <item>Autopano (by A. Jenny)</item>
@@ -640,7 +800,9 @@
                     <orient>wxHORIZONTAL</orient>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -655,44 +817,57 @@
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Autopano-SIFT:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxTextCtrl" name="prefs_AutoPanoSIFTExe"/>
                             
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxButton" name="prefs_AutoPanoSIFTExe_select">
                               
+                              
                               <label>...</label>
                             </object>
+                            
                             
                             <flag>wxALIGN_CENTRE_VERTICAL</flag>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Arguments:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxTextCtrl" name="prefs_AutoPanoSIFTArgs"/>
                             
+                            
                             <option>2</option>
                             
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
@@ -700,11 +875,14 @@
                         </object>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -719,44 +897,57 @@
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Autopano:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxTextCtrl" name="prefs_AutoPanoKolorExe"/>
                             
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxButton" name="prefs_AutoPanoKolorExe_select">
                               
+                              
                               <label>...</label>
                             </object>
+                            
                             
                             <flag>wxALIGN_CENTRE_VERTICAL</flag>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               
+                              
                               <label>Arguments:</label>
                             </object>
                             
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxTextCtrl" name="prefs_AutoPanoKolorArgs"/>
                             
+                            
                             <option>2</option>
                             
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
                             
                             <border>5</border>
                           </object>
@@ -764,16 +955,20 @@
                         </object>
                       </object>
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
+                    
                     
                     <label>following patterns will be subsituted before running:
 %o  -- output project (0.oto will be appended when using Autopano)
@@ -782,7 +977,9 @@
 %namefile -- file that contains image filenames</label>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -804,78 +1001,115 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Enblend:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_enblend_EnblendExe"/>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_enblend_select">
                             
+                            
                             <label>...</label>
                           </object>
+                          
                           
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             
+                            
                             <label>Additional Arguments:</label>
                           </object>
                           
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_enblend_EnblendArgs"/>
                           
+                          
                           <option>2</option>
                           
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
                           
                           <border>5</border>
                         </object>
                         <growablecols>1</growablecols>
                         <object class="spacer">
                           
+                          
                           <size>0,0</size>
                         </object>
                       </object>
+                      
                       
                       <flag>wxALL|wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
                       <object class="wxStaticText">
                         
+                        
                         <label>Do not set -w and -o arguments, they are set by hugin</label>
                       </object>
                       
+                      
                       <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                      
                       
                       <border>10</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_enblend_DeleteRemapped">
                         
+                        
                         <label>Delete remapped tiff files</label>
                       </object>
                     
+                      
                       <flag>wxTOP|wxLEFT</flag>
+                      
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_enblend_UseCroppedFiles">
+                        
+                        
+                        <label>Use cropped TIFF files (enblend 2.4 or higher required)</label>
+                      
+                        <tooltip>Save cropped images, requires less disk space and memory.</tooltip>
+                      </object>
+                    
+                      
+                      <flag>wxTOP|wxLEFT</flag>
+                      
                       <border>5</border>
                     </object>
                   </object>
                   
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
                   
                   <border>5</border>
                 </object>
@@ -884,11 +1118,15 @@
           </object>
         </object>
         
+        
         <option>1</option>
+        
         
         <flag>wxALL|wxEXPAND</flag>
         
+        
         <border>5</border>
+        
         
         <minsize>450,400</minsize>
       </object>
@@ -897,69 +1135,90 @@
           <orient>wxHORIZONTAL</orient>
           <object class="spacer">
             
+            
             <option>4</option>
+            
             
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
               
+              
               <label>Ok</label>
             </object>
             
+            
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            
             
             <border>5</border>
           </object>
           <object class="spacer">
             
+            
             <option>1</option>
+            
             
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_APPLY">
               
+              
               <label>Apply</label>
             </object>
             
+            
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            
             
             <border>5</border>
           </object>
           <object class="spacer">
             
+            
             <option>1</option>
+            
             
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
               
+              
               <label>Cancel</label>
             </object>
             
+            
             <flag>wxALL|wxEXPAND</flag>
+            
             
             <border>5</border>
           </object>
           <object class="spacer">
             
+            
             <option>4</option>
+            
             
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="prefs_defaults">
               
+              
               <label>Load Defaults</label>
             </object>
             
+            
             <flag>wxALL|wxEXPAND</flag>
+            
             
             <border>5</border>
           </object>
         </object>
+        
         
         <flag>wxEXPAND</flag>
       </object>
