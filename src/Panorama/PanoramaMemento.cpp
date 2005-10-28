@@ -512,7 +512,16 @@ public:
         getIntParam(width, line, "w");
         getIntParam(height, line, "h");
         string crop_str;
-        if ( getPTParam(crop_str, line, "C")) {
+        if ( getPTParam(crop_str, line, "C") ) {
+            int left, right, top, bottom;
+            int n = sscanf(crop_str.c_str(), "%d,%d,%d,%d", &left, &right, &top, &bottom);
+            if (n == 4) {
+                crop = vigra::Rect2D(left, top, right, bottom);
+            } else {
+                DEBUG_WARN("Could not parse crop string: " << crop_str);
+            }
+        }
+        if ( getPTParam(crop_str, line, "S") ) {
             int left, right, top, bottom;
             int n = sscanf(crop_str.c_str(), "%d,%d,%d,%d", &left, &right, &top, &bottom);
             if (n == 4) {

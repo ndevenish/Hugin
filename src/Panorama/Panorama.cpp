@@ -827,7 +827,7 @@ void Panorama::printOptimizerScript(ostream & o,
         if (img.getOptions().docrop) {
             // print crop parameters
             vigra::Rect2D c = img.getOptions().cropRect;
-            o << " C" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
+            o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
         }
 
 //        o << " u" << (*it).getOptions().featherWidth
@@ -920,8 +920,10 @@ void Panorama::printOptimizerScript(ostream & o,
         break;
     case PanoramaOptions::SPLINE_BLEND:
         o << " e2";
+	break;
     case PanoramaOptions::CHESSBOARD_BLEND:
         o << " e3";
+	break;
     }
 	o << std::endl;
 
