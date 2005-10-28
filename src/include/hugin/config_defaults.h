@@ -48,7 +48,6 @@
 
 #define HUGIN_PREVIEW_SHOW_DRUID              1l
 #define HUGIN_USE_SELECTED_IMAGES             0l
-#define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   0l
 #define HUGIN_CROP_SETS_CENTER                1l
 
 // GUI defaults
@@ -104,7 +103,8 @@
 
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    "-v "
-#define HUGIN_ENBLEND_WRITE_CROPPED_IMAGES    0l
+#define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   0l
+#define HUGIN_ENBLEND_USE_CROPPED_FILES       0l
 // Autopano-SIFT args
 #ifndef HUGIN_APSIFT_ARGS
 #define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"

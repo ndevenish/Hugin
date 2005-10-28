@@ -616,6 +616,10 @@ void PreferencesDialog::UpdateDisplayData()
                                                       wxT(HUGIN_ENBLEND_ARGS)));
     t = cfg->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) == 1;
     MY_BOOL_VAL("prefs_enblend_DeleteRemapped", t);
+
+    t = cfg->Read(wxT("/Enblend/UseCroppedFiles"), HUGIN_ENBLEND_USE_CROPPED_FILES) == 1;
+    MY_BOOL_VAL("prefs_enblend_UseCroppedFiles", t);
+
     /////
 	/// Display Panotools version if we can
 	if (GetPanoVersion())
@@ -685,6 +689,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS));
             cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES);
+            cfg->Write(wxT("/Enblend/UseCroppedFiles"), HUGIN_ENBLEND_USE_CROPPED_FILES);
         }
 
         UpdateDisplayData();
@@ -761,4 +766,5 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Enblend/EnblendExe"), MY_G_STR_VAL("prefs_enblend_EnblendExe"));
     cfg->Write(wxT("/Enblend/EnblendArgs"), MY_G_STR_VAL("prefs_enblend_EnblendArgs"));
     cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), MY_G_BOOL_VAL("prefs_enblend_DeleteRemapped"));
+    cfg->Write(wxT("/Enblend/UseCroppedFiles"), MY_G_BOOL_VAL("prefs_enblend_UseCroppedFiles"));
 }

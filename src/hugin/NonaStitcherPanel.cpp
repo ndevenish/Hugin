@@ -58,7 +58,9 @@ BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
     EVT_SPINCTRL(XRCID("nona_jpeg_quality"), NonaStitcherPanel::OnSetQuality)
     EVT_CHECKBOX( XRCID("nona_check_enblend"), NonaStitcherPanel::OnEnblendChanged)
+    EVT_CHECKBOX( XRCID("nona_save_cropped"), NonaStitcherPanel::OnSaveCropped)
     EVT_CHOICE   ( XRCID("nona_choice_format_final"),NonaStitcherPanel::FileFormatChanged)
+    EVT_CHOICE ( XRCID("nona_comp_type"),NonaStitcherPanel::OnCompTypeChanged)
 END_EVENT_TABLE()
 
 
@@ -85,6 +87,12 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
 
     m_EnblendCheckBox = XRCCTRL(*this, "nona_check_enblend", wxCheckBox);
     DEBUG_ASSERT(m_EnblendCheckBox);
+
+    m_SaveCroppedCB = XRCCTRL(*this, "nona_save_cropped", wxCheckBox);
+    DEBUG_ASSERT(m_SaveCroppedCB);
+
+    m_CompTypeChoice = XRCCTRL(*this, "nona_comp_type", wxChoice);
+    DEBUG_ASSERT(m_CompTypeChoice);
 
     UpdateDisplay(pano.getOptions());
 
@@ -120,24 +128,24 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
     unsigned int nImages = pano.getNrOfImages();
 	
-	if (nImages == 0) {
-		// disable controls
-  		m_InterpolatorChoice->Disable();
-  		m_FormatChoice->Disable();
-  		m_JPEGQualitySpin->Disable();
-  		m_EnblendCheckBox->Disable();
-		//
-	} else {
-		// enable controls
-  		if (m_InterpolatorChoice->Enable()) 
-		{
-  		  m_FormatChoice->Enable();
-  		  m_JPEGQualitySpin->Enable();
-  		  m_EnblendCheckBox->Enable();
-		}
-		//
+    //    if (nImages == 0) {
+	// disable controls
+	//m_InterpolatorChoice->Disable();
+	//m_FormatChoice->Disable();
+	//m_JPEGQualitySpin->Disable();
+	//m_EnblendCheckBox->Disable();
+	//
+    //} else {
+	// enable controls
+	//if (m_InterpolatorChoice->Enable()) 
+	//{
+	//m_FormatChoice->Enable();
+	//m_JPEGQualitySpin->Enable();
+	//m_EnblendCheckBox->Enable();
+	//}
+	//
 
-  	  m_InterpolatorChoice->SetSelection(opt.interpolator);
+	m_InterpolatorChoice->SetSelection(opt.interpolator);
 
       // translate format
       int format;
@@ -176,6 +184,32 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
       }
       m_JPEGQualitySpin->SetValue(opt.quality);
 
+      if (opt.outputFormat == PanoramaOptions::TIFF ||
+          opt.outputFormat == PanoramaOptions::TIFF_m ||
+          opt.outputFormat == PanoramaOptions::TIFF_multilayer)
+      {
+          m_CompTypeChoice->Enable();
+          if (opt.tiffCompression == "NONE") {
+              m_CompTypeChoice->SetSelection(0);
+          } else if (opt.tiffCompression == "LZW") {
+              m_CompTypeChoice->SetSelection(1);
+          } else if (opt.tiffCompression == "DEFLATE") {
+              m_CompTypeChoice->SetSelection(2);
+          } else {
+              DEBUG_ERROR("Unknown compression type");
+          }
+      } else {
+          m_CompTypeChoice->Disable();
+      }
+
+      if (opt.outputFormat == PanoramaOptions::TIFF_m) {
+          m_SaveCroppedCB->Enable();
+      } else {
+          m_SaveCroppedCB->Disable();
+      }
+
+      m_SaveCroppedCB->SetValue(opt.tiff_saveROI);
+
       if (opt.outputFormat == PanoramaOptions::TIFF) {
       // enable enblend
           m_EnblendCheckBox->Enable();
@@ -184,7 +218,7 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
           m_EnblendCheckBox->SetValue(false);
           m_EnblendCheckBox->Disable();
       }
-	}
+  //}
 }
 
 
@@ -282,11 +316,9 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // set output to multiple tiff.
             // hope the next enblend will also contain multilayer support
             opts.outputFormat = PanoramaOptions::TIFF_m;
-            if (wxConfigBase::Get()->Read(wxT("/Enblend/WriteCroppedImages"),
-		                          HUGIN_ENBLEND_WRITE_CROPPED_IMAGES))
-            {
-                opts.tiff_saveROI = true;
-            }
+
+            opts. tiff_saveROI = (wxConfigBase::Get()->Read(wxT("/Enblend/UseCroppedFiles"),
+                                  HUGIN_ENBLEND_USE_CROPPED_FILES));
         }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
@@ -465,3 +497,37 @@ void NonaStitcherPanel::OnSetQuality(wxSpinEvent & e)
         );
 }
 
+
+void NonaStitcherPanel::OnSaveCropped(wxCommandEvent & e)
+{
+    PanoramaOptions opt = pano.getOptions();
+
+    opt.tiff_saveROI= m_SaveCroppedCB->GetValue();
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+                                           );
+}
+
+void NonaStitcherPanel::OnCompTypeChanged( wxCommandEvent & e )
+{
+    PanoramaOptions opt = pano.getOptions();
+
+    switch (e.GetSelection()) {
+        case 0:
+            opt.tiffCompression = "NONE";
+            break;
+        case 1:
+            opt.tiffCompression = "LZW";
+            break;
+        case 2:
+            opt.tiffCompression = "DEFLATE";
+            break;
+        default:
+            DEBUG_ERROR("Unknown compression type");
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+                                           );
+}

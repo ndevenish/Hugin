@@ -75,7 +75,9 @@ public:
     // apply changes to the model. (gui values -> Panorama)
     void InterpolatorChanged(wxCommandEvent & e);
     void OnEnblendChanged( wxCommandEvent & e );
+    void OnCompTypeChanged( wxCommandEvent & e );
     void OnSetQuality(wxSpinEvent & e);
+    void OnSaveCropped(wxCommandEvent & e);
 
     void FileFormatChanged(wxCommandEvent & e);
 
@@ -99,6 +101,8 @@ public:
     wxChoice    * m_FormatChoice;
     wxSpinCtrl  * m_JPEGQualitySpin;
     wxCheckBox  * m_EnblendCheckBox;
+    wxCheckBox  * m_SaveCroppedCB;
+    wxChoice    * m_CompTypeChoice;
 
     DECLARE_EVENT_TABLE()
 };
