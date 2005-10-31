@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 //
-// Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
+// Pablo d'Angelo <pablo.dangelo@web.de>
 // Last change: Time-stamp: <26-Oct-2003 18:37:34 pablo@island.wh-wurm.uni-ulm.de>
 //
 //

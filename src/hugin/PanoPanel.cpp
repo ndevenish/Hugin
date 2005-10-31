@@ -5,7 +5,7 @@
  *  @brief implementation of PanoPanel Class
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de> and
- *          Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
+ *          Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  $Id$
  *

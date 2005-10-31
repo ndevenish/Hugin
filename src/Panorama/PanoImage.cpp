@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 // PanoImage.cpp
 //
-// Pablo d'Angelo <pablo@mathematik.uni-ulm.de>
+// Pablo d'Angelo <pablo.dangelo@web.de>
 // Last change: Time-stamp: <27-Okt-2004 19:05:03 pablo@svalbart>
 //
 //
