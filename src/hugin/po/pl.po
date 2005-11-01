@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.5-rc2\n"
+"Project-Id-Version: hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-11-01 13:03+0100\n"
-"PO-Revision-Date: 2005-09-23 14:01+0200\n"
+"PO-Revision-Date: 2005-11-01 22:50+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -380,7 +380,7 @@ msgstr "Tworzę zdjęcie piramidalne dla %s, poziom %d"
 
 #: src/hugin/ImageCenter.cpp:62
 msgid "Crop Image"
-msgstr "Ucięcie zdjecia"
+msgstr "Ucięcie zdjęcia"
 
 #: src/hugin/ImageCenter.cpp:81
 msgid "Left:"
@@ -1049,7 +1049,7 @@ msgstr "Portugalski (brazylijski)"
 
 #: src/hugin/PreferencesDialog.cpp:133
 msgid "Dutch"
-msgstr ""
+msgstr "Duński"
 
 #: src/hugin/PreferencesDialog.cpp:136
 msgid "Russian"
@@ -1057,7 +1057,7 @@ msgstr "Rosyjski"
 
 #: src/hugin/PreferencesDialog.cpp:139
 msgid "Simplified Chinese"
-msgstr ""
+msgstr "Chiński uproszczony"
 
 #: src/hugin/PreferencesDialog.cpp:215
 msgid "Select PTStitcher"
@@ -1224,11 +1224,14 @@ msgid ""
 "\n"
 "Do you want to continue anyway?"
 msgstr ""
+"PTStitcher nie obsługuje nazw plików wyjściowych zawierających znak kropki (.).\n"
+"Proszę zapisać projekty w katalogu bez kropki w nazwie.\n"
+"\n"
+"Czy kontynuować mimo to?"
 
 #: src/hugin/PTStitcherPanel.cpp:451
-#, fuzzy
 msgid "PTStitcher problem"
-msgstr "uwaga PTStitchera"
+msgstr "problem z PTStitcherem"
 
 #: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
@@ -2204,20 +2207,19 @@ msgstr "Brak"
 
 #: src/hugin/xrc/nona_panel.xrs:22
 msgid "LZW"
-msgstr ""
+msgstr "LZW"
 
 #: src/hugin/xrc/nona_panel.xrs:23
-#, fuzzy
 msgid "Deflate"
-msgstr "Usuń"
+msgstr "Deflating"
 
 #: src/hugin/xrc/nona_panel.xrs:24
 msgid "Save cropped images (only TIFF&m)"
-msgstr ""
+msgstr "Zapisz ucięte zdjęcia (tylko TIFF&m)"
 
 #: src/hugin/xrc/nona_panel.xrs:25
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr ""
+msgstr "Zapisz ucięte pliki TIFF. Przydatne dla enblenda 2.4 lub nowszego."
 
 #: src/hugin/xrc/nona_panel.xrs:26
 msgid "Soft Blending (requires enblend, only TIFF output)"
@@ -2667,11 +2669,11 @@ msgstr "Usuń zremapowane zdjęcia tiff"
 
 #: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-msgstr ""
+msgstr "Użyj uciętych plików TIFF (wymagany enblend 2.4 lub nowszy)"
 
 #: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Save cropped images, requires less disk space and memory."
-msgstr ""
+msgstr "Zapisz ucięte zdjęcia - wymaga mniej miejsca na dysku i pamięci."
 
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
