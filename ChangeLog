@@ -1,3 +1,90 @@
+2005-11-01 19:50  dangelo
+
+	* src/hugin/: po/de.po, po/fr.po, po/hugin.pot, po/it.po, po/ja.po,
+	  po/nl.po, po/pl.po, po/pt_BR.po, po/ru.po, po/zh_CN.po,
+	  xrc/data/about.htm, xrc/data/about_fr.htm, xrc/data/about_pl.htm:
+	  updated translations with new strings
+
+2005-11-01 12:54  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: added chinese simplified to
+	  language dialog
+
+2005-10-31 12:10  dangelo
+
+	* src/: Panorama/PanoImage.cpp, build_msvc/hugin_msvc_install.bat,
+	  build_msvc/hugin_msvc_install_win98.bat,
+	  hugin/NonaStitcherPanel.cpp, hugin/PTStitcherPanel.cpp,
+	  hugin/PanoPanel.cpp, include/PT/PanoImage.h: small changes to
+	  install scripts, updated email address
+
+2005-10-28 19:41  dangelo
+
+	* src/Panorama/: Panorama.cpp, PanoramaMemento.cpp: save blendmode
+	  correctly
+
+2005-10-28 18:56  dangelo
+
+	* src/hugin/: PTStitcherPanel.cpp, PanoPanel.cpp: allow setting of
+	  panorama properties even if no image has been selected.  useful
+	  to create "default" project files.
+
+2005-10-28 18:54  dangelo
+
+	* src/foreign/vigra_impex/tiff.cxx: vigra bugfix: allow to switch
+	  back to no TIFF compression after some compression scheme has
+	  been selected.
+
+2005-10-28 18:52  dangelo
+
+	* src/hugin/huginApp.cpp: Select TIFF output and enblend by default
+
+2005-10-28 18:48  dangelo
+
+	* src/hugin/xrc/pref_dialog.xrc: added option to select cropped
+	  TIFF files for enblend 2.4
+
+2005-10-28 18:47  dangelo
+
+	* src/: hugin/NonaStitcherPanel.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/xrc/nona_panel.xrc, include/hugin/NonaStitcherPanel.h,
+	  include/hugin/config_defaults.h: added TIFF compression and
+	  TIFF_m roi mode selections to GUI
+
+2005-10-28 18:36  dangelo
+
+	* src/hugin/MainFrame.cpp: Add .pto extension to project files if
+	  they are missing (wxgtk 2.6 doesn't seem to do this
+	  automatically)
+
+2005-09-26 00:23  dangelo
+
+	* src/hugin/po/pl.po: updated polish translation by Jakub Bogusz
+
+2005-09-26 00:21  dangelo
+
+	* src/: hugin/po/LINGUAS, hugin/po/zh_CN.po, nona_gui/po/LINGUAS,
+	  nona_gui/po/zh_CN.po: added chinese translation by Lu Fang.
+
+2005-09-22 15:36  ippei
+
+	* mac/: wxMac-patch/carbon-dirdlg_cpp.patch,
+	  wxMac-patch/carbon-notebmac_cpp.patch, HuginOSX-Info.plist,
+	  PutAutopanoSiftToHuginOSX.applescript,
+	  PutEnblendToHuginOSX.applescript, localised.sh,
+	  Documents/ReadMe-HuginOSX.txt: Mac: rc2 release
+
+2005-09-18 20:43  dangelo
+
+	* utils/: pta2hugin.py, run-autopano-sift.sh: removed obselete
+	  scripts
+
+2005-09-18 20:38  dangelo
+
+	* ChangeLog, INSTALL, NEWS, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  final preparations for hugin 0.5-rc2
+
 2005-09-17 00:27  dangelo
 
 	* src/hugin/po/fr.po: updated french translation
