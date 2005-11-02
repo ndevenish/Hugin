@@ -452,7 +452,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         //position
         int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
         int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
-        if ( y >= 0 && x >= 0 && x < 4000 && y < 4000) {
+        if ( y >= 0 && x >= 0) {
             frame->Move(x, y);
         } else {
             frame->Move(0, 44);
@@ -480,7 +480,7 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         config->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
         config->Write(wxT("/") + basename + wxT("/maximized"), 0);
 #else
-    if (! frame->IsMaximized() ) {
+    if ( (! frame->IsMaximized()) && (! frame->IsIconized()) ) {
         wxSize sz = frame->GetClientSize();
         config->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
         config->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
@@ -488,7 +488,7 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         config->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
         config->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
         config->Write(wxT("/") + basename + wxT("/maximized"), 0);
-    } else {
+    } else if (frame->IsMaximized()){
         config->Write(wxT("/") + basename + wxT("/maximized"), 1l);
     }
 #endif
