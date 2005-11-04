@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin\n"
+"Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-11-01 13:03+0100\n"
-"PO-Revision-Date: 2005-08-31 10:06-0300\n"
+"PO-Revision-Date: 2005-11-03 14:03-0500\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team:  <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,8 +29,7 @@ msgstr "Resultado do autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:109
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
-msgstr ""
-"Autopano (versão 1.03 ou superior), disponível em http://autopano.kolor.com"
+msgstr "Autopano (versão 1.03 ou superior), disponível em http://autopano.kolor.com"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
@@ -94,8 +93,7 @@ msgstr "Erro no comando autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:271
 #, c-format
-msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Use %namefile ou %i para especificar os arquivos de origem para o autopano-"
 "sift"
@@ -312,8 +310,7 @@ msgstr "Selecione ponto na imagem à esquerda"
 
 #: src/hugin/CPEditorPanel.cpp:1882
 msgid "change points, or press right mouse button to add the pair"
-msgstr ""
-"altere os pontos, ou pressione o botão direito do mouse para adicionar o par"
+msgstr "altere os pontos, ou pressione o botão direito do mouse para adicionar o par"
 
 #: src/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -572,8 +569,7 @@ msgstr "Ler parâmetros de lente"
 
 #: src/hugin/LensPanel.cpp:756
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
-msgstr ""
-"Arquivos de parâmetros de lente (*.ini)|*.ini|Todos os arquivos (*.*)|*.*"
+msgstr "Arquivos de parâmetros de lente (*.ini)|*.ini|Todos os arquivos (*.*)|*.*"
 
 #: src/hugin/LensPanel.cpp:840
 msgid "Enter new lens number"
@@ -873,7 +869,6 @@ msgid "Warning:  current stitch has huge dimensions."
 msgstr "Aviso: a montagem atual tem um tamanho consideravelmente grande"
 
 #: src/hugin/PanoDruid.cpp:74
-#, fuzzy
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -883,7 +878,7 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 "Foram inseridas dimensões de pixel bastante grandes.\n"
-"Alguns computadores podem gastar um tempo excessivamente long\n"
+"Alguns computadores podem gastar um tempo excessivamente longo\n"
 "para renderizar uma imagem final tão grande.\n"
 "Para melhores resultados, use o botão \"Cálculo automático\"\n"
 "na aba de Opções do panorama para determinar as\n"
@@ -999,8 +994,7 @@ msgstr "Para iniciar o processo, adicione algumas imagens."
 
 #: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:538
 msgid "You can add any number of images using the Images tab."
-msgstr ""
-"Você pode adicionar qualquer número de imagens usando a aba \"Imagens\"."
+msgstr "Você pode adicionar qualquer número de imagens usando a aba \"Imagens\"."
 
 #: src/hugin/PanoDruid.cpp:276
 msgid "the Panorama druid"
@@ -1058,7 +1052,7 @@ msgstr "Português Brasileiro"
 
 #: src/hugin/PreferencesDialog.cpp:133
 msgid "Dutch"
-msgstr ""
+msgstr "Alemão"
 
 #: src/hugin/PreferencesDialog.cpp:136
 msgid "Russian"
@@ -1066,7 +1060,7 @@ msgstr "Russo"
 
 #: src/hugin/PreferencesDialog.cpp:139
 msgid "Simplified Chinese"
-msgstr ""
+msgstr "Chinês Simplificado"
 
 #: src/hugin/PreferencesDialog.cpp:215
 msgid "Select PTStitcher"
@@ -1233,11 +1227,13 @@ msgid ""
 "\n"
 "Do you want to continue anyway?"
 msgstr ""
+"PTStitcher não suporta nomes de arquivo de saída que contenham um ponto (.).\n"
+"Por favor salve seu projeto em um diretório que não contenha um ponto em seu nome (ou caminho)\n"
+"Você deseja continuar assim mesmo?"
 
 #: src/hugin/PTStitcherPanel.cpp:451
-#, fuzzy
 msgid "PTStitcher problem"
-msgstr "Nota do PTStitcher"
+msgstr "Problema com o PTStitcher"
 
 #: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
@@ -1401,8 +1397,7 @@ msgid "Anchor Image"
 msgstr "Ancorar Imagem"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Configure Yaw e Pitch com o botão esquerdo do mouse. Use o botão direito "
 "para configurar a rollagem (roll)"
@@ -1593,8 +1588,7 @@ msgstr "Aplicar"
 
 #: src/hugin/xrc/image_center.xrs:2
 msgid "apply changed values to actual selected images from panorama"
-msgstr ""
-"aplicar valores alterados para as imagens do panorama selecionadas atualmente"
+msgstr "aplicar valores alterados para as imagens do panorama selecionadas atualmente"
 
 #: src/hugin/xrc/image_center.xrs:4
 msgid "close window"
@@ -1658,8 +1652,7 @@ msgstr "Ajustar o ponto de âncora..."
 
 #: src/hugin/xrc/images_panel.xrs:14 src/hugin/xrc/images_panel-2.5.xrs:14
 msgid "opens a window to select the anchor orientation graphically"
-msgstr ""
-"abre uma janela para seleção da orientação da âncora de maneira gráfica"
+msgstr "abre uma janela para seleção da orientação da âncora de maneira gráfica"
 
 #: src/hugin/xrc/images_panel.xrs:15 src/hugin/xrc/images_panel-2.5.xrs:15
 msgid "Anchor this image for exposure"
@@ -2221,17 +2214,16 @@ msgid "LZW"
 msgstr ""
 
 #: src/hugin/xrc/nona_panel.xrs:23
-#, fuzzy
 msgid "Deflate"
-msgstr "Deletar"
+msgstr ""
 
 #: src/hugin/xrc/nona_panel.xrs:24
 msgid "Save cropped images (only TIFF&m)"
-msgstr ""
+msgstr "Salvar imagens recortadas/\"cropped\" (somente TIFF&m)"
 
 #: src/hugin/xrc/nona_panel.xrs:25
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr ""
+msgstr "Salvar saída em tiff recortado (cropped). Útil com enblend 2.4 ou superior."
 
 #: src/hugin/xrc/nona_panel.xrs:26
 msgid "Soft Blending (requires enblend, only TIFF output)"
@@ -2681,11 +2673,11 @@ msgstr "Remover arquivos tiff remapeados"
 
 #: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-msgstr ""
+msgstr "Usar arquivos TIFF recortados (cropped). Requer enblend 2.4 ou superior."
 
 #: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Save cropped images, requires less disk space and memory."
-msgstr ""
+msgstr "Salvar imagens recortadas (cropped). Requer menos espaço em disco e memória."
 
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
@@ -2965,8 +2957,7 @@ msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr ""
-"O formato de arquivo TIFF-multicamadas pode ser lido no Gimp 2.0 ou superior."
+msgstr "O formato de arquivo TIFF-multicamadas pode ser lido no Gimp 2.0 ou superior."
 
 #: src/hugin/xrc/data/tips.txt:16
 msgid ""
@@ -3034,8 +3025,7 @@ msgstr ""
 "lista de discussão: http://www.email-lists.org/mailman/listinfo/ptx"
 
 #: src/hugin/xrc/data/tips.txt:25
-msgid ""
-"The Panorama Tools, on which hugin is based were written by Helmut Dersch."
+msgid "The Panorama Tools, on which hugin is based were written by Helmut Dersch."
 msgstr ""
 "As \"Ferramentas Panorama\" (\"Panorama Tools\"), nas quais o hugin é "
 "baseado, foram escritas por Helmut Dersch."
@@ -3072,12 +3062,3 @@ msgstr ""
 "com imagens fortemente sobrepujadas ou com vários pontos de controle "
 "distribuídos."
 
-#~ msgid "Cursor Type"
-#~ msgstr "Tipo do Cursor"
-
-#~ msgid ""
-#~ "available on linux only\n"
-#~ "requires restarting hugin"
-#~ msgstr ""
-#~ "disponível apenas no linux\n"
-#~ "requer reinicialização do hugin"
