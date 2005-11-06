@@ -4,8 +4,8 @@ rem create installation directory
 set DESTDIR=D:\hugin\vc\hugin_install_win98
 set SRCDIR=D:\hugin\vc\hugin\src
 
-set LINGUAS=de fr pl it ja ru pt_BR nl
-set NLINGUAS=de pl fr pt_BR
+set LINGUAS=de fr pl it ja nl pl pt_BR ru zh_CN
+set NLINGUAS=de pl fr nl pt_BR zh_CN
 
 set MSGFMT=C:\Programme\poEdit\bin\msgfmt.exe
 
