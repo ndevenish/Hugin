@@ -35,6 +35,7 @@
 
 #include "hugin/ImageCache.h"
 #include "hugin/PreviewPanel.h"
+#include "hugin/PreviewFrame.h"
 #include "hugin/MainFrame.h"
 //#include "hugin/ImageProcessing.h"
 
@@ -56,7 +57,7 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
 
-PreviewPanel::PreviewPanel(wxFrame *parent, Panorama * pano)
+PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
@@ -174,6 +175,7 @@ void PreviewPanel::updatePreview()
 //    long cor = wxConfigBase::Get()->Read("/PreviewPanel/correctDistortion",0l);
 //    bool corrLens = cor != 0;
 
+    wxBusyCursor wait;
     double finalWidth = pano.getOptions().width;
     double finalHeight = pano.getOptions().getHeight();
 
@@ -214,7 +216,8 @@ void PreviewPanel::updatePreview()
             case BLEND_COPY:
             {
                 StackingBlender blender;
-                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+//                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *parentWindow);
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
@@ -224,7 +227,7 @@ void PreviewPanel::updatePreview()
             case BLEND_DIFFERENCE:
             {
 
-                MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
+                MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *parentWindow);
                 stitcher.stitch(opts, m_displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);

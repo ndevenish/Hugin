@@ -569,7 +569,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
     wxConfigBase* config = wxConfigBase::Get();
     std::ifstream file((const char *)filename.mb_str());
     if (file.good()) {
-        wxBusyCursor();
+        wxBusyCursor wait;
         GlobalCmdHist::getInstance().addCommand(
             new wxLoadPTProjectCmd(pano,file, (const char *)path.mb_str())
             );

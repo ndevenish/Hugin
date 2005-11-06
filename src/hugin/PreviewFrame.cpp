@@ -508,8 +508,47 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
     } else {
         DEBUG_WARN("wxChoice event from unknown object received");
     }
-
 }
+
+/** update the display */
+void PreviewFrame::updateProgressDisplay()
+{
+    wxString msg;
+    // build the message:
+    for (std::vector<ProgressTask>::iterator it = tasks.begin();
+         it != tasks.end(); ++it)
+    {
+        wxString cMsg;
+        if (it->getProgress() > 0) {
+            cMsg.Printf(wxT("%s %s [%3.0f%%]"),
+                        wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str(),
+                        100 * it->getProgress());
+        } else {
+            cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
+        }
+        // append to main message
+        if (it == tasks.begin()) {
+            msg = cMsg;
+        } else {
+            msg.Append(wxT(" | "));
+            msg.Append(cMsg);
+        }
+    }
+    wxStatusBar *m_statbar = GetStatusBar();
+    DEBUG_TRACE("Statusmb : " << msg.mb_str());
+    m_statbar->SetStatusText(msg,0);
+
+#ifdef __WXMSW__
+    UpdateWindow(NULL);
+#else
+    // This is a bad call.. we just want to repaint the window, instead we will
+    // process user events as well :( Unfortunately, there is not portable workaround...
+    wxYield();
+#endif
+}
+
 
 //////////////////////////////////////////////////////////////////////////////
 

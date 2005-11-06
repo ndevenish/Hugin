@@ -38,7 +38,7 @@ class wxCheckBox;
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class PreviewFrame : public wxFrame, public PT::PanoramaObserver
+class PreviewFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay
 {
 public:
 
@@ -53,7 +53,8 @@ public:
     void panoramaChanged(PT::Panorama &pano);
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet &changed);
     void OnUpdate(wxCommandEvent& event);
-
+    
+    void updateProgressDisplay();
 protected:
     void OnClose(wxCloseEvent& e);
 

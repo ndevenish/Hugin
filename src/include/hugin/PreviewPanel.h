@@ -32,6 +32,7 @@
 #include <vigra_ext/ROIImage.h>
 
 class wxImage;
+class PreviewFrame;
 
 /** A preview panel that renders the pictures using the panotools library
  *
@@ -44,7 +45,7 @@ public:
 
     /** ctor.
      */
-    PreviewPanel(wxFrame *parent, PT::Panorama * pano );
+    PreviewPanel(PreviewFrame *parent, PT::Panorama * pano );
 
     /** dtor.
      */
@@ -105,7 +106,7 @@ private:
     
     BlendMode m_blendMode;
 
-    wxFrame * parentWindow;
+    PreviewFrame * parentWindow;
 
     DECLARE_EVENT_TABLE()
 };
