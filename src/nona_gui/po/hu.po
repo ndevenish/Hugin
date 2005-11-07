@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Nona GUI\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2005-11-06 04:20+0100\n"
+"Last-Translator: Balló György <ballogy@freestart.hu>\n"
+"Language-Team: Balló György <ballogy@freestart.hu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+
+#: src/nona_gui/nona_gui.cpp:133
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Szintaktikai hiba található a paraméterben, művelet megszakítása."
+
+#: src/nona_gui/nona_gui.cpp:142
+msgid "Specify project source project file"
+msgstr "Projektforrás projektfájl megadása"
+
+#: src/nona_gui/nona_gui.cpp:158
+msgid "Too many project files specified"
+msgstr "Túl sok projektfájl van megadva"
+
+#: src/nona_gui/nona_gui.cpp:166
+msgid "Could not find project file"
+msgstr "Nem található projektfájl"
+
+#: src/nona_gui/nona_gui.cpp:175
+msgid "Specify output image filename"
+msgstr "Kimeneti kép-fájlnév megadása"
+
+#: src/nona_gui/nona_gui.cpp:183
+msgid "No project files specified"
+msgstr "Nincs projektfájl megadva"
+
+#: src/nona_gui/nona_gui.cpp:194
+msgid "Stitching Panorama"
+msgstr "Panoráma összefűzése"
+
+#: src/nona_gui/nona_gui.cpp:200
+#, c-format
+msgid "could not open script : %s"
+msgstr "A szkript nem nyitható meg: %s"
+
+#: src/nona_gui/nona_gui.cpp:206
+#, c-format
+msgid "error while parsing panos tool script: %s"
+msgstr "Hiba panos tool szkript elemzése közben: %s"
+
+#: src/nona_gui/nona_gui.cpp:217
+msgid "output image size: "
+msgstr "kimeneti képméret:"
+
