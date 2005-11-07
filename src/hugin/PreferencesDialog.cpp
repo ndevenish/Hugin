@@ -137,6 +137,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
     lang_choice->Append(_("Simplified Chinese"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_HUNGARIAN;
+    lang_choice->Append(_("Hungarian"), lp);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig

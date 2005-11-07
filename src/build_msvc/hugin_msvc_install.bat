@@ -4,8 +4,8 @@ rem create installation directory
 set DESTDIR=D:\hugin\vc\hugin_install
 set SRCDIR=D:\hugin\vc\hugin\src
 
-set LINGUAS=de fr pl it ja nl pl pt_BR ru zh_CN
-set NLINGUAS=de pl fr nl pt_BR zh_CN
+set LINGUAS=de fr pl it ja nl pl pt_BR ru zh_CN hu
+set NLINGUAS=de pl fr nl pt_BR zh_CN hu
 
 set MSGFMT=C:\Programme\poEdit\bin\msgfmt.exe
 
