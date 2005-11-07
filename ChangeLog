@@ -1,3 +1,61 @@
+2005-11-07 18:31  dangelo
+
+	* src/: hugin/po/hu.po, nona_gui/po/hu.po: added hungarian
+	  translation
+
+2005-11-07 01:03  dangelo
+
+	* AUTHORS, src/build_msvc/hugin_msvc_install.bat,
+	  src/build_msvc/hugin_msvc_install_win98.bat,
+	  src/hugin/PreferencesDialog.cpp, src/hugin/po/LINGUAS,
+	  src/hugin/xrc/data/about.htm, src/hugin/xrc/data/about_fr.htm,
+	  src/hugin/xrc/data/about_pl.htm, src/nona_gui/po/LINGUAS: added
+	  hungarian translation by György Ball
+
+2005-11-06 14:26  dangelo
+
+	* src/: hugin/MainFrame.cpp, hugin/PreviewFrame.cpp,
+	  hugin/PreviewPanel.cpp, hugin/po/pl.po,
+	  include/hugin/PreviewFrame.h, include/hugin/PreviewPanel.h:
+	  Display busy cursor during project loading and preview
+	  generation. Display preview generation progress in preview frame.
+
+2005-11-06 14:24  dangelo
+
+	* src/build_msvc/: hugin_msvc_install.bat,
+	  hugin_msvc_install_win98.bat: added new languages to windows
+	  install script
+
+2005-11-06 14:19  dangelo
+
+	* src/hugin/po/de.po: small text format changes
+
+2005-11-04 08:59  dangelo
+
+	* src/hugin/po/pt_BR.po: translation update by Ademar de Souza Reis
+	  Jr.
+
+2005-11-02 20:48  dangelo
+
+	* src/hugin/huginApp.cpp: do not save window position and size of
+	  minimized windows
+
+2005-11-02 18:37  dangelo
+
+	* src/hugin/po/fr.po: french translation update by Jean-Luc
+
+2005-11-02 08:08  dangelo
+
+	* src/hugin/po/ru.po: partial update by Alexandre Prokoudine
+
+2005-11-01 23:08  dangelo
+
+	* src/hugin/po/pl.po: updated polish translation (Jakub Bogusz)
+
+2005-11-01 22:19  dangelo
+
+	* ChangeLog: upated changelog
+
 2005-11-01 19:50  dangelo
 
 	* src/hugin/: po/de.po, po/fr.po, po/hugin.pot, po/it.po, po/ja.po,
