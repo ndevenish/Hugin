@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-11-01 13:03+0100\n"
+"POT-Creation-Date: 2005-11-15 08:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,9 +54,9 @@ msgstr ""
 msgid "Select autopano program / frontend script"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:218
-#: src/hugin/PreferencesDialog.cpp:234 src/hugin/PreferencesDialog.cpp:250
-#: src/hugin/PreferencesDialog.cpp:266 src/hugin/RunOptimizerFrame.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:224
+#: src/hugin/PreferencesDialog.cpp:240 src/hugin/PreferencesDialog.cpp:256
+#: src/hugin/PreferencesDialog.cpp:272 src/hugin/RunOptimizerFrame.cpp:111
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr ""
@@ -167,7 +167,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:282
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:288
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr ""
 
@@ -766,29 +766,29 @@ msgstr ""
 msgid "The druid has no advice."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:533
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
 msgid "The druid finds no problems with your panorama."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:534
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:553
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
 msgid "Warning:  you haven't saved the current project."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:549
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
 msgid "Warning:  current stitch has huge dimensions."
 msgstr ""
 
@@ -802,11 +802,11 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:545
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:546
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -874,19 +874,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:541
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
 msgid "Add at least one more image."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:537
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
 msgid "To get started, add some image files."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:538
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
 msgid "You can add any number of images using the Images tab."
 msgstr ""
 
@@ -917,84 +917,92 @@ msgid "System default"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:112
-msgid "English"
+msgid "Catalan"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:115
-msgid "French"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:118
-msgid "German"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:121
-msgid "Italian"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:124
-msgid "Japanese"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:127
-msgid "Polish"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:130
-msgid "Portuguese (Brazilian)"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:133
 msgid "Dutch"
 msgstr ""
 
+#: src/hugin/PreferencesDialog.cpp:118
+msgid "English"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:121
+msgid "French"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:124
+msgid "German"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:127
+msgid "Hungarian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:130
+msgid "Italian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:133
+msgid "Japanese"
+msgstr ""
+
 #: src/hugin/PreferencesDialog.cpp:136
-msgid "Russian"
+msgid "Polish"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:139
+msgid "Portuguese (Brazilian)"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:142
+msgid "Russian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:145
 msgid "Simplified Chinese"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:215
+#: src/hugin/PreferencesDialog.cpp:221
 msgid "Select PTStitcher"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:231 src/hugin/RunOptimizerFrame.cpp:109
+#: src/hugin/PreferencesDialog.cpp:237 src/hugin/RunOptimizerFrame.cpp:109
 #: src/hugin/RunOptimizerFrame.cpp:127
 msgid "Select PTOptimizer"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:247
+#: src/hugin/PreferencesDialog.cpp:253
 msgid "Select Enblend"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:263 src/hugin/PreferencesDialog.cpp:279
+#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:285
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Select Autopano"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:313 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/PreferencesDialog.cpp:319 src/hugin/PreferencesDialog.cpp:321
 msgid "Panotools details"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:360
+#: src/hugin/PreferencesDialog.cpp:366
 msgid "Could not load dll"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:360
+#: src/hugin/PreferencesDialog.cpp:366
 msgid "panoinfo"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:634
+#: src/hugin/PreferencesDialog.cpp:640
 msgid "Unknown Version"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:644
+#: src/hugin/PreferencesDialog.cpp:650
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:644 src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/PreferencesDialog.cpp:650 src/hugin/xrc/pref_dialog.xrs:71
 msgid "Load Defaults"
 msgstr ""
 
@@ -1046,11 +1054,11 @@ msgstr ""
 msgid "equirectangular"
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:530
+#: src/hugin/PreviewFrame.cpp:569
 msgid "The druid has no advice at this time."
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:550
+#: src/hugin/PreviewFrame.cpp:589
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -1060,7 +1068,7 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 
-#: src/hugin/PreviewPanel.cpp:257
+#: src/hugin/PreviewPanel.cpp:260
 msgid "Error during Stitching"
 msgstr ""
 

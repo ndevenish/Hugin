@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-11-01 13:03+0100\n"
+"POT-Creation-Date: 2005-11-15 08:05+0100\n"
 "PO-Revision-Date: 2005-08-05 21:44+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>\n"
 "Language-Team: N/A\n"
@@ -53,9 +53,9 @@ msgstr "代わりにAutopano-SIFTを使いますか？"
 msgid "Select autopano program / frontend script"
 msgstr "Autopanoプログラムまたはスクリプトを選択してください"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:218
-#: src/hugin/PreferencesDialog.cpp:234 src/hugin/PreferencesDialog.cpp:250
-#: src/hugin/PreferencesDialog.cpp:266 src/hugin/RunOptimizerFrame.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:224
+#: src/hugin/PreferencesDialog.cpp:240 src/hugin/PreferencesDialog.cpp:256
+#: src/hugin/PreferencesDialog.cpp:272 src/hugin/RunOptimizerFrame.cpp:111
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "実行ファイル (*.exe)|*.exe"
@@ -180,7 +180,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "Autopanoに失敗"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:282
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:288
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "実行ファイル (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -821,11 +821,11 @@ msgstr "enblendのエラー"
 msgid "The druid has no advice."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:533
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
 msgid "The druid finds no problems with your panorama."
 msgstr "Druidは、あなたのパノラマに何の問題も無いと思います。"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:534
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -835,11 +835,11 @@ msgstr ""
 "フォトレタッチングソフトで仕上げるとよいでしょう。\n"
 " "
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:553
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
 msgid "Warning:  you haven't saved the current project."
 msgstr "警告：プロジェクトが保存されていません。"
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:554
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -848,7 +848,7 @@ msgstr ""
 "忘れる前にプロジェクトを保存しましょう。\n"
 "それ以外はスティッチングする準備ができているようです。"
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:549
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "警告：とても大きい画像を出力しようとしています"
 
@@ -868,11 +868,11 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:545
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "水平視野の設定 (v) が小さすぎるかもしれません。"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:546
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -954,19 +954,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr "最適化はコントロールポイントを使って画像同士の関係を推定します。"
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:541
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
 msgid "Add at least one more image."
 msgstr "画像を追加してください。"
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
 msgid "You should have at least two files listed in the Images tab."
 msgstr "二枚以上画像が登録されているか確かめてください。"
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:537
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
 msgid "To get started, add some image files."
 msgstr "まず画像をプロジェクトに追加します。"
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:538
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
 msgid "You can add any number of images using the Images tab."
 msgstr "「画像」タブで画像をいくらでも追加することができます。"
 
@@ -997,85 +997,94 @@ msgid "System default"
 msgstr "システム標準"
 
 #: src/hugin/PreferencesDialog.cpp:112
-msgid "English"
-msgstr "English"
-
-#: src/hugin/PreferencesDialog.cpp:115
-msgid "French"
-msgstr "Français"
-
-#: src/hugin/PreferencesDialog.cpp:118
-msgid "German"
-msgstr "Deutsch"
-
-#: src/hugin/PreferencesDialog.cpp:121
-msgid "Italian"
+#, fuzzy
+msgid "Catalan"
 msgstr "Italiano"
 
-#: src/hugin/PreferencesDialog.cpp:124
-msgid "Japanese"
-msgstr "日本語"
-
-#: src/hugin/PreferencesDialog.cpp:127
-msgid "Polish"
-msgstr "Polski"
-
-#: src/hugin/PreferencesDialog.cpp:130
-msgid "Portuguese (Brazilian)"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:133
+#: src/hugin/PreferencesDialog.cpp:115
 msgid "Dutch"
 msgstr ""
 
+#: src/hugin/PreferencesDialog.cpp:118
+msgid "English"
+msgstr "English"
+
+#: src/hugin/PreferencesDialog.cpp:121
+msgid "French"
+msgstr "Français"
+
+#: src/hugin/PreferencesDialog.cpp:124
+msgid "German"
+msgstr "Deutsch"
+
+#: src/hugin/PreferencesDialog.cpp:127
+msgid "Hungarian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:130
+msgid "Italian"
+msgstr "Italiano"
+
+#: src/hugin/PreferencesDialog.cpp:133
+msgid "Japanese"
+msgstr "日本語"
+
 #: src/hugin/PreferencesDialog.cpp:136
+msgid "Polish"
+msgstr "Polski"
+
+#: src/hugin/PreferencesDialog.cpp:139
+msgid "Portuguese (Brazilian)"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:142
 msgid "Russian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:139
+#: src/hugin/PreferencesDialog.cpp:145
 msgid "Simplified Chinese"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:215
+#: src/hugin/PreferencesDialog.cpp:221
 msgid "Select PTStitcher"
 msgstr "PTStitcherを選択"
 
-#: src/hugin/PreferencesDialog.cpp:231 src/hugin/RunOptimizerFrame.cpp:109
+#: src/hugin/PreferencesDialog.cpp:237 src/hugin/RunOptimizerFrame.cpp:109
 #: src/hugin/RunOptimizerFrame.cpp:127
 msgid "Select PTOptimizer"
 msgstr "PTOptimizerを選択"
 
-#: src/hugin/PreferencesDialog.cpp:247
+#: src/hugin/PreferencesDialog.cpp:253
 msgid "Select Enblend"
 msgstr "Enblendを選択"
 
-#: src/hugin/PreferencesDialog.cpp:263 src/hugin/PreferencesDialog.cpp:279
+#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:285
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Select Autopano"
 msgstr "Autopanoを選択"
 
-#: src/hugin/PreferencesDialog.cpp:313 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/PreferencesDialog.cpp:319 src/hugin/PreferencesDialog.cpp:321
 msgid "Panotools details"
 msgstr "Panotoolsの詳細"
 
-#: src/hugin/PreferencesDialog.cpp:360
+#: src/hugin/PreferencesDialog.cpp:366
 msgid "Could not load dll"
 msgstr "dllファイルを読み込めません"
 
-#: src/hugin/PreferencesDialog.cpp:360
+#: src/hugin/PreferencesDialog.cpp:366
 #, fuzzy
 msgid "panoinfo"
 msgstr "panoinfo"
 
-#: src/hugin/PreferencesDialog.cpp:634
+#: src/hugin/PreferencesDialog.cpp:640
 msgid "Unknown Version"
 msgstr "不明なバージョン"
 
-#: src/hugin/PreferencesDialog.cpp:644
+#: src/hugin/PreferencesDialog.cpp:650
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:644 src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/PreferencesDialog.cpp:650 src/hugin/xrc/pref_dialog.xrs:71
 msgid "Load Defaults"
 msgstr "初期設定を読み込む"
 
@@ -1127,11 +1136,11 @@ msgstr "心射円筒（Cylindrical）"
 msgid "equirectangular"
 msgstr "正距円筒（Equirectangular）"
 
-#: src/hugin/PreviewFrame.cpp:530
+#: src/hugin/PreviewFrame.cpp:569
 msgid "The druid has no advice at this time."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PreviewFrame.cpp:550
+#: src/hugin/PreviewFrame.cpp:589
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -1146,7 +1155,7 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PreviewPanel.cpp:257
+#: src/hugin/PreviewPanel.cpp:260
 msgid "Error during Stitching"
 msgstr "スティッチング中にエラー"
 
