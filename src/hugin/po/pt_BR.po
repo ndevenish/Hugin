@@ -1073,7 +1073,7 @@ msgid "Russian"
 msgstr "Russo"
 
 #: src/hugin/PreferencesDialog.cpp:145
-msgid "Simplified Chinese"
+msgid "Chinese (Simplified)"
 msgstr "Chinês Simplificado"
 
 #: src/hugin/PreferencesDialog.cpp:221

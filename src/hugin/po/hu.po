@@ -984,7 +984,7 @@ msgid "Russian"
 msgstr "Orosz"
 
 #: src/hugin/PreferencesDialog.cpp:145
-msgid "Simplified Chinese"
+msgid "Chinese (Simplified)"
 msgstr "egyszerűsített kínai"
 
 #: src/hugin/PreferencesDialog.cpp:221

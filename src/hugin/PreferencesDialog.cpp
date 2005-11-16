@@ -115,6 +115,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_CATALAN;
     lang_choice->Append(_("Catalan"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
+    lang_choice->Append(_("Chinese (Simplified)"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_DUTCH;
     lang_choice->Append(_("Dutch"), lp);
     lp = new long;
@@ -144,9 +147,6 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_RUSSIAN;
     lang_choice->Append(_("Russian"), lp);
-    lp = new long;
-    *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
-    lang_choice->Append(_("Simplified Chinese"), lp);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
