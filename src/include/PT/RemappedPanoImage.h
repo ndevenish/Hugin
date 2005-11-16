@@ -436,8 +436,7 @@ public:
 
         if (imgOpts.docrop) {
             vigra::BImage alpha(srcImgSize,255);
-
-            if (pano.getLens(pano.getImage(imgNr)).getProjection() == Lens::CIRCULAR_FISHEYE) {
+            if (pano.getLens(img.getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE) {
                 FDiff2D m( (imgOpts.cropRect.left() + imgOpts.cropRect.width()/2.0) * scale,
                            (imgOpts.cropRect.top() + imgOpts.cropRect.height()/2.0) * scale);
 
@@ -494,7 +493,6 @@ public:
             vigra::BImage alpha(srcImgSize);
             vigra::copyImage(vigra::make_triple(alphaImg.first, alphaImg.first + srcImgSize, alphaImg.second),
                              vigra::destImage(alpha));
-
             if (pano.getLens(img.getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE) {
                 FDiff2D m( (imgOpts.cropRect.left() + imgOpts.cropRect.width()/2.0) * scale,
                            (imgOpts.cropRect.top() + imgOpts.cropRect.height()/2.0) * scale);
