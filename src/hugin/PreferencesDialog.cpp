@@ -104,8 +104,8 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
 
 #if __WXMAC__
-    lang_chice->disable();
-#endid
+    lang_choice->Disable();
+#endif
     
     // add languages to choice
     long * lp = new long;
