@@ -502,7 +502,7 @@
                             <object class="wxSpinCtrl" name="prefs_ft_RotationSteps">
                               
                               
-                              <min>0</min>
+                              <min>1</min>
                             </object>
                             
                             
