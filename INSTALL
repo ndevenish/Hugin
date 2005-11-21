@@ -37,6 +37,10 @@ REQUIRED LIBRARIES/PACKAGES:
  - boost, get it from www.boost.org (only needed for compilation)
  - gcc (tested with 3.2, 3.3, 3.4 and 4.0)
 
+
+Required packages building for debian:
+ libwxgtk2.6-dev, libpano12-dev, libboost-dev, libboost-graph-dev
+
 COMPILATION:
 
 These are the instructions for linux. see the WINDOWS_COMPILE.txt
