@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wxVersion="2.6.1"
+wxVersion="2.6.2"
 resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
