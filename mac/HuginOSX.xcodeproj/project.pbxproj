@@ -2155,36 +2155,8 @@
 		571DA7AD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = "$(value)";
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				PRODUCT_NAME = jhead;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2237,45 +2209,8 @@
 		571DA7B1088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				PRODUCT_NAME = common;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2328,45 +2263,9 @@
 		571DA7B9088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				PRODUCT_NAME = vigra_impex;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2419,45 +2318,10 @@
 		571DA7BD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				PRODUCT_NAME = panorama;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2514,51 +2378,15 @@
 		571DA7C1088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
 				INFOPLIST_FILE = "HuginOSX-Info.plist";
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
 				PRODUCT_NAME = HuginOSX;
-				SEPARATE_STRIP = YES;
-				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
+				STRIP_STYLE = all;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2611,48 +2439,11 @@
 		571DA7C5088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
 				PRODUCT_NAME = nona;
-				SEPARATE_STRIP = YES;
-				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
+				STRIP_STYLE = debugging;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2708,47 +2499,11 @@
 		571DA7C9088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
 				PRODUCT_NAME = huginwxutils;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2805,51 +2560,15 @@
 		571DA7CD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
 				PRODUCT_NAME = nona_gui;
-				SEPARATE_STRIP = YES;
-				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
+				STRIP_STYLE = debugging;
 			};
 			name = ExperimentalRelease;
 		};
@@ -3338,6 +3057,13 @@
 		571DA83F088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_DEBUGGING_SYMBOLS = used;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/usr/local/include,
@@ -3347,6 +3073,25 @@
 					../src/include,
 					../../Libs/boost_1_33_0,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				OTHER_CFLAGS = (
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				PREBINDING = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
