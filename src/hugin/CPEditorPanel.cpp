@@ -747,6 +747,12 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                     otherImg->setScale(m_detailZoomFactor);
                     otherImg->setNewPoint(corrPoint.maxpos);
                     changeState(BOTH_POINTS_SELECTED);
+                    wxString s1;
+                    s1.Printf(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
+                              corrPoint.maxAngle, corrPoint.maxi, corrPoint.curv.x, corrPoint.curv.y );
+                    
+                    wxString s2 = s1 + wxT(" -- ") + wxString(_("change points, or press right mouse button to add the pair"));
+                    MainFrame::Get()->SetStatusText(s2,0);
                 } else {
                     // add point
                     otherImg->setNewPoint(corrPoint.maxpos);
@@ -772,6 +778,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
 void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
 {
     DEBUG_TRACE("");
+
+    wxString corrMsg;
 
     CPImageCtrl * thisImg = m_leftImg;
     unsigned int thisImgNr = m_leftImageNr;
@@ -868,6 +876,13 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                         thisImg->setScale(m_detailZoomFactor);
                     }
                     thisImg->setNewPoint(corrRes.maxpos);
+                    wxString s1;
+                    s1.Printf(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
+                              corrRes.maxAngle, corrRes.maxi, corrRes.curv.x, corrRes.curv.y );
+                    
+                    corrMsg = s1 + wxT(" -- ") +  wxString(_("change points, or press right mouse button to add the pair"));
+                    MainFrame::Get()->SetStatusText(corrMsg,0);
+                    
                 }
             } else {
                 // no finetune. but zoom into picture, when we where zoomed out
@@ -898,6 +913,9 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             // keep both point floating around, until they are
             // added with a right mouse click or the add button
             changeState(BOTH_POINTS_SELECTED);
+            if (corrMsg != wxT("")) {
+                MainFrame::Get()->SetStatusText(corrMsg,0);
+            }
         }
 
     } else if (cpCreationState == BOTH_POINTS_SELECTED) {
@@ -1879,7 +1897,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         m_rightImg->showSearchArea(false);
         m_addButton->Enable(true);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText(_("change points, or press right mouse button to add the pair"));
+//        MainFrame::Get()->SetStatusText(_("change points, or press right mouse button to add the pair"));
     }
     // apply the change
     cpCreationState = newState;
