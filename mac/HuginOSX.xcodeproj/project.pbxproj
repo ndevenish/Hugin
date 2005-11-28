@@ -705,15 +705,6 @@
 		57114FC706BC2302004F4FA7 /* wxPanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPanoCommand.h; sourceTree = "<group>"; };
 		57114FC906BC2302004F4FA7 /* xh_tbctl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = xh_tbctl.h; sourceTree = "<group>"; };
 		57114FCB06BC2302004F4FA7 /* jhead.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = jhead.h; sourceTree = "<group>"; };
-		57114FCD06BC2302004F4FA7 /* algo4sift.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = algo4sift.hxx; sourceTree = "<group>"; };
-		57114FCE06BC2302004F4FA7 /* ScaleSpace.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ScaleSpace.h; sourceTree = "<group>"; };
-		57114FD006BC2302004F4FA7 /* base.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
-		57114FD106BC2302004F4FA7 /* convolve.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = convolve.h; sourceTree = "<group>"; };
-		57114FD206BC2302004F4FA7 /* error.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		57114FD306BC2302004F4FA7 /* klt.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = klt.h; sourceTree = "<group>"; };
-		57114FD406BC2302004F4FA7 /* klt_util.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = klt_util.h; sourceTree = "<group>"; };
-		57114FD506BC2302004F4FA7 /* pnmio.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = pnmio.h; sourceTree = "<group>"; };
-		57114FD606BC2302004F4FA7 /* pyramid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = pyramid.h; sourceTree = "<group>"; };
 		57114FD706BC2302004F4FA7 /* panoinc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc.h; sourceTree = "<group>"; };
 		57114FD806BC2302004F4FA7 /* panoinc_WX.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = panoinc_WX.h; sourceTree = "<group>"; };
 		57114FDA06BC2302004F4FA7 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
@@ -1179,8 +1170,6 @@
 				573C68CA085D18FA0064661D /* config.h.in */,
 				57114FA506BC2302004F4FA7 /* hugin */,
 				57114FCA06BC2302004F4FA7 /* jhead */,
-				57114FCC06BC2302004F4FA7 /* keypoints */,
-				57114FCF06BC2302004F4FA7 /* klt */,
 				57114FD706BC2302004F4FA7 /* panoinc.h */,
 				57114FD806BC2302004F4FA7 /* panoinc_WX.h */,
 				57114FD906BC2302004F4FA7 /* PT */,
@@ -1263,29 +1252,6 @@
 				57114FCB06BC2302004F4FA7 /* jhead.h */,
 			);
 			path = jhead;
-			sourceTree = "<group>";
-		};
-		57114FCC06BC2302004F4FA7 /* keypoints */ = {
-			isa = PBXGroup;
-			children = (
-				57114FCD06BC2302004F4FA7 /* algo4sift.hxx */,
-				57114FCE06BC2302004F4FA7 /* ScaleSpace.h */,
-			);
-			path = keypoints;
-			sourceTree = "<group>";
-		};
-		57114FCF06BC2302004F4FA7 /* klt */ = {
-			isa = PBXGroup;
-			children = (
-				57114FD006BC2302004F4FA7 /* base.h */,
-				57114FD106BC2302004F4FA7 /* convolve.h */,
-				57114FD206BC2302004F4FA7 /* error.h */,
-				57114FD306BC2302004F4FA7 /* klt.h */,
-				57114FD406BC2302004F4FA7 /* klt_util.h */,
-				57114FD506BC2302004F4FA7 /* pnmio.h */,
-				57114FD606BC2302004F4FA7 /* pyramid.h */,
-			);
-			path = klt;
 			sourceTree = "<group>";
 		};
 		57114FD906BC2302004F4FA7 /* PT */ = {
@@ -2435,9 +2401,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = NO;
+				DEAD_CODE_STRIPPING = YES;
 				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = default;
+				GCC_DEBUGGING_SYMBOLS = full;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
 				GCC_MODEL_TUNING = G4;
@@ -3203,7 +3169,7 @@
 					"-Wno-long-double",
 					"-Wstrict-aliasing",
 				);
-				ZERO_LINK = NO;
+				ZERO_LINK = YES;
 			};
 			name = Development;
 		};

@@ -1,10 +1,7 @@
 Read Me - HuginOSX
 
--- THIS IS A RELEASE CANDIDATE --
-
 HuginOSX
 http://hugin.sourceforge.net/
-http://homepage.mac.com/ippei_ukai/software/
 
 
 License Agreements
@@ -32,7 +29,6 @@ Free tools for doing panorama on Mac
 
 From hugin project and included in this package
 - nona, nona_gui  Open source alternative to PTStitcher. hugin contains nona's functionality within itself and those executables are for use with other tools like clens.
-- PanoGLViewerOSX  Displays 360ºx180º rectilinear panorama image using OpenGL. This program was originally written by Fabian Wenzel <f.wenzel@gmx.net>
 - mergepto  Merges two hugin project files.
 
 From other projects but whose binary file is distributed together
@@ -41,23 +37,21 @@ From other projects but whose binary file is distributed together
 (Please read the attached licence/readme files respectively before use.)
 
 Other recommended free tools
+- PanoGLViewerOSX  from hugin Project, http://sourceforge.net/projects/hugin/download/
 - autopano-sift  by Sebastian Nowozin, http://user.cs.tu-berlin.de/~nowozin/autopano-sift/
 - MakeCubic  from Apple Computer, http://developer.apple.com/quicktime/quicktimeintro/tools/index.html#qtvr
 - XBlend  from Kekus Digital, http://www.kekus.com/xblend/
 - PangeaVR Plugin  from Pangea Software, http://www.pangeasoft.net/pano/plugin/
-
+- PanoView (Japanese Only)  by Yoshiaki Katayanagi, http://www.jizoh.jp/pages/download.html
 
 Known Problems 
-
-- Optimizer on HuginOSX does not work on certain environment. We are trying to determine the cause. If you encounter this, please send me 1. where HuginOSX is installed, 2. where your project file is located, and 3. result of "ls -l Applications/HuginOSX.app/Contents/*". This bug seems to have something to do with paths with space or non-ASCII characters. You may be able to work around if you put HuginOSX and your project file in to a 'safe' locations like "/Applications" or "~/".
 
 - autopano-sift sometimes does not work when nested inside the application package.
 
 
-TODO (Any help appreciated.)
+TODO
 
-- fix Optimiser bug
-- find bugs. 
+- 
 
 
 Contacts
@@ -68,8 +62,5 @@ Contacts
 - Recent OSX porting is mainly proceeded by Ippei UKAI (ippei_ukai@mac.com). He's on the above mailing list as well, so using the mailing list should work fine. Note he's a university student and probably busy during the term time.
 
 
-Last modified for HuginOSX 0.5rc2
-on: 2005-09-22
-by: Ippei UKAI (ippei_ukai@mac.com)
-
 This document was originally created by Ippei UKAI (Copyleft 2005)
+Last Modified: $Id$
