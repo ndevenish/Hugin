@@ -2106,52 +2106,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		571DA7AC088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = jhead;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7AD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2160,52 +2114,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA7B0088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = common;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7B1088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2213,52 +2121,6 @@
 				PRODUCT_NAME = common;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7B8088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = vigra_impex;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7B9088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2269,52 +2131,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA7BC088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = panorama;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7BD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2324,56 +2140,6 @@
 				PRODUCT_NAME = panorama;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7C0088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				INFOPLIST_FILE = "HuginOSX-Info.plist";
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = HuginOSX;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7C1088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2390,52 +2156,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA7C4088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = nona;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7C5088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2447,55 +2167,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA7C8088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = huginwxutils;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7C9088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2506,56 +2177,6 @@
 				PRODUCT_NAME = huginwxutils;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7CC088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				INFOPLIST_FILE = "nona_gui-Info.plist";
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = nona_gui;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7CD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2571,52 +2192,6 @@
 				STRIP_STYLE = debugging;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7D0088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = all;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7D1088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2663,54 +2238,6 @@
 				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7DC088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = lib;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7DD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2760,54 +2287,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA7F8088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = "tools apps";
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA7F9088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2855,54 +2334,6 @@
 				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
-		};
-		571DA7FC088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = apps;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
 		};
 		571DA7FD088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
@@ -2952,54 +2383,6 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA800088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = all;
-				SECTORDER_FLAGS = "";
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
 		571DA801088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3048,22 +2431,17 @@
 			};
 			name = ExperimentalRelease;
 		};
-		571DA83E088E59C20058F246 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Development;
-		};
 		571DA83F088E59C20058F246 /* ExperimentalRelease */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
+				DEAD_CODE_STRIPPING = NO;
 				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = used;
+				GCC_DEBUGGING_SYMBOLS = default;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_CPU = G3;
 				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/usr/local/include,
@@ -3095,134 +2473,882 @@
 			};
 			name = ExperimentalRelease;
 		};
+		576D275E093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = jhead;
+			};
+			name = Release;
+		};
+		576D275F093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = common;
+			};
+			name = Release;
+		};
+		576D2760093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = vigra_impex;
+			};
+			name = Release;
+		};
+		576D2761093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = panorama;
+			};
+			name = Release;
+		};
+		576D2762093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				PRODUCT_NAME = huginwxutils;
+			};
+			name = Release;
+		};
+		576D2763093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				INFOPLIST_FILE = "HuginOSX-Info.plist";
+				PRODUCT_NAME = HuginOSX;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = all;
+			};
+			name = Release;
+		};
+		576D2764093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_MODEL_CPU = G3;
+				PRODUCT_NAME = nona;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
+			};
+			name = Release;
+		};
+		576D2765093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				INFOPLIST_FILE = "nona_gui-Info.plist";
+				PRODUCT_NAME = nona_gui;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
+			};
+			name = Release;
+		};
+		576D2766093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"$(value)",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				PREBINDING = YES;
+				PRODUCT_NAME = all;
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D2767093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = lib;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D2768093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = "tools apps";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D2769093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = apps;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D276A093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = all;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D276B093B3C8500FC5596 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_DEBUGGING_SYMBOLS = default;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					/usr/local/include,
+					/Developer/Headers/FlatCarbon,
+					/usr/local/include/pano12,
+					../src/foreign/,
+					../src/include,
+					../../Libs/boost_1_33_0,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				OTHER_CFLAGS = (
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				PREBINDING = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		576D276E093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = jhead;
+			};
+			name = Development;
+		};
+		576D276F093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = common;
+			};
+			name = Development;
+		};
+		576D2770093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = vigra_impex;
+			};
+			name = Development;
+		};
+		576D2771093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				PRODUCT_NAME = panorama;
+			};
+			name = Development;
+		};
+		576D2772093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				PRODUCT_NAME = huginwxutils;
+			};
+			name = Development;
+		};
+		576D2773093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				INFOPLIST_FILE = "HuginOSX-Info.plist";
+				PRODUCT_NAME = HuginOSX;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = all;
+			};
+			name = Development;
+		};
+		576D2774093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_MODEL_CPU = G3;
+				PRODUCT_NAME = nona;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
+			};
+			name = Development;
+		};
+		576D2775093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GCC_MODEL_CPU = G3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
+				INFOPLIST_FILE = "nona_gui-Info.plist";
+				PRODUCT_NAME = nona_gui;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = debugging;
+			};
+			name = Development;
+		};
+		576D2776093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"$(value)",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				PREBINDING = YES;
+				PRODUCT_NAME = all;
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		576D2777093B3D4300FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = lib;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		576D2778093B3D4400FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = "tools apps";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		576D2779093B3D4400FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = apps;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		576D277A093B3D4400FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = all;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		576D277B093B3D4400FC5596 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_DEBUGGING_SYMBOLS = full;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					/usr/local/include,
+					/Developer/Headers/FlatCarbon,
+					/usr/local/include/pano12,
+					../src/foreign/,
+					../src/include,
+					../../Libs/boost_1_33_0,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.3;
+				OTHER_CFLAGS = (
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				PREBINDING = NO;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		571DA7AB088E59C20058F246 /* Build configuration list for PBXNativeTarget "jhead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7AC088E59C20058F246 /* Development */,
 				571DA7AD088E59C20058F246 /* ExperimentalRelease */,
+				576D276E093B3D4300FC5596 /* Development */,
+				576D275E093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7AF088E59C20058F246 /* Build configuration list for PBXNativeTarget "common" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7B0088E59C20058F246 /* Development */,
 				571DA7B1088E59C20058F246 /* ExperimentalRelease */,
+				576D276F093B3D4300FC5596 /* Development */,
+				576D275F093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7B7088E59C20058F246 /* Build configuration list for PBXNativeTarget "vigra_impex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7B8088E59C20058F246 /* Development */,
 				571DA7B9088E59C20058F246 /* ExperimentalRelease */,
+				576D2770093B3D4300FC5596 /* Development */,
+				576D2760093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7BB088E59C20058F246 /* Build configuration list for PBXNativeTarget "panorama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7BC088E59C20058F246 /* Development */,
 				571DA7BD088E59C20058F246 /* ExperimentalRelease */,
+				576D2771093B3D4300FC5596 /* Development */,
+				576D2761093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7BF088E59C20058F246 /* Build configuration list for PBXNativeTarget "HuginOSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C0088E59C20058F246 /* Development */,
 				571DA7C1088E59C20058F246 /* ExperimentalRelease */,
+				576D2773093B3D4300FC5596 /* Development */,
+				576D2763093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7C3088E59C20058F246 /* Build configuration list for PBXNativeTarget "nona" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C4088E59C20058F246 /* Development */,
 				571DA7C5088E59C20058F246 /* ExperimentalRelease */,
+				576D2774093B3D4300FC5596 /* Development */,
+				576D2764093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7C7088E59C20058F246 /* Build configuration list for PBXNativeTarget "huginwxutils" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C8088E59C20058F246 /* Development */,
 				571DA7C9088E59C20058F246 /* ExperimentalRelease */,
+				576D2772093B3D4300FC5596 /* Development */,
+				576D2762093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7CB088E59C20058F246 /* Build configuration list for PBXNativeTarget "nona_gui" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7CC088E59C20058F246 /* Development */,
 				571DA7CD088E59C20058F246 /* ExperimentalRelease */,
+				576D2775093B3D4300FC5596 /* Development */,
+				576D2765093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7CF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "Experimental Release" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7D0088E59C20058F246 /* Development */,
 				571DA7D1088E59C20058F246 /* ExperimentalRelease */,
+				576D2776093B3D4300FC5596 /* Development */,
+				576D2766093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7DB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7DC088E59C20058F246 /* Development */,
 				571DA7DD088E59C20058F246 /* ExperimentalRelease */,
+				576D2777093B3D4300FC5596 /* Development */,
+				576D2767093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools apps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7F8088E59C20058F246 /* Development */,
 				571DA7F9088E59C20058F246 /* ExperimentalRelease */,
+				576D2778093B3D4400FC5596 /* Development */,
+				576D2768093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7FB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "apps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7FC088E59C20058F246 /* Development */,
 				571DA7FD088E59C20058F246 /* ExperimentalRelease */,
+				576D2779093B3D4400FC5596 /* Development */,
+				576D2769093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA7FF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "all" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA800088E59C20058F246 /* Development */,
 				571DA801088E59C20058F246 /* ExperimentalRelease */,
+				576D277A093B3D4400FC5596 /* Development */,
+				576D276A093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "HuginOSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA83E088E59C20058F246 /* Development */,
 				571DA83F088E59C20058F246 /* ExperimentalRelease */,
+				576D277B093B3D4400FC5596 /* Development */,
+				576D276B093B3C8500FC5596 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Development;
+			defaultConfigurationName = ExperimentalRelease;
 		};
 /* End XCConfigurationList section */
 	};
