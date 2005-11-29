@@ -1,0 +1,106 @@
+#############           Example Script                  ##########################
+#                       for nona
+#
+# This document describes the script supported by the nona stitcher.
+#
+# Based on the PTStitcher documentation
+#
+#
+# Only lines starting with 'p','o', i', or 'm' are read, 
+# so you can add comments and info as you like by using 
+# other line starting characters.  
+
+# The stitcher script must contain:
+# one 'p'-line describing the output image (eg Panorama)
+# one 'o'-line for each input image
+# one 'm'-line for global options
+#
+# 'p'-line options
+# w1000        width in pixels
+# h600         height in pixels
+# f0           projection format,
+#                  0 - rectilinear (for printing and viewing)
+#                  1 - Cylindrical (for Printing and QTVR)
+#                  2 - Equirectangular ( for Spherical panos), default
+#                  3 - full-frame fisheye
+# v360         horizontal field of view of panorama (default 360)
+# nPICT        Panorama file format, one of:
+#                  PNG           png-format, 8 & 16 bit supported
+#                  TIFF          tiff-format, all tiff types supported (8,16,32 bit int, float, double)
+#                  TIFF_m        tiff-format, multi-file, one image per file
+#                                  alpha layer with non-feathered clip mask at image border
+#                  TIFF_multilayer  tiff-format, multi-image-file, all files in one image
+#                                  alpha layer with non-feathered clip mask at image border
+#                                  This filetype is supported by The GIMP
+#                  JPEG          Panoramic image in jpeg-format.
+#               some more supported file formats (mostly only 8 bit support)
+#                  PNM, PGM, BMP, SUN, VIFF
+#                  
+#              Special options for TIFF output:
+#              n"TIFF c:NONE"              
+#                  c - select TIFF compression, possible options: NONE, LZW, DEFLATE
+#
+#              Special options for TIFF_m and TIFF_multilayer output:
+#              n"TIFF c:NONE r:CROP"
+#                  c - TIFF compression, possible options NONE, LZW, DEFLATE
+#                  r - output only used image area (cropped output). The crop offsets
+#                      are stored in the POSITIONX and POSITONY tiff tags
+#
+#              Special options for JPEG output:
+#              n"JPEG q95"
+#                  q - jpeg quality
+#                  
+
+
+# The 'i' lines describe input images (nona also accepts 'o' line image descriptions)
+#
+# f0           projection format,
+#                  0 - rectilinear (normal lenses)
+#                  1 - Panoramic (Scanning cameras like Noblex)
+#                  2 - Circular fisheye
+#                  3 - full-frame fisheye
+#                  4 - PSphere, equirectangular
+# v82          horizontal field of view of image (required)
+# y0           yaw angle (required)
+# p43          pitch angle (required)
+# r0           roll angle (required)
+# a,b,c        lens correction coefficients (optional)
+#                  (see http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+# d,e          initial lens offset in pixels(defaults d0 e0, optional).
+#                  Used to correct for offset from center of image
+#                  d - horizontal offset,
+#                  e - vertical offset
+# g,t          initial lens shear.  Use to remove slight misalignment
+#                  of the line scanner relative to the film transport
+#                  g - horizontal shear
+#                  t - vertical shear
+# S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
+#                       Original image size is used for all image parameters
+#                       (e.g. field-of-view) refer to the original image.
+#                       Selection can be outside image dimension.
+#                       The selection will be circular for circular fisheye images, and
+#                       rectangular for all other projection formats
+# nName        file name of the input image.
+
+o f2 r0   p0    y0     v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
+o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
+
+
+# 'm'-line options
+# ----------------
+# Set mode for stitcher, not required
+#
+# i2           Set interpolator, See <http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html>
+#                one of:
+#                   0 - poly3 (default)
+#                   1 - spline16,
+#                   2 - spline36,
+#                   3 - sinc256,
+#                   4 - spline64,
+#                   5 - bilinear,
+#                   6 - nearest neighbor,
+#                   7 - sinc1024
+#                   
+
+m i2
+
