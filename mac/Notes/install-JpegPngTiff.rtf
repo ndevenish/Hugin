@@ -1,19 +1,18 @@
 {\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf230
-{\fonttbl\f0\fswiss\fcharset77 Helvetica;\f1\fnil\fcharset77 LucidaGrande;}
+{\fonttbl\f0\fswiss\fcharset77 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \pard\tx565\tx1133\tx1700\tx2266\tx2832\tx3401\tx3967\tx4535\tx5102\tx5669\tx6235\tx6802\ql\qnatural
 
-\f0\fs24 \cf0 I wanted to use those three libraries in /usr/local because it is not very smart to statically link both wxjpeg etc. and libjpeg etc. together, and I do not know how to let the wxWidgets' configure where those libraries are installed by Fink.\
-\
-libjpeg.a\
-There is no best way to install this one, but there are ways. \
-The easiest is to steal from fink directory:\
-1. Install libjpeg package on Fink\
-2. Copy libjpeg.a from /sw/lib to /usr/local/lib\
-3. Copy jconfig.h, jerror.h, jmorecfg.h, and jpeglib.h from /sw/include to /usr/local/include\
-4. On Terminal, do ranlib /usr/local/lib/libjpeg.a\
-5. Check permissions for each file and correct it if necessary \
-Actually you can do this to the other two as well, instead of following the steps below.\
+\f0\fs24 \cf0 libjpeg.a\
+Please adapt below:\
+1. Download libjpeg source http://www.ijg.org/files/\
+2. Unarchive it\
+3.\
+% cd download/jpeg-6b\
+% cp /usr/share/libtool/config* ./\
+% ./configure --enable-static --disable-shared\
+% make \
+% sudo make install-lib\
 \
 \
 libpng.a\
@@ -21,7 +20,7 @@ Please adapt below:\
 1. Download latest source from http://sourceforge.net/projects/libpng/\
 2. Unarchive it\
 3. \
-% cd download/libpng-1.2.6\
+% cd download/libpng-1.2.8\
 % cp scripts/makefile.darwin makefile\
 4. Edit makefile:\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural
@@ -33,18 +32,15 @@ Please adapt below:\
 \cf0 % make libpng.a\
 % sudo make install-static\
 % sudo make install-headers\
-6. Check permissions for each file and correct it if necessary \
 \
 \
 libtiff.a\
 Please adapt below:\
 1. Download libtiff source from http://www.libtiff.org/\
-2. Unarchive them\
+2. Unarchive it\
 3.\
-% cd download/
-\f1\fs22 tiff-v3.7.2
-\f0\fs24 \
-% ./configure --disable-shared\
+% cd download/tiff-v3.7.4\
+% ./configure --with-apple-opengl-framework --disable-shared\
 % make \
 % sudo make install\
-4. Check permissions for installed file and correct them if necessary }
+}
