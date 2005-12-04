@@ -317,7 +317,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // hope the next enblend will also contain multilayer support
             opts.outputFormat = PanoramaOptions::TIFF_m;
 
-            opts. tiff_saveROI = (wxConfigBase::Get()->Read(wxT("/Enblend/UseCroppedFiles"),
+            opts.tiff_saveROI = (wxConfigBase::Get()->Read(wxT("/Enblend/UseCroppedFiles"),
                                   HUGIN_ENBLEND_USE_CROPPED_FILES));
         }
         // stitch panorama
@@ -388,6 +388,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             // blend over the border
             args.append(wxT(" -w"));
         }
+
+        if (opts.tiff_saveROI) {
+            args.append(wxString::Format(wxT(" -f %dx%d"), opts.getWidth(), opts.getHeight()));
+        }
+
         args.append(wxT(" -o "));
         wxString quoted = output + wxT(".tif");
         quoted = utils::wxQuoteFilename(quoted);
