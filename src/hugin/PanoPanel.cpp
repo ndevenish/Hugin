@@ -527,8 +527,24 @@ unsigned int PanoPanel::CalcOptimalWidth()
     double pixelDensity=0;
     for (int i=0; i<nImgs; i++) {
         const PanoImage & img = pano.getImage(i);
+        double w = img.getWidth();
         const VariableMap & var = pano.getImageVariables(i);
-        double density = img.getWidth() / const_map_get(var,"v").getValue();
+        double v = const_map_get(var,"v").getValue();
+        const Lens & lens = pano.getLens(img.getLensNr());
+        double density;
+        switch (lens.getProjection()) {
+        case Lens::RECTILINEAR:
+            density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
+            break;
+        case Lens::CIRCULAR_FISHEYE:
+        case Lens::FULL_FRAME_FISHEYE:
+            // if we assume the linear fisheye model: r = f * theta
+            // then we get the same pixel density as for cylindrical and equirect
+        case Lens::EQUIRECTANGULAR:
+        case Lens::PANORAMIC:
+            density = img.getWidth() / const_map_get(var,"v").getValue();
+            break;
+        }
         if (density > pixelDensity) {
             pixelDensity = density;
         }
