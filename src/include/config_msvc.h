@@ -88,7 +88,7 @@
 #define PACKAGE_NAME "hugin"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "hugin 0.5 rc2"
+#define PACKAGE_STRING "hugin 0.5"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "hugin"

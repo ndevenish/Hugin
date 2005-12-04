@@ -1,3 +1,124 @@
+2005-12-04 23:06  dangelo
+
+	* src/hugin/PanoPanel.cpp: bugfix: correct estimation of optimal
+	  size with rectilinear input images.
+
+2005-12-04 21:52  dangelo
+
+	* src/hugin/NonaStitcherPanel.cpp: support cropped tiff file output
+	  properly (added -f argument) of next enblend release
+
+2005-11-30 23:46  ippei
+
+	* mac/Notes/: install-JpegPngTiff.rtf, install-wx.rtf: Mac: dev
+	  note updated
+
+2005-11-29 08:33  dangelo
+
+	* doc/nona.txt: added documentation of nona script files
+
+2005-11-28 22:16  ippei
+
+	* mac/: Documents/ReadMe-HuginOSX.txt,
+	  HuginOSX.xcodeproj/project.pbxproj, Notes/install-wx.rtf,
+	  wxMac-patch/corefoundation_utilsexc_base_cpp.patch: Mac:
+	  PTOptimizer bug fixed
+
+2005-11-28 14:35  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: New "Release" build
+	  settings.
+
+2005-11-28 09:47  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: show status bar message with
+	  correlation coefficients after autofinetune
+
+2005-11-28 01:46  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: The messy build settings
+	  are sorted out.
+
+2005-11-27 16:43  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj,
+	  Notes/install-JpegPngTiff.rtf, Notes/install-boost.rtf,
+	  Notes/install-fftw.rtf, Notes/install-wx.rtf: Updated the xcode
+	  project and developer notes for Mac.
+
+2005-11-27 15:07  ippei
+
+	* mac/: HuginOSX.xcodeproj.zip, HuginOSX.xcodeproj/project.pbxproj:
+	  xcode project for version 2.1 or above to be directly uploaded:
+	  found a work around for packaged file on CVS
+
+2005-11-27 15:00  ippei
+
+	* mac/HuginOSX.xcode/project.pbxproj: The last version of xcode
+	  project for Xcode 2.0 or earlier. I'm not sure whether it works,
+	  but this was the last one.
+
+2005-11-27 13:53  ippei
+
+	* mac/HuginOSX-Info.plist: newest info file
+
+2005-11-27 13:49  ippei
+
+	* mac/localised.sh: wx to be 2.6.2
+
+2005-11-27 13:48  ippei
+
+	* mac/HuginOSX.xcodeproj.zip: xcode project file for Xcode 2.1 or
+	  later
+
+2005-11-21 08:39  dangelo
+
+	* INSTALL: added build dependencies on debian
+
+2005-11-20 09:28  dangelo
+
+	* src/hugin/xrc/pref_dialog.xrc: bugfix: minimum number of rotation
+	  finetune steps set to 1
+
+2005-11-17 10:49  ippei
+
+	* src/hugin/PreferencesDialog.cpp: spell misses
+
+2005-11-17 00:34  ippei
+
+	* src/hugin/po/ja.po: Updated Japanese translation
+
+2005-11-17 00:03  dangelo
+
+	* src/nona_gui/po/ru.po: added ru.po
+
+2005-11-16 21:57  ippei
+
+	* src/hugin/: po/fr.po, po/hugin.pot, po/pl.po, po/ru.po,
+	  po/ca_ES.po, po/de.po, po/hu.po, po/it.po, po/nl.po, po/pt_BR.po,
+	  po/zh_CN.po, PreferencesDialog.cpp: Changed "Simplified Chinese"
+	  to "Chinese (Simplified)" following the Brazilian Portuguese
+	  case.
+
+2005-11-16 21:42  ippei
+
+	* src/hugin/PreferencesDialog.cpp: Disable language chooser on Mac
+	  as the localised resources are automatically chosen by the
+	  system.
+
+2005-11-16 19:50  dangelo
+
+	* src/include/PT/RemappedPanoImage.h: fixed compilation problem on
+	  some version of gcc
+
+2005-11-15 20:07  dangelo
+
+	* src/hugin/po/nl.po: updated translation
+
+2005-11-15 08:19  dangelo
+
+	* ChangeLog: updated changelog
+
 2005-11-15 08:14  dangelo
 
 	* src/: build_msvc/hugin_msvc_install.bat,

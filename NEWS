@@ -1,3 +1,10 @@
+Newsworthy changes in 0.5
+-------------------------
+* Added Catalan, Chinese and Hungarian translation
+* Support TIFF compressions: NONE, DEFLATE, LZW
+* option to create cropped tiff files for usage with enblend 2.4
+* Mac OSX: fixed bug during calling PTOptimizer executable
+
 Newsworthy changes in 0.5 rc2
 -----------------------------
 * Removed all non-opensource sourcecode from CVS
