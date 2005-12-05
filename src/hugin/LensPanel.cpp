@@ -420,6 +420,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
             // not reachable
             DEBUG_ASSERT(0);
         }
+        
         wxString ctrl_name(wxT("lens_val_"));
         ctrl_name.append(wxString(varname.c_str(), *wxConvCurrent));
         double val;
@@ -427,6 +428,11 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         DEBUG_DEBUG("setting variable " << varname << " to " << text);
         if (!str2double(text, val)){
             return;
+        }
+        if ((varname == "a" || varname == "b" || varname == "c") && val == 0.0 ){
+            // set value to a very small one. PTOptimizer will not optimise a
+            // distortion parameter whos value is exactly 0
+            val = 0.0000001;
         }
         Variable var(varname,val);
         GlobalCmdHist::getInstance().addCommand(
