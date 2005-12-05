@@ -335,15 +335,23 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     double std_dev = sqrt(squared_error/m_cps.size());
 
     // check for HFOV lines. if smaller than 1 report an error;
+    // also check for high distortion coefficients.
     bool smallHFOV=false;
+    bool highDist = false;
     for (VariableMapVector::iterator it = m_vars.begin() ; it != m_vars.end(); it++)
     {
         if (map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
+        if (fabs(map_get(*it,"a").getValue()) > 0.8) highDist = true;
+        if (fabs(map_get(*it,"b").getValue()) > 0.8) highDist = true;
+        if (fabs(map_get(*it,"c").getValue()) > 0.8) highDist = true;
     }
 
     wxString msg;
     if (smallHFOV) {
         msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\nPlease optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\nThe Field of View (v) can sometimes be optimized for partial panoramas as well,\nwhen the images are already aligned well."));
+    } else if (highDist) {
+               msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid\nOnly optimize all distortion parameters when many, well spread control points are used\n\nApply the changes anyway?"),
+                          mean_error, std_dev, max_error);
     } else {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
                    mean_error, std_dev, max_error);
