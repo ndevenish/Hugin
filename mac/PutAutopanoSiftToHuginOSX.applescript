@@ -12,7 +12,7 @@ tell application "Finder"
 			or (not (exists file "generatekeys-sd.exe" of folder autopanoDirPath)) Â
 			or (not (exists file "libsift.dll" of folder autopanoDirPath)) then
 			copy "" to autopanoDirPath
-			display alert "Error: enblend file name do not match" as warning
+			display alert "Error: autopano-sift file names do not match" as warning
 		end if
 	end repeat
 	copy "" to huginPath
