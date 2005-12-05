@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-11-15 08:05+0100\n"
+"POT-Creation-Date: 2005-12-05 09:26+0100\n"
 "PO-Revision-Date: 2005-11-14 10:45+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -57,9 +57,9 @@ msgstr "Хотите вместо неё использовать Autopano-Sift?
 msgid "Select autopano program / frontend script"
 msgstr "Выберите сценарий программы автопанорамирования"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:224
-#: src/hugin/PreferencesDialog.cpp:240 src/hugin/PreferencesDialog.cpp:256
-#: src/hugin/PreferencesDialog.cpp:272 src/hugin/RunOptimizerFrame.cpp:111
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:228
+#: src/hugin/PreferencesDialog.cpp:244 src/hugin/PreferencesDialog.cpp:260
+#: src/hugin/PreferencesDialog.cpp:276 src/hugin/RunOptimizerFrame.cpp:111
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Исполняемые файлы (*.exe)|*.exe"
@@ -104,7 +104,7 @@ msgid ""
 msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:307
-#: src/hugin/AutoCtrlPointCreator.cpp:453 src/hugin/NonaStitcherPanel.cpp:408
+#: src/hugin/AutoCtrlPointCreator.cpp:453 src/hugin/NonaStitcherPanel.cpp:413
 msgid "Too many images selected"
 msgstr ""
 
@@ -122,8 +122,8 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:350
 #: src/hugin/AutoCtrlPointCreator.cpp:366
-#: src/hugin/AutoCtrlPointCreator.cpp:475 src/hugin/NonaStitcherPanel.cpp:457
-#: src/hugin/NonaStitcherPanel.cpp:470
+#: src/hugin/AutoCtrlPointCreator.cpp:475 src/hugin/NonaStitcherPanel.cpp:462
+#: src/hugin/NonaStitcherPanel.cpp:475
 msgid "Could not execute command: "
 msgstr "Не удалось выполнить команду: "
 
@@ -134,17 +134,17 @@ msgstr ""
 #: src/hugin/AutoCtrlPointCreator.cpp:366
 #: src/hugin/AutoCtrlPointCreator.cpp:371
 #: src/hugin/AutoCtrlPointCreator.cpp:475
-#: src/hugin/AutoCtrlPointCreator.cpp:481 src/hugin/NonaStitcherPanel.cpp:470
+#: src/hugin/AutoCtrlPointCreator.cpp:481 src/hugin/NonaStitcherPanel.cpp:475
 msgid "wxExecute Error"
 msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:369
-#: src/hugin/AutoCtrlPointCreator.cpp:479 src/hugin/NonaStitcherPanel.cpp:473
+#: src/hugin/AutoCtrlPointCreator.cpp:479 src/hugin/NonaStitcherPanel.cpp:478
 msgid "command: "
 msgstr "команда: "
 
 #: src/hugin/AutoCtrlPointCreator.cpp:370
-#: src/hugin/AutoCtrlPointCreator.cpp:480 src/hugin/NonaStitcherPanel.cpp:474
+#: src/hugin/AutoCtrlPointCreator.cpp:480 src/hugin/NonaStitcherPanel.cpp:479
 msgid ""
 "\n"
 "failed with error code: "
@@ -178,7 +178,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:288
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:292
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Исполняемые файлы (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -237,19 +237,16 @@ msgstr "Соответствующая точка не найдена"
 msgid "new control point added"
 msgstr "Добавлена новая контрольная точка"
 
-#: src/hugin/CPEditorPanel.cpp:718 src/hugin/CPEditorPanel.cpp:924
+#: src/hugin/CPEditorPanel.cpp:718 src/hugin/CPEditorPanel.cpp:942
 msgid "searching similar point..."
 msgstr "Идёт поиск аналогичной точки..."
 
-#: src/hugin/CPEditorPanel.cpp:737 src/hugin/CPEditorPanel.cpp:852
+#: src/hugin/CPEditorPanel.cpp:737 src/hugin/CPEditorPanel.cpp:860
 msgid "Error during Fine-tune"
 msgstr "Ошибка в ходе точной подстройки"
 
-#: src/hugin/CPEditorPanel.cpp:768
-msgid "Estimated point outside image"
-msgstr ""
-
-#: src/hugin/CPEditorPanel.cpp:970
+#: src/hugin/CPEditorPanel.cpp:751 src/hugin/CPEditorPanel.cpp:880
+#: src/hugin/CPEditorPanel.cpp:988
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -258,7 +255,15 @@ msgstr ""
 "Точка настроена, угол: %.0f градусов, коэфф. корреляции: %0.3f, кривизна: %"
 "0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:976
+#: src/hugin/CPEditorPanel.cpp:754 src/hugin/CPEditorPanel.cpp:883
+msgid "change points, or press right mouse button to add the pair"
+msgstr "Смените точки, либо нажмите правую клавишу мыши, чтобы добавить пару"
+
+#: src/hugin/CPEditorPanel.cpp:774
+msgid "Estimated point outside image"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:994
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -266,39 +271,35 @@ msgid ""
 "peak curvature: (%.3f, %.3f) ( should be > %.3f)"
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:978
+#: src/hugin/CPEditorPanel.cpp:996
 msgid "No similar point found"
 msgstr "Аналогичная точка не найдена"
 
-#: src/hugin/CPEditorPanel.cpp:1370 src/hugin/CPListFrame.cpp:394
+#: src/hugin/CPEditorPanel.cpp:1388 src/hugin/CPListFrame.cpp:394
 #: src/hugin/PreviewFrame.cpp:167 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "нормальный"
 
-#: src/hugin/CPEditorPanel.cpp:1373 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1391 src/hugin/CPListFrame.cpp:397
 msgid "vert. Line"
 msgstr "верт. линия"
 
-#: src/hugin/CPEditorPanel.cpp:1376 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1394 src/hugin/CPListFrame.cpp:400
 msgid "horiz. Line"
 msgstr "гор. линия"
 
-#: src/hugin/CPEditorPanel.cpp:1660
+#: src/hugin/CPEditorPanel.cpp:1678
 msgid "Cannot estimate image position without control points"
 msgstr "Невозможно оценить положение изображения без контрольных точек"
 
-#: src/hugin/CPEditorPanel.cpp:1851
+#: src/hugin/CPEditorPanel.cpp:1869
 msgid "Select Point in right image"
 msgstr "Выберите точку в изображении справа"
 
-#: src/hugin/CPEditorPanel.cpp:1863
+#: src/hugin/CPEditorPanel.cpp:1881
 msgid "Select Point in left image"
 msgstr "Выберите точку в изображении слева"
-
-#: src/hugin/CPEditorPanel.cpp:1882
-msgid "change points, or press right mouse button to add the pair"
-msgstr "Смените точки, либо нажмите правую клавишу мыши, чтобы добавить пару"
 
 #: src/hugin/CPFineTuneFrame.cpp:38
 msgid "Control point finetune"
@@ -531,45 +532,45 @@ msgstr "Действительно удалить %d контрольные то
 msgid "Delete Control Points"
 msgstr "Удалить контрольные точки"
 
-#: src/hugin/LensPanel.cpp:681
+#: src/hugin/LensPanel.cpp:687
 msgid "Not a jpeg file:"
 msgstr "Не JPEG-файл:"
 
-#: src/hugin/LensPanel.cpp:686 src/hugin/LensPanel.cpp:740
-#: src/hugin/LensPanel.cpp:816 src/hugin/LensPanel.cpp:832
-#: src/hugin/LensPanel.cpp:850
+#: src/hugin/LensPanel.cpp:692 src/hugin/LensPanel.cpp:746
+#: src/hugin/LensPanel.cpp:822 src/hugin/LensPanel.cpp:838
+#: src/hugin/LensPanel.cpp:856
 msgid "Please select an image and try again"
 msgstr "Выберите фотографию и попробуйте ещё раз"
 
-#: src/hugin/LensPanel.cpp:704
+#: src/hugin/LensPanel.cpp:710
 msgid "Save lens parameters file"
 msgstr "Сохранить файл с параметрами объектива"
 
-#: src/hugin/LensPanel.cpp:706
+#: src/hugin/LensPanel.cpp:712
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Файлы данных объектива (*.ini)|*.ini|Все файлы (*)|*"
 
-#: src/hugin/LensPanel.cpp:754
+#: src/hugin/LensPanel.cpp:760
 msgid "Load lens parameters"
 msgstr "Загрузить параметры объектива"
 
-#: src/hugin/LensPanel.cpp:756
+#: src/hugin/LensPanel.cpp:762
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Файлы данных объектива (*.ini)|*.ini|Все файлы (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:840
+#: src/hugin/LensPanel.cpp:846
 msgid "Enter new lens number"
 msgstr "Введите номер нового объектива"
 
-#: src/hugin/LensPanel.cpp:840
+#: src/hugin/LensPanel.cpp:846
 msgid "Lens number"
 msgstr "Номер объектива"
 
-#: src/hugin/LensPanel.cpp:841
+#: src/hugin/LensPanel.cpp:847
 msgid "Change lens number"
 msgstr "Смена номера объектива"
 
-#: src/hugin/LensPanel.cpp:865
+#: src/hugin/LensPanel.cpp:871
 msgid ""
 "Enter Crop Factor for image\n"
 "\n"
@@ -579,7 +580,7 @@ msgid ""
 "where diagnal is the diagonal (in mm) of the film or imaging chip."
 msgstr ""
 
-#: src/hugin/LensPanel.cpp:866
+#: src/hugin/LensPanel.cpp:872
 msgid "Adding Image"
 msgstr "Добавляется фотография"
 
@@ -762,7 +763,7 @@ msgstr ""
 msgid "No enblend commandline tool selected"
 msgstr ""
 
-#: src/hugin/NonaStitcherPanel.cpp:407
+#: src/hugin/NonaStitcherPanel.cpp:412
 msgid ""
 "Can not call enblend with a command line > 2000 characters.\n"
 "This is a Windows limitation\n"
@@ -770,17 +771,17 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 
-#: src/hugin/NonaStitcherPanel.cpp:417
+#: src/hugin/NonaStitcherPanel.cpp:422
 msgid "Running Enblend"
 msgstr "Выполняется Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:417
+#: src/hugin/NonaStitcherPanel.cpp:422
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
 msgstr ""
 
-#: src/hugin/NonaStitcherPanel.cpp:421
+#: src/hugin/NonaStitcherPanel.cpp:426
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -788,15 +789,15 @@ msgstr ""
 "Не удалось выполнить enblend, вызов system() не сработал: \n"
 "Командой была :"
 
-#: src/hugin/NonaStitcherPanel.cpp:422
+#: src/hugin/NonaStitcherPanel.cpp:427
 msgid "Error returned was :"
 msgstr "Возращённая ошибка:"
 
-#: src/hugin/NonaStitcherPanel.cpp:457
+#: src/hugin/NonaStitcherPanel.cpp:462
 msgid "CreateProcess Error"
 msgstr "Ошибка CreateProcess"
 
-#: src/hugin/NonaStitcherPanel.cpp:475
+#: src/hugin/NonaStitcherPanel.cpp:480
 msgid "enblend error"
 msgstr "ошибка enblend"
 
@@ -956,102 +957,102 @@ msgstr "Цилиндрический"
 msgid "width needs to be an integer bigger than 0"
 msgstr "ширина должна быть переменной больше 0"
 
-#: src/hugin/PanoPanel.cpp:549
+#: src/hugin/PanoPanel.cpp:565
 msgid "Create panorama image"
 msgstr "Создать панораму"
 
-#: src/hugin/PreferencesDialog.cpp:109
+#: src/hugin/PreferencesDialog.cpp:113
 msgid "System default"
 msgstr "Системный"
 
-#: src/hugin/PreferencesDialog.cpp:112
+#: src/hugin/PreferencesDialog.cpp:116
 #, fuzzy
 msgid "Catalan"
 msgstr "Итальянский"
 
-#: src/hugin/PreferencesDialog.cpp:115
-msgid "Dutch"
-msgstr "Голландский"
-
-#: src/hugin/PreferencesDialog.cpp:118
-msgid "English"
-msgstr "Английский"
-
-#: src/hugin/PreferencesDialog.cpp:121
-msgid "French"
-msgstr "Французский"
-
-#: src/hugin/PreferencesDialog.cpp:124
-msgid "German"
-msgstr "Немецкий"
-
-#: src/hugin/PreferencesDialog.cpp:127
-msgid "Hungarian"
-msgstr ""
-
-#: src/hugin/PreferencesDialog.cpp:130
-msgid "Italian"
-msgstr "Итальянский"
-
-#: src/hugin/PreferencesDialog.cpp:133
-msgid "Japanese"
-msgstr "Японский"
-
-#: src/hugin/PreferencesDialog.cpp:136
-msgid "Polish"
-msgstr "Польский"
-
-#: src/hugin/PreferencesDialog.cpp:139
-msgid "Portuguese (Brazilian)"
-msgstr "Португальский (Бразилия)"
-
-#: src/hugin/PreferencesDialog.cpp:142
-msgid "Russian"
-msgstr "Русский"
-
-#: src/hugin/PreferencesDialog.cpp:145
+#: src/hugin/PreferencesDialog.cpp:119
 msgid "Chinese (Simplified)"
 msgstr "Китайский (упрощённый)"
 
-#: src/hugin/PreferencesDialog.cpp:221
+#: src/hugin/PreferencesDialog.cpp:122
+msgid "Dutch"
+msgstr "Голландский"
+
+#: src/hugin/PreferencesDialog.cpp:125
+msgid "English"
+msgstr "Английский"
+
+#: src/hugin/PreferencesDialog.cpp:128
+msgid "French"
+msgstr "Французский"
+
+#: src/hugin/PreferencesDialog.cpp:131
+msgid "German"
+msgstr "Немецкий"
+
+#: src/hugin/PreferencesDialog.cpp:134
+msgid "Hungarian"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:137
+msgid "Italian"
+msgstr "Итальянский"
+
+#: src/hugin/PreferencesDialog.cpp:140
+msgid "Japanese"
+msgstr "Японский"
+
+#: src/hugin/PreferencesDialog.cpp:143
+msgid "Polish"
+msgstr "Польский"
+
+#: src/hugin/PreferencesDialog.cpp:146
+msgid "Portuguese (Brazilian)"
+msgstr "Португальский (Бразилия)"
+
+#: src/hugin/PreferencesDialog.cpp:149
+msgid "Russian"
+msgstr "Русский"
+
+#: src/hugin/PreferencesDialog.cpp:225
 msgid "Select PTStitcher"
 msgstr "Выберите PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:237 src/hugin/RunOptimizerFrame.cpp:109
+#: src/hugin/PreferencesDialog.cpp:241 src/hugin/RunOptimizerFrame.cpp:109
 #: src/hugin/RunOptimizerFrame.cpp:127
 msgid "Select PTOptimizer"
 msgstr "Выберите PTOptimizer"
 
-#: src/hugin/PreferencesDialog.cpp:253
+#: src/hugin/PreferencesDialog.cpp:257
 msgid "Select Enblend"
 msgstr "Выберите Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:285
+#: src/hugin/PreferencesDialog.cpp:273 src/hugin/PreferencesDialog.cpp:289
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Select Autopano"
 msgstr "Выберите Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:319 src/hugin/PreferencesDialog.cpp:321
+#: src/hugin/PreferencesDialog.cpp:323 src/hugin/PreferencesDialog.cpp:325
 msgid "Panotools details"
 msgstr "Подробности о Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:366
+#: src/hugin/PreferencesDialog.cpp:370
 msgid "Could not load dll"
 msgstr "Не удалось загрузить dll"
 
-#: src/hugin/PreferencesDialog.cpp:366
+#: src/hugin/PreferencesDialog.cpp:370
 msgid "panoinfo"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:640
+#: src/hugin/PreferencesDialog.cpp:644
 msgid "Unknown Version"
 msgstr "Неизвестная версия"
 
-#: src/hugin/PreferencesDialog.cpp:650
+#: src/hugin/PreferencesDialog.cpp:654
 msgid "Really reset displayed preferences to default values?"
 msgstr "Действительно сбросить эти настройки до исходных?"
 
-#: src/hugin/PreferencesDialog.cpp:650 src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/PreferencesDialog.cpp:654 src/hugin/xrc/pref_dialog.xrs:71
 msgid "Load Defaults"
 msgstr "&Исходные настройки"
 
@@ -1210,7 +1211,7 @@ msgstr "Остановить"
 msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr "Алгоритм %d, итерация %d, среднее расстояние: %f"
 
-#: src/hugin/RunOptimizerFrame.cpp:346
+#: src/hugin/RunOptimizerFrame.cpp:351
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -1224,7 +1225,24 @@ msgid ""
 "when the images are already aligned well."
 msgstr ""
 
-#: src/hugin/RunOptimizerFrame.cpp:348
+#: src/hugin/RunOptimizerFrame.cpp:353
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid\n"
+"Only optimize all distortion parameters when many, well spread control "
+"points are used\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+
+#: src/hugin/RunOptimizerFrame.cpp:356
 #, c-format
 msgid ""
 "Optimizer run finished.\n"
