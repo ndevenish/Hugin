@@ -27,6 +27,7 @@
 			dependencies = (
 				570878D6067BC5770057B4D7 /* PBXTargetDependency */,
 				570878D8067BC5770057B4D7 /* PBXTargetDependency */,
+				57DF5F420943BD6C00D67E88 /* PBXTargetDependency */,
 			);
 			name = all;
 			productName = all;
@@ -56,9 +57,9 @@
 			name = apps;
 			productName = apps;
 		};
-		573B9036067BADC600B7B355 /* tools apps */ = {
+		573B9036067BADC600B7B355 /* tools */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools apps" */;
+			buildConfigurationList = 571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools" */;
 			buildPhases = (
 			);
 			buildSettings = {
@@ -76,7 +77,7 @@
 			dependencies = (
 				573B9038067BADDD00B7B355 /* PBXTargetDependency */,
 			);
-			name = "tools apps";
+			name = tools;
 			productName = "tools apps";
 		};
 		5749FA15067B7DE400A6EDD4 /* lib */ = {
@@ -105,22 +106,6 @@
 			);
 			name = lib;
 			productName = lib;
-		};
-		57E1114707FAD16600CA8102 /* Experimental Release */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 571DA7CF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "Experimental Release" */;
-			buildPhases = (
-			);
-			buildSettings = {
-				PRODUCT_NAME = all;
-			};
-			dependencies = (
-				57E1114B07FAD19D00CA8102 /* PBXTargetDependency */,
-				57E1114D07FAD19D00CA8102 /* PBXTargetDependency */,
-				574F3EF8081FF6180086E561 /* PBXTargetDependency */,
-			);
-			name = "Experimental Release";
-			productName = all;
 		};
 /* End PBXAggregateTarget section */
 
@@ -444,13 +429,6 @@
 			remoteGlobalIDString = 5749F986067B696900A6EDD4;
 			remoteInfo = wximageproc;
 		};
-		574F3EF7081FF6180086E561 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57CF926806BD7AD100780AC5;
-			remoteInfo = nona_gui;
-		};
 		574F3F38082006B80086E561 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -514,19 +492,26 @@
 			remoteGlobalIDString = 5749F986067B696900A6EDD4;
 			remoteInfo = huginwxutils;
 		};
-		57E1114A07FAD19D00CA8102 /* PBXContainerItemProxy */ = {
+		57DF5F410943BD6C00D67E88 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 57E7825E068107210070F6AA;
-			remoteInfo = HuginOSX;
+			remoteGlobalIDString = 573B9036067BADC600B7B355 /* tools apps */;
+			remoteInfo = "tools apps";
 		};
-		57E1114C07FAD19D00CA8102 /* PBXContainerItemProxy */ = {
+		57DF5F490943BD9B00D67E88 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 573B8FD5067BAC4600B7B355;
-			remoteInfo = nona;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			remoteInfo = vigra_impex;
+		};
+		57DF5F4D0943BDBC00D67E88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			remoteInfo = vigra_impex;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -724,13 +709,8 @@
 		57114FEA06BC2302004F4FA7 /* Correlation.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Correlation.h; sourceTree = "<group>"; };
 		57114FEB06BC2302004F4FA7 /* FunctorAccessor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FunctorAccessor.h; sourceTree = "<group>"; };
 		57114FEC06BC2302004F4FA7 /* Interpolators.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Interpolators.h; sourceTree = "<group>"; };
-		57114FED06BC2302004F4FA7 /* LayerImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LayerImage.h; sourceTree = "<group>"; };
-		57114FEE06BC2302004F4FA7 /* LoweSIFT.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoweSIFT.h; sourceTree = "<group>"; };
 		57114FEF06BC2302004F4FA7 /* NearestFeatureTransform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NearestFeatureTransform.h; sourceTree = "<group>"; };
-		57114FF006BC2302004F4FA7 /* PhaseCorrelation.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhaseCorrelation.h; sourceTree = "<group>"; };
-		57114FF106BC2302004F4FA7 /* PointMatching.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PointMatching.h; sourceTree = "<group>"; };
 		57114FF206BC2302004F4FA7 /* Pyramid.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Pyramid.h; sourceTree = "<group>"; };
-		57114FF306BC2302004F4FA7 /* ROI.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ROI.h; sourceTree = "<group>"; };
 		57114FF406BC2302004F4FA7 /* tiffUtils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tiffUtils.h; sourceTree = "<group>"; };
 		57114FF506BC2302004F4FA7 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		57114FF906BC2302004F4FA7 /* exif.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = exif.cpp; sourceTree = "<group>"; };
@@ -767,9 +747,6 @@
 		5711506006BC2303004F4FA7 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		5711506106BC2303004F4FA7 /* nona.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = nona.cpp; sourceTree = "<group>"; };
 		5711506206BC2303004F4FA7 /* panosifter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = panosifter.cpp; sourceTree = "<group>"; };
-		5711506506BC2303004F4FA7 /* LoweSIFT.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LoweSIFT.cpp; sourceTree = "<group>"; };
-		5711506606BC2303004F4FA7 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		5711506706BC2303004F4FA7 /* PointMatching.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PointMatching.cpp; sourceTree = "<group>"; };
 		5711524A06BC6709004F4FA7 /* libvigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5711529B06BC6CFE004F4FA7 /* tiff.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; name = tiff.hxx; path = ../src/foreign/vigra/tiff.hxx; sourceTree = SOURCE_ROOT; };
 		5714AF50093A026E0064847F /* boost_1_33_0 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = boost_1_33_0; path = ../../Libs/boost_1_33_0; sourceTree = SOURCE_ROOT; };
@@ -851,7 +828,7 @@
 		57E28ECB092BD03E00CF139D /* nl.po */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = nl.po; sourceTree = "<group>"; };
 		57E28ECC092BD03E00CF139D /* zh_CN.po */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = zh_CN.po; sourceTree = "<group>"; };
 		57E28ED0092BD05D00CF139D /* pt_BR.po */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pt_BR.po; sourceTree = "<group>"; };
-		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EEC3EE08CD09C900B6A197 /* LocalizedFileTipProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizedFileTipProvider.cpp; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano12 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pano12; path = /usr/local/include/pano12; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -977,7 +954,6 @@
 				5711503906BC2303004F4FA7 /* Panorama */,
 				5711504B06BC2303004F4FA7 /* tests */,
 				5711505B06BC2303004F4FA7 /* tools */,
-				5711506306BC2303004F4FA7 /* vigra_ext */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1281,13 +1257,8 @@
 				57114FEA06BC2302004F4FA7 /* Correlation.h */,
 				57114FEB06BC2302004F4FA7 /* FunctorAccessor.h */,
 				57114FEC06BC2302004F4FA7 /* Interpolators.h */,
-				57114FED06BC2302004F4FA7 /* LayerImage.h */,
-				57114FEE06BC2302004F4FA7 /* LoweSIFT.h */,
 				57114FEF06BC2302004F4FA7 /* NearestFeatureTransform.h */,
-				57114FF006BC2302004F4FA7 /* PhaseCorrelation.h */,
-				57114FF106BC2302004F4FA7 /* PointMatching.h */,
 				57114FF206BC2302004F4FA7 /* Pyramid.h */,
-				57114FF306BC2302004F4FA7 /* ROI.h */,
 				57114FF406BC2302004F4FA7 /* tiffUtils.h */,
 				57114FF506BC2302004F4FA7 /* utils.h */,
 			);
@@ -1362,16 +1333,6 @@
 				570E7B5206FC917900D23E0D /* zhang_undistort.cpp */,
 			);
 			path = tools;
-			sourceTree = "<group>";
-		};
-		5711506306BC2303004F4FA7 /* vigra_ext */ = {
-			isa = PBXGroup;
-			children = (
-				5711506606BC2303004F4FA7 /* Makefile */,
-				5711506506BC2303004F4FA7 /* LoweSIFT.cpp */,
-				5711506706BC2303004F4FA7 /* PointMatching.cpp */,
-			);
-			path = vigra_ext;
 			sourceTree = "<group>";
 		};
 		573B8F3E067BA2EB00B7B355 /* Products */ = {
@@ -1553,6 +1514,7 @@
 				573B8FD9067BAC6200B7B355 /* PBXTargetDependency */,
 				573B8FDB067BAC6200B7B355 /* PBXTargetDependency */,
 				573B8FDF067BAC6200B7B355 /* PBXTargetDependency */,
+				57DF5F4A0943BD9B00D67E88 /* PBXTargetDependency */,
 			);
 			name = nona;
 			productName = nona;
@@ -1657,6 +1619,7 @@
 				57DD5A8C08490C1A006C50E4 /* PBXTargetDependency */,
 				57DD5A8E08490C1A006C50E4 /* PBXTargetDependency */,
 				574F3F39082006B80086E561 /* PBXTargetDependency */,
+				57DF5F4E0943BDBC00D67E88 /* PBXTargetDependency */,
 			);
 			name = nona_gui;
 			productName = "nona_gui OSX";
@@ -1777,7 +1740,6 @@
 			productRefGroup = 57FC3ABD0675E43600C3E0AC;
 			projectDirPath = "";
 			targets = (
-				57E1114707FAD16600CA8102 /* Experimental Release */,
 				570878D2067BC56F0057B4D7 /* all */,
 				5749FA15067B7DE400A6EDD4 /* lib */,
 				5749F8A2067B60CA00A6EDD4 /* jhead */,
@@ -1788,7 +1750,7 @@
 				573B8F54067BA9CF00B7B355 /* apps */,
 				57E7825E068107210070F6AA /* HuginOSX */,
 				57CF926806BD7AD100780AC5 /* nona_gui */,
-				573B9036067BADC600B7B355 /* tools apps */,
+				573B9036067BADC600B7B355 /* tools */,
 				573B8FD5067BAC4600B7B355 /* nona */,
 			);
 		};
@@ -1986,7 +1948,7 @@
 		};
 		573B91AA067BBC2D00B7B355 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 573B9036067BADC600B7B355 /* tools apps */;
+			target = 573B9036067BADC600B7B355 /* tools */;
 			targetProxy = 573B91A9067BBC2D00B7B355 /* PBXContainerItemProxy */;
 		};
 		5749FA17067B7E0A00A6EDD4 /* PBXTargetDependency */ = {
@@ -2008,11 +1970,6 @@
 			isa = PBXTargetDependency;
 			target = 5749F986067B696900A6EDD4 /* huginwxutils */;
 			targetProxy = 5749FA20067B7E0A00A6EDD4 /* PBXContainerItemProxy */;
-		};
-		574F3EF8081FF6180086E561 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57CF926806BD7AD100780AC5 /* nona_gui */;
-			targetProxy = 574F3EF7081FF6180086E561 /* PBXContainerItemProxy */;
 		};
 		574F3F39082006B80086E561 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2059,15 +2016,20 @@
 			target = 5749F986067B696900A6EDD4 /* huginwxutils */;
 			targetProxy = 57DEBDAA08E89456008F6E81 /* PBXContainerItemProxy */;
 		};
-		57E1114B07FAD19D00CA8102 /* PBXTargetDependency */ = {
+		57DF5F420943BD6C00D67E88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 57E7825E068107210070F6AA /* HuginOSX */;
-			targetProxy = 57E1114A07FAD19D00CA8102 /* PBXContainerItemProxy */;
+			target = 573B9036067BADC600B7B355 /* tools */;
+			targetProxy = 57DF5F410943BD6C00D67E88 /* PBXContainerItemProxy */;
 		};
-		57E1114D07FAD19D00CA8102 /* PBXTargetDependency */ = {
+		57DF5F4A0943BD9B00D67E88 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 573B8FD5067BAC4600B7B355 /* nona */;
-			targetProxy = 57E1114C07FAD19D00CA8102 /* PBXContainerItemProxy */;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 57DF5F490943BD9B00D67E88 /* PBXContainerItemProxy */;
+		};
+		57DF5F4E0943BDBC00D67E88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5711524906BC6709004F4FA7 /* vigra_impex */;
+			targetProxy = 57DF5F4D0943BDBC00D67E88 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2092,7 +2054,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_MODEL_CPU = G3;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_UNROLL_LOOPS = YES;
 				PRODUCT_NAME = vigra_impex;
 			};
 			name = ExperimentalRelease;
@@ -2156,52 +2120,6 @@
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = debugging;
-			};
-			name = ExperimentalRelease;
-		};
-		571DA7D1088E59C20058F246 /* ExperimentalRelease */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-DGCC_AUTO_VECTORIZATION",
-					"-ftree-vectorize",
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
-				PRODUCT_NAME = all;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = ExperimentalRelease;
 		};
@@ -2459,7 +2377,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_MODEL_CPU = G3;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_UNROLL_LOOPS = YES;
 				PRODUCT_NAME = vigra_impex;
 			};
 			name = Release;
@@ -2523,52 +2443,6 @@
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = debugging;
-			};
-			name = Release;
-		};
-		576D2766093B3C8500FC5596 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-DGCC_AUTO_VECTORIZATION",
-					"-ftree-vectorize",
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
-				PRODUCT_NAME = all;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -2893,52 +2767,6 @@
 			};
 			name = Development;
 		};
-		576D2776093B3D4300FC5596 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-DGCC_AUTO_VECTORIZATION",
-					"-ftree-vectorize",
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
-				PRODUCT_NAME = all;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
-			};
-			name = Development;
-		};
 		576D2777093B3D4300FC5596 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3256,16 +3084,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = ExperimentalRelease;
 		};
-		571DA7CF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "Experimental Release" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				571DA7D1088E59C20058F246 /* ExperimentalRelease */,
-				576D2776093B3D4300FC5596 /* Development */,
-				576D2766093B3C8500FC5596 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = ExperimentalRelease;
-		};
 		571DA7DB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3276,7 +3094,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = ExperimentalRelease;
 		};
-		571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools apps" */ = {
+		571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				571DA7F9088E59C20058F246 /* ExperimentalRelease */,

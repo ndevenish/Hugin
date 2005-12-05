@@ -28,7 +28,7 @@
 	<key>CFBundleExecutable</key>
 	<string>HuginOSX</string>
 	<key>CFBundleGetInfoString</key>
-	<string>HuginOSX 0.5rc3 (compiled by Ippei UKAI); Released under GPL by hugin Project (http://hugin.sf.net/)</string>
+	<string>HuginOSX 0.5; released under GPL by hugin Project (http://hugin.sf.net/)</string>
 	<key>CFBundleIconFile</key>
 	<string>HuginOSX.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -40,10 +40,10 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.5rc3</string>
+	<string>0.5</string>
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
 	<key>CFBundleVersion</key>
-	<string>0.5rc3</string>
+	<string>0.5</string>
 </dict>
 </plist>
