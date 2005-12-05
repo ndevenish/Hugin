@@ -2218,8 +2218,9 @@ msgid "LZW"
 msgstr "LZW"
 
 #: src/hugin/xrc/nona_panel.xrs:23
+#, fuzzy
 msgid "Deflate"
-msgstr "削除"
+msgstr "Deflate"
 
 #: src/hugin/xrc/nona_panel.xrs:24
 msgid "Save cropped images (only TIFF&m)"
