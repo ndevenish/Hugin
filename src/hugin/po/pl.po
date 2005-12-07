@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-12-05 09:35+0100\n"
-"PO-Revision-Date: 2005-11-01 22:50+0100\n"
+"PO-Revision-Date: 2005-12-06 10:53+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1021,9 +1021,8 @@ msgid "System default"
 msgstr "Domyślny systemu"
 
 #: src/hugin/PreferencesDialog.cpp:116
-#, fuzzy
 msgid "Catalan"
-msgstr "Włoski"
+msgstr "Kataloński"
 
 #: src/hugin/PreferencesDialog.cpp:119
 msgid "Chinese (Simplified)"
@@ -1047,7 +1046,7 @@ msgstr "Niemiecki"
 
 #: src/hugin/PreferencesDialog.cpp:134
 msgid "Hungarian"
-msgstr ""
+msgstr "Węgierski"
 
 #: src/hugin/PreferencesDialog.cpp:137
 msgid "Italian"
@@ -1175,9 +1174,9 @@ msgstr ""
 "Obecnie wpisane są bardzo duże wymiary w punktach.\n"
 "Niektóre komputery mogą potrzebować nadmiernie dużo czasu\n"
 "na renderowanie tak dużego finalnego zdjęcia.\n"
-"Aby uzyskac najlepszy wynik, użyj przycisków Calc w\n"
-"zakładce Opcje Panoramy, aby ustalić\n"
-"wielkość w pikselach, która da najlepszą jakość."
+"Aby uzyskac najlepszy wynik, użyj przycisku Wylicz optymalną wielkość\n"
+"zakładce Opcje Panoramy, aby ustalić wielkość w pikselach,\n"
+"która da najlepszą jakość."
 
 #: src/hugin/PreviewPanel.cpp:260
 msgid "Error during Stitching"
@@ -1317,6 +1316,16 @@ msgid ""
 "\n"
 "Apply the changes anyway?"
 msgstr ""
+"Działanie optymalizatora zakończone.\n"
+"Wyniki:\n"
+" średnia odległość punktów kontrolnych: %f\n"
+" odchylenie standardowe: %f\n"
+" maksimum: %f\n"
+"*UWAGA*: estymowano bardzo duże współczynniki zniekształcenia (a,b,c).\n"
+"Wyniki są prawdopodobnie niepoprawne.\n"
+"Należy optymalizować wszystkie parametry zniekształcenia tylko kiedy użyto dużej liczby dobrze rozmieszczonych punktów kontrolnych.\n"
+"\n"
+"Mimo to zastosować zmiany?"
 
 #: src/hugin/RunOptimizerFrame.cpp:356
 #, c-format
@@ -1333,7 +1342,7 @@ msgstr ""
 "Rezultaty:\n"
 " średnia odległość punktów kontrolnych: %f\n"
 " odchylenie standardowe: %f\n"
-" maximum: %f\n"
+" maksimum: %f\n"
 "\n"
 "Zastosować zmiany?"
 
