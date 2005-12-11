@@ -1,5 +1,16 @@
-Goal: Toolchain to create panoramic images for every occasion,
-      from quick holiday snaps to images with hundrets of megapixels.
+
+WARNING about using PTStitcher.exe:
+
+ PTStitcher.exe might have problems with the pano12.dll file include
+ in the installer package.
+
+ If you experience these crashes, rename pano12_for_usage_with_ptstitcher.dll
+ to pano12.dll and it should work again. Unfortuantely, this reduces the
+ remapping speed by ~30 percent
+
+ See http://www.photocreations.ca/panotools/ for more details.
+
+
 
 This package contains the following programs:
 
@@ -23,8 +34,7 @@ http://panotools.sf.net
 
 The following external programs are highly recommended:
 
-1. enblend
-2. autopano or autopano-sift
+1. autopano or autopano-sift
     
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution

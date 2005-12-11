@@ -1,6 +1,6 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5 rc2"
+!define HUGIN_VERSION "0.5"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
@@ -18,9 +18,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_rc2_allinone_setup.exe"
+OutFile "hugin-0.5_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_rc2_setup.exe"
+OutFile "hugin-0.5_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -106,6 +106,7 @@ Section "Hugin program files"
 !endif
 !ifdef HUGIN_ALLINONE
   File "pano12.dll"
+  File "pano12_for_usage_with_ptstitcher.dll"
   ;File "PTStitcher.exe"
   File "PTOptimizer.exe"
   ;File "autopano.exe"

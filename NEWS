@@ -4,6 +4,10 @@ Newsworthy changes in 0.5
 * Support TIFF compressions: NONE, DEFLATE, LZW
 * option to create cropped tiff files for usage with enblend 2.4
 * Mac OSX: fixed bug during calling PTOptimizer executable
+* Windows only:
+    hugin is shipped with the pano12.dll build with MSVC.
+    This might lead to crashes when using PTStitcher.exe
+    In that case replace pano12.dll with pano12_for_usage_with ptstitcher.dll
 
 Newsworthy changes in 0.5 rc2
 -----------------------------
