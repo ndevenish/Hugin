@@ -361,9 +361,9 @@ namespace vigra {
         vigra_precondition( bits >= 0, "the file's maxval field is corrupt" );
 	if ( bits <= 8 )
             pixeltype = "UINT8";
-	else if ( bits <= 15 )
+	else if ( bits <= 16 )
             pixeltype = "UINT16";
-	else if ( bits <= 31 )
+	else if ( bits <= 32 )
             pixeltype = "UINT32";
 	else
             vigra_precondition( false,
