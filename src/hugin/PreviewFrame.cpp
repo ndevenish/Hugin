@@ -289,11 +289,14 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     case PanoramaOptions::EQUIRECTANGULAR:
         projection = _("equirectangular");
         break;
+    case PanoramaOptions::FULL_FRAME_FISHEYE:
+        projection = _("Full frame fisheye");
+        break;
     }
-    SetStatusText(wxString::Format(wxT("%.1f x %.1f, %s"), opts.HFOV, opts.VFOV,
+    SetStatusText(wxString::Format(wxT("%.1f x %.1f, %s"), opts.getHFOV(), opts.getVFOV(),
                                    projection.c_str()),1);
-    m_HFOVSlider->SetValue(roundi(opts.HFOV));
-    m_VFOVSlider->SetValue(roundi(opts.VFOV));
+    m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
+    m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
     if (m_druid) m_druid->Update(m_pano);
 }
 
@@ -432,14 +435,14 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
     PanoramaOptions opt = m_pano.getOptions();
 
     FDiff2D fov = m_pano.calcFOV();
-    opt.HFOV = roundi(fov.x);
-    opt.VFOV = roundi(fov.y);
+    opt.setHFOV(utils::round(fov.x));
+    opt.setVFOV(utils::round(fov.y));
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );
 
-    DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
+    DEBUG_INFO ( "new fov: [" << opt.getHFOV() << " "<< opt.getVFOV() << "] => height: " << opt.getHeight() );
     m_PreviewPanel->ForceUpdate();
     if (m_druid) m_druid->Update(m_pano);
 }
@@ -478,10 +481,10 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
 
     if (e.GetEventObject() == m_HFOVSlider) {
         DEBUG_DEBUG("HFOV changed (slider): " << e.GetInt() << " == " << m_HFOVSlider->GetValue());
-        opt.HFOV = e.GetInt();
+        opt.setHFOV(e.GetInt());
     } else if (e.GetEventObject() == m_VFOVSlider) {
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
-        opt.VFOV = e.GetInt();
+        opt.setVFOV(e.GetInt());
     } else {
         DEBUG_FATAL("Slider event from unknown control received");
     }

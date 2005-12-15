@@ -211,7 +211,7 @@ bool nonaApp::OnInit()
 
     // check for some options
 
-    int w = opts.width;
+    int w = opts.getWidth();
     int h = opts.getHeight();
 
     cout << (const char *)wxString::Format(wxT("%s"), _("output image size: ")).mb_str() << w << "x" << h << std::endl;

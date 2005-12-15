@@ -377,8 +377,8 @@ PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string
 
 void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
-    o << "p f" << projectionFormat << " w" << width << " h" << getHeight()
-      << " v" << HFOV << " ";
+    o << "p f" << projectionFormat << " w" << getWidth()<< " h" << getHeight()
+            << " v" << getHFOV() << " ";
 
     switch (colorCorrection) {
     case NONE:
@@ -425,25 +425,74 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << std::endl;
 }
 
-unsigned int PanoramaOptions::getHeight() const
+void PanoramaOptions::setWidth(unsigned int w, bool keepView)
+{
+    
+    double vfov;
+    if (keepView)
+        vfov = getVFOV();
+    m_width = w;
+    if (keepView) {
+        setVFOV(vfov);
+    }
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << getVFOV());
+}
+
+void PanoramaOptions::setHeight(unsigned int h) 
+{
+    m_height = h;
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << getVFOV());
+}
+
+void PanoramaOptions::setVFOV(double VFOV)
 {
     switch (projectionFormat) {
-    case RECTILINEAR:
-    {
-        return (int) ( width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(HFOV)/2.0));
-        break;
+        case RECTILINEAR:
+        {
+            m_height =  utils::roundi( m_width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(m_hfov)/2.0));
+            break;
+        }
+        case CYLINDRICAL:
+        {
+            double f = (double)m_width / DEG_TO_RAD(m_hfov);
+            m_height = utils::roundi(2.0 * tan(DEG_TO_RAD(VFOV)/2.0) * f);
+            break;
+        }
+        case EQUIRECTANGULAR:
+            m_height = utils::roundi(m_width * VFOV/m_hfov);
+            break;
+        case FULL_FRAME_FISHEYE:
+            m_height = utils::roundi(m_width * VFOV/m_hfov);
+            break;
     }
-    case CYLINDRICAL:
-    {
-        double f = (double)width / DEG_TO_RAD(HFOV);
-        return (int) (2.0 * tan(DEG_TO_RAD(VFOV)/2.0) * f);
-        break;
-    }
-    case EQUIRECTANGULAR:
-        return (int) (width * VFOV/HFOV);
-    }
-    return 0;
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << VFOV);
+}
 
+double PanoramaOptions::getVFOV() const
+{
+    double VFOV;
+    switch (projectionFormat) {
+        case PanoramaOptions::RECTILINEAR:
+            VFOV = 2.0 * atan( (double)m_height * tan(DEG_TO_RAD(m_hfov)/2.0) / m_width);
+            VFOV = RAD_TO_DEG(VFOV);
+            break;
+        case PanoramaOptions::CYLINDRICAL:
+        {
+            // equations: w = f * v (f: focal length, in pixel)
+            double f = m_width / DEG_TO_RAD(m_hfov);
+            VFOV = 2*atan(m_height/(2.0*f));
+            VFOV = RAD_TO_DEG(VFOV);
+            break;
+        }
+        case PanoramaOptions::EQUIRECTANGULAR:
+            VFOV = m_hfov * m_height / m_width;
+            break;
+        case PanoramaOptions::FULL_FRAME_FISHEYE:
+            VFOV = m_hfov * m_height / m_width;
+            break;
+    }
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << VFOV);
+    return VFOV;
 }
 
 const string PanoramaOptions::fileformatNames[] =
@@ -593,32 +642,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             int i;
             getIntParam(i,line,"f");
             options.projectionFormat = (PanoramaOptions::ProjectionFormat) i;
-            getIntParam(options.width, line, "w");
-            getDoubleParam(options.HFOV, line, "v");
+            unsigned int w;
+            getIntParam(w, line, "w");
+            options.setWidth(w);
+            double v;
+            getDoubleParam(v, line, "v");
+            options.setHFOV(v);
             int height;
             getIntParam(height, line, "h");
+            options.setHeight(height);
 
-            switch (options.projectionFormat) {
-            case PanoramaOptions::RECTILINEAR:
-                options.VFOV = 2.0 * atan( (double)height * tan(DEG_TO_RAD(options.HFOV)/2.0) / options.width);
-                options.VFOV = RAD_TO_DEG(options.VFOV);
-                break;
-            case PanoramaOptions::CYLINDRICAL:
-            {
-		// equations: w = f * v (f: focal length, in pixel)
-                double f = options.width / DEG_TO_RAD(options.HFOV);
-                options.VFOV = 2*atan(height/(2.0*f));
-                options.VFOV = RAD_TO_DEG(options.VFOV);
-                break;
-            }
-            case PanoramaOptions::EQUIRECTANGULAR:
-                options.VFOV = options.HFOV * height / options.width;
-                break;
-            }
-
-
-            DEBUG_DEBUG("options.VFOV: " << options.VFOV << " ratio: "
-                        << (double) height / options.width);
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...
             // n"JPEG q80"

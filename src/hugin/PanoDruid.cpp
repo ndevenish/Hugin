@@ -73,7 +73,7 @@ NEW_HINT(20, HUGE_FINAL, wxT("druid.stitch.128.png"),
          _("Warning:  current stitch has huge dimensions."),
          _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the Calculate Optimal Size button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality."))
 {
-    unsigned long dst_mp = (unsigned long)opts.width * opts.getHeight();
+    unsigned long dst_mp = (unsigned long)opts.getWidth() * opts.getHeight();
 
     // Destination is more than an arbitrary threshold.
     unsigned long threshold = 400000000L; // 400 megapixels
@@ -104,7 +104,7 @@ NEW_HINT(25, LOW_HFOV, wxT("druid.lenses.128.png"),
          _("The Horizontal Field of View (HFOV) may be too low."),
          _("Check that the focal lengths and/or hfov figures\nfor each image are correct for the camera settings.\nThen calculate the visible field of view again.\nHFOV is measured in degrees of arc, usually between\n5 and 120 degrees per image unless using specialized\nlenses."))
 {
-    return (opts.HFOV <= 2.0);
+    return (opts.getHFOV() <= 2.0);
 }
 END_HINT(LOW_HFOV);
 

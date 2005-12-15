@@ -210,13 +210,17 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         m_HFOVSpin->SetRange(1,360);
         m_VFOVSpin->SetRange(1,180);
         break;
+    case PanoramaOptions::FULL_FRAME_FISHEYE:
+        m_HFOVSpin->SetRange(1,360);
+        m_VFOVSpin->SetRange(1,360);
+        break;
     }
 
     m_ProjectionChoice->SetSelection(opt.projectionFormat);
-    m_HFOVSpin->SetValue((int)opt.HFOV);
-    m_VFOVSpin->SetValue((int)opt.VFOV);
+    m_HFOVSpin->SetValue(roundi(opt.getHFOV()));
+    m_VFOVSpin->SetValue(roundi(opt.getVFOV()));
 
-    m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.width));
+    m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightStaticText->SetLabel(wxString::Format(wxT("%d"), opt.getHeight()));
 }
 
@@ -226,16 +230,11 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano.getOptions();
     int lt = m_ProjectionChoice->GetSelection();
     wxString Ip;
-    switch ( lt ) {
-    case PanoramaOptions::RECTILINEAR:       Ip = _("Rectilinear"); break;
-    case PanoramaOptions::CYLINDRICAL:       Ip = _("Cylindrical"); break;
-    case PanoramaOptions::EQUIRECTANGULAR:   Ip = _("Equirectangular"); break;
-    }
     opt.projectionFormat = (PanoramaOptions::ProjectionFormat) lt;
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-    DEBUG_DEBUG ("Projection changed: "  << lt << ":" << Ip )
+    DEBUG_DEBUG ("Projection changed: "  << lt)
 }
 
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
@@ -246,7 +245,8 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 
     DEBUG_ASSERT(hfov >= 0 && hfov <= 360);
 
-    opt.HFOV = (int) hfov;
+    opt.setHFOV(utils::round(hfov));
+    // recalculate panorama height...
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
@@ -262,7 +262,7 @@ void PanoPanel::HFOVChangedSpin ( wxSpinEvent & e )
 
     DEBUG_ASSERT(hfov >= 0 && hfov <= 360);
 
-    opt.HFOV = (int) hfov;
+    opt.setHFOV(utils::round(hfov));
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
@@ -276,15 +276,13 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
     int vfov = m_VFOVSpin->GetValue() ;
-    DEBUG_ASSERT(vfov >= 0 && vfov <= 180);
 
-    if (vfov != m_oldVFOV) {
-        opt.VFOV = vfov;
+    if (vfov != opt.getVFOV()) {
+        opt.setVFOV(vfov);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )
             );
         DEBUG_INFO ( "new vfov: " << vfov << " => height: " << opt.getHeight() );
-        m_oldVFOV = vfov;
     } else {
         DEBUG_DEBUG("not setting same fov");
     }
@@ -296,15 +294,13 @@ void PanoPanel::VFOVChangedSpin ( wxSpinEvent & e )
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
     int vfov = m_VFOVSpin->GetValue() ;
-    DEBUG_ASSERT(vfov >= 0 && vfov <= 180);
 
-    if (vfov != m_oldVFOV) {
-        opt.VFOV = vfov;
+    if (vfov != opt.getVFOV()) {
+        opt.setVFOV(vfov);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )
             );
         DEBUG_INFO ( "new vfov: " << vfov << " => height: " << opt.getHeight() );
-        m_oldVFOV = vfov;
     } else {
         DEBUG_DEBUG("not setting same fov");
     }
@@ -318,7 +314,7 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
     long nWidth;
     if (m_WidthTxt->GetValue().ToLong(&nWidth)) {
         DEBUG_ASSERT(nWidth>0);
-        opt.width =  (unsigned int) nWidth;
+        opt.setWidth((unsigned int) nWidth);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )
             );
@@ -363,9 +359,9 @@ void PanoPanel::ApplyQuickMode(int preset)
 
         // resize.
         if (preset == 3) {
-            opts.width = 1024;
+            opts.setWidth(1024);
         } else {
-            opts.width = CalcOptimalWidth();
+            opts.setWidth(CalcOptimalWidth());
         }
 
 		switch (preset) {
@@ -492,17 +488,20 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    PanoramaOptions opt = pano.getOptions();
 
     FDiff2D fov = pano.calcFOV();
-    opt.HFOV = roundi(fov.x);
-    opt.VFOV = roundi(fov.y);
+    PanoramaOptions opt = pano.getOptions();
+    opt.setHFOV(utils::round(fov.x));
+    opt.setVFOV(utils::round(fov.y));
+
+    DEBUG_INFO ( "hfov: " << opt.getHFOV() << "  w: " << opt.getWidth() << " h: " << opt.getHeight() << "  => vfov: " << opt.getVFOV()  << "  before update");
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO ( "new fov: [" << opt.HFOV << " "<< opt.VFOV << "] => height: " << opt.getHeight() );
+    PanoramaOptions opt2 = pano.getOptions();
+    DEBUG_INFO ( "hfov: " << opt2.getHFOV() << "  w: " << opt2.getWidth() << " h: " << opt2.getHeight() << "  => vfov: " << opt2.getVFOV()  << "  after update");
 
 }
 
@@ -510,12 +509,12 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
-    opt.width = CalcOptimalWidth();
+    opt.setWidth( CalcOptimalWidth() );
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO ( "new optimal width: " << opt.width );
+    DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
 }
 
 unsigned int PanoPanel::CalcOptimalWidth()
@@ -549,7 +548,7 @@ unsigned int PanoPanel::CalcOptimalWidth()
             pixelDensity = density;
         }
     }
-    return roundi(pixelDensity * opt.HFOV);
+    return roundi(pixelDensity * opt.getHFOV());
 }
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )

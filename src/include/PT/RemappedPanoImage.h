@@ -233,7 +233,7 @@ public:
     ImageOptions imgOpts = pano.getImage(imgNr).getOptions();
     vigra::Rect2D imageRect;
     bool circCrop = pano.getLens(pano.getImage(imgNr).getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE;
-    estimateImageRect(vigra::Size2D(opts.width, opts.getHeight()), srcSize,
+    estimateImageRect(vigra::Size2D(opts.getWidth(), opts.getHeight()), srcSize,
                       imgOpts.docrop, imgOpts.cropRect, circCrop,  
                       transf,
                       imageRect);

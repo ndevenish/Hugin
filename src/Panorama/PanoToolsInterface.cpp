@@ -264,8 +264,8 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
     createTransform(srcSize,
                     pano.getImageVariables(imgNr),
                     pano.getLens(img.getLensNr()).getProjection(),
-                    Diff2D(dest.width, dest.getHeight()),
-                    dest.projectionFormat, dest.HFOV,
+                    Diff2D(dest.getWidth(), dest.getHeight()),
+                    dest.projectionFormat, dest.getHFOV(),
                     Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -310,8 +310,8 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
     createInvTransform(srcSize,
                        pano.getImageVariables(imgNr),
                        pano.getLens(img.getLensNr()).getProjection(),
-                       Diff2D(dest.width, dest.getHeight()),
-                       dest.projectionFormat, dest.HFOV,
+                       Diff2D(dest.getWidth(), dest.getHeight()),
+                       dest.projectionFormat, dest.getHFOV(),
                        Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -371,6 +371,8 @@ void PTools::setDestImage(Image & image, Diff2D size,
     case PanoramaOptions::EQUIRECTANGULAR:
         image.format = _equirectangular;
         break;
+    case PanoramaOptions::FULL_FRAME_FISHEYE:
+        image.format = _fisheye_ff;
     }
     image.hfov = destHFOV;
 }
@@ -571,7 +573,7 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
     if (trf.dest->data) {
         myfree((void**)trf.dest->data);
     }
-    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.projectionFormat, opts.HFOV);
+    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.projectionFormat, opts.getHFOV());
     ap.pano = *(trf.dest);
 }
 
@@ -715,8 +717,8 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     }
 
     const PanoramaOptions & opts = pano.getOptions();
-    setDestImage(gl.pano, Diff2D(opts.width, opts.getHeight()),
-                 0, opts.projectionFormat, opts.HFOV);
+    setDestImage(gl.pano, Diff2D(opts.getWidth(), opts.getHeight()),
+                 0, opts.projectionFormat, opts.getHFOV());
 
     // Default: Use buffer 'buf' for stitching
     SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );

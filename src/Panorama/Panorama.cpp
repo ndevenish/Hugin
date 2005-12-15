@@ -350,10 +350,10 @@ FDiff2D Panorama::calcFOV() const
 
     // remap into minature pano.
     PanoramaOptions opts;
-    opts.HFOV=360;
-    opts.VFOV=180;
+    opts.setHFOV(360);
     opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
-    opts.width = 360;
+    opts.setWidth(360);
+    opts.setHeight(180);
 
     // remap image
     vigra::BImage panoAlpha(panoSize);
@@ -415,10 +415,10 @@ void Panorama::centerHorizontically()
 
     // remap into minature pano.
     PanoramaOptions opts;
-    opts.HFOV=360;
-    opts.VFOV=180;
+    opts.setHFOV(360);
     opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
-    opts.width = 360;
+    opts.setWidth(360);
+    opts.setHeight(180);
 
     // remap image
     vigra::BImage panoAlpha(panoSize);
@@ -1380,34 +1380,6 @@ void Panorama::setOptions(const PanoramaOptions & opt)
     }
 
     state.options = opt;
-
-    // enforce a valid field of view
-    double maxh = 0;
-    double maxv = 0;
-    switch (state.options.projectionFormat) {
-    case PanoramaOptions::RECTILINEAR:
-        maxh = 179;
-        maxv = 179;
-        break;
-    case PanoramaOptions::CYLINDRICAL:
-        maxh = 360;
-        maxv = 179;
-        break;
-    case PanoramaOptions::EQUIRECTANGULAR:
-        maxh = 360;
-        maxv = 180;
-        break;
-    }
-    if (state.options.HFOV > maxh)
-        state.options.HFOV = maxh;
-    if (state.options.VFOV > maxv)
-        state.options.VFOV = maxv;
-
-    if (state.options.HFOV <= 0)
-        state.options.HFOV = 1;
-    if (state.options.VFOV <= 0)
-        state.options.VFOV = 1;
-
 }
 
 int Panorama::addImageAndLens(const std::string & filename, double HFOV)

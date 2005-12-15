@@ -384,7 +384,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         // spaces
 
         wxString args = config->Read(wxT("/Enblend/EnblendArgs"));
-        if (opts.HFOV == 360.0) {
+        if (opts.getHFOV() == 360.0) {
             // blend over the border
             args.append(wxT(" -w"));
         }

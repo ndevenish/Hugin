@@ -303,7 +303,9 @@ public:
      */
     enum ProjectionFormat { RECTILINEAR = 0,
                             CYLINDRICAL = 1,
-                            EQUIRECTANGULAR = 2 };
+                            EQUIRECTANGULAR = 2,
+                            FULL_FRAME_FISHEYE = 3
+    };
 
     /** PTStitcher acceleration */
     enum PTStitcherAcceleration {
@@ -350,8 +352,6 @@ public:
 
     PanoramaOptions()
         : projectionFormat(EQUIRECTANGULAR),
-          HFOV(360), VFOV(180),
-          width(3000),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
           tiffCompression("NONE"),
@@ -361,15 +361,18 @@ public:
           optimizeReferenceImage(0),
           featherWidth(10),
           remapAcceleration(MAX_SPEEDUP),
-          blendMode(WEIGHTED_BLEND)
+          blendMode(WEIGHTED_BLEND),
+          m_hfov(360), 
+          m_width(3000),
+          m_height(1500)
         {};
 
     void reset()
         {
             projectionFormat = EQUIRECTANGULAR;
-            HFOV = 360;
-            VFOV = 180;
-            width = 3000;
+            m_hfov = 360;
+            m_width = 3000;
+            m_height = 1500;
             outfile = "panorama.JPG";
             quality = 90;
             tiff_saveROI = false;
@@ -397,26 +400,59 @@ public:
      */
     static FileFormat PanoramaOptions::getFormatFromName(const std::string & name);
 
-    /** calculate height of the output panorama
-     *
-     *  height is derived from HFOV and VFOV.
-     *  formula: widht * VFOV/HFOV
-     *
+    /** set panorama width 
+     *  Also changes the panorama width, if keepView=true
      */
-    unsigned int getHeight() const;
-
+    void setWidth(unsigned int w, bool keepView = true);
+    
+    /* get panorama width */
     unsigned int getWidth() const
-        {
-            return width;
+    {
+        return m_width;
+    }
+
+    /** set panorama height 
+     *
+     *  This changes the panorama vfov
+     */
+    void setHeight(unsigned int h);
+    
+    /** get panorama height */
+    unsigned int getHeight() const
+    {
+        return m_height;
+    }
+
+
+    /** set the horizontal field of view.
+     *  also updates the image height (keep pano
+     *  field of view similar.)
+     */
+    void setHFOV(double h, bool keepView=true)
+    {
+        double vfov;
+        if (keepView) {
+            vfov = getVFOV();
         }
+        m_hfov = h;
+        if (keepView) {
+            setVFOV(vfov);
+        }
+    }
+    
+    double getHFOV() const
+    {
+        return m_hfov;
+    }
+    
+    void setVFOV(double v);
+    double getVFOV() const;
+
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
 
     ProjectionFormat projectionFormat;
-    double HFOV;
-    double VFOV;
-    unsigned int width;
     std::string outfile;
     FileFormat outputFormat;
     // jpeg options
@@ -439,7 +475,11 @@ public:
     BlendingMechanism blendMode;
 
 private:
-	static const std::string fileformatNames[];
+    static const std::string fileformatNames[];
+    double m_hfov;
+    unsigned int m_width;
+    unsigned int m_height;
+ 
 };
 
 typedef std::vector<ControlPoint> CPVector;

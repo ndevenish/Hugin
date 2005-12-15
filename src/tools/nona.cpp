@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 
     // check for some options
 
-    int w = opts.width;
+    int w = opts.getWidth();
     int h = opts.getHeight();
 
     cout << "output image size: " << w << "x" << h << std::endl;

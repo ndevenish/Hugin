@@ -223,8 +223,8 @@ public:
     {
         if ( !(opts.outputFormat == PanoramaOptions::TIFF_m && opts.tiff_saveROI) ) {
             // save image in full size
-            ImageType complete(opts.width, opts.getHeight());
-            vigra::BImage alpha(opts.width, opts.getHeight());
+            ImageType complete(opts.getWidth(), opts.getHeight());
+            vigra::BImage alpha(opts.getWidth(), opts.getHeight());
             vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
                                                 vigra_ext::srcImageRange(remapped)),
                             vigra_ext::applyRect(remapped.boundingBox(),
@@ -478,8 +478,8 @@ public:
         std::string basename = utils::stripExtension(filename);
 
 	// create panorama canvas
-	ImageType pano(opts.width, opts.getHeight());
-	AlphaType panoMask(opts.width, opts.getHeight());
+        ImageType pano(opts.getWidth(), opts.getHeight());
+        AlphaType panoMask(opts.getWidth(), opts.getHeight());
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
 	
@@ -694,8 +694,8 @@ public:
         std::string basename = utils::stripExtension(filename);
 
 	// create panorama canvas
-	ImageType pano(opts.width, opts.getHeight());
-	AlphaType panoMask(opts.width, opts.getHeight());
+        ImageType pano(opts.getWidth(), opts.getHeight());
+        AlphaType panoMask(opts.getWidth(), opts.getHeight());
 
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blend);
 	

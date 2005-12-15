@@ -84,11 +84,11 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
     const PanoramaOptions & newOpts = pano.getOptions();
 
     // check if an important options has been changed
-    if (newOpts.HFOV != opts.HFOV) {
+    if (newOpts.getHFOV() != opts.getHFOV()) {
         DEBUG_DEBUG("HFOV changed");
         dirty = true;
     }
-    if (newOpts.VFOV != opts.VFOV) {
+    if (newOpts.getVFOV() != opts.getVFOV()) {
         DEBUG_DEBUG("VFOV changed");
         dirty = true;
     }
@@ -176,7 +176,7 @@ void PreviewPanel::updatePreview()
 //    bool corrLens = cor != 0;
 
     wxBusyCursor wait;
-    double finalWidth = pano.getOptions().width;
+    double finalWidth = pano.getOptions().getWidth();
     double finalHeight = pano.getOptions().getHeight();
 
     m_panoImgSize = Diff2D(GetClientSize().GetWidth(), GetClientSize().GetHeight());
@@ -197,7 +197,7 @@ void PreviewPanel::updatePreview()
     }
 
     PanoramaOptions opts = pano.getOptions();
-    opts.width = m_panoImgSize.x;
+    opts.setWidth(m_panoImgSize.x);
     m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
     opts.interpolator = vigra_ext::INTERP_BILINEAR;
