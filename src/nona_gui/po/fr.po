@@ -1,14 +1,13 @@
 # translation of fr.po to 
-# translation of fr.po to
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the hugin package.
 # Copyright (C) YEAR Pablo dAngelo, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
-"Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-05-16 12:27+0300\n"
-"PO-Revision-Date: 2005-02-02 21:39+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-12-16 18:40+0100\n"
+"PO-Revision-Date: 2005-12-16 18:41+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,44 +15,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/nona_gui/nona_gui.cpp:133
+#: ../../../src/nona_gui/nona_gui.cpp:133
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Une erreur de syntaxe dans les paramètres a été détectée, abandon."
 
-#: src/nona_gui/nona_gui.cpp:142
+#: ../../../src/nona_gui/nona_gui.cpp:142
 msgid "Specify project source project file"
 msgstr "Veuillez préciser le fichier source du projet"
 
-#: src/nona_gui/nona_gui.cpp:158
+#: ../../../src/nona_gui/nona_gui.cpp:158
 msgid "Too many project files specified"
 msgstr "Trop de fichiers de projet ont été indiqués"
 
-#: src/nona_gui/nona_gui.cpp:166
+#: ../../../src/nona_gui/nona_gui.cpp:166
 msgid "Could not find project file"
-msgstr "Fichier de projet instrouvable"
+msgstr "Fichier de projet introuvable"
 
-#: src/nona_gui/nona_gui.cpp:175
+#. ask for output.
+#: ../../../src/nona_gui/nona_gui.cpp:175
 msgid "Specify output image filename"
 msgstr "Veuillez indiquer le nom de fichier de l'image en sortie"
 
-#: src/nona_gui/nona_gui.cpp:183
+#. bail
+#: ../../../src/nona_gui/nona_gui.cpp:183
 msgid "No project files specified"
 msgstr "Aucun fichier de projet n'a été indiqué"
 
-#: src/nona_gui/nona_gui.cpp:194
+#. utils::StreamMultiProgressDisplay pdisp(cout);
+#: ../../../src/nona_gui/nona_gui.cpp:194
 msgid "Stitching Panorama"
 msgstr "Assemblage du panorama"
 
-#: src/nona_gui/nona_gui.cpp:200
+#: ../../../src/nona_gui/nona_gui.cpp:200
 #, c-format
 msgid "could not open script : %s"
 msgstr "Impossible d'ouvrir le script : %s"
 
-#: src/nona_gui/nona_gui.cpp:206
+#: ../../../src/nona_gui/nona_gui.cpp:206
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "Erreur lors de l'analyse du script des outils de panorama : %s"
 
-#: src/nona_gui/nona_gui.cpp:217
+#: ../../../src/nona_gui/nona_gui.cpp:217
 msgid "output image size: "
 msgstr "Taille de l'image de sortie : "
