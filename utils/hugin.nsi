@@ -176,11 +176,13 @@ Section "Associate .pto files with Hugin"
   WriteRegStr HKCR "Hugin.pto\DefaultIcon" "" '$0,0'
   WriteRegStr HKCR "Hugin.pto\Shell\Open\Command" "" '$0 "%1"'
 
-  StrCpy $0 $INSTDIR\nona_gui.exe
-  WriteRegStr HKCR ".pto" "" "nona_gui.pto"
-  WriteRegStr HKCR "nona_gui.pto\DefaultIcon" "" '$0,0'
-  WriteRegStr HKCR "nona_gui.pto\Shell\Open\Command" "" '$0 "%1"'
-  Call RefreshShellIcons
+# User report that nona_gui is associated with a double click on
+# pto files. I don't know how to specify the priority of the associations
+#  StrCpy $0 $INSTDIR\nona_gui.exe
+#  WriteRegStr HKCR ".pto" "" "nona_gui.pto"
+#  WriteRegStr HKCR "nona_gui.pto\DefaultIcon" "" '$0,0'
+#  WriteRegStr HKCR "nona_gui.pto\Shell\Open\Command" "" '$0 "%1"'
+#  Call RefreshShellIcons
 SectionEnd
 
 ;--------------------------------
