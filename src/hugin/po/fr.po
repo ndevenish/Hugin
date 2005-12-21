@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2005-12-16 20:38+0100\n"
-"PO-Revision-Date: 2005-12-16 19:35+0100\n"
+"PO-Revision-Date: 2005-12-20 14:37+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -1343,7 +1343,7 @@ msgstr ""
 " distance moyenne entre points de contrôle : %f\n"
 " écart-type : %f\n"
 " maximum : %f\n"
-"*ATTENTION* : des coefficients de distorsion (a, b,c) très élevés ont été\n"
+"*ATTENTION* : des coefficients de distorsion (a, b, c) très élevés ont été\n"
 "estimés. Les résultats ne sont probablement pas valables.\n"
 "N'optimisez tous les paramètres de distorsion que si vous utilisez des "
 "points\n"
@@ -1887,15 +1887,15 @@ msgstr "Définir le recadrage et le centre de l'image"
 
 #: src/hugin/xrc/lens_panel.xrs:29 src/hugin/xrc/lens_panel-2.5.xrs:29
 msgid "Image Shearing"
-msgstr "Découper l'image"
+msgstr "Cisaillement de l'image"
 
 #: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:30
 msgid "horizontal (g):"
-msgstr "Horizontalement (g) :"
+msgstr "Horizontal (g) :"
 
 #: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:32
 msgid "vertical (t):"
-msgstr "Verticalement (t) :"
+msgstr "Vertical (t) :"
 
 #: src/hugin/xrc/lens_panel.xrs:34 src/hugin/xrc/lens_panel-2.5.xrs:34
 msgid "Lens management"
