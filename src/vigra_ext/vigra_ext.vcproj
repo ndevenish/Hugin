@@ -210,6 +210,9 @@
 			<File
 				RelativePath="..\include\vigra_ext\utils.h">
 			</File>
+			<File
+				RelativePath="..\include\vigra_ext\VignettingCorrection.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
