@@ -31,8 +31,6 @@
 
 #include "panoinc.h"
 
-#include "PT/Stitcher.h"
-
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
@@ -136,7 +134,6 @@ PTStitcherPanel::PTStitcherPanel(wxWindow *parent, Panorama & pano)
 PTStitcherPanel::~PTStitcherPanel(void)
 {
     DEBUG_TRACE("dtor");
-    // FIXME. why does the crash at exit?
     m_GammaText->PopEventHandler(true);
     m_ColorCorrRefSpin->PopEventHandler(true);
     m_FeatherWidthSpin->PopEventHandler(true);

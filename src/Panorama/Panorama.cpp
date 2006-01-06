@@ -112,7 +112,7 @@ bool PT::getPTParam(std::string & output, const std::string & line, const std::s
                     << " in line: " << line);
         return false;
     }
-    p += 2;
+    p += parameter.length() + 1;
     std::string::size_type p2 = line.find(' ',p);
     output = line.substr(p, p2-p);
 //    DEBUG_DEBUG("string idex: " << p <<"," << p2 << "  string: \"" << output << "\"");
@@ -127,7 +127,7 @@ bool PT::getPTStringParam(std::string & output, const std::string & line, const 
                     << " in line: " << line);
         return false;
     }
-    p += 3;
+    p += parameter.length() + 2;
     std::string::size_type e = line.find("\"",p);
     DEBUG_DEBUG("p:" << p << " e:" << e);
     output = line.substr(p,e-p);
@@ -143,7 +143,7 @@ bool PT::getPTStringParamColon(std::string & output, const std::string & line, c
                     << " in line: " << line);
         return false;
     }
-    p += 3;
+    p += parameter.length() + 2;
     std::string::size_type e = line.find(" ",p);
     DEBUG_DEBUG("p:" << p << " e:" << e);
     output = line.substr(p,e-p);
@@ -351,7 +351,7 @@ FDiff2D Panorama::calcFOV() const
     // remap into minature pano.
     PanoramaOptions opts;
     opts.setHFOV(360);
-    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
     opts.setWidth(360);
     opts.setHeight(180);
 
@@ -416,7 +416,7 @@ void Panorama::centerHorizontically()
     // remap into minature pano.
     PanoramaOptions opts;
     opts.setHFOV(360);
-    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
     opts.setWidth(360);
     opts.setHeight(180);
 
@@ -761,7 +761,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 void Panorama::printOptimizerScript(ostream & o,
                                     const OptimizeVector & optvars,
                                     const PanoramaOptions & output,
-									const UIntSet & imgs,
+                                    const UIntSet & imgs,
                                     const std::string & stripPrefix)
 {
 #ifdef __unix__
@@ -824,10 +824,19 @@ void Panorama::printOptimizerScript(ostream & o,
             }
         }
 
-        if (img.getOptions().docrop) {
+        ImageOptions iopts = img.getOptions();
+        if (iopts.docrop) {
             // print crop parameters
-            vigra::Rect2D c = img.getOptions().cropRect;
+            vigra::Rect2D c = iopts.cropRect;
             o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
+        }
+
+        if (iopts.m_vigCorrMode != ImageOptions::VIGCORR_NONE) {
+            o << " Vm" << iopts.m_vigCorrMode;
+        }
+
+        if (iopts.m_flatfield.size() > 0) {
+            o << " Vf\"" << iopts.m_flatfield << "\"";
         }
 
 //        o << " u" << (*it).getOptions().featherWidth

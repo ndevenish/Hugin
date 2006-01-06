@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-12-05 09:35+0100\n"
+"POT-Creation-Date: 2005-12-16 20:38+0100\n"
 "PO-Revision-Date: 2005-09-25 22:48+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -422,11 +422,11 @@ msgstr "舵转: %.1f 俯仰:%.1f 滚转:%.1f"
 msgid "Filename"
 msgstr "文件名"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "width"
 msgstr "宽"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "height"
 msgstr "高"
 
@@ -509,15 +509,15 @@ msgstr "全景 (圆柱形)"
 msgid "Circular fisheye"
 msgstr "圆形鱼眼"
 
-#: src/hugin/ImagesList.cpp:397 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:397 src/hugin/PreviewFrame.cpp:293
+#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Full frame fisheye"
 msgstr "全帧鱼眼"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/PanoPanel.cpp:232
-#: src/hugin/PreviewFrame.cpp:402 src/hugin/xrc/lens_panel.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:6 src/hugin/xrc/pano_panel.xrs:5
-#: src/hugin/xrc/pano_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:398 src/hugin/PreviewFrame.cpp:405
+#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:5 src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "等角距形"
 
@@ -819,11 +819,11 @@ msgstr "enblend 错误"
 msgid "The druid has no advice."
 msgstr "druid 无建议"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:575
 msgid "The druid finds no problems with your panorama."
 msgstr "druid 发现您的全景没有任何问题"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:576
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -833,11 +833,11 @@ msgstr ""
 "例如 GNU 图像处理程序 (the GIMP)\n"
 "来增加最后的修饰."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:595
 msgid "Warning:  you haven't saved the current project."
 msgstr "警告: 您还没有保存当前项目."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:596
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -847,7 +847,7 @@ msgstr ""
 "不要忘记保存您的项目文件\n"
 "以便将来可以试着调节设置."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:591
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "警告: 当前缝合图像尺寸巨大."
 
@@ -867,11 +867,11 @@ msgstr ""
 "中的计算最佳尺寸按钮来测定像素尺寸,\n"
 "以便得到最佳质量."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:587
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "水平视野 (HFOV) 可能太低."
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:588
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -963,19 +963,19 @@ msgstr ""
 "为每对重叠图像中的相同视觉\n"
 "特征增加成对的控制点."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:583
 msgid "Add at least one more image."
 msgstr "增加至少一张图像."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:584
 msgid "You should have at least two files listed in the Images tab."
 msgstr "您应该将至少两个文件列入图像标签栏中."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:579
 msgid "To get started, add some image files."
 msgstr "为了开始项目, 请增加一些图像文件."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:580
 msgid "You can add any number of images using the Images tab."
 msgstr "您能够利用图像标签栏来加入许多图像."
 
@@ -983,21 +983,11 @@ msgstr "您能够利用图像标签栏来加入许多图像."
 msgid "the Panorama druid"
 msgstr "全景 druid"
 
-#: src/hugin/PanoPanel.cpp:230 src/hugin/PreviewFrame.cpp:400
-#: src/hugin/xrc/pano_panel.xrs:3 src/hugin/xrc/pano_panel-2.5.xrs:3
-msgid "Rectilinear"
-msgstr "平直"
-
-#: src/hugin/PanoPanel.cpp:231 src/hugin/PreviewFrame.cpp:401
-#: src/hugin/xrc/pano_panel.xrs:4 src/hugin/xrc/pano_panel-2.5.xrs:4
-msgid "Cylindrical"
-msgstr "圆柱形"
-
-#: src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:323
 msgid "width needs to be an integer bigger than 0"
 msgstr "宽度是一个大于 0 的整数"
 
-#: src/hugin/PanoPanel.cpp:565
+#: src/hugin/PanoPanel.cpp:564
 msgid "Create panorama image"
 msgstr "创建全景图像"
 
@@ -1144,11 +1134,21 @@ msgstr "圆柱形"
 msgid "equirectangular"
 msgstr "等角矩形"
 
-#: src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PreviewFrame.cpp:403 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/xrc/pano_panel-2.5.xrs:3
+msgid "Rectilinear"
+msgstr "平直"
+
+#: src/hugin/PreviewFrame.cpp:404 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/xrc/pano_panel-2.5.xrs:4
+msgid "Cylindrical"
+msgstr "圆柱形"
+
+#: src/hugin/PreviewFrame.cpp:572
 msgid "The druid has no advice at this time."
 msgstr "druid 当前无建议"
 
-#: src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PreviewFrame.cpp:592
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -2330,96 +2330,96 @@ msgstr "全景"
 msgid "projection (f):"
 msgstr "项目 (f):"
 
-#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Field of View"
 msgstr "视野"
 
-#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
 msgid "horizontal (v):"
 msgstr "水平 (v):"
 
-#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "Calculate Field of View"
 msgstr "计算视野"
 
-#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "vertical:"
 msgstr "垂直:"
 
-#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Quick Stitcher"
 msgstr "快速缝合"
 
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "Stitch the images"
 msgstr "缝合图像"
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "with custom settings below"
 msgstr "使用以下自定义设置"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "into a high quality TIFF file"
 msgstr "生成一个高质量 TIFF 文件"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "into a high-quality JPEG file"
 msgstr "生成一个高质量 JPEG 文件"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "into a draft-quality JPEG file"
 msgstr "生成一个草图质量 JPEG 文件"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered TIFF file"
 msgstr "生成一个分层的 TIFF 文件"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "into a layered Photoshop file"
 msgstr "生成一个分层的 Photoshop 文件"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "Stitch now!"
 msgstr "现在缝合!"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "execute the PTStitcher engine"
 msgstr "执行 PTStitcher 引擎"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "Panorama Image Size"
 msgstr "全景图像尺寸"
 
-#: src/hugin/xrc/pano_panel.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:22
 msgid "pixel width:"
 msgstr "像素宽:"
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:23
 msgid "pixel height:"
 msgstr "像素高:"
 
-#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "Calculate Optimal Size"
 msgstr "计算优化尺寸"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr "计算最佳宽度. (利用每个图像像素)"
 
-#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
 msgid "Stitching engine:"
 msgstr "缝合引擎:"
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
 msgid "nona"
 msgstr "nona"
 

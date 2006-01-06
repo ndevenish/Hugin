@@ -78,6 +78,7 @@ public:
     void OnCompTypeChanged( wxCommandEvent & e );
     void OnSetQuality(wxSpinEvent & e);
     void OnSaveCropped(wxCommandEvent & e);
+    void GammaChanged ( wxCommandEvent & e );
 
     void FileFormatChanged(wxCommandEvent & e);
 
@@ -97,7 +98,8 @@ public:
 
     wxChoice    * m_InterpolatorChoice;
 
-    wxTextCtrl  * m_WidthTxt;
+//    wxTextCtrl  * m_WidthTxt;
+    wxTextCtrl  * m_gammaTxt;
     wxChoice    * m_FormatChoice;
     wxSpinCtrl  * m_JPEGQualitySpin;
     wxCheckBox  * m_EnblendCheckBox;

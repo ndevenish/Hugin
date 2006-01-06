@@ -367,7 +367,7 @@ public:
 	m_outline.clear();
 	calcBorderPoints(srcSize, invTransf, back_inserter(m_outline),
 			 ulFloat, lrFloat);
-	if (opts.projectionFormat == PanoramaOptions::EQUIRECTANGULAR) {
+	if (opts.getProjection() == PanoramaOptions::EQUIRECTANGULAR) {
 
 	    // check if image overlaps the pole
 	    double cw = opts.width / opts.HFOV * 360;

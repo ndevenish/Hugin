@@ -9,6 +9,7 @@
 #define PANOIMAGE_H
 
 #include <iostream>
+#include <vector>
 #include <vigra/diff2d.hxx>
 
 namespace PT {
@@ -24,8 +25,9 @@ public:
           ignoreFrameWidth(0),
           morph(false),
 		  docrop(false),
-		  active(true),
-          autoCenterCrop(true)
+          autoCenterCrop(true),
+          m_vigCorrMode(VIGCORR_NONE),
+		  active(true)
         { };
 
     // PT state
@@ -38,12 +40,23 @@ public:
     bool morph;
 
 	// crop parameters
-	bool docrop;
+    bool docrop;
     bool autoCenterCrop;
     vigra::Rect2D cropRect;
 
-	// is image active (displayed in preview and used for optimisation)
-	bool active;
+    /// vignetting correction mode (bitflags, no real enum)
+    enum VignettingCorrMode { 
+        VIGCORR_NONE = 0,      ///< no vignetting correction
+        VIGCORR_RADIAL = 1,    ///< radial vignetting correction
+        VIGCORR_FLATFIELD = 2, ///< flatfield correction
+        VIGCORR_DIV = 4        ///< correct by division.
+    };
+    int m_vigCorrMode;
+    // coefficients for vignetting correction (even degrees: 0,2,4,6, ...)
+    std::string m_flatfield;
+
+    // is image active (displayed in preview and used for optimisation)
+    bool active;
 };
 
 

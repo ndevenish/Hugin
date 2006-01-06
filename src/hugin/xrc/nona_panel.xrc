@@ -10,7 +10,9 @@
               
               
               
+              
               <label>Stitching Options</label>
+              
               
               
               
@@ -18,7 +20,9 @@
                 
                 
                 
+                
                 <style platform="mac">normal</style>
+                
                 
                 
                 
@@ -26,7 +30,9 @@
                 
                 
                 
+                
                 <weight>bold</weight>
+                
                 
                 
                 
@@ -37,7 +43,9 @@
             
             
             
+            
             <flag></flag>
+            
             
             
             
@@ -55,8 +63,10 @@
                       
                       
                       
+                      
                       <label>interpolator (i):</label>
                     </object>
+                    
                     
                     
                     
@@ -64,6 +74,7 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxChoice" name="nona_choice_interpolator">
+                      
                       
                       
                       
@@ -81,7 +92,9 @@
                       
                       
                       
+                      
                       <selection>0</selection>
+                      
                       
                       
                       
@@ -90,7 +103,25 @@
                   </object>
                   <vgap>5</vgap>
                   <hgap>5</hgap>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      
+                      
+                      
+                      
+                      <label>gamma (g):</label>
+                    </object>
+                    
+                    
+                    
+                    
+                    <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="nona_text_gamma"/>
+                  </object>
                 </object>
+                
                 
                 
                 
@@ -98,7 +129,9 @@
                 
                 
                 
+                
                 <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                
                 
                 
                 
@@ -108,7 +141,9 @@
             
             
             
+            
             <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+            
             
             
             
@@ -118,13 +153,16 @@
         
         
         
+        
         <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        
         
         
         
         <border>6</border>
       </object>
       <object class="spacer">
+        
         
         
         
@@ -138,7 +176,9 @@
               
               
               
+              
               <label>Output File Options</label>
+              
               
               
               
@@ -146,7 +186,9 @@
                 
                 
                 
+                
                 <style platform="mac">normal</style>
+                
                 
                 
                 
@@ -154,7 +196,9 @@
                 
                 
                 
+                
                 <weight>bold</weight>
+                
                 
                 
                 
@@ -165,7 +209,9 @@
             
             
             
+            
             <flag></flag>
+            
             
             
             
@@ -182,8 +228,10 @@
                       
                       
                       
+                      
                       <label>image format:</label>
                     </object>
+                    
                     
                     
                     
@@ -191,6 +239,7 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxChoice" name="nona_choice_format_final">
+                      
                       
                       
                       
@@ -204,8 +253,10 @@
                       
                       
                       
+                      
                       <selection>0</selection>
                     </object>
+                    
                     
                     
                     
@@ -214,7 +265,9 @@
                 </object>
                 
                 
+                
                 <flag>wxTOP|wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxADJUST_MINSIZE</flag>
+                
                 
                 
                 <border>6</border>
@@ -232,12 +285,15 @@
                           
                           
                           
+                          
                           <label>compression:</label>
+                          
                           
                           
                           
                           <tooltip>JPEG compression (0-100)</tooltip>
                         </object>
+                        
                         
                         
                         
@@ -248,6 +304,7 @@
                         <object class="wxChoice" name="nona_comp_type">
                           
                           
+                          
                           <content>
                             <item>None</item>
                             <item>LZW</item>
@@ -256,7 +313,9 @@
                         </object>
                         
                         
+                        
                         <flag>wxLEFT|wxRIGHT</flag>
+                        
                         
                         
                         <border>5</border>
@@ -266,7 +325,9 @@
                           
                           
                           
+                          
                           <min>0</min>
+                          
                           
                           
                           
@@ -277,7 +338,9 @@
                     
                     
                     
+                    
                     <border>6</border>
+                    
                     
                     
                     
@@ -287,9 +350,11 @@
                 
                 
                 
+                
                 <flag>wxTOP|wxEXPAND|wxADJUST_MINSIZE</flag>
                 
               
+                
                 
                 
                 <border>0</border>
@@ -299,7 +364,9 @@
                   
                   
                   
+                  
                   <label>Save cropped images (only TIFF_m)</label>
+                  
                   
                   
                   
@@ -308,7 +375,9 @@
                 
                 
                 
+                
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                
                 
                 
                 
@@ -319,7 +388,9 @@
                   
                   
                   
+                  
                   <label>Soft Blending (requires enblend, only TIFF output)</label>
+                  
                   
                   
                   
@@ -328,7 +399,9 @@
                 
                 
                 
+                
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                
                 
                 
                 
@@ -338,7 +411,9 @@
             
             
             
+            
             <flag>wxLEFT|wxRIGHT|wxEXPAND|wxADJUST_MINSIZE</flag>
+            
             
             
             
@@ -348,7 +423,9 @@
         
         
         
+        
         <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+        
         
         
         

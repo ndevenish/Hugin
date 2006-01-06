@@ -402,7 +402,7 @@ PT::VariableMapVector PTools::autoOptimise(const PT::Panorama & pano,
                                            CPVector & cps,
                                            utils::MultiProgressDisplay & progDisp)
 {
-    unsigned nImg = pano.getNrOfImages();
+    unsigned nImg = unsigned(pano.getNrOfImages());
     // build a graph over all overlapping images
     CPGraph graph;
     createCPGraph(pano,graph);

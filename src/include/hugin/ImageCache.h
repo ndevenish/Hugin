@@ -29,8 +29,6 @@
 #include <common/utils.h>
 #include <vigra/stdimage.hxx>
 
-#include <vigra_ext/ImageTransforms.h>
-
 #include <PT/Stitcher.h>
 
 typedef wxImage * ImagePtr;

@@ -63,6 +63,7 @@
 #include <wx/regex.h>
 #include <wx/valtext.h>
 #include <wx/valgen.h>
+#include <wx/radiobox.h>
 
 #if wxCHECK_VERSION(2,5,3)
 #include <wx/imaglist.h>

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-12-05 09:35+0100\n"
+"POT-Creation-Date: 2005-12-16 20:38+0100\n"
 "PO-Revision-Date: 2005-11-15 08:08+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -436,11 +436,11 @@ msgstr "Drehung: %.1f Neigung:%.1f Rollen:%.1f"
 msgid "Filename"
 msgstr "Dateiname"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "width"
 msgstr "Breite"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "height"
 msgstr "Höhe"
 
@@ -523,15 +523,15 @@ msgstr "Zylindrisch"
 msgid "Circular fisheye"
 msgstr "Fischauge kreisförmig"
 
-#: src/hugin/ImagesList.cpp:397 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:397 src/hugin/PreviewFrame.cpp:293
+#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Full frame fisheye"
 msgstr "Fischauge Vollbild"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/PanoPanel.cpp:232
-#: src/hugin/PreviewFrame.cpp:402 src/hugin/xrc/lens_panel.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:6 src/hugin/xrc/pano_panel.xrs:5
-#: src/hugin/xrc/pano_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:398 src/hugin/PreviewFrame.cpp:405
+#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:5 src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
 
@@ -841,11 +841,11 @@ msgstr "Enblend-Fehler"
 msgid "The druid has no advice."
 msgstr "Der Druide hat keinen Ratschlag"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:575
 msgid "The druid finds no problems with your panorama."
 msgstr "Der Druide findet keine Problem in Ihrem Panorama"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:576
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -855,11 +855,11 @@ msgstr ""
 "Bildverarbeitungsprogramm (z.B. GIMP), um dem Panorama den letzten Schliff "
 "zu geben."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:595
 msgid "Warning:  you haven't saved the current project."
 msgstr "Warnung: Sie haben das aktuelle Projekt nicht gesichert."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:596
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -870,7 +870,7 @@ msgstr ""
 "können sie noch weiter herumprobieren oder die Einstellungen\n"
 "später verändern."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:591
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Warnung: Derzeitiges Panorama ist sehr groß"
 
@@ -889,11 +889,11 @@ msgstr ""
 "im Reiter 'Zusammenfügen' um die optimalen Pixelmaße des Panoramas zu "
 "berechnen."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:587
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Der horizontale Bildwinkel (HFOV) könnte zu klein sein."
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:588
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -990,20 +990,20 @@ msgstr ""
 "Kontrollpunktspaare für jedes identische optische Merkmal\n"
 "von überlappenden Bildern hinzu."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:583
 msgid "Add at least one more image."
 msgstr "Noch mindestens ein weiteres Bild anfügen."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:584
 msgid "You should have at least two files listed in the Images tab."
 msgstr ""
 "Sie sollten mindestens zwei Dateien im Reiter 'Bild' aufgelistet haben."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:579
 msgid "To get started, add some image files."
 msgstr "Fügen Sie Bilder hinzu um zu beginnen."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:580
 msgid "You can add any number of images using the Images tab."
 msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 
@@ -1011,21 +1011,11 @@ msgstr "Sie können so viele Bilder hinzufügen wie sie wollen."
 msgid "the Panorama druid"
 msgstr "Der Panorama-Druide"
 
-#: src/hugin/PanoPanel.cpp:230 src/hugin/PreviewFrame.cpp:400
-#: src/hugin/xrc/pano_panel.xrs:3 src/hugin/xrc/pano_panel-2.5.xrs:3
-msgid "Rectilinear"
-msgstr "Rectilinear"
-
-#: src/hugin/PanoPanel.cpp:231 src/hugin/PreviewFrame.cpp:401
-#: src/hugin/xrc/pano_panel.xrs:4 src/hugin/xrc/pano_panel-2.5.xrs:4
-msgid "Cylindrical"
-msgstr "Zylindrisch"
-
-#: src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:323
 msgid "width needs to be an integer bigger than 0"
 msgstr "Die Breite muß eine Ganzzahl größer 0 sein."
 
-#: src/hugin/PanoPanel.cpp:565
+#: src/hugin/PanoPanel.cpp:564
 msgid "Create panorama image"
 msgstr "Erstelle das Panoramabild"
 
@@ -1171,11 +1161,21 @@ msgstr "zylindrisch"
 msgid "equirectangular"
 msgstr "Sphärisch (equirectilinear)"
 
-#: src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PreviewFrame.cpp:403 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/xrc/pano_panel-2.5.xrs:3
+msgid "Rectilinear"
+msgstr "Rectilinear"
+
+#: src/hugin/PreviewFrame.cpp:404 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/xrc/pano_panel-2.5.xrs:4
+msgid "Cylindrical"
+msgstr "Zylindrisch"
+
+#: src/hugin/PreviewFrame.cpp:572
 msgid "The druid has no advice at this time."
 msgstr "Der Druide hat zur Zeit keinen Ratschlag"
 
-#: src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PreviewFrame.cpp:592
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -2388,96 +2388,96 @@ msgstr "Panorama"
 msgid "projection (f):"
 msgstr "Projektion (f):"
 
-#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Field of View"
 msgstr "Blickwinkel"
 
-#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
 msgid "horizontal (v):"
 msgstr "horizontal (v):"
 
-#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "Calculate Field of View"
 msgstr "Blickwinkel berechnen"
 
-#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "vertical:"
 msgstr "senkrecht:"
 
-#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Quick Stitcher"
 msgstr "Schnelles Zusammenfügen"
 
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "Stitch the images"
 msgstr "Bilder zusammenfügen"
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "with custom settings below"
 msgstr "mit benutzerdefinierten Einstellungen unten"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "into a high quality TIFF file"
 msgstr "in ein hochwertiges TIFF-Bild"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "into a high-quality JPEG file"
 msgstr "in ein hochwertiges JPG-Bild"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "into a draft-quality JPEG file"
 msgstr "in ein JPEG-Bild in Entwurfsqualität"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered TIFF file"
 msgstr "in ein TIFF-Bild mit mehreren Ebenen"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "into a layered Photoshop file"
 msgstr "in ein Photoshop-Bild mit mehreren Ebenen"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "Stitch now!"
 msgstr "Jetzt zusammenfügen!"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "execute the PTStitcher engine"
 msgstr "PTStitcher ausführen"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "Panorama Image Size"
 msgstr "Panoramabildgröße"
 
-#: src/hugin/xrc/pano_panel.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:22
 msgid "pixel width:"
 msgstr "Breite in Pixel:"
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:23
 msgid "pixel height:"
 msgstr "Höhe in Pixel:"
 
-#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "Calculate Optimal Size"
 msgstr "Größe berechnen"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr "Größte sinnvolle Breite. (benutzt jedes Bildpixel)"
 
-#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
 msgid "Stitching engine:"
 msgstr "Stitcher:"
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
 msgid "nona"
 msgstr "nona"
 

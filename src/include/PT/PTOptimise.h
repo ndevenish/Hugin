@@ -101,7 +101,7 @@ public:
                 if ( (get(boost::vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
 //            if (m_colors[*ai] != boost::color_traits<boost::default_color_type>::white()) {
                     // image has been already optimized, use as anchor
-                    imgs.push_back(*ai);
+                    imgs.push_back(unsigned(*ai));
                     vars.push_back(m_optVars[*ai]);
                     DEBUG_DEBUG("non white neighbour " << (*ai));
 #ifdef DEBUG

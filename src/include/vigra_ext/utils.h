@@ -27,8 +27,75 @@
 #define VIGRA_EXT_UTILS_H
 
 #include <common/math.h>
+#include <vigra/rgbvalue.hxx>
+#include <cmath>
+
+namespace vigra {
+
+template <class T1, class T2>
+struct PromoteTraits<RGBValue<T1>, T2 >
+{
+    typedef RGBValue<typename PromoteTraits<T1, T2>::Promote> Promote;
+};
+
+}
 
 namespace vigra_ext {
+
+using VIGRA_CSTD::pow;
+
+inline float pow(float a, double b)
+{
+    return(a,(float) b);
+}
+
+/// component-wise absolute value
+template <class T>
+inline
+vigra::RGBValue<T> pow(vigra::RGBValue<T> const & v, double e) {
+    return vigra::RGBValue<T>(pow(v.red(),e), pow(v.green(),e),  pow(v.blue(),e));
+}
+
+/// add a scalar to all components
+template <class V1, class V2>
+inline
+vigra::RGBValue<V1> &
+operator+=(vigra::RGBValue<V1> & l, V2 const & r)
+{
+    l.red() += r;
+    l.green() += r;
+    l.blue() += r;
+    return l;
+}
+
+/// add a scalar to all components
+template <class V1, class V2>
+inline
+// WARNING: This is a hack.. 
+//vigra::RGBValue<V1>
+typename vigra::PromoteTraits<vigra::RGBValue<V1>, V2 >::Promote
+operator+(vigra::RGBValue<V1> const & r1, V2 const & r2)
+{
+    typename vigra::PromoteTraits<vigra::RGBValue<V1>, V2 >::Promote res(r1);
+
+    res += r2;
+
+    return res;
+}
+
+/** Apply pow() function to each vector component.
+ */
+template <class V, int SIZE, class D1, class D2>
+inline
+vigra::TinyVector<V, SIZE>
+pow(vigra::TinyVector<V, SIZE> const & v, double e)
+{
+    vigra::TinyVector<V, SIZE> res;
+    for (int i=0; i<SIZE; i++)
+        res[i] = std::pow(v[i], e);
+    return res;
+} 
+
 /** count pixels that are > 0 in both images */
 struct OverlapSizeCounter
 {
@@ -51,6 +118,30 @@ struct OverlapSizeCounter
 
     unsigned int size;
 };
+
+
+/** functor to combine two functors: result = f1( f2(v) )
+ */
+template <class F1, class F2>
+struct NestFunctor
+{
+    F1 & f1;
+    F2 & f2;
+    NestFunctor(F1 & fu1, F2 & fu2)
+    : f1(fu1), f2(fu2)
+    { }
+
+    /** the functor's second argument type
+     */
+    typedef typename F1::result_type result_type;
+
+    template <class T1>
+            result_type operator()(T1 const & v) const
+    {
+        return f1(f2(v));
+    }
+};
+
 
 /** count pixels that are > 0 in a single image */
 struct MaskPixelCounter

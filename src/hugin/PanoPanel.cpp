@@ -197,7 +197,7 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
 
-    switch (opt.projectionFormat) {
+    switch (opt.getProjection()) {
     case PanoramaOptions::RECTILINEAR:
         m_HFOVSpin->SetRange(1,179);
         m_VFOVSpin->SetRange(1,179);
@@ -216,7 +216,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
         break;
     }
 
-    m_ProjectionChoice->SetSelection(opt.projectionFormat);
+    m_ProjectionChoice->SetSelection(opt.getProjection());
     m_HFOVSpin->SetValue(roundi(opt.getHFOV()));
     m_VFOVSpin->SetValue(roundi(opt.getVFOV()));
 
@@ -230,7 +230,7 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano.getOptions();
     int lt = m_ProjectionChoice->GetSelection();
     wxString Ip;
-    opt.projectionFormat = (PanoramaOptions::ProjectionFormat) lt;
+    opt.setProjection( (PanoramaOptions::ProjectionFormat) lt );
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );

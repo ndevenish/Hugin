@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-12-05 09:35+0100\n"
+"POT-Creation-Date: 2005-12-16 20:38+0100\n"
 "PO-Revision-Date: 2005-11-06 04:34+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -408,11 +408,11 @@ msgstr "Forgatás: %.1f Döntés:%.1f Tekerés:%.1f"
 msgid "Filename"
 msgstr "Fájlnév"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "width"
 msgstr "szélesség"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "height"
 msgstr "magasság"
 
@@ -495,15 +495,15 @@ msgstr "Körképszerű (hengeres)"
 msgid "Circular fisheye"
 msgstr "Körkörös halszem"
 
-#: src/hugin/ImagesList.cpp:397 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:397 src/hugin/PreviewFrame.cpp:293
+#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Full frame fisheye"
 msgstr "Teljes keretes halszem"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/PanoPanel.cpp:232
-#: src/hugin/PreviewFrame.cpp:402 src/hugin/xrc/lens_panel.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:6 src/hugin/xrc/pano_panel.xrs:5
-#: src/hugin/xrc/pano_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:398 src/hugin/PreviewFrame.cpp:405
+#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:5 src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Egyenlően szögletes"
 
@@ -780,29 +780,29 @@ msgstr "enblend hiba"
 msgid "The druid has no advice."
 msgstr "A segédnek nincs tanácsa."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:575
 msgid "The druid finds no problems with your panorama."
 msgstr "A segéd nem talált problémát az Ön panorámájával."
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:576
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:595
 msgid "Warning:  you haven't saved the current project."
 msgstr "Figyelmeztetés: nem mentette el a jelenlegi projektet."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:596
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
 "experiment or adjust the settings later."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:591
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Figyelmeztetés: s jelenlegi fűzés hatamas méretű."
 
@@ -816,11 +816,11 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:587
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "A vízszíntes látóhatár (HFOV) túl alacsony lehet."
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:588
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -897,19 +897,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr ""
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:583
 msgid "Add at least one more image."
 msgstr "Adjon hozzá még legalább egy képet."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:584
 msgid "You should have at least two files listed in the Images tab."
 msgstr "Legalább két fájlnak kell lennie a listában a Képek fülön"
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:579
 msgid "To get started, add some image files."
 msgstr "A kezdéshez adjon hozzá néhány képfájlt."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:580
 msgid "You can add any number of images using the Images tab."
 msgstr "Bármennyi képet hozzáadhat a Képek fülön."
 
@@ -917,21 +917,11 @@ msgstr "Bármennyi képet hozzáadhat a Képek fülön."
 msgid "the Panorama druid"
 msgstr "A Panoráma segéd"
 
-#: src/hugin/PanoPanel.cpp:230 src/hugin/PreviewFrame.cpp:400
-#: src/hugin/xrc/pano_panel.xrs:3 src/hugin/xrc/pano_panel-2.5.xrs:3
-msgid "Rectilinear"
-msgstr "Egyenes vonalú"
-
-#: src/hugin/PanoPanel.cpp:231 src/hugin/PreviewFrame.cpp:401
-#: src/hugin/xrc/pano_panel.xrs:4 src/hugin/xrc/pano_panel-2.5.xrs:4
-msgid "Cylindrical"
-msgstr "Hengeres"
-
-#: src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:323
 msgid "width needs to be an integer bigger than 0"
 msgstr "a szélességnek egy nullánál nagyobb egész számnak kell lennie"
 
-#: src/hugin/PanoPanel.cpp:565
+#: src/hugin/PanoPanel.cpp:564
 msgid "Create panorama image"
 msgstr "Panorámakép létrehozása"
 
@@ -1080,11 +1070,21 @@ msgstr "hengeres"
 msgid "equirectangular"
 msgstr "egyenl. szögl."
 
-#: src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PreviewFrame.cpp:403 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/xrc/pano_panel-2.5.xrs:3
+msgid "Rectilinear"
+msgstr "Egyenes vonalú"
+
+#: src/hugin/PreviewFrame.cpp:404 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/xrc/pano_panel-2.5.xrs:4
+msgid "Cylindrical"
+msgstr "Hengeres"
+
+#: src/hugin/PreviewFrame.cpp:572
 msgid "The druid has no advice at this time."
 msgstr "A segédnek most nincs tanácsa."
 
-#: src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PreviewFrame.cpp:592
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -2251,96 +2251,96 @@ msgstr "Panoráma"
 msgid "projection (f):"
 msgstr "vetület (f):"
 
-#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Field of View"
 msgstr "Látóhatár"
 
-#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
 msgid "horizontal (v):"
 msgstr "vízszintes (v):"
 
-#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "Calculate Field of View"
 msgstr "Látóhatár kiszámítása"
 
-#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "vertical:"
 msgstr "Függőleges:"
 
-#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Quick Stitcher"
 msgstr "Gyors fűző"
 
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "Stitch the images"
 msgstr "Képek összefűzése"
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "with custom settings below"
 msgstr "alábbi egyéni beállításokkal"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "into a high quality TIFF file"
 msgstr "jó minőségű TTIF fájlba"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "into a high-quality JPEG file"
 msgstr "jó minőségű JPG fájlba"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "into a draft-quality JPEG file"
 msgstr "vázlat minőségű JPG fájlba"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered TIFF file"
 msgstr "réteges TIFF fájlba"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "into a layered Photoshop file"
 msgstr "réteges Photoshop fájlba"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "Stitch now!"
 msgstr "Fűzés most!"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "execute the PTStitcher engine"
 msgstr "PTStitcher motor végrehajtása"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "Panorama Image Size"
 msgstr "Panorámakép-méret"
 
-#: src/hugin/xrc/pano_panel.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:22
 msgid "pixel width:"
 msgstr "pixel szélesség:"
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:23
 msgid "pixel height:"
 msgstr "pixel magasság:"
 
-#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "Calculate Optimal Size"
 msgstr "Optimális méret kiszámítása"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr "A legnagyobb helyes szélesség kiszámítása (minden képpontot használ)"
 
-#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
 msgid "Stitching engine:"
 msgstr "Összefűző motor:"
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
 msgid "nona"
 msgstr "nona"
 

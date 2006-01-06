@@ -34,19 +34,18 @@
 #include <vigra/impex.hxx>
 #include <vigra/impexalpha.hxx>
 #include <vigra/flatmorphology.hxx>
+#include <vigra/transformimage.hxx>
+//#include <vigra/functorexpression.hxx>
 
 #include <vigra_ext/Interpolators.h>
 #include <vigra_ext/ROIImage.h>
 #include <vigra_ext/utils.h>
+#include <vigra_ext/VignettingCorrection.h>
 
 #include <PT/Panorama.h>
 
 #include <PT/PanoToolsInterface.h>
 #include <common/math.h>
-
-#ifdef min
-#undef min
-#endif
 
 namespace PT
 {
@@ -260,37 +259,6 @@ public:
         int ystart = Base::boundingBox().top();
         int yend   = Base::boundingBox().bottom();
 
-        // hack.. doesn't belong here..
-        int interpolHalfWidth=0;
-        switch (opts.interpolator) {
-           case vigra_ext::INTERP_CUBIC:
-               interpolHalfWidth = vigra_ext::interp_cubic::size/2;
-               break;
-           case vigra_ext::INTERP_SPLINE_16:
-               interpolHalfWidth = vigra_ext::interp_spline16::size/2;
-               break;
-           case vigra_ext::INTERP_SPLINE_36:
-               interpolHalfWidth = vigra_ext::interp_spline36::size/2;
-               break;
-           case vigra_ext::INTERP_SPLINE_64:
-               interpolHalfWidth = vigra_ext::interp_spline64::size/2;
-               break;
-           case vigra_ext::INTERP_SINC_256:
-               interpolHalfWidth = vigra_ext::interp_sinc<8>::size/2;
-               break;
-           case vigra_ext::INTERP_BILINEAR:
-               interpolHalfWidth = vigra_ext::interp_bilin::size/2;
-               break;
-           case vigra_ext::INTERP_NEAREST_NEIGHBOUR:
-               interpolHalfWidth = vigra_ext::interp_nearest::size/2;
-               break;
-           case vigra_ext::INTERP_SINC_1024:
-               interpolHalfWidth = vigra_ext::interp_sinc<32>::size/2;
-               break;
-        }
-
-
-
         PTools::Transform transf;
 	
     	transf.createTransform(pano, imgNr, opts, srcSize);
@@ -308,13 +276,15 @@ public:
             {
                 double sx,sy;
                 transf.transformImgCoord(sx,sy,x,y);
-                // make sure that the interpolator doesn't
-                // access pixels outside.. Should we introduce
-                // some sort of border treatment?
-                if (sx < interpolHalfWidth -1
-                    || sx > srcSize.x - interpolHalfWidth - 1
-                    || sy < interpolHalfWidth - 1
-                    || sy > srcSize.y-interpolHalfWidth - 1)
+                // check if a value could have been calculated here
+                // add 0.5 pixels of padding, in case of rounding error
+                // during the transform. The interpolation will fill the
+                // pixels up to half of the interpolation kernel width
+                // outside of the source image
+                if (sx < -0.5
+		            || sx > srcSize.x +0.5
+		            || sy < -0.5
+		            || sy > srcSize.y+0.5)
                 {
                     *xalpha = 0;
                     // nothing..
@@ -351,32 +321,6 @@ public:
 
 	// hack.. doesn't belong here..
 	int interpolHalfWidth=0;
-	switch (opts.interpolator) {
-	case vigra_ext::INTERP_CUBIC:
-	    interpolHalfWidth = vigra_ext::interp_cubic::size/2;
-	    break;
-	case vigra_ext::INTERP_SPLINE_16:
-	    interpolHalfWidth = vigra_ext::interp_spline16::size/2;
-	    break;
-	case vigra_ext::INTERP_SPLINE_36:
-	    interpolHalfWidth = vigra_ext::interp_spline36::size/2;
-	    break;
-	case vigra_ext::INTERP_SPLINE_64:
-	    interpolHalfWidth = vigra_ext::interp_spline64::size/2;
-	    break;
-	case vigra_ext::INTERP_SINC_256:
-	    interpolHalfWidth = vigra_ext::interp_sinc<8>::size/2;
-	    break;
-	case vigra_ext::INTERP_BILINEAR:
-	    interpolHalfWidth = vigra_ext::interp_bilin::size/2;
-	    break;
-	case vigra_ext::INTERP_NEAREST_NEIGHBOUR:
-	    interpolHalfWidth = vigra_ext::interp_nearest::size/2;
-	    break;
-	case vigra_ext::INTERP_SINC_1024:
-	    interpolHalfWidth = vigra_ext::interp_sinc<32>::size/2;
-	    break;
-	}
 	
 	PTools::Transform transf;
 	
@@ -393,13 +337,15 @@ public:
 	     {
 		 double sx,sy;
 		 transf.transformImgCoord(sx,sy,x,y);
-		 // make sure that the interpolator doesn't
-		 // access pixels outside.. Should we introduce
-		 // some sort of border treatment?
-		 if (sx < interpolHalfWidth -1
-		     || sx > srcSize.x - interpolHalfWidth - 1
-		     || sy < interpolHalfWidth - 1
-		     || sy > srcSize.y-interpolHalfWidth - 1)
+         // check if a value could have been calculated here
+         // add 0.5 pixels of padding, in case of rounding error
+         // during the transform. The interpolation will fill the
+         // pixels up to half of the interpolation kernel width
+         // outside of the source image
+         if (sx < -0.5
+		     || sx > srcSize.x +0.5
+		     || sy < -0.5
+		     || sy > srcSize.y+0.5)
 		 {
 		     *xalpha = 0;
 		     // nothing..
@@ -414,13 +360,12 @@ public:
     template <class ImgIter, class ImgAccessor>
     void remapImage(const PT::Panorama & pano,
 		    const PT::PanoramaOptions & opts,
-                    vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
+            vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
 		    unsigned int imgNr,
 		    utils::MultiProgressDisplay & progress)
     {
         DEBUG_TRACE("Image: " << imgNr);
         setPanoImage(pano, imgNr, opts);
-
         //        std::ostringstream msg;
         //        msg <<"remapping image "  << imgNr;
         //        progress.setMessage(msg.str().c_str());
@@ -434,8 +379,10 @@ public:
 
         double scale = srcImgSize.x / (double) img.getWidth();
 
+        bool warparound = (opts.getProjection() == PT::PanoramaOptions::EQUIRECTANGULAR && opts.getHFOV() == 360);
+
         if (imgOpts.docrop) {
-            vigra::BImage alpha(srcImgSize,255);
+            vigra::BImage alpha(srcImgSize.x, srcImgSize.y, 255);
             if (pano.getLens(img.getLensNr()).getProjection() == Lens::CIRCULAR_FISHEYE) {
                 FDiff2D m( (imgOpts.cropRect.left() + imgOpts.cropRect.width()/2.0) * scale,
                            (imgOpts.cropRect.top() + imgOpts.cropRect.height()/2.0) * scale);
@@ -453,14 +400,16 @@ public:
                                 destImage(Base::m_mask),
                                 Base::boundingBox().upperLeft(),
                                 transf,
+                                warparound,
                                 opts.interpolator,
                                 progress);
         } else {
             transformImage(srcImg,
                            destImageRange(Base::m_image),
-                           destImage(Base::m_alpha),
+                           destImage(Base::m_mask),
                            Base::boundingBox().upperLeft(),
                            transf,
+                           warparound,
                            opts.interpolator,
                            progress);
         }
@@ -488,6 +437,8 @@ public:
         const ImageOptions & imgOpts = img.getOptions();
 
         double scale = srcImgSize.x / (double) img.getWidth();
+        
+        bool warparound = (opts.getProjection() == PanoramaOptions::EQUIRECTANGULAR && opts.getHFOV() == 360);
 
         if (imgOpts.docrop) {
             vigra::BImage alpha(srcImgSize);
@@ -510,6 +461,7 @@ public:
                                 destImage(Base::m_mask),
                                 Base::boundingBox().upperLeft(),
                                 transf,
+                                warparound,
                                 opts.interpolator,
                                 progress);
         } else {
@@ -519,6 +471,7 @@ public:
                         destImage(Base::m_mask),
                         Base::boundingBox().upperLeft(),
                         transf,
+                        warparound,
                         opts.interpolator,
                         progress);
         }
@@ -549,67 +502,261 @@ public:
     virtual
     RemappedPanoImage<ImageType, AlphaType> *
     getRemapped(const Panorama & pano,
-               const PanoramaOptions & opts,
-               unsigned int imgNr, utils::MultiProgressDisplay & progress) = 0;
+                const PanoramaOptions & opts,
+                unsigned int imgNr, utils::MultiProgressDisplay & progress) = 0;
 
 	virtual	void
 	release(RemappedPanoImage<ImageType,AlphaType> * d) = 0;
 
 };
+/// load a flatfield image and apply the correction
+template <class FFType, class SrcIter, class SrcAccessor, class DestIter, class DestAccessor>
+void applyFlatfield(vigra::triple<SrcIter, SrcIter, SrcAccessor> srcImg,
+                    vigra::pair<DestIter, DestAccessor> destImg,
+                    vigra::ImageImportInfo & ffInfo,
+                    double gamma,
+                    double gammaMaxVal,
+                    bool division,
+                    typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote a,
+                    typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote b)
+{
+    FFType ffImg(ffInfo.width(), ffInfo.height());
+    vigra::importImage(ffInfo, vigra::destImage(ffImg));
+    vigra_ext::flatfieldVigCorrection(srcImg, vigra::srcImage(ffImg), 
+                                      destImg, gamma, gammaMaxVal, division, a, b);
+}
+
+// 3 channel images
+template <class T>
+bool convertKParams(const VariableMap & vars,
+                    T & a,
+                    T & b,
+                    vigra::VigraFalseType)
+{
+    DEBUG_ASSERT(a.size() == 3);
+    bool ret(true);
+    for (unsigned int i=0; i< 3; i++) {
+        char vn[6];
+        snprintf(vn, 6,"K%da",i);
+        a[i] = const_map_get(vars, vn).getValue();
+        snprintf(vn, 6,"K%db",i);
+        b[i] = const_map_get(vars, vn).getValue();
+        ret = ret && a[i] == 1.0 && b[i] == 0.0;
+    }
+
+    return ret;
+}
+
+// singe channel images
+template <class T>
+bool convertKParams(const VariableMap & vars,
+                    T & a,
+                    T & b,
+                    vigra::VigraTrueType)
+{
+    a = const_map_get(vars, "K0a").getValue();
+    b = const_map_get(vars, "K0b").getValue();
+    return (a == 1.0 && b == 0.0);
+}
+
+// singe channel images
+template <class T>
+bool convertKParams(const VariableMap & vars,
+                    T & a,
+                    T & b)
+{
+    typedef typename vigra::NumericTraits<T>::isScalar is_scalar;
+    return convertKParams(vars, a, b, is_scalar());
+}
+
 
 /** functor to create a remapped image, loads image from disk */
 template <typename ImageType, typename AlphaType>
 class FileRemapper : public SingleImageRemapper<ImageType, AlphaType>
 {
+
+private:
 public:
 
-	FileRemapper()
-	{
-		m_remapped = 0;
-	}
+    FileRemapper()
+    {
+        m_remapped = 0;
+    }
+
 
     /** create a remapped pano image.
      *
      *  load the file from disk, and remap in memory
+     *  
+     *  the image needs to be deallocated with a call to release()
      */
-    virtual
-    RemappedPanoImage<ImageType, AlphaType> *
+    virtual RemappedPanoImage<ImageType, AlphaType> *
     getRemapped(const Panorama & pano, const PanoramaOptions & opts,
-             unsigned int imgNr, utils::MultiProgressDisplay & progress)
+                unsigned int imgNr, utils::MultiProgressDisplay & progress)
+    {
+        typedef typename ImageType::value_type PixelType;
+        typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
+
+        // choose image type...
+        const PT::PanoImage & img = pano.getImage(imgNr);
+        const ImageOptions iopts = img.getOptions();
+        if (opts.gamma != 1.0 || iopts.m_vigCorrMode != 0) {
+            return getRemappedIntern<RealPixelType>(pano, opts, imgNr, progress);
+        } else {
+            return getRemappedIntern<PixelType>(pano, opts, imgNr, progress);
+        }
+    }
+
+    /** further specialisation to be able to process integer images without cast problems */
+    template <class PixelType>
+    RemappedPanoImage<ImageType, AlphaType> *
+    getRemappedIntern(const Panorama & pano, const PanoramaOptions & opts,
+                      unsigned int imgNr, utils::MultiProgressDisplay & progress)
     {
         DEBUG_TRACE("Image: " << imgNr);
+
+        typedef vigra::BasicImage<PixelType> ImportImageType;
+
+        typedef typename ImportImageType::traverser sI;
+        typedef typename ImportImageType::Accessor sA;
+        typedef typename ImportImageType::const_traverser csI;
+        typedef typename ImportImageType::ConstAccessor csA;
+
+        typedef typename vigra::NumericTraits<PixelType>::RealPromote RPixelType;
+
         // load image
         const PT::PanoImage & img = pano.getImage(imgNr);
+        const ImageOptions iopts = img.getOptions();
+
         vigra::ImageImportInfo info(img.getFilename().c_str());
-        // create an image of the right size
-        ImageType srcImg(info.width(), info.height());
-        AlphaType srcAlpha(info.width(), info.height(), 1);
-
-        // import the image just read
-        progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
-
-        // import with alpha channel
-        vigra::importImageAlpha(info, vigra::destImage(srcImg),
-                                       vigra::destImage(srcAlpha));
 
         m_remapped = new RemappedPanoImage<ImageType, AlphaType>;
+
+        // create an image of the right size
+        ImportImageType srcImg(info.width(), info.height());
+
+        AlphaType srcAlpha;
+
+        // import the image
+        progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
+        if (info.numExtraBands() > 0) {
+            // process with mask
+            srcAlpha.resize(info.width(), info.height());
+            // import with alpha channel
+            vigra::importImageAlpha(info, vigra::destImage(srcImg),
+                                    vigra::destImage(srcAlpha));
+        } else {
+            // process without mask
+            // import without alpha channel
+            vigra::importImage(info, vigra::destImage(srcImg));
+        }
+
+        // prepare some information required by multiple types of vignetting correction
+        bool vigCorrDivision = (iopts.m_vigCorrMode & ImageOptions::VIGCORR_DIV)>0;
+
+        RPixelType ka,kb;
+        bool doBrightnessConversion = convertKParams(pano.getImageVariables(imgNr), ka, kb);
+
+        double gMaxVal = vigra_ext::VigCorrTraits<typename ImageType::value_type>::max();
+        if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+             // load flatfield image.
+
+             progress.setMessage(std::string("flatfield vignetting correction ") + utils::stripPath(img.getFilename()));
+             vigra::ImageImportInfo ffInfo(iopts.m_flatfield.c_str());
+             vigra_precondition(( ffInfo.numBands() == 1),
+                                 "flatfield vignetting correction: "
+                                 "Only single channel flatfield images are supported\n");
+
+             if (strcmp(ffInfo.getPixelType(), "UINT8") == 0 ) {
+                 applyFlatfield<vigra::BImage, csI, csA, sI, sA>(vigra::srcImageRange(srcImg),
+                                vigra::destImage(srcImg), ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "INT16") == 0 ) {
+                applyFlatfield<vigra::SImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "UINT16") == 0 ) {
+                 applyFlatfield<vigra::USImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "UINT32") == 0 ) {
+                 applyFlatfield<vigra::IImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "INT32") == 0 ) {
+                 applyFlatfield<vigra::UIImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "FLOAT") == 0 ) {
+                 applyFlatfield<vigra::FImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else if (strcmp(ffInfo.getPixelType(), "DOUBLE") == 0 ) {
+                 applyFlatfield<vigra::DImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+            } else {
+                 DEBUG_FATAL("Unsupported pixel type: " << ffInfo.getPixelType());
+                 vigra_fail("flatfield vignetting correction: unsupported pixel type");
+            }
+        } else if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_RADIAL) {
+            progress.setMessage(std::string("radial vignetting correction ") + utils::stripPath(img.getFilename()));
+            double radCoeff[4];
+            radCoeff[0] = const_map_get(pano.getImageVariables(imgNr),"Va").getValue();
+            radCoeff[1] = const_map_get(pano.getImageVariables(imgNr),"Vb").getValue();
+            radCoeff[2] = const_map_get(pano.getImageVariables(imgNr),"Vc").getValue();
+            radCoeff[3] = const_map_get(pano.getImageVariables(imgNr),"Vd").getValue();
+
+            double scale = (double) srcImg.width() / img.getWidth();
+
+            double centerShiftX = const_map_get(pano.getImageVariables(imgNr),"Vx").getValue();
+            double centerShiftY = const_map_get(pano.getImageVariables(imgNr),"Vy").getValue();
+            // take scale factor into accout..
+            double cx = (img.getWidth()/2 + centerShiftX) * scale;
+            double cy = (img.getHeight()/2 + centerShiftY) * scale;
+
+            vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcImg),
+                                           opts.gamma, gMaxVal,
+                                           radCoeff, cx, cy,
+                                           vigCorrDivision, ka, kb);
+        } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
+            progress.setMessage(std::string("inverse brightness & gamma correction ") + utils::stripPath(img.getFilename()));
+            vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcImg),
+                                                     opts.gamma, gMaxVal, ka,kb);
+        } else if (doBrightnessConversion ) {
+            progress.setMessage(std::string("brightness correction ") + utils::stripPath(img.getFilename()));
+            vigra_ext::applyBrightnessCorrection(srcImageRange(srcImg), destImage(srcImg),
+                                                 ka,kb);
+        } else if (opts.gamma != 1.0 ) {
+            progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
+            vigra_ext::applyGammaCorrection(srcImageRange(srcImg), destImage(srcImg),
+                                            opts.gamma, gMaxVal);
+        }
+
         DEBUG_TRACE("starting remap of image: " << imgNr);
-        m_remapped->remapImage(pano, opts,
-                               vigra::srcImageRange(srcImg),
-                               vigra::srcImage(srcAlpha),
-                               imgNr, progress);
+        progress.setMessage(std::string("remapping ") + utils::stripPath(img.getFilename()));
+        if (info.numExtraBands() > 0) {
+            m_remapped->remapImage(pano, opts,
+                                   vigra::srcImageRange(srcImg),
+                                   vigra::srcImage(srcAlpha),
+                                   imgNr, progress);
+        } else {
+            m_remapped->remapImage(pano, opts,
+                                   vigra::srcImageRange(srcImg),
+                                   imgNr, progress);
+        }
+        if (opts.gamma != 1.0) {
+            progress.setMessage(std::string("gamma correction ") + utils::stripPath(img.getFilename()));
+            vigra_ext::applyGammaCorrection(srcImageRange(m_remapped->m_image), destImage(m_remapped->m_image),
+                                            1/opts.gamma, gMaxVal);
+        }
+
         return m_remapped;
     }
 
-	virtual	void
-	release(RemappedPanoImage<ImageType,AlphaType> * d)
-	{
-		delete d;
-	}
+    virtual void release(RemappedPanoImage<ImageType,AlphaType> * d)
+    {
+        delete d;
+    }
 
 protected:
 	RemappedPanoImage<ImageType,AlphaType> * m_remapped;
 };
+
+
 
 }; // namespace
 

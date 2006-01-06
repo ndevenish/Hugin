@@ -26,7 +26,7 @@
 
 #include "PT/Transforms.h"
 #include "PT/PanoToolsInterface.h"
-#include "hugin/ImageProcessing.h"
+//#include "hugin/ImageProcessing.h"
 
 /** Select image orientation
  *

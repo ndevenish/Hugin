@@ -26,8 +26,9 @@
 
 #include <vector>
 
-#include <vigra_ext/ImageTransforms.h>
+//#include <vigra_ext/ImageTransforms.h>
 //#include <hugin/ImageCache.h>
+#include <PT/PanoToolsInterface.h>
 
 
 /** Display a zoomed control point, undistorted to the middle of the image.

@@ -56,6 +56,7 @@ using namespace utils;
 
 BEGIN_EVENT_TABLE(NonaStitcherPanel, wxWindow)
     EVT_CHOICE ( XRCID("nona_choice_interpolator"),NonaStitcherPanel::InterpolatorChanged)
+    EVT_TEXT_ENTER ( XRCID("nona_text_gamma"),NonaStitcherPanel::GammaChanged )
     EVT_SPINCTRL(XRCID("nona_jpeg_quality"), NonaStitcherPanel::OnSetQuality)
     EVT_CHECKBOX( XRCID("nona_check_enblend"), NonaStitcherPanel::OnEnblendChanged)
     EVT_CHECKBOX( XRCID("nona_save_cropped"), NonaStitcherPanel::OnSaveCropped)
@@ -79,6 +80,9 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
     m_InterpolatorChoice = XRCCTRL(*this, "nona_choice_interpolator",
                                    wxChoice);
     DEBUG_ASSERT(m_InterpolatorChoice);
+    m_gammaTxt = XRCCTRL(*this, "nona_text_gamma", wxTextCtrl);
+    m_gammaTxt->PushEventHandler(new TextKillFocusHandler(this));
+    DEBUG_ASSERT(m_gammaTxt);
     m_FormatChoice = XRCCTRL(*this, "nona_choice_format_final", wxChoice);
     DEBUG_ASSERT(m_FormatChoice);
     m_JPEGQualitySpin = XRCCTRL(*this, "nona_jpeg_quality", wxSpinCtrl);
@@ -110,6 +114,7 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
 NonaStitcherPanel::~NonaStitcherPanel(void)
 {
     DEBUG_TRACE("dtor");
+    m_gammaTxt->PopEventHandler(true);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -145,7 +150,8 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 	//}
 	//
 
-	m_InterpolatorChoice->SetSelection(opt.interpolator);
+    m_InterpolatorChoice->SetSelection(opt.interpolator);
+    m_gammaTxt->SetValue(wxString::Format (wxT("%.2f"), opt.gamma));
 
       // translate format
       int format;
@@ -318,12 +324,12 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             opts.outputFormat = PanoramaOptions::TIFF_m;
 
             opts.tiff_saveROI = (wxConfigBase::Get()->Read(wxT("/Enblend/UseCroppedFiles"),
-                                  HUGIN_ENBLEND_USE_CROPPED_FILES));
+                                  HUGIN_ENBLEND_USE_CROPPED_FILES)) != 0;
         }
         // stitch panorama
         PT::stitchPanorama(pano, opts,
                            pdisp, opts.outfile, imgs);
-    } catch (std::bad_alloc & e) {
+    } catch (std::bad_alloc &) {
         wxMessageBox(_("Out of memory.\nTry again with a smaller panorama image size\n"),
                      _("Error during stitching"),
                      wxICON_ERROR | wxOK);
@@ -536,3 +542,21 @@ void NonaStitcherPanel::OnCompTypeChanged( wxCommandEvent & e )
             new PT::SetPanoOptionsCmd( pano, opt )
                                            );
 }
+
+void NonaStitcherPanel::GammaChanged ( wxCommandEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    double val;
+    wxString text = m_gammaTxt->GetValue();
+    if (str2double(text, val)) {
+        opt.gamma = val;
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( pano, opt )
+                                               );
+        DEBUG_DEBUG( val );
+    } else {
+        wxLogError(_("gamma must be a number"));
+    }
+}
+

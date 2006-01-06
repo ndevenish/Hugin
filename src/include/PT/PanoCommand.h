@@ -789,7 +789,6 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-
     /** set image options for a set of images.
      *  just sets the @p options given for all images in @p imgs
      */
@@ -817,6 +816,9 @@ namespace PT {
         ImageOptions options;
         UIntSet imgNrs;
     };
+
+    //=========================================================================
+    //=========================================================================
 
     /** set the panorama options */
     class SetPanoOptionsCmd : public PanoCommand
@@ -874,6 +876,55 @@ namespace PT {
     private:
         std::istream & in;
 	const std::string &prefix;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** Set flatfield correction parameters for all images of a lens
+     */
+    class SetVigCorrCmd : public PanoCommand
+    {
+        public:
+            SetVigCorrCmd(Panorama & p, unsigned int lensNr,
+                          unsigned int vigCorrMode, std::vector<double> & coeff,
+                          const std::string & flatfield)
+            : PanoCommand(p), m_lensNr(lensNr),
+              m_mode(vigCorrMode), m_coeff(coeff), m_flat(flatfield)
+            { };
+            virtual void execute()
+            {
+                PanoCommand::execute();
+                // set data inside panorama options
+                for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
+                    if (pano.getImage(i).getLensNr() == m_lensNr) {
+                        // modify panorama options.
+                        PT::ImageOptions opts = pano.getImage(i).getOptions();
+                        opts.m_vigCorrMode = m_mode;
+                        opts.m_flatfield = m_flat;
+                        pano.setImageOptions(i, opts);
+                    }
+                }
+                // set new correction variables
+                char *vars[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy"};
+                for (unsigned int i=0; i < 6 ; i++) {
+                    LensVariable lv = const_map_get(pano.getLens(m_lensNr).variables, vars[i]);
+                    lv.setValue(m_coeff[i]);
+                    lv.setLinked(true);
+                    pano.updateLensVariable(m_lensNr, lv);
+                }
+                pano.changeFinished();
+            }
+            virtual std::string getName() const
+            {
+                return "set image options";
+            }
+        private:
+            ImageOptions options;
+            unsigned int m_lensNr;
+            unsigned int m_mode;
+            std::vector<double> m_coeff;
+            std::string m_flat;
     };
 
 } // namespace PT

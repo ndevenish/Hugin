@@ -36,7 +36,9 @@
 #include <vigra/rgbvalue.hxx>
 #include <vigra/impex.hxx>
 #include <vigra/impexalpha.hxx>
-#include "vigra_ext/Pyramid.h"
+#include <vigra_ext/Pyramid.h>
+#include <vigra_ext/ImageTransforms.h>
+
 
 #include "hugin/ImageCache.h"
 
@@ -351,7 +353,6 @@ void importAndConvertAlphaImage(const ImageImportInfo & info,
                      linearIntensityTransform<DestComponentType>(scale));
 }
 
-
 ImagePtr ImageCache::getImage(const std::string & filename)
 {
 //    softFlush();
@@ -604,27 +605,110 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
             return m_images[imgNr];
         }
 
+        typedef  BRGBImage::traverser sI;
+        typedef  BRGBImage::Accessor sA;
+        typedef  BRGBImage::const_traverser csI;
+        typedef  BRGBImage::ConstAccessor csA;
+
+        typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
+        typedef  BRGBImageView::const_traverser csvI;
+        typedef  BRGBImageView::ConstAccessor csvA;
+
+        typedef sA::value_type PixelType;
+        typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
+
         // remap image
         DEBUG_DEBUG("remapping image " << imgNr);
 
         // load image
         const PanoImage & img = pano.getImage(imgNr);
+        const PT::ImageOptions & iopts = img.getOptions();
+
         wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
         if (!src->Ok()) {
             throw std::runtime_error("could not retrieve small source image for preview generation");
         }
         // image view
-        BasicImageView<RGBValue<unsigned char> > srcImg((RGBValue<unsigned char> *)src->GetData(),
-                                                        src->GetWidth(),
-                                                        src->GetHeight());
-        // mask image
-        BImage srcAlpha(src->GetWidth(), src->GetHeight(), 255);
-
+        BRGBImageView srcImg((RGBValue<unsigned char> *)src->GetData(),
+                             src->GetWidth(),
+                             src->GetHeight());
         MRemappedImage *remapped = new MRemappedImage;
-        remapped->remapImage(pano, opts,
-                             srcImageRange(srcImg),
-                             srcImage(srcAlpha),
-                             imgNr, progress);
+
+        if (opts.gamma != 1.0 || img.getOptions().m_vigCorrMode != 0) {
+            BRGBImage srcCorrImg(src->GetWidth(), src->GetHeight());
+
+            // prepare some information required by multiple types of vignetting correction
+            bool vigCorrDivision = (iopts.m_vigCorrMode & ImageOptions::VIGCORR_DIV)>0;
+
+            RPixelType ka,kb;
+            bool doBrightnessConversion = convertKParams(pano.getImageVariables(imgNr), ka, kb);
+
+            double gMaxVal = vigra_ext::VigCorrTraits<PixelType>::max();
+            if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+             // load flatfield image.
+
+                progress.setMessage(std::string("flatfield vignetting correction ") + utils::stripPath(img.getFilename()));
+                wxImage * flatsrc = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
+                if (!flatsrc->Ok()) {
+                    throw std::runtime_error("could not retrieve flatfield image for preview generation");
+                }
+
+                // image view
+                BRGBImageView flatImg((RGBValue<unsigned char> *)flatsrc->GetData(),
+                                       flatsrc->GetWidth(),
+                                       flatsrc->GetHeight());
+                vigra_ext::flatfieldVigCorrection(vigra::srcImageRange(srcImg), 
+                                                  std::make_pair(flatImg.upperLeft(), vigra::RedAccessor<PixelType>()),
+                                                  vigra::destImage(srcCorrImg), opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+
+            } else if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_RADIAL) {
+                progress.setMessage(std::string("vignetting correction ") + utils::stripPath(img.getFilename()));
+                double radCoeff[4];
+                radCoeff[0] = const_map_get(pano.getImageVariables(imgNr),"Va").getValue();
+                radCoeff[1] = const_map_get(pano.getImageVariables(imgNr),"Vb").getValue();
+                radCoeff[2] = const_map_get(pano.getImageVariables(imgNr),"Vc").getValue();
+                radCoeff[3] = const_map_get(pano.getImageVariables(imgNr),"Vd").getValue();
+
+                double scale = (double) srcImg.width() / img.getWidth();
+
+                double centerShiftX = const_map_get(pano.getImageVariables(imgNr),"Vx").getValue();
+                double centerShiftY = const_map_get(pano.getImageVariables(imgNr),"Vy").getValue();
+                // take scale factor into accout..
+                double cx = (img.getWidth()/2 + centerShiftX) * scale;
+                double cy = (img.getHeight()/2 + centerShiftY) * scale;
+
+                vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
+                                               opts.gamma, gMaxVal,
+                                               radCoeff, cx, cy,
+                                               vigCorrDivision, ka, kb);
+            } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
+                progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
+                vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
+                        opts.gamma, gMaxVal, ka,kb);
+            } else if (doBrightnessConversion ) {
+                progress.setMessage(std::string("brightness correction ") + utils::stripPath(img.getFilename()));
+                vigra_ext::applyBrightnessCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
+                        ka,kb);
+            } else if (opts.gamma != 1.0 ) {
+                progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
+                vigra_ext::applyGammaCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
+                        opts.gamma, gMaxVal);
+            }
+
+            remapped->remapImage(pano, opts,
+                                 srcImageRange(srcCorrImg),
+                                 imgNr, progress);
+
+            if (opts.gamma != 1.0) {
+                progress.setMessage(std::string("gamma correction ") + utils::stripPath(img.getFilename()));
+                vigra_ext::applyGammaCorrection(srcImageRange(remapped->m_image), destImage(remapped->m_image),
+                        1/opts.gamma, gMaxVal);
+            }
+        } else {
+            remapped->remapImage(pano, opts,
+                                 srcImageRange(srcImg),
+                                 imgNr, progress);
+        }
         m_images[imgNr] = remapped;
         return remapped;
     }

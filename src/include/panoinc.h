@@ -78,7 +78,7 @@
 #include "PT/PanoramaMemento.h"
 #include "PT/PanoCommand.h"
 //#include "PT/Transforms.h"
-#include "PT/PanoToolsInterface.h"
+//#include "PT/PanoToolsInterface.h"
 //#include "PT/SpaceTransform.h"
 
 #endif

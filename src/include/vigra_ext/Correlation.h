@@ -545,7 +545,9 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
                            destImageRange(rotTemplate),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
-                           t, vigra_ext::INTERP_CUBIC,
+                           t,
+                           false,
+                           vigra_ext::INTERP_CUBIC,
                            dummy);
         DEBUG_DEBUG("----- Image rotated");
 
@@ -596,7 +598,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
 
 
         DEBUG_DEBUG("normal search finished, max:" << res.maxi
-                    << " at " << res.maxpos << " angle:" << phi/M_PI*180 << "°");
+                    << " at " << res.maxpos << " angle:" << phi/M_PI*180 << "");
 
         if (res.maxi > bestRes.maxi) {
             // remember best correlation.
@@ -608,7 +610,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     }
 
     DEBUG_DEBUG("rotation search finished, max:" << bestRes.maxi
-                << " at " << bestRes.maxpos << " angle:" << bestAngle/M_PI*180 << "°");
+                << " at " << bestRes.maxpos << " angle:" << bestAngle/M_PI*180 << "");
 
     // do a subpixel maxima estimation
     // check if the max is inside the pixel boundaries,

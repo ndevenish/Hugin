@@ -588,7 +588,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
 
         // try to select sensible position optimisation parameters,
         // dependent on output projection
-        switch (m_pano->getOptions().projectionFormat) {
+        switch (m_pano->getOptions().getProjection()) {
           case PT::PanoramaOptions::RECTILINEAR:
             m_roll_list->Check(refImg, (nHCP > 0 || nVCP > 0));
             m_yaw_list->Check(refImg, (nHCP > 0));

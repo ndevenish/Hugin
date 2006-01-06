@@ -74,6 +74,52 @@
 #                  of the line scanner relative to the film transport
 #                  g - horizontal shear
 #                  t - vertical shear
+#
+# K0a, K0b     linear color/grayvalue correction coefficients for each channel
+# K1a, K1b        (for grayscale images Only K0a, K0b is used):
+# K2a, K2b        i_red = K0a * i_red + K0b
+#                 i_green = K1a * i_green + K1b
+#                 i_blue = K2a * i_blue + K2b
+#               This correction is applied after the flatfield flatfield correction.
+#
+# Vm           vignetting correction mode (default 0):
+#                  0: no vignetting correction
+#                  1: radial vignetting correction (see j,k,l,o options)
+#                  2: flatfield vignetting correction (see p option)
+#                  4: proportional correction: i_new = i / corr.
+#                       This mode is recommended for use with linear data.
+#                       If the input data is gamma corrected, try adding g2.2
+#                       to the m line.
+#
+#                      default is additive correction: i_new = i + corr
+
+#                    Both radial and flatfield correction can be combined with the
+#                     proportional correction by adding 4.
+#                 Examples: i1 - radial polynomial correction by addition.
+#                                 The coefficients j,k,l,o must be specified.
+#                           i5 - radial polynomial correction by division.
+#                                 The coefficients j,k,l,o must be specified.
+#                           i6 - flatfield correction by division.
+#                                 The flatfield image should be specified with the p option
+#
+# Va,Vb,Vc,Vd  vignetting correction coefficients. (defaults: 0,0,0,0)
+#               ( 0, 2, 4, 6 order polynomial coefficients):
+#                corr = ( i + j*r^2 + k*r^4 + l*r^6), where r is the distance from the image center
+#              The corrected pixel value is calculated with: i_new = i_old + corr
+#              if additive correction is used (default)
+#			   for proportional correction (h5): i_new = i_old / corr;
+#
+# Vx,Vy        radial vignetting correction offset in pixels (defaults q0 w0, optional).
+#                 Used to correct for offset from center of image
+#                  Vx - horizontal offset
+#                  Vy - vertical offset
+#
+# Vf           filename of flatfield image.
+#               For additive correction the image will be used as it is.
+#               In the case of correction by division, the flatfield will be divided by
+#               its mean value.
+#
+#
 # S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
 #                       Original image size is used for all image parameters
 #                       (e.g. field-of-view) refer to the original image.
@@ -90,6 +136,12 @@ o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
 # ----------------
 # Set mode for stitcher, not required
 #
+#
+# g2.5         Set gamma value for internal computations (default 1.0)
+#                  See <http://www.fh-furtwangen.de/~dersch/gamma/gamma.html>
+#               This is especially useful in conjunction with the vignetting correction
+#               by division
+#
 # i2           Set interpolator, See <http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html>
 #                one of:
 #                   0 - poly3 (default)
@@ -101,6 +153,5 @@ o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
 #                   6 - nearest neighbor,
 #                   7 - sinc1024
 #                   
-
 m i2
 

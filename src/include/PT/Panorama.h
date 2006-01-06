@@ -294,7 +294,7 @@ public:
 
     /** get number of lenses */
     unsigned int getNrOfLenses() const
-        { return state.lenses.size(); }
+        { return unsigned(state.lenses.size()); }
 
     /** returns the options for this panorama */
     const PanoramaOptions & getOptions() const

@@ -26,8 +26,8 @@
 
 #include "common/math.h"
 
-#include "vigra/accessor.hxx"
-#include "vigra/interpolating_accessor.hxx"
+//#include "vigra/accessor.hxx"
+//#include "vigra/interpolating_accessor.hxx"
 
 //#include "vigra_ext/Interpolators.h"
 
@@ -64,6 +64,12 @@ extern "C" {
 #endif
 #endif
 
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
 
 class wxImage;
 

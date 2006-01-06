@@ -53,7 +53,7 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
 //    EVT_MOTION(CPImageCtrl::mouseMoveEvent)
 //    EVT_LEFT_UP(CPImageCtrl::mouseReleaseEvent)
     EVT_SIZE(PreviewPanel::OnResize)
-//    EVT_MOUSE_EVENTS ( PreviewPanel::OnMouse )
+    EVT_MOUSE_EVENTS ( PreviewPanel::OnMouse )
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
 
@@ -92,7 +92,7 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
         DEBUG_DEBUG("VFOV changed");
         dirty = true;
     }
-    if (newOpts.projectionFormat != opts.projectionFormat) {
+    if (newOpts.getProjection() != opts.getProjection()) {
         DEBUG_DEBUG("projection changed");
         dirty = true;
     }
@@ -361,6 +361,8 @@ void PreviewPanel::OnResize(wxSizeEvent & e)
 void PreviewPanel::OnMouse(wxMouseEvent & e)
 {
     DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
+    // display current pixel values in status bar
+    
 }
 
 void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int offX, int offY)

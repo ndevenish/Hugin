@@ -8,3 +8,4 @@ noinst_LTLIBRARIES = libpanorama.la
 libpanorama_la_SOURCES = Panorama.cpp PanoramaMemento.cpp PanoImage.cpp PanoToolsInterface.cpp SpaceTransform.cpp PTOptimise.cpp ImageGraph.cpp Stitcher.cpp
 
 EXTRA_DIST=Panorama.vcproj OptimizeOptions.cpp
+noinst_HEADERS = Stitcher_TIFF.h

@@ -351,7 +351,7 @@ public:
                            COLOR };
 
     PanoramaOptions()
-        : projectionFormat(EQUIRECTANGULAR),
+        : m_projectionFormat(EQUIRECTANGULAR),
           outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
           tiffCompression("NONE"),
@@ -369,7 +369,7 @@ public:
 
     void reset()
         {
-            projectionFormat = EQUIRECTANGULAR;
+            m_projectionFormat = EQUIRECTANGULAR;
             m_hfov = 360;
             m_width = 3000;
             m_height = 1500;
@@ -423,36 +423,39 @@ public:
         return m_height;
     }
 
+    /** set the Projection format and adjust the hfov/vfov
+     *  if nessecary
+     */
+    void PanoramaOptions::setProjection(ProjectionFormat f);
+
+    PanoramaOptions::ProjectionFormat PanoramaOptions::getProjection() const
+    {
+        return m_projectionFormat;
+    };
 
     /** set the horizontal field of view.
      *  also updates the image height (keep pano
      *  field of view similar.)
      */
-    void setHFOV(double h, bool keepView=true)
-    {
-        double vfov;
-        if (keepView) {
-            vfov = getVFOV();
-        }
-        m_hfov = h;
-        if (keepView) {
-            setVFOV(vfov);
-        }
-    }
-    
+    void setHFOV(double h, bool keepView=true);
+
     double getHFOV() const
     {
         return m_hfov;
     }
-    
+
     void setVFOV(double v);
     double getVFOV() const;
+
+    /** get maximum possible hfov with current projection */
+    double PanoramaOptions::getMaxHFOV() const;
+    /** get maximum possible vfov with current projection */
+    double PanoramaOptions::getMaxVFOV() const;
 
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
 
-    ProjectionFormat projectionFormat;
     std::string outfile;
     FileFormat outputFormat;
     // jpeg options
@@ -479,7 +482,7 @@ private:
     double m_hfov;
     unsigned int m_width;
     unsigned int m_height;
- 
+    ProjectionFormat m_projectionFormat; 
 };
 
 typedef std::vector<ControlPoint> CPVector;

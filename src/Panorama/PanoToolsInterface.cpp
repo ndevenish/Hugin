@@ -265,7 +265,7 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
                     pano.getImageVariables(imgNr),
                     pano.getLens(img.getLensNr()).getProjection(),
                     Diff2D(dest.getWidth(), dest.getHeight()),
-                    dest.projectionFormat, dest.getHFOV(),
+                    dest.getProjection(), dest.getHFOV(),
                     Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -311,7 +311,7 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
                        pano.getImageVariables(imgNr),
                        pano.getLens(img.getLensNr()).getProjection(),
                        Diff2D(dest.getWidth(), dest.getHeight()),
-                       dest.projectionFormat, dest.getHFOV(),
+                       dest.getProjection(), dest.getHFOV(),
                        Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -573,7 +573,7 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
     if (trf.dest->data) {
         myfree((void**)trf.dest->data);
     }
-    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.projectionFormat, opts.getHFOV());
+    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.getProjection(), opts.getHFOV());
     ap.pano = *(trf.dest);
 }
 
@@ -648,7 +648,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     gl.cim = NULL;
 
     // Determine number of images and control points
-    gl.numIm 	= imgs.size();
+    gl.numIm 	= int(imgs.size());
     gl.nt 	= 0;
 
 
@@ -657,7 +657,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     gl.numParam = 0;
     for (UIntVector::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
         imgMap[*iit] = imgCnt;
-        gl.numParam += optvec[imgCnt].size();
+        gl.numParam += int(optvec[imgCnt].size());
         imgCnt++;
     }
 
@@ -681,12 +681,12 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
 
         if (matchCount == 2) {
             // found a control point.. add to control points list
-            m_ctrlPointMap[cps.size()] = it - controlPoints.begin();
+            m_ctrlPointMap[int(cps.size())] = it - controlPoints.begin();
             cps.push_back(point);
         }
     }
 
-    gl.numPts = cps.size();
+    gl.numPts = int(cps.size());
 
     // Allocate Space for Pointers to images, preferences and control points
 
@@ -718,7 +718,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
 
     const PanoramaOptions & opts = pano.getOptions();
     setDestImage(gl.pano, Diff2D(opts.getWidth(), opts.getHeight()),
-                 0, opts.projectionFormat, opts.getHFOV());
+                 0, opts.getProjection(), opts.getHFOV());
 
     // Default: Use buffer 'buf' for stitching
     SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );

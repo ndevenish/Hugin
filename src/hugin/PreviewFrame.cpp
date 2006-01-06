@@ -44,6 +44,8 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 
+#include <vigra_ext/ImageTransforms.h>
+
 using namespace utils;
 
 // a random id, hope this doesn't break something..
@@ -279,7 +281,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     const PanoramaOptions & opts = pano.getOptions();
 
     wxString projection;
-    switch (opts.projectionFormat) {
+    switch (opts.getProjection()) {
     case PanoramaOptions::RECTILINEAR:
         projection = _("rectilinear");
         break;
@@ -523,10 +525,10 @@ void PreviewFrame::updateProgressDisplay()
     {
         wxString cMsg;
         if (it->getProgress() > 0) {
-            cMsg.Printf(wxT("%s %s [%3.0f%%]"),
+            cMsg.Printf(wxT("%s [%3.0f%%]: %s "),
                         wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
-                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str(),
-                        100 * it->getProgress());
+                        100 * it->getProgress(),
+                        wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
         } else {
             cMsg.Printf(wxT("%s %s"),wxString(it->getShortMessage().c_str(), *wxConvCurrent).c_str(),
                         wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());

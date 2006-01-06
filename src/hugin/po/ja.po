@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2005-12-05 09:35+0100\n"
+"POT-Creation-Date: 2005-12-16 20:38+0100\n"
 "PO-Revision-Date: 2005-11-16 23:33+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
@@ -425,11 +425,11 @@ msgstr "Yaw (横)：%.1f / Pitch (縦)：%.1f / Roll (回転)：%.1f"
 msgid "Filename"
 msgstr "ファイル名"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "width"
 msgstr "幅"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "height"
 msgstr "高さ"
 
@@ -512,15 +512,15 @@ msgstr "パノラマ（円柱レンズ）"
 msgid "Circular fisheye"
 msgstr "円周魚眼レンズ"
 
-#: src/hugin/ImagesList.cpp:397 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:397 src/hugin/PreviewFrame.cpp:293
+#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Full frame fisheye"
 msgstr "フルフレーム魚眼レンズ"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/PanoPanel.cpp:232
-#: src/hugin/PreviewFrame.cpp:402 src/hugin/xrc/lens_panel.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:6 src/hugin/xrc/pano_panel.xrs:5
-#: src/hugin/xrc/pano_panel-2.5.xrs:5
+#: src/hugin/ImagesList.cpp:398 src/hugin/PreviewFrame.cpp:405
+#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:5 src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Equirectangular（正距円筒）"
 
@@ -823,11 +823,11 @@ msgstr "enblendのエラー"
 msgid "The druid has no advice."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:572
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:575
 msgid "The druid finds no problems with your panorama."
 msgstr "Druidは、あなたのパノラマに何の問題も無いと思います。"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:573
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:576
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -837,11 +837,11 @@ msgstr ""
 "フォトレタッチングソフトで仕上げるとよいでしょう。\n"
 " "
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:592
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:595
 msgid "Warning:  you haven't saved the current project."
 msgstr "警告：プロジェクトが保存されていません。"
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:596
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -850,7 +850,7 @@ msgstr ""
 "忘れる前にプロジェクトを保存しましょう。\n"
 "それ以外はスティッチングする準備ができているようです。"
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:588
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:591
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "警告：とても大きい画像を出力しようとしています"
 
@@ -869,11 +869,11 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:584
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:587
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "水平視野の設定 (v) が小さすぎるかもしれません。"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:588
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -955,19 +955,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr "最適化はコントロールポイントを使って画像同士の関係を推定します。"
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:580
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:583
 msgid "Add at least one more image."
 msgstr "画像を追加してください。"
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:584
 msgid "You should have at least two files listed in the Images tab."
 msgstr "二枚以上画像が登録されているか確かめてください。"
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:576
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:579
 msgid "To get started, add some image files."
 msgstr "まず画像をプロジェクトに追加します。"
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:580
 msgid "You can add any number of images using the Images tab."
 msgstr "「画像」タブで画像をいくらでも追加することができます。"
 
@@ -975,21 +975,11 @@ msgstr "「画像」タブで画像をいくらでも追加することができ
 msgid "the Panorama druid"
 msgstr "Panorama Druid"
 
-#: src/hugin/PanoPanel.cpp:230 src/hugin/PreviewFrame.cpp:400
-#: src/hugin/xrc/pano_panel.xrs:3 src/hugin/xrc/pano_panel-2.5.xrs:3
-msgid "Rectilinear"
-msgstr "Rectilinear（心射方位）"
-
-#: src/hugin/PanoPanel.cpp:231 src/hugin/PreviewFrame.cpp:401
-#: src/hugin/xrc/pano_panel.xrs:4 src/hugin/xrc/pano_panel-2.5.xrs:4
-msgid "Cylindrical"
-msgstr "Cylindrical（心射円筒）"
-
-#: src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:323
 msgid "width needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: src/hugin/PanoPanel.cpp:565
+#: src/hugin/PanoPanel.cpp:564
 msgid "Create panorama image"
 msgstr "パノラマ画像の作成"
 
@@ -1136,11 +1126,21 @@ msgstr "心射円筒（Cylindrical）"
 msgid "equirectangular"
 msgstr "正距円筒（Equirectangular）"
 
-#: src/hugin/PreviewFrame.cpp:569
+#: src/hugin/PreviewFrame.cpp:403 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/xrc/pano_panel-2.5.xrs:3
+msgid "Rectilinear"
+msgstr "Rectilinear（心射方位）"
+
+#: src/hugin/PreviewFrame.cpp:404 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/xrc/pano_panel-2.5.xrs:4
+msgid "Cylindrical"
+msgstr "Cylindrical（心射円筒）"
+
+#: src/hugin/PreviewFrame.cpp:572
 msgid "The druid has no advice at this time."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PreviewFrame.cpp:592
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -2344,98 +2344,98 @@ msgstr "パノラマ"
 msgid "projection (f):"
 msgstr "投影法 (f):"
 
-#: src/hugin/xrc/pano_panel.xrs:6 src/hugin/xrc/pano_panel-2.5.xrs:6
+#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Field of View"
 msgstr "視野"
 
-#: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
 msgid "horizontal (v):"
 msgstr "水平方向 (v):"
 
-#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "Calculate Field of View"
 msgstr "最適な視野を計算"
 
-#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "vertical:"
 msgstr "上下方向："
 
-#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Quick Stitcher"
 msgstr "スティッチング"
 
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "Stitch the images"
 msgstr "スティッチングモード："
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "with custom settings below"
 msgstr "カスタマイズ"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "into a high quality TIFF file"
 msgstr "高品質のTIFFファイル"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "into a high-quality JPEG file"
 msgstr "高品質のJPEGファイル"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "into a draft-quality JPEG file"
 msgstr "下書きレベルのJPEGファイル"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "into a layered TIFF file"
 msgstr "複数レイヤーのTIFFファイル"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "into a layered Photoshop file"
 msgstr "複数レイヤーのPhotoshopファイル"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "Stitch now!"
 msgstr "スティッチングの実行"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "execute the PTStitcher engine"
 msgstr "スティッチングプログラムを実行する"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "Panorama Image Size"
 msgstr "パノラマのサイズ"
 
-#: src/hugin/xrc/pano_panel.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:22
 msgid "pixel width:"
 msgstr "幅（ピクセル）："
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:23
 msgid "pixel height:"
 msgstr "高さ（ピクセル）："
 
-#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "Calculate Optimal Size"
 msgstr "最適なサイズを計算"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr ""
 "一番大きい適当な幅を計算します（元画像のすべての画素が使われるように調整しま"
 "す）"
 
-#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
 msgid "Stitching engine:"
 msgstr "スティッチングプログラム："
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
 msgid "nona"
 msgstr "nona"
 

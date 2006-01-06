@@ -317,6 +317,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 				RelativePath=".\TextKillFocusHandler.cpp">
 			</File>
 			<File
+				RelativePath=".\VigCorrDialog.cpp">
+			</File>
+			<File
 				RelativePath=".\win_prep.h">
 			</File>
 		</Filter>
@@ -430,6 +433,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			</File>
 			<File
 				RelativePath="..\include\hugin\TextKillFocusHandler.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\VigCorrDialog.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\wxPanoCommand.h">

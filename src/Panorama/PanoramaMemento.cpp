@@ -57,25 +57,58 @@ void PT::fillVariableMap(VariableMap & vars)
 
     // Lens variables
     vars.insert(pair<const char*, Variable>("v",Variable("v",51)));
-    vars.insert(pair<const char*, Variable>("a",Variable("a",0.0001)));
-    vars.insert(pair<const char*, Variable>("b",Variable("b",0.0001)));
-    vars.insert(pair<const char*, Variable>("c",Variable("c",0.0001)));
+    vars.insert(pair<const char*, Variable>("a",Variable("a",0.0)));
+    vars.insert(pair<const char*, Variable>("b",Variable("b",0.0)));
+    vars.insert(pair<const char*, Variable>("c",Variable("c",0.0)));
     vars.insert(pair<const char*, Variable>("d",Variable("d",0)));
     vars.insert(pair<const char*, Variable>("e",Variable("e",0)));
     vars.insert(pair<const char*, Variable>("g",Variable("g",0)));
     vars.insert(pair<const char*, Variable>("t",Variable("t",0)));
+
+    vars.insert(pair<const char*, Variable>("Va",Variable("Va",0)));
+    vars.insert(pair<const char*, Variable>("Vb",Variable("Vb",0)));
+    vars.insert(pair<const char*, Variable>("Vc",Variable("Vc",0)));
+    vars.insert(pair<const char*, Variable>("Vd",Variable("Vd",0)));
+    vars.insert(pair<const char*, Variable>("Vx",Variable("Vx",0)));
+    vars.insert(pair<const char*, Variable>("Vy",Variable("Vy",0)));
+
+    // color and brightness correction variables.
+    vars.insert(pair<const char*, Variable>("K0a",Variable("K0a",1.0)));
+    vars.insert(pair<const char*, Variable>("K0b",Variable("K0b",0)));
+    vars.insert(pair<const char*, Variable>("K1a",Variable("K1a",1.0)));
+    vars.insert(pair<const char*, Variable>("K1b",Variable("K1b",0)));
+    vars.insert(pair<const char*, Variable>("K2a",Variable("K2a",1.0)));
+    vars.insert(pair<const char*, Variable>("K2b",Variable("K2b",0)));
+
 };
 
 void PT::fillLensVarMap(LensVarMap & variables)
 {
     variables.insert(pair<const char*, LensVariable>("v",LensVariable("v", 51, true)));
-    variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0001, true )));
-    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b", 0.0001, true)));
-    variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0001, true)));
+    variables.insert(pair<const char*, LensVariable>("a",LensVariable("a", 0.0, true )));
+    variables.insert(pair<const char*, LensVariable>("b",LensVariable("b", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("c",LensVariable("c", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("d",LensVariable("d", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("e",LensVariable("e", 0.0, true)));
-    variables.insert(pair<const char*, LensVariable>("g",LensVariable("g", 0.0)));
-    variables.insert(pair<const char*, LensVariable>("t",LensVariable("t", 0.0)));
+    variables.insert(pair<const char*, LensVariable>("g",LensVariable("g", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("t",LensVariable("t", 0.0, true)));
+
+    // vignetting correction variables
+    variables.insert(pair<const char*, LensVariable>("Va",LensVariable("Va", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Vb",LensVariable("Vb", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Vc",LensVariable("Vc", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Vd",LensVariable("Vd", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Vx",LensVariable("Vx", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Vy",LensVariable("Vy", 0.0, true)));
+
+    // color and brightness correction variables.
+    variables.insert(pair<const char*, LensVariable>("K0a",LensVariable("K0a", 1.0, false)));
+    variables.insert(pair<const char*, LensVariable>("K0b",LensVariable("K0b", 0.0, false)));
+    variables.insert(pair<const char*, LensVariable>("K1a",LensVariable("K1a", 1.0, false)));
+    variables.insert(pair<const char*, LensVariable>("K1b",LensVariable("K1b", 0.0, false)));
+    variables.insert(pair<const char*, LensVariable>("K2a",LensVariable("K2a", 1.0, false)));
+    variables.insert(pair<const char*, LensVariable>("K2b",LensVariable("K2b", 0.0, false)));
+
 }
 
 void PT::printVariableMap(ostream & o, const VariableMap & vars)
@@ -110,7 +143,9 @@ Lens::Lens()
     fillLensVarMap(variables);
 }
 
-char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 0};
+char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
+                                    "Va", "Vb", "Vc", "Vd", "Vx", "Vy",
+                                    "K0a", "K0b", "K1a", "K1b", "K2a", "K2b", 0};
 
 
 
@@ -225,7 +260,7 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor)
         vigra::ImageImportInfo info(filename.c_str());
         width = info.width();
         height = info.height();
-    } catch(vigra::PreconditionViolation & e) {
+    } catch(vigra::PreconditionViolation & ) {
         return false;
     }
     setImageSize(vigra::Size2D(width, height));
@@ -377,7 +412,7 @@ PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string
 
 void PanoramaOptions::printScriptLine(std::ostream & o) const
 {
-    o << "p f" << projectionFormat << " w" << getWidth()<< " h" << getHeight()
+    o << "p f" << m_projectionFormat << " w" << getWidth()<< " h" << getHeight()
             << " v" << getHFOV() << " ";
 
     switch (colorCorrection) {
@@ -425,17 +460,35 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << std::endl;
 }
 
+void PanoramaOptions::setProjection(ProjectionFormat f)
+{
+    m_projectionFormat = f;
+    // correct hfov.
+    setHFOV(std::min(getHFOV(), getMaxHFOV()));
+}
+
 void PanoramaOptions::setWidth(unsigned int w, bool keepView)
 {
-    
     double vfov;
     if (keepView)
         vfov = getVFOV();
     m_width = w;
     if (keepView) {
-        setVFOV(vfov);
+        setVFOV(std::min(vfov, getMaxVFOV()));
     }
     DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << getVFOV());
+}
+
+void PanoramaOptions::setHFOV(double h, bool keepView)
+{
+    double vfov;
+    if (keepView) {
+        vfov = getVFOV();
+    }
+    m_hfov = std::min(h, getMaxHFOV());
+    if (keepView) {
+        setVFOV(std::min(vfov, getMaxVFOV()));
+    }
 }
 
 void PanoramaOptions::setHeight(unsigned int h) 
@@ -446,7 +499,7 @@ void PanoramaOptions::setHeight(unsigned int h)
 
 void PanoramaOptions::setVFOV(double VFOV)
 {
-    switch (projectionFormat) {
+    switch (m_projectionFormat) {
         case RECTILINEAR:
         {
             m_height =  utils::roundi( m_width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(m_hfov)/2.0));
@@ -471,7 +524,7 @@ void PanoramaOptions::setVFOV(double VFOV)
 double PanoramaOptions::getVFOV() const
 {
     double VFOV;
-    switch (projectionFormat) {
+    switch (m_projectionFormat) {
         case PanoramaOptions::RECTILINEAR:
             VFOV = 2.0 * atan( (double)m_height * tan(DEG_TO_RAD(m_hfov)/2.0) / m_width);
             VFOV = RAD_TO_DEG(VFOV);
@@ -493,6 +546,39 @@ double PanoramaOptions::getVFOV() const
     }
     DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << VFOV);
     return VFOV;
+}
+
+double PanoramaOptions::getMaxHFOV() const
+{
+    switch (m_projectionFormat)
+    {
+        case RECTILINEAR:
+            return 179;
+        case CYLINDRICAL:
+        case EQUIRECTANGULAR:
+        case FULL_FRAME_FISHEYE:
+            return 360;
+    }
+    // strange, MSVC complains about not all control paths return a value.
+    // all projection formats are specifed in the switch ...
+    return 179.0;
+}
+
+double PanoramaOptions::getMaxVFOV() const
+{
+    switch (m_projectionFormat)
+    {
+        case RECTILINEAR:
+        case CYLINDRICAL:
+            return 179;
+        case EQUIRECTANGULAR:
+            return 180;
+        case FULL_FRAME_FISHEYE:
+            return 360;
+    }
+    // strange, MSVC complains about not all control paths return a value.
+    // all projection formats are specifed in the switch ...
+    return 179.0;
 }
 
 const string PanoramaOptions::fileformatNames[] =
@@ -536,7 +622,8 @@ public:
         width = -1;
         height = -1;
         f = -2;
-        for (char * v = varnames; *v != 0; v++) {
+        vigcorrMode = 0;
+        for (char ** v = varnames; *v != 0; v++) {
             vars[*v] = 0;
             links[*v] = -2;
         }
@@ -544,10 +631,11 @@ public:
 
     void parse(const string & line)
     {
-        for (char * v = varnames; *v != 0; v++) {
-            vars[*v] = 0;
+        double * val = defaultValues;
+        for (char ** v = varnames; *v; v++, val++) {
+            vars[*v] = *val;
             links[*v] = -1;
-            string name;
+            std::string name;
             name = *v;
             getPTDoubleParam(vars[*v], links[*v], line, name);
         }
@@ -560,6 +648,10 @@ public:
         getPTStringParam(filename,line,"n");
         getIntParam(width, line, "w");
         getIntParam(height, line, "h");
+
+        getIntParam(vigcorrMode, line, "Vm");
+        getPTStringParam(flatfieldname,line,"Vf");
+
         string crop_str;
         if ( getPTParam(crop_str, line, "C") ) {
             int left, right, top, bottom;
@@ -581,18 +673,26 @@ public:
         }
     }
 
-    static char varnames[];
-    string filename;
-    std::map<char, double> vars;
-    std::map<char, int> links;
+    static char *varnames[];
+    static double defaultValues[];
+    std::string filename;
+    std::string flatfieldname;
+    std::map<std::string, double> vars;
+    std::map<std::string, int> links;
     int f;
     int blend_radius;
     int width, height;
+    int vigcorrMode;
     vigra::Rect2D crop;
 };
 
-char ImgInfo::varnames[] = "vabcdegtrpy";
-
+// cannot use Lens::variableNames here, because r,p,v need to be included
+char * ImgInfo::varnames[] = {"v","a","b","c","d","e","g","t","r","p","y",
+                              "Va", "Vb", "Vc", "Vd", "Vx", "Vy", 
+                              "K0a", "K0b", "K1a", "K1b", "K2a", "K2b", 0};
+double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  0.0, 0.0, 0.0,
+                                      1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
+                                      1.0, 0.0,  1.0, 0.0,  1.0, 0.0};
 
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
@@ -641,7 +741,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             string format;
             int i;
             getIntParam(i,line,"f");
-            options.projectionFormat = (PanoramaOptions::ProjectionFormat) i;
+            options.setProjection( (PanoramaOptions::ProjectionFormat) i );
             unsigned int w;
             getIntParam(w, line, "w");
             options.setWidth(w);
@@ -928,7 +1028,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         // create lens with dummy info
         Lens l;
         for (char **v = Lens::variableNames; *v != 0; v++) {
-            map_get(l.variables, *v).setValue(PTGUILens.vars[**v]);
+            map_get(l.variables, *v).setValue(PTGUILens.vars[*v]);
         }
         l.setImageSize(vigra::Size2D(PTGUILens.width, PTGUILens.height));
         l.setCropFactor(1);
@@ -984,7 +1084,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         // i lines. or it is linked on the o lines)
 
         // ordinary variables
-        for (char * v = ImgInfo::varnames; *v != 0; v++) {
+        for (char ** v = ImgInfo::varnames; *v ; v++) {
 
             if (iImgInfo[i].links[*v] == -2 && oImgInfo[i].links[*v] != -2 || iImgInfo[i].links[*v] == -1 && oImgInfo[i].links[*v] >=0) {
                 DEBUG_DEBUG(*v << ": o -> i");
@@ -1038,9 +1138,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         int link = -2;
         fillVariableMap(vars);
 
-        for (char * v = ImgInfo::varnames; *v != 0; v++) {
-            std::string name;
-            name = *v;
+        for (char ** v = ImgInfo::varnames; *v != 0; v++) {
+            std::string name(*v);
             double val = iImgInfo[i].vars[*v];
             map_get(vars,name).setValue(val);
             DEBUG_ASSERT(link <0  || iImgInfo[i].links[*v] < 0|| link == iImgInfo[i].links[*v]);
@@ -1081,7 +1180,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             (*it).second.setLinked(false);
 
             DEBUG_DEBUG("reading variable " << varname << " link:" << link );
-            if (link >=0 && iImgInfo[i].links[varname[0]]>= 0) {
+            if (link >=0 && iImgInfo[i].links[varname]>= 0) {
                 // linked variable
 
                 if (PTGUILensLoaded && link == 0) {
@@ -1161,6 +1260,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             opts.docrop = true;
             opts.cropRect = iImgInfo[i].crop;
         }
+        opts.m_vigCorrMode = iImgInfo[i].vigcorrMode;
+        opts.m_flatfield = iImgInfo[i].flatfieldname;
         images.back().setOptions(opts);
     }
 

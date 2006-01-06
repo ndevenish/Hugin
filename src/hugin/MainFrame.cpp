@@ -1229,8 +1229,8 @@ void MainFrame::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<ProgressTask>::iterator it = tasks.begin();
-                 it != tasks.end(); ++it)
+    for (std::vector<ProgressTask>::reverse_iterator it = tasks.rbegin();
+                 it != tasks.rend(); ++it)
     {
         wxString cMsg;
         if (it->getProgress() > 0) {
@@ -1243,7 +1243,7 @@ void MainFrame::updateProgressDisplay()
                         wxString(it->getMessage().c_str(), *wxConvCurrent).c_str());
         }
         // append to main message
-        if (it == tasks.begin()) {
+        if (it == tasks.rbegin()) {
             msg = cMsg;
         } else {
             msg.Append(wxT(" | "));

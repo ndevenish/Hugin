@@ -80,6 +80,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     /** adjust the center of the image */
     void SetCenter (wxCommandEvent & e);
 
+    void EditVigCorr (wxCommandEvent & e);
+
  private:
     // a window event
     void OnSize(wxSizeEvent & e);
@@ -139,6 +141,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 #endif
     
     bool m_restoreLayoutOnResize;
+
+    static char *m_varNames[];
 
     DECLARE_EVENT_TABLE()
 };

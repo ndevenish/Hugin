@@ -383,6 +383,7 @@ void CPZoomDisplayPanel::updateInternal()
                    destImage(srcAlpha),
                    Diff2D(0,0),
                    m_t_center2img,
+                   false,
                    vigra_ext::INTERP_CUBIC,
                    dummy);
 

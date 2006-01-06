@@ -48,6 +48,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/wxPanoCommand.h"
+#include "hugin/VigCorrDialog.h"
 
 using namespace PT;
 using namespace utils;
@@ -84,6 +85,7 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_g"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_t"), LensPanel::OnVarChanged )
     EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
+    EVT_BUTTON ( XRCID("lens_button_vig"), LensPanel::EditVigCorr )
     EVT_BUTTON ( XRCID("lens_button_loadEXIF"), LensPanel::OnReadExif )
     EVT_BUTTON ( XRCID("lens_button_save"), LensPanel::OnSaveLensParameters )
     EVT_BUTTON ( XRCID("lens_button_load"), LensPanel::OnLoadLensParameters )
@@ -250,7 +252,7 @@ void LensPanel::UpdateLensDisplay ()
             lens.getProjection()  );
     }
 
-    for (char** varname = Lens::variableNames; *varname != 0; ++varname) {
+    for (char** varname = m_varNames; *varname != 0; ++varname) {
         // update parameters
         int ndigits = m_distDigitsEdit;
         if (strcmp(*varname, "hfov") == 0 || strcmp(*varname, "d") == 0 ||
@@ -432,7 +434,7 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
         if ((varname == "a" || varname == "b" || varname == "c") && val == 0.0 ){
             // set value to a very small one. PTOptimizer will not optimise a
             // distortion parameter whos value is exactly 0
-            val = 0.0000001;
+            //val = 0.0000001;
         }
         Variable var(varname,val);
         GlobalCmdHist::getInstance().addCommand(
@@ -485,6 +487,15 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
         }
     }
 }
+
+void LensPanel::EditVigCorr ( wxCommandEvent & e )
+{
+    if (m_selectedImages.size() > 0) {
+        VigCorrDialog *dlg = new VigCorrDialog(this, pano, *(m_selectedImages.begin()));
+        dlg->Show();
+    }
+}
+
 
 void LensPanel::SetCenter ( wxCommandEvent & e )
 {
@@ -594,6 +605,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_newlens", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_changelens", wxButton)->Disable();
+        XRCCTRL(*this, "lens_button_vig", wxButton)->Disable();
     } else {
 //        m_editImageNr = *sel.begin();
 
@@ -631,6 +643,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             DEBUG_DEBUG("updating LensPanel with Image " << img);
             XRCCTRL(*this, "lens_button_load", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Enable();
+            XRCCTRL(*this, "lens_button_vig", wxButton)->Enable();
             UpdateLensDisplay();
         } else {
             XRCCTRL(*this, "lens_val_v", wxTextCtrl)->Clear();
@@ -654,6 +667,7 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
 
             XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
+            XRCCTRL(*this, "lens_button_vig", wxButton)->Disable();
         }
     }
 }
@@ -713,6 +727,9 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                          wxSAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
+            if (fname.Right(4) != wxT(".ini")) {
+                fname.Append(wxT(".ini"));
+            }
             wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
             // set numeric locale to C, for correct number output
             char * old_locale = setlocale(LC_NUMERIC,NULL);
@@ -723,20 +740,23 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/hfov"), const_map_get(vars,"v").getValue());
                 cfg.Write(wxT("Lens/hfov_link"), const_map_get(lens.variables,"v").isLinked() ? 1:0);
                 cfg.Write(wxT("Lens/crop"), lens.getCropFactor());
-                cfg.Write(wxT("Lens/a"), const_map_get(vars,"a").getValue());
-                cfg.Write(wxT("Lens/a_link"), const_map_get(lens.variables,"a").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/b"), const_map_get(vars,"b").getValue());
-                cfg.Write(wxT("Lens/b_link"), const_map_get(lens.variables,"b").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/c"), const_map_get(vars,"c").getValue());
-                cfg.Write(wxT("Lens/c_link"), const_map_get(lens.variables,"c").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/d"), const_map_get(vars,"d").getValue());
-                cfg.Write(wxT("Lens/d_link"), const_map_get(lens.variables,"d").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/e"), const_map_get(vars,"e").getValue());
-                cfg.Write(wxT("Lens/e_link"), const_map_get(lens.variables,"e").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/t"), const_map_get(vars,"t").getValue());
-                cfg.Write(wxT("Lens/t_link"), const_map_get(lens.variables,"t").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/g"), const_map_get(vars,"g").getValue());
-                cfg.Write(wxT("Lens/g_link"), const_map_get(lens.variables,"g").isLinked() ? 1:0);
+
+                // loop to save lens variables
+                char ** varname = Lens::variableNames;
+                while (*varname) {
+                    wxString key(wxT("Lens/"));
+                    key.append(wxString(*varname, *wxConvCurrent));
+                    cfg.Write(key, const_map_get(vars,*varname).getValue());
+                    key.append(wxT("_link"));
+                    cfg.Write(key, const_map_get(lens.variables,*varname).isLinked() ? 1:0);
+                    varname++;
+                }
+
+                ImageOptions imgopts = pano.getImage(imgNr).getOptions();
+                cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
+                cfg.Write(wxT("Lens/flatfield"),
+                          wxString(imgopts.m_flatfield.c_str(), *wxConvCurrent) );
+                // TODO: save crop
                 cfg.Flush();
             }
             // reset locale
@@ -755,6 +775,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         unsigned int lensNr = pano.getImage(imgNr).getLensNr();
         Lens lens = pano.getLens(lensNr);
         VariableMap vars = pano.getImageVariables(imgNr);
+        ImageOptions imgopts = pano.getImage(imgNr).getOptions();
         wxString fname;
         wxFileDialog dlg(this,
                          _("Load lens parameters"),
@@ -775,38 +796,33 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 lens.setProjection ((Lens::LensProjectionFormat) integer);
                 cfg.Read(wxT("Lens/hfov"), &d);map_get(vars,"v").setValue(d);
                 cfg.Read(wxT("Lens/crop"), &d);lens.setCropFactor(d);
-                cfg.Read(wxT("Lens/a"), &d);map_get(vars,"a").setValue(d);
-                cfg.Read(wxT("Lens/b"), &d);map_get(vars,"b").setValue(d);
-                cfg.Read(wxT("Lens/c"), &d);map_get(vars,"c").setValue(d);
-                cfg.Read(wxT("Lens/d"), &d);map_get(vars,"d").setValue(d);
-                cfg.Read(wxT("Lens/e"), &d);map_get(vars,"e").setValue(d);
-                cfg.Read(wxT("Lens/t"), &d);map_get(vars,"t").setValue(d);
-                cfg.Read(wxT("Lens/g"), &d);map_get(vars,"g").setValue(d);
 
-                integer = 1;
-                cfg.Read(wxT("Lens/hfov_link"), &integer);
-                map_get(lens.variables, "v").setLinked(integer != 0);
-                integer = 1;
-                cfg.Read(wxT("Lens/a_link"), &integer);
-                map_get(lens.variables, "a").setLinked(integer != 0);
-                integer = 1;
-                cfg.Read(wxT("Lens/b_link"), &integer);
-                map_get(lens.variables, "b").setLinked(integer != 0);
-                integer = 1;
-                cfg.Read(wxT("Lens/c_link"), &integer);
-                map_get(lens.variables, "c").setLinked(integer != 0);
-                integer = 1;
-                cfg.Read(wxT("Lens/d_link"), &integer);
-                map_get(lens.variables, "d").setLinked(integer != 0);
-                integer = 1;
-                cfg.Read(wxT("Lens/e_link"), &integer);
-                map_get(lens.variables, "e").setLinked(integer != 0);
-                integer = 0;
-                cfg.Read(wxT("Lens/t_link"), &integer);
-                map_get(lens.variables, "t").setLinked(integer != 0);
-                integer = 0;
-                cfg.Read(wxT("Lens/g_link"), &integer);
-                map_get(lens.variables, "g").setLinked(integer != 0);
+                // loop to load lens variables
+                char ** varname = Lens::variableNames;
+                while (*varname) {
+                    wxString key(wxT("Lens/"));
+                    key.append(wxString(*varname, *wxConvCurrent));
+                    d = 0;
+                    cfg.Read(key,&d);
+                    map_get(vars,*varname).setValue(d);
+
+                    integer = 1;
+                    key.append(wxT("_link"));
+                    cfg.Read(key, &integer);
+                    map_get(lens.variables, *varname).setLinked(integer != 0);
+
+                    varname++;
+                }
+                long vigCorrMode=0;
+                cfg.Read(wxT("Lens/vigCorrMode"), &vigCorrMode);
+                imgopts.m_vigCorrMode = vigCorrMode;
+
+                wxString flatfield;
+                bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
+                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
+
+                // TODO: crop parameters
+
             }
             // reset locale
             setlocale(LC_NUMERIC,old_locale);
@@ -817,6 +833,18 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
             GlobalCmdHist::getInstance().addCommand(
                 new PT::UpdateImageVariablesCmd(pano, imgNr, vars)
                 );
+
+            // get all images with the current lens.
+            UIntSet imgs;
+            for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
+                if (pano.getImage(i).getLensNr() == lensNr) {
+                    imgs.insert(i);
+                }
+            }
+
+            // set image options.
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::SetImageOptionsCmd(pano, imgopts, imgs) );
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -861,7 +889,6 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
 
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
 {
-
     if (!l.initFromFile(filename, cropFactor)) {
         if (cropFactor == -1) {
             cropFactor = 1;
@@ -879,3 +906,6 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
     }
     return true;
 }
+
+char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 0};
+
