@@ -55,6 +55,7 @@ src/hugin/xrc/preview_frame.xrs
 src/hugin/xrc/ptstitcher_panel.xrs
 src/hugin/xrc/run_optimizer_frame.xrs
 src/hugin/xrc/run_stitcher_frame.xrs
+src/hugin/xrc/vig_corr_dlg.xrs
 
 # tip of the day
 src/hugin/xrc/data/tips.txt
