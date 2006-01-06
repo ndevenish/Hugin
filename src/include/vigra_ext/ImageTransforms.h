@@ -77,6 +77,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
                          TRANSFORM & transform,
                          vigra::Diff2D destUL,
                          Interpolator interp,
+                         bool warparound,
                          utils::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
@@ -89,53 +90,33 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
     prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
-    // FIXME: use d & e here.
-//    vigra::Diff2D srcMiddle = srcSize / 2;
 
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-    //InterpolatingAccessor(src.third, interp);
-    vigra_ext::InterpolatingAccessor<SrcAccessor,
-                            typename SrcAccessor::value_type,
-                            Interpolator> interpol(src.third, interp);
-
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-//    vigra::BilinearInterpolatingAccessor interpol(src.third);
+    vigra_ext::ImageInterpolator<SrcImageIterator, SrcAccessor, Interpolator>
+                                 interpol (src, interp, warparound);
 
     // create dest y iterator
     DestImageIterator yd(dest.first);
-    // create dist y iterator
-    AlphaImageIterator ydist(alpha.first);
+    // create mask y iterator
+    AlphaImageIterator ydm(alpha.first);
     // loop over the image and transform
-    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
+    typename SrcAccessor::value_type tempval;
+
+    for(int y=ystart; y < yend; ++y, ++yd.y, ++ydm.y)
     {
         // create x iterators
         DestImageIterator xd(yd);
-        AlphaImageIterator xdist(ydist);
-        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
+        AlphaImageIterator xdm(ydm);
+        for(int x=xstart; x < xend; ++x, ++xd.x, ++xdm.x)
         {
             double sx,sy;
             transform.transformImgCoord(sx,sy,x,y);
-            // make sure that the interpolator doesn't
-            // access pixels outside.. Should we introduce
-            // some sort of border treatment?
-            if (sx < interp.size/2 -1
-                || sx > srcSize.x-interp.size/2 - 1
-                || sy < interp.size/2 - 1
-                || sy > srcSize.y-interp.size/2 - 1)
-            {
-                *xdist = 0;
-                // nothing..
-            } else {
-//                cout << x << "," << y << " -> " << sx << "," << sy << " " << std::endl;
 
-//                nearest neighbour
-//                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
-                // use given interpolator function.
-                *xd = interpol(src.first, sx, sy);
-                *xdist = 255;
+            if (interpol.operator()(sx, sy, tempval)){
+                // vignetting correction (might need to add random noise..)
+                dest.third.set(tempval, xd);
+                alpha.second.set(255, xdm);
+            } else {
+                alpha.second.set(0, xdm);
             }
         }
         if ((y-ystart)%100 == 0) {
@@ -159,6 +140,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                                TRANSFORM & transform,
                                vigra::Diff2D destUL,
                                Interpolator interp,
+                               bool warparound,
                                utils::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
@@ -171,19 +153,10 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
     prog.pushTask(utils::ProgressTask("Remapping", "", 1.0/(yend-ystart)));
 
     vigra::Diff2D srcSize = src.second - src.first;
-    // FIXME: use d & e here.
-//    vigra::Diff2D srcMiddle = srcSize / 2;
 
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-    //InterpolatingAccessor(src.third, interp);
-    vigra_ext::InterpolatingAccessor<SrcAccessor,
-                                     typename SrcAccessor::value_type,
-                                     Interpolator> interpol(src.third, interp);
-
-//    vigra::BilinearInterpolatingAccessor<SrcAccessor, typename SrcAccessor::value_type> interpol(src.third);
-
-//    vigra::BilinearInterpolatingAccessor interpol(src.third);
+    vigra_ext::ImageMaskInterpolator<SrcImageIterator, SrcAccessor, SrcAlphaIterator,
+                                     SrcAlphaAccessor, Interpolator>
+                                    interpol (src, srcAlpha, interp, warparound);
 
     // create dest y iterator
     DestImageIterator yd(dest.first);
@@ -202,21 +175,13 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
         {
             double sx,sy;
             transform.transformImgCoord(sx,sy,x,y);
-            // make sure that the interpolator doesn't
-            // access pixels outside.. Should we introduce
-            // some sort of border treatment?
-            if (sx < interp.size/2 -1
-                || sx > srcSize.x-interp.size/2 - 1
-                || sy < interp.size/2 - 1
-                || sy > srcSize.y-interp.size/2 - 1)
-            {
-                *xdist = 0;
-                // nothing..
-            } else if (interpol(src.first, srcAlpha, sx, sy, tempval)) {
-                *xd = tempval;
-                *xdist = 255;
+            // try to interpolate.
+            if (interpol(sx, sy, tempval)) {
+                dest.third.set(tempval, xd);
+                alpha.second.set(255, xdist);
             } else {
-                *xdist = 0;
+                // point outside of image or mask
+                alpha.second.set(0, xdist);
             }
         }
         if ((y-ystart)%100 == 0) {
@@ -378,8 +343,9 @@ template <class SrcImageIterator, class SrcAccessor,
 void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                     std::pair<AlphaImageIterator, AlphaAccessor> alpha,
-		    vigra::Diff2D destUL,
+                    vigra::Diff2D destUL,
                     TRANSFORM & transform,
+                    bool warparound,
                     Interpolator interpol,
                     utils::MultiProgressDisplay & progress)
 {
@@ -387,46 +353,46 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
     case INTERP_CUBIC:
 	DEBUG_DEBUG("using cubic interpolator");
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_cubic(),
+                                 vigra_ext::interp_cubic(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_16:
 	DEBUG_DEBUG("interpolator: spline16");
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_spline16(),
+                                 vigra_ext::interp_spline16(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_36:
 	DEBUG_DEBUG("interpolator: spline36");
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_spline36(),
+                                 vigra_ext::interp_spline36(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_64:
 	DEBUG_DEBUG("interpolator: spline64");
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_spline64(),
+                                 vigra_ext::interp_spline64(), warparound,
                                  progress);
 	break;
     case INTERP_SINC_256:
 	DEBUG_DEBUG("interpolator: sinc 256");
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_sinc<8>(),
+                                 vigra_ext::interp_sinc<8>(), warparound,
                                  progress);
 	break;
     case INTERP_BILINEAR:
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_bilin(),
+                                 vigra_ext::interp_bilin(), warparound,
                                  progress);
 	break;
     case INTERP_NEAREST_NEIGHBOUR:
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_nearest(),
+                                 vigra_ext::interp_nearest(), warparound,
                                  progress);
 	break;
     case INTERP_SINC_1024:
 	transformImageIntern(src, dest, alpha, transform, destUL,
-                                 vigra_ext::interp_sinc<32>(),
+                                 vigra_ext::interp_sinc<32>(), warparound,
                                  progress);
 	break;
     }
@@ -444,6 +410,7 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
                          std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                          vigra::Diff2D destUL,
                          TRANSFORM & transform,
+                         bool warparound,
                          Interpolator interpol,
                          utils::MultiProgressDisplay & progress)
 {
@@ -451,47 +418,47 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
     case INTERP_CUBIC:
 	DEBUG_DEBUG("using cubic interpolator");
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_cubic(),
-				      progress);
+				              vigra_ext::interp_cubic(), warparound,
+                              progress);
 	break;
     case INTERP_SPLINE_16:
 	DEBUG_DEBUG("interpolator: spline16");
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_spline16(),
-				      progress);
+                              vigra_ext::interp_spline16(), warparound,
+		                      progress);
 	break;
     case INTERP_SPLINE_36:
 	DEBUG_DEBUG("interpolator: spline36");
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_spline36(),
-				      progress);
+                              vigra_ext::interp_spline36(),  warparound,
+		                      progress);
 	break;
     case INTERP_SPLINE_64:
 	DEBUG_DEBUG("interpolator: spline64");
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_spline64(),
-				      progress);
+                              vigra_ext::interp_spline64(),  warparound,
+		                      progress);
 	break;
     case INTERP_SINC_256:
 	DEBUG_DEBUG("interpolator: sinc 256");
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_sinc<8>(),
-				      progress);
+                              vigra_ext::interp_sinc<8>(), warparound,
+		                      progress);
 	break;
     case INTERP_BILINEAR:
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_bilin(),
-				      progress);
+                              vigra_ext::interp_bilin(), warparound,
+		                      progress);
 	break;
     case INTERP_NEAREST_NEIGHBOUR:
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_nearest(),
-				      progress);
+                              vigra_ext::interp_nearest(), warparound,
+		                      progress);
 	break;
     case INTERP_SINC_1024:
 	transformImageAlphaIntern(src,srcAlpha, dest, alpha, transform, destUL,
-				      vigra_ext::interp_sinc<32>(),
-				      progress);
+                              vigra_ext::interp_sinc<32>(), warparound,
+		                      progress);
 	break;
     }
 }
@@ -501,6 +468,7 @@ void fillVector(T vec[3], T &val, int len)
 {
     for (int i=0; i<len; i++) vec[i] = val;
 }
+
 
 }; // namespace
 

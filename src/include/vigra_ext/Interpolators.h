@@ -95,7 +95,7 @@ struct interp_nearest
     void calc_coeff(double x, double * w) const
         {
             w[1] = (x >= 0.5) ? 1 : 0;
-            w[0] = (x < 0.5) ? 0 : 1;
+            w[0] = (x < 0.5) ? 1 : 0;
         }
 };
 
@@ -217,6 +217,489 @@ struct interp_sinc
 };
 
 
+/** "wrapper" for efficient interpolation access to an image
+ *
+ *  Tailored for panorama remapping. Supports warparound boundary condition of left and right
+ */
+template <typename SrcImageIterator, typename SrcAccessor,
+          typename INTERPOLATOR>
+class ImageInterpolator
+{
+    typedef typename SrcAccessor::value_type PixelType;
+    typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
+
+    SrcImageIterator m_sIter;
+    SrcAccessor m_sAcc;
+    int m_w;
+    int m_h;
+    bool m_warparound;
+
+    INTERPOLATOR m_inter;
+
+public:
+
+    /** Construct interpolator for an given image */
+    ImageInterpolator(vigra::triple<SrcImageIterator, SrcImageIterator,SrcAccessor> const & src,
+                          INTERPOLATOR & inter,
+                          bool warparound)
+    : m_sIter(src.first),
+      m_sAcc(src.third),
+      m_w(src.second.x - src.first.x),
+      m_h(src.second.y - src.first.y),
+      m_warparound(warparound),
+      m_inter(inter)
+    {
+    }
+
+    /** Construct interpolator for specific image.
+     *
+     */
+    ImageInterpolator(SrcImageIterator src_upperleft,
+                          SrcImageIterator src_lowerright,
+                          SrcAccessor sa,
+                          INTERPOLATOR & inter,
+                          bool warparound)
+    : m_sIter(src_upperleft),
+      m_sAcc(sa),
+      m_w(src_lowerright.x - src_upperleft.x),
+      m_h(src_lowerright.y - src_upperleft.y),
+      m_warparound(warparound),
+      m_inter(inter)
+    {
+    }
+
+
+    /** Interpolate without mask */
+    bool operator()(double x, double y,
+                    PixelType & result) const
+    {
+
+        // skip all further interpolation if we cannot interpolate anything
+        if (x < -INTERPOLATOR::size/2 || x > m_w + INTERPOLATOR::size/2) return false;
+        if (y < -INTERPOLATOR::size/2 || y > m_h + INTERPOLATOR::size/2) return false;
+
+        double t = floor(x);
+        double dx = x - t;
+        int srcx = int(t);
+        t = floor(y);
+        double dy = y - t;
+        int srcy = int(t);
+
+        if ( srcx > INTERPOLATOR::size/2 && srcx < m_w -INTERPOLATOR::size/2 &&
+             srcy > INTERPOLATOR::size/2 && srcy < m_h - INTERPOLATOR::size/2)
+        {
+            return interpolateNoMaskInside(srcx, srcy, dx, dy, result);
+        }
+
+        double wx[INTERPOLATOR::size];
+        double wy[INTERPOLATOR::size];
+
+        // calculate x interpolation coefficients
+        m_inter.calc_coeff(dx, wx);
+        m_inter.calc_coeff(dy, wy);
+
+        RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+        double weightsum = 0.0;
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
+            int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
+
+            // Boundary condition: do not replicate top and bottom
+            if (bounded_ky < 0 || bounded_ky >= m_h) {
+                continue;
+            }
+
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++) {
+                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
+
+                if (m_warparound) {
+                    // Boundary condition: wrap around the image.
+                    if (bounded_kx < 0) 
+                        bounded_kx += m_w;
+                    if (bounded_kx >= m_w) 
+                        bounded_kx -= m_w;
+                } else {
+                    // Boundary condition: replicate first and last column.
+                    //                if (srcx + kx < 0) bounded_kx -= (srcx + kx);
+                    //                if (srcx + kx >= src_w) bounded_kx -= (srcx + kx - (src_w - 1));
+                    // Boundary condition: do not replicate left and right
+                    if (bounded_kx < 0) 
+                        continue;
+                    if (bounded_kx >= m_w)
+                        continue;
+                }
+
+                // check mask
+                double f = wx[kx]*wy[ky];
+                p += f * m_sIter(bounded_kx, bounded_ky);
+                weightsum += f;
+            }
+        }
+
+        // force a certain weight
+        if (weightsum <= 0.2) return false;
+        // Adjust filter for any ignored transparent pixels.
+        if (weightsum != 1.0) p /= weightsum;
+
+        result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        return true;
+    }
+
+
+    /** Interpolate without boundary check and mask */
+    bool interpolateNoMaskInside(int srcx, int srcy, double dx, double dy,
+                                    PixelType & result) const
+    {
+        double w[INTERPOLATOR::size];
+        RealPixelType resX[INTERPOLATOR::size];
+
+        // calculate x interpolation coefficients
+        m_inter.calc_coeff(dx, w);
+
+        RealPixelType p;
+
+        // first pass of separable filter, x pass
+        vigra::Diff2D offset(srcx - INTERPOLATOR::size/2 + 1,
+                             srcy - INTERPOLATOR::size/2 + 1);
+        SrcImageIterator ys(m_sIter + offset);
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++, ++(ys.y)) {
+            p = vigra::NumericTraits<RealPixelType>::zero();
+            SrcImageIterator xs(ys);
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++(xs.x)) {
+                p += w[kx] * (*xs);
+            }
+            resX[ky] = p;
+        }
+
+        // y pass.
+        m_inter.calc_coeff(dy, w);
+        p = vigra::NumericTraits<RealPixelType>::zero();
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
+            p += w[ky] * resX[ky];
+        }
+
+        result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        return true;
+    }
+
+};
+
+
+/** "wrapper" for efficient interpolation access to an image
+ *
+ *  Tailored for panorama remapping. Supports warparound boundary condition of left and right
+ *  as well as masks
+ */
+template <typename SrcImageIterator, typename SrcAccessor,
+          typename MaskIterator, typename MaskAccessor,
+          typename INTERPOLATOR>
+class ImageMaskInterpolator
+{
+    typedef typename SrcAccessor::value_type PixelType;
+    typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
+
+    SrcImageIterator m_sIter;
+    SrcAccessor m_sAcc;
+    MaskIterator m_mIter;
+    MaskAccessor m_mAcc;
+    int m_w;
+    int m_h;
+    bool m_warparound;
+
+    INTERPOLATOR m_inter;
+
+public:
+
+    /** Construct interpolator for an given image */
+    ImageMaskInterpolator(vigra::triple<SrcImageIterator, SrcImageIterator,SrcAccessor> const & src,
+                          std::pair<MaskIterator, MaskAccessor> const & mask,
+                          INTERPOLATOR & inter,
+                          bool warparound)
+    : m_sIter(src.first),
+      m_sAcc(src.third),
+      m_mIter(mask.first),
+      m_mAcc(mask.second),
+      m_w(src.second.x - src.first.x),
+      m_h(src.second.y - src.first.y),
+      m_warparound(warparound),
+      m_inter(inter)
+    {
+    }
+
+    /** Construct interpolator for specific image.
+     *
+     */
+    ImageMaskInterpolator(SrcImageIterator src_upperleft,
+                          SrcImageIterator src_lowerright,
+                          SrcAccessor sa,
+                          MaskIterator mask_upperleft,
+                          MaskAccessor ma,
+                          INTERPOLATOR & inter,
+                          bool warparound)
+    : m_sIter(src_upperleft),
+      m_sAcc(sa),
+      m_mIter(mask_upperleft),
+      m_mAcc(ma),
+      m_w(src_lowerright.x - src_upperleft.x),
+      m_h(src_lowerright.y - src_upperleft.y),
+      m_warparound(warparound),
+      m_inter(inter)
+    {
+    }
+#if 0
+    /** Interpolate the data item at a non-integer position @p x, @p y
+     *
+     *  It checks if the interpolation would access a pixel with alpha = 0
+     *  and returns false in that case.
+     *
+     *  be careful, no bounds checking is done here. take
+     *  INTERPOLATOR::size into accout before iterating over the
+     *  picture.
+     *
+     *  the used image pixels are [i-(n/2 -1) .. i+n/2], where n is
+     *  the size of the interpolator
+     *
+     *  @param x      x position, relative to \p i and \p alpha.first
+     *  @param y      y position, relative to \p i and \p alpha.first
+     *  @param result the interpolation result
+     *
+     *  @return true if interpolation ok, false if one or more pixels were masked out
+     *
+     */
+//    bool operator()(float x, float y,
+    // this is slower than the full version, thanks to the normalized interpolation (with masks).
+    bool interpolateSeperable(float x, float y,
+                     PixelType & result) const
+    {
+
+        // skip all further interpolation if we cannot interpolate anything
+        if (x < -INTERPOLATOR::size/2 || x > m_w + INTERPOLATOR::size/2) return false;
+        if (y < -INTERPOLATOR::size/2 || y > m_h + INTERPOLATOR::size/2) return false;
+
+        double t = floor(x);
+        double dx = x - t;
+        int srcx = int(t);
+        t = floor(y);
+        double dy = y - t;
+        int srcy = int(t);
+
+
+        double w[INTERPOLATOR::size];
+
+        double weightsX[INTERPOLATOR::size];
+        PixelType resX[INTERPOLATOR::size];
+
+        // calculate x interpolation coefficients
+        m_inter.calc_coeff(dx, w);
+
+        // first pass of separable filter
+
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
+            int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
+
+            // Boundary condition: replicate top and bottom rows.
+            //                 if (srcy + ky < 0) bounded_ky -= (srcy + ky);
+            //                 if (srcy + ky >= src_h) bounded_ky -= (srcy + ky - (src_h - 1));
+
+            // Boundary condition: do not replicate top and bottom
+            if (bounded_ky < 0 || bounded_ky >= m_h) {
+                weightsX[ky] = 0;
+                resX[ky] = 0;
+                continue;
+            }
+
+            RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+            double weightsum = 0.0;
+
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++) {
+                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
+
+                if (m_warparound) {
+                    // Boundary condition: wrap around the image.
+                    if (bounded_kx < 0) 
+                        bounded_kx += m_w;
+                    if (bounded_kx >= m_w) 
+                        bounded_kx -= m_w;
+                } else {
+                    // Boundary condition: replicate first and last column.
+                    //                if (srcx + kx < 0) bounded_kx -= (srcx + kx);
+                    //                if (srcx + kx >= src_w) bounded_kx -= (srcx + kx - (src_w - 1));
+                    // Boundary condition: do not replicate left and right
+                    if (bounded_kx < 0) 
+                        continue;
+                    if (bounded_kx >= m_w)
+                        continue;
+                }
+                if (m_mIter(bounded_kx, bounded_ky)) {
+                    // check mask
+                    p += w[kx] * m_sIter(bounded_kx, bounded_ky);
+                    weightsum += w[kx];
+                }
+            }
+            weightsX[ky] = weightsum;
+            resX[ky] = p;
+        }
+
+        // y pass.
+        m_inter.calc_coeff(dy, w);
+        RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+        double weightsum = 0.0;
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
+            weightsum += weightsX[ky] * w[ky];
+            p += w[ky] * resX[ky];
+        }
+
+        if (weightsum == 0.0) return false;
+        // Adjust filter for any ignored transparent pixels.
+        if (weightsum != 1.0) p /= weightsum;
+
+        result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        return true;
+    }
+#endif
+
+    /** Interpolate the data item at a non-integer position @p x, @p y
+     *
+     *  It checks if the interpolation would access a pixel with alpha = 0
+     *  and returns false in that case.
+     *
+     *  be careful, no bounds checking is done here. take
+     *  INTERPOLATOR::size into accout before iterating over the
+     *  picture.
+     *
+     *  the used image pixels are [i-(n/2 -1) .. i+n/2], where n is
+     *  the size of the interpolator
+     *
+     *  @param x      x position, relative to \p i and \p alpha.first
+     *  @param y      y position, relative to \p i and \p alpha.first
+     *  @param result the interpolation result
+     *
+     *  @return true if interpolation ok, false if one or more pixels were masked out
+     *
+     */
+    bool operator()(double x, double y,
+                    PixelType & result) const
+    {
+
+        // skip all further interpolation if we cannot interpolate anything
+        if (x < -INTERPOLATOR::size/2 || x > m_w + INTERPOLATOR::size/2) return false;
+        if (y < -INTERPOLATOR::size/2 || y > m_h + INTERPOLATOR::size/2) return false;
+
+        double t = floor(x);
+        double dx = x - t;
+        int srcx = int(t);
+        t = floor(y);
+        double dy = y - t;
+        int srcy = int(t);
+
+        if ( srcx > INTERPOLATOR::size/2 && srcx < m_w -INTERPOLATOR::size/2 &&
+             srcy > INTERPOLATOR::size/2 && srcy < m_h - INTERPOLATOR::size/2)
+        {
+            return interpolateInside(srcx, srcy, dx, dy, result);
+        }
+
+        double wx[INTERPOLATOR::size];
+        double wy[INTERPOLATOR::size];
+
+        // calculate x interpolation coefficients
+        m_inter.calc_coeff(dx, wx);
+        m_inter.calc_coeff(dy, wy);
+
+        // first pass of separable filter
+
+        RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+        double weightsum = 0.0;
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
+            int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
+
+            // Boundary condition: do not replicate top and bottom
+            if (bounded_ky < 0 || bounded_ky >= m_h) {
+                continue;
+            }
+
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++) {
+                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
+
+                if (m_warparound) {
+                    // Boundary condition: wrap around the image.
+                    if (bounded_kx < 0) 
+                        bounded_kx += m_w;
+                    if (bounded_kx >= m_w) 
+                        bounded_kx -= m_w;
+                } else {
+                    // Boundary condition: replicate first and last column.
+                    //                if (srcx + kx < 0) bounded_kx -= (srcx + kx);
+                    //                if (srcx + kx >= src_w) bounded_kx -= (srcx + kx - (src_w - 1));
+                    // Boundary condition: do not replicate left and right
+                    if (bounded_kx < 0) 
+                        continue;
+                    if (bounded_kx >= m_w)
+                        continue;
+                }
+
+                if (m_mIter(bounded_kx, bounded_ky)) {
+                    // check mask
+                    double f = wx[kx]*wy[ky];
+                    p += f * m_sIter(bounded_kx, bounded_ky);
+                    weightsum += f;
+                }
+            }
+        }
+
+        // force a certain weight
+        if (weightsum <= 0.2) return false;
+        // Adjust filter for any ignored transparent pixels.
+        if (weightsum != 1.0) p /= weightsum;
+
+        result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        return true;
+    }
+
+
+    /** Interpolate without boundary check. */
+    bool interpolateInside(int srcx, int srcy, double dx, double dy,
+                                    PixelType & result) const
+    {
+
+        double wx[INTERPOLATOR::size];
+        double wy[INTERPOLATOR::size];
+
+        // calculate x interpolation coefficients
+        m_inter.calc_coeff(dx, wx);
+        m_inter.calc_coeff(dy, wy);
+
+        RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+        double weightsum = 0.0;
+
+        vigra::Diff2D offset(srcx - INTERPOLATOR::size/2 + 1,
+                             srcy - INTERPOLATOR::size/2 + 1);
+        SrcImageIterator ys(m_sIter + offset);
+        MaskIterator yms(m_mIter + offset);
+        for (int ky = 0; ky < INTERPOLATOR::size; ky++, ++(ys.y), ++(yms.y)) {
+//            int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
+            SrcImageIterator xs(ys);
+            MaskIterator xms(yms);
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++(xs.x), ++(xms.x)) {
+//                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
+
+                if (*xms) {
+                    // check mask
+                    double f = wx[kx]*wy[ky];
+                    p += f * (*xs);
+                    weightsum += f;
+                }
+            }
+        }
+
+        // force a certain weight
+        if (weightsum <= 0.2) return false;
+        // Adjust filter for any ignored transparent pixels.
+        if (weightsum != 1.0) p /= weightsum;
+
+        result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        return true;
+    }
+};
+
 /********************************************************/
 /*                                                      */
 /*                  InterpolatingAccessor               */
@@ -246,7 +729,7 @@ struct interp_sinc
     // used variables:
     // iterator  : pointing to upperLeft
     // accessor  : accessor to the source image
-    // dest      : value, interpolated at sx, sy (relative to iterator)
+    // dest      : value, interpolated at sx, m_sIter (relative to iterator)
 
     interp_cubic iterp;
     InterpolatingAccessor<SrcAccessor,
@@ -254,8 +737,8 @@ struct interp_sinc
 
     ...
     double sx = 102.1;
-    double sy = 58,81;
-    dest = interpol(iterator, sx, sy);
+    double m_sIter = 58,81;
+    dest = interpol(iterator, sx, m_sIter);
 
     <b> Required Interface:</b>
 
@@ -388,6 +871,7 @@ public:
         result = vigra::detail::RequiresExplicitCast<value_type>::cast(ret);
         return true;
     }
+
 
 private:
     ACCESSOR a_;
