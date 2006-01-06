@@ -138,12 +138,15 @@ int main(int argc, char *argv[])
 
     StreamMultiProgressDisplay disp(cout);
 
+    
+    
     // transform the image using cubic interpolation.
     transformImage(srcImageRange(distorted),
                    destImageRange(undistorted),
                    destImage(alpha),
                    Diff2D(1,1),
                    func,
+                   false,
                    vigra_ext::INTERP_CUBIC,
                    disp);
 
