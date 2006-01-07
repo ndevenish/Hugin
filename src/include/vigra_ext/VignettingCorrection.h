@@ -32,7 +32,8 @@
 #include <vigra/combineimages.hxx>
 #include <vigra/functorexpression.hxx>
 
-#include <boost/bind.hpp>
+#include <boost/random/mersenne_twister.hpp>
+
 
 //#define DEBUG_WRITE_FILES
 
@@ -203,6 +204,81 @@ struct PolySqDistFunctor
     }
 };
 
+inline bool isTrueType(vigra::VigraFalseType) {
+    return false;
+}
+
+inline bool isTrueType(vigra::VigraTrueType) {
+    return true;
+}
+
+template<class T>
+bool ditheringNeeded(T const &)
+{
+    typedef typename vigra::NumericTraits<T>::isIntegral is_integral;
+    return isTrueType(is_integral());
+}
+
+/** Dither code taken from enblend and adapted to a standalone functor */
+    // Dithering is used to fool the eye into seeing gradients that are finer
+    // than the precision of the pixel type.
+    // This prevents the occurence of cleanly-bordered regions in the output where
+    // the pixel values suddenly change from N to N+1.
+    // Such regions are especially objectionable in the green channel of 8-bit images.
+template <class T>
+struct DitherFunctor
+{
+    boost::mt19937 Twister;
+
+    typedef T result_type;
+
+    // Dithering is used to fool the eye into seeing gradients that are finer
+    // than the precision of the pixel type.
+    // This prevents the occurence of cleanly-bordered regions in the output where
+    // the pixel values suddenly change from N to N+1.
+    // Such regions are especially objectionable in the green channel of 8-bit images.
+    double dither(const double &v) const
+    {
+        boost::mt19937 &mt = const_cast<boost::mt19937 &>(Twister);
+        double vFraction = v - floor(v);
+        // Only dither values within a certain range of the rounding cutoff point.
+        if (vFraction > 0.25 && vFraction <= 0.75) {
+            // Generate a random number between 0 and 0.5.
+            double random = 0.5 * (double)mt() / UINT_MAX;
+            if ((vFraction - 0.25) >= random) {
+                return ceil(v);
+            } else {
+                return floor(v);
+            }
+        } else {
+            return v;
+        }
+    }
+
+    // dither vector
+    T dither(const T &v, vigra::VigraFalseType) const
+    {
+        T ret;
+        for (int i=0; i < v.size(); i++) {
+            ret[i] = dither(v[i]);
+        }
+        return ret;
+    }
+
+    // dither scalar type
+    T dither(const T & v, vigra::VigraTrueType) const
+    {
+        return dither(v);
+    }
+
+    T operator()(const T &v) const
+    {
+        typedef typename vigra::NumericTraits<T>::isScalar is_scalar;
+
+        return dither(v, is_scalar());
+    }
+};
+
 
 /** Traits to define the maximum value for all types.
  *  The case of float and double differs from vigra::NumericTraits::max() */
@@ -282,7 +358,7 @@ template <class T>
 struct PassThroughFunctor
 {
     typedef T result_type;
-    
+
     T operator()(const T & a) const
     {
         return a;
@@ -329,6 +405,53 @@ applyRadialVigCorrection(SrcImageIterator src_upperleft,
     } 
 }
 
+/** Apply flatfield correction with dithering
+ *
+ *  If @p dither is true, dithering will be performed
+ */
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor, class Functor>
+void
+applyRadialVigCorrectionDither(vigra::triple<SrcImageIterator, SrcImageIterator,  SrcAccessor> src,
+                               vigra::pair<DestImageIterator, DestAccessor> dest,
+                               double cx, double cy,
+                               Functor const & f, bool dither) 
+{
+    typedef DitherFunctor<typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote> DF;
+    if (dither) {
+        DF df;
+        NestFunctor<DF, Functor> nf(df, f);
+        applyRadialVigCorrection(src, dest, cx, cy, nf );
+    } else {
+        applyRadialVigCorrection(src, dest, cx, cy, f);
+    }
+}
+
+
+/** Apply combine two images
+ *
+ *  If @p dither is true, dithering will be performed
+ */
+template <class ImgIter, class ImgAccessor, 
+          class FFIter, class FFAccessor,
+          class DestIter, class DestAccessor,
+          class Functor>
+void 
+combineTwoImagesDither(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
+                       vigra::pair<FFIter, FFAccessor> ffImg,
+                       vigra::pair<DestIter, DestAccessor> destImg, 
+                       Functor const & f, bool dither)
+{
+    typedef DitherFunctor<typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote> DF;
+    if (dither) {
+        DF df;
+        vigra::combineTwoImages(srcImg, ffImg, destImg, 
+                                NestFunctor<DF, Functor>(df, f) );
+    } else {
+        vigra::combineTwoImages(srcImg, ffImg, destImg, f);
+    }
+}
+
 
 template <class ImgIter, class ImgAccessor, class FFIter, class FFAccessor, class DestIter, class DestAccessor>
 void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
@@ -336,7 +459,8 @@ void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                             vigra::pair<DestIter, DestAccessor> destImg,
                             double gamma, double gammaMaxVal, bool division,
                             typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
-                            typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b)
+                            typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
+                            bool dither)
 {
     typedef typename ImgAccessor::value_type PT;
     typedef typename vigra::NumericTraits<PT>::RealPromote RPT;
@@ -359,20 +483,24 @@ void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
     if (gamma == 1.0) {
         RnF Rf;
         if (division) {
-            vigra::combineTwoImages(srcImg, ffImg, destImg,
-                                    VigCorrFlatDivFunctor<PT, FFT, RnF, LTF>(mean, Rf, adjust));
+            combineTwoImagesDither(srcImg, ffImg, destImg,
+                                          VigCorrFlatDivFunctor<PT, FFT, RnF, LTF>(mean, Rf, adjust),
+                                          dither);
         } else {
-            vigra::combineTwoImages(srcImg, ffImg, destImg,
-                                    VigCorrFlatAddFunctor<PT, FFT, RnF, LTF>(Rf, adjust));
+            combineTwoImagesDither(srcImg, ffImg, destImg,
+                                          VigCorrFlatAddFunctor<PT, FFT, RnF, LTF>(Rf, adjust),
+                                          dither);
         }
     } else {
         GammaFunctor Rf(gamma, gammaMaxVal);
         if (division) {
-            vigra::combineTwoImages(srcImg, ffImg, destImg,
-                                    VigCorrFlatDivFunctor<PT, FFT, GammaFunctor, LTF>(mean, Rf, adjust));
+            combineTwoImagesDither(srcImg, ffImg, destImg,
+                                          VigCorrFlatDivFunctor<PT, FFT, GammaFunctor, LTF>(mean, Rf, adjust),
+                                          dither);
         } else {
-            vigra::combineTwoImages(srcImg, ffImg, destImg,
-                                    VigCorrFlatAddFunctor<PT, FFT, GammaFunctor, LTF>(Rf, adjust));
+            combineTwoImagesDither(srcImg, ffImg, destImg,
+                                          VigCorrFlatAddFunctor<PT, FFT, GammaFunctor, LTF>(Rf, adjust),
+                                          dither);
         }
     }
 }
@@ -383,7 +511,8 @@ void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                          vigra::pair<DestIter, DestAccessor> destImg, double gamma, double gammaMaxVal,
                          double radCoeff[], double cx, double cy, bool division,
                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
-                         typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b)
+                         typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
+                         bool dither)
 {
     typedef typename ImgAccessor::value_type PT;
     typedef typename vigra::NumericTraits<PT>::RealPromote RPT;
@@ -401,84 +530,27 @@ void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
     if (gamma == 1.0) {
         RnF Rf;
         if (division) {
-            applyRadialVigCorrection(srcImg.first, srcImg.second, srcImg.third ,destImg.first, destImg.second, cx, cy,
-                                     VigCorrDivFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust) );
+            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy,
+                                           VigCorrDivFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
         } else {
-            applyRadialVigCorrection(srcImg.first, srcImg.second, srcImg.third ,destImg.first, destImg.second, cx, cy, 
-                                     VigCorrAddFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust) );
+            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+                                           VigCorrAddFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
         }
     } else {
         GammaFunctor Rf(gamma, gammaMaxVal);
         if (division) {
-            applyRadialVigCorrection(srcImg.first, srcImg.second, srcImg.third ,destImg.first, destImg.second, cx, cy, 
-                                     VigCorrDivFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust) );
+            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+                                           VigCorrDivFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
         } else {
-            applyRadialVigCorrection(srcImg.first, srcImg.second, srcImg.third ,destImg.first, destImg.second, cx, cy, 
-                                     VigCorrAddFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust));
+            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+                                           VigCorrAddFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
         }
     }
 }
-
-#if 0
-// Hmm, the functor espressions in vigra do not work for me...
-namespace detail
-{
-struct plus
-{
-template <class T1, class T2>
-T1 operator()(const T1 & l, T2 const & r) const
-{
-//    T1 ret(l);
-//    ret+=r;
-    typedef typename vigra::NumericTraits<T1> traits;
-    typedef typename traits::RealPromote PT;
-    return traits::fromRealPromote(PT(l) + PT(r));
-}
-};
-
-template <class T>
-struct divcorr
-{
-    T mean;
-    divcorr(T m) : mean(m) {};
-
-    template <class T1, class T2>
-    T1 operator()(const T1 &l, const T2 &r) const
-    {
-        return vigra::detail::RequiresExplicitCast<T1>::cast(l / ( r / mean));
-    }
-};
-}
-#endif
-
-/*
-template <class ImgIter, class ImgAccessor, class FFIter, class FFAccessor, class DestIter, class DestAccessor>
-void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
-                            vigra::pair<FFIter, FFAccessor> ffImg,
-                            vigra::pair<DestIter, DestAccessor> destImg,
-                            bool division)
-{
-    typedef typename ImgAccessor::value_type PixelType;
-    typedef typename FFAccessor::value_type FFType;
-    typedef typename vigra::NumericTraits<FFType>::RealPromote RealFFType;
-    // take scale factor into accout..
-    if (division) {
-        // calculate mean of flatfield image
-        vigra::FindAverage<FFType> average;   // init functor
-        vigra::inspectImage(ffImg.first, ffImg.first + (srcImg.second - srcImg.first), ffImg.second, average);
-        RealFFType mean = average();
-        vigra::combineTwoImages(srcImg, ffImg, destImg, detail::divcorr<RealFFType>(mean) );
-//        vigra::combineTwoImages(srcImg, ffImg, destImg,
-//             vigra::functor::Arg1() / ( vigra::functor::Arg2() - vigra::functor::Param(mean) ) );
-    } else {
-//        vigra::combineTwoImages(srcImg, ffImg, destImg,
-//             vigra::functor::Arg1() + vigra::functor::Arg2() );
-        vigra::combineTwoImages(srcImg, ffImg, destImg,
-            detail::plus() );
-
-    }
-}
-*/
 
 template <class ImgIter, class ImgAccessor, class DestIter, class DestAccessor>
 void applyBrightnessCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,

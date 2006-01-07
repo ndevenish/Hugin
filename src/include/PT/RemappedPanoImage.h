@@ -505,10 +505,11 @@ public:
                 const PanoramaOptions & opts,
                 unsigned int imgNr, utils::MultiProgressDisplay & progress) = 0;
 
-	virtual	void
-	release(RemappedPanoImage<ImageType,AlphaType> * d) = 0;
+    virtual	void
+    release(RemappedPanoImage<ImageType,AlphaType> * d) = 0;
 
 };
+
 /// load a flatfield image and apply the correction
 template <class FFType, class SrcIter, class SrcAccessor, class DestIter, class DestAccessor>
 void applyFlatfield(vigra::triple<SrcIter, SrcIter, SrcAccessor> srcImg,
@@ -518,12 +519,13 @@ void applyFlatfield(vigra::triple<SrcIter, SrcIter, SrcAccessor> srcImg,
                     double gammaMaxVal,
                     bool division,
                     typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote a,
-                    typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote b)
+                    typename vigra::NumericTraits<typename SrcAccessor::value_type>::RealPromote b,
+                    bool dither)
 {
     FFType ffImg(ffInfo.width(), ffInfo.height());
     vigra::importImage(ffInfo, vigra::destImage(ffImg));
     vigra_ext::flatfieldVigCorrection(srcImg, vigra::srcImage(ffImg), 
-                                      destImg, gamma, gammaMaxVal, division, a, b);
+                                      destImg, gamma, gammaMaxVal, division, a, b, dither);
 }
 
 // 3 channel images
@@ -607,13 +609,15 @@ public:
         }
     }
 
-    /** further specialisation to be able to process integer images without cast problems */
+    /** further specialisation to be able to process integer images without rounding problems */
     template <class PixelType>
     RemappedPanoImage<ImageType, AlphaType> *
     getRemappedIntern(const Panorama & pano, const PanoramaOptions & opts,
                       unsigned int imgNr, utils::MultiProgressDisplay & progress)
     {
         DEBUG_TRACE("Image: " << imgNr);
+
+        typedef typename ImageType::value_type SrcPixelType;
 
         typedef vigra::BasicImage<PixelType> ImportImageType;
 
@@ -623,7 +627,7 @@ public:
         typedef typename ImportImageType::ConstAccessor csA;
 
         typedef typename vigra::NumericTraits<PixelType>::RealPromote RPixelType;
-
+        
         // load image
         const PT::PanoImage & img = pano.getImage(imgNr);
         const ImageOptions iopts = img.getOptions();
@@ -657,6 +661,8 @@ public:
         RPixelType ka,kb;
         bool doBrightnessConversion = convertKParams(pano.getImageVariables(imgNr), ka, kb);
 
+        bool dither = ditheringNeeded(SrcPixelType());
+
         double gMaxVal = vigra_ext::VigCorrTraits<typename ImageType::value_type>::max();
         if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
              // load flatfield image.
@@ -669,25 +675,25 @@ public:
 
              if (strcmp(ffInfo.getPixelType(), "UINT8") == 0 ) {
                  applyFlatfield<vigra::BImage, csI, csA, sI, sA>(vigra::srcImageRange(srcImg),
-                                vigra::destImage(srcImg), ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                vigra::destImage(srcImg), ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "INT16") == 0 ) {
                 applyFlatfield<vigra::SImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "UINT16") == 0 ) {
                  applyFlatfield<vigra::USImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "UINT32") == 0 ) {
                  applyFlatfield<vigra::IImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "INT32") == 0 ) {
                  applyFlatfield<vigra::UIImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "FLOAT") == 0 ) {
                  applyFlatfield<vigra::FImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else if (strcmp(ffInfo.getPixelType(), "DOUBLE") == 0 ) {
                  applyFlatfield<vigra::DImage, csI, csA, sI, sA>(srcImageRange(srcImg), destImage(srcImg), 
-                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                ffInfo, opts.gamma, gMaxVal, vigCorrDivision, ka, kb, dither);
             } else {
                  DEBUG_FATAL("Unsupported pixel type: " << ffInfo.getPixelType());
                  vigra_fail("flatfield vignetting correction: unsupported pixel type");
@@ -711,7 +717,7 @@ public:
             vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcImg),
                                            opts.gamma, gMaxVal,
                                            radCoeff, cx, cy,
-                                           vigCorrDivision, ka, kb);
+                                           vigCorrDivision, ka, kb, dither);
         } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
             progress.setMessage(std::string("inverse brightness & gamma correction ") + utils::stripPath(img.getFilename()));
             vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcImg),

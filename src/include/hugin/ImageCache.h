@@ -27,9 +27,9 @@
 #include <map>
 
 #include <common/utils.h>
-#include <vigra/stdimage.hxx>
+//#include <vigra/stdimage.hxx>
+#include <PT/RemappedPanoImage.h>
 
-#include <PT/Stitcher.h>
 
 typedef wxImage * ImagePtr;
 

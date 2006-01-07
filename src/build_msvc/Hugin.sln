@@ -49,6 +49,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "getopt", "..\foreign\getopt
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vigra_ext", "..\vigra_ext\vigra_ext.vcproj", "{609891D5-B1A9-43E3-9B67-AD53D6008158}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -78,12 +82,12 @@ Global
 		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.ActiveCfg = Release|Win32
 		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.ActiveCfg = Release Unicode|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Debug.ActiveCfg = Debug|Win32
+		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Debug.Build.0 = Debug|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release.ActiveCfg = Release|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release.Build.0 = Release|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release Unicode.ActiveCfg = Release Unicode|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release Unicode.Build.0 = Release Unicode|Win32
 		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Debug.ActiveCfg = Debug|Win32
-		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Debug.Build.0 = Debug|Win32
 		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release.ActiveCfg = Release|Win32
 		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release.Build.0 = Release|Win32
 		{FADF17E6-3037-47E7-B556-DE1112D3237A}.Release Unicode.ActiveCfg = Release|Win32
@@ -106,6 +110,9 @@ Global
 		{621C0B14-F003-4961-8D14-7A1679087977}.Release.Build.0 = Release|Win32
 		{621C0B14-F003-4961-8D14-7A1679087977}.Release Unicode.ActiveCfg = Release Unicode|Win32
 		{621C0B14-F003-4961-8D14-7A1679087977}.Release Unicode.Build.0 = Release Unicode|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Debug.ActiveCfg = Debug|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.ActiveCfg = Release|Win32
+		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

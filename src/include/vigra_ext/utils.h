@@ -121,13 +121,18 @@ struct OverlapSizeCounter
 
 
 /** functor to combine two functors: result = f1( f2(v) )
+ *
+ * The functors are copied, so there is no way to get
+ * their internal state after they have been applied.
+ * 
+ * This is quite useful for multithreaded processing.
  */
 template <class F1, class F2>
 struct NestFunctor
 {
-    F1 & f1;
-    F2 & f2;
-    NestFunctor(F1 & fu1, F2 & fu2)
+    F1 f1;
+    F2 f2;
+    NestFunctor(const F1 & fu1, const F2 & fu2)
     : f1(fu1), f2(fu2)
     { }
 
@@ -136,9 +141,23 @@ struct NestFunctor
     typedef typename F1::result_type result_type;
 
     template <class T1>
-            result_type operator()(T1 const & v) const
+    result_type operator()(T1 const & v) const
     {
         return f1(f2(v));
+    }
+
+    /** if F2 takes 2 arguments */
+    template <class T1, class T2>
+    result_type operator()(T1 const & v1, T2 const & v2) const
+    {
+        return f1(f2(v1,v2));
+    }
+
+    /** if F2 takes 3 arguments */
+    template <class T1, class T2, class T3>
+    result_type operator()(T1 const & v1, T2 const & v2, T3 const & v3) const
+    {
+        return f1(f2(v1,v2,v3));
     }
 };
 
@@ -196,6 +215,7 @@ void circularCrop(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor>
         }
     }
 }
+
 
 } // namespace
 

@@ -39,6 +39,7 @@
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/ImageTransforms.h>
 
+#include <PT/Stitcher.h>
 
 #include "hugin/ImageCache.h"
 
@@ -659,7 +660,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                                        flatsrc->GetHeight());
                 vigra_ext::flatfieldVigCorrection(vigra::srcImageRange(srcImg), 
                                                   std::make_pair(flatImg.upperLeft(), vigra::RedAccessor<PixelType>()),
-                                                  vigra::destImage(srcCorrImg), opts.gamma, gMaxVal, vigCorrDivision, ka, kb);
+                                                  vigra::destImage(srcCorrImg), opts.gamma, gMaxVal, vigCorrDivision, ka, kb, true);
 
             } else if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_RADIAL) {
                 progress.setMessage(std::string("vignetting correction ") + utils::stripPath(img.getFilename()));
@@ -680,7 +681,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                 vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
                                                opts.gamma, gMaxVal,
                                                radCoeff, cx, cy,
-                                               vigCorrDivision, ka, kb);
+                                               vigCorrDivision, ka, kb, true);
             } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
                 progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
                 vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
