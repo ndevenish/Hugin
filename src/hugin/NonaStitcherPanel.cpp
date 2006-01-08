@@ -305,8 +305,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     DEBUG_DEBUG("Stitching to " << opts.outfile);
 
     // set number of threads.
-    long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
-    if (nthreads == 0) nthreads = 1;
+    long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), wxThread::GetCPUCount());
+    if (nthreads < 1) nthreads = 1;
     vigra_ext::ThreadManager::get().setNThreads(nthreads);
 
     UIntSet imgs;

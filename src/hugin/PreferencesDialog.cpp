@@ -566,8 +566,10 @@ void PreferencesDialog::UpdateDisplayData()
     MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
     // number of threads
-    long nthreads = cfg->Read(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
-    MY_SPIN_VAL("prefs_nona_NumberOfThreads", nthreads);
+    int nThreads = wxThread::GetCPUCount();
+    if (nThreads < 1) nThreads = 1;
+    nThreads = cfg->Read(wxT("/Nona/NumberOfThreads"), nThreads);
+    MY_SPIN_VAL("prefs_nona_NumberOfThreads", nThreads);
 
     // language
     // check if current language is in list and activate it then.
@@ -684,7 +686,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // cache
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
             // number of threads
-            cfg->Write(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
+            int cpucount = wxThread::GetCPUCount();
+            if (cpucount < 1) cpucount = 1;
+            cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
             // druid
