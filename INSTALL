@@ -34,12 +34,13 @@ REQUIRED LIBRARIES/PACKAGES:
     http://bugbear.blackfish.org.uk/~bruno/panorama-tools/ (linux rpm & sourcecode)
 
  - make,
- - boost, get it from www.boost.org (only needed for compilation)
+ - boost, get it from www.boost.org
+    The headers and the boost thread library are required
  - gcc (tested with 3.2, 3.3, 3.4 and 4.0)
 
 
 Required packages building for debian:
- libwxgtk2.6-dev, libpano12-dev, libboost-dev, libboost-graph-dev
+ libwxgtk2.6-dev libpano12-dev libboost-dev libboost-graph-dev libboost-thread-dev libboost-thread
 
 COMPILATION:
 
@@ -55,12 +56,14 @@ $ ./configure
    For example, debian ships wxWindows 2.5 as unicode enabled, so use
    ./configure --with-unicode=yes, else it configure will mix 2.4 and 2.5.
 
+   Other important configure switches include:
+      --disable-desktop  Disable calling update-mime-database
+                         This is useful if update-desktop-database
+                         fails. This can happen if a nonstandart --prefix
+                         has is used.
+
 $ make
 $ make install
-
-If you do want to recompile your pano tools library:
- Please copy the libpano.so file to /usr/local/lib and the include files
- into /usr/local/include/pano12.
 
 If you need to compile wxWindows, please use the following steps:
 $ bzip2 -dv wxGTK-2.4.2.tar.bz2

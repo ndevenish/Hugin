@@ -41,6 +41,7 @@
 
 // Image cache defaults
 #define HUGIN_IMGCACHE_UPPERBOUND             78643200
+#define HUGIN_NONA_NUMBER_OF_THREADS          1
 
 #define HUGIN_CP_CURSOR                       1
 

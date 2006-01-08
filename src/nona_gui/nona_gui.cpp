@@ -116,6 +116,8 @@ bool nonaApp::OnInit()
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output file") },
+      { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
+             wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> (Note: all interpolators of panotools are supported)"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
@@ -184,7 +186,12 @@ bool nonaApp::OnInit()
             return false;
         }
     }
-    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str())
+    DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str());
+
+    long nThreads;
+    parser.Found(wxT("t"), & nThreads);
+    if (nThreads <= 0) nThreads = 1;
+    vigra_ext::ThreadManager::get().setNThreads((unsigned) nThreads);
 
     wxString basename;
     wxString outpath;

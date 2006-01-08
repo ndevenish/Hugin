@@ -4,6 +4,6 @@ DEFAULT_INCLUDES="-I."
 INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign
 
 noinst_LTLIBRARIES = libvigra_ext.la
-libvigra_ext_la_SOURCES = LoweSIFT.cpp PointMatching.cpp
+libvigra_ext_la_SOURCES = MultiThreadOperations.cpp
 
 EXTRA_DIST = vigra_ext.vcproj

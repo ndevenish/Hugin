@@ -635,14 +635,14 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                              src->GetHeight());
         MRemappedImage *remapped = new MRemappedImage;
 
-        if (opts.gamma != 1.0 || img.getOptions().m_vigCorrMode != 0) {
+        RPixelType ka,kb;
+        bool doBrightnessCorrection = convertKParams(pano.getImageVariables(imgNr), ka, kb);
+
+        if (opts.gamma != 1.0 || img.getOptions().m_vigCorrMode != 0 || doBrightnessCorrection) {
             BRGBImage srcCorrImg(src->GetWidth(), src->GetHeight());
 
             // prepare some information required by multiple types of vignetting correction
             bool vigCorrDivision = (iopts.m_vigCorrMode & ImageOptions::VIGCORR_DIV)>0;
-
-            RPixelType ka,kb;
-            bool doBrightnessConversion = convertKParams(pano.getImageVariables(imgNr), ka, kb);
 
             double gMaxVal = vigra_ext::VigCorrTraits<PixelType>::max();
             if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
@@ -682,11 +682,11 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                                                opts.gamma, gMaxVal,
                                                radCoeff, cx, cy,
                                                vigCorrDivision, ka, kb, true);
-            } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
+            } else if (opts.gamma != 1.0 && doBrightnessCorrection ) {
                 progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
                 vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
                         opts.gamma, gMaxVal, ka,kb);
-            } else if (doBrightnessConversion ) {
+            } else if (doBrightnessCorrection ) {
                 progress.setMessage(std::string("brightness correction ") + utils::stripPath(img.getFilename()));
                 vigra_ext::applyBrightnessCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
                         ka,kb);

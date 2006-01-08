@@ -565,6 +565,10 @@ void PreferencesDialog::UpdateDisplayData()
     long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
     MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
+    // number of threads
+    long nthreads = cfg->Read(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
+    MY_SPIN_VAL("prefs_nona_NumberOfThreads", nthreads);
+
     // language
     // check if current language is in list and activate it then.
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
@@ -679,6 +683,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // MISC
             // cache
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+            // number of threads
+            cfg->Write(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
             // locale
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
             // druid
@@ -742,6 +748,9 @@ void PreferencesDialog::UpdateConfigData()
     /// MISC
     // cache
     cfg->Write(wxT("/ImageCache/UpperBound"), MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
+    // number of threads
+    cfg->Write(wxT("/Nona/NumberOfThreads"), MY_G_SPIN_VAL("prefs_nona_NumberOfThreads"));
+
     // locale
     // language
     wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);

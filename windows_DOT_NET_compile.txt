@@ -9,9 +9,8 @@ How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
 
   hugin                  <- hugin sourcecode
   libs/wxWidgets         <- wxwidgets, remove version number from directory name
-  libs/boost_1_31_0      <- boost (a newer version might also work,
-                            but the project files will have to be
-                            changed)
+  libs/boost             <- boost, remove version number from directory name
+
   libs/panotools/pano12  <- pano tools sourcecode, together with
                             pano12.lib
 
@@ -26,6 +25,13 @@ How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
      build_wxwin_msvc.bat
 
    This should build wxWidgets.
+
+7. Build boost library (refer to the boost documentation for details).
+    overview: download bjam exectable from 
+    http://www.boost.org/tools/build/v1/build_system.htm
+    and place it in the boost directory. Open the MSVC Command line prompt
+    and change directory to the boost dir and issue:
+       bjam stage
 
 7. Open hugin/src/Hugin.sln and compile.
 

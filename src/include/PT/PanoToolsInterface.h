@@ -163,29 +163,32 @@ public:
     /** excecute transform
      */
     void transform(double & x_dest, double & y_dest,
-                   double x_src, double y_src)
+                   double x_src, double y_src) const
         {
-            execute_stack(x_src, y_src, &x_dest, &y_dest, &m_stack);
+            void * params= (void *) (&m_stack);
+            execute_stack(x_src, y_src, &x_dest, &y_dest, params);
         }
 
     /** like transform, but return image coordinates, not cartesian
      *  coordinates
      */
     void transformImgCoord(double & x_dest, double & y_dest,
-                   double x_src, double y_src)
+                   double x_src, double y_src) const
         {
             x_src -= m_srcTX - 0.5 ;
             y_src -= m_srcTY - 0.5;
 
-            execute_stack(x_src, y_src, &x_dest, &y_dest, &m_stack);
+            void * params= (void *) (&m_stack);
+            execute_stack(x_src, y_src, &x_dest, &y_dest, params);
             x_dest += m_destTX - 0.5;
             y_dest += m_destTY - 0.5;
         }
 
-    void transform(FDiff2D& dest, const FDiff2D & src)
+    void transform(FDiff2D& dest, const FDiff2D & src) const
         {
             double x_dest, y_dest;
-            execute_stack(src.x, src.y, &x_dest, &y_dest, &m_stack);
+            void * params= (void *) (&m_stack);
+            execute_stack(src.x, src.y, &x_dest, &y_dest, params);
             dest.x = x_dest;
             dest.y = y_dest;
         }

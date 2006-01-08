@@ -536,14 +536,14 @@ bool convertKParams(const VariableMap & vars,
                     vigra::VigraFalseType)
 {
     DEBUG_ASSERT(a.size() == 3);
-    bool ret(true);
+    bool ret(false);
     for (unsigned int i=0; i< 3; i++) {
         char vn[6];
         snprintf(vn, 6,"K%da",i);
         a[i] = const_map_get(vars, vn).getValue();
         snprintf(vn, 6,"K%db",i);
         b[i] = const_map_get(vars, vn).getValue();
-        ret = ret && a[i] == 1.0 && b[i] == 0.0;
+        ret = ret || ( a[i] != 1.0 || b[i] != 0.0);
     }
 
     return ret;
@@ -558,10 +558,10 @@ bool convertKParams(const VariableMap & vars,
 {
     a = const_map_get(vars, "K0a").getValue();
     b = const_map_get(vars, "K0b").getValue();
-    return (a == 1.0 && b == 0.0);
+    return (a != 1.0 || b != 0.0);
 }
 
-// singe channel images
+// get k coefficents, and return if brightness correction needs to be done.
 template <class T>
 bool convertKParams(const VariableMap & vars,
                     T & a,
@@ -719,7 +719,7 @@ public:
                                            radCoeff, cx, cy,
                                            vigCorrDivision, ka, kb, dither);
         } else if (opts.gamma != 1.0 && doBrightnessConversion ) {
-            progress.setMessage(std::string("inverse brightness & gamma correction ") + utils::stripPath(img.getFilename()));
+            progress.setMessage(std::string("inverse gamma & brightness corr") + utils::stripPath(img.getFilename()));
             vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcImg),
                                                      opts.gamma, gMaxVal, ka,kb);
         } else if (doBrightnessConversion ) {

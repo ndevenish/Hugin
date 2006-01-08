@@ -104,6 +104,8 @@ private:
     void OnMoveImageUp(wxCommandEvent & e);
     void OnMoveImageDown(wxCommandEvent & e);
 
+    void OnCrop(wxCommandEvent & e);
+
     /** gui -> pano
      *
      *  usually for events to set the new pano state

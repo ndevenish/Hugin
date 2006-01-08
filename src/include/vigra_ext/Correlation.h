@@ -284,7 +284,7 @@ public:
         : m_phi(phi), m_origin(origin), m_transl(transl)
         { }
 
-    void transformImgCoord(double &destx, double &desty, double srcx, double srcy)
+    void transformImgCoord(double &destx, double &desty, double srcx, double srcy) const
     {
         srcx -= m_origin.x;
         srcy -= m_origin.y;

@@ -9,8 +9,14 @@ AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 bin_PROGRAMS = nona autooptimiser zhang_undistort
 
 nona_SOURCES = nona.cpp
-nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
-	           ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
+nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) ${top_builddir}/src/common/libcommon.la \
+	           ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
+                   ${top_builddir}/src/jhead/libjhead.la \
+                   ${top_builddir}/src/vigra_ext/libvigra_ext.la
+
+#nona_cimg_SOURCES = nona_cimg.cpp
+#nona_cimg_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la #${top_builddir}/src/common/libcommon.la \
+#	            ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la
 
 #autopano_old_SOURCES = autopano.cpp
 #autopano_old_CFLAGS  = $(FFTW_INCLUDES)
@@ -37,5 +43,7 @@ autooptimiser_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_buildd
 
 zhang_undistort_SOURCES = zhang_undistort.cpp
 zhang_undistort_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
-	                      ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la
+	                      ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
+                              ${top_builddir}/src/vigra_ext/libvigra_ext.la \
+                              $(BOOST_THREAD_LIB)
 

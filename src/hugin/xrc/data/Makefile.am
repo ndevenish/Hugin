@@ -20,7 +20,7 @@ all-local: stamp-data
 stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES)
 	for p in $?; do \
 	    if test -e `basename $$p` ; then :; else \
-		( $(LN_S) $$p ) ; \
+		( $(LN_S) $$p . ) ; \
 	    fi; \
 	done
 	@echo "touch stamp-data"

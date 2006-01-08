@@ -78,7 +78,7 @@ public:
 
 
     void transformImgCoord(double & x_dest, double & y_dest,
-                           double x_src, double y_src)
+                           double x_src, double y_src) const
     {
 
         double xn, yn;

@@ -2,7 +2,7 @@ dnl                                               -*- Autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5)
-AC_INIT([hugin], [0.5], [pablo.dangelo@web.de])
+AC_INIT([hugin], [0.6], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
 AC_CONFIG_HEADER([src/include/config.h])
@@ -158,10 +158,19 @@ if test "x$have_pano" != xyes; then
     ])
 fi
 
-AX_CHECK_BOOST_TEST
+AX_CHECK_BOOST_THREAD
 if test "x$have_boost" != xyes; then
     AC_MSG_ERROR([
 	the boost headers must be installed on your system
+ 	but configure could not find it. Use --with-boost to
+	specify the location of the boost library and 
+	--with-boost-version to specify your version
+    ])
+fi
+
+if test "x$ac_have_boost_thread" != xyes; then
+    AC_MSG_ERROR([
+	the boost thread library must be installed on your system
  	but configure could not find it. Use --with-boost to
 	specify the location of the boost library and 
 	--with-boost-version to specify your version
@@ -254,6 +263,7 @@ AC_CONFIG_FILES([Makefile
                  src/jhead/Makefile
                  src/nona_gui/Makefile
 		 src/nona_gui/po/Makefile.in
+		 src/vigra_ext/Makefile
                  src/tools/Makefile])
 
 AC_SUBST(ac_aux_dir)

@@ -2,7 +2,7 @@
 DEFAULT_INCLUDES="-I."
 INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign $(WX_CXXFLAGS)
 AM_CXXFLAGS = $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS) $(ZLIB_FLAGS) $(PANO_FLAGS)
-AM_LDFLAGS  = $(WX_LIBS) $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF) $(LIB_ZLIB) $(LIB_PANO)
+AM_LDFLAGS  = $(WX_LIBS) $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF) $(LIB_ZLIB) $(LIB_PANO) $(BOOST_THREAD_LIB)
 
 SUFFIXES  = .rc
 
@@ -27,7 +27,9 @@ nona_gui_SOURCES = nona_gui.cpp $(WIN_SRC)
 
 nona_gui_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
                    ${top_builddir}/src/jhead/libjhead.la \
-		   ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/hugin/libhuginwxutils.la
+		   ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
+                   ${top_builddir}/src/hugin/libhuginwxutils.la \
+                   ${top_builddir}/src/vigra_ext/libvigra_ext.la
 
 EXTRA_DIST       = nona_gui_rc.rc
 

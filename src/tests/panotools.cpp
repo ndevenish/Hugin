@@ -65,7 +65,7 @@ void remap_test()
 
     int w = 400;
     PanoramaOptions opts = pano.getOptions();
-    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.setProjectionFormat( PanoramaOptions::EQUIRECTANGULAR );
     opts.HFOV=100;
     opts.VFOV=180;
     opts.width=w;

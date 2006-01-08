@@ -32,10 +32,10 @@ libhuginwxutils_la_SOURCES = ImageCache.cpp MyProgressDialog.cpp
 
 bin_PROGRAMS   = hugin
 hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)
-hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO)
+hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO) $(BOOST_THREAD_LIB)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
 	             ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
-	             libhuginwxutils.la
+	             libhuginwxutils.la ${top_builddir}/src/vigra_ext/libvigra_ext.la
 noinst_HEADERS = win_prep.h
 
 desktopdir = $(datadir)/applications

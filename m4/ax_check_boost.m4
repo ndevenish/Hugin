@@ -17,6 +17,8 @@ AC_DEFUN([AX_CHECK_BOOST],
   BOOST_VERSION_="-1_31"
  ]) # end AC_ARG_WITH
 
+# pablo: where is the version actually checked??? It reports 1.31 on my system,
+# but I have 1.33 installed.
  AC_MSG_CHECKING([boost version])
  AC_MSG_RESULT($BOOST_VERSION)
 
@@ -46,8 +48,10 @@ AC_DEFUN([AX_CHECK_BOOST],
 
   AC_MSG_CHECKING([Boost libraries presence])
   ac_boost_libdirs="/usr/lib /usr/local/lib /opt/lib /mingw/lib"
-  AC_FIND_FILE("libboost_regex-gcc.a", $ac_boost_libdirs, ac_boost_libdir)
-  # echo $ac_boost_libdir
+# Use check for thread library instead of regex, because we actually need it.
+#  AC_FIND_FILE("libboost_regex-gcc.a", $ac_boost_libdirs, ac_boost_libdir)
+  AC_FIND_FILE("libboost_thread.so", $ac_boost_libdirs, ac_boost_libdir)
+# echo $ac_boost_libdir
   if ! test $ac_boost_libdir = "NO"; then
    LDFLAGS="${LDFLAGS} -L${ac_boost_libdir}"
   else
@@ -146,6 +150,14 @@ AC_DEFUN([AX_CHECK_BOOST_LIBVARIANT],
 ])
 
 #
+# pablo: removed check for test library, because the thread test
+#        would not work otherwise. Seems to be a problem with
+#        the AC_LANG_PROGRAM test program, since config.log indicates
+#        that the thread test program contains both the thread and the
+#        unit test main() functions.
+#
+
+#
 # Check for boost test library 
 #
 AC_DEFUN([AX_CHECK_BOOST_TEST],
@@ -195,4 +207,59 @@ AC_DEFUN([AX_CHECK_BOOST_TEST],
    boost_test_error=yes
   fi
   AC_SUBST(BOOST_TEST_LIB)
+])
+
+#
+# Check for boost thread library 
+#
+AC_DEFUN([AX_CHECK_BOOST_THREAD],
+[
+ AC_REQUIRE([AX_CHECK_BOOST])
+
+ ac_cppflags_save="${CPPFLAGS}"
+ ac_ldflags_save="${LDFLAGS}"
+ 
+ CPPFLAGS="${BOOST_CFLAGS} ${CPPFLAGS}"
+ LDFLAGS="${LDFLAGS} ${BOOST_LIBS}"
+
+ AC_LANG_SAVE
+ AC_LANG_CPLUSPLUS
+
+ AC_CHECK_HEADERS([boost/thread/thread.hpp])
+
+  AC_MSG_CHECKING(for boost thread library)
+  AC_COMPILE_IFELSE(AC_LANG_PROGRAM([[
+#include <boost/thread/thread.hpp>
+#include <iostream>
+void helloworld()
+{
+
+}
+]],[[
+    boost::thread thrd(&helloworld);
+    thrd.join();
+   ]]),
+  [
+   AC_MSG_RESULT(yes)
+   ac_have_boost_thread=yes
+  ],
+  [
+   AC_MSG_RESULT(no)
+   ac_have_boost_thread=no
+  ])
+  AC_LANG_RESTORE
+
+  CPPFLAGS="$ac_cppflags_save"
+  LDFLAGS="$ac_ldflags_save"
+
+  AX_CHECK_BOOST_LIBVARIANT([boost_thread])
+  if test x$ac_have_boost_thread = xyes -a x$boost_lib != xno; then
+   AC_DEFINE(HAVE_BOOST_TEST, 1, [have boost thread library])
+#   BOOST_LIBS="-lboost_thread$boost_libvariant ${BOOST_LIBS}"
+    BOOST_THREAD_LIB="-lboost_thread$boost_libvariant"
+   boost_thread_error=no
+  else
+   boost_thread_error=yes
+  fi
+  AC_SUBST(BOOST_THREAD_LIB)
 ])

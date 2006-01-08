@@ -2,7 +2,7 @@
 
 /** @file ImagesPanel.cpp
  *
- *  @brief implementation of ImagesPanel Class
+ *  @brief implementation of ImagesCenter Class
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *
@@ -103,26 +103,33 @@ ImgCenter::ImgCenter(wxWindow *parent)
     m_autocenter_cb = new wxCheckBox(this, ID_CB_AUTOCENTER, _("Always center Crop on d,e"));
     buttonSizer->Add(m_autocenter_cb);
 
+    wxBoxSizer * buttonSizer2 = new wxBoxSizer(wxHORIZONTAL);
+
     wxButton * but_OK = new wxButton(this, wxID_OK,_("Ok"));
-    buttonSizer->Add(but_OK);
-
-
+    buttonSizer2->Add(but_OK, 0, wxEXPAND | wxALIGN_LEFT | wxALL, 5 );
 
     wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL, _("Cancel"));
-    buttonSizer->Add(but_CANCEL);
+    buttonSizer2->Add(but_CANCEL, 0, wxEXPAND | wxALIGN_LEFT | wxALL, 5 );
 
     topsizer->Add(buttonSizer,
                   0,        // vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
+
+    topsizer->Add(buttonSizer2,
+                  0,        // vertically stretchable
+                  wxEXPAND | // horizontally stretchable
+                          wxALL,    // draw border all around
+                  5);       // border width
+
     // get the global config object
 
     SetSizer( topsizer );
     topsizer->SetSizeHints( this );
 
-    RestoreFramePosition(this, wxT("CenterDialog"));
-    
+    RestoreFramePosition(this, wxT("CropDialog"));
+
     m_Canvas->Show();
     DEBUG_TRACE("");
 }
@@ -136,7 +143,7 @@ ImgCenter::~ImgCenter(void)
     m_bottom_textctrl->PopEventHandler(true);
 
     // save old size
-    StoreFramePosition(this, wxT("CenterDialog"));
+    StoreFramePosition(this, wxT("CropDialog"));
 }
 
 vigra::Rect2D & ImgCenter::getCrop()

@@ -1,7 +1,7 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
 
-SUBDIRS=jhead common foreign Panorama hugin tools nona_gui
+SUBDIRS=jhead common foreign vigra_ext Panorama hugin tools nona_gui
 
 dist-hook:
 	rm -rf `find $(distdir)/include $(distdir)/dox $(distdir)/tests $(distdir)/build_msvc -name CVS`

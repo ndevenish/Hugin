@@ -640,7 +640,7 @@ void matchTriangleFeatures(Panorama & pano,
 
     // transform image features into spherical coordinate system
     PanoramaOptions opts;
-    opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+    opts.setProjection( PanoramaOptions::EQUIRECTANGULAR);
     opts.HFOV = 360;
     opts.VFOV = 180;
     opts.width = 360;
@@ -1190,9 +1190,9 @@ int main(int argc, char *argv[])
     opts.HFOV = fov.x;
     opts.VFOV = fov.y;
     if (opts.HFOV < 80 && opts.VFOV < 80) {
-        opts.projectionFormat = PanoramaOptions::RECTILINEAR;
+        opts.setProjection( PanoramaOptions::RECTILINEAR);
     } else {
-        opts.projectionFormat = PanoramaOptions::EQUIRECTANGULAR;
+        opts.setProjection( PanoramaOptions::EQUIRECTANGULAR );
     }
 
     opts.optimizeReferenceImage = nImages/2;

@@ -259,7 +259,7 @@ struct DitherFunctor
     T dither(const T &v, vigra::VigraFalseType) const
     {
         T ret;
-        for (int i=0; i < v.size(); i++) {
+        for (size_t i=0; i < v.size(); i++) {
             ret[i] = dither(v[i]);
         }
         return ret;

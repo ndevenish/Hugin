@@ -68,11 +68,12 @@ int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "ho:";
+    const char * optstring = "ho:t:";
     int c;
 
     opterr = 0;
 
+    unsigned nThread = 1;
     string basename;
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
@@ -83,6 +84,9 @@ int main(int argc, char *argv[])
         case 'h':
             usage(argv[0]);
             return 1;
+        case 't':
+            nThread = atoi(argv[0]);
+            return 1;
         default:
             abort ();
         }
@@ -92,8 +96,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const char * scriptFile = argv[optind];
+    if (nThread == 0) nThread = 1;
+    vigra_ext::ThreadManager::get().setNThreads(nThread);
 
+    const char * scriptFile = argv[optind];
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);

@@ -26,7 +26,7 @@ all-local: stamp-xrc stamp-xrs
 stamp-xrc: $(XRC_FILES)
 	for p in $?; do \
 	    if test -e `basename $$p` ; then :; else \
-		( $(LN_S) $$p ) ; \
+		( $(LN_S) $$p . ) ; \
 	    fi; \
 	done
 	@echo "touch stamp-xrc"

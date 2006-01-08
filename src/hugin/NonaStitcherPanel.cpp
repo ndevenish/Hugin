@@ -304,6 +304,11 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     PanoramaOptions opts = options;
     DEBUG_DEBUG("Stitching to " << opts.outfile);
 
+    // set number of threads.
+    long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
+    if (nthreads == 0) nthreads = 1;
+    vigra_ext::ThreadManager::get().setNThreads(nthreads);
+
     UIntSet imgs;
     if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
 		                          HUGIN_USE_SELECTED_IMAGES))

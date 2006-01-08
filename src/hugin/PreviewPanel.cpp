@@ -37,6 +37,7 @@
 #include "hugin/PreviewPanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/MainFrame.h"
+#include "hugin/config_defaults.h"
 //#include "hugin/ImageProcessing.h"
 
 using namespace PT;
@@ -155,6 +156,12 @@ void PreviewPanel::SetAutoUpdate(bool enabled)
 void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
+
+    long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), HUGIN_NONA_NUMBER_OF_THREADS);
+    if (nthreads == 0) nthreads = 1;
+    vigra_ext::ThreadManager::get().setNThreads(nthreads);
+
+
 	{
 	  // Even though the frame is hidden, the panel is not
 	  // so check the parent instead
