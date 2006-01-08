@@ -188,7 +188,7 @@ bool nonaApp::OnInit()
     }
     DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str());
 
-    long nThreads;
+    long nThreads = wxThread::GetCPUCount();
     parser.Found(wxT("t"), & nThreads);
     if (nThreads <= 0) nThreads = 1;
     vigra_ext::ThreadManager::get().setNThreads((unsigned) nThreads);
