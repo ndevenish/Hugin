@@ -886,6 +886,64 @@ private:
 };
 */
 
+template<typename ImageType, typename AlphaType>
+        static void stitchPanoIntern(const PT::Panorama & pano,
+                                     const PT::PanoramaOptions & opts,
+                                     utils::MultiProgressDisplay & progress,
+                                     const std::string & basename,
+                                     PT::UIntSet imgs)
+{
+    //    typedef
+    //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
+
+    FileRemapper<ImageType, AlphaType> m;
+    // determine stitching output
+    switch (opts.outputFormat) {
+        case PT::PanoramaOptions::JPEG:
+        {
+            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+            stitcher.stitch(opts, imgs, basename,
+//                            SingleImageRemapper<ImageType, AlphaType>());
+                            m);
+            break;
+        }
+        case PT::PanoramaOptions::PNG:
+        {
+            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+            stitcher.stitch(opts, imgs, basename,
+                            m);
+            break;
+        }
+        case PT::PanoramaOptions::TIFF:
+        {
+            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+            stitcher.stitch(opts, imgs, basename,
+                            m);
+            break;
+        }
+        case PT::PanoramaOptions::TIFF_m:
+        {
+            MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
+            stitcher.stitch(opts, imgs, basename,
+                            m);
+            break;
+        }
+        case PT::PanoramaOptions::TIFF_multilayer:
+        {
+            TiffMultiLayerRemapper<ImageType, AlphaType> stitcher(pano, progress);
+            stitcher.stitch(opts, imgs, basename,
+                            m);
+            break;
+        }
+        case PT::PanoramaOptions::TIFF_mask:
+        case PT::PanoramaOptions::TIFF_multilayer_mask:
+            DEBUG_ERROR("multi mask stitching not implemented!");
+            break;
+        default:
+            DEBUG_ERROR("output format " << opts.getFormatName(opts.outputFormat) << "not supported");
+            break;
+    }
+}
 
 /** stitch a panorama
  *
@@ -899,6 +957,37 @@ void stitchPanorama(const PT::Panorama & pano,
 		    const std::string & basename,
                     const PT::UIntSet & usedImgs);
 
+// the instantiations of the stitching functions have been divided into two .cpp
+// files, because g++ will use too much memory otherwise (> 1.5 GB)
+
+void stitchPanoGray_8_16(const PT::Panorama & pano,
+                         const PT::PanoramaOptions & opts,
+                         utils::MultiProgressDisplay & progress,
+                         const std::string & basename,
+                         const PT::UIntSet & usedImgs,
+                         const char * pixelType);
+
+void stitchPanoGray_32_float(const PT::Panorama & pano,
+                             const PT::PanoramaOptions & opts,
+                             utils::MultiProgressDisplay & progress,
+                             const std::string & basename,
+                             const PT::UIntSet & usedImgs,
+                             const char * pixelType);
+
+
+void stitchPanoRGB_8_16(const PT::Panorama & pano,
+                        const PT::PanoramaOptions & opts,
+                        utils::MultiProgressDisplay & progress,
+                        const std::string & basename,
+                        const PT::UIntSet & usedImgs,
+                        const char * pixelType);
+
+void stitchPanoRGB_32_float(const PT::Panorama & pano,
+                            const PT::PanoramaOptions & opts,
+                            utils::MultiProgressDisplay & progress,
+                            const std::string & basename,
+                            const PT::UIntSet & usedImgs,
+                            const char * pixelType);
 
 } // namespace PT
 

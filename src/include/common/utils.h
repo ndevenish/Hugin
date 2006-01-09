@@ -129,6 +129,7 @@
 
 #endif
 
+#define UTILS_THROW(class, msg)  { std::stringstream o; o <<  msg; throw(class(o.str().c_str())); };
 
 namespace utils
 {

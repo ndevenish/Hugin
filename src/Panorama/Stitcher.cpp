@@ -37,65 +37,6 @@ using namespace vigra_ext;
 using namespace PT;
 
 
-template<typename ImageType, typename AlphaType>
-static void stitchPanoIntern(const PT::Panorama & pano,
-                          const PT::PanoramaOptions & opts,
-                          utils::MultiProgressDisplay & progress,
-                          const std::string & basename,
-                          PT::UIntSet imgs)
-{
-    //    typedef
-    //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
-
-    FileRemapper<ImageType, AlphaType> m;
-    // determine stitching output
-    switch (opts.outputFormat) {
-    case PT::PanoramaOptions::JPEG:
-	{
-	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename,
-//                            SingleImageRemapper<ImageType, AlphaType>());
-                            m);
-	    break;
-	}
-    case PT::PanoramaOptions::PNG:
-	{
-	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename,
-                            m);
-	    break;
-	}
-    case PT::PanoramaOptions::TIFF:
-	{
-	    WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename,
-                            m);
-	    break;
-	}
-    case PT::PanoramaOptions::TIFF_m:
-        {
-	    MultiImageRemapper<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename,
-                            m);
-	    break;
-        }
-    case PT::PanoramaOptions::TIFF_multilayer:
-	{
-	    TiffMultiLayerRemapper<ImageType, AlphaType> stitcher(pano, progress);
-	    stitcher.stitch(opts, imgs, basename,
-                            m);
-	    break;
-	}
-    case PT::PanoramaOptions::TIFF_mask:
-    case PT::PanoramaOptions::TIFF_multilayer_mask:
-	DEBUG_ERROR("multi mask stitching not implemented!");
-	break;
-    default:
-	DEBUG_ERROR("output format " << opts.getFormatName(opts.outputFormat) << "not supported");
-	break;
-    }
-}
-
 /** determine blending order (starting with image 0), and continue to
  *  stitch the image with the biggest overlap area with the real image..
  *  do everything on a low res version of the masks
@@ -182,11 +123,15 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
 
 /** The main stitching function.
  *  This function delegates all the work to the other functions
+ *
+ *  Due to the compile memory requirements of the instantiated templates
+ *  ( > 1GB, for all pixel types), the instatiations are divided into 4 separate
+ *  cpp files
  */
 void PT::stitchPanorama(const PT::Panorama & pano,
                         const PT::PanoramaOptions & opts,
-			            utils::MultiProgressDisplay & progress,
-			            const std::string & basename,
+                        utils::MultiProgressDisplay & progress,
+                        const std::string & basename,
                         const PT::UIntSet & usedImgs)
 {
     // probe the first image to determine a suitable image type for stitching
@@ -205,58 +150,36 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
         vigra::ImageImportInfo info2(pano.getImage(imgNr).getFilename().c_str());
         if (strcmp(info2.getPixelType(), pixelType) != 0) {
-            DEBUG_FATAL("image " << pano.getImage(imgNr).getFilename()
+            UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
                         << " uses " << info2.getPixelType() << " valued pixel, while " << pano.getImage(0).getFilename() << " uses: " << pixelType);
             return;
         }
 
         if (info2.numBands() != bands) {
-            DEBUG_FATAL("image " << pano.getImage(imgNr).getFilename()
+            UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
                         << " has " << info2.numBands() << " channels, while " << pano.getImage(0).getFilename() << " uses: " << bands);
             return;
         }
     }
 
-    // FIXME add alpha channel treatment!
-
     // stitch the pano with a suitable image type
     if (bands == 1 || bands == 2 && extraBands == 1) {
-        if (strcmp(pixelType, "UINT8") == 0 ) {
-            stitchPanoIntern<BImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "INT16") == 0 ) {
-            stitchPanoIntern<SImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "UINT16") == 0 ) {
-            stitchPanoIntern<USImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "UINT32") == 0 ) {
-            stitchPanoIntern<UIImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "INT32") == 0 ) {
-            stitchPanoIntern<IImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-            stitchPanoIntern<DImage,BImage>(pano, opts, progress, basename, usedImgs);
+        if (strcmp(pixelType, "UINT8") == 0 ||
+            strcmp(pixelType, "INT16") == 0 ||
+            strcmp(pixelType, "UINT16") == 0 ) 
+        {
+            stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType);
         } else {
-            DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-            return;
+            stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType);
         }
     } else if (bands == 3 || bands == 4 && extraBands == 1) {
-        if (strcmp(pixelType, "UINT8") == 0 ) {
-            stitchPanoIntern<BRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "INT16") == 0 ) {
-            stitchPanoIntern<SRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "UINT16") == 0 ) {
-            stitchPanoIntern<USRGBImage, BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "INT32") == 0 ) {
-            stitchPanoIntern<IRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "UINT32") == 0 ) {
-            stitchPanoIntern<UIRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
-        } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-            stitchPanoIntern<DRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
+        if (strcmp(pixelType, "UINT8") == 0 ||
+            strcmp(pixelType, "INT16") == 0 ||
+            strcmp(pixelType, "UINT16") == 0 ) 
+        {
+            stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType);
         } else {
-            DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-            return;
+            stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType);
         }
     } else {
         DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
