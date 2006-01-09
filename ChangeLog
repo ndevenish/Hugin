@@ -1,3 +1,231 @@
+2006-01-09 23:29  dangelo
+
+	* src/hugin/xrc/: images_panel-2.5.xrc, images_panel.xrc: fixed
+	  tooltips for crop button
+
+2006-01-09 16:33  dangelo
+
+	* src/: Panorama/Makefile.am, Panorama/Stitcher.cpp,
+	  Panorama/Stitcher1.cpp, Panorama/Stitcher2.cpp,
+	  Panorama/Stitcher3.cpp, Panorama/Stitcher4.cpp,
+	  include/PT/Stitcher.h, include/common/utils.h: reduce memory
+	  needed during compilation by splitting Stitcher.cpp into multiple
+	  files
+
+2006-01-08 23:19  dangelo
+
+	* src/include/vigra_ext/MultiThreadOperations.h: forgot another
+	  file...
+
+2006-01-08 22:39  dangelo
+
+	* src/: nona_gui/nona_gui.cpp, vigra_ext/MultiThreadOperations.cpp:
+	  nona_gui: detect nr of cpu automatically added missing file
+
+2006-01-08 22:33  dangelo
+
+	* src/: hugin/NonaStitcherPanel.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/PreviewPanel.cpp, include/hugin/config_defaults.h: Use
+	  number of CPU's as default for number of remapping threads
+
+2006-01-08 16:11  dangelo
+
+	* INSTALL, configure.ac, windows_DOT_NET_compile.txt,
+	  m4/ax_check_boost.m4, src/Makefile.am,
+	  src/Panorama/Panorama.vcproj, src/build_msvc/Hugin.sln,
+	  src/hugin/ImageCache.cpp, src/hugin/ImageCenter.cpp,
+	  src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
+	  src/hugin/Makefile.am, src/hugin/NonaStitcherPanel.cpp,
+	  src/hugin/PreferencesDialog.cpp, src/hugin/PreviewPanel.cpp,
+	  src/hugin/hugin.vcproj, src/hugin/xrc/Makefile.am,
+	  src/hugin/xrc/images_panel-2.5.xrc,
+	  src/hugin/xrc/images_panel.xrc, src/hugin/xrc/lens_panel-2.5.xrc,
+	  src/hugin/xrc/pref_dialog.xrc, src/hugin/xrc/data/Makefile.am,
+	  src/include/PT/PanoToolsInterface.h,
+	  src/include/PT/RemappedPanoImage.h,
+	  src/include/hugin/ImagesPanel.h,
+	  src/include/hugin/config_defaults.h,
+	  src/include/vigra_ext/Correlation.h,
+	  src/include/vigra_ext/ImageTransforms.h,
+	  src/include/vigra_ext/VignettingCorrection.h,
+	  src/nona_gui/Makefile.am, src/nona_gui/nona_gui.cpp,
+	  src/nona_gui/nona_gui.vcproj, src/tests/panotools.cpp,
+	  src/tools/Makefile.am, src/tools/automatch.cpp,
+	  src/tools/nona.cpp, src/tools/nona.vcproj,
+	  src/tools/zhang_undistort.cpp, src/vigra_ext/Makefile.am,
+	  src/vigra_ext/vigra_ext.vcproj: added tab with Kx variables.
+	  support for multithreaded remapping.	reorganized lens tab a bit
+	  and moved crop to images tab.
+
+2006-01-07 11:56  dangelo
+
+	* src/: include/vigra_ext/utils.h, build_msvc/Hugin.sln,
+	  hugin/ImageCache.cpp, include/PT/RemappedPanoImage.h,
+	  include/hugin/ImageCache.h,
+	  include/vigra_ext/VignettingCorrection.h: Added dithering during
+	  vignetting correction.  Only integer images will be dithered.
+
+2006-01-06 22:39  dangelo
+
+	* src/hugin/po/: POTFILES.in, ca_ES.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, zh_CN.po:
+	  added new strings to translation
+
+2006-01-06 18:05  dangelo
+
+	* src/hugin/xrc/: lens_panel-2.5.xrc, lens_panel.xrc: small layout
+	  change.. not very nice.
+
+2006-01-06 17:30  dangelo
+
+	* src/tools/zhang_undistort.cpp: [no log message]
+
+2006-01-06 17:24  dangelo
+
+	* src/Panorama/Makefile.am: removed accidentally added
+	  Stitcher_TIFF to Makefile..
+
+2006-01-06 17:11  dangelo
+
+	* src/: hugin/xrc/vig_corr_dlg.xrc, hugin/VigCorrDialog.cpp,
+	  include/hugin/VigCorrDialog.h,
+	  include/vigra_ext/VignettingCorrection.h,
+	  vigra_ext/vigra_ext.vcproj: new files for vignetting correction
+
+2006-01-06 17:02  dangelo
+
+	* doc/nona.txt, src/hugin/CPZoomDisplayPanel.cpp,
+	  src/hugin/ImageCache.cpp, src/hugin/LensPanel.cpp,
+	  src/hugin/MainFrame.cpp, src/hugin/Makefile.am,
+	  src/hugin/NonaStitcherPanel.cpp, src/hugin/OptimizePanel.cpp,
+	  src/hugin/PTStitcherPanel.cpp, src/hugin/PanoPanel.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/PreviewPanel.cpp,
+	  src/hugin/hugin.vcproj, src/hugin/huginApp.cpp,
+	  src/hugin/po/ca_ES.po, src/hugin/po/de.po, src/hugin/po/hu.po,
+	  src/hugin/po/hugin.pot, src/hugin/po/it.po, src/hugin/po/ja.po,
+	  src/hugin/po/nl.po, src/hugin/po/pl.po, src/hugin/po/pt_BR.po,
+	  src/hugin/po/ru.po, src/hugin/po/zh_CN.po,
+	  src/hugin/xrc/Makefile.am, src/hugin/xrc/lens_panel-2.5.xrc,
+	  src/hugin/xrc/nona_panel.xrc, src/include/panoinc.h,
+	  src/include/panoinc_WX.h, src/include/PT/ImageTransforms.h,
+	  src/include/PT/PTOptimise.h, src/include/PT/PanoCommand.h,
+	  src/include/PT/PanoImage.h, src/include/PT/PanoToolsInterface.h,
+	  src/include/PT/Panorama.h, src/include/PT/PanoramaMemento.h,
+	  src/include/PT/RemappedPanoImage.h,
+	  src/include/PT/SpaceTransform.h,
+	  src/include/hugin/CPZoomDisplayPanel.h,
+	  src/include/hugin/ImageCache.h, src/Panorama/Makefile.am,
+	  src/Panorama/PTOptimise.cpp, src/Panorama/PanoToolsInterface.cpp,
+	  src/Panorama/Panorama.cpp, src/Panorama/PanoramaMemento.cpp,
+	  src/Panorama/Stitcher.cpp,
+	  src/include/hugin/ImageOrientationPanel.h,
+	  src/include/hugin/LensPanel.h,
+	  src/include/hugin/NonaStitcherPanel.h,
+	  src/include/hugin/PreviewPanel.h,
+	  src/include/vigra_ext/Correlation.h,
+	  src/include/vigra_ext/utils.h, src/nona_gui/nona_gui.vcproj:
+	  added vignetting and brightness correction functions
+
+2006-01-06 16:58  dangelo
+
+	* src/include/vigra_ext/: ImageTransforms.h, Interpolators.h: use
+	  normalized convolution for interpolation kernels.  360x180 deg
+	  panos can now be remapped without leading to black borders. If
+	  the input image doesn't contain an alpha channel, separable
+	  convolution is use, should be a bit faster.
+
+2005-12-21 20:28  dangelo
+
+	* src/hugin/po/fr.po: translation update by Jean-Luc Coulon
+
+2005-12-16 20:40  dangelo
+
+	* src/: hugin/po/fr.po, nona_gui/po/fr.po: updated french
+	  translation (Jean-Luc Coulon)
+
+2005-12-16 15:07  dangelo
+
+	* utils/hugin.nsi: do not associate .pto files with nona_gui.exe
+	  (fixes bug 1371056)
+
+2005-12-15 17:05  dangelo
+
+	* src/: tools/nona.cpp, Panorama/Panorama.cpp,
+	  Panorama/PanoramaMemento.cpp, Panorama/Stitcher.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/PanoDruid.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
+	  hugin/PreviewPanel.cpp, hugin/xrc/pano_panel-2.5.xrc,
+	  hugin/xrc/pano_panel.xrc, include/PT/PanoramaMemento.h,
+	  include/PT/RemappedPanoImage.h, include/PT/SpaceTransform.h,
+	  include/PT/Stitcher.h, nona_gui/nona_gui.cpp,
+	  Panorama/PanoToolsInterface.cpp: (very) minor code cleanup, make
+	  it easier to add new output projections added fisheye output
+	  projection.
+
+2005-12-12 19:34  dangelo
+
+	* src/foreign/vigra_impex/pnm.cxx: support 16 bit ppm files (as
+	  produced by dcraw)
+
+2005-12-11 23:17  dangelo
+
+	* NEWS, README_WINDOWS, src/build_msvc/hugin_msvc_install.bat,
+	  src/build_msvc/hugin_msvc_install_win98.bat, utils/hugin.nsi:
+	  ship windows distribution with both msvc and mingw build
+	  pano12.dll files
+
+2005-12-07 08:40  dangelo
+
+	* src/hugin/po/pl.po: updated polish translation
+
+2005-12-05 15:27  ippei
+
+	* src/hugin/po/ja.po: Fixed "Deflate" being translated "Delete"
+
+2005-12-05 09:36  dangelo
+
+	* src/hugin/: RunOptimizerFrame.cpp, po/ca_ES.po, po/de.po,
+	  po/fr.po, po/hu.po, po/hugin.pot, po/it.po, po/ja.po, po/nl.po,
+	  po/pl.po, po/pt_BR.po, po/ru.po, po/zh_CN.po: fixed small typo
+
+2005-12-05 09:30  dangelo
+
+	* src/hugin/po/: ca_ES.po, de.po, fr.po, hu.po, hugin.pot, it.po,
+	  ja.po, nl.po, pl.po, pt_BR.po, ru.po, zh_CN.po: added new strings
+	  to po files
+
+2005-12-05 09:29  dangelo
+
+	* src/hugin/LensPanel.cpp: bugfix: set a,b,c to 1e-7 instead of 0.0
+	  Panotools will not optimize these parameters if they are exactly
+	  0.0
+
+2005-12-05 09:27  dangelo
+
+	* src/hugin/RunOptimizerFrame.cpp: Added warning message if high
+	  distortion coefficents ( > 0.8) have been estimated
+
+2005-12-05 02:05  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj, HuginOSX-Info.plist:
+	  Mac: 0.5 release
+
+2005-12-05 02:04  ippei
+
+	* mac/PutAutopanoSiftToHuginOSX.applescript: Mac: fixed the error
+	  message
+
+2005-12-05 02:04  ippei
+
+	* mac/Notes/install-pano12.rtf: Mac: removed meaningless comment in
+	  the note
+
+2005-12-04 23:30  dangelo
+
+	* ChangeLog, NEWS, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm,
+	  src/include/config_msvc.h: prepare for hugin 0.5 release
+
 2005-12-04 23:06  dangelo
 
 	* src/hugin/PanoPanel.cpp: bugfix: correct estimation of optimal

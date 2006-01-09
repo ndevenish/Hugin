@@ -450,17 +450,17 @@ void ImagesPanel::DisableImageCtrls()
     XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Disable();
     XRCCTRL(*this, "images_selected_image", wxStaticBitmap)->
-        SetBitmap(m_empty);
+    SetBitmap(m_empty);
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
     m_setAnchorOrientButton->Disable();
-	m_matchingButton->Disable();
-	m_removeCPButton->Disable();
+    m_matchingButton->Disable();
+    m_removeCPButton->Disable();
     m_moveDownButton->Disable();
     m_moveUpButton->Disable();
-	XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
-	XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
-	
+    XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
+    XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
+    XRCCTRL(*this, "images_button_crop", wxButton)->Disable();	
 }
 
 void ImagesPanel::EnableImageCtrls()
@@ -469,12 +469,13 @@ void ImagesPanel::EnableImageCtrls()
     if (XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->Enable()) {
         XRCCTRL(*this, "images_text_roll", wxTextCtrl) ->Enable();
         XRCCTRL(*this, "images_text_pitch", wxTextCtrl) ->Enable();
-		m_matchingButton->Enable();
-		m_removeCPButton->Enable();
+        m_matchingButton->Enable();
+        m_removeCPButton->Enable();
         m_moveDownButton->Enable();
         m_moveUpButton->Enable();
-		XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
-		XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
+        XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
+        XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
+        XRCCTRL(*this, "images_button_crop", wxButton)->Enable();
     }
 }
 
