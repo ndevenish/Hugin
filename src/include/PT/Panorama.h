@@ -313,7 +313,7 @@ public:
     /** parse optimzier output
      *
      *  @param set of image numbers that where used during by
-     *         printOptimizerScript().
+     *         printPanoramaScript().
      *  @param vars will be set the the optimzied variables
      *  @param ctrlPoints will contain the controlpoints, with distance
      *         information
@@ -482,11 +482,12 @@ public:
                               CPVector & ctrlPoints) const;
 
     /// create an optimizer script
-    void printOptimizerScript(std::ostream & o,
-                              const OptimizeVector & optvars,
-                              const PanoramaOptions & options,
-                              const UIntSet & imgs,
-                              const std::string & stripPrefix="");
+    void printPanoramaScript(std::ostream & o,
+                             const OptimizeVector & optvars,
+                             const PanoramaOptions & options,
+                             const UIntSet & imgs,
+                             bool forPTOptimizer,
+                             const std::string & stripPrefix="");
 
     /// create the stitcher script
     void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
@@ -593,6 +594,7 @@ private:
 
     bool m_forceImagesUpdate;
 
+    std::set<std::string> m_ptoptimizerVarNames;
 };
 
 } // namespace

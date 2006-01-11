@@ -115,9 +115,9 @@ int main(int argc, char *argv[])
     UIntSet imgs = pano.getActiveImages();
     if (output != "") {
         ofstream of(output.c_str());
-        pano.printOptimizerScript(of, optvec, pano.getOptions(), imgs);
+        pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false);
     } else {
-        pano.printOptimizerScript(cout, optvec, pano.getOptions(), imgs);
+        pano.printPanoramaScript(cout, optvec, pano.getOptions(), imgs, false);
     }
     return 0;
 }

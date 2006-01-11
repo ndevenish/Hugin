@@ -84,7 +84,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
     assert(m_optimizer_result_text);
 
     stringstream script_stream;
-    m_pano->printOptimizerScript(script_stream, optvars, options, imgs);
+    m_pano->printPanoramaScript(script_stream, optvars, options, imgs, true);
     std::string script(script_stream.str());
     if (edit) {
         // open a text dialog with an editor inside

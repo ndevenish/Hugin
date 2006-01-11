@@ -503,7 +503,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 	if (pano.getNrOfImages() > 0) {
 	    fill_set(all, 0, pano.getNrOfImages()-1);
 	}
-        pano.printOptimizerScript(script, optvec, pano.getOptions(), all, path);
+        pano.printPanoramaScript(script, optvec, pano.getOptions(), all, false, path);
         script.close();
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);

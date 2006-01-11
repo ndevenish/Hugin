@@ -215,6 +215,19 @@ Panorama::Panorama()
       m_forceImagesUpdate(false),
       dirty(false)
 {
+    // init map with ptoptimizer variables.
+    m_ptoptimizerVarNames.insert("a");
+    m_ptoptimizerVarNames.insert("b");
+    m_ptoptimizerVarNames.insert("c");
+    m_ptoptimizerVarNames.insert("d");
+    m_ptoptimizerVarNames.insert("e");
+    m_ptoptimizerVarNames.insert("g");
+    m_ptoptimizerVarNames.insert("t");
+    m_ptoptimizerVarNames.insert("v");
+    m_ptoptimizerVarNames.insert("r");
+    m_ptoptimizerVarNames.insert("p");
+    m_ptoptimizerVarNames.insert("y");
+
     cerr << "Panorama obj created" << std::endl;
 /*
     settings.setPath("dangelo","PanoAssistant");
@@ -758,11 +771,12 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
     state.ctrlPoints[pNr] = point;
 }
 
-void Panorama::printOptimizerScript(ostream & o,
-                                    const OptimizeVector & optvars,
-                                    const PanoramaOptions & output,
-                                    const UIntSet & imgs,
-                                    const std::string & stripPrefix)
+void Panorama::printPanoramaScript(ostream & o,
+                                   const OptimizeVector & optvars,
+                                   const PanoramaOptions & output,
+                                   const UIntSet & imgs,
+                                   bool forPTOptimizer,
+                                   const std::string & stripPrefix)
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output
@@ -772,8 +786,12 @@ void Panorama::printOptimizerScript(ostream & o,
     setlocale(LC_NUMERIC,"C");
 #endif
 
-    o << "# PTOptimizer script, written by hugin" << std::endl
-      << std::endl;
+    if (forPTOptimizer) {
+        o << "# PTOptimizer script, written by hugin" << std::endl
+          << std::endl;
+    } else {
+        o << "# hugin project file, version 1" << std::endl;
+    }
     // output options..
 
     output.printScriptLine(o);
@@ -801,6 +819,10 @@ void Panorama::printOptimizerScript(ostream & o,
         for (VariableMap::const_iterator vit = vars.begin();
              vit != vars.end(); ++vit)
         {
+            bool ptoptvar = set_contains(m_ptoptimizerVarNames,vit->first);
+            if (!ptoptvar && forPTOptimizer) {
+                continue;
+            }
             // print links if needed
             if (set_contains(lens.variables,vit->first)
                 && map_get(lens.variables, vit->first).isLinked())
@@ -975,6 +997,9 @@ void Panorama::printStitcherScript(ostream & o,
         VariableMap::const_iterator vit;
         for(vit = vars.begin(); vit != vars.end();  ++vit)
         {
+            if (!set_contains(m_ptoptimizerVarNames,vit->first)) {
+                continue;
+            }
             vit->second.print(o) << " ";
         }
         o << " u" << target.featherWidth << " m" << img.getOptions().ignoreFrameWidth
