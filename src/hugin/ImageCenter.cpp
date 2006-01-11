@@ -69,6 +69,7 @@ ImgCenter::ImgCenter(wxWindow *parent)
     // layout the dialog manually
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     m_Canvas = new CenterCanvas (this,this);
+    m_Canvas->SetMinSize(wxSize(400,400));
 
     topsizer->Add(m_Canvas,
                   1,        // vertically stretchable
@@ -78,22 +79,22 @@ ImgCenter::ImgCenter(wxWindow *parent)
 
     wxBoxSizer * buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Left:")));
+    buttonSizer->Add(new wxStaticText(this, -1, _("Left:")),0, wxALIGN_CENTRE_VERTICAL);
     m_left_textctrl = new wxTextCtrl(this, ID_EDIT_LEFT);
     m_left_textctrl->PushEventHandler(new TextKillFocusHandler(this));
     buttonSizer->Add(m_left_textctrl);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Right:")));
+    buttonSizer->Add(new wxStaticText(this, -1, _("Right:")),0, wxALIGN_CENTRE_VERTICAL);
     m_right_textctrl = new wxTextCtrl(this, ID_EDIT_RIGHT);
     m_right_textctrl->PushEventHandler(new TextKillFocusHandler(this));
     buttonSizer->Add(m_right_textctrl);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Top:")));
+    buttonSizer->Add(new wxStaticText(this, -1, _("Top:")),0, wxALIGN_CENTRE_VERTICAL);
     m_top_textctrl = new wxTextCtrl(this, ID_EDIT_TOP);
     m_top_textctrl->PushEventHandler(new TextKillFocusHandler(this));
     buttonSizer->Add(m_top_textctrl);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Bottom:")));
+    buttonSizer->Add(new wxStaticText(this, -1, _("Bottom:")), 0, wxALIGN_CENTRE_VERTICAL);
     m_bottom_textctrl = new wxTextCtrl(this, ID_EDIT_BOTTOM);
     m_bottom_textctrl->PushEventHandler(new TextKillFocusHandler(this));
     buttonSizer->Add(m_bottom_textctrl);
@@ -105,11 +106,11 @@ ImgCenter::ImgCenter(wxWindow *parent)
 
     wxBoxSizer * buttonSizer2 = new wxBoxSizer(wxHORIZONTAL);
 
-    wxButton * but_OK = new wxButton(this, wxID_OK,_("Ok"));
-    buttonSizer2->Add(but_OK, 0, wxEXPAND | wxALIGN_LEFT | wxALL, 5 );
+    wxButton * but_OK = new wxButton(this, wxID_OK);
+    buttonSizer2->Add(but_OK, 0, wxEXPAND | wxALIGN_RIGHT | wxALL, 5 );
 
-    wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL, _("Cancel"));
-    buttonSizer2->Add(but_CANCEL, 0, wxEXPAND | wxALIGN_LEFT | wxALL, 5 );
+    wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL);
+    buttonSizer2->Add(but_CANCEL, 0, wxEXPAND | wxALL, 5 );
 
     topsizer->Add(buttonSizer,
                   0,        // vertically stretchable
@@ -142,8 +143,6 @@ ImgCenter::~ImgCenter(void)
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
 
-    // save old size
-    StoreFramePosition(this, wxT("CropDialog"));
 }
 
 vigra::Rect2D & ImgCenter::getCrop()
