@@ -6,7 +6,7 @@ AM_CPPFLAGS = $(BOOST_CFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 
 #bin_PROGRAMS = nona autopano_old panosifter autooptimiser zhang_undistort
-bin_PROGRAMS = nona autooptimiser zhang_undistort
+bin_PROGRAMS = nona autooptimiser zhang_undistort color_correct_tiff
 
 nona_SOURCES = nona.cpp
 nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) ${top_builddir}/src/common/libcommon.la \
@@ -47,3 +47,5 @@ zhang_undistort_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_buil
                               ${top_builddir}/src/vigra_ext/libvigra_ext.la \
                               $(BOOST_THREAD_LIB)
 
+color_correct_tiff_SOURCES = color_correct_tiff.cpp
+color_correct_tiff_LDADD   = $(LIB_TIFF)
