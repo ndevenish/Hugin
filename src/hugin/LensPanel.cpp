@@ -867,8 +867,11 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 double d;
                 cfg.Read(wxT("Lens/type"), &integer);
                 lens.setProjection ((Lens::LensProjectionFormat) integer);
-                cfg.Read(wxT("Lens/hfov"), &d);map_get(vars,"v").setValue(d);
-                cfg.Read(wxT("Lens/crop"), &d);lens.setCropFactor(d);
+                cfg.Read(wxT("Lens/crop"), &d);
+                lens.setCropFactor(d);
+                cfg.Read(wxT("Lens/hfov"), &d);
+                map_get(vars,"v").setValue(d);
+                DEBUG_DEBUG("read lens hfov: " << d);
 
                 // loop to load lens variables
                 char ** varname = Lens::variableNames;
@@ -876,13 +879,16 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                     wxString key(wxT("Lens/"));
                     key.append(wxString(*varname, *wxConvCurrent));
                     d = 0;
-                    cfg.Read(key,&d);
-                    map_get(vars,*varname).setValue(d);
+                    if (cfg.Read(key,&d)) {
+                        // only set value if variabe was found in the script
+                        map_get(vars,*varname).setValue(d);
 
-                    integer = 1;
-                    key.append(wxT("_link"));
-                    cfg.Read(key, &integer);
-                    map_get(lens.variables, *varname).setLinked(integer != 0);
+                        integer = 1;
+                        key.append(wxT("_link"));
+                        cfg.Read(key, &integer);
+                        map_get(lens.variables, *varname).setLinked(integer != 0);
+                    }
+
 
                     varname++;
                 }
