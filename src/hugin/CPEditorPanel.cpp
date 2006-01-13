@@ -37,6 +37,7 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/CPFineTuneFrame.h"
+#include "hugin/wxPanoCommand.h"
 
 
 // more standard includes if needed
@@ -1694,6 +1695,14 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         } else {
             FineTuneNewPoint(left);
         }
+    } else if (e.GetKeyCode() == 'g') {
+        // generate keypoints
+        long th = wxGetNumberFromUser(_("Create control points"), _("Corner Detection threshold"), _("Create control points"), 400);
+        long scale = wxGetNumberFromUser(_("Create control points"), _("Corner Detection scale"), _("Create control points"), 1);
+        GlobalCmdHist::getInstance().addCommand(
+                new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
+                           );
+
     } else {
         e.Skip();
     }
@@ -1770,50 +1779,7 @@ void CPEditorPanel::ShowControlPoint(unsigned int cpNr)
 
 void CPEditorPanel::OnAutoCreateCP()
 {
-    DEBUG_DEBUG("corner detection software");
-
-
-    const PanoImage & limg = m_pano->getImage(m_leftImageNr);
-    // run both images through the harris corner detector
-    BImage leftImg = ImageCache::getInstance().getPyramidImage(
-        limg.getFilename(),0);
-
-    BImage leftCorners(leftImg.size());
-    FImage leftCornerResponse(leftImg.size());
-
-    // empty corner image
-    leftCorners.init(0);
-
-    DEBUG_DEBUG("running corner detector");
-
-    // find corner response at scale 1.0
-    vigra::cornerResponseFunction(srcImageRange(leftImg),
-                                  destImage(leftCornerResponse),
-                                  1.0);
-
-//    saveScaledImage(leftCornerResponse,"corner_response.png");
-    DEBUG_DEBUG("finding local maxima");
-
-    // find local maxima of corner response, mark with 1
-    vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners));
-//    saveScaledImage(leftCornerResponse,"corner_response_maxima.png");
-
-    DEBUG_DEBUG("thresholding corner response");
-    // threshold corner response to keep only strong corners (above 400.0)
-    transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
-                   vigra::Threshold<double, double>(
-                       400.0, DBL_MAX, 0.0, 1.0));
-//    saveScaledImage(leftCornerResponse,"corner_response_maxima_thresh.png");
-
-    DEBUG_DEBUG("combining corners and response");
-
-    // combine thresholding and local maxima
-    vigra::combineTwoImages(srcImageRange(leftCorners), srcImage(leftCornerResponse),
-                            destImage(leftCorners), std::multiplies<float>());
-
-    // save image
-
-//    saveScaledImage(leftCornerResponse,"corners.png");
+    
 }
 
 

@@ -243,6 +243,32 @@ public:
 	const std::string &prefix;
     };
 
+    //=========================================================================
+    //=========================================================================
+
+
+    /** add a control point */
+    class wxAddCtrlPointGridCmd : public PanoCommand
+    {
+    public:
+        wxAddCtrlPointGridCmd(Panorama & p, unsigned int i1,
+                            unsigned int i2, double scale, double threshold)
+            : PanoCommand(p), img1(i1), img2(i2), scale(scale), cornerThreshold(threshold)
+            { }
+
+        virtual void execute();
+
+        virtual std::string getName() const
+            {
+                return "add control point";
+            }
+    private:
+        unsigned int img1,img2,dx,dy;
+        double cornerThreshold;
+        double scale;
+    };
+
+
 } // namespace PT
 
 #endif // _WXPANOCOMMAND__H

@@ -853,15 +853,17 @@ void Panorama::printPanoramaScript(ostream & o,
             o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
         }
 
-        if (iopts.m_vigCorrMode != ImageOptions::VIGCORR_NONE) {
-            o << " Vm" << iopts.m_vigCorrMode;
-        }
+        if (!forPTOptimizer) {
 
-        if (iopts.m_flatfield.size() > 0) {
-            o << " Vf\"" << iopts.m_flatfield << "\"";
-        }
+            if (iopts.m_vigCorrMode != ImageOptions::VIGCORR_NONE) {
+                o << " Vm" << iopts.m_vigCorrMode;
+            }
 
-//        o << " u" << (*it).getOptions().featherWidth
+            if (iopts.m_flatfield.size() > 0) {
+                o << " Vf\"" << iopts.m_flatfield << "\"";
+            }
+        }
+        
         o << " u" << output.featherWidth
           << (img.getOptions().morph ? " o" : "");
         string fname = img.getFilename();
