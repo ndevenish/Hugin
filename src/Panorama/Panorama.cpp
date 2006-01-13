@@ -838,9 +838,33 @@ void Panorama::printPanoramaScript(ostream & o,
                     DEBUG_DEBUG("printing value for linked var " << vit->first);
                     // first time, print value
                     linkAnchors[lensNr] = imageNrMap[imgNr];
-                    vit->second.print(o) << " ";
+
+                    if ( ( (vit->first == "a" && set_contains(optvars[imgNr], "a") )|| 
+                           (vit->first == "b" && set_contains(optvars[imgNr], "b") )|| 
+                           (vit->first == "c" && set_contains(optvars[imgNr], "c") )
+                         )
+                        && forPTOptimizer && vit->second.getValue() == 0.0)
+                    {
+                        // work around a bug in PTOptimizer, a,b,c values will only be 
+                        // optmized if nonzero
+                        o << vit->first << 1e-5 << " ";
+                    } else {
+                        vit->second.print(o) << " ";
+                    }
                 }
             } else {
+                if (( (vit->first == "a" && set_contains(optvars[imgNr], "a") )|| 
+                      (vit->first == "b" && set_contains(optvars[imgNr], "b") )|| 
+                      (vit->first == "c" && set_contains(optvars[imgNr], "c") )
+                    )
+                    && forPTOptimizer && vit->second.getValue() == 0.0) 
+                {
+                    // work around a bug in PTOptimizer, a,b,c values will only be optmized
+                    // if nonzero
+                    o << vit->first << 1e-5 << " ";
+                } else {
+                    vit->second.print(o) << " ";
+                }
                 // simple variable, just print
                 vit->second.print(o) << " ";
             }
