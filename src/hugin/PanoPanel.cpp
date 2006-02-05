@@ -67,9 +67,6 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
 END_EVENT_TABLE()
 
-#ifdef __WXMAC__
-#define NO_PTSTITCHER
-#endif
 
 // Define a constructor for the Pano Panel
 PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
