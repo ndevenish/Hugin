@@ -55,11 +55,12 @@ inline float roundf(float x)
     return (float) floor(x+0.5f);
 }
 
-inline int roundi(double x);
-
-inline int roundi(double x)
+template <class T>
+inline int roundi(T x)
 {
-    return (int) floor(x+0.5);
+    return ((x < 0.0) ?
+                ((x < (float)INT_MIN) ? INT_MIN : static_cast<int>(x - 0.5)) :
+                ((x > (float)INT_MAX) ? INT_MAX : static_cast<int>(x + 0.5)));
 }
 
 // a simple point class
@@ -91,15 +92,20 @@ struct TDiff2D
             return TDiff2D (x-rhs.x, y-rhs.y);
         }
 
+    TDiff2D & operator*=(double val)
+        {
+            x = x*val;
+            y = y*val;
+            return *this;
+        }
+
     vigra::Diff2D toDiff2D() const
         {
-			// windows fix
-            return vigra::Diff2D((int)floor(x+0.5f), (int)floor(y+0.5f));
+            return vigra::Diff2D(roundi(x), roundi(y));
         }
 
     double x,y;
 };
-
 
 
 /** clip a point to fit int [min, max]
@@ -115,6 +121,18 @@ T simpleClipPoint(const T & point, const T & min, const T & max)
     if (p.y < min.y) p.y = min.y;
     if (p.y > max.y) p.y = max.y;
     return p;
+}
+
+template <class T>
+T sqr(T t)
+{
+    return t*t;
+}
+
+template <class T>
+double norm(T t)
+{
+    return sqrt(t.x*t.x + t.y*t.y);
 }
 
 /** calculate squared Euclidean distance between two vectors.
@@ -168,8 +186,6 @@ vigra::Rect2D calcCircleROIFromPoints(const POINT& p1, const POINT & p2)
     return rect;
 }
 
-
-
 } // namespace
 
 typedef utils::TDiff2D<double> FDiff2D;
@@ -178,6 +194,34 @@ template <class T>
 inline std::ostream & operator<<(std::ostream & o, const utils::TDiff2D<T> & d)
 {
     return o << "( " << d.x << " " << d.y << " )";
+}
+
+inline FDiff2D operator/(const FDiff2D & lhs, double val)
+{
+    return FDiff2D (lhs.x/val, lhs.y/val);
+}
+
+// uses ceil for rounding.
+inline vigra::Diff2D operator*(const vigra::Diff2D & d, double scale)
+{
+    return vigra::Diff2D((int)(ceil(d.x * scale)), 
+                         (int)(ceil(d.y * scale)));
+}
+
+/// uses ceil for rounding. -> might extend the image size.
+inline vigra::Size2D operator*(const vigra::Size2D & d, double scale)
+{
+    return vigra::Size2D((int)(ceil(d.x * scale)), 
+                          (int)(ceil(d.y * scale)));
+}
+
+/// uses floor for left and top and ceil for right and bottom -> extend image when rounding..
+inline vigra::Rect2D operator*(const vigra::Rect2D & r, double scale)
+{
+    return vigra::Rect2D( (int)floor(r.left()*scale),
+                          (int)floor(r.top()*scale),
+                          (int)ceil(r.right()*scale),
+                          (int)ceil(r.bottom()*scale));
 }
 
 #endif // MY_MATH_H
