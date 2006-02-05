@@ -123,8 +123,10 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
                 alpha.second.set(0, xdm);
             }
         }
-        if ((y-ystart)%(destSize.y/20) == 0) {
-            prog.setProgress(((double)y-ystart)/(yend-ystart));
+        if (destSize.y > 100) {
+            if ((y-ystart)%(destSize.y/20) == 0) {
+                prog.setProgress(((double)y-ystart)/destSize.y);
+            }
         }
     }
     prog.popTask();
@@ -228,8 +230,10 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                 alpha.second.set(0, xdist);
             }
         }
-        if ((y-ystart)%(destSize.y/20) == 0) {
-            prog.setProgress(((double)y-ystart)/(yend-ystart));
+        if (destSize.y > 100) {
+            if ((y-ystart)%(destSize.y/20) == 0) {
+                prog.setProgress(((double)y-ystart)/destSize.y);
+            }
         }
     }
     prog.popTask();

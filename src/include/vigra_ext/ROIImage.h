@@ -24,6 +24,9 @@
 #ifndef _ROIIMAGE_H
 #define _ROIIMAGE_H
 
+#include <common/utils.h>
+#include <vigra/imageinfo.hxx>
+
 namespace vigra_ext
 {
 
@@ -369,7 +372,89 @@ destMask(ROIImage<Image,Alpha> & img)
                                                           img.maskAccessor());
 }
 
+#if 0
+template <class Image, class Mask, class Functor>
+void inspectROIImages(std::vector<ROIImage<Image,Mask> *> imgs, Functor & f)
+{
+    int nImg = imgs.size();
+    std::vector<typename Image::traverser> imgUL(nImg);
+    std::vector<typename Mask::traverser> maskUL(nImg);
+    std::vector<vigra::Rect2D> rois(nImg);
+    for (unsigned i=0; i < nImg; i++) {
+        imgs[i] = imgs->upperLeft();
+        masks[i] = imgs->maskUpperLeft();
+        rois[i] = imgs->boundingBox();
+    }
+}
+#endif
 
+/** function to inspect a variable number of images.
+ *
+ *  They do not need to overlap, and will be only evaluated inside their ROI
+ *
+ */
+template <class ImgIter, class ImgAcc, class MaskIter, class MaskAcc, class Functor>
+void inspectImagesIf(std::vector<ImgIter> imgs,
+                     std::vector<MaskIter> masks,
+                     std::vector<vigra::Rect2D> rois,
+                     Functor & f)
+{
+
+    typedef typename ImgIter::value_type PixelType;
+    typedef typename MaskIter::value_type MaskType;
+
+    typedef typename ImgIter::row_iterator RowImgIter;
+    typedef typename MaskIter::row_iterator RowMaskIter;
+
+    int nImg = imgs.size();
+
+    vigra_precondition(nImg > 1, "more than one image needed");
+
+    // get maximum roi
+    vigra::Rect2D maxRoi= rois[0];
+    for (unsigned i=1; i < nImg; i++) {
+        maxRoi |= rois[i];
+    }
+    // skip empty area on the top and right
+    for (int k=0; k < nImg; k++) {
+        imgs[k].first.x += maxRoi.left();
+        imgs[k].first.y += maxRoi.top();
+        masks[k].first.x += maxRoi.left();
+        masks[k].first.y += maxRoi.top();
+    }
+
+    std::vector<RowImgIter> rowImgIter(nImg);
+    std::vector<RowMaskIter> rowMaskIter(nImg);
+
+    vigra::Point2D p;
+    std::vector<PixelType> val(nImg);
+    std::vector<MaskType> mval(nImg);
+    for(p.y=maxRoi.top(); p.y < maxRoi.bottom(); ++p.y)
+    {
+        for (int k=0; k < nImg; k++) {
+            rowImgIter[k] = imgs[k].first.rowIterator();
+            rowMaskIter[k] = masks[k].first.rowIterator();
+        }
+
+        for (p.x=maxRoi.left(); p.x < maxRoi.right(); ++p.x) {
+            for (int k=0; k < nImg; k++) {
+                if (rois[k].contains(p)) {
+                    val[k] = *(rowImgIter[k]);
+                    mval[k] = *(rowMaskIter[k]);
+                } else {
+                    mval[k] = 0;
+                }
+                rowImgIter[k]++;
+                rowMaskIter[k]++;
+            }
+            f(val,mval);
+        }
+        for (int k=0; k < nImg; k++) {
+            ++(imgs[k].first.y);
+            ++(masks[k].first.y);
+        }
+    }
+}
 
 }
 

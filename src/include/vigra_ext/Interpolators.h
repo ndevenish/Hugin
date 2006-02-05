@@ -225,7 +225,9 @@ template <typename SrcImageIterator, typename SrcAccessor,
           typename INTERPOLATOR>
 class ImageInterpolator
 {
+public:
     typedef typename SrcAccessor::value_type PixelType;
+private:
     typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
 
     SrcImageIterator m_sIter;
@@ -237,7 +239,6 @@ class ImageInterpolator
     INTERPOLATOR m_inter;
 
 public:
-
     /** Construct interpolator for an given image */
     ImageInterpolator(vigra::triple<SrcImageIterator, SrcImageIterator,SrcAccessor> const & src,
                           INTERPOLATOR & inter,
@@ -394,7 +395,9 @@ template <typename SrcImageIterator, typename SrcAccessor,
           typename INTERPOLATOR>
 class ImageMaskInterpolator
 {
+public:
     typedef typename SrcAccessor::value_type PixelType;
+private:
     typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
 
     SrcImageIterator m_sIter;
@@ -411,7 +414,7 @@ public:
 
     /** Construct interpolator for an given image */
     ImageMaskInterpolator(vigra::triple<SrcImageIterator, SrcImageIterator,SrcAccessor> const & src,
-                          std::pair<MaskIterator, MaskAccessor> const & mask,
+                          std::pair<MaskIterator, MaskAccessor> mask,
                           INTERPOLATOR & inter,
                           bool warparound)
     : m_sIter(src.first),

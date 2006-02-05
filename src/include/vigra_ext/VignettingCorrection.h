@@ -186,7 +186,7 @@ struct PolySqDistFunctor
 {
     double m_coeff[NTERMS];
 
-    PolySqDistFunctor(double coeff[])
+    PolySqDistFunctor(const std::vector<double> & coeff)
     { 
         for (unsigned int i=0; i<NTERMS; i++) m_coeff[i] = coeff[i];
     };
@@ -509,7 +509,7 @@ void flatfieldVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
 template <class ImgIter, class ImgAccessor, class DestIter, class DestAccessor>
 void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                          vigra::pair<DestIter, DestAccessor> destImg, double gamma, double gammaMaxVal,
-                         double radCoeff[], double cx, double cy, bool division,
+                         const std::vector<double> & radCoeff, FDiff2D center, bool division,
                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
                          bool dither)
@@ -530,22 +530,22 @@ void radialVigCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
     if (gamma == 1.0) {
         RnF Rf;
         if (division) {
-            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy,
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y,
                                            VigCorrDivFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
                                            dither);
         } else {
-            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
                                            VigCorrAddFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
                                            dither);
         }
     } else {
         GammaFunctor Rf(gamma, gammaMaxVal);
         if (division) {
-            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
                                            VigCorrDivFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
                                            dither);
         } else {
-            applyRadialVigCorrectionDither(srcImg, destImg, cx, cy, 
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
                                            VigCorrAddFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
                                            dither);
         }
