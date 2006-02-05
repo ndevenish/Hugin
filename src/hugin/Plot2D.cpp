@@ -230,7 +230,7 @@ void Plot2DWindow::PaintAxis(wxDC & dc, const FDiff2D & scale)
     s = AxisRound(s / pow(10.0,e)) * pow(10.0,e);
     int i = utils::roundi(x_min / s);
     // used to paint nice numbers
-    while(i*s < x_max + 1e-10){
+    while(i*s < x_max + 1e-10 && s > 1e-5){
         // draw x axis divisions
         wxPoint divPoint = ToScreen(FDiff2D(i*s, x_axis_y), scale);
         dc.SetPen(m_axisPen);
@@ -263,7 +263,7 @@ void Plot2DWindow::PaintAxis(wxDC & dc, const FDiff2D & scale)
     e =  floor(log10(s));
     s = AxisRound(s / pow(10.0,e)) * pow(10.0,e);
     i = utils::roundi(y_min / s);
-    while(i*s < y_max + 1e-10){
+    while(i*s < y_max + 1e-10 && s > 1e-5){
         // draw y axis divisions
         wxPoint divPoint = ToScreen(FDiff2D(y_axis_x,i*s), scale);
         dc.SetPen(m_axisPen);
