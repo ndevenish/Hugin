@@ -56,6 +56,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vigra_ext", "..\vigra_ext\v
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vig_optimize", "..\tools\vig_optimize.vcproj", "{FADF17E6-3137-47E7-B556-DE1112D3237A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{621C0B14-F003-4961-8D14-7A1679087977} = {621C0B14-F003-4961-8D14-7A1679087977}
+		{609891D5-B1A9-43E3-9B61-AD53D6008158} = {609891D5-B1A9-43E3-9B61-AD53D6008158}
+		{609891D5-B1A9-43E3-9B63-AD53D6008158} = {609891D5-B1A9-43E3-9B63-AD53D6008158}
+		{609891D5-B1A9-43E3-9B66-AD53D6008158} = {609891D5-B1A9-43E3-9B66-AD53D6008158}
+		{609891D5-B1A9-43E3-9B67-AD53D6008158} = {609891D5-B1A9-43E3-9B67-AD53D6008158}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -119,6 +128,12 @@ Global
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release.Build.0 = Release|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Unicode.ActiveCfg = Release Unicode|Win32
 		{609891D5-B1A9-43E3-9B67-AD53D6008158}.Release Unicode.Build.0 = Release Unicode|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Debug.ActiveCfg = Debug|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Debug.Build.0 = Debug|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release.ActiveCfg = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release.Build.0 = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release Unicode.ActiveCfg = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release Unicode.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
