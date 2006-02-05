@@ -38,6 +38,7 @@
 #include <vigra_ext/VigQuotientEstimator.h>
 #include <PT/RandomPointSampler.h>
 
+#include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/VigCorrDialog.h"
 #include "hugin/CommandHistory.h"
@@ -294,8 +295,19 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
 
     unsigned lensNr = m_pano.getImage(m_imgNr).getLensNr();
     UIntSet imgs;
+    bool useActive = wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),HUGIN_USE_SELECTED_IMAGES) != 0;
+    UIntSet activeImgs;
+    if (useActive)
+    {
+        // use only selected images.
+        activeImgs = m_pano.getActiveImages();
+    }
     // select all images of current lens
     for (unsigned i=0; i < m_pano.getNrOfImages(); i++) {
+        // skip images that are not active.
+        if (useActive && (!set_contains(activeImgs,i))) {
+            continue;
+        }
         if (m_pano.getImage(i).getLensNr() == lensNr) {
 
             SrcPanoImage src = m_pano.getSrcImage(i);
@@ -338,6 +350,10 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
             }
 
         }
+    }
+    if (grayImgs.size() < 2) {
+        wxMessageBox(_("Not enought images selected. Please ensure that more than two images are associated with the current lens."), _("Cannot estimate vignetting"), wxOK | wxICON_HAND);
+        return;
     }
     // advance progress
     progress.increase();
