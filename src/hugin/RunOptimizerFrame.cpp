@@ -39,6 +39,10 @@ using namespace std;
 using namespace PT;
 using namespace utils;
 
+#if (defined __WXMAC__)
+#define HUGIN_SYNCRONOUS_OPT
+#endif
+
 // ============================================================================
 // RunOptimizerFrame implementation
 // ============================================================================
@@ -148,6 +152,7 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 
     DEBUG_INFO("Executing cmd: " << cmd.mb_str());
 
+#ifndef HUGIN_SYNCRONOUS_OPT
     // create our process
     m_process = new wxProcess(this);
     m_process->Redirect();
@@ -183,6 +188,17 @@ RunOptimizerFrame::RunOptimizerFrame(wxWindow *parent,
 #ifdef __unix__
     Show();
     m_timer.Start(100);
+#endif
+
+#else
+
+    int ret = wxExecute(cmd, wxEXEC_SYNC);
+    if (ret == -1) {
+        wxLogError(_("Could not start PTOptimizer"));
+        return;
+    }
+    Show();
+    PTOptimizerFinished();
 #endif
 }
 
@@ -261,6 +277,7 @@ void RunOptimizerFrame::OnCancel(wxCommandEvent & e)
     }
 }
 
+
 void RunOptimizerFrame::OnApply(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -278,6 +295,7 @@ void RunOptimizerFrame::OnApply(wxCommandEvent & e)
         Close();
     }
 }
+
 
 void RunOptimizerFrame::OnClose(wxCloseEvent& event)
 {
@@ -300,16 +318,9 @@ void RunOptimizerFrame::OnClose(wxCloseEvent& event)
 }
 
 
-void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
+void RunOptimizerFrame::PTOptimizerFinished()
 {
-    DEBUG_TRACE("");
-#if __unix__
-    m_timer.Stop();
-#else
-    Show();
-#endif
-
-    // update buttons
+        // update buttons
     m_apply->Enable();
     m_cancel->SetLabel(_("Cancel"));
 
@@ -350,8 +361,8 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
     if (smallHFOV) {
         msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\nPlease optimize the View only for full 360 deg. panoramas or when you know what you're doing.\n\nThe Field of View (v) can sometimes be optimized for partial panoramas as well,\nwhen the images are already aligned well."));
     } else if (highDist) {
-               msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\n\nApply the changes anyway?"),
-                          mean_error, std_dev, max_error);
+        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\n\nApply the changes anyway?"),
+                   mean_error, std_dev, max_error);
     } else {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
                    mean_error, std_dev, max_error);
@@ -360,6 +371,18 @@ void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
 
     Layout();
     Fit();
+}
+
+
+void RunOptimizerFrame::OnProcessTerm(wxProcessEvent& event)
+{
+    DEBUG_TRACE("");
+#if __unix__
+    m_timer.Stop();
+#else
+    Show();
+#endif
+    PTOptimizerFinished();
 
     DEBUG_DEBUG("before del process");
     delete m_process;

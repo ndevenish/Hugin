@@ -55,6 +55,7 @@ protected:
 
     void OnClose(wxCloseEvent& event);
 
+    void PTOptimizerFinished();
 
 private:
     wxProcess *m_process;
