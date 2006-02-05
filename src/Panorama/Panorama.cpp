@@ -369,14 +369,16 @@ FDiff2D Panorama::calcFOV() const
     opts.setHeight(180);
 
     // remap image
-    vigra::BImage panoAlpha(panoSize);
+    vigra::BImage panoAlpha(panoSize.x, panoSize.y,0);
     RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
     UIntSet activeImgs = getActiveImages();
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
 //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        remapped.setPanoImage(*this, *it, opts);
+        const PanoImage & img = getImage(*it);
+        remapped.setPanoImage(getSrcImage(*it), opts.getDestImage());
+        //remapped.setPanoImage(*this, *it, vigra::Size2D(img.getWidth(), img.getHeight()), opts);
         // calculate alpha channel
-        remapped.calcAlpha(*this, opts, *it);
+        remapped.calcAlpha();
         // copy into global alpha channel.
         vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
                                               vigra_ext::srcMaskRange(remapped)),
@@ -384,12 +386,13 @@ FDiff2D Panorama::calcFOV() const
                                               vigra_ext::srcMask(remapped)),
                            vigra_ext::applyRect(remapped.boundingBox(),
                                               destImage(panoAlpha)));
+//        vigra::ImageExportInfo imge2("c:/hugin_calcfov_alpha.png");
+//        exportImage(vigra::srcImageRange(panoAlpha), imge2);
     }
-//    vigra::ImageExportInfo imge("c:/hugin_calcfov_alpha.png");
-//    exportImage(vigra::srcImageRange(panoAlpha), imge);
 
     // get field of view
     FDiff2D ul,lr;
+    bool found = false;
     ul.x = DBL_MAX;
     ul.y = DBL_MAX;
     lr.x = -DBL_MAX;
@@ -399,21 +402,28 @@ FDiff2D Panorama::calcFOV() const
             if (panoAlpha(h,v)) {
                 // pixel is valid
                 if ( ul.x > h ) {
+                    found=true;
                     ul.x = h;
                 }
                 if ( ul.y > v ) {
+                    found=true;
                     ul.y = v;
                 }
                 if ( lr.x < h) {
+                    found=true;
                     lr.x = h;
                 }
                 if ( lr.y < v) {
+                    found=true;
                     lr.y = v;
                 }
             }
         }
     }
-
+    if (!found) {
+        // if nothing found, return current fov
+        return FDiff2D(state.options.getHFOV(), state.options.getVFOV());
+    }
     ul.x = ul.x - 180;
     ul.y = ul.y - 90;
     lr.x = lr.x - 180;
@@ -441,9 +451,12 @@ void Panorama::centerHorizontically()
     UIntSet activeImgs = getActiveImages();
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
 //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        remapped.setPanoImage(*this, *it, opts);
+//        const PanoImage & img = getImage(*it);
+//        Size2D sz(img.getWidth(), img.getHeight());
+//        remapped.setPanoImage(*this, *it, sz, opts);
+        remapped.setPanoImage(getSrcImage(*it), opts.getDestImage());
         // calculate alpha channel
-        remapped.calcAlpha(*this, opts, *it);
+        remapped.calcAlpha();
         // copy into global alpha channel.
         vigra::copyImageIf(vigra_ext::applyRect(remapped.boundingBox(),
                                               vigra_ext::srcMaskRange(remapped)),
@@ -865,8 +878,6 @@ void Panorama::printPanoramaScript(ostream & o,
                 } else {
                     vit->second.print(o) << " ";
                 }
-                // simple variable, just print
-                vit->second.print(o) << " ";
             }
         }
 
@@ -1552,5 +1563,99 @@ void Panorama::copyLensVariablesToImage(unsigned int imgNr)
     }
 }
 
+SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
+{
+    DEBUG_ASSERT(imgNr < state.images.size());
+    const PanoImage & img = state.images[imgNr];
+    const ImageOptions & opts = img.getOptions();
+    const Lens & lens = state.lenses[img.getLensNr()];
+    const VariableMap & vars = getImageVariables(imgNr);
+    SrcPanoImage ret(img.getFilename(), Size2D(img.getWidth(), img.getHeight()));
+    ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
+    ret.setHFOV(const_map_get(vars,"v").getValue());
+    ret.setRoll(const_map_get(vars,"r").getValue());
+    ret.setPitch(const_map_get(vars,"p").getValue());
+    ret.setYaw(const_map_get(vars,"y").getValue());
 
+    // geometrical distortion correction
+    std::vector<double> radialDist(4);
+    radialDist[0] = const_map_get(vars,"a").getValue();
+    radialDist[1] = const_map_get(vars,"b").getValue();
+    radialDist[2] = const_map_get(vars,"c").getValue();
+    radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
+    ret.setRadialDistortion(radialDist);
+    FDiff2D t;
+    t.x = const_map_get(vars,"d").getValue();
+    t.y = const_map_get(vars,"e").getValue();
+    ret.setRadialDistortionCenterShift(t);
+    t.x = const_map_get(vars,"g").getValue();
+    t.y = const_map_get(vars,"t").getValue();
+    ret.setShear(t);
+
+    // vignetting
+    ret.setVigCorrMode(opts.m_vigCorrMode);
+    ret.setFlatfieldFilename(opts.m_flatfield);
+    std::vector<double> vigCorrCoeff(4);
+    vigCorrCoeff[0] = const_map_get(vars,"Va").getValue();
+    vigCorrCoeff[1] = const_map_get(vars,"Vb").getValue();
+    vigCorrCoeff[2] = const_map_get(vars,"Vc").getValue();
+    vigCorrCoeff[3] = const_map_get(vars,"Vd").getValue();
+    ret.setRadialVigCorrCoeff(vigCorrCoeff);
+    t.x = const_map_get(vars,"Vx").getValue();
+    t.y = const_map_get(vars,"Vy").getValue();
+    ret.setRadialVigCorrCenterShift(t);
+
+    std::vector<double> k(3);
+    k[0] = const_map_get(vars,"K0a").getValue();
+    k[1] = const_map_get(vars,"K1a").getValue();
+    k[2] = const_map_get(vars,"K2a").getValue();
+    ret.setBrightnessFactor(k);
+
+    k[0] = const_map_get(vars,"K0b").getValue();
+    k[1] = const_map_get(vars,"K1b").getValue();
+    k[2] = const_map_get(vars,"K2b").getValue();
+    ret.setBrightnessOffset(k);
+
+    // crop
+    if (!opts.docrop) {
+        ret.setCropMode(SrcPanoImage::NO_CROP);
+    } else if (ret.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE) {
+        ret.setCropMode(SrcPanoImage::CROP_CIRCLE);
+        ret.setCropRect(opts.cropRect);
+    } else {
+        ret.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+        ret.setCropRect(opts.cropRect);
+    }
+
+    ret.setGamma(state.options.gamma);
+
+    return ret;
+}
+
+unsigned int PT::calcOptimalPanoWidth(const PanoramaOptions & opt,
+                                      const PanoImage & img,
+                                      double v,
+                                      Lens::LensProjectionFormat imgProj,
+                                      vigra::Size2D imgSize)
+{
+    // calculate average pixel density of each image
+    // and use the highest one to calculate the width
+    double density=0;
+    double w = imgSize.x;
+    switch (imgProj) {
+        case Lens::RECTILINEAR:
+            density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
+            break;
+        case Lens::CIRCULAR_FISHEYE:
+        case Lens::FULL_FRAME_FISHEYE:
+        // if we assume the linear fisheye model: r = f * theta
+        // then we get the same pixel density as for cylindrical and equirect
+        case Lens::EQUIRECTANGULAR:
+        case Lens::PANORAMIC:
+            density = w / v;
+            break;
+    }
+    // TODO: use density properly based on the output projection.
+    return roundi(density * opt.getHFOV());
+}
 

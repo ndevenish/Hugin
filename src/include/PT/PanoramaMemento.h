@@ -364,7 +364,8 @@ public:
           blendMode(WEIGHTED_BLEND),
           m_hfov(360), 
           m_width(3000),
-          m_height(1500)
+          m_height(1500),
+          saveCoordImgs(false)
         {};
 
     void reset()
@@ -386,6 +387,7 @@ public:
             outputFormat = JPEG;
             remapAcceleration = MAX_SPEEDUP;
             blendMode = WEIGHTED_BLEND;
+            saveCoordImgs = false;
         }
     virtual ~PanoramaOptions() {};
 
@@ -452,6 +454,8 @@ public:
     /** get maximum possible vfov with current projection */
     double PanoramaOptions::getMaxVFOV() const;
 
+    DestPanoImage getDestImage() const;
+
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
@@ -476,6 +480,8 @@ public:
 
     PTStitcherAcceleration remapAcceleration;
     BlendingMechanism blendMode;
+
+    bool saveCoordImgs;
 
 private:
     static const std::string fileformatNames[];

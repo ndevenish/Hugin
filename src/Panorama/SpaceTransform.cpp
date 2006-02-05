@@ -417,9 +417,10 @@ static void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double*
 	register double rho, theta,r;
 	r = sqrt( x_dest*x_dest + y_dest*y_dest );
 	theta 	= r / params.distance;
-	if( theta > PI /2.0   )
-		theta = PI /2.0 ;
-	if( theta == 0.0 )
+
+    if( theta >= PI /2.0 )
+    	rho = 1.6e16 ;
+    else if( theta == 0.0 )
 		rho = 1.0;
 	else
 		rho =  tan( theta ) / theta;
@@ -846,6 +847,8 @@ void SpaceTransform::Init(
     double  imc = const_map_get(srcVars,"c").getValue();
     double  imd = const_map_get(srcVars,"d").getValue();
     double  ime = const_map_get(srcVars,"e").getValue();
+    double  img = const_map_get(srcVars,"g").getValue();
+    double  imt = const_map_get(srcVars,"t").getValue();
     double  pnhfov  = destHFOV;
     double  pnwidth = destSize.x;
 //    double  pnheight= destSize.y;
@@ -890,8 +893,8 @@ void SpaceTransform::Init(
         }
     }
     mpscale[1]		= mpscale[0];
-    mpshear[0]		= 0.0; // TODO : im->cP.shear_x / imheight;
-    mpshear[1]		= 0.0; // TODO : im->cP.shear_y / imwidth;
+    mpshear[0]		= img / imheight; // TODO : im->cP.shear_x / imheight;
+    mpshear[1]		= imt / imwidth; // TODO : im->cP.shear_y / imwidth;
     mprot[0]		= mpdistance * PI;								// 180¡ in screenpoints
     mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
 
@@ -1191,10 +1194,37 @@ void SpaceTransform::InitInv(
 }
 
 //
-void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src)
+void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest)
+{
+
+    VariableMap vars;
+    // not very nice, but I don't like to change all the stuff in this file..
+    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+
+    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+
+    Init(src.getSize(),
+         vars,
+         (Lens::LensProjectionFormat) src.getProjection(),
+         dest.getSize(),
+         (PanoramaOptions::ProjectionFormat) dest.getProjection(),
+         dest.getHFOV());
+}
+
+//
+void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
 {
 	double xd = src.x, yd = src.y;
-	vector<fDescription>::iterator tI;
+	vector<fDescription>::const_iterator tI;
 	
 	for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
     {
@@ -1205,7 +1235,7 @@ void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src)
 }
 
 //
-void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src)
+void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const
 {
 	FDiff2D dest, src;
 	src.x = x_src - m_srcTX + 0.5;

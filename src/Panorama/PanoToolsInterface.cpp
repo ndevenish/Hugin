@@ -269,6 +269,33 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
                     Diff2D(img.getWidth(), img.getHeight()));
 }
 
+void Transform::createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest)
+{
+
+    VariableMap vars;
+    // not very nice, but I don't like to change all the stuff in this file..
+    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+
+    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+
+    createTransform(src.getSize(),
+                    vars,
+                    (Lens::LensProjectionFormat) src.getProjection(),
+                    dest.getSize(),
+                    (PanoramaOptions::ProjectionFormat) dest.getProjection(),
+                    dest.getHFOV(),
+                    src.getSize());
+}
+
 
 void Transform::createTransform(const Diff2D & srcSize,
                                 VariableMap srcVars,

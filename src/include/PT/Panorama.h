@@ -246,6 +246,9 @@ public:
             return state.images[nr];
         };
 
+    /// get a complete description of a source image
+    SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const;
+
     /// set a panorama image, counting starts with 0
     void setImage(std::size_t nr, PanoImage img)
         {
@@ -596,6 +599,14 @@ private:
 
     std::set<std::string> m_ptoptimizerVarNames;
 };
+
+/** function to calculate the optimal width of a panorama */
+unsigned int calcOptimalPanoWidth(const PanoramaOptions & opt,
+                                  const PanoImage & img,
+                                  double v,
+                                  Lens::LensProjectionFormat imgProj,
+                                  vigra::Size2D imgSize);
+
 
 } // namespace
 

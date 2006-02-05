@@ -27,7 +27,7 @@
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="FALSE"
-				DebugInformationFormat="2"/>
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -157,7 +157,22 @@
 				RelativePath=".\PTOptimise.cpp">
 			</File>
 			<File
+				RelativePath=".\SpaceTransform.cpp">
+			</File>
+			<File
 				RelativePath=".\Stitcher.cpp">
+			</File>
+			<File
+				RelativePath=".\Stitcher1.cpp">
+			</File>
+			<File
+				RelativePath=".\Stitcher2.cpp">
+			</File>
+			<File
+				RelativePath=".\Stitcher3.cpp">
+			</File>
+			<File
+				RelativePath=".\Stitcher4.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -189,10 +204,16 @@
 				RelativePath="..\include\Pt\PTOptimise.h">
 			</File>
 			<File
+				RelativePath="..\include\Pt\RandomPointSampler.h">
+			</File>
+			<File
 				RelativePath="..\include\Pt\RemappedPanoImage.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\SimpleStitcher.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\SpaceTransform.h">
 			</File>
 			<File
 				RelativePath="..\include\Pt\Stitcher.h">

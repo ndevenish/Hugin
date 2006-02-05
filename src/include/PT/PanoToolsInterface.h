@@ -130,6 +130,8 @@ public:
                          vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
 
+    void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
+
     /** create image->pano transformation
      *
      *  @param srcSize size of input image

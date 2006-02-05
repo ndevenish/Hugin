@@ -21,6 +21,37 @@
 
 using namespace PT;
 using namespace std;
+using namespace utils;
+
+void SrcPanoImage::resize(const vigra::Size2D & sz)
+{
+    // TODO: check if images have the same orientation.
+    // calculate scaling ratio
+    double scale = (double) sz.x / m_size.x;
+
+    // center shift
+    m_centerShift *= scale;
+
+    // crop
+    // ensure the scaled rectangle is inside the new image size
+    switch (m_crop)
+    {
+    case NO_CROP:
+        m_cropRect = vigra::Rect2D(sz);
+        break;
+    case CROP_RECTANGLE:
+        m_cropRect = m_cropRect * scale;
+        m_cropRect = m_cropRect & vigra::Rect2D(sz);
+        break;
+    case CROP_CIRCLE:
+        m_cropRect = m_cropRect * scale;
+        break;
+    }
+
+    m_size = sz;
+    // vignetting correction
+    m_radialVigCorrCenterShift *=scale;
+}
 
 #if 0
 QDomElement ImageOptions::toXML(QDomDocument & doc)

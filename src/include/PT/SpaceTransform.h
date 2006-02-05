@@ -92,7 +92,7 @@ public :
 	 * Create the stack of matrices for direct transform
 	 */
 	void Init(	const vigra::Diff2D & srcSize,
-                        const VariableMap & srcVars,
+                const VariableMap & srcVars,
 				PT::Lens::LensProjectionFormat srcProj,
 				const vigra::Diff2D & destSize,
 				PT::PanoramaOptions::ProjectionFormat destProj,
@@ -118,6 +118,8 @@ public :
 	{
 		Init( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
 	}
+
+    void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
 
     // create pano -> img transform
 	void createTransform(const PT::Panorama & pano, unsigned int imgNr,
@@ -169,12 +171,17 @@ public :
     /** transform
      * Get the new coordinates
      */
-    void transform(FDiff2D& dest, const FDiff2D & src);
+    void transform(FDiff2D& dest, const FDiff2D & src) const;
 
     /** like transform, but return image coordinates, not cartesian
      *  coordinates
      */
-    void transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src);
+    void transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const;
+
+    void transformImgCoord(FDiff2D & dest, const FDiff2D &src) const
+    {
+        transformImgCoord(dest.x, dest.y, src.x, src.y);
+    }
 
 private :
     /// was the class initialized ?

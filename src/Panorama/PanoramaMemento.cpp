@@ -42,6 +42,7 @@
 using namespace PT;
 using namespace std;
 using namespace utils;
+using namespace vigra;
 
 PanoramaMemento::~PanoramaMemento()
 {
@@ -581,6 +582,13 @@ double PanoramaOptions::getMaxVFOV() const
     return 179.0;
 }
 
+DestPanoImage PanoramaOptions::getDestImage() const
+{
+    Size2D size(getWidth(), getHeight());
+    return DestPanoImage((DestPanoImage::Projection) getProjection(),
+                          getHFOV(), size );
+}
+
 const string PanoramaOptions::fileformatNames[] =
 {
     "JPEG",
@@ -772,8 +780,14 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                     }
                 }
                 break;
-            case PanoramaOptions::TIFF:
             case PanoramaOptions::TIFF_m:
+                {
+                    int coordImgs = 0;
+                    getIntParam(coordImgs, format, "p");
+                    if (coordImgs)
+                        options.saveCoordImgs = true;
+                }
+            case PanoramaOptions::TIFF:
             case PanoramaOptions::TIFF_mask:
             case PanoramaOptions::TIFF_multilayer:
             case PanoramaOptions::TIFF_multilayer_mask:
