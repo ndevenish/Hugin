@@ -29,7 +29,7 @@ endif
 SUBDIRS    = xrc po
 
 noinst_LTLIBRARIES         = libhuginwxutils.la
-libhuginwxutils_la_SOURCES = ImageCache.cpp MyProgressDialog.cpp
+libhuginwxutils_la_SOURCES = ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp
 
 bin_PROGRAMS   = hugin
 hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)

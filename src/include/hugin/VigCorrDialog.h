@@ -28,7 +28,39 @@
 #include "panoinc_WX.h"
 
 #include "common/utils.h"
+#include "hugin/Plot2D.h"
 
+class VigPlotCurve
+{
+public:
+    VigPlotCurve(const std::vector<double> & coeff) 
+     : m_coeff(coeff) 
+    {
+        assert(coeff.size() == 4);
+    }
+
+    VigPlotCurve() : m_coeff(4) 
+    {
+        m_coeff[0] = 1;
+        m_coeff[1] = 0;
+        m_coeff[2] = 0;
+        m_coeff[3] = 0;
+    }
+
+    void setCoeff(const std::vector<double> & coeff)
+    {
+        assert(coeff.size() == 4);
+        m_coeff = coeff;
+    }
+
+    double operator()( double x)
+    {
+        double x2 = x*x;
+        return m_coeff[0]+x2*m_coeff[1]+x2*x2*m_coeff[2]+x2*x2*x2*m_coeff[3];
+    }
+private:
+    std::vector<double> m_coeff;
+};
 
 /**
  *  Dialog for vignetting correction settings
@@ -58,6 +90,7 @@ protected:
     void OnApply(wxCommandEvent & e);
     void OnCancel(wxCommandEvent & e);
     void OnFlatfieldSelect(wxCommandEvent & e);
+    void OnEstimate(wxCommandEvent & e);
 
     PT::Panorama & m_pano;
     unsigned int m_imgNr;
@@ -66,6 +99,8 @@ protected:
 
     wxRadioButton * m_corrFlatRB;
     wxRadioButton * m_corrPolyRB;
+
+    Plot2DWindow * m_plot;
 
     wxTextCtrl * m_flatEdit;
     wxTextCtrl * m_coef0Edit;

@@ -506,49 +506,38 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 }
 
 
+unsigned PanoPanel::CalcOptimalWidth()
+{
+    PanoramaOptions opt = pano.getOptions();
+    unsigned width = 0;
+    for (unsigned i = 0; i < pano.getNrOfImages(); i++) {
+        PT::PanoImage img = pano.getImage(i);
+        PT::ImageOptions iopt = img.getOptions();
+        // get hfov
+        double v = const_map_get(pano.getImageVariables(i),"v").getValue();
+        unsigned nw = calcOptimalPanoWidth(opt, img, v,
+                                           pano.getLens(img.getLensNr()).getProjection(),
+                                           vigra::Size2D(img.getWidth(), img.getHeight())
+                                          );
+        if (nw > width) {
+            width = nw;
+        }
+    }
+    return width;
+}
+
+
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
-    opt.setWidth( CalcOptimalWidth() );
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd( pano, opt )
-        );
-
-    DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
-}
-
-unsigned int PanoPanel::CalcOptimalWidth()
-{
-    // calculate average pixel density of each image
-    // and use the highest one to calculate the width
-    PanoramaOptions opt = pano.getOptions();
-    int nImgs = pano.getNrOfImages();
-    double pixelDensity=0;
-    for (int i=0; i<nImgs; i++) {
-        const PanoImage & img = pano.getImage(i);
-        double w = img.getWidth();
-        const VariableMap & var = pano.getImageVariables(i);
-        double v = const_map_get(var,"v").getValue();
-        const Lens & lens = pano.getLens(img.getLensNr());
-        double density;
-        switch (lens.getProjection()) {
-        case Lens::RECTILINEAR:
-            density = 1/RAD_TO_DEG(atan(2*tan(DEG_TO_RAD(v)/2)/w));
-            break;
-        case Lens::CIRCULAR_FISHEYE:
-        case Lens::FULL_FRAME_FISHEYE:
-            // if we assume the linear fisheye model: r = f * theta
-            // then we get the same pixel density as for cylindrical and equirect
-        case Lens::EQUIRECTANGULAR:
-        case Lens::PANORAMIC:
-            density = img.getWidth() / const_map_get(var,"v").getValue();
-            break;
-        }
-        if (density > pixelDensity) {
-            pixelDensity = density;
-        }
+    unsigned width = CalcOptimalWidth();
+    if (width > 0) {
+        opt.setWidth( width );
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
     }
-    return roundi(pixelDensity * opt.getHFOV());
+    DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
 }
 
 void PanoPanel::DoStitch ( wxCommandEvent & e )

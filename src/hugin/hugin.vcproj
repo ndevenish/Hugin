@@ -296,6 +296,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 				RelativePath=".\PanoPanel.cpp">
 			</File>
 			<File
+				RelativePath=".\Plot2D.cpp">
+			</File>
+			<File
 				RelativePath=".\PreferencesDialog.cpp">
 			</File>
 			<File
@@ -321,6 +324,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			</File>
 			<File
 				RelativePath=".\win_prep.h">
+			</File>
+			<File
+				RelativePath=".\wxPanoCommand.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -409,6 +415,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			</File>
 			<File
 				RelativePath="..\include\hugin\PanoPanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\Plot2D.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\PreferencesDialog.h">

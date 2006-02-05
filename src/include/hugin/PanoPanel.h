@@ -112,7 +112,7 @@ public:
      *  and use the highest one to calculate the width
      *
      */
-    unsigned int CalcOptimalWidth();
+    unsigned CalcOptimalWidth();
 
     /** enable/disable control influenced by quick mode */
     void EnableControls(bool enable);

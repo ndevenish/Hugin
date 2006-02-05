@@ -594,73 +594,67 @@ SmallRemappedImageCache::~SmallRemappedImageCache()
     invalidate();
 }
 
-SmallRemappedImageCache::MRemappedImage *
-SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
-                                    const PT::PanoramaOptions & opts,
-                                    unsigned int imgNr,
-                                    utils::MultiProgressDisplay & progress)
+#if 0
+MRemappedImage *
+SmallRemappedImageCache::getRemapped(const std::string & filename,
+                                     const vigra::Diff2D & origSrcSize,
+                                     const vigra::Diff2D & srcSize,
+                                     PT::VariableMap srcVars,
+                                     PT::Lens::LensProjectionFormat srcProj,
+                                     const PT::PanoImage & imgOpts,
+                                     const vigra::Diff2D &destSize,
+                                     PT::PanoramaOptions::ProjectionFormat destProj,
+                                     double destHFOV,
+                                     utils::MultiProgressDisplay & progress)
 {
     // return old image, if already in cache
-        if (set_contains(m_images, imgNr)) {
-            DEBUG_DEBUG("using cached remapped image " << imgNr);
-            return m_images[imgNr];
+    if (set_contains(m_images, img.getFilename())) {
+        DEBUG_DEBUG("using cached remapped image " << img.getFilename);
+        return m_images[imgNr];
+    }
+    typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
+
+    typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
+
+    // remap image
+    DEBUG_DEBUG("remapping image " << imgNr);
+
+    // load image
+    const PanoImage & img = pano.getImage(imgNr);
+    const PT::ImageOptions & iopts = img.getOptions();
+
+    wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+    if (!src->Ok()) {
+        throw std::runtime_error("could not retrieve small source image for preview generation");
+    }
+
+    // image view
+    BRGBImageView srcImg((RGBValue<unsigned char> *)src->GetData(),
+                          src->GetWidth(),
+                          src->GetHeight());
+    MRemappedImage *remapped = new MRemappedImage;
+    // convert image to grayscale
+
+    // no alpha channel...
+    BImage srcAlpha;
+
+    // flatfield image, if required.
+    BImage ffImg;
+    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+        // load flatfield image.
+
+        wxImage * flatsrc = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
+        if (!flatsrc->Ok()) {
+            throw std::runtime_error("could not retrieve flatfield image for preview generation");
         }
 
-        typedef  BRGBImage::traverser sI;
-        typedef  BRGBImage::Accessor sA;
-        typedef  BRGBImage::const_traverser csI;
-        typedef  BRGBImage::ConstAccessor csA;
-
-        typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
-        typedef  BRGBImageView::const_traverser csvI;
-        typedef  BRGBImageView::ConstAccessor csvA;
-
-        typedef sA::value_type PixelType;
-        typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
-
-        // remap image
-        DEBUG_DEBUG("remapping image " << imgNr);
-
-        // load image
-        const PanoImage & img = pano.getImage(imgNr);
-        const PT::ImageOptions & iopts = img.getOptions();
-
-        wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
-        if (!src->Ok()) {
-            throw std::runtime_error("could not retrieve small source image for preview generation");
-        }
         // image view
-        BRGBImageView srcImg((RGBValue<unsigned char> *)src->GetData(),
-                             src->GetWidth(),
-                             src->GetHeight());
-        MRemappedImage *remapped = new MRemappedImage;
-
-        RPixelType ka,kb;
-        bool doBrightnessCorrection = convertKParams(pano.getImageVariables(imgNr), ka, kb);
-
-        if (opts.gamma != 1.0 || img.getOptions().m_vigCorrMode != 0 || doBrightnessCorrection) {
-            BRGBImage srcCorrImg(src->GetWidth(), src->GetHeight());
-
-            // prepare some information required by multiple types of vignetting correction
-            bool vigCorrDivision = (iopts.m_vigCorrMode & ImageOptions::VIGCORR_DIV)>0;
-
-            double gMaxVal = vigra_ext::VigCorrTraits<PixelType>::max();
-            if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
-             // load flatfield image.
-
-                progress.setMessage(std::string("flatfield vignetting correction ") + utils::stripPath(img.getFilename()));
-                wxImage * flatsrc = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
-                if (!flatsrc->Ok()) {
-                    throw std::runtime_error("could not retrieve flatfield image for preview generation");
-                }
-
-                // image view
-                BRGBImageView flatImg((RGBValue<unsigned char> *)flatsrc->GetData(),
-                                       flatsrc->GetWidth(),
-                                       flatsrc->GetHeight());
-                vigra_ext::flatfieldVigCorrection(vigra::srcImageRange(srcImg), 
-                                                  std::make_pair(flatImg.upperLeft(), vigra::RedAccessor<PixelType>()),
-                                                  vigra::destImage(srcCorrImg), opts.gamma, gMaxVal, vigCorrDivision, ka, kb, true);
+        BRGBImageView flatImg((RGBValue<unsigned char> *)flatsrc->GetData(),
+                               flatsrc->GetWidth(),
+                               flatsrc->GetHeight());
+        // convert flatfield to gray image.
+        ffImg.resize(flatImg.size());
+        copyImage(vigra::srcImageRange(flatImg, vigra::RGB2GrayAccessor()
 
             } else if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_RADIAL) {
                 progress.setMessage(std::string("vignetting correction ") + utils::stripPath(img.getFilename()));
@@ -712,7 +706,81 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
         }
         m_images[imgNr] = remapped;
         return remapped;
+
+}
+#endif
+
+SmallRemappedImageCache::MRemappedImage *
+SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
+                                    const PT::PanoramaOptions & opts,
+                                    unsigned int imgNr,
+                                    utils::MultiProgressDisplay & progress)
+{
+    // return old image, if already in cache
+    if (set_contains(m_images, imgNr)) {
+        DEBUG_DEBUG("using cached remapped image " << imgNr);
+        return m_images[imgNr];
     }
+
+    typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
+
+//    typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
+
+    // remap image
+    DEBUG_DEBUG("remapping image " << imgNr);
+
+    // load image
+    const PanoImage & img = pano.getImage(imgNr);
+    const PT::ImageOptions & iopts = img.getOptions();
+
+    wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+    if (!src->Ok()) {
+        throw std::runtime_error("could not retrieve small source image for preview generation");
+    }
+    // image view
+    BasicImageView<RGBValue<unsigned char> > srcImgInCache((RGBValue<unsigned char> *)src->GetData(),
+                                    src->GetWidth(),
+                                    src->GetHeight());
+    BRGBImage srcImg(srcImgInCache.size());
+    vigra::copyImage(vigra::srcImageRange(srcImgInCache),
+                     vigra::destImage(srcImg));
+
+    MRemappedImage *remapped = new MRemappedImage;
+    SrcPanoImage srcPanoImg = pano.getSrcImage(imgNr);
+    // adjust distortion parameters for small preview image
+    srcPanoImg.resize(srcImg.size());
+
+    BImage srcFlat;
+    // use complete image..
+    BImage srcMask;
+
+    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+            wxImage * flatsrc = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
+            if (!flatsrc->Ok()) {
+                throw std::runtime_error("could not retrieve flatfield image for preview generation");
+            }
+
+            // image view
+            BRGBImageView flatImgRGB((RGBValue<unsigned char> *)flatsrc->GetData(),
+                                        flatsrc->GetWidth(),
+                                        flatsrc->GetHeight());
+            srcFlat.resize(flatImgRGB.size());
+            vigra::copyImage(vigra::srcImageRange(flatImgRGB, vigra::RGBToGrayAccessor<RGBValue<unsigned char> >()),
+                         vigra::destImage(srcFlat));
+    }
+    // remap image
+    remapImage(srcImg,
+               srcMask,
+               srcFlat,
+               srcPanoImg,
+               opts.getDestImage(),
+               opts.interpolator,
+               *remapped,
+               progress);
+
+    m_images[imgNr] = remapped;
+    return remapped;
+}
 
 
 void SmallRemappedImageCache::invalidate()

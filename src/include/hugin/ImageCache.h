@@ -167,12 +167,27 @@ class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::BRGBImage,
 public:
     virtual ~SmallRemappedImageCache();
 
+#if 0
+    virtual
+    MRemappedImage *
+    getRemapped(const std::string & filename,
+                const vigra::Diff2D & origSrcSize,
+                const vigra::Diff2D & srcSize,
+                PT::VariableMap srcVars,
+                PT::Lens::LensProjectionFormat srcProj,
+                PT::ImageOptions imgOpts,
+                const vigra::Diff2D &destSize,
+                PT::PanoramaOptions::ProjectionFormat destProj,
+                double destHFOV,
+                utils::MultiProgressDisplay & progress);
+#endif
+
     virtual
     MRemappedImage *
     getRemapped(const PT::Panorama & pano, const PT::PanoramaOptions & opts,
                unsigned int imgNr, utils::MultiProgressDisplay & progress);
 
-	virtual	void
+    virtual	void
 	release(MRemappedImage * d)
 	{
 		// NOP, will be done by invalidate..
@@ -184,7 +199,7 @@ public:
     void invalidate(unsigned int imgNr);
 
 protected:
-    std::map<unsigned int, MRemappedImage*> m_images;
+    std::map<unsigned, MRemappedImage*> m_images;
 };
 
 
