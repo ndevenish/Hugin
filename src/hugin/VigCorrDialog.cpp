@@ -446,6 +446,10 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
     m_coef2Edit->SetValue(doubleTowxString(vigCoeff[1],ndigits));
     m_coef3Edit->SetValue(doubleTowxString(vigCoeff[2],ndigits));
 
+    m_corrModeRBB->SetSelection(2);
+    m_corrFlatRB->SetValue(false);
+    m_corrPolyRB->SetValue(true);
+
     std::vector<double> coeff(4);
     coeff[0] = 1;
     for (int i=0; i < 3; i++) 
