@@ -1,3 +1,18 @@
+Newsworthy changes in 0.6
+-------------------------
+* Added vignetting correction and brighness correction
+  during stitching.
+  Vignetting can be corrected by addition or division.
+  The correction can be done with a flatfield image or an
+  radial polynomial
+* Functionality to estimate the vignetting polynomial
+  directly from the overlapping images. This is an experimental feature.
+* Multithreaded remapping. hugin and nona fully utilize multiple
+  CPUs or multi core CPUs during preview generation and stitching
+* support for dcraw 16 .ppm files
+* Disabled PTOptimizer progress display on OSX. This should fix
+  the crashes some people have experienced.
+
 Newsworthy changes in 0.5
 -------------------------
 * Added Catalan, Chinese and Hungarian translation
