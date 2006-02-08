@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="hugin"
+	ProjectGUID="{FF6A5DA5-C4F3-4FC2-AF9F-E0F8CAA0A70B}"
 	RootNamespace="hugin"
 	SccProjectName=""
 	SccLocalPath="">
