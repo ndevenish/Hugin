@@ -24,6 +24,7 @@ src/hugin/PTStitcherPanel.cpp
 src/hugin/RunOptimizerFrame.cpp
 src/hugin/RunStitcherFrame.cpp
 src/hugin/LocalizedFileTipProvider.cpp
+src/hugin/VigCorrDialog.cpp
 src/include/hugin/MyProgressDialog.h
 src/include/hugin/wxPanoCommand.h
 
