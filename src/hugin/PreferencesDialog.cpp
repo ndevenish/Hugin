@@ -118,6 +118,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_CHINESE_SIMPLIFIED;
     lang_choice->Append(_("Chinese (Simplified)"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_CZECH;
+    lang_choice->Append(_("Czech"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_DUTCH;
     lang_choice->Append(_("Dutch"), lp);
     lp = new long;

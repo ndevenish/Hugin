@@ -12,6 +12,7 @@ Newsworthy changes in 0.6
 * support for dcraw 16 .ppm files
 * Disabled PTOptimizer progress display on OSX. This should fix
   the crashes some people have experienced.
+* Czech translation added
 
 Newsworthy changes in 0.5
 -------------------------
