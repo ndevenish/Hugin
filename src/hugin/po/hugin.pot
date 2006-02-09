@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-02-08 08:42+0100\n"
+"POT-Creation-Date: 2006-02-09 22:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,9 +54,9 @@ msgstr ""
 msgid "Select autopano program / frontend script"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:228
-#: src/hugin/PreferencesDialog.cpp:244 src/hugin/PreferencesDialog.cpp:260
-#: src/hugin/PreferencesDialog.cpp:276 src/hugin/RunOptimizerFrame.cpp:115
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:231
+#: src/hugin/PreferencesDialog.cpp:247 src/hugin/PreferencesDialog.cpp:263
+#: src/hugin/PreferencesDialog.cpp:279 src/hugin/RunOptimizerFrame.cpp:115
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr ""
@@ -167,7 +167,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr ""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:292
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:295
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr ""
 
@@ -927,84 +927,88 @@ msgid "Chinese (Simplified)"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:122
-msgid "Dutch"
+msgid "Czech"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:125
-msgid "English"
+msgid "Dutch"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:128
-msgid "French"
+msgid "English"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:131
-msgid "German"
+msgid "French"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:134
-msgid "Hungarian"
+msgid "German"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:137
-msgid "Italian"
+msgid "Hungarian"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:140
-msgid "Japanese"
+msgid "Italian"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:143
-msgid "Polish"
+msgid "Japanese"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:146
-msgid "Portuguese (Brazilian)"
+msgid "Polish"
 msgstr ""
 
 #: src/hugin/PreferencesDialog.cpp:149
+msgid "Portuguese (Brazilian)"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:152
 msgid "Russian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:225
+#: src/hugin/PreferencesDialog.cpp:228
 msgid "Select PTStitcher"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:241 src/hugin/RunOptimizerFrame.cpp:113
+#: src/hugin/PreferencesDialog.cpp:244 src/hugin/RunOptimizerFrame.cpp:113
 #: src/hugin/RunOptimizerFrame.cpp:131
 msgid "Select PTOptimizer"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:257
+#: src/hugin/PreferencesDialog.cpp:260
 msgid "Select Enblend"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:273 src/hugin/PreferencesDialog.cpp:289
+#: src/hugin/PreferencesDialog.cpp:276 src/hugin/PreferencesDialog.cpp:292
 #: src/hugin/xrc/pref_dialog.xrs:49
 msgid "Select Autopano"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:323 src/hugin/PreferencesDialog.cpp:325
+#: src/hugin/PreferencesDialog.cpp:326 src/hugin/PreferencesDialog.cpp:328
 msgid "Panotools details"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:370
+#: src/hugin/PreferencesDialog.cpp:373
 msgid "Could not load dll"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:370
+#: src/hugin/PreferencesDialog.cpp:373
 msgid "panoinfo"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:650
+#: src/hugin/PreferencesDialog.cpp:653
 msgid "Unknown Version"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:660
+#: src/hugin/PreferencesDialog.cpp:663
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:660 src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/PreferencesDialog.cpp:663 src/hugin/xrc/pref_dialog.xrs:73
 msgid "Load Defaults"
 msgstr ""
 

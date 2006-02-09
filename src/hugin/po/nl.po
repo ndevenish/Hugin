@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-02-08 08:42+0100\n"
+"POT-Creation-Date: 2006-02-09 22:04+0100\n"
 "PO-Revision-Date: 2005-11-15 10:47+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@hccnet.nl>\n"
 "Language-Team: Dutch <LL@li.org>\n"
@@ -54,9 +54,9 @@ msgstr "Wilt u in plaats daarvan Autopano-sift gebruiken ?"
 msgid "Select autopano program / frontend script"
 msgstr "Selecteer autopano programma /frontend script"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:228
-#: src/hugin/PreferencesDialog.cpp:244 src/hugin/PreferencesDialog.cpp:260
-#: src/hugin/PreferencesDialog.cpp:276 src/hugin/RunOptimizerFrame.cpp:115
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:231
+#: src/hugin/PreferencesDialog.cpp:247 src/hugin/PreferencesDialog.cpp:263
+#: src/hugin/PreferencesDialog.cpp:279 src/hugin/RunOptimizerFrame.cpp:115
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Uitvoerbaar bestand (*.exe)|*.exe"
@@ -182,7 +182,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "autopano fout"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:292
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:295
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Uitvoerbare bestanden (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -1027,86 +1027,90 @@ msgid "Chinese (Simplified)"
 msgstr "Vereenvoudigd Chinees"
 
 #: src/hugin/PreferencesDialog.cpp:122
+msgid "Czech"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:125
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: src/hugin/PreferencesDialog.cpp:125
+#: src/hugin/PreferencesDialog.cpp:128
 msgid "English"
 msgstr "Engels"
 
-#: src/hugin/PreferencesDialog.cpp:128
+#: src/hugin/PreferencesDialog.cpp:131
 msgid "French"
 msgstr "Frans"
 
-#: src/hugin/PreferencesDialog.cpp:131
+#: src/hugin/PreferencesDialog.cpp:134
 msgid "German"
 msgstr "Duits"
 
-#: src/hugin/PreferencesDialog.cpp:134
+#: src/hugin/PreferencesDialog.cpp:137
 msgid "Hungarian"
 msgstr "Honngaars"
 
-#: src/hugin/PreferencesDialog.cpp:137
+#: src/hugin/PreferencesDialog.cpp:140
 msgid "Italian"
 msgstr "Italiaans"
 
-#: src/hugin/PreferencesDialog.cpp:140
+#: src/hugin/PreferencesDialog.cpp:143
 msgid "Japanese"
 msgstr "Japans"
 
-#: src/hugin/PreferencesDialog.cpp:143
+#: src/hugin/PreferencesDialog.cpp:146
 msgid "Polish"
 msgstr "Pools"
 
-#: src/hugin/PreferencesDialog.cpp:146
+#: src/hugin/PreferencesDialog.cpp:149
 msgid "Portuguese (Brazilian)"
 msgstr "Portugees(Braziliaans)"
 
-#: src/hugin/PreferencesDialog.cpp:149
+#: src/hugin/PreferencesDialog.cpp:152
 msgid "Russian"
 msgstr "Russisch"
 
-#: src/hugin/PreferencesDialog.cpp:225
+#: src/hugin/PreferencesDialog.cpp:228
 msgid "Select PTStitcher"
 msgstr "Selecteer PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:241 src/hugin/RunOptimizerFrame.cpp:113
+#: src/hugin/PreferencesDialog.cpp:244 src/hugin/RunOptimizerFrame.cpp:113
 #: src/hugin/RunOptimizerFrame.cpp:131
 msgid "Select PTOptimizer"
 msgstr "Selecteer PTOptimizer"
 
-#: src/hugin/PreferencesDialog.cpp:257
+#: src/hugin/PreferencesDialog.cpp:260
 msgid "Select Enblend"
 msgstr "Selecteer Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:273 src/hugin/PreferencesDialog.cpp:289
+#: src/hugin/PreferencesDialog.cpp:276 src/hugin/PreferencesDialog.cpp:292
 #: src/hugin/xrc/pref_dialog.xrs:49
 msgid "Select Autopano"
 msgstr "Selecteer Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:323 src/hugin/PreferencesDialog.cpp:325
+#: src/hugin/PreferencesDialog.cpp:326 src/hugin/PreferencesDialog.cpp:328
 msgid "Panotools details"
 msgstr "Panotools details"
 
-#: src/hugin/PreferencesDialog.cpp:370
+#: src/hugin/PreferencesDialog.cpp:373
 msgid "Could not load dll"
 msgstr "Kan dll niet laden"
 
-#: src/hugin/PreferencesDialog.cpp:370
+#: src/hugin/PreferencesDialog.cpp:373
 msgid "panoinfo"
 msgstr "panoinfo"
 
-#: src/hugin/PreferencesDialog.cpp:650
+#: src/hugin/PreferencesDialog.cpp:653
 msgid "Unknown Version"
 msgstr "Onbekende versie"
 
-#: src/hugin/PreferencesDialog.cpp:660
+#: src/hugin/PreferencesDialog.cpp:663
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Wilt u echt de getoonde voorkeuren terugzetten naar de\n"
 "standaard waarden ?"
 
-#: src/hugin/PreferencesDialog.cpp:660 src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/PreferencesDialog.cpp:663 src/hugin/xrc/pref_dialog.xrs:73
 msgid "Load Defaults"
 msgstr "Laad Standaard waarden."
 
