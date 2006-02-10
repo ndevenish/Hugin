@@ -47,7 +47,7 @@ AC_DEFUN([AX_CHECK_BOOST],
   fi
 
   AC_MSG_CHECKING([Boost libraries presence])
-  ac_boost_libdirs="/usr/lib /usr/local/lib /opt/lib /mingw/lib"
+  ac_boost_libdirs="/usr/lib /usr/local/lib /opt/lib /mingw/lib /usr/lib32 /usr/local/lib32 /opt/lib32 /mingw/lib32"
 # Use check for thread library instead of regex, because we actually need it.
 #  AC_FIND_FILE("libboost_regex-gcc.a", $ac_boost_libdirs, ac_boost_libdir)
   AC_FIND_FILE("libboost_thread.so", $ac_boost_libdirs, ac_boost_libdir)
