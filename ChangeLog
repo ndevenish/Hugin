@@ -1,3 +1,170 @@
+2006-02-08 08:58  dangelo
+
+	* NEWS, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  prepare for next release
+
+2006-02-08 08:57  dangelo
+
+	* src/: vigra_ext/vigra_ext.vcproj, build_msvc/Hugin.sln,
+	  hugin/hugin.vcproj: updated windows build files
+
+2006-02-08 08:53  dangelo
+
+	* src/hugin/VigCorrDialog.cpp: set right correction mode after
+	  estimation
+
+2006-02-08 08:46  dangelo
+
+	* src/hugin/po/: POTFILES.in, ca_ES.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, zh_CN.po:
+	  added new strings to translation
+
+2006-02-05 22:05  dangelo
+
+	* src/: hugin/RunOptimizerFrame.cpp,
+	  include/hugin/RunOptimizerFrame.h: use synchronous mode for
+	  PTOptimizer on MacOSX. There will be no graphical progress output
+	  during optimisation. I hope this will avoid the crashes some
+	  people have observed.
+
+2006-02-05 21:28  dangelo
+
+	* src/hugin/VigCorrDialog.cpp: honor active images (can be used to
+	  exclude some images from the estimation, by deselecting them in
+	  the Preview panel)
+
+2006-02-05 21:26  dangelo
+
+	* src/hugin/PanoPanel.cpp: enabled PTStitcher on MAC, since
+	  PTMender is available
+
+2006-02-05 21:00  dangelo
+
+	* src/hugin/Plot2D.cpp: fixed enless loop if x or y range = 0
+
+2006-02-05 17:42  dangelo
+
+	* src/include/vigra_ext/RansacParameterEstimator.h: part of the
+	  ransac classes.. forgot to add
+
+2006-02-05 16:08  dangelo
+
+	* doc/nona.txt: document coordinate image creation
+
+2006-02-05 16:07  dangelo
+
+	* AUTHORS: the ransac algorithm was implemented by Ziv Yaniv
+
+2006-02-05 16:06  dangelo
+
+	* src/build_msvc/: Hugin.sln, hugin_msvc_install.bat,
+	  hugin_msvc_install_win98.bat: updated msvc build scripts
+
+2006-02-05 16:04  dangelo
+
+	* src/include/common/math.h: added some utility functions
+
+2006-02-05 15:48  dangelo
+
+	* src/include/vigra_ext/: ImageTransforms.h, Interpolators.h,
+	  ROIImage.h, VignettingCorrection.h: changed some image processing
+	  stuff
+
+2006-02-05 15:47  dangelo
+
+	* src/: hugin/ImageCache.cpp, hugin/Makefile.am,
+	  hugin/PanoPanel.cpp, hugin/VigCorrDialog.cpp, hugin/hugin.vcproj,
+	  hugin/xrc/nona_panel.xrc, hugin/xrc/ptstitcher_panel.xrc,
+	  hugin/xrc/vig_corr_dlg.xrc, hugin/xrc/data/about.htm,
+	  hugin/xrc/data/about_fr.htm, hugin/xrc/data/about_pl.htm,
+	  include/hugin/ImageCache.h, include/hugin/PanoPanel.h,
+	  include/hugin/VigCorrDialog.h: added vignetting optimisation and
+	  display of vignetting curve to hugin
+
+2006-02-05 15:39  dangelo
+
+	* src/: Panorama/PanoImage.cpp, Panorama/PanoToolsInterface.cpp,
+	  Panorama/Panorama.cpp, Panorama/Panorama.vcproj,
+	  Panorama/PanoramaMemento.cpp, Panorama/SpaceTransform.cpp,
+	  Panorama/Stitcher.cpp, include/PT/PanoImage.h,
+	  include/PT/PanoToolsInterface.h, include/PT/Panorama.h,
+	  include/PT/PanoramaMemento.h, include/PT/RemappedPanoImage.h,
+	  include/PT/SpaceTransform.h, include/PT/Stitcher.h: beginnings of
+	  some code cleanup, usage of simple struct to describe input and
+	  output images.  remapping uses the SpaceTransform code now.
+
+2006-02-05 15:07  dangelo
+
+	* src/: hugin/Plot2D.cpp, include/hugin/Plot2D.h: widget for simple
+	  function plots
+
+2006-02-05 15:06  dangelo
+
+	* src/include/: PT/RandomPointSampler.h,
+	  vigra_ext/VigQuotientEstimator.h, vigra_ext/ransac.h: added
+	  ransac code and estimator for vignetting polynomial
+
+2006-01-20 18:27  dangelo
+
+	* src/hugin/po/fr.po: updated french translation (Jean-Luc Coulon)
+
+2006-01-14 20:40  dangelo
+
+	* src/hugin/wxPanoCommand.cpp: experimental function to create
+	  control points at corners in one image, and use the current
+	  transformation between the images to predict the position in the
+	  other image. To find the corresponding points, all points should
+	  be finetuned.
+
+2006-01-13 23:36  dangelo
+
+	* src/Panorama/Panorama.cpp: work around bug in PTOptimizer: set
+	  a,b,c variables to 1e-5, if they are 0 and should be optimized.
+
+2006-01-13 23:10  dangelo
+
+	* src/: Panorama/Panorama.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/Makefile.am, hugin/VigCorrDialog.cpp,
+	  include/hugin/wxPanoCommand.h: forgot to remove flatfield
+	  variables from PTOptimizer scripts.  remember flatfield path
+
+2006-01-13 00:30  dangelo
+
+	* src/hugin/LensPanel.cpp: load lens: leave variables not specified
+	  in .ini file at their current value
+
+2006-01-12 00:54  dangelo
+
+	* src/hugin/ImageCenter.cpp: small layout fixes
+
+2006-01-11 14:07  dangelo
+
+	* src/tools/color_correct_tiff.cpp: added Philippe Thomin's color
+	  correction tool
+
+2006-01-11 14:06  dangelo
+
+	* src/tools/Makefile.am: added Philippe Thomins color correction
+	  tool
+
+2006-01-11 13:56  dangelo
+
+	* src/: Panorama/Panorama.cpp, hugin/MainFrame.cpp,
+	  hugin/RunOptimizerFrame.cpp, include/PT/Panorama.h,
+	  tools/autooptimiser.cpp: bugfix: optimisation works again.
+	  PTOptimizer was confused by the new vignetting correction
+	  variables.
+
+2006-01-11 13:27  dangelo
+
+	* configure.ac: display boost thread linker flags
+
+2006-01-10 00:23  dangelo
+
+	* ChangeLog, src/hugin/ImagesPanel.cpp: disable crop button if no
+	  image is selected
+
 2006-01-09 23:29  dangelo
 
 	* src/hugin/xrc/: images_panel-2.5.xrc, images_panel.xrc: fixed

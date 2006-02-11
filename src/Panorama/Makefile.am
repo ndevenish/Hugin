@@ -1,7 +1,7 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
 
-INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign $(BOOST_CFLAGS) $(PANO_FLAGS)
+INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/include -I${top_srcdir}/src/foreign $(BOOST_CPPFLAGS) $(PANO_FLAGS)
 AM_LDFLAGS = $(LIB_TIFF) $(LIB_PANO)
 
 noinst_LTLIBRARIES = libpanorama.la

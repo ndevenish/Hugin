@@ -2,7 +2,7 @@
 DEFAULT_INCLUDES="-I."
 
 INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include
-AM_CPPFLAGS = $(BOOST_CFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
+AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 
 #bin_PROGRAMS = nona autopano_old panosifter autooptimiser zhang_undistort
@@ -49,3 +49,15 @@ zhang_undistort_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_buil
 
 color_correct_tiff_SOURCES = color_correct_tiff.cpp
 color_correct_tiff_LDADD   = $(LIB_TIFF)
+
+vig_optimize_SOURCES = vig_optimize.cpp
+vig_optimize_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) \
+                       ${top_builddir}/src/common/libcommon.la \
+                       ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
+                       ${top_builddir}/src/jhead/libjhead.la \
+                       ${top_builddir}/src/vigra_ext/libvigra_ext.la
+
+#vigra_test_SOURCES = vigra_test.cxx
+#vigra_test_LDADD   = ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la
+
+

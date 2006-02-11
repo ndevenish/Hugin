@@ -158,24 +158,46 @@ if test "x$have_pano" != xyes; then
     ])
 fi
 
-AX_CHECK_BOOST_THREAD
-if test "x$have_boost" != xyes; then
-    AC_MSG_ERROR([
+dnl dangelo: we need to force the boost check somehow, since it is a requirement
+dnl not an options. 
+want_boost_thread=yes
+AX_BOOST([1.31],
+[echo "boost found"],
+[AC_MSG_ERROR([
 	the boost headers must be installed on your system
  	but configure could not find it. Use --with-boost to
 	specify the location of the boost library and 
 	--with-boost-version to specify your version
+    ])  ])
+
+if test "x$ax_cv_boost_thread" != xyes; then
+    AC_MSG_ERROR([
+	the boost thread library must be installed on your system
+	but configure could not find it. Use --with-boost to
+	specify the location of the boost library and 
+	--with-boost-version to specify your version.
+	On debian based systems, install libboost-thread-dev
     ])
 fi
 
-if test "x$ac_have_boost_thread" != xyes; then
-    AC_MSG_ERROR([
-	the boost thread library must be installed on your system
- 	but configure could not find it. Use --with-boost to
-	specify the location of the boost library and 
-	--with-boost-version to specify your version
-    ])
-fi
+dnl AX_CHECK_BOOST_THREAD
+dnl if test "x$have_boost" != xyes; then
+dnl     AC_MSG_ERROR([
+dnl 	the boost headers must be installed on your system
+dnl 	but configure could not find it. Use --with-boost to
+dnl 	specify the location of the boost library and 
+dnl 	--with-boost-version to specify your version
+dnl     ])
+dnl fi
+
+dnl if test "x$ac_have_boost_thread" != xyes; then
+dnl     AC_MSG_ERROR([
+dnl 	the boost thread library must be installed on your system
+dnl 	but configure could not find it. Use --with-boost to
+dnl 	specify the location of the boost library and 
+dnl 	--with-boost-version to specify your version
+dnl     ])
+dnl fi
 
 if test "x$with_unicode" = 'xyes' ; then
   AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes)
@@ -316,7 +338,7 @@ echo "  WX_LIBS          = $WX_LIBS"
 echo "  GTK_CFLAGS       = $GTK_CFLAGS"
 echo "  GTK_LIBS         = $GTK_LIBS"
 echo "  BOOST_VERSION    = $BOOST_VERSION"
-echo "  BOOST_CFLAGS     = $BOOST_CFLAGS"
+echo "  BOOST_CPPFLAGS   = $BOOST_CPPFLAGS"
 echo "  BOOST_LIBS       = $BOOST_LIBS"
 echo "  BOOST_THREAD_LIB = $BOOST_THREAD_LIB"
 echo "  BUILD            = $HSYS"
