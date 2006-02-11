@@ -6,6 +6,7 @@
 #include "RansacParameterEstimator.h"
 
 #include <iostream>
+#include <boost/numeric/ublas/operation.hpp>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/vector_proxy.hpp>
 #include <boost/numeric/ublas/triangular.hpp>
