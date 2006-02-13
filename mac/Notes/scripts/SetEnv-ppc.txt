@@ -1,5 +1,8 @@
 # PPC:
 
+# REPOSITORYDIR needs be symbolically linked from mac/build/PPC/Repository
+
+
 export \
  REPOSITORYDIR="/Users/myname/dev/hugin/ExternalPrograms/Repository-ppc" \
  ARCHS="ppc" \

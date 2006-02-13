@@ -1,5 +1,7 @@
 # Universal:
 
+# REPOSITORYDIR needs be symbolically linked from mac/build/Universal/Repository
+
 export \
  REPOSITORYDIR="/Users/myname/dev/hugin/ExternalPrograms/Repository-universal" \
  ARCHS="ppc i386" \
