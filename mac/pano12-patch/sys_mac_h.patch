@@ -1,0 +1,12 @@
+--- libpano12-2.7.0.14/sys_mac.h	2005-11-16 12:29:01.000000000 +0000
++++ sys_mac.h	2005-12-14 17:30:24.000000000 +0000
+@@ -49,7 +49,9 @@
+ #include <Fonts.h>
+ */			// till here
+ 
++#ifndef MAC_OS_X_VERSION_10_4
+ #define c2pstr(x)  MyCtoPStr(x) // added by Kekus Digital
++#endif
+ 
+ 
+ 
