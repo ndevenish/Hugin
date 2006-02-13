@@ -1,6 +1,6 @@
-Read Me - HuginOSX
+Read Me - HuginOSX 0.5
 
-HuginOSX
+HuginOSX (hugin on MacOSX)
 http://hugin.sourceforge.net/
 
 
@@ -17,12 +17,31 @@ Basic usage of HuginOSX is not different from that of other platforms. Some of h
 External commnad-line tools that can be used from inside hugin
 
 - enblend  by Andrew Mihal, http://enblend.sourceforge.net/
-This command-line program blends your panorama nicely. The binary file compiled for Mac is included together with its readme and license files in tools/enblend/. In order to use this program from within hugin, please turn on the "soft blend" option in Stitcher panel. When you use this option for the first time, you will be asked to specify where enblend is on your hard disk. You can also specify the path in the Preference. Alternatively, you can copy the binary file into HuginOSX's application bundle using attached PutEnblendToHuginOSX program. This allows you to put HuginOSX.app into Applications folder and delete other files. Please read the attached licence and readme files before use.
+This command-line program blends your panorama nicely. The binary file compiled for Mac is included together with its readme and license files in tools/enblend/. Please read the attached licence and readme files before use.
 
 - autopano-sift  by Sebastian Nowozin, http://user.cs.tu-berlin.de/~nowozin/autopano-sift/
-This is a set of .Net programs that can automatically add control points. We are not including this software in this package. Please read the tutorial in tools/autopano-sift/ folder in order to set up this software for your Mac and hugin.
+This is a set of .Net programs that can automatically add control points. We are not including this software in this package. Please read the tutorial in tools/autopano-sift/ folder in order to set up this software for your Mac and hugin. 
 
 (PTStitcher from original Panorama Tools and autopano by Alexandre Jenny have no source available for public, and currently do not have MacOSX versions.)
+
+
+Typical Installation Procedure
+
+1. Read through read-me and license files.
+
+2. Copy HuginOSX.app to /Applications folder or other locations of your preference.
+
+3. (Optional) Copy enblend into HuginOSX.app:
+  - Launch PutEnblendToHuginOSX
+  - Select enblend, and then HuginOSX.app
+
+4. Delete HuginOSX folder
+
+5. (Optional) Install Autopano-sift:
+  - Download and install Mono Framework (http://mono-project.com/)
+  - Download Autopano-sift for Mono environment (http://user.cs.tu-berlin.de/~nowozin/autopano-sift/)
+  - Launch PutAutopanoSiftToHuginOSX
+  - Select bin folder in the autopano-sift package, and then HuginOSX.app
 
 
 Free tools for doing panorama on Mac
