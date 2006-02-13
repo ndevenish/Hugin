@@ -1,0 +1,11 @@
+# PPC:
+
+export \
+ REPOSITORYDIR="/Users/myname/dev/hugin/ExternalPrograms/Repository-ppc" \
+ ARCHS="ppc" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+ i386MACSDKDIR="" \
+ ppcONLYARG="-mcpu=G3 -mtune=G3" \
+ i386ONLYARG="" \
+ ppc64ONLYARG="" \
+ OTHERARGs="";

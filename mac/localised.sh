@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wxVersion="2.6.2"
+wxDir="../../wxMac-2.6.2"
 resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
@@ -53,7 +53,7 @@ do
  fi
 
  echo "wxstd.mo to $lang.po"
- msgfmt -v -o "$localedir/wxstd.mo" "../../wxMac-$wxVersion/locale/$lang.po"
+ msgfmt -v -o "$localedir/wxstd.mo" "wxDir/locale/$lang.po"
  echo "hugin.mo to $lang.po"
  msgfmt -v -o "$localedir/hugin.mo" "../src/hugin/po/$lang.po"
 
