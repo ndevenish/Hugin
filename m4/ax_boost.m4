@@ -44,21 +44,37 @@ dnl @author Thomas Porschberg <thomas@randspringer.de>
 dnl @version 2006-01-02
 dnl @license AllPermissive
 
+
+dnl LK_AC_FIND_BOOST()
+dnl ------------------------------------------------------
+dnl Because this macro is used by AC_PROG_GCC_TRADITIONAL, which must
+dnl come early, it is not included in AC_BEFORE checks.
+AC_DEFUN([LK_AC_FIND_BOOST],
+[AC_LANG_PREPROC_REQUIRE()dnl
+AC_LANG_CONFTEST([AC_LANG_SOURCE([[#include "boost/version.hpp"]])])
+dnl eval is necessary to expand ac_cpp.
+dnl Ultrix and Pyramid sh refuse to redirect output of eval, so use subshell.
+ac_boost_lib_version=`(eval "$ac_cpp conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_LIB_VERSION" | sed 's/^.*"//' | sed 's/".*$//' `
+rm -f conftest*
+])
+
+
+
 AC_DEFUN([AX_BOOST],
 [
     AC_ARG_WITH([boost],
                 AC_HELP_STRING([--with-boost=DIR],
-                [use boost (default is NO) , specify the root directory for boost library (optional)]),
+                [use boost (default is YES) , specify the root directory for boost library (optional)]),
                 [
                 if test "$withval" = "no"; then
-		            want_boost="no"
+                        want_boost="no"
                 elif test "$withval" = "yes"; then
-                    want_boost="yes"
-                    ac_boost_path=""
+                        want_boost="yes"
+                        ac_boost_path=""
                 else
-			        want_boost="yes"
-            		ac_boost_path="$withval"
-		        fi
+                        want_boost="yes"
+                        ac_boost_path="$withval"
+                fi
             	],
 dnl dangelo: hack, we always want boost.. was want_boost="no" before
                 [want_boost="yes"])
@@ -73,116 +89,116 @@ dnl    AC_CANONICAL_BUILD
 		if test "x$boost_lib_version_req_sub_minor" = "x" ; then
 			boost_lib_version_req_sub_minor="0"
     	fi
-		WANT_BOOST_VERSION=`expr $boost_lib_version_req_major \* 100000 \+  $boost_lib_version_req_minor \* 100 \+ $boost_lib_version_req_sub_minor`
-		AC_MSG_CHECKING(for boostlib >= $boost_lib_version_req)
-		succeeded=no
+        WANT_BOOST_VERSION=`expr $boost_lib_version_req_major \* 100000 \+  $boost_lib_version_req_minor \* 100 \+ $boost_lib_version_req_sub_minor`
+        AC_MSG_CHECKING(for boostlib >= $boost_lib_version_req)
+        succeeded=no
 
-		dnl first we check the system location for boost libraries
-		dnl this location ist chosen if boost libraries are installed with the --layout=system option
-		dnl or if you install boost with RPM
-		if test "$ac_boost_path" != ""; then
-			BOOST_LDFLAGS="-L$ac_boost_path/lib"
-			BOOST_CPPFLAGS="-I$ac_boost_path/include"
-		else
-			for ac_boost_path_tmp in /usr /usr/local /opt ; do
-				if test -d "$ac_boost_path_tmp/include/boost" && test -r "$ac_boost_path_tmp/include/boost"; then
-					BOOST_LDFLAGS="-L$ac_boost_path_tmp/lib"
-					BOOST_CPPFLAGS="-I$ac_boost_path_tmp/include"
-					break;
-				fi
-			done
-		fi
+        dnl first we check the system location for boost libraries
+        dnl this location ist chosen if boost libraries are installed with the --layout=system option
+        dnl or if you install boost with RPM
+        if test "$ac_boost_path" != ""; then
+                BOOST_LDFLAGS="-L$ac_boost_path/lib"
+                BOOST_CPPFLAGS="-I$ac_boost_path/include"
+        else
+                for ac_boost_path_tmp in /usr /usr/local /opt ; do
+                        if test -d "$ac_boost_path_tmp/include/boost" && test -r "$ac_boost_path_tmp/include/boost"; then
+                                BOOST_LDFLAGS="-L$ac_boost_path_tmp/lib"
+                                BOOST_CPPFLAGS="-I$ac_boost_path_tmp/include"
+                                break;
+                        fi
+                done
+        fi
 
-		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
-		export CPPFLAGS
+        CPPFLAGS_SAVED="$CPPFLAGS"
+        CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
+        export CPPFLAGS
 
-		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
-		export LDFLAGS
+        LDFLAGS_SAVED="$LDFLAGS"
+        LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
+        export LDFLAGS
 
      	AC_TRY_COMPILE(
        	[
 @%:@include <boost/version.hpp>
 ],
-       [
+        [
 #if BOOST_VERSION >= $WANT_BOOST_VERSION
 // Everything is okay
 #else
 #  error Boost version is too old
 #endif
 
-		],
+        ],
     	[
-         AC_MSG_RESULT(yes)
-		 succeeded=yes
-		 have_boost=yes
-		 found_system=yes
+                AC_MSG_RESULT(yes)
+                succeeded=yes
+		have_boost=yes
+		found_system=yes
          ifelse([$2], , :, [$2])
-       ],
-       [
-       ])
+        ],
+        [
+        ])
 
-		dnl if we found no boost with system layout we search for boost libraries
-		dnl built and installed without the --layout=system option or for a staged(not installed) version
-		if test "x$succeeded" != "xyes"; then
-			_version=0
-			if test "$ac_boost_path" != ""; then
-                BOOST_LDFLAGS="-L$ac_boost_path/lib"
-				if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
-					for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
-						_version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
-						V_CHECK=`expr $_version_tmp \> $_version`
-						if test "$V_CHECK" = "1" ; then
-							_version=$_version_tmp
-						fi
-						VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
-						BOOST_CPPFLAGS="-I$ac_boost_path/include/boost-$VERSION_UNDERSCORE"
-					done
-				fi
-			else
-				for ac_boost_path in /usr /usr/local /opt ; do
-					if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
-						for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
-							_version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
-							V_CHECK=`expr $_version_tmp \> $_version`
-							if test "$V_CHECK" = "1" ; then
-								_version=$_version_tmp
-								best_path=$ac_boost_path
-							fi
-						done
-					fi
-				done
+        dnl if we found no boost with system layout we search for boost libraries
+        dnl built and installed without the --layout=system option or for a staged(not installed) version
+        if test "x$succeeded" != "xyes"; then
+                _version=0
+                if test "$ac_boost_path" != ""; then
+                        BOOST_LDFLAGS="-L$ac_boost_path/lib"
+                        if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
+                                for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
+                                        _version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
+                                        V_CHECK=`expr $_version_tmp \> $_version`
+                                        if test "$V_CHECK" = "1" ; then
+                                                _version=$_version_tmp
+                                        fi
+                                        VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
+                                        BOOST_CPPFLAGS="-I$ac_boost_path/include/boost-$VERSION_UNDERSCORE"
+                                done
+                        fi
+                else
+                        for ac_boost_path in /usr /usr/local /opt ; do
+                                if test -d "$ac_boost_path" && test -r "$ac_boost_path"; then
+                                        for i in `ls -d $ac_boost_path/include/boost-* 2>/dev/null`; do
+                                                _version_tmp=`echo $i | sed "s#$ac_boost_path##" | sed 's/\/include\/boost-//' | sed 's/_/./'`
+                                                V_CHECK=`expr $_version_tmp \> $_version`
+                                                if test "$V_CHECK" = "1" ; then
+                                                        _version=$_version_tmp
+                                                        best_path=$ac_boost_path
+                                                fi
+                                        done
+                                fi
+                        done
 
-				VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
-				BOOST_CPPFLAGS="-I$best_path/include/boost-$VERSION_UNDERSCORE"
-				BOOST_LDFLAGS="-L$best_path/lib"
+                        VERSION_UNDERSCORE=`echo $_version | sed 's/\./_/'`
+                        BOOST_CPPFLAGS="-I$best_path/include/boost-$VERSION_UNDERSCORE"
+                        BOOST_LDFLAGS="-L$best_path/lib"
 
-	    		if test "x$BOOST_ROOT" != "x"; then
-					if test -d "$BOOST_ROOT" && test -r "$BOOST_ROOT"; then
-						version_dir=`expr //$BOOST_ROOT : '.*/\(.*\)'`
-						stage_version=`echo $version_dir | sed 's/boost_//' | sed 's/_/./g'`
-						stage_version_shorten=`expr $stage_version : '\([[0-9]]*\.[[0-9]]*\)'`
-						V_CHECK=`expr $stage_version_shorten \>\= $_version`
-						if test "$V_CHECK" = "1" ; then
-							AC_MSG_NOTICE(We will use a staged boost library from $BOOST_ROOT)
-							BOOST_CPPFLAGS="-I$BOOST_ROOT"
-							BOOST_LDFLAGS="-L$BOOST_ROOT/stage/lib"
-						fi
-					fi
-	    		fi
-			fi
+                        if test "x$BOOST_ROOT" != "x"; then
+                                        if test -d "$BOOST_ROOT" && test -r "$BOOST_ROOT"; then
+                                                version_dir=`expr //$BOOST_ROOT : '.*/\(.*\)'`
+                                                stage_version=`echo $version_dir | sed 's/boost_//' | sed 's/_/./g'`
+                                                stage_version_shorten=`expr $stage_version : '\([[0-9]]*\.[[0-9]]*\)'`
+                                                V_CHECK=`expr $stage_version_shorten \>\= $_version`
+                                                if test "$V_CHECK" = "1" ; then
+                                                        AC_MSG_NOTICE(We will use a staged boost library from $BOOST_ROOT)
+                                                        BOOST_CPPFLAGS="-I$BOOST_ROOT"
+                                                        BOOST_LDFLAGS="-L$BOOST_ROOT/stage/lib"
+                                                fi
+                                        fi
+                        fi
+                fi
 
-			CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
-			export CPPFLAGS
-			LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
-			export LDFLAGS
+                CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
+                export CPPFLAGS
+                LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
+                export LDFLAGS
 
      		AC_TRY_COMPILE(
        		[
 @%:@include <boost/version.hpp>
-],
-       [
+                ],
+                [
 #if BOOST_VERSION >= $WANT_BOOST_VERSION
 // Everything is okay
 #else
@@ -190,44 +206,53 @@ dnl    AC_CANONICAL_BUILD
 #endif
 
 		],
-    	[
-         AC_MSG_RESULT(yes ($_version))
-		 succeeded=yes
-         ifelse([$2], , :, [$2])
-       ],
-       [
-         AC_MSG_RESULT(no ($_version))
-         ifelse([$3], , :, [$3])
-       ])
-		fi
+                [
+                    AC_MSG_RESULT(yes ($_version))
+                    succeeded=yes
+                    ifelse([$2], , :, [$2])
+                ],
+                [
+                    AC_MSG_RESULT(no ($_version))
+                    ifelse([$3], , :, [$3])
+                ])
+	fi
 
-		if test "$succeeded" != "yes" ; then
-			if test "$_version" = "0" ; then
-				AC_MSG_ERROR([[We could not detect the boost libraries (version $boost_lib_version_req_shorten or higher). If you have a staged boost library (still not installed) please specify \$BOOST_ROOT in your environment and do not give a PATH to --with-boost option.  If you are sure you have boost installed, then check your version number looking in <boost/version.hpp>.]])
-			else
-				AC_MSG_ERROR('Your boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
-			fi
-		else
-			AC_SUBST(BOOST_CPPFLAGS)
-			AC_SUBST(BOOST_LDFLAGS)
-			AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
+        if test "$succeeded" != "yes" ; then
+                if test "$_version" = "0" ; then
+                        AC_MSG_ERROR([[We could not detect the boost libraries (version $boost_lib_version_req_shorten or higher). If you have a staged boost library (still not installed) please specify \$BOOST_ROOT in your environment and do not give a PATH to --with-boost option.  If you are sure you have boost installed, then check your version number looking in <boost/version.hpp>.]])
+                else
+                        AC_MSG_ERROR('Your boost libraries seems to old (version $_version).  We need at least $boost_lib_version_shorten')
+                fi
+        else
+                AC_LANG_PREPROC_REQUIRE()
+                AC_LANG_CONFTEST([AC_LANG_SOURCE([[#include "boost/version.hpp"]])])
+                dnl eval is necessary to expand ac_cpp.
+                dnl Ultrix and Pyramid sh refuse to redirect output of eval, so use subshell.
+                ac_boost_lib_version=`(eval "$ac_cpp -dM conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_LIB_VERSION" | sed 's/^.* "//' | sed 's/".*$//' `
+                ac_boost_version=`(eval "$ac_cpp -dM conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_VERSION" | sed 's/^.*VERSION //' | sed 's/" *$//' `
+                rm -f conftest*
 
-                	if test "x$want_boost_filesystem" = "xyes"; then
-                            AC_CACHE_CHECK([whether the Boost::Filesystem library is available],
-                                                    ax_cv_boost_filesystem,
-                                                    [AC_LANG_SAVE
-                            AC_LANG_CPLUSPLUS
-                            AC_COMPILE_IFELSE(AC_LANG_PROGRAM([[@%:@include <boost/filesystem/path.hpp>]],
-                                    [[using namespace boost::filesystem;
-                                    path my_path( "foo/bar/data.txt" );
-                                    return 0;]]),
-                                                ax_cv_boost_filesystem=yes, ax_cv_boost_filesystem=no)
-                                                                    AC_LANG_RESTORE
-                            ])
-                            if test "$ax_cv_boost_filesystem" = "yes"; then
-                                    AC_DEFINE(HAVE_BOOST_FILESYSTEM,,[define if the Boost::FILESYSTEM library is available])
-                                    BN=boost_filesystem
-                                    for ax_lib in $BN $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
+                AC_SUBST(BOOST_CPPFLAGS)
+                AC_SUBST(BOOST_LDFLAGS)
+                AC_DEFINE(HAVE_BOOST,,[define if the Boost library is available])
+
+                if test "x$want_boost_filesystem" = "xyes"; then
+
+                        AC_CACHE_CHECK([whether the Boost::Filesystem library is available],
+                                       ax_cv_boost_filesystem,
+                                       [AC_LANG_SAVE
+                                        AC_LANG_CPLUSPLUS
+                                        AC_COMPILE_IFELSE(AC_LANG_PROGRAM([[@%:@include <boost/filesystem/path.hpp>]],
+                                                                          [[using namespace boost::filesystem;
+                                                                            path my_path( "foo/bar/data.txt" );
+                                                                            return 0;]]),
+                                                          ax_cv_boost_filesystem=yes, ax_cv_boost_filesystem=no)
+                                        AC_LANG_RESTORE
+                        ])
+                        if test "$ax_cv_boost_filesystem" = "yes"; then
+                                AC_DEFINE(HAVE_BOOST_FILESYSTEM,,[define if the Boost::FILESYSTEM library is available])
+                                BN=boost_filesystem
+                                for ax_lib in $BN $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
                                 lib$BN lib$BN-$CC lib$BN-$CC-mt lib$BN-$CC-mt-s lib$BN-$CC-s \
                                 $BN-mgw $BN-mgw $BN-mgw-mt $BN-mgw-mt-s $BN-mgw-s ; do
                                         AC_CHECK_LIB($ax_lib, main,
@@ -300,14 +325,25 @@ dnl    AC_CANONICAL_BUILD
                                     AC_SUBST(BOOST_CPPFLAGS)
                                     AC_DEFINE(HAVE_BOOST_THREAD,,[define if the Boost::THREAD library is available])
                                     BN=boost_thread
-                                    for ax_lib in $BN $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
-                                lib$BN lib$BN-$CC lib$BN-$CC-mt lib$BN-$CC-mt-s lib$BN-$CC-s \
-                                $BN-mgw $BN-mgw $BN-mgw-mt $BN-mgw-mt-s $BN-mgw-s ; do
+                                    for ax_lib in $BN $BN-s $BN-mt $BN-mt-s $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
+                                                  lib$BN lib$BN-s lib$BN-mt lib$BN-mt-s lib$BN-$CC lib$BN-$CC-mt lib$BN-$CC-mt-s lib$BN-$CC-s \
+                                                  $BN-mgw $BN-mgw-s $BN-mgw-mt $BN-mgw-mt-s $BN-mgw $BN-mgw-mt $BN-mgw-mt-s $BN-mgw-s \
+                                                  $BN-$ac_boost_lib_version $BN-s-$ac_boost_lib_version $BN-mt-$ac_boost_lib_version \
+                                                  $BN-mt-s-$ac_boost_lib_version \
+                                                  $BN-$CC-$ac_boost_lib_version $BN-$CC-mt-$ac_boost_lib_version $BN-$CC-mt-s-$ac_boost_lib_version \
+                                                  $BN-$CC-s-$ac_boost_lib_version \
+                                                  lib$BN-$ac_boost_lib_version lib$BN-s-$ac_boost_lib_version lib$BN-mt-$ac_boost_lib_version \
+                                                  lib$BN-mt-s-$ac_boost_lib_version\
+                                                  lib$BN-$CC-$ac_boost_lib_version lib$BN-$CC-mt-$ac_boost_lib_version \ 
+                                                  lib$BN-$CC-mt-s-$ac_boost_lib_version lib$BN-$CC-s-$ac_boost_lib_version \
+                                                  $BN-mgw-$ac_boost_lib_version $BN-mgw-s-$ac_boost_lib_version $BN-mgw-mt-$ac_boost_lib_version \
+                                                  $BN-mgw-mt-s-$ac_boost_lib_version $BN-mgw-s-$ac_boost_lib_version; do
                                         AC_CHECK_LIB($ax_lib, main, [BOOST_THREAD_LIB="-l$ax_lib" AC_SUBST(BOOST_THREAD_LIB) link_thread="yes" break],
                                     [link_thread="no"])
                                     done
                                     if test "x$link_thread" = "xno"; then
                                             AC_MSG_NOTICE(Could not link against $ax_lib !)
+                                            ax_cv_boost_thread=no
                                     fi
                             fi
                         fi
