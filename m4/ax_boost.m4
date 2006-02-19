@@ -325,21 +325,18 @@ dnl    AC_CANONICAL_BUILD
                                     AC_SUBST(BOOST_CPPFLAGS)
                                     AC_DEFINE(HAVE_BOOST_THREAD,,[define if the Boost::THREAD library is available])
                                     BN=boost_thread
-                                    for ax_lib in $BN $BN-s $BN-mt $BN-mt-s $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
-                                                  lib$BN lib$BN-s lib$BN-mt lib$BN-mt-s lib$BN-$CC lib$BN-$CC-mt lib$BN-$CC-mt-s lib$BN-$CC-s \
-                                                  $BN-mgw $BN-mgw-s $BN-mgw-mt $BN-mgw-mt-s $BN-mgw $BN-mgw-mt $BN-mgw-mt-s $BN-mgw-s \
-                                                  $BN-$ac_boost_lib_version $BN-s-$ac_boost_lib_version $BN-mt-$ac_boost_lib_version \
-                                                  $BN-mt-s-$ac_boost_lib_version \
-                                                  $BN-$CC-$ac_boost_lib_version $BN-$CC-mt-$ac_boost_lib_version $BN-$CC-mt-s-$ac_boost_lib_version \
-                                                  $BN-$CC-s-$ac_boost_lib_version \
-                                                  lib$BN-$ac_boost_lib_version lib$BN-s-$ac_boost_lib_version lib$BN-mt-$ac_boost_lib_version \
-                                                  lib$BN-mt-s-$ac_boost_lib_version\
-                                                  lib$BN-$CC-$ac_boost_lib_version lib$BN-$CC-mt-$ac_boost_lib_version \ 
-                                                  lib$BN-$CC-mt-s-$ac_boost_lib_version lib$BN-$CC-s-$ac_boost_lib_version \
-                                                  $BN-mgw-$ac_boost_lib_version $BN-mgw-s-$ac_boost_lib_version $BN-mgw-mt-$ac_boost_lib_version \
-                                                  $BN-mgw-mt-s-$ac_boost_lib_version $BN-mgw-s-$ac_boost_lib_version; do
-                                        AC_CHECK_LIB($ax_lib, main, [BOOST_THREAD_LIB="-l$ax_lib" AC_SUBST(BOOST_THREAD_LIB) link_thread="yes" break],
-                                    [link_thread="no"])
+                                    for BP in "" "lib"; do
+                                        for BV in "-$ac_boost_lib_version" ""; do
+                                            for BC in "-gcc" "-mgw" "" ; do
+                                                for BT in "-mt" ""; do
+                                                    for BL in "" "-s" ; do
+                                                        ax_lib=$BP$BN$BC$BT$BL$BV;
+                                                        AC_CHECK_LIB($ax_lib, main, [BOOST_THREAD_LIB="-l$ax_lib" AC_SUBST(BOOST_THREAD_LIB) link_thread="yes" break 5],
+                                                        [link_thread="no"])
+                                                    done
+                                                done
+                                            done
+                                        done
                                     done
                                     if test "x$link_thread" = "xno"; then
                                             AC_MSG_NOTICE(Could not link against $ax_lib !)
