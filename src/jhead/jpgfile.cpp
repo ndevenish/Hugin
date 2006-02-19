@@ -135,7 +135,8 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
     if (a != 0xff || fgetc(infile) != M_SOI){
         return FALSE;
     }
-    for(;;){
+    int reading=1;
+    while(reading){
         int itemlen;
         int marker = 0;
         int ll,lh, got;
@@ -220,7 +221,8 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
                     SectionsRead ++;
                     HaveAll = 1;
                 }
-                return TRUE;
+                reading = 0;
+                break;
 
             case M_EOI:   // in case it's a tables-only JPEG stream
                 printf("No image in jpeg!\n");
@@ -278,6 +280,38 @@ int ReadJpegSections (ImageInfo_t & ImageInfo, FILE * infile, ReadMode_t ReadMod
                 }
                 break;
         }
+    }
+
+    // dangelo 2006: calculate ccd size, if possible
+    double sensorPixelWidth;
+    double sensorPixelHeight;
+    if (ImageInfo.ExifImageWidth > 0 && ImageInfo.ExifImageLength > 0) {
+        // use exif image width and height. This will work if the image has
+        // been scaled, and the exif information was copied to the smaller image
+        // without adjustment (as probably done by almost all programs).
+        sensorPixelHeight = ImageInfo.ExifImageLength;
+        sensorPixelWidth = ImageInfo.ExifImageWidth;
+    } else {
+        // use image size. will break if the image has been resized..
+        // but some cameras (for example Canon 350D) will not set exifImageWidth etc.
+        sensorPixelHeight = ImageInfo.Height;
+        sensorPixelWidth = ImageInfo.Width;
+    }
+
+    // force landscape sensor orientation
+    if (sensorPixelWidth < sensorPixelHeight) {
+        double t = sensorPixelWidth;
+        sensorPixelWidth = sensorPixelHeight;
+        sensorPixelHeight = t;
+    }
+
+    // Compute the CCD width, in milimeters.
+    if (ImageInfo.FocalplaneXRes != 0 && ImageInfo.FocalplaneUnits !=0){
+        ImageInfo.CCDWidth = (float)(sensorPixelWidth * ImageInfo.FocalplaneUnits / ImageInfo.FocalplaneXRes);
+    }
+    // Compute the CCD height, in milimeters.
+    if (ImageInfo.FocalplaneYRes != 0 && ImageInfo.FocalplaneUnits !=0){
+        ImageInfo.CCDHeight = (float)(sensorPixelHeight * ImageInfo.FocalplaneUnits / ImageInfo.FocalplaneYRes);
     }
     return TRUE;
 }

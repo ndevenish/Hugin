@@ -32,11 +32,13 @@
 
 static unsigned char * LastExifRefd;
 static unsigned char * DirWithThumbnailPtrs;
+/*
 static double FocalplaneXRes;
 static double FocalplaneYRes;
 static double FocalplaneUnits;
 static int ExifImageWidth;
 static int ExifImageLength;
+*/
 static int MotorolaOrder = 0;
 
 // for fixing the rotation.
@@ -601,7 +603,7 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
                 break;
 
             case TAG_EXIF_IMAGELENGTH:
-                ExifImageLength = (int)ConvertAnyFormat(ValuePtr, Format);
+                ImageInfo.ExifImageLength = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_EXIF_IMAGEWIDTH:
@@ -609,30 +611,30 @@ static void ProcessExifDir(ImageInfo_t &ImageInfo, unsigned char * DirStart,
                 // Use largest of height and width to deal with images that have been
                 // rotated to portrait format.
 
-                ExifImageWidth = (int)ConvertAnyFormat(ValuePtr, Format);
+                ImageInfo.ExifImageWidth = (int)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_FOCALPLANEXRES:
-                FocalplaneXRes = ConvertAnyFormat(ValuePtr, Format);
+                ImageInfo.FocalplaneXRes = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_FOCALPLANEYRES:
-                FocalplaneYRes = ConvertAnyFormat(ValuePtr, Format);
+                ImageInfo.FocalplaneYRes = (float)ConvertAnyFormat(ValuePtr, Format);
                 break;
 
             case TAG_FOCALPLANEUNITS:
                 switch((int)ConvertAnyFormat(ValuePtr, Format)){
-                    case 1: FocalplaneUnits = 25.4; break; // inch
+                    case 1: ImageInfo.FocalplaneUnits = 25.4f; break; // inch
                     case 2:
                         // According to the information I was using, 2 means meters.
                         // But looking at the Cannon powershot's files, inches is the only
                         // sensible value.
-                        FocalplaneUnits = 25.4;
+                        ImageInfo.FocalplaneUnits = 25.4f;
                         break;
 
-                    case 3: FocalplaneUnits = 10;   break;  // centimeter
-                    case 4: FocalplaneUnits = 1;    break;  // milimeter
-                    case 5: FocalplaneUnits = .001; break;  // micrometer
+                    case 3: ImageInfo.FocalplaneUnits = 10.0f;   break;  // centimeter
+                    case 4: ImageInfo.FocalplaneUnits = 1.0f;    break;  // milimeter
+                    case 5: ImageInfo.FocalplaneUnits = .001f; break;  // micrometer
                 }
                 break;
 
@@ -737,11 +739,13 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
 {
     int FirstOffset;
 
+    /*
     FocalplaneXRes = 0;
     FocalplaneYRes = 0;
     FocalplaneUnits = 0;
     ExifImageWidth = 0;
     ExifImageLength = 0;
+    */
     OrientationPtr = NULL;
 
 
@@ -788,22 +792,6 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
 
     // First directory starts 16 bytes in.  All offset are relative to 8 bytes in.
     ProcessExifDir(ImageInfo, ExifSection+8+FirstOffset, ExifSection+8, length-6, 0);
-
-    // 2003 Pablo d'Angelo. fixed to work with rotated pictures as well.
-    double sensorPixelWidth = ExifImageWidth;
-    double sensorPixelHeight = ExifImageLength;
-    if (ExifImageWidth < ExifImageLength) {
-        sensorPixelHeight = ExifImageWidth;
-        sensorPixelWidth = ExifImageLength;
-    }
-    // Compute the CCD width, in milimeters.
-    if (FocalplaneXRes != 0){
-        ImageInfo.CCDWidth = (float)(sensorPixelWidth * FocalplaneUnits / FocalplaneXRes);
-    }
-    // Compute the CCD height, in milimeters.
-    if (FocalplaneYRes != 0){
-        ImageInfo.CCDHeight = (float)(sensorPixelHeight * FocalplaneUnits / FocalplaneYRes);
-    }
 
     if (ImageInfo.ShowTags){
         printf("Non settings part of Exif header: %d bytes\n",ExifSection+length-LastExifRefd);

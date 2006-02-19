@@ -58,6 +58,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hugin", "..\hugin\hugin.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panorama", "..\Panorama\Panorama.vcproj", "{609891D5-B1A9-43E3-9B66-AD53D6008158}"
 	ProjectSection(ProjectDependencies) = postProject
+		{E974EF12-9647-400A-AF30-1D0E70D1C32C} = {E974EF12-9647-400A-AF30-1D0E70D1C32C}
 		{609891D5-B1A9-43E3-9B61-AD53D6008158} = {609891D5-B1A9-43E3-9B61-AD53D6008158}
 	EndProjectSection
 EndProject
