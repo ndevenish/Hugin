@@ -229,7 +229,7 @@ dnl    AC_CANONICAL_BUILD
                 dnl eval is necessary to expand ac_cpp.
                 dnl Ultrix and Pyramid sh refuse to redirect output of eval, so use subshell.
                 ac_boost_lib_version=`(eval "$ac_cpp -dM conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_LIB_VERSION" | sed 's/^.* "//' | sed 's/".*$//' `
-                ac_boost_version=`(eval "$ac_cpp -dM conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_VERSION" | sed 's/^.*VERSION //' | sed 's/" *$//' `
+                ac_boost_version=`(eval "$ac_cpp -dM conftest.$ac_ext") 2>&AS_MESSAGE_LOG_FD | egrep "^#define BOOST_VERSION " | sed 's/^.*VERSION //' | sed 's/ *$//' `
                 rm -f conftest*
 
                 AC_SUBST(BOOST_CPPFLAGS)
