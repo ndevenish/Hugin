@@ -65,6 +65,11 @@ typedef struct {
     float ExposureTime;
     float ApertureFNumber;
     float Distance;
+    int   ExifImageLength;
+    int   ExifImageWidth;
+    float FocalplaneXRes;
+    float FocalplaneYRes;
+    float FocalplaneUnits;
     float CCDWidth;
     float CCDHeight;
     float ExposureBias;
