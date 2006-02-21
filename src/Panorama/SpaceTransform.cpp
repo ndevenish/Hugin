@@ -895,7 +895,7 @@ void SpaceTransform::Init(
     mpscale[1]		= mpscale[0];
     mpshear[0]		= img / imheight; // TODO : im->cP.shear_x / imheight;
     mpshear[1]		= imt / imwidth; // TODO : im->cP.shear_y / imwidth;
-    mprot[0]		= mpdistance * PI;								// 180¡ in screenpoints
+    mprot[0]		= mpdistance * PI;								// 180 in screenpoints
     mprot[1]		= -imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
 
     // add radial correction
@@ -1118,7 +1118,7 @@ void SpaceTransform::InitInv(
 	}
 	*/
 
-    mprot[0]	= mpdistance * PI;								// 180¡ in screenpoints
+    mprot[0]	= mpdistance * PI;								// 180 in screenpoints
     mprot[1]	= imyaw *  mpdistance * PI / 180.0; 			//    rotation angle in screenpoints
 
     //mp->perspect[0] = (void*)(mp->mt);
@@ -1204,7 +1204,7 @@ void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::Des
     vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
     vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
     vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
     vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
     vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
 

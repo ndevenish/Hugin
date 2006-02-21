@@ -279,7 +279,7 @@ void Transform::createTransform(const PT::SrcPanoImage & src, const PT::DestPano
     vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
     vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
     vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
-    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
     vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
     vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
 

@@ -418,6 +418,8 @@ public:
             case SrcPanoImage::CROP_RECTANGLE:
                 {
                     initImage(vigra::destImageRange(alpha),0);
+                    // make sure crop is inside the image..
+                    cR &= vigra::Rect2D(0,0, srcImgSize.x, srcImgSize.y);
                     initImage(alpha.upperLeft()+cR.upperLeft(), 
                               alpha.upperLeft()+cR.lowerRight(),
                               alpha.accessor(),255);
@@ -481,6 +483,7 @@ public:
                 }
                 case SrcPanoImage::CROP_RECTANGLE:
                 {
+                    cR &= vigra::Rect2D(0,0, srcImgSize.x, srcImgSize.y);
                     initImageIf(alpha.upperLeft()+cR.upperLeft(), 
                                 alpha.upperLeft()+cR.lowerRight(),
                                 alpha.accessor(),
