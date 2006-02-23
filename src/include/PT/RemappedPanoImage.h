@@ -435,7 +435,7 @@ public:
                                 destImage(Base::m_mask),
                                 Base::boundingBox().upperLeft(),
                                 m_transf,
-                                m_destImg.horizontalWarpNeeded(),
+                                m_srcImg.horizontalWarpNeeded(),
                                 interpol,
                                 progress);
         } else {
@@ -444,7 +444,7 @@ public:
                            destImage(Base::m_mask),
                            Base::boundingBox().upperLeft(),
                            m_transf,
-                           m_destImg.horizontalWarpNeeded(),
+                           m_srcImg.horizontalWarpNeeded(),
                            interpol,
                            progress);
         }
@@ -501,7 +501,7 @@ public:
                                 destImage(Base::m_mask),
                                 Base::boundingBox().upperLeft(),
                                 m_transf,
-                                m_destImg.horizontalWarpNeeded(),
+                                m_srcImg.horizontalWarpNeeded(),
                                 interp,
                                 progress);
         } else {
@@ -511,7 +511,7 @@ public:
                         destImage(Base::m_mask),
                         Base::boundingBox().upperLeft(),
                         m_transf,
-                        m_destImg.horizontalWarpNeeded(),
+                        m_srcImg.horizontalWarpNeeded(),
                         interp,
                         progress);
         }

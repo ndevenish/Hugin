@@ -53,6 +53,22 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
     m_radialVigCorrCenterShift *=scale;
 }
 
+bool SrcPanoImage::horizontalWarpNeeded()
+{
+    switch (m_proj)
+    {
+        case PANORAMIC:
+        case EQUIRECTANGULAR:
+            if (m_hfov == 360) return true;
+        case FULL_FRAME_FISHEYE:
+        case CIRCULAR_FISHEYE:
+        case RECTILINEAR:
+        default:
+            break;
+    }
+    return false;
+}
+
 #if 0
 QDomElement ImageOptions::toXML(QDomDocument & doc)
 {

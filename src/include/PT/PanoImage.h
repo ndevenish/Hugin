@@ -175,6 +175,8 @@ public:
         return false;
     }
 
+    bool horizontalWarpNeeded();
+
     // property accessors
 
     const std::string & getFilename() const
