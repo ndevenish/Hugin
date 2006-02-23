@@ -68,8 +68,7 @@ ImgCenter::ImgCenter(wxWindow *parent)
 
     // layout the dialog manually
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
-    m_Canvas = new CenterCanvas (this,this);
-    m_Canvas->SetMinSize(wxSize(400,400));
+    m_Canvas = new CenterCanvas (this,this, wxSize(600,400));
 
     topsizer->Add(m_Canvas,
                   1,        // vertically stretchable
@@ -294,8 +293,8 @@ BEGIN_EVENT_TABLE(CenterCanvas, wxPanel)
 END_EVENT_TABLE()
 
 // Define a constructor for my canvas
-CenterCanvas::CenterCanvas(wxWindow *parent, ImgCenter * listener)
-  : wxPanel(parent, -1),
+CenterCanvas::CenterCanvas(wxWindow *parent, ImgCenter * listener,const wxSize & sz)
+    : wxPanel(parent, -1, wxDefaultPosition, sz),
     m_listener(listener)
 {
     DEBUG_TRACE("");

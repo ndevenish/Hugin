@@ -88,7 +88,7 @@ protected:
 class CenterCanvas: public wxPanel
 {
 public:
-    CenterCanvas(wxWindow *parent, ImgCenter * listener);
+    CenterCanvas(wxWindow *parent, ImgCenter * listener, const wxSize & sz=wxDefaultSize);
     virtual ~CenterCanvas(void) ;
 
     /** set image and crop parameters */
