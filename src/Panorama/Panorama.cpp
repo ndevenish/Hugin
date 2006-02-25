@@ -1632,6 +1632,70 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     return ret;
 }
 
+void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
+{
+    // get variable map vector
+    VariableMap vars;
+    DEBUG_ASSERT(imgNr < state.images.size());
+    PanoImage & pimg = state.images[imgNr];
+    ImageOptions opts = pimg.getOptions();
+    Lens & lens = state.lenses[pimg.getLensNr()];
+
+    // fill variable map
+    // position
+    vars.insert(make_pair("v", Variable("v", img.getHFOV())));
+    vars.insert(make_pair("r", Variable("r", img.getRoll())));
+    vars.insert(make_pair("p", Variable("p", img.getPitch())));
+    vars.insert(make_pair("y", Variable("y", img.getYaw())));
+    // distortion
+    vars.insert(make_pair("a", Variable("a", img.getRadialDistortion()[0])));
+    vars.insert(make_pair("b", Variable("b", img.getRadialDistortion()[1])));
+    vars.insert(make_pair("c", Variable("c", img.getRadialDistortion()[2])));
+    vars.insert(make_pair("d", Variable("d", img.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair("e", Variable("e", img.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair("g", Variable("g", img.getShear().x)));
+    vars.insert(make_pair("t", Variable("t", img.getShear().x)));
+
+    // vignetting correction
+    vars.insert(make_pair("Va", Variable("Va", img.getRadialVigCorrCoeff()[0])));
+    vars.insert(make_pair("Vb", Variable("Vb", img.getRadialVigCorrCoeff()[1])));
+    vars.insert(make_pair("Vc", Variable("Vc", img.getRadialVigCorrCoeff()[2])));
+    vars.insert(make_pair("Vd", Variable("Vd", img.getRadialVigCorrCoeff()[3])));
+    vars.insert(make_pair("Vx", Variable("Vx", img.getRadialVigCorrCenterShift().x)));
+    vars.insert(make_pair("Vy", Variable("Vy", img.getRadialVigCorrCenterShift().y)));
+
+    // brightness correction
+    vars.insert(make_pair("K0a", Variable("K0a", img.getBrightnessFactor()[0])));
+    vars.insert(make_pair("K1a", Variable("K1a", img.getBrightnessFactor()[1])));
+    vars.insert(make_pair("K2a", Variable("K2a", img.getBrightnessFactor()[2])));
+
+    vars.insert(make_pair("K0b", Variable("K0b", img.getBrightnessOffset()[0])));
+    vars.insert(make_pair("K1b", Variable("K1b", img.getBrightnessOffset()[1])));
+    vars.insert(make_pair("K2b", Variable("K2b", img.getBrightnessOffset()[2])));
+
+    // set variables
+    updateVariables(imgNr, vars);
+
+    // update lens
+    lens.setProjection((Lens::LensProjectionFormat)img.getProjection());
+    lens.setImageSize(img.getSize());
+
+    // update image
+    pimg.setFilename(img.getFilename());
+    pimg.setSize(img.getSize());
+
+    // update image options
+    if (img.getCropMode() == SrcPanoImage::NO_CROP) {
+        opts.docrop = false;
+    } else {
+        opts.docrop = true;
+    }
+    opts.cropRect = img.getCropRect();
+    opts.m_vigCorrMode = img.getVigCorrMode();
+    opts.m_flatfield = img.getFlatfieldFilename();
+    setImageOptions(imgNr, opts);
+}
+
 unsigned int PT::calcOptimalPanoWidth(const PanoramaOptions & opt,
                                       const PanoImage & img,
                                       double v,

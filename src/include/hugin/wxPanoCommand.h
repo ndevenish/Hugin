@@ -157,20 +157,20 @@ public:
                 for (unsigned int i = 0; i < nImg; i++) {
                     wxFileName fname(wxString (pano.getImage(i).getFilename().c_str(), *wxConvCurrent));
                     while (! fname.FileExists()){
-						// Is file in the new path
-						if (basedir != wxT("")) {
-						  wxString newname = fname.GetFullName();
-						  fname.AssignDir(basedir);
-						  fname.SetFullName(newname);
-						  if (fname.FileExists()) {
-							pano.setImageFilename(i, (const char *)fname.GetFullPath().mb_str());
-							DEBUG_TRACE("New filename set: " << fname.GetFullPath().mb_str());
-							// TODO - set pano dirty flag so that new paths are saved
-							continue;
-						  }
-						}
+                        // Is file in the new path
+                        if (basedir != wxT("")) {
+                            wxString newname = fname.GetFullName();
+                            fname.AssignDir(basedir);
+                            fname.SetFullName(newname);
+                            if (fname.FileExists()) {
+                                pano.setImageFilename(i, (const char *)fname.GetFullPath().mb_str());
+                                DEBUG_TRACE("New filename set: " << fname.GetFullPath().mb_str());
+                                // TODO - set pano dirty flag so that new paths are saved
+                                continue;
+                            }
+                        }
 
-						wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), _("Image file not found"));
+                        wxMessageBox(wxString::Format(_("Image file not found:\n%s\nPlease select correct image"), fname.GetFullPath().c_str()), _("Image file not found"));
 
                         if (basedir == wxT("")) {
                             basedir = fname.GetPath();
@@ -193,6 +193,15 @@ public:
                             return;
                         }
                         fname.Assign(dlg.GetPath());
+                    }
+                    // check if image size is correct
+                    SrcPanoImage srcImg = pano.getSrcImage(i);
+                    //
+                    vigra::ImageImportInfo imginfo(srcImg.getFilename().c_str());
+                    if (srcImg.getSize() != imginfo.size()) {
+                        // adjust size properly.
+                        srcImg.resize(imginfo.size());
+                        pano.setSrcImg(i, srcImg);
                     }
                     // check if script contains invalid HFOV
                     unsigned lNr = pano.getImage(i).getLensNr();

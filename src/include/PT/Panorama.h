@@ -388,6 +388,9 @@ public:
      */
     void removeImage(unsigned int nr);
 
+    /** set input image parameters */
+    void setSrcImg(unsigned int nr, const SrcPanoImage & img);
+
     /** set a new image filename
      *
      *  It is assumed that it is of the same size

@@ -360,7 +360,6 @@ public:
      : m_proj(proj), m_hfov(hfov), m_size(sz), m_roi(sz)
     {
     }
-
     bool horizontalWarpNeeded()
     {
         switch (m_proj)
@@ -375,7 +374,6 @@ public:
         }
         return false;
     }
-
     // data accessors
     const Projection & getProjection() const
     { return m_proj; }
@@ -452,7 +450,10 @@ private:
             { lensNr = l; }
         unsigned int getLensNr() const
             { return lensNr; }
-        
+
+        void setSize(const vigra::Size2D & sz)
+            { width =sz.x; height = sz.y; }
+
         void setFeatherWidth(unsigned int w)
             { options.featherWidth = w; }
 
