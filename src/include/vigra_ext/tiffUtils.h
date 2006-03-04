@@ -55,9 +55,10 @@ namespace vigra_ext {
  */
 inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pagename,
 				const std::string & documentname,
-                const std::string comp,
+                                const std::string comp,
 				uint16 page, uint16 nImg,
-				vigra::Diff2D offset)
+				vigra::Diff2D offset,
+                                const vigra::ICCProfile & icc)
 {
     const float dpi = 150;
     // create a new directory for our image
@@ -88,8 +89,7 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     TIFFSetField (tiff, TIFFTAG_PAGENAME, pagename.c_str() );
     //
     TIFFSetField (tiff, TIFFTAG_IMAGEDESCRIPTION, "stitched with hugin");
-    // FIXME: what should this be set to?
-    
+
     // set compression
     unsigned short tiffcomp;
     if ( comp == "JPEG" )
@@ -100,8 +100,14 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
         tiffcomp = COMPRESSION_DEFLATE;
     else
         tiffcomp = COMPRESSION_NONE;
-    
+
     TIFFSetField(tiff, TIFFTAG_COMPRESSION, tiffcomp);
+
+    // Set ICC profile, if available.
+    if (icc.isValid()) {
+        TIFFSetField(tiff, TIFFTAG_ICCPROFILE, icc.getSize(), icc.getPtr());
+    }
+
 }
 
 

@@ -44,7 +44,7 @@ void PT::stitchPanoGray_32_float(const PT::Panorama & pano,
                                  const char * pixelType)
 {
     if (strcmp(pixelType, "UINT32") == 0 ) {
-        stitchPanoIntern<UIImage,BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<UInt32Image,BImage>(pano, opts, progress, basename, usedImgs);
     } else if (strcmp(pixelType, "INT32") == 0 ) {
         stitchPanoIntern<IImage,BImage>(pano, opts, progress, basename, usedImgs);
     } else if (strcmp(pixelType, "FLOAT") == 0 ) {

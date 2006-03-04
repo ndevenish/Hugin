@@ -5,24 +5,50 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
-#ifndef VIGRA_IMAGEINFO2_HXX
-#define VIGRA_IMAGEINFO2_HXX
+/* Modifications by Pablo d'Angelo
+ * updated to vigra 1.4 by Douglas Wilkins
+ * as of 18 Febuary 2006:
+ *  - Added UINT16 and UINT32 pixel types.
+ *  - Added support for obtaining extra bands beyond RGB.
+ *  - Added support for a position field that indicates the start of this
+ *    image relative to some global origin.
+ *  - Added support for x and y resolution fields.
+ *  - Added support for ICC profiles
+ */
+
+#ifndef VIGRA_IMAGEINFO_HXX
+#define VIGRA_IMAGEINFO_HXX
 
 #include <memory>
 #include <string>
@@ -88,6 +114,98 @@ std::string impexListExtensions();
 **/
 bool isImage(char const * filename);
 
+/********************************************************/
+/*                                                      */
+/*                   ICCProfile                         */
+/*                                                      */
+/********************************************************/
+
+/** \brief Simple wrapper for an ICC Profile.
+ *  This class just holds an ICC profile data.
+ *  To acutally use the profile an external libary, like
+ *  lcms is needed.
+ *
+ */
+struct ICCProfile
+{
+    /** create without profile */
+    ICCProfile()
+     : m_profile(0), m_size(0)
+    { }
+
+    /** copy ICC profile from given memory */
+    ICCProfile(const unsigned char * data, size_t size)
+    {
+        setProfile(data, size);
+    }
+
+    ICCProfile(const ICCProfile & other)
+    {
+        setProfile(other.m_profile, other.m_size);
+    }
+
+    ~ICCProfile()
+    {
+        if (m_profile)
+            delete[] m_profile;
+    }
+
+    ICCProfile & operator=(const ICCProfile & other)
+    {
+        setProfile(other.m_profile, other.m_size);
+        return *this;
+    }
+
+    bool operator==(const ICCProfile & other)
+    {
+        if (m_size != other.m_size) return false;
+        for (size_t i=0; i < m_size; i++) {
+            if (m_profile[i] != other.m_profile[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /** copy ICC profile from \p data */
+    void setProfile(const unsigned char * data, size_t size)
+    {
+        if (m_profile)
+            delete[] m_profile;
+        if (data && size) {
+            m_profile = new unsigned char[size];
+            m_size = size;
+            VIGRA_CSTD::memcpy(m_profile, data, size);
+        } else {
+            m_profile = 0;
+            m_size = 0;
+        }
+    }
+
+    /** Check if profile is valid.
+     *  Returns false if no profile has been assigned
+     */
+    bool isValid() const
+    {
+        return (m_profile && m_size);
+    }
+
+    /** return a pointer to the profile */
+    const unsigned char * getPtr() const
+    {
+        return m_profile;
+    }
+
+    /** get size of the profile */
+    size_t getSize() const
+    {
+        return m_size;
+    }
+protected:
+    unsigned char * m_profile;
+    size_t m_size;
+};
+
 
 /********************************************************/
 /*                                                      */
@@ -116,6 +234,7 @@ class ImageExportInfo
             TIFF support requires libtiff.
         **/
     ImageExportInfo( const char * );
+    ~ImageExportInfo();
 
     const char * getFileName() const;
 
@@ -141,9 +260,15 @@ class ImageExportInfo
         <DT>"VIFF"<DD> Khoros Visualization image file.
         </DL>
 
-        With the exception of TIFF and VIFF, all file types store
+        With the exception of TIFF, VIFF, PNG and PNM all file types store
         1 byte (gray scale and mapped RGB) or 3 bytes (RGB) per
         pixel.
+
+        PNG can store UInt8 and UInt16 values, and supports 1 and 3 channel
+        images. One additional alpha channel is also supported.
+
+        PNM can store 1 and 3 channel images with UInt8, UInt16 and UInt32
+        values in each channel.
 
         TIFF and VIFF are aditionally able to store short and long
         integers (2 or 4 bytes) and real values (32 bit float and
@@ -154,18 +279,25 @@ class ImageExportInfo
         other programs using TIFF (e.g. ImageMagick) have not
         implemented support for those pixel types.  So don't be
         surprised if the generated TIFF is not readable in some
-        cases.  If this happens, convert the image to 'unsigned
-        char' or 'RGBValue\<unsigned char\>' prior to exporting.
+        cases.  If this happens, export the image as 'unsigned
+        char' or 'RGBValue\<unsigned char\>' by calling
+        \ref ImageExportInfo::setPixelType().
+
+        Support to reading and writing ICC color profiles is
+        provided for TIFF, JPEG and PNG images.
     **/
     ImageExportInfo & setFileType( const char * );
     const char * getFileType() const;
 
     /** Set compression type.
 
-        Recognized strings: "LZW",
+        Recognized strings: "" (no compression), "LZW",
         "RunLength", "1" ... "100". A number is interpreted as the
         compression quality for JPEG compression. JPEG compression is
-        supported by the JPEG and TIFF formats.
+        supported by the JPEG and TIFF formats. "LZW" is only available
+        if libtiff was installed with LZW enabled. By default, libtiff came
+        with LZW disabled due to Unisys patent enforcement. In this case,
+        VIGRA stores the image uncompressed.
 
 	Valid Compression for TIFF files:
 	  JPEG    jpeg compression, call setQuality as well!
@@ -176,14 +308,26 @@ class ImageExportInfo
     ImageExportInfo & setCompression( const char * );
     const char * getCompression() const;
 
-    /** Set the pixel type of the image. Possible values are:
+    /** Set the pixel type of the image file. Possible values are:
         <DL>
         <DT>"UINT8"<DD> 8-bit unsigned integer (unsigned char)
         <DT>"INT16"<DD> 16-bit signed integer (short)
+        <DT>"UINT16"<DD> 16-bit unsigned integer (unsigned short)
         <DT>"INT32"<DD> 32-bit signed integer (long)
+        <DT>"UINT32"<DD> 32-bit unsigned integer (unsigned long)
         <DT>"FLOAT"<DD> 32-bit floating point (float)
         <DT>"DOUBLE"<DD> 64-bit floating point (double)
         </DL>
+
+        <b>Usage:</b>
+        FImage img(w,h);
+
+        // by default, float images are exported with pixeltype float
+        // when the target format support this type, i.e. is TIFF or VIFF.
+        exportImage(srcImageRange(img), ImageExportInfo("asFloat.tif"));
+
+        // if this is not desired, force a different pixeltype
+        exportImage(srcImageRange(img), ImageExportInfo("asByte.tif").setPixelType("UINT8"));
     **/
     ImageExportInfo & setPixelType( const char * );
 
@@ -191,9 +335,7 @@ class ImageExportInfo
         <DL>
         <DT>"UINT8"<DD> 8-bit unsigned integer (unsigned char)
         <DT>"INT16"<DD> 16-bit signed integer (short)
-        <DT>"UINT16"<DD> 16-bit unsigned integer (short)
         <DT>"INT32"<DD> 32-bit signed integer (long)
-        <DT>"UINT32"<DD> 32-bit unsigned integer (long)
         <DT>"FLOAT"<DD> 32-bit floating point (float)
         <DT>"DOUBLE"<DD> 64-bit floating point (double)
         </DL>
@@ -203,34 +345,47 @@ class ImageExportInfo
         /** Set the image resolution in horizontal direction
          **/
     ImageExportInfo & setXResolution( float );
+    float getXResolution() const;
 
         /** Set the image resolution in vertical direction
          **/
     ImageExportInfo & setYResolution( float );
+    float getYResolution() const;
 
     /** Set the position of the upper Left corner on a global
      *  canvas.
      *
-     *  Currently only supported for tiff files, where it
-     *  sets the XPosition and YPosition tags.
+     *  Currently only supported by TIFF and PNG files.
+     *
+     *  The offset is encoded in the XPosition and YPosition TIFF tags.
      *
      *  @param position of the upper left corner in pixels
      *                  must be >= 0
      */
-    ImageExportInfo & setPosition(const vigra::Diff2D & pos);
+    ImageExportInfo & setPosition(const Diff2D & pos);
 
-    /** get the position in pixels
-     *
+    /** get the position of the upper left corner on 
+     *  a global canvas.
      */
-    vigra::Diff2D getPosition() const;
+    Diff2D getPosition() const;
 
-    float getXResolution() const;
-    float getYResolution() const;
+    /** Returns a reference to the ICC profile.
+     *  
+     *  Note: the reference will become invalid if setICCProfile
+     *        is called, or the ImageExportInfo object is destroyed.
+     **/
+    const ICCProfile & getICCProfile() const;
+
+    /** Sets the ICC profile.
+     *  ICC profiles are currently supported by TIFF, PNG and JPEG images
+     **/
+    ImageExportInfo & setICCProfile(const ICCProfile & profile);
 
   private:
     std::string m_filename, m_filetype, m_pixeltype, m_comp;
     float m_x_res, m_y_res;
-    vigra::Diff2D m_pos;
+    Diff2D m_pos;
+    ICCProfile m_profile;
 };
 
 // return an encoder for a given ImageExportInfo object
@@ -279,6 +434,7 @@ class ImageImportInfo
             </DL>
         **/
     ImageImportInfo( const char *  );
+    ~ImageImportInfo();
 
     const char * getFileName() const;
 
@@ -298,7 +454,7 @@ class ImageImportInfo
          **/
     int height() const;
 
-        /** Get the total number bands in the image.
+        /** Get the total number of bands in the image.
          **/
     int numBands() const;
 
@@ -309,7 +465,7 @@ class ImageImportInfo
 
         /** Get size of the image.
          **/
-    vigra::Size2D size() const;
+    Size2D size() const;
 
         /** Returns true if the image is gray scale.
          **/
@@ -327,7 +483,7 @@ class ImageImportInfo
             <DT>"INT16"<DD> 16-bit signed integer (short)
             <DT>"UINT16"<DD> 16-bit unsigned integer (unsigned short)
             <DT>"INT32"<DD> 32-bit signed integer (long)
-            <DT>"UINT32"<DD> 32-bit signed integer (unsigned long)
+            <DT>"UINT32"<DD> 32-bit unsigned integer (unsigned long)
             <DT>"FLOAT"<DD> 32-bit floating point (float)
             <DT>"DOUBLE"<DD> 64-bit floating point (double)
             </DL>
@@ -344,7 +500,7 @@ class ImageImportInfo
 
         /** Returns the layer offset of the current image, if there is one
          **/
-    vigra::Diff2D getPosition() const;
+    Diff2D getPosition() const;
 
         /** Returns the image resolution in horizontal direction
          **/
@@ -354,11 +510,19 @@ class ImageImportInfo
          **/
     float getYResolution() const;
 
+    /** Returns a reference to the ICC profile.
+     *
+     *  Note: the reference will become invalid when the ImageImportInfo
+     *        object has been destroyed.
+     **/
+    const ICCProfile & getICCProfile() const;
+
   private:
     std::string m_filename, m_filetype, m_pixeltype;
     int m_width, m_height, m_num_bands, m_num_extra_bands;
     float m_x_res, m_y_res;
-    vigra::Diff2D m_pos;
+    Diff2D m_pos;
+    ICCProfile m_profile;
 };
 
 // return a decoder for a given ImageImportInfo object

@@ -1,3 +1,41 @@
+/************************************************************************/
+/*                                                                      */
+/*         Copyright 2002-2004 by Ullrich Koethe and Hans Meine         */
+/*       Cognitive Systems Group, University of Hamburg, Germany        */
+/*                                                                      */
+/*    This file is part of the VIGRA computer vision library.           */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    The VIGRA Website is                                              */
+/*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
+/*    Please direct questions, bug reports, and contributions to        */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
+/*                                                                      */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*                                                                      */
+/************************************************************************/
+
+
 #ifndef VIGRA_GABORFILTER_HXX
 #define VIGRA_GABORFILTER_HXX
 
@@ -8,7 +46,6 @@
 #include "vigra/transformimage.hxx"
 #include "vigra/combineimages.hxx"
 #include "vigra/utilities.hxx"
-#include "vigra/fftw.hxx"
 
 #include <functional>
 #include <vector>
@@ -50,7 +87,7 @@ namespace vigra {
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class DestImageIterator, class DestAccessor>
@@ -251,10 +288,12 @@ inline double angularGaborSigma(int directionCount, double centerFrequency)
 
     Namespace: vigra
 */
-template <class ImageType>
-class GaborFilterFamily : public ImageArray<ImageType>
+template <class ImageType, 
+      class Alloc = typename ImageType::allocator_type::template rebind<ImageType>::other >
+class GaborFilterFamily 
+: public ImageArray<ImageType, Alloc>
 {
-    typedef ImageArray<ImageType> ParentClass;
+    typedef ImageArray<ImageType, Alloc> ParentClass;
     int scaleCount_, directionCount_;
     double maxCenterFrequency_;
 
@@ -267,7 +306,7 @@ protected:
                 double angle = direction * M_PI / directionCount();
                 double centerFrequency =
                     maxCenterFrequency_ / VIGRA_CSTD::pow(2.0, (double)scale);
-                createGaborFilter(destImageRange(images_[filterIndex(direction, scale)]),
+                createGaborFilter(destImageRange(this->images_[filterIndex(direction, scale)]),
                                   angle, centerFrequency,
                                   angularGaborSigma(directionCount(), centerFrequency),
                                   radialGaborSigma(centerFrequency));
@@ -287,8 +326,9 @@ public:
         */
     GaborFilterFamily(const Diff2D & size,
                       int directionCount = stdDirectionCount, int scaleCount = stdScaleCount,
-                      double maxCenterFrequency = 3.0/8.0)
-        : ParentClass(directionCount*scaleCount, size),
+                      double maxCenterFrequency = 3.0/8.0,
+                      Alloc const & alloc = Alloc())
+        : ParentClass(directionCount*scaleCount, size, alloc),
           scaleCount_(scaleCount),
           directionCount_(directionCount),
           maxCenterFrequency_(maxCenterFrequency)
@@ -302,8 +342,10 @@ public:
          */
     GaborFilterFamily(int width= stdFilterSize, int height= -1,
                       int directionCount = stdDirectionCount, int scaleCount = stdScaleCount,
-                      double maxCenterFrequency = 3.0/8.0)
-        : ParentClass(directionCount*scaleCount, Size2D(width, height > 0 ? height : width)),
+                      double maxCenterFrequency = 3.0/8.0,
+                      Alloc const & alloc = Alloc())
+        : ParentClass(directionCount*scaleCount, 
+                      Size2D(width, height > 0 ? height : width), alloc),
           scaleCount_(scaleCount),
           directionCount_(directionCount),
           maxCenterFrequency_(maxCenterFrequency)
@@ -332,7 +374,7 @@ public:
          */
     ImageType const & getFilter(int direction, int scale) const
     {
-        return images_[filterIndex(direction, scale)];
+        return this->images_[filterIndex(direction, scale)];
     }
 
         /** Resize all filters (causing their recalculation).
@@ -358,7 +400,7 @@ public:
          */
     void setDirectionScaleCounts(int directionCount, int scaleCount)
     {
-        resize(directionCount * scaleCount);
+        this->resize(directionCount * scaleCount);
         scaleCount_ = scaleCount;
         directionCount_ = directionCount;
         initFilters();

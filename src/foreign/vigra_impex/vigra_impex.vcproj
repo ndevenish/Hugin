@@ -152,6 +152,9 @@
 				RelativePath=".\gif.cxx">
 			</File>
 			<File
+				RelativePath=".\iccjpeg.c">
+			</File>
+			<File
 				RelativePath=".\imageinfo.cxx">
 			</File>
 			<File

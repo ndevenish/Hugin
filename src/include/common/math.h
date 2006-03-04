@@ -107,7 +107,6 @@ struct TDiff2D
     double x,y;
 };
 
-
 /** clip a point to fit int [min, max]
  *  does not do a mathematical clipping, just sets p.x and p.y
  *  to the borders if they are outside.
@@ -208,12 +207,15 @@ inline vigra::Diff2D operator*(const vigra::Diff2D & d, double scale)
                          (int)(ceil(d.y * scale)));
 }
 
+#if 0
+/// FIXME - DGSW duplicates function in diff2d.hxx
 /// uses ceil for rounding. -> might extend the image size.
 inline vigra::Size2D operator*(const vigra::Size2D & d, double scale)
 {
     return vigra::Size2D((int)(ceil(d.x * scale)), 
                           (int)(ceil(d.y * scale)));
 }
+#endif
 
 /// uses floor for left and top and ceil for right and bottom -> extend image when rounding..
 inline vigra::Rect2D operator*(const vigra::Rect2D & r, double scale)

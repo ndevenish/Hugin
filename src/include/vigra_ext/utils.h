@@ -32,8 +32,8 @@
 
 namespace vigra {
 
-template <class T1, class T2>
-struct PromoteTraits<RGBValue<T1>, T2 >
+template <class T1, unsigned int R, unsigned int G, unsigned int B, class T2>
+struct PromoteTraits<RGBValue<T1, R, G, B>, T2 >
 {
     typedef RGBValue<typename PromoteTraits<T1, T2>::Promote> Promote;
 };
@@ -50,17 +50,17 @@ inline float pow(float a, double b)
 }
 
 /// component-wise absolute value
-template <class T>
+template <class T, unsigned int R, unsigned int G, unsigned int B>
 inline
-vigra::RGBValue<T> pow(vigra::RGBValue<T> const & v, double e) {
-    return vigra::RGBValue<T>(pow(v.red(),e), pow(v.green(),e),  pow(v.blue(),e));
+vigra::RGBValue<T, R, G, B> pow(vigra::RGBValue<T, R, G, B> const & v, double e) {
+    return vigra::RGBValue<T, R, G, B>(pow(v.red(),e), pow(v.green(),e),  pow(v.blue(),e));
 }
 
 /// add a scalar to all components
-template <class V1, class V2>
+template <class V1, unsigned int R, unsigned int G, unsigned int B, class V2>
 inline
-vigra::RGBValue<V1> &
-operator+=(vigra::RGBValue<V1> & l, V2 const & r)
+vigra::RGBValue<V1, R, G, B> &
+operator+=(vigra::RGBValue<V1, R, G, B> & l, V2 const & r)
 {
     l.red() += r;
     l.green() += r;
@@ -69,14 +69,14 @@ operator+=(vigra::RGBValue<V1> & l, V2 const & r)
 }
 
 /// add a scalar to all components
-template <class V1, class V2>
+template <class V1, unsigned int R, unsigned int G, unsigned int B, class V2>
 inline
 // WARNING: This is a hack.. 
 //vigra::RGBValue<V1>
-typename vigra::PromoteTraits<vigra::RGBValue<V1>, V2 >::Promote
-operator+(vigra::RGBValue<V1> const & r1, V2 const & r2)
+typename vigra::PromoteTraits<vigra::RGBValue<V1, R, G, B>, V2 >::Promote
+operator+(vigra::RGBValue<V1, R, G, B> const & r1, V2 const & r2)
 {
-    typename vigra::PromoteTraits<vigra::RGBValue<V1>, V2 >::Promote res(r1);
+    typename vigra::PromoteTraits<vigra::RGBValue<V1, R, G, B>, V2 >::Promote res(r1);
 
     res += r2;
 

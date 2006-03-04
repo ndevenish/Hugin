@@ -35,7 +35,7 @@
 #include <vigra/basicimageview.hxx>
 #include <vigra/rgbvalue.hxx>
 #include <vigra/impex.hxx>
-#include <vigra/impexalpha.hxx>
+#include <vigra_ext/impexalpha.hxx>
 #include <vigra_ext/Pyramid.h>
 #include <vigra_ext/ImageTransforms.h>
 
@@ -48,6 +48,54 @@ using namespace vigra;
 using namespace vigra_ext;
 using namespace utils;
 using namespace PT;
+
+
+template <class T1, class T2>
+        struct GetAlphaScaleFactor;
+
+// define the scale factors to map from the alpha channel type (T2)
+// to valid alpha channels in image type (T1)
+// T1: image type
+// T2: alpha type
+//  S: scale factor (given as type of T1).
+#define VIGRA_EXT_GETALPHASCALE(T1,T2, S) \
+template<> \
+struct GetAlphaScaleFactor<T1, T2> \
+{ \
+    static vigra::NumericTraits<T1>::RealPromote get() \
+{ \
+        return S; \
+} \
+};
+
+// conversion from/to unsigned char
+VIGRA_EXT_GETALPHASCALE(unsigned char, unsigned char, 1);
+VIGRA_EXT_GETALPHASCALE(short, unsigned char, 128.498);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned char, 257);
+VIGRA_EXT_GETALPHASCALE(int, unsigned char, 8421504.49803922);
+VIGRA_EXT_GETALPHASCALE(unsigned int, unsigned char, 16843009);
+VIGRA_EXT_GETALPHASCALE(float, unsigned char, 1.0/255);
+VIGRA_EXT_GETALPHASCALE(double, unsigned char, 1.0/255);
+
+// conversion from/to unsigned short
+VIGRA_EXT_GETALPHASCALE(unsigned char, unsigned short, 0.00389105058365759);
+VIGRA_EXT_GETALPHASCALE(short, unsigned short, 0.499992370489052);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned short, 1);
+VIGRA_EXT_GETALPHASCALE(int, unsigned short, 32768.4999923705);
+VIGRA_EXT_GETALPHASCALE(unsigned int, unsigned short, 65537);
+VIGRA_EXT_GETALPHASCALE(float, unsigned short, 1.0/65535);
+VIGRA_EXT_GETALPHASCALE(double, unsigned short, 1.0/65535);
+
+// conversion from/to unsigned int
+VIGRA_EXT_GETALPHASCALE(unsigned char,  unsigned int, 5.93718141455603e-08);
+VIGRA_EXT_GETALPHASCALE(short,          unsigned int, 7.62916170238265e-06);
+VIGRA_EXT_GETALPHASCALE(unsigned short, unsigned int, 1.52585562354090e-05);
+VIGRA_EXT_GETALPHASCALE(int,            unsigned int, 0.499999999883585);
+VIGRA_EXT_GETALPHASCALE(unsigned int,   unsigned int, 1);
+VIGRA_EXT_GETALPHASCALE(float,          unsigned int, 1.0/4294967295.0);
+VIGRA_EXT_GETALPHASCALE(double,         unsigned int, 1.0/4294967295.0);
+
+#undef VIGRA_EXT_GETALPHASCALE
 
 ImageCache * ImageCache::instance = 0;
 

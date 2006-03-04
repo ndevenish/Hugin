@@ -916,7 +916,6 @@ void loadAndAddImage(vigra::BImage & img, const std::string & filename, Panorama
 {
     // load image
     vigra::ImageImportInfo info(filename.c_str());
-    // FIXME.. check for grayscale / color
     img.resize(info.width(), info.height());
     if(info.isGrayscale())
     {

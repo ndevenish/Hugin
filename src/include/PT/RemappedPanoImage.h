@@ -32,7 +32,7 @@
 
 #include <vigra/basicimage.hxx>
 #include <vigra/impex.hxx>
-#include <vigra/impexalpha.hxx>
+#include <vigra_ext/impexalpha.hxx>
 #include <vigra/flatmorphology.hxx>
 #include <vigra/transformimage.hxx>
 //#include <vigra/functorexpression.hxx>
@@ -523,12 +523,13 @@ public:
 //        return m_outline;
 //    }
 
+    vigra::ICCProfile m_ICCProfile;
+
 protected:
     SrcPanoImage m_srcImg;
     DestPanoImage m_destImg;
 //    PTools::Transform m_transf;
     PT::SpaceTransform m_transf;
-
 };
 
 /** remap a single image
@@ -730,6 +731,7 @@ public:
         vigra::ImageImportInfo info(img.getFilename().c_str());
         ImageType srcImg(info.width(), info.height());
 
+        m_remapped->m_ICCProfile = info.getICCProfile();
         // import the image
         progress.setMessage(std::string("loading ") + utils::stripPath(img.getFilename()));
         if (info.numExtraBands() > 0) {

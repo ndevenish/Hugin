@@ -4,26 +4,46 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
-
-#include <config.h>
+/* Modifications by Pablo d'Angelo
+ * updated to vigra 1.4 by Douglas Wilkins
+ * as of 18 Febuary 2006:
+ *  - Replaced size_t with unsigned int.
+ */
 
 #include <iostream>
 #include <fstream>
+#include "vigra/config.hxx"
+#include "vigra/sized_int.hxx"
 #include "error.hxx"
 #include "byteorder.hxx"
 #include "void_vector.hxx"
@@ -164,14 +184,10 @@
 
 namespace vigra {
 
-    typedef short int16_t;
-    typedef int   int32_t;
-
     // added by dangelo, this is probably a hack, but the some of
     // the fields seem to be unsigned int, but other have size_t (which is
     // probably not unsigned int on 64 bit machines). Force the usage
     // of unsigned int here..
-    typedef unsigned int my_size_t;
 
     template< class T1, class T2 >
     class colormap
@@ -250,35 +266,35 @@ namespace vigra {
     // this function encapsulates the colormap functor
     template< class storage_type, class map_storage_type >
     void map_multiband( void_vector<map_storage_type> & dest,
-                        my_size_t & dest_bands,
+                        UInt32 & dest_bands,
                         const void_vector<storage_type> & src,
-                        my_size_t src_bands, my_size_t src_width, my_size_t src_height,
+                        UInt32 src_bands, UInt32 src_width, UInt32 src_height,
                         const void_vector<map_storage_type> & maps,
-                        my_size_t map_bands, my_size_t map_width, my_size_t map_height )
+                        UInt32 map_bands, UInt32 map_width, UInt32 map_height )
     {
         typedef colormap< storage_type, map_storage_type > colormap_type;
-        const my_size_t num_pixels = src_width * src_height;
+        const UInt32 num_pixels = src_width * src_height;
 
         // build the color map
-        const my_size_t map_band_size = map_width * map_height;
+        const UInt32 map_band_size = map_width * map_height;
         colormap_type colormap( map_height, map_bands, map_width );
-        for ( my_size_t i = 0; i < map_bands; ++i )
+        for ( UInt32 i = 0; i < map_bands; ++i )
             colormap.initialize( maps.data() + map_band_size * i, i );
 
         // map each pixel
-        const my_size_t band_size = src_width * src_height;
+        const UInt32 band_size = src_width * src_height;
         dest_bands = map_bands * map_width;
         dest.resize( band_size * dest_bands );
         if ( map_width > 1 ) {
             // interleaved maps => there is only one band in the image
-            for( my_size_t bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( my_size_t i = 0; i < num_pixels; ++i )
+            for( UInt32 bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( UInt32 i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[i], bandnum );
         } else {
             // non-interleaved bands => map can be used per band
-            for( my_size_t bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( my_size_t i = 0; i < num_pixels; ++i )
+            for( UInt32 bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( UInt32 i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[ bandnum * band_size + i ], bandnum );
         }
@@ -312,6 +328,9 @@ namespace vigra {
         desc.fileExtensions.resize(1);
         desc.fileExtensions[0] = "xv";
 
+        desc.bandNumbers.resize(1);
+        desc.bandNumbers[0] = 0;
+        
         return desc;
     }
 
@@ -327,7 +346,7 @@ namespace vigra {
 
     class ViffHeader
     {
-        typedef unsigned long field_type;
+        typedef UInt32 field_type;
 
     public:
 
@@ -499,7 +518,7 @@ namespace vigra {
 
     struct ViffDecoderImpl
     {
-        my_size_t width, height, components, map_width,
+        UInt32 width, height, components, map_width,
             map_height, num_maps;
         std::string pixelType;
         int current_scanline;
@@ -517,7 +536,7 @@ namespace vigra {
     ViffDecoderImpl::ViffDecoderImpl( const std::string & filename )
         : pixelType("undefined"), current_scanline(-1)
     {
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         std::ifstream stream( filename.c_str(), std::ios::binary );
 #else
         std::ifstream stream( filename.c_str() );
@@ -555,17 +574,17 @@ namespace vigra {
         const unsigned int maps_size = map_width * map_height * num_maps;
 
         if ( header.map_storage_type == VFF_MAPTYP_1_BYTE ) {
-            typedef void_vector< unsigned char > maps_type;
+            typedef void_vector<UInt8> maps_type;
             maps_type & castmaps = static_cast< maps_type & >(maps);
             castmaps.resize(maps_size);
             read_array( stream, bo, castmaps.data(), maps_size );
         } else if ( header.map_storage_type == VFF_MAPTYP_2_BYTE ) {
-            typedef void_vector<int16_t> maps_type;
+            typedef void_vector<Int16> maps_type;
             maps_type & castmaps = static_cast< maps_type & >(maps);
             castmaps.resize(maps_size);
             read_array( stream, bo, castmaps.data(), maps_size );
         } else if ( header.map_storage_type == VFF_MAPTYP_4_BYTE ) {
-            typedef void_vector<int32_t> maps_type;
+            typedef void_vector<Int32> maps_type;
             maps_type & castmaps = static_cast< maps_type & >(maps);
             castmaps.resize(maps_size);
             read_array( stream, bo, castmaps.data(), maps_size );
@@ -580,22 +599,22 @@ namespace vigra {
 
     void ViffDecoderImpl::read_bands( std::ifstream & stream, byteorder & bo )
     {
-        const my_size_t bands_size = width * height * components;
+        const UInt32 bands_size = width * height * components;
 
         if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector<UInt8> bands_type;
             bands_type & castbands = static_cast< bands_type & >(bands);
             castbands.resize(bands_size);
             read_array( stream, bo, castbands.data(), bands_size );
             pixelType = "UINT8";
         } else if ( header.data_storage_type == VFF_TYP_2_BYTE ) {
-            typedef void_vector<int16_t> bands_type;
+            typedef void_vector<Int16> bands_type;
             bands_type & castbands = static_cast< bands_type & >(bands);
             castbands.resize(bands_size);
             read_array( stream, bo, castbands.data(), bands_size );
             pixelType = "INT16";
         } else if ( header.data_storage_type == VFF_TYP_4_BYTE ) {
-            typedef void_vector<int32_t> bands_type;
+            typedef void_vector<Int32> bands_type;
             bands_type & castbands = static_cast< bands_type & >(bands);
             castbands.resize(bands_size);
             read_array( stream, bo, castbands.data(), bands_size );
@@ -619,13 +638,13 @@ namespace vigra {
     void ViffDecoderImpl::color_map()
     {
         void_vector_base temp_bands;
-        my_size_t temp_num_bands;
+        UInt32 temp_num_bands;
 
         if ( header.map_storage_type == VFF_MAPTYP_1_BYTE ) {
-            typedef unsigned char map_storage_type;
+            typedef UInt8 map_storage_type;
 
             if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
-                typedef unsigned char storage_type;
+                typedef UInt8 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -636,7 +655,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_2_BYTE ) {
-                typedef unsigned short storage_type;
+                typedef UInt16 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -647,7 +666,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_4_BYTE ) {
-                typedef unsigned int storage_type;
+                typedef UInt32 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -663,10 +682,10 @@ namespace vigra {
             pixelType = "UINT8";
 
         } else if ( header.map_storage_type == VFF_MAPTYP_2_BYTE ) {
-            typedef unsigned short map_storage_type;
+            typedef UInt16 map_storage_type;
 
             if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
-                typedef unsigned char storage_type;
+                typedef UInt8 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -677,7 +696,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_2_BYTE ) {
-                typedef unsigned short storage_type;
+                typedef UInt16 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -688,7 +707,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_4_BYTE ) {
-                typedef unsigned int storage_type;
+                typedef UInt32 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -704,10 +723,10 @@ namespace vigra {
             pixelType = "INT16";
 
         } else if ( header.map_storage_type == VFF_MAPTYP_4_BYTE ) {
-            typedef unsigned int map_storage_type;
+            typedef UInt32 map_storage_type;
 
             if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
-                typedef unsigned char storage_type;
+                typedef UInt8 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -718,7 +737,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_2_BYTE ) {
-                typedef unsigned short storage_type;
+                typedef UInt16 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -729,7 +748,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_4_BYTE ) {
-                typedef unsigned int storage_type;
+                typedef UInt32 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -748,7 +767,7 @@ namespace vigra {
             typedef float map_storage_type;
 
             if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
-                typedef unsigned char storage_type;
+                typedef UInt8 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -759,7 +778,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_2_BYTE ) {
-                typedef unsigned short storage_type;
+                typedef UInt16 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -770,7 +789,7 @@ namespace vigra {
                                num_maps, map_width, map_height );
 
             } else if ( header.data_storage_type == VFF_TYP_4_BYTE ) {
-                typedef unsigned int storage_type;
+                typedef UInt32 storage_type;
                 typedef void_vector<storage_type> bands_type;
                 typedef void_vector<map_storage_type> maps_type;
                 map_multiband( static_cast< maps_type & >(temp_bands),
@@ -819,7 +838,7 @@ namespace vigra {
 
     unsigned int ViffDecoder::getNumBands() const
     {
-        return static_cast<unsigned int>(pimpl->components);
+        return static_cast<UInt32>(pimpl->components);
     }
 
     std::string ViffDecoder::getPixelType() const
@@ -837,17 +856,17 @@ namespace vigra {
         const unsigned int index = pimpl->width
             * ( pimpl->height * band + pimpl->current_scanline );
         if ( pimpl->pixelType == "UINT8" ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector<UInt8> bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + index;
         } else if ( pimpl->pixelType == "INT16" ) {
-            typedef void_vector<int16_t> bands_type;
+            typedef void_vector<Int16> bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + index;
         } else if ( pimpl->pixelType == "INT32" ) {
-            typedef void_vector<int32_t> bands_type;
+            typedef void_vector<Int32> bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + index;
@@ -889,7 +908,7 @@ namespace vigra {
         void_vector_base bands;
 
         ViffEncoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
             : stream( filename.c_str(), std::ios::binary ),
 #else
             : stream( filename.c_str() ),
@@ -902,7 +921,7 @@ namespace vigra {
                 std::string msg("Unable to open file '");
                 msg += filename;
                 msg += "'.";
-                vigra_precondition(0, msg.c_str());
+                vigra_precondition(false, msg);
             }
         }
 
@@ -925,31 +944,31 @@ namespace vigra {
 
     void ViffEncoder::setWidth( unsigned int width )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->header.row_size = width;
     }
 
     void ViffEncoder::setHeight( unsigned int height )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->header.col_size = height;
     }
 
     void ViffEncoder::setNumBands( unsigned int numBands )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->header.num_data_bands = numBands;
     }
 
     void ViffEncoder::setCompressionType( const std::string & comp,
                                           int quality )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
     }
 
     void ViffEncoder::setPixelType( const std::string & pixelType )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->pixelType = pixelType;
         if ( pixelType == "UINT8" )
             pimpl->header.data_storage_type = VFF_TYP_1_BYTE;
@@ -976,15 +995,15 @@ namespace vigra {
             * pimpl->header.col_size * pimpl->header.num_data_bands;
 
         if ( pimpl->header.data_storage_type == VFF_TYP_1_BYTE ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector<UInt8> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             castbands.resize(bands_size);
         } else if ( pimpl->header.data_storage_type == VFF_TYP_2_BYTE ) {
-            typedef void_vector<int16_t> bands_type;
+            typedef void_vector<Int16> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             castbands.resize(bands_size);
         } else if ( pimpl->header.data_storage_type == VFF_TYP_4_BYTE ) {
-            typedef void_vector<int32_t> bands_type;
+            typedef void_vector<Int32> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             castbands.resize(bands_size);
         } else if ( pimpl->header.data_storage_type == VFF_TYP_FLOAT ) {
@@ -1006,15 +1025,15 @@ namespace vigra {
         const unsigned int index = pimpl->header.row_size
             * ( pimpl->header.col_size * band + pimpl->current_scanline );
         if ( pimpl->pixelType == "UINT8" ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector<UInt8> bands_type;
              bands_type & bands = static_cast<  bands_type & >(pimpl->bands);
             return bands.data() + index;
         } else if ( pimpl->pixelType == "INT16" ) {
-            typedef void_vector<int16_t> bands_type;
+            typedef void_vector<Int16> bands_type;
              bands_type & bands = static_cast<  bands_type & >(pimpl->bands);
             return bands.data() + index;
         } else if ( pimpl->pixelType == "INT32" ) {
-            typedef void_vector<int32_t> bands_type;
+            typedef void_vector<Int32> bands_type;
              bands_type & bands = static_cast<  bands_type & >(pimpl->bands);
             return bands.data() + index;
         } else if ( pimpl->pixelType == "FLOAT" ) {
@@ -1043,17 +1062,17 @@ namespace vigra {
             * pimpl->header.col_size * pimpl->header.num_data_bands;
 
         if ( pimpl->header.data_storage_type == VFF_TYP_1_BYTE ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector<UInt8> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             write_array( pimpl->stream, pimpl->bo,
                          castbands.data(), bands_size );
         } else if ( pimpl->header.data_storage_type == VFF_TYP_2_BYTE ) {
-            typedef void_vector<short> bands_type;
+            typedef void_vector<Int16> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             write_array( pimpl->stream, pimpl->bo,
                          castbands.data(), bands_size );
         } else if ( pimpl->header.data_storage_type == VFF_TYP_4_BYTE ) {
-            typedef void_vector<int> bands_type;
+            typedef void_vector<Int32> bands_type;
             bands_type & castbands = static_cast< bands_type & >(pimpl->bands);
             write_array( pimpl->stream, pimpl->bo,
                          castbands.data(), bands_size );

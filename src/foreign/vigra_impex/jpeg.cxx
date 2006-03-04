@@ -4,28 +4,47 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
-
-#include <config.h>
+/* Modifications by Pablo d'Angelo
+ * as of 4 March 2006:
+ *  - Added support for x and y resolution fields.
+ *  - Added ICC support.
+ */
 
 #ifdef HasJPEG
 
 #include <stdexcept>
 #include <csetjmp>
+#include "vigra/config.hxx"
 #include "void_vector.hxx"
 #include "error.hxx"
 #include "auto_file.hxx"
@@ -34,6 +53,7 @@
 extern "C"
 {
 #include <jpeglib.h>
+#include "iccjpeg.h"
 }
 
 namespace vigra
@@ -65,6 +85,10 @@ namespace vigra
         desc.fileExtensions[0] = "jpg";
         desc.fileExtensions[1] = "jpeg";
 
+        desc.bandNumbers.resize(2);
+        desc.bandNumbers[0] = 1;
+        desc.bandNumbers[1] = 3;
+        
         return desc;
     }
 
@@ -132,6 +156,9 @@ namespace vigra
         // attributes
         jpeg_compress_struct info;
 
+        UInt32 iccProfileLength;
+        const unsigned char *iccProfilePtr; 
+
         JPEGEncoderImplBase()
         {
             // create the decompression struct
@@ -153,6 +180,11 @@ namespace vigra
         void_vector<JSAMPLE> bands;
         unsigned int width, height, components, scanline;
 
+        // icc profile, if available
+        // the memory is owned by libjpeg
+        UInt32 iccProfileLength;
+        const unsigned char *iccProfilePtr; 
+
         // ctor, dtor
 
         JPEGDecoderImpl( const std::string & filename );
@@ -164,12 +196,12 @@ namespace vigra
     };
 
     JPEGDecoderImpl::JPEGDecoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : file( filename.c_str(), "rb" ),
 #else
         : file( filename.c_str(), "r" ),
 #endif
-          bands(0), scanline(0)
+          bands(0), scanline(0), iccProfileLength(0), iccProfilePtr(0)
     {
         // setup setjmp() error handling
         info.err = jpeg_std_error( ( jpeg_error_mgr * ) &err );
@@ -180,6 +212,8 @@ namespace vigra
             vigra_fail( "error in jpeg_stdio_src()" );
         }
         jpeg_stdio_src( &info, file.get() );
+        // prepare for icc profile
+        setup_read_icc_profile(&info);   
     }
 
     void JPEGDecoderImpl::init()
@@ -189,6 +223,14 @@ namespace vigra
             vigra_fail( "error in jpeg_read_header()" );
         jpeg_read_header( &info, TRUE );
 
+        // extract ICC profile
+        JOCTET *iccBuf;
+        UInt32 iccLen;
+        if (read_icc_profile(&info, &iccBuf, &iccLen)) {
+            iccProfileLength = iccLen;
+            iccProfilePtr = iccBuf;
+        }
+        
         // start the decompression
         if (setjmp(err.buf))
             vigra_fail( "error in jpeg_start_decompress()" );
@@ -208,6 +250,8 @@ namespace vigra
 
     JPEGDecoderImpl::~JPEGDecoderImpl()
     {
+        if (iccProfilePtr && iccProfileLength)
+            free((void *)iccProfilePtr);
     }
 
     void JPEGDecoder::init( const std::string & filename )
@@ -240,6 +284,16 @@ namespace vigra
     {
         return pimpl->components;
     }
+
+    UInt32 JPEGDecoder::getICCProfileLength() const
+    {
+        return pimpl->iccProfileLength;
+    }
+
+    const unsigned char *JPEGDecoder::getICCProfile() const
+    {
+        return pimpl->iccProfilePtr;
+    } 
 
     std::string JPEGDecoder::getPixelType() const
     {
@@ -286,6 +340,10 @@ namespace vigra
         unsigned int width, height, components, scanline;
         int quality;
 
+        // icc profile, if available
+        UInt32 iccProfileLength;
+        const unsigned char *iccProfilePtr; 
+
         // state
         bool finalized;
 
@@ -300,13 +358,13 @@ namespace vigra
     };
 
     JPEGEncoderImpl::JPEGEncoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : file( filename.c_str(), "wb" ),
 #else
         : file( filename.c_str(), "w" ),
 #endif
           scanline(0), quality(-1),
-          finalized(false)
+          finalized(false), iccProfileLength(0), iccProfilePtr(0)
     {
         // setup setjmp() error handling
         info.err = jpeg_std_error( ( jpeg_error_mgr * ) &err );
@@ -323,9 +381,9 @@ namespace vigra
     {
     }
 
-    void JPEGEncoderImpl::finalize()
+void JPEGEncoderImpl::finalize()
     {
-        VIGRA_IMPEX2_FINALIZED(finalized);
+        VIGRA_IMPEX_FINALIZED(finalized);
 
         // alloc memory for a single scanline
         bands.resize( width * components );
@@ -370,6 +428,10 @@ namespace vigra
         if (setjmp(err.buf))
             vigra_fail( "error in jpeg_start_compress()" );
         jpeg_start_compress( &info, TRUE );
+
+        if (iccProfilePtr && iccProfileLength) {
+            write_icc_profile(&info, iccProfilePtr, iccProfileLength);
+        }
     }
 
     void JPEGEncoder::init( const std::string & filename )
@@ -389,26 +451,26 @@ namespace vigra
 
     void JPEGEncoder::setWidth( unsigned int width )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->width = width;
     }
 
     void JPEGEncoder::setHeight( unsigned int height )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->height = height;
     }
 
     void JPEGEncoder::setNumBands( unsigned int bands )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->components = bands;
     }
 
     void JPEGEncoder::setCompressionType( const std::string & comp,
                                           int quality )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         if ( comp == "LOSSLESS" )
             vigra_fail( "lossless encoding is not supported by"
                         " the jpeg implementation impex uses." );
@@ -417,7 +479,7 @@ namespace vigra
 
     void JPEGEncoder::setPixelType( const std::string & pixelType )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         if ( pixelType != "UINT8" )
             vigra_precondition( false, "only UINT8 pixels are supported." );
     }
@@ -426,6 +488,12 @@ namespace vigra
     {
         return pimpl->components;
     }
+
+    void JPEGEncoder::setICCProfile(const UInt32 length, const unsigned char * const buf)
+    {
+        pimpl->iccProfileLength = length;
+        pimpl->iccProfilePtr = buf;
+    } 
 
     void JPEGEncoder::finalizeSettings()
     {

@@ -4,26 +4,50 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
 #ifndef VIGRA_METAPROGRAMMING_HXX
 #define VIGRA_METAPROGRAMMING_HXX
 
+#include "config.hxx"
+
 namespace vigra {
+
+template <int N>
+class MetaInt
+{
+  public:
+    enum { value = N };
+};
 
 struct VigraTrueType
 {
@@ -50,7 +74,7 @@ struct VigraFalseType
 /** tag for marking a MultiArray strided.
 
 <b>\#include</b>
-"<a href="multi_array_8hxx-source.html">vigra/multi_array.hxx</a>"
+"<a href="multi__array_8hxx-source.html">vigra/multi_array.hxx</a>"
 
 Namespace: vigra
 */
@@ -65,7 +89,7 @@ struct StridedArrayTag {};
 /** tag for marking a MultiArray unstrided.
 
 <b>\#include</b>
-"<a href="multi_array_8hxx-source.html">vigra/multi_array.hxx</a>"
+"<a href="multi__array_8hxx-source.html">vigra/multi_array.hxx</a>"
 
 Namespace: vigra
 */
@@ -75,15 +99,26 @@ template<class T>
 class TypeTraits
 {
   public:
+    typedef VigraFalseType isConst;
     typedef VigraFalseType isPOD;
     typedef VigraFalseType isBuiltinType;
 };
 
 #ifndef NO_PARTIAL_TEMPLATE_SPECIALIZATION
+
+template<class T>
+class TypeTraits<T const>
+: public TypeTraits<T>
+{
+  public:
+    typedef VigraTrueType isConst;
+};
+
 template<class T> 
 class TypeTraits<T *>
 {
   public:
+    typedef VigraFalseType isConst;
     typedef VigraTrueType isPOD;
     typedef VigraTrueType isBuiltinType;
 };
@@ -92,16 +127,19 @@ template<class T>
 class TypeTraits<T const *>
 {
   public:
+    typedef VigraFalseType isConst;
     typedef VigraTrueType isPOD;
     typedef VigraTrueType isBuiltinType;
 };
-#endif
+
+#endif // NO_PARTIAL_TEMPLATE_SPECIALIZATION
 
 #define VIGRA_TYPE_TRAITS(type) \
 template<> \
 class TypeTraits<type> \
 { \
   public: \
+    typedef VigraFalseType isConst; \
     typedef VigraTrueType isPOD; \
     typedef VigraTrueType isBuiltinType; \
 };
@@ -122,6 +160,133 @@ VIGRA_TYPE_TRAITS(long double)
 #undef VIGRA_TYPE_TRAITS
 
 //@}
+
+template <class L, class R>
+struct And;
+
+template <>
+struct And<VigraFalseType, VigraFalseType>
+{
+    typedef VigraFalseType result;
+    static const bool boolResult = false;
+};
+
+template <>
+struct And<VigraFalseType, VigraTrueType>
+{
+    typedef VigraFalseType result;
+    static const bool boolResult = false;
+};
+
+template <>
+struct And<VigraTrueType, VigraFalseType>
+{
+    typedef VigraFalseType result;
+    static const bool boolResult = false;
+};
+
+template <>
+struct And<VigraTrueType, VigraTrueType>
+{
+    typedef VigraTrueType result;
+    static const bool boolResult = true;
+};
+
+template <class L, class R>
+struct Or;
+
+template <>
+struct Or<VigraFalseType, VigraFalseType>
+{
+    typedef VigraFalseType result;
+    static const bool boolResult = false;
+};
+
+template <>
+struct Or<VigraTrueType, VigraFalseType>
+{
+    typedef VigraTrueType result;
+    static const bool boolResult = true;
+};
+
+template <>
+struct Or<VigraFalseType, VigraTrueType>
+{
+    typedef VigraTrueType result;
+    static const bool boolResult = true;
+};
+
+template <>
+struct Or<VigraTrueType, VigraTrueType>
+{
+    typedef VigraTrueType result;
+    static const bool boolResult = true;
+};
+
+#ifndef NO_PARTIAL_TEMPLATE_SPECIALIZATION
+
+template <class PREDICATE, class TRUECASE, class FALSECASE>
+struct If;
+
+template <class TRUECASE, class FALSECASE>
+struct If<VigraTrueType, TRUECASE, FALSECASE>
+{
+    typedef TRUECASE type;
+};
+
+template <class TRUECASE, class FALSECASE>
+struct If<VigraFalseType, TRUECASE, FALSECASE>
+{
+    typedef FALSECASE type;
+};
+
+template <bool PREDICATE, class TRUECASE, class FALSECASE>
+struct IfBool;
+
+template <class TRUECASE, class FALSECASE>
+struct IfBool<true, TRUECASE, FALSECASE>
+{
+    typedef TRUECASE type;
+};
+
+template <class TRUECASE, class FALSECASE>
+struct IfBool<false, TRUECASE, FALSECASE>
+{
+    typedef FALSECASE type;
+};
+
+template <class L, class R>
+struct IsSameType
+{
+    typedef VigraFalseType result;
+    static const bool boolResult = false;
+};
+
+template <class T>
+struct IsSameType<T, T>
+{
+    typedef VigraTrueType result;
+    static const bool boolResult = true;
+};
+
+template <class DERIVED, class BASE>
+struct IsDerivedFrom
+{
+    typedef char falseResult[1];
+    typedef char trueResult[2];
+    
+    static falseResult * testIsDerivedFrom(...);
+    static trueResult * testIsDerivedFrom(BASE const *);
+    
+    enum { resultSize = sizeof(*testIsDerivedFrom((DERIVED const *)0)) };
+    
+    static const bool boolResult = (resultSize == 2);
+    typedef typename 
+        IfBool<boolResult, VigraTrueType, VigraFalseType>::type
+        result;
+};
+
+#endif // NO_PARTIAL_TEMPLATE_SPECIALIZATION
 
 } // namespace vigra
 

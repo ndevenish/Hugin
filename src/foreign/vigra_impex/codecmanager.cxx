@@ -4,26 +4,45 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
-#include <config.h>
 #include <fstream>
 #include <algorithm>
 #include <cctype> // std::tolower
+#ifdef DEBUG
+#include <iostream>
+#endif
+
+#include "vigra/config.hxx"
 #include "vigra/error.hxx"
 #include "codecmanager.hxx"
 
@@ -36,8 +55,6 @@
 #include "pnm.hxx"
 #include "bmp.hxx"
 #include "gif.hxx"
-
-using namespace vigra;
 
 namespace vigra
 {
@@ -64,6 +81,19 @@ namespace vigra
         import( new ViffCodecFactory() );
         import( new BmpCodecFactory() );
         import( new GIFCodecFactory() );
+    }
+
+    CodecManager::~CodecManager() {
+       // release previously allocated codecs
+       // (use erase ideom similar to
+       // S. Meyers' "Effective STL", Item 9)
+       for (std::map< std::string, CodecFactory * >::iterator i
+             = factoryMap.begin();
+            i != factoryMap.end();
+            /* nothing */ ) {
+         delete (*i).second;
+         factoryMap.erase(i++);
+       }
     }
 
     // add an encoder to the stores
@@ -95,6 +125,18 @@ namespace vigra
         "the codec that was queried for its pixeltype does not exist" );
 
         return result->second->getCodecDesc().pixelTypes;
+    }
+
+    // find out which pixel types a given codec supports
+    std::vector<int>
+    CodecManager::queryCodecBandNumbers( const std::string & filetype ) const
+    {
+        std::map< std::string, CodecFactory * >::const_iterator result
+            = factoryMap.find( filetype );
+        vigra_precondition( result != factoryMap.end(),
+        "the codec that was queried for its pixeltype does not exist" );
+
+        return result->second->getCodecDesc().bandNumbers;
     }
 
     // find out if a given file type is supported
@@ -143,7 +185,7 @@ namespace vigra
         // get the magic string
         const unsigned int magiclen = 4;
         char fmagic[magiclen];
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         std::ifstream stream(filename.c_str(), std::ios::binary);
 #else
         std::ifstream stream(filename.c_str());
@@ -256,6 +298,51 @@ namespace vigra
         return codecManager().queryCodecPixelTypes(codecname);
     }
 
+    
+    // return true if downcasting is required, false otherwise
+    bool negotiatePixelType( std::string const & codecname,
+                 std::string const & srcPixeltype, std::string & destPixeltype )
+    {
+        std::vector<std::string> ptypes
+            = codecManager().queryCodecPixelTypes(codecname);
+        
+        std::vector<std::string>::iterator pend;
+        if(destPixeltype != "")
+        {
+            pend = std::find(ptypes.begin(), ptypes.end(), destPixeltype);
+            if(pend == ptypes.end())
+            {
+                std::string msg("exportImage(): file type ");
+                msg += codecname + " does not support requested pixel type " 
+                                          + destPixeltype + ".";
+                vigra_precondition(false, msg.c_str()); 
+            }
+            ++pend;
+        }
+        else
+        {
+            pend = ptypes.end();
+        }
+        
+        std::vector<std::string>::const_iterator result
+                                   = std::find( ptypes.begin(), pend, srcPixeltype );
+        
+        if( result == pend)
+        {
+            if(destPixeltype == "")
+                destPixeltype = "UINT8";
+            // must always downcast
+            return true;
+        }
+        else
+        {
+            if(destPixeltype == "")
+                destPixeltype = srcPixeltype;
+            // don't downcast
+            return false;
+        }
+    }
+
     bool isPixelTypeSupported( const std::string & codecname,
                                const std::string & pixeltype )
     {
@@ -264,6 +351,18 @@ namespace vigra
         std::vector<std::string>::const_iterator result
             = std::find( ptypes.begin(), ptypes.end(), pixeltype );
         return ( result != ptypes.end() );
+    }
+
+    bool isBandNumberSupported( const std::string & codecname,
+                                int bands )
+    {
+        std::vector<int> bandNumbers
+            = codecManager().queryCodecBandNumbers(codecname);
+        if(bandNumbers[0] == 0)
+            return true; // any band number supported
+        std::vector<int>::const_iterator result
+            = std::find( bandNumbers.begin(), bandNumbers.end(), bands );
+        return ( result != bandNumbers.end() );
     }
 
 } // namespace vigra

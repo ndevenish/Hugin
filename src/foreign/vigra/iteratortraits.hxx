@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
@@ -52,11 +67,13 @@ namespace vigra {
         typedef typename iterator::column_iterator    column_iterator;
         typedef StandardAccessor<value_type>          DefaultAccessor;
         typedef StandardAccessor<value_type>          default_accessor;
+
+        typedef VigraTrueType/VigraFalseType          hasConstantStrides;
     };
     \endcode
     
     By (partially) specializing this template for an iterator class
-    the defaults given above can be changed as approiate. For example, iterators
+    the defaults given above can be changed as appropriate. For example, iterators
     for rgb images are associated with <TT>RGBAccessor<value_type></TT> 
     instead of <TT>StandardAccessor<value_type></TT>. To get the accessor
     associated with a given iterator, use code like this:
@@ -76,6 +93,16 @@ namespace vigra {
     class is especially important since this information is not
     contained in the iterator directly.
     
+    The member <tt>hasConstantStrides</tt> is useful for certain 
+    optimizations: it helps to decide whether we can replace iterator
+    operations such as <tt>iter++</tt> ot <tt>iter =+ n</tt> with
+    corresponding pointer operations (which may be faster), where
+    the pointer is obtained as the address of iterator's pointee 
+    (the object the iterator currently  refers to). 
+    This flag would be tt>VigraFalseType</tt> for a
+    <tt>std::list&lt;int&gt;::iterator</tt>, but is <tt>VigraTrueType</tt> 
+    for most VIGRA iterators.
+
     <b>\#include</b> "<a href="iteratortraits_8hxx-source.html">vigra/iteratortraits.hxx</a>"
     Namespace: vigra
 */
@@ -92,8 +119,27 @@ struct IteratorTraits
     typedef typename iterator::difference_type    difference_type;
     typedef typename iterator::row_iterator       row_iterator;
     typedef typename iterator::column_iterator    column_iterator;
-    typedef StandardAccessor<value_type>          DefaultAccessor;
-    typedef StandardAccessor<value_type>          default_accessor;
+    typedef typename
+        AccessorTraits<value_type>::default_accessor   DefaultAccessor;
+    typedef DefaultAccessor                            default_accessor;
+
+    // default: disable the constant strides optimization
+    typedef VigraFalseType                             hasConstantStrides;
+};
+
+template <class T>
+struct IteratorTraitsBase
+{
+    typedef T                                     Iterator;
+    typedef Iterator                              iterator;
+    typedef typename iterator::iterator_category  iterator_category;
+    typedef typename iterator::value_type         value_type;
+    typedef typename iterator::reference          reference;
+    typedef typename iterator::index_reference    index_reference;
+    typedef typename iterator::pointer            pointer;
+    typedef typename iterator::difference_type    difference_type;
+    typedef typename iterator::row_iterator       row_iterator;
+    typedef typename iterator::column_iterator    column_iterator;
 };
 
 /***********************************************************/
@@ -109,6 +155,10 @@ struct IteratorTraits
         <DD>
     <DT>
         <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif"> 
+        \ref MultiArrayBasedArgumentObjectFactories
+        <DD>
+    <DT>
+        <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
         \ref IteratorBasedArgumentObjectFactories
         <DD>
     </DL>
@@ -295,6 +345,105 @@ struct IteratorTraits
         create argument object containing upper left
         of destination image, and given accessor
         
+    </td></tr>
+    </table>
+
+
+  \section MultiArrayBasedArgumentObjectFactories MultiArrayView Based Argument Object Factories
+
+    <b>Include:</b> automatically included with 
+       "<a href="multi__array_8hxx-source.html">vigra/multi_array.hxx</a>"<br>
+    Namespace: vigra
+
+    These factories can be used to create argument objects when we
+    are given instances or subclasses of \ref vigra::MultiArrayView.
+    These factory functions access <TT>array.traverser_begin()</TT>,
+    <TT>array.traverser_end()</TT> to obtain the iterators. If no accessor is
+    given, they use the <tt>AccessorTraits<T></tt> to determine the default 
+    accessor associated with the array's value type <tt>T</tt>.
+    The following factory functions are provided:
+
+    <table>
+    <tr><td>
+        \htmlonly
+        <th bgcolor="#f0e0c0" colspan=2 align=left>
+        \endhtmlonly
+        <TT>\ref vigra::MultiArrayView "vigra::MultiArrayView<N, SomeType>" array;</TT>
+        \htmlonly
+        </th>
+        \endhtmlonly
+    </td></tr>
+    <tr><td>
+
+    <TT>srcMultiArrayRange(img)</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator 
+        marking the begin of the array, a shape object giving the desired
+        shape of the array (possibly a subarray) and the default const accessor for
+        <tt>SomeType</tt>
+
+    </td></tr>
+    <tr><td>
+
+    <TT>srcMultiArrayRange(img, SomeAccessor())</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator 
+        marking the begin of the array, a shape object giving the desired
+        shape of the array (possibly a subarray) and the given accessor
+
+    </td></tr>
+    <tr><td>
+
+    <TT>srcMultiArray(img)</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator
+        marking the begin of the array, and the default const accessor for
+        <tt>SomeType</tt>
+
+    </td></tr>
+    <tr><td>
+
+    <TT>srcMultiArray(img, SomeAccessor())</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator 
+        marking the begin of the array and the given accessor
+
+    </td></tr>
+    <tr><td>
+
+    <TT>destMultiArrayRange(img)</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator 
+        marking the begin of the array, a shape object giving the desired
+        shape of the array (possibly a subarray) and the default accessor for
+        <tt>SomeType</tt>
+
+    </td></tr>
+    <tr><td>
+
+    <TT>destMultiArrayRange(img, SomeAccessor())</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator's 
+        marking the begin of the array, a shape object giving the desired
+        shape of the array (possibly a subarray) and the given accessor
+
+    </td></tr>
+    <tr><td>
+
+    <TT>destMultiArray(img)</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator 
+        marking the begin of the array and the default accessor for
+        <tt>SomeType</tt>
+
+    </td></tr>
+    <tr><td>
+
+    <TT>destMultiArray(img, SomeAccessor())</TT>
+    </td><td>
+        create argument object containing a \ref vigra::MultiIterator's 
+        marking the begin of the array and the given accessor
+
     </td></tr>
     </table>
 

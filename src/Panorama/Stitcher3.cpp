@@ -50,7 +50,7 @@ void PT::stitchPanoRGB_8_16(const PT::Panorama & pano,
     } else if (strcmp(pixelType, "INT16") == 0 ) {
         stitchPanoIntern<SRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
     } else if (strcmp(pixelType, "UINT16") == 0 ) {
-        stitchPanoIntern<USRGBImage, BImage>(pano, opts, progress, basename, usedImgs);
+        stitchPanoIntern<UInt16RGBImage, BImage>(pano, opts, progress, basename, usedImgs);
     } else {
         UTILS_THROW(std::runtime_error, "Unsupported pixel type: " << pixelType );
         return;

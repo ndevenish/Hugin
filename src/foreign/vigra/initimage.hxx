@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
@@ -26,6 +41,7 @@
 
 #include "vigra/utilities.hxx"
 #include "vigra/iteratortraits.hxx"
+#include "vigra/functortraits.hxx"
 
 namespace vigra {
 
@@ -43,33 +59,73 @@ namespace vigra {
 
 template <class DestIterator, class DestAccessor, class VALUETYPE>
 void
-initLine(DestIterator d, DestIterator dend, DestAccessor dest,
-         VALUETYPE v)
+initLineImpl(DestIterator d, DestIterator dend, DestAccessor dest,
+             VALUETYPE v, VigraFalseType)
 {
     for(; d != dend; ++d)
         dest.set(v, d);
+}
+
+template <class DestIterator, class DestAccessor, class FUNCTOR>
+void
+initLineImpl(DestIterator d, DestIterator dend, DestAccessor dest,
+             FUNCTOR const & f, VigraTrueType)
+{
+    for(; d != dend; ++d)
+        dest.set(f(), d);
+}
+
+template <class DestIterator, class DestAccessor, class VALUETYPE>
+inline void
+initLine(DestIterator d, DestIterator dend, DestAccessor dest,
+         VALUETYPE v)
+{
+    initLineImpl(d, dend, dest, v, typename FunctorTraits<VALUETYPE>::isInitializer());
+}
+
+template <class DestIterator, class DestAccessor, class FUNCTOR>
+inline void
+initLineFunctor(DestIterator d, DestIterator dend, DestAccessor dest,
+         FUNCTOR f)
+{
+    initLineImpl(d, dend, dest, f, VigraTrueType());
 }
 
 template <class DestIterator, class DestAccessor, 
           class MaskIterator, class MaskAccessor, 
           class VALUETYPE>
 void
-initLineIf(DestIterator d, DestIterator dend, DestAccessor dest,
+initLineIfImpl(DestIterator d, DestIterator dend, DestAccessor dest,
            MaskIterator m, MaskAccessor mask,
-           VALUETYPE v)
+               VALUETYPE v, VigraFalseType)
 {
     for(; d != dend; ++d, ++m)
         if(mask(m))
             dest.set(v, d);
 }
 
-template <class DestIterator, class DestAccessor, class FUNCTOR>
+template <class DestIterator, class DestAccessor, 
+          class MaskIterator, class MaskAccessor, 
+          class FUNCTOR>
 void
-initLineFunctor(DestIterator d, DestIterator dend, DestAccessor dest,
-         FUNCTOR f)
+initLineIfImpl(DestIterator d, DestIterator dend, DestAccessor dest,
+               MaskIterator m, MaskAccessor mask,
+               FUNCTOR const & f, VigraTrueType)
 {
-    for(; d != dend; ++d)
+    for(; d != dend; ++d, ++m)
+        if(mask(m))
         dest.set(f(), d);
+}
+
+template <class DestIterator, class DestAccessor, 
+          class MaskIterator, class MaskAccessor, 
+          class VALUETYPE>
+inline void
+initLineIf(DestIterator d, DestIterator dend, DestAccessor dest,
+           MaskIterator m, MaskAccessor mask,
+           VALUETYPE v)
+{
+    initLineIfImpl(d, dend, dest, m, mask, v, typename FunctorTraits<VALUETYPE>::isInitializer());
 }
 
 template <class DestIterator, class DestAccessor, 
@@ -80,9 +136,7 @@ initLineFunctorIf(DestIterator d, DestIterator dend, DestAccessor dest,
            MaskIterator m, MaskAccessor mask,
            FUNCTOR f)
 {
-    for(; d != dend; ++d, ++m)
-        if(mask(m))
-            dest.set(f(), d);
+    initLineIfImpl(d, dend, dest, m, mask, f, VigraTrueType());
 }
 
 /********************************************************/
@@ -108,7 +162,7 @@ initLineFunctorIf(DestIterator d, DestIterator dend, DestAccessor dest,
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class ImageIterator, class Accessor, class VALUETYPE>
@@ -189,7 +243,7 @@ initImage(triple<ImageIterator, ImageIterator, Accessor> img, VALUETYPE v)
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class ImageIterator, class Accessor, class FUNCTOR>
@@ -279,7 +333,7 @@ initImageWithFunctor(triple<ImageIterator, ImageIterator, Accessor> img, FUNCTOR
     }
     \endcode    
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class ImageIterator, class Accessor, 
@@ -377,7 +431,7 @@ initImageIf(triple<ImageIterator, ImageIterator, Accessor> img,
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class ImageIterator, class Accessor, class VALUETYPE>

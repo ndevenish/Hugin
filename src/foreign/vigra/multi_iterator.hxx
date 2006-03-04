@@ -4,19 +4,35 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.3.0, Sep 10 2004 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
@@ -33,6 +49,8 @@ namespace vigra {
 
 template <unsigned int N, class T, 
           class REFERENCE = T &, class POINTER = T *> class MultiIterator;
+template <unsigned int N, class T, 
+          class REFERENCE = T &, class POINTER = T *> class StridedMultiIterator;
 
 /** \page MultiIteratorPage  Multi-dimensional Array Iterators
 
@@ -419,6 +437,7 @@ but iterator performance will suffer significantly, as is experienced with
 */
 //@{
 
+
 /********************************************************/
 /*                                                      */
 /*                    MultiIteratorBase                 */
@@ -430,7 +449,7 @@ but iterator performance will suffer significantly, as is experienced with
 This design is necessary for compilers that do not support partial
 specialization (otherwise, MultiIterator could be specialized directly).
 
-<b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+<b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
 Namespace: vigra
 */
@@ -444,7 +463,7 @@ class MultiIteratorBase
         class <tt>type</tt>. This design is necessary for compilers that do not support partial
         specialization (otherwise, MultiIterator could be specialized directly).
 
-        <b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+        <b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
         Namespace: vigra
         */
@@ -488,6 +507,11 @@ class MultiIteratorBase
             */
         typedef MultiIterator <level, T, REFERENCE, POINTER> next_type;
 
+            /** the 1-dimensional iterator for this iterator hierarchy
+                (result of iteratorForDimension()).
+            */
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
+
             /** the iterator tag (image traverser)
             */
         typedef multi_dimensional_traverser_tag iterator_category;
@@ -513,14 +537,14 @@ class MultiIteratorBase
              */
         void operator++ ()
         {
-            m_ptr += m_stride [level];
+            type::m_ptr += type::m_stride [level];
         }
 
             /** prefix-decrement the iterator in it's current dimension
              */
         void operator-- ()
         {
-            m_ptr -= m_stride [level];
+            type::m_ptr -= type::m_stride [level];
         }
 
             /** postfix-increment the iterator in it's current dimension
@@ -546,7 +570,7 @@ class MultiIteratorBase
             */
         type & operator+= (difference_type n)
         {
-            m_ptr += n * m_stride [level];
+            type::m_ptr += n * type::m_stride [level];
             return *this;
         }
         
@@ -555,7 +579,7 @@ class MultiIteratorBase
             */
         type & operator+= (multi_difference_type const & d)
         {
-            m_ptr += total_stride(d.begin());
+            type::m_ptr += total_stride(d.begin());
             return *this;
         }
 
@@ -564,7 +588,7 @@ class MultiIteratorBase
             */
         type & operator-= (difference_type n)
         {
-            m_ptr -= n * m_stride [level];
+            type::m_ptr -= n * type::m_stride [level];
             return *this;
         }
         
@@ -573,7 +597,7 @@ class MultiIteratorBase
             */
         type & operator-= (multi_difference_type const & d)
         {
-            m_ptr -= total_stride(d.begin());
+            type::m_ptr -= total_stride(d.begin());
             return *this;
         }
         
@@ -583,7 +607,7 @@ class MultiIteratorBase
             */
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr) / m_stride[level];
+            return (type::m_ptr - d.m_ptr) / type::m_stride[level];
         }
 
         /* operators *, ->, ==, !=, < inherited */
@@ -593,14 +617,14 @@ class MultiIteratorBase
             */
         reference operator[] (difference_type n) const
         {
-            return m_ptr [n* m_stride [level]];
+            return type::m_ptr [n* type::m_stride [level]];
         }
 
             /** access the array element at the given offset.
             */
         reference operator[] (multi_difference_type const & d) const
         {
-            return m_ptr [total_stride(d.begin())];
+            return type::m_ptr [total_stride(d.begin())];
         }
 
             /** Return the (N-1)-dimensional multi-iterator that points to 
@@ -631,13 +655,36 @@ class MultiIteratorBase
                 N-dimensional array this iterator is referring to.
                 The result is only valid if this iterator refers to location
                 0 in <em>all</em> dimensions below its current dimension N,
-                otherwise it is undefined. Usage:
+                otherwise it is undefined.
             */
         next_type end () const
         {
             next_type ret = *this;
-            ret += m_shape [level-1];
+            ret += type::m_shape [level-1];
             return ret;
+        }
+        
+            /** Get a 1-dimensional, STL-compatible iterator for the
+                given dimension, pointing to the current element of <TT>this</TT>.
+                Usage:
+                
+                \code
+                
+                MultiIterator<3, int> outer = ...;  // this iterator
+                
+                MultiIterator<3, int>::iterator i = outer.iteratorForDimension(1);
+                MultiIterator<3, int>::iterator end = i + height;
+                for(; i != end; ++i)
+                {
+                    // go down the current column starting at the location of 'outer'
+                }
+                \endcode            
+            */
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d <= level,
+                "MultiIterator<N>::iteratorForDimension(d): d < N required");
+            return iterator(type::m_ptr, &type::m_stride [d], 0);
         }
         
       protected:
@@ -645,7 +692,7 @@ class MultiIteratorBase
         difference_type 
         total_stride(typename multi_difference_type::const_iterator d) const
         {
-            return d[level]*m_stride[level] + base_type::total_stride(d);
+            return d[level]*type::m_stride[level] + base_type::total_stride(d);
         }
     };
 };
@@ -670,14 +717,15 @@ class MultiIteratorBase <2>
         enum { level = 1 };
         typedef MultiIterator <1, T, REFERENCE, POINTER> base_type;
         typedef T value_type;
-        typedef value_type &reference;
+        typedef REFERENCE reference;
         typedef const value_type &const_reference;
-        typedef value_type *pointer;
+        typedef POINTER pointer;
         typedef const value_type *const_pointer;
         typedef ptrdiff_t difference_type;
         typedef MultiIterator <1, T, REFERENCE, POINTER> next_type;
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
         typedef TinyVector<difference_type, 2> multi_difference_type;
-        typedef multi_dimensional_traverser_tag iterator_category;
+        typedef std::random_access_iterator_tag iterator_category;
 
         const difference_type *m_stride;
         const difference_type *m_shape;
@@ -698,12 +746,12 @@ class MultiIteratorBase <2>
 
         void operator++ ()
         {
-            m_ptr += m_stride [level];
+            type::m_ptr += m_stride [level];
         }
 
         void operator-- ()
         {
-            m_ptr -= m_stride [level];
+            type::m_ptr -= m_stride [level];
         }
 
         type operator++ (int)
@@ -722,41 +770,41 @@ class MultiIteratorBase <2>
 
         type & operator+= (difference_type n)
         {
-            m_ptr += n * m_stride [level];
+            type::m_ptr += n * m_stride [level];
             return *this;
         }
         
         type & operator+= (multi_difference_type const & d)
         {
-            m_ptr += total_stride(d.begin());
+            type::m_ptr += total_stride(d.begin());
             return *this;
         }
 
         type  &operator-= (difference_type n)
         {
-            m_ptr -= n * m_stride [level];
+            type::m_ptr -= n * m_stride [level];
             return *this;
         }
         
         type & operator-= (multi_difference_type const & d)
         {
-            m_ptr -= total_stride(d.begin());
+            type::m_ptr -= total_stride(d.begin());
             return *this;
         }
         
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr) / m_stride[level];
+            return (type::m_ptr - d.m_ptr) / m_stride[level];
         }
 
         reference operator[] (difference_type n) const
         {
-            return m_ptr [n*m_stride [level]];
+            return type::m_ptr [n*m_stride [level]];
         }
 
         reference operator[] (multi_difference_type const & d) const
         {
-            return m_ptr [total_stride(d.begin())];
+            return type::m_ptr [total_stride(d.begin())];
         }
 
         next_type begin () const
@@ -769,6 +817,13 @@ class MultiIteratorBase <2>
             next_type ret = *this;
             ret += m_shape [level-1];
             return ret;
+        }
+        
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d <= level,
+                "MultiIterator<N>::iteratorForDimension(d): d < N required");
+            return iterator(type::m_ptr, &m_stride [d], 0);
         }
         
       protected:
@@ -798,12 +853,13 @@ class MultiIteratorBase <1>
       public:
         enum { level = 0 };
         typedef T value_type;
-        typedef value_type &reference;
+        typedef REFERENCE reference;
         typedef const value_type &const_reference;
-        typedef value_type *pointer;
+        typedef POINTER pointer;
         typedef const value_type *const_pointer;
         typedef ptrdiff_t difference_type;
         typedef void next_type;
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
         typedef TinyVector<difference_type, 1> multi_difference_type;
         typedef multi_dimensional_traverser_tag iterator_category;
 
@@ -875,6 +931,11 @@ class MultiIteratorBase <1>
             return *m_ptr;
         }
 
+        pointer get () const
+        {
+            return m_ptr;
+        }
+
         pointer operator->() const
         {
             return &(operator*());
@@ -892,7 +953,7 @@ class MultiIteratorBase <1>
         
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr);
+            return (m_ptr - d.m_ptr);
         }
 
         bool operator!= (const type &rhs) const
@@ -910,6 +971,19 @@ class MultiIteratorBase <1>
             return m_ptr < rhs.m_ptr;
         }
         
+        bool operator<= (const type &rhs) const
+        {
+            return m_ptr <= rhs.m_ptr;
+        }
+
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d == 0,
+                "MultiIterator<1>::iteratorForDimension(d): d == 0 required");
+            const difference_type stride = 1;
+            return iterator(m_ptr, &stride, 0);
+        }
+        
       protected:
       
         difference_type 
@@ -919,6 +993,7 @@ class MultiIteratorBase <1>
         }
     };
 };
+
 
 /********************************************************/
 /*                                                      */
@@ -931,7 +1006,7 @@ class MultiIteratorBase <1>
 
 This class wraps the MultiIteratorBase in a template of arity two.
 
-<b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+<b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
 Namespace: vigra
 */
@@ -951,7 +1026,7 @@ public:
 
         /** reference type (result of operator[])
          */
-    typedef value_type &reference;
+    typedef REFERENCE reference;
 
         /** const reference type (result of operator[] const)
          */
@@ -959,7 +1034,7 @@ public:
 
         /** pointer type
          */
-    typedef value_type *pointer;
+    typedef POINTER pointer;
 
         /** const pointer type
          */
@@ -978,9 +1053,14 @@ public:
          */
     typedef typename base_type::next_type next_type;
 
+        /** the 1-dimensional iterator for this iterator hierarchy
+            (result of iteratorForDimension()).
+        */
+    typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
+
         /** the iterator tag (image traverser)
         */
-    typedef multi_dimensional_traverser_tag iterator_category;
+    typedef typename base_type::iterator_category iterator_category;
             
     /* use default copy constructor and assignment operator */
 
@@ -1016,6 +1096,15 @@ public:
         return ret;
     }
 
+        /** difference of two iterators in the current dimension.
+            The result of this operation is undefined if the iterator
+            doesn't point to element 0 in all dimensions below its current dimension.
+        */
+    difference_type operator- (MultiIterator const & d) const
+    {
+        return base_type::operator-(d);
+    }
+
         /** subtraction within current dimension
          */
     MultiIterator operator- (difference_type n) const
@@ -1041,8 +1130,19 @@ public:
                 
             MultiIterator<3, int> i3 = ...;
                 
-            i3.dim<2>()++;  // increment outer dimension
-            i3.dim<0>()++;  // increment inner dimension
+            i3.template dim<2>()++;  // increment outer dimension
+            i3.template dim<0>()++;  // increment inner dimension
+            \endcode
+            
+            For convenience, the same functionality is also available
+            as <tt>dim0()</tt>, <tt>dim1()</tt> etc. up to <tt>dim4()</tt>:
+            
+            \code
+                
+            MultiIterator<3, int> i3 = ...;
+                
+            i3.dim2()++;  // increment outer dimension
+            i3.dim0()++;  // increment inner dimension
             \endcode
         */
     template <unsigned int K>
@@ -1051,10 +1151,18 @@ public:
     {
         return *this;
     }
+
+    MultiIterator<1, T, REFERENCE, POINTER> &
+    dim0() { return *this; }
+    MultiIterator<2, T, REFERENCE, POINTER> &
+    dim1() { return *this; }
+    MultiIterator<3, T, REFERENCE, POINTER> &
+    dim2() { return *this; }
+    MultiIterator<4, T, REFERENCE, POINTER> &
+    dim3() { return *this; }
+    MultiIterator<5, T, REFERENCE, POINTER> &
+    dim4() { return *this; }
 };
-
-
-template <unsigned int N, class T, class REFERENCE, class POINTER> class StridedMultiIterator;
 
 /********************************************************/
 /*                                                      */
@@ -1067,7 +1175,7 @@ template <unsigned int N, class T, class REFERENCE, class POINTER> class Strided
 This design is necessary for compilers that do not support partial
 specialization (otherwise, StridedMultiIterator could be specialized directly).
 
-<b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+<b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
 Namespace: vigra
 */
@@ -1082,7 +1190,7 @@ class StridedMultiIteratorBase
         class <tt>type</tt>. This design is necessary for compilers that do not support partial
         specialization (otherwise, MultiIterator could be specialized directly).
 
-        <b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+        <b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
         Namespace: vigra
         */
@@ -1107,7 +1215,7 @@ class StridedMultiIteratorBase
 
             /** reference type (result of operator[])
              */
-        typedef value_type &reference;
+        typedef REFERENCE reference;
 
             /** const reference type (result of operator[] const)
              */
@@ -1115,7 +1223,7 @@ class StridedMultiIteratorBase
 
             /** pointer type
              */
-        typedef value_type *pointer;
+        typedef POINTER pointer;
 
             /** const pointer type
              */
@@ -1134,6 +1242,11 @@ class StridedMultiIteratorBase
                 type of the multi-iterator with the next-lower dimension.
             */
         typedef StridedMultiIterator <level, T, REFERENCE, POINTER> next_type;
+
+            /** the 1-dimensional iterator for this iterator hierarchy
+                (result of iteratorForDimension()).
+            */
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
 
             /** the iterator tag (image traverser)
             */
@@ -1159,14 +1272,14 @@ class StridedMultiIteratorBase
              */
         void operator++ ()
         {
-            m_ptr += m_stride [level];
+            type::m_ptr += type::m_stride [level];
         }
 
             /** prefix-decrement the iterator in it's current dimension
              */
         void operator-- ()
         {
-            m_ptr -= m_stride [level];
+            type::m_ptr -= type::m_stride [level];
         }
 
             /** postfix-increment the iterator in it's current dimension
@@ -1192,7 +1305,7 @@ class StridedMultiIteratorBase
             */
         type &operator+= (difference_type n)
         {
-            m_ptr += n * m_stride [level];
+            type::m_ptr += n * type::m_stride [level];
             return *this;
         }
 
@@ -1201,7 +1314,7 @@ class StridedMultiIteratorBase
             */
         type & operator+= (multi_difference_type const & d)
         {
-            m_ptr += total_stride(d.begin());
+            type::m_ptr += total_stride(d.begin());
             return *this;
         }
 
@@ -1210,7 +1323,7 @@ class StridedMultiIteratorBase
             */
         type &operator-= (difference_type n)
         {
-            m_ptr -= n * m_stride [level];
+            type::m_ptr -= n * type::m_stride [level];
             return *this;
         }
 
@@ -1219,7 +1332,7 @@ class StridedMultiIteratorBase
             */
         type & operator-= (multi_difference_type const & d)
         {
-            m_ptr -= total_stride(d.begin());
+            type::m_ptr -= total_stride(d.begin());
             return *this;
         }
         
@@ -1229,7 +1342,7 @@ class StridedMultiIteratorBase
             */
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr) / m_stride[level];
+            return (type::m_ptr - d.m_ptr) / type::m_stride[level];
         }
 
         /* operators *, ->, ==, !=, < inherited */
@@ -1239,14 +1352,14 @@ class StridedMultiIteratorBase
             */
         reference operator[] (difference_type n) const
         {
-            return m_ptr [n* m_stride [level]];
+            return type::m_ptr [n* type::m_stride [level]];
         }
 
             /** access the array element at the given offset.
             */
         reference operator[] (multi_difference_type const & d) const
         {
-            return m_ptr [total_stride(d.begin())];
+            return type::m_ptr [total_stride(d.begin())];
         }
         
             /** Return the (N-1)-dimensional multi-iterator that points to 
@@ -1282,16 +1395,39 @@ class StridedMultiIteratorBase
         next_type end () const
         {
             next_type ret = *this;
-            ret += m_shape [level-1];
+            ret += type::m_shape [level-1];
             return ret;
         }
         
+            /** Get a 1-dimensional, STL-compatible iterator for the
+                given dimension, pointing to the current element of <TT>this</TT>.
+                Usage:
+                
+                \code
+                
+                StridedMultiIterator<3, int> outer = ...;  // this iterator
+                
+                StridedMultiIterator<3, int>::iterator i = outer.iteratorForDimension(1);
+                StridedMultiIterator<3, int>::iterator end = i + height;
+                for(; i != end; ++i)
+                {
+                    // go down the current column starting at the location of 'outer'
+                }
+                \endcode            
+            */
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d <= N,
+                "StridedMultiIterator<N>::iteratorForDimension(d): d <= N required");
+            return iterator(type::m_ptr, &type::m_stride [d], 0);
+        }
+
       protected:
       
         difference_type 
         total_stride(typename multi_difference_type::const_iterator d) const
         {
-            return d[level]*m_stride[level] + base_type::total_stride(d);
+            return d[level]*type::m_stride[level] + base_type::total_stride(d);
         }
     };
 };
@@ -1314,13 +1450,14 @@ class StridedMultiIteratorBase <2>
         enum { level = 1 };
         typedef StridedMultiIterator <1, T, REFERENCE, POINTER> base_type;
         typedef T value_type;
-        typedef value_type &reference;
+        typedef REFERENCE reference;
         typedef const value_type &const_reference;
-        typedef value_type *pointer;
+        typedef POINTER pointer;
         typedef const value_type *const_pointer;
         typedef ptrdiff_t difference_type;
         typedef TinyVector<difference_type, 2> multi_difference_type;
         typedef StridedMultiIterator <1, T, REFERENCE, POINTER> next_type;
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
         typedef multi_dimensional_traverser_tag iterator_category;
 
         const difference_type *m_stride;
@@ -1342,12 +1479,12 @@ class StridedMultiIteratorBase <2>
 
         void operator++ ()
         {
-            m_ptr += m_stride [level];
+            type::m_ptr += m_stride [level];
         }
 
         void operator-- ()
         {
-            m_ptr -= m_stride [level];
+            type::m_ptr -= m_stride [level];
         }
 
         type operator++ (int)
@@ -1366,41 +1503,41 @@ class StridedMultiIteratorBase <2>
 
         type &operator+= (int n)
         {
-            m_ptr += n * m_stride [level];
+            type::m_ptr += n * m_stride [level];
             return *this;
         }
 
         type & operator+= (multi_difference_type const & d)
         {
-            m_ptr += total_stride(d.begin());
+            type::m_ptr += total_stride(d.begin());
             return *this;
         }
 
         type  &operator-= (difference_type n)
         {
-            m_ptr -= n * m_stride [level];
+            type::m_ptr -= n * m_stride [level];
             return *this;
         }
         
         type & operator-= (multi_difference_type const & d)
         {
-            m_ptr -= total_stride(d.begin());
+            type::m_ptr -= total_stride(d.begin());
             return *this;
         }
 
         reference operator[] (difference_type n) const
         {
-            return m_ptr [n*m_stride [level]];
+            return type::m_ptr [n*m_stride [level]];
         }
         
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr) / m_stride[level];
+            return (type::m_ptr - d.m_ptr) / m_stride[level];
         }
 
         reference operator[] (multi_difference_type const & d) const
         {
-            return m_ptr [total_stride(d.begin())];
+            return type::m_ptr [total_stride(d.begin())];
         }
 
         next_type begin () const
@@ -1413,6 +1550,13 @@ class StridedMultiIteratorBase <2>
             next_type ret = *this;
             ret += m_shape [level-1];
             return ret;
+        }
+
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d <= type::N,
+                "StridedMultiIterator<N>::iteratorForDimension(d): d <= N required");
+            return iterator(type::m_ptr, &m_stride [d], 0);
         }
 
       protected:
@@ -1443,14 +1587,15 @@ class StridedMultiIteratorBase <1>
 
         enum { level = 0 };
         typedef T value_type;
-        typedef value_type &reference;
+        typedef REFERENCE reference;
         typedef const value_type &const_reference;
-        typedef value_type *pointer;
+        typedef POINTER pointer;
         typedef const value_type *const_pointer;
         typedef ptrdiff_t difference_type;
         typedef TinyVector<difference_type, 1> multi_difference_type;
         typedef void next_type;
-        typedef multi_dimensional_traverser_tag iterator_category;
+        typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
+        typedef std::random_access_iterator_tag iterator_category;
         
         pointer m_ptr;
         difference_type m_stride;
@@ -1470,6 +1615,11 @@ class StridedMultiIteratorBase <1>
         reference operator* () const
         {
             return *m_ptr;
+        }
+
+        pointer get () const
+        {
+            return m_ptr;
         }
 
         pointer operator-> () const
@@ -1527,7 +1677,7 @@ class StridedMultiIteratorBase <1>
         
         difference_type operator- (type const & d) const
         {
-            return (d.m_ptr - m_ptr) / m_stride;
+            return (m_ptr - d.m_ptr) / m_stride;
         }
 
         reference operator[] (difference_type n) const
@@ -1555,6 +1705,18 @@ class StridedMultiIteratorBase <1>
             return m_ptr < rhs.m_ptr;
         }
 
+        bool operator<= (const type &rhs) const
+        {
+            return m_ptr <= rhs.m_ptr;
+        }
+        
+        iterator iteratorForDimension(unsigned int d) const
+        {
+            vigra_precondition(d == 0,
+                "StridedMultiIterator<1>::iteratorForDimension(d): d == 0 required");
+            return *this;
+        }
+
       protected:
       
         difference_type 
@@ -1572,11 +1734,11 @@ class StridedMultiIteratorBase <1>
 /********************************************************/
 
 /** \brief A multi-dimensional hierarchical iterator to be used with 
-           \ref vigra::MultiArrayView is it is strided.
+           \ref vigra::MultiArrayView if it is strided.
 
 This class wraps the StridedMultiIteratorBase in a template of arity two.
 
-<b>\#include</b> "<a href="multi_iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
+<b>\#include</b> "<a href="multi__iterator_8hxx-source.html">vigra/multi_iterator.hxx</a>"
 
 Namespace: vigra
 */
@@ -1597,7 +1759,7 @@ public:
 
         /** reference type (result of operator[])
          */
-    typedef value_type &reference;
+    typedef REFERENCE reference;
 
         /** const reference type (result of operator[] const)
          */
@@ -1605,7 +1767,7 @@ public:
 
         /** pointer type
          */
-    typedef value_type *pointer;
+    typedef POINTER pointer;
 
         /** const pointer type
          */
@@ -1624,9 +1786,14 @@ public:
          */
     typedef typename base_type::next_type next_type;
 
+        /** the 1-dimensional iterator for this iterator hierarchy
+            (result of iteratorForDimension()).
+        */
+    typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
+
         /** the iterator tag (image traverser)
         */
-    typedef multi_dimensional_traverser_tag iterator_category;
+    typedef typename base_type::iterator_category iterator_category;
             
     /* use default copy constructor and assignment operator */
 
@@ -1638,7 +1805,7 @@ public:
         /** construct from pointer, strides (offset of a sample to the
             next) for every dimension, and the shape.
         */
-    StridedMultiIterator (T *ptr,
+    StridedMultiIterator (pointer ptr,
                           const difference_type *stride,
                           const difference_type *shape)
         : base_type (ptr, stride, shape)
@@ -1662,6 +1829,15 @@ public:
         return ret;
     }
 
+        /** difference of two iterators in the current dimension.
+            The result of this operation is undefined if the iterator
+            doesn't point to element 0 in all dimensions below its current dimension.
+        */
+    difference_type operator- (StridedMultiIterator const & d) const
+    {
+        return base_type::operator-(d);
+    }
+    
         /** subtraction within current dimension
          */
     StridedMultiIterator operator- (difference_type n) const
@@ -1687,8 +1863,19 @@ public:
             
             StridedMultiIterator<3, int> i3 = ...;
                 
-            i3.dim<2>()++;  // increment outer dimension
-            i3.dim<0>()++;  // increment inner dimension
+            i3.template dim<2>()++;  // increment outer dimension
+            i3.template dim<0>()++;  // increment inner dimension
+            \endcode
+            
+            For convenience, the same functionality is also available
+            as <tt>dim0()</tt>, <tt>dim1()</tt> etc. up to <tt>dim4()</tt>:
+            
+            \code
+                
+            StridedMultiIterator<3, int> i3 = ...;
+                
+            i3.dim2()++;  // increment outer dimension
+            i3.dim0()++;  // increment inner dimension
             \endcode
         */
     template <unsigned int K>
@@ -1697,7 +1884,19 @@ public:
     {
         return *this;
     }
+
+    StridedMultiIterator<1, T, REFERENCE, POINTER> &
+    dim0() { return *this; }
+    StridedMultiIterator<2, T, REFERENCE, POINTER> &
+    dim1() { return *this; }
+    StridedMultiIterator<3, T, REFERENCE, POINTER> &
+    dim2() { return *this; }
+    StridedMultiIterator<4, T, REFERENCE, POINTER> &
+    dim3() { return *this; }
+    StridedMultiIterator<5, T, REFERENCE, POINTER> &
+    dim4() { return *this; }
 };
+
 
 //@}
 

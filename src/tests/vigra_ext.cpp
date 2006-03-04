@@ -36,7 +36,7 @@
 #include "vigra/convolution.hxx"
 #include "vigra/resizeimage.hxx"
 
-#include "vigra/impexalpha.hxx"
+#include "vigra_ext/impexalpha.hxx"
 
 #include "vigra_ext/FunctorAccessor.h"
 #include "vigra_ext/Correlation.h"

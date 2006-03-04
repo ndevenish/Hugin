@@ -369,7 +369,9 @@ FDiff2D Panorama::calcFOV() const
     opts.setHeight(180);
 
     // remap image
-    vigra::BImage panoAlpha(panoSize.x, panoSize.y,0);
+	// DGSW - make sure the type is correct
+    vigra::BImage panoAlpha(panoSize.x, panoSize.y,static_cast< unsigned char >(0));
+//    vigra::BImage panoAlpha(panoSize.x, panoSize.y,0);
     RemappedPanoImage<vigra::BImage, vigra::BImage> remapped;
     UIntSet activeImgs = getActiveImages();
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
@@ -1312,7 +1314,6 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
     imageChanged(imgNr);
     // copy the whole lens settings into the image
     copyLensVariablesToImage(imgNr);
-    // FIXME: check if we overwrote the last instance of another lens
     removeUnusedLenses();
 }
 
@@ -1457,7 +1458,6 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 {
     // load image
     vigra::ImageImportInfo img(filename.c_str());
-    // FIXME.. check for grayscale / color
 
     Lens lens;
     lens.setImageSize(vigra::Size2D(img.width(), img.height()));
@@ -1467,8 +1467,6 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     lens.initFromFile(filename, cropFactor);
 
     int matchingLensNr=-1;
-    // FIXME: check if the exif information
-    // indicates other camera parameters
     for (unsigned int lnr=0; lnr < getNrOfLenses(); lnr++) {
         const Lens & l = getLens(lnr);
 

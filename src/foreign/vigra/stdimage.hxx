@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
@@ -24,6 +39,7 @@
 #ifndef VIGRA_STDIMAGE_HXX
 #define VIGRA_STDIMAGE_HXX
 
+#include "vigra/sized_int.hxx"
 #include "vigra/tuple.hxx"
 #include "vigra/basicimage.hxx"
 #include "vigra/iteratortraits.hxx"
@@ -32,52 +48,20 @@
 
 namespace vigra {
 
-#define VIGRA_DEFINE_ITERATORTRAITS(VALUETYPE, ACCESSOR, CONSTACCESSOR) \
-    template<> \
-    struct IteratorTraits< \
-        BasicImageIterator<VALUETYPE, VALUETYPE **> > \
-    { \
-        typedef BasicImageIterator<VALUETYPE, VALUETYPE **> \
-                                                     Iterator; \
-        typedef Iterator                             iterator; \
-        typedef iterator::iterator_category          iterator_category; \
-        typedef iterator::value_type                 value_type; \
-        typedef iterator::reference                  reference; \
-        typedef iterator::index_reference            index_reference; \
-        typedef iterator::pointer                    pointer; \
-        typedef iterator::difference_type            difference_type; \
-        typedef iterator::row_iterator               row_iterator; \
-        typedef iterator::column_iterator            column_iterator; \
-        typedef ACCESSOR<VALUETYPE >                 default_accessor; \
-        typedef ACCESSOR<VALUETYPE >                 DefaultAccessor; \
-    }; \
-    template<> \
-    struct IteratorTraits< \
-        ConstBasicImageIterator<VALUETYPE, VALUETYPE **> > \
-    { \
-        typedef \
-          ConstBasicImageIterator<VALUETYPE, VALUETYPE **> \
-                                                     Iterator; \
-        typedef Iterator                             iterator; \
-        typedef iterator::iterator_category          iterator_category; \
-        typedef iterator::value_type                 value_type; \
-        typedef iterator::reference                  reference; \
-        typedef iterator::index_reference            index_reference; \
-        typedef iterator::pointer                    pointer; \
-        typedef iterator::difference_type            difference_type; \
-        typedef iterator::row_iterator               row_iterator; \
-        typedef iterator::column_iterator            column_iterator; \
-        typedef CONSTACCESSOR<VALUETYPE >            default_accessor; \
-        typedef CONSTACCESSOR<VALUETYPE >            DefaultAccessor; \
-    };
-
 /** \addtogroup StandardImageTypes Standard Image Types
 
     \brief The most common instantiations of the \ref vigra::BasicImage template
 */
 //@{
 
-VIGRA_DEFINE_ITERATORTRAITS(unsigned char, StandardValueAccessor, StandardConstValueAccessor)
+    /** Byte (8-bit unsigned) image.
+        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and 
+        their const counterparts to access the data.
+        
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<UInt8> BImage;
 
     /** Byte (8-bit unsigned) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
@@ -86,20 +70,16 @@ VIGRA_DEFINE_ITERATORTRAITS(unsigned char, StandardValueAccessor, StandardConstV
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<unsigned char> BImage;
+typedef BasicImage<UInt8> UInt8Image;
 
-VIGRA_DEFINE_ITERATORTRAITS(unsigned short, vigra::StandardValueAccessor, vigra::StandardConstValueAccessor)
-
-    /** Unsigned Short (16-bit unsigned) image.
-        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
+    /** Signed byte (8-bit signed) image.
+        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and 
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<unsigned short> USImage;
-
-VIGRA_DEFINE_ITERATORTRAITS(short, StandardValueAccessor, StandardConstValueAccessor)
+typedef BasicImage<Int8> Int8Image;
 
     /** Short integer (16-bit signed) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
@@ -108,20 +88,25 @@ VIGRA_DEFINE_ITERATORTRAITS(short, StandardValueAccessor, StandardConstValueAcce
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<short> SImage;
+typedef BasicImage<Int16> SImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(unsigned int, StandardValueAccessor, StandardConstValueAccessor)
+    /** Short integer (16-bit unsigned) image.
+        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and 
+        their const counterparts to access the data.
 
-    /** Unsigned Integer (32-bit unsigned) image.
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<UInt16> UInt16Image;
+
+    /** Short integer (16-bit signed) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<unsigned int> UIImage;
-
-VIGRA_DEFINE_ITERATORTRAITS(int, StandardValueAccessor, StandardConstValueAccessor)
+typedef BasicImage<Int16> Int16Image;
 
     /** Integer (32-bit signed) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
@@ -130,9 +115,25 @@ VIGRA_DEFINE_ITERATORTRAITS(int, StandardValueAccessor, StandardConstValueAccess
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<int> IImage;
+typedef BasicImage<Int32> IImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(float, StandardValueAccessor, StandardConstValueAccessor)
+    /** Integer (32-bit unsigned) image.
+        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and 
+        their const counterparts to access the data.
+
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<UInt32> UInt32Image;
+
+    /** Integer (32-bit signed) image.
+        It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
+        their const counterparts to access the data.
+
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<Int32> Int32Image;
 
     /** Float (float) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
@@ -143,7 +144,6 @@ VIGRA_DEFINE_ITERATORTRAITS(float, StandardValueAccessor, StandardConstValueAcce
     */
 typedef BasicImage<float> FImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(double, StandardValueAccessor, StandardConstValueAccessor)
 
     /** Double (double) image.
         It uses \ref vigra::BasicImageIterator and \ref vigra::StandardAccessor and
@@ -154,70 +154,100 @@ VIGRA_DEFINE_ITERATORTRAITS(double, StandardValueAccessor, StandardConstValueAcc
  */
 typedef BasicImage<double> DImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<unsigned char>, RGBAccessor, RGBAccessor)
 
     /** Byte (3x 8-bit unsigned) RGB image.
-        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<unsigned char>".
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::UInt8>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<RGBValue<unsigned char> > BRGBImage;
+typedef BasicImage<RGBValue<UInt8> > BRGBImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<unsigned short>, RGBAccessor, RGBAccessor)
+    /** Byte (3x 8-bit unsigned) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::UInt8>".
+        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and 
+        their const counterparts to access the data.
+        
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<RGBValue<UInt8> > UInt8RGBImage;
 
-    /** Unsigned short (3x 16-bit unsigned) RGB image.
-        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<unsigned short>".
+    /** Byte (3x 8-bit signed) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::UInt8>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<RGBValue<unsigned short> > USRGBImage;
+typedef BasicImage<RGBValue<Int8> > Int8RGBImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<short>, RGBAccessor, RGBAccessor)
+    /** Short (3x 16-bit signed) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int16>".
+        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and 
+        their const counterparts to access the data.
 
-    /** Unsigned short (3x 16-bit signed) RGB image.
-        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<short>".
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<RGBValue<Int16> > SRGBImage;
+
+    /** Short (3x 16-bit unsigned) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int16>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<RGBValue<short> > SRGBImage;
+typedef BasicImage<RGBValue<UInt16> > UInt16RGBImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<unsigned int>, RGBAccessor, RGBAccessor)
-
-    /** Unsigned Integer (3x 32-bit unsigned) RGB image.
-        The pixel type is \ref vigra::RGBValue "RGBValue<unsigned int>".
-        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
+    /** Short (3x 16-bit signed) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int16>".
+        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and 
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<RGBValue<unsigned int> > UIRGBImage;
-
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<int>, RGBAccessor, RGBAccessor)
+typedef BasicImage<RGBValue<Int16> > Int16RGBImage;
 
     /** Integer (3x 32-bit signed) RGB image.
-        The pixel type is \ref vigra::RGBValue "RGBValue<int>".
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int32>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
         <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
         Namespace: vigra
     */
-typedef BasicImage<RGBValue<int> > IRGBImage;
+typedef BasicImage<RGBValue<Int32> > IRGBImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<float>, RGBAccessor, RGBAccessor)
+    /** Integer (3x 32-bit unsigned) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int32>".
+        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and 
+        their const counterparts to access the data.
+        
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<RGBValue<UInt32> > UInt32RGBImage;
+
+    /** Integer (3x 32-bit signed) RGB image.
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<vigra::Int32>".
+        It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
+        their const counterparts to access the data.
+
+        <b>\#include</b> "<a href="stdimage_8hxx-source.html">vigra/stdimage.hxx</a>"<br>
+        Namespace: vigra
+    */
+typedef BasicImage<RGBValue<Int32> > Int32RGBImage;
+
 
     /** Floating-point (3x float) RGB image.
-        The pixel type is \ref vigra::RGBValue "RGBValue<float>".
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<float>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
@@ -226,10 +256,9 @@ VIGRA_DEFINE_ITERATORTRAITS(RGBValue<float>, RGBAccessor, RGBAccessor)
     */
 typedef BasicImage<RGBValue<float> > FRGBImage;
 
-VIGRA_DEFINE_ITERATORTRAITS(RGBValue<double>, RGBAccessor, RGBAccessor)
 
     /** Double-precision floating-point (3x double) RGB image.
-        The pixel type is \ref vigra::RGBValue "RGBValue<double>".
+        The pixel type is \ref vigra::RGBValue "vigra::RGBValue<double>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::RGBAccessor and
         their const counterparts to access the data.
 
@@ -238,74 +267,8 @@ VIGRA_DEFINE_ITERATORTRAITS(RGBValue<double>, RGBAccessor, RGBAccessor)
     */
 typedef BasicImage<RGBValue<double> > DRGBImage;
 
-#define VIGRA_PIXELTYPE TinyVector<unsigned char, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned char, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned char, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-
-#define VIGRA_PIXELTYPE TinyVector<unsigned short, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned short, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned short, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<short, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<short, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<short, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<int, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<int, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<int, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned int, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned int, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<unsigned int, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-
-#define VIGRA_PIXELTYPE TinyVector<float, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<float, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<float, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<double, 2>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<double, 3>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-#define VIGRA_PIXELTYPE TinyVector<double, 4>
-VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
-#undef VIGRA_PIXELTYPE
-
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<float, 2>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<float, 2>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -315,7 +278,7 @@ VIGRA_DEFINE_ITERATORTRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
 typedef BasicImage<TinyVector<float, 2> > FVector2Image;
 
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<float, 3>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<float, 3>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -325,7 +288,7 @@ typedef BasicImage<TinyVector<float, 2> > FVector2Image;
 typedef BasicImage<TinyVector<float, 3> > FVector3Image;
 
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<float, 4>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<float, 4>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -335,7 +298,7 @@ typedef BasicImage<TinyVector<float, 3> > FVector3Image;
 typedef BasicImage<TinyVector<float, 4> > FVector4Image;
 
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<double, 2>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<double, 2>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -345,7 +308,7 @@ typedef BasicImage<TinyVector<float, 4> > FVector4Image;
 typedef BasicImage<TinyVector<double, 2> > DVector2Image;
 
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<double, 3>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<double, 3>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -356,7 +319,7 @@ typedef BasicImage<TinyVector<double, 2> > DVector2Image;
 typedef BasicImage<TinyVector<double, 3> > DVector3Image;
 
     /** Floating-point TinyVector image.
-        The pixel type is \ref vigra::TinyVector "TinyVector<double, 4>".
+        The pixel type is \ref vigra::TinyVector "vigra::TinyVector<double, 4>".
         It uses \ref vigra::BasicImageIterator and \ref vigra::VectorAccessor and
         their const counterparts to access the data.
 
@@ -364,49 +327,6 @@ typedef BasicImage<TinyVector<double, 3> > DVector3Image;
         Namespace: vigra
     */
 typedef BasicImage<TinyVector<double, 4> > DVector4Image;
-
-
-#undef VIGRA_DEFINE_ITERATORTRAITS
-
-#ifndef NO_PARTIAL_TEMPLATE_SPECIALIZATION
-
-// define traits for BasicImageIterator instanciations that
-// were not explicitly defined above
-template <class T>
-struct IteratorTraits<BasicImageIterator<T, T **> >
-{
-    typedef BasicImageIterator<T, T **>          Iterator;
-    typedef Iterator                             iterator;
-    typedef typename iterator::iterator_category iterator_category;
-    typedef typename iterator::value_type        value_type;
-    typedef typename iterator::reference         reference;
-    typedef typename iterator::index_reference   index_reference;
-    typedef typename iterator::pointer           pointer;
-    typedef typename iterator::difference_type   difference_type;
-    typedef typename iterator::row_iterator      row_iterator;
-    typedef typename iterator::column_iterator   column_iterator;
-    typedef StandardAccessor<T>                  DefaultAccessor;
-    typedef StandardAccessor<T>                  default_accessor;
-};
-
-template <class T>
-struct IteratorTraits<ConstBasicImageIterator<T, T **> >
-{
-    typedef ConstBasicImageIterator<T, T **> Iterator;
-    typedef Iterator                               iterator;
-    typedef typename iterator::iterator_category   iterator_category;
-    typedef typename iterator::value_type          value_type;
-    typedef typename iterator::reference           reference;
-    typedef typename iterator::index_reference     index_reference;
-    typedef typename iterator::pointer             pointer;
-    typedef typename iterator::difference_type     difference_type;
-    typedef typename iterator::row_iterator        row_iterator;
-    typedef typename iterator::column_iterator     column_iterator;
-    typedef StandardConstAccessor<T>               DefaultAccessor;
-    typedef StandardConstAccessor<T>               default_accessor;
-};
-
-#endif
 
 //@}
 

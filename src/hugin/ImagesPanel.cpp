@@ -171,7 +171,6 @@ ImagesPanel::~ImagesPanel(void)
     wxConfigBase::Get()->Write(wxT("/ImageFrame/sashPos"), sashPos);
 #endif
 
-    // FIXME crashes.. don't know why
     XRCCTRL(*this, "images_text_yaw", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "images_text_roll", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "images_text_pitch", wxTextCtrl)->PopEventHandler(true);

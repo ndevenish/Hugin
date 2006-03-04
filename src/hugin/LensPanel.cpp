@@ -185,7 +185,6 @@ LensPanel::~LensPanel(void)
     wxConfigBase::Get()->Write(wxT("/LensFrame/sashPos"), sashPos);
 #endif
 
-    // FIXME. why does this crash at exit?
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler(true);

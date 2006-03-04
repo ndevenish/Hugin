@@ -1,38 +1,51 @@
 /************************************************************************/
 /*                                                                      */
-/*               Copyright 2002 by Gunnar Kedenburg                     */
+/*               Copyright 2002-2004 by Gunnar Kedenburg                */
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
-#include <config.h>
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include "vigra/config.hxx"
+#include "vigra/sized_int.hxx"
 #include "error.hxx"
 #include "void_vector.hxx"
 #include "pnm.hxx"
 #include "byteorder.hxx"
 
 namespace vigra {
-
-    typedef unsigned short uint16_t;
-    typedef unsigned int   uint32_t;
 
     CodecDesc PnmCodecFactory::getCodecDesc() const
     {
@@ -81,6 +94,10 @@ namespace vigra {
         desc.fileExtensions[2] = "pgm";
         desc.fileExtensions[3] = "ppm";
 
+        desc.bandNumbers.resize(2);
+        desc.bandNumbers[0] = 1;
+        desc.bandNumbers[1] = 3;
+        
         return desc;
     }
 
@@ -155,7 +172,7 @@ namespace vigra {
     void PnmDecoderImpl::read_bilevel_ascii_scanline()
     {
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = static_cast< vector_type & >(bands);
 
         // read and store
@@ -170,7 +187,7 @@ namespace vigra {
         // XXX implement this also for other pixel types than unsigned char
 
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = static_cast< vector_type & >(bands);
 
         // read and store
@@ -185,11 +202,11 @@ namespace vigra {
     void PnmDecoderImpl::read_bilevel_raw_scanline()
     {
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = static_cast< vector_type & >(bands);
 
         // read and store
-        unsigned char buf = 0;
+        UInt8 buf = 0;
         const unsigned int size = width / 8;  // XXX wrong assumption
         for( unsigned int i = 0; i < size; ++i ) {
             stream.read( reinterpret_cast< char * >(&buf), 1 );
@@ -213,10 +230,8 @@ namespace vigra {
 
     void PnmDecoderImpl::read_raw_scanline_uchar()
     {
-        // XXX implement this also for other pixel types than unsigned char
-
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = reinterpret_cast< vector_type & >(bands);
 
         // read and store
@@ -226,51 +241,30 @@ namespace vigra {
     
     void PnmDecoderImpl::read_raw_scanline_ushort()
     {
-        // XXX implement this also for other pixel types than unsigned char
-
         // cast the bands to the correct type
-        typedef void_vector< unsigned short > vector_type;
+        typedef void_vector< UInt16 > vector_type;
         vector_type & cbands = reinterpret_cast< vector_type & >(bands);
 
         // read and store, need to swap bytes.
         byteorder bo( "big endian" );
-        read_array( stream, bo, reinterpret_cast< uint16_t * >(cbands.data()),
+        read_array( stream, bo, reinterpret_cast< UInt16 * >(cbands.data()),
                     width * components );
-        /*
-        uint16_t * ptr = reinterpret_cast< uint16_t * >(cbands.data());
-        uint16_t tmp;
-        for (int i=0; i < width * components; i++) {            
-            stream.read(reinterpret_cast< char * >(&tmp), 2);
-            *ptr = ntohs(tmp);
-            ptr++;
-        }
-*/
-//        stream.read( reinterpret_cast< char * >(cbands.data()),
-//                     width * components * 2 );
     }
 
     void PnmDecoderImpl::read_raw_scanline_uint()
     {
-        // XXX implement this also for other pixel types than unsigned char
-
         // cast the bands to the correct type
-        typedef void_vector< unsigned int > vector_type;
+        typedef void_vector< UInt32 > vector_type;
         vector_type & cbands = reinterpret_cast< vector_type & >(bands);
 
-
         byteorder bo( "big endian" );
-        read_array( stream, bo, reinterpret_cast< uint32_t * >(cbands.data()),
+        read_array( stream, bo, reinterpret_cast< UInt32 * >(cbands.data()),
                     width * components );
-        
-        // read and store
-//        stream.read( reinterpret_cast< char * >(cbands.data()),
-//                     width * components * 4 );
     }
     
-
     // reads the header.
     PnmDecoderImpl::PnmDecoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : stream( filename.c_str(), std::ios::binary )
 #else
         : stream( filename.c_str() )
@@ -343,7 +337,6 @@ namespace vigra {
 	stream >> height;
 
 	// bitmaps implicitly have maxval 1
-
 	if ( type != '1' && type != '4' ) {
             skip();
             stream >> maxval;
@@ -384,7 +377,27 @@ namespace vigra {
 #endif
 
 	// advance to the beginning of the "data section"
+        if (raw == false)
         skip();
+        else
+        {
+#if defined(__GNUC__) && __GNUC__ == 2
+          typedef streamoff streamOffset;
+#else
+          typedef std::ifstream::off_type streamOffset;
+#endif
+	  {
+	      UInt32 seekOffset = width * height * components;
+	      if ( pixeltype == "UINT8" )
+		  seekOffset *= 1;
+	      else if ( pixeltype == "UINT16" )
+		  seekOffset *= 2;
+	      else if ( pixeltype == "UINT32" )
+		  seekOffset *= 4;
+				      
+	      stream.seekg( -static_cast<streamOffset>(seekOffset), std::ios::end );
+	  }
+        }
     }
 
     void PnmDecoder::init( const std::string & filename )
@@ -430,17 +443,17 @@ namespace vigra {
     const void * PnmDecoder::currentScanlineOfBand( unsigned int band ) const
     {
         if ( pimpl->pixeltype == "UINT8" ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector< UInt8 > bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + band;
         } else if ( pimpl->pixeltype == "UINT16" ) {
-            typedef void_vector<uint16_t> bands_type;
+            typedef void_vector<UInt16> bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + band;
         } else if ( pimpl->pixeltype == "UINT32" ) {
-            typedef void_vector<uint32_t> bands_type;
+            typedef void_vector<UInt32> bands_type;
             const bands_type & bands
                 = static_cast< const bands_type & >(pimpl->bands);
             return bands.data() + band;
@@ -501,7 +514,7 @@ namespace vigra {
     };
 
     PnmEncoderImpl::PnmEncoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : stream( filename.c_str(), std::ios::binary ),
 #else
         : stream( filename.c_str() ),
@@ -534,26 +547,26 @@ namespace vigra {
 
     void PnmEncoder::setWidth( unsigned int width )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->width = width;
     }
 
     void PnmEncoder::setHeight( unsigned int height )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->height = height;
     }
 
     void PnmEncoder::setNumBands( unsigned int bands )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->components = bands;
     }
 
     void PnmEncoder::setCompressionType( const std::string & comp,
                                          int quality )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         if ( comp == "ASCII" )
             pimpl->raw = false;
         else if ( comp == "RAW" )
@@ -564,7 +577,7 @@ namespace vigra {
 
     void PnmEncoder::setPixelType( const std::string & pixelType )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->pixeltype = pixelType;
     }
 
@@ -575,10 +588,10 @@ namespace vigra {
 
     void PnmEncoder::finalizeSettings()
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->finalized = true;
 
-        if ( pimpl->pixeltype == "UINT32" )
+        if ( pimpl->pixeltype == "INT32" )
           pimpl->raw = false;
 
         // write magic number
@@ -620,17 +633,17 @@ namespace vigra {
     {
         const unsigned int row_stride = pimpl->width * pimpl->components;
         if ( pimpl->pixeltype == "UINT8" ) {
-            typedef void_vector< unsigned char > bands_type;
+            typedef void_vector< UInt8 > bands_type;
             bands_type & bands
                 = static_cast< bands_type & >(pimpl->bands);
             return bands.data() + pimpl->scanline * row_stride + band;
         } else if ( pimpl->pixeltype == "UINT16" ) {
-            typedef void_vector<uint16_t> bands_type;
+            typedef void_vector<UInt16> bands_type;
             bands_type & bands
                 = static_cast< bands_type & >(pimpl->bands);
             return bands.data() + pimpl->scanline * row_stride + band;
         } else if ( pimpl->pixeltype == "UINT32" ) {
-            typedef void_vector<uint32_t> bands_type;
+            typedef void_vector<UInt32> bands_type;
             bands_type & bands
                 = static_cast< bands_type & >(pimpl->bands);
             return bands.data() + pimpl->scanline * row_stride + band;
@@ -642,11 +655,11 @@ namespace vigra {
     void PnmEncoderImpl::write_bilevel_ascii()
     {
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = static_cast< vector_type & >(bands);
 
         // write and store
-        unsigned char * iter = cbands.data();
+        UInt8 * iter = cbands.data();
         for( unsigned int i = 0; i < height; ++i ) {
             for ( unsigned int j = 0; j < width; ++j ) {
                 for ( unsigned int k = 0; k < components; ++k ) {
@@ -664,9 +677,9 @@ namespace vigra {
     {
         if ( pixeltype == "UINT8" ) {
 
-          typedef void_vector< unsigned char > vector_type;
+          typedef void_vector< UInt8 > vector_type;
           vector_type & cbands = static_cast< vector_type & >(bands);
-          unsigned char * iter = cbands.data();
+          UInt8 * iter = cbands.data();
           for( unsigned int i = 0; i < height; ++i ) {
             for ( unsigned int j = 0; j < width; ++j ) {
               for ( unsigned int k = 0; k < components; ++k ) {
@@ -681,9 +694,9 @@ namespace vigra {
 
         } else if ( pixeltype == "UINT16" ) {
 
-          typedef void_vector<uint16_t> vector_type;
+          typedef void_vector<UInt16> vector_type;
           vector_type & cbands = static_cast< vector_type & >(bands);
-          uint16_t * iter = cbands.data();
+          UInt16 * iter = cbands.data();
           for( unsigned int i = 0; i < height; ++i ) {
             for ( unsigned int j = 0; j < width; ++j ) {
               for ( unsigned int k = 0; k < components; ++k ) {
@@ -698,9 +711,9 @@ namespace vigra {
 
         } else if ( pixeltype == "UINT32" ) {
 
-          typedef void_vector<uint32_t> vector_type;
+          typedef void_vector<UInt32> vector_type;
           vector_type & cbands = static_cast< vector_type & >(bands);
-          uint32_t * iter = cbands.data();
+          UInt32 * iter = cbands.data();
           for( unsigned int i = 0; i < height; ++i ) {
             for ( unsigned int j = 0; j < width; ++j ) {
               for ( unsigned int k = 0; k < components; ++k ) {
@@ -716,7 +729,7 @@ namespace vigra {
         }
 
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         vector_type & cbands = static_cast< vector_type & >(bands);
 
         // write and store
@@ -730,7 +743,7 @@ namespace vigra {
     void PnmEncoderImpl::write_bilevel_raw()
     {
         // cast the bands to the correct type
-        typedef void_vector< unsigned char > vector_type;
+        typedef void_vector< UInt8 > vector_type;
         //vector_type & cbands = static_cast< vector_type & >(bands);
 
         // XXX
@@ -741,7 +754,7 @@ namespace vigra {
         if ( pixeltype == "UINT8" ) {
 
             // cast the bands to the correct type
-            typedef void_vector< unsigned char > vector_type;
+            typedef void_vector< UInt8 > vector_type;
             vector_type & cbands = static_cast< vector_type & >(bands);
 
             // write and store
@@ -751,7 +764,7 @@ namespace vigra {
         } else if ( pixeltype == "UINT16" ) {
 
             // cast the bands to the correct type
-            typedef void_vector<uint16_t> vector_type;
+            typedef void_vector<UInt16> vector_type;
             vector_type & cbands = static_cast< vector_type & >(bands);
 
             // write and store
@@ -776,16 +789,22 @@ namespace vigra {
             // find out maxval and print it into the stream
             int maxval = 0;
             if ( pimpl->pixeltype == "UINT8" ) {
-                void_vector< unsigned char > & cbands
-                    = static_cast< void_vector< unsigned char > & >
+                void_vector< UInt8 > & cbands
+                    = static_cast< void_vector< UInt8 > & >
                     (pimpl->bands);
-                for( unsigned char * iter = cbands.begin();
+                for( UInt8 * iter = cbands.begin();
                      iter < cbands.end(); ++iter )
                     if ( *iter > maxval ) maxval = *iter;
             } else if ( pimpl->pixeltype == "UINT16" ) {
-                void_vector<uint16_t> & cbands
-                    = static_cast< void_vector<uint16_t> & >(pimpl->bands);
-                for( uint16_t * iter = cbands.begin();
+                void_vector<UInt16> & cbands
+                    = static_cast< void_vector<UInt16> & >(pimpl->bands);
+                for( UInt16 * iter = cbands.begin();
+                     iter < cbands.end(); ++iter )
+                    if ( *iter > maxval ) maxval = *iter;
+            } else if ( pimpl->pixeltype == "UINT32" ) {
+                void_vector<UInt32> & cbands
+                    = static_cast< void_vector<UInt32> & >(pimpl->bands);
+                for( UInt32 * iter = cbands.begin();
                      iter < cbands.end(); ++iter )
                     if ( *iter > maxval ) maxval = *iter;
             }

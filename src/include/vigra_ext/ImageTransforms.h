@@ -33,7 +33,7 @@
 #include <vigra_ext/ROIImage.h>
 #include <vigra_ext/Interpolators.h>
 #include <vigra/impex.hxx>
-#include <vigra/impexalpha.hxx>
+#include <vigra_ext/impexalpha.hxx>
 
 #include <common/math.h>
 #include <common/utils.h>

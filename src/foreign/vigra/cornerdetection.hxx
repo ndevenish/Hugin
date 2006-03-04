@@ -1,22 +1,37 @@
 /************************************************************************/
 /*                                                                      */
-/*               Copyright 1998-2002 by Ullrich Koethe                  */
+/*               Copyright 1998-2004 by Ullrich Koethe                  */
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
@@ -29,6 +44,7 @@
 #include <vigra/stdimage.hxx>
 #include <vigra/combineimages.hxx>
 #include <vigra/convolution.hxx>
+#include <vigra/functortraits.hxx>
 
 namespace vigra {
 
@@ -45,6 +61,14 @@ struct CornerResponseFunctor
     }
 };
 
+template <class T>
+class FunctorTraits<CornerResponseFunctor<T> >
+: public FunctorTraitsBase<CornerResponseFunctor<T> >
+{
+  public:
+    typedef VigraTrueType isTernaryFunctor;
+};
+
 template <class SrcType>
 struct FoerstnerCornerFunctor
 {
@@ -56,6 +80,14 @@ struct FoerstnerCornerFunctor
     {
 	return (a1*a2 - a3*a3) / (a1 + a2);
     }
+};
+
+template <class T>
+class FunctorTraits<FoerstnerCornerFunctor<T> >
+: public FunctorTraitsBase<FoerstnerCornerFunctor<T> >
+{
+  public:
+    typedef VigraTrueType isTernaryFunctor;
 };
 
 template <class SrcType>
@@ -71,6 +103,14 @@ struct RohrCornerFunctor
     }
 };
 
+template <class T>
+class FunctorTraits<RohrCornerFunctor<T> >
+: public FunctorTraitsBase<RohrCornerFunctor<T> >
+{
+  public:
+    typedef VigraTrueType isTernaryFunctor;
+};
+
 template <class SrcType>
 struct BeaudetCornerFunctor
 {
@@ -82,6 +122,14 @@ struct BeaudetCornerFunctor
     {
 	return (a3*a3 - a1*a2);
     }
+};
+
+template <class T>
+class FunctorTraits<BeaudetCornerFunctor<T> >
+: public FunctorTraitsBase<BeaudetCornerFunctor<T> >
+{
+  public:
+    typedef VigraTrueType isTernaryFunctor;
 };
 
 /** \addtogroup CornerDetection Corner Detection
@@ -137,7 +185,7 @@ struct BeaudetCornerFunctor
     }
     \endcode
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -295,7 +343,7 @@ void cornerResponseFunction(
     }
     \endcode
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -405,9 +453,12 @@ void foerstnerCornerDetector(
 /** \brief Find corners in an image (3).
 
     This algorithm implements yet another structure tensor-based corner detector, 
-    according to [K. Rohr: <em> "Untersuchung von grauwertabh&auml;ngigen 
+    according to [K. Rohr: <em>"Untersuchung von grauwertabh&auml;ngigen 
     Transformationen zur Ermittlung der optischen Flusses in Bildfolgen"</em>, 
-    Diploma thesis, Inst. f&uuml;r Nachrichtensysteme, Univ. Karlsruhe, 1987]. 
+    Diploma thesis, Inst. f&uuml;r Nachrichtensysteme, Univ. Karlsruhe, 1987, see also
+    K. Rohr: <em>"Modelling and Identification of Characteristic Intensity Variations"</em>,
+    Image and Vision Computing 10:2 (1992) 66-76 and K. Rohr: <em>"Localization Properties of 
+    Direct Corner Detectors"</em>, J. of Mathematical Imaging and Vision 4:2 (1994) 139-150]. 
     
     The algorithm first determines the structure tensor at each pixel by calling
     \link CommonConvolutionFilters#structureTensor structureTensor\endlink(). 
@@ -440,7 +491,7 @@ void foerstnerCornerDetector(
     }
     \endcode
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -576,7 +627,7 @@ void rohrCornerDetector(
     }
     \endcode
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,

@@ -28,6 +28,7 @@
 
 namespace vigra_ext {
 
+
 /** This class can be used to apply a function when reading
     the input image.
 
@@ -167,6 +168,13 @@ public:
 	}
     }
 
+	/** return the size (Number of Bands) */
+	template <class ITERATOR>
+	unsigned int size(ITERATOR const & i) const
+	{
+		return 2;
+	}
+
     Iter1 i1_;
     Acc1  a1_;
     Iter2 i2_;
@@ -210,6 +218,13 @@ public:
 	    vigra_fail("too many components in input value");
 	}
     }
+
+	/** return the size (Number of Bands) */
+	template <class ITERATOR>
+	unsigned int size(ITERATOR const & i) const
+	{
+		return SIZE;
+	}
 
     Iter1 i1_;
     Acc1  a1_;
@@ -275,6 +290,13 @@ public:
 	    vigra_fail("too many components in input value");
 	}
     }
+
+	/** return the size (Number of Bands) */
+	template <class ITERATOR>
+	unsigned int size(ITERATOR const & i) const
+	{
+		return 2;
+	}
 
     Iter1 i1_;
     Acc1  a1_;
@@ -362,6 +384,14 @@ public:
             throw 0;
 	}
     }
+
+
+	/** return the size (Number of Bands) */
+	template <class ITERATOR>
+	unsigned int size(ITERATOR const & i) const
+	{
+		return SIZE;
+	}
 
     Iter1 i1_;
     Acc1  a1_;

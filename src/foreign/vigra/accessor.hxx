@@ -4,25 +4,41 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
 #ifndef VIGRA_ACCESSOR_HXX
 #define VIGRA_ACCESSOR_HXX
 
+#include "vigra/metaprogramming.hxx"
 #include "vigra/numerictraits.hxx"
 #include "vigra/tuple.hxx"
 
@@ -97,6 +113,14 @@ namespace vigra {
 </tr>
 </table>
 </p>
+
+    The template <tt>AccessorTraits&lt;T&gt;</tt> can be used to find the default accessor
+    associated with the type <tt>T</tt>, e.g.
+    
+    \code
+    typedef typename AccessorTraits<typename Image::value_type>::default_accessor       Accessor;
+    typedef typename AccessorTraits<typename Image::value_type>::default_const_accessor ConstAccessor;
+    \endcode
 */
 //@{
 
@@ -154,6 +178,11 @@ class StandardAccessor
     void set(V const & value, ITERATOR const & i) const 
     { *i = detail::RequiresExplicitCast<VALUETYPE>::cast(value); }
     
+        /* This overload is needed to make the accessor work with a std::back_inserter */
+    template <class V, class ITERATOR>
+    void set(V const & value, ITERATOR & i) const
+    { *i = detail::RequiresExplicitCast<VALUETYPE>::cast(value); }
+
         /** Write the data item at an offset (can be 1D or 2D or higher order difference)..
             The type <TT>V</TT> of the passed
             in <TT>value</TT> is automatically converted to <TT>VALUETYPE</TT>.
@@ -217,6 +246,11 @@ class StandardValueAccessor
     void set(V value, ITERATOR const & i) const 
         { *i = detail::RequiresExplicitCast<VALUETYPE>::cast(value); }
     
+        /* This overload is needed to make the accessor work with a std::back_inserter */
+    template <class V, class ITERATOR>
+    void set(V value, ITERATOR & i) const
+        { *i = detail::RequiresExplicitCast<VALUETYPE>::cast(value); }
+
         /** Write the data item at an offset (can be 1D or 2D or higher order difference)..
             The type <TT>V</TT> of the passed
             in <TT>value</TT> is automatically converted to <TT>VALUETYPE</TT>.
@@ -394,6 +428,13 @@ class VectorComponentAccessor
     { 
         i[diff][index_]= detail::RequiresExplicitCast<value_type>::cast(value); 
     }
+    
+        /** Reset the index to the given number.
+        */
+    void setIndex(int i)
+    {
+        index_ = i;
+    }
 };
 
 /** \brief Accessor for one component of a vector.
@@ -477,6 +518,99 @@ class VectorComponentValueAccessor
     { 
         i[diff][index_]= detail::RequiresExplicitCast<value_type>::cast(value); 
     }
+    
+        /** Reset the index to the given number.
+        */
+    void setIndex(int i)
+    {
+        index_ = i;
+    }
+};
+
+/********************************************************/
+/*                                                      */
+/*                   VectorElementAccessor              */
+/*                                                      */
+/********************************************************/
+
+/** \brief Accessor for one component of a vector.
+
+    This works like VectorComponentAccessor, only the template paramters differ: 
+    Here, we need a vector accessor type , wheras VectorComponentAccessor requires a vector type.
+
+    <b>Usage:</b>
+    
+    \code
+    vigra::BRGBImage image(w,h);
+    
+    // init red channel with 255
+    initImage(destImageRange(image, 
+                             VectorElementAccessor<vigra::BRGBImage::Accessor>(0)),
+              255);
+    \endcode
+    
+    <b>\#include</b> "<a href="accessor_8hxx-source.html">vigra/accessor.hxx</a>"<br>
+    Namespace: vigra
+    
+*/
+template <class ACCESSOR>
+class VectorElementAccessor
+{
+    int index_;
+    ACCESSOR a_;
+  public:
+        /** the value_type
+        */
+    typedef typename ACCESSOR::component_type value_type;
+    
+        /** determine the component to be accessed
+        */
+    VectorElementAccessor(int index, ACCESSOR a = ACCESSOR())
+    : index_(index),
+      a_(a)
+    {}
+    
+        /** read the current data item
+        */
+    template <class ITERATOR>
+    value_type const & operator()(ITERATOR const & i) const 
+        { return a_.getComponent(i, index_); }
+    
+        /** read the data item at an offset (can be 1D or 2D or higher order difference).
+        */
+    template <class ITERATOR, class DIFFERENCE>
+    value_type const & operator()(ITERATOR const & i, DIFFERENCE const & diff) const
+    { 
+        return a_.getComponent(i, diff, index_); 
+    }
+    
+        /** Write the current data item. The type <TT>V</TT> of the passed
+            in <TT>value</TT> is automatically converted to <TT>value_type</TT>.
+            In case of a conversion floating point -> intergral this includes rounding and clipping.
+        */
+    template <class V, class ITERATOR>
+    void set(V const & value, ITERATOR const & i) const 
+    { 
+        a_.setComponent(detail::RequiresExplicitCast<value_type>::cast(value), i, index_); 
+    }
+
+        /** Write the data item at an offset (can be 1D or 2D or higher order difference)..
+            The type <TT>V</TT> of the passed
+            in <TT>value</TT> is automatically converted to <TT>value_type</TT>.
+            In case of a conversion floating point -> intergral this includes rounding and clipping.
+        */
+    template <class V, class ITERATOR, class DIFFERENCE>
+    void set(V const & value, ITERATOR const & i, DIFFERENCE const & diff) const 
+    { 
+       a_.setComponent(detail::RequiresExplicitCast<value_type>::cast(value), i, diff, index_); 
+    }
+    
+        /** Reset the index to the given number.
+        */
+    void setIndex(int i)
+    {
+        index_ = i;
+    }
 };
 
 /********************************************************/
@@ -521,9 +655,17 @@ class SequenceAccessor
     */
     typedef typename SEQUENCE::value_type component_type;
 
+#ifndef NO_PARTIAL_TEMPLATE_SPECIALIZATION
+    typedef typename
+            If<typename TypeTraits<SEQUENCE>::isConst,
+               typename SEQUENCE::const_iterator,
+               typename SEQUENCE::iterator>::type 
+            iterator;
+#else
     /** the sequence's iterator type
     */
     typedef typename SEQUENCE::iterator iterator;
+#endif
     
     /** get begin iterator for sequence at given iterator position
     */
@@ -779,6 +921,115 @@ class MultiImageAccessor2
 };
 
 //@}
+
+template <class T>
+struct AccessorTraits
+{
+    typedef StandardAccessor<T>        default_accessor;
+    typedef StandardConstAccessor<T>   default_const_accessor;
+};
+
+#define VIGRA_DEFINE_ACCESSOR_TRAITS(VALUE, ACCESSOR, CONST_ACCESSOR) \
+    template <> \
+    struct AccessorTraits<VALUE > \
+    { \
+        typedef ACCESSOR<VALUE >         default_accessor; \
+        typedef CONST_ACCESSOR<VALUE >   default_const_accessor; \
+    };
+
+VIGRA_DEFINE_ACCESSOR_TRAITS(signed char, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(unsigned char, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(short, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(unsigned short, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(int, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(unsigned int, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(long, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(unsigned long, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(float, StandardValueAccessor, StandardConstValueAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(double, StandardValueAccessor, StandardConstValueAccessor)
+
+template <class T, unsigned int RED_IDX, unsigned int GREEN_IDX, unsigned int BLUE_IDX> class RGBValue;
+template <class T> class RGBAccessor;
+template <class T, int SIZE> class TinyVector;
+
+#ifndef NO_PARTIAL_TEMPLATE_SPECIALIZATION
+
+template <class T, unsigned int RED_IDX, unsigned int GREEN_IDX, unsigned int BLUE_IDX>
+struct AccessorTraits<RGBValue<T, RED_IDX, GREEN_IDX, BLUE_IDX> >
+{
+    typedef RGBAccessor<RGBValue<T, RED_IDX, GREEN_IDX, BLUE_IDX> >   default_accessor;
+    typedef RGBAccessor<RGBValue<T, RED_IDX, GREEN_IDX, BLUE_IDX> >   default_const_accessor;
+};
+
+template <class T, int SIZE>
+struct AccessorTraits<TinyVector<T, SIZE> >
+{
+    typedef VectorAccessor<TinyVector<T, SIZE> >   default_accessor;
+    typedef VectorAccessor<TinyVector<T, SIZE> >   default_const_accessor;
+};
+
+#else // NO_PARTIAL_TEMPLATE_SPECIALIZATION
+
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<unsigned char>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<signed char>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<short>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<unsigned short>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<int>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<unsigned int>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<long>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<unsigned long>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<float>, RGBAccessor, RGBAccessor)
+VIGRA_DEFINE_ACCESSOR_TRAITS(RGBValue<double>, RGBAccessor, RGBAccessor)
+
+#define VIGRA_PIXELTYPE TinyVector<unsigned char, 2>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<unsigned char, 3>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<unsigned char, 4>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<short, 2>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<short, 3>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<short, 4>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<int, 2>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<int, 3>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<int, 4>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<float, 2>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<float, 3>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<float, 4>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<double, 2>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<double, 3>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+#define VIGRA_PIXELTYPE TinyVector<double, 4>
+VIGRA_DEFINE_ACCESSOR_TRAITS(VIGRA_PIXELTYPE, VectorAccessor, VectorAccessor)
+#undef VIGRA_PIXELTYPE
+
+#endif // NO_PARTIAL_TEMPLATE_SPECIALIZATION
+
+#undef VIGRA_DEFINE_ACCESSOR_TRAITS
 
 } // namespace vigra
 

@@ -37,7 +37,7 @@
 #include <vigra/tiff.hxx>
 
 #include <vigra/impex.hxx>
-#include <vigra/impexalpha.hxx>
+#include <vigra_ext/impexalpha.hxx>
 
 #include <vigra_ext/blend.h>
 #include <vigra_ext/NearestFeatureTransform.h>
@@ -244,6 +244,7 @@ public:
                 vigra::ImageExportInfo exinfo(filename.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
+                exinfo.setICCProfile(remapped.m_ICCProfile);
                 // set compression options here.
                 char jpgCompr[4];
                 snprintf(jpgCompr,4,"%d", opts.quality);
@@ -262,6 +263,7 @@ public:
                 vigra::ImageExportInfo exinfo(filename.str().c_str());
                 exinfo.setXResolution(150);
                 exinfo.setYResolution(150);
+                exinfo.setICCProfile(remapped.m_ICCProfile);
                 vigra::exportImageAlpha(srcImageRange(complete), srcImage(alpha),
                                             exinfo);
                 break;
@@ -277,11 +279,13 @@ public:
                 vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
                 vigra_ext::createTiffDirectory(tiff,
-                                            Base::m_pano.getImage(imgNr).getFilename(),
-                                            m_basename,
-                                            opts.tiffCompression,
-                                            1, 1,
-                                            vigra::Diff2D(0,0));
+                                               Base::m_pano.getImage(imgNr).getFilename(),
+                                               m_basename,
+                                               opts.tiffCompression,
+                                               1, 1,
+                                               vigra::Diff2D(0,0),
+                                               remapped.m_ICCProfile
+                                              );
                 vigra_ext::createAlphaTiffImage(srcImageRange(complete),
                                                 srcImage(alpha),
                                                 tiff);
@@ -292,14 +296,14 @@ public:
                 complete.resize(1,1);
                 alpha.resize(1,1);
                 if (opts.saveCoordImgs) {
-                    vigra::USImage xImg;
-                    vigra::USImage yImg;
+                    vigra::UInt16Image xImg;
+                    vigra::UInt16Image yImg;
 
                     Base::m_progress.setMessage("creating coordinate images");
 
                     remapped.calcSrcCoordImgs(xImg, yImg);
 
-                    vigra::USImage distFull(opts.getWidth(), opts.getHeight());
+                    vigra::UInt16Image distFull(opts.getWidth(), opts.getHeight());
                     vigra::copyImage(srcImageRange(xImg),
                                      vigra_ext::applyRect(remapped.boundingBox(),
                                                           destImage(distFull)));
@@ -345,7 +349,8 @@ public:
                                            Base::m_pano.getImage(imgNr).getFilename(),
                                            m_basename,
                                            opts.tiffCompression,
-                                           1, 1, remapped.boundingBox().upperLeft());
+                                           1, 1, remapped.boundingBox().upperLeft(),
+                                           remapped.m_ICCProfile);
             vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                                             vigra::maskImage(remapped.m_mask),
                                             tiff);
@@ -354,8 +359,8 @@ public:
             TIFFClose(tiff);
             if (opts.saveCoordImgs) {
 
-                vigra::USImage xImg;
-                vigra::USImage yImg;
+                vigra::UInt16Image xImg;
+                vigra::UInt16Image yImg;
                 remapped.calcSrcCoordImgs(xImg, yImg);
 
                 std::ostringstream filename2;
@@ -421,7 +426,8 @@ public:
                                        Base::m_pano.getImage(imgNr).getFilename(),
                                        Base::m_basename,
                                        opts.tiffCompression,
-                                       imgNr+1, nImg, remapped.boundingBox().upperLeft());
+                                       imgNr+1, nImg, remapped.boundingBox().upperLeft(),
+                                       remapped.m_ICCProfile);
         vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                                         vigra::maskImage(remapped.m_mask),
                                         m_tiff);
@@ -503,7 +509,10 @@ public:
             DEBUG_DEBUG("remapping image: " << *it);
 	    RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-
+            if (! iccProfile.isValid()) {
+                // try to extract icc profile.
+                iccProfile = remapped->m_ICCProfile;
+            }
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
             try {
@@ -548,11 +557,12 @@ public:
         default:
             DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
         }
-	Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
-	DEBUG_DEBUG("Saving panorama: " << outputfile);
-	vigra::ImageExportInfo exinfo(outputfile.c_str());
-	exinfo.setXResolution(150);
-	exinfo.setYResolution(150);
+        Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
+        DEBUG_DEBUG("Saving panorama: " << outputfile);
+        vigra::ImageExportInfo exinfo(outputfile.c_str());
+        exinfo.setXResolution(150);
+        exinfo.setYResolution(150);
+        exinfo.setICCProfile(iccProfile);
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
             char jpgCompr[4];
@@ -560,7 +570,7 @@ public:
             exinfo.setCompression(jpgCompr);
             vigra::exportImage(srcImageRange(pano), exinfo);
 	} else if (opts.outputFormat == PanoramaOptions::TIFF) {
-	    exinfo.setCompression("DEFLATE");
+	        exinfo.setCompression(opts.tiffCompression.c_str());
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
 	} else {
@@ -574,7 +584,8 @@ public:
 
     }
 
-private:
+protected:
+    vigra::ICCProfile iccProfile;
 };
 
 
@@ -717,7 +728,10 @@ public:
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-
+            if (! iccProfile.isValid()) {
+                // try to extract icc profile.
+                iccProfile = remapped->m_ICCProfile;
+            }
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
             try {
@@ -769,6 +783,7 @@ public:
 	vigra::ImageExportInfo exinfo(outputfile.c_str());
 	exinfo.setXResolution(150);
 	exinfo.setYResolution(150);
+        exinfo.setICCProfile(iccProfile);
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
             char jpgCompr[4];
@@ -789,6 +804,8 @@ public:
 	Base::m_progress.popTask();
 
     }
+protected:
+    vigra::ICCProfile iccProfile;
 };
 
 /** blend images, by simply stacking them, without soft blending or

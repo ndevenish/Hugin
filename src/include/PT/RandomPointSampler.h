@@ -100,7 +100,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                         // ignore pixels that are too dark or bright
                         continue;
                     }
-                    double r1 = norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+		    double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
@@ -117,7 +117,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                                 // ignore pixels that are too dark or bright
                                 continue;
                             }
-                            double r2 = norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+			    double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
@@ -269,7 +269,7 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                     // ignore pixels that are too dark or bright
                     continue;
                 }
-                double r1 = norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+		double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     FDiff2D p2;
@@ -280,7 +280,7 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                             // ignore pixels that are too dark or bright
                             continue;
                         }
-                        double r2 = norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+			double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
                         // add pixel
                         if (i1 >= i2 && r1 <= r2) {
                             // ok, point is good. i1 is closer to centre, swap point

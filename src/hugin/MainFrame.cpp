@@ -309,7 +309,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     DEBUG_TRACE("");
 
     // create a status bar
-    // FIXME add a progress dialog to the status bar
     const int fields (2);
     CreateStatusBar(fields);
     int widths[fields] = {-1, 85};
@@ -469,7 +468,6 @@ bool MainFrame::CloseProject(bool cnacelable)
 void MainFrame::OnExit(wxCloseEvent & e)
 {
     DEBUG_TRACE("");
-    // FIXME ask to save is panorama if unsaved changes exist
     if(!CloseProject(e.CanVeto()))
     {
        if (e.CanVeto())

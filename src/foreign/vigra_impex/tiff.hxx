@@ -4,26 +4,53 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
+/* Modifications by Pablo d'Angelo
+ * updated to vigra 1.4 by Douglas Wilkins
+ * as of 18 Febuary 2006:
+ *  - Added support for obtaining extra bands beyond RGB.
+ *  - Added support for a position field that indicates the start of this
+ *    image relative to some global origin.
+ *  - Added support for x and y resolution fields.
+ * Modifications by Andrew Mihal, as of 16 October 2004
+ *  - Added include for vigra/diff2d.hxx
+ *  - Added support for ICC profiles
+ */
 
-#ifndef VIGRA_IMPEX2_TIFF_HXX
-#define VIGRA_IMPEX2_TIFF_HXX
+#ifndef VIGRA_IMPEX_TIFF_HXX
+#define VIGRA_IMPEX_TIFF_HXX
 
 #include <vector>
+#include "vigra/diff2d.hxx"
 #include "vigra/codec.hxx"
 
 namespace vigra {
@@ -54,13 +81,16 @@ namespace vigra {
         unsigned int getNumBands() const;
 
         unsigned int getNumExtraBands() const;
-        vigra::Diff2D getPosition() const;
+        Diff2D getPosition() const;
 
         const void * currentScanlineOfBand( unsigned int ) const;
         void nextScanline();
 
         std::string getPixelType() const;
         unsigned int getOffset() const;
+
+        UInt32 getICCProfileLength() const;
+        const unsigned char *getICCProfile() const;
 
         void init( const std::string & );
         void close();
@@ -95,6 +125,8 @@ namespace vigra {
 
         void * currentScanlineOfBand( unsigned int );
         void nextScanline();
+
+        void setICCProfile(const UInt32 length, const unsigned char * const buf);
 
         void init( const std::string & );
         void close();

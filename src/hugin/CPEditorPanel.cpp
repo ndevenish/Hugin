@@ -296,7 +296,6 @@ CPEditorPanel::~CPEditorPanel()
 	wxConfigBase::Get()->Write(wxT("/CPEditorPanel/sashPos"), sashPos);
 #endif
 				
-    // FIXME. why does this crash at exit?
     m_x1Text->PopEventHandler(true);
     m_y1Text->PopEventHandler(true);
     m_x2Text->PopEventHandler(true);

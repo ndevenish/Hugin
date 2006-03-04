@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
@@ -28,13 +43,25 @@
 #include <cstdlib>  // abs(int)
 #include <iosfwd>   // ostream
 #include "vigra/config.hxx"
+#include "vigra/error.hxx"
 #include "vigra/numerictraits.hxx"
+#include "vigra/mathutil.hxx"
 
 namespace vigra {
 
 using VIGRA_CSTD::abs;
 using VIGRA_CSTD::ceil;
 using VIGRA_CSTD::floor;
+
+
+template <class V1, int SIZE, class D1, class D2>
+class TinyVectorBase;
+
+template <class V1, int SIZE, class D1, class D2>
+inline
+typename TinyVectorBase<V1, SIZE, D1, D2>::SquaredNormType
+squaredNorm(TinyVectorBase<V1, SIZE, D1, D2> const & t);
+
 
 namespace detail {
 
@@ -106,6 +133,16 @@ struct ExecLoop
             res += left[i] * right[i];
         return res;
     }
+
+    template <class T>
+    static typename NormTraits<T>::SquaredNormType
+    squaredNorm(T const * d)
+    {
+        typename NormTraits<T>::SquaredNormType  res = vigra::squaredNorm(*d);
+        for(int i=1; i<LEVEL; ++i)
+            res += vigra::squaredNorm(d[i]);
+        return res;
+    }
 };
 
 template <int LEVEL>
@@ -141,6 +178,28 @@ struct UnrollDot<1>
     dot(T1 const * left, T2 const * right)
     {
         return *left * *right;
+    }
+};
+
+template <int LEVEL>
+struct UnrollSquaredNorm
+{
+    template <class T>
+    static typename NormTraits<T>::SquaredNormType
+    squaredNorm(T const * d)
+    {
+        return vigra::squaredNorm(*d) + UnrollSquaredNorm<LEVEL-1>::squaredNorm(d+1);
+    }
+};
+
+template <>
+struct UnrollSquaredNorm<1>
+{
+    template <class T>
+    static typename NormTraits<T>::SquaredNormType
+    squaredNorm(T const * d)
+    {
+        return vigra::squaredNorm(*d);
     }
 };
 
@@ -207,6 +266,13 @@ struct UnrollLoop
     {
         return UnrollDot<LEVEL>::dot(left, right);
     }
+
+    template <class T>
+    static typename NormTraits<T>::SquaredNormType
+    squaredNorm(T const * d)
+    {
+        return UnrollSquaredNorm<LEVEL>::squaredNorm(d);
+    }
 };
 
 #undef VIGRA_UNROLL_LOOP
@@ -250,7 +316,7 @@ struct UnrollLoop<0>
 };
 
 template <bool PREDICATE>
-struct If
+struct TinyVectorIf
 {
     template <class T, class F>
     struct res
@@ -260,7 +326,7 @@ struct If
 };
 
 template <>
-struct If<false>
+struct TinyVectorIf<false>
 {
     template <class T, class F>
     struct res
@@ -272,7 +338,7 @@ struct If<false>
 template <int SIZE>
 struct LoopType
 {
-    typedef typename If<SIZE < 5>::
+    typedef typename TinyVectorIf<SIZE < 5>::
             template res<UnrollLoop<SIZE>, ExecLoop<SIZE> >::type type;
 };
 
@@ -297,7 +363,7 @@ class TinyVectorView;
 /** \brief Base class for fixed size vectors.
 
     This class contains functionality shared by
-    \ref TinyVector and \ref TinyVectorBase, and enables these classes
+    \ref TinyVector and \ref TinyVectorView, and enables these classes
     to be freely mixed within expressions. It is typically not used directly.
 
     <b>\#include</b> "<a href="tinyvector_8hxx-source.html">vigra/tinyvector.hxx</a>"<br>
@@ -358,6 +424,18 @@ class TinyVectorBase
         */
     typedef double scalar_multiplier;
 
+        /** the vector's squared norm type
+        */
+    typedef typename NormTraits<VALUETYPE>::SquaredNormType SquaredNormType;
+
+        /** the vector's norm type
+        */
+    typedef typename SquareRootTraits<SquaredNormType>::SquareRootResult NormType;
+
+        /** the vector's size
+        */
+    enum { static_size = SIZE };
+
         /** Initialize from another sequence (must have length SIZE!)
         */
     template <class Iterator>
@@ -413,19 +491,17 @@ class TinyVectorBase
 
         /** Calculate magnitude.
         */
-    typename NumericTraits<VALUETYPE>::RealPromote
-    magnitude() const
+    NormType magnitude() const
     {
-         return VIGRA_CSTD::sqrt(
-               (typename NumericTraits<VALUETYPE>::RealPromote)squaredMagnitude());
+         return sqrt(static_cast<typename 
+              SquareRootTraits<SquaredNormType>::SquareRootArgument>(squaredMagnitude()));
     }
 
         /** Calculate squared magnitude.
         */
-    typename NumericTraits<VALUETYPE>::Promote
-    squaredMagnitude() const
+    SquaredNormType squaredMagnitude() const
     {
-        return Loop::dot(data_);
+        return Loop::squaredNorm(data_);
     }
 
         /** Access component by index.
@@ -455,6 +531,11 @@ class TinyVectorBase
         */
     size_type size() const { return SIZE; }
 
+    pointer data() { return data_; }
+
+    const_pointer data() const { return data_; }
+
+
   protected:
     DATA data_;
 };
@@ -474,6 +555,26 @@ class TinyVectorBase
 
     VIGRA algorithms typically use \ref vigra::VectorAccessor to access
     TinyVectors as a whole, or specific components of them.
+
+    See also:<br>
+    <DL>
+        <DT>
+            <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
+            \ref vigra::TinyVectorBase
+            <DD>
+        <DT>
+            <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
+            \ref vigra::TinyVectorView
+            <DD>
+        <DT>
+            <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
+            \ref TinyVectorTraits
+            <DD>
+        <DT>
+            <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
+            \ref TinyVectorOperators
+            <DD>
+    </DL>
 
     <b>\#include</b> "<a href="tinyvector_8hxx-source.html">vigra/tinyvector.hxx</a>"<br>
     Namespace: vigra
@@ -497,6 +598,8 @@ class TinyVector
     typedef typename BaseType::size_type size_type;
     typedef typename BaseType::difference_type difference_type;
     typedef typename BaseType::scalar_multiplier scalar_multiplier;
+    typedef typename BaseType::SquaredNormType SquaredNormType;
+    typedef typename BaseType::NormType NormType;
 
         /** Construction with constant value
         */
@@ -556,6 +659,14 @@ class TinyVector
         Loop::assign(BaseType::data_, r.data_);
     }
 
+        /** Constructor from C array.
+        */
+    explicit TinyVector(const_pointer data)
+    : BaseType()
+    {
+        Loop::assign(BaseType::data_, data);
+    }
+
         /** Copy assignment.
         */
     TinyVector & operator=(TinyVector const & r)
@@ -605,6 +716,14 @@ class TinyVector
     VIGRA algorithms typically use \ref vigra::VectorAccessor to access
     TinyVectorViews as a whole, or specific components of them.
 
+    <b>See also:</b>
+    <ul>
+        <li> \ref vigra::TinyVectorBase
+        <li> \ref vigra::TinyVector
+        <li> \ref TinyVectorTraits
+        <li> \ref TinyVectorOperators
+    </ul>
+
     <b>\#include</b> "<a href="tinyvector_8hxx-source.html">vigra/tinyvector.hxx</a>"<br>
     Namespace: vigra
 **/
@@ -627,6 +746,8 @@ class TinyVectorView
     typedef typename BaseType::size_type size_type;
     typedef typename BaseType::difference_type difference_type;
     typedef typename BaseType::scalar_multiplier scalar_multiplier;
+    typedef typename BaseType::SquaredNormType SquaredNormType;
+    typedef typename BaseType::NormType NormType;
 
         /** Default constructor
             (pointer to wrapped data is NULL).
@@ -659,7 +780,7 @@ class TinyVectorView
     TinyVectorView(TinyVectorBase<T, SIZE, DATA, DERIVED> const & other)
     : BaseType()
     {
-        BaseType::data_ = const_cast<pointer>(other.data_);
+        BaseType::data_ = const_cast<pointer>(other.data());
     }
 
         /** Copy the data (not the pointer) of the rhs.
@@ -680,38 +801,11 @@ class TinyVectorView
     }
 };
 
-
-} // namespace vigra
-
-/********************************************************/
-/*                                                      */
-/*                     TinyVector Output                */
-/*                                                      */
-/********************************************************/
-
-/** \addtogroup TinyVectorOperators
- */
-//@{
-    /// stream output
-template <class V1, int SIZE, class DATA, class DERIVED>
-std::ostream &
-operator<<(std::ostream & out, vigra::TinyVectorBase<V1, SIZE, DATA, DERIVED> const & l)
-{
-    out << "(";
-    int i;
-    for(i=0; i<SIZE-1; ++i)
-        out << l[i] << ", ";
-    out << l[i] << ")";
-    return out;
-}
-
 /********************************************************/
 /*                                                      */
 /*                     TinyVector Comparison            */
 /*                                                      */
 /********************************************************/
-
-namespace vigra {
 
 /** \addtogroup TinyVectorOperators Functions for TinyVector
 
@@ -740,9 +834,28 @@ inline bool
 operator!=(TinyVectorBase<V1, SIZE, D1, D2> const & l,
            TinyVectorBase<V2, SIZE, D3, D4> const & r)
 {
-    return detail::LoopType<SIZE>::type::notEqual(l.begin(), r.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    return ltype::notEqual(l.begin(), r.begin());
 }
 
+/********************************************************/
+/*                                                      */
+/*                     TinyVector Output                */
+/*                                                      */
+/********************************************************/
+
+    /// stream output
+template <class V1, int SIZE, class DATA, class DERIVED>
+std::ostream &
+operator<<(std::ostream & out, TinyVectorBase<V1, SIZE, DATA, DERIVED> const & l)
+{
+    out << "(";
+    int i;
+    for(i=0; i<SIZE-1; ++i)
+        out << l[i] << ", ";
+    out << l[i] << ")";
+    return out;
+}
 //@}
 
 /********************************************************/
@@ -767,8 +880,17 @@ operator!=(TinyVectorBase<V1, SIZE, D1, D2> const & l,
 
         typedef typename NumericTraits<T>::isIntegral isIntegral;
         typedef VigraFalseType isScalar;
+        typedef typename NumericTraits<T>::isSigned isSigned;
 
         // etc.
+    };
+
+    template <class T, int SIZE>
+    struct NormTraits<TinyVector<T, SIZE> >
+    {
+        typedef TinyVector<T, SIZE> Type;
+        typedef typename Type::SquaredNormType    SquaredNormType;
+        typedef typename Type::NormType           NormType;
     };
 
     template <class T1, class T2, SIZE>
@@ -796,11 +918,14 @@ struct NumericTraits<TinyVector<T, SIZE> >
     typedef TinyVector<T, SIZE> Type;
     typedef TinyVector<typename NumericTraits<T>::Promote, SIZE> Promote;
     typedef TinyVector<typename NumericTraits<T>::RealPromote, SIZE> RealPromote;
+    typedef TinyVector<typename NumericTraits<T>::ComplexPromote, SIZE> ComplexPromote;
+    typedef T ValueType;
 
     typedef typename NumericTraits<T>::isIntegral isIntegral;
-    typedef typename NumericTraits<T>::isSigned isSigned;
     typedef VigraFalseType isScalar;
+    typedef typename NumericTraits<T>::isSigned isSigned;
     typedef VigraFalseType isOrdered;
+    typedef VigraFalseType isComplex;
 
     static TinyVector<T, SIZE> zero() {
         return TinyVector<T, SIZE>(NumericTraits<T>::zero());
@@ -829,7 +954,8 @@ struct NumericTraits<TinyVector<T, SIZE> >
     fromPromote(TinyVectorBase<typename NumericTraits<T>::Promote, SIZE, D1, D2> const & v)
     {
         TinyVector<T, SIZE> res(detail::dontInit());
-        detail::LoopType<SIZE>::type::fromPromote(res.begin(), v.begin());
+        typedef typename detail::LoopType<SIZE>::type ltype;
+        ltype::fromPromote(res.begin(), v.begin());
         return res;
     }
 
@@ -838,7 +964,8 @@ struct NumericTraits<TinyVector<T, SIZE> >
     fromRealPromote(TinyVectorBase<typename NumericTraits<T>::RealPromote, SIZE, D1, D2> const & v)
     {
         TinyVector<T, SIZE> res(detail::dontInit());
-        detail::LoopType<SIZE>::type::fromRealPromote(res.begin(), v.begin());
+        typedef typename detail::LoopType<SIZE>::type ltype;
+        ltype::fromRealPromote(res.begin(), v.begin());
         return res;
     }
 };
@@ -850,11 +977,30 @@ struct NumericTraits<TinyVectorView<T, SIZE> >
     typedef TinyVector<T, SIZE> Type;
     typedef TinyVector<typename NumericTraits<T>::Promote, SIZE> Promote;
     typedef TinyVector<typename NumericTraits<T>::RealPromote, SIZE> RealPromote;
+    typedef TinyVector<typename NumericTraits<T>::ComplexPromote, SIZE> ComplexPromote;
+    typedef T ValueType;
 
     typedef typename NumericTraits<T>::isIntegral isIntegral;
-    typedef typename NumericTraits<T>::isSigned isSigned;
     typedef VigraFalseType isScalar;
+    typedef typename NumericTraits<T>::isSigned isSigned;
     typedef VigraFalseType isOrdered;
+    typedef VigraFalseType isComplex;
+};
+
+template <class T, int SIZE>
+struct NormTraits<TinyVector<T, SIZE> >
+{
+    typedef TinyVector<T, SIZE> Type;
+    typedef typename Type::SquaredNormType    SquaredNormType;
+    typedef typename Type::NormType           NormType;
+};
+
+template <class T, int SIZE>
+struct NormTraits<TinyVectorView<T, SIZE> >
+{
+    typedef TinyVector<T, SIZE> Type;
+    typedef typename Type::SquaredNormType    SquaredNormType;
+    typedef typename Type::NormType           NormType;
 };
 
 template <class T1, class T2, int SIZE>
@@ -915,10 +1061,13 @@ struct NumericTraits<TinyVector<T, SIZE> >\
     typedef TinyVector<T, SIZE> Type;\
     typedef TinyVector<NumericTraits<T>::Promote, SIZE> Promote;\
     typedef TinyVector<NumericTraits<T>::RealPromote, SIZE> RealPromote;\
+    typedef TinyVector<NumericTraits<T>::ComplexPromote, SIZE> ComplexPromote;\
+    typedef T ValueType; \
     typedef NumericTraits<T>::isIntegral isIntegral;\
-    typedef NumericTraits<T>::isSigned isSigned;\
     typedef VigraFalseType isScalar;\
+    typedef NumericTraits<T>::isSigned isSigned; \
     typedef VigraFalseType isOrdered;\
+    typedef VigraFalseType isComplex;\
     \
     static TinyVector<T, SIZE> zero() { \
         return TinyVector<T, SIZE>(NumericTraits<T>::zero()); \
@@ -952,6 +1101,13 @@ struct NumericTraits<TinyVector<T, SIZE> >\
             *d = NumericTraits<T>::fromRealPromote(*s);\
         return res;\
     }\
+}; \
+template<>\
+struct NormTraits<TinyVector<T, SIZE> >\
+{\
+    typedef TinyVector<T, SIZE> Type;\
+    typedef Type::SquaredNormType           SquaredNormType; \
+    typedef Type::NormType NormType; \
 };
 
 #define TINYVECTOR_PROMTRAITS1(type1, SIZE) \
@@ -1025,9 +1181,7 @@ typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2, SIZE> >::Promote
 operator+(TinyVectorBase<V1, SIZE, D1, D2> const & l,
           TinyVectorBase<V2, SIZE, D3, D4> const & r)
 {
-    typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote res(l);
-    res += r;
-    return res;
+    return typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote(l) += r;
 }
 
     /// component-wise subtraction
@@ -1037,9 +1191,7 @@ typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2, SIZE> >::Promote
 operator-(TinyVectorBase<V1, SIZE, D1, D2> const & l,
           TinyVectorBase<V2, SIZE, D3, D4> const & r)
 {
-    typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote res(l);
-    res -= r;
-    return res;
+    return typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote(l) -= r;
 }
 
     /// component-wise multiplication
@@ -1049,9 +1201,7 @@ typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2, SIZE> >::Promote
 operator*(TinyVectorBase<V1, SIZE, D1, D2> const & l,
           TinyVectorBase<V2, SIZE, D3, D4> const & r)
 {
-    typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote res(l);
-    res *= r;
-    return res;
+    return typename PromoteTraits<TinyVector<V1, SIZE>, TinyVector<V2 , SIZE> >::Promote(l) *= r;
 }
 
     /// component-wise left scalar multiplication
@@ -1090,7 +1240,8 @@ TinyVector<V, SIZE>
 operator-(TinyVectorBase<V, SIZE, D1, D2> const & v)
 {
     TinyVector<V, SIZE> res(detail::dontInit());
-    detail::LoopType<SIZE>::type::neg(res.begin(), v.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    ltype::neg(res.begin(), v.begin());
     return res;
 }
 
@@ -1101,7 +1252,8 @@ TinyVector<V, SIZE>
 abs(TinyVectorBase<V, SIZE, D1, D2> const & v)
 {
     TinyVector<V, SIZE> res(detail::dontInit());
-    detail::LoopType<SIZE>::type::abs(res.begin(), v.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    ltype::abs(res.begin(), v.begin());
     return res;
 }
 
@@ -1113,7 +1265,8 @@ TinyVector<V, SIZE>
 ceil(TinyVectorBase<V, SIZE, D1, D2> const & v)
 {
     TinyVector<V, SIZE> res(detail::dontInit());
-    detail::LoopType<SIZE>::type::ceil(res.begin(), v.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    ltype::ceil(res.begin(), v.begin());
     return res;
 }
 
@@ -1125,8 +1278,23 @@ TinyVector<V, SIZE>
 floor(TinyVectorBase<V, SIZE, D1, D2> const & v)
 {
     TinyVector<V, SIZE> res(detail::dontInit());
-    detail::LoopType<SIZE>::type::floor(res.begin(), v.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    ltype::floor(res.begin(), v.begin());
     return res;
+}
+
+    /// cross product
+template <class V1, class D1, class D2, class V2, class D3, class D4>
+inline
+TinyVector<typename PromoteTraits<V1, V2>::Promote, 3>
+cross(TinyVectorBase<V1, 3, D1, D2> const & r1,
+      TinyVectorBase<V2, 3, D3, D4> const & r2)
+{
+    typedef TinyVector<typename PromoteTraits<V1, V2>::Promote, 3>
+            Res;
+    return  Res(r1[1]*r2[2] - r1[2]*r2[1],
+                r1[2]*r2[0] - r1[0]*r2[2],
+                r1[0]*r2[1] - r1[1]*r2[0]);
 }
 
     /// dot product
@@ -1136,9 +1304,19 @@ typename PromoteTraits<V1, V2>::Promote
 dot(TinyVectorBase<V1, SIZE, D1, D2> const & l,
     TinyVectorBase<V2, SIZE, D3, D4> const & r)
 {
-    return detail::LoopType<SIZE>::type::dot(l.begin(), r.begin());
+    typedef typename detail::LoopType<SIZE>::type ltype;
+    return ltype::dot(l.begin(), r.begin());
 }
 
+
+    /// squared norm
+template <class V1, int SIZE, class D1, class D2>
+inline
+typename TinyVectorBase<V1, SIZE, D1, D2>::SquaredNormType
+squaredNorm(TinyVectorBase<V1, SIZE, D1, D2> const & t)
+{
+    return t.squaredMagnitude();
+}
 //@}
 
 

@@ -4,27 +4,43 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
-#include <config.h>
 #include <fstream>
 #include <stdexcept>
 #include <vector>
 #include <algorithm>
+#include "vigra/config.hxx"
+#include "vigra/sized_int.hxx"
 #include "error.hxx"
 #include "byteorder.hxx"
 #include "void_vector.hxx"
@@ -36,9 +52,9 @@ namespace vigra {
 
 namespace {
 
-    int read_data_block(std::ifstream & stream, void_vector<unsigned char> & data)
+    int read_data_block(std::ifstream & stream, void_vector<UInt8> & data)
     {
-        unsigned char count;
+        int count;
 
         count = stream.get();
         if(!stream.good())
@@ -54,11 +70,11 @@ namespace {
 
     struct ColorCluster
     {
-        unsigned char cmin[3], cmax[3];
-        std::vector<unsigned char *> entries;
+        UInt8 cmin[3], cmax[3];
+        std::vector<UInt8 *> entries;
         mutable int largest_dim, largest_diff;
 
-        typedef unsigned char rgb[3];
+        typedef UInt8 rgb[3];
 
         struct ColorSorter
         {
@@ -68,7 +84,7 @@ namespace {
             : dim(d)
             {}
 
-            bool operator()(unsigned char * l, unsigned char * r) const
+            bool operator()(UInt8 * l, UInt8 * r) const
             {
                 return l[dim] < r[dim];
             }
@@ -80,7 +96,7 @@ namespace {
             reset_minmax();
         }
 
-        void add(unsigned char * entry)
+        void add(UInt8 * entry)
         {
             entries.push_back(entry);
 
@@ -98,7 +114,7 @@ namespace {
             largest_dim = -1;
         }
 
-        void update_minmax(unsigned char * entry)
+        void update_minmax(UInt8 * entry)
         {
             for(int i=0; i<3; ++i)
             {
@@ -140,11 +156,11 @@ namespace {
             update_largest();
             std::sort(entries.begin(), entries.end(), ColorSorter(largest_dim));
 
-            std::vector<unsigned char *> old_list;
+            std::vector<UInt8 *> old_list;
             old_list.swap(entries);
             reset_minmax();
 
-            unsigned int i = 0;
+            UInt32 i = 0;
             for(; i<old_list.size()/2; ++i)
             {
                 add(old_list[i]);
@@ -155,35 +171,41 @@ namespace {
             }
         }
 
-        void average(unsigned char * color) const
+        void average(UInt8 * color) const
         {
-            int r = 0, g = 0, b = 0;
+            UInt32 r = 0, g = 0, b = 0;
 
-            for(unsigned int i=0; i<entries.size(); ++i)
+            for(UInt32 i=0; i<entries.size(); ++i)
             {
                 r += entries[i][0];
                 g += entries[i][1];
                 b += entries[i][2];
             }
 
-            color[0] = r / entries.size();
-            color[1] = g / entries.size();
-            color[2] = b / entries.size();
+            //
+            //  r/g/b is the sum of all the uchar entries. entries.size
+            //  is the count; we compute the average here and can safely
+            //  cast this back to uchar
+            //
+
+            color[0] = (UInt8)(r / entries.size());
+            color[1] = (UInt8)(g / entries.size());
+            color[2] = (UInt8)(b / entries.size());
         }
 
-        int size() const
+        size_t size() const
         {
             return entries.size();
         }
     };
 
 
-    void find_color_clusters(void_vector<unsigned char> & data,
-            std::vector<ColorCluster> & clusters, void_vector<unsigned char> & colors)
+    void find_color_clusters(void_vector<UInt8> & data, 
+            std::vector<ColorCluster> & clusters, void_vector<UInt8> & colors)
     {
-        int count = clusters.size();
-        int size = data.size() / 3;
-        int i, current;
+        size_t count = clusters.size();
+        size_t size = data.size() / 3;
+        size_t i, current;
         for(i=0; i<size; ++i)
         {
             clusters[0].add(data.begin()+3*i);
@@ -191,7 +213,7 @@ namespace {
 
         for(current = 1; current < count; ++current)
         {
-            int largest_index = 0;
+            size_t largest_index = 0;
             for(i=1; i<current; ++i)
             {
                 if(clusters[largest_index] < clusters[i])
@@ -217,14 +239,13 @@ namespace {
         }
     }
 
-    void find_color_indices(void_vector<unsigned char> & data,
-           std::vector<ColorCluster> & clusters, void_vector<unsigned char> & indices)
+    void find_color_indices(void_vector<UInt8> & data, 
+           std::vector<ColorCluster> & clusters, void_vector<UInt8> & indices)
     {
-        int count = clusters.size();
-        unsigned char * base = data.begin();
+        int count = (int)clusters.size();
+        UInt8 * base = data.begin();
 
-        int i;
-        for(i=0; i<count; ++i)
+        for(int i=0; i<count; ++i)
         {
             for(int j=0; j<clusters[i].size(); ++j)
             {
@@ -261,6 +282,10 @@ namespace {
         desc.fileExtensions.resize(1);
         desc.fileExtensions[0] = "gif";
 
+        desc.bandNumbers.resize(2);
+        desc.bandNumbers[0] = 1;
+        desc.bandNumbers[1] = 3;
+        
         return desc;
     }
 
@@ -278,8 +303,8 @@ namespace {
     {
         // attributes
 
-        unsigned short width, height, maplength;
-        unsigned char bits_per_pixel;
+        UInt16 width, height, maplength;
+        UInt8  bits_per_pixel;
         bool global_colormap, interlace;
 
         // methods
@@ -292,7 +317,7 @@ namespace {
 
     void GIFHeader::global_from_stream( std::ifstream & stream, const byteorder & bo )
     {
-        unsigned char flag, c, background;
+        UInt8 flag, c, background;
         read_field( stream, bo, width );
         read_field( stream, bo, height );
         read_field( stream, bo, flag );
@@ -310,14 +335,14 @@ namespace {
     {
         write_field( stream, bo, width );
         write_field( stream, bo, height );
-        write_field( stream, bo, (unsigned char)0xf7 );
-        write_field( stream, bo, (unsigned char)0 );  // background
-        write_field( stream, bo, (unsigned char)0 );  // must be zero
+        write_field( stream, bo, (UInt8)0xf7 );
+        write_field( stream, bo, (UInt8)0 );  // background
+        write_field( stream, bo, (UInt8)0 );  // must be zero
     }
 
     bool GIFHeader::local_from_stream( std::ifstream & stream, const byteorder & bo )
     {
-        unsigned char c, flag;
+        UInt8 c, flag;
         for ( ; ; )
         {
             c = stream.get();
@@ -325,7 +350,7 @@ namespace {
                 return false;
             if(c == '!')
             {
-                void_vector<unsigned char> extensions;
+                void_vector<UInt8> extensions;
 
                 // read and ignore extension data
                 read_field( stream, bo, c );
@@ -335,7 +360,7 @@ namespace {
                 break;
         }
 
-        unsigned short x,y;
+        UInt16 x,y;
 
         read_field( stream, bo, x );
         read_field( stream, bo, y );
@@ -355,11 +380,11 @@ namespace {
     void GIFHeader::local_to_stream( std::ofstream & stream, const byteorder & bo )
     {
         write_field( stream, bo, ',' );
-        write_field( stream, bo, (unsigned short)0 ); // x
-        write_field( stream, bo, (unsigned short)0 ); // y
+        write_field( stream, bo, (UInt16)0 ); // x
+        write_field( stream, bo, (UInt16)0 ); // y
         write_field( stream, bo, width );
         write_field( stream, bo, height );
-        write_field( stream, bo, (unsigned char)0); // use global colormap, no interlace
+        write_field( stream, bo, (UInt8)0); // use global colormap, no interlace
    }
 
     struct GIFDecoderImpl
@@ -369,9 +394,9 @@ namespace {
         GIFHeader header;
         std::ifstream stream;
         byteorder bo;
-        void_vector< unsigned char > maps, bands;
-        unsigned int components;
-        unsigned char * scanline;
+        void_vector< UInt8 > maps, bands;
+        UInt32 components;
+        UInt8 * scanline;
 
         // methods
 
@@ -383,7 +408,7 @@ namespace {
     };
 
     GIFDecoderImpl::GIFDecoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : stream( filename.c_str(), std::ios::binary ),
 #else
         : stream( filename.c_str() ),
@@ -469,19 +494,19 @@ namespace {
             code,
             count;
 
-        register unsigned int
+        register unsigned long
         datum;
 
-        void_vector<short> prefix(MaxStackSize);
-        void_vector<unsigned char> suffix(MaxStackSize);
-        void_vector<unsigned char> pixel_stack(MaxStackSize+1);
-        void_vector<unsigned char> packet(256);
-        void_vector<unsigned short> indices(header.width*header.height);
+        void_vector<Int16> prefix(MaxStackSize);
+        void_vector<UInt8> suffix(MaxStackSize);
+        void_vector<UInt8> pixel_stack(MaxStackSize+1);
+        void_vector<UInt8> packet(256);
+        void_vector<UInt16> indices(header.width*header.height);
 
-        register unsigned char *c;
-        register unsigned short *p = indices.begin();
+        register UInt8 *c;
+        register UInt16 *p = indices.begin();
 
-        unsigned char
+        UInt8
         data_size,
         first,
         *top_stack;
@@ -596,17 +621,17 @@ namespace {
               Pop a pixel off the pixel stack.
             */
             top_stack--;
-            *p++ =(unsigned short) *top_stack;
+            *p++ =(UInt16) *top_stack;
         }
 
         // decode intelaced image
         if (header.interlace)
         {
-            void_vector<unsigned short> non_interlaced(header.width*header.height);
+            void_vector<UInt16> non_interlaced(header.width*header.height);
 
             int pass, x, y;
 
-            register unsigned short *q;
+            register UInt16 *q;
 
             static int
               interlace_rate[4] = { 8, 8, 4, 2 },
@@ -716,11 +741,11 @@ namespace {
         GIFHeader header;
         std::ofstream stream;
         byteorder bo;
-        void_vector< unsigned char > bands;
-        void_vector< unsigned char > maps;
-        void_vector< unsigned char > indices;
-        unsigned int components;
-        unsigned char *scanline;
+        void_vector< UInt8 > bands;
+        void_vector< UInt8 > maps;
+        void_vector< UInt8 > indices;
+        UInt32 components;
+        UInt8 *scanline;
         bool finalized;
 
         // methods
@@ -730,7 +755,7 @@ namespace {
         void writeColormap();
         void writeImageData();
         void reduceTo256Colors();
-        void outputEncodedData(void_vector< unsigned char > &);
+        void outputEncodedData(void_vector< UInt8 > &);
 
         // ctor
 
@@ -738,7 +763,7 @@ namespace {
     };
 
     GIFEncoderImpl::GIFEncoderImpl( const std::string & filename )
-#ifdef WIN32
+#ifdef VIGRA_NEED_BIN_STREAMS
         : stream( filename.c_str(), std::ios::binary ),
 #else
         : stream( filename.c_str() ),
@@ -818,7 +843,7 @@ namespace {
         }
     }
 
-    void GIFEncoderImpl::outputEncodedData(void_vector<unsigned char> & indices)
+    void GIFEncoderImpl::outputEncodedData(void_vector<UInt8> & indices)
     {
         #define MaxCode(number_bits)  ((1 << (number_bits))-1)
         #define MaxHashTable  5003
@@ -843,7 +868,7 @@ namespace {
             /*  \
               Add a character to current packet. \
             */ \
-            packet[byte_count++]=(unsigned char) (datum & 0xff); \
+            packet[byte_count++]=(UInt8) (datum & 0xff); \
             if (byte_count >= 254) \
               { \
                 stream.put(byte_count); \
@@ -868,20 +893,20 @@ namespace {
           byte_count,
           number_bits,
           data_size = header.bits_per_pixel;
-        unsigned int  i;
+        UInt32  i;
 
         long
           datum;
 
         register int k;
 
-        register unsigned char *p;
+        register UInt8 *p;
 
-        void_vector<short> hash_code(MaxHashTable);
-        void_vector<short> hash_prefix(MaxHashTable);
-        void_vector<short> hash_suffix(MaxHashTable);
+        void_vector<Int16> hash_code(MaxHashTable);
+        void_vector<Int16> hash_prefix(MaxHashTable);
+        void_vector<Int16> hash_suffix(MaxHashTable);
 
-        short
+        Int16
           clear_code,
           end_of_information_code,
           free_code,
@@ -889,14 +914,14 @@ namespace {
           max_code,
           waiting_code;
 
-        void_vector<unsigned char> packet(256);
+        void_vector<UInt8> packet(256);
 
         /*
           Initialize GIF encoder.
         */
         number_bits=data_size+1;
         max_code=MaxCode(number_bits);
-        clear_code=((short) 1 << data_size);
+        clear_code=((Int16) 1 << data_size);
         end_of_information_code=clear_code+1;
         free_code=clear_code+2;
         byte_count=0;
@@ -957,7 +982,7 @@ namespace {
             /*
               Add a character to current packet.
             */
-            packet[byte_count++]=(unsigned char) (datum & 0xff);
+            packet[byte_count++]=(UInt8) (datum & 0xff);
             if (byte_count >= 254)
             {
                 stream.put(byte_count);
@@ -992,31 +1017,31 @@ namespace {
 
     void GIFEncoder::setWidth( unsigned int width )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->header.width = width;
     }
 
     void GIFEncoder::setHeight( unsigned int height )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->header.height = height;
     }
 
     void GIFEncoder::setNumBands( unsigned int numBands )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         pimpl->components = numBands;
     }
 
     void GIFEncoder::setCompressionType( const std::string & comp,
                                          int quality )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
     }
 
     void GIFEncoder::setPixelType( const std::string & pixeltype )
     {
-        VIGRA_IMPEX2_FINALIZED(pimpl->finalized);
+        VIGRA_IMPEX_FINALIZED(pimpl->finalized);
         vigra_precondition( pixeltype == "UINT8",
                             "GIFEncoder::setPixelType(): "
                             "GIF raster supports only the UINT8 pixeltype" );

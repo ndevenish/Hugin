@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
@@ -56,14 +71,16 @@ namespace vigra {
 
 /** \brief Performs a 1-dimensional recursive convolution of the source signal.
 
-    The function performs a causal and an anti-causal recursive filtering
-    with the given filter parameter <TT>b</TT> and border treatment 
-    <TT>border</TT>. Thus, the result is always a filtering with linear phase.
+    The function performs a causal and an anti-causal first or second order 
+    recursive filtering with the given filter parameter <TT>b1</TT> and 
+    border treatment <TT>border</TT> (first order filter, <TT>b2 = 0</TT>) or parameters 
+    <TT>b1, b2</TT> and <TT>BORDER_TREATMENT_REFLECT</TT> (second order filter). Thus, 
+    the result is always a filtering with linear phase.
     \f[
         \begin{array}{rcl}
-        a_{i, causal} & = & source_i + b * a_{i-1, causal} \\
-        a_{i, anticausal} & = & source_i + b * a_{i+1, anticausal} \\
-        dest_i & = & \frac{1 - b}{1 + b}(a_{i, causal} + a_{i, anticausal})
+        a_{i, causal} & = & source_i + b1 * a_{i-1, causal} + b2 * a_{i-2, causal} \\
+        a_{i, anticausal} & = & source_i + b1 * a_{i+1, anticausal} + b2 * a_{i+2, anticausal} \\
+        dest_i & = & \frac{1 - b1 - b2}{1 + b1 + b2}(a_{i, causal} + a_{i, anticausal} - source_i)
         \end{array}
     \f]
    
@@ -74,12 +91,27 @@ namespace vigra {
     
     <b> Declaration:</b>
     
+    <b>First order recursive filter:<b>
+    
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
               class DestIterator, class DestAccessor>
         void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
-                     DestIterator id, DestAccessor ad, double scale)
+                     DestIterator id, DestAccessor ad, 
+                     double b1, BorderTreatmentMode border)
+    }
+    \endcode
+    
+    <b>Second order recursive filter:<b>
+    
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+              class DestIterator, class DestAccessor>
+        void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
+                     DestIterator id, DestAccessor ad, 
+                     double b1, double b2)
     }
     \endcode
     
@@ -157,7 +189,7 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
         NumericTraits<typename SrcAccessor::value_type>::RealPromote TempType;
     typedef NumericTraits<typename DestAccessor::value_type> DestTraits;
     
-    // speichert den Ergebnis der linkseitigen Filterung.
+    // store result of causal filtering
     std::vector<TempType> vline(w);
     typename std::vector<TempType>::iterator line = vline.begin();
     
@@ -179,7 +211,7 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
     }
     else if(border == BORDER_TREATMENT_WRAP)
     {
-        is = isend - (kernelw + 1); 
+        is = isend - kernelw; 
         old = (1.0 / (1.0 - b)) * as(is);
 	for(x = 0; x < kernelw; ++x, ++is)
 	    old = as(is) + b * old;
@@ -207,15 +239,12 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
     }
     else if(border == BORDER_TREATMENT_REFLECT)
     {
-        is = isend - (kernelw + 1);
-        old = (1.0 / (1.0 - b)) * as(is); 
-        for(x = 0; x < kernelw; ++x, ++is)
-	   old = as(is) + b * old;
+        old = line[w-2];
     }
     else if(border == BORDER_TREATMENT_WRAP)
     {
-      is = istart + (kernelw);
-      old = (1.0 / (1.0 - b)) * as(is);; 
+      is = istart + kernelw - 1;
+      old = (1.0 / (1.0 - b)) * as(is);
       for(x = 0; x < kernelw; ++x, --is)
           old = as(is) + b * old;
     }
@@ -228,9 +257,9 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
     id += w - 1;
     if(border == BORDER_TREATMENT_CLIP)
     {    
-      //Korrekturfaktoren f’r b
+       // correction factors for b
         double bright = b;
-        double bleft = VIGRA_CSTD::pow(b, w);// b^w
+        double bleft = VIGRA_CSTD::pow(b, w);
 
         for(x=w-1; x>=0; --x, --is, --id)
         {    
@@ -260,6 +289,68 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
             old = as(is) + f;
             ad.set(DestTraits::fromRealPromote(norm * (line[x] + f)), id);
         }
+    }
+}
+            
+/********************************************************/
+/*                                                      */
+/*            recursiveFilterLine (2nd order)           */
+/*                                                      */
+/********************************************************/
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
+                         DestIterator id, DestAccessor ad, double b1, double b2)
+{
+    int w = isend - is;
+    SrcIterator istart = is;
+    
+    int x;
+    
+    typedef typename
+        NumericTraits<typename SrcAccessor::value_type>::RealPromote TempType;
+    typedef NumericTraits<typename DestAccessor::value_type> DestTraits;
+    
+    // speichert den Ergebnis der linkseitigen Filterung.
+    std::vector<TempType> vline(w+1);
+    typename std::vector<TempType>::iterator line = vline.begin();
+    
+    double norm  = 1.0 - b1 - b2;
+    double norm1 = (1.0 - b1 - b2) / (1.0 + b1 + b2);
+    double norm2 = norm * norm;
+    
+
+    // init left side of filter
+    int kernelw = std::min(w-1, std::max(8, (int)(1.0 / norm + 0.5)));  
+    is += (kernelw - 2);
+    line[kernelw] = as(is);
+    line[kernelw-1] = as(is);
+    for(x = kernelw - 2; x > 0; --x, --is)
+    {
+        line[x] = as(is) + b1 * line[x+1] + b2 * line[x+2];
+    }
+    line[0] = as(is) + b1 * line[1] + b2 * line[2];
+    ++is;
+    line[1] = as(is) + b1 * line[0] + b2 * line[1];
+    ++is;
+    for(x=2; x < w; ++x, ++is)
+    {
+        line[x] = as(is) + b1 * line[x-1] + b2 * line[x-2];
+    }
+    line[w] = line[w-1];
+
+    line[w-1] = norm1 * (line[w-1] + b1 * line[w-2] + b2 * line[w-3]);
+    line[w-2] = norm1 * (line[w-2] + b1 * line[w] + b2 * line[w-2]);
+    id += w-1;
+    ad.set(line[w-1], id);
+    --id;
+    ad.set(line[w-2], id);
+    --id;
+    for(x=w-3; x>=0; --x, --id, --is)
+    {    
+        line[x] = norm2 * line[x] + b1 * line[x+1] + b2 * line[x+2];
+        ad.set(line[x], id);
     }
 }
             
@@ -591,7 +682,7 @@ void recursiveSecondDerivativeLine(SrcIterator is, SrcIterator isend, SrcAccesso
 /*                                                      */
 /********************************************************/
 
-/** \brief Performs 1 dimensional recursive smoothing in x direction.
+/** \brief Performs 1 dimensional recursive filtering (1st and 2nd order) in x direction.
 
     It calls \ref recursiveFilterLine() for every row of the
     image. See \ref recursiveFilterLine() for more information about 
@@ -602,25 +693,43 @@ void recursiveSecondDerivativeLine(SrcIterator is, SrcIterator isend, SrcAccesso
     pass arguments explicitly:
     \code
     namespace vigra {
+        // first order filter
         template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor>
         void recursiveFilterX(SrcImageIterator supperleft, 
                                SrcImageIterator slowerright, SrcAccessor as,
                                DestImageIterator dupperleft, DestAccessor ad, 
                                double b, BorderTreatmentMode border);
+
+        // second order filter
+        template <class SrcImageIterator, class SrcAccessor,
+                  class DestImageIterator, class DestAccessor>
+        void recursiveFilterX(SrcImageIterator supperleft, 
+                               SrcImageIterator slowerright, SrcAccessor as,
+                               DestImageIterator dupperleft, DestAccessor ad, 
+                               double b1, double b2);
     }
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
+        // first order filter
         template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor>
         void recursiveFilterX(
                     triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     pair<DestImageIterator, DestAccessor> dest, 
                     double b, BorderTreatmentMode border);
+
+        // second order filter
+        template <class SrcImageIterator, class SrcAccessor,
+                  class DestImageIterator, class DestAccessor>
+        void recursiveFilterX(
+                    triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                    pair<DestImageIterator, DestAccessor> dest, 
+                    double b1, double b2);
             }
     \endcode
     
@@ -675,6 +784,46 @@ inline void recursiveFilterX(
             
 /********************************************************/
 /*                                                      */
+/*            recursiveFilterX (2nd order)              */
+/*                                                      */
+/********************************************************/
+
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor>
+void recursiveFilterX(SrcImageIterator supperleft, 
+                       SrcImageIterator slowerright, SrcAccessor as,
+                       DestImageIterator dupperleft, DestAccessor ad, 
+                       double b1, double b2)
+{
+    int w = slowerright.x - supperleft.x;
+    int h = slowerright.y - supperleft.y;
+    
+    int y;
+    
+    for(y=0; y<h; ++y, ++supperleft.y, ++dupperleft.y)
+    {
+        typename SrcImageIterator::row_iterator rs = supperleft.rowIterator();
+        typename DestImageIterator::row_iterator rd = dupperleft.rowIterator();
+
+        recursiveFilterLine(rs, rs+w, as, 
+                             rd, ad, 
+                             b1, b2);
+    }
+}
+
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor>
+inline void recursiveFilterX(
+            triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+            pair<DestImageIterator, DestAccessor> dest, 
+                       double b1, double b2)
+{
+    recursiveFilterX(src.first, src.second, src.third,
+                      dest.first, dest.second, b1, b2);
+}
+            
+/********************************************************/
+/*                                                      */
 /*                    recursiveSmoothX                  */
 /*                                                      */
 /********************************************************/
@@ -700,7 +849,7 @@ inline void recursiveFilterX(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -766,7 +915,7 @@ inline void recursiveSmoothX(
 /*                                                      */
 /********************************************************/
 
-/** \brief Performs 1 dimensional recursive smoothing in y direction.
+/** \brief Performs 1 dimensional recursive filtering (1st and 2nd order) in y direction.
 
     It calls \ref recursiveFilterLine() for every column of the
     image. See \ref recursiveFilterLine() for more information about 
@@ -777,25 +926,43 @@ inline void recursiveSmoothX(
     pass arguments explicitly:
     \code
     namespace vigra {
+        // first order filter
         template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor>
         void recursiveFilterY(SrcImageIterator supperleft, 
                               SrcImageIterator slowerright, SrcAccessor as,
                               DestImageIterator dupperleft, DestAccessor ad, 
                               double b, BorderTreatmentMode border);
+
+        // second order filter
+        template <class SrcImageIterator, class SrcAccessor,
+                  class DestImageIterator, class DestAccessor>
+        void recursiveFilterY(SrcImageIterator supperleft, 
+                               SrcImageIterator slowerright, SrcAccessor as,
+                               DestImageIterator dupperleft, DestAccessor ad, 
+                               double b1, double b2);
     }
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
+        // first order filter
         template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor>
         void recursiveFilterY(
                     triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     pair<DestImageIterator, DestAccessor> dest, 
                     double b, BorderTreatmentMode border);
+
+        // second order filter
+        template <class SrcImageIterator, class SrcAccessor,
+                  class DestImageIterator, class DestAccessor>
+        void recursiveFilterY(
+                    triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+                    pair<DestImageIterator, DestAccessor> dest, 
+                    double b1, double b2);
     }
     \endcode
     
@@ -808,7 +975,7 @@ inline void recursiveSmoothX(
     vigra::FImage src(w,h), dest(w,h);    
     ...
     
-    vigra::recursiveSmoothY(srcImageRange(src), destImage(dest), 3.0);
+    vigra::recursiveFilterY(srcImageRange(src), destImage(dest), -0.6, -0.06);
     
     \endcode
 
@@ -849,6 +1016,46 @@ inline void recursiveFilterY(
 
 /********************************************************/
 /*                                                      */
+/*            recursiveFilterY (2nd order)              */
+/*                                                      */
+/********************************************************/
+
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor>
+void recursiveFilterY(SrcImageIterator supperleft, 
+                       SrcImageIterator slowerright, SrcAccessor as,
+                       DestImageIterator dupperleft, DestAccessor ad, 
+                       double b1, double b2)
+{
+    int w = slowerright.x - supperleft.x;
+    int h = slowerright.y - supperleft.y;
+    
+    int x;
+    
+    for(x=0; x<w; ++x, ++supperleft.x, ++dupperleft.x)
+    {
+        typename SrcImageIterator::column_iterator cs = supperleft.columnIterator();
+        typename DestImageIterator::column_iterator cd = dupperleft.columnIterator();
+
+        recursiveFilterLine(cs, cs+h, as, 
+                            cd, ad, 
+                            b1, b2);
+    }
+}
+
+template <class SrcImageIterator, class SrcAccessor,
+          class DestImageIterator, class DestAccessor>
+inline void recursiveFilterY(
+            triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+            pair<DestImageIterator, DestAccessor> dest, 
+                       double b1, double b2)
+{
+    recursiveFilterY(src.first, src.second, src.third,
+                      dest.first, dest.second, b1, b2);
+}
+            
+/********************************************************/
+/*                                                      */
 /*                     recursiveSmoothY                 */
 /*                                                      */
 /********************************************************/
@@ -874,7 +1081,7 @@ inline void recursiveFilterY(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -962,7 +1169,7 @@ inline void recursiveSmoothY(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -1050,7 +1257,7 @@ inline void recursiveFirstDerivativeX(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -1138,7 +1345,7 @@ inline void recursiveFirstDerivativeY(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -1226,7 +1433,7 @@ inline void recursiveSecondDerivativeX(
     \endcode
     
     
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,

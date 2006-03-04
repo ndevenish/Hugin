@@ -282,7 +282,6 @@ void RunOptimizerFrame::OnApply(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     // ask the user if he wants to apply the settings
-    // FIXME display a list with control points here
     DEBUG_DEBUG("Executing update variables command");
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCPCmd(*m_pano, m_vars, m_cps)

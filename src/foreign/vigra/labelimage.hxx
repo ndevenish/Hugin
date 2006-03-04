@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
@@ -78,7 +93,7 @@ namespace vigra {
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -254,7 +269,7 @@ unsigned int labelImage(SrcIterator upperlefts,
     }
 
     // pass 2: assign one label to each region (tree)
-    // so that labels for a consecutive sequence 1, 2, ...
+    // so that labels form a consecutive sequence 1, 2, ...
     DestIterator yd(upperleftd);
 
     unsigned int count = 0;
@@ -282,7 +297,7 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class EqualityFunctor>
 inline
-int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+unsigned int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                pair<DestIterator, DestAccessor> dest,
                bool eight_neighbors, EqualityFunctor equal)
 {
@@ -293,7 +308,7 @@ int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
-int labelImage(SrcIterator upperlefts,
+unsigned int labelImage(SrcIterator upperlefts,
                SrcIterator lowerrights, SrcAccessor sa,
                DestIterator upperleftd, DestAccessor da,
                bool eight_neighbors)
@@ -306,7 +321,7 @@ int labelImage(SrcIterator upperlefts,
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
-int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+unsigned int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                pair<DestIterator, DestAccessor> dest,
                bool eight_neighbors)
 {
@@ -364,7 +379,7 @@ int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -435,7 +450,8 @@ int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class ValueType, class EqualityFunctor>
-int labelImageWithBackground(SrcIterator upperlefts,
+unsigned int labelImageWithBackground(
+    SrcIterator upperlefts,
                SrcIterator lowerrights, SrcAccessor sa,
                DestIterator upperleftd, DestAccessor da,
                bool eight_neighbors,
@@ -570,7 +586,8 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class ValueType, class EqualityFunctor>
 inline
-int labelImageWithBackground(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+unsigned int labelImageWithBackground(
+    triple<SrcIterator, SrcIterator, SrcAccessor> src,
                              pair<DestIterator, DestAccessor> dest,
                              bool eight_neighbors,
                              ValueType background_value, EqualityFunctor equal)
@@ -584,7 +601,8 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class ValueType>
 inline
-int labelImageWithBackground(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+unsigned int labelImageWithBackground(
+    triple<SrcIterator, SrcIterator, SrcAccessor> src,
                              pair<DestIterator, DestAccessor> dest,
                              bool eight_neighbors,
                              ValueType background_value)
@@ -599,7 +617,8 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor,
           class ValueType>
 inline
-int labelImageWithBackground(SrcIterator upperlefts,
+unsigned int labelImageWithBackground(
+    SrcIterator upperlefts,
                SrcIterator lowerrights, SrcAccessor sa,
                DestIterator upperleftd, DestAccessor da,
                bool eight_neighbors,
@@ -657,7 +676,7 @@ int labelImageWithBackground(SrcIterator upperlefts,
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
@@ -868,7 +887,7 @@ void regionImageToCrackEdgeImage(
     }
     \endcode
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,

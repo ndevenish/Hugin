@@ -4,27 +4,42 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
  
-#ifndef IMAGECONTAINER_HXX
-#define IMAGECONTAINER_HXX
+#ifndef VIGRA_IMAGECONTAINER_HXX
+#define VIGRA_IMAGECONTAINER_HXX
 
 #include "vigra/utilities.hxx"
-#include <vector>
+#include "vigra/array_vector.hxx"
 
 namespace vigra {
 
@@ -42,76 +57,84 @@ namespace vigra {
 /** \brief Fundamental class template for arrays of equal-sized images.
 
     An ImageArray manages an array of images of the type given as
-    template parameter. Use it like a std::vector<ImageType>, it has
+    template parameter. Use it like a ArrayVector<ImageType>, it has
     the same interface, only operator< is missing from ImageArray. It
     offers additional functions for resizing the images and querying
     their common size. See \ref imageSize() for additional notes.
+
+    A custimized allocator can be passed as a template argument and via the constructor.
+    By default, the allocator of the <tt>ImageType</tt> is reused.
 
     <b>\#include</b> "<a href="imagecontainer_8hxx-source.html">vigra/imagecontainer.hxx</a>"
 
     Namespace: vigra
 */
-template <class ImageType>
+template <class ImageType, 
+      class Alloc = typename ImageType::allocator_type::template rebind<ImageType>::other >
 class ImageArray
 {
     Size2D imageSize_;
 
 protected:
-    std::vector<ImageType> images_;
+    typedef ArrayVector<ImageType, Alloc> ImageVector;
+    ImageVector images_;
 
 public:
         /** the type of the contained values/images
          */
     typedef ImageType    value_type;
 
-    typedef typename std::vector<ImageType>::iterator iterator;
-    typedef typename std::vector<ImageType>::const_iterator const_iterator;
-    typedef typename std::vector<ImageType>::reverse_iterator reverse_iterator;
-    typedef typename std::vector<ImageType>::const_reverse_iterator const_reverse_iterator;
-    typedef typename std::vector<ImageType>::reference reference;
-    typedef typename std::vector<ImageType>::const_reference const_reference;
+    typedef typename ImageVector::iterator iterator;
+    typedef typename ImageVector::const_iterator const_iterator;
+    typedef typename ImageVector::reverse_iterator reverse_iterator;
+    typedef typename ImageVector::const_reverse_iterator const_reverse_iterator;
+    typedef typename ImageVector::reference reference;
+    typedef typename ImageVector::const_reference const_reference;
 #if !defined(_MSC_VER) || _MSC_VER >= 1300
-    typedef typename std::vector<ImageType>::pointer pointer;
+    typedef typename ImageVector::pointer pointer;
 #endif
-    typedef typename std::vector<ImageType>::difference_type difference_type;
-    typedef typename std::vector<ImageType>::size_type size_type;
+    typedef typename ImageVector::difference_type difference_type;
+    typedef typename ImageVector::size_type size_type;
 
-        /** init an array of numImages equal-sized images
+        /** init an array of numImages equal-sized images; use the specified allocator.
          */
-    ImageArray(unsigned int numImages, const Diff2D &imageSize)
+    ImageArray(unsigned int numImages, const Diff2D &imageSize, 
+               Alloc const & alloc = Alloc())
         : imageSize_(imageSize),
-          images_(numImages)
+          images_(numImages, ImageType(), alloc)
     {
         for(unsigned int i=0; i<numImages; i++)
-            images_[i].resize(imageSize);
+            images_[i].resize(Size2D(imageSize));
     }
 
-        /** Init an array of numImages equal-sized images, the size
-            depends on ImageType's default constructor.
+        /** Init an array of numImages equal-sized images. The size
+            depends on ImageType's default constructor (so it will
+            usually be 0x0); use the specified allocator.
          */
-    ImageArray(unsigned int numImages= 0)
-        : images_(numImages)
+    ImageArray(unsigned int numImages= 0, Alloc const & alloc = Alloc())
+        : images_(numImages, alloc)
     {
         imageSize_= empty()? Size2D(0, 0) : front().size();
     }
 
         /** fill constructor: Init an array with numImages copies of
-            the given image. (STL-Sequence interface)
+            the given image. (STL-Sequence interface); use the specified allocator.
          */
-    ImageArray(unsigned int numImages, const ImageType &image)
+    ImageArray(unsigned int numImages, const ImageType &image, Alloc const & alloc = Alloc())
         : imageSize_(image.size()),
-          images_(numImages, image)
+          images_(numImages, image, alloc)
     {
     }
     
         /** range constructor: Construct an array containing copies of
             the images in [begin, end). Those images must all have the
-            same size, see \ref imageSize(). (STL-Sequence interface)
+            same size, see \ref imageSize(). (STL-Sequence interface); 
+            use the specified allocator.
          */
     template<class InputIterator>
-    ImageArray(InputIterator begin, InputIterator end)
+    ImageArray(InputIterator begin, InputIterator end, Alloc const & alloc = Alloc())
         : imageSize_(begin!=end? (*begin).size() : Size2D(0,0)),
-          images_(begin, end)
+          images_(begin, end, alloc)
     {
     }
 
@@ -399,7 +422,7 @@ public:
         if (newSize!=imageSize())
         {
             for(unsigned int i=0; i<size(); i++)
-                images_[i].resize(newSize);
+                images_[i].resize(Size2D(newSize));
             imageSize_= newSize;
         }
     }
@@ -421,4 +444,4 @@ public:
 
 } // namespace vigra
 
-#endif // IMAGECONTAINER_HXX
+#endif // VIGRA_IMAGECONTAINER_HXX

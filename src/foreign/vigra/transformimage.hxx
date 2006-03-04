@@ -4,19 +4,34 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
 
@@ -28,6 +43,7 @@
 #include "vigra/numerictraits.hxx"
 #include "vigra/iteratortraits.hxx"
 #include "vigra/rgbvalue.hxx"
+#include "vigra/functortraits.hxx"
 
 namespace vigra {
 
@@ -102,7 +118,7 @@ transformLineIf(SrcIterator s,
     \endcode
 
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -121,11 +137,11 @@ transformLineIf(SrcIterator s,
 
     \code
 
-    #include <math.h>         // for sqrt()
+    #include <cmath>         // for sqrt()
 
     vigra::transformImage(srcImageRange(src),
                           destImage(dest),
-                          &::sqrt );
+                          (double(*)(double))&std::sqrt );
 
     \endcode
 
@@ -214,7 +230,7 @@ transformImage(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
     \endcode
 
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -334,7 +350,7 @@ transformImageIf(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
     \endcode
 
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -529,6 +545,13 @@ class LinearIntensityTransform
     argument_promote offset_;
 };
 
+template <class DestValueType, class Multiplier>
+class FunctorTraits<LinearIntensityTransform<DestValueType, Multiplier> >
+: public FunctorTraitsBase<LinearIntensityTransform<DestValueType, Multiplier> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
+};
 
 template <class DestValueType, class Multiplier = double>
 class ScalarIntensityTransform
@@ -569,6 +592,14 @@ class ScalarIntensityTransform
     scalar_multiplier_type scale_;
 };
 
+template <class DestValueType, class Multiplier>
+class FunctorTraits<ScalarIntensityTransform<DestValueType, Multiplier> >
+: public FunctorTraitsBase<ScalarIntensityTransform<DestValueType, Multiplier> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
+};
+
 /********************************************************/
 /*                                                      */
 /*              linearIntensityTransform                */
@@ -586,7 +617,11 @@ class ScalarIntensityTransform
     If you leave out the second parameter / offset, you will get an
     optimized version of the functor which only scales by the given
     factor, however you have to make the template parameter (pixel
-    type) explicit.
+    type) explicit then.
+
+    <b> Traits defined:</b>
+
+    <tt>FunctorTraits::isUnaryFunctor</tt> is true (<tt>VigraTrueType<tt>)
 
     <b> Declaration:</b>
 
@@ -740,7 +775,7 @@ linearRangeMapping(
     typedef typename NumericTraits<DestValueType>::RealPromote Multiplier;
     typedef typename Multiplier::value_type MComponent;
     Multiplier scale(dest_max), offset(dest_max);
-    for(int i=0; i<src_min.size(); ++i)
+    for(unsigned int i=0; i<src_min.size(); ++i)
     { 
         MComponent diff = src_max[i] - src_min[i];
         scale[i] = diff == NumericTraits<MComponent>::zero()
@@ -763,6 +798,10 @@ linearRangeMapping(
     or equal the higher threshold (i.e. within the closed interval
     [lower, heigher]) the destination pixel is set to 'yesresult',
     otherwise to 'noresult'.
+
+    <b> Traits defined:</b>
+
+    <tt>FunctorTraits::isUnaryFunctor</tt> is true (<tt>VigraTrueType<tt>)
 
     <b> Usage:</b>
 
@@ -825,6 +864,14 @@ class Threshold
     result_type yesresult_, noresult_;
 };
 
+template <class SrcValueType, class DestValueType>
+class FunctorTraits<Threshold<SrcValueType, DestValueType> >
+: public FunctorTraitsBase<Threshold<SrcValueType, DestValueType> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
+};
+
 /********************************************************/
 /*                                                      */
 /*                BrightnessContrastFunctor             */
@@ -861,6 +908,10 @@ class Threshold
 
     If the <TT>PixelType</TT> is <TT>unsigned char</TT>, a look-up-table is used
     for faster computation.
+
+    <b> Traits defined:</b>
+
+    <tt>FunctorTraits::isUnaryFunctor</tt> is true (<tt>VigraTrueType<tt>)
 
     <b> Usage:</b>
 
@@ -1054,6 +1105,14 @@ class BrightnessContrastFunctor<RGBValue<float> >
     }
 };
 
+template <class PixelType>
+class FunctorTraits<BrightnessContrastFunctor<PixelType> >
+: public FunctorTraitsBase<BrightnessContrastFunctor<PixelType> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
+};
+
 #endif // NO_PARTIAL_TEMPLATE_SPECIALIZATION
 
 template <>
@@ -1079,6 +1138,118 @@ class BrightnessContrastFunctor<RGBValue<unsigned char> >
 
         return value_type(red(v.red()), green(v.green()), blue(v.blue()));
     }
+};
+
+
+
+/********************************************************/
+/*                                                      */
+/*                     VectorNormFunctor                */
+/*                                                      */
+/********************************************************/
+
+/** \brief A functor for computing the vector norm
+
+    Calculate the magnitude or norm from a given vector-valued
+    entity. The vector type will typically be some sort of
+    ref vigra::TinyVector. If the vector is represented by a pair of
+    scalar-valued images, use \ref vigra::MagnitudeFunctor instead.
+
+    At least, the vector type is required to have a function
+    '<em>result</em><TT> = dot(v,v)</TT>'.
+
+    <b> Traits defined:</b>
+
+    <tt>FunctorTraits::isUnaryFunctor</tt> is true (<tt>VigraTrueType<tt>)
+
+    <b> Usage:</b>
+
+        <b>\#include</b> "<a href="transformimage_8hxx-source.html">vigra/transformimage.hxx</a>"<br>
+        Namespace: vigra
+
+    \code
+    typedef vigra::TinyVector<float, 2> Vector;
+    vigra::BasicImage<Vector> grad(width, height);
+    vigra::FImage magn(width,height);
+    ...
+    vigra::transformImage(srcImageRange(grad), destImage(magn),
+                          VectorNormFunctor<float>()
+                          );
+    \endcode
+
+    \see vigra::TinyVector, dot(), vigra::MagnitudeFunctor
+*/
+template <class ValueType>
+class VectorNormFunctor
+{
+public:
+  /** the functor's argument type
+   */
+  typedef ValueType argument_type;
+
+  /** the functor's result type
+   */
+  typedef typename NumericTraits<typename ValueType::value_type>::RealPromote result_type;
+
+  /** calculate transform '<TT>sqrt(v1*v1 + v2*v2 + ...)</TT>'.
+   */
+  result_type operator()( const argument_type &a ) const
+  {
+    return VIGRA_CSTD::sqrt( dot(a,a) );
+  }
+};    //-- class VectorNormFunctor
+
+template <class ValueType>
+class FunctorTraits<VectorNormFunctor<ValueType> >
+: public FunctorTraitsBase<VectorNormFunctor<ValueType> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
+};
+
+/** \brief A functor for computing the squared vector norm
+
+    Calculate the squared magnitude or norm from a given
+    vector-valued entity. The vector type will typically be some
+    sort of TinyVector.
+
+    At least, the vector type is required to have a function
+    '<em>result</em><TT> = dot(v,v)</TT>'.
+
+    For an example of its usage see VectorNormFunctor
+
+    <b> Traits defined:</b>
+
+    <tt>FunctorTraits::isUnaryFunctor</tt> is true (<tt>VigraTrueType<tt>)
+
+    \see TinyVector, dot()
+*/
+template <class ValueType>
+class VectorNormSqFunctor
+{
+public:
+  /** the functor's argument type
+   */
+  typedef ValueType argument_type;
+
+  /** the functor's result type
+   */
+  typedef typename NumericTraits<typename ValueType::value_type>::RealPromote result_type;
+
+  /** calculate transform '<TT>v1*v1 + v2*v2 + ...</TT>'.
+   */
+  result_type operator()( const argument_type &a ) const
+  {
+    return dot(a,a);
+  }
+};    //-- class VectorNormSqFunctor
+
+template <class ValueType>
+class FunctorTraits<VectorNormSqFunctor<ValueType> >
+: public FunctorTraitsBase<VectorNormSqFunctor<ValueType> >
+{
+  public:
+    typedef VigraTrueType isUnaryFunctor;
 };
 
 //@}

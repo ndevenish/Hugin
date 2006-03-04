@@ -1,22 +1,37 @@
 /************************************************************************/
 /*                                                                      */
-/*               Copyright 1998-2002 by Ullrich Koethe                  */
+/*               Copyright 1998-2004 by Ullrich Koethe                  */
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.2.0, Aug 07 2003 )                                    */
-/*    You may use, modify, and distribute this software according       */
-/*    to the terms stated in the LICENSE file included in               */
-/*    the VIGRA distribution.                                           */
-/*                                                                      */
+/*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
-/*        koethe@informatik.uni-hamburg.de                              */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
 /*                                                                      */
-/*  THIS SOFTWARE IS PROVIDED AS IS AND WITHOUT ANY EXPRESS OR          */
-/*  IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED      */
-/*  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -29,11 +44,108 @@
 #include "vigra/numerictraits.hxx"
 #include "vigra/stdimage.hxx"
 #include "vigra/recursiveconvolution.hxx"
+#include "vigra/separableconvolution.hxx"
+#include "vigra/resampling_convolution.hxx"
+#include "vigra/splines.hxx"
 
 namespace vigra {
 
+/*****************************************************************/
+/*                                                               */
+/*                         CoscotFunction                        */
+/*                                                               */
+/*****************************************************************/
+
+/*! The Coscot interpolation function.
+
+    Implements the Coscot interpolation function proposed by Maria Magnusson Seger
+    (maria@isy.liu.se) in the context of tomographic reconstruction. It provides a fast
+    transition between the pass- and stop-bands and minimal ripple outside the transition
+    region. Both properties are important for this application and can be tuned by the parameters
+    <i>m</i> and </i>h</i> (with defaults 3 and 0.5). The function is defined by
+
+    \f[ f_{m,h}(x) = \left\{ \begin{array}{ll}
+                                   \frac{1}{2m}\sin(\pi x)\cot(\pi x / (2 m))(h + (1-h)\cos(\pi x/m)) & |x| \leq m \\
+                                  0 & \mbox{otherwise}
+                        \end{array}\right.
+    \f]
+
+    It can be used as a functor, and as a kernel for
+    \ref resamplingConvolveImage() to create a differentiable interpolant
+    of an image.
+
+    <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
+    Namespace: vigra
+
+    \ingroup MathFunctions
+*/
+template <class T>
+class CoscotFunction
+{
+  public:
+
+        /** the kernel's value type
+        */
+    typedef T            value_type;
+        /** the unary functor's argument type
+        */
+    typedef T            argument_type;
+        /** the splines polynomial order
+        */
+    typedef T            result_type;
+
+    CoscotFunction(unsigned int m = 3, double h = 0.5)
+    : m_(m),
+      h_(h)
+    {}
+
+        /** function (functor) call
+        */
+    result_type operator()(argument_type x) const
+    {
+        return x == 0.0 ?
+                    1.0
+                  : abs(x) < m_ ?
+                        VIGRA_CSTD::sin(M_PI*x) / VIGRA_CSTD::tan(M_PI * x / 2.0 / m_) *
+                             (h_ + (1.0 - h_) * VIGRA_CSTD::cos(M_PI * x / m_)) / 2.0 / m_
+                      : 0.0;
+    }
+
+        /** index operator -- same as operator()
+        */
+    value_type operator[](value_type x) const
+        { return operator()(x); }
+
+        /** Radius of the function's support.
+            Needed for  \ref resamplingConvolveImage(), equals m.
+        */
+    double radius() const
+        { return m_; }
+
+        /** Derivative order of the function: always 0.
+        */
+    unsigned int derivativeOrder() const
+        { return 0; }
+
+        /** Prefilter coefficients for compatibility with \ref vigra::BSpline.
+            (array has zero length, since prefiltering is not necessary).
+        */
+    ArrayVector<double> const & prefilterCoefficients() const
+    {
+        static ArrayVector<double> b;
+        return b;
+    }
+
+  protected:
+
+    unsigned int m_;
+    double h_;
+};
+
 /** \addtogroup GeometricTransformations Geometric Transformations
-    Zoom up and down by repeating pixels, or using linear or spline interpolation
+    Zoom up and down by repeating pixels, or using various interpolation schemes.
+
+    See also: \ref resamplingConvolveImage(), \ref resampleImage()
 
     <b>\#include</b> "<a href="stdimagefunctions_8hxx-source.html">vigra/stdimagefunctions.hxx</a>"<br>
     <b>or</b><br>
@@ -88,13 +200,14 @@ resizeLineNoInterpolation(SrcIterator i1, SrcIterator iend, SrcAccessor as,
 
 /** \brief Resize image by repeating the nearest pixel values.
 
-    This algorithm is very fast and does not require any arithmetic on the pixel types.
+    This algorithm is very fast and does not require any arithmetic on
+    the pixel types.
 
-    The range must of both the input and output images (resp. regions)
-    must be given. Both images must have a size of at
-    least 2x2. The scaling factors are then calculated
-    accordingly. Destiniation pixels are directly copied from the appropriate
-    source pixels.
+    The range of both the input and output images (resp. regions) must
+    be given. Both images must have a size of at least 2x2 pixels. The
+    scaling factors are then calculated accordingly. Destination
+    pixels are directly copied from the appropriate source pixels.
+
     The function uses accessors.
 
     <b> Declarations:</b>
@@ -112,7 +225,7 @@ resizeLineNoInterpolation(SrcIterator i1, SrcIterator iend, SrcAccessor as,
     \endcode
 
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -178,17 +291,14 @@ resizeImageNoInterpolation(SrcIterator is, SrcIterator iend, SrcAccessor sa,
                  "resizeImageNoInterpolation(): "
                  "Destination image to small.\n");
 
-    typedef typename SrcAccessor::value_type SRCVT;
-    typedef BasicImage<SRCVT> TmpImage;
+    typedef BasicImage<typename SrcAccessor::value_type> TmpImage;
     typedef typename TmpImage::traverser TmpImageIterator;
 
-    BasicImage<SRCVT> tmp(w, hnew);
+    TmpImage tmp(w, hnew);
 
-    int x,y;
+    TmpImageIterator yt = tmp.upperLeft();
 
-    typename BasicImage<SRCVT>::Iterator yt = tmp.upperLeft();
-
-    for(x=0; x<w; ++x, ++is.x, ++yt.x)
+    for(int x=0; x<w; ++x, ++is.x, ++yt.x)
     {
         typename SrcIterator::column_iterator c1 = is.columnIterator();
         typename TmpImageIterator::column_iterator ct = yt.columnIterator();
@@ -198,7 +308,7 @@ resizeImageNoInterpolation(SrcIterator is, SrcIterator iend, SrcAccessor sa,
 
     yt = tmp.upperLeft();
 
-    for(y=0; y < hnew; ++y, ++yt.y, ++id.y)
+    for(int y=0; y < hnew; ++y, ++yt.y, ++id.y)
     {
         typename DestIterator::row_iterator rd = id.rowIterator();
         typename TmpImageIterator::row_iterator rt = yt.rowIterator();
@@ -297,7 +407,7 @@ resizeLineLinearInterpolation(SrcIterator i1, SrcIterator iend, SrcAccessor as,
     \endcode
 
 
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
         template <class SrcImageIterator, class SrcAccessor,
@@ -442,120 +552,153 @@ resizeImageLinearInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
                                    dest.first, dest.second, dest.third);
 }
 
-/********************************************************/
-/*                                                      */
-/*              CubicFIRInterpolationKernel             */
-/*                                                      */
-/********************************************************/
-
-class CubicFIRInterpolationKernel
-{
-public:
-    double operator[] (double x) const
-    {
-        x = fabs(x);
-        if (x <= 1.0)
-        {
-            return 1.0 + x * x * (-2.5 + 1.5 * x);
-        }
-        else if (x >= 2.0)
-        {
-            return 0.0;
-        }
-        else
-        {
-            return 2.0 + x * (-4.0 + x * (2.5 -0.5 * x));
-        }
-    }
-
-    int radius() const
-        {return 2;}
-};
-
 /***************************************************************/
-/*                                                             */
-/*               resizeLineCubicFIRInterpolation               */
-/*                                                             */
+/*                                                      */
+/*                resizeImageSplineInterpolation               */
+/*                                                      */
 /***************************************************************/
 
-template <class SrcIterator, class SrcAccessor,
-          class DestIterator, class DestAccessor>
-void resizeLineCubicFIRInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
-                           DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
-{
-    typedef typename
-        NumericTraits<typename SrcAccessor::value_type>::RealPromote TMPTYPE;
-    typedef
-        NumericTraits<typename DestAccessor::value_type> DestTraits;
+/** \brief Resize image using B-spline interpolation.
 
-    int src_width = src_iter_end - src_iter;
-    int dest_width = dest_iter_end - dest_iter;
-    double dx =  (double)(src_width - 1) / (dest_width - 1);
+    The function implements separable spline interpolation algorithm described in
 
-    CubicFIRInterpolationKernel kernel;
+    M. Unser, A. Aldroubi, M. Eden, <i>"B-Spline Signal Processing"</i>
+    IEEE Transactions on Signal Processing, vol. 41, no. 2, pp. 821-833 (part I),
+    pp. 834-848 (part II), 1993.
 
-    dest_acc.set(src_acc(src_iter), dest_iter);
-    dest_iter++;
-    for (int i = 1; i < dest_width-1; i++, dest_iter++)
-    {
-        double x = dx * i;
-        int i_old = (int)x;
-        double t = x - i_old;
-        TMPTYPE value;
+    to obtain optimal interpolation quality and speed. You may pass the funcion
+    a spline of arbitrary order (e.g. <TT>BSpline&lt;ORDER, double&gt;</tt> or
+    <TT>CatmullRomSpline&lt;double&gt;</tt>). The default is a third order spline
+    which gives a twice continuously differentiable interpolant.
+    The implementation ensures that image values are interpolated rather
+    than smoothed by first calling a recursive (sharpening) prefilter as
+    described in the above paper. Then the actual interpolation is done
+    using \ref resamplingConvolveLine().
 
-        if (i_old == 0)
-        {
-            value = kernel[t] * src_acc(src_iter, i_old) + kernel[1.0-t] * src_acc(src_iter, i_old + 1)
-                    + kernel[2.0-t] * src_acc(src_iter, i_old + 2) + kernel[1.0 + t] * src_acc(src_iter, i_old + 1);
+    The range of both the input and output images (resp. regions)
+    must be given. The input image must have a size of at
+    least 4x4, the destination of at least 2x2. The scaling factors are then calculated
+    accordingly. If the source image is larger than the destination, it
+    is smoothed (band limited) using a recursive
+    exponential filter. The source value_type (SrcAccessor::value_type) must
+    be a linear algebra, i.e. it must support addition, subtraction,
+    and multiplication (+, -, *), multiplication with a scalar
+    real number and \ref NumericTraits "NumericTraits".
+    The function uses accessors.
+
+    <b> Declarations:</b>
+
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcImageIterator, class SrcAccessor,
+              class DestImageIterator, class DestAccessor,
+              class SPLINE>
+        void
+        resizeImageSplineInterpolation(
+              SrcImageIterator is, SrcImageIterator iend, SrcAccessor sa,
+          DestImageIterator id, DestImageIterator idend, DestAccessor da,
+          SPLINE spline = BSpline<3, double>())
         }
-        else if (i_old == src_width-2)
-        {
-            value = kernel[t] * src_acc(src_iter, i_old) + kernel[1.0-t] * src_acc(src_iter, i_old + 1)
-                    + kernel[2.0-t] * src_acc(src_iter, i_old) + kernel[1.0 + t] * src_acc(src_iter, i_old - 1);
-        }
-        else
-        {
-            value = kernel[t] * src_acc(src_iter, i_old) + kernel[1.0-t] * src_acc(src_iter, i_old + 1)
-                    + kernel[2.0-t] * src_acc(src_iter, i_old + 2) + kernel[1.0 + t] * src_acc(src_iter, i_old - 1);
-        }
+    \endcode
 
-        dest_acc.set(DestTraits::fromRealPromote(value), dest_iter);
+
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcImageIterator, class SrcAccessor,
+              class DestImageIterator, class DestAccessor,
+              class SPLINE>
+        void
+        resizeImageSplineInterpolation(
+              triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
+              triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
+              SPLINE spline = BSpline<3, double>())
     }
-    dest_acc.set(src_acc(--src_iter_end), --dest_iter_end);
-}
+    \endcode
 
+    <b> Usage:</b>
 
+        <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
+        Namespace: vigra
 
-/*****************************************************************/
-/*                                                               */
-/*              resizeImageCubicFIRInterpolation                 */
-/*                                                               */
-/*****************************************************************/
+    \code
+    vigra::resizeImageSplineInterpolation(
+               src.upperLeft(), src.lowerRight(), src.accessor(),
+               dest.upperLeft(), dest.lowerRight(), dest.accessor());
 
+    \endcode
 
+    <b> Required Interface:</b>
 
+    \code
+    SrcImageIterator src_upperleft, src_lowerright;
+    DestImageIterator dest_upperleft, src_lowerright;
+
+    SrcAccessor src_accessor;
+    DestAccessor dest_accessor;
+
+    NumericTraits<SrcAccessor::value_type>::RealPromote
+                             u = src_accessor(src_upperleft),
+                 v = src_accessor(src_upperleft, 1);
+    double d;
+
+    u = d * v;
+    u = u + v;
+    u = u - v;
+    u = u * v;
+    u += v;
+    u -= v;
+
+    dest_accessor.set(
+        NumericTraits<DestAccessor::value_type>::fromRealPromote(u),
+    dest_upperleft);
+
+    \endcode
+
+    <b> Preconditions:</b>
+
+    \code
+    src_lowerright.x - src_upperleft.x > 3
+    src_lowerright.y - src_upperleft.y > 3
+    dest_lowerright.x - dest_upperleft.x > 1
+    dest_lowerright.y - dest_upperleft.y > 1
+    \endcode
+
+*/
 template <class SrcIterator, class SrcAccessor,
-          class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor,
+          class SPLINE>
 void
-resizeImageCubicFIRInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
-                      DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
+resizeImageSplineInterpolation(
+    SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+    DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc,
+    SPLINE const & spline)
 {
+
     int width_old = src_iter_end.x - src_iter.x;
     int height_old = src_iter_end.y - src_iter.y;
 
     int width_new = dest_iter_end.x - dest_iter.x;
     int height_new = dest_iter_end.y - dest_iter.y;
-    double dx =  (double)(width_old - 1) / (width_new - 1);
-    double dy =  (double)(height_old - 1) / (height_new - 1);
-    double const scale = 2.0;
 
     vigra_precondition((width_old > 1) && (height_old > 1),
-                 "resizeImageCubicFIRInterpolation(): "
+                 "resizeImageSplineInterpolation(): "
                  "Source image to small.\n");
 
     vigra_precondition((width_new > 1) && (height_new > 1),
-                 "resizeImageCubicFIRInterpolation(): "
+                 "resizeImageSplineInterpolation(): "
                   "Destination image to small.\n");
+
+    Rational<int> xratio(width_new - 1, width_old - 1);
+    Rational<int> yratio(height_new - 1, height_old - 1);
+    Rational<int> offset(0);
+    resampling_detail::MapTargetToSourceCoordinate xmapCoordinate(xratio, offset);
+    resampling_detail::MapTargetToSourceCoordinate ymapCoordinate(yratio, offset);
+    int xperiod = lcm(xratio.numerator(), xratio.denominator());
+    int yperiod = lcm(yratio.numerator(), yratio.denominator());
+
+    double const scale = 2.0;
 
     typedef typename SrcAccessor::value_type SRCVT;
     typedef typename NumericTraits<SRCVT>::RealPromote TMPTYPE;
@@ -563,268 +706,319 @@ resizeImageCubicFIRInterpolation(SrcIterator src_iter, SrcIterator src_iter_end,
     typedef typename TmpImage::traverser TmpImageIterator;
 
     BasicImage<TMPTYPE> tmp(width_old, height_new);
+
     BasicImage<TMPTYPE> line((height_old > width_old) ? height_old : width_old, 1);
     typename BasicImage<TMPTYPE>::Accessor tmp_acc = tmp.accessor();
+    ArrayVector<double> const & prefilterCoeffs = spline.prefilterCoefficients();
 
     int x,y;
+
+    ArrayVector<Kernel1D<double> > kernels(yperiod);
+    createResamplingKernels(spline, ymapCoordinate, kernels);
 
     typename BasicImage<TMPTYPE>::Iterator y_tmp = tmp.upperLeft();
     typename TmpImageIterator::row_iterator line_tmp = line.upperLeft().rowIterator();
 
     for(x=0; x<width_old; ++x, ++src_iter.x, ++y_tmp.x)
     {
+
         typename SrcIterator::column_iterator c_src = src_iter.columnIterator();
         typename TmpImageIterator::column_iterator c_tmp = y_tmp.columnIterator();
 
-        if(height_new < height_old)
+        if(prefilterCoeffs.size() == 0)
+        {
+            if(height_new >= height_old)
+            {
+                resamplingConvolveLine(c_src, c_src + height_old, src_acc,
+                                       c_tmp, c_tmp + height_new, tmp_acc,
+                                       kernels, ymapCoordinate);
+            }
+            else
         {
             recursiveSmoothLine(c_src, c_src + height_old, src_acc,
                  line_tmp, line.accessor(), (double)height_old/height_new/scale);
-
-            resizeLineCubicFIRInterpolation(line_tmp, line_tmp + height_old, line.accessor(),
-                                            c_tmp, c_tmp + height_new, tmp_acc);
+                resamplingConvolveLine(line_tmp, line_tmp + height_old, line.accessor(),
+                                       c_tmp, c_tmp + height_new, tmp_acc,
+                                       kernels, ymapCoordinate);
+            }
         }
         else
         {
-
-            resizeLineCubicFIRInterpolation(c_src, c_src + height_old, src_acc,
-                                            c_tmp, c_tmp + height_new, tmp_acc);
+            recursiveFilterLine(c_src, c_src + height_old, src_acc,
+                                line_tmp, line.accessor(),
+                                prefilterCoeffs[0], BORDER_TREATMENT_REFLECT);
+            for(unsigned int b = 1; b < prefilterCoeffs.size(); ++b)
+            {
+                recursiveFilterLine(line_tmp, line_tmp + height_old, line.accessor(),
+                                    line_tmp, line.accessor(),
+                                    prefilterCoeffs[b], BORDER_TREATMENT_REFLECT);
+            }
+            if(height_new < height_old)
+            {
+                recursiveSmoothLine(line_tmp, line_tmp + height_old, line.accessor(),
+                     line_tmp, line.accessor(), (double)height_old/height_new/scale);
+            }
+            resamplingConvolveLine(line_tmp, line_tmp + height_old, line.accessor(),
+                                   c_tmp, c_tmp + height_new, tmp_acc,
+                                   kernels, ymapCoordinate);
         }
     }
 
     y_tmp = tmp.upperLeft();
 
-    typename BasicImage<SRCVT>::Iterator dest = dest_iter ;
+    DestIterator dest = dest_iter;
+
+    kernels.resize(xperiod);
+    createResamplingKernels(spline, xmapCoordinate, kernels);
 
     for(y=0; y < height_new; ++y, ++y_tmp.y, ++dest_iter.y)
     {
         typename DestIterator::row_iterator r_dest = dest_iter.rowIterator();
         typename TmpImageIterator::row_iterator r_tmp = y_tmp.rowIterator();
 
-        if(width_new < width_old)
+        if(prefilterCoeffs.size() == 0)
+        {
+            if(width_new >= width_old)
+            {
+                resamplingConvolveLine(r_tmp, r_tmp + width_old, tmp.accessor(),
+                                       r_dest, r_dest + width_new, dest_acc,
+                                       kernels, xmapCoordinate);
+            }
+            else
         {
             recursiveSmoothLine(r_tmp, r_tmp + width_old, tmp.accessor(),
                               line_tmp, line.accessor(), (double)width_old/width_new/scale);
-
-            resizeLineCubicFIRInterpolation(line_tmp, line_tmp + width_old, line.accessor(),
-                                            r_dest, r_dest + width_new, dest_acc);
+                resamplingConvolveLine(line_tmp, line_tmp + width_old, line.accessor(),
+                                       r_dest, r_dest + width_new, dest_acc,
+                                       kernels, xmapCoordinate);
+            }
         }
         else
         {
-            resizeLineCubicFIRInterpolation(r_tmp, r_tmp + width_old, tmp_acc,
-                                            r_dest, r_dest + width_new, dest_acc);
+            recursiveFilterLine(r_tmp, r_tmp + width_old, tmp.accessor(),
+                                line_tmp, line.accessor(),
+                                prefilterCoeffs[0], BORDER_TREATMENT_REFLECT);
+            for(unsigned int b = 1; b < prefilterCoeffs.size(); ++b)
+            {
+                recursiveFilterLine(line_tmp, line_tmp + width_old, line.accessor(),
+                                    line_tmp, line.accessor(),
+                                    prefilterCoeffs[b], BORDER_TREATMENT_REFLECT);
+            }
+            if(width_new < width_old)
+            {
+                recursiveSmoothLine(line_tmp, line_tmp + width_old, line.accessor(),
+                                    line_tmp, line.accessor(), (double)width_old/width_new/scale);
+            }
+            resamplingConvolveLine(line_tmp, line_tmp + width_old, line.accessor(),
+                                   r_dest, r_dest + width_new, dest_acc,
+                                   kernels, xmapCoordinate);
         }
     }
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor,
+          class SPLINE>
+inline
+void
+resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                      triple<DestIterator, DestIterator, DestAccessor> dest,
+                      SPLINE const & spline)
+{
+    resizeImageSplineInterpolation(src.first, src.second, src.third,
+                                   dest.first, dest.second, dest.third, spline);
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+void
+resizeImageSplineInterpolation(SrcIterator is, SrcIterator iend, SrcAccessor sa,
+                      DestIterator id, DestIterator idend, DestAccessor da)
+{
+    resizeImageSplineInterpolation(is, iend, sa, id, idend, da, BSpline<3, double>());
 }
 
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
 void
-resizeImageCubicFIRInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                       triple<DestIterator, DestIterator, DestAccessor> dest)
 {
-    resizeImageCubicFIRInterpolation(src.first, src.second, src.third,
+    resizeImageSplineInterpolation(src.first, src.second, src.third,
+                                   dest.first, dest.second, dest.third);
+}
+
+/*****************************************************************/
+/*                                                               */
+/*              resizeImageCatmullRomInterpolation               */
+/*                                                               */
+/*****************************************************************/
+
+/** \brief Resize image using the Catmull/Rom interpolation function.
+
+    The function calls like \ref resizeImageSplineInterpolation() with
+    \ref vigra::CatmullRomSpline as an interpolation kernel.
+    The interpolated function has one continuous derivative.
+    (See \ref resizeImageSplineInterpolation() for more documentation)
+
+    <b> Declarations:</b>
+
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void
+        resizeImageCatmullRomInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+                              DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc);
+        }
+    \endcode
+
+
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void
+        resizeImageCatmullRomInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                              triple<DestIterator, DestIterator, DestAccessor> dest);
+        }
+    \endcode
+
+
+    <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
+    Namespace: vigra
+
+*/
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+void
+resizeImageCatmullRomInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+                      DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
+{
+    resizeImageSplineInterpolation(src_iter, src_iter_end, src_acc, dest_iter, dest_iter_end, dest_acc,
+                                  CatmullRomSpline<double>());
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+inline
+void
+resizeImageCatmullRomInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                      triple<DestIterator, DestIterator, DestAccessor> dest)
+{
+    resizeImageCatmullRomInterpolation(src.first, src.second, src.third,
                                      dest.first, dest.second, dest.third);
 }
 
-/********************************************************/
-/*                                                      */
-/*                  CubicBSplineKernel                  */
-/*                                                      */
-/********************************************************/
-class CubicBSplineKernel
-{
-  public:
-    double operator[] (double x) const
-    {
-        x = fabs(x);
-        if (x < 1.0)
-        {
-            return 2.0/3.0 - x*x*(1.0 - x/2.0);
-        }
-        else if (x >= 2.0)
-        {
-            return 0.0;
-        }
-        else
-        {
-            double t = 2.0 - x;
-            return t*t*t/6.0;
-        }
-    }
-
-    int radius() const
-        {return 2;}
-};
-
-/******************************************************************/
-/*                                                                */
-/*             resizeLineCubicIIRInterpolation                    */
-/*                                                                */
-/******************************************************************/
-
-
-template <class SrcIterator, class SrcAccessor,
-          class DestIterator, class DestAccessor>
-void resizeLineCubicIIRInterpolation(
-    SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
-    DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
-{
-    typedef typename
-        NumericTraits<typename SrcAccessor::value_type>::RealPromote TMPTYPE;
-    typedef
-        NumericTraits<typename DestAccessor::value_type> DestTraits;
-
-    int src_width = src_iter_end - src_iter;
-    int dest_width = dest_iter_end - dest_iter;
-
-    double dx = (double)(src_width-1)/(dest_width-1);
-
-    std::vector<TMPTYPE> tmp(src_width);
-    typename std::vector<TMPTYPE>::iterator tmp_iter = tmp.begin();
-    typename std::vector<TMPTYPE>::iterator tmp_iter_end = tmp.end();
-    StandardAccessor<TMPTYPE> tmp_acc;
-
-    recursiveFilterLine(src_iter, src_iter_end, src_acc, tmp_iter, tmp_acc,
-                        sqrt(3.0) - 2.0, BORDER_TREATMENT_REFLECT);
-
-    CubicBSplineKernel kernel;
-    dest_acc.set(DestTraits::fromRealPromote(kernel[0.0] * tmp[0] + 2.0 * kernel[1.0] * tmp[1]),
-                 dest_iter);
-    dest_iter++;
-    for (int i = 1; i < dest_width-1; i++, dest_iter++ )
-    {
-        double x = dx * i;
-        int i_old = (int)x;
-        double t = x - i_old;
-        TMPTYPE value;
-
-        if (i_old == 0)
-        {
-            value = kernel[t] * tmp[i_old] + kernel[1.0-t] * tmp[i_old + 1]
-                    + kernel[2.0-t] * tmp[i_old + 2] + kernel[1.0 + t] * tmp[i_old + 1];
-
-        }
-        else if (i_old == tmp.size()-2)
-        {
-            value = kernel[t] * tmp[i_old] + kernel[1.0-t] * tmp[i_old + 1]
-                    + kernel[2.0-t] * tmp[i_old] + kernel[1.0 + t] * tmp[i_old - 1];
-
-        }
-        else
-        {
-            value = kernel[t] * tmp[i_old] + kernel[1.0-t] * tmp[i_old + 1]
-                    + kernel[2.0-t] * tmp[i_old + 2] + kernel[1.0 + t] * tmp[i_old - 1];
-
-        }
-        dest_acc.set(DestTraits::fromRealPromote(value), dest_iter);
-    }
-    dest_acc.set(DestTraits::fromRealPromote(kernel[0.0] * tmp[src_width-1]
-                 + 2.0 * kernel[1.0] * tmp[src_width-2]), (--dest_iter_end));
-}
-
-
+#if 0
 /*****************************************************************/
 /*                                                               */
-/*            resizeImageCubicIIRInterpolation                   */
+/*              resizeImageCubicInterpolation                    */
 /*                                                               */
 /*****************************************************************/
+
+/** \brief Resize image using the cardinal B-spline interpolation function.
+
+    The function calls like \ref resizeImageSplineInterpolation() with
+    \ref vigra::BSpline<3, double> and prefiltering as an interpolation kernel.
+    The interpolated function has two continuous derivatives.
+    (See \ref resizeImageSplineInterpolation() for more documentation)
+
+    <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
+    Namespace: vigra
+
+*/
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 void
-resizeImageCubicIIRInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+resizeImageCubicInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
                       DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
 {
-
-    int width_old = src_iter_end.x - src_iter.x;
-    int height_old = src_iter_end.y - src_iter.y;
-
-    int width_new = dest_iter_end.x - dest_iter.x;
-    int height_new = dest_iter_end.y - dest_iter.y;
-    double dx =  (double)(width_old - 1) / (width_new - 1);
-    double dy =  (double)(height_old - 1) / (height_new - 1);
-    double const scale = 2.0;
-
-    vigra_precondition((width_old > 1) && (height_old > 1),
-                 "resizeImageCubicFIRInterpolation(): "
-                 "Source image to small.\n");
-
-    vigra_precondition((width_new > 1) && (height_new > 1),
-                 "resizeImageCubicFIRInterpolation(): "
-                 "Destination image to small.\n");
-
-    typedef typename SrcAccessor::value_type SRCVT;
-    typedef typename NumericTraits<SRCVT>::RealPromote TMPTYPE;
-    typedef BasicImage<TMPTYPE> TmpImage;
-    typedef typename TmpImage::traverser TmpImageIterator;
-
-    BasicImage<TMPTYPE> tmp(width_old, height_new);
-
-    BasicImage<TMPTYPE> line((height_old > width_old) ? height_old : width_old, 1);
-    typename BasicImage<TMPTYPE>::Accessor tmp_acc = tmp.accessor();
-
-    int x,y;
-
-    typename BasicImage<TMPTYPE>::Iterator y_tmp = tmp.upperLeft();
-    typename TmpImageIterator::row_iterator line_tmp = line.upperLeft().rowIterator();
-
-    for(x=0; x<width_old; ++x, ++src_iter.x, ++y_tmp.x)
-    {
-
-        typename SrcIterator::column_iterator c_src = src_iter.columnIterator();
-        typename TmpImageIterator::column_iterator c_tmp = y_tmp.columnIterator();
-        if(height_new < height_old)
-        {
-            recursiveSmoothLine(c_src, c_src + height_old, src_acc,
-                 line_tmp, line.accessor(), (double)height_old/height_new/scale);
-
-            resizeLineCubicIIRInterpolation(line_tmp, line_tmp + height_old, line.accessor(),
-                                            c_tmp, c_tmp + height_new, tmp_acc);
-        }
-        else
-        {
-
-            resizeLineCubicIIRInterpolation(c_src, c_src + height_old, src_acc,
-                                            c_tmp, c_tmp + height_new, tmp_acc);
-        }
-    }
-
-    y_tmp = tmp.upperLeft();
-
-    typename BasicImage<SRCVT>::Iterator dest = dest_iter ;
-
-    for(y=0; y < height_new; ++y, ++y_tmp.y, ++dest_iter.y)
-    {
-        typename DestIterator::row_iterator r_dest = dest_iter.rowIterator();
-        typename TmpImageIterator::row_iterator r_tmp = y_tmp.rowIterator();
-        if(width_new < width_old)
-        {
-            recursiveSmoothLine(r_tmp, r_tmp + width_old, tmp.accessor(),
-                              line_tmp, line.accessor(), (double)width_old/width_new/scale);
-
-            resizeLineCubicIIRInterpolation(line_tmp, line_tmp + width_old, line.accessor(),
-                                            r_dest, r_dest + width_new, dest_acc);
-        }
-        else
-        {
-
-            resizeLineCubicIIRInterpolation(r_tmp, r_tmp + width_old, tmp_acc,
-                                            r_dest, r_dest + width_new, dest_acc);
-        }
-    }
+    resizeImageSplineInterpolation(src_iter, src_iter_end, src_acc, dest_iter, dest_iter_end, dest_acc,
+                                  BSpline<3, double>());
 }
 
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
 void
-resizeImageCubicIIRInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+resizeImageCubicInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                       triple<DestIterator, DestIterator, DestAccessor> dest)
 {
-    resizeImageCubicIIRInterpolation(src.first, src.second, src.third,
+    resizeImageCubicInterpolation(src.first, src.second, src.third,
                                    dest.first, dest.second, dest.third);
 }
+#endif
+
+/*****************************************************************/
+/*                                                               */
+/*              resizeImageCoscotInterpolation                   */
+/*                                                               */
+/*****************************************************************/
+
+/** \brief Resize image using the Coscot interpolation function.
+
+    The function calls \ref resizeImageSplineInterpolation() with
+    \ref vigra::CoscotFunction as an interpolation kernel.
+    The interpolated function has one continuous derivative.
+    (See \ref resizeImageSplineInterpolation() for more documentation)
+
+    <b> Declarations:</b>
+
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void
+        resizeImageCoscotInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+                              DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc);
+        }
+    \endcode
+
+
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void
+        resizeImageCoscotInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                              triple<DestIterator, DestIterator, DestAccessor> dest);
+    }
+    \endcode
+
+
+    <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
+    Namespace: vigra
+
+*/
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+void
+resizeImageCoscotInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
+                      DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc)
+{
+    resizeImageSplineInterpolation(src_iter, src_iter_end, src_acc, dest_iter, dest_iter_end, dest_acc,
+                                   CoscotFunction<double>());
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+inline
+void
+resizeImageCoscotInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                      triple<DestIterator, DestIterator, DestAccessor> dest)
+{
+    resizeImageCoscotInterpolation(src.first, src.second, src.third,
+                                   dest.first, dest.second, dest.third);
+}
+
+
+#if 0 // old version of the spline interpolation algorithm
 
 /********************************************************/
 /*                                                      */
@@ -1132,106 +1326,6 @@ resizeImageInternalSplineInterpolation(SrcIterator is, SrcIterator iend, SrcAcce
     }
 }
 
-/********************************************************/
-/*                                                      */
-/*           resizeImageSplineInterpolation             */
-/*                                                      */
-/********************************************************/
-
-/** \brief Resize image using bi-cubic spline interpolation.
-
-    The function uses the bi-cubic, non-separable spline algorithm described in
-    [Hoschek/Lasser:
-    <i>"Grundlagen der geometrischen Datenverarbeitung"</i>, Teubner, 1992] to obtain
-    optimal interpolation quality.
-
-    The range of both the input and output images (resp. regions)
-    must be given. The input image must have a size of at
-    least 4x4, the destination of at least 2x2. The scaling factors are then calculated
-    accordingly. If the source image is larger than the destination, it
-    is smoothed (band limited) using a recursive
-    exponential filter. The source value_type (SrcAccessor::value_type) must
-    be a linear algebra, i.e. it must support addition, subtraction,
-    and multiplication (+, -, *), multiplication with a scalar
-    real number and \ref NumericTraits "NumericTraits".
-    The function uses accessors.
-
-    <b> Declarations:</b>
-
-    pass arguments explicitly:
-    \code
-    namespace vigra {
-        template <class SrcImageIterator, class SrcAccessor,
-              class DestImageIterator, class DestAccessor>
-        void
-        resizeImageSplineInterpolation(
-              SrcImageIterator is, SrcImageIterator iend, SrcAccessor sa,
-          DestImageIterator id, DestImageIterator idend, DestAccessor da)
-    }
-    \endcode
-
-
-    use argument objects in conjuction with \ref ArgumentObjectFactories:
-    \code
-    namespace vigra {
-        template <class SrcImageIterator, class SrcAccessor,
-              class DestImageIterator, class DestAccessor>
-        void
-        resizeImageSplineInterpolation(
-              triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-          triple<DestImageIterator, DestImageIterator, DestAccessor> dest)
-    }
-    \endcode
-
-    <b> Usage:</b>
-
-        <b>\#include</b> "<a href="resizeimage_8hxx-source.html">vigra/resizeimage.hxx</a>"<br>
-        Namespace: vigra
-
-    \code
-    vigra::resizeImageSplineInterpolation(
-               src.upperLeft(), src.lowerRight(), src.accessor(),
-               dest.upperLeft(), dest.lowerRight(), dest.accessor());
-
-    \endcode
-
-    <b> Required Interface:</b>
-
-    \code
-    SrcImageIterator src_upperleft, src_lowerright;
-    DestImageIterator dest_upperleft, src_lowerright;
-
-    SrcAccessor src_accessor;
-    DestAccessor dest_accessor;
-
-    NumericTraits<SrcAccessor::value_type>::RealPromote
-                             u = src_accessor(src_upperleft),
-                 v = src_accessor(src_upperleft, 1);
-    double d;
-
-    u = d * v;
-    u = u + v;
-    u = u - v;
-    u = u * v;
-    u += v;
-    u -= v;
-
-    dest_accessor.set(
-        NumericTraits<DestAccessor::value_type>::fromRealPromote(u),
-    dest_upperleft);
-
-    \endcode
-
-    <b> Preconditions:</b>
-
-    \code
-    src_lowerright.x - src_upperleft.x > 3
-    src_lowerright.y - src_upperleft.y > 3
-    dest_lowerright.x - dest_upperleft.x > 1
-    dest_lowerright.y - dest_upperleft.y > 1
-    \endcode
-
-*/
 template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 void
@@ -1298,7 +1392,7 @@ resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
     resizeImageSplineInterpolation(src.first, src.second, src.third,
                                    dest.first, dest.second, dest.third);
 }
-
+#endif  // old alghorithm version
 
 //@}
 
