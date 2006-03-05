@@ -1,5 +1,9 @@
 Newsworthy changes in 0.6
 -------------------------
+* updated vigra to version 1.4. All sourcecode of hugin is now
+  released under approved open source licences. This means there
+  is no problem with including hugin in debian and ubuntu anymore.
+* Copy ICC profiles from input images to output
 * Added vignetting correction and brighness correction
   during stitching.
   Vignetting can be corrected by addition or division.
@@ -9,7 +13,7 @@ Newsworthy changes in 0.6
   directly from the overlapping images. This is an experimental feature.
 * Multithreaded remapping. hugin and nona fully utilize multiple
   CPUs or multi core CPUs during preview generation and stitching
-* support for dcraw 16 .ppm files
+* support for dcraw 16 bit .ppm files
 * Disabled PTOptimizer progress display on OSX. This should fix
   the crashes some people have experienced.
 * Czech translation added

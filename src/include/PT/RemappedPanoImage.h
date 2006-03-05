@@ -428,25 +428,60 @@ public:
             default:
                 break;
             }
+            if (m_srcImg.getGamma() != 1.0) {
+                // do gamma correction on the fly
+                double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
+                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                transformImageAlpha(srcImg,
+                                    vigra::srcImage(alpha),
+                                    vigra::destIterRange(Base::m_image.upperLeft(),
+                                                    Base::m_image.lowerRight(),
+                                                    wfa),
+                                    destImage(Base::m_mask),
+                                    Base::boundingBox().upperLeft(),
+                                    m_transf,
+                                    m_srcImg.horizontalWarpNeeded(),
+                                    interpol,
+                                    progress);
 
-            transformImageAlpha(srcImg,
-                                vigra::srcImage(alpha),
-                                destImageRange(Base::m_image),
-                                destImage(Base::m_mask),
-                                Base::boundingBox().upperLeft(),
-                                m_transf,
-                                m_srcImg.horizontalWarpNeeded(),
-                                interpol,
-                                progress);
+            } else {
+                transformImageAlpha(srcImg,
+                                    vigra::srcImage(alpha),
+                                    destImageRange(Base::m_image),
+                                    destImage(Base::m_mask),
+                                    Base::boundingBox().upperLeft(),
+                                    m_transf,
+                                    m_srcImg.horizontalWarpNeeded(),
+                                    interpol,
+                                    progress);
+            }
         } else {
-            transformImage(srcImg,
-                           destImageRange(Base::m_image),
-                           destImage(Base::m_mask),
-                           Base::boundingBox().upperLeft(),
-                           m_transf,
-                           m_srcImg.horizontalWarpNeeded(),
-                           interpol,
-                           progress);
+            if (m_srcImg.getGamma() != 1.0) {
+                // do gamma correction on the fly
+                double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
+                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                transformImage(srcImg,
+                            vigra::destIterRange(Base::m_image.upperLeft(),
+                                            Base::m_image.lowerRight(),
+                                            wfa),
+                            destImage(Base::m_mask),
+                            Base::boundingBox().upperLeft(),
+                            m_transf,
+                            m_srcImg.horizontalWarpNeeded(),
+                            interpol,
+                            progress);
+            } else {
+                transformImage(srcImg,
+                            destImageRange(Base::m_image),
+                            destImage(Base::m_mask),
+                            Base::boundingBox().upperLeft(),
+                            m_transf,
+                            m_srcImg.horizontalWarpNeeded(),
+                            interpol,
+                            progress);
+            }
         }
     }
 
@@ -494,26 +529,63 @@ public:
                 default:
                     break;
             }
+            if (m_srcImg.getGamma() != 1.0) {
+                // do gamma correction on the fly
+                double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
+                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
 
-            vigra_ext::transformImageAlpha(srcImg,
-                                vigra::srcImage(alpha),
-                                destImageRange(Base::m_image),
-                                destImage(Base::m_mask),
-                                Base::boundingBox().upperLeft(),
-                                m_transf,
-                                m_srcImg.horizontalWarpNeeded(),
-                                interp,
-                                progress);
+                vigra_ext::transformImageAlpha(srcImg,
+                                                vigra::srcImage(alpha),
+                                                vigra::destIterRange(Base::m_image.upperLeft(),
+                                                               Base::m_image.lowerRight(),
+                                                               wfa),
+                                                destImage(Base::m_mask),
+                                                Base::boundingBox().upperLeft(),
+                                                m_transf,
+                                                m_srcImg.horizontalWarpNeeded(),
+                                                interp,
+                                                progress);
+            } else {
+                vigra_ext::transformImageAlpha(srcImg,
+                                                vigra::srcImage(alpha),
+                                                destImageRange(Base::m_image),
+                                                destImage(Base::m_mask),
+                                                Base::boundingBox().upperLeft(),
+                                                m_transf,
+                                                m_srcImg.horizontalWarpNeeded(),
+                                                interp,
+                                                progress);
+            }
+
         } else {
-            vigra_ext::transformImageAlpha(srcImg,
-                        alphaImg,
-                        destImageRange(Base::m_image),
-                        destImage(Base::m_mask),
-                        Base::boundingBox().upperLeft(),
-                        m_transf,
-                        m_srcImg.horizontalWarpNeeded(),
-                        interp,
-                        progress);
+            if (m_srcImg.getGamma() != 1.0) {
+                // do gamma correction on the fly
+                double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
+                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                vigra_ext::transformImageAlpha(srcImg,
+                            alphaImg,
+                            vigra::destIterRange(Base::m_image.upperLeft(),
+                                            Base::m_image.lowerRight(),
+                                            wfa),
+                            destImage(Base::m_mask),
+                            Base::boundingBox().upperLeft(),
+                            m_transf,
+                            m_srcImg.horizontalWarpNeeded(),
+                            interp,
+                            progress);
+            } else {
+                vigra_ext::transformImageAlpha(srcImg,
+                            alphaImg,
+                            destImageRange(Base::m_image),
+                            destImage(Base::m_mask),
+                            Base::boundingBox().upperLeft(),
+                            m_transf,
+                            m_srcImg.horizontalWarpNeeded(),
+                            interp,
+                            progress);
+            }
         }
 
     }
@@ -599,12 +671,11 @@ void remapImage(SrcImgType & srcImg,
     } else {
         remapped.remapImage(vigra::srcImageRange(srcImg), interpolator, progress);
     }
-    if (src.getGamma() != 1.0) {
-        progress.setMessage(std::string("gamma correction ") + utils::stripPath(src.getFilename()));
-        vigra_ext::applyGammaCorrection(srcImageRange(remapped.m_image),
-                                        destImage(remapped.m_image),
-                                        1/src.getGamma(), gMaxVal);
-    }
+//        progress.setMessage(std::string("gamma correction ") + utils::stripPath(src.getFilename()));
+//        vigra_ext::applyGammaCorrection(srcImageRange(remapped.m_image),
+//                                        destImage(remapped.m_image),
+//                                        1/src.getGamma(), gMaxVal);
+//    }
 }
 
 
