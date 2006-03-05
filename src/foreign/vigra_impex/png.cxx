@@ -593,7 +593,7 @@ namespace vigra {
 #if (PNG_LIBPNG_VER > 10008) && defined(PNG_WRITE_iCCP_SUPPORTED)         
         // set icc profile
         if (iccProfileLength > 0) {
-            png_set_iCCP(png, info, "ICC", 0, (char *) iccProfilePtr, iccProfileLength);
+            png_set_iCCP(png, info, "icc", 0, (char *) iccProfilePtr, iccProfileLength);
         }
 #endif
         

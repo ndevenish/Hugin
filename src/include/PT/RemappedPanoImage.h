@@ -44,6 +44,7 @@
 #include <vigra_ext/utils.h>
 #include <vigra_ext/VignettingCorrection.h>
 #include <vigra_ext/ImageTransforms.h>
+#include <vigra_ext/FunctorAccessor.h>
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
@@ -431,8 +432,8 @@ public:
             if (m_srcImg.getGamma() != 1.0) {
                 // do gamma correction on the fly
                 double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
-                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
-                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                vigra_ext::GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                vigra_ext::WriteFunctorAccessor<vigra_ext::GammaFunctor, typename Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
                 transformImageAlpha(srcImg,
                                     vigra::srcImage(alpha),
                                     vigra::destIterRange(Base::m_image.upperLeft(),
@@ -460,8 +461,8 @@ public:
             if (m_srcImg.getGamma() != 1.0) {
                 // do gamma correction on the fly
                 double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
-                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
-                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                vigra_ext::GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                vigra_ext::WriteFunctorAccessor<vigra_ext::GammaFunctor, typename Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
                 transformImage(srcImg,
                             vigra::destIterRange(Base::m_image.upperLeft(),
                                             Base::m_image.lowerRight(),
@@ -532,8 +533,8 @@ public:
             if (m_srcImg.getGamma() != 1.0) {
                 // do gamma correction on the fly
                 double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
-                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
-                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                vigra_ext::GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                vigra_ext::WriteFunctorAccessor<vigra_ext::GammaFunctor, typename Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
 
                 vigra_ext::transformImageAlpha(srcImg,
                                                 vigra::srcImage(alpha),
@@ -562,8 +563,8 @@ public:
             if (m_srcImg.getGamma() != 1.0) {
                 // do gamma correction on the fly
                 double gMaxVal = vigra_ext::VigCorrTraits<image_value_type>::max();
-                GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
-                WriteFunctorAccessor<GammaFunctor, Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
+                vigra_ext::GammaFunctor gf(1/m_srcImg.getGamma(), gMaxVal);
+                vigra_ext::WriteFunctorAccessor<vigra_ext::GammaFunctor, typename Base::ImageAccessor> wfa(gf, Base::m_image.accessor());
                 vigra_ext::transformImageAlpha(srcImg,
                             alphaImg,
                             vigra::destIterRange(Base::m_image.upperLeft(),

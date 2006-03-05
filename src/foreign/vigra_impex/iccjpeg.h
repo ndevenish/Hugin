@@ -14,7 +14,11 @@
  * NOTE: this code would need surgery to work on 16-bit-int machines
  * with ICC profiles exceeding 64K bytes in size.  See iccprofile.c
  * for details.
+ *
+ * This file has been taken from the little cms project and is licensed under the MIT
+ * license.
  */
+
 
 #include <stdio.h>		/* needed to define "FILE", "NULL" */
 #include "jpeglib.h"

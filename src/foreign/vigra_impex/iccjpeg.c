@@ -15,6 +15,9 @@
  * with ICC profiles exceeding 64K bytes in size.  If you need to do that,
  * change all the "unsigned int" variables to "INT32".  You'll also need
  * to find a malloc() replacement that can allocate more than 64K.
+ *
+ * This file has been taken from the little cms project and is licensed under the MIT
+ * license.
  */
 
 #include "iccjpeg.h"
