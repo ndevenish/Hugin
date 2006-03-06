@@ -168,6 +168,7 @@ private:
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
 
+    void DisplayHelp(wxString section);
 
     wxNotebook * m_notebook;
     // tab panels
@@ -197,9 +198,12 @@ private:
     wxString m_xrcPrefix;
 
     bool m_doRestoreLayout;
-    
+
     // self
     static MainFrame* m_this;
+
+    // the help browser
+    wxHtmlHelpController * m_help;
 
     DECLARE_EVENT_TABLE()
 };

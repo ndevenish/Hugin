@@ -156,6 +156,9 @@ bool huginApp::OnInit()
     DEBUG_TRACE("=========================== huginApp::OnInit() begin ===================");
     SetAppName(wxT("hugin"));
 
+    // required by wxHtmlHelpController
+    wxFileSystem::AddHandler(new wxZipFSHandler);
+
     wxString m_huginPath;
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
 

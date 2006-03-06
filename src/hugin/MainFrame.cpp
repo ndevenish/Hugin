@@ -156,7 +156,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : pano(pano), m_doRestoreLayout(false)
+    : pano(pano), m_doRestoreLayout(false), m_help(0)
 {
     wxString splashPath;
     wxFileName::SplitPath( wxTheApp->argv[0], &splashPath, NULL, NULL );
@@ -906,35 +906,60 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
 void MainFrame::OnHelp(wxCommandEvent & e)
 {
+    DisplayHelp(wxT("contents.html"));
+}
+
+void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
+{
+    DisplayHelp(wxT("keyboard.html"));
+}
+
+void MainFrame::OnFAQ(wxCommandEvent & e)
+{
+    DisplayHelp(wxT("faq.html"));
+}
+
+
+void MainFrame::DisplayHelp(wxString section)
+{
     DEBUG_TRACE("");
-    wxDialog dlg;
-	wxString strFile;
-	wxString langCode;
-	bool bHelpExists = false;
 
-    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-
-#ifndef __WXMAC__
-    //if the language is not default, load custom FAQ file (if exists)
-	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_TRACE("Lang Code: " << langCode.mb_str());
-	if(langCode != wxString(wxT("en")))
-	{
-		strFile = m_xrcPrefix + wxT("data/manual_") + langCode + wxT(".html");
-		if(wxFile::Exists(strFile))
-			bHelpExists = true;
-	}
-#else
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("manual.html"));
-    if(strFile!=wxT("")) bHelpExists = true;
-#endif
-	if(!bHelpExists)
-		strFile = m_xrcPrefix + wxT("data/manual.html");  //load default file
-
-	DEBUG_TRACE("Using help: " << strFile.mb_str());
-    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(strFile);
-
-    dlg.ShowModal();
+    if (m_help == 0)
+    {
+        // find base filename
+        wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT(".htb");
+        DEBUG_INFO("help file candidate: " << helpFile.mb_str());
+    #ifndef __WXMAC__
+        //if the language is not default, load custom About file (if exists)
+        wxString strFile = m_xrcPrefix + wxT("data/") + helpFile;
+        if(wxFile::Exists(strFile))
+        {
+            DEBUG_TRACE("Using About: " << strFile.mb_str());
+        } else {
+            // try default
+            strFile = m_xrcPrefix + wxT("data/help_en_EN.htb");
+        }
+    #else
+        // FIXME: search for the localized help file in the bundle, like above.
+        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help.htb"));
+        if(wxFile::Exists(strFile))
+        {
+            DEBUG_TRACE("Using About: " << strFile.mb_str());
+        } else {
+            // try default
+            wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help_en_EN.htb"));
+        }
+    #endif
+        if(!wxFile::Exists(strFile))
+        {
+            wxLogError(wxString::Format(wxT("Could not open help file: %s"), strFile.c_str()));
+            return;
+        }
+        DEBUG_INFO("help file: " << strFile.mb_str());
+        m_help = new wxHtmlHelpController();
+        m_help->AddBook(strFile);
+    }
+    m_help->Display(section);
 }
 
 void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
@@ -962,71 +987,6 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
     delete tipProvider;
 }
 
-void MainFrame::OnKeyboardHelp(wxCommandEvent & e)
-{
-    DEBUG_TRACE("");
-    wxDialog dlg;
-	wxString strFile;
-	wxString langCode;
-	bool bKBDExists = false;
-
-    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("keyboard_help_dlg"));
-
-#ifndef __WXMAC__
-    //if the language is not default, load custom FAQ file (if exists)
-	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_INFO("Lang Code: " << langCode.mb_str());
-	if(langCode != wxString(wxT("en")))
-	{
-		strFile = m_xrcPrefix + wxT("data/keyboard_") + langCode + wxT(".html");
-		if(wxFile::Exists(strFile))
-			bKBDExists = true;
-	}
-#else
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("keyboard.html"));
-    if(strFile!=wxT("")) bKBDExists = true;
-#endif
-	if(!bKBDExists)
-		strFile = m_xrcPrefix + wxT("data/keyboard.html");  //load default file
-
-	DEBUG_INFO("Using keyboard help: " << strFile.mb_str());
-    XRCCTRL(dlg,"keyboard_help_html",wxHtmlWindow)->LoadPage(strFile);
-
-    dlg.ShowModal();
-}
-
-void MainFrame::OnFAQ(wxCommandEvent & e)
-{
-    DEBUG_TRACE("");
-    wxDialog dlg;
-	wxString strFile;
-	wxString langCode;
-	bool bFAQExists = false;
-	
-    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("help_dlg"));
-
-#ifndef __WXMAC__
-    //if the language is not default, load custom FAQ file (if exists)
-	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_INFO("Lang Code: " << langCode.mb_str());
-	if(langCode != wxString(wxT("en")))
-	{
-		strFile = m_xrcPrefix + wxT("data/FAQ_") + langCode + wxT(".html");
-		if(wxFile::Exists(strFile))
-			bFAQExists = true;
-	}
-#else
-    strFile = MacGetPathTOBundledResourceFile(CFSTR("FAQ.html"));
-    if(strFile!=wxT("")) bFAQExists = true;
-#endif
-	if(!bFAQExists)
-		strFile = m_xrcPrefix + wxT("data/FAQ.html");  //load default file
-
-	DEBUG_TRACE("Using FAQ: " << strFile.mb_str());
-    XRCCTRL(dlg,"help_html",wxHtmlWindow)->LoadPage(strFile);
-    dlg.SetTitle(_("hugin - FAQ"));
-    dlg.ShowModal();
-}
 
 void MainFrame::OnShowPrefs(wxCommandEvent & e)
 {

@@ -64,6 +64,8 @@
 #include <wx/valtext.h>
 #include <wx/valgen.h>
 #include <wx/radiobox.h>
+#include <wx/filesys.h>
+#include <wx/fs_zip.h>
 
 #if wxCHECK_VERSION(2,5,3)
 #include <wx/imaglist.h>
