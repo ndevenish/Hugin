@@ -242,12 +242,12 @@ namespace {
     void find_color_indices(void_vector<UInt8> & data, 
            std::vector<ColorCluster> & clusters, void_vector<UInt8> & indices)
     {
-        int count = (int)clusters.size();
+        unsigned int count = (unsigned int)clusters.size();
         UInt8 * base = data.begin();
 
-        for(int i=0; i<count; ++i)
+        for(UInt32 i=0; i<count; ++i)
         {
-            for(int j=0; j<clusters[i].size(); ++j)
+            for(UInt32 j=0; j<clusters[i].size(); ++j)
             {
                 int offset = (clusters[i].entries[j] - base) / 3;
                 indices[offset] = i;

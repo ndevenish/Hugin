@@ -134,7 +134,7 @@ struct ICCProfile
     { }
 
     /** copy ICC profile from given memory */
-    ICCProfile(const unsigned char * data, size_t size)
+    ICCProfile(const unsigned char * data, UInt32 size)
     {
         setProfile(data, size);
     }
@@ -168,7 +168,7 @@ struct ICCProfile
     }
 
     /** copy ICC profile from \p data */
-    void setProfile(const unsigned char * data, size_t size)
+    void setProfile(const unsigned char * data, UInt32 size)
     {
         if (m_profile)
             delete[] m_profile;
@@ -197,13 +197,14 @@ struct ICCProfile
     }
 
     /** get size of the profile */
-    size_t getSize() const
+    UInt32 getSize() const
     {
         return m_size;
     }
 protected:
     unsigned char * m_profile;
-    size_t m_size;
+    // According to ICC spec
+    UInt32 m_size;
 };
 
 

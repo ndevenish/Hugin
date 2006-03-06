@@ -664,7 +664,7 @@ TemporaryMatrix<T> identityMatrix(unsigned int size)
 template <class T, class C1, class C2>
 void diagonalMatrixImpl(MultiArrayView<1, T, C1> const & v, MultiArrayView<2, T, C2> &r)
 {
-    const unsigned int size = v.elementCount();
+    const unsigned int size = static_cast<unsigned int>(v.elementCount());
     vigra_precondition(rowCount(r) == size && columnCount(r) == size,
         "diagonalMatrix(): result must be a square matrix.");
     for(unsigned int i = 0; i < size; ++i)
@@ -712,7 +712,7 @@ TemporaryMatrix<T> diagonalMatrix(MultiArrayView<2, T, C> const & v)
 {
     vigra_precondition(rowCount(v) == 1 || columnCount(v) == 1,
         "diagonalMatrix(): input must be a vector.");
-    unsigned int size = v.elementCount();
+    unsigned int size = static_cast<unsigned int>(v.elementCount());
     TemporaryMatrix<T> ret(size, size, NumericTraits<T>::zero());
     if(rowCount(v) == 1)
         diagonalMatrixImpl(v.bindInner(0), ret);
@@ -960,7 +960,7 @@ T dot(const MultiArrayView<2, T, C1> &x, const MultiArrayView<2, T, C2> &y)
 template <class T, class C1, class C2>
 T dot(const MultiArrayView<1, T, C1> &x, const MultiArrayView<1, T, C2> &y)
 {
-    const unsigned int n = x.elementCount();
+    const unsigned int n = static_cast<int>(x.elementCount());
     vigra_precondition(n == y.elementCount(),
        "dot(): shape mismatch.");
     T ret = NumericTraits<T>::zero();

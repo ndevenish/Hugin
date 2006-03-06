@@ -787,7 +787,7 @@ namespace vigra {
         if (!pimpl->bilevel) {
 
             // find out maxval and print it into the stream
-            int maxval = 0;
+            UInt32 maxval = 0;
             if ( pimpl->pixeltype == "UINT8" ) {
                 void_vector< UInt8 > & cbands
                     = static_cast< void_vector< UInt8 > & >
