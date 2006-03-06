@@ -31,7 +31,7 @@ nona_gui_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/s
                    ${top_builddir}/src/hugin/libhuginwxutils.la \
                    ${top_builddir}/src/vigra_ext/libvigra_ext.la
 
-EXTRA_DIST       = nona_gui_rc.rc
+EXTRA_DIST       = nona_gui_rc.rc nona_gui.vcproj
 
 .rc.o:
 	$(RCCOMPILE) -i $< -o $@

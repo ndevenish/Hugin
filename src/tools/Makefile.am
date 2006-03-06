@@ -60,4 +60,4 @@ vig_optimize_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREA
 #vigra_test_SOURCES = vigra_test.cxx
 #vigra_test_LDADD   = ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la
 
-
+EXTRA_DIST = nona.vcproj
