@@ -61,6 +61,16 @@ AM_CONDITIONAL(HAVE_MINGW, test "${HSYS}" = "mingw32")
 
 AM_CONDITIONAL(HAVE_AMD64, test "${HCPU}" = "amd64")
 
+dnl --- look for "ZIP", required for building the help file
+AC_PATH_PROG(ZIP, zip, no)
+if [[ $ZIP = "no" ]] ; then
+        AC_MSG_ERROR("Could not find zip - needed to create the help file");
+        dnl TODO
+        dnl make non-fatal - i.e. just don't build help
+fi
+
+
+
 AC_ARG_WITH([unicode],
             AC_HELP_STRING([--with-unicode=yes/no],
 	    [set to 'yes' if you are using unicode wxWidgets library. (default=no)]),
