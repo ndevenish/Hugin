@@ -136,6 +136,8 @@ mv -f ./po/* ./src/nona_gui/po
 
 #finally clean up
 rm -rf `find ./src/hugin/po ./src/nona_gui/po ./m4 -name *~`
+rm -rf ./m4/Makefile.am
+rm -rf ./m4/Makefile.in
 
 $ACLOCAL -I m4 || exit $?
 
