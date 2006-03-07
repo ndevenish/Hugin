@@ -1,7 +1,9 @@
+*.htb
 .obj
 Makefile.depend
 help.htm
 hugin-icon.xcf
+hugin.png
 splash.xcf
 Makefile
 Makefile.in
