@@ -47,3 +47,9 @@ pixmaps_DATA = hugin.png
 hugin.png: $(srcdir)/icon.png
 	cp $(srcdir)/icon.png hugin.png
 
+dist-hook:
+	rm -rf `find $(distdir)/help_en_EN $(distdir)/help_fr_FR -name CVS`
+	rm -rf `find $(distdir)/help_en_EN $(distdir)/help_fr_FR -name .cvsignore`
+
+EXTRA_DIST = help_en_EN help_fr_FR
+
