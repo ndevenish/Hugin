@@ -396,9 +396,9 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
             // FIXME: dangelo: why return here? the other flags below should also be set.
             //return enc;
         } else {
-            // leave any other compression type to the codec
-            enc->setCompressionType(comp);
-        }
+        // leave any other compression type to the codec
+        enc->setCompressionType(comp);
+    }
     }
 
     std::string pixel_type = info.getPixelType();
@@ -471,8 +471,12 @@ ImageImportInfo::PixelType ImageImportInfo::pixelType() const
      return UINT8;
    if (pixeltype == "INT16")
      return INT16;
+   if (pixeltype == "UINT16")
+     return UINT16;
    if (pixeltype == "INT32")
      return INT32;
+   if (pixeltype == "UINT32")
+     return UINT32;
    if (pixeltype == "FLOAT")
      return FLOAT;
    if (pixeltype == "DOUBLE")

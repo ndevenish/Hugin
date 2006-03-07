@@ -203,7 +203,7 @@ struct ICCProfile
     }
 protected:
     unsigned char * m_profile;
-    // According to ICC spec
+	// According to ICC spec
     UInt32 m_size;
 };
 
@@ -409,7 +409,7 @@ Namespace: vigra
 class ImageImportInfo
 {
   public:
-    enum PixelType { UINT8, INT16, INT32, FLOAT, DOUBLE };
+    enum PixelType { UINT8, INT16, UINT16, INT32, UINT32, FLOAT, DOUBLE };
 
         /** Construct ImageImportInfo object.
 
@@ -512,7 +512,7 @@ class ImageImportInfo
     float getYResolution() const;
 
     /** Returns a reference to the ICC profile.
-     *
+     *  
      *  Note: the reference will become invalid when the ImageImportInfo
      *        object has been destroyed.
      **/
