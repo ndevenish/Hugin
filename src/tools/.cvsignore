@@ -8,6 +8,7 @@
 automatch
 autooptimiser
 autopano_old
+color_correct_tiff
 Makefile
 Makefile.depend
 Makefile.in
