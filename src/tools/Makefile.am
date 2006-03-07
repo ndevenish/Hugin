@@ -5,7 +5,6 @@ INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign -I${top_
 AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 
-#bin_PROGRAMS = nona autopano_old panosifter autooptimiser zhang_undistort
 bin_PROGRAMS = nona autooptimiser zhang_undistort color_correct_tiff
 
 nona_SOURCES = nona.cpp
@@ -14,28 +13,10 @@ nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) $
                    ${top_builddir}/src/jhead/libjhead.la \
                    ${top_builddir}/src/vigra_ext/libvigra_ext.la
 
-#nona_cimg_SOURCES = nona_cimg.cpp
-#nona_cimg_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la #${top_builddir}/src/common/libcommon.la \
-#	            ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la
-
-#autopano_old_SOURCES = autopano.cpp
-#autopano_old_CFLAGS  = $(FFTW_INCLUDES)
-#autopano_old_LDFLAGS = $(LIB_FFTW)
-#autopano_old_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
-#                       ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
-#		       ${top_builddir}/src/klt/libklt.la
-
 #automatch_SOURCES = automatch.cpp
 #automatch_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
 #	                ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
 #				    ${top_builddir}/src/klt/libklt.la
-
-#panosifter_SOURCES = panosifter.cpp
-#panosifter_CFLAGS  = $(PNG_FLAGS) $(ZLIB_FLAGS)
-#panosifter_LDFLAGS = $(LIB_PNG) $(LIB_ZLIB)
-#panosifter_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la ${top_builddir}/src/vigra_ext/libvigra_ext.la \
-#	                 ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la ${top_builddir}/src/jhead/libjhead.la \
-#				     ${top_builddir}/src/klt/libklt.la
 
 autooptimiser_SOURCES =  autooptimiser.cpp
 autooptimiser_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/common/libcommon.la \
@@ -50,14 +31,12 @@ zhang_undistort_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la ${top_buil
 color_correct_tiff_SOURCES = color_correct_tiff.cpp
 color_correct_tiff_LDADD   = $(LIB_TIFF)
 
-vig_optimize_SOURCES = vig_optimize.cpp
-vig_optimize_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) \
-                       ${top_builddir}/src/common/libcommon.la \
-                       ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
-                       ${top_builddir}/src/jhead/libjhead.la \
-                       ${top_builddir}/src/vigra_ext/libvigra_ext.la
+#vig_optimize_SOURCES = vig_optimize.cpp
+#vig_optimize_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) \
+#                       ${top_builddir}/src/common/libcommon.la \
+#                       ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
+#                       ${top_builddir}/src/jhead/libjhead.la \
+#                       ${top_builddir}/src/vigra_ext/libvigra_ext.la
 
-#vigra_test_SOURCES = vigra_test.cxx
-#vigra_test_LDADD   = ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la
-
-EXTRA_DIST = nona.vcproj
+# DGSW remove automatch.cpp from the list below if you uncomment automatch_SOURCES and automatch_LDADD
+EXTRA_DIST = nona.vcproj automatch.cpp
