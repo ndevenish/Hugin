@@ -119,6 +119,8 @@ public :
 		Init( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
 	}
 
+    void SpaceTransform::InitCorrect(const SrcPanoImage & src, int channel=1);
+
     void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
 
     // create pano -> img transform
@@ -181,6 +183,12 @@ public :
     void transformImgCoord(FDiff2D & dest, const FDiff2D &src) const
     {
         transformImgCoord(dest.x, dest.y, src.x, src.y);
+    }
+
+    /** returns true if this transform is an identity transform */
+    bool isIdentity()
+    {
+        return m_Stack.size() == 0;
     }
 
 private :

@@ -816,7 +816,61 @@ static double CalcCorrectionRadius_copy(double *coeff )
     return smallestRoot_copy( a );
 }
 
+/** Create a transform stack for distortion & TCA correction only */
+void SpaceTransform::InitCorrect(const SrcPanoImage & src, int channel)
+{
+    double mprad[6];
 
+//    double  imwidth = src.getSize().x;
+//    double  imheight= src.getSize().y;
+
+    m_Stack.clear();
+    m_srcTX = src.getSize().x/2.0;
+    m_srcTY = src.getSize().y/2.0;
+    m_destTX = src.getSize().x/2.0;
+    m_destTY = src.getSize().y/2.0;
+
+    // green channel, always correct
+    for (int i=0; i < 4; i++) {
+        mprad[3-i] = src.getRadialDistortion()[i];
+    }
+    mprad[4] = ( src.getSize().x < src.getSize().y ? src.getSize().x: src.getSize().y)  / 2.0;
+    // calculate the correction radius.
+    mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+    // radial correction if nonzero radial coefficients
+    if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+        AddTransform (&radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+    }
+
+    if (src.getCorrectTCA() && (channel == 0 || channel == 2)) {
+        for (int i=0; i < 4; i++) {
+            if (channel == 0) {
+                // correct red channel (TCA)
+                mprad[3-i] = src.getRadialDistortionRed()[i];
+            } else {
+                // correct blue channel (TCA)
+                mprad[3-i] = src.getRadialDistortionBlue()[i];
+            }
+        }
+        mprad[4] = ( src.getSize().x < src.getSize().y ? src.getSize().x: src.getSize().y)  / 2.0;
+        // calculate the correction radius.
+        mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+        // radial correction if nonzero radial coefficients
+        if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+            AddTransform (&radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+        }
+    }
+
+    // shift optical center if needed
+    if (src.getRadialDistortionCenterShift().y != 0.0) {
+        AddTransform(&vert, src.getRadialDistortionCenterShift().y);
+    }
+    if (src.getRadialDistortionCenterShift().x != 0.0) {
+        AddTransform(&horiz, src.getRadialDistortionCenterShift().x);
+    }
+}
 
 /** Creates the stacks of matrices and flatten them
   *
@@ -937,13 +991,11 @@ void SpaceTransform::Init(
     case PanoramaOptions::EQUIRECTANGULAR:
         // do nothing... coordinates are already equirect
         break;
-        /* never used :
-           we cannot set such output ...
-           case Lens::CIRCULAR_FISHEYE:
-           case Lens::FULL_FRAME_FISHEYE:
+    //case PanoramaOptions::FULL_FRAME_FISHEYE:
+    case PanoramaOptions::FULL_FRAME_FISHEYE:
            // Convert panoramic to sphere
            AddTransform( &erect_sphere_tp, mpdistance );
-           break;*/
+           break;
     }
 
     // Rotate equirect. image horizontally
@@ -1226,6 +1278,8 @@ void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
 	double xd = src.x, yd = src.y;
 	vector<fDescription>::const_iterator tI;
 	
+    dest.x = xd;
+    dest.y = yd;
 	for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
     {
 		(tI->func)( xd, yd, &dest.x, &dest.y, tI->param );
