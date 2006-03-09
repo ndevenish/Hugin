@@ -340,7 +340,6 @@ private:
 
     // radial lens distortion
     std::vector<double> m_radialDist;
-    bool correctTCA;
     // radial lens distortion (red, blue channel), for TCA correction
     std::vector<double> m_radialDistRed;
     std::vector<double> m_radialDistBlue;

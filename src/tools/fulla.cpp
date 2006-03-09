@@ -182,8 +182,12 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
 {
     vigra::BasicImage<RGBValue<float> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
-    FImage flatfield;
     importImage(info, destImage(srcImg));
+    FImage flatfield;
+    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) {
+        ImageImportInfo finfo(src.getFlatfieldFilename());
+        importImage(finfo, flatfield);
+    }
     correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, progress);
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
@@ -338,12 +342,7 @@ int main(int argc, char *argv[])
 
         c.setSize(info.size());
         // stitch the pano with a suitable image type
-        if (bands == 1 || bands == 2 && extraBands == 1) {
-            if (strcmp(pixelType, "UINT8") == 0) {
-                // TODO: write function for bw images.
-            }
-            // TODO: add more cases
-        } else if (bands == 3 || bands == 4 && extraBands == 1) {
+        if (bands == 3 || bands == 4 && extraBands == 1) {
             // TODO: add more cases
             if (strcmp(pixelType, "UINT8") == 0) {
                 correctRGB<RGBValue<UInt8> >(c, info, outputFile, pdisp);
@@ -359,8 +358,8 @@ int main(int argc, char *argv[])
                 correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
             }
         } else {
-            DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
-            throw std::runtime_error("unsupported depth, only images with 1 and 3 channels are supported");
+            DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
+            throw std::runtime_error("unsupported depth, only 3 channels images are supported");
             return 1;
         }
 
