@@ -114,10 +114,18 @@ public:
         m_gamma = 1;
 
         m_radialDist.resize(4);
+        m_radialDistRed.resize(4);
+        m_radialDistBlue.resize(4);
         for (unsigned i=0; i < 3; i++) {
             m_radialDist[i] = 0;
+            m_radialDistRed[i] = 0;
+            m_radialDistBlue[i] = 0;
         }
         m_radialDist[3] = 1;
+        m_radialDistRed[3] = 1;
+        m_radialDistBlue[3] = 1;
+        m_centerShift.x = 0;
+        m_centerShift.y = 0;
 
         m_crop = NO_CROP;
 
@@ -199,12 +207,35 @@ public:
     void setHFOV(const double & val)
     { m_hfov = val; }
 
+    bool getCorrectTCA() const
+    { 
+        bool nr = (m_radialDistRed[0] == 0.0 && m_radialDistRed[1] == 0.0 &&
+                  m_radialDistRed[2] == 0.0 && m_radialDistRed[3] == 1);
+        bool nb = (m_radialDistBlue[0] == 0.0 && m_radialDistBlue[1] == 0.0 &&
+                  m_radialDistBlue[2] == 0.0 && m_radialDistBlue[3] == 1);
+        return !(nr && nb);
+    }
+
     const std::vector<double> & getRadialDistortion() const
     { return m_radialDist; }
     void setRadialDistortion(const std::vector<double> & val)
     {
         DEBUG_ASSERT(val.size() == 4);
         m_radialDist = val; 
+    }
+    const std::vector<double> & getRadialDistortionRed() const
+    { return m_radialDistRed; }
+    void setRadialDistortionRed(const std::vector<double> & val)
+    {
+        DEBUG_ASSERT(val.size() == 4);
+        m_radialDistRed = val; 
+    }
+    const std::vector<double> & getRadialDistortionBlue() const
+    { return m_radialDistBlue; }
+    void setRadialDistortionBlue(const std::vector<double> & val)
+    {
+        DEBUG_ASSERT(val.size() == 4);
+        m_radialDistBlue = val; 
     }
 
     const FDiff2D & getRadialDistortionCenterShift() const
@@ -309,6 +340,10 @@ private:
 
     // radial lens distortion
     std::vector<double> m_radialDist;
+    bool correctTCA;
+    // radial lens distortion (red, blue channel), for TCA correction
+    std::vector<double> m_radialDistRed;
+    std::vector<double> m_radialDistBlue;
     // Center shift
     FDiff2D m_centerShift;
     // shear
