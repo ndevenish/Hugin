@@ -1696,8 +1696,9 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         }
     } else if (e.GetKeyCode() == 'g') {
         // generate keypoints
-        long th = wxGetNumberFromUser(_("Create control points"), _("Corner Detection threshold"), _("Create control points"), 400);
+        long th = wxGetNumberFromUser(_("Create control points"), _("Corner Detection threshold"), _("Create control points"), 400, 0, 32000);
         long scale = wxGetNumberFromUser(_("Create control points"), _("Corner Detection scale"), _("Create control points"), 1);
+        DEBUG_DEBUG("corner threshold: " << th << "  scale: " << scale);
         GlobalCmdHist::getInstance().addCommand(
                 new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
                            );

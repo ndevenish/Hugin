@@ -62,7 +62,7 @@ void wxAddCtrlPointGridCmd::execute()
     // empty corner image
     leftCorners.init(0);
 
-    DEBUG_DEBUG("running corner detector");
+    DEBUG_DEBUG("running corner detector threshold: " << cornerThreshold << "  scale: " << scale );
 
     // find corner response at scale scale
     vigra::cornerResponseFunction(srcImageRange(leftImg),
