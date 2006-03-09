@@ -331,7 +331,7 @@ public:
 
                 // check mask
                 double f = wx[kx]*wy[ky];
-                p += f * m_sIter(bounded_kx, bounded_ky);
+                p += f * m_sAcc(m_sIter, vigra::Diff2D(bounded_kx, bounded_ky));
                 weightsum += f;
             }
         }
@@ -364,9 +364,10 @@ public:
         SrcImageIterator ys(m_sIter + offset);
         for (int ky = 0; ky < INTERPOLATOR::size; ky++, ++(ys.y)) {
             p = vigra::NumericTraits<RealPixelType>::zero();
-            SrcImageIterator xs(ys);
-            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++(xs.x)) {
-                p += w[kx] * (*xs);
+            typename SrcImageIterator::row_iterator xs(ys.rowIterator());
+            //SrcImageIterator xs(ys);
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++xs) {
+                p += w[kx] * m_sAcc(xs);
             }
             resX[ky] = p;
         }
@@ -642,7 +643,7 @@ public:
                 if (m_mIter(bounded_kx, bounded_ky)) {
                     // check mask
                     double f = wx[kx]*wy[ky];
-                    p += f * m_sIter(bounded_kx, bounded_ky);
+                    p += f * m_sAcc(m_sIter, vigra::Diff2D(bounded_kx, bounded_ky));
                     weightsum += f;
                 }
             }
@@ -679,15 +680,15 @@ public:
         MaskIterator yms(m_mIter + offset);
         for (int ky = 0; ky < INTERPOLATOR::size; ky++, ++(ys.y), ++(yms.y)) {
 //            int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
-            SrcImageIterator xs(ys);
-            MaskIterator xms(yms);
-            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++(xs.x), ++(xms.x)) {
+            typename SrcImageIterator::row_iterator xs(ys.rowIterator());
+            typename MaskIterator::row_iterator xms(yms.rowIterator());
+            for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++xs, ++xms) {
 //                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
 
                 if (*xms) {
                     // check mask
                     double f = wx[kx]*wy[ky];
-                    p += f * (*xs);
+                    p += f * m_sAcc(xs);
                     weightsum += f;
                 }
             }
