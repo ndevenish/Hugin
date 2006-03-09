@@ -185,8 +185,9 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     importImage(info, destImage(srcImg));
     FImage flatfield;
     if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) {
-        ImageImportInfo finfo(src.getFlatfieldFilename());
-        importImage(finfo, flatfield);
+        ImageImportInfo finfo(src.getFlatfieldFilename().c_str());
+        flatfield.resize(finfo.size());
+        importImage(finfo, destImage(flatfield));
     }
     correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, progress);
     ImageExportInfo outInfo(outfile);
@@ -208,7 +209,7 @@ static void usage(const char * name)
          << "                        this is applied on top of the -g distortion coefficients, use for TCA corr" << std::endl
          << "      -r a:b:c:d       Radial distortion coefficents for red channel, (a, b, c, d)" << std::endl
          << "                        this is applied on top of the -g distortion coefficients, use for TCA corr" << std::endl
-         << "      -f filename      Vignetting correction by flatfield division, (a, b, c)" << std::endl
+         << "      -f filename      Vignetting correction by flatfield division" << std::endl
          << "                        I = I / c,    c = flatfield / mean(flatfield)" << std::endl
          << "      -c a:b:c:d       radial vignetting correction by division:" << std::endl
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl

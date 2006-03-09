@@ -514,7 +514,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             }
         } catch (vigra::PreconditionViolation & e) {
             // could not load image..
-            wxLogError(wxString::Format(_("Could not read image: %s"), wxString(e.what(),*wxConvCurrent)));
+            wxLogError(wxString::Format(_("Error during image reading: %s"), wxString(e.what(),*wxConvCurrent).c_str()));
             return new wxImage;
         }
 

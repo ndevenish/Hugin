@@ -5,12 +5,7 @@ INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign -I${top_
 AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(JPEG_FLAGS) $(TIFF_FLAGS) $(PANO_FLAGS)
 AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO)
 
-<<<<<<< Makefile.am
-#bin_PROGRAMS = nona autopano_old panosifter autooptimiser zhang_undistort
 bin_PROGRAMS = nona autooptimiser zhang_undistort color_correct_tiff fulla
-=======
-bin_PROGRAMS = nona autooptimiser zhang_undistort color_correct_tiff
->>>>>>> 1.14
 
 nona_SOURCES = nona.cpp
 nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la $(BOOST_THREAD_LIB) ${top_builddir}/src/common/libcommon.la \
