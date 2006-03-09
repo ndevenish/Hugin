@@ -492,19 +492,19 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             } else if ( bands == 2 && extraBands == 1) {
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<unsigned char, 4> > (info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned char, 2> > (info, destImage(imgview));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<short, 4> > (info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<short, 2> > (info, destImage(imgview));
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<unsigned short, 4> >(info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned short, 2> >(info, destImage(imgview));
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<unsigned int, 4> >(info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<unsigned int, 2> >(info, destImage(imgview));
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<int, 4> >(info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<int, 2> >(info, destImage(imgview));
                 } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<float, 4> >(info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<float, 2> >(info, destImage(imgview));
                 } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    importAndConvertGrayAlphaImage<TinyVector<double, 4> >(info, destImage(imgview));
+                    importAndConvertGrayAlphaImage<TinyVector<double, 2> >(info, destImage(imgview));
                 } else {
                     DEBUG_FATAL("Unsupported pixel type: " << pixelType);
                 }
@@ -514,7 +514,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             }
         } catch (vigra::PreconditionViolation & e) {
             // could not load image..
-            DEBUG_DEBUG("Could not load image information: " << e.what());
+            wxLogError(wxString::Format(_("Could not read image: %s"), wxString(e.what(),*wxConvCurrent)));
             return new wxImage;
         }
 
