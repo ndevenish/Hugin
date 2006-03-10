@@ -607,6 +607,11 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
                             utils::doubleTowxString(threshold,2));
     }
 
+    bool invert = threshold < 0;
+    if (invert) {
+        threshold = -threshold;
+    }
+
     m_list->Freeze();
     int sortCol = m_sortCol;
     bool sortAscend = m_sortAscend;
@@ -628,7 +633,9 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
         }
 
         unsigned int cpNr = (unsigned int) item;
-        if (cps[cpNr].error > threshold) {
+        if (    ((cps[cpNr].error > threshold ) && (!invert)) 
+             || ((cps[cpNr].error < threshold ) && (invert))  )
+        {
             // select control point
             DEBUG_DEBUG("selecting item: " << item << " cpNr: " << cpNr);
             m_list->SetItemState(item, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
