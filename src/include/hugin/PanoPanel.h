@@ -141,7 +141,8 @@ public:
     wxButton    * m_CalcOptWidthButton;
 
 #ifdef USE_WX253
-	wxScrolledWindow *m_pano_ctrls;
+    wxScrolledWindow *m_pano_ctrls;
+    wxPanel *m_pano_ctrls_fixed;
 #endif
 
     StitcherPanel * m_Stitcher;

@@ -48,6 +48,8 @@
 #include "hugin/PTStitcherPanel.h"
 #include "hugin/NonaStitcherPanel.h"
 
+#define WX_BROKEN_SIZER_UNKNOWN
+
 using namespace PT;
 using namespace std;
 using namespace utils;
@@ -115,6 +117,8 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_pano_ctrls->SetSizeHints(20, 20);
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
+    m_pano_ctrls_fixed = XRCCTRL(*this, "pano_ctrl_fixed", wxPanel);
+    DEBUG_ASSERT(m_pano_ctrls_fixed);
 #endif
 
     // observe the panorama
@@ -478,7 +482,19 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
     // redo layout.
 //    Layout();
 #ifdef USE_WX253
+// the sizer system doesn't seem to work after AttachUnknownControl...
+// the attached control is not included in the size calculations.
+    m_Stitcher->FitInside();
     m_pano_ctrls->FitInside();
+#ifdef WX_BROKEN_SIZER_UNKNOWN
+    int w,h,w2,h2;
+    m_pano_ctrls_fixed->GetVirtualSize(&w, &h);
+    m_Stitcher->GetVirtualSize(&w2, &h2);
+    h+=h2;
+    w = std::max(w,w2);
+    m_pano_ctrls->SetVirtualSize(w,h);
+    m_pano_ctrls->SetVirtualSizeHints(w,h,-1,-1);
+#endif
 #endif
 }
 
