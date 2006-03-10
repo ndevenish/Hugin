@@ -434,7 +434,7 @@ ImagePtr ImageCache::getImage(const std::string & filename)
             if ( bands == 1) {
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
-                    importImage(info, destImage(imgview));
+                    importAndConvertGrayImage<unsigned char>(info, destImage(imgview));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
                     importAndConvertGrayImage<short> (info, destImage(imgview));
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
