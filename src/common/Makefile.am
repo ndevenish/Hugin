@@ -4,6 +4,6 @@ DEFAULT_INCLUDES="-I."
 INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/include
 
 noinst_LTLIBRARIES = libcommon.la
-libcommon_la_SOURCES = graph.cpp utils.cpp
+libcommon_la_SOURCES = graph.cpp utils.cpp PTLensDB.c
 
 EXTRA_DIST = common.vcproj

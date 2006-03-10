@@ -30,6 +30,7 @@
 
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
+#include <jhead/jhead.h>
 
 #ifdef WIN32
  #include <getopt.h>
@@ -40,6 +41,7 @@
 #include "panoinc.h"
 #include "PT/Panorama.h"
 #include "PT/Stitcher.h"
+#include "common/PTLensDB.h"
 
 #include <tiff.h>
 
@@ -195,6 +197,101 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     exportImage(srcImageRange(output), outInfo);
 }
 
+
+bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
+                   string lensName, float focalLength, vector<double> & coeff)
+{
+    int verbose_flag = 1;
+    const char * profilePath = getenv("PTLENS_PROFILE");
+    if (profilePath == NULL)
+    {
+        cerr << "ERROR: " << endl
+                << " You specify where \"profile.txt\" is!" << endl
+                << " Use PTLENS_PROFILE environment variable, example:" << endl
+                << " PTLENS_PROFILE=$HOME/.ptlens/profile.txt" << endl;
+        return false;
+    }
+            // load database from file
+    PTLDB_DB * db = PTLDB_readDB(profilePath);
+    if (! db) {
+        fprintf(stderr,"Failed to read PTLens profile: %s\n", profilePath);
+        return false;
+    }
+
+    // TODO: try to extract camera and lens information from input file, for example using
+    // exiftool, and a file with mapping for the lens name.
+    // use simple exif tools stuff first..
+
+
+    //read the exif data
+    ImageInfo_t exif;
+    ResetJpgfile();
+    // Start with an empty image information structure.
+
+    memset(&exif, 0, sizeof(exif));
+    exif.FlashUsed = -1;
+    exif.MeteringMode = -1;
+
+    if (!ReadJpegFile(exif,fn, READ_EXIF)){
+        puts("Exif read failed");
+    } else {
+        // set if not overridden by camera
+        if (cameraMaker.size() == 0) {
+            cameraMaker = exif.CameraMake;
+        }
+        if (cameraName.size() == 0) {
+            cameraName = exif.CameraModel;
+        }
+        if (focalLength == 0.0f) {
+            focalLength = exif.FocalLength;
+        }
+    }
+
+
+    PTLDB_CamNode * thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
+    if (!thisCamera) {
+        fprintf(stderr, "could not find camera: %s, %s", cameraMaker.c_str(), cameraName.c_str());
+        return false;
+    }
+    PTLDB_LnsNode * thisLens = PTLDB_findLens(db, lensName.c_str(), thisCamera);
+    if (thisLens == NULL)
+    {
+        fprintf(stderr, "Lens \"%s\" not found in database.\n", lensName.c_str());
+        fprintf(stderr,"Available lenses for camera: %s\n", thisCamera->menuModel);
+        PTLDB_LnsNode * lenses = PTLDB_findLenses(db, thisCamera);
+        while (lenses != NULL)
+        {
+            fprintf(stderr,"%s\n", lenses->menuLens);
+            lenses = lenses->nextLns;
+        }
+        return false;
+    }
+
+    ImageImportInfo info(fn);
+    // retrieve distortion coefficients
+    PTLDB_ImageInfo img;
+    img.camera = thisCamera;
+    img.lens = thisLens;
+    img.width = info.size().x;
+    img.height = info.size().y;
+    img.focalLength = focalLength;
+    img.converterDetected = 0;
+    img.resize=0;
+
+    PTLDB_RadCoef coef;
+    PTLDB_getRadCoefs(db, &img, &coef);
+    if (verbose_flag)
+    {
+        fprintf(stderr,"%s %s,  Lens %s @ %f mm\n", thisCamera->menuMake, thisCamera->menuModel, lensName.c_str(), focalLength);
+        fprintf(stderr, "PTLens coeff:  a=%8.6lf  b=%8.6lf  c=%8.6lf  d=%8.6lf\n", coef.a, coef.b, coef.c, coef.d);
+    }
+    coeff[0] = coef.a;
+    coeff[1] = coef.b;
+    coeff[2] = coef.c;
+    coeff[3] = coef.d;
+    return true;
+}
+
 static void usage(const char * name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
@@ -215,6 +312,12 @@ static void usage(const char * name)
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
          << "      -a               Correct vignetting by addition, rather than by division" << std::endl
          << "                        I = I + c" << std::endl
+         << "      -p               Try to read radial distortion coefficients (-g) from PTLens database " << std::endl
+         << "      -m Canon         Camera manufacturer, for PTLens database query" << std::endl
+         << "      -n Camera        Camera name, for PTLens database query" << std::endl
+         << "      -l Lens          Lens name, for PTLens database query" << std::endl
+         << "                        if not specified, a list of possible lenses is displayed" << std::endl
+         << "      -d 50            specify focal length in mm, for PTLens database query" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
          << "      -v               Display version information" << std::endl
          << "      -h               Display help (this text)" << std::endl;
@@ -224,8 +327,9 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "g:r:b:f:ac:t:vh";
+    const char * optstring = "g:r:b:f:apm:n:l:d:c:t:vh";
     int o;
+    bool verbose_flag = true;
 
     opterr = 0;
 
@@ -235,7 +339,12 @@ int main(int argc, char *argv[])
     bool doVigRadial = false;
     bool doVigAddition = false;
     unsigned nThreads=1;
-    
+
+    bool doPTLens;
+    std::string cameraMaker;
+    std::string cameraName;
+    std::string lensName;
+    float focalLength=0;
     while ((o = getopt (argc, argv, optstring)) != -1)
         switch (o) {
         case 'r':
@@ -274,6 +383,25 @@ int main(int argc, char *argv[])
             break;
         case 'a':
             doVigAddition = true;
+            break;
+        case 'p':
+            doPTLens = true;
+            break;
+        case 'm':
+            cameraMaker = optarg;
+            doPTLens = true;
+            break;
+        case 'n':
+            cameraName = optarg;
+            doPTLens = true;
+            break;
+        case 'l':
+            lensName = optarg;
+            doPTLens = true;
+            break;
+        case 'd':
+            focalLength = atof(optarg);
+            doPTLens = true;
             break;
         case 'c':
             if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) !=4)
@@ -319,6 +447,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+
     // load input image.
 
     const char * inputFile = argv[optind];
@@ -341,6 +470,16 @@ int main(int argc, char *argv[])
         int bands = info.numBands();
         int extraBands = info.numExtraBands();
 
+        // if ptlens support required, load database
+        if (doPTLens) {
+            if (getPTLensCoef(inputFile, cameraMaker.c_str(), cameraName.c_str(),
+                lensName.c_str(), focalLength, vec4)) 
+            {
+                c.setRadialDistortion(vec4);
+            } else {
+                return 1;
+            }
+        }
         c.setSize(info.size());
         // stitch the pano with a suitable image type
         if (bands == 3 || bands == 4 && extraBands == 1) {
