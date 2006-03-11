@@ -220,33 +220,34 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
 
     // TODO: try to extract camera and lens information from input file, for example using
     // exiftool, and a file with mapping for the lens name.
-    // use simple exif tools stuff first..
+    // use simple jhead reader first.. works only with jpeg files
 
+    std::string ext = utils::getExtension(fn);
+    if ( ext == "jpg" || ext == "JPG" || ext == "JPEG" || ext == "jpeg") {
+        //read the exif data
+        ImageInfo_t exif;
+        ResetJpgfile();
+        // Start with an empty image information structure.
 
-    //read the exif data
-    ImageInfo_t exif;
-    ResetJpgfile();
-    // Start with an empty image information structure.
+        memset(&exif, 0, sizeof(exif));
+        exif.FlashUsed = -1;
+        exif.MeteringMode = -1;
 
-    memset(&exif, 0, sizeof(exif));
-    exif.FlashUsed = -1;
-    exif.MeteringMode = -1;
-
-    if (!ReadJpegFile(exif,fn, READ_EXIF)){
-        puts("Exif read failed");
-    } else {
-        // set if not overridden by camera
-        if (cameraMaker.size() == 0) {
-            cameraMaker = exif.CameraMake;
-        }
-        if (cameraName.size() == 0) {
-            cameraName = exif.CameraModel;
-        }
-        if (focalLength == 0.0f) {
-            focalLength = exif.FocalLength;
+        if (!ReadJpegFile(exif,fn, READ_EXIF)){
+            puts("Exif read failed");
+        } else {
+            // set if not overridden by camera
+            if (cameraMaker.size() == 0) {
+                cameraMaker = exif.CameraMake;
+            }
+            if (cameraName.size() == 0) {
+                cameraName = exif.CameraModel;
+            }
+            if (focalLength == 0.0f) {
+                focalLength = exif.FocalLength;
+            }
         }
     }
-
 
     PTLDB_CamNode * thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
     if (!thisCamera) {
@@ -340,7 +341,7 @@ int main(int argc, char *argv[])
     bool doVigAddition = false;
     unsigned nThreads=1;
 
-    bool doPTLens;
+    bool doPTLens = false;
     std::string cameraMaker;
     std::string cameraName;
     std::string lensName;
