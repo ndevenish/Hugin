@@ -410,7 +410,8 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         quoted = utils::wxQuoteFilename(quoted);
         args.append(quoted);
 
-        unsigned int nImg = imgs.size();
+// DGSW FIXME - Unreferenced
+//		unsigned int nImg = imgs.size();
         for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             quoted = output + wxString::Format(wxT("%04d.tif"), *it);

@@ -1028,7 +1028,8 @@ void Panorama::printStitcherScript(ostream & o,
         unsigned int imgNr = *imgNrIt;
         const PanoImage & img = state.images[imgNr];
         unsigned int lensNr = img.getLensNr();
-        const Lens & lens = state.lenses[lensNr];
+// DGSW FIXME - Unreferenced
+//		const Lens & lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
 
         o << "o w" << img.getWidth() << " h" << img.getHeight()
