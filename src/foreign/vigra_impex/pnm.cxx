@@ -270,7 +270,7 @@ namespace vigra {
         : stream( filename.c_str() )
 #endif
     {
-	long maxval;
+	long maxval = 1;
         char type;
 
         if(!stream.good())

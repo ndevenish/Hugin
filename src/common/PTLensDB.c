@@ -132,7 +132,7 @@ static char *stristr(const char *String, const char *Pattern)
  *****************************************************/
 static long instrrev(const char *str2, const char *str1)
 {
-    int length = strlen(str2);
+    int length = (int)strlen(str2);
     if (length > 0)
     {
         const char *start = str2;
@@ -156,7 +156,7 @@ static long instrrev(const char *str2, const char *str1)
  *****************************************************/
 static char *trim(char *str)
 {
-	int length = strlen(str);
+	int length = (int)strlen(str);
 	if (length > 0)
 	{
 		char *data = str;
@@ -192,7 +192,7 @@ static int lhs(const char *str, const char *key)
     {
         ret_value = 0;
     } else {
-        substr(rhs, str, strlen(key), (strlen(str)-strlen(key)));
+        substr(rhs, str, (int)strlen(key), (int)(strlen(str)-strlen(key)));
         ret_value = 1;
     }
     return(ret_value);
@@ -634,7 +634,7 @@ PTLDB_DB * PTLDB_readDB(const char * profileFile)
     char dir[PTLDB_MAX_PATH];			//directory path to profile files
     char nextFile[PTLDB_MAX_PATH];
     char s[1000];			//holds input lines from profile files
-    long i;
+    unsigned long i;
     long ret_value;
     int pathlen;
     unsigned line;
@@ -728,6 +728,7 @@ PTLDB_DB * PTLDB_readDB(const char * profileFile)
 //find first camera model
     prevMake[0] = 0;			//Set prevMake to NULL string
     pCam = db->pCamHdr;
+	firstModel = NULL;
     while (pCam != NULL)
     {
         if (pCam->menuMake != prevMake)
@@ -746,6 +747,7 @@ PTLDB_DB * PTLDB_readDB(const char * profileFile)
 // find first lens
     pLns = db->pLnsHdr;
     prevGroup[0] = 0;			//Set prevGroup to NULL string
+	firstLns = NULL;
     while (pLns != NULL)
     {
         if (strcmp(pLns->group, prevGroup) != 0)

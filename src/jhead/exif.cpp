@@ -844,7 +844,7 @@ int RemoveThumbnail(ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigne
 
     // Ensure pointers are up to date.
     {
-        int ShowTagsTemp = ImageInfo.ShowTags;
+        char ShowTagsTemp = ImageInfo.ShowTags;
         ImageInfo.ShowTags = FALSE;
         process_EXIF(ImageInfo,ExifSection, Length);
         ImageInfo.ShowTags = ShowTagsTemp;
