@@ -782,19 +782,20 @@ void ImagesPanel::OnCrop ( wxCommandEvent & e )
             {
                 double centerx = opts.cropRect.left() + opts.cropRect.width() / 2.0;
                 double centery = opts.cropRect.top() + opts.cropRect.height() / 2.0;
-
-                VariableMapVector vars(selectedImages.size());
-                UIntSet::const_iterator iNrIt = selectedImages.begin();
-                for (VariableMapVector::iterator it = vars.begin(); it != vars.end(); ++it)
-                {
-                    const PanoImage & pimg = pano.getImage(*iNrIt);
-                    (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
-                    (*it).insert(make_pair(std::string("e"), Variable("e", centerx - pimg.getHeight()/2.0 )));
-                    iNrIt++;
-                }
-                GlobalCmdHist::getInstance().addCommand(
-                        new PT::UpdateImagesVariablesCmd(pano, selectedImages, vars)
+                if (centerx != 0.0 && centery != 0.0) {
+                    VariableMapVector vars(selectedImages.size());
+                    UIntSet::const_iterator iNrIt = selectedImages.begin();
+                    for (VariableMapVector::iterator it = vars.begin(); it != vars.end(); ++it)
+                    {
+                        const PanoImage & pimg = pano.getImage(*iNrIt);
+                        (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
+                        (*it).insert(make_pair(std::string("e"), Variable("e", centerx - pimg.getHeight()/2.0 )));
+                        iNrIt++;
+                    }
+                    GlobalCmdHist::getInstance().addCommand(
+                            new PT::UpdateImagesVariablesCmd(pano, selectedImages, vars)
                                                        );
+                }
             }
         }
     }

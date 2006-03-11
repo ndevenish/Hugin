@@ -147,6 +147,9 @@
 				RelativePath=".\graph.cpp">
 			</File>
 			<File
+				RelativePath=".\PTLensDB.c">
+			</File>
+			<File
 				RelativePath=".\utils.cpp">
 			</File>
 		</Filter>
@@ -168,6 +171,9 @@
 			</File>
 			<File
 				RelativePath="..\include\common\platform.h">
+			</File>
+			<File
+				RelativePath="..\include\common\PTLensDB.h">
 			</File>
 			<File
 				RelativePath="..\include\common\stl_utils.h">

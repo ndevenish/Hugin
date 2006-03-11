@@ -387,6 +387,9 @@ static long processDbFile(PTLDB_DB * db, const char *s)
     static int camMultiplier;
     static int camGroup;
 
+    PTLDB_CoefType * ccoef;
+    int n;
+
     if (strlen(s) == 0)
     	return(ret_value);
     if (strncmp(s, "#", 1) == 0)
@@ -560,8 +563,8 @@ static long processDbFile(PTLDB_DB * db, const char *s)
         }
         if (pLns->coefLB == -1) pLns->coefLB = db->coefIndex;
         pLns->coefUB = db->coefIndex;
-        PTLDB_CoefType * ccoef = &(db->coef[db->coefIndex]);
-        int n = sscanf(rhs, "%f %f %f %f", &(ccoef->f), &(ccoef->a), &(ccoef->b), &(ccoef->c));
+        ccoef = &(db->coef[db->coefIndex]);
+        n = sscanf(rhs, "%f %f %f %f", &(ccoef->f), &(ccoef->a), &(ccoef->b), &(ccoef->c));
         if ( n != 4) {
             printf( "File %s line %d invalid statement %s\n", fileName, line, s);
             return 0;
@@ -623,14 +626,6 @@ static long processDbIndex(PTLDB_DB * db, const char *s)
  *****************************************************/
 PTLDB_DB * PTLDB_readDB(const char * profileFile)
 {
-    PTLDB_DB * db = (PTLDB_DB *) malloc(sizeof(PTLDB_DB));
-    if (db == NULL) {
-        return db;
-    }
-    db->fileIndex = 0;
-    db->pCamHdr = NULL;
-    db->pLnsHdr = NULL;
-    db->coefIndex = 0;
     PTLDB_CamNode *pCam, *firstModel;
     PTLDB_LnsNode *pLns, *firstLns;
     char prevMake[PTLDB_MAX_NAME_LEN], prevModel[PTLDB_MAX_NAME_LEN], prevGroup[PTLDB_MAX_NAME_LEN];
@@ -645,8 +640,16 @@ PTLDB_DB * PTLDB_readDB(const char * profileFile)
     unsigned line;
     struct stat file_info;
 
-//Open profile.txt and read in the list of profile files
-    db->fileIndex=0;
+    PTLDB_DB * db = (PTLDB_DB *) malloc(sizeof(PTLDB_DB));
+    if (db == NULL) {
+        return db;
+    }
+    db->fileIndex = 0;
+    db->pCamHdr = NULL;
+    db->pLnsHdr = NULL;
+    db->coefIndex = 0;
+
+    //Open profile.txt and read in the list of profile files
     // verify presence of profile.txt
     if (stat(profileFile, &file_info) == -1)
     {

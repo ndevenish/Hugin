@@ -48,7 +48,7 @@
 
 #define HUGIN_PREVIEW_SHOW_DRUID              1l
 #define HUGIN_USE_SELECTED_IMAGES             0l
-#define HUGIN_CROP_SETS_CENTER                1l
+#define HUGIN_CROP_SETS_CENTER                0l
 
 // GUI defaults
 #define HUGIN_LANGUAGE                        wxLANGUAGE_DEFAULT
