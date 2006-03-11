@@ -152,8 +152,9 @@ void Plot2DWindow::SetAxis(double xstart, double xend,
     y_min = ystart;
     y_max = yend;
 
-    double x_range = x_max - x_min;
-    double y_range = y_max - y_min;
+// DGSW FIXME - Unreferenced
+//	double x_range = x_max - x_min;
+//	double y_range = y_max - y_min;
 
     // expand axis a little bit.
 //    x_min -= x_range * 0.05;
@@ -214,7 +215,8 @@ void Plot2DWindow::PaintAxis(wxDC & dc, const FDiff2D & scale)
     dc.DrawLine(p1.x, p1.y,  p2.x, p2.y);
 
     // try to find maximum text width..
-    int charWidth = dc.GetCharWidth();
+// DGSW FIXME - Unreferenced
+//	    int charWidth = dc.GetCharWidth();
     int charHeight = dc.GetCharHeight();
 
     wxCoord text_w,text_h;

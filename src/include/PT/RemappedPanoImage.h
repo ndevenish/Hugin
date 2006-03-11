@@ -363,7 +363,8 @@ public:
         int ystart = Base::boundingBox().top();
         int yend   = Base::boundingBox().bottom();
 
-        int interpolHalfWidth=0;
+// DGSW FIXME - Unreferenced
+//		int interpolHalfWidth=0;
         // create dist y iterator
         typename AlphaImage::Iterator yalpha(Base::m_mask.upperLeft());
         // loop over the image and transform
@@ -791,8 +792,9 @@ public:
         const ImageOptions iopts = img.getOptions();
 
         vigra::Size2D origSrcSize(img.getWidth(), img.getHeight());
-        const PT::VariableMap & srcVars = pano.getImageVariables(imgNr);
-        const Lens & lens = pano.getLens(img.getLensNr());
+// DGSW FIXME - Unreferenced
+//		const PT::VariableMap & srcVars = pano.getImageVariables(imgNr);
+//		const Lens & lens = pano.getLens(img.getLensNr());
 
         vigra::Size2D destSize(opts.getWidth(), opts.getHeight());
 

@@ -252,8 +252,9 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
             randY(rng, distriby);             // glues randomness with mapping
 
-    unsigned n_good=0;
-    unsigned n_bad=0;
+// DGSW FIXME - Unreferenced
+//	unsigned n_good=0;
+//	unsigned n_bad=0;
     for (unsigned maxTry = nPoints*10; nPoints > 0 && maxTry > 0; maxTry--) {
         unsigned x = randX();
         unsigned y = randY();

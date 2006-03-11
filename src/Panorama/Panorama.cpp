@@ -376,7 +376,8 @@ FDiff2D Panorama::calcFOV() const
     UIntSet activeImgs = getActiveImages();
     for (UIntSet::iterator it = activeImgs.begin(); it != activeImgs.end(); ++it) {
 //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
-        const PanoImage & img = getImage(*it);
+// DGSW FIXME - Unreferenced
+//	        const PanoImage & img = getImage(*it);
         remapped.setPanoImage(getSrcImage(*it), opts.getDestImage());
         //remapped.setPanoImage(*this, *it, vigra::Size2D(img.getWidth(), img.getHeight()), opts);
         // calculate alpha channel
@@ -1114,7 +1115,8 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
 //    VariableMapVector::iterator varIt = imgVars.begin();
 //    CPVector::iterator pointIt = CPs.begin();
 
-    int pnr=0;
+// DGSW FIXME - Unreferenced
+//	int pnr=0;
 
     while (!i.eof()) {
         std::getline(i, line);

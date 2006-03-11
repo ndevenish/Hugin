@@ -123,7 +123,8 @@ void blend(vigra_ext::ROIImage<ImageType, AlphaImageType> & img,
 	AlphaIter alphaIter = alpha.first + overlap.upperLeft();
 //	typename AlphaImageType::traverser imgAlphaIter = img.maskUpperLeft()
 //                                                      + overlap.upperLeft();
-        typename AlphaImageType::Accessor imgAlphaAcc = img.maskAccessor();
+// DGSW FIXME - Unreferenced
+//	typename AlphaImageType::Accessor imgAlphaAcc = img.maskAccessor();
 	// find real, overlapping ROI, by iterating over ROI
 	for (int y=overlap.top(); y < overlap.bottom(); y++, ++(alphaIter.y))
         {

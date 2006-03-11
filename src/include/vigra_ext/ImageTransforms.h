@@ -441,7 +441,8 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
     DEBUG_DEBUG("creating " << nThreads << " threads for remapping");
 
     unsigned int chunkSize = destSize.y / nThreads;
-    unsigned int lastChunkSize = destSize.y - (nThreads-1) * chunkSize;
+// DGSW FIXME - Unreferenced
+//	unsigned int lastChunkSize = destSize.y - (nThreads-1) * chunkSize;
 
     // create a threads to remap each area
     boost::thread_group threads;

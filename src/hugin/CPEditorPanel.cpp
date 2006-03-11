@@ -1419,7 +1419,8 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         EnablePointEdit(false);
     }
 
-    int debug_sel_items = m_cpList->GetSelectedItemCount();
+// DGSW FIXME - Unreferenced
+//	    int debug_sel_items = m_cpList->GetSelectedItemCount();
 
     for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
     {

@@ -131,7 +131,8 @@ void NonaStitcherPanel::panoramaChanged (PT::Panorama &pano)
 
 void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
-    unsigned int nImages = pano.getNrOfImages();
+// DGSW FIXME - Unreferenced
+//	unsigned int nImages = pano.getNrOfImages();
 	
     //    if (nImages == 0) {
 	// disable controls

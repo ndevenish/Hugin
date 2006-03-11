@@ -313,7 +313,8 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
         }
     }
     // we need to do something if the image we are editing has changed.
-    bool update=false;
+// DGSW FIXME - Unreferenced
+//	bool update=false;
     UIntSet intersection;
 
     std::set_intersection(m_selectedLenses.begin(), m_selectedLenses.end(),

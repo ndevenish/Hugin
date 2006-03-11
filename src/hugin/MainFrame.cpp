@@ -966,7 +966,8 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 {
     wxString strFile;
     bool bShowAtStartup;
-    bool bTipsExist = false;
+// DGSW FIXME - Unreferenced
+//	bool bTipsExist = false;
     int nValue;
 
     wxConfigBase * config = wxConfigBase::Get();
