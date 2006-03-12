@@ -789,7 +789,7 @@ void ImagesPanel::OnCrop ( wxCommandEvent & e )
                     {
                         const PanoImage & pimg = pano.getImage(*iNrIt);
                         (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
-                        (*it).insert(make_pair(std::string("e"), Variable("e", centerx - pimg.getHeight()/2.0 )));
+                        (*it).insert(make_pair(std::string("e"), Variable("e", centery - pimg.getHeight()/2.0 )));
                         iNrIt++;
                     }
                     GlobalCmdHist::getInstance().addCommand(

@@ -77,9 +77,6 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      */
     void UpdateLensDisplay ();
 
-    /** adjust the center of the image */
-    void SetCenter (wxCommandEvent & e);
-
     void EditVigCorr (wxCommandEvent & e);
 
  private:
