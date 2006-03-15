@@ -91,6 +91,9 @@ static void substr(char *destStr, const char *srcStr, int offset, int len)
 }
 
 
+// DGSW - Unused function
+#if 0
+
 #define NUL '\0'
 
 static char *stristr(const char *String, const char *Pattern)
@@ -121,6 +124,8 @@ static char *stristr(const char *String, const char *Pattern)
       }
       return NULL;
 }
+
+#endif
 
 /**
  * \brief Find the last occurance of str1 in str2
