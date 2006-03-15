@@ -107,7 +107,7 @@ public:
     virtual bool estimate(const std::vector<const PointPair *> &data,
                           Param &p) const
     {
-        const int n=3;
+        const size_t n=3;
         if(data.size() < n) {
             return false;
         }
@@ -118,12 +118,12 @@ public:
         boost::numeric::ublas::permutation_matrix<size_t> permut(n);
         boost::numeric::ublas::matrix<double> A(n,n);
 
-        for (int i = 0; i < n; i++) {
+        for (unsigned i = 0; i < n; i++) {
             double r1sq = data[i]->r1 * data[i]->r1;
             double r2sq = data[i]->r2 * data[i]->r2;
             double r1f = r1sq;
             double r2f = r2sq;
-            for (int j=0;j < n; j++) {
+            for (unsigned j=0;j < n; j++) {
                 A(i,j) = r2f - r1f;
                 r1f*=r1sq;
                 r2f*=r2sq;
@@ -160,7 +160,7 @@ public:
         }
         */
 
-        const int n=3;
+        const size_t n=3;
         if(data.size() < n) {
             return false;
         }
@@ -188,7 +188,7 @@ public:
             double r2sq = data[k]->r2 * data[k]->r2;
             double r1f = r1sq;
             double r2f = r2sq;
-            for (int j=0;j < n; j++) {
+            for (unsigned j=0;j < n; j++) {
                 Arow[j] = r2f - r1f;
                 r1f*=r1sq;
                 r2f*=r2sq;
