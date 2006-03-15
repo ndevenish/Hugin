@@ -76,6 +76,9 @@ struct DruidHint
 //            DEBUG_TRACE( "Adding DruidHint \"" << this->name.mb_str() << "\"..." );
 //            PanoDruid::DefineHint(this);
 	}
+
+    virtual ~DruidHint() {};
+    
     virtual int applies(const PT::Panorama& pano, const PT::PanoramaOptions& opts)
         { return FALSE; }
     int rank;

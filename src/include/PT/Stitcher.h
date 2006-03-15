@@ -132,6 +132,8 @@ public:
     {
     }
 
+    virtual ~Stitcher() {};
+
     /** Stitch some images into a panorama file.
      *
      *  The filename can be specified with and without extension
@@ -483,6 +485,8 @@ public:
 	: Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
+
+    virtual ~WeightedStitcher() {};
 
     template<class ImgIter, class ImgAccessor,
              class AlphaIter, class AlphaAccessor>

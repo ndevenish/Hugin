@@ -699,7 +699,7 @@ public:
 
     virtual	void
     release(RemappedPanoImage<ImageType,AlphaType> * d) = 0;
-
+    virtual ~SingleImageRemapper() {};
 };
 
 /// load a flatfield image and apply the correction
@@ -773,6 +773,8 @@ public:
     {
         m_remapped = 0;
     }
+
+    virtual ~FileRemapper() {};
 
     virtual RemappedPanoImage<ImageType, AlphaType> *
     getRemapped(const Panorama & pano, const PanoramaOptions & opts,

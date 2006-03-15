@@ -224,6 +224,7 @@ namespace vigra
         virtual CodecDesc getCodecDesc() const = 0;
         virtual std::auto_ptr<Decoder> getDecoder() const = 0;
         virtual std::auto_ptr<Encoder> getEncoder() const = 0;
+        virtual ~CodecFactory() {};
     };
 
     // factory functions to encapsulate the codec managers

@@ -147,7 +147,7 @@ namespace vigra {
 
         // image header fields
         png_uint_32 width, height, components;
-	png_uint_32 extra_components;
+        png_uint_32 extra_components;
         Diff2D position;
         int bit_depth, color_type;
 
@@ -159,7 +159,7 @@ namespace vigra {
         // scanline counter
         int scanline;
 
-	float x_resolution, y_resolution;
+        float x_resolution, y_resolution;
 
         // number of passes needed during reading each scanline
         int interlace_method, n_interlace_passes;
@@ -187,9 +187,9 @@ namespace vigra {
 #else
         : file( filename.c_str(), "r" ),
 #endif
-          bands(0), scanline(-1), x_resolution(0), y_resolution(0),
-          n_interlace_passes(0), n_channels(0), row_data(0), iccProfileLength(0),
-          iccProfilePtr(0)
+          bands(0), iccProfileLength(0), iccProfilePtr(0),
+          scanline(-1), x_resolution(0), y_resolution(0), 
+          n_interlace_passes(0), n_channels(0), row_data(0)
     {
         png_error_message = "";
         // check if the file is a png file
@@ -497,7 +497,7 @@ namespace vigra {
 
         // image header fields
         png_uint_32 width, height, components;
-	png_uint_32 extra_components;
+        png_uint_32 extra_components;
         int bit_depth, color_type;
 
         // icc profile, if available
@@ -514,7 +514,7 @@ namespace vigra {
         Diff2D position;
 
         // resolution
-	float x_resolution, y_resolution;
+        float x_resolution, y_resolution;
 
         // ctor, dtor
         PngEncoderImpl( const std::string & filename );
@@ -531,9 +531,9 @@ namespace vigra {
 #else
         : file( filename.c_str(), "w" ),
 #endif
-          bands(0),
+          bands(0), iccProfileLength(0), iccProfilePtr(0),
           scanline(0), finalized(false),
-          x_resolution(0), y_resolution(0), iccProfileLength(0), iccProfilePtr(0)
+          x_resolution(0), y_resolution(0)
     {
         png_error_message = "";
         // create png struct with user defined handlers

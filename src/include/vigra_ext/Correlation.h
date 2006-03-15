@@ -50,7 +50,7 @@ namespace vigra_ext{
 struct CorrelationResult
 {
     CorrelationResult()
-        : maxi(-1),maxpos(0,0), maxAngle(0), curv(0,0)
+        : maxi(-1), maxpos(0,0), curv(0,0), maxAngle(0)
         { }
     // value at correlation peak.
     double maxi;

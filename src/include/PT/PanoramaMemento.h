@@ -228,8 +228,8 @@ public:
 
 private:
 
-    vigra::Size2D m_imageSize;
     LensProjectionFormat m_projectionFormat;
+    vigra::Size2D m_imageSize;
     FDiff2D m_sensorSize;
 };
 
@@ -351,21 +351,21 @@ public:
                            COLOR };
 
     PanoramaOptions()
-        : m_projectionFormat(EQUIRECTANGULAR),
-          outfile("panorama.JPG"),outputFormat(JPEG),
+        : outfile("panorama.JPG"),outputFormat(JPEG),
           quality(90),
           tiffCompression("NONE"),
-	  tiff_saveROI(false),
+          tiff_saveROI(false),
           colorCorrection(NONE), colorReferenceImage(0),
           gamma(1.0), interpolator(vigra_ext::INTERP_CUBIC),
           optimizeReferenceImage(0),
           featherWidth(10),
           remapAcceleration(MAX_SPEEDUP),
           blendMode(WEIGHTED_BLEND),
+          saveCoordImgs(false),
           m_hfov(360), 
           m_width(3000),
           m_height(1500),
-          saveCoordImgs(false)
+          m_projectionFormat(EQUIRECTANGULAR)
         {};
 
     void reset()

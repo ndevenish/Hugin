@@ -273,8 +273,8 @@ public:
             }
     private:
         unsigned int img1,img2,dx,dy;
-        double cornerThreshold;
         double scale;
+        double cornerThreshold;
     };
 
 

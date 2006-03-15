@@ -212,8 +212,8 @@ Panorama::Panorama()
       optimizerExe("PTOptimizer"),
       stitcherExe("PTStitcher"),
       PTScriptFile("PT_script.txt"),
-      m_forceImagesUpdate(false),
-      dirty(false)
+      dirty(false),
+      m_forceImagesUpdate(false)
 {
     // init map with ptoptimizer variables.
     m_ptoptimizerVarNames.insert("a");
