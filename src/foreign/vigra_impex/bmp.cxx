@@ -170,7 +170,7 @@ struct BmpInfoHeader
 
 void BmpInfoHeader::from_stream( std::ifstream & stream, byteorder & bo )
 {
-    const int info_impl_size = 40;
+    const UInt32 info_impl_size = 40;
     read_field( stream, bo, info_size );
     vigra_precondition( info_size >= info_impl_size,
                         "info header has a wrong size" );

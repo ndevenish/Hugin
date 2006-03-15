@@ -1251,12 +1251,12 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         m_listenToPageChange = true;
         if (nrImages > 0) {
             // select some other image if we deleted the current image
-            if (m_leftImageNr >= (int) nrImages) {
+            if (m_leftImageNr >= nrImages) {
                 setLeftImage(nrImages -1);
 //                m_leftFile = pano.getImage(nrImages-1).getFilename();
 //                m_leftImg->setImage(m_leftFile);
             }
-            if (m_rightImageNr >= (int)nrImages) {
+            if (m_rightImageNr >= nrImages) {
                 setRightImage(nrImages -1);
 //                m_rightFile = pano.getImage(nrImages-1).getFilename();
 //                m_rightImg->setImage(m_rightFile);
