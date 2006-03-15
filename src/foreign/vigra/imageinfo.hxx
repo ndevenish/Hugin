@@ -177,7 +177,7 @@ struct ICCProfile
             m_size = size;
             VIGRA_CSTD::memcpy(m_profile, data, size);
         } else {
-            m_profile = 0;
+            m_profile = NULL;
             m_size = 0;
         }
     }
@@ -187,7 +187,12 @@ struct ICCProfile
      */
     bool isValid() const
     {
-        return (m_profile && m_size);
+        if ((m_profile != NULL) && (m_size > 0))
+		{
+			return true;
+		} else {
+			return false;
+		}
     }
 
     /** return a pointer to the profile */

@@ -509,7 +509,7 @@ public:
             DEBUG_DEBUG("remapping image: " << *it);
 	    RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-            if (! iccProfile.isValid()) {
+            if (iccProfile.isValid()) {
                 // try to extract icc profile.
                 iccProfile = remapped->m_ICCProfile;
             }
