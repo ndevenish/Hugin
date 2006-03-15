@@ -46,7 +46,7 @@ using VIGRA_CSTD::pow;
 
 inline float pow(float a, double b)
 {
-    return(a,(float) b);
+    return std::pow(a,(float) b);
 }
 
 /// component-wise absolute value
