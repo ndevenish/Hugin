@@ -55,6 +55,7 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     Rect2D completeAlphaROI(size);
     // find intersecting regions, on a small version of the panorama.
     std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * > rimg;
+	std::map<unsigned int, PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * >::iterator rimgIter;
 
     BImage alpha(size);
     Rect2D alphaROI;
@@ -117,8 +118,9 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
 	alphaROI = alphaROI | rimg[choosenImg]->boundingBox();
         alphaROI = alphaROI & completeAlphaROI;
     }
-    for (UIntSet::iterator it = images.begin(); it != images.end(); ++it) {
-        delete rimg[*it];
+	// All images have been erased so just iterate through the map
+    for (rimgIter = rimg.begin(); rimgIter != rimg.end(); rimgIter++) {
+        delete rimgIter->second;
     }
 }
 
