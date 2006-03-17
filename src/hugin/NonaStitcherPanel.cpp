@@ -38,10 +38,10 @@
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/CPImageCtrl.h"
+#include "hugin/TextKillFocusHandler.h"
 #include "hugin/NonaStitcherPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "hugin/TextKillFocusHandler.h"
 #include "hugin/MyProgressDialog.h"
 
 //#ifdef __WXMAC__
@@ -81,8 +81,8 @@ NonaStitcherPanel::NonaStitcherPanel(wxWindow *parent, Panorama & pano)
                                    wxChoice);
     DEBUG_ASSERT(m_InterpolatorChoice);
     m_gammaTxt = XRCCTRL(*this, "nona_text_gamma", wxTextCtrl);
-    m_gammaTxt->PushEventHandler(new TextKillFocusHandler(this));
     DEBUG_ASSERT(m_gammaTxt);
+    m_gammaTxt->PushEventHandler(new TextKillFocusHandler(this));
     m_FormatChoice = XRCCTRL(*this, "nona_choice_format_final", wxChoice);
     DEBUG_ASSERT(m_FormatChoice);
     m_JPEGQualitySpin = XRCCTRL(*this, "nona_jpeg_quality", wxSpinCtrl);
@@ -115,6 +115,7 @@ NonaStitcherPanel::~NonaStitcherPanel(void)
 {
     DEBUG_TRACE("dtor");
     m_gammaTxt->PopEventHandler(true);
+	m_JPEGQualitySpin->PopEventHandler(true);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }

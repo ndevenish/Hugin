@@ -73,6 +73,7 @@ PreviewPanel::~PreviewPanel()
     if (m_panoBitmap) {
         delete m_panoBitmap;
     }
+	delete & vigra_ext::ThreadManager::get();
     DEBUG_TRACE("dtor end");
 }
 

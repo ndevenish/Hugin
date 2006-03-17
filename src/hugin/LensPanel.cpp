@@ -186,8 +186,8 @@ LensPanel::~LensPanel(void)
 #endif
 
     XRCCTRL(*this, "lens_val_v", wxTextCtrl)->PopEventHandler(true);
-    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_focalLength", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_flFactor", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_a", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_b", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_c", wxTextCtrl)->PopEventHandler(true);
@@ -195,6 +195,13 @@ LensPanel::~LensPanel(void)
     XRCCTRL(*this, "lens_val_e", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_g", wxTextCtrl)->PopEventHandler(true);
     XRCCTRL(*this, "lens_val_t", wxTextCtrl)->PopEventHandler(true);
+
+    XRCCTRL(*this, "lens_val_K0a", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_K0b", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_K1a", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_K1b", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_K2a", wxTextCtrl)->PopEventHandler(true);
+    XRCCTRL(*this, "lens_val_K2b", wxTextCtrl)->PopEventHandler(true);
 
     pano.removeObserver(this);
     DEBUG_TRACE("dtor about to finish");

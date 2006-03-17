@@ -291,10 +291,12 @@ PanoDruid::PanoDruid(wxWindow* parent)
 
 PanoDruid::~PanoDruid()
 {
+	// delete the hints...
     for (int i = 0; i < sm_hints; i++) {
         delete sm_advice[i];
     }
-
+	// ...and free the allocated memory
+	free(sm_advice);
 }
 
 void PanoDruid::AddHints()

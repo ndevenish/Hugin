@@ -396,6 +396,7 @@ MainFrame::~MainFrame()
 {
     DEBUG_TRACE("dtor");
     ImageCache::getInstance().setProgressDisplay(0);
+	delete & ImageCache::getInstance();
 //    delete cpe;
 //    delete images_panel;
     DEBUG_DEBUG("removing observer");

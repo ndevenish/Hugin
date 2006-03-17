@@ -46,6 +46,9 @@ public:
         m_nThreads = 1;
     }
 
+	virtual ~ThreadManager()
+	{}
+
     static ThreadManager & get()
     {
         if (!m_instance) {
