@@ -150,6 +150,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_RUSSIAN;
     lang_choice->Append(_("Russian"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_UKRAINIAN;
+    lang_choice->Append(_("Ukrainian"), lp);
     lang_choice->SetSelection(0);
 
     // Load configuration values from wxConfig
