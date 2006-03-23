@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: Nona_gui 0.1\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2006-02-10 12:41+0100\n"
-"Last-Translator: Jirí Slabı <jirislaby@gmail.com>\n"
-"Language-Team: Jirí Slabı <jirislaby@gmail.com>\n"
+"Last-Translator: JiÅ™Ã­ SlabÃ½ <jirislaby@gmail.com>\n"
+"Language-Team: JiÅ™Ã­ SlabÃ½ <jirislaby@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,27 +13,27 @@ msgstr ""
 
 #: src/nona_gui/nona_gui.cpp:133
 msgid "Syntax error in parameters detected, aborting."
-msgstr "Objevena syntaktická chyba v parametrech, koncím."
+msgstr "Objevena syntaktickÃ¡ chyba v parametrech, konÄÃ­m."
 
 #: src/nona_gui/nona_gui.cpp:142
 msgid "Specify project source project file"
-msgstr "Urcete zdrojovı projektovı soubor"
+msgstr "UrÄete zdrojovÃ½ projektovÃ½ soubor"
 
 #: src/nona_gui/nona_gui.cpp:158
 msgid "Too many project files specified"
-msgstr "Zvoleno prílis mnoho projektovıch souboru"
+msgstr "Zvoleno pÅ™Ã­liÅ¡ mnoho projektovÃ½ch souborÅ¯"
 
 #: src/nona_gui/nona_gui.cpp:166
 msgid "Could not find project file"
-msgstr "Nelze nalézt projektovı soubor"
+msgstr "Nelze nalÃ©zt projektovÃ½ soubor"
 
 #: src/nona_gui/nona_gui.cpp:175
 msgid "Specify output image filename"
-msgstr "Zvolte vıstupní soubor obrázku"
+msgstr "Zvolte vÃ½stupnÃ­ soubor obrÃ¡zku"
 
 #: src/nona_gui/nona_gui.cpp:183
 msgid "No project files specified"
-msgstr "Nevybrány zádné soubory projektu"
+msgstr "NevybrÃ¡ny Å¾Ã¡dnÃ© soubory projektu"
 
 #: src/nona_gui/nona_gui.cpp:194
 msgid "Stitching Panorama"
@@ -42,14 +42,14 @@ msgstr "Slepuji panorama"
 #: src/nona_gui/nona_gui.cpp:200
 #, c-format
 msgid "could not open script : %s"
-msgstr "nelze otevrít skript: %s"
+msgstr "nelze otevÅ™Ã­t skript: %s"
 
 #: src/nona_gui/nona_gui.cpp:206
 #, c-format
 msgid "error while parsing panos tool script: %s"
-msgstr "chyba pri parsování panotools skriptu: %s"
+msgstr "chyba pÅ™i parsovÃ¡nÃ­ panotools skriptu: %s"
 
 #: src/nona_gui/nona_gui.cpp:217
 msgid "output image size: "
-msgstr "vıstupní velikost obrázku:"
+msgstr "vÃ½stupnÃ­ velikost obrÃ¡zku:"
 
