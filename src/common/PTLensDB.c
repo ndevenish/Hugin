@@ -840,9 +840,9 @@ static int inGroups(PTLDB_LnsNode *thisLens, PTLDB_CamNode *thisCamera)
     while(pCurGroup != NULL && (strcmp(pCurGroup->name, thisLens->group) != 0))
         pCurGroup = pCurGroup->nextGrp;
     if(pCurGroup == NULL)
-        return 1;
-    else
         return 0;
+    else
+        return 1;
 }
 
 /* ==================================================================== */
