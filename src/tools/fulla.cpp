@@ -520,13 +520,13 @@ int main(int argc, char *argv[])
             } else if (strcmp(pixelType, "UINT16") == 0) {
                 correctRGB<RGBValue<UInt16> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "INT16") == 0) {
-//                correctRGB<RGBValue<Int16> >(c, info, outputFile, pdisp);
+                correctRGB<RGBValue<Int16> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "UINT32") == 0) {
-//                correctRGB<RGBValue<UInt32> >(c, info, outputFile, pdisp);
+                correctRGB<RGBValue<UInt32> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "FLOAT") == 0) {
-//                correctRGB<RGBValue<float> >(c, info, outputFile, pdisp);
+                correctRGB<RGBValue<float> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "DOUBLE") == 0) {
-//                correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
+                correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
             }
         } else {
             DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
