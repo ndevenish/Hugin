@@ -109,11 +109,41 @@ void correctImage(SrcImgType & srcImg,
     // hmm, dummy alpha image...
     BImage alpha(srcImg.size());
     // correct image
+    // check if image should be tca corrected, and calculate scale factor accordingly.
+    double scaleFactor=1;
+    vector<double> radGreen(4);
+    radGreen = src.getRadialDistortion();
+    vector<double> radRed(4);
+    combinePolynom3(radGreen , src.getRadialDistortionRed(), radRed);
+    vector<double> radBlue(4);
+    combinePolynom3(radGreen, src.getRadialDistortionBlue(), radBlue);
+    if (src.getCorrectTCA())
+    {
+        // calculate scaling factor required to avoid black borders.
+        double scaleR = estRadialScaleCrop(radRed, src.getSize().x, src.getSize().y);
+        double scaleG = estRadialScaleCrop(radGreen, src.getSize().x, src.getSize().y);
+        double scaleB = estRadialScaleCrop(radBlue, src.getSize().x, src.getSize().y);
+        scaleFactor = std::max(std::max(scaleR,scaleG),scaleB);
+    } else {
+        scaleFactor = estRadialScaleCrop(radGreen, src.getSize().x, src.getSize().y);
+    }
+    // adjust radial distortion coeffs
+    // expand or shrink image
+    scaleFactor = 1/scaleFactor;
+    DEBUG_DEBUG("Black border correction factor: " << scaleFactor);
+    double sf=scaleFactor;
+    for (int i=0; i < 4; i++) {
+        radRed[3-i] *=sf;
+        radGreen[3-i] *=sf;
+        radBlue[3-i] *=sf;
+        sf *=scaleFactor;
+    }
+
     if (src.getCorrectTCA())
     {
         // remap individual channels
         SpaceTransform transf;
-        transf.InitCorrect(src, 0);
+        transf.InitRadialCorrect(src.getSize(), radRed, FDiff2D(0,0));
         if (transf.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
@@ -128,7 +158,7 @@ void correctImage(SrcImgType & srcImg,
                         progress);
         }
 
-        transf.InitCorrect( src, 1);
+        transf.InitRadialCorrect(src.getSize(), radGreen, FDiff2D(0,0));
         if (transf.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
@@ -143,7 +173,7 @@ void correctImage(SrcImgType & srcImg,
                        progress);
         }
 
-        transf.InitCorrect(src, 2);
+        transf.InitRadialCorrect(src.getSize(), radBlue, FDiff2D(0,0));
         if (transf.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
@@ -160,7 +190,7 @@ void correctImage(SrcImgType & srcImg,
     } else {
         // remap with the same coefficient.
         SpaceTransform transf;
-        transf.InitCorrect(src);
+        transf.InitRadialCorrect(src.getSize(), radGreen, FDiff2D(0,0));
         if (transf.isIdentity()) {
             vigra::copyImage(srcImageRange(srcImg),
                              destImage(destImg));
@@ -251,7 +281,7 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
 
     PTLDB_CamNode * thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
     if (!thisCamera) {
-        fprintf(stderr, "could not find camera: %s, %s", cameraMaker.c_str(), cameraName.c_str());
+        fprintf(stderr, "could not find camera: %s, %s\n", cameraMaker.c_str(), cameraName.c_str());
         return false;
     }
     PTLDB_LnsNode * thisLens = PTLDB_findLens(db, lensName.c_str(), thisCamera);
@@ -490,13 +520,13 @@ int main(int argc, char *argv[])
             } else if (strcmp(pixelType, "UINT16") == 0) {
                 correctRGB<RGBValue<UInt16> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "INT16") == 0) {
-                correctRGB<RGBValue<Int16> >(c, info, outputFile, pdisp);
+//                correctRGB<RGBValue<Int16> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "UINT32") == 0) {
-                correctRGB<RGBValue<UInt32> >(c, info, outputFile, pdisp);
+//                correctRGB<RGBValue<UInt32> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "FLOAT") == 0) {
-                correctRGB<RGBValue<float> >(c, info, outputFile, pdisp);
+//                correctRGB<RGBValue<float> >(c, info, outputFile, pdisp);
             } else if (strcmp(pixelType, "DOUBLE") == 0) {
-                correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
+//                correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
             }
         } else {
             DEBUG_ERROR("unsupported depth, only 3 channel images are supported");

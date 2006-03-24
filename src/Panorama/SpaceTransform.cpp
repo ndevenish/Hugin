@@ -46,7 +46,7 @@ SpaceTransform::~SpaceTransform()
 {
 }
 
-void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3, double var4, double var5 )
+void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double var1, double var2, double var3, double var4, double var5, double var6, double var7 )
 {
 	fDescription fD;
 	fD.param.var0	= var0;
@@ -55,6 +55,8 @@ void SpaceTransform::AddTransform( PT::trfn function_name, double var0, double v
 	fD.param.var3	= var3;
 	fD.param.var4	= var4;
 	fD.param.var5	= var5;
+        fD.param.var6   = var6;
+        fD.param.var7   = var7;
 	fD.func			= function_name;
 	m_Stack.push_back( fD );
 }
@@ -816,8 +818,133 @@ static double CalcCorrectionRadius_copy(double *coeff )
     return smallestRoot_copy( a );
 }
 
+// radial and shift
+static void radial_shift( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: double coefficients[4], scale, correction_radius, shift_x, shift_y
+    register double r, scale;
+
+    r = (sqrt( x_dest*x_dest + y_dest*y_dest )) / params.var4;
+    if( r < params.var5 )
+    {
+        scale = ((params.var3 * r + params.var2) * r + params.var1) * r + params.var0;
+    }
+    else
+        scale = 1000.0;
+	
+    *x_src = x_dest * scale  + params.var6;
+    *y_src = y_dest * scale  + params.var7;
+}
+
+double PT::estRadialScaleCrop(vector<double> coeff, int width, int height)
+{
+    double r_test[4];
+    double p, r, r_fixed, fixx, test;
+    int test_points, i;
+    double a, b, c, d;
+
+    // truncate black edges
+    // algorithm courtesy of Paul Wilkinson, paul.wilkinson@ntlworld.com
+    // modified by dangelo to just calculate the scaling factor -> better results
+
+    a = coeff[0];
+    b = coeff[1];
+    c = coeff[2];
+    d = coeff[3];
+
+    if (width > height)
+        p = (double)(width) / (double)(height);
+    else
+        p = (double)(height) / (double)(width);
+
+    //***************************************************
+    //* Set the test point for the far corner.          *
+    //***************************************************
+    r_test[0] = sqrt(1 + p * p);
+    test_points = 1;
+
+    //***************************************************
+    //* For non-zero values of a, there are two other   *
+    //* possible test points. (local extrema)           *
+    //***************************************************
+    //
+
+    if (a != 0.0)
+    {
+        r = (-b + sqrt(b * b - 3 * a * c)) / (3 * a);
+        if (r >= 1 && r <= r_test[0])
+        {
+            r_test[test_points] = r;
+            test_points = test_points + 1;
+        }
+        r = (-b - sqrt(b * b - 3 * a * c)) / (3 * a);
+        if (r >= 1 && r <= r_test[0])
+        {
+            r_test[test_points] = r;
+            test_points = test_points + 1;
+        }
+    }
+
+    //***************************************************
+    //* For zero a and non-zero b, there is one other   *
+    //* possible test point.                            *
+    //***************************************************
+    if (a == 0.0 && b != 0.0)
+    {
+        r = -c / (2 * b);
+        if (r >= 1 && r <= r_test[0])
+        {
+            r_test[test_points] = r;
+            test_points = test_points + 1;
+        }
+    }
+
+    // check the scaling factor at the test points.
+    // start with a very high scaling factor.
+    double scalefactor = 0.1;
+    for (i = 0; i <= test_points - 1; i++)
+    {
+        r = r_test[i];
+        double scale = d + r * (c + r * (b + r * a));
+        if ( scalefactor < scale)
+            scalefactor = scale;
+    }
+    return scalefactor;
+}
+
+
+/** Create a transform stack for radial distortion correction only */
+void SpaceTransform::InitRadialCorrect(const Size2D & sz, vector<double> & radDist, 
+                                 const FDiff2D & centerShift)
+{
+    double mprad[6];
+
+//    double  imwidth = src.getSize().x;
+//    double  imheight= src.getSize().y;
+
+    m_Stack.clear();
+    m_srcTX = sz.x/2.0;
+    m_srcTY = sz.y/2.0;
+    m_destTX = sz.x/2.0;
+    m_destTY = sz.y/2.0;
+
+    // green channel, always correct
+    for (int i=0; i < 4; i++) {
+        mprad[3-i] = radDist[i];
+    }
+    mprad[4] = ( sz.x < sz.y ? sz.x: sz.y)  / 2.0;
+    // calculate the correction radius.
+    mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+    // radial correction if nonzero radial coefficients
+    if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+        AddTransform (&radial_shift, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5],
+                     centerShift.x, centerShift.y);
+    }
+}
+
 /** Create a transform stack for distortion & TCA correction only */
-void SpaceTransform::InitCorrect(const SrcPanoImage & src, int channel)
+void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
 {
     double mprad[6];
 

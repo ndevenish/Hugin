@@ -50,6 +50,8 @@ struct _FuncParams
 	double	var3;
 	double	var4;
 	double	var5;
+        double  var6;
+        double  var7;
 	Matrix3	mt;
 };
 
@@ -119,7 +121,15 @@ public :
 		Init( srcSize, srcVars, srcProj, destSize, destProj, destHFOV);
 	}
 
-    void SpaceTransform::InitCorrect(const SrcPanoImage & src, int channel=1);
+    /** transformation for radial correction only
+     */
+    void InitRadialCorrect(const vigra::Size2D & sz, std::vector<double> & radDist, 
+                           const FDiff2D & centerShift);
+
+    /** init radial correction from pano image description and selected channel
+     *  (R=0, G=1, B=2), (TCA corr)
+     */
+    void InitRadialCorrect(const SrcPanoImage & src, int channel=1);
 
     void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
 
@@ -203,9 +213,47 @@ private :
     std::vector<fDescription>	m_Stack;
 
     /// add a new transformation
-    void AddTransform( PT::trfn function_name, double var0, double var1 = 0.0f, double var2 = 0.0f, double var3 = 0.0f, double var4=0.0f, double var5=0.0f );
+    void AddTransform( PT::trfn function_name, double var0, double var1 = 0.0f, double var2 = 0.0f, double var3 = 0.0f, double var4=0.0f, double var5=0.0f, double var6=0.0f, double var7=0.0f );
     void AddTransform( PT::trfn function_name, Matrix3 m, double var0, double var1=0.0f, double var2=0.0f, double var3=0.0f);
 };
+
+/** combine 3rd degree polynomials.
+ *
+ *  Computes new polynomial so that:
+ *   c(x) ~= q(p(x))
+ *  c is also a 3rd degree polynomial, and the expansion is cut after x^3
+ */
+template <class VECTOR>
+void combinePolynom3(const VECTOR & p, const VECTOR & q, VECTOR & c)
+{
+    c[0] = q[0]*(p[2]*(2*p[3]*p[1]+p[2]*p[2])+p[3]*(2*p[3]*p[0]+2*p[2]*p[1])+p[0]*p[3]*p[3]+2*p[1]*p[3]*p[2])
+           +q[1]*(2*p[3]*p[0]+2*p[2]*p[1])+q[2]*p[0];
+
+    c[1] = q[0]*(p[3]*(2*p[3]*p[1]+p[2]*p[2])+2*p[2]*p[2]*p[3]+p[1]*p[3]*p[3])
+            +q[2]*p[1]+q[1]*(2*p[3]*p[1]+p[2]*p[2]);
+
+    c[2] = 3*q[0]*p[3]*p[3]*p[2]+2*q[1]*p[3]*p[2]+q[2]*p[2];
+    c[3] = q[0]*p[3]*p[3]*p[3]+q[1]*p[3]*p[3]+q[2]*p[3]+q[3];
+}
+
+
+/**
+ * \brief Calculate effective scaling factor.
+ *
+ * This function returns the smalles scale factor that has been applied
+ * 
+ * If values < 1 are returned, black borders will occur. In that case the
+ * distortion correction parameters might need to be adjusted to avoid
+ * the black borders.
+ *
+ *
+ * \param coef1  lens distortion coefficients, including d coefficient.
+ * \param width  image width
+ * \param height image height
+ * \return smallest r_corr / r_orig in areas that might lead to black borders.
+ *
+ *****************************************************/
+double estRadialScaleCrop(std::vector<double> coeff, int width, int height);
 
 
 } // namespace PT
