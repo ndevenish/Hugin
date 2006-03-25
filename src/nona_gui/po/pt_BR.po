@@ -3,12 +3,12 @@
 # Copyright (C) 2005 Ademar de Souza Reis Jr.
 # This file is distributed under the same license as the nona package.
 # Ademar de Souza Reis Jr. <ademar@ademar.org>, 2005.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.5rc1\n"
-"Report-Msgid-Bugs-To: ademar@ademar.org\n"
-"POT-Creation-Date: 2005-05-17 17:20+0300\n"
+"Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
+"POT-Creation-Date: 2006-03-23 08:18+0100\n"
 "PO-Revision-Date: 2005-08-19 00:21-0300\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/nona_gui/nona_gui.cpp:133
+#: src/nona_gui/nona_gui.cpp:135
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Detectado erro de sintaxe nos parâmetros, abortando."
 
-#: src/nona_gui/nona_gui.cpp:142
+#: src/nona_gui/nona_gui.cpp:144
 msgid "Specify project source project file"
 msgstr "Especifique a origem do arquivo de projeto"
 
-#: src/nona_gui/nona_gui.cpp:158
+#: src/nona_gui/nona_gui.cpp:160
 msgid "Too many project files specified"
 msgstr "Muitos arquivos de projeto especificados"
 
-#: src/nona_gui/nona_gui.cpp:166
+#: src/nona_gui/nona_gui.cpp:168
 msgid "Could not find project file"
 msgstr "Não foi possível encontrar o arquivo de projeto"
 
-#: src/nona_gui/nona_gui.cpp:175
+#: src/nona_gui/nona_gui.cpp:177
 msgid "Specify output image filename"
 msgstr "Especifique o nome do arquivo de imagem de saída"
 
-#: src/nona_gui/nona_gui.cpp:183
+#: src/nona_gui/nona_gui.cpp:185
 msgid "No project files specified"
 msgstr "Não foram especificados arquivos de projeto"
 
-#: src/nona_gui/nona_gui.cpp:194
+#: src/nona_gui/nona_gui.cpp:201
 msgid "Stitching Panorama"
 msgstr "Montando Panorama"
 
-#: src/nona_gui/nona_gui.cpp:200
+#: src/nona_gui/nona_gui.cpp:207
 #, c-format
 msgid "could not open script : %s"
 msgstr "não foi possível abrir script : %s"
 
-#: src/nona_gui/nona_gui.cpp:206
+#: src/nona_gui/nona_gui.cpp:213
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "erro enquanto parseava script panos: %s"
 
-#: src/nona_gui/nona_gui.cpp:217
+#: src/nona_gui/nona_gui.cpp:224
 msgid "output image size: "
 msgstr "tamanho da imagem de saída: "

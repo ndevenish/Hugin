@@ -83,7 +83,7 @@ public:
     /** Window to Panorama */
     bool UpdatePanorama();
 
-    void VigCorrDialog::panoramaChanged(PT::Panorama &pano);
+    void panoramaChanged(PT::Panorama &pano);
 
 protected:
     void OnOk(wxCommandEvent & e);

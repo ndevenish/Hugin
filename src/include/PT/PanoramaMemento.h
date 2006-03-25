@@ -154,7 +154,7 @@ public:
     double getHFOV() const;
 
     /** set HFOV in degrees */
-    void Lens::setHFOV(double d);
+    void setHFOV(double d);
 
     /** get focal length of lens, it is calculated from the HFOV */
     double getFocalLength() const;
@@ -394,13 +394,13 @@ public:
     void printScriptLine(std::ostream & o) const;
 
     /// return string name of output file format
-    static const std::string & PanoramaOptions::getFormatName(FileFormat f);
+    static const std::string & getFormatName(FileFormat f);
 
     /** returns the FileFormat corrosponding to name.
      *
      *  if name is not recognized, FileFormat::TIFF is returned
      */
-    static FileFormat PanoramaOptions::getFormatFromName(const std::string & name);
+    static FileFormat getFormatFromName(const std::string & name);
 
     /** set panorama width 
      *  Also changes the panorama width, if keepView=true
@@ -428,9 +428,9 @@ public:
     /** set the Projection format and adjust the hfov/vfov
      *  if nessecary
      */
-    void PanoramaOptions::setProjection(ProjectionFormat f);
+    void setProjection(ProjectionFormat f);
 
-    PanoramaOptions::ProjectionFormat PanoramaOptions::getProjection() const
+    PanoramaOptions::ProjectionFormat getProjection() const
     {
         return m_projectionFormat;
     };
@@ -450,9 +450,9 @@ public:
     double getVFOV() const;
 
     /** get maximum possible hfov with current projection */
-    double PanoramaOptions::getMaxHFOV() const;
+    double getMaxHFOV() const;
     /** get maximum possible vfov with current projection */
-    double PanoramaOptions::getMaxVFOV() const;
+    double getMaxVFOV() const;
 
     DestPanoImage getDestImage() const;
 

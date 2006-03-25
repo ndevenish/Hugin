@@ -247,7 +247,7 @@ public:
         };
 
     /// get a complete description of a source image
-    SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const;
+    SrcPanoImage getSrcImage(unsigned imgNr) const;
 
     /// set a panorama image, counting starts with 0
     void setImage(std::size_t nr, PanoImage img)
@@ -549,7 +549,7 @@ protected:
      *
      *  only copies inherited variables
      */
-    void Panorama::updateLensToImages(unsigned int lensNr);
+    void updateLensToImages(unsigned int lensNr);
 
     /** copy lens variables to image variables.
      *  update all images that use lensNr

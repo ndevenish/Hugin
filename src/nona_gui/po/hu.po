@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Nona GUI\n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
+"POT-Creation-Date: 2006-03-23 08:18+0100\n"
 "PO-Revision-Date: 2005-11-06 04:20+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -11,45 +12,44 @@ msgstr ""
 "X-Poedit-Language: Hungarian\n"
 "X-Poedit-Country: HUNGARY\n"
 
-#: src/nona_gui/nona_gui.cpp:133
+#: src/nona_gui/nona_gui.cpp:135
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Szintaktikai hiba található a paraméterben, művelet megszakítása."
 
-#: src/nona_gui/nona_gui.cpp:142
+#: src/nona_gui/nona_gui.cpp:144
 msgid "Specify project source project file"
 msgstr "Projektforrás projektfájl megadása"
 
-#: src/nona_gui/nona_gui.cpp:158
+#: src/nona_gui/nona_gui.cpp:160
 msgid "Too many project files specified"
 msgstr "Túl sok projektfájl van megadva"
 
-#: src/nona_gui/nona_gui.cpp:166
+#: src/nona_gui/nona_gui.cpp:168
 msgid "Could not find project file"
 msgstr "Nem található projektfájl"
 
-#: src/nona_gui/nona_gui.cpp:175
+#: src/nona_gui/nona_gui.cpp:177
 msgid "Specify output image filename"
 msgstr "Kimeneti kép-fájlnév megadása"
 
-#: src/nona_gui/nona_gui.cpp:183
+#: src/nona_gui/nona_gui.cpp:185
 msgid "No project files specified"
 msgstr "Nincs projektfájl megadva"
 
-#: src/nona_gui/nona_gui.cpp:194
+#: src/nona_gui/nona_gui.cpp:201
 msgid "Stitching Panorama"
 msgstr "Panoráma összefűzése"
 
-#: src/nona_gui/nona_gui.cpp:200
+#: src/nona_gui/nona_gui.cpp:207
 #, c-format
 msgid "could not open script : %s"
 msgstr "A szkript nem nyitható meg: %s"
 
-#: src/nona_gui/nona_gui.cpp:206
+#: src/nona_gui/nona_gui.cpp:213
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "Hiba panos tool szkript elemzése közben: %s"
 
-#: src/nona_gui/nona_gui.cpp:217
+#: src/nona_gui/nona_gui.cpp:224
 msgid "output image size: "
 msgstr "kimeneti képméret:"
-
