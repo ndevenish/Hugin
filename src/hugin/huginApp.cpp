@@ -34,6 +34,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
+#include "hugin/PTWXDlg.h"
 
 #include <tiffio.h>
 
@@ -155,6 +156,9 @@ bool huginApp::OnInit()
 {
     DEBUG_TRACE("=========================== huginApp::OnInit() begin ===================");
     SetAppName(wxT("hugin"));
+
+    // register our custom pano tools dialog handlers
+    registerPTWXDlgFcn();
 
     // required by wxHtmlHelpController
     wxFileSystem::AddHandler(new wxZipFSHandler);
