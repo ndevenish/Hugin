@@ -146,7 +146,6 @@ Global
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Unicode.ActiveCfg = Release Unicode|Win32
 		{E974EF12-9647-400A-AF30-1D0E70D1C32C}.Release Unicode.Build.0 = Release Unicode|Win32
 		{AAAA17E6-3037-47E7-B556-DE1112D3237A}.Debug.ActiveCfg = Debug|Win32
-		{AAAA17E6-3037-47E7-B556-DE1112D3237A}.Debug.Build.0 = Debug|Win32
 		{AAAA17E6-3037-47E7-B556-DE1112D3237A}.Release.ActiveCfg = Release|Win32
 		{AAAA17E6-3037-47E7-B556-DE1112D3237A}.Release.Build.0 = Release|Win32
 		{AAAA17E6-3037-47E7-B556-DE1112D3237A}.Release Unicode.ActiveCfg = Release|Win32

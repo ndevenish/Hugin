@@ -92,26 +92,17 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    CPVector cps = pano.getCtrlPoints();
+    // do pairwise optimisation
     set<string> optvars;
     optvars.insert("r");
     optvars.insert("p");
     optvars.insert("y");
-    VariableMapVector newvars = PTools::autoOptimise(pano, optvars, cps, pdisp);
+    PTools::autoOptimise(pano);
 
-    pano.updateVariables(newvars);
+    // do global optimisation
+    PTools::optimize(pano);
 
-    unsigned int nImages = pano.getNrOfImages();
-    OptimizeVector optvec(nImages);
-    // fill optimize vector, just anchor one image.
-    for (unsigned int i=0; i<nImages; i++) {
-        if (i != pano.getOptions().optimizeReferenceImage) {
-            optvec[i].insert("y");
-            optvec[i].insert("p");
-            optvec[i].insert("r");
-        }
-    }
-
+    OptimizeVector optvec = pano.getOptimizeVector();
     UIntSet imgs = pano.getActiveImages();
     if (output != "") {
         ofstream of(output.c_str());
