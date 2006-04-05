@@ -135,21 +135,20 @@ void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
     // take the OptimizeVector from somewhere...
 
     OptimizeVector optvars = getOptimizeVector();
-    PanoramaOptions opts = m_pano->getOptions();
+    m_pano->setOptimizeVector(optvars);
 
-	UIntSet imgs;
-	if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
-		                          HUGIN_USE_SELECTED_IMAGES))
-	{
-		// use only selected images.
-		imgs = m_pano->getActiveImages();
-	} else {
-		for (unsigned int i = 0 ; i < m_pano->getNrOfImages(); i++) {
-			imgs.insert(i);
-		}
-	}
-
-    runOptimizer(optvars, opts, imgs);
+    UIntSet imgs;
+    if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
+                                  HUGIN_USE_SELECTED_IMAGES))
+    {
+        // use only selected images.
+        imgs = m_pano->getActiveImages();
+    } else {
+        for (unsigned int i = 0 ; i < m_pano->getNrOfImages(); i++) {
+                imgs.insert(i);
+        }
+    }
+    runOptimizer(imgs);
 }
 
 
@@ -429,34 +428,136 @@ void OptimizePanel::setOptimizeVector(const OptimizeVector & optvec)
     }
 }
 
-void OptimizePanel::runOptimizer(const OptimizeVector & optvars,
-								 const PanoramaOptions & options,
-								 const UIntSet & imgs)
+void OptimizePanel::runOptimizer(const UIntSet & imgs)
 {
     DEBUG_TRACE("");
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode = m_mode_cb->GetSelection();
+
+    Panorama optPano = m_pano->getSubset(imgs);
+    UIntSet allImg;
+    fill_set(allImg,0, imgs.size()-1);
     if (mode == OPT_PAIRWISE) {
-        OptProgressDialog prog(this);
+
         std::set<std::string> optvars2;
         optvars2.insert("y");
         optvars2.insert("p");
         optvars2.insert("r");
-        CPVector cps = m_pano->getCtrlPoints();
-        VariableMapVector vars = PTools::autoOptimise(*m_pano, optvars2, cps, prog);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateVariablesCPCmd(*m_pano, vars, cps)
-            );
-        // run the usual optimizer afterwards.
-        bool edit = m_edit_cb->IsChecked();
-        PT::UIntSet all;
-        fill_set(all, 0, m_pano->getNrOfImages()-1);
-        new RunOptimizerFrame(this, m_pano, options, optvars, all, edit);
+
+        // remove vertical and horizontal control points
+        CPVector cps = optPano.getCtrlPoints();
+        CPVector newCP;
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) {
+            if (it->mode == ControlPoint::X_Y)
+            {
+                newCP.push_back(*it);
+            }
+        }
+        optPano.setCtrlPoints(newCP);
+
+        // run pairwise optimizer
+        PTools::autoOptimise(optPano);
+#ifdef DEBUG
+        // print optimized script to cout
+        DEBUG_DEBUG("panorama after autoOptimise():");
+        optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
+#endif
+
+        // do global optimisation
+        optPano.setCtrlPoints(cps);
+        PTools::optimize(optPano);
+#ifdef DEBUG
+        // print optimized script to cout
+        DEBUG_DEBUG("panorama after optimise():");
+        optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
+#endif
+
     } else {
-        bool edit = m_edit_cb->IsChecked();
-        new RunOptimizerFrame(this, m_pano, options, optvars, imgs, edit);
+        if (m_edit_cb->IsChecked()) {
+            // show and edit script..
+            ostringstream scriptbuf;
+            optPano.printPanoramaScript(scriptbuf, optPano.getOptimizeVector(), optPano.getOptions(), allImg, true);
+            // open a text dialog with an editor inside
+            wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("edit_script_dialog"));
+            wxTextCtrl *txtCtrl=XRCCTRL(*edit_dlg,"script_edit_text",wxTextCtrl);
+            txtCtrl->SetValue(wxString(scriptbuf.str().c_str(), *wxConvCurrent));
+
+            char * script = 0;
+            if (edit_dlg->ShowModal() == wxID_OK) {
+                script = strdup(txtCtrl->GetValue().mb_str());
+            } else {
+                return;
+            }
+            PTools::optimize(optPano, script);
+            free(script);
+        } else {
+            PTools::optimize(optPano);
+        }
+#ifdef DEBUG
+        // print optimized script to cout
+        DEBUG_DEBUG("panorama after optimise():");
+        optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
+#endif
     }
+
+    // calculate control point errors and display text.
+    if (AskApplyResult(optPano)) {
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
+            );
+    }
+}
+
+bool OptimizePanel::AskApplyResult(const Panorama & pano)
+{
+    // calculate average cp distance
+    double sum_error = 0;
+    double sum_squared_error = 0;
+    double max_error = 0;
+    const CPVector & cps = pano.getCtrlPoints();
+    CPVector::const_iterator it;
+    for (it = cps.begin() ; it != cps.end(); it++) {
+        sum_error += (*it).error;
+        sum_squared_error += (*it).error * (*it).error;
+        if ((*it).error > max_error) {
+            max_error = (*it).error;
+        }
+    }
+    double std_dev = sqrt((cps.size()*sum_squared_error - sum_error*sum_error) / (cps.size()*(cps.size()-1)));
+    double mean_error = sum_error / cps.size();
+
+    // check for HFOV lines. if smaller than 1 report a warning;
+    // also check for high distortion coefficients.
+    bool smallHFOV=false;
+    bool highDist = false;
+    const VariableMapVector & vars = pano.getVariables();
+    for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+    {
+        if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
+        if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
+        if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
+        if (fabs(const_map_get(*it,"c").getValue()) > 0.8) highDist = true;
+    }
+
+    wxString msg;
+    int style=0;
+    if (smallHFOV) {
+        msg.Printf( _("Optimizer run finished.\nWARNING: a very small Field of View (v) has been estimated\n\nThe results are probably invalid.\n\nOptimisation of the Field of View (v) of partial panoramas can lead to bad results.\nTry adding more images and control points.\n\nApply the changes anyway?"));
+        style = wxYES_NO;
+    } else if (highDist) {
+        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\nPlease reset the a,b and c parameters to zero and add more control points\n\nApply the changes anyway?"),
+                   mean_error, std_dev, max_error);
+        style = wxYES_NO | wxICON_EXCLAMATION;
+    } else {
+        msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
+                   mean_error, std_dev, max_error);
+        style = wxYES_NO | wxICON_EXCLAMATION;
+    }
+
+    int id = wxMessageBox(msg,_("Optimisation result"),style);
+
+    return id == wxYES;
 }
 
 

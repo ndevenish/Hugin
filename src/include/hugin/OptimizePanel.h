@@ -82,9 +82,9 @@ protected:
     // called whenever the optimize mode changes
     void OnChangeMode(wxCommandEvent & e);
 
-    void runOptimizer(const PT::OptimizeVector & optvars,
-		              const PT::PanoramaOptions & options, 
-                      const PT::UIntSet & img);
+    void runOptimizer(const PT::UIntSet & img);
+
+    bool AskApplyResult(const PT::Panorama & pano);
 
     wxCheckListBox * m_yaw_list;
     wxCheckListBox * m_pitch_list;
