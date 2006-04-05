@@ -55,7 +55,7 @@ using namespace vigra;
 using namespace utils;
 
 //const Map::data_type & map_get(const Map &m, const Map::key_type & key)
-const Variable & const_map_get(const VariableMap &m, const string & key)
+const PT::Variable & PT::const_map_get(const VariableMap &m, const string & key)
 {
     VariableMap::const_iterator it = m.find(key);
     if (it != m.end()) {
@@ -67,7 +67,7 @@ const Variable & const_map_get(const VariableMap &m, const string & key)
 }
 
 // Map::data_type & map_get( Map &m,  Map::key_type & key)
-Variable & map_get( VariableMap &m, const std::string & key)
+PT::Variable & PT::map_get( VariableMap &m, const std::string & key)
 {
     VariableMap::iterator it = m.find(key);
     if (it != m.end()) {
@@ -79,7 +79,7 @@ Variable & map_get( VariableMap &m, const std::string & key)
 }
 
 // Map::data_type & map_get( Map &m,  Map::key_type & key)
-PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key)
+PT::LensVariable & PT::map_get(PT::LensVarMap &m, const std::string & key)
 {
     LensVarMap::iterator it = m.find(key);
     if (it != m.end()) {
@@ -91,7 +91,7 @@ PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key)
 }
 
 // Map::data_type & map_get( Map &m,  Map::key_type & key)
-const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key)
+const PT::LensVariable & PT::const_map_get(const PT::LensVarMap &m, const std::string & key)
 {
     LensVarMap::const_iterator it = m.find(key);
     if (it != m.end()) {
@@ -530,6 +530,31 @@ void Panorama::centerHorizontically()
 }
 
 
+void Panorama::updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps)
+{
+    unsigned sc = 0;
+    unsigned ic = 0;
+    std::map<unsigned int, unsigned int> script2CPMap;
+    for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
+        if (set_contains(imgs, it->image1Nr) && set_contains(imgs, it->image2Nr)) {
+            script2CPMap[sc] = ic;
+            sc++;
+        }
+        ic++;
+    }
+
+    // need to have same number of control points!
+    assert(cps.size() == script2CPMap.size());
+    unsigned i=0;
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
+        imageChanged(script2CPMap[it->image1Nr]);
+        imageChanged(script2CPMap[it->image2Nr]);
+        state.ctrlPoints[script2CPMap[i]].error = it->error;
+        i++;
+    }
+}
+
+
 void Panorama::updateCtrlPointErrors(const CPVector & cps)
 {
     assert(cps.size() == state.ctrlPoints.size());
@@ -548,6 +573,16 @@ void Panorama::updateVariables(const VariableMapVector & vars)
     for (VariableMapVector::const_iterator it = vars.begin(); it != vars.end(); ++it) {
         updateVariables(i, *it);
         i++;
+    }
+}
+
+void Panorama::updateVariables(const UIntSet & imgs, const VariableMapVector & vars)
+{
+    VariableMapVector::const_iterator v_it = vars.begin();
+    for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
+        assert(*it < state.images.size());
+        updateVariables(*it, *v_it);
+        ++v_it;
     }
 }
 
@@ -787,6 +822,25 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
     state.ctrlPoints[pNr] = point;
 }
 
+void Panorama::setCtrlPoints(const CPVector & points)
+{
+    for (CPVector::const_iterator it = state.ctrlPoints.begin();
+         it != state.ctrlPoints.end(); it++)
+    {
+        imageChanged(it->image1Nr);
+        imageChanged(it->image2Nr);
+    }
+
+    state.ctrlPoints = points;
+
+    for (CPVector::const_iterator it = state.ctrlPoints.begin();
+         it != state.ctrlPoints.end(); it++)
+    {
+        imageChanged(it->image1Nr);
+        imageChanged(it->image2Nr);
+    }
+}
+
 void Panorama::printPanoramaScript(ostream & o,
                                    const OptimizeVector & optvars,
                                    const PanoramaOptions & output,
@@ -847,11 +901,11 @@ void Panorama::printPanoramaScript(ostream & o,
                     && linkAnchors[lensNr] != imageNrMap[imgNr])
                 {
                     // print link
-                    DEBUG_DEBUG("printing link: " << vit->first);
+//                    DEBUG_DEBUG("printing link: " << vit->first);
                     // print link, anchor variable was already printed
                     map_get(lens.variables,vit->first).printLink(o,linkAnchors[lensNr]) << " ";
                 } else {
-                    DEBUG_DEBUG("printing value for linked var " << vit->first);
+//                    DEBUG_DEBUG("printing value for linked var " << vit->first);
                     // first time, print value
                     linkAnchors[lensNr] = imageNrMap[imgNr];
 
@@ -1090,7 +1144,7 @@ void Panorama::parseOptimizerScript(istream & i, const UIntSet & imgs,
     for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
     {
-		unsigned int imgNr = *imgNrIt;
+        unsigned int imgNr = *imgNrIt;
         script2ImgMap[ic] = imgNr;
         ic++;
     }
@@ -1696,6 +1750,53 @@ void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
     opts.m_flatfield = img.getFlatfieldFilename();
     setImageOptions(imgNr, opts);
 }
+
+Panorama Panorama::duplicate() const
+{
+    Panorama pano(*this);
+    pano.observers.clear();
+    return pano;
+}
+
+Panorama Panorama::getSubset(const PT::UIntSet & imgs) const
+{
+    Panorama subset(*this);
+    // clear listeners!
+    subset.observers.clear();
+
+    // create image number map.
+    std::map<unsigned int, unsigned int> imageNrMap;
+
+    // copy images variables and lenses..
+    subset.state.images.clear();
+    subset.state.variables.clear();
+    subset.state.optvec.clear();
+
+    unsigned int ic = 0;
+    for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
+         ++imgNrIt)
+    {
+        subset.state.images.push_back(state.images[*imgNrIt]);
+        subset.state.variables.push_back(state.variables[*imgNrIt]);
+        subset.state.optvec.push_back(state.optvec[*imgNrIt]);
+        imageNrMap[*imgNrIt] = ic;
+        ic++;
+    }
+
+    // select and translate control points.
+    subset.state.ctrlPoints.clear();
+    for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
+        if (set_contains(imgs, it->image1Nr) && set_contains(imgs, it->image2Nr)) {
+            ControlPoint pnt = *it;
+            pnt.image1Nr = imageNrMap[pnt.image1Nr];
+            pnt.image2Nr = imageNrMap[pnt.image2Nr];
+            subset.state.ctrlPoints.push_back(pnt);
+        }
+    }
+
+    return subset;
+}
+
 
 unsigned int PT::calcOptimalPanoWidth(const PanoramaOptions & opt,
                                       const PanoImage & img,

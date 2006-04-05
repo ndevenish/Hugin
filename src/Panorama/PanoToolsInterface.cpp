@@ -654,13 +654,35 @@ PTools::AlignInfoWrap::~AlignInfoWrap()
 
 }
 
-bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
-                                    const PT::UIntVector & imgs,
-                                    const PT::VariableMapVector & variables,
-                                    const PT::CPVector & controlPoints,
-                                    const OptimizeVector & optvec)
+// macro to set optimisation vars without a lot of cut n paste
+#define PT_SET_OPT(n,v) \
+{ if (set_contains(optvec[imgNr], #v )) { \
+    if (set_contains(lens.variables, #v) \
+        && PT::const_map_get(lens.variables, #v ).isLinked()) {\
+        if (set_contains(linkAnchors, lensNr) \
+            && linkAnchors[lensNr] != imgNr) \
+        { \
+            gl.opt[imgNr]. n = linkAnchors[lensNr] + 2; \
+        }else { \
+            gl.opt[imgNr]. n  = 1; \
+            linkAnchors[lensNr] = imgNr; \
+        } \
+    } else { \
+        gl.opt[imgNr]. n = 1; \
+    } \
+} else { \
+    gl.opt[imgNr]. n = 0; \
+} }
+
+
+bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano)
 {
+    const PT::VariableMapVector & variables = pano.getVariables();
+    const PT::CPVector & controlPoints = pano.getCtrlPoints();
+    const OptimizeVector & optvec = pano.getOptimizeVector();
+
     // based on code from ParseScript by H. Dersch
+
 /*
     delete(gl.im);
     delete(gl.opt);
@@ -668,68 +690,52 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
     delete(gl.t);
     delete(gl.cim);
 */
-    gl.im  = NULL;
-    gl.opt = NULL;
-    gl.cpt = NULL;
-    gl.t   = NULL;
-    gl.cim = NULL;
+    if (gl.im) free(gl.im);
+    if (gl.opt) free(gl.opt);
+    if (gl.cpt) free(gl.cpt);
+    if (gl.t) free(gl.t);
+    if (gl.cim) free(gl.cim);
 
     // Determine number of images and control points
-    gl.numIm 	= int(imgs.size());
+    gl.numIm 	= int(variables.size());
     gl.nt 	= 0;
 
+    int optVarCounter=0;
+    // be careful. linked variables should not be specified multiple times.
+    vector<set<string> > linkvars(pano.getNrOfLenses());
 
-    map<int,int> imgMap;
-    int imgCnt=0;
-    gl.numParam = 0;
-    for (UIntVector::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
-        imgMap[*iit] = imgCnt;
-        gl.numParam += int(optvec[imgCnt].size());
-        imgCnt++;
-    }
-
-    m_controlPoints = controlPoints;
-    // find all controls point pairs inside the given images
-    // (stupid implementation)
-    CPVector cps;
-
-    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-        PT::ControlPoint point = *it;
-
-        int matchCount = 0;
-        for (UIntVector::const_iterator iit = imgs.begin(); iit != imgs.end(); ++iit) {
-            if (point.image1Nr == *iit) {
-                matchCount += 1;
-            }
-            if (point.image2Nr == *iit){
-                matchCount += 1;
+    for (unsigned imgNr = 0; imgNr < variables.size(); imgNr++)
+    {
+        unsigned int lensNr = pano.getImage(imgNr).getLensNr();
+        const Lens & lens = pano.getLens(lensNr);
+        const set<string> & optvar = optvec[imgNr];
+        for (set<string>::const_iterator sit = optvar.begin();
+             sit != optvar.end(); ++sit )
+        {
+            if (set_contains(lens.variables,*sit)) {
+                // it is a lens variable
+                if (const_map_get(lens.variables,*sit).isLinked()) {
+                    if (! set_contains(linkvars[lensNr], *sit))
+                    {
+                        // linked, count only once
+                        optVarCounter++;
+                        linkvars[lensNr].insert(*sit);
+                    }
+                } else {
+                    // unlinked lens variable, count as usual
+                    optVarCounter++;
+                }
+            } else {
+                // not a lens variable, count as usual
+                optVarCounter++;
             }
         }
-
-        if (matchCount == 2) {
-            // found a control point.. add to control points list
-            m_ctrlPointMap[int(cps.size())] = it - controlPoints.begin();
-            cps.push_back(point);
-        }
     }
+    gl.numParam = optVarCounter;
 
-    gl.numPts = int(cps.size());
+    gl.numPts = int(controlPoints.size());
 
     // Allocate Space for Pointers to images, preferences and control points
-
-/*
-    gl.im  = new Image[2];
-    gl.opt = new optVars[2];
-    gl.t   = new triangle[0];
-    gl.cim = new CoordInfo[2];
-    gl.cpt = new controlPoint[gl.numPts];
-
-    gl.im  = new Image[gl.numIm];
-    gl.opt = new optVars[gl.numIm];
-    gl.t   = new triangle[gl.nt];
-    gl.cim = new CoordInfo[gl.numIm];
-    gl.cpt = new controlPoint[gl.numPts];
-*/
 
     // use memory allocation routines from pano12.dll
     gl.im  = (Image*)	     malloc( gl.numIm 	* sizeof(::Image) );
@@ -749,51 +755,57 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano,
 
     // Default: Use buffer 'buf' for stitching
     SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );
-    for(int i=0; i<gl.numIm; i++)
+    for(int imgNr=0; imgNr<gl.numIm; imgNr++)
     {
-        SetImageDefaults( &(gl.im[i]) );
-        SetOptDefaults	( &(gl.opt[i]));
-        SetCoordDefaults_copy( &(gl.cim[i]), i);
+        SetImageDefaults( &(gl.im[imgNr]) );
+        SetOptDefaults	( &(gl.opt[imgNr]));
+        SetCoordDefaults_copy( &(gl.cim[imgNr]), imgNr);
     }
 
-    unsigned int cImgNr=0;
-    for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-        const PanoImage & pimg = pano.getImage(*it);
-        const VariableMap & vars = variables[it - imgs.begin()];
+    std::map<unsigned int, unsigned int> linkAnchors;
+    for(int imgNr=0; imgNr<gl.numIm; imgNr++)
+    {
+        const PanoImage & pimg = pano.getImage(imgNr);
+        const VariableMap & vars = variables[imgNr];
+        unsigned lensNr = pimg.getLensNr();
         //pano.getImageVariables(*it);
-        const Lens & lens = pano.getLens(pimg.getLensNr());
+        const Lens & lens = pano.getLens(lensNr);
 
         // set the image information, with pointer to dummy image data
-        setFullImage(gl.im[cImgNr],
+        setFullImage(gl.im[imgNr],
                      Diff2D(pimg.getWidth(), pimg.getHeight()),
                      0, vars, lens.getProjection(), true);
 
         // set optimisation flags
-        setOptVars(gl.opt[cImgNr], optvec[cImgNr]);
-
-        cImgNr++;
+        PT_SET_OPT(hfov, v);
+        PT_SET_OPT(yaw,  y);
+        PT_SET_OPT(pitch, p);
+        PT_SET_OPT(roll, r);
+        PT_SET_OPT(a, a);
+        PT_SET_OPT(b, b);
+        PT_SET_OPT(c, c);
+        PT_SET_OPT(d, d);
+        PT_SET_OPT(e, e);
+        PT_SET_OPT(shear_x, g);
+        PT_SET_OPT(shear_y, t);
     }
 
 
-    for (PT::CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
-        unsigned int i = it - cps.begin();
+    unsigned i=0;
+    for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
         // control point stuff.
         gl.cpt[i].type = it->mode;
-        gl.cpt[i].num[0] = imgMap[it->image1Nr];
+        gl.cpt[i].num[0] = it->image1Nr;
         gl.cpt[i].x[0] = it->x1;
         gl.cpt[i].y[0] = it->y1;
 
-        gl.cpt[i].num[1] = imgMap[it->image2Nr];
+        gl.cpt[i].num[1] = it->image2Nr;
         gl.cpt[i].x[1] = it->x2;
         gl.cpt[i].y[1] = it->y2;
+        i++;
     }
 
-/*
-    if (CheckParams(&gl) != 0) {
-        DEBUG_FATAL("CheckParams error");
-        return false;
-    }
-*/
+
     if( CheckParams_copy( &gl ) != 0 ) {
         DEBUG_FATAL("CheckParams() returned false!");
         return false;
@@ -825,16 +837,54 @@ PT::VariableMapVector PTools::AlignInfoWrap::getVariables() const
     return res;
 }
 
-
-const PT::CPVector & PTools::AlignInfoWrap::getCtrlPoints()
+PT::CPVector PTools::AlignInfoWrap::getCtrlPoints() const
 {
+    PT::CPVector result;
     if (gl.cpt) {
         for (int i = 0; i < gl.numPts; i++) {
-//            m_controlPoints[m_ctrlPointMap[i]].error = sqrt ( PTools::distSquared(i));
-            m_controlPoints[m_ctrlPointMap[i]].error = 0;
-//            res[i] = ControlPoint(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
-//                                  gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].mode[];
+            ControlPoint pnt(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
+                             gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].type);
+            pnt.error = sqrt(distSquared(i));
+            result.push_back(pnt);
         }
     }
-    return m_controlPoints;
+    return result;
+}
+
+
+PT::VariableMapVector PTools::GetAlignInfoVariables(const AlignInfo & gl)
+{
+    VariableMapVector res;
+    if (gl.im) {
+        for (int i = 0; i < gl.numIm; i++) {
+            VariableMap vars;
+            vars.insert(make_pair(string("v"), Variable("v", gl.im[i].hfov)));
+            vars.insert(make_pair(string("y"), Variable("y", gl.im[i].yaw)));
+            vars.insert(make_pair(string("r"), Variable("r", gl.im[i].roll)));
+            vars.insert(make_pair(string("p"), Variable("p", gl.im[i].pitch)));
+            vars.insert(make_pair(string("a"), Variable("a", gl.im[i].cP.radial_params[0][3])));
+            vars.insert(make_pair(string("b"), Variable("b", gl.im[i].cP.radial_params[0][2])));
+            vars.insert(make_pair(string("c"), Variable("c", gl.im[i].cP.radial_params[0][1])));
+
+            vars.insert(make_pair(string("e"), Variable("e", gl.im[i].cP.vertical_params[0])));
+            vars.insert(make_pair(string("d"), Variable("d", gl.im[i].cP.horizontal_params[0])));
+
+            res.push_back(vars);
+        }
+    }
+    return res;
+}
+
+PT::CPVector PTools::GetAlignInfoCtrlPoints(const AlignInfo & gl)
+{
+    PT::CPVector result;
+    if (gl.cpt) {
+        for (int i = 0; i < gl.numPts; i++) {
+            ControlPoint pnt(gl.cpt[i].num[0], gl.cpt[i].x[0], gl.cpt[i].y[0],
+                             gl.cpt[i].num[1], gl.cpt[i].x[1], gl.cpt[i].y[1], (ControlPoint::OptimizeMode) gl.cpt[i].type);
+            pnt.error = sqrt(distSquared(i));
+            result.push_back(pnt);
+        }
+    }
+    return result;
 }

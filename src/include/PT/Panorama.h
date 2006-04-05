@@ -285,7 +285,7 @@ public:
 
 
     /** return the optimize settings stored inside panorama */
-    const OptimizeVector & getOptimizeVector()
+    const OptimizeVector & getOptimizeVector() const
         { return state.optvec; };
 
     /** set optimize setting */
@@ -343,6 +343,9 @@ public:
      */
     void updateVariables(const VariableMapVector & vars);
 
+    /** update variables for some specific images */
+    void updateVariables(const UIntSet & imgs, const VariableMapVector & var);
+
     /** Set variables for a single picture.
      *
      */
@@ -365,6 +368,14 @@ public:
      *  The control points must be the same as in
      */
     void updateCtrlPointErrors(const CPVector & controlPoints);
+
+    /** update control points for a subset of images.
+     *
+     *  Usually, the control point subset is created using subset()
+     *  The number and ordering and control points must not be changed
+     *  between the call to subset() and this function.
+     */
+    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps);
 
     /** add an Image to the panorama
      *
@@ -428,6 +439,9 @@ public:
     /** change a control Point.
      */
     void changeControlPoint(unsigned int pNr, const ControlPoint & point);
+
+    /** set all control points */
+    void setCtrlPoints(const CPVector & points);
 
     //=============================
 
@@ -522,21 +536,34 @@ public:
     bool isDirty() const
         { return dirty; }
 
-	/** mark an image as active or inactive.
-	 *
-	 *  This is only a flag, that can be turned on or off.
-	 *  If an image is marked active, then it should
-	 *  be used for optimizing and stitching.
-	 *
-	 *  However, this is not done automatically. One has
-	 *  to use getActiveImages() to get the numbers of the
-	 *  active images, and pass these to the respective
-	 *  functions that do the stitching or optimisation
-	 */
-	void activateImage(unsigned int imgNr, bool active=true);
+    /** mark an image as active or inactive.
+        *
+        *  This is only a flag, that can be turned on or off.
+        *  If an image is marked active, then it should
+        *  be used for optimizing and stitching.
+        *
+        *  However, this is not done automatically. One has
+        *  to use getActiveImages() to get the numbers of the
+        *  active images, and pass these to the respective
+        *  functions that do the stitching or optimisation
+        */
+    void activateImage(unsigned int imgNr, bool active=true);
 
-	/** get active images */
-	UIntSet getActiveImages() const;
+    /** get active images */
+    UIntSet getActiveImages() const;
+
+    /** get a subset of the panorama
+     *
+     *  This returns a panorama that contains only the images specified by \imgs
+     *  Useful for operations on a subset of the panorama
+     */
+    Panorama getSubset(const PT::UIntSet & imgs) const;
+    
+    /** duplicate the panorama
+     *
+     *  returns a copy of the pano state, except for the listeners.
+     */
+    Panorama duplicate() const;
 
 protected:
 
@@ -610,16 +637,16 @@ unsigned int calcOptimalPanoWidth(const PanoramaOptions & opt,
                                   Lens::LensProjectionFormat imgProj,
                                   vigra::Size2D imgSize);
 
-
-} // namespace
-
-
 // helper functions, workaround for gcc 3.3, which doesn't find
 // the map_get template functions.
 PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key);
 const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key);
 PT::Variable & map_get(PT::VariableMap &m, const std::string & key);
 const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string & key);
+
+} // namespace
+
+
 
 
 #endif // _PANORAMA_H

@@ -839,7 +839,7 @@ static void radial_shift( double x_dest, double y_dest, double* x_src, double* y
 double PT::estRadialScaleCrop(vector<double> coeff, int width, int height)
 {
     double r_test[4];
-    double p, r, r_fixed, fixx, test;
+    double p, r;
     int test_points, i;
     double a, b, c, d;
 

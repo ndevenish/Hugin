@@ -37,23 +37,29 @@
 namespace PTools
 {
 
-#ifdef PT_CUSTOM_OPT
-
-// my optimize function, without pano tools gui hooks.
-int fcnPano2(int m,int n, double * x, double * fvec, int * iflag);
-
-#endif
 
 /** optimize the images \p imgs, for variables \p optvec, using \p vars
  *  as start. saves the control point distances in \p cps.
+ *
+ * \param panorama description
+ * \param imgs vector with all image numbers that should be used.
+ * \param optvect vector of vector of variable names
+ * \param cps control points
+ * \param progDisplay progress display
+ *
+ 
  */
-void optimize(const PT::Panorama & pano,
-                      const PT::UIntVector &imgs,
-                      const PT::OptimizeVector & optvec,
-                      PT::VariableMapVector & vars,
-                      PT::CPVector & cps,
-                      utils::MultiProgressDisplay & progDisplay,
-                      int maxIter=1000);
+void optimize(PT::Panorama & pano,
+              const char * script = 0);
+
+/*
+void optimize_PT(const PT::Panorama & pano,
+                 const PT::UIntVector &imgs,
+                 const PT::OptimizeVector & optvec,
+                 PT::VariableMapVector & vars,
+                 PT::CPVector & cps,
+                 int maxIter=1000);
+*/
 
 /** optimize the images specified in this set.
  *
@@ -69,25 +75,20 @@ void optimize(const PT::Panorama & pano,
 class OptimiseVisitor: public boost::default_bfs_visitor
 {
 public:
-    OptimiseVisitor(const PT::Panorama & pano, const std::set<std::string> & optvec,
-                    PT::VariableMapVector & vars, PT::CPVector & cps,
-                    utils::MultiProgressDisplay & pdisp)
-        : m_pano(pano), m_opt(optvec), m_optVars(vars),
-          m_cps(cps), m_progDisp(pdisp)
+    OptimiseVisitor(PT::Panorama & pano, const std::set<std::string> & optvec)
+        : m_opt(optvec), m_pano(pano)
         {
-            m_optVars = pano.getVariables();
         };
 
     template < typename Vertex, typename Graph >
     void discover_vertex(Vertex v, const Graph & g)
     {
-        PT::UIntVector imgs;
-        imgs.push_back(v);
-        PT::VariableMapVector vars(1);
-        vars[0] = m_optVars[v];
+        PT::UIntSet imgs;
+        imgs.insert(v);
+//        PT::VariableMapVector vars(1);
 #ifdef DEBUG
         std::cerr << "before optim "<< v << " : ";
-        printVariableMap(std::cerr, vars[0]);
+        printVariableMap(std::cerr, m_pano.getImageVariables(v));
         std::cerr << std::endl;
 #endif
 
@@ -99,34 +100,40 @@ public:
         {
             if (*ai != v) {
                 if ( (get(boost::vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
-//            if (m_colors[*ai] != boost::color_traits<boost::default_color_type>::white()) {
                     // image has been already optimized, use as anchor
-                    imgs.push_back(unsigned(*ai));
-                    vars.push_back(m_optVars[*ai]);
+                    imgs.insert(unsigned(*ai));
                     DEBUG_DEBUG("non white neighbour " << (*ai));
-#ifdef DEBUG
-                    std::cerr << "vars " << (*ai) << " : ";
-                    printVariableMap(std::cerr, m_optVars[*ai]);
-                    std::cerr << std::endl;
-#endif
                 } else {
                     DEBUG_DEBUG("white neighbour " << (*ai));
                 }
             }
         }
 
+        // get pano with neighbouring images.
+        PT::Panorama localPano = m_pano.getSubset(imgs);
+
+        // find number of current image in subset
+        unsigned currImg = 0;
+        unsigned cnt=0;
+        for (PT::UIntSet::const_iterator it= imgs.begin(); it != imgs.end(); ++it) {
+            if (v == *it) {
+                currImg = cnt;
+            }
+            cnt++;
+        }
+
         PT::OptimizeVector optvec(imgs.size());
-        optvec[0] = m_opt;
+        optvec[currImg] = m_opt;
+        localPano.setOptimizeVector(optvec);
 
         if ( imgs.size() > 1) {
             DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
 
-            
-            optimize(m_pano, imgs, optvec, vars, m_cps, m_progDisp, 1000);
-            m_optVars[v] = vars[0];
+            optimize(localPano);
+            m_pano.updateVariables(v, localPano.getImageVariables(currImg));
 #ifdef DEBUG
             std::cerr << "after optim " << v << " : ";
-            printVariableMap(std::cerr, m_optVars[v]);
+            printVariableMap(std::cerr, m_pano.getImageVariables(v));
             std::cerr << std::endl;
 #endif
         }
@@ -134,44 +141,24 @@ public:
 
     const PT::VariableMapVector & getVariables() const
     {
-#ifdef DEBUG
-        for ( PT::VariableMapVector::const_iterator it=m_optVars.begin();
-              it != m_optVars.end(); ++it )
-        {
-            std::cerr << "optVars " << (it - m_optVars.begin()) << " ";
-            printVariableMap(std::cerr, *it);
-            std::cerr << std::endl;
-        }
-#endif
-        return m_optVars;
+        return m_pano.getVariables();
     }
-
+/*
     const PT::CPVector & getCtrlPoints() const
-    { return m_cps; }
+    { 
+        return m_cps;
+    }
+*/
 
 private:
-    const PT::Panorama & m_pano;
     const std::set<std::string> & m_opt;
-    PT::VariableMapVector & m_optVars;
-    PT::CPVector & m_cps;
-    utils::MultiProgressDisplay & m_progDisp;
+    PT::Panorama & m_pano;
 };
 
 
 /** autooptimise the panorama (does local optimisation first) */
-PT::VariableMapVector autoOptimise(const PT::Panorama & pano,
-                                   const std::set<std::string> & optvars,
-                                   PT::CPVector & cps,
-                                   utils::MultiProgressDisplay & progDisp);
+void autoOptimise(PT::Panorama & pano);
 
-#ifdef PT_CUSTOM_OPT
-/** can be used to stop the optimiser */
-void stopOptimiser();
-
-// utility function, needed by PanoToolsInterface
-double distSphere( int num );
-double distSquared( int num );
-#endif
 
 } // namespace
 
