@@ -48,6 +48,7 @@
 using namespace vigra;
 using namespace PT;
 using namespace std;
+using namespace utils;
 
 
 /** remap a single image
@@ -326,11 +327,9 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
 static void usage(const char * name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
+         << "version " << PACKAGE_VERSION << endl
          << std::endl
-         << " The following output formats (n option of panotools p script line)" << std::endl
-         << " are supported:"<< std::endl
-         << std::endl
-         << "Usage: " << name  << " [options] inputfile outputfile" << std::endl
+         << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl
          << "      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)" << std::endl
          << "      -b a:b:c:d       Radial distortion coefficents for blue channel, (a, b, c, d)" << std::endl
@@ -350,32 +349,37 @@ static void usage(const char * name)
          << "                        if not specified, a list of possible lenses is displayed" << std::endl
          << "      -d 50            specify focal length in mm, for PTLens database query" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
-         << "      -v               Display version information" << std::endl
-         << "      -h               Display help (this text)" << std::endl;
+         << "      -h               Display help (this text)" << std::endl
+         << "      -o name          set output filename. If more than one image is given," << std::endl
+         << "                        the name will be uses as suffix (default suffix: _corr)" << std::endl
+         << "      -v               Verbose" << std::endl;
 }
 
 
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "g:r:b:f:apm:n:l:d:c:t:vh";
+    const char * optstring = "g:r:b:f:apm:n:l:d:c:t:vho:";
     int o;
     bool verbose_flag = true;
 
     opterr = 0;
 
-    SrcPanoImage c;
     vector<double> vec4(4);
     bool doFlatfield = false;
     bool doVigRadial = false;
     bool doVigAddition = false;
     unsigned nThreads=1;
-
+    unsigned verbose = 0;
+    
+    std::string batchPostfix("_corr");
+    std::string outputFile;
     bool doPTLens = false;
     std::string cameraMaker;
     std::string cameraName;
     std::string lensName;
     float focalLength=0;
+    SrcPanoImage c;
     while ((o = getopt (argc, argv, optstring)) != -1)
         switch (o) {
         case 'r':
@@ -443,15 +447,19 @@ int main(int argc, char *argv[])
             }
             c.setRadialVigCorrCoeff(vec4);
             break;
-        case 'v':
-            std::cerr << "fulla, version " << PACKAGE_VERSION << endl;
         case '?':
         case 'h':
             usage(argv[0]);
             return 1;
         case 't':
-            nThreads = atoi(argv[0]);
-            return 1;
+            nThreads = atoi(optarg);
+            break;
+        case 'o':
+            outputFile = optarg;
+            break;
+        case 'v':
+            verbose++;
+            break;
         default:
             abort ();
         }
@@ -470,74 +478,101 @@ int main(int argc, char *argv[])
         vm = SrcPanoImage::VIGCORR_FLATFIELD;
     if (! doVigAddition)
         vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
-
     c.setVigCorrMode(vm);
-    if (argc - optind != 2) {
-        std::cerr << std::endl << "Error: No or too many input and output files specified" << std::endl <<std::endl;
+
+    unsigned nFiles = argc - optind;
+    if (nFiles == 0) {
+        std::cerr << std::endl << "Error: No input file(s) specified" << std::endl <<std::endl;
         usage(argv[0]);
         return 1;
     }
 
+    // get input images.
+    vector<string> inFiles;
+    vector<string> outFiles;
+    if (nFiles == 1) {
+        if (outputFile.length() !=0) {
+            inFiles.push_back(string(argv[optind]));
+            outFiles.push_back(outputFile);
+        } else {
+            string name = string(argv[optind]);
+            inFiles.push_back(name);
+            string basen = utils::stripExtension(name);
+            outFiles.push_back(basen.append(batchPostfix.append(".").append(getExtension(name))));
+        }
+    } else {
+        // multiple files
+        if (outputFile.length() != 0) {
+            batchPostfix = outputFile;
+        }
+        for (int i = optind; i < argc; i++) {
+            string name = string(argv[i]);
+            inFiles.push_back(name);
+            outFiles.push_back(stripExtension(name) + batchPostfix + "." + getExtension(name));
+        }
+    }
 
-    // load input image.
-
-    const char * inputFile = argv[optind];
-    const char * outputFile = argv[optind+1];
-
-    c.setFilename(inputFile);
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
     utils::StreamMultiProgressDisplay pdisp(cout);
 
+    if (nThreads == 0) nThreads = 1;
+    vigra_ext::ThreadManager::get().setNThreads(nThreads);
+
     try {
-        if (nThreads == 0) nThreads = 1;
-        vigra_ext::ThreadManager::get().setNThreads(nThreads);
+        vector<string>::iterator outIt = outFiles.begin();
+        for (vector<string>::iterator inIt = inFiles.begin(); inIt != inFiles.end() ; ++inIt, ++outIt)
+        {
+            if (verbose > 0) {
+                cerr << "Correcting " << *inIt << " -> " << *outIt << endl;
+            }
+            c.setFilename(*inIt);
 
-        // load the input image
-        vigra::ImageImportInfo info(inputFile);
-        const char * pixelType = info.getPixelType();
-        int bands = info.numBands();
-        int extraBands = info.numExtraBands();
+            // load the input image
+            vigra::ImageImportInfo info(inIt->c_str());
+            const char * pixelType = info.getPixelType();
+            int bands = info.numBands();
+            int extraBands = info.numExtraBands();
 
-        // if ptlens support required, load database
-        if (doPTLens) {
-            if (getPTLensCoef(inputFile, cameraMaker.c_str(), cameraName.c_str(),
-                lensName.c_str(), focalLength, vec4)) 
-            {
-                c.setRadialDistortion(vec4);
+            // if ptlens support required, load database
+            if (doPTLens) {
+                if (getPTLensCoef(inIt->c_str(), cameraMaker.c_str(), cameraName.c_str(),
+                    lensName.c_str(), focalLength, vec4)) 
+                {
+                    c.setRadialDistortion(vec4);
+                } else {
+                    cerr << "Error: could not extract correction parameters from PTLens database" << endl;
+                    return 1;
+                }
+            }
+            c.setSize(info.size());
+            // stitch the pano with a suitable image type
+            if (bands == 3 || bands == 4 && extraBands == 1) {
+                // TODO: add more cases
+                if (strcmp(pixelType, "UINT8") == 0) {
+                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), pdisp);
+                } else if (strcmp(pixelType, "UINT16") == 0) {
+                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), pdisp);
+                } else if (strcmp(pixelType, "INT16") == 0) {
+                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), pdisp);
+                } else if (strcmp(pixelType, "UINT32") == 0) {
+                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), pdisp);
+                } else if (strcmp(pixelType, "FLOAT") == 0) {
+                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), pdisp);
+                } else if (strcmp(pixelType, "DOUBLE") == 0) {
+                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), pdisp);
+                }
             } else {
+                DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
+                throw std::runtime_error("unsupported depth, only 3 channels images are supported");
                 return 1;
             }
         }
-        c.setSize(info.size());
-        // stitch the pano with a suitable image type
-        if (bands == 3 || bands == 4 && extraBands == 1) {
-            // TODO: add more cases
-            if (strcmp(pixelType, "UINT8") == 0) {
-                correctRGB<RGBValue<UInt8> >(c, info, outputFile, pdisp);
-            } else if (strcmp(pixelType, "UINT16") == 0) {
-                correctRGB<RGBValue<UInt16> >(c, info, outputFile, pdisp);
-            } else if (strcmp(pixelType, "INT16") == 0) {
-                correctRGB<RGBValue<Int16> >(c, info, outputFile, pdisp);
-            } else if (strcmp(pixelType, "UINT32") == 0) {
-                correctRGB<RGBValue<UInt32> >(c, info, outputFile, pdisp);
-            } else if (strcmp(pixelType, "FLOAT") == 0) {
-                correctRGB<RGBValue<float> >(c, info, outputFile, pdisp);
-            } else if (strcmp(pixelType, "DOUBLE") == 0) {
-                correctRGB<RGBValue<double> >(c, info, outputFile, pdisp);
-            }
-        } else {
-            DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
-            throw std::runtime_error("unsupported depth, only 3 channels images are supported");
-            return 1;
-        }
-
     } catch (std::exception & e) {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
-
     return 0;
 }
