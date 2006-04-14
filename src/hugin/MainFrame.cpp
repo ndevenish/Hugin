@@ -694,17 +694,17 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
                 new wxAddImagesCmd(pano,filesv)
                 );
         }
+        DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
+        // save the image extension
+        switch ( dlg.GetFilterIndex() ) {
+        case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
+        case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
+        case 2: config->Write(wxT("lastImageType"), wxT("all files")); break;
+        }
+
     } else {
         // nothing to open
         SetStatusText( _("Add Image: cancel"));
-    }
-
-    DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() )
-    // save the image extension
-    switch ( dlg.GetFilterIndex() ) {
-      case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
-      case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
-      case 2: config->Write(wxT("lastImageType"), wxT("all files")); break;
     }
 
     DEBUG_TRACE("");
@@ -929,9 +929,8 @@ void MainFrame::DisplayHelp(wxString section)
     if (m_help == 0)
     {
         // find base filename
-        wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT(".htb");
+        wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
         DEBUG_INFO("help file candidate: " << helpFile.mb_str());
-    #ifndef __WXMAC__
         //if the language is not default, load custom About file (if exists)
         wxString strFile = m_xrcPrefix + wxT("data/") + helpFile;
         if(wxFile::Exists(strFile))
@@ -939,19 +938,9 @@ void MainFrame::DisplayHelp(wxString section)
             DEBUG_TRACE("Using About: " << strFile.mb_str());
         } else {
             // try default
-            strFile = m_xrcPrefix + wxT("data/help_en_EN.htb");
+            strFile = m_xrcPrefix + wxT("data/help_en_EN/hugin.hhp");
         }
-    #else
-        // FIXME: search for the localized help file in the bundle, like above.
-        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help.htb"));
-        if(wxFile::Exists(strFile))
-        {
-            DEBUG_TRACE("Using About: " << strFile.mb_str());
-        } else {
-            // try default
-            wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help_en_EN.htb"));
-        }
-    #endif
+
         if(!wxFile::Exists(strFile))
         {
             wxLogError(wxString::Format(wxT("Could not open help file: %s"), strFile.c_str()));
