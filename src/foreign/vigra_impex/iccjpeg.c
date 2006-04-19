@@ -20,6 +20,8 @@
  * license.
  */
 
+#ifdef HasJPEG
+
 #include "iccjpeg.h"
 #include <stdlib.h>			/* define malloc() */
 
@@ -249,3 +251,5 @@ read_icc_profile (j_decompress_ptr cinfo,
 
   return TRUE;
 }
+
+#endif
