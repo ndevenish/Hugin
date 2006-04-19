@@ -421,7 +421,7 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
     progress.setMessage("estimating vignetting polynom");
 
     // extract vignetting coefficients..
-    boost::numeric::ublas::vector<double> vigCoeff(3);
+    std::vector<double> vigCoeff(3);
     vigCoeff[0] = 0;
     vigCoeff[1] = 0;
     vigCoeff[2] = 0;

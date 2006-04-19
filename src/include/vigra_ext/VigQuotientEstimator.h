@@ -6,6 +6,18 @@
 #include "RansacParameterEstimator.h"
 
 #include <iostream>
+
+#include <boost/random.hpp>
+
+#include <vigra_ext/ROIImage.h>
+
+#include "ransac.h"
+
+
+//#define USE_UBLAS
+
+#ifdef USE_UBLAS
+
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/operation.hpp>
 #include <boost/numeric/ublas/vector_proxy.hpp>
@@ -13,11 +25,12 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
 #include <boost/numeric/ublas/io.hpp>
-#include <boost/random.hpp>
 
-#include <vigra_ext/ROIImage.h>
+#else
 
-#include "ransac.h"
+#include "common/lu.h"
+
+#endif
 
 namespace vigra_ext
 {
@@ -83,7 +96,12 @@ protected:
 
 public:
 
+#ifdef USE_UBLAS
     typedef boost::numeric::ublas::vector<double> Param;
+#else
+    typedef std::vector<double> Param;
+//    typedef double[3] Param;
+#endif
 
     VigQuotientEstimator (double delta)
     : RansacParameterEstimator(3), m_delta(delta)
@@ -112,9 +130,11 @@ public:
             return false;
         }
         // estimate point
-        
-        // create linear equation 
+
+
+#ifdef USE_UBLAS
         p.resize(n);
+        // create linear equation 
         boost::numeric::ublas::permutation_matrix<size_t> permut(n);
         boost::numeric::ublas::matrix<double> A(n,n);
 
@@ -142,6 +162,30 @@ public:
              return false;
          }
          return true;
+#else
+         p.resize(n);
+         double matrix[n*(n+1)];
+         for (unsigned i = 0; i < n; i++) {
+             double r1sq = data[i]->r1 * data[i]->r1;
+             double r2sq = data[i]->r2 * data[i]->r2;
+             double r1f = r1sq;
+             double r2f = r2sq;
+             for (unsigned j=0;j < n; j++) {
+                 matrix[i + j*n] = r2f - r1f;
+                 r1f*=r1sq;
+                 r2f*=r2sq;
+             }
+             double c = (data[i]->i1 / data[i]->i2);
+             matrix[i + n*n] =  1 - c;
+         }
+
+         double sol[3];
+         bool ok =math_lu_solve(matrix, sol, n);
+         p[0] = sol[0];
+         p[1] = sol[1];
+         p[2] = sol[2];
+         return ok;
+#endif
     }
 
 
@@ -164,6 +208,8 @@ public:
         if(data.size() < n) {
             return false;
         }
+        
+#ifdef USE_UBLAS
         // calculate least squares, based on pseudoinverse.
         // A'A x = A' b.
         boost::numeric::ublas::permutation_matrix<size_t> permut(n);
@@ -215,8 +261,29 @@ public:
 //            std::cout << "lms solution: AtA (after solve):" << AtA << std::endl << "p: " << p << std::endl;
         } catch (boost::numeric::ublas::singular){
              return false;
-         }
-         return true;
+        }
+        return true;
+#else
+        utils::LMS_Solver solver(n);
+        double Arow[n];
+        for(unsigned k=0; k < data.size(); k++) {
+            // calculate one row of A
+            double Arow[n];
+            double r1sq = data[k]->r1 * data[k]->r1;
+            double r2sq = data[k]->r2 * data[k]->r2;
+            double r1f = r1sq;
+            double r2f = r2sq;
+            for (unsigned j=0;j < n; j++) {
+                Arow[j] = r2f - r1f;
+                r1f*=r1sq;
+                r2f*=r2sq;
+            }
+            double c = (data[k]->i1 / data[k]->i2);
+            double bRow =  1 - c;
+            solver.addRow(&Arow[0], bRow);
+        }
+        return solver.solve(p);
+#endif
     }
 
     /**
@@ -333,7 +400,7 @@ void extractRandomPoints(std::vector<vigra_ext::ROIImage<ImageType, vigra::BImag
 VigQuotientEstimateResult
 optimizeVignettingQuotient(const std::vector<PointPair> & points,
                            double ransacDelta,
-                           boost::numeric::ublas::vector<double> & vigCoeff)
+                           std::vector<double> & vigCoeff)
 {
     VigQuotientEstimateResult res;
 
