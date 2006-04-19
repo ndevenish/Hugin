@@ -130,7 +130,7 @@ public:
                          vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
 
-    void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
+    void createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
 
     /** create image->pano transformation
      *
@@ -162,6 +162,9 @@ public:
                             const PT::PanoramaOptions & dest,
                             vigra::Diff2D srcSize=vigra::Diff2D(0,0));
 
+    /** create image->pano transformation */
+    void createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
+
     /** excecute transform
      */
     void transform(double & x_dest, double & y_dest,
@@ -184,6 +187,11 @@ public:
             execute_stack(x_src, y_src, &x_dest, &y_dest, params);
             x_dest += m_destTX - 0.5;
             y_dest += m_destTY - 0.5;
+        }
+
+    void transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
+        {
+            transformImgCoord(dest.x, dest.y, src.x, src.y);
         }
 
     void transform(FDiff2D& dest, const FDiff2D & src) const
@@ -304,7 +312,7 @@ public:
 
     /** get the variables stored in this AlignInfo */
     PT::VariableMapVector getVariables() const;
-    PT::CPVector AlignInfoWrap::getCtrlPoints() const;
+    PT::CPVector getCtrlPoints() const;
 
 //    std::map<int,int> m_ctrlPointMap;
 //    PT::CPVector m_controlPoints;

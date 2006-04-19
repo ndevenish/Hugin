@@ -34,10 +34,13 @@
 #include <common/math.h>
 
 #include <PT/PanoramaMemento.h>
-
 #include <PT/Panorama.h>
+//#include <PT/SpaceTransform.h>
+
 
 #include <vigra/impex.hxx>
+
+#include <PT/PanoToolsInterface.h>
 
 using namespace PT;
 using namespace std;
@@ -463,9 +466,16 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
+    PanoramaOptions copy(*this);
+    copy.m_projectionFormat = f;
+    // correct fov
+    double hfov = std::min(getHFOV(), copy.getMaxHFOV());
+    double vfov = std::min(getVFOV(), copy.getMaxVFOV());
+    setHFOV(hfov, false);
+    setVFOV(vfov);
     m_projectionFormat = f;
-    // correct hfov.
-    setHFOV(std::min(getHFOV(), getMaxHFOV()));
+    setHFOV(hfov, false);
+    setVFOV(vfov);    
 }
 
 void PanoramaOptions::setWidth(unsigned int w, bool keepView)
@@ -473,15 +483,20 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
     double vfov;
     if (keepView)
         vfov = getVFOV();
-    m_width = w;
+    m_size.x = w;
     if (keepView) {
         setVFOV(std::min(vfov, getMaxVFOV()));
     }
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << getVFOV());
+    // reset roi
+    m_roi=vigra::Rect2D(m_size);
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << getVFOV());
 }
 
 void PanoramaOptions::setHFOV(double h, bool keepView)
 {
+    if (h <= 0) {
+        h = 1;
+    }
     double vfov;
     if (keepView) {
         vfov = getVFOV();
@@ -494,36 +509,70 @@ void PanoramaOptions::setHFOV(double h, bool keepView)
 
 void PanoramaOptions::setHeight(unsigned int h) 
 {
-    m_height = h;
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << getVFOV());
+    if (h == 0) {
+        h = 1;
+    }
+    m_size.y = h;
+    // reset roi
+    m_roi=vigra::Rect2D(m_size);
+
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi:" << m_roi << "  => vfov: " << getVFOV());
 }
 
 void PanoramaOptions::setVFOV(double VFOV)
 {
-    switch (m_projectionFormat) {
-        case RECTILINEAR:
-        {
-            m_height =  utils::roundi( m_width * tan(DEG_TO_RAD(VFOV)/2.0) / tan(DEG_TO_RAD(m_hfov)/2.0));
-            break;
-        }
-        case CYLINDRICAL:
-        {
-            double f = (double)m_width / DEG_TO_RAD(m_hfov);
-            m_height = utils::roundi(2.0 * tan(DEG_TO_RAD(VFOV)/2.0) * f);
-            break;
-        }
-        case EQUIRECTANGULAR:
-            m_height = utils::roundi(m_width * VFOV/m_hfov);
-            break;
-        case FULL_FRAME_FISHEYE:
-            m_height = utils::roundi(m_width * VFOV/m_hfov);
-            break;
+    if (VFOV <= 0) {
+        VFOV = 1;
     }
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << VFOV);
+    // TODO: create transform from equirect to target projection and
+    // set additional
+    PTools::Transform transf;
+    SrcPanoImage src;
+    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
+    src.setHFOV(360);
+    src.setSize(vigra::Size2D(360,180));
+    transf.createInvTransform(src, *this);
+
+    FDiff2D pmiddle;
+    
+    if (VFOV>180 && getMaxVFOV() > 180) {
+        // we have crossed the pole
+        transf.transform(pmiddle, FDiff2D(180, 180-VFOV/2 - 0.01));
+    } else {
+        transf.transform(pmiddle, FDiff2D(0, VFOV/2));
+    }
+    m_size.y = roundi(2*pmiddle.y);
+
+    // reset roi
+    m_roi=vigra::Rect2D(m_size);
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
+
 }
 
 double PanoramaOptions::getVFOV() const
 {
+    // calcuale VFOV based on current panorama
+    PTools::Transform transf;
+    SrcPanoImage src;
+    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
+    src.setHFOV(360);
+    src.setSize(vigra::Size2D(360,180));
+    transf.createTransform(src, *this);
+
+    FDiff2D pmiddle;
+    FDiff2D pcorner;
+    transf.transform(pmiddle, FDiff2D(0, m_size.y/2.0));
+//    transf.transform(pcorner, FDiff2D(m_size.x/2.0, m_size.y/2.0));
+    double VFOV;
+    if (pmiddle.x > 90 ||pmiddle.y < -90) {
+        // the pole has been crossed
+        VFOV = 2*(180-pmiddle.y);
+    } else {
+        VFOV = 2*pmiddle.y;
+    }
+    //double VFOV = 2.0*std::max(pcorner.y, pmiddle.y);
+
+    /*
     double VFOV;
     switch (m_projectionFormat) {
         case PanoramaOptions::RECTILINEAR:
@@ -539,13 +588,17 @@ double PanoramaOptions::getVFOV() const
             break;
         }
         case PanoramaOptions::EQUIRECTANGULAR:
+            // FIXME: This is wrong!
+        case TRANSVERSE_MERCATOR:
+        case MERCATOR:
             VFOV = m_hfov * m_height / m_width;
             break;
         case PanoramaOptions::FULL_FRAME_FISHEYE:
             VFOV = m_hfov * m_height / m_width;
             break;
     }
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " w: " << m_width << " h: " << m_height << "  => vfov: " << VFOV);
+    */
+    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
     return VFOV;
 }
 
@@ -554,15 +607,19 @@ double PanoramaOptions::getMaxHFOV() const
     switch (m_projectionFormat)
     {
         case RECTILINEAR:
-            return 179;
+        case TRANSVERSE_MERCATOR:
+        case TRANSVERSE_CYLINDRICAL:
+            return 175;
+        case STEREOGRAPHIC:
+            return 355;
         case CYLINDRICAL:
         case EQUIRECTANGULAR:
         case FULL_FRAME_FISHEYE:
+        case MERCATOR:
+        case SINUSOIDAL:
+        default:
             return 360;
     }
-    // strange, MSVC complains about not all control paths return a value.
-    // all projection formats are specifed in the switch ...
-    return 179.0;
 }
 
 double PanoramaOptions::getMaxVFOV() const
@@ -571,15 +628,19 @@ double PanoramaOptions::getMaxVFOV() const
     {
         case RECTILINEAR:
         case CYLINDRICAL:
-            return 179;
+        case MERCATOR:
+            return 175;
+        default:
         case EQUIRECTANGULAR:
+        case SINUSOIDAL:
             return 180;
+        case STEREOGRAPHIC:
+        case TRANSVERSE_MERCATOR:
+            return 355;
         case FULL_FRAME_FISHEYE:
+        case TRANSVERSE_CYLINDRICAL:
             return 360;
     }
-    // strange, MSVC complains about not all control paths return a value.
-    // all projection formats are specifed in the switch ...
-    return 179.0;
 }
 
 DestPanoImage PanoramaOptions::getDestImage() const

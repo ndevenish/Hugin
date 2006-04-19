@@ -38,11 +38,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxmsw26d_xrc.lib wxmsw26d_html.lib wxmsw26d_adv.lib wxmsw26d_core.lib wxbase26d_xml.lib wxbase26d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib pano12.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
+				AdditionalDependencies="wxmsw26d_xrc.lib wxmsw26d_html.lib wxmsw26d_adv.lib wxmsw26d_core.lib wxbase26d_xml.lib wxbase26d.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexd.lib wxexpatd.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib winspool.lib winmm.lib shell32.lib comctl32.lib ole32.lib oleaut32.lib uuid.lib rpcrt4.lib advapi32.lib wsock32.lib oleacc.lib odbc32.lib"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12;..\..\..\libs\boost\stage\lib"
+				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\boost\stage\lib"
 				IgnoreDefaultLibraryNames="libcd.lib,libcid.lib,msvcrt.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/xmldemo.pdb"
@@ -312,6 +312,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 				RelativePath=".\PTStitcherPanel.cpp">
 			</File>
 			<File
+				RelativePath=".\PTWXDlg.cpp">
+			</File>
+			<File
 				RelativePath=".\RunOptimizerFrame.cpp">
 			</File>
 			<File
@@ -431,6 +434,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			</File>
 			<File
 				RelativePath="..\include\hugin\PTStitcherPanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\PTWXDlg.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\RunOptimizerFrame.h">

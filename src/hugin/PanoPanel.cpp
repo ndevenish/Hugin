@@ -58,10 +58,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_SIZE   ( PanoPanel::OnSize )
     EVT_CHOICE ( XRCID("stitch_quick_mode"),PanoPanel::QuickModeChanged )
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )
-    EVT_SPINCTRL ( XRCID("pano_val_hfov"),PanoPanel::HFOVChangedSpin )
-    EVT_TEXT_ENTER( XRCID("pano_val_hfov"),PanoPanel::HFOVChanged )
-    EVT_SPINCTRL ( XRCID("pano_val_vfov"),PanoPanel::VFOVChangedSpin )
-    EVT_TEXT_ENTER( XRCID("pano_val_vfov"),PanoPanel::VFOVChanged )
+    EVT_TEXT_ENTER( XRCID("pano_text_hfov"),PanoPanel::HFOVChanged )
+    EVT_TEXT_ENTER( XRCID("pano_text_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
@@ -85,14 +83,14 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     // get gui controls
     m_ProjectionChoice = XRCCTRL(*this, "pano_choice_pano_type" ,wxChoice);
     DEBUG_ASSERT(m_ProjectionChoice);
-    m_HFOVSpin = XRCCTRL(*this, "pano_val_hfov" ,wxSpinCtrl);
-    DEBUG_ASSERT(m_HFOVSpin);
+    m_HFOVText = XRCCTRL(*this, "pano_text_hfov" ,wxTextCtrl);
+    DEBUG_ASSERT(m_HFOVText);
     m_CalcHFOVButton = XRCCTRL(*this, "pano_button_calc_fov" ,wxButton);
     DEBUG_ASSERT(m_CalcHFOVButton);
-    m_HFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
-    m_VFOVSpin = XRCCTRL(*this, "pano_val_vfov" ,wxSpinCtrl);
-    DEBUG_ASSERT(m_VFOVSpin);
-    m_VFOVSpin->PushEventHandler(new TextKillFocusHandler(this));
+    m_HFOVText->PushEventHandler(new TextKillFocusHandler(this));
+    m_VFOVText = XRCCTRL(*this, "pano_text_vfov" ,wxTextCtrl);
+    DEBUG_ASSERT(m_VFOVText);
+    m_VFOVText->PushEventHandler(new TextKillFocusHandler(this));
 
 
     m_WidthTxt = XRCCTRL(*this, "pano_val_width", wxTextCtrl);
@@ -153,8 +151,8 @@ PanoPanel::~PanoPanel(void)
     DEBUG_TRACE("dtor");
     wxConfigBase::Get()->Write(wxT("Stitcher/DefaultStitcher"),m_StitcherChoice->GetSelection());
 
-    m_HFOVSpin->PopEventHandler(true);
-    m_VFOVSpin->PopEventHandler(true);
+    m_HFOVText->PopEventHandler(true);
+    m_VFOVText->PopEventHandler(true);
     m_WidthTxt->PopEventHandler(true);
     pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
@@ -198,28 +196,16 @@ void PanoPanel::panoramaChanged (PT::Panorama &pano)
 void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 {
 
-    switch (opt.getProjection()) {
-    case PanoramaOptions::RECTILINEAR:
-        m_HFOVSpin->SetRange(1,179);
-        m_VFOVSpin->SetRange(1,179);
-        break;
-    case PanoramaOptions::CYLINDRICAL:
-        m_HFOVSpin->SetRange(1,360);
-        m_VFOVSpin->SetRange(1,179);
-        break;
-    case PanoramaOptions::EQUIRECTANGULAR:
-        m_HFOVSpin->SetRange(1,360);
-        m_VFOVSpin->SetRange(1,180);
-        break;
-    case PanoramaOptions::FULL_FRAME_FISHEYE:
-        m_HFOVSpin->SetRange(1,360);
-        m_VFOVSpin->SetRange(1,360);
-        break;
-    }
+//    m_HFOVSpin->SetRange(1,opt.getMaxHFOV());
+//    m_VFOVSpin->SetRange(1,opt.getMaxVFOV());
 
     m_ProjectionChoice->SetSelection(opt.getProjection());
-    m_HFOVSpin->SetValue(roundi(opt.getHFOV()));
-    m_VFOVSpin->SetValue(roundi(opt.getVFOV()));
+
+    std::string val;
+    val = doubleToString(opt.getHFOV(),1);
+    m_HFOVText->SetValue(wxString(val.c_str(), *wxConvCurrent));
+    val = doubleToString(opt.getVFOV(),1);
+    m_VFOVText->SetValue(wxString(val.c_str(), *wxConvCurrent));
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightStaticText->SetLabel(wxString::Format(wxT("%d"), opt.getHeight()));
@@ -242,11 +228,26 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
-    int hfov = m_HFOVSpin->GetValue() ;
 
-    DEBUG_ASSERT(hfov >= 0 && hfov <= 360);
 
-    opt.setHFOV(utils::round(hfov));
+    wxString text = e.GetString();
+    DEBUG_INFO ("HFOV = " << text );
+    if (text == wxT("")) {
+        return;
+    }
+
+    double hfov;
+    if (!str2double(text, hfov)) {
+        wxLogError(_("Value must be numeric."));
+        return;
+    }
+
+    if ( hfov <=0 || hfov > opt.getMaxHFOV()) {
+        wxLogError(wxString::Format(
+            _("Invalid HFOV value. Maxiumum HFOV for this projection is %lf."),
+            opt.getMaxHFOV()));
+    }
+    opt.setHFOV(hfov);
     // recalculate panorama height...
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
@@ -255,22 +256,39 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
     DEBUG_INFO ( "new hfov: " << hfov )
 }
 
-void PanoPanel::HFOVChangedSpin ( wxSpinEvent & e )
+void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
-    int hfov = m_HFOVSpin->GetValue() ;
 
-    DEBUG_ASSERT(hfov >= 0 && hfov <= 360);
+    wxString text = e.GetString();
+    DEBUG_INFO ("VFOV = " << text.mb_str() );
+    if (text == wxT("")) {
+        return;
+    }
 
-    opt.setHFOV(utils::round(hfov));
+    double vfov;
+    if (!str2double(text, vfov)) {
+        wxLogError(_("Value must be numeric."));
+        return;
+    }
+
+    if ( vfov <=0 || vfov > opt.getMaxVFOV()) {
+        wxLogError(wxString::Format(
+            _("Invalid VFOV value. Maximum VFOV for this projection is %lf."),
+            opt.getMaxVFOV()));
+        vfov = opt.getMaxVFOV();
+    }
+    opt.setVFOV(vfov);
+    // recalculate panorama height...
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
 
-    DEBUG_INFO ( "new hfov: " << hfov )
+    DEBUG_INFO ( "new vfov: " << vfov )
 }
 
+/*
 void PanoPanel::VFOVChanged ( wxCommandEvent & e )
 {
     DEBUG_TRACE("")
@@ -288,25 +306,7 @@ void PanoPanel::VFOVChanged ( wxCommandEvent & e )
         DEBUG_DEBUG("not setting same fov");
     }
 }
-
-void PanoPanel::VFOVChangedSpin ( wxSpinEvent & e )
-{
-    DEBUG_TRACE("")
-    if (updatesDisabled) return;
-    PanoramaOptions opt = pano.getOptions();
-    int vfov = m_VFOVSpin->GetValue() ;
-
-    if (vfov != opt.getVFOV()) {
-        opt.setVFOV(vfov);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd( pano, opt )
-            );
-        DEBUG_INFO ( "new vfov: " << vfov << " => height: " << opt.getHeight() );
-    } else {
-        DEBUG_DEBUG("not setting same fov");
-    }
-}
-
+*/
 
 void PanoPanel::WidthChanged ( wxCommandEvent & e )
 {
@@ -502,10 +502,11 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
 
-    FDiff2D fov = pano.calcFOV();
+    double hfov, height;
+    pano.fitPano(hfov, height);
     PanoramaOptions opt = pano.getOptions();
-    opt.setHFOV(utils::round(fov.x));
-    opt.setVFOV(utils::round(fov.y));
+    opt.setHFOV(hfov);
+    opt.setHeight(roundi(height));
 
     DEBUG_INFO ( "hfov: " << opt.getHFOV() << "  w: " << opt.getWidth() << " h: " << opt.getHeight() << "  => vfov: " << opt.getVFOV()  << "  before update");
 
@@ -522,21 +523,18 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 unsigned PanoPanel::CalcOptimalWidth()
 {
     PanoramaOptions opt = pano.getOptions();
-    unsigned width = 0;
+    double scale = 0;
     for (unsigned i = 0; i < pano.getNrOfImages(); i++) {
         PT::PanoImage img = pano.getImage(i);
         PT::ImageOptions iopt = img.getOptions();
         // get hfov
         double v = const_map_get(pano.getImageVariables(i),"v").getValue();
-        unsigned nw = calcOptimalPanoWidth(opt, img, v,
-                                           pano.getLens(img.getLensNr()).getProjection(),
-                                           vigra::Size2D(img.getWidth(), img.getHeight())
-                                          );
-        if (nw > width) {
-            width = nw;
+        double s = calcOptimalPanoScale(pano.getSrcImage(i), opt);
+        if (scale < s) {
+            scale = s;
         }
     }
-    return width;
+    return roundi(scale * opt.getWidth());
 }
 
 

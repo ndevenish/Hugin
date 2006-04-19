@@ -269,7 +269,33 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
                     Diff2D(img.getWidth(), img.getHeight()));
 }
 
-void Transform::createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest)
+void Transform::createInvTransform(const SrcPanoImage & src, const PanoramaOptions & dest)
+{
+    VariableMap vars;
+    // not very nice, but I don't like to change all the stuff in this file..
+    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+
+    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+
+    createInvTransform(src.getSize(),
+                       vars,
+                       (Lens::LensProjectionFormat) src.getProjection(),
+                       dest.getSize(),
+                       dest.getProjection(),
+                       dest.getHFOV(),
+                       src.getSize());
+}
+
+void Transform::createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
 {
 
     VariableMap vars;
@@ -291,7 +317,7 @@ void Transform::createTransform(const PT::SrcPanoImage & src, const PT::DestPano
                     vars,
                     (Lens::LensProjectionFormat) src.getProjection(),
                     dest.getSize(),
-                    (PanoramaOptions::ProjectionFormat) dest.getProjection(),
+                    dest.getProjection(),
                     dest.getHFOV(),
                     src.getSize());
 }
@@ -400,6 +426,21 @@ void PTools::setDestImage(Image & image, Diff2D size,
         break;
     case PanoramaOptions::FULL_FRAME_FISHEYE:
         image.format = _fisheye_ff;
+        break;
+    case PanoramaOptions::STEREOGRAPHIC:
+        image.format = _stereographic;
+        break;
+    case PanoramaOptions::MERCATOR:
+        image.format = _mercator;
+        break;
+    case PanoramaOptions::TRANSVERSE_MERCATOR:
+        image.format = _trans_mercator;
+        break;
+    case PanoramaOptions::SINUSOIDAL:
+        image.format = _sinusoidal;
+        break;
+    default:
+        PrintError("unsupported projection");
     }
     image.hfov = destHFOV;
 }

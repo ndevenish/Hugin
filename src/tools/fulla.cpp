@@ -41,6 +41,7 @@
 #include "panoinc.h"
 #include "PT/Panorama.h"
 #include "PT/Stitcher.h"
+#include "PT/SpaceTransform.h"
 #include "common/PTLensDB.h"
 
 #include <tiff.h>

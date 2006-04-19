@@ -304,7 +304,12 @@ public:
     enum ProjectionFormat { RECTILINEAR = 0,
                             CYLINDRICAL = 1,
                             EQUIRECTANGULAR = 2,
-                            FULL_FRAME_FISHEYE = 3
+                            FULL_FRAME_FISHEYE = 3,
+                            STEREOGRAPHIC = 4,
+                            MERCATOR = 5,
+                            TRANSVERSE_MERCATOR = 6,
+                            TRANSVERSE_CYLINDRICAL = 7,
+                            SINUSOIDAL = 8
     };
 
     /** PTStitcher acceleration */
@@ -351,29 +356,16 @@ public:
                            COLOR };
 
     PanoramaOptions()
-        : outfile("panorama.JPG"),outputFormat(JPEG),
-          quality(90),
-          tiffCompression("NONE"),
-          tiff_saveROI(false),
-          colorCorrection(NONE), colorReferenceImage(0),
-          gamma(1.0), interpolator(vigra_ext::INTERP_CUBIC),
-          optimizeReferenceImage(0),
-          featherWidth(10),
-          remapAcceleration(MAX_SPEEDUP),
-          blendMode(WEIGHTED_BLEND),
-          saveCoordImgs(false),
-          m_hfov(360), 
-          m_width(3000),
-          m_height(1500),
-          m_projectionFormat(EQUIRECTANGULAR)
-        {};
+        {
+            reset();
+        };
 
     void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
             m_hfov = 360;
-            m_width = 3000;
-            m_height = 1500;
+            m_size = vigra::Size2D(3000, 1500);
+            m_roi = vigra::Rect2D(m_size);
             outfile = "panorama.JPG";
             quality = 90;
             tiff_saveROI = false;
@@ -406,11 +398,11 @@ public:
      *  Also changes the panorama width, if keepView=true
      */
     void setWidth(unsigned int w, bool keepView = true);
-    
+
     /* get panorama width */
     unsigned int getWidth() const
     {
-        return m_width;
+        return m_size.x;
     }
 
     /** set panorama height 
@@ -418,12 +410,23 @@ public:
      *  This changes the panorama vfov
      */
     void setHeight(unsigned int h);
-    
+
     /** get panorama height */
     unsigned int getHeight() const
     {
-        return m_height;
+        return m_size.y;
     }
+
+    /// get size of output image
+    vigra::Size2D getSize() const
+    {
+        return m_size;
+    }
+
+    const vigra::Rect2D & getROI() const
+    { return m_roi; }
+    void setROI(const vigra::Rect2D & val)
+    { m_roi = val; }
 
     /** set the Projection format and adjust the hfov/vfov
      *  if nessecary
@@ -486,9 +489,11 @@ public:
 private:
     static const std::string fileformatNames[];
     double m_hfov;
-    unsigned int m_width;
-    unsigned int m_height;
-    ProjectionFormat m_projectionFormat; 
+//    unsigned int m_width;
+//    unsigned int m_height;
+    ProjectionFormat m_projectionFormat;
+    vigra::Size2D m_size;
+    vigra::Rect2D m_roi;
 };
 
 typedef std::vector<ControlPoint> CPVector;

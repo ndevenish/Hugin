@@ -378,7 +378,7 @@ FDiff2D Panorama::calcFOV() const
 //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
 // DGSW FIXME - Unreferenced
 //	        const PanoImage & img = getImage(*it);
-        remapped.setPanoImage(getSrcImage(*it), opts.getDestImage());
+        remapped.setPanoImage(getSrcImage(*it), opts);
         //remapped.setPanoImage(*this, *it, vigra::Size2D(img.getWidth(), img.getHeight()), opts);
         // calculate alpha channel
         remapped.calcAlpha();
@@ -435,6 +435,41 @@ FDiff2D Panorama::calcFOV() const
     return fov;
 }
 
+void Panorama::fitPano(double & HFOV, double & height)
+{
+    // FIXME: doesn't work properly for fisheye and mirror projections,
+    // it will not calculate a vfov bigger than 180.
+    FDiff2D fov = calcFOV();
+
+    // use estimated fov to calculate a suitable panorama height.
+    // calculate VFOV based on current panorama
+    PTools::Transform transf;
+    SrcPanoImage src;
+    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
+    src.setHFOV(360);
+    src.setSize(vigra::Size2D(360,180));
+
+    // output pano with new hfov
+    PanoramaOptions opts = state.options;
+    opts.setHFOV(fov.x, false);
+    transf.createInvTransform(src, opts);
+
+    // limit fov to suitable range for this projection
+    fov.x = std::min(fov.x, state.options.getMaxHFOV());
+    fov.y = std::min(fov.y, state.options.getMaxVFOV());
+
+    FDiff2D pmiddle;
+    // special case for projections with max VFOV > 180 (fisheye, stereographic)
+    if (state.options.getMaxVFOV() >  180 && fov.x > 180) {
+        transf.transform(pmiddle, FDiff2D(180, 180 - fov.x/2+0.01));
+    } else {
+        transf.transform(pmiddle, FDiff2D(0, fov.y/2));
+    }
+
+    height = fabs(2*pmiddle.y);
+    HFOV = fov.x;
+}
+
 void Panorama::centerHorizontically()
 {
     Size2D panoSize(360,180);
@@ -457,7 +492,7 @@ void Panorama::centerHorizontically()
 //        const PanoImage & img = getImage(*it);
 //        Size2D sz(img.getWidth(), img.getHeight());
 //        remapped.setPanoImage(*this, *it, sz, opts);
-        remapped.setPanoImage(getSrcImage(*it), opts.getDestImage());
+        remapped.setPanoImage(getSrcImage(*it), opts);
         // calculate alpha channel
         remapped.calcAlpha();
         // copy into global alpha channel.
@@ -1798,12 +1833,27 @@ Panorama Panorama::getSubset(const PT::UIntSet & imgs) const
 }
 
 
-unsigned int PT::calcOptimalPanoWidth(const PanoramaOptions & opt,
-                                      const PanoImage & img,
-                                      double v,
-                                      Lens::LensProjectionFormat imgProj,
-                                      vigra::Size2D imgSize)
+double PT::calcOptimalPanoScale(const SrcPanoImage & src,
+                                const PanoramaOptions & dest)
 {
+    // calculate the input pixel per output pixel ratio at the panorama center.
+
+    PTools::Transform transf;
+    SrcPanoImage timg = src;
+    timg.setRoll(0);
+    timg.setPitch(0);
+    timg.setYaw(0);
+    transf.createTransform(timg, dest);
+    FDiff2D imgp1;
+    FDiff2D imgp2;
+
+    transf.transform(imgp1, FDiff2D(0,0));
+    transf.transform(imgp2, FDiff2D(2,2));
+    double dist = utils::norm(imgp2-imgp1);
+    
+    return dist / sqrt(8.0);
+    
+    /*
     // calculate average pixel density of each image
     // and use the highest one to calculate the width
     double density=0;
@@ -1822,6 +1872,7 @@ unsigned int PT::calcOptimalPanoWidth(const PanoramaOptions & opt,
             break;
     }
     // TODO: use density properly based on the output projection.
-    return roundi(density * opt.getHFOV());
+    double width = roundi(density * opt.getHFOV());
+*/
 }
 

@@ -48,7 +48,7 @@
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
-#include <PT/SpaceTransform.h>
+//#include <PT/SpaceTransform.h>
 
 
 namespace PT
@@ -56,7 +56,7 @@ namespace PT
 
 template <class TRANSFORM>
 void estimateImageAlpha(const SrcPanoImage & src,
-                        const DestPanoImage & dest,
+                        const PanoramaOptions & dest,
                        TRANSFORM & transf,
                        vigra::Rect2D & imgRect,
                        vigra::BImage & alpha,
@@ -167,7 +167,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
  *  @param lr        Lower right corner of the image roi
  */
 template <class TRANSFORM>
-void estimateImageRect(const SrcPanoImage & src, const DestPanoImage & dest,
+void estimateImageRect(const SrcPanoImage & src, const PanoramaOptions & dest,
                        TRANSFORM & transf, vigra::Rect2D & imgRect)
 {
     vigra::BImage img;
@@ -207,7 +207,7 @@ public:
     }
 
     void setPanoImage(const SrcPanoImage & src,
-                      const DestPanoImage & dest)
+                      const PanoramaOptions & dest)
     {
         m_srcImg = src;
         m_destImg = dest;
@@ -601,9 +601,9 @@ public:
 
 protected:
     SrcPanoImage m_srcImg;
-    DestPanoImage m_destImg;
-//    PTools::Transform m_transf;
-    PT::SpaceTransform m_transf;
+    PanoramaOptions m_destImg;
+    PTools::Transform m_transf;
+//    PT::SpaceTransform m_transf;
 };
 
 /** remap a single image
@@ -616,8 +616,8 @@ void remapImage(SrcImgType & srcImg,
                 const MaskImgType & srcAlpha,
                 const FlatImgType & srcFlat,
                 const PT::SrcPanoImage & src,
-                const PT::DestPanoImage & dest,
-                vigra_ext::Interpolator interpolator,
+                const PT::PanoramaOptions & dest,
+//                vigra_ext::Interpolator interpolator,
                 RemappedPanoImage<DestImgType, MaskImgType> & remapped,
                 utils::MultiProgressDisplay & progress)
 {
@@ -668,10 +668,10 @@ void remapImage(SrcImgType & srcImg,
     remapped.setPanoImage(src, dest);
     if (srcAlpha.size().x > 0) {
         remapped.remapImage(vigra::srcImageRange(srcImg),
-                            vigra::srcImage(srcAlpha), interpolator,
+                            vigra::srcImage(srcAlpha), dest.interpolator,
                             progress);
     } else {
-        remapped.remapImage(vigra::srcImageRange(srcImg), interpolator, progress);
+        remapped.remapImage(vigra::srcImageRange(srcImg), dest.interpolator, progress);
     }
 //        progress.setMessage(std::string("gamma correction ") + utils::stripPath(src.getFilename()));
 //        vigra_ext::applyGammaCorrection(srcImageRange(remapped.m_image),
@@ -836,8 +836,7 @@ public:
         // remap the image
 
         remapImage(srcImg, srcAlpha, ffImg,
-                   pano.getSrcImage(imgNr), opts.getDestImage(),
-                   opts.interpolator,
+                   pano.getSrcImage(imgNr), opts,
                    *m_remapped,
                    progress);
         return m_remapped;

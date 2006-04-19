@@ -64,7 +64,7 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     {
         // calculate alpha channel
         rimg[*it] = new RPImg;
-        rimg[*it]->setPanoImage(pano.getSrcImage(*it), opts.getDestImage());
+        rimg[*it]->setPanoImage(pano.getSrcImage(*it), opts);
         rimg[*it]->calcAlpha();
 #ifdef DEBUG
 //	vigra::exportImage(rimg[*it].alpha(), vigra::ImageExportInfo("debug_alpha.tif"));

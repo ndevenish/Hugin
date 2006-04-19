@@ -33,7 +33,8 @@
 #include <vigra_ext/VignettingCorrection.h>
 
 #include <PT/PanoImage.h>
-#include <PT/SpaceTransform.h>
+#include <PT/PanoToolsInterface.h>
+//#include <PT/SpaceTransform.h>
 
 namespace PT
 {
@@ -46,7 +47,7 @@ template <class Img, class VoteImg>
 void sampleAllPanoPoints(const std::vector<Img> &imgs,
                          const std::vector<VoteImg *> &voteImgs,
                          const std::vector<SrcPanoImage> & src,
-                         DestPanoImage dest,
+                         const PanoramaOptions & dest,
                          int nPoints,
                          typename Img::PixelType minI,
                          typename Img::PixelType maxI,
@@ -73,12 +74,14 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
     double maxr = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
 
     // create an array of transforms.
-    std::vector<SpaceTransform> transf(imgs.size());
+    //std::vector<SpaceTransform> transf(imgs.size());
+    std::vector<PTools::Transform*> transf(imgs.size());
 
     // initialize transforms, and interpolating accessors
     for(unsigned i=0; i < imgs.size(); i++) {
         vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
-        transf[i].createTransform(src[i], dest);
+        transf[i] = new PTools::Transform;
+        transf[i]->createTransform(src[i], dest);
     }
 
     for (int y=dest.getROI().top(); y < dest.getROI().bottom(); ++y) {
@@ -87,7 +90,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
             for (unsigned i=0; i< nImg; i++) {
             // transform pixel
                 FDiff2D p1;
-                transf[i].transformImgCoord(p1, panoPnt);
+                transf[i]->transformImgCoord(p1, panoPnt);
                 vigra::Point2D p1Int(p1.toDiff2D());
                 // is inside:
                 if (!src[i].isInside(p1Int)) {
@@ -105,7 +108,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
                         FDiff2D p2;
-                        transf[j].transformImgCoord(p2, panoPnt);
+                        transf[j]->transformImgCoord(p2, panoPnt);
                         vigra::Point2D p2Int(p2.toDiff2D());
                         if (!src[j].isInside(p2Int)) {
                             // point is outside image
@@ -179,6 +182,10 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
             }
         }
     }
+
+    for(unsigned i=0; i < imgs.size(); i++) {
+        delete transf[i];
+    }
 }
 
 
@@ -214,7 +221,7 @@ void sampleRadiusUniform(const std::vector<std::multimap<double, vigra_ext::Poin
 template <class Img>
 void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                             const std::vector<SrcPanoImage> & src,
-                            DestPanoImage dest,
+                            const PanoramaOptions & dest,
                             int nPoints,
                             typename Img::PixelType minI,
                             typename Img::PixelType maxI,
@@ -232,12 +239,14 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
     double maxr = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
 
     // create an array of transforms.
-    std::vector<SpaceTransform> transf(imgs.size());
+    //std::vector<SpaceTransform> transf(imgs.size());
+    std::vector<PTools::Transform *> transf(imgs.size());
 
     // initialize transforms, and interpolating accessors
     for(unsigned i=0; i < imgs.size(); i++) {
         vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
-        transf[i].createTransform(src[i], dest);
+        transf[i] = new PTools::Transform;
+        transf[i]->createTransform(src[i], dest);
     }
     // init random number generator
     boost::mt19937 rng;
@@ -263,7 +272,7 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
             // transform pixel
             PixelType i1;
             FDiff2D p1;
-            transf[i].transformImgCoord(p1, panoPnt);
+            transf[i]->transformImgCoord(p1, panoPnt);
             // check if pixel is valid
             if (imgs[i](p1.x,p1.y, i1)){
                 if (minI > i1 || maxI < i1) {
@@ -274,7 +283,7 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     FDiff2D p2;
-                    transf[j].transformImgCoord(p2, panoPnt);
+                    transf[j]->transformImgCoord(p2, panoPnt);
                     // check if a pixel is inside the source image
                     if (imgs[j](p2.x, p2.y, i2)){
                         if (minI > i2 || maxI < i2) {
@@ -298,6 +307,9 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                 }
             }
         }
+    }
+    for(unsigned i=0; i < imgs.size(); i++) {
+        delete transf[i];
     }
 }
 

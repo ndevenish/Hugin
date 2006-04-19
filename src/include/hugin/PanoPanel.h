@@ -130,8 +130,8 @@ public:
     // controls of this frame
     wxChoice    * m_QuickChoice;
     wxChoice    * m_ProjectionChoice;
-    wxSpinCtrl  * m_HFOVSpin;
-    wxSpinCtrl  * m_VFOVSpin;
+    wxTextCtrl  * m_HFOVText;
+    wxTextCtrl  * m_VFOVText;
 
     wxTextCtrl  * m_WidthTxt;
     wxStaticText *m_HeightStaticText;

@@ -131,7 +131,8 @@ public :
      */
     void InitRadialCorrect(const SrcPanoImage & src, int channel=1);
 
-    void createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest);
+    void createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
+    void createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
 
     // create pano -> img transform
 	void createTransform(const PT::Panorama & pano, unsigned int imgNr,

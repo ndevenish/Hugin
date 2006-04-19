@@ -821,8 +821,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                srcMask,
                srcFlat,
                srcPanoImg,
-               opts.getDestImage(),
-               opts.interpolator,
+               opts,
                *remapped,
                progress);
 

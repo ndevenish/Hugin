@@ -277,11 +277,9 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
         throw std::runtime_error("could not retrieve small source image for vignetting optimisation");
     }
 
-    unsigned panoWidth = calcOptimalPanoWidth(opts, img, v,
-                                              m_pano.getLens(img.getLensNr()).getProjection(),
-                                              vigra::Size2D(src->GetWidth(), src->GetHeight()) );
+    double scale = calcOptimalPanoScale(m_pano.getSrcImage(m_imgNr), opts);
 
-    opts.setWidth(panoWidth);
+    opts.setWidth(roundi(opts.getWidth()*scale));
 
     // prepare images for random point extraction
     std::vector<BImage *> grayImgs;
@@ -369,7 +367,7 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
 
         sampleAllPanoPoints(srcImgs,
                             lapImgs, srcDescr,
-                            opts.getDestImage(),
+                            opts,
                             nPoints, 10, 250,
                             radiusHist,
                             nGoodPoints,
@@ -402,7 +400,7 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
         // extract random points.
         sampleRandomPanoPoints(srcImgs,
                                srcDescr,
-                               opts.getDestImage(),
+                               opts,
                                nPoints,
                                10,
                                250,

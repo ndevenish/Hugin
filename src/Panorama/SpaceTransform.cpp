@@ -35,6 +35,9 @@ using namespace std;
 using namespace PT;
 using namespace vigra;
 
+namespace PT
+{
+
 /// ctor
 SpaceTransform::SpaceTransform()
 {
@@ -104,7 +107,7 @@ Matrix3 SetMatrix( double a, double b, double c, int cl )
 #define R_EPS 1.0e-6
 
 // Rotate equirectangular image
-static void rotate_erect( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
+void rotate_erect( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
 {
 	// params: double 180degree_turn(screenpoints), double turn(screenpoints);
 	*x_src = x_dest + params.var1;
@@ -117,7 +120,7 @@ static void rotate_erect( double x_dest, double y_dest, double* x_src, double* y
 
 // Calculate inverse 4th order polynomial correction using Newton
 // Don't use on large image (slow)!
-static void inv_radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
+void inv_radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams &params)
 {
 	// params: double coefficients[5]
 	register double rs, rd, f, scale;
@@ -172,7 +175,7 @@ static void inv_vertical( double x_dest, double y_dest, double* x_src, double* y
 */
 
 // scale
-static void resize( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void resize( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double scale_horizontal, double scale_vertical;
 	*x_src = x_dest * params.var0;
@@ -190,7 +193,7 @@ static void shear( double x_dest, double y_dest, double* x_src, double* y_src, c
 */
 
 // horiz shift
-static void horiz( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void horiz( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double horizontal params.shift
 	*x_src	= x_dest + params.shift;	
@@ -198,7 +201,7 @@ static void horiz( double x_dest, double y_dest, double* x_src, double* y_src, c
 }
 
 // vertical shift
-static void vert( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void vert( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double vertical params.shift
 	*x_src	= x_dest;	
@@ -206,7 +209,7 @@ static void vert( double x_dest, double y_dest, double* x_src, double* y_src, co
 }
 
 // radial
-static void radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void radial( double x_dest, double y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double coefficients[4], scale, correction_radius
 	register double r, scale;
@@ -320,7 +323,7 @@ static void pano_rect( double x_dest,double  y_dest, double* x_src, double* y_sr
 */
 
 //
-static void rect_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void rect_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {	
 	// params: double params.distance
 	register double  phi, theta;
@@ -343,7 +346,7 @@ static void rect_erect( double x_dest,double  y_dest, double* x_src, double* y_s
 }
 
 //
-static void pano_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void pano_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {	
 	// params: double params.distance
 	*x_src = x_dest;
@@ -351,11 +354,27 @@ static void pano_erect( double x_dest,double  y_dest, double* x_src, double* y_s
 }
 
 //
-static void erect_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void erect_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {	
 	// params: double params.distance
 	*x_src = x_dest;
 	*y_src = params.distance * atan( y_dest / params.distance);
+}
+
+// FIXME: implement!
+void transpano_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+    // params: double params.distance
+    *x_src = x_dest;
+    *y_src = params.distance * tan( y_dest / params.distance);
+}
+
+// FIXME: implement!
+void erect_transpano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{	
+	// params: double params.distance
+    *x_src = x_dest;
+    *y_src = params.distance * atan( y_dest / params.distance);
 }
 
 /*
@@ -372,7 +391,7 @@ static void sphere_cp_erect( double x_dest,double  y_dest, double* x_src, double
 */
 
 //
-static void sphere_tp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void sphere_tp_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	register double phi, theta, r,s;
@@ -413,7 +432,7 @@ static void erect_sphere_cp( double x_dest,double  y_dest, double* x_src, double
 */
 
 //
-static void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	register double rho, theta,r;
@@ -431,7 +450,7 @@ static void rect_sphere_tp( double x_dest,double  y_dest, double* x_src, double*
 }
 
 //
-static void sphere_tp_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void sphere_tp_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {	
 	// params: double params.distance
 	register double  theta, r;
@@ -445,7 +464,7 @@ static void sphere_tp_rect( double x_dest,double  y_dest, double* x_src, double*
 }
 
 //
-static void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	register double r, s, Phi, theta;
@@ -458,7 +477,7 @@ static void sphere_tp_pano( double x_dest,double  y_dest, double* x_src, double*
 }
 
 //
-static void pano_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void pano_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	register double r,s, theta;
@@ -489,7 +508,7 @@ static void sphere_cp_pano( double x_dest,double  y_dest, double* x_src, double*
 */
 
 //
-static void erect_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void erect_rect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	*x_src = params.distance * atan2( x_dest, params.distance );
@@ -497,7 +516,7 @@ static void erect_rect( double x_dest,double  y_dest, double* x_src, double* y_s
 }
 
 //
-static void erect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+void erect_sphere_tp( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
 {
 	// params: double params.distance
 	register double  theta,r,s;
@@ -515,6 +534,89 @@ static void erect_sphere_tp( double x_dest,double  y_dest, double* x_src, double
 	*x_src = params.distance * atan2( v[1], v[0] );
 	*y_src = params.distance * atan( s * y_dest /sqrt( v[0]*v[0] + v[1]*v[1] ) );
 }
+
+/** convert from erect to mercator */
+void mercator_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+    *x_src = x_dest;
+    *y_src = params.distance*log(tan(y_dest/params.distance)+1/cos(y_dest/params.distance));
+}
+
+/** convert from mercator to erect */
+void erect_mercator( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+    *x_src = x_dest;
+    *y_src = params.distance*atan(sinh(y_dest/params.distance));
+}
+
+
+/** convert from erect to transverse mercator */
+void transmercator_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+    x_dest /= params.distance;
+    y_dest /= params.distance;
+    double B = cos(y_dest)*sin(x_dest);
+    *x_src = params.distance / tanh(B);
+    *y_src = params.distance * atan(tan(y_dest)/cos(x_dest));
+}
+
+/** convert from erect to transverse mercator */
+void erect_transmercator( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+    x_dest /= params.distance;
+    y_dest /= params.distance;
+    *x_src = params.distance * atan(sinh(x_dest)/cos(y_dest));
+    *y_src = params.distance * asin(sin(y_dest)/cosh(x_dest));
+}
+
+/** convert from erect to sinusoidal */
+void sinusoidal_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+
+    *x_src = params.distance * (x_dest/params.distance*cos(y_dest/params.distance));
+    *y_src = y_dest;
+}
+
+/** convert from sinusoidal to erect */
+void erect_sinusoidal( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+
+    *y_src = y_dest;
+    *x_src = x_dest/cos(y_dest/params.distance);
+}
+
+/** convert from erect to stereographic */
+void stereographic_erect( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+    double lon = x_dest / params.distance;
+    double lat = y_dest / params.distance;
+
+    // use: R = 1
+    double k=2.0/(1+cos(lat)*cos(lon));
+    *x_src = params.distance * k*cos(lat)*sin(lon);
+    *y_src = params.distance * k*sin(lat);
+}
+
+/** convert from stereographic to erect */
+void erect_stereographic( double x_dest,double  y_dest, double* x_src, double* y_src, const _FuncParams & params)
+{
+    // params: distance
+
+    // use: R = 1
+    double p=sqrt(x_dest*x_dest + y_dest*y_dest) / params.distance;
+    double c= 2.0*atan(p/2.0);
+
+    *x_src = params.distance * atan2(x_dest/params.distance*sin(c),(p*cos(c)));
+    *y_src = params.distance * asin(y_dest/params.distance*sin(c)/p);
+}
+
 
 /*
 //
@@ -836,7 +938,7 @@ static void radial_shift( double x_dest, double y_dest, double* x_src, double* y
     *y_src = y_dest * scale  + params.var7;
 }
 
-double PT::estRadialScaleCrop(vector<double> coeff, int width, int height)
+double estRadialScaleCrop(vector<double> coeff, int width, int height)
 {
     double r_test[4];
     double p, r;
@@ -1061,7 +1163,7 @@ void SpaceTransform::Init(
             mpscale[0] = (pnhfov / imhfov) * (imwidth/pnwidth) * 2.0 * tan(b/2.0) / b;
         }
     }
-    else // equirectangular or panoramic or fisheye
+    else // equirectangular or panoramic or fisheye or other.
     {
         mpdistance = pnwidth / b;
         if(srcProj == Lens::RECTILINEAR)	// rectilinear image
@@ -1120,9 +1222,27 @@ void SpaceTransform::Init(
         break;
     //case PanoramaOptions::FULL_FRAME_FISHEYE:
     case PanoramaOptions::FULL_FRAME_FISHEYE:
-           // Convert panoramic to sphere
-           AddTransform( &erect_sphere_tp, mpdistance );
-           break;
+        // Convert panoramic to sphere
+        AddTransform( &erect_sphere_tp, mpdistance );
+        break;
+    case PanoramaOptions::STEREOGRAPHIC:
+        AddTransform( &erect_stereographic, mpdistance );
+        break;
+    case PanoramaOptions::MERCATOR:
+        AddTransform( &erect_mercator, mpdistance );
+        break;
+    case PanoramaOptions::TRANSVERSE_MERCATOR:
+        AddTransform( &erect_transmercator, mpdistance );
+        break;
+    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
+        AddTransform( &erect_transpano, mpdistance );
+        break;
+    case PanoramaOptions::SINUSOIDAL:
+        AddTransform( &erect_sinusoidal, mpdistance );
+        break;
+    default:
+        DEBUG_FATAL("Fatal error: Unknown projection " << destProj);
+        break;
     }
 
     // Rotate equirect. image horizontally
@@ -1362,18 +1482,36 @@ void SpaceTransform::InitInv(
         // Convert panoramic to spherical
         AddTransform( &pano_erect, mpdistance );
         break;
-        /* we cannot such output
-           case Lens::FISHEYE:
-           // Convert PSphere to spherical
-           AddTransform( &sphere_tp_erect, mpdistance );
-           break;*/
     case PanoramaOptions::EQUIRECTANGULAR:
+        break;
+    case PanoramaOptions::FULL_FRAME_FISHEYE:
+        // Convert PSphere to spherical
+        AddTransform( &sphere_tp_erect, mpdistance );
+        break;
+    case PanoramaOptions::STEREOGRAPHIC:
+        // Convert PSphere to spherical
+        AddTransform( &stereographic_erect, mpdistance );
+        break;
+    case PanoramaOptions::MERCATOR:
+        AddTransform( &mercator_erect, mpdistance );
+        break;
+    case PanoramaOptions::TRANSVERSE_MERCATOR:
+        AddTransform( &transmercator_erect, mpdistance );
+        break;
+    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
+        AddTransform( &transpano_erect, mpdistance );
+        break;
+    case PanoramaOptions::SINUSOIDAL:
+        AddTransform( &transpano_erect, mpdistance );
+        break;
+    default:
+        DEBUG_FATAL("Fatal error: Unknown projection " << destProj);
         break;
     }
 }
 
 //
-void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::DestPanoImage & dest)
+void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
 {
 
     VariableMap vars;
@@ -1394,8 +1532,35 @@ void SpaceTransform::createTransform(const PT::SrcPanoImage & src, const PT::Des
     Init(src.getSize(),
          vars,
          (Lens::LensProjectionFormat) src.getProjection(),
-         dest.getSize(),
-         (PanoramaOptions::ProjectionFormat) dest.getProjection(),
+         vigra::Size2D(dest.getWidth(), dest.getHeight()),
+         dest.getProjection(),
+         dest.getHFOV());
+}
+
+//
+void SpaceTransform::createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest)
+{
+
+    VariableMap vars;
+    // not very nice, but I don't like to change all the stuff in this file..
+    vars.insert(make_pair(std::string("v"), PT::Variable(std::string("v"), src.getHFOV())));
+    vars.insert(make_pair(std::string("a"), PT::Variable("a", src.getRadialDistortion()[0])));
+    vars.insert(make_pair(std::string("b"), PT::Variable("b", src.getRadialDistortion()[1])));
+    vars.insert(make_pair(std::string("c"), PT::Variable("c", src.getRadialDistortion()[2])));
+    vars.insert(make_pair(std::string("d"), PT::Variable("d", src.getRadialDistortionCenterShift().x)));
+    vars.insert(make_pair(std::string("e"), PT::Variable("e", src.getRadialDistortionCenterShift().y)));
+    vars.insert(make_pair(std::string("g"), PT::Variable("g", src.getShear().x)));
+    vars.insert(make_pair(std::string("t"), PT::Variable("t", src.getShear().y)));
+
+    vars.insert(make_pair(std::string("r"), PT::Variable("r", src.getRoll())));
+    vars.insert(make_pair(std::string("p"), PT::Variable("p", src.getPitch())));
+    vars.insert(make_pair(std::string("y"), PT::Variable("y", src.getYaw())));
+
+    InitInv(src.getSize(),
+         vars,
+         (Lens::LensProjectionFormat) src.getProjection(),
+         vigra::Size2D(dest.getWidth(), dest.getHeight()),
+         dest.getProjection(),
          dest.getHFOV());
 }
 
@@ -1424,4 +1589,6 @@ void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double 
 	transform( dest, src );
 	x_dest = dest.x + m_destTX - 0.5;
 	y_dest = dest.y + m_destTY - 0.5;
+}
+
 }

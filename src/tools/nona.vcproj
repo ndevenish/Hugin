@@ -33,7 +33,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxpngd.lib wxzlibd.lib wxjpegd.lib wxtiffd.lib pano12.lib"
+				AdditionalDependencies="wxpngd.lib wxzlibd.lib wxjpegd.lib wxtiffd.lib"
 				OutputFile="$(OutDir)/nona.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12;..\..\..\libs\boost\stage\lib"
@@ -83,7 +83,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxpng.lib wxzlib.lib wxjpeg.lib wxtiff.lib pano12.lib"
+				AdditionalDependencies="wxpng.lib wxzlib.lib wxjpeg.lib wxtiff.lib"
 				OutputFile="$(OutDir)/nona.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12;..\..\..\libs\boost\stage\lib"

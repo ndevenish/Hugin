@@ -309,6 +309,10 @@ public:
      */
     FDiff2D calcFOV() const;
 
+    /** calculate the HFOV and height so that the whole input
+     *  fits in into the output panorama */
+    void fitPano(double & HFOV, double & height);
+
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
@@ -630,12 +634,12 @@ private:
     std::set<std::string> m_ptoptimizerVarNames;
 };
 
-/** function to calculate the optimal width of a panorama */
-unsigned int calcOptimalPanoWidth(const PanoramaOptions & opt,
-                                  const PanoImage & img,
-                                  double v,
-                                  Lens::LensProjectionFormat imgProj,
-                                  vigra::Size2D imgSize);
+
+/** function to calculate the scaling factor so that the distances
+    in the input image and panorama image are similar at the panorama center
+ */
+double calcOptimalPanoScale(const SrcPanoImage & src,
+                                const PanoramaOptions & dest);
 
 // helper functions, workaround for gcc 3.3, which doesn't find
 // the map_get template functions.
