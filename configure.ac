@@ -292,6 +292,9 @@ AC_CONFIG_FILES([Makefile
 		 src/hugin/po/Makefile.in
                  src/hugin/xrc/Makefile
                  src/hugin/xrc/data/Makefile
+                 src/hugin/xrc/data/help_common/Makefile
+                 src/hugin/xrc/data/help_fr_FR/Makefile
+                 src/hugin/xrc/data/help_en_EN/Makefile
                  src/jhead/Makefile
                  src/nona_gui/Makefile
 		 src/nona_gui/po/Makefile.in
