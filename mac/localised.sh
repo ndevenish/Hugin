@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wxDir="../../wxMac-2.6.2"
+wxDir="../../ExternalPrograms/wxMac-2.6.3"
 resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
@@ -51,11 +51,20 @@ do
  then
   continue
  fi
-
- echo "wxstd.mo to $lang.po"
- msgfmt -v -o "$localedir/wxstd.mo" "wxDir/locale/$lang.po"
- echo "hugin.mo to $lang.po"
+ 
+ echo "$lang/hugin.mo from $lang.po"
  msgfmt -v -o "$localedir/hugin.mo" "../src/hugin/po/$lang.po"
+ 
+ echo "$lang/wxstd.mo from $wxDir/locale/$lang.po"
+ if [ -f "$wxDir/locale/$lang.po" ]
+ then
+  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$lang.po"
+ else
+  echo "$lang.po not found;"
+  parentLang=`echo $lang|sed s/_.*//`
+  echo "$lang/wxstd.mo from $wxDir/locale/$parentLang.po"
+  msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$parentLang.po"
+ fi
 
  for file in `ls $xrcsrcdir/data | grep _$lang.htm`
  do
