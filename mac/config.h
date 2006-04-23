@@ -68,7 +68,7 @@
 #define HAVE_UNISTD_H
 
 /* Current Version of Hugin */
-#define HUGIN_VERSION  0.5
+#define HUGIN_VERSION 0.5
 
 /* Define if you have JPEG library */
 #define HasJPEG
@@ -83,25 +83,25 @@
 #define HasTIFF
 
 /* Install Location of Hugin */
-#undef INSTALL_LOCALE_DIR
+#define INSTALL_LOCALE_DIR ""
 
 /* Location for XRC information */
-#undef INSTALL_XRC_DIR
+#define INSTALL_XRC_DIR ""
 
 /* Define to the address where bug reports for this package should be sent. */
-#undef PACKAGE_BUGREPORT
+#define PACKAGE_BUGREPORT "pablo.dangelo@web.de"
 
 /* Define to the full name of this package. */
-#undef PACKAGE_NAME
+#define PACKAGE_NAME "hugin"
 
 /* Define to the full name and version of this package. */
-#undef PACKAGE_STRING
+#define PACKAGE_STRING "hugin 0.5"
 
 /* Define to the one symbol short name of this package. */
-#undef PACKAGE_TARNAME
+#define PACKAGE_TARNAME "hugin"
 
 /* Define to the version of this package. */
-#undef PACKAGE_VERSION
+#define PACKAGE_VERSION "0.5"
 
 /* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS
+#define STDC_HEADERS 1
