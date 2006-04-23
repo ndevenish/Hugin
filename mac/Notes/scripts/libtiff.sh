@@ -8,7 +8,7 @@
 # export REPOSITORYDIR="" \
 # ARCHS="ppc i386" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \

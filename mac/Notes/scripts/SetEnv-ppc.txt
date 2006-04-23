@@ -2,13 +2,14 @@
 
 # REPOSITORYDIR needs be symbolically linked from mac/build/PPC/Repository
 
+# has to be the absolute path from /
+myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-ppc";
 
 export \
- REPOSITORYDIR="/Users/myname/dev/hugin/ExternalPrograms/Repository-ppc" \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
  ARCHS="ppc" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
  i386MACSDKDIR="" \
  ppcONLYARG="-mcpu=G3 -mtune=G3" \
  i386ONLYARG="" \
- ppc64ONLYARG="" \
  OTHERARGs="";

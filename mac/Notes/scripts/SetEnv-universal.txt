@@ -2,12 +2,14 @@
 
 # REPOSITORYDIR needs be symbolically linked from mac/build/Universal/Repository
 
+# has to be the absolute path from /
+myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal";
+
 export \
- REPOSITORYDIR="/Users/myname/dev/hugin/ExternalPrograms/Repository-universal" \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
  ARCHS="ppc i386" \
  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
  ppcONLYARG="-mcpu=G3 -mtune=G4" \
- i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
- ppc64ONLYARG="" \
+ i386ONLYARG="-mfpmath=sse -msse2 -ftree-vectorize" \
  OTHERARGs="";

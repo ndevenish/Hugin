@@ -34,6 +34,9 @@ mkdir -p "$REPOSITORYDIR/include";
 for ARCH in $ARCHS
 do
 
+ mkdir -p "osx-$ARCH-build";
+ cd "osx-$ARCH-build";
+
  mkdir -p "$REPOSITORYDIR/arch/$ARCH/bin";
  mkdir -p "$REPOSITORYDIR/arch/$ARCH/lib";
  mkdir -p "$REPOSITORYDIR/arch/$ARCH/include";
@@ -58,6 +61,7 @@ do
   ARCHARGs="$ppc64ONLYARG"
  fi
 
+
  env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
@@ -67,8 +71,11 @@ do
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --disable-debug --disable-shared --enable-monolithic --enable-unicode --with-opengl;
 
+
  make clean;
  make install;
+
+ cd ../;
 
 done
 

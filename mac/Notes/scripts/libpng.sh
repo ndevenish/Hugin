@@ -8,7 +8,7 @@
 # export REPOSITORYDIR="" \
 # ARCHS="ppc i386" \
 #  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
@@ -30,6 +30,8 @@ mkdir -p "$REPOSITORYDIR/include";
 
 
 # compile
+
+cp scripts/makefile.darwin makefile;
 
 for ARCH in $ARCHS
 do
@@ -66,8 +68,8 @@ do
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -funroll-loops -dead_strip" \
   LDFLAGS="-L$REPOSITORYDIR/lib -L. -L$ZLIBLIB -lpng12 -lz" \
   NEXT_ROOT="$MACSDKDIR" \
- LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
- BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
+  LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
+  BINPATH="$REPOSITORYDIR/arch/$ARCH/bin";
 
 done
 
@@ -96,5 +98,9 @@ do
 
 done
 
-cd $REPOSITORYDIR/lib;
-ln -s libpng12.a libpng.a;
+
+if [ ! -f "$REPOSITORYDIR/lib/libpng.a" ]
+then
+ cd $REPOSITORYDIR/lib;
+ ln -s libpng12.a libpng.a;
+fi

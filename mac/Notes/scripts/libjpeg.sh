@@ -31,6 +31,8 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # compile
 
+cp /usr/share/libtool/config* ./;
+
 for ARCH in $ARCHS
 do
 

@@ -30,6 +30,16 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 
+# patch
+
+# 2.5 universal
+if [ ! -f "configure copy" ]
+then
+ cp "configure" "configure copy";
+ cat "configure" | sed -e "s/^#define malloc rpl_malloc/\/\/#define malloc rpl_malloc/" -e "s/^#define HAVE_MALLOC 0/#define HAVE_MALLOC 1/"> "configure";
+fi
+
+
 # compile
 
 for ARCH in $ARCHS
@@ -68,6 +78,10 @@ do
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   ;
+
+ # why do I need this?
+ #cat "src/Makefile.am" | sed "s/^enblend_LDADD/#enblend_LDADD/" > "src/Makefile.am";
+ #echo "enblend_LDADD = vigra_impex/libvigra_impex.a -lpng -ljpeg -ltiff -lz" >> "src/Makefile.am";
 
  make clean;
  make install;
