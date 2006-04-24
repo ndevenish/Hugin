@@ -37,13 +37,13 @@ if test "x$with_pano" != 'xno' ; then
       if test "x$PANO_HOME" != 'x' ; then
 	AC_MSG_NOTICE([pano home set to $PANO_HOME])
       else
-        AC_MSG_ERROR([cannot find the panorama tools directory],[1])
+	AC_MSG_NOTICE([cannot find the libpano12 directory, assuming it is specified in CFLAGS])
       fi
     fi
     failed=0;
     passed=0;
     PANO_OLD_LDFLAGS=$LDFLAGS
-    PANO_OLD_CPPFLAGS=$LDFLAGS
+    PANO_OLD_CPPFLAGS=$CPPFLAGS
     if test "x$HCPU" = 'xamd64' ; then
       LDFLAGS="$LDFLAGS -L$PANO_HOME/lib64"
     else
