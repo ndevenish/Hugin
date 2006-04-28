@@ -55,13 +55,19 @@ if test "x$with_pano" != 'xno' ; then
     AC_CHECK_HEADER(pano12/panorama.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
     AC_CHECK_HEADERS(pano12/queryfeature.h,AC_MSG_RESULT(panotools query functions enabled),AC_MSG_RESULT(panotools query functions disabled),)
     AC_CHECK_LIB(pano12,fcnPano,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+dnl this is a hack. should check the version number, but I don't know how...
+dnl instead, just look if the required symbol is available
+    AC_CHECK_LIB(pano12,execute_stack_new,PANO_HAS_EXEC_STACK_NEW=yes,PANO_HAS_EXEC_STACK_NEW=no,)
     AC_LANG_RESTORE
     LDFLAGS="$PANO_OLD_LDFLAGS"
     CPPFLAGS="$PANO_OLD_CPPFLAGS"
 
     AC_MSG_CHECKING(if Panotools package is complete)
 
-    if test $passed -gt 0 ; then
+    if test $PANO_HAS_EXEC_STACK_NEW = no; then
+        AC_MSG_RESULT(no -- libpano12 version 2.8.1 or later is required)
+        have_pano='no (old version available)'
+    elif test $passed -gt 0 ; then
       if test $failed -gt 0 ; then
         AC_MSG_RESULT(no -- some components failed test)
         have_pano='no (failed tests)'
