@@ -167,40 +167,42 @@ public:
 
     /** excecute transform
      */
-    void transform(double & x_dest, double & y_dest,
+    bool transform(double & x_dest, double & y_dest,
                    double x_src, double y_src) const
         {
             void * params= (void *) (&m_stack);
-            execute_stack(x_src, y_src, &x_dest, &y_dest, params);
+            return execute_stack_new(x_src, y_src, &x_dest, &y_dest, params);
         }
 
     /** like transform, but return image coordinates, not cartesian
      *  coordinates
      */
-    void transformImgCoord(double & x_dest, double & y_dest,
+    bool transformImgCoord(double & x_dest, double & y_dest,
                    double x_src, double y_src) const
         {
             x_src -= m_srcTX - 0.5 ;
             y_src -= m_srcTY - 0.5;
 
             void * params= (void *) (&m_stack);
-            execute_stack(x_src, y_src, &x_dest, &y_dest, params);
+            bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params);
             x_dest += m_destTX - 0.5;
             y_dest += m_destTY - 0.5;
+            return ok;
         }
 
-    void transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
+    bool transformImgCoord(FDiff2D& dest, const FDiff2D & src) const
         {
-            transformImgCoord(dest.x, dest.y, src.x, src.y);
+            return transformImgCoord(dest.x, dest.y, src.x, src.y);
         }
 
-    void transform(FDiff2D& dest, const FDiff2D & src) const
+    bool transform(FDiff2D& dest, const FDiff2D & src) const
         {
             double x_dest, y_dest;
             void * params= (void *) (&m_stack);
-            execute_stack(src.x, src.y, &x_dest, &y_dest, params);
+            bool ok = execute_stack_new(src.x, src.y, &x_dest, &y_dest, params);
             dest.x = x_dest;
             dest.y = y_dest;
+            return ok;
         }
 
 private:
