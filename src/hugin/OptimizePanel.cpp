@@ -437,6 +437,16 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     int mode = m_mode_cb->GetSelection();
 
     Panorama optPano = m_pano->getSubset(imgs);
+    switch(optPano.getOptions().getProjection()) {
+        case PanoramaOptions::RECTILINEAR:
+        case PanoramaOptions::CYLINDRICAL:
+        case PanoramaOptions::EQUIRECTANGULAR:
+            break;
+        default:
+            wxLogError(_("Cannot optimize this projection.\nOnly rectilinear, cylindrical and equirectangular panoramas can be optimized\n\nPlease optimize using one of these projections and selected the desired output projection afterwards."));
+            return;
+            break;
+    }
     UIntSet allImg;
     fill_set(allImg,0, imgs.size()-1);
     if (mode == OPT_PAIRWISE) {
