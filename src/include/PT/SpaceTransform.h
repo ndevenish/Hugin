@@ -184,16 +184,16 @@ public :
     /** transform
      * Get the new coordinates
      */
-    void transform(FDiff2D& dest, const FDiff2D & src) const;
+    bool transform(FDiff2D& dest, const FDiff2D & src) const;
 
     /** like transform, but return image coordinates, not cartesian
      *  coordinates
      */
-    void transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const;
+    bool transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const;
 
-    void transformImgCoord(FDiff2D & dest, const FDiff2D &src) const
+    bool transformImgCoord(FDiff2D & dest, const FDiff2D &src) const
     {
-        transformImgCoord(dest.x, dest.y, src.x, src.y);
+        return transformImgCoord(dest.x, dest.y, src.x, src.y);
     }
 
     /** returns true if this transform is an identity transform */

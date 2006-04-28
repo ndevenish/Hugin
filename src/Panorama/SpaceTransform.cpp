@@ -1565,23 +1565,24 @@ void SpaceTransform::createInvTransform(const PT::SrcPanoImage & src, const PT::
 }
 
 //
-void SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
+bool SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
 {
 	double xd = src.x, yd = src.y;
 	vector<fDescription>::const_iterator tI;
 	
     dest.x = xd;
     dest.y = yd;
-	for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
+    for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
     {
-		(tI->func)( xd, yd, &dest.x, &dest.y, tI->param );
-		xd = dest.x;	
-		yd = dest.y;
-	}
+        (tI->func)( xd, yd, &dest.x, &dest.y, tI->param );
+        xd = dest.x;	
+        yd = dest.y;
+    }
+    return true;
 }
 
 //
-void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const
+bool SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const
 {
 	FDiff2D dest, src;
 	src.x = x_src - m_srcTX + 0.5;
@@ -1589,6 +1590,7 @@ void SpaceTransform::transformImgCoord(double & x_dest, double & y_dest, double 
 	transform( dest, src );
 	x_dest = dest.x + m_destTX - 0.5;
 	y_dest = dest.y + m_destTY - 0.5;
+        return true;
 }
 
 }
