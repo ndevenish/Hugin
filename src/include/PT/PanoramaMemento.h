@@ -308,8 +308,8 @@ public:
                             STEREOGRAPHIC = 4,
                             MERCATOR = 5,
                             TRANSVERSE_MERCATOR = 6,
-                            TRANSVERSE_CYLINDRICAL = 7,
-                            SINUSOIDAL = 8
+                            SINUSOIDAL = 7,
+                            TRANSVERSE_CYLINDRICAL = 8
     };
 
     /** PTStitcher acceleration */

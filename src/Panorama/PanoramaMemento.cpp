@@ -635,9 +635,9 @@ double PanoramaOptions::getMaxVFOV() const
         case SINUSOIDAL:
             return 180;
         case STEREOGRAPHIC:
-        case TRANSVERSE_MERCATOR:
             return 355;
         case FULL_FRAME_FISHEYE:
+        case TRANSVERSE_MERCATOR:
         case TRANSVERSE_CYLINDRICAL:
             return 360;
     }
