@@ -77,7 +77,7 @@ public:
 
 
 
-    void transformImgCoord(double & x_dest, double & y_dest,
+    bool transformImgCoord(double & x_dest, double & y_dest,
                            double x_src, double y_src) const
     {
 
@@ -98,6 +98,7 @@ public:
         char c;
         cin >> c;
 #endif
+        return true;
     }
 
     ZhangCalibData c;

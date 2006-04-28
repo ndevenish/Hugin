@@ -113,12 +113,14 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
         for(int x=xstart; x < xend; ++x, ++xd.x, ++xdm.x)
         {
             double sx,sy;
-            transform.transformImgCoord(sx,sy,x,y);
-
-            if (interpol.operator()(sx, sy, tempval)){
-                // vignetting correction (might need to add random noise..)
-                dest.third.set(tempval, xd);
-                alpha.second.set(255, xdm);
+            if (transform.transformImgCoord(sx,sy,x,y)) {
+                if (interpol.operator()(sx, sy, tempval)){
+                    // vignetting correction (might need to add random noise..)
+                    dest.third.set(tempval, xd);
+                    alpha.second.set(255, xdm);
+                } else {
+                    alpha.second.set(0, xdm);
+                }
             } else {
                 alpha.second.set(0, xdm);
             }
@@ -220,13 +222,16 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
         for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
         {
             double sx,sy;
-            transform.transformImgCoord(sx,sy,x,y);
-            // try to interpolate.
-            if (interpol(sx, sy, tempval)) {
-                dest.third.set(tempval, xd);
-                alpha.second.set(255, xdist);
+            if (transform.transformImgCoord(sx,sy,x,y)) {
+                // try to interpolate.
+                if (interpol(sx, sy, tempval)) {
+                    dest.third.set(tempval, xd);
+                    alpha.second.set(255, xdist);
+                } else {
+                    // point outside of image or mask
+                    alpha.second.set(0, xdist);
+                }
             } else {
-                // point outside of image or mask
                 alpha.second.set(0, xdist);
             }
         }
@@ -366,32 +371,35 @@ void transformImageDist(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAcc
         for(int x=xstart; x < xend; ++x, ++xd.x, ++xdist.x)
         {
             double sx,sy;
-            transform.transformImgCoord(sx,sy,x,y);
-            // make sure that the interpolator doesn't
-            // access pixels outside.. Should we introduce
-            // some sort of border treatment?
-            if (sx < interp.size/2 -1
-                || sx > srcSize.x-interp.size/2 - 1
-                || sy < interp.size/2 - 1
-                || sy > srcSize.y-interp.size/2 - 1)
-            {
-                if (calcDist) {
-                    // save an invalid distance
-                    *xdist = FLT_MAX;
+            if (transform.transformImgCoord(sx,sy,x,y)) {
+                // make sure that the interpolator doesn't
+                // access pixels outside.. Should we introduce
+                // some sort of border treatment?
+                if (sx < interp.size/2 -1
+                    || sx > srcSize.x-interp.size/2 - 1
+                    || sy < interp.size/2 - 1
+                    || sy > srcSize.y-interp.size/2 - 1)
+                {
+                    if (calcDist) {
+                        // save an invalid distance
+                        *xdist = FLT_MAX;
+                    }
+                    // nothing..
+                } else {
+    //                cout << x << "," << y << " -> " << sx << "," << sy << " " << std::endl;
+    
+    //                nearest neighbour
+    //                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
+                    // use given interpolator function.
+                    *xd = interpol(src.first, sx, sy);
+                    if (calcDist) {
+                        double mx = sx - srcMiddle.x;
+                        double my = sy - srcMiddle.y;
+                        *xdist = sqrt(mx*mx + my*my);
+                    }
                 }
-                // nothing..
             } else {
-//                cout << x << "," << y << " -> " << sx << "," << sy << " " << std::endl;
-
-//                nearest neighbour
-//                *xd = src.third(src.first, vigra::Diff2D((int)round(sx), (int)round(sy)));
-                // use given interpolator function.
-                *xd = interpol(src.first, sx, sy);
-                if (calcDist) {
-                    double mx = sx - srcMiddle.x;
-                    double my = sy - srcMiddle.y;
-                    *xdist = sqrt(mx*mx + my*my);
-                }
+                *xdist = FLT_MAX;
             }
         }
         if ((y-ystart)%100 == 0) {
