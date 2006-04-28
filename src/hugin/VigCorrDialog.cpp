@@ -242,7 +242,7 @@ void VigCorrDialog::UpdateDisplayData()
 void VigCorrDialog::OnEstimate(wxCommandEvent & e)
 {
     bool uniformRadiusSample=true;
-    int nPoints = wxConfigBase::Get()->Read(wxT("VigCorrDialog/nRandomPoints"),10000l);
+    int nPoints = wxConfigBase::Get()->Read(wxT("VigCorrDialog/nRandomPoints"),2000l);
 
     // get parameters for estimation.
     nPoints = wxGetNumberFromUser(_("The vignetting curve is determined by using gray values in the overlaping areas.\nTo speed up the computation, only a random subset of points is used."),
