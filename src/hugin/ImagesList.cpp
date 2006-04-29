@@ -306,6 +306,7 @@ ImagesListImage::ImagesListImage(wxWindow * parent, Panorama * pano)
     InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 7, _("Anchor"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 8, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 40);
+    InsertColumn( 9, _("Crop"), wxLIST_FORMAT_RIGHT,100);
     
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -350,6 +351,12 @@ void ImagesListImage::UpdateItem(unsigned int imgNr)
         }
     }
     SetItem(imgNr, 8, wxString::Format(wxT("%d"), nCP));
+    wxString cropstr(wxT("-"));
+    if ( img.getOptions().docrop ) {
+        vigra::Rect2D c = img.getOptions().cropRect;
+        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
+    }
+    SetItem(imgNr, 9, cropstr);
 }
 
 ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
@@ -368,7 +375,6 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     InsertColumn( 9, _("e"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 10, _("g"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 11, _("t"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 12, _("Crop"), wxLIST_FORMAT_RIGHT,40);
     
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -406,10 +412,4 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 9, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
     SetItem(imgNr, 10, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
     SetItem(imgNr, 11, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
-    wxString cropstr(wxT("-"));
-    if ( img.getOptions().docrop ) {
-        vigra::Rect2D c = img.getOptions().cropRect;
-        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
-    }
-    SetItem(imgNr, 12, cropstr);
 }

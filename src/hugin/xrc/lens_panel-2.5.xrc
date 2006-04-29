@@ -14,66 +14,66 @@
               <orient>wxHORIZONTAL</orient>
               <object class="sizeritem">
                 <object class="unknown" name="lenses_list_unknown"/>
-                  <option>1</option>
-                  <flag>wxEXPAND</flag>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxVERTICAL</orient>
-                    <object class="spacer">
-                      <size>0,20</size>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="lens_button_load">
-                        <label>Load from file...</label>
-                        <tooltip>Load lens parameters from a file</tooltip>
-                      </object>
-                      <flag>wxEXPAND|wxBOTTOM</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="lens_button_save">
-                        <label>Save to file...</label>
-                        <tooltip>Save lens parameters to an file</tooltip>
-                      </object>
-                      <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticLine"/>
-                      <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <border>3</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="lens_button_loadEXIF">
-                        <label>Load EXIF</label>
-                        <tooltip>Try to read HFOV from the EXIF data</tooltip>
-                      </object>
-                      <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticLine"/>
-                      <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <border>3</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="lens_button_newlens">
-                        <label>New Lens</label>
-                        <tooltip>Create a new lens and assign it to selected images</tooltip>
-                      </object>
-                      <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="lens_button_changelens">
-                        <label>Change lens...</label>
-                        <tooltip>change lens of selected images</tooltip>
-                      </object>
-                      <flag>wxEXPAND|wxTOP</flag>
-                      <border>5</border>
-                    </object>
+                <option>1</option>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxVERTICAL</orient>
+                  <object class="spacer">
+                    <size>0,12</size>
                   </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_load">
+                      <label>Load lens...</label>
+                      <tooltip>Load lens parameters from a file</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxBOTTOM</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_save">
+                      <label>Save lens...</label>
+                      <tooltip>Save lens parameters to an file</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticLine"/>
+                    <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_loadEXIF">
+                      <label>Load EXIF</label>
+                      <tooltip>Try to read HFOV from the EXIF data</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticLine"/>
+                    <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_newlens">
+                      <label>New Lens</label>
+                      <tooltip>Create a new lens and assign it to selected images</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                    <border>5</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxButton" name="lens_button_changelens">
+                      <label>Change lens...</label>
+                      <tooltip>change lens of selected images</tooltip>
+                    </object>
+                    <flag>wxEXPAND|wxTOP</flag>
+                    <border>5</border>
+                  </object>
+                </object>
                 <flag>wxALL</flag>
                 <border>6</border>
               </object>
@@ -472,7 +472,7 @@
                             </object>
                             <flag>wxLEFT</flag>
                             <border>12</border>
-                          </object>                      
+                          </object>
                           <object class="spacer">
                             <size>0,10</size>
                           </object>
@@ -630,13 +630,6 @@
       </object>
     </object>
   </object>
-  
-  
-  
-  <!-- ======================================== -->
-  
-  
-  
   <object class="wxFrame" name="test_frame_edit_and_copy_to_wx2.4_and_2.5">
     <title></title>
     <object class="wxBoxSizer">
