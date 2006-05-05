@@ -4,7 +4,7 @@
  *
  *  @brief implementation of ImagesCenter Class
  *
- *  @author Kai-Uwe Behrmann <web@tiscali.de>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  $Id$
  *
@@ -78,38 +78,38 @@ ImgCenter::ImgCenter(wxWindow *parent)
 
     wxBoxSizer * buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Left:")),0, wxALIGN_CENTRE_VERTICAL);
+    buttonSizer->Add(new wxStaticText(this, -1, _("Left:")),0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
     m_left_textctrl = new wxTextCtrl(this, ID_EDIT_LEFT);
     m_left_textctrl->PushEventHandler(new TextKillFocusHandler(this));
-    buttonSizer->Add(m_left_textctrl);
+    buttonSizer->Add(m_left_textctrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Right:")),0, wxALIGN_CENTRE_VERTICAL);
-    m_right_textctrl = new wxTextCtrl(this, ID_EDIT_RIGHT);
-    m_right_textctrl->PushEventHandler(new TextKillFocusHandler(this));
-    buttonSizer->Add(m_right_textctrl);
-
-    buttonSizer->Add(new wxStaticText(this, -1, _("Top:")),0, wxALIGN_CENTRE_VERTICAL);
+    buttonSizer->Add(new wxStaticText(this, -1, _("Top:")),0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
     m_top_textctrl = new wxTextCtrl(this, ID_EDIT_TOP);
     m_top_textctrl->PushEventHandler(new TextKillFocusHandler(this));
-    buttonSizer->Add(m_top_textctrl);
+    buttonSizer->Add(m_top_textctrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
 
-    buttonSizer->Add(new wxStaticText(this, -1, _("Bottom:")), 0, wxALIGN_CENTRE_VERTICAL);
+    buttonSizer->Add(new wxStaticText(this, -1, _("Right:")),0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
+    m_right_textctrl = new wxTextCtrl(this, ID_EDIT_RIGHT);
+    m_right_textctrl->PushEventHandler(new TextKillFocusHandler(this));
+    buttonSizer->Add(m_right_textctrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
+
+    buttonSizer->Add(new wxStaticText(this, -1, _("Bottom:")), 0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
     m_bottom_textctrl = new wxTextCtrl(this, ID_EDIT_BOTTOM);
     m_bottom_textctrl->PushEventHandler(new TextKillFocusHandler(this));
-    buttonSizer->Add(m_bottom_textctrl);
+    buttonSizer->Add(m_bottom_textctrl, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
 
-    buttonSizer->Add(new wxButton(this, ID_BUT_RESET, _("Reset")));
+    buttonSizer->Add(new wxButton(this, ID_BUT_RESET, _("Reset")), 0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
 
     m_autocenter_cb = new wxCheckBox(this, ID_CB_AUTOCENTER, _("Always center Crop on d,e"));
-    buttonSizer->Add(m_autocenter_cb);
+    buttonSizer->Add(m_autocenter_cb, 0, wxALIGN_CENTER_VERTICAL | wxALL, 6);
 
     wxBoxSizer * buttonSizer2 = new wxBoxSizer(wxHORIZONTAL);
 
     wxButton * but_OK = new wxButton(this, wxID_OK);
-    buttonSizer2->Add(but_OK, 0, wxEXPAND | wxALIGN_RIGHT | wxALL, 5 );
+    buttonSizer2->Add(but_OK, 0, wxALIGN_LEFT | wxALL, 5 );
 
     wxButton * but_CANCEL = new wxButton(this, wxID_CANCEL);
-    buttonSizer2->Add(but_CANCEL, 0, wxEXPAND | wxALL, 5 );
+    buttonSizer2->Add(but_CANCEL, 0, wxALL, 5 );
 
     topsizer->Add(buttonSizer,
                   0,        // vertically stretchable
@@ -141,7 +141,6 @@ ImgCenter::~ImgCenter(void)
     m_right_textctrl->PopEventHandler(true);
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
-
 }
 
 vigra::Rect2D & ImgCenter::getCrop()
@@ -262,9 +261,10 @@ void ImgCenter::OnSetRight(wxCommandEvent & e)
 
 void ImgCenter::OnResetButton(wxCommandEvent & e)
 {
+    // suitable defaults.
     m_roi.setUpperLeft(Point2D(0,0));
     m_roi.setLowerRight(Point2D(0,0));
-    m_autocenter_cb->SetValue(false);
+    m_autocenter_cb->SetValue(true);
     UpdateDisplay();
     m_Canvas->SetParameters(m_roi, m_circle, m_center, getCenterOnDE());
 }
@@ -394,7 +394,6 @@ void CenterCanvas::ChangeMode(PointState m)
 
     case CROP_SELECTED:
     case CROP_MOVE:
-        SetCursor(*m_cursor_move_crop);
         SetCursor(*m_cursor_move_crop);
         break;
 
@@ -533,6 +532,7 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                 } else {
                     // set starting point
                     vigra::Point2D p(xpos_i, ypos_i);
+                    m_circ_first_point = p;
                     m_roi.setUpperLeft(p);
                     m_roi.setLowerRight(p);
                     ChangeMode(RECT_DRAGGING);
@@ -549,7 +549,26 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                     m_roi.setUpperLeft(sp);
                     m_roi.setLowerRight(fp);
                 } else {
-                    m_roi.setLowerRight(fp);
+                    // check on which side we are.
+                    int left,right,top,bottom;
+                    if ( m_circ_first_point.x < fp.x) {
+                        right = fp.x;
+                        left = m_circ_first_point.x;
+                    } else {
+                        left = fp.x;
+                        right = m_circ_first_point.x;
+                    }
+                    if ( m_circ_first_point.y < fp.y) {
+                        bottom = fp.y;
+                        top = m_circ_first_point.y;
+                    } else {
+                        top = fp.y;
+                        bottom = m_circ_first_point.y;
+                    }
+                    m_roi.setLowerRight(Point2D(right, bottom));
+                    m_roi.setUpperLeft(Point2D(left, top));
+                    DEBUG_DEBUG("RECT_DRAGGING: ul:" << left << " " << top << " lr:" << right << " " << bottom);
+                    //m_roi.setLowerRight(fp);
                 }
                 UpdateCropCircle();
                 if (e.LeftUp()) {
@@ -606,10 +625,13 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                         SetCursor(*m_cursor_move_crop);
                     }
                 }
+            } else {
+                if (&GetCursor() != m_cursor_move_crop) {
+                    SetCursor(*m_cursor_move_crop);
+                }
+                // no treatment for rectangular crop area yet.
+                // check if mouse is on a rectangular crop border
             }
-            // no treatment for rectangular crop area yet.
-            // check if mouse is on a rectangular crop border
-
             if (abs(xpos_i - m_roi.left()) < 2 / m_scale && ypos_i > m_roi.top() && ypos_i < m_roi.bottom()) {
                 SetCursor(*m_cursor_drag_horiz);
                 if (e.LeftDown()) {
