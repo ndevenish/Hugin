@@ -48,14 +48,11 @@ void deregisterPTWXDlgFcn()
 
 #else
 
-static void PTPrintErrorWX(char* fmt, ...)
+static void PTPrintErrorWX(char* fmt, va_list ap)
 {
-    va_list	ap;
     char message[257];
 
-    va_start(ap, fmt);
     vsprintf(message, fmt, ap);
-    va_end(ap);	
 	
 //		MessageBox(GetFocus(), (LPSTR)message, (LPSTR)"", MB_OK | MB_ICONHAND) ;
     wxMessageBox(wxString(message,*wxConvCurrent), _("Panorama Tools"), wxOK | wxICON_HAND);
