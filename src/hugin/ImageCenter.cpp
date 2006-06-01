@@ -128,6 +128,11 @@ ImgCenter::ImgCenter(wxWindow *parent)
     SetSizer( topsizer );
     topsizer->SetSizeHints( this );
 
+    // if no frame position is known, maximise by default
+    wxConfigBase * config = wxConfigBase::Get();
+    if (! config->HasEntry(wxT("/CropDialog/maximized") )) {
+        config->Write(wxT("/CropDialog/maximized"), 1);
+    }
     RestoreFramePosition(this, wxT("CropDialog"));
 
     m_Canvas->Show();
@@ -141,6 +146,7 @@ ImgCenter::~ImgCenter(void)
     m_right_textctrl->PopEventHandler(true);
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
+    StoreFramePosition(this, wxT("CropDialog"));
 }
 
 vigra::Rect2D & ImgCenter::getCrop()
