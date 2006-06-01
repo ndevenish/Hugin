@@ -180,7 +180,7 @@ public:
          }
 
          double sol[3];
-         bool ok =math_lu_solve(matrix, sol, n);
+         bool ok =math_lu_solve(matrix, sol, n) != 0;
          p[0] = sol[0];
          p[1] = sol[1];
          p[2] = sol[2];
@@ -265,7 +265,6 @@ public:
         return true;
 #else
         utils::LMS_Solver solver(n);
-        double Arow[n];
         for(unsigned k=0; k < data.size(); k++) {
             // calculate one row of A
             double Arow[n];

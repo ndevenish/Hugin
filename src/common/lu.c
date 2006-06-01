@@ -32,6 +32,7 @@ int math_lu_solve(double *matrix, double *solution, int neq)
   int    idx;   /* index of the larger pivot */
   double big;       /* the larger pivot found */
   double tmp = 0.0;
+  int itmp;
   
   int    *P;        /* keep memory of permutation (column permutation) */
   double *y;
@@ -72,9 +73,9 @@ int math_lu_solve(double *matrix, double *solution, int neq)
     /* check if we have to interchange the lines */
     if (idx != i)
     {
-      tmp    = P[i];
+      itmp   = P[i];
       P[i]   = P[idx];
-      P[idx] = tmp;
+      P[idx] = itmp;
     }
 
     if (matrix[i + neq*P[i]] == 0.0)
@@ -157,7 +158,7 @@ int NUM_matscale(double *matrix, int neq)
     /* find the highest value */
     for (j = 0; j < neq; j++)
     {
-      tmp = abs(matrix[i + neq*j]);
+      tmp = fabs(matrix[i + neq*j]);
       val = (tmp > val) ? tmp : val;
     }
 

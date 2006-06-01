@@ -171,7 +171,7 @@ public:
                    double x_src, double y_src) const
         {
             void * params= (void *) (&m_stack);
-            return execute_stack_new(x_src, y_src, &x_dest, &y_dest, params);
+            return execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
         }
 
     /** like transform, but return image coordinates, not cartesian
@@ -184,7 +184,7 @@ public:
             y_src -= m_srcTY - 0.5;
 
             void * params= (void *) (&m_stack);
-            bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params);
+            bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
             x_dest += m_destTX - 0.5;
             y_dest += m_destTY - 0.5;
             return ok;
@@ -199,7 +199,7 @@ public:
         {
             double x_dest, y_dest;
             void * params= (void *) (&m_stack);
-            bool ok = execute_stack_new(src.x, src.y, &x_dest, &y_dest, params);
+            bool ok = execute_stack_new(src.x, src.y, &x_dest, &y_dest, params) != 0;
             dest.x = x_dest;
             dest.y = y_dest;
             return ok;

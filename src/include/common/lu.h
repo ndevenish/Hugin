@@ -96,7 +96,7 @@ public:
     {
         m_nEq = nEq;
         m_AtA = new double[nEq*(nEq+1)];
-        for (int i=0; i < nEq*(nEq+1); i++) m_AtA[i] = 0;
+        for (unsigned i=0; i < nEq*(nEq+1); i++) m_AtA[i] = 0;
     }
 
     ~LMS_Solver()
@@ -124,8 +124,8 @@ public:
     bool solve(Vector & x)
     {
         double * solution = new double[m_nEq];
-        bool ret = math_lu_solve(m_AtA, solution, m_nEq);
-        for (int i=0; i < m_nEq; i++) {
+        bool ret = math_lu_solve(m_AtA, solution, m_nEq) != 0;
+        for (unsigned i=0; i < m_nEq; i++) {
             x[i] = solution[i];
         }
         delete[] solution;
