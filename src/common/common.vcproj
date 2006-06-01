@@ -147,6 +147,9 @@
 				RelativePath=".\graph.cpp">
 			</File>
 			<File
+				RelativePath=".\lu.c">
+			</File>
+			<File
 				RelativePath=".\PTLensDB.c">
 			</File>
 			<File
