@@ -113,12 +113,23 @@ void correctImage(SrcImgType & srcImg,
     // correct image
     // check if image should be tca corrected, and calculate scale factor accordingly.
     double scaleFactor=1;
-    vector<double> radGreen(4);
-    radGreen = src.getRadialDistortion();
-    vector<double> radRed(4);
-    combinePolynom3(radGreen , src.getRadialDistortionRed(), radRed);
-    vector<double> radBlue(4);
-    combinePolynom3(radGreen, src.getRadialDistortionBlue(), radBlue);
+    vector<double> radGreen = src.getRadialDistortion();
+    vector<double> radRed   = src.getRadialDistortionRed();
+    vector<double> radBlue  = src.getRadialDistortionBlue();
+
+    DEBUG_DEBUG("Initial distortion correction parameters:" << endl
+            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3] << endl
+            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
+            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] <<endl);
+
+    combinePolynom4(radGreen , src.getRadialDistortionRed(), radRed);
+    combinePolynom4(radGreen, src.getRadialDistortionBlue(), radBlue);
+
+    DEBUG_DEBUG("after applying g correction parameters to r and b:" << endl
+            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
+            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
+            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
+
     if (src.getCorrectTCA())
     {
         // calculate scaling factor required to avoid black borders.
@@ -141,8 +152,18 @@ void correctImage(SrcImgType & srcImg,
         sf *=scaleFactor;
     }
 
+    DEBUG_DEBUG("after scaling for border correction:" << endl
+            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
+            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
+            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
+
     if (src.getCorrectTCA())
     {
+        DEBUG_DEBUG("Final distortion correction parameters:" << endl
+                << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
+                << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
+                << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
+
         // remap individual channels
         SpaceTransform transf;
         transf.InitRadialCorrect(src.getSize(), radRed, FDiff2D(0,0));
@@ -191,6 +212,8 @@ void correctImage(SrcImgType & srcImg,
         }
     } else {
         // remap with the same coefficient.
+        DEBUG_DEBUG("Final distortion correction parameters: r: " 
+                << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] );
         SpaceTransform transf;
         transf.InitRadialCorrect(src.getSize(), radGreen, FDiff2D(0,0));
         if (transf.isIdentity()) {

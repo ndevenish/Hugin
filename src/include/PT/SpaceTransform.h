@@ -218,15 +218,24 @@ private :
     void AddTransform( PT::trfn function_name, Matrix3 m, double var0, double var1=0.0f, double var2=0.0f, double var3=0.0f);
 };
 
-/** combine 3rd degree polynomials.
+/** combine 4rd degree polynomials
  *
  *  Computes new polynomial so that:
  *   c(x) ~= q(p(x))
- *  c is also a 3rd degree polynomial, and the expansion is cut after x^3
+ *  c is also a 4rd degree polynomial, and the expansion is cut after x^4
+ *  constant term is assumed to be 0, and not included in p,q and c
  */
 template <class VECTOR>
-void combinePolynom3(const VECTOR & p, const VECTOR & q, VECTOR & c)
+void combinePolynom4(const VECTOR & p, const VECTOR & q, VECTOR & c)
 {
+    double d3 = p[3]*p[3]*p[3];
+    c[0] = (3*q[1]*p[3]*p[3]*p[2]+q[3]*p[0]+q[2]*(2*p[3]*p[1]+p[2]*p[2])+q[0]*d3);
+    c[1] = (2*q[2]*p[3]*p[2]+q[1]*d3+q[3]*p[1]);
+    c[2] = (q[3]*p[2]+q[2]*p[3]*p[3]);
+    c[3] = q[3]*p[3];
+
+    /*
+    old code for polynoms of up to x^3
     c[0] = q[0]*(p[2]*(2*p[3]*p[1]+p[2]*p[2])+p[3]*(2*p[3]*p[0]+2*p[2]*p[1])+p[0]*p[3]*p[3]+2*p[1]*p[3]*p[2])
            +q[1]*(2*p[3]*p[0]+2*p[2]*p[1])+q[2]*p[0];
 
@@ -235,6 +244,7 @@ void combinePolynom3(const VECTOR & p, const VECTOR & q, VECTOR & c)
 
     c[2] = 3*q[0]*p[3]*p[3]*p[2]+2*q[1]*p[3]*p[2]+q[2]*p[2];
     c[3] = q[0]*p[3]*p[3]*p[3]+q[1]*p[3]*p[3]+q[2]*p[3]+q[3];
+    */
 }
 
 
