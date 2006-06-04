@@ -63,6 +63,7 @@ void correctImage(SrcImgType & srcImg,
                   const PT::SrcPanoImage & src,
                   vigra_ext::Interpolator interpolator,
                   DestImgType & destImg,
+                  bool doCrop,
                   utils::MultiProgressDisplay & progress)
 {
     typedef typename SrcImgType::value_type SrcPixelType;
@@ -108,8 +109,89 @@ void correctImage(SrcImgType & srcImg,
                                         src.getGamma(), gMaxVal);
     }
 
+    double scaleFactor=1.0;
+    // radial distortion correction
+    if (doCrop) {
+        scaleFactor=estScaleFactorForFullFrame(src);
+        DEBUG_DEBUG("Black border correction scale factor: " << scaleFactor);
+    }
     // hmm, dummy alpha image...
     BImage alpha(srcImg.size());
+
+    if (src.getCorrectTCA())
+    {
+        /*
+        DEBUG_DEBUG("Final distortion correction parameters:" << endl
+                << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
+                << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
+                << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
+        */
+        // remap individual channels
+        SpaceTransform transf;
+        transf.InitRadialCorrect(src, 0, scaleFactor);
+        if (transf.isIdentity()) {
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
+        } else {
+            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
+                           destImage(alpha),
+                           vigra::Diff2D(0,0),
+                           transf,
+                           false,
+                           vigra_ext::INTERP_SPLINE_16,
+                           progress);
+        }
+
+        transf.InitRadialCorrect(src, 1, scaleFactor);
+        if (transf.isIdentity()) {
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
+        } else {
+            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
+                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
+                           destImage(alpha),
+                           vigra::Diff2D(0,0),
+                           transf,
+                           false,
+                           vigra_ext::INTERP_SPLINE_16,
+                           progress);
+        }
+
+        transf.InitRadialCorrect(src, 2, scaleFactor);
+        if (transf.isIdentity()) {
+            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
+                             destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
+        } else {
+            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
+                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
+                           destImage(alpha),
+                           vigra::Diff2D(0,0),
+                           transf,
+                           false,
+                           vigra_ext::INTERP_SPLINE_16,
+                           progress);
+        }
+    } else {
+        // remap with the same coefficient.
+        SpaceTransform transf;
+        transf.InitRadialCorrect(src, 2, scaleFactor);
+        if (transf.isIdentity()) {
+            vigra::copyImage(srcImageRange(srcImg),
+                             destImage(destImg));
+        } else {
+            transformImage(srcImageRange(srcImg),
+                           destImageRange(destImg),
+                           destImage(alpha),
+                           vigra::Diff2D(0,0),
+                           transf,
+                           false,
+                           vigra_ext::INTERP_SPLINE_16,
+                           progress);
+        }
+    }
+
+    /*
     // correct image
     // check if image should be tca corrected, and calculate scale factor accordingly.
     double scaleFactor=1;
@@ -151,7 +233,6 @@ void correctImage(SrcImgType & srcImg,
         radBlue[3-i] *=sf;
         sf *=scaleFactor;
     }
-
     DEBUG_DEBUG("after scaling for border correction:" << endl
             << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
             << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
@@ -230,12 +311,13 @@ void correctImage(SrcImgType & srcImg,
                            progress);
         }
     }
+    */
 }
 
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile,
-                utils::MultiProgressDisplay & progress)
+                bool crop, utils::MultiProgressDisplay & progress)
 {
     vigra::BasicImage<RGBValue<float> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
@@ -246,7 +328,7 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
         flatfield.resize(finfo.size());
         importImage(finfo, destImage(flatfield));
     }
-    correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, progress);
+    correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, crop, progress);
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     exportImage(srcImageRange(output), outInfo);
@@ -357,21 +439,26 @@ static void usage(const char * name)
          << "   option are: " << std::endl
          << "      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)" << std::endl
          << "      -b a:b:c:d       Radial distortion coefficents for blue channel, (a, b, c, d)" << std::endl
-         << "                        this is applied on top of the -g distortion coefficients, use for TCA corr" << std::endl
+         << "                        this is applied on top of the -g distortion coefficients," << endl
+         << "                        use for TCA corr" << std::endl
          << "      -r a:b:c:d       Radial distortion coefficents for red channel, (a, b, c, d)" << std::endl
-         << "                        this is applied on top of the -g distortion coefficients, use for TCA corr" << std::endl
+         << "                        this is applied on top of the -g distortion coefficients," << endl
+         << "                        use for TCA corr" << std::endl
+         << "      -p               Try to read radial distortion coefficients for green" << endl
+         << "                         channel from PTLens database" << std::endl
+         << "      -m Canon         Camera manufacturer, for PTLens database query" << std::endl
+         << "      -n Camera        Camera name, for PTLens database query" << std::endl
+         << "      -l Lens          Lens name, for PTLens database query" << std::endl
+         << "                        if not specified, a list of possible lenses is displayed" << std::endl
+         << "      -d 50            specify focal length in mm, for PTLens database query" << std::endl
+         << "      -s               do not rescale the image to avoid black borders." << std::endl
+         << endl
          << "      -f filename      Vignetting correction by flatfield division" << std::endl
          << "                        I = I / c,    c = flatfield / mean(flatfield)" << std::endl
          << "      -c a:b:c:d       radial vignetting correction by division:" << std::endl
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
          << "      -a               Correct vignetting by addition, rather than by division" << std::endl
          << "                        I = I + c" << std::endl
-         << "      -p               Try to read radial distortion coefficients (-g) from PTLens database " << std::endl
-         << "      -m Canon         Camera manufacturer, for PTLens database query" << std::endl
-         << "      -n Camera        Camera name, for PTLens database query" << std::endl
-         << "      -l Lens          Lens name, for PTLens database query" << std::endl
-         << "                        if not specified, a list of possible lenses is displayed" << std::endl
-         << "      -d 50            specify focal length in mm, for PTLens database query" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
          << "      -h               Display help (this text)" << std::endl
          << "      -o name          set output filename. If more than one image is given," << std::endl
@@ -383,7 +470,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "g:r:b:f:apm:n:l:d:c:t:vho:";
+    const char * optstring = "g:b:r:pm:n:l:d:sf:c:at:ho:v";
     int o;
     bool verbose_flag = true;
 
@@ -393,6 +480,7 @@ int main(int argc, char *argv[])
     bool doFlatfield = false;
     bool doVigRadial = false;
     bool doVigAddition = false;
+    bool doCropBorders = true;
     unsigned nThreads=1;
     unsigned verbose = 0;
     
@@ -435,6 +523,9 @@ int main(int argc, char *argv[])
             }
             c.setRadialDistortionBlue(vec4);
             //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
+            break;
+        case 's':
+            doCropBorders = false;
             break;
         case 'f':
             c.setFlatfieldFilename(optarg);
@@ -576,18 +667,21 @@ int main(int argc, char *argv[])
             if (bands == 3 || bands == 4 && extraBands == 1) {
                 // TODO: add more cases
                 if (strcmp(pixelType, "UINT8") == 0) {
-                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), pdisp);
-                } else if (strcmp(pixelType, "UINT16") == 0) {
-                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), pdisp);
-                } else if (strcmp(pixelType, "INT16") == 0) {
-                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), pdisp);
-                } else if (strcmp(pixelType, "UINT32") == 0) {
-                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), pdisp);
-                } else if (strcmp(pixelType, "FLOAT") == 0) {
-                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), pdisp);
-                } else if (strcmp(pixelType, "DOUBLE") == 0) {
-                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), pdisp);
+                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, pdisp);
                 }
+                /*
+                else if (strcmp(pixelType, "UINT16") == 0) {
+                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                } else if (strcmp(pixelType, "INT16") == 0) {
+                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                } else if (strcmp(pixelType, "UINT32") == 0) {
+                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                } else if (strcmp(pixelType, "FLOAT") == 0) {
+                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                } else if (strcmp(pixelType, "DOUBLE") == 0) {
+                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, pdisp);
+                }
+                */
             } else {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
                 throw std::runtime_error("unsupported depth, only 3 channels images are supported");

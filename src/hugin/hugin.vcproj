@@ -61,7 +61,8 @@
 				Name="VCPostBuildEventTool"
 				CommandLine="xcopy xrc Debug\xrc /I /Y
 xcopy xrc\data Debug\xrc\data /I /Y
-xcopy &quot;..\..\..\libs\libpano\pano12\DLL Debug\pano12d.dll&quot; Debug\"/>
+xcopy &quot;..\..\..\libs\libpano\pano12\DLL Debug\pano12d.dll&quot; Debug\ /I /Y
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

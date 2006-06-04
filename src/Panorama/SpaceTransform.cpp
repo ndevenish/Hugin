@@ -938,7 +938,33 @@ static void radial_shift( double x_dest, double y_dest, double* x_src, double* y
     *y_src = y_dest * scale  + params.var7;
 }
 
-double estRadialScaleCrop(vector<double> coeff, int width, int height)
+
+
+double estScaleFactorForFullFrame(const PT::SrcPanoImage & src)
+{
+    SpaceTransform transf;
+    transf.InitInvRadialCorrect(src, 1);
+    vigra::Rect2D inside;
+    vigra::Rect2D insideTemp;
+    vigra::Rect2D boundingBox;
+    traceImageOutline(src.getSize(), transf, inside, boundingBox);
+    if (src.getCorrectTCA()) {
+        transf.InitInvRadialCorrect(src, 0);
+        traceImageOutline(src.getSize(), transf, insideTemp, boundingBox);
+        inside &= insideTemp;
+        transf.InitInvRadialCorrect(src, 2);
+        traceImageOutline(src.getSize(), transf, insideTemp, boundingBox);
+        inside &= insideTemp;
+    }
+    double width2 = src.getSize().x/2.0;
+    double height2 = src.getSize().y/2.0;
+    double sx = std::max(width2/(width2-inside.left()), width2/(inside.right()-width2));
+    double sy = std::max(height2/(height2-inside.top()), height2/(inside.bottom()-height2));
+    return 1/std::max(sx,sy);
+}
+
+
+double estRadialScaleCrop(const vector<double> &coeff, int width, int height)
 {
     double r_test[4];
     double p, r;
@@ -1016,7 +1042,7 @@ double estRadialScaleCrop(vector<double> coeff, int width, int height)
 
 
 /** Create a transform stack for radial distortion correction only */
-void SpaceTransform::InitRadialCorrect(const Size2D & sz, vector<double> & radDist, 
+void SpaceTransform::InitRadialCorrect(const Size2D & sz, const vector<double> & radDist, 
                                  const FDiff2D & centerShift)
 {
     double mprad[6];
@@ -1046,7 +1072,7 @@ void SpaceTransform::InitRadialCorrect(const Size2D & sz, vector<double> & radDi
 }
 
 /** Create a transform stack for distortion & TCA correction only */
-void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
+void SpaceTransform::InitInvRadialCorrect(const SrcPanoImage & src, int channel, double scale)
 {
     double mprad[6];
 
@@ -1058,6 +1084,72 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
     m_srcTY = src.getSize().y/2.0;
     m_destTX = src.getSize().x/2.0;
     m_destTY = src.getSize().y/2.0;
+
+    if (src.getRadialDistortionCenterShift().x != 0.0) {
+        AddTransform(&horiz, -src.getRadialDistortionCenterShift().x);
+    }
+
+    // shift optical center if needed
+    if (src.getRadialDistortionCenterShift().y != 0.0) {
+        AddTransform(&vert, -src.getRadialDistortionCenterShift().y);
+    }
+
+    if (src.getCorrectTCA() && (channel == 0 || channel == 2)) {
+        for (int i=0; i < 4; i++) {
+            if (channel == 0) {
+                // correct red channel (TCA)
+                mprad[3-i] = src.getRadialDistortionRed()[i];
+            } else {
+                // correct blue channel (TCA)
+                mprad[3-i] = src.getRadialDistortionBlue()[i];
+            }
+        }
+        mprad[4] = ( src.getSize().x < src.getSize().y ? src.getSize().x: src.getSize().y)  / 2.0;
+        // calculate the correction radius.
+        mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+        // radial correction if nonzero radial coefficients
+        if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+            AddTransform (&inv_radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+        }
+    }
+
+    // green channel, always correct
+    for (int i=0; i < 4; i++) {
+        mprad[3-i] = src.getRadialDistortion()[i];
+    }
+    mprad[4] = ( src.getSize().x < src.getSize().y ? src.getSize().x: src.getSize().y)  / 2.0;
+    // calculate the correction radius.
+    mprad[5] = CalcCorrectionRadius_copy(mprad);
+
+    // radial correction if nonzero radial coefficients
+    if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
+        AddTransform (&inv_radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+    }
+
+    if (scale != 1.0) {
+        AddTransform(&resize, 1/scale, 1/scale);
+    }
+}
+
+
+/** Create a transform stack for distortion & TCA correction only */
+void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel, double scale)
+{
+    double mprad[6];
+
+//    double  imwidth = src.getSize().x;
+//    double  imheight= src.getSize().y;
+
+    m_Stack.clear();
+    m_srcTX = src.getSize().x/2.0;
+    m_srcTY = src.getSize().y/2.0;
+    m_destTX = src.getSize().x/2.0;
+    m_destTY = src.getSize().y/2.0;
+
+    if (scale != 1.0) {
+        AddTransform(&resize, scale, scale);
+    }
 
     // green channel, always correct
     for (int i=0; i < 4; i++) {

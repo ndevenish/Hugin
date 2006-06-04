@@ -33,7 +33,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wxpngd.lib wxzlibd.lib wxjpegd.lib wxtiffd.lib pano12.lib comctl32.lib user32.lib gdi32.lib comdlg32.lib"
+				AdditionalDependencies="wxpngd.lib wxzlibd.lib wxjpegd.lib wxtiffd.lib comctl32.lib user32.lib gdi32.lib comdlg32.lib"
 				OutputFile="$(OutDir)/fulla.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\libs\wxWidgets\lib\vc_lib;..\..\..\libs\libpano\pano12;..\..\..\libs\boost\stage\lib"

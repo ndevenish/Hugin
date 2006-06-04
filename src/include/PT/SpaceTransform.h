@@ -123,13 +123,15 @@ public :
 
     /** transformation for radial correction only
      */
-    void InitRadialCorrect(const vigra::Size2D & sz, std::vector<double> & radDist, 
+    void InitRadialCorrect(const vigra::Size2D & sz, const std::vector<double> & radDist, 
                            const FDiff2D & centerShift);
 
     /** init radial correction from pano image description and selected channel
      *  (R=0, G=1, B=2), (TCA corr)
      */
-    void InitRadialCorrect(const SrcPanoImage & src, int channel=1);
+    void InitRadialCorrect(const SrcPanoImage & src, int channel=1, double scale=1.0);
+
+    void InitInvRadialCorrect(const SrcPanoImage & src, int channel=1, double scale=1.0);
 
     void createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
     void createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
@@ -229,7 +231,7 @@ template <class VECTOR>
 void combinePolynom4(const VECTOR & p, const VECTOR & q, VECTOR & c)
 {
     double d3 = p[3]*p[3]*p[3];
-    c[0] = (3*q[1]*p[3]*p[3]*p[2]+q[3]*p[0]+q[2]*(2*p[3]*p[1]+p[2]*p[2])+q[0]*d3);
+    c[0] = (3*q[1]*p[3]*p[3]*p[2]+q[3]*p[0]+q[2]*(2*p[3]*p[1]+p[2]*p[2])+q[0]*d3*p[3]);
     c[1] = (2*q[2]*p[3]*p[2]+q[1]*d3+q[3]*p[1]);
     c[2] = (q[3]*p[2]+q[2]*p[3]*p[3]);
     c[3] = q[3]*p[3];
@@ -248,6 +250,60 @@ void combinePolynom4(const VECTOR & p, const VECTOR & q, VECTOR & c)
 }
 
 
+/** Internal function to estimate the image scaling required to avoid
+ *  black stripes at the image borders
+ */
+template <class TRANSFORM>
+void traceImageOutline(vigra::Size2D sz, TRANSFORM & transf, vigra::Rect2D & inside, vigra::Rect2D & boundingBox)
+{
+    boundingBox = vigra::Rect2D();
+    inside = vigra::Rect2D();
+    int x=0;
+    int y=0;
+    double xd;
+    double yd;
+    transf.transformImgCoord(xd,yd, x,y);
+    // calculate scaling factor that would be required to avoid black borders
+    double scale = std::max((-sz.x/2)/(xd-sz.x/2), (-sz.y/2)/(yd-sz.y/2));
+    int left = 0;
+    int right = sz.x;
+    int top = 0;
+    int bottom = sz.y;
+    // left
+    for (y=0; y < sz.y; y++) {
+        transf.transformImgCoord(xd,yd, x,y);
+        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        left = std::max(utils::roundi(xd), left);
+    }
+    // right
+    x = sz.x-1;
+    for (y=0; y < sz.y; y++) {
+        transf.transformImgCoord(xd,yd, x,y);
+        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        right = std::min(utils::roundi(xd), right);
+    }
+    // bottom
+    y=sz.y-1;
+    for (x=0; x < sz.x; x++) {
+        transf.transformImgCoord(xd,yd, x,y);
+        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        bottom = std::min(utils::roundi(yd), bottom);
+    }
+    // top
+    y=0;
+    for (x=0; x < sz.x; x++) {
+        transf.transformImgCoord(xd,yd, x,y);
+        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        top = std::max(utils::roundi(yd), top);
+    }
+    inside.setUpperLeft(vigra::Point2D(left, top));
+    inside.setLowerRight(vigra::Point2D(right, bottom));
+}
+
+/** \brief Calculate effective scaling factor for a given source image.
+ */
+double estScaleFactorForFullFrame(const PT::SrcPanoImage & src);
+
 /**
  * \brief Calculate effective scaling factor.
  *
@@ -264,7 +320,7 @@ void combinePolynom4(const VECTOR & p, const VECTOR & q, VECTOR & c)
  * \return smallest r_corr / r_orig in areas that might lead to black borders.
  *
  *****************************************************/
-double estRadialScaleCrop(std::vector<double> coeff, int width, int height);
+double estRadialScaleCrop(const std::vector<double> & coeff, int width, int height);
 
 
 } // namespace PT
