@@ -76,17 +76,22 @@ void correctImage(SrcImgType & srcImg,
 
     RSrcPixelType ka,kb;
     bool doBrightnessConversion = convertKParams(src.getBrightnessFactor(),
-            src.getBrightnessOffset(),
-            ka, kb);
+                                                 src.getBrightnessOffset(),
+                                                 ka, kb);
     bool dither = vigra_ext::ditheringNeeded(SrcPixelType());
 
     double gMaxVal = vigra_ext::VigCorrTraits<typename DestImgType::value_type>::max();
 
+    bool doGammaConv = false;
+    progress.pushTask(utils::ProgressTask("correcting image", ""));
+
     if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
+        progress.setMessage(std::string("flatfield vignetting correction ") + utils::stripPath(src.getFilename()));
         vigra_ext::flatfieldVigCorrection(vigra::srcImageRange(srcImg),
                                           vigra::srcImage(srcFlat), 
                                           vigra::destImage(srcImg), src.getGamma(), gMaxVal,
                                           vigCorrDivision, ka, kb, dither);
+        doGammaConv = true;
     } else if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) {
         progress.setMessage(std::string("radial vignetting correction ") + utils::stripPath(src.getFilename()));
 
@@ -95,18 +100,14 @@ void correctImage(SrcImgType & srcImg,
                                        src.getRadialVigCorrCoeff(), 
                                        src.getRadialVigCorrCenter(),
                                        vigCorrDivision, ka, kb, dither);
-    } else if (src.getGamma() != 1.0 && doBrightnessConversion ) {
-        progress.setMessage(std::string("inverse gamma & brightness corr") + utils::stripPath(src.getFilename()));
-        vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcImg),
-                src.getGamma(), gMaxVal, ka,kb);
-    } else if (doBrightnessConversion ) {
-        progress.setMessage(std::string("brightness correction ") + utils::stripPath(src.getFilename()));
-        vigra_ext::applyBrightnessCorrection(srcImageRange(srcImg), destImage(srcImg),
-                                             ka,kb);
-    } else if (src.getGamma() != 1.0 ) {
-        progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(src.getFilename()));
+        doGammaConv = true;
+    }
+
+    // undo inverse gamma correction that might have been applied during vignetting correction
+    if (src.getGamma() != 1.0 && doGammaConv) {
+        progress.setMessage(std::string("gamma correction ") + utils::stripPath(src.getFilename()));
         vigra_ext::applyGammaCorrection(srcImageRange(srcImg), destImage(srcImg),
-                                        src.getGamma(), gMaxVal);
+                                        1.0/src.getGamma(), gMaxVal);
     }
 
     double scaleFactor=1.0;
@@ -176,7 +177,10 @@ void correctImage(SrcImgType & srcImg,
         // remap with the same coefficient.
         SpaceTransform transf;
         transf.InitRadialCorrect(src, 2, scaleFactor);
-        if (transf.isIdentity()) {
+        vector <double> radCoeff = src.getRadialDistortion();
+        if (transf.isIdentity() || 
+            (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
+        {
             vigra::copyImage(srcImageRange(srcImg),
                              destImage(destImg));
         } else {
@@ -190,6 +194,7 @@ void correctImage(SrcImgType & srcImg,
                            progress);
         }
     }
+
 
     /*
     // correct image
@@ -323,7 +328,7 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     vigra::BasicImage<PIXELTYPE> output(info.size());
     importImage(info, destImage(srcImg));
     FImage flatfield;
-    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) {
+    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
         ImageImportInfo finfo(src.getFlatfieldFilename().c_str());
         flatfield.resize(finfo.size());
         importImage(finfo, destImage(flatfield));
@@ -343,8 +348,8 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
     if (profilePath == NULL)
     {
         cerr << "ERROR: " << endl
-                << " You specify where \"profile.txt\" is!" << endl
-                << " Use PTLENS_PROFILE environment variable, example:" << endl
+                << " You need to specify the location of \"profile.txt\"." << endl
+                << " Please set the PTLENS_PROFILE environment variable, for example:" << endl
                 << " PTLENS_PROFILE=$HOME/.ptlens/profile.txt" << endl;
         return false;
     }
@@ -459,6 +464,8 @@ static void usage(const char * name)
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
          << "      -a               Correct vignetting by addition, rather than by division" << std::endl
          << "                        I = I + c" << std::endl
+         << "      -i value         gamma of input data. used for gamma correction" << std::endl
+         << "                        before and after flatfield correction" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
          << "      -h               Display help (this text)" << std::endl
          << "      -o name          set output filename. If more than one image is given," << std::endl
@@ -470,7 +477,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "g:b:r:pm:n:l:d:sf:c:at:ho:v";
+    const char * optstring = "g:b:r:pm:n:l:d:sf:c:ai:t:ho:v";
     int o;
     bool verbose_flag = true;
 
@@ -491,6 +498,7 @@ int main(int argc, char *argv[])
     std::string cameraName;
     std::string lensName;
     float focalLength=0;
+    double gamma = 1.0;
     SrcPanoImage c;
     while ((o = getopt (argc, argv, optstring)) != -1)
         switch (o) {
@@ -534,6 +542,9 @@ int main(int argc, char *argv[])
         case 'a':
             doVigAddition = true;
             break;
+        case 'i':
+            gamma = atof(optarg);
+            c.setGamma(gamma);
         case 'p':
             doPTLens = true;
             break;
@@ -561,6 +572,7 @@ int main(int argc, char *argv[])
                 return 1;
             }
             c.setRadialVigCorrCoeff(vec4);
+            doVigRadial=true;
             break;
         case '?':
         case 'h':
