@@ -1,3 +1,922 @@
+2006-06-01 21:03  dangelo
+
+	* src/: include/PT/PanoToolsInterface.h,
+	  include/vigra_ext/VigQuotientEstimator.h, common/lu.c,
+	  include/common/lu.h: silence MSVC warnings
+
+2006-06-01 21:03  dangelo
+
+	* src/hugin/ImageCenter.cpp: maximise crop dialog window by default
+
+2006-06-01 21:01  dangelo
+
+	* src/: common/common.vcproj, hugin/hugin.vcproj: updated MSVC
+	  build files
+
+2006-05-21 21:04  dangelo
+
+	* src/hugin/PTWXDlg.cpp: libpano error reporting interface changed
+
+2006-05-07 15:29  dangelo
+
+	* src/build_msvc/Hugin.sln: removed vig_optimize from project
+
+2006-05-05 08:18  dangelo
+
+	* src/hugin/ImageCenter.cpp: allow dragging a rectangular crop area
+	  from bottom right to upper left.
+
+2006-05-04 08:25  dangelo
+
+	* src/: hugin/ImagesList.cpp, hugin/ImagesPanel.cpp,
+	  hugin/LensPanel.cpp, hugin/xrc/images_panel-2.5.xrc,
+	  hugin/xrc/lens_panel-2.5.xrc, hugin/xrc/lens_panel.xrc,
+	  include/hugin/ImagesPanel.h, include/hugin/LensPanel.h: moved
+	  crop button back to lens panel. crop is mainly used with circular
+	  fisheye images.  slight reorganisation of edit controls in lens
+	  tab
+
+2006-05-04 08:23  dangelo
+
+	* src/hugin/po/: fr.po, ru.po: updated translations
+
+2006-05-03 18:19  dangelo
+
+	* src/tools/: fulla.vcproj, vig_optimize.vcproj: added missing
+	  visual c project files
+
+2006-04-29 19:52  ippei
+
+	* src/hugin/xrc/: nona_panel.xrc, pano_panel-2.5.xrc: Fixed some
+	  spacing.
+
+2006-04-29 19:50  ippei
+
+	* src/hugin/: ImagesList.cpp, xrc/images_panel-2.5.xrc,
+	  xrc/lens_panel-2.5.xrc: The new interface completed.
+
+2006-04-28 09:45  dangelo
+
+	* m4/ax_check_panotools.m4: check for libpano with
+	  execute_stack_new (first appeared in 2.8.1)
+
+2006-04-28 09:14  dangelo
+
+	* src/: include/vigra_ext/Correlation.h,
+	  include/vigra_ext/ImageTransforms.h, tools/zhang_undistort.cpp:
+	  honor return value of coordinate transforms
+
+2006-04-28 09:11  dangelo
+
+	* src/: Panorama/SpaceTransform.cpp, include/PT/SpaceTransform.h:
+	  modify for compatibility with panotools based coordinate
+	  transform
+
+2006-04-28 09:11  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, include/PT/PanoramaMemento.h:
+	  use same output projection numbering scheme as pano12
+
+2006-04-28 09:03  dangelo
+
+	* src/hugin/OptimizePanel.cpp: check if the user is trying to
+	  optimize an unsupported projection.
+
+2006-04-28 09:02  dangelo
+
+	* src/hugin/PanoPanel.cpp: bugfix: new hfov and vfov input boxes
+	  did not work properly
+
+2006-04-28 08:59  dangelo
+
+	* src/hugin/VigCorrDialog.cpp: better default value for number of
+	  samples for vignetting correction coefficient estimation
+
+2006-04-28 08:57  dangelo
+
+	* src/hugin/xrc/: pano_panel-2.5.xrc, pano_panel.xrc: removed
+	  transversal cylindrical entry (not supported)
+
+2006-04-28 08:55  dangelo
+
+	* src/include/PT/PanoToolsInterface.h: updated hugin to use the new
+	  transform function with return code
+
+2006-04-25 01:36  ippei
+
+	* src/hugin/xrc/lens_panel-2.5.xrc: the new interface.
+
+2006-04-25 00:01  dangelo
+
+	* m4/ax_check_panotools.m4: do not abort, if panotools was found in
+	  path specified by CPPFLAGS and LDFLAGS.
+
+2006-04-23 17:45  ippei
+
+	* mac/config.h: New command line tools require package information
+	  defined.
+
+2006-04-23 17:44  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Xcode projects updated
+	  for the current source
+
+2006-04-23 17:42  ippei
+
+	* mac/localised.sh: wxMac went 2.6.3
+
+2006-04-23 17:42  ippei
+
+	* mac/Notes/scripts/: boost.sh, SetEnv-ppc.txt,
+	  SetEnv-universal.txt, enblend.sh, libjpeg.sh, libpng.sh,
+	  libtiff.sh, pano12.sh, wxconfig.sh: Revised the scripts for
+	  building libraries and tools.
+
+2006-04-21 16:21  dangelo
+
+	* src/hugin/xrc/data/help_common/: Makefile.am, hugin.png:
+	  committed missing files
+
+2006-04-21 00:05  dangelo
+
+	* src/hugin/xrc/data/: help_en_EN/.cvsignore,
+	  help_en_EN/Makefile.am, help_fr_FR/.cvsignore,
+	  help_fr_FR/Makefile.am: [no log message]
+
+2006-04-20 01:13  dangelo
+
+	* src/: common/Makefile.am, common/lu.c, hugin/VigCorrDialog.cpp,
+	  include/common/lu.h, include/vigra_ext/VigQuotientEstimator.h:
+	  removed dependancy on boost ublas. Hopefully this will allow
+	  compilation with gcc 3.2 (or 3.3) on OSX
+
+2006-04-19 22:35  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp, Panorama/Panorama.cpp,
+	  Panorama/PanoramaMemento.cpp, Panorama/SpaceTransform.cpp,
+	  Panorama/Stitcher.cpp, build_msvc/Hugin.sln,
+	  hugin/ImageCache.cpp, hugin/PanoPanel.cpp,
+	  hugin/PreviewFrame.cpp, hugin/VigCorrDialog.cpp,
+	  hugin/hugin.vcproj, include/PT/PanoToolsInterface.h,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/PT/RandomPointSampler.h, include/PT/RemappedPanoImage.h,
+	  include/PT/SpaceTransform.h, include/hugin/PanoPanel.h,
+	  nona_gui/nona_gui.vcproj, tools/fulla.cpp, tools/nona.vcproj:
+	  added new panorama projections. cleaned up transformation
+	  functions.  auto size and auto fov calculation should work
+	  properly for all projections.
+
+2006-04-19 22:32  dangelo
+
+	* src/foreign/vigra_impex/: Makefile.am, iccjpeg.c, iccjpeg.h: only
+	  build icc jpeg support if libjpeg is available
+
+2006-04-19 22:30  dangelo
+
+	* configure.ac, src/hugin/xrc/pano_panel-2.5.xrc,
+	  src/hugin/xrc/pano_panel.xrc, src/hugin/xrc/data/Makefile.am,
+	  src/hugin/xrc/data/help_en_EN/contents.html: do not use .htb
+	  files for help documents, because all images would have to be
+	  duplicated inside each version of the documentation
+
+2006-04-14 02:34  dangelo
+
+	* src/hugin/MainFrame.cpp: applied patch by Michal Marek, fixes
+	  crash if file selector is closed with the window manager close
+	  event ( only on wxGTK).
+
+2006-04-13 00:31  dangelo
+
+	* src/tools/fulla.cpp: added "batch" mode to fulla, where a postfix
+	  is appended to the corrected images can be used to convert large
+	  amounts of images without shell programming
+
+2006-04-06 01:05  dangelo
+
+	* src/: hugin/Makefile.am, hugin/OptimizePanel.cpp,
+	  hugin/PTWXDlg.cpp, hugin/huginApp.cpp, include/hugin/PTWXDlg.h:
+	  use wx windows for libpano12 progress output, if possible
+	  (requires patch just posted to libpano12-devel list)
+
+2006-04-05 10:14  dangelo
+
+	* src/: build_msvc/Hugin.sln, tools/autooptimiser.cpp: optimizer
+	  changes
+
+2006-04-05 10:13  dangelo
+
+	* src/: hugin/OptimizePanel.cpp, include/hugin/OptimizePanel.h: use
+	  libpano12 optimisation routines directly instead of calling
+	  PTOptimizer.	This should fix the following bugs: 1. crash on OSX
+	  2. application of results even if cancel was clicked.  3. cancel
+	  in edit script dialog didn't work
+
+2006-04-05 10:10  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, Panorama/PanoToolsInterface.cpp,
+	  Panorama/Panorama.cpp, Panorama/SpaceTransform.cpp,
+	  include/PT/PTOptimise.h, include/PT/PanoCommand.h,
+	  include/PT/PanoToolsInterface.h, include/PT/Panorama.h: Rewrote
+	  optimisation wrappers for libpano12.	changed the Panorama ->
+	  libpano12 data transfer. Now works with scripts that are parsed
+	  by libpano12
+
+2006-03-25 01:55  dangelo
+
+	* src/: include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/hugin/VigCorrDialog.h, nona_gui/po/de.po,
+	  nona_gui/po/fr.po, nona_gui/po/hu.po, nona_gui/po/nl.po,
+	  nona_gui/po/nona_gui.pot, nona_gui/po/pl.po,
+	  nona_gui/po/pt_BR.po, nona_gui/po/ru.po, nona_gui/po/zh_CN.po:
+	  bruno postle's compile fix for gcc 4.1
+
+2006-03-25 00:44  dangelo
+
+	* src/common/PTLensDB.c: fixed fatal error while searching for
+	  lenses
+
+2006-03-25 00:42  dangelo
+
+	* src/tools/fulla.cpp: [no log message]
+
+2006-03-25 00:40  dangelo
+
+	* src/: Panorama/SpaceTransform.cpp, include/PT/SpaceTransform.h,
+	  tools/fulla.cpp: enlage image if tca correction would introduce
+	  empty areas in a single channel
+
+2006-03-23 08:20  dangelo
+
+	* src/: hugin/po/cs_CZ.po, nona_gui/po/cs_CZ.po: redownloaded cs_CZ
+	  files with correct encoding (just to be sure)
+
+2006-03-22 08:54  dangelo
+
+	* src/hugin/po/: LINGUAS, ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, uk.po,
+	  zh_CN.po: updated strings
+
+2006-03-22 08:32  dangelo
+
+	* AUTHORS, src/hugin/PreferencesDialog.cpp, src/hugin/po/uk.po,
+	  src/hugin/xrc/data/about.htm, src/hugin/xrc/data/about_fr.htm,
+	  src/hugin/xrc/data/about_pl.htm,
+	  src/hugin/xrc/data/help_en_EN/manual.html: added Ukrainian
+	  translation.	updated manual (not finished yet)
+
+2006-03-17 18:45  dwilkins42
+
+	* src/: Panorama/Stitcher.cpp, hugin/MainFrame.cpp: Eliminate some
+	  memory leaks
+
+2006-03-17 05:53  dwilkins42
+
+	* src/: hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/PanoDruid.cpp,
+	  hugin/PreviewPanel.cpp,
+	  include/vigra_ext/MultiThreadOperations.h: Eliminate some memory
+	  leaks
+
+2006-03-15 19:13  dwilkins42
+
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  foreign/vigra/codec.hxx, foreign/vigra_impex/jpeg.cxx,
+	  foreign/vigra_impex/png.cxx, include/PT/PanoramaMemento.h,
+	  include/PT/RemappedPanoImage.h, include/PT/Stitcher.h,
+	  include/hugin/PanoDruid.h, include/hugin/wxPanoCommand.h,
+	  include/vigra_ext/Correlation.h: Add virtual destructors and
+	  re-order initialisation to reduce warnings
+
+2006-03-15 19:09  dwilkins42
+
+	* src/hugin/po/cs_CZ.po: Convert to UTF-8
+
+2006-03-15 19:07  dwilkins42
+
+	* src/: foreign/vigra_impex/bmp.cxx, foreign/vigra_impex/viff.cxx,
+	  hugin/CPEditorPanel.cpp: Fix types to reduce warnings
+
+2006-03-15 19:03  dwilkins42
+
+	* src/: nona_gui/nona_gui_rc.rc, hugin/hugin_rc.rc: Fix
+	  unneccessary VS re-compilation
+
+2006-03-15 18:55  dwilkins42
+
+	* src/include/vigra_ext/utils.h: Fix typo
+
+2006-03-15 18:54  dwilkins42
+
+	* src/include/vigra_ext/VigQuotientEstimator.h: Correct types to
+	  reduce warnings
+
+2006-03-15 18:48  dwilkins42
+
+	* src/: foreign/vigra/imageinfo.hxx, include/PT/Stitcher.h: Correct
+	  sense of ICC profile function isValid
+
+2006-03-15 18:46  dwilkins42
+
+	* src/common/PTLensDB.c: Comment out unused function
+
+2006-03-13 19:04  dwilkins42
+
+	* src/: foreign/vigra/mathutil.hxx, include/config_msvc.h,
+	  include/vigra_ext/RansacParameterEstimator.h,
+	  include/vigra_ext/VigQuotientEstimator.h,
+	  include/vigra_ext/ransac.h: Correct line endings
+
+2006-03-12 23:51  dangelo
+
+	* AUTHORS, src/hugin/MainFrame.cpp, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm:
+	  fixed typo
+
+2006-03-12 21:53  dangelo
+
+	* src/: hugin/LensPanel.cpp, hugin/ImagesPanel.cpp,
+	  include/hugin/LensPanel.h: removed duplicate code and fixed
+	  invalid setting of e parameter
+
+2006-03-12 21:10  dangelo
+
+	* src/: hugin/po/cs_CZ.po, nona_gui/po/cs_CZ.po: translation update
+	  by Jiri Slaby
+
+2006-03-11 18:13  dwilkins42
+
+	* src/: common/PTLensDB.c, foreign/vigra_impex/pnm.cxx,
+	  jhead/exif.cpp: Modify types, add initialisation and casts to
+	  remove warnings
+
+2006-03-11 18:10  dwilkins42
+
+	* src/foreign/vigra_impex/bmp.cxx: Make sure BMP files conform to
+	  spec
+
+2006-03-11 07:10  dwilkins42
+
+	* src/: Panorama/PTOptimise.cpp, Panorama/Panorama.cpp,
+	  hugin/NonaStitcherPanel.cpp, include/vigra_ext/ImageTransforms.h:
+	  Remove unreferenced variables
+
+2006-03-11 06:35  dwilkins42
+
+	* src/: Panorama/Panorama.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/Plot2D.cpp,
+	  include/PT/RandomPointSampler.h, include/PT/RemappedPanoImage.h,
+	  include/vigra_ext/ImageTransforms.h, include/vigra_ext/blend.h:
+	  Remove unreferenced variables
+
+2006-03-11 02:24  dangelo
+
+	* src/: common/PTLensDB.c, common/common.vcproj,
+	  hugin/ImagesPanel.cpp, include/hugin/config_defaults.h:
+	  compilation fixes for MSVC crop window does not set d,e
+	  coefficients anymore
+
+2006-03-11 01:26  dangelo
+
+	* src/tools/fulla.cpp: bugfix: do not try to read exif data in
+	  non-jpeg files
+
+2006-03-11 01:24  dwilkins42
+
+	* src/tools/.cvsignore: Update for fulla
+
+2006-03-10 21:17  dangelo
+
+	* src/hugin/CPListFrame.cpp: select ctrl points by distance:
+	  negative values select all point with a distance smaller than the
+	  selected one. Useful for selecting based on correlation score
+
+2006-03-10 21:15  dangelo
+
+	* src/hugin/ImageCache.cpp: fixed import of gray images
+
+2006-03-10 10:04  dangelo
+
+	* src/: common/Makefile.am, common/PTLensDB.c,
+	  include/common/PTLensDB.h, tools/fulla.cpp: added PTLens database
+	  support to fulla
+
+2006-03-10 10:03  dangelo
+
+	* src/: hugin/PanoPanel.cpp, hugin/xrc/pano_panel-2.5.xrc,
+	  include/hugin/PanoPanel.h: workaround for wx layout bug in Pano
+	  tab
+
+2006-03-09 10:19  dangelo
+
+	* src/: hugin/ImageCache.cpp, tools/Makefile.am, tools/fulla.cpp:
+	  bug fixes..
+
+2006-03-09 09:21  dangelo
+
+	* src/: include/PT/PanoImage.h, tools/fulla.cpp: forgot to load
+	  flatfield image.
+
+2006-03-09 08:52  dangelo
+
+	* src/: build_msvc/Hugin.sln, include/PT/PanoImage.h,
+	  tools/Makefile.am, tools/fulla.cpp: added fulla, a command line
+	  tool to perform distortion, vignetting and chromatic abberation
+	  correction.
+
+2006-03-09 08:47  dangelo
+
+	* src/hugin/: CPEditorPanel.cpp, wxPanoCommand.cpp: read harris
+	  corner parameters correctly
+
+2006-03-09 08:44  dangelo
+
+	* src/hugin/ImageCache.cpp: fixed loading of grayscale images with
+	  alpha channel in hugin
+
+2006-03-09 08:43  dangelo
+
+	* src/: include/PT/SpaceTransform.h, Panorama/SpaceTransform.cpp:
+	  added support for correct transform, with just radial distortion
+
+2006-03-09 08:42  dangelo
+
+	* src/include/vigra_ext/Interpolators.h: use accessors and row
+	  iterators
+
+2006-03-07 21:16  dwilkins42
+
+	* src/tools/Makefile.am: Include automatch.cpp in distribution.
+	  Cleanup
+
+2006-03-07 21:14  dwilkins42
+
+	* src/hugin/Makefile.am: Include MyExternalCmdExecDialog and
+	  UniversalCursor in compilation and distribution
+
+2006-03-07 21:11  dwilkins42
+
+	* Makefile.am: Include doc directory in distribution
+
+2006-03-07 19:20  dwilkins42
+
+	* src/hugin/xrc/data/.cvsignore: Ignore generated files
+
+2006-03-07 19:14  dwilkins42
+
+	* src/tools/.cvsignore: Update .cvsignore for
+	  color_correct_tiff.cpp
+
+2006-03-07 17:17  dwilkins42
+
+	* src/foreign/: vigra/imageinfo.hxx, vigra_impex/imageinfo.cxx:
+	  Correct oversight for unsigned images
+
+2006-03-07 01:05  dwilkins42
+
+	* src/hugin/xrc/data/Makefile.am: Make sure help_* directories are
+	  in the distribution
+
+2006-03-06 22:50  dangelo
+
+	* configure.ac, src/hugin/xrc/data/Makefile.am: updated build
+	  system for new help
+
+2006-03-06 22:49  dangelo
+
+	* src/hugin/xrc/data/: keyboard_fr.html, manual_fr.html,
+	  help_fr_FR/contents.html, help_fr_FR/hugin.hhc,
+	  help_fr_FR/hugin.hhk, help_fr_FR/hugin.hhp,
+	  help_fr_FR/keyboard.html, help_fr_FR/license.html,
+	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: converted
+	  french help text. needs update
+
+2006-03-06 22:48  dangelo
+
+	* src/hugin/xrc/data/: keyboard.html, help_en_EN/contents.html,
+	  help_en_EN/hugin.hhc, help_en_EN/hugin.hhk, help_en_EN/hugin.hhp,
+	  help_en_EN/keyboard.html, help_en_EN/license.html,
+	  help_en_EN/manual.html: converted english help file to new format
+
+2006-03-06 22:47  dangelo
+
+	* src/: hugin/MainFrame.cpp, hugin/huginApp.cpp,
+	  include/panoinc_WX.h, include/hugin/MainFrame.h: use the
+	  wxWidgets help browser.
+
+2006-03-06 06:51  dwilkins42
+
+	* bootstrap: Remove unneeded files created by bootstrap
+
+2006-03-06 06:38  dwilkins42
+
+	* src/: nona_gui/Makefile.am, tools/Makefile.am: Ensure *.vcproj is
+	  in distribution
+
+2006-03-06 05:09  dwilkins42
+
+	* src/foreign/: vigra/imageinfo.hxx, vigra/matrix.hxx,
+	  vigra_impex/gif.cxx, vigra_impex/imageinfo.cxx,
+	  vigra_impex/pnm.cxx: Update some types to remove warnings and
+	  conform to ICC spec
+
+2006-03-05 09:54  dangelo
+
+	* src/: foreign/vigra_impex/iccjpeg.c,
+	  foreign/vigra_impex/iccjpeg.h, foreign/vigra_impex/png.cxx,
+	  include/PT/RemappedPanoImage.h: added license to iccjpeg, compile
+	  fix on gcc
+
+2006-03-05 01:41  dangelo
+
+	* NEWS, src/include/PT/RemappedPanoImage.h: do gamma correction on
+	  the fly, this should be faster and reduces discretisation
+	  artifacts
+
+2006-03-05 00:29  dangelo
+
+	* LICENCE_VIGRA, src/Panorama/Panorama.cpp,
+	  src/Panorama/Stitcher1.cpp, src/Panorama/Stitcher2.cpp,
+	  src/Panorama/Stitcher3.cpp, src/Panorama/Stitcher4.cpp,
+	  src/foreign/vigra/accessor.hxx,
+	  src/foreign/vigra/array_vector.hxx,
+	  src/foreign/vigra/basicgeometry.hxx,
+	  src/foreign/vigra/basicimage.hxx,
+	  src/foreign/vigra/basicimageview.hxx,
+	  src/foreign/vigra/bordertreatment.hxx,
+	  src/foreign/vigra/boundarytensor.hxx,
+	  src/foreign/vigra/codec.hxx,
+	  src/foreign/vigra/colorconversions.hxx,
+	  src/foreign/vigra/combineimages.hxx,
+	  src/foreign/vigra/config.hxx,
+	  src/foreign/vigra/contourcirculator.hxx,
+	  src/foreign/vigra/convolution.hxx,
+	  src/foreign/vigra/copyimage.hxx,
+	  src/foreign/vigra/cornerdetection.hxx,
+	  src/foreign/vigra/diff2d.hxx,
+	  src/foreign/vigra/distancetransform.hxx,
+	  src/foreign/vigra/edgedetection.hxx,
+	  src/foreign/vigra/eigensystem.hxx, src/foreign/vigra/error.hxx,
+	  src/foreign/vigra/extraimagetraits.hxx,
+	  src/foreign/vigra/fftw.hxx, src/foreign/vigra/fftw3.hxx,
+	  src/foreign/vigra/fixedpoint.hxx,
+	  src/foreign/vigra/flatmorphology.hxx,
+	  src/foreign/vigra/functorexpression.hxx,
+	  src/foreign/vigra/functortraits.hxx,
+	  src/foreign/vigra/gaborfilter.hxx,
+	  src/foreign/vigra/gaussians.hxx,
+	  src/foreign/vigra/gradient_energy_tensor.hxx,
+	  src/foreign/vigra/imagecontainer.hxx,
+	  src/foreign/vigra/imageinfo.hxx,
+	  src/foreign/vigra/imageiterator.hxx,
+	  src/foreign/vigra/imageiteratoradapter.hxx,
+	  src/foreign/vigra/impex.hxx, src/foreign/vigra/impexalpha.hxx,
+	  src/foreign/vigra/initimage.hxx,
+	  src/foreign/vigra/inspectimage.hxx,
+	  src/foreign/vigra/interpolating_accessor.hxx,
+	  src/foreign/vigra/iteratoradapter.hxx,
+	  src/foreign/vigra/iteratortags.hxx,
+	  src/foreign/vigra/iteratortraits.hxx,
+	  src/foreign/vigra/labelimage.hxx,
+	  src/foreign/vigra/linear_algebra.hxx,
+	  src/foreign/vigra/linear_solve.hxx,
+	  src/foreign/vigra/localminmax.hxx,
+	  src/foreign/vigra/mathutil.hxx, src/foreign/vigra/matrix.hxx,
+	  src/foreign/vigra/memory.hxx,
+	  src/foreign/vigra/metaprogramming.hxx,
+	  src/foreign/vigra/multi_array.hxx,
+	  src/foreign/vigra/multi_convolution.hxx,
+	  src/foreign/vigra/multi_impex.hxx,
+	  src/foreign/vigra/multi_iterator.hxx,
+	  src/foreign/vigra/multi_pointoperators.hxx,
+	  src/foreign/vigra/navigator.hxx,
+	  src/foreign/vigra/nonlineardiffusion.hxx,
+	  src/foreign/vigra/numerictraits.hxx,
+	  src/foreign/vigra/orientedtensorfilters.hxx,
+	  src/foreign/vigra/pixelneighborhood.hxx,
+	  src/foreign/vigra/polynomial.hxx, src/foreign/vigra/rational.hxx,
+	  src/foreign/vigra/recursiveconvolution.hxx,
+	  src/foreign/vigra/resampling_convolution.hxx,
+	  src/foreign/vigra/resizeimage.hxx, src/foreign/vigra/rfftw.hxx,
+	  src/foreign/vigra/rgbvalue.hxx,
+	  src/foreign/vigra/seededregiongrowing.hxx,
+	  src/foreign/vigra/separableconvolution.hxx,
+	  src/foreign/vigra/sized_int.hxx,
+	  src/foreign/vigra/splineimageview.hxx,
+	  src/foreign/vigra/splines.hxx,
+	  src/foreign/vigra/static_assert.hxx,
+	  src/foreign/vigra/stdconvolution.hxx,
+	  src/foreign/vigra/stdimage.hxx,
+	  src/foreign/vigra/stdimagefunctions.hxx,
+	  src/foreign/vigra/symmetry.hxx,
+	  src/foreign/vigra/tensorutilities.hxx,
+	  src/foreign/vigra/tiff.hxx, src/foreign/vigra/tinyvector.hxx,
+	  src/foreign/vigra/transformimage.hxx,
+	  src/foreign/vigra/tuple.hxx, src/foreign/vigra/utilities.hxx,
+	  src/foreign/vigra/watersheds.hxx, src/foreign/vigra/windows.h,
+	  src/foreign/vigra_impex/Makefile.am,
+	  src/foreign/vigra_impex/auto_file.hxx,
+	  src/foreign/vigra_impex/bmp.cxx, src/foreign/vigra_impex/bmp.hxx,
+	  src/foreign/vigra_impex/byteorder.cxx,
+	  src/foreign/vigra_impex/byteorder.hxx,
+	  src/foreign/vigra_impex/codecmanager.cxx,
+	  src/foreign/vigra_impex/codecmanager.hxx,
+	  src/foreign/vigra_impex/error.hxx,
+	  src/foreign/vigra_impex/gif.cxx, src/foreign/vigra_impex/gif.hxx,
+	  src/foreign/vigra_impex/iccjpeg.c,
+	  src/foreign/vigra_impex/iccjpeg.h,
+	  src/foreign/vigra_impex/imageinfo.cxx,
+	  src/foreign/vigra_impex/jpeg.cxx,
+	  src/foreign/vigra_impex/jpeg.hxx,
+	  src/foreign/vigra_impex/png.cxx, src/foreign/vigra_impex/png.hxx,
+	  src/foreign/vigra_impex/pnm.cxx, src/foreign/vigra_impex/pnm.hxx,
+	  src/foreign/vigra_impex/sun.cxx, src/foreign/vigra_impex/sun.hxx,
+	  src/foreign/vigra_impex/tiff.cxx,
+	  src/foreign/vigra_impex/tiff.hxx,
+	  src/foreign/vigra_impex/viff.cxx,
+	  src/foreign/vigra_impex/viff.hxx,
+	  src/foreign/vigra_impex/vigra_impex.vcproj,
+	  src/foreign/vigra_impex/void_vector.cxx,
+	  src/foreign/vigra_impex/void_vector.hxx,
+	  src/hugin/CPEditorPanel.cpp, src/hugin/ImageCache.cpp,
+	  src/hugin/ImagesPanel.cpp, src/hugin/LensPanel.cpp,
+	  src/hugin/MainFrame.cpp, src/hugin/RunOptimizerFrame.cpp,
+	  src/include/PT/ImageTransforms.h,
+	  src/include/PT/RandomPointSampler.h,
+	  src/include/PT/RemappedPanoImage.h, src/include/PT/Stitcher.h,
+	  src/include/common/math.h,
+	  src/include/vigra_ext/FunctorAccessor.h,
+	  src/include/vigra_ext/ImageTransforms.h,
+	  src/include/vigra_ext/impexalpha.hxx,
+	  src/include/vigra_ext/tiffUtils.h, src/include/vigra_ext/utils.h,
+	  src/tests/vigra_ext.cpp, src/tools/automatch.cpp: merged vigra
+	  1.4 version back into HEAD. Everything seems to work well.
+
+2006-03-05 00:16  dangelo
+
+	* src/include/PT/Stitcher.h: copy profile for all output images,
+	  not only tiff_m
+
+2006-03-05 00:15  dangelo
+
+	* src/foreign/: vigra/imageinfo.hxx, vigra_impex/imageinfo.cxx,
+	  vigra_impex/jpeg.cxx, vigra_impex/png.cxx,
+	  vigra_impex/vigra_impex.vcproj: some more fixes for icc profile
+	  support. seems to work now.
+
+2006-03-04 20:51  dangelo
+
+	* src/include/: PT/RemappedPanoImage.h, PT/Stitcher.h,
+	  vigra_ext/tiffUtils.h: copy ICC profile from input to remapped
+	  images, if TIFF_m is used.
+
+2006-03-04 14:23  dangelo
+
+	* src/foreign/: vigra/imageinfo.hxx, vigra_impex/imageinfo.cxx:
+	  changed ICC profile interface, do not expose raw data pointers.
+
+2006-03-04 03:42  dangelo
+
+	* src/: Panorama/Panorama.cpp, hugin/CPEditorPanel.cpp,
+	  hugin/ImageCache.cpp, hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/RunOptimizerFrame.cpp,
+	  include/vigra_ext/FunctorAccessor.h,
+	  include/vigra_ext/impexalpha.hxx, tools/automatch.cpp: updates
+	  and comment cleanup
+
+2006-03-04 03:08  dangelo
+
+	* src/foreign/: vigra/codec.hxx, vigra/imageinfo.hxx,
+	  vigra/impex.hxx, vigra_impex/Makefile.am,
+	  vigra_impex/codecmanager.cxx, vigra_impex/imageinfo.cxx,
+	  vigra_impex/jpeg.cxx, vigra_impex/jpeg.hxx, vigra_impex/png.cxx,
+	  vigra_impex/png.hxx: added support for icc profiles in png
+	  (partially tested) and jpeg (totally untested) files.
+
+2006-03-04 02:59  dangelo
+
+	* src/foreign/vigra_impex/: iccjpeg.c, iccjpeg.h: Added icc reading
+	  code from lcms (also released under the MIT license)
+
+2006-03-03 01:30  dwilkins42
+
+	* src/foreign/: vigra/accessor.hxx, vigra/array_vector.hxx,
+	  vigra/basicgeometry.hxx, vigra/basicimage.hxx,
+	  vigra/basicimageview.hxx, vigra/bordertreatment.hxx,
+	  vigra/boundarytensor.hxx, vigra/codec.hxx,
+	  vigra/colorconversions.hxx, vigra/combineimages.hxx,
+	  vigra/config.hxx, vigra/contourcirculator.hxx,
+	  vigra/convolution.hxx, vigra/copyimage.hxx,
+	  vigra/cornerdetection.hxx, vigra/diff2d.hxx,
+	  vigra/distancetransform.hxx, vigra/edgedetection.hxx,
+	  vigra/eigensystem.hxx, vigra/error.hxx,
+	  vigra/extraimagetraits.hxx, vigra/fftw.hxx, vigra/fftw3.hxx,
+	  vigra/fixedpoint.hxx, vigra/flatmorphology.hxx,
+	  vigra/functorexpression.hxx, vigra/functortraits.hxx,
+	  vigra/gaborfilter.hxx, vigra/gaussians.hxx,
+	  vigra/gradient_energy_tensor.hxx, vigra/imagecontainer.hxx,
+	  vigra/imageinfo.hxx, vigra/imageiterator.hxx,
+	  vigra/imageiteratoradapter.hxx, vigra/impex.hxx,
+	  vigra/initimage.hxx, vigra/inspectimage.hxx,
+	  vigra/interpolating_accessor.hxx, vigra/iteratoradapter.hxx,
+	  vigra/iteratortags.hxx, vigra/iteratortraits.hxx,
+	  vigra/labelimage.hxx, vigra/linear_algebra.hxx,
+	  vigra/linear_solve.hxx, vigra/localminmax.hxx,
+	  vigra/mathutil.hxx, vigra/matrix.hxx, vigra/memory.hxx,
+	  vigra/metaprogramming.hxx, vigra/multi_array.hxx,
+	  vigra/multi_convolution.hxx, vigra/multi_impex.hxx,
+	  vigra/multi_iterator.hxx, vigra/multi_pointoperators.hxx,
+	  vigra/navigator.hxx, vigra/nonlineardiffusion.hxx,
+	  vigra/numerictraits.hxx, vigra/orientedtensorfilters.hxx,
+	  vigra/pixelneighborhood.hxx, vigra/polynomial.hxx,
+	  vigra/rational.hxx, vigra/recursiveconvolution.hxx,
+	  vigra/resampling_convolution.hxx, vigra/resizeimage.hxx,
+	  vigra/rfftw.hxx, vigra/rgbvalue.hxx,
+	  vigra/seededregiongrowing.hxx, vigra/separableconvolution.hxx,
+	  vigra/sized_int.hxx, vigra/splineimageview.hxx,
+	  vigra/splines.hxx, vigra/static_assert.hxx,
+	  vigra/stdconvolution.hxx, vigra/stdimage.hxx,
+	  vigra/stdimagefunctions.hxx, vigra/symmetry.hxx,
+	  vigra/tensorutilities.hxx, vigra/tiff.hxx, vigra/tinyvector.hxx,
+	  vigra/transformimage.hxx, vigra/tuple.hxx, vigra/utilities.hxx,
+	  vigra/watersheds.hxx, vigra/windows.h, vigra_impex/auto_file.hxx,
+	  vigra_impex/bmp.cxx, vigra_impex/bmp.hxx,
+	  vigra_impex/byteorder.cxx, vigra_impex/byteorder.hxx,
+	  vigra_impex/codecmanager.cxx, vigra_impex/codecmanager.hxx,
+	  vigra_impex/error.hxx, vigra_impex/gif.cxx, vigra_impex/gif.hxx,
+	  vigra_impex/imageinfo.cxx, vigra_impex/jpeg.cxx,
+	  vigra_impex/jpeg.hxx, vigra_impex/png.cxx, vigra_impex/png.hxx,
+	  vigra_impex/pnm.cxx, vigra_impex/pnm.hxx, vigra_impex/sun.cxx,
+	  vigra_impex/sun.hxx, vigra_impex/tiff.cxx, vigra_impex/tiff.hxx,
+	  vigra_impex/viff.cxx, vigra_impex/viff.hxx,
+	  vigra_impex/void_vector.cxx, vigra_impex/void_vector.hxx: Update
+	  to (patched) vigra 1.4.0
+
+2006-03-03 01:06  dwilkins42
+
+	* LICENCE_VIGRA: Update the VIGRA license
+
+2006-03-03 01:02  dwilkins42
+
+	* src/include/PT/RandomPointSampler.h: Specify the 'norm' function
+	  to ensure correct candidate used
+
+2006-03-03 01:00  dwilkins42
+
+	* src/include/common/math.h: comment out duplicate function
+
+2006-03-03 00:59  dwilkins42
+
+	* src/include/vigra_ext/FunctorAccessor.h: Add new class member
+	  'size' where required by vigra 1.4.0
+
+2006-03-03 00:57  dwilkins42
+
+	* src/include/vigra_ext/utils.h: Update usage of RGBValue
+	  definitions
+
+2006-03-03 00:50  dwilkins42
+
+	* src/: foreign/vigra/impexalpha.hxx, hugin/ImageCache.cpp,
+	  include/PT/ImageTransforms.h, include/PT/RemappedPanoImage.h,
+	  include/PT/Stitcher.h, include/vigra_ext/ImageTransforms.h,
+	  include/vigra_ext/impexalpha.hxx, tests/vigra_ext.cpp: Move
+	  impexalpha.hxx to vigra_ext
+
+2006-03-03 00:37  dwilkins42
+
+	* src/Panorama/: Stitcher1.cpp, Stitcher2.cpp, Stitcher3.cpp,
+	  Stitcher4.cpp: Update types to conform with vigra 1.4.0
+
+2006-03-03 00:31  dwilkins42
+
+	* src/Panorama/Panorama.cpp: Correct type of parameter
+
+2006-02-25 20:00  dangelo
+
+	* src/: Panorama/Panorama.cpp, include/PT/PanoImage.h,
+	  include/PT/Panorama.h, include/hugin/wxPanoCommand.h: detect and
+	  correct if image size specified in .pto file differs from the
+	  actual image size.
+
+2006-02-24 00:29  dangelo
+
+	* src/: Panorama/PanoImage.cpp, include/PT/PanoImage.h,
+	  include/PT/RemappedPanoImage.h: bugfix: use source image
+	  projection type to determine if the interpolators should use
+	  horizontal warparound boundary conditions
+
+2006-02-23 09:31  dangelo
+
+	* src/: hugin/ImageCenter.cpp, include/hugin/ImageCenter.h:
+	  compiles with wxWidgets 2.4 again.
+
+2006-02-23 00:03  dangelo
+
+	* src/include/vigra_ext/VigQuotientEstimator.h: reorder includes
+	  for compilation on fc4
+
+2006-02-22 00:12  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp,
+	  Panorama/SpaceTransform.cpp, include/PT/RemappedPanoImage.h:
+	  bugfix: new transform code code assumed e=d.	bugfix: fixed crash
+	  when rectangular crop lies outside of input image
+
+2006-02-21 18:48  dangelo
+
+	* src/nona_gui/Makefile.am: added proper boost flags
+
+2006-02-21 07:35  dangelo
+
+	* src/vigra_ext/Makefile.am: added boost flags
+
+2006-02-21 00:45  dangelo
+
+	* m4/ax_boost.m4: fixed boost version extraction
+
+2006-02-20 08:37  dangelo
+
+	* src/include/jhead/jhead.h: exif bugfix: forgot to commit header
+	  files
+
+2006-02-19 14:47  dangelo
+
+	* src/: build_msvc/Hugin.sln, jhead/exif.cpp, jhead/jpgfile.cpp:
+	  fixed calculation of ccd size with jpg files produced by
+	  photoshop.
+
+2006-02-19 11:09  dangelo
+
+	* m4/ax_boost.m4: search all possible (hopefully) names of the
+	  boost_thread library
+
+2006-02-18 16:10  dangelo
+
+	* configure.ac, m4/ax_boost.m4: improved boost library test
+
+2006-02-14 00:19  ippei
+
+	* mac/pano12-patch/: filter_h.patch, panorama_h.patch,
+	  sys_mac_h.patch: pano12 patched for universal build and 10.4
+
+2006-02-13 23:58  ippei
+
+	* mac/Notes/scripts/: SetEnv-ppc.txt, SetEnv-universal.txt: mac:
+	  some additional notes
+
+2006-02-13 23:57  ippei
+
+	* mac/Documents/ReadMe-HuginOSX.txt: mac: some additional notes on
+	  installation
+
+2006-02-13 23:51  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: mac: various compilation
+	  changes
+
+2006-02-13 23:47  ippei
+
+	* mac/: Notes/External Software.rtf, Notes/install-JpegPngTiff.rtf,
+	  Notes/install-boost.rtf, Notes/scripts/SetEnv-ppc.txt,
+	  Notes/scripts/SetEnv-universal.txt, Notes/scripts/clens.sh,
+	  Notes/scripts/enblend.sh, Notes/scripts/libjpeg.sh,
+	  Notes/scripts/libpng.sh, Notes/scripts/libtiff.sh,
+	  Notes/scripts/pano12.sh, Notes/scripts/wxconfig.sh, localised.sh:
+	  mac: various compilation changes
+
+2006-02-11 22:29  dangelo
+
+	* ChangeLog, configure.ac, m4/ax_boost.m4, m4/ax_check_boost.m4,
+	  src/Panorama/Makefile.am, src/hugin/Makefile.am,
+	  src/tools/Makefile.am: added new boost test to configure
+
+2006-02-11 09:57  dangelo
+
+	* src/include/vigra_ext/VigQuotientEstimator.h: added includes
+	  required for boost 1.32
+
+2006-02-10 09:04  dangelo
+
+	* m4/ax_check_boost.m4: added new lib64 library pathes to boost
+	  check. Not ideal, since it might then find libs in the wrong
+	  directory, since it searches both lib and lib64, independent of
+	  the architecture.
+
+2006-02-09 22:07  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, zh_CN.po:
+	  added new string, "Czech" :)
+
+2006-02-09 22:01  dangelo
+
+	* AUTHORS, NEWS, src/hugin/PreferencesDialog.cpp,
+	  src/hugin/po/LINGUAS, src/hugin/po/cs_CZ.po,
+	  src/hugin/xrc/data/about.htm, src/hugin/xrc/data/about_fr.htm,
+	  src/hugin/xrc/data/about_pl.htm: added czech translation by Jiri
+	  Slaby
+
 2006-02-08 08:58  dangelo
 
 	* NEWS, src/hugin/xrc/data/about.htm,
