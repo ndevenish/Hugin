@@ -1072,7 +1072,7 @@ void SpaceTransform::InitRadialCorrect(const Size2D & sz, const vector<double> &
 }
 
 /** Create a transform stack for distortion & TCA correction only */
-void SpaceTransform::InitInvRadialCorrect(const SrcPanoImage & src, int channel, double scale)
+void SpaceTransform::InitInvRadialCorrect(const SrcPanoImage & src, int channel)
 {
     double mprad[6];
 
@@ -1126,15 +1126,11 @@ void SpaceTransform::InitInvRadialCorrect(const SrcPanoImage & src, int channel,
     if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
         AddTransform (&inv_radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
     }
-
-    if (scale != 1.0) {
-        AddTransform(&resize, 1/scale, 1/scale);
-    }
 }
 
 
 /** Create a transform stack for distortion & TCA correction only */
-void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel, double scale)
+void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel)
 {
     double mprad[6];
 
@@ -1147,10 +1143,6 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel, do
     m_destTX = src.getSize().x/2.0;
     m_destTY = src.getSize().y/2.0;
 
-    if (scale != 1.0) {
-        AddTransform(&resize, scale, scale);
-    }
-
     // green channel, always correct
     for (int i=0; i < 4; i++) {
         mprad[3-i] = src.getRadialDistortion()[i];
@@ -1162,6 +1154,9 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel, do
     // radial correction if nonzero radial coefficients
     if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
         AddTransform (&radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+        DEBUG_DEBUG("Init Radial (green): " 
+                << "g: " << mprad[0] << " " << mprad[1] << " " << mprad[2] 
+                << " " << mprad[3] << " " << mprad[4] << " " << mprad[5]);
     }
 
     if (src.getCorrectTCA() && (channel == 0 || channel == 2)) {
@@ -1181,6 +1176,9 @@ void SpaceTransform::InitRadialCorrect(const SrcPanoImage & src, int channel, do
         // radial correction if nonzero radial coefficients
         if ( mprad[0] != 1.0 || mprad[1] != 0.0 || mprad[2] != 0.0 || mprad[3] != 0.0) {
             AddTransform (&radial, mprad[0], mprad[1], mprad[2], mprad[3], mprad[4], mprad[5]);
+            DEBUG_DEBUG("Init Radial (channel " << channel << "): " 
+                    << "g: " << mprad[0] << " " << mprad[1] << " " << mprad[2] 
+                    << " " << mprad[3] << " " << mprad[4] << " " << mprad[5]);
         }
     }
 

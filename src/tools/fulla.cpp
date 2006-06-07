@@ -60,7 +60,7 @@ using namespace utils;
 template <class SrcImgType, class FlatImgType, class DestImgType>
 void correctImage(SrcImgType & srcImg,
                   const FlatImgType & srcFlat,
-                  const PT::SrcPanoImage & src,
+                  PT::SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
                   DestImgType & destImg,
                   bool doCrop,
@@ -115,7 +115,16 @@ void correctImage(SrcImgType & srcImg,
     if (doCrop) {
         scaleFactor=estScaleFactorForFullFrame(src);
         DEBUG_DEBUG("Black border correction scale factor: " << scaleFactor);
+        double sf=scaleFactor;
+        vector<double> radGreen = src.getRadialDistortion();
+        for (int i=0; i < 4; i++) {
+            radGreen[3-i] *=sf;
+            sf *=scaleFactor;
+        }
+        src.setRadialDistortion(radGreen);
     }
+
+
     // hmm, dummy alpha image...
     BImage alpha(srcImg.size());
 
@@ -128,9 +137,9 @@ void correctImage(SrcImgType & srcImg,
                 << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
         */
         // remap individual channels
-        SpaceTransform transf;
-        transf.InitRadialCorrect(src, 0, scaleFactor);
-        if (transf.isIdentity()) {
+        SpaceTransform transfr;
+        transfr.InitRadialCorrect(src, 0);
+        if (transfr.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
         } else {
@@ -138,14 +147,15 @@ void correctImage(SrcImgType & srcImg,
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
-                           transf,
+                           transfr,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
         }
 
-        transf.InitRadialCorrect(src, 1, scaleFactor);
-        if (transf.isIdentity()) {
+        SpaceTransform transfg;
+        transfg.InitRadialCorrect(src, 1);
+        if (transfg.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
         } else {
@@ -153,14 +163,15 @@ void correctImage(SrcImgType & srcImg,
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
-                           transf,
+                           transfg,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
         }
 
-        transf.InitRadialCorrect(src, 2, scaleFactor);
-        if (transf.isIdentity()) {
+        SpaceTransform transfb;
+        transfb.InitRadialCorrect(src, 2);
+        if (transfb.isIdentity()) {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
         } else {
@@ -168,7 +179,7 @@ void correctImage(SrcImgType & srcImg,
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
-                           transf,
+                           transfb,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
@@ -176,7 +187,7 @@ void correctImage(SrcImgType & srcImg,
     } else {
         // remap with the same coefficient.
         SpaceTransform transf;
-        transf.InitRadialCorrect(src, 2, scaleFactor);
+        transf.InitRadialCorrect(src, 1);
         vector <double> radCoeff = src.getRadialDistortion();
         if (transf.isIdentity() || 
             (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
@@ -681,7 +692,6 @@ int main(int argc, char *argv[])
                 if (strcmp(pixelType, "UINT8") == 0) {
                     correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, pdisp);
                 }
-                /*
                 else if (strcmp(pixelType, "UINT16") == 0) {
                     correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, pdisp);
                 } else if (strcmp(pixelType, "INT16") == 0) {
@@ -693,7 +703,6 @@ int main(int argc, char *argv[])
                 } else if (strcmp(pixelType, "DOUBLE") == 0) {
                     correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, pdisp);
                 }
-                */
             } else {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
                 throw std::runtime_error("unsupported depth, only 3 channels images are supported");

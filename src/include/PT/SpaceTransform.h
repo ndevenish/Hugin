@@ -129,9 +129,9 @@ public :
     /** init radial correction from pano image description and selected channel
      *  (R=0, G=1, B=2), (TCA corr)
      */
-    void InitRadialCorrect(const SrcPanoImage & src, int channel=1, double scale=1.0);
+    void InitRadialCorrect(const SrcPanoImage & src, int channel=1);
 
-    void InitInvRadialCorrect(const SrcPanoImage & src, int channel=1, double scale=1.0);
+    void InitInvRadialCorrect(const SrcPanoImage & src, int channel=1);
 
     void createTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
     void createInvTransform(const PT::SrcPanoImage & src, const PT::PanoramaOptions & dest);
@@ -272,28 +272,28 @@ void traceImageOutline(vigra::Size2D sz, TRANSFORM & transf, vigra::Rect2D & ins
     // left
     for (y=0; y < sz.y; y++) {
         transf.transformImgCoord(xd,yd, x,y);
-        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        boundingBox |= vigra::Point2D(utils::roundi(xd), utils::roundi(yd));
         left = std::max(utils::roundi(xd), left);
     }
     // right
     x = sz.x-1;
     for (y=0; y < sz.y; y++) {
         transf.transformImgCoord(xd,yd, x,y);
-        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        boundingBox |= vigra::Point2D(utils::roundi(xd), utils::roundi(yd));
         right = std::min(utils::roundi(xd), right);
     }
     // bottom
     y=sz.y-1;
     for (x=0; x < sz.x; x++) {
         transf.transformImgCoord(xd,yd, x,y);
-        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        boundingBox |= vigra::Point2D(utils::roundi(xd), utils::roundi(yd));
         bottom = std::min(utils::roundi(yd), bottom);
     }
     // top
     y=0;
     for (x=0; x < sz.x; x++) {
         transf.transformImgCoord(xd,yd, x,y);
-        boundingBox |= vigra::Point2D(utils::round(xd), utils::round(yd));
+        boundingBox |= vigra::Point2D(utils::roundi(xd), utils::roundi(yd));
         top = std::max(utils::roundi(yd), top);
     }
     inside.setUpperLeft(vigra::Point2D(left, top));
