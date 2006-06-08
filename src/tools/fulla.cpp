@@ -556,6 +556,7 @@ int main(int argc, char *argv[])
         case 'i':
             gamma = atof(optarg);
             c.setGamma(gamma);
+            break;
         case 'p':
             doPTLens = true;
             break;
