@@ -67,11 +67,10 @@ AC_ARG_ENABLE(gui,
 
 
 dnl Whether GCJ_PROPERTIES is used depends on the target.
-if test -n "$enable_gio"; then
-	with_gui='yes'
-fi
-if test "$enable_gui" = no; then
+if test "x$enable_gui" = 'xno'; then
 	with_gui='no'
+else
+	with_gui='yes'
 fi
 
 AM_CONDITIONAL(BuildGUI, test "x$with_gui" = 'xyes')
