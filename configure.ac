@@ -61,6 +61,22 @@ AM_CONDITIONAL(HAVE_MINGW, test "${HSYS}" = "mingw32")
 
 AM_CONDITIONAL(HAVE_AMD64, test "${HCPU}" = "amd64")
 
+AC_ARG_ENABLE(gui,
+          AC_HELP_STRING([--disable-gui],
+		         [disable gui (compile only nona and fulla)]))
+
+
+dnl Whether GCJ_PROPERTIES is used depends on the target.
+if test -n "$enable_gio"; then
+	with_gui='yes'
+fi
+if test "$enable_gui" = no; then
+	with_gui='no'
+fi
+
+AM_CONDITIONAL(BuildGUI, test "x$with_gui" = 'xyes')
+
+
 dnl --- look for "ZIP", required for building the help file
 AC_PATH_PROG(ZIP, zip, no)
 if [[ $ZIP = "no" ]] ; then
@@ -209,6 +225,8 @@ dnl 	--with-boost-version to specify your version
 dnl     ])
 dnl fi
 
+if test "x$with_gui" = 'xyes' ; then
+
 if test "x$with_unicode" = 'xyes' ; then
   AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes)
 else
@@ -236,6 +254,8 @@ else
     AM_PATH_GTK(1.2.0, havegtk=yes, havegtk=no, gthread)
     GTK_DEFS=""
   fi
+fi
+
 fi
 
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
@@ -323,6 +343,7 @@ echo "PANO             --with-pano=$with_pano		have_pano  = $have_pano"
 echo "BOOST            --with-boost=$with_boost		have_boost = $have_boost"
 echo "Unicode          --with-unicode=$with_unicode"
 echo "Debug enabled?   $enable_debug"
+echo "compile GUI programs hugin and nona_gui:    $with_gui"
 echo ""
 echo "Options used to compile and link:"
 echo "  PREFIX           = $prefix"
