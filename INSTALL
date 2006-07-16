@@ -42,6 +42,11 @@ REQUIRED LIBRARIES/PACKAGES:
 Required packages building for debian:
  libwxgtk2.6-dev libpano12-dev libboost-dev libboost-graph-dev libboost-thread-dev libboost-thread
 
+Required packages for ubuntu dapper:
+apt-get install automake1.7 autoconf libtool zlib1g-dev libtiff-dev libjpeg-dev libpng-dev gcc g++ gcj libboost-graph-dev libboost-thread-dev libwxgtk2.6-dev wx-common libglib2.0-dev libgtk2.0-dev
+
+Panotools 2.8.3 or later is required. Install manually.
+
 COMPILATION:
 
 These are the instructions for linux. see the WINDOWS_COMPILE.txt
