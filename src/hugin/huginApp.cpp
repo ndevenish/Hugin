@@ -35,6 +35,9 @@
 #include "hugin/huginApp.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/PTWXDlg.h"
+#include "hugin/CommandHistory.h"
+#include "hugin/wxPanoCommand.h"
+
 
 #include <tiffio.h>
 
@@ -342,6 +345,12 @@ bool huginApp::OnInit()
     }
     DEBUG_DEBUG("using temp dir: " << m_workDir.mb_str());
 
+    // set some suitable defaults
+    PanoramaOptions opts = pano.getOptions();
+    opts.outputFormat = PanoramaOptions::TIFF;
+    opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+    pano.setOptions(opts);
+
     // TODO: check if we need to load images.
     if (argc == 2) {
         wxString filename(argv[1]);
@@ -350,6 +359,27 @@ bool huginApp::OnInit()
             filename.Prepend(cwd);
         }
         frame->LoadProjectFile(filename);
+    } else {
+        std::vector<std::string> filesv;
+        for (unsigned int i=1; i< argc; i++) {
+            wxFileName file(argv[1]);
+
+            if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("tiff")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("png")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("bmp")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("gif")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("pnm")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("viff")) == 0 )
+            {
+                filesv.push_back((const char *)(file.GetFullPath().mb_str()));
+            }
+        }
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::wxAddImagesCmd(pano,filesv)
+                                               );
     }
 #ifdef __WXMAC__
     m_macInitDone = true;
@@ -369,12 +399,6 @@ bool huginApp::OnInit()
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
-
-    // set some suitable defaults
-    PanoramaOptions opts = pano.getOptions();
-    opts.outputFormat = PanoramaOptions::TIFF;
-    opts.blendMode = PanoramaOptions::SPLINE_BLEND;
-    pano.setOptions(opts);
 
     pano.changeFinished();
     pano.clearDirty();

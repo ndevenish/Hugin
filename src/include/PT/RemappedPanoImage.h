@@ -78,9 +78,20 @@ void estimateImageAlpha(const SrcPanoImage & src,
     scale = std::min(maxLength/dest.getSize().x, maxLength/dest.getSize().y);
 
     // take dest roi into account...
-    vigra::Size2D destSz = dest.getSize() * scale;
-    vigra::Rect2D destRect = dest.getROI() * scale;
+    vigra::Size2D destSz;
+    destSz.x = utils::ceili(dest.getSize().x * scale);
+    destSz.y = utils::ceili(dest.getSize().y * scale);
+    vigra::Rect2D destRect;
+    destRect.setUpperLeft(vigra::Point2D (utils::floori(dest.getROI().left() * scale),
+                          utils::floori(dest.getROI().top() * scale)));
+    destRect.setLowerRight(vigra::Point2D (utils::ceili(dest.getROI().right() * scale),
+                   utils::ceili(dest.getROI().bottom() * scale)));
     destRect = destRect & vigra::Rect2D(destSz);
+
+    DEBUG_DEBUG("scale " << scale);
+    DEBUG_DEBUG("dest roi " << dest.getROI());
+    DEBUG_DEBUG("dest Sz: " << destSz);
+    DEBUG_DEBUG("dest rect: " << destRect);
 
     FDiff2D cropCenter;
     double radius2;
@@ -112,7 +123,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
 
             if (valid) {
                 img(x,y) = 255;
-                if ( ul.x > (x-1)/scale ) {
+/*                if ( ul.x > (x-1)/scale ) {
                     ul.x = (x-1)/scale;
                 }
                 if ( ul.y > (y-1)/scale ) {
@@ -125,14 +136,59 @@ void estimateImageAlpha(const SrcPanoImage & src,
                 if ( lr.y < (y+1)/scale ) {
                     lr.y = (y+1)/scale;
                 }
+*/
             } else {
                 img(x,y) = 0;
             }
         }
     }
 
+    alpha.resize(img.size());
+
+        // dilate alpha image, to cover neighbouring pixels,
+        // that may be valid in the full resolution image
+    vigra::discDilation(vigra::srcImageRange(img),
+                        vigra::destImage(alpha), 1);
+    /*
+#ifdef DEBUG
+{
+    vigra::ImageExportInfo exinfo("mask.png");
+    vigra::exportImage(srcImageRange(img), exinfo);
+}
+{
+    vigra::ImageExportInfo exinfo("mask_dilated.png");
+    vigra::exportImage(srcImageRange(alpha), exinfo);
+}
+#endif
+    */
+    ul.x = destRect.right();
+    ul.y = destRect.bottom();
+    lr.x = destRect.left();
+    lr.y = destRect.top();
+
+    for (int y=destRect.top(); y < destRect.bottom(); y++) {
+        for (int x=destRect.left(); x < destRect.right(); x++) {
+            if (alpha(x,y)) {
+                if ( ul.x > x ) {
+                    ul.x = x;
+                }
+                if ( ul.y > y ) {
+                    ul.y = y;
+                }
+
+                if ( lr.x < x ) {
+                    lr.x = x;
+                }
+                if ( lr.y < y ) {
+                    lr.y = y;
+                }
+            }
+        }
+    }
+
     // check if we have found some pixels..
-    if ( ul.x == DBL_MAX || ul.y == DBL_MAX || lr.x == -DBL_MAX || lr.y == -DBL_MAX ) {
+    if ( ul.x == destRect.right() || ul.y == destRect.bottom() 
+         || lr.x == destRect.left()|| lr.y == destRect.top() ) {
         // no valid pixel.. strange.. either there is no image here, or we have
         // overlooked some pixel.. to be on the safe side. remap the whole image here...
         imgRect = dest.getROI();
@@ -141,18 +197,17 @@ void estimateImageAlpha(const SrcPanoImage & src,
                   img.upperLeft()+destRect.lowerRight(),
                   img.accessor(),255);
     } else {
+        // bounding rect after scan
+        DEBUG_DEBUG("ul: " << ul << "  lr: " << lr);
+        ul.x = (ul.x)/scale;
+        ul.y = (ul.y)/scale;
+        lr.x = (lr.x+1)/scale;
+        lr.y = (lr.y+1)/scale;
         imgRect.setUpperLeft(vigra::Point2D(utils::roundi(ul.x), utils::roundi(ul.y)));
         imgRect.setLowerRight(vigra::Point2D(utils::roundi(lr.x), utils::roundi(lr.y)));
-
         // ensure that the roi is inside the destination rect
         imgRect = dest.getROI() & imgRect;
         DEBUG_DEBUG("bounding box: " << imgRect);
-
-        alpha.resize(img.size());
-        // dilate alpha image, to cover neighbouring pixels,
-        // that may be valid in the full resolution image
-        vigra::discDilation(vigra::srcImageRange(img),
-                            vigra::destImage(alpha), 1);
     }
 
 }

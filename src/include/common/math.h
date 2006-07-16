@@ -55,6 +55,16 @@ inline float roundf(float x)
     return (float) floor(x+0.5f);
 }
 
+inline int ceili(double x)
+{
+    return (int) ceil(x);
+}
+
+inline int floori(double x)
+{
+    return (int) floor(x);
+}
+
 template <class T>
 inline int roundi(T x)
 {

@@ -581,9 +581,11 @@ public:
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
         }
+        /*
 #ifdef DEBUG
 	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
 #endif
+        */
 	Base::m_progress.popTask();
 
     }
@@ -802,9 +804,11 @@ public:
             vigra::exportImageAlpha(srcImageRange(pano),
                                            srcImage(panoMask), exinfo);
         }
+        /*
 #ifdef DEBUG
 	vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
 #endif
+        */
 	Base::m_progress.popTask();
 
     }
