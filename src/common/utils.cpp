@@ -97,8 +97,16 @@ std::string utils::stripPath(const std::string & filename)
 {
     std::string::size_type idx1 = filename.rfind('\\');
     std::string::size_type idx2 = filename.rfind('/');
-    std::string::size_type idx = std::min(idx1, idx2);
-    if (idx != std::string::npos) {
+    std::string::size_type idx;
+    if (idx1 == std::string::npos) {
+        idx = idx2;
+    } else if (idx2 == std::string::npos) {
+        idx = idx1;
+    } else {
+        idx = std::max(idx1, idx2);
+    }
+    if (idx1 != std::string::npos) {
+//        DEBUG_DEBUG("returning substring: " << filename.substr(idx + 1));
         return filename.substr(idx + 1);
     } else {
         return filename;

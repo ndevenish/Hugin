@@ -28,6 +28,7 @@
 
 #include "PT/PanoCommand.h"
 #include "common/stl_utils.h"
+#include "vigra/impex.hxx"
 #include "hugin/LensPanel.h"
 #include "hugin/config_defaults.h"
 
@@ -159,9 +160,15 @@ public:
                     while (! fname.FileExists()){
                         // Is file in the new path
                         if (basedir != wxT("")) {
-                            wxString newname = fname.GetFullName();
+                            DEBUG_DEBUG("Old filename: " << pano.getImage(i).getFilename());
+                            std::string fn = utils::stripPath(pano.getImage(i).getFilename());
+                            DEBUG_DEBUG("Old filename, without path): " << fn);
+                            wxString newname(fn.c_str(), *wxConvCurrent);
+                            // GetFullName does only work with local paths (not compatible across platforms)
+//                            wxString newname = fname.GetFullName();
                             fname.AssignDir(basedir);
                             fname.SetFullName(newname);
+                            DEBUG_TRACE("filename with new path: " << fname.GetFullPath().mb_str());
                             if (fname.FileExists()) {
                                 pano.setImageFilename(i, (const char *)fname.GetFullPath().mb_str());
                                 DEBUG_TRACE("New filename set: " << fname.GetFullPath().mb_str());
