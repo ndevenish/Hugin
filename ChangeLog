@@ -1,3 +1,68 @@
+2006-07-16 21:24  dangelo
+
+	* src/: build_msvc/Hugin.sln, hugin/hugin.vcproj,
+	  hugin/huginApp.cpp, include/PT/RemappedPanoImage.h,
+	  include/PT/Stitcher.h, include/common/math.h: fixed bug that
+	  sometimes introduced black pixels at the bottom or right borders
+
+2006-07-16 21:22  dangelo
+
+	* INSTALL: added required packages for building under Ubuntu
+
+2006-07-16 21:20  dangelo
+
+	* src/: common/utils.cpp, include/hugin/wxPanoCommand.h: correctly
+	  strip path from filenames that contain forward and backward
+	  slashes.  Previously one had to confirm every file when reading a
+	  .pto file created under a different platform
+
+2006-06-08 23:59  dangelo
+
+	* configure.ac: previous change always disabled hugin and nona_gui
+
+2006-06-08 22:15  dangelo
+
+	* configure.ac, src/Makefile.am: added --disable-gui configure
+	  option, for people that just want to build fulla and nona. This
+	  does not require wxWidgets.
+
+2006-06-08 08:08  dangelo
+
+	* src/tools/fulla.cpp: bugfix: gamma setting doesn't enforce PTLens
+	  lookup
+
+2006-06-07 08:12  dangelo
+
+	* src/: Panorama/SpaceTransform.cpp, include/PT/SpaceTransform.h,
+	  tools/fulla.cpp: fulla: minor speedup by incoporating scaling
+	  into first distortion correction.
+
+2006-06-05 01:17  dangelo
+
+	* src/tools/: fulla.cpp, fulla.vcproj: fulla: fixed radial
+	  vignetting correction, added gamma option
+
+2006-06-04 23:48  dangelo
+
+	* src/: Panorama/SpaceTransform.cpp, build_msvc/Hugin.sln,
+	  hugin/hugin.vcproj, include/PT/SpaceTransform.h, tools/fulla.cpp,
+	  tools/fulla.vcproj: fulla: * improved merging of green and
+	  (red,blue) correction coefficients.	 The previous scheme was an
+	  approximation and could lead to    errors of 0.2 pixels in a 6
+	  megapixel image.  * added option to output unscaled output with
+	  black borders.
+
+2006-06-04 14:51  dangelo
+
+	* src/: include/PT/SpaceTransform.h, tools/fulla.cpp: fixed serious
+	  bug in fulla that lead to wrong tca correction coefficients being
+	  used. Now TCA & distortion correction should work at the same
+	  time.
+
+2006-06-04 14:47  dangelo
+
+	* ChangeLog: updated changelog
+
 2006-06-01 21:03  dangelo
 
 	* src/: include/PT/PanoToolsInterface.h,
