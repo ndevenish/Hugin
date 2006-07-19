@@ -546,7 +546,15 @@ void PTools::initCPrefs(cPrefs & p, const VariableMap &vars)
         p.horizontal_params[0] = p.horizontal_params[1] = p.horizontal_params[2] = 0;
     }
     // FIXME add shear parameters
-    p.shear = FALSE;
+    val = const_map_get(vars, "g").getValue();
+    double val2 = const_map_get(vars, "t").getValue();
+    if (val2 != 0.0 || val != 0.0) {
+        p.shear = TRUE;
+        p.shear_x = val;
+        p.shear_y = val2;
+    } else {
+        p.shear = FALSE;
+    }
     p.resize = FALSE;
     p.luminance = FALSE;
     p.cutFrame = FALSE;

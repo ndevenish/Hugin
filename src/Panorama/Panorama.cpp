@@ -1744,7 +1744,7 @@ void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
     vars.insert(make_pair("d", Variable("d", img.getRadialDistortionCenterShift().x)));
     vars.insert(make_pair("e", Variable("e", img.getRadialDistortionCenterShift().y)));
     vars.insert(make_pair("g", Variable("g", img.getShear().x)));
-    vars.insert(make_pair("t", Variable("t", img.getShear().x)));
+    vars.insert(make_pair("t", Variable("t", img.getShear().y)));
 
     // vignetting correction
     vars.insert(make_pair("Va", Variable("Va", img.getRadialVigCorrCoeff()[0])));
