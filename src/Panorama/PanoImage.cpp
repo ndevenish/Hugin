@@ -31,6 +31,7 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
 
     // center shift
     m_centerShift *= scale;
+    m_shear *= scale;
 
     // crop
     // ensure the scaled rectangle is inside the new image size

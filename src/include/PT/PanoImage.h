@@ -126,6 +126,8 @@ public:
         m_radialDistBlue[3] = 1;
         m_centerShift.x = 0;
         m_centerShift.y = 0;
+        m_shear.x = 0;
+        m_shear.y = 0;
 
         m_crop = NO_CROP;
 
