@@ -130,7 +130,7 @@ public:
             DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
 
             optimize(localPano);
-            m_pano.updateVariables(v, localPano.getImageVariables(currImg));
+            m_pano.updateVariables(unsigned(v), localPano.getImageVariables(currImg));
 #ifdef DEBUG
             std::cerr << "after optim " << v << " : ";
             printVariableMap(std::cerr, m_pano.getImageVariables(v));

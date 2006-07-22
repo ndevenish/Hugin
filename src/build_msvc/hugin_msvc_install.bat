@@ -4,7 +4,7 @@ rem create installation directory
 set DESTDIR=L:\daten\hugin\vc\hugin_install
 set SRCDIR=L:\daten\hugin\vc\hugin\src
 
-set LINGUAS=de fr pl it ja nl pl pt_BR ru zh_CN hu ca_ES
+set LINGUAS=ca_ES cs_CZ de fr hu it ja nl pl pt_BR ru uk zh_CN
 set NLINGUAS=de pl fr nl pt_BR zh_CN hu ru
 
 set MSGFMT=C:\Programme\poEdit\bin\msgfmt.exe
@@ -12,6 +12,7 @@ set MSGFMT=C:\Programme\poEdit\bin\msgfmt.exe
 rmdir /s /q %DESTDIR%
 
 mkdir %DESTDIR%
+mkdir %DESTDIR%\doc
 mkdir %DESTDIR%\xrc
 mkdir %DESTDIR%\xrc\data
 mkdir %DESTDIR%\locale
@@ -21,9 +22,13 @@ for %%l in ( %LINGUAS% ) do mkdir %DESTDIR%\locale\%%l
 rem copy panoglview 
 copy %SRCDIR%\..\..\panoglview\panoglview.exe %DESTDIR%\
 
+rem copy doc
+copy %SRCDIR%\..\doc\nona.txt %DESTDIR%\doc
+copy %SRCDIR%\..\doc\fulla.html %DESTDIR%\doc
+
 rem copy panotools
 copy %SRCDIR%\..\..\panotools\PTOptimizer.exe %DESTDIR%\
-copy %SRCDIR%\..\..\panotools\pano12.dll %DESTDIR%\
+copy "%SRCDIR%\..\..\libs\libpano\pano12\DLL Release\pano12.dll" %DESTDIR%\
 copy %SRCDIR%\..\..\panotools\pano12_for_usage_with_ptstitcher.dll %DESTDIR%\
 
 

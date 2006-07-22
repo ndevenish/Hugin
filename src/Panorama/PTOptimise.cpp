@@ -104,7 +104,7 @@ void PTools::optimize(Panorama & pano,
     if (userScript == 0) {
         ostringstream scriptbuf;
         UIntSet allImg;
-        fill_set(allImg,0, pano.getNrOfImages()-1);
+        fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
         pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), pano.getOptions(), allImg, true);
         script = strdup(scriptbuf.str().c_str());
     } else {
