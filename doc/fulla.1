@@ -40,45 +40,59 @@ offer TCA correction by linear scaling. This is equal to varying the d parameter
 See http://hugin.sf.net/tutorials/tca for a method to determine these parameters.
 
 .SH OPTIONS
-.IP -o output filename
+.TP
+.BI \-o  " output filename"
 Specify the output filename. If more than one input image is given, this string will be used as suffix (default: _corr)
-.IP -g a:b:c:d
+.TP
+.BI \-g " a:b:c:d"
 Radial distortion coefficient for all channels, (a, b, c, d).
 By default no correction is done.
-.IP -b a:b:c:d
+.TP
+.BI \-b " a:b:c:d"
 Radial distortion coefficents for blue channel, (a, b, c, d).
 this is applied after the global distortion correction(supplied by -g). 
-.IP -r a:b:c:d
+.TP
+.BI \-r " a:b:c:d"
 Radial distortion coefficents for red channel, (a, b, c, d).
 this is applied after the global distortion correction(supplied by -g).
-.IP -f filename
+.TP
+.BI \-f " filename"
 Filename of the flatfield image. Enables vignetting correction by flatfield
 division
-.IP -c a:b:c:d
+.TP
+.BI \-c " a:b:c:d"
 radial vignetting correction by division:
-.IP -a
+.TP
+.B \-a
 Correct vignetting by addition, rather than by division
 I = I + c
-.IP -p
+.TP
+.B \-p
 Try to read radial distortion coefficients (usually supplied
 using -g) from the PTLens database. The environment variable PTLENS_PROFILE
 should point to the profile.txt file. Since newer version of the PTLens database
 are incompatible with fulla, download the PTLens database from the hugin sourceforge
 website instead: http://www.sf.net/projects/hugin
-.IP -m Manufacturer
+.TP
+.BI \-m " Manufacturer"
 Camera manufacturer, for PTLens database query. EXIF data inside jpg files is read, if this
 option is not given
-.IP -n CameraName
+.TP
+.BI \-n " CameraName"
 Camera name, for PTLens database query. EXIF data inside jpg files is read, if this
 option is not given.
-.IP -l LensName
+.TP
+.BI \-l " LensName"
 Lens name, for PTLens database query. If not specified, a list of
 possible lenses is displayed
-.IP -t n
+.TP
+.BI \-t " n"
 Number of threads that should be used during processing
-.IP -v
+.TP
+.B \-v
 Verbose execution
--h
+.TP
+.B \-h
 Display help text
 
 .SH BUGS

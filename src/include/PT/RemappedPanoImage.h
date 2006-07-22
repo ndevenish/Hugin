@@ -214,12 +214,9 @@ void estimateImageAlpha(const SrcPanoImage & src,
 
 /** calculate the outline of the image
  *
- *  @param destSize  Size of the dest picture (panorama)
- *  @param srcSize   Size of source picture
- *  @param transf    Transformation from image to pano
- *  @param result    insert border point into result container
- *  @param ul        Upper Left corner of the image roi
- *  @param lr        Lower right corner of the image roi
+ *  @param src       description of source picture
+ *  @param dest      description of output picture (panorama)
+ *  @param imgRect   output: position of image in panorama.
  */
 template <class TRANSFORM>
 void estimateImageRect(const SrcPanoImage & src, const PanoramaOptions & dest,
