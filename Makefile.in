@@ -229,7 +229,7 @@ DIST_COMMON = README $(srcdir)/Makefile.in $(srcdir)/configure \
 	INSTALL Makefile.am NEWS TODO aclocal.m4 config/config.guess \
 	config/config.rpath config/config.sub config/depcomp \
 	config/install-sh config/ltmain.sh config/missing \
-	config/mkinstalldirs configure configure.ac
+	config/mkinstalldirs configure.ac
 DIST_SUBDIRS = $(SUBDIRS)
 all: all-recursive
 
