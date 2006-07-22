@@ -1,0 +1,90 @@
+.\" Process this file with
+.\" groff -man -Tascii foo.1
+.\"
+.TH FULLA 1 "MAY 2006" hugin "User Manual"
+.SH NAME
+fulla \- Perform vignetting, radial distortion and chromatic abberation correction
+.SH SYNOPSIS
+.B fulla
+.I [options]
+.I input files
+.SH DESCRIPTION
+Apply radial or flatfield vignetting correction as well as geometrical radial
+distortion and transversal chromatic abberation correction.
+
+fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
+
+Vignetting correction is done the same way as described in the nona script file documentation.
+Vignetting correction can be done based on a flatfield or a radial scaling.
+
+Vignetting correction by flatfield division:
+                        I = I / c,    c = flatfield / mean(flatfield)
+
+Radial vignetting correction:
+                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
+
+Correct vignetting by addition, rather than by division:
+                        I = I + c
+
+
+
+The radial correction is identical to the one implemented by panotools:
+
+r_new = a*r^4 + b*r^3 + c*r^2 + d*r   [1]
+
+Since transversal chromatic aberations (TCA) leads to differently scaled objects in the
+red, green and blue channel, it can be corrected by scaling the red and blue channel
+so that they match the green channel. Most applications, like Photoshop or Picture Window Pro
+offer TCA correction by linear scaling. This is equal to varying the d parameter in equation [1].
+
+See http://hugin.sf.net/tutorials/tca for a method to determine these parameters.
+
+.SH OPTIONS
+.IP -o output filename
+Specify the output filename. If more than one input image is given, this string will be used as suffix (default: _corr)
+.IP -g a:b:c:d
+Radial distortion coefficient for all channels, (a, b, c, d).
+By default no correction is done.
+.IP -b a:b:c:d
+Radial distortion coefficents for blue channel, (a, b, c, d).
+this is applied after the global distortion correction(supplied by -g). 
+.IP -r a:b:c:d
+Radial distortion coefficents for red channel, (a, b, c, d).
+this is applied after the global distortion correction(supplied by -g).
+.IP -f filename
+Filename of the flatfield image. Enables vignetting correction by flatfield
+division
+.IP -c a:b:c:d
+radial vignetting correction by division:
+.IP -a
+Correct vignetting by addition, rather than by division
+I = I + c
+.IP -p
+Try to read radial distortion coefficients (usually supplied
+using -g) from the PTLens database. The environment variable PTLENS_PROFILE
+should point to the profile.txt file. Since newer version of the PTLens database
+are incompatible with fulla, download the PTLens database from the hugin sourceforge
+website instead: http://www.sf.net/projects/hugin
+.IP -m Manufacturer
+Camera manufacturer, for PTLens database query. EXIF data inside jpg files is read, if this
+option is not given
+.IP -n CameraName
+Camera name, for PTLens database query. EXIF data inside jpg files is read, if this
+option is not given.
+.IP -l LensName
+Lens name, for PTLens database query. If not specified, a list of
+possible lenses is displayed
+.IP -t n
+Number of threads that should be used during processing
+.IP -v
+Verbose execution
+-h
+Display help text
+
+.SH BUGS
+No bugs known, if you find any, please send a bug report to me. I will try to
+fix it.
+.SH AUTHOR
+Pablo d Angelo <pablo dot dangelo at web dot de>
+.SH "SEE ALSO"
+.BR nona (1), hugin(1), clens(1)
