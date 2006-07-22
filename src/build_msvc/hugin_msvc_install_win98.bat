@@ -27,8 +27,8 @@ copy %SRCDIR%\..\doc\nona.txt %DESTDIR%\doc
 copy %SRCDIR%\..\doc\fulla.html %DESTDIR%\doc
 
 rem copy panotools
-copy %SRCDIR%\..\..\panotools\PTOptimizer.exe %DESTDIR%\
-copy "%SRCDIR%\..\..\libs\libpano\pano12\DLL Release\pano12.dll" %DESTDIR%\
+copy "%SRCDIR%\..\..\libs\libpano\pano12\Release\pano12.dll" %DESTDIR%\
+copy "%SRCDIR%\..\..\libs\libpano\pano12\tools\Release\*.exe" %DESTDIR%\
 copy %SRCDIR%\..\..\panotools\pano12_for_usage_with_ptstitcher.dll %DESTDIR%\
 
 rem copy enblend

@@ -1,6 +1,6 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.5"
+!define HUGIN_VERSION "0.6"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
@@ -18,14 +18,14 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.5_allinone_setup.exe"
+OutFile "hugin-0.6_allinone_setup.exe"
 !else
-OutFile "hugin-0.5_setup.exe"
+OutFile "hugin-0.6_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
 # [Licence Attributes]
-LicenseText "Hugin is distributed under the GNU General Public License :"
+LicenseText "Hugin and PanoramaTools are distributed under the GNU General Public License :"
 LicenseData "LICENCE.txt"
 
 # [Directory Selection]
@@ -108,6 +108,10 @@ Section "Hugin program files"
   File "pano12.dll"
   File "pano12_for_usage_with_ptstitcher.dll"
   ;File "PTStitcher.exe"
+  File "PTmender.exe"
+  File "PTblender.exe"
+  File "PTtiff2psd.exe"
+  File "PTuncrop.exe"
   File "PTOptimizer.exe"
   ;File "autopano.exe"
   File "enblend.exe"

@@ -79,12 +79,12 @@ Global
 		Release Unicode = Release Unicode
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.ActiveCfg = DLL Debug|Win32
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.Build.0 = DLL Debug|Win32
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.ActiveCfg = DLL Release|Win32
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.Build.0 = DLL Release|Win32
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.ActiveCfg = DLL Release|Win32
-		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.Build.0 = DLL Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.ActiveCfg = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Debug.Build.0 = Debug|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.ActiveCfg = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.Build.0 = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.ActiveCfg = Release|Win32
+		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.Build.0 = Release|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Debug.ActiveCfg = Debug|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Debug.Build.0 = Debug|Win32
 		{4FB29EEF-EE8C-4204-B272-FD88FBB4326D}.Release.ActiveCfg = Release|Win32
