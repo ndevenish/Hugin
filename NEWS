@@ -16,6 +16,9 @@ Newsworthy changes in 0.6
 * support for dcraw 16 bit .ppm files
 * Disabled PTOptimizer progress display on OSX. This should fix
   the crashes some people have experienced.
+* New command line tool (fulla), for distortion, TCA and vignetting correction.
+  Can use PTLens database (old format only).
+* reorganized GUI layout.
 * Czech translation added
 
 Newsworthy changes in 0.5
