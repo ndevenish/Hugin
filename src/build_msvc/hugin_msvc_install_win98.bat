@@ -55,11 +55,12 @@ rem copy files for hugin
 rem
 
 copy %SRCDIR%\"hugin\Release\hugin.exe" %DESTDIR%\
-xcopy %SRCDIR%\hugin\xrc %DESTDIR%\xrc\
-del %DESTDIR%\xrc\.cvsignore
 
-xcopy %SRCDIR%\hugin\xrc\data %DESTDIR%\xrc\data
+xcopy /s %SRCDIR%\hugin\xrc %DESTDIR%\xrc\
+del %DESTDIR%\xrc\.cvsignore
 del %DESTDIR%\xrc\data\.cvsignore
+del %DESTDIR%\xrc\data\help_en_EN\.cvsignore
+del %DESTDIR%\xrc\data\help_fr_FR\.cvsignore
 
 rem language files for hugin. They need to be rebuild by hand..
 for %%l in ( %LINGUAS% ) do %MSGFMT% -c -o %DESTDIR%\locale\%%l\hugin.mo %SRCDIR%\hugin\po\%%l.po 

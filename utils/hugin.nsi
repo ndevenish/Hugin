@@ -186,7 +186,7 @@ Section "Associate .pto files with Hugin"
 #  WriteRegStr HKCR ".pto" "" "nona_gui.pto"
 #  WriteRegStr HKCR "nona_gui.pto\DefaultIcon" "" '$0,0'
 #  WriteRegStr HKCR "nona_gui.pto\Shell\Open\Command" "" '$0 "%1"'
-#  Call RefreshShellIcons
+  Call RefreshShellIcons
 SectionEnd
 
 ;--------------------------------
@@ -224,6 +224,12 @@ Section "Uninstall"
   Delete "$INSTDIR\pano12.dll"
   ;Delete "$INSTDIR\PTStitcher.exe"
   Delete "$INSTDIR\PTOptimizer.exe"
+  Delete "PTmender.exe"
+  Delete "PTblender.exe"
+  Delete "PTtiff2psd.exe"
+  Delete "PTuncrop.exe"
+  Delete "PTOptimizer.exe"
+
   ;Delete "$INSTDIR\autopano.exe"
   Delete "$INSTDIR\enblend.exe"
   Delete "$INSTDIR\ENBLEND_README.txt"
