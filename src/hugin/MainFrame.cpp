@@ -158,49 +158,10 @@ END_EVENT_TABLE()
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : pano(pano), m_doRestoreLayout(false), m_help(0)
 {
-    wxString splashPath;
-    wxFileName::SplitPath( wxTheApp->argv[0], &splashPath, NULL, NULL );
-		
-    wxConfigBase* config = wxConfigBase::Get();
-    if ( wxFile::Exists(splashPath + wxT("/xrc/data/splash.png")) ) {
-        DEBUG_INFO("using local xrc files");
-        m_xrcPrefix = splashPath + wxT("/xrc");
-    } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/data/splash.png")) ) {
-        DEBUG_INFO("using installed xrc files");
-        m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR);
-    } else {
-        DEBUG_INFO("using xrc prefix from config")
-        m_xrcPrefix = config->Read(wxT("xrc_path"));
-    }
-#ifndef __WXMSW__
-    // MakeAbsolute creates an invalid path out of a perfectly valid,
-    // absolute path under windows.  Observed with wxWindows 2.4.2.
-    // do not try to transform into an absolute path under windows.
-    // (hugin is started with an absolute path there anyway).
-	{
-  	  // make sure the path is absolute to avoid problems if the cwd is changed
-  	  wxFileName fn(m_xrcPrefix + wxT("/about.xrc"));
-  	  if (fn.IsRelative())
-	  {
-		fn.MakeAbsolute();
-	  }
-  	  m_xrcPrefix = fn.GetPath() + wxT("/");
-	}
-#else
-    m_xrcPrefix = m_xrcPrefix + wxT("/");
-#endif
-    DEBUG_INFO("XRC prefix set to: " << m_xrcPrefix.mb_str());
-
-#ifdef __WXMAC__
-    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
-    if( thePath != wxT(""))
-        m_xrcPrefix = thePath + wxT("/");
-#endif
-
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
     wxYield();
-    if (bitmap.LoadFile(m_xrcPrefix + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
+    if (bitmap.LoadFile(huginApp::Get()->GetXRCPath() + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
     {
 #ifdef __unix__
         splash = new wxSplashScreen(bitmap,
@@ -298,9 +259,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // set the minimize icon
 #if __WXMSW__
-    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
 
@@ -888,17 +849,17 @@ void MainFrame::OnAbout(wxCommandEvent & e)
 
 #ifndef __WXMAC__
     //if the language is not default, load custom About file (if exists)
-	langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
-	DEBUG_INFO("Lang Code: " << langCode.mb_str());
-	if(langCode != wxString(wxT("en")))
-	{
-		strFile = m_xrcPrefix + wxT("data/about_") + langCode + wxT(".htm");
-		if(wxFile::Exists(strFile))
-		{
-			DEBUG_TRACE("Using About: " << strFile.mb_str());
-  			XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
-		}
-	}
+    langCode = huginApp::Get()->GetLocale().GetName().Left(2).Lower();
+    DEBUG_INFO("Lang Code: " << langCode.mb_str());
+    if(langCode != wxString(wxT("en")))
+    {
+        strFile = GetXRCPath() + wxT("data/about_") + langCode + wxT(".htm");
+        if(wxFile::Exists(strFile))
+        {
+            DEBUG_TRACE("Using About: " << strFile.mb_str());
+            XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
+        }
+    }
 #else
     strFile = MacGetPathTOBundledResourceFile(CFSTR("about.htm"));
     if(strFile!=wxT("")) XRCCTRL(dlg,"about_html",wxHtmlWindow)->LoadPage(strFile);
@@ -932,13 +893,13 @@ void MainFrame::DisplayHelp(wxString section)
         wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
         DEBUG_INFO("help file candidate: " << helpFile.mb_str());
         //if the language is not default, load custom About file (if exists)
-        wxString strFile = m_xrcPrefix + wxT("data/") + helpFile;
+        wxString strFile = GetXRCPath() + wxT("data/") + helpFile;
         if(wxFile::Exists(strFile))
         {
             DEBUG_TRACE("Using About: " << strFile.mb_str());
         } else {
             // try default
-            strFile = m_xrcPrefix + wxT("data/help_en_EN/hugin.hhp");
+            strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
         }
 
         if(!wxFile::Exists(strFile))
@@ -966,7 +927,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
 
     DEBUG_INFO("Tip index: " << nValue);
-    strFile = m_xrcPrefix + wxT("data/tips.txt");  //load default file
+    strFile = GetXRCPath() + wxT("data/tips.txt");  //load default file
 	
     DEBUG_INFO("Reading tips from " << strFile.mb_str());
     wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
@@ -1262,6 +1223,11 @@ void MainFrame::RestoreLayoutOnNextResize()
     lens_panel->RestoreLayoutOnNextResize();
     images_panel->RestoreLayoutOnNextResize();
 }
+
+const wxString & MainFrame::GetXRCPath()
+{
+     return huginApp::Get()->GetXRCPath();
+};
 
 /// hack.. kind of a pseudo singleton...
 MainFrame * MainFrame::Get()

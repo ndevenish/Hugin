@@ -259,31 +259,34 @@ fi
 
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
 
-case "$HSYS" in
-  mingw32)
-    AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "./locale")
-    AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "./xrc")
-    ;;
-  *)
-    if test "x$prefix" != 'xNONE' ; then
-      if test "$datadir" != '${prefix}/share' ; then
-        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
-        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
-      else
-        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$prefix/share/locale")
-        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/share/hugin/xrc")
-      fi
-    else
-      if test "$datadir" != '${prefix}/share' ; then
-        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
-        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
-      else
-        AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
-        AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
-      fi
-    fi  
-    ;;
-esac
+dnl autoconf 2.59e and later do not substitute datadir anymore.
+dnl the defines below have been moved to Makefile.am
+dnl
+dnl case "$HSYS" in
+dnl   mingw32)
+dnl     AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "./locale")
+dnl     AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "./xrc")
+dnl     ;;
+dnl   *)
+dnl     if test "x$prefix" != 'xNONE' ; then
+dnl       if test "$datadir" != '${prefix}/share' ; then
+dnl         AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
+dnl         AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+dnl       else
+dnl         AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$prefix/share/locale")
+dnl         AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$prefix/share/hugin/xrc")
+dnl       fi
+dnl     else
+dnl       if test "$datadir" != '${prefix}/share' ; then
+dnl         AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$datadir/locale")
+dnl         AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$datadir/hugin/xrc")
+dnl       else
+dnl         AC_DEFINE_UNQUOTED(INSTALL_LOCALE_DIR, "$ac_default_prefix/share/locale")
+dnl         AC_DEFINE_UNQUOTED(INSTALL_XRC_DIR, "$ac_default_prefix/share/hugin/xrc")
+dnl       fi
+dnl     fi  
+dnl     ;;
+dnl esac
 						
 dnl
 dnl Remove extraneous spaces from output variables (aesthetic)

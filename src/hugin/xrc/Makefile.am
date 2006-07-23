@@ -6,9 +6,9 @@ SUBDIRS=data
 SUFFIXES=.xrs 
 
 if HAVE_MINGW 
-xrcdir = @bindir@/xrc
+xrcdir = $(bindir)/xrc
 else
-xrcdir = @datadir@/hugin/xrc
+xrcdir = $(datadir)/hugin/xrc
 endif
 
 XRC_FILES = about.xrc anchor_orientation.xrc cp_editor_panel.xrc cp_list_frame.xrc edit_script_dialog.xrc edit_text.xrc help.xrc image_center.xrc \

@@ -59,16 +59,16 @@ fi
 have_autoconf=false
 if $AUTOCONF --version < /dev/null > /dev/null 2>&1 ; then
 	autoconf_version=`$AUTOCONF --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
-#	echo autoconf version: $autoconf_version
+	echo autoconf version: $autoconf_version
 	case $autoconf_version in
-	    2.5*)
+	    2.5*|2.6*)
 		have_autoconf=true
 		;;
 	esac
 fi
 if $have_autoconf ; then : ; else
 	echo
-	echo "You must have autoconf installed to compile $PROJECT."
+	echo "You must have autoconf 2.5x or 2.60 installed to compile $PROJECT."
 	echo "Install the appropriate package for your distribution,"
 	echo "or get the source tarball at http://ftp.gnu.org/gnu/autoconf/"
 	DIE=1

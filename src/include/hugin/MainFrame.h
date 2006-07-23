@@ -106,8 +106,7 @@ public:
     void ShowCtrlPoint(unsigned int cpNr);
 
     /// get the path to the xrc directory
-    const wxString & GetXRCPath()
-    { return m_xrcPrefix;};
+    const wxString & GetXRCPath();
 
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
@@ -194,8 +193,6 @@ private:
     // filename of the current project
     wxString m_filename;
 
-    // data prefix
-    wxString m_xrcPrefix;
 
     bool m_doRestoreLayout;
 

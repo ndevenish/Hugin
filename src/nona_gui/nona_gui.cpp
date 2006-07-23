@@ -96,8 +96,12 @@ bool nonaApp::OnInit()
     // add local Paths
     m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
 #ifndef __WXMAC__
+#ifdef __WXMSW__
+    locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+#else
+    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR);
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
+#endif
 #endif
 
     // set the name of locale recource to look for

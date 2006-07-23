@@ -90,6 +90,12 @@ public:
     {
         return m_workDir;
     }
+    
+    /** return the current xrc path */
+    const wxString & GetXRCPath()
+    {
+        return m_xrcPrefix;
+    }
 
     /** create a default config.
      *
@@ -121,6 +127,8 @@ private:
 
     // the model
     Panorama pano;
+
+    wxString m_xrcPrefix;
 
 #ifdef __WXMAC__
     bool m_macInitDone;
