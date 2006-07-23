@@ -109,7 +109,7 @@ wxString MacGetPathTOBundledExecutableFile(CFStringRef filename)
             CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
             if(PTOAbsURL == NULL)
             {
-                DEBUG_INFO("Mac: Cannot convert the file path to abosolute");
+                DEBUG_INFO("Mac: Cannot convert the file path to absolute");
             }
             else
             {
@@ -205,8 +205,12 @@ bool huginApp::OnInit()
 
     // add local Paths
     locale.AddCatalogLookupPathPrefix(m_huginPath + wxT("/locale"));
-#ifdef __WXMSW__
+#if defined __WXMSW__
     locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+#elif defined __WXMAC__
+    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
+    if(thePath != wxT(""))
+        locale.AddCatalogLookupPathPrefix(thePath);
 #else
     std::cout << INSTALL_LOCALE_DIR << std::endl;
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
@@ -217,11 +221,6 @@ bool huginApp::OnInit()
         locale.AddCatalogLookupPathPrefix(  config->Read(wxT("locale_path")).c_str() );
     }
 
-#ifdef __WXMAC__
-    wxString thePath = MacGetPathTOBundledResourceFile(CFSTR("locale"));
-    if(thePath != wxT(""))
-        locale.AddCatalogLookupPathPrefix(thePath);
-#endif
 
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
@@ -251,9 +250,11 @@ bool huginApp::OnInit()
     } else if ( wxFile::Exists(osxPath + wxT("/main_frame.xrc")) ) {
         m_xrcPrefix = osxPath + wxT("/");
 #endif
+#ifdef __WXGTK__
     } else if ( wxFile::Exists((wxString)wxT(INSTALL_XRC_DIR) + wxT("/main_frame.xrc")) ) {
         DEBUG_INFO("using installed xrc files");
         m_xrcPrefix = (wxString)wxT(INSTALL_XRC_DIR) + wxT("/");
+#endif
     } else if (config->HasEntry(wxT("xrc_path")) && 
         wxFile::Exists(config->Read(wxT("xrc_path")) + wxT("/main_frame.xrc")) )
     {
@@ -265,7 +266,6 @@ bool huginApp::OnInit()
         
         return false;
     }
-
 
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("image_center.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("nona_panel.xrc"));
@@ -373,7 +373,7 @@ bool huginApp::OnInit()
         frame->LoadProjectFile(filename);
     } else {
         std::vector<std::string> filesv;
-        for (unsigned int i=1; i< argc; i++) {
+        for (int i=1; i< argc; i++) {
             wxFileName file(argv[1]);
 
             if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||

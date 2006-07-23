@@ -36,6 +36,7 @@
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
+#include "hugin/huginApp.h"
 
 #if 0
 #include "hugin/UniversalCursor.h"
@@ -141,24 +142,12 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 {
 
     wxString filename;
-//#if defined(__WXMSW__) || defined(__WXMAC__)
-#if 1
-    m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
+
+#if defined(__WXMSW__) 
+    wxString cursorPath = huginApp::Get()->GetXRCPath() + wxT("/data/cursor_cp_pick.cur");
+    m_CPSelectCursor = new wxCursor(cursorPath, wxBITMAP_TYPE_CUR);
 #else
-    int cursorType = wxConfigBase::Get()->Read(wxT("/CPImageCtrl/CursorType"),HUGIN_CP_CURSOR);
-    if (cursorType == 0) {
-        m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
-    } else {
-        filename.Printf(wxT("%sdata/CPCursor%d.png"),MainFrame::Get()->GetXRCPath().c_str(),
-                        cursorType);
-        wxImage cImg(filename);
-        if (cImg.Ok()) {
-            m_CPSelectCursor = new UniversalCursor(filename);
-        } else {
-            DEBUG_ERROR("Cursor file:" << filename << " not found");
-            m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
-        }
-    }
+    m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #endif
     // scroll cursor not used right now.
 //    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
