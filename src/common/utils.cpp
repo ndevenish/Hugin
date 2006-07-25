@@ -105,7 +105,7 @@ std::string utils::stripPath(const std::string & filename)
     } else {
         idx = std::max(idx1, idx2);
     }
-    if (idx1 != std::string::npos) {
+    if (idx != std::string::npos) {
 //        DEBUG_DEBUG("returning substring: " << filename.substr(idx + 1));
         return filename.substr(idx + 1);
     } else {
