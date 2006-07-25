@@ -11,7 +11,7 @@ _("Images can also be added to hugin via drag and drop.")
 _("Spread control points as far as possible. Close control points do not define the relative orientation between images well.")
 _("The Fine Tune button can be used to find a better position for the point in the right image for an already selected point.")
 _("Editing the panorama in multiple layers with The Gimp or Photoshop offers many creative possibilities.")
-_("The PanoTools wiki at http://www.panotools.info/mediawiki offers comprehensive information about creating panoramas and other images with panotools.");
+_("The PanoTools wiki at http://wiki.panoramatools.org offers comprehensive information about creating panoramas and other images with panotools.");
 _("The multilayer tiff file output can be read by The Gimp 2.0 or higher.")
 _("You can press the middle mouse button to pan images in the control points tab.")
 _("The \"f\" key is the shortcut for Fine Tune button.")
