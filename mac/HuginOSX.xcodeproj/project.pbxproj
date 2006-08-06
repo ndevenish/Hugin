@@ -12,18 +12,6 @@
 			buildConfigurationList = 571DA7FF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "all" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = all;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				570878D6067BC5770057B4D7 /* PBXTargetDependency */,
 				57452BCB094E3D6C00E6B672 /* PBXTargetDependency */,
@@ -37,18 +25,6 @@
 			buildConfigurationList = 571DA7FB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "apps" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = apps;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				57CBEFDE06BC7F4E00C43FF5 /* PBXTargetDependency */,
 				57CF92A406BD7BBE00780AC5 /* PBXTargetDependency */,
@@ -61,18 +37,6 @@
 			buildConfigurationList = 571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = "tools apps";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				573F340109F7ADA70088B333 /* PBXTargetDependency */,
 				573F33FF09F7AD9A0088B333 /* PBXTargetDependency */,
@@ -88,18 +52,6 @@
 			buildConfigurationList = 571DA7DB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "lib" */;
 			buildPhases = (
 			);
-			buildSettings = {
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = lib;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-			};
 			dependencies = (
 				5749FA17067B7E0A00A6EDD4 /* PBXTargetDependency */,
 				5749FA1B067B7E0A00A6EDD4 /* PBXTargetDependency */,
@@ -115,7 +67,6 @@
 
 /* Begin PBXBuildFile section */
 		5702996E07F967CB00F1FF15 /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5702996D07F967CB00F1FF15 /* HuginFiles.icns */; };
-		570D581B082A9EDD0030E768 /* PTOptimizer in Copy Helpers */ = {isa = PBXBuildFile; fileRef = 570D581A082A9ED50030E768 /* PTOptimizer */; };
 		5711523606BC6562004F4FA7 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114FF906BC2302004F4FA7 /* exif.cpp */; };
 		5711523706BC6562004F4FA7 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114FFB06BC2303004F4FA7 /* jpgfile.cpp */; };
 		5711524306BC65EA004F4FA7 /* graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114EB906BC2301004F4FA7 /* graph.cpp */; };
@@ -309,99 +260,6 @@
 			script = "";
 		};
 /* End PBXBuildRule section */
-
-/* Begin PBXBuildStyle section */
-		57B0650B082AE3B2003D29FD /* Experimental Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEAD_CODE_STRIPPING = YES;
-				DEPLOYMENT_LOCATION = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_CPU = G3;
-				GCC_MODEL_TUNING = G4;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_UNROLL_LOOPS = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"-DGCC_AUTO_VECTORIZATION",
-					"-ftree-vectorize",
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = "$(value)";
-				PREBINDING = YES;
-				SKIP_INSTALL = YES;
-				WARNING_CFLAGS = (
-					"-Wno-long-double",
-					"-Wstrict-aliasing",
-				);
-				ZERO_LINK = NO;
-			};
-			name = "Experimental Release";
-		};
-		57FC3ABF0675E43600C3E0AC /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_DEBUGGING_SYMBOLS = full;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
-				HEADER_SEARCH_PATHS = (
-					../src/foreign/,
-					"$(value)",
-					/Developer/Headers/FlatCarbon,
-					../src/include,
-					/usr/include,
-					/usr/local/include,
-					"/usr/local/include/boost-1_32",
-					/usr/local/include/pano12,
-				);
-				OTHER_CFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(value)",
-					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
-					"-I/usr/local/include/wx-2.6",
-					"-D__WXMAC__",
-					"-D_FILE_OFFSET_BITS=64",
-					"-D_LARGE_FILES",
-					"-DNO_GCC_PRAGMA",
-				);
-				PREBINDING = NO;
-				SKIP_INSTALL = YES;
-				UNSTRIPPED_PRODUCT = YES;
-				WARNING_CFLAGS = "-Wno-long-double";
-			};
-			name = Development;
-		};
-/* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
 		5700FE2A0681E72A00B01AE2 /* PBXContainerItemProxy */ = {
@@ -735,20 +593,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		570D580E082A9DCD0030E768 /* Copy Helpers */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				570D581B082A9EDD0030E768 /* PTOptimizer in Copy Helpers */,
-			);
-			name = "Copy Helpers";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		5702996D07F967CB00F1FF15 /* HuginFiles.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginFiles.icns; sourceTree = "<group>"; };
 		570D581A082A9ED50030E768 /* PTOptimizer */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = PTOptimizer; path = bin/PTOptimizer; sourceTree = "<group>"; };
@@ -1036,8 +880,8 @@
 		574F3EBC081FF2350086E561 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
 		574F3F2E082005980086E561 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
 		5750CC8606774D0300B049DC /* libcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5751D8630939F1E9001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = file; name = project.pbxproj; path = HuginOSX.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
-		5751D8680939F243001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = file; name = project.pbxproj; path = HuginOSX.xcode/project.pbxproj; sourceTree = "<group>"; };
+		5751D8630939F1E9001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
+		5751D8680939F243001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcode/project.pbxproj; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		577D3D0809A0D759004C6964 /* wxPanoCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = wxPanoCommand.cpp; sourceTree = "<group>"; };
@@ -1112,7 +956,7 @@
 		57D5DCD6073FD86D0027E52F /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		57D5DCF2073FE2CF0027E52F /* PreferencesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreferencesDialog.cpp; sourceTree = "<group>"; };
 		57DA3B55083FA3EF00BE2613 /* wxPlatform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPlatform.h; sourceTree = "<group>"; };
-		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EEC3EE08CD09C900B6A197 /* LocalizedFileTipProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizedFileTipProvider.cpp; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano12 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano12; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1953,10 +1797,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 3;
-				PRODUCT_NAME = vigra_impex;
-			};
 			dependencies = (
 			);
 			name = vigra_impex;
@@ -1973,9 +1813,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = nona;
-			};
 			dependencies = (
 				573B8FD9067BAC6200B7B355 /* PBXTargetDependency */,
 				573B8FDB067BAC6200B7B355 /* PBXTargetDependency */,
@@ -1997,9 +1834,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = nona;
-			};
 			dependencies = (
 				573F338D09F7AB110088B333 /* PBXTargetDependency */,
 				573F338F09F7AB110088B333 /* PBXTargetDependency */,
@@ -2021,9 +1855,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = nona;
-			};
 			dependencies = (
 			);
 			name = color_correct_tiff;
@@ -2040,9 +1871,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = nona;
-			};
 			dependencies = (
 				573F33CC09F7AC260088B333 /* PBXTargetDependency */,
 				573F33CE09F7AC260088B333 /* PBXTargetDependency */,
@@ -2064,9 +1892,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = nona;
-			};
 			dependencies = (
 				57452B9A094E3C7400E6B672 /* PBXTargetDependency */,
 				57452B9C094E3C7400E6B672 /* PBXTargetDependency */,
@@ -2086,9 +1911,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				PRODUCT_NAME = jhead;
-			};
 			dependencies = (
 			);
 			name = jhead;
@@ -2104,10 +1926,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 3;
-				PRODUCT_NAME = panorama;
-			};
 			dependencies = (
 			);
 			name = panorama;
@@ -2123,12 +1941,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				PRODUCT_NAME = huginwxutils;
-			};
 			dependencies = (
 			);
 			name = huginwxutils;
@@ -2145,9 +1957,6 @@
 			buildRules = (
 				57177E890677815800A367AE /* PBXBuildRule */,
 			);
-			buildSettings = {
-				PRODUCT_NAME = common;
-			};
 			dependencies = (
 			);
 			name = common;
@@ -2163,10 +1972,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_OPTIMIZATION_LEVEL = 3;
-				PRODUCT_NAME = vigra_impex;
-			};
 			dependencies = (
 			);
 			name = vigra_ext;
@@ -2183,13 +1988,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				INFOPLIST_FILE = "nona_gui-Info.plist";
-				PRODUCT_NAME = nona_gui;
-			};
 			dependencies = (
 				57DD5A8A08490C1A006C50E4 /* PBXTargetDependency */,
 				57DD5A8C08490C1A006C50E4 /* PBXTargetDependency */,
@@ -2201,33 +1999,6 @@
 			name = nona_gui;
 			productName = "nona_gui OSX";
 			productReference = 57CF926906BD7AD100780AC5 /* nona_gui.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>nona_gui OSX</string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
-	<key>CFBundleIconFile</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>com.MySoftwareCompany.nona_gui_OSX</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string></string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0.0d1</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 		57E7825E068107210070F6AA /* HuginOSX */ = {
@@ -2236,19 +2007,11 @@
 			buildPhases = (
 				57E7825B068107210070F6AA /* Sources */,
 				57E7825D068107210070F6AA /* Frameworks */,
-				570D580E082A9DCD0030E768 /* Copy Helpers */,
 				57E7825A068107210070F6AA /* Resources */,
 				57B8C68E083A951000283C06 /* Resouce Script */,
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/usr/local/include/wx-2.6/wx/wxprec.h";
-				GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP;
-				INFOPLIST_FILE = "HuginOSX-Info.plist";
-				PRODUCT_NAME = HuginOSX;
-			};
 			dependencies = (
 				5700FE2B0681E72A00B01AE2 /* PBXTargetDependency */,
 				5700FE2D0681E72A00B01AE2 /* PBXTargetDependency */,
@@ -2260,33 +2023,6 @@
 			name = HuginOSX;
 			productName = HuginOSX;
 			productReference = 57E7825F068107210070F6AA /* HuginOSX.app */;
-			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>HuginOSX</string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
-	<key>CFBundleIconFile</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>com.MySoftwareCompany.HuginOSX</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string></string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0.0d1</string>
-</dict>
-</plist>
-";
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2295,12 +2031,6 @@
 		57FC3AC10675E43600C3E0AC /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "HuginOSX" */;
-			buildSettings = {
-			};
-			buildStyles = (
-				57FC3ABF0675E43600C3E0AC /* Development */,
-				57B0650B082AE3B2003D29FD /* Experimental Release */,
-			);
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -2788,21 +2518,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		571DA7AD088E59C20058F246 /* PPC/Debug */ = {
+		571DA7AD088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = jhead;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7B1088E59C20058F246 /* PPC/Debug */ = {
+		571DA7B1088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = common;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7B9088E59C20058F246 /* PPC/Debug */ = {
+		571DA7B9088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2812,16 +2542,16 @@
 				);
 				PRODUCT_NAME = vigra_impex;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7BD088E59C20058F246 /* PPC/Debug */ = {
+		571DA7BD088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = panorama;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7C1088E59C20058F246 /* PPC/Debug */ = {
+		571DA7C1088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -2846,9 +2576,9 @@
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7C5088E59C20058F246 /* PPC/Debug */ = {
+		571DA7C5088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -2859,9 +2589,9 @@
 				PRODUCT_NAME = nona;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7C9088E59C20058F246 /* PPC/Debug */ = {
+		571DA7C9088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
@@ -2879,9 +2609,9 @@
 				);
 				PRODUCT_NAME = huginwxutils;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7CD088E59C20058F246 /* PPC/Debug */ = {
+		571DA7CD088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -2906,9 +2636,9 @@
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7DD088E59C20058F246 /* PPC/Debug */ = {
+		571DA7DD088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -2954,9 +2684,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7F9088E59C20058F246 /* PPC/Debug */ = {
+		571DA7F9088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -3002,9 +2732,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA7FD088E59C20058F246 /* PPC/Debug */ = {
+		571DA7FD088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -3050,9 +2780,9 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA801088E59C20058F246 /* PPC/Debug */ = {
+		571DA801088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -3098,12 +2828,12 @@
 				);
 				ZERO_LINK = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		571DA83F088E59C20058F246 /* PPC/Debug */ = {
+		571DA83F088E59C20058F246 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = ppc;
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				GCC_DEBUGGING_SYMBOLS = full;
@@ -3120,7 +2850,7 @@
 				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -3133,9 +2863,9 @@
 				WARNING_CFLAGS = "-Wstrict-aliasing";
 				ZERO_LINK = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
-		573F33A309F7AB110088B333 /* PPC/Debug */ = {
+		573F33A309F7AB110088B333 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -3146,7 +2876,7 @@
 				PRODUCT_NAME = zhang_undistort;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
 		573F33A409F7AB110088B333 /* Universal/Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3200,7 +2930,7 @@
 			};
 			name = Universal/Release;
 		};
-		573F33C109F7AB190088B333 /* PPC/Debug */ = {
+		573F33C109F7AB190088B333 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -3212,7 +2942,7 @@
 				PRODUCT_NAME = color_correct_tiff;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
 		573F33C209F7AB190088B333 /* Universal/Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3270,14 +3000,14 @@
 			};
 			name = Universal/Release;
 		};
-		573F33E209F7AC260088B333 /* PPC/Debug */ = {
+		573F33E209F7AC260088B333 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
 				PRODUCT_NAME = fulla;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
 		573F33E309F7AC260088B333 /* Universal/Debug */ = {
 			isa = XCBuildConfiguration;
@@ -3315,14 +3045,14 @@
 			};
 			name = Universal/Release;
 		};
-		57452BB0094E3C7400E6B672 /* PPC/Debug */ = {
+		57452BB0094E3C7400E6B672 /* i386/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
 				PRODUCT_NAME = autooptimiser;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
-			name = PPC/Debug;
+			name = i386/Debug;
 		};
 		57452BB1094E3C7400E6B672 /* Universal/Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4007,7 +3737,7 @@
 				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -4045,7 +3775,7 @@
 				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -4392,7 +4122,7 @@
 				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -4739,7 +4469,7 @@
 				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				PER_ARCH_CFLAGS_i386 = "-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize";
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
 				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -4754,12 +4484,411 @@
 			};
 			name = PPC/Development;
 		};
-		57C1706709A125DE00FAF325 /* PPC/Debug */ = {
+		57985CCC0A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = jhead;
+			};
+			name = PPC/Debug;
+		};
+		57985CCD0A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = common;
+			};
+			name = PPC/Debug;
+		};
+		57985CCE0A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HasPNG=1",
+					"HasJPEG=1",
+					"HasTIFF=1",
+				);
+				PRODUCT_NAME = vigra_impex;
+			};
+			name = PPC/Debug;
+		};
+		57985CCF0A284BD900882038 /* PPC/Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = vigra_ext;
 			};
 			name = PPC/Debug;
+		};
+		57985CD00A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = panorama;
+			};
+			name = PPC/Debug;
+		};
+		57985CD10A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					WX_PRECOMP,
+					__WXMAC__,
+					"_FILE_OFFSET_BITS=64",
+					_LARGE_FILES,
+					NO_GCC_PRAGMA,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(value)",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+				);
+				PRODUCT_NAME = huginwxutils;
+			};
+			name = PPC/Debug;
+		};
+		57985CD20A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = lib;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD30A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)/build/PPC/Debug",
+				);
+				PRODUCT_NAME = nona;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD40A284BD900882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				PRODUCT_NAME = autooptimiser;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD50A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)/build/PPC/Repository/lib",
+				);
+				PRODUCT_NAME = zhang_undistort;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD60A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)/build/PPC/Repository/lib",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib",
+				);
+				PRODUCT_NAME = color_correct_tiff;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD70A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				PRODUCT_NAME = fulla;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD80A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = "tools apps";
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CD90A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					WX_PRECOMP,
+					__WXMAC__,
+					"_FILE_OFFSET_BITS=64",
+					_LARGE_FILES,
+					NO_GCC_PRAGMA,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(value)",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+				);
+				INFOPLIST_FILE = "HuginOSX-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)/build/PPC/Debug",
+				);
+				PRODUCT_NAME = HuginOSX;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CDA0A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					WX_PRECOMP,
+					__WXMAC__,
+					"_FILE_OFFSET_BITS=64",
+					_LARGE_FILES,
+					NO_GCC_PRAGMA,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(value)",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+				);
+				INFOPLIST_FILE = "nona_gui-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(LIBRARY_SEARCH_PATHS)",
+					"$(SRCROOT)/build/PPC/Debug",
+				);
+				PRODUCT_NAME = nona_gui;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CDB0A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = apps;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CDC0A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				GCC_CW_ASM_SYNTAX = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_CPU = G3;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_UNROLL_LOOPS = NO;
+				HEADER_SEARCH_PATHS = (
+					../src/foreign/,
+					"$(value)",
+					/Developer/Headers/FlatCarbon,
+					../src/include,
+					/usr/include,
+					/usr/local/include,
+					"/usr/local/include/boost-1_32",
+					/usr/local/include/pano12,
+				);
+				OTHER_CFLAGS = (
+					"-DGCC_AUTO_VECTORIZATION",
+					"-ftree-vectorize",
+					"-I/usr/local/lib/wx/include/mac-unicode-release-static-2.6",
+					"-I/usr/local/include/wx-2.6",
+					"-D__WXMAC__",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-DNO_GCC_PRAGMA",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(value)";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = all;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-long-double",
+					"-Wstrict-aliasing",
+				);
+				ZERO_LINK = NO;
+			};
+			name = PPC/Debug;
+		};
+		57985CDD0A284BDA00882038 /* PPC/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				GCC_DEBUGGING_SYMBOLS = full;
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					/Developer/Headers/FlatCarbon,
+					"$(TARGET_BUILD_DIR)/../Repository/include",
+				);
+				LIBRARY_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/../Repository/lib";
+				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
+				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
+				PREBINDING = YES;
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				SEPARATE_STRIP = YES;
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = all;
+				USER_HEADER_SEARCH_PATHS = "../src/foreign/ ../src/include ";
+				WARNING_CFLAGS = "-Wstrict-aliasing";
+				ZERO_LINK = NO;
+			};
+			name = PPC/Debug;
+		};
+		57C1706709A125DE00FAF325 /* i386/Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = vigra_ext;
+			};
+			name = i386/Debug;
 		};
 		57C1706809A125DE00FAF325 /* Universal/Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4795,218 +4924,236 @@
 		571DA7AB088E59C20058F246 /* Build configuration list for PBXNativeTarget "jhead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7AD088E59C20058F246 /* PPC/Debug */,
+				571DA7AD088E59C20058F246 /* i386/Debug */,
+				57985CCC0A284BD900882038 /* PPC/Debug */,
 				5745FC12094E1E6400E6B672 /* Universal/Debug */,
 				576D276E093B3D4300FC5596 /* PPC/Development */,
 				576D275E093B3C8500FC5596 /* PPC/Release */,
 				5745FC13094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7AF088E59C20058F246 /* Build configuration list for PBXNativeTarget "common" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7B1088E59C20058F246 /* PPC/Debug */,
+				571DA7B1088E59C20058F246 /* i386/Debug */,
+				57985CCD0A284BD900882038 /* PPC/Debug */,
 				5745FC14094E1E6400E6B672 /* Universal/Debug */,
 				576D276F093B3D4300FC5596 /* PPC/Development */,
 				576D275F093B3C8500FC5596 /* PPC/Release */,
 				5745FC15094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7B7088E59C20058F246 /* Build configuration list for PBXNativeTarget "vigra_impex" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7B9088E59C20058F246 /* PPC/Debug */,
+				571DA7B9088E59C20058F246 /* i386/Debug */,
+				57985CCE0A284BD900882038 /* PPC/Debug */,
 				5745FC16094E1E6400E6B672 /* Universal/Debug */,
 				576D2770093B3D4300FC5596 /* PPC/Development */,
 				576D2760093B3C8500FC5596 /* PPC/Release */,
 				5745FC17094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7BB088E59C20058F246 /* Build configuration list for PBXNativeTarget "panorama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7BD088E59C20058F246 /* PPC/Debug */,
+				571DA7BD088E59C20058F246 /* i386/Debug */,
+				57985CD00A284BD900882038 /* PPC/Debug */,
 				5745FC18094E1E6400E6B672 /* Universal/Debug */,
 				576D2771093B3D4300FC5596 /* PPC/Development */,
 				576D2761093B3C8500FC5596 /* PPC/Release */,
 				5745FC19094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7BF088E59C20058F246 /* Build configuration list for PBXNativeTarget "HuginOSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C1088E59C20058F246 /* PPC/Debug */,
+				571DA7C1088E59C20058F246 /* i386/Debug */,
+				57985CD90A284BDA00882038 /* PPC/Debug */,
 				5745FC1E094E1E6400E6B672 /* Universal/Debug */,
 				576D2773093B3D4300FC5596 /* PPC/Development */,
 				576D2763093B3C8500FC5596 /* PPC/Release */,
 				5745FC1F094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7C3088E59C20058F246 /* Build configuration list for PBXNativeTarget "nona" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C5088E59C20058F246 /* PPC/Debug */,
+				571DA7C5088E59C20058F246 /* i386/Debug */,
+				57985CD30A284BD900882038 /* PPC/Debug */,
 				5745FC22094E1E6400E6B672 /* Universal/Debug */,
 				576D2774093B3D4300FC5596 /* PPC/Development */,
 				576D2764093B3C8500FC5596 /* PPC/Release */,
 				5745FC23094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7C7088E59C20058F246 /* Build configuration list for PBXNativeTarget "huginwxutils" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7C9088E59C20058F246 /* PPC/Debug */,
+				571DA7C9088E59C20058F246 /* i386/Debug */,
+				57985CD10A284BD900882038 /* PPC/Debug */,
 				5745FC1A094E1E6400E6B672 /* Universal/Debug */,
 				576D2772093B3D4300FC5596 /* PPC/Development */,
 				576D2762093B3C8500FC5596 /* PPC/Release */,
 				5745FC1B094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7CB088E59C20058F246 /* Build configuration list for PBXNativeTarget "nona_gui" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7CD088E59C20058F246 /* PPC/Debug */,
+				571DA7CD088E59C20058F246 /* i386/Debug */,
+				57985CDA0A284BDA00882038 /* PPC/Debug */,
 				5745FC20094E1E6400E6B672 /* Universal/Debug */,
 				576D2775093B3D4300FC5596 /* PPC/Development */,
 				576D2765093B3C8500FC5596 /* PPC/Release */,
 				5745FC21094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7DB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7DD088E59C20058F246 /* PPC/Debug */,
+				571DA7DD088E59C20058F246 /* i386/Debug */,
+				57985CD20A284BD900882038 /* PPC/Debug */,
 				5745FC1C094E1E6400E6B672 /* Universal/Debug */,
 				576D2777093B3D4300FC5596 /* PPC/Development */,
 				576D2767093B3C8500FC5596 /* PPC/Release */,
 				5745FC1D094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7F7088E59C20058F246 /* Build configuration list for PBXAggregateTarget "tools" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7F9088E59C20058F246 /* PPC/Debug */,
+				571DA7F9088E59C20058F246 /* i386/Debug */,
+				57985CD80A284BDA00882038 /* PPC/Debug */,
 				5745FC24094E1E6400E6B672 /* Universal/Debug */,
 				576D2778093B3D4400FC5596 /* PPC/Development */,
 				576D2768093B3C8500FC5596 /* PPC/Release */,
 				5745FC25094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7FB088E59C20058F246 /* Build configuration list for PBXAggregateTarget "apps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA7FD088E59C20058F246 /* PPC/Debug */,
+				571DA7FD088E59C20058F246 /* i386/Debug */,
+				57985CDB0A284BDA00882038 /* PPC/Debug */,
 				5745FC26094E1E6400E6B672 /* Universal/Debug */,
 				576D2779093B3D4400FC5596 /* PPC/Development */,
 				576D2769093B3C8500FC5596 /* PPC/Release */,
 				5745FC27094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA7FF088E59C20058F246 /* Build configuration list for PBXAggregateTarget "all" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA801088E59C20058F246 /* PPC/Debug */,
+				571DA801088E59C20058F246 /* i386/Debug */,
+				57985CDC0A284BDA00882038 /* PPC/Debug */,
 				5745FC28094E1E6400E6B672 /* Universal/Debug */,
 				576D277A093B3D4400FC5596 /* PPC/Development */,
 				576D276A093B3C8500FC5596 /* PPC/Release */,
 				5745FC29094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "HuginOSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				571DA83F088E59C20058F246 /* PPC/Debug */,
+				571DA83F088E59C20058F246 /* i386/Debug */,
+				57985CDD0A284BDA00882038 /* PPC/Debug */,
 				5745FC2A094E1E6400E6B672 /* Universal/Debug */,
 				576D277B093B3D4400FC5596 /* PPC/Development */,
 				576D276B093B3C8500FC5596 /* PPC/Release */,
 				5745FC2B094E1E6400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		573F33A209F7AB110088B333 /* Build configuration list for PBXNativeTarget "zhang_undistort" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				573F33A309F7AB110088B333 /* PPC/Debug */,
+				573F33A309F7AB110088B333 /* i386/Debug */,
+				57985CD50A284BDA00882038 /* PPC/Debug */,
 				573F33A409F7AB110088B333 /* Universal/Debug */,
 				573F33A509F7AB110088B333 /* PPC/Development */,
 				573F33A609F7AB110088B333 /* PPC/Release */,
 				573F33A709F7AB110088B333 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		573F33C009F7AB190088B333 /* Build configuration list for PBXNativeTarget "color_correct_tiff" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				573F33C109F7AB190088B333 /* PPC/Debug */,
+				573F33C109F7AB190088B333 /* i386/Debug */,
+				57985CD60A284BDA00882038 /* PPC/Debug */,
 				573F33C209F7AB190088B333 /* Universal/Debug */,
 				573F33C309F7AB190088B333 /* PPC/Development */,
 				573F33C409F7AB190088B333 /* PPC/Release */,
 				573F33C509F7AB190088B333 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		573F33E109F7AC260088B333 /* Build configuration list for PBXNativeTarget "fulla" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				573F33E209F7AC260088B333 /* PPC/Debug */,
+				573F33E209F7AC260088B333 /* i386/Debug */,
+				57985CD70A284BDA00882038 /* PPC/Debug */,
 				573F33E309F7AC260088B333 /* Universal/Debug */,
 				573F33E409F7AC260088B333 /* PPC/Development */,
 				573F33E509F7AC260088B333 /* PPC/Release */,
 				573F33E609F7AC260088B333 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		57452BAF094E3C7400E6B672 /* Build configuration list for PBXNativeTarget "autooptimiser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				57452BB0094E3C7400E6B672 /* PPC/Debug */,
+				57452BB0094E3C7400E6B672 /* i386/Debug */,
+				57985CD40A284BD900882038 /* PPC/Debug */,
 				57452BB1094E3C7400E6B672 /* Universal/Debug */,
 				57452BB2094E3C7400E6B672 /* PPC/Development */,
 				57452BB3094E3C7400E6B672 /* PPC/Release */,
 				57452BB4094E3C7400E6B672 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 		57C1706609A125DE00FAF325 /* Build configuration list for PBXNativeTarget "vigra_ext" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				57C1706709A125DE00FAF325 /* PPC/Debug */,
+				57C1706709A125DE00FAF325 /* i386/Debug */,
+				57985CCF0A284BD900882038 /* PPC/Debug */,
 				57C1706809A125DE00FAF325 /* Universal/Debug */,
 				57C1706909A125DE00FAF325 /* PPC/Development */,
 				57C1706A09A125DE00FAF325 /* PPC/Release */,
 				57C1706B09A125DE00FAF325 /* Universal/Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = PPC/Debug;
+			defaultConfigurationName = i386/Debug;
 		};
 /* End XCConfigurationList section */
 	};
