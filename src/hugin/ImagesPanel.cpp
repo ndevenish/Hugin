@@ -126,7 +126,7 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
 #ifdef USE_WX26x
     m_img_splitter->SetSashGravity(1);
 #endif
-    m_img_splitter->SetMinimumPaneSize(20);
+    m_img_splitter->SetMinimumPaneSize(200);
 #endif
 
     // Image Preview
@@ -186,7 +186,7 @@ void ImagesPanel::RestoreLayout()
 #ifdef USE_WX253
     int winWidth, winHeight;
     GetClientSize(&winWidth, &winHeight);
-    int sP = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),winWidth/2);
+    int sP = wxConfigBase::Get()->Read(wxT("/ImageFrame/sashPos"),winHeight/2);
     m_img_splitter->SetSashPosition(sP);
     DEBUG_INFO( "image panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
 #endif

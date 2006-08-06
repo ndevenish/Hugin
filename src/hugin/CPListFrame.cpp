@@ -305,6 +305,9 @@ CPListFrame::CPListFrame(MainFrame * parent, Panorama & pano)
             m_list->SetColumnWidth(j, width);
     }
 
+    //set minumum size
+    SetSizeHints(200, 300);
+    
     //size
     RestoreFramePosition(this, wxT("CPListFrame"));
     

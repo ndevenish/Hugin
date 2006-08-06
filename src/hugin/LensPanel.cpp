@@ -212,7 +212,11 @@ void LensPanel::RestoreLayout()
 {
 	DEBUG_TRACE("");
 #ifdef USE_WX253
-    m_lens_splitter->SetSashPosition(wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),300));
+    int winWidth, winHeight;
+    GetClientSize(&winWidth, &winHeight);
+    int sP = wxConfigBase::Get()->Read(wxT("/LensFrame/sashPos"),winHeight/2);
+    m_lens_splitter->SetSashPosition(sP);
+    DEBUG_INFO( "lens panel: " << winWidth <<"x"<< winHeight << " sash pos: " << sP);
 #endif
 }
 

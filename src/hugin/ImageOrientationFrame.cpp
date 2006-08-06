@@ -69,8 +69,8 @@ ImageOrientationFrame::ImageOrientationFrame(wxWindow * parent, Panorama & pano)
 
     wxConfigBase * config = wxConfigBase::Get();
 
-    long w = config->Read(wxT("/ImageOrientationFrame/width"),-1);
-    long h = config->Read(wxT("/ImageOrientationFrame/height"),-1);
+    long w = config->Read(wxT("/ImageOrientationFrame/width"),400);
+    long h = config->Read(wxT("/ImageOrientationFrame/height"),300);
     if (w != -1) {
         SetClientSize(w,h);
     }

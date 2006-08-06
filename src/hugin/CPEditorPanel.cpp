@@ -352,7 +352,8 @@ void CPEditorPanel::RestoreLayout()
     int sashPos = int(splitsize.GetHeight() * 0.7);
 #else
     // the saved sash position 
-    int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"),200);
+    wxSize splitsize = m_cp_splitter->GetClientSize();
+    int sashPos = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/sashPos"), splitsize.GetHeight()-200);
 #endif
 	m_cp_splitter->SetSashPosition(sashPos);
 #endif

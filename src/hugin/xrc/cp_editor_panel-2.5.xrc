@@ -80,7 +80,6 @@
                     </object>
                   </object>
                   <orientation>vertical</orientation>
-                  <sashpos>0</sashpos>
                   <minsize>20</minsize>
                   <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
                 </object>
@@ -300,7 +299,6 @@
             </object>
           </object>
           <orientation>horizontal</orientation>
-          <sashpos>100</sashpos>
           <style>wxSP_3DSASH|wxSP_NO_XP_THEME</style>
         </object>
         <option>1</option>
