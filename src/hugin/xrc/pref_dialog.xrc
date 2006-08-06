@@ -759,7 +759,7 @@
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Ressource Usage</label>
+                    <label>Resource Usage</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxFlexGridSizer">
@@ -800,7 +800,7 @@
                           
                           
                           
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           
                           
                           
@@ -865,7 +865,7 @@
                           
                           
                           
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           
                           
                           
