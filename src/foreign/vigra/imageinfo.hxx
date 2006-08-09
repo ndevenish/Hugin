@@ -235,7 +235,7 @@ class ImageExportInfo
             The file type will be guessed from the extension unless overridden
             by \ref setFileType(). Recognized extensions: '.bmp', '.gif',
             '.jpeg', '.jpg', '.p7', '.png', '.pbm', '.pgm', '.pnm', '.ppm', '.ras',
-            '.tif', '.tiff', '.xv'.
+            '.tif', '.tiff', '.xv', '.hdr'.
             JPEG support requires libjpeg, PNG support requires libpng, and
             TIFF support requires libtiff.
         **/

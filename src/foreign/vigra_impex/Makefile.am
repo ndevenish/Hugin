@@ -7,7 +7,7 @@ AM_CFLAGS = $(JPEG_FLAGS) $(PNG_FLAGS) $(TIFF_FLAGS)
 AM_LDFLAGS = $(LIB_JPEG) $(LIB_PNG) $(LIB_TIFF)
 
 noinst_LTLIBRARIES = libvigra_impex.la
-libvigra_impex_la_SOURCES = bmp.cxx byteorder.cxx codecmanager.cxx gif.cxx imageinfo.cxx jpeg.cxx png.cxx pnm.cxx sun.cxx tiff.cxx viff.cxx void_vector.cxx iccjpeg.c
-noinst_HEADERS = auto_file.hxx bmp.hxx byteorder.hxx codecmanager.hxx error.hxx gif.hxx jpeg.hxx png.hxx pnm.hxx sun.hxx tiff.hxx viff.hxx void_vector.hxx iccjpeg.h
+libvigra_impex_la_SOURCES = bmp.cxx byteorder.cxx codecmanager.cxx gif.cxx imageinfo.cxx jpeg.cxx png.cxx pnm.cxx sun.cxx tiff.cxx viff.cxx void_vector.cxx iccjpeg.c rgbe.c hdr.cxx
+noinst_HEADERS = auto_file.hxx bmp.hxx byteorder.hxx codecmanager.hxx error.hxx gif.hxx jpeg.hxx png.hxx pnm.hxx sun.hxx tiff.hxx viff.hxx void_vector.hxx iccjpeg.h hdr.hxx rgbe.h
 
 EXTRA_DIST = vigra_impex.vcproj

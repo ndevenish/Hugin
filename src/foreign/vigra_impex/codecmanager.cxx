@@ -55,6 +55,7 @@
 #include "pnm.hxx"
 #include "bmp.hxx"
 #include "gif.hxx"
+#include "hdr.hxx"
 
 namespace vigra
 {
@@ -81,6 +82,7 @@ namespace vigra
         import( new ViffCodecFactory() );
         import( new BmpCodecFactory() );
         import( new GIFCodecFactory() );
+        import( new HDRCodecFactory() );
     }
 
     CodecManager::~CodecManager() {
