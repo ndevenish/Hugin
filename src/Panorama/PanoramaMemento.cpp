@@ -667,7 +667,9 @@ const string PanoramaOptions::fileformatNames[] =
     "IVR",
     "IVR_java",
     "VRML",
-    "QTVR"
+    "QTVR",
+    "HDR",
+    "HDR_m"
 };
 
 
@@ -753,6 +755,7 @@ public:
     int width, height;
     int vigcorrMode;
     vigra::Rect2D crop;
+    bool centerCrop;
 };
 
 // cannot use Lens::variableNames here, because r,p,v need to be included

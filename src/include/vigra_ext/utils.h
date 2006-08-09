@@ -43,10 +43,16 @@ struct PromoteTraits<RGBValue<T1, R, G, B>, T2 >
 namespace vigra_ext {
 
 using VIGRA_CSTD::pow;
+using VIGRA_CSTD::log;
 
 inline float pow(float a, double b)
 {
     return std::pow(a,(float) b);
+}
+
+inline int pow(int a)
+{
+    return utils::roundi(std::log((float)a));
 }
 
 /// component-wise absolute value
@@ -66,6 +72,24 @@ operator+=(vigra::RGBValue<V1, R, G, B> & l, V2 const & r)
     l.green() += r;
     l.blue() += r;
     return l;
+}
+
+    /// component-wise logarithm
+template <class T, unsigned int RIDX, unsigned int GIDX, unsigned int BIDX>
+inline
+vigra::RGBValue<T, RIDX, GIDX, BIDX>
+log(vigra::RGBValue<T, RIDX, GIDX, BIDX> const & v)
+{
+    return vigra::RGBValue<T, RIDX, GIDX, BIDX>(std::log(v.red()), std::log(v.green()), std::log(v.blue()));
+}
+
+/// component-wise logarithm
+template <class T, unsigned int RIDX, unsigned int GIDX, unsigned int BIDX>
+inline
+vigra::RGBValue<T, RIDX, GIDX, BIDX>
+log10(vigra::RGBValue<T, RIDX, GIDX, BIDX> const & v)
+{
+    return vigra::RGBValue<T, RIDX, GIDX, BIDX>(std::log10(v.red()), std::log10(v.green()), std::log10(v.blue()));
 }
 
 /// add a scalar to all components
@@ -93,6 +117,19 @@ pow(vigra::TinyVector<V, SIZE> const & v, double e)
     vigra::TinyVector<V, SIZE> res;
     for (int i=0; i<SIZE; i++)
         res[i] = std::pow(v[i], e);
+    return res;
+} 
+
+/** Apply log() function to each vector component.
+ */
+template <class V, int SIZE, class D1, class D2>
+inline
+vigra::TinyVector<V, SIZE>
+log(vigra::TinyVector<V, SIZE> const & v, double e)
+{
+    vigra::TinyVector<V, SIZE> res;
+    for (int i=0; i<SIZE; i++)
+        res[i] = std::log(v[i], e);
     return res;
 } 
 

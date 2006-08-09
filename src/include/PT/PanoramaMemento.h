@@ -337,7 +337,9 @@ public:
         IVR,
         IVR_java,
         VRML,
-        QTVR
+        QTVR,
+        HDR,
+        HDR_m
     };
 
     /** blending mechanism */
