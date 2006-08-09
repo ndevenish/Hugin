@@ -41,7 +41,8 @@
 
 // Image cache defaults
 #define HUGIN_IMGCACHE_UPPERBOUND             78643200
-
+#define HUGIN_IMGCACHE_MAPPING                0l
+#define HUGIN_IMGCACHE_RANGE                  0l
 #define HUGIN_CP_CURSOR                       1
 
 #define HUGIN_CAPTURE_TIMESPAN                60l

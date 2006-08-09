@@ -164,7 +164,7 @@ void VigCorrDialog::OnCancel(wxCommandEvent & e)
 
 void VigCorrDialog::OnFlatfieldSelect(wxCommandEvent & e)
 {
-    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
+    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
     wxFileDialog dlg(this,_("Select flatfield image"),
                      wxConfigBase::Get()->Read(wxT("flatfieldPath"),wxT("")), wxT(""),
                      wildcard,
@@ -272,12 +272,25 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
     PT::ImageOptions iopt = img.getOptions();
     // get hfov
     double v = const_map_get(m_pano.getImageVariables(m_imgNr),"v").getValue();
-    wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+    ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+    if (! cacheEntry) {
+        throw std::runtime_error("could not retrieve small source image for vignetting optimisation");
+    }
+    wxImage * src = cacheEntry->image;
     if (!src->Ok()) {
         throw std::runtime_error("could not retrieve small source image for vignetting optimisation");
     }
+    // check if image is linear!
+    if (!cacheEntry->linear) {
+        int ret = wxMessageBox(_("Vignetting correction currently does not work with nonlinear mapped 16 bit and HDR images.\nPlease enable linear mapping\nContinue anyway?"), _("Warning") , wxYES_NO);
+        if (ret == wxNO) {
+            return;
+        }
+    }
 
     double scale = calcOptimalPanoScale(m_pano.getSrcImage(m_imgNr), opts);
+    // take small scale images into account
+    scale = scale / m_pano.getSrcImage(m_imgNr).getSize().x * src->GetWidth();
 
     opts.setWidth(roundi(opts.getWidth()*scale));
 
@@ -309,10 +322,11 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
         if (m_pano.getImage(i).getLensNr() == lensNr) {
 
             SrcPanoImage src = m_pano.getSrcImage(i);
-            wxImage * srcImgWX = ImageCache::getInstance().getSmallImage(src.getFilename().c_str());
-            if (!srcImgWX->Ok()) {
+            ImageCache::Entry * cacheEntry =  ImageCache::getInstance().getSmallImage(src.getFilename().c_str());
+            if (!cacheEntry) {
                 throw std::runtime_error("could not retrieve small source image for vignetting optimisation");
             }
+            wxImage * srcImgWX = cacheEntry->image;
             // image view
             BasicImageView<RGBValue<unsigned char> > srcImgInCache((RGBValue<unsigned char> *)srcImgWX->GetData(),
                                      srcImgWX->GetWidth(),
@@ -321,7 +335,8 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
             src.resize(srcImgInCache.size());
             BImage * grayImg = new BImage(srcImgInCache.size());
             // change to grayscale
-            vigra::copyImage(vigra::srcImageRange(srcImgInCache, vigra::RGBToGrayAccessor<RGBValue<unsigned char> >()),
+	    // just use green channel
+            vigra::copyImage(vigra::srcImageRange(srcImgInCache, vigra::GreenAccessor<RGBValue<unsigned char> >()),
                              vigra::destImage(*grayImg));
             BImage *maskImg = new BImage(srcImgInCache.size().x,srcImgInCache.size().y , 255);
 

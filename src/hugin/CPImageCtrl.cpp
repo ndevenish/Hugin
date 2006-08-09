@@ -367,7 +367,11 @@ void CPImageCtrl::rescaleImage()
         return;
     }
     // rescale image
-    wxImage * img = ImageCache::getInstance().getImage(imageFilename);
+    ImageCache::Entry * e = ImageCache::getInstance().getImage(imageFilename);
+    if (!e) {
+        return;
+    }
+    wxImage * img = e->image;
     imageSize = wxSize(img->GetWidth(), img->GetHeight());
     m_realSize = imageSize;
     if (fitToWindow) {
@@ -956,7 +960,7 @@ void CPImageCtrl::showSearchArea(bool show)
     if (show)
     {
         int templSearchAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
-        wxImage * img = ImageCache::getInstance().getImage(imageFilename);
+        wxImage * img = ImageCache::getInstance().getImage(imageFilename)->image;
 
         m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
         DEBUG_DEBUG("Setting new search area: w in %:" << templSearchAreaPercent << " bitmap width: " << bitmap.GetWidth() << "  resulting size: " << m_searchRectWidth);

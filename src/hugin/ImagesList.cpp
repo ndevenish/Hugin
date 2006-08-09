@@ -167,8 +167,12 @@ const UIntSet & ImagesList::GetSelected() const
 
 void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size)
 {
-    wxImage * s_img = ImageCache::getInstance().getSmallImage(
-        pano.getImage(imgNr).getFilename());
+    ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImage(
+            pano.getImage(imgNr).getFilename());
+    if (! cacheEntry) {
+        return;
+    }
+    wxImage * s_img = cacheEntry->image; 
     if (!s_img->Ok()) {
         return;
     }

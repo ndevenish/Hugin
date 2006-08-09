@@ -921,7 +921,7 @@ void LensPanel::OnCrop ( wxCommandEvent & e )
         const PanoImage & img = pano.getImage(imgNr);
         // show an image preview
         wxImage * wximg = ImageCache::getInstance().getImage(
-                img.getFilename());
+                img.getFilename())->image;
         bool circular_crop = pano.getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
 
         ImageOptions opts = img.getOptions();

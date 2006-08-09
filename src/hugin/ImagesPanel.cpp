@@ -515,8 +515,12 @@ void ImagesPanel::UpdatePreviewImage()
     if (m_showImgNr < 0 || m_showImgNr >= pano.getNrOfImages()) {
         return;
     }
-    const wxImage * img = ImageCache::getInstance().getSmallImage(
-                      pano.getImage(m_showImgNr).getFilename());
+    ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImage(
+            pano.getImage(m_showImgNr).getFilename());
+    if (! cacheEntry) {
+        return;
+    }
+    const wxImage * img = cacheEntry->image;
 
     double iRatio = (double)img->GetWidth() / img->GetHeight();
 

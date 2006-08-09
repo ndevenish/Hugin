@@ -51,6 +51,7 @@ struct ImageKey
         { return name == o.name && producer == o.producer; }
 };
 
+
 /** This is a cache for all the images we use.
  *
  *  is a singleton for easy access from everywhere.
@@ -65,6 +66,31 @@ struct ImageKey
 class ImageCache
 {
 public:
+
+    /** information about an image inside the cache */
+    class Entry
+    {
+        public:
+            ImagePtr image;
+            std::string origType;
+            bool linear;
+
+            Entry()
+            : image(0), linear(true)
+            { };
+
+            Entry(ImagePtr img, std::string typ, bool lin)
+            : image(img), origType(typ), linear(lin)
+            { };
+
+            ~Entry()
+            {
+                if (image) {
+                    delete image;
+                }
+            }
+    };
+
     /** dtor.
      */
     virtual ~ImageCache();
@@ -78,7 +104,7 @@ public:
      *
      *  Do not modify this image. Use a copy if it is really needed
      */
-    ImagePtr getImage(const std::string & filename);
+    Entry * getImage(const std::string & filename);
 
     /** get an small image version.
      *
@@ -86,10 +112,8 @@ public:
      *  and different previews. It is directly derived from the original.
      *
      *  @todo let selfdefined images been added belonging to the original one.
-     *  @todo create substitute, remove commands
-     *  @todo avoid smaller images as original
      */
-    ImagePtr getSmallImage(const std::string & filename);
+    Entry * getSmallImage(const std::string & filename);
 
     /** remove a specific image (and dependant images)
      * from the cache 
@@ -137,7 +161,7 @@ private:
 
     static ImageCache * instance;
 
-    std::map<std::string, ImagePtr> images;
+    std::map<std::string, Entry *> images;
 
     // key for your pyramid map.
     struct PyramidKey{

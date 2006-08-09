@@ -592,6 +592,10 @@ void PreferencesDialog::UpdateDisplayData()
         DEBUG_WARN("Unknown language configured");
     }
 
+    // hdr display settings
+    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING));
+    MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
+
 
     // cursor setting
 //    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
@@ -690,6 +694,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
+            // hdr
+            cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING);
+            cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
             // use preview images as active images
@@ -765,6 +772,10 @@ void PreferencesDialog::UpdateConfigData()
     long templ =  * static_cast<long *>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
+
+    // hdr display
+    cfg->Write(wxT("/ImageCache/Mapping"),MY_G_CHOICE_VAL("prefs_misc_hdr_mapping"));
+    cfg->Write(wxT("/ImageCache/Range"),MY_G_CHOICE_VAL("prefs_misc_hdr_range"));
 
     // cursor
 //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));

@@ -100,6 +100,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("gif")) == 0 ||
             file.GetExt().CmpNoCase(wxT("pnm")) == 0 ||
             file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
             filesv.push_back((const char *)filenames[i].mb_str());
@@ -613,7 +614,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
+    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
     wxFileDialog dlg(this,_("Add images"),
                      config->Read(wxT("actualPath"),wxT("")), wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);

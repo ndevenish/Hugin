@@ -25,13 +25,19 @@
                             
                             
                             
+                            
+                            
                             <label>PTStitcher:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -44,7 +50,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -57,8 +67,12 @@
                             
                             
                             
+                            
+                            
                             <label>...</label>
                           </object>
+                          
+                          
                           
                           
                           
@@ -72,13 +86,19 @@
                             
                             
                             
+                            
+                            
                             <label>PTOptimizer</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -91,7 +111,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -104,8 +128,12 @@
                             
                             
                             
+                            
+                            
                             <label>...</label>
                           </object>
+                          
+                          
                           
                           
                           
@@ -118,13 +146,19 @@
                             
                             
                             
+                            
+                            
                             <label>Scriptfile</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -137,8 +171,12 @@
                             
                             
                             
+                            
+                            
                             <tooltip>Name of the temporary script file used by Panotools</tooltip>
                           </object>
+                          
+                          
                           
                           
                           
@@ -148,9 +186,13 @@
                           
                           
                           
+                          
+                          
                           <border>5</border>
                         </object>
                         <object class="spacer">
+                          
+                          
                           
                           
                           
@@ -163,13 +205,19 @@
                             
                             
                             
+                            
+                            
                             <label>Panotools:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -182,13 +230,19 @@
                             
                             
                             
+                            
+                            
                             <label>Panotools</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -201,13 +255,19 @@
                             
                             
                             
+                            
+                            
                             <label>Details</label>
+                            
+                            
                             
                             
                             
                             
                             <enabled>0</enabled>
                           </object>
+                          
+                          
                           
                           
                           
@@ -219,6 +279,8 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
@@ -226,7 +288,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -255,13 +321,19 @@
                             
                             
                             
+                            
+                            
                             <label>Patch width:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -274,8 +346,12 @@
                             
                             
                             
+                            
+                            
                             <min>3</min>
                           </object>
+                          
+                          
                           
                           
                           
@@ -285,10 +361,14 @@
                           
                           
                           
+                          
+                          
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
+                            
+                            
                             
                             
                             
@@ -299,7 +379,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -312,13 +396,19 @@
                             
                             
                             
+                            
+                            
                             <label>Search area width:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -331,13 +421,19 @@
                             
                             
                             
+                            
+                            
                             <min>1</min>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -350,13 +446,19 @@
                             
                             
                             
+                            
+                            
                             <label>percent of image width</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -369,13 +471,19 @@
                             
                             
                             
+                            
+                            
                             <label>Local search area width:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -388,13 +496,19 @@
                             
                             
                             
+                            
+                            
                             <min>1</min>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -407,7 +521,11 @@
                             
                             
                             
+                            
+                            
                             <label>pixels</label>
+                            
+                            
                             
                             
                             
@@ -418,7 +536,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -431,13 +553,19 @@
                             
                             
                             
+                            
+                            
                             <label>Correlation Threshold:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -450,7 +578,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -463,7 +595,11 @@
                             
                             
                             
+                            
+                            
                             <label>0: no similarity\n1: maximum similarity</label>
+                            
+                            
                             
                             
                             
@@ -474,7 +610,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -487,13 +627,19 @@
                             
                             
                             
+                            
+                            
                             <label>Peak Curvature Threshold:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -506,7 +652,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -519,7 +669,11 @@
                             
                             
                             
+                            
+                            
                             <label>0: no peak\n 0.2: distinctive peak</label>
+                            
+                            
                             
                             
                             
@@ -530,7 +684,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -543,7 +701,11 @@
                       
                       
                       
+                      
+                      
                       <option>1</option>
+                      
+                      
                       
                       
                       
@@ -555,7 +717,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -568,6 +734,8 @@
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_ft_RotationSearch">
+                        
+                        
                         
                         
                         
@@ -585,13 +753,19 @@
                               
                               
                               
+                              
+                              
                               <label>Start angle:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -604,8 +778,12 @@
                               
                               
                               
+                              
+                              
                               <style></style>
                             </object>
+                            
+                            
                             
                             
                             
@@ -615,10 +793,14 @@
                             
                             
                             
+                            
+                            
                             <border>5</border>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
+                              
+                              
                               
                               
                               
@@ -629,7 +811,11 @@
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -642,13 +828,19 @@
                               
                               
                               
+                              
+                              
                               <label>Stop angle:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -661,7 +853,11 @@
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -670,6 +866,8 @@
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
+                              
+                              
                               
                               
                               
@@ -680,7 +878,11 @@
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -693,13 +895,19 @@
                               
                               
                               
+                              
+                              
                               <label>Steps:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -712,8 +920,12 @@
                               
                               
                               
+                              
+                              
                               <min>1</min>
                             </object>
+                            
+                            
                             
                             
                             
@@ -723,10 +935,14 @@
                             
                             
                             
+                            
+                            
                             <border>5</border>
                           </object>
                           <growablecols>2</growablecols>
                           <object class="spacer">
+                            
+                            
                             
                             
                             
@@ -741,7 +957,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -769,13 +989,19 @@
                             
                             
                             
+                            
+                            
                             <label>Image cache memory:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -788,8 +1014,14 @@
                             
                             
                             
+                            
+                            
                             <min>1</min>
-			    <max>2147483646</max>
+			    
+                            
+                            <max>2147483646</max>
+                            
+                            
                             
                             
                             
@@ -800,7 +1032,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -813,13 +1049,19 @@
                             
                             
                             
+                            
+                            
                             <label>MB</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -834,13 +1076,19 @@
                             
                             
                             
+                            
+                            
                             <label>Number of CPUs:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -853,8 +1101,14 @@
                             
                             
                             
+                            
+                            
                             <value>1</value>
+                            
+                            
                             <min>1</min>
+                            
+                            
                             
                             
                             
@@ -865,7 +1119,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -878,13 +1136,19 @@
                             
                             
                             
+                            
+                            
                             <label></label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -896,6 +1160,8 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
@@ -903,7 +1169,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -923,13 +1193,19 @@
                             
                             
                             
+                            
+                            
                             <label>Language</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -942,13 +1218,19 @@
                             
                             
                             
+                            
+                            
                             <content/>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND</flag>
+                          
+                          
                           
                           
                           
@@ -961,7 +1243,11 @@
                             
                             
                             
+                            
+                            
                             <label>requires restarting hugin</label>
+                            
+                            
                             
                             
                             
@@ -972,7 +1258,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -986,10 +1276,14 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_misc_UseSelectedImages">
+                        
+                        
                         
                         
                         
@@ -1000,7 +1294,11 @@
                       
                       
                       
+                      
+                      
                       <flag>wxALL</flag>
+                      
+                      
                       
                       
                       
@@ -1012,7 +1310,212 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
+                  
+                  
+                  
+                  
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>HDR and 16 Bit display mode</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <cols>3</cols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <label>Range</label>
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="prefs_misc_hdr_range">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <content>
+                              <item>fixed</item>
+                              <item>auto</item>
+                            </content>
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxEXPAND</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <label>use fixed for 16 bit\nand auto for HDR</label>
+                            
+                            
+                            
+                            
+                            
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <label>Mapping</label>
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="prefs_misc_hdr_mapping">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <content>
+                              <item>linear</item>
+                              <item>logarithmic</item>
+                              <item>gamma 2.2</item>
+                            </content>
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxEXPAND</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            
+                            
+                            
+                            
+                            
+                            
+                            <label>used for display in GUI</label>
+                            
+                            
+                            
+                            
+                            
+                          </object>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
+                          
+                          
+                          
+                          
+                          <border>5</border>
+                        </object>
+                        <rows>2</rows>
+                        <growablecols>1</growablecols>
+                      </object>
+                      
+                      
+                      
+                      
+                      
+                      
+                      <flag>wxEXPAND</flag>
+                    </object>
+                  </object>
+                  
+                  
+                  
+                  
+                  
+                  
+                  <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1032,13 +1535,19 @@
                             
                             
                             
+                            
+                            
                             <label>Tempdir:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1051,12 +1560,18 @@
                           
                           
                           
+                          
+                          
                           <option>1</option>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1069,13 +1584,19 @@
                             
                             
                             
+                            
+                            
                             <label>leave empty for OS default</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1087,6 +1608,8 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
@@ -1094,7 +1617,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1114,6 +1641,8 @@
                             
                             
                             
+                            
+                            
                             <label>Show Druid (requires restarting hugin)</label>
                           </object>
                         </object>
@@ -1122,7 +1651,11 @@
                       
                       
                       
+                      
+                      
                       <option>1</option>
+                      
+                      
                       
                       
                       
@@ -1134,7 +1667,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1157,8 +1694,12 @@
                         
                         
                         
+                        
+                        
                         <label>Select Autopano</label>
                       </object>
+                      
+                      
                       
                       
                       
@@ -1168,10 +1709,14 @@
                       
                       
                       
+                      
+                      
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxChoice" name="prefs_AutoPanoType">
+                        
+                        
                         
                         
                         
@@ -1188,7 +1733,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1209,13 +1758,19 @@
                               
                               
                               
+                              
+                              
                               <label>Autopano-SIFT:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1228,7 +1783,11 @@
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1241,8 +1800,12 @@
                               
                               
                               
+                              
+                              
                               <label>...</label>
                             </object>
+                            
+                            
                             
                             
                             
@@ -1255,13 +1818,19 @@
                               
                               
                               
+                              
+                              
                               <label>Arguments:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1274,12 +1843,18 @@
                             
                             
                             
+                            
+                            
                             <option>2</option>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1293,6 +1868,8 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
@@ -1300,7 +1877,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1321,13 +1902,19 @@
                               
                               
                               
+                              
+                              
                               <label>Autopano:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1340,7 +1927,11 @@
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1353,8 +1944,12 @@
                               
                               
                               
+                              
+                              
                               <label>...</label>
                             </object>
+                            
+                            
                             
                             
                             
@@ -1367,13 +1962,19 @@
                               
                               
                               
+                              
+                              
                               <label>Arguments:</label>
                             </object>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1386,12 +1987,18 @@
                             
                             
                             
+                            
+                            
                             <option>2</option>
                             
                             
                             
                             
+                            
+                            
                             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            
+                            
                             
                             
                             
@@ -1405,9 +2012,13 @@
                       
                       
                       
+                      
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                   </object>
+                  
+                  
                   
                   
                   
@@ -1417,10 +2028,14 @@
                   
                   
                   
+                  
+                  
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
+                    
+                    
                     
                     
                     
@@ -1435,7 +2050,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1463,13 +2082,19 @@
                             
                             
                             
+                            
+                            
                             <label>Enblend:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1482,7 +2107,11 @@
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1495,8 +2124,12 @@
                             
                             
                             
+                            
+                            
                             <label>...</label>
                           </object>
+                          
+                          
                           
                           
                           
@@ -1509,13 +2142,19 @@
                             
                             
                             
+                            
+                            
                             <label>Additional Arguments:</label>
                           </object>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1528,12 +2167,18 @@
                           
                           
                           
+                          
+                          
                           <option>2</option>
                           
                           
                           
                           
+                          
+                          
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          
+                          
                           
                           
                           
@@ -1546,9 +2191,13 @@
                           
                           
                           
+                          
+                          
                           <size>0,0</size>
                         </object>
                       </object>
+                      
+                      
                       
                       
                       
@@ -1561,13 +2210,19 @@
                         
                         
                         
+                        
+                        
                         <label>Do not set -w and -o arguments, they are set by hugin</label>
                       </object>
                       
                       
                       
                       
+                      
+                      
                       <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                      
+                      
                       
                       
                       
@@ -1580,13 +2235,19 @@
                         
                         
                         
+                        
+                        
                         <label>Delete remapped tiff files</label>
                       </object>
                     
                       
                       
                       
+                      
+                      
                       <flag>wxTOP|wxLEFT</flag>
+                      
+                      
                       
                       
                       
@@ -1598,8 +2259,12 @@
                         
                         
                         
+                        
+                        
                         <label>Use cropped TIFF files (enblend 2.4 or higher required)</label>
                       
+                        
+                        
                         
                         
                         <tooltip>Save cropped images, requires less disk space and memory.</tooltip>
@@ -1608,7 +2273,11 @@
                       
                       
                       
+                      
+                      
                       <flag>wxTOP|wxLEFT</flag>
+                      
+                      
                       
                       
                       
@@ -1619,7 +2288,11 @@
                   
                   
                   
+                  
+                  
                   <flag>wxALL|wxEXPAND</flag>
+                  
+                  
                   
                   
                   
@@ -1634,7 +2307,11 @@
         
         
         
+        
+        
         <option>1</option>
+        
+        
         
         
         
@@ -1644,12 +2321,16 @@
         
         
         
+        
+        
         <border>5</border>
         
         
         
         
-        <minsize>450,400</minsize>
+        
+        
+        <minsize>450,450</minsize>
       </object>
       <object class="sizeritem">
         <object class="wxBoxSizer">
@@ -1659,7 +2340,11 @@
             
             
             
+            
+            
             <option>4</option>
+            
+            
             
             
             
@@ -1672,13 +2357,19 @@
               
               
               
+              
+              
               <label>Ok</label>
             </object>
             
             
             
             
+            
+            
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             
@@ -1690,7 +2381,11 @@
             
             
             
+            
+            
             <option>1</option>
+            
+            
             
             
             
@@ -1703,13 +2398,19 @@
               
               
               
+              
+              
               <label>Apply</label>
             </object>
             
             
             
             
+            
+            
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             
@@ -1721,7 +2422,11 @@
             
             
             
+            
+            
             <option>1</option>
+            
+            
             
             
             
@@ -1734,13 +2439,19 @@
               
               
               
+              
+              
               <label>Cancel</label>
             </object>
             
             
             
             
+            
+            
             <flag>wxALL|wxEXPAND</flag>
+            
+            
             
             
             
@@ -1752,7 +2463,11 @@
             
             
             
+            
+            
             <option>4</option>
+            
+            
             
             
             
@@ -1765,8 +2480,12 @@
               
               
               
+              
+              
               <label>Load Defaults</label>
             </object>
+            
+            
             
             
             
@@ -1776,9 +2495,13 @@
             
             
             
+            
+            
             <border>5</border>
           </object>
         </object>
+        
+        
         
         
         

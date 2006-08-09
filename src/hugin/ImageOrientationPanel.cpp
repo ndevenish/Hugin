@@ -272,7 +272,7 @@ void ImageOrientationPanel::ScaleBitmap()
         return;
     }
     const string & fname = pano.getImage(m_refImgNr).getFilename();
-    wxImage * img = ImageCache::getInstance().getImage(fname);
+    wxImage * img = ImageCache::getInstance().getImage(fname)->image;
 
     m_imageSize = wxSize(img->GetWidth(), img->GetHeight());
 
