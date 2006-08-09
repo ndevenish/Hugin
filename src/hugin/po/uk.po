@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-03-22 08:49+0100\n"
+"POT-Creation-Date: 2006-08-09 23:02+0200\n"
 "PO-Revision-Date: 2006-03-22 02:59+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -242,24 +242,24 @@ msgstr "Вирівнювання"
 msgid "Distance"
 msgstr "Відстань"
 
-#: src/hugin/CPEditorPanel.cpp:547
+#: src/hugin/CPEditorPanel.cpp:548
 msgid "No corresponding point found"
 msgstr "Відповідної крапки не знайдено"
 
-#: src/hugin/CPEditorPanel.cpp:618
+#: src/hugin/CPEditorPanel.cpp:619
 msgid "new control point added"
 msgstr "Додана нова контрольна крапка"
 
-#: src/hugin/CPEditorPanel.cpp:718 src/hugin/CPEditorPanel.cpp:942
+#: src/hugin/CPEditorPanel.cpp:719 src/hugin/CPEditorPanel.cpp:943
 msgid "searching similar point..."
 msgstr "Йде пошук подібної крапки..."
 
-#: src/hugin/CPEditorPanel.cpp:737 src/hugin/CPEditorPanel.cpp:860
+#: src/hugin/CPEditorPanel.cpp:738 src/hugin/CPEditorPanel.cpp:861
 msgid "Error during Fine-tune"
 msgstr "Помилка в ході покращеного підстроювання"
 
-#: src/hugin/CPEditorPanel.cpp:751 src/hugin/CPEditorPanel.cpp:880
-#: src/hugin/CPEditorPanel.cpp:988
+#: src/hugin/CPEditorPanel.cpp:752 src/hugin/CPEditorPanel.cpp:881
+#: src/hugin/CPEditorPanel.cpp:989
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -268,15 +268,15 @@ msgstr ""
 "Крапка краще настроєна, кут: %.0f градусів, коеф. кореляції: %0.3f, "
 "кривизна: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:754 src/hugin/CPEditorPanel.cpp:883
+#: src/hugin/CPEditorPanel.cpp:755 src/hugin/CPEditorPanel.cpp:884
 msgid "change points, or press right mouse button to add the pair"
 msgstr "змініть крапки, або натисніть праву клавішу миші, щоб додати пару"
 
-#: src/hugin/CPEditorPanel.cpp:774
+#: src/hugin/CPEditorPanel.cpp:775
 msgid "Estimated point outside image"
 msgstr "Передбачувана крапка за межами зображення"
 
-#: src/hugin/CPEditorPanel.cpp:994
+#: src/hugin/CPEditorPanel.cpp:995
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -287,45 +287,45 @@ msgstr ""
 "коефіцієнт кореляції: %.3f (повинен бути > %.3f)\n"
 "пікове викривлення: (%.3f, %.3f) (повинен бути > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:996
+#: src/hugin/CPEditorPanel.cpp:997
 msgid "No similar point found"
 msgstr "Подібна крапка не знайдена"
 
-#: src/hugin/CPEditorPanel.cpp:1388 src/hugin/CPListFrame.cpp:394
+#: src/hugin/CPEditorPanel.cpp:1389 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:169 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "нормальний"
 
-#: src/hugin/CPEditorPanel.cpp:1391 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1392 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "верт. лінія"
 
-#: src/hugin/CPEditorPanel.cpp:1394 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1395 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "гориз. лінія"
 
-#: src/hugin/CPEditorPanel.cpp:1679
+#: src/hugin/CPEditorPanel.cpp:1685
 msgid "Cannot estimate image position without control points"
 msgstr "Неможливо оцінити положення зображення без контрольних крапок"
 
-#: src/hugin/CPEditorPanel.cpp:1700 src/hugin/CPEditorPanel.cpp:1701
+#: src/hugin/CPEditorPanel.cpp:1706 src/hugin/CPEditorPanel.cpp:1707
 msgid "Create control points"
 msgstr "Створити контрольні крапки"
 
-#: src/hugin/CPEditorPanel.cpp:1700
+#: src/hugin/CPEditorPanel.cpp:1706
 msgid "Corner Detection threshold"
 msgstr "Поріг кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1701
+#: src/hugin/CPEditorPanel.cpp:1707
 msgid "Corner Detection scale"
 msgstr "Масштаб кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1836
+#: src/hugin/CPEditorPanel.cpp:1842
 msgid "Select Point in right image"
 msgstr "Виберіть крапку в зображенні справа"
 
-#: src/hugin/CPEditorPanel.cpp:1848
+#: src/hugin/CPEditorPanel.cpp:1854
 msgid "Select Point in left image"
 msgstr "Виберіть крапку в зображенні зліва"
 
@@ -333,7 +333,7 @@ msgstr "Виберіть крапку в зображенні зліва"
 msgid "Control point finetune"
 msgstr "Покращене підстроювання контрольної крапки"
 
-#: src/hugin/CPImageCtrl.cpp:788
+#: src/hugin/CPImageCtrl.cpp:781
 msgid "Could not process event!"
 msgstr "Не вдалося обробити подію!"
 
@@ -353,7 +353,7 @@ msgstr "y"
 msgid "right Img."
 msgstr "Зобр. справа."
 
-#: src/hugin/CPListFrame.cpp:597 src/hugin/CPListFrame.cpp:606
+#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -361,43 +361,43 @@ msgstr ""
 "Введіть мінімальну помилку контрольної крапки.\n"
 "Усі точки з вищою помилкою будуть вибрані"
 
-#: src/hugin/CPListFrame.cpp:597 src/hugin/CPListFrame.cpp:606
+#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
 msgid "Select Control Points"
 msgstr "Виберіть контрольні крапки"
 
-#: src/hugin/CPListFrame.cpp:605
+#: src/hugin/CPListFrame.cpp:608
 msgid "Error: please enter a valid number."
 msgstr "Помилка: будь-ласка, введіть правильний номер."
 
-#: src/hugin/CPListFrame.cpp:605
+#: src/hugin/CPListFrame.cpp:608
 msgid "Could not read number"
 msgstr "Не вдалося прочитати номер"
 
-#: src/hugin/ImageCache.cpp:415
+#: src/hugin/ImageCache.cpp:602
 #, c-format
 msgid "Loading image %s"
 msgstr "Завантажується зображення %s"
 
-#: src/hugin/ImageCache.cpp:517
+#: src/hugin/ImageCache.cpp:721
 #, fuzzy, c-format
 msgid "Error during image reading: %s"
 msgstr "Під час зшивання відбулася помилка"
 
-#: src/hugin/ImageCache.cpp:525
+#: src/hugin/ImageCache.cpp:729
 msgid "Cannot load image: "
 msgstr "Не вдалося завантажити зображення: "
 
-#: src/hugin/ImageCache.cpp:548
+#: src/hugin/ImageCache.cpp:759
 #, c-format
 msgid "Scaling image %s"
 msgstr "Масштабується зображення %s"
 
-#: src/hugin/ImageCache.cpp:604
+#: src/hugin/ImageCache.cpp:817
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "Створення градацій сірого %s"
 
-#: src/hugin/ImageCache.cpp:622
+#: src/hugin/ImageCache.cpp:835
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Створення піраміди зображення для %s, рівень %d"
@@ -411,19 +411,19 @@ msgid "Left:"
 msgstr "Зліва: "
 
 #: src/hugin/ImageCenter.cpp:86
-msgid "Right:"
-msgstr "Справа: "
-
-#: src/hugin/ImageCenter.cpp:91
 msgid "Top:"
 msgstr "Зверху: "
+
+#: src/hugin/ImageCenter.cpp:91
+msgid "Right:"
+msgstr "Справа: "
 
 #: src/hugin/ImageCenter.cpp:96
 msgid "Bottom:"
 msgstr "Знизу: "
 
 #: src/hugin/ImageCenter.cpp:101 src/hugin/xrc/images_panel.xrs:33
-#: src/hugin/xrc/images_panel-2.5.xrs:33
+#: src/hugin/xrc/images_panel-2.5.xrs:18
 msgid "Reset"
 msgstr "Скинути"
 
@@ -431,8 +431,8 @@ msgstr "Скинути"
 msgid "Always center Crop on d,e"
 msgstr "Завжди центрувати обрізання на d,e"
 
-#: src/hugin/ImageCenter.cpp:214 src/hugin/ImageCenter.cpp:229
-#: src/hugin/ImageCenter.cpp:244 src/hugin/ImageCenter.cpp:259
+#: src/hugin/ImageCenter.cpp:219 src/hugin/ImageCenter.cpp:234
+#: src/hugin/ImageCenter.cpp:249 src/hugin/ImageCenter.cpp:264
 msgid "Please enter a valid number"
 msgstr "Будь-ласка, введіть коректний номер"
 
@@ -441,114 +441,116 @@ msgstr "Будь-ласка, введіть коректний номер"
 msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 msgstr "Відхилення: %.1f   Рівень: %.1f   Обертання: %.1f"
 
-#: src/hugin/ImagesList.cpp:301 src/hugin/ImagesList.cpp:360
+#: src/hugin/ImagesList.cpp:305 src/hugin/ImagesList.cpp:364
 msgid "Filename"
 msgstr "Ім'я файлу"
 
-#: src/hugin/ImagesList.cpp:302 src/hugin/xrc/pano_panel-2.5.xrs:22
+#: src/hugin/ImagesList.cpp:306
 msgid "width"
 msgstr "ширина"
 
-#: src/hugin/ImagesList.cpp:303 src/hugin/xrc/pano_panel-2.5.xrs:23
+#: src/hugin/ImagesList.cpp:307
 msgid "height"
 msgstr "висота"
 
-#: src/hugin/ImagesList.cpp:304
+#: src/hugin/ImagesList.cpp:308
 msgid "yaw (y)"
 msgstr "відхилення (y)"
 
-#: src/hugin/ImagesList.cpp:305
+#: src/hugin/ImagesList.cpp:309
 msgid "pitch (p)"
 msgstr "рівень (p)"
 
-#: src/hugin/ImagesList.cpp:306
+#: src/hugin/ImagesList.cpp:310
 msgid "roll (r)"
 msgstr "обертання (r)"
 
-#: src/hugin/ImagesList.cpp:307
+#: src/hugin/ImagesList.cpp:311
 msgid "Anchor"
 msgstr "Якір"
 
-#: src/hugin/ImagesList.cpp:308
+#: src/hugin/ImagesList.cpp:312
 msgid "# Ctrl Pnts"
 msgstr "# Контрольні крапки"
 
-#: src/hugin/ImagesList.cpp:361
+#: src/hugin/ImagesList.cpp:365
 msgid "Lens no."
 msgstr "№ об'єктиву."
 
-#: src/hugin/ImagesList.cpp:362
+#: src/hugin/ImagesList.cpp:366
 msgid "Lens type (f)"
 msgstr "Тип об'єктиву (f)"
 
-#: src/hugin/ImagesList.cpp:363
+#: src/hugin/ImagesList.cpp:367
 msgid "hfov (v)"
 msgstr "hfov (v)"
 
-#: src/hugin/ImagesList.cpp:364
+#: src/hugin/ImagesList.cpp:368
 msgid "a"
 msgstr "a"
 
-#: src/hugin/ImagesList.cpp:365
+#: src/hugin/ImagesList.cpp:369
 msgid "b"
 msgstr "b"
 
-#: src/hugin/ImagesList.cpp:366
+#: src/hugin/ImagesList.cpp:370
 msgid "c"
 msgstr "c"
 
-#: src/hugin/ImagesList.cpp:367
+#: src/hugin/ImagesList.cpp:371
 msgid "d"
 msgstr "d"
 
-#: src/hugin/ImagesList.cpp:368
+#: src/hugin/ImagesList.cpp:372
 msgid "e"
 msgstr "e"
 
-#: src/hugin/ImagesList.cpp:369
+#: src/hugin/ImagesList.cpp:373
 msgid "g"
 msgstr "g"
 
-#: src/hugin/ImagesList.cpp:370
+#: src/hugin/ImagesList.cpp:374
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:371 src/hugin/xrc/images_panel.xrs:10
-#: src/hugin/xrc/images_panel-2.5.xrs:10 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/ImagesList.cpp:375 src/hugin/xrc/images_panel.xrs:10
+#: src/hugin/xrc/images_panel-2.5.xrs:33 src/hugin/xrc/lens_panel.xrs:34
+#: src/hugin/xrc/lens_panel-2.5.xrs:25
 msgid "Crop"
 msgstr "Обрізання"
 
-#: src/hugin/ImagesList.cpp:394 src/hugin/xrc/lens_panel.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:2 src/hugin/xrc/lens_panel-2.5.xrs:57
+#: src/hugin/ImagesList.cpp:398 src/hugin/xrc/lens_panel.xrs:2
+#: src/hugin/xrc/lens_panel-2.5.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:55
 msgid "Normal (rectilinear)"
 msgstr "Нормалний (прямолінійний)"
 
-#: src/hugin/ImagesList.cpp:395 src/hugin/xrc/lens_panel.xrs:3
-#: src/hugin/xrc/lens_panel-2.5.xrs:3 src/hugin/xrc/lens_panel-2.5.xrs:58
+#: src/hugin/ImagesList.cpp:399 src/hugin/xrc/lens_panel.xrs:3
+#: src/hugin/xrc/lens_panel-2.5.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:56
 msgid "Panoramic (cylindrical)"
 msgstr "Панорамний (циліндричний)"
 
-#: src/hugin/ImagesList.cpp:396 src/hugin/xrc/lens_panel.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:4 src/hugin/xrc/lens_panel-2.5.xrs:59
+#: src/hugin/ImagesList.cpp:400 src/hugin/xrc/lens_panel.xrs:4
+#: src/hugin/xrc/lens_panel-2.5.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:57
 msgid "Circular fisheye"
 msgstr "Кругле рибне око"
 
-#: src/hugin/ImagesList.cpp:397 src/hugin/PreviewFrame.cpp:295
-#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:60 src/hugin/xrc/pano_panel.xrs:6
+#: src/hugin/ImagesList.cpp:401 src/hugin/PreviewFrame.cpp:297
+#: src/hugin/xrc/lens_panel.xrs:5 src/hugin/xrc/lens_panel-2.5.xrs:16
+#: src/hugin/xrc/lens_panel-2.5.xrs:58 src/hugin/xrc/pano_panel.xrs:6
 #: src/hugin/xrc/pano_panel-2.5.xrs:6
 msgid "Full frame fisheye"
 msgstr "Повно-кадрове рибне око"
 
-#: src/hugin/ImagesList.cpp:398 src/hugin/PreviewFrame.cpp:407
-#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:61 src/hugin/xrc/pano_panel.xrs:5
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:409
+#: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
+#: src/hugin/xrc/lens_panel-2.5.xrs:59 src/hugin/xrc/pano_panel.xrs:5
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Рівно-прямокутний"
 
-#: src/hugin/ImagesPanel.cpp:312 src/hugin/ImagesPanel.cpp:333
-#: src/hugin/ImagesPanel.cpp:353
+#: src/hugin/ImagesPanel.cpp:310 src/hugin/ImagesPanel.cpp:331
+#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:241
+#: src/hugin/PanoPanel.cpp:272
 msgid "Value must be numeric."
 msgstr "Значення повинне бути числовим."
 
@@ -561,45 +563,45 @@ msgstr "Дійсно видалити %d контрольні крапки?"
 msgid "Delete Control Points"
 msgstr "Видалити контрольні крапки"
 
-#: src/hugin/LensPanel.cpp:714
+#: src/hugin/LensPanel.cpp:721
 msgid "Not a jpeg file:"
 msgstr "Не JPEG-файл:"
 
-#: src/hugin/LensPanel.cpp:719 src/hugin/LensPanel.cpp:779
-#: src/hugin/LensPanel.cpp:869 src/hugin/LensPanel.cpp:885
-#: src/hugin/LensPanel.cpp:903
+#: src/hugin/LensPanel.cpp:726 src/hugin/LensPanel.cpp:786
+#: src/hugin/LensPanel.cpp:876 src/hugin/LensPanel.cpp:892
+#: src/hugin/LensPanel.cpp:910
 msgid "Please select an image and try again"
 msgstr "Будь-ласка, виберіть зображення та спробуйте знову"
 
-#: src/hugin/LensPanel.cpp:737
+#: src/hugin/LensPanel.cpp:744
 msgid "Save lens parameters file"
 msgstr "Зберегти файл з параметрами об'єктиву"
 
-#: src/hugin/LensPanel.cpp:739
+#: src/hugin/LensPanel.cpp:746
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*)|*"
 
-#: src/hugin/LensPanel.cpp:794
+#: src/hugin/LensPanel.cpp:801
 msgid "Load lens parameters"
 msgstr "Завантажити параметри об'єктиву"
 
-#: src/hugin/LensPanel.cpp:796
+#: src/hugin/LensPanel.cpp:803
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:893
+#: src/hugin/LensPanel.cpp:900
 msgid "Enter new lens number"
 msgstr "Введіть номер нового об'єктиву"
 
-#: src/hugin/LensPanel.cpp:893
+#: src/hugin/LensPanel.cpp:900
 msgid "Lens number"
 msgstr "Номер об'єктиву"
 
-#: src/hugin/LensPanel.cpp:894
+#: src/hugin/LensPanel.cpp:901
 msgid "Change lens number"
 msgstr "Зміна номера об'єктиву"
 
-#: src/hugin/LensPanel.cpp:917
+#: src/hugin/LensPanel.cpp:992
 msgid ""
 "Enter Crop Factor for image\n"
 "\n"
@@ -615,11 +617,11 @@ msgstr ""
 "\n"
 "де діагональ - діагональ (у мм) фотоплівки чи зображеневого чіпа."
 
-#: src/hugin/LensPanel.cpp:918
+#: src/hugin/LensPanel.cpp:993
 msgid "Adding Image"
 msgstr "Додається зображення"
 
-#: src/hugin/MainFrame.cpp:219
+#: src/hugin/MainFrame.cpp:181
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -629,16 +631,16 @@ msgstr ""
 "Xrc-тека не знайдена.\n"
 "Будь-ласка, гарантуйте, що це розміщено в тій ж теці, що і  hugin.exe"
 
-#: src/hugin/MainFrame.cpp:316
+#: src/hugin/MainFrame.cpp:278
 msgid "Started"
 msgstr "Запущено"
 
-#: src/hugin/MainFrame.cpp:360 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:323 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Довідка"
 
-#: src/hugin/MainFrame.cpp:447
+#: src/hugin/MainFrame.cpp:410
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -646,52 +648,52 @@ msgstr ""
 "Панораму було змінено\n"
 "Зберегти зміни?"
 
-#: src/hugin/MainFrame.cpp:447
+#: src/hugin/MainFrame.cpp:410
 msgid "Save Panorama?"
 msgstr "Зберегти панораму?"
 
-#: src/hugin/MainFrame.cpp:480
+#: src/hugin/MainFrame.cpp:443
 msgid "forced close"
 msgstr "примусово закрито"
 
-#: src/hugin/MainFrame.cpp:509
+#: src/hugin/MainFrame.cpp:472
 #, c-format
 msgid "saved project %s"
 msgstr "збережено проект %s"
 
-#: src/hugin/MainFrame.cpp:518
+#: src/hugin/MainFrame.cpp:481
 msgid "Save project file"
 msgstr "Зберегти файл проекту"
 
-#: src/hugin/MainFrame.cpp:520
+#: src/hugin/MainFrame.cpp:483
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Проектні файли (*.pto)|*.pto|Усі файли (*)|*"
 
-#: src/hugin/MainFrame.cpp:536
+#: src/hugin/MainFrame.cpp:499
 msgid "Save PTStitcher script file"
 msgstr "Зберегти файл сценарію PTStitcher "
 
-#: src/hugin/MainFrame.cpp:538
+#: src/hugin/MainFrame.cpp:501
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Файли PTStitcher-а (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:566
+#: src/hugin/MainFrame.cpp:529
 msgid "Open project:   "
 msgstr "Відкрити проект: "
 
-#: src/hugin/MainFrame.cpp:578
+#: src/hugin/MainFrame.cpp:541
 msgid "Project opened"
 msgstr "Проект відкритий"
 
-#: src/hugin/MainFrame.cpp:588
+#: src/hugin/MainFrame.cpp:551
 msgid "Error opening project:   "
 msgstr "Помилка при відкритті проекту: "
 
-#: src/hugin/MainFrame.cpp:615
+#: src/hugin/MainFrame.cpp:578
 msgid "Open project file"
 msgstr "Відкрити проектний файл"
 
-#: src/hugin/MainFrame.cpp:617
+#: src/hugin/MainFrame.cpp:580
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -699,38 +701,39 @@ msgstr ""
 "Проектні файли (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Усі файли "
 "(*)|*"
 
-#: src/hugin/MainFrame.cpp:630
+#: src/hugin/MainFrame.cpp:593
 msgid "Open project: cancel"
 msgstr "Відкрити проект: відміна"
 
-#: src/hugin/MainFrame.cpp:654 src/hugin/VigCorrDialog.cpp:167
-#: src/include/hugin/wxPanoCommand.h:179
+#: src/hugin/MainFrame.cpp:617 src/hugin/VigCorrDialog.cpp:167
+#: src/include/hugin/wxPanoCommand.h:186
+#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All "
-"files (*)|*"
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
 msgstr ""
 "Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
 "*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG-файли (*.jpg)|*.jpg;*.Jpg|"
 "усі файли (*)|*"
 
-#: src/hugin/MainFrame.cpp:655 src/include/hugin/wxPanoCommand.h:180
+#: src/hugin/MainFrame.cpp:618 src/include/hugin/wxPanoCommand.h:187
 msgid "Add images"
 msgstr "Додати зображення"
 
-#: src/hugin/MainFrame.cpp:699
+#: src/hugin/MainFrame.cpp:670
 msgid "Add Image: cancel"
 msgstr "Додати зображення: відміна"
 
-#: src/hugin/MainFrame.cpp:1074
+#: src/hugin/MainFrame.cpp:1026
 msgid "Fine-tuning all points"
 msgstr "Покращене підстроювання всіх крапок"
 
-#: src/hugin/MainFrame.cpp:1076
+#: src/hugin/MainFrame.cpp:1028
 msgid "Finetuning"
 msgstr "Покращене підстроювання"
 
-#: src/hugin/MainFrame.cpp:1160
+#: src/hugin/MainFrame.cpp:1112
 #, fuzzy, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -759,7 +762,7 @@ msgstr ""
 "Використовуйте список контрольних крапок (F3), щоб бачити усі крапки "
 "поточного проекту\n"
 
-#: src/hugin/MainFrame.cpp:1162
+#: src/hugin/MainFrame.cpp:1114
 msgid "Fine-tune result"
 msgstr "Результат покращеного підстроювання"
 
@@ -851,11 +854,11 @@ msgstr "ґамма повинна бути числом"
 msgid "The druid has no advice."
 msgstr "Майстрові нічим Вам допомогти."
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:580
 msgid "The druid finds no problems with your panorama."
 msgstr "Майстер не знайшов жодних проблем з Вашою панорамою."
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:578
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:581
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -865,11 +868,11 @@ msgstr ""
 "редактор зображення, наприклад,  GNU-програму маніпулювання\n"
 "зображеннями (GIMP), щоб додати будь-яких завершальні виправлення."
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:597
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:600
 msgid "Warning:  you haven't saved the current project."
 msgstr "Попередження: Ви не зберегли поточний проект."
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:598
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:601
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -879,7 +882,7 @@ msgstr ""
 "не забувайте зберегти Ваш проектний файл і, таким чином,\n"
 "Ви зможете експериментувати або регулювати налаштування пізніше."
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:596
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "Попередження: у поточного зшивання дуже великий розмір."
 
@@ -899,11 +902,11 @@ msgstr ""
 "'обрахунок оптимального розміру' на закладці параметрів панорами,\n"
 "щоб визначити піксельну розмірність, котра дасть кращу якість."
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:592
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "Горизонтальна область перегляду (ГОП=HFoV), можливо, дуже низька."
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:590
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:593
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -995,19 +998,19 @@ msgstr ""
 "пари крапок, що відносяться до ідентичних візуальних областей кожної пари "
 "зображень, що перекриваються."
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:588
 msgid "Add at least one more image."
 msgstr "Додайте як мінімум ще одного зображення."
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:586
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:589
 msgid "You should have at least two files listed in the Images tab."
 msgstr "Ви повинні мати як мінімум два файли у вкладці «Зображення»."
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:584
 msgid "To get started, add some image files."
 msgstr "Спершу додайте декілька файлів зображень."
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:582
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:585
 msgid "You can add any number of images using the Images tab."
 msgstr "Ви можете додати будь-яку кількість зображень у вкладці «Зображення»."
 
@@ -1015,11 +1018,21 @@ msgstr "Ви можете додати будь-яку кількість зоб
 msgid "the Panorama druid"
 msgstr "Майстер створення панорам"
 
+#: src/hugin/PanoPanel.cpp:247
+#, c-format
+msgid "Invalid HFOV value. Maxiumum HFOV for this projection is %lf."
+msgstr ""
+
+#: src/hugin/PanoPanel.cpp:278
+#, c-format
+msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
+msgstr ""
+
 #: src/hugin/PanoPanel.cpp:324
 msgid "width needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: src/hugin/PanoPanel.cpp:566
+#: src/hugin/PanoPanel.cpp:564
 msgid "Create panorama image"
 msgstr "Створити зображення панорами"
 
@@ -1097,31 +1110,31 @@ msgid "Select Enblend"
 msgstr "Вибір Enblend-у (поєднувача)"
 
 #: src/hugin/PreferencesDialog.cpp:279 src/hugin/PreferencesDialog.cpp:295
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:59
 msgid "Select Autopano"
 msgstr "Вибір Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:329 src/hugin/PreferencesDialog.cpp:331
+#: src/hugin/PreferencesDialog.cpp:313
 msgid "Panotools details"
 msgstr "Подробиці про інструменти панорами (Panotools)"
 
-#: src/hugin/PreferencesDialog.cpp:376
+#: src/hugin/PreferencesDialog.cpp:369
 msgid "Could not load dll"
 msgstr "Не вдалося завантажити dll"
 
-#: src/hugin/PreferencesDialog.cpp:376
+#: src/hugin/PreferencesDialog.cpp:369
 msgid "panoinfo"
 msgstr "пано-дані"
 
-#: src/hugin/PreferencesDialog.cpp:656
+#: src/hugin/PreferencesDialog.cpp:653
 msgid "Unknown Version"
 msgstr "Невідома версія"
 
-#: src/hugin/PreferencesDialog.cpp:666
+#: src/hugin/PreferencesDialog.cpp:663
 msgid "Really reset displayed preferences to default values?"
 msgstr "Дійсно скинути ці налаштування до значень по умовчанню?"
 
-#: src/hugin/PreferencesDialog.cpp:666 src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/PreferencesDialog.cpp:663 src/hugin/xrc/pref_dialog.xrs:83
 msgid "Load Defaults"
 msgstr "Завантажити значення по умовчанню"
 
@@ -1161,33 +1174,33 @@ msgstr "Спосіб поєднання: "
 msgid "difference"
 msgstr "різниця"
 
-#: src/hugin/PreviewFrame.cpp:286
+#: src/hugin/PreviewFrame.cpp:288
 msgid "rectilinear"
 msgstr "прямолінійний"
 
-#: src/hugin/PreviewFrame.cpp:289
+#: src/hugin/PreviewFrame.cpp:291
 msgid "cylindrical"
 msgstr "циліндричний"
 
-#: src/hugin/PreviewFrame.cpp:292
+#: src/hugin/PreviewFrame.cpp:294
 msgid "equirectangular"
 msgstr "рівнопрямокутний"
 
-#: src/hugin/PreviewFrame.cpp:405 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:407 src/hugin/xrc/pano_panel.xrs:3
 #: src/hugin/xrc/pano_panel-2.5.xrs:3
 msgid "Rectilinear"
 msgstr "Прямолінійний"
 
-#: src/hugin/PreviewFrame.cpp:406 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:408 src/hugin/xrc/pano_panel.xrs:4
 #: src/hugin/xrc/pano_panel-2.5.xrs:4
 msgid "Cylindrical"
 msgstr "Циліндричний"
 
-#: src/hugin/PreviewFrame.cpp:574
+#: src/hugin/PreviewFrame.cpp:577
 msgid "The druid has no advice at this time."
 msgstr "Майстер нічим не може допомогти цього разу."
 
-#: src/hugin/PreviewFrame.cpp:594
+#: src/hugin/PreviewFrame.cpp:597
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -1203,7 +1216,7 @@ msgstr ""
 "настроювальних Елементів Панорами, щоб визначити вимірювання пікселя, які "
 "нададуть кращу якість."
 
-#: src/hugin/PreviewPanel.cpp:268
+#: src/hugin/PreviewPanel.cpp:284
 msgid "Error during Stitching"
 msgstr "Під час зшивання трапилася помилка"
 
@@ -1302,7 +1315,7 @@ msgid "Strategy %d, Iteration %d, average distance: %f"
 msgstr "Алгоритм %d, ітерація %d, середня відстань: %f"
 
 #: src/hugin/RunOptimizerFrame.cpp:324 src/hugin/xrc/edit_text.xrs:3
-#: src/hugin/xrc/pref_dialog.xrs:72
+#: src/hugin/xrc/pref_dialog.xrs:82
 msgid "Cancel"
 msgstr "Відміна"
 
@@ -1413,7 +1426,7 @@ msgstr "Поради недоступні, даруйте!"
 msgid "Select flatfield image"
 msgstr "Вибір плоского зображення"
 
-#: src/hugin/VigCorrDialog.cpp:248 src/hugin/VigCorrDialog.cpp:598
+#: src/hugin/VigCorrDialog.cpp:248 src/hugin/VigCorrDialog.cpp:611
 msgid ""
 "The vignetting curve is determined by using gray values in the overlaping "
 "areas.\n"
@@ -1424,16 +1437,16 @@ msgstr ""
 "Для пришвидення обрахунків, використовується лише випадкова підмножина "
 "крапок."
 
-#: src/hugin/VigCorrDialog.cpp:249 src/hugin/VigCorrDialog.cpp:598
+#: src/hugin/VigCorrDialog.cpp:249 src/hugin/VigCorrDialog.cpp:611
 msgid "Number of points per overlap"
 msgstr "Кількість крапок на кожне перекриття"
 
 #: src/hugin/VigCorrDialog.cpp:250 src/hugin/VigCorrDialog.cpp:255
-#: src/hugin/VigCorrDialog.cpp:598 src/hugin/VigCorrDialog.cpp:600
+#: src/hugin/VigCorrDialog.cpp:611 src/hugin/VigCorrDialog.cpp:613
 msgid "Estimate vignetting curve"
 msgstr "Оцінити коротко обмалювану криву"
 
-#: src/hugin/VigCorrDialog.cpp:255 src/hugin/VigCorrDialog.cpp:600
+#: src/hugin/VigCorrDialog.cpp:255 src/hugin/VigCorrDialog.cpp:613
 msgid ""
 "Ransac tolerance parameter.\n"
 "Should be around 0.1.\n"
@@ -1447,11 +1460,23 @@ msgstr ""
 "зареєстровані дуже добре, і такі ж параметри камери (експозиція, баланс "
 "білого) використовувалися."
 
-#: src/hugin/VigCorrDialog.cpp:293 src/hugin/VigCorrDialog.cpp:542
+#: src/hugin/VigCorrDialog.cpp:285
+msgid ""
+"Vignetting correction currently does not work with nonlinear mapped 16 bit "
+"and HDR images.\n"
+"Please enable linear mapping\n"
+"Continue anyway?"
+msgstr ""
+
+#: src/hugin/VigCorrDialog.cpp:285 src/hugin/VigCorrDialog.cpp:480
+msgid "Warning"
+msgstr "Попередження"
+
+#: src/hugin/VigCorrDialog.cpp:304 src/hugin/VigCorrDialog.cpp:555
 msgid "Vignetting function estimation"
 msgstr "Оцінка функції короткого обмалювання"
 
-#: src/hugin/VigCorrDialog.cpp:355
+#: src/hugin/VigCorrDialog.cpp:368
 msgid ""
 "Not enought images selected. Please ensure that more than two images are "
 "associated with the current lens."
@@ -1459,11 +1484,11 @@ msgstr ""
 "Не достатньо вибрано зображень. Будь-ласка, гарантуйте, що більш ніж два "
 "зображення пов'язано з поточним об'єктивом."
 
-#: src/hugin/VigCorrDialog.cpp:355
+#: src/hugin/VigCorrDialog.cpp:368
 msgid "Cannot estimate vignetting"
 msgstr "Не оцінюється коротке обмалювання"
 
-#: src/hugin/VigCorrDialog.cpp:465
+#: src/hugin/VigCorrDialog.cpp:478
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1484,11 +1509,7 @@ msgstr ""
 "\n"
 "Відновлення кривої короткого обмалювання може бути неакуратне."
 
-#: src/hugin/VigCorrDialog.cpp:467
-msgid "Warning"
-msgstr "Попередження"
-
-#: src/hugin/VigCorrDialog.cpp:469
+#: src/hugin/VigCorrDialog.cpp:482
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1501,15 +1522,15 @@ msgstr ""
 "протягом кінцевої оцінки.\n"
 "Помилка яскравості: %.2f (сіре значення RMSE)"
 
-#: src/hugin/VigCorrDialog.cpp:474 src/hugin/VigCorrDialog.cpp:645
+#: src/hugin/VigCorrDialog.cpp:487 src/hugin/VigCorrDialog.cpp:658
 msgid "Vignetting curve estimation"
 msgstr "Оцінка кривої короткого обмалювання"
 
-#: src/hugin/VigCorrDialog.cpp:600
+#: src/hugin/VigCorrDialog.cpp:613
 msgid "0.1"
 msgstr "0.1"
 
-#: src/hugin/VigCorrDialog.cpp:641
+#: src/hugin/VigCorrDialog.cpp:654
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1522,11 +1543,11 @@ msgstr ""
 "крапок протягом кінцевої оцінки.\n"
 " Залишок після оцінки: %.5f"
 
-#: src/hugin/VigCorrDialog.cpp:667
+#: src/hugin/VigCorrDialog.cpp:680
 msgid "Error: could not find flatfile image file."
 msgstr "Помилка: не знайдено файл плоского зображення."
 
-#: src/hugin/VigCorrDialog.cpp:667
+#: src/hugin/VigCorrDialog.cpp:680
 msgid "File not found"
 msgstr "Файл не знайдений"
 
@@ -1534,11 +1555,11 @@ msgstr "Файл не знайдений"
 msgid "Optimizing Panorama"
 msgstr "Проводиться оптимізація панорами"
 
-#: src/include/hugin/wxPanoCommand.h:88
+#: src/include/hugin/wxPanoCommand.h:89
 msgid "Could not read image size"
 msgstr "Не вдалося прочитати розмір зображення"
 
-#: src/include/hugin/wxPanoCommand.h:173
+#: src/include/hugin/wxPanoCommand.h:180
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1549,16 +1570,16 @@ msgstr ""
 "%s\n"
 "Виберіть правильний файл"
 
-#: src/include/hugin/wxPanoCommand.h:173
+#: src/include/hugin/wxPanoCommand.h:180
 msgid "Image file not found"
 msgstr "Файл зображення не знайдено"
 
-#: src/include/hugin/wxPanoCommand.h:222
+#: src/include/hugin/wxPanoCommand.h:229
 #, c-format
 msgid "Could not read image size of file %s"
 msgstr "Не вдалося прочитати розмір зображення з файлу %s"
 
-#: src/include/hugin/wxPanoCommand.h:230
+#: src/include/hugin/wxPanoCommand.h:237
 #, c-format
 msgid ""
 "Enter focal length for image\n"
@@ -1567,7 +1588,7 @@ msgstr ""
 "Введіть фокусну відстань для зображення\n"
 "%s\n"
 
-#: src/include/hugin/wxPanoCommand.h:231
+#: src/include/hugin/wxPanoCommand.h:238
 msgid "Loading project"
 msgstr "Завантажується проект"
 
@@ -1610,7 +1631,7 @@ msgstr "x: "
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
 msgstr "y: "
 
@@ -1767,7 +1788,7 @@ msgstr "Посилання на Hugin"
 msgid "Close"
 msgstr "&Закрити"
 
-#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:81
 #: src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "&Застосувати"
@@ -1780,57 +1801,57 @@ msgstr "застосувати змінені значення до поточн
 msgid "close window"
 msgstr "закрити вікно"
 
-#: src/hugin/xrc/images_panel.xrs:1 src/hugin/xrc/images_panel-2.5.xrs:1
+#: src/hugin/xrc/images_panel.xrs:1
 msgid "Image Collection"
 msgstr "Колекція зображеня"
 
-#: src/hugin/xrc/images_panel.xrs:2 src/hugin/xrc/images_panel-2.5.xrs:2
+#: src/hugin/xrc/images_panel.xrs:2 src/hugin/xrc/images_panel-2.5.xrs:1
 msgid "Add individual images..."
 msgstr "Додати окремі зображення..."
 
-#: src/hugin/xrc/images_panel.xrs:3 src/hugin/xrc/images_panel-2.5.xrs:3
+#: src/hugin/xrc/images_panel.xrs:3 src/hugin/xrc/images_panel-2.5.xrs:2
 msgid "load one or more photos for this project"
 msgstr "завантажити у проект одну або декілька фотографій"
 
-#: src/hugin/xrc/images_panel.xrs:4 src/hugin/xrc/images_panel-2.5.xrs:4
+#: src/hugin/xrc/images_panel.xrs:4 src/hugin/xrc/images_panel-2.5.xrs:3
 msgid "Add time-series of images..."
 msgstr "Додати одночасно зняті зображення..."
 
-#: src/hugin/xrc/images_panel.xrs:5 src/hugin/xrc/images_panel-2.5.xrs:5
+#: src/hugin/xrc/images_panel.xrs:5 src/hugin/xrc/images_panel-2.5.xrs:4
 msgid "load a set of photos taken at the same time"
 msgstr "завантаження набору фотографій, знятих в той же час"
 
-#: src/hugin/xrc/images_panel.xrs:6 src/hugin/xrc/images_panel-2.5.xrs:6
+#: src/hugin/xrc/images_panel.xrs:6 src/hugin/xrc/images_panel-2.5.xrs:7
 msgid "Remove this image"
 msgstr "Видалити це зображення"
 
-#: src/hugin/xrc/images_panel.xrs:7 src/hugin/xrc/images_panel-2.5.xrs:7
+#: src/hugin/xrc/images_panel.xrs:7 src/hugin/xrc/images_panel-2.5.xrs:8
 msgid "dismiss the current photo from this project"
 msgstr "видалити вибрану фотографію з проекту"
 
-#: src/hugin/xrc/images_panel.xrs:8 src/hugin/xrc/images_panel-2.5.xrs:8
+#: src/hugin/xrc/images_panel.xrs:8 src/hugin/xrc/images_panel-2.5.xrs:5
 msgid "Move up"
 msgstr "Підняти"
 
-#: src/hugin/xrc/images_panel.xrs:9 src/hugin/xrc/images_panel-2.5.xrs:9
+#: src/hugin/xrc/images_panel.xrs:9 src/hugin/xrc/images_panel-2.5.xrs:6
 msgid "Move down"
 msgstr "Опустити"
 
-#: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:11
+#: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:35
 msgid "Open a dialog to select the image area to be used while stitching"
 msgstr ""
 "Відкрийте діалог, щоб вибрати область зображення, яка використовується при "
 "зшиванні"
 
-#: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:12
+#: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:25
 msgid "Reference Image"
 msgstr "Еталонне зображення"
 
-#: src/hugin/xrc/images_panel.xrs:13 src/hugin/xrc/images_panel-2.5.xrs:13
+#: src/hugin/xrc/images_panel.xrs:13 src/hugin/xrc/images_panel-2.5.xrs:26
 msgid "Anchor this image for position"
 msgstr "Заякорити це зображення у розташуванні"
 
-#: src/hugin/xrc/images_panel.xrs:14 src/hugin/xrc/images_panel-2.5.xrs:14
+#: src/hugin/xrc/images_panel.xrs:14 src/hugin/xrc/images_panel-2.5.xrs:27
 msgid ""
 "use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image."
@@ -1838,111 +1859,116 @@ msgstr ""
 "використовувати поточне зображення як якірне зображення. Тобто, не "
 "оптимізувати розташування цього зображення."
 
-#: src/hugin/xrc/images_panel.xrs:15 src/hugin/xrc/images_panel-2.5.xrs:15
+#: src/hugin/xrc/images_panel.xrs:15 src/hugin/xrc/images_panel-2.5.xrs:28
 msgid "Adjust the anchor spot..."
 msgstr "Підстроїти якірний осередок..."
 
-#: src/hugin/xrc/images_panel.xrs:16 src/hugin/xrc/images_panel-2.5.xrs:16
+#: src/hugin/xrc/images_panel.xrs:16 src/hugin/xrc/images_panel-2.5.xrs:29
 msgid "opens a window to select the anchor orientation graphically"
 msgstr "відкриває діалог графічного вибору орієнтації якоря"
 
-#: src/hugin/xrc/images_panel.xrs:17 src/hugin/xrc/images_panel-2.5.xrs:17
+#: src/hugin/xrc/images_panel.xrs:17 src/hugin/xrc/images_panel-2.5.xrs:30
 msgid "Anchor this image for exposure"
 msgstr "Заякорити це зображення для експозиції"
 
-#: src/hugin/xrc/images_panel.xrs:18 src/hugin/xrc/images_panel-2.5.xrs:18
+#: src/hugin/xrc/images_panel.xrs:18 src/hugin/xrc/images_panel-2.5.xrs:31
 msgid "use the currently selected images as color correction anchor image"
 msgstr ""
 "використовувати вибрані зображення як якірні зображення кольорокоррекції"
 
-#: src/hugin/xrc/images_panel.xrs:19 src/hugin/xrc/images_panel-2.5.xrs:19
+#: src/hugin/xrc/images_panel.xrs:19 src/hugin/xrc/images_panel-2.5.xrs:20
 msgid "Feature Matching (Autopano)"
 msgstr "Збіги (Autopano)"
 
-#: src/hugin/xrc/images_panel.xrs:20 src/hugin/xrc/images_panel-2.5.xrs:20
+#: src/hugin/xrc/images_panel.xrs:20 src/hugin/xrc/images_panel-2.5.xrs:21
 msgid "Points per Overlap:"
 msgstr "Крапок на перекриття: "
 
-#: src/hugin/xrc/images_panel.xrs:21 src/hugin/xrc/images_panel-2.5.xrs:21
+#: src/hugin/xrc/images_panel.xrs:21 src/hugin/xrc/images_panel-2.5.xrs:22
 msgid "number of points created at each overlap"
 msgstr "Кількість крапок, що створюються на кожне перекриття"
 
-#: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:22
+#: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create Ctrl Points"
 msgstr "Створити контр. крапки"
 
-#: src/hugin/xrc/images_panel.xrs:23 src/hugin/xrc/images_panel-2.5.xrs:23
+#: src/hugin/xrc/images_panel.xrs:23 src/hugin/xrc/images_panel-2.5.xrs:24
 msgid "Run external autopano program on the selected images"
 msgstr ""
 "Запустити зовнішню програму створення контрольних крапок (autopano) у "
 "вибраних зображеннях"
 
-#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:24
+#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:9
 msgid "Remove Points"
 msgstr "Видалити крапки"
 
-#: src/hugin/xrc/images_panel.xrs:25 src/hugin/xrc/images_panel-2.5.xrs:25
+#: src/hugin/xrc/images_panel.xrs:25 src/hugin/xrc/images_panel-2.5.xrs:10
 msgid "Remove control points connecting the selected images"
 msgstr "Видалити контрольні крапки, що сполучають вибрані зображення"
 
-#: src/hugin/xrc/images_panel.xrs:26 src/hugin/xrc/images_panel-2.5.xrs:26
+#: src/hugin/xrc/images_panel.xrs:26 src/hugin/xrc/images_panel-2.5.xrs:11
 #: src/hugin/xrc/optimize_panel.xrs:13
 msgid "Image Orientation"
 msgstr "Орієнтація зображення "
 
-#: src/hugin/xrc/images_panel.xrs:27 src/hugin/xrc/images_panel-2.5.xrs:27
+#: src/hugin/xrc/images_panel.xrs:27 src/hugin/xrc/images_panel-2.5.xrs:12
 msgid "yaw:"
 msgstr "відхилення: "
 
-#: src/hugin/xrc/images_panel.xrs:28 src/hugin/xrc/images_panel-2.5.xrs:28
+#: src/hugin/xrc/images_panel.xrs:28 src/hugin/xrc/images_panel-2.5.xrs:13
 msgid "set yaw for selected image(s)"
 msgstr "вказати відхилення для вибраного(их) зображення(ь)"
 
-#: src/hugin/xrc/images_panel.xrs:29 src/hugin/xrc/images_panel-2.5.xrs:29
+#: src/hugin/xrc/images_panel.xrs:29 src/hugin/xrc/images_panel-2.5.xrs:14
 msgid "pitch:"
 msgstr "рівень: "
 
-#: src/hugin/xrc/images_panel.xrs:30 src/hugin/xrc/images_panel-2.5.xrs:30
+#: src/hugin/xrc/images_panel.xrs:30 src/hugin/xrc/images_panel-2.5.xrs:15
 msgid "set pitch for selected image(s)"
 msgstr "Вказати рівень для вибраного(их)  зображення(ь)"
 
-#: src/hugin/xrc/images_panel.xrs:31 src/hugin/xrc/images_panel-2.5.xrs:31
+#: src/hugin/xrc/images_panel.xrs:31 src/hugin/xrc/images_panel-2.5.xrs:16
 msgid "roll:"
 msgstr "обертання: "
 
-#: src/hugin/xrc/images_panel.xrs:32 src/hugin/xrc/images_panel-2.5.xrs:32
+#: src/hugin/xrc/images_panel.xrs:32 src/hugin/xrc/images_panel-2.5.xrs:17
 msgid "set roll for selected image(s)"
 msgstr "встановити обертання для вибраних(ого) зображень(ня)"
 
-#: src/hugin/xrc/images_panel.xrs:34 src/hugin/xrc/images_panel-2.5.xrs:34
+#: src/hugin/xrc/images_panel.xrs:34 src/hugin/xrc/images_panel-2.5.xrs:19
 msgid "Reset position of selected image(s)"
 msgstr "Скинути позицію вибраного(их) зображення(ь)"
 
-#: src/hugin/xrc/images_panel.xrs:35 src/hugin/xrc/images_panel-2.5.xrs:35
+#: src/hugin/xrc/images_panel.xrs:35 src/hugin/xrc/images_panel-2.5.xrs:32
 msgid "This Image"
 msgstr "Це зображення"
+
+#: src/hugin/xrc/images_panel-2.5.xrs:34
+#, fuzzy
+msgid "Crop..."
+msgstr "Обрізання"
 
 #: src/hugin/xrc/keyboard_help.xrs:1
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:1
-#: src/hugin/xrc/lens_panel-2.5.xrs:56
+#: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:12
+#: src/hugin/xrc/lens_panel-2.5.xrs:54
 msgid "Lens type:"
 msgstr "Тип об'єктиву: "
 
-#: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:7
-#: src/hugin/xrc/lens_panel-2.5.xrs:62
+#: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:11
+#: src/hugin/xrc/lens_panel-2.5.xrs:60
 msgid "Design Parameters"
 msgstr "Параметри композиції"
 
-#: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:8
-#: src/hugin/xrc/lens_panel-2.5.xrs:63
+#: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:18
+#: src/hugin/xrc/lens_panel-2.5.xrs:61
 msgid "degrees of view (v):"
 msgstr "кути огляду (v): "
 
-#: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel-2.5.xrs:9
-#: src/hugin/xrc/lens_panel-2.5.xrs:64
+#: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel-2.5.xrs:19
+#: src/hugin/xrc/lens_panel-2.5.xrs:62
 msgid "Horizontal Field of View"
 msgstr "Горизонтальний кут огляду"
 
@@ -1950,34 +1976,36 @@ msgstr "Горизонтальний кут огляду"
 #: src/hugin/xrc/lens_panel.xrs:19 src/hugin/xrc/lens_panel.xrs:21
 #: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/lens_panel.xrs:26
 #: src/hugin/xrc/lens_panel.xrs:29 src/hugin/xrc/lens_panel.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:10 src/hugin/xrc/lens_panel-2.5.xrs:19
-#: src/hugin/xrc/lens_panel-2.5.xrs:21 src/hugin/xrc/lens_panel-2.5.xrs:23
-#: src/hugin/xrc/lens_panel-2.5.xrs:26 src/hugin/xrc/lens_panel-2.5.xrs:28
-#: src/hugin/xrc/lens_panel-2.5.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:33
-#: src/hugin/xrc/lens_panel-2.5.xrs:65 src/hugin/xrc/lens_panel-2.5.xrs:74
-#: src/hugin/xrc/lens_panel-2.5.xrs:76 src/hugin/xrc/lens_panel-2.5.xrs:78
-#: src/hugin/xrc/lens_panel-2.5.xrs:81 src/hugin/xrc/lens_panel-2.5.xrs:83
-#: src/hugin/xrc/lens_panel-2.5.xrs:86 src/hugin/xrc/lens_panel-2.5.xrs:88
+#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:30
+#: src/hugin/xrc/lens_panel-2.5.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:34
+#: src/hugin/xrc/lens_panel-2.5.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:39
+#: src/hugin/xrc/lens_panel-2.5.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:44
+#: src/hugin/xrc/lens_panel-2.5.xrs:49 src/hugin/xrc/lens_panel-2.5.xrs:51
+#: src/hugin/xrc/lens_panel-2.5.xrs:53 src/hugin/xrc/lens_panel-2.5.xrs:63
+#: src/hugin/xrc/lens_panel-2.5.xrs:72 src/hugin/xrc/lens_panel-2.5.xrs:74
+#: src/hugin/xrc/lens_panel-2.5.xrs:76 src/hugin/xrc/lens_panel-2.5.xrs:79
+#: src/hugin/xrc/lens_panel-2.5.xrs:81 src/hugin/xrc/lens_panel-2.5.xrs:84
+#: src/hugin/xrc/lens_panel-2.5.xrs:86
 msgid "Inherit"
 msgstr "Запозичувати"
 
-#: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:11
-#: src/hugin/xrc/lens_panel-2.5.xrs:66
+#: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:21
+#: src/hugin/xrc/lens_panel-2.5.xrs:64
 msgid "focal length:"
 msgstr "фокусна відстань: "
 
-#: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel-2.5.xrs:12
-#: src/hugin/xrc/lens_panel-2.5.xrs:67
+#: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel-2.5.xrs:22
+#: src/hugin/xrc/lens_panel-2.5.xrs:65
 msgid "true focal length in mm"
 msgstr "справжня фокусна відстань оптики у мм"
 
-#: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:13
-#: src/hugin/xrc/lens_panel-2.5.xrs:68
+#: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:23
+#: src/hugin/xrc/lens_panel-2.5.xrs:66
 msgid "crop factor:"
 msgstr "фактор обрізання: "
 
-#: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:14
-#: src/hugin/xrc/lens_panel-2.5.xrs:69
+#: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:24
+#: src/hugin/xrc/lens_panel-2.5.xrs:67
 msgid "35mm film diameter / ccd diameter"
 msgstr "35мм у плівковому варіанті / діаметр матриці"
 
@@ -1985,53 +2013,53 @@ msgstr "35мм у плівковому варіанті / діаметр мат�
 msgid "Lens Correction Parameters"
 msgstr "Параметри корекції об'єктиву"
 
-#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:18
-#: src/hugin/xrc/lens_panel-2.5.xrs:73 src/hugin/xrc/optimize_panel.xrs:25
+#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:29
+#: src/hugin/xrc/lens_panel-2.5.xrs:71 src/hugin/xrc/optimize_panel.xrs:25
 msgid "distortion (a):"
 msgstr "спотворення (a): "
 
-#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:20
-#: src/hugin/xrc/lens_panel-2.5.xrs:75 src/hugin/xrc/optimize_panel.xrs:26
+#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:31
+#: src/hugin/xrc/lens_panel-2.5.xrs:73 src/hugin/xrc/optimize_panel.xrs:26
 msgid "barrel (b):"
 msgstr "бочка (b): "
 
-#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:22
-#: src/hugin/xrc/lens_panel-2.5.xrs:77 src/hugin/xrc/optimize_panel.xrs:27
+#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:33
+#: src/hugin/xrc/lens_panel-2.5.xrs:75 src/hugin/xrc/optimize_panel.xrs:27
 msgid "distortion (c):"
 msgstr "спотворення (с): "
 
-#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:24
-#: src/hugin/xrc/lens_panel-2.5.xrs:79
+#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:35
+#: src/hugin/xrc/lens_panel-2.5.xrs:77
 msgid "Image Center Shift"
 msgstr "Зсув центру зображення"
 
-#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:25
-#: src/hugin/xrc/lens_panel-2.5.xrs:80
+#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:36
+#: src/hugin/xrc/lens_panel-2.5.xrs:78
 msgid "horizontal (d):"
 msgstr "по горизонталі (d): "
 
-#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:27
-#: src/hugin/xrc/lens_panel-2.5.xrs:82
+#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:38
+#: src/hugin/xrc/lens_panel-2.5.xrs:80
 msgid "vertical (e):"
 msgstr "по вертикалі (e): "
 
-#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:29
-#: src/hugin/xrc/lens_panel-2.5.xrs:84
+#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:40
+#: src/hugin/xrc/lens_panel-2.5.xrs:82
 msgid "Image Shearing"
 msgstr "Скошування зображення"
 
-#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:30
-#: src/hugin/xrc/lens_panel-2.5.xrs:85
+#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:41
+#: src/hugin/xrc/lens_panel-2.5.xrs:83
 msgid "horizontal (g):"
 msgstr "по горизонталі (g): "
 
-#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:32
-#: src/hugin/xrc/lens_panel-2.5.xrs:87
+#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:43
+#: src/hugin/xrc/lens_panel-2.5.xrs:85
 msgid "vertical (t):"
 msgstr "по вертикалі (t): "
 
-#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:35
-#: src/hugin/xrc/lens_panel-2.5.xrs:90
+#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:26
+#: src/hugin/xrc/lens_panel-2.5.xrs:88
 msgid "Vignetting"
 msgstr "Коротко обмалювати"
 
@@ -2039,111 +2067,150 @@ msgstr "Коротко обмалювати"
 msgid "Set crop and image center"
 msgstr "Встановити обрізання та центр зображення"
 
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:45
-#: src/hugin/xrc/lens_panel-2.5.xrs:100
+#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:98
 msgid "Lens management"
 msgstr "Управління даними про об'єктив"
 
-#: src/hugin/xrc/lens_panel.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:46
-#: src/hugin/xrc/lens_panel-2.5.xrs:101
+#: src/hugin/xrc/lens_panel.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:99
 msgid "Load"
 msgstr "Завантажити"
 
-#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:47
-#: src/hugin/xrc/lens_panel-2.5.xrs:102
+#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:2
+#: src/hugin/xrc/lens_panel-2.5.xrs:100
 msgid "Load lens parameters from a file"
 msgstr "Завантажити параметри об'єктиву з файлу"
 
-#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:48
-#: src/hugin/xrc/lens_panel-2.5.xrs:103 src/hugin/xrc/main_tool.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:101
+#: src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
 msgstr "Зберегти"
 
-#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:49
-#: src/hugin/xrc/lens_panel-2.5.xrs:104
+#: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:4
+#: src/hugin/xrc/lens_panel-2.5.xrs:102
 msgid "Save lens parameters to an file"
 msgstr "Зберегти конфігурацію об'єктиву у файл"
 
-#: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:50
-#: src/hugin/xrc/lens_panel-2.5.xrs:105
+#: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:5
+#: src/hugin/xrc/lens_panel-2.5.xrs:103
 msgid "Load EXIF"
 msgstr "Завантажити EXIF"
 
-#: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:51
-#: src/hugin/xrc/lens_panel-2.5.xrs:106
+#: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:104
 msgid "Try to read HFOV from the EXIF data"
 msgstr "Спробувати прочитати HFOV з EXIF-даних"
 
-#: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:52
-#: src/hugin/xrc/lens_panel-2.5.xrs:107
+#: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:7
+#: src/hugin/xrc/lens_panel-2.5.xrs:105
 msgid "New Lens"
 msgstr "Новий об'єктив"
 
-#: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:53
-#: src/hugin/xrc/lens_panel-2.5.xrs:108
+#: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:8
+#: src/hugin/xrc/lens_panel-2.5.xrs:106
 msgid "Create a new lens and assign it to selected images"
 msgstr "Створити новий опис об'єктиву і призначити його до вибраних зображень"
 
-#: src/hugin/xrc/lens_panel.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:54
-#: src/hugin/xrc/lens_panel-2.5.xrs:109
+#: src/hugin/xrc/lens_panel.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:107
 msgid "Change lens"
 msgstr "Змінити об'єктив"
 
-#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:55
-#: src/hugin/xrc/lens_panel-2.5.xrs:110
+#: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:10
+#: src/hugin/xrc/lens_panel-2.5.xrs:108
 msgid "change lens of selected images"
 msgstr "Змінити опис об'єктиву для вибраних зображень"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:70
-#: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Correction"
-msgstr "Виправлення"
+#: src/hugin/xrc/lens_panel-2.5.xrs:1
+msgid "Load lens..."
+msgstr ""
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:71
-msgid "Geometric"
-msgstr "Геометричний"
+#: src/hugin/xrc/lens_panel-2.5.xrs:3
+#, fuzzy
+msgid "Save lens..."
+msgstr "Зберегти як"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:17 src/hugin/xrc/lens_panel-2.5.xrs:72
+#: src/hugin/xrc/lens_panel-2.5.xrs:9
+#, fuzzy
+msgid "Change lens..."
+msgstr "Змінити об'єктив"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:27
+#, fuzzy
+msgid "Edit Parameters..."
+msgstr "Параметри редагування"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:70
 msgid "Radial Distortion"
 msgstr "Радіальне спотворення"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:34 src/hugin/xrc/lens_panel-2.5.xrs:89
-msgid "Photometric"
-msgstr "Фотометричний"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:91
-msgid "Edit Parameters"
-msgstr "Параметри редагування"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:92
+#: src/hugin/xrc/lens_panel-2.5.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:90
 msgid "Exposure and Color"
 msgstr "Експозиція та колір"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:93
+#: src/hugin/xrc/lens_panel-2.5.xrs:46
+#, fuzzy
+msgid "gain"
+msgstr "Угорська"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:47
+msgid "offset"
+msgstr ""
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:48
+#, fuzzy
+msgid "red (K0):"
+msgstr "червоний (K0)"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:50
+#, fuzzy
+msgid "green (K1):"
+msgstr "зелений (K1)"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:52
+#, fuzzy
+msgid "blue (K2):"
+msgstr "синій (K2)"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:6
+msgid "Correction"
+msgstr "Виправлення"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:69
+msgid "Geometric"
+msgstr "Геометричний"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:87
+msgid "Photometric"
+msgstr "Фотометричний"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:89
+msgid "Edit Parameters"
+msgstr "Параметри редагування"
+
+#: src/hugin/xrc/lens_panel-2.5.xrs:91
 msgid "Channel:"
 msgstr "Канал: "
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:94
+#: src/hugin/xrc/lens_panel-2.5.xrs:92
 msgid "exposure"
 msgstr "експозиція"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:95
+#: src/hugin/xrc/lens_panel-2.5.xrs:93
 msgid "brightness"
 msgstr "яскравість"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:96
+#: src/hugin/xrc/lens_panel-2.5.xrs:94
 msgid "inherit"
 msgstr "запозичувати"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:97
+#: src/hugin/xrc/lens_panel-2.5.xrs:95
 msgid "red (K0)"
 msgstr "червоний (K0)"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:98
+#: src/hugin/xrc/lens_panel-2.5.xrs:96
 msgid "green (K1)"
 msgstr "зелений (K1)"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:99
+#: src/hugin/xrc/lens_panel-2.5.xrs:97
 msgid "blue (K2)"
 msgstr "синій (K2)"
 
@@ -2400,7 +2467,7 @@ msgstr "Наново оптимізувати"
 msgid "Preview panorama"
 msgstr "Попередній перегляд панорами"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:46
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:56
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "Попередній перегляд"
@@ -2622,98 +2689,124 @@ msgid "projection (f):"
 msgstr "проекція (f): "
 
 #: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
+msgid "Stereographic"
+msgstr ""
+
+#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+msgid "Mercator"
+msgstr ""
+
+#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+msgid "Transverse mercator"
+msgstr ""
+
+#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+msgid "Sinusiodal"
+msgstr ""
+
+#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Field of View"
 msgstr "Поле огляду"
 
-#: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
+#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
 msgid "horizontal (v):"
 msgstr "по горизонталі (v): "
 
-#: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
+#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
 msgid "Calculate Field of View"
 msgstr "Обрахувати поле огляду"
 
-#: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
+#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
 msgid "vertical:"
 msgstr "по вертикалі: "
 
-#: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
+#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
 msgid "Quick Stitcher"
 msgstr "Швидкий зшивальник"
 
-#: src/hugin/xrc/pano_panel.xrs:12 src/hugin/xrc/pano_panel-2.5.xrs:12
+#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
 msgid "Stitch the images"
 msgstr "Зшити зображення"
 
-#: src/hugin/xrc/pano_panel.xrs:13 src/hugin/xrc/pano_panel-2.5.xrs:13
+#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
 msgid "with custom settings below"
 msgstr "з вручну заданими нижче параметрами"
 
-#: src/hugin/xrc/pano_panel.xrs:14 src/hugin/xrc/pano_panel-2.5.xrs:14
+#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "into a high quality TIFF file"
 msgstr "у TIFF-файл з високою якістю"
 
-#: src/hugin/xrc/pano_panel.xrs:15 src/hugin/xrc/pano_panel-2.5.xrs:15
+#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
 msgid "into a high-quality JPEG file"
 msgstr "у JPEG-файл з високою якістю"
 
-#: src/hugin/xrc/pano_panel.xrs:16 src/hugin/xrc/pano_panel-2.5.xrs:16
+#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "into a draft-quality JPEG file"
 msgstr "у JPEG-файл чорнової якості"
 
-#: src/hugin/xrc/pano_panel.xrs:17 src/hugin/xrc/pano_panel-2.5.xrs:17
+#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
 msgid "into a layered TIFF file"
 msgstr "у багатошаровий TIFF-файл"
 
-#: src/hugin/xrc/pano_panel.xrs:18 src/hugin/xrc/pano_panel-2.5.xrs:18
+#: src/hugin/xrc/pano_panel.xrs:22 src/hugin/xrc/pano_panel-2.5.xrs:22
 msgid "into a layered Photoshop file"
 msgstr "у багатошаровий Photoshop-файл"
 
-#: src/hugin/xrc/pano_panel.xrs:19 src/hugin/xrc/pano_panel-2.5.xrs:19
+#: src/hugin/xrc/pano_panel.xrs:23 src/hugin/xrc/pano_panel-2.5.xrs:23
 msgid "Stitch now!"
 msgstr "Зшити зараз!"
 
-#: src/hugin/xrc/pano_panel.xrs:20 src/hugin/xrc/pano_panel-2.5.xrs:20
+#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "execute the PTStitcher engine"
 msgstr "запустити механізм PTStitcher "
 
-#: src/hugin/xrc/pano_panel.xrs:21 src/hugin/xrc/pano_panel-2.5.xrs:21
+#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
 msgid "Panorama Image Size"
 msgstr "Розмір зображення панорами"
 
-#: src/hugin/xrc/pano_panel.xrs:22
+#: src/hugin/xrc/pano_panel.xrs:26
 msgid "pixel width:"
 msgstr "ширина в пікселях: "
 
-#: src/hugin/xrc/pano_panel.xrs:23
+#: src/hugin/xrc/pano_panel.xrs:27
 msgid "pixel height:"
 msgstr "висота в пікселях: "
 
-#: src/hugin/xrc/pano_panel.xrs:24 src/hugin/xrc/pano_panel-2.5.xrs:24
+#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
 msgid "0"
 msgstr "0"
 
-#: src/hugin/xrc/pano_panel.xrs:25 src/hugin/xrc/pano_panel-2.5.xrs:25
+#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
 msgid "Calculate Optimal Size"
 msgstr "Обрахувати оптимальний розмір"
 
-#: src/hugin/xrc/pano_panel.xrs:26 src/hugin/xrc/pano_panel-2.5.xrs:26
+#: src/hugin/xrc/pano_panel.xrs:30 src/hugin/xrc/pano_panel-2.5.xrs:30
 msgid "calculate highest sensible width. (uses every image pixel)"
 msgstr ""
 "обчислення вирхньої помітної ширини. (використовує кожен піксель зображення)"
 
-#: src/hugin/xrc/pano_panel.xrs:27 src/hugin/xrc/pano_panel-2.5.xrs:27
+#: src/hugin/xrc/pano_panel.xrs:31 src/hugin/xrc/pano_panel-2.5.xrs:31
 msgid "Stitching engine:"
 msgstr "Механізм зшивання: "
 
-#: src/hugin/xrc/pano_panel.xrs:28 src/hugin/xrc/pano_panel-2.5.xrs:28
+#: src/hugin/xrc/pano_panel.xrs:32 src/hugin/xrc/pano_panel-2.5.xrs:32
 #: src/hugin/xrc/run_stitcher_frame.xrs:1
 msgid "PTStitcher"
 msgstr "PTStitcher"
 
-#: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:29
+#: src/hugin/xrc/pano_panel.xrs:33 src/hugin/xrc/pano_panel-2.5.xrs:33
 msgid "nona"
 msgstr ""
+
+#: src/hugin/xrc/pano_panel-2.5.xrs:26
+#, fuzzy
+msgid "width:"
+msgstr "ширина"
+
+#: src/hugin/xrc/pano_panel-2.5.xrs:27
+#, fuzzy
+msgid "height:"
+msgstr "висота"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
@@ -2732,8 +2825,8 @@ msgid "PTStitcher:"
 msgstr "PTStitcher: "
 
 #: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
-#: src/hugin/xrc/pref_dialog.xrs:54 src/hugin/xrc/pref_dialog.xrs:58
-#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/vig_corr_dlg.xrs:5
+#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:74 src/hugin/xrc/vig_corr_dlg.xrs:9
 msgid "..."
 msgstr "..."
 
@@ -2840,7 +2933,8 @@ msgid "Misc"
 msgstr "Різне"
 
 #: src/hugin/xrc/pref_dialog.xrs:33
-msgid "Ressource Usage"
+#, fuzzy
+msgid "Resource Usage"
 msgstr "Використання ресурсу"
 
 #: src/hugin/xrc/pref_dialog.xrs:34
@@ -2888,50 +2982,96 @@ msgstr ""
 "Оптимізувати та зшити тільки вибрані при попередньому перегляді зображення"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
+msgid "HDR and 16 Bit display mode"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:44
+#, fuzzy
+msgid "Range"
+msgstr "Мова"
+
+#: src/hugin/xrc/pref_dialog.xrs:45
+msgid "fixed"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:46
+#, fuzzy
+msgid "auto"
+msgstr "Авто"
+
+#: src/hugin/xrc/pref_dialog.xrs:47
+msgid ""
+"use fixed for 16 bit\n"
+"and auto for HDR"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:48
+msgid "Mapping"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:49
+#, fuzzy
+msgid "linear"
+msgstr "Білінійний"
+
+#: src/hugin/xrc/pref_dialog.xrs:50
+msgid "logarithmic"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:51
+#, fuzzy
+msgid "gamma 2.2"
+msgstr "ґамма (g): "
+
+#: src/hugin/xrc/pref_dialog.xrs:52
+msgid "used for display in GUI"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:53
 msgid "File options"
 msgstr "Параметри файлів"
 
-#: src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Tempdir:"
 msgstr "Тимчасовий каталог: "
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:55
 msgid "leave empty for OS default"
 msgstr "залишити порожнім для початкових налаштувань ОС"
 
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/xrc/pref_dialog.xrs:57
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Показати майстер (вимагає перезапуск hugin-а)"
 
-#: src/hugin/xrc/pref_dialog.xrs:48 src/hugin/xrc/pref_dialog.xrs:56
+#: src/hugin/xrc/pref_dialog.xrs:58 src/hugin/xrc/pref_dialog.xrs:66
 msgid "Autopano"
 msgstr "Автопанорамування"
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (автор: A. Jenny)"
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (автор - S. Nowozin)"
 
-#: src/hugin/xrc/pref_dialog.xrs:52
+#: src/hugin/xrc/pref_dialog.xrs:62
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: src/hugin/xrc/pref_dialog.xrs:53
+#: src/hugin/xrc/pref_dialog.xrs:63
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT: "
 
-#: src/hugin/xrc/pref_dialog.xrs:55 src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/xrc/pref_dialog.xrs:65 src/hugin/xrc/pref_dialog.xrs:69
 msgid "Arguments:"
 msgstr "Аргументи: "
 
-#: src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Autopano:"
 msgstr "Autopano: "
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:70
 #, c-format
 msgid ""
 "following patterns will be subsituted before running:\n"
@@ -2946,42 +3086,42 @@ msgstr ""
 "%i  -- файли зображення\n"
 "%namefile -- файл, який містить імена файлів зображень "
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Enblend"
 msgstr "Поєднувач"
 
-#: src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/pref_dialog.xrs:72
 msgid "Enblend Options"
 msgstr "Параметри Enblend-а (поєднувача)"
 
-#: src/hugin/xrc/pref_dialog.xrs:63
+#: src/hugin/xrc/pref_dialog.xrs:73
 msgid "Enblend:"
 msgstr "Enblend: "
 
-#: src/hugin/xrc/pref_dialog.xrs:65
+#: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Additional Arguments:"
 msgstr "Додаткові аргументи: "
 
-#: src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/pref_dialog.xrs:76
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr "Не встановлюйте аргументи -w та -o, вони вже встановлені hugin-ом"
 
-#: src/hugin/xrc/pref_dialog.xrs:67
+#: src/hugin/xrc/pref_dialog.xrs:77
 msgid "Delete remapped tiff files"
 msgstr "Видалення скартованих tiff-файлів"
 
-#: src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:78
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 msgstr ""
 "Використовувати обрізані TIFF-файли (потрібний enblend версії 2.4 або "
 "новіший)"
 
-#: src/hugin/xrc/pref_dialog.xrs:69
+#: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Save cropped images, requires less disk space and memory."
 msgstr ""
 "Зберігати обрізані зображення, це займає менше дискового простору та пам'яті."
 
-#: src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Ok"
 msgstr "Гаразд"
 
@@ -3165,61 +3305,61 @@ msgstr "Перервати"
 msgid "Vignetting correction"
 msgstr "Виправлення короткого обмалювання"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "Flatfield"
-msgstr "Плоске"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Image file:"
-msgstr "Файл зображення: "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
-msgid "Polynomial"
-msgstr "Многочлен"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
-msgid "c = "
-msgstr "c = "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
-msgid " + "
-msgstr " + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
-msgid "*r^2 + "
-msgstr "*r^2 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
-msgid "*r^4 + "
-msgstr "*r^4 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
-msgid "*r^6"
-msgstr "*r^6"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
-msgid "center shift x:"
-msgstr "зсув центру x:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
-msgid "Estimate polynomial"
-msgstr "Оцінити многочлен"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
+#: src/hugin/xrc/vig_corr_dlg.xrs:2
 msgid "Type of Correction"
 msgstr "Тип корекції"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "No correction"
 msgstr "Немає корекції"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Addition ( I=I+c )"
 msgstr "Додавання ( I=I+c )"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "Division ( I=I/c )"
 msgstr "Ділення ( I=I/c )"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
+msgid "Flatfield"
+msgstr "Плоске"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
+msgid "Image file:"
+msgstr "Файл зображення: "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
+msgid "Polynomial"
+msgstr "Многочлен"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
+msgid "c = "
+msgstr "c = "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
+msgid " + "
+msgstr " + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "*r^6"
+msgstr "*r^6"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "center shift x:"
+msgstr "зсув центру x:"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+msgid "Estimate polynomial"
+msgstr "Оцінити многочлен"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3304,10 +3444,10 @@ msgstr ""
 "пропонує багато творчих можливостей."
 
 #: src/hugin/xrc/data/tips.txt:14
+#, fuzzy
 msgid ""
-"The PanoTools wiki at http://www.panotools.info/mediawiki offers "
-"comprehensive information about creating panoramas and other images with "
-"panotools."
+"The PanoTools wiki at http://wiki.panoramatools.org offers comprehensive "
+"information about creating panoramas and other images with panotools."
 msgstr ""
 "Wiki по інструментам панорами (PanoTools) в http://www.panotools.info/"
 "mediawiki пропонує всесторонню інформацію про створення панорам та інших "
