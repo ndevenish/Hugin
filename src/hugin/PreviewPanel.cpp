@@ -62,9 +62,12 @@ PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
-    m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent)
+    m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent),
+    m_state_rendering(false), m_rerender(false)
+
 {
     DEBUG_TRACE("");
+    DEBUG_DEBUG("m_state_rendering = " << m_state_rendering);
 }
 
 PreviewPanel::~PreviewPanel()
@@ -158,6 +161,17 @@ void PreviewPanel::updatePreview()
 {
     DEBUG_TRACE("");
 
+    // we can accidentally end up here recursively, because wxWidgets
+    // allows user input during redraw of the progress in the bottom
+    if (m_state_rendering) {
+        DEBUG_DEBUG("m_state_rendering == true, aborting rendering");
+        m_rerender = true;
+        return;
+    }
+    DEBUG_DEBUG("m_state_rendering = true");
+    m_state_rendering = true;
+    m_rerender = false;
+
     long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), wxThread::GetCPUCount());
     if (nthreads < 1) nthreads = 1;
     vigra_ext::ThreadManager::get().setNThreads(nthreads);
@@ -171,6 +185,7 @@ void PreviewPanel::updatePreview()
 		  DEBUG_INFO("Parent window shown - updating");
 		} else {
 		  DEBUG_INFO("Parent window hidden - not updating");
+                  m_state_rendering = false;
 		  return;
 		}
 	  }
@@ -264,6 +279,7 @@ void PreviewPanel::updatePreview()
             }
         }
     } catch (std::exception & e) {
+        m_state_rendering = false;
         DEBUG_ERROR("error during stitching: " << e.what());
         wxMessageBox(wxString(e.what(), *wxConvCurrent), _("Error during Stitching"));
     }
@@ -272,9 +288,14 @@ void PreviewPanel::updatePreview()
     }
     m_panoBitmap = new wxBitmap(panoImage);
 
+
     // always redraw
     wxClientDC dc(this);
     DrawPreview(dc);
+
+    m_state_rendering = false;
+    DEBUG_DEBUG("m_state_rendering = false");
+    m_rerender = false;
 }
 
 

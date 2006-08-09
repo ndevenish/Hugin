@@ -107,6 +107,10 @@ private:
 
     PreviewFrame * parentWindow;
 
+    bool m_state_rendering;
+    bool m_rerender;
+
+
     DECLARE_EVENT_TABLE()
 };
 

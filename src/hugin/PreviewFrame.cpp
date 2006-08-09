@@ -259,7 +259,9 @@ PreviewFrame::~PreviewFrame()
 void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 {
     int id = e.GetId() - ID_TOGGLE_BUT;
-    if (id >= 0 && id < (int) m_ToggleButtons.size()) {
+    int nImg = m_pano.getNrOfImages();
+    DEBUG_DEBUG("toggle_button_id: " << id << " nImg:" << nImg << "  m_ToggleButtons.size(): " << m_ToggleButtons.size());
+    if (id >= 0 && id < nImg) {
         if (e.IsChecked()) {
             m_displayedImgs.insert(id);
         } else {
@@ -551,7 +553,7 @@ void PreviewFrame::updateProgressDisplay()
 #else
     // This is a bad call.. we just want to repaint the window, instead we will
     // process user events as well :( Unfortunately, there is not portable workaround...
-    wxYield();
+//    wxYield();
 #endif
 }
 
