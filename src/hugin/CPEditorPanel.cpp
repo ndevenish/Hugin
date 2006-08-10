@@ -2007,7 +2007,7 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
           cpCreationState == LEFT_POINT_RETRY ||
           cpCreationState == BOTH_POINTS_SELECTED))
     {
-        wxLogError(_("Finetune requires a control point in both images"));
+        return;
     }
 
     FDiff2D leftP = m_leftImg->getNewPoint();
