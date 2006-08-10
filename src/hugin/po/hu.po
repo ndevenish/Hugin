@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 21:41+0200\n"
+"POT-Creation-Date: 2006-08-10 23:45+0200\n"
 "PO-Revision-Date: 2005-11-06 04:34+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -51,9 +51,9 @@ msgstr "Szeretné az Autopano-Siftet használni helyette?"
 msgid "Select autopano program / frontend script"
 msgstr "Autopano program / frontend szkript kijelölése"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:234
-#: src/hugin/PreferencesDialog.cpp:250 src/hugin/PreferencesDialog.cpp:266
-#: src/hugin/PreferencesDialog.cpp:282 src/hugin/RunOptimizerFrame.cpp:115
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:237
+#: src/hugin/PreferencesDialog.cpp:253 src/hugin/PreferencesDialog.cpp:269
+#: src/hugin/PreferencesDialog.cpp:285 src/hugin/RunOptimizerFrame.cpp:115
 #: src/hugin/RunStitcherFrame.cpp:89
 msgid "Executables (*.exe)|*.exe"
 msgstr "Végrehajtható fájlok (*.exe)|*.exe"
@@ -166,7 +166,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "autopano hiba"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:298
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:301
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr ""
 
@@ -936,7 +936,7 @@ msgstr "A Panoráma segéd"
 
 #: src/hugin/PanoPanel.cpp:247
 #, c-format
-msgid "Invalid HFOV value. Maxiumum HFOV for this projection is %lf."
+msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 
 #: src/hugin/PanoPanel.cpp:278
@@ -1010,50 +1010,54 @@ msgid "Russian"
 msgstr "Orosz"
 
 #: src/hugin/PreferencesDialog.cpp:155
+msgid "Swedish"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:158
 msgid "Ukrainian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:231
+#: src/hugin/PreferencesDialog.cpp:234
 msgid "Select PTStitcher"
 msgstr "PTStitcher kiválasztása"
 
-#: src/hugin/PreferencesDialog.cpp:247 src/hugin/RunOptimizerFrame.cpp:113
+#: src/hugin/PreferencesDialog.cpp:250 src/hugin/RunOptimizerFrame.cpp:113
 #: src/hugin/RunOptimizerFrame.cpp:131
 msgid "Select PTOptimizer"
 msgstr "PTOptimizer kiválasztása"
 
-#: src/hugin/PreferencesDialog.cpp:263
+#: src/hugin/PreferencesDialog.cpp:266
 msgid "Select Enblend"
 msgstr "Enblend kiválasztása"
 
-#: src/hugin/PreferencesDialog.cpp:279 src/hugin/PreferencesDialog.cpp:295
+#: src/hugin/PreferencesDialog.cpp:282 src/hugin/PreferencesDialog.cpp:298
 #: src/hugin/xrc/pref_dialog.xrs:59
 msgid "Select Autopano"
 msgstr "Autopano kiválasztása"
 
-#: src/hugin/PreferencesDialog.cpp:313
+#: src/hugin/PreferencesDialog.cpp:316
 msgid "Panotools details"
 msgstr "Panotools részletek"
 
-#: src/hugin/PreferencesDialog.cpp:369
+#: src/hugin/PreferencesDialog.cpp:372
 msgid "Could not load dll"
 msgstr "A dll nem tölthető be"
 
-#: src/hugin/PreferencesDialog.cpp:369
+#: src/hugin/PreferencesDialog.cpp:372
 msgid "panoinfo"
 msgstr "panoinfo"
 
-#: src/hugin/PreferencesDialog.cpp:653
+#: src/hugin/PreferencesDialog.cpp:656
 msgid "Unknown Version"
 msgstr "Ismeretlen verzió"
 
-#: src/hugin/PreferencesDialog.cpp:663
+#: src/hugin/PreferencesDialog.cpp:666
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Tényleg visszaállítja a megjelenített beállításokat az alapértelmezett "
 "értékekre?"
 
-#: src/hugin/PreferencesDialog.cpp:663 src/hugin/xrc/pref_dialog.xrs:83
+#: src/hugin/PreferencesDialog.cpp:666 src/hugin/xrc/pref_dialog.xrs:83
 msgid "Load Defaults"
 msgstr "Alapértelmezés betöltése"
 
