@@ -1710,13 +1710,8 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         bool left =  e.GetEventObject() == m_leftImg;
         if (cpCreationState == NO_POINT) {
             FineTuneSelectedPoint(left);
-        } else if (cpCreationState == RIGHT_POINT_RETRY || 
-                   cpCreationState == LEFT_POINT_RETRY || 
-                   cpCreationState == BOTH_POINTS_SELECTED) 
-        { 
+        } else { 
             FineTuneNewPoint(left);
-        } else {
-            wxLogError(_("Finetune required an control point in both images"));
         }
     } else if (e.GetKeyCode() == 'g') {
         // generate keypoints
@@ -2008,6 +2003,13 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
 
 void CPEditorPanel::FineTuneNewPoint(bool left)
 {
+    if (!(cpCreationState == RIGHT_POINT_RETRY ||
+          cpCreationState == LEFT_POINT_RETRY ||
+          cpCreationState == BOTH_POINTS_SELECTED))
+    {
+        wxLogError(_("Finetune requires a control point in both images"));
+    }
+
     FDiff2D leftP = m_leftImg->getNewPoint();
     FDiff2D rightP = m_rightImg->getNewPoint();
 
