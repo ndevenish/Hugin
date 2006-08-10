@@ -244,7 +244,7 @@ void PanoPanel::HFOVChanged ( wxCommandEvent & e )
 
     if ( hfov <=0 || hfov > opt.getMaxHFOV()) {
         wxLogError(wxString::Format(
-            _("Invalid HFOV value. Maxiumum HFOV for this projection is %lf."),
+            _("Invalid HFOV value. Maximum HFOV for this projection is %lf."),
             opt.getMaxHFOV()));
     }
     opt.setHFOV(hfov);
