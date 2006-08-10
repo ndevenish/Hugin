@@ -59,7 +59,7 @@ public:
     void ForceUpdate();
 
     // select which images should be shown.
-    void SetDisplayedImages(const PT::UIntSet &images);
+//    void SetDisplayedImages(const PT::UIntSet &images);
     
     // blending modes available
     enum BlendMode { BLEND_COPY, BLEND_DIFFERENCE };
@@ -90,8 +90,6 @@ private:
 
     vigra::Diff2D m_panoImgSize;
 
-    PT::UIntSet m_displayedImages;
-
 	wxBitmap * m_panoBitmap;
     // currently updating the preview.
 
@@ -109,6 +107,7 @@ private:
 
     bool m_state_rendering;
     bool m_rerender;
+    bool m_imgsDirty;
 
 
     DECLARE_EVENT_TABLE()

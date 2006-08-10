@@ -58,21 +58,23 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
 
-PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano)
+PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
-    pano(*pano), m_autoPreview(false),m_panoImgSize(1,1),
+    pano(*pano2), m_autoPreview(false),m_panoImgSize(1,1),
     m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent),
-    m_state_rendering(false), m_rerender(false)
+    m_state_rendering(false), m_rerender(false), m_imgsDirty(true)
 
 {
     DEBUG_TRACE("");
     DEBUG_DEBUG("m_state_rendering = " << m_state_rendering);
+    pano.addObserver(this);
 }
 
 PreviewPanel::~PreviewPanel()
 {
     DEBUG_TRACE("dtor");
+    pano.removeObserver(this);
     if (m_panoBitmap) {
         delete m_panoBitmap;
     }
@@ -112,6 +114,10 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
         DEBUG_DEBUG("forcing preview update");
         ForceUpdate();
         // resize
+    } else if(m_autoPreview && m_imgsDirty ) {
+        DEBUG_DEBUG("updating preview after image change");
+        updatePreview();
+        m_imgsDirty=false;
     }
 }
 
@@ -119,17 +125,27 @@ void PreviewPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
+    /*
     for(PT::UIntSet::const_iterator it = changed.begin(); it != changed.end();
         ++it)
     {
-        m_remapCache.invalidate(*it);
+        // TODO: need to check if just the active flag changed and skip invalidate in that case
+        if (pano.getSrcImage(*it) != m_remapCache.getSrcDescription()) {
+            m_remapCache.invalidate(*it);
+        }
     }
+    */
+
+    m_imgsDirty = true;
+    /*
     if (m_autoPreview) {
         DEBUG_DEBUG("updating preview after image change");
         updatePreview();
     }
+    */
 }
 
+/*
 void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
 {
     m_displayedImages = imgs;
@@ -137,6 +153,7 @@ void PreviewPanel::SetDisplayedImages(const UIntSet & imgs)
         updatePreview();
     }
 }
+*/
 
 void PreviewPanel::SetBlendMode(BlendMode b)
 {
@@ -233,7 +250,8 @@ void PreviewPanel::updatePreview()
         // the empty panorama roi
 //        Rect2D panoROI;
         DEBUG_DEBUG("about to stitch images, pano size: " << m_panoImgSize);
-        if (m_displayedImages.size() > 0) {
+        UIntSet displayedImages = pano.getActiveImages();
+        if (displayedImages.size() > 0) {
 //            FileRemapper<BRGBImage, BImage> m;
             switch (m_blendMode) {
             case BLEND_COPY:
@@ -241,7 +259,7 @@ void PreviewPanel::updatePreview()
                 StackingBlender blender;
 //                SimpleStitcher<BRGBImage, BImage> stitcher(pano, *(MainFrame::Get()));
                 SimpleStitcher<BRGBImage, BImage> stitcher(pano, *parentWindow);
-                stitcher.stitch(opts, m_displayedImages,
+                stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache,
                                 blender);
@@ -251,7 +269,7 @@ void PreviewPanel::updatePreview()
             {
 
                 MultiBlendingStitcher<BRGBImage, BImage> stitcher(pano, *parentWindow);
-                stitcher.stitch(opts, m_displayedImages,
+                stitcher.stitch(opts, displayedImages,
                                 destImageRange(panoImg), destImage(alpha),
                                 m_remapCache);
                 break;

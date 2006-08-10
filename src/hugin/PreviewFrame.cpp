@@ -260,16 +260,17 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 {
     int id = e.GetId() - ID_TOGGLE_BUT;
     int nImg = m_pano.getNrOfImages();
+    UIntSet activeImages = m_pano.getActiveImages();
     DEBUG_DEBUG("toggle_button_id: " << id << " nImg:" << nImg << "  m_ToggleButtons.size(): " << m_ToggleButtons.size());
     if (id >= 0 && id < nImg) {
         if (e.IsChecked()) {
-            m_displayedImgs.insert(id);
+            activeImages.insert(id);
         } else {
-            m_displayedImgs.erase(id);
+            activeImages.erase(id);
         }
-        m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+//        m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
     	GlobalCmdHist::getInstance().addCommand(
-            new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+            new PT::SetActiveImagesCmd(m_pano, activeImages)
         );
     } else {
         DEBUG_ERROR("invalid Togglebutton ID");
@@ -279,7 +280,6 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
 
 void PreviewFrame::panoramaChanged(Panorama &pano)
 {
-    m_PreviewPanel->panoramaChanged(pano);
     const PanoramaOptions & opts = pano.getOptions();
 
     wxString projection;
@@ -308,25 +308,27 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
     DEBUG_TRACE("");
 
-    m_PreviewPanel->panoramaImagesChanged(pano,changed);
-
     bool dirty = false;
 
     unsigned int nrImages = pano.getNrOfImages();
     unsigned int nrButtons = m_ToggleButtons.size();
 
+//    m_displayedImgs.clear();
+
     // remove items for nonexisting images
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
+#ifdef USE_WX253
+        m_ButtonSizer->Detach(m_ToggleButtons[i]);
+#else
         m_ButtonSizer->Remove(m_ToggleButtons[i]);
+#endif
         delete m_ToggleButtons[i];
         m_ToggleButtons.pop_back();
-        m_displayedImgs.erase(i);
         dirty = true;
     }
 
-    // update existing items
-
+    // add buttons
     if ( nrImages >= nrButtons ) {
         for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it){
             if (*it >= nrButtons) {
@@ -356,19 +358,22 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                                    wxLEFT | wxADJUST_MINSIZE,
                                    5);
                 m_ToggleButtons.push_back(but);
-                m_displayedImgs.insert(imgNr);
                 dirty = true;
             }
         }
     }
+
+    // update existing items
+    UIntSet displayedImages = m_pano.getActiveImages();
+    for (unsigned i=0; i < nrImages; i++) {
+        m_ToggleButtons[i]->SetValue(set_contains(displayedImages, i));
+    }
+
     if (dirty) {
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
 		// Layout();
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
-        DEBUG_INFO("ndisplayed: " << m_displayedImgs.size());
-        UIntSet copy = m_displayedImgs;
-        m_PreviewPanel->SetDisplayedImages(copy);
         if (m_druid) m_druid->Update(m_pano);
     }
 }
@@ -455,13 +460,12 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
 {
     DEBUG_ASSERT(m_pano.getNrOfImages() == m_ToggleButtons.size());
+    UIntSet displayedImgs;
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
-        m_displayedImgs.insert(i);
-        m_ToggleButtons[i]->SetValue(true);
+        displayedImgs.insert(i);
     }
-    m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+        new PT::SetActiveImagesCmd(m_pano, displayedImgs)
         );
 }
 
@@ -471,10 +475,9 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     for (unsigned int i=0; i < m_pano.getNrOfImages(); i++) {
         m_ToggleButtons[i]->SetValue(false);
     }
-    m_displayedImgs.clear();
-    m_PreviewPanel->SetDisplayedImages(m_displayedImgs);
+    UIntSet displayedImgs;
     GlobalCmdHist::getInstance().addCommand(
-        new PT::SetActiveImagesCmd(m_pano, m_displayedImgs)
+        new PT::SetActiveImagesCmd(m_pano, displayedImgs)
         );
 }
 

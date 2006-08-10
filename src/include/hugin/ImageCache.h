@@ -29,6 +29,7 @@
 #include <common/utils.h>
 //#include <vigra/stdimage.hxx>
 #include <PT/RemappedPanoImage.h>
+//#include <PT/PanoImage.h>
 
 
 typedef wxImage * ImagePtr;
@@ -227,6 +228,9 @@ public:
 
 protected:
     std::map<unsigned, MRemappedImage*> m_images;
+    // descriptions of the remapped image. useful to determine
+    // if it has to be updated or not
+    std::map<unsigned, PT::SrcPanoImage> m_imagesParam;
 };
 
 

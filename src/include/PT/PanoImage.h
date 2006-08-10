@@ -103,6 +103,8 @@ public:
         m_cropRect = vigra::Rect2D(size);
     };
 
+    bool operator==(const SrcPanoImage & other) const;
+
     void setDefaults()
     {
         m_proj = RECTILINEAR;

@@ -868,132 +868,20 @@ SmallRemappedImageCache::~SmallRemappedImageCache()
     invalidate();
 }
 
-#if 0
-MRemappedImage *
-SmallRemappedImageCache::getRemapped(const std::string & filename,
-                                     const vigra::Diff2D & origSrcSize,
-                                     const vigra::Diff2D & srcSize,
-                                     PT::VariableMap srcVars,
-                                     PT::Lens::LensProjectionFormat srcProj,
-                                     const PT::PanoImage & imgOpts,
-                                     const vigra::Diff2D &destSize,
-                                     PT::PanoramaOptions::ProjectionFormat destProj,
-                                     double destHFOV,
-                                     utils::MultiProgressDisplay & progress)
-{
-    // return old image, if already in cache
-    if (set_contains(m_images, img.getFilename())) {
-        DEBUG_DEBUG("using cached remapped image " << img.getFilename);
-        return m_images[imgNr];
-    }
-    typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
-
-    typedef vigra::NumericTraits<PixelType>::RealPromote RPixelType;
-
-    // remap image
-    DEBUG_DEBUG("remapping image " << imgNr);
-
-    // load image
-    const PanoImage & img = pano.getImage(imgNr);
-    const PT::ImageOptions & iopts = img.getOptions();
-
-    wxImage * src = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
-    if (!src->Ok()) {
-        throw std::runtime_error("could not retrieve small source image for preview generation");
-    }
-
-    // image view
-    BRGBImageView srcImg((RGBValue<unsigned char> *)src->GetData(),
-                          src->GetWidth(),
-                          src->GetHeight());
-    MRemappedImage *remapped = new MRemappedImage;
-    // convert image to grayscale
-
-    // no alpha channel...
-    BImage srcAlpha;
-
-    // flatfield image, if required.
-    BImage ffImg;
-    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
-        // load flatfield image.
-
-        wxImage * flatsrc = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
-        if (!flatsrc->Ok()) {
-            throw std::runtime_error("could not retrieve flatfield image for preview generation");
-        }
-
-        // image view
-        BRGBImageView flatImg((RGBValue<unsigned char> *)flatsrc->GetData(),
-                               flatsrc->GetWidth(),
-                               flatsrc->GetHeight());
-        // convert flatfield to gray image.
-        ffImg.resize(flatImg.size());
-        copyImage(vigra::srcImageRange(flatImg, vigra::RGB2GrayAccessor()
-
-            } else if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_RADIAL) {
-                progress.setMessage(std::string("vignetting correction ") + utils::stripPath(img.getFilename()));
-                double radCoeff[4];
-                radCoeff[0] = const_map_get(pano.getImageVariables(imgNr),"Va").getValue();
-                radCoeff[1] = const_map_get(pano.getImageVariables(imgNr),"Vb").getValue();
-                radCoeff[2] = const_map_get(pano.getImageVariables(imgNr),"Vc").getValue();
-                radCoeff[3] = const_map_get(pano.getImageVariables(imgNr),"Vd").getValue();
-
-                double scale = (double) srcImg.width() / img.getWidth();
-
-                double centerShiftX = const_map_get(pano.getImageVariables(imgNr),"Vx").getValue();
-                double centerShiftY = const_map_get(pano.getImageVariables(imgNr),"Vy").getValue();
-                // take scale factor into accout..
-                double cx = (img.getWidth()/2 + centerShiftX) * scale;
-                double cy = (img.getHeight()/2 + centerShiftY) * scale;
-
-                vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
-                                               opts.gamma, gMaxVal,
-                                               radCoeff, cx, cy,
-                                               vigCorrDivision, ka, kb, true);
-            } else if (opts.gamma != 1.0 && doBrightnessCorrection ) {
-                progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
-                vigra_ext::applyGammaAndBrightCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
-                        opts.gamma, gMaxVal, ka,kb);
-            } else if (doBrightnessCorrection ) {
-                progress.setMessage(std::string("brightness correction ") + utils::stripPath(img.getFilename()));
-                vigra_ext::applyBrightnessCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
-                        ka,kb);
-            } else if (opts.gamma != 1.0 ) {
-                progress.setMessage(std::string("inverse gamma correction ") + utils::stripPath(img.getFilename()));
-                vigra_ext::applyGammaCorrection(srcImageRange(srcImg), destImage(srcCorrImg),
-                        opts.gamma, gMaxVal);
-            }
-
-            remapped->remapImage(pano, opts,
-                                 srcImageRange(srcCorrImg),
-                                 imgNr, progress);
-
-            if (opts.gamma != 1.0) {
-                progress.setMessage(std::string("gamma correction ") + utils::stripPath(img.getFilename()));
-                vigra_ext::applyGammaCorrection(srcImageRange(remapped->m_image), destImage(remapped->m_image),
-                        1/opts.gamma, gMaxVal);
-            }
-        } else {
-            remapped->remapImage(pano, opts,
-                                 srcImageRange(srcImg),
-                                 imgNr, progress);
-        }
-        m_images[imgNr] = remapped;
-        return remapped;
-
-}
-#endif
-
 SmallRemappedImageCache::MRemappedImage *
 SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                                     const PT::PanoramaOptions & opts,
                                     unsigned int imgNr,
                                     utils::MultiProgressDisplay & progress)
 {
-    // return old image, if already in cache
+    // return old image, if already in cache and if it has changed since the last rendering
     if (set_contains(m_images, imgNr)) {
-        DEBUG_DEBUG("using cached remapped image " << imgNr);
-        return m_images[imgNr];
+        // return cached image if the parameters of the image have not changed
+        SrcPanoImage oldParam = m_imagesParam[imgNr];
+        if (oldParam == pano.getSrcImage(imgNr)) {
+            DEBUG_DEBUG("using cached remapped image " << imgNr);
+            return m_images[imgNr];
+        }
     }
 
     typedef  BasicImageView<RGBValue<unsigned char> > BRGBImageView;
@@ -1061,6 +949,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
                progress);
 
     m_images[imgNr] = remapped;
+    m_imagesParam[imgNr] = pano.getSrcImage(imgNr);
     return remapped;
 }
 
@@ -1075,6 +964,7 @@ void SmallRemappedImageCache::invalidate()
     }
     // remove all images
     m_images.clear();
+    m_imagesParam.clear();
 }
 
 void SmallRemappedImageCache::invalidate(unsigned int imgNr)
@@ -1083,6 +973,7 @@ void SmallRemappedImageCache::invalidate(unsigned int imgNr)
     if (set_contains(m_images, imgNr)) {
         delete (m_images[imgNr]);
         m_images.erase(imgNr);
+        m_imagesParam.erase(imgNr);
     }
 }
 

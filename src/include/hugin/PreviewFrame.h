@@ -93,8 +93,6 @@ private:
     std::vector<wxCheckBox *> m_ToggleButtons;
 #endif
 
-    PT::UIntSet m_displayedImgs;
-
     DECLARE_EVENT_TABLE()
 };
 

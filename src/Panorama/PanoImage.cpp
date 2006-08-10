@@ -111,6 +111,36 @@ PanoImage::PanoImage(const std::string &filename, int width, int height,
       lensNr(lens)
 {
 }
+bool SrcPanoImage::operator==(const SrcPanoImage & other) const
+{
+    //        return true;
+    return ( m_proj == other.m_proj &&
+        m_hfov == other.m_hfov &&
+        m_roll  == other.m_roll  &&
+        m_pitch == other.m_pitch  &&
+        m_yaw == other.m_yaw &&
+
+        m_gamma == other.m_gamma  &&
+
+        m_radialDist == other.m_radialDist  &&
+        m_radialDistRed == other.m_radialDistRed  &&
+        m_radialDistBlue == other.m_radialDistBlue  &&
+        m_centerShift == other.m_centerShift  &&
+        m_shear == other.m_shear  &&
+
+        m_crop == other.m_crop  &&
+
+        m_vigCorrMode == other.m_vigCorrMode  &&
+        m_radialVigCorrCoeff == other.m_radialVigCorrCoeff &&
+
+        m_ka == other.m_ka  &&
+        m_kb == other.m_kb  &&
+
+        m_lensNr == other.m_lensNr  &&
+        m_featherWidth == other.m_featherWidth  &&
+        m_morph == other.m_morph);        
+}
+
 
 #if 0
 PanoImage::PanoImage(const std::string &filename)
