@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.6\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-09 23:02+0200\n"
+"POT-Creation-Date: 2006-08-10 21:41+0200\n"
 "PO-Revision-Date: 2006-08-05 19:25+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
@@ -231,24 +231,24 @@ msgstr "配置"
 msgid "Distance"
 msgstr "距離"
 
-#: src/hugin/CPEditorPanel.cpp:548
+#: src/hugin/CPEditorPanel.cpp:553
 msgid "No corresponding point found"
 msgstr "対応する点が見つかりませんでした。"
 
-#: src/hugin/CPEditorPanel.cpp:619
+#: src/hugin/CPEditorPanel.cpp:624
 msgid "new control point added"
 msgstr "コントロールポイントを追加しました"
 
-#: src/hugin/CPEditorPanel.cpp:719 src/hugin/CPEditorPanel.cpp:943
+#: src/hugin/CPEditorPanel.cpp:724 src/hugin/CPEditorPanel.cpp:948
 msgid "searching similar point..."
 msgstr "同じような場所を探しています"
 
-#: src/hugin/CPEditorPanel.cpp:738 src/hugin/CPEditorPanel.cpp:861
+#: src/hugin/CPEditorPanel.cpp:743 src/hugin/CPEditorPanel.cpp:866
 msgid "Error during Fine-tune"
 msgstr "微調整の実行中にエラー"
 
-#: src/hugin/CPEditorPanel.cpp:752 src/hugin/CPEditorPanel.cpp:881
-#: src/hugin/CPEditorPanel.cpp:989
+#: src/hugin/CPEditorPanel.cpp:757 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:1001
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -256,15 +256,15 @@ msgid ""
 msgstr ""
 "ポイントを微調整しました。角度：%.0f° / 相関係数：%0.3f / 曲率：%0.3f, %0.3f"
 
-#: src/hugin/CPEditorPanel.cpp:755 src/hugin/CPEditorPanel.cpp:884
+#: src/hugin/CPEditorPanel.cpp:760 src/hugin/CPEditorPanel.cpp:889
 msgid "change points, or press right mouse button to add the pair"
 msgstr "ポイントの場所を変更するか、右クリックでこのポイントを追加します"
 
-#: src/hugin/CPEditorPanel.cpp:775
+#: src/hugin/CPEditorPanel.cpp:780
 msgid "Estimated point outside image"
 msgstr "予想された場所は画像の外です"
 
-#: src/hugin/CPEditorPanel.cpp:995
+#: src/hugin/CPEditorPanel.cpp:1007
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -275,45 +275,45 @@ msgstr ""
 "相関係数：%.3f ( < しきい値 %.3f)\n"
 "曲率の最大：(%.3f, %.3f) ( < しきい値 %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:997
+#: src/hugin/CPEditorPanel.cpp:1009
 msgid "No similar point found"
 msgstr "同じような場所が見つかりませんでした"
 
-#: src/hugin/CPEditorPanel.cpp:1389 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1401 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:169 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "通常"
 
-#: src/hugin/CPEditorPanel.cpp:1392 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1404 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "垂直な線"
 
-#: src/hugin/CPEditorPanel.cpp:1395 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1407 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "水平な線"
 
-#: src/hugin/CPEditorPanel.cpp:1685
+#: src/hugin/CPEditorPanel.cpp:1697
 msgid "Cannot estimate image position without control points"
 msgstr "コントロールポイントが無いと画像の位置を推定できません"
 
-#: src/hugin/CPEditorPanel.cpp:1706 src/hugin/CPEditorPanel.cpp:1707
+#: src/hugin/CPEditorPanel.cpp:1718 src/hugin/CPEditorPanel.cpp:1719
 msgid "Create control points"
 msgstr "検出"
 
-#: src/hugin/CPEditorPanel.cpp:1706
+#: src/hugin/CPEditorPanel.cpp:1718
 msgid "Corner Detection threshold"
 msgstr "角の検出 しきい値"
 
-#: src/hugin/CPEditorPanel.cpp:1707
+#: src/hugin/CPEditorPanel.cpp:1719
 msgid "Corner Detection scale"
 msgstr "角の検出 スケール"
 
-#: src/hugin/CPEditorPanel.cpp:1842
+#: src/hugin/CPEditorPanel.cpp:1854
 msgid "Select Point in right image"
 msgstr "右の画像上のポイントを指定してください"
 
-#: src/hugin/CPEditorPanel.cpp:1854
+#: src/hugin/CPEditorPanel.cpp:1866
 msgid "Select Point in left image"
 msgstr "左の画像上のポイントを指定してください"
 
@@ -361,31 +361,31 @@ msgstr "エラー：有効な値を入力してください。"
 msgid "Could not read number"
 msgstr "数字が読めませんでした *_*"
 
-#: src/hugin/ImageCache.cpp:602
+#: src/hugin/ImageCache.cpp:615
 #, c-format
 msgid "Loading image %s"
 msgstr "画像を読み込み中：%s"
 
-#: src/hugin/ImageCache.cpp:721
+#: src/hugin/ImageCache.cpp:734
 #, c-format
 msgid "Error during image reading: %s"
 msgstr "画像の読み込み中にエラー：%s"
 
-#: src/hugin/ImageCache.cpp:729
+#: src/hugin/ImageCache.cpp:742
 msgid "Cannot load image: "
 msgstr "画像が読み込めません："
 
-#: src/hugin/ImageCache.cpp:759
+#: src/hugin/ImageCache.cpp:772
 #, c-format
 msgid "Scaling image %s"
 msgstr "画像を縮小中：%s"
 
-#: src/hugin/ImageCache.cpp:817
+#: src/hugin/ImageCache.cpp:830
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "グレースケールに変換中：%s"
 
-#: src/hugin/ImageCache.cpp:835
+#: src/hugin/ImageCache.cpp:848
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "ピラミッド画像を作成中：%s　レベル：%d"
@@ -529,7 +529,7 @@ msgstr "円周魚眼レンズ"
 msgid "Full frame fisheye"
 msgstr "フルフレーム魚眼レンズ"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:409
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:414
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
 #: src/hugin/xrc/lens_panel-2.5.xrs:59 src/hugin/xrc/pano_panel.xrs:5
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
@@ -721,7 +721,7 @@ msgstr "全コントロールポイントの微調整を実行中"
 msgid "Finetuning"
 msgstr "微調整の実行中"
 
-#: src/hugin/MainFrame.cpp:1112
+#: src/hugin/MainFrame.cpp:1119
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -747,7 +747,7 @@ msgstr ""
 "コントロールポイントリスト (F3) を使うとプロジェクト内の全ポイントの一覧が見"
 "られます\n"
 
-#: src/hugin/MainFrame.cpp:1114
+#: src/hugin/MainFrame.cpp:1121
 msgid "Fine-tune result"
 msgstr "微調整の結果"
 
@@ -838,11 +838,11 @@ msgstr "ガンマの値は数字で指定してください"
 msgid "The druid has no advice."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:580
+#: src/hugin/PanoDruid.cpp:53 src/hugin/PreviewFrame.cpp:583
 msgid "The druid finds no problems with your panorama."
 msgstr "Druidは、あなたのパノラマに何の問題も無いと思います。"
 
-#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:581
+#: src/hugin/PanoDruid.cpp:54 src/hugin/PreviewFrame.cpp:584
 msgid ""
 "Stitch your final image now, and then use an image editor\n"
 "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -852,11 +852,11 @@ msgstr ""
 "フォトレタッチングソフトで仕上げるとよいでしょう。\n"
 " "
 
-#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:600
+#: src/hugin/PanoDruid.cpp:63 src/hugin/PreviewFrame.cpp:603
 msgid "Warning:  you haven't saved the current project."
 msgstr "警告：プロジェクトが保存されていません。"
 
-#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:601
+#: src/hugin/PanoDruid.cpp:64 src/hugin/PreviewFrame.cpp:604
 msgid ""
 "While everything else seems to be ready to stitch,\n"
 "don't forget to save your project file so you can\n"
@@ -865,7 +865,7 @@ msgstr ""
 "忘れる前にプロジェクトを保存しましょう。\n"
 "それ以外はスティッチングする準備ができているようです。"
 
-#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:596
+#: src/hugin/PanoDruid.cpp:73 src/hugin/PreviewFrame.cpp:599
 msgid "Warning:  current stitch has huge dimensions."
 msgstr "警告：とても大きい画像を出力しようとしています"
 
@@ -884,11 +884,11 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:592
+#: src/hugin/PanoDruid.cpp:104 src/hugin/PreviewFrame.cpp:595
 msgid "The Horizontal Field of View (HFOV) may be too low."
 msgstr "水平視野の設定 (v) が小さすぎるかもしれません。"
 
-#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:593
+#: src/hugin/PanoDruid.cpp:105 src/hugin/PreviewFrame.cpp:596
 msgid ""
 "Check that the focal lengths and/or hfov figures\n"
 "for each image are correct for the camera settings.\n"
@@ -970,19 +970,19 @@ msgid ""
 "visual features in each pair of overlapping images."
 msgstr "最適化はコントロールポイントを使って画像同士の関係を推定します。"
 
-#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:588
+#: src/hugin/PanoDruid.cpp:213 src/hugin/PreviewFrame.cpp:591
 msgid "Add at least one more image."
 msgstr "画像を追加してください。"
 
-#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:589
+#: src/hugin/PanoDruid.cpp:214 src/hugin/PreviewFrame.cpp:592
 msgid "You should have at least two files listed in the Images tab."
 msgstr "二枚以上画像が登録されているか確かめてください。"
 
-#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:584
+#: src/hugin/PanoDruid.cpp:228 src/hugin/PreviewFrame.cpp:587
 msgid "To get started, add some image files."
 msgstr "まず画像をプロジェクトに追加します。"
 
-#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:585
+#: src/hugin/PanoDruid.cpp:229 src/hugin/PreviewFrame.cpp:588
 msgid "You can add any number of images using the Images tab."
 msgstr "「画像」タブで画像をいくらでも追加することができます。"
 
@@ -1159,21 +1159,21 @@ msgstr "心射円筒（Cylindrical）"
 msgid "equirectangular"
 msgstr "正距円筒（Equirectangular）"
 
-#: src/hugin/PreviewFrame.cpp:407 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:412 src/hugin/xrc/pano_panel.xrs:3
 #: src/hugin/xrc/pano_panel-2.5.xrs:3
 msgid "Rectilinear"
 msgstr "Rectilinear（心射方位）"
 
-#: src/hugin/PreviewFrame.cpp:408 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:413 src/hugin/xrc/pano_panel.xrs:4
 #: src/hugin/xrc/pano_panel-2.5.xrs:4
 msgid "Cylindrical"
 msgstr "Cylindrical（心射円筒）"
 
-#: src/hugin/PreviewFrame.cpp:577
+#: src/hugin/PreviewFrame.cpp:580
 msgid "The druid has no advice at this time."
 msgstr "Druidからのアドバイスはありません。"
 
-#: src/hugin/PreviewFrame.cpp:597
+#: src/hugin/PreviewFrame.cpp:600
 msgid ""
 "Very large pixel dimensions are currently entered.\n"
 "Some computers may take an excessively long time\n"
@@ -1188,7 +1188,7 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PreviewPanel.cpp:284
+#: src/hugin/PreviewPanel.cpp:302
 msgid "Error during Stitching"
 msgstr "スティッチング中にエラー"
 
@@ -1603,7 +1603,7 @@ msgstr "x:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
 msgid "y:"
 msgstr "y:"
 
@@ -2134,7 +2134,7 @@ msgstr "緑 (K1)"
 msgid "blue (K2):"
 msgstr "青 (K2)"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
 msgid "Correction"
 msgstr "修正"
 
@@ -2796,7 +2796,7 @@ msgstr "PTStitcher："
 
 #: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
 #: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:68
-#: src/hugin/xrc/pref_dialog.xrs:74 src/hugin/xrc/vig_corr_dlg.xrs:9
+#: src/hugin/xrc/pref_dialog.xrs:74 src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "..."
 msgstr "…"
 
@@ -3269,67 +3269,67 @@ msgstr "hugin について"
 msgid "Vignetting correction"
 msgstr "ビネットの修正"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Type of Correction"
-msgstr "修正方法:"
-
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "No correction"
-msgstr "修正無し"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Addition ( I=I+c )"
-msgstr "和 (I=I+c)"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "Division ( I=I/c )"
-msgstr "商 ( I=I/c )"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
 #, fuzzy
 msgid "Flatfield"
 msgstr "Flatfield"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Image file:"
 msgstr "画像ファイル："
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
 msgid "Polynomial"
 msgstr "２次曲線"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
 #, fuzzy
 msgid "c = "
 msgstr "c = "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
 #, fuzzy
 msgid " + "
 msgstr " + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
 #, fuzzy
 msgid "*r^2 + "
 msgstr "*r^2 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
 #, fuzzy
 msgid "*r^4 + "
 msgstr "*r^4 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
 #, fuzzy
 msgid "*r^6"
 msgstr "*r^6"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
 msgid "center shift x:"
 msgstr "中心のずれ X方向："
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
 msgid "Estimate polynomial"
 msgstr "２次式の推定"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "Type of Correction"
+msgstr "修正方法:"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "No correction"
+msgstr "修正無し"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:17
+msgid "Addition ( I=I+c )"
+msgstr "和 (I=I+c)"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+msgid "Division ( I=I/c )"
+msgstr "商 ( I=I/c )"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
