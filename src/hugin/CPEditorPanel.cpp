@@ -1710,8 +1710,13 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         bool left =  e.GetEventObject() == m_leftImg;
         if (cpCreationState == NO_POINT) {
             FineTuneSelectedPoint(left);
-        } else {
+        } else if (cpCreationState == RIGHT_POINT_RETRY || 
+                   cpCreationState == LEFT_POINT_RETRY || 
+                   cpCreationState == BOTH_POINTS_SELECTED) 
+        { 
             FineTuneNewPoint(left);
+        } else {
+            wxLogError(_("Finetune required an control point in both images"));
         }
     } else if (e.GetKeyCode() == 'g') {
         // generate keypoints
