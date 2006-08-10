@@ -89,7 +89,7 @@ VIGRA_EXT_GETRANGE(double, 0, 1.0);
 ImageCache * ImageCache::instance = 0;
 
 ImageCache::ImageCache()
-    : m_progress(0)
+    : m_progress(0), m_accessCounter(0)
 {
 }
 
@@ -155,7 +155,7 @@ void ImageCache::flush()
 void ImageCache::softFlush()
 {
     long upperBound = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), 75 * 1024 * 1024l);
-    long purgeToSize = upperBound/2;
+    long purgeToSize = upperBound;
 
     // calculate used memory
     long imgMem = 0;
@@ -181,6 +181,19 @@ void ImageCache::softFlush()
         long purgedMem = 0;
         // remove images from cache, first the grey level image,
         // then the full size images
+
+        // use least recently uses strategy.
+        // sort images by their access time
+        std::map<int,std::string> accessMap;
+        for (map<string, Entry*>::iterator it = images.begin();
+             it != images.end();
+             ++it)
+        {
+            if (it->first.substr(it->first.size()-6) != "_small") {
+                // only consider full images
+                accessMap.insert(make_pair(it->second->lastAccess, it->first));
+            }
+        }
         while (purgeAmount > purgedMem) {
             bool deleted = false;
             if (pyrImages.size() > 0) {
@@ -189,23 +202,21 @@ void ImageCache::softFlush()
                 delete imgPtr;
                 pyrImages.erase(pyrImages.begin());
                 deleted = true;
-            } else if (images.size() > 0) {
-                // only remove full size images.
-                for (map<string, Entry*>::iterator it = images.begin();
-                     it != images.end();
-                     ++it)
-                {
-                    if (it->first.substr(it->first.size()-6) != "_small") {
-                        purgedMem += it->second->image->GetWidth() * it->second->image->GetHeight() * 3;
-                        delete it->second;
-                        images.erase(it);
-                        deleted = true;
-                        break;
-                    }
+            } else if (accessMap.size() > 0) {
+                std::map<int,std::string>::iterator accIt = accessMap.begin();
+                map<string, Entry*>::iterator it = images.find(accIt->second);
+                if (it != images.end()) {
+                    DEBUG_DEBUG("soft flush: removing image: " << it->first);
+                    purgedMem += it->second->image->GetWidth() * it->second->image->GetHeight() * 3;
+                    delete it->second;
+                    images.erase(it);
+                    accessMap.erase(accIt);
+                    deleted = true;
+                } else {
+                    DEBUG_ASSERT("internal error while purging cache");
                 }
             }
             if (!deleted) {
-                DEBUG_WARN("Purged all not preview images, but ImageCache still to big");
                 break;
             }
         }
@@ -596,6 +607,8 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
     std::map<std::string, Entry *>::iterator it;
     it = images.find(filename);
     if (it != images.end()) {
+        m_accessCounter++;
+        it->second->lastAccess = m_accessCounter;
         return it->second;
     } else {
         if (m_progress) {

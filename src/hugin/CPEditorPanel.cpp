@@ -392,6 +392,8 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
+    // FIXME: lets hope that nobody holds references to these images..
+    ImageCache::getInstance().softFlush();
 }
 
 
@@ -431,6 +433,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
+
+    // FIXME: lets hope that nobody holds references to these images..
+    ImageCache::getInstance().softFlush();
 
 }
 
@@ -952,10 +957,16 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 
     const PanoImage & img = m_pano->getImage(subjImgNr);
 
-    const BImage & subjImg = ImageCache::getInstance().getPyramidImage(
-        img.getFilename(),0);
-    const BImage & tmplImg = ImageCache::getInstance().getPyramidImage(
-        m_pano->getImage(tmplImgNr).getFilename(),0);
+    // fixme: just cutout suitable gray 
+    wxImage * wxSubjImg = ImageCache::getInstance().getImage(img.getFilename())->image;
+    wxImage * wxTmplImg = ImageCache::getInstance().getImage( m_pano->getImage(tmplImgNr).getFilename())->image;
+
+    BasicImageView<RGBValue<unsigned char> > subjImg((RGBValue<unsigned char> *)wxSubjImg->GetData(),
+            wxSubjImg->GetWidth(),
+            wxSubjImg->GetHeight());
+    BasicImageView<RGBValue<unsigned char> > tmplImg((RGBValue<unsigned char> *)wxTmplImg->GetData(),
+            wxTmplImg->GetWidth(),
+            wxTmplImg->GetHeight());
 
     wxConfigBase *cfg = wxConfigBase::Get();
     bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
@@ -976,6 +987,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                                     startAngle, stopAngle, nSteps);
         }
     } else {
+        wxBusyCursor busy;
         res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
                                        subjImg, o_subjPoint.toDiff2D(),
                                        sWidth);

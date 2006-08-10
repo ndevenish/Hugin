@@ -74,13 +74,14 @@ public:
             ImagePtr image;
             std::string origType;
             bool linear;
+            int lastAccess;
 
             Entry()
             : image(0), linear(true)
             { };
 
             Entry(ImagePtr img, std::string typ, bool lin)
-            : image(img), origType(typ), linear(lin)
+            : image(img), origType(typ), linear(lin), lastAccess(0)
             { };
 
             ~Entry()
@@ -176,6 +177,8 @@ private:
 
     // our progress display
     utils::MultiProgressDisplay * m_progress;
+
+    int m_accessCounter;
 };
 
 

@@ -364,13 +364,13 @@ CorrelationResult PointFineTune(const IMAGE & templImg,
     vigra::FImage srcImage(searchLR-searchUL);
     vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
                                         searchImg.upperLeft() + searchLR,
-                                        searchImg.accessor() ),
+                                        vigra::RGBToGrayAccessor<typename IMAGE::value_type>() ),
                      destImage(srcImage) );
 
     vigra::FImage templateImage(tmplSize);
     vigra::copyImage(vigra::make_triple(templImg.upperLeft() + tmplUL,
                                         templImg.upperLeft() + tmplLR,
-                                        templImg.accessor()),
+                                        vigra::RGBToGrayAccessor<typename IMAGE::value_type>()),
                      destImage(templateImage));
 #ifdef DEBUG_WRITE_FILES
     vigra::ImageExportInfo tmpli("c:/hugin_templ.tif");
@@ -527,7 +527,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     vigra::FImage srcImage(searchLR-searchUL);
     vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
                                         searchImg.upperLeft() + searchLR,
-                                        searchImg.accessor() ),
+                                        vigra::RGBToGrayAccessor<typename IMAGE::value_type>() ),
                      destImage(srcImage) );
 //#endif
 
@@ -542,7 +542,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     for (double i=0; phi <= stopAngle; i++, phi += step) {
         DEBUG_DEBUG("+++++ Rotating image, phi: " << RAD_TO_DEG(phi));
         RotateTransform t(phi, FDiff2D(templWidth, templWidth), templPos);
-        vigra_ext::transformImage(srcImageRange(templImg),
+        vigra_ext::transformImage(srcImageRange(templImg, vigra::RGBToGrayAccessor<typename IMAGE::value_type>()),
                            destImageRange(rotTemplate),
                            destImage(alpha),
                            vigra::Diff2D(0,0),

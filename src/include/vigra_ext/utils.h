@@ -50,11 +50,6 @@ inline float pow(float a, double b)
     return std::pow(a,(float) b);
 }
 
-inline int pow(int a)
-{
-    return utils::roundi(std::log((float)a));
-}
-
 /// component-wise absolute value
 template <class T, unsigned int R, unsigned int G, unsigned int B>
 inline

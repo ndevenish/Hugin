@@ -1038,10 +1038,17 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
-                    const vigra::BImage & templImg = ImageCache::getInstance().getPyramidImage(
-                        pano.getImage(cps[*it].image1Nr).getFilename(),0);
-                    const vigra::BImage & searchImg = ImageCache::getInstance().getPyramidImage(
-                        pano.getImage(cps[*it].image2Nr).getFilename(),0);
+                    wxImage * wxSearchImg = ImageCache::getInstance().getImage(
+                            pano.getImage(cps[*it].image2Nr).getFilename())->image;
+                    wxImage * wxTmplImg = ImageCache::getInstance().getImage(
+                            pano.getImage(cps[*it].image1Nr).getFilename())->image;
+
+                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > searchImg((vigra::RGBValue<unsigned char> *)wxSearchImg->GetData(),
+                            wxSearchImg->GetWidth(),
+                            wxSearchImg->GetHeight());
+                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > templImg((vigra::RGBValue<unsigned char> *)wxTmplImg->GetData(),
+                            wxTmplImg->GetWidth(),
+                            wxTmplImg->GetHeight());
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
