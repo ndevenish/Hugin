@@ -1,3 +1,304 @@
+2006-08-10 20:08  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: really fix crash when trying to
+	  finetune single point
+
+2006-08-10 19:11  dangelo
+
+	* src/foreign/vigra_impex/rgbe.c: added missing file
+
+2006-08-10 18:51  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed finetune crash when only one
+	  point is selected
+
+2006-08-10 18:46  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed crash when trying to finetune
+	  a single point
+
+2006-08-10 17:00  dangelo
+
+	* src/: Panorama/PanoImage.cpp, hugin/ImageCache.cpp,
+	  hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/PT/PanoImage.h, include/hugin/ImageCache.h,
+	  include/hugin/PreviewFrame.h, include/hugin/PreviewPanel.h:
+	  preview speedup: only remap images if required.  Correctly keep
+	  selected images when moving or removing images
+
+2006-08-10 02:16  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/MainFrame.cpp, include/hugin/ImageCache.h,
+	  include/vigra_ext/Correlation.h, include/vigra_ext/utils.h:
+	  improved image cache, keep most recently used images, lower
+	  memory usage during fine tuning
+
+2006-08-09 23:08  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, uk.po,
+	  zh_CN.po: updated pot file and translations with new strings
+
+2006-08-09 23:01  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, include/PT/PanoramaMemento.h,
+	  include/PT/Stitcher.h, include/vigra_ext/utils.h: added support
+	  for .hdr output, not tested and enabled in GUI yet
+
+2006-08-09 22:55  dangelo
+
+	* src/: hugin/CPImageCtrl.cpp, hugin/CPZoomDisplayPanel.cpp,
+	  hugin/ImageCache.cpp, hugin/ImageOrientationPanel.cpp,
+	  hugin/ImagesList.cpp, hugin/ImagesPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/VigCorrDialog.cpp, hugin/xrc/pref_dialog.xrc,
+	  include/hugin/ImageCache.h, include/hugin/config_defaults.h,
+	  include/hugin/wxPanoCommand.h: added logarithmic and gamma
+	  mapping for display of HDR images in the GUI
+
+2006-08-09 22:53  dangelo
+
+	* src/: hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/hugin/PreviewPanel.h: fixed crashes and hangs with
+	  preview auto-update. Unfortunately the preview status update is
+	  now disabled on all platforms except windows.
+
+2006-08-09 22:48  dangelo
+
+	* src/foreign/: vigra/imageinfo.hxx, vigra_impex/Makefile.am,
+	  vigra_impex/codecmanager.cxx, vigra_impex/hdr.cxx,
+	  vigra_impex/hdr.hxx, vigra_impex/rgbe.h,
+	  vigra_impex/vigra_impex.vcproj: added .hdr codec to impex
+
+2006-08-09 21:57  ippei
+
+	* src/hugin/po/se.po: updated Swedish translation (Ulf Wilhelmson)
+
+2006-08-06 17:17  ippei
+
+	* mac/: HuginOSX-Info.plist, nona_gui-Info.plist: Mac: versioning
+	  updated to 0.6.1
+
+2006-08-06 17:07  ippei
+
+	* mac/Documents/: HOWTO-autopanosift.txt, ReadMe-HuginOSX.txt: Mac:
+	  documents updated for 0.6 release
+
+2006-08-06 17:00  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj,
+	  Notes/scripts/SetEnv-universal.txt, Notes/scripts/pano12.sh: Mac:
+	  newest build files
+
+2006-08-06 16:58  ippei
+
+	* src/hugin/xrc/pref_dialog.xrc: Fixed the bug the memory and cpu
+	  controls are not visible on Mac
+
+2006-08-06 16:51  ippei
+
+	* src/hugin/: CPEditorPanel.cpp, CPListFrame.cpp,
+	  ImageOrientationFrame.cpp, ImagesPanel.cpp, LensPanel.cpp,
+	  MainFrame.cpp, xrc/cp_editor_panel-2.5.xrc,
+	  xrc/images_panel-2.5.xrc, xrc/lens_panel-2.5.xrc: Fixed the
+	  minimum and default of sizes separator position. All done on Mac,
+	  so need checked on the other platforms.
+
+	  Couldn't fix LensPanel's default separator position, so if
+	  someone could take a look, I would appreciate it. (Though it
+	  looks reasonable without fix.)
+
+2006-08-06 16:46  ippei
+
+	* src/hugin/po/ja.po: Updated Japanese translation.
+
+2006-08-06 15:37  dangelo
+
+	* src/foreign/VIGRA_LICENSE: updated vigra license
+
+2006-07-25 23:17  dangelo
+
+	* src/hugin/xrc/data/tips.txt: update reference to panotoolsng wiki
+
+2006-07-25 23:16  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: added shortcut ("2") to 200% view in
+	  control point editor
+
+2006-07-25 23:13  dangelo
+
+	* src/common/utils.cpp: fixed stupid bug that breaks the usage of
+	  autopano-sift under linux (and maybe OSX).
+
+2006-07-23 16:17  dangelo
+
+	* src/hugin/po/fr.po: updated french translation (Jean-Luc Coulon)
+
+2006-07-23 14:49  dangelo
+
+	* src/nona_gui/po/Makefile.in.in: remove autoconf generated files
+
+2006-07-23 14:40  dangelo
+
+	* src/build_msvc/hugin_msvc_install.bat,
+	  src/build_msvc/hugin_msvc_install_win98.bat, utils/hugin.nsi:
+	  updated win32 installer, include new panotools utils
+
+2006-07-23 13:16  dangelo
+
+	* src/: build_msvc/Hugin.sln, hugin/CPImageCtrl.cpp,
+	  hugin/hugin.vcproj, hugin/huginApp.cpp,
+	  hugin/xrc/data/cursor_cp_pick.cur, nona_gui/nona_gui.cpp,
+	  tools/nona.vcproj: use custom cursor (back, with white border)
+	  for control point picker under windows. Default cursor was black,
+	  cursor was invisible in dark image regions.  update build system
+
+2006-07-23 11:50  dangelo
+
+	* bootstrap, configure.ac, src/hugin/MainFrame.cpp,
+	  src/hugin/Makefile.am, src/hugin/huginApp.cpp,
+	  src/hugin/xrc/Makefile.am, src/include/hugin/MainFrame.h,
+	  src/include/hugin/huginApp.h, src/nona_gui/Makefile.am,
+	  src/nona_gui/nona_gui.cpp: updated autoconf/automake stuff so
+	  that is is compatible to autoconf 2.60.  Better error message if
+	  the data files were not found.
+
+2006-07-23 11:43  dangelo
+
+	* src/hugin/po/Makefile.in.in: removed autoconf generated file
+
+2006-07-23 11:41  dangelo
+
+	* src/hugin/po/ru.po: updated russian translation (Alexandre
+	  Prokoudine)
+
+2006-07-22 20:21  dangelo
+
+	* ABOUT-NLS, Makefile.in, configure, config/config.guess,
+	  config/config.rpath, config/config.sub, config/depcomp,
+	  config/install-sh, config/ltmain.sh, config/missing,
+	  config/mkinstalldirs, doc/Makefile.in, m4/codeset.m4,
+	  m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4, m4/iconv.m4,
+	  m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	  m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	  m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
+	  m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
+	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
+	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
+	  m4/xsize.m4, src/Makefile.in, src/Panorama/Makefile.in,
+	  src/common/Makefile.in, src/foreign/Makefile.in,
+	  src/foreign/vigra_impex/Makefile.in, src/hugin/Makefile.in,
+	  src/hugin/xrc/Makefile.in, src/hugin/xrc/data/Makefile.in,
+	  src/hugin/xrc/data/help_common/Makefile.in,
+	  src/hugin/xrc/data/help_en_EN/Makefile.in,
+	  src/hugin/xrc/data/help_fr_FR/Makefile.in, src/jhead/Makefile.in,
+	  src/nona_gui/Makefile.in, src/tools/Makefile.in,
+	  src/vigra_ext/Makefile.in: remove autoconf generated files from
+	  cvs
+
+2006-07-22 19:37  dangelo
+
+	* Makefile.in: update with correct timestamp (hopefully)
+
+2006-07-22 19:31  dangelo
+
+	* ABOUT-NLS: [no log message]
+
+2006-07-22 19:30  dangelo
+
+	* m4/: codeset.m4, gettext.m4, glibc2.m4, glibc21.m4, iconv.m4,
+	  intdiv0.m4, intmax.m4, inttypes-pri.m4, inttypes.m4,
+	  inttypes_h.m4, isc-posix.m4, lcmessage.m4, lib-ld.m4,
+	  lib-link.m4, lib-prefix.m4, longdouble.m4, longlong.m4, nls.m4,
+	  po.m4, printf-posix.m4, progtest.m4, signed.m4, size_max.m4,
+	  stdint_h.m4, uintmax_t.m4, ulonglong.m4, wchar_t.m4, wint_t.m4,
+	  xsize.m4: added more autoconf generated stuff
+
+2006-07-22 19:23  dangelo
+
+	* src/: hugin/xrc/data/Makefile.in,
+	  hugin/xrc/data/help_common/Makefile.in,
+	  hugin/xrc/data/help_en_EN/Makefile.in,
+	  hugin/xrc/data/help_fr_FR/Makefile.in, include/config.h.in: added
+	  more autoconf generated files
+
+2006-07-22 19:20  dangelo
+
+	* src/: hugin/po/Makefile.in.in, nona_gui/po/Makefile.in.in: added
+	  more autoconf generated files
+
+2006-07-22 19:18  dangelo
+
+	* config/: config.guess, config.rpath, config.sub, depcomp,
+	  install-sh, ltmain.sh, missing, mkinstalldirs: added more
+	  autoconf generated stuff
+
+2006-07-22 19:14  dangelo
+
+	* Makefile.in, configure, doc/Makefile.in, src/Makefile.in,
+	  src/Panorama/Makefile.in, src/common/Makefile.in,
+	  src/foreign/Makefile.in, src/foreign/vigra_impex/Makefile.in,
+	  src/hugin/Makefile.in, src/hugin/xrc/Makefile.in,
+	  src/jhead/Makefile.in, src/nona_gui/Makefile.in,
+	  src/tools/Makefile.in, src/vigra_ext/Makefile.in: added files
+	  generated by ./bootstrap to cvs. This works around
+	  incompatibilities between the current autoconf/automake scripts
+	  and newer versions of autoconf
+
+2006-07-22 17:39  dangelo
+
+	* src/build_msvc/Hugin.sln, src/build_msvc/hugin_msvc_install.bat,
+	  src/build_msvc/hugin_msvc_install_win98.bat, utils/hugin.nsi:
+	  update the windows build system
+
+2006-07-22 15:28  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, build_msvc/hugin_msvc_install.bat,
+	  build_msvc/hugin_msvc_install_win98.bat,
+	  hugin/PreferencesDialog.cpp, hugin/hugin.vcproj,
+	  include/PT/PTOptimise.h: fixed VC warnings, updated windows
+	  install scripts and modified libpano info window to display
+	  details in a scrollable text view
+
+2006-07-22 09:49  dangelo
+
+	* Makefile.am, configure.ac, doc/Makefile.am, doc/fulla.1,
+	  src/include/PT/RemappedPanoImage.h: changed fulla manpage
+	  formating. install fulla.1 during make install
+
+2006-07-22 09:11  dangelo
+
+	* doc/fulla.html: html version of fulla man page
+
+2006-07-22 08:50  dangelo
+
+	* doc/fulla.1: manual page for fulla
+
+2006-07-22 08:47  dangelo
+
+	* NEWS: updated NEWS
+
+2006-07-22 08:42  dangelo
+
+	* src/hugin/xrc/pref_dialog.xrc: allow more than 100 MB for image
+	  cache.
+
+2006-07-20 08:03  dangelo
+
+	* src/: Panorama/PanoImage.cpp, include/PT/PanoImage.h: bugfix:
+	  shear is dependent on image size, scale shear values for preview
+	  display
+
+2006-07-19 23:43  dangelo
+
+	* src/Panorama/: PanoToolsInterface.cpp, Panorama.cpp: bugfix: use
+	  shear parameters during stitching
+
+2006-07-19 19:31  dangelo
+
+	* ChangeLog: updated changelog
+
 2006-07-16 21:24  dangelo
 
 	* src/: build_msvc/Hugin.sln, hugin/hugin.vcproj,
@@ -1399,8 +1700,7 @@
 2005-11-28 22:16  ippei
 
 	* mac/: Documents/ReadMe-HuginOSX.txt,
-	  HuginOSX.xcodeproj/project.pbxproj, Notes/install-wx.rtf,
-	  wxMac-patch/corefoundation_utilsexc_base_cpp.patch: Mac:
+	  HuginOSX.xcodeproj/project.pbxproj, Notes/install-wx.rtf: Mac:
 	  PTOptimizer bug fixed
 
 2005-11-28 14:35  ippei
@@ -1649,9 +1949,7 @@
 
 2005-09-22 15:36  ippei
 
-	* mac/: wxMac-patch/carbon-dirdlg_cpp.patch,
-	  wxMac-patch/carbon-notebmac_cpp.patch, HuginOSX-Info.plist,
-	  PutAutopanoSiftToHuginOSX.applescript,
+	* mac/: HuginOSX-Info.plist, PutAutopanoSiftToHuginOSX.applescript,
 	  PutEnblendToHuginOSX.applescript, localised.sh,
 	  Documents/ReadMe-HuginOSX.txt: Mac: rc2 release
 
@@ -2046,14 +2344,6 @@
 
 	* src/hugin/po/: LINGUAS, ru.po: added initial russian translation
 	  by Alexandre Prokoudine
-
-2005-06-14 19:15  ippei
-
-	* mac/wxMac-patch/: carbon-dirdlg_cpp.patch,
-	  carbon-notebmac_cpp.patch, carbon-window_cpp.patch,
-	  carbon-window_h.patch: Mac:wxMac patches recommended/needed for
-	  compiling HuginOSX. They are submitted to wxWidgets sourceforge
-	  as well.
 
 2005-06-14 18:56  ippei
 
