@@ -54,18 +54,6 @@ using namespace utils;
 using namespace PT;
 using namespace vigra::functor;
 
-template<> \
-        struct GetRange<T1> \
-{ \
-        static T1 min() \
-        { \
-                return MI; \
-        } \
-                static T1 max() \
-                { \
-                        return MA; \
-                } \
-};
 
 template <class T1>
 struct GetRange;
