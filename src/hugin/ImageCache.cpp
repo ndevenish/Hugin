@@ -41,6 +41,7 @@
 #include <vigra_ext/ImageTransforms.h>
 #include <PT/Stitcher.h>
 #include <vigra/functorexpression.hxx>
+#include <vigra/sized_int.hxx>
 
 #include "hugin/ImageCache.h"
 #include "hugin/config_defaults.h"
@@ -76,11 +77,11 @@ struct GetRange<T1> \
 
 
 // conversion from/to unsigned char
-VIGRA_EXT_GETRANGE(UInt8,  0, 255);
-VIGRA_EXT_GETRANGE(Int16,  0, 32767);
-VIGRA_EXT_GETRANGE(UInt16, 0, 65535);
-VIGRA_EXT_GETRANGE(Int32,  0, 2147483647);
-VIGRA_EXT_GETRANGE(UInt32, 0, 4294967295);
+VIGRA_EXT_GETRANGE(vigra::UInt8,  0, 255);
+VIGRA_EXT_GETRANGE(vigra::Int16,  0, 32767);
+VIGRA_EXT_GETRANGE(vigra::UInt16, 0, 65535);
+VIGRA_EXT_GETRANGE(vigra::Int32,  0, 2147483647);
+VIGRA_EXT_GETRANGE(vigra::UInt32, 0, 4294967295u);
 VIGRA_EXT_GETRANGE(float,  0, 1.0f);
 VIGRA_EXT_GETRANGE(double, 0, 1.0);
 
