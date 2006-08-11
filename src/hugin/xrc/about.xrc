@@ -7,7 +7,7 @@
     <object class="wxFlexGridSizer">
       <object class="sizeritem">
         <object class="wxHtmlWindow" name="about_html">
-          <size>650,500</size>
+          <size>650,540</size>
           <borders>0</borders>
           <url>data/about.htm</url>
           <bg>#FFFFFF</bg>
