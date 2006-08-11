@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the hugin package.
 # Marek Januszewski <spec@webtech.pl>, 2004.
 # Pablo d'Angelo <pablo.dangelo@mathematik.uni-ulm.de>, 2005.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2005.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2005-2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.5\n"
+"Project-Id-Version: hugin 0.6.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2006-08-10 23:45+0200\n"
-"PO-Revision-Date: 2005-12-06 10:53+0100\n"
+"PO-Revision-Date: 2006-08-11 17:31+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -304,19 +304,16 @@ msgid "Cannot estimate image position without control points"
 msgstr "Nie mogę estymować pozycji zdjęcia bez punktów kontrolnych"
 
 #: src/hugin/CPEditorPanel.cpp:1718 src/hugin/CPEditorPanel.cpp:1719
-#, fuzzy
 msgid "Create control points"
 msgstr "Utwórz punkty kontrolne"
 
 #: src/hugin/CPEditorPanel.cpp:1718
-#, fuzzy
 msgid "Corner Detection threshold"
-msgstr "Próg korelacji:"
+msgstr "Próg wykrywania rogów:"
 
 #: src/hugin/CPEditorPanel.cpp:1719
-#, fuzzy
 msgid "Corner Detection scale"
-msgstr "Kolekcja zdjęć"
+msgstr "Skala wykrywania rogów"
 
 #: src/hugin/CPEditorPanel.cpp:1854
 msgid "Select Point in right image"
@@ -376,9 +373,9 @@ msgid "Loading image %s"
 msgstr "Ładuję zdjęcie %s"
 
 #: src/hugin/ImageCache.cpp:734
-#, fuzzy, c-format
+#, c-format
 msgid "Error during image reading: %s"
-msgstr "Błąd podczas składania"
+msgstr "Błąd podczas odczytu zdjęcia: %s"
 
 #: src/hugin/ImageCache.cpp:742
 msgid "Cannot load image: "
@@ -704,15 +701,14 @@ msgstr "Otwórz projekt: anuluj"
 
 #: src/hugin/MainFrame.cpp:617 src/hugin/VigCorrDialog.cpp:167
 #: src/include/hugin/wxPanoCommand.h:186
-#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
 "JPG|All files (*)|*"
 msgstr ""
 "Wszystkie pliki zdjęć|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|Pliki JPEG (*.jpg)|*.jpg;*."
-"JPG|Wszystkie pliki (*)|*"
+"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|*.hdr|Pliki JPEG (*.jpg)|*."
+"jpg;*.JPG|Wszystkie pliki (*)|*"
 
 #: src/hugin/MainFrame.cpp:618 src/include/hugin/wxPanoCommand.h:187
 msgid "Add images"
@@ -731,7 +727,7 @@ msgid "Finetuning"
 msgstr "Dostrajam"
 
 #: src/hugin/MainFrame.cpp:1119
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -752,10 +748,10 @@ msgstr ""
 "korelacji\n"
 "Problematyczne punkty, z którymi był problem mogą być zauważone (tuż po "
 "dostrojeniu, przed optymalizacją)\n"
-"przy błędzie <= %f.\n"
+"przy błędzie <= %.3f.\n"
 "Błąd punktów bez dobrze zdefiniowanego szczytu (typowo w regionach z "
 "równomiernym kolorem)\n"
-"będą ustawione na 0\n"
+"będzie ustawiony na 0\n"
 "\n"
 "Użyj listy Punktów Kontrolnych (F3) aby zobaczyć wszystkie punkty obecnego "
 "projektu\n"
@@ -1019,12 +1015,12 @@ msgstr "Asystant tworzenia panoram"
 #: src/hugin/PanoPanel.cpp:247
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
-msgstr ""
+msgstr "Błędna wartość HFOV. Maksimum HFOV dla tego rzutu to %lf."
 
 #: src/hugin/PanoPanel.cpp:278
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr ""
+msgstr "Błędna wartość VFOV. Maksimum VFOV dla tego rzutu to %lf."
 
 #: src/hugin/PanoPanel.cpp:324
 msgid "width needs to be an integer bigger than 0"
@@ -1048,7 +1044,7 @@ msgstr "Chiński uproszczony"
 
 #: src/hugin/PreferencesDialog.cpp:122
 msgid "Czech"
-msgstr ""
+msgstr "Czeski"
 
 #: src/hugin/PreferencesDialog.cpp:125
 msgid "Dutch"
@@ -1092,11 +1088,11 @@ msgstr "Rosyjski"
 
 #: src/hugin/PreferencesDialog.cpp:155
 msgid "Swedish"
-msgstr ""
+msgstr "Szwedzki"
 
 #: src/hugin/PreferencesDialog.cpp:158
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukraiński"
 
 #: src/hugin/PreferencesDialog.cpp:234
 msgid "Select PTStitcher"
@@ -1308,9 +1304,8 @@ msgid "Stop"
 msgstr "Zatrzymaj"
 
 #: src/hugin/RunOptimizerFrame.cpp:197
-#, fuzzy
 msgid "Could not start PTOptimizer"
-msgstr "Nie udało się uzyskać wyjścia z PTOptimizera"
+msgstr "Nie udało się uruchomić PTOptimizera"
 
 #: src/hugin/RunOptimizerFrame.cpp:258
 #, c-format
@@ -1426,9 +1421,8 @@ msgid "Tips not available, sorry!"
 msgstr "Podpowiedzi niestety nie są dostępne!"
 
 #: src/hugin/VigCorrDialog.cpp:168
-#, fuzzy
 msgid "Select flatfield image"
-msgstr "Zaznacz punkt na lewym zdjęciu"
+msgstr "Zaznacz zdjęcie flatfield"
 
 #: src/hugin/VigCorrDialog.cpp:248 src/hugin/VigCorrDialog.cpp:611
 msgid ""
@@ -1436,16 +1430,17 @@ msgid ""
 "areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
+"Krzywa winietująca jest określana przy użyciu wartości szarości w nachodzących obszarach.\n"
+"Aby przyspieszyć obliczenia, używany jest tylko losowy podzbiór punktów."
 
 #: src/hugin/VigCorrDialog.cpp:249 src/hugin/VigCorrDialog.cpp:611
-#, fuzzy
 msgid "Number of points per overlap"
-msgstr "ilość punktów utworzonych w każdym nałożeniu się dwóch zdjęć"
+msgstr "Liczba punktów dla każdego nachodzącego obszaru"
 
 #: src/hugin/VigCorrDialog.cpp:250 src/hugin/VigCorrDialog.cpp:255
 #: src/hugin/VigCorrDialog.cpp:611 src/hugin/VigCorrDialog.cpp:613
 msgid "Estimate vignetting curve"
-msgstr ""
+msgstr "Oszacuj krzywą winietującą"
 
 #: src/hugin/VigCorrDialog.cpp:255 src/hugin/VigCorrDialog.cpp:613
 msgid ""
@@ -1455,6 +1450,10 @@ msgid ""
 "very well,\n"
 " and the same camera settings (exposure, white balance) were used."
 msgstr ""
+"Parametr tolerancji Ransac.\n"
+"Powinien wynosić około 0.1.\n"
+" Mniejsze liczby mogą dawać lepsze wyniki jeśli zdjęcia są bardzo dobrze zarejestrowane,\n"
+" i użyto tych samych ustawień aparatu (ekspozycja, balans bieli)."
 
 #: src/hugin/VigCorrDialog.cpp:285
 msgid ""
@@ -1463,24 +1462,28 @@ msgid ""
 "Please enable linear mapping\n"
 "Continue anyway?"
 msgstr ""
+"Korekcja winietowania aktualnie nie działa z nieliniowo odwzorowanymi obrazami 16-bitowymi i HDR.\n"
+"Proszę włączyć odwzorowanie liniowe\n"
+"Kontynuować mimo wszystko?"
 
 #: src/hugin/VigCorrDialog.cpp:285 src/hugin/VigCorrDialog.cpp:480
 msgid "Warning"
-msgstr ""
+msgstr "Uwaga"
 
 #: src/hugin/VigCorrDialog.cpp:304 src/hugin/VigCorrDialog.cpp:555
 msgid "Vignetting function estimation"
-msgstr ""
+msgstr "Szacowanie funkcji winietującej"
 
 #: src/hugin/VigCorrDialog.cpp:368
 msgid ""
 "Not enought images selected. Please ensure that more than two images are "
 "associated with the current lens."
 msgstr ""
+"Wybrano za mało zdjęć. Proszę upewnić się, że z aktualnym obiektywem powiązano więcej niż dwa zdjęcia."
 
 #: src/hugin/VigCorrDialog.cpp:368
 msgid "Cannot estimate vignetting"
-msgstr ""
+msgstr "Nie udało się oszacować winietowania"
 
 #: src/hugin/VigCorrDialog.cpp:478
 #, c-format
@@ -1494,6 +1497,13 @@ msgid ""
 "\n"
 "The recovered vignetting curve might be inaccurate."
 msgstr ""
+"Wyniki szacowania krzywej winietującej:\n"
+"\n"
+"UWAGA: %.1f%% ze wszystkich punktów było niespójne.\n"
+"\n"
+"Proszę sprawdzić, czy zdjęcia dobrze pasują i użyto tych samych ustawień ekspozycji i balansu bieli dla wszystkich zdjęć.\n"
+"\n"
+"Uzyskana krzywa winietująca może być niedokładna."
 
 #: src/hugin/VigCorrDialog.cpp:482
 #, c-format
@@ -1503,14 +1513,17 @@ msgid ""
 "estimation.\n"
 "Brightness error: %.2f (gray value RMSE)"
 msgstr ""
+"Wyniki szacowania krzywej winietującej:\n"
+"Znaleziono %.1f%% niespójnych par punktów, użyto %.1f%% z %d par podczas ostatecznego szacowania.\n"
+"Błąd jasności: %.2f (wartość szarości RMSE)"
 
 #: src/hugin/VigCorrDialog.cpp:487 src/hugin/VigCorrDialog.cpp:658
 msgid "Vignetting curve estimation"
-msgstr ""
+msgstr "Szacowanie krzywej winietującej"
 
 #: src/hugin/VigCorrDialog.cpp:613
 msgid "0.1"
-msgstr ""
+msgstr "0.1"
 
 #: src/hugin/VigCorrDialog.cpp:654
 #, c-format
@@ -1520,15 +1533,17 @@ msgid ""
 "estimation.\n"
 " Residual after estimation: %.5f"
 msgstr ""
+"Wyniki szacowania krzywej winietującej:\n"
+" %d punktów dobrych, %d punktów złych, użyto %.1f%% dobrych punktów podczas ostatecznego szacowania.\n"
+" Reszta po szacowaniu: %.5f"
 
 #: src/hugin/VigCorrDialog.cpp:680
 msgid "Error: could not find flatfile image file."
-msgstr ""
+msgstr "Błąd: nie znaleziono pliku zdjęcia flatfile."
 
 #: src/hugin/VigCorrDialog.cpp:680
-#, fuzzy
 msgid "File not found"
-msgstr "Nie znaleziono zdjęcia"
+msgstr "Nie znaleziono pliku"
 
 #: src/include/hugin/MyProgressDialog.h:71
 msgid "Optimizing Panorama"
@@ -1819,7 +1834,7 @@ msgstr "Do dołu"
 
 #: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:35
 msgid "Open a dialog to select the image area to be used while stitching"
-msgstr ""
+msgstr "Otwórz okno dialogowe do wyboru obszaru zdjęcia używanego przy składaniu"
 
 #: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:25
 msgid "Reference Image"
@@ -1919,9 +1934,8 @@ msgid "This Image"
 msgstr "To zdjęcie"
 
 #: src/hugin/xrc/images_panel-2.5.xrs:34
-#, fuzzy
 msgid "Crop..."
-msgstr "Ucięcie"
+msgstr "Utnij..."
 
 #: src/hugin/xrc/keyboard_help.xrs:1
 msgid "Keyboard Shortcuts"
@@ -2035,9 +2049,8 @@ msgstr "pionowy (t):"
 
 #: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:26
 #: src/hugin/xrc/lens_panel-2.5.xrs:88
-#, fuzzy
 msgid "Vignetting"
-msgstr "Dostrajam"
+msgstr "Winietowanie"
 
 #: src/hugin/xrc/lens_panel.xrs:33 src/hugin/xrc/lens_panel.xrs:35
 msgid "Set crop and image center"
@@ -2097,103 +2110,91 @@ msgstr "zmień obiektyw dla wybranych zdjęć"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:1
 msgid "Load lens..."
-msgstr ""
+msgstr "Wczytaj obiektyw..."
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:3
-#, fuzzy
 msgid "Save lens..."
-msgstr "Zapisz jako"
+msgstr "Zapisz obiektyw..."
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:9
-#, fuzzy
 msgid "Change lens..."
-msgstr "Zmień obiektyw"
+msgstr "Zmień obiektyw..."
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:27
-#, fuzzy
 msgid "Edit Parameters..."
-msgstr "Parametry projektowania"
+msgstr "Modyfikuj parametry..."
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:70
-#, fuzzy
 msgid "Radial Distortion"
-msgstr "zniekształcenie (a):"
+msgstr "Zniekształcenie promieniowe"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:90
-#, fuzzy
 msgid "Exposure and Color"
-msgstr "odniesienie naświetlania:"
+msgstr "Ekspozycja i kolor"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:46
-#, fuzzy
 msgid "gain"
-msgstr "Węgierski"
+msgstr "wzmocnienie"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:47
 msgid "offset"
-msgstr ""
+msgstr "przesunięcie"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:48
 msgid "red (K0):"
-msgstr ""
+msgstr "czerwień (K0):"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:50
 msgid "green (K1):"
-msgstr ""
+msgstr "zieleń (K1):"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:52
 msgid "blue (K2):"
-msgstr ""
+msgstr "błękit(K2):"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
-#, fuzzy
 msgid "Correction"
-msgstr "Kolekcja zdjęć"
+msgstr "Korekcja"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:69
 msgid "Geometric"
-msgstr ""
+msgstr "Geometryczna"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:87
 msgid "Photometric"
-msgstr ""
+msgstr "Fotometryczna"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:89
-#, fuzzy
 msgid "Edit Parameters"
-msgstr "Parametry projektowania"
+msgstr "Modyfikuj parametry"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:91
-#, fuzzy
 msgid "Channel:"
-msgstr "Anuluj"
+msgstr "Kanał:"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:92
-#, fuzzy
 msgid "exposure"
-msgstr "odniesienie naświetlania:"
+msgstr "ekspozycja"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:93
-#, fuzzy
 msgid "brightness"
-msgstr "Jasność (b)"
+msgstr "jasność"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:94
-#, fuzzy
 msgid "inherit"
-msgstr "Odziedzicz"
+msgstr "odziedzicz"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:95
 msgid "red (K0)"
-msgstr ""
+msgstr "czerwień (K0)"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:96
 msgid "green (K1)"
-msgstr ""
+msgstr "zieleń (K1)"
 
 #: src/hugin/xrc/lens_panel-2.5.xrs:97
 msgid "blue (K2)"
-msgstr ""
+msgstr "błękit (K2)"
 
 #: src/hugin/xrc/main_frame.xrs:1
 msgid "Hugin - Panorama Tools Frontend"
@@ -2668,19 +2669,19 @@ msgstr "Rzut (f):"
 
 #: src/hugin/xrc/pano_panel.xrs:7 src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Stereographic"
-msgstr ""
+msgstr "Stereograficzny"
 
 #: src/hugin/xrc/pano_panel.xrs:8 src/hugin/xrc/pano_panel-2.5.xrs:8
 msgid "Mercator"
-msgstr ""
+msgstr "Mercator"
 
 #: src/hugin/xrc/pano_panel.xrs:9 src/hugin/xrc/pano_panel-2.5.xrs:9
 msgid "Transverse mercator"
-msgstr ""
+msgstr "Mercator poprzeczny"
 
 #: src/hugin/xrc/pano_panel.xrs:10 src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "Sinusiodal"
-msgstr ""
+msgstr "Sinusoidalny"
 
 #: src/hugin/xrc/pano_panel.xrs:11 src/hugin/xrc/pano_panel-2.5.xrs:11
 msgid "Field of View"
@@ -2776,14 +2777,12 @@ msgid "nona"
 msgstr "nona"
 
 #: src/hugin/xrc/pano_panel-2.5.xrs:26
-#, fuzzy
 msgid "width:"
-msgstr "szerokość"
+msgstr "szerokość:"
 
 #: src/hugin/xrc/pano_panel-2.5.xrs:27
-#, fuzzy
 msgid "height:"
-msgstr "wysokość"
+msgstr "wysokość:"
 
 #: src/hugin/xrc/pref_dialog.xrs:1
 msgid "Preferences - hugin"
@@ -2908,9 +2907,8 @@ msgid "Misc"
 msgstr "Różne"
 
 #: src/hugin/xrc/pref_dialog.xrs:33
-#, fuzzy
 msgid "Resource Usage"
-msgstr "Zdjęcie referencyjne"
+msgstr "Wykorzystanie zasobów"
 
 #: src/hugin/xrc/pref_dialog.xrs:34
 msgid "Image cache memory:"
@@ -2928,7 +2926,7 @@ msgstr "MB"
 
 #: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Number of CPUs:"
-msgstr ""
+msgstr "Liczba procesorów:"
 
 #: src/hugin/xrc/pref_dialog.xrs:38
 msgid ""
@@ -2936,6 +2934,8 @@ msgid ""
 "Set this to the number of processors or processor cores available in your "
 "system."
 msgstr ""
+"Nona może użyć wielu wątków do przetwarzania.\n"
+"Można ustawić tę wartość na liczbę procesorów lub rdzeni dostępnych w systemie."
 
 #: src/hugin/xrc/pref_dialog.xrs:39
 msgid "User Interface"
@@ -2955,49 +2955,47 @@ msgstr "Optymalizuj i sklej tylko zdjęcia wybrane w oknie podglądu"
 
 #: src/hugin/xrc/pref_dialog.xrs:43
 msgid "HDR and 16 Bit display mode"
-msgstr ""
+msgstr "Tryb wyświetlania HDR i 16-bitowy"
 
 #: src/hugin/xrc/pref_dialog.xrs:44
-#, fuzzy
 msgid "Range"
-msgstr "Język"
+msgstr "Przedział"
 
 #: src/hugin/xrc/pref_dialog.xrs:45
 msgid "fixed"
-msgstr ""
+msgstr "stały"
 
 #: src/hugin/xrc/pref_dialog.xrs:46
-#, fuzzy
 msgid "auto"
-msgstr "Auto"
+msgstr "auto"
 
 #: src/hugin/xrc/pref_dialog.xrs:47
 msgid ""
 "use fixed for 16 bit\n"
 "and auto for HDR"
 msgstr ""
+"użyj stałęgo dla 16-bitowego\n"
+"i auto dla HDR"
 
 #: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Mapping"
-msgstr ""
+msgstr "Odwzorowanie"
 
 #: src/hugin/xrc/pref_dialog.xrs:49
-#, fuzzy
 msgid "linear"
-msgstr "Bilinear"
+msgstr "liniowe"
 
 #: src/hugin/xrc/pref_dialog.xrs:50
 msgid "logarithmic"
-msgstr ""
+msgstr "logarytmiczne"
 
 #: src/hugin/xrc/pref_dialog.xrs:51
-#, fuzzy
 msgid "gamma 2.2"
-msgstr "gamma (g):"
+msgstr "gamma 2.2"
 
 #: src/hugin/xrc/pref_dialog.xrs:52
 msgid "used for display in GUI"
-msgstr ""
+msgstr "użyte do wyświetlania w GUI"
 
 #: src/hugin/xrc/pref_dialog.xrs:53
 msgid "File options"
@@ -3184,7 +3182,7 @@ msgstr "zdjęcie użyte jako odniesienie przy korekcji naświetlenia"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:21
 msgid "fast transform (f):"
-msgstr ""
+msgstr "szybkie przekształcenie (f):"
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:23
 msgid "Fast (0)"
@@ -3272,70 +3270,63 @@ msgstr "Anuluj"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:1
 msgid "Vignetting correction"
-msgstr ""
+msgstr "Korekcja winietowania"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "Flatfield"
-msgstr ""
+msgstr "Flatfield"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:4
-#, fuzzy
 msgid "Image file:"
-msgstr "Nie znaleziono zdjęcia"
+msgstr "Plik zdjęcia:"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:6
-#, fuzzy
 msgid "Polynomial"
-msgstr "normalny"
+msgstr "Wielomian"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:7
 msgid "c = "
-msgstr ""
+msgstr "c = "
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:8
 msgid " + "
-msgstr ""
+msgstr " + "
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:9
 msgid "*r^2 + "
-msgstr ""
+msgstr "*r^2 + "
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:10
 msgid "*r^4 + "
-msgstr ""
+msgstr "*r^4 + "
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:11
 msgid "*r^6"
-msgstr ""
+msgstr "*r^6"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:12
-#, fuzzy
 msgid "center shift x:"
-msgstr "Przesunięcie środka zdjęcia"
+msgstr "przesunięcie środka x:"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:14
-#, fuzzy
 msgid "Estimate polynomial"
-msgstr "Estymowany punkt jest poza obszarem zdjęcia"
+msgstr "Oszacuj wielomian"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:15
-#, fuzzy
 msgid "Type of Correction"
-msgstr "korekcja naświetlenia:"
+msgstr "Rodzaj korekcji"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:16
-#, fuzzy
 msgid "No correction"
-msgstr "korekcja naświetlenia:"
+msgstr "Bez korekcji"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:17
-#, fuzzy
 msgid "Addition ( I=I+c )"
-msgstr "zniekształcenie (c):"
+msgstr "Dodanie ( I=I+c )"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:18
 msgid "Division ( I=I/c )"
-msgstr ""
+msgstr "Dzielenie ( I=I/c )"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3419,12 +3410,11 @@ msgstr ""
 "daje wiele twórczych możliwości."
 
 #: src/hugin/xrc/data/tips.txt:14
-#, fuzzy
 msgid ""
 "The PanoTools wiki at http://wiki.panoramatools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"Wiki PanoTools pod http://www.panotools.info/mediawiki zawiera obszerne "
+"Wiki PanoTools pod http://wiki.panoramatools.org zawiera obszerne "
 "informacje o tworzeniu panoram i innych obrazów przy użyciu panotools."
 
 #: src/hugin/xrc/data/tips.txt:15
@@ -3535,15 +3525,3 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze "
 "rozproszonych punktów kontrolnych."
-
-#~ msgid "hugin - FAQ"
-#~ msgstr "hugin - FAQ"
-
-#~ msgid "Set Crop"
-#~ msgstr "Ustaw Ucięcie"
-
-#~ msgid "Memory usage"
-#~ msgstr "Zużycie pamięci"
-
-#~ msgid "Approximation (f):"
-#~ msgstr "Aproksymacja (f):"
