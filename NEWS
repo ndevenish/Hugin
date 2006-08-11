@@ -6,6 +6,9 @@ Newsworthy changes in 0.6.1
 * reduced memory usage, better image caching strategy
 * fixed crashes and hangs when using the preview auto update and avoid
   unnessecary remapping of images.
+* vignetting correction estimation speed up.
+* nona and nona_gui can be used to do template stitching, by specifying
+  images on the command line (or dnd shortcut under windows)
 * various smaller bugfixes
 
 Newsworthy changes in 0.6

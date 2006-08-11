@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nona_gui\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-03-23 08:18+0100\n"
+"POT-Creation-Date: 2006-08-10 22:32+0200\n"
 "PO-Revision-Date: 2005-09-25 21:05+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -12,44 +12,44 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: CHINA\n"
 
-#: src/nona_gui/nona_gui.cpp:135
+#: src/nona_gui/nona_gui.cpp:137
 msgid "Syntax error in parameters detected, aborting."
 msgstr "参数语法错误, 中断."
 
-#: src/nona_gui/nona_gui.cpp:144
+#: src/nona_gui/nona_gui.cpp:146
 msgid "Specify project source project file"
 msgstr "指定项目源文件"
 
-#: src/nona_gui/nona_gui.cpp:160
+#: src/nona_gui/nona_gui.cpp:162
 msgid "Too many project files specified"
 msgstr "指定了太多项目文件"
 
-#: src/nona_gui/nona_gui.cpp:168
+#: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
 msgstr "无法找到项目文件"
 
-#: src/nona_gui/nona_gui.cpp:177
+#: src/nona_gui/nona_gui.cpp:179
 msgid "Specify output image filename"
 msgstr "指定输出图像名称"
 
-#: src/nona_gui/nona_gui.cpp:185
+#: src/nona_gui/nona_gui.cpp:187
 msgid "No project files specified"
 msgstr "没有指定项目文件"
 
-#: src/nona_gui/nona_gui.cpp:201
+#: src/nona_gui/nona_gui.cpp:203
 msgid "Stitching Panorama"
 msgstr "缝合全景"
 
-#: src/nona_gui/nona_gui.cpp:207
+#: src/nona_gui/nona_gui.cpp:209
 #, c-format
 msgid "could not open script : %s"
 msgstr "无法打开脚本: %s"
 
-#: src/nona_gui/nona_gui.cpp:213
+#: src/nona_gui/nona_gui.cpp:215
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "分析全景工具脚本时出错: %s"
 
-#: src/nona_gui/nona_gui.cpp:224
+#: src/nona_gui/nona_gui.cpp:226
 msgid "output image size: "
 msgstr "输出图像尺寸:"
