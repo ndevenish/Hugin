@@ -41,10 +41,11 @@
 #include <vigra_ext/ImageTransforms.h>
 #include <PT/Stitcher.h>
 #include <vigra/functorexpression.hxx>
-#include <vigra/sized_int.hxx>
 
 #include "hugin/ImageCache.h"
 #include "hugin/config_defaults.h"
+
+#include <vigra/sized_int.hxx>
 
 using namespace std;
 using namespace vigra;
@@ -52,6 +53,19 @@ using namespace vigra_ext;
 using namespace utils;
 using namespace PT;
 using namespace vigra::functor;
+
+template<> \
+        struct GetRange<T1> \
+{ \
+        static T1 min() \
+        { \
+                return MI; \
+        } \
+                static T1 max() \
+                { \
+                        return MA; \
+                } \
+};
 
 template <class T1>
 struct GetRange;
@@ -238,7 +252,7 @@ ImageCache & ImageCache::getInstance()
 }
 
 
-template <class TIn, class TOut=UInt8>
+template <class TIn, class TOut=vigra::UInt8>
 struct ApplyGammaFunctor
 {
     float minv;
@@ -270,11 +284,11 @@ struct ApplyGammaFunctor
 
 // gamma correction with lookup table
 template <>
-struct ApplyGammaFunctor<UInt16, UInt8>
+struct ApplyGammaFunctor<vigra::UInt16, vigra::UInt8>
 {
-    UInt8 lut[65536];
+    vigra::UInt8 lut[65536];
 
-    ApplyGammaFunctor(UInt16 min, UInt16 max, float gamma)
+    ApplyGammaFunctor(vigra::UInt16 min, vigra::UInt16 max, float gamma)
     {
         float scale = float(max) - min;
         for (int i=0; i<65536; i++) {
@@ -282,14 +296,14 @@ struct ApplyGammaFunctor<UInt16, UInt8>
         }
     }
 
-    UInt8 operator()(UInt16 v) const
+    vigra::UInt8 operator()(vigra::UInt16 v) const
     {
         return lut[v];
     }
 
-    RGBValue<UInt8> operator()(const RGBValue<UInt16> & v) const
+    RGBValue<vigra::UInt8> operator()(const RGBValue<vigra::UInt16> & v) const
     {
-        return RGBValue<UInt8>(lut[v[0]], lut[v[1]], lut[v[2]]);
+        return RGBValue<vigra::UInt8>(lut[v[0]], lut[v[1]], lut[v[2]]);
     }
 };
 
@@ -312,14 +326,14 @@ struct ApplyGammaFunctor
     template <class T>
     unsigned char operator()(T v) const
     {
-        typedef vigra::NumericTraits<UInt8>  DestTraits;
+        typedef vigra::NumericTraits<vigra::UInt8>  DestTraits;
         return DestTraits::fromRealPromote(pow((float(v)-minv)/scale, gamma)*255);
     }
 
     template <class T, unsigned int R, unsigned int G, unsigned int B>
-    RGBValue<UInt8,0,1,2> operator()(const RGBValue<T,R,G,B> & v) const
+    RGBValue<vigra::UInt8,0,1,2> operator()(const RGBValue<T,R,G,B> & v) const
     {
-        typedef vigra::NumericTraits< RGBValue<UInt8,0,1,2> >  DestTraits;
+        typedef vigra::NumericTraits< RGBValue<vigra::UInt8,0,1,2> >  DestTraits;
         typedef vigra::NumericTraits< RGBValue<T,R,G,B> >  SrcTraits;
         return DestTraits::fromRealPromote(pow((SrcTraits::toRealPromote(v)+(-minv))/scale, gamma)*255);
 //        return DestTraits::fromRealPromote((log10(SrcTraits::toRealPromote(v)) + (-minv))/scale);
@@ -348,14 +362,14 @@ struct ApplyLogFunctor
     template <class T>
     unsigned char operator()(T v) const
     {
-        typedef vigra::NumericTraits<UInt8>  DestTraits;
+        typedef vigra::NumericTraits<vigra::UInt8>  DestTraits;
         return DestTraits::fromRealPromote((log10(float(v))-minv)/scale);
     }
 
     template <class T, unsigned int R, unsigned int G, unsigned int B>
-    RGBValue<UInt8,0,1,2> operator()(const RGBValue<T,R,G,B> & v) const
+    RGBValue<vigra::UInt8,0,1,2> operator()(const RGBValue<T,R,G,B> & v) const
     {
-        typedef vigra::NumericTraits< RGBValue<UInt8,0,1,2> >  DestTraits;
+        typedef vigra::NumericTraits< RGBValue<vigra::UInt8,0,1,2> >  DestTraits;
         typedef vigra::NumericTraits< RGBValue<T,R,G,B> >  SrcTraits;
         return DestTraits::fromRealPromote((log10(SrcTraits::toRealPromote(v)) + (-minv))/scale);
     }
@@ -641,11 +655,11 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
             if ( bands == 1) {
                 // load and convert image to 8 bit, if needed
                 if (strcmp(pixelType, "UINT8") == 0 ) {
-                    vigra::importImage(info, destImage(imgview, VectorComponentAccessor<RGBValue<UInt8> >(0)));
-                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<UInt8> >(0)),
-                              destImage(imgview, VectorComponentAccessor<RGBValue<UInt8> >(1)));
-                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<UInt8> >(0)),
-                              destImage(imgview, VectorComponentAccessor<RGBValue<UInt8> >(2)));
+                    vigra::importImage(info, destImage(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)));
+                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
+                              destImage(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(1)));
+                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
+                              destImage(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(2)));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
                     importAndConvertGrayImage<short> (info, destImage(imgview), pixelTypeWX);
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
@@ -706,12 +720,12 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::BImage mask(imgview.size());
                     vigra::importImageAlpha(info, destImage(imgview,  
-                                                    VectorComponentAccessor<RGBValue<UInt8> >(0)),
+                                                    VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
                                             destImage(mask));
-                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<UInt8> >(0)),
-                                destImage(imgview, VectorComponentAccessor<RGBValue<UInt8> >(1)));
-                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<UInt8> >(0)),
-                                destImage(imgview, VectorComponentAccessor<RGBValue<UInt8> >(2)));
+                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
+                                destImage(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(1)));
+                    copyImage(srcImageRange(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
+                                destImage(imgview, VectorComponentAccessor<RGBValue<vigra::UInt8> >(2)));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
                     importAndConvertGrayAlphaImage<short> (info, destImage(imgview), pixelTypeWX);
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
