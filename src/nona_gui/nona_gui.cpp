@@ -120,7 +120,7 @@ bool nonaApp::OnInit()
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output file") },
       { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
              wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
-      { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> (Note: all interpolators of panotools are supported)"),
+      { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> <images>"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
     };
@@ -139,29 +139,29 @@ bool nonaApp::OnInit()
         break;
     }
 
+    bool imgsFromCmdline = false;
+
     wxString scriptFile;
-    switch ( parser.GetParamCount() ) {
-      case 0:
-        {
-	  wxFileDialog dlg(0,_("Specify project source project file"),
-                           wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                           wxT(""), wxT(""),
-                           wxOPEN, wxDefaultPosition);
-          if (dlg.ShowModal() == wxID_OK) {
-            wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
-            scriptFile = dlg.GetPath();
-          } else { // bail
-            return false;
-          }
+    if( parser.GetParamCount() == 0) 
+    {
+        wxFileDialog dlg(0,_("Specify project source project file"),
+                        wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
+                        wxT(""), wxT(""),
+                        wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+        scriptFile = dlg.GetPath();
+        } else { // bail
+        return false;
         }
-        break;	
-      case 1:
+    } else {
         scriptFile = parser.GetParam(0);
-        break;
-      default:
-	wxLogError( _("Too many project files specified"));
-	return false;
+        if ( parser.GetParamCount() > 1) {
+          // load images.
+          imgsFromCmdline = true;
+        }
     }
+    
 
     DEBUG_DEBUG("input file is " << (const char *)scriptFile.mb_str())
 
@@ -214,6 +214,16 @@ bool nonaApp::OnInit()
     } else {
       wxLogError( wxString::Format(_("error while parsing panos tool script: %s"), scriptFile.c_str()) );
       return false;
+    }
+
+    if (imgsFromCmdline) {
+        if (parser.GetParamCount() -1 != pano.getNrOfImages()) {
+            wxLogError(_("Wrong number of images specified on command line"));
+            return false;
+        }
+        for (int i = 0; i < pano.getNrOfImages(); i++) {
+            pano.setImageFilename(i, (const char *)parser.GetParam(i+1).mb_str());
+        }
     }
 
     PanoramaOptions  opts = pano.getOptions();

@@ -61,7 +61,7 @@ static void usage(const char * name)
          << "  TIFF_m          : multiple tiff files"<< std::endl
          << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
          << std::endl
-         << "Usage: " << name  << " [options] -o output project_file" << std::endl;
+            << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl;
 }
 
 int main(int argc, char *argv[])
@@ -85,8 +85,8 @@ int main(int argc, char *argv[])
             usage(argv[0]);
             return 1;
         case 't':
-            nThread = atoi(argv[0]);
-            return 1;
+            nThread = atoi(optarg);
+            break;
         default:
             abort ();
         }
@@ -95,6 +95,7 @@ int main(int argc, char *argv[])
         usage(argv[0]);
         return 1;
     }
+    int nCmdLineImgs = argc -optind -1;
 
     if (nThread == 0) nThread = 1;
     vigra_ext::ThreadManager::get().setNThreads(nThread);
@@ -121,6 +122,16 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    if ( nCmdLineImgs > 0) {
+        if (nCmdLineImgs != pano.getNrOfImages()) {
+            cerr << "not enought images specified on command line\nProject required " << pano.getNrOfImages() << " but only " << nCmdLineImgs << " where given" << std::endl;
+            exit(1);
+        }
+        for (int i=0; i < pano.getNrOfImages(); i++) {
+            pano.setImageFilename(i, argv[optind+i+1]);
+        }
+
+    }
     PanoramaOptions  opts = pano.getOptions();
 
     // check for some options
