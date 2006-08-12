@@ -508,9 +508,9 @@ void PreferencesDialog::UpdateDisplayData()
     wxConfigBase *cfg = wxConfigBase::Get();
 
     // Panotools settings
-    MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/Panotools/PTStitcherExe"),wxT("PTStitcher")));
+    MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)));
 
-    MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt")));
+    MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE)));
 
     // finetune settings
     MY_SPIN_VAL("prefs_ft_TemplateSize",

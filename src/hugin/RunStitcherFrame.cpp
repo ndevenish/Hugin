@@ -33,6 +33,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/MainFrame.h"
+#include "hugin/config_defaults.h"
 
 using namespace std;
 using namespace PT;
@@ -82,7 +83,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     wxConfigBase* config = wxConfigBase::Get();
 #ifdef __WXMSW__
     Hide();
-    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT("PTStitcher.exe"));
+    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_SCRIPTFILE));
     if (!wxFile::Exists(stitcherExe)){
         wxFileDialog dlg(this,_("Select PTStitcher.exe"),
         wxT(""), wxT("PTStitcher.exe"),
@@ -95,10 +96,29 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
             wxLogError(_("No PTStitcher.exe selected"));
         }
     }
+#elseif (defined __WXMAC__)
+    Hide();
+    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_SCRIPTFILE));    
+    // TODO: for now, default path triggers non-custom path but to be fixed
+    if(stitcherExe == wxT(HUGIN_PT_SCRIPTFILE))
+        DEBUG_ASSERT(false); //shouldn't get here
+    else if (!wxFile::Exists(stitcherExe)) {
+        wxFileDialog dlg(this,_("Select PTStitcher commandline tool"),
+                         wxT(""), wxT(""),
+                         wxT("Any Files |*"),
+                         wxOPEN, wxDefaultPosition);
+        if (dlg.ShowModal() == wxID_OK) {
+            stitcherExe = dlg.GetPath();
+            config->Write(wxT("/PanoTools/PTStitcherExe"),stitcherExe);
+        } else {
+            wxLogError(_("No PTStitcher commandline tool selected"));
+            return;
+      }
+    }
 #else
-    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT("PTStitcher"));
+    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
 #endif
-    wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt"));
+    wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE));
 
     stringstream script_stream;
     m_pano->printStitcherScript(script_stream, options, imgs);
@@ -278,10 +298,16 @@ void RunStitcherFrame::OnProcessTerm(wxProcessEvent& event)
     Show();
 #endif
 
+#ifdef __WXMSW__
+    wxString programName =  wxT("PTStitcher.exe");
+#else
+    wxString programName =  wxT("PTStitcher");
+#endif
     if (event.GetExitCode() != 0) {
         wxMessageBox(_("Stitching failed\nPTStitcher exited with nonzero error code."),
-                     _("Error executing PTStitcher.exe"), wxICON_ERROR | wxOK);
+                     wxString::Format(_("Error executing %s"), programName), wxICON_ERROR | wxOK);
     }
+    
 
     DEBUG_DEBUG("before del process");
     delete m_process;
