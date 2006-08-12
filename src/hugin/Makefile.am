@@ -14,7 +14,7 @@ RCCOMPILE   = $(RC) $(RCFLAGS) \
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
-	      PreviewPanel.cpp ImageCenter.cpp OptimizePanel.cpp RunOptimizerFrame.cpp RunStitcherFrame.cpp CPListFrame.cpp \
+	      PreviewPanel.cpp ImageCenter.cpp OptimizePanel.cpp RunStitcherFrame.cpp CPListFrame.cpp \
 	      TextKillFocusHandler.cpp ImageOrientationPanel.cpp ImageOrientationFrame.cpp PanoDruid.cpp \
 	      CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
 	      PreferencesDialog.cpp LocalizedFileTipProvider.cpp VigCorrDialog.cpp \

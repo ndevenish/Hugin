@@ -34,7 +34,6 @@
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/CommandHistory.h"
-#include "hugin/RunOptimizerFrame.h"
 #include "hugin/MainFrame.h"
 #include "hugin/MyProgressDialog.h"
 #include "hugin/PTWXDlg.h"

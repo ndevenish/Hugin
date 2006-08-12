@@ -85,7 +85,7 @@
 
 #elif defined unix
 
-#define HUGIN_PT_STITCHER_EXE                 "PTStitcher""
+#define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 

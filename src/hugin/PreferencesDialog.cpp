@@ -231,7 +231,8 @@ void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
 void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
 {
     wxFileDialog dlg(this,_("Select PTStitcher"),
-	             wxT(""), wxT(HUGIN_PT_STITCHER_EXE),
+	             wxT(""),
+                     wxT(HUGIN_PT_STITCHER_EXE),
 #ifdef __WXMSW__
 		     _("Executables (*.exe)|*.exe"),
 #else
