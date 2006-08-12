@@ -891,6 +891,7 @@ void MainFrame::DisplayHelp(wxString section)
 
     if (m_help == 0)
     {
+#ifndef __WXMAC__
         // find base filename
         wxString helpFile = wxT("help_") + huginApp::Get()->GetLocale().GetCanonicalName() + wxT("/hugin.hhp");
         DEBUG_INFO("help file candidate: " << helpFile.mb_str());
@@ -903,6 +904,18 @@ void MainFrame::DisplayHelp(wxString section)
             // try default
             strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
         }
+#else
+        // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
+        // which we can rely on the operating sytem to pick the right locale's.
+        wxString strFile = MacGetPathTOBundledResourceFile(CFSTR("help"));
+        if(strFile!=wxT(""))
+        {
+            strFile += wxT("/hugin.hhp");
+        } else {
+            // try default
+            strFile = GetXRCPath() + wxT("data/help_en_EN/hugin.hhp");
+        }
+#endif
 
         if(!wxFile::Exists(strFile))
         {

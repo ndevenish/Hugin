@@ -15,6 +15,7 @@ rm -f $resdir/xrc/data/.??*
 rm -fR $resdir/xrc/data/CVS
 rm -f $resdir/xrc/data/Makefil*
 
+
 #for xrcfile in `ls $resdir/xrc | grep mac.xrc`
 #do
 #  echo using $resdir/xrc/$xrcfile instead of $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
@@ -47,6 +48,27 @@ do
  mkdir "$localedir"
  echo "making $localedir"
 
+ longlang="$lang"
+ if [ $lang = "en" ]
+ then
+  longlang="en_EN"
+ fi
+ if [ $lang = "fr" ]
+ then
+  longlang="fr_FR"
+ fi
+
+ for helpfolder in `ls $xrcsrcdir/data | grep help_$longlang`
+ do
+  echo removing extra files from $xrcsrcdir/data/$helpfolder
+  rm -f $xrcsrcdir/data/$helpfolder/.??*
+  rm -fR $xrcsrcdir/data/$helpfolder/CVS
+  rm -f $xrcsrcdir/data/$helpfolder/Makefil*
+  
+  echo copying $helpfolder to $localisedresdir/help
+  cp -fR "$xrcsrcdir/data/$helpfolder" "$localisedresdir/help"
+ done
+ 
  if [ $lang = "en" ]
  then
   continue
@@ -65,7 +87,7 @@ do
   echo "$lang/wxstd.mo from $wxDir/locale/$parentLang.po"
   msgfmt -v -o "$localedir/wxstd.mo" "$wxDir/locale/$parentLang.po"
  fi
-
+ 
  for file in `ls $xrcsrcdir/data | grep _$lang.htm`
  do
   echo copying $file to $localisedresdir/`echo $file|sed s/_$lang//`
@@ -80,10 +102,10 @@ do
   sed s/src\=\"/src\=\"..\\/xrc\\/data\\// "$xrcsrcdir/data/$file" > $localisedresdir/`echo $file|sed s/_$lang//`
  done
 
- for file in `ls $xrcsrcdir/data | grep _$lang-UTF8.txt`
- do
-  echo copying $file to $localisedresdir/`echo $file|sed s/_$lang//`
-  cp "$xrcsrcdir/data/$file" $localisedresdir/`echo $file|sed s/_$lang//`
- done
+# for file in `ls $xrcsrcdir/data | grep _$lang-UTF8.txt`
+# do
+#  echo copying $file to $localisedresdir/`echo $file|sed s/_$lang//`
+#  cp "$xrcsrcdir/data/$file" $localisedresdir/`echo $file|sed s/_$lang//`
+# done
 
 done
