@@ -60,7 +60,6 @@
 #if defined WIN32
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"
-#define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer.exe"
 
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 
@@ -74,8 +73,6 @@
 #elif defined __WXMAC__
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
-#define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
-
 #define HUGIN_ENBLEND_EXE                     "enblend"
 
 #define HUGIN_AP_TYPE                         1l
@@ -88,8 +85,7 @@
 
 #elif defined unix
 
-#define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
-#define HUGIN_PT_OPTIMIZER_EXE                "PTOptimizer"
+#define HUGIN_PT_STITCHER_EXE                 "PTStitcher""
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 

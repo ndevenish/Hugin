@@ -71,7 +71,6 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
     EVT_BUTTON(XRCID("prefs_defaults"), PreferencesDialog::OnRestoreDefaults)
     EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
-    EVT_BUTTON(XRCID("prefs_ptoptimizer_select"), PreferencesDialog::OnPTOptimizerExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
@@ -244,21 +243,6 @@ void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
 		dlg.GetPath());
     }
 
-}
-void PreferencesDialog::OnPTOptimizerExe(wxCommandEvent & e)
-{
-    wxFileDialog dlg(this,_("Select PTOptimizer"),
-	             wxT(""), wxT(HUGIN_PT_OPTIMIZER_EXE),
-#ifdef __WXMSW__
-		     _("Executables (*.exe)|*.exe"),
-#else
-		     wxT(""),
-#endif
-                    wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_pt_PTOptimizerEXE", wxTextCtrl)->SetValue(
-		dlg.GetPath());
-    }
 }
 
 void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
@@ -524,7 +508,6 @@ void PreferencesDialog::UpdateDisplayData()
 
     // Panotools settings
     MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/Panotools/PTStitcherExe"),wxT("PTStitcher")));
-    MY_STR_VAL("prefs_pt_PTOptimizerEXE", cfg->Read(wxT("/Panotools/PTOptimizerExe"),wxT("PTOptimizer")));
 
     MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT("PT_script.txt")));
 
@@ -669,7 +652,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
     {
         if (noteb->GetSelection() == 0) {
             cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE) );
-            cfg->Write(wxT("/Panotools/PTOptimizerExe"), wxT(HUGIN_PT_OPTIMIZER_EXE) );
             cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
 
@@ -735,7 +717,6 @@ void PreferencesDialog::UpdateConfigData()
     // Panotools settings
 
     cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
-    cfg->Write(wxT("/Panotools/PTOptimizerExe"), MY_G_STR_VAL("prefs_pt_PTOptimizerEXE"));
     cfg->Write(wxT("/PanoTools/ScriptFile"), MY_G_STR_VAL("prefs_pt_ScriptFile"));
 
     // Fine tune settings

@@ -61,7 +61,6 @@ protected:
     void OnRotationCheckBox(wxCommandEvent & e);
     void OnClose(wxCloseEvent& event);
     void OnPTStitcherExe(wxCommandEvent & e);
-    void OnPTOptimizerExe(wxCommandEvent & e);
     void OnPTDetails(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
     void OnAutopanoSiftExe(wxCommandEvent & e);

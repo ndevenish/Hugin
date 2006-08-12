@@ -48,41 +48,12 @@
                           <cellpos>1,2</cellpos>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxCheckBox" name="prefs_pt_PTOptimizerEXE_custom">
-                            <label>Use Custom PTOptimizer Program</label>
-                          </object>
-                          <cellpos>2,0</cellpos>
-                          <cellspan>1,3</cellspan>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>PTOptimizer:</label>
-                            <style></style>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>3,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="prefs_pt_PTOptimizerEXE"/>
-                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                          <cellpos>3,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="prefs_ptoptimizer_select">
-                            <label>Choose...</label>
-                          </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>3,2</cellpos>
-                        </object>
-                        <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Scriptfile:</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
-                          <cellpos>4,0</cellpos>
+                          <cellpos>2,0</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="prefs_pt_ScriptFile">
@@ -90,7 +61,7 @@
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
-                          <cellpos>4,1</cellpos>
+                          <cellpos>2,1</cellpos>
                           <cellspan>1,2</cellspan>
                         </object>
                         <object class="sizeritem">
@@ -99,7 +70,7 @@
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
-                          <cellpos>5,0</cellpos>
+                          <cellpos>3,0</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="prefs_panotools_version">
@@ -107,7 +78,7 @@
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
-                          <cellpos>5,1</cellpos>
+                          <cellpos>3,1</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="prefs_panotools_details">
@@ -115,7 +86,7 @@
                             <enabled>0</enabled>
                           </object>
                           <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>5,2</cellpos>
+                          <cellpos>3,2</cellpos>
                         </object>
                       </object>
                       <flag>wxEXPAND</flag>
