@@ -438,7 +438,7 @@
                               <item>auto</item>
                             </content>
                           </object>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
