@@ -11,9 +11,12 @@ echo removing extra files from xrc folder
 rm -f $resdir/xrc/.??*
 rm -fR $resdir/xrc/CVS
 rm -f $resdir/xrc/Makefil*
-rm -f $resdir/xrc/data/.??*
-rm -fR $resdir/xrc/data/CVS
-rm -f $resdir/xrc/data/Makefil*
+rm -f $resdir/xrc/??*/.??*
+rm -fR $resdir/xrc/??*/CVS
+rm -f $resdir/xrc/??*/Makefil*
+rm -f $resdir/xrc/??*/??*/.??*
+rm -fR $resdir/xrc/??*/??*/CVS
+rm -f $resdir/xrc/??*/??*/Makefil*
 
 
 #for xrcfile in `ls $resdir/xrc | grep mac.xrc`
@@ -48,26 +51,27 @@ do
  mkdir "$localedir"
  echo "making $localedir"
 
- longlang="$lang"
+ helplang="$lang"
  if [ $lang = "en" ]
  then
-  longlang="en_EN"
+  helplang="en_EN"
  fi
  if [ $lang = "fr" ]
  then
-  longlang="fr_FR"
+  helplang="fr_FR"
  fi
-
- for helpfolder in `ls $xrcsrcdir/data | grep help_$longlang`
- do
-  echo removing extra files from $xrcsrcdir/data/$helpfolder
-  rm -f $xrcsrcdir/data/$helpfolder/.??*
-  rm -fR $xrcsrcdir/data/$helpfolder/CVS
-  rm -f $xrcsrcdir/data/$helpfolder/Makefil*
-  
-  echo copying $helpfolder to $localisedresdir/help
-  cp -fR "$xrcsrcdir/data/$helpfolder" "$localisedresdir/help"
- done
+ 
+ if [ -d "$xrcsrcdir/data/help_$helplang" ]
+ then
+  echo "moving help_$helplang to $localisedresdir/help"
+  mv "$resdir/xrc/data/help_$helplang" "$localisedresdir/help"
+  for file in `ls $localisedresdir/help | grep .html`
+  do
+   echo  rewriting \'src=\"../help_common\' to \'src=\"../../xrc/data/help_common\'
+   sed s/src\=\"..\\/help_common/src\=\"..\\/..\\/xrc\\/data\\/help_common/ "$localisedresdir/help/$file" > $localisedresdir/help/$file-copy
+   mv $localisedresdir/help/$file-copy $localisedresdir/help/$file
+  done
+ fi
  
  if [ $lang = "en" ]
  then
