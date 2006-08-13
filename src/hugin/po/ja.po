@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.6\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 23:45+0200\n"
+"POT-Creation-Date: 2006-08-13 19:07+0200\n"
 "PO-Revision-Date: 2006-08-10 21:56+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
@@ -49,51 +49,54 @@ msgid "Would you like to use Autopano-Sift instead?"
 msgstr "代わりにAutopano-SIFTを使いますか？"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:163
-#: src/hugin/AutoCtrlPointCreator.cpp:406
+#: src/hugin/AutoCtrlPointCreator.cpp:385
 msgid "Select autopano program / frontend script"
 msgstr "Autopanoプログラムまたはスクリプトを選択してください"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:237
-#: src/hugin/PreferencesDialog.cpp:253 src/hugin/PreferencesDialog.cpp:269
-#: src/hugin/PreferencesDialog.cpp:285 src/hugin/RunOptimizerFrame.cpp:115
-#: src/hugin/RunStitcherFrame.cpp:89
+#: src/hugin/AutoCtrlPointCreator.cpp:165 src/hugin/PreferencesDialog.cpp:241
+#: src/hugin/PreferencesDialog.cpp:258 src/hugin/PreferencesDialog.cpp:274
+#: src/hugin/RunStitcherFrame.cpp:90
 msgid "Executables (*.exe)|*.exe"
 msgstr "実行ファイル (*.exe)|*.exe"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:171
-#: src/hugin/AutoCtrlPointCreator.cpp:228
-#: src/hugin/AutoCtrlPointCreator.cpp:414
+#: src/hugin/AutoCtrlPointCreator.cpp:207
+#: src/hugin/AutoCtrlPointCreator.cpp:393
 msgid "No autopano selected"
 msgstr "Autopanoプログラムが選択されませんでした"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:220
+#: src/hugin/AutoCtrlPointCreator.cpp:194
+msgid "Autopano-SIFT is not installed."
+msgstr ""
+
+#: src/hugin/AutoCtrlPointCreator.cpp:199
 msgid "Select autopano frontend script"
 msgstr "Autopanoのスクリプトを選択してください"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:222
+#: src/hugin/AutoCtrlPointCreator.cpp:201
 msgid "Shell Scripts (*.sh)|*.sh"
 msgstr "Shellスクリプト (*.sh)|*.sh"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:266
+#: src/hugin/AutoCtrlPointCreator.cpp:245
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
 "%namefile か %i のどちらかを autopano-sift のコマンドに指定してください."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:267
-#: src/hugin/AutoCtrlPointCreator.cpp:272
+#: src/hugin/AutoCtrlPointCreator.cpp:246
+#: src/hugin/AutoCtrlPointCreator.cpp:251
 msgid "Error in Autopano command"
 msgstr "Autopano コマンドでエラー"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:271
+#: src/hugin/AutoCtrlPointCreator.cpp:250
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "%namefile か %i のどちらかで autopano-sift の入力ファイルを指定してください."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:306
-#: src/hugin/AutoCtrlPointCreator.cpp:452
+#: src/hugin/AutoCtrlPointCreator.cpp:285
+#: src/hugin/AutoCtrlPointCreator.cpp:431
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -104,18 +107,18 @@ msgstr ""
 "これはWindowsによる制約です。\n"
 "写真の数を減らすか、画像ファイルをパスの短いフォルダに移動してみてください。"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:307
-#: src/hugin/AutoCtrlPointCreator.cpp:453 src/hugin/NonaStitcherPanel.cpp:427
+#: src/hugin/AutoCtrlPointCreator.cpp:286
+#: src/hugin/AutoCtrlPointCreator.cpp:432 src/hugin/NonaStitcherPanel.cpp:427
 msgid "Too many images selected"
 msgstr "画像が多すぎます。"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:316
-#: src/hugin/AutoCtrlPointCreator.cpp:460
+#: src/hugin/AutoCtrlPointCreator.cpp:295
+#: src/hugin/AutoCtrlPointCreator.cpp:439
 msgid "Running autopano"
 msgstr "Autopanoを実行中"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:316
-#: src/hugin/AutoCtrlPointCreator.cpp:460
+#: src/hugin/AutoCtrlPointCreator.cpp:295
+#: src/hugin/AutoCtrlPointCreator.cpp:439
 msgid ""
 "Please wait while autopano searches control points\n"
 "See the command window for autopanos' progress"
@@ -123,31 +126,31 @@ msgstr ""
 "Autopanoがコントロールポイントを検知している間、しばらくお待ちください。\n"
 "経過はコマンドウィンドウをご覧ください。"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:350
-#: src/hugin/AutoCtrlPointCreator.cpp:366
-#: src/hugin/AutoCtrlPointCreator.cpp:475 src/hugin/NonaStitcherPanel.cpp:476
+#: src/hugin/AutoCtrlPointCreator.cpp:329
+#: src/hugin/AutoCtrlPointCreator.cpp:345
+#: src/hugin/AutoCtrlPointCreator.cpp:454 src/hugin/NonaStitcherPanel.cpp:476
 #: src/hugin/NonaStitcherPanel.cpp:489
 msgid "Could not execute command: "
 msgstr "以下のコマンドを実行できませんでした："
 
-#: src/hugin/AutoCtrlPointCreator.cpp:350
+#: src/hugin/AutoCtrlPointCreator.cpp:329
 msgid "ShellExecuteEx failed"
 msgstr "ShellExecuteExに失敗"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:366
-#: src/hugin/AutoCtrlPointCreator.cpp:371
-#: src/hugin/AutoCtrlPointCreator.cpp:475
-#: src/hugin/AutoCtrlPointCreator.cpp:481 src/hugin/NonaStitcherPanel.cpp:489
+#: src/hugin/AutoCtrlPointCreator.cpp:345
+#: src/hugin/AutoCtrlPointCreator.cpp:350
+#: src/hugin/AutoCtrlPointCreator.cpp:454
+#: src/hugin/AutoCtrlPointCreator.cpp:460 src/hugin/NonaStitcherPanel.cpp:489
 msgid "wxExecute Error"
 msgstr "wxExecuteでエラー"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:369
-#: src/hugin/AutoCtrlPointCreator.cpp:479 src/hugin/NonaStitcherPanel.cpp:492
+#: src/hugin/AutoCtrlPointCreator.cpp:348
+#: src/hugin/AutoCtrlPointCreator.cpp:458 src/hugin/NonaStitcherPanel.cpp:492
 msgid "command: "
 msgstr "コマンド："
 
-#: src/hugin/AutoCtrlPointCreator.cpp:370
-#: src/hugin/AutoCtrlPointCreator.cpp:480 src/hugin/NonaStitcherPanel.cpp:493
+#: src/hugin/AutoCtrlPointCreator.cpp:349
+#: src/hugin/AutoCtrlPointCreator.cpp:459 src/hugin/NonaStitcherPanel.cpp:493
 msgid ""
 "\n"
 "failed with error code: "
@@ -155,13 +158,13 @@ msgstr ""
 "\n"
 "エラーコード："
 
-#: src/hugin/AutoCtrlPointCreator.cpp:377
-#: src/hugin/AutoCtrlPointCreator.cpp:488
+#: src/hugin/AutoCtrlPointCreator.cpp:356
+#: src/hugin/AutoCtrlPointCreator.cpp:467
 msgid "Could not open "
 msgstr "以下のファイルを開けません："
 
-#: src/hugin/AutoCtrlPointCreator.cpp:377
-#: src/hugin/AutoCtrlPointCreator.cpp:488
+#: src/hugin/AutoCtrlPointCreator.cpp:356
+#: src/hugin/AutoCtrlPointCreator.cpp:467
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -175,16 +178,16 @@ msgstr ""
 "\n"
 "Autopanoコマンド："
 
-#: src/hugin/AutoCtrlPointCreator.cpp:378
-#: src/hugin/AutoCtrlPointCreator.cpp:491
+#: src/hugin/AutoCtrlPointCreator.cpp:357
+#: src/hugin/AutoCtrlPointCreator.cpp:470
 msgid "autopano failure"
 msgstr "Autopanoに失敗"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/PreferencesDialog.cpp:301
+#: src/hugin/AutoCtrlPointCreator.cpp:387 src/hugin/PreferencesDialog.cpp:290
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "実行ファイル (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:489
+#: src/hugin/AutoCtrlPointCreator.cpp:468
 msgid ""
 "\n"
 " current directory:"
@@ -361,31 +364,31 @@ msgstr "エラー：有効な値を入力してください。"
 msgid "Could not read number"
 msgstr "数字が読めませんでした *_*"
 
-#: src/hugin/ImageCache.cpp:615
+#: src/hugin/ImageCache.cpp:618
 #, c-format
 msgid "Loading image %s"
 msgstr "画像を読み込み中：%s"
 
-#: src/hugin/ImageCache.cpp:734
+#: src/hugin/ImageCache.cpp:737
 #, c-format
 msgid "Error during image reading: %s"
 msgstr "画像の読み込み中にエラー：%s"
 
-#: src/hugin/ImageCache.cpp:742
+#: src/hugin/ImageCache.cpp:745
 msgid "Cannot load image: "
 msgstr "画像が読み込めません："
 
-#: src/hugin/ImageCache.cpp:772
+#: src/hugin/ImageCache.cpp:775
 #, c-format
 msgid "Scaling image %s"
 msgstr "画像を縮小中：%s"
 
-#: src/hugin/ImageCache.cpp:830
+#: src/hugin/ImageCache.cpp:833
 #, c-format
 msgid "Creating grayscale %s"
 msgstr "グレースケールに変換中：%s"
 
-#: src/hugin/ImageCache.cpp:848
+#: src/hugin/ImageCache.cpp:851
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "ピラミッド画像を作成中：%s　レベル：%d"
@@ -537,8 +540,8 @@ msgid "Equirectangular"
 msgstr "Equirectangular（正距円筒）"
 
 #: src/hugin/ImagesPanel.cpp:310 src/hugin/ImagesPanel.cpp:331
-#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:241
-#: src/hugin/PanoPanel.cpp:272
+#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:255
+#: src/hugin/PanoPanel.cpp:286
 msgid "Value must be numeric."
 msgstr "値は数値でなければなりません。"
 
@@ -712,15 +715,15 @@ msgstr "画像を追加"
 msgid "Add Image: cancel"
 msgstr "画像を追加: キャンセル"
 
-#: src/hugin/MainFrame.cpp:1026
+#: src/hugin/MainFrame.cpp:1039
 msgid "Fine-tuning all points"
 msgstr "全コントロールポイントの微調整を実行中"
 
-#: src/hugin/MainFrame.cpp:1028
+#: src/hugin/MainFrame.cpp:1041
 msgid "Finetuning"
 msgstr "微調整の実行中"
 
-#: src/hugin/MainFrame.cpp:1119
+#: src/hugin/MainFrame.cpp:1132
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -746,7 +749,7 @@ msgstr ""
 "コントロールポイントリスト (F3) を使うとプロジェクト内の全ポイントの一覧が見"
 "られます\n"
 
-#: src/hugin/MainFrame.cpp:1121
+#: src/hugin/MainFrame.cpp:1134
 msgid "Fine-tune result"
 msgstr "微調整の結果"
 
@@ -989,128 +992,123 @@ msgstr "「画像」タブで画像をいくらでも追加することができ
 msgid "the Panorama druid"
 msgstr "Panorama Druid"
 
-#: src/hugin/PanoPanel.cpp:247
+#: src/hugin/PanoPanel.cpp:261
 #, fuzzy, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Invalid HFOV value. Maxiumum HFOV for this projection is %lf."
 
-#: src/hugin/PanoPanel.cpp:278
+#: src/hugin/PanoPanel.cpp:292
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "無効な垂直視野です。この投影法の垂直視野の最大は %lf です。"
 
-#: src/hugin/PanoPanel.cpp:324
+#: src/hugin/PanoPanel.cpp:338
 msgid "width needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: src/hugin/PanoPanel.cpp:564
+#: src/hugin/PanoPanel.cpp:598
 msgid "Create panorama image"
 msgstr "パノラマ画像の作成"
 
-#: src/hugin/PreferencesDialog.cpp:113
+#: src/hugin/PreferencesDialog.cpp:116
 msgid "System default"
 msgstr "システム標準"
 
-#: src/hugin/PreferencesDialog.cpp:116
+#: src/hugin/PreferencesDialog.cpp:119
 msgid "Catalan"
 msgstr "Català（カタルーニャ語）"
 
-#: src/hugin/PreferencesDialog.cpp:119
+#: src/hugin/PreferencesDialog.cpp:122
 msgid "Chinese (Simplified)"
 msgstr "中文（简体）（簡体中国語）"
 
-#: src/hugin/PreferencesDialog.cpp:122
+#: src/hugin/PreferencesDialog.cpp:125
 msgid "Czech"
 msgstr "Čeština（チェコ語）"
 
-#: src/hugin/PreferencesDialog.cpp:125
+#: src/hugin/PreferencesDialog.cpp:128
 msgid "Dutch"
 msgstr "Nederlands（オランダ語）"
 
-#: src/hugin/PreferencesDialog.cpp:128
+#: src/hugin/PreferencesDialog.cpp:131
 msgid "English"
 msgstr "English（英語）"
 
-#: src/hugin/PreferencesDialog.cpp:131
+#: src/hugin/PreferencesDialog.cpp:134
 msgid "French"
 msgstr "Français（フランス語）"
 
-#: src/hugin/PreferencesDialog.cpp:134
+#: src/hugin/PreferencesDialog.cpp:137
 msgid "German"
 msgstr "Deutsch（ドイツ語）"
 
-#: src/hugin/PreferencesDialog.cpp:137
+#: src/hugin/PreferencesDialog.cpp:140
 msgid "Hungarian"
 msgstr "Magyar nyelv（ハンガリー語）"
 
-#: src/hugin/PreferencesDialog.cpp:140
+#: src/hugin/PreferencesDialog.cpp:143
 msgid "Italian"
 msgstr "Italiano（イタリア語）"
 
-#: src/hugin/PreferencesDialog.cpp:143
+#: src/hugin/PreferencesDialog.cpp:146
 msgid "Japanese"
 msgstr "日本語"
 
-#: src/hugin/PreferencesDialog.cpp:146
+#: src/hugin/PreferencesDialog.cpp:149
 msgid "Polish"
 msgstr "Polski（ポーランド語）"
 
-#: src/hugin/PreferencesDialog.cpp:149
+#: src/hugin/PreferencesDialog.cpp:152
 msgid "Portuguese (Brazilian)"
 msgstr "Português do Brasil（ブラジルポルトガル語）"
 
-#: src/hugin/PreferencesDialog.cpp:152
+#: src/hugin/PreferencesDialog.cpp:155
 msgid "Russian"
 msgstr "Русский（ロシア語）"
 
-#: src/hugin/PreferencesDialog.cpp:155
+#: src/hugin/PreferencesDialog.cpp:158
 msgid "Swedish"
 msgstr "Svenska（スウェーデン語）"
 
-#: src/hugin/PreferencesDialog.cpp:158
+#: src/hugin/PreferencesDialog.cpp:161
 msgid "Ukrainian"
 msgstr "Українська（ウクライナ語）"
 
-#: src/hugin/PreferencesDialog.cpp:234
+#: src/hugin/PreferencesDialog.cpp:237
 msgid "Select PTStitcher"
 msgstr "PTStitcherを選択"
 
-#: src/hugin/PreferencesDialog.cpp:250 src/hugin/RunOptimizerFrame.cpp:113
-#: src/hugin/RunOptimizerFrame.cpp:131
-msgid "Select PTOptimizer"
-msgstr "PTOptimizerを選択"
-
-#: src/hugin/PreferencesDialog.cpp:266
+#: src/hugin/PreferencesDialog.cpp:255
 msgid "Select Enblend"
 msgstr "Enblendを選択"
 
-#: src/hugin/PreferencesDialog.cpp:282 src/hugin/PreferencesDialog.cpp:298
-#: src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/PreferencesDialog.cpp:271 src/hugin/PreferencesDialog.cpp:287
+#: src/hugin/xrc/pref_dialog.xrs:58
 msgid "Select Autopano"
 msgstr "Autopanoを選択"
 
-#: src/hugin/PreferencesDialog.cpp:316
+#: src/hugin/PreferencesDialog.cpp:329
 msgid "Panotools details"
 msgstr "Panotoolsの詳細"
 
-#: src/hugin/PreferencesDialog.cpp:372
+#: src/hugin/PreferencesDialog.cpp:385
 msgid "Could not load dll"
 msgstr "dllファイルを読み込めません"
 
-#: src/hugin/PreferencesDialog.cpp:372
+#: src/hugin/PreferencesDialog.cpp:385
 #, fuzzy
 msgid "panoinfo"
 msgstr "panoinfo"
 
-#: src/hugin/PreferencesDialog.cpp:656
+#: src/hugin/PreferencesDialog.cpp:695
 msgid "Unknown Version"
 msgstr "不明なバージョン"
 
-#: src/hugin/PreferencesDialog.cpp:666
+#: src/hugin/PreferencesDialog.cpp:705
 msgid "Really reset displayed preferences to default values?"
 msgstr "本当に初期設定に戻しますか？"
 
-#: src/hugin/PreferencesDialog.cpp:666 src/hugin/xrc/pref_dialog.xrs:83
+#: src/hugin/PreferencesDialog.cpp:705 src/hugin/xrc/pref_dialog.xrs:82
 msgid "Load Defaults"
 msgstr "初期設定を読み込む"
 
@@ -1265,127 +1263,33 @@ msgstr "PTStitcherはWindows、Linux上でのQTVRの出力に対応していま�
 msgid "PTStitcher note"
 msgstr "PTStitcher メモ"
 
-#: src/hugin/RunOptimizerFrame.cpp:121
-msgid "No PTOptimizer.exe selected"
-msgstr "PTOptimizer.exeが選択されませんでした"
-
-#: src/hugin/RunOptimizerFrame.cpp:139
-msgid "No PTOptimizer selected"
-msgstr "PTOptimizerが選択されませんでした"
-
-#: src/hugin/RunOptimizerFrame.cpp:164
-msgid "Failed to launch PTOptimizer."
-msgstr "PTOptimizerを起動できませんでした。"
-
-#: src/hugin/RunOptimizerFrame.cpp:175
-msgid "Could not obtain PTOptimizer output"
-msgstr "PTOptimizerからの出力が得られませんでした"
-
-#: src/hugin/RunOptimizerFrame.cpp:185
-msgid "Stop"
-msgstr "停止"
-
-#: src/hugin/RunOptimizerFrame.cpp:197
-msgid "Could not start PTOptimizer"
-msgstr "PTOptimizerを起動できませんでした"
-
-#: src/hugin/RunOptimizerFrame.cpp:258
-#, c-format
-msgid "Strategy %d, Iteration %d, average distance: %f"
-msgstr "Strategy：%d / Iteration：%d / ずれの平均： %f"
-
-#: src/hugin/RunOptimizerFrame.cpp:324 src/hugin/xrc/edit_text.xrs:3
-#: src/hugin/xrc/pref_dialog.xrs:82
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: src/hugin/RunOptimizerFrame.cpp:361
-msgid ""
-"Optimizer run finished.\n"
-"WARNING: a very small Field of View (v) has been estimated\n"
-"\n"
-"The results are probably invalid.\n"
-"Please optimize the View only for full 360 deg. panoramas or when you know "
-"what you're doing.\n"
-"\n"
-"The Field of View (v) can sometimes be optimized for partial panoramas as "
-"well,\n"
-"when the images are already aligned well."
-msgstr ""
-"最適化プログラムの実行が終了しました。\n"
-"警告：非常に小さい 視角 (v) の値が推定されました。\n"
-"\n"
-"結果が正しくないと思われます。\n"
-"視野を最適化するのは360ºのパノラマ以外にはあまり勧められません。\n"
-"\n"
-"画像が既にうまく配置されている場合は、視角 (v) の値を最適化できることがありま"
-"す。"
-
-#: src/hugin/RunOptimizerFrame.cpp:363
-#, c-format
-msgid ""
-"Optimizer run finished.\n"
-"Results:\n"
-" average control point distance: %f\n"
-" standard deviation: %f\n"
-" maximum: %f\n"
-"\n"
-"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
-"The results are probably invalid.\n"
-"Only optimize all distortion parameters when many, well spread control "
-"points are used.\n"
-"\n"
-"Apply the changes anyway?"
-msgstr ""
-"最適化プログラムの実行が終了しました。\n"
-"結果：\n"
-" コントロールポイントのずれ、平均：%f\n"
-" 　標準偏差：%f\n"
-" 　　　最大：%f\n"
-"\n"
-"*警告*：非常に高いゆがみの値 (a,b,c) が推定されました。\n"
-"結果はおそらく無効です。\n"
-"全てのゆがみを最適化するのは、コントロールポイントが全体にうまく散らばってい"
-"る時のみにすべきでしょう。\n"
-"\n"
-"結果を適用しますか？"
-
-#: src/hugin/RunOptimizerFrame.cpp:366
-#, c-format
-msgid ""
-"Optimizer run finished.\n"
-"Results:\n"
-" average control point distance: %f\n"
-" standard deviation: %f\n"
-" maximum: %f\n"
-"\n"
-"Apply the changes?"
-msgstr ""
-"最適化プログラムの実行が終了しました。\n"
-"結果：\n"
-" コントロールポイントのずれ、平均：%f\n"
-" 　標準偏差：%f\n"
-" 　　　最大：%f\n"
-"\n"
-"結果を適用しますか？"
-
-#: src/hugin/RunStitcherFrame.cpp:87
+#: src/hugin/RunStitcherFrame.cpp:88
 msgid "Select PTStitcher.exe"
 msgstr "PTStitcher.exeを選択"
 
-#: src/hugin/RunStitcherFrame.cpp:95
+#: src/hugin/RunStitcherFrame.cpp:96
 msgid "No PTStitcher.exe selected"
 msgstr "PTStitcher.exeが選択されませんでした"
 
-#: src/hugin/RunStitcherFrame.cpp:144
+#: src/hugin/RunStitcherFrame.cpp:106
+#, fuzzy
+msgid "Select PTStitcher commandline tool"
+msgstr "enblendプログラムを選択"
+
+#: src/hugin/RunStitcherFrame.cpp:114
+#, fuzzy
+msgid "No PTStitcher commandline tool selected"
+msgstr "enblendプログラムが選択されませんでした"
+
+#: src/hugin/RunStitcherFrame.cpp:164
 msgid "Failed to launch the PTStitcher."
 msgstr "PTStitcherの起動に失敗しました。"
 
-#: src/hugin/RunStitcherFrame.cpp:158
+#: src/hugin/RunStitcherFrame.cpp:178
 msgid "Could not obtain PTStitcher output"
 msgstr "PTStitcherからの出力を取得できませんでした"
 
-#: src/hugin/RunStitcherFrame.cpp:282
+#: src/hugin/RunStitcherFrame.cpp:307
 msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
@@ -1393,8 +1297,9 @@ msgstr ""
 "スティッチングに失敗\n"
 "PTStitcherが0以外のエラーコードで終了しました。"
 
-#: src/hugin/RunStitcherFrame.cpp:283
-msgid "Error executing PTStitcher.exe"
+#: src/hugin/RunStitcherFrame.cpp:308
+#, fuzzy, c-format
+msgid "Error executing %s"
 msgstr "PTStitcher.exeの実行中にエラー"
 
 #: src/hugin/LocalizedFileTipProvider.cpp:48
@@ -1576,7 +1481,7 @@ msgstr "プロジェクトを読み込み中"
 msgid "About Hugin"
 msgstr "Huginについて"
 
-#: src/hugin/xrc/about.xrs:2
+#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:85
 msgid "OK"
 msgstr "OK"
 
@@ -1610,7 +1515,7 @@ msgstr "x:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
 msgstr "y:"
 
@@ -1756,6 +1661,10 @@ msgstr "テキストモード"
 msgid "Optimize"
 msgstr "最適化"
 
+#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:84
+msgid "Cancel"
+msgstr "キャンセル"
+
 #: src/hugin/xrc/help.xrs:1
 msgid "Hugin Reference"
 msgstr "Hugin マニュアル"
@@ -1765,7 +1674,7 @@ msgstr "Hugin マニュアル"
 msgid "Close"
 msgstr "閉じる"
 
-#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:81
+#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:83
 #: src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "適用"
@@ -2141,7 +2050,7 @@ msgstr "緑 (K1)"
 msgid "blue (K2):"
 msgstr "青 (K2)"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
+#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:6
 msgid "Correction"
 msgstr "修正"
 
@@ -2441,7 +2350,7 @@ msgstr "最適化"
 msgid "Preview panorama"
 msgstr "プレビューを見る"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:56
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:55
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "プレビュー"
@@ -2792,7 +2701,7 @@ msgstr "高さ"
 msgid "Preferences - hugin"
 msgstr "Hugin - 環境設定"
 
-#: src/hugin/xrc/pref_dialog.xrs:2 src/hugin/xrc/pref_dialog.xrs:11
+#: src/hugin/xrc/pref_dialog.xrs:2 src/hugin/xrc/pref_dialog.xrs:10
 msgid "Panotools"
 msgstr "Panotools"
 
@@ -2801,68 +2710,69 @@ msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
+msgid "Use alternative PTStitcher program"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:5
 msgid "PTStitcher:"
 msgstr "PTStitcher："
 
-#: src/hugin/xrc/pref_dialog.xrs:5 src/hugin/xrc/pref_dialog.xrs:7
-#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:68
-#: src/hugin/xrc/pref_dialog.xrs:74 src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "..."
-msgstr "…"
+#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:64
+#: src/hugin/xrc/pref_dialog.xrs:69 src/hugin/xrc/pref_dialog.xrs:76
+#, fuzzy
+msgid "Choose..."
+msgstr "切り抜き"
 
-#: src/hugin/xrc/pref_dialog.xrs:6
-msgid "PTOptimizer"
-msgstr "PTOptimizer"
-
-#: src/hugin/xrc/pref_dialog.xrs:8
-msgid "Scriptfile"
+#: src/hugin/xrc/pref_dialog.xrs:7
+#, fuzzy
+msgid "Scriptfile:"
 msgstr "スクリプトファイル"
 
-#: src/hugin/xrc/pref_dialog.xrs:9
+#: src/hugin/xrc/pref_dialog.xrs:8
 msgid "Name of the temporary script file used by Panotools"
 msgstr "Panotoolsが使う一時ファイルのファイル名"
 
-#: src/hugin/xrc/pref_dialog.xrs:10
+#: src/hugin/xrc/pref_dialog.xrs:9
 msgid "Panotools:"
 msgstr "Panotools："
 
-#: src/hugin/xrc/pref_dialog.xrs:12
+#: src/hugin/xrc/pref_dialog.xrs:11
 msgid "Details"
 msgstr "詳細"
 
-#: src/hugin/xrc/pref_dialog.xrs:13
+#: src/hugin/xrc/pref_dialog.xrs:12
 msgid "Finetune"
 msgstr "微調整"
 
-#: src/hugin/xrc/pref_dialog.xrs:14
+#: src/hugin/xrc/pref_dialog.xrs:13
 msgid "Basic Settings"
 msgstr "基本的な設定"
 
-#: src/hugin/xrc/pref_dialog.xrs:15
+#: src/hugin/xrc/pref_dialog.xrs:14
 msgid "Patch width:"
 msgstr "パッチの幅："
 
-#: src/hugin/xrc/pref_dialog.xrs:16 src/hugin/xrc/pref_dialog.xrs:20
+#: src/hugin/xrc/pref_dialog.xrs:15 src/hugin/xrc/pref_dialog.xrs:19
 msgid "pixels"
 msgstr "ピクセル"
 
-#: src/hugin/xrc/pref_dialog.xrs:17
+#: src/hugin/xrc/pref_dialog.xrs:16
 msgid "Search area width:"
 msgstr "検索する範囲の幅"
 
-#: src/hugin/xrc/pref_dialog.xrs:18
+#: src/hugin/xrc/pref_dialog.xrs:17
 msgid "percent of image width"
 msgstr "% (画像の幅に対して)"
 
-#: src/hugin/xrc/pref_dialog.xrs:19
+#: src/hugin/xrc/pref_dialog.xrs:18
 msgid "Local search area width:"
 msgstr "ローカルな検索範囲の幅"
 
-#: src/hugin/xrc/pref_dialog.xrs:21
+#: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Correlation Threshold:"
 msgstr "相関係数のしきい値"
 
-#: src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:21
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -2870,11 +2780,11 @@ msgstr ""
 "0: 全く違う\n"
 "1: ほとんど同じ"
 
-#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:22
 msgid "Peak Curvature Threshold:"
 msgstr "曲率のピークのしきい値："
 
-#: src/hugin/xrc/pref_dialog.xrs:24
+#: src/hugin/xrc/pref_dialog.xrs:23
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -2882,56 +2792,56 @@ msgstr ""
 "  0: ピークなし\n"
 "0.2: はっきりとしたピーク"
 
-#: src/hugin/xrc/pref_dialog.xrs:25
+#: src/hugin/xrc/pref_dialog.xrs:24
 msgid "Rotation search"
 msgstr "回転もさせて検索"
 
-#: src/hugin/xrc/pref_dialog.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "回転もさせて検索する（遅いが精確）"
 
-#: src/hugin/xrc/pref_dialog.xrs:27
+#: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Start angle:"
 msgstr "開始角度："
 
-#: src/hugin/xrc/pref_dialog.xrs:28 src/hugin/xrc/pref_dialog.xrs:30
+#: src/hugin/xrc/pref_dialog.xrs:27 src/hugin/xrc/pref_dialog.xrs:29
 msgid "degrees"
 msgstr "度"
 
-#: src/hugin/xrc/pref_dialog.xrs:29
+#: src/hugin/xrc/pref_dialog.xrs:28
 msgid "Stop angle:"
 msgstr "終了角度："
 
-#: src/hugin/xrc/pref_dialog.xrs:31
+#: src/hugin/xrc/pref_dialog.xrs:30
 msgid "Steps:"
 msgstr "ステップ数："
 
-#: src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Misc"
 msgstr "その他"
 
-#: src/hugin/xrc/pref_dialog.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:32
 #, fuzzy
 msgid "Resource Usage"
 msgstr "ハードウェアの利用"
 
-#: src/hugin/xrc/pref_dialog.xrs:34
+#: src/hugin/xrc/pref_dialog.xrs:33
 msgid "Image cache memory:"
 msgstr "画像のメモリーキャッシュ："
 
-#: src/hugin/xrc/pref_dialog.xrs:35
+#: src/hugin/xrc/pref_dialog.xrs:34
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "この上限までフルサイズの画像をキャッシュします。"
 
-#: src/hugin/xrc/pref_dialog.xrs:36
+#: src/hugin/xrc/pref_dialog.xrs:35
 msgid "MB"
 msgstr "MB"
 
-#: src/hugin/xrc/pref_dialog.xrs:37
+#: src/hugin/xrc/pref_dialog.xrs:36
 msgid "Number of CPUs:"
 msgstr "CPUの数："
 
-#: src/hugin/xrc/pref_dialog.xrs:38
+#: src/hugin/xrc/pref_dialog.xrs:37
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -2940,41 +2850,41 @@ msgstr ""
 "Nonaは１つの処理を複数のスレッド（CPU）で行なえます.\n"
 "この数字をあなたのコンピュータのCPUまたはCPUコアの数に合わせてください."
 
-#: src/hugin/xrc/pref_dialog.xrs:39
+#: src/hugin/xrc/pref_dialog.xrs:38
 msgid "User Interface"
 msgstr "インターフェース"
 
-#: src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:39
 msgid "Language"
 msgstr "言語"
 
-#: src/hugin/xrc/pref_dialog.xrs:41
+#: src/hugin/xrc/pref_dialog.xrs:40
 msgid "requires restarting hugin"
 msgstr "Huginを再起動する必要があります"
 
-#: src/hugin/xrc/pref_dialog.xrs:42
+#: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Optimize and stitch only images selected in preview window"
 msgstr "プレビューウィンドウで選択された画像のみ最適化およびスティッチングする"
 
-#: src/hugin/xrc/pref_dialog.xrs:43
+#: src/hugin/xrc/pref_dialog.xrs:42
 msgid "HDR and 16 Bit display mode"
 msgstr "HDRと16bit画像の表示モード"
 
-#: src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/pref_dialog.xrs:43
 #, fuzzy
 msgid "Range"
 msgstr "言語"
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:44
 msgid "fixed"
 msgstr "固定"
 
-#: src/hugin/xrc/pref_dialog.xrs:46
+#: src/hugin/xrc/pref_dialog.xrs:45
 #, fuzzy
 msgid "auto"
 msgstr "自動"
 
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/xrc/pref_dialog.xrs:46
 msgid ""
 "use fixed for 16 bit\n"
 "and auto for HDR"
@@ -2982,73 +2892,81 @@ msgstr ""
 "16 bitには固定を\n"
 "にはHDRを使用"
 
-#: src/hugin/xrc/pref_dialog.xrs:48
+#: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Mapping"
 msgstr "マッピング"
 
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:48
 #, fuzzy
 msgid "linear"
 msgstr "バイリニア法"
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:49
 msgid "logarithmic"
 msgstr "対数"
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:50
 #, fuzzy
 msgid "gamma 2.2"
 msgstr "ガンマ (g):"
 
-#: src/hugin/xrc/pref_dialog.xrs:52
+#: src/hugin/xrc/pref_dialog.xrs:51
 msgid "used for display in GUI"
 msgstr "表示に使用"
 
-#: src/hugin/xrc/pref_dialog.xrs:53
+#: src/hugin/xrc/pref_dialog.xrs:52
 msgid "File options"
 msgstr "ファイルの設定"
 
-#: src/hugin/xrc/pref_dialog.xrs:54
+#: src/hugin/xrc/pref_dialog.xrs:53
 msgid "Tempdir:"
 msgstr "Tmp ディレクトリ："
 
-#: src/hugin/xrc/pref_dialog.xrs:55
+#: src/hugin/xrc/pref_dialog.xrs:54
 msgid "leave empty for OS default"
 msgstr "OSの設定を使うには空白にします。"
 
-#: src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Druidを表示 (Huginの再起動が必要です)"
 
-#: src/hugin/xrc/pref_dialog.xrs:58 src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/pref_dialog.xrs:57 src/hugin/xrc/pref_dialog.xrs:66
 msgid "Autopano"
 msgstr "Autopano"
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:59
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (A. Jenny作)"
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (S. Nowozin作)"
 
-#: src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
+
+#: src/hugin/xrc/pref_dialog.xrs:62
+msgid "Use alternative Autopano-SIFT program"
+msgstr ""
 
 #: src/hugin/xrc/pref_dialog.xrs:63
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT："
 
-#: src/hugin/xrc/pref_dialog.xrs:65 src/hugin/xrc/pref_dialog.xrs:69
+#: src/hugin/xrc/pref_dialog.xrs:65 src/hugin/xrc/pref_dialog.xrs:70
 msgid "Arguments:"
 msgstr "オプション："
 
 #: src/hugin/xrc/pref_dialog.xrs:67
+msgid "Use alternative Autopano program"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:68
 msgid "Autopano:"
 msgstr "Autopano:"
 
-#: src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:71
 #, c-format
 msgid ""
 "following patterns will be subsituted before running:\n"
@@ -3064,42 +2982,42 @@ msgstr ""
 "%i  -- 入力する画像ファイル群\n"
 "%namefile -- 入力画像のファイル名をリストしたファイル"
 
-#: src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/xrc/pref_dialog.xrs:72
 msgid "Enblend"
 msgstr "Enblend"
 
-#: src/hugin/xrc/pref_dialog.xrs:72
+#: src/hugin/xrc/pref_dialog.xrs:73
 msgid "Enblend Options"
 msgstr "Enblendの設定"
 
-#: src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/xrc/pref_dialog.xrs:74
+msgid "Use alternative Enblend program"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Enblend:"
 msgstr "Enblend："
 
-#: src/hugin/xrc/pref_dialog.xrs:75
+#: src/hugin/xrc/pref_dialog.xrs:77
 msgid "Additional Arguments:"
 msgstr "追加オプション："
 
-#: src/hugin/xrc/pref_dialog.xrs:76
+#: src/hugin/xrc/pref_dialog.xrs:78
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr "-w と -o オプションはHuginによって設定されるので設定しないでください"
 
-#: src/hugin/xrc/pref_dialog.xrs:77
+#: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Delete remapped tiff files"
 msgstr "投射したTIFFファイルを削除"
 
-#: src/hugin/xrc/pref_dialog.xrs:78
+#: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 msgstr "切り抜いた画像を使う (enblend 2.4以上が必要です)"
 
-#: src/hugin/xrc/pref_dialog.xrs:79
+#: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Save cropped images, requires less disk space and memory."
 msgstr ""
 "切り抜いた画像を保存。ファイルサイズや必要なメモリの量が小さくなります。"
-
-#: src/hugin/xrc/pref_dialog.xrs:80
-msgid "Ok"
-msgstr "OK"
 
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
@@ -3281,67 +3199,71 @@ msgstr "hugin について"
 msgid "Vignetting correction"
 msgstr "ビネットの修正"
 
+#: src/hugin/xrc/vig_corr_dlg.xrs:2
+msgid "Type of Correction"
+msgstr "修正方法:"
+
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
+msgid "No correction"
+msgstr "修正無し"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
+msgid "Addition ( I=I+c )"
+msgstr "和 (I=I+c)"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
+msgid "Division ( I=I/c )"
+msgstr "商 ( I=I/c )"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
 #, fuzzy
 msgid "Flatfield"
 msgstr "Flatfield"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
 msgid "Image file:"
 msgstr "画像ファイル："
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
+msgid "..."
+msgstr "…"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
 msgid "Polynomial"
 msgstr "２次曲線"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
 #, fuzzy
 msgid "c = "
 msgstr "c = "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
 #, fuzzy
 msgid " + "
 msgstr " + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
 #, fuzzy
 msgid "*r^2 + "
 msgstr "*r^2 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
 #, fuzzy
 msgid "*r^4 + "
 msgstr "*r^4 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
 #, fuzzy
 msgid "*r^6"
 msgstr "*r^6"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
 msgid "center shift x:"
 msgstr "中心のずれ X方向："
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
 msgid "Estimate polynomial"
 msgstr "２次式の推定"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
-msgid "Type of Correction"
-msgstr "修正方法:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
-msgid "No correction"
-msgstr "修正無し"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:17
-msgid "Addition ( I=I+c )"
-msgstr "和 (I=I+c)"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
-msgid "Division ( I=I/c )"
-msgstr "商 ( I=I/c )"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3425,7 +3347,7 @@ msgstr ""
 #: src/hugin/xrc/data/tips.txt:14
 #, fuzzy
 msgid ""
-"The PanoTools wiki at http://wiki.panoramatools.org offers comprehensive "
+"The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
 "PanoTools Wiki (http://www.panotools.info/mediawiki) にはパノラマに関する情報"
@@ -3531,3 +3453,99 @@ msgid ""
 msgstr ""
 "「全部」の数値を最適化するのは、大きく重なりあっているたくさんのうまく散ら"
 "ばったコントロールポイントの設定された画像でなければ意味がありません。"
+
+#~ msgid "Select PTOptimizer"
+#~ msgstr "PTOptimizerを選択"
+
+#~ msgid "No PTOptimizer.exe selected"
+#~ msgstr "PTOptimizer.exeが選択されませんでした"
+
+#~ msgid "No PTOptimizer selected"
+#~ msgstr "PTOptimizerが選択されませんでした"
+
+#~ msgid "Failed to launch PTOptimizer."
+#~ msgstr "PTOptimizerを起動できませんでした。"
+
+#~ msgid "Could not obtain PTOptimizer output"
+#~ msgstr "PTOptimizerからの出力が得られませんでした"
+
+#~ msgid "Stop"
+#~ msgstr "停止"
+
+#~ msgid "Could not start PTOptimizer"
+#~ msgstr "PTOptimizerを起動できませんでした"
+
+#~ msgid "Strategy %d, Iteration %d, average distance: %f"
+#~ msgstr "Strategy：%d / Iteration：%d / ずれの平均： %f"
+
+#~ msgid ""
+#~ "Optimizer run finished.\n"
+#~ "WARNING: a very small Field of View (v) has been estimated\n"
+#~ "\n"
+#~ "The results are probably invalid.\n"
+#~ "Please optimize the View only for full 360 deg. panoramas or when you "
+#~ "know what you're doing.\n"
+#~ "\n"
+#~ "The Field of View (v) can sometimes be optimized for partial panoramas as "
+#~ "well,\n"
+#~ "when the images are already aligned well."
+#~ msgstr ""
+#~ "最適化プログラムの実行が終了しました。\n"
+#~ "警告：非常に小さい 視角 (v) の値が推定されました。\n"
+#~ "\n"
+#~ "結果が正しくないと思われます。\n"
+#~ "視野を最適化するのは360ºのパノラマ以外にはあまり勧められません。\n"
+#~ "\n"
+#~ "画像が既にうまく配置されている場合は、視角 (v) の値を最適化できることがあ"
+#~ "ります。"
+
+#~ msgid ""
+#~ "Optimizer run finished.\n"
+#~ "Results:\n"
+#~ " average control point distance: %f\n"
+#~ " standard deviation: %f\n"
+#~ " maximum: %f\n"
+#~ "\n"
+#~ "*WARNING*: very high distortion coefficients (a,b,c) have been "
+#~ "estimated.\n"
+#~ "The results are probably invalid.\n"
+#~ "Only optimize all distortion parameters when many, well spread control "
+#~ "points are used.\n"
+#~ "\n"
+#~ "Apply the changes anyway?"
+#~ msgstr ""
+#~ "最適化プログラムの実行が終了しました。\n"
+#~ "結果：\n"
+#~ " コントロールポイントのずれ、平均：%f\n"
+#~ " 　標準偏差：%f\n"
+#~ " 　　　最大：%f\n"
+#~ "\n"
+#~ "*警告*：非常に高いゆがみの値 (a,b,c) が推定されました。\n"
+#~ "結果はおそらく無効です。\n"
+#~ "全てのゆがみを最適化するのは、コントロールポイントが全体にうまく散らばって"
+#~ "いる時のみにすべきでしょう。\n"
+#~ "\n"
+#~ "結果を適用しますか？"
+
+#~ msgid ""
+#~ "Optimizer run finished.\n"
+#~ "Results:\n"
+#~ " average control point distance: %f\n"
+#~ " standard deviation: %f\n"
+#~ " maximum: %f\n"
+#~ "\n"
+#~ "Apply the changes?"
+#~ msgstr ""
+#~ "最適化プログラムの実行が終了しました。\n"
+#~ "結果：\n"
+#~ " コントロールポイントのずれ、平均：%f\n"
+#~ " 　標準偏差：%f\n"
+#~ " 　　　最大：%f\n"
+#~ "\n"
+#~ "結果を適用しますか？"
+
+#~ msgid "PTOptimizer"
+#~ msgstr "PTOptimizer"
+
+#~ msgid "Ok"
+#~ msgstr "OK"
