@@ -56,6 +56,13 @@
 // sort by filename (1), sort by date (2)
 #define HUGIN_GUI_SORT_NEW_IMG_ON_ADD         1l
 
+
+// Custom Program paths
+#define HUGIN_PT_STITCHER_EXE_CUSTOM          false
+#define HUGIN_ENBLEND_EXE_CUSTOM              false
+#define HUGIN_APKOLOR_EXE_CUSTOM              false
+#define HUGIN_APSIFT_EXE_CUSTOM               false
+
 // Program defaults
 #if defined WIN32
 
