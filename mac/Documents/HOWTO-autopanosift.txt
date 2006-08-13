@@ -10,25 +10,20 @@ Steps:
 
 2. Download Autopano-SIFT compiled for Mono environment from the author's homepage <http://user.cs.tu-berlin.de/~nowozin/autopano-sift/>, and read its readme and license files.
 
-3. If you'd like to try the method which is easier but may not work: please use PutAutopanoSiftToHuginOSX program comes with HuginOSX to put the relevant files into HuginOSX's application package. That's all. If this did not work, you can try the next method. 
+3. Use PutAutopanoSiftToHuginOSX program comes with HuginOSX to put the relevant files into HuginOSX's application package. That's all. If that did not work, you could try the next method, or give up (sorry). 
 
 
-If you tried step 3 and it did not work, please remove autopano-sift files inside the application bundle (e.g. rm -fR ./HuginOSX.app/Contents/Resources/autopano-sift) before the next step. From this step I assume you have some knowledge in unix.
+If you tried step 3 and it did not work, you might want to proceed to the alternative installation. From this step, however, I assume you have some knowledge in unix.
 
 4. We have to set up autopano-complete.sh comes with Autopano-SIFT. First, set AUTOPANO_PATH variable so that the script can find the .Net executables where ever the current path is. If you place the script and the executables in the same directory, `dirname "$0"` may work. Next, you need to replace every occurrence of "generatekeys.exe" with "generatekeys-sd.exe". Now the script should be ready. Launch the Terminal and try out the script. Typical usage would be "./autopano-complete.sh -o project.pto image1 image2" (-h option gives you the arguments you can use, but please note the long format with -- is not available on Mac and other BSD systems).
 
-5. If the script works fine with you, then it should be ready for hugin as well. Please open hugin's Preferences and specify the path to the script in Autopano-SIFT section in Autopano tab. Alternatively, HuginOSX asks you the path when it cannot find the script at the specified path.
+5. If the script works fine with you from any current directory, then it should be ready for hugin as well. Please open hugin's Preferences and in the Autopano tab, specify the path to the script as the custom Autopano-SIFT program.
 
 
 What exactly HuginOSX does:
 
-HuginOSX has a customised script file inside the application bundle. If the script specified in Preferences does not exist, HuginOSX checks whether all three autopano-sift files (autopano, generatekeys-sd, libsift) are inside the bundle. If they are, HuginOSX calls its own script, or otherwise asks you to specify your own script. 
+HuginOSX has a customised script file inside the application bundle. If the custom program is not specified, HuginOSX checks whether all three autopano-sift files (autopano, generatekeys-sd, libsift) are inside the bundle, and calls its own script if they are there. If you specify the custom program, HuginOSX simply uses that one assuming it works.
 
 
-Trouble Shooting:
-
-One thing to check when you have a trouble using autopano-sift inside the bundle  is whether HuginOSX is finding an autopano-sift script outside the bundle. Make sure HuginOSX's preference has the path to autopano-sift script set to either empty or false (file does not exist). Even if autopano-complete.sh is in /usr/local/bin or equivalent, and the path in the preference set to just "autopano-complete.sh", HuginOSX would find the script. If HuginOSX can find the script, then it uses that script instead of the one inside the application bundle. 
-
-
-This document was originally written by Ippei UKAI (Copyleft 2005-)
+This document was originally written by Ippei UKAI (Copyleft 2006)
 Last Modified: $Id$
