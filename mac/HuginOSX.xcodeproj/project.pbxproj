@@ -142,6 +142,8 @@
 		577D3D1D09A0D7DA004C6964 /* Stitcher2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D1909A0D7D9004C6964 /* Stitcher2.cpp */; };
 		577D3D1E09A0D7DA004C6964 /* Stitcher3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D1A09A0D7D9004C6964 /* Stitcher3.cpp */; };
 		577D3D1F09A0D7DA004C6964 /* Stitcher4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D1B09A0D7D9004C6964 /* Stitcher4.cpp */; };
+		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
+		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
 		5798954A068E2F22009F90BF /* libwx_macu-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.6.a */; };
 		57989569068E2FA3009F90BF /* libwxexpat-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989565068E2FA3009F90BF /* libwxexpat-2.6.a */; };
 		57989582068E2FD8009F90BF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -205,7 +207,6 @@
 		57CBEFD106BC7E8F00C43FF5 /* PreviewPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F3E06BC2302004F4FA7 /* PreviewPanel.cpp */; };
 		57CBEFD206BC7E8F00C43FF5 /* ImageCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F2B06BC2301004F4FA7 /* ImageCenter.cpp */; };
 		57CBEFD306BC7E8F00C43FF5 /* OptimizePanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F3606BC2301004F4FA7 /* OptimizePanel.cpp */; };
-		57CBEFD406BC7E8F00C43FF5 /* RunOptimizerFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F4006BC2302004F4FA7 /* RunOptimizerFrame.cpp */; };
 		57CBEFD506BC7E8F00C43FF5 /* RunStitcherFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F4106BC2302004F4FA7 /* RunStitcherFrame.cpp */; };
 		57CBEFD606BC7E8F00C43FF5 /* CPListFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F2506BC2301004F4FA7 /* CPListFrame.cpp */; };
 		57CBEFD706BC7E8F00C43FF5 /* TextKillFocusHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114F4306BC2302004F4FA7 /* TextKillFocusHandler.cpp */; };
@@ -236,6 +237,7 @@
 		57D30901074433490006004D /* libpthread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989595068E2FEC009F90BF /* libpthread.dylib */; };
 		57D55918067BDCAD005E4CCD /* libmx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D55913067BDB84005E4CCD /* libmx.dylib */; };
 		57D5DCF3073FE2CF0027E52F /* PreferencesDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57D5DCF2073FE2CF0027E52F /* PreferencesDialog.cpp */; };
+		57D70EE50A8BEB4800AB281E /* enblend in CopyFiles */ = {isa = PBXBuildFile; fileRef = 570D581A082A9ED50030E768 /* enblend */; };
 		57DEBDB908E8947B008F6E81 /* libhuginwxutils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F987067B696900A6EDD4 /* libhuginwxutils.a */; };
 		57E7827A0681074B0070F6AA /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		57E7827B0681074B0070F6AA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9C067B80F000A6EDD4 /* Cocoa.framework */; };
@@ -593,9 +595,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		57D70EE30A8BEB2F00AB281E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				57D70EE50A8BEB4800AB281E /* enblend in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5702996D07F967CB00F1FF15 /* HuginFiles.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginFiles.icns; sourceTree = "<group>"; };
-		570D581A082A9ED50030E768 /* PTOptimizer */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = PTOptimizer; path = bin/PTOptimizer; sourceTree = "<group>"; };
+		570D581A082A9ED50030E768 /* enblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = enblend; path = bin/enblend; sourceTree = "<group>"; };
 		570E7B5206FC917900D23E0D /* zhang_undistort.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = zhang_undistort.cpp; sourceTree = "<group>"; };
 		57114E9F06BC2301004F4FA7 /* HuginOSX-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "HuginOSX-Info.plist"; sourceTree = "<group>"; };
 		57114EA006BC2301004F4FA7 /* HuginOSX.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginOSX.icns; sourceTree = "<group>"; };
@@ -647,7 +662,6 @@
 		57114F3D06BC2302004F4FA7 /* PreviewFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewFrame.cpp; sourceTree = "<group>"; };
 		57114F3E06BC2302004F4FA7 /* PreviewPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewPanel.cpp; sourceTree = "<group>"; };
 		57114F3F06BC2302004F4FA7 /* PTStitcherPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PTStitcherPanel.cpp; sourceTree = "<group>"; };
-		57114F4006BC2302004F4FA7 /* RunOptimizerFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunOptimizerFrame.cpp; sourceTree = "<group>"; };
 		57114F4106BC2302004F4FA7 /* RunStitcherFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = RunStitcherFrame.cpp; sourceTree = "<group>"; };
 		57114F4306BC2302004F4FA7 /* TextKillFocusHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TextKillFocusHandler.cpp; sourceTree = "<group>"; };
 		57114F4406BC2302004F4FA7 /* UniversalCursor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UniversalCursor.cpp; sourceTree = "<group>"; };
@@ -686,7 +700,6 @@
 		57114FBF06BC2302004F4FA7 /* PreviewFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreviewFrame.h; sourceTree = "<group>"; };
 		57114FC006BC2302004F4FA7 /* PreviewPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreviewPanel.h; sourceTree = "<group>"; };
 		57114FC106BC2302004F4FA7 /* PTStitcherPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTStitcherPanel.h; sourceTree = "<group>"; };
-		57114FC206BC2302004F4FA7 /* RunOptimizerFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunOptimizerFrame.h; sourceTree = "<group>"; };
 		57114FC306BC2302004F4FA7 /* RunStitcherFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RunStitcherFrame.h; sourceTree = "<group>"; };
 		57114FC406BC2302004F4FA7 /* StitcherPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StitcherPanel.h; sourceTree = "<group>"; };
 		57114FC506BC2302004F4FA7 /* TextKillFocusHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TextKillFocusHandler.h; sourceTree = "<group>"; };
@@ -907,6 +920,10 @@
 		577D3D2D09A0D9CE004C6964 /* VignettingCorrection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VignettingCorrection.h; sourceTree = "<group>"; };
 		577D3D2E09A0D9CE004C6964 /* VigQuotientEstimator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = VigQuotientEstimator.h; sourceTree = "<group>"; };
 		577D3D3309A0D9F6004C6964 /* MultiThreadOperations.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MultiThreadOperations.cpp; sourceTree = "<group>"; };
+		578ECFFC0A8D0C150028A7FB /* hdr.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hdr.cxx; sourceTree = "<group>"; };
+		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
+		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
+		578ECFFF0A8D0C160028A7FB /* rgbe.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rgbe.h; sourceTree = "<group>"; };
 		57989544068E2F22009F90BF /* libwx_macu-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.6.a"; path = "lib/libwx_macu-2.6.a"; sourceTree = "<group>"; };
 		57989545068E2F22009F90BF /* libwxregexu-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-2.6.a"; path = "lib/libwxregexu-2.6.a"; sourceTree = "<group>"; };
 		57989565068E2FA3009F90BF /* libwxexpat-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.6.a"; path = "lib/libwxexpat-2.6.a"; sourceTree = "<group>"; };
@@ -956,7 +973,7 @@
 		57D5DCD6073FD86D0027E52F /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		57D5DCF2073FE2CF0027E52F /* PreferencesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreferencesDialog.cpp; sourceTree = "<group>"; };
 		57DA3B55083FA3EF00BE2613 /* wxPlatform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPlatform.h; sourceTree = "<group>"; };
-		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EEC3EE08CD09C900B6A197 /* LocalizedFileTipProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizedFileTipProvider.cpp; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano12 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano12; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1294,6 +1311,10 @@
 				57114F1906BC2301004F4FA7 /* viff.hxx */,
 				57114F1A06BC2301004F4FA7 /* void_vector.cxx */,
 				57114F1B06BC2301004F4FA7 /* void_vector.hxx */,
+				578ECFFC0A8D0C150028A7FB /* hdr.cxx */,
+				578ECFFD0A8D0C160028A7FB /* hdr.hxx */,
+				578ECFFE0A8D0C160028A7FB /* rgbe.c */,
+				578ECFFF0A8D0C160028A7FB /* rgbe.h */,
 			);
 			path = vigra_impex;
 			sourceTree = "<group>";
@@ -1330,7 +1351,6 @@
 				57114F3E06BC2302004F4FA7 /* PreviewPanel.cpp */,
 				57114F3F06BC2302004F4FA7 /* PTStitcherPanel.cpp */,
 				573F330A09F79C140088B333 /* PTWXDlg.cpp */,
-				57114F4006BC2302004F4FA7 /* RunOptimizerFrame.cpp */,
 				57114F4106BC2302004F4FA7 /* RunStitcherFrame.cpp */,
 				57114F4306BC2302004F4FA7 /* TextKillFocusHandler.cpp */,
 				57114F4406BC2302004F4FA7 /* UniversalCursor.cpp */,
@@ -1414,7 +1434,6 @@
 				57114FC006BC2302004F4FA7 /* PreviewPanel.h */,
 				57114FC106BC2302004F4FA7 /* PTStitcherPanel.h */,
 				573F332909F79E510088B333 /* PTWXDlg.h */,
-				57114FC206BC2302004F4FA7 /* RunOptimizerFrame.h */,
 				57114FC306BC2302004F4FA7 /* RunStitcherFrame.h */,
 				57114FC406BC2302004F4FA7 /* StitcherPanel.h */,
 				57114FC506BC2302004F4FA7 /* TextKillFocusHandler.h */,
@@ -1628,7 +1647,7 @@
 		5745FBE5094E1C4700E6B672 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				570D581A082A9ED50030E768 /* PTOptimizer */,
+				570D581A082A9ED50030E768 /* enblend */,
 				573B8F85067BAAB900B7B355 /* libpano12.a */,
 				577092FA06BD7388004058A1 /* libpng.a */,
 				577092FB06BD7388004058A1 /* libtiff.a */,
@@ -2009,6 +2028,7 @@
 				57E7825D068107210070F6AA /* Frameworks */,
 				57E7825A068107210070F6AA /* Resources */,
 				57B8C68E083A951000283C06 /* Resouce Script */,
+				57D70EE30A8BEB2F00AB281E /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2117,6 +2137,8 @@
 				57CBEE3306BC716200C43FF5 /* viff.cxx in Sources */,
 				57CBEE3406BC716600C43FF5 /* void_vector.cxx in Sources */,
 				573F330509F79BAA0088B333 /* iccjpeg.c in Sources */,
+				578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */,
+				578ED0010A8D0C160028A7FB /* rgbe.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2259,7 +2281,6 @@
 				57CBEFD106BC7E8F00C43FF5 /* PreviewPanel.cpp in Sources */,
 				57CBEFD206BC7E8F00C43FF5 /* ImageCenter.cpp in Sources */,
 				57CBEFD306BC7E8F00C43FF5 /* OptimizePanel.cpp in Sources */,
-				57CBEFD406BC7E8F00C43FF5 /* RunOptimizerFrame.cpp in Sources */,
 				57CBEFD506BC7E8F00C43FF5 /* RunStitcherFrame.cpp in Sources */,
 				57CBEFD606BC7E8F00C43FF5 /* CPListFrame.cpp in Sources */,
 				57CBEFD706BC7E8F00C43FF5 /* TextKillFocusHandler.cpp in Sources */,
@@ -2851,7 +2872,7 @@
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
+				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
@@ -4123,7 +4144,7 @@
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
+				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
@@ -4456,6 +4477,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_DEBUGGING_SYMBOLS = full;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_FAST_MATH = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = "";
@@ -4869,7 +4891,7 @@
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				PER_ARCH_CFLAGS_i386 = "-ftree-vectorize";
-				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G3";
+				PER_ARCH_CFLAGS_ppc = "-mcpu=G3 -mtune=G4";
 				PREBINDING = YES;
 				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
 				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
