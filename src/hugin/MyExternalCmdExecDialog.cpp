@@ -56,10 +56,14 @@ MyExternalCmdExecDialog::MyExternalCmdExecDialog(wxWindow* parent,
 m_timerIdleWakeUp(this)
 {
     //m_lbox = new wxListBox(this, wxID_ANY);
+    wxBoxSizer *m_sizer = new wxBoxSizer(wxVERTICAL);
+    this->SetSizer(m_sizer);
     m_tbox = new wxTextCtrl(this, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
     wxFont font(12, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
     if ( font.Ok() )
         m_tbox->SetFont(font);
+    m_sizer->Add(m_tbox, 1, wxEXPAND);
+    m_sizer->AddSpacer(30);
 }
 
 
