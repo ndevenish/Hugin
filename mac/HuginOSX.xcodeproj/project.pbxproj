@@ -127,8 +127,8 @@
 		574716D906B8AF260020D6E7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		574F3EBD081FF2350086E561 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3EBC081FF2350086E561 /* QuickTime.framework */; };
 		574F3EBE081FF2350086E561 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3EBC081FF2350086E561 /* QuickTime.framework */; };
-		574F3EE9081FF3BC0086E561 /* libwxregexu-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989545068E2F22009F90BF /* libwxregexu-2.6.a */; };
-		574F3F20082004870086E561 /* libwxregexu-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989545068E2F22009F90BF /* libwxregexu-2.6.a */; };
+		574F3EE9081FF3BC0086E561 /* libwxexpat-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989545068E2F22009F90BF /* libwxexpat-2.7.a */; };
+		574F3F20082004870086E561 /* libwxexpat-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989545068E2F22009F90BF /* libwxexpat-2.7.a */; };
 		574F3F2F082005980086E561 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3F2E082005980086E561 /* IOKit.framework */; };
 		574F3F30082005980086E561 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3F2E082005980086E561 /* IOKit.framework */; };
 		577092FC06BD7388004058A1 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
@@ -144,8 +144,8 @@
 		577D3D1F09A0D7DA004C6964 /* Stitcher4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D1B09A0D7D9004C6964 /* Stitcher4.cpp */; };
 		578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFC0A8D0C150028A7FB /* hdr.cxx */; };
 		578ED0010A8D0C160028A7FB /* rgbe.c in Sources */ = {isa = PBXBuildFile; fileRef = 578ECFFE0A8D0C160028A7FB /* rgbe.c */; };
-		5798954A068E2F22009F90BF /* libwx_macu-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.6.a */; };
-		57989569068E2FA3009F90BF /* libwxexpat-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989565068E2FA3009F90BF /* libwxexpat-2.6.a */; };
+		5798954A068E2F22009F90BF /* libwx_macu-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.a */; };
+		57989569068E2FA3009F90BF /* libwxregexu-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989565068E2FA3009F90BF /* libwxregexu-2.7.a */; };
 		57989582068E2FD8009F90BF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		57A91BD807FD85E30013AE47 /* autopano-complete-mac.sh in Resources */ = {isa = PBXBuildFile; fileRef = 57A91BD707FD85E30013AE47 /* autopano-complete-mac.sh */; };
 		57ABCA7509F7F126005D8908 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D14A4506B8A3D100D8A03D /* libjpeg.a */; };
@@ -228,8 +228,8 @@
 		57CF929406BD7B7800780AC5 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
 		57CF929506BD7B7800780AC5 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
 		57CF929706BD7B7800780AC5 /* libvigra_impex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */; };
-		57CF929906BD7B7800780AC5 /* libwx_macu-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.6.a */; };
-		57CF929F06BD7B7800780AC5 /* libwxexpat-2.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989565068E2FA3009F90BF /* libwxexpat-2.6.a */; };
+		57CF929906BD7B7800780AC5 /* libwx_macu-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989544068E2F22009F90BF /* libwx_macu-2.7.a */; };
+		57CF929F06BD7B7800780AC5 /* libwxregexu-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989565068E2FA3009F90BF /* libwxregexu-2.7.a */; };
 		57CF92A006BD7B7800780AC5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		57CF92A106BD7B7800780AC5 /* System.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 573C3861067C789F00A5DBE0 /* System.framework */; };
 		57CF92A206BD7B7800780AC5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 573C3862067C789F00A5DBE0 /* WebKit.framework */; };
@@ -759,7 +759,7 @@
 		5711505E06BC2303004F4FA7 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
 		5711506106BC2303004F4FA7 /* nona.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = nona.cpp; sourceTree = "<group>"; };
 		5711524A06BC6709004F4FA7 /* libvigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-static-2.6/wx/setup.h"; sourceTree = "<group>"; };
+		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "../lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h"; sourceTree = "<group>"; };
 		571C78FA09663073007384B8 /* RemappedPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RemappedPanoImage.h; sourceTree = "<group>"; };
 		572B945606FA525F004EC7BF /* CPFineTuneFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPFineTuneFrame.h; sourceTree = "<group>"; };
 		572B945706FA525F004EC7BF /* CPZoomDisplayPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPZoomDisplayPanel.h; sourceTree = "<group>"; };
@@ -883,7 +883,7 @@
 		57453D31094E500F00E6B672 /* boost */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = boost; sourceTree = "<group>"; };
 		57454C33094E501800E6B672 /* png.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = png.h; sourceTree = "<group>"; };
 		57454C34094E501800E6B672 /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = pngconf.h; sourceTree = "<group>"; };
-		57454C35094E501800E6B672 /* wx-2.6 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.6"; sourceTree = "<group>"; };
+		57454C35094E501800E6B672 /* wx-2.7 */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = folder; path = "wx-2.7"; sourceTree = "<group>"; };
 		5749F84E067B604B00A6EDD4 /* math.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = math.h; path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/math.h; sourceTree = "<absolute>"; };
 		5749F8A3067B60CA00A6EDD4 /* libjhead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjhead.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5749F92E067B654900A6EDD4 /* libpanorama.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libpanorama.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -924,9 +924,9 @@
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
 		578ECFFF0A8D0C160028A7FB /* rgbe.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rgbe.h; sourceTree = "<group>"; };
-		57989544068E2F22009F90BF /* libwx_macu-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.6.a"; path = "lib/libwx_macu-2.6.a"; sourceTree = "<group>"; };
-		57989545068E2F22009F90BF /* libwxregexu-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-2.6.a"; path = "lib/libwxregexu-2.6.a"; sourceTree = "<group>"; };
-		57989565068E2FA3009F90BF /* libwxexpat-2.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.6.a"; path = "lib/libwxexpat-2.6.a"; sourceTree = "<group>"; };
+		57989544068E2F22009F90BF /* libwx_macu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.7.a"; path = "lib/libwx_macu-2.7.a"; sourceTree = "<group>"; };
+		57989545068E2F22009F90BF /* libwxexpat-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.7.a"; path = "lib/libwxexpat-2.7.a"; sourceTree = "<group>"; };
+		57989565068E2FA3009F90BF /* libwxregexu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-2.7.a"; path = "lib/libwxregexu-2.7.a"; sourceTree = "<group>"; };
 		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = "<group>"; };
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
@@ -1078,9 +1078,9 @@
 				57CF929506BD7B7800780AC5 /* libtiff.a in Frameworks */,
 				57C1707E09A126A600FAF325 /* libvigra_ext.a in Frameworks */,
 				57CF929706BD7B7800780AC5 /* libvigra_impex.a in Frameworks */,
-				57CF929906BD7B7800780AC5 /* libwx_macu-2.6.a in Frameworks */,
-				574F3F20082004870086E561 /* libwxregexu-2.6.a in Frameworks */,
-				57CF929F06BD7B7800780AC5 /* libwxexpat-2.6.a in Frameworks */,
+				57CF929906BD7B7800780AC5 /* libwx_macu-2.7.a in Frameworks */,
+				574F3F20082004870086E561 /* libwxexpat-2.7.a in Frameworks */,
+				57CF929F06BD7B7800780AC5 /* libwxregexu-2.7.a in Frameworks */,
 				57CF92A006BD7B7800780AC5 /* libz.dylib in Frameworks */,
 				57CF92A106BD7B7800780AC5 /* System.framework in Frameworks */,
 				57CF92A206BD7B7800780AC5 /* WebKit.framework in Frameworks */,
@@ -1104,8 +1104,8 @@
 				57E782820681074B0070F6AA /* libpanorama.a in Frameworks */,
 				57DEBDB908E8947B008F6E81 /* libhuginwxutils.a in Frameworks */,
 				57E782810681074B0070F6AA /* libpano12.a in Frameworks */,
-				5798954A068E2F22009F90BF /* libwx_macu-2.6.a in Frameworks */,
-				57989569068E2FA3009F90BF /* libwxexpat-2.6.a in Frameworks */,
+				5798954A068E2F22009F90BF /* libwx_macu-2.7.a in Frameworks */,
+				57989569068E2FA3009F90BF /* libwxregexu-2.7.a in Frameworks */,
 				57989582068E2FD8009F90BF /* libiconv.dylib in Frameworks */,
 				5770930006BD7424004058A1 /* libz.dylib in Frameworks */,
 				57D14A4806B8A3D100D8A03D /* libjpeg.a in Frameworks */,
@@ -1113,7 +1113,7 @@
 				577092FD06BD7388004058A1 /* libtiff.a in Frameworks */,
 				57D30901074433490006004D /* libpthread.dylib in Frameworks */,
 				574F3EBD081FF2350086E561 /* QuickTime.framework in Frameworks */,
-				574F3EE9081FF3BC0086E561 /* libwxregexu-2.6.a in Frameworks */,
+				574F3EE9081FF3BC0086E561 /* libwxexpat-2.7.a in Frameworks */,
 				574F3F2F082005980086E561 /* IOKit.framework in Frameworks */,
 				57C09FA80821888000CE28D7 /* libmx.dylib in Frameworks */,
 			);
@@ -1584,8 +1584,7 @@
 				5711F7E6094F3F3800F668CD /* setup.h */,
 			);
 			name = wx;
-			path = ../Repository;
-			sourceTree = BUILT_PRODUCTS_DIR;
+			sourceTree = "<group>";
 		};
 		573B8F3E067BA2EB00B7B355 /* Product */ = {
 			isa = PBXGroup;
@@ -1638,7 +1637,7 @@
 				57453AF8094E4F9D00E6B672 /* tiffio.h */,
 				57453AF9094E4F9D00E6B672 /* tiffio.hxx */,
 				57453AFA094E4F9D00E6B672 /* tiffvers.h */,
-				57454C35094E501800E6B672 /* wx-2.6 */,
+				57454C35094E501800E6B672 /* wx-2.7 */,
 				5711F7E5094F3F3800F668CD /* wx */,
 			);
 			path = include;
@@ -1652,9 +1651,9 @@
 				577092FA06BD7388004058A1 /* libpng.a */,
 				577092FB06BD7388004058A1 /* libtiff.a */,
 				57D14A4506B8A3D100D8A03D /* libjpeg.a */,
-				57989544068E2F22009F90BF /* libwx_macu-2.6.a */,
-				57989545068E2F22009F90BF /* libwxregexu-2.6.a */,
-				57989565068E2FA3009F90BF /* libwxexpat-2.6.a */,
+				57989544068E2F22009F90BF /* libwx_macu-2.7.a */,
+				57989545068E2F22009F90BF /* libwxexpat-2.7.a */,
+				57989565068E2FA3009F90BF /* libwxregexu-2.7.a */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = Repository;
@@ -4194,7 +4193,7 @@
 		576D2772093B3D4300FC5596 /* PPC/Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -4204,8 +4203,8 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				PRODUCT_NAME = huginwxutils;
 			};
@@ -4215,7 +4214,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -4225,8 +4224,8 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "HuginOSX-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -4255,7 +4254,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = NO;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -4265,8 +4264,8 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
