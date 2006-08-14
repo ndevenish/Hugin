@@ -110,7 +110,7 @@ OptimizePanel::OptimizePanel(wxWindow * parent, PT::Panorama * pano)
 //    }
 
     wxCommandEvent dummy;
-    dummy.m_commandInt = m_mode_cb->GetSelection();
+    dummy.SetInt(m_mode_cb->GetSelection());
     OnChangeMode(dummy);
 
     // observe the panorama
@@ -368,7 +368,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
 
     // update automatic checkmarks
     wxCommandEvent dummy;
-    dummy.m_commandInt = m_mode_cb->GetSelection();
+    dummy.SetInt(m_mode_cb->GetSelection());
     OnChangeMode(dummy);
 
 }

@@ -433,34 +433,34 @@ void LensPanel::OnVarChanged(wxCommandEvent & e)
     DEBUG_TRACE("")
     if (m_selectedImages.size() > 0) {
         string varname;
-        DEBUG_TRACE (" var changed for control with id:" << e.m_id);
-        if (e.m_id == XRCID("lens_val_a")) {
+        DEBUG_TRACE (" var changed for control with id:" << e.GetId());
+        if (e.GetId() == XRCID("lens_val_a")) {
             varname = "a";
-        } else if (e.m_id == XRCID("lens_val_b")) {
+        } else if (e.GetId() == XRCID("lens_val_b")) {
             varname = "b";
-        } else if (e.m_id == XRCID("lens_val_c")) {
+        } else if (e.GetId() == XRCID("lens_val_c")) {
             varname = "c";
-        } else if (e.m_id == XRCID("lens_val_d")) {
+        } else if (e.GetId() == XRCID("lens_val_d")) {
             varname = "d";
-        } else if (e.m_id == XRCID("lens_val_e")) {
+        } else if (e.GetId() == XRCID("lens_val_e")) {
             varname = "e";
-        } else if (e.m_id == XRCID("lens_val_g")) {
+        } else if (e.GetId() == XRCID("lens_val_g")) {
             varname = "g";
-        } else if (e.m_id == XRCID("lens_val_t")) {
+        } else if (e.GetId() == XRCID("lens_val_t")) {
             varname = "t";
-        } else if (e.m_id == XRCID("lens_val_v")) {
+        } else if (e.GetId() == XRCID("lens_val_v")) {
             varname = "v";
-        } else if (e.m_id == XRCID("lens_val_K0a")) {
+        } else if (e.GetId() == XRCID("lens_val_K0a")) {
             varname = "K0a";
-        } else if (e.m_id == XRCID("lens_val_K0b")) {
+        } else if (e.GetId() == XRCID("lens_val_K0b")) {
             varname = "K0b";
-        } else if (e.m_id == XRCID("lens_val_K1a")) {
+        } else if (e.GetId() == XRCID("lens_val_K1a")) {
             varname = "K1a";
-        } else if (e.m_id == XRCID("lens_val_K1b")) {
+        } else if (e.GetId() == XRCID("lens_val_K1b")) {
             varname = "K1b";
-        } else if (e.m_id == XRCID("lens_val_K2a")) {
+        } else if (e.GetId() == XRCID("lens_val_K2a")) {
             varname = "K2a";
-        } else if (e.m_id == XRCID("lens_val_K2b")) {
+        } else if (e.GetId() == XRCID("lens_val_K2b")) {
             varname = "K2b";
         } else {
             // not reachable
@@ -492,29 +492,29 @@ void LensPanel::OnVarInheritChanged(wxCommandEvent & e)
     if (m_selectedLenses.size() > 0) {
         DEBUG_TRACE ("");
         std::vector<std::string> varnames;
-        if (e.m_id == XRCID("lens_inherit_a")) {
+        if (e.GetId() == XRCID("lens_inherit_a")) {
             varnames.push_back("a");
-        } else if (e.m_id == XRCID("lens_inherit_b")) {
+        } else if (e.GetId() == XRCID("lens_inherit_b")) {
             varnames.push_back("b");
-        } else if (e.m_id == XRCID("lens_inherit_c")) {
+        } else if (e.GetId() == XRCID("lens_inherit_c")) {
             varnames.push_back("c");
-        } else if (e.m_id == XRCID("lens_inherit_d")) {
+        } else if (e.GetId() == XRCID("lens_inherit_d")) {
             varnames.push_back("d");
-        } else if (e.m_id == XRCID("lens_inherit_e")) {
+        } else if (e.GetId() == XRCID("lens_inherit_e")) {
             varnames.push_back("e");
-        } else if (e.m_id == XRCID("lens_inherit_g")) {
+        } else if (e.GetId() == XRCID("lens_inherit_g")) {
             varnames.push_back("g");
-        } else if (e.m_id == XRCID("lens_inherit_t")) {
+        } else if (e.GetId() == XRCID("lens_inherit_t")) {
             varnames.push_back("t");
-        } else if (e.m_id == XRCID("lens_inherit_v")) {
+        } else if (e.GetId() == XRCID("lens_inherit_v")) {
             varnames.push_back("v");
-        } else if (e.m_id == XRCID("lens_inherit_K0")) {
+        } else if (e.GetId() == XRCID("lens_inherit_K0")) {
             varnames.push_back("K0a");
             varnames.push_back("K0b");
-        } else if (e.m_id == XRCID("lens_inherit_K1")) {
+        } else if (e.GetId() == XRCID("lens_inherit_K1")) {
             varnames.push_back("K1a");
             varnames.push_back("K1b");
-        } else if (e.m_id == XRCID("lens_inherit_K2")) {
+        } else if (e.GetId() == XRCID("lens_inherit_K2")) {
             varnames.push_back("K2a");
             varnames.push_back("K2b");
          } else {

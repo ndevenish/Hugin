@@ -380,7 +380,7 @@ void CPImageCtrl::rescaleImage()
     DEBUG_DEBUG("src image size "
                 << imageSize.GetHeight() << "x" << imageSize.GetWidth());
     if (getScaleFactor() == 1.0) {
-        bitmap = wxBitmap(img);
+        bitmap = wxBitmap(*img);
     } else {
         imageSize.SetWidth( scale(imageSize.GetWidth()) );
         imageSize.SetHeight( scale(imageSize.GetHeight()) );

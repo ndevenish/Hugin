@@ -68,6 +68,7 @@
 #include <wx/fs_zip.h>
 
 #if wxCHECK_VERSION(2,5,3)
+#include <wx/numdlg.h>
 #include <wx/imaglist.h>
 // Allow features of wx 2.5.3 and above to be used on GTK
 #ifdef __WXGTK__

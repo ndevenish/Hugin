@@ -783,7 +783,7 @@ ImageCache::Entry * ImageCache::getSmallImage(const std::string & filename)
             double ratio = (double)image->GetWidth() / image->GetHeight();
             small_image = image->Scale(w, (int) (w/ratio));
 
-            wxImage * tmp = new wxImage( &small_image );
+            wxImage * tmp = new wxImage( small_image );
             Entry * e = new Entry(tmp, entry->origType, entry->linear);
             images[name] = e;
             DEBUG_INFO ( "created small image: " << name);

@@ -240,7 +240,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
 
     // apply selection from xrc file
     wxCommandEvent dummy;
-    dummy.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
+    dummy.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
     OnZoom(dummy);
 
 
@@ -1831,7 +1831,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         if (cpCreationState != NO_POINT) {
             // reset zoom to previous setting
             wxCommandEvent tmpEvt;
-            tmpEvt.m_commandInt = XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection();
+            tmpEvt.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
             OnZoom(tmpEvt);
             m_leftImg->clearNewPoint();
             m_rightImg->clearNewPoint();

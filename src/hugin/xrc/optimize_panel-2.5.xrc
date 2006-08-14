@@ -113,7 +113,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_yaw_list">
+                              <object class="wxCheckListBox" name="optimizer_yaw_list">
                               </object>
                               <option>1</option>
                               <flag>wxALL|wxEXPAND</flag>
@@ -154,7 +154,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_pitch_list">
+                              <object class="wxCheckListBox" name="optimizer_pitch_list">
                               </object>
                               <option>1</option>
                               <flag>wxALL|wxEXPAND</flag>
@@ -195,7 +195,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_roll_list">
+                              <object class="wxCheckListBox" name="optimizer_roll_list">
                               </object>
                               <option>1</option>
                               <flag>wxALL|wxEXPAND</flag>
@@ -270,7 +270,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_v_list">
+                              <object class="wxCheckListBox" name="optimizer_v_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -289,7 +289,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_a_list">
+                              <object class="wxCheckListBox" name="optimizer_a_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -308,7 +308,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_b_list">
+                              <object class="wxCheckListBox" name="optimizer_b_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -327,7 +327,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_c_list">
+                              <object class="wxCheckListBox" name="optimizer_c_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -346,7 +346,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_d_list">
+                              <object class="wxCheckListBox" name="optimizer_d_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -365,7 +365,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               </object>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxCheckList" name="optimizer_e_list">
+                              <object class="wxCheckListBox" name="optimizer_e_list">
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
