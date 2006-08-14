@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wxDir="../../ExternalPrograms/wxMac-2.6.3"
+wxDir="../../ExternalPrograms/wxWidgets-2.7.0-1"
 resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
@@ -64,7 +64,7 @@ do
  if [ -d "$xrcsrcdir/data/help_$helplang" ]
  then
   echo "moving help_$helplang to $localisedresdir/help"
-  mv "$resdir/xrc/data/help_$helplang" "$localisedresdir/help"
+  cp -R "$resdir/xrc/data/help_$helplang" "$localisedresdir/help"
   for file in `ls $localisedresdir/help | grep .html`
   do
    echo  rewriting \'src=\"../help_common\' to \'src=\"../../xrc/data/help_common\'
