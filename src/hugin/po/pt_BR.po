@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-13 19:07+0200\n"
+"POT-Creation-Date: 2006-08-15 21:31+0200\n"
 "PO-Revision-Date: 2005-11-03 14:03-0500\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team:  <pt_BR@li.org>\n"
@@ -378,6 +378,12 @@ msgstr "Erro: entre com um nmero váido"
 msgid "Could not read number"
 msgstr "Não foi possíel ler o número"
 
+#: src/hugin/huginApp.cpp:49 src/hugin/ImagesPanel.cpp:310
+#: src/hugin/ImagesPanel.cpp:331 src/hugin/ImagesPanel.cpp:351
+#: src/hugin/PanoPanel.cpp:255 src/hugin/PanoPanel.cpp:286
+msgid "Value must be numeric."
+msgstr "Valor precisa ser numérico."
+
 #: src/hugin/ImageCache.cpp:618
 #, c-format
 msgid "Loading image %s"
@@ -552,12 +558,6 @@ msgstr "Frame completo \"olho de peixe\""
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Equiretangular"
-
-#: src/hugin/ImagesPanel.cpp:310 src/hugin/ImagesPanel.cpp:331
-#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:255
-#: src/hugin/PanoPanel.cpp:286
-msgid "Value must be numeric."
-msgstr "Valor precisa ser numérico."
 
 #: src/hugin/ImagesPanel.cpp:695
 #, c-format
@@ -857,6 +857,82 @@ msgstr "erro do enblend"
 #: src/hugin/NonaStitcherPanel.cpp:567 src/hugin/PTStitcherPanel.cpp:307
 msgid "gamma must be a number"
 msgstr "gamma precisa ser um nmero"
+
+#: src/hugin/OptimizePanel.cpp:445
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:562
+#, fuzzy
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimisation of the Field of View (v) of partial panoramas can lead to bad "
+"results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Execução do Otimizador encerrada.\n"
+"AVISO: um valor muito baixo de Campo de Visão (v) foi estimado\n"
+"\n"
+"Os resultados provavelmente são inválidos.\n"
+"Por favor otimize a Visão para 360 graus completos ou tenha certeza do que "
+"você está fazendo.\n"
+"\n"
+"O Campo de Visão (v) às vezes também pode ser otimizado para panoramas "
+"parciais\n"
+"quando as imagens já estão bem alinhadas."
+
+#: src/hugin/OptimizePanel.cpp:565
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control "
+"points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:569
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+"Execução do Otimizador encerrada.\n"
+"Resultados:\n"
+" distância média dos pontos de controle:  %f\n"
+" desvio padrão: %f\n"
+" máximo: %f\n"
+"\n"
+"Aplicar as alterações?"
+
+#: src/hugin/OptimizePanel.cpp:574
+msgid "Optimisation result"
+msgstr ""
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -3502,46 +3578,6 @@ msgstr ""
 
 #~ msgid "Strategy %d, Iteration %d, average distance: %f"
 #~ msgstr "Estratégia %d, Iteração %d, distância média: %f"
-
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "WARNING: a very small Field of View (v) has been estimated\n"
-#~ "\n"
-#~ "The results are probably invalid.\n"
-#~ "Please optimize the View only for full 360 deg. panoramas or when you "
-#~ "know what you're doing.\n"
-#~ "\n"
-#~ "The Field of View (v) can sometimes be optimized for partial panoramas as "
-#~ "well,\n"
-#~ "when the images are already aligned well."
-#~ msgstr ""
-#~ "Execução do Otimizador encerrada.\n"
-#~ "AVISO: um valor muito baixo de Campo de Visão (v) foi estimado\n"
-#~ "\n"
-#~ "Os resultados provavelmente são inválidos.\n"
-#~ "Por favor otimize a Visão para 360 graus completos ou tenha certeza do "
-#~ "que você está fazendo.\n"
-#~ "\n"
-#~ "O Campo de Visão (v) às vezes também pode ser otimizado para panoramas "
-#~ "parciais\n"
-#~ "quando as imagens já estão bem alinhadas."
-
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "Results:\n"
-#~ " average control point distance: %f\n"
-#~ " standard deviation: %f\n"
-#~ " maximum: %f\n"
-#~ "\n"
-#~ "Apply the changes?"
-#~ msgstr ""
-#~ "Execução do Otimizador encerrada.\n"
-#~ "Resultados:\n"
-#~ " distância média dos pontos de controle:  %f\n"
-#~ " desvio padrão: %f\n"
-#~ " máximo: %f\n"
-#~ "\n"
-#~ "Aplicar as alterações?"
 
 #~ msgid "Ok"
 #~ msgstr "OK"

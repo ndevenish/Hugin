@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-13 19:07+0200\n"
+"POT-Creation-Date: 2006-08-15 21:31+0200\n"
 "PO-Revision-Date: 2005-09-25 22:48+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -364,6 +364,12 @@ msgstr "错误:请输入一个有效数字."
 msgid "Could not read number"
 msgstr "不能读取数字"
 
+#: src/hugin/huginApp.cpp:49 src/hugin/ImagesPanel.cpp:310
+#: src/hugin/ImagesPanel.cpp:331 src/hugin/ImagesPanel.cpp:351
+#: src/hugin/PanoPanel.cpp:255 src/hugin/PanoPanel.cpp:286
+msgid "Value must be numeric."
+msgstr "必须是数字."
+
 #: src/hugin/ImageCache.cpp:618
 #, c-format
 msgid "Loading image %s"
@@ -538,12 +544,6 @@ msgstr "全帧鱼眼"
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "等角距形"
-
-#: src/hugin/ImagesPanel.cpp:310 src/hugin/ImagesPanel.cpp:331
-#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:255
-#: src/hugin/PanoPanel.cpp:286
-msgid "Value must be numeric."
-msgstr "必须是数字."
 
 #: src/hugin/ImagesPanel.cpp:695
 #, c-format
@@ -835,6 +835,80 @@ msgstr "enblend 错误"
 #: src/hugin/NonaStitcherPanel.cpp:567 src/hugin/PTStitcherPanel.cpp:307
 msgid "gamma must be a number"
 msgstr "伽马值必须是一个数字"
+
+#: src/hugin/OptimizePanel.cpp:445
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:562
+#, fuzzy
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimisation of the Field of View (v) of partial panoramas can lead to bad "
+"results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"优化器运行完毕.\n"
+"警告: 估算到非常小的视野 (v) \n"
+"\n"
+"这些结果也许是无效的.\n"
+"请只在缝合 360 度全景或者当您知道正在做什么时才进行这种视野的优化.\n"
+"\n"
+"在图像已经排列好时,\n"
+"这种视野 (v) 有时也能在局部全景中被优化."
+
+#: src/hugin/OptimizePanel.cpp:565
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control "
+"points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:569
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+"优化器运行完毕.\n"
+"结果:\n"
+" 平均控制点距离: %f\n"
+" 标准差: %f\n"
+" 最大值: %f\n"
+"\n"
+"应用改变?"
+
+#: src/hugin/OptimizePanel.cpp:574
+msgid "Optimisation result"
+msgstr ""
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -3415,44 +3489,6 @@ msgstr ""
 
 #~ msgid "Strategy %d, Iteration %d, average distance: %f"
 #~ msgstr "策略 %d, 迭代 %d, 平均距离: %f"
-
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "WARNING: a very small Field of View (v) has been estimated\n"
-#~ "\n"
-#~ "The results are probably invalid.\n"
-#~ "Please optimize the View only for full 360 deg. panoramas or when you "
-#~ "know what you're doing.\n"
-#~ "\n"
-#~ "The Field of View (v) can sometimes be optimized for partial panoramas as "
-#~ "well,\n"
-#~ "when the images are already aligned well."
-#~ msgstr ""
-#~ "优化器运行完毕.\n"
-#~ "警告: 估算到非常小的视野 (v) \n"
-#~ "\n"
-#~ "这些结果也许是无效的.\n"
-#~ "请只在缝合 360 度全景或者当您知道正在做什么时才进行这种视野的优化.\n"
-#~ "\n"
-#~ "在图像已经排列好时,\n"
-#~ "这种视野 (v) 有时也能在局部全景中被优化."
-
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "Results:\n"
-#~ " average control point distance: %f\n"
-#~ " standard deviation: %f\n"
-#~ " maximum: %f\n"
-#~ "\n"
-#~ "Apply the changes?"
-#~ msgstr ""
-#~ "优化器运行完毕.\n"
-#~ "结果:\n"
-#~ " 平均控制点距离: %f\n"
-#~ " 标准差: %f\n"
-#~ " 最大值: %f\n"
-#~ "\n"
-#~ "应用改变?"
 
 #~ msgid "PTOptimizer"
 #~ msgstr "PTOptimizer"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-13 19:07+0200\n"
+"POT-Creation-Date: 2006-08-15 21:31+0200\n"
 "PO-Revision-Date: 2005-11-06 04:34+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -349,6 +349,12 @@ msgstr "Hiba: adjon meg egy érvényes számot."
 msgid "Could not read number"
 msgstr "Nem olvasható be szám"
 
+#: src/hugin/huginApp.cpp:49 src/hugin/ImagesPanel.cpp:310
+#: src/hugin/ImagesPanel.cpp:331 src/hugin/ImagesPanel.cpp:351
+#: src/hugin/PanoPanel.cpp:255 src/hugin/PanoPanel.cpp:286
+msgid "Value must be numeric."
+msgstr "Az értéknek számnak kell lennie."
+
 #: src/hugin/ImageCache.cpp:618
 #, c-format
 msgid "Loading image %s"
@@ -523,12 +529,6 @@ msgstr "Teljes keretes halszem"
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Egyenlően szögletes"
-
-#: src/hugin/ImagesPanel.cpp:310 src/hugin/ImagesPanel.cpp:331
-#: src/hugin/ImagesPanel.cpp:351 src/hugin/PanoPanel.cpp:255
-#: src/hugin/PanoPanel.cpp:286
-msgid "Value must be numeric."
-msgstr "Az értéknek számnak kell lennie."
 
 #: src/hugin/ImagesPanel.cpp:695
 #, c-format
@@ -795,6 +795,64 @@ msgstr "enblend hiba"
 #: src/hugin/NonaStitcherPanel.cpp:567 src/hugin/PTStitcherPanel.cpp:307
 msgid "gamma must be a number"
 msgstr "a gamának egy számnak kell lennie"
+
+#: src/hugin/OptimizePanel.cpp:445
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be "
+"optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired "
+"output projection afterwards."
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:562
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimisation of the Field of View (v) of partial panoramas can lead to bad "
+"results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:565
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control "
+"points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:569
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+
+#: src/hugin/OptimizePanel.cpp:574
+msgid "Optimisation result"
+msgstr ""
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."

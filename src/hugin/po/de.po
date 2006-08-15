@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-13 19:07+0200\n"
-"PO-Revision-Date: 2006-08-13 19:19+0100\n"
+"POT-Creation-Date: 2006-08-15 21:31+0200\n"
+"PO-Revision-Date: 2006-08-15 21:41+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -394,6 +394,15 @@ msgstr "Fehler: Bitte eine Zahl eingeben"
 msgid "Could not read number"
 msgstr "Konnte Zahl nicht lesen"
 
+#: src/hugin/huginApp.cpp:49
+#: src/hugin/ImagesPanel.cpp:310
+#: src/hugin/ImagesPanel.cpp:331
+#: src/hugin/ImagesPanel.cpp:351
+#: src/hugin/PanoPanel.cpp:255
+#: src/hugin/PanoPanel.cpp:286
+msgid "Value must be numeric."
+msgstr "Wert muß numerisch sein"
+
 #: src/hugin/ImageCache.cpp:618
 #, c-format
 msgid "Loading image %s"
@@ -586,14 +595,6 @@ msgstr "Fischauge Vollbild"
 #: src/hugin/xrc/pano_panel-2.5.xrs:5
 msgid "Equirectangular"
 msgstr "Sphärisch (equirectangular)"
-
-#: src/hugin/ImagesPanel.cpp:310
-#: src/hugin/ImagesPanel.cpp:331
-#: src/hugin/ImagesPanel.cpp:351
-#: src/hugin/PanoPanel.cpp:255
-#: src/hugin/PanoPanel.cpp:286
-msgid "Value must be numeric."
-msgstr "Wert muß numerisch sein"
 
 #: src/hugin/ImagesPanel.cpp:695
 #, c-format
@@ -881,6 +882,91 @@ msgstr "Enblend-Fehler"
 #: src/hugin/PTStitcherPanel.cpp:307
 msgid "gamma must be a number"
 msgstr "Gamma muß eine Zahl sein"
+
+#: src/hugin/OptimizePanel.cpp:445
+msgid ""
+"Cannot optimize this projection.\n"
+"Only rectilinear, cylindrical and equirectangular panoramas can be optimized\n"
+"\n"
+"Please optimize using one of these projections and selected the desired output projection afterwards."
+msgstr ""
+"Kann nicht mit der aktuellen Projektion optimieren.\n"
+"Nur rectilineare, zylindrische und equirectangular panorams können optimiert werden.\n"
+"\n"
+"Bitte wählen Sie eine dieser Projektionen aus. Nach der\n"
+" Optimierung können sie dann die gewünschte Ausgabeprojektion auswählen."
+
+#: src/hugin/OptimizePanel.cpp:562
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimisation of the Field of View (v) of partial panoramas can lead to bad results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Optimierung beendet\n"
+"WARNUNG: Ein sehr kleiner Bildwinkel (v) wurde ermittelt\n"
+"\n"
+"Der Ergebnis ist wahrscheinlich nicht richtig.\n"
+"\n"
+"Der Bildwinkel (v) kann manchmal auch für Teilpanoramen optimiert werden,\n"
+"wenn die Bilder gut ausgerichtet, und viele Kontrollpunkte vorhanden sind."
+
+#: src/hugin/OptimizePanel.cpp:565
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Optimierung beendet.\n"
+"Ergebnisse:\n"
+" mittlerer Kontrollpunktabstand: %f\n"
+" Standardabweichung: %f\n"
+" maximaler Abstand: %f\n"
+"\n"
+"*ACHTUNG*: es wurden sehr hohe Verzeichungsparameter (a,b,c) berechnet.\n"
+"Die Ergebnisse sind warscheinlich ungültig.\n"
+"Die Optimierung aller Verzeichnungsparameter funktioniert nur wenn\n"
+"viele, gut verteilte Kontrollpunkte gesetzt wurden.\n"
+"\n"
+"Möchten Sie die Änderungen trotzdem anwenden?"
+
+#: src/hugin/OptimizePanel.cpp:569
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+"Optimierung beendet\n"
+"Ergebnis:\n"
+"  durchschnittlichte Kontrollpunktsentfernung: %f\n"
+"  Standardabweichung: %f\n"
+"  Maximum: %f\n"
+"\n"
+"Änderungen anwenden?"
+
+#: src/hugin/OptimizePanel.cpp:574
+msgid "Optimisation result"
+msgstr "Ergebniss der Optimierung"
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -3564,44 +3650,6 @@ msgstr "Die Optimierung von allen Verzeichungsparametern ist nur sinnvoll wenn B
 #~ msgstr "Konnte PTOptimizer-Ausgabe nicht finden"
 #~ msgid "Strategy %d, Iteration %d, average distance: %f"
 #~ msgstr "Vorgehensweise %d, Iteration %d, durchschnittliche Entfernung: %f"
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "WARNING: a very small Field of View (v) has been estimated\n"
-#~ "\n"
-#~ "The results are probably invalid.\n"
-#~ "Please optimize the View only for full 360 deg. panoramas or when you "
-#~ "know what you're doing.\n"
-#~ "\n"
-#~ "The Field of View (v) can sometimes be optimized for partial panoramas as "
-#~ "well,\n"
-#~ "when the images are already aligned well."
-#~ msgstr ""
-#~ "Optimierung beendet\n"
-#~ "WARNUNG: Ein sehr kleiner Bildwinkel (v) wurde ermittelt\n"
-#~ "\n"
-#~ "Der Ergebnis ist wahrscheinlich nicht richtig.\n"
-#~ "Bitte optimieren Sie den Bildwinkel nur für 360°-Panoramas oder wenn Sie "
-#~ "wissen, was Sie tun.\n"
-#~ "\n"
-#~ "Der Bildwinkel (v) kann manchmal auch für Teilpanoramen optimiert "
-#~ "werden,\n"
-#~ "wenn die Bilder gut ausgerichtet sind."
-#~ msgid ""
-#~ "Optimizer run finished.\n"
-#~ "Results:\n"
-#~ " average control point distance: %f\n"
-#~ " standard deviation: %f\n"
-#~ " maximum: %f\n"
-#~ "\n"
-#~ "Apply the changes?"
-#~ msgstr ""
-#~ "Optimierung beendet\n"
-#~ "Ergebnis:\n"
-#~ "  durchschnittlichte Kontrollpunktsentfernung: %f\n"
-#~ "  Standardabweichung: %f\n"
-#~ "  Maximum: %f\n"
-#~ "\n"
-#~ "Änderungen anwenden?"
 #~ msgid "PTOptimizer"
 #~ msgstr "PTOptimizer"
 #~ msgid "Ok"
