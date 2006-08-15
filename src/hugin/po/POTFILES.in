@@ -6,17 +6,22 @@ src/hugin/CPEditorPanel.cpp
 src/hugin/CPFineTuneFrame.cpp
 src/hugin/CPImageCtrl.cpp
 src/hugin/CPListFrame.cpp
+src/hugin/huginApp.cpp
 src/hugin/ImageCache.cpp
 src/hugin/ImageCenter.cpp
 src/hugin/ImageOrientationPanel.cpp
+src/hugin/ImageOrientationFrame.cpp
 src/hugin/ImagesList.cpp
 src/hugin/ImagesPanel.cpp
 src/hugin/LensPanel.cpp
 src/hugin/MainFrame.cpp
+src/hugin/MyExternalCmdExecDialog.cpp
 src/hugin/MyProgressDialog.cpp
 src/hugin/NonaStitcherPanel.cpp
+src/hugin/OptimizePanel.cpp
 src/hugin/PanoDruid.cpp
 src/hugin/PanoPanel.cpp
+src/hugin/Plot2D.cpp
 src/hugin/PreferencesDialog.cpp
 src/hugin/PreviewFrame.cpp
 src/hugin/PreviewPanel.cpp
@@ -24,6 +29,7 @@ src/hugin/PTStitcherPanel.cpp
 src/hugin/RunStitcherFrame.cpp
 src/hugin/LocalizedFileTipProvider.cpp
 src/hugin/VigCorrDialog.cpp
+src/hugin/wxPanoCommand.cpp
 src/include/hugin/MyProgressDialog.h
 src/include/hugin/wxPanoCommand.h
 
