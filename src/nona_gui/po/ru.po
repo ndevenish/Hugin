@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
 "PO-Revision-Date: 2005-11-04 18:08+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -25,13 +25,9 @@ msgstr ""
 "Обнаружена синтаксическая ошибка в параметрах, выполнение операции "
 "прерывается."
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
 msgstr "Укажите исходный файл проекта"
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
-msgstr "Указано слишком много проектных файлов"
 
 #: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
@@ -59,6 +55,13 @@ msgstr "не удалось открыть сценарий : %s"
 msgid "error while parsing panos tool script: %s"
 msgstr "ошибка при синтаксическом разборе сценария pano tools: %s"
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr "размер конечного изображения: "
+
+#~ msgid "Too many project files specified"
+#~ msgstr "Указано слишком много проектных файлов"

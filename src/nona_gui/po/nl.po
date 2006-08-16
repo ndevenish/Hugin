@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
 "PO-Revision-Date: 2005-09-16 14:34+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@hccnet.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -19,13 +19,9 @@ msgstr ""
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Syntax fout ontdekt in de parameters, programma wordt afgebroken."
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
 msgstr "Geef project bron bestand aan."
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
-msgstr "Te veel project bestanden opgegeven"
 
 #: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
@@ -53,6 +49,13 @@ msgstr "Kan script: %s  niet openen"
 msgid "error while parsing panos tool script: %s"
 msgstr "fout tijdens verwerking panos tool script: %s"
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr "grootte uitvoer bestand:"
+
+#~ msgid "Too many project files specified"
+#~ msgstr "Te veel project bestanden opgegeven"

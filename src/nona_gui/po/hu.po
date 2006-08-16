@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nona GUI\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
 "PO-Revision-Date: 2005-11-06 04:20+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -16,13 +16,9 @@ msgstr ""
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Szintaktikai hiba található a paraméterben, művelet megszakítása."
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
 msgstr "Projektforrás projektfájl megadása"
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
-msgstr "Túl sok projektfájl van megadva"
 
 #: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
@@ -50,6 +46,13 @@ msgstr "A szkript nem nyitható meg: %s"
 msgid "error while parsing panos tool script: %s"
 msgstr "Hiba panos tool szkript elemzése közben: %s"
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr "kimeneti képméret:"
+
+#~ msgid "Too many project files specified"
+#~ msgstr "Túl sok projektfájl van megadva"

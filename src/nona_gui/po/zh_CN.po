@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nona_gui\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
 "PO-Revision-Date: 2005-09-25 21:05+0800\n"
 "Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -16,13 +16,9 @@ msgstr ""
 msgid "Syntax error in parameters detected, aborting."
 msgstr "参数语法错误, 中断."
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
 msgstr "指定项目源文件"
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
-msgstr "指定了太多项目文件"
 
 #: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
@@ -50,6 +46,13 @@ msgstr "无法打开脚本: %s"
 msgid "error while parsing panos tool script: %s"
 msgstr "分析全景工具脚本时出错: %s"
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr "输出图像尺寸:"
+
+#~ msgid "Too many project files specified"
+#~ msgstr "指定了太多项目文件"

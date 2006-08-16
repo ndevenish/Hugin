@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,8 @@ msgstr ""
 msgid "Syntax error in parameters detected, aborting."
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
-msgstr ""
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
 msgstr ""
 
 #: src/nona_gui/nona_gui.cpp:170
@@ -54,6 +50,10 @@ msgstr ""
 msgid "error while parsing panos tool script: %s"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr ""
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr ""

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: Nona 0.6.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-10 22:32+0200\n"
-"PO-Revision-Date: 2005-12-16 18:41+0100\n"
+"POT-Creation-Date: 2006-08-16 21:00+0200\n"
+"PO-Revision-Date: 2006-08-16 09:30+0200\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team:  <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,13 +19,9 @@ msgstr ""
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Une erreur de syntaxe dans les paramètres a été détectée, abandon."
 
-#: src/nona_gui/nona_gui.cpp:146
+#: src/nona_gui/nona_gui.cpp:147
 msgid "Specify project source project file"
 msgstr "Veuillez préciser le fichier source du projet"
-
-#: src/nona_gui/nona_gui.cpp:162
-msgid "Too many project files specified"
-msgstr "Trop de fichiers de projet ont été indiqués"
 
 #: src/nona_gui/nona_gui.cpp:170
 msgid "Could not find project file"
@@ -53,6 +49,10 @@ msgstr "Impossible d'ouvrir le script : %s"
 msgid "error while parsing panos tool script: %s"
 msgstr "Erreur lors de l'analyse du script des outils de panorama : %s"
 
-#: src/nona_gui/nona_gui.cpp:226
+#: src/nona_gui/nona_gui.cpp:221
+msgid "Wrong number of images specified on command line"
+msgstr "Un nombre d'images incorrect a été indiqué sur la ligne de commandes"
+
+#: src/nona_gui/nona_gui.cpp:236
 msgid "output image size: "
 msgstr "Taille de l'image de sortie : "
