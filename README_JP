@@ -1,0 +1,73 @@
+This Japanese document is encoded with Shift-JIS.
+-------------------------------------------------
+
+
+Readmeファイル - 日本語
+
+hugin - Panorama Tools GUI
+http://hugin.sourceforge.net/
+
+
+
+hugin について
+
+hugin はパノラマ写真を複数の写真から作るソフトです。魚眼レンズなどプロフェッショナルな機器への対応も充実していますが、普通のデジカメで撮った写真でも全然平気です。
+
+
+
+ライセンス
+
+hugin はオープンソース・ソフトウェアです。GNU General Public Lisenceのもとに無料で提供されています。
+
+
+
+インストール
+
+hugin は Microsoft Windows、Mac OS X、各種Linux・BSDに対応しています。配布形態やインストール方法はそれぞれのシステムで一般的な方法に合わせています。
+
+Windows: インストーラ
+Mac: ドラッグ＆ドロップ
+Unix-like: ソース（configure、make）
+
+
+
+
+張り合わせの手順
+
+1. 画像をプロジェクトに読み込む
+2. レンズの視野角などを設定
+3. コントロールポイントを指定
+4. 出力画像の中心となる、位置の基準にするポイントの設定
+5. 最適化を実行、一つひとつの画像を最適な位置に
+6. 繋ぎ合わせる
+ウェブや下記にあるチュートリアルを参考にしてください。
+
+
+
+日本語の情報源
+
+- mixi.jp の「hugin」コミュニティ
+おそらく日本語で唯一のhuginユーザーのコミュニティ、初心者歓迎。
+http://mixi.jp/view_community.pl?id=898110
+
+- オンラインのチュートリアル
+http://www.planewave.org/translations/hugin/create-panorama.html 
+http://www.xucker.jpn.org/pc/makepanorama.html 
+http://www.geocities.jp/aerohawk_7/hugin.html 
+など
+
+- ユーザのブログ
+http://tbp.jp/tbp_6182.html
+http://technorati.jp/tag/hugin
+など
+
+
+
+その他
+
+- 日本語対応は鵜飼一平(ippei_ukai@mac.com)が上記コミュニティの方々と協力して進めています。ヘルプの日本語訳や日本語のチュートリアルなど、どんな形でもご協力頂ければ幸いです。
+
+
+
+Ippei UKAI, Copyleft 2006
+Last Modified: $Id$
