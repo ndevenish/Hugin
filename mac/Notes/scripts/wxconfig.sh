@@ -34,6 +34,10 @@ mkdir -p "$REPOSITORYDIR/include";
 for ARCH in $ARCHS
 do
 
+ #debug
+ rm -f "$REPOSITORYDIR/lib/wx/include/mac-unicode-release-static-2.7/$confname";
+ #~debug
+
  mkdir -p "osx-$ARCH-build";
  cd "osx-$ARCH-build";
 
@@ -73,16 +77,31 @@ do
 
 
  make clean;
+
+#hack
+ cp utils/wxrc/Makefile utils/wxrc/Makefile-copy;
+ echo "all: " > utils/wxrc/Makefile;
+ echo "" >> utils/wxrc/Makefile;
+ echo "install: " >> utils/wxrc/Makefile;
+#~hack
+
  make install;
 
  cd ../;
+
+ #debug
+ if [ -f "$REPOSITORYDIR/lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h" ]
+ then
+  mv "$REPOSITORYDIR/lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h" "$REPOSITORYDIR/arch/$ARCH/lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h";
+ fi
+ #~debug
 
 done
 
 
 # merge libwx
 
-for libname in lib/libwx_macu-2.6 lib/libwx_macu_gl-2.6 lib/libwxexpat-2.6 lib/libwxregexu-2.6
+for libname in lib/libwx_macu-2.7 lib/libwx_macu_gl-2.7 lib/libwxexpat-2.7 lib/libwxregexu-2.7
 do
 
  LIPOARGs=""
@@ -122,7 +141,7 @@ done
 for confname in "wx/setup.h"
 do
 
- wxmacconf="lib/wx/include/mac-unicode-release-static-2.6/$confname"
+ wxmacconf="lib/wx/include/mac-unicode-release-static-2.7/$confname"
 
  echo "" > "$REPOSITORYDIR/$wxmacconf";
 
@@ -132,7 +151,7 @@ do
 
   if [ $ARCH = "i386" -o $ARCH = "i686" ]
   then
-   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-2.6/$confname"
+   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-2.7/$confname"
   elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
   then
    conf_h="$wxmacconf"
@@ -147,7 +166,7 @@ do
  do
   if [ $ARCH = "i386" -o $ARCH = "i686" ]
   then
-   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-2.6/$confname"
+   conf_h="lib/wx/include/i386-apple-darwin8-mac-unicode-release-static-2.7/$confname"
   elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
   then
    conf_h="$wxmacconf"
