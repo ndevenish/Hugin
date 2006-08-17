@@ -65,9 +65,17 @@ public:
 
     /** just for testing purposes */
     virtual int OnExit();
+    
+#ifdef __WXMAC__
+    /** the wx calls this method when the app gets "Open file" AppleEvent */
+    void nonaApp::MacOpenFile(const wxString &fileName);
+#endif
 
 private:
     wxLocale m_locale;
+#ifdef __WXMAC__
+    wxString m_macFileNameToOpenOnStart;
+#endif
 };
 
 
@@ -142,7 +150,12 @@ bool nonaApp::OnInit()
     bool imgsFromCmdline = false;
 
     wxString scriptFile;
-    if( parser.GetParamCount() == 0) 
+#ifdef __WXMAC__
+    m_macFileNameToOpenOnStart = wxT("");
+    wxYield();
+    scriptFile = m_macFileNameToOpenOnStart;
+#endif
+    if( parser.GetParamCount() == 0 && wxIsEmpty(scriptFile)) 
     {
         wxFileDialog dlg(0,_("Specify project source project file"),
                         wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
@@ -154,7 +167,7 @@ bool nonaApp::OnInit()
         } else { // bail
         return false;
         }
-    } else {
+    } else if(wxIsEmpty(scriptFile)) {
         scriptFile = parser.GetParam(0);
         if ( parser.GetParamCount() > 1) {
           // load images.
@@ -167,7 +180,7 @@ bool nonaApp::OnInit()
 
     wxFileName fname(scriptFile);
     if ( !fname.FileExists() ) {
-      wxLogError( _("Could not find project file"));
+      wxLogError( _("Could not find project file:") + scriptFile);
       return false;
     }
     wxString path = fname.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR);
@@ -261,6 +274,15 @@ int nonaApp::OnExit()
     DEBUG_TRACE("");
     return 0;
 }
+
+
+#ifdef __WXMAC__
+// wx calls this method when the app gets "Open file" AppleEvent 
+void nonaApp::MacOpenFile(const wxString &fileName)
+{
+    m_macFileNameToOpenOnStart = fileName;
+}
+#endif
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(nonaApp)
