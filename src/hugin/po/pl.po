@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.6.1\n"
+"Project-Id-Version: hugin 0.6.1-CVS\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2006-08-15 21:31+0200\n"
-"PO-Revision-Date: 2006-08-11 17:31+0200\n"
+"PO-Revision-Date: 2006-08-17 18:50+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Nie wybrano autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:194
 msgid "Autopano-SIFT is not installed."
-msgstr ""
+msgstr "Autopano-SIFT nie jest zainstalowane."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:199
 msgid "Select autopano frontend script"
@@ -856,9 +856,12 @@ msgid ""
 "Please optimize using one of these projections and selected the desired "
 "output projection afterwards."
 msgstr ""
+"Nie można zoptymalizować tego rzutu.\n"
+"Optymalizować można tylko panoramy prostoliniowe, cylindryczne i równoprostokątne.\n"
+"\n"
+"Proszę zoptymalizować przy użyciu jednego z tych rzutów i wybrać potem żądany rzut wyjściowy."
 
 #: src/hugin/OptimizePanel.cpp:562
-#, fuzzy
 msgid ""
 "Optimizer run finished.\n"
 "WARNING: a very small Field of View (v) has been estimated\n"
@@ -872,18 +875,17 @@ msgid ""
 "Apply the changes anyway?"
 msgstr ""
 "Optymalizator zakończył pracę.\n"
-"UWAGA: Wyliczono bardzo małe Pole Widzenia (v)\n"
+"UWAGA: Wyliczono bardzo małe pole widzenia (v)\n"
 "\n"
-"Rezult jest prawdopodobnie nieprawidłowy.\n"
-"Proszę zoptymalizować Pole Widzenia dla pełnych 360 stopniowych panoram lub "
-"kiedy na pewno wiesz co robisz.\n"
+"Wyniki są prawdopodobnie nieprawidłowe.\n"
+"Proszę optymalizować pole widzenia tylko dla pełnych 360 stopniowych panoram "
+"lub kiedy na pewno wiesz co robisz.\n"
 "\n"
-"Pole Widzenia (v) może czasem być zoptymalizowane dla częściowych panoram "
-"równie dobrze,\n"
+"Pole widzenia (v) może czasem być optymalizowane także dla częściowych panoram,\n"
 "gdy zdjęcia są już dobrze wyrównane."
 
 #: src/hugin/OptimizePanel.cpp:565
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Optimizer run finished.\n"
 "Results:\n"
@@ -899,15 +901,17 @@ msgid ""
 "\n"
 "Apply the changes anyway?"
 msgstr ""
-"Działanie optymalizatora zakończone.\n"
+"Optymalizator zakończył pracę.\n"
 "Wyniki:\n"
 " średnia odległość punktów kontrolnych: %f\n"
 " odchylenie standardowe: %f\n"
 " maksimum: %f\n"
+"\n"
 "*UWAGA*: estymowano bardzo duże współczynniki zniekształcenia (a,b,c).\n"
 "Wyniki są prawdopodobnie niepoprawne.\n"
 "Należy optymalizować wszystkie parametry zniekształcenia tylko kiedy użyto "
 "dużej liczby dobrze rozmieszczonych punktów kontrolnych.\n"
+"Proszę przestawić parametry a, b i c na zero i dodać więcej punktów kontrolnych.\n"
 "\n"
 "Mimo to zastosować zmiany?"
 
@@ -932,7 +936,7 @@ msgstr ""
 
 #: src/hugin/OptimizePanel.cpp:574
 msgid "Optimisation result"
-msgstr ""
+msgstr "Wynik optymalizacji"
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1377,18 +1381,16 @@ msgid "No PTStitcher.exe selected"
 msgstr "Nie wybrano PTStitcher.exe"
 
 #: src/hugin/RunStitcherFrame.cpp:106
-#, fuzzy
 msgid "Select PTStitcher commandline tool"
-msgstr "Wybierz narzędzie enblend"
+msgstr "Wybierz narzędzie PTStitcher"
 
 #: src/hugin/RunStitcherFrame.cpp:114
-#, fuzzy
 msgid "No PTStitcher commandline tool selected"
-msgstr "Nie wybrano narzędzia enblend"
+msgstr "Nie wybrano narzędzia PTStitcher"
 
 #: src/hugin/RunStitcherFrame.cpp:164
 msgid "Failed to launch the PTStitcher."
-msgstr "Błąd uruchamiania PTStitcher.exe"
+msgstr "Błąd uruchamiania PTStitchera."
 
 #: src/hugin/RunStitcherFrame.cpp:178
 msgid "Could not obtain PTStitcher output"
@@ -1403,9 +1405,9 @@ msgstr ""
 "PTStitcher zwrócił niezerowy kod błędu."
 
 #: src/hugin/RunStitcherFrame.cpp:308
-#, fuzzy, c-format
+#, c-format
 msgid "Error executing %s"
-msgstr "Błąd podcza uruchamiania PTSTitcher.exe"
+msgstr "Błąd uruchamiania %s"
 
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
@@ -2801,7 +2803,7 @@ msgstr "Panarama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
 msgid "Use alternative PTStitcher program"
-msgstr ""
+msgstr "Użyj alternatywnego programu PTStitcher"
 
 #: src/hugin/xrc/pref_dialog.xrs:5
 msgid "PTStitcher:"
@@ -2809,14 +2811,12 @@ msgstr "PTStitcher:"
 
 #: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:64
 #: src/hugin/xrc/pref_dialog.xrs:69 src/hugin/xrc/pref_dialog.xrs:76
-#, fuzzy
 msgid "Choose..."
-msgstr "Utnij..."
+msgstr "Wybierz..."
 
 #: src/hugin/xrc/pref_dialog.xrs:7
-#, fuzzy
 msgid "Scriptfile:"
-msgstr "Skrypt"
+msgstr "Plik skryptu:"
 
 #: src/hugin/xrc/pref_dialog.xrs:8
 msgid "Name of the temporary script file used by Panotools"
@@ -3036,7 +3036,7 @@ msgstr "Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:62
 msgid "Use alternative Autopano-SIFT program"
-msgstr ""
+msgstr "Użyj alternatywnego programu Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:63
 msgid "Autopano-SIFT:"
@@ -3048,7 +3048,7 @@ msgstr "Parametry:"
 
 #: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Use alternative Autopano program"
-msgstr ""
+msgstr "Użyj alternatywnego programu Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:68
 msgid "Autopano:"
@@ -3079,7 +3079,7 @@ msgstr "Opcje enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Use alternative Enblend program"
-msgstr ""
+msgstr "Użyj alternatywnego programu Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Enblend:"
@@ -3427,12 +3427,11 @@ msgstr ""
 "daje wiele twórczych możliwości."
 
 #: src/hugin/xrc/data/tips.txt:14
-#, fuzzy
 msgid ""
 "The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"Wiki PanoTools pod http://wiki.panoramatools.org zawiera obszerne informacje "
+"Wiki PanoTools pod http://wiki.panotools.org zawiera obszerne informacje "
 "o tworzeniu panoram i innych obrazów przy użyciu panotools."
 
 #: src/hugin/xrc/data/tips.txt:15
@@ -3543,33 +3542,3 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze "
 "rozproszonych punktów kontrolnych."
-
-#~ msgid "Select PTOptimizer"
-#~ msgstr "Wybierz PTOptimizer"
-
-#~ msgid "No PTOptimizer.exe selected"
-#~ msgstr "Nie wybrano PTOptimizer.exe"
-
-#~ msgid "No PTOptimizer selected"
-#~ msgstr "Nie wybrano PTOptimizera"
-
-#~ msgid "Failed to launch PTOptimizer."
-#~ msgstr "Błąd uruchamiania PTOptimizera."
-
-#~ msgid "Could not obtain PTOptimizer output"
-#~ msgstr "Nie udało się uzyskać wyjścia z PTOptimizera"
-
-#~ msgid "Stop"
-#~ msgstr "Zatrzymaj"
-
-#~ msgid "Could not start PTOptimizer"
-#~ msgstr "Nie udało się uruchomić PTOptimizera"
-
-#~ msgid "Strategy %d, Iteration %d, average distance: %f"
-#~ msgstr "Strategia %d, Iteracja %d, średnia odległość: %f"
-
-#~ msgid "PTOptimizer"
-#~ msgstr "PTOptimizer"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
