@@ -96,7 +96,7 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
             wxLogError(_("No PTStitcher.exe selected"));
         }
     }
-#elseif (defined __WXMAC__)
+#elif (defined __WXMAC__)
     Hide();
     wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_SCRIPTFILE));    
     // TODO: for now, default path triggers non-custom path but to be fixed

@@ -316,9 +316,6 @@ xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 				RelativePath=".\PTWXDlg.cpp">
 			</File>
 			<File
-				RelativePath=".\RunOptimizerFrame.cpp">
-			</File>
-			<File
 				RelativePath=".\RunStitcherFrame.cpp">
 			</File>
 			<File
