@@ -194,6 +194,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     DEBUG_TRACE("");
 
     // load our menu bar
+#ifdef __WXMAC__
+    wxApp::s_macAboutMenuItemId = XRCID("action_show_about");
+    wxApp::s_macPreferencesMenuItemId = XRCID("action_show_prefs");
+    wxApp::s_macExitMenuItemId = XRCID("action_exit_hugin");
+    wxApp::s_macHelpMenuTitleName = _("&Help");
+#endif
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
     // create tool bar
@@ -316,12 +322,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
-
-#ifdef __WXMAC__
-    wxApp::s_macAboutMenuItemId = XRCID("action_show_about");
-    wxApp::s_macPreferencesMenuItemId = XRCID("action_show_prefs");
-    wxApp::s_macHelpMenuTitleName = _("&Help");
-#endif
 
     if(splash) {
         splash->Close();
