@@ -1,3 +1,190 @@
+2006-08-13 19:45  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sv.po,
+	  uk.po, zh_CN.po: updated german translation (Pablo d'Angelo) and
+	  strings in other translations
+
+2006-08-13 18:06  dangelo
+
+	* src/hugin/xrc/pref_dialog.xrc: replaced "custom" with
+	  "alternative" (makes more sense on all platforms)
+
+2006-08-13 12:41  ippei
+
+	* mac/Documents/: HOWTO-autopanosift.txt, ReadMe-HuginOSX.txt: Mac:
+	  updated documentation
+
+2006-08-13 11:58  ippei
+
+	* src/hugin/xrc/data/: about.htm, about_fr.htm, about_pl.htm: We
+	  are now in 2006
+
+2006-08-13 11:54  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: the newest build
+	  file
+
+2006-08-13 11:54  ippei
+
+	* src/hugin/MyExternalCmdExecDialog.cpp: Mac: command line window
+	  spacing improved
+
+2006-08-13 11:54  ippei
+
+	* mac/localised.sh: Mac: stupid bug removed related to the previous
+	  help fix
+
+2006-08-13 11:50  ippei
+
+	* src/: include/hugin/PreferencesDialog.h,
+	  include/hugin/config_defaults.h, hugin/PreferencesDialog.cpp: Use
+	  custom program option enabled
+
+2006-08-12 21:26  ippei
+
+	* src/include/hugin/config_defaults.h: Rearranged the executable
+	  searching logic mainly on Mac. Also disabled the PTStitcher
+	  engine on Mac unless use custom is on.
+
+2006-08-12 21:18  ippei
+
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp,
+	  PanoPanel.cpp, PreferencesDialog.cpp, RunStitcherFrame.cpp:
+	  Rearranged the executable searching logic mainly on Mac. Also
+	  disabled the PTStitcher engine on Mac unless use custom is on.
+
+2006-08-12 17:17  dangelo
+
+	* src/: hugin/Makefile.am, hugin/OptimizePanel.cpp,
+	  hugin/PreferencesDialog.cpp, hugin/po/POTFILES.in,
+	  include/hugin/config_defaults.h: fixed compilation under unix and
+	  localisation
+
+2006-08-12 17:16  dangelo
+
+	* src/hugin/xrc/data/: FAQ.html, FAQ_fr.html, horiz-guide.jpg,
+	  problem-circle.jpg, tips.txt, help_en_EN/FAQ.html,
+	  help_en_EN/contents.html, help_en_EN/manual.html,
+	  help_fr_FR/FAQ.html, help_fr_FR/contents.html,
+	  help_fr_FR/manual.html: fixed help, moved FAQ into respective
+	  subdirs
+
+2006-08-12 17:13  dangelo
+
+	* src/hugin/xrc/data/help_common/: horiz-guide.jpg,
+	  problem-circle.jpg: fixed FAQ
+
+2006-08-12 13:54  ippei
+
+	* src/hugin/xrc/pref_dialog.xrc: minor layout fix
+
+2006-08-12 13:27  ippei
+
+	* src/hugin/MainFrame.cpp, mac/localised.sh: Mac: fixed the
+	  localisation of help. Now French help will be displayed instead
+	  of English if your language order has French before English.
+
+2006-08-12 12:24  ippei
+
+	* src/: hugin/xrc/pref_dialog.xrc, hugin/PreferencesDialog.cpp,
+	  include/hugin/PreferencesDialog.h,
+	  include/hugin/RunOptimizerFrame.h,
+	  include/hugin/config_defaults.h, hugin/RunOptimizerFrame.cpp:
+	  Removed obsolete PTOptimizer related codes
+
+2006-08-12 08:48  dangelo
+
+	* src/hugin/po/ru.po: updated russian translation (Alexandre
+	  Prokoudine)
+
+2006-08-12 02:28  ippei
+
+	* src/hugin/xrc/pref_dialog.xrc: New GUI for the Preferences panel.
+	  If it's ok, developers shall start implementing, and translators
+	  can update localised strings.
+
+2006-08-11 22:19  ippei
+
+	* src/hugin/xrc/about.xrc: About window extended a little so that
+	  it doesn't have scroll bar on Mac by default.
+
+2006-08-11 20:36  dangelo
+
+	* src/hugin/ImageCache.cpp: removed garbage added accidentally
+
+2006-08-11 20:30  dangelo
+
+	* src/hugin/ImageCache.cpp: use vigra:: prefix for integer types to
+	  avoid collisions on OSX
+
+2006-08-11 20:13  dangelo
+
+	* src/hugin/po/: LINGUAS, se.po, sv.po: sv is the right code for
+	  swedish
+
+2006-08-11 20:06  dangelo
+
+	* src/hugin/ImageCache.cpp: Trying to fix compile error on OSX
+
+2006-08-11 18:23  dangelo
+
+	* src/hugin/po/se.po: updated swedish translation (Ulf Wilhelmson)
+
+2006-08-11 18:07  dangelo
+
+	* AUTHORS, NEWS, configure.ac, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm,
+	  src/hugin/xrc/data/splash.png, src/nona_gui/po/de.po,
+	  src/nona_gui/po/fr.po, src/nona_gui/po/hu.po,
+	  src/nona_gui/po/nl.po, src/nona_gui/po/nona_gui.pot,
+	  src/nona_gui/po/pl.po, src/nona_gui/po/pt_BR.po,
+	  src/nona_gui/po/ru.po, src/nona_gui/po/zh_CN.po: preparing for
+	  hugin 0.6.1 release
+
+2006-08-11 18:06  dangelo
+
+	* src/hugin/po/pl.po: update pl.po (Jakub Bogusz)
+
+2006-08-11 17:52  dangelo
+
+	* src/: nona_gui/nona_gui.cpp, tools/nona.cpp: new feature: image
+	  filenames given on the command line override filenames in the
+	  script file. Useful for applying templates.
+
+2006-08-10 23:48  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, se.po,
+	  uk.po, zh_CN.po: updated strings in .po files
+
+2006-08-10 23:28  ippei
+
+	* src/hugin/PreferencesDialog.cpp: Added Swedish language in the
+	  preference; Should have done earlier. Sorry.
+
+2006-08-10 23:16  ippei
+
+	* src/hugin/po/ja.po: Japanese translation updated
+
+2006-08-10 22:38  ippei
+
+	* src/hugin/PanoPanel.cpp: spell miss
+
+2006-08-10 22:12  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, se.po,
+	  uk.po, zh_CN.po: updated .po files with strings for hugin 0.6.1
+
+2006-08-10 21:40  dangelo
+
+	* src/hugin/po/LINGUAS: added se.po
+
+2006-08-10 21:19  dangelo
+
+	* ChangeLog, NEWS: update NEWS file
+
 2006-08-10 20:08  dangelo
 
 	* src/hugin/CPEditorPanel.cpp: really fix crash when trying to
@@ -175,21 +362,19 @@
 
 2006-07-22 20:21  dangelo
 
-	* ABOUT-NLS, Makefile.in, configure, config/config.guess,
-	  config/config.rpath, config/config.sub, config/depcomp,
-	  config/install-sh, config/ltmain.sh, config/missing,
-	  config/mkinstalldirs, doc/Makefile.in, m4/codeset.m4,
-	  m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4, m4/iconv.m4,
-	  m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
-	  m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
-	  m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
-	  m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
-	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
-	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
-	  m4/xsize.m4, src/Makefile.in, src/Panorama/Makefile.in,
-	  src/common/Makefile.in, src/foreign/Makefile.in,
-	  src/foreign/vigra_impex/Makefile.in, src/hugin/Makefile.in,
-	  src/hugin/xrc/Makefile.in, src/hugin/xrc/data/Makefile.in,
+	* ABOUT-NLS, Makefile.in, configure, doc/Makefile.in,
+	  m4/codeset.m4, m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4,
+	  m4/iconv.m4, m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4,
+	  m4/inttypes.m4, m4/inttypes_h.m4, m4/isc-posix.m4,
+	  m4/lcmessage.m4, m4/lib-ld.m4, m4/lib-link.m4, m4/lib-prefix.m4,
+	  m4/longdouble.m4, m4/longlong.m4, m4/nls.m4, m4/po.m4,
+	  m4/printf-posix.m4, m4/progtest.m4, m4/signed.m4, m4/size_max.m4,
+	  m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4,
+	  m4/wint_t.m4, m4/xsize.m4, src/Makefile.in,
+	  src/Panorama/Makefile.in, src/common/Makefile.in,
+	  src/foreign/Makefile.in, src/foreign/vigra_impex/Makefile.in,
+	  src/hugin/Makefile.in, src/hugin/xrc/Makefile.in,
+	  src/hugin/xrc/data/Makefile.in,
 	  src/hugin/xrc/data/help_common/Makefile.in,
 	  src/hugin/xrc/data/help_en_EN/Makefile.in,
 	  src/hugin/xrc/data/help_fr_FR/Makefile.in, src/jhead/Makefile.in,
@@ -227,12 +412,6 @@
 
 	* src/: hugin/po/Makefile.in.in, nona_gui/po/Makefile.in.in: added
 	  more autoconf generated files
-
-2006-07-22 19:18  dangelo
-
-	* config/: config.guess, config.rpath, config.sub, depcomp,
-	  install-sh, ltmain.sh, missing, mkinstalldirs: added more
-	  autoconf generated stuff
 
 2006-07-22 19:14  dangelo
 
@@ -854,8 +1033,7 @@
 	  help_fr_FR/contents.html, help_fr_FR/hugin.hhc,
 	  help_fr_FR/hugin.hhk, help_fr_FR/hugin.hhp,
 	  help_fr_FR/keyboard.html, help_fr_FR/license.html,
-	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: converted
-	  french help text. needs update
+	  help_fr_FR/manual.html: converted french help text. needs update
 
 2006-03-06 22:48  dangelo
 
