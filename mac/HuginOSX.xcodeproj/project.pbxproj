@@ -2635,7 +2635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -2645,13 +2645,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -3370,7 +3370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -3380,13 +3380,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -3397,7 +3397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -3407,13 +3407,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -3907,7 +3907,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -3917,13 +3917,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4270,7 +4270,7 @@
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4750,7 +4750,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEPLOYMENT_POSTPROCESSING = YES;
-				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6/wx/wxprec.h";
+				GCC_PREFIX_HEADER = "$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7/wx/wxprec.h";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WX_PRECOMP,
 					__WXMAC__,
@@ -4760,13 +4760,13 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(value)",
-					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.6",
-					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.6",
+					"$(TARGET_BUILD_DIR)/../Repository/lib/wx/include/mac-unicode-release-static-2.7",
+					"$(TARGET_BUILD_DIR)/../Repository/include/wx-2.7",
 				);
 				INFOPLIST_FILE = "nona_gui-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(LIBRARY_SEARCH_PATHS)",
-					"$(SRCROOT)/build/PPC/Debug",
+					"$(TARGET_BUILD_DIR)",
 				);
 				PRODUCT_NAME = nona_gui;
 				STRIP_INSTALLED_PRODUCT = NO;
