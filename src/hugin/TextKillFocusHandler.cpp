@@ -43,7 +43,7 @@ TextKillFocusHandler::~TextKillFocusHandler()
 
 void TextKillFocusHandler::OnKillFocus(wxFocusEvent & e)
 {
-    DEBUG_TRACE("Control ID:" << e.m_id);
+    DEBUG_TRACE("Control ID:" << e.GetId());
     // create a text changed event
     // need to get id of the eve
     if (dirty) {
@@ -58,7 +58,7 @@ void TextKillFocusHandler::OnKillFocus(wxFocusEvent & e)
 
 void TextKillFocusHandler::OnTextEnter(wxCommandEvent & e)
 {
-    DEBUG_TRACE("Control ID:" << e.m_id);
+    DEBUG_TRACE("Control ID:" << e.GetId());
     // create a text changed event
     // need to get id of the event
     if (dirty) {
@@ -73,7 +73,7 @@ void TextKillFocusHandler::OnTextEnter(wxCommandEvent & e)
 
 void TextKillFocusHandler::OnTextChange(wxCommandEvent & e)
 {
-    DEBUG_TRACE("Control ID:" << e.m_id);
+    DEBUG_TRACE("Control ID:" << e.GetId());
     // check if it was an enter event.
     DEBUG_DEBUG("event: int: " << e.GetInt() << "  sel: " << e.GetSelection()
                 << "  string: " << e.GetString().mb_str());

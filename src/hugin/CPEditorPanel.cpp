@@ -1606,8 +1606,8 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
 
 void CPEditorPanel::OnKey(wxKeyEvent & e)
 {
-    DEBUG_DEBUG("key " << e.m_keyCode
-                << " origin: id:" << e.m_id << " obj: "
+    DEBUG_DEBUG("key " << e.GetKeyCode()
+                << " origin: id:" << e.GetId() << " obj: "
                 << e.GetEventObject());
     if (e.m_keyCode == WXK_DELETE){
         DEBUG_DEBUG("Delete pressed");

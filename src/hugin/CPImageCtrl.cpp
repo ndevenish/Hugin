@@ -867,8 +867,8 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
         // properly.. do it here by hand
         e.SetEventObject(this);
-        DEBUG_DEBUG("forwarding key " << e.m_keyCode
-                    << " origin: id:" << e.m_id << " obj: "
+        DEBUG_DEBUG("forwarding key " << e.GetKeyCode()
+                    << " origin: id:" << e.GetId() << " obj: "
                     << e.GetEventObject());
         // forward all keys to our parent
         //GetParent()->GetEventHandler()->ProcessEvent(e);
