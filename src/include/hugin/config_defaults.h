@@ -80,7 +80,7 @@
 
 #elif defined __WXMAC__
 
-#define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
+#define HUGIN_PT_STITCHER_EXE                 "PTmender"
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
