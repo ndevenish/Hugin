@@ -8,15 +8,14 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2006-08-15 21:31+0200\n"
-"PO-Revision-Date: 2006-08-12 03:22+0400\n"
+"PO-Revision-Date: 2006-08-18 03:22+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:94
 #, c-format
@@ -70,7 +69,7 @@ msgstr "Автопанорамирование не выбрано"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:194
 msgid "Autopano-SIFT is not installed."
-msgstr ""
+msgstr "Программа Autopano-SIFT не установлена."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:199
 msgid "Select autopano frontend script"
@@ -92,10 +91,8 @@ msgstr "Ошибка в команде автопанорамирования"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:250
 #, c-format
-msgid ""
-"Please use  %namefile or %i to specify the input files for autopano-sift"
-msgstr ""
-"Используйте %namefile или %i,чтобы указать входные файлы для autopano-sift"
+msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
+msgstr "Используйте %namefile или %i,чтобы указать входные файлы для autopano-sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:285
 #: src/hugin/AutoCtrlPointCreator.cpp:431
@@ -855,6 +852,12 @@ msgid ""
 "Please optimize using one of these projections and selected the desired "
 "output projection afterwards."
 msgstr ""
+"Невозможно оптимизировать эту проекцию.\n"
+"Только прямолинейные, цилинлрические и эквидистантные панорамы "
+"могут быть оптимизированы\n"
+"\n"
+"Оптимизируйте, использую одну из перечисленных выше проекций и "
+"затем выберите желаемый тип проекции на выходе."
 
 #: src/hugin/OptimizePanel.cpp:562
 #, fuzzy
@@ -932,7 +935,7 @@ msgstr ""
 
 #: src/hugin/OptimizePanel.cpp:574
 msgid "Optimisation result"
-msgstr ""
+msgstr "Результат оптимизации"
 
 #: src/hugin/PanoDruid.cpp:43
 msgid "The druid has no advice."
@@ -1381,14 +1384,12 @@ msgid "No PTStitcher.exe selected"
 msgstr "PTStitcher.exe не выбран"
 
 #: src/hugin/RunStitcherFrame.cpp:106
-#, fuzzy
 msgid "Select PTStitcher commandline tool"
-msgstr "Укажите консольную программу enblend"
+msgstr "Укажите консольную программу PTStitcher"
 
 #: src/hugin/RunStitcherFrame.cpp:114
-#, fuzzy
 msgid "No PTStitcher commandline tool selected"
-msgstr "Enblend не указан"
+msgstr "PTStitcher не указан"
 
 #: src/hugin/RunStitcherFrame.cpp:164
 msgid "Failed to launch the PTStitcher."
@@ -1407,9 +1408,9 @@ msgstr ""
 "PTStitcher вышел с ненулевым кодом ошибки."
 
 #: src/hugin/RunStitcherFrame.cpp:308
-#, fuzzy, c-format
+#, c-format
 msgid "Error executing %s"
-msgstr "Ошибка при исполнении PTStitcher.exe"
+msgstr "Ошибка при исполнении %s"
 
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
@@ -1601,8 +1602,7 @@ msgid "Anchor Image"
 msgstr "Зафиксировать снимок"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid ""
-"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Установите поворот вокруг вертикали и наклон горизонта левой клавишей мыши. "
 "Правой клавишей мыши установите поворот вокруг центральной оптической оси."
@@ -1797,8 +1797,7 @@ msgstr "&Применить"
 
 #: src/hugin/xrc/image_center.xrs:2
 msgid "apply changed values to actual selected images from panorama"
-msgstr ""
-"Применить изменённые значения к текущим выбранным изображениям панорамы"
+msgstr "Применить изменённые значения к текущим выбранным изображениям панорамы"
 
 #: src/hugin/xrc/image_center.xrs:4
 msgid "close window"
@@ -1860,8 +1859,7 @@ msgstr "Зафиксировать снимок"
 msgid ""
 "use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image."
-msgstr ""
-"Использовать текущий снимок как исходный, не оптимизировав его расположение."
+msgstr "Использовать текущий снимок как исходный, не оптимизировав его расположение."
 
 #: src/hugin/xrc/images_panel.xrs:15 src/hugin/xrc/images_panel-2.5.xrs:28
 msgid "Adjust the anchor spot..."
@@ -1897,8 +1895,7 @@ msgstr "Создание контрольных точек"
 
 #: src/hugin/xrc/images_panel.xrs:23 src/hugin/xrc/images_panel-2.5.xrs:24
 msgid "Run external autopano program on the selected images"
-msgstr ""
-"Запустить внешнюю программу создания контрольных точек в выбранных снимках"
+msgstr "Запустить внешнюю программу создания контрольных точек в выбранных снимках"
 
 #: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:9
 msgid "Remove Points"
@@ -2210,7 +2207,7 @@ msgstr "синий (K2)"
 
 #: src/hugin/xrc/main_frame.xrs:1
 msgid "Hugin - Panorama Tools Frontend"
-msgstr "Hugin - графический интерфейс к средствам создания панорам"
+msgstr "Hugin — графический интерфейс к средствам создания панорам"
 
 #: src/hugin/xrc/main_frame.xrs:2
 msgid "Images"
@@ -2777,8 +2774,7 @@ msgstr "Рассчитать оптимальный размер"
 
 #: src/hugin/xrc/pano_panel.xrs:30 src/hugin/xrc/pano_panel-2.5.xrs:30
 msgid "calculate highest sensible width. (uses every image pixel)"
-msgstr ""
-"Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
+msgstr "Рассчитать максимальную разумную ширину (используя каждый пиксел снимка)"
 
 #: src/hugin/xrc/pano_panel.xrs:31 src/hugin/xrc/pano_panel-2.5.xrs:31
 msgid "Stitching engine:"
@@ -2815,7 +2811,7 @@ msgstr "Panorama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
 msgid "Use alternative PTStitcher program"
-msgstr ""
+msgstr "Использовать замену программе PTStitcher"
 
 #: src/hugin/xrc/pref_dialog.xrs:5
 msgid "PTStitcher:"
@@ -2823,14 +2819,12 @@ msgstr "PTStitcher:"
 
 #: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:64
 #: src/hugin/xrc/pref_dialog.xrs:69 src/hugin/xrc/pref_dialog.xrs:76
-#, fuzzy
 msgid "Choose..."
-msgstr "Кадрирование..."
+msgstr "Выберите..."
 
 #: src/hugin/xrc/pref_dialog.xrs:7
-#, fuzzy
 msgid "Scriptfile:"
-msgstr "Файл сценария"
+msgstr "Файл сценария:"
 
 #: src/hugin/xrc/pref_dialog.xrs:8
 msgid "Name of the temporary script file used by Panotools"
@@ -2934,8 +2928,7 @@ msgstr "Кэш памяти под снимки:"
 
 #: src/hugin/xrc/pref_dialog.xrs:34
 msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr ""
-"Хранить полноразмерные снимки в памяти, пока этот лимит не будет исчерпан"
+msgstr "Хранить полноразмерные снимки в памяти, пока этот лимит не будет исчерпан"
 
 #: src/hugin/xrc/pref_dialog.xrs:35
 msgid "MB"
@@ -3048,7 +3041,7 @@ msgstr "Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:62
 msgid "Use alternative Autopano-SIFT program"
-msgstr ""
+msgstr "Использовать замену программе Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:63
 msgid "Autopano-SIFT:"
@@ -3060,7 +3053,7 @@ msgstr "Аргументы:"
 
 #: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Use alternative Autopano program"
-msgstr ""
+msgstr "Использовать замену программе Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:68
 msgid "Autopano:"
@@ -3092,7 +3085,7 @@ msgstr "Параметры Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Use alternative Enblend program"
-msgstr ""
+msgstr "Использовать замену программе Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Enblend:"
@@ -3104,7 +3097,7 @@ msgstr "Дополнительные аргументы:"
 
 #: src/hugin/xrc/pref_dialog.xrs:78
 msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr "Не указывайте аргументы -w и -o, они уже используются hugin"
+msgstr "Не указывайте ключи -w и -o, они уже используются"
 
 #: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Delete remapped tiff files"
@@ -3116,8 +3109,7 @@ msgstr "Использовать откадрированные файлы TIFF 
 
 #: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Save cropped images, requires less disk space and memory."
-msgstr ""
-"Сохранить откадрированные снимки, требует меньше диск. пространства и памяти"
+msgstr "Сохранить откадрированные снимки, требует меньше диск. пространства и памяти"
 
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
@@ -3446,12 +3438,11 @@ msgstr ""
 "возможностей творчески подойти к этому процессу."
 
 #: src/hugin/xrc/data/tips.txt:14
-#, fuzzy
 msgid ""
 "The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
 "information about creating panoramas and other images with panotools."
 msgstr ""
-"В вики PanoTools по адресу http://wiki.panoramatools.org можно найти полную "
+"В вики PanoTools по адресу http://wiki.panotools.org можно найти полную "
 "информацию о создании панорам и прочих изображений с помощью panotools."
 
 #: src/hugin/xrc/data/tips.txt:15
@@ -3476,8 +3467,7 @@ msgstr "По нажатию \"Del\" удаляется выбранная кон
 
 #: src/hugin/xrc/data/tips.txt:19
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"По нажатию \"0\" во вкладке «Контрольные точки» снимки отображаются целиком"
+msgstr "По нажатию \"0\" во вкладке «Контрольные точки» снимки отображаются целиком"
 
 #: src/hugin/xrc/data/tips.txt:20
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
@@ -3521,8 +3511,7 @@ msgstr ""
 "списке рассылки ptx. http://www.email-lists.org/mailman/listinfo/ptx"
 
 #: src/hugin/xrc/data/tips.txt:25
-msgid ""
-"The Panorama Tools, on which hugin is based were written by Helmut Dersch."
+msgid "The Panorama Tools, on which hugin is based were written by Helmut Dersch."
 msgstr ""
 "Panorama Tools, на которых основана Hugin, были написаны Хельмутом Дершем "
 "(Helmut Dersch)."
@@ -3563,32 +3552,3 @@ msgstr ""
 "сшиваются сильно пересекающиеся изображения с заметно удалёнными друг от "
 "друга контрольными точками."
 
-#~ msgid "Select PTOptimizer"
-#~ msgstr "Выберите PTOptimizer"
-
-#~ msgid "No PTOptimizer.exe selected"
-#~ msgstr "PTOptimizer.exe не выбран"
-
-#~ msgid "No PTOptimizer selected"
-#~ msgstr "PTOptimizer не выбран"
-
-#~ msgid "Failed to launch PTOptimizer."
-#~ msgstr "Не удалось запустить PTOptimizer."
-
-#~ msgid "Could not obtain PTOptimizer output"
-#~ msgstr "Не удалось получить вывод PTOptimizer"
-
-#~ msgid "Stop"
-#~ msgstr "Остановить"
-
-#~ msgid "Could not start PTOptimizer"
-#~ msgstr "Не удалось запустить PTOptimizer"
-
-#~ msgid "Strategy %d, Iteration %d, average distance: %f"
-#~ msgstr "Алгоритм %d, итерация %d, среднее расстояние: %f"
-
-#~ msgid "PTOptimizer"
-#~ msgstr "PTOptimizer"
-
-#~ msgid "Ok"
-#~ msgstr "&ОК"
