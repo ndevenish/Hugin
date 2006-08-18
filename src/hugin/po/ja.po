@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.6\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2006-08-15 21:31+0200\n"
-"PO-Revision-Date: 2006-08-16 22:25+0100\n"
+"PO-Revision-Date: 2006-08-18 07:43+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
 "MIME-Version: 1.0\n"
@@ -2806,7 +2806,7 @@ msgstr "投影法 (f):"
 #: src/hugin/xrc/pano_panel.xrs:7
 #: src/hugin/xrc/pano_panel-2.5.xrs:7
 msgid "Stereographic"
-msgstr "立体写真 (Stereographic)"
+msgstr "平射方位 (Stereographic)"
 
 #: src/hugin/xrc/pano_panel.xrs:8
 #: src/hugin/xrc/pano_panel-2.5.xrs:8
@@ -2821,7 +2821,7 @@ msgstr "横メルカトル (Transverse Mercator)"
 #: src/hugin/xrc/pano_panel.xrs:10
 #: src/hugin/xrc/pano_panel-2.5.xrs:10
 msgid "Sinusiodal"
-msgstr "正弦曲線 (Sinusoidal)"
+msgstr "サンソン (Sinusoidal)"
 
 #: src/hugin/xrc/pano_panel.xrs:11
 #: src/hugin/xrc/pano_panel-2.5.xrs:11

@@ -31,7 +31,6 @@ Unix-like: ソース（configure、make）
 
 
 
-
 張り合わせの手順
 
 1. 画像をプロジェクトに読み込む
@@ -46,11 +45,7 @@ Unix-like: ソース（configure、make）
 
 日本語の情報源
 
-- mixi.jp の「hugin」コミュニティ
-おそらく日本語で唯一のhuginユーザーのコミュニティ、初心者歓迎。
-http://mixi.jp/view_community.pl?id=898110
-
-- オンラインのチュートリアル
+- ユーザの書いたチュートリアル
 http://www.planewave.org/translations/hugin/create-panorama.html 
 http://www.xucker.jpn.org/pc/makepanorama.html 
 http://www.geocities.jp/aerohawk_7/hugin.html 
@@ -64,6 +59,9 @@ http://technorati.jp/tag/hugin
 
 
 その他
+
+- mixi.jp 内の「hugin」コミュニティは、おそらく日本語で唯一のhuginユーザーのコミュニティです。初心者歓迎なのでmixiをご利用の方はどうぞご参加下さい。
+http://mixi.jp/view_community.pl?id=898110
 
 - 日本語対応は鵜飼一平(ippei_ukai@mac.com)が上記コミュニティの方々と協力して進めています。ヘルプの日本語訳や日本語のチュートリアルなど、どんな形でもご協力頂ければ幸いです。
 
