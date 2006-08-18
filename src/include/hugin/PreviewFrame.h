@@ -67,6 +67,7 @@ protected:
     void OnChangeFOV(wxScrollEvent & e);
 
     void OnBlendChoice(wxCommandEvent & e);
+    void OnProjectionChoice(wxCommandEvent & e);
 
 private:
 
@@ -76,7 +77,8 @@ private:
     wxToolBar * m_ToolBar;
     wxSlider * m_HFOVSlider;
     wxSlider * m_VFOVSlider;
-    wxChoice * m_BlendModeChoice;    
+    wxChoice * m_BlendModeChoice;
+    wxChoice * m_ProjectionChoice;
     wxString m_choices[3];
 
 //    wxButton * m_updatePreview;

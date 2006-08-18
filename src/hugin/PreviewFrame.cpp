@@ -49,6 +49,8 @@
 using namespace utils;
 
 // a random id, hope this doesn't break something..
+#define ID_PROJECTION_CHOICE 12331
+#define ID_BLEND_CHOICE 12332
 #define ID_UPDATE_BUTTON 12333
 #define ID_TOGGLE_BUT 12334
 
@@ -62,7 +64,8 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdate)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
-    EVT_CHOICE(-1, PreviewFrame::OnBlendChoice)
+    EVT_CHOICE(ID_BLEND_CHOICE, PreviewFrame::OnBlendChoice)
+    EVT_CHOICE(ID_PROJECTION_CHOICE, PreviewFrame::OnProjectionChoice)
 #ifdef USE_TOGGLE_BUTTON
     EVT_TOGGLEBUTTON(-1, PreviewFrame::OnChangeDisplayedImgs)
 #else
@@ -161,6 +164,30 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         new wxStaticBox(this, -1, _("Preview Options")),
         wxHORIZONTAL);
 
+    blendModeSizer->Add(new wxStaticText(this, -1, _("projection (f):")),
+                        0,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        5);       // border width
+    wxArrayString tproj;
+    tproj.Add(_("Rectilinear"));
+    tproj.Add(_("Cylindrical"));
+    tproj.Add(_("Equirectangular"));
+    tproj.Add(_("Full frame fisheye"));
+    tproj.Add(_("Stereographic"));
+    tproj.Add(_("Mercator"));
+    tproj.Add(_("Transverse mercator"));
+    tproj.Add(_("Sinusiodal"));
+    m_ProjectionChoice = new wxChoice(this, ID_PROJECTION_CHOICE,
+                                      wxDefaultPosition, wxDefaultSize,
+                                      tproj);
+    m_ProjectionChoice->SetSelection(2);
+
+    blendModeSizer->Add(m_ProjectionChoice,
+                        0,
+                        wxALL | wxALIGN_CENTER_VERTICAL,
+                        5);
+
+
     blendModeSizer->Add(new wxStaticText(this, -1, _("Blend mode:")),
                         0,        // not vertically strechable
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
@@ -171,7 +198,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     int oldMode = wxConfigBase::Get()->Read(wxT("/PreviewFrame/blendMode"), 0l);
     if (oldMode > 1) oldMode = 0;
-    m_BlendModeChoice = new wxChoice(this, -1,
+    m_BlendModeChoice = new wxChoice(this, ID_BLEND_CHOICE,
                                      wxDefaultPosition, wxDefaultSize,
                                      2, m_choices);
     m_BlendModeChoice->SetSelection((PreviewPanel::BlendMode) oldMode);
@@ -283,22 +310,8 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     const PanoramaOptions & opts = pano.getOptions();
 
     wxString projection;
-    switch (opts.getProjection()) {
-    case PanoramaOptions::RECTILINEAR:
-        projection = _("rectilinear");
-        break;
-    case PanoramaOptions::CYLINDRICAL:
-        projection = _("cylindrical");
-        break;
-    case PanoramaOptions::EQUIRECTANGULAR:
-        projection = _("equirectangular");
-        break;
-    case PanoramaOptions::FULL_FRAME_FISHEYE:
-        projection = _("Full frame fisheye");
-        break;
-    }
-    SetStatusText(wxString::Format(wxT("%.1f x %.1f, %s"), opts.getHFOV(), opts.getVFOV(),
-                                   projection.c_str()),1);
+    m_ProjectionChoice->SetSelection(opts.getProjection());
+    SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),1);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
     if (m_druid) m_druid->Update(m_pano);
@@ -520,6 +533,25 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
         DEBUG_WARN("wxChoice event from unknown object received");
     }
 }
+
+void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
+{
+    if (e.GetEventObject() == m_ProjectionChoice) {
+        PanoramaOptions opt = m_pano.getOptions();
+        int lt = m_ProjectionChoice->GetSelection();
+        wxString Ip;
+        opt.setProjection( (PanoramaOptions::ProjectionFormat) lt );
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( m_pano, opt )
+                                            );
+        DEBUG_DEBUG ("Projection changed: "  << lt);
+        m_PreviewPanel->ForceUpdate();
+
+    } else {
+        DEBUG_WARN("wxChoice event from unknown object received");
+    }
+}
+
 
 /** update the display */
 void PreviewFrame::updateProgressDisplay()
