@@ -1715,13 +1715,23 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         }
     } else if (e.GetKeyCode() == 'g') {
         // generate keypoints
-        long th = wxGetNumberFromUser(_("Create control points"), _("Corner Detection threshold"), _("Create control points"), 400, 0, 32000);
-        long scale = wxGetNumberFromUser(_("Create control points"), _("Corner Detection scale"), _("Create control points"), 1);
+        long th = wxGetNumberFromUser(_("Create control points.\nTo create less points,\nenter a higher number."), _("Corner Detection threshold"), _("Create control points"), 400, 0, 32000);
+        if (th == -1) {
+            return;
+        }
+        long scale = wxGetNumberFromUser(_("Create control points"), _("Corner Detection scale"), _("Create control points"), 2);
+        if (scale == -1) {
+            return;
+        }
+
+        try {
         DEBUG_DEBUG("corner threshold: " << th << "  scale: " << scale);
         GlobalCmdHist::getInstance().addCommand(
                 new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
                            );
-
+        } catch (std::exception & e) {
+            wxLogError(_("Error duing control point creation:\n") + wxString(e.what(), *wxConvCurrent));
+        }
     } else {
         e.Skip();
     }
