@@ -3,7 +3,8 @@ Newsworthy changes in 0.6.1
 * Autopano-SIFT integration was broken in 0.6 on Unix and OSX.
 * Support for displaying HDR files within hugin, using log or gamma mapping
 * .hdr file support (tif HDR files have been always useable)
-* reduced memory usage, better image caching strategy
+* reduced memory usage, better image caching strategy.
+* projection can be changed in preview.
 * fixed crashes and hangs when using the preview auto update and avoid
   unnessecary remapping of images.
 * vignetting correction estimation speed up.

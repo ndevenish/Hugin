@@ -1,3 +1,146 @@
+2006-08-19 08:58  dangelo
+
+	* src/hugin/: CPEditorPanel.cpp, CPImageCtrl.cpp: bugfix: On OSX,
+	  one pressing on Del, 'g' or 'f' were doubled. Now 'f' just
+	  finetunes once.  added busy cursor during 'g' key feature
+
+2006-08-18 23:50  dangelo
+
+	* src/hugin/po/sv.po: updated swedish translation (Ulf Wilhelmson)
+
+2006-08-18 22:18  ippei
+
+	* src/hugin/po/ja.po, README_JP: Japanese: updated files with the
+	  users' feedback (Thanks to people on mixi.jp).
+
+2006-08-18 20:51  ade_br
+
+	* src/hugin/po/pt_BR.po: - merging latest pt_BR translations with
+	  current code (translation   not complete yet, work-in-progress).
+
+2006-08-18 14:51  dangelo
+
+	* src/: hugin/PreviewFrame.cpp, include/hugin/PreviewFrame.h: added
+	  projection selection to preview panel
+
+2006-08-18 14:44  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed crash when cancelling "g" key
+	  control point creation
+
+2006-08-18 07:48  dangelo
+
+	* src/hugin/po/ru.po: updated russian translation (Alexandre
+	  Prokoudine)
+
+2006-08-18 01:34  ippei
+
+	* mac/Notes/scripts/wxconfig.sh: Mac: wx build script for Xcode
+	  build - doesn't quite work, may need to manually complete
+
+2006-08-18 01:32  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: newest Xcode build
+	  file
+
+2006-08-18 01:26  ippei
+
+	* src/nona_gui/nona_gui.cpp, mac/nona_gui-Info.plist: Mac: nona_gui
+	  to be D&D'able
+
+2006-08-18 00:19  dangelo
+
+	* ChangeLog, mac/build_using_cmdline.sh, mac/install2bundle.sh:
+	  added experimental scripts to build hugin on OSX
+
+2006-08-18 00:10  dangelo
+
+	* src/hugin/: CPEditorPanel.cpp, CPImageCtrl.cpp,
+	  TextKillFocusHandler.cpp: be compatible to wxWigets 2.7
+
+2006-08-17 22:19  ippei
+
+	* src/hugin/po/ja.po, README_JP: Japanese: updated translation and
+	  new simple readme file.
+
+2006-08-17 22:16  ippei
+
+	* mac/Documents/ReadMe-HuginOSX.txt: Mac: Modified Readme file for
+	  new release, with some user feedback (Carl von Einem; Thanks!)
+
+2006-08-17 21:58  ippei
+
+	* src/include/hugin/config_defaults.h: Default back to PTStitcher
+	  on OSX. The previous change breaks the compatibility with 0.6
+	  users. They probably have the default value "PTStitcher" in their
+	  preference, which would be considered 'custom' if we changed the
+	  default value now.
+
+2006-08-17 21:51  ippei
+
+	* src/hugin/MainFrame.cpp: Mac: special menus hack fixed for
+	  wxWidgets 2.7
+
+2006-08-17 21:12  dangelo
+
+	* src/hugin/po/pl.po: updated polish translation (Jakub Bogusz)
+
+2006-08-17 08:39  dangelo
+
+	* src/hugin/: RunStitcherFrame.cpp, hugin.vcproj: fixes for
+	  compilation using MSVC
+
+2006-08-17 08:36  dangelo
+
+	* src/include/hugin/config_defaults.h: default to PTmender on OSX
+
+2006-08-16 21:04  dangelo
+
+	* src/: hugin/po/de.po, hugin/po/fr.po, nona_gui/po/de.po,
+	  nona_gui/po/fr.po, nona_gui/po/hu.po, nona_gui/po/nl.po,
+	  nona_gui/po/nona_gui.pot, nona_gui/po/pl.po,
+	  nona_gui/po/pt_BR.po, nona_gui/po/ru.po, nona_gui/po/zh_CN.po:
+	  updated french translation (Jean-Luc Coulon)
+
+2006-08-15 21:44  dangelo
+
+	* src/hugin/po/nl.po: updated dutch translation (Harry van der
+	  Wolf)
+
+2006-08-15 21:43  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sv.po,
+	  uk.po, zh_CN.po: updated german translation and added new
+	  strings.
+
+2006-08-15 21:11  dangelo
+
+	* src/hugin/po/POTFILES.in: added missing src files
+
+2006-08-14 23:38  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: Now built with wx
+	  2.7, hope it sorts out the Universal build.
+
+2006-08-14 23:35  ippei
+
+	* src/hugin/po/ja.po: Latest Japanese localisation
+
+2006-08-14 23:35  ippei
+
+	* mac/localised.sh: Mac: fix stupid mistake again, and ready for wx
+	  2.7
+
+2006-08-14 23:32  ippei
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/ImageCache.cpp, hugin/LensPanel.cpp,
+	  hugin/OptimizePanel.cpp, hugin/TextKillFocusHandler.cpp,
+	  hugin/xrc/optimize_panel-2.5.xrc, include/panoinc_WX.h:
+	  Compatibility with non-2.4 builds of wxWidgets 2.5 onwards
+	  especially 2.7.0
+
 2006-08-13 19:45  dangelo
 
 	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
@@ -67,8 +210,8 @@
 	  problem-circle.jpg, tips.txt, help_en_EN/FAQ.html,
 	  help_en_EN/contents.html, help_en_EN/manual.html,
 	  help_fr_FR/FAQ.html, help_fr_FR/contents.html,
-	  help_fr_FR/manual.html: fixed help, moved FAQ into respective
-	  subdirs
+	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: fixed help,
+	  moved FAQ into respective subdirs
 
 2006-08-12 17:13  dangelo
 
@@ -362,19 +505,21 @@
 
 2006-07-22 20:21  dangelo
 
-	* ABOUT-NLS, Makefile.in, configure, doc/Makefile.in,
-	  m4/codeset.m4, m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4,
-	  m4/iconv.m4, m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4,
-	  m4/inttypes.m4, m4/inttypes_h.m4, m4/isc-posix.m4,
-	  m4/lcmessage.m4, m4/lib-ld.m4, m4/lib-link.m4, m4/lib-prefix.m4,
-	  m4/longdouble.m4, m4/longlong.m4, m4/nls.m4, m4/po.m4,
-	  m4/printf-posix.m4, m4/progtest.m4, m4/signed.m4, m4/size_max.m4,
-	  m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4,
-	  m4/wint_t.m4, m4/xsize.m4, src/Makefile.in,
-	  src/Panorama/Makefile.in, src/common/Makefile.in,
-	  src/foreign/Makefile.in, src/foreign/vigra_impex/Makefile.in,
-	  src/hugin/Makefile.in, src/hugin/xrc/Makefile.in,
-	  src/hugin/xrc/data/Makefile.in,
+	* ABOUT-NLS, Makefile.in, configure, config/config.guess,
+	  config/config.rpath, config/config.sub, config/depcomp,
+	  config/install-sh, config/ltmain.sh, config/missing,
+	  config/mkinstalldirs, doc/Makefile.in, m4/codeset.m4,
+	  m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4, m4/iconv.m4,
+	  m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
+	  m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
+	  m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
+	  m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
+	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
+	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
+	  m4/xsize.m4, src/Makefile.in, src/Panorama/Makefile.in,
+	  src/common/Makefile.in, src/foreign/Makefile.in,
+	  src/foreign/vigra_impex/Makefile.in, src/hugin/Makefile.in,
+	  src/hugin/xrc/Makefile.in, src/hugin/xrc/data/Makefile.in,
 	  src/hugin/xrc/data/help_common/Makefile.in,
 	  src/hugin/xrc/data/help_en_EN/Makefile.in,
 	  src/hugin/xrc/data/help_fr_FR/Makefile.in, src/jhead/Makefile.in,
@@ -412,6 +557,12 @@
 
 	* src/: hugin/po/Makefile.in.in, nona_gui/po/Makefile.in.in: added
 	  more autoconf generated files
+
+2006-07-22 19:18  dangelo
+
+	* config/: config.guess, config.rpath, config.sub, depcomp,
+	  install-sh, ltmain.sh, missing, mkinstalldirs: added more
+	  autoconf generated stuff
 
 2006-07-22 19:14  dangelo
 
@@ -1033,7 +1184,8 @@
 	  help_fr_FR/contents.html, help_fr_FR/hugin.hhc,
 	  help_fr_FR/hugin.hhk, help_fr_FR/hugin.hhp,
 	  help_fr_FR/keyboard.html, help_fr_FR/license.html,
-	  help_fr_FR/manual.html: converted french help text. needs update
+	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: converted
+	  french help text. needs update
 
 2006-03-06 22:48  dangelo
 
