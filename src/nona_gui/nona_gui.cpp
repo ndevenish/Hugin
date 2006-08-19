@@ -24,20 +24,25 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 #include "panoinc_WX.h"
-#include <wx/cmdline.h>
+#include "panoinc.h"
+
 
 #include <fstream>
 #include <sstream>
-
 #include <vigra/error.hxx>
-
 #include "PT/Stitcher.h"
-
 #include "hugin/MyProgressDialog.h"
 
 #include <tiffio.h>
+
+// somewhere SetDesc gets defined.. this breaks wx/cmdline.h on OSX
+#ifdef SetDesc
+#undef SetDesc
+#endif
+
+#include <wx/cmdline.h>
 
 using namespace vigra;
 using namespace PT;
@@ -105,6 +110,8 @@ bool nonaApp::OnInit()
     m_locale.AddCatalogLookupPathPrefix(exePath + wxT("/locale"));
 #if defined __WXMSW__
     m_locale.AddCatalogLookupPathPrefix(wxT("./locale"));
+#elif defined __WXMAC__
+    // TODO: add localisation init
 #else
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR);
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
