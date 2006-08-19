@@ -1725,10 +1725,11 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         }
 
         try {
-        DEBUG_DEBUG("corner threshold: " << th << "  scale: " << scale);
-        GlobalCmdHist::getInstance().addCommand(
-                new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
-                           );
+            wxBusyCursor busy;
+            DEBUG_DEBUG("corner threshold: " << th << "  scale: " << scale);
+            GlobalCmdHist::getInstance().addCommand(
+                    new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
+                            );
         } catch (std::exception & e) {
             wxLogError(_("Error duing control point creation:\n") + wxString(e.what(), *wxConvCurrent));
         }

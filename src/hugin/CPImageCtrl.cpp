@@ -872,7 +872,9 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
                     << e.GetEventObject());
         // forward all keys to our parent
         //GetParent()->GetEventHandler()->ProcessEvent(e);
+#ifndef __WXMAC__
         m_editPanel->GetEventHandler()->ProcessEvent(e);
+#endif
     }
     e.Skip();
 }
