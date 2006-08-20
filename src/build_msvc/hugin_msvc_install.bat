@@ -51,6 +51,8 @@ copy %SRCDIR%\..\README_WINDOWS %DESTDIR%\README_WINDOWS.txt
 copy %SRCDIR%\..\AUTHORS %DESTDIR%\AUTHORS.txt
 copy %SRCDIR%\..\NEWS %DESTDIR%\NEWS.txt
 
+rem copy fulla
+copy %SRCDIR%\"tools\Release\fulla.exe" %DESTDIR%\
 
 rem
 rem copy files for hugin
@@ -65,6 +67,8 @@ del %DESTDIR%\xrc\data\help_fr_FR\.cvsignore
 
 rem language files for hugin. They need to be rebuild by hand..
 for %%l in ( %LINGUAS% ) do %MSGFMT% -c -o %DESTDIR%\locale\%%l\hugin.mo %SRCDIR%\hugin\po\%%l.po 
+
+
 
 rem
 rem copy files for nona

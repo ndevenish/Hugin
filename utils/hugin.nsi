@@ -1,6 +1,6 @@
 ;--------------------------------
 
-!define HUGIN_VERSION "0.6"
+!define HUGIN_VERSION "0.6.1"
 !define DISPLAY_NAME "Hugin ${HUGIN_VERSION}"
 ;!define HAVE_MINGW
 ;!define NEED_MINGW
@@ -18,9 +18,9 @@
 
 Name "${DISPLAY_NAME}"
 !ifdef HUGIN_ALLINONE
-OutFile "hugin-0.6_allinone_setup.exe"
+OutFile "hugin-0.6.1_allinone_setup.exe"
 !else
-OutFile "hugin-0.6_setup.exe"
+OutFile "hugin-0.6.1_setup.exe"
 !endif
 Caption "${DISPLAY_NAME}"
 
@@ -90,6 +90,7 @@ Section "Hugin program files"
   File "LICENCE_JHEAD.txt"
   File "AUTHORS.txt"
   File "README_WINDOWS.txt"
+  File "fulla.exe"
   File "nona.exe"
   File "nona_gui.exe"
   File "panoglview.exe"
@@ -199,6 +200,7 @@ ShowUninstDetails show
 Section "Uninstall"
   Delete "$INSTDIR\hugin.exe"
   Delete "$INSTDIR\nona.exe"
+  Delete "$INSTDIR\fulla.exe"
   Delete "$INSTDIR\nona_gui.exe"
   Delete "$INSTDIR\panoglview.exe"
   Delete "$INSTDIR\uninstall.exe"
