@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-18 14:09-0400\n"
+"POT-Creation-Date: 2006-08-20 22:01+0200\n"
 "PO-Revision-Date: 2006-08-14 13:52-0400\n"
 "Last-Translator: Ademar de Souza Reis <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
@@ -102,7 +102,8 @@ msgstr "Erro no comando Autopano"
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
-"Por favor use %namefile ou %i para especificar os arquivos de origem para o autopano-sift"
+"Por favor use %namefile ou %i para especificar os arquivos de origem para o "
+"autopano-sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:285
 #: src/hugin/AutoCtrlPointCreator.cpp:431
@@ -332,16 +333,16 @@ msgstr "Criar Pontos de Controle"
 msgid "Corner Detection scale"
 msgstr "Escala de detecção de cantos"
 
-#: src/hugin/CPEditorPanel.cpp:1733
+#: src/hugin/CPEditorPanel.cpp:1734
 #, fuzzy
-msgid "Error duing control point creation:\n"
+msgid "Error during control point creation:\n"
 msgstr "Erro durante montagem"
 
-#: src/hugin/CPEditorPanel.cpp:1864
+#: src/hugin/CPEditorPanel.cpp:1865
 msgid "Select Point in right image"
 msgstr "Selecione ponto na imagem à direita"
 
-#: src/hugin/CPEditorPanel.cpp:1876
+#: src/hugin/CPEditorPanel.cpp:1877
 msgid "Select Point in left image"
 msgstr "Selecione ponto na imagem à esquerda"
 
@@ -722,7 +723,7 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Abrir projeto: cancelar"
 
-#: src/hugin/MainFrame.cpp:617 src/hugin/VigCorrDialog.cpp:167
+#: src/hugin/MainFrame.cpp:617 src/hugin/VigCorrDialog.cpp:169
 #: src/include/hugin/wxPanoCommand.h:186
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -1436,27 +1437,27 @@ msgstr "Erro executando o PTStitcher.exe"
 msgid "Tips not available, sorry!"
 msgstr "Sinto muito, dicas não disponíveis!"
 
-#: src/hugin/VigCorrDialog.cpp:168
+#: src/hugin/VigCorrDialog.cpp:170
 msgid "Select flatfield image"
 msgstr "Seleciona uma imagem \"flatfield\""
 
-#: src/hugin/VigCorrDialog.cpp:248 src/hugin/VigCorrDialog.cpp:611
+#: src/hugin/VigCorrDialog.cpp:250 src/hugin/VigCorrDialog.cpp:614
 msgid ""
 "The vignetting curve is determined by using gray values in the overlaping "
 "areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:249 src/hugin/VigCorrDialog.cpp:611
+#: src/hugin/VigCorrDialog.cpp:251 src/hugin/VigCorrDialog.cpp:614
 msgid "Number of points per overlap"
 msgstr "Múmero de pontos criados a cada sobreposição"
 
-#: src/hugin/VigCorrDialog.cpp:250 src/hugin/VigCorrDialog.cpp:255
-#: src/hugin/VigCorrDialog.cpp:611 src/hugin/VigCorrDialog.cpp:613
+#: src/hugin/VigCorrDialog.cpp:252 src/hugin/VigCorrDialog.cpp:257
+#: src/hugin/VigCorrDialog.cpp:614 src/hugin/VigCorrDialog.cpp:616
 msgid "Estimate vignetting curve"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:255 src/hugin/VigCorrDialog.cpp:613
+#: src/hugin/VigCorrDialog.cpp:257 src/hugin/VigCorrDialog.cpp:616
 msgid ""
 "Ransac tolerance parameter.\n"
 "Should be around 0.1.\n"
@@ -1465,7 +1466,7 @@ msgid ""
 " and the same camera settings (exposure, white balance) were used."
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:285
+#: src/hugin/VigCorrDialog.cpp:287
 msgid ""
 "Vignetting correction currently does not work with nonlinear mapped 16 bit "
 "and HDR images.\n"
@@ -1473,25 +1474,25 @@ msgid ""
 "Continue anyway?"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:285 src/hugin/VigCorrDialog.cpp:480
+#: src/hugin/VigCorrDialog.cpp:287 src/hugin/VigCorrDialog.cpp:483
 msgid "Warning"
 msgstr "Aviso"
 
-#: src/hugin/VigCorrDialog.cpp:304 src/hugin/VigCorrDialog.cpp:555
+#: src/hugin/VigCorrDialog.cpp:306 src/hugin/VigCorrDialog.cpp:558
 msgid "Vignetting function estimation"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:368
+#: src/hugin/VigCorrDialog.cpp:370
 msgid ""
 "Not enought images selected. Please ensure that more than two images are "
 "associated with the current lens."
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:368
+#: src/hugin/VigCorrDialog.cpp:370
 msgid "Cannot estimate vignetting"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:478
+#: src/hugin/VigCorrDialog.cpp:481
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1504,7 +1505,7 @@ msgid ""
 "The recovered vignetting curve might be inaccurate."
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:482
+#: src/hugin/VigCorrDialog.cpp:485
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1513,15 +1514,15 @@ msgid ""
 "Brightness error: %.2f (gray value RMSE)"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:487 src/hugin/VigCorrDialog.cpp:658
+#: src/hugin/VigCorrDialog.cpp:490 src/hugin/VigCorrDialog.cpp:661
 msgid "Vignetting curve estimation"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:613
+#: src/hugin/VigCorrDialog.cpp:616
 msgid "0.1"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:654
+#: src/hugin/VigCorrDialog.cpp:657
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1530,11 +1531,11 @@ msgid ""
 " Residual after estimation: %.5f"
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:680
+#: src/hugin/VigCorrDialog.cpp:683
 msgid "Error: could not find flatfile image file."
 msgstr ""
 
-#: src/hugin/VigCorrDialog.cpp:680
+#: src/hugin/VigCorrDialog.cpp:683
 msgid "File not found"
 msgstr "Arquivo não encontrado"
 
@@ -1618,7 +1619,7 @@ msgstr ""
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
 msgid "y:"
 msgstr ""
 
@@ -2155,7 +2156,7 @@ msgstr "verde (K1):"
 msgid "blue (K2):"
 msgstr "azul (K2):"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
 msgid "Correction"
 msgstr "Correção"
 
@@ -3266,65 +3267,65 @@ msgstr "Abortar"
 msgid "Vignetting correction"
 msgstr ""
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Type of Correction"
-msgstr "Tipo de Correção"
-
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "No correction"
-msgstr "Sem correção"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Addition ( I=I+c )"
-msgstr "Adição (I=I+c)"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "Division ( I=I/c )"
-msgstr "Divisão (I=I/c)"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
 msgid "Flatfield"
 msgstr ""
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Image file:"
 msgstr "Arquivo de imagem:"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "..."
 msgstr "..."
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
 msgid "Polynomial"
 msgstr ""
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
 msgid "c = "
 msgstr "c = "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
 msgid " + "
 msgstr " + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
 msgid "*r^2 + "
 msgstr "*r^2 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
 msgid "*r^4 + "
 msgstr "*r^4 + "
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
 msgid "*r^6"
 msgstr "* r^6"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
 msgid "center shift x:"
 msgstr "deslocamento do centro (x):"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
 msgid "Estimate polynomial"
 msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "Type of Correction"
+msgstr "Tipo de Correção"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "No correction"
+msgstr "Sem correção"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:17
+msgid "Addition ( I=I+c )"
+msgstr "Adição (I=I+c)"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+msgid "Division ( I=I/c )"
+msgstr "Divisão (I=I/c)"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3486,10 +3487,10 @@ msgstr ""
 #: src/hugin/xrc/data/tips.txt:24
 msgid ""
 "hugin and other free panoramic software is discussed on the ptx email list. "
-"http://www.email-lists.org/mailman/listinfo/ptx"
+"http://groups.google.com/group/hugin-ptx"
 msgstr ""
 "Hugin e outros softwares livres para criação e edição de panoramas tem uma "
-"lista de discussão: http://www.email-lists.org/mailman/listinfo/ptx"
+"lista de discussão: http://groups.google.com/group/hugin-ptx"
 
 #: src/hugin/xrc/data/tips.txt:25
 msgid ""
