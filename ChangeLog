@@ -1,3 +1,55 @@
+2006-08-20 23:29  dangelo
+
+	* src/build_msvc/hugin_msvc_install.bat,
+	  src/build_msvc/hugin_msvc_install_win98.bat, utils/hugin.nsi:
+	  update to windows build system
+
+2006-08-20 22:54  dangelo
+
+	* NEWS: update NEWS file
+
+2006-08-20 22:32  dangelo
+
+	* mac/: build_using_cmdline.sh, install2bundle.sh: updated OSX
+	  command line build scripts
+
+2006-08-20 22:19  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/VigCorrDialog.cpp,
+	  include/vigra_ext/VigQuotientEstimator.h: made it possible to
+	  switch (by editing sourcecode) between our linear solver and the
+	  one distributed with hugin.
+
+2006-08-20 22:13  dangelo
+
+	* src/hugin/: po/ca_ES.po, po/cs_CZ.po, po/de.po, po/fr.po,
+	  po/hu.po, po/hugin.pot, po/it.po, po/ja.po, po/nl.po, po/pl.po,
+	  po/pt_BR.po, xrc/data/tips.txt, po/ru.po, po/sv.po, po/uk.po,
+	  po/zh_CN.po: added new google group to tip of the day
+
+2006-08-20 21:07  dangelo
+
+	* src/hugin/po/uk.po: updated ukrainian translation (Serhij Dubyk)
+
+2006-08-20 10:19  dangelo
+
+	* src/hugin/po/nl.po: updated dutch translation (Harry van der
+	  Wolf)
+
+2006-08-19 10:00  dangelo
+
+	* src/hugin/xrc/data/: help_en_EN/FAQ.html, help_fr_FR/FAQ.html:
+	  link to new FAQ on wiki.panotools.org
+
+2006-08-19 09:52  dangelo
+
+	* ChangeLog, NEWS: update changelog
+
+2006-08-19 09:51  dangelo
+
+	* src/nona_gui/nona_gui.cpp: made nona_gui.cpp compile on OSX with
+	  -DDEBUG flag
+
 2006-08-19 08:58  dangelo
 
 	* src/hugin/: CPEditorPanel.cpp, CPImageCtrl.cpp: bugfix: On OSX,
