@@ -13,10 +13,10 @@
 
 #include "ransac.h"
 
+// uncomment this to use our version of the linear solver
+#define HUGIN_VIG_USE_UBLAS
 
-//#define USE_UBLAS
-
-#ifdef USE_UBLAS
+#ifdef HUGIN_VIG_USE_UBLAS
 
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/operation.hpp>
@@ -96,7 +96,7 @@ protected:
 
 public:
 
-#ifdef USE_UBLAS
+#ifdef HUGIN_VIG_USE_UBLAS
     typedef boost::numeric::ublas::vector<double> Param;
 #else
     typedef std::vector<double> Param;
@@ -132,7 +132,7 @@ public:
         // estimate point
 
 
-#ifdef USE_UBLAS
+#ifdef HUGIN_VIG_USE_UBLAS
         p.resize(n);
         // create linear equation 
         boost::numeric::ublas::permutation_matrix<size_t> permut(n);
@@ -209,7 +209,7 @@ public:
             return false;
         }
         
-#ifdef USE_UBLAS
+#ifdef HUGIN_VIG_USE_UBLAS
         // calculate least squares, based on pseudoinverse.
         // A'A x = A' b.
         boost::numeric::ublas::permutation_matrix<size_t> permut(n);
@@ -407,7 +407,16 @@ optimizeVignettingQuotient(const std::vector<PointPair> & points,
     // the quotient error should be < 0.1
     VigQuotientEstimator vqEst(ransacDelta);
 
+#ifdef HUGIN_VIG_USE_UBLAS
+    boost::numeric::ublas::vector<double> vigCoeff2(3);
+    for (int i=0; i < 3; i++) vigCoeff2[i] = vigCoeff[i];
+
+    res.nUsedPoints = Ransac::compute(vigCoeff2, vqEst, points, 0.99, 0.3);
+
+    for (int i=0; i < 3; i++) vigCoeff[i] = vigCoeff2[i];
+#else
     res.nUsedPoints = Ransac::compute(vigCoeff, vqEst, points, 0.99, 0.3);
+#endif
 
     double sqerror=0;
     // calculate brightness RMSE
@@ -418,7 +427,11 @@ optimizeVignettingQuotient(const std::vector<PointPair> & points,
     for (std::vector<PointPair>::const_iterator pnt=points.begin(); pnt != points.end();
          pnt++)
     {
+#ifdef HUGIN_VIG_USE_UBLAS
+        sqerror += utils::sqr(calcVigCorrPoly(vigCoeff2, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
+#else
         sqerror += utils::sqr(calcVigCorrPoly(vigCoeff, pnt->r1)*pnt->i1 - calcVigCorrPoly(vigCoeff, pnt->r2)*pnt->i2);
+#endif
     }
     res.brightnessRMSE = sqrt(sqerror/points.size());
     return res;

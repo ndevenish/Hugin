@@ -1731,7 +1731,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
                     new wxAddCtrlPointGridCmd(*m_pano, m_leftImageNr, m_rightImageNr, scale, th)
                             );
         } catch (std::exception & e) {
-            wxLogError(_("Error duing control point creation:\n") + wxString(e.what(), *wxConvCurrent));
+            wxLogError(_("Error during control point creation:\n") + wxString(e.what(), *wxConvCurrent));
         }
     } else {
         e.Skip();

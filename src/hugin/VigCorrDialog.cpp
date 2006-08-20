@@ -24,6 +24,7 @@
  *
  */
 
+
 #include <config.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -44,6 +45,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/ImageCache.h"
 #include "hugin/MyProgressDialog.h"
+
 
 
 // validators are working different somehow...
@@ -435,8 +437,9 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
 
     progress.setMessage("estimating vignetting polynom");
 
-    // extract vignetting coefficients..
     std::vector<double> vigCoeff(3);
+
+    // extract vignetting coefficients..
     vigCoeff[0] = 0;
     vigCoeff[1] = 0;
     vigCoeff[2] = 0;
