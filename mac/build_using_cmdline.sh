@@ -1,22 +1,27 @@
 #
-# This is the first try at a script that can compile hugin under OSX using the standard autoconf
-# build system.
+# This is the first try at a script that can compile hugin under OSX using the
+# standard autoconf build system. 
 #
-# This requires that all dependencies have been installed (use wxWidgets 2.7, on intel Mac)
-# Currently the script will fail while compiling nona_gui. However, one can still use
-# hugin and the command line tools
-#  
-# The programs are installed into a temporary folder. The install2bundle.sh script then
-# builds a proper Mac OS bundle out of the installed files.
+# This requires that all dependencies have been installed (use wxWidgets 2.7,
+# on intel Mac).
+#
+# The settings below are valid if the dependencies were installed using
+# darwinports. If you are using fink or build the dependencies by hand,
+# some changes are needed, especially for the ./configure call.
+#
+# The programs are installed into a temporary folder. The install2bundle.sh
+# script then builds a proper Mac OS bundle out of the installed files.
 #
 
 cd ..
 TPREFIX=`pwd`
-LDFLAGS=-L/opt/local/lib CPPFLAGS="-I/opt/local/include -I/Developer/Headers/FlatCarbon" ./configure --prefix=`pwd`/OSX_BUILD --enable-debug --with-unicode
+LDFLAGS=-L/opt/local/lib CPPFLAGS="-I/opt/local/include -I/Developer/Headers/FlatCarbon" ./configure --prefix=`pwd`/OSX_BUILD --with-unicode --with-wx-config=mac-unicode-release-2.7
 
 make
 make install
 
 cd mac
-./install2bundle.sh
+
+# create hugin and nona_gui bundles in /Applications
+./install2bundle.sh ../OSX_BUILD /Applications
 
