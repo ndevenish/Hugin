@@ -1,11 +1,15 @@
 #!/bin/sh
 #
 
-if test BASH_ARGC -ne 2; then
+if test $# -ne 2; then
   echo "install2bundle.sh usage: install2bundle.sh installed_dir bundle_dir"
   echo 
   echo "install2bundle.sh will produce a hugin and a nona_gui application"
-  echo "bundle in the bundle_dir:  bundle_dir/hugin.app and bundle_dir/nona_gui.app"
+  echo "bundle in the bundle_dir:  bundle_dir/hugin.app and bundle_dir/nona_gui.app."
+  echo
+  echo "installed_dir should point the the --prefix argument specifed during configure."
+  echo "This script has to be run from the within the mac subdirectory of the hugin"
+  echo "source tree."
   return 1
 fi
 

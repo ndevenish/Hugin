@@ -6,11 +6,13 @@
 # on intel Mac).
 #
 # The settings below are valid if the dependencies were installed using
-# darwinports. If you are using fink or build the dependencies by hand,
+# darwinports. (see build_using_cmdline.txt for details)
+#
+# If you are using fink or build the dependencies by hand,
 # some changes are needed, especially for the ./configure call.
 #
 # The programs are installed into a temporary folder. The install2bundle.sh
-# script then builds a proper Mac OS bundle out of the installed files.
+# script then builds a proper Mac OS bundle out of these files.
 #
 
 cd ..
