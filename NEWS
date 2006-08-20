@@ -4,12 +4,17 @@ Newsworthy changes in 0.6.1
 * Support for displaying HDR files within hugin, using log or gamma mapping
 * .hdr file support (tif HDR files have been always useable)
 * reduced memory usage, better image caching strategy.
-* projection can be changed in preview.
 * fixed crashes and hangs when using the preview auto update and avoid
   unnessecary remapping of images.
 * vignetting correction estimation speed up.
 * nona and nona_gui can be used to do template stitching, by specifying
   images on the command line (or dnd shortcut under windows)
+* distribute fulla.exe with windows gui (it was accidentally
+  not included in the 0.6 package)
+* universal build for Intel Macs, fixed hang after enblend or autopano-sift
+  call
+* projection can be changed in preview.
+* removed all references to malicious panotools.info website
 * various smaller bugfixes
 
 Newsworthy changes in 0.6
