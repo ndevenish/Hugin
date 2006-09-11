@@ -154,6 +154,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_RUSSIAN;
     lang_choice->Append(_("Russian"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_SLOVAK;
+    lang_choice->Append(_("Slovak"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_SWEDISH;
     lang_choice->Append(_("Swedish"), lp);
     lp = new long;
