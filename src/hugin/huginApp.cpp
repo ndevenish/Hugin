@@ -182,7 +182,7 @@ bool huginApp::OnInit()
 
     if ( config->IsRecordingDefaults() ) {
       char e_dbg[128] = "writes in config: ";
-      sprintf ( e_dbg ,"%s %d\n", e_dbg, config->GetNumberOfEntries() );
+      sprintf ( e_dbg ,"%s %d\n", e_dbg, (int) config->GetNumberOfEntries() );
       DEBUG_INFO(e_dbg);
     }
     config->Flush();
@@ -360,38 +360,44 @@ bool huginApp::OnInit()
     // set some suitable defaults
     PanoramaOptions opts = pano.getOptions();
     opts.outputFormat = PanoramaOptions::TIFF;
-    opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+    opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     pano.setOptions(opts);
 
-    // TODO: check if we need to load images.
-    if (argc == 2) {
-        wxString filename(argv[1]);
-        if (! wxIsAbsolutePath(filename)) {
-            filename.Prepend(wxFileName::GetPathSeparator());
-            filename.Prepend(cwd);
-        }
-        frame->LoadProjectFile(filename);
-    } else {
-        std::vector<std::string> filesv;
-        for (int i=1; i< argc; i++) {
-            wxFileName file(argv[1]);
-
-            if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("tiff")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("png")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("bmp")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("gif")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("pnm")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
-                file.GetExt().CmpNoCase(wxT("viff")) == 0 )
-            {
-                filesv.push_back((const char *)(file.GetFullPath().mb_str()));
+    if (argc > 1) {
+        wxFileName file(argv[1]);
+        // if the first file is a project file, open it
+        if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("pts")) == 0 ||
+            file.GetExt().CmpNoCase(wxT("ptp")) == 0 )
+        {
+            wxString filename(argv[1]);
+            if (! wxIsAbsolutePath(filename)) {
+                filename.Prepend(wxFileName::GetPathSeparator());
+                filename.Prepend(cwd);
             }
+            frame->LoadProjectFile(filename);
+        } else {
+            std::vector<std::string> filesv;
+            for (int i=1; i< argc; i++) {
+                wxFileName file(argv[i]);
+                if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("tiff")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("png")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("bmp")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("gif")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("pnm")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("sun")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("viff")) == 0 )
+                {
+                    filesv.push_back((const char *)(file.GetFullPath().mb_str()));
+                }
+            }
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::wxAddImagesCmd(pano,filesv)
+                                                );
         }
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::wxAddImagesCmd(pano,filesv)
-                                               );
     }
 #ifdef __WXMAC__
     m_macInitDone = true;

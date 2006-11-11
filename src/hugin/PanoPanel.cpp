@@ -390,7 +390,7 @@ void PanoPanel::ApplyQuickMode(int preset)
 			opts.gamma = 1.0;
 			opts.featherWidth = 10;
 			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			opts.blendMode = PanoramaOptions::SPLINE_BLEND;
+			opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
 			m_StitcherChoice->SetSelection(1);
 			break;
 		case 2:
@@ -403,7 +403,8 @@ void PanoPanel::ApplyQuickMode(int preset)
 			opts.gamma = 1.0;
 			opts.featherWidth = 10;
 			opts.remapAcceleration = PanoramaOptions::MAX_SPEEDUP;
-			m_StitcherChoice->SetSelection(1);
+            opts.blendMode = PanoramaOptions::NO_BLEND;
+            m_StitcherChoice->SetSelection(1);
 			break;
 		case 3:
 			// draft quality jpeg file

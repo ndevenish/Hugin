@@ -221,7 +221,7 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
       if (opt.outputFormat == PanoramaOptions::TIFF) {
       // enable enblend
           m_EnblendCheckBox->Enable();
-          m_EnblendCheckBox->SetValue(opt.blendMode == PanoramaOptions::SPLINE_BLEND);
+          m_EnblendCheckBox->SetValue(opt.blendMode == PanoramaOptions::ENBLEND_BLEND);
       } else {
           m_EnblendCheckBox->SetValue(false);
           m_EnblendCheckBox->Disable();
@@ -251,9 +251,9 @@ void NonaStitcherPanel::OnEnblendChanged( wxCommandEvent & e )
 
 
     if (m_EnblendCheckBox->IsChecked()) {
-        opt.blendMode = PanoramaOptions::SPLINE_BLEND;
+       opt.blendMode = PanoramaOptions::ENBLEND_BLEND;
     } else {
-        opt.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+        opt.blendMode = PanoramaOptions::NO_BLEND;
     }
 
     GlobalCmdHist::getInstance().addCommand(
@@ -320,7 +320,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
     } else {
         fill_set(imgs, 0, pano.getNrOfImages()-1);
     }
-    
+
     bool enblend = m_EnblendCheckBox->IsChecked();
     try {
         if (enblend) {

@@ -33,6 +33,7 @@
 #include <iterator>
 #include <algorithm>
 #include <locale.h>
+#include <iomanip>
 
 #include <stdio.h>
 #include <math.h>
@@ -527,7 +528,7 @@ void Panorama::centerHorizontically()
     }
 
 
-    size_t lastidx = borders.size() -1;
+    int lastidx = borders.size() -1;
     if (lastidx == -1) {
         // empty pano
         return;
@@ -539,7 +540,7 @@ void Panorama::centerHorizontically()
         // |11    2222|  -> |      222211     |
         std::vector<int> newBorders;
         newBorders.push_back(borders[lastidx]);
-        for (size_t i = 0; i < lastidx; i++) {
+        for (int i = 0; i < lastidx; i++) {
             newBorders.push_back(borders[i]+360);
         }
         borders = newBorders;
@@ -876,6 +877,7 @@ void Panorama::setCtrlPoints(const CPVector & points)
     }
 }
 
+
 void Panorama::printPanoramaScript(ostream & o,
                                    const OptimizeVector & optvars,
                                    const PanoramaOptions & output,
@@ -990,7 +992,7 @@ void Panorama::printPanoramaScript(ostream & o,
                 o << " Vf\"" << iopts.m_flatfield << "\"";
             }
         }
-        
+
         o << " u" << output.featherWidth
           << (img.getOptions().morph ? " o" : "");
         string fname = img.getFilename();
@@ -1075,15 +1077,15 @@ void Panorama::printPanoramaScript(ostream & o,
     case PanoramaOptions::NO_BLEND:
         o << " e0";
         break;
-	case PanoramaOptions::WEIGHTED_BLEND:
+    case PanoramaOptions::PTBLENDER_BLEND:
         o << " e1";
         break;
-    case PanoramaOptions::SPLINE_BLEND:
+    case PanoramaOptions::ENBLEND_BLEND:
         o << " e2";
-	break;
-    case PanoramaOptions::CHESSBOARD_BLEND:
+	   break;
+    case PanoramaOptions::SMARTBLEND_BLEND:
         o << " e3";
-	break;
+        break;
     }
 	o << std::endl;
 
@@ -1556,7 +1558,8 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
     map_get(lens.variables,"v").setValue(HFOV);
 
     double cropFactor = 0;
-    lens.initFromFile(filename, cropFactor);
+    double roll=0;
+    lens.initFromFile(filename, cropFactor, roll);
 
     int matchingLensNr=-1;
     for (unsigned int lnr=0; lnr < getNrOfLenses(); lnr++) {
@@ -1579,6 +1582,7 @@ int Panorama::addImageAndLens(const std::string & filename, double HFOV)
 
     VariableMap vars;
     fillVariableMap(vars);
+    map_get(vars,"r").setValue(roll);
 
     DEBUG_ASSERT(matchingLensNr >= 0);
     PanoImage pimg(filename, img.width(), img.height(), (unsigned int) matchingLensNr);
@@ -1848,10 +1852,10 @@ double PT::calcOptimalPanoScale(const SrcPanoImage & src,
     FDiff2D imgp2;
 
     transf.transform(imgp1, FDiff2D(0,0));
-    transf.transform(imgp2, FDiff2D(2,2));
+    transf.transform(imgp2, FDiff2D(1,1));
     double dist = utils::norm(imgp2-imgp1);
     
-    return dist / sqrt(8.0);
+    return dist / sqrt(2);
     
     /*
     // calculate average pixel density of each image
@@ -1874,5 +1878,148 @@ double PT::calcOptimalPanoScale(const SrcPanoImage & src,
     // TODO: use density properly based on the output projection.
     double width = roundi(density * opt.getHFOV());
 */
+}
+
+void PT::createMakefile(const Panorama & pano,
+                    const std::string & ptofile,
+                    const std::string & outputPrefix,
+                    const PT::PanoramaOptions & opts,
+                    const PT::UIntSet & imgs,
+                    const PTPrograms & progs,
+                    std::ostream & o)
+
+{
+#ifdef __unix__
+    // set numeric locale to C, for correct number output
+    char * t = setlocale(LC_NUMERIC,NULL);
+    char * old_locale = (char*) malloc(strlen(t)+1);
+    strcpy(old_locale, t);
+    setlocale(LC_NUMERIC,"C");
+#endif
+    o << "# makefile for panorama stitching, created by hugin " << endl
+      << endl;
+
+    // this function supports only multiple tiff output.
+    // for example using nona or PTRemap (or whatever it will be called)
+
+    // set a suitable target file.
+    std::string output = quoteString(outputPrefix);
+    std::string final_output = output + ".tif";
+
+    bool externalBlender = false;
+    bool remapToMultiple = false;
+
+    if (opts.blendMode == PT::PanoramaOptions::NO_BLEND) {
+        // just remapping or simple blending
+        if (opts.outputFormat == PT::PanoramaOptions::TIFF_m) {
+            remapToMultiple = true;
+        }
+    } else {
+        externalBlender = true;
+        remapToMultiple = true;
+    }
+
+    o << "# the output panorama" << endl
+            << "TARGET=" << final_output << endl
+            << "PROJECT_FILE=" << quoteString(ptofile) << endl
+            << endl
+      << "# Input images" << endl
+      << "INPUT_IMAGES=";
+    for (unsigned int i=0; i < imgs.size(); i++) {
+        o << quoteString(pano.getImage(i).getFilename()) << " ";
+    }
+    o << endl
+      << "# remapped images" << endl
+      << "REMAPPED_IMAGES=";
+    for (unsigned int i=0; i < imgs.size(); i++) {
+        std::ostringstream fns;
+        fns << output << std::setfill('0') << std::setw(4) << i << ".tif";
+        o << fns.str() << " ";
+    }
+
+    // include makefile stub.
+    o << endl
+      << "# Tool configuration" << endl
+      << "NONA=" << quoteString(progs.nona) << endl
+      << "PTSTITCHER=" << quoteString(progs.PTStitcher) << endl
+      << "PTREMAP=" << quoteString(progs.PTremap) << endl
+      << "PTBLENDER=" << quoteString(progs.PTblender) << endl
+      << "PTROLLER=" << quoteString(progs.PTroller) << endl
+      << "ENBLEND=" << quoteString(progs.enblend) << endl
+      << "SMARTBLEND=" << quoteString(progs.smartblend) << endl
+      << endl
+      << "# options for the programs" << endl
+      << endl;
+
+    string remapper;
+    switch(opts.remapper) {
+        case PanoramaOptions::NONA:
+            remapper = "nona";
+            break;
+        case PanoramaOptions::PTSTITCHER:
+            remapper = "ptstitcher";
+            break;
+        case PanoramaOptions::PTREMAP:
+            remapper = "ptremap";
+            break;
+    }
+
+    string blender;
+    switch(opts.blendMode) {
+        case PanoramaOptions::NO_BLEND:
+            blender="multilayer";
+            break;
+        case PanoramaOptions::PTBLENDER_BLEND:
+            blender="ptblender";
+            // TODO: add options here!
+            o << "PTBLENDER_OPTS=";
+            switch (opts.colorCorrection) {
+                case PanoramaOptions::NONE:
+                    blender = "ptroller";
+                    break;
+                case PanoramaOptions::BRIGHTNESS_COLOR:
+                    o << " -k " << opts.colorReferenceImage;
+                    break;
+                case PanoramaOptions::BRIGHTNESS:
+                    o << " -k " << opts.colorReferenceImage;
+                    break;
+                case PanoramaOptions::COLOR:
+                    o << " -k " << opts.colorReferenceImage;
+                    break;
+            }
+            o << endl;
+            break;
+        case PanoramaOptions::ENBLEND_BLEND:
+            blender = "enblend";
+            o << "ENBLEND_OPTS=";
+            if (opts.getHFOV() == 360.0) {
+                    // blend over the border
+                o << " -w";
+            }
+            if (opts.tiffCompression == "LZW") {
+                o << " -z";
+            }
+            o << " -f" << opts.getWidth() << "x" << opts.getHeight() << endl;
+            break;
+        case PanoramaOptions::SMARTBLEND_BLEND:
+            blender = "smartblend";
+            o << "SMARTBLEND_OPTS=";
+            if (opts.getHFOV() == 360.0) {
+                // blend over the border
+                o << " -w";
+            }
+            break;
+    }
+
+    std::string includefile = "template_" + remapper + "_" + blender;
+    o << "# including template " << includefile
+      << endl;
+
+#ifdef __unix__
+    // reset locale
+    setlocale(LC_NUMERIC,old_locale);
+    free(old_locale);
+#endif
+
 }
 

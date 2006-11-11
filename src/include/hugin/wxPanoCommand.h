@@ -82,7 +82,8 @@ public:
                 const std::string &filename = *it;
 
                 Lens lens;
-                initLensFromFile(filename, cropFactor, lens);
+                double roll=0;
+                initLensFromFile(filename, cropFactor, lens, roll);
                 if( lens.getImageSize().x == 0) {
                     // if image size is invalid, do not add image.
                     pano.changeFinished();
@@ -116,6 +117,8 @@ public:
 
                 VariableMap vars;
                 fillVariableMap(vars);
+                // set roll angle read from EXIF
+                map_get(vars,"r").setValue(roll);
 
                 DEBUG_ASSERT(matchingLensNr >= 0);
                 PanoImage img(filename, lens.getImageSize().x, lens.getImageSize().y, (unsigned int) matchingLensNr);
@@ -213,13 +216,14 @@ public:
                     // check if script contains invalid HFOV
                     unsigned lNr = pano.getImage(i).getLensNr();
                     Lens cLens = pano.getLens(lNr);
+                    double roll = 0;
                     double hfov = const_map_get(pano.getVariables()[i], "v").getValue();
                     if (cLens.getProjection() == Lens::RECTILINEAR
                         && hfov >= 180)
                     {
                         // try to load hfov from exif info
                         initLensFromFile(pano.getImage(i).getFilename(),
-                                         defaultCropFactor, cLens);
+                                         defaultCropFactor, cLens, roll);
                         if ( cLens.getImageSize().x == 0)
                         {
                             // if image size is invalid, abort script reading

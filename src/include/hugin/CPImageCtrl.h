@@ -115,12 +115,18 @@ public:
      */
     ~CPImageCtrl();
 
+    /** image rotation.
+     *  Useful to display images depending on their roll setting.
+     *  rotation is clockwise
+     */ 
+    enum ImageRotation { ROT0=0, ROT90, ROT180, ROT270 };
+
     /// associate a zoomed display with this image
     void SetZoomView(CPZoomDisplayPanel * display);
 
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
-    void setImage (const std::string & filename);
+    void setImage (const std::string & filename, ImageRotation rot);
 
     /// control point inside this image
     void setCtrlPoints(const std::vector<FDiff2D> & points);
@@ -276,6 +282,51 @@ private:
             return wxPoint(utils::roundi(p.x), utils::roundi(p.y));
         }
 
+    // rotate coordinate to fit possibly rotated image display
+    // useful for drawing something on the rotated display
+    template <class T>
+    T applyRot(const T & p) const
+    {
+        switch (m_imgRotation) {
+            case ROT0:
+                return p;
+                break;
+            case ROT90:
+                return T(m_realSize.GetHeight()-1 - p.y, p.x);
+                break;
+            case ROT180:
+                return T(m_realSize.GetWidth()-1 - p.x, m_realSize.GetHeight()-1 - p.y);
+                break;
+            case ROT270:
+                return T(p.y, m_realSize.GetWidth()-1 - p.x);
+                break;
+            default:
+                return p;
+                break;
+        }
+    }
+
+    // rotate coordinate to fit possibly rotated image display
+    // useful for converting rotated display coordinates to image coordinates
+    template <class T>
+    T applyRotInv(const T & p) const
+    {
+        switch (m_imgRotation) {
+            case ROT90:
+                return T(p.y, m_realSize.GetHeight()-1 - p.x);
+                break;
+            case ROT180:
+                return T(m_realSize.GetWidth()-1 - p.x, m_realSize.GetHeight()-1 - p.y);
+                break;
+            case ROT270:
+                return T(m_realSize.GetWidth()-1 - p.y, p.x);
+                break;
+            case ROT0:
+            default:
+                return p;
+                break;
+        }
+    }
 
     // this is only valid during MOVE_POINT
     unsigned int selectedPointNr;
@@ -363,6 +414,8 @@ private:
     CPEditorPanel * m_editPanel;
 
     CPZoomDisplayPanel * m_zoomDisplay;
+
+    ImageRotation m_imgRotation;
 
     DECLARE_EVENT_TABLE();
 };

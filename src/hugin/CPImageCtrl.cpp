@@ -138,7 +138,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
       m_showSearchArea(false), m_searchRectWidth(0),
       m_showTemplateArea(false), m_templateRectWidth(0),
       m_tempZoom(false),m_savedScale(1), m_editPanel(parent),
-      m_zoomDisplay(0)
+      m_zoomDisplay(0), m_imgRotation(ROT0)
 {
 
     wxString filename;
@@ -272,10 +272,13 @@ void CPImageCtrl::OnDraw(wxDC & dc)
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen(wxT("RED"), 1, wxSOLID));
             dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-            wxPoint upperLeft = roundP(scale(newPoint - FDiff2D(m_templateRectWidth, m_templateRectWidth)));
+            //wxPoint upperLeft = roundP(scale(newPoint - FDiff2D(m_templateRectWidth, m_templateRectWidth)));
+            wxPoint upperLeft = applyRot(roundP(newPoint));
+            upperLeft = scale(upperLeft);
+
             int width = scale(m_templateRectWidth);
 
-            dc.DrawRectangle(upperLeft.x, upperLeft.y, 2*width, 2*width);
+            dc.DrawRectangle(upperLeft.x-width, upperLeft.y-width, 2*width, 2*width);
             dc.SetLogicalFunction(wxCOPY);
         }
 
@@ -292,11 +295,12 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
         dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
 
-        FDiff2D upperLeft = scale(m_mousePos - FDiff2D(m_searchRectWidth, m_searchRectWidth));
+        FDiff2D upperLeft = applyRot(m_mousePos);
+        upperLeft = scale(upperLeft);
         int width = scale(m_searchRectWidth);
-        DEBUG_DEBUG("drawing rect with width " << 2*width << " orig: " << m_searchRectWidth*2  << " scale factor: " << getScaleFactor());
+        DEBUG_DEBUG("drawing rect " << upperLeft << " with width " << 2*width << " orig: " << m_searchRectWidth*2  << " scale factor: " << getScaleFactor());
 
-        dc.DrawRectangle(roundi(upperLeft.x), roundi(upperLeft.y), 2*width, 2*width);
+        dc.DrawRectangle(roundi(upperLeft.x - width), roundi(upperLeft.y-width), 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
     }
 
@@ -304,8 +308,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 }
 
 
-void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & point, const wxColor & color) const
+void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, const wxColor & color) const
 {
+    FDiff2D point = applyRot(pointIn);
     double f = getScaleFactor();
     if (f < 1) {
         f = 1;
@@ -321,8 +326,9 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & point, const wxColor & co
 }
 
 
-void CPImageCtrl::drawHighlightPoint(wxDC & dc, const FDiff2D & point, const wxColor & color) const
+void CPImageCtrl::drawHighlightPoint(wxDC & dc, const FDiff2D & pointIn, const wxColor & color) const
 {
+    FDiff2D point = applyRot(pointIn);
     double f = getScaleFactor();
     if (f < 1) {
         f = 1;
@@ -344,13 +350,14 @@ wxSize CPImageCtrl::DoGetBestSize() const
 }
 
 
-void CPImageCtrl::setImage(const std::string & file)
+void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
 
     if (imageFilename != "") {
         editState = NO_SELECTION;
+        m_imgRotation = imgRot;
         rescaleImage();
     } else {
         editState = NO_IMAGE;
@@ -380,13 +387,52 @@ void CPImageCtrl::rescaleImage()
     DEBUG_DEBUG("src image size "
                 << imageSize.GetHeight() << "x" << imageSize.GetWidth());
     if (getScaleFactor() == 1.0) {
-        bitmap = wxBitmap(*img);
+        // need to rotate full image. warning. this can be very memory intensive
+        if (m_imgRotation != ROT0) {
+            wxImage tmp(*img);
+            switch(m_imgRotation) {
+                case ROT90:
+                    tmp = tmp.Rotate90(true);
+                    break;
+                case ROT180:
+                    // this is slower than it needs to be...
+                    tmp = tmp.Rotate90(true);
+                    tmp = tmp.Rotate90(true);
+                    break;
+                case ROT270:
+                    tmp = tmp.Rotate90(false);
+                    break;
+                default:
+                    break;
+            }
+            bitmap = wxBitmap(tmp);
+        } else {
+            bitmap = wxBitmap(*img);
+        }
     } else {
         imageSize.SetWidth( scale(imageSize.GetWidth()) );
         imageSize.SetHeight( scale(imageSize.GetHeight()) );
         DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
                     << imageSize.GetHeight() );
-        bitmap = wxBitmap(img->Scale(imageSize.GetWidth(), imageSize.GetHeight()));
+
+        wxImage tmp= img->Scale(imageSize.GetWidth(), imageSize.GetHeight());
+        switch(m_imgRotation) {
+            case ROT90:
+                tmp = tmp.Rotate90(true);
+                break;
+            case ROT180:
+                    // this is slower than it needs to be...
+                tmp = tmp.Rotate90(true);
+                tmp = tmp.Rotate90(true);
+                break;
+            case ROT270:
+                tmp = tmp.Rotate90(false);
+                break;
+            default:
+                break;
+        }
+
+        bitmap = wxBitmap(tmp);
         DEBUG_DEBUG("rescaling finished");
     }
 
@@ -440,6 +486,8 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
     DEBUG_DEBUG("x: " << point.x  << " y: " << point.y);
     wxSize sz = GetClientSize();
     point = scale(point);
+    point = applyRot(point);
+    // rotate
     int x = roundi(point.x);
     int y = roundi(point.y);
     int scrollx = x - sz.GetWidth()/2;
@@ -494,8 +542,8 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
                            &mpos_.x, & mpos_.y);
     FDiff2D mpos(mpos_.x, mpos_.y);
     bool doUpdate = false;
-    mpos = invScale(mpos);
-    mpos_ = invScale(mpos_);
+    mpos = applyRotInv(invScale(mpos));
+    mpos_ = applyRotInv(invScale(mpos_));
     // if mouseclick is out of image, ignore
     if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
         return;
@@ -593,8 +641,8 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
     FDiff2D mpos(mpos_.x, mpos_.y);
-    mpos = invScale(mpos);
-    mpos_ = invScale(mpos_);
+    mpos = applyRotInv(invScale(mpos));
+    mpos_ = applyRotInv(invScale(mpos_));
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     // if mouseclick is out of image, ignore
@@ -637,7 +685,7 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
     FDiff2D mpos(mpos_.x, mpos_.y);
-    mpos = invScale(mpos);
+    mpos = applyRotInv(invScale(mpos));
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     // if mouseclick is out of image, ignore
@@ -731,7 +779,7 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
     FDiff2D mpos(mpos_.x, mpos_.y);
-    mpos = invScale(mpos);
+    mpos = applyRotInv(invScale(mpos));
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     // if mouseclick is out of image, ignore
@@ -803,6 +851,7 @@ void CPImageCtrl::setScale(double factor)
 
 double CPImageCtrl::calcAutoScaleFactor(wxSize size)
 {
+    // TODO correctly autoscale rotated iamges
 //    wxSize csize = GetClientSize();
     wxSize csize = GetSize();
     double s1 = (double)csize.GetWidth()/size.GetWidth();
@@ -1015,6 +1064,7 @@ wxPoint CPImageCtrl::MaxScrollDelta(wxPoint delta)
 
 void CPImageCtrl::ScrollDelta(const wxPoint & delta)
 {
+    // TODO: adjust
     if (delta.x == 0 && delta.y == 0) {
         return;
     }

@@ -712,7 +712,8 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                     file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
                 {
                     double c=0;
-                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens);
+                    double roll = 0;
+                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, roll);
                     GlobalCmdHist::getInstance().addCommand(
                         new PT::ChangeLensCmd( pano, lensNr,
                                                lens )
@@ -884,7 +885,8 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
         unsigned int imgNr = *(m_selectedImages.begin());
         Lens l;
         double crop=0;
-        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l);
+        double roll=0;
+        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l, roll);
         GlobalCmdHist::getInstance().addCommand(
             new PT::AddNewLensToImagesCmd(pano, l, m_selectedImages)
             );
@@ -981,9 +983,9 @@ void LensPanel::OnCrop ( wxCommandEvent & e )
 
 
 
-bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l)
+bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l, double & roll)
 {
-    if (!l.initFromFile(filename, cropFactor)) {
+    if (!l.initFromFile(filename, cropFactor, roll)) {
         if (cropFactor == -1) {
             cropFactor = 1;
             wxConfigBase::Get()->Read(wxT("/LensDefaults/CropFactor"), &cropFactor);
@@ -994,7 +996,7 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
             t.ToDouble(&cropFactor);
             wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
 
-            return l.initFromFile(filename, cropFactor);
+            return l.initFromFile(filename, cropFactor, roll);
         }
         return false;
     }

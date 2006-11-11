@@ -253,11 +253,12 @@ void Lens::setSensorSize(const FDiff2D & size) {
 }
 
 
-bool Lens::initFromFile(const std::string & filename, double &cropFactor)
+bool Lens::initFromFile(const std::string & filename, double &cropFactor, double & roll)
 {
     std::string ext = utils::getExtension(filename);
     std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
 
+    roll = 0;
     int width;
     int height;
     try {
@@ -295,6 +296,20 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor)
     // calc sensor dimensions if not set and 35mm focal length is available
     FDiff2D sensorSize;
     double focalLength = 0;
+
+    switch (exif.Orientation) {
+        case 3:  // rotate 180
+            roll = 180;
+            break;
+        case 6: // rotate 90
+            roll = 90;
+            break;
+        case 8: // rotate 270
+            roll = 270;
+            break;
+        default:
+            break;
+    }
 
     if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
         // read sensor size directly.
@@ -1076,21 +1091,21 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 					case 0:
 						options.blendMode = PanoramaOptions::NO_BLEND;
 						break;
-					case 1:
-						options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
-						break;
+                    case 1:
+                        options.blendMode = PanoramaOptions::PTBLENDER_BLEND;
+                        break;
 					case 2:
-						options.blendMode = PanoramaOptions::SPLINE_BLEND;
+						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
 						break;
 					case 3:
-						options.blendMode = PanoramaOptions::CHESSBOARD_BLEND;
+						options.blendMode = PanoramaOptions::SMARTBLEND_BLEND;
 						break;
 					default:
-						options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+						options.blendMode = PanoramaOptions::ENBLEND_BLEND;
 						break;
 					}
 				} else {
-					options.blendMode = PanoramaOptions::WEIGHTED_BLEND;
+                    options.blendMode = PanoramaOptions::ENBLEND_BLEND;
 				}
             }
             break;

@@ -14,7 +14,7 @@
 #include "ransac.h"
 
 // uncomment this to use our version of the linear solver
-#define HUGIN_VIG_USE_UBLAS
+//#define HUGIN_VIG_USE_UBLAS
 
 #ifdef HUGIN_VIG_USE_UBLAS
 

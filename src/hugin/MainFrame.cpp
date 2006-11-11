@@ -463,11 +463,25 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         std::ofstream script(scriptName.GetFullPath().mb_str());
         PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
-	if (pano.getNrOfImages() > 0) {
-	    fill_set(all, 0, pano.getNrOfImages()-1);
-	}
+        if (pano.getNrOfImages() > 0) {
+           fill_set(all, 0, pano.getNrOfImages()-1);
+        }
         pano.printPanoramaScript(script, optvec, pano.getOptions(), all, false, path);
         script.close();
+        wxString makefn = scriptName.GetFullPath() + wxT(".mk");
+        std::ofstream makefile(makefn.mb_str());
+        std::string prefix = (const char *) scriptName.GetFullPath().mb_str();
+        PTPrograms progs;
+        wxConfigBase *config = wxConfig::Get();
+        progs.PTStitcher = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)).mb_str();
+        progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
+        createMakefile(pano,
+                       prefix,
+                       "test",
+                       pano.getOptions(),
+                       all,
+                       progs,
+                       makefile);
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
     this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - hugin"));

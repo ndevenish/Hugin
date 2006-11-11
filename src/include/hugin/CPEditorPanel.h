@@ -251,6 +251,8 @@ private:
                                   CPCreationState OTHER_POINT,
                                   CPCreationState OTHER_POINT_RETRY);
 
+    /** calculate rotation required for upright image display from roll, pitch and yaw angles */
+    CPImageCtrl::ImageRotation GetRot(double yaw, double roll, double pitch);
 
     CPCreationState cpCreationState;
 
@@ -303,6 +305,9 @@ private:
     std::set<unsigned int> mirroredPoints;
 
     bool m_restoreLayoutOnResize;
+
+    CPImageCtrl::ImageRotation m_leftRot;
+    CPImageCtrl::ImageRotation m_rightRot;
 
     // needed for receiving events.
     DECLARE_EVENT_TABLE();

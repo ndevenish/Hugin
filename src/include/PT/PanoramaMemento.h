@@ -210,7 +210,7 @@ public:
     }
 
     /** try to read image information from file */
-    bool initFromFile(const std::string & filename, double &cropFactor);
+    bool initFromFile(const std::string & filename, double &cropFactor, double & roll);
 
 //    double isLandscape() const {
 //        return sensorRatio >=1;
@@ -344,10 +344,16 @@ public:
 
     /** blending mechanism */
     enum BlendingMechanism {
-	NO_BLEND,
-	WEIGHTED_BLEND,
-	SPLINE_BLEND,
-	CHESSBOARD_BLEND
+        NO_BLEND=0,
+        PTBLENDER_BLEND=1,
+        ENBLEND_BLEND=2,
+        SMARTBLEND_BLEND=3
+    };
+
+    enum Remapper {
+        NONA=0,
+        PTSTITCHER,
+        PTREMAP
     };
 
     /** type of color correction
@@ -380,7 +386,8 @@ public:
             featherWidth = 10;
             outputFormat = JPEG;
             remapAcceleration = MAX_SPEEDUP;
-            blendMode = WEIGHTED_BLEND;
+            blendMode = NO_BLEND;
+            remapper = NONA;
             saveCoordImgs = false;
         }
     virtual ~PanoramaOptions() {};
@@ -485,6 +492,7 @@ public:
 
     PTStitcherAcceleration remapAcceleration;
     BlendingMechanism blendMode;
+    Remapper remapper;
 
     bool saveCoordImgs;
 

@@ -117,8 +117,8 @@ END_EVENT_TABLE()
 CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     : cpCreationState(NO_POINT), m_pano(pano), m_leftImageNr(UINT_MAX),
       m_rightImageNr(UINT_MAX), m_listenToPageChange(true), m_detailZoomFactor(1),
-      m_selectedPoint(UINT_MAX), m_restoreLayoutOnResize(false)
-
+      m_selectedPoint(UINT_MAX), m_restoreLayoutOnResize(false),
+      m_leftRot(CPImageCtrl::ROT0), m_rightRot(CPImageCtrl::ROT0)
 {
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, parent, wxT("cp_editor_panel"));
@@ -363,7 +363,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
     if (imgNr == UINT_MAX) {
-        m_leftImg->setImage("");
+        m_leftImg->setImage("", CPImageCtrl::ROT0);
         m_leftImageNr = imgNr;
         m_leftFile = "";
         if (m_fineTuneFrame) {
@@ -372,7 +372,11 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         changeState(NO_POINT);
         UpdateDisplay(true);
     } else if (m_leftImageNr != imgNr) {
-        m_leftImg->setImage(m_pano->getImage(imgNr).getFilename());
+        double yaw = const_map_get(m_pano->getImageVariables(imgNr),"y").getValue();
+        double pitch = const_map_get(m_pano->getImageVariables(imgNr),"p").getValue();
+        double roll = const_map_get(m_pano->getImageVariables(imgNr),"r").getValue();
+        m_leftRot = GetRot(yaw, pitch, roll);
+        m_leftImg->setImage(m_pano->getImage(imgNr).getFilename(), m_leftRot);
 #ifdef HUGIN_CP_IMG_CHOICE
         if (m_leftChoice->GetSelection() != (int) imgNr) {
             m_leftChoice->SetSelection(imgNr);
@@ -401,9 +405,10 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
     if (imgNr == UINT_MAX) {
-        m_rightImg->setImage("");
+        m_rightImg->setImage("", CPImageCtrl::ROT0);
         m_rightImageNr = imgNr;
         m_rightFile = "";
+        m_rightRot = CPImageCtrl::ROT0;
         if (m_fineTuneFrame) {
             m_fineTuneFrame->GetRightImg()->Clear();
         }
@@ -411,7 +416,11 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         UpdateDisplay(true);
     } else if (m_rightImageNr != imgNr) {
         // set the new image
-        m_rightImg->setImage(m_pano->getImage(imgNr).getFilename());
+        double yaw = const_map_get(m_pano->getImageVariables(imgNr),"y").getValue();
+        double pitch = const_map_get(m_pano->getImageVariables(imgNr),"p").getValue();
+        double roll = const_map_get(m_pano->getImageVariables(imgNr),"r").getValue();
+        m_rightRot = GetRot(yaw, pitch, roll);
+        m_rightImg->setImage(m_pano->getImage(imgNr).getFilename(), m_rightRot);
         // select tab
 #ifdef HUGIN_CP_IMG_CHOICE
         if (m_rightChoice->GetSelection() != (int) imgNr) {
@@ -1281,8 +1290,8 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
             m_rightImageNr = UINT_MAX;
             m_rightFile = "";
             // no image anymore..
-            m_leftImg->setImage(m_leftFile);
-            m_rightImg->setImage(m_rightFile);
+            m_leftImg->setImage(m_leftFile, CPImageCtrl::ROT0);
+            m_rightImg->setImage(m_rightFile, CPImageCtrl::ROT0);
         }
     }
 
@@ -1297,20 +1306,30 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
         // take the current state directly from the pano
         // object
         DEBUG_DEBUG("image changed "<< imgNr);
+        double yaw = const_map_get(m_pano->getImageVariables(imgNr), "y").getValue();
+        double pitch = const_map_get(m_pano->getImageVariables(imgNr), "p").getValue();
+        double roll = const_map_get(m_pano->getImageVariables(imgNr), "r").getValue();
+        CPImageCtrl::ImageRotation rot = GetRot(yaw, pitch, roll);
         if (m_leftImageNr == imgNr) {
             DEBUG_DEBUG("left image dirty "<< imgNr);
-            if (m_leftFile != pano.getImage(imgNr).getFilename()) {
+            if (m_leftFile != pano.getImage(imgNr).getFilename()
+                || m_leftRot != rot ) 
+            {
+                m_leftRot = rot;
                 m_leftFile = pano.getImage(imgNr).getFilename();
-                m_leftImg->setImage(m_leftFile);
+                m_leftImg->setImage(m_leftFile, m_leftRot);
             }
             update=true;
         }
 
         if (m_rightImageNr == imgNr) {
             DEBUG_DEBUG("right image dirty "<< imgNr);
-            if (m_rightFile != pano.getImage(imgNr).getFilename()) {
+            if (m_rightFile != pano.getImage(imgNr).getFilename()
+                 || m_rightRot != rot ) 
+            {
+                m_rightRot = rot;
                 m_rightFile = pano.getImage(imgNr).getFilename();
-                m_rightImg->setImage(m_rightFile);
+                m_rightImg->setImage(m_rightFile, m_rightRot);
             }
             update=true;
         }
@@ -2106,4 +2125,29 @@ void CPEditorPanel::OnSize(wxSizeEvent & e)
         m_restoreLayoutOnResize = false;
         RestoreLayout();
     }
+}
+
+CPImageCtrl::ImageRotation CPEditorPanel::GetRot(double yaw, double pitch, double roll)
+{
+    CPImageCtrl::ImageRotation rot = CPImageCtrl::ROT0;
+    // normalize roll angle
+    while (roll > 360) roll-= 360;
+    while (roll < 0) roll += 360;
+
+    while (pitch > 180) pitch -= 360;
+    while (pitch < -180) pitch += 360;
+    bool headOver = (pitch > 90 || pitch < -90);
+
+    if (wxConfig::Get()->Read(wxT("/CPEditorPanel/AutoRot"),1L)) {
+        if (roll >= 315 && roll < 45) {
+            rot = headOver ? CPImageCtrl::ROT180 : CPImageCtrl::ROT0;
+        } else if (roll >= 45 && roll < 135) {
+            rot = headOver ? CPImageCtrl::ROT270 : CPImageCtrl::ROT90;
+        } else if (roll >= 135 && roll < 225) {
+            rot = headOver ? CPImageCtrl::ROT0 : CPImageCtrl::ROT180;
+        } else {
+            rot = headOver ? CPImageCtrl::ROT90 : CPImageCtrl::ROT270;
+        }
+    }
+    return rot;
 }
