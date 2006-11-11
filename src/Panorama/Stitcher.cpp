@@ -158,7 +158,7 @@ void PT::stitchPanorama(const PT::Panorama & pano,
             return;
         }
 
-        if (info2.numBands() != bands) {
+        if (info2.numBands() - info2.numExtraBands() != bands - extraBands) {
             UTILS_THROW(std::runtime_error, "image " << pano.getImage(imgNr).getFilename()
                         << " has " << info2.numBands() << " channels, while " << pano.getImage(0).getFilename() << " uses: " << bands);
             return;
