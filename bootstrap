@@ -42,7 +42,7 @@ if $GETTEXTIZE --version < /dev/null > /dev/null 2>&1 ; then
 	gettextize_version=`$GETTEXTIZE --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
 #	echo gettextize version: $gettextize_version
 	case $gettextize_version in
-	    0.11*|0.12*|0.13*|0.14*)
+	    0.11*|0.12*|0.13*|0.14*|0.15*)
 		have_gettextize=true
 		;;
 	esac
