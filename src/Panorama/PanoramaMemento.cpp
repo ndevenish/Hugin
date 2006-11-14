@@ -549,14 +549,14 @@ void PanoramaOptions::setVFOV(double VFOV)
     transf.createInvTransform(src, *this);
 
     FDiff2D pmiddle;
-    
+
     if (VFOV>180 && getMaxVFOV() > 180) {
         // we have crossed the pole
         transf.transform(pmiddle, FDiff2D(180, 180-VFOV/2 - 0.01));
     } else {
         transf.transform(pmiddle, FDiff2D(0, VFOV/2));
     }
-    m_size.y = roundi(2*pmiddle.y);
+    m_size.y = abs(roundi(2*pmiddle.y));
 
     // reset roi
     m_roi=vigra::Rect2D(m_size);
