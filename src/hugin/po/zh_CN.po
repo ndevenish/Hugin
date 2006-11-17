@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin v0.6.1\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2006-11-11 23:10+0800\n"
-"Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
-"Language-Team: Lu Fang <supercosmosgod@hotmail.com>\n"
+"PO-Revision-Date: 2006-11-13 18:37+0800\n"
+"Last-Translator: Chinese Simplified <N/A>\n"
+"Language-Team: Chinese Simplified <N/A>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,15 +25,15 @@ msgstr "Autopano (1.03 版或者更高版本), 来自于 http://autopano.kolor.c
 
 #: src/hugin/AutoCtrlPointCreator.cpp:110
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
-msgstr "Autopano-Sift, 来自于 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr "Autopano-SIFT, 来自于 http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Choose which autopano program should be used\n"
-msgstr "选择使用哪种 autopano 程序\n"
+msgstr "选择使用哪种 Autopano 程序\n"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:112
 msgid "Select autopano type"
-msgstr "选择 autopano 类型"
+msgstr "选择 Autopano 类型"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:125
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -46,7 +46,7 @@ msgstr "您希望用 Autopano-Sift 来代替吗?"
 #: src/hugin/AutoCtrlPointCreator.cpp:163
 #: src/hugin/AutoCtrlPointCreator.cpp:385
 msgid "Select autopano program / frontend script"
-msgstr "选择 autopano 程序 / 前端脚本"
+msgstr "选择 Autopano 程序 / 前端脚本"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:165
 #: src/hugin/PreferencesDialog.cpp:241
@@ -60,7 +60,7 @@ msgstr "可执行文件 (*.exe)|*.exe"
 #: src/hugin/AutoCtrlPointCreator.cpp:207
 #: src/hugin/AutoCtrlPointCreator.cpp:393
 msgid "No autopano selected"
-msgstr "没有选择 autopano"
+msgstr "没有选择 Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:194
 msgid "Autopano-SIFT is not installed."
@@ -68,7 +68,7 @@ msgstr "没有安装 Autopano-SIFT."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:199
 msgid "Select autopano frontend script"
-msgstr "选择 autopano 前端脚本"
+msgstr "选择 Autopano 前端脚本"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:201
 msgid "Shell Scripts (*.sh)|*.sh"
@@ -77,7 +77,7 @@ msgstr "Shell 脚本文件 (*.sh)|*.sh"
 #: src/hugin/AutoCtrlPointCreator.cpp:245
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
-msgstr "请在 autopano-sift 命令行中使用 %namefile 或者 %i."
+msgstr "请在 Autopano-SIFT 命令行中使用 %namefile 或者 %i."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:246
 #: src/hugin/AutoCtrlPointCreator.cpp:251
@@ -87,7 +87,7 @@ msgstr "Autopano 命令行错误"
 #: src/hugin/AutoCtrlPointCreator.cpp:250
 #, c-format
 msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
-msgstr "请使用 %namefile 或者 %i 来为 autopano-sift 指定输入文件"
+msgstr "请使用 %namefile 或者 %i 来为 Autopano-SIFT 指定输入文件"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:285
 #: src/hugin/AutoCtrlPointCreator.cpp:431
@@ -97,7 +97,7 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"autopano 命令行太长.\n"
+"Autopano 命令行太长.\n"
 "这是 windows 系统的一个限制\n"
 "请选择较少的图像, 或者将图像放置在\n"
 "一个拥有较短路径的文件夹中"
@@ -111,7 +111,7 @@ msgstr "选择了太多的图像"
 #: src/hugin/AutoCtrlPointCreator.cpp:295
 #: src/hugin/AutoCtrlPointCreator.cpp:439
 msgid "Running autopano"
-msgstr "正在运行 autopano"
+msgstr "正在运行 Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:295
 #: src/hugin/AutoCtrlPointCreator.cpp:439
@@ -119,8 +119,8 @@ msgid ""
 "Please wait while autopano searches control points\n"
 "See the command window for autopanos' progress"
 msgstr ""
-"请等待 autopano 搜索控制点\n"
-"可以从命令行窗口查看 autopano 进程"
+"请等待 Autopano 搜索控制点\n"
+"可以从命令行窗口查看 Autopano 进程"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:329
 #: src/hugin/AutoCtrlPointCreator.cpp:345
@@ -173,14 +173,14 @@ msgid ""
 "Autopano command: "
 msgstr ""
 " 便于阅读\n"
-"指明 autopano 调用失败,\n"
+"指明 Autopano 调用失败,\n"
 "或者使用了错误的命令行参数.\n"
 "Autopano 命令: "
 
 #: src/hugin/AutoCtrlPointCreator.cpp:357
 #: src/hugin/AutoCtrlPointCreator.cpp:470
 msgid "autopano failure"
-msgstr "autopano 失败"
+msgstr "Autopano 失败"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:387
 #: src/hugin/PreferencesDialog.cpp:290
@@ -829,11 +829,11 @@ msgstr "没有选择 enblend.exe"
 
 #: src/hugin/NonaStitcherPanel.cpp:380
 msgid "Select enblend commandline tool"
-msgstr "选择融合命令行工具"
+msgstr "选择 Enblend 命令行工具"
 
 #: src/hugin/NonaStitcherPanel.cpp:388
 msgid "No enblend commandline tool selected"
-msgstr "没有选择融合命令行工具"
+msgstr "没有选择 Enblend 命令行工具"
 
 #: src/hugin/NonaStitcherPanel.cpp:426
 msgid ""
@@ -842,7 +842,7 @@ msgid ""
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"不能使用一个 > 2000 字符的命令行来调用融合.\n"
+"不能使用一个 > 2000 字符的命令行来调用 Enblend.\n"
 "这是 Windows 系统的一个限制\n"
 "请使用较少图像, 或者将图像放在\n"
 "一个具有较短路径的文件夹中"
@@ -864,7 +864,7 @@ msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
 msgstr ""
-"不能执行融合, system() 失败:\n"
+"不能执行 Enblend, system() 失败:\n"
 "命令是:"
 
 #: src/hugin/NonaStitcherPanel.cpp:441
@@ -877,7 +877,7 @@ msgstr "创建进程错误"
 
 #: src/hugin/NonaStitcherPanel.cpp:494
 msgid "enblend error"
-msgstr "融合错误"
+msgstr "Enblend 错误"
 
 #: src/hugin/NonaStitcherPanel.cpp:567
 #: src/hugin/PTStitcherPanel.cpp:307
@@ -1972,7 +1972,7 @@ msgstr "创建控制点"
 #: src/hugin/xrc/images_panel.xrs:23
 #: src/hugin/xrc/images_panel-2.5.xrs:24
 msgid "Run external autopano program on the selected images"
-msgstr "运行外部 autopano 程序到选择的图像上"
+msgstr "运行外部 Autopano 程序到选择的图像上"
 
 #: src/hugin/xrc/images_panel.xrs:24
 #: src/hugin/xrc/images_panel-2.5.xrs:9
@@ -2716,15 +2716,15 @@ msgstr "保存修剪图像 (只有 TIFF&m)"
 
 #: src/hugin/xrc/nona_panel.xrs:26
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
-msgstr "保存修剪的 tiff 输出. 对于 enblend 2.4 版或者更高版本有效."
+msgstr "保存修剪的 TIFF 输出. 对于 Enblend 2.4 版或者更高版本有效."
 
 #: src/hugin/xrc/nona_panel.xrs:27
 msgid "Soft Blending (requires enblend, only TIFF output)"
-msgstr "软融合 (需要 enblend, 只针对 TIFF 输出)"
+msgstr "软融合 (需要 Enblend, 只针对 TIFF 输出)"
 
 #: src/hugin/xrc/nona_panel.xrs:28
 msgid "Use the external enblend program for seamless blending. Can only produce TIFF output. Select TIFF to enable this option"
-msgstr "为无缝融合使用外部融合程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个选项"
+msgstr "为无缝融合使用外部 Enblend 程序. 只能产生 TIFF 输出. 选择 TIFF 来允许这个选项"
 
 #: src/hugin/xrc/optimize_panel.xrs:1
 msgid "Quick Optimizer"
@@ -3044,8 +3044,8 @@ msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
 msgstr ""
-"0: 无峰值\n"
-" 0.2: 特殊峰值"
+"0:    无峰值\n"
+"0.2: 特殊峰值"
 
 #: src/hugin/xrc/pref_dialog.xrs:24
 msgid "Rotation search"
@@ -3114,7 +3114,7 @@ msgstr "语言"
 
 #: src/hugin/xrc/pref_dialog.xrs:40
 msgid "requires restarting hugin"
-msgstr "需要重启动 hugin"
+msgstr "需要重启动 Hugin"
 
 #: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Optimize and stitch only images selected in preview window"
@@ -3178,7 +3178,7 @@ msgstr "操作系统默认为空白"
 
 #: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Show Druid (requires restarting hugin)"
-msgstr "显示 Druid (需要重启动 hugin)"
+msgstr "显示 Druid (需要重启动 Hugin)"
 
 #: src/hugin/xrc/pref_dialog.xrs:57
 #: src/hugin/xrc/pref_dialog.xrs:66
@@ -3255,15 +3255,15 @@ msgstr "附加参数:"
 
 #: src/hugin/xrc/pref_dialog.xrs:78
 msgid "Do not set -w and -o arguments, they are set by hugin"
-msgstr "不要设置 -w 和 -o 参数, 它们由 hugin 设置"
+msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
 
 #: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Delete remapped tiff files"
-msgstr "删除重新映射的 tiff 文件"
+msgstr "删除重新映射的 TIFF 文件"
 
 #: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
-msgstr "使用修剪的 TIFF 文件 (需要 enblend 2.4 版或者更高的版本)"
+msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
 
 #: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Save cropped images, requires less disk space and memory."
@@ -3539,7 +3539,7 @@ msgstr "应将控制点放置在静态物体上. 避免将它们放置在人, �
 
 #: src/hugin/xrc/data/tips.txt:10
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "图像可以通过拖动的方式增加到 hugin 中."
+msgstr "图像可以通过拖动的方式增加到 Hugin 中."
 
 #: src/hugin/xrc/data/tips.txt:11
 msgid "Spread control points as far as possible. Close control points do not define the relative orientation between images well."
@@ -3559,7 +3559,7 @@ msgstr "http://wiki.panotools.org 的 PanoTools wiki 提供了有关利用 panot
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr "多层 tiff 文件可以被 Gimp 2.0 版或者更高版本读取."
+msgstr "多层 TIFF 文件可以被 Gimp 2.0 版或者更高版本读取."
 
 #: src/hugin/xrc/data/tips.txt:16
 msgid "You can press the middle mouse button to pan images in the control points tab."
@@ -3583,23 +3583,23 @@ msgstr "在控制点标签栏中按 \"1\" 键可以放大到 100% 图像."
 
 #: src/hugin/xrc/data/tips.txt:21
 msgid "The external tools autopano and autopano-sift can be used to create control points automatically."
-msgstr "外部工具 autopano 和 autopano-sift 能够被用来自动创建控制点."
+msgstr "外部工具 Autopano 和 Autopano-SIFT 能够被用来自动创建控制点."
 
 #: src/hugin/xrc/data/tips.txt:22
 msgid "Enblend can be used to smoothly blend the panorama. Use it from within hugin by selecting \"high quality tiff file\" as output."
-msgstr "Enblend 能够被用来光滑地融合全景图像. 在 hugin 中通过选择 \"高质量 tiff 文件\" 来使用它."
+msgstr "Enblend 能够被用来光滑地融合全景图像. 在 Hugin 中通过选择 \"高质量 TIFF 文件\" 来使用它."
 
 #: src/hugin/xrc/data/tips.txt:23
 msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
-msgstr "在 enblend 已经融合了全景图像后, 这些重新映射的输出图像 (与全景图像在相同目录下) 能够被用于在 Gimp 或者 Photoshop 中对全景图像进行润饰."
+msgstr "在 Enblend 已经融合了全景图像后, 这些重新映射的输出图像 (与全景图像在相同目录下) 能够被用于在 Gimp 或者 Photoshop 中对全景图像进行润饰."
 
 #: src/hugin/xrc/data/tips.txt:24
 msgid "hugin and other free panoramic software is discussed on the ptx email list. http://groups.google.com/group/hugin-ptx"
-msgstr "hugin 和其他免费的全景图像软件可以在 ptx 邮件列表中进行讨论. http://groups.google.com/group/hugin-ptx"
+msgstr "Hugin 和其他免费的全景图像软件可以在 ptx 邮件列表中进行讨论. http://groups.google.com/group/hugin-ptx"
 
 #: src/hugin/xrc/data/tips.txt:25
 msgid "The Panorama Tools, on which hugin is based were written by Helmut Dersch."
-msgstr "全景图像工具是 hugin 的内核, 由 Helmut Dersch 编写."
+msgstr "全景图像工具是 Hugin 的内核, 由 Helmut Dersch 编写."
 
 #: src/hugin/xrc/data/tips.txt:26
 msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
