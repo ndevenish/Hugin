@@ -64,6 +64,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdate)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
+    EVT_TOOL(XRCID("preview_num_transform"), PreviewFrame::OnNumTransform)
     EVT_CHOICE(ID_BLEND_CHOICE, PreviewFrame::OnBlendChoice)
     EVT_CHOICE(ID_PROJECTION_CHOICE, PreviewFrame::OnProjectionChoice)
 #ifdef USE_TOGGLE_BUTTON
@@ -451,6 +452,14 @@ void PreviewFrame::OnUpdate(wxCommandEvent& event)
     if (m_druid) m_druid->Update(m_pano);
 }
 
+void PreviewFrame::updatePano()
+{
+    if (!m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"))) {
+        m_PreviewPanel->ForceUpdate();
+    }
+    if (m_druid) m_druid->Update(m_pano);
+}
+
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -466,8 +475,7 @@ void PreviewFrame::OnFitPano(wxCommandEvent & e)
         );
 
     DEBUG_INFO ( "new fov: [" << opt.getHFOV() << " "<< opt.getVFOV() << "] => height: " << opt.getHeight() );
-    m_PreviewPanel->ForceUpdate();
-    if (m_druid) m_druid->Update(m_pano);
+    updatePano();
 }
 
 void PreviewFrame::OnShowAll(wxCommandEvent & e)
@@ -492,6 +500,40 @@ void PreviewFrame::OnShowNone(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetActiveImagesCmd(m_pano, displayedImgs)
         );
+}
+
+void PreviewFrame::OnNumTransform(wxCommandEvent & e)
+{
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, this, wxT("dlg_numtrans"));
+    if (dlg.ShowModal() == wxID_OK ) {
+        wxString text = XRCCTRL(dlg, "numtrans_yaw", wxTextCtrl)->GetValue();
+        double y;
+        if (!str2double(text, y)) {
+            wxLogError(_("Yaw value must be numeric."));
+            return;
+        }
+        text = XRCCTRL(dlg, "numtrans_pitch", wxTextCtrl)->GetValue();
+        double p;
+        if (!str2double(text, p)) {
+            wxLogError(_("Pitch value must be numeric."));
+            return;
+        }
+        text = XRCCTRL(dlg, "numtrans_roll", wxTextCtrl)->GetValue();
+        double r;
+        if (!str2double(text, r)) {
+            wxLogError(_("Roll value must be numeric."));
+            return;
+        }
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RotatePanoCmd(m_pano, y, p, r)
+            );
+        // update preview panel
+        updatePano();
+
+    } else {
+        DEBUG_DEBUG("Numerical transform canceled");
+    }
 }
 
 void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
@@ -545,7 +587,7 @@ void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
                 new PT::SetPanoOptionsCmd( m_pano, opt )
                                             );
         DEBUG_DEBUG ("Projection changed: "  << lt);
-        m_PreviewPanel->ForceUpdate();
+        updatePano();
 
     } else {
         DEBUG_WARN("wxChoice event from unknown object received");

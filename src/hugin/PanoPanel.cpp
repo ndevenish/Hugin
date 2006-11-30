@@ -563,7 +563,7 @@ unsigned PanoPanel::CalcOptimalWidth()
         PT::PanoImage img = pano.getImage(i);
         PT::ImageOptions iopt = img.getOptions();
         // get hfov
-        double v = const_map_get(pano.getImageVariables(i),"v").getValue();
+        //double v = const_map_get(pano.getImageVariables(i),"v").getValue();
         double s = calcOptimalPanoScale(pano.getSrcImage(i), opt);
         if (scale < s) {
             scale = s;

@@ -42,6 +42,7 @@
 #include <vigra/impex.hxx>
 
 #include <common/stl_utils.h>
+#include <common/Matrix3.h>
 
 #include <PT/Panorama.h>
 #include <PT/PanoToolsInterface.h>
@@ -1788,6 +1789,41 @@ void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
     opts.m_vigCorrMode = img.getVigCorrMode();
     opts.m_flatfield = img.getFlatfieldFilename();
     setImageOptions(imgNr, opts);
+    imageChanged(imgNr);
+}
+
+void Panorama::rotatePanorama(double yaw, double pitch, double roll)
+{
+    Matrix3 transformMat;
+    transformMat.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
+    DEBUG_DEBUG("transform rotation matrix (PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat);
+    Matrix3 transformMat2;
+    transformMat2.SetRotation(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
+    DEBUG_DEBUG("transform rotation matrix (non PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat2);
+
+    for (unsigned int i = 0; i < state.images.size(); i++) {
+        double y = map_get(state.variables[i], "y").getValue();
+        double p = map_get(state.variables[i], "p").getValue();
+        double r = map_get(state.variables[i], "r").getValue();
+        Matrix3 mat;
+        mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
+        DEBUG_DEBUG("rotation matrix (PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat);
+        Matrix3 mat2;
+        mat2.SetRotation(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
+        DEBUG_DEBUG("rotation matrix (non PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat2);
+        Matrix3 rotated;
+        rotated = transformMat * mat;
+        DEBUG_DEBUG("rotation matrix after transform: " << rotated);
+        rotated.GetRotationPT(y,p,r);
+        y = RAD_TO_DEG(y);
+        p = RAD_TO_DEG(p);
+        r = RAD_TO_DEG(r);
+        DEBUG_DEBUG("rotated angles of img " << i << ": " << y << " " << p << " " << r); 
+        map_get(state.variables[i], "y").setValue(y);
+        map_get(state.variables[i], "p").setValue(p);
+        map_get(state.variables[i], "r").setValue(r);
+        imageChanged(i);
+    }
 }
 
 Panorama Panorama::duplicate() const
@@ -1886,6 +1922,7 @@ void PT::createMakefile(const Panorama & pano,
                     const PT::PanoramaOptions & opts,
                     const PT::UIntSet & imgs,
                     const PTPrograms & progs,
+                    const std::string & includePath,
                     std::ostream & o)
 
 {
@@ -1920,6 +1957,7 @@ void PT::createMakefile(const Panorama & pano,
     }
 
     o << "# the output panorama" << endl
+            << "TARGET_PREFIX=" << output << endl
             << "TARGET=" << final_output << endl
             << "PROJECT_FILE=" << quoteString(ptofile) << endl
             << endl
@@ -1929,6 +1967,7 @@ void PT::createMakefile(const Panorama & pano,
         o << quoteString(pano.getImage(i).getFilename()) << " ";
     }
     o << endl
+      << endl
       << "# remapped images" << endl
       << "REMAPPED_IMAGES=";
     for (unsigned int i=0; i < imgs.size(); i++) {
@@ -1937,8 +1976,8 @@ void PT::createMakefile(const Panorama & pano,
         o << fns.str() << " ";
     }
 
-    // include makefile stub.
-    o << endl
+    o << endl 
+      << endl
       << "# Tool configuration" << endl
       << "NONA=" << quoteString(progs.nona) << endl
       << "PTSTITCHER=" << quoteString(progs.PTStitcher) << endl
@@ -1948,8 +1987,7 @@ void PT::createMakefile(const Panorama & pano,
       << "ENBLEND=" << quoteString(progs.enblend) << endl
       << "SMARTBLEND=" << quoteString(progs.smartblend) << endl
       << endl
-      << "# options for the programs" << endl
-      << endl;
+      << "# options for the programs" << endl;
 
     string remapper;
     switch(opts.remapper) {
@@ -2011,9 +2049,17 @@ void PT::createMakefile(const Panorama & pano,
             break;
     }
 
-    std::string includefile = "template_" + remapper + "_" + blender;
-    o << "# including template " << includefile
+    std::string includefile = includePath + "make_" + remapper + "_" + blender;
+    o << endl
+      << "# including template " << includefile
       << endl;
+
+    std::ifstream templ(includefile.c_str());
+    while(templ.good() && (!templ.eof())) {
+        std::string line;
+        std::getline(templ, line);
+        o << line << endl;
+    }
 
 #ifdef __unix__
     // reset locale

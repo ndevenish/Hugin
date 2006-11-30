@@ -64,11 +64,14 @@ protected:
     void OnFitPano(wxCommandEvent& e);
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
+    void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
 
+    // update the panorama display
+    void updatePano();
 private:
 
     PT::Panorama & m_pano;

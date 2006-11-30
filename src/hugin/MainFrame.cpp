@@ -475,12 +475,16 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         wxConfigBase *config = wxConfig::Get();
         progs.PTStitcher = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)).mb_str();
         progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
+        wxString t = huginApp::Get()->GetXRCPath();
+        std::string mkPath = (const char *) t.mb_str();
+        mkPath.append("data/");
         createMakefile(pano,
                        prefix,
                        "test",
                        pano.getOptions(),
                        all,
                        progs,
+                       mkPath,
                        makefile);
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);

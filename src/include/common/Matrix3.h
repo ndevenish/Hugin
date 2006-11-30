@@ -81,6 +81,99 @@ public:
 		m[2][2]	= CR * CP;
 	}
 
+#if 0
+    /** Set the matrice to rotation using yaw, pitch, roll angle, panotools style,
+     *  copied from Panotools-Script by Bruno Postle
+     */
+    void SetRotationPT( double Yaw, double Pitch, double Roll )
+    {
+        double  SR  = sin(Roll),
+        SP  = sin(Pitch),
+        SY  = sin(Yaw),
+        CR  = cos(Roll),
+        CP  = cos(Pitch),
+        CY  = cos(Yaw);
+
+        m[0][0] = CP * CY;
+        m[0][1] = CP * SY;
+        m[0][2] = -SP;
+
+        m[1][0] = SR * SP * CY - CR * SY;
+        m[1][1] = SR * SP * SY + CR * CY;
+        m[1][2] = SR * CP;
+
+        m[2][0] = CR * SP * CY + SR * SY;
+        m[2][1] = CR * SP * SY - CY * SR;
+        m[2][2] = CR * CP;
+    }
+#endif 
+
+
+    /** set rotation in panotools style, 
+     *  code adapted from Panotools-Script by Bruno Postle
+     */
+    void SetRotationPT( double yaw, double pitch, double roll )
+    {
+        double cosr = cos (roll);
+        double sinr = sin (roll);
+        double cosp = cos (pitch);
+        double sinp = sin (0 - pitch);
+        double cosy = cos (yaw);
+        double siny = sin (0 - yaw);
+
+        Matrix3 rollm;
+
+        /*
+        rollm[0][0] = new Math::Matrix ([        1,       0,       0 ],
+                [        0,   cosr,-1*sinr ],
+                [        0,   sinr,   cosr ]);
+        */
+
+        rollm.m[0][0] = 1.0;      rollm.m[0][1] = 0.0;      rollm.m[0][2] = 0.0;
+        rollm.m[1][0] = 0.0;      rollm.m[1][1] = cosr;     rollm.m[1][2] = -sinr;
+        rollm.m[2][0] = 0.0;      rollm.m[2][1] = sinr;     rollm.m[2][2] = cosr;
+
+        /*
+    my pitchm = new Math::Matrix ([    cosp,       0,   sinp ],
+                                        [        0,       1,       0 ],
+                                        [ -1*sinp,       0,   cosp ]);
+        */
+        
+        Matrix3 pitchm;
+        pitchm.m[0][0] = cosp;   pitchm.m[0][1] =  0.0;  pitchm.m[0][2] = sinp;
+        pitchm.m[1][0] =  0.0;   pitchm.m[1][1] =    1;  pitchm.m[1][2] = 0.0;
+        pitchm.m[2][0] = -sinp;  pitchm.m[2][1] =  0.0;  pitchm.m[2][2] = cosp;
+
+        /*
+    my yawm   = new Math::Matrix ([    cosy,-1*siny,       0 ],
+                                        [    siny,   cosy,       0 ],
+                                        [        0,       0,       1 ]);
+        */
+        Matrix3 yawm;
+        yawm.m[0][0] = cosy;   yawm.m[0][1] = -siny;   yawm.m[0][2] = 0.0;
+        yawm.m[1][0] = siny;   yawm.m[1][1] =  cosy;   yawm.m[1][2] = 0.0;
+        yawm.m[2][0] = 0.0;    yawm.m[2][1] =   0.0;   yawm.m[2][2] = 1.0;
+
+
+        *this = yawm * pitchm * rollm;
+    }
+
+    /** GetRotation in panotools style. */
+    void GetRotationPT( double & Yaw, double & Pitch, double & Roll )
+    {
+        /*
+        my $matrix = shift;
+        my $roll = atan2 ($matrix->[2]->[1], $matrix->[2]->[2]);
+        my $pitch = -1 * asin (-1 * $matrix->[2]->[0]);
+        my $yaw = atan2 (-1 * $matrix->[1]->[0], $matrix->[0]->[0]);
+        return ($roll, $pitch, $yaw);
+
+        */
+        Roll = atan2 (m[2][1], m[2][2]);
+        Pitch = - asin (- m[2][0]);
+        Yaw = atan2 (- m[1][0], m[0][0]);
+    }
+
 	/** set the matrice to rotation around X */
 	void SetRotationX( double a )
 	{
@@ -225,7 +318,12 @@ public:
 		return Result;
 	}
 
-	
+    void Print(std::ostream & o) const
+    {
+        o << "[ " << m[0][0] << "\t" << m[0][1] << "\t" <<  m[0][2] << std::endl
+          << "  " << m[1][0] << "\t" << m[1][1] << "\t" <<  m[1][2] << std::endl
+          << "  " << m[2][0] << "\t" << m[2][1] << "\t" <<  m[2][2] << std::endl;
+    }
 
 };
 
@@ -295,4 +393,11 @@ Matrix3 GetRotationZ(double Ang)
 			0.0,	0.0,	1.0);
 }
 */
+
+inline std::ostream & operator<<(std::ostream & s, const Matrix3 & m)
+{
+    m.Print(s);
+    return s;
+}
+
 #endif

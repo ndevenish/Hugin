@@ -365,6 +365,12 @@ public:
     /** center panorama horizontically */
     void centerHorizontically();
 
+    /** rotate the complete panorama
+     *
+     *  Will modify the position of all images.
+     */
+    void rotatePanorama(double yaw, double pitch, double roll);
+
     /** update control points distances.
      *
      *  updates control distances and position in final panorama
@@ -680,6 +686,7 @@ void createMakefile(const Panorama & pano,
                     const PT::PanoramaOptions & opts,
                     const PT::UIntSet & imgs,
                     const PTPrograms & progs,
+                    const std::string & includePath,
                     std::ostream & o);
 
 

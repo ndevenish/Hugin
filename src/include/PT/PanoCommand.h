@@ -958,6 +958,34 @@ namespace PT {
             std::string m_flat;
     };
 
+
+    //=========================================================================
+    //=========================================================================
+
+
+    /** Rotate the panorama
+     */
+    class RotatePanoCmd : public PanoCommand
+    {
+    public:
+        RotatePanoCmd(Panorama & p, double yaw, double pitch, double roll)
+            : PanoCommand(p), y(yaw), p(pitch), r(roll)
+            { };
+        virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.rotatePanorama(y, p, r);
+                pano.changeFinished();
+            }
+        virtual std::string getName() const
+            {
+                return "set image options";
+            }
+    private:
+        double y,p,r;
+    };
+
+
 } // namespace PT
 
 #endif // _PANOCOMMAND_H

@@ -1,0 +1,14 @@
+
+# Rules for generating the pano
+
+all: $(TARGET)
+
+clean: $(REMAPPED_IMAGES)
+        $(RM) $(REMAPPED_IMAGES)
+
+$(REMAPPED_IMAGES): $(INPUT_IMAGES)
+        $(NONA) -o $(TARGET_PREFIX) $(PROJECT_FILE)
+
+$(TARGET): $(REMAPPED_IMAGES)
+        $(ENBLEND) $(ENBLEND_OPTS) -w -o $(TARGET) $(REMAPPED_IMAGES)
+

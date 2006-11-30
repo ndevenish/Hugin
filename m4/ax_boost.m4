@@ -331,7 +331,8 @@ dnl    AC_CANONICAL_BUILD
                                                 for BT in "-mt" ""; do
                                                     for BL in "" "-s" ; do
                                                         ax_lib=$BP$BN$BC$BT$BL$BV;
-                                                        AC_CHECK_LIB($ax_lib, main, [BOOST_THREAD_LIB="-l$ax_lib" AC_SUBST(BOOST_THREAD_LIB) link_thread="yes" break 5],
+                                                        AC_CHECK_LIB($ax_lib, main, [BOOST_THREAD_LIB="-l$ax_lib" AC_SUBST(BOOST_THREAD_LIB) link_thread="yes"
+ break 5],
                                                         [link_thread="no"])
                                                     done
                                                 done

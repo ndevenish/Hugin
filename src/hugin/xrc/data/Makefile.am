@@ -10,6 +10,7 @@ JPG_FILES = $(wildcard $(srcdir)/*.jpg)
 PNG_FILES = $(wildcard $(srcdir)/*.png)
 XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 TXT_FILES = $(wildcard $(srcdir)/*.txt)
+OTHER_FILES = make_nona_enblend
 
 if HAVE_MINGW
 xrcdatadir = $(bindir)/xrc/data
@@ -19,7 +20,7 @@ endif
 
 all-local: stamp-data
 
-stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES)
+stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES) $(OTHER_FILES)
 	for p in $?; do \
 	    if test -e `basename $$p` ; then :; else \
 		( $(LN_S) $$p . ) ; \
@@ -29,7 +30,7 @@ stamp-data: $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(
 	@echo timestamp > stamp-dataT
 	@mv stamp-dataT stamp-data
 
-dist_xrcdata_DATA = $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES) 
+dist_xrcdata_DATA = $(HTM_FILES) $(HTML_FILES) $(ICO_FILES) $(JPG_FILES) $(PNG_FILES) $(XPM_FILES) $(TXT_FILES) $(OTHER_FILES)
 
 pixmapsdir = $(datadir)/pixmaps
 pixmaps_DATA = hugin.png
