@@ -436,7 +436,11 @@ void CPImageCtrl::rescaleImage()
         DEBUG_DEBUG("rescaling finished");
     }
 
-    SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+    if (m_imgRotation == ROT90 || m_imgRotation == ROT270) {
+        SetVirtualSize(imageSize.GetHeight(), imageSize.GetWidth());
+    } else {
+        SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
+    }
     SetScrollRate(1,1);
     Refresh(FALSE);
 //    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);

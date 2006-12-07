@@ -2139,7 +2139,7 @@ CPImageCtrl::ImageRotation CPEditorPanel::GetRot(double yaw, double pitch, doubl
     bool headOver = (pitch > 90 || pitch < -90);
 
     if (wxConfig::Get()->Read(wxT("/CPEditorPanel/AutoRot"),1L)) {
-        if (roll >= 315 && roll < 45) {
+        if (roll >= 315 || roll < 45) {
             rot = headOver ? CPImageCtrl::ROT180 : CPImageCtrl::ROT0;
         } else if (roll >= 45 && roll < 135) {
             rot = headOver ? CPImageCtrl::ROT270 : CPImageCtrl::ROT90;
