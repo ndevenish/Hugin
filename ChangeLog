@@ -1,3 +1,90 @@
+2006-12-07 22:29  dangelo
+
+	* src/Panorama/Panorama.cpp: bugfix: use S type cropping for
+	  PTStitcher scripts
+
+2006-12-07 21:33  dangelo
+
+	* src/hugin/: CPEditorPanel.cpp, CPImageCtrl.cpp: fixed problems
+	  with autorotate
+
+2006-11-30 08:36  dangelo
+
+	* NEWS, m4/ax_boost.m4, src/Panorama/Panorama.cpp,
+	  src/hugin/MainFrame.cpp, src/hugin/PanoPanel.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/xrc/preview_frame.xrc,
+	  src/hugin/xrc/data/Makefile.am,
+	  src/hugin/xrc/data/make_nona_enblend,
+	  src/hugin/xrc/data/preview_num_transform.png,
+	  src/include/PT/PanoCommand.h, src/include/PT/Panorama.h,
+	  src/include/common/Matrix3.h, src/include/hugin/PreviewFrame.h:
+	  added numerical transform and improved boost detection
+
+2006-11-17 22:55  dangelo
+
+	* src/: hugin/po/zh_CN.po, nona_gui/po/zh_CN.po: chinese
+	  translation update (Lu Fang)
+
+2006-11-14 23:05  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: bugfix: avoid negative height
+	  values when calculating image height from VFOV.
+
+2006-11-12 19:45  dangelo
+
+	* bootstrap: allow usage of gettext version 0.15
+
+2006-11-11 22:29  dangelo
+
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/NonaStitcherPanel.cpp, hugin/PanoPanel.cpp,
+	  hugin/RunStitcherFrame.cpp, hugin/huginApp.cpp,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/common/utils.h, include/hugin/CPEditorPanel.h,
+	  include/hugin/CPImageCtrl.h, include/hugin/LensPanel.h,
+	  include/hugin/wxPanoCommand.h,
+	  include/vigra_ext/VigQuotientEstimator.h: new feature: determine
+	  roll from exif data. Rotate image in control point editor
+	  according to the roll value.	Started implementation of the
+	  makefile generation for support of new panotools programs and
+	  smartblend (not finished yet).
+
+2006-11-11 22:16  dangelo
+
+	* src/Panorama/Stitcher.cpp: allow images with and without alpha
+	  channels in the same project
+
+2006-11-11 16:25  dangelo
+
+	* src/: hugin/po/zh_CN.po, nona_gui/po/zh_CN.po: updated chinese
+	  translation (Lu Fang)
+
+2006-10-19 18:30  dangelo
+
+	* src/hugin/Makefile.am: removed empty "" from configure script
+
+2006-09-11 23:30  dangelo
+
+	* src/hugin/po/sk.po: updated slovak translation.
+
+2006-09-11 18:07  dangelo
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/po/LINGUAS,
+	  hugin/po/sk.po, nona_gui/po/sk.po: added Slovak translation
+	  (Jozef Riha)
+
+2006-08-21 00:15  dangelo
+
+	* mac/: build_using_cmdline.sh, build_using_cmdline.txt,
+	  install2bundle.sh: updated instructions for building using
+	  cmdline on Mac OS X
+
+2006-08-20 23:35  dangelo
+
+	* ChangeLog: updated changelog
+
 2006-08-20 23:29  dangelo
 
 	* src/build_msvc/hugin_msvc_install.bat,
