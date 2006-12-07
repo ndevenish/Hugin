@@ -1141,7 +1141,7 @@ void Panorama::printStitcherScript(ostream & o,
         if (img.getOptions().docrop) {
             // print crop parameters
             vigra::Rect2D c = img.getOptions().cropRect;
-            o << " C" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
+            o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
         }
         o << std::endl;
     }
