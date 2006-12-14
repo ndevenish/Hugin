@@ -110,19 +110,20 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
             if (*it >= nrItems) {
                 // create new item.
                 DEBUG_DEBUG("creating " << *it);
-                CreateItem(*it);
-
                 wxBitmap small0(m_iconHeight, m_iconHeight);
                 createIcon(small0, *it, m_iconHeight);
                 m_smallIcons->Add(small0);
+
+                CreateItem(*it);
+
             } else {
                 // update existing item
                 DEBUG_DEBUG("updating item" << *it);
-                UpdateItem(*it);
-
                 wxBitmap small0(m_iconHeight, m_iconHeight);
                 createIcon(small0, *it, m_iconHeight);
                 m_smallIcons->Replace(*it, small0);
+
+                UpdateItem(*it);
             }
             ImageCache::getInstance().softFlush();
         }
