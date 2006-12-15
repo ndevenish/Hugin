@@ -479,22 +479,49 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     o << std::endl;
 }
 
+bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
+{
+    return ( f == RECTILINEAR
+            || f == CYLINDRICAL
+            || f == EQUIRECTANGULAR
+            || f == MERCATOR
+            || f == SINUSOIDAL );
+}
+
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
-    PanoramaOptions copy(*this);
-    copy.m_projectionFormat = f;
-    // correct fov
-    double hfov = std::min(getHFOV(), copy.getMaxHFOV());
-    double vfov = std::min(getVFOV(), copy.getMaxVFOV());
-    setHFOV(hfov, false);
-    setVFOV(vfov);
-    m_projectionFormat = f;
-    setHFOV(hfov, false);
-    setVFOV(vfov);    
+    // only try to keep the FOV if calculations are implemented for
+    // both projections
+    if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
+    {
+        // keep old fov
+        // correct image width and height
+        PanoramaOptions copy(*this);
+        copy.m_projectionFormat = f;
+        double hfov = std::min(getHFOV(), copy.getMaxHFOV());
+        double vfov = std::min(getVFOV(), copy.getMaxVFOV());
+        setHFOV(hfov, false);
+        setVFOV(vfov);
+        m_projectionFormat = f;
+        setHFOV(hfov, false);
+        setVFOV(vfov);
+    } else {
+        m_projectionFormat = f;
+    }
 }
 
 void PanoramaOptions::setWidth(unsigned int w, bool keepView)
 {
+    double scale = w / (double) m_size.x;
+    if (keepView) {
+        m_size.y = roundi(m_size.y*scale);
+    }
+    m_size.x = w;
+    /*
+    if (keepView && !fovCalcSupported(m_projectionFormat)) {
+        DEBUG_NOTICE("Ignoring keepView");
+        keepView = false;
+    }
     double vfov;
     if (keepView)
         vfov = getVFOV();
@@ -504,11 +531,17 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
     }
     // reset roi
     m_roi=vigra::Rect2D(m_size);
+    */
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << getVFOV());
 }
 
 void PanoramaOptions::setHFOV(double h, bool keepView)
 {
+    if (keepView && !fovCalcSupported(m_projectionFormat)) {
+        DEBUG_NOTICE("Ignoring keepView");
+        keepView = false;
+    }
+
     if (h <= 0) {
         h = 1;
     }
@@ -536,6 +569,10 @@ void PanoramaOptions::setHeight(unsigned int h)
 
 void PanoramaOptions::setVFOV(double VFOV)
 {
+    if (! fovCalcSupported(m_projectionFormat)) {
+        return;
+    }
+
     if (VFOV <= 0) {
         VFOV = 1;
     }
@@ -623,7 +660,6 @@ double PanoramaOptions::getMaxHFOV() const
     {
         case RECTILINEAR:
         case TRANSVERSE_MERCATOR:
-        case TRANSVERSE_CYLINDRICAL:
             return 175;
         case STEREOGRAPHIC:
             return 355;
@@ -632,6 +668,8 @@ double PanoramaOptions::getMaxHFOV() const
         case FULL_FRAME_FISHEYE:
         case MERCATOR:
         case SINUSOIDAL:
+        case LAMBERT:
+        case LAMBERT_AZIMUTHAL:
         default:
             return 360;
     }
@@ -647,13 +685,14 @@ double PanoramaOptions::getMaxVFOV() const
             return 175;
         default:
         case EQUIRECTANGULAR:
+        case LAMBERT:
         case SINUSOIDAL:
             return 180;
         case STEREOGRAPHIC:
             return 355;
         case FULL_FRAME_FISHEYE:
         case TRANSVERSE_MERCATOR:
-        case TRANSVERSE_CYLINDRICAL:
+        case LAMBERT_AZIMUTHAL:
             return 360;
     }
 }

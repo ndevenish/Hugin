@@ -29,8 +29,8 @@
 #include "panoinc_WX.h"
 
 extern "C" {
-#include <pano12/filter.h>
-#include <pano12/queryfeature.h>
+#include <pano13/filter.h>
+#include <pano13/queryfeature.h>
 }
 
 // Error reporting

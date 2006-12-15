@@ -32,6 +32,10 @@
 
 #include "PT/Stitcher.h"
 
+extern "C" {
+#include <pano13/queryfeature.h>
+}
+
 #include "hugin/RunStitcherFrame.h"
 #include "hugin/CommandHistory.h"
 //#include "hugin/ImageCache.h"
@@ -63,6 +67,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER( XRCID("pano_text_vfov"),PanoPanel::VFOVChanged )
     EVT_BUTTON ( XRCID("pano_button_calc_fov"), PanoPanel::DoCalcFOV)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
+    EVT_TEXT_ENTER ( XRCID("pano_val_height"),PanoPanel::HeightChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
     EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
     EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
@@ -84,6 +89,26 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     // get gui controls
     m_ProjectionChoice = XRCCTRL(*this, "pano_choice_pano_type" ,wxChoice);
     DEBUG_ASSERT(m_ProjectionChoice);
+
+    m_keepViewOnResize = true;
+
+    /* populate with all available projection types */
+    bool ok = true;
+    int n=0;
+    while(ok) {
+        char name[20];
+        char str[255];
+        sprintf(name,"PanoType%d",n);
+        n++;
+        int len = queryFeatureString(name,str,255);
+        if (len > 0) {
+            wxString str2(str, wxConvLocal);
+            m_ProjectionChoice->Append(wxGetTranslation(str2));
+        } else {
+            ok = false;
+        }
+    }
+
     m_HFOVText = XRCCTRL(*this, "pano_text_hfov" ,wxTextCtrl);
     DEBUG_ASSERT(m_HFOVText);
     m_CalcHFOVButton = XRCCTRL(*this, "pano_button_calc_fov" ,wxButton);
@@ -100,8 +125,9 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_CalcOptWidthButton = XRCCTRL(*this, "pano_button_opt_width" ,wxButton);
     DEBUG_ASSERT(m_CalcOptWidthButton);
 
-    m_HeightStaticText = XRCCTRL(*this, "pano_static_height", wxStaticText);
-    DEBUG_ASSERT(m_HeightStaticText);
+    m_HeightTxt = XRCCTRL(*this, "pano_val_height", wxTextCtrl);
+    DEBUG_ASSERT(m_HeightTxt);
+    m_HeightTxt->PushEventHandler(new TextKillFocusHandler(this));
 
     m_StitcherChoice = XRCCTRL(*this, "pano_choice_stitcher", wxChoice);
     DEBUG_ASSERT(m_StitcherChoice);
@@ -214,6 +240,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 //    m_VFOVSpin->SetRange(1,opt.getMaxVFOV());
 
     m_ProjectionChoice->SetSelection(opt.getProjection());
+    m_keepViewOnResize = opt.fovCalcSupported(opt.getProjection());
 
     std::string val;
     val = doubleToString(opt.getHFOV(),1);
@@ -221,21 +248,30 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
     val = doubleToString(opt.getVFOV(),1);
     m_VFOVText->SetValue(wxString(val.c_str(), *wxConvCurrent));
 
+    // disable VFOV edit field, due to bugs in setHeight(), setWidth()
+    m_VFOVText->Enable(m_keepViewOnResize);
+    m_CalcOptWidthButton->Enable(m_keepViewOnResize);
+    m_CalcHFOVButton->Enable(m_keepViewOnResize);
+
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
-    m_HeightStaticText->SetLabel(wxString::Format(wxT("%d"), opt.getHeight()));
+    m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
-    int lt = m_ProjectionChoice->GetSelection();
-    wxString Ip;
-    opt.setProjection( (PanoramaOptions::ProjectionFormat) lt );
+    PanoramaOptions::ProjectionFormat oldP = opt.getProjection();
+
+    PanoramaOptions::ProjectionFormat newP = (PanoramaOptions::ProjectionFormat) m_ProjectionChoice->GetSelection();
+    int w = opt.getWidth();
+    int h = opt.getHeight();
+    opt.setProjection(newP);
+
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( pano, opt )
         );
-    DEBUG_DEBUG ("Projection changed: "  << lt)
+    DEBUG_DEBUG ("Projection changed: "  << newP)
 }
 
 void PanoPanel::HFOVChanged ( wxCommandEvent & e )
@@ -328,8 +364,8 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
     PanoramaOptions opt = pano.getOptions();
     long nWidth;
     if (m_WidthTxt->GetValue().ToLong(&nWidth)) {
-        DEBUG_ASSERT(nWidth>0);
-        opt.setWidth((unsigned int) nWidth);
+        if (nWidth <= 0) return;
+        opt.setWidth((unsigned int) nWidth, m_keepViewOnResize);
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( pano, opt )
             );
@@ -338,6 +374,24 @@ void PanoPanel::WidthChanged ( wxCommandEvent & e )
         wxLogError(_("width needs to be an integer bigger than 0"));
     }
 }
+
+void PanoPanel::HeightChanged ( wxCommandEvent & e )
+{
+    if (updatesDisabled) return;
+    PanoramaOptions opt = pano.getOptions();
+    long nHeight;
+    if (m_HeightTxt->GetValue().ToLong(&nHeight)) {
+        if(nHeight <= 0) return;
+        opt.setHeight((unsigned int) nHeight);
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( pano, opt )
+                                               );
+        DEBUG_INFO(nHeight);
+    } else {
+        wxLogError(_("height needs to be an integer bigger than 0"));
+    }
+}
+
 
 void PanoPanel::EnableControls(bool enable)
 {

@@ -46,6 +46,10 @@
 
 #include <vigra_ext/ImageTransforms.h>
 
+extern "C" {
+#include <pano13/queryfeature.h>
+}
+
 using namespace utils;
 
 // a random id, hope this doesn't break something..
@@ -169,18 +173,25 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         0,        // not vertically strechable
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
-    wxArrayString tproj;
-    tproj.Add(_("Rectilinear"));
-    tproj.Add(_("Cylindrical"));
-    tproj.Add(_("Equirectangular"));
-    tproj.Add(_("Full frame fisheye"));
-    tproj.Add(_("Stereographic"));
-    tproj.Add(_("Mercator"));
-    tproj.Add(_("Transverse mercator"));
-    tproj.Add(_("Sinusiodal"));
     m_ProjectionChoice = new wxChoice(this, ID_PROJECTION_CHOICE,
-                                      wxDefaultPosition, wxDefaultSize,
-                                      tproj);
+                                      wxDefaultPosition, wxDefaultSize);
+
+    /* populate with all available projection types */
+    bool ok = true;
+    int n=0;
+    while(ok) {
+        char name[20];
+        char str[255];
+        sprintf(name,"PanoType%d",n);
+        n++;
+        int len = queryFeatureString(name,str,255);
+        if (len > 0) {
+            wxString str2(str, wxConvLocal);
+            m_ProjectionChoice->Append(wxGetTranslation(str2));
+        } else {
+            ok = false;
+        }
+    }
     m_ProjectionChoice->SetSelection(2);
 
     blendModeSizer->Add(m_ProjectionChoice,
@@ -312,6 +323,8 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
 
     wxString projection;
     m_ProjectionChoice->SetSelection(opts.getProjection());
+    m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
+
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),1);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));

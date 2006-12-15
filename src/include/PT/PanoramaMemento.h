@@ -309,7 +309,8 @@ public:
                             MERCATOR = 5,
                             TRANSVERSE_MERCATOR = 6,
                             SINUSOIDAL = 7,
-                            TRANSVERSE_CYLINDRICAL = 8
+                            LAMBERT = 8,
+                            LAMBERT_AZIMUTHAL = 9
     };
 
     /** PTStitcher acceleration */
@@ -404,7 +405,7 @@ public:
     static FileFormat getFormatFromName(const std::string & name);
 
     /** set panorama width 
-     *  Also changes the panorama width, if keepView=true
+     *  keep the HFOV, if keepView=true
      */
     void setWidth(unsigned int w, bool keepView = true);
 
@@ -446,6 +447,9 @@ public:
     {
         return m_projectionFormat;
     };
+
+    /** true, if FOV calcuations are supported for projection \p f */
+    bool fovCalcSupported(ProjectionFormat f) const;
 
     /** set the horizontal field of view.
      *  also updates the image height (keep pano

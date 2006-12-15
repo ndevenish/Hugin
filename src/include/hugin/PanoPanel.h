@@ -97,6 +97,7 @@ public:
     void StitcherChanged(wxCommandEvent & e);
 
     void WidthChanged(wxCommandEvent & e);
+    void HeightChanged(wxCommandEvent & e);
 
     // actions
     void DoStitch(wxCommandEvent & e);
@@ -127,6 +128,8 @@ public:
     PanoramaOptions m_oldOpt;
     double m_oldVFOV;
 
+    bool m_keepViewOnResize;
+
     // controls of this frame
     wxChoice    * m_QuickChoice;
     wxChoice    * m_ProjectionChoice;
@@ -134,7 +137,7 @@ public:
     wxTextCtrl  * m_VFOVText;
 
     wxTextCtrl  * m_WidthTxt;
-    wxStaticText *m_HeightStaticText;
+    wxTextCtrl  * m_HeightTxt;
     wxChoice    * m_StitcherChoice;
     wxButton    * m_StitchButton;
     wxButton    * m_CalcHFOVButton;

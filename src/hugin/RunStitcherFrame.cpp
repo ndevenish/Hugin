@@ -305,7 +305,7 @@ void RunStitcherFrame::OnProcessTerm(wxProcessEvent& event)
 #endif
     if (event.GetExitCode() != 0) {
         wxMessageBox(_("Stitching failed\nPTStitcher exited with nonzero error code."),
-                     wxString::Format(_("Error executing %s"), programName), wxICON_ERROR | wxOK);
+                     wxString::Format(_("Error executing %s"), programName.c_str()), wxICON_ERROR | wxOK);
     }
     
 

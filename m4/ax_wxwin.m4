@@ -185,12 +185,13 @@ AC_DEFUN([AM_PATH_WXCONFIG],
     	        wx_full_args=no
             	need_wx_xrc=yes
               else
-	            wx_full_args=yes
+	        wx_full_args=yes
                 need_wx_xrc=no
                 need_wx_regex=yes
               fi
             else
               need_wx_xrc=no
+              wx_full_args=yes
             fi
           fi
         fi
@@ -274,10 +275,18 @@ dnl is less than 2.5.3
   fi
   if test "x$HSYS" = 'xmingw32' ; then
     if test "x$need_wx_regex" = 'xyes' ; then
-      if test "x$with_unicode" = 'xyes' ; then
-        WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+      if test "x$with_debug" = 'xyes' ; then
+        if test "x$with_unicode" = 'xyes' ; then
+          WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release --debug`"
+        else
+          WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release --debug`"
+        fi
       else
-        WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+        if test "x$with_unicode" = 'xyes' ; then
+          WX_LIBS="${WX_LIBS} -lwxregexu-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+        else
+          WX_LIBS="${WX_LIBS} -lwxregex-`$WX_CONFIG_WITH_ARGS --release` -lwxexpat-`$WX_CONFIG_WITH_ARGS --release`"
+        fi
       fi
     fi
   fi

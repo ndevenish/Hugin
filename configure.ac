@@ -226,11 +226,21 @@ dnl fi
 
 if test "x$with_gui" = 'xyes' ; then
 
+
+if test "x$enable_debug" = xyes; then
 if test "x$with_unicode" = 'xyes' ; then
-  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes)
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes --debug=yes)
 else
-  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=no)
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=no --debug=yes)
 fi
+else
+if test "x$with_unicode" = 'xyes' ; then
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=yes --debug=no)
+else
+  AM_PATH_WXCONFIG(2.4.2, wxWin=1,,, --unicode=no --debug=no)
+fi
+fi
+
 if test "x$wxWin" != x1; then
     AC_MSG_ERROR([
 	wxWidgets must be installed on your system

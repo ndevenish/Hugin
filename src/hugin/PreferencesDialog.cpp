@@ -36,8 +36,8 @@
 #endif
 
 extern "C" {
-#include <pano12/version.h>
-#include <pano12/queryfeature.h>
+#include <pano13/version.h>
+#include <pano13/queryfeature.h>
 }
 #endif
 
@@ -361,7 +361,6 @@ typedef int (*PROC_QFSTRING)	(const char *, char *, const int);
 bool PreferencesDialog::GetPanoVersion()
 {
 
-
 #ifdef HAVE_PANO12_QUERYFEATURE_H
 #ifdef __WXMSW__
 	HINSTANCE		hDll		= NULL;
@@ -382,7 +381,7 @@ bool PreferencesDialog::GetPanoVersion()
 	bool			bSuccess = true;
 
 #ifdef __WXMSW__
-	hDll = LoadLibrary(_T("pano12.dll"));
+	hDll = LoadLibrary(_T("pano13.dll"));
 	if(!hDll)
 	{
 		MessageBox((HWND)NULL, _("Could not load dll"), _("panoinfo"), MB_ICONEXCLAMATION);
@@ -403,13 +402,13 @@ bool PreferencesDialog::GetPanoVersion()
 	pfQFDouble  = (PROC_QFDOUBLE) queryFeatureDouble;
 	pfQFString  = (PROC_QFSTRING) queryFeatureString;
 #else
-	hDll = dlopen("libpano12.so.0", RTLD_NOW);
+	hDll = dlopen("libpano13.so.0", RTLD_NOW);
 	if(!hDll)
 	{
-		hDll = dlopen("libpano12.so", RTLD_NOW);
+		hDll = dlopen("libpano13.so", RTLD_NOW);
 		if(!hDll)
 		{
-		  printf("Could not load pano12");
+		  printf("Could not load pano13");
 		  bSuccess = false;
 		  goto cleanup;
 		}

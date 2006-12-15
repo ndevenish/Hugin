@@ -1324,9 +1324,9 @@ void SpaceTransform::Init(
     case PanoramaOptions::TRANSVERSE_MERCATOR:
         AddTransform( &erect_transmercator, mpdistance );
         break;
-    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
-        AddTransform( &erect_transpano, mpdistance );
-        break;
+//    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
+//        AddTransform( &erect_transpano, mpdistance );
+//        break;
     case PanoramaOptions::SINUSOIDAL:
         AddTransform( &erect_sinusoidal, mpdistance );
         break;
@@ -1588,9 +1588,9 @@ void SpaceTransform::InitInv(
     case PanoramaOptions::TRANSVERSE_MERCATOR:
         AddTransform( &transmercator_erect, mpdistance );
         break;
-    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
-        AddTransform( &transpano_erect, mpdistance );
-        break;
+//    case PanoramaOptions::TRANSVERSE_CYLINDRICAL:
+//        AddTransform( &transpano_erect, mpdistance );
+//        break;
     case PanoramaOptions::SINUSOIDAL:
         AddTransform( &transpano_erect, mpdistance );
         break;

@@ -439,6 +439,12 @@ void PTools::setDestImage(Image & image, Diff2D size,
     case PanoramaOptions::SINUSOIDAL:
         image.format = _sinusoidal;
         break;
+    case PanoramaOptions::LAMBERT:
+        image.format = _lambert;
+        break;
+    case PanoramaOptions::LAMBERT_AZIMUTHAL:
+        image.format = _lambertazimuthal;
+        break;
     default:
         PrintError("unsupported projection");
     }
