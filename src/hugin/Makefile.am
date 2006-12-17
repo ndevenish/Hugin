@@ -68,11 +68,12 @@ install-data-hook:
 	if test -n "$(UPDATE_DESKTOP_DATABASE)"; then \
 	  if test -z "${DESTDIR}" ; then \
 		echo "*** calling $(UPDATE_DESKTOP_DATABASE)"; \
-		$(UPDATE_DESKTOP_DATABASE); \
+		"$(UPDATE_DESKTOP_DATABASE)"; \
 	  else \
 		echo "*** After installation call $(UPDATE_DESKTOP_DATABASE)"; \
 	  fi; \
 	fi
+
 
 uninstall-local: uninstall-sharedmimepackageDATA uninstall-desktopDATA
 	if test -n "$(UPDATE_MIME_DATABASE)"; then \
