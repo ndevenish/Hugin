@@ -1,3 +1,78 @@
+2006-12-17 22:13  dangelo
+
+	* bootstrap: allow gettext 0.16
+
+2006-12-17 22:11  dangelo
+
+	* src/: Panorama/ImageGraph.cpp, Panorama/PTOptimise.cpp,
+	  Panorama/Panorama.cpp, build_msvc/Hugin.sln,
+	  build_msvc/hugin_msvc_install.bat,
+	  build_msvc/hugin_msvc_install_win98.bat, common/PTLensDB.c,
+	  hugin/AssistantPanel.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/hugin.vcproj, hugin/po/POTFILES.in, hugin/po/ca_ES.po,
+	  hugin/po/cs_CZ.po, hugin/po/de.po, hugin/po/fr.po,
+	  hugin/po/hu.po, hugin/po/hugin.pot, hugin/po/it.po,
+	  hugin/po/ja.po, hugin/po/nl.po, hugin/po/pl.po,
+	  hugin/po/pt_BR.po, hugin/po/ru.po, hugin/po/sk.po,
+	  hugin/po/sv.po, hugin/po/uk.po, hugin/po/zh_CN.po,
+	  hugin/xrc/assistant_panel.xrc, hugin/xrc/data/about.htm,
+	  hugin/xrc/data/about_fr.htm, hugin/xrc/data/about_pl.htm,
+	  hugin/xrc/data/splash.png, include/PT/ImageGraph.h,
+	  include/PT/PanoCommand.h, include/PT/Panorama.h,
+	  include/PT/PanoramaMemento.h, include/common/PTLensDB.h,
+	  include/hugin/AssistantPanel.h, include/hugin/LensPanel.h,
+	  include/hugin/MainFrame.h, include/hugin/wxPanoCommand.h: Added
+	  better heuristics to Assistant panel, updated languages and MSVC
+	  build system various small fixes.
+
+2006-12-17 11:49  dangelo
+
+	* src/: hugin/AssistantPanel.cpp, hugin/AutoCtrlPointCreator.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/Makefile.am, hugin/OptimizePanel.cpp, hugin/PanoDruid.cpp,
+	  hugin/PanoPanel.cpp, hugin/huginApp.cpp, hugin/xrc/Makefile.am,
+	  hugin/xrc/assistant_panel.xrc, hugin/xrc/main_frame-2.5.xrc,
+	  Panorama/PTOptimise.cpp, Panorama/Panorama.cpp,
+	  Panorama/PanoramaMemento.cpp, include/PT/PTOptimise.h,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/hugin/AssistantPanel.h,
+	  include/hugin/AutoCtrlPointCreator.h, include/hugin/MainFrame.h,
+	  include/hugin/PanoPanel.h: added new "Assistant" panel, offering
+	  an "Align images" button, that creates control points and
+	  optimises and centers the panorama.
+
+2006-12-17 11:44  dangelo
+
+	* src/: hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/hugin/PreviewFrame.h, include/hugin/PreviewPanel.h: new
+	  preview window functions: left click: center panorama, right
+	  click: set horizon
+
+2006-12-16 00:10  dangelo
+
+	* src/hugin/xrc/pano_panel-2.5.xrc, src/include/config.h.in,
+	  src/include/PT/PanoToolsInterface.h,
+	  src/include/PT/PanoramaMemento.h, src/include/hugin/PanoPanel.h,
+	  configure.ac, m4/ax_check_panotools.m4, m4/ax_wxwin.m4,
+	  src/Panorama/PanoToolsInterface.cpp,
+	  src/Panorama/PanoramaMemento.cpp,
+	  src/Panorama/SpaceTransform.cpp, src/hugin/PTWXDlg.cpp,
+	  src/hugin/PanoPanel.cpp, src/hugin/PreferencesDialog.cpp,
+	  src/hugin/PreviewFrame.cpp, src/hugin/RunStitcherFrame.cpp:
+	  updated to pano13, support for new output projections, allow
+	  editing of pano height, disable vfov editing for some projections
+	  that trigger hugin bugs.
+
+2006-12-14 08:45  dangelo
+
+	* src/hugin/ImagesList.cpp: fixed wx assert occuring with debug
+	  build of wxWidgets
+
+2006-12-07 22:38  dangelo
+
+	* ChangeLog: updated changelog
+
 2006-12-07 22:29  dangelo
 
 	* src/Panorama/Panorama.cpp: bugfix: use S type cropping for
