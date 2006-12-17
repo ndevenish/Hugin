@@ -286,6 +286,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("vig_corr_dlg.xrc"));
 #ifdef USE_WX253
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel-2.5.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel-2.5.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lens_panel-2.5.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame-2.5.xrc"));

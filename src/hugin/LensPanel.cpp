@@ -995,11 +995,15 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
                 _("Adding Image"), tval);
             t.ToDouble(&cropFactor);
             wxConfigBase::Get()->Write(wxT("/LensDefaults/CropFactor"), cropFactor);
-
+            l.m_hasExif = true;
             return l.initFromFile(filename, cropFactor, roll);
+        } else {
+            // no exif info found.. ask user for all details
+            l.m_hasExif = false;
         }
         return false;
     }
+    l.m_hasExif = true;
     return true;
 }
 

@@ -142,7 +142,7 @@ std::ostream & LensVariable::printLink(std::ostream & o,
 
 Lens::Lens()
     : m_projectionFormat(RECTILINEAR),
-       m_imageSize(0,0), m_sensorSize(36.0,24.0)
+       m_imageSize(0,0), m_sensorSize(36.0,24.0), m_hasExif(false)
 {
     fillLensVarMap(variables);
 }

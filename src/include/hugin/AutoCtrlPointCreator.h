@@ -45,12 +45,12 @@ public:
     /** Do sift matching, calles the right routines, based
      *  on the matcher selected
      */
-    virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures);
 
 protected:
 
-    void readUpdatedControlPoints(const std::string & file,
+    CPVector readUpdatedControlPoints(const std::string & file,
                                   PT::Panorama & pano);
 private:
 
@@ -69,7 +69,7 @@ public:
      */
     virtual ~AutoPanoSift() {} ;
 
-    virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures);
 
 private:
@@ -90,7 +90,7 @@ public:
      */
     virtual ~AutoPanoKolor() {} ;
 
-    virtual void automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual CPVector automatch(PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures);
 
 private:

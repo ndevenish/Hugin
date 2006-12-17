@@ -39,6 +39,7 @@
 #include "hugin/wxPanoCommand.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/PanoPanel.h"
+#include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
 #include "hugin/OptimizePanel.h"
@@ -208,11 +209,19 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // Disable tools by default
     enableTools(false);
 	
-    // image_panel
     // put an "unknown" object in an xrc file and
     // take as wxObject (second argument) the return value of wxXmlResource::Get
     // finish the images_panel
     DEBUG_TRACE("");
+
+    assistant_panel = new AssistantPanel( this, wxDefaultPosition, wxDefaultSize,
+                                       &pano);
+
+    wxXmlResource::Get()->AttachUnknownControl (
+            wxT("assistant_panel_unknown"),
+            assistant_panel );
+
+    // image_panel
     images_panel = new ImagesPanel( this, wxDefaultPosition, wxDefaultSize,
                                           &pano);
 
@@ -1020,6 +1029,14 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
     opt_panel->OnOptimizeButton(dummy);
 }
 
+void MainFrame::OnDoStitch(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    wxCommandEvent dummy;
+    pano_panel->DoStitch(dummy);
+}
+
+
 void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -1171,7 +1188,7 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
-    m_notebook->SetSelection(2);
+    m_notebook->SetSelection(3);
     cpe->ShowControlPoint(cpNr);
 }
 

@@ -264,6 +264,66 @@ void PTools::autoOptimise(PT::Panorama & pano)
     */
 }
 
+/** use various heuristics to decide what to optimize.
+ */
+void PTools::smartOptimize(PT::Panorama & optPano)
+{
+    // remove vertical and horizontal control points
+    CPVector cps = optPano.getCtrlPoints();
+    CPVector newCP;
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) {
+        if (it->mode == ControlPoint::X_Y)
+        {
+            newCP.push_back(*it);
+        }
+    }
+    optPano.setCtrlPoints(newCP);
+
+    PTools::autoOptimise(optPano);
+
+    // do global optimisation with all control points.
+    optPano.setCtrlPoints(cps);
+
+    // TODO insert heuristics for distortion and fov optimisation here
+    // do not optimize lens distortion if they are given already
+    bool optFOV = false;
+    int optDist = 1;  // 0 = none, 1=b, 2=abc, 3 all
+
+    OptimizeVector optvars;
+    for (int i=0; i < optPano.getNrOfImages(); i++) {
+        set<string> imgopt;
+        if (i!=0) {
+            // except for first image, optimize position
+            imgopt.insert("r");
+            imgopt.insert("p");
+            imgopt.insert("y");
+        }
+        if (optFOV) {
+            imgopt.insert("y");
+        }
+        switch (optDist) {
+            case 3:
+                imgopt.insert("d");
+                imgopt.insert("e");
+            case 2:
+                imgopt.insert("a");
+                imgopt.insert("c");
+            case 1:
+                imgopt.insert("b");
+                break;
+            case 0:
+            default:
+                break;
+        }
+        optvars.push_back(imgopt);
+    }
+
+    optPano.setOptimizeVector(optvars);
+
+    // global optimisation.
+    PTools::optimize(optPano);
+}
+
 
 #ifdef PT_CUSTOM_OPT
 void PTools::stopOptimiser()

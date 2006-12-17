@@ -313,6 +313,17 @@ public:
      *  fits in into the output panorama */
     void fitPano(double & HFOV, double & height);
 
+    /** calculate the optimal width for this panorama 
+     *
+     *  Optimal means that the pixel density at the panorama and
+     *  image center of the image with the highest resolution
+     *  are the same.
+     */
+    unsigned calcOptimalWidth() const;
+
+    /** calculate control point error distance statistics */
+    void calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & std, int imgNr=-1) const;
+
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
@@ -645,7 +656,8 @@ private:
     in the input image and panorama image are similar at the panorama center
  */
 double calcOptimalPanoScale(const SrcPanoImage & src,
-                                const PanoramaOptions & dest);
+                            const PanoramaOptions & dest);
+
 
 // helper functions, workaround for gcc 3.3, which doesn't find
 // the map_get template functions.

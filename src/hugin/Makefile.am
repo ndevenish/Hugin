@@ -18,7 +18,8 @@ STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp
 	      TextKillFocusHandler.cpp ImageOrientationPanel.cpp ImageOrientationFrame.cpp PanoDruid.cpp \
 	      CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
 	      PreferencesDialog.cpp LocalizedFileTipProvider.cpp VigCorrDialog.cpp \
-	      wxPanoCommand.cpp MyExternalCmdExecDialog.cpp UniversalCursor.cpp
+	      wxPanoCommand.cpp MyExternalCmdExecDialog.cpp UniversalCursor.cpp \
+	      AssistantPanel.cpp
 
 if HAVE_MINGW
 WIN_SRC    = hugin_rc.rc

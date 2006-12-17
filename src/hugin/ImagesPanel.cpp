@@ -290,7 +290,13 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
                             , wxSpinCtrl)->GetValue();
 
     AutoCtrlPointCreator matcher;
-    matcher.automatch(pano, selImg, nFeatures);
+    CPVector cps = matcher.automatch(pano, selImg, nFeatures);
+    wxString msg;
+    wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Autopano result"));
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::AddCtrlPointsCmd(pano, cps)
+                                           );
+
 };
 
 // Yaw by text -> double

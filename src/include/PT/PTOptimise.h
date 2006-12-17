@@ -52,6 +52,10 @@ namespace PTools
 void optimize(PT::Panorama & pano,
               const char * script = 0);
 
+/** use various heuristics to decide what to optimize.
+ */
+void smartOptimize(PT::Panorama & pano);
+
 /*
 void optimize_PT(const PT::Panorama & pano,
                  const PT::UIntVector &imgs,

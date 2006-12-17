@@ -69,6 +69,10 @@ public:
 // TODO remove
 //    void previewSingleChanged(wxCommandEvent & e);
 
+
+    // actions
+    void DoStitch(wxCommandEvent & e);
+
  private:
 
     /// the supported stitching engines
@@ -99,8 +103,6 @@ public:
     void WidthChanged(wxCommandEvent & e);
     void HeightChanged(wxCommandEvent & e);
 
-    // actions
-    void DoStitch(wxCommandEvent & e);
 // TODO remove
 //    void DoPreview(wxCommandEvent & e);
     void DoCalcFOV(wxCommandEvent & e);
@@ -108,12 +110,6 @@ public:
     /** set the highest sensible width
      */
     void DoCalcOptimalWidth(wxCommandEvent & e);
-
-    /*  calculate average pixel density of each image
-     *  and use the highest one to calculate the width
-     *
-     */
-    unsigned CalcOptimalWidth();
 
     /** enable/disable control influenced by quick mode */
     void EnableControls(bool enable);

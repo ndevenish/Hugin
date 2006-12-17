@@ -527,22 +527,11 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
 bool OptimizePanel::AskApplyResult(const Panorama & pano)
 {
-    // calculate average cp distance
-    double sum_error = 0;
-    double sum_squared_error = 0;
-    double max_error = 0;
-    const CPVector & cps = pano.getCtrlPoints();
-    CPVector::const_iterator it;
-    for (it = cps.begin() ; it != cps.end(); it++) {
-        sum_error += (*it).error;
-        sum_squared_error += (*it).error * (*it).error;
-        if ((*it).error > max_error) {
-            max_error = (*it).error;
-        }
-    }
-    double std_dev = sqrt((cps.size()*sum_squared_error - sum_error*sum_error) / (cps.size()*(cps.size()-1)));
-    double mean_error = sum_error / cps.size();
-
+    double min;
+    double max;
+    double mean;
+    double var;
+    pano.calcCtrlPntsErrorStats( min, max, mean, var);
     // check for HFOV lines. if smaller than 1 report a warning;
     // also check for high distortion coefficients.
     bool smallHFOV=false;
@@ -563,11 +552,11 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
         style = wxYES_NO;
     } else if (highDist) {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\n*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\nThe results are probably invalid.\nOnly optimize all distortion parameters when many, well spread control points are used.\nPlease reset the a,b and c parameters to zero and add more control points\n\nApply the changes anyway?"),
-                   mean_error, std_dev, max_error);
+                   mean, var, max);
         style = wxYES_NO | wxICON_EXCLAMATION;
     } else {
         msg.Printf(_("Optimizer run finished.\nResults:\n average control point distance: %f\n standard deviation: %f\n maximum: %f\n\nApply the changes?"),
-                   mean_error, std_dev, max_error);
+                   mean, var, max);
         style = wxYES_NO | wxICON_EXCLAMATION;
     }
 

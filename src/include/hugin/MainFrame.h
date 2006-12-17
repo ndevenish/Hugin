@@ -37,6 +37,7 @@
 using namespace PT;
 
 // forward declarations, to save the #include statements
+class AssistantPanel;
 class CPEditorPanel;
 class LensPanel;
 class ImgPreview;
@@ -129,6 +130,13 @@ public:
 #endif
     bool CloseProject(bool cnacelable);
 
+    // TODO: create a nice generic optimisation & stitching function
+    // instead of these gateway functions to the optimizer and pano panels.
+    void OnOptimize(wxCommandEvent & e);
+    void OnDoStitch(wxCommandEvent & e);
+    void OnTogglePreviewFrame(wxCommandEvent & e);
+
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.
@@ -160,9 +168,7 @@ private:
     void OnTextEdit(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
-    void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleCPFrame(wxCommandEvent & e);
-    void OnOptimize(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
@@ -171,6 +177,7 @@ private:
 
     wxNotebook * m_notebook;
     // tab panels
+    AssistantPanel* assistant_panel;
     ImagesPanel* images_panel;
     LensPanel* lens_panel;
     CPEditorPanel * cpe;

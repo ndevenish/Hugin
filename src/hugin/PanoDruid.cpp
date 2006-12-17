@@ -398,3 +398,50 @@ DruidHint* PanoDruid::FindHint(const wxChar* name)
     }
     return NULL;
 }
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+// The Panorama Druid is a set of tiered heuristics and advice on how to
+// improve the current panorama.
+
+struct advocation
+{
+    const wxChar* name;
+    const wxChar* graphic;
+    const wxChar* brief;
+    const wxChar* text;
+};
+
+static struct advocation _advice[] =
+{
+    { wxT("ERROR"), wxT("druid.images.128.png"), // "ERROR" must be at index 0
+    _("The druid has no advice at this time."), wxT("") },
+
+    { wxT("READY"), wxT("druid.stitch.128.png"),
+    _("The druid finds no problems with your panorama."),
+    _("Stitch your final image now, and then use an image editor\nsuch as the GNU Image Manipulation Program (the GIMP)\nto add any finishing touches.") },
+
+    { wxT("NO IMAGES"), wxT("druid.images.128.png"),
+    _("To get started, add some image files."),
+    _("You can add any number of images using the Images tab.") },
+
+    { wxT("ONE IMAGE"), wxT("druid.images.128.png"),
+    _("Add at least one more image."),
+    _("You should have at least two files listed in the Images tab.") },
+
+    { wxT("LOW HFOV"), wxT("druid.lenses.128.png"),
+    _("The Horizontal Field of View (HFOV) may be too low."),
+    _("Check that the focal lengths and/or hfov figures\nfor each image are correct for the camera settings.\nThen calculate the visible field of view again.\nHFOV is measured in degrees of arc, usually between\n5 and 120 degrees per image unless using specialized\nlenses.") },
+
+    { wxT("HUGE FINAL"), wxT("druid.stitch.128.png"),
+    _("Warning:  current stitch has huge dimensions."),
+    _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the automatic Calc button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality.") },
+
+    { wxT("UNSAVED"), wxT("druid.stitch.128.png"),
+    _("Warning:  you haven't saved the current project."),
+    _("While everything else seems to be ready to stitch,\ndon't forget to save your project file so you can\nexperiment or adjust the settings later.") },
+
+    { NULL, NULL, wxT("") }
+};

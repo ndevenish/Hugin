@@ -226,6 +226,7 @@ public:
     LensVarMap variables;
     static char *variableNames[];
 
+    bool m_hasExif;
 private:
 
     LensProjectionFormat m_projectionFormat;
@@ -474,7 +475,6 @@ public:
 
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
-
 
     std::string outfile;
     FileFormat outputFormat;

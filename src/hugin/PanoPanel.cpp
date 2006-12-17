@@ -431,7 +431,7 @@ void PanoPanel::ApplyQuickMode(int preset)
         if (preset == 3) {
             opts.setWidth(1024);
         } else {
-            opts.setWidth(CalcOptimalWidth());
+            opts.setWidth(pano.calcOptimalWidth());
         }
 
 		switch (preset) {
@@ -609,28 +609,12 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
 }
 
 
-unsigned PanoPanel::CalcOptimalWidth()
-{
-    PanoramaOptions opt = pano.getOptions();
-    double scale = 0;
-    for (unsigned i = 0; i < pano.getNrOfImages(); i++) {
-        PT::PanoImage img = pano.getImage(i);
-        PT::ImageOptions iopt = img.getOptions();
-        // get hfov
-        //double v = const_map_get(pano.getImageVariables(i),"v").getValue();
-        double s = calcOptimalPanoScale(pano.getSrcImage(i), opt);
-        if (scale < s) {
-            scale = s;
-        }
-    }
-    return roundi(scale * opt.getWidth());
-}
 
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
     PanoramaOptions opt = pano.getOptions();
-    unsigned width = CalcOptimalWidth();
+    unsigned width = pano.calcOptimalWidth();
     if (width > 0) {
         opt.setWidth( width );
         GlobalCmdHist::getInstance().addCommand(

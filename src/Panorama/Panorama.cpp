@@ -677,6 +677,8 @@ unsigned int Panorama::addImage(const PanoImage &img, const VariableMap & vars)
     state.images.push_back(img);
     state.variables.push_back(vars);
     copyLensVariablesToImage(nr);
+    // create empty optimisation vector
+    state.optvec.push_back(set<string>());
     imageChanged(nr);
     return nr;
 }
@@ -1797,9 +1799,9 @@ void Panorama::rotatePanorama(double yaw, double pitch, double roll)
     Matrix3 transformMat;
     transformMat.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
     DEBUG_DEBUG("transform rotation matrix (PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat);
-    Matrix3 transformMat2;
-    transformMat2.SetRotation(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
-    DEBUG_DEBUG("transform rotation matrix (non PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat2);
+//     Matrix3 transformMat2;
+//     transformMat2.SetRotation(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
+//     DEBUG_DEBUG("transform rotation matrix (non PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat2);
 
     for (unsigned int i = 0; i < state.images.size(); i++) {
         double y = map_get(state.variables[i], "y").getValue();
@@ -1808,9 +1810,9 @@ void Panorama::rotatePanorama(double yaw, double pitch, double roll)
         Matrix3 mat;
         mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
         DEBUG_DEBUG("rotation matrix (PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat);
-        Matrix3 mat2;
+/*        Matrix3 mat2;
         mat2.SetRotation(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
-        DEBUG_DEBUG("rotation matrix (non PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat2);
+        DEBUG_DEBUG("rotation matrix (non PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat2);*/
         Matrix3 rotated;
         rotated = transformMat * mat;
         DEBUG_DEBUG("rotation matrix after transform: " << rotated);
@@ -1872,6 +1874,49 @@ Panorama Panorama::getSubset(const PT::UIntSet & imgs) const
     return subset;
 }
 
+unsigned Panorama::calcOptimalWidth() const
+{
+    PanoramaOptions opt = getOptions();
+    double scale = 0;
+    for (unsigned i = 0; i < getNrOfImages(); i++) {
+        double s = calcOptimalPanoScale(getSrcImage(i), opt);
+        if (scale < s) {
+            scale = s;
+        }
+    }
+    return roundi(scale * opt.getWidth());
+}
+
+void Panorama::calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & var, int imgNr) const
+{
+    const CPVector & cps = getCtrlPoints();
+
+    max = 0;
+    min = 1000000;
+    mean = 0;
+    var = 0;
+
+    int n=0;
+    CPVector::const_iterator it;
+    for (it = cps.begin() ; it != cps.end(); it++) {
+        if (imgNr >= 0 && ((*it).image1Nr != imgNr || (*it).image2Nr != imgNr))
+        {
+            continue;
+        }
+        n++;
+        double x = (*it).error;
+        double delta = x - mean;
+        mean += delta/n;
+        var += delta*(x - mean);
+        if (x > max) {
+            max= (*it).error;
+        }
+        if (x < min) {
+            min= (*it).error;
+        }
+    }
+    var = var/(n-1);
+}
 
 double PT::calcOptimalPanoScale(const SrcPanoImage & src,
                                 const PanoramaOptions & dest)
