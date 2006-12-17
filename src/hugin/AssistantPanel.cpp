@@ -57,15 +57,43 @@ using namespace vigra;
 using namespace vigra_ext;
 using namespace std;
 
+
 //------------------------------------------------------------------------------
-#define GET_VAR(val) m_pano.getVariable(orientationEdit_RefImg).val.getValue()
+// utility function
+static wxString Components2Str(const CPComponents & comp)
+{
+    wxString ret;
+    for (unsigned i=0; i < comp.size(); i++) {
+        ret = ret + wxT("[");
+        CPComponents::value_type::const_iterator it;
+        int c=0;
+        for (it = comp[i].begin();
+            it != comp[i].end();
+            ++it) 
+        {
+            ret = ret + wxString::Format(wxT("%d"), (*it));
+            if (c+1 != comp[i].size()) {
+                ret = ret + wxT(", ");
+            }
+            c++;
+        }
+        if (i+1 != comp.size())
+            ret = ret + wxT("], ");
+        else
+            ret = ret + wxT("]");
+    }
+    return ret;
+}
+//------------------------------------------------------------------------------
+
+
 
 BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
     EVT_SIZE   ( AssistantPanel::OnSize )
 //    EVT_MOUSE_EVENTS ( AssistantPanel::OnMouse )
 //    EVT_MOTION ( AssistantPanel::ChangePreview )
     EVT_CHECKBOX   ( XRCID("ass_exif_cb"),          AssistantPanel::OnExifToggle)
-    EVT_CHOICE     ( XRCID("ass_lens_type_choice"), AssistantPanel::OnLensTypeChanged)
+    EVT_CHOICE     ( XRCID("ass_lens_proj_choice"), AssistantPanel::OnLensTypeChanged)
     EVT_TEXT_ENTER ( XRCID("ass_focallength_text"), AssistantPanel::OnFocalLengthChanged)
     EVT_TEXT_ENTER ( XRCID("ass_cropfactor_text"),  AssistantPanel::OnCropFactorChanged)
     EVT_BUTTON     ( XRCID("ass_load_lens_button"), AssistantPanel::OnLoadLens)
@@ -88,6 +116,10 @@ AssistantPanel::AssistantPanel(wxWindow *parent, const wxPoint& pos, const wxSiz
 
     m_exifToggle = XRCCTRL(*this, "ass_exif_cb", wxCheckBox);
     DEBUG_ASSERT(m_exifToggle);
+
+    m_lensTypeChoice = XRCCTRL(*this, "ass_lens_proj_choice", wxChoice);
+    DEBUG_ASSERT(m_lensTypeChoice);
+    m_lensTypeChoice->SetSelection(0);
 
     m_focalLengthText = XRCCTRL(*this, "ass_focallength_text", wxTextCtrl);
     DEBUG_ASSERT(m_focalLengthText);
@@ -205,11 +237,40 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
         XRCCTRL(*this, "ass_lens_group", wxPanel)->Disable();
         m_noImage = true;
     } else {
-        // TODO: check if the positions are not all zero, if more than 1 image has been loaded
-        m_createButton->Enable();
-        m_imagesText->SetLabel(wxString::Format(_("%d images loaded."), pano.getNrOfImages()));
+        int images = pano.getNrOfImages();
+        bool enableCreate = false;;
+        if (images > 1) {
+            while (images)
+            {
+                --images;
+                const VariableMap & vars = pano.getImageVariables(images);
+                if (const_map_get(vars,"y").getValue() != 0.0) {
+                    enableCreate = true;
+                    break;
+                }
+                if (const_map_get(vars,"p").getValue() != 0.0) {
+                    enableCreate = true;
+                    break;
+                }
+                if (const_map_get(vars,"r").getValue() != 0.0) {
+                    enableCreate = true;
+                    break;
+                }
+            }
+        }
+
+        images = pano.getNrOfImages();
+        m_createButton->Enable(enableCreate);
+
+        wxString imgMsg = wxString::Format(_("%d images loaded."), pano.getNrOfImages());
 
         const Lens & lens = pano.getLens(0);
+
+        /*
+        if (!lens.m_hasExif) {
+            imgMsg = imgMsg + wxT("\n") + _("No EXIF data found. Please enter focal length.");
+        }
+        */
 
         if (m_noImage) {
             // straight after loading the first image, set exif checkbox, if available
@@ -224,43 +285,61 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
         }
         m_noImage = false;
 
-        // update focal length
+        // update data in lens display
+        m_lensTypeChoice->SetSelection(lens.getProjection());
         double focal_length = lens.getFocalLength();
         m_focalLengthText->SetValue(doubleTowxString(focal_length,m_degDigits));
-
-        // update focal length factor
         double focal_length_factor = lens.getCropFactor();
         m_cropFactorText->SetValue(doubleTowxString(focal_length_factor,m_degDigits));
+
+        m_imagesText->SetLabel(imgMsg);
     }
 
     if (pano.getNrOfImages() > 1) {
-        wxString alignMsg = wxString::Format(_("%d control points.\n"), pano.getCtrlPoints().size());
+        wxString alignMsg = wxString::Format(_("Images are connected by %d control points.\n"), pano.getCtrlPoints().size());
 
-        double min;
-        double max;
-        double mean;
-        double var;
-        m_pano.calcCtrlPntsErrorStats( min, max, mean, var);
+        if (m_pano.getNrOfCtrlPoints() > 0) {
+            // find components..
+            CPGraph graph;
+            createCPGraph(m_pano, graph);
+            CPComponents comps;
+            int n= findCPComponents(graph, comps);
+            if (n > 1) {
+                alignMsg += wxString::Format(_("%d unconnected image groups found: "), n) + Components2Str(comps) + wxT("\n");
+                alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
+            } else {
+                if (m_pano.needsOptimization()) {
+                    alignMsg += _("Images or control points have changed, new alignment is needed.");
+                } else {
+                    double min;
+                    double max;
+                    double mean;
+                    double var;
+                    m_pano.calcCtrlPntsErrorStats( min, max, mean, var);
 
-        wxString distStr;
-        if (mean < 1)
-            distStr = _("Very good fit");
-        else if (mean < 3)
-            distStr = _("Good fit");
-        else if (mean < 7)
-            distStr = _("Bad fit, some control points might be bad, or there are parallax and movement errors");
-        else
-            distStr = _("Very bad fit. Check for bad control points, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
+                    if (max != 0.0) {
+                        wxString distStr;
+                        if (mean < 1)
+                            distStr = _("Very good fit.");
+                        else if (mean < 3)
+                            distStr = _("Good fit.");
+                        else if (mean < 7)
+                            distStr = _("Bad fit, some control points might be bad, or there are parallax and movement errors");
+                        else
+                            distStr = _("Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
 
-        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel\n"), mean)
-                + distStr; 
-
-        // TODO: check if all images are connected, and notify user, if they are not.
+                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel\n"), mean)
+                                + distStr; 
+                    }
+                }
+            }
+        }
 
         // need to resize the text widget somehow!
         m_alignText->SetLabel(alignMsg);
+    } else {
+        m_alignText->SetLabel(wxT(""));
     }
-
     // TODO: update meaningful help text and dynamic links to relevant tabs
 }
 
@@ -282,6 +361,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     // TODO: make configurable
     long nFeatures = 15;
 
+    /*
     bool createCtrlP = true;
     // TODO: handle existing control points properly instead of adding them twice.
     if (m_pano.getNrOfCtrlPoints() > 0) {
@@ -289,6 +369,9 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                      _("Skip control point creation?"), wxICON_QUESTION | wxYES_NO);
         createCtrlP = a != wxYES;
     }
+    */
+
+    bool createCtrlP = m_pano.getNrOfCtrlPoints() == 0;
 
     wxString alignMsg;
     if (createCtrlP) {
@@ -301,8 +384,23 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                                                );
     }
 
-    // TODO: check if enough control points have been created. and that there are
-    // no missing links
+    // find components..
+    CPGraph graph;
+    createCPGraph(m_pano, graph);
+    CPComponents comps;
+    int n = findCPComponents(graph, comps);
+
+    if (n > 1) {
+        // switch to images panel.
+        unsigned i1 = *(comps[0].rbegin());
+        unsigned i2 = *(comps[1].begin());
+        MainFrame::Get()->ShowCtrlPointEditor( i1, i2);
+        // display message box with 
+        
+        wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
+                     + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"));
+        return;
+    }
 
     // optimize panorama
 
@@ -315,7 +413,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
     opts.tiff_saveROI = true;
-    opts.tiffCompression = "Deflate";
+    opts.tiffCompression = "DEFLATE";
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
 
     // calculate proper scaling, 1:1 resolution.
@@ -394,75 +492,19 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
 void AssistantPanel::OnLoadLens(wxCommandEvent & e)
 {
     unsigned int imgNr = 0;
-    unsigned int lensNr = 0;
+    unsigned int lensNr = m_pano.getImage(imgNr).getLensNr();
     Lens lens = m_pano.getLens(lensNr);
     VariableMap vars = m_pano.getImageVariables(imgNr);
     ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
-    wxString fname;
-    wxFileDialog dlg(this,
-                     _("Load lens parameters"),
-                     wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
-                     _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
-                     wxOPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-        fname = dlg.GetPath();
-        wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
-            // read with with standart C numeric format
-        char * old_locale = setlocale(LC_NUMERIC,NULL);
-        setlocale(LC_NUMERIC,"C");
-        {
-            wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-            int integer=0;
-            double d;
-            cfg.Read(wxT("Lens/type"), &integer);
-            lens.setProjection ((Lens::LensProjectionFormat) integer);
-            cfg.Read(wxT("Lens/crop"), &d);
-            lens.setCropFactor(d);
-            cfg.Read(wxT("Lens/hfov"), &d);
-            map_get(vars,"v").setValue(d);
-            DEBUG_DEBUG("read lens hfov: " << d);
 
-                // loop to load lens variables
-            char ** varname = Lens::variableNames;
-            while (*varname) {
-                wxString key(wxT("Lens/"));
-                key.append(wxString(*varname, *wxConvCurrent));
-                d = 0;
-                if (cfg.Read(key,&d)) {
-                        // only set value if variabe was found in the script
-                    map_get(vars,*varname).setValue(d);
-
-                    integer = 1;
-                    key.append(wxT("_link"));
-                    cfg.Read(key, &integer);
-                    map_get(lens.variables, *varname).setLinked(integer != 0);
-                }
-
-
-                varname++;
-            }
-            long vigCorrMode=0;
-            cfg.Read(wxT("Lens/vigCorrMode"), &vigCorrMode);
-            imgopts.m_vigCorrMode = vigCorrMode;
-
-            wxString flatfield;
-            bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
-            imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
-
-                // TODO: crop parameters
-
-        }
-            // reset locale
-        setlocale(LC_NUMERIC,old_locale);
-
+    if (LoadLensParametersChoose(lens, vars, imgopts)) {
         GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(m_pano, lensNr, lens)
                                                );
         GlobalCmdHist::getInstance().addCommand(
                 new PT::UpdateImageVariablesCmd(m_pano, imgNr, vars)
                                                );
-
-            // get all images with the current lens.
+                // get all images with the current lens.
         UIntSet imgs;
         for (unsigned int i = 0; i < m_pano.getNrOfImages(); i++) {
             if (m_pano.getImage(i).getLensNr() == lensNr) {
@@ -470,17 +512,20 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
             }
         }
 
-            // set image options.
+                // set image options.
         GlobalCmdHist::getInstance().addCommand(
                 new PT::SetImageOptionsCmd(m_pano, imgopts, imgs) );
     }
+
 }
 
 void AssistantPanel::OnExifToggle (wxCommandEvent & e)
 {
     if (m_exifToggle->GetValue()) {
         // if activated, load exif info
-        Lens lens = m_pano.getLens(0);
+        unsigned int imgNr = 0;
+        unsigned int lensNr = m_pano.getImage(imgNr).getLensNr();
+        Lens lens = m_pano.getLens(lensNr);
         // check file extension
         wxFileName file(wxString(m_pano.getImage(0).getFilename().c_str(), *wxConvCurrent));
         if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
@@ -488,11 +533,17 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
         {
             double c=0;
             double roll = 0;
-            initLensFromFile(m_pano.getImage(0).getFilename().c_str(), c, lens, roll);
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::ChangeLensCmd( m_pano, 0,
-                                           lens )
-                                                   );
+            VariableMap vars = m_pano.getImageVariables(imgNr);
+            ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
+
+            if (initLensFromFile(m_pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true)) {
+                GlobalCmdHist::getInstance().addCommand(
+                        new PT::ChangeLensCmd(m_pano, lensNr, lens)
+                                                       );
+                GlobalCmdHist::getInstance().addCommand(
+                        new PT::UpdateImageVariablesCmd(m_pano, imgNr, vars)
+                                                       );
+            }
         } else {
             wxLogError(_("Not a jpeg file:") + file.GetName());
         }
@@ -554,4 +605,6 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
             new PT::ChangeLensCmd( m_pano, 0, lens)
         );
 }
+
+
 

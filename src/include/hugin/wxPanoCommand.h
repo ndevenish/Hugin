@@ -78,17 +78,26 @@ public:
 
             double cropFactor=0;
 
+            bool sameSettings=false;
+
+            Lens lens;
+            double roll=0;
+            VariableMap vars;
+            fillVariableMap(vars);
+            ImageOptions imgopts;
+
             for (it = files.begin(); it != files.end(); ++it) {
                 const std::string &filename = *it;
 
-                Lens lens;
-                double roll=0;
-                initLensFromFile(filename, cropFactor, lens, roll);
+                initLensFromFile(filename, cropFactor, lens, vars, imgopts, sameSettings);
                 if( lens.getImageSize().x == 0) {
                     // if image size is invalid, do not add image.
                     pano.changeFinished();
                     wxLogError(_("Could not read image size"));
                     return;
+                }
+                if (!lens.m_hasExif) {
+                    sameSettings = true;
                 }
 
                 int matchingLensNr=-1;
@@ -115,13 +124,9 @@ public:
                     matchingLensNr = pano.addLens(lens);
                 }
 
-                VariableMap vars;
-                fillVariableMap(vars);
-                // set roll angle read from EXIF
-                map_get(vars,"r").setValue(roll);
-
                 DEBUG_ASSERT(matchingLensNr >= 0);
                 PanoImage img(filename, lens.getImageSize().x, lens.getImageSize().y, (unsigned int) matchingLensNr);
+                img.setOptions(imgopts);
                 pano.addImage(img, vars);
             }
             pano.changeFinished();
@@ -222,8 +227,11 @@ public:
                         && hfov >= 180)
                     {
                         // try to load hfov from exif info
+                        VariableMap vars;
+                        fillVariableMap(vars);
+                        ImageOptions imgopts;
                         initLensFromFile(pano.getImage(i).getFilename(),
-                                         defaultCropFactor, cLens, roll);
+                                         defaultCropFactor, cLens, vars, imgopts, false);
                         if ( cLens.getImageSize().x == 0)
                         {
                             // if image size is invalid, abort script reading

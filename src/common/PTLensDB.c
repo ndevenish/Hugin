@@ -393,6 +393,9 @@ static long processDbFile(PTLDB_DB * db, const char *s)
     static int camGroup;
 
     PTLDB_CoefType * ccoef;
+    PTLDB_TCACoefType * tccoef;
+    PTLDB_VigCoefType * vccoef;
+
     int n;
 
     if (strlen(s) == 0)
@@ -425,6 +428,10 @@ static long processDbFile(PTLDB_DB * db, const char *s)
             pLns->nextLns = NULL;
             pLns->coefLB = -1;
             pLns->coefUB = -1;
+            pLns->vigCoefLB = -1;
+            pLns->vigCoefUB = -1;
+            pLns->tcaCoefLB = -1;
+            pLns->tcaCoefUB = -1;
             pLns->converterFactor = 1.0;
             lnsMenuLens = 0;
             lnsGroup = 0;
@@ -456,6 +463,7 @@ static long processDbFile(PTLDB_DB * db, const char *s)
                 if (check(lnsConverterDetected, "converter_detected") == 0)
                     return 0;
             }
+            // TODO: dangelo, sort vig and tca coefs ?
             sortCoefs(db, pLns->coefLB, pLns->coefUB);
             insertLns(db, pLns);
         } else {
@@ -581,6 +589,48 @@ static long processDbFile(PTLDB_DB * db, const char *s)
             exit(1);
         }
         lnsCalABC = 1;
+        // vignetting correction parameters
+    } else if (lhs(s, "cal_vig:") == 1) {
+        if (state != PROCESS_LENS) {
+            printf( "File %s line %d invalid statement %s\n", fileName, line, s);
+            return 0;
+        }
+        if (pLns->vigCoefLB == -1) pLns->vigCoefLB = db->vigCoefIndex;
+        pLns->vigCoefUB = db->vigCoefIndex;
+        vccoef = &(db->vigCoef[db->vigCoefIndex]);
+        n = sscanf(rhs, "%f %f %f %f %f", &(vccoef->f), &(vccoef->k), &(vccoef->coef[0]), &(vccoef->coef[1]),
+                   &(vccoef->coef[2]), &(vccoef->coef[3]));
+        if ( n != 6 ) {
+            printf( "File %s line %d invalid statement %s\n", fileName, line, s);
+            return 0;
+        }
+        db->vigCoefIndex++;
+        if (db->vigCoefIndex == PTLDB_MAX_COEFFS) {
+            fprintf(stderr,"FATAL ERROR: too many coefficients read.\n"
+                    "Increase PTLDB_MAX_COEFFS in libPTLens.h and recompile program\n");
+            exit(1);
+        }
+    } else if (lhs(s, "cal_tca:") == 1) {
+        if (state != PROCESS_LENS) {
+            printf( "File %s line %d invalid statement %s\n", fileName, line, s);
+            return 0;
+        }
+        if (pLns->tcaCoefLB == -1) pLns->tcaCoefLB = db->tcaCoefIndex;
+        pLns->tcaCoefUB = db->tcaCoefIndex;
+        tccoef = &(db->tcaCoef[db->tcaCoefIndex]);
+        n = sscanf(rhs, "%f %f %f %f %f %f %f %f %f", &(tccoef->f), 
+                   &(tccoef->coefRed[0]), &(tccoef->coefRed[1]), &(tccoef->coefRed[2]), &(tccoef->coefRed[3]),
+                   &(tccoef->coefBlue[0]), &(tccoef->coefBlue[1]), &(tccoef->coefBlue[2]), &(tccoef->coefBlue[3]));
+        if ( n != 9) {
+            printf( "File %s line %d invalid statement %s\n", fileName, line, s);
+            return 0;
+        }
+        db->tcaCoefIndex++;
+        if (db->tcaCoefIndex == PTLDB_MAX_COEFFS) {
+            fprintf(stderr,"FATAL ERROR: too many coefficients read.\n"
+                    "Increase PTLDB_MAX_COEFFS in libPTLens.h and recompile program\n");
+            exit(1);
+        }
     } else {
         printf( "File %s line %d, ignoring unknown statement: %s\n", fileName, line, s);
     }
@@ -887,6 +937,10 @@ static int inGroups(PTLDB_LnsNode *thisLens, PTLDB_CamNode *thisCamera)
                 pCamLens->converterDetected = pDBLens->converterDetected;
                 pCamLens->coefLB = pDBLens->coefLB;
                 pCamLens->coefUB = pDBLens->coefUB;
+                pCamLens->vigCoefLB = pDBLens->vigCoefLB;
+                pCamLens->vigCoefUB = pDBLens->vigCoefUB;
+                pCamLens->tcaCoefLB = pDBLens->tcaCoefLB;
+                pCamLens->tcaCoefUB = pDBLens->tcaCoefUB;
                 pCamLens->multiplier = pDBLens->multiplier;
                 pFirstLens = pCamLens;
             } else {
@@ -901,6 +955,10 @@ static int inGroups(PTLDB_LnsNode *thisLens, PTLDB_CamNode *thisCamera)
                 pCamLens->converterDetected = pDBLens->converterDetected;
                 pCamLens->coefLB = pDBLens->coefLB;
                 pCamLens->coefUB = pDBLens->coefUB;
+                pCamLens->vigCoefLB = pDBLens->vigCoefLB;
+                pCamLens->vigCoefUB = pDBLens->vigCoefUB;
+                pCamLens->tcaCoefLB = pDBLens->tcaCoefLB;
+                pCamLens->tcaCoefUB = pDBLens->tcaCoefUB;
                 pCamLens->multiplier = pDBLens->multiplier;
             }
         }
@@ -945,8 +1003,24 @@ void PTLDB_printDB(PTLDB_DB * db)
             printf("%-10s%-10s%-10s%-10s\n", "f", "a", "b", "c");
             for (i=pCurLns->coefLB; i<=pCurLns->coefUB; i++)
             {
-                printf("%5.2f %9.6f %9.6f %9.6f\n", db->coef[i].f, db->coef[i].a, db->coef[i].b, db->coef[i].c);
+                printf("%5.2f %9.6f %9.6f %9.6f\n", db->coef[i].f, db->coef[i].a,
+                       db->coef[i].b, db->coef[i].c);
             }
+            printf("%-10s%-10s%-10s%-10s%-10s\n", "f", "k", "a", "b", "c");
+            for (i=pCurLns->vigCoefLB; i<=pCurLns->vigCoefUB; i++)
+            {
+                printf("%5.2f %5.2f %9.6f %9.6f %9.6f %9.6f\n", db->vigCoef[i].f, db->vigCoef[i].k,
+                       db->vigCoef[i].coef[0], db->vigCoef[i].coef[1], db->vigCoef[i].coef[2], db->vigCoef[i].coef[3]);
+            }
+            printf("%-10s%-10s%-10s%-10s%-10s   %-10s%-10s%-10s%-10s\n", "f", "red a", "red b", "red c", "red d",
+                   "blue a", "blue b", "blue c", "blue d");
+            for (i=pCurLns->tcaCoefLB; i<=pCurLns->tcaCoefUB; i++)
+            {
+                printf("%5.2f %9.6f %9.6f %9.6f %9.6f   %9.6f %9.6f %9.6f %9.6f\n", db->tcaCoef[i].f,
+                       db->tcaCoef[i].coefRed[0], db->tcaCoef[i].coefRed[1], db->tcaCoef[i].coefRed[2], db->tcaCoef[i].coefRed[3],
+                       db->tcaCoef[i].coefBlue[0], db->tcaCoef[i].coefBlue[1], db->tcaCoef[i].coefBlue[2], db->tcaCoef[i].coefBlue[3]);
+            }
+
             pCurLns = pCurLns->nextLns;
     }
 }
@@ -1142,3 +1216,187 @@ int PTLDB_getRadCoefs(PTLDB_DB * db, PTLDB_ImageInfo * info, PTLDB_RadCoef * coe
     coefD(coef1, info->width, info->height, info->resize);
 	return 1;
 }
+
+/* ==================================================================== */
+#if 0
+int PTLDB_getRadCoefs(PTLDB_DB * db, PTLDB_ImageInfo * info, PTLDB_RadCoef * coef1)
+{
+    long lb;
+    long ub;
+    long i;
+    double ratio;
+    double f;
+
+    f = info->focalLength;
+    if (info->converterDetected)
+        f = f * info->lens->converterFactor;
+
+    lb = info->lens->coefLB;
+    ub = info->lens->coefUB;
+
+    // force focal length to be legal
+    if (f < db->coef[lb].f)
+    {
+        if (f < 0.9 * db->coef[lb].f)
+            return 0;
+        f = db->coef[lb].f;
+    }
+    if (f > db->coef[ub].f)
+    {
+        if (f > 1.1 * db->coef[ub].f)
+            return 0;
+        f = db->coef[ub].f;
+    }
+
+    // calculate hfov
+//    coef1.hfov = getHfov(f);
+
+    // calculate a,b,c
+    if (lb == ub)
+    {
+        coef1->a = db->coef[lb].a;
+        coef1->b = db->coef[lb].b;
+        coef1->c = db->coef[lb].c;
+    } else {
+        i = lb;
+        while (db->coef[i].f < f)
+        {
+            i = i + 1;
+        }
+        if (f == db->coef[i].f)
+        {
+            coef1->a = db->coef[i].a;
+            coef1->b = db->coef[i].b;
+            coef1->c = db->coef[i].c;
+        } else {
+            ratio = (f - db->coef[i - 1].f) /
+                    (db->coef[i].f - db->coef[i - 1].f);
+            coef1->a = db->coef[i - 1].a + ratio *
+                    (db->coef[i].a - db->coef[i - 1].a);
+            coef1->b = db->coef[i - 1].b + ratio *
+                    (db->coef[i].b - db->coef[i - 1].b);
+            coef1->c = db->coef[i - 1].c + ratio *
+                    (db->coef[i].c - db->coef[i - 1].c);
+        }
+    }
+
+    // multiplier correction
+    if (info->lens->multiplier != info->camera->multiplier)
+    {
+        double factor;
+        factor = info->lens->multiplier / info->camera->multiplier;
+        coef1->a = coef1->a * factor * factor * factor;
+        coef1->b = coef1->b * factor * factor;
+        coef1->c = coef1->c * factor;
+    }
+
+    coefD(coef1, info->width, info->height, info->resize);
+    return 1;
+}
+
+#endif
+
+/* ==================================================================== */
+
+#if 0
+
+int PTLDB_getVigCoefs(PTLDB_DB * db, PTLDB_ImageInfo * info, PTLDB_VigCoefType * coef1)
+{
+    long lb;
+    long ub;
+    long i,j;
+    double ratio;
+    double f;
+    double k;
+    long i00, i01, i10, i11
+
+    f = info->focalLength;
+    k = info->aperture;
+    if (info->converterDetected)
+        f = f * info->lens->converterFactor;
+
+    lb = info->lens->vigCoefLB;
+    ub = info->lens->vigCoefUB;
+
+    // force focal length to be legal
+    if (f < db->coef[lb].f)
+    {
+        if (f < 0.9 * db->coef[lb].f)
+            return 0;
+        f = db->coef[lb].f;
+    }
+    if (f > db->coef[ub].f)
+    {
+        if (f > 1.1 * db->coef[ub].f)
+            return 0;
+        f = db->coef[ub].f;
+    }
+
+    // calculate hfov
+//    coef1.hfov = getHfov(f);
+
+    // calculate a,b,c
+    if (lb == ub)
+    {
+        // just one setting.. use, independently of the parameters.
+        *coef1 = db->vigCoef[lb];
+    } else {
+        
+        for (i=lb; i<=ub; i++) {
+            if (db->vigCoef[i].f >= f) {
+                // try to step back one focal length
+                for (
+                f1 = db->vigCoef[i].f;
+                // search for right aperture
+                while(i<=ub && db->vigCoef[i].k < k && db->vigCoef[i].f == f1) 
+                {
+                    i++;
+                }
+                if (i>ub || db->vigCoef[i].f > f
+        // need to interpolate between focal length and aperture
+        i = lb;
+
+
+        while (db->vigCoef[i].f < f && i < ub)
+        {
+            i = i + 1;
+        }
+        //
+        if (f == db->coef[i].f)
+        {
+            // exact hit in f
+            // search for right index.
+            // linear interpolation in aperture
+            j = i;
+            while (db->vigCoef[j].f == f && db->vigCoef[j].k < k && j < ub) {
+                
+            coef1->a = db->coef[i].a;
+            coef1->b = db->coef[i].b;
+            coef1->c = db->coef[i].c;
+        } else {
+            ratio = (f - db->coef[i - 1].f) /
+                    (db->coef[i].f - db->coef[i - 1].f);
+            coef1->a = db->coef[i - 1].a + ratio *
+                    (db->coef[i].a - db->coef[i - 1].a);
+            coef1->b = db->coef[i - 1].b + ratio *
+                    (db->coef[i].b - db->coef[i - 1].b);
+            coef1->c = db->coef[i - 1].c + ratio *
+                    (db->coef[i].c - db->coef[i - 1].c);
+        }
+    }
+
+    // multiplier correction
+    if (info->lens->multiplier != info->camera->multiplier)
+    {
+        double factor;
+        factor = info->lens->multiplier / info->camera->multiplier;
+        coef1->a = coef1->a * factor * factor * factor;
+        coef1->b = coef1->b * factor * factor;
+        coef1->c = coef1->c * factor;
+    }
+
+    coefD(coef1, info->width, info->height, info->resize);
+    return 1;
+}
+
+#endif

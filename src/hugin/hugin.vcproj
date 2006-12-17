@@ -229,6 +229,9 @@ xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 			Name="Source Files"
 			Filter="">
 			<File
+				RelativePath=".\AssistantPanel.cpp">
+			</File>
+			<File
 				RelativePath=".\AutoCtrlPointCreator.cpp">
 			</File>
 			<File
@@ -336,6 +339,9 @@ xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 			Filter="">
 			<File
 				RelativePath="..\include\hugin\AnchorPositionCtrl.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\AssistantPanel.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\AutoCtrlPointCreator.h">

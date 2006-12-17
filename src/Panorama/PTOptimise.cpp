@@ -290,7 +290,7 @@ void PTools::smartOptimize(PT::Panorama & optPano)
     int optDist = 1;  // 0 = none, 1=b, 2=abc, 3 all
 
     OptimizeVector optvars;
-    for (int i=0; i < optPano.getNrOfImages(); i++) {
+    for (unsigned i=0; i < optPano.getNrOfImages(); i++) {
         set<string> imgopt;
         if (i!=0) {
             // except for first image, optimize position

@@ -72,6 +72,10 @@ typedef struct PTLDB_lens{
     long converterDetected;
     long coefLB;
     long coefUB;
+    long vigCoefLB;
+    long vigCoefUB;
+    long tcaCoefLB;
+    long tcaCoefUB;
     float multiplier;
 }PTLDB_LnsNode;
 
@@ -84,6 +88,22 @@ typedef struct
     float b;
     float c;
 }PTLDB_CoefType;
+
+// define other structures
+typedef struct
+{
+    float f;    ///< focal length
+    float k;    ///< f stop
+    float coef[4];
+}PTLDB_VigCoefType;
+
+typedef struct
+{
+    float f;    ///< focal length
+    float coefRed[4];
+    float coefBlue[4];
+}PTLDB_TCACoefType;
+
 
 /*
 typedef struct {
@@ -121,6 +141,7 @@ typedef struct
     PTLDB_CamNode *camera;
     PTLDB_LnsNode *lens;
     double focalLength;
+    double aperture;
     unsigned width;
     unsigned height;
     int converterDetected;  ///< 1: a converter has been detected
@@ -137,7 +158,11 @@ typedef struct {
     // FIXME dangelo: this is not nice... but I'm lazy and not used to write C code.
     char fileList[PTLDB_MAX_FILES][PTLDB_MAX_PATH];
     long coefIndex;
+    long vigCoefIndex;
+    long tcaCoefIndex;
     PTLDB_CoefType coef[PTLDB_MAX_COEFFS];
+    PTLDB_VigCoefType vigCoef[PTLDB_MAX_COEFFS];
+    PTLDB_TCACoefType tcaCoef[PTLDB_MAX_COEFFS];
 } PTLDB_DB;
 
 

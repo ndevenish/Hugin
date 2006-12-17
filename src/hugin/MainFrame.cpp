@@ -1185,12 +1185,21 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     GlobalCmdHist::getInstance().redo();
 }
 
+
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
     m_notebook->SetSelection(3);
     cpe->ShowControlPoint(cpNr);
 }
+
+void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
+{
+    m_notebook->SetSelection(3);
+    cpe->setLeftImage(img1);
+    cpe->setRightImage(img2);
+}
+
 
 /** update the display */
 void MainFrame::updateProgressDisplay()

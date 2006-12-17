@@ -262,6 +262,7 @@ void Panorama::reset()
     state.images.clear();
     state.variables.clear();
     state.options.reset();
+    state.needsOptimization = false;
 }
 
 
@@ -659,6 +660,7 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
         }
     }
     imageChanged(imgNr);
+    state.needsOptimization = true;
 }
 
 void Panorama::setOptimizeVector(const OptimizeVector & optvec)
@@ -833,6 +835,7 @@ unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
     state.ctrlPoints.push_back(point);
     imageChanged(point.image1Nr);
     imageChanged(point.image2Nr);
+    state.needsOptimization = true;
     return nr;
 }
 
@@ -845,6 +848,7 @@ void Panorama::removeCtrlPoint(unsigned int pNr)
     state.ctrlPoints.erase(state.ctrlPoints.begin() + pNr);
     imageChanged(i1);
     imageChanged(i2);
+    state.needsOptimization = true;
 }
 
 
@@ -857,6 +861,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
     imageChanged(state.ctrlPoints[pNr].image2Nr);
     imageChanged(point.image1Nr);
     imageChanged(point.image2Nr);
+    state.needsOptimization = true;
 
     state.ctrlPoints[pNr] = point;
 }
@@ -878,6 +883,7 @@ void Panorama::setCtrlPoints(const CPVector & points)
         imageChanged(it->image1Nr);
         imageChanged(it->image2Nr);
     }
+    state.needsOptimization = true;
 }
 
 
@@ -1400,6 +1406,7 @@ void Panorama::updateLensVariable(unsigned int lensNr, const LensVariable &var)
 
         }
     }
+    state.needsOptimization = true;
 }
 
 void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
@@ -1412,6 +1419,7 @@ void Panorama::setLens(unsigned int imgNr, unsigned int lensNr)
     // copy the whole lens settings into the image
     copyLensVariablesToImage(imgNr);
     removeUnusedLenses();
+    state.needsOptimization = true;
 }
 
 void Panorama::swapImages(unsigned int img1, unsigned int img2)
@@ -1459,8 +1467,6 @@ void Panorama::swapImages(unsigned int img1, unsigned int img2)
     } else if (state.options.optimizeReferenceImage == img2) {
         state.options.optimizeReferenceImage = img1;
     }
-
-
     imageChanged(img1);
     imageChanged(img2);
 }
@@ -1505,6 +1511,7 @@ void Panorama::removeLens(unsigned int lensNr)
             imageChanged(i);
         }
     }
+    state.needsOptimization = true;
 }
 
 unsigned int Panorama::addLens(const Lens & lens)
@@ -1936,7 +1943,7 @@ double PT::calcOptimalPanoScale(const SrcPanoImage & src,
     transf.transform(imgp2, FDiff2D(1,1));
     double dist = utils::norm(imgp2-imgp1);
     
-    return dist / sqrt(2);
+    return dist / sqrt(2.0);
     
     /*
     // calculate average pixel density of each image

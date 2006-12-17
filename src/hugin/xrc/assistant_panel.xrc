@@ -14,6 +14,8 @@
               
               
               
+              
+              
               <size>0,12</size>
                   </object>
             <object class="sizeritem">
@@ -25,9 +27,13 @@
                     
                     
                     
+                    
+                    
                     <label>1. Load images...</label>
                           
                           
+                    
+                    
                     
                     
                     
@@ -38,7 +44,11 @@
                       
                   
                   
+                  
+                  
                   <flag>wxBOTTOM</flag>
+                  
+                  
                   
                   
                   <border>12</border>
@@ -51,6 +61,8 @@
                     
                         
                         
+                        
+                        
                         <label>no images loaded</label>
                   </object>
                   
@@ -58,7 +70,11 @@
                 
                       
                       
+                      
+                      
                       <flag>wxBOTTOM|wxEXPAND|wxADJUST_MINSIZE</flag>
+                      
+                      
                       
                       
                       <border>6</border>
@@ -66,7 +82,11 @@
                   </object>
                   
                   
+                  
+                  
                   <flag>wxLEFT|wxEXPAND</flag>
+                  
+                  
                   
                   
                   <border>15</border>
@@ -79,11 +99,17 @@
                             
                                 
                         
+                        
+                        
                         <label>Automatic (use EXIF data)</label>
                           </object>
                         
                       
+                      
+                      
                       <flag>wxTOP|wxBOTTOM</flag>
+                      
+                      
                       
                       <border>6</border>
                     </object>
@@ -96,15 +122,23 @@
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   
+                                  
+                                  
                                   <label>Lens type:</label>
+                                  
+                                  
                                   
                                   <style>wxALIGN_RIGHT</style>
                                 </object>
+                                
+                                
                                 
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxChoice" name="ass_lens_proj_choice">
+                                  
+                                  
                                   
                                   <content>
                                     <item>Normal (rectilinear)</item>
@@ -119,11 +153,17 @@
                               <hgap>6</hgap>
                             </object>
                             
+                            
+                            
                             <flag>wxLEFT|wxEXPAND</flag>
+                            
+                            
                             
                             <border>12</border>
                           </object>
                           <object class="spacer">
+                            
+                            
                             
                             <size>0,6</size>
                           </object>
@@ -132,10 +172,16 @@
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   
+                                  
+                                  
                                   <label>Focal length:</label>
+                                  
+                                  
                                   
                                   <style>wxALIGN_RIGHT</style>
                                 </object>
+                                
+                                
                                 
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
@@ -147,18 +193,28 @@
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   
+                                  
+                                  
                                   <label>mm</label>
                                 </object>
+                                
+                                
                                 
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   
+                                  
+                                  
                                   <label>Focal length multiplier:</label>
                                 </object>
                                 
+                                
+                                
                                 <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                
+                                
                                 
                                 <border>20</border>
                               </object>
@@ -168,18 +224,28 @@
                               <object class="sizeritem">
                                 <object class="wxStaticText">
                                   
+                                  
+                                  
                                   <label>x</label>
                                 </object>
+                                
+                                
                                 
                                 <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                             </object>
                             
+                            
+                            
                             <flag>wxLEFT|wxEXPAND</flag>
+                            
+                            
                             
                             <border>12</border>
                           </object>
                           <object class="spacer">
+                            
+                            
                             
                             <size>0,6</size>
                           </object>
@@ -188,18 +254,26 @@
                         
                             
                               
+                              
+                              
                               <label>Load lens...</label>
                         
                             
                       </object>
                     
                             
+                            
+                            
                             <flag>wxLEFT</flag>
+                            
+                            
                             
                             <border>12</border>
                           </object>
                         </object>
                       </object>
+                      
+                      
                       
                       <flag>wxEXPAND</flag>
                     </object>
@@ -207,6 +281,8 @@
                   </object>
                 </object>
                 <object class="spacer">
+                  
+                  
                   
                   
                   
@@ -219,9 +295,13 @@
                     
                     
                     
+                    
+                    
                     <label>2. Align...</label>
                           
                           
+                    
+                    
                     
                     
                     
@@ -232,7 +312,11 @@
                       
                   
                   
+                  
+                  
                   <flag>wxBOTTOM</flag>
+                  
+                  
                   
                   
                   <border>12</border>
@@ -242,11 +326,17 @@
                     
                     
                     
+                    
+                    
                     <label>\n\n\n\n</label>
                   
                     
+                    
+                    
                     <style></style>
                   </object>
+                  
+                  
                   
                   
                   
@@ -254,9 +344,13 @@
                   
                   
                   
+                  
+                  
                   <border>15</border>
                 </object>
                 <object class="spacer">
+                  
+                  
                   
                   
                   
@@ -269,9 +363,13 @@
                     
                     
                     
+                    
+                    
                     <label>3. Create panorama...</label>
                           
                           
+                    
+                    
                     
                     
                     
@@ -287,7 +385,11 @@
               
               
               
+              
+              
               <option>1</option>
+              
+              
               
               
               
@@ -299,11 +401,19 @@
               
               
               
+              
+              
               <size>0,12</size>
                   </object>
             <object class="sizeritem">
-              <object class="unknown" name="ass_druid"/>
+              <object class="unknown" name="ass_druid">
+                <hidden>1</hidden>
+              </object>
+              
+              
               <flag>wxRIGHT</flag>
+              
+              
               <border>10</border>
             </object>
           </object>
@@ -311,7 +421,11 @@
         
         
         
+        
+        
         <option>1</option>
+        
+        
         
         
         
@@ -319,11 +433,13 @@
         
         
         
+        
+        
         <border>10</border>
       </object>
     </object>
   </object>
-  <object class="wxDialog" name="focal_length_dialog">
+  <object class="wxDialog" name="dlg_focallength">
     <title>Enter focal length and lens type</title>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
@@ -331,40 +447,39 @@
         <object class="wxBoxSizer">
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
-              <object class="sizeritem">
-                <object class="wxCheckBox" name="ass_exif_cb">
-                            
-                                
-                  
-                  <label></label>
-                          </object>
-                        </object>
-              <object class="sizeritem">
-                <object class="wxStaticText">
-                            
-                                
-                  
-                  <label>Automatic (use EXIF data)</label>
-                          </object>
-                        </object>
+            <object class="wxStaticText">
+              
+              <label>No information about focal length and field of view were
+found in the images. Please enter the data of your camera
+and lens below.</label>
             </object>
-                    </object>
+          </object>
+          <object class="spacer">
+            
+            <size>0,10</size>
+          </object>
           <object class="sizeritem">
             <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxStaticText">
                   
+                  
+                  
                   <label>Lens type:</label>
+                  
+                  
                   
                   <style>wxALIGN_RIGHT</style>
                 </object>
                 
+                
+                
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
-                <object class="wxChoice" name="ass_lens_choice">
+                <object class="wxChoice" name="lensdlg_type_choice">
+                  
+                  
                   
                   <content>
                     <item>Normal (rectilinear)</item>
@@ -373,88 +488,152 @@
                     <item>Full frame fisheye</item>
                     <item>Equirectangular</item>
                   </content>
+                
+                  
+                  <selection>0</selection>
                 </object>
               </object>
               <cols>2</cols>
               <hgap>6</hgap>
             </object>
             
+            
+            
             <flag>wxLEFT|wxEXPAND</flag>
+            
+            
             
             <border>12</border>
           </object>
           <object class="spacer">
             
-            <size>0,6</size>
+            
+            
+            <size>0,10</size>
           </object>
           <object class="sizeritem">
             <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxStaticText">
                   
+                  
+                  
                   <label>Focal length:</label>
+                  
+                  
                   
                   <style>wxALIGN_RIGHT</style>
                 </object>
                 
+                
+                
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
-                <object class="wxTextCtrl" name="ass_focallength_text"/>
+                <object class="wxTextCtrl" name="lensdlg_focallength_text">
+                  
+                  <value>35</value>
+                </object>
               </object>
-              <cols>5</cols>
+              <cols>6</cols>
               <hgap>6</hgap>
               <object class="sizeritem">
                 <object class="wxStaticText">
                   
-                  <label>Focal length multiplier:</label>
+                  
+                  
+                  <label>mm</label>
                 </object>
                 
-                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
                 
-                <border>20</border>
-              </object>
-              <object class="sizeritem">
-                <object class="wxTextCtrl" name="ass_crop_factor_text"/>
+                
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
                   
+                  
+                  
+                  <label>Focal length multiplier:</label>
+                </object>
+                
+                
+                
+                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                
+                
+                
+                <border>20</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxTextCtrl" name="lensdlg_crop_factor_text">
+                  
+                  <value>1</value>
+                </object>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  
+                  
+                  
                   <label>x</label>
                 </object>
+                
+                
                 
                 <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
               </object>
             </object>
             
+            
+            
             <flag>wxLEFT|wxEXPAND</flag>
+            
+            
             
             <border>12</border>
           </object>
           <object class="spacer">
             
+            
+            
             <size>0,6</size>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="ass_load_lens_data">
+            <object class="wxButton" name="lensdlg_load_lens_data">
                         
                             
               
-              <label>Load lens...</label>
+              
+              
+              <label>Load lens data...</label>
                         
                             
+              
+              
+                      
+              
+              <style></style>
               
               <enabled>0</enabled>
-                      </object>
+            </object>
                     
             
-            <flag>wxLEFT</flag>
+            
+            
+            <flag>wxLEFT|wxALIGN_RIGHT</flag>
+            
+            
             
             <border>12</border>
           </object>
         </object>
         
+        
+        
         <flag>wxALL</flag>
+        
+        
         
         <border>10</border>
       </object>
@@ -463,23 +642,37 @@
           <orient>wxHORIZONTAL</orient>
           <object class="spacer">
             
+            
+            
             <size>0,0</size>
+            
+            
             
             <option>1</option>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
               
+              
+              
               <label></label>
             </object>
             
+            
+            
             <flag>wxRIGHT</flag>
+            
+            
             
             <border>8</border>
           </object>
         </object>
         
+        
+        
         <flag>wxALL|wxEXPAND</flag>
+        
+        
         
         <border>5</border>
       </object>

@@ -713,7 +713,9 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 {
                     double c=0;
                     double roll = 0;
-                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, roll);
+                    VariableMap vars = pano.getImageVariables(imgNr);
+                    ImageOptions imgopts;
+                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
                     GlobalCmdHist::getInstance().addCommand(
                         new PT::ChangeLensCmd( pano, lensNr,
                                                lens )
@@ -788,7 +790,6 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
     }
 }
 
-
 void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 {
     if (m_selectedImages.size() == 1) {
@@ -797,71 +798,15 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         Lens lens = pano.getLens(lensNr);
         VariableMap vars = pano.getImageVariables(imgNr);
         ImageOptions imgopts = pano.getImage(imgNr).getOptions();
-        wxString fname;
-        wxFileDialog dlg(this,
-                         _("Load lens parameters"),
-                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
-                         _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            fname = dlg.GetPath();
-            wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
-            // read with with standart C numeric format
-            char * old_locale = setlocale(LC_NUMERIC,NULL);
-            setlocale(LC_NUMERIC,"C");
-            {
-                wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-                int integer=0;
-                double d;
-                cfg.Read(wxT("Lens/type"), &integer);
-                lens.setProjection ((Lens::LensProjectionFormat) integer);
-                cfg.Read(wxT("Lens/crop"), &d);
-                lens.setCropFactor(d);
-                cfg.Read(wxT("Lens/hfov"), &d);
-                map_get(vars,"v").setValue(d);
-                DEBUG_DEBUG("read lens hfov: " << d);
 
-                // loop to load lens variables
-                char ** varname = Lens::variableNames;
-                while (*varname) {
-                    wxString key(wxT("Lens/"));
-                    key.append(wxString(*varname, *wxConvCurrent));
-                    d = 0;
-                    if (cfg.Read(key,&d)) {
-                        // only set value if variabe was found in the script
-                        map_get(vars,*varname).setValue(d);
-
-                        integer = 1;
-                        key.append(wxT("_link"));
-                        cfg.Read(key, &integer);
-                        map_get(lens.variables, *varname).setLinked(integer != 0);
-                    }
-
-
-                    varname++;
-                }
-                long vigCorrMode=0;
-                cfg.Read(wxT("Lens/vigCorrMode"), &vigCorrMode);
-                imgopts.m_vigCorrMode = vigCorrMode;
-
-                wxString flatfield;
-                bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
-                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
-
-                // TODO: crop parameters
-
-            }
-            // reset locale
-            setlocale(LC_NUMERIC,old_locale);
-
+        if (LoadLensParametersChoose(lens, vars, imgopts)) {
             GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeLensCmd(pano, lensNr, lens)
-                );
+                    new PT::ChangeLensCmd(pano, lensNr, lens)
+                                                );
             GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImageVariablesCmd(pano, imgNr, vars)
-                );
-
-            // get all images with the current lens.
+                    new PT::UpdateImageVariablesCmd(pano, imgNr, vars)
+                                                );
+                // get all images with the current lens.
             UIntSet imgs;
             for (unsigned int i = 0; i < pano.getNrOfImages(); i++) {
                 if (pano.getImage(i).getLensNr() == lensNr) {
@@ -869,7 +814,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
                 }
             }
 
-            // set image options.
+                // set image options.
             GlobalCmdHist::getInstance().addCommand(
                     new PT::SetImageOptionsCmd(pano, imgopts, imgs) );
         }
@@ -877,6 +822,71 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         wxLogError(_("Please select an image and try again"));
     }
 }
+
+
+bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & imgopts)
+{
+    wxString fname;
+    wxFileDialog dlg(0,
+                        _("Load lens parameters"),
+                        wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
+                        _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
+                        wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        fname = dlg.GetPath();
+        wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
+        // read with with standart C numeric format
+        char * old_locale = setlocale(LC_NUMERIC,NULL);
+        setlocale(LC_NUMERIC,"C");
+        {
+            wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
+            int integer=0;
+            double d;
+            cfg.Read(wxT("Lens/type"), &integer);
+            lens.setProjection ((Lens::LensProjectionFormat) integer);
+            cfg.Read(wxT("Lens/crop"), &d);
+            lens.setCropFactor(d);
+            cfg.Read(wxT("Lens/hfov"), &d);
+            map_get(vars,"v").setValue(d);
+            DEBUG_DEBUG("read lens hfov: " << d);
+
+            // loop to load lens variables
+            char ** varname = Lens::variableNames;
+            while (*varname) {
+                wxString key(wxT("Lens/"));
+                key.append(wxString(*varname, *wxConvCurrent));
+                d = 0;
+                if (cfg.Read(key,&d)) {
+                    // only set value if variabe was found in the script
+                    map_get(vars,*varname).setValue(d);
+
+                    integer = 1;
+                    key.append(wxT("_link"));
+                    cfg.Read(key, &integer);
+                    map_get(lens.variables, *varname).setLinked(integer != 0);
+                }
+
+
+                varname++;
+            }
+            long vigCorrMode=0;
+            cfg.Read(wxT("Lens/vigCorrMode"), &vigCorrMode);
+            imgopts.m_vigCorrMode = vigCorrMode;
+
+            wxString flatfield;
+            bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
+            imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
+
+            // TODO: crop parameters
+        }
+        // reset locale
+        setlocale(LC_NUMERIC,old_locale);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 void LensPanel::OnNewLens(wxCommandEvent & e)
 {
@@ -886,7 +896,9 @@ void LensPanel::OnNewLens(wxCommandEvent & e)
         Lens l;
         double crop=0;
         double roll=0;
-        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l, roll);
+        VariableMap vars = pano.getImageVariables(imgNr);
+        ImageOptions imgopts;
+        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l, vars, imgopts, false);
         GlobalCmdHist::getInstance().addCommand(
             new PT::AddNewLensToImagesCmd(pano, l, m_selectedImages)
             );
@@ -983,10 +995,13 @@ void LensPanel::OnCrop ( wxCommandEvent & e )
 
 
 
-bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l, double & roll)
+bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l,
+                      VariableMap & vars, ImageOptions & imgopts, bool sameSettings)
 {
+    double roll = 0;
     if (!l.initFromFile(filename, cropFactor, roll)) {
         if (cropFactor == -1) {
+            map_get(vars,"r").setValue(roll);
             cropFactor = 1;
             wxConfigBase::Get()->Read(wxT("/LensDefaults/CropFactor"), &cropFactor);
             wxString tval;
@@ -998,11 +1013,50 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
             l.m_hasExif = true;
             return l.initFromFile(filename, cropFactor, roll);
         } else {
+            // override dialog, if forced to use the same settings.
+            if (sameSettings) {
+                return true;
+            }
             // no exif info found.. ask user for all details
+            bool valid=false;
             l.m_hasExif = false;
+            while (!valid)
+            {
+                wxDialog dlg;
+                wxXmlResource::Get()->LoadDialog(&dlg, MainFrame::Get(), wxT("dlg_focallength"));
+                int ret = dlg.ShowModal();
+                if (ret == wxID_OK) {
+                    l.setProjection( (Lens::LensProjectionFormat)XRCCTRL(dlg, "lensdlg_type_choice", wxChoice)->GetSelection() );
+
+                    wxString text = XRCCTRL(dlg, "lensdlg_crop_factor_text", wxTextCtrl)->GetValue();
+                    double c;
+                    if (!str2double(text, c)) {
+                        wxLogError(_("The crop factor must be numeric."));
+                        continue;
+                    }
+                    l.setCropFactor(c);
+                    cropFactor = c;
+
+                    text = XRCCTRL(dlg, "lensdlg_focallength_text", wxTextCtrl)->GetValue();
+                    double f;
+                    if (!str2double(text, f)) {
+                        wxLogError(_("The focal length value must be numeric."));
+                        continue;
+                    }
+                    l.setFocalLength(f);
+                    valid = true;
+                } else if (ret == XRCID("lensdlg_load_lens_data") ) {
+                    // try to load lens data from ini file
+                    if (!LoadLensParametersChoose(l, vars, imgopts) ) {
+                        continue;
+                    }
+                    valid = true;
+                }
+            }
         }
         return false;
     }
+    map_get(vars,"r").setValue(roll);
     l.m_hasExif = true;
     return true;
 }

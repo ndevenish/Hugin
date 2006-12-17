@@ -1,5 +1,6 @@
 # Files containing translateable strings
 
+src/hugin/AssistantPanel.cpp
 src/hugin/AutoCtrlPointCreator.cpp
 src/hugin/CommandHistory.cpp
 src/hugin/CPEditorPanel.cpp
@@ -34,6 +35,7 @@ src/include/hugin/MyProgressDialog.h
 src/include/hugin/wxPanoCommand.h
 
 # XRC resource files
+src/hugin/xrc/assistant_panel.xrs
 src/hugin/xrc/about.xrs
 src/hugin/xrc/anchor_orientation.xrs
 src/hugin/xrc/cp_editor_panel.xrs

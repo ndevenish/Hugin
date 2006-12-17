@@ -384,7 +384,7 @@ bool PreferencesDialog::GetPanoVersion()
 	hDll = LoadLibrary(_T("pano13.dll"));
 	if(!hDll)
 	{
-		MessageBox((HWND)NULL, _("Could not load dll"), _("panoinfo"), MB_ICONEXCLAMATION);
+		//MessageBox((HWND)NULL, _("Could not load dll"), _("panoinfo"), MB_ICONEXCLAMATION);
 		bSuccess = false;
 		goto cleanup;
 	}
@@ -688,6 +688,7 @@ void PreferencesDialog::UpdateDisplayData()
 
     /////
 	/// Display Panotools version if we can
+
 	if (GetPanoVersion())
 	{
   	  MY_STATIC_VAL("prefs_panotools_version", m_PTVersion);

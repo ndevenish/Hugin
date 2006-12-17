@@ -531,6 +531,7 @@ class PanoramaMemento
 {
 public:
     PanoramaMemento()
+     : needsOptimization(false)
         { };
     /// copy ctor.
 //    PanoramaMemento(const PanoramaMemento & o);
@@ -571,6 +572,11 @@ private:
     PanoramaOptions options;
 
     OptimizeVector optvec;
+
+    // indicates that changes have been made to
+    // control points or lens parameters after the
+    // last optimisation
+    bool needsOptimization;
 };
 
 } // namespace

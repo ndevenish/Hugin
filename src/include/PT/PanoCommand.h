@@ -308,6 +308,7 @@ namespace PT {
                 PanoCommand::execute();
                 pano.updateVariables(m_imgs, vars);
                 pano.updateCtrlPointErrors(m_imgs, cps);
+                pano.markAsOptimized();
                 pano.changeFinished();
             }
         virtual std::string getName() const

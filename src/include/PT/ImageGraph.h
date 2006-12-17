@@ -48,13 +48,17 @@ typedef boost::adjacency_list<boost::vecS, boost::vecS,
                               boost::undirectedS,
                               boost::property<boost::vertex_color_t, boost::default_color_type> > CPGraph;
 
+/** components in a control point graph */
+typedef std::vector< std::set<unsigned> > CPComponents;
+
 /** create a control point graph structure, with links representing one or
  *  more control points
  *
  */
 void createCPGraph(const Panorama & pano, CPGraph & graph);
 
-
+int findCPComponents(const CPGraph & graph, 
+                     CPComponents & comp);
 
 typedef boost::property<boost::edge_weight_t, float> OverlapEdgeProperty;
 

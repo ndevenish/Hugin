@@ -136,6 +136,7 @@ public:
     void OnDoStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
 
+    void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
 
 protected:
     // called when a progress message should be displayed

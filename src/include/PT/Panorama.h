@@ -557,6 +557,15 @@ public:
     bool isDirty() const
         { return dirty; }
 
+    /** true if control points or lens variables
+     *  have been changed after the last optimisation
+     */
+    bool needsOptimization()
+        { return state.needsOptimization; };
+
+    void markAsOptimized(bool optimized=true)
+        { state.needsOptimization = !optimized; };
+
     /** mark an image as active or inactive.
         *
         *  This is only a flag, that can be turned on or off.

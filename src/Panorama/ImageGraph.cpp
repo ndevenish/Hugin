@@ -29,6 +29,8 @@
 
 #include <vigra_ext/ImageTransforms.h>
 
+#include <boost/graph/connected_components.hpp>
+
 using namespace PT;
 using namespace boost;
 using namespace vigra;
@@ -36,6 +38,7 @@ using namespace vigra_ext;
 using namespace std;
 
 typedef property_map<CPGraph, vertex_index_t>::type CPGraphIndexMap;
+
 
 void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
 {
@@ -68,6 +71,24 @@ void PT::createCPGraph(const Panorama & pano, CPGraph & graph)
     }
 }
 
+int PT::findCPComponents(const CPGraph & graph, 
+                     CPComponents & comp)
+{
+    std::vector<unsigned> component(num_vertices(graph));
+    unsigned num = connected_components(graph, &component[0]);
+
+    // collect components
+    comp.clear();
+    std::set<unsigned> empty;
+    comp.push_back(empty);
+    for (unsigned i=0; i < component.size(); i++) {
+        if (comp.size() < component[i]+1) {
+            comp.push_back(empty);
+        }
+        comp[component[i]].insert(i);
+    }
+    return num;
+}
 
 typedef property_map<OverlapGraph, vertex_index_t>::type OverlayGraphIndexMap;
 
