@@ -24,8 +24,6 @@
 #ifndef _PREVIEWFRAME_H
 #define _PREVIEWFRAME_H
 
-#include "hugin/PanoDruid.h"
-
 class PreviewPanel;
 class wxToolBar;
 class wxToggleButton;
@@ -91,7 +89,6 @@ private:
 	wxBoxSizer * m_ButtonSizer;
 	wxStaticBoxSizer * m_ToggleButtonSizer;
 
-    PanoDruid *m_druid;
 #ifdef USE_TOGGLE_BUTTON
     std::vector<wxToggleButton *> m_ToggleButtons;
 #else

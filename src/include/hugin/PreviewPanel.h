@@ -80,8 +80,13 @@ private:
     void OnResize(wxSizeEvent & e);
     void OnDraw(wxPaintEvent & event);
     void OnMouse(wxMouseEvent & e);
+    void mousePressRMBEvent(wxMouseEvent & e);
+    void mousePressLMBEvent(wxMouseEvent & e);
+
     void OnUpdatePreview(wxCommandEvent & e);
     void DrawOutline(const std::vector<FDiff2D> & points, wxDC & dc, int offX, int offY);
+
+    void mouse2erect(int xm, int ym, double &xd, double & yd);
 
     /** the model */
     PT::Panorama &pano;
@@ -98,9 +103,12 @@ private:
     // panorama options
     PT::PanoramaOptions opts;
 
+    // transformation for current preview coordinates into equirect coordinates
+    PTools::Transform * m_pano2erect;
+
     // cache for remapped images
     SmallRemappedImageCache m_remapCache;
-    
+
     BlendMode m_blendMode;
 
     PreviewFrame * parentWindow;

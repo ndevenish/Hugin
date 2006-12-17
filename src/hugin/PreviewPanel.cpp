@@ -37,6 +37,7 @@
 #include "hugin/PreviewPanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/MainFrame.h"
+#include "hugin/CommandHistory.h"
 #include "hugin/config_defaults.h"
 //#include "hugin/ImageProcessing.h"
 
@@ -54,6 +55,8 @@ BEGIN_EVENT_TABLE(PreviewPanel, wxPanel)
 //    EVT_MOTION(CPImageCtrl::mouseMoveEvent)
 //    EVT_LEFT_UP(CPImageCtrl::mouseReleaseEvent)
     EVT_SIZE(PreviewPanel::OnResize)
+    EVT_LEFT_DOWN(PreviewPanel::mousePressLMBEvent)
+    EVT_RIGHT_DOWN(PreviewPanel::mousePressRMBEvent)
     EVT_MOUSE_EVENTS ( PreviewPanel::OnMouse )
     EVT_PAINT ( PreviewPanel::OnDraw )
 END_EVENT_TABLE()
@@ -63,6 +66,7 @@ PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
                wxSize(256,128), wxEXPAND),
     pano(*pano2), m_autoPreview(false),m_panoImgSize(1,1),
     m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent),
+    m_pano2erect(0),
     m_state_rendering(false), m_rerender(false), m_imgsDirty(true)
 
 {
@@ -77,6 +81,9 @@ PreviewPanel::~PreviewPanel()
     pano.removeObserver(this);
     if (m_panoBitmap) {
         delete m_panoBitmap;
+    }
+    if (m_pano2erect) {
+        delete m_pano2erect;
     }
 	delete & vigra_ext::ThreadManager::get();
     DEBUG_TRACE("dtor end");
@@ -185,6 +192,7 @@ void PreviewPanel::updatePreview()
         m_rerender = true;
         return;
     }
+
     DEBUG_DEBUG("m_state_rendering = true");
     m_state_rendering = true;
     m_rerender = false;
@@ -237,8 +245,9 @@ void PreviewPanel::updatePreview()
     }
 
     PanoramaOptions opts = pano.getOptions();
-    opts.setWidth(m_panoImgSize.x);
-    m_panoImgSize.y = opts.getHeight();
+    opts.setWidth(m_panoImgSize.x, false);
+    opts.setHeight(m_panoImgSize.y);
+    //m_panoImgSize.y = opts.getHeight();
     // always use bilinear for preview.
     opts.interpolator = vigra_ext::INTERP_BILINEAR;
 
@@ -301,6 +310,16 @@ void PreviewPanel::updatePreview()
         DEBUG_ERROR("error during stitching: " << e.what());
         wxMessageBox(wxString(e.what(), *wxConvCurrent), _("Error during Stitching"));
     }
+
+    // update the transform for pano -> erect coordinates
+    if (m_pano2erect) delete m_pano2erect;
+    SrcPanoImage src;
+    src.setProjection(SrcPanoImage::EQUIRECTANGULAR);
+    src.setHFOV(360);
+    src.setSize(Size2D(360,180));
+    m_pano2erect = new PTools::Transform;
+    m_pano2erect->createTransform(src, opts);
+
     if (m_panoBitmap) {
         delete m_panoBitmap;
     }
@@ -405,11 +424,84 @@ void PreviewPanel::OnResize(wxSizeEvent & e)
     }
 }
 
+
+void PreviewPanel::mousePressLMBEvent(wxMouseEvent & e)
+{
+    DEBUG_DEBUG("mousePressLMBEvent: " << e.m_x << "x" << e.m_y);
+    double yaw, pitch;
+    mouse2erect(e.m_x, e.m_y,  yaw, pitch);
+    // calculate new rotation angles.
+    Matrix3 rotY;
+    rotY.SetRotationPT(DEG_TO_RAD(-yaw), 0, 0);
+    Matrix3 rotP;
+    rotP.SetRotationPT(0, DEG_TO_RAD(pitch), 0);
+
+    double y,p,r;
+    Matrix3 rot = rotP * rotY;
+    rot.GetRotationPT(y,p,r);
+    y = RAD_TO_DEG(y);
+    p = RAD_TO_DEG(p);
+    r = RAD_TO_DEG(r);
+    DEBUG_DEBUG("rotation angles pitch*yaw: " << y << " " << p << " " << r);
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::RotatePanoCmd(pano, y, p, r)
+        );
+    if (!m_autoPreview) {
+        ForceUpdate();
+    }
+}
+
+
+void PreviewPanel::mousePressRMBEvent(wxMouseEvent & e)
+{
+    DEBUG_DEBUG("mousePressRMBEvent: " << e.m_x << "x" << e.m_y);
+    double yaw, pitch;
+    mouse2erect(e.m_x, e.m_y,  yaw, pitch);
+    // theta, phi: spherical coordinates in mathworld notation.
+    double theta = DEG_TO_RAD(yaw);
+    double phi = DEG_TO_RAD(90+pitch);
+    // convert to cartesian coordinates.
+    double x = cos(theta)* sin(phi);
+    double y = sin(theta)* sin(phi);
+    double z = cos(phi);
+    DEBUG_DEBUG("theta: " << theta << " phi: " << phi << " x y z:" << x << " " << y << " " << z);
+    double roll = RAD_TO_DEG(atan(z/y));
+
+    DEBUG_DEBUG("roll correction: " << roll);
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::RotatePanoCmd(pano, 0, 0, roll)
+        );
+    if (!m_autoPreview) {
+        ForceUpdate();
+    }
+}
+
+
 void PreviewPanel::OnMouse(wxMouseEvent & e)
 {
-    DEBUG_DEBUG("OnMouse: " << e.m_x << "x" << e.m_y);
-    // display current pixel values in status bar
-    
+    double yaw, pitch;
+    mouse2erect(e.m_x, e.m_y,  yaw, pitch);
+}
+
+void PreviewPanel::mouse2erect(int xm, int ym, double &xd, double & yd)
+{
+    int offsetX=0, offsetY=0;
+
+    if (m_pano2erect) {
+        wxSize sz = GetClientSize();
+        if (sz.GetWidth() > m_panoImgSize.x) {
+            offsetX = (sz.GetWidth() - m_panoImgSize.x) / 2;
+        }
+        if (sz.GetHeight() > m_panoImgSize.y) {
+            offsetY = (sz.GetHeight() - m_panoImgSize.y) / 2;
+        }
+        double x = xm - offsetX - m_panoImgSize.x/2;
+        double y = ym - offsetY - m_panoImgSize.y/2;
+        m_pano2erect->transform(xd, yd, x, y);
+        DEBUG_DEBUG("pano: " << x << " " << y << "  erect: " << xd << "° " << yd << "°");
+     }
 }
 
 void PreviewPanel::DrawOutline(const vector<FDiff2D> & points, wxDC & dc, int offX, int offY)

@@ -224,20 +224,12 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
 
     wxConfigBase * config = wxConfigBase::Get();
-    long showDruid = config->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID);
-    if (showDruid) {
-        m_druid = new PanoDruid(this);
-        topsizer->Add(m_druid, 0, wxEXPAND | wxALL | wxADJUST_MINSIZE, 5);
-        m_druid->Update(m_pano);
-    } else {
-        m_druid = 0;
-    }
 
     // add a status bar
     CreateStatusBar(2);
     int widths[2] = {-1, 150};
     SetStatusWidths(2, widths);
-    SetStatusText(wxT(""),0);
+    SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxT(""),1);
 
     // the initial size as calculated by the sizers
@@ -271,6 +263,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/PreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
+    SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
 
 }
 
@@ -325,10 +318,10 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_ProjectionChoice->SetSelection(opts.getProjection());
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
+    SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),1);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
-    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -401,7 +394,6 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 		// Layout();
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
-        if (m_druid) m_druid->Update(m_pano);
     }
 }
 
@@ -462,7 +454,6 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
 void PreviewFrame::OnUpdate(wxCommandEvent& event)
 {
     m_PreviewPanel->ForceUpdate();
-    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::updatePano()
@@ -470,7 +461,6 @@ void PreviewFrame::updatePano()
     if (!m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"))) {
         m_PreviewPanel->ForceUpdate();
     }
-    if (m_druid) m_druid->Update(m_pano);
 }
 
 void PreviewFrame::OnFitPano(wxCommandEvent & e)
@@ -636,7 +626,7 @@ void PreviewFrame::updateProgressDisplay()
     }
     wxStatusBar *m_statbar = GetStatusBar();
     DEBUG_TRACE("Statusmb : " << msg.mb_str());
-    m_statbar->SetStatusText(msg,0);
+    //m_statbar->SetStatusText(msg,0);
 
 #ifdef __WXMSW__
     UpdateWindow(NULL);
@@ -647,48 +637,3 @@ void PreviewFrame::updateProgressDisplay()
 #endif
 }
 
-
-//////////////////////////////////////////////////////////////////////////////
-
-// The Panorama Druid is a set of tiered heuristics and advice on how to
-// improve the current panorama.
-
-struct advocation
-{
-	const wxChar* name;
-	const wxChar* graphic;
-	const wxChar* brief;
-	const wxChar* text;
-};
-
-static struct advocation _advice[] =
-{
-	{ wxT("ERROR"), wxT("druid.images.128.png"), // "ERROR" must be at index 0
-	  _("The druid has no advice at this time."), wxT("") },
-
-	{ wxT("READY"), wxT("druid.stitch.128.png"),
-	  _("The druid finds no problems with your panorama."),
-	  _("Stitch your final image now, and then use an image editor\nsuch as the GNU Image Manipulation Program (the GIMP)\nto add any finishing touches.") },
-
-	{ wxT("NO IMAGES"), wxT("druid.images.128.png"),
-	  _("To get started, add some image files."),
-	  _("You can add any number of images using the Images tab.") },
-
-	{ wxT("ONE IMAGE"), wxT("druid.images.128.png"),
-	  _("Add at least one more image."),
-	  _("You should have at least two files listed in the Images tab.") },
-
-	{ wxT("LOW HFOV"), wxT("druid.lenses.128.png"),
-	  _("The Horizontal Field of View (HFOV) may be too low."),
-	  _("Check that the focal lengths and/or hfov figures\nfor each image are correct for the camera settings.\nThen calculate the visible field of view again.\nHFOV is measured in degrees of arc, usually between\n5 and 120 degrees per image unless using specialized\nlenses.") },
-
-	{ wxT("HUGE FINAL"), wxT("druid.stitch.128.png"),
-	  _("Warning:  current stitch has huge dimensions."),
-	  _("Very large pixel dimensions are currently entered.\nSome computers may take an excessively long time\nto render such a large final image.\nFor best results, use the automatic Calc button on\nthe Panorama Options tab to determine the\npixel dimensions which will give the best quality.") },
-
-	{ wxT("UNSAVED"), wxT("druid.stitch.128.png"),
-	  _("Warning:  you haven't saved the current project."),
-	  _("While everything else seems to be ready to stitch,\ndon't forget to save your project file so you can\nexperiment or adjust the settings later.") },
-
-	{ NULL, NULL, wxT("") }
-};
