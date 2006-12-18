@@ -264,6 +264,42 @@ void PTools::autoOptimise(PT::Panorama & pano)
     */
 }
 
+OptimizeVector PTools::createOptVars(const Panorama & optPano, int mode)
+{
+    OptimizeVector optvars;
+    for (unsigned i=0; i < optPano.getNrOfImages(); i++) {
+        set<string> imgopt;
+        if (i!=0) {
+            if (mode & OPT_POS)
+            // except for first image, optimize position
+            imgopt.insert("r");
+            imgopt.insert("p");
+            imgopt.insert("y");
+        }
+        if (mode & OPT_HFOV) {
+            imgopt.insert("v");
+        }
+        if (mode & OPT_B)
+            imgopt.insert("b");
+        if (mode & OPT_AC) {
+            imgopt.insert("a");
+            imgopt.insert("c");
+        }
+        if (mode & OPT_DE) {
+            imgopt.insert("d");
+            imgopt.insert("e");
+        }
+        if (mode & OPT_GT) {
+            imgopt.insert("g");
+            imgopt.insert("t");
+        }
+        optvars.push_back(imgopt);
+    }
+
+    return optvars;
+}
+
+
 /** use various heuristics to decide what to optimize.
  */
 void PTools::smartOptimize(PT::Panorama & optPano)
@@ -278,50 +314,100 @@ void PTools::smartOptimize(PT::Panorama & optPano)
         }
     }
     optPano.setCtrlPoints(newCP);
-
     PTools::autoOptimise(optPano);
 
-    // do global optimisation with all control points.
+    // do global optimisation of position with all control points.
     optPano.setCtrlPoints(cps);
+    OptimizeVector optvars = createOptVars(optPano, OPT_POS);
+    optPano.setOptimizeVector(optvars);
+    PTools::optimize(optPano);
 
-    // TODO insert heuristics for distortion and fov optimisation here
-    // do not optimize lens distortion if they are given already
-    bool optFOV = false;
-    int optDist = 1;  // 0 = none, 1=b, 2=abc, 3 all
+    //---------------------------------------------------------------
+    // Now with lens distortion
 
-    OptimizeVector optvars;
-    for (unsigned i=0; i < optPano.getNrOfImages(); i++) {
-        set<string> imgopt;
-        if (i!=0) {
-            // except for first image, optimize position
-            imgopt.insert("r");
-            imgopt.insert("p");
-            imgopt.insert("y");
-        }
-        if (optFOV) {
-            imgopt.insert("y");
-        }
-        switch (optDist) {
-            case 3:
-                imgopt.insert("d");
-                imgopt.insert("e");
-            case 2:
-                imgopt.insert("a");
-                imgopt.insert("c");
-            case 1:
-                imgopt.insert("b");
-                break;
-            case 0:
-            default:
-                break;
-        }
-        optvars.push_back(imgopt);
+    int optmode = OPT_POS;
+    double origHFOV = const_map_get(optPano.getImageVariables(0),"v").getValue();
+
+    // determine which parameters to optimize
+    double rmin, rmax, rmean, rvar, rq10, rq90;
+    optPano.calcCtrlPntsRadiStats(rmin, rmax, rmean, rvar, rq10, rq90);
+
+    DEBUG_DEBUG("Ctrl Point radi statistics: min:" << rmin << " max:" << rmax << " mean:" << rmean << " var:" << rvar << " q10:" << rq10 << " q90:" << rq90);
+
+    if (origHFOV > 30) {
+        // only optimize principal point if there are prespective effects
+        optmode |= OPT_DE;
     }
 
-    optPano.setOptimizeVector(optvars);
+    // heuristics for distortion and fov optimisation
+    if ( (rq90 - rq10) >= 1) {
+        // very well distributed control points 
+        optmode |= OPT_AC | OPT_B | OPT_HFOV;
+    } else if ( (rq90 - rq10) > 0.7) {
+        optmode |= OPT_AC | OPT_B;
+    } else {
+        optmode |= OPT_B;
+    }
 
+    // check if this is a 360 deg pano.
+    optPano.centerHorizontically();
+    FDiff2D fov = optPano.calcFOV();
+
+    if (fov.x >= 359) {
+        // optimize HFOV for 360 deg panos
+        optmode |= OPT_HFOV;
+    }
+
+    DEBUG_DEBUG("second optimization: " << optmode);
+
+    // save old pano, might be needed if optimization went wrong
+    PT::UIntSet allImgs;
+    fill_set(allImgs, 0, optPano.getNrOfImages()-1);
+    Panorama oldPano = optPano.getSubset(allImgs);
+    optvars = createOptVars(optPano, optmode);
+    optPano.setOptimizeVector(optvars);
     // global optimisation.
     PTools::optimize(optPano);
+
+    // --------------------------------------------------------------
+    // do some plausibility checks and reoptimize with less variables
+    // if something smells fishy
+    bool smallHFOV = false;
+    bool highDist = false;
+    bool highShift = false;
+    const VariableMapVector & vars = optPano.getVariables();
+    for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+    {
+        if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
+        if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
+        if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
+        if (fabs(const_map_get(*it,"c").getValue()) > 0.8) highDist = true;
+        if (fabs(const_map_get(*it,"d").getValue()) > 2000) highShift = true;
+        if (fabs(const_map_get(*it,"e").getValue()) > 2000) highShift = true;
+    }
+
+    if (smallHFOV || highDist || highShift) {
+        DEBUG_DEBUG("Optimization with strange result. status: HFOV: " << smallHFOV << " dist:" << highDist << " shift:" << highShift);
+        // something seems to be wrong
+        if (smallHFOV) {
+            // do not optimize HFOV
+            optmode &= ~OPT_HFOV;
+        }
+        if (highDist) {
+            optmode &= ~OPT_AC;
+        }
+        if (highShift) {
+            optmode &= ~OPT_DE;
+        }
+
+        // revert and redo optimisation
+        optPano = oldPano;
+        optvars = createOptVars(optPano, optmode);
+        optPano.setOptimizeVector(optvars);
+        DEBUG_DEBUG("recover optimisation: " << optmode);
+        // global optimisation.
+        PTools::optimize(optPano);
+    }
 }
 
 

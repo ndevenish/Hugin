@@ -56,6 +56,11 @@ void optimize(PT::Panorama & pano,
  */
 void smartOptimize(PT::Panorama & pano);
 
+
+enum OptMode {OPT_POS=1, OPT_B=2, OPT_AC=4, OPT_DE=8, OPT_HFOV=16, OPT_GT=32};
+// helper function for optvar creation
+PT::OptimizeVector createOptVars(const PT::Panorama & optPano, int mode);
+
 /*
 void optimize_PT(const PT::Panorama & pano,
                  const PT::UIntVector &imgs,

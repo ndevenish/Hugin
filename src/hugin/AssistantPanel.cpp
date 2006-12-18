@@ -359,7 +359,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     fill_set(imgs, 0, m_pano.getNrOfImages()-1);
 
     // TODO: make configurable
-    long nFeatures = 15;
+    long nFeatures = 20;
 
     /*
     bool createCtrlP = true;

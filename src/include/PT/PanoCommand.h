@@ -975,7 +975,7 @@ namespace PT {
         virtual void execute()
             {
                 PanoCommand::execute();
-                pano.rotatePanorama(y, p, r);
+                pano.rotate(y, p, r);
                 pano.changeFinished();
             }
         virtual std::string getName() const

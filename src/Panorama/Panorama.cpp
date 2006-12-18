@@ -1801,15 +1801,22 @@ void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
     imageChanged(imgNr);
 }
 
-void Panorama::rotatePanorama(double yaw, double pitch, double roll)
+void Panorama::straighten()
+{
+    
+}
+
+
+void Panorama::rotate(double yaw, double pitch, double roll)
 {
     Matrix3 transformMat;
     transformMat.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
     DEBUG_DEBUG("transform rotation matrix (PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat);
-//     Matrix3 transformMat2;
-//     transformMat2.SetRotation(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
-//     DEBUG_DEBUG("transform rotation matrix (non PT) for ypr:" << yaw << " " << pitch << " " << roll << std::endl << transformMat2);
+    rotate(transformMat);
+}
 
+void Panorama::rotate(const Matrix3 & transformMat)
+{
     for (unsigned int i = 0; i < state.images.size(); i++) {
         double y = map_get(state.variables[i], "y").getValue();
         double p = map_get(state.variables[i], "p").getValue();
@@ -1817,9 +1824,6 @@ void Panorama::rotatePanorama(double yaw, double pitch, double roll)
         Matrix3 mat;
         mat.SetRotationPT(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
         DEBUG_DEBUG("rotation matrix (PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat);
-/*        Matrix3 mat2;
-        mat2.SetRotation(DEG_TO_RAD(y), DEG_TO_RAD(p), DEG_TO_RAD(r));
-        DEBUG_DEBUG("rotation matrix (non PT) for img " << i << " << ypr:" << y << " " << p << " " << r << std::endl << mat2);*/
         Matrix3 rotated;
         rotated = transformMat * mat;
         DEBUG_DEBUG("rotation matrix after transform: " << rotated);
@@ -1923,6 +1927,73 @@ void Panorama::calcCtrlPntsErrorStats(double & min, double & max, double & mean,
         }
     }
     var = var/(n-1);
+}
+
+void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, double & var,
+                                     double & q10, double & q90, int imgNr) const
+{
+    // calculate statistics about distance of control points from image center
+    max = 0;
+    min = 1000;
+    mean = 0;
+    var = 0;
+
+    int n=0;
+    CPVector::const_iterator it;
+    const CPVector & cps = getCtrlPoints();
+    vector<double> radi;
+    for (it = cps.begin() ; it != cps.end(); it++) {
+        if (imgNr >= 0 && ((*it).image1Nr != imgNr || (*it).image2Nr != imgNr))
+        {
+            continue;
+        }
+        const PanoImage & img1 = getImage((*it).image1Nr);
+        const PanoImage & img2 = getImage((*it).image2Nr);
+        int w1 = img1.getWidth();
+        int h1 = img1.getHeight();
+        int w2 = img2.getWidth();
+        int h2 = img2.getHeight();
+
+        // normalized distance to image center
+        double x1 = ((*it).x1-(w1/2.0)) / (h1/2.0);
+        double y1 = ((*it).y1-(h1/2.0)) / (h1/2.0);
+        double x2 = ((*it).x2-(w1/2.0)) / (h1/2.0);
+        double y2 = ((*it).y2-(h1/2.0)) / (h1/2.0);
+
+        double r1 = sqrt(x1*x1 + y1*y1);
+        radi.push_back(r1);
+        double r2 = sqrt(x2*x2 + y2*y2);
+        radi.push_back(r2);
+
+        double x = r1;
+        n++;
+        double delta = x - mean;
+        mean += delta/n;
+        var += delta*(x - mean);
+        if (x > max) {
+            max= x;
+        }
+        if (x < min) {
+            min= x;
+        }
+
+        x = r2;
+        n++;
+        delta = x - mean;
+        mean += delta/n;
+        var += delta*(x - mean);
+        if (x > max) {
+            max= x;
+        }
+        if (x < min) {
+            min= x;
+        }
+    }
+    var = var/(n-1);
+
+    std::sort(radi.begin(), radi.end());
+    q10 = radi[floori(0.1*radi.size())];
+    q90 = radi[floori(0.9*radi.size())];
 }
 
 double PT::calcOptimalPanoScale(const SrcPanoImage & src,

@@ -35,6 +35,8 @@
 #include "PT/PanoramaMemento.h"
 
 
+class Matrix3;
+
 namespace PT {
 
 class Panorama;
@@ -324,6 +326,10 @@ public:
     /** calculate control point error distance statistics */
     void calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & std, int imgNr=-1) const;
 
+    /** calculate control point radial distance statistics. q10 and q90 are the 10% and 90% quantile */
+    void calcCtrlPntsRadiStats(double & min, double & max, double & mean, double & var,
+                               double & q10, double & q90, int imgNr=-1) const;
+
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
 
@@ -380,7 +386,16 @@ public:
      *
      *  Will modify the position of all images.
      */
-    void rotatePanorama(double yaw, double pitch, double roll);
+    void rotate(double yaw, double pitch, double roll);
+
+    /** rotate the complete panorama.
+     *
+     *  Will modify the position of all images.
+     */
+    void rotate(const Matrix3 & rot);
+
+    /** try to automatically straighten the panorama */
+    void straighten();
 
     /** update control points distances.
      *
