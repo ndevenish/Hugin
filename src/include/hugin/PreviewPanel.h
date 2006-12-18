@@ -112,6 +112,7 @@ private:
     BlendMode m_blendMode;
 
     PreviewFrame * parentWindow;
+    wxCursor * m_cursor;
 
     bool m_state_rendering;
     bool m_rerender;

@@ -476,6 +476,8 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     case MEDIUM_SPEEDUP:
         o << " f1";
     }
+    o << "m" << huberSigma;
+    
     o << std::endl;
 }
 

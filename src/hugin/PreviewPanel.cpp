@@ -72,12 +72,22 @@ PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
 {
     DEBUG_TRACE("");
     DEBUG_DEBUG("m_state_rendering = " << m_state_rendering);
+
+#if defined(__WXMSW__) 
+    wxString cursorPath = huginApp::Get()->GetXRCPath() + wxT("/data/cursor_cp_pick.cur");
+    m_cursor = new wxCursor(cursorPath, wxBITMAP_TYPE_CUR);
+#else
+    m_cursor = new wxCursor(wxCURSOR_CROSS);
+#endif
+    SetCursor(*m_cursor);
+
     pano.addObserver(this);
 }
 
 PreviewPanel::~PreviewPanel()
 {
     DEBUG_TRACE("dtor");
+    delete m_cursor;
     pano.removeObserver(this);
     if (m_panoBitmap) {
         delete m_panoBitmap;

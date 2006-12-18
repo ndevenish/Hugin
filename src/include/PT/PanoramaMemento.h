@@ -391,6 +391,7 @@ public:
             blendMode = NO_BLEND;
             remapper = NONA;
             saveCoordImgs = false;
+            huberSigma = 0;
         }
     virtual ~PanoramaOptions() {};
 
@@ -499,6 +500,8 @@ public:
     Remapper remapper;
 
     bool saveCoordImgs;
+
+    double huberSigma;
 
 private:
     static const std::string fileformatNames[];

@@ -304,6 +304,12 @@ OptimizeVector PTools::createOptVars(const Panorama & optPano, int mode)
  */
 void PTools::smartOptimize(PT::Panorama & optPano)
 {
+    // use m-estimator with sigma 2
+    PanoramaOptions opts = optPano.getOptions();
+    double oldSigma = opts.huberSigma;
+    opts.huberSigma = 2;
+    optPano.setOptions(opts);
+
     // remove vertical and horizontal control points
     CPVector cps = optPano.getCtrlPoints();
     CPVector newCP;
@@ -408,6 +414,9 @@ void PTools::smartOptimize(PT::Panorama & optPano)
         // global optimisation.
         PTools::optimize(optPano);
     }
+    opts.huberSigma = oldSigma;
+    optPano.setOptions(opts);
+
 }
 
 
