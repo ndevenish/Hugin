@@ -358,8 +358,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     fill_set(imgs, 0, m_pano.getNrOfImages()-1);
 
-    // TODO: make configurable
-    long nFeatures = 20;
+    long nFeatures = wxConfigBase::Get()->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS); 
 
     /*
     bool createCtrlP = true;
@@ -406,7 +405,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     Panorama optPano = m_pano.getSubset(imgs);
 
-    // TODO: set proper optimisation settings.
     // set TIFF_m with enblend
     PanoramaOptions opts = m_pano.getOptions();
     opts.outputFormat = PanoramaOptions::TIFF;
@@ -447,20 +445,24 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.setHeight(roundi(height));
     vfov = opts.getVFOV();
 
+    double mf = wxConfigBase::Get()->Read(wxT("/Assistant/maxNormalFOV"), HUGIN_ASS_MAX_NORMAL_FOV);
+
     // choose proper projection type
-    if (vfov < 100) {
+    if (vfov < mf) {
         // cylindrical or rectilinear
-        if (hfov < 100) {
+        if (hfov < mf) {
             opts.setProjection(PanoramaOptions::RECTILINEAR);
         } else {
             opts.setProjection(PanoramaOptions::CYLINDRICAL);
         }
     }
 
+    double sizeFactor = wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
     // calc optimal size using output projection
+    // reduce optimal size a little
     optPano.setOptions(opts);
     w = optPano.calcOptimalWidth();
-    opts.setWidth(w, true);
+    opts.setWidth(roundi(w*sizeFactor), true);
     optPano.setOptions(opts);
 
     // TODO: merge the following commands.
@@ -488,6 +490,17 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
     // just run the stitcher
     // this is kind of a bad hack, since several settings are determined
     // based on the current state of PanoPanel, and not the Panorama object itself
+
+    // calc optimal size using output projection
+    double sizeFactor = wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    PanoramaOptions opts = m_pano.getOptions();
+    int w = m_pano.calcOptimalWidth();
+    opts.setWidth(floori(w*sizeFactor), true);
+    // copy information into our panorama
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd(m_pano, opts)
+         );
+    
     wxCommandEvent dummy;
     MainFrame::Get()->OnDoStitch(dummy);
 }
