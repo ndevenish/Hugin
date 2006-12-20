@@ -42,7 +42,11 @@ public:
 	
 public:
 	/** default constructor : initialise to zero */
-	Matrix3() { }
+	Matrix3() {
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++)
+                m[i][j] = 0.0;
+    }
 	
 	/** copy constructor */
 	Matrix3(const Matrix3& ot)
@@ -223,6 +227,22 @@ public:
 		return Result;
 	}
 
+    /** operator *= */
+    void operator/=(double s)
+    {
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++)
+                m[i][j] /= s;
+    }
+
+    /** operator *= */
+    void operator*=(double s)
+    {
+        for (int i=0; i<3; i++)
+            for (int j=0; j<3; j++)
+                m[i][j] *= s;
+    }
+
 	/** operator *= */
 	void operator*=(Matrix3 ot)
 	{
@@ -328,12 +348,15 @@ public:
 };
 
 /** return the rotation matrix around vector U : checked */
-/*Matrix3 GetRotationAroundU(const Vector3& U, double Angle)
+inline Matrix3 GetRotationAroundU(const Vector3& U, double Angle)
 {
 	// is debugged and optimized
-	Vector3 u = U.Unit();
-	if (u.Abs()<0.01)
-		return Matrix3(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0);
+	Vector3 u = U.GetNormalized();
+    if (u.Norm()<0.01) {
+        Matrix3 r;
+        r.SetIdentity();
+        return r;
+    }
 	double cs, ss, ux2, uy2, uz2, uxy, uxz, uyz;
 	
 	cs = cos(Angle);
@@ -344,6 +367,18 @@ public:
 	uxy = u.x*u.y;
 	uxz = u.x*u.z;
 	uyz = u.y*u.z;
+    Matrix3 m;
+    m.m[0][0] = ux2 + cs*(1-ux2);
+    m.m[1][0] = uxy*(1-cs) - u.z*ss;
+    m.m[2][0] = uxz*(1-cs) + u.y*ss;
+    m.m[0][1] = uxy*(1-cs) + u.z*ss;
+    m.m[1][1] = uy2 + cs*(1-uy2);
+    m.m[2][1] = uyz*(1-cs)-u.x*ss;
+    m.m[0][2] = uxz*(1-cs)-u.y*ss;
+    m.m[1][2] = uyz*(1-cs)+u.x*ss;
+    m.m[2][2] = uz2 + cs*(1-uz2);
+    return m;
+    /*
 	return Matrix3( ux2 + cs*(1-ux2),
 				 uxy*(1-cs) - u.z*ss,
 				 uxz*(1-cs) + u.y*ss,
@@ -353,12 +388,13 @@ public:
 				 uxz*(1-cs)-u.y*ss,
 				 uyz*(1-cs)+u.x*ss,
 				 uz2 + cs*(1-uz2) );
+    */
 }
 
-Matrix3 GetRotationAroundU(const Vector3& da)
+inline Matrix3 GetRotationAroundU(const Vector3& da)
 {
-	return GetRotationAroundU(da, da.Abs());
-}*/
+	return GetRotationAroundU(da, da.Norm());
+}
 
 /*// return the rotation matrix around X
 Matrix3 GetRotationX(double Ang)

@@ -223,4 +223,10 @@ public:
 	}
 };
 
+inline std::ostream & operator<<(std::ostream & s, const Vector3 & v)
+{
+    s << "[ " << v.x << ", " << v.y << ", " << v.z << " ]";
+    return s;
+}
+
 #endif

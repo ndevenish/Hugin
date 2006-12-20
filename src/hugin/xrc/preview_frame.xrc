@@ -12,11 +12,17 @@
             
             
             
+            
+            
             <option>1</option>
             
             
             
+            
+            
             <flag>wxEXPAND</flag>
+            
+            
             
             
             
@@ -27,7 +33,11 @@
               
               
               
+              
+              
               <value></value>
+              
+              
               
               
               
@@ -35,12 +45,18 @@
               
               
               
+              
+              
               <max></max>
+              
+              
               
               
               
               <style>wxSL_VERTICAL</style>
             </object>
+            
+            
             
             
             
@@ -53,7 +69,11 @@
               
               
               
+              
+              
               <value></value>
+              
+              
               
               
               
@@ -61,7 +81,11 @@
               
               
               
+              
+              
               <max></max>
+              
+              
               
               
               
@@ -70,9 +94,13 @@
             
             
             
+            
+            
             <flag>wxEXPAND</flag>
           </object>
           <object class="spacer">
+            
+            
             
             
             
@@ -84,7 +112,11 @@
         
         
         
+        
+        
         <option>1</option>
+        
+        
         
         
         
@@ -98,7 +130,11 @@
               
               
               
+              
+              
               <label>Center</label>
+              
+              
               
               
               
@@ -113,7 +149,11 @@
               
               
               
+              
+              
               <label>Auto Preview</label>
+              
+              
               
               
               
@@ -125,7 +165,11 @@
               
               
               
+              
+              
               <label>Update</label>
+              
+              
               
               
               
@@ -142,11 +186,17 @@
       
       
       
+      
+      
       <bitmap>data/center_pano.xpm</bitmap>
       
       
       
+      
+      
       <tooltip>Center the preview horizontally</tooltip>
+      
+      
       
       
       
@@ -156,7 +206,11 @@
       
       
       
+      
+      
       <bitmap>data/fit_pano.xpm</bitmap>
+      
+      
       
       
       
@@ -164,13 +218,44 @@
       
       
       
+      
+      
       <tooltip>Estimate field of view</tooltip>
+      
+      
       
       
       
       <label>Fit</label>
     </object>
+    <object class="tool" name="preview_straighten_pano_tool">
+      
+      
+      
+      
+      
+      <bitmap>data/straighten_pano.xpm</bitmap>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <tooltip>Automatically straighten a wavy horizon.</tooltip>
+      
+      
+      
+      
+      
+      <label>Straighten</label>
+    </object>
     <object class="tool" name="preview_num_transform">
+      
+      
       
       
       
@@ -178,7 +263,11 @@
       
       
       
+      
+      
       <tooltip>Numerical Transform</tooltip>
+      
+      
       
       
       
@@ -189,7 +278,11 @@
       
       
       
+      
+      
       <bitmap>data/preview_auto_update.png</bitmap>
+      
+      
       
       
       
@@ -197,7 +290,11 @@
       
       
       
+      
+      
       <label>Auto</label>
+      
+      
       
       
       
@@ -207,11 +304,17 @@
       
       
       
+      
+      
       <bitmap>data/reload.png</bitmap>
       
       
       
+      
+      
       <tooltip>Update preview</tooltip>
+      
+      
       
       
       
@@ -222,11 +325,17 @@
       
       
       
+      
+      
       <bitmap>data/preview_show_all.png</bitmap>
       
       
       
+      
+      
       <tooltip>Show all images</tooltip>
+      
+      
       
       
       
@@ -236,11 +345,17 @@
       
       
       
+      
+      
       <bitmap>data/preview_show_none.png</bitmap>
       
       
       
+      
+      
       <tooltip>Show none of the images</tooltip>
+      
+      
       
       
       
@@ -261,11 +376,17 @@
             <object class="wxStaticText">
               
               
+              
+              
               <label>Yaw:</label>
             </object>
             
             
+            
+            
             <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>5</border>
@@ -273,11 +394,17 @@
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_yaw">
               
+              
+              
               <value>0</value>
             </object>
             
             
+            
+            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>10</border>
@@ -286,11 +413,17 @@
             <object class="wxStaticText">
               
               
+              
+              
               <label>Pitch:</label>
             </object>
             
             
+            
+            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>5</border>
@@ -298,11 +431,17 @@
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_pitch">
               
+              
+              
               <value>0</value>
             </object>
             
             
+            
+            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>10</border>
@@ -311,11 +450,17 @@
             <object class="wxStaticText">
               
               
+              
+              
               <label>Roll:</label>
             </object>
             
             
+            
+            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>5</border>
@@ -323,11 +468,17 @@
           <object class="sizeritem">
             <object class="wxTextCtrl" name="numtrans_roll">
               
+              
+              
               <value>0</value>
             </object>
             
             
+            
+            
             <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+            
+            
             
             
             <border>10</border>
@@ -335,7 +486,11 @@
         </object>
         
         
+        
+        
         <flag>wxALL</flag>
+        
+        
         
         
         <border>10</border>
@@ -345,9 +500,15 @@
           <orient>wxHORIZONTAL</orient>
           <object class="spacer">
             
+            
+            
             <size>0,0</size>
             
+            
+            
             <option>1</option>
+            
+            
             
             <flag>wxEXPAND</flag>
           </object>
@@ -355,16 +516,24 @@
             <object class="wxButton" name="wxID_OK">
               
               
+              
+              
               <label></label>
             </object>
           
             
+            
+            
             <flag>wxRIGHT</flag>
+            
+            
             
             <border>8</border>
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_CANCEL">
+              
+              
               
               
               <label></label>
@@ -373,7 +542,11 @@
         </object>
       
         
+        
+        
         <flag>wxALL|wxEXPAND</flag>
+        
+        
         
         <border>10</border>
       </object>

@@ -39,6 +39,7 @@
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/config_defaults.h"
+#include "hugin/huginApp.h"
 //#include "hugin/ImageProcessing.h"
 
 using namespace PT;

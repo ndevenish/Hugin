@@ -64,6 +64,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 //    EVT_CHECKBOX(-1, PreviewFrame::OnAutoPreviewToggle)
     EVT_TOOL(XRCID("preview_center_tool"), PreviewFrame::OnCenterHorizontally)
     EVT_TOOL(XRCID("preview_fit_pano_tool"), PreviewFrame::OnFitPano)
+    EVT_TOOL(XRCID("preview_straighten_pano_tool"), PreviewFrame::OnStraighten)
     EVT_TOOL(XRCID("preview_auto_update_tool"), PreviewFrame::OnAutoPreviewToggle)
     EVT_TOOL(XRCID("preview_update_tool"), PreviewFrame::OnUpdate)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
@@ -449,6 +450,14 @@ void PreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
         );
     // fit pano afterwards
     OnFitPano(e);
+}
+
+void PreviewFrame::OnStraighten(wxCommandEvent & e)
+{
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::StraightenPanoCmd(m_pano)
+        );
+    updatePano();
 }
 
 void PreviewFrame::OnUpdate(wxCommandEvent& event)

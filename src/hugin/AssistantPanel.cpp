@@ -435,6 +435,9 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         registerPTWXDlgFcn();
     }
 
+    // straighten
+    optPano.straighten();
+
     // center and resize frame
     optPano.centerHorizontically();
     opts = optPano.getOptions();

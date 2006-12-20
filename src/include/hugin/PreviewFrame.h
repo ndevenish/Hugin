@@ -60,6 +60,7 @@ protected:
     void OnAutoPreviewToggle(wxCommandEvent & e);
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
+    void OnStraighten(wxCommandEvent & e);
     void OnShowAll(wxCommandEvent & e);
     void OnShowNone(wxCommandEvent & e);
     void OnNumTransform(wxCommandEvent & e);
