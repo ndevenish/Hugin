@@ -308,10 +308,12 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor, double
     }
     // image has been modified without adjusting exif tags
     // assume user has rotated to upright pose
-    double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageWidth;
-    double ratioImage = width/(double)height;
-    if (abs( ratioExif - ratioImage) > 0.1) {
-        roll = 0;
+    if (exif.ExifImageWidth && exif.ExifImageLength) {
+        double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageLength;
+        double ratioImage = width/(double)height;
+        if (abs( ratioExif - ratioImage) > 0.1) {
+            roll = 0;
+        }
     }
 
     // calc sensor dimensions if not set and 35mm focal length is available
