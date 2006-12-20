@@ -66,8 +66,8 @@
 /* Define if you have JPEG library */
 #define HasJPEG 1
 
-/* Define if you have Panotools library (pano12) */
-#define HasPANO 1
+/* Define if you have Panotools library (pano13) */
+#define HasPANO13 1
 
 /* Define if you have PNG library */
 #define HasPNG 1

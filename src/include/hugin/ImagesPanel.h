@@ -145,7 +145,6 @@ private:
 
     wxButton * m_optAnchorButton;
     wxButton * m_colorAnchorButton;
-    wxButton * m_setAnchorOrientButton;
     wxButton * m_moveUpButton;
     wxButton * m_moveDownButton;
 

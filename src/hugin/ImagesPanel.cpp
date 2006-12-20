@@ -70,7 +70,6 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxWindow)
     EVT_LIST_ITEM_DESELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
-    EVT_BUTTON     ( XRCID("images_set_orientation_button"), ImagesPanel::OnSelectAnchorPosition)
     EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
     EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
     EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
@@ -102,8 +101,6 @@ ImagesPanel::ImagesPanel(wxWindow *parent, const wxPoint& pos, const wxSize& siz
     m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
     DEBUG_ASSERT(m_optAnchorButton);
 
-    m_setAnchorOrientButton = XRCCTRL(*this, "images_set_orientation_button", wxButton);
-    DEBUG_ASSERT(m_setAnchorOrientButton);
     m_colorAnchorButton = XRCCTRL(*this, "images_color_anchor_button", wxButton);
     DEBUG_ASSERT(m_colorAnchorButton);
     m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
@@ -425,7 +422,6 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // single selection, show its parameters
             ShowImgParameters(imgNr);
             m_optAnchorButton->Enable();
-            m_setAnchorOrientButton->Enable();
             m_colorAnchorButton->Enable();
             m_moveDownButton->Enable();
             m_moveUpButton->Enable();
@@ -435,7 +431,6 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // we don't know which images parameters to show.
             ClearImgParameters();
             m_optAnchorButton->Disable();
-            m_setAnchorOrientButton->Disable();
             m_colorAnchorButton->Disable();
             m_moveDownButton->Disable();
             m_moveUpButton->Disable();
@@ -456,7 +451,6 @@ void ImagesPanel::DisableImageCtrls()
     SetBitmap(m_empty);
     m_optAnchorButton->Disable();
     m_colorAnchorButton->Disable();
-    m_setAnchorOrientButton->Disable();
     m_matchingButton->Disable();
     m_removeCPButton->Disable();
     m_moveDownButton->Disable();

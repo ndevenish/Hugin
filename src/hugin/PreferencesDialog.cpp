@@ -36,8 +36,13 @@
 #endif
 
 extern "C" {
+#ifdef HasPANO13
 #include <pano13/version.h>
 #include <pano13/queryfeature.h>
+#else
+#include <pano12/version.h>
+#include <pano12/queryfeature.h>
+#endif
 }
 #endif
 

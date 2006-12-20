@@ -3,11 +3,13 @@ Newsworthy changes in 0.7
 * Assistant panel, enables 3 click stitching (well, almost ;-)
 * Center and rotate panorama by mouse clicks in preview window.
   Also added a numerical transform dialog
+* automatic straighten
 * support for Lambert and Lambert Azimuthal projections
 * Rotated display of images in control point selector, depending
   on the roll value
 * allow images with and without alpha channels in the same project
 * many small bugfixes
+* removed image center dialog
 
 
 Newsworthy changes in 0.6.1

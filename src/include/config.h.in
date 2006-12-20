@@ -61,6 +61,9 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
+/* Define to 1 if you have the <pano12/queryfeature.h> header file. */
+#undef HAVE_PANO12_QUERYFEATURE_H
+
 /* Define to 1 if you have the <pano13/queryfeature.h> header file. */
 #undef HAVE_PANO13_QUERYFEATURE_H
 
@@ -91,7 +94,7 @@
 /* Define if you have JPEG library */
 #undef HasJPEG
 
-/* Define if you have Panotools library (pano13) */
+/* Define if you have Panotools library */
 #undef HasPANO
 
 /* Define if you have PNG library */

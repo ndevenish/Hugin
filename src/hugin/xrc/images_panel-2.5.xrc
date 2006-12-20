@@ -380,16 +380,6 @@
                             <flag>wxEXPAND</flag>
                           </object>
                           <object class="sizeritem">
-                            <object class="wxButton" name="images_set_orientation_button">
-                              
-                              <label>Adjust the anchor spot...</label>
-                              
-                              <tooltip>opens a window to select the anchor orientation graphically</tooltip>
-                            </object>
-                            
-                            <flag>wxEXPAND</flag>
-                          </object>
-                          <object class="sizeritem">
                             <object class="wxButton" name="images_color_anchor_button">
                               
                               <label>Anchor this image for exposure</label>
@@ -401,7 +391,7 @@
                             
                             <flag>wxEXPAND</flag>
                           </object>
-                          <cols>2</cols>
+                          <cols>1</cols>
                           <vgap>10</vgap>
                           <hgap>6</hgap>
                         </object>

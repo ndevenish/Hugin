@@ -10,6 +10,7 @@ AC_ARG_WITH(pano,
             [with_pano=$withval],
             [with_pano=''])
 
+have_pano13='no'
 have_pano='no'
 LIB_PANO=''
 PANO_FLAGS=''
@@ -31,13 +32,25 @@ if test "x$with_pano" != 'xno' ; then
       do
         if test -r "$i/include/pano13/panorama.h"; then
           PANO_HOME="$i"
-	  break
-	fi
+          have_pano13='yes'
+          break
+        fi
       done
+      if test "$have_pano13" = 'no' ; then
+        for i in $pano_dirs;
+        do
+          if test -r "$i/include/pano12/panorama.h"; then
+            PANO_HOME="$i"
+            echo "havpano12 yes"
+            break
+          fi
+        done
+      fi
+
       if test "x$PANO_HOME" != 'x' ; then
-	AC_MSG_NOTICE([pano home set to $PANO_HOME])
+        AC_MSG_NOTICE([pano home set to $PANO_HOME])
       else
-	AC_MSG_NOTICE([cannot find the libpano13 directory, assuming it is specified in CFLAGS])
+        AC_MSG_NOTICE([cannot find the libpano13 directory, assuming it is specified in CFLAGS])
       fi
     fi
     failed=0;
@@ -52,9 +65,16 @@ if test "x$with_pano" != 'xno' ; then
     CPPFLAGS="$CPPFLAGS -I$PANO_HOME/include"
     AC_LANG_SAVE
     AC_LANG_C
-    AC_CHECK_HEADER(pano13/panorama.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
-    AC_CHECK_HEADERS(pano13/queryfeature.h,AC_MSG_RESULT(panotools query functions enabled),AC_MSG_RESULT(panotools query functions disabled),)
-    AC_CHECK_LIB(pano13,fcnPano,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    echo "have_pano13: $have_pano13"
+    if test "x$have_pano13" = 'xyes' ; then
+      AC_CHECK_HEADER(pano13/panorama.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+      AC_CHECK_HEADERS(pano13/queryfeature.h,AC_MSG_RESULT(panotools query functions enabled),AC_MSG_RESULT(panotools query functions disabled),)
+      AC_CHECK_LIB(pano13,fcnPano,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    else
+      AC_CHECK_HEADER(pano12/panorama.h,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+      AC_CHECK_HEADERS(pano12/queryfeature.h,AC_MSG_RESULT(panotools query functions enabled),AC_MSG_RESULT(panotools query functions disabled),)
+      AC_CHECK_LIB(pano12,fcnPano,passed=`expr $passed + 1`,failed=`expr $failed + 1`,)
+    fi
     AC_LANG_RESTORE
     LDFLAGS="$PANO_OLD_LDFLAGS"
     CPPFLAGS="$PANO_OLD_CPPFLAGS"
@@ -67,17 +87,34 @@ if test "x$with_pano" != 'xno' ; then
         have_pano='no (failed tests)'
       else
         if test "x$PANO_HOME" = 'x' || test "x$PANO_HOME" = 'x/usr' ; then
-          LIB_PANO="-lpano13"
-          PANO_FLAGS="-DHasPANO"
+          if test "$have_pano13" = 'yes' ; then
+            LIB_PANO="-lpano13"
+            PANO_FLAGS="-DHasPANO13"
+          else
+            LIB_PANO="-lpano12"
+            PANO_FLAGS="-DHasPANO12"
+          fi
         else
           if test "x$HCPU" = 'xamd64' ; then
-            LIB_PANO="-L$PANO_HOME/lib64 -lpano13"
+            if test "$have_pano13" = 'yes' ; then
+              LIB_PANO="-L$PANO_HOME/lib64 -lpano13"
+            else
+              LIB_PANO="-L$PANO_HOME/lib64 -lpano12"
+            fi
           else
-            LIB_PANO="-L$PANO_HOME/lib -lpano13"
+            if test "$have_pano13" = 'yes' ; then
+              LIB_PANO="-L$PANO_HOME/lib -lpano13"
+            else
+              LIB_PANO="-L$PANO_HOME/lib -lpano12"
+            fi
           fi
-          PANO_FLAGS="-I$PANO_HOME/include -DHasPANO"
+          if test "$have_pano13" = 'yes' ; then
+            PANO_FLAGS="-I$PANO_HOME/include -DHasPANO13"
+          else
+            PANO_FLAGS="-I$PANO_HOME/include -DHasPANO12"
+          fi
         fi
-        AC_DEFINE(HasPANO,1,Define if you have Panotools library (pano13))
+        AC_DEFINE(HasPANO,1,Define if you have Panotools library)
         AC_MSG_RESULT(yes)
         have_pano='yes'
       fi

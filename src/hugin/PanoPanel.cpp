@@ -33,7 +33,11 @@
 #include "PT/Stitcher.h"
 
 extern "C" {
+#ifdef HasPANO13
 #include <pano13/queryfeature.h>
+#else
+#include <pano12/queryfeature.h>
+#endif
 }
 
 #include "hugin/RunStitcherFrame.h"
