@@ -1,3 +1,88 @@
+2006-12-20 23:03  dangelo
+
+	* README, README_WINDOWS, windows_DOT_NET_compile.txt,
+	  src/Panorama/Panorama.vcproj, src/build_msvc/Hugin.sln,
+	  src/hugin/AssistantPanel.cpp, src/hugin/hugin.vcproj,
+	  src/nona_gui/nona_gui.vcproj, src/tools/nona.vcproj: updated MSCV
+	  project files
+
+2006-12-20 23:00  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated translations
+
+2006-12-20 20:41  dangelo
+
+	* NEWS, m4/ax_check_panotools.m4,
+	  src/Panorama/PanoToolsInterface.cpp, src/hugin/ImagesPanel.cpp,
+	  src/hugin/PTWXDlg.cpp, src/hugin/PanoPanel.cpp,
+	  src/hugin/PreferencesDialog.cpp,
+	  src/hugin/xrc/images_panel-2.5.xrc, src/hugin/xrc/data/about.htm,
+	  src/hugin/xrc/data/about_fr.htm, src/hugin/xrc/data/about_pl.htm,
+	  src/hugin/xrc/data/splash.png, src/hugin/xrc/data/tips.txt,
+	  src/include/config.h.in, src/include/config_msvc.h,
+	  src/include/PT/PanoToolsInterface.h,
+	  src/include/hugin/ImagesPanel.h: Allow usage of pano12 or pano13
+	  (not tested with pano12 yet...)
+
+2006-12-20 20:40  dangelo
+
+	* configure.ac: default to unicode wxWidgets
+
+2006-12-20 20:39  dangelo
+
+	* src/hugin/PreviewFrame.cpp: center and fit panorama after
+	  straighten
+
+2006-12-20 20:34  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated strings
+
+2006-12-20 20:32  dangelo
+
+	* src/hugin/: PreviewFrame.cpp, PreviewPanel.cpp: preview window:
+	  display latitude and logitude under mouse cursor
+
+2006-12-20 20:31  dangelo
+
+	* src/: hugin/AssistantPanel.cpp, include/hugin/config_defaults.h:
+	  made some auto align setting configurable
+
+2006-12-20 19:05  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: fixed possible crash during
+	  remapping.
+
+2006-12-20 09:08  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, hugin/xrc/data/about.htm,
+	  hugin/xrc/data/about_fr.htm, hugin/xrc/data/about_pl.htm: fixed
+	  reading of exif image height
+
+2006-12-20 08:56  dangelo
+
+	* ChangeLog, src/Panorama/Panorama.cpp,
+	  src/Panorama/PanoramaMemento.cpp, src/common/common.vcproj,
+	  src/hugin/xrc/data/splash.png: straighten function works with
+	  images "non-rotated" exif tagged portrait mode as well.
+
+2006-12-20 01:42  dangelo
+
+	* src/: Panorama/Panorama.cpp, common/Makefile.am,
+	  common/eig_jacobi.cpp, hugin/AssistantPanel.cpp,
+	  hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  hugin/xrc/preview_frame.xrc, hugin/xrc/data/straighten_pano.xpm,
+	  include/PT/PanoCommand.h, include/common/Matrix3.h,
+	  include/common/Vector3.h, include/common/eig_jacobi.h,
+	  include/hugin/PreviewFrame.h: Added "Straighten" button to
+	  automatically straigten wavy horizons.  Idea based on Matthew
+	  Brown's IJCV article.  Current does not work with images that
+	  were taken in portrait mode, but physically still stored in
+	  landscape format.
+
 2006-12-19 00:15  dangelo
 
 	* src/: Panorama/PTOptimise.cpp, Panorama/PanoramaMemento.cpp,
