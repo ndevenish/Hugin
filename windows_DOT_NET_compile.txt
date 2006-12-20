@@ -1,9 +1,9 @@
-
 How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
 
 1. download wxWidgets 2.6.0, from http://www.wxwidgets.org
 2. download boost            from http://www.boost.org
-3. download panorama tools source and .dll file, from http://panotools.sf.net
+3. download panorama tools source, from http://panotools.sf.net
+   Version 2.9.6 or later is required.
 
 4. unpack everything so that the following directory is created:
 
@@ -11,8 +11,7 @@ How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
   libs/wxWidgets         <- wxwidgets, remove version number from directory name
   libs/boost             <- boost, remove version number from directory name
 
-  libs/panotools/pano12  <- pano tools sourcecode, together with
-                            pano12.lib
+  libs/panotools/pano13  <- pano tools sourcecode, copy contents of libpano directory here
 
 5. Open libs/wxWidgets/src/tiff/tiffconf.h in your favorite editor, and
    add
@@ -33,5 +32,5 @@ How to compile hugin on windows, using Microsoft Visual Studio.Net (2003)
     and change directory to the boost dir and issue:
        bjam stage
 
-7. Open hugin/src/Hugin.sln and compile.
+7. Open hugin/src/Hugin.sln, select release unicode configuration and compile.
 

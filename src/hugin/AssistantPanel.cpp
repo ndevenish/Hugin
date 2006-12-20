@@ -445,8 +445,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.setHeight(roundi(height));
     vfov = opts.getVFOV();
 
-    double mf = wxConfigBase::Get()->Read(wxT("/Assistant/maxNormalFOV"), HUGIN_ASS_MAX_NORMAL_FOV);
-
+    double mf = HUGIN_ASS_MAX_NORMAL_FOV;
+    wxConfigBase::Get()->Read(wxT("/Assistant/maxNormalFOV"), &mf, HUGIN_ASS_MAX_NORMAL_FOV);
     // choose proper projection type
     if (vfov < mf) {
         // cylindrical or rectilinear
@@ -457,7 +457,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         }
     }
 
-    double sizeFactor = wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
+    wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
     // calc optimal size using output projection
     // reduce optimal size a little
     optPano.setOptions(opts);
@@ -492,14 +493,18 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
     // based on the current state of PanoPanel, and not the Panorama object itself
 
     // calc optimal size using output projection
-    double sizeFactor = wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
+    wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
     PanoramaOptions opts = m_pano.getOptions();
     int w = m_pano.calcOptimalWidth();
-    opts.setWidth(floori(w*sizeFactor), true);
-    // copy information into our panorama
-    GlobalCmdHist::getInstance().addCommand(
+    // check if resize was plausible!
+    if (w> 0) {
+        opts.setWidth(floori(w*sizeFactor), true);
+        // copy information into our panorama
+        GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd(m_pano, opts)
-         );
+            );
+    }
     
     wxCommandEvent dummy;
     MainFrame::Get()->OnDoStitch(dummy);

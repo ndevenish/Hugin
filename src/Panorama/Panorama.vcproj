@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;DEBUG;HasJPEG;HasPNG;HasTIFF"
+				PreprocessorDefinitions="HasPANO13;WIN32;_DEBUG;_LIB;DEBUG;HasJPEG;HasPNG;HasTIFF"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -61,7 +61,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
+				PreprocessorDefinitions="HasPANO13;WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -100,7 +100,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../include;..\..\..\libs\wxWidgets\src\tiff;..\..\..\libs\wxWidgets\src\zlib;..\..\..\libs\wxWidgets\src\jpeg;..\..\..\libs\wxWidgets\src\png;..\..\..\libs\wxWidgets\src;..\foreign;..\..\..\libs\libpano;..\..\..\libs\boost"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
+				PreprocessorDefinitions="HasPANO13;WIN32;NDEBUG;_LIB;HasJPEG;HasPNG;HasTIFF"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"

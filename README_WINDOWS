@@ -1,16 +1,4 @@
 
-WARNING about using PTStitcher.exe:
-
- PTStitcher.exe might have problems with the pano12.dll file include
- in the installer package.
-
- If you experience these crashes, rename pano12_for_usage_with_ptstitcher.dll
- to pano12.dll and it should work again. Unfortuantely, this reduces the
- remapping speed by ~30 percent
-
- See http://www.photocreations.ca/panotools/ for more details.
-
-
 
 This package contains the following programs:
 
