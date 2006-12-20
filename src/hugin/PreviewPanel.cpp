@@ -494,6 +494,28 @@ void PreviewPanel::OnMouse(wxMouseEvent & e)
 {
     double yaw, pitch;
     mouse2erect(e.m_x, e.m_y,  yaw, pitch);
+    
+    /*
+    wxSize sz = GetClientSize();
+    int offsetX = 0;
+    int offsetY = 0;
+    if (sz.GetWidth() > m_panoImgSize.x) {
+        offsetX = (sz.GetWidth() - m_panoImgSize.x) / 2;
+    }
+    if (sz.GetHeight() > m_panoImgSize.y) {
+        offsetY = (sz.GetHeight() - m_panoImgSize.y) / 2;
+    }
+    double x = e.m_x - offsetX - m_panoImgSize.x/2;
+    double y = e.m_y - offsetY - m_panoImgSize.y/2;
+
+    int w = pano.getOptions().getWidth();
+    double scale = w/(double)m_panoImgSize.x;
+    x *= scale;
+    y *= scale;
+    */
+
+    parentWindow->SetStatusText(_("Left click to define new center point, right click to move point to horizon."),0);
+    parentWindow->SetStatusText(wxString::Format(wxT("%.1f %.1f"), yaw, pitch), 1);
 }
 
 void PreviewPanel::mouse2erect(int xm, int ym, double &xd, double & yd)
@@ -511,7 +533,7 @@ void PreviewPanel::mouse2erect(int xm, int ym, double &xd, double & yd)
         double x = xm - offsetX - m_panoImgSize.x/2;
         double y = ym - offsetY - m_panoImgSize.y/2;
         m_pano2erect->transform(xd, yd, x, y);
-        DEBUG_DEBUG("pano: " << x << " " << y << "  erect: " << xd << "° " << yd << "°");
+        //DEBUG_DEBUG("pano: " << x << " " << y << "  erect: " << xd << "° " << yd << "°");
      }
 }
 

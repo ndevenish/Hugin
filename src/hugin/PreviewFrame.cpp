@@ -47,7 +47,11 @@
 #include <vigra_ext/ImageTransforms.h>
 
 extern "C" {
+#ifdef HasPANO13
 #include <pano13/queryfeature.h>
+#else
+#include <pano12/queryfeature.h>
+#endif
 }
 
 using namespace utils;
@@ -227,11 +231,12 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxConfigBase * config = wxConfigBase::Get();
 
     // add a status bar
-    CreateStatusBar(2);
-    int widths[2] = {-1, 150};
-    SetStatusWidths(2, widths);
-    SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
+    CreateStatusBar(3);
+    int widths[3] = {-3, 150, 150};
+    SetStatusWidths(3, widths);
+    SetStatusText(_("Left click to define new center point, right click to move point to horizon."),0);
     SetStatusText(wxT(""),1);
+    SetStatusText(wxT(""),2);
 
     // the initial size as calculated by the sizers
     this->SetSizer( topsizer );
@@ -320,7 +325,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
-    SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),1);
+    SetStatusText(wxString::Format(_("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
 }
@@ -458,6 +463,8 @@ void PreviewFrame::OnStraighten(wxCommandEvent & e)
         new PT::StraightenPanoCmd(m_pano)
         );
     updatePano();
+    // fit pano afterwards
+    OnFitPano(e);
 }
 
 void PreviewFrame::OnUpdate(wxCommandEvent& event)
