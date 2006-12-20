@@ -1,3 +1,29 @@
+2006-12-19 00:15  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, Panorama/PanoramaMemento.cpp,
+	  hugin/PreviewPanel.cpp, include/PT/PanoramaMemento.h,
+	  include/hugin/PreviewPanel.h: use m-estimator during autocreate
+	  optimisations (requires latest panotools13 svn version), added
+	  cross cursor to preview panel
+
+2006-12-18 21:33  dangelo
+
+	* src/: Panorama/PTOptimise.cpp, Panorama/Panorama.cpp,
+	  hugin/AssistantPanel.cpp, include/PT/PTOptimise.h,
+	  include/PT/PanoCommand.h, include/PT/Panorama.h: Better
+	  heuristics for "Align" function. Now optimizes a,b,c if the
+	  control points are distributed well. Also optimizes FOV for 360
+	  degree panoramas, or heavily overlapping images.
+
+2006-12-17 22:51  dangelo
+
+	* src/hugin/Makefile.am: try to fix the old update-desktop database
+	  problem
+
+2006-12-17 22:17  dangelo
+
+	* ChangeLog, NEWS, configure.ac: update version and NEWS
+
 2006-12-17 22:13  dangelo
 
 	* bootstrap: allow gettext 0.16

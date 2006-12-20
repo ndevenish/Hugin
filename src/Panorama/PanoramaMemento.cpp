@@ -291,11 +291,7 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor, double
     ShowImageInfo(exif);
 #endif
 
-    DEBUG_DEBUG("exif dimensions: " << exif.Width << "x" << exif.Height);
-
-    // calc sensor dimensions if not set and 35mm focal length is available
-    FDiff2D sensorSize;
-    double focalLength = 0;
+    DEBUG_DEBUG("exif dimensions: " << exif.ExifImageWidth << "x" << exif.ExifImageWidth);
 
     switch (exif.Orientation) {
         case 3:  // rotate 180
@@ -310,6 +306,18 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor, double
         default:
             break;
     }
+    // image has been modified without adjusting exif tags
+    // assume user has rotated to upright pose
+    double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageWidth;
+    double ratioImage = width/(double)height;
+    if (abs( ratioExif - ratioImage) > 0.1) {
+        roll = 0;
+    }
+
+    // calc sensor dimensions if not set and 35mm focal length is available
+    FDiff2D sensorSize;
+    double focalLength = 0;
+
 
     if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
         // read sensor size directly.

@@ -1807,24 +1807,24 @@ void Panorama::straighten()
 {
     // landscape/non rotated portrait detection is not working correctly
     // should use the exif rotation tag but thats not stored anywhere currently...
-    /*
-    int hor = 0;
-    int vert = 0;
+    // 1: use y axis (image x axis), for normal image
+    // 0: use z axis (image y axis), for non rotated portrait images
+    //    (usually rotation is just stored in EXIF tag)
+    vector<int> coord_idx;
+
     for (unsigned int i = 0; i < state.images.size(); i++) {
+        Lens l;
+        double roll = 0;
+        double crop = 0;
+        l.initFromFile(state.images[i].getFilename(), crop, roll);
         double r = map_get(state.variables[i], "r").getValue();
-        while (r<0)   r += 360;
-        while (r>360) r -= 360;
-        if ((r > 45 && r < 135) || (r > 225 && r < 315)) {
-            vert++;
+        if (roll == 90 || roll == 270 ) {
+            coord_idx.push_back(2);
         } else {
-            hor++;
+            coord_idx.push_back(1);
         }
     }
-    */
-    int coordIdx = 1;  // 1: use y axis (image x axis), for normal image
-
-//        coordIdx = 0;  // 0: use x axis (image y axis), for non rotated portrait images
-                       //    (usually rotation is just stored in EXIF tag)
+    int coordIdx = 1;  
 
 
     // build covariance matrix of X
@@ -1839,7 +1839,7 @@ void Panorama::straighten()
         DEBUG_DEBUG("mat = " << mat);
         for (int j=0; j<3; j++) {
             for (int k=0; k<3; k++) {
-                cov.m[j][k] += mat.m[j][coordIdx] * mat.m[k][coordIdx];
+                cov.m[j][k] += mat.m[j][coord_idx[i]] * mat.m[k][coord_idx[i]];
             }
         }
     }
