@@ -462,9 +462,8 @@ void PreviewFrame::OnStraighten(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::StraightenPanoCmd(m_pano)
         );
-    updatePano();
     // fit pano afterwards
-    OnFitPano(e);
+    OnCenterHorizontally(e);
 }
 
 void PreviewFrame::OnUpdate(wxCommandEvent& event)
