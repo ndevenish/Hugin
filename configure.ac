@@ -2,7 +2,7 @@ dnl                                               -*- Autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.5)
-AC_INIT([hugin], [0.7.0], [pablo.dangelo@web.de])
+AC_INIT([hugin], [0.7.0-beta1], [pablo.dangelo@web.de])
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
 AC_CONFIG_HEADER([src/include/config.h])
@@ -88,9 +88,9 @@ fi
 
 AC_ARG_WITH([unicode],
             AC_HELP_STRING([--with-unicode=yes/no],
-	    [set to 'yes' if you are using unicode wxWidgets library. (default=no)]),
+	    [set to 'yes' if you are using unicode wxWidgets library. (default=yes)]),
 	    [with_unicode=$withval],
-	    [with_unicode='no'])
+	    [with_unicode='yes'])
 
 dnl debugging options
 AC_ARG_ENABLE([debug],
