@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-20 20:16+0100\n"
+"POT-Creation-Date: 2006-12-20 22:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgid ""
 "After adding the points, press the \"Align\" button again"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:564 src/hugin/LensPanel.cpp:724
+#: src/hugin/AssistantPanel.cpp:569 src/hugin/LensPanel.cpp:724
 msgid "Not a jpeg file:"
 msgstr ""
 
@@ -1243,7 +1243,7 @@ msgstr ""
 msgid "difference"
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:514
+#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
@@ -1254,7 +1254,7 @@ msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:328
 #, c-format
-msgid "Size: %d %d, %.1f deg x %.1f deg"
+msgid "%.1f x %.1f"
 msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
@@ -1265,25 +1265,20 @@ msgstr ""
 msgid "Cylindrical"
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:532
+#: src/hugin/PreviewFrame.cpp:531
 msgid "Yaw value must be numeric."
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:538
+#: src/hugin/PreviewFrame.cpp:537
 msgid "Pitch value must be numeric."
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:544
+#: src/hugin/PreviewFrame.cpp:543
 msgid "Roll value must be numeric."
 msgstr ""
 
 #: src/hugin/PreviewPanel.cpp:322
 msgid "Error during Stitching"
-msgstr ""
-
-#: src/hugin/PreviewPanel.cpp:515
-#, c-format
-msgid "%d %d,  %.1f deg %.1f deg"
 msgstr ""
 
 #: src/hugin/PTStitcherPanel.cpp:276

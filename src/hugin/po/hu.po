@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-20 20:16+0100\n"
+"POT-Creation-Date: 2006-12-20 22:45+0100\n"
 "PO-Revision-Date: 2005-11-06 04:34+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -88,7 +88,7 @@ msgid ""
 "After adding the points, press the \"Align\" button again"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:564 src/hugin/LensPanel.cpp:724
+#: src/hugin/AssistantPanel.cpp:569 src/hugin/LensPanel.cpp:724
 msgid "Not a jpeg file:"
 msgstr "Nem egy jpeg fájl:"
 
@@ -1275,7 +1275,7 @@ msgstr "Egyesítő mód:"
 msgid "difference"
 msgstr "különbség"
 
-#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:514
+#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
@@ -1286,7 +1286,7 @@ msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:328
 #, c-format
-msgid "Size: %d %d, %.1f deg x %.1f deg"
+msgid "%.1f x %.1f"
 msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
@@ -1297,17 +1297,17 @@ msgstr "Egyenes vonalú"
 msgid "Cylindrical"
 msgstr "Hengeres"
 
-#: src/hugin/PreviewFrame.cpp:532
+#: src/hugin/PreviewFrame.cpp:531
 #, fuzzy
 msgid "Yaw value must be numeric."
 msgstr "Az értéknek számnak kell lennie."
 
-#: src/hugin/PreviewFrame.cpp:538
+#: src/hugin/PreviewFrame.cpp:537
 #, fuzzy
 msgid "Pitch value must be numeric."
 msgstr "Az értéknek számnak kell lennie."
 
-#: src/hugin/PreviewFrame.cpp:544
+#: src/hugin/PreviewFrame.cpp:543
 #, fuzzy
 msgid "Roll value must be numeric."
 msgstr "Az értéknek számnak kell lennie."
@@ -1315,11 +1315,6 @@ msgstr "Az értéknek számnak kell lennie."
 #: src/hugin/PreviewPanel.cpp:322
 msgid "Error during Stitching"
 msgstr "Hiba fűzés közben"
-
-#: src/hugin/PreviewPanel.cpp:515
-#, c-format
-msgid "%d %d,  %.1f deg %.1f deg"
-msgstr ""
 
 #: src/hugin/PTStitcherPanel.cpp:276
 msgid "Bicubic"
