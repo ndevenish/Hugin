@@ -73,7 +73,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxWindow)
     EVT_TEXT_ENTER ( XRCID("pano_val_width"),PanoPanel::WidthChanged )
     EVT_TEXT_ENTER ( XRCID("pano_val_height"),PanoPanel::HeightChanged )
     EVT_BUTTON ( XRCID("pano_button_opt_width"), PanoPanel::DoCalcOptimalWidth)
-    EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::DoStitch )
+    EVT_BUTTON ( XRCID("pano_button_stitch"),PanoPanel::OnDoStitch )
     EVT_CHOICE ( XRCID("pano_choice_stitcher"),PanoPanel::StitcherChanged )
 END_EVENT_TABLE()
 
@@ -628,19 +628,23 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
     DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
 }
 
-void PanoPanel::DoStitch ( wxCommandEvent & e )
+void PanoPanel::DoStitch()
 {
-    int preset = m_QuickChoice->GetSelection();
-    // apply preset mode. (recalculates width etc)
-    ApplyQuickMode(preset);
-
+    if (pano.getNrOfImages() == 0) {
+        return;
+    }
     PanoramaOptions opt = pano.getOptions();
     // select output file
     // FIXME put in right output extension for selected
     // file format
+    wxString ext(opt.getOutputExtension().c_str(), *wxConvCurrent);
+    // create filename
+    wxString filename =  getDefaultProjectName(pano) + wxT(".") + ext;
+    wxString wildcard = wxT("*.") + ext;
+
     wxFileDialog dlg(this,_("Create panorama image"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                     wxT(""), wxT(""),
+                     filename, ext,
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
@@ -648,6 +652,15 @@ void PanoPanel::DoStitch ( wxCommandEvent & e )
         opt.outfile = dlg.GetPath().mb_str();
         m_Stitcher->Stitch(pano, opt);
     }
+    // TODO: show image after it has been created
+}
+
+void PanoPanel::OnDoStitch ( wxCommandEvent & e )
+{
+    int preset = m_QuickChoice->GetSelection();
+    // apply preset mode. (recalculates width etc)
+    ApplyQuickMode(preset);
+    DoStitch();
 }
 
 // We need to override the default handling of size events because the

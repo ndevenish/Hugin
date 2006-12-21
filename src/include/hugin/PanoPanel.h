@@ -71,7 +71,8 @@ public:
 
 
     // actions
-    void DoStitch(wxCommandEvent & e);
+    void DoStitch();
+
 
  private:
 
@@ -106,6 +107,8 @@ public:
 // TODO remove
 //    void DoPreview(wxCommandEvent & e);
     void DoCalcFOV(wxCommandEvent & e);
+    void OnDoStitch(wxCommandEvent & e);
+
 
     /** set the highest sensible width
      */

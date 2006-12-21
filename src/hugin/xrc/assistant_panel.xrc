@@ -16,14 +16,16 @@
               
               
               
+              
               <size>0,12</size>
                   </object>
             <object class="sizeritem">
               <object class="wxBoxSizer">
                 <object class="sizeritem">
-                  <object class="wxButton" name="action_add_images">
+                  <object class="wxButton" name="ass_load_images_button">
                           
                           
+                    
                     
                     
                     
@@ -32,6 +34,7 @@
                     <label>1. Load images...</label>
                           
                           
+                    
                     
                     
                     
@@ -46,7 +49,9 @@
                   
                   
                   
+                  
                   <flag>wxBOTTOM</flag>
+                  
                   
                   
                   
@@ -63,6 +68,7 @@
                         
                         
                         
+                        
                         <label>no images loaded</label>
                   </object>
                   
@@ -72,7 +78,9 @@
                       
                       
                       
+                      
                       <flag>wxBOTTOM|wxEXPAND|wxADJUST_MINSIZE</flag>
+                      
                       
                       
                       
@@ -84,7 +92,9 @@
                   
                   
                   
+                  
                   <flag>wxLEFT|wxEXPAND</flag>
+                  
                   
                   
                   
@@ -101,13 +111,16 @@
                         
                         
                         
+                        
                         <label>Automatic (use EXIF data)</label>
                           </object>
                         
                       
                       
                       
+                      
                       <flag>wxTOP|wxBOTTOM</flag>
+                      
                       
                       
                       
@@ -124,7 +137,9 @@
                                   
                                   
                                   
+                                  
                                   <label>Lens type:</label>
+                                  
                                   
                                   
                                   
@@ -133,10 +148,12 @@
                                 
                                 
                                 
+                                
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
                               <object class="sizeritem">
                                 <object class="wxChoice" name="ass_lens_proj_choice">
+                                  
                                   
                                   
                                   
@@ -155,13 +172,16 @@
                             
                             
                             
+                            
                             <flag>wxLEFT|wxEXPAND</flag>
+                            
                             
                             
                             
                             <border>12</border>
                           </object>
                           <object class="spacer">
+                            
                             
                             
                             
@@ -174,12 +194,15 @@
                                   
                                   
                                   
+                                  
                                   <label>Focal length:</label>
+                                  
                                   
                                   
                                   
                                   <style>wxALIGN_RIGHT</style>
                                 </object>
+                                
                                 
                                 
                                 
@@ -195,8 +218,10 @@
                                   
                                   
                                   
+                                  
                                   <label>mm</label>
                                 </object>
+                                
                                 
                                 
                                 
@@ -207,12 +232,15 @@
                                   
                                   
                                   
+                                  
                                   <label>Focal length multiplier:</label>
                                 </object>
                                 
                                 
                                 
+                                
                                 <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                
                                 
                                 
                                 
@@ -226,8 +254,10 @@
                                   
                                   
                                   
+                                  
                                   <label>x</label>
                                 </object>
+                                
                                 
                                 
                                 
@@ -237,13 +267,16 @@
                             
                             
                             
+                            
                             <flag>wxLEFT|wxEXPAND</flag>
+                            
                             
                             
                             
                             <border>12</border>
                           </object>
                           <object class="spacer">
+                            
                             
                             
                             
@@ -256,6 +289,7 @@
                               
                               
                               
+                              
                               <label>Load lens...</label>
                         
                             
@@ -264,7 +298,9 @@
                             
                             
                             
+                            
                             <flag>wxLEFT</flag>
+                            
                             
                             
                             
@@ -275,12 +311,14 @@
                       
                       
                       
+                      
                       <flag>wxEXPAND</flag>
                     </object>
                     <label>Camera and Lens</label>
                   </object>
                 </object>
                 <object class="spacer">
+                  
                   
                   
                   
@@ -297,9 +335,11 @@
                     
                     
                     
+                    
                     <label>2. Align...</label>
                           
                           
+                    
                     
                     
                     
@@ -314,7 +354,9 @@
                   
                   
                   
+                  
                   <flag>wxBOTTOM</flag>
+                  
                   
                   
                   
@@ -328,13 +370,16 @@
                     
                     
                     
+                    
                     <label>\n\n\n\n</label>
                   
                     
                     
                     
+                    
                     <style></style>
                   </object>
+                  
                   
                   
                   
@@ -346,9 +391,11 @@
                   
                   
                   
+                  
                   <border>15</border>
                 </object>
                 <object class="spacer">
+                  
                   
                   
                   
@@ -365,9 +412,11 @@
                     
                     
                     
+                    
                     <label>3. Create panorama...</label>
                           
                           
+                    
                     
                     
                     
@@ -387,7 +436,9 @@
               
               
               
+              
               <option>1</option>
+              
               
               
               
@@ -403,15 +454,19 @@
               
               
               
+              
               <size>0,12</size>
                   </object>
             <object class="sizeritem">
               <object class="unknown" name="ass_druid">
+                
                 <hidden>1</hidden>
               </object>
               
               
+              
               <flag>wxRIGHT</flag>
+              
               
               
               <border>10</border>
@@ -423,13 +478,16 @@
         
         
         
+        
         <option>1</option>
         
         
         
         
         
+        
         <flag>wxLEFT|wxEXPAND</flag>
+        
         
         
         
@@ -449,12 +507,14 @@
           <object class="sizeritem">
             <object class="wxStaticText">
               
+              
               <label>No information about focal length and field of view were
 found in the images. Please enter the data of your camera
 and lens below.</label>
             </object>
           </object>
           <object class="spacer">
+            
             
             <size>0,10</size>
           </object>
@@ -465,7 +525,9 @@ and lens below.</label>
                   
                   
                   
+                  
                   <label>Lens type:</label>
+                  
                   
                   
                   
@@ -474,10 +536,12 @@ and lens below.</label>
                 
                 
                 
+                
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxChoice" name="lensdlg_type_choice">
+                  
                   
                   
                   
@@ -490,6 +554,7 @@ and lens below.</label>
                   </content>
                 
                   
+                  
                   <selection>0</selection>
                 </object>
               </object>
@@ -499,13 +564,16 @@ and lens below.</label>
             
             
             
+            
             <flag>wxLEFT|wxEXPAND</flag>
+            
             
             
             
             <border>12</border>
           </object>
           <object class="spacer">
+            
             
             
             
@@ -518,7 +586,9 @@ and lens below.</label>
                   
                   
                   
+                  
                   <label>Focal length:</label>
+                  
                   
                   
                   
@@ -527,10 +597,12 @@ and lens below.</label>
                 
                 
                 
+                
                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="lensdlg_focallength_text">
+                  
                   
                   <value>35</value>
                 </object>
@@ -542,8 +614,10 @@ and lens below.</label>
                   
                   
                   
+                  
                   <label>mm</label>
                 </object>
+                
                 
                 
                 
@@ -554,8 +628,10 @@ and lens below.</label>
                   
                   
                   
+                  
                   <label>Focal length multiplier:</label>
                 </object>
+                
                 
                 
                 
@@ -563,10 +639,12 @@ and lens below.</label>
                 
                 
                 
+                
                 <border>20</border>
               </object>
               <object class="sizeritem">
                 <object class="wxTextCtrl" name="lensdlg_crop_factor_text">
+                  
                   
                   <value>1</value>
                 </object>
@@ -576,8 +654,10 @@ and lens below.</label>
                   
                   
                   
+                  
                   <label>x</label>
                 </object>
+                
                 
                 
                 
@@ -587,13 +667,16 @@ and lens below.</label>
             
             
             
+            
             <flag>wxLEFT|wxEXPAND</flag>
+            
             
             
             
             <border>12</border>
           </object>
           <object class="spacer">
+            
             
             
             
@@ -606,6 +689,7 @@ and lens below.</label>
               
               
               
+              
               <label>Load lens data...</label>
                         
                             
@@ -613,7 +697,9 @@ and lens below.</label>
               
                       
               
+              
               <style></style>
+              
               
               <enabled>0</enabled>
             </object>
@@ -621,7 +707,9 @@ and lens below.</label>
             
             
             
+            
             <flag>wxLEFT|wxALIGN_RIGHT</flag>
+            
             
             
             
@@ -631,7 +719,9 @@ and lens below.</label>
         
         
         
+        
         <flag>wxALL</flag>
+        
         
         
         
@@ -644,7 +734,9 @@ and lens below.</label>
             
             
             
+            
             <size>0,0</size>
+            
             
             
             
@@ -655,12 +747,15 @@ and lens below.</label>
               
               
               
+              
               <label></label>
             </object>
             
             
             
+            
             <flag>wxRIGHT</flag>
+            
             
             
             
@@ -670,7 +765,9 @@ and lens below.</label>
         
         
         
+        
         <flag>wxALL|wxEXPAND</flag>
+        
         
         
         

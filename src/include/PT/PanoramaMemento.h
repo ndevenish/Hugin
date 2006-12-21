@@ -474,6 +474,8 @@ public:
 
     DestPanoImage getDestImage() const;
 
+    const std::string & PanoramaOptions::getOutputExtension();
+
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
 
@@ -505,6 +507,7 @@ public:
 
 private:
     static const std::string fileformatNames[];
+    static const std::string fileformatExt[];
     double m_hfov;
 //    unsigned int m_width;
 //    unsigned int m_height;

@@ -96,6 +96,7 @@ BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
     EVT_CHOICE     ( XRCID("ass_lens_proj_choice"), AssistantPanel::OnLensTypeChanged)
     EVT_TEXT_ENTER ( XRCID("ass_focallength_text"), AssistantPanel::OnFocalLengthChanged)
     EVT_TEXT_ENTER ( XRCID("ass_cropfactor_text"),  AssistantPanel::OnCropFactorChanged)
+    EVT_BUTTON     ( XRCID("ass_load_images_button"), AssistantPanel::OnLoadImages)
     EVT_BUTTON     ( XRCID("ass_load_lens_button"), AssistantPanel::OnLoadLens)
     EVT_BUTTON     ( XRCID("ass_align_button"),     AssistantPanel::OnAlign)
     EVT_BUTTON     ( XRCID("ass_create_button"),    AssistantPanel::OnCreate)
@@ -345,7 +346,20 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
 
 // #####  Here start the eventhandlers  #####
 
-// Yaw by text -> double
+void AssistantPanel::OnLoadImages( wxCommandEvent & e )
+{
+    // load the images.
+    wxCommandEvent dummy;
+    MainFrame::Get()->OnAddImages(dummy);
+
+    long autoAlign = wxConfigBase::Get()->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN); 
+
+    if (autoAlign) {
+        OnAlign(dummy);
+    }
+
+}
+
 void AssistantPanel::OnAlign( wxCommandEvent & e )
 {
     // create control points
@@ -505,7 +519,7 @@ void AssistantPanel::OnCreate( wxCommandEvent & e )
             new PT::SetPanoOptionsCmd(m_pano, opts)
             );
     }
-    
+
     wxCommandEvent dummy;
     MainFrame::Get()->OnDoStitch(dummy);
 }

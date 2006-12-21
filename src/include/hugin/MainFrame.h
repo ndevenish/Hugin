@@ -135,6 +135,7 @@ public:
     void OnOptimize(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
+    void OnAddImages(wxCommandEvent & e);
 
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
 
@@ -164,7 +165,6 @@ private:
     void OnSavePTStitcherAs(wxCommandEvent & e);
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
-    void OnAddImages(wxCommandEvent & e);
     void OnAddTimeImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);

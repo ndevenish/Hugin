@@ -74,6 +74,7 @@ private:
     Panorama &m_pano;
 
     // event handlers
+    void OnLoadImages( wxCommandEvent & e );
     void OnAlign( wxCommandEvent & e );
     void OnCreate( wxCommandEvent & e );
     void OnExifToggle( wxCommandEvent & e);

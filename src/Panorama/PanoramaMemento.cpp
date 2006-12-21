@@ -418,13 +418,19 @@ const std::string & ControlPoint::getModeName(OptimizeMode mode) const
 
 const std::string & PanoramaOptions::getFormatName(FileFormat f)
 {
-    assert((int)f <= (int)QTVR);
+    assert((int)f <= (int)HDR_m);
     return fileformatNames[(int) f];
+}
+
+const std::string & PanoramaOptions::getOutputExtension()
+{
+    assert((int)outputFormat <= (int)HDR_m);
+    return fileformatExt[(int) outputFormat];
 }
 
 PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string & name)
 {
-    int max = (int) QTVR;
+    int max = (int) HDR_m;
     int i;
     for (i=0; i<max; i++) {
         if (name == fileformatNames[i]) {
@@ -738,6 +744,28 @@ const string PanoramaOptions::fileformatNames[] =
     "HDR_m"
 };
 
+
+const string PanoramaOptions::fileformatExt[] =
+{
+    "jpg",
+    "png",
+    "tif",
+    "tif",
+    "tif",
+    "tif",
+    "tif",
+    "pict",
+    "psd",
+    "psd",
+    "psd",
+    "pan",
+    "ivr",
+    "IVR_java",
+    "wrl",
+    "mov",
+    "hdr",
+    "hdr"
+};
 
 struct ImgInfo
 {

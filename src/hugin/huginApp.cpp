@@ -41,6 +41,7 @@
 
 #include <tiffio.h>
 
+using namespace utils;
 
 // utility functions
 bool str2double(wxString s, double & d)
@@ -50,6 +51,18 @@ bool str2double(wxString s, double & d)
         return false;
     }
     return true;
+}
+
+wxString getDefaultProjectName(const Panorama & pano)
+{
+    if (pano.getNrOfImages() > 0) {
+        
+        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), *wxConvCurrent);
+        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), *wxConvCurrent);
+        return first_img + wxT("-") + last_img;
+    } else {
+        return wxString(wxT("pano"));
+    }
 }
 
 #ifdef __WXMAC__

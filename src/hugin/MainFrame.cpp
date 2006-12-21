@@ -504,9 +504,13 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    wxString scriptName = m_filename;
+    if (m_filename == wxT("")) {
+        scriptName = getDefaultProjectName(pano) + wxT(".pto");
+    }
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), scriptName,
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
@@ -522,9 +526,13 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
+    wxString scriptName = m_filename;
+    if (m_filename == wxT("")) {
+        scriptName = getDefaultProjectName(pano) + wxT(".pto");
+    }
     wxFileDialog dlg(this,
                      _("Save PTStitcher script file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), scriptName,
                      _("PTStitcher files (*.txt)|*.txt"),
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
@@ -1032,8 +1040,7 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
 void MainFrame::OnDoStitch(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    wxCommandEvent dummy;
-    pano_panel->DoStitch(dummy);
+    pano_panel->DoStitch();
 }
 
 
