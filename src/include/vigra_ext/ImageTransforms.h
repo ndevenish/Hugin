@@ -619,7 +619,7 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
     switch (interpol) {
     case INTERP_CUBIC:
 	DEBUG_DEBUG("using cubic interpolator");
-	transformImageIntern(src, dest, alpha, transform, destUL,
+	transformImageInternMT(src, dest, alpha, transform, destUL,
                                  vigra_ext::interp_cubic(), warparound,
                                  progress);
 	break;
