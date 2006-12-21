@@ -525,6 +525,8 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
         setVFOV(vfov);
     } else {
         m_projectionFormat = f;
+        double hfov = std::min(getHFOV(), getMaxHFOV());
+        setHFOV(hfov, false);
     }
 }
 
