@@ -609,10 +609,21 @@ void CPEditorPanel::CreateNewPoint()
     point.x2 = p2.x;
     point.y2 = p2.y;
     if (point.image1Nr == point.image2Nr) {
-        if ( abs(p1.x - p2.x) > abs(p1.y - p2.y)) {
-            point.mode = PT::ControlPoint::Y;
-        } else {
-            point.mode = PT::ControlPoint::X;
+        bool hor = abs(p1.x - p2.x) > abs(p1.y - p2.y);
+        switch (m_leftRot) {
+            case CPImageCtrl::ROT0:
+            case CPImageCtrl::ROT180:
+                if (hor)
+                    point.mode = PT::ControlPoint::Y;
+                else
+                    point.mode = PT::ControlPoint::X;
+                break;
+            default:
+                if (hor)
+                    point.mode = PT::ControlPoint::X;
+                else
+                    point.mode = PT::ControlPoint::Y;
+                break;
         }
     } else {
         point.mode = PT::ControlPoint::X_Y;
