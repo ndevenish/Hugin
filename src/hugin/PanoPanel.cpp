@@ -641,15 +641,28 @@ void PanoPanel::DoStitch()
     // create filename
     wxString filename =  getDefaultProjectName(pano) + wxT(".") + ext;
     wxString wildcard = wxT("*.") + ext;
+    wildcard = wildcard + wxT("|") + wildcard;
 
     wxFileDialog dlg(this,_("Create panorama image"),
                      wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
-                     filename, ext,
+                     filename, wildcard,
                      wxSAVE, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
         wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().mb_str();
+        std::string outfile = stripExtension(opt.outfile) + std::string(".") + opt.getOutputExtension();
+        wxString wxfn(outfile.c_str(), *wxConvCurrent);
+        if (wxFile::Exists(wxfn)) {
+            int answer = wxMessageBox(wxString::Format(_("File %s already exists\n\nOverwrite?"), wxfn.c_str() ),
+                                      _("Overwrite file?"),
+                                      (wxYES_NO | wxICON_EXCLAMATION),
+                                      this);
+            if (answer != wxYES) {
+                return;
+            }
+        }
+
         m_Stitcher->Stitch(pano, opt);
     }
     // TODO: show image after it has been created
