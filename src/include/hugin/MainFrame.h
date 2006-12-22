@@ -42,6 +42,7 @@ class CPEditorPanel;
 class LensPanel;
 class ImgPreview;
 class ImagesPanel;
+class CropPanel;
 class PanoPanel;
 class PreviewFrame;
 class CPListFrame;
@@ -181,6 +182,7 @@ private:
     AssistantPanel* assistant_panel;
     ImagesPanel* images_panel;
     LensPanel* lens_panel;
+    CropPanel* crop_panel;
     CPEditorPanel * cpe;
     OptimizePanel * opt_panel;
     PanoPanel * pano_panel;

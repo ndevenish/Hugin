@@ -42,6 +42,7 @@
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/LensPanel.h"
+#include "hugin/CropPanel.h"
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
@@ -244,6 +245,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
                wxT("lens_panel_unknown"),
                lens_panel );
 
+
+    // the crop panel
+    crop_panel = new CropPanel( this, &pano);
+    // show the crop_panel
+    wxXmlResource::Get()->AttachUnknownControl (wxT("crop_panel_unknown"), crop_panel );
 
     // the pano_panel
     // The xrc resources are loaded by the class itself.
@@ -504,7 +510,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    wxString scriptName = m_filename;
+    wxString scriptName;
     if (m_filename == wxT("")) {
         scriptName = getDefaultProjectName(pano) + wxT(".pto");
     }
@@ -1196,7 +1202,7 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
-    m_notebook->SetSelection(3);
+    m_notebook->SetSelection(4);
     cpe->ShowControlPoint(cpNr);
 }
 
@@ -1294,6 +1300,7 @@ void MainFrame::RestoreLayoutOnNextResize()
     m_doRestoreLayout = true;
     cpe->RestoreLayoutOnNextResize();
     lens_panel->RestoreLayoutOnNextResize();
+    //crop_panel->RestoreLayoutOnNextResize();
     images_panel->RestoreLayoutOnNextResize();
 }
 

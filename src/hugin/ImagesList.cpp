@@ -419,3 +419,33 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     }
     SetItem(imgNr, 12, cropstr);
 }
+
+ImagesListCrop::ImagesListCrop(wxWindow * parent, Panorama * pano)
+    : ImagesList(parent, pano)
+{
+    m_configClassName = wxT("/ImagesListCrop");
+
+    InsertColumn(1, _("Crop"), wxLIST_FORMAT_RIGHT,100);
+
+    //get saved width
+    for ( int j=0; j < GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            SetColumnWidth(j, width);
+    }
+}
+
+void ImagesListCrop::UpdateItem(unsigned int imgNr)
+{
+    const PanoImage & img = pano.getImage(imgNr);
+    wxFileName fn(wxString (img.getFilename().c_str(), *wxConvCurrent));
+
+    wxString cropstr(wxT("-"));
+    if ( img.getOptions().docrop ) {
+        vigra::Rect2D c = img.getOptions().cropRect;
+        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
+    }
+    SetItem(imgNr, 1, cropstr);
+}

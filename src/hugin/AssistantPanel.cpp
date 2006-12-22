@@ -197,18 +197,9 @@ void AssistantPanel::RestoreLayout()
 
 void AssistantPanel::OnSize( wxSizeEvent & e )
 {
-#ifdef USE_WX253
-    int winWidth, winHeight;
-    GetClientSize(&winWidth, &winHeight);
-    XRCCTRL(*this, "assistant_panel", wxPanel)->SetSize (winWidth, winHeight);
-    DEBUG_INFO( "assistant panel: " << winWidth <<"x"<< winHeight );
-    DEBUG_INFO( "assistant controls: " << winWidth <<"x"<< winHeight );
-    m_panel->SetSize(winWidth, winHeight);
-#else
     wxSize new_size = GetSize();
     XRCCTRL(*this, "assistant_panel", wxPanel)->SetSize ( new_size );
     DEBUG_INFO( "assistant panel: " << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-#endif
 
     if (m_restoreLayoutOnResize) {
         m_restoreLayoutOnResize = false;

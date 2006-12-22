@@ -154,6 +154,19 @@ public:
 
 };
 
+/** specialized to display the crop aspect of images
+ */
+class ImagesListCrop : public ImagesList
+{
+public:
+    ImagesListCrop(wxWindow * parent, Panorama * pano);
+
+    /** update the information in an already existing list item
+     */
+    virtual void UpdateItem(unsigned int imgNr);
+
+
+};
 
 
 #endif // _LIST_H

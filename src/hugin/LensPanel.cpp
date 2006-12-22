@@ -42,7 +42,7 @@
 #include "hugin/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
-#include "hugin/ImageCenter.h"
+//#include "hugin/ImageCenter.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -325,8 +325,6 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
         }
     }
     // we need to do something if the image we are editing has changed.
-// DGSW FIXME - Unreferenced
-//	bool update=false;
     UIntSet intersection;
 
     std::set_intersection(m_selectedLenses.begin(), m_selectedLenses.end(),
@@ -927,6 +925,7 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
 
 void LensPanel::OnCrop ( wxCommandEvent & e )
 {
+#if 0
 //    wxLogError(_("temporarily disabled"));
     const UIntSet & selectedImages = images_list->GetSelected();
     if (images_list->GetSelected().size() > 0) {
@@ -991,6 +990,7 @@ void LensPanel::OnCrop ( wxCommandEvent & e )
         }
     }
     DEBUG_TRACE ("")
+#endif
 }
 
 

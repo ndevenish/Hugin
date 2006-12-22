@@ -280,7 +280,7 @@ bool huginApp::OnInit()
         return false;
     }
 
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("image_center.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("nona_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("ptstitcher_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_list_frame.xrc"));

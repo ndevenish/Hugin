@@ -129,6 +129,7 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
         m_shear == other.m_shear  &&
 
         m_crop == other.m_crop  &&
+        m_cropRect == other.m_cropRect &&
 
         m_vigCorrMode == other.m_vigCorrMode  &&
         m_radialVigCorrCoeff == other.m_radialVigCorrCoeff &&

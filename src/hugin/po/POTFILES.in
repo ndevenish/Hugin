@@ -10,8 +10,6 @@ src/hugin/CPListFrame.cpp
 src/hugin/huginApp.cpp
 src/hugin/ImageCache.cpp
 src/hugin/ImageCenter.cpp
-src/hugin/ImageOrientationPanel.cpp
-src/hugin/ImageOrientationFrame.cpp
 src/hugin/ImagesList.cpp
 src/hugin/ImagesPanel.cpp
 src/hugin/LensPanel.cpp
@@ -41,10 +39,10 @@ src/hugin/xrc/anchor_orientation.xrs
 src/hugin/xrc/cp_editor_panel.xrs
 src/hugin/xrc/cp_editor_panel-2.5.xrs
 src/hugin/xrc/cp_list_frame.xrs
+src/hugin/xrc/crop_frame.xrs
 src/hugin/xrc/edit_script_dialog.xrs
 src/hugin/xrc/edit_text.xrs
 src/hugin/xrc/help.xrs
-src/hugin/xrc/image_center.xrs
 src/hugin/xrc/images_panel.xrs
 src/hugin/xrc/images_panel-2.5.xrs
 src/hugin/xrc/keyboard_help.xrs
