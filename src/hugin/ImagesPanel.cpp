@@ -42,9 +42,7 @@
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "hugin/ImageOrientationFrame.h"
 #include "hugin/AutoCtrlPointCreator.h"
-#include "hugin/ImageCenter.h"
 #include "hugin/config_defaults.h"
 
 using namespace PT;
@@ -374,16 +372,6 @@ void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
             new PT::SetPanoOptionsCmd( pano, opt )
             );
     }
-}
-
-void ImagesPanel::OnSelectAnchorPosition(wxCommandEvent & e)
-{
-    // first, change anchor
-    OnOptAnchorChanged(e);
-
-    // open a frame to show the image
-    ImageOrientationFrame * t = new ImageOrientationFrame(this, pano);
-    t->Show();
 }
 
 void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )

@@ -96,7 +96,6 @@ private:
 
     void OnOptAnchorChanged(wxCommandEvent & e);
     void OnColorAnchorChanged(wxCommandEvent &e );
-    void OnSelectAnchorPosition(wxCommandEvent & e);
 
     void OnRemoveCtrlPoints(wxCommandEvent & e);
     void OnResetImagePositions(wxCommandEvent & e);
