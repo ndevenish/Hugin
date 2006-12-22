@@ -606,6 +606,7 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           SetCheckMark(m_c_list,false);
           SetCheckMark(m_d_list,false);
           SetCheckMark(m_e_list,false);
+          break;
         case OPT_YRP:
           // simple position
           SetCheckMark(m_yaw_list,true);
@@ -707,6 +708,8 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
             m_roll_list->Check(refImg, (nHCP+nVCP >= 1));
 			break;
         }
+
+        m_edit_cb->Enable(mode != OPT_PAIRWISE);
 
 	    // disable all manual settings
 	    m_yaw_list->Disable();
