@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.6.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-20 22:45+0100\n"
+"POT-Creation-Date: 2006-12-22 14:06+0100\n"
 "PO-Revision-Date: 2006-12-17 13:49+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/hugin/AssistantPanel.cpp:235
+#: src/hugin/AssistantPanel.cpp:227
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
 "Veuillez charger des images en pressant le bouton « Charger des images »."
 
-#: src/hugin/AssistantPanel.cpp:265
+#: src/hugin/AssistantPanel.cpp:257
 #, c-format
 msgid "%d images loaded."
 msgstr "%d images ont été chargées"
 
-#: src/hugin/AssistantPanel.cpp:299
+#: src/hugin/AssistantPanel.cpp:291
 #, fuzzy, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Voulez-vous vraiment supprimer %d points de contrôle ?"
 
-#: src/hugin/AssistantPanel.cpp:308
+#: src/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:309
+#: src/hugin/AssistantPanel.cpp:301
 #, fuzzy
 msgid ""
 "Please use the Control Points tab to connect all images with control "
@@ -46,21 +46,21 @@ msgstr ""
 "Vous pouvez presser le bouton du milieu de la souris pour faire défiler les "
 "images dans l'onglet des points de contrôle."
 
-#: src/hugin/AssistantPanel.cpp:312
+#: src/hugin/AssistantPanel.cpp:304
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:323
+#: src/hugin/AssistantPanel.cpp:315
 #, fuzzy
 msgid "Very good fit."
 msgstr "Très bonne correspondance"
 
-#: src/hugin/AssistantPanel.cpp:325
+#: src/hugin/AssistantPanel.cpp:317
 #, fuzzy
 msgid "Good fit."
 msgstr "Bonne correspondance"
 
-#: src/hugin/AssistantPanel.cpp:327
+#: src/hugin/AssistantPanel.cpp:319
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -68,7 +68,7 @@ msgstr ""
 "Mauvaise correspondance, certains points de contrôle sont mauvais, ou il y a "
 "des erreurs de parallaxe et de mouvements"
 
-#: src/hugin/AssistantPanel.cpp:329
+#: src/hugin/AssistantPanel.cpp:321
 #, fuzzy
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
@@ -79,25 +79,25 @@ msgstr ""
 "contrôle, ou des images comportant de la parallaxe ou des déplacements. "
 "L'optimiseur peut avoir échoué. Une intervention manuel est nécessaire."
 
-#: src/hugin/AssistantPanel.cpp:331
+#: src/hugin/AssistantPanel.cpp:323
 #, c-format
 msgid "Mean error after optimization: %.1f pixel\n"
 msgstr "Erreur moyenne après optimisation : %.1f pixels\n"
 
-#: src/hugin/AssistantPanel.cpp:355
+#: src/hugin/AssistantPanel.cpp:360
 msgid "At least two images are required."
 msgstr "Il faut au moins deux images."
 
-#: src/hugin/AssistantPanel.cpp:355
+#: src/hugin/AssistantPanel.cpp:360
 msgid "Error"
 msgstr "Erreur"
 
-#: src/hugin/AssistantPanel.cpp:399
+#: src/hugin/AssistantPanel.cpp:404
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:400
+#: src/hugin/AssistantPanel.cpp:405
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -105,7 +105,7 @@ msgid ""
 "After adding the points, press the \"Align\" button again"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:569 src/hugin/LensPanel.cpp:724
+#: src/hugin/AssistantPanel.cpp:574 src/hugin/LensPanel.cpp:719
 msgid "Not a jpeg file:"
 msgstr "Ce n'est pas un fichier jpeg :"
 
@@ -331,20 +331,20 @@ msgstr "Distance"
 msgid "No corresponding point found"
 msgstr "Aucun point de correspondance n'a été trouvé"
 
-#: src/hugin/CPEditorPanel.cpp:633
+#: src/hugin/CPEditorPanel.cpp:644
 msgid "new control point added"
 msgstr "Un nouveau point de contrôle a été ajouté"
 
-#: src/hugin/CPEditorPanel.cpp:733 src/hugin/CPEditorPanel.cpp:957
+#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
 msgid "searching similar point..."
 msgstr "Recherche d'un point similaire..."
 
-#: src/hugin/CPEditorPanel.cpp:752 src/hugin/CPEditorPanel.cpp:875
+#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
 msgid "Error during Fine-tune"
 msgstr "Erreur lors de l'ajustement précis"
 
-#: src/hugin/CPEditorPanel.cpp:766 src/hugin/CPEditorPanel.cpp:895
-#: src/hugin/CPEditorPanel.cpp:1010
+#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
+#: src/hugin/CPEditorPanel.cpp:1021
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -353,17 +353,17 @@ msgstr ""
 "Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : %"
 "0.3f, courbure %0.3f %0.3f"
 
-#: src/hugin/CPEditorPanel.cpp:769 src/hugin/CPEditorPanel.cpp:898
+#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
 msgid "change points, or press right mouse button to add the pair"
 msgstr ""
 "modifier les points ou presser le bouton droit de la souris pour ajouter la "
 "paire de points"
 
-#: src/hugin/CPEditorPanel.cpp:789
+#: src/hugin/CPEditorPanel.cpp:800
 msgid "Estimated point outside image"
 msgstr "Le point estimé est en dehors de l'image"
 
-#: src/hugin/CPEditorPanel.cpp:1016
+#: src/hugin/CPEditorPanel.cpp:1027
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -374,29 +374,29 @@ msgstr ""
 "coefficient de corrélation : %.3f, (devrait être > % .3f)\n"
 "courbure maximum : (%.3f, %.3f), (devrait être > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1018
+#: src/hugin/CPEditorPanel.cpp:1029
 msgid "No similar point found"
 msgstr "Aucun point semblable n'a été trouvé"
 
-#: src/hugin/CPEditorPanel.cpp:1420 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:213 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normal"
 
-#: src/hugin/CPEditorPanel.cpp:1423 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "ligne vert."
 
-#: src/hugin/CPEditorPanel.cpp:1426 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "ligne horiz."
 
-#: src/hugin/CPEditorPanel.cpp:1716
+#: src/hugin/CPEditorPanel.cpp:1727
 msgid "Cannot estimate image position without control points"
 msgstr "Impossible d'estimer la position de l'image sans point de contrôle"
 
-#: src/hugin/CPEditorPanel.cpp:1737
+#: src/hugin/CPEditorPanel.cpp:1748
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -406,27 +406,28 @@ msgstr ""
 "Pour créer moins de points,\n"
 "entrer un nombre plus grand."
 
-#: src/hugin/CPEditorPanel.cpp:1737
+#: src/hugin/CPEditorPanel.cpp:1748
 msgid "Corner Detection threshold"
 msgstr "Seuil de détection du coin"
 
-#: src/hugin/CPEditorPanel.cpp:1737 src/hugin/CPEditorPanel.cpp:1741
+#: src/hugin/CPEditorPanel.cpp:1748 src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Créer des points de contrôle"
 
-#: src/hugin/CPEditorPanel.cpp:1741
+#: src/hugin/CPEditorPanel.cpp:1752
 msgid "Corner Detection scale"
 msgstr "Échelle de détection du coin"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1764
 msgid "Error during control point creation:\n"
 msgstr "Erreur lors de la création du point de contrôle :\n"
 
-#: src/hugin/CPEditorPanel.cpp:1884
+#: src/hugin/CPEditorPanel.cpp:1895
 msgid "Select Point in right image"
 msgstr "Sélectionner un point sur l'image de droite"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1907
 msgid "Select Point in left image"
 msgstr "Sélectionner un point sur l'image de gauche"
 
@@ -475,8 +476,8 @@ msgstr "Erreur, veuillez entrer un nombre valable."
 msgid "Could not read number"
 msgstr "Impossible de lire le nombre"
 
-#: src/hugin/huginApp.cpp:49 src/hugin/ImagesPanel.cpp:313
-#: src/hugin/ImagesPanel.cpp:334 src/hugin/ImagesPanel.cpp:354
+#: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
+#: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
 #: src/hugin/PanoPanel.cpp:295 src/hugin/PanoPanel.cpp:326
 msgid "Value must be numeric."
 msgstr "La valeur doit être numérique."
@@ -509,45 +510,6 @@ msgstr "Création d'une échelle de gris %s"
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Création de l'image pyramide pour %s, niveau %d"
-
-#: src/hugin/ImageCenter.cpp:62
-msgid "Crop Image"
-msgstr "Recadrer l'image"
-
-#: src/hugin/ImageCenter.cpp:81
-msgid "Left:"
-msgstr "Gauche :"
-
-#: src/hugin/ImageCenter.cpp:86
-msgid "Top:"
-msgstr "Haut :"
-
-#: src/hugin/ImageCenter.cpp:91
-msgid "Right:"
-msgstr "Droite :"
-
-#: src/hugin/ImageCenter.cpp:96
-msgid "Bottom:"
-msgstr "Bas :"
-
-#: src/hugin/ImageCenter.cpp:101 src/hugin/xrc/images_panel.xrs:33
-#: src/hugin/xrc/images_panel-2.5.xrs:18
-msgid "Reset"
-msgstr "Valeurs par défaut"
-
-#: src/hugin/ImageCenter.cpp:103
-msgid "Always center Crop on d,e"
-msgstr "Toujours centrer l'image recadrée sur d, e"
-
-#: src/hugin/ImageCenter.cpp:219 src/hugin/ImageCenter.cpp:234
-#: src/hugin/ImageCenter.cpp:249 src/hugin/ImageCenter.cpp:264
-msgid "Please enter a valid number"
-msgstr "Veuillez entrer un nombre valable"
-
-#: src/hugin/ImageOrientationPanel.cpp:132
-#, c-format
-msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-msgstr "Lacet : %.1f Tangage %.1f Roulis %.1f"
 
 #: src/hugin/ImagesList.cpp:306 src/hugin/ImagesList.cpp:365
 msgid "Filename"
@@ -621,98 +583,97 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:376 src/hugin/xrc/images_panel.xrs:10
-#: src/hugin/xrc/images_panel-2.5.xrs:31 src/hugin/xrc/lens_panel.xrs:34
-#: src/hugin/xrc/lens_panel-2.5.xrs:25
+#: src/hugin/ImagesList.cpp:376 src/hugin/ImagesList.cpp:428
+#: src/hugin/xrc/images_panel.xrs:10 src/hugin/xrc/images_panel-2.5.xrs:31
+#: src/hugin/xrc/lens_panel.xrs:34
 msgid "Crop"
 msgstr "Recadrage"
 
 #: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:6
 #: src/hugin/xrc/assistant_panel.xrs:25 src/hugin/xrc/lens_panel.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:55
+#: src/hugin/xrc/lens_panel-2.5.xrs:13
 msgid "Normal (rectilinear)"
 msgstr "Normal (rectilinéaire)"
 
 #: src/hugin/ImagesList.cpp:400 src/hugin/xrc/assistant_panel.xrs:7
 #: src/hugin/xrc/assistant_panel.xrs:26 src/hugin/xrc/lens_panel.xrs:3
-#: src/hugin/xrc/lens_panel-2.5.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:56
+#: src/hugin/xrc/lens_panel-2.5.xrs:14
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramique (cylindrique)"
 
 #: src/hugin/ImagesList.cpp:401 src/hugin/xrc/assistant_panel.xrs:8
 #: src/hugin/xrc/assistant_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:57
+#: src/hugin/xrc/lens_panel-2.5.xrs:15
 msgid "Circular fisheye"
 msgstr "Fisheye circulaire"
 
 #: src/hugin/ImagesList.cpp:402 src/hugin/xrc/assistant_panel.xrs:9
 #: src/hugin/xrc/assistant_panel.xrs:28 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:58
-#: src/hugin/xrc/pano_panel.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/pano_panel.xrs:6
 msgid "Full frame fisheye"
 msgstr "Fisheye plein cadre"
 
 #: src/hugin/ImagesList.cpp:403 src/hugin/PreviewFrame.cpp:439
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
-#: src/hugin/xrc/lens_panel-2.5.xrs:59 src/hugin/xrc/pano_panel.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:5
 msgid "Equirectangular"
 msgstr "Équirectangulaire"
 
-#: src/hugin/ImagesPanel.cpp:292
+#: src/hugin/ImagesPanel.cpp:294
 #, c-format
 msgid "Added %d control points"
 msgstr "%d points de contrôle ont été ajoutés"
 
-#: src/hugin/ImagesPanel.cpp:292
+#: src/hugin/ImagesPanel.cpp:294
 msgid "Autopano result"
 msgstr "Résultat d'Autopano"
 
-#: src/hugin/ImagesPanel.cpp:695
+#: src/hugin/ImagesPanel.cpp:687
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Voulez-vous vraiment supprimer %d points de contrôle ?"
 
-#: src/hugin/ImagesPanel.cpp:697
+#: src/hugin/ImagesPanel.cpp:689
 msgid "Delete Control Points"
 msgstr "Effacer les points de contrôle"
 
-#: src/hugin/LensPanel.cpp:729 src/hugin/LensPanel.cpp:789
-#: src/hugin/LensPanel.cpp:822 src/hugin/LensPanel.cpp:906
-#: src/hugin/LensPanel.cpp:924
+#: src/hugin/LensPanel.cpp:724 src/hugin/LensPanel.cpp:784
+#: src/hugin/LensPanel.cpp:817 src/hugin/LensPanel.cpp:901
+#: src/hugin/LensPanel.cpp:919
 msgid "Please select an image and try again"
 msgstr "Veuillez sélectionner une image et réessayer"
 
-#: src/hugin/LensPanel.cpp:747
+#: src/hugin/LensPanel.cpp:742
 msgid "Save lens parameters file"
 msgstr "Enregistrer le fichier des paramètres de l'objectif"
 
-#: src/hugin/LensPanel.cpp:749
+#: src/hugin/LensPanel.cpp:744
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Fichiers de projets d'objectifs (*.ini)|*.ini|tous les fichiers (*)|*"
 
-#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:826
 msgid "Load lens parameters"
 msgstr "Charger les paramètres de l'objectif"
 
-#: src/hugin/LensPanel.cpp:833
+#: src/hugin/LensPanel.cpp:828
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr ""
 "Fichiers de projets d'objectifs (*.ini)|*.ini|tous les fichiers (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:914
+#: src/hugin/LensPanel.cpp:909
 msgid "Enter new lens number"
 msgstr "Entrer le numéro du nouvel objectif"
 
-#: src/hugin/LensPanel.cpp:914
+#: src/hugin/LensPanel.cpp:909
 msgid "Lens number"
 msgstr "Objectif numéro"
 
-#: src/hugin/LensPanel.cpp:915
+#: src/hugin/LensPanel.cpp:910
 msgid "Change lens number"
 msgstr "Changer le numéro d'objectif"
 
-#: src/hugin/LensPanel.cpp:1009
+#: src/hugin/LensPanel.cpp:935
 msgid ""
 "Enter Crop Factor for image\n"
 "\n"
@@ -728,21 +689,21 @@ msgstr ""
 "\n"
 "où « diagonale » est la diagonale (en mm) du film ou du capteur."
 
-#: src/hugin/LensPanel.cpp:1010
+#: src/hugin/LensPanel.cpp:936
 msgid "Adding Image"
 msgstr "Ajout d'une image"
 
-#: src/hugin/LensPanel.cpp:1034
+#: src/hugin/LensPanel.cpp:960
 #, fuzzy
 msgid "The crop factor must be numeric."
 msgstr "La valeur du roulis doit être numérique."
 
-#: src/hugin/LensPanel.cpp:1043
+#: src/hugin/LensPanel.cpp:969
 #, fuzzy
 msgid "The focal length value must be numeric."
 msgstr "La valeur du roulis doit être numérique."
 
-#: src/hugin/MainFrame.cpp:182
+#: src/hugin/MainFrame.cpp:183
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -752,16 +713,16 @@ msgstr ""
 "Le répertoire xrc est introuvable.\n"
 "Veuillez vous assurer qu'il se trouve dans le même répertoire que hugin.exe"
 
-#: src/hugin/MainFrame.cpp:202 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:203 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Aide"
 
-#: src/hugin/MainFrame.cpp:293
+#: src/hugin/MainFrame.cpp:299
 msgid "Started"
 msgstr "Lancé"
 
-#: src/hugin/MainFrame.cpp:419
+#: src/hugin/MainFrame.cpp:425
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -769,52 +730,52 @@ msgstr ""
 "Le panorama a été modifié\n"
 "Enregistrer les modifications ?"
 
-#: src/hugin/MainFrame.cpp:419
+#: src/hugin/MainFrame.cpp:425
 msgid "Save Panorama?"
 msgstr "Enregistrer le panorama ?"
 
-#: src/hugin/MainFrame.cpp:452
+#: src/hugin/MainFrame.cpp:458
 msgid "forced close"
 msgstr "Fermeture forcée"
 
-#: src/hugin/MainFrame.cpp:499
+#: src/hugin/MainFrame.cpp:505
 #, c-format
 msgid "saved project %s"
 msgstr "Projet %s enregistré"
 
-#: src/hugin/MainFrame.cpp:508
+#: src/hugin/MainFrame.cpp:518
 msgid "Save project file"
 msgstr "Enregistrer le fichier de projet"
 
-#: src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:520
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Fichiers de projets (*.pto)|*.pto|Tous les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:526
+#: src/hugin/MainFrame.cpp:540
 msgid "Save PTStitcher script file"
 msgstr "Enregistrer le fichier script PTStitcher"
 
-#: src/hugin/MainFrame.cpp:528
+#: src/hugin/MainFrame.cpp:542
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Fichiers PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:556
+#: src/hugin/MainFrame.cpp:570
 msgid "Open project:   "
 msgstr "Ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:568
+#: src/hugin/MainFrame.cpp:582
 msgid "Project opened"
 msgstr "Projet ouvert"
 
-#: src/hugin/MainFrame.cpp:578
+#: src/hugin/MainFrame.cpp:592
 msgid "Error opening project:   "
 msgstr "Erreur lors de l'ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:605
+#: src/hugin/MainFrame.cpp:623
 msgid "Open project file"
 msgstr "Ouverture du fichier de projet"
 
-#: src/hugin/MainFrame.cpp:607
+#: src/hugin/MainFrame.cpp:625
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -822,11 +783,11 @@ msgstr ""
 "Fichiers de projets (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tous "
 "les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:620
+#: src/hugin/MainFrame.cpp:638
 msgid "Open project: cancel"
 msgstr "Ouverture du projet : abandon"
 
-#: src/hugin/MainFrame.cpp:644 src/hugin/VigCorrDialog.cpp:169
+#: src/hugin/MainFrame.cpp:664 src/hugin/VigCorrDialog.cpp:169
 #: src/include/hugin/wxPanoCommand.h:194
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -837,23 +798,23 @@ msgstr ""
 "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Fichiers JPEG (*.jpg)|*."
 "jpg;*.JPG|Tous les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:645 src/include/hugin/wxPanoCommand.h:195
+#: src/hugin/MainFrame.cpp:665 src/include/hugin/wxPanoCommand.h:195
 msgid "Add images"
 msgstr "Ajouter des images"
 
-#: src/hugin/MainFrame.cpp:697
+#: src/hugin/MainFrame.cpp:717
 msgid "Add Image: cancel"
 msgstr "Ajout d'images : abandon"
 
-#: src/hugin/MainFrame.cpp:1074
+#: src/hugin/MainFrame.cpp:1093
 msgid "Fine-tuning all points"
 msgstr "Ajuster précisément tous les points"
 
-#: src/hugin/MainFrame.cpp:1076
+#: src/hugin/MainFrame.cpp:1095
 msgid "Finetuning"
 msgstr "Ajustement précis"
 
-#: src/hugin/MainFrame.cpp:1167
+#: src/hugin/MainFrame.cpp:1186
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -881,7 +842,7 @@ msgstr ""
 "couleur uniforme) sera mise à 0.\n"
 "\n"
 
-#: src/hugin/MainFrame.cpp:1169
+#: src/hugin/MainFrame.cpp:1188
 msgid "Fine-tune result"
 msgstr "Résultat de l'ajustement précis"
 
@@ -1286,7 +1247,7 @@ msgstr "la largeur doit être un entier positif"
 msgid "height needs to be an integer bigger than 0"
 msgstr "la largeur doit être un entier positif"
 
-#: src/hugin/PanoPanel.cpp:641
+#: src/hugin/PanoPanel.cpp:645
 msgid "Create panorama image"
 msgstr "Créer une image panoramique"
 
@@ -1440,11 +1401,6 @@ msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Centrer le panorama avec le bouton de gauche de la souris, positionner "
 "l'horizon avec le bouton de droite"
-
-#: src/hugin/PreviewFrame.cpp:328
-#, c-format
-msgid "%.1f x %.1f"
-msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
@@ -1769,7 +1725,6 @@ msgstr "Automatique (utiliser les données EXIF)"
 
 #: src/hugin/xrc/assistant_panel.xrs:5 src/hugin/xrc/assistant_panel.xrs:24
 #: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:12
-#: src/hugin/xrc/lens_panel-2.5.xrs:54
 msgid "Lens type:"
 msgstr "Type d'objectif :"
 
@@ -2000,6 +1955,36 @@ msgstr "Points de contrôle"
 msgid "Select by Distance"
 msgstr "Sélectionner par distance"
 
+#: src/hugin/xrc/crop_panel.xrs:1
+msgid "Left:"
+msgstr "Gauche :"
+
+#: src/hugin/xrc/crop_panel.xrs:2
+msgid "Top:"
+msgstr "Haut :"
+
+#: src/hugin/xrc/crop_panel.xrs:3
+msgid "Right:"
+msgstr "Droite :"
+
+#: src/hugin/xrc/crop_panel.xrs:4
+msgid "Bottom:"
+msgstr "Bas :"
+
+#: src/hugin/xrc/crop_panel.xrs:5
+msgid "Always center Crop on d,e"
+msgstr "Toujours centrer l'image recadrée sur d, e"
+
+#: src/hugin/xrc/crop_panel.xrs:6 src/hugin/xrc/images_panel.xrs:33
+#: src/hugin/xrc/images_panel-2.5.xrs:18
+msgid "Reset"
+msgstr "Valeurs par défaut"
+
+#: src/hugin/xrc/crop_panel.xrs:7 src/hugin/xrc/lens_panel.xrs:38
+#: src/hugin/xrc/lens_panel-2.5.xrs:2
+msgid "Load lens parameters from a file"
+msgstr "Charger les paramètres de l'objectif depuis un fichier"
+
 #: src/hugin/xrc/edit_script_dialog.xrs:1
 msgid "Edit Panorama Tools Script"
 msgstr "Éditer le script des outils de Panorama"
@@ -2037,25 +2022,9 @@ msgstr "Abandonner"
 msgid "Hugin Reference"
 msgstr "Référence d'Hugin"
 
-#: src/hugin/xrc/help.xrs:2 src/hugin/xrc/image_center.xrs:3
-#: src/hugin/xrc/keyboard_help.xrs:2
+#: src/hugin/xrc/help.xrs:2 src/hugin/xrc/keyboard_help.xrs:2
 msgid "Close"
 msgstr "Fermer"
-
-#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:83
-#: src/hugin/xrc/run_optimizer_frame.xrs:2
-msgid "Apply"
-msgstr "Appliquer"
-
-#: src/hugin/xrc/image_center.xrs:2
-msgid "apply changed values to actual selected images from panorama"
-msgstr ""
-"appliquer les valeurs modifiées aux images du panorama actuellement "
-"sélectionnées"
-
-#: src/hugin/xrc/image_center.xrs:4
-msgid "close window"
-msgstr "Fermer la fenêtre"
 
 #: src/hugin/xrc/images_panel.xrs:1
 msgid "Image Collection"
@@ -2153,7 +2122,7 @@ msgstr ""
 msgid "number of points created at each overlap"
 msgstr "Nombre de points créés pour chaque recouvrement"
 
-#: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:23
+#: src/hugin/xrc/images_panel.xrs:22
 msgid "Create Ctrl Points"
 msgstr "Créer des points"
 
@@ -2161,7 +2130,7 @@ msgstr "Créer des points"
 msgid "Run external autopano program on the selected images"
 msgstr "Lancer le programme externe Autopano sur les images sélectionnées "
 
-#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:9
+#: src/hugin/xrc/images_panel.xrs:24
 msgid "Remove Points"
 msgstr "Supprimer les points"
 
@@ -2206,6 +2175,11 @@ msgstr "Replacer la ou les images à leur position par défaut"
 msgid "This Image"
 msgstr "Cette image"
 
+#: src/hugin/xrc/images_panel-2.5.xrs:9
+#, fuzzy
+msgid "Remove points"
+msgstr "Supprimer les points"
+
 #: src/hugin/xrc/images_panel-2.5.xrs:32
 msgid "Crop..."
 msgstr "Recadrage..."
@@ -2215,17 +2189,14 @@ msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
 #: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:11
-#: src/hugin/xrc/lens_panel-2.5.xrs:60
 msgid "Design Parameters"
 msgstr "Paramètres de conception"
 
 #: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:18
-#: src/hugin/xrc/lens_panel-2.5.xrs:61
 msgid "degrees of view (v):"
 msgstr "Angle de champ (v) :"
 
 #: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel-2.5.xrs:19
-#: src/hugin/xrc/lens_panel-2.5.xrs:62
 msgid "Horizontal Field of View"
 msgstr "Angle de champ horizontal"
 
@@ -2233,36 +2204,28 @@ msgstr "Angle de champ horizontal"
 #: src/hugin/xrc/lens_panel.xrs:19 src/hugin/xrc/lens_panel.xrs:21
 #: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/lens_panel.xrs:26
 #: src/hugin/xrc/lens_panel.xrs:29 src/hugin/xrc/lens_panel.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:30
-#: src/hugin/xrc/lens_panel-2.5.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:34
-#: src/hugin/xrc/lens_panel-2.5.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:39
-#: src/hugin/xrc/lens_panel-2.5.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:44
-#: src/hugin/xrc/lens_panel-2.5.xrs:49 src/hugin/xrc/lens_panel-2.5.xrs:51
-#: src/hugin/xrc/lens_panel-2.5.xrs:53 src/hugin/xrc/lens_panel-2.5.xrs:63
-#: src/hugin/xrc/lens_panel-2.5.xrs:72 src/hugin/xrc/lens_panel-2.5.xrs:74
-#: src/hugin/xrc/lens_panel-2.5.xrs:76 src/hugin/xrc/lens_panel-2.5.xrs:79
-#: src/hugin/xrc/lens_panel-2.5.xrs:81 src/hugin/xrc/lens_panel-2.5.xrs:84
-#: src/hugin/xrc/lens_panel-2.5.xrs:86
+#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:29
+#: src/hugin/xrc/lens_panel-2.5.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:33
+#: src/hugin/xrc/lens_panel-2.5.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:38
+#: src/hugin/xrc/lens_panel-2.5.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:43
+#: src/hugin/xrc/lens_panel-2.5.xrs:48 src/hugin/xrc/lens_panel-2.5.xrs:50
+#: src/hugin/xrc/lens_panel-2.5.xrs:52
 msgid "Inherit"
 msgstr "Hérité"
 
 #: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:21
-#: src/hugin/xrc/lens_panel-2.5.xrs:64
 msgid "focal length:"
 msgstr "Distance focale :"
 
 #: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel-2.5.xrs:22
-#: src/hugin/xrc/lens_panel-2.5.xrs:65
 msgid "true focal length in mm"
 msgstr "Distance focale vraie en mm"
 
 #: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:23
-#: src/hugin/xrc/lens_panel-2.5.xrs:66
 msgid "crop factor:"
 msgstr "Facteur de recadrage :"
 
 #: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:24
-#: src/hugin/xrc/lens_panel-2.5.xrs:67
 msgid "35mm film diameter / ccd diameter"
 msgstr "Diagonale en film 35mm / diagonale du capteur"
 
@@ -2270,53 +2233,46 @@ msgstr "Diagonale en film 35mm / diagonale du capteur"
 msgid "Lens Correction Parameters"
 msgstr "Paramètres de correction de l'optique"
 
-#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:29
-#: src/hugin/xrc/lens_panel-2.5.xrs:71 src/hugin/xrc/optimize_panel.xrs:25
+#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:28
+#: src/hugin/xrc/optimize_panel.xrs:25
 msgid "distortion (a):"
 msgstr "Distorsion (a) :"
 
-#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:73 src/hugin/xrc/optimize_panel.xrs:26
+#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:30
+#: src/hugin/xrc/optimize_panel.xrs:26
 msgid "barrel (b):"
 msgstr "Barillet (b) :"
 
-#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:33
-#: src/hugin/xrc/lens_panel-2.5.xrs:75 src/hugin/xrc/optimize_panel.xrs:27
+#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:32
+#: src/hugin/xrc/optimize_panel.xrs:27
 msgid "distortion (c):"
 msgstr "Distorsion (c) :"
 
-#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:35
-#: src/hugin/xrc/lens_panel-2.5.xrs:77
+#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:34
 msgid "Image Center Shift"
 msgstr "Décaler le centre de l'image"
 
-#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:36
-#: src/hugin/xrc/lens_panel-2.5.xrs:78
+#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:35
 msgid "horizontal (d):"
 msgstr "Horizontalement (d) :"
 
-#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:38
-#: src/hugin/xrc/lens_panel-2.5.xrs:80
+#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:37
 msgid "vertical (e):"
 msgstr "Verticalement (e) :"
 
-#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:40
-#: src/hugin/xrc/lens_panel-2.5.xrs:82
+#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:39
 msgid "Image Shearing"
 msgstr "Cisaillement de l'image"
 
-#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:41
-#: src/hugin/xrc/lens_panel-2.5.xrs:83
+#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:40
 msgid "horizontal (g):"
 msgstr "Horizontal (g) :"
 
-#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:43
-#: src/hugin/xrc/lens_panel-2.5.xrs:85
+#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:42
 msgid "vertical (t):"
 msgstr "Vertical (t) :"
 
-#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:26
-#: src/hugin/xrc/lens_panel-2.5.xrs:88
+#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:25
 msgid "Vignetting"
 msgstr "Vignetage"
 
@@ -2324,56 +2280,44 @@ msgstr "Vignetage"
 msgid "Set crop and image center"
 msgstr "Définir le recadrage et le centre de l'image"
 
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:98
+#: src/hugin/xrc/lens_panel.xrs:36
 msgid "Lens management"
 msgstr "Gestion de l'objectif"
 
-#: src/hugin/xrc/lens_panel.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:99
+#: src/hugin/xrc/lens_panel.xrs:37
 msgid "Load"
 msgstr "Charger"
 
-#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:100
-msgid "Load lens parameters from a file"
-msgstr "Charger les paramètres de l'objectif depuis un fichier"
-
-#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:101
-#: src/hugin/xrc/main_tool.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
 msgstr "Enregistrer"
 
 #: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:102
 msgid "Save lens parameters to an file"
 msgstr "Enregistrer les paramètres de l'objectif dans un fichier"
 
 #: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:103
 msgid "Load EXIF"
 msgstr "Charger les EXIF"
 
 #: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:104
 msgid "Try to read HFOV from the EXIF data"
 msgstr ""
 "Essayer de lire l'angle de champ horizontal (HFOV) depuis les données EXIF"
 
 #: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:7
-#: src/hugin/xrc/lens_panel-2.5.xrs:105
 msgid "New Lens"
 msgstr "Nouvel objectif"
 
 #: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:8
-#: src/hugin/xrc/lens_panel-2.5.xrs:106
 msgid "Create a new lens and assign it to selected images"
 msgstr "Créer un nouvel objectif et l'assigner aux images sélectionnées"
 
-#: src/hugin/xrc/lens_panel.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:107
+#: src/hugin/xrc/lens_panel.xrs:45
 msgid "Change lens"
 msgstr "Changer d'objectif"
 
 #: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:10
-#: src/hugin/xrc/lens_panel-2.5.xrs:108
 msgid "change lens of selected images"
 msgstr "Changer l'objectif pour les images sélectionnées"
 
@@ -2385,81 +2329,37 @@ msgstr "Sauvegarder l'objectif..."
 msgid "Change lens..."
 msgstr "Changer d'objectif..."
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:27
+#: src/hugin/xrc/lens_panel-2.5.xrs:26
 msgid "Edit Parameters..."
 msgstr "Éditer les paramètres..."
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:70
+#: src/hugin/xrc/lens_panel-2.5.xrs:27
 msgid "Radial Distortion"
 msgstr "Distorsion radiale"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:90
+#: src/hugin/xrc/lens_panel-2.5.xrs:44
 msgid "Exposure and Color"
 msgstr "Exposition et couleur"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:46
+#: src/hugin/xrc/lens_panel-2.5.xrs:45
 msgid "gain"
 msgstr "gain"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:47
+#: src/hugin/xrc/lens_panel-2.5.xrs:46
 msgid "offset"
 msgstr "décalage"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:48
+#: src/hugin/xrc/lens_panel-2.5.xrs:47
 msgid "red (K0):"
 msgstr "rouge (K0) :"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:50
+#: src/hugin/xrc/lens_panel-2.5.xrs:49
 msgid "green (K1):"
 msgstr "vert (K1) :"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:52
+#: src/hugin/xrc/lens_panel-2.5.xrs:51
 msgid "blue (K2):"
 msgstr "bleu (K2) :"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Correction"
-msgstr "Correction"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:69
-msgid "Geometric"
-msgstr "Géométrique"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:87
-msgid "Photometric"
-msgstr "Photométrique"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:89
-msgid "Edit Parameters"
-msgstr "Éditer les paramètres"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:91
-msgid "Channel:"
-msgstr "Canal :"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:92
-msgid "exposure"
-msgstr "exposition"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:93
-msgid "brightness"
-msgstr "luminosité"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:94
-msgid "inherit"
-msgstr "hérité"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:95
-msgid "red (K0)"
-msgstr "rouge (K0)"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:96
-msgid "green (K1)"
-msgstr "vert (K1)"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:97
-msgid "blue (K2)"
-msgstr "bleu (K2)"
 
 #: src/hugin/xrc/main_frame.xrs:1
 msgid "Hugin - Panorama Tools Frontend"
@@ -3371,6 +3271,10 @@ msgstr ""
 "Enregistrer les images recadrées, ceci demande moins d'espace disque et de "
 "mémoire."
 
+#: src/hugin/xrc/pref_dialog.xrs:83 src/hugin/xrc/run_optimizer_frame.xrs:2
+msgid "Apply"
+msgstr "Appliquer"
+
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr "Centrer"
@@ -3582,6 +3486,10 @@ msgstr "Abandonner"
 #: src/hugin/xrc/vig_corr_dlg.xrs:1
 msgid "Vignetting correction"
 msgstr "Correction du vignetage"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:2
+msgid "Correction"
+msgstr "Correction"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "Flatfield"
@@ -3879,6 +3787,53 @@ msgstr ""
 "L'optimisation de tous les paramètres de distorsion (« tout ») ne s'applique "
 "qu'à des images ayant un important recouvrement et des points de contrôle "
 "nombreux et bien distribués."
+
+#~ msgid "Crop Image"
+#~ msgstr "Recadrer l'image"
+
+#~ msgid "Please enter a valid number"
+#~ msgstr "Veuillez entrer un nombre valable"
+
+#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+#~ msgstr "Lacet : %.1f Tangage %.1f Roulis %.1f"
+
+#~ msgid "apply changed values to actual selected images from panorama"
+#~ msgstr ""
+#~ "appliquer les valeurs modifiées aux images du panorama actuellement "
+#~ "sélectionnées"
+
+#~ msgid "close window"
+#~ msgstr "Fermer la fenêtre"
+
+#~ msgid "Geometric"
+#~ msgstr "Géométrique"
+
+#~ msgid "Photometric"
+#~ msgstr "Photométrique"
+
+#~ msgid "Edit Parameters"
+#~ msgstr "Éditer les paramètres"
+
+#~ msgid "Channel:"
+#~ msgstr "Canal :"
+
+#~ msgid "exposure"
+#~ msgstr "exposition"
+
+#~ msgid "brightness"
+#~ msgstr "luminosité"
+
+#~ msgid "inherit"
+#~ msgstr "hérité"
+
+#~ msgid "red (K0)"
+#~ msgstr "rouge (K0)"
+
+#~ msgid "green (K1)"
+#~ msgstr "vert (K1)"
+
+#~ msgid "blue (K2)"
+#~ msgstr "bleu (K2)"
 
 #~ msgid "%d control points.\n"
 #~ msgstr "%d points de contrôle.\n"

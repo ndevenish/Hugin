@@ -91,7 +91,6 @@ BEGIN_EVENT_TABLE(LensPanel, wxWindow) //wxEvtHandler)
     EVT_TEXT_ENTER ( XRCID("lens_val_K2a"), LensPanel::OnVarChanged )
     EVT_TEXT_ENTER ( XRCID("lens_val_K2b"), LensPanel::OnVarChanged )
 //    EVT_BUTTON ( XRCID("lens_button_center"), LensPanel::SetCenter )
-    EVT_BUTTON     ( XRCID("lens_button_crop"),  LensPanel::OnCrop)
     EVT_BUTTON ( XRCID("lens_button_vig"), LensPanel::EditVigCorr )
     EVT_BUTTON ( XRCID("lens_button_loadEXIF"), LensPanel::OnReadExif )
     EVT_BUTTON ( XRCID("lens_button_save"), LensPanel::OnSaveLensParameters )
@@ -605,7 +604,6 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         XRCCTRL(*this, "lens_button_newlens", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_changelens", wxButton)->Disable();
         XRCCTRL(*this, "lens_button_vig", wxButton)->Disable();
-        XRCCTRL(*this, "lens_button_crop", wxButton)->Disable();  
     } else {
 //        m_editImageNr = *sel.begin();
 
@@ -642,7 +640,6 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
             XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_newlens", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_changelens", wxButton)->Enable();
-            XRCCTRL(*this, "lens_button_crop", wxButton)->Enable();  
         }
 
         if (m_selectedImages.size() == 1) {
@@ -922,77 +919,6 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
         wxLogError(_("Please select an image and try again"));
     }
 }
-
-void LensPanel::OnCrop ( wxCommandEvent & e )
-{
-#if 0
-//    wxLogError(_("temporarily disabled"));
-    const UIntSet & selectedImages = images_list->GetSelected();
-    if (images_list->GetSelected().size() > 0) {
-        ImgCenter dlg(this);
-        int imgNr = *(selectedImages.begin());
-        const PanoImage & img = pano.getImage(imgNr);
-        // show an image preview
-        wxImage * wximg = ImageCache::getInstance().getImage(
-                img.getFilename())->image;
-        bool circular_crop = pano.getLens(img.getLensNr()).getProjection() == PT::Lens::CIRCULAR_FISHEYE;
-
-        ImageOptions opts = img.getOptions();
-        dlg.SetImage(*wximg);
-        VariableMap vars = pano.getImageVariables(imgNr);
-        int dx = roundi(map_get(vars,"d").getValue());
-        int dy = roundi(map_get(vars,"e").getValue());
-        vigra::Point2D center(wximg->GetWidth()/2 + dx, wximg->GetHeight()/2 + dy);
-
-        dlg.SetParameters(opts.cropRect, circular_crop, center, opts.autoCenterCrop);
-//        dlg.CentreOnParent ();
-//        dlg->Refresh();
-        if ( dlg.ShowModal() == wxID_OK ) {
-            // get crop parameters
-            opts.cropRect = dlg.getCrop();
-            if (! opts.cropRect.isEmpty()) {
-                opts.docrop = true;
-            } else {
-                opts.docrop = false;
-            }
-            if (dlg.getCenterOnDE()) {
-                opts.autoCenterCrop = true;
-            } else {
-                opts.autoCenterCrop = false;
-            }
-
-            // set image options.
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::SetImageOptionsCmd(pano, opts, selectedImages)
-                                                   );
-
-            // allow setting of the d,e if automatic centering on d and e is switched off.
-            if (wxConfigBase::Get()->Read(wxT("LensPanel/CropSetsCenter"), HUGIN_CROP_SETS_CENTER ) && ! opts.autoCenterCrop)
-//            if (opts.autoCenterCrop)
-            {
-                double centerx = opts.cropRect.left() + opts.cropRect.width() / 2.0;
-                double centery = opts.cropRect.top() + opts.cropRect.height() / 2.0;
-                if (centerx != 0.0 && centery != 0.0) {
-                    VariableMapVector vars(selectedImages.size());
-                    UIntSet::const_iterator iNrIt = selectedImages.begin();
-                    for (VariableMapVector::iterator it = vars.begin(); it != vars.end(); ++it)
-                    {
-                        const PanoImage & pimg = pano.getImage(*iNrIt);
-                        (*it).insert(make_pair(std::string("d"), Variable("d", centerx - pimg.getWidth()/2.0 )));
-                        (*it).insert(make_pair(std::string("e"), Variable("e", centery - pimg.getHeight()/2.0 )));
-                        iNrIt++;
-                    }
-                    GlobalCmdHist::getInstance().addCommand(
-                            new PT::UpdateImagesVariablesCmd(pano, selectedImages, vars)
-                                                       );
-                }
-            }
-        }
-    }
-    DEBUG_TRACE ("")
-#endif
-}
-
 
 
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l,

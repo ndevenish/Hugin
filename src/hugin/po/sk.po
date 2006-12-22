@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sk\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-20 22:45+0100\n"
+"POT-Creation-Date: 2006-12-22 14:06+0100\n"
 "PO-Revision-Date: 2006-09-11 20:36+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -19,26 +19,26 @@ msgstr ""
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
 
-#: src/hugin/AssistantPanel.cpp:235
+#: src/hugin/AssistantPanel.cpp:227
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:265
+#: src/hugin/AssistantPanel.cpp:257
 #, c-format
 msgid "%d images loaded."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:299
+#: src/hugin/AssistantPanel.cpp:291
 #, fuzzy, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "Naozaj vymazať %d kontrolných bodov?"
 
-#: src/hugin/AssistantPanel.cpp:308
+#: src/hugin/AssistantPanel.cpp:300
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:309
+#: src/hugin/AssistantPanel.cpp:301
 #, fuzzy
 msgid ""
 "Please use the Control Points tab to connect all images with control "
@@ -47,50 +47,50 @@ msgstr ""
 "Môžete stlačiť prostredné tlačidlo myši pre zväčšenie obrázkov v paneli "
 "kontrolných bodov."
 
-#: src/hugin/AssistantPanel.cpp:312
+#: src/hugin/AssistantPanel.cpp:304
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:323
+#: src/hugin/AssistantPanel.cpp:315
 msgid "Very good fit."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:325
+#: src/hugin/AssistantPanel.cpp:317
 msgid "Good fit."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:327
+#: src/hugin/AssistantPanel.cpp:319
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:329
+#: src/hugin/AssistantPanel.cpp:321
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
 "required."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:331
+#: src/hugin/AssistantPanel.cpp:323
 #, c-format
 msgid "Mean error after optimization: %.1f pixel\n"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:355
+#: src/hugin/AssistantPanel.cpp:360
 msgid "At least two images are required."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:355
+#: src/hugin/AssistantPanel.cpp:360
 msgid "Error"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:399
+#: src/hugin/AssistantPanel.cpp:404
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:400
+#: src/hugin/AssistantPanel.cpp:405
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -98,7 +98,7 @@ msgid ""
 "After adding the points, press the \"Align\" button again"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:569 src/hugin/LensPanel.cpp:724
+#: src/hugin/AssistantPanel.cpp:574 src/hugin/LensPanel.cpp:719
 msgid "Not a jpeg file:"
 msgstr "Súbor nie je jpeg:"
 
@@ -318,20 +318,20 @@ msgstr "Vzdialenosť"
 msgid "No corresponding point found"
 msgstr "Nenájdený zodpovedajúci bod"
 
-#: src/hugin/CPEditorPanel.cpp:633
+#: src/hugin/CPEditorPanel.cpp:644
 msgid "new control point added"
 msgstr "pridaný nový kontrolný bod"
 
-#: src/hugin/CPEditorPanel.cpp:733 src/hugin/CPEditorPanel.cpp:957
+#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
 msgid "searching similar point..."
 msgstr "vyhľadávam podobný bod..."
 
-#: src/hugin/CPEditorPanel.cpp:752 src/hugin/CPEditorPanel.cpp:875
+#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
 msgid "Error during Fine-tune"
 msgstr "Chyba počas dolaďovania"
 
-#: src/hugin/CPEditorPanel.cpp:766 src/hugin/CPEditorPanel.cpp:895
-#: src/hugin/CPEditorPanel.cpp:1010
+#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
+#: src/hugin/CPEditorPanel.cpp:1021
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -340,15 +340,15 @@ msgstr ""
 "Bod doladený, uhol: %.0f st., korelačný koeficient: %0.3f, zakrivenie: %0.3f "
 "%0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:769 src/hugin/CPEditorPanel.cpp:898
+#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
 msgid "change points, or press right mouse button to add the pair"
 msgstr "Zmeňte body alebo stlačte pravé tlačidlo pre pridanie dvojice"
 
-#: src/hugin/CPEditorPanel.cpp:789
+#: src/hugin/CPEditorPanel.cpp:800
 msgid "Estimated point outside image"
 msgstr "Odhadovaný bod je mimo obrázok"
 
-#: src/hugin/CPEditorPanel.cpp:1016
+#: src/hugin/CPEditorPanel.cpp:1027
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -359,29 +359,29 @@ msgstr ""
 "korelačný koeficient: %.3f (mal by byť > %.3f)\n"
 "vrchol zakrivenia: (%.3f, %.3f) (mal by byť > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1018
+#: src/hugin/CPEditorPanel.cpp:1029
 msgid "No similar point found"
 msgstr "Žiadny zodpovedajúci bod"
 
-#: src/hugin/CPEditorPanel.cpp:1420 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:213 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normálne"
 
-#: src/hugin/CPEditorPanel.cpp:1423 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "vert. čiara"
 
-#: src/hugin/CPEditorPanel.cpp:1426 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "horiz. čiara"
 
-#: src/hugin/CPEditorPanel.cpp:1716
+#: src/hugin/CPEditorPanel.cpp:1727
 msgid "Cannot estimate image position without control points"
 msgstr "Nie je možné odhadnúť pozíciu obrázku bez kontrolných bodov"
 
-#: src/hugin/CPEditorPanel.cpp:1737
+#: src/hugin/CPEditorPanel.cpp:1748
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -391,27 +391,28 @@ msgstr ""
 "Pre vytvorenie menšieho počtu bodov,\n"
 "zadajte vyššie číslo."
 
-#: src/hugin/CPEditorPanel.cpp:1737
+#: src/hugin/CPEditorPanel.cpp:1748
 msgid "Corner Detection threshold"
 msgstr "Detekcia prahu rohu"
 
-#: src/hugin/CPEditorPanel.cpp:1737 src/hugin/CPEditorPanel.cpp:1741
+#: src/hugin/CPEditorPanel.cpp:1748 src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Vytvoriť kontrolné body"
 
-#: src/hugin/CPEditorPanel.cpp:1741
+#: src/hugin/CPEditorPanel.cpp:1752
 msgid "Corner Detection scale"
 msgstr "Detekcia miery rohu"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1764
 msgid "Error during control point creation:\n"
 msgstr "Chyba počas vytvárania kontrolných bodov:\n"
 
-#: src/hugin/CPEditorPanel.cpp:1884
+#: src/hugin/CPEditorPanel.cpp:1895
 msgid "Select Point in right image"
 msgstr "Vybrať bod v pravom obrázku"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1907
 msgid "Select Point in left image"
 msgstr "Vybrať bod v ľavom obrázku"
 
@@ -460,8 +461,8 @@ msgstr "Chyba: prosím zadajte platné číslo."
 msgid "Could not read number"
 msgstr "Nepodarilo sa prečítať číslo"
 
-#: src/hugin/huginApp.cpp:49 src/hugin/ImagesPanel.cpp:313
-#: src/hugin/ImagesPanel.cpp:334 src/hugin/ImagesPanel.cpp:354
+#: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
+#: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
 #: src/hugin/PanoPanel.cpp:295 src/hugin/PanoPanel.cpp:326
 msgid "Value must be numeric."
 msgstr "Hodnota musí byť číselná."
@@ -494,45 +495,6 @@ msgstr "Vytváram odtiene šedej %s"
 #, c-format
 msgid "Creating pyramid image for %s, level %d"
 msgstr "Vytváram pyramídový obrázok pre %s, úroveň %d"
-
-#: src/hugin/ImageCenter.cpp:62
-msgid "Crop Image"
-msgstr "Orezať obrázok"
-
-#: src/hugin/ImageCenter.cpp:81
-msgid "Left:"
-msgstr "Ľavá:"
-
-#: src/hugin/ImageCenter.cpp:86
-msgid "Top:"
-msgstr "Vrchná:"
-
-#: src/hugin/ImageCenter.cpp:91
-msgid "Right:"
-msgstr "Pravá:"
-
-#: src/hugin/ImageCenter.cpp:96
-msgid "Bottom:"
-msgstr "Spodná:"
-
-#: src/hugin/ImageCenter.cpp:101 src/hugin/xrc/images_panel.xrs:33
-#: src/hugin/xrc/images_panel-2.5.xrs:18
-msgid "Reset"
-msgstr "Obnoviť"
-
-#: src/hugin/ImageCenter.cpp:103
-msgid "Always center Crop on d,e"
-msgstr "Vždy vycentrovať orezanie na d,e"
-
-#: src/hugin/ImageCenter.cpp:219 src/hugin/ImageCenter.cpp:234
-#: src/hugin/ImageCenter.cpp:249 src/hugin/ImageCenter.cpp:264
-msgid "Please enter a valid number"
-msgstr "Zadajte prosím platné číslo"
-
-#: src/hugin/ImageOrientationPanel.cpp:132
-#, c-format
-msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
-msgstr "Odch: %.1f Sklon:%.1f Otočenie:%.1f"
 
 #: src/hugin/ImagesList.cpp:306 src/hugin/ImagesList.cpp:365
 msgid "Filename"
@@ -606,97 +568,96 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:376 src/hugin/xrc/images_panel.xrs:10
-#: src/hugin/xrc/images_panel-2.5.xrs:31 src/hugin/xrc/lens_panel.xrs:34
-#: src/hugin/xrc/lens_panel-2.5.xrs:25
+#: src/hugin/ImagesList.cpp:376 src/hugin/ImagesList.cpp:428
+#: src/hugin/xrc/images_panel.xrs:10 src/hugin/xrc/images_panel-2.5.xrs:31
+#: src/hugin/xrc/lens_panel.xrs:34
 msgid "Crop"
 msgstr "Orezať"
 
 #: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:6
 #: src/hugin/xrc/assistant_panel.xrs:25 src/hugin/xrc/lens_panel.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:55
+#: src/hugin/xrc/lens_panel-2.5.xrs:13
 msgid "Normal (rectilinear)"
 msgstr "Normálne (obdĺžnikovo)"
 
 #: src/hugin/ImagesList.cpp:400 src/hugin/xrc/assistant_panel.xrs:7
 #: src/hugin/xrc/assistant_panel.xrs:26 src/hugin/xrc/lens_panel.xrs:3
-#: src/hugin/xrc/lens_panel-2.5.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:56
+#: src/hugin/xrc/lens_panel-2.5.xrs:14
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramaticky (cylindricky)"
 
 #: src/hugin/ImagesList.cpp:401 src/hugin/xrc/assistant_panel.xrs:8
 #: src/hugin/xrc/assistant_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:57
+#: src/hugin/xrc/lens_panel-2.5.xrs:15
 msgid "Circular fisheye"
 msgstr "Kruhové rybie oko"
 
 #: src/hugin/ImagesList.cpp:402 src/hugin/xrc/assistant_panel.xrs:9
 #: src/hugin/xrc/assistant_panel.xrs:28 src/hugin/xrc/lens_panel.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:58
-#: src/hugin/xrc/pano_panel.xrs:6
+#: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/pano_panel.xrs:6
 msgid "Full frame fisheye"
 msgstr "Plnosnímkové rybie oko"
 
 #: src/hugin/ImagesList.cpp:403 src/hugin/PreviewFrame.cpp:439
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
-#: src/hugin/xrc/lens_panel-2.5.xrs:59 src/hugin/xrc/pano_panel.xrs:5
+#: src/hugin/xrc/pano_panel.xrs:5
 msgid "Equirectangular"
 msgstr "Skoroobdĺžniková"
 
-#: src/hugin/ImagesPanel.cpp:292
+#: src/hugin/ImagesPanel.cpp:294
 #, c-format
 msgid "Added %d control points"
 msgstr "Pridaných %d kontrolných bodov"
 
-#: src/hugin/ImagesPanel.cpp:292
+#: src/hugin/ImagesPanel.cpp:294
 msgid "Autopano result"
 msgstr "Výsledok Autopano"
 
-#: src/hugin/ImagesPanel.cpp:695
+#: src/hugin/ImagesPanel.cpp:687
 #, c-format
 msgid "Really Delete %d control points?"
 msgstr "Naozaj vymazať %d kontrolných bodov?"
 
-#: src/hugin/ImagesPanel.cpp:697
+#: src/hugin/ImagesPanel.cpp:689
 msgid "Delete Control Points"
 msgstr "Vymazať kontrolné body"
 
-#: src/hugin/LensPanel.cpp:729 src/hugin/LensPanel.cpp:789
-#: src/hugin/LensPanel.cpp:822 src/hugin/LensPanel.cpp:906
-#: src/hugin/LensPanel.cpp:924
+#: src/hugin/LensPanel.cpp:724 src/hugin/LensPanel.cpp:784
+#: src/hugin/LensPanel.cpp:817 src/hugin/LensPanel.cpp:901
+#: src/hugin/LensPanel.cpp:919
 msgid "Please select an image and try again"
 msgstr "Vyberte prosím obrázok a skúste znovu"
 
-#: src/hugin/LensPanel.cpp:747
+#: src/hugin/LensPanel.cpp:742
 msgid "Save lens parameters file"
 msgstr "Uložiť súbor s parametrami šošovky"
 
-#: src/hugin/LensPanel.cpp:749
+#: src/hugin/LensPanel.cpp:744
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Soubory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*)|*"
 
-#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:826
 msgid "Load lens parameters"
 msgstr "Nahrať parametre šošovky"
 
-#: src/hugin/LensPanel.cpp:833
+#: src/hugin/LensPanel.cpp:828
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Súbory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:914
+#: src/hugin/LensPanel.cpp:909
 msgid "Enter new lens number"
 msgstr "Vložte nové číslo šošovky"
 
-#: src/hugin/LensPanel.cpp:914
+#: src/hugin/LensPanel.cpp:909
 msgid "Lens number"
 msgstr "Číslo šošovky"
 
-#: src/hugin/LensPanel.cpp:915
+#: src/hugin/LensPanel.cpp:910
 msgid "Change lens number"
 msgstr "Zmeniť číslo šošovky"
 
-#: src/hugin/LensPanel.cpp:1009
+#: src/hugin/LensPanel.cpp:935
 msgid ""
 "Enter Crop Factor for image\n"
 "\n"
@@ -712,21 +673,21 @@ msgstr ""
 "\n"
 "kde uhlopriečka je uhlopriečka (v mm) filmu alebo digitálneho čipu."
 
-#: src/hugin/LensPanel.cpp:1010
+#: src/hugin/LensPanel.cpp:936
 msgid "Adding Image"
 msgstr "Pridávam obrázok"
 
-#: src/hugin/LensPanel.cpp:1034
+#: src/hugin/LensPanel.cpp:960
 #, fuzzy
 msgid "The crop factor must be numeric."
 msgstr "Hodnota musí byť číselná."
 
-#: src/hugin/LensPanel.cpp:1043
+#: src/hugin/LensPanel.cpp:969
 #, fuzzy
 msgid "The focal length value must be numeric."
 msgstr "Hodnota musí byť číselná."
 
-#: src/hugin/MainFrame.cpp:182
+#: src/hugin/MainFrame.cpp:183
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -736,16 +697,16 @@ msgstr ""
 "Adresár xrc nebol nájdený.\n"
 "Uistite sa prosím, že je umiestnený v rovnakom adresári ako hugin.exe"
 
-#: src/hugin/MainFrame.cpp:202 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:203 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Pomocník"
 
-#: src/hugin/MainFrame.cpp:293
+#: src/hugin/MainFrame.cpp:299
 msgid "Started"
 msgstr "Naštartovaný"
 
-#: src/hugin/MainFrame.cpp:419
+#: src/hugin/MainFrame.cpp:425
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -753,52 +714,52 @@ msgstr ""
 "Panoráma bola zmenená\n"
 "Uložiť zmeny?"
 
-#: src/hugin/MainFrame.cpp:419
+#: src/hugin/MainFrame.cpp:425
 msgid "Save Panorama?"
 msgstr "Uložit panorámu?"
 
-#: src/hugin/MainFrame.cpp:452
+#: src/hugin/MainFrame.cpp:458
 msgid "forced close"
 msgstr "vynútené zavretie"
 
-#: src/hugin/MainFrame.cpp:499
+#: src/hugin/MainFrame.cpp:505
 #, c-format
 msgid "saved project %s"
 msgstr "projekt %s uložený"
 
-#: src/hugin/MainFrame.cpp:508
+#: src/hugin/MainFrame.cpp:518
 msgid "Save project file"
 msgstr "Uložiť súbor s projektom"
 
-#: src/hugin/MainFrame.cpp:510
+#: src/hugin/MainFrame.cpp:520
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Súbory projektu (*.pto)|*.pto|Všetky súbory (*)|*"
 
-#: src/hugin/MainFrame.cpp:526
+#: src/hugin/MainFrame.cpp:540
 msgid "Save PTStitcher script file"
 msgstr "Uložiť PTStitcher skriptovací súbor"
 
-#: src/hugin/MainFrame.cpp:528
+#: src/hugin/MainFrame.cpp:542
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Súbory PTStitcheru (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:556
+#: src/hugin/MainFrame.cpp:570
 msgid "Open project:   "
 msgstr "Otvoriť projekt:   "
 
-#: src/hugin/MainFrame.cpp:568
+#: src/hugin/MainFrame.cpp:582
 msgid "Project opened"
 msgstr "Projekt otvorený"
 
-#: src/hugin/MainFrame.cpp:578
+#: src/hugin/MainFrame.cpp:592
 msgid "Error opening project:   "
 msgstr "Chyba pri otváraní projektu:   "
 
-#: src/hugin/MainFrame.cpp:605
+#: src/hugin/MainFrame.cpp:623
 msgid "Open project file"
 msgstr "Otvoriť súbor s projektom"
 
-#: src/hugin/MainFrame.cpp:607
+#: src/hugin/MainFrame.cpp:625
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -806,11 +767,11 @@ msgstr ""
 "Súbory projektu (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Všetky "
 "súbory (*)|*"
 
-#: src/hugin/MainFrame.cpp:620
+#: src/hugin/MainFrame.cpp:638
 msgid "Open project: cancel"
 msgstr "Otváranie projektu: zrušiť"
 
-#: src/hugin/MainFrame.cpp:644 src/hugin/VigCorrDialog.cpp:169
+#: src/hugin/MainFrame.cpp:664 src/hugin/VigCorrDialog.cpp:169
 #: src/include/hugin/wxPanoCommand.h:194
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -821,23 +782,23 @@ msgstr ""
 "*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG súbory (*.jpg)|*.jpg;*.JPG|Všetky "
 "súbory (*)|*"
 
-#: src/hugin/MainFrame.cpp:645 src/include/hugin/wxPanoCommand.h:195
+#: src/hugin/MainFrame.cpp:665 src/include/hugin/wxPanoCommand.h:195
 msgid "Add images"
 msgstr "Pridať obrázky"
 
-#: src/hugin/MainFrame.cpp:697
+#: src/hugin/MainFrame.cpp:717
 msgid "Add Image: cancel"
 msgstr "Pridať obrázok: zrušiť"
 
-#: src/hugin/MainFrame.cpp:1074
+#: src/hugin/MainFrame.cpp:1093
 msgid "Fine-tuning all points"
 msgstr "Dolaďovanie všetkých bodov"
 
-#: src/hugin/MainFrame.cpp:1076
+#: src/hugin/MainFrame.cpp:1095
 msgid "Finetuning"
 msgstr "Dolaďovanie"
 
-#: src/hugin/MainFrame.cpp:1167
+#: src/hugin/MainFrame.cpp:1186
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -864,7 +825,7 @@ msgstr ""
 "Použite Zoznam kontrolných bodov (F3) pre zobrazenie všetkých bodov "
 "aktuálneho projektu\n"
 
-#: src/hugin/MainFrame.cpp:1169
+#: src/hugin/MainFrame.cpp:1188
 msgid "Fine-tune result"
 msgstr "Doladený výsledok"
 
@@ -1256,7 +1217,7 @@ msgstr "šírka musí byť celé číslo väčšie než 0"
 msgid "height needs to be an integer bigger than 0"
 msgstr "šírka musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:641
+#: src/hugin/PanoPanel.cpp:645
 msgid "Create panorama image"
 msgstr "Vytvoriť panoramatický obrázok"
 
@@ -1409,11 +1370,6 @@ msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Nastavte odchýlku a sklon ľavým tlačidlom. Použite pravé tlačidlo na "
 "nastavenie otočenia"
-
-#: src/hugin/PreviewFrame.cpp:328
-#, c-format
-msgid "%.1f x %.1f"
-msgstr ""
 
 #: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
@@ -1740,7 +1696,6 @@ msgstr ""
 
 #: src/hugin/xrc/assistant_panel.xrs:5 src/hugin/xrc/assistant_panel.xrs:24
 #: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:12
-#: src/hugin/xrc/lens_panel-2.5.xrs:54
 msgid "Lens type:"
 msgstr "Typ šošovky:"
 
@@ -1969,6 +1924,36 @@ msgstr "Kontrolné body"
 msgid "Select by Distance"
 msgstr "Vybrať podľa vzdialenosti"
 
+#: src/hugin/xrc/crop_panel.xrs:1
+msgid "Left:"
+msgstr "Ľavá:"
+
+#: src/hugin/xrc/crop_panel.xrs:2
+msgid "Top:"
+msgstr "Vrchná:"
+
+#: src/hugin/xrc/crop_panel.xrs:3
+msgid "Right:"
+msgstr "Pravá:"
+
+#: src/hugin/xrc/crop_panel.xrs:4
+msgid "Bottom:"
+msgstr "Spodná:"
+
+#: src/hugin/xrc/crop_panel.xrs:5
+msgid "Always center Crop on d,e"
+msgstr "Vždy vycentrovať orezanie na d,e"
+
+#: src/hugin/xrc/crop_panel.xrs:6 src/hugin/xrc/images_panel.xrs:33
+#: src/hugin/xrc/images_panel-2.5.xrs:18
+msgid "Reset"
+msgstr "Obnoviť"
+
+#: src/hugin/xrc/crop_panel.xrs:7 src/hugin/xrc/lens_panel.xrs:38
+#: src/hugin/xrc/lens_panel-2.5.xrs:2
+msgid "Load lens parameters from a file"
+msgstr "Nahrať parametre šošovky zo súboru"
+
 #: src/hugin/xrc/edit_script_dialog.xrs:1
 msgid "Edit Panorama Tools Script"
 msgstr "Editovať skript Panorama Tools"
@@ -2006,23 +1991,9 @@ msgstr "Zrušiť"
 msgid "Hugin Reference"
 msgstr "Hugin Referencie"
 
-#: src/hugin/xrc/help.xrs:2 src/hugin/xrc/image_center.xrs:3
-#: src/hugin/xrc/keyboard_help.xrs:2
+#: src/hugin/xrc/help.xrs:2 src/hugin/xrc/keyboard_help.xrs:2
 msgid "Close"
 msgstr "Zavrieť"
-
-#: src/hugin/xrc/image_center.xrs:1 src/hugin/xrc/pref_dialog.xrs:83
-#: src/hugin/xrc/run_optimizer_frame.xrs:2
-msgid "Apply"
-msgstr "Aplikovať"
-
-#: src/hugin/xrc/image_center.xrs:2
-msgid "apply changed values to actual selected images from panorama"
-msgstr "aplikovať zmenené hodnoty na momentálne zvolený obrázok z panorámy"
-
-#: src/hugin/xrc/image_center.xrs:4
-msgid "close window"
-msgstr "zavrieť okno"
 
 #: src/hugin/xrc/images_panel.xrs:1
 msgid "Image Collection"
@@ -2109,7 +2080,7 @@ msgstr "Bodov na prekryv:"
 msgid "number of points created at each overlap"
 msgstr "počet bodov vytvorených pri každom prekrytí"
 
-#: src/hugin/xrc/images_panel.xrs:22 src/hugin/xrc/images_panel-2.5.xrs:23
+#: src/hugin/xrc/images_panel.xrs:22
 msgid "Create Ctrl Points"
 msgstr "Vytvoriť kontrolné body"
 
@@ -2117,7 +2088,7 @@ msgstr "Vytvoriť kontrolné body"
 msgid "Run external autopano program on the selected images"
 msgstr "Spustiť externý autopano na zvolené obrázky"
 
-#: src/hugin/xrc/images_panel.xrs:24 src/hugin/xrc/images_panel-2.5.xrs:9
+#: src/hugin/xrc/images_panel.xrs:24
 msgid "Remove Points"
 msgstr "Odobrať body"
 
@@ -2162,6 +2133,11 @@ msgstr "Obnovenie pozície pre zvolené obrázky"
 msgid "This Image"
 msgstr "Tento obrázok"
 
+#: src/hugin/xrc/images_panel-2.5.xrs:9
+#, fuzzy
+msgid "Remove points"
+msgstr "Odobrať body"
+
 #: src/hugin/xrc/images_panel-2.5.xrs:32
 msgid "Crop..."
 msgstr "Orezať..."
@@ -2171,17 +2147,14 @@ msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
 #: src/hugin/xrc/lens_panel.xrs:7 src/hugin/xrc/lens_panel-2.5.xrs:11
-#: src/hugin/xrc/lens_panel-2.5.xrs:60
 msgid "Design Parameters"
 msgstr "Parametre designu"
 
 #: src/hugin/xrc/lens_panel.xrs:8 src/hugin/xrc/lens_panel-2.5.xrs:18
-#: src/hugin/xrc/lens_panel-2.5.xrs:61
 msgid "degrees of view (v):"
 msgstr "stupne pohľadu (v):"
 
 #: src/hugin/xrc/lens_panel.xrs:9 src/hugin/xrc/lens_panel-2.5.xrs:19
-#: src/hugin/xrc/lens_panel-2.5.xrs:62
 msgid "Horizontal Field of View"
 msgstr "Horizontálne zorné pole"
 
@@ -2189,36 +2162,28 @@ msgstr "Horizontálne zorné pole"
 #: src/hugin/xrc/lens_panel.xrs:19 src/hugin/xrc/lens_panel.xrs:21
 #: src/hugin/xrc/lens_panel.xrs:24 src/hugin/xrc/lens_panel.xrs:26
 #: src/hugin/xrc/lens_panel.xrs:29 src/hugin/xrc/lens_panel.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:30
-#: src/hugin/xrc/lens_panel-2.5.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:34
-#: src/hugin/xrc/lens_panel-2.5.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:39
-#: src/hugin/xrc/lens_panel-2.5.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:44
-#: src/hugin/xrc/lens_panel-2.5.xrs:49 src/hugin/xrc/lens_panel-2.5.xrs:51
-#: src/hugin/xrc/lens_panel-2.5.xrs:53 src/hugin/xrc/lens_panel-2.5.xrs:63
-#: src/hugin/xrc/lens_panel-2.5.xrs:72 src/hugin/xrc/lens_panel-2.5.xrs:74
-#: src/hugin/xrc/lens_panel-2.5.xrs:76 src/hugin/xrc/lens_panel-2.5.xrs:79
-#: src/hugin/xrc/lens_panel-2.5.xrs:81 src/hugin/xrc/lens_panel-2.5.xrs:84
-#: src/hugin/xrc/lens_panel-2.5.xrs:86
+#: src/hugin/xrc/lens_panel-2.5.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:29
+#: src/hugin/xrc/lens_panel-2.5.xrs:31 src/hugin/xrc/lens_panel-2.5.xrs:33
+#: src/hugin/xrc/lens_panel-2.5.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:38
+#: src/hugin/xrc/lens_panel-2.5.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:43
+#: src/hugin/xrc/lens_panel-2.5.xrs:48 src/hugin/xrc/lens_panel-2.5.xrs:50
+#: src/hugin/xrc/lens_panel-2.5.xrs:52
 msgid "Inherit"
 msgstr "Zdediť"
 
 #: src/hugin/xrc/lens_panel.xrs:11 src/hugin/xrc/lens_panel-2.5.xrs:21
-#: src/hugin/xrc/lens_panel-2.5.xrs:64
 msgid "focal length:"
 msgstr "ohnisková vzdialenosť:"
 
 #: src/hugin/xrc/lens_panel.xrs:12 src/hugin/xrc/lens_panel-2.5.xrs:22
-#: src/hugin/xrc/lens_panel-2.5.xrs:65
 msgid "true focal length in mm"
 msgstr "Skutočná ohnisková vzdialenosť v mm"
 
 #: src/hugin/xrc/lens_panel.xrs:13 src/hugin/xrc/lens_panel-2.5.xrs:23
-#: src/hugin/xrc/lens_panel-2.5.xrs:66
 msgid "crop factor:"
 msgstr "faktor orezu:"
 
 #: src/hugin/xrc/lens_panel.xrs:14 src/hugin/xrc/lens_panel-2.5.xrs:24
-#: src/hugin/xrc/lens_panel-2.5.xrs:67
 msgid "35mm film diameter / ccd diameter"
 msgstr "Uhlopriečka 35mm filmu / uhlopriečka ccd"
 
@@ -2226,53 +2191,46 @@ msgstr "Uhlopriečka 35mm filmu / uhlopriečka ccd"
 msgid "Lens Correction Parameters"
 msgstr "Parametre korekcie šošovky"
 
-#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:29
-#: src/hugin/xrc/lens_panel-2.5.xrs:71 src/hugin/xrc/optimize_panel.xrs:25
+#: src/hugin/xrc/lens_panel.xrs:16 src/hugin/xrc/lens_panel-2.5.xrs:28
+#: src/hugin/xrc/optimize_panel.xrs:25
 msgid "distortion (a):"
 msgstr "skreslenie (a):"
 
-#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:31
-#: src/hugin/xrc/lens_panel-2.5.xrs:73 src/hugin/xrc/optimize_panel.xrs:26
+#: src/hugin/xrc/lens_panel.xrs:18 src/hugin/xrc/lens_panel-2.5.xrs:30
+#: src/hugin/xrc/optimize_panel.xrs:26
 msgid "barrel (b):"
 msgstr "súdkovitosť (b):"
 
-#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:33
-#: src/hugin/xrc/lens_panel-2.5.xrs:75 src/hugin/xrc/optimize_panel.xrs:27
+#: src/hugin/xrc/lens_panel.xrs:20 src/hugin/xrc/lens_panel-2.5.xrs:32
+#: src/hugin/xrc/optimize_panel.xrs:27
 msgid "distortion (c):"
 msgstr "skreslenie (c):"
 
-#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:35
-#: src/hugin/xrc/lens_panel-2.5.xrs:77
+#: src/hugin/xrc/lens_panel.xrs:22 src/hugin/xrc/lens_panel-2.5.xrs:34
 msgid "Image Center Shift"
 msgstr "Posun stredu obrázku"
 
-#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:36
-#: src/hugin/xrc/lens_panel-2.5.xrs:78
+#: src/hugin/xrc/lens_panel.xrs:23 src/hugin/xrc/lens_panel-2.5.xrs:35
 msgid "horizontal (d):"
 msgstr "horizontálny (d):"
 
-#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:38
-#: src/hugin/xrc/lens_panel-2.5.xrs:80
+#: src/hugin/xrc/lens_panel.xrs:25 src/hugin/xrc/lens_panel-2.5.xrs:37
 msgid "vertical (e):"
 msgstr "vertikálny (e):"
 
-#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:40
-#: src/hugin/xrc/lens_panel-2.5.xrs:82
+#: src/hugin/xrc/lens_panel.xrs:27 src/hugin/xrc/lens_panel-2.5.xrs:39
 msgid "Image Shearing"
 msgstr "Strih obrázku"
 
-#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:41
-#: src/hugin/xrc/lens_panel-2.5.xrs:83
+#: src/hugin/xrc/lens_panel.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:40
 msgid "horizontal (g):"
 msgstr "horizontálny (g):"
 
-#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:43
-#: src/hugin/xrc/lens_panel-2.5.xrs:85
+#: src/hugin/xrc/lens_panel.xrs:30 src/hugin/xrc/lens_panel-2.5.xrs:42
 msgid "vertical (t):"
 msgstr "vertikálny (t):"
 
-#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:26
-#: src/hugin/xrc/lens_panel-2.5.xrs:88
+#: src/hugin/xrc/lens_panel.xrs:32 src/hugin/xrc/lens_panel-2.5.xrs:25
 msgid "Vignetting"
 msgstr "Charakteristika"
 
@@ -2280,55 +2238,43 @@ msgstr "Charakteristika"
 msgid "Set crop and image center"
 msgstr "Nastaviť orezanie a stred obrázku"
 
-#: src/hugin/xrc/lens_panel.xrs:36 src/hugin/xrc/lens_panel-2.5.xrs:98
+#: src/hugin/xrc/lens_panel.xrs:36
 msgid "Lens management"
 msgstr "Operácie s šošovkami"
 
-#: src/hugin/xrc/lens_panel.xrs:37 src/hugin/xrc/lens_panel-2.5.xrs:99
+#: src/hugin/xrc/lens_panel.xrs:37
 msgid "Load"
 msgstr "Nahrať"
 
-#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:2
-#: src/hugin/xrc/lens_panel-2.5.xrs:100
-msgid "Load lens parameters from a file"
-msgstr "Nahrať parametre šošovky zo súboru"
-
-#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/lens_panel-2.5.xrs:101
-#: src/hugin/xrc/main_tool.xrs:8
+#: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
 msgstr "Uložiť"
 
 #: src/hugin/xrc/lens_panel.xrs:40 src/hugin/xrc/lens_panel-2.5.xrs:4
-#: src/hugin/xrc/lens_panel-2.5.xrs:102
 msgid "Save lens parameters to an file"
 msgstr "Uložiť parametre šošovky do súboru"
 
 #: src/hugin/xrc/lens_panel.xrs:41 src/hugin/xrc/lens_panel-2.5.xrs:5
-#: src/hugin/xrc/lens_panel-2.5.xrs:103
 msgid "Load EXIF"
 msgstr "Nahrať EXIF"
 
 #: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:6
-#: src/hugin/xrc/lens_panel-2.5.xrs:104
 msgid "Try to read HFOV from the EXIF data"
 msgstr "Skúsiť načítať HFOV z dát EXIF"
 
 #: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:7
-#: src/hugin/xrc/lens_panel-2.5.xrs:105
 msgid "New Lens"
 msgstr "Nová šošovka"
 
 #: src/hugin/xrc/lens_panel.xrs:44 src/hugin/xrc/lens_panel-2.5.xrs:8
-#: src/hugin/xrc/lens_panel-2.5.xrs:106
 msgid "Create a new lens and assign it to selected images"
 msgstr "Vytvoriť novú šošovku a priradiť ju k zvoleným obrázkům"
 
-#: src/hugin/xrc/lens_panel.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:107
+#: src/hugin/xrc/lens_panel.xrs:45
 msgid "Change lens"
 msgstr "Zmeniť šošovku"
 
 #: src/hugin/xrc/lens_panel.xrs:46 src/hugin/xrc/lens_panel-2.5.xrs:10
-#: src/hugin/xrc/lens_panel-2.5.xrs:108
 msgid "change lens of selected images"
 msgstr "Zmeniť šošovku pre zvolené obrázky"
 
@@ -2340,81 +2286,37 @@ msgstr "Uložiť šošovky..."
 msgid "Change lens..."
 msgstr "Zmeniť šošovky..."
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:27
+#: src/hugin/xrc/lens_panel-2.5.xrs:26
 msgid "Edit Parameters..."
 msgstr "Upraviť parametre..."
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:28 src/hugin/xrc/lens_panel-2.5.xrs:70
+#: src/hugin/xrc/lens_panel-2.5.xrs:27
 msgid "Radial Distortion"
 msgstr "Radiálne skreslenie"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:45 src/hugin/xrc/lens_panel-2.5.xrs:90
+#: src/hugin/xrc/lens_panel-2.5.xrs:44
 msgid "Exposure and Color"
 msgstr "Expozícia a farba"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:46
+#: src/hugin/xrc/lens_panel-2.5.xrs:45
 msgid "gain"
 msgstr "získať"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:47
+#: src/hugin/xrc/lens_panel-2.5.xrs:46
 msgid "offset"
 msgstr "posun"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:48
+#: src/hugin/xrc/lens_panel-2.5.xrs:47
 msgid "red (K0):"
 msgstr "červená (K0):"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:50
+#: src/hugin/xrc/lens_panel-2.5.xrs:49
 msgid "green (K1):"
 msgstr "zelená (K1):"
 
-#: src/hugin/xrc/lens_panel-2.5.xrs:52
+#: src/hugin/xrc/lens_panel-2.5.xrs:51
 msgid "blue (K2):"
 msgstr "modrá (K2):"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:68 src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Correction"
-msgstr "Korekcia"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:69
-msgid "Geometric"
-msgstr "Geometricky"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:87
-msgid "Photometric"
-msgstr "Fotometrika"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:89
-msgid "Edit Parameters"
-msgstr "Editovať parametre"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:91
-msgid "Channel:"
-msgstr "Kanál:"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:92
-msgid "exposure"
-msgstr "expozícia"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:93
-msgid "brightness"
-msgstr "jas"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:94
-msgid "inherit"
-msgstr "zdediť"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:95
-msgid "red (K0)"
-msgstr "červená (K0)"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:96
-msgid "green (K1)"
-msgstr "zelená (K1)"
-
-#: src/hugin/xrc/lens_panel-2.5.xrs:97
-msgid "blue (K2)"
-msgstr "modrá (K2)"
 
 #: src/hugin/xrc/main_frame.xrs:1
 msgid "Hugin - Panorama Tools Frontend"
@@ -3311,6 +3213,10 @@ msgstr "Použiť orezané súbory TIFF (vyžaduje enblend 2.4 alebo vyšší)"
 msgid "Save cropped images, requires less disk space and memory."
 msgstr "Uložiť orezané obrázky, vyžaduje menej diskového priestoru a pamäte."
 
+#: src/hugin/xrc/pref_dialog.xrs:83 src/hugin/xrc/run_optimizer_frame.xrs:2
+msgid "Apply"
+msgstr "Aplikovať"
+
 #: src/hugin/xrc/preview_frame.xrs:2 src/hugin/xrc/preview_frame.xrs:9
 msgid "Center"
 msgstr "Vystrediť"
@@ -3521,6 +3427,10 @@ msgstr "Zrušiť"
 #: src/hugin/xrc/vig_corr_dlg.xrs:1
 msgid "Vignetting correction"
 msgstr "Korekcia charakteristiky"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:2
+msgid "Correction"
+msgstr "Korekcia"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "Flatfield"
@@ -3802,6 +3712,51 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozmiestnených "
 "kontrolných bodov."
+
+#~ msgid "Crop Image"
+#~ msgstr "Orezať obrázok"
+
+#~ msgid "Please enter a valid number"
+#~ msgstr "Zadajte prosím platné číslo"
+
+#~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
+#~ msgstr "Odch: %.1f Sklon:%.1f Otočenie:%.1f"
+
+#~ msgid "apply changed values to actual selected images from panorama"
+#~ msgstr "aplikovať zmenené hodnoty na momentálne zvolený obrázok z panorámy"
+
+#~ msgid "close window"
+#~ msgstr "zavrieť okno"
+
+#~ msgid "Geometric"
+#~ msgstr "Geometricky"
+
+#~ msgid "Photometric"
+#~ msgstr "Fotometrika"
+
+#~ msgid "Edit Parameters"
+#~ msgstr "Editovať parametre"
+
+#~ msgid "Channel:"
+#~ msgstr "Kanál:"
+
+#~ msgid "exposure"
+#~ msgstr "expozícia"
+
+#~ msgid "brightness"
+#~ msgstr "jas"
+
+#~ msgid "inherit"
+#~ msgstr "zdediť"
+
+#~ msgid "red (K0)"
+#~ msgstr "červená (K0)"
+
+#~ msgid "green (K1)"
+#~ msgstr "zelená (K1)"
+
+#~ msgid "blue (K2)"
+#~ msgstr "modrá (K2)"
 
 #~ msgid "Could not load dll"
 #~ msgstr "Nie je možné nahrať dll"

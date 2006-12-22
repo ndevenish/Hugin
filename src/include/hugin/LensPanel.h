@@ -112,8 +112,6 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      */
     void OnNewLens(wxCommandEvent & e);
 
-    void OnCrop ( wxCommandEvent & e );
-
     /** catches changes to the list selection */
     void ListSelectionChanged(wxListEvent& e);
 

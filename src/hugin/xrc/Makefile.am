@@ -17,7 +17,7 @@ XRC_FILES = about.xrc anchor_orientation.xrc cp_editor_panel.xrc cp_list_frame.x
             optimize_panel.xrc pano_panel.xrc pref_dialog.xrc preview_frame.xrc ptstitcher_panel.xrc run_optimizer_frame.xrc run_stitcher_frame.xrc \
             cp_editor_panel-2.5.xrc images_panel-2.5.xrc lens_panel-2.5.xrc main_frame-2.5.xrc optimize_panel-2.5.xrc pano_panel-2.5.xrc vig_corr_dlg.xrc assistant_panel.xrc
 
-XRS_FILES = about.xrs anchor_orientation.xrs cp_editor_panel.xrs cp_list_frame.xrs crop_panel.xrc \
+XRS_FILES = about.xrs anchor_orientation.xrs cp_editor_panel.xrs cp_list_frame.xrs crop_panel.xrs \
             edit_script_dialog.xrs edit_text.xrs help.xrs \
             images_panel.xrs keyboard_help.xrs lens_panel.xrs main_frame.xrs main_menubar.xrs main_menu.xrs main_tool.xrs nona_panel.xrs \
             optimize_panel.xrs pano_panel.xrs pref_dialog.xrs preview_frame.xrs ptstitcher_panel.xrs run_optimizer_frame.xrs run_stitcher_frame.xrs \

@@ -325,7 +325,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
-    SetStatusText(wxString::Format(_("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
+    SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
 }

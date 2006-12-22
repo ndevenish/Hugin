@@ -592,8 +592,12 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
-
     pano.clearDirty();
+    // force update of preview window
+    if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) {
+        wxCommandEvent dummy;
+        preview_frame->OnUpdate(dummy);
+    }
 }
 
 #ifdef __WXMAC__
@@ -644,6 +648,8 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     ImageCache::getInstance().flush();
     this->SetTitle(wxT("hugin"));
     pano.clearDirty();
+    wxCommandEvent dummy;
+    preview_frame->OnUpdate(dummy);
 }
 
 void MainFrame::OnAddImages( wxCommandEvent& event )
