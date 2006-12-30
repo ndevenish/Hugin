@@ -361,7 +361,7 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     : ImagesList(parent, pano)
 {
     m_configClassName = wxT("/ImagesListLens");
-        
+
     InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 180 );
     InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 40);
     InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
@@ -373,7 +373,6 @@ ImagesListLens::ImagesListLens(wxWindow * parent, Panorama * pano)
     InsertColumn( 9, _("e"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 10, _("g"), wxLIST_FORMAT_RIGHT, 40 );
     InsertColumn( 11, _("t"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 12, _("Crop"), wxLIST_FORMAT_RIGHT,100);
     
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -411,13 +410,6 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     SetItem(imgNr, 9, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
     SetItem(imgNr, 10, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
     SetItem(imgNr, 11, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
-
-    wxString cropstr(wxT("-"));
-    if ( img.getOptions().docrop ) {
-        vigra::Rect2D c = img.getOptions().cropRect;
-        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
-    }
-    SetItem(imgNr, 12, cropstr);
 }
 
 ImagesListCrop::ImagesListCrop(wxWindow * parent, Panorama * pano)
