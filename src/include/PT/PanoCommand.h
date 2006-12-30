@@ -875,6 +875,33 @@ namespace PT {
         UIntSet imgNrs;
     };
 
+    //=========================================================================
+    //=========================================================================
+
+    /** set image options for a set of images.
+     *  just sets the @p options given for all images in @p imgs
+     */
+    class UpdateSrcImageCmd : public PanoCommand
+    {
+        public:
+            UpdateSrcImageCmd(Panorama & p, unsigned i, SrcPanoImage img)
+            : PanoCommand(p), img(img), imgNr(i)
+            { };
+            virtual void execute()
+            {
+                PanoCommand::execute();
+                pano.setSrcImage(imgNr, img);
+                pano.changeFinished();
+            }
+            virtual std::string getName() const
+            {
+                return "set image options";
+            }
+        private:
+            SrcPanoImage img;
+            unsigned imgNr;
+    };
+
 
     //=========================================================================
     //=========================================================================

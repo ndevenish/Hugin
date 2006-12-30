@@ -61,7 +61,6 @@
 				Name="VCPostBuildEventTool"
 				CommandLine="xcopy xrc Debug\xrc /I /Y
 xcopy xrc\data Debug\xrc\data /I /Y
-xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 "/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
@@ -253,19 +252,16 @@ xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 				RelativePath=".\CPZoomDisplayPanel.cpp">
 			</File>
 			<File
+				RelativePath=".\CropPanel.cpp">
+			</File>
+			<File
+				RelativePath=".\HFOVDialog.cpp">
+			</File>
+			<File
 				RelativePath=".\huginApp.cpp">
 			</File>
 			<File
 				RelativePath=".\ImageCache.cpp">
-			</File>
-			<File
-				RelativePath=".\ImageCenter.cpp">
-			</File>
-			<File
-				RelativePath=".\ImageOrientationFrame.cpp">
-			</File>
-			<File
-				RelativePath=".\ImageOrientationPanel.cpp">
 			</File>
 			<File
 				RelativePath=".\ImagesList.cpp">
@@ -374,19 +370,16 @@ xcopy &quot;..\..\..\libs\libpano\pano12\Debug\pano12d.dll&quot; Debug\ /I /Y
 				RelativePath="..\include\hugin\CPZoomDisplayPanel.h">
 			</File>
 			<File
+				RelativePath="..\include\hugin\CropPanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\HFOVDialog.h">
+			</File>
+			<File
 				RelativePath="..\include\hugin\huginApp.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\ImageCache.h">
-			</File>
-			<File
-				RelativePath="..\include\hugin\ImageCenter.h">
-			</File>
-			<File
-				RelativePath="..\include\hugin\ImageOrientationFrame.h">
-			</File>
-			<File
-				RelativePath="..\include\hugin\ImageOrientationPanel.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\ImageProcessing.h">

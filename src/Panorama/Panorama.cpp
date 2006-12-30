@@ -825,6 +825,7 @@ void Panorama::setImageFilename(unsigned int i, const std::string & fname)
 void Panorama::setImageOptions(unsigned int i, const ImageOptions & opts)
 {
     DEBUG_ASSERT(i < state.images.size());
+    // TODO: recenter crop, if required.
     state.images[i].setOptions(opts);
     imageChanged(i);
     m_forceImagesUpdate = true;
@@ -1678,6 +1679,8 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     const VariableMap & vars = getImageVariables(imgNr);
     SrcPanoImage ret(img.getFilename(), Size2D(img.getWidth(), img.getHeight()));
     ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
+    ret.setExifCropFactor(lens.getCropFactor());
+    ret.setExifFocalLength(lens.getFocalLength());
     ret.setHFOV(const_map_get(vars,"v").getValue());
     ret.setRoll(const_map_get(vars,"r").getValue());
     ret.setPitch(const_map_get(vars,"p").getValue());
@@ -1738,7 +1741,7 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     return ret;
 }
 
-void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
+void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
 {
     // get variable map vector
     VariableMap vars;
@@ -1785,6 +1788,7 @@ void Panorama::setSrcImg(unsigned int imgNr, const SrcPanoImage & img)
     // update lens
     lens.setProjection((Lens::LensProjectionFormat)img.getProjection());
     lens.setImageSize(img.getSize());
+    lens.setCropFactor(img.getExifCropFactor());
 
     // update image
     pimg.setFilename(img.getFilename());
@@ -1817,15 +1821,12 @@ void Panorama::straighten()
         double roll = 0;
         double crop = 0;
         l.initFromFile(state.images[i].getFilename(), crop, roll);
-        double r = map_get(state.variables[i], "r").getValue();
         if (roll == 90 || roll == 270 ) {
             coord_idx.push_back(2);
         } else {
             coord_idx.push_back(1);
         }
     }
-    int coordIdx = 1;  
-
 
     // build covariance matrix of X
     Matrix3 cov;
@@ -1995,7 +1996,7 @@ void Panorama::calcCtrlPntsErrorStats(double & min, double & max, double & mean,
     int n=0;
     CPVector::const_iterator it;
     for (it = cps.begin() ; it != cps.end(); it++) {
-        if (imgNr >= 0 && ((*it).image1Nr != imgNr || (*it).image2Nr != imgNr))
+        if (imgNr >= 0 && ((int)(*it).image1Nr != imgNr || (int)(*it).image2Nr != imgNr))
         {
             continue;
         }
@@ -2028,7 +2029,7 @@ void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, 
     const CPVector & cps = getCtrlPoints();
     vector<double> radi;
     for (it = cps.begin() ; it != cps.end(); it++) {
-        if (imgNr >= 0 && ((*it).image1Nr != imgNr || (*it).image2Nr != imgNr))
+        if (imgNr >= 0 && ((int)(*it).image1Nr != imgNr || (int)(*it).image2Nr != imgNr))
         {
             continue;
         }
@@ -2042,8 +2043,8 @@ void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, 
         // normalized distance to image center
         double x1 = ((*it).x1-(w1/2.0)) / (h1/2.0);
         double y1 = ((*it).y1-(h1/2.0)) / (h1/2.0);
-        double x2 = ((*it).x2-(w1/2.0)) / (h1/2.0);
-        double y2 = ((*it).y2-(h1/2.0)) / (h1/2.0);
+        double x2 = ((*it).x2-(w2/2.0)) / (h2/2.0);
+        double y2 = ((*it).y2-(h2/2.0)) / (h2/2.0);
 
         double r1 = sqrt(x1*x1 + y1*y1);
         radi.push_back(r1);

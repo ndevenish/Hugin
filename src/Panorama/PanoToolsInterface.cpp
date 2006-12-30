@@ -820,7 +820,7 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano)
     }
 
     std::map<unsigned int, unsigned int> linkAnchors;
-    for(int imgNr=0; imgNr<gl.numIm; imgNr++)
+    for(unsigned imgNr=0; (int)imgNr< gl.numIm; imgNr++)
     {
         const PanoImage & pimg = pano.getImage(imgNr);
         const VariableMap & vars = variables[imgNr];

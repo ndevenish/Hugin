@@ -164,6 +164,8 @@ huginApp::~huginApp()
 //        DEBUG_ERROR("Could not remove temporary directory");
 //    }
 
+	// todo: remove all listeners from the panorama object
+
 //    delete frame;
     DEBUG_TRACE("dtor end");
 }

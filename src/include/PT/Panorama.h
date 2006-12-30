@@ -436,7 +436,7 @@ public:
     void removeImage(unsigned int nr);
 
     /** set input image parameters */
-    void setSrcImg(unsigned int nr, const SrcPanoImage & img);
+    void setSrcImage(unsigned int nr, const SrcPanoImage & img);
 
     /** set a new image filename
      *

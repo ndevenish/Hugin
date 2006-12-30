@@ -264,7 +264,7 @@ void traceImageOutline(vigra::Size2D sz, TRANSFORM & transf, vigra::Rect2D & ins
     double yd;
     transf.transformImgCoord(xd,yd, x,y);
     // calculate scaling factor that would be required to avoid black borders
-    double scale = std::max((-sz.x/2)/(xd-sz.x/2), (-sz.y/2)/(yd-sz.y/2));
+//    double scale = std::max((-sz.x/2)/(xd-sz.x/2), (-sz.y/2)/(yd-sz.y/2));
     int left = 0;
     int right = sz.x;
     int top = 0;

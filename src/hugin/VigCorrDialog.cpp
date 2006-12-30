@@ -47,6 +47,8 @@
 #include "hugin/MyProgressDialog.h"
 
 
+//#define VIG_DATA_FILE "C:\\users\\padange\\temp\\huginRandPnt_all_"
+#define VIG_DATA_FILE "CorrPoints.txt"
 
 // validators are working different somehow...
 //#define MY_STR_VAL(id, filter) { XRCCTRL(*this, "prefs_" #id, wxTextCtrl)->SetValidator(wxTextValidator(filter, &id)); }
@@ -391,27 +393,47 @@ void VigCorrDialog::OnEstimate(wxCommandEvent & e)
                             nBadPoints,
                             progress);
         // dump histogram bins to disk.
-        /*
+#ifdef VIG_DATA_FILE_ALL
         {
             for (unsigned i=0; i < radiusHist.size(); i++) {
                 ostringstream fn;
-                fn << "huginRandPnt_" << i;
+                fn << VIG_DATA_FILE_ALL << i;
                 ofstream of(fn.str().c_str());
-                for (std::multimap<double, int>::const_iterator it= radiusHist[i].begin();
+                for (std::multimap<double, PointPair>::const_iterator it= radiusHist[i].begin();
                      it != radiusHist[i].end(); ++it) 
                 {
                     of << (*it).first << " " 
-                            << allPoints[(*it).second].i1 << " "
-                            << allPoints[(*it).second].r1 << " "
-                            << allPoints[(*it).second].i2 << " "
-                            << allPoints[(*it).second].r2 << endl;
+					   << (*it).second.imgNr1 << " "
+					   << (*it).second.r1 << " "
+					   << (*it).second.i1 << " "
+					   << (*it).second.imgNr2 << " "
+					   << (*it).second.r2 << " "
+					   << (*it).second.i2 << endl;
                 }
             }
         }
-        */
+#endif
         progress.setMessage("selecting points in uniform areas");
         // select points with low laplacian of gaussian values.
         sampleRadiusUniform(radiusHist, nPoints, points);
+
+		#ifdef VIG_DATA_FILE
+        {
+                ofstream of(VIG_DATA_FILE);
+				DEBUG_DEBUG("opened data file: " << VIG_DATA_FILE << ": " << of.good());
+                for (std::vector<PointPair>::const_iterator it= points.begin();
+                     it != points.end(); ++it) 
+                {
+                    of << (*it).imgNr1 << " "
+					   << (*it).r1 << " "
+					   << (*it).i1 << " "
+					   << (*it).imgNr2 << " "
+					   << (*it).r2 << " "
+					   << (*it).i2 << endl;
+                }
+        }
+		#endif
+
         progress.popTask();
     } else {
         // extract random points.

@@ -103,7 +103,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                         // ignore pixels that are too dark or bright
                         continue;
                     }
-		    double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+					double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
 
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
@@ -120,7 +120,7 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                                 // ignore pixels that are too dark or bright
                                 continue;
                             }
-			    double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+							double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
                             // add pixel
                             const VoteImg & vimg1 =  *voteImgs[i];
                             const VoteImg & vimg2 =  *voteImgs[j];
@@ -135,9 +135,9 @@ void sampleAllPanoPoints(const std::vector<Img> &imgs,
                             if (i1 >= i2 && r1 <= r2) {
                                 // ok, point is good. i1 is closer to centre, swap point
                                 // so that i1 < i2
-                                pp = vigra_ext::PointPair(i2, p2, r2, i1, p1, r1);
+                                pp = vigra_ext::PointPair(j, i2, p2, r2,   i, i1, p1, r1);
                             } else if( i1 <= i2 && r1 >= r2) {
-                                pp = vigra_ext::PointPair(i1, p1, r1, i2, p2, r2);
+                                pp = vigra_ext::PointPair(i, i1, p1, r1,   j, i2, p2, r2);
                             } else {
                                 // point is inconsistent
                                 nBadPoints++;
@@ -295,10 +295,10 @@ void sampleRandomPanoPoints(const std::vector<Img> &imgs,
                         if (i1 >= i2 && r1 <= r2) {
                             // ok, point is good. i1 is closer to centre, swap point
                             // so that i1 < i2
-                            points.push_back(vigra_ext::PointPair(i2, p2, r2, i1, p1, r1) );
+                            points.push_back(vigra_ext::PointPair(j, i2, p2, r2,   i, i1, p1, r1) );
                             nPoints--;
                         } else if( i1 <= i2 && r1 >= r2) {
-                            points.push_back(vigra_ext::PointPair(i1, p1, r1, i2, p2, r2) );
+                            points.push_back(vigra_ext::PointPair(i, i1, p1, r1,   j, i2, p2, r2) );
                             nPoints--;
                         } else {
                             nBadPoints++;

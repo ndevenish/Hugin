@@ -17,6 +17,7 @@
                     
                 
                 
+                
                 <size>0,12</size>
                   </object>
               <object class="sizeritem">
@@ -26,15 +27,19 @@
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       
+                      
                       <label>Left:</label>
                     </object>
                   
+                    
                     <flag>wxALIGN_RIGHT</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="crop_left_text">
                       
+                      
                       <size>50,-1</size>
+                      
                       
                       <style>wxTE_PROCESS_ENTER</style>
                     </object>
@@ -42,15 +47,19 @@
                   <object class="sizeritem">
                     <object class="wxStaticText" name="">
                       
+                      
                       <label>Top:</label>
                     </object>
                   
+                    
                     <flag>wxALIGN_RIGHT</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="crop_top_text">
                       
+                      
                       <size>50,-1</size>
+                      
                       
                       <style>wxTE_PROCESS_ENTER</style>
                     </object>
@@ -58,15 +67,19 @@
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       
+                      
                       <label>Right:</label>
                     </object>
                   
+                    
                     <flag>wxALIGN_RIGHT</flag>
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="crop_right_text">
                       
+                      
                       <size>50,-1</size>
+                      
                       
                       <style>wxTE_PROCESS_ENTER</style>
                     </object>
@@ -74,9 +87,11 @@
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       
+                      
                       <label>Bottom:</label>
                     </object>
                   
+                    
                     <flag>wxALIGN_RIGHT</flag>
                   </object>
                   <vgap>3</vgap>
@@ -84,12 +99,15 @@
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="crop_bottom_text">
                       
+                      
                       <size>50,-1</size>
+                      
                       
                       <style>wxTE_PROCESS_ENTER</style>
                     </object>
                   </object>
                 </object>
+                
                 
                 <flag>wxEXPAND</flag>
               </object>
@@ -100,10 +118,12 @@
                     
                 
                 
+                
                 <size>0,12</size>
                   </object>
               <object class="sizeritem">
                 <object class="wxCheckBox" name="crop_autocenter_cb">
+                  
                   
                   <label>Always center Crop on d,e</label>
                 </object>
@@ -116,6 +136,7 @@
                       
                   
                   
+                  
                   <label>Reset</label>
                       
                       
@@ -123,7 +144,7 @@
                       
                   
                   
-                  <tooltip>Load lens parameters from a file</tooltip>
+                  
                     </object>
                     
                     
@@ -131,11 +152,13 @@
                     
                 
                 
+                
                 <flag>wxTOP</flag>
                     
                     
                     
                     
+                
                 
                 
                 <border>5</border>
@@ -147,12 +170,15 @@
                     
                 
                 
+                
                 <size>0,12</size>
                   </object>
               <object class="sizeritem">
                 <object class="unknown" name="crop_list_unknown"/>
                 
+                
                 <option>1</option>
+                
                 
                 <flag>wxEXPAND</flag>
               </object>
@@ -163,11 +189,13 @@
                 
             
             
+            
             <flag>wxALL|wxEXPAND</flag>
                 
                 
                 
                 
+            
             
             
             <border>6</border>
@@ -180,6 +208,7 @@
                 
             
             
+            
             <option>1</option>
                 
                 
@@ -187,15 +216,19 @@
                 
             
             
+            
             <flag>wxTOP|wxBOTTOM|wxRIGHT|wxEXPAND</flag>
               
+            
             
             <border>6</border>
           </object>
         </object>
         
         
+        
         <option>1</option>
+        
         
         
         <flag>wxEXPAND</flag>

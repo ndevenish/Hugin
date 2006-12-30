@@ -1,9 +1,28 @@
 // -*- c-basic-offset: 4 -*-
-//
-// Pablo d'Angelo <pablo.dangelo@web.de>
-// Last change: Time-stamp: <26-Oct-2003 18:37:34 pablo@island.wh-wurm.uni-ulm.de>
-//
-//
+
+/** @file PanoImage.h
+ *
+ *  @brief implementation of HFOVDialog Class
+ *
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>
+ *
+ *  $Id$
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
 
 #ifndef PANOIMAGE_H
 #define PANOIMAGE_H
@@ -147,6 +166,9 @@ public:
         m_kb.resize(3);
         for (unsigned i=0; i < 3; i++)
             m_kb[i] = 0;
+
+        m_exifCropFactor = 0;
+        m_exifFocalLength = 0;
 
         m_lensNr = 0;
         m_featherWidth = 10;
@@ -327,6 +349,27 @@ public:
     void setGamma(const double & val)
     { m_gamma = val; }
 
+    const std::string & getExifModel() const
+    { return m_exifModel; }
+    void setExifModel(const std::string & val)
+    { m_exifModel = val; }
+
+    const std::string & getExifMake() const
+    { return m_exifMake; }
+    void setExifMake(const std::string & val)
+    { m_exifMake = val; }
+
+    const double & getExifCropFactor() const
+    { return m_exifCropFactor; }
+    void setExifCropFactor(const double & val)
+    { m_exifCropFactor = val; }
+
+    const double & getExifFocalLength() const
+    { return m_exifFocalLength; }
+    void setExifFocalLength(const double & val)
+    { m_exifFocalLength = val; }
+
+
 private:
     std::string m_filename;
 //    VariableVector m_vars;
@@ -366,6 +409,13 @@ private:
     std::vector<double> m_ka;
     std::vector<double> m_kb;
 
+
+    // store camera information from exif tags...
+    std::string m_exifModel;
+    std::string m_exifMake;
+    double      m_exifCropFactor;
+    double      m_exifFocalLength;
+
     unsigned m_lensNr;
     //
     // panotools options
@@ -375,6 +425,19 @@ private:
     // Morph-to-fit using control points.
     bool m_morph;
 };
+
+/** try to fill out information about the image, by examining the exif data
+ *  focalLength and cropFactor will be updated with the ones read from the exif data
+ *  If no or not enought exif data was found and valid given focalLength and cropFactor
+ *  settings where provided, they will be used for computation of the HFOV.
+ */
+bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor);
+
+/** calculate hfov of an image given focal length, image size and crop factor */
+double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);
+
+/** calcualte focal length, given crop factor and hfov */
+double calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize);
 
 /** Holds information about the destination image.
  */

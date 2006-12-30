@@ -122,7 +122,6 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
 
     static wxProgressDialog * dlg = 0;
 //    MSG	msg;
-    long percent;	
     switch( command ){
         case _initProgress:
             if (dlg) {

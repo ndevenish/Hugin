@@ -13,7 +13,11 @@
 
 #include <stdexcept>
 
+#include <vigra/impex.hxx>
+
 #include <jhead/jhead.h>
+
+
 #include <PT/PanoImage.h>
 #include <PT/Panorama.h>
 #include <common/utils.h>
@@ -137,11 +141,200 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
         m_ka == other.m_ka  &&
         m_kb == other.m_kb  &&
 
+        m_exifModel == other.m_exifModel &&
+        m_exifMake == other.m_exifMake &&
+        m_exifCropFactor == other.m_exifCropFactor &&
+        m_exifFocalLength == other.m_exifFocalLength &&
+
         m_lensNr == other.m_lensNr  &&
         m_featherWidth == other.m_featherWidth  &&
-        m_morph == other.m_morph);        
+        m_morph == other.m_morph);
 }
 
+
+bool PT::initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor)
+{
+    std::string filename = img.getFilename();
+    std::string ext = utils::getExtension(filename);
+    std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
+
+    double roll = 0;
+    int width;
+    int height;
+    try {
+        vigra::ImageImportInfo info(filename.c_str());
+        width = info.width();
+        height = info.height();
+    } catch(vigra::PreconditionViolation & ) {
+        return false;
+    }
+    img.setSize(vigra::Size2D(width, height));
+
+    if (ext == "JPG" || ext == "JPEG") {
+
+        ImageInfo_t exif;
+        ResetJpgfile();
+        // Start with an empty image information structure.
+
+        memset(&exif, 0, sizeof(exif));
+        exif.FlashUsed = -1;
+        exif.MeteringMode = -1;
+        if (ReadJpegFile(exif,filename.c_str(), READ_EXIF)){
+#ifdef DEBUG
+            ShowImageInfo(exif);
+#endif
+
+            img.setExifMake(exif.CameraMake);
+            img.setExifModel(exif.CameraModel);
+            DEBUG_DEBUG("exif dimensions: " << exif.ExifImageWidth << "x" << exif.ExifImageWidth);
+            switch (exif.Orientation) {
+                case 3:  // rotate 180
+                    roll = 180;
+                    break;
+                case 6: // rotate 90
+                    roll = 90;
+                    break;
+                case 8: // rotate 270
+                    roll = 270;
+                    break;
+                default:
+                    break;
+            }
+            // image has been modified without adjusting exif tags
+            // assume user has rotated to upright pose
+            if (exif.ExifImageWidth && exif.ExifImageLength) {
+                double ratioExif = exif.ExifImageWidth / (double)exif.ExifImageLength;
+                double ratioImage = width/(double)height;
+                if (abs( ratioExif - ratioImage) > 0.1) {
+                    roll = 0;
+                }
+            }
+
+            // calc sensor dimensions if not set and 35mm focal length is available
+            FDiff2D sensorSize;
+
+            if (exif.CCDHeight > 0 && exif.CCDWidth > 0) {
+                // read sensor size directly.
+                sensorSize.x = exif.CCDWidth;
+                sensorSize.y = exif.CCDHeight;
+                if (strcmp(exif.CameraModel, "Canon EOS 20D") == 0) {
+                    // special case for buggy 20D camera
+                    sensorSize.x = 22.5;
+                    sensorSize.y = 15;
+                }
+                //
+                // check if sensor size ratio and image size fit together
+                double rsensor = (double)sensorSize.x / sensorSize.y;
+                double rimg = (double) width / height;
+                if ( (rsensor > 1 && rimg < 1) || (rsensor < 1 && rimg > 1) ) {
+                    // image and sensor ratio do not match
+                    // swap sensor sizes
+                    float t;
+                    t = sensorSize.y;
+                    sensorSize.y = sensorSize.x;
+                    sensorSize.x = t;
+                }
+                cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
+            }
+
+            if (exif.FocalLength > 0 && cropFactor > 0) {
+                // user provided crop factor
+                focalLength = exif.FocalLength;
+            } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
+                cropFactor = exif.FocalLength35mm / exif.FocalLength;
+                focalLength = exif.FocalLength;
+            } else if (exif.FocalLength35mm > 0) {
+                // 35 mm equiv focal length available, crop factor unknown.
+                // do not ask for crop factor, assume 1.
+                cropFactor = 1;
+                focalLength = exif.FocalLength35mm;
+            } else if (exif.FocalLength > 0 && cropFactor <= 0) {
+                // need to redo, this time with crop
+                focalLength = exif.FocalLength;
+                cropFactor = 0;
+            }
+        }
+    }
+
+    img.setExifFocalLength(focalLength);
+    img.setExifCropFactor(cropFactor);
+    img.setRoll(roll);
+
+    if (focalLength > 0 && cropFactor > 0) {
+        img.setHFOV(calcHFOV(img.getProjection(), focalLength, cropFactor, img.getSize()));
+        return true;
+    } else {
+        return false;
+    }
+}
+
+double PT::calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)
+{
+    // calculate diagonal of film
+    double d = sqrt(36.0*36.0 + 24.0*24.0) / crop;
+    double r = (double)imageSize.x / imageSize.y;
+
+    // calculate the sensor width and height that fit the ratio
+    // the ratio is determined by the size of our image.
+    FDiff2D sensorSize;
+    sensorSize.x = d / sqrt(1 + 1/(r*r));
+    sensorSize.y = sensorSize.x / r;
+
+    double hfov = 360;
+
+    switch (proj) {
+        case SrcPanoImage::RECTILINEAR:
+            hfov = 2*atan((sensorSize.x/2.0)/fl)  * 180.0/M_PI;
+            break;
+        case SrcPanoImage::CIRCULAR_FISHEYE:
+        case SrcPanoImage::FULL_FRAME_FISHEYE:
+            hfov = sensorSize.x / fl * 180/M_PI;
+            break;
+        case SrcPanoImage::EQUIRECTANGULAR:
+        case SrcPanoImage::PANORAMIC:
+            hfov = (sensorSize.x / fl) / M_PI * 180;
+            break;
+        default:
+            hfov = 360;
+            // TODO: add formulas for other projections
+            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
+    }
+    return hfov;
+}
+
+double PT::calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize)
+{
+    // calculate diagonal of film
+    double d = sqrt(36.0*36.0 + 24.0*24.0) / crop;
+    double r = (double)imageSize.x / imageSize.y;
+
+    // calculate the sensor width and height that fit the ratio
+    // the ratio is determined by the size of our image.
+    FDiff2D sensorSize;
+    sensorSize.x = d / sqrt(1 + 1/(r*r));
+    sensorSize.y = sensorSize.x / r;
+
+    switch (proj)
+{
+    case SrcPanoImage::RECTILINEAR:
+        return (sensorSize.x/2.0) / tan(hfov/180.0*M_PI/2);
+        break;
+    case SrcPanoImage::CIRCULAR_FISHEYE:
+    case SrcPanoImage::FULL_FRAME_FISHEYE:
+            // same projection equation for both fisheye types,
+            // assume equal area projection.
+        return sensorSize.x / (hfov/180*M_PI);
+        break;
+    case SrcPanoImage::EQUIRECTANGULAR:
+    case SrcPanoImage::PANORAMIC:
+        return  (sensorSize.x / (hfov/180*M_PI));
+        break;
+    default:
+            // TODO: add formulas for other projections
+        DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
+        return 0;
+}
+}
 
 #if 0
 PanoImage::PanoImage(const std::string &filename)

@@ -474,7 +474,7 @@ public:
 
     DestPanoImage getDestImage() const;
 
-    const std::string & PanoramaOptions::getOutputExtension();
+    const std::string & getOutputExtension();
 
     // they are public, because they need to be set through
     // get/setOptions in Panorama.
