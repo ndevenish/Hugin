@@ -61,24 +61,30 @@ static void usage(const char * name)
          << "  TIFF_m          : multiple tiff files"<< std::endl
          << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
          << std::endl
-            << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl;
+         << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
+		 << "  Options: " << std::endl
+		 << "      -c  create coordinate images (only TIFF_m output)" << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
 
     // parse arguments
-    const char * optstring = "ho:t:";
+    const char * optstring = "cho:t:";
     int c;
 
     opterr = 0;
 
     unsigned nThread = 1;
+    bool doCoord = false;
     string basename;
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
         case 'o':
             basename = optarg;
+            break;
+        case 'c':
+            doCoord = true;
             break;
         case '?':
         case 'h':
@@ -95,7 +101,7 @@ int main(int argc, char *argv[])
         usage(argv[0]);
         return 1;
     }
-    int nCmdLineImgs = argc -optind -1;
+    unsigned nCmdLineImgs = argc -optind -1;
 
     if (nThread == 0) nThread = 1;
     vigra_ext::ThreadManager::get().setNThreads(nThread);
@@ -127,13 +133,16 @@ int main(int argc, char *argv[])
             cerr << "not enought images specified on command line\nProject required " << pano.getNrOfImages() << " but only " << nCmdLineImgs << " where given" << std::endl;
             exit(1);
         }
-        for (int i=0; i < pano.getNrOfImages(); i++) {
+        for (unsigned i=0; i < pano.getNrOfImages(); i++) {
             pano.setImageFilename(i, argv[optind+i+1]);
         }
 
     }
     PanoramaOptions  opts = pano.getOptions();
 
+    // save coordinate images, if requested
+    opts.saveCoordImgs = doCoord;
+    
     // check for some options
 
     int w = opts.getWidth();
