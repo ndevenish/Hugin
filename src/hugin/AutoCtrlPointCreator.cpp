@@ -428,7 +428,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString cmd;
     cmd.Printf(wxT("%s %s"), autopanoExe.c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
-    if (cmd.size() > 1950) {
+    if (cmd.size() > 32766) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
                      wxCANCEL );

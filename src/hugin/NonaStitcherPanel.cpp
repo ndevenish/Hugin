@@ -421,16 +421,17 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             args.append(quoted);
         }
 
+        int ret = -1;
+
+        wxString cmdline = utils::wxQuoteFilename(enblendExe) + wxT(" ") + args;
 #ifdef __WXMSW__
-        if (args.size() > 1950) {
-            wxMessageBox(_("Can not call enblend with a command line > 2000 characters.\nThis is a Windows limitation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
-                _("Too many images selected"));
-            return;
+        if (cmdline.size() > 32766) {
+    wxMessageBox(_("Can not call enblend with a command line > 32766 characters.\nThis is a Windows limitation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
+                 _("Too many images selected"));
+    return;
         }
 #endif
-        int ret = -1;
-        
-        wxString cmdline = utils::wxQuoteFilename(enblendExe) + wxT(" ") + args;
+
         {
 #ifdef unix
             wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
@@ -502,7 +503,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 wxRemoveFile(f);
             }
         }
-    }    
+    }
 }
 
 void NonaStitcherPanel::OnSetQuality(wxSpinEvent & e)
