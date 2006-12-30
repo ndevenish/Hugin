@@ -332,6 +332,7 @@ AC_CONFIG_FILES([Makefile
 		 src/nona_gui/po/Makefile.in
 		 src/vigra_ext/Makefile
                  src/tools/Makefile
+		 src/tests/Makefile
 		 doc/Makefile])
 
 AC_SUBST(ac_aux_dir)
