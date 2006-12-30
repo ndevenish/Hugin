@@ -50,6 +50,7 @@
 #include "hugin/wxPanoCommand.h"
 #include "hugin/VigCorrDialog.h"
 
+
 using namespace PT;
 using namespace utils;
 using namespace std;
@@ -692,32 +693,28 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     if (m_selectedImages.size() > 0) {
-        UIntSet tmpLenses;
         for (UIntSet::iterator it = m_selectedImages.begin();
              it != m_selectedImages.end(); ++it)
         {
             unsigned int imgNr = *it;
-            unsigned int lensNr = pano.getImage(imgNr).getLensNr();
-            if (! set_contains(tmpLenses, lensNr)) {
-                tmpLenses.insert(lensNr);
-                Lens lens = pano.getLens(lensNr);
-                // check file extension
-                wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
-                if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
-                    file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
-                {
-                    double c=0;
-                    double roll = 0;
-                    VariableMap vars = pano.getImageVariables(imgNr);
-                    ImageOptions imgopts;
-                    initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::ChangeLensCmd( pano, lensNr,
-                                               lens )
-                        );
-                } else {
-                    wxLogError(_("Not a jpeg file:") + file.GetName());
+            // check file extension
+            wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+            if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
+            {
+                double cropFactor = 0;
+                double focalLength = 0;
+                SrcPanoImage srcImg = pano.getSrcImage(imgNr);
+                bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+                if (! ok) {
+                    getLensDataFromUser(srcImg, focalLength, cropFactor);
                 }
+                //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
+                GlobalCmdHist::getInstance().addCommand(
+                        new PT::UpdateSrcImageCmd( pano, imgNr, srcImg)
+                    );
+            } else {
+                wxLogError(_("Not a jpeg file:") + file.GetName());
             }
         }
     } else {
@@ -774,7 +771,13 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
                 cfg.Write(wxT("Lens/flatfield"),
                           wxString(imgopts.m_flatfield.c_str(), *wxConvCurrent) );
-                // TODO: save crop
+
+                cfg.Write(wxT("Lens/crop/enabled"), imgopts.docrop ? 1l : 0l);
+                cfg.Write(wxT("Lens/crop/autoCenter"), imgopts.autoCenterCrop ? 1l : 0l);
+                cfg.Write(wxT("Lens/crop/left"), imgopts.cropRect.left());
+                cfg.Write(wxT("Lens/crop/top"), imgopts.cropRect.top());
+                cfg.Write(wxT("Lens/crop/right"), imgopts.cropRect.right());
+                cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
                 cfg.Flush();
             }
             // reset locale
@@ -860,8 +863,6 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
                     cfg.Read(key, &integer);
                     map_get(lens.variables, *varname).setLinked(integer != 0);
                 }
-
-
                 varname++;
             }
             long vigCorrMode=0;
@@ -870,9 +871,27 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
 
             wxString flatfield;
             bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
-            imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
+            if (readok) {
+                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str());
+            }
 
             // TODO: crop parameters
+            long v=0;
+            cfg.Read(wxT("Lens/crop/enabled"), &v);
+            imgopts.docrop = v;
+            v=1;
+            cfg.Read(wxT("Lens/crop/autoCenter"), &v);
+            imgopts.autoCenterCrop = v;
+            long left=0;
+            cfg.Read(wxT("Lens/crop/left"), &left);
+            long top=0;
+            cfg.Read(wxT("Lens/crop/top"), &top);
+            long right=0;
+            cfg.Read(wxT("Lens/crop/right"), &right);
+            long bottom=0;
+            cfg.Read(wxT("Lens/crop/bottom"), &bottom);
+            imgopts.cropRect.setUpperLeft(vigra::Point2D(left, top));
+            imgopts.cropRect.setLowerRight(vigra::Point2D(right, bottom));
         }
         // reset locale
         setlocale(LC_NUMERIC,old_locale);
@@ -886,14 +905,9 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
 void LensPanel::OnNewLens(wxCommandEvent & e)
 {
     if (m_selectedImages.size() > 0) {
-        // create a new lens, try to read info from first image
+        // create a new lens, start with a copy of the old lens.
         unsigned int imgNr = *(m_selectedImages.begin());
-        Lens l;
-        double crop=0;
-        double roll=0;
-        VariableMap vars = pano.getImageVariables(imgNr);
-        ImageOptions imgopts;
-        initLensFromFile(pano.getImage(imgNr).getFilename(), crop, l, vars, imgopts, false);
+        Lens l = pano.getLens(pano.getImage(imgNr).getLensNr());
         GlobalCmdHist::getInstance().addCommand(
             new PT::AddNewLensToImagesCmd(pano, l, m_selectedImages)
             );
@@ -921,6 +935,7 @@ void LensPanel::OnChangeLens(wxCommandEvent & e)
 }
 
 
+/*
 bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l,
                       VariableMap & vars, ImageOptions & imgopts, bool sameSettings)
 {
@@ -986,6 +1001,8 @@ bool initLensFromFile(const std::string & filename, double &cropFactor, Lens & l
     l.m_hasExif = true;
     return true;
 }
+*/
+
 
 char *LensPanel::m_varNames[] = { "v", "a", "b", "c", "d", "e", "g", "t", 
                                   "K0a", "K0b", "K1a", "K1b", "K2a", "K2b", 0};
