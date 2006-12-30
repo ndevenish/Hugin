@@ -29,6 +29,7 @@
 
 #include <wx/wxchar.h>
 #include <wx/string.h>
+#include "utils.h"
 
 namespace utils {
 

@@ -78,6 +78,7 @@ void correctImage(SrcImgType & srcImg,
     bool doBrightnessConversion = convertKParams(src.getBrightnessFactor(),
                                                  src.getBrightnessOffset(),
                                                  ka, kb);
+
     bool dither = vigra_ext::ditheringNeeded(SrcPixelType());
 
     double gMaxVal = vigra_ext::VigCorrTraits<typename DestImgType::value_type>::max();

@@ -264,7 +264,6 @@ bool stringToDouble(const STR & str_, double & dest)
         return QuoteStringInternal(arg, str("\\"), str("\\ ~$\"!@#%^&|'`{}[](),.-+="));
     }
 
-    
     class ProgressDisplay
     {
     public:
