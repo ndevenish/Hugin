@@ -794,7 +794,7 @@ void process_EXIF (ImageInfo_t &ImageInfo, unsigned char * ExifSection, unsigned
     ProcessExifDir(ImageInfo, ExifSection+8+FirstOffset, ExifSection+8, length-6, 0);
 
     if (ImageInfo.ShowTags){
-        printf("Non settings part of Exif header: %d bytes\n",ExifSection+length-LastExifRefd);
+        printf("Non settings part of Exif header: %ld bytes\n",ExifSection+length-LastExifRefd);
     }
 }
 

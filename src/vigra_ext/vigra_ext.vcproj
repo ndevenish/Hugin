@@ -172,9 +172,6 @@
 				RelativePath="..\include\vigra_ext\IteratorPair.h">
 			</File>
 			<File
-				RelativePath="..\include\vigra_ext\laplacePyramid.h">
-			</File>
-			<File
 				RelativePath="..\include\vigra_ext\LayerImage_old.h">
 			</File>
 			<File

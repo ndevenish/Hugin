@@ -72,6 +72,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Panotools", "..\..\..\libs\
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vig_optimize", "..\tools\vig_optimize.vcproj", "{FADF17E6-3137-47E7-B556-DE1112D3237A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -142,6 +146,12 @@ Global
 		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release.Build.0 = Release|Win32
 		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.ActiveCfg = Release|Win32
 		{9B19A5C0-8DB0-448B-BF99-DC6374E9751B}.Release Unicode.Build.0 = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Debug.ActiveCfg = Debug|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Debug.Build.0 = Debug|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release.ActiveCfg = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release.Build.0 = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release Unicode.ActiveCfg = Release|Win32
+		{FADF17E6-3137-47E7-B556-DE1112D3237A}.Release Unicode.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
