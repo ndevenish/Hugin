@@ -35,25 +35,30 @@
 namespace vigra_ext
 {
 
-struct PointPair
+template <class VALUE>
+struct PointPairT
 {
-    PointPair()
+    PointPairT()
     {
     }
 
-    PointPair(double i1, const FDiff2D & p1, double r1,
-              double i2, const FDiff2D & p2, double r2)
-    : i1(i1), p1(p1), r1(r1), i2(i2), p2(p2), r2(r2)
+    PointPairT(short img1, VALUE val1, const FDiff2D & p1, float r1,
+              short img2, VALUE val2, const FDiff2D & p2, float r2)
+    : imgNr1(img1), i1(val1), p1(p1), r1(r1), imgNr2(img2), i2(val2), p2(p2), r2(r2)
     {
     }
 
-    double i1;
+	short imgNr1;
+    VALUE i1;
     FDiff2D p1;
-    double r1;
-    double i2;
+    float r1;
+	short imgNr2;
+    VALUE i2;
     FDiff2D p2;
-    double r2;
+    float r2;
 };
+
+typedef PointPairT<float> PointPair;
 
 /// function to calculate the vignetting correction: 1 + p[0]*r^2 + p[1]*r^4 + p[2]*r^6
 template <class PITER>
@@ -380,9 +385,9 @@ void extractRandomPoints(std::vector<vigra_ext::ROIImage<ImageType, vigra::BImag
                     if (i1 >= i2 && r1 <= r2) {
                         // ok, point is good. i1 is closer to centre, swap point
                         // so that i1 < i2
-                        points.push_back(PointPair(i2, p2, r2, i1, p1, r1) );
+                        points.push_back(PointPair(j, i2, p2, r2,   i, i1, p1, r1) );
                     } else if(i1 < i2 && r1 > r2) {
-                        points.push_back(PointPair(i1, p1, r1, i2, p2, r2) );
+                        points.push_back(PointPair(i, i1, p1, r1,   j, i2, p2, r2) );
                     } else {
                         nBadPoints++;
                     }
@@ -437,7 +442,65 @@ optimizeVignettingQuotient(const std::vector<PointPair> & points,
     return res;
 }
 
+#if 0
+template <class Image, class ImageSource>
+void runPointExtractor(Panorama & pano, ImageSource & imgLoader)
+{
+    std::vector<FImage *> grayImgs;
+    std::vector<BImage *> maskImgs;
+    std::vector<FImage *> lapImgs;
+    std::vector<InterpolImg> srcImgs;
+    std::vector<SrcPanoImage> srcDescr;
+
+    for (unsigned i=0; i < m_pano.getNrOfImages(); i++) {
+        SrcPanoImage src = m_pano.getSrcImage(i);
+        RGBFImage * img = imageLoader(src);
+        ImageCache::Entry * cacheEntry =  ImageCache::getInstance().getSmallImage(src.getFilename().c_str());
+            if (!cacheEntry) {
+                throw std::runtime_error("could not retrieve small source image for vignetting optimisation");
+            }
+            wxImage * srcImgWX = cacheEntry->image;
+            // image view
+            BasicImageView<RGBValue<unsigned char> > srcImgInCache((RGBValue<unsigned char> *)srcImgWX->GetData(),
+                                     srcImgWX->GetWidth(),
+                                     srcImgWX->GetHeight());
+
+            src.resize(srcImgInCache.size());
+            BImage * grayImg = new BImage(srcImgInCache.size());
+            // change to grayscale
+	    // just use green channel
+            vigra::copyImage(vigra::srcImageRange(srcImgInCache, vigra::GreenAccessor<RGBValue<unsigned char> >()),
+                             vigra::destImage(*grayImg));
+            BImage *maskImg = new BImage(srcImgInCache.size().x,srcImgInCache.size().y , 255);
+
+            // TODO need to do gamma correction here!
+            if (src.getGamma() != 1.0) {
+                vigra_ext::applyGammaCorrection(srcImageRange(*grayImg), destImage(*grayImg),
+                                                src.getGamma(), 255);
+            }
+            // TODO: cut out the masked parts.
+//            applyMask(src, vigra::destImageRange(*maskImg));
+
+            vigra_ext::interp_spline36 interp;
+            // create interpolating accessor to images.
+            srcImgs.push_back(InterpolImg(vigra::srcImageRange(*grayImg),
+                              vigra::srcImage(*maskImg), interp,
+                              false) );
+            grayImgs.push_back(grayImg);
+            maskImgs.push_back(maskImg);
+            srcDescr.push_back(src);
+            if (uniformRadiusSample) {
+                vigra::FImage * lap = new vigra::FImage(grayImg->size());
+                laplacianOfGaussian(srcImageRange(*grayImg), destImage(*lap), 1);
+                lapImgs.push_back(lap);
+            }
+
+        }
+
+#endif
 
 }
+
+
 
 #endif //_VIG_QUOTIENT_PARAM_ESTIMATOR_H_
