@@ -28,6 +28,9 @@
 
 namespace vigra_ext {
 
+static const double AA = 0.4;
+static const double W[] = {0.25 - AA / 2.0, 0.25, AA, 0.25, 0.25 - AA / 2.0};
+
 /** Gaussian reduction to next pyramid level
  *
  *  out is rescaled to the correct size.
@@ -50,7 +53,7 @@ void reduceToNextLevel(Image & in, Image & out)
     // define a Gaussian kernel (size 5x1)
     // with sigma = 1
     vigra::Kernel1D<double> filter;
-    filter.initExplicitly(-2, 2) = 0.054, 0.242, 0.4, 0.242, 0.054;
+    filter.initExplicitly(-2, 2) = W[0], W[1], W[2], W[3], W[4];
 
     vigra::BasicImage<typename Image::value_type> tmpimage1(width, height);
     vigra::BasicImage<typename Image::value_type> tmpimage2(width, height);
