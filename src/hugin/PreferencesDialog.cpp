@@ -108,13 +108,14 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     // Custom setup ( stuff that can not be done in XRC )
     XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->SetRange(-180,0);
     XRCCTRL(*this, "prefs_ft_RotationStopAngle", wxSpinCtrl)->SetRange(0,180);
+    XRCCTRL(*this, "prefs_ass_nControlPoints", wxSpinCtrl)->SetRange(3,3000);
 
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
 
 #if __WXMAC__
     lang_choice->Disable();
 #endif
-    
+
     // add languages to choice
     long * lp = new long;
     *lp = wxLANGUAGE_DEFAULT;
@@ -553,9 +554,16 @@ void PreferencesDialog::UpdateDisplayData()
     XRCCTRL(*this, "prefs_ptstitcher_select", wxButton)->Enable(customPTStitcherExe);
     MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE)));
 
-    // finetune settings
-    MY_SPIN_VAL("prefs_ft_TemplateSize",
-                cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
+    // Assistant settings
+    bool t = cfg->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN) == 1;
+    MY_BOOL_VAL("prefs_ass_autoAlign", t);
+    MY_SPIN_VAL("prefs_ass_nControlPoints",
+                cfg->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS));
+    MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",
+                cfg->Read(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR*100));
+
+
+    // Fine tune settings
     MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
                                                HUGIN_FT_SEARCH_AREA_PERCENT));
     MY_SPIN_VAL("prefs_ft_LocalSearchWidth", cfg->Read(wxT("/Finetune/LocalSearchWidth"),
@@ -570,7 +578,7 @@ void PreferencesDialog::UpdateDisplayData()
     tstr = utils::doubleTowxString(d);
     MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
 
-    bool t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
+    t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
     MY_BOOL_VAL("prefs_ft_RotationSearch", t);
     EnableRotationCtrls(t);
 
@@ -719,22 +727,26 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Panotools/PTStitcherExeCustom"),HUGIN_PT_STITCHER_EXE_CUSTOM);
             cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
         }
-        
         if (noteb->GetSelection() == 1) {
+            cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
+            cfg->Write(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
+            cfg->Write(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+        }
+        if (noteb->GetSelection() == 2) {
             // Fine tune settings
             cfg->Write(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
             cfg->Write(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
             cfg->Write(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
-            
+
             cfg->Write(wxT("/Finetune/CorrThreshold"), HUGIN_FT_CORR_THRESHOLD);
             cfg->Write(wxT("/Finetune/CurvThreshold"), HUGIN_FT_CURV_THRESHOLD);
-            
+
             cfg->Write(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH);
             cfg->Write(wxT("/Finetune/RotationStartAngle"), HUGIN_FT_ROTATION_START_ANGLE);
             cfg->Write(wxT("/Finetune/RotationStopAngle"), HUGIN_FT_ROTATION_STOP_ANGLE);
             cfg->Write(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         }
-        if (noteb->GetSelection() == 2) {
+        if (noteb->GetSelection() == 3) {
             // MISC
             // cache
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
@@ -752,20 +764,20 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // use preview images as active images
             cfg->Write(wxT("/General/UseOnlySelectedImages"), HUGIN_USE_SELECTED_IMAGES);
         }
-        if (noteb->GetSelection() == 3) {
+        if (noteb->GetSelection() == 4) {
             /////
             /// AUTOPANO
             cfg->Write(wxT("/AutoPano/Type"), HUGIN_AP_TYPE);
-            
+
             cfg->Write(wxT("/AutoPanoSift/AutopanoExe"), wxT(HUGIN_APSIFT_EXE));
             cfg->Write(wxT("/AutoPanoSift/AutopanoExeCustom"), HUGIN_APSIFT_EXE_CUSTOM);
             cfg->Write(wxT("/AutoPanoSift/Args"), wxT(HUGIN_APSIFT_ARGS));
-            
+
             cfg->Write(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
             cfg->Write(wxT("/AutoPanoKolor/AutopanoExeCustom"), HUGIN_APKOLOR_EXE_CUSTOM);
             cfg->Write(wxT("/AutoPanoKolor/Args"), wxT(HUGIN_APKOLOR_ARGS));
         }
-        if (noteb->GetSelection() == 4) {
+        if (noteb->GetSelection() == 5) {
             /// ENBLEND
             cfg->Write(wxT("/Enblend/EnblendExe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/EnblendExeCustom"), HUGIN_ENBLEND_EXE_CUSTOM);
@@ -773,7 +785,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES);
             cfg->Write(wxT("/Enblend/UseCroppedFiles"), HUGIN_ENBLEND_USE_CROPPED_FILES);
         }
-        
         UpdateDisplayData();
     }
 }
@@ -783,14 +794,19 @@ void PreferencesDialog::UpdateConfigData()
 	DEBUG_TRACE("");
     wxConfigBase *cfg = wxConfigBase::Get();
     // Panotools settings
-    
+
     cfg->Write(wxT("/Panotools/PTStitcherExeCustom"),MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom"));
     if(!MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom")) //TODO: compatibility mode; to be fixed.
         cfg->Write(wxT("/Panotools/PTStitcherExe"), wxT(HUGIN_PT_STITCHER_EXE));
     else
         cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
     cfg->Write(wxT("/PanoTools/ScriptFile"), MY_G_STR_VAL("prefs_pt_ScriptFile"));
-    
+
+    // Assistant
+    cfg->Write(wxT("/Assistant/autoAlign"),MY_G_BOOL_VAL("prefs_ass_autoAlign"));
+    cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
+    cfg->Write(wxT("/Assistant/panoDownsizeFactor"), MY_G_SPIN_VAL("prefs_ass_panoDownsizeFactor") / 100.0);
+
     // Fine tune settings
     cfg->Write(wxT("/Finetune/SearchAreaPercent"), MY_G_SPIN_VAL("prefs_ft_SearchAreaPercent"));
     cfg->Write(wxT("/Finetune/TemplateSize"), MY_G_SPIN_VAL("prefs_ft_TemplateSize"));

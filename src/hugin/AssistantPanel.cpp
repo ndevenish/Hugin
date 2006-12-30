@@ -162,7 +162,7 @@ AssistantPanel::AssistantPanel(wxWindow *parent, const wxPoint& pos, const wxSiz
     SetAutoLayout(false);
 #endif
 
-    m_degDigits = 1;
+    m_degDigits = 2;
 
     // observe the panorama
     m_pano.addObserver(this);
@@ -562,6 +562,7 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
             VariableMap vars = m_pano.getImageVariables(imgNr);
             ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
 
+            /*
             if (initLensFromFile(m_pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true)) {
                 GlobalCmdHist::getInstance().addCommand(
                         new PT::ChangeLensCmd(m_pano, lensNr, lens)
@@ -570,6 +571,8 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
                         new PT::UpdateImageVariablesCmd(m_pano, imgNr, vars)
                                                        );
             }
+            */
+
         } else {
             wxLogError(_("Not a jpeg file:") + file.GetName());
         }

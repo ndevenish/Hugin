@@ -62,6 +62,7 @@
 // sort by filename (1), sort by date (2)
 #define HUGIN_GUI_SORT_NEW_IMG_ON_ADD         1l
 
+#define HUGIN_LENS_ASSUME_SIMILAR             1l
 
 // Custom Program paths
 #define HUGIN_PT_STITCHER_EXE_CUSTOM          false
@@ -83,6 +84,9 @@
 
 #define HUGIN_APSIFT_EXE                      "autopano-win32.exe"
 
+#define HUGIN_STITCHER_RUN_VIEWER             1l
+#define HUGIN_STITCHER_VIEWER                 "start"
+#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
 
 #elif defined __WXMAC__
 
@@ -101,6 +105,9 @@
 #define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
 
+#define HUGIN_STITCHER_RUN_VIEWER             1l
+#define HUGIN_STITCHER_VIEWER                 ""
+#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
 
 #elif defined unix
 
@@ -115,6 +122,9 @@
 
 #define HUGIN_APSIFT_EXE                      "autopanog.exe"
 
+#define HUGIN_STITCHER_RUN_VIEWER             1l
+#define HUGIN_STITCHER_VIEWER                 "gimp-remote"
+#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
 
 #endif
 
