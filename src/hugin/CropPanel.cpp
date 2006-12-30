@@ -117,6 +117,8 @@ CropPanel::~CropPanel(void)
     m_right_textctrl->PopEventHandler(true);
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
+
+    m_pano.removeObserver(this);
 }
 
 // We need to override the default handling of size events because the
@@ -204,7 +206,8 @@ void CropPanel::Display2Pano()
         opt.cropRect = m_imgOpts.cropRect;
         opt.autoCenterCrop = m_imgOpts.autoCenterCrop;
         opt.docrop = ! (opt.cropRect.left() == 0 && opt.cropRect.top() == 0 
-                && opt.cropRect.right() == img.getWidth() && opt.cropRect.bottom() == img.getHeight());
+                && opt.cropRect.right() == (int) img.getWidth() 
+                && opt.cropRect.bottom() == (int) img.getHeight());
         opts.push_back(opt);
     }
 
@@ -296,7 +299,8 @@ void CropPanel::OnResetButton(wxCommandEvent & e)
     // suitable defaults.
     m_imgOpts.cropRect.setUpperLeft(Point2D(0,0));
     m_imgOpts.cropRect.setLowerRight(Point2D(0,0));
-    m_imgOpts.autoCenterCrop = false;
+    m_imgOpts.autoCenterCrop = true;
+    m_imgOpts.docrop = false;
     UpdateDisplay();
     Display2Pano();
 }
