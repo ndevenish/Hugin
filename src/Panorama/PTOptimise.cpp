@@ -331,6 +331,19 @@ void PTools::smartOptimize(PT::Panorama & optPano)
     //---------------------------------------------------------------
     // Now with lens distortion
 
+    // force inherit for all d/e values
+    char varnames[] = "abcde";
+    char vname[2];
+    vname[1] = 0;
+    for (unsigned i=0; i< optPano.getNrOfLenses(); i++) {
+        for(char * v=varnames; (*v) != 0; v++) {
+            vname[0] = *v;
+            LensVariable lv = const_map_get(optPano.getLens(i).variables, vname);
+            lv.setLinked(true);
+            optPano.updateLensVariable(i, lv);
+        }
+    }
+
     int optmode = OPT_POS;
     double origHFOV = const_map_get(optPano.getImageVariables(0),"v").getValue();
 
@@ -340,16 +353,17 @@ void PTools::smartOptimize(PT::Panorama & optPano)
 
     DEBUG_DEBUG("Ctrl Point radi statistics: min:" << rmin << " max:" << rmax << " mean:" << rmean << " var:" << rvar << " q10:" << rq10 << " q90:" << rq90);
 
-    if (origHFOV > 30) {
-        // only optimize principal point if there are prespective effects
+    if (origHFOV > 60) {
+        // only optimize principal point if the hfov is high enough for sufficient perspective effects
         optmode |= OPT_DE;
     }
 
     // heuristics for distortion and fov optimisation
-    if ( (rq90 - rq10) >= 1) {
+    if ( (rq90 - rq10) >= 1.2) {
         // very well distributed control points 
-        optmode |= OPT_AC | OPT_B | OPT_HFOV;
-    } else if ( (rq90 - rq10) > 0.7) {
+        // TODO: other criterion when to optimize HFOV, too
+        optmode |= OPT_AC | OPT_B;
+    } else if ( (rq90 - rq10) > 1.0) {
         optmode |= OPT_AC | OPT_B;
     } else {
         optmode |= OPT_B;
