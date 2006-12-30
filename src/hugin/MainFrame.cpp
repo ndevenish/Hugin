@@ -51,7 +51,7 @@
 #include "hugin/MyProgressDialog.h"
 #include "hugin/ImageCache.h"
 #include "hugin/LocalizedFileTipProvider.h"
-
+#include "hugin/HFOVDialog.h"
 
 
 using namespace PT;
@@ -662,8 +662,10 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     wxConfigBase* config = wxConfigBase::Get();
 
     wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
+
+    wxString path = config->Read(wxT("actualPath"), wxT(""));
     wxFileDialog dlg(this,_("Add images"),
-                     config->Read(wxT("actualPath"),wxT("")), wxT(""),
+                     path, wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
 
     // remember the image extension
@@ -1214,7 +1216,7 @@ void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 
 void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
 {
-    m_notebook->SetSelection(3);
+    m_notebook->SetSelection(4);
     cpe->setLeftImage(img1);
     cpe->setRightImage(img2);
 }
@@ -1326,6 +1328,18 @@ MainFrame * MainFrame::Get()
         return 0;
     }
 }
+
+void getLensDataFromUser(SrcPanoImage & srcImg,
+                         double & focalLength, double & cropFactor)
+{
+    // display lens dialog
+    HFOVDialog dlg(MainFrame::Get(), srcImg, focalLength, cropFactor);
+    dlg.ShowModal();
+    srcImg = dlg.GetSrcImage();
+    focalLength = dlg.GetFocalLength();
+    cropFactor = dlg.GetCropFactor();
+}
+
 
 MainFrame * MainFrame::m_this = 0;
 
