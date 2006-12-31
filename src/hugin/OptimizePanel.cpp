@@ -700,13 +700,15 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
             m_roll_list->Check(refImg, (nHCP > 0 || nVCP > 0));
             m_yaw_list->Check(refImg, (nHCP > 0));
             m_pitch_list->Check(refImg, (nVCP > 0));
-	        break;
+            break;
           case PT::PanoramaOptions::CYLINDRICAL:
           case PT::PanoramaOptions::EQUIRECTANGULAR:
             m_yaw_list->Check(refImg,false);
             m_pitch_list->Check(refImg, (nHCP+nVCP > 1));
             m_roll_list->Check(refImg, (nHCP+nVCP >= 1));
-			break;
+            break;
+          default:
+            break;
         }
 
         m_edit_cb->Enable(mode != OPT_PAIRWISE);
