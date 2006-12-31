@@ -354,8 +354,7 @@ public:
 
     enum Remapper {
         NONA=0,
-        PTSTITCHER,
-        PTREMAP
+        PTMENDER
     };
 
     /** type of color correction
