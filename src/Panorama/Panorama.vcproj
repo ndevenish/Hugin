@@ -174,6 +174,9 @@
 			<File
 				RelativePath=".\Stitcher4.cpp">
 			</File>
+			<File
+				RelativePath=".\utils.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -220,6 +223,9 @@
 			</File>
 			<File
 				RelativePath="..\include\Pt\Transforms.h">
+			</File>
+			<File
+				RelativePath="..\include\Pt\utils.h">
 			</File>
 		</Filter>
 		<Filter
