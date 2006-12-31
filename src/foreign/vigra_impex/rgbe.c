@@ -72,7 +72,7 @@ Hfloat2rgbe(unsigned char rgbe[4], float red, float green, float blue)
     rgbe[0] = rgbe[1] = rgbe[2] = rgbe[3] = 0;
   }
   else {
-    v = frexp(v,&e) * 256.0/v;
+    v = (float) frexp(v,&e) * 256.0f/v;
     rgbe[0] = (unsigned char) (red * v);
     rgbe[1] = (unsigned char) (green * v);
     rgbe[2] = (unsigned char) (blue * v);
@@ -89,7 +89,7 @@ Hrgbe2float(float *red, float *green, float *blue, unsigned char rgbe[4])
   float f;
 
   if (rgbe[3]) {   /*nonzero pixel*/
-    f = ldexp(1.0,rgbe[3]-(int)(128+8));
+    f = (float) ldexp(1.0f,rgbe[3]-(int)(128+8));
     *red = rgbe[0] * f;
     *green = rgbe[1] * f;
     *blue = rgbe[2] * f;
@@ -227,7 +227,7 @@ int HRGBE_ReadPixels(FILE *fp, float *data, int numpixels)
 
 int HRGBE_ReadPixels_Raw(FILE *fp, unsigned char *data, int numpixels)
 {
-  if (fread(data, 4, numpixels, fp) < numpixels)
+  if ((int) fread(data, 4, numpixels, fp) < numpixels)
     return rgbe_error(rgbe_read_error,NULL);
 
   return HRGBE_RETURN_SUCCESS;
