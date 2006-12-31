@@ -70,11 +70,21 @@
 #define HUGIN_APKOLOR_EXE_CUSTOM              false
 #define HUGIN_APSIFT_EXE_CUSTOM               false
 
+
 // Program defaults
 #if defined WIN32
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher.exe"
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
+
+#define HUGIN_PT_MENDER_EXE                   "PTmender.exe"
+#define HUGIN_PT_BLENDER_EXE                  "PTblender.exe"
+#define HUGIN_PT_MASKER_EXE                   "PTmasker.exe"
+#define HUGIN_PT_ROLLER_EXE                   "PTroller.exe"
+
+#define HUGIN_NONA_EXE                        "nona.exe"
+
+#define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
 
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 
@@ -96,6 +106,14 @@
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
 
+#define HUGIN_PT_MENDER_EXE                   "PTmender"
+#define HUGIN_PT_BLENDER_EXE                  "PTblender"
+#define HUGIN_PT_MASKER_EXE                   "PTmasker"
+#define HUGIN_PT_ROLLER_EXE                   "PTroller"
+
+#define HUGIN_NONA_EXE                        "nona"
+
+#define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
 #define HUGIN_ENBLEND_EXE                     "enblend"
 
 #define HUGIN_AP_TYPE                         1l
@@ -113,6 +131,15 @@
 
 #define HUGIN_PT_STITCHER_EXE                 "PTStitcher"
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
+
+#define HUGIN_PT_MENDER_EXE                   "PTmender"
+#define HUGIN_PT_BLENDER_EXE                  "PTblender"
+#define HUGIN_PT_MASKER_EXE                   "PTmasker"
+#define HUGIN_PT_ROLLER_EXE                   "PTroller"
+
+#define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
+
+#define HUGIN_NONA_EXE                        "nona"
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 
@@ -132,6 +159,11 @@
 #define HUGIN_ENBLEND_ARGS                    "-v "
 #define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   0l
 #define HUGIN_ENBLEND_USE_CROPPED_FILES       0l
+
+// smartblend args
+#define HUGIN_SMARTBLEND_ARGS                 ""
+
+
 // Autopano-SIFT args
 #ifndef HUGIN_APSIFT_ARGS
 #define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"
