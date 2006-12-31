@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin v0.6.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-22 14:06+0100\n"
+"POT-Creation-Date: 2006-12-31 16:46+0100\n"
 "PO-Revision-Date: 2006-11-13 18:37+0800\n"
 "Last-Translator: Chinese Simplified <N/A>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -11,86 +11,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Country: CHINA\n"
 
-#: src/hugin/AssistantPanel.cpp:227
+#: src/hugin/AssistantPanel.cpp:225
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:257
+#: src/hugin/AssistantPanel.cpp:255
 #, c-format
 msgid "%d images loaded."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:291
+#: src/hugin/AssistantPanel.cpp:289
 #, fuzzy, c-format
 msgid "Images are connected by %d control points.\n"
 msgstr "真的要删除 %d 控制点吗?"
 
-#: src/hugin/AssistantPanel.cpp:300
+#: src/hugin/AssistantPanel.cpp:298
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:301
+#: src/hugin/AssistantPanel.cpp:299
 #, fuzzy
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
 msgstr "你可以在控制点标签栏中按鼠标中键来平移图像."
 
-#: src/hugin/AssistantPanel.cpp:304
+#: src/hugin/AssistantPanel.cpp:302
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:315
+#: src/hugin/AssistantPanel.cpp:313
 msgid "Very good fit."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:317
+#: src/hugin/AssistantPanel.cpp:315
 msgid "Good fit."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:319
+#: src/hugin/AssistantPanel.cpp:317
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:321
+#: src/hugin/AssistantPanel.cpp:319
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
 "required."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:323
+#: src/hugin/AssistantPanel.cpp:321
 #, c-format
 msgid "Mean error after optimization: %.1f pixel\n"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:360
+#: src/hugin/AssistantPanel.cpp:358
 msgid "At least two images are required."
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:360
+#: src/hugin/AssistantPanel.cpp:358
 msgid "Error"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:404
+#: src/hugin/AssistantPanel.cpp:400
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr ""
 
-#: src/hugin/AssistantPanel.cpp:405
+#: src/hugin/AssistantPanel.cpp:401
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-
-#: src/hugin/AssistantPanel.cpp:574 src/hugin/LensPanel.cpp:719
-msgid "Not a jpeg file:"
-msgstr "不是一个 jpeg 文件:"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:106
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -122,8 +118,8 @@ msgstr "您希望用 Autopano-Sift 来代替吗?"
 msgid "Select autopano program / frontend script"
 msgstr "选择 Autopano 程序 / 前端脚本"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:162 src/hugin/PreferencesDialog.cpp:249
-#: src/hugin/PreferencesDialog.cpp:266 src/hugin/PreferencesDialog.cpp:282
+#: src/hugin/AutoCtrlPointCreator.cpp:162 src/hugin/PreferencesDialog.cpp:250
+#: src/hugin/PreferencesDialog.cpp:267 src/hugin/PreferencesDialog.cpp:283
 #: src/hugin/RunStitcherFrame.cpp:90
 msgid "Executables (*.exe)|*.exe"
 msgstr "可执行文件 (*.exe)|*.exe"
@@ -176,7 +172,7 @@ msgstr ""
 "一个拥有较短路径的文件夹中"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:283
-#: src/hugin/AutoCtrlPointCreator.cpp:433 src/hugin/NonaStitcherPanel.cpp:427
+#: src/hugin/AutoCtrlPointCreator.cpp:433 src/hugin/NonaStitcherPanel.cpp:430
 msgid "Too many images selected"
 msgstr "选择了太多的图像"
 
@@ -196,8 +192,8 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:326
 #: src/hugin/AutoCtrlPointCreator.cpp:342
-#: src/hugin/AutoCtrlPointCreator.cpp:455 src/hugin/NonaStitcherPanel.cpp:476
-#: src/hugin/NonaStitcherPanel.cpp:489
+#: src/hugin/AutoCtrlPointCreator.cpp:455 src/hugin/NonaStitcherPanel.cpp:477
+#: src/hugin/NonaStitcherPanel.cpp:490
 msgid "Could not execute command: "
 msgstr "不能执行命令: "
 
@@ -208,17 +204,17 @@ msgstr "ShellExecuteEx 失败"
 #: src/hugin/AutoCtrlPointCreator.cpp:342
 #: src/hugin/AutoCtrlPointCreator.cpp:347
 #: src/hugin/AutoCtrlPointCreator.cpp:455
-#: src/hugin/AutoCtrlPointCreator.cpp:461 src/hugin/NonaStitcherPanel.cpp:489
+#: src/hugin/AutoCtrlPointCreator.cpp:461 src/hugin/NonaStitcherPanel.cpp:490
 msgid "wxExecute Error"
 msgstr "wxExecute 错误"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:345
-#: src/hugin/AutoCtrlPointCreator.cpp:459 src/hugin/NonaStitcherPanel.cpp:492
+#: src/hugin/AutoCtrlPointCreator.cpp:459 src/hugin/NonaStitcherPanel.cpp:493
 msgid "command: "
 msgstr "命令:"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:346
-#: src/hugin/AutoCtrlPointCreator.cpp:460 src/hugin/NonaStitcherPanel.cpp:493
+#: src/hugin/AutoCtrlPointCreator.cpp:460 src/hugin/NonaStitcherPanel.cpp:494
 msgid ""
 "\n"
 "failed with error code: "
@@ -250,7 +246,7 @@ msgstr ""
 msgid "autopano failure"
 msgstr "Autopano 失败"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:388 src/hugin/PreferencesDialog.cpp:298
+#: src/hugin/AutoCtrlPointCreator.cpp:388 src/hugin/PreferencesDialog.cpp:299
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "可执行文件 (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
@@ -414,7 +410,7 @@ msgid "left Img."
 msgstr "左边图像"
 
 #: src/hugin/CPListFrame.cpp:284 src/hugin/CPListFrame.cpp:287
-#: src/hugin/xrc/assistant_panel.xrs:14 src/hugin/xrc/assistant_panel.xrs:33
+#: src/hugin/xrc/assistant_panel.xrs:14 src/hugin/xrc/assistant_panel.xrs:37
 msgid "x"
 msgstr "x"
 
@@ -448,7 +444,7 @@ msgstr "不能读取数字"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:295 src/hugin/PanoPanel.cpp:326
+#: src/hugin/PanoPanel.cpp:296 src/hugin/PanoPanel.cpp:327
 msgid "Value must be numeric."
 msgstr "数值必须是数字"
 
@@ -553,42 +549,41 @@ msgstr "g"
 msgid "t"
 msgstr "t"
 
-#: src/hugin/ImagesList.cpp:376 src/hugin/ImagesList.cpp:428
-#: src/hugin/xrc/images_panel.xrs:10 src/hugin/xrc/images_panel-2.5.xrs:31
-#: src/hugin/xrc/lens_panel.xrs:34
-msgid "Crop"
-msgstr "修剪"
-
-#: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:6
+#: src/hugin/ImagesList.cpp:398 src/hugin/xrc/assistant_panel.xrs:6
 #: src/hugin/xrc/assistant_panel.xrs:25 src/hugin/xrc/lens_panel.xrs:2
 #: src/hugin/xrc/lens_panel-2.5.xrs:13
 msgid "Normal (rectilinear)"
 msgstr "标准的 (直线的)"
 
-#: src/hugin/ImagesList.cpp:400 src/hugin/xrc/assistant_panel.xrs:7
+#: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:7
 #: src/hugin/xrc/assistant_panel.xrs:26 src/hugin/xrc/lens_panel.xrs:3
 #: src/hugin/xrc/lens_panel-2.5.xrs:14
 msgid "Panoramic (cylindrical)"
 msgstr "全景的 (圆柱的)"
 
-#: src/hugin/ImagesList.cpp:401 src/hugin/xrc/assistant_panel.xrs:8
+#: src/hugin/ImagesList.cpp:400 src/hugin/xrc/assistant_panel.xrs:8
 #: src/hugin/xrc/assistant_panel.xrs:27 src/hugin/xrc/lens_panel.xrs:4
 #: src/hugin/xrc/lens_panel-2.5.xrs:15
 msgid "Circular fisheye"
 msgstr "圆形鱼眼"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/xrc/assistant_panel.xrs:9
+#: src/hugin/ImagesList.cpp:401 src/hugin/xrc/assistant_panel.xrs:9
 #: src/hugin/xrc/assistant_panel.xrs:28 src/hugin/xrc/lens_panel.xrs:5
 #: src/hugin/xrc/lens_panel-2.5.xrs:16 src/hugin/xrc/pano_panel.xrs:6
 msgid "Full frame fisheye"
 msgstr "全帧鱼眼"
 
-#: src/hugin/ImagesList.cpp:403 src/hugin/PreviewFrame.cpp:439
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:439
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
 #: src/hugin/xrc/pano_panel.xrs:5
 msgid "Equirectangular"
 msgstr "矩形的"
+
+#: src/hugin/ImagesList.cpp:420 src/hugin/xrc/images_panel.xrs:10
+#: src/hugin/xrc/images_panel-2.5.xrs:31 src/hugin/xrc/lens_panel.xrs:34
+msgid "Crop"
+msgstr "修剪"
 
 #: src/hugin/ImagesPanel.cpp:294
 #, c-format
@@ -608,71 +603,45 @@ msgstr "真的要删除 %d 控制点吗?"
 msgid "Delete Control Points"
 msgstr "删除控制点"
 
-#: src/hugin/LensPanel.cpp:724 src/hugin/LensPanel.cpp:784
-#: src/hugin/LensPanel.cpp:817 src/hugin/LensPanel.cpp:901
-#: src/hugin/LensPanel.cpp:919
+#: src/hugin/LensPanel.cpp:717
+msgid "Not a jpeg file:"
+msgstr "不是一个 jpeg 文件:"
+
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:787
+#: src/hugin/LensPanel.cpp:820 src/hugin/LensPanel.cpp:915
+#: src/hugin/LensPanel.cpp:933
 msgid "Please select an image and try again"
 msgstr "请选择一张图像再试一次"
 
-#: src/hugin/LensPanel.cpp:742
+#: src/hugin/LensPanel.cpp:739
 msgid "Save lens parameters file"
 msgstr "保存镜头参数文件"
 
-#: src/hugin/LensPanel.cpp:744
+#: src/hugin/LensPanel.cpp:741
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "镜头项目文件 (*.ini)|*.ini|All files (*)|*"
 
-#: src/hugin/LensPanel.cpp:826
+#: src/hugin/LensPanel.cpp:829
 msgid "Load lens parameters"
 msgstr "载入镜头参数"
 
-#: src/hugin/LensPanel.cpp:828
+#: src/hugin/LensPanel.cpp:831
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "镜头项目文件 (*.ini)|*.ini|All files (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:909
+#: src/hugin/LensPanel.cpp:923
 msgid "Enter new lens number"
 msgstr "输入新的镜头编号"
 
-#: src/hugin/LensPanel.cpp:909
+#: src/hugin/LensPanel.cpp:923
 msgid "Lens number"
 msgstr "镜头编号"
 
-#: src/hugin/LensPanel.cpp:910
+#: src/hugin/LensPanel.cpp:924
 msgid "Change lens number"
 msgstr "修改镜头编号"
 
-#: src/hugin/LensPanel.cpp:935
-msgid ""
-"Enter Crop Factor for image\n"
-"\n"
-"The crop factor is given by:\n"
-"crop factor = 43.3 / diagonal \n"
-"\n"
-"where diagnal is the diagonal (in mm) of the film or imaging chip."
-msgstr ""
-"为图像输入修剪因数\n"
-"\n"
-"修剪因数如下给定:\n"
-"修剪因数 = 43.3 / 对角线 \n"
-"\n"
-"这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
-
-#: src/hugin/LensPanel.cpp:936
-msgid "Adding Image"
-msgstr "增加图像"
-
-#: src/hugin/LensPanel.cpp:960
-#, fuzzy
-msgid "The crop factor must be numeric."
-msgstr "数值必须是数字"
-
-#: src/hugin/LensPanel.cpp:969
-#, fuzzy
-msgid "The focal length value must be numeric."
-msgstr "数值必须是数字"
-
-#: src/hugin/MainFrame.cpp:183
+#: src/hugin/MainFrame.cpp:219
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -682,16 +651,16 @@ msgstr ""
 "不能发现 xrc 目录.\n"
 "请确保该目录和 hugin.exe 被放置在相同目录中"
 
-#: src/hugin/MainFrame.cpp:203 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:239 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "帮助 (&H)"
 
-#: src/hugin/MainFrame.cpp:299
+#: src/hugin/MainFrame.cpp:335
 msgid "Started"
 msgstr "开始了"
 
-#: src/hugin/MainFrame.cpp:425
+#: src/hugin/MainFrame.cpp:461
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -699,64 +668,64 @@ msgstr ""
 "全景图像已经被修改了\n"
 "保存修改吗?"
 
-#: src/hugin/MainFrame.cpp:425
+#: src/hugin/MainFrame.cpp:461
 msgid "Save Panorama?"
 msgstr "保存全景图像?"
 
-#: src/hugin/MainFrame.cpp:458
+#: src/hugin/MainFrame.cpp:494
 msgid "forced close"
 msgstr "强迫关闭"
 
-#: src/hugin/MainFrame.cpp:505
+#: src/hugin/MainFrame.cpp:547
 #, c-format
 msgid "saved project %s"
 msgstr "保存项目 %s"
 
-#: src/hugin/MainFrame.cpp:518
+#: src/hugin/MainFrame.cpp:560
 msgid "Save project file"
 msgstr "保存项目文件"
 
-#: src/hugin/MainFrame.cpp:520
+#: src/hugin/MainFrame.cpp:562
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "项目文件 (*.pto)|*.pto|All files (*)|*"
 
-#: src/hugin/MainFrame.cpp:540
+#: src/hugin/MainFrame.cpp:582
 msgid "Save PTStitcher script file"
 msgstr "保存 PTStitcher 脚本文件"
 
-#: src/hugin/MainFrame.cpp:542
+#: src/hugin/MainFrame.cpp:584
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "PTStitcher 文件 (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:570
+#: src/hugin/MainFrame.cpp:612
 msgid "Open project:   "
 msgstr "打开项目:   "
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:624
 msgid "Project opened"
 msgstr "被打开的项目"
 
-#: src/hugin/MainFrame.cpp:592
+#: src/hugin/MainFrame.cpp:634
 msgid "Error opening project:   "
 msgstr "打开项目出错:   "
 
-#: src/hugin/MainFrame.cpp:623
+#: src/hugin/MainFrame.cpp:665
 msgid "Open project file"
 msgstr "打开项目文件"
 
-#: src/hugin/MainFrame.cpp:625
+#: src/hugin/MainFrame.cpp:667
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
 msgstr ""
 "项目文件 (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
 
-#: src/hugin/MainFrame.cpp:638
+#: src/hugin/MainFrame.cpp:680
 msgid "Open project: cancel"
 msgstr "打开项目: 取消"
 
-#: src/hugin/MainFrame.cpp:664 src/hugin/VigCorrDialog.cpp:169
-#: src/include/hugin/wxPanoCommand.h:194
+#: src/hugin/MainFrame.cpp:706 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/wxPanoCommand.cpp:278
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
@@ -766,23 +735,23 @@ msgstr ""
 "gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All "
 "files (*)|*"
 
-#: src/hugin/MainFrame.cpp:665 src/include/hugin/wxPanoCommand.h:195
+#: src/hugin/MainFrame.cpp:709 src/hugin/wxPanoCommand.cpp:279
 msgid "Add images"
 msgstr "增加图像"
 
-#: src/hugin/MainFrame.cpp:717
+#: src/hugin/MainFrame.cpp:761
 msgid "Add Image: cancel"
 msgstr "增加图像: 取消"
 
-#: src/hugin/MainFrame.cpp:1093
+#: src/hugin/MainFrame.cpp:1137
 msgid "Fine-tuning all points"
 msgstr "调整所有点"
 
-#: src/hugin/MainFrame.cpp:1095
+#: src/hugin/MainFrame.cpp:1139
 msgid "Finetuning"
 msgstr "调整中"
 
-#: src/hugin/MainFrame.cpp:1186
+#: src/hugin/MainFrame.cpp:1230
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -807,7 +776,7 @@ msgstr ""
 "\n"
 "使用控制点列表 (F3) 来查看当前项目的所有点\n"
 
-#: src/hugin/MainFrame.cpp:1188
+#: src/hugin/MainFrame.cpp:1232
 msgid "Fine-tune result"
 msgstr "调整结果"
 
@@ -847,9 +816,10 @@ msgstr "选择 Enblend 命令行工具"
 msgid "No enblend commandline tool selected"
 msgstr "没有选择 Enblend 命令行工具"
 
-#: src/hugin/NonaStitcherPanel.cpp:426
+#: src/hugin/NonaStitcherPanel.cpp:429
+#, fuzzy
 msgid ""
-"Can not call enblend with a command line > 2000 characters.\n"
+"Can not call enblend with a command line > 32766 characters.\n"
 "This is a Windows limitation\n"
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
@@ -859,11 +829,11 @@ msgstr ""
 "请使用较少图像, 或者将图像放在\n"
 "一个具有较短路径的文件夹中"
 
-#: src/hugin/NonaStitcherPanel.cpp:436
+#: src/hugin/NonaStitcherPanel.cpp:437
 msgid "Running Enblend"
 msgstr "运行 Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:436
+#: src/hugin/NonaStitcherPanel.cpp:437
 msgid ""
 "Enblend will take a while to finish processing the panorama\n"
 "You can watch the enblend progress in the command window"
@@ -871,7 +841,7 @@ msgstr ""
 "Enblend 处理全景图像需要一段时间\n"
 "你可以从命令行窗口查看融合进程"
 
-#: src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/NonaStitcherPanel.cpp:441
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -879,19 +849,19 @@ msgstr ""
 "不能执行 Enblend, system() 失败:\n"
 "命令是:"
 
-#: src/hugin/NonaStitcherPanel.cpp:441
+#: src/hugin/NonaStitcherPanel.cpp:442
 msgid "Error returned was :"
 msgstr "返回错误是:"
 
-#: src/hugin/NonaStitcherPanel.cpp:476
+#: src/hugin/NonaStitcherPanel.cpp:477
 msgid "CreateProcess Error"
 msgstr "创建进程错误"
 
-#: src/hugin/NonaStitcherPanel.cpp:494
+#: src/hugin/NonaStitcherPanel.cpp:495
 msgid "enblend error"
 msgstr "Enblend 错误"
 
-#: src/hugin/NonaStitcherPanel.cpp:567 src/hugin/PTStitcherPanel.cpp:307
+#: src/hugin/NonaStitcherPanel.cpp:568 src/hugin/PTStitcherPanel.cpp:307
 msgid "gamma must be a number"
 msgstr "灰度必须是一个数字"
 
@@ -1172,123 +1142,135 @@ msgstr ""
 "计算优化尺寸按钮来确定\n"
 "得到最佳质量所需要的像素."
 
-#: src/hugin/PanoPanel.cpp:301
+#: src/hugin/PanoPanel.cpp:302
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "无效的水平视野值. 这个项目的最大水平视野值是 %lf."
 
-#: src/hugin/PanoPanel.cpp:332
+#: src/hugin/PanoPanel.cpp:333
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "无效的可见视野值. 这个项目的最大可见视野值是 %lf."
 
-#: src/hugin/PanoPanel.cpp:378
+#: src/hugin/PanoPanel.cpp:379
 msgid "width needs to be an integer bigger than 0"
 msgstr "宽度值必须是一个大于 0 的整数"
 
-#: src/hugin/PanoPanel.cpp:395
+#: src/hugin/PanoPanel.cpp:396
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "宽度值必须是一个大于 0 的整数"
 
-#: src/hugin/PanoPanel.cpp:645
+#: src/hugin/PanoPanel.cpp:647
 msgid "Create panorama image"
 msgstr "创建全景图像"
 
-#: src/hugin/PreferencesDialog.cpp:121
+#: src/hugin/PanoPanel.cpp:658
+#, c-format
+msgid ""
+"File %s already exists\n"
+"\n"
+"Overwrite?"
+msgstr ""
+
+#: src/hugin/PanoPanel.cpp:659
+msgid "Overwrite file?"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:122
 msgid "System default"
 msgstr "系统默认"
 
-#: src/hugin/PreferencesDialog.cpp:124
+#: src/hugin/PreferencesDialog.cpp:125
 msgid "Catalan"
 msgstr "加泰罗尼亚语"
 
-#: src/hugin/PreferencesDialog.cpp:127
+#: src/hugin/PreferencesDialog.cpp:128
 msgid "Chinese (Simplified)"
 msgstr "中文 (简体)"
 
-#: src/hugin/PreferencesDialog.cpp:130
+#: src/hugin/PreferencesDialog.cpp:131
 msgid "Czech"
 msgstr "捷克语"
 
-#: src/hugin/PreferencesDialog.cpp:133
+#: src/hugin/PreferencesDialog.cpp:134
 msgid "Dutch"
 msgstr "荷兰语"
 
-#: src/hugin/PreferencesDialog.cpp:136
+#: src/hugin/PreferencesDialog.cpp:137
 msgid "English"
 msgstr "英语"
 
-#: src/hugin/PreferencesDialog.cpp:139
+#: src/hugin/PreferencesDialog.cpp:140
 msgid "French"
 msgstr "法语"
 
-#: src/hugin/PreferencesDialog.cpp:142
+#: src/hugin/PreferencesDialog.cpp:143
 msgid "German"
 msgstr "德语"
 
-#: src/hugin/PreferencesDialog.cpp:145
+#: src/hugin/PreferencesDialog.cpp:146
 msgid "Hungarian"
 msgstr "匈牙利语"
 
-#: src/hugin/PreferencesDialog.cpp:148
+#: src/hugin/PreferencesDialog.cpp:149
 msgid "Italian"
 msgstr "意大利语"
 
-#: src/hugin/PreferencesDialog.cpp:151
+#: src/hugin/PreferencesDialog.cpp:152
 msgid "Japanese"
 msgstr "日语"
 
-#: src/hugin/PreferencesDialog.cpp:154
+#: src/hugin/PreferencesDialog.cpp:155
 msgid "Polish"
 msgstr "波兰语"
 
-#: src/hugin/PreferencesDialog.cpp:157
+#: src/hugin/PreferencesDialog.cpp:158
 msgid "Portuguese (Brazilian)"
 msgstr "葡萄牙语 (巴西)"
 
-#: src/hugin/PreferencesDialog.cpp:160
+#: src/hugin/PreferencesDialog.cpp:161
 msgid "Russian"
 msgstr "俄语"
 
-#: src/hugin/PreferencesDialog.cpp:163
+#: src/hugin/PreferencesDialog.cpp:164
 msgid "Slovak"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:166
+#: src/hugin/PreferencesDialog.cpp:167
 msgid "Swedish"
 msgstr "瑞典语"
 
-#: src/hugin/PreferencesDialog.cpp:169
+#: src/hugin/PreferencesDialog.cpp:170
 msgid "Ukrainian"
 msgstr "乌克兰语"
 
-#: src/hugin/PreferencesDialog.cpp:245
+#: src/hugin/PreferencesDialog.cpp:246
 msgid "Select PTStitcher"
 msgstr "选择 PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:263
+#: src/hugin/PreferencesDialog.cpp:264
 msgid "Select Enblend"
 msgstr "选择 Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:279 src/hugin/PreferencesDialog.cpp:295
-#: src/hugin/xrc/pref_dialog.xrs:58
+#: src/hugin/PreferencesDialog.cpp:280 src/hugin/PreferencesDialog.cpp:296
+#: src/hugin/xrc/pref_dialog.xrs:65
 msgid "Select Autopano"
 msgstr "选择 Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:337
+#: src/hugin/PreferencesDialog.cpp:338
 msgid "Panotools details"
 msgstr "Panotools 细节"
 
-#: src/hugin/PreferencesDialog.cpp:703
+#: src/hugin/PreferencesDialog.cpp:712
 msgid "Unknown Version"
 msgstr "未知版本"
 
-#: src/hugin/PreferencesDialog.cpp:713
+#: src/hugin/PreferencesDialog.cpp:722
 msgid "Really reset displayed preferences to default values?"
 msgstr "真的要将显示的参数重置成为默认值吗?"
 
-#: src/hugin/PreferencesDialog.cpp:713 src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/PreferencesDialog.cpp:722 src/hugin/xrc/pref_dialog.xrs:89
 msgid "Load Defaults"
 msgstr "载入默认值"
 
@@ -1475,11 +1457,11 @@ msgstr "执行 %s 出错"
 msgid "Tips not available, sorry!"
 msgstr "提示无效, 报歉!"
 
-#: src/hugin/VigCorrDialog.cpp:170
+#: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"
 msgstr "选择平面图像"
 
-#: src/hugin/VigCorrDialog.cpp:250 src/hugin/VigCorrDialog.cpp:614
+#: src/hugin/VigCorrDialog.cpp:252 src/hugin/VigCorrDialog.cpp:636
 msgid ""
 "The vignetting curve is determined by using gray values in the overlaping "
 "areas.\n"
@@ -1488,16 +1470,16 @@ msgstr ""
 "在重叠区域中通过使用灰度值来确定虚光曲线.\n"
 "为了提高运算速度, 只使用了一个随机点集."
 
-#: src/hugin/VigCorrDialog.cpp:251 src/hugin/VigCorrDialog.cpp:614
+#: src/hugin/VigCorrDialog.cpp:253 src/hugin/VigCorrDialog.cpp:636
 msgid "Number of points per overlap"
 msgstr "每个重叠点的编号"
 
-#: src/hugin/VigCorrDialog.cpp:252 src/hugin/VigCorrDialog.cpp:257
-#: src/hugin/VigCorrDialog.cpp:614 src/hugin/VigCorrDialog.cpp:616
+#: src/hugin/VigCorrDialog.cpp:254 src/hugin/VigCorrDialog.cpp:259
+#: src/hugin/VigCorrDialog.cpp:636 src/hugin/VigCorrDialog.cpp:638
 msgid "Estimate vignetting curve"
 msgstr "估算虚光曲线"
 
-#: src/hugin/VigCorrDialog.cpp:257 src/hugin/VigCorrDialog.cpp:616
+#: src/hugin/VigCorrDialog.cpp:259 src/hugin/VigCorrDialog.cpp:638
 msgid ""
 "Ransac tolerance parameter.\n"
 "Should be around 0.1.\n"
@@ -1510,7 +1492,7 @@ msgstr ""
 " 较小的数字可以产生较好的结果, 如果图像很好地登记了,\n"
 " 并且使用了相同的照相机设置 (曝光, 白平衡)."
 
-#: src/hugin/VigCorrDialog.cpp:287
+#: src/hugin/VigCorrDialog.cpp:289
 msgid ""
 "Vignetting correction currently does not work with nonlinear mapped 16 bit "
 "and HDR images.\n"
@@ -1521,25 +1503,25 @@ msgstr ""
 "请允许线性映射\n"
 "无论如何都要继续?"
 
-#: src/hugin/VigCorrDialog.cpp:287 src/hugin/VigCorrDialog.cpp:483
+#: src/hugin/VigCorrDialog.cpp:289 src/hugin/VigCorrDialog.cpp:505
 msgid "Warning"
 msgstr "警告"
 
-#: src/hugin/VigCorrDialog.cpp:306 src/hugin/VigCorrDialog.cpp:558
+#: src/hugin/VigCorrDialog.cpp:308 src/hugin/VigCorrDialog.cpp:580
 msgid "Vignetting function estimation"
 msgstr "虚光函数估算"
 
-#: src/hugin/VigCorrDialog.cpp:370
+#: src/hugin/VigCorrDialog.cpp:372
 msgid ""
 "Not enought images selected. Please ensure that more than two images are "
 "associated with the current lens."
 msgstr "没有选择足够的图像. 请确保多于两张图像被关联到当前镜头."
 
-#: src/hugin/VigCorrDialog.cpp:370
+#: src/hugin/VigCorrDialog.cpp:372
 msgid "Cannot estimate vignetting"
 msgstr "不能估算虚光"
 
-#: src/hugin/VigCorrDialog.cpp:481
+#: src/hugin/VigCorrDialog.cpp:503
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1558,7 +1540,7 @@ msgstr ""
 "\n"
 "复原的虚光曲线可能是不准确的."
 
-#: src/hugin/VigCorrDialog.cpp:485
+#: src/hugin/VigCorrDialog.cpp:507
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1570,15 +1552,15 @@ msgstr ""
 "发现了 %.1f%% 不一致点对, 在最终估算中使用了 %.1f%% 的 %d 点对.\n"
 "亮度错误: %.2f (灰度值 RMSE)"
 
-#: src/hugin/VigCorrDialog.cpp:490 src/hugin/VigCorrDialog.cpp:661
+#: src/hugin/VigCorrDialog.cpp:512 src/hugin/VigCorrDialog.cpp:683
 msgid "Vignetting curve estimation"
 msgstr "虚光曲线计算"
 
-#: src/hugin/VigCorrDialog.cpp:616
+#: src/hugin/VigCorrDialog.cpp:638
 msgid "0.1"
 msgstr "0.1"
 
-#: src/hugin/VigCorrDialog.cpp:657
+#: src/hugin/VigCorrDialog.cpp:679
 #, c-format
 msgid ""
 "Vignetting curve estimation results:\n"
@@ -1590,23 +1572,19 @@ msgstr ""
 " %d 好点, %d 坏点, 在最终估算中使用了 %.1f%% 的好点.\n"
 " 估算后余量:  %.5f"
 
-#: src/hugin/VigCorrDialog.cpp:683
+#: src/hugin/VigCorrDialog.cpp:705
 msgid "Error: could not find flatfile image file."
 msgstr "错误: 不能发现平面图像文件."
 
-#: src/hugin/VigCorrDialog.cpp:683
+#: src/hugin/VigCorrDialog.cpp:705
 msgid "File not found"
 msgstr "不能发现文件"
 
-#: src/include/hugin/MyProgressDialog.h:71
-msgid "Optimizing Panorama"
-msgstr "全景图像优化中"
-
-#: src/include/hugin/wxPanoCommand.h:96
+#: src/hugin/wxPanoCommand.cpp:206
 msgid "Could not read image size"
 msgstr "不能读取图像尺寸"
 
-#: src/include/hugin/wxPanoCommand.h:188
+#: src/hugin/wxPanoCommand.cpp:272
 #, c-format
 msgid ""
 "Image file not found:\n"
@@ -1617,27 +1595,13 @@ msgstr ""
 "%s\n"
 "请选择正确图像"
 
-#: src/include/hugin/wxPanoCommand.h:188
+#: src/hugin/wxPanoCommand.cpp:272
 msgid "Image file not found"
 msgstr "没有发现图像文件"
 
-#: src/include/hugin/wxPanoCommand.h:241
-#, c-format
-msgid "Could not read image size of file %s"
-msgstr "不能读取文件  %s 的图像尺寸"
-
-#: src/include/hugin/wxPanoCommand.h:249
-#, c-format
-msgid ""
-"Enter focal length for image\n"
-"%s\n"
-msgstr ""
-"输入图像焦距\n"
-"%s\n"
-
-#: src/include/hugin/wxPanoCommand.h:250
-msgid "Loading project"
-msgstr "载入项目"
+#: src/include/hugin/MyProgressDialog.h:71
+msgid "Optimizing Panorama"
+msgstr "全景图像优化中"
 
 #: src/hugin/xrc/assistant_panel.xrs:1
 #, fuzzy
@@ -1661,16 +1625,16 @@ msgstr ""
 msgid "Lens type:"
 msgstr "镜头类型:"
 
-#: src/hugin/xrc/assistant_panel.xrs:11 src/hugin/xrc/assistant_panel.xrs:30
+#: src/hugin/xrc/assistant_panel.xrs:11 src/hugin/xrc/assistant_panel.xrs:34
 #, fuzzy
 msgid "Focal length:"
 msgstr "焦距:"
 
-#: src/hugin/xrc/assistant_panel.xrs:12 src/hugin/xrc/assistant_panel.xrs:31
+#: src/hugin/xrc/assistant_panel.xrs:12 src/hugin/xrc/assistant_panel.xrs:35
 msgid "mm"
 msgstr ""
 
-#: src/hugin/xrc/assistant_panel.xrs:13 src/hugin/xrc/assistant_panel.xrs:32
+#: src/hugin/xrc/assistant_panel.xrs:13 src/hugin/xrc/assistant_panel.xrs:36
 #, fuzzy
 msgid "Focal length multiplier:"
 msgstr "焦距:"
@@ -1711,28 +1675,42 @@ msgstr ""
 
 #: src/hugin/xrc/assistant_panel.xrs:22
 #, fuzzy
-msgid "Enter focal length and lens type"
-msgstr ""
-"输入图像焦距\n"
-"%s\n"
+msgid "Camera and Lens data"
+msgstr "照相机和镜头"
 
 #: src/hugin/xrc/assistant_panel.xrs:23
 msgid ""
-"No information about focal length and field of view were\n"
-"found in the images. Please enter the data of your camera\n"
-"and lens below."
+"a\n"
+"b\n"
+"c\n"
+"d"
 msgstr ""
 
-#: src/hugin/xrc/assistant_panel.xrs:34
+#: src/hugin/xrc/assistant_panel.xrs:30
 #, fuzzy
 msgid "Load lens data..."
 msgstr "载入镜头..."
+
+#: src/hugin/xrc/assistant_panel.xrs:31
+#, fuzzy
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr "水平视野 (HFOV) 可能太低."
+
+#: src/hugin/xrc/assistant_panel.xrs:32
+#, fuzzy
+msgid "HFOV (v):"
+msgstr "水平视野"
+
+#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:34
+#: src/hugin/xrc/pref_dialog.xrs:36
+msgid "degrees"
+msgstr "度"
 
 #: src/hugin/xrc/about.xrs:1 src/hugin/xrc/main_tool.xrs:31
 msgid "About Hugin"
 msgstr "关于 Hugin"
 
-#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:85
+#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:92
 msgid "OK"
 msgstr "确定"
 
@@ -1907,11 +1885,6 @@ msgstr "始终在 d,e 上进行中心修剪"
 msgid "Reset"
 msgstr "重置"
 
-#: src/hugin/xrc/crop_panel.xrs:7 src/hugin/xrc/lens_panel.xrs:38
-#: src/hugin/xrc/lens_panel-2.5.xrs:2
-msgid "Load lens parameters from a file"
-msgstr "从一个文件中载入镜头参数"
-
 #: src/hugin/xrc/edit_script_dialog.xrs:1
 msgid "Edit Panorama Tools Script"
 msgstr "编辑全景图像工具脚本"
@@ -1939,7 +1912,7 @@ msgstr "文本模式"
 msgid "Optimize"
 msgstr "优化"
 
-#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:84
+#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:91
 msgid "Cancel"
 msgstr "取消"
 
@@ -2198,6 +2171,10 @@ msgstr "镜头管理"
 #: src/hugin/xrc/lens_panel.xrs:37
 msgid "Load"
 msgstr "载入"
+
+#: src/hugin/xrc/lens_panel.xrs:38 src/hugin/xrc/lens_panel-2.5.xrs:2
+msgid "Load lens parameters from a file"
+msgstr "从一个文件中载入镜头参数"
 
 #: src/hugin/xrc/lens_panel.xrs:39 src/hugin/xrc/main_tool.xrs:8
 msgid "Save"
@@ -2517,7 +2494,7 @@ msgstr "重新优化"
 msgid "Preview panorama"
 msgstr "预览全景图像"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:55
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:62
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "预览"
@@ -2869,8 +2846,8 @@ msgstr "使用可选 PTStitcher 程序"
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:64
-#: src/hugin/xrc/pref_dialog.xrs:69 src/hugin/xrc/pref_dialog.xrs:76
+#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/xrc/pref_dialog.xrs:76 src/hugin/xrc/pref_dialog.xrs:83
 msgid "Choose..."
 msgstr "选择..."
 
@@ -2891,38 +2868,73 @@ msgid "Details"
 msgstr "细节"
 
 #: src/hugin/xrc/pref_dialog.xrs:12
+#, fuzzy
+msgid "Assistant"
+msgstr "俄语"
+
+#: src/hugin/xrc/pref_dialog.xrs:13
+#, fuzzy
+msgid "Image loading"
+msgstr "图像修剪"
+
+#: src/hugin/xrc/pref_dialog.xrs:14
+msgid "Automatically align images after loading"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:15
+#, fuzzy
+msgid "Auto align"
+msgstr "Autopano"
+
+#: src/hugin/xrc/pref_dialog.xrs:16
+#, fuzzy
+msgid ""
+"Number of Ctrl Points\n"
+"per overlap"
+msgstr "每个重叠点的编号"
+
+#: src/hugin/xrc/pref_dialog.xrs:17
+msgid "Downscale final pano"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:18
+#, fuzzy
+msgid "percent of max. width"
+msgstr "百分之图像宽度"
+
+#: src/hugin/xrc/pref_dialog.xrs:19
 msgid "Finetune"
 msgstr "调整"
 
-#: src/hugin/xrc/pref_dialog.xrs:13
+#: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Basic Settings"
 msgstr "基本设置"
 
-#: src/hugin/xrc/pref_dialog.xrs:14
+#: src/hugin/xrc/pref_dialog.xrs:21
 msgid "Patch width:"
 msgstr "面片宽度:"
 
-#: src/hugin/xrc/pref_dialog.xrs:15 src/hugin/xrc/pref_dialog.xrs:19
+#: src/hugin/xrc/pref_dialog.xrs:22 src/hugin/xrc/pref_dialog.xrs:26
 msgid "pixels"
 msgstr "像素"
 
-#: src/hugin/xrc/pref_dialog.xrs:16
+#: src/hugin/xrc/pref_dialog.xrs:23
 msgid "Search area width:"
 msgstr "搜索区域宽度:"
 
-#: src/hugin/xrc/pref_dialog.xrs:17
+#: src/hugin/xrc/pref_dialog.xrs:24
 msgid "percent of image width"
 msgstr "百分之图像宽度"
 
-#: src/hugin/xrc/pref_dialog.xrs:18
+#: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Local search area width:"
 msgstr "局部搜索区域宽度:"
 
-#: src/hugin/xrc/pref_dialog.xrs:20
+#: src/hugin/xrc/pref_dialog.xrs:27
 msgid "Correlation Threshold:"
 msgstr "相关阀值:"
 
-#: src/hugin/xrc/pref_dialog.xrs:21
+#: src/hugin/xrc/pref_dialog.xrs:28
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -2930,11 +2942,11 @@ msgstr ""
 "0: 不相似\n"
 "1: 最大相似"
 
-#: src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Peak Curvature Threshold:"
 msgstr "峰值曲率阀值:"
 
-#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:30
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -2942,55 +2954,51 @@ msgstr ""
 "0:    无峰值\n"
 "0.2: 特殊峰值"
 
-#: src/hugin/xrc/pref_dialog.xrs:24
+#: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Rotation search"
 msgstr "旋转搜索"
 
-#: src/hugin/xrc/pref_dialog.xrs:25
+#: src/hugin/xrc/pref_dialog.xrs:32
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "允许旋转搜索 (较慢, 但更加准确)"
 
-#: src/hugin/xrc/pref_dialog.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:33
 msgid "Start angle:"
 msgstr "起始角:"
 
-#: src/hugin/xrc/pref_dialog.xrs:27 src/hugin/xrc/pref_dialog.xrs:29
-msgid "degrees"
-msgstr "度"
-
-#: src/hugin/xrc/pref_dialog.xrs:28
+#: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Stop angle:"
 msgstr "终止角"
 
-#: src/hugin/xrc/pref_dialog.xrs:30
+#: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Steps:"
 msgstr "步骤:"
 
-#: src/hugin/xrc/pref_dialog.xrs:31
+#: src/hugin/xrc/pref_dialog.xrs:38
 msgid "Misc"
 msgstr "其他"
 
-#: src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:39
 msgid "Resource Usage"
 msgstr "资源应用"
 
-#: src/hugin/xrc/pref_dialog.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:40
 msgid "Image cache memory:"
 msgstr "图像缓存:"
 
-#: src/hugin/xrc/pref_dialog.xrs:34
+#: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "在内存中保存实际大小的图像, 直到超过限制"
 
-#: src/hugin/xrc/pref_dialog.xrs:35
+#: src/hugin/xrc/pref_dialog.xrs:42
 msgid "MB"
 msgstr "MB"
 
-#: src/hugin/xrc/pref_dialog.xrs:36
+#: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Number of CPUs:"
 msgstr "CPU 编号:"
 
-#: src/hugin/xrc/pref_dialog.xrs:37
+#: src/hugin/xrc/pref_dialog.xrs:44
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -2999,39 +3007,39 @@ msgstr ""
 "Nona 能够使用多线程.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的编号."
 
-#: src/hugin/xrc/pref_dialog.xrs:38
+#: src/hugin/xrc/pref_dialog.xrs:45
 msgid "User Interface"
 msgstr "用户界面"
 
-#: src/hugin/xrc/pref_dialog.xrs:39
+#: src/hugin/xrc/pref_dialog.xrs:46
 msgid "Language"
 msgstr "语言"
 
-#: src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:47
 msgid "requires restarting hugin"
 msgstr "需要重启动 Hugin"
 
-#: src/hugin/xrc/pref_dialog.xrs:41
+#: src/hugin/xrc/pref_dialog.xrs:48
 msgid "Optimize and stitch only images selected in preview window"
 msgstr "优化并且缝合预览窗口中选择的图像"
 
-#: src/hugin/xrc/pref_dialog.xrs:42
+#: src/hugin/xrc/pref_dialog.xrs:49
 msgid "HDR and 16 Bit display mode"
 msgstr "HDR 和 16 位显示模式"
 
-#: src/hugin/xrc/pref_dialog.xrs:43
+#: src/hugin/xrc/pref_dialog.xrs:50
 msgid "Range"
 msgstr "范围"
 
-#: src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/pref_dialog.xrs:51
 msgid "fixed"
 msgstr "固定的"
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:52
 msgid "auto"
 msgstr "自动的"
 
-#: src/hugin/xrc/pref_dialog.xrs:46
+#: src/hugin/xrc/pref_dialog.xrs:53
 msgid ""
 "use fixed for 16 bit\n"
 "and auto for HDR"
@@ -3039,79 +3047,79 @@ msgstr ""
 "为 16 位使用固定模式\n"
 "为 HDR 使用自动模式"
 
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Mapping"
 msgstr "映射"
 
-#: src/hugin/xrc/pref_dialog.xrs:48
+#: src/hugin/xrc/pref_dialog.xrs:55
 msgid "linear"
 msgstr "直线的"
 
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:56
 msgid "logarithmic"
 msgstr "对数的"
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:57
 msgid "gamma 2.2"
 msgstr "灰度 2.2"
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:58
 msgid "used for display in GUI"
 msgstr "用于图形用户界面输出"
 
-#: src/hugin/xrc/pref_dialog.xrs:52
+#: src/hugin/xrc/pref_dialog.xrs:59
 msgid "File options"
 msgstr "文件选项"
 
-#: src/hugin/xrc/pref_dialog.xrs:53
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Tempdir:"
 msgstr "临时目录:"
 
-#: src/hugin/xrc/pref_dialog.xrs:54
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "leave empty for OS default"
 msgstr "操作系统默认为空白"
 
-#: src/hugin/xrc/pref_dialog.xrs:56
+#: src/hugin/xrc/pref_dialog.xrs:63
 msgid "Show Druid (requires restarting hugin)"
 msgstr "显示 Druid (需要重启动 Hugin)"
 
-#: src/hugin/xrc/pref_dialog.xrs:57 src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:73
 msgid "Autopano"
 msgstr "Autopano"
 
-#: src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (由 A. Jenny 制作)"
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:67
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (由 S. Nowozin 制作)"
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:68
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/pref_dialog.xrs:69
 msgid "Use alternative Autopano-SIFT program"
 msgstr "使用可选 Autopano-SIFT 程序"
 
-#: src/hugin/xrc/pref_dialog.xrs:63
+#: src/hugin/xrc/pref_dialog.xrs:70
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT:"
 
-#: src/hugin/xrc/pref_dialog.xrs:65 src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:72 src/hugin/xrc/pref_dialog.xrs:77
 msgid "Arguments:"
 msgstr "参数:"
 
-#: src/hugin/xrc/pref_dialog.xrs:67
+#: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Use alternative Autopano program"
 msgstr "使用可选 Autopano 程序"
 
-#: src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Autopano:"
 msgstr "Autopano:"
 
-#: src/hugin/xrc/pref_dialog.xrs:71
+#: src/hugin/xrc/pref_dialog.xrs:78
 #, c-format
 msgid ""
 "following patterns will be subsituted before running:\n"
@@ -3126,43 +3134,43 @@ msgstr ""
 "%i  -- 图像文件\n"
 "%namefile -- 包含图像名称的文件"
 
-#: src/hugin/xrc/pref_dialog.xrs:72
+#: src/hugin/xrc/pref_dialog.xrs:79
 msgid "Enblend"
 msgstr "Enblend"
 
-#: src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Enblend Options"
 msgstr "Enblend 选项"
 
-#: src/hugin/xrc/pref_dialog.xrs:74
+#: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Use alternative Enblend program"
 msgstr "使用可选 Enblend 程序"
 
-#: src/hugin/xrc/pref_dialog.xrs:75
+#: src/hugin/xrc/pref_dialog.xrs:82
 msgid "Enblend:"
 msgstr "Enblend:"
 
-#: src/hugin/xrc/pref_dialog.xrs:77
+#: src/hugin/xrc/pref_dialog.xrs:84
 msgid "Additional Arguments:"
 msgstr "附加参数:"
 
-#: src/hugin/xrc/pref_dialog.xrs:78
+#: src/hugin/xrc/pref_dialog.xrs:85
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr "不要设置 -w 和 -o 参数, 它们由 Hugin 设置"
 
-#: src/hugin/xrc/pref_dialog.xrs:79
+#: src/hugin/xrc/pref_dialog.xrs:86
 msgid "Delete remapped tiff files"
 msgstr "删除重新映射的 TIFF 文件"
 
-#: src/hugin/xrc/pref_dialog.xrs:80
+#: src/hugin/xrc/pref_dialog.xrs:87
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 msgstr "使用修剪的 TIFF 文件 (需要 Enblend 2.4 版或者更高的版本)"
 
-#: src/hugin/xrc/pref_dialog.xrs:81
+#: src/hugin/xrc/pref_dialog.xrs:88
 msgid "Save cropped images, requires less disk space and memory."
 msgstr "保存修剪的图像, 需要少量磁盘空间和内存."
 
-#: src/hugin/xrc/pref_dialog.xrs:83 src/hugin/xrc/run_optimizer_frame.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:90 src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "应用"
 
@@ -3636,6 +3644,51 @@ msgid ""
 msgstr ""
 "只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有失真参数进行优化的"
 "选项 \"everything\" 才会有效果."
+
+#~ msgid ""
+#~ "Enter Crop Factor for image\n"
+#~ "\n"
+#~ "The crop factor is given by:\n"
+#~ "crop factor = 43.3 / diagonal \n"
+#~ "\n"
+#~ "where diagnal is the diagonal (in mm) of the film or imaging chip."
+#~ msgstr ""
+#~ "为图像输入修剪因数\n"
+#~ "\n"
+#~ "修剪因数如下给定:\n"
+#~ "修剪因数 = 43.3 / 对角线 \n"
+#~ "\n"
+#~ "这里的对角线 (毫米) 是胶片或者图像芯片的对角线"
+
+#~ msgid "Adding Image"
+#~ msgstr "增加图像"
+
+#, fuzzy
+#~ msgid "The crop factor must be numeric."
+#~ msgstr "数值必须是数字"
+
+#, fuzzy
+#~ msgid "The focal length value must be numeric."
+#~ msgstr "数值必须是数字"
+
+#~ msgid "Could not read image size of file %s"
+#~ msgstr "不能读取文件  %s 的图像尺寸"
+
+#~ msgid ""
+#~ "Enter focal length for image\n"
+#~ "%s\n"
+#~ msgstr ""
+#~ "输入图像焦距\n"
+#~ "%s\n"
+
+#~ msgid "Loading project"
+#~ msgstr "载入项目"
+
+#, fuzzy
+#~ msgid "Enter focal length and lens type"
+#~ msgstr ""
+#~ "输入图像焦距\n"
+#~ "%s\n"
 
 #~ msgid "Crop Image"
 #~ msgstr "修剪图像"
