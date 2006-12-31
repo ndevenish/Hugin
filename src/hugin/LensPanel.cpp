@@ -115,7 +115,7 @@ END_EVENT_TABLE()
 
 LensPanel::LensPanel(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama* pano)
     : wxPanel (parent, -1, wxDefaultPosition, wxDefaultSize, wxEXPAND|wxGROW),
-      pano(*pano)
+      pano(*pano), m_restoreLayoutOnResize(false)
 {
     DEBUG_TRACE("ctor");
     pano->addObserver(this);
@@ -707,7 +707,7 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
                 SrcPanoImage srcImg = pano.getSrcImage(imgNr);
                 bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
                 if (! ok) {
-                    getLensDataFromUser(srcImg, focalLength, cropFactor);
+                    getLensDataFromUser(this, srcImg, focalLength, cropFactor);
                 }
                 //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
                 GlobalCmdHist::getInstance().addCommand(
@@ -878,10 +878,10 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
             // TODO: crop parameters
             long v=0;
             cfg.Read(wxT("Lens/crop/enabled"), &v);
-            imgopts.docrop = v;
+            imgopts.docrop = v != 0;
             v=1;
             cfg.Read(wxT("Lens/crop/autoCenter"), &v);
-            imgopts.autoCenterCrop = v;
+            imgopts.autoCenterCrop = v != 0;
             long left=0;
             cfg.Read(wxT("Lens/crop/left"), &left);
             long top=0;
