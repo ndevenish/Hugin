@@ -197,7 +197,7 @@ void wxAddImagesCmd::execute()
 #endif
         // if no similar image found, ask user
         if (! ok) {
-            getLensDataFromUser(srcImg, focalLength, cropFactor);
+            getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
         }
 
         if( srcImg.getSize().x == 0) {
@@ -230,8 +230,8 @@ void wxAddImagesCmd::execute()
             matchingLensNr = pano.addLens(lens);
         }
         PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
-        int i = pano.addImage(img, vars);
-        pano.setSrcImage(i, srcImg);
+        int imgNr = pano.addImage(img, vars);
+        pano.setSrcImage(imgNr, srcImg);
     }
     pano.changeFinished();
 }
@@ -312,7 +312,7 @@ void wxLoadPTProjectCmd::execute()
                 // something is wrong here, try to read from exif data
                 bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
                 if (! ok) {
-                    getLensDataFromUser(srcImg, focalLength, cropFactor);
+                    getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
                 }
                 pano.setSrcImage(i, srcImg);
             }
