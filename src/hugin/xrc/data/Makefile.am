@@ -10,7 +10,7 @@ JPG_FILES = $(wildcard $(srcdir)/*.jpg)
 PNG_FILES = $(wildcard $(srcdir)/*.png)
 XPM_FILES = $(wildcard $(srcdir)/*.xpm)
 TXT_FILES = $(wildcard $(srcdir)/*.txt)
-OTHER_FILES = make_nona_enblend
+OTHER_FILES = $(wildcard $(srcdir)/*.mk)
 
 if HAVE_MINGW
 xrcdatadir = $(bindir)/xrc/data

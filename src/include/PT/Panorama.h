@@ -691,39 +691,7 @@ PT::Variable & map_get(PT::VariableMap &m, const std::string & key);
 const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string & key);
 
 
-struct PTPrograms
-{
-    PTPrograms()
-    {
-        // default programs
-        nona = "nona";
-        PTStitcher = "PTStitcher";
-        PTremap = "PTremap";
-        PTroller = "PTroller";
-        PTblender = "PTblender";
-        enblend = "enblend";
-        smartblend = "smartblend";
-    }
 
-    std::string nona;
-    std::string PTStitcher;
-    std::string PTremap;
-    std::string PTroller;
-    std::string PTblender;
-    std::string enblend;
-    std::string smartblend;
-};
-
-
-/** create a makefile and associated project file for rendering */
-void createMakefile(const Panorama & pano,
-                    const std::string & ptofile,
-                    const std::string & outputPrefix,
-                    const PT::PanoramaOptions & opts,
-                    const PT::UIntSet & imgs,
-                    const PTPrograms & progs,
-                    const std::string & includePath,
-                    std::ostream & o);
 
 
 } // namespace
