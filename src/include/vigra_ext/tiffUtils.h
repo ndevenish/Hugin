@@ -54,10 +54,11 @@ namespace vigra_ext {
  * @param offset layer offset in pixels (must be positive)
  */
 inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pagename,
-				const std::string & documentname,
+                                const std::string & documentname,
                                 const std::string comp,
-				uint16 page, uint16 nImg,
-				vigra::Diff2D offset,
+                                uint16 page, uint16 nImg,
+                                vigra::Diff2D offset,
+                                vigra::Size2D fullSize,
                                 const vigra::ICCProfile & icc)
 {
     const float dpi = 150;
@@ -83,6 +84,14 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     DEBUG_ASSERT(offset.y >= 0);
     TIFFSetField (tiff, TIFFTAG_XPOSITION, (float)(offset.x / dpi));
     TIFFSetField (tiff, TIFFTAG_YPOSITION, (float)(offset.y / dpi));
+
+    // TIFFTAG_PIXAR_IMAGEFULLWIDTH and TIFFTAG_PIXAR_IMAGEFULLLENGTH
+    // are set when an image has been cropped out of a larger image.  
+    // They reflect the size of the original uncropped image.
+    // The TIFFTAG_XPOSITION and TIFFTAG_YPOSITION can be used
+    // to determine the position of the smaller image in the larger one.
+    TIFFSetField(tiff, TIFFTAG_PIXAR_IMAGEFULLWIDTH, fullSize.x);
+    TIFFSetField(tiff, TIFFTAG_PIXAR_IMAGEFULLLENGTH, fullSize.y);
 
     // save input name.
     TIFFSetField (tiff, TIFFTAG_DOCUMENTNAME, documentname.c_str());

@@ -313,6 +313,7 @@ public:
                                                opts.tiffCompression,
                                                1, 1,
                                                vigra::Diff2D(0,0),
+                                               opts.getROI().size(),
                                                remapped.m_ICCProfile
                                               );
                     vigra_ext::createAlphaTiffImage(srcImageRange(*final_img),
@@ -324,6 +325,7 @@ public:
                             m_basename,
                             opts.tiffCompression,
                             1, 1, remapped.boundingBox().upperLeft(),
+                            opts.getROI().size(),
                             remapped.m_ICCProfile);
                     vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                             vigra::maskImage(remapped.m_mask),
@@ -437,6 +439,7 @@ public:
                                        Base::m_basename,
                                        opts.tiffCompression,
                                        imgNr+1, nImg, remapped.boundingBox().upperLeft(),
+                                       opts.getROI().size(),
                                        remapped.m_ICCProfile);
         vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                                         vigra::maskImage(remapped.m_mask),
