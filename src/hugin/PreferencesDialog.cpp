@@ -190,7 +190,7 @@ PreferencesDialog::~PreferencesDialog()
 
     // delete custom list data
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    for (int i = 0; i < lang_choice->GetCount(); i++) {
+    for (unsigned i = 0; i < lang_choice->GetCount(); i++) {
         delete static_cast<long*>(lang_choice->GetClientData(i));
     }
 
@@ -559,8 +559,9 @@ void PreferencesDialog::UpdateDisplayData()
     MY_BOOL_VAL("prefs_ass_autoAlign", t);
     MY_SPIN_VAL("prefs_ass_nControlPoints",
                 cfg->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS));
-    MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",
-                cfg->Read(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR*100));
+    double factor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
+    cfg->Read(wxT("/Assistant/panoDownsizeFactor"), &factor);
+    MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",(int)(factor*100.0));
 
 
     // Fine tune settings
