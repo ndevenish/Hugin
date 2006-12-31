@@ -185,7 +185,7 @@ bool huginApp::OnInit()
     wxFileName::SplitPath( argv[0], &m_huginPath, NULL, NULL );
 
     // DEBUG_INFO( GetAppName().c_str() )
-    // DEBUG_INFO( wxFileName::GetCwd().c_str() )
+    DEBUG_INFO( wxFileName::GetCwd().c_str() )
     // DEBUG_INFO( wxFileName::GetHomeDir().c_str() )
     DEBUG_INFO( "hugin path:" << m_huginPath.mb_str() )
 
@@ -227,7 +227,6 @@ bool huginApp::OnInit()
     if(thePath != wxT(""))
         locale.AddCatalogLookupPathPrefix(thePath);
 #else
-    std::cout << INSTALL_LOCALE_DIR << std::endl;
     locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
     DEBUG_INFO("add locale path: " << INSTALL_LOCALE_DIR)
 #endif
@@ -259,8 +258,8 @@ bool huginApp::OnInit()
     // testing for xrc file location
     if ( wxFile::Exists(m_huginPath + wxT("/xrc/main_frame.xrc")) ) {
         DEBUG_INFO("using local xrc files");
-        // wxString currentDir = wxFileName::GetCwd();
-        m_xrcPrefix = m_huginPath + wxT("/xrc/");
+        wxString currentDir = wxFileName::GetCwd();
+        m_xrcPrefix = currentDir + wxT("/") + m_huginPath + wxT("/xrc/");
 #ifdef __WXMAC__
     } else if ( wxFile::Exists(osxPath + wxT("/main_frame.xrc")) ) {
         m_xrcPrefix = osxPath + wxT("/");
