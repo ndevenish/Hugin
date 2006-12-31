@@ -258,8 +258,15 @@ bool huginApp::OnInit()
     // testing for xrc file location
     if ( wxFile::Exists(m_huginPath + wxT("/xrc/main_frame.xrc")) ) {
         DEBUG_INFO("using local xrc files");
-        wxString currentDir = wxFileName::GetCwd();
-        m_xrcPrefix = currentDir + wxT("/") + m_huginPath + wxT("/xrc/");
+        wxFileName f(m_huginPath);
+        if (! f.IsAbsolute()) {
+            wxString currentDir = wxFileName::GetCwd();
+            wxString t = currentDir + wxT("/") + m_huginPath + wxT("/xrc/");
+            if (wxFile::Exists(t + wxT("/xrc/main_frame.xrc"))) { 
+                m_huginPath = currentDir + wxT("/") + m_huginPath;
+            }
+        }
+        m_xrcPrefix = m_huginPath + wxT("/xrc/");
 #ifdef __WXMAC__
     } else if ( wxFile::Exists(osxPath + wxT("/main_frame.xrc")) ) {
         m_xrcPrefix = osxPath + wxT("/");

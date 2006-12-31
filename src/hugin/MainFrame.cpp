@@ -199,6 +199,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
     wxYield();
+
     if (bitmap.LoadFile(huginApp::Get()->GetXRCPath() + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
     {
 #ifdef __unix__
