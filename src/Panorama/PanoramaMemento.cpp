@@ -537,19 +537,6 @@ void PanoramaOptions::setWidth(unsigned int w, bool keepView)
         m_size.y = roundi(m_size.y*scale);
     }
     m_size.x = w;
-    /*
-    if (keepView && !fovCalcSupported(m_projectionFormat)) {
-        DEBUG_NOTICE("Ignoring keepView");
-        keepView = false;
-    }
-    double vfov;
-    if (keepView)
-        vfov = getVFOV();
-    m_size.x = w;
-    if (keepView) {
-        setVFOV(std::min(vfov, getMaxVFOV()));
-    }
-    */
     // reset roi
     m_roi=vigra::Rect2D(m_size);
     DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << getVFOV());
