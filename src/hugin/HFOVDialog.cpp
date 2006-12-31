@@ -32,6 +32,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/HFOVDialog.h"
 #include "hugin/MainFrame.h"
+#include "hugin/LensPanel.h"
 
 using namespace PT;
 using namespace std;
@@ -43,6 +44,7 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_TEXT ( XRCID("lensdlg_cropfactor_text"), HFOVDialog::OnCropFactorChanged )
     EVT_TEXT ( XRCID("lensdlg_hfov_text"), HFOVDialog::OnHFOVChanged )
     EVT_TEXT ( XRCID("lensdlg_focallength_text"), HFOVDialog::OnFocalLengthChanged )
+    EVT_BUTTON( XRCID("lensdlg_load_lens_button"), HFOVDialog::OnLoadLensParameters )
 END_EVENT_TABLE()
 
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
@@ -223,6 +225,75 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
         m_okButton->Enable();
     }
 }
+
+void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
+{
+    Lens lens;
+    VariableMap vars;
+    ImageOptions opts;
+
+    if (LoadLensParametersChoose(lens, vars, opts)) {
+        m_HFOV = lens.getHFOV();
+        m_cropFactor = lens.getCropFactor();
+
+        m_srcImg.setExifCropFactor(lens.getCropFactor());
+        m_srcImg.setExifFocalLength(lens.getFocalLength());
+        m_srcImg.setHFOV(const_map_get(vars,"v").getValue());
+        m_srcImg.setProjection((SrcPanoImage::Projection) lens.getProjection());
+
+        m_focalLength = calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
+
+        // geometrical distortion correction
+        std::vector<double> radialDist(4);
+        radialDist[0] = const_map_get(vars,"a").getValue();
+        radialDist[1] = const_map_get(vars,"b").getValue();
+        radialDist[2] = const_map_get(vars,"c").getValue();
+        radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
+        m_srcImg.setRadialDistortion(radialDist);
+        FDiff2D t;
+        t.x = const_map_get(vars,"d").getValue();
+        t.y = const_map_get(vars,"e").getValue();
+        m_srcImg.setRadialDistortionCenterShift(t);
+        t.x = const_map_get(vars,"g").getValue();
+        t.y = const_map_get(vars,"t").getValue();
+        m_srcImg.setShear(t);
+
+    // vignetting
+        m_srcImg.setVigCorrMode(opts.m_vigCorrMode);
+        m_srcImg.setFlatfieldFilename(opts.m_flatfield);
+        std::vector<double> vigCorrCoeff(4);
+        vigCorrCoeff[0] = const_map_get(vars,"Va").getValue();
+        vigCorrCoeff[1] = const_map_get(vars,"Vb").getValue();
+        vigCorrCoeff[2] = const_map_get(vars,"Vc").getValue();
+        vigCorrCoeff[3] = const_map_get(vars,"Vd").getValue();
+        m_srcImg.setRadialVigCorrCoeff(vigCorrCoeff);
+        t.x = const_map_get(vars,"Vx").getValue();
+        t.y = const_map_get(vars,"Vy").getValue();
+        m_srcImg.setRadialVigCorrCenterShift(t);
+
+        std::vector<double> k(3);
+        k[0] = const_map_get(vars,"K0a").getValue();
+        k[1] = const_map_get(vars,"K1a").getValue();
+        k[2] = const_map_get(vars,"K2a").getValue();
+        m_srcImg.setBrightnessFactor(k);
+
+        k[0] = const_map_get(vars,"K0b").getValue();
+        k[1] = const_map_get(vars,"K1b").getValue();
+        k[2] = const_map_get(vars,"K2b").getValue();
+        m_srcImg.setBrightnessOffset(k);
+
+        if (!opts.docrop) {
+            m_srcImg.setCropMode(SrcPanoImage::NO_CROP);
+        } else if (m_srcImg.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE) {
+            m_srcImg.setCropMode(SrcPanoImage::CROP_CIRCLE);
+            m_srcImg.setCropRect(opts.cropRect);
+        } else {
+            m_srcImg.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+            m_srcImg.setCropRect(opts.cropRect);
+        }
+    }
+}
+
 
 SrcPanoImage HFOVDialog::GetSrcImage()
 {
