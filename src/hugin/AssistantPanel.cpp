@@ -90,14 +90,12 @@ static wxString Components2Str(const CPComponents & comp)
 
 BEGIN_EVENT_TABLE(AssistantPanel, wxWindow)
     EVT_SIZE   ( AssistantPanel::OnSize )
-//    EVT_MOUSE_EVENTS ( AssistantPanel::OnMouse )
-//    EVT_MOTION ( AssistantPanel::ChangePreview )
     EVT_CHECKBOX   ( XRCID("ass_exif_cb"),          AssistantPanel::OnExifToggle)
     EVT_CHOICE     ( XRCID("ass_lens_proj_choice"), AssistantPanel::OnLensTypeChanged)
     EVT_TEXT_ENTER ( XRCID("ass_focallength_text"), AssistantPanel::OnFocalLengthChanged)
     EVT_TEXT_ENTER ( XRCID("ass_cropfactor_text"),  AssistantPanel::OnCropFactorChanged)
-    EVT_BUTTON     ( XRCID("ass_load_images_button"), AssistantPanel::OnLoadImages)
     EVT_BUTTON     ( XRCID("ass_load_lens_button"), AssistantPanel::OnLoadLens)
+    EVT_BUTTON     ( XRCID("ass_load_images_button"), AssistantPanel::OnLoadImages)
     EVT_BUTTON     ( XRCID("ass_align_button"),     AssistantPanel::OnAlign)
     EVT_BUTTON     ( XRCID("ass_create_button"),    AssistantPanel::OnCreate)
 END_EVENT_TABLE()
@@ -381,8 +379,6 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
         CPVector cps = matcher.automatch(m_pano, imgs, nFeatures);
-        int nCP = cps.size();
-
         GlobalCmdHist::getInstance().addCommand(
                 new PT::AddCtrlPointsCmd(m_pano, cps)
                                                );
@@ -538,7 +534,7 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
             }
         }
 
-                // set image options.
+        // set image options.
         GlobalCmdHist::getInstance().addCommand(
                 new PT::SetImageOptionsCmd(m_pano, imgopts, imgs) );
     }
@@ -548,34 +544,19 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
 void AssistantPanel::OnExifToggle (wxCommandEvent & e)
 {
     if (m_exifToggle->GetValue()) {
-        // if activated, load exif info
         unsigned int imgNr = 0;
-        unsigned int lensNr = m_pano.getImage(imgNr).getLensNr();
-        Lens lens = m_pano.getLens(lensNr);
-        // check file extension
-        wxFileName file(wxString(m_pano.getImage(0).getFilename().c_str(), *wxConvCurrent));
-        if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
-            file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
-        {
-            double c=0;
-            double roll = 0;
-            VariableMap vars = m_pano.getImageVariables(imgNr);
-            ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
-
-            /*
-            if (initLensFromFile(m_pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true)) {
-                GlobalCmdHist::getInstance().addCommand(
-                        new PT::ChangeLensCmd(m_pano, lensNr, lens)
-                                                       );
-                GlobalCmdHist::getInstance().addCommand(
-                        new PT::UpdateImageVariablesCmd(m_pano, imgNr, vars)
-                                                       );
-            }
-            */
-
-        } else {
-            wxLogError(_("Not a jpeg file:") + file.GetName());
+        // if activated, load exif info
+        double cropFactor = 0;
+        double focalLength = 0;
+        SrcPanoImage srcImg = m_pano.getSrcImage(imgNr);
+        bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+        if (! ok) {
+            getLensDataFromUser(this, srcImg, focalLength, cropFactor);
         }
+                //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::UpdateSrcImageCmd( m_pano, imgNr, srcImg)
+                                               );
         XRCCTRL(*this, "ass_lens_group", wxPanel)->Disable();
     } else {
         // exif disabled
@@ -634,6 +615,4 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
             new PT::ChangeLensCmd( m_pano, 0, lens)
         );
 }
-
-
 
