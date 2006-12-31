@@ -215,8 +215,7 @@ private:
     DECLARE_EVENT_TABLE()
 };
 
-void getLensDataFromUser(SrcPanoImage & srcImg,
+void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
                          double & focalLength, double & cropFactor);
-
 
 #endif // _MAINFRAME_H

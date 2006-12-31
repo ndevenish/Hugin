@@ -33,6 +33,8 @@
 
 #include "jhead/jhead.h"
 
+#include "PT/utils.h"
+
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
 #include "hugin/MainFrame.h"
@@ -113,6 +115,39 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         );
     return true;
 }
+
+static PTPrograms getPTProgramsConfig()
+{
+    PTPrograms progs;
+    wxConfigBase *config = wxConfig::Get();
+
+#ifdef __WXMSW__
+    // use bundled panotools
+    wxString t = huginApp::Get()->GetXRCPath();
+    std::string root = (const char *) t.mb_str();
+    root.append("..\\");
+    progs.PTmender = root + "PTmender.exe";
+    progs.PTblender = root + "PTblender.exe";
+    progs.PTmasker = root + "PTblender.exe";
+    progs.PTroller = root + "PTroller.exe";
+    progs.nona = root + "nona.exe";
+    progs.enblend = root + "enblend.exe";
+#else
+    // TODO: respect "custom" checkboxes.
+    progs.PTmender = config->Read(wxT("/PanoTools/PTmender"),wxT(HUGIN_PT_MENDER_EXE)).mb_str();
+    progs.PTblender = config->Read(wxT("/PanoTools/PTblender"),wxT(HUGIN_PT_BLENDER_EXE)).mb_str();
+    progs.PTmasker = config->Read(wxT("/PanoTools/PTmasker"),wxT(HUGIN_PT_MASKER_EXE)).mb_str();
+    progs.PTroller = config->Read(wxT("/PanoTools/PTroller"),wxT(HUGIN_PT_ROLLER_EXE)).mb_str();
+    progs.nona = config->Read(wxT("/Hugin/NonaExe"),wxT(HUGIN_NONA_EXE)).mb_str();
+    progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
+#endif
+    progs.smartblend = config->Read(wxT("/Smartblend/SmartblendExe"),wxT(HUGIN_SMARTBLEND_EXE)).mb_str();
+    progs.enblend_opts = config->Read(wxT("/Enblend/EnblendArgs"), wxT(HUGIN_ENBLEND_ARGS)).mb_str();
+    progs.smartblend_opts = config->Read(wxT("/Smartblend/SmartblendArgs"),wxT(HUGIN_SMARTBLEND_ARGS)).mb_str();
+
+    return progs;
+}
+
 
 
 // event table. this frame will recieve mostly global commands.
@@ -485,22 +520,28 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
         wxString makefn = scriptName.GetFullPath() + wxT(".mk");
         std::ofstream makefile(makefn.mb_str());
-        std::string prefix = (const char *) scriptName.GetFullPath().mb_str();
-        PTPrograms progs;
-        wxConfigBase *config = wxConfig::Get();
-        progs.PTStitcher = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE)).mb_str();
-        progs.enblend = config->Read(wxT("/Enblend/EnblendExe"),wxT(HUGIN_ENBLEND_EXE)).mb_str();
-        wxString t = huginApp::Get()->GetXRCPath();
-        std::string mkPath = (const char *) t.mb_str();
-        mkPath.append("data/");
-        createMakefile(pano,
-                       prefix,
-                       "test",
-                       pano.getOptions(),
-                       all,
-                       progs,
-                       mkPath,
-                       makefile);
+        std::string ptoFn = (const char *) scriptName.GetFullPath().mb_str();
+
+        int createMakefile = 1;
+        if (createMakefile) {
+            PTPrograms progs = getPTProgramsConfig();
+
+            std::string resultFn;
+            wxString resultFnwx = scriptName.GetFullPath();
+            resultFn = resultFnwx.mb_str();
+            resultFn = utils::stripPath(utils::stripExtension(resultFn));
+
+            wxString t = huginApp::Get()->GetXRCPath();
+            std::string mkPath = (const char *) t.mb_str();
+            mkPath.append("data/");
+
+            PT::createMakefile(pano,
+                           ptoFn,
+                           resultFn,
+                           progs,
+                           mkPath,
+                           makefile);
+        }
     }
     SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
     this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - hugin"));
@@ -1329,17 +1370,16 @@ MainFrame * MainFrame::Get()
     }
 }
 
-void getLensDataFromUser(SrcPanoImage & srcImg,
+void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
                          double & focalLength, double & cropFactor)
 {
     // display lens dialog
-    HFOVDialog dlg(MainFrame::Get(), srcImg, focalLength, cropFactor);
+    HFOVDialog dlg(parent, srcImg, focalLength, cropFactor);
     dlg.ShowModal();
     srcImg = dlg.GetSrcImage();
     focalLength = dlg.GetFocalLength();
     cropFactor = dlg.GetCropFactor();
 }
-
 
 MainFrame * MainFrame::m_this = 0;
 
