@@ -1,3 +1,300 @@
+2006-12-31 16:34  dangelo
+
+	* src/hugin/: MainFrame.cpp, huginApp.cpp: detection of absolute
+	  xrc path now also works when hugin is started with an absolute
+	  path
+
+2006-12-31 16:31  dangelo
+
+	* configure.ac, src/hugin/xrc/data/splash.png: hugin 0.7 beta2
+
+2006-12-31 16:28  dangelo
+
+	* src/hugin/xrc/assistant_panel.xrc: disable "load lens" button on
+	  HFOV dialog. There is some trouble with the wx widgets
+	  eventloops.
+
+2006-12-31 15:59  dangelo
+
+	* src/: Panorama/Panorama.vcproj, build_msvc/Hugin.sln: updated
+	  MSVC build system
+
+2006-12-31 15:59  dangelo
+
+	* src/foreign/vigra_impex/rgbe.c: silence compiler warnings
+
+2006-12-31 15:57  dangelo
+
+	* src/hugin/xrc/assistant_panel.xrc: button ID was wrong, disabled
+	  close button in load lens dialog
+
+2006-12-31 15:55  dangelo
+
+	* src/hugin/AssistantPanel.cpp: enabled load lens button on
+	  assistant tab
+
+2006-12-31 15:53  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: The assistant downscale factor
+	  was not stored in the config properly.
+
+2006-12-31 15:52  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: removed some obselete code
+
+2006-12-31 15:52  dangelo
+
+	* src/hugin/LensPanel.cpp: fixed warning
+
+2006-12-31 15:50  dangelo
+
+	* src/hugin/wxPanoCommand.cpp: use MainFrame as parent window for
+	  HFOVDialog, unfortunately, still leads to a crash..
+
+2006-12-31 15:48  dangelo
+
+	* src/: hugin/MainFrame.cpp, include/hugin/MainFrame.h: use program
+	  locations from config
+
+2006-12-31 15:45  dangelo
+
+	* src/hugin/huginApp.cpp: get absolute path to xrc files
+
+2006-12-31 15:43  dangelo
+
+	* src/: hugin/HFOVDialog.cpp, include/hugin/HFOVDialog.h: enabled
+	  "load lens" button in HFOVDialog
+
+2006-12-31 15:41  dangelo
+
+	* src/include/hugin/config_defaults.h: defaults for other supported
+	  programs
+
+2006-12-31 15:39  dangelo
+
+	* src/hugin/OptimizePanel.cpp: fixed warning
+
+2006-12-31 15:39  dangelo
+
+	* src/include/PT/PanoramaMemento.h: nona and ptmender will be the
+	  two remappers supported out of the box
+
+2006-12-31 15:37  dangelo
+
+	* src/: Panorama/Makefile.am, Panorama/Panorama.cpp,
+	  Panorama/utils.cpp, hugin/xrc/data/Makefile.am,
+	  hugin/xrc/data/nona_enblend.mk,
+	  hugin/xrc/data/nona_multilayer.mk,
+	  hugin/xrc/data/nona_smartblend.mk,
+	  hugin/xrc/data/ptmender_enblend.mk,
+	  hugin/xrc/data/ptmender_smartblend.mk, include/PT/Panorama.h,
+	  include/PT/utils.h: move make file creation into separate file,
+	  updated makefiles, still not finished and working.
+
+2006-12-31 15:32  dangelo
+
+	* src/include/: PT/Stitcher.h, vigra_ext/tiffUtils.h: use pixar
+	  fullwidth/height tags to store panorama size in cropped images
+
+2006-12-31 00:47  dangelo
+
+	* src/hugin/: AutoCtrlPointCreator.cpp, NonaStitcherPanel.cpp:
+	  CreateProcess should accept arguments with 32k chars length!
+
+2006-12-31 00:09  dangelo
+
+	* configure.ac, src/tests/Makefile.am,
+	  src/tests/test_projections.cpp: small test program to check if
+	  the forward and backward transforms of libpano are consistent
+
+2006-12-30 23:22  dangelo
+
+	* src/tests/: Makefile, common.cpp, imageproc.cpp,
+	  interpolator.cpp, panorama.cpp, panotools.cpp,
+	  phasecorrelation.cpp, real_template.png, result_corr.png,
+	  result_corr_2.png, subject.png, template.png, transforms.cpp,
+	  vigra_ext.cpp, old/Makefile, old/common.cpp, old/imageproc.cpp,
+	  old/interpolator.cpp, old/panorama.cpp, old/panotools.cpp,
+	  old/phasecorrelation.cpp, old/real_template.png,
+	  old/result_corr.png, old/result_corr_2.png, old/subject.png,
+	  old/template.png, old/transforms.cpp, old/vigra_ext.cpp: moved
+	  old tests
+
+2006-12-30 19:02  dangelo
+
+	* src/: build_msvc/Hugin.sln, jhead/exif.cpp,
+	  vigra_ext/vigra_ext.vcproj: updated MSVC build files
+
+2006-12-30 19:01  dangelo
+
+	* src/include/vigra_ext/VigQuotientEstimator.h: preparations for
+	  command line vig estimation tool
+
+2006-12-30 18:59  dangelo
+
+	* src/tools/nona.cpp: added option to create coordinate images
+	  (useful for development of vignetting correction algorithms)
+
+2006-12-30 18:56  dangelo
+
+	* src/: include/common/utils.h, include/common/wxPlatform.h,
+	  tools/fulla.cpp: fixed warnings and include order
+
+2006-12-30 18:51  dangelo
+
+	* src/: Panorama/PanoImage.cpp, Panorama/PanoToolsInterface.cpp,
+	  Panorama/Panorama.cpp, hugin/Makefile.am, hugin/PTWXDlg.cpp,
+	  hugin/VigCorrDialog.cpp, hugin/hugin.vcproj, hugin/huginApp.cpp,
+	  hugin/xrc/crop_panel.xrc, Panorama/PanoramaMemento.cpp,
+	  include/PT/PanoCommand.h, include/PT/PanoImage.h,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h,
+	  include/PT/RandomPointSampler.h, include/PT/SpaceTransform.h,
+	  include/hugin/MainFrame.h: reorganized exif loading, removed many
+	  compiler warnings
+
+2006-12-30 18:48  dangelo
+
+	* src/hugin/ImagesList.cpp: removed crop column from lens panel
+
+2006-12-30 18:47  dangelo
+
+	* src/include/vigra_ext/Pyramid.h: use proper kernel for filtering
+
+2006-12-30 18:46  dangelo
+
+	* src/: hugin/wxPanoCommand.cpp, include/hugin/wxPanoCommand.h:
+	  fixed possible crash when loading autopano-SIFT project files
+
+2006-12-30 18:34  dangelo
+
+	* src/hugin/: MainFrame.cpp, PanoPanel.cpp: suggest project and
+	  output file names based on loaded images
+
+2006-12-30 18:33  dangelo
+
+	* src/: hugin/HFOVDialog.cpp, include/hugin/HFOVDialog.h: added
+	  separate HFOV dialog, to prompt users for missing data when
+	  adding images.
+
+2006-12-30 18:31  dangelo
+
+	* src/: hugin/LensPanel.cpp, include/hugin/LensPanel.h: save and
+	  load crop settings to/from lens .ini files
+
+2006-12-30 18:30  dangelo
+
+	* src/hugin/CropPanel.cpp: cosmetic fixes in crop panel
+
+2006-12-30 18:29  dangelo
+
+	* src/hugin/xrc/: assistant_panel.xrc, pref_dialog.xrc: updated xrc
+	  files
+
+2006-12-30 18:29  dangelo
+
+	* src/: hugin/AssistantPanel.cpp, hugin/PreferencesDialog.cpp,
+	  include/hugin/config_defaults.h: added preferences tab for
+	  Assistant
+
+2006-12-30 17:04  dangelo
+
+	* src/tools/autooptimiser.cpp: Added smart optimisation, automatic
+	  straighten and sizing to autooptimizer.  The functionality of the
+	  hugin "align" button is now available for command line usage now
+	  as well.
+
+2006-12-30 14:46  dangelo
+
+	* src/Panorama/PTOptimise.cpp: auto-aligin: be more conservative
+	  with a,c optimisation, and make sure that a,b,c,d,e are linked
+	  before optimizing them.
+
+2006-12-22 14:50  dangelo
+
+	* src/hugin/PanoPanel.cpp: check if output file already exists.
+
+2006-12-22 14:24  dangelo
+
+	* src/hugin/OptimizePanel.cpp: disable edit script for incremental
+	  optimization
+
+2006-12-22 14:09  dangelo
+
+	* src/: hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/PreviewFrame.cpp, hugin/po/POTFILES.in, hugin/po/ca_ES.po,
+	  hugin/po/cs_CZ.po, hugin/po/de.po, hugin/po/fr.po,
+	  hugin/po/hu.po, hugin/po/hugin.pot, hugin/po/it.po,
+	  hugin/po/ja.po, hugin/po/nl.po, hugin/po/pl.po,
+	  hugin/po/pt_BR.po, hugin/po/ru.po, hugin/po/sk.po,
+	  hugin/po/sv.po, hugin/po/uk.po, hugin/po/zh_CN.po,
+	  hugin/xrc/Makefile.am, include/hugin/LensPanel.h: more cleanup +
+	  updated strings
+
+2006-12-22 13:42  dangelo
+
+	* src/: hugin/ImageOrientationFrame.cpp,
+	  hugin/ImageOrientationPanel.cpp, hugin/ImagesPanel.cpp,
+	  include/hugin/ImageOrientationFrame.h,
+	  include/hugin/ImageOrientationPanel.h,
+	  include/hugin/ImagesPanel.h: removed buggy image anchor dialog,
+	  since the preview windows has improved a lot
+
+2006-12-22 13:31  dangelo
+
+	* src/: Panorama/PanoImage.cpp, hugin/AssistantPanel.cpp,
+	  hugin/ImageCenter.cpp, hugin/ImagesList.cpp, hugin/LensPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/Makefile.am, hugin/huginApp.cpp,
+	  hugin/po/POTFILES.in, hugin/xrc/Makefile.am,
+	  hugin/xrc/crop_panel.xrc, hugin/xrc/image_center.xrc,
+	  hugin/xrc/lens_panel-2.5.xrc, hugin/xrc/main_frame-2.5.xrc,
+	  include/PT/PanoCommand.h, include/hugin/ImageCenter.h,
+	  include/hugin/ImagesList.h, include/hugin/MainFrame.h: created
+	  crop panel, removed some obselete stuff
+
+2006-12-22 13:26  dangelo
+
+	* src/: hugin/CropPanel.cpp, include/hugin/CropPanel.h: moved crop
+	  to crop panel, fixed strange behaviour of previous crop dialog
+
+2006-12-22 00:05  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: fixed problems with setting
+	  invalid HFOV when changing projections
+
+2006-12-21 23:50  dangelo
+
+	* src/hugin/ImagesPanel.cpp: enable Create control points button as
+	  soon as two images are loaded.
+
+2006-12-21 23:37  dangelo
+
+	* src/hugin/CPEditorPanel.cpp: fixed automatic choosing of
+	  horizontal/vertical control points for rotated images.
+
+2006-12-21 23:13  dangelo
+
+	* src/hugin/xrc/images_panel-2.5.xrc: small layout changes
+
+2006-12-21 09:31  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp, hugin/AssistantPanel.cpp,
+	  hugin/MainFrame.cpp, hugin/PanoPanel.cpp, hugin/huginApp.cpp,
+	  hugin/xrc/assistant_panel.xrc, include/PT/PanoramaMemento.h,
+	  include/hugin/AssistantPanel.h, include/hugin/MainFrame.h,
+	  include/hugin/PanoPanel.h, include/hugin/config_defaults.h,
+	  include/hugin/huginApp.h: suggest output and project names based
+	  on input images run align automatically after "load images"
+	  button on Assistant tab
+
+2006-12-21 09:29  dangelo
+
+	* src/include/vigra_ext/ImageTransforms.h: bugfix: forgot to enable
+	  multiple threads for poly3 interpolator!
+
+2006-12-20 23:06  dangelo
+
+	* ChangeLog: updated changelog
+
 2006-12-20 23:03  dangelo
 
 	* README, README_WINDOWS, windows_DOT_NET_compile.txt,

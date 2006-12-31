@@ -5,6 +5,8 @@ Newsworthy changes in 0.7
   Also added a numerical transform dialog
 * automatic straighten
 * support for Lambert and Lambert Azimuthal projections
+* separate crop tab replaces buggy crop dialog
+* crop is saved in lens .ini files
 * Rotated display of images in control point selector, depending
   on the roll value
 * allow images with and without alpha channels in the same project
