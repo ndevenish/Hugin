@@ -39,7 +39,6 @@ copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTblender.readme" %DESTDIR%\Panotoo
 copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTmender.readme" %DESTDIR%\Panotools\doc
 copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\Optimize.txt" %DESTDIR%\Panotools\doc
 copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\stitch.txt" %DESTDIR%\Panotools\doc
-p
 
 rem copy %SRCDIR%\..\..\panotools\pano12_for_usage_with_ptstitcher.dll %DESTDIR%\
 
