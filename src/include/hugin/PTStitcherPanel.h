@@ -83,7 +83,7 @@ public:
     void FileFormatChanged(wxCommandEvent & e);
 
     // actions
-    virtual void Stitch(const PT::Panorama & pano,
+    virtual bool Stitch(const PT::Panorama & pano,
                         PT::PanoramaOptions opts);
 
     // the model

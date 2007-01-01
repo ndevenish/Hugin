@@ -79,45 +79,8 @@ RunStitcherFrame::RunStitcherFrame(wxWindow *parent,
     m_abort = XRCCTRL(*this, "stitcher_abort", wxButton);
     assert(m_abort);
 
-
     wxConfigBase* config = wxConfigBase::Get();
-#ifdef __WXMSW__
-    Hide();
     wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-    if (!wxFile::Exists(stitcherExe)){
-        wxFileDialog dlg(this,_("Select PTStitcher.exe"),
-        wxT(""), wxT("PTStitcher.exe"),
-        _("Executables (*.exe)|*.exe"),
-        wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            stitcherExe = dlg.GetPath();
-            config->Write(wxT("/PanoTools/PTStitcherExe"),stitcherExe);
-        } else {
-            wxLogError(_("No PTStitcher.exe selected"));
-        }
-    }
-#elif (defined __WXMAC__)
-    Hide();
-    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_SCRIPTFILE));    
-    // TODO: for now, default path triggers non-custom path but to be fixed
-    if(stitcherExe == wxT(HUGIN_PT_SCRIPTFILE))
-        DEBUG_ASSERT(false); //shouldn't get here
-    else if (!wxFile::Exists(stitcherExe)) {
-        wxFileDialog dlg(this,_("Select PTStitcher commandline tool"),
-                         wxT(""), wxT(""),
-                         wxT("Any Files |*"),
-                         wxOPEN, wxDefaultPosition);
-        if (dlg.ShowModal() == wxID_OK) {
-            stitcherExe = dlg.GetPath();
-            config->Write(wxT("/PanoTools/PTStitcherExe"),stitcherExe);
-        } else {
-            wxLogError(_("No PTStitcher commandline tool selected"));
-            return;
-      }
-    }
-#else
-    wxString stitcherExe = config->Read(wxT("/PanoTools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-#endif
     wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE));
 
     stringstream script_stream;

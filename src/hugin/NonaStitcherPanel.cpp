@@ -295,7 +295,7 @@ void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
     DEBUG_INFO ( PanoramaOptions::getFormatName(opt.outputFormat));
 }
 
-void NonaStitcherPanel::Stitch( const Panorama & pano,
+bool NonaStitcherPanel::Stitch( const Panorama & pano,
                                 PanoramaOptions options)
 {
 	// work around a flaw in wxProgresDialog that results in incorrect layout  
@@ -340,12 +340,12 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         wxMessageBox(_("Out of memory.\nTry again with a smaller panorama image size\n"),
                      _("Error during stitching"),
                      wxICON_ERROR | wxOK);
-        return;
+        return false;
     } catch (std::exception & e) {
         wxMessageBox(wxString(e.what(), *wxConvCurrent),
                      _("Error during stitching"),
                      wxICON_ERROR | wxOK);
-        return;
+        return false;
     }
 
 	wxString outpath;
@@ -367,7 +367,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
             } else {
                 wxLogError(_("No enblend.exe selected"));
-                return;
+                return false;
             }
         }
 #elif defined __WXMAC__
@@ -386,7 +386,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
                 config->Write(wxT("/Enblend/EnblendExe"),enblendExe);
             } else {
                 wxLogError(_("No enblend commandline tool selected"));
-                return;
+                return false;
             }
         }
 #else
@@ -428,7 +428,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
         if (cmdline.size() > 32766) {
     wxMessageBox(_("Can not call enblend with a command line > 32766 characters.\nThis is a Windows limitation\nPlease use less images, or place the images in a folder with\na shorter pathname"),
                  _("Too many images selected"));
-    return;
+    return false;
         }
 #endif
 
@@ -488,12 +488,12 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
 
         if (ret == -1) {
             wxLogError( _("Could not execute command: ") + cmdline, _("wxExecute Error"));
-            return;
+            return false;
         } else if (ret > 0) {
             wxLogError(_("command: ") + cmdline +
                 _("\nfailed with error code: ") + wxString::Format(wxT("%d"),ret),
                 _("enblend error"));
-            return;
+            return false;
         }
         if (wxConfigBase::Get()->Read(wxT("/Enblend/DeleteRemappedFiles"), HUGIN_ENBLEND_DELETE_REMAPPED_FILES) != 0) {
             // delete remapped tiff files
@@ -504,6 +504,7 @@ void NonaStitcherPanel::Stitch( const Panorama & pano,
             }
         }
     }
+    return true;
 }
 
 void NonaStitcherPanel::OnSetQuality(wxSpinEvent & e)

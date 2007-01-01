@@ -41,7 +41,7 @@ public:
     virtual ~StitcherPanel() {};
 
     /** perform stitching */
-    virtual void Stitch(const PT::Panorama & pano,
+    virtual bool Stitch(const PT::Panorama & pano,
                         PT::PanoramaOptions opts) = 0;
 private:
 
