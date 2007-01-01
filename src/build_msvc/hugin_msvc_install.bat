@@ -16,6 +16,8 @@ mkdir %DESTDIR%\doc
 mkdir %DESTDIR%\xrc
 mkdir %DESTDIR%\xrc\data
 mkdir %DESTDIR%\locale
+mkdir %DESTDIR%\panotools
+mkdir %DESTDIR%\panotools\doc
 
 for %%l in ( %LINGUAS% ) do mkdir %DESTDIR%\locale\%%l
 
@@ -28,7 +30,17 @@ copy %SRCDIR%\..\doc\fulla.html %DESTDIR%\doc
 
 rem copy panotools
 rem copy "%SRCDIR%\..\..\libs\libpano\pano12\Release\pano12.dll" %DESTDIR%\
-copy "%SRCDIR%\..\..\libs\libpano\pano13\tools\Release\*.exe" %DESTDIR%\
+copy "%SRCDIR%\..\..\libs\libpano\pano13\tools\Release\*.exe" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\AUTHORS" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\ChangeLog" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\README" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\TODO" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTblender.readme" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTmender.readme" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\Optimize.txt" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\stitch.txt" %DESTDIR%\Panotools\doc
+p
+
 rem copy %SRCDIR%\..\..\panotools\pano12_for_usage_with_ptstitcher.dll %DESTDIR%\
 
 
@@ -53,6 +65,9 @@ copy %SRCDIR%\..\NEWS %DESTDIR%\NEWS.txt
 
 rem copy fulla
 copy %SRCDIR%\"tools\Release\fulla.exe" %DESTDIR%\
+
+rem copy autooptimiser
+copy %SRCDIR%\"tools\Release\autooptimiser.exe" %DESTDIR%\
 
 rem
 rem copy files for hugin

@@ -16,10 +16,12 @@ mkdir %DESTDIR%\doc
 mkdir %DESTDIR%\xrc
 mkdir %DESTDIR%\xrc\data
 mkdir %DESTDIR%\locale
+mkdir %DESTDIR%\panotools
+mkdir %DESTDIR%\panotools\doc
 
 for %%l in ( %LINGUAS% ) do mkdir %DESTDIR%\locale\%%l
 
-rem copy panoglview
+rem copy panoglview 
 copy %SRCDIR%\..\..\panoglview\panoglview.exe %DESTDIR%\
 
 rem copy doc
@@ -28,14 +30,26 @@ copy %SRCDIR%\..\doc\fulla.html %DESTDIR%\doc
 
 rem copy panotools
 rem copy "%SRCDIR%\..\..\libs\libpano\pano12\Release\pano12.dll" %DESTDIR%\
-copy "%SRCDIR%\..\..\libs\libpano\pano12\tools\Release\*.exe" %DESTDIR%\
+copy "%SRCDIR%\..\..\libs\libpano\pano13\tools\Release\*.exe" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\AUTHORS" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\ChangeLog" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\README" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\TODO" %DESTDIR%\Panotools
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTblender.readme" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\PTmender.readme" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\Optimize.txt" %DESTDIR%\Panotools\doc
+copy "%SRCDIR%\..\..\libs\libpano\pano13\doc\stitch.txt" %DESTDIR%\Panotools\doc
+p
+
 rem copy %SRCDIR%\..\..\panotools\pano12_for_usage_with_ptstitcher.dll %DESTDIR%\
+
 
 rem copy enblend
 copy %SRCDIR%\..\..\enblend\enblend.exe %DESTDIR%\
 copy %SRCDIR%\..\..\enblend\AUTHORS %DESTDIR%\ENBLEND_AUTHORS.txt
 copy %SRCDIR%\..\..\enblend\README %DESTDIR%\ENBLEND_README.txt
 copy %SRCDIR%\..\..\enblend\NEWS %DESTDIR%\ENBLEND_NEWS.txt
+
 
 rem copy installer script
 copy %SRCDIR%\..\utils\hugin.nsi %DESTDIR%\
@@ -52,12 +66,14 @@ copy %SRCDIR%\..\NEWS %DESTDIR%\NEWS.txt
 rem copy fulla
 copy %SRCDIR%\"tools\Release\fulla.exe" %DESTDIR%\
 
+rem copy autooptimiser
+copy %SRCDIR%\"tools\Release\autooptimiser.exe" %DESTDIR%\
+
 rem
 rem copy files for hugin
 rem
 
 copy %SRCDIR%\"hugin\Release\hugin.exe" %DESTDIR%\
-
 xcopy /s %SRCDIR%\hugin\xrc %DESTDIR%\xrc\
 del %DESTDIR%\xrc\.cvsignore
 del %DESTDIR%\xrc\data\.cvsignore
@@ -66,6 +82,8 @@ del %DESTDIR%\xrc\data\help_fr_FR\.cvsignore
 
 rem language files for hugin. They need to be rebuild by hand..
 for %%l in ( %LINGUAS% ) do %MSGFMT% -c -o %DESTDIR%\locale\%%l\hugin.mo %SRCDIR%\hugin\po\%%l.po 
+
+
 
 rem
 rem copy files for nona
