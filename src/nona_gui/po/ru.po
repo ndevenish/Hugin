@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-16 21:00+0200\n"
+"POT-Creation-Date: 2007-01-01 22:24+0100\n"
 "PO-Revision-Date: 2005-11-04 18:08+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -19,47 +19,48 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/nona_gui/nona_gui.cpp:137
+#: src/nona_gui/nona_gui.cpp:152
 msgid "Syntax error in parameters detected, aborting."
 msgstr ""
 "Обнаружена синтаксическая ошибка в параметрах, выполнение операции "
 "прерывается."
 
-#: src/nona_gui/nona_gui.cpp:147
+#: src/nona_gui/nona_gui.cpp:167
 msgid "Specify project source project file"
 msgstr "Укажите исходный файл проекта"
 
-#: src/nona_gui/nona_gui.cpp:170
-msgid "Could not find project file"
+#: src/nona_gui/nona_gui.cpp:190
+#, fuzzy
+msgid "Could not find project file:"
 msgstr "Не удалось найти проектный файл"
 
-#: src/nona_gui/nona_gui.cpp:179
+#: src/nona_gui/nona_gui.cpp:199
 msgid "Specify output image filename"
 msgstr "Укажите имя конечного файла"
 
-#: src/nona_gui/nona_gui.cpp:187
+#: src/nona_gui/nona_gui.cpp:207
 msgid "No project files specified"
 msgstr "Проектный файл не был указан"
 
-#: src/nona_gui/nona_gui.cpp:203
+#: src/nona_gui/nona_gui.cpp:223
 msgid "Stitching Panorama"
 msgstr "Сшивается панорама..."
 
-#: src/nona_gui/nona_gui.cpp:209
+#: src/nona_gui/nona_gui.cpp:229
 #, c-format
 msgid "could not open script : %s"
 msgstr "не удалось открыть сценарий : %s"
 
-#: src/nona_gui/nona_gui.cpp:215
+#: src/nona_gui/nona_gui.cpp:235
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "ошибка при синтаксическом разборе сценария pano tools: %s"
 
-#: src/nona_gui/nona_gui.cpp:221
+#: src/nona_gui/nona_gui.cpp:241
 msgid "Wrong number of images specified on command line"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:236
+#: src/nona_gui/nona_gui.cpp:256
 msgid "output image size: "
 msgstr "размер конечного изображения: "
 

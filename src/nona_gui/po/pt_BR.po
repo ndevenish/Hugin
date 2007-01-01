@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.5rc1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-08-16 21:00+0200\n"
+"POT-Creation-Date: 2007-01-01 22:24+0100\n"
 "PO-Revision-Date: 2005-08-19 00:21-0300\n"
 "Last-Translator: Ademar de Souza Reis Jr. <ademar@ademar.org>\n"
 "Language-Team: Português Brasileiro <pt_BR@li.org>\n"
@@ -17,45 +17,46 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/nona_gui/nona_gui.cpp:137
+#: src/nona_gui/nona_gui.cpp:152
 msgid "Syntax error in parameters detected, aborting."
 msgstr "Detectado erro de sintaxe nos parâmetros, abortando."
 
-#: src/nona_gui/nona_gui.cpp:147
+#: src/nona_gui/nona_gui.cpp:167
 msgid "Specify project source project file"
 msgstr "Especifique a origem do arquivo de projeto"
 
-#: src/nona_gui/nona_gui.cpp:170
-msgid "Could not find project file"
+#: src/nona_gui/nona_gui.cpp:190
+#, fuzzy
+msgid "Could not find project file:"
 msgstr "Não foi possível encontrar o arquivo de projeto"
 
-#: src/nona_gui/nona_gui.cpp:179
+#: src/nona_gui/nona_gui.cpp:199
 msgid "Specify output image filename"
 msgstr "Especifique o nome do arquivo de imagem de saída"
 
-#: src/nona_gui/nona_gui.cpp:187
+#: src/nona_gui/nona_gui.cpp:207
 msgid "No project files specified"
 msgstr "Não foram especificados arquivos de projeto"
 
-#: src/nona_gui/nona_gui.cpp:203
+#: src/nona_gui/nona_gui.cpp:223
 msgid "Stitching Panorama"
 msgstr "Montando Panorama"
 
-#: src/nona_gui/nona_gui.cpp:209
+#: src/nona_gui/nona_gui.cpp:229
 #, c-format
 msgid "could not open script : %s"
 msgstr "não foi possível abrir script : %s"
 
-#: src/nona_gui/nona_gui.cpp:215
+#: src/nona_gui/nona_gui.cpp:235
 #, c-format
 msgid "error while parsing panos tool script: %s"
 msgstr "erro enquanto parseava script panos: %s"
 
-#: src/nona_gui/nona_gui.cpp:221
+#: src/nona_gui/nona_gui.cpp:241
 msgid "Wrong number of images specified on command line"
 msgstr ""
 
-#: src/nona_gui/nona_gui.cpp:236
+#: src/nona_gui/nona_gui.cpp:256
 msgid "output image size: "
 msgstr "tamanho da imagem de saída: "
 
