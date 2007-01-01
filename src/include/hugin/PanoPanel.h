@@ -89,6 +89,7 @@ public:
 
     // apply changes from the model
     void UpdateDisplay(const PT::PanoramaOptions & opt);
+    void SetStitcher(PanoramaOptions::Remapper stitcher);
 
     // apply changes to the model. (gui values -> Panorama)
     void QuickModeChanged(wxCommandEvent & e);
@@ -100,6 +101,7 @@ public:
     void VFOVChangedSpin(wxSpinEvent & e);
     void ProjectionChanged(wxCommandEvent & e);
     void StitcherChanged(wxCommandEvent & e);
+
 
     void WidthChanged(wxCommandEvent & e);
     void HeightChanged(wxCommandEvent & e);

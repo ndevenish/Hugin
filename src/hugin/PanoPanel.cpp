@@ -155,7 +155,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     pano->addObserver (this);
 
     // setup the stitcher
-    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),1l);
+//    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),1l);
 #if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
     wxString currentPTStitcherExe
         = wxConfigBase::Get()->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
@@ -172,15 +172,17 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
 #if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
     }
 #endif
-    m_StitcherChoice->SetSelection(t);
 
+    SetStitcher(pano->getOptions().remapper);
+
+/*
     // trigger creation of apropriate stitcher control, if
     // not already happend.
     if (! m_Stitcher) {
         wxCommandEvent dummy;
         StitcherChanged(dummy);
     }
-
+*/
     DEBUG_TRACE("")
 }
 
@@ -260,6 +262,10 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt)
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
+
+    if (opt.remapper != m_oldOpt.remapper) {
+        SetStitcher(opt.remapper);
+    }
 }
 
 void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
@@ -545,29 +551,26 @@ void PanoPanel::QuickModeChanged(wxCommandEvent & e)
     }
 }
 
-void PanoPanel::StitcherChanged(wxCommandEvent & e)
+void PanoPanel::SetStitcher(PanoramaOptions::Remapper stitcher)
 {
-    int stitcher = m_StitcherChoice->GetSelection();
-    DEBUG_DEBUG("changing stitcher to " << stitcher);
-
-    // PTStitcher
+    DEBUG_DEBUG("new stitcher: " << stitcher);
     if (m_Stitcher) {
         m_Stitcher->Destroy();
     }
     switch (stitcher) {
-    case 0:
+    case PanoramaOptions::PTMENDER:
 #ifndef NO_PTSTITCHER
         m_Stitcher = new PTStitcherPanel(this, pano);
+        m_StitcherChoice->SetSelection(0);
         break;
 #else
         m_StitcherChoice->SetSelection(1);
 #endif
-    case 1:
-        m_Stitcher = new NonaStitcherPanel(this, pano);
-        break;
     default:
-        DEBUG_FATAL("Unknown Stitcher selected, XRC file might be invalid");
-        return;
+    case PanoramaOptions::NONA:
+        m_Stitcher = new NonaStitcherPanel(this, pano);
+        m_StitcherChoice->SetSelection(1);
+        break;
     }
     // show the new stitcher
     wxXmlResource::Get()->AttachUnknownControl (
@@ -590,6 +593,25 @@ void PanoPanel::StitcherChanged(wxCommandEvent & e)
     m_pano_ctrls->SetVirtualSizeHints(w,h,-1,-1);
 #endif
 #endif
+
+}
+
+void PanoPanel::StitcherChanged(wxCommandEvent & e)
+{
+    int stitcher = m_StitcherChoice->GetSelection();
+    DEBUG_DEBUG("changing stitcher to " << stitcher);
+    // todo: change panorama options..
+
+    PanoramaOptions opt = pano.getOptions();
+    if (stitcher == 0) {
+        opt.remapper = PanoramaOptions::PTMENDER;
+    } else {
+        opt.remapper = PanoramaOptions::NONA;
+    }
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( pano, opt )
+            );
 }
 
 void PanoPanel::DoCalcFOV(wxCommandEvent & e)
@@ -612,9 +634,6 @@ void PanoPanel::DoCalcFOV(wxCommandEvent & e)
     DEBUG_INFO ( "hfov: " << opt2.getHFOV() << "  w: " << opt2.getWidth() << " h: " << opt2.getHeight() << "  => vfov: " << opt2.getVFOV()  << "  after update");
 
 }
-
-
-
 
 void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 {
