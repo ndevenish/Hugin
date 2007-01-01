@@ -565,6 +565,8 @@ void PreferencesDialog::UpdateDisplayData()
 
 
     // Fine tune settings
+    MY_SPIN_VAL("prefs_ft_TemplateSize",
+        cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
     MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
                                                HUGIN_FT_SEARCH_AREA_PERCENT));
     MY_SPIN_VAL("prefs_ft_LocalSearchWidth", cfg->Read(wxT("/Finetune/LocalSearchWidth"),
