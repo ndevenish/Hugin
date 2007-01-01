@@ -10,6 +10,8 @@ Newsworthy changes in 0.7
 * Rotated display of images in control point selector, depending
   on the roll value
 * allow images with and without alpha channels in the same project
+* option to open final panorama in image editor after stitching
+* present output of command line utils in nice window (unix)
 * many small bugfixes
 * removed image center dialog
 

@@ -1,3 +1,128 @@
+2007-01-01 21:44  dangelo
+
+	* src/: hugin/PreferencesDialog.cpp, hugin/xrc/pref_dialog.xrc,
+	  include/hugin/PreferencesDialog.h: added preferences for "run
+	  editor after stitching"
+
+2007-01-01 21:43  dangelo
+
+	* src/hugin/xrc/data/splash.png: update to beta3
+
+2007-01-01 21:42  dangelo
+
+	* src/hugin/AutoCtrlPointCreator.cpp: correct quoting
+
+2007-01-01 21:38  dangelo
+
+	* src/hugin/xrc/assistant_panel.xrc: indent lens settings box
+
+2007-01-01 21:00  dangelo
+
+	* src/hugin/PreviewFrame.cpp: straighten does not do center 360 deg
+	  panos automatically now.
+
+2007-01-01 20:41  dangelo
+
+	* src/build_msvc/: hugin_msvc_install.bat,
+	  hugin_msvc_install_win98.bat: updated msvc build system
+
+2007-01-01 19:22  dangelo
+
+	* src/: hugin/MyExternalCmdExecDialog.cpp,
+	  include/hugin/MyExternalCmdExecDialog.h: improved display in
+	  CmdExec dialog.
+
+2007-01-01 19:20  dangelo
+
+	* src/include/hugin/config_defaults.h: default to command line
+	  autopano-sift on linux
+
+2007-01-01 19:20  dangelo
+
+	* src/: hugin/PanoPanel.cpp, include/hugin/PanoPanel.h: store type
+	  of remapper in panorama object
+
+2007-01-01 18:24  dangelo
+
+	* configure.ac, src/hugin/AutoCtrlPointCreator.cpp,
+	  src/hugin/MyExternalCmdExecDialog.cpp,
+	  src/hugin/NonaStitcherPanel.cpp,
+	  src/include/hugin/MyExternalCmdExecDialog.h,
+	  src/include/hugin/config_defaults.h: used MyExternalCmdExecDialog
+	  on unix to show progress of command line utils.
+
+2007-01-01 14:01  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  hugin/MyExternalCmdExecDialog.cpp, hugin/NonaStitcherPanel.cpp,
+	  hugin/PTStitcherPanel.cpp,
+	  include/hugin/MyExternalCmdExecDialog.h: do not use old
+	  PTStitcher panel anymore, just run PTStitcher/PTmender on the
+	  command line
+
+2007-01-01 13:36  dangelo
+
+	* src/: hugin/NonaStitcherPanel.cpp, hugin/PTStitcherPanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/RunStitcherFrame.cpp,
+	  include/hugin/NonaStitcherPanel.h,
+	  include/hugin/PTStitcherPanel.h, include/hugin/StitcherPanel.h:
+	  warn if PTmender is used and other output formats than TIFF_m or
+	  brightness correction is used.
+
+2007-01-01 13:35  dangelo
+
+	* src/hugin/AssistantPanel.cpp: display max ctrl point error, not
+	  only mean
+
+2007-01-01 12:50  dangelo
+
+	* src/hugin/po/fr.po: updated french translation (Jean-Luc Coulon)
+
+2007-01-01 11:16  dangelo
+
+	* src/hugin/PanoPanel.cpp: do not check for overwrite if TIFF_m is
+	  used.
+
+2007-01-01 11:03  dangelo
+
+	* src/: hugin/PanoPanel.cpp, include/hugin/config_defaults.h:
+	  disabled new "run editor after stitching" feature by default, no
+	  GUI in the preferences tab.
+
+2007-01-01 11:02  dangelo
+
+	* src/tools/autooptimiser.cpp: compiles with MSVC now.
+
+2007-01-01 11:00  dangelo
+
+	* src/: build_msvc/Hugin.sln, build_msvc/hugin_msvc_install.bat,
+	  build_msvc/hugin_msvc_install_win98.bat,
+	  tools/autooptimiser.vcproj: add autooptimiser to MSVC build
+
+2007-01-01 10:58  dangelo
+
+	* src/hugin/po/sk.po: updated slovak translation (Jozef Riha)
+
+2007-01-01 10:31  dangelo
+
+	* src/hugin/CropPanel.cpp: crop panel: apply crop after first
+	  selection, correctly disable after pressing "reset"
+
+2007-01-01 03:07  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: fixed bug with zero template
+	  size introduced when adding settings for assistant panel
+
+2006-12-31 16:47  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated strings
+
+2006-12-31 16:43  dangelo
+
+	* ChangeLog, NEWS: preparations for 0.7 beta 2 release
+
 2006-12-31 16:34  dangelo
 
 	* src/hugin/: MainFrame.cpp, huginApp.cpp: detection of absolute
