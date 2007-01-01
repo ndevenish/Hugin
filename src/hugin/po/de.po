@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-31 16:46+0100\n"
+"POT-Creation-Date: 2007-01-01 21:48+0100\n"
 "PO-Revision-Date: 2006-12-22 14:05+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -81,8 +81,8 @@ msgstr ""
 "Optmizer könnte versagt haben. Manueller Eingriff erforderlich."
 
 #: src/hugin/AssistantPanel.cpp:321
-#, c-format
-msgid "Mean error after optimization: %.1f pixel\n"
+#, fuzzy, c-format
+msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Mittlerer Fehler nach der Optimierung: %.1f Pixel\n"
 
 #: src/hugin/AssistantPanel.cpp:358
@@ -110,80 +110,80 @@ msgstr ""
 "\n"
 "Drücken Sie danach noch einmal die \"Ausrichten\"-Schaltfläche."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:106
+#: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (Version 1.03 oder höher), von http://autopano.kolor.com"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:107
+#: src/hugin/AutoCtrlPointCreator.cpp:104
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift, von http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:109
+#: src/hugin/AutoCtrlPointCreator.cpp:106
 msgid "Choose which autopano program should be used\n"
 msgstr "Wählen Sie, welches Autopano-Programm Sie verwenden wollen\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:109
+#: src/hugin/AutoCtrlPointCreator.cpp:106
 msgid "Select autopano type"
 msgstr "Wählen Sie den Autopano-Typ"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:122
+#: src/hugin/AutoCtrlPointCreator.cpp:119
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano von http://autopano.kolor.com existiert nicht für Mac OSX"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:123
+#: src/hugin/AutoCtrlPointCreator.cpp:120
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Möchten Sie stattdessen Autopano-Sift verwenden?"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:160
-#: src/hugin/AutoCtrlPointCreator.cpp:386
+#: src/hugin/AutoCtrlPointCreator.cpp:157
 msgid "Select autopano program / frontend script"
 msgstr "Wählen Sie das Autopano-Programm / Oberflächenskript"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:162 src/hugin/PreferencesDialog.cpp:250
-#: src/hugin/PreferencesDialog.cpp:267 src/hugin/PreferencesDialog.cpp:283
-#: src/hugin/RunStitcherFrame.cpp:90
+#: src/hugin/AutoCtrlPointCreator.cpp:159
+#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
+#: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "Ausführbare Dateien (*.exe)|*.exe"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:168
-#: src/hugin/AutoCtrlPointCreator.cpp:204
-#: src/hugin/AutoCtrlPointCreator.cpp:394
+#: src/hugin/AutoCtrlPointCreator.cpp:165
+#: src/hugin/AutoCtrlPointCreator.cpp:201
+#: src/hugin/AutoCtrlPointCreator.cpp:346
 msgid "No autopano selected"
 msgstr "Kein Autopano-Programm ausgewählt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:191
+#: src/hugin/AutoCtrlPointCreator.cpp:188
 msgid "Autopano-SIFT is not installed."
 msgstr "Autopano-SIFT ist nicht installiert."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:196
+#: src/hugin/AutoCtrlPointCreator.cpp:193
 msgid "Select autopano frontend script"
 msgstr "Autopano Frontend-Skript auswählen"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:198
+#: src/hugin/AutoCtrlPointCreator.cpp:195
 msgid "Shell Scripts (*.sh)|*.sh"
 msgstr "Shell Skripte (*.sh)|*.sh"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:242
+#: src/hugin/AutoCtrlPointCreator.cpp:239
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
 "Bitte benutzen Sie entweder %namefile oder %i in der Autopano-Sift-"
 "Kommandozeile"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:243
-#: src/hugin/AutoCtrlPointCreator.cpp:248
+#: src/hugin/AutoCtrlPointCreator.cpp:240
+#: src/hugin/AutoCtrlPointCreator.cpp:245
 msgid "Error in Autopano command"
 msgstr "Fehler im Autopano-Kommando"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:247
+#: src/hugin/AutoCtrlPointCreator.cpp:244
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Bitte benutzen Sie %namefile oder %i für die Eingabedateien von Autopano-Sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:282
-#: src/hugin/AutoCtrlPointCreator.cpp:432
+#: src/hugin/AutoCtrlPointCreator.cpp:279
+#: src/hugin/AutoCtrlPointCreator.cpp:384
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -195,50 +195,32 @@ msgstr ""
 "Bitte wählen Sie weniger Bilder oder plazieren Sie die Bilder in einem\n"
 "Ordner mit einem kürzeren Pfadnamen"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:283
-#: src/hugin/AutoCtrlPointCreator.cpp:433 src/hugin/NonaStitcherPanel.cpp:430
+#: src/hugin/AutoCtrlPointCreator.cpp:280
+#: src/hugin/AutoCtrlPointCreator.cpp:385 src/hugin/NonaStitcherPanel.cpp:428
 msgid "Too many images selected"
 msgstr "Zu viele Bilder ausgewählt"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:292
-#: src/hugin/AutoCtrlPointCreator.cpp:440
-msgid "Running autopano"
-msgstr "Starte Autopano"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:292
-#: src/hugin/AutoCtrlPointCreator.cpp:440
-msgid ""
-"Please wait while autopano searches control points\n"
-"See the command window for autopanos' progress"
-msgstr ""
-"Bitte warten Sie, während Autopano die Kontrollpunkte sucht\n"
-"Der Fortschritt kann im Kommando-Fenster beobachtet werden."
-
-#: src/hugin/AutoCtrlPointCreator.cpp:326
-#: src/hugin/AutoCtrlPointCreator.cpp:342
-#: src/hugin/AutoCtrlPointCreator.cpp:455 src/hugin/NonaStitcherPanel.cpp:477
-#: src/hugin/NonaStitcherPanel.cpp:490
+#: src/hugin/AutoCtrlPointCreator.cpp:294
+#: src/hugin/AutoCtrlPointCreator.cpp:397
+#: src/hugin/MyExternalCmdExecDialog.cpp:78
+#: src/hugin/NonaStitcherPanel.cpp:440
 msgid "Could not execute command: "
 msgstr "Konnte den Befehl nicht ausführen:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:326
-msgid "ShellExecuteEx failed"
-msgstr "ShellExecuteEx fehlgeschlagen"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:342
-#: src/hugin/AutoCtrlPointCreator.cpp:347
-#: src/hugin/AutoCtrlPointCreator.cpp:455
-#: src/hugin/AutoCtrlPointCreator.cpp:461 src/hugin/NonaStitcherPanel.cpp:490
+#: src/hugin/AutoCtrlPointCreator.cpp:294
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:397
+#: src/hugin/AutoCtrlPointCreator.cpp:403 src/hugin/NonaStitcherPanel.cpp:440
 msgid "wxExecute Error"
 msgstr "wxExecute Error, externes Programm kann nicht ausgeführt werden"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:345
-#: src/hugin/AutoCtrlPointCreator.cpp:459 src/hugin/NonaStitcherPanel.cpp:493
+#: src/hugin/AutoCtrlPointCreator.cpp:297
+#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/NonaStitcherPanel.cpp:443
 msgid "command: "
 msgstr "Kommando:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:346
-#: src/hugin/AutoCtrlPointCreator.cpp:460 src/hugin/NonaStitcherPanel.cpp:494
+#: src/hugin/AutoCtrlPointCreator.cpp:298
+#: src/hugin/AutoCtrlPointCreator.cpp:402 src/hugin/NonaStitcherPanel.cpp:444
 msgid ""
 "\n"
 "failed with error code: "
@@ -246,13 +228,13 @@ msgstr ""
 "\n"
 "Fehlgeschlagen mit Fehlercode:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:353
-#: src/hugin/AutoCtrlPointCreator.cpp:468
+#: src/hugin/AutoCtrlPointCreator.cpp:305
+#: src/hugin/AutoCtrlPointCreator.cpp:410
 msgid "Could not open "
 msgstr "Konnte"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:353
-#: src/hugin/AutoCtrlPointCreator.cpp:468
+#: src/hugin/AutoCtrlPointCreator.cpp:305
+#: src/hugin/AutoCtrlPointCreator.cpp:410
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -266,16 +248,17 @@ msgstr ""
 "\n"
 "Autopano Kommando:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:354
-#: src/hugin/AutoCtrlPointCreator.cpp:471
+#: src/hugin/AutoCtrlPointCreator.cpp:306
+#: src/hugin/AutoCtrlPointCreator.cpp:413
 msgid "autopano failure"
 msgstr "Autopano-Fehler"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:388 src/hugin/PreferencesDialog.cpp:299
-msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
-msgstr "Ausführbare (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+#: src/hugin/AutoCtrlPointCreator.cpp:338
+#, fuzzy
+msgid "Select autopano program"
+msgstr "Wählen Sie den Autopano-Typ"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:469
+#: src/hugin/AutoCtrlPointCreator.cpp:411
 msgid ""
 "\n"
 " current directory:"
@@ -472,7 +455,7 @@ msgstr "Konnte die Zahl nicht lesen"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:296 src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
 msgid "Value must be numeric."
 msgstr "Wert muss numerisch sein"
 
@@ -814,15 +797,44 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Feinjustierungsergebnis"
 
+#: src/hugin/MyExternalCmdExecDialog.cpp:78
+msgid "CreateProcess Error"
+msgstr "CreateProccess() meldete einen Fehler zurück"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#, fuzzy, c-format
+msgid "Running %s"
+msgstr "Starte Enblend"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#, fuzzy
+msgid "You can watch the enblend progress in the command window"
+msgstr ""
+"Enblend wird einige Zeit für das Panorama benötigen\n"
+"Sie können den Fortschritt im Kommandofenster beobachten"
+
+# Aufruf?
+#: src/hugin/MyExternalCmdExecDialog.cpp:93
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"Enblend konnte nicht ausgeführt werden, System() Aufruf fehlgeschlagen:\n"
+"Kommando :"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:94
+msgid "Error returned was :"
+msgstr "Der zurückgegebene Fehler war:"
+
 #: src/hugin/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
 msgstr "Verstrichene Zeit:"
 
-#: src/hugin/NonaStitcherPanel.cpp:303
+#: src/hugin/NonaStitcherPanel.cpp:301
 msgid "Stitching Panorama"
 msgstr "Panorama zusammenfügen"
 
-#: src/hugin/NonaStitcherPanel.cpp:340
+#: src/hugin/NonaStitcherPanel.cpp:338
 msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
@@ -830,27 +842,27 @@ msgstr ""
 "Nicht genügend Hauptspeicher vorhanden.\n"
 "Reduzieren sie die Größe des Panoramabildes und versuchen sie es erneut.\n"
 
-#: src/hugin/NonaStitcherPanel.cpp:341 src/hugin/NonaStitcherPanel.cpp:346
+#: src/hugin/NonaStitcherPanel.cpp:339 src/hugin/NonaStitcherPanel.cpp:344
 msgid "Error during stitching"
 msgstr "Es ist ein Fehler während des Zusammenfügens aufgetreten."
 
-#: src/hugin/NonaStitcherPanel.cpp:361
+#: src/hugin/NonaStitcherPanel.cpp:359
 msgid "Select enblend.exe"
 msgstr "Wählen Sie enblend.exe"
 
-#: src/hugin/NonaStitcherPanel.cpp:369
+#: src/hugin/NonaStitcherPanel.cpp:367
 msgid "No enblend.exe selected"
 msgstr "Kein enblend.exe ausgewählt"
 
-#: src/hugin/NonaStitcherPanel.cpp:380
+#: src/hugin/NonaStitcherPanel.cpp:378
 msgid "Select enblend commandline tool"
 msgstr "Wählen sie das Kommandozeilenwerkzeug Enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:388
+#: src/hugin/NonaStitcherPanel.cpp:386
 msgid "No enblend commandline tool selected"
 msgstr "Kein Kommandozeilenwerkzeug Enblend ausgewählt"
 
-#: src/hugin/NonaStitcherPanel.cpp:429
+#: src/hugin/NonaStitcherPanel.cpp:427
 #, fuzzy
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
@@ -864,40 +876,11 @@ msgstr ""
 "Bitte wählen Sie weniger Bilder oder plazieren Sie die Bilder in einem\n"
 "Ordner mit einem kürzeren Pfadnamen"
 
-#: src/hugin/NonaStitcherPanel.cpp:437
-msgid "Running Enblend"
-msgstr "Starte Enblend"
-
-#: src/hugin/NonaStitcherPanel.cpp:437
-msgid ""
-"Enblend will take a while to finish processing the panorama\n"
-"You can watch the enblend progress in the command window"
-msgstr ""
-"Enblend wird einige Zeit für das Panorama benötigen\n"
-"Sie können den Fortschritt im Kommandofenster beobachten"
-
-# Aufruf?
-#: src/hugin/NonaStitcherPanel.cpp:441
-msgid ""
-"Could not execute enblend, system() failed: \n"
-"Command was :"
-msgstr ""
-"Enblend konnte nicht ausgeführt werden, System() Aufruf fehlgeschlagen:\n"
-"Kommando :"
-
-#: src/hugin/NonaStitcherPanel.cpp:442
-msgid "Error returned was :"
-msgstr "Der zurückgegebene Fehler war:"
-
-#: src/hugin/NonaStitcherPanel.cpp:477
-msgid "CreateProcess Error"
-msgstr "CreateProccess() meldete einen Fehler zurück"
-
-#: src/hugin/NonaStitcherPanel.cpp:495
+#: src/hugin/NonaStitcherPanel.cpp:445
 msgid "enblend error"
 msgstr "Enblend-Fehler"
 
-#: src/hugin/NonaStitcherPanel.cpp:568 src/hugin/PTStitcherPanel.cpp:307
+#: src/hugin/NonaStitcherPanel.cpp:519 src/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
 msgstr "Gamma muß eine Zahl sein"
 
@@ -1188,33 +1171,33 @@ msgstr ""
 "im Reiter 'Zusammenfügen' um die optimalen Pixelmaße des Panoramas zu "
 "berechnen."
 
-#: src/hugin/PanoPanel.cpp:302
+#: src/hugin/PanoPanel.cpp:308
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Ungültiger horizontaler Bildwinkel (HFOV). Der größtmögliche HFOV dieser "
 "Projektion beträgt: %lf"
 
-#: src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:339
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Ungültiger vertikaler Bildwinkel (VFOV). Der größtmögliche VFOV dieser "
 "Projektion beträgt: %lf"
 
-#: src/hugin/PanoPanel.cpp:379
+#: src/hugin/PanoPanel.cpp:385
 msgid "width needs to be an integer bigger than 0"
 msgstr "Die Breite muß eine Ganzzahl größer 0 sein."
 
-#: src/hugin/PanoPanel.cpp:396
+#: src/hugin/PanoPanel.cpp:402
 msgid "height needs to be an integer bigger than 0"
 msgstr "Die Höhe muß eine Ganzzahl größer 0 sein."
 
-#: src/hugin/PanoPanel.cpp:647
+#: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Erstelle das Panoramabild"
 
-#: src/hugin/PanoPanel.cpp:658
+#: src/hugin/PanoPanel.cpp:680
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1222,106 +1205,115 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:659
+#: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:122
+#: src/hugin/PreferencesDialog.cpp:123
 msgid "System default"
 msgstr "System-Voreinstellung"
 
-#: src/hugin/PreferencesDialog.cpp:125
+#: src/hugin/PreferencesDialog.cpp:126
 msgid "Catalan"
 msgstr "Katalanisch"
 
-#: src/hugin/PreferencesDialog.cpp:128
+#: src/hugin/PreferencesDialog.cpp:129
 msgid "Chinese (Simplified)"
 msgstr "Chinesisch (Vereinfacht)"
 
-#: src/hugin/PreferencesDialog.cpp:131
+#: src/hugin/PreferencesDialog.cpp:132
 msgid "Czech"
 msgstr "Tschechisch"
 
-#: src/hugin/PreferencesDialog.cpp:134
+#: src/hugin/PreferencesDialog.cpp:135
 msgid "Dutch"
 msgstr "Niederländisch"
 
-#: src/hugin/PreferencesDialog.cpp:137
+#: src/hugin/PreferencesDialog.cpp:138
 msgid "English"
 msgstr "Englisch"
 
-#: src/hugin/PreferencesDialog.cpp:140
+#: src/hugin/PreferencesDialog.cpp:141
 msgid "French"
 msgstr "Französisch"
 
-#: src/hugin/PreferencesDialog.cpp:143
+#: src/hugin/PreferencesDialog.cpp:144
 msgid "German"
 msgstr "Deutsch"
 
-#: src/hugin/PreferencesDialog.cpp:146
+#: src/hugin/PreferencesDialog.cpp:147
 msgid "Hungarian"
 msgstr "Ungarisch"
 
-#: src/hugin/PreferencesDialog.cpp:149
+#: src/hugin/PreferencesDialog.cpp:150
 msgid "Italian"
 msgstr "Italienisch"
 
-#: src/hugin/PreferencesDialog.cpp:152
+#: src/hugin/PreferencesDialog.cpp:153
 msgid "Japanese"
 msgstr "Japanisch"
 
-#: src/hugin/PreferencesDialog.cpp:155
+#: src/hugin/PreferencesDialog.cpp:156
 msgid "Polish"
 msgstr "Polnisch"
 
-#: src/hugin/PreferencesDialog.cpp:158
+#: src/hugin/PreferencesDialog.cpp:159
 msgid "Portuguese (Brazilian)"
 msgstr "Portugiesisch (Brasilien)"
 
-#: src/hugin/PreferencesDialog.cpp:161
+#: src/hugin/PreferencesDialog.cpp:162
 msgid "Russian"
 msgstr "Russisch"
 
-#: src/hugin/PreferencesDialog.cpp:164
+#: src/hugin/PreferencesDialog.cpp:165
 msgid "Slovak"
 msgstr "Slovakisch"
 
-#: src/hugin/PreferencesDialog.cpp:167
+#: src/hugin/PreferencesDialog.cpp:168
 msgid "Swedish"
 msgstr "Schwedisch"
 
-#: src/hugin/PreferencesDialog.cpp:170
+#: src/hugin/PreferencesDialog.cpp:171
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
-#: src/hugin/PreferencesDialog.cpp:246
+#: src/hugin/PreferencesDialog.cpp:247
 msgid "Select PTStitcher"
 msgstr "PTStitcher.exe auswählen"
 
-#: src/hugin/PreferencesDialog.cpp:264
+#: src/hugin/PreferencesDialog.cpp:266
+#, fuzzy
+msgid "Select image editor"
+msgstr "Nächstes Bildpaar"
+
+#: src/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
 msgstr "enblend.exe auswählen"
 
-#: src/hugin/PreferencesDialog.cpp:280 src/hugin/PreferencesDialog.cpp:296
-#: src/hugin/xrc/pref_dialog.xrs:65
+#: src/hugin/PreferencesDialog.cpp:299 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Autopano wählen"
 
-#: src/hugin/PreferencesDialog.cpp:338
+#: src/hugin/PreferencesDialog.cpp:318
+msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Ausführbare (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+
+#: src/hugin/PreferencesDialog.cpp:357
 msgid "Panotools details"
 msgstr "Panotools Version"
 
-#: src/hugin/PreferencesDialog.cpp:712
+#: src/hugin/PreferencesDialog.cpp:739
 msgid "Unknown Version"
 msgstr "Unbekannte Version"
 
-#: src/hugin/PreferencesDialog.cpp:722
+#: src/hugin/PreferencesDialog.cpp:749
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Möchten Sie die angezeigten Einstellungen wirklich\n"
 "auf die Voreinstellungen zurücksetzen?"
 
-#: src/hugin/PreferencesDialog.cpp:722 src/hugin/xrc/pref_dialog.xrs:89
+#: src/hugin/PreferencesDialog.cpp:749 src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "Voreinstellungen laden"
 
@@ -1391,15 +1383,15 @@ msgstr "Rectilinear"
 msgid "Cylindrical"
 msgstr "Zylindrisch"
 
-#: src/hugin/PreviewFrame.cpp:531
+#: src/hugin/PreviewFrame.cpp:536
 msgid "Yaw value must be numeric."
 msgstr "Wert muß numerisch sein"
 
-#: src/hugin/PreviewFrame.cpp:537
+#: src/hugin/PreviewFrame.cpp:542
 msgid "Pitch value must be numeric."
 msgstr "Wert muß numerisch sein"
 
-#: src/hugin/PreviewFrame.cpp:543
+#: src/hugin/PreviewFrame.cpp:548
 msgid "Roll value must be numeric."
 msgstr "Wert muß numerisch sein"
 
@@ -1407,46 +1399,46 @@ msgstr "Wert muß numerisch sein"
 msgid "Error during Stitching"
 msgstr "Es ist ein Fehler während des Zusammenfügens aufgetreten."
 
-#: src/hugin/PTStitcherPanel.cpp:276
+#: src/hugin/PTStitcherPanel.cpp:279
 msgid "Bicubic"
 msgstr "Bikubisch"
 
-#: src/hugin/PTStitcherPanel.cpp:277 src/hugin/xrc/nona_panel.xrs:4
+#: src/hugin/PTStitcherPanel.cpp:280 src/hugin/xrc/nona_panel.xrs:4
 #: src/hugin/xrc/ptstitcher_panel.xrs:4
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: src/hugin/PTStitcherPanel.cpp:278 src/hugin/xrc/nona_panel.xrs:5
+#: src/hugin/PTStitcherPanel.cpp:281 src/hugin/xrc/nona_panel.xrs:5
 #: src/hugin/xrc/ptstitcher_panel.xrs:5
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: src/hugin/PTStitcherPanel.cpp:279 src/hugin/xrc/nona_panel.xrs:6
+#: src/hugin/PTStitcherPanel.cpp:282 src/hugin/xrc/nona_panel.xrs:6
 #: src/hugin/xrc/ptstitcher_panel.xrs:6
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: src/hugin/PTStitcherPanel.cpp:280 src/hugin/xrc/nona_panel.xrs:7
+#: src/hugin/PTStitcherPanel.cpp:283 src/hugin/xrc/nona_panel.xrs:7
 #: src/hugin/xrc/ptstitcher_panel.xrs:7
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: src/hugin/PTStitcherPanel.cpp:281 src/hugin/xrc/nona_panel.xrs:8
+#: src/hugin/PTStitcherPanel.cpp:284 src/hugin/xrc/nona_panel.xrs:8
 #: src/hugin/xrc/ptstitcher_panel.xrs:8
 msgid "Bilinear"
 msgstr "Bilinear"
 
-#: src/hugin/PTStitcherPanel.cpp:282 src/hugin/xrc/nona_panel.xrs:9
+#: src/hugin/PTStitcherPanel.cpp:285 src/hugin/xrc/nona_panel.xrs:9
 #: src/hugin/xrc/ptstitcher_panel.xrs:9
 msgid "Nearest neighbour"
 msgstr "Nächster Nachbar"
 
-#: src/hugin/PTStitcherPanel.cpp:283 src/hugin/xrc/nona_panel.xrs:10
+#: src/hugin/PTStitcherPanel.cpp:286 src/hugin/xrc/nona_panel.xrs:10
 #: src/hugin/xrc/ptstitcher_panel.xrs:10
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: src/hugin/PTStitcherPanel.cpp:447
+#: src/hugin/PTStitcherPanel.cpp:450
 msgid ""
 "PTStitcher does not support output filenames that include a dot character "
 "(.).\n"
@@ -1461,44 +1453,58 @@ msgstr ""
 "\n"
 "Möchten Sie trotzdem fortfahren?"
 
-#: src/hugin/PTStitcherPanel.cpp:448
+#: src/hugin/PTStitcherPanel.cpp:451
 msgid "PTStitcher problem"
 msgstr "PTStitcher Fehler"
 
-#: src/hugin/PTStitcherPanel.cpp:457
+#: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
 msgstr ""
 "PTStitcher.exe unterstützt die QTVR-Ausgabe unter Windows und Linux nicht"
 
-#: src/hugin/PTStitcherPanel.cpp:457
+#: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher note"
 msgstr "PTStitcher Anmerkung"
 
-#: src/hugin/RunStitcherFrame.cpp:88
+#: src/hugin/PTStitcherPanel.cpp:481
 msgid "Select PTStitcher.exe"
 msgstr "PTStitcher.exe auswählen"
 
-#: src/hugin/RunStitcherFrame.cpp:96
+#: src/hugin/PTStitcherPanel.cpp:489
 msgid "No PTStitcher.exe selected"
 msgstr "Keine PTStitcher.exe auswählt"
 
-#: src/hugin/RunStitcherFrame.cpp:106
+#: src/hugin/PTStitcherPanel.cpp:498
 msgid "Select PTStitcher commandline tool"
 msgstr "Wählen sie das PTStitcher-Kommandozeilenwerkzeug"
 
-#: src/hugin/RunStitcherFrame.cpp:114
+#: src/hugin/PTStitcherPanel.cpp:506
 msgid "No PTStitcher commandline tool selected"
 msgstr "Kein PTStitcher-Kommandozeilenwerkzeug ausgewählt"
 
-#: src/hugin/RunStitcherFrame.cpp:164
+#: src/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+
+#: src/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr ""
+
+#: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
 msgstr "Konnte PTStitcher nicht starten"
 
-#: src/hugin/RunStitcherFrame.cpp:178
+#: src/hugin/RunStitcherFrame.cpp:141
 msgid "Could not obtain PTStitcher output"
 msgstr "Konnte PTStitcher-Ausgabe nicht erhalten"
 
-#: src/hugin/RunStitcherFrame.cpp:307
+#: src/hugin/RunStitcherFrame.cpp:270
 msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
@@ -1506,7 +1512,7 @@ msgstr ""
 "Zusammenfügen fehlgeschlagen\n"
 "PTStitcher wurde mit einen Fehlercode ungleich Null beendet"
 
-#: src/hugin/RunStitcherFrame.cpp:308
+#: src/hugin/RunStitcherFrame.cpp:271
 #, c-format
 msgid "Error executing %s"
 msgstr "Fehler während der Ausführung von %s"
@@ -1775,8 +1781,8 @@ msgstr "Der horizontale Bildwinkel (HFOV) könnte zu klein sein."
 msgid "HFOV (v):"
 msgstr "HFOV"
 
-#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:34
-#: src/hugin/xrc/pref_dialog.xrs:36
+#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:42
 msgid "degrees"
 msgstr "Grad"
 
@@ -1784,7 +1790,7 @@ msgstr "Grad"
 msgid "About Hugin"
 msgstr "Über Hugin"
 
-#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:92
+#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:98
 msgid "OK"
 msgstr "OK"
 
@@ -1994,7 +2000,7 @@ msgstr "Textmodus"
 msgid "Optimize"
 msgstr "Optimieren"
 
-#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:91
+#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:97
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -2592,7 +2598,7 @@ msgstr "Optimieren"
 msgid "Preview panorama"
 msgstr "Panorama Vorschau"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:68
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "Vorschau"
@@ -2949,8 +2955,9 @@ msgstr "Alternative zu PTStitcher verwenden"
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:71
-#: src/hugin/xrc/pref_dialog.xrs:76 src/hugin/xrc/pref_dialog.xrs:83
+#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:77 src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/xrc/pref_dialog.xrs:89
 msgid "Choose..."
 msgstr "Auswählen ..."
 
@@ -3007,38 +3014,64 @@ msgid "percent of max. width"
 msgstr "Prozent der Bildbreite"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
+#, fuzzy
+msgid "Create"
+msgstr "Zentrieren"
+
+#: src/hugin/xrc/pref_dialog.xrs:20
+msgid "Open final panorama in external editor"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:21
+#, fuzzy
+msgid "Editor:"
+msgstr "&Bearbeiten"
+
+#: src/hugin/xrc/pref_dialog.xrs:23 src/hugin/xrc/pref_dialog.xrs:78
+#: src/hugin/xrc/pref_dialog.xrs:83
+msgid "Arguments:"
+msgstr "Argumente:"
+
+#: src/hugin/xrc/pref_dialog.xrs:24
+#, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Finetune"
 msgstr "Kontrollpunkte feinjustieren"
 
-#: src/hugin/xrc/pref_dialog.xrs:20
+#: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Basic Settings"
 msgstr "Grundeinstellungen"
 
-#: src/hugin/xrc/pref_dialog.xrs:21
+#: src/hugin/xrc/pref_dialog.xrs:27
 msgid "Patch width:"
 msgstr "Musterbreite:"
 
-#: src/hugin/xrc/pref_dialog.xrs:22 src/hugin/xrc/pref_dialog.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:28 src/hugin/xrc/pref_dialog.xrs:32
 msgid "pixels"
 msgstr "Pixel"
 
-#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Search area width:"
 msgstr "Suchgebietsbreite:"
 
-#: src/hugin/xrc/pref_dialog.xrs:24
+#: src/hugin/xrc/pref_dialog.xrs:30
 msgid "percent of image width"
 msgstr "Prozent der Bildbreite"
 
-#: src/hugin/xrc/pref_dialog.xrs:25
+#: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Local search area width:"
 msgstr "Lokale Suchgebietsbreite:"
 
-#: src/hugin/xrc/pref_dialog.xrs:27
+#: src/hugin/xrc/pref_dialog.xrs:33
 msgid "Correlation Threshold:"
 msgstr "Korrelationsschwellwert"
 
-#: src/hugin/xrc/pref_dialog.xrs:28
+#: src/hugin/xrc/pref_dialog.xrs:34
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -3046,11 +3079,11 @@ msgstr ""
 "0: keine Ähnlichkeit\n"
 "1: maximale Ähnlichkeit"
 
-#: src/hugin/xrc/pref_dialog.xrs:29
+#: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Peak Curvature Threshold:"
 msgstr "Krümmungschwellwert"
 
-#: src/hugin/xrc/pref_dialog.xrs:30
+#: src/hugin/xrc/pref_dialog.xrs:36
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -3058,51 +3091,51 @@ msgstr ""
 "0: Kein Maximum\n"
 "0.2: ausgeprägtes Maximum"
 
-#: src/hugin/xrc/pref_dialog.xrs:31
+#: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Rotation search"
 msgstr "Rotationssuche"
 
-#: src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:38
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "Rotationssuche aktivieren (langsam, aber genauer)"
 
-#: src/hugin/xrc/pref_dialog.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:39
 msgid "Start angle:"
 msgstr "Startwinkel:"
 
-#: src/hugin/xrc/pref_dialog.xrs:35
+#: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Stop angle:"
 msgstr "Endwinkel:"
 
-#: src/hugin/xrc/pref_dialog.xrs:37
+#: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Steps:"
 msgstr "Schritte:"
 
-#: src/hugin/xrc/pref_dialog.xrs:38
+#: src/hugin/xrc/pref_dialog.xrs:44
 msgid "Misc"
 msgstr "Verschiedenes"
 
-#: src/hugin/xrc/pref_dialog.xrs:39
+#: src/hugin/xrc/pref_dialog.xrs:45
 msgid "Resource Usage"
 msgstr "Ressourcen"
 
-#: src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:46
 msgid "Image cache memory:"
 msgstr "Zwischenspeicher für Bilder"
 
-#: src/hugin/xrc/pref_dialog.xrs:41
+#: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "Ganze Bilder im Speicher behalten, bis dieses Limit überschritten ist"
 
-#: src/hugin/xrc/pref_dialog.xrs:42
+#: src/hugin/xrc/pref_dialog.xrs:48
 msgid "MB"
 msgstr "MB"
 
-#: src/hugin/xrc/pref_dialog.xrs:43
+#: src/hugin/xrc/pref_dialog.xrs:49
 msgid "Number of CPUs:"
 msgstr "Anzahl der Prozessoren"
 
-#: src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/pref_dialog.xrs:50
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -3112,41 +3145,41 @@ msgstr ""
 "Diese Zahl sollte gleich der Anzahl von Prozessoren oder Prozessorkernen "
 "angeben"
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:51
 msgid "User Interface"
 msgstr "Benutzeroberfläche"
 
-#: src/hugin/xrc/pref_dialog.xrs:46
+#: src/hugin/xrc/pref_dialog.xrs:52
 msgid "Language"
 msgstr "Sprache"
 
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/xrc/pref_dialog.xrs:53
 msgid "requires restarting hugin"
 msgstr ""
 "Neustart von hugin\n"
 "erforderlich"
 
-#: src/hugin/xrc/pref_dialog.xrs:48
+#: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Optimize and stitch only images selected in preview window"
 msgstr "Nur in der Vorschau gewählte Bilder optimieren und stitchen."
 
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:55
 msgid "HDR and 16 Bit display mode"
 msgstr "Darstellung von 16 Bit und Hochdynamischen (HDR) Bildern"
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Range"
 msgstr "Bereich"
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:57
 msgid "fixed"
 msgstr "fixed"
 
-#: src/hugin/xrc/pref_dialog.xrs:52
+#: src/hugin/xrc/pref_dialog.xrs:58
 msgid "auto"
 msgstr "auto"
 
-#: src/hugin/xrc/pref_dialog.xrs:53
+#: src/hugin/xrc/pref_dialog.xrs:59
 msgid ""
 "use fixed for 16 bit\n"
 "and auto for HDR"
@@ -3154,82 +3187,78 @@ msgstr ""
 "fixed für 16 Bit Bilder\n"
 "auto für HDR Bilder"
 
-#: src/hugin/xrc/pref_dialog.xrs:54
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Mapping"
 msgstr "Tonwertkurve"
 
-#: src/hugin/xrc/pref_dialog.xrs:55
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "linear"
 msgstr "linear"
 
-#: src/hugin/xrc/pref_dialog.xrs:56
+#: src/hugin/xrc/pref_dialog.xrs:62
 msgid "logarithmic"
 msgstr "logarithmisch"
 
-#: src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:63
 msgid "gamma 2.2"
 msgstr "gamma 2.2"
 
-#: src/hugin/xrc/pref_dialog.xrs:58
+#: src/hugin/xrc/pref_dialog.xrs:64
 msgid "used for display in GUI"
 msgstr "zur Anzeige der Bilder"
 
-#: src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/xrc/pref_dialog.xrs:65
 msgid "File options"
 msgstr "Dateioptionen"
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Tempdir:"
 msgstr "Tempverzeichnis:"
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:67
 msgid "leave empty for OS default"
 msgstr "Für OS-Voreinstellung leer lassen"
 
-#: src/hugin/xrc/pref_dialog.xrs:63
+#: src/hugin/xrc/pref_dialog.xrs:69
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Druide zeigen (Neustart erforderlich)"
 
-#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/xrc/pref_dialog.xrs:70 src/hugin/xrc/pref_dialog.xrs:79
 msgid "Autopano"
 msgstr "Autopano"
 
-#: src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/pref_dialog.xrs:72
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (von A. Jenny)"
 
-#: src/hugin/xrc/pref_dialog.xrs:67
+#: src/hugin/xrc/pref_dialog.xrs:73
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (von S. Nowozin)"
 
-#: src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: src/hugin/xrc/pref_dialog.xrs:69
+#: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Alternatives Autopano-SIFT Programm verwenden"
 
-#: src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:76
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT:"
 
-#: src/hugin/xrc/pref_dialog.xrs:72 src/hugin/xrc/pref_dialog.xrs:77
-msgid "Arguments:"
-msgstr "Argumente:"
-
-#: src/hugin/xrc/pref_dialog.xrs:74
+#: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use alternative Autopano program"
 msgstr "Alternatives Autopano Programm verwenden"
 
-#: src/hugin/xrc/pref_dialog.xrs:75
+#: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Autopano:"
 msgstr "Autopano:"
 
-#: src/hugin/xrc/pref_dialog.xrs:78
-#, c-format
+#: src/hugin/xrc/pref_dialog.xrs:84
+#, fuzzy, c-format
 msgid ""
-"following patterns will be subsituted before running:\n"
+"following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
 "%p  -- number of control points between each pair\n"
 "%i  -- image files\n"
@@ -3241,46 +3270,46 @@ msgstr ""
 "%i  -- Bilddateien\n"
 "%namefile -- Datei, die die Bilddateinamen enthält"
 
-#: src/hugin/xrc/pref_dialog.xrs:79
+#: src/hugin/xrc/pref_dialog.xrs:85
 msgid "Enblend"
 msgstr "Enblend"
 
-#: src/hugin/xrc/pref_dialog.xrs:80
+#: src/hugin/xrc/pref_dialog.xrs:86
 msgid "Enblend Options"
 msgstr "Enblend Optionen"
 
-#: src/hugin/xrc/pref_dialog.xrs:81
+#: src/hugin/xrc/pref_dialog.xrs:87
 msgid "Use alternative Enblend program"
 msgstr "Alternatives enblend Programm verwenden"
 
-#: src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/xrc/pref_dialog.xrs:88
 msgid "Enblend:"
 msgstr "Enblend:"
 
-#: src/hugin/xrc/pref_dialog.xrs:84
+#: src/hugin/xrc/pref_dialog.xrs:90
 msgid "Additional Arguments:"
 msgstr "Zusätzliche Argumente:"
 
-#: src/hugin/xrc/pref_dialog.xrs:85
+#: src/hugin/xrc/pref_dialog.xrs:91
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr "Die Argumente -w und -o werden automatisch von Hugin hinzugefügt."
 
-#: src/hugin/xrc/pref_dialog.xrs:86
+#: src/hugin/xrc/pref_dialog.xrs:92
 msgid "Delete remapped tiff files"
 msgstr "Umgerechnete TIFF-Bilder löschen."
 
-#: src/hugin/xrc/pref_dialog.xrs:87
+#: src/hugin/xrc/pref_dialog.xrs:93
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 msgstr ""
 "Benutze zugeschnittene TIFF Dateien (enblend 2.4 oder höher erforderlich)"
 
-#: src/hugin/xrc/pref_dialog.xrs:88
+#: src/hugin/xrc/pref_dialog.xrs:94
 msgid "Save cropped images, requires less disk space and memory."
 msgstr ""
 "Zugeschnittene Bilder benötigen weniger Platz auf der Festplatte und im "
 "Speicher"
 
-#: src/hugin/xrc/pref_dialog.xrs:90 src/hugin/xrc/run_optimizer_frame.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:96 src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "Anwenden"
 
@@ -3799,6 +3828,19 @@ msgstr ""
 "Die Optimierung von allen Verzeichungsparametern ist nur sinnvoll wenn "
 "Bilder mit grosser Überlappung sowie mit vielen, gleichmässig verteilten "
 "Kontrollpunkten verwendet werden."
+
+#~ msgid "Running autopano"
+#~ msgstr "Starte Autopano"
+
+#~ msgid ""
+#~ "Please wait while autopano searches control points\n"
+#~ "See the command window for autopanos' progress"
+#~ msgstr ""
+#~ "Bitte warten Sie, während Autopano die Kontrollpunkte sucht\n"
+#~ "Der Fortschritt kann im Kommando-Fenster beobachtet werden."
+
+#~ msgid "ShellExecuteEx failed"
+#~ msgstr "ShellExecuteEx fehlgeschlagen"
 
 #~ msgid ""
 #~ "Enter Crop Factor for image\n"

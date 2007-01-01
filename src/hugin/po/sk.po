@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2006-12-31 16:46+0100\n"
+"POT-Creation-Date: 2007-01-01 21:48+0100\n"
 "PO-Revision-Date: 2007-01-01 10:29+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -42,7 +42,9 @@ msgstr "bolo nájdených %d neprepojených skupín obrázkov: "
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
-msgstr "Prosím použite panel Kontrolné body na prepojenie obrázkov kontrolnými bodmi.\n"
+msgstr ""
+"Prosím použite panel Kontrolné body na prepojenie obrázkov kontrolnými "
+"bodmi.\n"
 
 #: src/hugin/AssistantPanel.cpp:302
 msgid "Images or control points have changed, new alignment is needed."
@@ -60,18 +62,23 @@ msgstr "Dobré lícovanie."
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
-msgstr "Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu nachádzať chyby paralaxy a posunu"
+msgstr ""
+"Zlé lícovanie, niektoré kontrolné body môžu byť zlé alebo sa môžu nachádzať "
+"chyby paralaxy a posunu"
 
 #: src/hugin/AssistantPanel.cpp:319
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
 "required."
-msgstr "Veľmi zlé lícovanie. Hľadajte zlé kontrolné body, skontrolujte parametre šošovky alebo obrázky s paralaxou alebo pohybom. Optimalizátor mohol zlyhať. Je potrebný ručný zásah."
+msgstr ""
+"Veľmi zlé lícovanie. Hľadajte zlé kontrolné body, skontrolujte parametre "
+"šošovky alebo obrázky s paralaxou alebo pohybom. Optimalizátor mohol zlyhať. "
+"Je potrebný ručný zásah."
 
 #: src/hugin/AssistantPanel.cpp:321
-#, c-format
-msgid "Mean error after optimization: %.1f pixel\n"
+#, fuzzy, c-format
+msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Priemerná chyba po optimalizácii: %.1f pixel\n"
 
 #: src/hugin/AssistantPanel.cpp:358
@@ -94,82 +101,85 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-"Vytvorte prosím kontrolné body medzi neprepojenými obrázkami použitím panelu Kontrolné body.\n"
+"Vytvorte prosím kontrolné body medzi neprepojenými obrázkami použitím panelu "
+"Kontrolné body.\n"
 "\n"
 "Po pridaní bodov, opäť stlačte tlačidlo \"Zarovnať\""
 
-#: src/hugin/AutoCtrlPointCreator.cpp:106
+#: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 msgstr "Autopano (verzie 1.03 alebo vyššej), z http://autopano.kolor.com"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:107
+#: src/hugin/AutoCtrlPointCreator.cpp:104
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr "Autopano-Sift, z http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:109
+#: src/hugin/AutoCtrlPointCreator.cpp:106
 msgid "Choose which autopano program should be used\n"
 msgstr "Vyberte, ktorý autopano program má byť použitý\n"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:109
+#: src/hugin/AutoCtrlPointCreator.cpp:106
 msgid "Select autopano type"
 msgstr "Vyberte typ autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:122
+#: src/hugin/AutoCtrlPointCreator.cpp:119
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
 msgstr "Autopano z http://autopano.kolor.com nie je podporovaný OSX"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:123
+#: src/hugin/AutoCtrlPointCreator.cpp:120
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Želáte si miesto neho používať Autopano-Sift?"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:160
-#: src/hugin/AutoCtrlPointCreator.cpp:386
+#: src/hugin/AutoCtrlPointCreator.cpp:157
 msgid "Select autopano program / frontend script"
 msgstr "Vyberte program autopano / rozhranie skriptu"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:162 src/hugin/PreferencesDialog.cpp:250
-#: src/hugin/PreferencesDialog.cpp:267 src/hugin/PreferencesDialog.cpp:283
-#: src/hugin/RunStitcherFrame.cpp:90
+#: src/hugin/AutoCtrlPointCreator.cpp:159
+#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
+#: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "Spustiteľné (*.exe)|*.exe"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:168
-#: src/hugin/AutoCtrlPointCreator.cpp:204
-#: src/hugin/AutoCtrlPointCreator.cpp:394
+#: src/hugin/AutoCtrlPointCreator.cpp:165
+#: src/hugin/AutoCtrlPointCreator.cpp:201
+#: src/hugin/AutoCtrlPointCreator.cpp:346
 msgid "No autopano selected"
 msgstr "Nebolo zvolené autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:191
+#: src/hugin/AutoCtrlPointCreator.cpp:188
 msgid "Autopano-SIFT is not installed."
 msgstr "Autopano-SIFT nie je nainštalované."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:196
+#: src/hugin/AutoCtrlPointCreator.cpp:193
 msgid "Select autopano frontend script"
 msgstr "Vyberte rozhranie skriptu autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:198
+#: src/hugin/AutoCtrlPointCreator.cpp:195
 msgid "Shell Scripts (*.sh)|*.sh"
 msgstr "Shellové skripty (*.sh)|*.sh"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:242
+#: src/hugin/AutoCtrlPointCreator.cpp:239
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
-msgstr "Používajte prosím buď %namefile alebo %i v príkazovom riadku autopano-sift."
+msgstr ""
+"Používajte prosím buď %namefile alebo %i v príkazovom riadku autopano-sift."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:243
-#: src/hugin/AutoCtrlPointCreator.cpp:248
+#: src/hugin/AutoCtrlPointCreator.cpp:240
+#: src/hugin/AutoCtrlPointCreator.cpp:245
 msgid "Error in Autopano command"
 msgstr "Chyba v príkaze Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:247
+#: src/hugin/AutoCtrlPointCreator.cpp:244
 #, c-format
-msgid "Please use  %namefile or %i to specify the input files for autopano-sift"
+msgid ""
+"Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
 "Používajte prosím %namefile alebo %i pre určenie vstupných súborov pre "
 "autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:282
-#: src/hugin/AutoCtrlPointCreator.cpp:432
+#: src/hugin/AutoCtrlPointCreator.cpp:279
+#: src/hugin/AutoCtrlPointCreator.cpp:384
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -181,50 +191,32 @@ msgstr ""
 "Vyberte prosím menej obrázkov alebo vložte obrázky do priečinka\n"
 "s kratším názvom cesty"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:283
-#: src/hugin/AutoCtrlPointCreator.cpp:433 src/hugin/NonaStitcherPanel.cpp:430
+#: src/hugin/AutoCtrlPointCreator.cpp:280
+#: src/hugin/AutoCtrlPointCreator.cpp:385 src/hugin/NonaStitcherPanel.cpp:428
 msgid "Too many images selected"
 msgstr "Vybraných príliš mnoho obrázkov"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:292
-#: src/hugin/AutoCtrlPointCreator.cpp:440
-msgid "Running autopano"
-msgstr "Spúšťam autopano"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:292
-#: src/hugin/AutoCtrlPointCreator.cpp:440
-msgid ""
-"Please wait while autopano searches control points\n"
-"See the command window for autopanos' progress"
-msgstr ""
-"Počkajte prosím, kým autopano vyhľadá kontrolné body\n"
-"Môžete sledovať priebeh autopana v okne s príkazmi"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:326
-#: src/hugin/AutoCtrlPointCreator.cpp:342
-#: src/hugin/AutoCtrlPointCreator.cpp:455 src/hugin/NonaStitcherPanel.cpp:477
-#: src/hugin/NonaStitcherPanel.cpp:490
+#: src/hugin/AutoCtrlPointCreator.cpp:294
+#: src/hugin/AutoCtrlPointCreator.cpp:397
+#: src/hugin/MyExternalCmdExecDialog.cpp:78
+#: src/hugin/NonaStitcherPanel.cpp:440
 msgid "Could not execute command: "
 msgstr "Nebolo možné spustiť príkaz: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:326
-msgid "ShellExecuteEx failed"
-msgstr "ShellExecuteEx zlyhalo"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:342
-#: src/hugin/AutoCtrlPointCreator.cpp:347
-#: src/hugin/AutoCtrlPointCreator.cpp:455
-#: src/hugin/AutoCtrlPointCreator.cpp:461 src/hugin/NonaStitcherPanel.cpp:490
+#: src/hugin/AutoCtrlPointCreator.cpp:294
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:397
+#: src/hugin/AutoCtrlPointCreator.cpp:403 src/hugin/NonaStitcherPanel.cpp:440
 msgid "wxExecute Error"
 msgstr "chyba v wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:345
-#: src/hugin/AutoCtrlPointCreator.cpp:459 src/hugin/NonaStitcherPanel.cpp:493
+#: src/hugin/AutoCtrlPointCreator.cpp:297
+#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/NonaStitcherPanel.cpp:443
 msgid "command: "
 msgstr "príkaz: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:346
-#: src/hugin/AutoCtrlPointCreator.cpp:460 src/hugin/NonaStitcherPanel.cpp:494
+#: src/hugin/AutoCtrlPointCreator.cpp:298
+#: src/hugin/AutoCtrlPointCreator.cpp:402 src/hugin/NonaStitcherPanel.cpp:444
 msgid ""
 "\n"
 "failed with error code: "
@@ -232,13 +224,13 @@ msgstr ""
 "\n"
 "skončil s chybovým kódom: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:353
-#: src/hugin/AutoCtrlPointCreator.cpp:468
+#: src/hugin/AutoCtrlPointCreator.cpp:305
+#: src/hugin/AutoCtrlPointCreator.cpp:410
 msgid "Could not open "
 msgstr "Nepodarilo sa otvoriť "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:353
-#: src/hugin/AutoCtrlPointCreator.cpp:468
+#: src/hugin/AutoCtrlPointCreator.cpp:305
+#: src/hugin/AutoCtrlPointCreator.cpp:410
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -252,16 +244,17 @@ msgstr ""
 "\n"
 "Príkaz autopana:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:354
-#: src/hugin/AutoCtrlPointCreator.cpp:471
+#: src/hugin/AutoCtrlPointCreator.cpp:306
+#: src/hugin/AutoCtrlPointCreator.cpp:413
 msgid "autopano failure"
 msgstr "zlyhanie autopana"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:388 src/hugin/PreferencesDialog.cpp:299
-msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
-msgstr "Spustiteľné (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+#: src/hugin/AutoCtrlPointCreator.cpp:338
+#, fuzzy
+msgid "Select autopano program"
+msgstr "Vyberte typ autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:469
+#: src/hugin/AutoCtrlPointCreator.cpp:411
 msgid ""
 "\n"
 " current directory:"
@@ -457,7 +450,7 @@ msgstr "Nepodarilo sa prečítať číslo"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:296 src/hugin/PanoPanel.cpp:327
+#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
 msgid "Value must be numeric."
 msgstr "Hodnota musí byť číselná."
 
@@ -796,15 +789,43 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Doladený výsledok"
 
+#: src/hugin/MyExternalCmdExecDialog.cpp:78
+msgid "CreateProcess Error"
+msgstr "Chyba vo funkcii CreateProcess"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#, fuzzy, c-format
+msgid "Running %s"
+msgstr "Spúšťam Enblend"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#, fuzzy
+msgid "You can watch the enblend progress in the command window"
+msgstr ""
+"Enblendu bude chvíľku trvať dokončenie panorámy\n"
+"Môžete pozorovať proces enblendu v príkazovom okne"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:93
+msgid ""
+"Could not execute enblend, system() failed: \n"
+"Command was :"
+msgstr ""
+"Nie je možné spustiť enblend, volanie system() zlyhalo:\n"
+"Príkaz bol:"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:94
+msgid "Error returned was :"
+msgstr "Vrátená chyba:"
+
 #: src/hugin/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
 msgstr "Výsledný čas: "
 
-#: src/hugin/NonaStitcherPanel.cpp:303
+#: src/hugin/NonaStitcherPanel.cpp:301
 msgid "Stitching Panorama"
 msgstr "Zlepujem panorámu"
 
-#: src/hugin/NonaStitcherPanel.cpp:340
+#: src/hugin/NonaStitcherPanel.cpp:338
 msgid ""
 "Out of memory.\n"
 "Try again with a smaller panorama image size\n"
@@ -812,27 +833,27 @@ msgstr ""
 "Nedostatek pamäte.\n"
 "Opakujte akciu s menšou veľkosťou obrázku\n"
 
-#: src/hugin/NonaStitcherPanel.cpp:341 src/hugin/NonaStitcherPanel.cpp:346
+#: src/hugin/NonaStitcherPanel.cpp:339 src/hugin/NonaStitcherPanel.cpp:344
 msgid "Error during stitching"
 msgstr "Chyba počas zlepovania"
 
-#: src/hugin/NonaStitcherPanel.cpp:361
+#: src/hugin/NonaStitcherPanel.cpp:359
 msgid "Select enblend.exe"
 msgstr "Vybrať enblend.exe"
 
-#: src/hugin/NonaStitcherPanel.cpp:369
+#: src/hugin/NonaStitcherPanel.cpp:367
 msgid "No enblend.exe selected"
 msgstr "enblend.exe nie je vybraný"
 
-#: src/hugin/NonaStitcherPanel.cpp:380
+#: src/hugin/NonaStitcherPanel.cpp:378
 msgid "Select enblend commandline tool"
 msgstr "Vybrať príkazový riadok nástroja enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:388
+#: src/hugin/NonaStitcherPanel.cpp:386
 msgid "No enblend commandline tool selected"
 msgstr "Nebol vybraný príkazový riadok nástroja enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:429
+#: src/hugin/NonaStitcherPanel.cpp:427
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
 "This is a Windows limitation\n"
@@ -844,39 +865,11 @@ msgstr ""
 "Použite prosím menej obrázkov alebo vložte obrázky do priečinka\n"
 "s kratšími názvami"
 
-#: src/hugin/NonaStitcherPanel.cpp:437
-msgid "Running Enblend"
-msgstr "Spúšťam Enblend"
-
-#: src/hugin/NonaStitcherPanel.cpp:437
-msgid ""
-"Enblend will take a while to finish processing the panorama\n"
-"You can watch the enblend progress in the command window"
-msgstr ""
-"Enblendu bude chvíľku trvať dokončenie panorámy\n"
-"Môžete pozorovať proces enblendu v príkazovom okne"
-
-#: src/hugin/NonaStitcherPanel.cpp:441
-msgid ""
-"Could not execute enblend, system() failed: \n"
-"Command was :"
-msgstr ""
-"Nie je možné spustiť enblend, volanie system() zlyhalo:\n"
-"Príkaz bol:"
-
-#: src/hugin/NonaStitcherPanel.cpp:442
-msgid "Error returned was :"
-msgstr "Vrátená chyba:"
-
-#: src/hugin/NonaStitcherPanel.cpp:477
-msgid "CreateProcess Error"
-msgstr "Chyba vo funkcii CreateProcess"
-
-#: src/hugin/NonaStitcherPanel.cpp:495
+#: src/hugin/NonaStitcherPanel.cpp:445
 msgid "enblend error"
 msgstr "enblend chyba"
 
-#: src/hugin/NonaStitcherPanel.cpp:568 src/hugin/PTStitcherPanel.cpp:307
+#: src/hugin/NonaStitcherPanel.cpp:519 src/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
 msgstr "gama musí být číslo"
 
@@ -1165,29 +1158,29 @@ msgstr ""
 "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
 "veľkosť na paneli Nastavenie panorámy."
 
-#: src/hugin/PanoPanel.cpp:302
+#: src/hugin/PanoPanel.cpp:308
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Nesprávna hodnota HFOV. Maximálna HFOV pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:339
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Nesprávna hodnota VFOV. Maximálna VFOF pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:379
+#: src/hugin/PanoPanel.cpp:385
 msgid "width needs to be an integer bigger than 0"
 msgstr "šírka musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:396
+#: src/hugin/PanoPanel.cpp:402
 msgid "height needs to be an integer bigger than 0"
 msgstr "výška musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:647
+#: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Vytvoriť panoramatický obrázok"
 
-#: src/hugin/PanoPanel.cpp:658
+#: src/hugin/PanoPanel.cpp:680
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1198,104 +1191,113 @@ msgstr ""
 "\n"
 "Prepísať?"
 
-#: src/hugin/PanoPanel.cpp:659
+#: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
 msgstr "Prepísať súbor?"
 
-#: src/hugin/PreferencesDialog.cpp:122
+#: src/hugin/PreferencesDialog.cpp:123
 msgid "System default"
 msgstr "Systémové nastavenie"
 
-#: src/hugin/PreferencesDialog.cpp:125
+#: src/hugin/PreferencesDialog.cpp:126
 msgid "Catalan"
 msgstr "Katalánčina"
 
-#: src/hugin/PreferencesDialog.cpp:128
+#: src/hugin/PreferencesDialog.cpp:129
 msgid "Chinese (Simplified)"
 msgstr "Zjednodušená čínština"
 
-#: src/hugin/PreferencesDialog.cpp:131
+#: src/hugin/PreferencesDialog.cpp:132
 msgid "Czech"
 msgstr "Čeština"
 
-#: src/hugin/PreferencesDialog.cpp:134
+#: src/hugin/PreferencesDialog.cpp:135
 msgid "Dutch"
 msgstr "Dánčina"
 
-#: src/hugin/PreferencesDialog.cpp:137
+#: src/hugin/PreferencesDialog.cpp:138
 msgid "English"
 msgstr "Angličtina"
 
-#: src/hugin/PreferencesDialog.cpp:140
+#: src/hugin/PreferencesDialog.cpp:141
 msgid "French"
 msgstr "Francúzština"
 
-#: src/hugin/PreferencesDialog.cpp:143
+#: src/hugin/PreferencesDialog.cpp:144
 msgid "German"
 msgstr "Nemčina"
 
-#: src/hugin/PreferencesDialog.cpp:146
+#: src/hugin/PreferencesDialog.cpp:147
 msgid "Hungarian"
 msgstr "Maďarčina"
 
-#: src/hugin/PreferencesDialog.cpp:149
+#: src/hugin/PreferencesDialog.cpp:150
 msgid "Italian"
 msgstr "Taliančina"
 
-#: src/hugin/PreferencesDialog.cpp:152
+#: src/hugin/PreferencesDialog.cpp:153
 msgid "Japanese"
 msgstr "Japončina"
 
-#: src/hugin/PreferencesDialog.cpp:155
+#: src/hugin/PreferencesDialog.cpp:156
 msgid "Polish"
 msgstr "Poľština"
 
-#: src/hugin/PreferencesDialog.cpp:158
+#: src/hugin/PreferencesDialog.cpp:159
 msgid "Portuguese (Brazilian)"
 msgstr "Portugalština (brazílska)"
 
-#: src/hugin/PreferencesDialog.cpp:161
+#: src/hugin/PreferencesDialog.cpp:162
 msgid "Russian"
 msgstr "Ruština"
 
-#: src/hugin/PreferencesDialog.cpp:164
+#: src/hugin/PreferencesDialog.cpp:165
 msgid "Slovak"
 msgstr "Slovenčina"
 
-#: src/hugin/PreferencesDialog.cpp:167
+#: src/hugin/PreferencesDialog.cpp:168
 msgid "Swedish"
 msgstr "Švédština"
 
-#: src/hugin/PreferencesDialog.cpp:170
+#: src/hugin/PreferencesDialog.cpp:171
 msgid "Ukrainian"
 msgstr "Ukrajinsky"
 
-#: src/hugin/PreferencesDialog.cpp:246
+#: src/hugin/PreferencesDialog.cpp:247
 msgid "Select PTStitcher"
 msgstr "Vybrať PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:264
+#: src/hugin/PreferencesDialog.cpp:266
+#, fuzzy
+msgid "Select image editor"
+msgstr "ďalší obrázkový pár"
+
+#: src/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
 msgstr "Vybrať Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:280 src/hugin/PreferencesDialog.cpp:296
-#: src/hugin/xrc/pref_dialog.xrs:65
+#: src/hugin/PreferencesDialog.cpp:299 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Vybrať Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:338
+#: src/hugin/PreferencesDialog.cpp:318
+msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Spustiteľné (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+
+#: src/hugin/PreferencesDialog.cpp:357
 msgid "Panotools details"
 msgstr "Detaily Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:712
+#: src/hugin/PreferencesDialog.cpp:739
 msgid "Unknown Version"
 msgstr "Neznáma verzia"
 
-#: src/hugin/PreferencesDialog.cpp:722
+#: src/hugin/PreferencesDialog.cpp:749
 msgid "Really reset displayed preferences to default values?"
 msgstr "Skutočne nastaviť zobrazené nastavenia na východzie hodnoty?"
 
-#: src/hugin/PreferencesDialog.cpp:722 src/hugin/xrc/pref_dialog.xrs:89
+#: src/hugin/PreferencesDialog.cpp:749 src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "Nahrať východziu"
 
@@ -1341,12 +1343,17 @@ msgid "difference"
 msgstr "rozdiel"
 
 #: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
-msgid "Left click to define new center point, right click to move point to horizon."
-msgstr "Kliknite ľavým tlačidlom pre nový stredový bod, pravým pre presunutie bodu na horizont."
+msgid ""
+"Left click to define new center point, right click to move point to horizon."
+msgstr ""
+"Kliknite ľavým tlačidlom pre nový stredový bod, pravým pre presunutie bodu "
+"na horizont."
 
 #: src/hugin/PreviewFrame.cpp:272 src/hugin/PreviewFrame.cpp:327
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr "Panorámu vystredíte ľavým tlačidlom myši, horizont nastavíte pravým tlačidlom."
+msgstr ""
+"Panorámu vystredíte ľavým tlačidlom myši, horizont nastavíte pravým "
+"tlačidlom."
 
 #: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
@@ -1356,15 +1363,15 @@ msgstr "Obdĺžniková"
 msgid "Cylindrical"
 msgstr "Cylindrická"
 
-#: src/hugin/PreviewFrame.cpp:531
+#: src/hugin/PreviewFrame.cpp:536
 msgid "Yaw value must be numeric."
 msgstr "Hodnota odchýlky musí byť číselná."
 
-#: src/hugin/PreviewFrame.cpp:537
+#: src/hugin/PreviewFrame.cpp:542
 msgid "Pitch value must be numeric."
 msgstr "Hodnota sklonu musí byť číselná."
 
-#: src/hugin/PreviewFrame.cpp:543
+#: src/hugin/PreviewFrame.cpp:548
 msgid "Roll value must be numeric."
 msgstr "Hodnota otočenia musí byť číselná."
 
@@ -1372,46 +1379,46 @@ msgstr "Hodnota otočenia musí byť číselná."
 msgid "Error during Stitching"
 msgstr "Chyba počas zlepovania"
 
-#: src/hugin/PTStitcherPanel.cpp:276
+#: src/hugin/PTStitcherPanel.cpp:279
 msgid "Bicubic"
 msgstr "Bikubicky"
 
-#: src/hugin/PTStitcherPanel.cpp:277 src/hugin/xrc/nona_panel.xrs:4
+#: src/hugin/PTStitcherPanel.cpp:280 src/hugin/xrc/nona_panel.xrs:4
 #: src/hugin/xrc/ptstitcher_panel.xrs:4
 msgid "Spline 16"
 msgstr "Krivka 16"
 
-#: src/hugin/PTStitcherPanel.cpp:278 src/hugin/xrc/nona_panel.xrs:5
+#: src/hugin/PTStitcherPanel.cpp:281 src/hugin/xrc/nona_panel.xrs:5
 #: src/hugin/xrc/ptstitcher_panel.xrs:5
 msgid "Spline 36"
 msgstr "Krivka 36"
 
-#: src/hugin/PTStitcherPanel.cpp:279 src/hugin/xrc/nona_panel.xrs:6
+#: src/hugin/PTStitcherPanel.cpp:282 src/hugin/xrc/nona_panel.xrs:6
 #: src/hugin/xrc/ptstitcher_panel.xrs:6
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: src/hugin/PTStitcherPanel.cpp:280 src/hugin/xrc/nona_panel.xrs:7
+#: src/hugin/PTStitcherPanel.cpp:283 src/hugin/xrc/nona_panel.xrs:7
 #: src/hugin/xrc/ptstitcher_panel.xrs:7
 msgid "Spline 64"
 msgstr "Krivka 64"
 
-#: src/hugin/PTStitcherPanel.cpp:281 src/hugin/xrc/nona_panel.xrs:8
+#: src/hugin/PTStitcherPanel.cpp:284 src/hugin/xrc/nona_panel.xrs:8
 #: src/hugin/xrc/ptstitcher_panel.xrs:8
 msgid "Bilinear"
 msgstr "Bilineárne"
 
-#: src/hugin/PTStitcherPanel.cpp:282 src/hugin/xrc/nona_panel.xrs:9
+#: src/hugin/PTStitcherPanel.cpp:285 src/hugin/xrc/nona_panel.xrs:9
 #: src/hugin/xrc/ptstitcher_panel.xrs:9
 msgid "Nearest neighbour"
 msgstr "Najbližší sused"
 
-#: src/hugin/PTStitcherPanel.cpp:283 src/hugin/xrc/nona_panel.xrs:10
+#: src/hugin/PTStitcherPanel.cpp:286 src/hugin/xrc/nona_panel.xrs:10
 #: src/hugin/xrc/ptstitcher_panel.xrs:10
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: src/hugin/PTStitcherPanel.cpp:447
+#: src/hugin/PTStitcherPanel.cpp:450
 msgid ""
 "PTStitcher does not support output filenames that include a dot character "
 "(.).\n"
@@ -1424,43 +1431,57 @@ msgstr ""
 "\n"
 "Chcete i tak pokračovať?"
 
-#: src/hugin/PTStitcherPanel.cpp:448
+#: src/hugin/PTStitcherPanel.cpp:451
 msgid "PTStitcher problem"
 msgstr "Problém PTStitchera"
 
-#: src/hugin/PTStitcherPanel.cpp:457
+#: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
 msgstr "PTStitcher.exe nepodporuje QTVR výstup vo Windows a v Linuxe"
 
-#: src/hugin/PTStitcherPanel.cpp:457
+#: src/hugin/PTStitcherPanel.cpp:460
 msgid "PTStitcher note"
 msgstr "poznámka PTStitcher"
 
-#: src/hugin/RunStitcherFrame.cpp:88
+#: src/hugin/PTStitcherPanel.cpp:481
 msgid "Select PTStitcher.exe"
 msgstr "Zvoľte PTStitcher.exe"
 
-#: src/hugin/RunStitcherFrame.cpp:96
+#: src/hugin/PTStitcherPanel.cpp:489
 msgid "No PTStitcher.exe selected"
 msgstr "Nevybraný PTStitcher.exe"
 
-#: src/hugin/RunStitcherFrame.cpp:106
+#: src/hugin/PTStitcherPanel.cpp:498
 msgid "Select PTStitcher commandline tool"
 msgstr "Vybrať príkazový riadok nástroja enblend"
 
-#: src/hugin/RunStitcherFrame.cpp:114
+#: src/hugin/PTStitcherPanel.cpp:506
 msgid "No PTStitcher commandline tool selected"
 msgstr "Nevybraný príkazový riadok nástroja enblend"
 
-#: src/hugin/RunStitcherFrame.cpp:164
+#: src/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+
+#: src/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr ""
+
+#: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
 msgstr "Spustenie PTStitchera zlyhalo."
 
-#: src/hugin/RunStitcherFrame.cpp:178
+#: src/hugin/RunStitcherFrame.cpp:141
 msgid "Could not obtain PTStitcher output"
 msgstr "Nie je možné získať výstup PTStitchera"
 
-#: src/hugin/RunStitcherFrame.cpp:307
+#: src/hugin/RunStitcherFrame.cpp:270
 msgid ""
 "Stitching failed\n"
 "PTStitcher exited with nonzero error code."
@@ -1468,7 +1489,7 @@ msgstr ""
 "Zlepovahie zlyhalo\n"
 "PTStitcher skončil s nenulovým návratovým kódom."
 
-#: src/hugin/RunStitcherFrame.cpp:308
+#: src/hugin/RunStitcherFrame.cpp:271
 #, c-format
 msgid "Error executing %s"
 msgstr "Chyba pri spúšťaní %s"
@@ -1679,8 +1700,11 @@ msgid "2. Align..."
 msgstr "2. Zarovnať..."
 
 #: src/hugin/xrc/assistant_panel.xrs:18
-msgid "Align all images. Creates control points and optimizes the image positions"
-msgstr "Zarovnať všetky obrázky. Vytvorí kontrolné body a optimalizuje umiestnenie obrázkov"
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
+msgstr ""
+"Zarovnať všetky obrázky. Vytvorí kontrolné body a optimalizuje umiestnenie "
+"obrázkov"
 
 #: src/hugin/xrc/assistant_panel.xrs:19
 msgid ""
@@ -1724,14 +1748,16 @@ msgstr "Načítať údaje šošovky..."
 
 #: src/hugin/xrc/assistant_panel.xrs:31
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Zadajte horizontálne zorné pole (HFOV) alebo vzdialenosť ohniska a faktor orezania:"
+msgstr ""
+"Zadajte horizontálne zorné pole (HFOV) alebo vzdialenosť ohniska a faktor "
+"orezania:"
 
 #: src/hugin/xrc/assistant_panel.xrs:32
 msgid "HFOV (v):"
 msgstr "HFOV (v):"
 
-#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:34
-#: src/hugin/xrc/pref_dialog.xrs:36
+#: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:42
 msgid "degrees"
 msgstr "stupňov"
 
@@ -1739,7 +1765,7 @@ msgstr "stupňov"
 msgid "About Hugin"
 msgstr "O Hugine"
 
-#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:92
+#: src/hugin/xrc/about.xrs:2 src/hugin/xrc/pref_dialog.xrs:98
 msgid "OK"
 msgstr "OK"
 
@@ -1748,7 +1774,8 @@ msgid "Anchor Image"
 msgstr "Kotviaci obrázok"
 
 #: src/hugin/xrc/anchor_orientation.xrs:2
-msgid "Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
 msgstr ""
 "Nastavte odchýlku a sklon ľavým tlačidlom. Použite pravé tlačidlo na "
 "nastavenie otočenia"
@@ -1946,7 +1973,7 @@ msgstr "Textový režim"
 msgid "Optimize"
 msgstr "Optimalizovať"
 
-#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:91
+#: src/hugin/xrc/edit_text.xrs:3 src/hugin/xrc/pref_dialog.xrs:97
 msgid "Cancel"
 msgstr "Zrušiť"
 
@@ -1996,7 +2023,8 @@ msgstr "Presun dole"
 
 #: src/hugin/xrc/images_panel.xrs:11 src/hugin/xrc/images_panel-2.5.xrs:33
 msgid "Open a dialog to select the image area to be used while stitching"
-msgstr "Otvoriť dialóg pre výber oblasti obrázku, ktorá sa má použiť pre zlepovanie"
+msgstr ""
+"Otvoriť dialóg pre výber oblasti obrázku, ktorá sa má použiť pre zlepovanie"
 
 #: src/hugin/xrc/images_panel.xrs:12 src/hugin/xrc/images_panel-2.5.xrs:25
 msgid "Reference Image"
@@ -2531,7 +2559,7 @@ msgstr "Znovuoptimalizovať"
 msgid "Preview panorama"
 msgstr "Náhľad panorámy"
 
-#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:62
+#: src/hugin/xrc/main_tool.xrs:26 src/hugin/xrc/pref_dialog.xrs:68
 #: src/hugin/xrc/preview_frame.xrs:1
 msgid "Preview"
 msgstr "Náhľad"
@@ -2884,8 +2912,9 @@ msgstr "Použiť alternatívu k programu PTStitcher"
 msgid "PTStitcher:"
 msgstr "PTStitcher:"
 
-#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:71
-#: src/hugin/xrc/pref_dialog.xrs:76 src/hugin/xrc/pref_dialog.xrs:83
+#: src/hugin/xrc/pref_dialog.xrs:6 src/hugin/xrc/pref_dialog.xrs:22
+#: src/hugin/xrc/pref_dialog.xrs:77 src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/xrc/pref_dialog.xrs:89
 msgid "Choose..."
 msgstr "Vybrať..."
 
@@ -2938,38 +2967,64 @@ msgid "percent of max. width"
 msgstr "percent max. šírky"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
+#, fuzzy
+msgid "Create"
+msgstr "Vystrediť"
+
+#: src/hugin/xrc/pref_dialog.xrs:20
+msgid "Open final panorama in external editor"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:21
+#, fuzzy
+msgid "Editor:"
+msgstr "&Editovať"
+
+#: src/hugin/xrc/pref_dialog.xrs:23 src/hugin/xrc/pref_dialog.xrs:78
+#: src/hugin/xrc/pref_dialog.xrs:83
+msgid "Arguments:"
+msgstr "Argumenty:"
+
+#: src/hugin/xrc/pref_dialog.xrs:24
+#, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama"
+msgstr ""
+
+#: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Finetune"
 msgstr "Doladenie"
 
-#: src/hugin/xrc/pref_dialog.xrs:20
+#: src/hugin/xrc/pref_dialog.xrs:26
 msgid "Basic Settings"
 msgstr "Základné nastavenia"
 
-#: src/hugin/xrc/pref_dialog.xrs:21
+#: src/hugin/xrc/pref_dialog.xrs:27
 msgid "Patch width:"
 msgstr "šírka záplaty:"
 
-#: src/hugin/xrc/pref_dialog.xrs:22 src/hugin/xrc/pref_dialog.xrs:26
+#: src/hugin/xrc/pref_dialog.xrs:28 src/hugin/xrc/pref_dialog.xrs:32
 msgid "pixels"
 msgstr "bodov"
 
-#: src/hugin/xrc/pref_dialog.xrs:23
+#: src/hugin/xrc/pref_dialog.xrs:29
 msgid "Search area width:"
 msgstr "Šírka vyhľadávacieho poľa:"
 
-#: src/hugin/xrc/pref_dialog.xrs:24
+#: src/hugin/xrc/pref_dialog.xrs:30
 msgid "percent of image width"
 msgstr "percent šírky obrázku"
 
-#: src/hugin/xrc/pref_dialog.xrs:25
+#: src/hugin/xrc/pref_dialog.xrs:31
 msgid "Local search area width:"
 msgstr "Šírka lokálneho vyhľadávacieho poľa:"
 
-#: src/hugin/xrc/pref_dialog.xrs:27
+#: src/hugin/xrc/pref_dialog.xrs:33
 msgid "Correlation Threshold:"
 msgstr "Korelačny prah:"
 
-#: src/hugin/xrc/pref_dialog.xrs:28
+#: src/hugin/xrc/pref_dialog.xrs:34
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -2977,11 +3032,11 @@ msgstr ""
 "0: žiadna podobnosť\n"
 "1: maximálna podobnosť"
 
-#: src/hugin/xrc/pref_dialog.xrs:29
+#: src/hugin/xrc/pref_dialog.xrs:35
 msgid "Peak Curvature Threshold:"
 msgstr "Prah vrcholu zakrivenia:"
 
-#: src/hugin/xrc/pref_dialog.xrs:30
+#: src/hugin/xrc/pref_dialog.xrs:36
 msgid ""
 "0: no peak\n"
 " 0.2: distinctive peak"
@@ -2989,51 +3044,52 @@ msgstr ""
 "0: žiadny vrchol\n"
 " 0.2: odlišujúci vrchol"
 
-#: src/hugin/xrc/pref_dialog.xrs:31
+#: src/hugin/xrc/pref_dialog.xrs:37
 msgid "Rotation search"
 msgstr "Rotačné hľadanie"
 
-#: src/hugin/xrc/pref_dialog.xrs:32
+#: src/hugin/xrc/pref_dialog.xrs:38
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "Povoliť rotačné hľadanie (pomalšie, ale presnejšie)"
 
-#: src/hugin/xrc/pref_dialog.xrs:33
+#: src/hugin/xrc/pref_dialog.xrs:39
 msgid "Start angle:"
 msgstr "Štartovací uhol:"
 
-#: src/hugin/xrc/pref_dialog.xrs:35
+#: src/hugin/xrc/pref_dialog.xrs:41
 msgid "Stop angle:"
 msgstr "Konečný uhol:"
 
-#: src/hugin/xrc/pref_dialog.xrs:37
+#: src/hugin/xrc/pref_dialog.xrs:43
 msgid "Steps:"
 msgstr "Kroky:"
 
-#: src/hugin/xrc/pref_dialog.xrs:38
+#: src/hugin/xrc/pref_dialog.xrs:44
 msgid "Misc"
 msgstr "Ostatné"
 
-#: src/hugin/xrc/pref_dialog.xrs:39
+#: src/hugin/xrc/pref_dialog.xrs:45
 msgid "Resource Usage"
 msgstr "Použitie zdrojov"
 
-#: src/hugin/xrc/pref_dialog.xrs:40
+#: src/hugin/xrc/pref_dialog.xrs:46
 msgid "Image cache memory:"
 msgstr "Cache pre obrázky:"
 
-#: src/hugin/xrc/pref_dialog.xrs:41
+#: src/hugin/xrc/pref_dialog.xrs:47
 msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr "Ponechať obrázky v plnej veľkosti v pamäti, kým nie je prekročený tento limit"
+msgstr ""
+"Ponechať obrázky v plnej veľkosti v pamäti, kým nie je prekročený tento limit"
 
-#: src/hugin/xrc/pref_dialog.xrs:42
+#: src/hugin/xrc/pref_dialog.xrs:48
 msgid "MB"
 msgstr "MB"
 
-#: src/hugin/xrc/pref_dialog.xrs:43
+#: src/hugin/xrc/pref_dialog.xrs:49
 msgid "Number of CPUs:"
 msgstr "Počet procesorov:"
 
-#: src/hugin/xrc/pref_dialog.xrs:44
+#: src/hugin/xrc/pref_dialog.xrs:50
 msgid ""
 "Nona can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -3042,39 +3098,39 @@ msgstr ""
 "Nona môže použiť viacero vlákien pre spracovanie.\n"
 "Nastavte toto číslo na počet procesorov (alebo jadier) prístupných v systéme."
 
-#: src/hugin/xrc/pref_dialog.xrs:45
+#: src/hugin/xrc/pref_dialog.xrs:51
 msgid "User Interface"
 msgstr "Užívateľské rozhranie"
 
-#: src/hugin/xrc/pref_dialog.xrs:46
+#: src/hugin/xrc/pref_dialog.xrs:52
 msgid "Language"
 msgstr "Jazyk"
 
-#: src/hugin/xrc/pref_dialog.xrs:47
+#: src/hugin/xrc/pref_dialog.xrs:53
 msgid "requires restarting hugin"
 msgstr "vyžaduje reštart hugina"
 
-#: src/hugin/xrc/pref_dialog.xrs:48
+#: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Optimize and stitch only images selected in preview window"
 msgstr "Optimalizovať a zlepiť iba obrázky zvolené v náhľade"
 
-#: src/hugin/xrc/pref_dialog.xrs:49
+#: src/hugin/xrc/pref_dialog.xrs:55
 msgid "HDR and 16 Bit display mode"
 msgstr "Zobrazovacie režimy pre HDR a 16-bitovú hĺbku"
 
-#: src/hugin/xrc/pref_dialog.xrs:50
+#: src/hugin/xrc/pref_dialog.xrs:56
 msgid "Range"
 msgstr "Rozsah"
 
-#: src/hugin/xrc/pref_dialog.xrs:51
+#: src/hugin/xrc/pref_dialog.xrs:57
 msgid "fixed"
 msgstr "fixný"
 
-#: src/hugin/xrc/pref_dialog.xrs:52
+#: src/hugin/xrc/pref_dialog.xrs:58
 msgid "auto"
 msgstr "auto"
 
-#: src/hugin/xrc/pref_dialog.xrs:53
+#: src/hugin/xrc/pref_dialog.xrs:59
 msgid ""
 "use fixed for 16 bit\n"
 "and auto for HDR"
@@ -3082,82 +3138,78 @@ msgstr ""
 "použiť fixné pre 16 bitové\n"
 "a automatické pre HDR obrázky"
 
-#: src/hugin/xrc/pref_dialog.xrs:54
+#: src/hugin/xrc/pref_dialog.xrs:60
 msgid "Mapping"
 msgstr "Mapovanie"
 
-#: src/hugin/xrc/pref_dialog.xrs:55
+#: src/hugin/xrc/pref_dialog.xrs:61
 msgid "linear"
 msgstr "lineárne"
 
-#: src/hugin/xrc/pref_dialog.xrs:56
+#: src/hugin/xrc/pref_dialog.xrs:62
 msgid "logarithmic"
 msgstr "logaritmické"
 
-#: src/hugin/xrc/pref_dialog.xrs:57
+#: src/hugin/xrc/pref_dialog.xrs:63
 msgid "gamma 2.2"
 msgstr "gama 2.2"
 
-#: src/hugin/xrc/pref_dialog.xrs:58
+#: src/hugin/xrc/pref_dialog.xrs:64
 msgid "used for display in GUI"
 msgstr "použité pre zobrazovanie v GUI"
 
-#: src/hugin/xrc/pref_dialog.xrs:59
+#: src/hugin/xrc/pref_dialog.xrs:65
 msgid "File options"
 msgstr "Možnosti súborov"
 
-#: src/hugin/xrc/pref_dialog.xrs:60
+#: src/hugin/xrc/pref_dialog.xrs:66
 msgid "Tempdir:"
 msgstr "Dočasný adresár:"
 
-#: src/hugin/xrc/pref_dialog.xrs:61
+#: src/hugin/xrc/pref_dialog.xrs:67
 msgid "leave empty for OS default"
 msgstr "prázdne pre východzie nastavenie OS"
 
-#: src/hugin/xrc/pref_dialog.xrs:63
+#: src/hugin/xrc/pref_dialog.xrs:69
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Zobraziť pomocníka (vyžaduje reštart hugina)"
 
-#: src/hugin/xrc/pref_dialog.xrs:64 src/hugin/xrc/pref_dialog.xrs:73
+#: src/hugin/xrc/pref_dialog.xrs:70 src/hugin/xrc/pref_dialog.xrs:79
 msgid "Autopano"
 msgstr "Autopano"
 
-#: src/hugin/xrc/pref_dialog.xrs:66
+#: src/hugin/xrc/pref_dialog.xrs:72
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (autor A. Jenny)"
 
-#: src/hugin/xrc/pref_dialog.xrs:67
+#: src/hugin/xrc/pref_dialog.xrs:73
 msgid "Autopano-SIFT (by S. Nowozin)"
 msgstr "Autopano-SIFT (autor S. Nowozin)"
 
-#: src/hugin/xrc/pref_dialog.xrs:68
+#: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Autopano-SIFT"
 msgstr "Autopano-SIFT"
 
-#: src/hugin/xrc/pref_dialog.xrs:69
+#: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Use alternative Autopano-SIFT program"
 msgstr "Použiť alternatívu k Autopano-SIFT"
 
-#: src/hugin/xrc/pref_dialog.xrs:70
+#: src/hugin/xrc/pref_dialog.xrs:76
 msgid "Autopano-SIFT:"
 msgstr "Autopano-SIFT:"
 
-#: src/hugin/xrc/pref_dialog.xrs:72 src/hugin/xrc/pref_dialog.xrs:77
-msgid "Arguments:"
-msgstr "Argumenty:"
-
-#: src/hugin/xrc/pref_dialog.xrs:74
+#: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use alternative Autopano program"
 msgstr "Použiť alternatívu k programu Autopano"
 
-#: src/hugin/xrc/pref_dialog.xrs:75
+#: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Autopano:"
 msgstr "Autopano:"
 
-#: src/hugin/xrc/pref_dialog.xrs:78
-#, c-format
+#: src/hugin/xrc/pref_dialog.xrs:84
+#, fuzzy, c-format
 msgid ""
-"following patterns will be subsituted before running:\n"
+"following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
 "%p  -- number of control points between each pair\n"
 "%i  -- image files\n"
@@ -3169,43 +3221,43 @@ msgstr ""
 "%i -- obrázkové súbory\n"
 "%namefile -- súbor, ktorý obsahuje názvy súborov s obrázkami"
 
-#: src/hugin/xrc/pref_dialog.xrs:79
+#: src/hugin/xrc/pref_dialog.xrs:85
 msgid "Enblend"
 msgstr "Enblend"
 
-#: src/hugin/xrc/pref_dialog.xrs:80
+#: src/hugin/xrc/pref_dialog.xrs:86
 msgid "Enblend Options"
 msgstr "Nastavenia Enblendu"
 
-#: src/hugin/xrc/pref_dialog.xrs:81
+#: src/hugin/xrc/pref_dialog.xrs:87
 msgid "Use alternative Enblend program"
 msgstr "Použiť alternatívu k programu Enblend"
 
-#: src/hugin/xrc/pref_dialog.xrs:82
+#: src/hugin/xrc/pref_dialog.xrs:88
 msgid "Enblend:"
 msgstr "Enblend:"
 
-#: src/hugin/xrc/pref_dialog.xrs:84
+#: src/hugin/xrc/pref_dialog.xrs:90
 msgid "Additional Arguments:"
 msgstr "Ďalšie argumenty:"
 
-#: src/hugin/xrc/pref_dialog.xrs:85
+#: src/hugin/xrc/pref_dialog.xrs:91
 msgid "Do not set -w and -o arguments, they are set by hugin"
 msgstr "Nenastavujte argumenty -w a -o, tie budú nastavené huginom"
 
-#: src/hugin/xrc/pref_dialog.xrs:86
+#: src/hugin/xrc/pref_dialog.xrs:92
 msgid "Delete remapped tiff files"
 msgstr "Vymazať premapované súbory tiff"
 
-#: src/hugin/xrc/pref_dialog.xrs:87
+#: src/hugin/xrc/pref_dialog.xrs:93
 msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 msgstr "Použiť orezané súbory TIFF (vyžaduje enblend 2.4 alebo vyšší)"
 
-#: src/hugin/xrc/pref_dialog.xrs:88
+#: src/hugin/xrc/pref_dialog.xrs:94
 msgid "Save cropped images, requires less disk space and memory."
 msgstr "Uložiť orezané obrázky, vyžaduje menej diskového priestoru a pamäte."
 
-#: src/hugin/xrc/pref_dialog.xrs:90 src/hugin/xrc/run_optimizer_frame.xrs:2
+#: src/hugin/xrc/pref_dialog.xrs:96 src/hugin/xrc/run_optimizer_frame.xrs:2
 msgid "Apply"
 msgstr "Aplikovať"
 
@@ -3487,32 +3539,43 @@ msgid ""
 " To create a panorama, just follow the sequence shown in the assistant tab."
 msgstr ""
 "Vitajte v Hugine.\n"
-" Pre vytvorenie panorámy jednoducho nasledujte postup ukázaný v paneli Asistent."
+" Pre vytvorenie panorámy jednoducho nasledujte postup ukázaný v paneli "
+"Asistent."
 
 #: src/hugin/xrc/data/tips.txt:4
 msgid ""
 "If the horizon of a panorama is wavy, use the straighten function in the "
 "preview window to straighten it"
-msgstr "Ak je horizont panorámy zvlnený, použite funkciu vyrovnania v okne náhľadu pre jeho vyrovnanie"
+msgstr ""
+"Ak je horizont panorámy zvlnený, použite funkciu vyrovnania v okne náhľadu "
+"pre jeho vyrovnanie"
 
 #: src/hugin/xrc/data/tips.txt:5
 msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
-msgstr "Okno náhľadu môžete použiť na vystredenie panorámy kliknutím ľavým tlačidlom. Pravým kliknutím otáčate panorámu."
+msgstr ""
+"Okno náhľadu môžete použiť na vystredenie panorámy kliknutím ľavým "
+"tlačidlom. Pravým kliknutím otáčate panorámu."
 
 #: src/hugin/xrc/data/tips.txt:6
 msgid ""
 "The Autopano and Autopano-SIFT programs can be used to create control points "
 "automatically. Please install one of them if you haven't already done so."
-msgstr "Programy Autopano a Autopano-SIFT môžete použiť pre automatické vytvorenie kontrolných bodov. Prosím nainštalujte jeden z nich, ak ste tak ešte neučinili."
+msgstr ""
+"Programy Autopano a Autopano-SIFT môžete použiť pre automatické vytvorenie "
+"kontrolných bodov. Prosím nainštalujte jeden z nich, ak ste tak ešte "
+"neučinili."
 
 #: src/hugin/xrc/data/tips.txt:7
 msgid ""
 "Sometimes Autopano can not find connections between all images. In this "
 "case, control points have to be created manually, using the control points "
 "tab."
-msgstr "Niekedy Autopano nemôže nájsť spojenie medzi všetkými obrázkami. V takom prípade musia byť kontrolné body vytvorené manuálne, použitím panelu kontrolných bodov."
+msgstr ""
+"Niekedy Autopano nemôže nájsť spojenie medzi všetkými obrázkami. V takom "
+"prípade musia byť kontrolné body vytvorené manuálne, použitím panelu "
+"kontrolných bodov."
 
 #: src/hugin/xrc/data/tips.txt:8
 msgid ""
@@ -3569,7 +3632,8 @@ msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:15
 msgid "Images can also be added to hugin via drag and drop."
-msgstr "Obrázky môžu byť taktiež pridané pomocou funkcie ťahaj a pusti (drag&drop)."
+msgstr ""
+"Obrázky môžu byť taktiež pridané pomocou funkcie ťahaj a pusti (drag&drop)."
 
 #: src/hugin/xrc/data/tips.txt:16
 msgid ""
@@ -3625,7 +3689,8 @@ msgstr "Stlačenie \"Del\" odstráni momentálne vybraný kontrolný bod."
 
 #: src/hugin/xrc/data/tips.txt:24
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "Stlačte \"0\" v paneli kontrolných bodov pre zmenšenie pohľadu na celok."
+msgstr ""
+"Stlačte \"0\" v paneli kontrolných bodov pre zmenšenie pohľadu na celok."
 
 #: src/hugin/xrc/data/tips.txt:25
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
@@ -3661,7 +3726,9 @@ msgstr ""
 msgid ""
 "The Panorama Tools, on which hugin is based were originally written by "
 "Helmut Dersch."
-msgstr "Panorama Tools, ktoré sú základom pre hugin, boli pôvodne napísané Helmutom Derschom."
+msgstr ""
+"Panorama Tools, ktoré sú základom pre hugin, boli pôvodne napísané Helmutom "
+"Derschom."
 
 #: src/hugin/xrc/data/tips.txt:30
 msgid ""
@@ -3697,3 +3764,15 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozmiestnených "
 "kontrolných bodov."
 
+#~ msgid "Running autopano"
+#~ msgstr "Spúšťam autopano"
+
+#~ msgid ""
+#~ "Please wait while autopano searches control points\n"
+#~ "See the command window for autopanos' progress"
+#~ msgstr ""
+#~ "Počkajte prosím, kým autopano vyhľadá kontrolné body\n"
+#~ "Môžete sledovať priebeh autopana v okne s príkazmi"
+
+#~ msgid "ShellExecuteEx failed"
+#~ msgstr "ShellExecuteEx zlyhalo"
