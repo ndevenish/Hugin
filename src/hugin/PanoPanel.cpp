@@ -26,6 +26,8 @@
  */
 
 #include <config.h>
+#include <hugin/config_defaults.h>
+
 #include "panoinc_WX.h"
 
 #include "panoinc.h"
@@ -155,24 +157,11 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     pano->addObserver (this);
 
     // setup the stitcher
-//    int t = wxConfigBase::Get()->Read(wxT("Stitcher/DefaultStitcher"),1l);
-#if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
-    wxString currentPTStitcherExe
-        = wxConfigBase::Get()->Read(wxT("/Panotools/PTStitcherExe"),wxT(HUGIN_PT_STITCHER_EXE));
-    // unless custom PTStitcher specified, disable PTStitcher
-    if (currentPTStitcherExe == wxT(HUGIN_PT_STITCHER_EXE))
-    {   //TODO: for now, default path triggers non-custom path but to be fixed
-#endif
 #if (defined NO_PTSTITCHER) || (defined __WXMAC__)
-        // disable stitcher choice and select nona,
-        // since PTStitcher is not available on OSX
-        if(t == 0) t = 1;
-        m_StitcherChoice->Disable();
+    // disable stitcher choice and select nona (default),
+    // since PTStitcher is not available on OSX
+    m_StitcherChoice->Disable();
 #endif
-#if (!defined NO_PTSTITCHER) && (defined __WXMAC__)
-    }
-#endif
-
     SetStitcher(pano->getOptions().remapper);
 
 /*

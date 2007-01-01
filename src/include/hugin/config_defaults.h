@@ -126,7 +126,7 @@
 #define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
 
-#define HUGIN_STITCHER_EDITOR_EDITOR             0l
+#define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
@@ -151,7 +151,7 @@
 #define HUGIN_APKOLOR_ARGS                    ""
 
 #define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
-#define HUGIN_APSIFT_ARGS                     "--output %o %i --points %p"
+#define HUGIN_APSIFT_ARGS                     "--output %o --points %p %i"
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 "gimp-remote"
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
