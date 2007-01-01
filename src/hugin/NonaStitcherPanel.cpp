@@ -44,9 +44,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/MyProgressDialog.h"
 
-//#ifdef __WXMAC__
 #include "hugin/MyExternalCmdExecDialog.h"
-//#endif
 
 using namespace PT;
 using namespace std;
@@ -433,56 +431,8 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
 #endif
 
         {
-#ifdef unix
-            wxProgressDialog progress(_("Running Enblend"),_("Enblend will take a while to finish processing the panorama\nYou can watch the enblend progress in the command window"));
-            DEBUG_DEBUG("using system() to execute enblend with cmdline:" << cmdline.mb_str());
-            ret = system(cmdline.mb_str());
-            if (ret == -1) {
-                wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
-                    _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
-            } else {
-                ret = WEXITSTATUS(ret);
-            }
-#elif __WXMSW__
-            // using CreateProcess on windows
-            /* CreateProcess API initialization */
-            STARTUPINFO siStartupInfo;
-            PROCESS_INFORMATION piProcessInfo;
-            memset(&siStartupInfo, 0, sizeof(siStartupInfo));
-            memset(&piProcessInfo, 0, sizeof(piProcessInfo));
-            siStartupInfo.cb = sizeof(siStartupInfo);
-#if wxUSE_UNICODE
-            WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
-            WCHAR * exe_c = (WCHAR *) enblendExe.wc_str();
-#else //ANSI
-            char * cmdline_c = (char*) cmdline.mb_str();
-            char * exe_c = (char*) enblendExe.mb_str();
-#endif
-            DEBUG_DEBUG("using CreateProcess() to execute enblend:" << enblendExe.mb_str());
-            DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
-            ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
-                                    IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
-                                    NULL, &siStartupInfo, &piProcessInfo);
-            if (ret) {
-                ret = 0;
-                // Wait until child process exits.
-                WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
-
-                // Close process and thread handles. 
-                CloseHandle( piProcessInfo.hProcess );
-                CloseHandle( piProcessInfo.hThread );
-
-            } else {
-                ret = -1;
-                wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
-            }
-#elif __WXMAC__
             // use MyExternalCmdExecDialog
             ret = MyExecuteCommandOnDialog(enblendExe, cmdline, this);
-#else
-            // use stock wxWindows wxExecute on other platforms.
-            ret = wxExecute(cmdline, wxEXEC_SYNC);
-#endif
         }
         DEBUG_NOTICE("enblend returned with: " << ret);
 

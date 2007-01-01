@@ -38,12 +38,9 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
 
-#ifdef __WXMAC__
 #include "hugin/MyExternalCmdExecDialog.h"
 #include "common/wxPlatform.h"
-
 #include <wx/utils.h>
-#endif
 
 using namespace std;
 using namespace PT;
@@ -278,7 +275,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
     
 #ifdef __WXMSW__
-    if (autopanoArgs.size() > 1930) {
+    if (autopanoArgs.size() > 32000) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"),
                      wxCANCEL | wxICON_ERROR );
@@ -289,54 +286,9 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
     DEBUG_DEBUG("Executing: " << cmd.c_str());
 
-    wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
-    // run autopano in an own output window
-
     int ret = 0;
-#ifdef unix
-    DEBUG_DEBUG("using system() to execute autopano-sift");
-    ret = system(cmd.mb_str());
-    if (ret == -1) {
-	perror("system() failed");
-    } else {
-	ret = WEXITSTATUS(ret);
-    }
-#elif WIN32
-
-    if (namefile_name != wxString(wxT(""))) {
-        namefile.Close();
-    }
-
-    wxFileName tname(autopanoExe);
-    wxString ext = tname.GetExt();
-    if (ext == wxT("vbs")) {
-#if wxUSE_UNICODE
-        wxChar * exe_c = (wxChar *)autopanoExe.c_str();
-#else //ANSI
-        char * exe_c = (char *) autopanoExe.mb_str();
-#endif
-        SHELLEXECUTEINFO seinfo;
-        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
-        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
-        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-        seinfo.lpFile = exe_c;
-        seinfo.lpParameters = autopanoArgs.c_str();
-        if (!ShellExecuteEx(&seinfo)) {
-            ret = -1;
-            wxMessageBox(_("Could not execute command: ") + cmd, _("ShellExecuteEx failed"), wxCANCEL | wxICON_ERROR);
-        }
-        // wait for process
-        WaitForSingleObject(seinfo.hProcess, INFINITE);
-    } else {
-        // normal wxExecute
-        ret = wxExecute(cmd, wxEXEC_SYNC);
-    }
-#elif __WXMAC__
     // use MyExternalCmdExecDialog
     ret = MyExecuteCommandOnDialog(autopanoExe, cmd, 0);
-#else
-    ret = wxExecute(cmd, wxEXEC_SYNC);
-#endif
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR);
@@ -437,19 +389,9 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 #endif
     DEBUG_DEBUG("Executing: " << cmd.c_str());
 
-    wxProgressDialog progress(_("Running autopano"),_("Please wait while autopano searches control points\nSee the command window for autopanos' progress"));
-    // run autopano in an own output window
-#ifdef unix
-    DEBUG_DEBUG("using system() to execute autopano");
-    int ret = system(cmd.mb_str());
-    if (ret == -1) {
-	perror("system() failed");
-    } else {
-	ret = WEXITSTATUS(ret);
-    }
-#else
-    int ret = wxExecute(cmd, wxEXEC_SYNC);
-#endif
+    int ret = 0;
+    // use MyExternalCmdExecDialog
+    ret = MyExecuteCommandOnDialog(autopanoExe, cmd, 0);
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),

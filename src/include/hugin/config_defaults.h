@@ -71,6 +71,8 @@
 #define HUGIN_APSIFT_EXE_CUSTOM               false
 
 
+#define HUGIN_EXECDIALOG_ENABLED              1l
+
 // Program defaults
 #if defined WIN32
 

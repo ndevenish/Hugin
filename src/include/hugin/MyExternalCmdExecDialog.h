@@ -41,11 +41,15 @@ public:
                             wxWindowID id, 
                             const wxString& title = _("Command Line Progress"), 
                             const wxPoint& pos = wxDefaultPosition, 
+#ifdef __WXMAC__
                             const wxSize& size = wxDefaultSize, 
+#else
+                            const wxSize& size = wxSize(650,480),
+#endif
                             long style = wxRESIZE_BORDER|wxFRAME_FLOAT_ON_PARENT|wxMINIMIZE_BOX,
                             const wxString& name = wxT("externalCmDialogBox"));
     
-    int ShowModal(wxString &cmd);
+    int ShowModal(const wxString &cmd);
     void OnTimer(wxTimerEvent& WXUNUSED(event));
     void OnIdle(wxIdleEvent& event);
     //wxListBox *GetLogListBox() const { return m_lbox; }
@@ -57,7 +61,7 @@ private:
     wxTimer m_timerIdleWakeUp;
     MyPipedProcess *process;
     long processID;
-    
+
     DECLARE_EVENT_TABLE()
 };
 
@@ -67,7 +71,9 @@ class MyPipedProcess : public wxProcess
 {
 public:
     MyPipedProcess(MyExternalCmdExecDialog *parent, const wxString& cmd)
-    : wxProcess(parent), m_cmd(cmd)
+    : wxProcess(parent), m_cmd(cmd), 
+    m_backspaceInputSwallowed(false), m_backspaceErrorSwallowed(false),
+    m_crInputSwallowed(false), m_crErrorSwallowed(false)
     {
         m_parent = parent;
         Redirect();
@@ -79,4 +85,9 @@ public:
 protected:
     MyExternalCmdExecDialog *m_parent;
     wxString m_cmd;
+
+    bool m_backspaceInputSwallowed;
+    bool m_backspaceErrorSwallowed;
+    bool m_crInputSwallowed;
+    bool m_crErrorSwallowed;
 };

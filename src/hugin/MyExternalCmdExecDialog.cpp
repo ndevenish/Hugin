@@ -28,8 +28,12 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
-#include "hugin/MyExternalCmdExecDialog.h"
+#include <errno.h>
 
+#include "hugin/MyExternalCmdExecDialog.h"
+#include "hugin/config_defaults.h"
+
+#define LINE_IO 1
 
 int MyExecuteCommandOnDialog(const wxString & command, const wxString & cmdline, wxWindow* parent)
 {
@@ -76,17 +80,23 @@ int MyExecuteCommandOnDialog(const wxString & command, const wxString & cmdline,
     return ret;
 #else
     // other unix like operating system
-    int ret = -1;
-    wxProgressDialog progress(wxString::Format(_("Running %s"), command),_("You can watch the enblend progress in the command window"));
-    DEBUG_DEBUG("using system() to execute:" << cmdline.mb_str());
-    ret = system(cmdline.mb_str());
-    if (ret == -1) {
-        wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
-            _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
+    if (wxConfig::Get()->Read(wxT("/ExecDialog/Enabled"), HUGIN_EXECDIALOG_ENABLED)) 
+    {
+        MyExternalCmdExecDialog dlg(parent, wxID_ANY);
+        return dlg.ShowModal(cmdline);
     } else {
-        ret = WEXITSTATUS(ret);
+        int ret = -1;
+        wxProgressDialog progress(wxString::Format(_("Running %s"), command.c_str()),_("You can watch the enblend progress in the command window"));
+        DEBUG_DEBUG("using system() to execute:" << cmdline.mb_str());
+        ret = system(cmdline.mb_str());
+        if (ret == -1) {
+            wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
+                _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
+        } else {
+            ret = WEXITSTATUS(ret);
+        }
+        return ret;
     }
-    return ret;
 #endif
 }
 
@@ -112,7 +122,11 @@ m_timerIdleWakeUp(this)
     wxBoxSizer *m_sizer = new wxBoxSizer(wxVERTICAL);
     this->SetSizer(m_sizer);
     m_tbox = new wxTextCtrl(this, wxID_ANY, _T(""), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxTE_READONLY);
+#ifdef __WXMAC__
     wxFont font(12, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#else
+    wxFont font(8, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+#endif
     if ( font.Ok() )
         m_tbox->SetFont(font);
     m_sizer->Add(m_tbox, 1, wxEXPAND);
@@ -120,10 +134,10 @@ m_timerIdleWakeUp(this)
 }
 
 
-int MyExternalCmdExecDialog::ShowModal(wxString &cmd)
+int MyExternalCmdExecDialog::ShowModal(const wxString &cmd)
 {
     process = new MyPipedProcess(this, cmd);
-    
+
     processID = wxExecute(cmd, wxEXEC_ASYNC, process);
     if (!processID)
     {
@@ -134,7 +148,6 @@ int MyExternalCmdExecDialog::ShowModal(wxString &cmd)
     {
         m_timerIdleWakeUp.Start(200);
     }
-    
     return wxDialog::ShowModal();
 }
     
@@ -156,35 +169,123 @@ void MyExternalCmdExecDialog::OnIdle(wxIdleEvent& event)
 bool MyPipedProcess::HasInput()
 {
     bool hasInput = false;
-    
+
     if ( IsInputAvailable() )
     {
+        DEBUG_DEBUG("input available");
         wxTextInputStream tis(*GetInputStream());
-        
-        // this assumes that the output is always line buffered
-        wxString msg;
-        msg << _T("> ") << tis.ReadLine() << _T("\n");
-        
-        //m_parent->GetLogListBox()->Append(msg);
-        m_parent->GetLogTextBox()->AppendText(msg);
-        
+        wxTextCtrl * tb = m_parent->GetLogTextBox();
+
+        // does not assume line buffered stream.
+        // tries to handle backspace chars properly
+        wxString text = tb->GetValue();
+
+        if (m_backspaceInputSwallowed) {
+            m_backspaceInputSwallowed = false;
+            text.RemoveLast();
+        }
+        if (m_crInputSwallowed ) {
+            m_crInputSwallowed = false;
+            text = text.BeforeLast('\n') + wxT("\n");
+        }
+
+        bool lastCharNormal = false;
+        wxChar c;
+        while(c = tis.GetChar()) {
+            if (c == '\b') {
+                if (lastCharNormal) {
+                    m_backspaceInputSwallowed = true;
+                    break;
+                } else {
+                    // remove last string from byte
+                    if (text.Length() > 0) {
+                        if (text.Last() != '\n') {
+                            text.RemoveLast();
+                        }
+                    }
+                }
+            } else if (c == 0x0d) {
+                if (lastCharNormal) {
+                    m_crInputSwallowed = true;
+                    break;
+                }
+                text = text.BeforeLast('\n') + wxT("\n");
+            } else if (c == '\r') {
+                lastCharNormal = true;
+                // allow only \n linefeeds
+            } else if (c == '\n') {
+                lastCharNormal = true;
+                text.Append(c);
+                break;
+            } else {
+                lastCharNormal = true;
+                text.Append(c);
+            }
+        }
+        tb->SetValue(text);
+        tb->ShowPosition(text.Length()-1);
         hasInput = true;
     }
-    
+
     if ( IsErrorAvailable() )
     {
+        DEBUG_DEBUG("error available");
+
         wxTextInputStream tis(*GetErrorStream());
-        
-        // this assumes that the output is always line buffered
-        wxString msg;
-        msg << _T("> ") << tis.ReadLine() << _T("\n");
-        
-        //m_parent->GetLogListBox()->Append(msg);
-        m_parent->GetLogTextBox()->AppendText(msg);
-        
+
+        // does not assume line buffered stream.
+        // tries to handle backspace chars properly
+        wxTextCtrl * tb = m_parent->GetLogTextBox();
+        wxString text = tb->GetValue();
+
+        if (m_backspaceErrorSwallowed) {
+            m_backspaceErrorSwallowed = false;
+            if (text.Last() != '\n') {
+                text.RemoveLast();
+            }
+        }
+        if (m_crErrorSwallowed ) {
+            m_crErrorSwallowed = false;
+            text = text.BeforeLast('\n') + wxT("\n");
+        }
+        bool lastCharNormal = false;
+        wxChar c;
+        while(c = tis.GetChar()) {
+            if (c == '\b') {
+                if (lastCharNormal) {
+                    m_backspaceErrorSwallowed = true;
+                    break;
+                } else {
+                    // remove last string from byte
+                    if (text.Length() > 0) {
+                        if (text.Last() != '\n') {
+                            text.RemoveLast();
+                        }
+                    }
+                }
+            } else if (c == 0x0d) {
+                if (lastCharNormal) {
+                    m_crErrorSwallowed = true;
+                    break;
+                }
+                text = text.BeforeLast('\n') + wxT("\n");
+            } else if (c == '\r') {
+                lastCharNormal = true;
+                // allow only \n linefeeds
+            } else if (c == '\n') {
+                lastCharNormal = true;
+                text.Append(c);
+                // update on linebreaks
+                break;
+            } else {
+                lastCharNormal = true;
+                text.Append(c);
+            }
+        }
+        tb->SetValue(text);
+        tb->ShowPosition(text.Length()-1);
         hasInput = true;
     }
-    
     return hasInput;
 }
 
@@ -192,9 +293,9 @@ void MyPipedProcess::OnTerminate(int pid, int status)
 {
     // show the rest of the output
     while ( HasInput() ) ;
-    
+
     m_parent->EndModal(-3);
-    
+
     // we're not needed any more
     delete this;
 }
