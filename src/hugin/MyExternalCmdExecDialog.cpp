@@ -180,48 +180,24 @@ bool MyPipedProcess::HasInput()
         // tries to handle backspace chars properly
         wxString text = tb->GetValue();
 
-        if (m_backspaceInputSwallowed) {
-            m_backspaceInputSwallowed = false;
-            text.RemoveLast();
-        }
-        if (m_crInputSwallowed ) {
-            m_crInputSwallowed = false;
-            text = text.BeforeLast('\n') + wxT("\n");
-        }
-
-        bool lastCharNormal = false;
-        wxChar c;
-        while(c = tis.GetChar()) {
-            if (c == '\b') {
-                if (lastCharNormal) {
-                    m_backspaceInputSwallowed = true;
-                    break;
-                } else {
-                    // remove last string from byte
-                    if (text.Length() > 0) {
-                        if (text.Last() != '\n') {
-                            text.RemoveLast();
-                        }
+        while(IsInputAvailable()) 
+        {
+            wxChar c = tis.GetChar();
+            if (c) {
+                if (c == '\b') {
+                    // backspace
+                    if (text.Last() != '\n') {
+                        text.RemoveLast();
                     }
+                } else if (c == 0x0d) {
+                    // back to start of line
+                    text = text.BeforeLast('\n') + wxT("\n");
+                } else {
+                    text.Append(c);
                 }
-            } else if (c == 0x0d) {
-                if (lastCharNormal) {
-                    m_crInputSwallowed = true;
-                    break;
-                }
-                text = text.BeforeLast('\n') + wxT("\n");
-            } else if (c == '\r') {
-                lastCharNormal = true;
-                // allow only \n linefeeds
-            } else if (c == '\n') {
-                lastCharNormal = true;
-                text.Append(c);
-                break;
-            } else {
-                lastCharNormal = true;
-                text.Append(c);
             }
         }
+
         tb->SetValue(text);
         tb->ShowPosition(text.Length()-1);
         hasInput = true;
@@ -238,50 +214,24 @@ bool MyPipedProcess::HasInput()
         wxTextCtrl * tb = m_parent->GetLogTextBox();
         wxString text = tb->GetValue();
 
-        if (m_backspaceErrorSwallowed) {
-            m_backspaceErrorSwallowed = false;
-            if (text.Last() != '\n') {
-                text.RemoveLast();
-            }
-        }
-        if (m_crErrorSwallowed ) {
-            m_crErrorSwallowed = false;
-            text = text.BeforeLast('\n') + wxT("\n");
-        }
-        bool lastCharNormal = false;
-        wxChar c;
-        while(c = tis.GetChar()) {
-            if (c == '\b') {
-                if (lastCharNormal) {
-                    m_backspaceErrorSwallowed = true;
-                    break;
-                } else {
-                    // remove last string from byte
-                    if (text.Length() > 0) {
-                        if (text.Last() != '\n') {
-                            text.RemoveLast();
-                        }
+        while(IsErrorAvailable()) 
+        {
+            wxChar c = tis.GetChar();
+            if (c) {
+                if (c == '\b') {
+                    // backspace
+                    if (text.Last() != '\n') {
+                        text.RemoveLast();
                     }
+                } else if (c == 0x0d) {
+                    // back to start of line
+                    text = text.BeforeLast('\n') + wxT("\n");
+                } else {
+                    text.Append(c);
                 }
-            } else if (c == 0x0d) {
-                if (lastCharNormal) {
-                    m_crErrorSwallowed = true;
-                    break;
-                }
-                text = text.BeforeLast('\n') + wxT("\n");
-            } else if (c == '\r') {
-                lastCharNormal = true;
-                // allow only \n linefeeds
-            } else if (c == '\n') {
-                lastCharNormal = true;
-                text.Append(c);
-                // update on linebreaks
-                break;
-            } else {
-                lastCharNormal = true;
-                text.Append(c);
             }
         }
+
         tb->SetValue(text);
         tb->ShowPosition(text.Length()-1);
         hasInput = true;

@@ -71,9 +71,7 @@ class MyPipedProcess : public wxProcess
 {
 public:
     MyPipedProcess(MyExternalCmdExecDialog *parent, const wxString& cmd)
-    : wxProcess(parent), m_cmd(cmd), 
-    m_backspaceInputSwallowed(false), m_backspaceErrorSwallowed(false),
-    m_crInputSwallowed(false), m_crErrorSwallowed(false)
+    : wxProcess(parent), m_cmd(cmd)
     {
         m_parent = parent;
         Redirect();
@@ -85,9 +83,4 @@ public:
 protected:
     MyExternalCmdExecDialog *m_parent;
     wxString m_cmd;
-
-    bool m_backspaceInputSwallowed;
-    bool m_backspaceErrorSwallowed;
-    bool m_crInputSwallowed;
-    bool m_crErrorSwallowed;
 };
