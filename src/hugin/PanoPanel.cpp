@@ -654,14 +654,20 @@ void PanoPanel::DoStitch()
         opt.outfile = dlg.GetPath().mb_str();
         std::string outfile = stripExtension(opt.outfile) + std::string(".") + opt.getOutputExtension();
         wxString wxfn(outfile.c_str(), *wxConvCurrent);
-        if (wxFile::Exists(wxfn)) {
-            int answer = wxMessageBox(wxString::Format(_("File %s already exists\n\nOverwrite?"), wxfn.c_str() ),
-                                      _("Overwrite file?"),
-                                      (wxYES_NO | wxICON_EXCLAMATION),
-                                      this);
-            if (answer != wxYES) {
-                return;
+        if (! (opt.outputFormat == PanoramaOptions::TIFF_m 
+               || opt.outputFormat == PanoramaOptions::TIFF_mask) )
+        {
+            if (wxFile::Exists(wxfn)) {
+                int answer = wxMessageBox(wxString::Format(_("File %s already exists\n\nOverwrite?"), wxfn.c_str() ),
+                                        _("Overwrite file?"),
+                                        (wxYES_NO | wxICON_EXCLAMATION),
+                                        this);
+                if (answer != wxYES) {
+                    return;
+                }
             }
+        } else {
+            // TODO: add check for tiff_m output images
         }
 
         m_Stitcher->Stitch(pano, opt);
