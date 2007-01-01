@@ -95,6 +95,7 @@
 #define HUGIN_APKOLOR_ARGS   "/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i"
 
 #define HUGIN_APSIFT_EXE                      "autopano-win32.exe"
+#define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"
 
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 ""
@@ -149,8 +150,8 @@
 #define HUGIN_APKOLOR_EXE                     ""
 #define HUGIN_APKOLOR_ARGS                    ""
 
-#define HUGIN_APSIFT_EXE                      "autopanog.exe"
-
+#define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
+#define HUGIN_APSIFT_ARGS                     "--output %o %i --points %p"
 #define HUGIN_STITCHER_RUN_EDITOR             0l
 #define HUGIN_STITCHER_EDITOR                 "gimp-remote"
 #define HUGIN_STITCHER_EDITOR_ARGS            "%f"
@@ -165,10 +166,5 @@
 // smartblend args
 #define HUGIN_SMARTBLEND_ARGS                 ""
 
-
-// Autopano-SIFT args
-#ifndef HUGIN_APSIFT_ARGS
-#define HUGIN_APSIFT_ARGS                     "--output %o --imagelist %namefile"
-#endif
 
 #endif // _CONFIG_DEFAULTS_H
