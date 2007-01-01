@@ -318,7 +318,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
                         else
                             distStr = _("Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
 
-                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel\n"), mean)
+                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f\n"), mean, max)
                                 + distStr; 
                     }
                 }
