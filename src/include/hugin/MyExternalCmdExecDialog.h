@@ -30,7 +30,7 @@
 
 class MyExternalCmdExecDialog;
 class MyPipedProcess;
-int MyExecuteCommandOnDialog(wxString& command, wxWindow* parent);
+int MyExecuteCommandOnDialog(const wxString& command, const wxString & cmdline, wxWindow* parent);
 
 //----------
 

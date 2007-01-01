@@ -478,7 +478,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
             }
 #elif __WXMAC__
             // use MyExternalCmdExecDialog
-            ret = MyExecuteCommandOnDialog(cmdline, this);
+            ret = MyExecuteCommandOnDialog(enblendExe, cmdline, this);
 #else
             // use stock wxWindows wxExecute on other platforms.
             ret = wxExecute(cmdline, wxEXEC_SYNC);

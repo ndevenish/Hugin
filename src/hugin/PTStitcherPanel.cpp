@@ -522,7 +522,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
         }
     }
 
-#if 0
+#if 1
     wxString PTScriptFile = config->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE));
     stringstream script_stream;
     pano.printStitcherScript(script_stream, opts, imgs);
@@ -559,7 +559,7 @@ bool PTStitcherPanel::Stitch(const Panorama & pano,
     cmd = cmd + wxString(wxT(" ")) + wxQuoteFilename(PTScriptFile);
 
     DEBUG_INFO("Executing cmd: " << cmd.mb_str());
-    MyExecuteCommandOnDialog(cmd, this);
+    MyExecuteCommandOnDialog(stitcherExe, cmd, this);
 #else
     new RunStitcherFrame(this, &pano, opts, imgs, m_editScriptCB->IsChecked());
 #endif

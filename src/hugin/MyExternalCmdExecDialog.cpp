@@ -31,10 +31,63 @@
 #include "hugin/MyExternalCmdExecDialog.h"
 
 
-int MyExecuteCommandOnDialog(wxString& command, wxWindow* parent)
+int MyExecuteCommandOnDialog(const wxString & command, const wxString & cmdline, wxWindow* parent)
 {
+
+#if defined __WXMAC__
+
     MyExternalCmdExecDialog dlg(parent, wxID_ANY);
-    return dlg.ShowModal(command);
+    return dlg.ShowModal(cmdline);
+
+#elif defined __WXMSW__
+    int ret = -1;
+    // using CreateProcess on windows
+    /* CreateProcess API initialization */
+    STARTUPINFO siStartupInfo;
+    PROCESS_INFORMATION piProcessInfo;
+    memset(&siStartupInfo, 0, sizeof(siStartupInfo));
+    memset(&piProcessInfo, 0, sizeof(piProcessInfo));
+    siStartupInfo.cb = sizeof(siStartupInfo);
+#if wxUSE_UNICODE
+    WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
+    WCHAR * exe_c = (WCHAR *) command.wc_str();
+#else //ANSI
+    char * cmdline_c = (char*) cmdline.mb_str();
+    char * exe_c = (char*) command.mb_str();
+#endif
+    DEBUG_DEBUG("using CreateProcess() to execute :" << command.mb_str());
+    DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
+    ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
+                            IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
+                            NULL, &siStartupInfo, &piProcessInfo);
+    if (ret) {
+        ret = 0;
+        // Wait until child process exits.
+        WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
+
+        // Close process and thread handles. 
+        CloseHandle( piProcessInfo.hProcess );
+        CloseHandle( piProcessInfo.hThread );
+
+    } else {
+        ret = -1;
+        wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
+    }
+    return ret;
+#else
+    // other unix like operating system
+    int ret = -1;
+    wxProgressDialog progress(wxString::Format(_("Running %s"), command),_("You can watch the enblend progress in the command window"));
+    DEBUG_DEBUG("using system() to execute:" << cmdline.mb_str());
+    ret = system(cmdline.mb_str());
+    if (ret == -1) {
+        wxLogError(_("Could not execute enblend, system() failed: \nCommand was :") + cmdline + wxT("\n") +
+            _("Error returned was :") + wxString(strerror(errno), *wxConvCurrent));
+    } else {
+        ret = WEXITSTATUS(ret);
+    }
+    return ret;
+#endif
 }
 
 //----------

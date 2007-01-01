@@ -333,7 +333,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #elif __WXMAC__
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(cmd, 0);
+    ret = MyExecuteCommandOnDialog(autopanoExe, cmd, 0);
 #else
     ret = wxExecute(cmd, wxEXEC_SYNC);
 #endif
