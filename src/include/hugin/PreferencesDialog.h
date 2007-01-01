@@ -62,6 +62,7 @@ protected:
     void OnClose(wxCloseEvent& event);
     void OnPTStitcherExe(wxCommandEvent & e);
     void OnPTDetails(wxCommandEvent & e);
+    void OnEditorExe(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
     void OnAutopanoSiftExe(wxCommandEvent & e);
     void OnAutopanoKolorExe(wxCommandEvent & e);

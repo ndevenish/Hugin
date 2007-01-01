@@ -76,6 +76,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxFrame)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
     EVT_BUTTON(XRCID("prefs_defaults"), PreferencesDialog::OnRestoreDefaults)
     EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
+    EVT_BUTTON(XRCID("prefs_editor_select"), PreferencesDialog::OnEditorExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoKolorExe_select"), PreferencesDialog::OnAutopanoKolorExe)
     EVT_BUTTON(XRCID("prefs_AutoPanoSIFTExe_select"), PreferencesDialog::OnAutopanoSiftExe)
@@ -258,6 +259,24 @@ void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
     }
 
 }
+
+
+void PreferencesDialog::OnEditorExe(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this,_("Select image editor"),
+                     wxT(""), wxT(HUGIN_STITCHER_EDITOR),
+#ifdef __WXMSW__
+             _("Executables (*.exe)|*.exe"),
+#else
+             wxT(""),
+#endif
+                    wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        XRCCTRL(*this, "prefs_ass_editor", wxTextCtrl)->SetValue(
+                dlg.GetPath());
+    }
+}
+
 
 void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
 {
@@ -562,7 +581,13 @@ void PreferencesDialog::UpdateDisplayData()
     double factor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
     cfg->Read(wxT("/Assistant/panoDownsizeFactor"), &factor);
     MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",(int)(factor*100.0));
-
+    // editor
+    t = cfg->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR) == 1;
+    MY_BOOL_VAL("prefs_ass_run_editor", t);
+    MY_STR_VAL("prefs_ass_editor", cfg->Read(wxT("/Stitcher/Editor"),
+               wxT(HUGIN_STITCHER_EDITOR)));
+    MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
+               wxT(HUGIN_STITCHER_EDITOR_ARGS)));
 
     // Fine tune settings
     MY_SPIN_VAL("prefs_ft_TemplateSize",
@@ -734,6 +759,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
             cfg->Write(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
             cfg->Write(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+            cfg->Write(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
+            cfg->Write(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
+            cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
         }
         if (noteb->GetSelection() == 2) {
             // Fine tune settings
@@ -809,6 +837,10 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Assistant/autoAlign"),MY_G_BOOL_VAL("prefs_ass_autoAlign"));
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
     cfg->Write(wxT("/Assistant/panoDownsizeFactor"), MY_G_SPIN_VAL("prefs_ass_panoDownsizeFactor") / 100.0);
+    // editor
+    cfg->Write(wxT("/Stitcher/RunEditor"), MY_G_BOOL_VAL("prefs_ass_run_editor"));
+    cfg->Write(wxT("/Stitcher/Editor"), MY_G_STR_VAL("prefs_ass_editor"));
+    cfg->Write(wxT("/Stitcher/EditorArgs"), MY_G_STR_VAL("prefs_ass_editor_args"));
 
     // Fine tune settings
     cfg->Write(wxT("/Finetune/SearchAreaPercent"), MY_G_SPIN_VAL("prefs_ft_SearchAreaPercent"));
