@@ -94,9 +94,9 @@
 
 #define HUGIN_APSIFT_EXE                      "autopano-win32.exe"
 
-#define HUGIN_STITCHER_RUN_VIEWER             1l
-#define HUGIN_STITCHER_VIEWER                 "start"
-#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
+#define HUGIN_STITCHER_RUN_EDITOR             0l
+#define HUGIN_STITCHER_EDITOR                 ""
+#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
 #elif defined __WXMAC__
 
@@ -123,9 +123,9 @@
 #define HUGIN_APSIFT_EXE                      "autopano-complete.sh"
 #define HUGIN_APSIFT_ARGS                     "-o %o -p %p %i"
 
-#define HUGIN_STITCHER_RUN_VIEWER             1l
-#define HUGIN_STITCHER_VIEWER                 ""
-#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
+#define HUGIN_STITCHER_EDITOR_EDITOR             0l
+#define HUGIN_STITCHER_EDITOR                 ""
+#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
 #elif defined unix
 
@@ -149,16 +149,16 @@
 
 #define HUGIN_APSIFT_EXE                      "autopanog.exe"
 
-#define HUGIN_STITCHER_RUN_VIEWER             1l
-#define HUGIN_STITCHER_VIEWER                 "gimp-remote"
-#define HUGIN_STITCHER_VIEWER_ARGS            "%f"
+#define HUGIN_STITCHER_RUN_EDITOR             0l
+#define HUGIN_STITCHER_EDITOR                 "gimp-remote"
+#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
 
 #endif
 
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    "-v "
-#define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   0l
-#define HUGIN_ENBLEND_USE_CROPPED_FILES       0l
+#define HUGIN_ENBLEND_DELETE_REMAPPED_FILES   1l
+#define HUGIN_ENBLEND_USE_CROPPED_FILES       1l
 
 // smartblend args
 #define HUGIN_SMARTBLEND_ARGS                 ""

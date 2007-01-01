@@ -666,18 +666,18 @@ void PanoPanel::DoStitch()
 
         m_Stitcher->Stitch(pano, opt);
 
-        int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunViewer"), HUGIN_STITCHER_RUN_VIEWER);
+        int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
         if (runViewer) {
 		    // TODO: show image after it has been created
-		    wxString editor = wxConfig::Get()->Read(wxT("/Stitcher/Viewer"), wxT(HUGIN_STITCHER_VIEWER));
-		    wxString args = wxConfig::Get()->Read(wxT("/Stitcher/ViewerArgs"), wxT(HUGIN_STITCHER_VIEWER_ARGS));
+   		    wxString editor = wxConfig::Get()->Read(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
+		    wxString args = wxConfig::Get()->Read(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
 
             wxString quoted = utils::wxQuoteFilename(wxfn);
             args.Replace(wxT("%f"), quoted);
 
             wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;
 
-            DEBUG_DEBUG("viewer command: " << cmdline.c_str());
+            DEBUG_DEBUG("editor command: " << cmdline.c_str());
 		    if (editor != wxT("")) {
 			    // opens the default viewer application
 			    wxExecute(cmdline, wxEXEC_ASYNC);
