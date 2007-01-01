@@ -462,8 +462,13 @@ void PreviewFrame::OnStraighten(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::StraightenPanoCmd(m_pano)
         );
-    // fit pano afterwards
-    OnCenterHorizontally(e);
+    if (m_pano.getOptions().getHFOV() > 359) {
+        // adjust canvas size for 360 deg panos
+        OnFitPano(e);
+    } else {
+        // also center non 360 deg panos
+        OnCenterHorizontally(e);
+    }
 }
 
 void PreviewFrame::OnUpdate(wxCommandEvent& event)
