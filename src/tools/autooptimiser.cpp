@@ -29,7 +29,11 @@
 #include <fstream>
 #include <sstream>
 
-#include <unistd.h>
+#ifdef WIN32
+ #include <getopt.h>
+#else
+ #include <unistd.h>
+#endif
 
 
 #include <panoinc.h>
