@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
 "PO-Revision-Date: 2007-01-01 10:29+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -450,7 +450,7 @@ msgstr "Nepodarilo sa prečítať číslo"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr "Hodnota musí byť číselná."
 
@@ -1158,29 +1158,29 @@ msgstr ""
 "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
 "veľkosť na paneli Nastavenie panorámy."
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Nesprávna hodnota HFOV. Maximálna HFOV pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Nesprávna hodnota VFOV. Maximálna VFOF pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr "šírka musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 msgid "height needs to be an integer bigger than 0"
 msgstr "výška musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr "Vytvoriť panoramatický obrázok"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1191,7 +1191,7 @@ msgstr ""
 "\n"
 "Prepísať?"
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr "Prepísať súbor?"
 

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.6\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
 "PO-Revision-Date: 2006-08-18 07:43+0100\n"
 "Last-Translator: Ippei UKAI <ippei_ukai@mac.com>\n"
 "Language-Team: N/A\n"
@@ -433,7 +433,7 @@ msgstr "数字が読めませんでした *_*"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr "値は数値でなければなりません。"
 
@@ -1121,30 +1121,30 @@ msgstr ""
 "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 "最小の大きさに設定することができます。"
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "水平視野の値が不正です. この投影法の水平視野の最大値は %lf です."
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "無効な垂直視野です。この投影法の垂直視野の最大は %lf です。"
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "幅の値は0より大きい整数である必要があります"
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr "パノラマ画像の作成"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1152,7 +1152,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr ""
 

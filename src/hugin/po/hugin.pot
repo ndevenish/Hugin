@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -409,7 +409,7 @@ msgstr ""
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr ""
 
@@ -1004,29 +1004,29 @@ msgid ""
 "pixel dimensions which will give the best quality."
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 msgid "height needs to be an integer bigger than 0"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1034,7 +1034,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr ""
 

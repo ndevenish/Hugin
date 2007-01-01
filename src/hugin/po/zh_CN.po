@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin v0.6.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
 "PO-Revision-Date: 2006-11-13 18:37+0800\n"
 "Last-Translator: Chinese Simplified <N/A>\n"
 "Language-Team: Chinese Simplified <N/A>\n"
@@ -427,7 +427,7 @@ msgstr "不能读取数字"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr "数值必须是数字"
 
@@ -1125,30 +1125,30 @@ msgstr ""
 "计算优化尺寸按钮来确定\n"
 "得到最佳质量所需要的像素."
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "无效的水平视野值. 这个项目的最大水平视野值是 %lf."
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "无效的可见视野值. 这个项目的最大可见视野值是 %lf."
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr "宽度值必须是一个大于 0 的整数"
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "宽度值必须是一个大于 0 的整数"
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr "创建全景图像"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1156,7 +1156,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr ""
 

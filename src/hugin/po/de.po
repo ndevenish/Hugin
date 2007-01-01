@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
 "PO-Revision-Date: 2006-12-22 14:05+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -455,7 +455,7 @@ msgstr "Konnte die Zahl nicht lesen"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr "Wert muss numerisch sein"
 
@@ -1171,33 +1171,33 @@ msgstr ""
 "im Reiter 'Zusammenfügen' um die optimalen Pixelmaße des Panoramas zu "
 "berechnen."
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Ungültiger horizontaler Bildwinkel (HFOV). Der größtmögliche HFOV dieser "
 "Projektion beträgt: %lf"
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Ungültiger vertikaler Bildwinkel (VFOV). Der größtmögliche VFOV dieser "
 "Projektion beträgt: %lf"
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr "Die Breite muß eine Ganzzahl größer 0 sein."
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 msgid "height needs to be an integer bigger than 0"
 msgstr "Die Höhe muß eine Ganzzahl größer 0 sein."
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr "Erstelle das Panoramabild"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1205,7 +1205,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr ""
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.7.0-beta2\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 21:48+0100\n"
-"PO-Revision-Date: 2007-01-01 12:22+0100\n"
+"POT-Creation-Date: 2007-01-01 22:20+0100\n"
+"PO-Revision-Date: 2007-01-01 20:02+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -79,9 +79,9 @@ msgstr ""
 "intervention manuelle est nécessaire."
 
 #: src/hugin/AssistantPanel.cpp:321
-#, fuzzy, c-format
+#, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr "Erreur moyenne après optimisation : %.1f pixels\n"
+msgstr "Erreur moyenne après optimisation : %.1f pixels, max : %.1f\n"
 
 #: src/hugin/AssistantPanel.cpp:358
 msgid "At least two images are required."
@@ -459,7 +459,7 @@ msgstr "Impossible de lire le nombre"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:302 src/hugin/PanoPanel.cpp:333
+#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
 msgid "Value must be numeric."
 msgstr "La valeur doit être numérique."
 
@@ -805,18 +805,13 @@ msgid "CreateProcess Error"
 msgstr "Erreur de CreateProcess"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:89
-#, fuzzy, c-format
+#, c-format
 msgid "Running %s"
-msgstr "Lancement d'Enblend"
+msgstr "Lancement de %s"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:89
-#, fuzzy
 msgid "You can watch the enblend progress in the command window"
-msgstr ""
-"Il faudra un certain temps à Enblend pour terminer le traitement du "
-"panorama\n"
-"Vous pouvez suivre la progression du travail d'Enblend dans la fenêtre de "
-"lancement."
+msgstr "Vous pouvez suivre l'avancement d'Enblend dans la fenêtre de lancement"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:93
 msgid ""
@@ -1179,33 +1174,33 @@ msgstr ""
 "de l'onglet « Options du Panorama » pour déterminer les\n"
 "dimensions en pixels qui vous donneront la meilleure qualité."
 
-#: src/hugin/PanoPanel.cpp:308
+#: src/hugin/PanoPanel.cpp:297
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Valeur de champ de vision horizontal (HFOV) incorrecte. La valeur maximale "
 "de HFOV pour cette projection est de %lf."
 
-#: src/hugin/PanoPanel.cpp:339
+#: src/hugin/PanoPanel.cpp:328
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Valeur de champ de vision vertical (VFOV) incorrecte. La valeur maximale de "
 "VFOV pour cette projection est de %lf."
 
-#: src/hugin/PanoPanel.cpp:385
+#: src/hugin/PanoPanel.cpp:374
 msgid "width needs to be an integer bigger than 0"
 msgstr "la largeur doit être un entier positif"
 
-#: src/hugin/PanoPanel.cpp:402
+#: src/hugin/PanoPanel.cpp:391
 msgid "height needs to be an integer bigger than 0"
 msgstr "la largeur doit être un entier positif"
 
-#: src/hugin/PanoPanel.cpp:666
+#: src/hugin/PanoPanel.cpp:655
 msgid "Create panorama image"
 msgstr "Créer une image panoramique"
 
-#: src/hugin/PanoPanel.cpp:680
+#: src/hugin/PanoPanel.cpp:669
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1216,7 +1211,7 @@ msgstr ""
 "\n"
 "Voulez-vous le remplacer ?"
 
-#: src/hugin/PanoPanel.cpp:681
+#: src/hugin/PanoPanel.cpp:670
 msgid "Overwrite file?"
 msgstr "Remplacer le fichier ?"
 
@@ -1457,6 +1452,7 @@ msgstr ""
 "(.).\n"
 "Veuillez enregistrer votre projet dans un répertoire sans point dans le nom "
 "du chemin.\n"
+"\n"
 "Voulez-vous cependant poursuivre ?"
 
 #: src/hugin/PTStitcherPanel.cpp:451
@@ -1496,10 +1492,16 @@ msgid ""
 "\n"
 "Continue anyway?"
 msgstr ""
+"Attention : PTmender (qui fait partie de panotools 2.9 ou ultérieur) ne\n"
+"prend en copmte que les sorties TIFF_m\n"
+"Pour les corrrection de couleur ou de luminosité, les fichiers tiff\n"
+"résultants devront être traités par PTblender.\n"
+"\n"
+"Voulez-vous cependant poursuivre ?"
 
 #: src/hugin/PTStitcherPanel.cpp:519
 msgid "PTmender creates only plain TIFF_m files"
-msgstr ""
+msgstr "PTmender ne crée que des fihciers TIFF8m purs"
 
 #: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
@@ -1575,6 +1577,7 @@ msgstr ""
 "La correction du vignetage ne fonctionne pas actuellement avec des images "
 "non linéaires encodées sur 16 bits et de type HDR.\n"
 "Veuillez activer l'encodage 16 bits\n"
+"\n"
 "Voulez-vous cependant poursuivre ?"
 
 #: src/hugin/VigCorrDialog.cpp:289 src/hugin/VigCorrDialog.cpp:505
@@ -2955,7 +2958,7 @@ msgstr "Panorama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
 msgid "Use alternative PTStitcher program"
-msgstr "Utiliser le programme PTStitcher de remplacement"
+msgstr "Programme à uUtiliser en remplacement de PTStitcher"
 
 #: src/hugin/xrc/pref_dialog.xrs:5
 msgid "PTStitcher:"
@@ -3246,7 +3249,7 @@ msgstr "Autopano-Sift"
 
 #: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Use alternative Autopano-SIFT program"
-msgstr "Utiliser le programme Autopano-Sift de remplacement"
+msgstr "Programme à utiliser en remplacement d'Autopano-Sift"
 
 #: src/hugin/xrc/pref_dialog.xrs:76
 msgid "Autopano-SIFT:"
@@ -3254,7 +3257,7 @@ msgstr "Autopano-Sift :"
 
 #: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use alternative Autopano program"
-msgstr "Utiliser le programme Autopano de remplacement"
+msgstr "Programme à utiliser en remplacement d'Autopano"
 
 #: src/hugin/xrc/pref_dialog.xrs:81
 msgid "Autopano:"
@@ -3285,7 +3288,7 @@ msgstr "Options d'Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:87
 msgid "Use alternative Enblend program"
-msgstr "Utiliser le programme Enblend de remplacement"
+msgstr "Programme à utiliser en remplacement d'Enblend"
 
 #: src/hugin/xrc/pref_dialog.xrs:88
 msgid "Enblend:"
@@ -3841,17 +3844,3 @@ msgstr ""
 "L'optimisation de tous les paramètres de distorsion (« tout ») ne s'applique "
 "qu'à des images ayant un important recouvrement et des points de contrôle "
 "nombreux et bien distribués."
-
-#~ msgid "Running autopano"
-#~ msgstr "Lancement d'Autopano"
-
-#~ msgid ""
-#~ "Please wait while autopano searches control points\n"
-#~ "See the command window for autopanos' progress"
-#~ msgstr ""
-#~ "Veuillez patienter pendant qu'Autopano recherche les points de contrôle\n"
-#~ "Vous pouvez suivre l'évolution du travail d'Autopano dans la fenêtre de "
-#~ "commande"
-
-#~ msgid "ShellExecuteEx failed"
-#~ msgstr "Échec de ShellExecuteEx"
