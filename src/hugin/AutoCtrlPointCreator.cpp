@@ -283,7 +283,7 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #endif
 
-    wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
+    wxString cmd = utils::wxQuoteFilename(autopanoExe) + wxT(" ") + autopanoArgs;
     DEBUG_DEBUG("Executing: " << cmd.c_str());
 
     int ret = 0;
@@ -335,9 +335,9 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 #ifdef __WXMSW__
     wxString autopanoExe = wxConfigBase::Get()->Read(wxT("/AutoPanoKolor/AutopanoExe"), wxT(HUGIN_APKOLOR_EXE));
     if (!wxFile::Exists(autopanoExe)){
-        wxFileDialog dlg(0,_("Select autopano program / frontend script"),
+        wxFileDialog dlg(0,_("Select autopano program"),
                          wxT(""), wxT("autopano.exe"),
-                         _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),
+                         _("Executables (*.exe)|*.exe"),
                          wxOPEN, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) {
             autopanoExe = dlg.GetPath();
@@ -378,7 +378,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
     wxString tempdir = huginApp::Get()->GetWorkDir();
     autopanoArgs.Replace(wxT("%d"), tempdir);
     wxString cmd;
-    cmd.Printf(wxT("%s %s"), autopanoExe.c_str(), autopanoArgs.c_str());
+    cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 32766) {
         wxMessageBox(_("autopano command line too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
