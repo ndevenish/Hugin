@@ -1,3 +1,34 @@
+2007-01-01 22:26  dangelo
+
+	* src/hugin/hugin.desktop: update translation
+
+2007-01-01 22:24  dangelo
+
+	* src/nona_gui/po/: de.po, fr.po, hu.po, nl.po, nona_gui.pot,
+	  pl.po, pt_BR.po, ru.po, zh_CN.po: updated translation
+
+2007-01-01 22:22  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated french translation (Jean-Luc
+	  Coulon)
+
+2007-01-01 22:19  dangelo
+
+	* src/: hugin/PanoPanel.cpp, include/hugin/config_defaults.h: fixed
+	  compilation on OSX (thanks PK)
+
+2007-01-01 21:50  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated strings
+
+2007-01-01 21:46  dangelo
+
+	* ChangeLog, NEWS: [no log message]
+
 2007-01-01 21:44  dangelo
 
 	* src/: hugin/PreferencesDialog.cpp, hugin/xrc/pref_dialog.xrc,
