@@ -205,9 +205,16 @@ void CropPanel::Display2Pano()
         ImageOptions opt = img.getOptions();
         opt.cropRect = m_imgOpts.cropRect;
         opt.autoCenterCrop = m_imgOpts.autoCenterCrop;
-        opt.docrop = ! (opt.cropRect.left() == 0 && opt.cropRect.top() == 0 
+        if (opt.cropRect.isEmpty()) {
+            opt.docrop = false;
+        } else if ((!m_circular) && opt.docrop &&  (opt.cropRect.left() == 0 && opt.cropRect.top() == 0 
                 && opt.cropRect.right() == (int) img.getWidth() 
-                && opt.cropRect.bottom() == (int) img.getHeight());
+                && opt.cropRect.bottom() == (int) img.getHeight()) )
+        {
+            opt.docrop = false;
+        } else {
+            opt.docrop = true;
+        }
         opts.push_back(opt);
     }
 
@@ -596,6 +603,9 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
             break;
         case RECT_DRAGGING:
             {
+                if (e.LeftUp()) {
+                    ChangeMode(CROP_SELECTED);
+                }
                 vigra::Point2D fp(xpos_i, ypos_i);
                 if (m_centered) {
                     // special case for centered crops
@@ -626,13 +636,12 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                     //m_roi.setLowerRight(fp);
                 }
                 UpdateCropCircle();
-                if (e.LeftUp()) {
-                    // stop dragging
-                    ChangeMode(CROP_SELECTED);
-                }
             }
             break;
         case CIRC_DRAGGING:
+            if (e.LeftUp()) {
+                ChangeMode(CROP_SELECTED);
+            }
             m_circ_second_point.x = xpos_i;
             m_circ_second_point.y = ypos_i;
             if (m_centered) {
@@ -647,12 +656,6 @@ void CenterCanvas::OnMouse ( wxMouseEvent & e )
                 m_roi = calcCircleROIFromPoints(m_circ_first_point, m_circ_second_point);
             }
             UpdateCropCircle();
-
-            if (e.LeftUp()) {
-                // stop dragging
-                ChangeMode(CROP_SELECTED);
-                UpdateCropCircle();
-            }
             break;
         case CROP_SELECTED:
             if (m_circle) {
