@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 0.7.0-beta2\n"
+"Project-Id-Version: Hugin 0.7.0-beta3\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2007-01-01 22:20+0100\n"
-"PO-Revision-Date: 2007-01-01 20:02+0100\n"
+"PO-Revision-Date: 2007-01-02 11:55+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr ""
 #: src/hugin/AssistantPanel.cpp:321
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr "Erreur moyenne après optimisation : %.1f pixels, max : %.1f\n"
+msgstr "Erreur moyenne après optimisation : %.1f pixels, max : %.1f\n"
 
 #: src/hugin/AssistantPanel.cpp:358
 msgid "At least two images are required."
@@ -116,7 +116,7 @@ msgstr ""
 #: src/hugin/AutoCtrlPointCreator.cpp:104
 msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 msgstr ""
-"Autopano-Sift, voir le site http://user.cs.tu-berlin.de/~nowozin/autopano-"
+"Autopano-SIFT, voir le site http://user.cs.tu-berlin.de/~nowozin/autopano-"
 "sift/"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:106
@@ -134,7 +134,7 @@ msgstr ""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:120
 msgid "Would you like to use Autopano-Sift instead?"
-msgstr "Voulez-vous utiliser Autopano-Sift à la place ?"
+msgstr "Voulez-vous utiliser Autopano-SIFT à la place ?"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:157
 msgid "Select autopano program / frontend script"
@@ -155,7 +155,7 @@ msgstr "Pas d'Autopano sélectionné"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:188
 msgid "Autopano-SIFT is not installed."
-msgstr "Autopano-Sift n'est pas installé."
+msgstr "Autopano-SIFT n'est pas installé."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:193
 msgid "Select autopano frontend script"
@@ -169,7 +169,7 @@ msgstr "Scripts de l'interpréteur de commandes (*.sh)|*.sh"
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
-"Veuillez entrer soit %namefile soit %i sur la ligne de commande d'Autopano-"
+"Veuillez entrer soit %namefile soit %i sur la ligne de commande d'autopano-"
 "sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:240
@@ -182,8 +182,8 @@ msgstr "Erreur dans la commande Autopano"
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
 msgstr ""
-"Veuillez utiliser %namefile ou %i pour préciser les fichiers d'entrée "
-"Autopano-Sift"
+"Veuillez utiliser %namefile ou %i pour indiquer les fichiers d'entrée "
+"d'autopano-sift"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:279
 #: src/hugin/AutoCtrlPointCreator.cpp:384
@@ -257,9 +257,8 @@ msgid "autopano failure"
 msgstr "Échec d'Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:338
-#, fuzzy
 msgid "Select autopano program"
-msgstr "Choisir le type d'Autopano"
+msgstr "Choisir le programme autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:411
 msgid ""
@@ -1288,9 +1287,8 @@ msgid "Select PTStitcher"
 msgstr "Sélectionner PTStitcher"
 
 #: src/hugin/PreferencesDialog.cpp:266
-#, fuzzy
 msgid "Select image editor"
-msgstr "Paire d'images suivante"
+msgstr "Choisir l'outil de retouche d'images"
 
 #: src/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
@@ -1492,16 +1490,16 @@ msgid ""
 "\n"
 "Continue anyway?"
 msgstr ""
-"Attention : PTmender (qui fait partie de panotools 2.9 ou ultérieur) ne\n"
-"prend en copmte que les sorties TIFF_m\n"
-"Pour les corrrection de couleur ou de luminosité, les fichiers tiff\n"
+"Attention : PTmender (qui fait partie de panotools 2.9 ou ultérieur) ne\n"
+"prend en compte que les sorties TIFF_m\n"
+"Pour les correction de couleur ou de luminosité, les fichiers tiff\n"
 "résultants devront être traités par PTblender.\n"
 "\n"
-"Voulez-vous cependant poursuivre ?"
+"Voulez-vous cependant poursuivre ?"
 
 #: src/hugin/PTStitcherPanel.cpp:519
 msgid "PTmender creates only plain TIFF_m files"
-msgstr "PTmender ne crée que des fihciers TIFF8m purs"
+msgstr "PTmender ne crée que des fichiers TIFF8m purs"
 
 #: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
@@ -1760,7 +1758,7 @@ msgstr "Créer un panorama en haute résolution."
 
 #: src/hugin/xrc/assistant_panel.xrs:22
 msgid "Camera and Lens data"
-msgstr "Données de l'appareil et de objectif"
+msgstr "Données de l'appareil et de l'objectif"
 
 #: src/hugin/xrc/assistant_panel.xrs:23
 msgid ""
@@ -2958,7 +2956,7 @@ msgstr "Panorama Tools"
 
 #: src/hugin/xrc/pref_dialog.xrs:4
 msgid "Use alternative PTStitcher program"
-msgstr "Programme à uUtiliser en remplacement de PTStitcher"
+msgstr "Programme à utiliser en remplacement de PTStitcher"
 
 #: src/hugin/xrc/pref_dialog.xrs:5
 msgid "PTStitcher:"
@@ -3019,18 +3017,16 @@ msgid "percent of max. width"
 msgstr "pourcent de la largeur maximum"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
-#, fuzzy
 msgid "Create"
-msgstr "Centrer"
+msgstr "Créer"
 
 #: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Open final panorama in external editor"
-msgstr ""
+msgstr "Ouvrir le panorama final dans un outil de retouche d'images"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
-#, fuzzy
 msgid "Editor:"
-msgstr "&Éditer"
+msgstr "Outils de retouche :"
 
 #: src/hugin/xrc/pref_dialog.xrs:23 src/hugin/xrc/pref_dialog.xrs:78
 #: src/hugin/xrc/pref_dialog.xrs:83
@@ -3043,6 +3039,8 @@ msgid ""
 "The following patterns will be substituted before running:\n"
 "%f  -- final panorama"
 msgstr ""
+"Les motifs suivants seront substitués avant le lancement :\n"
+"%f -- panorama final"
 
 #: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Finetune"
@@ -3241,19 +3239,19 @@ msgstr "Autopano (par A. Jenny)"
 
 #: src/hugin/xrc/pref_dialog.xrs:73
 msgid "Autopano-SIFT (by S. Nowozin)"
-msgstr "Autopano-Sift (par S. Nowozin)"
+msgstr "Autopano-SIFT (par S. Nowozin)"
 
 #: src/hugin/xrc/pref_dialog.xrs:74
 msgid "Autopano-SIFT"
-msgstr "Autopano-Sift"
+msgstr "Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:75
 msgid "Use alternative Autopano-SIFT program"
-msgstr "Programme à utiliser en remplacement d'Autopano-Sift"
+msgstr "Programme à utiliser en remplacement d'Autopano-SIFT"
 
 #: src/hugin/xrc/pref_dialog.xrs:76
 msgid "Autopano-SIFT:"
-msgstr "Autopano-Sift :"
+msgstr "Autopano-SIFT :"
 
 #: src/hugin/xrc/pref_dialog.xrs:80
 msgid "Use alternative Autopano program"
@@ -3264,7 +3262,7 @@ msgid "Autopano:"
 msgstr "Autopano :"
 
 #: src/hugin/xrc/pref_dialog.xrs:84
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3273,7 +3271,7 @@ msgid ""
 "%namefile -- file that contains image filenames"
 msgstr ""
 "les modèles suivants seront substitués avant le lancement :\n"
-"%o  -- sortie du projet (0.oto sera ajouté si on utilise Autopano)\n"
+"%o  -- sortie du projet (0.oto sera ajouté si Autopano est utilisé)\n"
 "%p  -- nombre de points de contrôle pour chaque paire d'images\n"
 "%i  -- fichiers image\n"
 "%namefile -- fichier contenant les noms des fichiers images"
@@ -3790,9 +3788,10 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"Après qu'Enblend aura effectué la fusion du panorama, les images reformatée "
+"Après qu'Enblend aura effectué la fusion du panorama, les images reformatées "
 "(« remappées », disponibles dans le même répertoire que l'image du panorama) "
-"peuvent être utilisées pour retoucher le panorama dans The Gimp ou Photoshop."
+"pourront être utilisées pour retoucher le panorama dans The Gimp ou "
+"Photoshop."
 
 #: src/hugin/xrc/data/tips.txt:28
 msgid ""
