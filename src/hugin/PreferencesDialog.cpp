@@ -268,7 +268,7 @@ void PreferencesDialog::OnEditorExe(wxCommandEvent & e)
 #ifdef __WXMSW__
              _("Executables (*.exe)|*.exe"),
 #else
-             wxT(""),
+             wxT("(*)|*"),
 #endif
                     wxOPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
