@@ -791,6 +791,8 @@ public:
             vars[*v] = 0;
             links[*v] = -2;
         }
+	autoCenterCrop = true;
+	cropFactor = 1;
     }
 
     void parse(const string & line)
@@ -848,7 +850,8 @@ public:
     int width, height;
     int vigcorrMode;
     vigra::Rect2D crop;
-    bool centerCrop;
+    bool autoCenterCrop;
+    double cropFactor;
 };
 
 // cannot use Lens::variableNames here, because r,p,v need to be included
@@ -875,6 +878,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
     vector<ImgInfo> iImgInfo;
     // strange comment informations.
     vector<ImgInfo> cImgInfo;
+    // hugin additional information
+    vector<ImgInfo> huginImgInfo;
 
     // indicate lines that should be skipped for whatever reason
     bool skipNextLine = false;
@@ -1131,6 +1136,21 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 }
             }
 
+            if (line.substr(0,8) == "#-hugin ") {
+		// read hugin image line
+                ImgInfo info;
+                info.autoCenterCrop = (line.find("autoCenterCrop=1") != std::string::npos);
+                size_t pos = line.find("cropFactor=");
+                if (pos > 0 && pos < line.length()) {
+                    double cropFactor=1;
+                    const char * s = line.c_str() + pos;
+                    sscanf(s,"cropFactor=%lf", & cropFactor);
+                    std::cerr << "crop factor: " << s << " parsed: " << cropFactor << std::endl;
+                    info.cropFactor = cropFactor;
+                }
+                huginImgInfo.push_back(info);
+	    }
+	    
             // PTGui and PTAssember project files:
             // #-imgfile 960 1280 "D:\data\bruno\074-098\087.jpg"
             if (line.substr(0,10) == "#-imgfile ") {
@@ -1298,6 +1318,10 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 iImgInfo[i].height = cImgInfo[i].height;
             }
         }
+        if (huginImgInfo.size() == nImgs) {
+            iImgInfo[i].cropFactor = huginImgInfo[i].cropFactor;
+            iImgInfo[i].autoCenterCrop = huginImgInfo[i].autoCenterCrop;
+        }
     }
 
     // create image and lens.
@@ -1337,8 +1361,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         Lens l;
 
         l.setImageSize(vigra::Size2D(iImgInfo[i].width, iImgInfo[i].height));
-        // we should store the crop factor somewhere...
-        l.setCropFactor(1);
+        l.setCropFactor(iImgInfo[i].cropFactor);
 
         int anchorImage = -1;
         int lensNr = -1;
@@ -1433,6 +1456,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         }
         opts.m_vigCorrMode = iImgInfo[i].vigcorrMode;
         opts.m_flatfield = iImgInfo[i].flatfieldname;
+        opts.autoCenterCrop = iImgInfo[i].autoCenterCrop;
         images.back().setOptions(opts);
     }
 

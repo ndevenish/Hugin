@@ -930,7 +930,16 @@ void Panorama::printPanoramaScript(ostream & o,
         unsigned int lensNr = img.getLensNr();
         Lens & lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
+        ImageOptions iopts = img.getOptions();
 
+        // print special comment line with hugin GUI data
+        o << "#-hugin ";
+        if (iopts.docrop) {
+            if (iopts.autoCenterCrop)
+                o << " autoCenterCrop=1";
+        }
+        o << " cropFactor=" << lens.getCropFactor() << std::endl;
+        
         o << "i w" << img.getWidth() << " h" << img.getHeight()
           <<" f" << lens.getProjection() << " ";
 
@@ -987,7 +996,6 @@ void Panorama::printPanoramaScript(ostream & o,
             }
         }
 
-        ImageOptions iopts = img.getOptions();
         if (iopts.docrop) {
             // print crop parameters
             vigra::Rect2D c = iopts.cropRect;
