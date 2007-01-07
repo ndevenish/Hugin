@@ -778,6 +778,41 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                 cfg.Write(wxT("Lens/crop/top"), imgopts.cropRect.top());
                 cfg.Write(wxT("Lens/crop/right"), imgopts.cropRect.right());
                 cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
+
+                // try to read the exif data and add that to the lens ini file
+                wxFileName file(wxString(pano.getImage(imgNr).getFilename().c_str(), *wxConvCurrent));
+                if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                        file.GetExt().CmpNoCase(wxT("jpeg")) == 0 )
+                {
+
+                    ImageInfo_t exif;
+                    ResetJpgfile();
+                    // Start with an empty image information structure.
+
+                    memset(&exif, 0, sizeof(exif));
+                    exif.FlashUsed = -1;
+                    exif.MeteringMode = -1;
+
+                    if (ReadJpegFile(exif,pano.getImage(imgNr).getFilename().c_str(), READ_EXIF)){
+                        // calculate crop factor, if possible
+                        double cropFactor=0;
+                        if (exif.FocalLength > 0 && exif.CCDHeight > 0 && exif.CCDWidth > 0) {
+                            cropFactor = sqrt(36.0*36.0+24.0*24)/sqrt(exif.CCDWidth*exif.CCDWidth + exif.CCDHeight*exif.CCDHeight);
+                        } else if (exif.FocalLength35mm > 0 && exif.FocalLength > 0) {
+                            cropFactor = exif.FocalLength35mm / exif.FocalLength;
+                        }
+
+                        // write exif data to ini file
+                        cfg.Write(wxT("EXIF/CameraMake"),  wxString(exif.CameraMake, *wxConvCurrent));
+                        cfg.Write(wxT("EXIF/CameraModel"), wxString(exif.CameraModel, *wxConvCurrent));
+                        cfg.Write(wxT("EXIF/FocalLength"), (double) exif.FocalLength);
+                        cfg.Write(wxT("EXIF/Aperture"),    (double) exif.ApertureFNumber);
+                        cfg.Write(wxT("EXIF/ISO"),         exif.ISOequivalent);
+                        cfg.Write(wxT("EXIF/CropFactor"),  cropFactor); 
+                        cfg.Write(wxT("EXIF/Distance"),    exif.Distance); 
+                    }
+                }
+
                 cfg.Flush();
             }
             // reset locale
