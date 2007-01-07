@@ -57,7 +57,7 @@ EXTRA_DIST = hugin.vcproj hugin_rc.rc hugin.desktop hugin.xml gnome-mime-applica
 	$(RCCOMPILE) -i $< -o $@
 
 install-data-hook:
-	if test -n "$(UPDATE_MIME_DATABASE)"; then \
+	- if test -n "$(UPDATE_MIME_DATABASE)"; then \
 	  if test -z "${DESTDIR}" ; then \
 		echo "*** calling $(UPDATE_MIME_DATABASE) \"${sharedmimedir}\""; \
 		$(UPDATE_MIME_DATABASE) "${sharedmimedir}"; \
@@ -68,7 +68,11 @@ install-data-hook:
 	if test -n "$(UPDATE_DESKTOP_DATABASE)"; then \
 	  if test -z "${DESTDIR}" ; then \
 		echo "*** calling $(UPDATE_DESKTOP_DATABASE)"; \
-		"$(UPDATE_DESKTOP_DATABASE)"; \
+		if "$(UPDATE_DESKTOP_DATABASE)"; then \
+			echo "Update desktop database ok"; \
+		else \
+			echo "Update desktop database returned an error" ;\
+		fi\
 	  else \
 		echo "*** After installation call $(UPDATE_DESKTOP_DATABASE)"; \
 	  fi; \
@@ -76,7 +80,7 @@ install-data-hook:
 
 
 uninstall-local: uninstall-sharedmimepackageDATA uninstall-desktopDATA
-	if test -n "$(UPDATE_MIME_DATABASE)"; then \
+	- if test -n "$(UPDATE_MIME_DATABASE)"; then \
 	  if test -z "${DESTDIR}" ; then \
 		$(UPDATE_MIME_DATABASE) "${sharedmimedir}"; \
 	  else \
