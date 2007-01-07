@@ -492,7 +492,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
     case MEDIUM_SPEEDUP:
         o << " f1";
     }
-    o << "m" << huberSigma;
+    o << " m" << huberSigma;
     
     o << std::endl;
 }
@@ -532,9 +532,19 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
 
 void PanoramaOptions::setWidth(unsigned int w, bool keepView)
 {
+    if (m_projectionFormat == EQUIRECTANGULAR || m_projectionFormat == SINUSOIDAL) {
+        if (w%2 == 1) {
+            w = w+1;
+        }
+    }
     double scale = w / (double) m_size.x;
     if (keepView) {
         m_size.y = roundi(m_size.y*scale);
+        if (fovCalcSupported(m_projectionFormat)) {
+            if (getVFOV() > getMaxVFOV()) {
+                setVFOV(getMaxVFOV());
+	    }
+        }
     }
     m_size.x = w;
     // reset roi
