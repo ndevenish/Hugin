@@ -917,6 +917,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
         emit(ev);
     } else {
+        /*
         // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
         // properly.. do it here by hand
         e.SetEventObject(this);
@@ -928,6 +929,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
 #ifndef __WXMAC__
         m_editPanel->GetEventHandler()->ProcessEvent(e);
 #endif
+        */
     }
     e.Skip();
 }
