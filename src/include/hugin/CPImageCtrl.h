@@ -197,7 +197,6 @@ protected:
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);
-    void OnKeyUp(wxKeyEvent & e);
     void OnKeyDown(wxKeyEvent & e);
     void OnMouseLeave(wxMouseEvent & e);
     void OnMouseEnter(wxMouseEvent & e);

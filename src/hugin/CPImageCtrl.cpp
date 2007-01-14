@@ -114,7 +114,7 @@ wxEvent * CPEvent::Clone() const
 BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_SIZE(CPImageCtrl::OnSize)
     EVT_CHAR(CPImageCtrl::OnKey)
-    EVT_KEY_UP(CPImageCtrl::OnKeyUp)
+//    EVT_KEY_UP(CPImageCtrl::OnKeyUp)
     EVT_KEY_DOWN(CPImageCtrl::OnKeyDown)
     EVT_LEAVE_WINDOW(CPImageCtrl::OnMouseLeave)
     EVT_ENTER_WINDOW(CPImageCtrl::OnMouseEnter)
@@ -881,6 +881,7 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 
 void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
+    DEBUG_TRACE(" OnKey, key:" << e.m_keyCode);
     wxPoint delta(0,0);
     switch (e.m_keyCode) {
     case WXK_LEFT:
@@ -916,34 +917,30 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         // set right up event
         CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
         emit(ev);
-    } else {
-        /*
-        // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
-        // properly.. do it here by hand
-        e.SetEventObject(this);
-        DEBUG_DEBUG("forwarding key " << e.GetKeyCode()
-                    << " origin: id:" << e.GetId() << " obj: "
-                    << e.GetEventObject());
-        // forward all keys to our parent
-        //GetParent()->GetEventHandler()->ProcessEvent(e);
+    } else if (e.m_keyCode == 'g') {
+            // dangelo: I don't understand why some keys are forwarded and others are not..
+            // Delete is forwared under wxGTK, and g not..
+            // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
+            // properly.. do it here by hand
+            e.SetEventObject(this);
+            DEBUG_DEBUG("forwarding key " << e.GetKeyCode()
+                        << " origin: id:" << e.GetId() << " obj: "
+                        << e.GetEventObject());
+            // forward all keys to our parent
+            //GetParent()->GetEventHandler()->ProcessEvent(e);
 #ifndef __WXMAC__
-        m_editPanel->GetEventHandler()->ProcessEvent(e);
+            m_editPanel->GetEventHandler()->ProcessEvent(e);
 #endif
-        */
+            
+    } else {
+        e.Skip();
     }
-    e.Skip();
-}
-
-void CPImageCtrl::OnKeyUp(wxKeyEvent & e)
-{
-    DEBUG_TRACE("key:" << e.m_keyCode);
-    e.Skip();
 }
 
 void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 {
-#if 0
     DEBUG_TRACE("key:" << e.m_keyCode);
+#if 0
     if (e.m_keyCode == WXK_SHIFT) {
         DEBUG_DEBUG("shift down");
         double scale = getScale();
@@ -966,7 +963,6 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
         DEBUG_DEBUG("shift or control down, reseting scoll position");
         m_mouseScrollPos = e.GetPosition();
     }
-
     e.Skip();
 }
 

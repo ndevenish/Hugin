@@ -1639,6 +1639,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
     DEBUG_DEBUG("key " << e.GetKeyCode()
                 << " origin: id:" << e.GetId() << " obj: "
                 << e.GetEventObject());
+
     if (e.m_keyCode == WXK_DELETE){
         DEBUG_DEBUG("Delete pressed");
         // remove working points..
@@ -1768,7 +1769,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
     }
 }
 
-void CPEditorPanel::OnKeyUp(wxKeyEvent & e)
+void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
     if (e.ShiftDown()) {
@@ -1779,7 +1780,7 @@ void CPEditorPanel::OnKeyUp(wxKeyEvent & e)
 
 }
 
-void CPEditorPanel::OnKeyDown(wxKeyEvent & e)
+void CPEditorPanel::OnKeyUp(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
     if (e.ShiftDown()) {
