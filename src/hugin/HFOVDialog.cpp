@@ -146,7 +146,10 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
     }
 
     if (m_srcImg.getProjection() == SrcPanoImage::RECTILINEAR && m_HFOV > 179) {
+        DEBUG_DEBUG("HFOV " << m_HFOV << " too big, resetting to 179");
         m_HFOV=179;
+        m_ignoreHFOV = true;
+        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
     }
 
     if (m_cropFactor > 0) {
@@ -210,7 +213,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
     }
 
     if (m_cropFactor <= 0) {
-        wxMessageBox(_("The focal length must be positive."));
+        wxMessageBox(_("The crop factor must be positive."));
         m_ignoreCrop = true;
         m_cropFactor=1;
         m_cropText->SetValue(doubleTowxString(m_cropFactor,2));
