@@ -414,6 +414,15 @@ void PTools::setDestImage(Image & image, Diff2D size,
 //        DEBUG_FATAL("Out of memory");
 //    }
     image.data = 0;
+#ifdef HasPANO13
+    pano_projection_features projd;
+    if (panoProjectionFeaturesQuery((int) format, &projd)) {
+        image.format = projd.internalFormat;
+    } else {
+        image.format = _equirectangular;
+        PrintError("unsupported projection");
+    }
+#else
     switch (format) {
     case PanoramaOptions::RECTILINEAR:
         image.format = _rectilinear;
@@ -450,6 +459,7 @@ void PTools::setDestImage(Image & image, Diff2D size,
     default:
         PrintError("unsupported projection");
     }
+#endif
     image.hfov = destHFOV;
 }
 

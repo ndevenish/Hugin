@@ -182,6 +182,16 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                       wxDefaultPosition, wxDefaultSize);
 
     /* populate with all available projection types */
+#ifdef HasPANO13
+    int nP = panoProjectionFormatCount();
+    for(int n=0; n < nP; n++) {
+        pano_projection_features proj;
+        if (panoProjectionFeaturesQuery(n, &proj)) {
+            wxString str2(proj.name, wxConvLocal);
+            m_ProjectionChoice->Append(wxGetTranslation(str2));
+        }
+    }
+#else
     bool ok = true;
     int n=0;
     while(ok) {
@@ -197,6 +207,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ok = false;
         }
     }
+#endif
     m_ProjectionChoice->SetSelection(2);
 
     blendModeSizer->Add(m_ProjectionChoice,

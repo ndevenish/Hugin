@@ -100,6 +100,16 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
     m_keepViewOnResize = true;
 
     /* populate with all available projection types */
+#ifdef HasPANO13
+    int nP = panoProjectionFormatCount();
+    for(int n=0; n < nP; n++) {
+        pano_projection_features proj;
+        if (panoProjectionFeaturesQuery(n, &proj)) {
+            wxString str2(proj.name, wxConvLocal);
+            m_ProjectionChoice->Append(wxGetTranslation(str2));
+        }
+    }
+#else
     bool ok = true;
     int n=0;
     while(ok) {
@@ -115,7 +125,7 @@ PanoPanel::PanoPanel(wxWindow *parent, Panorama* pano)
             ok = false;
         }
     }
-
+#endif
     m_HFOVText = XRCCTRL(*this, "pano_text_hfov" ,wxTextCtrl);
     DEBUG_ASSERT(m_HFOVText);
     m_CalcHFOVButton = XRCCTRL(*this, "pano_button_calc_fov" ,wxButton);

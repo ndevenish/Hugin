@@ -66,7 +66,7 @@ static wxString Components2Str(const CPComponents & comp)
     for (unsigned i=0; i < comp.size(); i++) {
         ret = ret + wxT("[");
         CPComponents::value_type::const_iterator it;
-        int c=0;
+        size_t c=0;
         for (it = comp[i].begin();
             it != comp[i].end();
             ++it) 

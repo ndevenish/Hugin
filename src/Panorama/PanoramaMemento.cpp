@@ -673,6 +673,15 @@ double PanoramaOptions::getVFOV() const
 
 double PanoramaOptions::getMaxHFOV() const
 {
+#ifdef HasPANO13
+    pano_projection_features pfeat;
+    if (panoProjectionFeaturesQuery((int)m_projectionFormat, &pfeat)) {
+        return pfeat.maxHFOV;
+    } else {
+        return 360;
+    }
+#else
+    pano_projection_parameter
     switch (m_projectionFormat)
     {
         case RECTILINEAR:
@@ -690,10 +699,19 @@ double PanoramaOptions::getMaxHFOV() const
         default:
             return 360;
     }
+#endif
 }
 
 double PanoramaOptions::getMaxVFOV() const
 {
+#ifdef HasPANO13
+    pano_projection_features pfeat;
+    if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
+        return pfeat.maxVFOV;
+    } else {
+        return 180;
+    }
+#else
     switch (m_projectionFormat)
     {
         case RECTILINEAR:
@@ -712,6 +730,7 @@ double PanoramaOptions::getMaxVFOV() const
         case LAMBERT_AZIMUTHAL:
             return 360;
     }
+#endif
 }
 
 DestPanoImage PanoramaOptions::getDestImage() const
@@ -1318,7 +1337,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 iImgInfo[i].height = cImgInfo[i].height;
             }
         }
-        if (huginImgInfo.size() == nImgs) {
+        if (huginImgInfo.size() == (size_t)nImgs) {
             iImgInfo[i].cropFactor = huginImgInfo[i].cropFactor;
             iImgInfo[i].autoCenterCrop = huginImgInfo[i].autoCenterCrop;
         }
