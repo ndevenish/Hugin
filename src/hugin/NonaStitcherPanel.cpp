@@ -432,7 +432,7 @@ bool NonaStitcherPanel::Stitch( const Panorama & pano,
 
         {
             // use MyExternalCmdExecDialog
-            ret = MyExecuteCommandOnDialog(enblendExe, cmdline, this);
+            ret = MyExecuteCommandOnDialog(enblendExe, args, this);
         }
         DEBUG_NOTICE("enblend returned with: " << ret);
 

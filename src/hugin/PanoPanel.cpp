@@ -271,11 +271,11 @@ void PanoPanel::ProjectionChanged ( wxCommandEvent & e )
 {
     if (updatesDisabled) return;
     PanoramaOptions opt = pano.getOptions();
-    PanoramaOptions::ProjectionFormat oldP = opt.getProjection();
+//    PanoramaOptions::ProjectionFormat oldP = opt.getProjection();
 
     PanoramaOptions::ProjectionFormat newP = (PanoramaOptions::ProjectionFormat) m_ProjectionChoice->GetSelection();
-    int w = opt.getWidth();
-    int h = opt.getHeight();
+//    int w = opt.getWidth();
+//    int h = opt.getHeight();
     opt.setProjection(newP);
 
     GlobalCmdHist::getInstance().addCommand(
@@ -647,6 +647,7 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
     DEBUG_INFO ( "new optimal width: " << opt.getWidth() );
 }
 
+
 void PanoPanel::DoStitch()
 {
     if (pano.getNrOfImages() == 0) {
@@ -691,9 +692,9 @@ void PanoPanel::DoStitch()
         if (m_Stitcher->Stitch(pano, opt)) {
             int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
             if (runViewer) {
-		        // TODO: show image after it has been created
-   		        wxString editor = wxConfig::Get()->Read(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
-		        wxString args = wxConfig::Get()->Read(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
+                // TODO: show image after it has been created
+                wxString editor = wxConfig::Get()->Read(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
+                wxString args = wxConfig::Get()->Read(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
 
                 if (opt.outputFormat == PanoramaOptions::TIFF_m || opt.outputFormat == PanoramaOptions::TIFF_mask)
                 {
@@ -701,13 +702,27 @@ void PanoPanel::DoStitch()
                 } else {
                     wxString quoted = utils::wxQuoteFilename(wxfn);
                     args.Replace(wxT("%f"), quoted);
+                    quoted = utils::wxQuoteFilename(wxString(pano.getImage(0).getFilename().c_str(), *wxConvCurrent));
+                    args.Replace(wxT("%i"), quoted);
 
                     wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;
 
                     DEBUG_DEBUG("editor command: " << cmdline.c_str());
-		            if (editor != wxT("")) {
-    			        // opens the default viewer application
-	    		        wxExecute(cmdline, wxEXEC_ASYNC);
+                    if (editor != wxT("")) {
+                        wxExecute(cmdline, wxEXEC_ASYNC);
+                    } else {
+#ifdef __WXMSW__
+                        // use default viewer on windows
+                        SHELLEXECUTEINFO seinfo;
+                        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
+                        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
+                        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+                        seinfo.lpFile = args.c_str();
+                        seinfo.lpParameters = args.c_str();
+                        if (!ShellExecuteEx(&seinfo)) {
+                            wxMessageBox(_("Could not execute command: ") + args, _("ShellExecuteEx failed"), wxCANCEL | wxICON_ERROR);
+                        }
+#endif
                     }
                 }
             }
