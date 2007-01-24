@@ -191,7 +191,7 @@ PreferencesDialog::~PreferencesDialog()
 
     // delete custom list data
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    for (unsigned i = 0; i < lang_choice->GetCount(); i++) {
+    for (int i = 0; i < lang_choice->GetCount(); i++) {
         delete static_cast<long*>(lang_choice->GetClientData(i));
     }
 

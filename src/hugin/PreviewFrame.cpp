@@ -655,8 +655,8 @@ void PreviewFrame::updateProgressDisplay()
             msg.Append(cMsg);
         }
     }
-    wxStatusBar *m_statbar = GetStatusBar();
-    DEBUG_TRACE("Statusmb : " << msg.mb_str());
+//    wxStatusBar *m_statbar = GetStatusBar();
+    //DEBUG_TRACE("Statusmb : " << msg.mb_str());
     //m_statbar->SetStatusText(msg,0);
 
 #ifdef __WXMSW__
