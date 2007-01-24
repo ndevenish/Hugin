@@ -262,6 +262,10 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
             namefile.Write(wxT("\r\n"));
             imgNr++;
         }
+        // close namefile
+        if (namefile_name != wxString(wxT(""))) {
+            namefile.Close();
+        }
     } else {
         string imgFiles;
         int imgNr=0;
@@ -283,12 +287,13 @@ CPVector AutoPanoSift::automatch(Panorama & pano, const UIntSet & imgs,
     }
 #endif
 
-    wxString cmd = utils::wxQuoteFilename(autopanoExe) + wxT(" ") + autopanoArgs;
-    DEBUG_DEBUG("Executing: " << cmd.c_str());
+    wxString cmd = autopanoExe + wxT(" ") + autopanoArgs;
+    DEBUG_DEBUG("Executing: " << autopanoExe.c_str() << " " << autopanoArgs.c_str());
 
     int ret = 0;
+
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, cmd, 0);
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0);
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"), wxOK | wxICON_ERROR);
@@ -391,7 +396,7 @@ CPVector AutoPanoKolor::automatch(Panorama & pano, const UIntSet & imgs,
 
     int ret = 0;
     // use MyExternalCmdExecDialog
-    ret = MyExecuteCommandOnDialog(autopanoExe, cmd, 0);
+    ret = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, 0);
 
     if (ret == -1) {
         wxMessageBox( _("Could not execute command: " + cmd), _("wxExecute Error"),

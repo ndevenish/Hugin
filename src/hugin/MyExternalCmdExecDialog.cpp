@@ -30,55 +30,81 @@
 
 #include <errno.h>
 
+#include "common/wxPlatform.h"
+
 #include "hugin/MyExternalCmdExecDialog.h"
 #include "hugin/config_defaults.h"
 
 #define LINE_IO 1
 
-int MyExecuteCommandOnDialog(const wxString & command, const wxString & cmdline, wxWindow* parent)
+int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent)
 {
 
 #if defined __WXMAC__
-
+    command = utils::wxQuoteFilename(command);
+    wxString cmdline = command + wxT(" ") + args;
     MyExternalCmdExecDialog dlg(parent, wxID_ANY);
     return dlg.ShowModal(cmdline);
 
 #elif defined __WXMSW__
     int ret = -1;
-    // using CreateProcess on windows
-    /* CreateProcess API initialization */
-    STARTUPINFO siStartupInfo;
-    PROCESS_INFORMATION piProcessInfo;
-    memset(&siStartupInfo, 0, sizeof(siStartupInfo));
-    memset(&piProcessInfo, 0, sizeof(piProcessInfo));
-    siStartupInfo.cb = sizeof(siStartupInfo);
-#if wxUSE_UNICODE
-    WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
-    WCHAR * exe_c = (WCHAR *) command.wc_str();
-#else //ANSI
-    char * cmdline_c = (char*) cmdline.mb_str();
-    char * exe_c = (char*) command.mb_str();
-#endif
-    DEBUG_DEBUG("using CreateProcess() to execute :" << command.mb_str());
-    DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
-    ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
-                            IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
-                            NULL, &siStartupInfo, &piProcessInfo);
-    if (ret) {
-        ret = 0;
-        // Wait until child process exits.
-        WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
-
-        // Close process and thread handles. 
-        CloseHandle( piProcessInfo.hProcess );
-        CloseHandle( piProcessInfo.hThread );
-
+    wxFileName tname(command);
+    wxString ext = tname.GetExt();
+    if (ext != wxT("exe")) {
+        SHELLEXECUTEINFO seinfo;
+        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
+        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
+        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+        seinfo.lpFile = command.c_str();
+        seinfo.lpParameters = args.c_str();
+        if (ShellExecuteEx(&seinfo) != TRUE) {
+            ret = -1;
+            wxMessageBox(_("Could not execute command: ") + command + wxT(" ") + args, _("ShellExecuteEx failed"), wxCANCEL | wxICON_ERROR);
+        } else {
+            // wait for process
+            WaitForSingleObject(seinfo.hProcess, INFINITE);
+            ret = 0;
+        }
     } else {
+        wxString cmdline = utils::wxQuoteFilename(command) + wxT(" ") + args;
+        // using CreateProcess on windows
+        /* CreateProcess API initialization */
+        STARTUPINFO siStartupInfo;
+        PROCESS_INFORMATION piProcessInfo;
+        memset(&siStartupInfo, 0, sizeof(siStartupInfo));
+        memset(&piProcessInfo, 0, sizeof(piProcessInfo));
+        siStartupInfo.cb = sizeof(siStartupInfo);
+#if wxUSE_UNICODE
+        WCHAR * cmdline_c = (WCHAR *) cmdline.wc_str();
+        WCHAR * exe_c = (WCHAR *) command.wc_str();
+#else //ANSI
+        char * cmdline_c = (char*) cmdline.mb_str();
+        char * exe_c = (char*) command.mb_str();
+#endif
+        DEBUG_DEBUG("using CreateProcess() to execute :" << command.mb_str());
+        DEBUG_DEBUG("with cmdline:" << cmdline.mb_str());
+        ret = CreateProcess(exe_c, cmdline_c, NULL, NULL, FALSE,
+                IDLE_PRIORITY_CLASS | CREATE_NEW_CONSOLE, NULL,
+                NULL, &siStartupInfo, &piProcessInfo);
+        if (ret) {
+            ret = 0;
+            // Wait until child process exits.
+            WaitForSingleObject( piProcessInfo.hProcess, INFINITE );
+
+            // Close process and thread handles. 
+            CloseHandle( piProcessInfo.hProcess );
+            CloseHandle( piProcessInfo.hThread );
+
+        } else {
         ret = -1;
         wxLogError(_("Could not execute command: ") + cmdline  , _("CreateProcess Error"));
+        }
     }
     return ret;
 #else
+    command = utils::wxQuoteFilename(command);
+    wxString cmdline = command + wxT(" ") + args;
+
     // other unix like operating system
     if (wxConfig::Get()->Read(wxT("/ExecDialog/Enabled"), HUGIN_EXECDIALOG_ENABLED)) 
     {
