@@ -499,11 +499,20 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 {
+#ifdef HasPANO13
+    pano_projection_features pfeat;
+    if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
+        return pfeat.maxVFOV <=180;
+    } else {
+        return false;
+    }
+#else
     return ( f == RECTILINEAR
             || f == CYLINDRICAL
             || f == EQUIRECTANGULAR
             || f == MERCATOR
             || f == SINUSOIDAL );
+#endif
 }
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
