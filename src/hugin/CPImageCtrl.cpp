@@ -856,10 +856,20 @@ void CPImageCtrl::setScale(double factor)
 double CPImageCtrl::calcAutoScaleFactor(wxSize size)
 {
     // TODO correctly autoscale rotated iamges
+    int w = size.GetWidth();
+    int h = size.GetHeight();
+    if (m_imgRotation ==  ROT90 || m_imgRotation == ROT270) {
+        int t = w;
+        w = h;
+        h = t;
+    }
+
 //    wxSize csize = GetClientSize();
     wxSize csize = GetSize();
-    double s1 = (double)csize.GetWidth()/size.GetWidth();
-    double s2 = (double)csize.GetHeight()/size.GetHeight();
+    DEBUG_DEBUG("csize: " << csize.GetWidth() << "x" << csize.GetHeight() << "image: " << w << "x" << h);
+    double s1 = (double)csize.GetWidth()/w;
+    double s2 = (double)csize.GetHeight()/h;
+    DEBUG_DEBUG("s1: " << s1 << "  s2:" << s2);
     return s1 < s2 ? s1 : s2;
 }
 
@@ -870,7 +880,7 @@ double CPImageCtrl::getScaleFactor() const
 
 void CPImageCtrl::OnSize(wxSizeEvent &e)
 {
-    DEBUG_TRACE("");
+    DEBUG_TRACE("size: " << e.GetSize().GetWidth() << "x" << e.GetSize().GetHeight());
     // rescale bitmap if needed.
     if (imageFilename != "") {
         if (fitToWindow) {
@@ -883,33 +893,23 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
     DEBUG_TRACE(" OnKey, key:" << e.m_keyCode);
     wxPoint delta(0,0);
-    switch (e.m_keyCode) {
-    case WXK_LEFT:
-        delta.x = -1;
-        break;
-    case WXK_UP:
-        delta.y = -1;
-        break;
-    case WXK_RIGHT:
-        delta.x = 1;
-        break;
-    case WXK_DOWN:
-        delta.y = 1;
-        break;
-    default:
-        break;
-    }
+    // check for cursor keys, if control is not pressed
+    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_LEFT ) delta.x = -1;
+    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_RIGHT ) delta.x = 1;
+    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_UP ) delta.y = -1;
+    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_DOWN ) delta.y = 1;
     if (delta.x != 0 || delta.y != 0) {
         // move to the left
         double speed = (double) GetClientSize().GetWidth()/10;
         delta.x = (int) (delta.x * speed);
         delta.y = (int) (delta.y * speed);
-//        ScrollDelta(delta);
         if (e.ShiftDown()) {
             // emit scroll event, so that other window can be scrolled
             // as well.
             CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
             emit(e);
+        } else {
+            ScrollDelta(delta);
         }
     } else if (e.m_keyCode == 'a') {
         DEBUG_DEBUG("adding point with a key, faking right click");
@@ -917,7 +917,30 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         // set right up event
         CPEvent ev(this, CPEvent::RIGHT_CLICK, FDiff2D(0,0));
         emit(ev);
-    } else if (e.m_keyCode == 'g') {
+    } else {
+        // forward some keys...
+        bool forward = false;
+        switch (e.GetKeyCode())
+        {
+            case 'g':
+            case '0':
+            case '1':
+            case '2':
+            case 'f':
+            case WXK_RIGHT:
+            case WXK_LEFT:
+            case WXK_UP:
+            case WXK_DOWN:
+#ifdef __WXMSW__
+            case WXK_DELETE:
+#endif
+                forward = true;
+                break;
+            default:
+                break;
+        }
+
+        if (forward) {
             // dangelo: I don't understand why some keys are forwarded and others are not..
             // Delete is forwared under wxGTK, and g not..
             // wxWidgets 2.6.1 using gtk 2 doesn't set the event object
@@ -931,9 +954,9 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
 #ifndef __WXMAC__
             m_editPanel->GetEventHandler()->ProcessEvent(e);
 #endif
-            
-    } else {
-        e.Skip();
+        } else {
+            e.Skip();
+        }
     }
 }
 
