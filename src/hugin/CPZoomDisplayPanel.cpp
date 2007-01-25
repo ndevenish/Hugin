@@ -267,11 +267,13 @@ void CPZoomDisplayPanel::updateInternal()
 
     // create inverse transform, from image to pano (undistorted patch)
     // coordiantes.
+    std::vector<double> projParams;
     m_t_img2center.createInvTransform(srcSize,
                                       vars,
                                       m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
+                                      projParams,
                                       360,
                                       srcSize);
 
@@ -311,6 +313,7 @@ void CPZoomDisplayPanel::updateInternal()
                                       m_pano.getLens(img.getLensNr()).getProjection(),
                                       Diff2D(360,180),
                                       PanoramaOptions::EQUIRECTANGULAR,
+                                      projParams,
                                       360,
                                       srcSize);
 
@@ -354,6 +357,7 @@ void CPZoomDisplayPanel::updateInternal()
                                    m_pano.getLens(img.getLensNr()).getProjection(),
                                    wSize,
                                    PanoramaOptions::RECTILINEAR,
+                                   projParams,
                                    hfov,
                                    srcSize);
 
@@ -365,6 +369,7 @@ void CPZoomDisplayPanel::updateInternal()
                                       m_pano.getLens(img.getLensNr()).getProjection(),
                                       wSize,
                                       PanoramaOptions::RECTILINEAR,
+                                      projParams,
                                       hfov,
                                       srcSize);
 

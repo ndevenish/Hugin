@@ -464,6 +464,15 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         break;
     }
 
+    if (m_projectionParams.size() > 0) {
+        o << " P\"";
+        for (int i=0; i < (int) m_projectionParams.size(); i++) {
+            o << m_projectionParams[i];
+            if (i+1 < (int)m_projectionParams.size())
+                o << " ";
+        }
+        o << "\"";
+    }
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
@@ -499,6 +508,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
 
 bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 {
+    /*
 #ifdef HasPANO13
     pano_projection_features pfeat;
     if (panoProjectionFeaturesQuery((int) m_projectionFormat, &pfeat)) {
@@ -507,16 +517,22 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
         return false;
     }
 #else
+    */
     return ( f == RECTILINEAR
             || f == CYLINDRICAL
             || f == EQUIRECTANGULAR
             || f == MERCATOR
-            || f == SINUSOIDAL );
-#endif
+            || f == SINUSOIDAL 
+            || f == MILLER_CYLINDRICAL);
+//#endif
 }
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
+    if ((int) f >= panoProjectionFormatCount()) {
+        // reset to equirect if this projection is not known
+        f = EQUIRECTANGULAR;
+    }
     // only try to keep the FOV if calculations are implemented for
     // both projections
     if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
@@ -529,15 +545,56 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
         double vfov = std::min(getVFOV(), copy.getMaxVFOV());
         setHFOV(hfov, false);
         setVFOV(vfov);
+        panoProjectionFeaturesQuery(f, &m_projFeatures);
         m_projectionFormat = f;
+        m_projectionParams.resize(m_projFeatures.numberOfParameters);
+        if (m_projFeatures.numberOfParameters) {
+            if (f == ALBERS_EQUAL_AREA_CONIC) {
+                m_projectionParams[0] = 0;
+                m_projectionParams[1] = 60;
+            };
+        }
         setHFOV(hfov, false);
         setVFOV(vfov);
     } else {
         m_projectionFormat = f;
+        panoProjectionFeaturesQuery(f, &m_projFeatures);
+        m_projectionParams.resize(m_projFeatures.numberOfParameters);
+        if (m_projFeatures.numberOfParameters) {
+            if (f == ALBERS_EQUAL_AREA_CONIC) {
+                m_projectionParams[0] = 0;
+                m_projectionParams[1] = 60;
+            };
+        }
+
         double hfov = std::min(getHFOV(), getMaxHFOV());
         setHFOV(hfov, false);
     }
 }
+
+const std::vector<double> & PanoramaOptions::getProjectionParameters() const
+{
+    // check if current projection has parameters
+    return m_projectionParams;
+}
+void PanoramaOptions::setProjectionParameters(const std::vector<double> & params)
+{
+    assert(m_projFeatures.numberOfParameters == (int) params.size());
+    // check if the parameters are good.
+    if (m_projFeatures.numberOfParameters == (int) params.size()) {
+        m_projectionParams = params;
+        // enforce limits.
+        for (size_t i=0; i < params.size(); i++) {
+            if (m_projectionParams[i] > m_projFeatures.parm[i].maxValue) {
+                m_projectionParams[i] = m_projFeatures.parm[i].maxValue;
+            }
+            if (m_projectionParams[i] < m_projFeatures.parm[i].minValue) {
+                m_projectionParams[i] = m_projFeatures.parm[i].minValue;
+            }
+        }
+    }
+}
+
 
 void PanoramaOptions::setWidth(unsigned int w, bool keepView)
 {
@@ -945,10 +1002,31 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             options.setWidth(w);
             double v;
             getDoubleParam(v, line, "v");
-            options.setHFOV(v);
+            options.setHFOV(v, false);
             int height;
             getIntParam(height, line, "h");
             options.setHeight(height);
+
+            // parse projection parameters
+            getPTStringParam(format,line,"P");
+            char * tstr = strdup(format.c_str());
+            std::vector<double> projParam;
+            char * b = strtok(tstr, " \"");
+            if (b != NULL) {
+                while (b != NULL) {
+                    double tempDbl;
+                    if (sscanf(b, "%lf", &tempDbl) == 1) {
+                        projParam.push_back(tempDbl);
+                        b = strtok(NULL, " \"");
+                    }
+                }
+            } 
+            free(tstr);
+
+            // only set projection parameters, if the have the right size.
+            if (projParam.size() == options.getProjectionParameters().size()) {
+                options.setProjectionParameters(projParam);
+            }
 
             // this is fragile.. hope nobody adds additional whitespace
             // and other arguments than q...

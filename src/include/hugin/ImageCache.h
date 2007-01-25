@@ -231,6 +231,7 @@ protected:
     // descriptions of the remapped image. useful to determine
     // if it has to be updated or not
     std::map<unsigned, PT::SrcPanoImage> m_imagesParam;
+    std::map<unsigned, PT::PanoramaOptions> m_panoOpts;
 };
 
 

@@ -61,7 +61,7 @@
 //#define HAVE_UNISTD_H 1
 
 /* Current Version of Hugin */
-#define HUGIN_VERSION 0.5
+#define HUGIN_VERSION 0.7
 
 /* Define if you have JPEG library */
 #define HasJPEG 1

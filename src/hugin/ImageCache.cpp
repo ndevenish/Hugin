@@ -881,7 +881,14 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     if (set_contains(m_images, imgNr)) {
         // return cached image if the parameters of the image have not changed
         SrcPanoImage oldParam = m_imagesParam[imgNr];
-        if (oldParam == pano.getSrcImage(imgNr)) {
+        if (oldParam == pano.getSrcImage(imgNr)
+                && m_panoOpts[imgNr].getHFOV() == opts.getHFOV()
+                && m_panoOpts[imgNr].getWidth() == opts.getWidth()
+                && m_panoOpts[imgNr].getHeight() == opts.getHeight()
+                && m_panoOpts[imgNr].getProjection() == opts.getProjection()
+                && m_panoOpts[imgNr].getProjectionParameters() == opts.getProjectionParameters()
+           )
+        {
             DEBUG_DEBUG("using cached remapped image " << imgNr);
             return m_images[imgNr];
         }
@@ -953,6 +960,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
 
     m_images[imgNr] = remapped;
     m_imagesParam[imgNr] = pano.getSrcImage(imgNr);
+    m_panoOpts[imgNr] = opts;
     return remapped;
 }
 

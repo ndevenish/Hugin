@@ -62,6 +62,9 @@ using namespace utils;
 #define ID_UPDATE_BUTTON 12333
 #define ID_TOGGLE_BUT 12334
 
+#define PROJ_PARAM_NAMES_ID  14000
+#define PROJ_PARAM_VAL_ID    14100
+#define PROJ_PARAM_SLIDER_ID 14200
 
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_CLOSE(PreviewFrame::OnClose)
@@ -74,6 +77,8 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_show_all_tool"), PreviewFrame::OnShowAll)
     EVT_TOOL(XRCID("preview_show_none_tool"), PreviewFrame::OnShowNone)
     EVT_TOOL(XRCID("preview_num_transform"), PreviewFrame::OnNumTransform)
+    EVT_TEXT_ENTER( -1 , PreviewFrame::OnTextCtrlChanged)
+
     EVT_CHOICE(ID_BLEND_CHOICE, PreviewFrame::OnBlendChoice)
     EVT_CHOICE(ID_PROJECTION_CHOICE, PreviewFrame::OnProjectionChoice)
 #ifdef USE_TOGGLE_BUTTON
@@ -83,7 +88,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 #endif
     EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
     EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
-    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
+//    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
 #ifdef USE_WX253
@@ -99,12 +104,13 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 {
 	DEBUG_TRACE("");
 
+    m_oldProjFormat = -1;
     m_ToolBar = wxXmlResource::Get()->LoadToolBar(this, wxT("preview_toolbar"));
     DEBUG_ASSERT(m_ToolBar);
     // create tool bar
     SetToolBar(m_ToolBar);
 
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
+    m_topsizer = new wxBoxSizer( wxVERTICAL );
 
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
@@ -121,7 +127,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 						
 	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
 
-    topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
+    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -164,7 +170,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
-    topsizer->Add(flexSizer,
+    m_topsizer->Add(flexSizer,
                   1,        // vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
@@ -236,8 +242,44 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         wxALL | wxALIGN_CENTER_VERTICAL,
                         5);
 
-    topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
+    m_topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
 
+#ifdef HasPANO13
+    m_projParamSizer = new wxStaticBoxSizer(
+    new wxStaticBox(this, -1, _("Projection Parameters")),
+     wxHORIZONTAL);
+
+    m_projParamNamesLabel.resize(PANO_PROJECTION_MAX_PARMS);
+    m_projParamTextCtrl.resize(PANO_PROJECTION_MAX_PARMS);
+    m_projParamSlider.resize(PANO_PROJECTION_MAX_PARMS);
+
+    for (int i=0; i < PANO_PROJECTION_MAX_PARMS; i++) {
+
+        m_projParamNamesLabel[i] = new wxStaticText(this, PROJ_PARAM_NAMES_ID+i, _("param:"));
+        m_projParamSizer->Add(m_projParamNamesLabel[i],
+                        0,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        5);       // border width
+        m_projParamTextCtrl[i] = new wxTextCtrl(this, PROJ_PARAM_VAL_ID+i, _("0"),
+                                    wxDefaultPosition,wxDefaultSize, wxTE_PROCESS_ENTER);
+        m_projParamSizer->Add(m_projParamTextCtrl[i],
+                        0,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        5);       // border width
+
+        m_projParamSlider[i] = new wxSlider(this, PROJ_PARAM_SLIDER_ID+i, 0, -90, 90);
+        m_projParamSizer->Add(m_projParamSlider[i],
+                        1,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL | wxEXPAND, // draw border all around
+                        5);       // border width
+    }
+
+    m_topsizer->Add(m_projParamSizer, 0, wxEXPAND | wxALL, 5);
+
+    // do not show projection param sizer
+    m_topsizer->Show(m_projParamSizer, false, true);
+
+#endif
 
     wxConfigBase * config = wxConfigBase::Get();
 
@@ -250,8 +292,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     SetStatusText(wxT(""),2);
 
     // the initial size as calculated by the sizers
-    this->SetSizer( topsizer );
-    topsizer->SetSizeHints( this );
+    this->SetSizer( m_topsizer );
+    m_topsizer->SetSizeHints( this );
 
     // set the minimize icon
 #if __WXMSW__
@@ -326,7 +368,6 @@ void PreviewFrame::OnChangeDisplayedImgs(wxCommandEvent & e)
     }
 }
 
-
 void PreviewFrame::panoramaChanged(Panorama &pano)
 {
     const PanoramaOptions & opts = pano.getOptions();
@@ -335,10 +376,56 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_ProjectionChoice->SetSelection(opts.getProjection());
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
+    // TODO: enable display of parameters and set their limits, if projection has some.
+#ifdef HasPANO13
+    int nParam = opts.m_projFeatures.numberOfParameters;
+    bool relayout = false;
+    // if the projection format has changed
+    if (opts.getProjection() != m_oldProjFormat) {
+        DEBUG_DEBUG("Projection format changed");
+        if (nParam) {
+            // show parameters and update labels.
+            m_topsizer->Show(m_projParamSizer, true, true);
+            int i;
+            for (i=0; i < nParam; i++) {
+                const pano_projection_parameter * pp = & (opts.m_projFeatures.parm[i]);
+                wxString str2(pp->name, wxConvLocal);
+                str2 = wxGetTranslation(str2);
+                m_projParamNamesLabel[i]->SetLabel(str2);
+                m_projParamSlider[i]->SetRange(utils::roundi(pp->minValue), utils::roundi(pp->maxValue));
+            }
+            for(;i < PANO_PROJECTION_MAX_PARMS; i++) {
+                m_projParamNamesLabel[i]->Hide();
+                m_projParamSlider[i]->Hide();
+                m_projParamTextCtrl[i]->Hide();
+            }
+            relayout = true;
+        } else {
+            m_topsizer->Show(m_projParamSizer, false, true);
+            relayout = true;
+        }
+    }
+    if (nParam) {
+        // display new values
+        std::vector<double> params = opts.getProjectionParameters();
+        assert((int) params.size() == nParam);
+        for (int i=0; i < nParam; i++) {
+            wxString val = wxString(doubleToString(params[i],1).c_str(), *wxConvCurrent);
+            m_projParamTextCtrl[i]->SetValue(wxString(val.c_str(), *wxConvCurrent));
+            m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
+        }
+    }
+    if (relayout) {
+        m_topsizer->Layout();
+    }
+#endif 
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
     m_HFOVSlider->SetValue(roundi(opts.getHFOV()));
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
+
+    m_oldProjFormat = opts.getProjection();
+
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -564,10 +651,38 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
             );
         // update preview panel
         updatePano();
-
     } else {
         DEBUG_DEBUG("Numerical transform canceled");
     }
+}
+
+void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
+{
+    PanoramaOptions opts = m_pano.getOptions();
+
+    int nParam = opts.m_projFeatures.numberOfParameters;
+    std::vector<double> para = opts.getProjectionParameters();
+    for (int i = 0; i < nParam; i++) {
+        if (e.GetEventObject() == m_projParamTextCtrl[i]) {
+            wxString text = m_projParamTextCtrl[i]->GetValue();
+            DEBUG_INFO ("param " << i << ":  = " << text.mb_str() );
+            double p = 0;
+            if (text != wxT("")) {
+                if (!str2double(text, p)) {
+                    wxLogError(_("Value must be numeric."));
+                    return;
+                }
+            }
+            para[i] = p;
+        }
+    }
+    opts.setProjectionParameters(para);
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( m_pano, opts )
+                                           );
+    // update preview panel
+    updatePano();
+
 }
 
 void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
@@ -583,12 +698,21 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
     } else {
-        DEBUG_FATAL("Slider event from unknown control received");
+        int nParam = opt.m_projFeatures.numberOfParameters;
+        std::vector<double> para = opt.getProjectionParameters();
+        for (int i = 0; i < nParam; i++) {
+            if (e.GetEventObject() == m_projParamSlider[i]) {
+                // update
+                para[i] = e.GetInt();
+            }
+        }
+        opt.setProjectionParameters(para);
     }
 
     GlobalCmdHist::getInstance().addCommand(
         new PT::SetPanoOptionsCmd( m_pano, opt )
         );
+    updatePano();
 }
 
 void PreviewFrame::OnBlendChoice(wxCommandEvent & e)

@@ -66,8 +66,8 @@ PreviewPanel::PreviewPanel(PreviewFrame *parent, Panorama * pano2)
     : wxPanel (parent, -1, wxDefaultPosition,
                wxSize(256,128), wxEXPAND),
     pano(*pano2), m_autoPreview(false),m_panoImgSize(1,1),
-    m_panoBitmap(0), m_blendMode(BLEND_COPY), parentWindow(parent),
-    m_pano2erect(0),
+    m_panoBitmap(0), 
+    m_pano2erect(0), m_blendMode(BLEND_COPY), parentWindow(parent),
     m_state_rendering(false), m_rerender(false), m_imgsDirty(true)
 
 {

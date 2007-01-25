@@ -75,7 +75,7 @@ void correctImage(SrcImgType & srcImg,
     bool vigCorrDivision = (src.getVigCorrMode() & PT::SrcPanoImage::VIGCORR_DIV)>0;
 
     RSrcPixelType ka,kb;
-    bool doBrightnessConversion = convertKParams(src.getBrightnessFactor(),
+    convertKParams(src.getBrightnessFactor(),
                                                  src.getBrightnessOffset(),
                                                  ka, kb);
 
@@ -491,7 +491,7 @@ int main(int argc, char *argv[])
     // parse arguments
     const char * optstring = "g:b:r:pm:n:l:d:sf:c:ai:t:ho:v";
     int o;
-    bool verbose_flag = true;
+    //bool verbose_flag = true;
 
     opterr = 0;
 

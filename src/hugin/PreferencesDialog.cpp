@@ -191,7 +191,7 @@ PreferencesDialog::~PreferencesDialog()
 
     // delete custom list data
     wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    for (int i = 0; i < lang_choice->GetCount(); i++) {
+    for (int i = 0; i < (int) lang_choice->GetCount(); i++) {
         delete static_cast<long*>(lang_choice->GetClientData(i));
     }
 
@@ -640,7 +640,7 @@ void PreferencesDialog::UpdateDisplayData()
     int curlang = cfg->Read(wxT("language"), HUGIN_LANGUAGE);
     bool found = false;
     int idx = 0;
-    for (int i = 0; i < lang_choice->GetCount(); i++) {
+    for (int i = 0; i < (int)lang_choice->GetCount(); i++) {
         long lang = * static_cast<long *>(lang_choice->GetClientData(i));
         if (curlang == lang) {
             found = true;

@@ -239,6 +239,7 @@ void Transform::updatePTData(const Diff2D &srcSize,
                              Lens::LensProjectionFormat & srcProj,
                              const Diff2D & destSize,
                              PanoramaOptions::ProjectionFormat & destProj,
+                             const std::vector<double> & destProjParam,
                              double destHFOV)
 {
     if (m_initialized) {
@@ -249,7 +250,7 @@ void Transform::updatePTData(const Diff2D &srcSize,
     // fill our data into the Pano Tools structures.
     setFullImage(m_srcImage, srcSize, 0,
                  srcVars,  srcProj, true);
-    setDestImage(m_dstImage, destSize, 0, destProj, destHFOV);
+    setDestImage(m_dstImage, destSize, 0, destProj, destProjParam, destHFOV);
 }
 
 
@@ -265,7 +266,9 @@ void Transform::createTransform(const Panorama & pano, unsigned int imgNr,
                     pano.getImageVariables(imgNr),
                     pano.getLens(img.getLensNr()).getProjection(),
                     Diff2D(dest.getWidth(), dest.getHeight()),
-                    dest.getProjection(), dest.getHFOV(),
+                    dest.getProjection(), 
+                    dest.getProjectionParameters(),
+                    dest.getHFOV(),
                     Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -291,6 +294,7 @@ void Transform::createInvTransform(const SrcPanoImage & src, const PanoramaOptio
                        (Lens::LensProjectionFormat) src.getProjection(),
                        dest.getSize(),
                        dest.getProjection(),
+                       dest.getProjectionParameters(),
                        dest.getHFOV(),
                        src.getSize());
 }
@@ -318,6 +322,7 @@ void Transform::createTransform(const PT::SrcPanoImage & src, const PT::Panorama
                     (Lens::LensProjectionFormat) src.getProjection(),
                     dest.getSize(),
                     dest.getProjection(),
+                    dest.getProjectionParameters(),
                     dest.getHFOV(),
                     src.getSize());
 }
@@ -328,6 +333,7 @@ void Transform::createTransform(const Diff2D & srcSize,
                                 Lens::LensProjectionFormat srcProj,
                                 const Diff2D &destSize,
                                 PanoramaOptions::ProjectionFormat destProj,
+                                const std::vector<double> & destProjParam,
                                 double destHFOV,
                                 const Diff2D & originalSrcSize)
 {
@@ -346,7 +352,7 @@ void Transform::createTransform(const Diff2D & srcSize,
     }
 
     updatePTData(srcSize, srcVars, srcProj,
-                 destSize, destProj, destHFOV);
+                 destSize, destProj, destProjParam, destHFOV);
     // create the actual stack
     SetMakeParams( m_stack, &m_mp, &m_srcImage , &m_dstImage, 0 );
 }
@@ -364,7 +370,9 @@ void Transform::createInvTransform(const Panorama & pano, unsigned int imgNr,
                        pano.getImageVariables(imgNr),
                        pano.getLens(img.getLensNr()).getProjection(),
                        Diff2D(dest.getWidth(), dest.getHeight()),
-                       dest.getProjection(), dest.getHFOV(),
+                       dest.getProjection(),
+                       dest.getProjectionParameters(),
+                       dest.getHFOV(),
                        Diff2D(img.getWidth(), img.getHeight()));
 }
 
@@ -373,6 +381,7 @@ void Transform::createInvTransform(const Diff2D & srcSize,
                                    Lens::LensProjectionFormat srcProj,
                                    const Diff2D & destSize,
                                    PanoramaOptions::ProjectionFormat destProj,
+                                   const std::vector<double> & destProjParam,
                                    double destHFOV,
                                    const Diff2D & originalSrcSize)
 {
@@ -391,7 +400,9 @@ void Transform::createInvTransform(const Diff2D & srcSize,
     }
 
     updatePTData(srcSize, srcVars, srcProj,
-                 destSize, destProj, destHFOV);
+                 destSize, destProj, 
+                 destProjParam,
+                 destHFOV);
     // create the actual stack
     SetInvMakeParams( m_stack, &m_mp, &m_srcImage , &m_dstImage, 0 );
 }
@@ -400,6 +411,7 @@ void Transform::createInvTransform(const Diff2D & srcSize,
 void PTools::setDestImage(Image & image, Diff2D size,
                           unsigned char * imageData,
                           const PT::PanoramaOptions::ProjectionFormat & format,
+                          const std::vector<double> & projParams,
                           double destHFOV)
 {
     SetImageDefaults(&image);
@@ -421,6 +433,12 @@ void PTools::setDestImage(Image & image, Diff2D size,
     } else {
         image.format = _equirectangular;
         PrintError("unsupported projection");
+    }
+    image.formatParamCount = projd.numberOfParameters;
+    assert(image.formatParamCount == (int) projParams.size());
+    for (int i=0; i < projd.numberOfParameters; i++) {
+        image.formatParam[i] = projParams[i];
+        DEBUG_DEBUG("projection parameter " << i << ": " << image.formatParam[i]);
     }
 #else
     switch (format) {
@@ -667,7 +685,9 @@ void PTools::setAdjustDestImg(TrformStr & trf, aPrefs & ap,
     if (trf.dest->data) {
         myfree((void**)trf.dest->data);
     }
-    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.getProjection(), opts.getHFOV());
+    setDestImage(*(trf.dest), vigra::Diff2D(width, height), imageData, opts.getProjection(), 
+                   opts.getProjectionParameters(),
+                   opts.getHFOV());
     ap.pano = *(trf.dest);
 }
 
@@ -818,7 +838,9 @@ bool PTools::AlignInfoWrap::setInfo(const PT::Panorama & pano)
 
     const PanoramaOptions & opts = pano.getOptions();
     setDestImage(gl.pano, Diff2D(opts.getWidth(), opts.getHeight()),
-                 0, opts.getProjection(), opts.getHFOV());
+                 0, opts.getProjection(), 
+                 opts.getProjectionParameters(),
+                 opts.getHFOV());
 
     // Default: Use buffer 'buf' for stitching
     SetStitchDefaults(&(gl.st)); strcpy( gl.st.srcName, "buf" );

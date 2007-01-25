@@ -32,6 +32,12 @@
 #include <set>
 #include <math.h>
 
+#ifdef HasPANO13
+extern "C" {
+#include "pano13/panorama.h"
+}
+#endif
+
 #include "PT/PanoImage.h"
 
 #include "vigra_ext/Interpolators.h"
@@ -311,7 +317,9 @@ public:
                             TRANSVERSE_MERCATOR = 6,
                             SINUSOIDAL = 7,
                             LAMBERT = 8,
-                            LAMBERT_AZIMUTHAL = 9
+                            LAMBERT_AZIMUTHAL = 9,
+                            ALBERS_EQUAL_AREA_CONIC = 10,
+                            MILLER_CYLINDRICAL = 11
     };
 
     /** PTStitcher acceleration */
@@ -372,6 +380,7 @@ public:
     void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
+            panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
@@ -449,6 +458,12 @@ public:
         return m_projectionFormat;
     };
 
+    /** Get the optional projection parameters */
+    const std::vector<double> & getProjectionParameters() const;
+
+    /** set the optional parameters (they need to be of the correct size) */
+    void setProjectionParameters(const std::vector<double> & params);
+
     /** true, if FOV calcuations are supported for projection \p f */
     bool fovCalcSupported(ProjectionFormat f) const;
 
@@ -504,6 +519,9 @@ public:
 
     double huberSigma;
 
+    pano_projection_features m_projFeatures;
+
+
 private:
     static const std::string fileformatNames[];
     static const std::string fileformatExt[];
@@ -511,6 +529,8 @@ private:
 //    unsigned int m_width;
 //    unsigned int m_height;
     ProjectionFormat m_projectionFormat;
+
+    std::vector<double> m_projectionParams;
     vigra::Size2D m_size;
     vigra::Rect2D m_roi;
 };

@@ -129,6 +129,7 @@ public:
                          PT::Lens::LensProjectionFormat srcProj,
                          const vigra::Diff2D &destSize,
                          PT::PanoramaOptions::ProjectionFormat destProj,
+                         const std::vector<double> & destProjParam,
                          double destHFOV,
                          const vigra::Diff2D & origSrcSize);
 
@@ -162,6 +163,7 @@ public:
                             PT::Lens::LensProjectionFormat srcProj,
                             const vigra::Diff2D & destSize,
                             PT::PanoramaOptions::ProjectionFormat destProj,
+                            const std::vector<double> & destProjParam,
                             double destHFOV,
                             const vigra::Diff2D & origSrcSize);
 
@@ -221,6 +223,7 @@ private:
                       PT::Lens::LensProjectionFormat & srcProj,
                       const vigra::Diff2D & destSize,
                       PT::PanoramaOptions::ProjectionFormat & destProj,
+                      const std::vector<double> & destProjParam,
                       double destHFOV);
 
     bool m_initialized;
@@ -244,6 +247,7 @@ private:
  */
 void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
                   const PT::PanoramaOptions::ProjectionFormat & format,
+                  const std::vector<double> & projParams,
                   double destHFOV);
 
 /** fills @p image with a complete input image, including distortion

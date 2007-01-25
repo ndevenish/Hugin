@@ -65,6 +65,7 @@ protected:
     void OnShowNone(wxCommandEvent & e);
     void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);
+    void OnTextCtrlChanged(wxCommandEvent & e);
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
@@ -82,6 +83,7 @@ private:
     wxChoice * m_BlendModeChoice;
     wxChoice * m_ProjectionChoice;
     wxString m_choices[3];
+    int m_oldProjFormat;
 
 //    wxButton * m_updatePreview;
 //    wxCheckBox * m_autoCB;
@@ -89,6 +91,12 @@ private:
 	wxScrolledWindow * m_ButtonPanel;
 	wxBoxSizer * m_ButtonSizer;
 	wxStaticBoxSizer * m_ToggleButtonSizer;
+
+    wxBoxSizer * m_topsizer;
+    wxStaticBoxSizer * m_projParamSizer;
+    std::vector<wxStaticText *> m_projParamNamesLabel;
+    std::vector<wxTextCtrl *>   m_projParamTextCtrl;
+    std::vector<wxSlider *>     m_projParamSlider;
 
 #ifdef USE_TOGGLE_BUTTON
     std::vector<wxToggleButton *> m_ToggleButtons;
