@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 22:20+0100\n"
+"POT-Creation-Date: 2007-01-28 23:59+0100\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -130,7 +130,7 @@ msgid "Select autopano program / frontend script"
 msgstr "Trieu el programa / seqüència (script) final Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:251
 #: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
 #: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
@@ -138,7 +138,7 @@ msgstr "Executables (*.exe)|*.exe"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:165
 #: src/hugin/AutoCtrlPointCreator.cpp:201
-#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:351
 msgid "No autopano selected"
 msgstr "Autopano no seleccionat"
 
@@ -174,8 +174,8 @@ msgstr ""
 "Utilitzeu %namefile o %i per especificar els fitxers d'entrada d'Autopano-"
 "sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:279
-#: src/hugin/AutoCtrlPointCreator.cpp:384
+#: src/hugin/AutoCtrlPointCreator.cpp:283
+#: src/hugin/AutoCtrlPointCreator.cpp:389
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -187,32 +187,33 @@ msgstr ""
 "Seleccioneu menys imatges o poseu les imatges\n"
 "dins una carpeta amb una ruta més curta."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:280
-#: src/hugin/AutoCtrlPointCreator.cpp:385 src/hugin/NonaStitcherPanel.cpp:428
+#: src/hugin/AutoCtrlPointCreator.cpp:284
+#: src/hugin/AutoCtrlPointCreator.cpp:390 src/hugin/NonaStitcherPanel.cpp:428
 msgid "Too many images selected"
 msgstr "Masses imatges seleccionades"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
-#: src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/MyExternalCmdExecDialog.cpp:62
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
+#: src/hugin/NonaStitcherPanel.cpp:440 src/hugin/PanoPanel.cpp:723
 msgid "Could not execute command: "
 msgstr "Impossible d'executar la comanda : "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
 #: src/hugin/AutoCtrlPointCreator.cpp:299
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/AutoCtrlPointCreator.cpp:403 src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:304
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/NonaStitcherPanel.cpp:440
 msgid "wxExecute Error"
 msgstr "Error wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:297
-#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/NonaStitcherPanel.cpp:443
+#: src/hugin/AutoCtrlPointCreator.cpp:302
+#: src/hugin/AutoCtrlPointCreator.cpp:406 src/hugin/NonaStitcherPanel.cpp:443
 msgid "command: "
 msgstr "comanda: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:298
-#: src/hugin/AutoCtrlPointCreator.cpp:402 src/hugin/NonaStitcherPanel.cpp:444
+#: src/hugin/AutoCtrlPointCreator.cpp:303
+#: src/hugin/AutoCtrlPointCreator.cpp:407 src/hugin/NonaStitcherPanel.cpp:444
 msgid ""
 "\n"
 "failed with error code: "
@@ -220,13 +221,13 @@ msgstr ""
 "\n"
 "fallada amb el codi d'error : "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid "Could not open "
 msgstr "Impossible d'obrir"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -240,17 +241,17 @@ msgstr ""
 "\n"
 "Comanda Autopano: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:306
-#: src/hugin/AutoCtrlPointCreator.cpp:413
+#: src/hugin/AutoCtrlPointCreator.cpp:311
+#: src/hugin/AutoCtrlPointCreator.cpp:418
 msgid "autopano failure"
 msgstr "Fallada d'Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:338
+#: src/hugin/AutoCtrlPointCreator.cpp:343
 #, fuzzy
 msgid "Select autopano program"
 msgstr "Seleccioneu el tipus d'Autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:411
+#: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
 "\n"
 " current directory:"
@@ -349,7 +350,7 @@ msgid "No similar point found"
 msgstr "No és trobat cap punt similar"
 
 #: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
-#: src/hugin/PreviewFrame.cpp:213 src/hugin/xrc/cp_editor_panel.xrs:8
+#: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normal"
@@ -362,43 +363,43 @@ msgstr "línia vertical"
 msgid "horiz. Line"
 msgstr "línia horitzontal"
 
-#: src/hugin/CPEditorPanel.cpp:1727
+#: src/hugin/CPEditorPanel.cpp:1728
 msgid "Cannot estimate image position without control points"
 msgstr "No es pot calcular la posició de la imatge sense punts de control"
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 #, fuzzy
 msgid "Corner Detection threshold"
 msgstr "Llindar de correlació :"
 
-#: src/hugin/CPEditorPanel.cpp:1748 src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 #, fuzzy
 msgid "Create control points"
 msgstr "Creu els punts de control"
 
-#: src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1753
 #, fuzzy
 msgid "Corner Detection scale"
 msgstr "Col·lecció d'imatges"
 
-#: src/hugin/CPEditorPanel.cpp:1764
+#: src/hugin/CPEditorPanel.cpp:1765
 #, fuzzy
 msgid "Error during control point creation:\n"
 msgstr "Error durant l'assemblatge"
 
-#: src/hugin/CPEditorPanel.cpp:1895
+#: src/hugin/CPEditorPanel.cpp:1896
 msgid "Select Point in right image"
 msgstr "Seleccioneu un punt en la imatge de la dreta"
 
-#: src/hugin/CPEditorPanel.cpp:1907
+#: src/hugin/CPEditorPanel.cpp:1908
 msgid "Select Point in left image"
 msgstr "Seleccioneu un punt en la imatge de la esquerra"
 
@@ -449,7 +450,8 @@ msgstr "No es pot llegir el nombre"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
+#: src/hugin/PanoPanel.cpp:301 src/hugin/PanoPanel.cpp:332
+#: src/hugin/PreviewFrame.cpp:672
 msgid "Value must be numeric."
 msgstr "El valor ha de ser numèric."
 
@@ -578,7 +580,7 @@ msgstr "Gran angular circular"
 msgid "Full frame fisheye"
 msgstr "Gran angular d'abast total"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:439
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:537
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
 #: src/hugin/xrc/pano_panel.xrs:5
@@ -612,9 +614,9 @@ msgstr "Suprimeix punts de control"
 msgid "Not a jpeg file:"
 msgstr "No és un fitxer jpeg :"
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:787
-#: src/hugin/LensPanel.cpp:820 src/hugin/LensPanel.cpp:915
-#: src/hugin/LensPanel.cpp:933
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:822
+#: src/hugin/LensPanel.cpp:855 src/hugin/LensPanel.cpp:950
+#: src/hugin/LensPanel.cpp:968
 msgid "Please select an image and try again"
 msgstr "Seleccioneu una imatge i proveu un altre cop"
 
@@ -626,23 +628,23 @@ msgstr "Desa el fitxer dels paràmetres de la lent"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Fitxer Projecte de lents (*.ini)|*.ini|tots els fitxers (*)|*"
 
-#: src/hugin/LensPanel.cpp:829
+#: src/hugin/LensPanel.cpp:864
 msgid "Load lens parameters"
 msgstr "Obrir el fitxer dels paràmetres de l'objectiu"
 
-#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:866
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Fitxer Projecte de lents (*.ini)|*.ini|tots els fitxers (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Enter new lens number"
 msgstr "Introduïu el nou número de la lent"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Lens number"
 msgstr "Lent número"
 
-#: src/hugin/LensPanel.cpp:924
+#: src/hugin/LensPanel.cpp:959
 msgid "Change lens number"
 msgstr "Canvieu el número de la lent"
 
@@ -791,23 +793,27 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Resultat de l'ajustament precís"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
+#: src/hugin/MyExternalCmdExecDialog.cpp:62 src/hugin/PanoPanel.cpp:723
+msgid "ShellExecuteEx failed"
+msgstr "Fallada de ShellExecuteEx"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
 msgid "CreateProcess Error"
 msgstr "Error de CreateProcess"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy, c-format
 msgid "Running %s"
 msgstr "Execució d'Enblend"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy
 msgid "You can watch the enblend progress in the command window"
 msgstr ""
 "Enblend tardarà una estona per finalitzar el processament del panorama\n"
 "Podeu seguir el progrés d'Enblend a la finestra de comandes."
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:93
+#: src/hugin/MyExternalCmdExecDialog.cpp:119
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -815,7 +821,7 @@ msgstr ""
 "No es pot executar Enblend, system() a fallat :\n"
 "La comanda és :"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:94
+#: src/hugin/MyExternalCmdExecDialog.cpp:120
 msgid "Error returned was :"
 msgstr "L'error retornat és :"
 
@@ -1148,30 +1154,30 @@ msgstr ""
 "per determinar les dimensions de píxel per a una\n"
 "millor qualitat."
 
-#: src/hugin/PanoPanel.cpp:297
+#: src/hugin/PanoPanel.cpp:307
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:328
+#: src/hugin/PanoPanel.cpp:338
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:374
+#: src/hugin/PanoPanel.cpp:384
 msgid "width needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: src/hugin/PanoPanel.cpp:391
+#: src/hugin/PanoPanel.cpp:401
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "l'amplada ha de ser un enter més gran que 0"
 
-#: src/hugin/PanoPanel.cpp:655
+#: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Crea una imatge panoràmica"
 
-#: src/hugin/PanoPanel.cpp:669
+#: src/hugin/PanoPanel.cpp:680
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1179,7 +1185,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:670
+#: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
 msgstr ""
 
@@ -1292,78 +1298,91 @@ msgstr ""
 msgid "Load Defaults"
 msgstr "Carregant els valors per defecte"
 
-#: src/hugin/PreviewFrame.cpp:96
+#: src/hugin/PreviewFrame.cpp:101
 msgid "Panorama preview"
 msgstr "Vista prèvia del panorama"
 
-#: src/hugin/PreviewFrame.cpp:110
+#: src/hugin/PreviewFrame.cpp:116
 msgid "displayed images"
 msgstr "imatges mostrades"
 
-#: src/hugin/PreviewFrame.cpp:145
+#: src/hugin/PreviewFrame.cpp:151
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:149
+#: src/hugin/PreviewFrame.cpp:155
 msgid "drag to change the vertical field of view"
 msgstr "arrossegar per canviar el camp de visió vertical"
 
-#: src/hugin/PreviewFrame.cpp:158
+#: src/hugin/PreviewFrame.cpp:164
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:163
+#: src/hugin/PreviewFrame.cpp:169
 msgid "drag to change the horizontal field of view"
 msgstr "arrossegar per canviar el camp de visió horitzontal"
 
-#: src/hugin/PreviewFrame.cpp:174
+#: src/hugin/PreviewFrame.cpp:180
 msgid "Preview Options"
 msgstr "Opcions de la vista prèvia"
 
-#: src/hugin/PreviewFrame.cpp:177 src/hugin/xrc/pano_panel.xrs:2
+#: src/hugin/PreviewFrame.cpp:183 src/hugin/xrc/pano_panel.xrs:2
 #: src/hugin/xrc/pano_panel-2.5.xrs:2
 msgid "projection (f):"
 msgstr "projecció (f) :"
 
-#: src/hugin/PreviewFrame.cpp:208
+#: src/hugin/PreviewFrame.cpp:225
 msgid "Blend mode:"
 msgstr "Mode de barreja :"
 
-#: src/hugin/PreviewFrame.cpp:214
+#: src/hugin/PreviewFrame.cpp:231
 msgid "difference"
 msgstr "diferència"
 
-#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
+#: src/hugin/PreviewFrame.cpp:249
+#, fuzzy
+msgid "Projection Parameters"
+msgstr "Paràmetres de correcció de la lent"
+
+#: src/hugin/PreviewFrame.cpp:258
+msgid "param:"
+msgstr ""
+
+#: src/hugin/PreviewFrame.cpp:263 src/hugin/xrc/pano_panel.xrs:28
+msgid "0"
+msgstr "0"
+
+#: src/hugin/PreviewFrame.cpp:290 src/hugin/PreviewPanel.cpp:517
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:272 src/hugin/PreviewFrame.cpp:327
+#: src/hugin/PreviewFrame.cpp:325 src/hugin/PreviewFrame.cpp:422
 #, fuzzy
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Fixeu la Guinyada i el Caboteig amb el botó esquerre del ratolí. Utilitzeu "
 "el botó dret del ratolí per fixar el Balanceig."
 
-#: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:535 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
 msgstr "Rectilini"
 
-#: src/hugin/PreviewFrame.cpp:438 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:536 src/hugin/xrc/pano_panel.xrs:4
 msgid "Cylindrical"
 msgstr "Cilíndric"
 
-#: src/hugin/PreviewFrame.cpp:536
+#: src/hugin/PreviewFrame.cpp:634
 #, fuzzy
 msgid "Yaw value must be numeric."
 msgstr "El valor ha de ser numèric."
 
-#: src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PreviewFrame.cpp:640
 #, fuzzy
 msgid "Pitch value must be numeric."
 msgstr "El valor ha de ser numèric."
 
-#: src/hugin/PreviewFrame.cpp:548
+#: src/hugin/PreviewFrame.cpp:646
 #, fuzzy
 msgid "Roll value must be numeric."
 msgstr "El valor ha de ser numèric."
@@ -1765,7 +1784,7 @@ msgstr "x :"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
 msgstr "y :"
 
@@ -2841,10 +2860,6 @@ msgstr "Amplada en píxels :"
 msgid "pixel height:"
 msgstr "Alçada en píxels :"
 
-#: src/hugin/xrc/pano_panel.xrs:28
-msgid "0"
-msgstr "0"
-
 #: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "Calculate Optimal Size"
 msgstr "Calcula la mida òptima"
@@ -3473,75 +3488,75 @@ msgstr ""
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:2
 #, fuzzy
-msgid "Correction"
-msgstr "Col·lecció d'imatges"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "Flatfield"
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-#, fuzzy
-msgid "Image file:"
-msgstr "Fitxer d'imatge no trobat"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "..."
-msgstr "..."
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
-#, fuzzy
-msgid "Polynomial"
-msgstr "normal"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
-msgid "c = "
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
-msgid " + "
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
-msgid "*r^2 + "
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
-msgid "*r^4 + "
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
-msgid "*r^6"
-msgstr ""
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
-#, fuzzy
-msgid "center shift x:"
-msgstr "Desplaçament del centre de la imatge"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
-#, fuzzy
-msgid "Estimate polynomial"
-msgstr "El punt calculat és fora de la imatge"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
-#, fuzzy
 msgid "Type of Correction"
 msgstr "Correcció d'exposició :"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:3
 #, fuzzy
 msgid "No correction"
 msgstr "Correcció d'exposició :"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 #, fuzzy
 msgid "Addition ( I=I+c )"
 msgstr "distorsió (c) :"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "Division ( I=I/c )"
 msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
+#, fuzzy
+msgid "Correction"
+msgstr "Col·lecció d'imatges"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
+msgid "Flatfield"
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
+#, fuzzy
+msgid "Image file:"
+msgstr "Fitxer d'imatge no trobat"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
+msgid "..."
+msgstr "..."
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
+#, fuzzy
+msgid "Polynomial"
+msgstr "normal"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
+msgid "c = "
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
+msgid " + "
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
+msgid "*r^2 + "
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
+msgid "*r^4 + "
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "*r^6"
+msgstr ""
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#, fuzzy
+msgid "center shift x:"
+msgstr "Desplaçament del centre de la imatge"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#, fuzzy
+msgid "Estimate polynomial"
+msgstr "El punt calculat és fora de la imatge"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3786,9 +3801,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Espereu mentre Autopano cerca els punts de control\n"
 #~ "Seguiu l'evolució de l'execució d'Autopano a la finestra de comandes"
-
-#~ msgid "ShellExecuteEx failed"
-#~ msgstr "Fallada de ShellExecuteEx"
 
 #~ msgid ""
 #~ "Enter Crop Factor for image\n"

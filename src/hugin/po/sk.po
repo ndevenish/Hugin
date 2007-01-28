@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 22:20+0100\n"
+"POT-Creation-Date: 2007-01-28 23:59+0100\n"
 "PO-Revision-Date: 2007-01-01 10:29+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -135,7 +135,7 @@ msgid "Select autopano program / frontend script"
 msgstr "Vyberte program autopano / rozhranie skriptu"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:251
 #: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
 #: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
@@ -143,7 +143,7 @@ msgstr "Spustiteľné (*.exe)|*.exe"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:165
 #: src/hugin/AutoCtrlPointCreator.cpp:201
-#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:351
 msgid "No autopano selected"
 msgstr "Nebolo zvolené autopano"
 
@@ -178,8 +178,8 @@ msgstr ""
 "Používajte prosím %namefile alebo %i pre určenie vstupných súborov pre "
 "autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:279
-#: src/hugin/AutoCtrlPointCreator.cpp:384
+#: src/hugin/AutoCtrlPointCreator.cpp:283
+#: src/hugin/AutoCtrlPointCreator.cpp:389
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -191,32 +191,33 @@ msgstr ""
 "Vyberte prosím menej obrázkov alebo vložte obrázky do priečinka\n"
 "s kratším názvom cesty"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:280
-#: src/hugin/AutoCtrlPointCreator.cpp:385 src/hugin/NonaStitcherPanel.cpp:428
+#: src/hugin/AutoCtrlPointCreator.cpp:284
+#: src/hugin/AutoCtrlPointCreator.cpp:390 src/hugin/NonaStitcherPanel.cpp:428
 msgid "Too many images selected"
 msgstr "Vybraných príliš mnoho obrázkov"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
-#: src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/MyExternalCmdExecDialog.cpp:62
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
+#: src/hugin/NonaStitcherPanel.cpp:440 src/hugin/PanoPanel.cpp:723
 msgid "Could not execute command: "
 msgstr "Nebolo možné spustiť príkaz: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
 #: src/hugin/AutoCtrlPointCreator.cpp:299
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/AutoCtrlPointCreator.cpp:403 src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:304
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/NonaStitcherPanel.cpp:440
 msgid "wxExecute Error"
 msgstr "chyba v wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:297
-#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/NonaStitcherPanel.cpp:443
+#: src/hugin/AutoCtrlPointCreator.cpp:302
+#: src/hugin/AutoCtrlPointCreator.cpp:406 src/hugin/NonaStitcherPanel.cpp:443
 msgid "command: "
 msgstr "príkaz: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:298
-#: src/hugin/AutoCtrlPointCreator.cpp:402 src/hugin/NonaStitcherPanel.cpp:444
+#: src/hugin/AutoCtrlPointCreator.cpp:303
+#: src/hugin/AutoCtrlPointCreator.cpp:407 src/hugin/NonaStitcherPanel.cpp:444
 msgid ""
 "\n"
 "failed with error code: "
@@ -224,13 +225,13 @@ msgstr ""
 "\n"
 "skončil s chybovým kódom: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid "Could not open "
 msgstr "Nepodarilo sa otvoriť "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -244,17 +245,17 @@ msgstr ""
 "\n"
 "Príkaz autopana:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:306
-#: src/hugin/AutoCtrlPointCreator.cpp:413
+#: src/hugin/AutoCtrlPointCreator.cpp:311
+#: src/hugin/AutoCtrlPointCreator.cpp:418
 msgid "autopano failure"
 msgstr "zlyhanie autopana"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:338
+#: src/hugin/AutoCtrlPointCreator.cpp:343
 #, fuzzy
 msgid "Select autopano program"
 msgstr "Vyberte typ autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:411
+#: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
 "\n"
 " current directory:"
@@ -351,7 +352,7 @@ msgid "No similar point found"
 msgstr "Žiadny zodpovedajúci bod"
 
 #: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
-#: src/hugin/PreviewFrame.cpp:213 src/hugin/xrc/cp_editor_panel.xrs:8
+#: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normálne"
@@ -364,11 +365,11 @@ msgstr "vert. čiara"
 msgid "horiz. Line"
 msgstr "horiz. čiara"
 
-#: src/hugin/CPEditorPanel.cpp:1727
+#: src/hugin/CPEditorPanel.cpp:1728
 msgid "Cannot estimate image position without control points"
 msgstr "Nie je možné odhadnúť pozíciu obrázku bez kontrolných bodov"
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -378,28 +379,28 @@ msgstr ""
 "Pre vytvorenie menšieho počtu bodov,\n"
 "zadajte vyššie číslo."
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 msgid "Corner Detection threshold"
 msgstr "Detekcia prahu rohu"
 
-#: src/hugin/CPEditorPanel.cpp:1748 src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Vytvoriť kontrolné body"
 
-#: src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1753
 msgid "Corner Detection scale"
 msgstr "Detekcia miery rohu"
 
-#: src/hugin/CPEditorPanel.cpp:1764
+#: src/hugin/CPEditorPanel.cpp:1765
 msgid "Error during control point creation:\n"
 msgstr "Chyba počas vytvárania kontrolných bodov:\n"
 
-#: src/hugin/CPEditorPanel.cpp:1895
+#: src/hugin/CPEditorPanel.cpp:1896
 msgid "Select Point in right image"
 msgstr "Vybrať bod v pravom obrázku"
 
-#: src/hugin/CPEditorPanel.cpp:1907
+#: src/hugin/CPEditorPanel.cpp:1908
 msgid "Select Point in left image"
 msgstr "Vybrať bod v ľavom obrázku"
 
@@ -450,7 +451,8 @@ msgstr "Nepodarilo sa prečítať číslo"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
+#: src/hugin/PanoPanel.cpp:301 src/hugin/PanoPanel.cpp:332
+#: src/hugin/PreviewFrame.cpp:672
 msgid "Value must be numeric."
 msgstr "Hodnota musí byť číselná."
 
@@ -579,7 +581,7 @@ msgstr "Kruhové rybie oko"
 msgid "Full frame fisheye"
 msgstr "Plnosnímkové rybie oko"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:439
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:537
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
 #: src/hugin/xrc/pano_panel.xrs:5
@@ -613,9 +615,9 @@ msgstr "Vymazať kontrolné body"
 msgid "Not a jpeg file:"
 msgstr "Súbor nie je jpeg:"
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:787
-#: src/hugin/LensPanel.cpp:820 src/hugin/LensPanel.cpp:915
-#: src/hugin/LensPanel.cpp:933
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:822
+#: src/hugin/LensPanel.cpp:855 src/hugin/LensPanel.cpp:950
+#: src/hugin/LensPanel.cpp:968
 msgid "Please select an image and try again"
 msgstr "Vyberte prosím obrázok a skúste znovu"
 
@@ -627,23 +629,23 @@ msgstr "Uložiť súbor s parametrami šošovky"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Soubory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*)|*"
 
-#: src/hugin/LensPanel.cpp:829
+#: src/hugin/LensPanel.cpp:864
 msgid "Load lens parameters"
 msgstr "Nahrať parametre šošovky"
 
-#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:866
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Súbory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Enter new lens number"
 msgstr "Vložte nové číslo šošovky"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Lens number"
 msgstr "Číslo šošovky"
 
-#: src/hugin/LensPanel.cpp:924
+#: src/hugin/LensPanel.cpp:959
 msgid "Change lens number"
 msgstr "Zmeniť číslo šošovky"
 
@@ -789,23 +791,27 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Doladený výsledok"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
+#: src/hugin/MyExternalCmdExecDialog.cpp:62 src/hugin/PanoPanel.cpp:723
+msgid "ShellExecuteEx failed"
+msgstr "ShellExecuteEx zlyhalo"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
 msgid "CreateProcess Error"
 msgstr "Chyba vo funkcii CreateProcess"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy, c-format
 msgid "Running %s"
 msgstr "Spúšťam Enblend"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy
 msgid "You can watch the enblend progress in the command window"
 msgstr ""
 "Enblendu bude chvíľku trvať dokončenie panorámy\n"
 "Môžete pozorovať proces enblendu v príkazovom okne"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:93
+#: src/hugin/MyExternalCmdExecDialog.cpp:119
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -813,7 +819,7 @@ msgstr ""
 "Nie je možné spustiť enblend, volanie system() zlyhalo:\n"
 "Príkaz bol:"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:94
+#: src/hugin/MyExternalCmdExecDialog.cpp:120
 msgid "Error returned was :"
 msgstr "Vrátená chyba:"
 
@@ -1158,29 +1164,29 @@ msgstr ""
 "najvyššej kvalite, použite tlačidlo Vypočítať optimálnu\n"
 "veľkosť na paneli Nastavenie panorámy."
 
-#: src/hugin/PanoPanel.cpp:297
+#: src/hugin/PanoPanel.cpp:307
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Nesprávna hodnota HFOV. Maximálna HFOV pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:328
+#: src/hugin/PanoPanel.cpp:338
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Nesprávna hodnota VFOV. Maximálna VFOF pre tento projekt je %lf."
 
-#: src/hugin/PanoPanel.cpp:374
+#: src/hugin/PanoPanel.cpp:384
 msgid "width needs to be an integer bigger than 0"
 msgstr "šírka musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:391
+#: src/hugin/PanoPanel.cpp:401
 msgid "height needs to be an integer bigger than 0"
 msgstr "výška musí byť celé číslo väčšie než 0"
 
-#: src/hugin/PanoPanel.cpp:655
+#: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Vytvoriť panoramatický obrázok"
 
-#: src/hugin/PanoPanel.cpp:669
+#: src/hugin/PanoPanel.cpp:680
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1191,7 +1197,7 @@ msgstr ""
 "\n"
 "Prepísať?"
 
-#: src/hugin/PanoPanel.cpp:670
+#: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
 msgstr "Prepísať súbor?"
 
@@ -1301,77 +1307,90 @@ msgstr "Skutočne nastaviť zobrazené nastavenia na východzie hodnoty?"
 msgid "Load Defaults"
 msgstr "Nahrať východziu"
 
-#: src/hugin/PreviewFrame.cpp:96
+#: src/hugin/PreviewFrame.cpp:101
 msgid "Panorama preview"
 msgstr "Náhľad panorámy"
 
-#: src/hugin/PreviewFrame.cpp:110
+#: src/hugin/PreviewFrame.cpp:116
 msgid "displayed images"
 msgstr "zobrazené obrázky"
 
-#: src/hugin/PreviewFrame.cpp:145
+#: src/hugin/PreviewFrame.cpp:151
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:149
+#: src/hugin/PreviewFrame.cpp:155
 msgid "drag to change the vertical field of view"
 msgstr "ťahajte myšou pre zmenu vertikálneho zorného poľa"
 
-#: src/hugin/PreviewFrame.cpp:158
+#: src/hugin/PreviewFrame.cpp:164
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:163
+#: src/hugin/PreviewFrame.cpp:169
 msgid "drag to change the horizontal field of view"
 msgstr "ťahajte myšou pre zmenu horizontálneho zorného poľa"
 
-#: src/hugin/PreviewFrame.cpp:174
+#: src/hugin/PreviewFrame.cpp:180
 msgid "Preview Options"
 msgstr "Nastavenia náhľadu"
 
-#: src/hugin/PreviewFrame.cpp:177 src/hugin/xrc/pano_panel.xrs:2
+#: src/hugin/PreviewFrame.cpp:183 src/hugin/xrc/pano_panel.xrs:2
 #: src/hugin/xrc/pano_panel-2.5.xrs:2
 msgid "projection (f):"
 msgstr "projekcia (f):"
 
-#: src/hugin/PreviewFrame.cpp:208
+#: src/hugin/PreviewFrame.cpp:225
 msgid "Blend mode:"
 msgstr "Režim prechodu:"
 
-#: src/hugin/PreviewFrame.cpp:214
+#: src/hugin/PreviewFrame.cpp:231
 msgid "difference"
 msgstr "rozdiel"
 
-#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
+#: src/hugin/PreviewFrame.cpp:249
+#, fuzzy
+msgid "Projection Parameters"
+msgstr "Parametre korekcie šošovky"
+
+#: src/hugin/PreviewFrame.cpp:258
+msgid "param:"
+msgstr ""
+
+#: src/hugin/PreviewFrame.cpp:263 src/hugin/xrc/pano_panel.xrs:28
+msgid "0"
+msgstr "0"
+
+#: src/hugin/PreviewFrame.cpp:290 src/hugin/PreviewPanel.cpp:517
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 "Kliknite ľavým tlačidlom pre nový stredový bod, pravým pre presunutie bodu "
 "na horizont."
 
-#: src/hugin/PreviewFrame.cpp:272 src/hugin/PreviewFrame.cpp:327
+#: src/hugin/PreviewFrame.cpp:325 src/hugin/PreviewFrame.cpp:422
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Panorámu vystredíte ľavým tlačidlom myši, horizont nastavíte pravým "
 "tlačidlom."
 
-#: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:535 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
 msgstr "Obdĺžniková"
 
-#: src/hugin/PreviewFrame.cpp:438 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:536 src/hugin/xrc/pano_panel.xrs:4
 msgid "Cylindrical"
 msgstr "Cylindrická"
 
-#: src/hugin/PreviewFrame.cpp:536
+#: src/hugin/PreviewFrame.cpp:634
 msgid "Yaw value must be numeric."
 msgstr "Hodnota odchýlky musí byť číselná."
 
-#: src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PreviewFrame.cpp:640
 msgid "Pitch value must be numeric."
 msgstr "Hodnota sklonu musí byť číselná."
 
-#: src/hugin/PreviewFrame.cpp:548
+#: src/hugin/PreviewFrame.cpp:646
 msgid "Roll value must be numeric."
 msgstr "Hodnota otočenia musí byť číselná."
 
@@ -1800,7 +1819,7 @@ msgstr "x:"
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
 msgstr "y:"
 
@@ -2859,10 +2878,6 @@ msgstr "šířka v pixeloch:"
 msgid "pixel height:"
 msgstr "výška v pixeloch:"
 
-#: src/hugin/xrc/pano_panel.xrs:28
-msgid "0"
-msgstr "0"
-
 #: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "Calculate Optimal Size"
 msgstr "Vypočítať optimálnu veľkosť"
@@ -3470,68 +3485,68 @@ msgid "Vignetting correction"
 msgstr "Korekcia charakteristiky"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Correction"
-msgstr "Korekcia"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "Flatfield"
-msgstr "Flatfield"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Image file:"
-msgstr "Súbor obrázku:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "..."
-msgstr "..."
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
-msgid "Polynomial"
-msgstr "Polynomické"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
-msgid "c = "
-msgstr "c = "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
-msgid " + "
-msgstr " + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
-msgid "*r^2 + "
-msgstr "*r^2 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
-msgid "*r^4 + "
-msgstr "*r^4 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
-msgid "*r^6"
-msgstr "*r^6"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
-msgid "center shift x:"
-msgstr "posun stredu x:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
-msgid "Estimate polynomial"
-msgstr "Odhadnúť polynóm"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
 msgid "Type of Correction"
 msgstr "Typ korekcie"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "No correction"
 msgstr "Bez korekcie"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Addition ( I=I+c )"
 msgstr "Sčítanie ( I=I+c )"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "Division ( I=I/c )"
 msgstr "Delenie ( I=I/c )"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
+msgid "Correction"
+msgstr "Korekcia"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
+msgid "Flatfield"
+msgstr "Flatfield"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
+msgid "Image file:"
+msgstr "Súbor obrázku:"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
+msgid "..."
+msgstr "..."
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
+msgid "Polynomial"
+msgstr "Polynomické"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
+msgid "c = "
+msgstr "c = "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
+msgid " + "
+msgstr " + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "*r^6"
+msgstr "*r^6"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "center shift x:"
+msgstr "posun stredu x:"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+msgid "Estimate polynomial"
+msgstr "Odhadnúť polynóm"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3773,6 +3788,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Počkajte prosím, kým autopano vyhľadá kontrolné body\n"
 #~ "Môžete sledovať priebeh autopana v okne s príkazmi"
-
-#~ msgid "ShellExecuteEx failed"
-#~ msgstr "ShellExecuteEx zlyhalo"

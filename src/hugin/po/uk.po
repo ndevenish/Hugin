@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-01 22:20+0100\n"
+"POT-Creation-Date: 2007-01-28 23:59+0100\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -129,7 +129,7 @@ msgid "Select autopano program / frontend script"
 msgstr "Виберіть програму/сценарій для автопанорамування (autopano)"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/PreferencesDialog.cpp:251
+#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:251
 #: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
 #: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
@@ -137,7 +137,7 @@ msgstr "Виконувані файли (*.exe)|*.exe"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:165
 #: src/hugin/AutoCtrlPointCreator.cpp:201
-#: src/hugin/AutoCtrlPointCreator.cpp:346
+#: src/hugin/AutoCtrlPointCreator.cpp:351
 msgid "No autopano selected"
 msgstr "Автопанорамування (autopano) не вибране"
 
@@ -173,8 +173,8 @@ msgstr ""
 "Будь-ласка, використовуйте %namefile або %i, щоб зазначити вхідні файли для "
 "програми autopano-sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:279
-#: src/hugin/AutoCtrlPointCreator.cpp:384
+#: src/hugin/AutoCtrlPointCreator.cpp:283
+#: src/hugin/AutoCtrlPointCreator.cpp:389
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -186,32 +186,33 @@ msgstr ""
 "Будь-ласка, виберіть менше зображень, або розмістіть\n"
 "зображення у теці коротшим з іменем шляху"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:280
-#: src/hugin/AutoCtrlPointCreator.cpp:385 src/hugin/NonaStitcherPanel.cpp:428
+#: src/hugin/AutoCtrlPointCreator.cpp:284
+#: src/hugin/AutoCtrlPointCreator.cpp:390 src/hugin/NonaStitcherPanel.cpp:428
 msgid "Too many images selected"
 msgstr "Занадто багато вибрано зображень"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
-#: src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:299
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/MyExternalCmdExecDialog.cpp:62
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
+#: src/hugin/NonaStitcherPanel.cpp:440 src/hugin/PanoPanel.cpp:723
 msgid "Could not execute command: "
 msgstr "Не вдалося виконати команду: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:294
 #: src/hugin/AutoCtrlPointCreator.cpp:299
-#: src/hugin/AutoCtrlPointCreator.cpp:397
-#: src/hugin/AutoCtrlPointCreator.cpp:403 src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:304
+#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/NonaStitcherPanel.cpp:440
 msgid "wxExecute Error"
 msgstr "Помилка у wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:297
-#: src/hugin/AutoCtrlPointCreator.cpp:401 src/hugin/NonaStitcherPanel.cpp:443
+#: src/hugin/AutoCtrlPointCreator.cpp:302
+#: src/hugin/AutoCtrlPointCreator.cpp:406 src/hugin/NonaStitcherPanel.cpp:443
 msgid "command: "
 msgstr "команда: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:298
-#: src/hugin/AutoCtrlPointCreator.cpp:402 src/hugin/NonaStitcherPanel.cpp:444
+#: src/hugin/AutoCtrlPointCreator.cpp:303
+#: src/hugin/AutoCtrlPointCreator.cpp:407 src/hugin/NonaStitcherPanel.cpp:444
 msgid ""
 "\n"
 "failed with error code: "
@@ -219,13 +220,13 @@ msgstr ""
 "\n"
 "не вдалося з кодом помилки: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid "Could not open "
 msgstr "Не вдалося відкрити "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:305
-#: src/hugin/AutoCtrlPointCreator.cpp:410
+#: src/hugin/AutoCtrlPointCreator.cpp:310
+#: src/hugin/AutoCtrlPointCreator.cpp:415
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -240,17 +241,17 @@ msgstr ""
 "\n"
 "Команда автопанорамування (Autopano): "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:306
-#: src/hugin/AutoCtrlPointCreator.cpp:413
+#: src/hugin/AutoCtrlPointCreator.cpp:311
+#: src/hugin/AutoCtrlPointCreator.cpp:418
 msgid "autopano failure"
 msgstr "невдача з автопанорамуванням (autopano)"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:338
+#: src/hugin/AutoCtrlPointCreator.cpp:343
 #, fuzzy
 msgid "Select autopano program"
 msgstr "Виберіть тип автопанорамування (autopano)"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:411
+#: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
 "\n"
 " current directory:"
@@ -347,7 +348,7 @@ msgid "No similar point found"
 msgstr "Подібна крапка не знайдена"
 
 #: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
-#: src/hugin/PreviewFrame.cpp:213 src/hugin/xrc/cp_editor_panel.xrs:8
+#: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "нормальний"
@@ -360,40 +361,40 @@ msgstr "верт. лінія"
 msgid "horiz. Line"
 msgstr "гориз. лінія"
 
-#: src/hugin/CPEditorPanel.cpp:1727
+#: src/hugin/CPEditorPanel.cpp:1728
 msgid "Cannot estimate image position without control points"
 msgstr "Неможливо оцінити положення зображення без контрольних крапок"
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1748
+#: src/hugin/CPEditorPanel.cpp:1749
 msgid "Corner Detection threshold"
 msgstr "Поріг кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1748 src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Створити контрольні крапки"
 
-#: src/hugin/CPEditorPanel.cpp:1752
+#: src/hugin/CPEditorPanel.cpp:1753
 msgid "Corner Detection scale"
 msgstr "Масштаб кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1764
+#: src/hugin/CPEditorPanel.cpp:1765
 #, fuzzy
 msgid "Error during control point creation:\n"
 msgstr "Під час зшивання відбулася помилка"
 
-#: src/hugin/CPEditorPanel.cpp:1895
+#: src/hugin/CPEditorPanel.cpp:1896
 msgid "Select Point in right image"
 msgstr "Виберіть крапку в зображенні справа"
 
-#: src/hugin/CPEditorPanel.cpp:1907
+#: src/hugin/CPEditorPanel.cpp:1908
 msgid "Select Point in left image"
 msgstr "Виберіть крапку в зображенні зліва"
 
@@ -444,7 +445,8 @@ msgstr "Не вдалося прочитати номер"
 
 #: src/hugin/huginApp.cpp:50 src/hugin/ImagesPanel.cpp:315
 #: src/hugin/ImagesPanel.cpp:336 src/hugin/ImagesPanel.cpp:356
-#: src/hugin/PanoPanel.cpp:291 src/hugin/PanoPanel.cpp:322
+#: src/hugin/PanoPanel.cpp:301 src/hugin/PanoPanel.cpp:332
+#: src/hugin/PreviewFrame.cpp:672
 msgid "Value must be numeric."
 msgstr "Значення повинне бути числовим."
 
@@ -573,7 +575,7 @@ msgstr "Кругле рибне око"
 msgid "Full frame fisheye"
 msgstr "Повно-кадрове рибне око"
 
-#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:439
+#: src/hugin/ImagesList.cpp:402 src/hugin/PreviewFrame.cpp:537
 #: src/hugin/xrc/assistant_panel.xrs:10 src/hugin/xrc/assistant_panel.xrs:29
 #: src/hugin/xrc/lens_panel.xrs:6 src/hugin/xrc/lens_panel-2.5.xrs:17
 #: src/hugin/xrc/pano_panel.xrs:5
@@ -607,9 +609,9 @@ msgstr "Видалити контрольні крапки"
 msgid "Not a jpeg file:"
 msgstr "Не JPEG-файл:"
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:787
-#: src/hugin/LensPanel.cpp:820 src/hugin/LensPanel.cpp:915
-#: src/hugin/LensPanel.cpp:933
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:822
+#: src/hugin/LensPanel.cpp:855 src/hugin/LensPanel.cpp:950
+#: src/hugin/LensPanel.cpp:968
 msgid "Please select an image and try again"
 msgstr "Будь-ласка, виберіть зображення та спробуйте знову"
 
@@ -621,23 +623,23 @@ msgstr "Зберегти файл з параметрами об'єктиву"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*)|*"
 
-#: src/hugin/LensPanel.cpp:829
+#: src/hugin/LensPanel.cpp:864
 msgid "Load lens parameters"
 msgstr "Завантажити параметри об'єктиву"
 
-#: src/hugin/LensPanel.cpp:831
+#: src/hugin/LensPanel.cpp:866
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Файли даних об'єктиву (*.ini)|*.ini|Усі файли (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Enter new lens number"
 msgstr "Введіть номер нового об'єктиву"
 
-#: src/hugin/LensPanel.cpp:923
+#: src/hugin/LensPanel.cpp:958
 msgid "Lens number"
 msgstr "Номер об'єктиву"
 
-#: src/hugin/LensPanel.cpp:924
+#: src/hugin/LensPanel.cpp:959
 msgid "Change lens number"
 msgstr "Зміна номера об'єктиву"
 
@@ -786,23 +788,27 @@ msgstr ""
 msgid "Fine-tune result"
 msgstr "Результат покращеного підстроювання"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:78
+#: src/hugin/MyExternalCmdExecDialog.cpp:62 src/hugin/PanoPanel.cpp:723
+msgid "ShellExecuteEx failed"
+msgstr "ShellExecuteEx зазнало невдачі"
+
+#: src/hugin/MyExternalCmdExecDialog.cpp:100
 msgid "CreateProcess Error"
 msgstr "Помилка CreateProcess"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy, c-format
 msgid "Running %s"
 msgstr "Виконується Enblend (поєднувач)"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:89
+#: src/hugin/MyExternalCmdExecDialog.cpp:115
 #, fuzzy
 msgid "You can watch the enblend progress in the command window"
 msgstr ""
 "Enblend(поєднувач) забере деякий час, щоб закінчити обробку панорами\n"
 "Ви можете спостерігати поступ роботи enblend-у в вікні команд"
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:93
+#: src/hugin/MyExternalCmdExecDialog.cpp:119
 msgid ""
 "Could not execute enblend, system() failed: \n"
 "Command was :"
@@ -810,7 +816,7 @@ msgstr ""
 "Не вдалося виконати enblend, виклик system() не спрацював: \n"
 "Була команда: "
 
-#: src/hugin/MyExternalCmdExecDialog.cpp:94
+#: src/hugin/MyExternalCmdExecDialog.cpp:120
 msgid "Error returned was :"
 msgstr "Повернуто помилку: "
 
@@ -1154,32 +1160,32 @@ msgstr ""
 "настроювальних Елементів Панорами, щоб визначити вимірювання пікселя, які "
 "нададуть кращу якість."
 
-#: src/hugin/PanoPanel.cpp:297
+#: src/hugin/PanoPanel.cpp:307
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
 "Непрацездатне значення HFOV. Максимальний HFOV для цього проектування - %lf."
 
-#: src/hugin/PanoPanel.cpp:328
+#: src/hugin/PanoPanel.cpp:338
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr ""
 "Непрацездатне значення VFOV. Максимальний VFOV для цього проектування - %lf."
 
-#: src/hugin/PanoPanel.cpp:374
+#: src/hugin/PanoPanel.cpp:384
 msgid "width needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: src/hugin/PanoPanel.cpp:391
+#: src/hugin/PanoPanel.cpp:401
 #, fuzzy
 msgid "height needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
-#: src/hugin/PanoPanel.cpp:655
+#: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
 msgstr "Створити зображення панорами"
 
-#: src/hugin/PanoPanel.cpp:669
+#: src/hugin/PanoPanel.cpp:680
 #, c-format
 msgid ""
 "File %s already exists\n"
@@ -1187,7 +1193,7 @@ msgid ""
 "Overwrite?"
 msgstr ""
 
-#: src/hugin/PanoPanel.cpp:670
+#: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
 msgstr ""
 
@@ -1297,78 +1303,91 @@ msgstr "Дійсно скинути ці налаштування до знач�
 msgid "Load Defaults"
 msgstr "Завантажити значення по умовчанню"
 
-#: src/hugin/PreviewFrame.cpp:96
+#: src/hugin/PreviewFrame.cpp:101
 msgid "Panorama preview"
 msgstr "Попередній перегляд панорами"
 
-#: src/hugin/PreviewFrame.cpp:110
+#: src/hugin/PreviewFrame.cpp:116
 msgid "displayed images"
 msgstr "зображення, що відображаються"
 
-#: src/hugin/PreviewFrame.cpp:145
+#: src/hugin/PreviewFrame.cpp:151
 msgid "VFOV"
 msgstr "VFOV"
 
-#: src/hugin/PreviewFrame.cpp:149
+#: src/hugin/PreviewFrame.cpp:155
 msgid "drag to change the vertical field of view"
 msgstr "протягнути, щоб змінити вертикальну область перегляду"
 
-#: src/hugin/PreviewFrame.cpp:158
+#: src/hugin/PreviewFrame.cpp:164
 msgid "HFOV"
 msgstr "HFOV"
 
-#: src/hugin/PreviewFrame.cpp:163
+#: src/hugin/PreviewFrame.cpp:169
 msgid "drag to change the horizontal field of view"
 msgstr "протягнути, щоб змінити горизонтальну область перегляду"
 
-#: src/hugin/PreviewFrame.cpp:174
+#: src/hugin/PreviewFrame.cpp:180
 msgid "Preview Options"
 msgstr "Параметри попереднього перегляду"
 
-#: src/hugin/PreviewFrame.cpp:177 src/hugin/xrc/pano_panel.xrs:2
+#: src/hugin/PreviewFrame.cpp:183 src/hugin/xrc/pano_panel.xrs:2
 #: src/hugin/xrc/pano_panel-2.5.xrs:2
 msgid "projection (f):"
 msgstr "проекція (f): "
 
-#: src/hugin/PreviewFrame.cpp:208
+#: src/hugin/PreviewFrame.cpp:225
 msgid "Blend mode:"
 msgstr "Спосіб поєднання: "
 
-#: src/hugin/PreviewFrame.cpp:214
+#: src/hugin/PreviewFrame.cpp:231
 msgid "difference"
 msgstr "різниця"
 
-#: src/hugin/PreviewFrame.cpp:237 src/hugin/PreviewPanel.cpp:517
+#: src/hugin/PreviewFrame.cpp:249
+#, fuzzy
+msgid "Projection Parameters"
+msgstr "Параметри корекції об'єктиву"
+
+#: src/hugin/PreviewFrame.cpp:258
+msgid "param:"
+msgstr ""
+
+#: src/hugin/PreviewFrame.cpp:263 src/hugin/xrc/pano_panel.xrs:28
+msgid "0"
+msgstr "0"
+
+#: src/hugin/PreviewFrame.cpp:290 src/hugin/PreviewPanel.cpp:517
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
 
-#: src/hugin/PreviewFrame.cpp:272 src/hugin/PreviewFrame.cpp:327
+#: src/hugin/PreviewFrame.cpp:325 src/hugin/PreviewFrame.cpp:422
 #, fuzzy
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
 "Встановіть відхилення та рівень з допомогою лівої клавіші миші. "
 "Використовуючи праву клавішу мишки, встановіть обертання"
 
-#: src/hugin/PreviewFrame.cpp:437 src/hugin/xrc/pano_panel.xrs:3
+#: src/hugin/PreviewFrame.cpp:535 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
 msgstr "Прямолінійний"
 
-#: src/hugin/PreviewFrame.cpp:438 src/hugin/xrc/pano_panel.xrs:4
+#: src/hugin/PreviewFrame.cpp:536 src/hugin/xrc/pano_panel.xrs:4
 msgid "Cylindrical"
 msgstr "Циліндричний"
 
-#: src/hugin/PreviewFrame.cpp:536
+#: src/hugin/PreviewFrame.cpp:634
 #, fuzzy
 msgid "Yaw value must be numeric."
 msgstr "Значення повинне бути числовим."
 
-#: src/hugin/PreviewFrame.cpp:542
+#: src/hugin/PreviewFrame.cpp:640
 #, fuzzy
 msgid "Pitch value must be numeric."
 msgstr "Значення повинне бути числовим."
 
-#: src/hugin/PreviewFrame.cpp:548
+#: src/hugin/PreviewFrame.cpp:646
 #, fuzzy
 msgid "Roll value must be numeric."
 msgstr "Значення повинне бути числовим."
@@ -1795,7 +1814,7 @@ msgstr "x: "
 
 #: src/hugin/xrc/cp_editor_panel.xrs:4 src/hugin/xrc/cp_editor_panel.xrs:6
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:4
-#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:13
+#: src/hugin/xrc/cp_editor_panel-2.5.xrs:6 src/hugin/xrc/vig_corr_dlg.xrs:17
 msgid "y:"
 msgstr "y: "
 
@@ -2861,10 +2880,6 @@ msgstr "ширина в пікселях: "
 msgid "pixel height:"
 msgstr "висота в пікселях: "
 
-#: src/hugin/xrc/pano_panel.xrs:28
-msgid "0"
-msgstr "0"
-
 #: src/hugin/xrc/pano_panel.xrs:29 src/hugin/xrc/pano_panel-2.5.xrs:20
 msgid "Calculate Optimal Size"
 msgstr "Обрахувати оптимальний розмір"
@@ -3486,68 +3501,68 @@ msgid "Vignetting correction"
 msgstr "Виправлення короткого обмалювання"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:2
-msgid "Correction"
-msgstr "Виправлення"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:3
-msgid "Flatfield"
-msgstr "Плоске"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:4
-msgid "Image file:"
-msgstr "Файл зображення: "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:5
-msgid "..."
-msgstr "..."
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:6
-msgid "Polynomial"
-msgstr "Многочлен"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:7
-msgid "c = "
-msgstr "c = "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:8
-msgid " + "
-msgstr " + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:9
-msgid "*r^2 + "
-msgstr "*r^2 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:10
-msgid "*r^4 + "
-msgstr "*r^4 + "
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:11
-msgid "*r^6"
-msgstr "*r^6"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:12
-msgid "center shift x:"
-msgstr "зсув центру x:"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:14
-msgid "Estimate polynomial"
-msgstr "Оцінити многочлен"
-
-#: src/hugin/xrc/vig_corr_dlg.xrs:15
 msgid "Type of Correction"
 msgstr "Тип корекції"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:16
+#: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "No correction"
 msgstr "Немає корекції"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:17
+#: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Addition ( I=I+c )"
 msgstr "Додавання ( I=I+c )"
 
-#: src/hugin/xrc/vig_corr_dlg.xrs:18
+#: src/hugin/xrc/vig_corr_dlg.xrs:5
 msgid "Division ( I=I/c )"
 msgstr "Ділення ( I=I/c )"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:6
+msgid "Correction"
+msgstr "Виправлення"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:7
+msgid "Flatfield"
+msgstr "Плоске"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:8
+msgid "Image file:"
+msgstr "Файл зображення: "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:9
+msgid "..."
+msgstr "..."
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:10
+msgid "Polynomial"
+msgstr "Многочлен"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:11
+msgid "c = "
+msgstr "c = "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:12
+msgid " + "
+msgstr " + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:13
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:14
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:15
+msgid "*r^6"
+msgstr "*r^6"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:16
+msgid "center shift x:"
+msgstr "зсув центру x:"
+
+#: src/hugin/xrc/vig_corr_dlg.xrs:18
+msgid "Estimate polynomial"
+msgstr "Оцінити многочлен"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
@@ -3786,9 +3801,6 @@ msgstr ""
 #~ "Будь-ласка, зачекайте, поки програма автопанорамування (autopano) шукає "
 #~ "контрольні крапки\n"
 #~ "Подивіться вікно з виводом команд щодо поступу роботи autopano"
-
-#~ msgid "ShellExecuteEx failed"
-#~ msgstr "ShellExecuteEx зазнало невдачі"
 
 #~ msgid ""
 #~ "Enter Crop Factor for image\n"
