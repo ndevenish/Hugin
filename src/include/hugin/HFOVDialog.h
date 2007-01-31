@@ -64,13 +64,16 @@ private:
     wxButton   * m_okButton;
 
     PT::SrcPanoImage m_srcImg;
+    wxString m_focalLengthStr;
     double m_focalLength;
+    wxString m_cropFactorStr;
     double m_cropFactor;
+    wxString m_HFOVStr;
     double m_HFOV;
 
-    bool m_ignoreHFOV;
-    bool m_ignoreCrop;
-    bool m_ignoreFL;
+//    bool m_ignoreHFOV;
+//    bool m_ignoreCrop;
+//    bool m_ignoreFL;
 
     DECLARE_EVENT_TABLE()
 };

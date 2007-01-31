@@ -67,9 +67,6 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     m_okButton = XRCCTRL(*this, "wxID_OK", wxButton);
     DEBUG_ASSERT(m_okButton);
 
-    m_ignoreHFOV = false;
-    m_ignoreCrop = false;
-    m_ignoreFL = false;
     // fill fields
     wxString fn(srcImg.getFilename().c_str(), *wxConvCurrent);
     wxString message;
@@ -81,27 +78,28 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
 
-//        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
-//        m_ignoreFL = true;
-        m_focalLengthText->SetValue(doubleTowxString(m_focalLength,2));
-//        m_ignoreCrop = true;
-        m_cropText->SetValue(doubleTowxString(m_cropFactor,2));
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
+        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthText->SetValue(m_focalLengthStr);
+        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropText->SetValue(m_cropFactorStr);
     } else if (m_cropFactor > 0 && m_focalLength <= 0) {
         // focal length unknown
-//        m_ignoreCrop = true;
-        m_cropText->SetValue(doubleTowxString(m_cropFactor,2));
+        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     } else if (m_cropFactor <= 0 && m_focalLength > 0) {
         // crop factor unknown
-//        m_ignoreFL = true;
-        m_focalLengthText->SetValue(doubleTowxString(m_focalLength,2));
+        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthText->SetValue(m_focalLengthStr);
         m_okButton->Disable();
     } else {
         // everything unknown
         // assume a crop factor of one
         m_cropFactor = 1;
-        m_cropText->SetValue(wxT("1"));
+        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     }
 }
@@ -112,22 +110,31 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
     if (m_cropFactor > 0 && m_focalLength > 0) {
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
-
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
     }
 }
 
 void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 {
-    // ignore changes cause by ourself
-    if (m_ignoreHFOV) {
-        DEBUG_DEBUG("ignore HFOV change");
-        m_ignoreHFOV = false;
+    wxString text = m_hfovText->GetValue();
+    DEBUG_DEBUG(m_HFOVStr.mb_str() << " => " << text.mb_str());
+    DEBUG_DEBUG("cmd str: " << e.GetString().mb_str());
+    if (text.empty()) {
+        // ignore all empty hfov changes
         return;
     }
-    wxString text = m_hfovText->GetValue();
+    // ignore changes caused by ourself
+    if (m_hfovText->GetValue() == m_HFOVStr) {
+        DEBUG_DEBUG("ignoring programatic HFOV change");
+        return;
+    }
+
+    // accept change
+    m_HFOVStr = text;
+
     if (text.empty()) {
+        m_HFOV = 0;
         m_okButton->Disable();
         return;
     }
@@ -140,38 +147,41 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
     if (m_HFOV <= 0) {
         wxMessageBox(_("The horizontal field of view must be positive."));
         m_HFOV = 1;
-        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
         return;
     }
 
     if (m_srcImg.getProjection() == SrcPanoImage::RECTILINEAR && m_HFOV > 179) {
         DEBUG_DEBUG("HFOV " << m_HFOV << " too big, resetting to 179");
         m_HFOV=179;
-        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
     }
 
     if (m_cropFactor > 0) {
         // set focal length only if crop factor is known
         m_focalLength = calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
-        m_ignoreFL = true;
-        m_focalLengthText->SetValue(doubleTowxString(m_focalLength,2));
+        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthText->SetValue(m_focalLengthStr);
     }
     m_okButton->Enable();
 }
 
 void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
 {
-    // ignore changes cause by ourself
-    if (m_ignoreFL) {
+    wxString text = m_focalLengthText->GetValue();
+    DEBUG_DEBUG(m_focalLengthStr.mb_str() << " => " << text.mb_str());
+    // ignore changes caused by ourself
+    if (m_focalLengthText->GetValue() == m_focalLengthStr) {
         DEBUG_DEBUG("ignore focal length change");
-        m_ignoreFL = false;
         return;
     }
+    // accept change
+    m_focalLengthStr = text;
 
-    wxString text = m_focalLengthText->GetValue();
     if (text.empty()) {
+        m_focalLength = 0;
         return;
     }
     if (!str2double(text, m_focalLength)) {
@@ -179,52 +189,65 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
     }
     DEBUG_DEBUG(m_focalLength);
 
+    // ignore leading zeros..
+    if (m_focalLength == 0) {
+        return;
+    }
     if (m_focalLength <= 0) {
-        m_ignoreFL = true;
         m_focalLength=1;
-        m_focalLengthText->SetValue(doubleTowxString(m_focalLength,2));
+        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthText->SetValue(m_focalLengthStr);
         wxMessageBox(_("The focal length must be positive."));
     }
 
     if (m_cropFactor > 0) {
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
         m_okButton->Enable();
     }
 }
 
 void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
 {
-    // ignore changes cause by ourself
-    if (m_ignoreCrop) {
+    // ignore changesd cause by ourself
+    wxString text = m_cropText->GetValue();
+    DEBUG_DEBUG(m_cropFactorStr.mb_str() << " => " << text.mb_str());
+    if (text == m_cropFactorStr) {
         DEBUG_DEBUG("ignore crop change");
-        m_ignoreCrop = false;
         return;
     }
+        // accept change
+    m_cropFactorStr = text;
 
-    wxString text = m_cropText->GetValue();
     if (text.empty()) {
+        m_cropFactor = 0;
         return;
     }
     if (!str2double(text, m_cropFactor)) {
         return;
     }
 
+    // ignore leading zeros..
+    if (m_cropFactor == 0) {
+        m_cropFactorStr = text;
+        return;
+    }
+
     if (m_cropFactor <= 0) {
         wxMessageBox(_("The crop factor must be positive."));
-        m_ignoreCrop = true;
         m_cropFactor=1;
-        m_cropText->SetValue(doubleTowxString(m_cropFactor,2));
+        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropText->SetValue(m_cropFactorStr);
         return;
     }
 
     if (m_focalLength > 0) {
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
-        m_ignoreHFOV = true;
-        m_hfovText->SetValue(doubleTowxString(m_HFOV,2));
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
         m_okButton->Enable();
     }
 }
@@ -294,6 +317,14 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
             m_srcImg.setCropMode(SrcPanoImage::CROP_RECTANGLE);
             m_srcImg.setCropRect(opts.cropRect);
         }
+
+        // display in GUI
+        m_focalLengthStr = doubleTowxString(m_focalLength,2);
+        m_focalLengthText->SetValue(m_focalLengthStr);
+        m_cropFactorStr = doubleTowxString(m_cropFactor,2);
+        m_cropText->SetValue(m_cropFactorStr);
+        m_HFOVStr = doubleTowxString(m_HFOV,2);
+        m_hfovText->SetValue(m_HFOVStr);
     }
 }
 
