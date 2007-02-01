@@ -245,7 +245,9 @@ private:
 class ControlPoint
 {
 public:
-    /// minimize x,y or both
+    /** minimize x,y or both. higher numbers mean multiple line
+     * control points
+     */
     enum OptimizeMode {
         X_Y = 0,  ///< evaluate x,y
         X,        ///< evaluate x, points are on a vertical line
@@ -261,7 +263,7 @@ public:
 //    ControlPoint(Panorama & pano, const QDomNode & node);
     ControlPoint(unsigned int img1, double sX, double sY,
                  unsigned int img2, double dX, double dY,
-                 OptimizeMode mode = X_Y)
+                 int mode = X_Y)
         : image1Nr(img1), image2Nr(img2),
           x1(sX),y1(sY),
           x2(dX),y2(dY),
@@ -292,7 +294,7 @@ public:
     double x1,y1;
     double x2,y2;
     double error;
-    OptimizeMode mode;
+    int mode;
 
     static std::string modeNames[];
 };

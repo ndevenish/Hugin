@@ -609,21 +609,26 @@ void CPEditorPanel::CreateNewPoint()
     point.x2 = p2.x;
     point.y2 = p2.y;
     if (point.image1Nr == point.image2Nr) {
-        bool hor = abs(p1.x - p2.x) > abs(p1.y - p2.y);
-        switch (m_leftRot) {
-            case CPImageCtrl::ROT0:
-            case CPImageCtrl::ROT180:
-                if (hor)
-                    point.mode = PT::ControlPoint::Y;
-                else
-                    point.mode = PT::ControlPoint::X;
-                break;
-            default:
-                if (hor)
-                    point.mode = PT::ControlPoint::X;
-                else
-                    point.mode = PT::ControlPoint::Y;
-                break;
+        if (m_cpModeChoice->GetSelection()>=3) {
+            // keep line until user chooses new mode
+            point.mode = m_cpModeChoice->GetSelection();
+        } else {
+            bool hor = abs(p1.x - p2.x) > abs(p1.y - p2.y);
+            switch (m_leftRot) {
+                case CPImageCtrl::ROT0:
+                case CPImageCtrl::ROT180:
+                    if (hor)
+                        point.mode = PT::ControlPoint::Y;
+                    else
+                        point.mode = PT::ControlPoint::X;
+                    break;
+                default:
+                    if (hor)
+                        point.mode = PT::ControlPoint::X;
+                    else
+                        point.mode = PT::ControlPoint::Y;
+                    break;
+            }
         }
     } else {
         point.mode = PT::ControlPoint::X_Y;
@@ -1167,6 +1172,31 @@ double CPEditorPanel::PointFineTune_old(unsigned int tmplImgNr,
 
 void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
 {
+    int nGui = m_cpModeChoice->GetCount();
+    int nPano = pano.getNextCPTypeLineNumber()+1;
+    DEBUG_DEBUG("mode choice: " << nGui << " entries, required: " << nPano);
+    if (nGui > nPano)
+    {
+        m_cpModeChoice->Freeze();
+        // remove some items.
+        for (int i = nGui-1; i >=nPano-1; --i) {
+            m_cpModeChoice->Delete(i);
+        }
+        if (nPano > 3) {
+            m_cpModeChoice->SetString(nPano-1, _("Add new Line"));
+        }
+        m_cpModeChoice->Thaw();
+    } else if (nGui < nPano) {
+        m_cpModeChoice->Freeze();
+        if (nGui > 3) {
+            m_cpModeChoice->SetString(nGui-1, wxString::Format(_("Line %d"), nGui-1));
+        }
+        for (int i = nGui; i < nPano-1; i++) {
+            m_cpModeChoice->Append(wxString::Format(_("Line %d"), i));
+        }
+        m_cpModeChoice->Append(_("Add new Line"));
+        m_cpModeChoice->Thaw();
+    }
     DEBUG_TRACE("");
 }
 
@@ -1377,7 +1407,9 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     m_y1Text->Clear();
     m_x2Text->Clear();
     m_y2Text->Clear();
-    m_cpModeChoice->SetSelection(0);
+    if (m_cpModeChoice->GetSelection() < 3) {
+        m_cpModeChoice->SetSelection(0);
+    }
 
     // update control points
     const PT::CPVector & controlPoints = m_pano->getCtrlPoints();
@@ -1435,6 +1467,10 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
             break;
         case ControlPoint::Y:
             mode = _("horiz. Line");
+            break;
+        default:
+            mode = wxString::Format(_("Line %d"), p.mode);
+            break;
         }
         m_cpList->SetItem(i,5,mode);
         m_cpList->SetItem(i,6,wxString::Format(wxT("%.2f"),p.error));
@@ -1524,6 +1560,8 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
     }
 
+    cp.mode = m_cpModeChoice->GetSelection();
+    /*
     switch(m_cpModeChoice->GetSelection()) {
     case 0:
         cp.mode = ControlPoint::X_Y;
@@ -1539,6 +1577,7 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
         return;
         break;
     }
+    */
 
     // if point was mirrored, reverse before setting it.
     if (set_contains(mirroredPoints, nr)) {

@@ -401,6 +401,10 @@ void CPListFrame::SetCPItem(int i, const ControlPoint & p)
         break;
     case ControlPoint::Y:
         mode = _("horiz. Line");
+        break;
+    default:
+        mode = wxString::Format(_("Line %d"), p.mode);
+        break;
     }
 
     if (m_verbose) {

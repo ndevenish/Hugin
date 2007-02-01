@@ -1171,7 +1171,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                 t = 0;
             }
 
-            point.mode = (ControlPoint::OptimizeMode) t;
+            point.mode = t;
             ctrlPoints.push_back(point);
             state = P_CP;
             break;
@@ -1209,7 +1209,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             if (line.substr(0,20) == string("# ptGui project file")) {
                 PTGUIScriptFile = true;
             }
-
+            if (line.substr(0,12) == "#-dummyimage") {
+                PTGUILensLine = true;
+            }
             if (PTGUIScriptFile) {
                 // parse special PTGUI stuff.
                 if (sscanf(line.c_str(), "#-fileversion %d", &PTGUIScriptVersion) > 0) {
@@ -1236,9 +1238,6 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                             // latest known version is 8
                             break;
                     }
-                }
-                if (line.substr(0,12) == "#-dummyimage") {
-                    PTGUILensLine = true;
                 }
             }
 

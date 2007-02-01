@@ -279,6 +279,9 @@ public:
     const CPVector & getCtrlPoints() const
         { return state.ctrlPoints; }
 
+    /// get the next unused line number for t3, ... control point creation
+    int getNextCPTypeLineNumber() const;
+
     /// get variables of this panorama
     const VariableMapVector & getVariables() const;
 
@@ -478,6 +481,9 @@ public:
 
     /** set all control points */
     void setCtrlPoints(const CPVector & points);
+
+    /** assign new mode line numbers, if required */
+    void updateLineCtrlPoints();
 
     //=============================
 

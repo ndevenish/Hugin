@@ -849,6 +849,9 @@ void Panorama::removeCtrlPoint(unsigned int pNr)
     unsigned int i1 = point.image1Nr;
     unsigned int i2 = point.image2Nr;
     state.ctrlPoints.erase(state.ctrlPoints.begin() + pNr);
+
+    // update line control points
+    updateLineCtrlPoints();
     imageChanged(i1);
     imageChanged(i2);
     state.needsOptimization = true;
@@ -867,6 +870,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
     state.needsOptimization = true;
 
     state.ctrlPoints[pNr] = point;
+    updateLineCtrlPoints();
 }
 
 void Panorama::setCtrlPoints(const CPVector & points)
@@ -887,6 +891,39 @@ void Panorama::setCtrlPoints(const CPVector & points)
         imageChanged(it->image2Nr);
     }
     state.needsOptimization = true;
+    updateLineCtrlPoints();
+}
+
+// close holes in line control points
+void Panorama::updateLineCtrlPoints()
+{
+    // sort all line control points
+    std::map<int, int> lines;
+    for (CPVector::const_iterator it = state.ctrlPoints.begin();
+         it != state.ctrlPoints.end(); it++)
+    {
+        if (it->mode > 2)
+            lines[it->mode] = 0;
+    }
+    int i=3;
+    for (std::map<int,int >::iterator it = lines.begin(); it != lines.end(); ++it) 
+    {
+        (*it).second = i;
+        i++;
+    }
+
+    for (CPVector::iterator it = state.ctrlPoints.begin();
+         it != state.ctrlPoints.end(); it++)
+    {
+        if (it->mode > 2) {
+            int newmode = lines[it->mode];
+            if (it->mode != newmode) {
+                it->mode = newmode;
+                imageChanged(it->image1Nr);
+                imageChanged(it->image2Nr);
+            }
+        }
+    }
 }
 
 
@@ -2089,6 +2126,20 @@ void Panorama::calcCtrlPntsRadiStats(double & min, double & max, double & mean, 
     q10 = radi[floori(0.1*radi.size())];
     q90 = radi[floori(0.9*radi.size())];
 }
+
+int Panorama::getNextCPTypeLineNumber() const
+{
+    int t=0;
+    for (CPVector::const_iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it)
+    {
+        t = std::max(t, it->mode);
+    }
+    if (t <= 2) {
+        t=2;
+    }
+    return t+1;
+}
+
 
 double PT::calcOptimalPanoScale(const SrcPanoImage & src,
                                 const PanoramaOptions & dest)
