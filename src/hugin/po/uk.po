@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-28 23:59+0100\n"
+"POT-Creation-Date: 2007-02-02 23:00+0100\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -302,20 +302,20 @@ msgstr "Відстань"
 msgid "No corresponding point found"
 msgstr "Відповідної крапки не знайдено"
 
-#: src/hugin/CPEditorPanel.cpp:644
+#: src/hugin/CPEditorPanel.cpp:649
 msgid "new control point added"
 msgstr "Додана нова контрольна крапка"
 
-#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
+#: src/hugin/CPEditorPanel.cpp:749 src/hugin/CPEditorPanel.cpp:973
 msgid "searching similar point..."
 msgstr "Йде пошук подібної крапки..."
 
-#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:768 src/hugin/CPEditorPanel.cpp:891
 msgid "Error during Fine-tune"
 msgstr "Помилка в ході покращеного підстроювання"
 
-#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
-#: src/hugin/CPEditorPanel.cpp:1021
+#: src/hugin/CPEditorPanel.cpp:782 src/hugin/CPEditorPanel.cpp:911
+#: src/hugin/CPEditorPanel.cpp:1026
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -324,15 +324,15 @@ msgstr ""
 "Крапка краще настроєна, кут: %.0f градусів, коеф. кореляції: %0.3f, "
 "кривизна: %0.3f %0.3f "
 
-#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
+#: src/hugin/CPEditorPanel.cpp:785 src/hugin/CPEditorPanel.cpp:914
 msgid "change points, or press right mouse button to add the pair"
 msgstr "змініть крапки, або натисніть праву клавішу миші, щоб додати пару"
 
-#: src/hugin/CPEditorPanel.cpp:800
+#: src/hugin/CPEditorPanel.cpp:805
 msgid "Estimated point outside image"
 msgstr "Передбачувана крапка за межами зображення"
 
-#: src/hugin/CPEditorPanel.cpp:1027
+#: src/hugin/CPEditorPanel.cpp:1032
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -343,58 +343,69 @@ msgstr ""
 "коефіцієнт кореляції: %.3f (повинен бути > %.3f)\n"
 "пікове викривлення: (%.3f, %.3f) (повинен бути > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1029
+#: src/hugin/CPEditorPanel.cpp:1034
 msgid "No similar point found"
 msgstr "Подібна крапка не знайдена"
 
-#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1186 src/hugin/CPEditorPanel.cpp:1197
+#, fuzzy
+msgid "Add new Line"
+msgstr "додати нову крапку"
+
+#: src/hugin/CPEditorPanel.cpp:1192 src/hugin/CPEditorPanel.cpp:1195
+#: src/hugin/CPEditorPanel.cpp:1472 src/hugin/CPListFrame.cpp:406
+#, c-format
+msgid "Line %d"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1463 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "нормальний"
 
-#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1466 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "верт. лінія"
 
-#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1469 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "гориз. лінія"
 
-#: src/hugin/CPEditorPanel.cpp:1728
+#: src/hugin/CPEditorPanel.cpp:1767
 msgid "Cannot estimate image position without control points"
 msgstr "Неможливо оцінити положення зображення без контрольних крапок"
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid "Corner Detection threshold"
 msgstr "Поріг кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1788 src/hugin/CPEditorPanel.cpp:1792
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Створити контрольні крапки"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1792
 msgid "Corner Detection scale"
 msgstr "Масштаб кутового виявлення"
 
-#: src/hugin/CPEditorPanel.cpp:1765
+#: src/hugin/CPEditorPanel.cpp:1804
 #, fuzzy
 msgid "Error during control point creation:\n"
 msgstr "Під час зшивання відбулася помилка"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1935
 msgid "Select Point in right image"
 msgstr "Виберіть крапку в зображенні справа"
 
-#: src/hugin/CPEditorPanel.cpp:1908
+#: src/hugin/CPEditorPanel.cpp:1947
 msgid "Select Point in left image"
 msgstr "Виберіть крапку в зображенні зліва"
 
@@ -423,7 +434,7 @@ msgstr "y"
 msgid "right Img."
 msgstr "Зобр. справа."
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -431,15 +442,15 @@ msgstr ""
 "Введіть мінімальну помилку контрольної крапки.\n"
 "Усі точки з вищою помилкою будуть вибрані"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid "Select Control Points"
 msgstr "Виберіть контрольні крапки"
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Error: please enter a valid number."
 msgstr "Помилка: будь-ласка, введіть правильний номер."
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Could not read number"
 msgstr "Не вдалося прочитати номер"
 
@@ -643,7 +654,7 @@ msgstr "Номер об'єктиву"
 msgid "Change lens number"
 msgstr "Зміна номера об'єктиву"
 
-#: src/hugin/MainFrame.cpp:219
+#: src/hugin/MainFrame.cpp:220
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -653,16 +664,16 @@ msgstr ""
 "Xrc-тека не знайдена.\n"
 "Будь-ласка, гарантуйте, що це розміщено в тій ж теці, що і  hugin.exe"
 
-#: src/hugin/MainFrame.cpp:239 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Довідка"
 
-#: src/hugin/MainFrame.cpp:335
+#: src/hugin/MainFrame.cpp:336
 msgid "Started"
 msgstr "Запущено"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -670,52 +681,52 @@ msgstr ""
 "Панораму було змінено\n"
 "Зберегти зміни?"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid "Save Panorama?"
 msgstr "Зберегти панораму?"
 
-#: src/hugin/MainFrame.cpp:494
+#: src/hugin/MainFrame.cpp:495
 msgid "forced close"
 msgstr "примусово закрито"
 
-#: src/hugin/MainFrame.cpp:547
+#: src/hugin/MainFrame.cpp:548
 #, c-format
 msgid "saved project %s"
 msgstr "збережено проект %s"
 
-#: src/hugin/MainFrame.cpp:560
+#: src/hugin/MainFrame.cpp:561
 msgid "Save project file"
 msgstr "Зберегти файл проекту"
 
-#: src/hugin/MainFrame.cpp:562
+#: src/hugin/MainFrame.cpp:563
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Проектні файли (*.pto)|*.pto|Усі файли (*)|*"
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:583
 msgid "Save PTStitcher script file"
 msgstr "Зберегти файл сценарію PTStitcher "
 
-#: src/hugin/MainFrame.cpp:584
+#: src/hugin/MainFrame.cpp:585
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Файли PTStitcher-а (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:612
+#: src/hugin/MainFrame.cpp:613
 msgid "Open project:   "
 msgstr "Відкрити проект: "
 
-#: src/hugin/MainFrame.cpp:624
+#: src/hugin/MainFrame.cpp:625
 msgid "Project opened"
 msgstr "Проект відкритий"
 
-#: src/hugin/MainFrame.cpp:634
+#: src/hugin/MainFrame.cpp:635
 msgid "Error opening project:   "
 msgstr "Помилка при відкритті проекту: "
 
-#: src/hugin/MainFrame.cpp:665
+#: src/hugin/MainFrame.cpp:666
 msgid "Open project file"
 msgstr "Відкрити проектний файл"
 
-#: src/hugin/MainFrame.cpp:667
+#: src/hugin/MainFrame.cpp:668
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -723,38 +734,38 @@ msgstr ""
 "Проектні файли (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Усі файли "
 "(*)|*"
 
-#: src/hugin/MainFrame.cpp:680
+#: src/hugin/MainFrame.cpp:681
 msgid "Open project: cancel"
 msgstr "Відкрити проект: відміна"
 
-#: src/hugin/MainFrame.cpp:706 src/hugin/VigCorrDialog.cpp:171
-#: src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
 "Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
 "*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
 "JPG|Усі файли (*)|*"
 
-#: src/hugin/MainFrame.cpp:709 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
 msgid "Add images"
 msgstr "Додати зображення"
 
-#: src/hugin/MainFrame.cpp:761
+#: src/hugin/MainFrame.cpp:762
 msgid "Add Image: cancel"
 msgstr "Додати зображення: відміна"
 
-#: src/hugin/MainFrame.cpp:1137
+#: src/hugin/MainFrame.cpp:1138
 msgid "Fine-tuning all points"
 msgstr "Покращене підстроювання всіх крапок"
 
-#: src/hugin/MainFrame.cpp:1139
+#: src/hugin/MainFrame.cpp:1140
 msgid "Finetuning"
 msgstr "Покращене підстроювання"
 
-#: src/hugin/MainFrame.cpp:1230
+#: src/hugin/MainFrame.cpp:1231
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -784,7 +795,7 @@ msgstr ""
 "Використовуйте список контрольних крапок (F3), щоб бачити усі крапки "
 "поточного проекту\n"
 
-#: src/hugin/MainFrame.cpp:1232
+#: src/hugin/MainFrame.cpp:1233
 msgid "Fine-tune result"
 msgstr "Результат покращеного підстроювання"
 
@@ -1515,6 +1526,16 @@ msgstr "Помилка при виконанні %s"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Поради недоступні, даруйте!"
+
+#: src/hugin/VigCorrDialog.cpp:171
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
+"*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
+"JPG|Усі файли (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"

@@ -403,6 +403,7 @@ bool huginApp::OnInit()
             for (int i=1; i< argc; i++) {
                 wxFileName file(argv[i]);
                 if (file.GetExt().CmpNoCase(wxT("jpg")) == 0 ||
+                    file.GetExt().CmpNoCase(wxT("jpeg")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("tif")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("tiff")) == 0 ||
                     file.GetExt().CmpNoCase(wxT("png")) == 0 ||

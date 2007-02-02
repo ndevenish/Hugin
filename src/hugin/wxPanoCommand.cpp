@@ -275,7 +275,7 @@ void wxLoadPTProjectCmd::execute()
                     basedir = fname.GetPath();
                 }
                         // open file dialog
-                wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
+                wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
                 wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                  basedir, fname.GetFullName(),
                                  wildcard, wxOPEN, wxDefaultPosition);

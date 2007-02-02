@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-28 23:59+0100\n"
+"POT-Creation-Date: 2007-02-02 23:00+0100\n"
 "PO-Revision-Date: 2006-08-19 14:36+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@xs4all.nl>\n"
 "Language-Team: Dutch <LL@li.org>\n"
@@ -294,20 +294,20 @@ msgstr "Afstand"
 msgid "No corresponding point found"
 msgstr "Geen overeenkomend punt gevonden"
 
-#: src/hugin/CPEditorPanel.cpp:644
+#: src/hugin/CPEditorPanel.cpp:649
 msgid "new control point added"
 msgstr "Nieuw controle punt toegevoegd"
 
-#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
+#: src/hugin/CPEditorPanel.cpp:749 src/hugin/CPEditorPanel.cpp:973
 msgid "searching similar point..."
 msgstr "Gelijksoortig punt zoeken..."
 
-#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:768 src/hugin/CPEditorPanel.cpp:891
 msgid "Error during Fine-tune"
 msgstr "Fout tijdens het fijn afstemmen"
 
-#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
-#: src/hugin/CPEditorPanel.cpp:1021
+#: src/hugin/CPEditorPanel.cpp:782 src/hugin/CPEditorPanel.cpp:911
+#: src/hugin/CPEditorPanel.cpp:1026
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -316,15 +316,15 @@ msgstr ""
 "Punt geoptimaliseerd, hoek: %.0f deg, correlatie coefficient: %0.3f, ronding:"
 "%0.3f %0.3f"
 
-#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
+#: src/hugin/CPEditorPanel.cpp:785 src/hugin/CPEditorPanel.cpp:914
 msgid "change points, or press right mouse button to add the pair"
 msgstr "verander punten, of klik rechter muis knop om het paar toe te voegen"
 
-#: src/hugin/CPEditorPanel.cpp:800
+#: src/hugin/CPEditorPanel.cpp:805
 msgid "Estimated point outside image"
 msgstr "Het berekende punt ligt buiten de afbeelding"
 
-#: src/hugin/CPEditorPanel.cpp:1027
+#: src/hugin/CPEditorPanel.cpp:1032
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -335,58 +335,69 @@ msgstr ""
 "correlatie coefficient: %.3f (moet > %.3f zijn)\n"
 "piek curve:(%.3f, %.3f) (moet > %.3f zijn)"
 
-#: src/hugin/CPEditorPanel.cpp:1029
+#: src/hugin/CPEditorPanel.cpp:1034
 msgid "No similar point found"
 msgstr "Geen soortgelijk punt gevonden"
 
-#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1186 src/hugin/CPEditorPanel.cpp:1197
+#, fuzzy
+msgid "Add new Line"
+msgstr "Voeg nieuw punt toe"
+
+#: src/hugin/CPEditorPanel.cpp:1192 src/hugin/CPEditorPanel.cpp:1195
+#: src/hugin/CPEditorPanel.cpp:1472 src/hugin/CPListFrame.cpp:406
+#, c-format
+msgid "Line %d"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1463 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normaal"
 
-#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1466 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "vert. lijn"
 
-#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1469 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "horiz. lijn"
 
-#: src/hugin/CPEditorPanel.cpp:1728
+#: src/hugin/CPEditorPanel.cpp:1767
 msgid "Cannot estimate image position without control points"
 msgstr "Kan de afbeelding positie niet bepalen zonder controle punten"
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid "Corner Detection threshold"
 msgstr "Hoek detectie drempel:"
 
-#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1788 src/hugin/CPEditorPanel.cpp:1792
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Maak controle punten"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1792
 msgid "Corner Detection scale"
 msgstr "Hoek detectie schaal"
 
-#: src/hugin/CPEditorPanel.cpp:1765
+#: src/hugin/CPEditorPanel.cpp:1804
 #, fuzzy
 msgid "Error during control point creation:\n"
 msgstr "Fout bij samenvoegen"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1935
 msgid "Select Point in right image"
 msgstr "Selecteer punt in rechter afbeelding"
 
-#: src/hugin/CPEditorPanel.cpp:1908
+#: src/hugin/CPEditorPanel.cpp:1947
 msgid "Select Point in left image"
 msgstr "Selecteer punt in linker afbeelding"
 
@@ -415,7 +426,7 @@ msgstr "y"
 msgid "right Img."
 msgstr "rechter Afb."
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -423,15 +434,15 @@ msgstr ""
 "Voer minimale fout voor controle punten in.\n"
 "Alle punten met een grotere fout worden geselecteerd"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid "Select Control Points"
 msgstr "Selecteer controle punten"
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Error: please enter a valid number."
 msgstr "Fout: Voer een geldig nummer in."
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Could not read number"
 msgstr "Kan het nummer niet interpreteren"
 
@@ -635,7 +646,7 @@ msgstr "Lens nummer"
 msgid "Change lens number"
 msgstr "wijzig lens nummer"
 
-#: src/hugin/MainFrame.cpp:219
+#: src/hugin/MainFrame.cpp:220
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -645,16 +656,16 @@ msgstr ""
 "De xrc map werd niet gevonden.\n"
 "Zorg ervoor dat deze in dezelfde map staat als hugin.exe"
 
-#: src/hugin/MainFrame.cpp:239 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Help"
 
-#: src/hugin/MainFrame.cpp:335
+#: src/hugin/MainFrame.cpp:336
 msgid "Started"
 msgstr "Gestart"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -662,52 +673,52 @@ msgstr ""
 "Het panorama is gewijzigd\n"
 "Wijzigingen opslaan ?"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid "Save Panorama?"
 msgstr "Panorama opslaan?"
 
-#: src/hugin/MainFrame.cpp:494
+#: src/hugin/MainFrame.cpp:495
 msgid "forced close"
 msgstr "Geforceerd afsluiten"
 
-#: src/hugin/MainFrame.cpp:547
+#: src/hugin/MainFrame.cpp:548
 #, c-format
 msgid "saved project %s"
 msgstr "project opgeslagen als %s"
 
-#: src/hugin/MainFrame.cpp:560
+#: src/hugin/MainFrame.cpp:561
 msgid "Save project file"
 msgstr "Opslaan project bestand"
 
-#: src/hugin/MainFrame.cpp:562
+#: src/hugin/MainFrame.cpp:563
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Project bestanden (*.pto)|*.pto|Alle bestanden (*)|*"
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:583
 msgid "Save PTStitcher script file"
 msgstr "Opslaan PTSticher project bestand"
 
-#: src/hugin/MainFrame.cpp:584
+#: src/hugin/MainFrame.cpp:585
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "PTStitcher bestanden (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:612
+#: src/hugin/MainFrame.cpp:613
 msgid "Open project:   "
 msgstr "Open project:"
 
-#: src/hugin/MainFrame.cpp:624
+#: src/hugin/MainFrame.cpp:625
 msgid "Project opened"
 msgstr "Project geopend"
 
-#: src/hugin/MainFrame.cpp:634
+#: src/hugin/MainFrame.cpp:635
 msgid "Error opening project:   "
 msgstr "Fout bij openen project:"
 
-#: src/hugin/MainFrame.cpp:665
+#: src/hugin/MainFrame.cpp:666
 msgid "Open project file"
 msgstr "Open project bestand"
 
-#: src/hugin/MainFrame.cpp:667
+#: src/hugin/MainFrame.cpp:668
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -715,38 +726,38 @@ msgstr ""
 "Project bestanden (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Alle "
 "bestanden (*)|*"
 
-#: src/hugin/MainFrame.cpp:680
+#: src/hugin/MainFrame.cpp:681
 msgid "Open project: cancel"
 msgstr "Open project: annuleren"
 
-#: src/hugin/MainFrame.cpp:706 src/hugin/VigCorrDialog.cpp:171
-#: src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
 "Alle Afbeeldings formaten|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
 "*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*."
 "JPG|Alle bestanden (*)|*"
 
-#: src/hugin/MainFrame.cpp:709 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
 msgid "Add images"
 msgstr "Voeg afbeeldingen toe"
 
-#: src/hugin/MainFrame.cpp:761
+#: src/hugin/MainFrame.cpp:762
 msgid "Add Image: cancel"
 msgstr "Voeg afbeelding toe: annuleer"
 
-#: src/hugin/MainFrame.cpp:1137
+#: src/hugin/MainFrame.cpp:1138
 msgid "Fine-tuning all points"
 msgstr "fijn afstemmen van alle punten"
 
-#: src/hugin/MainFrame.cpp:1139
+#: src/hugin/MainFrame.cpp:1140
 msgid "Finetuning"
 msgstr "Fijn afstemmen"
 
-#: src/hugin/MainFrame.cpp:1230
+#: src/hugin/MainFrame.cpp:1231
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -769,7 +780,7 @@ msgstr ""
 "optimalisatie)\n"
 "door een fout <=%.3f.\n"
 
-#: src/hugin/MainFrame.cpp:1232
+#: src/hugin/MainFrame.cpp:1233
 msgid "Fine-tune result"
 msgstr "Fijn afstemming resultaat"
 
@@ -1503,6 +1514,16 @@ msgstr "Fout bij uitvoeren %s"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Tips niet beschikbaar, sorry!"
+
+#: src/hugin/VigCorrDialog.cpp:171
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Alle Afbeeldings formaten|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
+"*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*."
+"JPG|Alle bestanden (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"

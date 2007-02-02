@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.7.0-beta3\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-28 23:59+0100\n"
+"POT-Creation-Date: 2007-02-02 23:00+0100\n"
 "PO-Revision-Date: 2007-01-02 11:55+0100\n"
 "Last-Translator: Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: Translation Project French Team <traduc@traduc.org>\n"
@@ -312,20 +312,20 @@ msgstr "Distance"
 msgid "No corresponding point found"
 msgstr "Aucun point de correspondance n'a été trouvé"
 
-#: src/hugin/CPEditorPanel.cpp:644
+#: src/hugin/CPEditorPanel.cpp:649
 msgid "new control point added"
 msgstr "Un nouveau point de contrôle a été ajouté"
 
-#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
+#: src/hugin/CPEditorPanel.cpp:749 src/hugin/CPEditorPanel.cpp:973
 msgid "searching similar point..."
 msgstr "Recherche d'un point similaire..."
 
-#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:768 src/hugin/CPEditorPanel.cpp:891
 msgid "Error during Fine-tune"
 msgstr "Erreur lors de l'ajustement précis"
 
-#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
-#: src/hugin/CPEditorPanel.cpp:1021
+#: src/hugin/CPEditorPanel.cpp:782 src/hugin/CPEditorPanel.cpp:911
+#: src/hugin/CPEditorPanel.cpp:1026
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
@@ -334,17 +334,17 @@ msgstr ""
 "Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : %"
 "0.3f, courbure %0.3f %0.3f"
 
-#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
+#: src/hugin/CPEditorPanel.cpp:785 src/hugin/CPEditorPanel.cpp:914
 msgid "change points, or press right mouse button to add the pair"
 msgstr ""
 "modifier les points ou presser le bouton droit de la souris pour ajouter la "
 "paire de points"
 
-#: src/hugin/CPEditorPanel.cpp:800
+#: src/hugin/CPEditorPanel.cpp:805
 msgid "Estimated point outside image"
 msgstr "Le point estimé est en dehors de l'image"
 
-#: src/hugin/CPEditorPanel.cpp:1027
+#: src/hugin/CPEditorPanel.cpp:1032
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -355,29 +355,40 @@ msgstr ""
 "coefficient de corrélation : %.3f, (devrait être > % .3f)\n"
 "courbure maximum : (%.3f, %.3f), (devrait être > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1029
+#: src/hugin/CPEditorPanel.cpp:1034
 msgid "No similar point found"
 msgstr "Aucun point semblable n'a été trouvé"
 
-#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1186 src/hugin/CPEditorPanel.cpp:1197
+#, fuzzy
+msgid "Add new Line"
+msgstr "Ajouter un nouveau point"
+
+#: src/hugin/CPEditorPanel.cpp:1192 src/hugin/CPEditorPanel.cpp:1195
+#: src/hugin/CPEditorPanel.cpp:1472 src/hugin/CPListFrame.cpp:406
+#, c-format
+msgid "Line %d"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1463 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "normal"
 
-#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1466 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "ligne vert."
 
-#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1469 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "ligne horiz."
 
-#: src/hugin/CPEditorPanel.cpp:1728
+#: src/hugin/CPEditorPanel.cpp:1767
 msgid "Cannot estimate image position without control points"
 msgstr "Impossible d'estimer la position de l'image sans point de contrôle"
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
@@ -387,28 +398,28 @@ msgstr ""
 "Pour créer moins de points,\n"
 "entrer un nombre plus grand."
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid "Corner Detection threshold"
 msgstr "Seuil de détection du coin"
 
-#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1788 src/hugin/CPEditorPanel.cpp:1792
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 msgid "Create control points"
 msgstr "Créer des points de contrôle"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1792
 msgid "Corner Detection scale"
 msgstr "Échelle de détection du coin"
 
-#: src/hugin/CPEditorPanel.cpp:1765
+#: src/hugin/CPEditorPanel.cpp:1804
 msgid "Error during control point creation:\n"
 msgstr "Erreur lors de la création du point de contrôle :\n"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1935
 msgid "Select Point in right image"
 msgstr "Sélectionner un point sur l'image de droite"
 
-#: src/hugin/CPEditorPanel.cpp:1908
+#: src/hugin/CPEditorPanel.cpp:1947
 msgid "Select Point in left image"
 msgstr "Sélectionner un point sur l'image de gauche"
 
@@ -437,7 +448,7 @@ msgstr "y"
 msgid "right Img."
 msgstr "image de droite"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -445,15 +456,15 @@ msgstr ""
 "Entrer l'erreur minimale pour les points de contrôle.\n"
 "Tout point avec une erreur supérieure sera sélectionné"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid "Select Control Points"
 msgstr "Sélectionner des points de contrôle"
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Error: please enter a valid number."
 msgstr "Erreur, veuillez entrer un nombre valable."
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Could not read number"
 msgstr "Impossible de lire le nombre"
 
@@ -658,7 +669,7 @@ msgstr "Objectif numéro"
 msgid "Change lens number"
 msgstr "Changer le numéro d'objectif"
 
-#: src/hugin/MainFrame.cpp:219
+#: src/hugin/MainFrame.cpp:220
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -668,16 +679,16 @@ msgstr ""
 "Le répertoire xrc est introuvable.\n"
 "Veuillez vous assurer qu'il se trouve dans le même répertoire que hugin.exe"
 
-#: src/hugin/MainFrame.cpp:239 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Aide"
 
-#: src/hugin/MainFrame.cpp:335
+#: src/hugin/MainFrame.cpp:336
 msgid "Started"
 msgstr "Lancé"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -685,52 +696,52 @@ msgstr ""
 "Le panorama a été modifié\n"
 "Enregistrer les modifications ?"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid "Save Panorama?"
 msgstr "Enregistrer le panorama ?"
 
-#: src/hugin/MainFrame.cpp:494
+#: src/hugin/MainFrame.cpp:495
 msgid "forced close"
 msgstr "Fermeture forcée"
 
-#: src/hugin/MainFrame.cpp:547
+#: src/hugin/MainFrame.cpp:548
 #, c-format
 msgid "saved project %s"
 msgstr "Projet %s enregistré"
 
-#: src/hugin/MainFrame.cpp:560
+#: src/hugin/MainFrame.cpp:561
 msgid "Save project file"
 msgstr "Enregistrer le fichier de projet"
 
-#: src/hugin/MainFrame.cpp:562
+#: src/hugin/MainFrame.cpp:563
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Fichiers de projets (*.pto)|*.pto|Tous les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:583
 msgid "Save PTStitcher script file"
 msgstr "Enregistrer le fichier script PTStitcher"
 
-#: src/hugin/MainFrame.cpp:584
+#: src/hugin/MainFrame.cpp:585
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Fichiers PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:612
+#: src/hugin/MainFrame.cpp:613
 msgid "Open project:   "
 msgstr "Ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:624
+#: src/hugin/MainFrame.cpp:625
 msgid "Project opened"
 msgstr "Projet ouvert"
 
-#: src/hugin/MainFrame.cpp:634
+#: src/hugin/MainFrame.cpp:635
 msgid "Error opening project:   "
 msgstr "Erreur lors de l'ouverture du projet :   "
 
-#: src/hugin/MainFrame.cpp:665
+#: src/hugin/MainFrame.cpp:666
 msgid "Open project file"
 msgstr "Ouverture du fichier de projet"
 
-#: src/hugin/MainFrame.cpp:667
+#: src/hugin/MainFrame.cpp:668
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -738,38 +749,38 @@ msgstr ""
 "Fichiers de projets (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tous "
 "les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:680
+#: src/hugin/MainFrame.cpp:681
 msgid "Open project: cancel"
 msgstr "Ouverture du projet : abandon"
 
-#: src/hugin/MainFrame.cpp:706 src/hugin/VigCorrDialog.cpp:171
-#: src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
 "Tous les fichiers image|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
 "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Fichiers JPEG (*.jpg)|*."
 "jpg;*.JPG|Tous les fichiers (*)|*"
 
-#: src/hugin/MainFrame.cpp:709 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
 msgid "Add images"
 msgstr "Ajouter des images"
 
-#: src/hugin/MainFrame.cpp:761
+#: src/hugin/MainFrame.cpp:762
 msgid "Add Image: cancel"
 msgstr "Ajout d'images : abandon"
 
-#: src/hugin/MainFrame.cpp:1137
+#: src/hugin/MainFrame.cpp:1138
 msgid "Fine-tuning all points"
 msgstr "Ajuster précisément tous les points"
 
-#: src/hugin/MainFrame.cpp:1139
+#: src/hugin/MainFrame.cpp:1140
 msgid "Finetuning"
 msgstr "Ajustement précis"
 
-#: src/hugin/MainFrame.cpp:1230
+#: src/hugin/MainFrame.cpp:1231
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -797,7 +808,7 @@ msgstr ""
 "couleur uniforme) sera mise à 0.\n"
 "\n"
 
-#: src/hugin/MainFrame.cpp:1232
+#: src/hugin/MainFrame.cpp:1233
 msgid "Fine-tune result"
 msgstr "Résultat de l'ajustement précis"
 
@@ -1544,6 +1555,16 @@ msgstr "Erreur lors de l'exécution de %s"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Les astuces ne sont pas disponibles !"
+
+#: src/hugin/VigCorrDialog.cpp:171
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Tous les fichiers image|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|Fichiers JPEG (*.jpg)|*."
+"jpg;*.JPG|Tous les fichiers (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-01-28 23:59+0100\n"
+"POT-Creation-Date: 2007-02-02 23:00+0100\n"
 "PO-Revision-Date: 2005-11-06 04:34+0100\n"
 "Last-Translator: Balló György <ballogy@freestart.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -273,35 +273,35 @@ msgstr "Távolság"
 msgid "No corresponding point found"
 msgstr "Nem található hasonló pont"
 
-#: src/hugin/CPEditorPanel.cpp:644
+#: src/hugin/CPEditorPanel.cpp:649
 msgid "new control point added"
 msgstr "új illesztőpont hozzáadva"
 
-#: src/hugin/CPEditorPanel.cpp:744 src/hugin/CPEditorPanel.cpp:968
+#: src/hugin/CPEditorPanel.cpp:749 src/hugin/CPEditorPanel.cpp:973
 msgid "searching similar point..."
 msgstr "hasonló pont keresése..."
 
-#: src/hugin/CPEditorPanel.cpp:763 src/hugin/CPEditorPanel.cpp:886
+#: src/hugin/CPEditorPanel.cpp:768 src/hugin/CPEditorPanel.cpp:891
 msgid "Error during Fine-tune"
 msgstr "Hiba finomhangolás közben"
 
-#: src/hugin/CPEditorPanel.cpp:777 src/hugin/CPEditorPanel.cpp:906
-#: src/hugin/CPEditorPanel.cpp:1021
+#: src/hugin/CPEditorPanel.cpp:782 src/hugin/CPEditorPanel.cpp:911
+#: src/hugin/CPEditorPanel.cpp:1026
 #, c-format
 msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
 "%0.3f %0.3f "
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:780 src/hugin/CPEditorPanel.cpp:909
+#: src/hugin/CPEditorPanel.cpp:785 src/hugin/CPEditorPanel.cpp:914
 msgid "change points, or press right mouse button to add the pair"
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:800
+#: src/hugin/CPEditorPanel.cpp:805
 msgid "Estimated point outside image"
 msgstr "A becsült pont képen kívül"
 
-#: src/hugin/CPEditorPanel.cpp:1027
+#: src/hugin/CPEditorPanel.cpp:1032
 #, c-format
 msgid ""
 "No similar point found.\n"
@@ -312,60 +312,71 @@ msgstr ""
 "korrekciós tényező: %.3f (kellene lennie > %.3f)\n"
 "csúcsgörbület: (%.3f, %.3f) (kellene lennie > %.3f)"
 
-#: src/hugin/CPEditorPanel.cpp:1029
+#: src/hugin/CPEditorPanel.cpp:1034
 msgid "No similar point found"
 msgstr "Nem található hasonló pont"
 
-#: src/hugin/CPEditorPanel.cpp:1431 src/hugin/CPListFrame.cpp:397
+#: src/hugin/CPEditorPanel.cpp:1186 src/hugin/CPEditorPanel.cpp:1197
+#, fuzzy
+msgid "Add new Line"
+msgstr "új pont hozzáadása"
+
+#: src/hugin/CPEditorPanel.cpp:1192 src/hugin/CPEditorPanel.cpp:1195
+#: src/hugin/CPEditorPanel.cpp:1472 src/hugin/CPListFrame.cpp:406
+#, c-format
+msgid "Line %d"
+msgstr ""
+
+#: src/hugin/CPEditorPanel.cpp:1463 src/hugin/CPListFrame.cpp:397
 #: src/hugin/PreviewFrame.cpp:230 src/hugin/xrc/cp_editor_panel.xrs:8
 #: src/hugin/xrc/cp_editor_panel-2.5.xrs:8
 msgid "normal"
 msgstr "notmál"
 
-#: src/hugin/CPEditorPanel.cpp:1434 src/hugin/CPListFrame.cpp:400
+#: src/hugin/CPEditorPanel.cpp:1466 src/hugin/CPListFrame.cpp:400
 msgid "vert. Line"
 msgstr "függ. vonal"
 
-#: src/hugin/CPEditorPanel.cpp:1437 src/hugin/CPListFrame.cpp:403
+#: src/hugin/CPEditorPanel.cpp:1469 src/hugin/CPListFrame.cpp:403
 msgid "horiz. Line"
 msgstr "vízsz. vonal"
 
-#: src/hugin/CPEditorPanel.cpp:1728
+#: src/hugin/CPEditorPanel.cpp:1767
 msgid "Cannot estimate image position without control points"
 msgstr "Nem lehet megállapítani a kép pozícióját illesztőpontok nélkül"
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid ""
 "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1749
+#: src/hugin/CPEditorPanel.cpp:1788
 msgid "Corner Detection threshold"
 msgstr ""
 
-#: src/hugin/CPEditorPanel.cpp:1749 src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1788 src/hugin/CPEditorPanel.cpp:1792
 #: src/hugin/xrc/images_panel-2.5.xrs:23
 #, fuzzy
 msgid "Create control points"
 msgstr "Illesztőpontok létrehozása"
 
-#: src/hugin/CPEditorPanel.cpp:1753
+#: src/hugin/CPEditorPanel.cpp:1792
 #, fuzzy
 msgid "Corner Detection scale"
 msgstr "Képgyűjtemény"
 
-#: src/hugin/CPEditorPanel.cpp:1765
+#: src/hugin/CPEditorPanel.cpp:1804
 #, fuzzy
 msgid "Error during control point creation:\n"
 msgstr "Hiba fűzés közben"
 
-#: src/hugin/CPEditorPanel.cpp:1896
+#: src/hugin/CPEditorPanel.cpp:1935
 msgid "Select Point in right image"
 msgstr "Pont kijelölése a jobb képen"
 
-#: src/hugin/CPEditorPanel.cpp:1908
+#: src/hugin/CPEditorPanel.cpp:1947
 msgid "Select Point in left image"
 msgstr "Pont kijelölése a bal képen"
 
@@ -394,7 +405,7 @@ msgstr "y"
 msgid "right Img."
 msgstr "jobb kép"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid ""
 "Enter minimum control point error.\n"
 "All point with a higher error will be selected"
@@ -402,15 +413,15 @@ msgstr ""
 "Adjon meg minimális illesztőpont-hibát.\n"
 "Minden magasabb hibályú pont ki lesz jelölve"
 
-#: src/hugin/CPListFrame.cpp:600 src/hugin/CPListFrame.cpp:609
+#: src/hugin/CPListFrame.cpp:604 src/hugin/CPListFrame.cpp:613
 msgid "Select Control Points"
 msgstr "Illesztőpontok kijelölése"
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Error: please enter a valid number."
 msgstr "Hiba: adjon meg egy érvényes számot."
 
-#: src/hugin/CPListFrame.cpp:608
+#: src/hugin/CPListFrame.cpp:612
 msgid "Could not read number"
 msgstr "Nem olvasható be szám"
 
@@ -614,23 +625,23 @@ msgstr "Lencseszám"
 msgid "Change lens number"
 msgstr "Lencseszám módosítása"
 
-#: src/hugin/MainFrame.cpp:219
+#: src/hugin/MainFrame.cpp:220
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
 "Please ensure it is placed in the same directory as hugin.exe"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:239 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
 #: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
 msgid "&Help"
 msgstr "&Súgó"
 
-#: src/hugin/MainFrame.cpp:335
+#: src/hugin/MainFrame.cpp:336
 msgid "Started"
 msgstr "Kezdés"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -638,52 +649,52 @@ msgstr ""
 "A panoráma módosult\n"
 "Menti a változásokat?"
 
-#: src/hugin/MainFrame.cpp:461
+#: src/hugin/MainFrame.cpp:462
 msgid "Save Panorama?"
 msgstr "Panoráma mentése?"
 
-#: src/hugin/MainFrame.cpp:494
+#: src/hugin/MainFrame.cpp:495
 msgid "forced close"
 msgstr "eröltetett bezárás"
 
-#: src/hugin/MainFrame.cpp:547
+#: src/hugin/MainFrame.cpp:548
 #, c-format
 msgid "saved project %s"
 msgstr "mentett projekt %s"
 
-#: src/hugin/MainFrame.cpp:560
+#: src/hugin/MainFrame.cpp:561
 msgid "Save project file"
 msgstr "Projektfájl mentése"
 
-#: src/hugin/MainFrame.cpp:562
+#: src/hugin/MainFrame.cpp:563
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Projektfájlok (*.pto)|*.pto|Minden fájl (*)|*"
 
-#: src/hugin/MainFrame.cpp:582
+#: src/hugin/MainFrame.cpp:583
 msgid "Save PTStitcher script file"
 msgstr "PTStitcher szkriptfájl mentése"
 
-#: src/hugin/MainFrame.cpp:584
+#: src/hugin/MainFrame.cpp:585
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "PTStitcher fájlok (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:612
+#: src/hugin/MainFrame.cpp:613
 msgid "Open project:   "
 msgstr "Projekt megnyitása:"
 
-#: src/hugin/MainFrame.cpp:624
+#: src/hugin/MainFrame.cpp:625
 msgid "Project opened"
 msgstr "Projekt megnyitva"
 
-#: src/hugin/MainFrame.cpp:634
+#: src/hugin/MainFrame.cpp:635
 msgid "Error opening project:   "
 msgstr "Hiba projekt megnyitása közben:"
 
-#: src/hugin/MainFrame.cpp:665
+#: src/hugin/MainFrame.cpp:666
 msgid "Open project file"
 msgstr "Projektfájl megnyitása"
 
-#: src/hugin/MainFrame.cpp:667
+#: src/hugin/MainFrame.cpp:668
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -691,39 +702,38 @@ msgstr ""
 "Projektfájlok (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Minden fájl "
 "(*)|*"
 
-#: src/hugin/MainFrame.cpp:680
+#: src/hugin/MainFrame.cpp:681
 msgid "Open project: cancel"
 msgstr "Projekt megnyitása: mégse"
 
-#: src/hugin/MainFrame.cpp:706 src/hugin/VigCorrDialog.cpp:171
-#: src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*."
+"jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"
 msgstr ""
 "Minden képfájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;"
 "*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG fájlok (*.jpg)|*.jpg;*.JPG|Minden "
 "fájl (*)|*"
 
-#: src/hugin/MainFrame.cpp:709 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
 msgid "Add images"
 msgstr "Képek hozzáadása"
 
-#: src/hugin/MainFrame.cpp:761
+#: src/hugin/MainFrame.cpp:762
 msgid "Add Image: cancel"
 msgstr "Kép hozzáadása: mégse"
 
-#: src/hugin/MainFrame.cpp:1137
+#: src/hugin/MainFrame.cpp:1138
 msgid "Fine-tuning all points"
 msgstr "Minden pont finomhangolása"
 
-#: src/hugin/MainFrame.cpp:1139
+#: src/hugin/MainFrame.cpp:1140
 msgid "Finetuning"
 msgstr "Finomhangolás"
 
-#: src/hugin/MainFrame.cpp:1230
+#: src/hugin/MainFrame.cpp:1231
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -739,7 +749,7 @@ msgid ""
 "Use the Control Point list (F3) to see all point of the current project\n"
 msgstr ""
 
-#: src/hugin/MainFrame.cpp:1232
+#: src/hugin/MainFrame.cpp:1233
 msgid "Fine-tune result"
 msgstr "Finamhangolás eredménye"
 
@@ -1383,6 +1393,17 @@ msgstr "Hiba PTStitcher.exe végrehajtása közben"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Nem érhető el tipp, elnézést!"
+
+#: src/hugin/VigCorrDialog.cpp:171
+#, fuzzy
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG|All files (*)|*"
+msgstr ""
+"Minden képfájl|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;"
+"*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG fájlok (*.jpg)|*.jpg;*.JPG|Minden "
+"fájl (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 #, fuzzy
