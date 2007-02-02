@@ -1,3 +1,145 @@
+2007-02-02 23:03  dangelo
+
+	* src/hugin/: MainFrame.cpp, huginApp.cpp, wxPanoCommand.cpp,
+	  po/ca_ES.po, po/cs_CZ.po, po/de.po, po/fr.po, po/hu.po,
+	  po/hugin.pot, po/it.po, po/ja.po, po/nl.po, po/pl.po,
+	  po/pt_BR.po, po/ru.po, po/sk.po, po/sv.po, po/uk.po, po/zh_CN.po:
+	  Also accept .jpeg extension (patch 1585400)
+
+2007-02-02 00:18  dangelo
+
+	* src/: Panorama/Panorama.cpp, Panorama/PanoramaMemento.cpp,
+	  hugin/CPEditorPanel.cpp, hugin/CPListFrame.cpp,
+	  include/PT/Panorama.h, include/PT/PanoramaMemento.h: added
+	  support for line control points (t3)
+
+2007-01-31 20:10  dangelo
+
+	* src/: hugin/HFOVDialog.cpp, include/hugin/HFOVDialog.h: ignore
+	  double text change events under wxGTK 2.6
+
+2007-01-29 00:02  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, uk.po, zh_CN.po: updated .po files with new strings
+
+2007-01-25 23:47  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp,
+	  Panorama/PanoramaMemento.cpp, hugin/CPZoomDisplayPanel.cpp,
+	  hugin/ImageCache.cpp, hugin/PreferencesDialog.cpp,
+	  hugin/PreviewFrame.cpp, hugin/PreviewPanel.cpp,
+	  include/config_msvc.h, include/PT/PanoToolsInterface.h,
+	  include/PT/PanoramaMemento.h, include/hugin/ImageCache.h,
+	  include/hugin/PreviewFrame.h, tools/fulla.cpp: Full support for
+	  new projections, with choosing parameters for them
+
+2007-01-24 20:18  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: enabled setting VFOV for all
+	  projections with HFOV <=180
+
+2007-01-24 20:16  dangelo
+
+	* src/hugin/: NonaStitcherPanel.cpp, PTStitcherPanel.cpp,
+	  PanoPanel.cpp: external command exection has changed slightly
+
+2007-01-24 20:15  dangelo
+
+	* src/hugin/: PreferencesDialog.cpp, PreviewFrame.cpp: fixed
+	  compiler warning
+
+2007-01-24 20:15  dangelo
+
+	* src/hugin/CPImageCtrl.cpp: bugfix: keys in Control point editor
+	  should work again
+
+2007-01-24 20:12  dangelo
+
+	* src/: hugin/AutoCtrlPointCreator.cpp,
+	  hugin/MyExternalCmdExecDialog.cpp,
+	  include/hugin/MyExternalCmdExecDialog.h: bugfix: run
+	  autopano-sift on windows.
+
+2007-01-23 23:24  dangelo
+
+	* src/: Panorama/PanoToolsInterface.cpp,
+	  Panorama/PanoramaMemento.cpp, hugin/AssistantPanel.cpp,
+	  hugin/PanoPanel.cpp, hugin/PreviewFrame.cpp,
+	  nona_gui/nona_gui.cpp: use new projection query function in
+	  libpano13, projections are now queried dynamically
+
+2007-01-23 18:11  dangelo
+
+	* src/hugin/HFOVDialog.cpp: fixed check for HFOV > 179 deg.
+
+2007-01-14 01:29  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  include/hugin/CPImageCtrl.h: tried to really work around the
+	  problem of the double deletion of control points when pressing
+	  "Del"
+
+2007-01-13 19:28  dangelo
+
+	* src/hugin/CPImageCtrl.cpp: fixed double control point deletion
+	  when pressing the "Del" button
+
+2007-01-13 17:19  dangelo
+
+	* src/hugin/po/sv.po: updated swedish translation (Ulf Wilhelmson)
+
+2007-01-09 20:24  dangelo
+
+	* src/hugin/po/sv.po: swedish translation updated (Ulf Wilhelmson)
+
+2007-01-09 20:20  dangelo
+
+	* src/hugin/po/sv.po: swedish translation updated (Ulf Wilhelmson)
+
+2007-01-08 00:13  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: force even width for equirect
+	  and sinousiodal panos, and enforce the VFOV limit
+
+2007-01-07 23:53  dangelo
+
+	* src/Panorama/: Panorama.cpp, PanoramaMemento.cpp: load/save focal
+	  length crop factor and autoCenter crop mode in project files
+
+2007-01-07 23:02  dangelo
+
+	* src/hugin/LensPanel.cpp: save exif data in lens .ini files
+
+2007-01-07 21:16  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: bugfix: do not concatinate fast
+	  transform and huber m-estimator parameter in m line.
+
+2007-01-07 19:34  dangelo
+
+	* src/hugin/Makefile.am: bugfix: make install doesn't fail if
+	  update-desktop-database fails
+
+2007-01-07 19:20  dangelo
+
+	* src/hugin/PreferencesDialog.cpp: bugfix (linux, OSX): display all
+	  files in "choose editor" dialog.
+
+2007-01-04 23:41  dangelo
+
+	* src/hugin/po/fr.po: updated french translation (Jean-Luc Coulon)
+
+2007-01-02 16:39  ade_br
+
+	* src/hugin/po/pt_BR.po: - update on pt_BR translations (still
+	  partial, work-in-progress)
+
+2007-01-01 22:44  dangelo
+
+	* ChangeLog: [no log message]
+
 2007-01-01 22:26  dangelo
 
 	* src/hugin/hugin.desktop: update translation
@@ -988,8 +1130,8 @@
 	  problem-circle.jpg, tips.txt, help_en_EN/FAQ.html,
 	  help_en_EN/contents.html, help_en_EN/manual.html,
 	  help_fr_FR/FAQ.html, help_fr_FR/contents.html,
-	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: fixed help,
-	  moved FAQ into respective subdirs
+	  help_fr_FR/manual.html: fixed help, moved FAQ into respective
+	  subdirs
 
 2006-08-12 17:13  dangelo
 
@@ -1283,21 +1425,19 @@
 
 2006-07-22 20:21  dangelo
 
-	* ABOUT-NLS, Makefile.in, configure, config/config.guess,
-	  config/config.rpath, config/config.sub, config/depcomp,
-	  config/install-sh, config/ltmain.sh, config/missing,
-	  config/mkinstalldirs, doc/Makefile.in, m4/codeset.m4,
-	  m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4, m4/iconv.m4,
-	  m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4, m4/inttypes.m4,
-	  m4/inttypes_h.m4, m4/isc-posix.m4, m4/lcmessage.m4, m4/lib-ld.m4,
-	  m4/lib-link.m4, m4/lib-prefix.m4, m4/longdouble.m4,
-	  m4/longlong.m4, m4/nls.m4, m4/po.m4, m4/printf-posix.m4,
-	  m4/progtest.m4, m4/signed.m4, m4/size_max.m4, m4/stdint_h.m4,
-	  m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4, m4/wint_t.m4,
-	  m4/xsize.m4, src/Makefile.in, src/Panorama/Makefile.in,
-	  src/common/Makefile.in, src/foreign/Makefile.in,
-	  src/foreign/vigra_impex/Makefile.in, src/hugin/Makefile.in,
-	  src/hugin/xrc/Makefile.in, src/hugin/xrc/data/Makefile.in,
+	* ABOUT-NLS, Makefile.in, configure, doc/Makefile.in,
+	  m4/codeset.m4, m4/gettext.m4, m4/glibc2.m4, m4/glibc21.m4,
+	  m4/iconv.m4, m4/intdiv0.m4, m4/intmax.m4, m4/inttypes-pri.m4,
+	  m4/inttypes.m4, m4/inttypes_h.m4, m4/isc-posix.m4,
+	  m4/lcmessage.m4, m4/lib-ld.m4, m4/lib-link.m4, m4/lib-prefix.m4,
+	  m4/longdouble.m4, m4/longlong.m4, m4/nls.m4, m4/po.m4,
+	  m4/printf-posix.m4, m4/progtest.m4, m4/signed.m4, m4/size_max.m4,
+	  m4/stdint_h.m4, m4/uintmax_t.m4, m4/ulonglong.m4, m4/wchar_t.m4,
+	  m4/wint_t.m4, m4/xsize.m4, src/Makefile.in,
+	  src/Panorama/Makefile.in, src/common/Makefile.in,
+	  src/foreign/Makefile.in, src/foreign/vigra_impex/Makefile.in,
+	  src/hugin/Makefile.in, src/hugin/xrc/Makefile.in,
+	  src/hugin/xrc/data/Makefile.in,
 	  src/hugin/xrc/data/help_common/Makefile.in,
 	  src/hugin/xrc/data/help_en_EN/Makefile.in,
 	  src/hugin/xrc/data/help_fr_FR/Makefile.in, src/jhead/Makefile.in,
@@ -1335,12 +1475,6 @@
 
 	* src/: hugin/po/Makefile.in.in, nona_gui/po/Makefile.in.in: added
 	  more autoconf generated files
-
-2006-07-22 19:18  dangelo
-
-	* config/: config.guess, config.rpath, config.sub, depcomp,
-	  install-sh, ltmain.sh, missing, mkinstalldirs: added more
-	  autoconf generated stuff
 
 2006-07-22 19:14  dangelo
 
@@ -1962,8 +2096,7 @@
 	  help_fr_FR/contents.html, help_fr_FR/hugin.hhc,
 	  help_fr_FR/hugin.hhk, help_fr_FR/hugin.hhp,
 	  help_fr_FR/keyboard.html, help_fr_FR/license.html,
-	  help_fr_FR/manual.html, help_fr_FR/images/hugin.png: converted
-	  french help text. needs update
+	  help_fr_FR/manual.html: converted french help text. needs update
 
 2006-03-06 22:48  dangelo
 

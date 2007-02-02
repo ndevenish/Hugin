@@ -1300,7 +1300,7 @@ void MainFrame::updateProgressDisplay()
 #else
     // This is a bad call.. we just want to repaint the window, instead we will
     // process user events as well :( Unfortunately, there is not portable workaround...
-    wxYield();
+    //wxYield();
 #endif
 }
 

@@ -168,7 +168,7 @@ void VigCorrDialog::OnCancel(wxCommandEvent & e)
 
 void VigCorrDialog::OnFlatfieldSelect(wxCommandEvent & e)
 {
-    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG|All files (*)|*"));
+    wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
     wxFileDialog dlg(this,_("Select flatfield image"),
                      wxConfigBase::Get()->Read(wxT("flatfieldPath"),wxT("")), wxT(""),
                      wildcard,
