@@ -8,7 +8,7 @@ AM_LDFLAGS  = $(LIB_JPEG) $(LIB_TIFF) $(LIB_PANO) $(BOOST_THREAD_LIB)
 bin_PROGRAMS = nona autooptimiser zhang_undistort color_correct_tiff fulla
 
 nona_SOURCES = nona.cpp
-nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la
+nona_LDADD   = ${top_builddir}/src/Panorama/libpanorama.la \
                ${top_builddir}/src/common/libcommon.la \
                ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
                ${top_builddir}/src/jhead/libjhead.la \
