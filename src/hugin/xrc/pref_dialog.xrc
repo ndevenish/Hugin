@@ -499,7 +499,8 @@ per overlap</label>
                     
                           
                           <label>The following patterns will be substituted before running:
-%f  -- final panorama</label>
+%f  -- final panorama
+%i  -- first input image</label>
                   </object>
                   
                   
