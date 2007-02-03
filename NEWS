@@ -1,4 +1,15 @@
-Newsworthy changes in 0.7
+Newsworthy changes in 0.7 beta 4
+-------------------------
+* update panotools to latest version
+* Albers equal area conic and Miller cylindrical projection
+* Support for straight line control points
+* Fixed running of Autopano-SIFT integration on windows
+* (linux) work around bugs in wxWidgets (fixes double deletion
+  of control points when pressing the Del key)
+* Force even values for width for 360 degree equirectangular
+  panoramas.
+
+Newsworthy changes in 0.7 beta 3
 -------------------------
 * Assistant panel, enables 3 click stitching (well, almost ;-)
 * Center and rotate panorama by mouse clicks in preview window.
