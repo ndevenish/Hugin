@@ -129,7 +129,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Install into temp folder"
-				CommandLine="$(SolutionDir)\hugin_msvc_install_win98.bat"/>
+				CommandLine="xcopy xrc Release\xrc /I /Y
+xcopy xrc\data Release\xrc\data /I /Y
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -198,7 +200,9 @@ xcopy xrc\data Debug\xrc\data /I /Y
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Installing to temporary folder"
-				CommandLine="$(SolutionDir)\hugin_msvc_install.bat"
+				CommandLine="xcopy xrc &quot;Release Unicode\xrc&quot; /I /Y
+xcopy xrc\data &quot;Release Unicode\xrc\data&quot; /I /Y
+"
 				ExcludedFromBuild="FALSE"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>

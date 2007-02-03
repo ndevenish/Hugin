@@ -34,7 +34,40 @@
 
 #ifdef HasPANO13
 extern "C" {
+
+#ifdef __INTEL__
+#define __INTELMEMO__
+#undef __INTEL__
+#endif
+
 #include "pano13/panorama.h"
+
+#ifdef __INTELMEMO__
+#define __INTEL__
+#undef __INTELMEMO__
+#endif
+
+// remove stupid #defines from the evil windows.h
+
+#ifdef DIFFERENCE
+#undef DIFFERENCE
+#endif
+
+#ifdef MIN
+#undef MIN
+#endif
+
+#ifdef MAX
+#undef MAX
+#endif
+
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
 }
 #endif
 
