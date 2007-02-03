@@ -382,7 +382,9 @@ public:
     void reset()
         {
             m_projectionFormat = EQUIRECTANGULAR;
+#ifdef HasPANO13
             panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
+#endif
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
@@ -521,7 +523,9 @@ public:
 
     double huberSigma;
 
+#ifdef HasPANO13
     pano_projection_features m_projFeatures;
+#endif
 
 
 private:

@@ -658,8 +658,8 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
 
 void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
 {
+#if HasPANO13
     PanoramaOptions opts = m_pano.getOptions();
-
     int nParam = opts.m_projFeatures.numberOfParameters;
     std::vector<double> para = opts.getProjectionParameters();
     for (int i = 0; i < nParam; i++) {
@@ -682,7 +682,7 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
                                            );
     // update preview panel
     updatePano();
-
+#endif
 }
 
 void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
@@ -698,6 +698,7 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
     } else {
+#if HasPANO13
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {
@@ -707,6 +708,7 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
             }
         }
         opt.setProjectionParameters(para);
+#endif
     }
 
     GlobalCmdHist::getInstance().addCommand(

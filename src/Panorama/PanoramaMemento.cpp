@@ -529,10 +529,12 @@ bool PanoramaOptions::fovCalcSupported(ProjectionFormat f) const
 
 void PanoramaOptions::setProjection(ProjectionFormat f)
 {
+#ifdef HasPANO13
     if ((int) f >= panoProjectionFormatCount()) {
         // reset to equirect if this projection is not known
         f = EQUIRECTANGULAR;
     }
+#endif
     // only try to keep the FOV if calculations are implemented for
     // both projections
     if (fovCalcSupported(m_projectionFormat) && fovCalcSupported(f)) 
@@ -545,8 +547,11 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
         double vfov = std::min(getVFOV(), copy.getMaxVFOV());
         setHFOV(hfov, false);
         setVFOV(vfov);
+#ifdef HasPANO13
         panoProjectionFeaturesQuery(f, &m_projFeatures);
+#endif
         m_projectionFormat = f;
+#ifdef HasPANO13
         m_projectionParams.resize(m_projFeatures.numberOfParameters);
         if (m_projFeatures.numberOfParameters) {
             if (f == ALBERS_EQUAL_AREA_CONIC) {
@@ -554,10 +559,12 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
                 m_projectionParams[1] = 60;
             };
         }
+#endif
         setHFOV(hfov, false);
         setVFOV(vfov);
     } else {
         m_projectionFormat = f;
+#ifdef HasPANO13
         panoProjectionFeaturesQuery(f, &m_projFeatures);
         m_projectionParams.resize(m_projFeatures.numberOfParameters);
         if (m_projFeatures.numberOfParameters) {
@@ -566,7 +573,7 @@ void PanoramaOptions::setProjection(ProjectionFormat f)
                 m_projectionParams[1] = 60;
             };
         }
-
+#endif
         double hfov = std::min(getHFOV(), getMaxHFOV());
         setHFOV(hfov, false);
     }
@@ -579,6 +586,7 @@ const std::vector<double> & PanoramaOptions::getProjectionParameters() const
 }
 void PanoramaOptions::setProjectionParameters(const std::vector<double> & params)
 {
+#ifdef HasPANO13
     assert(m_projFeatures.numberOfParameters == (int) params.size());
     // check if the parameters are good.
     if (m_projFeatures.numberOfParameters == (int) params.size()) {
@@ -593,6 +601,7 @@ void PanoramaOptions::setProjectionParameters(const std::vector<double> & params
             }
         }
     }
+#endif
 }
 
 
@@ -747,7 +756,6 @@ double PanoramaOptions::getMaxHFOV() const
         return 360;
     }
 #else
-    pano_projection_parameter
     switch (m_projectionFormat)
     {
         case RECTILINEAR:
