@@ -17,4 +17,4 @@ export \
  i386ONLYARG="" \
  OTHERARGs="";
 
-# $ID: $
+# $Id$

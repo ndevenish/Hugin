@@ -13,4 +13,4 @@ HOWTO:
 RESULT:
 The programs and libraries will be installed into $myREPOSITORYDIR, which you can manage independently from the systems you are currently using (e.g /usr, /usr/local, /opt, /sw). Using symbolic links for example, it is possible to share those libraries to be linked with different versions of hugin.
 
-$ID: $
+$Id$

@@ -17,4 +17,4 @@ export \
  i386ONLYARG="-ftree-vectorize -mmacosx-version-min=10.4" \
  OTHERARGs="";
 
-# $ID: $
+# $Id$

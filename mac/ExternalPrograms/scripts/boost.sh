@@ -1,7 +1,7 @@
 # ------------------
 #      boost
 # ------------------
-# $ID: $
+# $Id$
 
 # prepare
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
