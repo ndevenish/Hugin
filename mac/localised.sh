@@ -1,6 +1,8 @@
 #!/bin/sh
 
-wxDir="../../ExternalPrograms/wxWidgets-2.7.0-1"
+# $Id$
+
+wxDir="./ExternalPrograms/wxWidgets-2.7.0-1"
 resdir="$TARGET_BUILD_DIR/HuginOSX.app/Contents/Resources"
 xrcsrcdir="../src/hugin/xrc"
 
@@ -18,12 +20,6 @@ rm -f $resdir/xrc/??*/??*/.??*
 rm -fR $resdir/xrc/??*/??*/CVS
 rm -f $resdir/xrc/??*/??*/Makefil*
 
-
-#for xrcfile in `ls $resdir/xrc | grep mac.xrc`
-#do
-#  echo using $resdir/xrc/$xrcfile instead of $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
-#  mv -f $resdir/xrc/$xrcfile $resdir/xrc/`echo $xrcfile|sed s/-mac.xrc/.xrc/`
-#done
 
 echo patching $resdir/xrc/cp_editor_panel-2.5.xrc to use wxChoice instead of wxNotebook
 mv $resdir/xrc/cp_editor_panel-2.5.xrc $resdir/xrc/cp_editor_panel-2.5.xrc-bk

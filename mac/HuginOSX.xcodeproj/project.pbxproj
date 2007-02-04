@@ -743,7 +743,7 @@
 		5711505E06BC2303004F4FA7 /* autooptimiser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = autooptimiser.cpp; sourceTree = "<group>"; };
 		5711506106BC2303004F4FA7 /* nona.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = nona.cpp; sourceTree = "<group>"; };
 		5711524A06BC6709004F4FA7 /* libvigra_impex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libvigra_impex.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "../../../../../../ExternalPrograms/Repository-universal/lib/wx/include/mac-unicode-release-static-2.8/wx/setup.h"; sourceTree = "<group>"; };
+		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h"; sourceTree = "<group>"; };
 		571C78FA09663073007384B8 /* RemappedPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RemappedPanoImage.h; sourceTree = "<group>"; };
 		572B945606FA525F004EC7BF /* CPFineTuneFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPFineTuneFrame.h; sourceTree = "<group>"; };
 		572B945706FA525F004EC7BF /* CPZoomDisplayPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPZoomDisplayPanel.h; sourceTree = "<group>"; };
@@ -1558,6 +1558,7 @@
 				5711F7E6094F3F3800F668CD /* setup.h */,
 			);
 			name = wx;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		573B8F3E067BA2EB00B7B355 /* Product */ = {
