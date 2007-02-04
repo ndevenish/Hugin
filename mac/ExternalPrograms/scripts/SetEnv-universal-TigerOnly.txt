@@ -1,0 +1,20 @@
+# Universal:
+
+# has to be the absolute path from /
+#myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
+myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-universal";
+
+mkdir -p $myREPOSITORYDIR;
+
+export \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
+ ARCHS="ppc i386" \
+ ppcTARGET="powerpc-apple-darwin8" \
+ i386TARGET="i386-apple-darwin8" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+ i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+ ppcONLYARG="-mcpu=G3 -mtune=G4 -mmacosx-version-min=10.4" \
+ i386ONLYARG="-ftree-vectorize -mmacosx-version-min=10.4" \
+ OTHERARGs="";
+
+# $ID: $

@@ -161,6 +161,8 @@ for k in ${KEYFILES}; do
 done;
 cmd=`echo "${cmd} ${keys}" | sed -e "s|${_QUOTE}|\"|g" -e "s|${_SPACE}| |g"`
 echo "Final command: '${cmd}"
+sleep 3;
+
 eval "${cmd}" 
 
 sleep 3;

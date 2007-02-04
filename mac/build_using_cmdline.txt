@@ -3,7 +3,7 @@ Building hugin using the command line
 
 There are several ways to build hugin. One can use the Xcode project and the
 scripts present in this directory, but it might be cumbersome to install
-the dependencies by hand. See the Notes subdirectory for more information.
+the dependencies by hand. See the Documents subdirectory for more information.
 
 It is also possible to build hugin using the unix approach of ./configure and make.
 This will be described in this text file. We will install the libraries required
