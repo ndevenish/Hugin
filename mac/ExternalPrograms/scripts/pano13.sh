@@ -110,7 +110,7 @@ done
 
 # merge execs
 
-for program in bin/panoinfo bin/PTblender bin/PTmender bin/PTOptimizer bin/PTtiff2psd
+for program in bin/panoinfo bin/PTblender bin/PTcrop bin/PTinfo bin/PTmasker bin/PTmender bin/PToptimizer bin/PTroller bin/PTtiff2psd bin/PTtiffdump bin/PTuncrop
 do
 
  LIPOARGs=""

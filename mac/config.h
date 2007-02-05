@@ -7,11 +7,32 @@
 /* have boost */
 #define HAVE_BOOST
 
-/* have boost unit test framework library */
-#define HAVE_BOOST_TEST
+/* define if the Boost::Date_Time library is available */
+#undef HAVE_BOOST_DATE_TIME
 
-/* Define to 1 if you have the <boost/test/test_tools.hpp> header file. */
-#define HAVE_BOOST_TEST_TEST_TOOLS_HPP
+/* define if the Boost::FILESYSTEM library is available */
+#undef HAVE_BOOST_FILESYSTEM
+
+/* define if the Boost::IOStreams library is available */
+#undef HAVE_BOOST_IOSTREAMS
+
+/* define if the Boost::PROGRAM_OPTIONS library is available */
+#undef HAVE_BOOST_PROGRAM_OPTIONS
+
+/* define if the Boost::Regex library is available */
+#undef HAVE_BOOST_REGEX
+
+/* define if the Boost::Serialization library is available */
+#undef HAVE_BOOST_SERIALIZATION
+
+/* define if the Boost::Signals library is available */
+#undef HAVE_BOOST_SIGNALS
+
+/* define if the Boost::THREAD library is available */
+#define HAVE_BOOST_THREAD 1
+
+/* define if the Boost::Unit_test_framework library is available */
+#undef HAVE_BOOST_UNIT_TEST_FRAMEWORK
 
 /* Define to 1 if you have the MacOS X function CFLocaleCopyCurrent in the
    CoreFoundation framework. */
@@ -28,9 +49,6 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H
 
-/* Define if the FFTW library is available */
-#define HAVE_FFTW
-
 /* Define if the GNU gettext() function is already present or preinstalled. */
 #define HAVE_GETTEXT
 
@@ -45,6 +63,9 @@
 
 /* Define to 1 if you have the <pano12/queryfeature.h> header file. */
 #define HAVE_PANO12_QUERYFEATURE_H
+
+/* Define to 1 if you have the <pano13/queryfeature.h> header file. */
+#define HAVE_PANO13_QUERYFEATURE_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H
