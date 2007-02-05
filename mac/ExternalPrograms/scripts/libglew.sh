@@ -1,21 +1,21 @@
 # ------------------
-#    enblend 3.0
+#     libpng
 # ------------------
 # $Id$
+
 
 # prepare
 
 # export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin7" \
+#  ppcTARGET="powerpc-apple-darwin8" \
 #  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
 #  ppcONLYARG="-mcpu=G3 -mtune=G4" \
 #  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
 #  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
 #  OTHERARGs="";
-
 
 
 # init
@@ -30,6 +30,7 @@ done
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
+
 
 # compile
 
@@ -60,43 +61,40 @@ do
   ARCHARGs="$ppc64ONLYARG"
  fi
 
- env CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-  CPPFLAGS="-I$REPOSITORYDIR/include -I/System/Library/Frameworks/GLUT.framework/Headers -I/System/Library/Frameworks/OpenGL.framework/Headers" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -dead_strip -prebind" \
-  LIBS="-lz -ljpeg -framework GLUT -framework OpenGL -framework AGL" \
-  NEXT_ROOT="$MACSDKDIR" \
-  ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  ;
-
  make clean;
- make install;
+ make install \
+  GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
+  CC="cc -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -dead_strip" \
+  LD="cc -isysroot $MACSDKDIR -arch $ARCH";
 
 done
 
 
-# merge execs
+# merge libs
 
-for program in bin/enblend
+for liba in lib/libGLEW.a
 do
 
  if [ $NUMARCH -eq 1 ]
  then
-  mv "$REPOSITORYDIR/arch/$ARCHS/$program" "$REPOSITORYDIR/$program";
-  strip "$REPOSITORYDIR/$program";
+  mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+  ranlib "$REPOSITORYDIR/$liba";
   continue
  fi
 
  LIPOARGs=""
-
+ 
  for ARCH in $ARCHS
  do
-  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$program"
+  LIPOARGs="$LIPOARGs $REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
- lipo $LIPOARGs -create -output "$REPOSITORYDIR/$program";
-
- strip "$REPOSITORYDIR/$program";
+ lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
+ ranlib "$REPOSITORYDIR/$liba";
 
 done
+
+
+# install includes
+
+cp -R include/GL $REPOSITORYDIR/include/;
