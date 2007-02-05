@@ -756,6 +756,30 @@
 		573C3861067C789F00A5DBE0 /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = System/Library/Frameworks/System.framework; sourceTree = "<group>"; };
 		573C3862067C789F00A5DBE0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = "<group>"; };
 		573C68CA085D18FA0064661D /* config.h.in */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = config.h.in; sourceTree = "<group>"; };
+		573E2E470B76AC8900E86281 /* howto.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = howto.txt; sourceTree = "<group>"; };
+		573E2E490B76AC9800E86281 /* SetEnv-ppc.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "SetEnv-ppc.txt"; sourceTree = "<group>"; };
+		573E2E4A0B76AC9800E86281 /* SetEnv-universal-TigerOnly.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "SetEnv-universal-TigerOnly.txt"; sourceTree = "<group>"; };
+		573E2E4B0B76AC9800E86281 /* SetEnv-universal.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "SetEnv-universal.txt"; sourceTree = "<group>"; };
+		573E2E4C0B76AC9800E86281 /* autopano-sift-C.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = "autopano-sift-C.sh"; sourceTree = "<group>"; };
+		573E2E4D0B76AC9800E86281 /* boost.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = boost.sh; sourceTree = "<group>"; };
+		573E2E4E0B76AC9800E86281 /* clens.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = clens.sh; sourceTree = "<group>"; };
+		573E2E4F0B76AC9800E86281 /* enblend.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = enblend.sh; sourceTree = "<group>"; };
+		573E2E500B76AC9800E86281 /* enblend3.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = enblend3.sh; sourceTree = "<group>"; };
+		573E2E510B76AC9800E86281 /* lcms.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = lcms.sh; sourceTree = "<group>"; };
+		573E2E520B76AC9800E86281 /* libjpeg.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = libjpeg.sh; sourceTree = "<group>"; };
+		573E2E530B76AC9800E86281 /* libpng.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = libpng.sh; sourceTree = "<group>"; };
+		573E2E540B76AC9800E86281 /* libtiff.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = libtiff.sh; sourceTree = "<group>"; };
+		573E2E550B76AC9800E86281 /* libxmi.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = libxmi.sh; sourceTree = "<group>"; };
+		573E2E560B76AC9800E86281 /* pano12.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = pano12.sh; sourceTree = "<group>"; };
+		573E2E570B76AC9800E86281 /* pano13.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = pano13.sh; sourceTree = "<group>"; };
+		573E2E580B76AC9800E86281 /* wxmac26.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = wxmac26.sh; sourceTree = "<group>"; };
+		573E2E590B76AC9800E86281 /* wxmac27.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = wxmac27.sh; sourceTree = "<group>"; };
+		573E2E5A0B76AC9800E86281 /* wxmac28.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = wxmac28.sh; sourceTree = "<group>"; };
+		573E2E5B0B76ACDB00E86281 /* build_using_cmdline.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = build_using_cmdline.sh; sourceTree = "<group>"; };
+		573E2E5C0B76ACDB00E86281 /* build_using_cmdline.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = build_using_cmdline.txt; sourceTree = "<group>"; };
+		573E2E5D0B76ACDB00E86281 /* install2bundle.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = install2bundle.sh; sourceTree = "<group>"; };
+		573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "HOWTO-autopanosift.txt"; sourceTree = "<group>"; };
+		573E2E600B76AD0100E86281 /* ReadMe-HuginOSX.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = "ReadMe-HuginOSX.txt"; sourceTree = "<group>"; };
 		573F32A909F7991A0088B333 /* PTLensDB.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = PTLensDB.c; sourceTree = "<group>"; };
 		573F32B109F79B730088B333 /* accessor.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = accessor.hxx; sourceTree = "<group>"; };
 		573F32B209F79B730088B333 /* array_vector.hxx */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = array_vector.hxx; sourceTree = "<group>"; };
@@ -914,8 +938,6 @@
 		57989581068E2FD7009F90BF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = "<group>"; };
 		57989595068E2FEC009F90BF /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = usr/lib/libpthread.dylib; sourceTree = "<group>"; };
 		579895AB068E3002009F90BF /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.1.dylib; sourceTree = "<group>"; };
-		57A30C5F085F44C20043E73E /* Documents */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documents; sourceTree = "<group>"; };
-		57A30C63085F451C0043E73E /* wxMac-patch */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "wxMac-patch"; sourceTree = "<group>"; };
 		57A6048B0B4B6321008F4039 /* HFOVDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HFOVDialog.cpp; sourceTree = "<group>"; };
 		57A6048D0B4B6338008F4039 /* HFOVDialog.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HFOVDialog.h; sourceTree = "<group>"; };
 		57A6048E0B4B6360008F4039 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
@@ -1138,9 +1160,12 @@
 				57B8C693083AB7F400283C06 /* localised.sh */,
 				573154D5083B9CA500017987 /* PutAutopanoSiftToHuginOSX.applescript */,
 				573154D6083B9CA500017987 /* PutEnblendToHuginOSX.applescript */,
-				57A30C5F085F44C20043E73E /* Documents */,
-				57A30C63085F451C0043E73E /* wxMac-patch */,
+				573E2E440B76AC5100E86281 /* ExternalPrograms */,
+				573E2E5E0B76AD0100E86281 /* Documents */,
 				5751D85C0939E92E001477EA /* HuginOSX.xcode (for old Xcode) */,
+				573E2E5C0B76ACDB00E86281 /* build_using_cmdline.txt */,
+				573E2E5B0B76ACDB00E86281 /* build_using_cmdline.sh */,
+				573E2E5D0B76ACDB00E86281 /* install2bundle.sh */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -1594,6 +1619,49 @@
 				573F33E709F7AC260088B333 /* fulla */,
 			);
 			name = tools;
+			sourceTree = "<group>";
+		};
+		573E2E440B76AC5100E86281 /* ExternalPrograms */ = {
+			isa = PBXGroup;
+			children = (
+				573E2E470B76AC8900E86281 /* howto.txt */,
+				573E2E480B76AC9800E86281 /* scripts */,
+			);
+			path = ExternalPrograms;
+			sourceTree = "<group>";
+		};
+		573E2E480B76AC9800E86281 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				573E2E490B76AC9800E86281 /* SetEnv-ppc.txt */,
+				573E2E4A0B76AC9800E86281 /* SetEnv-universal-TigerOnly.txt */,
+				573E2E4B0B76AC9800E86281 /* SetEnv-universal.txt */,
+				573E2E4C0B76AC9800E86281 /* autopano-sift-C.sh */,
+				573E2E4D0B76AC9800E86281 /* boost.sh */,
+				573E2E4E0B76AC9800E86281 /* clens.sh */,
+				573E2E4F0B76AC9800E86281 /* enblend.sh */,
+				573E2E500B76AC9800E86281 /* enblend3.sh */,
+				573E2E510B76AC9800E86281 /* lcms.sh */,
+				573E2E520B76AC9800E86281 /* libjpeg.sh */,
+				573E2E530B76AC9800E86281 /* libpng.sh */,
+				573E2E540B76AC9800E86281 /* libtiff.sh */,
+				573E2E550B76AC9800E86281 /* libxmi.sh */,
+				573E2E560B76AC9800E86281 /* pano12.sh */,
+				573E2E570B76AC9800E86281 /* pano13.sh */,
+				573E2E580B76AC9800E86281 /* wxmac26.sh */,
+				573E2E590B76AC9800E86281 /* wxmac27.sh */,
+				573E2E5A0B76AC9800E86281 /* wxmac28.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		573E2E5E0B76AD0100E86281 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				573E2E600B76AD0100E86281 /* ReadMe-HuginOSX.txt */,
+				573E2E5F0B76AD0100E86281 /* HOWTO-autopanosift.txt */,
+			);
+			path = Documents;
 			sourceTree = "<group>";
 		};
 		57452CC1094E4EC500E6B672 /* include */ = {
