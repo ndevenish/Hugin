@@ -1,13 +1,12 @@
-# translation of ru.po to Ukrainian
-# translation of Hugin to Ukrainian
+# translation of Hugin to Ukrainian by Serhij Dubyk (dubyk@library.lviv.ua)
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Pablo dAngelo.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 0.5\n"
+"Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-02 23:00+0100\n"
-"PO-Revision-Date: 2006-08-20 21:38+0200\n"
+"POT-Creation-Date: 2007-02-08 00:19+0100\n"
+"PO-Revision-Date: 2007-02-06 12:15+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,48 +22,52 @@ msgstr ""
 #: src/hugin/AssistantPanel.cpp:225
 msgid "Please load images by pressing on the Load images button."
 msgstr ""
+"Будь-ласка, завантажте зображення з допомогою кнопки \"Завантажити зображення"
+"\"."
 
 #: src/hugin/AssistantPanel.cpp:255
 #, c-format
 msgid "%d images loaded."
-msgstr ""
+msgstr "Завантажено зображень: %d"
 
 #: src/hugin/AssistantPanel.cpp:289
-#, fuzzy, c-format
+#, c-format
 msgid "Images are connected by %d control points.\n"
-msgstr "Дійсно видалити %d контрольні крапки?"
+msgstr "Зображення сполучені %d контрольними крапками.\n"
 
 #: src/hugin/AssistantPanel.cpp:298
 #, c-format
 msgid "%d unconnected image groups found: "
-msgstr ""
+msgstr "%d знайдено незв'язаних груп зображень: "
 
 #: src/hugin/AssistantPanel.cpp:299
-#, fuzzy
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
 msgstr ""
-"Ви можете натиснути середню клавішу миші щоб панорамувати зображення в "
-"закладції контрольних крапок."
+"Будь-ласка, використайте таблицю контрольних крапок, щоб з'єднати усі "
+"зображення з контрольними крапками.\n"
 
 #: src/hugin/AssistantPanel.cpp:302
 msgid "Images or control points have changed, new alignment is needed."
 msgstr ""
+"Зображення або контрольні крапки змінилися, необхідне нове вирівнювання."
 
 #: src/hugin/AssistantPanel.cpp:313
 msgid "Very good fit."
-msgstr ""
+msgstr "Дуже хороше співпадіння."
 
 #: src/hugin/AssistantPanel.cpp:315
 msgid "Good fit."
-msgstr ""
+msgstr "Хороше співпадіння."
 
 #: src/hugin/AssistantPanel.cpp:317
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
 msgstr ""
+"Погане співпадіння, мабуть є декілька недобрих контрольних крапок або є "
+"паралакс чи похибки пов'язані х рухом"
 
 #: src/hugin/AssistantPanel.cpp:319
 msgid ""
@@ -72,24 +75,27 @@ msgid ""
 "parallax or movement. The optimizer might have failed. Manual intervention "
 "required."
 msgstr ""
+"Нікудишнє співпадіння. Скоректуйте погані контрольні крапки, параметри "
+"об'єктивів, або зображення з паралаксом або ж рухом. Оптимізатор зазнав "
+"невдачі. Необхідне ручне втручання."
 
 #: src/hugin/AssistantPanel.cpp:321
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr ""
+msgstr "Помилка середнього після оптимізації: %.1f піксель, максимум: %.1f\n"
 
 #: src/hugin/AssistantPanel.cpp:358
 msgid "At least two images are required."
-msgstr ""
+msgstr "Потрібно щонайменше два зображення."
 
 #: src/hugin/AssistantPanel.cpp:358
 msgid "Error"
-msgstr ""
+msgstr "Помилка"
 
 #: src/hugin/AssistantPanel.cpp:400
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr ""
+msgstr "Застереження - знайдено %d групи незв'язаних  зображень: "
 
 #: src/hugin/AssistantPanel.cpp:401
 msgid ""
@@ -98,6 +104,10 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
+"Будь-ласка, створіть контрольні крапки між незв'язаними зображеннями з "
+"допомогою вкладки з контрольними крапками.\n"
+"\n"
+"Після додавання крапок, нажміть знову кнопку \"Вирівнювання\""
 
 #: src/hugin/AutoCtrlPointCreator.cpp:103
 msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
@@ -157,13 +167,13 @@ msgstr "Сценарії на Shell (*.sh)|*.sh"
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr ""
-"Будь-ласка, використовуйте або %namefile, або %i у командному рядку прогами "
+"Будь-ласка, використовуйте або %namefile, або %i у командному рядку програми "
 "autopano-sift."
 
 #: src/hugin/AutoCtrlPointCreator.cpp:240
 #: src/hugin/AutoCtrlPointCreator.cpp:245
 msgid "Error in Autopano command"
-msgstr "Помилка в команді автопанорамування (Autopano)"
+msgstr "Помилка у команді автопанорамування (Autopano)"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:244
 #, c-format
@@ -244,12 +254,11 @@ msgstr ""
 #: src/hugin/AutoCtrlPointCreator.cpp:311
 #: src/hugin/AutoCtrlPointCreator.cpp:418
 msgid "autopano failure"
-msgstr "невдача з автопанорамуванням (autopano)"
+msgstr "Невдача з автопанорамуванням (autopano)"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:343
-#, fuzzy
 msgid "Select autopano program"
-msgstr "Виберіть тип автопанорамування (autopano)"
+msgstr "Виберіть інструмент автопанорамування (autopano)"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:416
 msgid ""
@@ -278,7 +287,7 @@ msgstr "x зліва"
 
 #: src/hugin/CPEditorPanel.cpp:171
 msgid "left y"
-msgstr "x зліва"
+msgstr "y зліва"
 
 #: src/hugin/CPEditorPanel.cpp:172
 msgid "right x"
@@ -286,7 +295,7 @@ msgstr "x справа"
 
 #: src/hugin/CPEditorPanel.cpp:173
 msgid "right y"
-msgstr "x справа"
+msgstr "y справа"
 
 #: src/hugin/CPEditorPanel.cpp:174 src/hugin/CPListFrame.cpp:289
 #: src/hugin/CPListFrame.cpp:295
@@ -382,6 +391,9 @@ msgid ""
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
+"Створення контрольних крапок.\n"
+"Щоб створити менше крапок,\n"
+"введіть більше число."
 
 #: src/hugin/CPEditorPanel.cpp:1788
 msgid "Corner Detection threshold"
@@ -397,9 +409,8 @@ msgid "Corner Detection scale"
 msgstr "Масштаб кутового виявлення"
 
 #: src/hugin/CPEditorPanel.cpp:1804
-#, fuzzy
 msgid "Error during control point creation:\n"
-msgstr "Під час зшивання відбулася помилка"
+msgstr "Під час створення контрольних крапок відбулася помилка:\n"
 
 #: src/hugin/CPEditorPanel.cpp:1935
 msgid "Select Point in right image"
@@ -532,7 +543,7 @@ msgstr "Тип об'єктиву (f)"
 
 #: src/hugin/ImagesList.cpp:368
 msgid "hfov (v)"
-msgstr "hfov (v)"
+msgstr "гоп (v)"
 
 #: src/hugin/ImagesList.cpp:369
 msgid "a"
@@ -566,7 +577,7 @@ msgstr "t"
 #: src/hugin/xrc/assistant_panel.xrs:25 src/hugin/xrc/lens_panel.xrs:2
 #: src/hugin/xrc/lens_panel-2.5.xrs:13
 msgid "Normal (rectilinear)"
-msgstr "Нормалний (прямолінійний)"
+msgstr "Нормальний (прямолінійний)"
 
 #: src/hugin/ImagesList.cpp:399 src/hugin/xrc/assistant_panel.xrs:7
 #: src/hugin/xrc/assistant_panel.xrs:26 src/hugin/xrc/lens_panel.xrs:3
@@ -738,7 +749,8 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Відкрити проект: відміна"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -808,16 +820,14 @@ msgid "CreateProcess Error"
 msgstr "Помилка CreateProcess"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:115
-#, fuzzy, c-format
+#, c-format
 msgid "Running %s"
-msgstr "Виконується Enblend (поєднувач)"
+msgstr "Виконання %s"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:115
-#, fuzzy
 msgid "You can watch the enblend progress in the command window"
 msgstr ""
-"Enblend(поєднувач) забере деякий час, щоб закінчити обробку панорами\n"
-"Ви можете спостерігати поступ роботи enblend-у в вікні команд"
+"Ви можете спостерігати поступ роботи поєднувача(enblend) у командному вікні"
 
 #: src/hugin/MyExternalCmdExecDialog.cpp:119
 msgid ""
@@ -868,17 +878,17 @@ msgid "No enblend commandline tool selected"
 msgstr "Не вибрано інструменту командного рядка enblend-у "
 
 #: src/hugin/NonaStitcherPanel.cpp:427
-#, fuzzy
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
 "This is a Windows limitation\n"
 "Please use less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
-"Неможливо звернутися до enblend з командним рядком > 2000 символів\n"
+"Неможливо звернутися до поєднувача(enblend) з командним рядком > 32766 "
+"символів.\n"
 "Це обмеження Windows\n"
 "Будь-ласка, використовуйте менше зображень, або розмістіть зображення\n"
-"у теці коротшим з іменем шляху"
+"у теці з коротшою назвою шляху"
 
 #: src/hugin/NonaStitcherPanel.cpp:445
 msgid "enblend error"
@@ -997,9 +1007,9 @@ msgid ""
 "such as the GNU Image Manipulation Program (the GIMP)\n"
 "to add any finishing touches."
 msgstr ""
-"Зшийте своє кінцеве зображення зараз, а потім використовуйте\n"
-"редактор зображення, наприклад,  GNU-програму маніпулювання\n"
-"зображеннями (GIMP), щоб додати будь-яких завершальні виправлення."
+"Зшийте зараз своє кінцеве зображення, а потім використайте\n"
+"графічний редактор зображень, наприклад,  GNU-програму для роботи\n"
+"зі зображеннями (GIMP), і зробіть будь-які завершальні виправлення."
 
 #: src/hugin/PanoDruid.cpp:63 src/hugin/PanoDruid.cpp:443
 msgid "Warning:  you haven't saved the current project."
@@ -1028,12 +1038,12 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
-"Дуже великі піксельні розмірності зараз введені.\n"
-"Декілька комп'ютерів, можливо, візьмуть надмірно багато часу,\n"
-"щоб створити таке велике кінцеве зображення.\n"
+"Введено оце занадто велику роздільну здатність у пікселях.\n"
+"Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
+"щоб створити таке велике завершальне зображення.\n"
 "Для кращих результатів, використовуйте кнопку\n"
 "'обрахунок оптимального розміру' на закладці параметрів панорами,\n"
-"щоб визначити піксельну розмірність, котра дасть кращу якість."
+"щоб визначити роздільну здатність у пікселях, котра дасть кращу якість."
 
 #: src/hugin/PanoDruid.cpp:104 src/hugin/PanoDruid.cpp:435
 msgid "The Horizontal Field of View (HFOV) may be too low."
@@ -1112,7 +1122,7 @@ msgid ""
 "An image with no control points cannot be aligned."
 msgstr ""
 "Для кращих результатів, повинно бути як мінімум чотири\n"
-"пари контрольних крапок для кожної пари перекриваючих зображень.\n"
+"пари контрольних крапок для кожної пари зображень, що перекриваються.\n"
 "Зображення без контрольних крапок не вирівнюватимуться."
 
 #: src/hugin/PanoDruid.cpp:203
@@ -1164,18 +1174,18 @@ msgid ""
 "the Panorama Options tab to determine the\n"
 "pixel dimensions which will give the best quality."
 msgstr ""
-"Дуже великі вимірювання пікселя в теперішній час введені. \n"
-"Декілька комп'ютерів, можливо, бере надмірно тривалий час, щоб виконувати "
-"таке велике кінцеве зображення. \n"
-"Для кращих результатів, використовуйте автоматичну кнопку Calc на табуляції "
-"настроювальних Елементів Панорами, щоб визначити вимірювання пікселя, які "
-"нададуть кращу якість."
+"Введено оце занадто велику роздільну здатність у пікселях.\n"
+"Деякі комп'ютери, можливо, займуть занадто багато часу,\n"
+"щоб створити таке велике завершальне зображення.\n"
+"Для кращих результатів, використовуйте кнопку автоматичного обрахунку на "
+"закладці налаштувань панорами, щоб визначити роздільну здатність у пікселях, "
+"яка дасть кращу якість."
 
 #: src/hugin/PanoPanel.cpp:307
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr ""
-"Непрацездатне значення HFOV. Максимальний HFOV для цього проектування - %lf."
+"Непрацездатне значення ГОП. Максимальний ГОП для цього проектування - %lf."
 
 #: src/hugin/PanoPanel.cpp:338
 #, c-format
@@ -1188,9 +1198,8 @@ msgid "width needs to be an integer bigger than 0"
 msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
 
 #: src/hugin/PanoPanel.cpp:401
-#, fuzzy
 msgid "height needs to be an integer bigger than 0"
-msgstr "ширина повинна бути цілим числом, більшим, ніж 0"
+msgstr "висота повинна бути цілим числом, більшим за 0"
 
 #: src/hugin/PanoPanel.cpp:666
 msgid "Create panorama image"
@@ -1203,10 +1212,13 @@ msgid ""
 "\n"
 "Overwrite?"
 msgstr ""
+"Файл %s вже існує\n"
+"\n"
+"Перезаписати?"
 
 #: src/hugin/PanoPanel.cpp:681
 msgid "Overwrite file?"
-msgstr ""
+msgstr "Перезаписати файл?"
 
 #: src/hugin/PreferencesDialog.cpp:123
 msgid "System default"
@@ -1266,7 +1278,7 @@ msgstr "Російська"
 
 #: src/hugin/PreferencesDialog.cpp:165
 msgid "Slovak"
-msgstr ""
+msgstr "Словацька"
 
 #: src/hugin/PreferencesDialog.cpp:168
 msgid "Swedish"
@@ -1281,9 +1293,8 @@ msgid "Select PTStitcher"
 msgstr "Вибір PTStitcher-а"
 
 #: src/hugin/PreferencesDialog.cpp:266
-#, fuzzy
 msgid "Select image editor"
-msgstr "наступна пара зображень"
+msgstr "Вибрати редактор зображень"
 
 #: src/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
@@ -1332,7 +1343,7 @@ msgstr "протягнути, щоб змінити вертикальну об�
 
 #: src/hugin/PreviewFrame.cpp:164
 msgid "HFOV"
-msgstr "HFOV"
+msgstr "ГОП"
 
 #: src/hugin/PreviewFrame.cpp:169
 msgid "drag to change the horizontal field of view"
@@ -1372,13 +1383,14 @@ msgstr "0"
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
+"Клацніть лівою нопкою щоб визначити нову центральну крапку, а що перемістити "
+"крапку горизонту використайте клацання правоє кнопки миші."
 
 #: src/hugin/PreviewFrame.cpp:325 src/hugin/PreviewFrame.cpp:422
-#, fuzzy
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
-"Встановіть відхилення та рівень з допомогою лівої клавіші миші. "
-"Використовуючи праву клавішу мишки, встановіть обертання"
+"Відцентруйте панораму з допомогою лівої клавіші миші, встановіть горизонт, "
+"використовуючи праву клавішу мишки"
 
 #: src/hugin/PreviewFrame.cpp:535 src/hugin/xrc/pano_panel.xrs:3
 msgid "Rectilinear"
@@ -1389,19 +1401,16 @@ msgid "Cylindrical"
 msgstr "Циліндричний"
 
 #: src/hugin/PreviewFrame.cpp:634
-#, fuzzy
 msgid "Yaw value must be numeric."
-msgstr "Значення повинне бути числовим."
+msgstr "Значення відхилення повинно бути числом."
 
 #: src/hugin/PreviewFrame.cpp:640
-#, fuzzy
 msgid "Pitch value must be numeric."
-msgstr "Значення повинне бути числовим."
+msgstr "Значення рівня повинно бути числом."
 
 #: src/hugin/PreviewFrame.cpp:646
-#, fuzzy
 msgid "Roll value must be numeric."
-msgstr "Значення повинне бути числовим."
+msgstr "Значення обертання повинно бути числом."
 
 #: src/hugin/PreviewPanel.cpp:322
 msgid "Error during Stitching"
@@ -1497,10 +1506,16 @@ msgid ""
 "\n"
 "Continue anyway?"
 msgstr ""
+"Застереження: інструмент PTmender (зі panotools версії 2.9 чи новішої) "
+"підтримує лише вивід TIFF_m.\n"
+"Для виправленя кольору та яскравості, результуючі tiff-файли повинні бути "
+"оброблені з допомогою PTblender.\n"
+"\n"
+"Таки продовжувати?"
 
 #: src/hugin/PTStitcherPanel.cpp:519
 msgid "PTmender creates only plain TIFF_m files"
-msgstr ""
+msgstr "PTmender створює лише прості файли TIFF_м"
 
 #: src/hugin/RunStitcherFrame.cpp:127
 msgid "Failed to launch the PTStitcher."
@@ -1526,16 +1541,6 @@ msgstr "Помилка при виконанні %s"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Поради недоступні, даруйте!"
-
-#: src/hugin/VigCorrDialog.cpp:171
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
-msgstr ""
-"Усі файли зображень|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
-"*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG-файли (*.jpg)|*.jpg;*."
-"JPG|Усі файли (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"
@@ -1694,21 +1699,20 @@ msgid "Optimizing Panorama"
 msgstr "Проводиться оптимізація панорами"
 
 #: src/hugin/xrc/assistant_panel.xrs:1
-#, fuzzy
 msgid "1. Load images..."
-msgstr "Завантажити об'єктиви..."
+msgstr "1. Завантажити зображення..."
 
 #: src/hugin/xrc/assistant_panel.xrs:2
 msgid "load a series of photos"
-msgstr ""
+msgstr "завантажте ряд фотографій"
 
 #: src/hugin/xrc/assistant_panel.xrs:3
 msgid "no images loaded"
-msgstr ""
+msgstr "зображення не завантажені"
 
 #: src/hugin/xrc/assistant_panel.xrs:4
 msgid "Automatic (use EXIF data)"
-msgstr ""
+msgstr "Автоматично (використати EXIF-дані)"
 
 #: src/hugin/xrc/assistant_panel.xrs:5 src/hugin/xrc/assistant_panel.xrs:24
 #: src/hugin/xrc/lens_panel.xrs:1 src/hugin/xrc/lens_panel-2.5.xrs:12
@@ -1716,18 +1720,16 @@ msgid "Lens type:"
 msgstr "Тип об'єктиву: "
 
 #: src/hugin/xrc/assistant_panel.xrs:11 src/hugin/xrc/assistant_panel.xrs:34
-#, fuzzy
 msgid "Focal length:"
-msgstr "фокусна відстань: "
+msgstr "Фокусна відстань: "
 
 #: src/hugin/xrc/assistant_panel.xrs:12 src/hugin/xrc/assistant_panel.xrs:35
 msgid "mm"
-msgstr ""
+msgstr "мм"
 
 #: src/hugin/xrc/assistant_panel.xrs:13 src/hugin/xrc/assistant_panel.xrs:36
-#, fuzzy
 msgid "Focal length multiplier:"
-msgstr "фокусна відстань: "
+msgstr "Множник фокусної відстані:"
 
 #: src/hugin/xrc/assistant_panel.xrs:15 src/hugin/xrc/lens_panel-2.5.xrs:1
 msgid "Load lens..."
@@ -1739,12 +1741,14 @@ msgstr "Камера та об'єктив"
 
 #: src/hugin/xrc/assistant_panel.xrs:17
 msgid "2. Align..."
-msgstr ""
+msgstr "2. Вирівнювання..."
 
 #: src/hugin/xrc/assistant_panel.xrs:18
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
+"Вирівнювання усіх зображеннь. Створення контрольних крапок та оптимізація "
+"позицій зображень"
 
 #: src/hugin/xrc/assistant_panel.xrs:19
 msgid ""
@@ -1753,20 +1757,22 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"\n"
+"\n"
 
 #: src/hugin/xrc/assistant_panel.xrs:20
-#, fuzzy
 msgid "3. Create panorama..."
-msgstr "Створити зображення панорами"
+msgstr "3. Створити зображення панорами..."
 
 #: src/hugin/xrc/assistant_panel.xrs:21
 msgid "Create a high resolution panorama."
-msgstr ""
+msgstr "Створення високоякісної панорами."
 
 #: src/hugin/xrc/assistant_panel.xrs:22
-#, fuzzy
 msgid "Camera and Lens data"
-msgstr "Камера та об'єктив"
+msgstr "Дані камер та об'єктивів"
 
 #: src/hugin/xrc/assistant_panel.xrs:23
 msgid ""
@@ -1775,21 +1781,24 @@ msgid ""
 "c\n"
 "d"
 msgstr ""
+"a\n"
+"b\n"
+"c\n"
+"d"
 
 #: src/hugin/xrc/assistant_panel.xrs:30
-#, fuzzy
 msgid "Load lens data..."
-msgstr "Завантажити об'єктиви..."
+msgstr "Завантажити дані об'єктивів..."
 
 #: src/hugin/xrc/assistant_panel.xrs:31
-#, fuzzy
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Горизонтальна область перегляду (ГОП=HFoV), можливо, дуже низька."
+msgstr ""
+"Введіть горизонтальну область перегляду (ГОП=HFoV) або фокусну відстань і "
+"фактор обрізання."
 
 #: src/hugin/xrc/assistant_panel.xrs:32
-#, fuzzy
 msgid "HFOV (v):"
-msgstr "HFOV"
+msgstr "ГОП (v):"
 
 #: src/hugin/xrc/assistant_panel.xrs:33 src/hugin/xrc/pref_dialog.xrs:40
 #: src/hugin/xrc/pref_dialog.xrs:42
@@ -2163,7 +2172,6 @@ msgid "This Image"
 msgstr "Це зображення"
 
 #: src/hugin/xrc/images_panel-2.5.xrs:9
-#, fuzzy
 msgid "Remove points"
 msgstr "Видалити крапки"
 
@@ -2293,7 +2301,7 @@ msgstr "Завантажити EXIF"
 
 #: src/hugin/xrc/lens_panel.xrs:42 src/hugin/xrc/lens_panel-2.5.xrs:6
 msgid "Try to read HFOV from the EXIF data"
-msgstr "Спробувати прочитати HFOV з EXIF-даних"
+msgstr "Спробувати прочитати ГОП з EXIF-даних"
 
 #: src/hugin/xrc/lens_panel.xrs:43 src/hugin/xrc/lens_panel-2.5.xrs:7
 msgid "New Lens"
@@ -2688,7 +2696,7 @@ msgstr "JPEG-стиснення (0-100)"
 #: src/hugin/xrc/nona_panel.xrs:22 src/hugin/xrc/preview_frame.xrs:24
 #: src/hugin/xrc/ptstitcher_panel.xrs:14 src/hugin/xrc/ptstitcher_panel.xrs:22
 msgid "None"
-msgstr "Нічого"
+msgstr "Немає"
 
 #: src/hugin/xrc/nona_panel.xrs:23
 msgid "LZW"
@@ -2696,11 +2704,11 @@ msgstr "LZW"
 
 #: src/hugin/xrc/nona_panel.xrs:24
 msgid "Deflate"
-msgstr "Cпускати"
+msgstr ""
 
 #: src/hugin/xrc/nona_panel.xrs:25
 msgid "Save cropped images (only TIFF&m)"
-msgstr "Зберегти обрізані зображень (лише TIFF&м)"
+msgstr "Зберегти обрізані зображення (лише TIFF&m)"
 
 #: src/hugin/xrc/nona_panel.xrs:26
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
@@ -2921,7 +2929,7 @@ msgstr "PTStitcher"
 
 #: src/hugin/xrc/pano_panel.xrs:33 src/hugin/xrc/pano_panel-2.5.xrs:24
 msgid "nona"
-msgstr ""
+msgstr "немає"
 
 #: src/hugin/xrc/pano_panel-2.5.xrs:18
 msgid "width:"
@@ -2976,53 +2984,48 @@ msgid "Details"
 msgstr "Подробиці"
 
 #: src/hugin/xrc/pref_dialog.xrs:12
-#, fuzzy
 msgid "Assistant"
-msgstr "Російська"
+msgstr "Помічник"
 
 #: src/hugin/xrc/pref_dialog.xrs:13
-#, fuzzy
 msgid "Image loading"
-msgstr "Скошування зображення"
+msgstr "Завантаження зображень"
 
 #: src/hugin/xrc/pref_dialog.xrs:14
 msgid "Automatically align images after loading"
-msgstr ""
+msgstr "Зображення автоматично вирівнюватимуться після завантаження"
 
 #: src/hugin/xrc/pref_dialog.xrs:15
-#, fuzzy
 msgid "Auto align"
-msgstr "Автопанорамування"
+msgstr "Автовирівнювання"
 
 #: src/hugin/xrc/pref_dialog.xrs:16
-#, fuzzy
 msgid ""
 "Number of Ctrl Points\n"
 "per overlap"
-msgstr "Кількість крапок на кожне перекриття"
+msgstr ""
+"Кількість контрольних крапок\n"
+" на перекриття"
 
 #: src/hugin/xrc/pref_dialog.xrs:17
 msgid "Downscale final pano"
-msgstr ""
+msgstr "Низькоякісна завершальна панорама"
 
 #: src/hugin/xrc/pref_dialog.xrs:18
-#, fuzzy
 msgid "percent of max. width"
-msgstr "% відсоток від ширини зображення"
+msgstr "відсоток від макс. ширини"
 
 #: src/hugin/xrc/pref_dialog.xrs:19
-#, fuzzy
 msgid "Create"
-msgstr "По центру"
+msgstr "Створити"
 
 #: src/hugin/xrc/pref_dialog.xrs:20
 msgid "Open final panorama in external editor"
-msgstr ""
+msgstr "Відкрити завершальну панораму у зовнішньому редакторові"
 
 #: src/hugin/xrc/pref_dialog.xrs:21
-#, fuzzy
 msgid "Editor:"
-msgstr "&Редагувати"
+msgstr "Editor:"
 
 #: src/hugin/xrc/pref_dialog.xrs:23 src/hugin/xrc/pref_dialog.xrs:78
 #: src/hugin/xrc/pref_dialog.xrs:83
@@ -3035,6 +3038,8 @@ msgid ""
 "The following patterns will be substituted before running:\n"
 "%f  -- final panorama"
 msgstr ""
+"Наступні шаблони будуть замінені перед виконанням:\n"
+"%f  -- завершальна панорама"
 
 #: src/hugin/xrc/pref_dialog.xrs:25
 msgid "Finetune"
@@ -3153,7 +3158,7 @@ msgstr "Мова"
 
 #: src/hugin/xrc/pref_dialog.xrs:53
 msgid "requires restarting hugin"
-msgstr "вимагає перезапуск hugin-а"
+msgstr "необхідний перезапуск hugin-а"
 
 #: src/hugin/xrc/pref_dialog.xrs:54
 msgid "Optimize and stitch only images selected in preview window"
@@ -3253,7 +3258,7 @@ msgid "Autopano:"
 msgstr "Autopano: "
 
 #: src/hugin/xrc/pref_dialog.xrs:84
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3261,10 +3266,11 @@ msgid ""
 "%i  -- image files\n"
 "%namefile -- file that contains image filenames"
 msgstr ""
-"наступні шаблони будуть підрозміщені перед виконанням: \n"
-"%o  -- виведений проект (0.oto буде приєднано при використанні Autopano)\n"
-"%p  -- число контрольних крапок між кожною парою\n"
-"%i  -- файли зображення\n"
+"наступні шаблони будуть замінені перед виконанням: \n"
+"%o -- вихідний проект (0.oto буде приєднано, якщо використовуватиметься "
+"Autopano)\n"
+"%p -- число контрольних крапок між кожною парою\n"
+"%i  -- файли зображень\n"
 "%namefile -- файл, який містить імена файлів зображень "
 
 #: src/hugin/xrc/pref_dialog.xrs:85
@@ -3348,19 +3354,19 @@ msgstr "Підігнати"
 
 #: src/hugin/xrc/preview_frame.xrs:13
 msgid "Automatically straighten a wavy horizon."
-msgstr ""
+msgstr "Автоматичне випрямлення хвилястого горизонту."
 
 #: src/hugin/xrc/preview_frame.xrs:14
 msgid "Straighten"
-msgstr ""
+msgstr "Випрямити"
 
 #: src/hugin/xrc/preview_frame.xrs:15 src/hugin/xrc/preview_frame.xrs:25
 msgid "Numerical Transform"
-msgstr ""
+msgstr "Числове перетворення"
 
 #: src/hugin/xrc/preview_frame.xrs:16
 msgid "Num. Transf."
-msgstr ""
+msgstr "Числ. перетв."
 
 #: src/hugin/xrc/preview_frame.xrs:17
 msgid "Auto update"
@@ -3383,19 +3389,16 @@ msgid "Show none of the images"
 msgstr "Не показувати жодне із зображень"
 
 #: src/hugin/xrc/preview_frame.xrs:26
-#, fuzzy
 msgid "Yaw:"
-msgstr "відхилення: "
+msgstr "Відхилення: "
 
 #: src/hugin/xrc/preview_frame.xrs:27
-#, fuzzy
 msgid "Pitch:"
-msgstr "рівень: "
+msgstr "Рівень: "
 
 #: src/hugin/xrc/preview_frame.xrs:28
-#, fuzzy
 msgid "Roll:"
-msgstr "обертання: "
+msgstr "Обертання: "
 
 #: src/hugin/xrc/ptstitcher_panel.xrs:11
 msgid "approximation of values between source pixels"
@@ -3527,7 +3530,7 @@ msgstr "Тип корекції"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:3
 msgid "No correction"
-msgstr "Немає корекції"
+msgstr "Без корекції"
 
 #: src/hugin/xrc/vig_corr_dlg.xrs:4
 msgid "Addition ( I=I+c )"
@@ -3590,27 +3593,35 @@ msgid ""
 "Welcome to Hugin.\n"
 " To create a panorama, just follow the sequence shown in the assistant tab."
 msgstr ""
+"Ласкаво просимо у Hugin.\n"
+" Щоб створити панораму, лише слідуйте за послідовністю, вказаною у закладці "
+"помічника."
 
 #: src/hugin/xrc/data/tips.txt:4
 msgid ""
 "If the horizon of a panorama is wavy, use the straighten function in the "
 "preview window to straighten it"
 msgstr ""
+"Якщо горизонт панорами хвилястий, використайте функцію випрямлення у вікні "
+"попереднього перегляду і випряміть його"
 
 #: src/hugin/xrc/data/tips.txt:5
 msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
 msgstr ""
+"Вікно попереднього перегляду може використовуватися для центрування "
+"панорами, клацнувши лівою клавішею миші. Клацання правою клавішею обертатиме "
+"панораму"
 
 #: src/hugin/xrc/data/tips.txt:6
-#, fuzzy
 msgid ""
 "The Autopano and Autopano-SIFT programs can be used to create control points "
 "automatically. Please install one of them if you haven't already done so."
 msgstr ""
 "Зовнішні інструменти автопанорамування autopano та autopano-sift можуть "
-"використовуватися, щоб створити контрольні крапки автоматично."
+"використовуватися, щоб створити контрольні крапки автоматично. Будь-ласка, "
+"встановіть хоча б один з них, якщо Ви цього не зробили раніше."
 
 #: src/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -3618,6 +3629,9 @@ msgid ""
 "case, control points have to be created manually, using the control points "
 "tab."
 msgstr ""
+"Іноді autopano не може знайти зв'язки між всіма зображеннями. В такому "
+"випадку, контрольні крапки доведеться створити вручну, використовуючи "
+"таблицю контрольних крапок."
 
 #: src/hugin/xrc/data/tips.txt:8
 msgid ""
@@ -3698,8 +3712,8 @@ msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
 msgstr ""
-"Редагування панорами в множинних шарах з допомогою Gimp-у чи Photoshop-у "
-"пропонує багато творчих можливостей."
+"Редагування панорами у декількох шарах з допомогою Gimp-у чи Photoshop-у "
+"дасть Вам багато творчих можливостей."
 
 #: src/hugin/xrc/data/tips.txt:19
 msgid ""
@@ -3712,7 +3726,8 @@ msgstr ""
 
 #: src/hugin/xrc/data/tips.txt:20
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
-msgstr "Багатошарові виведені tiff-файли може читати Gimp 2.0 чи новіший."
+msgstr ""
+"Багатошарові TIFF-файли можна редагувати у Gimp, починаючи з версії 2.0."
 
 #: src/hugin/xrc/data/tips.txt:21
 msgid ""
@@ -3757,9 +3772,9 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"Після того, як enblend склав панораму, скартовані виведені зображення "
-"(доступні в тій же теці, що і  зображення панорами) можуть використовуватися "
-"для  ретуші панорами у Gimp-і чи Photoshop-і."
+"Після того, як поєднувач(enblend) склав панораму, скартовані виведені "
+"зображення (доступні у тій же теці, що і зображення панорами) можуть "
+"використовуватися для  ретуші панорами у Gimp-і чи Photoshop-і."
 
 #: src/hugin/xrc/data/tips.txt:28
 msgid ""
@@ -3770,13 +3785,12 @@ msgstr ""
 "розсилки ptx. http://groups.google.com/group/hugin-ptx"
 
 #: src/hugin/xrc/data/tips.txt:29
-#, fuzzy
 msgid ""
 "The Panorama Tools, on which hugin is based were originally written by "
 "Helmut Dersch."
 msgstr ""
-"Інструменти панорами, на основі яких побудований hugin, були написані Helmut-"
-"ом Dersch."
+"Інструменти панорами, на основі яких побудований hugin, були спочатку "
+"написані Helmut-ом Dersch."
 
 #: src/hugin/xrc/data/tips.txt:30
 msgid ""
