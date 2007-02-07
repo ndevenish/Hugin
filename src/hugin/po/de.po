@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-02 23:00+0100\n"
+"POT-Creation-Date: 2007-02-08 00:19+0100\n"
 "PO-Revision-Date: 2006-12-22 14:05+0100\n"
 "Last-Translator: Pablo d'Angelo <pablo.dangelo@web.de>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -749,7 +749,8 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Projekt öffnen: Abbrechen"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -1550,16 +1551,6 @@ msgstr "Fehler während der Ausführung von %s"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Keine Tips verfügbar"
-
-#: src/hugin/VigCorrDialog.cpp:171
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
-msgstr ""
-"Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*.jpg;*."
-"JPG|Alle Dateien (*)|*"
 
 # Was heißt flatfield in diesem Zusammenhang?
 #: src/hugin/VigCorrDialog.cpp:172
@@ -2500,7 +2491,7 @@ msgstr "Letzte Aktion wiederherstellen"
 
 #: src/hugin/xrc/main_menu.xrs:20
 msgid "Fine-&tune all Points"
-msgstr "Kontrollpunkt &feinjustieren"
+msgstr "Alle Kontrollpunkte &feinjustieren"
 
 #: src/hugin/xrc/main_menu.xrs:21
 msgid ""
@@ -3864,6 +3855,15 @@ msgstr ""
 "Die Optimierung von allen Verzeichungsparametern ist nur sinnvoll wenn "
 "Bilder mit grosser Überlappung sowie mit vielen, gleichmässig verteilten "
 "Kontrollpunkten verwendet werden."
+
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG|All files (*)|*"
+#~ msgstr ""
+#~ "Alle Bilddateien|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;"
+#~ "*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG Bilder (*.jpg)|*."
+#~ "jpg;*.JPG|Alle Dateien (*)|*"
 
 #~ msgid "Running autopano"
 #~ msgstr "Starte Autopano"

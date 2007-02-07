@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-02 23:00+0100\n"
+"POT-Creation-Date: 2007-02-08 00:19+0100\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -743,7 +743,8 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Obrir el projecte : cancel·lar"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -1523,17 +1524,6 @@ msgstr "Error durant l'execució de PTStitcher.exe"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Els consells no estan disponibles !"
-
-#: src/hugin/VigCorrDialog.cpp:171
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
-msgstr ""
-"Tots els fitxers d'imatge|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
-"*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|fitxers JPEG·(*.jpg)|*.jpg;"
-"*.JPG|Tots els fitxers (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 #, fuzzy
@@ -3812,6 +3802,16 @@ msgstr ""
 "L'optimització de tots els paràmetres de distorsió \"tot\" s'aplica sols en "
 "imatges amb un grau elevat de encavalcament i molts punts de control "
 "distribuïts correctament."
+
+#, fuzzy
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG|All files (*)|*"
+#~ msgstr ""
+#~ "Tots els fitxers d'imatge|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+#~ "PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|fitxers JPEG·(*.jpg)|"
+#~ "*.jpg;*.JPG|Tots els fitxers (*)|*"
 
 #~ msgid "Running autopano"
 #~ msgstr "Executant Autopano"

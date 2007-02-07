@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-02 23:00+0100\n"
+"POT-Creation-Date: 2007-02-08 00:19+0100\n"
 "PO-Revision-Date: 2006-02-10 12:53+0100\n"
 "Last-Translator: Jiří Slabý <jirislaby@gmail.com>\n"
 "Language-Team: Jiří Slabý <jirislaby@gmail.com>\n"
@@ -751,7 +751,8 @@ msgstr ""
 msgid "Open project: cancel"
 msgstr "Otevírání projektu: zrušit"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/wxPanoCommand.cpp:278
+#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
 "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
@@ -1527,17 +1528,6 @@ msgstr "Chyba při spouštění PTStitcher.exe"
 #: src/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
 msgstr "Tipy nejsou přístupné, omlouvám se."
-
-#: src/hugin/VigCorrDialog.cpp:171
-#, fuzzy
-msgid ""
-"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
-"JPG|All files (*)|*"
-msgstr ""
-"Všechny obrázky|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
-"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|All "
-"files (*)|*"
 
 #: src/hugin/VigCorrDialog.cpp:172
 msgid "Select flatfield image"
@@ -3803,6 +3793,16 @@ msgid ""
 msgstr ""
 "Optimizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste umístili velké množství kontrolních bodů a přitom je dobře rozmístili."
+
+#, fuzzy
+#~ msgid ""
+#~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+#~ "JPG|All files (*)|*"
+#~ msgstr ""
+#~ "Všechny obrázky|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+#~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG files (*.jpg)|*.jpg;*.JPG|"
+#~ "All files (*)|*"
 
 #~ msgid "Running autopano"
 #~ msgstr "Spouštím autopano"
