@@ -169,6 +169,7 @@ private:
     void OnAddTimeImages(wxCommandEvent & e);
     void OnTextEdit(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
+    void OnApplyTemplate(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnToggleCPFrame(wxCommandEvent & e);
     void UpdatePanels(wxCommandEvent & e);

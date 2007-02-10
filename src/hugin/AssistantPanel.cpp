@@ -355,7 +355,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     // all images..
     UIntSet imgs;
     if (m_pano.getNrOfImages() < 2) {
-        wxMessageBox(_("At least two images are required."),_("Error"));
+        wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"));
         return;
     }
 
@@ -519,7 +519,7 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
     VariableMap vars = m_pano.getImageVariables(imgNr);
     ImageOptions imgopts = m_pano.getImage(imgNr).getOptions();
 
-    if (LoadLensParametersChoose(lens, vars, imgopts)) {
+    if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
         GlobalCmdHist::getInstance().addCommand(
                 new PT::ChangeLensCmd(m_pano, lensNr, lens)
                                                );

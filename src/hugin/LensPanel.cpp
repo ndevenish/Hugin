@@ -751,6 +751,8 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
             setlocale(LC_NUMERIC,"C");
             {
                 wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
+                cfg.Write(wxT("Lens/image_width"), (long) lens.getImageSize().x);
+                cfg.Write(wxT("Lens/image_height"), (long) lens.getImageSize().y);
                 cfg.Write(wxT("Lens/type"), (long) lens.getProjection());
                 cfg.Write(wxT("Lens/hfov"), const_map_get(vars,"v").getValue());
                 cfg.Write(wxT("Lens/hfov_link"), const_map_get(lens.variables,"v").isLinked() ? 1:0);
@@ -832,7 +834,7 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
         VariableMap vars = pano.getImageVariables(imgNr);
         ImageOptions imgopts = pano.getImage(imgNr).getOptions();
 
-        if (LoadLensParametersChoose(lens, vars, imgopts)) {
+        if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
             GlobalCmdHist::getInstance().addCommand(
                     new PT::ChangeLensCmd(pano, lensNr, lens)
                                                 );
@@ -857,10 +859,10 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 }
 
 
-bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & imgopts)
+bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars, ImageOptions & imgopts)
 {
     wxString fname;
-    wxFileDialog dlg(0,
+    wxFileDialog dlg(parent,
                         _("Load lens parameters"),
                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
                         _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
@@ -873,12 +875,30 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
         setlocale(LC_NUMERIC,"C");
         {
             wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-            int integer=0;
-            double d;
+            long w=0;
+            cfg.Read(wxT("Lens/image_width"), &w);
+            long h=0;
+            cfg.Read(wxT("Lens/image_height"), &h);
+            if (w>0 && h>0) {
+                vigra::Size2D sz = lens.getImageSize();
+                if (w != sz.x || h != sz.y) {
+                    int ret = wxMessageBox(_("Incompatible lens parameter file, image sizes do not match\nApply settings anyway?"), _("Error loading lens parameters"), wxICON_QUESTION |wxYES_NO);
+                    if (ret == wxNO) {
+                        setlocale(LC_NUMERIC,old_locale);
+                        return false;
+                    }
+                }
+            } else {
+                // lens ini file didn't store the image size,
+                // assume everything is all right.
+            }
+            long integer=0;
             cfg.Read(wxT("Lens/type"), &integer);
             lens.setProjection ((Lens::LensProjectionFormat) integer);
+            double d=1;
             cfg.Read(wxT("Lens/crop"), &d);
             lens.setCropFactor(d);
+            d=50;
             cfg.Read(wxT("Lens/hfov"), &d);
             map_get(vars,"v").setValue(d);
             DEBUG_DEBUG("read lens hfov: " << d);
@@ -892,6 +912,7 @@ bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & im
                 if (cfg.Read(key,&d)) {
                     // only set value if variabe was found in the script
                     map_get(vars,*varname).setValue(d);
+                    map_get(lens.variables, *varname).setValue(d);
 
                     integer = 1;
                     key.append(wxT("_link"));

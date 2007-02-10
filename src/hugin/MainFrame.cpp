@@ -158,6 +158,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
     EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
+    EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
     EVT_MENU(XRCID("action_show_about"),  MainFrame::OnAbout)
     EVT_MENU(XRCID("action_show_help"),  MainFrame::OnHelp)
@@ -1098,6 +1099,11 @@ void MainFrame::OnDoStitch(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     pano_panel->DoStitch();
+}
+
+void MainFrame::OnApplyTemplate(wxCommandEvent & e)
+{
+    wxMessageBox("Templates not implemented yet");
 }
 
 

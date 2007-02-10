@@ -145,7 +145,7 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
 };
 
 /** load lens parameters from lens ini file */
-bool LoadLensParametersChoose(Lens & lens, VariableMap & vars, ImageOptions & imgopts);
+bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars, ImageOptions & imgopts);
 
 #if 0
 /** try to read the lens spec from the exif info. */

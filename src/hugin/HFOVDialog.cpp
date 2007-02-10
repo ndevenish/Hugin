@@ -50,6 +50,7 @@ END_EVENT_TABLE()
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
     : m_srcImg(srcImg), m_focalLength(focalLength), m_cropFactor(cropFactor)
 {
+    m_HFOV = srcImg.getHFOV();
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("dlg_focallength"));
 
     m_cropText = XRCCTRL(*this, "lensdlg_cropfactor_text", wxTextCtrl);
@@ -72,6 +73,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
     wxString message;
     message.Printf(_("No or only partial information about field of view was found in image file\n%s\n\nPlease enter the the horizontal field of view (HFOV) or the focal length and crop factor."), fn.c_str());
     XRCCTRL(*this, "lensdlg_message", wxStaticText)->SetLabel(message);
+    m_projChoice->SetSelection(m_srcImg.getProjection());
 
     if (m_cropFactor > 0 && m_focalLength > 0) {
         // everything is well known.. compute HFOV
@@ -102,6 +104,8 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
         m_cropText->SetValue(m_cropFactorStr);
         m_okButton->Disable();
     }
+    this->GetSizer()->Layout();
+
 }
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
@@ -255,10 +259,14 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
 void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 {
     Lens lens;
+    lens.setImageSize(m_srcImg.getSize());
+
     VariableMap vars;
+    // init variable map
+    fillVariableMap(vars);
     ImageOptions opts;
 
-    if (LoadLensParametersChoose(lens, vars, opts)) {
+    if (LoadLensParametersChoose(this, lens, vars, opts)) {
         m_HFOV = lens.getHFOV();
         m_cropFactor = lens.getCropFactor();
 
@@ -325,7 +333,13 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_cropText->SetValue(m_cropFactorStr);
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
+        m_projChoice->SetSelection(m_srcImg.getProjection());
+
+        // update lens type
+        m_okButton->Enable();
     }
+    
+
 }
 
 

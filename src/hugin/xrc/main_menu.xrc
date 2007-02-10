@@ -28,6 +28,11 @@
         <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_apply_template">
+        <label>Apply &amp;Template</label>
+        <help>Assign the settings of a previously saved project to the current images.</help>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="action_show_prefs">
         <label>&amp;Preferences</label>
       </object>
