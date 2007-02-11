@@ -1103,7 +1103,7 @@ void MainFrame::OnDoStitch(wxCommandEvent & e)
 
 void MainFrame::OnApplyTemplate(wxCommandEvent & e)
 {
-    wxMessageBox("Templates not implemented yet");
+    wxMessageBox(wxT("Templates not implemented yet"));
 }
 
 
