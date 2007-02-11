@@ -62,7 +62,7 @@
 #define HAVE_MEMORY_H
 
 /* Define to 1 if you have the <pano12/queryfeature.h> header file. */
-#define HAVE_PANO12_QUERYFEATURE_H
+#undef HAVE_PANO12_QUERYFEATURE_H
 
 /* Define to 1 if you have the <pano13/queryfeature.h> header file. */
 #define HAVE_PANO13_QUERYFEATURE_H
