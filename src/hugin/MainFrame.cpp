@@ -1408,8 +1408,3 @@ void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
 
 MainFrame * MainFrame::m_this = 0;
 
-
-void applyTemplate()
-{
-    // ask for template
-}
