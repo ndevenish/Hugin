@@ -419,6 +419,8 @@ void wxApplyTemplateCmd::execute()
             }
             newPano.setSrcImage(i, newSrcImg);
         }
+        // keep old control points.
+        newPano.setCtrlPoints(pano.getCtrlPoints());
         newPanoMem = newPano.getMemento();
         pano.setMemento(newPanoMem);
     } else {
