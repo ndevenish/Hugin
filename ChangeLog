@@ -1,3 +1,119 @@
+2007-02-12 01:22  dangelo
+
+	* src/hugin/wxPanoCommand.cpp: keep old control points during
+	  "apply template"
+
+2007-02-12 01:09  dangelo
+
+	* configure.ac, src/hugin/xrc/data/splash.png: prepare for next
+	  beta
+
+2007-02-12 01:06  dangelo
+
+	* src/hugin/MainFrame.cpp: [no log message]
+
+2007-02-12 01:03  dangelo
+
+	* src/: hugin/ImageCache.cpp, hugin/MainFrame.cpp,
+	  hugin/PreferencesDialog.cpp, hugin/wxPanoCommand.cpp,
+	  include/hugin/wxPanoCommand.h: added "apply template" function
+
+2007-02-11 23:55  ippei
+
+	* src/hugin/MainFrame.cpp: wxString build error
+
+2007-02-11 23:30  ippei
+
+	* mac/config.h: HasPANO12 fix for problem with vertical is nan
+
+2007-02-10 15:39  dangelo
+
+	* src/: hugin/AssistantPanel.cpp, hugin/HFOVDialog.cpp,
+	  hugin/ImagesPanel.cpp, hugin/LensPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/xrc/assistant_panel.xrc, hugin/xrc/lens_panel-2.5.xrc,
+	  hugin/xrc/main_menu.xrc, include/hugin/LensPanel.h,
+	  include/hugin/MainFrame.h: enabled "Load lens data" button in
+	  HFOV dialog window.
+
+2007-02-07 18:24  dangelo
+
+	* src/hugin/po/: ca_ES.po, cs_CZ.po, de.po, fr.po, hu.po,
+	  hugin.pot, it.po, ja.po, nl.po, pl.po, pt_BR.po, ru.po, sk.po,
+	  sv.po, zh_CN.po: very minor string update
+
+2007-02-07 18:20  dangelo
+
+	* src/hugin/po/uk.po: updated Ukrainian translation (Serhij Dubyk)
+
+2007-02-05 15:59  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj,
+	  ExternalPrograms/scripts/enblend3.sh,
+	  ExternalPrograms/scripts/libglew.sh: Mac: enblend3 with glew.
+
+2007-02-05 15:42  ippei
+
+	* mac/cp_editor_panel-2.5-mac.xrc: deleted old file
+
+2007-02-05 01:12  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: added some existing
+	  files to the project
+
+2007-02-05 01:11  ippei
+
+	* mac/ExternalPrograms/scripts/autopano-sift-C.sh: Mac:
+	  autopano-sift-C build script
+
+2007-02-05 01:10  ippei
+
+	* mac/: config.h, ExternalPrograms/scripts/pano13.sh: Mac: updated
+	  pano13 related
+
+2007-02-04 23:58  ippei
+
+	* mac/: localised.sh, HuginOSX.xcodeproj/project.pbxproj: move
+	  paths used on CVS to the ideal positions
+
+2007-02-04 23:25  ippei
+
+	* mac/ExternalPrograms/: scripts/SetEnv-ppc.txt,
+	  scripts/SetEnv-universal-TigerOnly.txt,
+	  scripts/SetEnv-universal.txt, scripts/boost.sh, scripts/clens.sh,
+	  scripts/enblend.sh, scripts/enblend3.sh, scripts/lcms.sh,
+	  scripts/libjpeg.sh, scripts/libpng.sh, scripts/libtiff.sh,
+	  scripts/libxmi.sh, scripts/pano12.sh, scripts/pano13.sh,
+	  scripts/wxmac26.sh, scripts/wxmac27.sh, scripts/wxmac28.sh,
+	  howto.txt: Id tag for cvs hopefully fixed
+
+2007-02-04 21:23  dangelo
+
+	* mac/: autopano-complete-mac.sh, build_using_cmdline.txt,
+	  ExternalPrograms/howto.txt,
+	  ExternalPrograms/scripts/SetEnv-ppc.txt,
+	  ExternalPrograms/scripts/SetEnv-universal-TigerOnly.txt,
+	  ExternalPrograms/scripts/SetEnv-universal.txt,
+	  ExternalPrograms/scripts/boost.sh,
+	  ExternalPrograms/scripts/clens.sh,
+	  ExternalPrograms/scripts/enblend.sh,
+	  ExternalPrograms/scripts/enblend3.sh,
+	  ExternalPrograms/scripts/lcms.sh,
+	  ExternalPrograms/scripts/libjpeg.sh,
+	  ExternalPrograms/scripts/libpng.sh,
+	  ExternalPrograms/scripts/libtiff.sh,
+	  ExternalPrograms/scripts/libxmi.sh,
+	  ExternalPrograms/scripts/pano12.sh,
+	  ExternalPrograms/scripts/pano13.sh,
+	  ExternalPrograms/scripts/wxmac26.sh,
+	  ExternalPrograms/scripts/wxmac27.sh,
+	  ExternalPrograms/scripts/wxmac28.sh,
+	  HuginOSX.xcodeproj/project.pbxproj: OSX build system updates
+	  (Ippei)
+
+2007-02-03 23:08  dangelo
+
+	* ChangeLog, NEWS: prepare for 0.7 beta 4 release
+
 2007-02-03 22:49  dangelo
 
 	* src/: hugin/hugin.vcproj, include/PT/PanoramaMemento.h: fix msvc
@@ -994,11 +1110,6 @@
 	* src/hugin/po/ru.po: updated russian translation (Alexandre
 	  Prokoudine)
 
-2006-08-18 01:34  ippei
-
-	* mac/Notes/scripts/wxconfig.sh: Mac: wx build script for Xcode
-	  build - doesn't quite work, may need to manually complete
-
 2006-08-18 01:32  ippei
 
 	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: newest Xcode build
@@ -1378,9 +1489,7 @@
 
 2006-08-06 17:00  ippei
 
-	* mac/: HuginOSX.xcodeproj/project.pbxproj,
-	  Notes/scripts/SetEnv-universal.txt, Notes/scripts/pano12.sh: Mac:
-	  newest build files
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Mac: newest build files
 
 2006-08-06 16:58  ippei
 
@@ -1773,13 +1882,6 @@
 2006-04-23 17:42  ippei
 
 	* mac/localised.sh: wxMac went 2.6.3
-
-2006-04-23 17:42  ippei
-
-	* mac/Notes/scripts/: boost.sh, SetEnv-ppc.txt,
-	  SetEnv-universal.txt, enblend.sh, libjpeg.sh, libpng.sh,
-	  libtiff.sh, pano12.sh, wxconfig.sh: Revised the scripts for
-	  building libraries and tools.
 
 2006-04-21 16:21  dangelo
 
@@ -2503,16 +2605,6 @@
 
 	* configure.ac, m4/ax_boost.m4: improved boost library test
 
-2006-02-14 00:19  ippei
-
-	* mac/pano12-patch/: filter_h.patch, panorama_h.patch,
-	  sys_mac_h.patch: pano12 patched for universal build and 10.4
-
-2006-02-13 23:58  ippei
-
-	* mac/Notes/scripts/: SetEnv-ppc.txt, SetEnv-universal.txt: mac:
-	  some additional notes
-
 2006-02-13 23:57  ippei
 
 	* mac/Documents/ReadMe-HuginOSX.txt: mac: some additional notes on
@@ -2525,13 +2617,7 @@
 
 2006-02-13 23:47  ippei
 
-	* mac/: Notes/External Software.rtf, Notes/install-JpegPngTiff.rtf,
-	  Notes/install-boost.rtf, Notes/scripts/SetEnv-ppc.txt,
-	  Notes/scripts/SetEnv-universal.txt, Notes/scripts/clens.sh,
-	  Notes/scripts/enblend.sh, Notes/scripts/libjpeg.sh,
-	  Notes/scripts/libpng.sh, Notes/scripts/libtiff.sh,
-	  Notes/scripts/pano12.sh, Notes/scripts/wxconfig.sh, localised.sh:
-	  mac: various compilation changes
+	* mac/localised.sh: mac: various compilation changes
 
 2006-02-11 22:29  dangelo
 
@@ -2949,11 +3035,6 @@
 	* mac/PutAutopanoSiftToHuginOSX.applescript: Mac: fixed the error
 	  message
 
-2005-12-05 02:04  ippei
-
-	* mac/Notes/install-pano12.rtf: Mac: removed meaningless comment in
-	  the note
-
 2005-12-04 23:30  dangelo
 
 	* ChangeLog, NEWS, src/hugin/xrc/data/about.htm,
@@ -2970,11 +3051,6 @@
 	* src/hugin/NonaStitcherPanel.cpp: support cropped tiff file output
 	  properly (added -f argument) of next enblend release
 
-2005-11-30 23:46  ippei
-
-	* mac/Notes/: install-JpegPngTiff.rtf, install-wx.rtf: Mac: dev
-	  note updated
-
 2005-11-29 08:33  dangelo
 
 	* doc/nona.txt: added documentation of nona script files
@@ -2982,8 +3058,7 @@
 2005-11-28 22:16  ippei
 
 	* mac/: Documents/ReadMe-HuginOSX.txt,
-	  HuginOSX.xcodeproj/project.pbxproj, Notes/install-wx.rtf: Mac:
-	  PTOptimizer bug fixed
+	  HuginOSX.xcodeproj/project.pbxproj: Mac: PTOptimizer bug fixed
 
 2005-11-28 14:35  ippei
 
@@ -3002,10 +3077,8 @@
 
 2005-11-27 16:43  ippei
 
-	* mac/: HuginOSX.xcodeproj/project.pbxproj,
-	  Notes/install-JpegPngTiff.rtf, Notes/install-boost.rtf,
-	  Notes/install-fftw.rtf, Notes/install-wx.rtf: Updated the xcode
-	  project and developer notes for Mac.
+	* mac/HuginOSX.xcodeproj/project.pbxproj: Updated the xcode project
+	  and developer notes for Mac.
 
 2005-11-27 15:07  ippei
 
@@ -4109,12 +4182,6 @@
 
 	* mac/autopano-complete-mac.sh: Mac: as verbose as possible; still
 	  buggy...
-
-2005-05-23 16:01  ippei
-
-	* mac/Notes/: install-JpegPngTiff.rtf, install-boost.rtf,
-	  install-fftw.rtf, install-pano12.rtf, install-wx.rtf: Mac:
-	  Developer notes
 
 2005-05-22 05:52  dwilkins42
 

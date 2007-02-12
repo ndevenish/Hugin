@@ -1,3 +1,13 @@
+Newsworthy changes in 0.7 beta 5
+--------------------------------
+* fixed bad HFOV/VFOV limits of some projections
+* OSX build should not crash all the time
+* Added "Apply template" function, to apply the
+  settings of a previously saved project to
+  the current images.
+* enabled "load lens data" button in dialog asking
+  for focal length/HFOV.
+
 Newsworthy changes in 0.7 beta 4
 -------------------------
 * update panotools to latest version
