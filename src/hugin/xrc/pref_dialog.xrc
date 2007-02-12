@@ -6,8 +6,8 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxNotebook" name="prefs_tab">
-          <object class="notebookpage">
+        <object class="wxListbook" name="prefs_tab">
+          <object class="listbookpage">
             <label>Panotools</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
@@ -210,7 +210,7 @@
             </object>
           </object>
           <usenotebooksizer>0</usenotebooksizer>
-          <object class="notebookpage">
+          <object class="listbookpage">
             <label>Assistant</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
@@ -522,7 +522,7 @@ per overlap</label>
               <style></style>
             </object>
           </object>
-          <object class="notebookpage">
+          <object class="listbookpage">
             <label>Finetune</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
@@ -960,7 +960,7 @@ per overlap</label>
               <style></style>
             </object>
           </object>
-          <object class="notebookpage">
+          <object class="listbookpage">
             <label>Misc</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
@@ -1430,7 +1430,7 @@ per overlap</label>
               </object>
             </object>
           </object>
-          <object class="notebookpage">
+          <object class="listbookpage">
             <label>Autopano</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
@@ -1779,7 +1779,7 @@ per overlap</label>
               </object>
             </object>
           </object>
-          <object class="notebookpage">
+          <object class="listbookpage">
             <label>Enblend</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">

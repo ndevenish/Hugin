@@ -26,6 +26,7 @@
 
 #include <config.h>
 #include "panoinc_WX.h"
+#include "wx/listbook.h"
 #include "panoinc.h"
 
 #ifdef HAVE_PANO12_QUERYFEATURE_H
@@ -163,6 +164,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_SLOVAK;
     lang_choice->Append(_("Slovak"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_SPANISH;
+    lang_choice->Append(_("Spanish"), lp);
     lp = new long;
     *lp = wxLANGUAGE_SWEDISH;
     lang_choice->Append(_("Swedish"), lp);
@@ -747,7 +751,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
     DEBUG_TRACE("");
     wxConfigBase *cfg = wxConfigBase::Get();
     // check which tab is enabled
-    wxNotebook * noteb = XRCCTRL(*this, "prefs_tab", wxNotebook);
+    wxListbook * noteb = XRCCTRL(*this, "prefs_tab", wxListbook);
     int really = wxMessageBox(_("Really reset displayed preferences to default values?"), _("Load Defaults"),
                               wxYES_NO, this);
     if ( really == wxYES)
