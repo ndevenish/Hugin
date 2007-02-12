@@ -74,7 +74,9 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr ""
 
 #: src/hugin/AssistantPanel.cpp:358
-msgid "At least two images are required."
+msgid ""
+"At least two images are required.\n"
+"Please add more images."
 msgstr ""
 
 #: src/hugin/AssistantPanel.cpp:358
@@ -123,9 +125,9 @@ msgid "Select autopano program / frontend script"
 msgstr "Autopanoプログラムまたはスクリプトを選択してください"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:251
-#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
-#: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
+#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:257
+#: src/hugin/PreferencesDialog.cpp:275 src/hugin/PreferencesDialog.cpp:292
+#: src/hugin/PreferencesDialog.cpp:308 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "実行ファイル (*.exe)|*.exe"
 
@@ -609,9 +611,9 @@ msgstr "コントロールポイントを消去"
 msgid "Not a jpeg file:"
 msgstr "JPEGファイルではありません："
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:822
-#: src/hugin/LensPanel.cpp:855 src/hugin/LensPanel.cpp:950
-#: src/hugin/LensPanel.cpp:968
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:824
+#: src/hugin/LensPanel.cpp:857 src/hugin/LensPanel.cpp:971
+#: src/hugin/LensPanel.cpp:989
 msgid "Please select an image and try again"
 msgstr "画像を選択してから実行してください"
 
@@ -623,27 +625,38 @@ msgstr "レンズの設定を保存"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "レンズ設定ファイル (*.ini)|*.ini|すべて (*)|*"
 
-#: src/hugin/LensPanel.cpp:864
+#: src/hugin/LensPanel.cpp:866
 msgid "Load lens parameters"
 msgstr "レンズの設定を読み込み"
 
-#: src/hugin/LensPanel.cpp:866
+#: src/hugin/LensPanel.cpp:868
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "レンズ設定ファイル (*.ini)|*.ini|すべて (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:958
+#: src/hugin/LensPanel.cpp:885
+msgid ""
+"Incompatible lens parameter file, image sizes do not match\n"
+"Apply settings anyway?"
+msgstr ""
+
+#: src/hugin/LensPanel.cpp:885
+#, fuzzy
+msgid "Error loading lens parameters"
+msgstr "レンズの設定を読み込み"
+
+#: src/hugin/LensPanel.cpp:979
 msgid "Enter new lens number"
 msgstr "レンズ番号を入力"
 
-#: src/hugin/LensPanel.cpp:958
+#: src/hugin/LensPanel.cpp:979
 msgid "Lens number"
 msgstr "レンズ番号"
 
-#: src/hugin/LensPanel.cpp:959
+#: src/hugin/LensPanel.cpp:980
 msgid "Change lens number"
 msgstr "レンズ番号を変更"
 
-#: src/hugin/MainFrame.cpp:220
+#: src/hugin/MainFrame.cpp:221
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -653,16 +666,16 @@ msgstr ""
 "XRCディレクトリが見つかりません。\n"
 "hugin.exeと同じディレクトリの中にあるようにしてください。"
 
-#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
-#: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
+#: src/hugin/MainFrame.cpp:241 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/xrc/main_menu.xrs:33 src/hugin/xrc/main_menu.xrs:36
 msgid "&Help"
 msgstr "&ヘルプ"
 
-#: src/hugin/MainFrame.cpp:336
+#: src/hugin/MainFrame.cpp:337
 msgid "Started"
 msgstr "起動完了"
 
-#: src/hugin/MainFrame.cpp:462
+#: src/hugin/MainFrame.cpp:463
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -670,52 +683,52 @@ msgstr ""
 "プロジェクトは変更されています\n"
 "変更内容を保存しますか?"
 
-#: src/hugin/MainFrame.cpp:462
+#: src/hugin/MainFrame.cpp:463
 msgid "Save Panorama?"
 msgstr "プロジェクトを保存しますか？"
 
-#: src/hugin/MainFrame.cpp:495
+#: src/hugin/MainFrame.cpp:496
 msgid "forced close"
 msgstr "強制的に終了されました"
 
-#: src/hugin/MainFrame.cpp:548
+#: src/hugin/MainFrame.cpp:549
 #, c-format
 msgid "saved project %s"
 msgstr "プロジェクト %s を保存しました"
 
-#: src/hugin/MainFrame.cpp:561
+#: src/hugin/MainFrame.cpp:562
 msgid "Save project file"
 msgstr "プロジェクトを保存"
 
-#: src/hugin/MainFrame.cpp:563
+#: src/hugin/MainFrame.cpp:564
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Huginプロジェクト (*.pto)|*.pto|すべて (*)|*"
 
-#: src/hugin/MainFrame.cpp:583
+#: src/hugin/MainFrame.cpp:584
 msgid "Save PTStitcher script file"
 msgstr "PTStitcherスクリプトを保存"
 
-#: src/hugin/MainFrame.cpp:585
+#: src/hugin/MainFrame.cpp:586
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "PTStitcherファイル (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:613
+#: src/hugin/MainFrame.cpp:614
 msgid "Open project:   "
 msgstr "プロジェクトの読み込み中："
 
-#: src/hugin/MainFrame.cpp:625
+#: src/hugin/MainFrame.cpp:626
 msgid "Project opened"
 msgstr "プロジェクトを読み込みました"
 
-#: src/hugin/MainFrame.cpp:635
+#: src/hugin/MainFrame.cpp:636
 msgid "Error opening project:   "
 msgstr "プロジェクトの読み込み中にエラー"
 
-#: src/hugin/MainFrame.cpp:666
+#: src/hugin/MainFrame.cpp:667
 msgid "Open project file"
 msgstr "プロジェクトを開く"
 
-#: src/hugin/MainFrame.cpp:668
+#: src/hugin/MainFrame.cpp:669 src/hugin/MainFrame.cpp:1112
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -723,11 +736,11 @@ msgstr ""
 "Huginプロジェクト (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|すべて "
 "(*)|*"
 
-#: src/hugin/MainFrame.cpp:681
+#: src/hugin/MainFrame.cpp:682
 msgid "Open project: cancel"
 msgstr "プロジェクトを開く: キャンセル"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/MainFrame.cpp:708 src/hugin/VigCorrDialog.cpp:171
 #: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
@@ -739,23 +752,28 @@ msgstr ""
 "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG (*.jpg)|*.jpg;*.JPG|すべて (*)|"
 "*"
 
-#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:711 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/wxPanoCommand.cpp:343
 msgid "Add images"
 msgstr "画像を追加"
 
-#: src/hugin/MainFrame.cpp:762
+#: src/hugin/MainFrame.cpp:763
 msgid "Add Image: cancel"
 msgstr "画像を追加: キャンセル"
 
-#: src/hugin/MainFrame.cpp:1138
+#: src/hugin/MainFrame.cpp:1110
+msgid "Choose template project"
+msgstr ""
+
+#: src/hugin/MainFrame.cpp:1161
 msgid "Fine-tuning all points"
 msgstr "全コントロールポイントの微調整を実行中"
 
-#: src/hugin/MainFrame.cpp:1140
+#: src/hugin/MainFrame.cpp:1163
 msgid "Finetuning"
 msgstr "微調整の実行中"
 
-#: src/hugin/MainFrame.cpp:1231
+#: src/hugin/MainFrame.cpp:1254
 #, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -781,7 +799,7 @@ msgstr ""
 "コントロールポイントリスト (F3) を使うとプロジェクト内の全ポイントの一覧が見"
 "られます\n"
 
-#: src/hugin/MainFrame.cpp:1233
+#: src/hugin/MainFrame.cpp:1256
 msgid "Fine-tune result"
 msgstr "微調整の結果"
 
@@ -1174,109 +1192,113 @@ msgstr ""
 msgid "Overwrite file?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:123
+#: src/hugin/PreferencesDialog.cpp:124
 msgid "System default"
 msgstr "システム標準"
 
-#: src/hugin/PreferencesDialog.cpp:126
+#: src/hugin/PreferencesDialog.cpp:127
 msgid "Catalan"
 msgstr "Català（カタルーニャ語）"
 
-#: src/hugin/PreferencesDialog.cpp:129
+#: src/hugin/PreferencesDialog.cpp:130
 msgid "Chinese (Simplified)"
 msgstr "中文（简体）（簡体中国語）"
 
-#: src/hugin/PreferencesDialog.cpp:132
+#: src/hugin/PreferencesDialog.cpp:133
 msgid "Czech"
 msgstr "Čeština（チェコ語）"
 
-#: src/hugin/PreferencesDialog.cpp:135
+#: src/hugin/PreferencesDialog.cpp:136
 msgid "Dutch"
 msgstr "Nederlands（オランダ語）"
 
-#: src/hugin/PreferencesDialog.cpp:138
+#: src/hugin/PreferencesDialog.cpp:139
 msgid "English"
 msgstr "English（英語）"
 
-#: src/hugin/PreferencesDialog.cpp:141
+#: src/hugin/PreferencesDialog.cpp:142
 msgid "French"
 msgstr "Français（フランス語）"
 
-#: src/hugin/PreferencesDialog.cpp:144
+#: src/hugin/PreferencesDialog.cpp:145
 msgid "German"
 msgstr "Deutsch（ドイツ語）"
 
-#: src/hugin/PreferencesDialog.cpp:147
+#: src/hugin/PreferencesDialog.cpp:148
 msgid "Hungarian"
 msgstr "Magyar nyelv（ハンガリー語）"
 
-#: src/hugin/PreferencesDialog.cpp:150
+#: src/hugin/PreferencesDialog.cpp:151
 msgid "Italian"
 msgstr "Italiano（イタリア語）"
 
-#: src/hugin/PreferencesDialog.cpp:153
+#: src/hugin/PreferencesDialog.cpp:154
 msgid "Japanese"
 msgstr "日本語"
 
-#: src/hugin/PreferencesDialog.cpp:156
+#: src/hugin/PreferencesDialog.cpp:157
 msgid "Polish"
 msgstr "Polski（ポーランド語）"
 
-#: src/hugin/PreferencesDialog.cpp:159
+#: src/hugin/PreferencesDialog.cpp:160
 msgid "Portuguese (Brazilian)"
 msgstr "Português do Brasil（ブラジルポルトガル語）"
 
-#: src/hugin/PreferencesDialog.cpp:162
+#: src/hugin/PreferencesDialog.cpp:163
 msgid "Russian"
 msgstr "Русский（ロシア語）"
 
-#: src/hugin/PreferencesDialog.cpp:165
+#: src/hugin/PreferencesDialog.cpp:166
 msgid "Slovak"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:168
+#: src/hugin/PreferencesDialog.cpp:169
+msgid "Spanish"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:172
 msgid "Swedish"
 msgstr "Svenska（スウェーデン語）"
 
-#: src/hugin/PreferencesDialog.cpp:171
+#: src/hugin/PreferencesDialog.cpp:175
 msgid "Ukrainian"
 msgstr "Українська（ウクライナ語）"
 
-#: src/hugin/PreferencesDialog.cpp:247
+#: src/hugin/PreferencesDialog.cpp:253
 msgid "Select PTStitcher"
 msgstr "PTStitcherを選択"
 
-#: src/hugin/PreferencesDialog.cpp:266
+#: src/hugin/PreferencesDialog.cpp:272
 #, fuzzy
 msgid "Select image editor"
 msgstr "次のペア"
 
-#: src/hugin/PreferencesDialog.cpp:283
+#: src/hugin/PreferencesDialog.cpp:289
 msgid "Select Enblend"
 msgstr "Enblendを選択"
 
-#: src/hugin/PreferencesDialog.cpp:299 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/PreferencesDialog.cpp:305 src/hugin/PreferencesDialog.cpp:321
 #: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Autopanoを選択"
 
-#: src/hugin/PreferencesDialog.cpp:318
+#: src/hugin/PreferencesDialog.cpp:324
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "実行ファイル (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/PreferencesDialog.cpp:357
+#: src/hugin/PreferencesDialog.cpp:363
 msgid "Panotools details"
 msgstr "Panotoolsの詳細"
 
-#: src/hugin/PreferencesDialog.cpp:739
+#: src/hugin/PreferencesDialog.cpp:745
 msgid "Unknown Version"
 msgstr "不明なバージョン"
 
-#: src/hugin/PreferencesDialog.cpp:749
+#: src/hugin/PreferencesDialog.cpp:755
 msgid "Really reset displayed preferences to default values?"
 msgstr "本当に初期設定に戻しますか？"
 
-#: src/hugin/PreferencesDialog.cpp:749 src/hugin/xrc/pref_dialog.xrs:95
+#: src/hugin/PreferencesDialog.cpp:755 src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "初期設定を読み込む"
 
@@ -1646,6 +1668,34 @@ msgstr ""
 #: src/hugin/wxPanoCommand.cpp:272
 msgid "Image file not found"
 msgstr "画像ファイルが見つかりません"
+
+#: src/hugin/wxPanoCommand.cpp:340
+#, fuzzy
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"全ての画像ファイル|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG (*.jpg)|*.jpg;*.JPG|すべて (*)|"
+"*"
+
+#: src/hugin/wxPanoCommand.cpp:400
+#, c-format
+msgid ""
+"Error, template expects %d images,\n"
+"current project contains %d images\n"
+msgstr ""
+
+#: src/hugin/wxPanoCommand.cpp:401 src/hugin/wxPanoCommand.cpp:427
+#, fuzzy
+msgid "Could not apply template"
+msgstr "数字が読めませんでした *_*"
+
+#: src/hugin/wxPanoCommand.cpp:427
+#, fuzzy
+msgid "Error loading project file"
+msgstr "プロジェクトの読み込み中にエラー"
 
 #: src/include/hugin/MyProgressDialog.h:71
 msgid "Optimizing Panorama"
@@ -2382,43 +2432,52 @@ msgid ""
 msgstr "プロジェクトをPTStitcher互換のスクリプトに保存。バッチ処理に便利"
 
 #: src/hugin/xrc/main_menu.xrs:12
+msgid "Apply &Template"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:13
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:14
 msgid "&Preferences"
 msgstr "環境設定…"
 
-#: src/hugin/xrc/main_menu.xrs:13
+#: src/hugin/xrc/main_menu.xrs:15
 msgid "&Quit"
 msgstr "&終了"
 
-#: src/hugin/xrc/main_menu.xrs:14
+#: src/hugin/xrc/main_menu.xrs:16
 #, fuzzy
 msgid "Exit program"
 msgstr "Exit program"
 
-#: src/hugin/xrc/main_menu.xrs:15
+#: src/hugin/xrc/main_menu.xrs:17
 msgid "&Edit"
 msgstr "&編集"
 
-#: src/hugin/xrc/main_menu.xrs:16
+#: src/hugin/xrc/main_menu.xrs:18
 msgid "&Undo"
 msgstr "&取り消し"
 
-#: src/hugin/xrc/main_menu.xrs:17 src/hugin/xrc/main_tool.xrs:15
+#: src/hugin/xrc/main_menu.xrs:19 src/hugin/xrc/main_tool.xrs:15
 msgid "Undo the last action"
 msgstr "取り消し"
 
-#: src/hugin/xrc/main_menu.xrs:18
+#: src/hugin/xrc/main_menu.xrs:20
 msgid "&Redo"
 msgstr "&やり直し"
 
-#: src/hugin/xrc/main_menu.xrs:19 src/hugin/xrc/main_tool.xrs:18
+#: src/hugin/xrc/main_menu.xrs:21 src/hugin/xrc/main_tool.xrs:18
 msgid "Redo the last action"
 msgstr "やり直し"
 
-#: src/hugin/xrc/main_menu.xrs:20
+#: src/hugin/xrc/main_menu.xrs:22
 msgid "Fine-&tune all Points"
 msgstr "全ポイントを微調整"
 
-#: src/hugin/xrc/main_menu.xrs:21
+#: src/hugin/xrc/main_menu.xrs:23
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -2426,77 +2485,77 @@ msgstr ""
 "すべてのコントロールポイントに微調整を実行します。PTGui, PTAssemlerなどで作っ"
 "たプロジェクトに便利です。"
 
-#: src/hugin/xrc/main_menu.xrs:22
+#: src/hugin/xrc/main_menu.xrs:24
 msgid "&Optimize"
 msgstr "&最適化"
 
-#: src/hugin/xrc/main_menu.xrs:23 src/hugin/xrc/main_tool.xrs:24
+#: src/hugin/xrc/main_menu.xrs:25 src/hugin/xrc/main_tool.xrs:24
 msgid "Re-run the optimizer with current settings"
 msgstr "現在の設定で最適化を実行します"
 
-#: src/hugin/xrc/main_menu.xrs:24
+#: src/hugin/xrc/main_menu.xrs:26
 msgid "&Add Image"
 msgstr "&画像の追加"
 
-#: src/hugin/xrc/main_menu.xrs:25 src/hugin/xrc/main_tool.xrs:21
+#: src/hugin/xrc/main_menu.xrs:27 src/hugin/xrc/main_tool.xrs:21
 msgid "Add another image to the current project"
 msgstr "もう一枚プロジェクトに画像を追加します"
 
-#: src/hugin/xrc/main_menu.xrs:26
+#: src/hugin/xrc/main_menu.xrs:28
 msgid "&View"
 msgstr "&表示"
 
-#: src/hugin/xrc/main_menu.xrs:27
+#: src/hugin/xrc/main_menu.xrs:29
 msgid "&Control point table"
 msgstr "&コントロールポイント一覧"
 
-#: src/hugin/xrc/main_menu.xrs:28
+#: src/hugin/xrc/main_menu.xrs:30
 msgid "Shows all control point distances"
 msgstr "すべてのコントロールポイントの誤差を表示します"
 
-#: src/hugin/xrc/main_menu.xrs:29
+#: src/hugin/xrc/main_menu.xrs:31
 msgid "&Preview window"
 msgstr "&プレビューウィンドウを表示"
 
-#: src/hugin/xrc/main_menu.xrs:30
+#: src/hugin/xrc/main_menu.xrs:32
 msgid "Show the preview window"
 msgstr "プレビューウィンドウを表示"
 
-#: src/hugin/xrc/main_menu.xrs:32
+#: src/hugin/xrc/main_menu.xrs:34
 msgid "&About"
 msgstr "&Hugin について"
 
-#: src/hugin/xrc/main_menu.xrs:33
+#: src/hugin/xrc/main_menu.xrs:35
 #, fuzzy
 msgid "About program"
 msgstr "About program"
 
-#: src/hugin/xrc/main_menu.xrs:35
+#: src/hugin/xrc/main_menu.xrs:37
 msgid "Some information on the different buttons and so on."
 msgstr "ボタンやボックスについての情報などがあります。"
 
-#: src/hugin/xrc/main_menu.xrs:36
+#: src/hugin/xrc/main_menu.xrs:38
 #, fuzzy
 msgid "&Tip of the day"
 msgstr "&Tip of the day"
 
-#: src/hugin/xrc/main_menu.xrs:37
+#: src/hugin/xrc/main_menu.xrs:39
 msgid "Show one of the tips of the day."
 msgstr "Tips of the dayの一つを見る"
 
-#: src/hugin/xrc/main_menu.xrs:38
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "&Keyboard Shortcuts"
 msgstr "&ショートカット"
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "keyboard shortcuts"
 msgstr "ショートカットの一覧"
 
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menu.xrs:42
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: src/hugin/xrc/main_menu.xrs:41
+#: src/hugin/xrc/main_menu.xrs:43
 msgid "Frequently Asked Questions"
 msgstr "よく聞かれる質問と答え"
 
@@ -2984,7 +3043,8 @@ msgstr "オプション："
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
-"%f  -- final panorama"
+"%f  -- final panorama\n"
+"%i  -- first input image"
 msgstr ""
 
 #: src/hugin/xrc/pref_dialog.xrs:25

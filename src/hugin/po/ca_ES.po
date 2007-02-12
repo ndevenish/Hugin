@@ -78,7 +78,9 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr ""
 
 #: src/hugin/AssistantPanel.cpp:358
-msgid "At least two images are required."
+msgid ""
+"At least two images are required.\n"
+"Please add more images."
 msgstr ""
 
 #: src/hugin/AssistantPanel.cpp:358
@@ -130,9 +132,9 @@ msgid "Select autopano program / frontend script"
 msgstr "Trieu el programa / seqüència (script) final Autopano"
 
 #: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:251
-#: src/hugin/PreferencesDialog.cpp:269 src/hugin/PreferencesDialog.cpp:286
-#: src/hugin/PreferencesDialog.cpp:302 src/hugin/PTStitcherPanel.cpp:483
+#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:257
+#: src/hugin/PreferencesDialog.cpp:275 src/hugin/PreferencesDialog.cpp:292
+#: src/hugin/PreferencesDialog.cpp:308 src/hugin/PTStitcherPanel.cpp:483
 msgid "Executables (*.exe)|*.exe"
 msgstr "Executables (*.exe)|*.exe"
 
@@ -625,9 +627,9 @@ msgstr "Suprimeix punts de control"
 msgid "Not a jpeg file:"
 msgstr "No és un fitxer jpeg :"
 
-#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:822
-#: src/hugin/LensPanel.cpp:855 src/hugin/LensPanel.cpp:950
-#: src/hugin/LensPanel.cpp:968
+#: src/hugin/LensPanel.cpp:721 src/hugin/LensPanel.cpp:824
+#: src/hugin/LensPanel.cpp:857 src/hugin/LensPanel.cpp:971
+#: src/hugin/LensPanel.cpp:989
 msgid "Please select an image and try again"
 msgstr "Seleccioneu una imatge i proveu un altre cop"
 
@@ -639,27 +641,38 @@ msgstr "Desa el fitxer dels paràmetres de la lent"
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
 msgstr "Fitxer Projecte de lents (*.ini)|*.ini|tots els fitxers (*)|*"
 
-#: src/hugin/LensPanel.cpp:864
+#: src/hugin/LensPanel.cpp:866
 msgid "Load lens parameters"
 msgstr "Obrir el fitxer dels paràmetres de l'objectiu"
 
-#: src/hugin/LensPanel.cpp:866
+#: src/hugin/LensPanel.cpp:868
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
 msgstr "Fitxer Projecte de lents (*.ini)|*.ini|tots els fitxers (*.*)|*.*"
 
-#: src/hugin/LensPanel.cpp:958
+#: src/hugin/LensPanel.cpp:885
+msgid ""
+"Incompatible lens parameter file, image sizes do not match\n"
+"Apply settings anyway?"
+msgstr ""
+
+#: src/hugin/LensPanel.cpp:885
+#, fuzzy
+msgid "Error loading lens parameters"
+msgstr "Obrir el fitxer dels paràmetres de l'objectiu"
+
+#: src/hugin/LensPanel.cpp:979
 msgid "Enter new lens number"
 msgstr "Introduïu el nou número de la lent"
 
-#: src/hugin/LensPanel.cpp:958
+#: src/hugin/LensPanel.cpp:979
 msgid "Lens number"
 msgstr "Lent número"
 
-#: src/hugin/LensPanel.cpp:959
+#: src/hugin/LensPanel.cpp:980
 msgid "Change lens number"
 msgstr "Canvieu el número de la lent"
 
-#: src/hugin/MainFrame.cpp:220
+#: src/hugin/MainFrame.cpp:221
 msgid ""
 "Fatal installation error\n"
 "The xrc directory was not found.\n"
@@ -669,16 +682,16 @@ msgstr ""
 "No es troba el directori xrc.\n"
 "Us heu d'assegurar que es troba en el mateix directori que hugin.exe"
 
-#: src/hugin/MainFrame.cpp:240 src/hugin/xrc/main_menubar.xrs:4
-#: src/hugin/xrc/main_menu.xrs:31 src/hugin/xrc/main_menu.xrs:34
+#: src/hugin/MainFrame.cpp:241 src/hugin/xrc/main_menubar.xrs:4
+#: src/hugin/xrc/main_menu.xrs:33 src/hugin/xrc/main_menu.xrs:36
 msgid "&Help"
 msgstr "&Ajuda"
 
-#: src/hugin/MainFrame.cpp:336
+#: src/hugin/MainFrame.cpp:337
 msgid "Started"
 msgstr "Iniciat"
 
-#: src/hugin/MainFrame.cpp:462
+#: src/hugin/MainFrame.cpp:463
 msgid ""
 "The panorama has been changed\n"
 "Save changes?"
@@ -686,52 +699,52 @@ msgstr ""
 "El panorama ha estat modificat\n"
 "Voleu desar les modificacions ?"
 
-#: src/hugin/MainFrame.cpp:462
+#: src/hugin/MainFrame.cpp:463
 msgid "Save Panorama?"
 msgstr "Desar el panorama ?"
 
-#: src/hugin/MainFrame.cpp:495
+#: src/hugin/MainFrame.cpp:496
 msgid "forced close"
 msgstr "Tancament obligat"
 
-#: src/hugin/MainFrame.cpp:548
+#: src/hugin/MainFrame.cpp:549
 #, c-format
 msgid "saved project %s"
 msgstr "projecte %s desat"
 
-#: src/hugin/MainFrame.cpp:561
+#: src/hugin/MainFrame.cpp:562
 msgid "Save project file"
 msgstr "Desar el fitxer de projecte"
 
-#: src/hugin/MainFrame.cpp:563
+#: src/hugin/MainFrame.cpp:564
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Fitxer de projecte (*.pto)|*.pto|Tots els fitxers (*)|*"
 
-#: src/hugin/MainFrame.cpp:583
+#: src/hugin/MainFrame.cpp:584
 msgid "Save PTStitcher script file"
 msgstr "Desar el fitxer de seqüència  PTStitcher"
 
-#: src/hugin/MainFrame.cpp:585
+#: src/hugin/MainFrame.cpp:586
 msgid "PTStitcher files (*.txt)|*.txt"
 msgstr "Fitxer PTStitcher (*.txt)|*.txt"
 
-#: src/hugin/MainFrame.cpp:613
+#: src/hugin/MainFrame.cpp:614
 msgid "Open project:   "
 msgstr "Obrir el projecte :   "
 
-#: src/hugin/MainFrame.cpp:625
+#: src/hugin/MainFrame.cpp:626
 msgid "Project opened"
 msgstr "Projecte obert"
 
-#: src/hugin/MainFrame.cpp:635
+#: src/hugin/MainFrame.cpp:636
 msgid "Error opening project:   "
 msgstr "Error durant la obertura del projecte:   "
 
-#: src/hugin/MainFrame.cpp:666
+#: src/hugin/MainFrame.cpp:667
 msgid "Open project file"
 msgstr "Obrir el fitxer de projecte"
 
-#: src/hugin/MainFrame.cpp:668
+#: src/hugin/MainFrame.cpp:669 src/hugin/MainFrame.cpp:1112
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
 "(*)|*"
@@ -739,11 +752,11 @@ msgstr ""
 "Fitxer de projecte (*.pto,*.ptp,*.pts,*oto)|*.pto;*ptp;*.pts;*.oto;|Tots els "
 "fitxers (*)|*"
 
-#: src/hugin/MainFrame.cpp:681
+#: src/hugin/MainFrame.cpp:682
 msgid "Open project: cancel"
 msgstr "Obrir el projecte : cancel·lar"
 
-#: src/hugin/MainFrame.cpp:707 src/hugin/VigCorrDialog.cpp:171
+#: src/hugin/MainFrame.cpp:708 src/hugin/VigCorrDialog.cpp:171
 #: src/hugin/wxPanoCommand.cpp:278
 #, fuzzy
 msgid ""
@@ -755,23 +768,28 @@ msgstr ""
 "*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|fitxers JPEG·(*.jpg)|*.jpg;"
 "*.JPG|Tots els fitxers (*)|*"
 
-#: src/hugin/MainFrame.cpp:710 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/MainFrame.cpp:711 src/hugin/wxPanoCommand.cpp:279
+#: src/hugin/wxPanoCommand.cpp:343
 msgid "Add images"
 msgstr "Afegir imatges"
 
-#: src/hugin/MainFrame.cpp:762
+#: src/hugin/MainFrame.cpp:763
 msgid "Add Image: cancel"
 msgstr "Afegir imatges : cancel·lar"
 
-#: src/hugin/MainFrame.cpp:1138
+#: src/hugin/MainFrame.cpp:1110
+msgid "Choose template project"
+msgstr ""
+
+#: src/hugin/MainFrame.cpp:1161
 msgid "Fine-tuning all points"
 msgstr "Ajustament precís en tots els punts"
 
-#: src/hugin/MainFrame.cpp:1140
+#: src/hugin/MainFrame.cpp:1163
 msgid "Finetuning"
 msgstr "Ajustament precís"
 
-#: src/hugin/MainFrame.cpp:1231
+#: src/hugin/MainFrame.cpp:1254
 #, fuzzy, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
@@ -800,7 +818,7 @@ msgstr ""
 "Utilitzeu la llista de punts de control (F3) per veure tots els punts del "
 "projecte actual.\n"
 
-#: src/hugin/MainFrame.cpp:1233
+#: src/hugin/MainFrame.cpp:1256
 msgid "Fine-tune result"
 msgstr "Resultat de l'ajustament precís"
 
@@ -1200,112 +1218,116 @@ msgstr ""
 msgid "Overwrite file?"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:123
+#: src/hugin/PreferencesDialog.cpp:124
 msgid "System default"
 msgstr "Llengua per defecte del sistema"
 
-#: src/hugin/PreferencesDialog.cpp:126
+#: src/hugin/PreferencesDialog.cpp:127
 #, fuzzy
 msgid "Catalan"
 msgstr "Italià"
 
-#: src/hugin/PreferencesDialog.cpp:129
+#: src/hugin/PreferencesDialog.cpp:130
 msgid "Chinese (Simplified)"
 msgstr "Xinès Simplificat"
 
-#: src/hugin/PreferencesDialog.cpp:132
+#: src/hugin/PreferencesDialog.cpp:133
 msgid "Czech"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:135
+#: src/hugin/PreferencesDialog.cpp:136
 msgid "Dutch"
 msgstr "Holandès"
 
-#: src/hugin/PreferencesDialog.cpp:138
+#: src/hugin/PreferencesDialog.cpp:139
 msgid "English"
 msgstr "Anglès"
 
-#: src/hugin/PreferencesDialog.cpp:141
+#: src/hugin/PreferencesDialog.cpp:142
 msgid "French"
 msgstr "Francès"
 
-#: src/hugin/PreferencesDialog.cpp:144
+#: src/hugin/PreferencesDialog.cpp:145
 msgid "German"
 msgstr "Alemany"
 
-#: src/hugin/PreferencesDialog.cpp:147
+#: src/hugin/PreferencesDialog.cpp:148
 msgid "Hungarian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:150
+#: src/hugin/PreferencesDialog.cpp:151
 msgid "Italian"
 msgstr "Italià"
 
-#: src/hugin/PreferencesDialog.cpp:153
+#: src/hugin/PreferencesDialog.cpp:154
 msgid "Japanese"
 msgstr "Japonès"
 
-#: src/hugin/PreferencesDialog.cpp:156
+#: src/hugin/PreferencesDialog.cpp:157
 msgid "Polish"
 msgstr "Polonès"
 
-#: src/hugin/PreferencesDialog.cpp:159
+#: src/hugin/PreferencesDialog.cpp:160
 msgid "Portuguese (Brazilian)"
 msgstr "Portuguès (Brasiler)"
 
-#: src/hugin/PreferencesDialog.cpp:162
+#: src/hugin/PreferencesDialog.cpp:163
 msgid "Russian"
 msgstr "Rus"
 
-#: src/hugin/PreferencesDialog.cpp:165
+#: src/hugin/PreferencesDialog.cpp:166
 msgid "Slovak"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:168
+#: src/hugin/PreferencesDialog.cpp:169
+msgid "Spanish"
+msgstr ""
+
+#: src/hugin/PreferencesDialog.cpp:172
 msgid "Swedish"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:171
+#: src/hugin/PreferencesDialog.cpp:175
 msgid "Ukrainian"
 msgstr ""
 
-#: src/hugin/PreferencesDialog.cpp:247
+#: src/hugin/PreferencesDialog.cpp:253
 msgid "Select PTStitcher"
 msgstr "Seleccioneu PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:266
+#: src/hugin/PreferencesDialog.cpp:272
 #, fuzzy
 msgid "Select image editor"
 msgstr "parella d'imatge següent"
 
-#: src/hugin/PreferencesDialog.cpp:283
+#: src/hugin/PreferencesDialog.cpp:289
 msgid "Select Enblend"
 msgstr "Seleccioneu Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:299 src/hugin/PreferencesDialog.cpp:315
+#: src/hugin/PreferencesDialog.cpp:305 src/hugin/PreferencesDialog.cpp:321
 #: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Seleccioneu Autopano"
 
-#: src/hugin/PreferencesDialog.cpp:318
+#: src/hugin/PreferencesDialog.cpp:324
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/PreferencesDialog.cpp:357
+#: src/hugin/PreferencesDialog.cpp:363
 msgid "Panotools details"
 msgstr "Detalls de Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:739
+#: src/hugin/PreferencesDialog.cpp:745
 msgid "Unknown Version"
 msgstr "Versió desconeguda"
 
-#: src/hugin/PreferencesDialog.cpp:749
+#: src/hugin/PreferencesDialog.cpp:755
 msgid "Really reset displayed preferences to default values?"
 msgstr ""
 "Voleu realment substituir les preferències mostrades pels valors per "
 "defecte ?"
 
-#: src/hugin/PreferencesDialog.cpp:749 src/hugin/xrc/pref_dialog.xrs:95
+#: src/hugin/PreferencesDialog.cpp:755 src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "Carregant els valors per defecte"
 
@@ -1648,6 +1670,34 @@ msgstr ""
 #: src/hugin/wxPanoCommand.cpp:272
 msgid "Image file not found"
 msgstr "Fitxer d'imatge no trobat"
+
+#: src/hugin/wxPanoCommand.cpp:340
+#, fuzzy
+msgid ""
+"All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
+"BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
+"JPG;*.jpeg;*.jpg|All files (*)|*"
+msgstr ""
+"Tots els fitxers d'imatge|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
+"*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|fitxers JPEG·(*.jpg)|*.jpg;"
+"*.JPG|Tots els fitxers (*)|*"
+
+#: src/hugin/wxPanoCommand.cpp:400
+#, c-format
+msgid ""
+"Error, template expects %d images,\n"
+"current project contains %d images\n"
+msgstr ""
+
+#: src/hugin/wxPanoCommand.cpp:401 src/hugin/wxPanoCommand.cpp:427
+#, fuzzy
+msgid "Could not apply template"
+msgstr "No es pot llegir el nombre"
+
+#: src/hugin/wxPanoCommand.cpp:427
+#, fuzzy
+msgid "Error loading project file"
+msgstr "Error durant la obertura del projecte:   "
 
 #: src/include/hugin/MyProgressDialog.h:71
 msgid "Optimizing Panorama"
@@ -2401,42 +2451,51 @@ msgstr ""
 "PTStitcher, útil per a un processament per lots"
 
 #: src/hugin/xrc/main_menu.xrs:12
+msgid "Apply &Template"
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:13
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr ""
+
+#: src/hugin/xrc/main_menu.xrs:14
 msgid "&Preferences"
 msgstr "&Preferències"
 
-#: src/hugin/xrc/main_menu.xrs:13
+#: src/hugin/xrc/main_menu.xrs:15
 msgid "&Quit"
 msgstr "&Sortir"
 
-#: src/hugin/xrc/main_menu.xrs:14
+#: src/hugin/xrc/main_menu.xrs:16
 msgid "Exit program"
 msgstr "Sortir del programa"
 
-#: src/hugin/xrc/main_menu.xrs:15
+#: src/hugin/xrc/main_menu.xrs:17
 msgid "&Edit"
 msgstr "&Editar"
 
-#: src/hugin/xrc/main_menu.xrs:16
+#: src/hugin/xrc/main_menu.xrs:18
 msgid "&Undo"
 msgstr "&Desfer"
 
-#: src/hugin/xrc/main_menu.xrs:17 src/hugin/xrc/main_tool.xrs:15
+#: src/hugin/xrc/main_menu.xrs:19 src/hugin/xrc/main_tool.xrs:15
 msgid "Undo the last action"
 msgstr "Desfer la última acció"
 
-#: src/hugin/xrc/main_menu.xrs:18
+#: src/hugin/xrc/main_menu.xrs:20
 msgid "&Redo"
 msgstr "&Refer"
 
-#: src/hugin/xrc/main_menu.xrs:19 src/hugin/xrc/main_tool.xrs:18
+#: src/hugin/xrc/main_menu.xrs:21 src/hugin/xrc/main_tool.xrs:18
 msgid "Redo the last action"
 msgstr "Refer la última acció"
 
-#: src/hugin/xrc/main_menu.xrs:20
+#: src/hugin/xrc/main_menu.xrs:22
 msgid "Fine-&tune all Points"
 msgstr "Ajus&tar amb precisió"
 
-#: src/hugin/xrc/main_menu.xrs:21
+#: src/hugin/xrc/main_menu.xrs:23
 msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -2444,75 +2503,75 @@ msgstr ""
 "Executa l'ajustament precís de tots els punts de control, útil per els "
 "projectes creats amb altres eines com el PTGui o el PTAssembler"
 
-#: src/hugin/xrc/main_menu.xrs:22
+#: src/hugin/xrc/main_menu.xrs:24
 msgid "&Optimize"
 msgstr "&Optimitzar"
 
-#: src/hugin/xrc/main_menu.xrs:23 src/hugin/xrc/main_tool.xrs:24
+#: src/hugin/xrc/main_menu.xrs:25 src/hugin/xrc/main_tool.xrs:24
 msgid "Re-run the optimizer with current settings"
 msgstr "Re-executar l'optimitzador amb els paràmetres actuals"
 
-#: src/hugin/xrc/main_menu.xrs:24
+#: src/hugin/xrc/main_menu.xrs:26
 msgid "&Add Image"
 msgstr "&Afegir una imatge"
 
-#: src/hugin/xrc/main_menu.xrs:25 src/hugin/xrc/main_tool.xrs:21
+#: src/hugin/xrc/main_menu.xrs:27 src/hugin/xrc/main_tool.xrs:21
 msgid "Add another image to the current project"
 msgstr "Afegir una altra imatge en el projecte actual"
 
-#: src/hugin/xrc/main_menu.xrs:26
+#: src/hugin/xrc/main_menu.xrs:28
 msgid "&View"
 msgstr "Exa&minar"
 
-#: src/hugin/xrc/main_menu.xrs:27
+#: src/hugin/xrc/main_menu.xrs:29
 msgid "&Control point table"
 msgstr "Taula de punts de &control"
 
-#: src/hugin/xrc/main_menu.xrs:28
+#: src/hugin/xrc/main_menu.xrs:30
 msgid "Shows all control point distances"
 msgstr "Mostra totes les distàncies dels punts de control"
 
-#: src/hugin/xrc/main_menu.xrs:29
+#: src/hugin/xrc/main_menu.xrs:31
 msgid "&Preview window"
 msgstr "Finestra &prèvia"
 
-#: src/hugin/xrc/main_menu.xrs:30
+#: src/hugin/xrc/main_menu.xrs:32
 msgid "Show the preview window"
 msgstr "Mostra la finestra prèvia"
 
-#: src/hugin/xrc/main_menu.xrs:32
+#: src/hugin/xrc/main_menu.xrs:34
 msgid "&About"
 msgstr "Quant &a"
 
-#: src/hugin/xrc/main_menu.xrs:33
+#: src/hugin/xrc/main_menu.xrs:35
 msgid "About program"
 msgstr "A propòsit del programa"
 
-#: src/hugin/xrc/main_menu.xrs:35
+#: src/hugin/xrc/main_menu.xrs:37
 msgid "Some information on the different buttons and so on."
 msgstr "Alguna informació concerneixen els diferents botons."
 
-#: src/hugin/xrc/main_menu.xrs:36
+#: src/hugin/xrc/main_menu.xrs:38
 msgid "&Tip of the day"
 msgstr "&Consell del dia"
 
-#: src/hugin/xrc/main_menu.xrs:37
+#: src/hugin/xrc/main_menu.xrs:39
 msgid "Show one of the tips of the day."
 msgstr "Mostra un dels consells del dia."
 
-#: src/hugin/xrc/main_menu.xrs:38
+#: src/hugin/xrc/main_menu.xrs:40
 msgid "&Keyboard Shortcuts"
 msgstr "&Dreceres del teclat"
 
-#: src/hugin/xrc/main_menu.xrs:39
+#: src/hugin/xrc/main_menu.xrs:41
 msgid "keyboard shortcuts"
 msgstr "dreceres del teclat"
 
-#: src/hugin/xrc/main_menu.xrs:40
+#: src/hugin/xrc/main_menu.xrs:42
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: src/hugin/xrc/main_menu.xrs:41
+#: src/hugin/xrc/main_menu.xrs:43
 msgid "Frequently Asked Questions"
 msgstr "Preguntes freqüents"
 
@@ -3005,7 +3064,8 @@ msgstr "Arguments :"
 #, c-format
 msgid ""
 "The following patterns will be substituted before running:\n"
-"%f  -- final panorama"
+"%f  -- final panorama\n"
+"%i  -- first input image"
 msgstr ""
 
 #: src/hugin/xrc/pref_dialog.xrs:25
