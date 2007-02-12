@@ -324,6 +324,109 @@ void wxLoadPTProjectCmd::execute()
 }
 
 
+void wxApplyTemplateCmd::execute()
+{
+    PanoCommand::execute();
+
+    wxConfigBase* config = wxConfigBase::Get();
+
+    if (pano.getNrOfImages() == 0) {
+        // TODO: prompt for images!
+
+        // add a dummy lens
+        Lens dummyLens;
+        pano.addLens(dummyLens);
+
+        wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*.JPG;*.jpeg;*.jpg|All files (*)|*"));
+
+        wxString path = config->Read(wxT("actualPath"), wxT(""));
+        wxFileDialog dlg(MainFrame::Get(), _("Add images"),
+                path, wxT(""),
+                wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+
+        // remember the image extension
+        wxString img_ext;
+        if (config->HasEntry(wxT("lastImageType"))){
+            img_ext = config->Read(wxT("lastImageType")).c_str();
+        }
+        if (img_ext == wxT("all images"))
+            dlg.SetFilterIndex(0);
+        else if (img_ext == wxT("jpg"))
+            dlg.SetFilterIndex(1);
+        else if (img_ext == wxT("all files"))
+            dlg.SetFilterIndex(2);
+        DEBUG_INFO ( "Image extention: " << img_ext.mb_str() );
+
+        // call the file dialog
+        if (dlg.ShowModal() == wxID_OK) {
+            // get the selections
+            wxArrayString Pathnames;
+            wxArrayString Filenames;
+            dlg.GetPaths(Pathnames);
+            dlg.GetFilenames(Filenames);
+
+            // e safe the current path to config
+            config->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+            DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str() );
+            // save the image extension
+            switch ( dlg.GetFilterIndex() ) {
+                case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
+                case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
+                case 2: config->Write(wxT("lastImageType"), wxT("all files")); break;
+            }
+
+            // add images.
+            for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
+                std::string filename = (const char *)Pathnames[i].mb_str();
+                vigra::ImageImportInfo inf(filename.c_str());
+                PanoImage img(filename, inf.width(), inf.height(), 0);
+                VariableMap vars;
+                fillVariableMap(vars);
+                int imgNr = pano.addImage(img, vars);
+            }
+
+        }
+    }
+
+    int nOldImg = pano.getNrOfImages();
+    PanoramaMemento newPanoMem;
+
+    if (newPanoMem.loadPTScript(in, "")) {
+        Panorama newPano;
+        newPano.setMemento(newPanoMem);
+
+        unsigned int nNewImg = newPano.getNrOfImages();
+        if (nOldImg != nNewImg) {
+            wxString errMsg = wxString::Format(_("Error, template expects %d images,\ncurrent project contains %d images\n"), nNewImg, nOldImg);
+            wxMessageBox(errMsg, _("Could not apply template"), wxICON_ERROR);
+            pano.changeFinished();
+            return;
+        }
+
+        // check image sizes, and correct parameters if required.
+        for (unsigned int i = 0; i < nNewImg; i++) {
+
+            // check if image size is correct
+            SrcPanoImage oldSrcImg = pano.getSrcImage(i);
+            SrcPanoImage newSrcImg = newPano.getSrcImage(i);
+
+            // just keep the file name
+            DEBUG_DEBUG("apply template fn:" <<  newSrcImg.getFilename() << " real fn: " << oldSrcImg.getFilename());
+            newSrcImg.setFilename(oldSrcImg.getFilename());
+            if (oldSrcImg.getSize() != newSrcImg.getSize()) {
+                // adjust size properly.
+                newSrcImg.resize(oldSrcImg.getSize());
+            }
+            newPano.setSrcImage(i, newSrcImg);
+        }
+        newPanoMem = newPano.getMemento();
+        pano.setMemento(newPanoMem);
+    } else {
+        wxMessageBox(_("Error loading project file"), _("Could not apply template"), wxICON_ERROR);
+    }
+    pano.changeFinished();
+}
+
 
 
 } // namespace

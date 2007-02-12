@@ -776,8 +776,8 @@ ImageCache::Entry * ImageCache::getSmallImage(const std::string & filename)
         }
         DEBUG_DEBUG("creating small image " << name );
         Entry * entry = getImage(filename);
-        wxImage * image = entry->image;
-        if (image->Ok()) {
+        if (entry && entry->image->Ok()) {
+            wxImage * image = entry->image;
             wxImage small_image;
             const int w = 512;
             double ratio = (double)image->GetWidth() / image->GetHeight();

@@ -1103,7 +1103,24 @@ void MainFrame::OnDoStitch(wxCommandEvent & e)
 
 void MainFrame::OnApplyTemplate(wxCommandEvent & e)
 {
-    wxMessageBox(wxT("Templates not implemented yet"));
+    // get the global config object
+    wxConfigBase* config = wxConfigBase::Get();
+
+    wxFileDialog dlg(this,
+                     _("Choose template project"),
+                     config->Read(wxT("/templatePath"),wxT("")), wxT(""),
+                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     wxOPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK) {
+        wxString filename = dlg.GetPath();
+        wxConfig::Get()->Write(wxT("/templatePath"), dlg.GetDirectory());  // remember for later
+
+        std::ifstream file((const char *)filename.mb_str());
+
+        GlobalCmdHist::getInstance().addCommand(
+                new wxApplyTemplateCmd(pano, file));
+
+    }
 }
 
 
@@ -1391,3 +1408,8 @@ void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
 
 MainFrame * MainFrame::m_this = 0;
 
+
+void applyTemplate()
+{
+    // ask for template
+}

@@ -179,6 +179,8 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     this->SetBackgroundColour(XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->GetBackgroundColour());
 #endif
 
+    GetSizer()->Layout();
+
     RestoreFramePosition(this, wxT("PreferencesDialog"));
 }
 

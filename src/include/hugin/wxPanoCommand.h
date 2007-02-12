@@ -88,6 +88,28 @@ private:
     const std::string &prefix;
 };
 
+
+/** dump the current project and load a new one.
+ *
+ */
+class wxApplyTemplateCmd : public PanoCommand
+{
+public:
+    wxApplyTemplateCmd(Panorama & p, std::istream & i)
+        : PanoCommand(p),
+          in(i)
+    { };
+
+    virtual void execute();
+
+    virtual std::string getName() const
+    {
+        return "apply template";
+    }
+private:
+    std::istream & in;
+};
+
     //=========================================================================
     //=========================================================================
 
