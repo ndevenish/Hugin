@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.6.1-CVS\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
-"POT-Creation-Date: 2007-02-08 00:19+0100\n"
+"POT-Creation-Date: 2007-02-13 01:16+0100\n"
 "PO-Revision-Date: 2006-08-17 18:50+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -124,46 +124,17 @@ msgstr "Autopano ze strony http://autopano.kolor.com jest niedostępne dla OSX"
 msgid "Would you like to use Autopano-Sift instead?"
 msgstr "Czy zamiast tego chciałbyś użyć Autopano-Sift?"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:157
-msgid "Select autopano program / frontend script"
-msgstr "Wybierz program autopano / skrypt interfejsu"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:159
-#: src/hugin/AutoCtrlPointCreator.cpp:345 src/hugin/PreferencesDialog.cpp:257
-#: src/hugin/PreferencesDialog.cpp:275 src/hugin/PreferencesDialog.cpp:292
-#: src/hugin/PreferencesDialog.cpp:308 src/hugin/PTStitcherPanel.cpp:483
-msgid "Executables (*.exe)|*.exe"
-msgstr "Pliki wykonywalne (*.exe)|*.exe"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:165
-#: src/hugin/AutoCtrlPointCreator.cpp:201
-#: src/hugin/AutoCtrlPointCreator.cpp:351
-msgid "No autopano selected"
-msgstr "Nie wybrano autopano"
-
 #: src/hugin/AutoCtrlPointCreator.cpp:188
-msgid "Autopano-SIFT is not installed."
-msgstr "Autopano-SIFT nie jest zainstalowane."
-
-#: src/hugin/AutoCtrlPointCreator.cpp:193
-msgid "Select autopano frontend script"
-msgstr "Wybierz skrypt interfejsu autopano"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:195
-msgid "Shell Scripts (*.sh)|*.sh"
-msgstr "Skrypty powłoki (*.sh)|*.sh"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:239
 #, c-format
 msgid "Please use either %namefile or %i in the autopano-sift command line."
 msgstr "Proszę użyć albo %namefile albo %i linii poleceń autopano-sift."
 
-#: src/hugin/AutoCtrlPointCreator.cpp:240
-#: src/hugin/AutoCtrlPointCreator.cpp:245
+#: src/hugin/AutoCtrlPointCreator.cpp:189
+#: src/hugin/AutoCtrlPointCreator.cpp:194
 msgid "Error in Autopano command"
 msgstr "Błąd w poleceniu autopano"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:244
+#: src/hugin/AutoCtrlPointCreator.cpp:193
 #, c-format
 msgid ""
 "Please use  %namefile or %i to specify the input files for autopano-sift"
@@ -171,8 +142,8 @@ msgstr ""
 "Proszę użyć  %namefile lub %i by podać nazwę plików wejściowych dla autopano-"
 "sift"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:283
-#: src/hugin/AutoCtrlPointCreator.cpp:389
+#: src/hugin/AutoCtrlPointCreator.cpp:232
+#: src/hugin/AutoCtrlPointCreator.cpp:323
 msgid ""
 "autopano command line too long.\n"
 "This is a windows limitation\n"
@@ -184,33 +155,33 @@ msgstr ""
 "Proszę wybrać mniej zdjęć lub umieścić zdjęcia w folderze z\n"
 "krótszą ścieżką"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:284
-#: src/hugin/AutoCtrlPointCreator.cpp:390 src/hugin/NonaStitcherPanel.cpp:428
+#: src/hugin/AutoCtrlPointCreator.cpp:233
+#: src/hugin/AutoCtrlPointCreator.cpp:324 src/hugin/NonaStitcherPanel.cpp:398
 msgid "Too many images selected"
 msgstr "Wybrano zbyt wiele zdjęć"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:299
-#: src/hugin/AutoCtrlPointCreator.cpp:402
+#: src/hugin/AutoCtrlPointCreator.cpp:248
+#: src/hugin/AutoCtrlPointCreator.cpp:336
 #: src/hugin/MyExternalCmdExecDialog.cpp:62
 #: src/hugin/MyExternalCmdExecDialog.cpp:100
-#: src/hugin/NonaStitcherPanel.cpp:440 src/hugin/PanoPanel.cpp:723
+#: src/hugin/NonaStitcherPanel.cpp:410 src/hugin/PanoPanel.cpp:723
 msgid "Could not execute command: "
 msgstr "Nie mogłem wykonać polecenia:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:299
-#: src/hugin/AutoCtrlPointCreator.cpp:304
-#: src/hugin/AutoCtrlPointCreator.cpp:402
-#: src/hugin/AutoCtrlPointCreator.cpp:408 src/hugin/NonaStitcherPanel.cpp:440
+#: src/hugin/AutoCtrlPointCreator.cpp:248
+#: src/hugin/AutoCtrlPointCreator.cpp:253
+#: src/hugin/AutoCtrlPointCreator.cpp:336
+#: src/hugin/AutoCtrlPointCreator.cpp:342 src/hugin/NonaStitcherPanel.cpp:410
 msgid "wxExecute Error"
 msgstr "Błąd wxExecute"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:302
-#: src/hugin/AutoCtrlPointCreator.cpp:406 src/hugin/NonaStitcherPanel.cpp:443
+#: src/hugin/AutoCtrlPointCreator.cpp:251
+#: src/hugin/AutoCtrlPointCreator.cpp:340 src/hugin/NonaStitcherPanel.cpp:413
 msgid "command: "
 msgstr "polecenie:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:303
-#: src/hugin/AutoCtrlPointCreator.cpp:407 src/hugin/NonaStitcherPanel.cpp:444
+#: src/hugin/AutoCtrlPointCreator.cpp:252
+#: src/hugin/AutoCtrlPointCreator.cpp:341 src/hugin/NonaStitcherPanel.cpp:414
 msgid ""
 "\n"
 "failed with error code: "
@@ -218,13 +189,13 @@ msgstr ""
 "\n"
 "niepowodzenie z kodem błędu:"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:310
-#: src/hugin/AutoCtrlPointCreator.cpp:415
+#: src/hugin/AutoCtrlPointCreator.cpp:259
+#: src/hugin/AutoCtrlPointCreator.cpp:349
 msgid "Could not open "
 msgstr "Nie można otworzyć"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:310
-#: src/hugin/AutoCtrlPointCreator.cpp:415
+#: src/hugin/AutoCtrlPointCreator.cpp:259
+#: src/hugin/AutoCtrlPointCreator.cpp:349
 msgid ""
 " for reading\n"
 "This is an indicator that the autopano call failed,\n"
@@ -238,17 +209,12 @@ msgstr ""
 "\n"
 "Polecenie autopano: "
 
-#: src/hugin/AutoCtrlPointCreator.cpp:311
-#: src/hugin/AutoCtrlPointCreator.cpp:418
+#: src/hugin/AutoCtrlPointCreator.cpp:260
+#: src/hugin/AutoCtrlPointCreator.cpp:352
 msgid "autopano failure"
 msgstr "autopano nie powiodło się"
 
-#: src/hugin/AutoCtrlPointCreator.cpp:343
-#, fuzzy
-msgid "Select autopano program"
-msgstr "Wybierz typ autopano"
-
-#: src/hugin/AutoCtrlPointCreator.cpp:416
+#: src/hugin/AutoCtrlPointCreator.cpp:350
 msgid ""
 "\n"
 " current directory:"
@@ -457,6 +423,31 @@ msgstr "Błąd odczytu numeru"
 #: src/hugin/PreviewFrame.cpp:672
 msgid "Value must be numeric."
 msgstr "Wartość musi być numeryczna."
+
+#: src/hugin/huginApp.cpp:208
+msgid "Autopano-SIFT is not installed."
+msgstr "Autopano-SIFT nie jest zainstalowane."
+
+#: src/hugin/huginApp.cpp:213
+msgid "Select autopano frontend script"
+msgstr "Wybierz skrypt interfejsu autopano"
+
+#: src/hugin/huginApp.cpp:215
+msgid "Shell Scripts (*.sh)|*.sh"
+msgstr "Skrypty powłoki (*.sh)|*.sh"
+
+#: src/hugin/huginApp.cpp:222
+msgid "No autopano selected"
+msgstr "Nie wybrano autopano"
+
+#: src/hugin/huginApp.cpp:272
+#, c-format
+msgid "%s not found, please configure it in the preferences"
+msgstr ""
+
+#: src/hugin/huginApp.cpp:322
+msgid "Could not locate the hugin directory / bundle, exiting"
+msgstr ""
 
 #: src/hugin/ImageCache.cpp:618
 #, c-format
@@ -865,23 +856,7 @@ msgstr ""
 msgid "Error during stitching"
 msgstr "Błąd podczas składania"
 
-#: src/hugin/NonaStitcherPanel.cpp:359
-msgid "Select enblend.exe"
-msgstr "Wybierz enblend.exe"
-
-#: src/hugin/NonaStitcherPanel.cpp:367
-msgid "No enblend.exe selected"
-msgstr "Nie wybrano enblend.exe"
-
-#: src/hugin/NonaStitcherPanel.cpp:378
-msgid "Select enblend commandline tool"
-msgstr "Wybierz narzędzie enblend"
-
-#: src/hugin/NonaStitcherPanel.cpp:386
-msgid "No enblend commandline tool selected"
-msgstr "Nie wybrano narzędzia enblend"
-
-#: src/hugin/NonaStitcherPanel.cpp:427
+#: src/hugin/NonaStitcherPanel.cpp:397
 #, fuzzy
 msgid ""
 "Can not call enblend with a command line > 32766 characters.\n"
@@ -894,11 +869,11 @@ msgstr ""
 "Proszę użyć mniejszej liczby zdjęć, lub skopiować je do folderu\n"
 "o krótszej nazwie ścieżki"
 
-#: src/hugin/NonaStitcherPanel.cpp:445
+#: src/hugin/NonaStitcherPanel.cpp:415
 msgid "enblend error"
 msgstr "błąd enblend"
 
-#: src/hugin/NonaStitcherPanel.cpp:519 src/hugin/PTStitcherPanel.cpp:310
+#: src/hugin/NonaStitcherPanel.cpp:489 src/hugin/PTStitcherPanel.cpp:310
 msgid "gamma must be a number"
 msgstr "gamma musi być numeryczna"
 
@@ -1292,41 +1267,47 @@ msgstr "Szwedzki"
 msgid "Ukrainian"
 msgstr "Ukraiński"
 
-#: src/hugin/PreferencesDialog.cpp:253
+#: src/hugin/PreferencesDialog.cpp:272
 msgid "Select PTStitcher"
 msgstr "Wybierz PTStitcher"
 
-#: src/hugin/PreferencesDialog.cpp:272
+#: src/hugin/PreferencesDialog.cpp:276 src/hugin/PreferencesDialog.cpp:294
+#: src/hugin/PreferencesDialog.cpp:311 src/hugin/PreferencesDialog.cpp:327
+#: src/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Pliki wykonywalne (*.exe)|*.exe"
+
+#: src/hugin/PreferencesDialog.cpp:291
 #, fuzzy
 msgid "Select image editor"
 msgstr "następna para zdjęć"
 
-#: src/hugin/PreferencesDialog.cpp:289
+#: src/hugin/PreferencesDialog.cpp:308
 msgid "Select Enblend"
 msgstr "Wybierz Enblend"
 
-#: src/hugin/PreferencesDialog.cpp:305 src/hugin/PreferencesDialog.cpp:321
+#: src/hugin/PreferencesDialog.cpp:324 src/hugin/PreferencesDialog.cpp:340
 #: src/hugin/xrc/pref_dialog.xrs:71
 msgid "Select Autopano"
 msgstr "Wybierz autopano"
 
-#: src/hugin/PreferencesDialog.cpp:324
+#: src/hugin/PreferencesDialog.cpp:343
 msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 msgstr "Pliki wykonywalne (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
 
-#: src/hugin/PreferencesDialog.cpp:363
+#: src/hugin/PreferencesDialog.cpp:382
 msgid "Panotools details"
 msgstr "Szczegóły Panotools"
 
-#: src/hugin/PreferencesDialog.cpp:745
+#: src/hugin/PreferencesDialog.cpp:765
 msgid "Unknown Version"
 msgstr "Nieznana wersja"
 
-#: src/hugin/PreferencesDialog.cpp:755
+#: src/hugin/PreferencesDialog.cpp:775
 msgid "Really reset displayed preferences to default values?"
 msgstr "Naprawdę przywrócić domyślne ustawienia wyświetlania?"
 
-#: src/hugin/PreferencesDialog.cpp:755 src/hugin/xrc/pref_dialog.xrs:95
+#: src/hugin/PreferencesDialog.cpp:775 src/hugin/xrc/pref_dialog.xrs:95
 msgid "Load Defaults"
 msgstr "Załaduj wartości domyślne"
 
@@ -3841,6 +3822,25 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie obrazów i wielu dobrze "
 "rozproszonych punktów kontrolnych."
+
+#~ msgid "Select autopano program / frontend script"
+#~ msgstr "Wybierz program autopano / skrypt interfejsu"
+
+#, fuzzy
+#~ msgid "Select autopano program"
+#~ msgstr "Wybierz typ autopano"
+
+#~ msgid "Select enblend.exe"
+#~ msgstr "Wybierz enblend.exe"
+
+#~ msgid "No enblend.exe selected"
+#~ msgstr "Nie wybrano enblend.exe"
+
+#~ msgid "Select enblend commandline tool"
+#~ msgstr "Wybierz narzędzie enblend"
+
+#~ msgid "No enblend commandline tool selected"
+#~ msgstr "Nie wybrano narzędzia enblend"
 
 #~ msgid ""
 #~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
