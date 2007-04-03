@@ -169,7 +169,8 @@ static char *trim(char *str)
      	char *back = &str[length];
      	while(isspace(*front))
      		++front;
-     	while(isspace(*(back-1)))
+     	//while(isspace(*(back-1)))
+        while( front < back && isspace(*(back-1)))
      		--back;
      	while(front < back)
      		*(data++) = *(front++);
@@ -862,14 +863,27 @@ void PTLDB_freeLnsList(PTLDB_LnsNode * pCurLns)
 
 /* ==================================================================== */
 
-PTLDB_CamNode *PTLDB_findCamera(PTLDB_DB * db, const char *exifMake, const char *exifModel)
+PTLDB_CamNode *PTLDB_findCamera(PTLDB_DB * db, const char *exifMakeStr, const char *exifModelStr)
 {
     PTLDB_CamNode *pCurCam;
+    char * exifMake;
+    char * exifModel;
+
+    // make a copy, because trim() might modify the strings.
+    exifMake = strdup(exifMakeStr);
+    exifModel = strdup(exifModelStr);
 
     pCurCam = db->pCamHdr;
+    /*
     while((pCurCam != NULL) && ((strcmp(pCurCam->exifModel, exifModel) != 0) ||
                                         (strcmp(pCurCam->exifMake, exifMake) != 0)))
+                                        */
+    while((pCurCam != NULL) && ((strcmp(pCurCam->exifModel, trim(exifModel)) != 0) ||
+                (strcmp(pCurCam->exifMake, trim(exifMake)) != 0)))
         pCurCam = pCurCam->nextCam;
+
+    free(exifMake);
+    free(exifModel);
     return(pCurCam);
 }
 
