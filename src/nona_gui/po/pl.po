@@ -2,35 +2,35 @@
 # Copyright (C) 2004 Pablo dAngelo 
 # This file is distributed under the same license as the hugin package.
 # Marek Januszewski <spec@webtech.pl>, 2004.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2006-2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: hugin 0.4\n"
+"Project-Id-Version: nona_gui 0.7_beta4\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2007-01-01 22:24+0100\n"
-"PO-Revision-Date: 2004-11-16 09:06-0500\n"
-"Last-Translator: Marek Januszewski <spec@webtech.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2007-04-04 15:01+0200\n"
+"Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
+"Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/nona_gui/nona_gui.cpp:152
 msgid "Syntax error in parameters detected, aborting."
-msgstr "Wykryto b³±d w parametrach, anulujê pracê."
+msgstr "Wykryto bÅ‚Ä…d w parametrach, anulujÄ™ pracÄ™."
 
 #: src/nona_gui/nona_gui.cpp:167
 msgid "Specify project source project file"
-msgstr "Podaj plik ¼ród³owy projektu"
+msgstr "Podaj plik ÅºrÃ³dÅ‚owy projektu"
 
 #: src/nona_gui/nona_gui.cpp:190
-#, fuzzy
 msgid "Could not find project file:"
-msgstr "Nie mo¿na odnale¼æ pliku projektu"
+msgstr "Nie moÅ¼na odnaleÅºÄ‡ pliku projektu:"
 
 #: src/nona_gui/nona_gui.cpp:199
 msgid "Specify output image filename"
-msgstr "Podaj nazwê zdjêcia wynikowego"
+msgstr "Podaj nazwÄ™ zdjÄ™cia wynikowego"
 
 #: src/nona_gui/nona_gui.cpp:207
 msgid "No project files specified"
@@ -38,25 +38,22 @@ msgstr "Nie podano pliku projektu"
 
 #: src/nona_gui/nona_gui.cpp:223
 msgid "Stitching Panorama"
-msgstr "Sk³adam panoramê"
+msgstr "SkÅ‚adam panoramÄ™"
 
 #: src/nona_gui/nona_gui.cpp:229
 #, c-format
 msgid "could not open script : %s"
-msgstr "nie mo¿na by³ otworzyæ skryptu : %s"
+msgstr "nie moÅ¼na byÅ‚ otworzyÄ‡ skryptu : %s"
 
 #: src/nona_gui/nona_gui.cpp:235
 #, c-format
 msgid "error while parsing panos tool script: %s"
-msgstr "b³±d podczas analizowania skryptu Panorama Tools: %s"
+msgstr "bÅ‚Ä…d podczas analizowania skryptu Panorama Tools: %s"
 
 #: src/nona_gui/nona_gui.cpp:241
 msgid "Wrong number of images specified on command line"
-msgstr ""
+msgstr "ZÅ‚a liczba zdjÄ™Ä‡ podana w linii poleceÅ„"
 
 #: src/nona_gui/nona_gui.cpp:256
 msgid "output image size: "
-msgstr "wielko¶æ zdjêcia wynikowego: "
-
-#~ msgid "Too many project files specified"
-#~ msgstr "Podano zbyt wiele plików projektów"
+msgstr "wielkoÅ›Ä‡ zdjÄ™cia wynikowego: "
