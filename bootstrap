@@ -79,14 +79,14 @@ if $AUTOMAKE --version < /dev/null > /dev/null 2>&1 ; then
 	automake_version=`$AUTOMAKE --version | sed 's/^[^0-9]*\([0-9.][0-9.]*\).*/\1/'`
 #	echo automake version: $automake_version
 	case $automake_version in
-	    1.7*|1.8*|1.9*)
+	    1.9*|1.10*|1.11*)
 		have_automake=true
 		;;
 	esac
 fi
 if $have_automake ; then : ; else
 	echo
-	echo "You must have automake 1.7.x or later installed to compile $PROJECT."
+	echo "You must have automake 1.9.x or later installed to compile $PROJECT."
 	echo "Install the appropriate package for your distribution,"
 	echo "or get the source tarball at http://ftp.gnu.org/gnu/automake/"
 	DIE=1
