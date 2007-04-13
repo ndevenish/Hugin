@@ -316,7 +316,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (v.isLinked()) {
             m_v_list->SetString(i,wxString::Format(wxT("%d (%.2f)"),i, v.getValue()));
         } else {
-            m_v_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_v_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_v_list->Check(i,sel);
 
@@ -325,7 +325,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (a.isLinked()) {
             m_a_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, a.getValue()));
         } else {
-            m_a_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_a_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_a_list->Check(i,sel);
 
@@ -334,7 +334,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (b.isLinked()) {
             m_b_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, b.getValue()));
         } else {
-            m_b_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_b_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_b_list->Check(i,sel);
 
@@ -343,7 +343,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (c.isLinked()) {
             m_c_list->SetString(i,wxString::Format(wxT("%d (%.3f)"),i, c.getValue()));
         } else {
-            m_c_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_c_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_c_list->Check(i,sel);
 
@@ -352,7 +352,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (d.isLinked()) {
             m_d_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, d.getValue()));
         } else {
-            m_d_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_d_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_d_list->Check(i,sel);
 
@@ -361,7 +361,7 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
         if (e.isLinked()) {
             m_e_list->SetString(i,wxString::Format(wxT("%d (%.1f)"),i, e.getValue()));
         } else {
-            m_e_list->SetString(i,wxString::Format(wxT("%d"),nr));
+            m_e_list->SetString(i,wxString::Format(wxT("%d"),i));
         }
         m_e_list->Check(i,sel);
     }
@@ -436,14 +436,16 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     int mode = m_mode_cb->GetSelection();
 
     Panorama optPano = m_pano->getSubset(imgs);
-    switch(optPano.getOptions().getProjection()) {
+    PanoramaOptions opts = optPano.getOptions();
+    switch(opts.getProjection()) {
         case PanoramaOptions::RECTILINEAR:
         case PanoramaOptions::CYLINDRICAL:
         case PanoramaOptions::EQUIRECTANGULAR:
             break;
         default:
-            wxLogError(_("Cannot optimize this projection.\nOnly rectilinear, cylindrical and equirectangular panoramas can be optimized\n\nPlease optimize using one of these projections and selected the desired output projection afterwards."));
-            return;
+            // temporarily change to equirectangular
+            opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+            optPano.setOptions(opts);
             break;
     }
     UIntSet allImg;
@@ -711,8 +713,6 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
             break;
         }
 
-        m_edit_cb->Enable(mode != OPT_PAIRWISE);
-
 	    // disable all manual settings
 	    m_yaw_list->Disable();
 	    m_pitch_list->Disable();
@@ -747,4 +747,5 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
       }
 	}
+    m_edit_cb->Enable(mode != OPT_PAIRWISE);
 }
