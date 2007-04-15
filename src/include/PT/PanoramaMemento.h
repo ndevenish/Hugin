@@ -106,6 +106,24 @@ protected:
     double value;
 };
 
+// a linked variable (which contains the link target explicitly
+class LinkedVariable : public Variable
+{
+    LinkedVariable(const std::string & name, double val = 0.0, int link=-1)
+    : Variable(name, val), m_link(link)
+    {
+    }
+
+    bool isLinked() const
+    { return m_link >= 0; }
+    int getLink()  const
+    { return m_link; }
+    void setLink(int link)
+    { m_link = link; }
+
+protected:
+    int m_link;
+};
 
 /** A lens variable can be linked.
  *
@@ -235,6 +253,9 @@ public:
     {
         return m_imageSize.x >= m_imageSize.y;
     }
+
+    /** set the exposure value */
+    void setEV(double ev);
 
     /** get the image size, in pixels */
     vigra::Size2D getImageSize() const
@@ -387,7 +408,13 @@ public:
         HDR_m
     };
 
-    /** blending mechanism */
+    /** output mode */
+    enum OutputMode {
+        OUTPUT_LDR=0,
+        OUTPUT_HDR
+    };
+
+    /** blenders */
     enum BlendingMechanism {
         NO_BLEND=0,
         PTBLENDER_BLEND=1,
@@ -436,11 +463,16 @@ public:
             blendMode = NO_BLEND;
             remapper = NONA;
             saveCoordImgs = false;
-            huberSigma = 0;
+            huberSigma = 2;
+            photometricHuberSigma = 2/255.0;
+            photometricSymmetricError = false;
+            outputMode = OUTPUT_LDR;
+            outputExposureValue = 0.0;
+            outputPixelType = "";
         }
     virtual ~PanoramaOptions() {};
 
-    void printScriptLine(std::ostream & o) const;
+    void printScriptLine(std::ostream & o,bool forPTOptimizer=false) const;
 
     /// return string name of output file format
     static const std::string & getFormatName(FileFormat f);
@@ -556,10 +588,20 @@ public:
 
     double huberSigma;
 
+    double photometricHuberSigma;
+    double photometricSymmetricError;
+
+    // modes related to high dynamic range output
+    OutputMode outputMode;
+    // select the exposure of the output images in LDR mode.
+    double outputExposureValue;
+    // choose pixel type for output images.
+    std::string outputPixelType;
+
+
 #ifdef HasPANO13
     pano_projection_features m_projFeatures;
 #endif
-
 
 private:
     static const std::string fileformatNames[];

@@ -27,6 +27,9 @@
 
 
 #include <config.h>
+
+#include <iomanip>
+
 #include <jhead/jhead.h>
 
 #include <common/utils.h>
@@ -76,14 +79,17 @@ void PT::fillVariableMap(VariableMap & vars)
     vars.insert(pair<const char*, Variable>("Vx",Variable("Vx",0)));
     vars.insert(pair<const char*, Variable>("Vy",Variable("Vy",0)));
 
-    // color and brightness correction variables.
-    vars.insert(pair<const char*, Variable>("K0a",Variable("K0a",1.0)));
-    vars.insert(pair<const char*, Variable>("K0b",Variable("K0b",0)));
-    vars.insert(pair<const char*, Variable>("K1a",Variable("K1a",1.0)));
-    vars.insert(pair<const char*, Variable>("K1b",Variable("K1b",0)));
-    vars.insert(pair<const char*, Variable>("K2a",Variable("K2a",1.0)));
-    vars.insert(pair<const char*, Variable>("K2b",Variable("K2b",0)));
+    // exposure value and white balance
+    vars.insert(pair<const char*, Variable>("Eev",Variable("Eev",0.0)));
+    vars.insert(pair<const char*, Variable>("Er",Variable("Er",1.0)));
+    vars.insert(pair<const char*, Variable>("Eb",Variable("Eb",1.0)));
 
+    // emor response variables
+    vars.insert(pair<const char*, Variable>("Ra",Variable("Ra",0.0)));
+    vars.insert(pair<const char*, Variable>("Rb",Variable("Rb",0.0)));
+    vars.insert(pair<const char*, Variable>("Rc",Variable("Rc",0.0)));
+    vars.insert(pair<const char*, Variable>("Rd",Variable("Rd",0.0)));
+    vars.insert(pair<const char*, Variable>("Re",Variable("Re",0.0)));
 };
 
 void PT::fillLensVarMap(LensVarMap & variables)
@@ -105,14 +111,17 @@ void PT::fillLensVarMap(LensVarMap & variables)
     variables.insert(pair<const char*, LensVariable>("Vx",LensVariable("Vx", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("Vy",LensVariable("Vy", 0.0, true)));
 
-    // color and brightness correction variables.
-    variables.insert(pair<const char*, LensVariable>("K0a",LensVariable("K0a", 1.0, false)));
-    variables.insert(pair<const char*, LensVariable>("K0b",LensVariable("K0b", 0.0, false)));
-    variables.insert(pair<const char*, LensVariable>("K1a",LensVariable("K1a", 1.0, false)));
-    variables.insert(pair<const char*, LensVariable>("K1b",LensVariable("K1b", 0.0, false)));
-    variables.insert(pair<const char*, LensVariable>("K2a",LensVariable("K2a", 1.0, false)));
-    variables.insert(pair<const char*, LensVariable>("K2b",LensVariable("K2b", 0.0, false)));
+    // exposure
+    variables.insert(pair<const char*, LensVariable>("Eev",LensVariable("Eev", 0.0, false)));
+    variables.insert(pair<const char*, LensVariable>("Er",LensVariable("Er", 1.0, false)));
+    variables.insert(pair<const char*, LensVariable>("Eb",LensVariable("Eb", 1.0, false)));
 
+    // emor response variables
+    variables.insert(pair<const char*, LensVariable>("Ra",LensVariable("Ra",0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Rb",LensVariable("Rb",0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Rc",LensVariable("Rc",0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Rd",LensVariable("Rd",0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Re",LensVariable("Re",0.0, true)));
 }
 
 void PT::printVariableMap(ostream & o, const VariableMap & vars)
@@ -126,7 +135,7 @@ void PT::printVariableMap(ostream & o, const VariableMap & vars)
 
 ostream & Variable::print(ostream & o) const
 {
-    return o << name << value;
+    return o << name << std::setprecision(15) << value;
 }
 
 std::ostream & LensVariable::printLink(std::ostream & o,
@@ -148,8 +157,9 @@ Lens::Lens()
 }
 
 char *PT::Lens::variableNames[] = { "v", "a", "b", "c", "d", "e", "g", "t",
-                                    "Va", "Vb", "Vc", "Vd", "Vx", "Vy",
-                                    "K0a", "K0b", "K1a", "K1b", "K2a", "K2b", 0};
+                                    "Va", "Vb", "Vc", "Vd", "Vx", "Vy", 
+                                    "Eev", "Er", "Eb",
+                                    "Ra", "Rb", "Rc", "Rd", "Re",  0};
 
 
 
@@ -200,6 +210,11 @@ double Lens::getFocalLength() const
             DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
             return 0;
     }
+}
+
+void Lens::setEV(double ev)
+{
+    map_get(variables, "Eev").setValue(ev);
 }
 
 void Lens::setFocalLength(double fl)
@@ -314,6 +329,12 @@ bool Lens::initFromFile(const std::string & filename, double &cropFactor, double
         if (abs( ratioExif - ratioImage) > 0.1) {
             roll = 0;
         }
+    }
+
+    std::cout << "exp time: " << exif.ExposureTime  << " f-stop: " <<  exif.ApertureFNumber << std::endl;
+    // calculate exposure from exif image
+    if (exif.ExposureTime > 0 && exif.ApertureFNumber > 0) {
+        setEV(log2(exif.ApertureFNumber*exif.ApertureFNumber/exif.ExposureTime));
     }
 
     // calc sensor dimensions if not set and 35mm focal length is available
@@ -445,7 +466,7 @@ PanoramaOptions::FileFormat PanoramaOptions::getFormatFromName(const std::string
 }
 
 
-void PanoramaOptions::printScriptLine(std::ostream & o) const
+void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) const
 {
     o << "p f" << m_projectionFormat << " w" << getWidth()<< " h" << getHeight()
             << " v" << getHFOV() << " ";
@@ -464,15 +485,22 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         break;
     }
 
-    if (m_projectionParams.size() > 0) {
-        o << " P\"";
-        for (int i=0; i < (int) m_projectionParams.size(); i++) {
-            o << m_projectionParams[i];
-            if (i+1 < (int)m_projectionParams.size())
-                o << " ";
+    if (! forPTOptimizer) {
+        // the new exposure options
+        o << " E" << outputExposureValue;
+        o << " R" << outputMode;
+        o << " T" << outputPixelType;
+        if (m_projectionParams.size() > 0) {
+            o << " P\"";
+            for (int i=0; i < (int) m_projectionParams.size(); i++) {
+                o << m_projectionParams[i];
+                if (i+1 < (int)m_projectionParams.size())
+                    o << " ";
+            }
+            o << "\"";
         }
-        o << "\"";
     }
+
     o << " n\"" << getFormatName(outputFormat);
     if ( outputFormat == JPEG ) {
         o << " q" << quality;
@@ -502,7 +530,12 @@ void PanoramaOptions::printScriptLine(std::ostream & o) const
         o << " f1";
     }
     o << " m" << huberSigma;
-    
+
+    // options for photometric estimation.
+    o << " p" << photometricHuberSigma;
+    if (photometricSymmetricError) 
+        o << " s1";
+
     o << std::endl;
 }
 
@@ -880,6 +913,7 @@ public:
         height = -1;
         f = -2;
         vigcorrMode = 0;
+        responseType = 0;
         for (char ** v = varnames; *v != 0; v++) {
             vars[*v] = 0;
             links[*v] = -2;
@@ -909,6 +943,7 @@ public:
         getIntParam(height, line, "h");
 
         getIntParam(vigcorrMode, line, "Vm");
+        getIntParam(responseType, line, "Rt");
         getPTStringParam(flatfieldname,line,"Vf");
 
         string crop_str;
@@ -942,6 +977,7 @@ public:
     int blend_radius;
     int width, height;
     int vigcorrMode;
+    int responseType;
     vigra::Rect2D crop;
     bool autoCenterCrop;
     double cropFactor;
@@ -949,11 +985,13 @@ public:
 
 // cannot use Lens::variableNames here, because r,p,v need to be included
 char * ImgInfo::varnames[] = {"v","a","b","c","d","e","g","t","r","p","y",
-                              "Va", "Vb", "Vc", "Vd", "Vx", "Vy", 
-                              "K0a", "K0b", "K1a", "K1b", "K2a", "K2b", 0};
+                              "Va", "Vb", "Vc", "Vd", "Vx", "Vy",
+                              "Eev", "Er", "Eb",
+                              "Ra", "Rb", "Rc", "Rd", "Re",  0};
 double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  0.0, 0.0, 0.0,
                                       1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
-                                      1.0, 0.0,  1.0, 0.0,  1.0, 0.0};
+                                      0.0, 1.0,  1.0, 
+                                      0.0, 0.0, 0.0, 0.0, 0.0};
 
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
@@ -1014,6 +1052,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
             int height;
             getIntParam(height, line, "h");
             options.setHeight(height);
+
+            double newE;
+            getDoubleParam(newE, line, "E");
+            options.outputExposureValue = newE;
+            int ar=0;
+            getIntParam(ar, line, "R");
+            options.outputMode = (PanoramaOptions::OutputMode) ar;
+
+            getPTStringParam(format,line,"T");
+            options.outputPixelType = format;
 
             // parse projection parameters
             getPTStringParam(format,line,"P");
@@ -1153,10 +1201,18 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
                         // special case for PTGUI
                         var += "0";
                     }
-                    unsigned int nr = utils::lexical_cast<unsigned int>(var.substr(1));
+                    // find first numerical character
+                    std::string::size_type np = var.find_first_of("0123456789");
+                    if (np == std::string::npos) {
+                        // invalid, continue
+                        continue;
+                    }
+                    std::string name=var.substr(0,np);
+                    std::string number = var.substr(np);
+                    unsigned int nr = utils::lexical_cast<unsigned int>(number);
                     DEBUG_ASSERT(nr < optvec.size());
-                    optvec[nr].insert(var.substr(0,1));
-                    DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << var[0] << " image:" << nr);
+                    optvec[nr].insert(name);
+                    DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << name << " image:" << nr);
                 }
             }
             break;
@@ -1569,6 +1625,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
         }
         opts.m_vigCorrMode = iImgInfo[i].vigcorrMode;
         opts.m_flatfield = iImgInfo[i].flatfieldname;
+        opts.responseType = iImgInfo[i].responseType;
         opts.autoCenterCrop = iImgInfo[i].autoCenterCrop;
         images.back().setOptions(opts);
     }
