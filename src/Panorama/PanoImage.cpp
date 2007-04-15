@@ -124,7 +124,12 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
         m_pitch == other.m_pitch  &&
         m_yaw == other.m_yaw &&
 
-        m_gamma == other.m_gamma  &&
+        m_responseType == other.m_responseType &&
+        m_emorParams == other.m_emorParams &&
+        m_exposure == other.m_exposure &&
+        m_gamma == m_gamma &&
+        m_wbRed == m_wbRed &&
+        m_wbBlue == m_wbBlue &&
 
         m_radialDist == other.m_radialDist  &&
         m_radialDistRed == other.m_radialDistRed  &&
@@ -149,6 +154,76 @@ bool SrcPanoImage::operator==(const SrcPanoImage & other) const
         m_lensNr == other.m_lensNr  &&
         m_featherWidth == other.m_featherWidth  &&
         m_morph == other.m_morph);
+}
+
+// convinience functions to extract a set of variables
+double SrcPanoImage::getVar(const std::string & name) const
+{
+    assert(name.size() > 0);
+    // TODO: support all variables
+    if (name == "Eev") 
+        return m_exposure;
+    else if (name == "Er")
+        return m_wbRed;
+    else if (name == "Eb")
+        return m_wbBlue;
+    else if (name == "Ra")
+        return m_emorParams[0];
+    else if (name[0] == 'R')
+    {
+        assert(name.size() == 2);
+        int i = name[1] - 'a';
+        return m_emorParams[i];
+    } else if (name[0] == 'V')
+    {
+        int i = name[1] - 'a';
+        if (i > 0 && i < 4) {
+            return m_radialVigCorrCoeff[i];
+        } else {
+            if (name[1] == 'x') {
+                return m_radialVigCorrCenterShift.x;
+            } else if (name[1] == 'y') {
+                return m_radialVigCorrCenterShift.y;
+            }
+        }
+    } else {
+        assert(0 || "Unknown variable in getVar()");
+    }
+    return 0;
+}
+
+void SrcPanoImage::setVar(const std::string & name, double val)
+{
+    assert(name.size() > 0);
+    // TODO: support all variables
+    if (name == "Eev") 
+        m_exposure = val;
+    else if (name == "Er")
+        m_wbRed = val;
+    else if (name == "Eb")
+        m_wbBlue = val;
+    else if (name[0] == 'R')
+    {
+        assert(name.size() == 2);
+        int i = name[1] - 'a';
+        m_emorParams[i] = val;
+    } else if (name[0] == 'V')
+    {
+        int i = name[1] - 'a';
+        if (i >= 0 && i < 4) {
+            m_radialVigCorrCoeff[i] = val;
+        } else {
+            if (name[1] == 'x') {
+                m_radialVigCorrCenterShift.x = val;
+            } else if (name[1] == 'y') {
+                m_radialVigCorrCenterShift.y = val;
+            } else {
+                DEBUG_ERROR("Unknown variable " << name);
+            }
+        }
+    } else {
+        DEBUG_ERROR("Unknown variable " << name);
+    }
 }
 
 
@@ -183,6 +258,14 @@ bool PT::initImageFromFile(SrcPanoImage & img, double & focalLength, double & cr
 #ifdef DEBUG
             ShowImageInfo(exif);
 #endif
+            std::cout << "exp time: " << exif.ExposureTime  << " f-stop: " <<  exif.ApertureFNumber << std::endl;
+            // calculate exposure from exif image
+            if (exif.ExposureTime > 0 && exif.ApertureFNumber > 0) {
+                double gain = 1;
+                if (exif.ISOequivalent > 0)
+                    gain = exif.ISOequivalent/ 100.0;
+                img.setExposureValue(log2(exif.ApertureFNumber*exif.ApertureFNumber/(gain * exif.ExposureTime)));
+            }
 
             img.setExifMake(exif.CameraMake);
             img.setExifModel(exif.CameraModel);
@@ -259,6 +342,8 @@ bool PT::initImageFromFile(SrcPanoImage & img, double & focalLength, double & cr
     img.setExifFocalLength(focalLength);
     img.setExifCropFactor(cropFactor);
     img.setRoll(roll);
+
+
 
     if (focalLength > 0 && cropFactor > 0) {
         img.setHFOV(calcHFOV(img.getProjection(), focalLength, cropFactor, img.getSize()));
