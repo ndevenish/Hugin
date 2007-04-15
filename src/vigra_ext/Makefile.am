@@ -9,4 +9,3 @@ noinst_LTLIBRARIES = libvigra_ext.la
 libvigra_ext_la_SOURCES = MultiThreadOperations.cpp emor.cpp
 
 EXTRA_DIST = vigra_ext.vcproj
-noinst_HEADERS = Pyramid2.h
