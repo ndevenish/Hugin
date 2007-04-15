@@ -36,7 +36,7 @@
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
-#include "hugin/CPFineTuneFrame.h"
+//#include "hugin/CPFineTuneFrame.h"
 #include "hugin/wxPanoCommand.h"
 
 
@@ -159,7 +159,7 @@ CPEditorPanel::CPEditorPanel(wxWindow * parent, PT::Panorama * pano)
     m_leftImg->SetZoomView(m_fineTuneFrame->GetLeftImg());
     m_rightImg->SetZoomView(m_fineTuneFrame->GetRightImg());
 #else
-    m_fineTuneFrame=0;
+//    m_fineTuneFrame=0;
 #endif
 
 
@@ -366,9 +366,9 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         m_leftImg->setImage("", CPImageCtrl::ROT0);
         m_leftImageNr = imgNr;
         m_leftFile = "";
-        if (m_fineTuneFrame) {
-            m_fineTuneFrame->GetLeftImg()->Clear();
-        }
+//        if (m_fineTuneFrame) {
+//            m_fineTuneFrame->GetLeftImg()->Clear();
+//        }
         changeState(NO_POINT);
         UpdateDisplay(true);
     } else if (m_leftImageNr != imgNr) {
@@ -390,9 +390,9 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         changeState(NO_POINT);
-        if (m_fineTuneFrame) {
-            m_fineTuneFrame->GetLeftImg()->SetImage(imgNr);
-        }
+//        if (m_fineTuneFrame) {
+//            m_fineTuneFrame->GetLeftImg()->SetImage(imgNr);
+//        }
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
@@ -409,9 +409,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightImageNr = imgNr;
         m_rightFile = "";
         m_rightRot = CPImageCtrl::ROT0;
-        if (m_fineTuneFrame) {
-            m_fineTuneFrame->GetRightImg()->Clear();
-        }
+//        if (m_fineTuneFrame) {
+//            m_fineTuneFrame->GetRightImg()->Clear();
+//        }
         changeState(NO_POINT);
         UpdateDisplay(true);
     } else if (m_rightImageNr != imgNr) {
@@ -436,9 +436,9 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
         changeState(NO_POINT);
-        if (m_fineTuneFrame) {
-            m_fineTuneFrame->GetRightImg()->SetImage(imgNr);
-        }
+//        if (m_fineTuneFrame) {
+//            m_fineTuneFrame->GetRightImg()->SetImage(imgNr);
+//        }
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
@@ -983,15 +983,17 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const PanoImage & img = m_pano->getImage(subjImgNr);
 
     // fixme: just cutout suitable gray 
-    wxImage * wxSubjImg = ImageCache::getInstance().getImage(img.getFilename())->image;
-    wxImage * wxTmplImg = ImageCache::getInstance().getImage( m_pano->getImage(tmplImgNr).getFilename())->image;
+    wxImage wxSubjImg;
+    ImageCache::getInstance().getImageWX(img.getFilename(), wxSubjImg);
+    wxImage wxTmplImg;
+    ImageCache::getInstance().getImageWX( m_pano->getImage(tmplImgNr).getFilename(), wxTmplImg);
 
-    BasicImageView<RGBValue<unsigned char> > subjImg((RGBValue<unsigned char> *)wxSubjImg->GetData(),
-            wxSubjImg->GetWidth(),
-            wxSubjImg->GetHeight());
-    BasicImageView<RGBValue<unsigned char> > tmplImg((RGBValue<unsigned char> *)wxTmplImg->GetData(),
-            wxTmplImg->GetWidth(),
-            wxTmplImg->GetHeight());
+    BasicImageView<RGBValue<unsigned char> > subjImg((RGBValue<unsigned char> *)wxSubjImg.GetData(),
+            wxSubjImg.GetWidth(),
+            wxSubjImg.GetHeight());
+    BasicImageView<RGBValue<unsigned char> > tmplImg((RGBValue<unsigned char> *)wxTmplImg.GetData(),
+            wxTmplImg.GetWidth(),
+            wxTmplImg.GetHeight());
 
     wxConfigBase *cfg = wxConfigBase::Get();
     bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;

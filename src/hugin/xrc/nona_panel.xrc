@@ -111,6 +111,7 @@
                         <item>TIFF</item>
                         <item>Multiple TIFF</item>
                         <item>Multilayer TIFF</item>
+                        <item>HDR</item>
                       </content>
                       <selection>0</selection>
                     </object>

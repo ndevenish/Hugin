@@ -57,14 +57,20 @@ extern "C" {
 using namespace utils;
 
 // a random id, hope this doesn't break something..
-#define ID_PROJECTION_CHOICE 12331
-#define ID_BLEND_CHOICE 12332
-#define ID_UPDATE_BUTTON 12333
-#define ID_TOGGLE_BUT 12334
-
-#define PROJ_PARAM_NAMES_ID  14000
-#define PROJ_PARAM_VAL_ID    14100
-#define PROJ_PARAM_SLIDER_ID 14200
+enum {
+    ID_PROJECTION_CHOICE = wxID_HIGHEST +1,
+    ID_BLEND_CHOICE,
+    ID_UPDATE_BUTTON,
+    ID_OUTPUTMODE_CHOICE,
+    ID_EXPOSURE_TEXT,
+    ID_EXPOSURE_DECREASE,
+    ID_EXPOSURE_INCREASE,
+    ID_EXPOSURE_DEFAULT,
+    ID_TOGGLE_BUT = wxID_HIGHEST+100,
+    PROJ_PARAM_NAMES_ID = wxID_HIGHEST+1000,
+    PROJ_PARAM_VAL_ID = wxID_HIGHEST+1100,
+    PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1200
+};
 
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_CLOSE(PreviewFrame::OnClose)
@@ -79,8 +85,12 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_num_transform"), PreviewFrame::OnNumTransform)
     EVT_TEXT_ENTER( -1 , PreviewFrame::OnTextCtrlChanged)
 
+    EVT_BUTTON(ID_EXPOSURE_DEFAULT, PreviewFrame::OnDefaultExposure)
+    EVT_BUTTON(ID_EXPOSURE_DECREASE, PreviewFrame::OnDecreaseExposure)
+    EVT_BUTTON(ID_EXPOSURE_INCREASE, PreviewFrame::OnIncreaseExposure)
     EVT_CHOICE(ID_BLEND_CHOICE, PreviewFrame::OnBlendChoice)
     EVT_CHOICE(ID_PROJECTION_CHOICE, PreviewFrame::OnProjectionChoice)
+    EVT_CHOICE(ID_OUTPUTMODE_CHOICE, PreviewFrame::OnOutputChoice)
 #ifdef USE_TOGGLE_BUTTON
     EVT_TOGGLEBUTTON(-1, PreviewFrame::OnChangeDisplayedImgs)
 #else
@@ -88,7 +98,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 #endif
     EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
     EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
-//    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
+    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 END_EVENT_TABLE()
 
 #ifdef USE_WX253
@@ -114,7 +124,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(this, -1, _("displayed images")),
-        wxHORIZONTAL);
+    wxHORIZONTAL );
 
 	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
@@ -221,7 +231,8 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         wxALL | wxALIGN_CENTER_VERTICAL,
                         5);
 
-
+    //////////////////////////////////////////////////////
+    // Blend mode
     blendModeSizer->Add(new wxStaticText(this, -1, _("Blend mode:")),
                         0,        // not vertically strechable
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
@@ -242,8 +253,51 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         wxALL | wxALIGN_CENTER_VERTICAL,
                         5);
 
+    //////////////////////////////////////////////////////
+    // LDR, HDR
+    blendModeSizer->Add(new wxStaticText(this, -1, _("Output:")),
+                        0,        // not vertically strechable
+                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        5);       // border width
+
+    m_choices[0] = _("LDR");
+    m_choices[1] = _("HDR");
+    m_outputModeChoice = new wxChoice(this, ID_OUTPUTMODE_CHOICE,
+                                      wxDefaultPosition, wxDefaultSize,
+                                      2, m_choices);
+    m_outputModeChoice->SetSelection(0);
+    blendModeSizer->Add(m_outputModeChoice,
+                        0,
+                        wxALL | wxALIGN_CENTER_VERTICAL,
+                        5);
+
+    /////////////////////////////////////////////////////
+    // exposure
+    blendModeSizer->Add(new wxStaticText(this, -1, _("EV:")),
+                          0,        // not vertically strechable
+                          wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                          5);       // border width
+    
+    m_defaultExposureBut = new wxBitmapButton(this, ID_EXPOSURE_DEFAULT,
+                                              wxArtProvider::GetBitmap(wxART_REDO));
+    blendModeSizer->Add(m_defaultExposureBut, 0, wxLEFT | wxRIGHT, 5);
+    m_decExposureBut = new wxBitmapButton(this, ID_EXPOSURE_DECREASE,
+                                          wxArtProvider::GetBitmap(wxART_GO_BACK));
+    blendModeSizer->Add(m_decExposureBut);
+    m_exposureTextCtrl = new wxTextCtrl(this, ID_EXPOSURE_TEXT, _("0"),
+                                        wxDefaultPosition,wxSize(30,-1), wxTE_PROCESS_ENTER);
+    blendModeSizer->Add(m_exposureTextCtrl,
+                          0,        // not vertically strechable
+                          wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                          5);       // border width
+    m_incExposureBut = new wxBitmapButton(this, ID_EXPOSURE_INCREASE,
+                                          wxArtProvider::GetBitmap(wxART_GO_FORWARD));
+    blendModeSizer->Add(m_incExposureBut);
+
     m_topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
 
+    
+    
 #ifdef HasPANO13
     m_projParamSizer = new wxStaticBoxSizer(
     new wxStaticBox(this, -1, _("Projection Parameters")),
@@ -376,6 +430,20 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_ProjectionChoice->SetSelection(opts.getProjection());
     m_VFOVSlider->Enable( opts.fovCalcSupported(opts.getProjection()) );
 
+    m_outputModeChoice->SetSelection(opts.outputMode);
+    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+        m_exposureTextCtrl->Hide();
+        m_defaultExposureBut->Hide();
+        m_decExposureBut->Hide();
+        m_incExposureBut->Hide();
+    } else {
+        m_exposureTextCtrl->Show();
+        m_defaultExposureBut->Show();
+        m_decExposureBut->Show();
+        m_incExposureBut->Show();
+        m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,1).c_str(), *wxConvCurrent));
+    }
+
     // TODO: enable display of parameters and set their limits, if projection has some.
 #ifdef HasPANO13
     int nParam = opts.m_projFeatures.numberOfParameters;
@@ -462,7 +530,9 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 #ifdef USE_TOGGLE_BUTTON
                 wxToggleButton * but = new wxToggleButton(m_ButtonPanel,
                                                           ID_TOGGLE_BUT + *it,
-                                                          wxString::Format(wxT("%d"),*it));
+                                                          wxString::Format(wxT("%d"),*it),
+                                                          wxDefaultPosition, wxDefaultSize,
+                                                          wxBU_EXACTFIT);
 #else
                 wxCheckBox * but = new wxCheckBox(m_ButtonPanel,
                                                   ID_TOGGLE_BUT + *it,
@@ -658,31 +728,46 @@ void PreviewFrame::OnNumTransform(wxCommandEvent & e)
 
 void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
 {
-#if HasPANO13
     PanoramaOptions opts = m_pano.getOptions();
-    int nParam = opts.m_projFeatures.numberOfParameters;
-    std::vector<double> para = opts.getProjectionParameters();
-    for (int i = 0; i < nParam; i++) {
-        if (e.GetEventObject() == m_projParamTextCtrl[i]) {
-            wxString text = m_projParamTextCtrl[i]->GetValue();
-            DEBUG_INFO ("param " << i << ":  = " << text.mb_str() );
-            double p = 0;
-            if (text != wxT("")) {
-                if (!str2double(text, p)) {
-                    wxLogError(_("Value must be numeric."));
-                    return;
-                }
+    if (e.GetEventObject() == m_exposureTextCtrl) {
+        // exposure
+        wxString text = m_exposureTextCtrl->GetValue();
+        DEBUG_INFO ("target exposure = " << text.mb_str() );
+        double p = 0;
+        if (text != wxT("")) {
+            if (!str2double(text, p)) {
+                wxLogError(_("Value must be numeric."));
+                return;
             }
-            para[i] = p;
         }
+        opts.outputExposureValue = p;
+    } else {
+#if HasPANO13
+        int nParam = opts.m_projFeatures.numberOfParameters;
+        std::vector<double> para = opts.getProjectionParameters();
+        for (int i = 0; i < nParam; i++) {
+            if (e.GetEventObject() == m_projParamTextCtrl[i]) {
+                wxString text = m_projParamTextCtrl[i]->GetValue();
+                DEBUG_INFO ("param " << i << ":  = " << text.mb_str() );
+                double p = 0;
+                if (text != wxT("")) {
+                    if (!str2double(text, p)) {
+                        wxLogError(_("Value must be numeric."));
+                        return;
+                    }
+                }
+                para[i] = p;
+            }
+        }
+        opts.setProjectionParameters(para);
     }
-    opts.setProjectionParameters(para);
+#endif
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opts )
                                            );
     // update preview panel
     updatePano();
-#endif
+
 }
 
 void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
@@ -736,6 +821,39 @@ void PreviewFrame::OnBlendChoice(wxCommandEvent & e)
     }
 }
 
+
+void PreviewFrame::OnDefaultExposure( wxCommandEvent & e )
+{
+    if (m_pano.getNrOfImages() > 0) {
+        PanoramaOptions opt = m_pano.getOptions();
+        opt.outputExposureValue = calcMeanExposure(m_pano);
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( m_pano, opt )
+                                               );
+        updatePano();
+    }
+}
+
+void PreviewFrame::OnIncreaseExposure( wxCommandEvent & e )
+{
+    PanoramaOptions opt = m_pano.getOptions();
+    opt.outputExposureValue = opt.outputExposureValue + 1.0/3;
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( m_pano, opt )
+                                            );
+    updatePano();
+}
+
+void PreviewFrame::OnDecreaseExposure( wxCommandEvent & e )
+{
+    PanoramaOptions opt = m_pano.getOptions();
+    opt.outputExposureValue = opt.outputExposureValue - 1.0/3;
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( m_pano, opt )
+                                           );
+    updatePano();
+}
+
 void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
 {
     if (e.GetEventObject() == m_ProjectionChoice) {
@@ -754,6 +872,22 @@ void PreviewFrame::OnProjectionChoice( wxCommandEvent & e )
     }
 }
 
+void PreviewFrame::OnOutputChoice( wxCommandEvent & e)
+{
+    if (e.GetEventObject() == m_outputModeChoice) {
+        PanoramaOptions opt = m_pano.getOptions();
+        int lt = m_outputModeChoice->GetSelection();
+        wxString Ip;
+        opt.outputMode = ( (PanoramaOptions::OutputMode) lt );
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd( m_pano, opt )
+                                               );
+        updatePano();
+
+    } else {
+        DEBUG_WARN("wxChoice event from unknown object received");
+    }
+}
 
 /** update the display */
 void PreviewFrame::updateProgressDisplay()

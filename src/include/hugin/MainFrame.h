@@ -43,10 +43,10 @@ class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 class CropPanel;
+class OptimizePhotometricPanel;
 class PanoPanel;
 class PreviewFrame;
 class CPListFrame;
-//class OptimizeFrame;
 
 
 /** simple class that forward the drop to the mainframe */
@@ -73,7 +73,7 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay, public utils::ProgressReporter
 {
 public:
 
@@ -140,6 +140,11 @@ public:
 
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
 
+    void resetProgress(double max);
+    bool increaseProgress(double delta);
+    bool increaseProgress(double delta, const std::string & msg);
+    void setMessage(const std::string & msg);
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.
@@ -178,6 +183,9 @@ private:
 
     void DisplayHelp(wxString section);
 
+    // update progress display
+    bool displayProgress();
+
     wxNotebook * m_notebook;
     // tab panels
     AssistantPanel* assistant_panel;
@@ -186,6 +194,7 @@ private:
     CropPanel* crop_panel;
     CPEditorPanel * cpe;
     OptimizePanel * opt_panel;
+    OptimizePhotometricPanel * opt_photo_panel;
     PanoPanel * pano_panel;
 
     // flying windows
@@ -212,6 +221,11 @@ private:
 
     // the help browser
     wxHtmlHelpController * m_help;
+
+    // progress reporter
+    double m_progressMax;
+    double m_progress;
+    wxString m_progressMsg;
 
     DECLARE_EVENT_TABLE()
 };

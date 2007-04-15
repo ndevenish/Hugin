@@ -90,10 +90,11 @@ protected:
     void OnApply(wxCommandEvent & e);
     void OnCancel(wxCommandEvent & e);
     void OnFlatfieldSelect(wxCommandEvent & e);
-    void OnEstimate(wxCommandEvent & e);
 
     PT::Panorama & m_pano;
     unsigned int m_imgNr;
+
+    std::vector<vigra_ext::PointPairRGB> m_points;
 
     wxRadioBox * m_corrModeRBB;
 

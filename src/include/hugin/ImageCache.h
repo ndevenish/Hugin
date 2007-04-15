@@ -31,8 +31,8 @@
 #include <PT/RemappedPanoImage.h>
 //#include <PT/PanoImage.h>
 
-
-typedef wxImage * ImagePtr;
+typedef vigra::BRGBImage * ImagePtr8Bit;
+typedef vigra::FRGBImage * ImagePtrFloat;
 
 
 /** key for an image. used to find images, and to store access information.
@@ -72,23 +72,31 @@ public:
     class Entry
     {
         public:
-            ImagePtr image;
+            ImagePtr8Bit image8;
+            ImagePtrFloat imageFloat;
+            vigra::BImage * mask;
+
             std::string origType;
-            bool linear;
             int lastAccess;
 
             Entry()
-            : image(0), linear(true)
+            : image8(0), imageFloat(0), mask(0)
             { };
 
-            Entry(ImagePtr img, std::string typ, bool lin)
-            : image(img), origType(typ), linear(lin), lastAccess(0)
+            Entry(ImagePtr8Bit img, ImagePtrFloat imgFloat, std::string typ)
+            : image8(img), imageFloat(imgFloat), mask(0), origType(typ), lastAccess(0)
             { };
 
             ~Entry()
             {
-                if (image) {
-                    delete image;
+                if (image8) {
+                    delete image8;
+                }
+                if (imageFloat) {
+                    delete imageFloat;
+                }
+                if (mask) {
+                    delete mask;
                 }
             }
     };
@@ -108,6 +116,13 @@ public:
      */
     Entry * getImage(const std::string & filename);
 
+    /** get a wxImage
+     *
+     *  This function will just return the 8 bit image, or provide a
+     *  tonemapped image directly.
+     */
+    Entry * getImageWX(const std::string & filename, wxImage & img);
+
     /** get an small image version.
      *
      *  This image is 512x512 pixel maximum and can be used for icons
@@ -116,6 +131,14 @@ public:
      *  @todo let selfdefined images been added belonging to the original one.
      */
     Entry * getSmallImage(const std::string & filename);
+
+    /** get a scaled down wxImage
+     *
+     *  This function will just return the 8 bit image, or provide a
+     *  tonemapped image directly.
+     */
+    Entry * getSmallImageWX(const std::string & filename, wxImage & img);
+
 
     /** remove a specific image (and dependant images)
      * from the cache 
@@ -188,10 +211,10 @@ private:
  *
  *  This is meant to be used by the preview stitcher.
  */
-class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::BRGBImage,
+class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::FRGBImage,
                                 vigra::BImage>
 {
-    typedef PT::RemappedPanoImage<vigra::BRGBImage, vigra::BImage> MRemappedImage;
+    typedef PT::RemappedPanoImage<vigra::FRGBImage, vigra::BImage> MRemappedImage;
 public:
     virtual ~SmallRemappedImageCache();
 

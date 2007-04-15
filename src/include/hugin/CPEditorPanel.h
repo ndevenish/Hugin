@@ -58,7 +58,7 @@ class wxListEvent;
 class wxListCtrl;
 */
 
-class CPFineTuneFrame;
+//class CPFineTuneFrame;
 
 namespace vigra {
     class Diff2D;
@@ -266,7 +266,7 @@ private:
     wxNotebook *m_leftTabs, *m_rightTabs;
 #endif
     CPImageCtrl *m_leftImg, *m_rightImg;
-    CPFineTuneFrame * m_fineTuneFrame;
+    //CPFineTuneFrame * m_fineTuneFrame;
     wxListCtrl *m_cpList;
 
     wxTextCtrl *m_x1Text, *m_y1Text, *m_x2Text, *m_y2Text, *m_errorText;

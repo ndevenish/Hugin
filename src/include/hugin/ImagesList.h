@@ -105,7 +105,7 @@ protected:
     void OnColumnWidthChange( wxListEvent & e );
 
     /** create icons for an image */
-    void createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size);
+    //void createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size);
 
     UIntSet selectedItems;
 

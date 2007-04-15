@@ -29,6 +29,33 @@
 
 #include "common/utils.h"
 
+
+
+class ProgressReporterDialog : public utils::ProgressReporter, public wxProgressDialog
+{
+public:
+    ProgressReporterDialog(double maxProgress, const wxString& title, const wxString& message,
+                         wxWindow * parent = NULL, 
+                         int style = wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_ELAPSED_TIME,
+                         const wxSize & sz = wxDefaultSize)
+    : wxProgressDialog(title, message, 100, parent, style), 
+      m_progress(0),m_maxProgress(maxProgress), m_abort(false)
+      {  };
+
+    virtual ~ProgressReporterDialog();
+
+    virtual bool increaseProgress(double delta);
+    virtual bool increaseProgress(double delta, const std::string & msg);
+
+    virtual void setMessage(const std::string & msg);
+
+protected:
+    double m_progress;
+    double m_maxProgress;
+    wxString m_message;
+    bool m_abort;
+};
+
 /** wxProgressDialog with interface for my progress dialog
  *
  *  Also allows cancellation

@@ -31,6 +31,7 @@
 #define HUGIN_ASS_MAX_NORMAL_FOV            100.0
 #define HUGIN_ASS_PANO_DOWNSIZE_FACTOR        0.7
 #define HUGIN_ASS_AUTO_ALIGN                  1l
+#define HUGIN_ASS_OPT_PHOTOMETRIC             1l
 
 // template matching
 #define HUGIN_FT_TEMPLATE_SIZE                21l
@@ -47,8 +48,8 @@
 
 // Image cache defaults
 #define HUGIN_IMGCACHE_UPPERBOUND             78643200
-#define HUGIN_IMGCACHE_MAPPING                0l
-#define HUGIN_IMGCACHE_RANGE                  0l
+#define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
+#define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
 #define HUGIN_CP_CURSOR                       1
 
 #define HUGIN_CAPTURE_TIMESPAN                60l

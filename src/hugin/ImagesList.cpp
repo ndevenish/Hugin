@@ -63,8 +63,8 @@ pano(*pano)
     m_iconHeight = sz.y;
     DEBUG_DEBUG("icon Height: " << m_iconHeight);
 
-    m_smallIcons = new wxImageList(m_iconHeight, m_iconHeight);
-    AssignImageList(m_smallIcons,wxIMAGE_LIST_SMALL);
+    //m_smallIcons = new wxImageList(m_iconHeight, m_iconHeight);
+    //AssignImageList(m_smallIcons,wxIMAGE_LIST_SMALL);
     pano->addObserver(this);
     DEBUG_TRACE("");
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
@@ -101,7 +101,7 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
         DEBUG_DEBUG("item state after: " << GetItemState(i,wxLIST_STATE_SELECTED));
 
         RemoveItem(i);
-        m_smallIcons->Remove(i);
+        //m_smallIcons->Remove(i);
     }
 
     // update existing items
@@ -111,8 +111,8 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // create new item.
                 DEBUG_DEBUG("creating " << *it);
                 wxBitmap small0(m_iconHeight, m_iconHeight);
-                createIcon(small0, *it, m_iconHeight);
-                m_smallIcons->Add(small0);
+                //createIcon(small0, *it, m_iconHeight);
+                //m_smallIcons->Add(small0);
 
                 CreateItem(*it);
 
@@ -120,8 +120,8 @@ void ImagesList::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 // update existing item
                 DEBUG_DEBUG("updating item" << *it);
                 wxBitmap small0(m_iconHeight, m_iconHeight);
-                createIcon(small0, *it, m_iconHeight);
-                m_smallIcons->Replace(*it, small0);
+                //createIcon(small0, *it, m_iconHeight);
+                //m_smallIcons->Replace(*it, small0);
 
                 UpdateItem(*it);
             }
@@ -165,7 +165,7 @@ const UIntSet & ImagesList::GetSelected() const
     return selectedItems; 
 }
 
-
+#if 0
 void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size)
 {
     ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImage(
@@ -215,6 +215,7 @@ void ImagesList::createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int 
 //    wxMask * m = new wxMask(bitmap, wxColour(0,0,0));
 //    bitmap.SetMask(m);
 }
+#endif
 
 void ImagesList::CreateItem(unsigned int imgNr)
 {

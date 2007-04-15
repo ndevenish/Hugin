@@ -171,6 +171,9 @@ void NonaStitcherPanel::UpdateDisplay(const PanoramaOptions & opt)
       case PanoramaOptions::TIFF_multilayer:
           format = 4;
           break;
+      case PanoramaOptions::HDR:
+          format = 5;
+          break;
       default:
           {
               PanoramaOptions opts = pano.getOptions();
@@ -281,6 +284,9 @@ void NonaStitcherPanel::FileFormatChanged ( wxCommandEvent & e )
         break;
     case 4:
         opt.outputFormat = PanoramaOptions::TIFF_multilayer;
+        break;
+    case 5:
+        opt.outputFormat = PanoramaOptions::HDR;
         break;
     default:
         DEBUG_ERROR("Unknown output format " << format);

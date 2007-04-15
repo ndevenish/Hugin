@@ -38,7 +38,6 @@ using namespace PT;
 using namespace std;
 using namespace utils;
 
-
 BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_CHOICE (XRCID("lensdlg_type_choice"),HFOVDialog::OnTypeChanged)
     EVT_TEXT ( XRCID("lensdlg_cropfactor_text"), HFOVDialog::OnCropFactorChanged )
@@ -110,6 +109,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
 
 void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 {
+    DEBUG_DEBUG("new type: " << m_projChoice->GetSelection());
     m_srcImg.setProjection( (SrcPanoImage::Projection)m_projChoice->GetSelection() );
     if (m_cropFactor > 0 && m_focalLength > 0) {
         m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
@@ -122,7 +122,7 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
 void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 {
     wxString text = m_hfovText->GetValue();
-    DEBUG_DEBUG(m_HFOVStr.mb_str() << " => " << text.mb_str());
+    DEBUG_DEBUG("state: " <<  m_HFOVStr.mb_str() << ", change:" << text.mb_str());
     DEBUG_DEBUG("cmd str: " << e.GetString().mb_str());
     if (text.empty()) {
         // ignore all empty hfov changes
@@ -142,10 +142,12 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
         m_okButton->Disable();
         return;
     }
+
     if (!str2double(text, m_HFOV)) {
         m_okButton->Disable();
         return;
     }
+
     DEBUG_DEBUG(m_HFOV);
 
     if (m_HFOV <= 0) {
@@ -305,16 +307,17 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         t.y = const_map_get(vars,"Vy").getValue();
         m_srcImg.setRadialVigCorrCenterShift(t);
 
-        std::vector<double> k(3);
-        k[0] = const_map_get(vars,"K0a").getValue();
-        k[1] = const_map_get(vars,"K1a").getValue();
-        k[2] = const_map_get(vars,"K2a").getValue();
-        m_srcImg.setBrightnessFactor(k);
+        m_srcImg.setExposureValue(const_map_get(vars,"Eev").getValue());
+        m_srcImg.setWhiteBalanceRed(const_map_get(vars,"Er").getValue());
+        m_srcImg.setWhiteBalanceBlue(const_map_get(vars,"Eb").getValue());
 
-        k[0] = const_map_get(vars,"K0b").getValue();
-        k[1] = const_map_get(vars,"K1b").getValue();
-        k[2] = const_map_get(vars,"K2b").getValue();
-        m_srcImg.setBrightnessOffset(k);
+        std::vector<float> resp(5);
+        resp[0] = const_map_get(vars,"Ra").getValue();
+        resp[1] = const_map_get(vars,"Rb").getValue();
+        resp[2] = const_map_get(vars,"Rc").getValue();
+        resp[3] = const_map_get(vars,"Rd").getValue();
+        resp[4] = const_map_get(vars,"Re").getValue();
+        m_srcImg.setEMoRParams(resp);
 
         if (!opts.docrop) {
             m_srcImg.setCropMode(SrcPanoImage::NO_CROP);
@@ -338,8 +341,6 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         // update lens type
         m_okButton->Enable();
     }
-    
-
 }
 
 

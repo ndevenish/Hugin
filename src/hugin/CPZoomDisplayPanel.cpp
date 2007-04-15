@@ -383,12 +383,14 @@ void CPZoomDisplayPanel::updateInternal()
     BImage srcAlpha(src->GetWidth(), src->GetHeight(), 255);
 
     MultiProgressDisplay dummy;
+    vigra_ext::PassThroughFunctor<vigra::RGBValue<vigra::UInt8> > nf;
     // finally remap image...
     transformImage(srcImageRange(srcImg),
                    destImageRange(destImg),
                    destImage(srcAlpha),
                    Diff2D(0,0),
                    m_t_center2img,
+                   nf,
                    false,
                    vigra_ext::INTERP_CUBIC,
                    dummy);

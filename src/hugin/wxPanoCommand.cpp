@@ -161,6 +161,7 @@ void wxAddImagesCmd::execute()
     // load additional images...
     for (it = files.begin(); it != files.end(); ++it) {
         const std::string &filename = *it;
+        wxString fname(filename.c_str(), *wxConvCurrent);
 
         // try to read settings automatically.
         srcImg.setFilename(filename);
@@ -170,6 +171,10 @@ void wxAddImagesCmd::execute()
             cropFactor = 0;
         }
         bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+        if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
+            wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
+            return;
+        }
 #if 0
         if (! ok) {
                  // search for image with matching size and exif data
@@ -232,6 +237,12 @@ void wxAddImagesCmd::execute()
         PanoImage img(filename, srcImg.getSize().x, srcImg.getSize().y, (unsigned int) matchingLensNr);
         int imgNr = pano.addImage(img, vars);
         pano.setSrcImage(imgNr, srcImg);
+        if (imgNr == 0) {
+            // get initial value for output exposure
+            PanoramaOptions opts = pano.getOptions();
+            opts.outputExposureValue = srcImg.getExposureValue();
+            pano.setOptions(opts);
+        }
     }
     pano.changeFinished();
 }

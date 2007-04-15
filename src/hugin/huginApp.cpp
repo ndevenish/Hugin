@@ -305,6 +305,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("keyboard_help.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pref_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("vig_corr_dlg.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_photo_panel.xrc"));
 #ifdef USE_WX253
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel-2.5.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));

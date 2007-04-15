@@ -1,7 +1,7 @@
 # Over-ride default includes so that we have finer control in the makefiles
 DEFAULT_INCLUDES="-I."
 INCLUDES    = -I$(top_builddir)/src/include -I${top_srcdir}/src/foreign -I${top_srcdir}/src/include -I.. $(WX_CXXFLAGS)
-AM_CXXFLAGS = $(GTK_CFLAGS) $(PANO_FLAGS) $(BOOST_CPPFLAGS) -DINSTALL_XRC_DIR=\"$(datadir)/hugin/xrc\" -DINSTALL_LOCALE_DIR=\"${datadir}/locale\"
+AM_CXXFLAGS = $(GTK_CFLAGS) $(PANO_FLAGS) $(BOOST_CPPFLAGS) $(OPENEXR_CFLAGS) -DINSTALL_XRC_DIR=\"$(datadir)/hugin/xrc\" -DINSTALL_LOCALE_DIR=\"${datadir}/locale\"
 
 SUFFIXES    = .rc
 
@@ -14,9 +14,9 @@ RCCOMPILE   = $(RC) $(RCFLAGS) \
 
 STD_SRC     = huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp MainFrame.cpp CPImageCtrl.cpp CPEditorPanel.cpp LensPanel.cpp \
 	      ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaStitcherPanel.cpp PTStitcherPanel.cpp PreviewFrame.cpp \
-	      PreviewPanel.cpp CropPanel.cpp OptimizePanel.cpp RunStitcherFrame.cpp CPListFrame.cpp \
+	      PreviewPanel.cpp CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp \
+          RunStitcherFrame.cpp CPListFrame.cpp \
 	      TextKillFocusHandler.cpp PanoDruid.cpp \
-	      CPZoomDisplayPanel.cpp CPFineTuneFrame.cpp \
 	      PreferencesDialog.cpp LocalizedFileTipProvider.cpp VigCorrDialog.cpp \
 	      wxPanoCommand.cpp MyExternalCmdExecDialog.cpp UniversalCursor.cpp \
 	      AssistantPanel.cpp HFOVDialog.cpp
@@ -35,10 +35,12 @@ libhuginwxutils_la_SOURCES = ImageCache.cpp MyProgressDialog.cpp Plot2D.cpp \
 
 bin_PROGRAMS   = hugin
 hugin_SOURCES  = $(STD_SRC) $(WIN_SRC)
-hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO) $(BOOST_THREAD_LIB)
+hugin_LDFLAGS  = $(WX_LIBS) $(GTK_LIBS) $(LIB_TIFF) $(LIB_PNG) $(LIB_JPEG) $(LIB_ZLIB) $(LIB_PANO) $(BOOST_THREAD_LIB) $(OPENEXR_LIBS)
 hugin_LDADD    = ${top_builddir}/src/Panorama/libpanorama.la ${top_builddir}/src/foreign/vigra_impex/libvigra_impex.la \
 	             ${top_builddir}/src/jhead/libjhead.la ${top_builddir}/src/common/libcommon.la  \
-	             libhuginwxutils.la ${top_builddir}/src/vigra_ext/libvigra_ext.la
+	             libhuginwxutils.la ${top_builddir}/src/vigra_ext/libvigra_ext.la \
+                 ${top_builddir}/src/foreign/levmar/liblevmar.la
+
 noinst_HEADERS = win_prep.h
 
 desktopdir = $(datadir)/applications

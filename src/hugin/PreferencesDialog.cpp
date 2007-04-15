@@ -663,8 +663,8 @@ void PreferencesDialog::UpdateDisplayData()
     }
 
     // hdr display settings
-    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING));
-    MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
+    MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
+//    MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
 
 
     // cursor setting
@@ -794,8 +794,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // locale
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
             // hdr
-            cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING);
-            cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
+            cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT);
+            //cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
             // use preview images as active images
@@ -888,7 +888,7 @@ void PreferencesDialog::UpdateConfigData()
     
     // hdr display
     cfg->Write(wxT("/ImageCache/Mapping"),MY_G_CHOICE_VAL("prefs_misc_hdr_mapping"));
-    cfg->Write(wxT("/ImageCache/Range"),MY_G_CHOICE_VAL("prefs_misc_hdr_range"));
+    //cfg->Write(wxT("/ImageCache/Range"),MY_G_CHOICE_VAL("prefs_misc_hdr_range"));
     
     // cursor
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));

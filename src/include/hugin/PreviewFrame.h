@@ -67,8 +67,13 @@ protected:
     void OnChangeFOV(wxScrollEvent & e);
     void OnTextCtrlChanged(wxCommandEvent & e);
 
+    void OnDefaultExposure( wxCommandEvent & e );
+    void OnDecreaseExposure( wxCommandEvent & e );
+    void OnIncreaseExposure( wxCommandEvent & e );
+
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
+    void OnOutputChoice(wxCommandEvent & e);
 
     // update the panorama display
     void updatePano();
@@ -82,6 +87,12 @@ private:
     wxSlider * m_VFOVSlider;
     wxChoice * m_BlendModeChoice;
     wxChoice * m_ProjectionChoice;
+    wxChoice * m_outputModeChoice;
+    wxTextCtrl * m_exposureTextCtrl;
+    wxBitmapButton * m_defaultExposureBut;
+    wxBitmapButton * m_incExposureBut;
+    wxBitmapButton * m_decExposureBut;
+
     wxString m_choices[3];
     int m_oldProjFormat;
 

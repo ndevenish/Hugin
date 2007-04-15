@@ -214,7 +214,7 @@ protected:
     void rescaleImage();
 
     /// update display of zoomed point
-    void updateZoomed();
+//    void updateZoomed();
 
 
 
@@ -412,7 +412,7 @@ private:
 
     CPEditorPanel * m_editPanel;
 
-    CPZoomDisplayPanel * m_zoomDisplay;
+//    CPZoomDisplayPanel * m_zoomDisplay;
 
     ImageRotation m_imgRotation;
 

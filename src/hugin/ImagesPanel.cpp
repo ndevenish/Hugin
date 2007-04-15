@@ -507,14 +507,14 @@ void ImagesPanel::UpdatePreviewImage()
     if (m_showImgNr < 0 || m_showImgNr >= pano.getNrOfImages()) {
         return;
     }
-    ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImage(
-            pano.getImage(m_showImgNr).getFilename());
+    wxImage img;
+    ImageCache::Entry * cacheEntry = ImageCache::getInstance().getSmallImageWX(
+            pano.getImage(m_showImgNr).getFilename(), img);
     if (! cacheEntry) {
         return;
     }
-    const wxImage * img = cacheEntry->image;
 
-    double iRatio = (double)img->GetWidth() / img->GetHeight();
+    double iRatio = (double)img.GetWidth() / img.GetHeight();
 
     wxSize sz;
 #ifdef USE_WX253
@@ -539,7 +539,7 @@ void ImagesPanel::UpdatePreviewImage()
         // portrait
         sz.SetWidth((int) (sz.GetHeight() * iRatio));
     }
-    wxImage scaled = img->Scale(sz.GetWidth(),sz.GetHeight());
+    wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetSize(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
 }

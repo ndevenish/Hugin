@@ -13,7 +13,9 @@
               
               
               
+              
               <label>Type of Correction</label>
+              
               
               
               
@@ -27,7 +29,9 @@
               
               
               
+              
               <selection>1</selection>
+              
               
               
               
@@ -37,13 +41,16 @@
               
               
               
+              
               <style>wxRA_SPECIFY_ROWS</style>
             </object>
             
             
             
             
+            
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            
             
             
             
@@ -64,13 +71,16 @@
                       
                       
                       
+                      
                       <label>Flatfield</label>
                     </object>
                     
                     
                     
                     
+                    
                     <flag>wxBOTTOM|wxALIGN_CENTRE_VERTICAL</flag>
+                    
                     
                     
                     
@@ -86,8 +96,10 @@
                           
                           
                           
+                          
                           <label>Image file:</label>
                         </object>
+                        
                         
                         
                         
@@ -100,12 +112,15 @@
                         
                         
                         
+                        
                         <option>1</option>
                         
                         
                         
                         
+                        
                         <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                        
                         
                         
                         
@@ -118,8 +133,10 @@
                           
                           
                           
+                          
                           <label>...</label>
                         </object>
+                        
                         
                         
                         
@@ -131,12 +148,15 @@
                     
                     
                     
+                    
                     <option>5</option>
                     
                     
                     
                     
+                    
                     <flag>wxBOTTOM|wxEXPAND</flag>
+                    
                     
                     
                     
@@ -149,13 +169,16 @@
                       
                       
                       
+                      
                       <label>Polynomial</label>
                     </object>
                     
                     
                     
                     
+                    
                     <option>1</option>
+                    
                     
                     
                     
@@ -174,8 +197,10 @@
                           
                           
                           
+                          
                           <label>c = </label>
                         </object>
+                        
                         
                         
                         
@@ -194,8 +219,10 @@
                         
                         
                         
+                        
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       
+                        
                         
                         
                         
@@ -211,8 +238,10 @@
                           
                           
                           
+                          
                           <label> + </label>
                         </object>
+                        
                         
                         
                         
@@ -231,8 +260,10 @@
                         
                         
                         
+                        
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       
+                        
                         
                         
                         
@@ -248,8 +279,10 @@
                           
                           
                           
+                          
                           <label>*r^2 + </label>
                         </object>
+                        
                         
                         
                         
@@ -268,8 +301,10 @@
                         
                         
                         
+                        
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       
+                        
                         
                         
                         
@@ -285,8 +320,10 @@
                           
                           
                           
+                          
                           <label>*r^4 + </label>
                         </object>
+                        
                         
                         
                         
@@ -305,8 +342,10 @@
                         
                         
                         
+                        
                         <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       
+                        
                         
                         
                         
@@ -322,8 +361,10 @@
                           
                           
                           
+                          
                           <label>*r^6</label>
                         </object>
+                        
                         
                         
                         
@@ -343,6 +384,7 @@
                     
                     
                     
+                    
                     <size>0,0</size>
                   </object>
                   <object class="sizeritem">
@@ -357,8 +399,10 @@
                           
                           
                           
+                          
                           <label>center shift x:</label>
                         </object>
+                        
                         
                         
                         
@@ -377,13 +421,16 @@
                         
                         
                         
+                        
                         <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                       
                         
                         
                         
                         
+                        
                         <border>6</border>
+                        
                         
                         
                         
@@ -399,8 +446,10 @@
                           
                           
                           
+                          
                           <label>y:</label>
                         </object>
+                        
                         
                         
                         
@@ -419,8 +468,10 @@
                         
                         
                         
+                        
                         <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       
+                        
                         
                         
                         
@@ -430,28 +481,12 @@
                         
                         
                         
+                        
                         <minsize>60,-1</minsize>
-                      </object>
-                      <object class="spacer">
-                        
-                        
-                        <option>1</option>
-                        
-                        
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxButton" name="vig_corr_estimate">
-                          
-                          
-                          <label>Estimate polynomial</label>
-                        </object>
-                        
-                        
-                        <flag>wxALIGN_CENTRE_VERTICAL</flag>
                       </object>
                     </object>
                   
+                    
                     
                     
                     <flag>wxEXPAND</flag>
@@ -469,7 +504,9 @@
                 
                 
                 
+                
                 <flag>wxALL|wxEXPAND</flag>
+                
                 
                 
                 
@@ -483,14 +520,19 @@
                   
                 </object>
                 
+                
                 <option>1</option>
+                
                 <flag>wxALL|wxEXPAND</flag>
                 
+                
                 <border>5</border>
+                
                 
                 <minsize>500,200</minsize>
               </object>
             </object>
+            
             
             
             
@@ -506,14 +548,17 @@
             
             
             
+            
             <flag>wxALL|wxEXPAND</flag>
           
+            
             
             
             
             <border>4</border>
           </object>
         </object>
+        
         
         
         
@@ -529,7 +574,9 @@
         
         
         
+        
         <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        
         
         
         
@@ -549,7 +596,9 @@
             
             
             
+            
             <option>1</option>
+            
             
             
             
@@ -560,6 +609,7 @@
           </object>
           <object class="sizeritem">
             <object class="wxButton" name="wxID_OK">
+              
               
               
               
@@ -577,6 +627,7 @@
               
               
               
+              
               <label></label>
             </object>
             
@@ -585,7 +636,9 @@
             
             
             
+            
             <flag>wxLEFT|wxRIGHT</flag>
+            
             
             
             
@@ -602,6 +655,7 @@
               
               
               
+              
               <label></label>
             </object>
           </object>
@@ -612,7 +666,9 @@
         
         
         
+        
         <flag>wxBOTTOM|wxLEFT|wxRIGHT|wxEXPAND</flag>
+        
         
         
         

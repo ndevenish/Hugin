@@ -178,8 +178,9 @@ void CropPanel::Pano2Display(int imgNr)
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image
     if (m_currentImageFile != newImgFile) {
-        wxImage * wximg = ImageCache::getInstance().getImage(newImgFile)->image;
-        m_Canvas->SetImage(*wximg);
+        wxImage wximg;
+        ImageCache::getInstance().getImageWX(newImgFile, wximg);
+        m_Canvas->SetImage(wximg);
         m_currentImageFile == newImgFile;
     }
     m_imgOpts = img.getOptions();
