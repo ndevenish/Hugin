@@ -39,6 +39,8 @@
 #endif
 
 #include "panoinc.h"
+
+#include <vigra_ext/lut.h>
 #include "PT/Panorama.h"
 #include "PT/Stitcher.h"
 #include "PT/SpaceTransform.h"
@@ -50,6 +52,7 @@ using namespace vigra;
 using namespace PT;
 using namespace std;
 using namespace utils;
+using namespace vigra_ext;
 
 
 /** remap a single image
@@ -72,43 +75,16 @@ void correctImage(SrcImgType & srcImg,
     typedef typename vigra::NumericTraits<SrcPixelType>::RealPromote RSrcPixelType;
 
     // prepare some information required by multiple types of vignetting correction
-    bool vigCorrDivision = (src.getVigCorrMode() & PT::SrcPanoImage::VIGCORR_DIV)>0;
-
-    RSrcPixelType ka,kb;
-    convertKParams(src.getBrightnessFactor(),
-                                                 src.getBrightnessOffset(),
-                                                 ka, kb);
-
-    bool dither = vigra_ext::ditheringNeeded(SrcPixelType());
-
-    double gMaxVal = vigra_ext::VigCorrTraits<typename DestImgType::value_type>::max();
-
-    bool doGammaConv = false;
     progress.pushTask(utils::ProgressTask("correcting image", ""));
 
-    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
-        progress.setMessage(std::string("flatfield vignetting correction ") + utils::stripPath(src.getFilename()));
-        vigra_ext::flatfieldVigCorrection(vigra::srcImageRange(srcImg),
-                                          vigra::srcImage(srcFlat), 
-                                          vigra::destImage(srcImg), src.getGamma(), gMaxVal,
-                                          vigCorrDivision, ka, kb, dither);
-        doGammaConv = true;
-    } else if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) {
-        progress.setMessage(std::string("radial vignetting correction ") + utils::stripPath(src.getFilename()));
-
-        vigra_ext::radialVigCorrection(srcImageRange(srcImg), destImage(srcImg),
-                                       src.getGamma(), gMaxVal,
-                                       src.getRadialVigCorrCoeff(), 
-                                       src.getRadialVigCorrCenter(),
-                                       vigCorrDivision, ka, kb, dither);
-        doGammaConv = true;
-    }
-
-    // undo inverse gamma correction that might have been applied during vignetting correction
-    if (src.getGamma() != 1.0 && doGammaConv) {
-        progress.setMessage(std::string("gamma correction ") + utils::stripPath(src.getFilename()));
-        vigra_ext::applyGammaCorrection(srcImageRange(srcImg), destImage(srcImg),
-                                        1.0/src.getGamma(), gMaxVal);
+    if( (src.getVigCorrMode() & PT::SrcPanoImage::VIGCORR_FLATFIELD)
+        || (src.getVigCorrMode() & PT::SrcPanoImage::VIGCORR_RADIAL) )
+    {
+        InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
+        if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
+            invResp.setFlatfield(&srcFlat);
+        }
+        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, Diff2D(0,0));
     }
 
     double scaleFactor=1.0;
@@ -125,9 +101,10 @@ void correctImage(SrcImgType & srcImg,
         src.setRadialDistortion(radGreen);
     }
 
-
     // hmm, dummy alpha image...
     BImage alpha(srcImg.size());
+
+    PassThroughFunctor<typename SrcPixelType::value_type> ptf;
 
     if (src.getCorrectTCA())
     {
@@ -144,11 +121,12 @@ void correctImage(SrcImgType & srcImg,
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
         } else {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+            vigra_ext::transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
                            transfr,
+                           ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
@@ -165,6 +143,7 @@ void correctImage(SrcImgType & srcImg,
                            destImage(alpha),
                            vigra::Diff2D(0,0),
                            transfg,
+                           ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
@@ -181,6 +160,7 @@ void correctImage(SrcImgType & srcImg,
                            destImage(alpha),
                            vigra::Diff2D(0,0),
                            transfb,
+                           ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
@@ -196,139 +176,18 @@ void correctImage(SrcImgType & srcImg,
             vigra::copyImage(srcImageRange(srcImg),
                              destImage(destImg));
         } else {
+            PassThroughFunctor<SrcPixelType> ptfRGB;
             transformImage(srcImageRange(srcImg),
                            destImageRange(destImg),
                            destImage(alpha),
                            vigra::Diff2D(0,0),
                            transf,
+                           ptfRGB,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
         }
     }
-
-
-    /*
-    // correct image
-    // check if image should be tca corrected, and calculate scale factor accordingly.
-    double scaleFactor=1;
-    vector<double> radGreen = src.getRadialDistortion();
-    vector<double> radRed   = src.getRadialDistortionRed();
-    vector<double> radBlue  = src.getRadialDistortionBlue();
-
-    DEBUG_DEBUG("Initial distortion correction parameters:" << endl
-            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3] << endl
-            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
-            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] <<endl);
-
-    combinePolynom4(radGreen , src.getRadialDistortionRed(), radRed);
-    combinePolynom4(radGreen, src.getRadialDistortionBlue(), radBlue);
-
-    DEBUG_DEBUG("after applying g correction parameters to r and b:" << endl
-            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
-            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
-            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
-
-    if (src.getCorrectTCA())
-    {
-        // calculate scaling factor required to avoid black borders.
-        double scaleR = estRadialScaleCrop(radRed, src.getSize().x, src.getSize().y);
-        double scaleG = estRadialScaleCrop(radGreen, src.getSize().x, src.getSize().y);
-        double scaleB = estRadialScaleCrop(radBlue, src.getSize().x, src.getSize().y);
-        scaleFactor = std::max(std::max(scaleR,scaleG),scaleB);
-    } else {
-        scaleFactor = estRadialScaleCrop(radGreen, src.getSize().x, src.getSize().y);
-    }
-    // adjust radial distortion coeffs
-    // expand or shrink image
-    scaleFactor = 1/scaleFactor;
-    DEBUG_DEBUG("Black border correction factor: " << scaleFactor);
-    double sf=scaleFactor;
-    for (int i=0; i < 4; i++) {
-        radRed[3-i] *=sf;
-        radGreen[3-i] *=sf;
-        radBlue[3-i] *=sf;
-        sf *=scaleFactor;
-    }
-    DEBUG_DEBUG("after scaling for border correction:" << endl
-            << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
-            << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
-            << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
-
-    if (src.getCorrectTCA())
-    {
-        DEBUG_DEBUG("Final distortion correction parameters:" << endl
-                << "r: " << radRed[0] << " " << radRed[1] << " " << radRed[2] << " " << radRed[3]  << endl
-                << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] << endl
-                << "b: " << radBlue[0] << " " << radBlue[1] << " " << radBlue[2] << " " << radBlue[3] << endl);
-
-        // remap individual channels
-        SpaceTransform transf;
-        transf.InitRadialCorrect(src.getSize(), radRed, FDiff2D(0,0));
-        if (transf.isIdentity()) {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
-        } else {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
-                        destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
-                        destImage(alpha),
-                        vigra::Diff2D(0,0),
-                        transf,
-                        false,
-                        vigra_ext::INTERP_SPLINE_16,
-                        progress);
-        }
-
-        transf.InitRadialCorrect(src.getSize(), radGreen, FDiff2D(0,0));
-        if (transf.isIdentity()) {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
-        } else {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
-                       destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
-                       destImage(alpha),
-                       vigra::Diff2D(0,0),
-                       transf,
-                       false,
-                       vigra_ext::INTERP_SPLINE_16,
-                       progress);
-        }
-
-        transf.InitRadialCorrect(src.getSize(), radBlue, FDiff2D(0,0));
-        if (transf.isIdentity()) {
-            vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
-                             destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
-        } else {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
-                       destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
-                       destImage(alpha),
-                       vigra::Diff2D(0,0),
-                       transf,
-                       false,
-                       vigra_ext::INTERP_SPLINE_16,
-                       progress);
-        }
-    } else {
-        // remap with the same coefficient.
-        DEBUG_DEBUG("Final distortion correction parameters: r: " 
-                << "g: " << radGreen[0] << " " << radGreen[1] << " " << radGreen[2] << " " << radGreen[3] );
-        SpaceTransform transf;
-        transf.InitRadialCorrect(src.getSize(), radGreen, FDiff2D(0,0));
-        if (transf.isIdentity()) {
-            vigra::copyImage(srcImageRange(srcImg),
-                             destImage(destImg));
-        } else {
-            transformImage(srcImageRange(srcImg),
-                           destImageRange(destImg),
-                           destImage(alpha),
-                           vigra::Diff2D(0,0),
-                           transf,
-                           false,
-                           vigra_ext::INTERP_SPLINE_16,
-                           progress);
-        }
-    }
-    */
 }
 
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
@@ -502,7 +361,7 @@ int main(int argc, char *argv[])
     bool doCropBorders = true;
     unsigned nThreads=1;
     unsigned verbose = 0;
-    
+
     std::string batchPostfix("_corr");
     std::string outputFile;
     bool doPTLens = false;
