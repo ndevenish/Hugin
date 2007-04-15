@@ -1,5 +1,10 @@
 Newsworthy changes in 0.7 beta 5
 --------------------------------
+* much improved vignetting and exposure correction,
+  http://hugin.sf.net/tech
+* ability to create HDR images during stitching
+  (still extremly memory hungry, will be improved
+   in the next version).
 * fixed bad HFOV/VFOV limits of some projections
 * OSX build should not crash all the time
 * Added "Apply template" function, to apply the
