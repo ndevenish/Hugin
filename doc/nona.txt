@@ -51,6 +51,14 @@
 #              n"JPEG q95"
 #                  q - jpeg quality
 #                  
+# E1           exposure value for final panorama
+# R1           stitching mode: 0: normal LDR mode, 1: HDR mode
+# T"UINT8"     bitdepth of output images, possible values are
+#               UINT8  -  8 bit unsigned
+#               UINT16 - 16 bit unsigned
+#               FLOAT  - 32 bit floating point
+#              By default the bit depth of the input images is use.
+#
 
 
 # The 'i' lines describe input images (nona also accepts 'o' line image descriptions)
@@ -76,12 +84,9 @@
 #                  g - horizontal shear
 #                  t - vertical shear
 #
-# K0a, K0b     linear color/grayvalue correction coefficients for each channel
-# K1a, K1b        (for grayscale images Only K0a, K0b is used):
-# K2a, K2b        i_red = K0a * i_red + K0b
-#                 i_green = K1a * i_green + K1b
-#                 i_blue = K2a * i_blue + K2b
-#               This correction is applied after the flatfield flatfield correction.
+# Eev          exposure of image in EV (exposure values)
+# Er           white balance factor for red channel
+# Eb           white balance factor for blue channel
 #
 # Vm           vignetting correction mode (default 0):
 #                  0: no vignetting correction
@@ -110,7 +115,7 @@
 #              if additive correction is used (default)
 #			   for proportional correction (h5): i_new = i_old / corr;
 #
-# Vx,Vy        radial vignetting correction offset in pixels (defaults q0 w0, optional).
+# Vx,Vy        radial vignetting correction offset in pixels (defaults Vx0 Vy0, optional).
 #                 Used to correct for offset from center of image
 #                  Vx - horizontal offset
 #                  Vy - vertical offset

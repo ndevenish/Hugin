@@ -174,6 +174,17 @@ if test "x$have_tiff" != xyes; then
     ])
 fi
 
+dnl check for openexr library
+PKG_CHECK_MODULES(OPENEXR, OpenEXR >= 1.0,
+  [AC_DEFINE(HasEXR,1,Define if you have EXR library)
+  have_exr="yes"],[
+AC_MSG_WARN( "OpenEXR support disabled: " $OPENEXR_PKG_ERRORS )
+  have_exr="no"
+]) #end of PKG_CHECK_MODULES
+
+dnl AC_SUBST(OPENEXR_LIBS)
+dnl AC_SUBST(OPENEXR_CFLAGS)
+
 AX_CHECK_PANO
 if test "x$have_pano" != xyes; then
     AC_MSG_ERROR([
@@ -267,6 +278,10 @@ fi
 
 fi
 
+dnl check for vips library
+dnl PKG_CHECK_MODULES([VIPS], [vipsCC-7.11 vips-7.11])
+dnl AC_SUBST(VIPSCC_LIBS)
+
 AC_DEFINE_UNQUOTED(HUGIN_VERSION, $PACKAGE_VERSION)
 
 dnl autoconf 2.59e and later do not substitute datadir anymore.
@@ -320,6 +335,7 @@ AC_CONFIG_FILES([Makefile
                  src/common/Makefile
                  src/foreign/Makefile
                  src/foreign/vigra_impex/Makefile
+                 src/foreign/levmar/Makefile
                  src/hugin/Makefile
 		 src/hugin/po/Makefile.in
                  src/hugin/xrc/Makefile
@@ -352,6 +368,7 @@ echo "Static libraries --enable-static=$enable_static		$libtool_build_static_lib
 echo "JPEG             --with-jpeg=$with_jpeg		have_jpeg  = $have_jpeg"
 echo "PNG              --with-png=$with_png		have_png   = $have_png"
 echo "TIFF             --with-tiff=$with_tiff		have_tiff  = $have_tiff"
+echo "OpenEXR                                		have_exr   = $have_exr"
 echo "ZLIB             --with-zlib=$with_zlib		have_zlib  = $have_zlib"
 echo "PANO             --with-pano=$with_pano		have_pano  = $have_pano"
 echo "BOOST            --with-boost=$with_boost		have_boost = $have_boost"
@@ -388,6 +405,10 @@ echo "  boost_version    = $ac_boost_version"
 echo "  BOOST_CPPFLAGS   = $BOOST_CPPFLAGS"
 echo "  BOOST_LIBS       = $BOOST_LIBS"
 echo "  BOOST_THREAD_LIB = $BOOST_THREAD_LIB"
+echo "  VIPS_CFLAGS      = $VIPS_CFLAGS"
+echo "  VIPS_LIBS        = $VIPS_LIBS"
+echo "  OPENEXR_CFLAGS   = $OPENEXR_CFLAGS"
+echo "  OPENEXR_LIBS     = $OPENEXR_LIBS"
 echo "  BUILD            = $HSYS"
 echo "  CPU              = $HCPU"
 echo ""
