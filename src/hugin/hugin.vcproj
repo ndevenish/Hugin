@@ -244,16 +244,10 @@ xcopy xrc\data &quot;Release Unicode\xrc\data&quot; /I /Y
 				RelativePath=".\CPEditorPanel.cpp">
 			</File>
 			<File
-				RelativePath=".\CPFineTuneFrame.cpp">
-			</File>
-			<File
 				RelativePath=".\CPImageCtrl.cpp">
 			</File>
 			<File
 				RelativePath=".\CPListFrame.cpp">
-			</File>
-			<File
-				RelativePath=".\CPZoomDisplayPanel.cpp">
 			</File>
 			<File
 				RelativePath=".\CropPanel.cpp">
@@ -295,6 +289,9 @@ xcopy xrc\data &quot;Release Unicode\xrc\data&quot; /I /Y
 				RelativePath=".\OptimizePanel.cpp">
 			</File>
 			<File
+				RelativePath=".\OptimizePhotometricPanel.cpp">
+			</File>
+			<File
 				RelativePath=".\PanoDruid.cpp">
 			</File>
 			<File
@@ -323,9 +320,6 @@ xcopy xrc\data &quot;Release Unicode\xrc\data&quot; /I /Y
 			</File>
 			<File
 				RelativePath=".\TextKillFocusHandler.cpp">
-			</File>
-			<File
-				RelativePath=".\VigCorrDialog.cpp">
 			</File>
 			<File
 				RelativePath=".\win_prep.h">
@@ -414,6 +408,9 @@ xcopy xrc\data &quot;Release Unicode\xrc\data&quot; /I /Y
 			</File>
 			<File
 				RelativePath="..\include\hugin\OptimizePanel.h">
+			</File>
+			<File
+				RelativePath="..\include\hugin\OptimizePhotometricPanel.h">
 			</File>
 			<File
 				RelativePath="..\include\hugin\PanoDruid.h">

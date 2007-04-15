@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="align_img_stack"
-	ProjectGUID="{FADF17E6-3037-47E7-B556-DE1112D3237B}"
+	Name="autooptimiser"
+	ProjectGUID="{FADF17E6-3037-47E7-4556-DE1112D3237B}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -120,15 +120,15 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4F3737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\align_img_stack.cpp">
+				RelativePath=".\autooptimiser.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93395380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
 				RelativePath=".\resource.h">
 			</File>
@@ -136,7 +136,7 @@
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			UniqueIdentifier="{674A6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
 	</Files>
 	<Globals>

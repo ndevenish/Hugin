@@ -140,6 +140,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\emor.cpp">
+			</File>
+			<File
 				RelativePath=".\MultiThreadOperations.cpp">
 			</File>
 		</Filter>
@@ -160,7 +163,13 @@
 				RelativePath="..\include\vigra_ext\FunctorAccessor.h">
 			</File>
 			<File
+				RelativePath="..\include\vigra_ext\HDRUtils.h">
+			</File>
+			<File
 				RelativePath="..\include\vigra_ext\ImageTransforms.h">
+			</File>
+			<File
+				RelativePath="..\include\vigra_ext\impexalpha.hxx">
 			</File>
 			<File
 				RelativePath="..\include\vigra_ext\IntegralImage.h">
@@ -176,6 +185,9 @@
 			</File>
 			<File
 				RelativePath="..\include\vigra_ext\LoweSIFT.h">
+			</File>
+			<File
+				RelativePath="..\include\vigra_ext\lut.h">
 			</File>
 			<File
 				RelativePath="..\include\vigra_ext\MultiLayerImage.h">
