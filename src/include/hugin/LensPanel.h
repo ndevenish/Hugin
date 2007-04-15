@@ -90,6 +90,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void focalLengthChanged(wxCommandEvent & e);
     void focalLengthFactorChanged(wxCommandEvent & e);
 
+    void ResponseTypeChanged (wxCommandEvent & e);
+
     /**  handlers for all other variables */
     void OnVarChanged(wxCommandEvent & e);
     /**  for all other variables */
