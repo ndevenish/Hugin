@@ -12,6 +12,8 @@ Authors:
    Ziv Yaniv                                    RanSaC code
    Luca Vascon                                  splash screen, icons
 
+Panoglview was written by Fabian Wetzel
+
 Translators
    Marek Januszewski <spec@webtech.pl>          Polish
    Jean-Luc Coulon				French
@@ -29,7 +31,12 @@ Translators
    Jozef Riha                                   Slovak 
    Jorge González González                      Spanish
 
-Panoglview was written by Fabian Wetzel
+The camera response estimation uses the EMoR response model developed
+at the Computer Vision Laboratory of the Columbia University.
+"Modeling the Space of Camera Response Functions,"
+M.D. Grossberg and S.K. Nayar,
+IEEE Transactions on Pattern Analysis and Machine Intelligence,
+Vol.26, No.10, pp.1272-1282, Oct, 2004.
 
 This package also includes a code from
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
