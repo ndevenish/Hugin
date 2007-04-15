@@ -36,6 +36,7 @@
 #include "common/math.h"
 #include "vigra_ext/Pyramid.h"
 #include "vigra_ext/FitPolynom.h"
+#include "vigra_ext/utils.h"
 
 // hmm.. not really great.. should be part of vigra_ext
 #include "vigra_ext/ImageTransforms.h"
@@ -539,6 +540,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
     // test the image at rotation angles with 30 deg. steps.
     double step = (stopAngle - startAngle)/(angleSteps-1);
     double phi=startAngle;
+    vigra_ext::PassThroughFunctor<float> nf;
     for (double i=0; phi <= stopAngle; i++, phi += step) {
         DEBUG_DEBUG("+++++ Rotating image, phi: " << RAD_TO_DEG(phi));
         RotateTransform t(phi, FDiff2D(templWidth, templWidth), templPos);
@@ -547,6 +549,7 @@ CorrelationResult PointFineTuneRotSearch(const IMAGE & templImg,
                            destImage(alpha),
                            vigra::Diff2D(0,0),
                            t,
+                           nf,
                            false,
                            vigra_ext::INTERP_CUBIC,
                            dummy);

@@ -46,6 +46,8 @@ namespace vigra_ext
 {
 
 
+
+
 /** Transform an image into the panorama
  *
  *  It can be used for partial transformations as well, if the bounding
@@ -73,16 +75,18 @@ namespace vigra_ext
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
-                         vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
-                         std::pair<AlphaImageIterator, AlphaAccessor> alpha,
-                         TRANSFORM & transform,
-                         vigra::Diff2D destUL,
-                         Interpolator interp,
-                         bool warparound,
-                         utils::MultiProgressDisplay & prog)
+                          vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
+                          std::pair<AlphaImageIterator, AlphaAccessor> alpha,
+                          TRANSFORM & transform,
+                          PixelTransform & pixelTransform,
+                          vigra::Diff2D destUL,
+                          Interpolator interp,
+                          bool warparound,
+                          utils::MultiProgressDisplay & prog)
 {
     vigra::Diff2D destSize = dest.second - dest.first;
 
@@ -115,9 +119,9 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
             double sx,sy;
             if (transform.transformImgCoord(sx,sy,x,y)) {
                 if (interpol.operator()(sx, sy, tempval)){
-                    // vignetting correction (might need to add random noise..)
-                    dest.third.set(tempval, xd);
-                    alpha.second.set(255, xdm);
+                    // apply pixel transform and write to output
+                    dest.third.set( pixelTransform(tempval, FDiff2D(sx, sy)), xd);
+                    alpha.second.set(pixelTransform.hdrWeight(tempval, vigra::UInt8(255)), xdm);
                 } else {
                     alpha.second.set(0, xdm);
                 }
@@ -139,6 +143,7 @@ void transformImageIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcA
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 struct TransformImageIntern
@@ -147,6 +152,7 @@ struct TransformImageIntern
     vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest;
     std::pair<AlphaImageIterator, AlphaAccessor> alpha;
     const TRANSFORM & transform;
+    const PixelTransform & pixelTransform;
     vigra::Diff2D destUL;
     Interpolator interp;
     bool warparound;
@@ -156,11 +162,12 @@ struct TransformImageIntern
                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                               std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                               const TRANSFORM & transform,
+                              const PixelTransform & pixelTransform,
                               vigra::Diff2D destUL,
                               Interpolator interp,
                               bool warparound,
                               utils::MultiProgressDisplay & prog)
-    : src(src), dest(dest), alpha(alpha), transform(transform), destUL(destUL), interp(interp), warparound(warparound),
+    : src(src), dest(dest), alpha(alpha), transform(transform), pixelTransform(pixelTransform), destUL(destUL), interp(interp), warparound(warparound),
       prog(prog)
     {
     }
@@ -168,7 +175,7 @@ struct TransformImageIntern
     void operator()()
     {
         DEBUG_DEBUG("Starting threaded remap, destUL: " << destUL <<  " area: " << dest.second - dest.first);
-        transformImageIntern(src, dest, alpha, transform, destUL, interp, warparound, prog);
+        transformImageIntern(src, dest, alpha, transform, pixelTransform, destUL, interp, warparound, prog);
         DEBUG_DEBUG("Finished threaded remap, destUL: " << destUL <<  " area: " << dest.second - dest.first);
     }
 };
@@ -179,6 +186,7 @@ template <class SrcImageIterator, class SrcAccessor,
           class SrcAlphaIterator, class SrcAlphaAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
@@ -186,6 +194,7 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
                                vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                                std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                                TRANSFORM & transform,
+                               PixelTransform & pixelTransform,
                                vigra::Diff2D destUL,
                                Interpolator interp,
                                bool warparound,
@@ -213,6 +222,8 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
 
     typename SrcAccessor::value_type tempval;
 
+    typename SrcAlphaAccessor::value_type alphaval;
+
     // loop over the image and transform
     for(int y=ystart; y < yend; ++y, ++yd.y, ++ydist.y)
     {
@@ -224,9 +235,9 @@ void transformImageAlphaIntern(vigra::triple<SrcImageIterator, SrcImageIterator,
             double sx,sy;
             if (transform.transformImgCoord(sx,sy,x,y)) {
                 // try to interpolate.
-                if (interpol(sx, sy, tempval)) {
-                    dest.third.set(tempval, xd);
-                    alpha.second.set(255, xdist);
+                if (interpol(sx, sy, tempval, alphaval)) {
+                    dest.third.set(pixelTransform(tempval, FDiff2D(sx, sy)), xd);
+                    alpha.second.set(pixelTransform.hdrWeight(tempval, alphaval), xdist);
                 } else {
                     // point outside of image or mask
                     alpha.second.set(0, xdist);
@@ -250,6 +261,7 @@ template <class SrcImageIterator, class SrcAccessor,
           class SrcAlphaIterator, class SrcAlphaAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 struct TransformImageAlphaIntern
@@ -259,6 +271,7 @@ struct TransformImageAlphaIntern
     vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest;
     std::pair<AlphaImageIterator, AlphaAccessor> alpha;
     const TRANSFORM & transform;
+    const PixelTransform & pixelTransform;
     vigra::Diff2D destUL;
     Interpolator interp;
     bool warparound;
@@ -269,11 +282,13 @@ struct TransformImageAlphaIntern
                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                               std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                               const TRANSFORM & transform,
+                              const PixelTransform & pixelTransform,
                               vigra::Diff2D destUL,
                               Interpolator interp,
                               bool warparound,
                               utils::MultiProgressDisplay & prog)
-    : src(src), srcAlpha(srcAlpha), dest(dest), alpha(alpha), transform(transform), destUL(destUL), interp(interp), warparound(warparound),
+    : src(src), srcAlpha(srcAlpha), dest(dest), alpha(alpha), transform(transform),
+      pixelTransform(pixelTransform), destUL(destUL), interp(interp), warparound(warparound),
       prog(prog)
     {
     }
@@ -281,7 +296,7 @@ struct TransformImageAlphaIntern
     void operator()()
     {
         DEBUG_DEBUG("Starting threaded remap, destUL: " << destUL <<  " area: " << dest.second - dest.first);
-        transformImageAlphaIntern(src, srcAlpha, dest, alpha, transform, destUL, interp, warparound, prog);
+        transformImageAlphaIntern(src, srcAlpha, dest, alpha, transform, pixelTransform, destUL, interp, warparound, prog);
         DEBUG_DEBUG("Finished threaded remap, destUL: " << destUL <<  " area: " << dest.second - dest.first);
     }
 };
@@ -418,6 +433,7 @@ template <class SrcImageIterator, class SrcAccessor,
           class SrcAlphaIterator, class SrcAlphaAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
@@ -425,6 +441,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
                                  vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                                  std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                                  TRANSFORM & transform,
+                                 PixelTransform & pixelTransform,
                                  vigra::Diff2D destUL,
                                  Interpolator interp,
                                  bool warparound,
@@ -441,7 +458,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
     }
 
     if (nThreads == 1) {
-        transformImageAlphaIntern(src, srcAlpha, dest, alpha, transform,
+        transformImageAlphaIntern(src, srcAlpha, dest, alpha, transform, pixelTransform,
                                   destUL, interp, warparound, prog);
         return;
     }
@@ -462,7 +479,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
     AlphaImageIterator destAStart = alpha.first;
 
     typedef TransformImageAlphaIntern<SrcImageIterator, SrcAccessor, SrcAlphaIterator, SrcAlphaAccessor, DestImageIterator, DestAccessor,
-                                      TRANSFORM, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
+                                      TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
     utils::MultiProgressDisplay dummyProg;
     unsigned int i;
@@ -470,7 +487,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
 
         RFunctor t(src, srcAlpha, vigra::triple<DestImageIterator, DestImageIterator, DestAccessor>(destStart, destEnd, dest.third),
                                                 vigra::pair<AlphaImageIterator, AlphaAccessor>(destAStart, alpha.second), 
-                                                transform, destUL, interp, warparound, dummyProg);
+                                                transform, pixelTransform, destUL, interp, warparound, dummyProg);
         boost::function0<void> f;
         f = t;
     	DEBUG_DEBUG("Starting thread " << i);
@@ -489,7 +506,7 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
         transformImageAlphaIntern( src, srcAlpha,
                                   vigra::triple<DestImageIterator, DestImageIterator, DestAccessor>(destStart, destEnd, dest.third),
                                   vigra::pair<AlphaImageIterator, AlphaAccessor>(destAStart, alpha.second), 
-                                  transform, destUL, interp, warparound, prog);
+                                  transform, pixelTransform, destUL, interp, warparound, prog);
     }
 
     DEBUG_DEBUG("Waiting for threads to join");
@@ -500,12 +517,14 @@ void transformImageAlphaInternMT(vigra::triple<SrcImageIterator, SrcImageIterato
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor,
           class TRANSFORM,
+          class PixelTransform,
           class AlphaImageIterator, class AlphaAccessor,
           class Interpolator>
 void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                             vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                             std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                             TRANSFORM & transform,
+                            PixelTransform & pixelTransform,
                             vigra::Diff2D destUL,
                             Interpolator interp,
                             bool warparound,
@@ -522,7 +541,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
     }
 
     if (nThreads == 1) {
-        transformImageIntern(src, dest, alpha, transform,
+        transformImageIntern(src, dest, alpha, transform, pixelTransform,
                                   destUL, interp, warparound, prog);
         return;
     }
@@ -543,7 +562,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
     AlphaImageIterator destAStart = alpha.first;
 
     typedef TransformImageIntern<SrcImageIterator, SrcAccessor, DestImageIterator, DestAccessor,
-                                      TRANSFORM, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
+                                      TRANSFORM, PixelTransform, AlphaImageIterator, AlphaAccessor, Interpolator> RFunctor;
 
     utils::MultiProgressDisplay dummyProg;
     unsigned int i;
@@ -551,7 +570,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
 
         RFunctor t(src, vigra::triple<DestImageIterator, DestImageIterator, DestAccessor>(destStart, destEnd, dest.third),
                    vigra::pair<AlphaImageIterator, AlphaAccessor>(destAStart, alpha.second), 
-                   transform, destUL, interp, warparound, dummyProg);
+                   transform, pixelTransform, destUL, interp, warparound, dummyProg);
         boost::function0<void> f;
         f = t;
     	DEBUG_DEBUG("Starting thread " << i);
@@ -570,7 +589,7 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
         transformImageIntern( src,
                               vigra::triple<DestImageIterator, DestImageIterator, DestAccessor>(destStart, destEnd, dest.third),
                               vigra::pair<AlphaImageIterator, AlphaAccessor>(destAStart, alpha.second), 
-                              transform, destUL, interp, warparound, prog);
+                              transform, pixelTransform, destUL, interp, warparound, prog);
     }
 
     DEBUG_DEBUG("Waiting for threads to join");
@@ -606,12 +625,14 @@ void transformImageInternMT(vigra::triple<SrcImageIterator, SrcImageIterator, Sr
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor,
           class AlphaImageIterator, class AlphaAccessor,
-          class TRANSFORM>
+          class TRANSFORM,
+          class PixelTransform>
 void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                     std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                     vigra::Diff2D destUL,
                     TRANSFORM & transform,
+                    PixelTransform & pixelTransform,
                     bool warparound,
                     Interpolator interpol,
                     utils::MultiProgressDisplay & progress)
@@ -619,46 +640,46 @@ void transformImage(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccesso
     switch (interpol) {
     case INTERP_CUBIC:
 	DEBUG_DEBUG("using cubic interpolator");
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+    transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_cubic(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_16:
 	DEBUG_DEBUG("interpolator: spline16");
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+    transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_spline16(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_36:
 	DEBUG_DEBUG("interpolator: spline36");
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+    transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_spline36(), warparound,
                                  progress);
 	break;
     case INTERP_SPLINE_64:
 	DEBUG_DEBUG("interpolator: spline64");
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+    transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_spline64(), warparound,
                                  progress);
 	break;
     case INTERP_SINC_256:
 	DEBUG_DEBUG("interpolator: sinc 256");
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+    transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_sinc<8>(), warparound,
                                  progress);
 	break;
     case INTERP_BILINEAR:
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+        transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_bilin(), warparound,
                                  progress);
 	break;
     case INTERP_NEAREST_NEIGHBOUR:
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+        transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_nearest(), warparound,
                                  progress);
 	break;
     case INTERP_SINC_1024:
-	transformImageInternMT(src, dest, alpha, transform, destUL,
+        transformImageInternMT(src, dest, alpha, transform, pixelTransform, destUL,
                                  vigra_ext::interp_sinc<32>(), warparound,
                                  progress);
 	break;
@@ -670,13 +691,14 @@ template <class SrcImageIterator, class SrcAccessor,
           class SrcAlphaIterator, class SrcAlphaAccessor,
           class DestImageIterator, class DestAccessor,
           class AlphaImageIterator, class AlphaAccessor,
-          class TRANSFORM>
+          class TRANSFORM, class PixelTransform>
 void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                          std::pair<SrcAlphaIterator, SrcAlphaAccessor> srcAlpha,
                          vigra::triple<DestImageIterator, DestImageIterator, DestAccessor> dest,
                          std::pair<AlphaImageIterator, AlphaAccessor> alpha,
                          vigra::Diff2D destUL,
                          TRANSFORM & transform,
+                         PixelTransform & pixelTransform,
                          bool warparound,
                          Interpolator interpol,
                          utils::MultiProgressDisplay & progress)
@@ -684,46 +706,46 @@ void transformImageAlpha(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAc
     switch (interpol) {
     case INTERP_CUBIC:
 	DEBUG_DEBUG("using cubic interpolator");
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
 				              vigra_ext::interp_cubic(), warparound,
                               progress);
 	break;
     case INTERP_SPLINE_16:
 	DEBUG_DEBUG("interpolator: spline16");
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+    transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_spline16(), warparound,
 		                      progress);
 	break;
     case INTERP_SPLINE_36:
 	DEBUG_DEBUG("interpolator: spline36");
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+    transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_spline36(),  warparound,
 		                      progress);
 	break;
     case INTERP_SPLINE_64:
 	DEBUG_DEBUG("interpolator: spline64");
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+    transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_spline64(),  warparound,
 		                      progress);
 	break;
     case INTERP_SINC_256:
 	DEBUG_DEBUG("interpolator: sinc 256");
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+    transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_sinc<8>(), warparound,
 		                      progress);
 	break;
     case INTERP_BILINEAR:
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+        transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_bilin(), warparound,
 		                      progress);
 	break;
     case INTERP_NEAREST_NEIGHBOUR:
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+        transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_nearest(), warparound,
 		                      progress);
 	break;
     case INTERP_SINC_1024:
-	transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, destUL,
+        transformImageAlphaInternMT(src,srcAlpha, dest, alpha, transform, pixelTransform, destUL,
                               vigra_ext::interp_sinc<32>(), warparound,
 		                      progress);
 	break;

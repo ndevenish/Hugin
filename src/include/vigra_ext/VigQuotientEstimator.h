@@ -9,7 +9,11 @@
 
 #include <boost/random.hpp>
 
+#include <vigra/rgbvalue.hxx>
+#include <vigra/stdimage.hxx>
+
 #include <vigra_ext/ROIImage.h>
+#include <vigra_ext/utils.h>
 
 #include "ransac.h"
 
@@ -34,31 +38,6 @@
 
 namespace vigra_ext
 {
-
-template <class VALUE>
-struct PointPairT
-{
-    PointPairT()
-    {
-    }
-
-    PointPairT(short img1, VALUE val1, const FDiff2D & p1, float r1,
-              short img2, VALUE val2, const FDiff2D & p2, float r2)
-    : imgNr1(img1), i1(val1), p1(p1), r1(r1), imgNr2(img2), i2(val2), p2(p2), r2(r2)
-    {
-    }
-
-	short imgNr1;
-    VALUE i1;
-    FDiff2D p1;
-    float r1;
-	short imgNr2;
-    VALUE i2;
-    FDiff2D p2;
-    float r2;
-};
-
-typedef PointPairT<float> PointPair;
 
 /// function to calculate the vignetting correction: 1 + p[0]*r^2 + p[1]*r^4 + p[2]*r^6
 template <class PITER>
@@ -401,7 +380,7 @@ void extractRandomPoints(std::vector<vigra_ext::ROIImage<ImageType, vigra::BImag
                 << " inconsistent: " << nBadPoints << " points");
 }
 
-VigQuotientEstimateResult
+inline VigQuotientEstimateResult
 optimizeVignettingQuotient(const std::vector<PointPair> & points,
                            double ransacDelta,
                            std::vector<double> & vigCoeff)

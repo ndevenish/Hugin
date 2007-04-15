@@ -39,6 +39,7 @@
 
 namespace vigra {
 
+#if 0
 
 /** define values for mask true value. max for integers, 1 for floats
  */
@@ -73,6 +74,118 @@ VIGRA_EXT_GETMASKMAX(vigra::UInt32)
 VIGRA_EXT_GETMASKTRUE(float, 1.0f)
 VIGRA_EXT_GETMASKTRUE(double, 1.0)
 
+#endif
+
+
+template <class T1>
+struct MaskConv;
+
+
+template<>
+struct MaskConv<vigra::UInt8>
+{
+    static vigra::UInt8 toUInt8(vigra::UInt8 v)
+    {
+        return v;
+    }
+
+    static vigra::UInt8 fromUInt8(vigra::UInt8 v)
+    {
+        return v;
+    }
+};
+
+template<>
+        struct MaskConv<vigra::UInt16>
+{
+    static vigra::UInt8 toUInt8(vigra::UInt16 v)
+    {
+        return v>>8;
+    }
+
+
+    static vigra::UInt16 fromUInt8(vigra::UInt8 v)
+    {
+        return v<<8;
+    }
+};
+
+template<>
+        struct MaskConv<vigra::Int16>
+{
+    static vigra::UInt8 toUInt8(vigra::Int16 v)
+    {
+        return v>>7;
+    }
+
+
+    static vigra::Int16 fromUInt8(vigra::UInt8 v)
+    {
+        return v<<7;
+    }
+};
+
+template<>
+struct MaskConv<vigra::UInt32>
+{
+    static vigra::UInt8 toUInt8(vigra::UInt32 v)
+    {
+        return v>>24;
+    }
+
+
+    static vigra::UInt32 fromUInt8(vigra::UInt8 v)
+    {
+        return v<<24;
+    }
+};
+
+template<>
+struct MaskConv<vigra::Int32>
+{
+    static vigra::UInt8 toUInt8(vigra::Int32 v)
+    {
+        return v>>23;
+    }
+
+
+    static vigra::Int16 fromUInt8(vigra::UInt8 v)
+    {
+        return v<<23;
+    }
+};
+
+template<>
+struct MaskConv<float>
+{
+    static vigra::UInt8 toUInt8(float v)
+    {
+        return vigra::NumericTraits<vigra::UInt8>::fromRealPromote(v*255);
+    }
+
+    static float fromUInt8(vigra::UInt8 v)
+    {
+        return v/255.0f;
+    }
+
+};
+
+template<>
+struct MaskConv<double>
+{
+    static vigra::UInt8 toUInt8(double v)
+    {
+        return vigra::NumericTraits<vigra::UInt8>::fromRealPromote(v*255);
+    }
+
+    static double fromUInt8(vigra::UInt8 v)
+    {
+        return v/255.0;
+    }
+
+};
+
+
 template <class Iter1, class Acc1, class Iter2, class Acc2>
 class MultiImageMaskAccessor2
 {
@@ -96,7 +209,7 @@ public:
     value_type operator()(DIFFERENCE const & d) const
     {
         return value_type(a1_(i1_, d),
-                          a2_(i2_, d)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero());
+                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
     }
 
         /** read the data item at an offset
@@ -106,7 +219,8 @@ public:
     {
         d += d2;
         return value_type(a1_(i1_, d),
-                          a2_(i2_, d)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero());
+                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
+//                          a2_(i2_, d)? GetMaskTrue<component_type>::get() * a2_(i2_, d) : vigra::NumericTraits<component_type>::zero());
 
 //        return std::make_pair(a1_(i1_, d1), a2_(i2_, d1));
     }
@@ -117,7 +231,8 @@ public:
     value_type set(const value_type & vt, DIFFERENCE const & d) const
     {
         a1_.set(vt[0], i1_, d);
-        a2_.set(vt[1] ? GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero(), i2_, d);
+        a2_.set(MaskConv<component_type>::toUInt8(vt[1]));
+                //GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero(), i2_, d);
     }
 
     /** scalar & scalar image */
@@ -129,7 +244,8 @@ public:
             a1_.set(value, i1_, *i);
             break;
         case 1:
-            a2_.set(value ? GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero(), i2_, *i);
+            a2_.set(MaskConv<V>::toUInt8(value), i2_, *i); 
+            // ? GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero());
             break;
         default:
             vigra_fail("too many components in input value");
@@ -144,7 +260,8 @@ public:
             case 0:
                 return a1_( i1_, *i );
             case 1:
-                return a2_( i2_, *i ) ? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero();
+                return MaskConv<component_type>::fromUInt8(a2_( i2_, *i ));
+                //? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero();
             default:
                 vigra_fail("too many components in input value");
             // never reached, but here to silence compiler
@@ -166,7 +283,8 @@ private:
 };
 
 
-
+// get: convert from UInt8 mask to native type
+// read: convert from native type to UInt8 mask
 template <class Iter1, class Acc1, class Iter2, class Acc2>
 class MultiImageVectorMaskAccessor4
 {
@@ -198,7 +316,7 @@ public:
         return value_type(v1[0],
                           v1[1],
                           v1[2],
-                          a2_(i2_, d)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero());
+                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
     }
 
         /** read the data item at an offset
@@ -211,7 +329,7 @@ public:
         return value_type(v1[0],
                           v1[1],
                           v1[2],
-                          a2_(i2_, d)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero());
+                          MaskConv<component_type>::fromUInt8(a2_(i2_, d)));
     }
 
         /** write the current data item
@@ -224,7 +342,7 @@ public:
         a1_.setComponent(vt[0], i1_, 0);
         a1_.setComponent(vt[1], i1_, 1);
         a1_.setComponent(vt[2], i1_, 2);
-        a2_.set(vt[3] ? GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero(), i2_, d);
+        a2_.set(MaskConv<component_type>::toUInt8(vt[3]), i2_, d);
     }
 
     /** vector & scalar image */
@@ -234,7 +352,7 @@ public:
         if ( idx < static_size - 1 ) {
             a1_.setComponent(value, i1_, *i, idx);
         } else if ( idx == static_size - 1 ) {
-            a2_.set(value? GetMaskTrue<alpha_type>::get() : vigra::NumericTraits<alpha_type>::zero(), i2_, *i);
+            a2_.set(MaskConv<V>::toUInt8(value), i2_, *i);
         } else {
             vigra_fail("too many components in input value");
         }
@@ -248,10 +366,10 @@ public:
             return a1_.getComponent(i1_, *i, idx);
         } else 
 #ifndef DEBUG
-            return a2_(i2_, *i)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero();
+            return MaskConv<component_type>::fromUInt8(a2_(i2_, *i));
 #else
             if ( idx == static_size - 1 ) {
-                return a2_(i2_, *i)? GetMaskTrue<component_type>::get() : vigra::NumericTraits<component_type>::zero();
+                return MaskConv<component_type>::fromUInt8(a2_(i2_, *i));
         } else {
             vigra_fail("too many components in input value");
             // just to silence the compiler warning. this is
@@ -395,7 +513,7 @@ void importImageAlpha(vigra::ImageImportInfo const & info,
                          alpha.second,
                          255);
     } else {
-	vigra_fail("Images with two or more alpha channel are not supported");
+	vigra_fail("Images with two or more channel are not supported");
     }
 }
 

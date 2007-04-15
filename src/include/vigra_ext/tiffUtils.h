@@ -27,6 +27,7 @@
 #define _TIFFUTILS_H
 
 #include <vigra/tiff.hxx>
+#include <vigra/imageinfo.hxx>
 #include <vigra/transformimage.hxx>
 #include <vigra/functorexpression.hxx>
 
@@ -59,7 +60,7 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
                                 uint16 page, uint16 nImg,
                                 vigra::Diff2D offset,
                                 vigra::Size2D fullSize,
-                                const vigra::ICCProfile & icc)
+                                const vigra::ImageExportInfo::ICCProfile & icc)
 {
     const float dpi = 150;
     // create a new directory for our image
@@ -113,8 +114,8 @@ inline void createTiffDirectory(vigra::TiffImage * tiff, const std::string & pag
     TIFFSetField(tiff, TIFFTAG_COMPRESSION, tiffcomp);
 
     // Set ICC profile, if available.
-    if (icc.isValid()) {
-        TIFFSetField(tiff, TIFFTAG_ICCPROFILE, icc.getSize(), icc.getPtr());
+    if (icc.size() > 0) {
+        TIFFSetField(tiff, TIFFTAG_ICCPROFILE, icc.size(), icc.front());
     }
 
 }

@@ -28,6 +28,7 @@
 #define VIGRA_EXT_INTERPOLATORS_H
 
 #include <math.h>
+#include <algorithm>
 
 #include <vigra/accessor.hxx>
 #include <vigra/diff2d.hxx>
@@ -227,6 +228,8 @@ class ImageInterpolator
 {
 public:
     typedef typename SrcAccessor::value_type PixelType;
+    // dummy mask type to be compatible to algorithms expecting a ImageMaskInterpolator object
+    typedef typename vigra::UInt8 MaskType;
 private:
     typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
 
@@ -269,6 +272,13 @@ public:
     {
     }
 
+    /** Interpolate without mask, but return dummy alpha value nevertheless */
+    bool operator()(double x, double y,
+                    PixelType & result, MaskType & mask) const
+    {
+        mask = 255;
+        return operator()(x,y, result);
+    }
 
     /** Interpolate without mask */
     bool operator()(double x, double y,
@@ -398,6 +408,7 @@ class ImageMaskInterpolator
 {
 public:
     typedef typename SrcAccessor::value_type PixelType;
+    typedef typename MaskAccessor::value_type MaskType;
 private:
     typedef typename vigra::NumericTraits<PixelType>::RealPromote RealPixelType;
 
@@ -581,7 +592,7 @@ public:
      *
      */
     bool operator()(double x, double y,
-                    PixelType & result) const
+                    PixelType & result, MaskType & mask) const
     {
 
         // skip all further interpolation if we cannot interpolate anything
@@ -598,7 +609,7 @@ public:
         if ( srcx > INTERPOLATOR::size/2 && srcx < m_w -INTERPOLATOR::size/2 &&
              srcy > INTERPOLATOR::size/2 && srcy < m_h - INTERPOLATOR::size/2)
         {
-            return interpolateInside(srcx, srcy, dx, dy, result);
+            return interpolateInside(srcx, srcy, dx, dy, result, mask);
         }
 
         double wx[INTERPOLATOR::size];
@@ -611,6 +622,7 @@ public:
         // first pass of separable filter
 
         RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
+        double m = 0; 
         double weightsum = 0.0;
         for (int ky = 0; ky < INTERPOLATOR::size; ky++) {
             int bounded_ky = srcy + 1 + ky - INTERPOLATOR::size/2;
@@ -640,9 +652,12 @@ public:
                         continue;
                 }
 
-                if (m_mIter(bounded_kx, bounded_ky)) {
+                MaskType cmask = m_mIter(bounded_kx, bounded_ky);
+                if (cmask) {
                     // check mask
                     double f = wx[kx]*wy[ky];
+                    // TODO: check if this is good, influences the HDR stitching masks
+                    m += f * cmask;
                     p += f * m_sAcc(m_sIter, vigra::Diff2D(bounded_kx, bounded_ky));
                     weightsum += f;
                 }
@@ -652,8 +667,12 @@ public:
         // force a certain weight
         if (weightsum <= 0.2) return false;
         // Adjust filter for any ignored transparent pixels.
-        if (weightsum != 1.0) p /= weightsum;
+        if (weightsum != 1.0) {
+            p /= weightsum;
+            m /= weightsum;
+        }
 
+        mask = vigra::detail::RequiresExplicitCast<MaskType>::cast(m);
         result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
         return true;
     }
@@ -661,7 +680,7 @@ public:
 
     /** Interpolate without boundary check. */
     bool interpolateInside(int srcx, int srcy, double dx, double dy,
-                                    PixelType & result) const
+                                    PixelType & result, MaskType & mask) const
     {
 
         double wx[INTERPOLATOR::size];
@@ -673,7 +692,7 @@ public:
 
         RealPixelType p(vigra::NumericTraits<RealPixelType>::zero());
         double weightsum = 0.0;
-
+        double m = 0.0;
         vigra::Diff2D offset(srcx - INTERPOLATOR::size/2 + 1,
                              srcy - INTERPOLATOR::size/2 + 1);
         SrcImageIterator ys(m_sIter + offset);
@@ -685,9 +704,12 @@ public:
             for (int kx = 0; kx < INTERPOLATOR::size; kx++, ++xs, ++xms) {
 //                int bounded_kx = srcx + 1 + kx - INTERPOLATOR::size/2;
 
-                if (*xms) {
+                MaskType cmask = *xms;
+                if (cmask) {
                     // check mask
                     double f = wx[kx]*wy[ky];
+                    // TODO: check if this is good, influences the HDR stitching masks
+                    m += f * cmask;
                     p += f * m_sAcc(xs);
                     weightsum += f;
                 }
@@ -697,9 +719,13 @@ public:
         // force a certain weight
         if (weightsum <= 0.2) return false;
         // Adjust filter for any ignored transparent pixels.
-        if (weightsum != 1.0) p /= weightsum;
+        if (weightsum != 1.0) {
+            p /= weightsum;
+            m /= weightsum;
+        }
 
         result = vigra::detail::RequiresExplicitCast<PixelType>::cast(p);
+        mask = vigra::detail::RequiresExplicitCast<MaskType>::cast(m);
         return true;
     }
 };

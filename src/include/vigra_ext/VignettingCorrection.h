@@ -29,8 +29,11 @@
 
 #include <vigra/stdimage.hxx>
 #include <vigra/transformimage.hxx>
+#include <vigra/inspectimage.hxx>
 #include <vigra/combineimages.hxx>
 #include <vigra/functorexpression.hxx>
+
+#include <vigra_ext/utils.h>
 
 #include <boost/random/mersenne_twister.hpp>
 
@@ -280,39 +283,6 @@ struct DitherFunctor
 };
 
 
-/** Traits to define the maximum value for all types.
- *  The case of float and double differs from vigra::NumericTraits::max() */
-#define VIG_CORR_TRAITS(T1,S) \
-template<> \
-struct VigCorrTraits<T1> \
-{ \
-    static double max() \
-{ \
-	return S; \
-} \
-}; \
-template<> \
-struct VigCorrTraits<vigra::RGBValue<T1> > \
-{ \
-    static double max() \
-{ \
-	return S; \
-} \
-};
-
-    template <class T1>
-    struct VigCorrTraits;
-
-    VIG_CORR_TRAITS(unsigned char, UCHAR_MAX);
-    VIG_CORR_TRAITS(signed char, SCHAR_MAX);
-    VIG_CORR_TRAITS(unsigned short, USHRT_MAX);
-    VIG_CORR_TRAITS(signed short, SHRT_MAX);
-    VIG_CORR_TRAITS(unsigned int, UINT_MAX);
-    VIG_CORR_TRAITS(signed int, INT_MAX);
-    VIG_CORR_TRAITS(float, 1.0);
-    VIG_CORR_TRAITS(double, 1.0);
-
-#undef VIG_CORR_TRAITS
 
 struct GammaFunctor
 {
@@ -353,17 +323,6 @@ struct LinearTransformFunctor
     }
 };
 
-/** does nothing */
-template <class T>
-struct PassThroughFunctor
-{
-    typedef T result_type;
-
-    T operator()(const T & a) const
-    {
-        return a;
-    }
-};
 
 template <class SrcImageIterator, class SrcAccessor,
           class DestImageIterator, class DestAccessor, class Functor>
@@ -590,6 +549,64 @@ void applyGammaCorrection(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
     vigra::transformImage(srcImg, destImg, gf );
 }
 
+
+/*
+template <class ImgIter, class ImgAccessor, class DestIter, class DestAccessor>
+void correctRespVigExpInv(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
+                          vigra::pair<DestIter, DestAccessor> destImg, 
+                          const std::vector<double> & EMoRCoeff, double maxGreyVal,
+                          const std::vector<double> & radCoeff, FDiff2D center, bool division,
+                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote a,
+                          typename vigra::NumericTraits<typename ImgAccessor::value_type>::RealPromote b,
+                          bool dither)
+{
+    typedef typename ImgAccessor::value_type PT;
+    typedef typename vigra::NumericTraits<PT>::RealPromote RPT;
+    typedef typename ImgAccessor::value_type OutPixelType;
+
+    typedef PolySqDistFunctor<4> PolyF;
+    typedef PassThroughFunctor<RPT> RnF;
+    typedef LinearTransformFunctor<RPT> LTF;
+
+    PolyF poly(radCoeff);
+    LTF adjust(a,b);
+
+    // adjust functor
+
+    if (EMoRCoeff.size() == 0) {
+        RnF Rf;
+        if (division) {
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y,
+                                           VigCorrDivFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
+        } else {
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
+                                           VigCorrAddFunctor<PT, RnF, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
+        }
+    } else {
+        // prepare lookup table
+        // create a camera response lut
+        std::vector<float> lut10;
+        vigra_ext::createEMoRLUT(params, lut10);
+        // create inverse lut
+        std::vector<float> invlut10(1<<10);
+        vigra_ext::invertLUT(lut10, invlut10);
+
+        GammaFunctor Rf(gamma, gammaMaxVal);
+        if (division) {
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
+                                           VigCorrDivFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
+        } else {
+            applyRadialVigCorrectionDither(srcImg, destImg, center.x, center.y, 
+                                           VigCorrAddFunctor<PT, GammaFunctor, PolyF, LTF>(Rf, poly, adjust),
+                                           dither);
+        }
+    }
+}
+
+*/
 
 } // namespace
 

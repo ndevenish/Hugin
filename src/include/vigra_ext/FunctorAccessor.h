@@ -80,10 +80,13 @@ protected:
 
     This is a write only accessor, reading is not supported.
  */
-template <class Functor, class Accessor>
+template <class Functor, class Accessor, class ValueType>
 class WriteFunctorAccessor
 {
-  public:
+public:
+
+    typedef ValueType value_type;
+
     WriteFunctorAccessor(Functor f, Accessor a)
         : m_f(f), m_a(a)
     {
@@ -108,6 +111,8 @@ class WriteFunctorAccessor
     Functor m_f;
     Accessor m_a;
 };
+
+
 
 /** define a write only accessor for a virtual Image<TinyVector<Acc1::value_type>, 2>
     image, which actually consists of two Images.

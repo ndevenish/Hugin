@@ -27,6 +27,8 @@
 #include <common/utils.h>
 #include <vigra/imageinfo.hxx>
 
+#include "lut.h"
+
 namespace vigra_ext
 {
 
@@ -455,6 +457,50 @@ void inspectImagesIf(std::vector<ImgIter> imgs,
         }
     }
 }
+
+
+/** algorithm to reduce a set of ROI images */
+template<class ROIIMG, class DestIter, class DestAccessor,
+         class MaskIter, class MaskAccessor, class FUNCTOR>
+void reduceROIImages(std::vector<ROIIMG *> images,
+                     vigra::triple<DestIter, DestIter, DestAccessor> dest,
+                     vigra::pair<MaskIter, MaskAccessor> destMask,
+                     FUNCTOR & reduce)
+{
+    typedef typename DestAccessor::value_type ImgType;
+    typedef typename MaskAccessor::value_type MaskType;
+
+    typedef typename
+        vigra::NumericTraits<ImgType> Traits;
+    typedef typename
+        Traits::RealPromote RealImgType;
+
+    typedef typename vigra_ext::LUTTraits<MaskType> MaskLUTTraits;
+
+    unsigned int nImg = images.size();
+
+    vigra::Diff2D size = dest.second - dest.first;
+
+    // iterate over the whole image...
+    // calculate something on the pixels in the overlapping images. 
+    for (int y=0; y < size.y; y++) {
+        for (int x=0; x < size.x; x++) {
+            reduce.reset();
+            MaskType maskRes=0;
+            for (unsigned int i=0; i< nImg; i++) {
+                MaskType a;
+                a = images[i]->getMask(x,y);
+                if (a) {
+                    maskRes = vigra_ext::LUTTraits<MaskType>::max();
+                    reduce(images[i]->operator()(x,y), a);
+                }
+            }
+            dest.third.set(reduce(), dest.first, vigra::Diff2D(x,y));
+            destMask.second.set(maskRes, destMask.first, vigra::Diff2D(x,y));
+        }
+    }
+}
+
 
 }
 

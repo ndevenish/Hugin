@@ -403,7 +403,7 @@ void Ransac::estimate(const Estimator & paramEstimator, const std::vector<T> &da
 	}
 }
 /*****************************************************************************/
-unsigned int Ransac::choose(unsigned int n, unsigned int m)
+inline unsigned int Ransac::choose(unsigned int n, unsigned int m)
 {
 	unsigned int denominatorEnd, numeratorStart, numerator,denominator; 
 	if((n-m) > m) {

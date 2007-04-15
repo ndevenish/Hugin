@@ -443,6 +443,41 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+
+    /** update LensVariables for one lens */
+    class SetLensVariablesCmd : public PanoCommand
+    {
+        public:
+            SetLensVariablesCmd(Panorama & p, UIntSet lenses, const std::vector<LensVarMap> & var)
+            : PanoCommand(p), lensNrs(lenses), vars(var)
+            { };
+            virtual void execute()
+            {
+                PanoCommand::execute();
+                for (UIntSet::iterator itl = lensNrs.begin();
+                     itl != lensNrs.end(); ++itl)
+                {
+                    // lens var map it.
+                    LensVarMap::const_iterator it;
+                    for (it = vars[*itl].begin(); it != vars[*itl].end(); ++it) {
+                        pano.updateLensVariable(*itl, it->second);
+                    }
+                }
+                pano.changeFinished();
+            }
+            virtual std::string getName() const
+            {
+                return "set lens variables";
+            }
+        private:
+            UIntSet lensNrs;
+            std::vector<LensVarMap> vars;
+    };
+
+
+    //=========================================================================
+    //=========================================================================
+
     /** change the lens for an image */
     class SetImageLensCmd : public PanoCommand
     {
@@ -900,6 +935,39 @@ namespace PT {
         private:
             SrcPanoImage img;
             unsigned imgNr;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** set image options for a set of images.
+     *  just sets the @p options given for all images in @p imgs
+     */
+    class UpdateSrcImagesCmd : public PanoCommand
+    {
+        public:
+            UpdateSrcImagesCmd(Panorama & p, UIntSet i, std::vector<SrcPanoImage> imgs)
+            : PanoCommand(p), imgs(imgs), imgNrs(i)
+            { };
+            virtual void execute()
+            {
+                PanoCommand::execute();
+                int i = 0;
+                for (UIntSet::iterator it = imgNrs.begin();
+                     it != imgNrs.end(); ++it)
+                {
+                    pano.setSrcImage(*it, imgs[i]);
+                    i++;
+                }
+                pano.changeFinished();
+            }
+            virtual std::string getName() const
+            {
+                return "set multiple image options";
+            }
+        private:
+            std::vector<SrcPanoImage> imgs;
+            UIntSet imgNrs;
     };
 
 
