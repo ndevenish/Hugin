@@ -264,17 +264,25 @@ void PTools::autoOptimise(PT::Panorama & pano)
     */
 }
 
-OptimizeVector PTools::createOptVars(const Panorama & optPano, int mode)
+OptimizeVector PTools::createOptVars(const Panorama & optPano, int mode, unsigned anchorImg)
 {
     OptimizeVector optvars;
     for (unsigned i=0; i < optPano.getNrOfImages(); i++) {
         set<string> imgopt;
-        if (i!=0) {
-            if (mode & OPT_POS)
-            // except for first image, optimize position
-            imgopt.insert("r");
-            imgopt.insert("p");
-            imgopt.insert("y");
+        // do not optimize anchor image for position and exposure
+        if (i!=anchorImg) {
+            if (mode & OPT_POS) {
+                imgopt.insert("r");
+                imgopt.insert("p");
+                imgopt.insert("y");
+            }
+            if (mode & OPT_EXP) {
+                imgopt.insert("Eev");
+            }
+            if (mode & OPT_WB) {
+                imgopt.insert("Er");
+                imgopt.insert("Eb");
+            }
         }
         if (mode & OPT_HFOV) {
             imgopt.insert("v");
@@ -292,6 +300,22 @@ OptimizeVector PTools::createOptVars(const Panorama & optPano, int mode)
         if (mode & OPT_GT) {
             imgopt.insert("g");
             imgopt.insert("t");
+        }
+        if (mode & OPT_VIG) {
+            imgopt.insert("Vb");
+            imgopt.insert("Vc");
+            imgopt.insert("Vd");
+        }
+        if (mode & OPT_VIGCENTRE) {
+            imgopt.insert("Vx");
+            imgopt.insert("Vy");
+        }
+        if (mode & OPT_RESP) {
+            imgopt.insert("Ra");
+            imgopt.insert("Rb");
+            imgopt.insert("Rc");
+            imgopt.insert("Rd");
+            imgopt.insert("Re");
         }
         optvars.push_back(imgopt);
     }
