@@ -37,6 +37,14 @@
 #define DEG_TO_RAD( x )		( (x) * 2.0 * PI / 360.0 )
 #define RAD_TO_DEG( x )		( (x) * 360.0 / ( 2.0 * PI ) )
 
+
+#ifdef _MSC_VER
+inline double log2(double x)
+{
+    return log(x)/log(2.0);
+}
+#endif
+
 /** namespace for various math utils */
 namespace utils
 {

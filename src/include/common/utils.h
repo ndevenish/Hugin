@@ -264,6 +264,37 @@ bool stringToDouble(const STR & str_, double & dest)
         return QuoteStringInternal(arg, str("\\"), str("\\ ~$\"!@#%^&|'`{}[](),.-+="));
     }
 
+    class ProgressReporter
+    {
+    public:
+        virtual ~ProgressReporter() {};
+        virtual bool increaseProgress(double delta) = 0;
+        virtual bool increaseProgress(double delta, const std::string & msg) = 0;
+        virtual void setMessage(const std::string & msg) = 0;
+    };
+
+    class StreamProgressReporter : public ProgressReporter
+    {
+    public:
+        StreamProgressReporter(double maxProgress, std::ostream & out=std::cout);
+
+        virtual ~StreamProgressReporter();
+
+        virtual bool increaseProgress(double delta);
+        virtual bool increaseProgress(double delta, const std::string & msg);
+        virtual void setMessage(const std::string & msg);
+
+        void print();
+    private:
+        double m_progress;
+        double m_maxProgress;
+        std::string m_message;
+        std::ostream & m_stream;
+    };
+
+    // progress callback.
+    // 
+
     class ProgressDisplay
     {
     public:
