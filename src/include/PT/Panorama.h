@@ -549,7 +549,7 @@ public:
                              const PanoramaOptions & options,
                              const UIntSet & imgs,
                              bool forPTOptimizer,
-                             const std::string & stripPrefix="");
+                             const std::string & stripPrefix="") const;
 
     /// create the stitcher script
     void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
@@ -688,6 +688,7 @@ private:
 double calcOptimalPanoScale(const SrcPanoImage & src,
                             const PanoramaOptions & dest);
 
+double calcMeanExposure(const Panorama & pano);
 
 // helper functions, workaround for gcc 3.3, which doesn't find
 // the map_get template functions.

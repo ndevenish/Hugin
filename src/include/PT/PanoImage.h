@@ -47,7 +47,8 @@ public:
       morph(false),
       docrop(false),
       autoCenterCrop(true),
-      m_vigCorrMode(VIGCORR_NONE),
+      m_vigCorrMode(VIGCORR_RADIAL|VIGCORR_DIV),
+      responseType(0),
       active(true)
      { };
 
@@ -75,6 +76,8 @@ public:
     int m_vigCorrMode;
     // coefficients for vignetting correction (even degrees: 0,2,4,6, ...)
     std::string m_flatfield;
+    // the response type (Rt)
+    int responseType;
 
     // is image active (displayed in preview and used for optimisation)
     bool active;
@@ -109,6 +112,14 @@ public:
         VIGCORR_DIV = 4        ///< correct by division.
     };
 
+    enum ResponseType {
+        RESPONSE_EMOR=0,                 ///< empirical model of response
+        RESPONSE_LINEAR,                 ///< linear response
+        RESPONSE_GAMMA,                  ///< a simple gamma response curve
+        RESPONSE_FILE,                   ///< load response curve from file (not implemented yet)
+        RESPONSE_ICC                     ///< use ICC for transformation into linear data (not implemented yet)
+    };
+
     SrcPanoImage()
     {
         setDefaults();
@@ -132,6 +143,15 @@ public:
         m_pitch = 0;
         m_yaw = 0;
 
+        m_responseType = RESPONSE_EMOR;
+        m_emorParams.resize(5);
+        for (unsigned i=0; i < 5; i++) {
+            m_emorParams[i] = 0;
+        }
+        m_exposure = 1;
+        m_wbRed = 1;
+        m_wbBlue = 1;
+
         m_gamma = 1;
 
         m_radialDist.resize(4);
@@ -152,20 +172,12 @@ public:
 
         m_crop = NO_CROP;
 
-        m_vigCorrMode = VIGCORR_NONE;
+        m_vigCorrMode = VIGCORR_RADIAL|VIGCORR_DIV;
         m_radialVigCorrCoeff.resize(4);
         m_radialVigCorrCoeff[0] = 1;
         for (unsigned i=1; i < 4; i++) {
             m_radialVigCorrCoeff[i] = 0;
         }
-
-        m_ka.resize(3);
-        for (unsigned i=0; i < 3; i++)
-            m_ka[i] = 1;
-
-        m_kb.resize(3);
-        for (unsigned i=0; i < 3; i++)
-            m_kb[i] = 0;
 
         m_exifCropFactor = 0;
         m_exifFocalLength = 0;
@@ -301,7 +313,7 @@ public:
     { m_radialVigCorrCenterShift = val; }
 
     FDiff2D getRadialVigCorrCenter() const
-    { return FDiff2D(m_size)/2.0 + m_radialVigCorrCenterShift; }
+    { return (FDiff2D(m_size)-FDiff2D(1,1))/2.0 + m_radialVigCorrCenterShift; }
 
     int getLensNr() const
     { return m_lensNr; }
@@ -335,19 +347,43 @@ public:
     { return m_yaw; }
     void setYaw(const double & val)
     { m_yaw = val; }
-    const std::vector<double> & getBrightnessFactor() const
-    { return m_ka; }
-    void setBrightnessFactor(const std::vector<double> & val)
-    { m_ka = val; }
-    const std::vector<double> & getBrightnessOffset() const
-    { return m_kb; }
-    void setBrightnessOffset(const std::vector<double> & val)
-    { m_kb = val; }
 
-    const double & getGamma() const
+    /// get the exposure factor
+    double getExposure() const
+    { return 1.0/pow(2.0, m_exposure); }
+    void setExposure(const double & val)
+    { m_exposure = log2(1/val); }
+
+    /// get the exposure value (log2 of inverse exposure factor)
+    double getExposureValue() const
+    { return m_exposure; }
+    void setExposureValue(const double & val)
+    { m_exposure = val; }
+
+    double getGamma() const
     { return m_gamma; }
-    void setGamma(const double & val)
+    void setGamma(double val)
     { m_gamma = val; }
+
+    double getWhiteBalanceRed() const
+    { return m_wbRed; }
+    void setWhiteBalanceRed(double val)
+    { m_wbRed = val; }
+    double getWhiteBalanceBlue() const
+    { return m_wbBlue; }
+    void setWhiteBalanceBlue(double val)
+    { m_wbBlue = val; }
+
+    ResponseType getResponseType() const
+    { return m_responseType; }
+    void setResponseType(ResponseType val)
+    { m_responseType = val; }
+
+    const std::vector<float> & getEMoRParams() const
+    { return m_emorParams; }
+    void setEMoRParams(const std::vector<float> & val)
+    { m_emorParams = val; }
+
 
     const std::string & getExifModel() const
     { return m_exifModel; }
@@ -369,6 +405,8 @@ public:
     void setExifFocalLength(const double & val)
     { m_exifFocalLength = val; }
 
+    double getVar(const std::string & name) const;
+    void setVar(const std::string & name, double val);
 
 private:
     std::string m_filename;
@@ -378,7 +416,11 @@ private:
     Projection m_proj;
     double m_hfov;
 
+    ResponseType m_responseType;
+    std::vector<float> m_emorParams;
+    double m_exposure;
     double m_gamma;
+    double m_wbRed, m_wbBlue;
 
     // orientation in degrees
     double m_roll;

@@ -932,7 +932,7 @@ void Panorama::printPanoramaScript(ostream & o,
                                    const PanoramaOptions & output,
                                    const UIntSet & imgs,
                                    bool forPTOptimizer,
-                                   const std::string & stripPrefix)
+                                   const std::string & stripPrefix) const
 {
 #ifdef __unix__
     // set numeric locale to C, for correct number output
@@ -950,7 +950,7 @@ void Panorama::printPanoramaScript(ostream & o,
     }
     // output options..
 
-    output.printScriptLine(o);
+    output.printScriptLine(o, forPTOptimizer);
 
     std::map<unsigned int, unsigned int> linkAnchors;
     // map from script img nr -> pano image nr
@@ -961,11 +961,11 @@ void Panorama::printPanoramaScript(ostream & o,
     for (UIntSet::const_iterator imgNrIt = imgs.begin(); imgNrIt != imgs.end();
          ++imgNrIt)
     {
-	unsigned int imgNr = *imgNrIt;
+        unsigned int imgNr = *imgNrIt;
         imageNrMap[imgNr] = ic;
-	PanoImage & img = state.images[imgNr];
+        PanoImage  img = state.images[imgNr];
         unsigned int lensNr = img.getLensNr();
-        Lens & lens = state.lenses[lensNr];
+        Lens lens = state.lenses[lensNr];
         const VariableMap & vars = state.variables[imgNr];
         ImageOptions iopts = img.getOptions();
 
@@ -1047,6 +1047,9 @@ void Panorama::printPanoramaScript(ostream & o,
 
             if (iopts.m_flatfield.size() > 0) {
                 o << " Vf\"" << iopts.m_flatfield << "\"";
+            }
+            if (iopts.responseType > 0) {
+                o << " Rt" << iopts.responseType;
             }
         }
 
@@ -1759,16 +1762,23 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     t.y = const_map_get(vars,"Vy").getValue();
     ret.setRadialVigCorrCenterShift(t);
 
-    std::vector<double> k(3);
-    k[0] = const_map_get(vars,"K0a").getValue();
-    k[1] = const_map_get(vars,"K1a").getValue();
-    k[2] = const_map_get(vars,"K2a").getValue();
-    ret.setBrightnessFactor(k);
+    // exposure and white balance parameters
+    ret.setExposureValue(const_map_get(vars,"Eev").getValue());
+    ret.setWhiteBalanceRed(const_map_get(vars,"Er").getValue());
+    ret.setWhiteBalanceBlue(const_map_get(vars,"Eb").getValue());
 
-    k[0] = const_map_get(vars,"K0b").getValue();
-    k[1] = const_map_get(vars,"K1b").getValue();
-    k[2] = const_map_get(vars,"K2b").getValue();
-    ret.setBrightnessOffset(k);
+    // camera response parameters
+    DEBUG_DEBUG("opts.resp: " << ((SrcPanoImage::ResponseType)opts.responseType));
+    ret.setResponseType((SrcPanoImage::ResponseType) opts.responseType);
+    DEBUG_DEBUG("ret.resp (after set): " << ret.getResponseType());
+
+    std::vector<float> ep(5);
+    ep[0] = const_map_get(vars,"Ra").getValue();
+    ep[1] = const_map_get(vars,"Rb").getValue();
+    ep[2] = const_map_get(vars,"Rc").getValue();
+    ep[3] = const_map_get(vars,"Rd").getValue();
+    ep[4] = const_map_get(vars,"Re").getValue();
+    ret.setEMoRParams(ep);
 
     // crop
     if (!opts.docrop) {
@@ -1818,14 +1828,18 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     vars.insert(make_pair("Vx", Variable("Vx", img.getRadialVigCorrCenterShift().x)));
     vars.insert(make_pair("Vy", Variable("Vy", img.getRadialVigCorrCenterShift().y)));
 
-    // brightness correction
-    vars.insert(make_pair("K0a", Variable("K0a", img.getBrightnessFactor()[0])));
-    vars.insert(make_pair("K1a", Variable("K1a", img.getBrightnessFactor()[1])));
-    vars.insert(make_pair("K2a", Variable("K2a", img.getBrightnessFactor()[2])));
+    // exposure and white balance
+    vars.insert(make_pair("Eev", Variable("Eev", img.getExposureValue())));
+    vars.insert(make_pair("Er",  Variable("Er",  img.getWhiteBalanceRed())));
+    vars.insert(make_pair("Eb",  Variable("Eb",  img.getWhiteBalanceBlue())));
 
-    vars.insert(make_pair("K0b", Variable("K0b", img.getBrightnessOffset()[0])));
-    vars.insert(make_pair("K1b", Variable("K1b", img.getBrightnessOffset()[1])));
-    vars.insert(make_pair("K2b", Variable("K2b", img.getBrightnessOffset()[2])));
+    // camera response parameters
+    opts.responseType = img.getResponseType();
+    vars.insert(make_pair("Ra", Variable("Ra", img.getEMoRParams()[0])));
+    vars.insert(make_pair("Rb", Variable("Rb", img.getEMoRParams()[1])));
+    vars.insert(make_pair("Rc", Variable("Rc", img.getEMoRParams()[2])));
+    vars.insert(make_pair("Rd", Variable("Rd", img.getEMoRParams()[3])));
+    vars.insert(make_pair("Re", Variable("Re", img.getEMoRParams()[4])));
 
     // set variables
     updateVariables(imgNr, vars);
@@ -1848,6 +1862,7 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     opts.cropRect = img.getCropRect();
     opts.m_vigCorrMode = img.getVigCorrMode();
     opts.m_flatfield = img.getFlatfieldFilename();
+    opts.responseType = img.getResponseType();
     setImageOptions(imgNr, opts);
     imageChanged(imgNr);
 }
@@ -2140,6 +2155,15 @@ int Panorama::getNextCPTypeLineNumber() const
     return t+1;
 }
 
+double PT::calcMeanExposure(const Panorama & pano)
+{
+    double exposure=0;
+    size_t i;
+    for (i = 0; i < pano.getNrOfImages(); i++) {
+        exposure += const_map_get(pano.getImageVariables(i),"Eev").getValue();
+    }
+    return exposure / i;
+}
 
 double PT::calcOptimalPanoScale(const SrcPanoImage & src,
                                 const PanoramaOptions & dest)
