@@ -42,7 +42,7 @@
 #include "hugin/UniversalCursor.h"
 #endif
 
-#include "hugin/CPZoomDisplayPanel.h"
+//#include "hugin/CPZoomDisplayPanel.h"
 
 using namespace std;
 using namespace utils;
@@ -138,7 +138,7 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
       m_showSearchArea(false), m_searchRectWidth(0),
       m_showTemplateArea(false), m_templateRectWidth(0),
       m_tempZoom(false),m_savedScale(1), m_editPanel(parent),
-      m_zoomDisplay(0), m_imgRotation(ROT0)
+      m_imgRotation(ROT0)
 {
 
     wxString filename;
@@ -195,12 +195,12 @@ CPImageCtrl::~CPImageCtrl()
 //    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }
-
+/*
 void CPImageCtrl::SetZoomView(CPZoomDisplayPanel * d)
 {
     m_zoomDisplay = d;
 }
-
+*/
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {
@@ -374,12 +374,12 @@ void CPImageCtrl::rescaleImage()
         return;
     }
     // rescale image
-    ImageCache::Entry * e = ImageCache::getInstance().getImage(imageFilename);
+    wxImage img;
+    ImageCache::Entry * e = ImageCache::getInstance().getImageWX(imageFilename, img);
     if (!e) {
         return;
     }
-    wxImage * img = e->image;
-    imageSize = wxSize(img->GetWidth(), img->GetHeight());
+    imageSize = wxSize(img.GetWidth(), img.GetHeight());
     m_realSize = imageSize;
     if (fitToWindow) {
         scaleFactor = calcAutoScaleFactor(imageSize);
@@ -389,7 +389,7 @@ void CPImageCtrl::rescaleImage()
     if (getScaleFactor() == 1.0) {
         // need to rotate full image. warning. this can be very memory intensive
         if (m_imgRotation != ROT0) {
-            wxImage tmp(*img);
+            wxImage tmp(img);
             switch(m_imgRotation) {
                 case ROT90:
                     tmp = tmp.Rotate90(true);
@@ -407,7 +407,7 @@ void CPImageCtrl::rescaleImage()
             }
             bitmap = wxBitmap(tmp);
         } else {
-            bitmap = wxBitmap(*img);
+            bitmap = wxBitmap(img);
         }
     } else {
         imageSize.SetWidth( scale(imageSize.GetWidth()) );
@@ -415,7 +415,7 @@ void CPImageCtrl::rescaleImage()
         DEBUG_DEBUG("rescaling to " << imageSize.GetWidth() << "x"
                     << imageSize.GetHeight() );
 
-        wxImage tmp= img->Scale(imageSize.GetWidth(), imageSize.GetHeight());
+        wxImage tmp= img.Scale(imageSize.GetWidth(), imageSize.GetHeight());
         switch(m_imgRotation) {
             case ROT90:
                 tmp = tmp.Rotate90(true);
@@ -806,9 +806,9 @@ void CPImageCtrl::update()
     PrepareDC(dc);
     OnDraw(dc);
 
-    updateZoomed();
+//    updateZoomed();
 }
-
+/*
 void CPImageCtrl::updateZoomed()
 {
     if (!m_zoomDisplay) return;
@@ -817,15 +817,16 @@ void CPImageCtrl::updateZoomed()
     switch(editState) {
     case KNOWN_POINT_SELECTED:
         // update known point
-        m_zoomDisplay->SetPoint(points[selectedPointNr]);
+//        m_zoomDisplay->SetPoint(points[selectedPointNr]);
         break;
     case NEW_POINT_SELECTED:
-        m_zoomDisplay->SetPoint(newPoint);
+//        m_zoomDisplay->SetPoint(newPoint);
         break;
     default:
         break;
     }
 }
+*/
 
 bool CPImageCtrl::emit(CPEvent & ev)
 {
@@ -1036,9 +1037,7 @@ void CPImageCtrl::showSearchArea(bool show)
     if (show)
     {
         int templSearchAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"), HUGIN_FT_SEARCH_AREA_PERCENT);
-        wxImage * img = ImageCache::getInstance().getImage(imageFilename)->image;
-
-        m_searchRectWidth = (img->GetWidth() * templSearchAreaPercent) / 200;
+        m_searchRectWidth = (m_realSize.GetWidth() * templSearchAreaPercent) / 200;
         DEBUG_DEBUG("Setting new search area: w in %:" << templSearchAreaPercent << " bitmap width: " << bitmap.GetWidth() << "  resulting size: " << m_searchRectWidth);
         m_mousePos = FDiff2D(-1,-1);
     }
