@@ -35,7 +35,10 @@
 //#include <vigra_ext/PointMatching.h>
 //#include <vigra_ext/LoweSIFT.h>
 
-#include "PT/PTOptimise.h"
+#include <PT/RandomPointSampler.h>
+#include <PT/PhotometricOptimizer.h>
+#include <PT/PTOptimise.h>
+
 #include "common/wxPlatform.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/CommandHistory.h"
@@ -48,6 +51,7 @@
 #include "hugin/PTWXDlg.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/PanoDruid.h"
+#include "hugin/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
 
 using namespace PT;
@@ -375,6 +379,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     bool createCtrlP = m_pano.getNrOfCtrlPoints() == 0;
 
+    ProgressReporterDialog progress(5, _("Aligning images"), _("Finding corresponding points"));
     wxString alignMsg;
     if (createCtrlP) {
         AutoCtrlPointCreator matcher;
@@ -383,6 +388,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                 new PT::AddCtrlPointsCmd(m_pano, cps)
                                                );
     }
+
+    progress.increaseProgress(1.0, "determining placement of the images");
 
     // find components..
     CPGraph graph;
@@ -434,6 +441,8 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         registerPTWXDlgFcn();
     }
 
+    progress.increaseProgress(1.0, "leveling the panorama");
+
     // straighten
     optPano.straighten();
 
@@ -467,17 +476,91 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
     opts.setWidth(roundi(w*sizeFactor), true);
     optPano.setOptions(opts);
 
+    progress.increaseProgress(1.0, "loading images");
+
+    // TODO: photometric optimisation.
+    // first, ensure that vignetting and response coefficients are linked
+    char * varnames[] = {"Va", "Vb", "Vc", "Vd", "Vx", "Vy",
+                            "Ra", "Rb", "Rc", "Rd", "Re",  0};
+
+    for (size_t i = 0; i < optPano.getNrOfLenses(); i++) {
+        const Lens & l = optPano.getLens(i);
+        for (char ** v = varnames; *v; v++) {
+            LensVariable var = const_map_get(l.variables, *v);
+            if (!var.isLinked()) {
+                var.setLinked();
+                optPano.updateLensVariable(i, var);
+            }
+        }
+    }
+
+    // check if this is an HDR image
+    // (check for large exposure differences)
+    double min_exp, max_exp;
+    min_exp = max_exp = const_map_get(m_pano.getImageVariables(0), "Eev").getValue();
+    for (size_t i = 1; i < m_pano.getNrOfImages(); i++) {
+        double ev = const_map_get(m_pano.getImageVariables(i), "Eev").getValue();
+        min_exp = std::min(min_exp, ev);
+        max_exp = std::max(max_exp, ev);
+    }
+    if (max_exp - min_exp > 3) {
+        // switch to HDR mode
+        opts.outputMode = PanoramaOptions::OUTPUT_HDR;
+    }
+
+    MainFrame::Get()->resetProgress(3);
+
+    // photometric estimation
+    int nPoints = wxConfigBase::Get()->Read(wxT("OptimizePhotometric/nRandomPointsPerImage"),200l);
+    nPoints = nPoints * optPano.getNrOfImages();
+    // get the small images
+    std::vector<vigra::FRGBImage *> srcImgs;
+    for (size_t i=0; i < optPano.getNrOfImages(); i++) {
+        ImageCache::Entry * e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
+        vigra::FRGBImage * img = new FRGBImage;
+        if (!e) {
+            wxMessageBox(_("Error: could not load all images"), _("Error"));
+            return;
+        }
+        if (e->image8) {
+            reduceToNextLevel(*(e->image8), *img);
+            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                            vigra::functor::Arg1()/vigra::functor::Param(255.0));
+        } else {
+            reduceToNextLevel(*(e->imageFloat), *img);
+        }
+        srcImgs.push_back(img);
+    }
+    bool randomPoints = true;
+    std::vector<vigra_ext::PointPairRGB> points;
+    extractPoints(optPano, srcImgs, nPoints, randomPoints, *(MainFrame::Get()), points);
+
+    progress.increaseProgress(1.0, "Vignetting and exposure correction");
+
+    PhotometricOptimizeMode poptmode = OPT_PHOTOMETRIC_LDR;
+    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+        poptmode = OPT_PHOTOMETRIC_HDR;
+    }
+    double error;
+    smartOptimizePhotometric(optPano, poptmode,
+                                points, *(MainFrame::Get()), error);
+    cout << "Auto align, photometric error: " << error *255 << " grey values" << std::endl;
+
+    // calculate the mean exposure.
+    opts.outputExposureValue = calcMeanExposure(m_pano);
+
     // TODO: merge the following commands.
+
 
     // copy information into the main panorama
     GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateVariablesCPSetCmd(m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
-         );
+        new PT::UpdateVariablesCPSetCmd(m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
+        );
 
     // copy information into our panorama
     GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd(m_pano, opts)
-         );
+        new PT::SetPanoOptionsCmd(m_pano, opts)
+        );
 
     // show preview frame
     wxCommandEvent dummy;
