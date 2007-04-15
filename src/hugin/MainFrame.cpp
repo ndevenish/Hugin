@@ -46,6 +46,7 @@
 #include "hugin/LensPanel.h"
 #include "hugin/CropPanel.h"
 #include "hugin/OptimizePanel.h"
+#include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PreviewFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/CPEditorPanel.h"
@@ -198,6 +199,9 @@ END_EVENT_TABLE()
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : pano(pano), m_doRestoreLayout(false), m_help(0)
 {
+    m_progressMax = 1;
+    m_progress = 0;
+
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
     wxYield();
@@ -310,6 +314,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     DEBUG_TRACE("");
     wxXmlResource::Get()->AttachUnknownControl(wxT("optimizer_panel_unknown"),
                                                opt_panel);
+
+    opt_photo_panel = new OptimizePhotometricPanel(this, &pano);
+    // create the custom widget referenced by the main_frame XRC
+    DEBUG_TRACE("");
+    wxXmlResource::Get()->AttachUnknownControl(wxT("optimizer_photometric_panel_unknown"),
+    opt_photo_panel);
 
     preview_frame = new PreviewFrame(this, pano);
 
@@ -1173,17 +1183,18 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                 if (cps[*it].mode == ControlPoint::X_Y) {
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
-                    wxImage * wxSearchImg = ImageCache::getInstance().getImage(
-                            pano.getImage(cps[*it].image2Nr).getFilename())->image;
-                    wxImage * wxTmplImg = ImageCache::getInstance().getImage(
-                            pano.getImage(cps[*it].image1Nr).getFilename())->image;
+                    wxImage wxSearchImg;
+                    ImageCache::getInstance().getImageWX( pano.getImage(cps[*it].image2Nr).getFilename(), wxSearchImg);
 
-                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > searchImg((vigra::RGBValue<unsigned char> *)wxSearchImg->GetData(),
-                            wxSearchImg->GetWidth(),
-                            wxSearchImg->GetHeight());
-                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > templImg((vigra::RGBValue<unsigned char> *)wxTmplImg->GetData(),
-                            wxTmplImg->GetWidth(),
-                            wxTmplImg->GetHeight());
+                    wxImage wxTmplImg;
+                    ImageCache::getInstance().getImageWX(pano.getImage(cps[*it].image1Nr).getFilename(), wxTmplImg);
+
+                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > searchImg((vigra::RGBValue<unsigned char> *)wxSearchImg.GetData(),
+                            wxSearchImg.GetWidth(),
+                            wxSearchImg.GetHeight());
+                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > templImg((vigra::RGBValue<unsigned char> *)wxTmplImg.GetData(),
+                            wxTmplImg.GetWidth(),
+                            wxTmplImg.GetHeight());
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
@@ -1394,6 +1405,57 @@ MainFrame * MainFrame::Get()
         return 0;
     }
 }
+
+void MainFrame::resetProgress(double max)
+{
+    m_progressMax = max;
+    m_progress = 0;
+    m_progressMsg = wxT("");
+}
+
+bool MainFrame::increaseProgress(double delta)
+{
+    m_progress += delta;
+
+    // build the message:
+    int percentage = (int) floor(m_progress/m_progressMax*100);
+    if (percentage > 100) percentage = 100;
+
+    return displayProgress();
+}
+
+bool MainFrame::increaseProgress(double delta, const std::string & msg)
+{
+    m_progress += delta;
+    m_progressMsg = wxString(msg.c_str(), *wxConvCurrent);
+
+    return displayProgress();
+}
+
+
+void MainFrame::setMessage(const std::string & msg)
+{
+    m_progressMsg = wxString(msg.c_str(), *wxConvCurrent);
+}
+
+bool MainFrame::displayProgress()
+{
+    // build the message:
+    int percentage = (int) floor(m_progress/m_progressMax*100);
+    if (percentage > 100) percentage = 100;
+
+    wxStatusBar *statbar = GetStatusBar();
+    statbar->SetStatusText(wxString::Format(wxT("%s: %d%%"),m_progressMsg.c_str(), percentage),0);
+#ifdef __WXMSW__
+    UpdateWindow(NULL);
+#else
+    // This is a bad call.. we just want to repaint the window, instead we will
+    // process user events as well :( Unfortunately, there is not portable workaround...
+    //wxYield();
+#endif
+    return true;
+}
+
 
 void getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
                          double & focalLength, double & cropFactor)
