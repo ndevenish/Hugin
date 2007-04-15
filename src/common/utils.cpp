@@ -143,9 +143,50 @@ std::string utils::doubleToString(double d, int digits)
     return number;
 }
 
+
 utils::MultiProgressDisplay::MultiProgressDisplay(double minPrintStep)
   : m_minProgressStep(minPrintStep) 
 {
 
+}
+
+utils::StreamProgressReporter::StreamProgressReporter(double maxProgress, std::ostream & out)
+ : m_progress(0), m_maxProgress(maxProgress), m_stream(out)
+{
+
+}
+utils::StreamProgressReporter::~StreamProgressReporter()
+{
+    m_stream << "\r" << std::flush;
+}
+
+bool utils::StreamProgressReporter::increaseProgress(double delta) 
+{
+    m_progress += delta;
+    print();
+            // check for Ctrl-C ?
+    return true;
+}
+
+bool utils::StreamProgressReporter::increaseProgress(double delta, const std::string & msg) 
+{
+    m_message = msg;
+    m_progress += delta;
+    print();
+            // check for Ctrl-C ?
+    return true;
+}
+
+void utils::StreamProgressReporter::setMessage(const std::string & msg)
+{
+    m_message = msg;
+    print();
+}
+
+void utils::StreamProgressReporter::print()
+{
+    double prog = floor(m_progress/m_maxProgress*100);
+    if (prog > 100) prog = 100;
+    m_stream << "\r" << m_message << ": " << prog << "%" << std::flush;
 }
 
