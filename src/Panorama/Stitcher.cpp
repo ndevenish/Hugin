@@ -124,6 +124,7 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
     }
 }
 
+
 /** The main stitching function.
  *  This function delegates all the work to the other functions
  *
@@ -132,13 +133,15 @@ void PT::estimateBlendingOrder(const Panorama & pano, UIntSet images, vector<uns
  *  cpp files
  */
 void PT::stitchPanorama(const PT::Panorama & pano,
-                        const PT::PanoramaOptions & opts,
+                        const PT::PanoramaOptions & opt,
                         utils::MultiProgressDisplay & progress,
                         const std::string & basename,
                         const PT::UIntSet & usedImgs)
 {
     // probe the first image to determine a suitable image type for stitching
     DEBUG_ASSERT(pano.getNrOfImages() > 0);
+
+    PanoramaOptions opts = opt;
 
     unsigned int imgNr = 0;
     pano.getImage(imgNr);
@@ -148,6 +151,7 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     const char * pixelType = info.getPixelType();
     int bands = info.numBands();
     int extraBands = info.numExtraBands();
+    //bool color = (bands == 3 || bands == 4 && extraBands == 1);
 
     // check if all other images have the same type
     for (imgNr = 1 ; imgNr < pano.getNrOfImages(); imgNr++) {
@@ -164,31 +168,59 @@ void PT::stitchPanorama(const PT::Panorama & pano,
             return;
         }
     }
+//    DEBUG_DEBUG("Output pixel type: " << pixelType);
+    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+        opts.outputPixelType = "FLOAT";
 
-    // stitch the pano with a suitable image type
+    } else if (opts.outputPixelType.size() == 0) {
+        opts.outputPixelType = pixelType;
+    }
+
+#if 1
+    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+        if (bands == 1 || bands == 2 && extraBands == 1) {
+            stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
+        } else if (bands == 3 || bands == 4 && extraBands == 1) {
+            stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
+        } else {
+            DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
+            throw std::runtime_error("unsupported depth, only images with 1 and 3 channel images are supported");
+            return;
+        }
+    } else {
+        // stitch the pano with a suitable image type
+        if (bands == 1 || bands == 2 && extraBands == 1) {
+            if (strcmp(pixelType, "UINT8") == 0 ||
+                strcmp(pixelType, "INT16") == 0 ||
+                strcmp(pixelType, "UINT16") == 0 ) 
+            {
+                stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType);
+            } else {
+                stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType);
+            }
+        } else if (bands == 3 || bands == 4 && extraBands == 1) {
+            if (strcmp(pixelType, "UINT8") == 0 ||
+                strcmp(pixelType, "INT16") == 0 ||
+                strcmp(pixelType, "UINT16") == 0 ) 
+            {
+                stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType);
+            } else {
+                stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType);
+            }
+        }
+    }
+#else
+    // always stitch with float images.
     if (bands == 1 || bands == 2 && extraBands == 1) {
-        if (strcmp(pixelType, "UINT8") == 0 ||
-            strcmp(pixelType, "INT16") == 0 ||
-            strcmp(pixelType, "UINT16") == 0 ) 
-        {
-            stitchPanoGray_8_16(pano, opts, progress, basename, usedImgs, pixelType);
-        } else {
-            stitchPanoGray_32_float(pano, opts, progress, basename, usedImgs, pixelType);
-        }
+        stitchPanoIntern<FImage,BImage>(pano, opts, progress, basename, usedImgs);
     } else if (bands == 3 || bands == 4 && extraBands == 1) {
-        if (strcmp(pixelType, "UINT8") == 0 ||
-            strcmp(pixelType, "INT16") == 0 ||
-            strcmp(pixelType, "UINT16") == 0 ) 
-        {
-            stitchPanoRGB_8_16(pano, opts, progress, basename, usedImgs, pixelType);
-        } else {
-            stitchPanoRGB_32_float(pano, opts, progress, basename, usedImgs, pixelType);
-        }
+        stitchPanoIntern<FRGBImage,BImage>(pano, opts, progress, basename, usedImgs);
     } else {
         DEBUG_ERROR("unsupported depth, only images with 1 and 3 channel images are supported");
         throw std::runtime_error("unsupported depth, only images with 1 and 3 channel images are supported");
         return;
     }
+#endif
 }
 
 

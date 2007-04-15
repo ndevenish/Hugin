@@ -225,6 +225,7 @@ public:
         AlphaType * alpha_img = 0;
         ImageType complete;
         vigra::BImage alpha;
+
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
             complete.resize(opts.getWidth(), opts.getHeight());
@@ -244,6 +245,7 @@ public:
             final_img = &remapped.m_image;
             alpha_img = &remapped.m_mask;
         }
+
         switch (opts.outputFormat) {
             case PanoramaOptions::JPEG:
             {
@@ -304,9 +306,21 @@ public:
                 Base::m_progress.setMessage(std::string("saving ") +
                         utils::stripPath(filename.str()));
 
-                vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
+//                vigra::TiffImage * tiff = TIFFOpen(filename.str().c_str(), "w");
 
                 if (! opts.tiff_saveROI) {
+                    DEBUG_DEBUG("Saving normal tiff_m image with alpha channel");
+                    std::ostringstream filename2;
+                    filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
+                    vigra::ImageExportInfo exinfo(filename2.str().c_str());
+                    exinfo.setXResolution(150);
+                    exinfo.setYResolution(150);
+                    exinfo.setPixelType(opts.outputPixelType.c_str());
+                    exinfo.setCompression(opts.tiffCompression.c_str());
+                    vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
+                                            exinfo);
+//                    vigra::exportImageAlpha(srcImageRange(*final_img), srcImageRange(*alpha_img), exinfo);
+#if 0
                     vigra_ext::createTiffDirectory(tiff,
                                                Base::m_pano.getImage(imgNr).getFilename(),
                                                m_basename,
@@ -319,7 +333,21 @@ public:
                     vigra_ext::createAlphaTiffImage(srcImageRange(*final_img),
                                                 srcImage(*alpha_img),
                                                 tiff);
+#endif
                 } else {
+                    DEBUG_DEBUG("Saving cropped tiff_m image with alpha channel");
+                    std::ostringstream filename2;
+                    filename2 << m_basename << std::setfill('0') << std::setw(4) << imgNr << ".tif";
+                    vigra::ImageExportInfo exinfo(filename2.str().c_str());
+                    exinfo.setXResolution(150);
+                    exinfo.setYResolution(150);
+                    exinfo.setPosition(remapped.boundingBox().upperLeft());
+                    exinfo.setPixelType(opts.outputPixelType.c_str());
+                    exinfo.setCompression(opts.tiffCompression.c_str());
+                    vigra::exportImageAlpha(srcImageRange(remapped.m_image), srcImage(remapped.m_mask),
+                                            exinfo);
+                    //vigra::exportImageAlpha(srcImageRange(remapped.m_image), srcImageRange(remapped.m_alpha), exinfo);
+#if 0
                     vigra_ext::createTiffDirectory(tiff,
                             Base::m_pano.getImage(imgNr).getFilename(),
                             m_basename,
@@ -330,9 +358,10 @@ public:
                     vigra_ext::createAlphaTiffImage(vigra::srcImageRange(remapped.m_image),
                             vigra::maskImage(remapped.m_mask),
                             tiff);
+#endif
                 }
-                TIFFFlush(tiff);
-                TIFFClose(tiff);
+//                TIFFFlush(tiff);
+//                TIFFClose(tiff);
 
                 if (opts.saveCoordImgs) {
                     vigra::UInt16Image xImg;
@@ -522,12 +551,8 @@ public:
 	{
             // get a remapped image.
             DEBUG_DEBUG("remapping image: " << *it);
-	    RemappedPanoImage<ImageType, AlphaType> *
+            RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-            if (iccProfile.isValid()) {
-                // try to extract icc profile.
-                iccProfile = remapped->m_ICCProfile;
-            }
 	    Base::m_progress.setMessage("blending");
 	    // add image to pano and panoalpha, adjusts panoROI as well.
             try {
@@ -569,7 +594,10 @@ public:
         case PanoramaOptions::TIFF:
             outputfile = basename + ".tif";
             break;
-        default:
+        case PanoramaOptions::HDR:
+            outputfile = basename + ".hdr";
+        break;
+            default:
             DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
         }
         Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
@@ -602,107 +630,204 @@ public:
     }
 
 protected:
-    vigra::ICCProfile iccProfile;
+    vigra::ImageImportInfo::ICCProfile iccProfile;
 };
 
 
-/** A stitcher without seaming, just copies the images over each other
+/** Difference reduce functor */
+template<class VALUETYPE>
+struct ReduceToDifferenceFunctor
+{
+    typedef VALUETYPE  argument_type;
+    typedef VALUETYPE  result_type;
+    typedef typename vigra::NumericTraits<argument_type> Traits;
+    typedef typename Traits::RealPromote float_type;
+
+
+    ReduceToDifferenceFunctor()
+    {
+        reset();
+    }
+
+    void reset()
+    {
+        sum = vigra::NumericTraits<float_type>::zero();
+        values.clear();
+    }
+
+    template<class T, class M> 
+    void operator() (T const &v, M const &a)
+    {
+        if (a) {
+            values.push_back(v);
+            sum = sum + v;
+        }
+    }
+
+    /** return the result */ 
+    float_type operator()() const
+    {
+        typedef typename std::vector<float_type>::const_iterator Iter;
+        if (values.size() > 1) {
+            float_type mean = sum / values.size();
+            float_type error = vigra::NumericTraits<float_type>::zero();
+            for (Iter it= values.begin();  it != values.end(); ++it) {
+                error +=  vigra::abs(*it-mean);
+            }
+            return error;
+        } else {
+            return sum;
+        }
+    }
+    std::vector<float_type> values;
+    float_type sum;
+};
+
+/** create a panorama using the reduce operation on all overlapping
+ *  pixels. WARNING: this version is very memory hungry for large
+ *  panoramas (> 3 images ;-)
  */
 template <typename ImageType, typename AlphaType>
-class MultiBlendingStitcher : public Stitcher<ImageType, AlphaType>
+class ReduceStitcher : public Stitcher<ImageType, AlphaType>
 {
     typedef Stitcher<ImageType, AlphaType> Base;
 public:
-    MultiBlendingStitcher(const PT::Panorama & pano,
-                          utils::MultiProgressDisplay & progress)
-	: Stitcher<ImageType, AlphaType>(pano, progress)
+    ReduceStitcher(const PT::Panorama & pano,
+                   utils::MultiProgressDisplay & progress)
+    : Stitcher<ImageType, AlphaType>(pano, progress)
     {
     }
 
-    virtual ~MultiBlendingStitcher()
+    virtual ~ReduceStitcher()
     {
     }
 
+    template <class FUNCTOR>
+    void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
+                const std::string & filename,
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                FUNCTOR & reduce)
+    {
+        std::string basename = utils::stripExtension(filename);
+
+    // create panorama canvas
+        ImageType pano(opts.getWidth(), opts.getHeight());
+        AlphaType panoMask(opts.getWidth(), opts.getHeight());
+
+        stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask),
+               remapper, reduce);
+
+        std::string outputfile;
+    // save the remapped image
+        switch (opts.outputFormat) {
+            case PanoramaOptions::JPEG:
+                outputfile = basename + ".jpg";
+                break;
+            case PanoramaOptions::PNG:
+                outputfile = basename + ".png";
+                break;
+            case PanoramaOptions::TIFF:
+                outputfile = basename + ".tif";
+                break;
+            case PanoramaOptions::HDR:
+                outputfile = basename + ".hdr";
+                break;
+            default:
+                DEBUG_ERROR("unsupported output format: " << opts.outputFormat);
+        }
+//        Base::m_progress.setMessage("saving result: " + utils::stripPath(outputfile));
+        DEBUG_DEBUG("Saving panorama: " << outputfile);
+        vigra::ImageExportInfo exinfo(outputfile.c_str());
+        exinfo.setXResolution(150);
+        exinfo.setYResolution(150);
+//        exinfo.setICCProfile(iccProfile);
+        // set compression quality for jpeg images.
+        if (opts.outputFormat == PanoramaOptions::JPEG) {
+            char jpgCompr[4];
+            snprintf(jpgCompr,4,"%d", opts.quality);
+            exinfo.setCompression(jpgCompr);
+            vigra::exportImage(srcImageRange(pano), exinfo);
+        } else if (opts.outputFormat == PanoramaOptions::TIFF) {
+            exinfo.setCompression(opts.tiffCompression.c_str());
+            vigra::exportImageAlpha(srcImageRange(pano),
+                                    srcImage(panoMask), exinfo);
+        } else if (opts.outputFormat == PanoramaOptions::HDR) {
+            vigra::exportImage(srcImageRange(pano), exinfo);
+        } else {
+            vigra::exportImageAlpha(srcImageRange(pano),
+                                    srcImage(panoMask), exinfo);
+        }
+        /*
+#ifdef DEBUG
+        vigra::exportImage(srcImageRange(panoMask), vigra::ImageExportInfo("pano_alpha.tif"));
+#endif
+        */
+    }
+
+    
     template<class ImgIter, class ImgAccessor,
-             class AlphaIter, class AlphaAccessor>
+             class AlphaIter, class AlphaAccessor,
+             class FUNCTOR>
     void stitch(const PT::PanoramaOptions & opts, PT::UIntSet & imgSet,
                 vigra::triple<ImgIter, ImgIter, ImgAccessor> pano,
                 std::pair<AlphaIter, AlphaAccessor> alpha,
-                SingleImageRemapper<ImageType, AlphaType> & remapper)
+                SingleImageRemapper<ImageType, AlphaType> & remapper,
+                FUNCTOR & reduce)
     {
         typedef typename
             vigra::NumericTraits<typename ImageType::value_type> Traits;
         typedef typename
             Traits::RealPromote RealImgType;
         typedef typename ImageType::value_type ImgType;
+        typedef typename AlphaAccessor::value_type MaskType;
 
         // remap all images..
         typedef std::vector<RemappedPanoImage<ImageType, AlphaType> *> RemappedVector;
         unsigned int nImg = imgSet.size();
 
-	Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
-	// empty ROI
-//	vigra::Rect2D panoROI;
+        Base::m_progress.pushTask(utils::ProgressTask("Stitching", "", 1.0/(nImg)));	
+        // empty ROI
+        //	vigra::Rect2D panoROI;
         // remap all images..
         RemappedVector remapped(nImg);
 
-    int i=0;
-	// remap each image and blend into main pano image
-	for (UIntSet::const_iterator it = imgSet.begin();
-	     it != imgSet.end(); ++it)
-	{
+        int i=0;
+        // remap each image and blend into main pano image
+        for (UIntSet::const_iterator it = imgSet.begin();
+                it != imgSet.end(); ++it)
+        {
             // get a copy of the remapped image.
             // not very good, keeps all images in memory,
-		// but should be enought for the preview.
+            // but should be enought for the preview.
             remapped[i] = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
             i++;
-	}
-	vigra::Diff2D size =  pano.second - pano.first;
-	ImgIter output = pano.first;
+        }
+        vigra::Diff2D size =  pano.second - pano.first;
+        ImgIter output = pano.first;
         // iterate over the whole image...
         // calculate something on the pixels that belong together..
         for (int y=0; y < size.y; y++) {
             for (int x=0; x < size.x; x++) {
-                RealImgType mean;
-                int n=0;
-                unsigned int nFirst=nImg;
-                // calculate the minimum and maximum
+                reduce.reset();
+                MaskType maskRes=0;
                 for (unsigned int i=0; i< nImg; i++) {
-                    typename AlphaType::value_type a;
-                    a =remapped[i]->getMask(x,y);
+                    MaskType a = remapped[i]->getMask(x,y);
                     if (a) {
-                        if (i < nFirst) {
-                            nFirst = i;
-                        }
-                        RealImgType c = remapped[i]->operator()(x,y);
-                        mean = mean + c;
-                        n++;
+                        maskRes = vigra_ext::LUTTraits<MaskType>::max();
+                        reduce(remapped[i]->operator()(x,y), a);
                     }
                 }
-                if (n > 1) {
-                    mean = mean / n;
-                    RealImgType error = 0;
-                    for (unsigned int i=0; i < nImg; i++) {
-                        if (remapped[i]->getMask(x,y)) {
-                            RealImgType c = remapped[i]->operator()(x,y);
-                            error +=  vigra::abs(c-mean);
-                        }
-                    }
-//                  *output = Traits::fromRealPromote(error);
-                    pano.third.set(Traits::fromRealPromote(error),
-                                   output, vigra::Diff2D(x,y));
-                } else if (n==1){
-                    pano.third.set(remapped[nFirst]->operator()(x,y),output,vigra::Diff2D(x,y));
-                }
+                pano.third.set(Traits::fromRealPromote(reduce()), output, vigra::Diff2D(x,y));
+                alpha.second.set(maskRes, alpha.first, vigra::Diff2D(x,y));
             }
         }
-	Base::m_progress.popTask();
-	
-	for (typename RemappedVector::iterator it=remapped.begin();
-	     it != remapped.end(); ++it)
+        Base::m_progress.popTask();
+
+        for (typename RemappedVector::iterator it=remapped.begin();
+             it != remapped.end(); ++it)
         {
-	    remapper.release(*it);
-	}
+            remapper.release(*it);
+        }
     }
 };
 
@@ -745,7 +870,7 @@ public:
             // get a remapped image.
 	    RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it, Base::m_progress);
-            if (! iccProfile.isValid()) {
+            if (iccProfile.size() > 0) {
                 // try to extract icc profile.
                 iccProfile = remapped->m_ICCProfile;
             }
@@ -824,7 +949,7 @@ public:
 
     }
 protected:
-    vigra::ICCProfile iccProfile;
+    vigra::ImageExportInfo::ICCProfile iccProfile;
 };
 
 /** blend images, by simply stacking them, without soft blending or
@@ -972,12 +1097,35 @@ private:
 };
 */
 
+
+#if 0
+/** small convinience function to remap and stitch a HDR image 
+ *  Warning, this requires tons of memory, since everything is
+ *  hold on disk.
+ */
+template <typename Remapper, typename OutputImage, typename Mask>
+void stitchToHDR(Remapper & remappers, OutputImage & panoImg, Mask & mask, 
+                 utils::MultiProgressDisplay & progress)
+{
+    std::vector<RemappedPanoImage<OutputImage, Mask> *> remapped;
+    // get all remapped images
+    for (UIntSet::const_iterator it = displayedImages.begin();
+        it != displayedImages.end(); ++it)
+    {
+        remapped.push_back(remapper.getRemapped(pano, opts, *it, progress));
+    }
+    ReduceToHDRFunctor<RGBValue<float> > hdrmerge;
+    reduceROIImages(remapped,
+                    destImageRange(panoImg), destImage(alpha),
+                    hdrmerge);
+#endif
+
 template<typename ImageType, typename AlphaType>
-        static void stitchPanoIntern(const PT::Panorama & pano,
-                                     const PT::PanoramaOptions & opts,
-                                     utils::MultiProgressDisplay & progress,
-                                     const std::string & basename,
-                                     PT::UIntSet imgs)
+static void stitchPanoIntern(const PT::Panorama & pano,
+                             const PT::PanoramaOptions & opts,
+                             utils::MultiProgressDisplay & progress,
+                             const std::string & basename,
+                             PT::UIntSet imgs)
 {
     //    typedef
     //        vigra::NumericTraits<typename OutputImageType::Accessor::value_type> DestTraits;
@@ -986,25 +1134,19 @@ template<typename ImageType, typename AlphaType>
     // determine stitching output
     switch (opts.outputFormat) {
         case PT::PanoramaOptions::JPEG:
-        {
-            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename,
-//                            SingleImageRemapper<ImageType, AlphaType>());
-                            m);
-            break;
-        }
         case PT::PanoramaOptions::PNG:
-        {
-            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename,
-                            m);
-            break;
-        }
         case PT::PanoramaOptions::TIFF:
+        case PT::PanoramaOptions::HDR:
         {
-            WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
-            stitcher.stitch(opts, imgs, basename,
-                            m);
+            if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+                ReduceToHDRFunctor<typename ImageType::value_type> hdrmerge;
+                ReduceStitcher<ImageType, AlphaType> stitcher(pano, progress);
+                stitcher.stitch(opts, imgs, basename, m, hdrmerge);
+            } else {
+                WeightedStitcher<ImageType, AlphaType> stitcher(pano, progress);
+                stitcher.stitch(opts, imgs, basename,
+                                m);
+            }
             break;
         }
         case PT::PanoramaOptions::TIFF_m:
