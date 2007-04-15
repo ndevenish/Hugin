@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -162,12 +162,12 @@ namespace vigra {
 
     SunDecoderImpl::SunDecoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
-        : stream( filename.c_str(), std::ios::binary ),
+        : stream( filename.c_str(), std::ios::binary ), 
 #else
-        : stream( filename.c_str() ),
+        : stream( filename.c_str() ), 
 #endif
-          bo ("big endian"),
-          maps (0),
+          bo ("big endian"), 
+          maps (0), 
           bands (0),
           recode (false)
     {
@@ -178,7 +178,7 @@ namespace vigra {
             msg += "'.";
             vigra_precondition (0, msg.c_str ());
         }
-
+        
         // read the magic number, adjust byte order if necessary
         SunHeader::field_type magic;
         read_field (stream, bo, magic);
@@ -275,7 +275,7 @@ namespace vigra {
                     // blue
                     *recode_mover++ = *map_mover;
                 }
-
+                
             } else if (header.maptype == RMT_RAW) {
 
                 // map from UInt8 to UInt8
@@ -381,9 +381,9 @@ namespace vigra {
 
     SunEncoderImpl::SunEncoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
-        : stream( filename.c_str(), std::ios::binary ),
+        : stream( filename.c_str(), std::ios::binary ), 
 #else
-        : stream( filename.c_str() ),
+        : stream( filename.c_str() ), 
 #endif
           bo("big endian"),
           bands(0), finalized(false)

@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    ( Version 1.3.0, Sep 10 2004 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
@@ -41,8 +41,8 @@
 #define VIGRA_MULTI_ITERATOR_HXX
 
 #include <sys/types.h>
-#include "vigra/tinyvector.hxx"
-#include "vigra/iteratortags.hxx"
+#include "tinyvector.hxx"
+#include "iteratortags.hxx"
 
 namespace vigra {
 
@@ -663,7 +663,7 @@ class MultiIteratorBase
             ret += type::m_shape [level-1];
             return ret;
         }
-        
+
             /** Get a 1-dimensional, STL-compatible iterator for the
                 given dimension, pointing to the current element of <TT>this</TT>.
                 Usage:
@@ -970,7 +970,7 @@ class MultiIteratorBase <1>
         {
             return m_ptr < rhs.m_ptr;
         }
-        
+
         bool operator<= (const type &rhs) const
         {
             return m_ptr <= rhs.m_ptr;
@@ -1143,7 +1143,7 @@ public:
                 
             i3.dim2()++;  // increment outer dimension
             i3.dim0()++;  // increment inner dimension
-            \endcode
+            \endcode            
         */
     template <unsigned int K>
     MultiIterator<K+1, T, REFERENCE, POINTER> &
@@ -1455,7 +1455,7 @@ class StridedMultiIteratorBase <2>
         typedef POINTER pointer;
         typedef const value_type *const_pointer;
         typedef ptrdiff_t difference_type;
-        typedef TinyVector<difference_type, 2> multi_difference_type;
+        typedef TinyVector<difference_type, 2>      multi_difference_type;
         typedef StridedMultiIterator <1, T, REFERENCE, POINTER> next_type;
         typedef StridedMultiIterator <1, T, REFERENCE, POINTER> iterator;
         typedef multi_dimensional_traverser_tag iterator_category;
@@ -1551,7 +1551,7 @@ class StridedMultiIteratorBase <2>
             ret += m_shape [level-1];
             return ret;
         }
-
+        
         iterator iteratorForDimension(unsigned int d) const
         {
             vigra_precondition(d <= type::N,

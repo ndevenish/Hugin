@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 /* Modifications by Pablo d'Angelo
@@ -62,18 +62,17 @@
 #pragma warning (disable: 4267)
 #endif
 
-#include "vigra/sized_int.hxx"
-#include "vigra/stdimage.hxx"
-#include "vigra/tinyvector.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/accessor.hxx"
-#include "vigra/inspectimage.hxx"
-#include "vigra/transformimage.hxx"
-#include "vigra/copyimage.hxx"
-#include "vigra/multi_array.hxx"
-
-#include "vigra/codec.hxx"
-#include "vigra/imageinfo.hxx"
+#include "sized_int.hxx"
+#include "stdimage.hxx"
+#include "tinyvector.hxx"
+#include "imageinfo.hxx"
+#include "numerictraits.hxx"
+#include "codec.hxx"
+#include "accessor.hxx"
+#include "inspectimage.hxx"
+#include "transformimage.hxx"
+#include "copyimage.hxx"
+#include "multi_array.hxx"
 
 // TODO
 // next refactoring: pluggable conversion algorithms
@@ -595,11 +594,11 @@ namespace vigra
     } // write_band()
 
 namespace detail {
-        
+
     template < class SrcIterator, class SrcAccessor,
                class DestIterator, class DestAccessor >
     void mapScalarImageToLowerPixelType( SrcIterator sul, SrcIterator slr, SrcAccessor sget,
-                                    DestIterator dul, DestAccessor dget )
+                                         DestIterator dul, DestAccessor dget )
     {
         typedef typename SrcAccessor::value_type SrcValue;
         typedef typename DestAccessor::value_type DestValue;
@@ -609,11 +608,9 @@ namespace detail {
         inspectImage( sul, slr, sget, minmax );
         double scale = (double)NumericTraits<DestValue>::max() / (minmax.max - minmax.min) -
                        (double)NumericTraits<DestValue>::min() / (minmax.max - minmax.min);
-// FIXME DGSW - Original was not correct. Is this what was intended?
-//        double offset = -minmax.min + NumericTraits<DestValue>::min() / scale;
         double offset = (NumericTraits<DestValue>::min() / scale) - minmax.min ;
         transformImage( sul, slr, sget, dul, dget,
-                               linearIntensityTransform( scale, offset ) );
+                        linearIntensityTransform( scale, offset ) );
     }
 
     // export scalar images with conversion (if necessary)
@@ -631,7 +628,7 @@ namespace detail {
                         image.lowerRight(), image.accessor(), zero );
         }
     }
-        
+
     template < class SrcIterator, class SrcAccessor,
                class MArray>
     void mapVectorImageToLowerPixelType( SrcIterator sul, SrcIterator slr, SrcAccessor sget,
@@ -663,9 +660,9 @@ namespace detail {
             //VectorElementAccessor<SrcAccessor> band(i, sget);
             VectorComponentValueAccessor<typename SrcAccessor::value_type> band(i);
             transformImage( sul, slr, band, subImage.upperLeft(), subImage.accessor(),
-                               linearIntensityTransform( scale, offset ) );
-    }
+                            linearIntensityTransform( scale, offset ) );
         }
+    }
 
     // export vector images with conversion (if necessary)
     template < class SrcIterator, class SrcAccessor, class T >
@@ -675,24 +672,24 @@ namespace detail {
         int bands = sget.size(sul);
         vigra_precondition(isBandNumberSupported(enc->getFileType(), bands),
            "exportImage(): file format does not support requested number of bands (color channels)");
-        if ( !downcast ) 
-    {
-            write_bands( enc, sul, slr, sget, zero );
-            }
-        else 
+        if ( !downcast )
         {
-                // convert to unsigned char in the usual way
+            write_bands( enc, sul, slr, sget, zero );
+        }
+        else
+        {
+            // convert to unsigned char in the usual way
             int w = slr.x - sul.x;
             int h = slr.y - sul.y;
-            
+
             typedef vigra::MultiArray<3, T> MArray;
             MArray array(typename MArray::difference_type(w, h, bands));
-            
+
             mapVectorImageToLowerPixelType(sul, slr, sget, array);
-            
+
             write_bands( enc, array, zero );
-            }
         }
+    }
 } // namespace detail
 
 
@@ -762,7 +759,7 @@ namespace detail {
         exportImage(sul, slr, sget, info);
     }
 
-     /*!
+    /*!
       \brief Deprecated.
 
         Use \ref exportImage() instead.
@@ -779,7 +776,7 @@ namespace detail {
     */
     template < class SrcIterator, class SrcAccessor >
     void exportIntegralScalarImage( SrcIterator sul, SrcIterator slr, SrcAccessor sget,
-                            const ImageExportInfo & info )
+                                    const ImageExportInfo & info )
     {
         exportImage(sul, slr, sget, info);
     }
@@ -792,7 +789,7 @@ namespace detail {
         typedef typename AccessorValueType::value_type SrcValueType;
         std::string pixeltype = info.getPixelType();
         std::auto_ptr<Encoder> enc = encoder(info);
-        bool downcast = negotiatePixelType(enc->getFileType(), 
+        bool downcast = negotiatePixelType(enc->getFileType(),
                         TypeAsString<SrcValueType>::result(), pixeltype);
         enc->setPixelType(pixeltype);
         if(pixeltype == "UINT8")
@@ -819,7 +816,7 @@ namespace detail {
         typedef typename SrcAccessor::value_type SrcValueType;
         std::string pixeltype = info.getPixelType();
         std::auto_ptr<Encoder> enc = encoder(info);
-        bool downcast = negotiatePixelType(enc->getFileType(), 
+        bool downcast = negotiatePixelType(enc->getFileType(),
                            TypeAsString<SrcValueType>::result(), pixeltype);
         enc->setPixelType(pixeltype);
         if(pixeltype == "UINT8")
@@ -852,28 +849,28 @@ namespace detail {
     can be stored as TIFF without conversion, in contrast to most other
     image export toolkits). Otherwise, the pixel values are transformed
     to the range 0.255 and converted to <tt>unsigned char</tt>. Currently,
-    the following file formats are supported. The pixel types given in 
+    the following file formats are supported. The pixel types given in
     brackets are those that are written without conversion:
-    
+
     <DL>
     <DT>"BMP"<DD> Microsoft Windows bitmap image file (pixel types: UINT8 as gray and RGB).
     <DT>"GIF"<DD> CompuServe graphics interchange format; 8-bit color (pixel types: UINT8 as gray and RGB).
-    <DT>"JPEG"<DD> Joint Photographic Experts Group JFIF format; compressed 24-bit color 
+    <DT>"JPEG"<DD> Joint Photographic Experts Group JFIF format; compressed 24-bit color
                   (pixel types: UINT8 as gray and RGB). (only available if libjpeg is installed)
-    <DT>"PNG"<DD> Portable Network Graphic (pixel types: UINT8 and UINT16 with up to 4 channels). 
+    <DT>"PNG"<DD> Portable Network Graphic (pixel types: UINT8 and UINT16 with up to 4 channels).
                   (only available if libpng is installed)
     <DT>"PBM"<DD> Portable bitmap format (black and white).
     <DT>"PGM"<DD> Portable graymap format (pixel types: UINT8, INT16, INT32 as gray scale)).
     <DT>"PNM"<DD> Portable anymap (pixel types: UINT8, INT16, INT32 as gray and RGB).
     <DT>"PPM"<DD> Portable pixmap format (pixel types: UINT8, INT16, INT32 as RGB).
     <DT>"SUN"<DD> SUN Rasterfile (pixel types: UINT8 as gray and RGB).
-    <DT>"TIFF"<DD> Tagged Image File Format 
-                (pixel types: UINT8, INT16, INT32, FLOAT, DOUBLE with up to 4 channels). 
+    <DT>"TIFF"<DD> Tagged Image File Format
+                (pixel types: UINT8, INT16, INT32, FLOAT, DOUBLE with up to 4 channels).
                 (only available if libtiff is installed.)
-    <DT>"VIFF"<DD> Khoros Visualization image file 
+    <DT>"VIFF"<DD> Khoros Visualization image file
         (pixel types: UINT8, INT16, INT32, FLOAT, DOUBLE with arbitrary many channels).
     </DL>
-    
+
     <b> Declarations:</b>
 
     pass arguments explicitly:
@@ -911,7 +908,7 @@ namespace detail {
                       vigra::ImageExportInfo("myimage.jpg").setCompression("80"));
 
 
-    // force it to a particular pixel type (the pixel type must be supported by the 
+    // force it to a particular pixel type (the pixel type must be supported by the
     // desired image file format, otherwise an \ref vigra::PreconditionViolation exception will be thrown)
     vigra::exportImage(srcImageRange(out),
                       vigra::ImageExportInfo("myINT16image.tif").setPixelType("INT16"));
@@ -933,12 +930,12 @@ namespace detail {
                       const ImageExportInfo & info )
     {
         typedef typename NumericTraits<typename SrcAccessor::value_type>::isScalar is_scalar;
-        
+
         try
         {
-        exportImage( sul, slr, sget, info, is_scalar() );
-    }
-        catch(Encoder::TIFFNoLZWException &)
+            exportImage( sul, slr, sget, info, is_scalar() );
+        }
+        catch(Encoder::TIFFCompressionException &)
         {
             const_cast<ImageExportInfo &>(info).setCompression("");
             exportImage( sul, slr, sget, info, is_scalar() );

@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,13 +40,13 @@
 #define VIGRA_RESIZEIMAGE_HXX
 
 #include <vector>
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/stdimage.hxx"
-#include "vigra/recursiveconvolution.hxx"
-#include "vigra/separableconvolution.hxx"
-#include "vigra/resampling_convolution.hxx"
-#include "vigra/splines.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "stdimage.hxx"
+#include "recursiveconvolution.hxx"
+#include "separableconvolution.hxx"
+#include "resampling_convolution.hxx"
+#include "splines.hxx"
 
 namespace vigra {
 
@@ -553,9 +553,9 @@ resizeImageLinearInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
 }
 
 /***************************************************************/
-/*                                                      */
+/*                                                             */
 /*                resizeImageSplineInterpolation               */
-/*                                                      */
+/*                                                             */
 /***************************************************************/
 
 /** \brief Resize image using B-spline interpolation.
@@ -599,7 +599,7 @@ resizeImageLinearInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
               SrcImageIterator is, SrcImageIterator iend, SrcAccessor sa,
           DestImageIterator id, DestImageIterator idend, DestAccessor da,
           SPLINE spline = BSpline<3, double>())
-        }
+    }
     \endcode
 
 
@@ -688,7 +688,7 @@ resizeImageSplineInterpolation(
 
     vigra_precondition((width_new > 1) && (height_new > 1),
                  "resizeImageSplineInterpolation(): "
-                  "Destination image to small.\n");
+                 "Destination image to small.\n");
 
     Rational<int> xratio(width_new - 1, width_old - 1);
     Rational<int> yratio(height_new - 1, height_old - 1);
@@ -734,9 +734,9 @@ resizeImageSplineInterpolation(
                                        kernels, ymapCoordinate);
             }
             else
-        {
-            recursiveSmoothLine(c_src, c_src + height_old, src_acc,
-                 line_tmp, line.accessor(), (double)height_old/height_new/scale);
+            {
+                recursiveSmoothLine(c_src, c_src + height_old, src_acc,
+                     line_tmp, line.accessor(), (double)height_old/height_new/scale);
                 resamplingConvolveLine(line_tmp, line_tmp + height_old, line.accessor(),
                                        c_tmp, c_tmp + height_new, tmp_acc,
                                        kernels, ymapCoordinate);
@@ -785,9 +785,9 @@ resizeImageSplineInterpolation(
                                        kernels, xmapCoordinate);
             }
             else
-        {
-            recursiveSmoothLine(r_tmp, r_tmp + width_old, tmp.accessor(),
-                              line_tmp, line.accessor(), (double)width_old/width_new/scale);
+            {
+                recursiveSmoothLine(r_tmp, r_tmp + width_old, tmp.accessor(),
+                                  line_tmp, line.accessor(), (double)width_old/width_new/scale);
                 resamplingConvolveLine(line_tmp, line_tmp + width_old, line.accessor(),
                                        r_dest, r_dest + width_new, dest_acc,
                                        kernels, xmapCoordinate);
@@ -872,7 +872,7 @@ resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
         void
         resizeImageCatmullRomInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
                               DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc);
-        }
+    }
     \endcode
 
 
@@ -884,7 +884,7 @@ resizeImageSplineInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src
         void
         resizeImageCatmullRomInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                               triple<DestIterator, DestIterator, DestAccessor> dest);
-        }
+    }
     \endcode
 
 
@@ -976,7 +976,7 @@ resizeImageCubicInterpolation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
         void
         resizeImageCoscotInterpolation(SrcIterator src_iter, SrcIterator src_iter_end, SrcAccessor src_acc,
                               DestIterator dest_iter, DestIterator dest_iter_end, DestAccessor dest_acc);
-        }
+    }
     \endcode
 
 

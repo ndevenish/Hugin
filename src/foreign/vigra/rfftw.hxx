@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -38,8 +38,8 @@
 #ifndef VIGRA_RFFTW_HXX
 #define VIGRA_RFFTW_HXX
 
-#include "vigra/array_vector.hxx"
-#include "vigra/fftw.hxx"
+#include "array_vector.hxx"
+#include "fftw.hxx"
 #include <rfftw.h>
 
 namespace vigra {

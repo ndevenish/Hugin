@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -34,17 +34,17 @@
 /*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
- 
+
 #ifndef VIGRA_INTERPOLATING_ACCESSOR_HXX
 #define VIGRA_INTERPOLATING_ACCESSOR_HXX
 
 
-#include "vigra/accessor.hxx"
-#include "vigra/diff2d.hxx"
+#include "accessor.hxx"
+#include "diff2d.hxx"
 
 namespace vigra {
 
-/** \addtogroup DataAccessors 
+/** \addtogroup DataAccessors
 */
 //@{
 
@@ -62,21 +62,21 @@ namespace vigra {
     It uses the given ACCESSOR (which is usually the
     accessor originally associated with the iterator)
     to access data.
-    
+
     <b>\#include</b> "<a href="accessor_8hxx-source.html">vigra/accessor.hxx</a>"
     Namespace: vigra
-    
+
     <b> Required Interface:</b>
-    
+
     \code
     ITERATOR iter;
     ACCESSOR a;
     VALUETYPE destvalue;
     float s;
     int x, y;
-    
+
     destvalue = s * a(iter, x, y) + s * a(iter, x, y);
-    
+
     \endcode
 */
 template <class ACCESSOR, class VALUETYPE>
@@ -86,28 +86,28 @@ class BilinearInterpolatingAccessor
     /** the iterators' pixel type
     */
     typedef VALUETYPE value_type;
-    
+
     /** init from given accessor
     */
     BilinearInterpolatingAccessor(ACCESSOR a)
     : a_(a)
     {}
-    
+
     /** Interpolate the data item at a non-integer position.
-        Ensure that no outside pixels are accessed if 
+        Ensure that no outside pixels are accessed if
         (x, y) is near the image border (as long as
         0 <= x <= width-1, 0 <= y <= height-1).
     */
     template <class ITERATOR>
-    value_type operator()(ITERATOR const & i, float x, float y) const 
-    { 
+    value_type operator()(ITERATOR const & i, float x, float y) const
+    {
         int ix = int(x);
         int iy = int(y);
         float dx = x - ix;
         float dy = y - iy;
-        
+
         value_type ret;
-        
+
         // avoid dereferencing the iterator outside its range
         if(dx == 0.0)
         {
@@ -127,7 +127,7 @@ class BilinearInterpolatingAccessor
             if(dy == 0.0)
             {
                 ret = detail::RequiresExplicitCast<value_type>::cast(
-                  (1.0 - dx) * a_(i, Diff2D(ix, iy)) + 
+                  (1.0 - dx) * a_(i, Diff2D(ix, iy)) +
                   dx * a_(i, Diff2D(ix + 1, iy)));
             }
             else
@@ -139,17 +139,17 @@ class BilinearInterpolatingAccessor
                   dx * dy * a_(i, Diff2D(ix + 1, iy + 1)));
             }
         }
-            
+
         return ret;
     }
 
     /** Interpolate the data item at a non-integer position.
-        This function works as long as 0 <= x < width-1, 
+        This function works as long as 0 <= x < width-1,
         0 <= y < height-1. It is slightly faster than <TT>operator()</TT>.
     */
     template <class ITERATOR>
-    value_type unchecked(ITERATOR const & i, float x, float y) const 
-    { 
+    value_type unchecked(ITERATOR const & i, float x, float y) const
+    {
         int ix = int(x);
         int iy = int(y);
         float dx = x - ix;
@@ -160,7 +160,7 @@ class BilinearInterpolatingAccessor
                (1.0 - dx) * dy * a_(i, Diff2D(ix, iy + 1)) +
                dx * dy * a_(i, Diff2D(ix + 1, iy + 1)));
     }
-    
+
   private:
     ACCESSOR a_;
 };

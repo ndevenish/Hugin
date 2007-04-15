@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -38,8 +38,8 @@
 #ifndef VIGRA_IMAGECONTAINER_HXX
 #define VIGRA_IMAGECONTAINER_HXX
 
-#include "vigra/utilities.hxx"
-#include "vigra/array_vector.hxx"
+#include "utilities.hxx"
+#include "array_vector.hxx"
 
 namespace vigra {
 
@@ -61,7 +61,7 @@ namespace vigra {
     the same interface, only operator< is missing from ImageArray. It
     offers additional functions for resizing the images and querying
     their common size. See \ref imageSize() for additional notes.
-
+    
     A custimized allocator can be passed as a template argument and via the constructor.
     By default, the allocator of the <tt>ImageType</tt> is reused.
 

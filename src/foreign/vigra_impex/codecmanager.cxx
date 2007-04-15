@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -56,6 +56,7 @@
 #include "bmp.hxx"
 #include "gif.hxx"
 #include "hdr.hxx"
+#include "exr.hxx"
 
 namespace vigra
 {
@@ -76,6 +77,9 @@ namespace vigra
 #endif
 #ifdef HasTIFF
         import( new TIFFCodecFactory() );
+#endif
+#ifdef HasEXR
+        import( new ExrCodecFactory() );
 #endif
         import( new SunCodecFactory() );
         import( new PnmCodecFactory() );
@@ -259,7 +263,7 @@ namespace vigra
             // look up the file type by the file extension
             std::string ext
                 = filename.substr( filename.find_last_of(".") + 1 );
-            std::transform( ext.begin(), ext.end(), ext.begin(), tolower );
+            std::transform( ext.begin(), ext.end(), ext.begin(), (int (*)(int))&std::tolower );
             std::map< std::string, std::string >::const_iterator search
                 = extensionMap.find(ext);
             vigra_precondition( search != extensionMap.end(),

@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -41,8 +41,8 @@
 
 #include <vector>
 #include <functional>
-#include "vigra/utilities.hxx"
-#include "vigra/stdimage.hxx"
+#include "utilities.hxx"
+#include "stdimage.hxx"
 
 namespace vigra {
 
@@ -298,8 +298,8 @@ template <class SrcIterator, class SrcAccessor,
           class EqualityFunctor>
 inline
 unsigned int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-               pair<DestIterator, DestAccessor> dest,
-               bool eight_neighbors, EqualityFunctor equal)
+                        pair<DestIterator, DestAccessor> dest,
+                        bool eight_neighbors, EqualityFunctor equal)
 {
     return labelImage(src.first, src.second, src.third,
                       dest.first, dest.second, eight_neighbors, equal);
@@ -309,9 +309,9 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
 unsigned int labelImage(SrcIterator upperlefts,
-               SrcIterator lowerrights, SrcAccessor sa,
-               DestIterator upperleftd, DestAccessor da,
-               bool eight_neighbors)
+                        SrcIterator lowerrights, SrcAccessor sa,
+                        DestIterator upperleftd, DestAccessor da,
+                        bool eight_neighbors)
 {
     return labelImage(upperlefts, lowerrights, sa,
                  upperleftd, da, eight_neighbors,
@@ -322,8 +322,8 @@ template <class SrcIterator, class SrcAccessor,
           class DestIterator, class DestAccessor>
 inline
 unsigned int labelImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-               pair<DestIterator, DestAccessor> dest,
-               bool eight_neighbors)
+                        pair<DestIterator, DestAccessor> dest,
+                        bool eight_neighbors)
 {
     return labelImage(src.first, src.second, src.third,
                  dest.first, dest.second, eight_neighbors,
@@ -452,10 +452,10 @@ template <class SrcIterator, class SrcAccessor,
           class ValueType, class EqualityFunctor>
 unsigned int labelImageWithBackground(
     SrcIterator upperlefts,
-               SrcIterator lowerrights, SrcAccessor sa,
-               DestIterator upperleftd, DestAccessor da,
-               bool eight_neighbors,
-               ValueType background_value, EqualityFunctor equal)
+    SrcIterator lowerrights, SrcAccessor sa,
+    DestIterator upperleftd, DestAccessor da,
+    bool eight_neighbors,
+    ValueType background_value, EqualityFunctor equal)
 {
     int w = lowerrights.x - upperlefts.x;
     int h = lowerrights.y - upperlefts.y;
@@ -588,9 +588,9 @@ template <class SrcIterator, class SrcAccessor,
 inline
 unsigned int labelImageWithBackground(
     triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                             pair<DestIterator, DestAccessor> dest,
-                             bool eight_neighbors,
-                             ValueType background_value, EqualityFunctor equal)
+    pair<DestIterator, DestAccessor> dest,
+    bool eight_neighbors,
+    ValueType background_value, EqualityFunctor equal)
 {
     return labelImageWithBackground(src.first, src.second, src.third,
                                     dest.first, dest.second,
@@ -603,9 +603,9 @@ template <class SrcIterator, class SrcAccessor,
 inline
 unsigned int labelImageWithBackground(
     triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                             pair<DestIterator, DestAccessor> dest,
-                             bool eight_neighbors,
-                             ValueType background_value)
+    pair<DestIterator, DestAccessor> dest,
+    bool eight_neighbors,
+    ValueType background_value)
 {
     return labelImageWithBackground(src.first, src.second, src.third,
                             dest.first, dest.second,
@@ -619,10 +619,10 @@ template <class SrcIterator, class SrcAccessor,
 inline
 unsigned int labelImageWithBackground(
     SrcIterator upperlefts,
-               SrcIterator lowerrights, SrcAccessor sa,
-               DestIterator upperleftd, DestAccessor da,
-               bool eight_neighbors,
-               ValueType background_value)
+    SrcIterator lowerrights, SrcAccessor sa,
+    DestIterator upperleftd, DestAccessor da,
+    bool eight_neighbors,
+    ValueType background_value)
 {
     return labelImageWithBackground(upperlefts, lowerrights, sa,
                             upperleftd, da,
@@ -638,7 +638,7 @@ unsigned int labelImageWithBackground(
 
 /** \brief Transform a labeled image into a crack edge image.
 
-    This algorithm inserts border pixels (so called "crack edges"
+    This algorithm inserts border pixels (so called "crack edges")
     between regions in a labeled image like this (<TT>a</TT> and
     <TT>c</TT> are the original labels, and <TT>0</TT> is the value of
     <TT>edge_marker</TT> and denotes the inserted edges):

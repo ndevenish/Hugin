@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,11 +31,14 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
 #include <cmath>
+#include <cctype>
+// under Solaris, this is a macro leading to syntax errors:
+#undef isspace
 #include <iostream>
 #include <fstream>
 #include "vigra/config.hxx"
@@ -97,7 +100,7 @@ namespace vigra {
         desc.bandNumbers.resize(2);
         desc.bandNumbers[0] = 1;
         desc.bandNumbers[1] = 3;
-        
+
         return desc;
     }
 
@@ -150,7 +153,7 @@ namespace vigra {
 
     void PnmDecoderImpl::skip_whitespace()
     {
-        while ( isspace( stream.peek() ) )
+        while ( std::isspace( stream.peek() ) )
             stream.get();
     }
 
@@ -238,7 +241,7 @@ namespace vigra {
         stream.read( reinterpret_cast< char * >(cbands.data()),
                      width * components );
     }
-    
+
     void PnmDecoderImpl::read_raw_scanline_ushort()
     {
         // cast the bands to the correct type
@@ -261,7 +264,7 @@ namespace vigra {
         read_array( stream, bo, reinterpret_cast< UInt32 * >(cbands.data()),
                     width * components );
     }
-    
+
     // reads the header.
     PnmDecoderImpl::PnmDecoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
@@ -270,7 +273,7 @@ namespace vigra {
         : stream( filename.c_str() )
 #endif
     {
-	long maxval = 1;
+        long maxval = 1;
         char type;
 
         if(!stream.good())
@@ -287,63 +290,63 @@ namespace vigra {
         // read the type, find out if the file is raw or ascii
         type = stream.get();
 
-	switch (type) {
-	case '1': // plain bitmap
+        switch (type) {
+        case '1': // plain bitmap
             raw = false;
             bilevel = true;
             components = 1;
             maxval = 1;
             pixeltype = "UINT8";
             break;
-	case '2': // plain graymap
+        case '2': // plain graymap
             raw = false;
             bilevel = false;
             components = 1;
             break;
-	case '3': // plain pixmap
+        case '3': // plain pixmap
             raw = false;
             bilevel = false;
             components = 3;
             break;
-	case '4': // raw bitmap
+        case '4': // raw bitmap
             raw = true;
             bilevel = true;
             components = 1;
             maxval = 1;
             pixeltype = "UINT8";
             break;
-	case '5': // raw graymap
+        case '5': // raw graymap
             raw = true;
             bilevel = false;
             components = 1;
             maxval = 255;
             pixeltype = "UINT8";
             break;
-	case '6': // raw pixmap
+        case '6': // raw pixmap
             raw = true;
             bilevel = false;
             components = 3;
             maxval = 255;
             pixeltype = "UINT8";
             break;
-	default:
+        default:
             vigra_precondition( false, "unknown magic number in file" );
-	}
+        }
 
         // read width, height and maxval
-	skip();
-	stream >> width;
         skip();
-	stream >> height;
+        stream >> width;
+        skip();
+        stream >> height;
 
-	// bitmaps implicitly have maxval 1
-	if ( type != '1' && type != '4' ) {
+        // bitmaps implicitly have maxval 1
+        if ( type != '1' && type != '4' ) {
             skip();
             stream >> maxval;
-	}
+        }
 
-	// select a pixeltype depending on maxval
-	int bits = 0;
+        // select a pixeltype depending on maxval
+        int bits = 0;
         do
         {
             ++bits;
@@ -352,22 +355,22 @@ namespace vigra {
         while(maxval > 0);
 
         vigra_precondition( bits >= 0, "the file's maxval field is corrupt" );
-	if ( bits <= 8 )
+        if ( bits <= 8 )
             pixeltype = "UINT8";
-	else if ( bits <= 16 )
+        else if ( bits <= 16 )
             pixeltype = "UINT16";
-	else if ( bits <= 32 )
+        else if ( bits <= 32 )
             pixeltype = "UINT32";
-	else
+        else
             vigra_precondition( false,
                                 "the file's maxval field is too large" );
 
-	// adjust the buffer size
-	if ( pixeltype == "UINT8" )
+        // adjust the buffer size
+        if ( pixeltype == "UINT8" )
             bands.resize( width * components );
-	else if ( pixeltype == "UINT16" )
+        else if ( pixeltype == "UINT16" )
             bands.resize( width * components * 2 );
-	else if ( pixeltype == "UINT32" )
+        else if ( pixeltype == "UINT32" )
             bands.resize( width * components * 4 );
 
 #ifdef DEBUG
@@ -376,9 +379,9 @@ namespace vigra {
                   << "x " << pixeltype << std::endl;
 #endif
 
-	// advance to the beginning of the "data section"
+        // advance to the beginning of the "data section"
         if (raw == false)
-        skip();
+          skip();
         else
         {
 #if defined(__GNUC__) && __GNUC__ == 2
@@ -386,17 +389,17 @@ namespace vigra {
 #else
           typedef std::ifstream::off_type streamOffset;
 #endif
-	  {
-	      UInt32 seekOffset = width * height * components;
-	      if ( pixeltype == "UINT8" )
-		  seekOffset *= 1;
-	      else if ( pixeltype == "UINT16" )
-		  seekOffset *= 2;
-	      else if ( pixeltype == "UINT32" )
-		  seekOffset *= 4;
-				      
-	      stream.seekg( -static_cast<streamOffset>(seekOffset), std::ios::end );
-	  }
+          {
+              UInt32 seekOffset = width * height * components;
+              if ( pixeltype == "UINT8" )
+                  seekOffset *= 1;
+              else if ( pixeltype == "UINT16" )
+                  seekOffset *= 2;
+              else if ( pixeltype == "UINT32" )
+                  seekOffset *= 4;
+
+              stream.seekg( -static_cast<streamOffset>(seekOffset), std::ios::end );
+          }
         }
     }
 

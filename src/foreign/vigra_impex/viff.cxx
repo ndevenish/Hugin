@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -34,11 +34,6 @@
 /*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
-/* Modifications by Pablo d'Angelo
- * updated to vigra 1.4 by Douglas Wilkins
- * as of 18 Febuary 2006:
- *  - Replaced size_t with unsigned int.
- */
 
 #include <iostream>
 #include <fstream>
@@ -79,7 +74,7 @@
 /* definitions for data storage type,
    unsigned long data_storage_type; */
 #define	VFF_TYP_BIT		0	/* pixels are on or off (binary image)*/
-                                        /* Note: This is an X11 XBitmap
+                                        /* Note: This is an X11 XBitmap 
 					   with bits packed into a byte and
 					   padded to a byte */
 #define	VFF_TYP_1_BYTE		1	/* pixels are byte (unsigned char) */
@@ -121,13 +116,13 @@
 					   by groups of maps_per_cycle, allowing
 					   "rotating the color map" */
 #define	VFF_MS_SHARED		3	/* All data band share the same map */
-#define VFF_MS_GROUP		4	/* All data bands are "grouped"
+#define VFF_MS_GROUP		4	/* All data bands are "grouped" 
 					   together to point into one map */
 /* definitions for enabling the map,
    unsigned long map_enable; */
 #define VFF_MAP_OPTIONAL	1	/* The data is valid without being
 					   sent thru the color map. If a
-					   map is defined, the data may
+					   map is defined, the data may 
 					   optionally be sent thru it. */
 #define	VFF_MAP_FORCE		2	/* The data MUST be sent thru the map
 					   to be interpreted */
@@ -145,8 +140,8 @@
     HSV:  hue, saturation, value
     IHS:  intensity, hue, saturation
     XYZ:
-    UVW:
-    SOW:
+    UVW:  
+    SOW:  
     Lab:
     Luv:
 
@@ -183,12 +178,7 @@
 					    or the vectors is explicit */
 
 namespace vigra {
-
-    // added by dangelo, this is probably a hack, but the some of
-    // the fields seem to be unsigned int, but other have size_t (which is
-    // probably not unsigned int on 64 bit machines). Force the usage
-    // of unsigned int here..
-
+    
     template< class T1, class T2 >
     class colormap
     {
@@ -266,35 +256,35 @@ namespace vigra {
     // this function encapsulates the colormap functor
     template< class storage_type, class map_storage_type >
     void map_multiband( void_vector<map_storage_type> & dest,
-                        UInt32 & dest_bands,
+                        unsigned int & dest_bands,
                         const void_vector<storage_type> & src,
-                        UInt32 src_bands, UInt32 src_width, UInt32 src_height,
+                        unsigned int src_bands, unsigned int src_width, unsigned int src_height,
                         const void_vector<map_storage_type> & maps,
-                        UInt32 map_bands, UInt32 map_width, UInt32 map_height )
+                        unsigned int map_bands, unsigned int map_width, unsigned int map_height )
     {
         typedef colormap< storage_type, map_storage_type > colormap_type;
-        const UInt32 num_pixels = src_width * src_height;
+        const unsigned int num_pixels = src_width * src_height;
 
         // build the color map
-        const UInt32 map_band_size = map_width * map_height;
+        const unsigned int map_band_size = map_width * map_height;
         colormap_type colormap( map_height, map_bands, map_width );
-        for ( UInt32 i = 0; i < map_bands; ++i )
+        for ( unsigned int i = 0; i < map_bands; ++i )
             colormap.initialize( maps.data() + map_band_size * i, i );
 
         // map each pixel
-        const UInt32 band_size = src_width * src_height;
+        const unsigned int band_size = src_width * src_height;
         dest_bands = map_bands * map_width;
         dest.resize( band_size * dest_bands );
         if ( map_width > 1 ) {
             // interleaved maps => there is only one band in the image
-            for( UInt32 bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( UInt32 i = 0; i < num_pixels; ++i )
+            for( unsigned int bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( unsigned int i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[i], bandnum );
         } else {
             // non-interleaved bands => map can be used per band
-            for( UInt32 bandnum = 0; bandnum < dest_bands; ++bandnum )
-                for( UInt32 i = 0; i < num_pixels; ++i )
+            for( unsigned int bandnum = 0; bandnum < dest_bands; ++bandnum )
+                for( unsigned int i = 0; i < num_pixels; ++i )
                     dest[ bandnum * band_size + i ]
                         = colormap( src[ bandnum * band_size + i ], bandnum );
         }
@@ -346,9 +336,8 @@ namespace vigra {
 
     class ViffHeader
     {
-        typedef UInt32 field_type;
-
     public:
+        typedef UInt32 field_type;
 
         field_type row_size, col_size, num_data_bands, data_storage_type,
             data_encode_scheme, map_scheme, map_storage_type, map_row_size,
@@ -436,20 +425,26 @@ namespace vigra {
             read_field( stream, bo, map_row_size );
             read_field( stream, bo, map_col_size );
         }
-
+            
         // seek behind the header. (skip colorspace and pointers)
         stream.seekg( 1024, std::ios::beg );
     }
+
+#if  __GNUC__ == 2
+    #define VIGRA_STREAM_CHAR_TYPE char
+#else
+    #define VIGRA_STREAM_CHAR_TYPE std::ofstream::char_type
+#endif
 
     void ViffHeader::to_stream( std::ofstream & stream, byteorder & bo ) const
     {
         field_type scratch, null = 0;
 
         // magic number
-        stream.put((unsigned char)0xAB);
-
+        stream.put((VIGRA_STREAM_CHAR_TYPE)0xAB);
+            
         // file type
-        stream.put(0x01);
+        stream.put((VIGRA_STREAM_CHAR_TYPE)0x01);
 
         // file format release number
         stream.put(XV_IMAGE_REL_NUM);
@@ -463,7 +458,7 @@ namespace vigra {
             bo.set("big endian" );
             stream.put(VFF_DEP_BIGENDIAN);
         }
-        else
+        else 
         {
             bo.set("little endian" );
             stream.put(VFF_DEP_LITENDIAN);
@@ -518,7 +513,7 @@ namespace vigra {
 
     struct ViffDecoderImpl
     {
-        UInt32 width, height, components, map_width,
+        unsigned int width, height, components, map_width,
             map_height, num_maps;
         std::string pixelType;
         int current_scanline;
@@ -541,7 +536,7 @@ namespace vigra {
 #else
         std::ifstream stream( filename.c_str() );
 #endif
-
+        
         if(!stream.good())
         {
             std::string msg("Unable to open file '");
@@ -599,7 +594,7 @@ namespace vigra {
 
     void ViffDecoderImpl::read_bands( std::ifstream & stream, byteorder & bo )
     {
-        const UInt32 bands_size = width * height * components;
+        const unsigned int bands_size = width * height * components;
 
         if ( header.data_storage_type == VFF_TYP_1_BYTE ) {
             typedef void_vector<UInt8> bands_type;
@@ -638,7 +633,7 @@ namespace vigra {
     void ViffDecoderImpl::color_map()
     {
         void_vector_base temp_bands;
-        UInt32 temp_num_bands;
+        unsigned int temp_num_bands;
 
         if ( header.map_storage_type == VFF_MAPTYP_1_BYTE ) {
             typedef UInt8 map_storage_type;
@@ -798,7 +793,7 @@ namespace vigra {
                                components, width, height,
                                static_cast< const maps_type & >(maps),
                                num_maps, map_width, map_height );
-
+ 
             } else
                 vigra_precondition( false, "storage type unsupported" );
 
@@ -838,7 +833,7 @@ namespace vigra {
 
     unsigned int ViffDecoder::getNumBands() const
     {
-        return static_cast<UInt32>(pimpl->components);
+        return pimpl->components;
     }
 
     std::string ViffDecoder::getPixelType() const
@@ -909,9 +904,9 @@ namespace vigra {
 
         ViffEncoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
-            : stream( filename.c_str(), std::ios::binary ),
+            : stream( filename.c_str(), std::ios::binary ), 
 #else
-            : stream( filename.c_str() ),
+            : stream( filename.c_str() ), 
 #endif
               bo( "big endian" ),
               pixelType("undefined"), current_scanline(0), finalized(false)
@@ -945,19 +940,19 @@ namespace vigra {
     void ViffEncoder::setWidth( unsigned int width )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-        pimpl->header.row_size = width;
+        pimpl->header.row_size = static_cast<ViffHeader::field_type>(width);
     }
 
     void ViffEncoder::setHeight( unsigned int height )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-        pimpl->header.col_size = height;
+        pimpl->header.col_size = static_cast<ViffHeader::field_type>(height);
     }
 
     void ViffEncoder::setNumBands( unsigned int numBands )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-        pimpl->header.num_data_bands = numBands;
+        pimpl->header.num_data_bands = static_cast<ViffHeader::field_type>(numBands);
     }
 
     void ViffEncoder::setCompressionType( const std::string & comp,

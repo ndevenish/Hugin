@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 /* Modifications by Pablo d'Angelo
@@ -50,11 +50,34 @@
 #include "auto_file.hxx"
 #include "jpeg.hxx"
 
-extern "C"
-{
+extern "C" {
+
 #include <jpeglib.h>
 #include "iccjpeg.h"
+
+} // extern "C"
+
+namespace {
+
+struct JPEGCodecErrorManager
+{
+    jpeg_error_mgr pub;
+    std::jmp_buf buf;
+};
+
+} // namespace
+
+extern "C"
+{
+
+static void JPEGCodecLongjumper( j_common_ptr info )
+{
+    (*info->err->output_message)(info);
+    JPEGCodecErrorManager * error = reinterpret_cast< JPEGCodecErrorManager * >(info->err);
+    std::longjmp( error->buf, 1 );
 }
+
+} // extern "C"
 
 namespace vigra
 {
@@ -88,7 +111,7 @@ namespace vigra
         desc.bandNumbers.resize(2);
         desc.bandNumbers[0] = 1;
         desc.bandNumbers[1] = 3;
-        
+
         return desc;
     }
 
@@ -105,29 +128,14 @@ namespace vigra
     class JPEGCodecImpl
     {
         // extend the jpeg_error_mgr by a jump buffer
-        struct error_mgr
-        {
-            jpeg_error_mgr pub;
-            jmp_buf buf;
-        };
 
     public:
 
         // attributes
 
-        error_mgr err;
+        JPEGCodecErrorManager err;
 
-        // methods
-
-        static void longjumper( j_common_ptr info );
     };
-
-    void JPEGCodecImpl::longjumper( j_common_ptr info )
-    {
-        (*info->err->output_message)(info);
-        error_mgr * error = reinterpret_cast< error_mgr * >(info->err);
-        longjmp( error->buf, 1 );
-    }
 
     class JPEGDecoderImplBase : public JPEGCodecImpl
     {
@@ -156,9 +164,6 @@ namespace vigra
         // attributes
         jpeg_compress_struct info;
 
-        UInt32 iccProfileLength;
-        const unsigned char *iccProfilePtr; 
-
         JPEGEncoderImplBase()
         {
             // create the decompression struct
@@ -181,12 +186,10 @@ namespace vigra
         unsigned int width, height, components, scanline;
 
         // icc profile, if available
-        // the memory is owned by libjpeg
         UInt32 iccProfileLength;
-        const unsigned char *iccProfilePtr; 
+        const unsigned char *iccProfilePtr;
 
         // ctor, dtor
-
         JPEGDecoderImpl( const std::string & filename );
         ~JPEGDecoderImpl();
 
@@ -201,11 +204,11 @@ namespace vigra
 #else
         : file( filename.c_str(), "r" ),
 #endif
-          bands(0), scanline(0), iccProfileLength(0), iccProfilePtr(0)
+          bands(0), scanline(0), iccProfileLength(0), iccProfilePtr(NULL)
     {
         // setup setjmp() error handling
         info.err = jpeg_std_error( ( jpeg_error_mgr * ) &err );
-        err.pub.error_exit = &longjumper;
+        err.pub.error_exit = &JPEGCodecLongjumper;
 
         // setup the data source
         if (setjmp(err.buf)) {
@@ -213,7 +216,7 @@ namespace vigra
         }
         jpeg_stdio_src( &info, file.get() );
         // prepare for icc profile
-        setup_read_icc_profile(&info);   
+        setup_read_icc_profile(&info);
     }
 
     void JPEGDecoderImpl::init()
@@ -230,7 +233,7 @@ namespace vigra
             iccProfileLength = iccLen;
             iccProfilePtr = iccBuf;
         }
-        
+
         // start the decompression
         if (setjmp(err.buf))
             vigra_fail( "error in jpeg_start_decompress()" );
@@ -258,6 +261,13 @@ namespace vigra
     {
         pimpl = new JPEGDecoderImpl(filename);
         pimpl->init();
+        if(pimpl->iccProfileLength)
+        {
+            Decoder::ICCProfile iccData(
+                pimpl->iccProfilePtr,
+                pimpl->iccProfilePtr + pimpl->iccProfileLength);
+            iccProfile_.swap(iccData);
+        }
     }
 
     JPEGDecoder::~JPEGDecoder()
@@ -284,16 +294,6 @@ namespace vigra
     {
         return pimpl->components;
     }
-
-    UInt32 JPEGDecoder::getICCProfileLength() const
-    {
-        return pimpl->iccProfileLength;
-    }
-
-    const unsigned char *JPEGDecoder::getICCProfile() const
-    {
-        return pimpl->iccProfilePtr;
-    } 
 
     std::string JPEGDecoder::getPixelType() const
     {
@@ -341,8 +341,7 @@ namespace vigra
         int quality;
 
         // icc profile, if available
-        UInt32 iccProfileLength;
-        const unsigned char *iccProfilePtr; 
+        Encoder::ICCProfile iccProfile;
 
         // state
         bool finalized;
@@ -363,12 +362,11 @@ namespace vigra
 #else
         : file( filename.c_str(), "w" ),
 #endif
-          scanline(0), quality(-1),
-          iccProfileLength(0), iccProfilePtr(0), finalized(false)
+          scanline(0), quality(-1), finalized(false)
     {
         // setup setjmp() error handling
         info.err = jpeg_std_error( ( jpeg_error_mgr * ) &err );
-        err.pub.error_exit = &longjumper;
+        err.pub.error_exit = &JPEGCodecLongjumper;
 
         // setup the data dest
         if (setjmp(err.buf)) {
@@ -381,7 +379,7 @@ namespace vigra
     {
     }
 
-void JPEGEncoderImpl::finalize()
+    void JPEGEncoderImpl::finalize()
     {
         VIGRA_IMPEX_FINALIZED(finalized);
 
@@ -429,8 +427,8 @@ void JPEGEncoderImpl::finalize()
             vigra_fail( "error in jpeg_start_compress()" );
         jpeg_start_compress( &info, TRUE );
 
-        if (iccProfilePtr && iccProfileLength) {
-            write_icc_profile(&info, iccProfilePtr, iccProfileLength);
+        if (iccProfile.size()) {
+            write_icc_profile(&info, iccProfile.begin(), iccProfile.size());
         }
     }
 
@@ -489,11 +487,10 @@ void JPEGEncoderImpl::finalize()
         return pimpl->components;
     }
 
-    void JPEGEncoder::setICCProfile(const UInt32 length, const unsigned char * const buf)
+    void JPEGEncoder::setICCProfile(const ICCProfile & data)
     {
-        pimpl->iccProfileLength = length;
-        pimpl->iccProfilePtr = buf;
-    } 
+        pimpl->iccProfile = data;
+    }
 
     void JPEGEncoder::finalizeSettings()
     {

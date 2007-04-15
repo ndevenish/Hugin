@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,15 +42,16 @@
 #include <vector>
 #include <queue>
 #include <cmath>     // sqrt(), abs()
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/stdimage.hxx"
-#include "vigra/stdimagefunctions.hxx"
-#include "vigra/recursiveconvolution.hxx"
-#include "vigra/separableconvolution.hxx"
-#include "vigra/labelimage.hxx"
-#include "vigra/mathutil.hxx"
-#include "vigra/pixelneighborhood.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "stdimage.hxx"
+#include "stdimagefunctions.hxx"
+#include "recursiveconvolution.hxx"
+#include "separableconvolution.hxx"
+#include "labelimage.hxx"
+#include "mathutil.hxx"
+#include "pixelneighborhood.hxx"
+#include "linear_solve.hxx"
 
 
 namespace vigra {
@@ -1193,109 +1194,43 @@ class Edgel
     {}
 };
 
-template <class Image1, class Image2>
-void internalCannyFindEdgels(Image1 const & dx,
-                             Image1 const & dy,
+template <class Image1, class Image2, class BackInsertable>
+void internalCannyFindEdgels(Image1 const & gx,
+                             Image1 const & gy,
                              Image2 const & magnitude,
-                             std::vector<Edgel> & edgels)
+                             BackInsertable & edgels)
 {
     typedef typename Image1::value_type PixelType;
+    double t = 0.5 / VIGRA_CSTD::sin(M_PI/8.0);
     
-    PixelType zero = NumericTraits<PixelType>::zero();
-    double tan22_5 = M_SQRT2 - 1.0;
-    
-    for(int y=1; y<dx.height()-1; ++y)
+    for(int y=1; y<gx.height()-1; ++y)
     {
-        for(int x=1; x<dx.width()-1; ++x)
+        for(int x=1; x<gx.width()-1; ++x)
         {
-            bool maximum_found = false;
-            Edgel edgel;
+            PixelType gradx = gx(x,y);
+            PixelType grady = gy(x,y);
+            double mag = magnitude(x, y);
             
-            PixelType gradx = dx(x,y);
-            PixelType grady = dy(x,y);
+            int dx = (int)VIGRA_CSTD::floor(gradx*t/mag + 0.5);
+            int dy = (int)VIGRA_CSTD::floor(grady*t/mag + 0.5);
             
-            // find out quadrant
-            if(abs(grady) < tan22_5*abs(gradx))
-            {
-                // north-south edge
-                PixelType m1 = magnitude(x-1, y);
-                PixelType m2 = magnitude(x, y);
-                PixelType m3 = magnitude(x+1, y);
+            int x1 = x - dx,
+                x2 = x + dx,
+                y1 = y - dy,
+                y2 = y + dy;
                 
-                if(m1 < m2 && m3 <= m2)
-                {
-                    edgel.y = y;
-                
-                    // local maximum => quadratic interpolation of sub-pixel location
-                    PixelType del = (m1 - m3) / 2.0;
-                    del /= (m1 + m3 - 2.0*m2);
-                    edgel.x = x + del;
-                    edgel.strength = m2;
-                    
-                    maximum_found = true;                    
-                }
-            }
-            else if(abs(gradx) < tan22_5*abs(grady))
-            {
-                // west-east edge
-                PixelType m1 = magnitude(x, y-1);
-                PixelType m2 = magnitude(x, y);
-                PixelType m3 = magnitude(x, y+1);
-                
-                if(m1 < m2 && m3 <= m2)
-                {
-                    edgel.x = x;
-                
-                    // local maximum => quadratic interpolation of sub-pixel location
-                    PixelType del = (m1 - m3) / 2.0;
-                    del /= (m1 + m3 - 2.0*m2);
-                    edgel.y = y + del;
-                    edgel.strength = m2;
-                    
-                    maximum_found = true;                    
-                }
-            }
-            else if(gradx*grady < zero)
-            {
-                // north-west-south-east edge
-                PixelType m1 = magnitude(x+1, y-1);
-                PixelType m2 = magnitude(x, y);
-                PixelType m3 = magnitude(x-1, y+1);
-                
-                if(m1 < m2 && m3 <= m2)
-                {
-                    // local maximum => quadratic interpolation of sub-pixel location
-                    PixelType del = (m1 - m3) / 2.0;
-                    del /= (m1 + m3 - 2.0*m2);
-                    edgel.x = x - del;
-                    edgel.y = y + del;
-                    edgel.strength = m2;
-                    
-                    maximum_found = true;                    
-                }
-            }
-            else
-            {
-                // north-east-south-west edge
-                PixelType m1 = magnitude(x-1, y-1);
-                PixelType m2 = magnitude(x, y);
-                PixelType m3 = magnitude(x+1, y+1);
-                
-                if(m1 < m2 && m3 <= m2)
-                {
-                    // local maximum => quadratic interpolation of sub-pixel location
-                    PixelType del = (m1 - m3) / 2.0;
-                    del /= (m1 + m3 - 2.0*m2);
-                    edgel.x = x + del;
-                    edgel.y = y + del;
-                    edgel.strength = m2;
-                    
-                    maximum_found = true;                    
-                }
-            }
+            PixelType m1 = magnitude(x1, y1);
+            PixelType m3 = magnitude(x2, y2);
             
-            if(maximum_found)
+            if(m1 < mag && m3 <= mag)
             {
+                Edgel edgel;
+        
+                // local maximum => quadratic interpolation of sub-pixel location
+                PixelType del = (m1 - m3) / 2.0 / (m1 + m3 - 2.0*mag);
+                edgel.x = x + dx*del;
+                edgel.y = y + dy*del;
+                edgel.strength = mag;
                 double orientation = VIGRA_CSTD::atan2(-grady, gradx) - M_PI * 1.5;
                 if(orientation < 0.0)
                     orientation += 2.0*M_PI;
@@ -1331,19 +1266,19 @@ void internalCannyFindEdgels(Image1 const & dx,
     pass arguments explicitly:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor>
+        template <class SrcIterator, class SrcAccessor, class BackInsertable>
         void cannyEdgelList(SrcIterator ul, SrcIterator lr, SrcAccessor src,
-                                std::vector<Edgel> & edgels, double scale);
+                            BackInsertable & edgels, double scale);
     }
     \endcode
     
     use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor>
+        template <class SrcIterator, class SrcAccessor, class BackInsertable>
         void 
         cannyEdgelList(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                       std::vector<Edgel> & edgels, double scale);
+                       BackInsertable & edgels, double scale);
     }
     \endcode
     
@@ -1370,6 +1305,9 @@ void internalCannyFindEdgels(Image1 const & dx,
     SrcAccessor src_accessor;
     
     src_accessor(src_upperleft);
+    
+    BackInsertable edgels;
+    edgels.push_back(Edgel());
     \endcode
     
     SrcAccessor::value_type must be a type convertible to float
@@ -1380,9 +1318,9 @@ void internalCannyFindEdgels(Image1 const & dx,
     scale > 0
     \endcode
 */
-template <class SrcIterator, class SrcAccessor>
+template <class SrcIterator, class SrcAccessor, class BackInsertable>
 void cannyEdgelList(SrcIterator ul, SrcIterator lr, SrcAccessor src,
-                        std::vector<Edgel> & edgels, double scale)
+                        BackInsertable & edgels, double scale)
 {
     int w = lr.x - ul.x;
     int h = lr.y - ul.y;
@@ -1413,10 +1351,10 @@ void cannyEdgelList(SrcIterator ul, SrcIterator lr, SrcAccessor src,
     internalCannyFindEdgels(dx, dy, tmp, edgels);
 }
 
-template <class SrcIterator, class SrcAccessor>
+template <class SrcIterator, class SrcAccessor, class BackInsertable>
 inline void 
 cannyEdgelList(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-               std::vector<Edgel> & edgels, double scale)
+               BackInsertable & edgels, double scale)
 {
     cannyEdgelList(src.first, src.second, src.third, edgels, scale);
 }
@@ -1566,7 +1504,80 @@ struct SimplePoint
     {
         return grad < o.grad; 
     }
+    
+    bool operator>(SimplePoint const & o) const
+    {
+        return grad > o.grad; 
+    }
 };
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor, 
+          class GradValue, class DestValue>
+void cannyEdgeImageFromGrad(
+           SrcIterator sul, SrcIterator slr, SrcAccessor grad,
+           DestIterator dul, DestAccessor da,
+           GradValue gradient_threshold, DestValue edge_marker)
+{
+    typedef typename SrcAccessor::value_type PixelType;
+    typedef typename NormTraits<PixelType>::SquaredNormType NormType;
+    
+    NormType zero = NumericTraits<NormType>::zero();
+    double tan22_5 = M_SQRT2 - 1.0;
+    typename NormTraits<GradValue>::SquaredNormType g2thresh = squaredNorm(gradient_threshold);
+        
+    int w = slr.x - sul.x;
+    int h = slr.y - sul.y;
+    
+    sul += Diff2D(1,1);
+    dul += Diff2D(1,1);
+    Diff2D p(0,0);
+    
+    for(int y = 1; y < h-1; ++y, ++sul.y, ++dul.y)
+    {
+        SrcIterator sx = sul;
+        DestIterator dx = dul;
+        for(int x = 1; x < w-1; ++x, ++sx.x, ++dx.x)
+        {
+            PixelType g = grad(sx);
+            NormType g2n = squaredNorm(g);
+            if(g2n < g2thresh)
+                continue;
+            
+            NormType g2n1, g2n3;
+            // find out quadrant
+            if(abs(g[1]) < tan22_5*abs(g[0]))
+            {
+                // north-south edge
+                g2n1 = squaredNorm(grad(sx, Diff2D(-1, 0)));
+                g2n3 = squaredNorm(grad(sx, Diff2D(1, 0)));
+            }
+            else if(abs(g[0]) < tan22_5*abs(g[1]))
+            {
+                // west-east edge
+                g2n1 = squaredNorm(grad(sx, Diff2D(0, -1)));
+                g2n3 = squaredNorm(grad(sx, Diff2D(0, 1)));
+            }
+            else if(g[0]*g[1] < zero)
+            {
+                // north-west-south-east edge
+                g2n1 = squaredNorm(grad(sx, Diff2D(1, -1)));
+                g2n3 = squaredNorm(grad(sx, Diff2D(-1, 1)));
+            }
+            else
+            {
+                // north-east-south-west edge
+                g2n1 = squaredNorm(grad(sx, Diff2D(-1, -1)));
+                g2n3 = squaredNorm(grad(sx, Diff2D(1, 1)));
+            }
+            
+            if(g2n1 < g2n && g2n3 <= g2n)
+            {
+                da.set(edge_marker, dx);
+            }
+        }
+    }
+}
 
 } // namespace detail
 
@@ -1578,11 +1589,244 @@ struct SimplePoint
 
 /** \brief Detect and mark edges in an edge image using Canny's algorithm.
 
-    This operator first calls \ref cannyEdgeImage() to generate an 
-    edge image. The resulting edge pixels are then subjected to topological thinning
+    The input pixels of this algorithms must be vectors of length 2 (see Required Interface below).
+    It first searches for all pixels whose gradient magnitude is larger 
+    than the given <tt>gradient_threshold</tt> and larger than the magnitude of its two neighbors 
+    in gradient direction (where these neighbors are determined by nearest neighbor 
+    interpolation, i.e. according to the octant where the gradient points into). 
+    The resulting edge pixel candidates are then subjected to topological thinning
     so that the remaining edge pixels can be linked into edgel chains with a provable,
-    non-heuristic algorithm. Optionally, the outermost pixels are marked as edge pixels
-    as well when <tt>addBorder</tt> is true.
+    non-heuristic algorithm. Thinning is performed so that the pixels with highest gradient
+    magnitude survive. Optionally, the outermost pixels are marked as edge pixels
+    as well when <tt>addBorder</tt> is true. The remaining pixels will be marked in the destination
+    image with the value of <tt>edge_marker</tt> (all non-edge pixels remain untouched).
+    
+    <b> Declarations:</b>
+    
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor, 
+                  class GradValue, class DestValue>
+        void cannyEdgeImageFromGradWithThinning(
+                   SrcIterator sul, SrcIterator slr, SrcAccessor sa,
+                   DestIterator dul, DestAccessor da,
+                   GradValue gradient_threshold, 
+                   DestValue edge_marker, bool addBorder = true);
+    }
+    \endcode
+    
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor, 
+                  class GradValue, class DestValue>
+        void cannyEdgeImageFromGradWithThinning(
+                   triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                   pair<DestIterator, DestAccessor> dest,
+                   GradValue gradient_threshold, 
+                   DestValue edge_marker, bool addBorder = true);
+    }
+    \endcode
+    
+    <b> Usage:</b>
+    
+    <b>\#include</b> "<a href="edgedetection_8hxx-source.html">vigra/edgedetection.hxx</a>"<br>
+    Namespace: vigra
+    
+    \code
+    vigra::BImage src(w,h), edges(w,h);
+    
+    vigra::FVector2Image grad(w,h);
+    // compute the image gradient at scale 0.8
+    vigra::gaussianGradient(srcImageRange(src), destImage(grad), 0.8);
+    
+    // empty edge image
+    edges = 0;
+    // find edges gradient larger than 4.0, mark with 1, and add border
+    vigra::cannyEdgeImageFromGradWithThinning(srcImageRange(grad), destImage(edges), 
+                                              4.0, 1, true);
+    \endcode
+
+    <b> Required Interface:</b>
+    
+    \code
+    // the input pixel type must be a vector with two elements
+    SrcImageIterator src_upperleft;
+    SrcAccessor src_accessor;
+    typedef SrcAccessor::value_type SrcPixel;
+    typedef NormTraits<SrcPixel>::SquaredNormType SrcSquaredNormType;
+    
+    SrcPixel g = src_accessor(src_upperleft);
+    SrcPixel::value_type g0 = g[0];
+    SrcSquaredNormType gn = squaredNorm(g);
+    
+    DestImageIterator dest_upperleft;
+    DestAccessor dest_accessor;
+    DestValue edge_marker;
+    
+    dest_accessor.set(edge_marker, dest_upperleft, vigra::Diff2D(1,1));
+    \endcode
+    
+    <b> Preconditions:</b>
+    
+    \code
+    gradient_threshold > 0
+    \endcode
+*/
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor, 
+          class GradValue, class DestValue>
+void cannyEdgeImageFromGradWithThinning(
+           SrcIterator sul, SrcIterator slr, SrcAccessor sa,
+           DestIterator dul, DestAccessor da,
+           GradValue gradient_threshold, 
+           DestValue edge_marker, bool addBorder)
+{
+    int w = slr.x - sul.x;
+    int h = slr.y - sul.y;
+    
+    BImage edgeImage(w, h, BImage::value_type(0));
+    BImage::traverser eul = edgeImage.upperLeft();
+    BImage::Accessor ea = edgeImage.accessor();
+    if(addBorder)
+        initImageBorder(destImageRange(edgeImage), 1, 1);
+    detail::cannyEdgeImageFromGrad(sul, slr, sa, eul, ea, gradient_threshold, 1);
+    
+    static bool isSimplePoint[256] = {
+        0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 
+        0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 
+        1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
+        0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 
+        0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 
+        0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 
+        1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 
+        0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+        0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
+        0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 
+        1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 
+        0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 
+        1, 0, 1, 0 };
+        
+    eul += Diff2D(1,1);
+    sul += Diff2D(1,1);
+    int w2 = w-2;
+    int h2 = h-2;
+    
+    typedef detail::SimplePoint<GradValue> SP;
+    // use std::greater becaus we need the smallest gradients at the top of the queue
+    std::priority_queue<SP, std::vector<SP>, std::greater<SP> >  pqueue;
+    
+    Diff2D p(0,0);
+    for(; p.y < h2; ++p.y)
+    {
+        for(p.x = 0; p.x < w2; ++p.x)
+        {
+            BImage::traverser e = eul + p;
+            if(*e == 0)
+                continue;
+            int v = detail::neighborhoodConfiguration(e);
+            if(isSimplePoint[v])
+            {
+                pqueue.push(SP(p, norm(sa(sul+p))));
+                *e = 2; // remember that it is already in queue
+            }
+        }
+    }
+    
+    static const Diff2D dist[] = { Diff2D(-1,0), Diff2D(0,-1),
+                                   Diff2D(1,0),  Diff2D(0,1) };
+
+    while(pqueue.size())
+    {
+        p = pqueue.top().point;
+        pqueue.pop();
+        
+        BImage::traverser e = eul + p;
+        int v = detail::neighborhoodConfiguration(e);
+        if(!isSimplePoint[v])
+            continue; // point may no longer be simple because its neighbors changed
+            
+        *e = 0; // delete simple point
+        
+        for(int i=0; i<4; ++i)
+        {
+            Diff2D pneu = p + dist[i];
+            if(pneu.x == -1 || pneu.y == -1 || pneu.x == w2 || pneu.y == h2)
+                continue; // do not remove points at the border
+                
+            BImage::traverser eneu = eul + pneu;
+            if(*eneu == 1) // point is boundary and not yet in the queue
+            {
+                int v = detail::neighborhoodConfiguration(eneu);
+                if(isSimplePoint[v])
+                {
+                    pqueue.push(SP(pneu, norm(sa(sul+pneu))));
+                    *eneu = 2; // remember that it is already in queue
+                }
+            }
+        }
+    }
+    
+    initImageIf(destIterRange(dul, dul+Diff2D(w,h), da),
+                maskImage(edgeImage), edge_marker);
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor, 
+          class GradValue, class DestValue>
+inline void cannyEdgeImageFromGradWithThinning(
+           triple<SrcIterator, SrcIterator, SrcAccessor> src,
+           pair<DestIterator, DestAccessor> dest,
+           GradValue gradient_threshold, 
+           DestValue edge_marker, bool addBorder)
+{
+    cannyEdgeImageFromGradWithThinning(src.first, src.second, src.third,
+                               dest.first, dest.second,
+                               gradient_threshold, edge_marker, addBorder);
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor, 
+          class GradValue, class DestValue>
+inline void cannyEdgeImageFromGradWithThinning(
+           SrcIterator sul, SrcIterator slr, SrcAccessor sa,
+           DestIterator dul, DestAccessor da,
+           GradValue gradient_threshold, DestValue edge_marker)
+{
+    cannyEdgeImageFromGradWithThinning(sul, slr, sa,
+                               dul, da,
+                               gradient_threshold, edge_marker, true);
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor, 
+          class GradValue, class DestValue>
+inline void cannyEdgeImageFromGradWithThinning(
+           triple<SrcIterator, SrcIterator, SrcAccessor> src,
+           pair<DestIterator, DestAccessor> dest,
+           GradValue gradient_threshold, DestValue edge_marker)
+{
+    cannyEdgeImageFromGradWithThinning(src.first, src.second, src.third,
+                               dest.first, dest.second,
+                               gradient_threshold, edge_marker, true);
+}
+
+/********************************************************/
+/*                                                      */
+/*              cannyEdgeImageWithThinning              */
+/*                                                      */
+/********************************************************/
+
+/** \brief Detect and mark edges in an edge image using Canny's algorithm.
+
+    This operator first calls \ref gaussianGradient() to compute the gradient of the input
+    image, ad then \ref cannyEdgeImageFromGradWithThinning() to generate an 
+    edge image. See there for more detailed documentation.
     
     <b> Declarations:</b>
     
@@ -1659,95 +1903,12 @@ void cannyEdgeImageWithThinning(
            double scale, GradValue gradient_threshold, 
            DestValue edge_marker, bool addBorder)
 {
-    int w = slr.x - sul.x;
-    int h = slr.y - sul.y;
-    
-    BImage edgeImage(w, h, BImage::value_type(0));
-    BImage::traverser eul = edgeImage.upperLeft();
-    BImage::Accessor ea = edgeImage.accessor();
-    if(addBorder)
-        initImageBorder(destImageRange(edgeImage), 1, 1);
-    cannyEdgeImage(sul, slr, sa, eul, ea, 
-                   scale, gradient_threshold, 1);
-    
-    static bool isSimplePoint[256] = {
-        0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 
-        0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 
-        1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
-        0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 
-        0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 
-        0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 
-        1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 
-        0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-        0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
-        0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 
-        1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 
-        0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 
-        1, 0, 1, 0 };
-        
-    eul += Diff2D(1,1);
-    sul += Diff2D(1,1);
-    int w2 = w-2;
-    int h2 = h-2;
-    
-    typedef detail::SimplePoint<GradValue> SP;
-    std::priority_queue<SP, std::vector<SP> >  pqueue;
-    
-    Diff2D p(0,0);
-    for(; p.y < h2; ++p.y)
-    {
-        for(p.x = 0; p.x < w2; ++p.x)
-        {
-            BImage::traverser e = eul + p;
-            if(*e == 0)
-                continue;
-            int v = detail::neighborhoodConfiguration(e);
-            if(isSimplePoint[v])
-            {
-                pqueue.push(SP(p, norm(sa(sul+p))));
-                *e = 2; // remember that it is already in queue
-            }
-        }
-    }
-    
-    static const Diff2D dist[] = { Diff2D(-1,0), Diff2D(0,-1),
-                                   Diff2D(1,0),  Diff2D(0,1) };
-
-    while(pqueue.size())
-    {
-        p = pqueue.top().point;
-        pqueue.pop();
-        
-        BImage::traverser e = eul + p;
-        int v = detail::neighborhoodConfiguration(e);
-        if(!isSimplePoint[v])
-            continue; // point may no longer be simple because its neighbors changed
-            
-        *e = 0; // delete simple point
-        
-        for(int i=0; i<4; ++i)
-        {
-            Diff2D pneu = p + dist[i];
-            if(pneu.x == -1 || pneu.y == -1 || pneu.x == w2 || pneu.y == h2)
-                continue; // do not remove points at the border
-                
-            BImage::traverser eneu = eul + pneu;
-            if(*eneu == 1) // point is boundary and not yet in the queue
-            {
-                int v = detail::neighborhoodConfiguration(eneu);
-                if(isSimplePoint[v])
-                {
-                    pqueue.push(SP(pneu, norm(sa(sul+pneu))));
-                    *eneu = 2; // remember that it is already in queue
-                }
-            }
-        }
-    }
-    
-    initImageIf(destIterRange(dul, dul+Diff2D(w,h), da),
-                maskImage(edgeImage), edge_marker);
+    // mark pixels that are higher than their neighbors in gradient direction
+    typedef typename NumericTraits<typename SrcAccessor::value_type>::RealPromote TmpType;
+    BasicImage<TinyVector<TmpType, 2> > grad(slr-sul);
+    gaussianGradient(srcIterRange(sul, slr, sa), destImage(grad), scale);
+    cannyEdgeImageFromGradWithThinning(srcImageRange(grad), destIter(dul, da), 
+                               gradient_threshold, edge_marker, addBorder);
 }
 
 template <class SrcIterator, class SrcAccessor,
@@ -1789,6 +1950,166 @@ inline void cannyEdgeImageWithThinning(
                                dest.first, dest.second,
                                scale, gradient_threshold, edge_marker, true);
 }
+
+/********************************************************/
+
+template <class Image1, class Image2, class BackInsertable>
+void internalCannyFindEdgels3x3(Image1 const & grad,
+                                Image2 const & mask,
+                                BackInsertable & edgels)
+{
+    typedef typename Image1::value_type PixelType;
+    typedef typename PixelType::value_type ValueType;
+    
+    for(int y=1; y<grad.height()-1; ++y)
+    {
+        for(int x=1; x<grad.width()-1; ++x)
+        {
+            if(!mask(x,y))
+                continue;
+                
+            ValueType gradx = grad(x,y)[0];
+            ValueType grady = grad(x,y)[1];
+            double mag = hypot(gradx, grady),
+                   c = gradx / mag,
+                   s = grady / mag;
+
+            Matrix<double> ml(3,3), mr(3,1), l(3,1), r(3,1);
+            l(0,0) = 1.0;
+            
+            for(int yy = -1; yy <= 1; ++yy)
+            {
+                for(int xx = -1; xx <= 1; ++xx)
+                {
+                    double u = c*xx + s*yy;
+                    double v = norm(grad(x+xx, y+yy));
+                    l(1,0) = u;
+                    l(2,0) = u*u;
+                    ml += outer(l);
+                    mr += v*l;
+                }
+            }
+            
+            linearSolve(ml, mr, r);
+
+            Edgel edgel;        
+        
+            // local maximum => quadratic interpolation of sub-pixel location
+            ValueType del = -r(1,0) / 2.0 / r(2,0);
+            edgel.x = x + c*del;
+            edgel.y = y + s*del;
+            edgel.strength = mag;
+            double orientation = VIGRA_CSTD::atan2(-grady, gradx) - M_PI * 1.5;
+            if(orientation < 0.0)
+                orientation += 2.0*M_PI;
+            edgel.orientation = orientation;
+            edgels.push_back(edgel);
+        }
+    }
+}
+
+
+/********************************************************/
+/*                                                      */
+/*                   cannyEdgelList3x3                  */
+/*                                                      */
+/********************************************************/
+
+/** \brief Improved implementation of Canny's edge detector.
+
+    This operator first computes pixels which are crossed by the edge using
+    cannyEdgeImageWithThinning(). The gradient magnitude in the 3x3 neighborhood of these
+    pixels are then projected onto the normal of the edge (as determined
+    by the gradient direction). The edgel's subpixel location is found by fitting a 
+    parabola through the 9 gradient values and determining the parabola's tip. 
+    A new \ref Edgel is appended to the given vector of <TT>edgels</TT>. Since the parabola
+    is fitted to 9 points rather than 3 points as in cannyEdgelList(), the accuracy is higher.
+    
+    <b> Declarations:</b>
+    
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor, class BackInsertable>
+        void cannyEdgelList3x3(SrcIterator ul, SrcIterator lr, SrcAccessor src,
+                               BackInsertable & edgels, double scale);
+    }
+    \endcode
+    
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor, class BackInsertable>
+        void 
+        cannyEdgelList3x3(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                          BackInsertable & edgels, double scale);
+    }
+    \endcode
+    
+    <b> Usage:</b>
+    
+    <b>\#include</b> "<a href="edgedetection_8hxx-source.html">vigra/edgedetection.hxx</a>"<br>
+    Namespace: vigra
+    
+    \code
+    vigra::BImage src(w,h);
+    
+    // empty edgel list
+    std::vector<vigra::Edgel> edgels;
+    ...
+    
+    // find edgels at scale 0.8  
+    vigra::cannyEdgelList3x3(srcImageRange(src), edgels, 0.8);
+    \endcode
+
+    <b> Required Interface:</b>
+    
+    \code
+    SrcImageIterator src_upperleft;
+    SrcAccessor src_accessor;
+    
+    src_accessor(src_upperleft);
+    
+    BackInsertable edgels;
+    edgels.push_back(Edgel());
+    \endcode
+    
+    SrcAccessor::value_type must be a type convertible to float
+    
+    <b> Preconditions:</b>
+    
+    \code
+    scale > 0
+    \endcode
+*/
+template <class SrcIterator, class SrcAccessor, class BackInsertable>
+void cannyEdgelList3x3(SrcIterator ul, SrcIterator lr, SrcAccessor src,
+                        BackInsertable & edgels, double scale)
+{
+    int w = lr.x - ul.x;
+    int h = lr.y - ul.y;
+
+    typedef typename NumericTraits<typename SrcAccessor::value_type>::RealPromote TmpType;
+    BasicImage<TinyVector<TmpType, 2> > grad(lr-ul);
+    gaussianGradient(srcIterRange(ul, lr, src), destImage(grad), scale);
+    
+    UInt8Image edges(lr-ul);
+    cannyEdgeImageFromGradWithThinning(srcImageRange(grad), destImage(edges), 
+                                       0.0, 1, false);    
+    
+    // find edgels
+    internalCannyFindEdgels3x3(grad, edges, edgels);
+}
+
+template <class SrcIterator, class SrcAccessor, class BackInsertable>
+inline void 
+cannyEdgelList3x3(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+               BackInsertable & edgels, double scale)
+{
+    cannyEdgelList3x3(src.first, src.second, src.third, edgels, scale);
+}
+
+
 
 //@}
 

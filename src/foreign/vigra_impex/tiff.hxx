@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 /* Modifications by Pablo d'Angelo
@@ -89,9 +89,6 @@ namespace vigra {
         std::string getPixelType() const;
         unsigned int getOffset() const;
 
-        UInt32 getICCProfileLength() const;
-        const unsigned char *getICCProfile() const;
-
         void init( const std::string & );
         void close();
         void abort();
@@ -126,7 +123,7 @@ namespace vigra {
         void * currentScanlineOfBand( unsigned int );
         void nextScanline();
 
-        void setICCProfile(const UInt32 length, const unsigned char * const buf);
+        void setICCProfile(const ICCProfile & data);
 
         void init( const std::string & );
         void close();

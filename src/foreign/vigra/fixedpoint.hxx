@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -38,10 +38,10 @@
 #ifndef VIGRA_FIXEDPOINT_HXX
 #define VIGRA_FIXEDPOINT_HXX
 
-#include "vigra/mathutil.hxx"
-#include "vigra/static_assert.hxx"
-#include "vigra/error.hxx"
-#include "vigra/numerictraits.hxx"
+#include "mathutil.hxx"
+#include "static_assert.hxx"
+#include "error.hxx"
+#include "numerictraits.hxx"
 
 namespace vigra {
 
@@ -428,12 +428,12 @@ struct FixedPointCast<type> \
     } \
 };
 
-VIGRA_FIXED_POINT_CAST(Int8);
-VIGRA_FIXED_POINT_CAST(UInt8);
-VIGRA_FIXED_POINT_CAST(Int16);
-VIGRA_FIXED_POINT_CAST(UInt16);
-VIGRA_FIXED_POINT_CAST(Int32);
-VIGRA_FIXED_POINT_CAST(UInt32);
+VIGRA_FIXED_POINT_CAST(Int8)
+VIGRA_FIXED_POINT_CAST(UInt8)
+VIGRA_FIXED_POINT_CAST(Int16)
+VIGRA_FIXED_POINT_CAST(UInt16)
+VIGRA_FIXED_POINT_CAST(Int32)
+VIGRA_FIXED_POINT_CAST(UInt32)
 
 #undef VIGRA_FIXED_POINT_CAST
 

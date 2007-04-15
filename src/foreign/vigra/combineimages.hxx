@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,9 +39,9 @@
 #ifndef VIGRA_COMBINEIMAGES_HXX
 #define VIGRA_COMBINEIMAGES_HXX
 
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/functortraits.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "functortraits.hxx"
 #include <cmath>
 
 namespace vigra {
@@ -202,14 +202,14 @@ combineThreeLines(SrcIterator1 s1,
 */
 template <class SrcImageIterator1, class SrcAccessor1,
           class SrcImageIterator2, class SrcAccessor2,
-      class DestImageIterator, class DestAccessor,
+          class DestImageIterator, class DestAccessor,
           class Functor>
 void
 combineTwoImages(SrcImageIterator1 src1_upperleft, 
                  SrcImageIterator1 src1_lowerright, SrcAccessor1 sa1,
                  SrcImageIterator2 src2_upperleft, SrcAccessor2 sa2,
                  DestImageIterator dest_upperleft, DestAccessor da,
-         Functor const & f)
+                 Functor const & f)
 {
     int w = src1_lowerright.x - src1_upperleft.x;
     
@@ -225,14 +225,14 @@ combineTwoImages(SrcImageIterator1 src1_upperleft,
     
 template <class SrcImageIterator1, class SrcAccessor1,
           class SrcImageIterator2, class SrcAccessor2,
-      class DestImageIterator, class DestAccessor,
+          class DestImageIterator, class DestAccessor,
           class Functor>
 inline
 void
 combineTwoImages(triple<SrcImageIterator1, SrcImageIterator1, SrcAccessor1> src1,
              pair<SrcImageIterator2, SrcAccessor2> src2,
              pair<DestImageIterator, DestAccessor> dest,
-         Functor const & f)
+             Functor const & f)
 {
     combineTwoImages(src1.first, src1.second, src1.third, 
                      src2.first, src2.second, 
@@ -348,14 +348,14 @@ template <class SrcImageIterator1, class SrcAccessor1,
           class SrcImageIterator2, class SrcAccessor2,
           class MaskImageIterator, class MaskAccessor,
           class DestImageIterator, class DestAccessor,
-      class Functor>
+          class Functor>
 void
 combineTwoImagesIf(SrcImageIterator1 src1_upperleft, 
                    SrcImageIterator1 src1_lowerright, SrcAccessor1 sa1,
                    SrcImageIterator2 src2_upperleft, SrcAccessor2 sa2,
                    MaskImageIterator mask_upperleft, MaskAccessor ma,
-               DestImageIterator dest_upperleft, DestAccessor da,
-               Functor const & f)
+                   DestImageIterator dest_upperleft, DestAccessor da,
+                   Functor const & f)
 {
     int w = src1_lowerright.x - src1_upperleft.x;
     
@@ -375,7 +375,7 @@ template <class SrcImageIterator1, class SrcAccessor1,
           class SrcImageIterator2, class SrcAccessor2,
           class MaskImageIterator, class MaskAccessor,
           class DestImageIterator, class DestAccessor,
-      class Functor>
+          class Functor>
 inline
 void
 combineTwoImagesIf(triple<SrcImageIterator1, SrcImageIterator1, SrcAccessor1> src1,
@@ -570,18 +570,18 @@ class MagnitudeFunctor
     
         /** the functor's result type
         */
-    typedef typename NumericTraits<ValueType>::RealPromote result_type;
+    typedef typename SquareRootTraits<typename NormTraits<ValueType>::SquaredNormType>::SquareRootResult result_type;
     
         /** \deprecated use first_argument_type, second_argument_type, result_type
         */
     typedef ValueType value_type;
     
-        /** calculate transform '<TT>sqrt(v1*v1 + v2*v2)</TT>'. 
+        /** calculate transform '<TT>sqrt(squaredNorm(v1) + squaredNorm(v2))</TT>'. 
             
         */
     result_type operator()(first_argument_type const & v1, second_argument_type const & v2) const
     {
-        return VIGRA_CSTD::sqrt(v1*v1 + v2*v2);
+        return VIGRA_CSTD::sqrt(squaredNorm(v1) + squaredNorm(v2));
     }
 };
 

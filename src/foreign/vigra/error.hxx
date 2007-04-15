@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,7 +42,7 @@
 #include <stdexcept>
 #include <stdio.h>
 #include <string>
-#include "vigra/config.hxx"
+#include "config.hxx"
           
 /*! \page ErrorReporting Error Reporting
     Exceptions and assertions provided by VIGRA

@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 /* Modifications by Pablo d'Angelo
@@ -85,7 +85,7 @@ struct NumberCompare
 
 // find filenames matching the pattern "<path>/base[0-9]+ext"
 #ifdef _WIN32
-void findImageSequence(const std::string &name_base,
+VIGRA_EXPORT void findImageSequence(const std::string &name_base,
                        const std::string &name_ext,
                        std::vector<std::string> & numbers)
 {
@@ -98,9 +98,9 @@ void findImageSequence(const std::string &name_base,
     std::string base, path;
 
 	// on Windows, both '/' and '\' are valid path separators
-	// note: std::basic_string.rfind() may return unsigned int, so exlicitely use std::max<int>()
-	int split = std::max<int>(static_cast<int>(name_base.rfind('/')), static_cast<int>(name_base.rfind('\\')));  
-    if(split == -1)
+	// note: std::basic_string.rfind() may return 'unsigned int', so explicitely cast to 'int'
+	int split = std::max(static_cast<int>(name_base.rfind('/')), static_cast<int>(name_base.rfind('\\')));
+	if(split == static_cast<int>(std::string::npos))
     {
         path = ".";
         base = name_base;
@@ -213,7 +213,7 @@ void findImageSequence(const std::string &name_base,
 #endif // _WIN32
 
 // build a string from a sequence.
-#if _MSC_VER < 1300
+#if defined(_MSC_VER) && (_MSC_VER < 1300)
 template <class iterator>
 std::string stringify (const iterator &start, const iterator &end)
 {
@@ -352,14 +352,15 @@ vigra::Diff2D ImageExportInfo::getPosition() const
     return m_pos;
 }
 
-const ICCProfile & ImageExportInfo::getICCProfile() const
+const ImageExportInfo::ICCProfile & ImageExportInfo::getICCProfile() const
 {
-    return m_profile;
+    return m_icc_profile;
 }
 
-ImageExportInfo & ImageExportInfo::setICCProfile(const ICCProfile &profile)
+ImageExportInfo & ImageExportInfo::setICCProfile(
+    const ImageExportInfo::ICCProfile &profile)
 {
-    m_profile = profile;
+    m_icc_profile = profile;
     return *this;
 }
 
@@ -391,14 +392,11 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
         // FIXME: dangelo: This code might lead to strange effects (setting an invalid compression mode),
         // if other formats also support a numerical compression parameter.
         if ( quality != -1 ) {
-            // hmm, not very great... 
             enc->setCompressionType( "JPEG", quality );
-            // FIXME: dangelo: why return here? the other flags below should also be set.
-            //return enc;
         } else {
-        // leave any other compression type to the codec
-        enc->setCompressionType(comp);
-    }
+            // leave any other compression type to the codec
+            enc->setCompressionType(comp);
+        }
     }
 
     std::string pixel_type = info.getPixelType();
@@ -406,9 +404,9 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
         if(!isPixelTypeSupported( enc->getFileType(), pixel_type ))
         {
             std::string msg("exportImage(): file type ");
-            msg += enc->getFileType() + " does not support requested pixel type " 
+            msg += enc->getFileType() + " does not support requested pixel type "
                                       + pixel_type + ".";
-            vigra_precondition(false, msg.c_str()); 
+            vigra_precondition(false, msg.c_str());
         }
         enc->setPixelType(pixel_type);
     }
@@ -418,9 +416,8 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
     enc->setYResolution(info.getYResolution());
     enc->setPosition(info.getPosition());
 
-    if (info.getICCProfile().isValid()) {
-        enc->setICCProfile(info.getICCProfile().getSize(),
-                           info.getICCProfile().getPtr());
+    if ( info.getICCProfile().size() > 0 ) {
+        enc->setICCProfile(info.getICCProfile());
     }
 
     return enc;
@@ -441,7 +438,7 @@ ImageImportInfo::ImageImportInfo( const char * filename )
     m_num_extra_bands = decoder->getNumExtraBands();
     m_pos = decoder->getPosition();
 
-    m_profile.setProfile(decoder->getICCProfile(), decoder->getICCProfileLength());
+    m_icc_profile = decoder->getICCProfile();
 
     decoder->abort(); // there probably is no better way than this
 }
@@ -540,9 +537,9 @@ float ImageImportInfo::getYResolution() const
     return m_y_res;
 }
 
-const ICCProfile & ImageImportInfo::getICCProfile() const
+const ImageImportInfo::ICCProfile & ImageImportInfo::getICCProfile() const
 {
-    return m_profile;
+    return m_icc_profile;
 }
 
 // return a decoder for a given ImageImportInfo object

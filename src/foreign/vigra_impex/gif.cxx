@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -173,20 +173,14 @@ namespace {
 
         void average(UInt8 * color) const
         {
-            UInt32 r = 0, g = 0, b = 0;
+            UIntBiggest r = 0, g = 0, b = 0;
 
-            for(UInt32 i=0; i<entries.size(); ++i)
+            for(size_t i=0; i<entries.size(); ++i)
             {
                 r += entries[i][0];
                 g += entries[i][1];
                 b += entries[i][2];
             }
-
-            //
-            //  r/g/b is the sum of all the uchar entries. entries.size
-            //  is the count; we compute the average here and can safely
-            //  cast this back to uchar
-            //
 
             color[0] = (UInt8)(r / entries.size());
             color[1] = (UInt8)(g / entries.size());
@@ -200,7 +194,7 @@ namespace {
     };
 
 
-    void find_color_clusters(void_vector<UInt8> & data, 
+    void find_color_clusters(void_vector<UInt8> & data,
             std::vector<ColorCluster> & clusters, void_vector<UInt8> & colors)
     {
         size_t count = clusters.size();
@@ -239,18 +233,19 @@ namespace {
         }
     }
 
-    void find_color_indices(void_vector<UInt8> & data, 
+    void find_color_indices(void_vector<UInt8> & data,
            std::vector<ColorCluster> & clusters, void_vector<UInt8> & indices)
     {
-        unsigned int count = (unsigned int)clusters.size();
+        size_t count = clusters.size();
         UInt8 * base = data.begin();
 
-        for(UInt32 i=0; i<count; ++i)
+        size_t i;
+        for(i=0; i<count; ++i)
         {
-            for(UInt32 j=0; j<clusters[i].size(); ++j)
+            for(size_t j=0; j<clusters[i].size(); ++j)
             {
-                int offset = (clusters[i].entries[j] - base) / 3;
-                indices[offset] = i;
+                size_t offset = (clusters[i].entries[j] - base) / 3;
+                indices[offset] = static_cast<UInt8>(i);
             }
         }
     }
@@ -285,7 +280,7 @@ namespace {
         desc.bandNumbers.resize(2);
         desc.bandNumbers[0] = 1;
         desc.bandNumbers[1] = 3;
-        
+
         return desc;
     }
 
@@ -305,7 +300,7 @@ namespace {
 
         UInt16 width, height, maplength;
         UInt8  bits_per_pixel;
-        bool global_colormap, interlace;
+        bool  global_colormap, interlace;
 
         // methods
 

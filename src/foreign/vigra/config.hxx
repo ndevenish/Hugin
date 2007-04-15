@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -34,9 +34,9 @@
 /*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
 /*                                                                      */
 /************************************************************************/
- 
- 
-#ifndef VIGRA_CONFIG_HXX 
+
+
+#ifndef VIGRA_CONFIG_HXX
 #define VIGRA_CONFIG_HXX
 
 #include <stdexcept>
@@ -61,14 +61,14 @@
 		#define NO_INLINE_STATIC_CONST_DEFINITION
 		#define CMATH_NOT_IN_STD
 		#define NO_COVARIANT_RETURN_TYPES
-	    
+
 		#ifdef VIGRA_NO_STD_MINMAX  // activate if necessary
 		namespace std {
-	    
+
 		template<class T>
 		const T& min(const T& x, const T& y)
 		{
-			return (y < x) 
+			return (y < x)
 				? y
 				: x;
 		}
@@ -76,7 +76,7 @@
 		template<class T>
 		const T& max(const T& x, const T& y)
 		{
-			return (x < y) 
+			return (x < y)
 				? y
 				: x;
 		}
@@ -102,6 +102,14 @@
     #endif // _MSC_VER < 1310
 
     #define VIGRA_NEED_BIN_STREAMS
+
+    #ifdef VIGRA_DLL
+        #define VIGRA_EXPORT __declspec(dllexport)
+    #elif defined(VIGRA_STATIC_LIB)
+        #define VIGRA_EXPORT
+    #else
+        #define VIGRA_EXPORT
+    #endif
 #endif // _MSC_VER
 
 ///////////////////////////////////////////////////////////
@@ -110,10 +118,10 @@
 //                                                       //
 ///////////////////////////////////////////////////////////
 
-#if defined(__GNUC__) 
+#if defined(__GNUC__)
     #if  __GNUC__ < 2 || ((__GNUC__ == 2) && (__GNUC_MINOR__ <= 8))
         #error "Need at least g++ 2.95"
-    #endif 
+    #endif
     #define HAS_HASH_CONTAINERS
 #endif  // __GNUC__
 
@@ -125,6 +133,14 @@
 
 #if defined(__MINGW32__)
     #define VIGRA_NEED_BIN_STREAMS
+
+    #ifdef VIGRA_DLL
+        #define VIGRA_EXPORT __declspec(dllexport)
+    #elif defined(VIGRA_STATIC_LIB)
+        #define VIGRA_EXPORT
+    #else
+        #define VIGRA_EXPORT __declspec(dllimport)
+    #endif
 #endif  // __MINGW32__
 
 ///////////////////////////////////////////////////////////
@@ -133,7 +149,7 @@
 //                                                       //
 ///////////////////////////////////////////////////////////
 
-#if defined(__sgi) && !defined(__GNUC__) 
+#if defined(__sgi) && !defined(__GNUC__)
     #if _COMPILER_VERSION < 720
         #error "Need SGI C++ 7.2 or later"
     #endif
@@ -148,6 +164,16 @@
     #endif // _COMPILER_VERSION
     #define HAS_HASH_CONTAINERS
 #endif // __sgi
+
+///////////////////////////////////////////////////////////
+//                                                       //
+//                      Sun C++ ???                      //
+//                                                       //
+///////////////////////////////////////////////////////////
+
+#if defined(__sun) && !defined(__GNUC__)
+    #define VIGRA_HAS_ERF
+#endif // __sun
 
 ///////////////////////////////////////////////////////////
 //                                                       //
@@ -167,6 +193,10 @@
 
 #ifdef NO_EXPLICIT
     #define explicit
+#endif
+
+#ifndef VIGRA_EXPORT
+    #define VIGRA_EXPORT
 #endif
 
 namespace vigra {

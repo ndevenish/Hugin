@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,11 +39,11 @@
 #define VIGRA_SPLINES_HXX
 
 #include <cmath>
-#include "vigra/config.hxx"
-#include "vigra/mathutil.hxx"
-#include "vigra/polynomial.hxx"
-#include "vigra/array_vector.hxx"
-#include "vigra/fixedpoint.hxx"
+#include "config.hxx"
+#include "mathutil.hxx"
+#include "polynomial.hxx"
+#include "array_vector.hxx"
+#include "fixedpoint.hxx"
 
 namespace vigra {
 

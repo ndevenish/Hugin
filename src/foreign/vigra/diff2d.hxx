@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,11 +40,11 @@
 
 #include <cmath> // for sqrt()
 #include <iosfwd>
-#include "vigra/config.hxx"
-#include "vigra/iteratortags.hxx"
-#include "vigra/iteratortraits.hxx"
-#include "vigra/iteratoradapter.hxx"
-#include "vigra/tuple.hxx"
+#include "config.hxx"
+#include "iteratortags.hxx"
+#include "iteratortraits.hxx"
+#include "iteratoradapter.hxx"
+#include "tuple.hxx"
 
 namespace vigra {
 
@@ -518,6 +518,20 @@ public:
     int height() const
     {
         return y;
+    }
+
+        /** Change the width.
+         */
+    void setWidth(int w)
+    {
+        x = w;
+    }
+
+        /** Change the height.
+         */
+    void setHeight(int h)
+    {
+        y = h;
     }
 
         /** Returns width()*height(), the area of a rectangle of this size.

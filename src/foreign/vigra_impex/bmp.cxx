@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -79,7 +79,7 @@ CodecDesc BmpCodecFactory::getCodecDesc() const
     desc.bandNumbers.resize(2);
     desc.bandNumbers[0] = 1;
     desc.bandNumbers[1] = 3;
-        
+
     return desc;
 }
 
@@ -458,7 +458,7 @@ void BmpDecoderImpl::read_rle4_data ()
     bool painting = true;
 
     int x = 0;
-    unsigned int y = 0;
+    int y = 0;
 
     while (painting) {
 
@@ -655,7 +655,7 @@ void BmpDecoderImpl::read_rle8_data ()
     bool painting = true;
 
     int x = 0;
-    unsigned int y = 0;
+    int y = 0;
 
     while (painting) {
 
@@ -1033,7 +1033,7 @@ void BmpEncoderImpl::write_rgb_data()
 
         // pad
         for ( unsigned int p = 0; p < pad_size; ++p )
-            stream.put(0);
+	    stream.put(0);
     }
 }
 

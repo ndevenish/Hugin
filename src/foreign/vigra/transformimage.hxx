@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,11 +39,11 @@
 #ifndef VIGRA_TRANSFORMIMAGE_HXX
 #define VIGRA_TRANSFORMIMAGE_HXX
 
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/iteratortraits.hxx"
-#include "vigra/rgbvalue.hxx"
-#include "vigra/functortraits.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "iteratortraits.hxx"
+#include "rgbvalue.hxx"
+#include "functortraits.hxx"
 
 namespace vigra {
 
@@ -132,8 +132,8 @@ transformLineIf(SrcIterator s,
 
     <b> Usage:</b>
 
-        <b>\#include</b> "<a href="transformimage_8hxx-source.html">vigra/transformimage.hxx</a>"<br>
-        Namespace: vigra
+    <b>\#include</b> "<a href="transformimage_8hxx-source.html">vigra/transformimage.hxx</a>"<br>
+    Namespace: vigra
 
     \code
 
@@ -251,12 +251,12 @@ transformImage(triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
         Namespace: vigra
 
     \code
-    #include <math.h>         // for sqrt()
+    #include <cmath>         // for sqrt()
 
     vigra::transformImageIf(srcImageRange(src),
                             maskImage(mask),
                             destImage(dest),
-                            &::sqrt );
+                            (double(*)(double))&std::sqrt );
 
     \endcode
 
@@ -502,7 +502,7 @@ template <class DestValueType, class Multiplier = double>
 class LinearIntensityTransform
 {
   public:
-        /* the functors argument type (actually, since 
+        /* the functors argument type (actually, since
            <tt>operator()</tt> is a template, much more types are possible)
         */
     typedef DestValueType argument_type;
@@ -557,7 +557,7 @@ template <class DestValueType, class Multiplier = double>
 class ScalarIntensityTransform
 {
   public:
-        /* the functors argument type (actually, since 
+        /* the functors argument type (actually, since
            <tt>operator()</tt> is a template, much more types are possible)
         */
     typedef DestValueType argument_type;
@@ -699,8 +699,8 @@ linearIntensityTransform(Multiplier scale)
     '<TT>destvalue = scale * (srcvalue + offset)</TT>' to every pixel,
     where <tt>scale = (dest_max - dest_min) / (src_max - src_min)</tt>
     and <tt>offset = dest_min / scale - src_min</tt>. As a result,
-    the pixel values <tt>src_max</tt>, <tt>src_min</tt> in the source image 
-    are mapped onto <tt>dest_max</tt>, <tt>dest_min</tt> respectively. 
+    the pixel values <tt>src_max</tt>, <tt>src_min</tt> in the source image
+    are mapped onto <tt>dest_max</tt>, <tt>dest_min</tt> respectively.
     This works for scalar as well as vector pixel types.
 
     <b> Declaration:</b>
@@ -709,7 +709,7 @@ linearIntensityTransform(Multiplier scale)
     namespace vigra {
         template <class SrcValueType, class DestValueType>
         LinearIntensityTransform<DestValueType, typename NumericTraits<DestValueType>::RealPromote>
-        linearRangeMapping(SrcValueType src_min, SrcValueType src_max, 
+        linearRangeMapping(SrcValueType src_min, SrcValueType src_max,
                            DestValueType dest_min, DestValueType dest_max );
     }
     \endcode
@@ -742,33 +742,33 @@ linearIntensityTransform(Multiplier scale)
 */
 template <class SrcValueType, class DestValueType>
 LinearIntensityTransform<DestValueType, typename NumericTraits<DestValueType>::RealPromote>
-linearRangeMapping(SrcValueType src_min, SrcValueType src_max, 
+linearRangeMapping(SrcValueType src_min, SrcValueType src_max,
                    DestValueType dest_min, DestValueType dest_max )
 {
     return linearRangeMapping(src_min, src_max, dest_min, dest_max,
             typename NumericTraits<DestValueType>::isScalar());
-} 
+}
 
 template <class SrcValueType, class DestValueType>
 LinearIntensityTransform<DestValueType, typename NumericTraits<DestValueType>::RealPromote>
 linearRangeMapping(
-    SrcValueType src_min, SrcValueType src_max, 
+    SrcValueType src_min, SrcValueType src_max,
     DestValueType dest_min, DestValueType dest_max,
     VigraTrueType /* isScalar */ )
 {
     typedef typename NumericTraits<DestValueType>::RealPromote Multiplier;
     Multiplier diff = src_max - src_min;
     Multiplier scale = diff == NumericTraits<Multiplier>::zero()
-                     ? NumericTraits<Multiplier>::one() 
+                     ? NumericTraits<Multiplier>::one()
                      : (dest_max - dest_min) / diff;
     return LinearIntensityTransform<DestValueType, Multiplier>(
                                    scale, dest_min / scale - src_min );
-} 
+}
 
 template <class SrcValueType, class DestValueType>
 LinearIntensityTransform<DestValueType, typename NumericTraits<DestValueType>::RealPromote>
 linearRangeMapping(
-    SrcValueType src_min, SrcValueType src_max, 
+    SrcValueType src_min, SrcValueType src_max,
     DestValueType dest_min, DestValueType dest_max,
     VigraFalseType /* isScalar */ )
 {
@@ -776,15 +776,15 @@ linearRangeMapping(
     typedef typename Multiplier::value_type MComponent;
     Multiplier scale(dest_max), offset(dest_max);
     for(unsigned int i=0; i<src_min.size(); ++i)
-    { 
+    {
         MComponent diff = src_max[i] - src_min[i];
         scale[i] = diff == NumericTraits<MComponent>::zero()
-                     ? NumericTraits<MComponent>::one() 
+                     ? NumericTraits<MComponent>::one()
                      : (dest_max[i] - dest_min[i]) / diff;
         offset[i] = dest_min[i] / scale[i] - src_min[i];
     }
     return LinearIntensityTransform<DestValueType, Multiplier>(scale, offset);
-} 
+}
 
 /********************************************************/
 /*                                                      */
@@ -986,11 +986,11 @@ class BrightnessContrastFunctor
     result_type operator()(argument_type const & v) const
     {
         promote_type v1 = (v - min_) / diff_;
-        promote_type brighter = pow(v1, b_);
+        promote_type brighter = VIGRA_CSTD::pow(v1, b_);
         promote_type v2 = 2.0 * brighter - one_;
         promote_type contrasted = (v2 < zero_) ?
-                                     -pow(-v2, c_) :
-                                      pow(v2, c_);
+                                     -VIGRA_CSTD::pow(-v2, c_) :
+                                      VIGRA_CSTD::pow(v2, c_);
         return result_type(0.5 * diff_ * (contrasted + one_) + min_);
     }
 

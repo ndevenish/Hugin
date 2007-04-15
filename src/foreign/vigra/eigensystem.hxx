@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -41,8 +41,9 @@
 
 #include <algorithm>
 #include <complex>
-#include "vigra/matrix.hxx"
-
+#include "matrix.hxx"
+#include "array_vector.hxx"
+#include "polynomial.hxx"
 
 namespace vigra
 {
@@ -50,13 +51,13 @@ namespace vigra
 namespace linalg
 {
 
-namespace detail 
+namespace detail
 {
 
 // code adapted from JAMA
 // a and b will be overwritten
 template <class T, class C1, class C2>
-void 
+void
 housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C2> &b)
 {
     const unsigned int n = rowCount(a);
@@ -67,18 +68,18 @@ housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C
 
     MultiArrayView<1, T, C2> d = b.bindOuter(0);
     MultiArrayView<1, T, C2> e = b.bindOuter(1);
-    
-    for(unsigned int j = 0; j < n; ++j) 
+
+    for(unsigned int j = 0; j < n; ++j)
     {
         d(j) = a(n-1, j);
     }
 
     // Householder reduction to tridiagonalMatrix form.
- 
-    for(int i = n-1; i > 0; --i) 
+
+    for(int i = n-1; i > 0; --i)
     {
         // Scale to avoid under/overflow.
- 
+
         T scale = 0.0;
         T h = 0.0;
         for(int k = 0; k < i; ++k)
@@ -98,7 +99,7 @@ housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C
         else
         {
             // Generate Householder vector.
- 
+
             for(int k = 0; k < i; ++k)
             {
                 d(k) /= scale;
@@ -116,9 +117,9 @@ housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C
             {
                e(j) = 0.0;
             }
- 
+
             // Apply similarity transformation to remaining columns.
- 
+
             for(int j = 0; j < i; ++j)
             {
                f = d(j);
@@ -156,39 +157,39 @@ housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C
         }
         d(i) = h;
     }
- 
+
     // Accumulate transformations.
- 
-    for(unsigned int i = 0; i < n-1; ++i) 
+
+    for(unsigned int i = 0; i < n-1; ++i)
     {
         a(n-1, i) = a(i, i);
         a(i, i) = 1.0;
         T h = d(i+1);
-        if(h != 0.0) 
+        if(h != 0.0)
         {
-            for(unsigned int k = 0; k <= i; ++k) 
+            for(unsigned int k = 0; k <= i; ++k)
             {
                 d(k) = a(k, i+1) / h;
             }
-            for(unsigned int j = 0; j <= i; ++j) 
+            for(unsigned int j = 0; j <= i; ++j)
             {
                 T g = 0.0;
-                for(unsigned int k = 0; k <= i; ++k) 
+                for(unsigned int k = 0; k <= i; ++k)
                 {
                     g += a(k, i+1) * a(k, j);
                 }
-                for(unsigned int k = 0; k <= i; ++k) 
+                for(unsigned int k = 0; k <= i; ++k)
                 {
                     a(k, j) -= g * d(k);
                 }
             }
         }
-        for(unsigned int k = 0; k <= i; ++k) 
+        for(unsigned int k = 0; k <= i; ++k)
         {
             a(k, i+1) = 0.0;
         }
     }
-    for(unsigned int j = 0; j < n; ++j) 
+    for(unsigned int j = 0; j < n; ++j)
     {
         d(j) = a(n-1, j);
         a(n-1, j) = 0.0;
@@ -200,9 +201,9 @@ housholderTridiagonalization(MultiArrayView<2, T, C1> &a, MultiArrayView<2, T, C
 // code adapted from JAMA
 // de and z will be overwritten
 template <class T, class C1, class C2>
-bool 
-tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, C2> &z) 
-{ 
+bool
+tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, C2> &z)
+{
     const unsigned int n = rowCount(z);
     vigra_precondition(n == columnCount(z),
         "tridiagonalMatrixEigensystem(): matrix must be square.");
@@ -211,43 +212,43 @@ tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, 
 
     MultiArrayView<1, T, C2> d = de.bindOuter(0);
     MultiArrayView<1, T, C2> e = de.bindOuter(1);
-    
+
     for(unsigned int i = 1; i < n; i++) {
        e(i-1) = e(i);
     }
     e(n-1) = 0.0;
- 
+
     T f = 0.0;
     T tst1 = 0.0;
     T eps = VIGRA_CSTD::pow(2.0,-52.0);
-    for(unsigned int l = 0; l < n; ++l) 
+    for(unsigned int l = 0; l < n; ++l)
     {
         // Find small subdiagonalMatrix element
- 
+
         tst1 = std::max(tst1, abs(d(l)) + abs(e(l)));
         unsigned int m = l;
 
         // Original while-loop from Java code
-        while(m < n) 
+        while(m < n)
         {
             if(abs(e(m)) <= eps*tst1)
                 break;
             ++m;
         }
- 
+
         // If m == l, d(l) is an eigenvalue,
         // otherwise, iterate.
- 
-        if(m > l) 
+
+        if(m > l)
         {
             int iter = 0;
             do
             {
                 if(++iter > 50)
                    return false; // too many iterations
- 
+
                 // Compute implicit shift
- 
+
                 T g = d(l);
                 T p = (d(l+1) - g) / (2.0 * e(l));
                 T r = hypot(p,1.0);
@@ -264,9 +265,9 @@ tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, 
                    d(i) -= h;
                 }
                 f = f + h;
- 
+
                 // Implicit QL transformation.
- 
+
                 p = d(m);
                 T c = 1.0;
                 T c2 = c;
@@ -287,9 +288,9 @@ tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, 
                     c = p / r;
                     p = c * d(i) - s * g;
                     d(i+1) = h + s * (c * g + s * d(i));
-  
+
                     // Accumulate transformation.
-  
+
                     for(unsigned int k = 0; k < n; ++k)
                     {
                          h = z(k, i+1);
@@ -300,18 +301,18 @@ tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, 
                 p = -s * s2 * c3 * el1 * e(l) / dl1;
                 e(l) = s * p;
                 d(l) = c * p;
- 
+
                 // Check for convergence.
- 
+
             } while(abs(e(l)) > eps*tst1);
         }
         d(l) = d(l) + f;
         e(l) = 0.0;
     }
-   
+
     // Sort eigenvalues and corresponding vectors.
- 
-    for(unsigned int i = 0; i < n-1; ++i) 
+
+    for(unsigned int i = 0; i < n-1; ++i)
     {
         int k = i;
         T p = abs(d(i));
@@ -339,7 +340,7 @@ tridiagonalMatrixEigensystem(MultiArrayView<2, T, C1> &de, MultiArrayView<2, T, 
 // Nonsymmetric reduction to Hessenberg form.
 
 template <class T, class C1, class C2>
-void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T, C2> & V) 
+void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T, C2> & V)
 {
     //  This is derived from the Algol procedures orthes and ortran,
     //  by Martin and Wilkinson, Handbook for Auto. Comp.,
@@ -356,23 +357,23 @@ void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayVie
         // Scale column.
 
         T scale = 0.0;
-        for(int i = m; i <= high; ++i) 
+        for(int i = m; i <= high; ++i)
         {
             scale = scale + abs(H(i, m-1));
         }
-        if(scale != 0.0) 
+        if(scale != 0.0)
         {
 
             // Compute Householder transformation.
 
             T h = 0.0;
-            for(int i = high; i >= m; --i) 
+            for(int i = high; i >= m; --i)
             {
                 ort[i] = H(i, m-1)/scale;
                 h += sq(ort[i]);
             }
             T g = VIGRA_CSTD::sqrt(h);
-            if(ort[m] > 0) 
+            if(ort[m] > 0)
             {
                 g = -g;
             }
@@ -382,29 +383,29 @@ void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayVie
             // Apply Householder similarity transformation
             // H = (I-u*u'/h)*H*(I-u*u')/h)
 
-            for(int j = m; j < n; ++j) 
+            for(int j = m; j < n; ++j)
             {
                 T f = 0.0;
-                for(int i = high; i >= m; --i) 
+                for(int i = high; i >= m; --i)
                 {
                     f += ort[i]*H(i, j);
                 }
                 f = f/h;
-                for(int i = m; i <= high; ++i) 
+                for(int i = m; i <= high; ++i)
                 {
                     H(i, j) -= f*ort[i];
                 }
             }
 
-            for(int i = 0; i <= high; ++i) 
+            for(int i = 0; i <= high; ++i)
             {
                 T f = 0.0;
-                for(int j = high; j >= m; --j) 
+                for(int j = high; j >= m; --j)
                 {
                     f += ort[j]*H(i, j);
                 }
                 f = f/h;
-                for(int j = m; j <= high; ++j) 
+                for(int j = m; j <= high; ++j)
                 {
                     H(i, j) -= f*ort[j];
                 }
@@ -416,32 +417,32 @@ void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayVie
 
     // Accumulate transformations (Algol's ortran).
 
-    for(int i = 0; i < n; ++i) 
+    for(int i = 0; i < n; ++i)
     {
-        for(int j = 0; j < n; ++j) 
+        for(int j = 0; j < n; ++j)
         {
             V(i, j) = (i == j ? 1.0 : 0.0);
         }
     }
 
-    for(int m = high-1; m >= low+1; --m) 
+    for(int m = high-1; m >= low+1; --m)
     {
-        if(H(m, m-1) != 0.0) 
+        if(H(m, m-1) != 0.0)
         {
-            for(int i = m+1; i <= high; ++i) 
+            for(int i = m+1; i <= high; ++i)
             {
                 ort[i] = H(i, m-1);
             }
-            for(int j = m; j <= high; ++j) 
+            for(int j = m; j <= high; ++j)
             {
                 T g = 0.0;
-                for(int i = m; i <= high; ++i) 
+                for(int i = m; i <= high; ++i)
                 {
                     g += ort[i] * V(i, j);
                 }
                 // Double division avoids possible underflow
                 g = (g / ort[m]) / H(m, m-1);
-                for(int i = m; i <= high; ++i) 
+                for(int i = m; i <= high; ++i)
                 {
                     V(i, j) += g * ort[i];
                 }
@@ -454,17 +455,17 @@ void nonsymmetricHessenbergReduction(MultiArrayView<2, T, C1> & H, MultiArrayVie
 // Complex scalar division.
 
 template <class T>
-void cdiv(T xr, T xi, T yr, T yi, T & cdivr, T & cdivi) 
+void cdiv(T xr, T xi, T yr, T yi, T & cdivr, T & cdivi)
 {
     T r,d;
-    if(abs(yr) > abs(yi)) 
+    if(abs(yr) > abs(yi))
     {
         r = yi/yr;
         d = yr + r*yi;
         cdivr = (xr + r*xi)/d;
         cdivi = (xi - r*xr)/d;
-    } 
-    else 
+    }
+    else
     {
         r = yr/yi;
         d = yi + r*yr;
@@ -474,11 +475,11 @@ void cdiv(T xr, T xi, T yr, T yi, T & cdivr, T & cdivi)
 }
 
 template <class T, class C>
-int hessenbergQrDecompositionHelper(MultiArrayView<2, T, C> & H, int n, int l, double eps, 
+int hessenbergQrDecompositionHelper(MultiArrayView<2, T, C> & H, int n, int l, double eps,
              T & p, T & q, T & r, T & s, T & w, T & x, T & y, T & z)
 {
     int m = n-2;
-    while(m >= l) 
+    while(m >= l)
     {
         z = H(m, m);
         r = x - z;
@@ -490,13 +491,13 @@ int hessenbergQrDecompositionHelper(MultiArrayView<2, T, C> & H, int n, int l, d
         p = p / s;
         q = q / s;
         r = r / s;
-        if(m == l) 
+        if(m == l)
         {
             break;
         }
         if(abs(H(m, m-1)) * (abs(q) + abs(r)) <
             eps * (abs(p) * (abs(H(m-1, m-1)) + abs(z) +
-            abs(H(m+1, m+1))))) 
+            abs(H(m+1, m+1)))))
         {
                 break;
         }
@@ -510,8 +511,8 @@ int hessenbergQrDecompositionHelper(MultiArrayView<2, T, C> & H, int n, int l, d
 // Nonsymmetric reduction from Hessenberg to real Schur form.
 
 template <class T, class C1, class C2, class C3>
-bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T, C2> & V, 
-                                     MultiArrayView<2, T, C3> & de) 
+bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T, C2> & V,
+                                     MultiArrayView<2, T, C3> & de)
 {
 
     //  This is derived from the Algol procedure hqr2,
@@ -536,19 +537,19 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
     // Outer loop over eigenvalue index
     int iter = 0;
-    while(n >= low) 
+    while(n >= low)
     {
 
         // Look for single small sub-diagonal element
         int l = n;
-        while (l > low) 
+        while (l > low)
         {
             s = abs(H(l-1, l-1)) + abs(H(l, l));
-            if(s == 0.0) 
+            if(s == 0.0)
             {
                 s = norm;
             }
-            if(abs(H(l, l-1)) < eps * s) 
+            if(abs(H(l, l-1)) < eps * s)
             {
                 break;
             }
@@ -557,7 +558,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
         // Check for convergence
         // One root found
-        if(l == n) 
+        if(l == n)
         {
             H(n, n) = H(n, n) + exshift;
             d(n) = H(n, n);
@@ -567,8 +568,8 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
         // Two roots found
 
-        } 
-        else if(l == n-1) 
+        }
+        else if(l == n-1)
         {
             w = H(n, n-1) * H(n-1, n);
             p = (H(n-1, n-1) - H(n, n)) / 2.0;
@@ -580,19 +581,19 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
             // Real pair
 
-            if(q >= 0) 
+            if(q >= 0)
             {
-                if(p >= 0) 
+                if(p >= 0)
                 {
                     z = p + z;
-                } 
-                else 
+                }
+                else
                 {
                     z = p - z;
                 }
                 d(n-1) = x + z;
                 d(n) = d(n-1);
-                if(z != 0.0) 
+                if(z != 0.0)
                 {
                     d(n) = x - w / z;
                 }
@@ -608,7 +609,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                 // Row modification
 
-                for(int j = n-1; j < nn; ++j) 
+                for(int j = n-1; j < nn; ++j)
                 {
                     z = H(n-1, j);
                     H(n-1, j) = q * z + p * H(n, j);
@@ -617,7 +618,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                 // Column modification
 
-                for(int i = 0; i <= n; ++i) 
+                for(int i = 0; i <= n; ++i)
                 {
                     z = H(i, n-1);
                     H(i, n-1) = q * z + p * H(i, n);
@@ -626,7 +627,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                 // Accumulate transformations
 
-                for(int i = low; i <= high; ++i) 
+                for(int i = low; i <= high; ++i)
                 {
                     z = V(i, n-1);
                     V(i, n-1) = q * z + p * V(i, n);
@@ -635,8 +636,8 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
             // Complex pair
 
-            } 
-            else 
+            }
+            else
             {
                 d(n-1) = x + p;
                 d(n) = x + p;
@@ -648,8 +649,8 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
         // No convergence yet
 
-        } 
-        else 
+        }
+        else
         {
 
             // Form shift
@@ -657,7 +658,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
             x = H(n, n);
             y = 0.0;
             w = 0.0;
-            if(l < n) 
+            if(l < n)
             {
                 y = H(n-1, n-1);
                 w = H(n, n-1) * H(n-1, n);
@@ -665,10 +666,10 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
             // Wilkinson's original ad hoc shift
 
-            if(iter == 10) 
+            if(iter == 10)
             {
                 exshift += x;
-                for(int i = low; i <= n; ++i) 
+                for(int i = low; i <= n; ++i)
                 {
                     H(i, i) -= x;
                 }
@@ -679,19 +680,19 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
             // MATLAB's new ad hoc shift
 
-            if(iter == 30) 
+            if(iter == 30)
             {
                  s = (y - x) / 2.0;
                  s = s * s + w;
-                 if(s > 0) 
+                 if(s > 0)
                  {
                       s = VIGRA_CSTD::sqrt(s);
-                      if(y < x) 
+                      if(y < x)
                       {
                           s = -s;
                       }
                       s = x - w / ((y - x) / 2.0 + s);
-                      for(int i = low; i <= n; ++i) 
+                      for(int i = low; i <= n; ++i)
                       {
                           H(i, i) -= s;
                       }
@@ -700,16 +701,16 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
                  }
             }
 
-            iter = iter + 1; 
+            iter = iter + 1;
             if(iter > 60)
                 return false;
 
             // Look for two consecutive small sub-diagonal elements
             int m = hessenbergQrDecompositionHelper(H, n, l, eps, p, q, r, s, w, x, y, z);
-            for(int i = m+2; i <= n; ++i) 
+            for(int i = m+2; i <= n; ++i)
             {
                 H(i, i-2) = 0.0;
-                if(i > m+2) 
+                if(i > m+2)
                 {
                     H(i, i-3) = 0.0;
                 }
@@ -717,7 +718,7 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
             // Double QR step involving rows l:n and columns m:n
 
-            for(int k = m; k <= n-1; ++k) 
+            for(int k = m; k <= n-1; ++k)
             {
                 int notlast = (k != n-1);
                 if(k != m) {
@@ -725,29 +726,29 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
                     q = H(k+1, k-1);
                     r = (notlast ? H(k+2, k-1) : 0.0);
                     x = abs(p) + abs(q) + abs(r);
-                    if(x != 0.0) 
+                    if(x != 0.0)
                     {
                         p = p / x;
                         q = q / x;
                         r = r / x;
                     }
                 }
-                if(x == 0.0) 
+                if(x == 0.0)
                 {
                     break;
                 }
                 s = VIGRA_CSTD::sqrt(p * p + q * q + r * r);
-                if(p < 0) 
+                if(p < 0)
                 {
                     s = -s;
                 }
-                if(s != 0) 
+                if(s != 0)
                 {
-                    if(k != m) 
+                    if(k != m)
                     {
                         H(k, k-1) = -s * x;
-                    } 
-                    else if(l != m) 
+                    }
+                    else if(l != m)
                     {
                         H(k, k-1) = -H(k, k-1);
                     }
@@ -760,10 +761,10 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                     // Row modification
 
-                    for(int j = k; j < nn; ++j) 
+                    for(int j = k; j < nn; ++j)
                     {
                         p = H(k, j) + q * H(k+1, j);
-                        if(notlast) 
+                        if(notlast)
                         {
                             p = p + r * H(k+2, j);
                             H(k+2, j) = H(k+2, j) - p * z;
@@ -774,10 +775,10 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                     // Column modification
 
-                    for(int i = 0; i <= std::min(n,k+3); ++i) 
+                    for(int i = 0; i <= std::min(n,k+3); ++i)
                     {
                         p = x * H(i, k) + y * H(i, k+1);
-                        if(notlast) 
+                        if(notlast)
                         {
                             p = p + z * H(i, k+2);
                             H(i, k+2) = H(i, k+2) - p * r;
@@ -788,10 +789,10 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
                     // Accumulate transformations
 
-                    for(int i = low; i <= high; ++i) 
+                    for(int i = low; i <= high; ++i)
                     {
                         p = x * V(i, k) + y * V(i, k+1);
-                        if(notlast) 
+                        if(notlast)
                         {
                             p = p + z * V(i, k+2);
                             V(i, k+2) = V(i, k+2) - p * r;
@@ -806,64 +807,64 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
     // Backsubstitute to find vectors of upper triangular form
 
-    if(norm == 0.0) 
+    if(norm == 0.0)
     {
         return false;
     }
 
-    for(n = nn-1; n >= 0; --n) 
+    for(n = nn-1; n >= 0; --n)
     {
         p = d(n);
         q = e(n);
 
         // Real vector
 
-        if(q == 0) 
+        if(q == 0)
         {
             int l = n;
             H(n, n) = 1.0;
-            for(int i = n-1; i >= 0; --i) 
+            for(int i = n-1; i >= 0; --i)
             {
                 w = H(i, i) - p;
                 r = 0.0;
-                for(int j = l; j <= n; ++j) 
+                for(int j = l; j <= n; ++j)
                 {
                     r = r + H(i, j) * H(j, n);
                 }
-                if(e(i) < 0.0) 
+                if(e(i) < 0.0)
                 {
                     z = w;
                     s = r;
-                } 
-                else 
+                }
+                else
                 {
                     l = i;
-                    if(e(i) == 0.0) 
+                    if(e(i) == 0.0)
                     {
-                        if(w != 0.0) 
+                        if(w != 0.0)
                         {
                             H(i, n) = -r / w;
-                        } 
-                        else 
+                        }
+                        else
                         {
                             H(i, n) = -r / (eps * norm);
                         }
 
                     // Solve real equations
 
-                    } 
-                    else 
+                    }
+                    else
                     {
                         x = H(i, i+1);
                         y = H(i+1, i);
                         q = (d(i) - p) * (d(i) - p) + e(i) * e(i);
                         t = (x * s - z * r) / q;
                         H(i, n) = t;
-                        if(abs(x) > abs(z)) 
+                        if(abs(x) > abs(z))
                         {
                             H(i+1, n) = (-r - w * t) / x;
-                        } 
-                        else 
+                        }
+                        else
                         {
                             H(i+1, n) = (-s - y * t) / z;
                         }
@@ -872,9 +873,9 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
                     // Overflow control
 
                     t = abs(H(i, n));
-                    if((eps * t) * t > 1) 
+                    if((eps * t) * t > 1)
                     {
-                        for(int j = i; j <= n; ++j) 
+                        for(int j = i; j <= n; ++j)
                         {
                             H(j, n) = H(j, n) / t;
                         }
@@ -884,50 +885,50 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
         // Complex vector
 
-        } 
-        else if(q < 0) 
+        }
+        else if(q < 0)
         {
             int l = n-1;
 
             // Last vector component imaginary so matrix is triangular
 
-            if(abs(H(n, n-1)) > abs(H(n-1, n))) 
+            if(abs(H(n, n-1)) > abs(H(n-1, n)))
             {
                 H(n-1, n-1) = q / H(n, n-1);
                 H(n-1, n) = -(H(n, n) - p) / H(n, n-1);
-            } 
-            else 
+            }
+            else
             {
                 cdiv(0.0,-H(n-1, n),H(n-1, n-1)-p,q, H(n-1, n-1), H(n-1, n));
             }
             H(n, n-1) = 0.0;
             H(n, n) = 1.0;
-            for(int i = n-2; i >= 0; --i) 
+            for(int i = n-2; i >= 0; --i)
             {
                 T ra,sa,vr,vi;
                 ra = 0.0;
                 sa = 0.0;
-                for(int j = l; j <= n; ++j) 
+                for(int j = l; j <= n; ++j)
                 {
                     ra = ra + H(j, n-1) * H(i, j);
                     sa = sa + H(j, n) * H(i, j);
                 }
                 w = H(i, i) - p;
 
-                if(e(i) < 0.0) 
+                if(e(i) < 0.0)
                 {
                     z = w;
                     r = ra;
                     s = sa;
-                } 
-                else 
+                }
+                else
                 {
                     l = i;
-                    if(e(i) == 0) 
+                    if(e(i) == 0)
                     {
                         cdiv(-ra,-sa,w,q, H(i, n-1), H(i, n));
-                    } 
-                    else 
+                    }
+                    else
                     {
                         // Solve complex equations
 
@@ -935,18 +936,18 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
                         y = H(i+1, i);
                         vr = (d(i) - p) * (d(i) - p) + e(i) * e(i) - q * q;
                         vi = (d(i) - p) * 2.0 * q;
-                        if((vr == 0.0) && (vi == 0.0)) 
+                        if((vr == 0.0) && (vi == 0.0))
                         {
                             vr = eps * norm * (abs(w) + abs(q) +
                             abs(x) + abs(y) + abs(z));
                         }
                         cdiv(x*r-z*ra+q*sa,x*s-z*sa-q*ra,vr,vi, H(i, n-1), H(i, n));
-                        if(abs(x) > (abs(z) + abs(q))) 
+                        if(abs(x) > (abs(z) + abs(q)))
                         {
                             H(i+1, n-1) = (-ra - w * H(i, n-1) + q * H(i, n)) / x;
                             H(i+1, n) = (-sa - w * H(i, n) - q * H(i, n-1)) / x;
-                        } 
-                        else 
+                        }
+                        else
                         {
                             cdiv(-r-y*H(i, n-1),-s-y*H(i, n),z,q, H(i+1, n-1), H(i+1, n));
                         }
@@ -955,9 +956,9 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
                     // Overflow control
 
                     t = std::max(abs(H(i, n-1)),abs(H(i, n)));
-                    if((eps * t) * t > 1) 
+                    if((eps * t) * t > 1)
                     {
-                        for(int j = i; j <= n; ++j) 
+                        for(int j = i; j <= n; ++j)
                         {
                             H(j, n-1) = H(j, n-1) / t;
                             H(j, n) = H(j, n) / t;
@@ -970,12 +971,12 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
 
     // Back transformation to get eigenvectors of original matrix
 
-    for(int j = nn-1; j >= low; --j) 
+    for(int j = nn-1; j >= low; --j)
     {
-        for(int i = low; i <= high; ++i) 
+        for(int i = low; i <= high; ++i)
         {
             z = 0.0;
-            for(int k = low; k <= std::min(j,high); ++k) 
+            for(int k = low; k <= std::min(j,high); ++k)
             {
                 z = z + V(i, k) * H(k, j);
             }
@@ -991,74 +992,74 @@ bool hessenbergQrDecomposition(MultiArrayView<2, T, C1> & H, MultiArrayView<2, T
  */
 //@{
     /** Compute the eigensystem of a symmetric matrix.
-     
+
         \a a is a real symmetric matrix, \a ew is a single-column matrix
-        holding the eigenvalues, and \a ev is a matrix of the same size as 
-        \a a whose columns are the corresponding eigenvectors. Eigenvalues 
-        will be sorted from largest to smallest magnitude. 
-        The algorithm returns <tt>false</tt> when it doesn't 
+        holding the eigenvalues, and \a ev is a matrix of the same size as
+        \a a whose columns are the corresponding eigenvectors. Eigenvalues
+        will be sorted from largest to smallest magnitude.
+        The algorithm returns <tt>false</tt> when it doesn't
         converge. It can be applied in-place, i.e. <tt>&a == &ev</tt> is allowed.
         The code of this function was adapted from JAMA.
-    
+
     <b>\#include</b> "<a href="eigensystem_8hxx-source.html">vigra/eigensystem.hxx</a>" or<br>
     <b>\#include</b> "<a href="linear__algebra_8hxx-source.html">vigra/linear_algebra.hxx</a>"<br>
         Namespaces: vigra and vigra::linalg
      */
 template <class T, class C1, class C2, class C3>
-bool 
-symmetricEigensystem(MultiArrayView<2, T, C1> const & a, 
-            MultiArrayView<2, T, C2> & ew, MultiArrayView<2, T, C3> & ev) 
+bool
+symmetricEigensystem(MultiArrayView<2, T, C1> const & a,
+            MultiArrayView<2, T, C2> & ew, MultiArrayView<2, T, C3> & ev)
 {
     vigra_precondition(isSymmetric(a),
         "symmetricEigensystem(): symmetric input matrix required.");
     unsigned int acols = columnCount(a);
-    vigra_precondition(1 == columnCount(ew) && acols == rowCount(ew) && 
+    vigra_precondition(1 == columnCount(ew) && acols == rowCount(ew) &&
                        acols == columnCount(ev) && acols == rowCount(ev),
         "symmetricEigensystem(): matrix shape mismatch.");
-    
+
     ev.copy(a); // does nothing if &ev == &a
     Matrix<T> de(acols, 2);
     detail::housholderTridiagonalization(ev, de);
     if(!detail::tridiagonalMatrixEigensystem(de, ev))
         return false;
-    
+
     ew.copy(columnVector(de, 0));
     return true;
 }
 
     /** Compute the eigensystem of a square, but
         not necessarily symmetric matrix.
-     
+
         \a a is a real square matrix, \a ew is a single-column matrix
-        holding the possibly complex eigenvalues, and \a ev is a matrix of 
-        the same size as \a a whose columns are the corresponding eigenvectors. 
-        Eigenvalues will be sorted from largest to smallest magnitude. 
-        The algorithm returns <tt>false</tt> when it doesn't 
+        holding the possibly complex eigenvalues, and \a ev is a matrix of
+        the same size as \a a whose columns are the corresponding eigenvectors.
+        Eigenvalues will be sorted from largest to smallest magnitude.
+        The algorithm returns <tt>false</tt> when it doesn't
         converge. It can be applied in-place, i.e. <tt>&a == &ev</tt> is allowed.
         The code of this function was adapted from JAMA.
-    
+
     <b>\#include</b> "<a href="eigensystem_8hxx-source.html">vigra/eigensystem.hxx</a>" or<br>
     <b>\#include</b> "<a href="linear__algebra_8hxx-source.html">vigra/linear_algebra.hxx</a>"<br>
         Namespaces: vigra and vigra::linalg
      */
 template <class T, class C1, class C2, class C3>
-bool 
-nonsymmetricEigensystem(MultiArrayView<2, T, C1> const & a, 
-         MultiArrayView<2, std::complex<T>, C2> & ew, MultiArrayView<2, T, C3> & ev) 
+bool
+nonsymmetricEigensystem(MultiArrayView<2, T, C1> const & a,
+         MultiArrayView<2, std::complex<T>, C2> & ew, MultiArrayView<2, T, C3> & ev)
 {
     unsigned int acols = columnCount(a);
     vigra_precondition(acols == rowCount(a),
         "nonsymmetricEigensystem(): square input matrix required.");
-    vigra_precondition(1 == columnCount(ew) && acols == rowCount(ew) && 
+    vigra_precondition(1 == columnCount(ew) && acols == rowCount(ew) &&
                        acols == columnCount(ev) && acols == rowCount(ev),
         "nonsymmetricEigensystem(): matrix shape mismatch.");
-    
+
     Matrix<T> H(a);
     Matrix<T> de(acols, 2);
     detail::nonsymmetricHessenbergReduction(H, ev);
     if(!detail::hessenbergQrDecomposition(H, ev, de))
         return false;
-    
+
     for(unsigned int i=0; i < acols; ++i)
     {
         ew(i,0) = std::complex<T>(de(i, 0), de(i, 1));
@@ -1067,12 +1068,12 @@ nonsymmetricEigensystem(MultiArrayView<2, T, C1> const & a,
 }
 
     /** Compute the roots of a polynomial using the eigenvalue method.
-     
-        \a poly is a real polynomial (compatible to \ref vigra::PolynomialView), 
+
+        \a poly is a real polynomial (compatible to \ref vigra::PolynomialView),
         and \a roots a complex valued vector (compatible to <tt>std::vector</tt>
         with a <tt>value_type</tt> compatible to the type <tt>POLYNOMIAL::Complex</tt>) to which
         the roots are appended. The function calls \ref nonsymmetricEigensystem() with the standard
-        companion matrix yielding the roots as eigenvalues. It returns <tt>false</tt> if 
+        companion matrix yielding the roots as eigenvalues. It returns <tt>false</tt> if
         it fails to converge.
 
         <b>\#include</b> "<a href="eigensystem_8hxx-source.html">vigra/eigensystem.hxx</a>" or<br>
@@ -1092,7 +1093,7 @@ bool polynomialRootsEigenvalueMethod(POLYNOMIAL const & poly, VECTOR & roots, bo
 
     int const degree = poly.order();
     double const eps = poly.epsilon();
-    
+
     TMatrix inMatrix(degree, degree);
     for(int i = 0; i < degree; ++i)
         inMatrix(0, i) = -poly[degree - i - 1] / poly[degree];
@@ -1111,17 +1112,17 @@ bool polynomialRootsEigenvalueMethod(POLYNOMIAL const & poly, VECTOR & roots, bo
     }
     std::sort(roots.begin(), roots.end(), vigra::detail::PolynomialRootCompare<Real>(eps));
     return true;
-}   
+}
 
 template <class POLYNOMIAL, class VECTOR>
 bool polynomialRootsEigenvalueMethod(POLYNOMIAL const & poly, VECTOR & roots)
 {
     return polynomialRootsEigenvalueMethod(poly, roots, true);
-}   
+}
 
     /** Compute the real roots of a real polynomial using the eigenvalue method.
-     
-        \a poly is a real polynomial (compatible to \ref vigra::PolynomialView), 
+
+        \a poly is a real polynomial (compatible to \ref vigra::PolynomialView),
         and \a roots a real valued vector (compatible to <tt>std::vector</tt>
         with a <tt>value_type</tt> compatible to the type <tt>POLYNOMIAL::Real</tt>) to which
         the roots are appended. The function calls \ref polynomialRootsEigenvalueMethod() and

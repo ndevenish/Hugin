@@ -3,6 +3,7 @@
 /*               Copyright 2001-2002 by Pablo d'Angelo                  */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
@@ -30,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -48,8 +49,6 @@ extern "C"
 {
 #include "rgbe.h"
 }
-
-#define DEBUG_HDR
 
 namespace vigra {
 
@@ -103,7 +102,7 @@ namespace vigra {
 
         std::string pixeltype;
 
-        hrgbe_header_info rgbe_h;
+        vigra_rgbe_header_info rgbe_h;
 
         int width, height;
         int samples_per_pixel;
@@ -151,17 +150,14 @@ namespace vigra {
 
     HDRDecoderImpl::HDRDecoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
-        // Returns the layer 
+        // Returns the layer
     : infile( filename.c_str(), "rb" )
 #else
     : infile( filename.c_str(), "r" )
 #endif
-#ifdef DEBUG_HDR
-            ,dbgFile("hdr_debug.txt","w")
-#endif
 {
         // read width and height
-        HRGBE_ReadHeader(infile.get() ,&width,&height,&rgbe_h);	
+        VIGRA_RGBE_ReadHeader(infile.get() ,&width,&height,&rgbe_h);
 
         scanline.resize(samples_per_pixel*width);
         scanline_idx = 0;
@@ -182,7 +178,7 @@ namespace vigra {
     void HDRDecoderImpl::nextScanline()
     {
         auto_file & f = const_cast<auto_file &>(infile);
-        HRGBE_ReadPixels_RLE(f.get(), scanline.data(), width, 1);
+        VIGRA_RGBE_ReadPixels_RLE(f.get(), scanline.data(), width, 1);
 #ifdef DEBUG_HDR
         for (int i=0; i < width; i++) {
             fprintf(dbgFile.get(), "%f ", scanline[i]);
@@ -261,10 +257,10 @@ namespace vigra {
 
         HDREncoderImpl( const std::string & filename )
 #ifdef VIGRA_NEED_BIN_STREAMS
-        // Returns the layer 
-            : file( filename.c_str(), "rb" ),
+        // Returns the layer
+            : file( filename.c_str(), "wb" ),
 #else
-            : file( filename.c_str(), "r" ),
+            : file( filename.c_str(), "w" ),
 #endif
               finalized(false)
         {
@@ -277,13 +273,13 @@ namespace vigra {
 
         void * currentScanlineOfBand( unsigned int band )
         {
-            return scanline.data();
+            return scanline.data() + band;
         }
 
         void nextScanline()
         {
             // save one scanline
-            if (HRGBE_WritePixels(file.get(), scanline.begin(), width) != HRGBE_RETURN_SUCCESS)
+            if (VIGRA_RGBE_WritePixels_RLE(file.get(), scanline.begin(), width, 1) != VIGRA_RGBE_RETURN_SUCCESS)
             {
                 vigra_fail("HDREncoder: Could not write scanline");
             }
@@ -299,12 +295,12 @@ namespace vigra {
     {
         rgbe_h.valid=-1;
         strcpy(rgbe_h.programtype,"RADIANCE");
-        rgbe_h.gamma=1.0;   
-        rgbe_h.exposure=1.0;   
+        rgbe_h.gamma=1.0;
+        rgbe_h.exposure=1.0;
 
         scanline.resize(samples_per_pixel*width);
 
-        if (HRGBE_WriteHeader(file.get(), width, height, &rgbe_h) != HRGBE_RETURN_SUCCESS ) {
+        if (VIGRA_RGBE_WriteHeader(file.get(), width, height, &rgbe_h) != VIGRA_RGBE_RETURN_SUCCESS ) {
             vigra_fail("HDREncoder: Could not write header");
         }
         finalized = true;
@@ -390,10 +386,6 @@ namespace vigra {
     void HDREncoder::nextScanline()
     {
         pimpl->nextScanline();
-    }
-
-    void HDREncoder::setICCProfile(const UInt32 length, const unsigned char * const buf)
-    {
     }
 
     void HDREncoder::close() {}

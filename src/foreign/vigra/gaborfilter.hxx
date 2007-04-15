@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,13 +39,13 @@
 #ifndef VIGRA_GABORFILTER_HXX
 #define VIGRA_GABORFILTER_HXX
 
-#include "vigra/imagecontainer.hxx"
-#include "vigra/config.hxx"
-#include "vigra/stdimage.hxx"
-#include "vigra/copyimage.hxx"
-#include "vigra/transformimage.hxx"
-#include "vigra/combineimages.hxx"
-#include "vigra/utilities.hxx"
+#include "imagecontainer.hxx"
+#include "config.hxx"
+#include "stdimage.hxx"
+#include "copyimage.hxx"
+#include "transformimage.hxx"
+#include "combineimages.hxx"
+#include "utilities.hxx"
 
 #include <functional>
 #include <vector>

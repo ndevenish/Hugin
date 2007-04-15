@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -41,7 +41,7 @@
 
 #include <cmath>
 #include <vector>
-#include "vigra/utilities.hxx"
+#include "utilities.hxx"
 
 namespace vigra {
 
@@ -70,12 +70,12 @@ namespace vigra {
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         void
         discRankOrderFilter(SrcIterator upperleft1, 
-			    SrcIterator lowerright1, SrcAccessor sa,
-			    DestIterator upperleft2, DestAccessor da,
-			    int radius, float rank)
+                            SrcIterator lowerright1, SrcAccessor sa,
+                            DestIterator upperleft2, DestAccessor da,
+                            int radius, float rank)
     }
     \endcode
     
@@ -84,11 +84,11 @@ namespace vigra {
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         void
         discRankOrderFilter(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-			    pair<DestIterator, DestAccessor> dest,
-			    int radius, float rank)
+                            pair<DestIterator, DestAccessor> dest,
+                            int radius, float rank)
     }
     \endcode
     
@@ -137,11 +137,11 @@ void
 discRankOrderFilter(SrcIterator upperleft1, 
                     SrcIterator lowerright1, SrcAccessor sa,
                     DestIterator upperleft2, DestAccessor da,
-		    int radius, float rank)
+                    int radius, float rank)
 {
     vigra_precondition((rank >= 0.0) && (rank <= 1.0),
             "discRankOrderFilter(): Rank must be between 0 and 1"
-	    " (inclusive).");
+            " (inclusive).");
     
     vigra_precondition(radius >= 0,
             "discRankOrderFilter(): Radius must be >= 0.");
@@ -158,8 +158,8 @@ discRankOrderFilter(SrcIterator upperleft1,
     double r2 = (double)radius*radius;
     for(i=1; i<=radius; ++i)
     {
-	double r = (double) i - 0.5;
-	struct_function[i] = (int)(VIGRA_CSTD::sqrt(r2 - r*r) + 0.5);
+        double r = (double) i - 0.5;
+        struct_function[i] = (int)(VIGRA_CSTD::sqrt(r2 - r*r) + 0.5);
     }
 
     int w = lowerright1.x - upperleft1.x;
@@ -170,181 +170,181 @@ discRankOrderFilter(SrcIterator upperleft1,
 
     for(y=0; y<h; ++y, ++ys.y, ++yd.y)
     {
-	SrcIterator xs(ys);
-	DestIterator xd(yd);
+        SrcIterator xs(ys);
+        DestIterator xd(yd);
         
-	// first column
-	int x0 = 0;
-	int y0 = y;
-	int x1 = w - 1;
-	int y1 = h - y - 1;
+        // first column
+        int x0 = 0;
+        int y0 = y;
+        int x1 = w - 1;
+        int y1 = h - y - 1;
 
-	// clear histogram
-	for(i=0; i<256; ++i) hist[i] = 0;
-	winsize = 0;
-	
-	// init histogram
-	ymax = (y1 < radius) ? y1 : radius;
-	for(yy=0; yy<=ymax; ++yy)
-	{
-	    xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
-	    for(xx=0; xx<=xmax; ++xx)
-	    {
-		hist[sa(xs, Diff2D(xx, yy))]++;
-		winsize++;
-	    }
-	}
-	
-	ymax = (y0 < radius) ? y0 : radius;
-	for(yy=1; yy<=ymax; ++yy)
-	{
-	    xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
-	    for(xx=0; xx<=xmax; ++xx)
-	    {
-		hist[sa(xs, Diff2D(xx, -yy))]++;
-		winsize++;
-	    }
-	}
+        // clear histogram
+        for(i=0; i<256; ++i) hist[i] = 0;
+        winsize = 0;
+        
+        // init histogram
+        ymax = (y1 < radius) ? y1 : radius;
+        for(yy=0; yy<=ymax; ++yy)
+        {
+            xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
+            for(xx=0; xx<=xmax; ++xx)
+            {
+                hist[sa(xs, Diff2D(xx, yy))]++;
+                winsize++;
+            }
+        }
+        
+        ymax = (y0 < radius) ? y0 : radius;
+        for(yy=1; yy<=ymax; ++yy)
+        {
+            xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
+            for(xx=0; xx<=xmax; ++xx)
+            {
+                hist[sa(xs, Diff2D(xx, -yy))]++;
+                winsize++;
+            }
+        }
     
-	// find the desired histogramm bin 
-	leftsum = 0;
-	if(rank == 0.0)
-	{
-	    for(i=0; i<256; i++)
-	    {
-		if(hist[i]) break;
-	    }
-	    rankpos = i;
-	}
-	else
-	{
-	    for(i=0; i<256; i++)
-	    {
-		if((float)(hist[i]+leftsum) / winsize >= rank) break;
-		leftsum += hist[i];
-	    }
-	    rankpos = i;
-	}
-	
-	da.set(rankpos, xd);
-	
-	++xs.x;
-	++xd.x;
-	
-	// inner columns
-	for(x=1; x<w; ++x, ++xs.x, ++xd.x)
-	{
-	    x0 = x;
-	    y0 = y;
-	    x1 = w - x - 1;
-	    y1 = h - y - 1;
-	    
-	    // update histogramm 
-	    // remove pixels at left border 
-	    yy = (y1 < radius) ? y1 : radius;
-	    for(; yy>=0; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy]+1;
-		if(xx > x0) break;
-		
-		cur = sa(xs, Diff2D(-xx, yy));
-		
-		hist[cur]--;
-		if(cur < rankpos) leftsum--;
-		winsize--;
-	    }
-	    yy = (y0 < radius) ? y0 : radius;
-	    for(; yy>=1; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy]+1;
-		if(xx > x0) break;
-		
-		cur = sa(xs, Diff2D(-xx, -yy));
-		
-		hist[cur]--;
-		if(cur < rankpos) leftsum--;
-		winsize--;
-	    }
-	    
-	    // add pixels at right border 
-	    yy = (y1 < radius) ? y1 : radius;
-	    for(; yy>=0; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy];
-		if(xx > x1) break;
-		
-		cur = sa(xs, Diff2D(xx, yy));
-		
-		hist[cur]++;
-		if(cur < rankpos) leftsum++;
-		winsize++;
-	    }
-	    yy = (y0 < radius) ? y0 : radius;
-	    for(; yy>=1; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy];
-		if(xx > x1) break;
-		
-		cur = sa(xs, Diff2D(xx, -yy));
-		
-		hist[cur]++;
-		if(cur < rankpos) leftsum++;
-		winsize++;
-	    }
-	
-	    // find the desired histogramm bin 
-	    if(rank == 0.0)
-	    {
-		if(leftsum == 0)
-		{
-		    // search to the right 
-		    for(i=rankpos; i<256; i++)
-		    {
-			if(hist[i]) break;
-		    }
-		    rankpos = i;
-		}
-		else
-		{
-		    // search to the left 
-		    for(i=rankpos-1; i>=0; i--)
-		    {
-			leftsum -= hist[i];
-			if(leftsum == 0) break;
-		    }
-		    rankpos = i;
-		}
-	    }
-	    else  // rank > 0.0 
-	    {
-		if((float)leftsum / winsize < rank)
-		{
-		    // search to the right 
-		    for(i=rankpos; i<256; i++)
-		    {
-			if((float)(hist[i]+leftsum) / winsize >= rank) break;
-			leftsum+=hist[i];
-		    }
-		    rankpos = i;
-		}
-		else
-		{
-		    /// search to the left 
-		    for(i=rankpos-1; i>=0; i--)
-		    {
-			leftsum-=hist[i];
-			if((float)leftsum / winsize < rank) break;
-		    }
-		    rankpos = i;
-		}
-	    }
-		    
-	    da.set(rankpos, xd);
-	}
+        // find the desired histogramm bin 
+        leftsum = 0;
+        if(rank == 0.0)
+        {
+            for(i=0; i<256; i++)
+            {
+                if(hist[i]) break;
+            }
+            rankpos = i;
+        }
+        else
+        {
+            for(i=0; i<256; i++)
+            {
+                if((float)(hist[i]+leftsum) / winsize >= rank) break;
+                leftsum += hist[i];
+            }
+            rankpos = i;
+        }
+        
+        da.set(rankpos, xd);
+        
+        ++xs.x;
+        ++xd.x;
+        
+        // inner columns
+        for(x=1; x<w; ++x, ++xs.x, ++xd.x)
+        {
+            x0 = x;
+            y0 = y;
+            x1 = w - x - 1;
+            y1 = h - y - 1;
+            
+            // update histogramm 
+            // remove pixels at left border 
+            yy = (y1 < radius) ? y1 : radius;
+            for(; yy>=0; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy]+1;
+                if(xx > x0) break;
+                
+                cur = sa(xs, Diff2D(-xx, yy));
+                
+                hist[cur]--;
+                if(cur < rankpos) leftsum--;
+                winsize--;
+            }
+            yy = (y0 < radius) ? y0 : radius;
+            for(; yy>=1; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy]+1;
+                if(xx > x0) break;
+                
+                cur = sa(xs, Diff2D(-xx, -yy));
+                
+                hist[cur]--;
+                if(cur < rankpos) leftsum--;
+                winsize--;
+            }
+            
+            // add pixels at right border 
+            yy = (y1 < radius) ? y1 : radius;
+            for(; yy>=0; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy];
+                if(xx > x1) break;
+                
+                cur = sa(xs, Diff2D(xx, yy));
+                
+                hist[cur]++;
+                if(cur < rankpos) leftsum++;
+                winsize++;
+            }
+            yy = (y0 < radius) ? y0 : radius;
+            for(; yy>=1; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy];
+                if(xx > x1) break;
+                
+                cur = sa(xs, Diff2D(xx, -yy));
+                
+                hist[cur]++;
+                if(cur < rankpos) leftsum++;
+                winsize++;
+            }
+        
+            // find the desired histogramm bin 
+            if(rank == 0.0)
+            {
+                if(leftsum == 0)
+                {
+                    // search to the right 
+                    for(i=rankpos; i<256; i++)
+                    {
+                        if(hist[i]) break;
+                    }
+                    rankpos = i;
+                }
+                else
+                {
+                    // search to the left 
+                    for(i=rankpos-1; i>=0; i--)
+                    {
+                        leftsum -= hist[i];
+                        if(leftsum == 0) break;
+                    }
+                    rankpos = i;
+                }
+            }
+            else  // rank > 0.0 
+            {
+                if((float)leftsum / winsize < rank)
+                {
+                    // search to the right 
+                    for(i=rankpos; i<256; i++)
+                    {
+                        if((float)(hist[i]+leftsum) / winsize >= rank) break;
+                        leftsum+=hist[i];
+                    }
+                    rankpos = i;
+                }
+                else
+                {
+                    /// search to the left 
+                    for(i=rankpos-1; i>=0; i--)
+                    {
+                        leftsum-=hist[i];
+                        if((float)leftsum / winsize < rank) break;
+                    }
+                    rankpos = i;
+                }
+            }
+                    
+            da.set(rankpos, xd);
+        }
     }
 }
 
@@ -353,11 +353,11 @@ template <class SrcIterator, class SrcAccessor,
 void
 discRankOrderFilter(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                     pair<DestIterator, DestAccessor> dest,
-		    int radius, float rank)
+                    int radius, float rank)
 {
     discRankOrderFilter(src.first, src.second, src.third,
                         dest.first, dest.second,
-			radius, rank);
+                        radius, rank);
 }
 
 /********************************************************/
@@ -377,12 +377,12 @@ discRankOrderFilter(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         inline void 
         discErosion(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
     }
     \endcode
     
@@ -391,11 +391,11 @@ discRankOrderFilter(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         void
         discErosion(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
     }
     \endcode
 
@@ -406,7 +406,7 @@ inline void
 discErosion(SrcIterator upperleft1, 
             SrcIterator lowerright1, SrcAccessor sa,
             DestIterator upperleft2, DestAccessor da,
-	    int radius)
+            int radius)
 {
     vigra_precondition(radius >= 0, "discErosion(): Radius must be >= 0.");
     
@@ -425,7 +425,7 @@ discErosion(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     
     discRankOrderFilter(src.first, src.second, src.third,
                         dest.first, dest.second,
-			radius, 0.0);
+                        radius, 0.0);
 }
 
 /********************************************************/
@@ -445,12 +445,12 @@ discErosion(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         inline void 
         discDilation(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
     }
     \endcode
     
@@ -459,11 +459,11 @@ discErosion(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         void
         discDilation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
     }
     \endcode
 
@@ -474,7 +474,7 @@ inline void
 discDilation(SrcIterator upperleft1, 
             SrcIterator lowerright1, SrcAccessor sa,
             DestIterator upperleft2, DestAccessor da,
-	    int radius)
+            int radius)
 {
     vigra_precondition(radius >= 0, "discDilation(): Radius must be >= 0.");
     
@@ -493,7 +493,7 @@ discDilation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     
     discRankOrderFilter(src.first, src.second, src.third,
                         dest.first, dest.second,
-			radius, 1.0);
+                        radius, 1.0);
 }
 
 /********************************************************/
@@ -513,12 +513,12 @@ discDilation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         inline void 
         discMedian(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
     }
     \endcode
     
@@ -527,11 +527,11 @@ discDilation(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class DestIterator, class DestAccessor>
+                  class DestIterator, class DestAccessor>
         void
         discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
     }
     \endcode
 
@@ -542,7 +542,7 @@ inline void
 discMedian(SrcIterator upperleft1, 
             SrcIterator lowerright1, SrcAccessor sa,
             DestIterator upperleft2, DestAccessor da,
-	    int radius)
+            int radius)
 {
     vigra_precondition(radius >= 0, "discMedian(): Radius must be >= 0.");
     
@@ -561,7 +561,7 @@ discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     
     discRankOrderFilter(src.first, src.second, src.third,
                         dest.first, dest.second,
-			radius, 0.5);
+                        radius, 0.5);
 }
 
 /********************************************************/
@@ -590,14 +590,14 @@ discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         void
         discRankOrderFilterWithMask(SrcIterator upperleft1, 
-				    SrcIterator lowerright1, SrcAccessor sa,
-				    MaskIterator upperleftm, MaskAccessor mask,
-				    DestIterator upperleft2, DestAccessor da,
-				    int radius, float rank)
+                                    SrcIterator lowerright1, SrcAccessor sa,
+                                    MaskIterator upperleftm, MaskAccessor mask,
+                                    DestIterator upperleft2, DestAccessor da,
+                                    int radius, float rank)
     }
     \endcode
     
@@ -606,13 +606,13 @@ discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         void
         discRankOrderFilterWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-				    pair<MaskIterator, MaskAccessor> mask,
-				    pair<DestIterator, DestAccessor> dest,
-				    int radius, float rank)
+                                    pair<MaskIterator, MaskAccessor> mask,
+                                    pair<DestIterator, DestAccessor> dest,
+                                    int radius, float rank)
     }
     \endcode
     
@@ -641,7 +641,7 @@ discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     SrcAccessor src_accessor;
     DestAccessor dest_accessor;
     MaskAccessor mask_accessor;
-		     
+                     
     mask_accessor(mask_upperleft, x, y) // convertible to bool
     
     // value_type of accessor must be convertible to unsigned char
@@ -662,17 +662,17 @@ discMedian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 */
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 void
 discRankOrderFilterWithMask(SrcIterator upperleft1, 
                             SrcIterator lowerright1, SrcAccessor sa,
                             MaskIterator upperleftm, MaskAccessor mask,
-			    DestIterator upperleft2, DestAccessor da,
-			    int radius, float rank)
+                            DestIterator upperleft2, DestAccessor da,
+                            int radius, float rank)
 {
     vigra_precondition((rank >= 0.0) && (rank <= 1.0),
                  "discRankOrderFilter(): Rank must be between 0 and 1"
-		 " (inclusive).");
+                 " (inclusive).");
     
     vigra_precondition(radius >= 0, "discRankOrderFilter(): Radius must be >= 0.");
     
@@ -688,8 +688,8 @@ discRankOrderFilterWithMask(SrcIterator upperleft1,
     double r2 = (double)radius*radius;
     for(i=1; i<=radius; ++i)
     {
-	double r = (double) i - 0.5;
-	struct_function[i] = (int)(VIGRA_CSTD::sqrt(r2 - r*r) + 0.5);
+        double r = (double) i - 0.5;
+        struct_function[i] = (int)(VIGRA_CSTD::sqrt(r2 - r*r) + 0.5);
     }
 
     int w = lowerright1.x - upperleft1.x;
@@ -701,235 +701,235 @@ discRankOrderFilterWithMask(SrcIterator upperleft1,
 
     for(y=0; y<h; ++y, ++ys.y, ++yd.y, ++ym.y)
     {
-	SrcIterator xs(ys);
-	MaskIterator xm(ym);
-	DestIterator xd(yd);
+        SrcIterator xs(ys);
+        MaskIterator xm(ym);
+        DestIterator xd(yd);
         
-	// first column
-	int x0 = 0;
-	int y0 = y;
-	int x1 = w - 1;
-	int y1 = h - y - 1;
+        // first column
+        int x0 = 0;
+        int y0 = y;
+        int x1 = w - 1;
+        int y1 = h - y - 1;
 
-	// clear histogram
-	for(i=0; i<256; ++i) hist[i] = 0;
-	winsize = 0;
-	leftsum = 0;
-	rankpos = 0;
-	
-	// init histogram
-	ymax = (y1 < radius) ? y1 : radius;
-	for(yy=0; yy<=ymax; ++yy)
-	{
-	    xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
-	    for(xx=0; xx<=xmax; ++xx)
-	    {
-	        Diff2D pos(xx, yy);
+        // clear histogram
+        for(i=0; i<256; ++i) hist[i] = 0;
+        winsize = 0;
+        leftsum = 0;
+        rankpos = 0;
+        
+        // init histogram
+        ymax = (y1 < radius) ? y1 : radius;
+        for(yy=0; yy<=ymax; ++yy)
+        {
+            xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
+            for(xx=0; xx<=xmax; ++xx)
+            {
+                Diff2D pos(xx, yy);
                 if(mask(xm, pos))
-		{
-		    hist[sa(xs, pos)]++;
-		    winsize++;
-		}
-	    }
-	}
-	
-	ymax = (y0 < radius) ? y0 : radius;
-	for(yy=1; yy<=ymax; ++yy)
-	{
-	    xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
-	    for(xx=0; xx<=xmax; ++xx)
-	    {
-	        Diff2D pos(xx, -yy);
-	        if(mask(xm, pos))
-		{
-		    hist[sa(xs, pos)]++;
-		    winsize++;
-		}
-	    }
-	}
+                {
+                    hist[sa(xs, pos)]++;
+                    winsize++;
+                }
+            }
+        }
+        
+        ymax = (y0 < radius) ? y0 : radius;
+        for(yy=1; yy<=ymax; ++yy)
+        {
+            xmax = (x1 < struct_function[yy]) ? x1 : struct_function[yy];
+            for(xx=0; xx<=xmax; ++xx)
+            {
+                Diff2D pos(xx, -yy);
+                if(mask(xm, pos))
+                {
+                    hist[sa(xs, pos)]++;
+                    winsize++;
+                }
+            }
+        }
     
-	// find the desired histogramm bin 
-	if(winsize) 
-	{
-	    if(rank == 0.0)
-	    {
-		for(i=0; i<256; i++)
-		{
-		    if(hist[i]) break;
-		}
-		rankpos = i;
-	    }
-	    else
-	    {
-		for(i=0; i<256; i++)
-		{
-		    if((float)(hist[i]+leftsum) / winsize >= rank) break;
-		    leftsum += hist[i];
-		}
-		rankpos = i;
-	    }
-	    
-	    da.set(rankpos, xd);
-	}
-	    
-	++xs.x;
-	++xd.x;
-	++xm.x;
-	
-	// inner columns
-	for(x=1; x<w; ++x, ++xs.x, ++xd.x, ++xm.x)
-	{
-	    x0 = x;
-	    y0 = y;
-	    x1 = w - x - 1;
-	    y1 = h - y - 1;
-	    
-	    // update histogramm 
-	    // remove pixels at left border 
-	    yy = (y1 < radius) ? y1 : radius;
-	    for(; yy>=0; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy]+1;
-		if(xx > x0) break;
-		
-	        Diff2D pos(-xx, yy);
-	        if(mask(xm, pos))
-		{
-		    cur = sa(xs, pos);
-		    
-		    hist[cur]--;
-		    if(cur < rankpos) leftsum--;
-		    winsize--;
-		}
-	    }
-	    yy = (y0 < radius) ? y0 : radius;
-	    for(; yy>=1; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy]+1;
-		if(xx > x0) break;
-		
-	        Diff2D pos(-xx, -yy);
-	        if(mask(xm, pos))
-		{
-		    cur = sa(xs, pos);
-		    
-		    hist[cur]--;
-		    if(cur < rankpos) leftsum--;
-		    winsize--;
-		}
-	    }
-	    
-	    // add pixels at right border 
-	    yy = (y1 < radius) ? y1 : radius;
-	    for(; yy>=0; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy];
-		if(xx > x1) break;
-		
-	        Diff2D pos(xx, yy);
-	        if(mask(xm, pos))
-		{
-		    cur = sa(xs, pos);
-		    
-		    hist[cur]++;
-		    if(cur < rankpos) leftsum++;
-		    winsize++;
-		}
-	    }
-	    yy = (y0 < radius) ? y0 : radius;
-	    for(; yy>=1; yy--)
-	    {
-		unsigned char cur;
-		xx = struct_function[yy];
-		if(xx > x1) break;
-		
-	        Diff2D pos(xx, -yy);
-	        if(mask(xm, pos))
-		{
-		    cur = sa(xs, pos);
-		    
-		    hist[cur]++;
-		    if(cur < rankpos) leftsum++;
-		    winsize++;
-		}
-	    }
-	
-	    // find the desired histogramm bin 
-	    if(winsize) 
-	    {
-		if(rank == 0.0)
-		{
-		    if(leftsum == 0)
-		    {
-			// search to the right 
-			for(i=rankpos; i<256; i++)
-			{
-			    if(hist[i]) break;
-			}
-			rankpos = i;
-		    }
-		    else
-		    {
-			// search to the left 
-			for(i=rankpos-1; i>=0; i--)
-			{
-			    leftsum -= hist[i];
-			    if(leftsum == 0) break;
-			}
-			rankpos = i;
-		    }
-		}
-		else  // rank > 0.0 
-		{
-		    if((float)leftsum / winsize < rank)
-		    {
-			// search to the right 
-			for(i=rankpos; i<256; i++)
-			{
-			    if((float)(hist[i]+leftsum) / winsize >= rank) break;
-			    leftsum+=hist[i];
-			}
-			rankpos = i;
-		    }
-		    else
-		    {
-			/// search to the left 
-			for(i=rankpos-1; i>=0; i--)
-			{
-			    leftsum-=hist[i];
-			    if((float)leftsum / winsize < rank) break;
-			}
-			rankpos = i;
-		    }
-		}
-			
-		da.set(rankpos, xd);
-	    }
-	    else
-	    {
-	        leftsum = 0;
-		rankpos = 0;
-	    }
-	}
+        // find the desired histogramm bin 
+        if(winsize) 
+        {
+            if(rank == 0.0)
+            {
+                for(i=0; i<256; i++)
+                {
+                    if(hist[i]) break;
+                }
+                rankpos = i;
+            }
+            else
+            {
+                for(i=0; i<256; i++)
+                {
+                    if((float)(hist[i]+leftsum) / winsize >= rank) break;
+                    leftsum += hist[i];
+                }
+                rankpos = i;
+            }
+            
+            da.set(rankpos, xd);
+        }
+            
+        ++xs.x;
+        ++xd.x;
+        ++xm.x;
+        
+        // inner columns
+        for(x=1; x<w; ++x, ++xs.x, ++xd.x, ++xm.x)
+        {
+            x0 = x;
+            y0 = y;
+            x1 = w - x - 1;
+            y1 = h - y - 1;
+            
+            // update histogramm 
+            // remove pixels at left border 
+            yy = (y1 < radius) ? y1 : radius;
+            for(; yy>=0; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy]+1;
+                if(xx > x0) break;
+                
+                Diff2D pos(-xx, yy);
+                if(mask(xm, pos))
+                {
+                    cur = sa(xs, pos);
+                    
+                    hist[cur]--;
+                    if(cur < rankpos) leftsum--;
+                    winsize--;
+                }
+            }
+            yy = (y0 < radius) ? y0 : radius;
+            for(; yy>=1; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy]+1;
+                if(xx > x0) break;
+                
+                Diff2D pos(-xx, -yy);
+                if(mask(xm, pos))
+                {
+                    cur = sa(xs, pos);
+                    
+                    hist[cur]--;
+                    if(cur < rankpos) leftsum--;
+                    winsize--;
+                }
+            }
+            
+            // add pixels at right border 
+            yy = (y1 < radius) ? y1 : radius;
+            for(; yy>=0; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy];
+                if(xx > x1) break;
+                
+                Diff2D pos(xx, yy);
+                if(mask(xm, pos))
+                {
+                    cur = sa(xs, pos);
+                    
+                    hist[cur]++;
+                    if(cur < rankpos) leftsum++;
+                    winsize++;
+                }
+            }
+            yy = (y0 < radius) ? y0 : radius;
+            for(; yy>=1; yy--)
+            {
+                unsigned char cur;
+                xx = struct_function[yy];
+                if(xx > x1) break;
+                
+                Diff2D pos(xx, -yy);
+                if(mask(xm, pos))
+                {
+                    cur = sa(xs, pos);
+                    
+                    hist[cur]++;
+                    if(cur < rankpos) leftsum++;
+                    winsize++;
+                }
+            }
+        
+            // find the desired histogramm bin 
+            if(winsize) 
+            {
+                if(rank == 0.0)
+                {
+                    if(leftsum == 0)
+                    {
+                        // search to the right 
+                        for(i=rankpos; i<256; i++)
+                        {
+                            if(hist[i]) break;
+                        }
+                        rankpos = i;
+                    }
+                    else
+                    {
+                        // search to the left 
+                        for(i=rankpos-1; i>=0; i--)
+                        {
+                            leftsum -= hist[i];
+                            if(leftsum == 0) break;
+                        }
+                        rankpos = i;
+                    }
+                }
+                else  // rank > 0.0 
+                {
+                    if((float)leftsum / winsize < rank)
+                    {
+                        // search to the right 
+                        for(i=rankpos; i<256; i++)
+                        {
+                            if((float)(hist[i]+leftsum) / winsize >= rank) break;
+                            leftsum+=hist[i];
+                        }
+                        rankpos = i;
+                    }
+                    else
+                    {
+                        /// search to the left 
+                        for(i=rankpos-1; i>=0; i--)
+                        {
+                            leftsum-=hist[i];
+                            if((float)leftsum / winsize < rank) break;
+                        }
+                        rankpos = i;
+                    }
+                }
+                        
+                da.set(rankpos, xd);
+            }
+            else
+            {
+                leftsum = 0;
+                rankpos = 0;
+            }
+        }
     }
 }
 
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 void
 discRankOrderFilterWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                             pair<MaskIterator, MaskAccessor> mask,
-			    pair<DestIterator, DestAccessor> dest,
-			    int radius, float rank)
+                            pair<DestIterator, DestAccessor> dest,
+                            int radius, float rank)
 {
     discRankOrderFilterWithMask(src.first, src.second, src.third,
                         mask.first, mask.second,
                         dest.first, dest.second,
-			radius, rank);
+                        radius, rank);
 }
 
 /********************************************************/
@@ -950,14 +950,14 @@ discRankOrderFilterWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discErosionWithMask(SrcIterator upperleft1, 
-			    SrcIterator lowerright1, SrcAccessor sa,
-			    MaskIterator upperleftm, MaskAccessor mask,
-			    DestIterator upperleft2, DestAccessor da,
-			    int radius)
+                            SrcIterator lowerright1, SrcAccessor sa,
+                            MaskIterator upperleftm, MaskAccessor mask,
+                            DestIterator upperleft2, DestAccessor da,
+                            int radius)
     }
     \endcode
     
@@ -966,50 +966,50 @@ discRankOrderFilterWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discErosionWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-			    pair<MaskIterator, MaskAccessor> mask,
-			    pair<DestIterator, DestAccessor> dest,
-			    int radius)
+                            pair<MaskIterator, MaskAccessor> mask,
+                            pair<DestIterator, DestAccessor> dest,
+                            int radius)
     }
     \endcode
 
 */
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discErosionWithMask(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    MaskIterator upperleftm, MaskAccessor mask,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    MaskIterator upperleftm, MaskAccessor mask,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discErosionWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(upperleft1, lowerright1, sa, 
                                 upperleftm, mask,
                                 upperleft2, da,
-				radius, 0.0);
+                                radius, 0.0);
 }
 
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discErosionWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<MaskIterator, MaskAccessor> mask,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<MaskIterator, MaskAccessor> mask,
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discErosionWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(src.first, src.second, src.third,
                         mask.first, mask.second,
                         dest.first, dest.second,
-			radius, 0.0);
+                        radius, 0.0);
 }
 
 /********************************************************/
@@ -1030,14 +1030,14 @@ discErosionWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discDilationWithMask(SrcIterator upperleft1, 
-			    SrcIterator lowerright1, SrcAccessor sa,
-			    MaskIterator upperleftm, MaskAccessor mask,
-			    DestIterator upperleft2, DestAccessor da,
-			    int radius)
+                            SrcIterator lowerright1, SrcAccessor sa,
+                            MaskIterator upperleftm, MaskAccessor mask,
+                            DestIterator upperleft2, DestAccessor da,
+                            int radius)
     }
     \endcode
     
@@ -1046,50 +1046,50 @@ discErosionWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discDilationWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-			    pair<MaskIterator, MaskAccessor> mask,
-			    pair<DestIterator, DestAccessor> dest,
-			    int radius)
+                            pair<MaskIterator, MaskAccessor> mask,
+                            pair<DestIterator, DestAccessor> dest,
+                            int radius)
     }
     \endcode
 
 */
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discDilationWithMask(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    MaskIterator upperleftm, MaskAccessor mask,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    MaskIterator upperleftm, MaskAccessor mask,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discDilationWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(upperleft1, lowerright1, sa, 
                                 upperleftm, mask,
                                 upperleft2, da,
-				radius, 1.0);
+                                radius, 1.0);
 }
 
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discDilationWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<MaskIterator, MaskAccessor> mask,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<MaskIterator, MaskAccessor> mask,
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discDilationWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(src.first, src.second, src.third,
                         mask.first, mask.second,
                         dest.first, dest.second,
-			radius, 1.0);
+                        radius, 1.0);
 }
 
 /********************************************************/
@@ -1110,14 +1110,14 @@ discDilationWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discMedianWithMask(SrcIterator upperleft1, 
-			    SrcIterator lowerright1, SrcAccessor sa,
-			    MaskIterator upperleftm, MaskAccessor mask,
-			    DestIterator upperleft2, DestAccessor da,
-			    int radius)
+                            SrcIterator lowerright1, SrcAccessor sa,
+                            MaskIterator upperleftm, MaskAccessor mask,
+                            DestIterator upperleft2, DestAccessor da,
+                            int radius)
     }
     \endcode
     
@@ -1126,50 +1126,50 @@ discDilationWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
         template <class SrcIterator, class SrcAccessor,
-	          class MaskIterator, class MaskAccessor,
-	          class DestIterator, class DestAccessor>
+                  class MaskIterator, class MaskAccessor,
+                  class DestIterator, class DestAccessor>
         inline void 
         discMedianWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-			    pair<MaskIterator, MaskAccessor> mask,
-			    pair<DestIterator, DestAccessor> dest,
-			    int radius)
+                            pair<MaskIterator, MaskAccessor> mask,
+                            pair<DestIterator, DestAccessor> dest,
+                            int radius)
     }
     \endcode
 
 */
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discMedianWithMask(SrcIterator upperleft1, 
-		    SrcIterator lowerright1, SrcAccessor sa,
-		    MaskIterator upperleftm, MaskAccessor mask,
-		    DestIterator upperleft2, DestAccessor da,
-		    int radius)
+                    SrcIterator lowerright1, SrcAccessor sa,
+                    MaskIterator upperleftm, MaskAccessor mask,
+                    DestIterator upperleft2, DestAccessor da,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discMedianWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(upperleft1, lowerright1, sa, 
                                 upperleftm, mask,
                                 upperleft2, da,
-				radius, 0.5);
+                                radius, 0.5);
 }
 
 template <class SrcIterator, class SrcAccessor,
           class MaskIterator, class MaskAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline void 
 discMedianWithMask(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<MaskIterator, MaskAccessor> mask,
-		    pair<DestIterator, DestAccessor> dest,
-		    int radius)
+                    pair<MaskIterator, MaskAccessor> mask,
+                    pair<DestIterator, DestAccessor> dest,
+                    int radius)
 {
     vigra_precondition(radius >= 0, "discMedianWithMask(): Radius must be >= 0.");
     
     discRankOrderFilterWithMask(src.first, src.second, src.third,
                         mask.first, mask.second,
                         dest.first, dest.second,
-			radius, 0.5);
+                        radius, 0.5);
 }
 
 //@}

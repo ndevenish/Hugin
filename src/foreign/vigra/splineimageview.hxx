@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -38,15 +38,15 @@
 #ifndef VIGRA_SPLINEIMAGEVIEW_HXX
 #define VIGRA_SPLINEIMAGEVIEW_HXX
 
-#include "vigra/mathutil.hxx"
-#include "vigra/recursiveconvolution.hxx"
-#include "vigra/splines.hxx"
-#include "vigra/array_vector.hxx"
-#include "vigra/basicimage.hxx"
-#include "vigra/copyimage.hxx"
-#include "vigra/tinyvector.hxx"
-#include "vigra/fixedpoint.hxx"
-#include "vigra/multi_array.hxx"
+#include "mathutil.hxx"
+#include "recursiveconvolution.hxx"
+#include "splines.hxx"
+#include "array_vector.hxx"
+#include "basicimage.hxx"
+#include "copyimage.hxx"
+#include "tinyvector.hxx"
+#include "fixedpoint.hxx"
+#include "multi_array.hxx"
 
 namespace vigra {
 
@@ -64,14 +64,14 @@ namespace vigra {
     degree <tt>ORDER-1</TT>. If the requested coordinates are near the image border, 
     reflective boundary conditions are applied. In principle, this class can also be used 
     for image resizing, but here the functions from the <tt>resize...</tt> family are 
-    more efficient. 
+    more efficient, since they exploit the regularity of the sampling grid. 
     
     The <tt>SplineImageView</tt> template is explicitly specialized to make it as efficient as possible.
     In particular, unnecessary copying of the image is avoided when the iterators passed
     in the constructor originate from a \ref vigra::BasicImage. In addition, these specializations
     provide function <tt>unchecked(...)</tt> that do not perform bounds checking. If the original image
     is not a variant of \ref vigra::BasicImage, one can customize the internal representation by 
-    using \ref vigra::SplineImageview0 or \ref vigra::SplineImageview1.
+    using \ref vigra::SplineImageView0 or \ref vigra::SplineImageView1.
     
     <b>Usage:</b>
     
@@ -1219,7 +1219,7 @@ class SplineImageView1Base
         int ix = floor(x);
         FixedPoint<0, FractionalBits1> tx = frac(x - FixedPoint<IntBits1, FractionalBits1>(ix));
         FixedPoint<0, FractionalBits1> dtx = dual_frac(tx);
-        if(ix == w_ - 1)
+        if(ix == (int)w_ - 1)
         {
             --ix;
             tx.value = FixedPoint<0, FractionalBits1>::ONE;
@@ -1228,7 +1228,7 @@ class SplineImageView1Base
         int iy = floor(y);
         FixedPoint<0, FractionalBits2> ty = frac(y - FixedPoint<IntBits2, FractionalBits2>(iy));
         FixedPoint<0, FractionalBits2> dty = dual_frac(ty);
-        if(iy == h_ - 1)
+        if(iy == (int)h_ - 1)
         {
             --iy;
             ty.value = FixedPoint<0, FractionalBits2>::ONE;
@@ -1250,7 +1250,7 @@ class SplineImageView1Base
         int ix = floor(x);
         FixedPoint<0, FractionalBits1> tx = frac(x - FixedPoint<IntBits1, FractionalBits1>(ix));
         FixedPoint<0, FractionalBits1> dtx = dual_frac(tx);
-        if(ix == w_ - 1)
+        if(ix == (int)w_ - 1)
         {
             --ix;
             tx.value = FixedPoint<0, FractionalBits1>::ONE;
@@ -1259,7 +1259,7 @@ class SplineImageView1Base
         int iy = floor(y);
         FixedPoint<0, FractionalBits2> ty = frac(y - FixedPoint<IntBits2, FractionalBits2>(iy));
         FixedPoint<0, FractionalBits2> dty = dual_frac(ty);
-        if(iy == h_ - 1)
+        if(iy == (int)h_ - 1)
         {
             --iy;
             ty.value = FixedPoint<0, FractionalBits2>::ONE;
@@ -1305,11 +1305,11 @@ class SplineImageView1Base
     value_type unchecked(double x, double y) const
     {
         int ix = (int)std::floor(x);
-        if(ix == w_ - 1)
+        if(ix == (int)w_ - 1)
             --ix;
         double tx = x - ix;
         int iy = (int)std::floor(y);
-        if(iy == h_ - 1)
+        if(iy == (int)h_ - 1)
             --iy;
         double ty = y - iy;
         return NumericTraits<value_type>::fromRealPromote(
@@ -1320,11 +1320,11 @@ class SplineImageView1Base
     value_type unchecked(double x, double y, unsigned int dx, unsigned int dy) const
     {
         int ix = (int)std::floor(x);
-        if(ix == w_ - 1)
+        if(ix == (int)w_ - 1)
             --ix;
         double tx = x - ix;
         int iy = (int)std::floor(y);
-        if(iy == h_ - 1)
+        if(iy == (int)h_ - 1)
             --iy;
         double ty = y - iy;
         switch(dx)
@@ -1532,7 +1532,7 @@ class SplineImageView1Base
 
     bool isValid(double x, double y) const
     {
-        return x < 2.0*w_-2.0 && x > -w_+1.0 && y < 2.0*h_-2.0 && y > -h_+1.0;
+        return x < 2.0*w_-2.0 && x > 1.0-w_ && y < 2.0*h_-2.0 && y > 1.0-h_;
     }
 
     bool sameFacet(double x0, double y0, double x1, double y1) const

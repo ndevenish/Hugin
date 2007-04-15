@@ -4,8 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
-/*    ( Version 1.3.0, Sep 10 2004 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,15 +41,15 @@
 
 #include <memory>
 #include <algorithm>
-#include "vigra/accessor.hxx"
-#include "vigra/tinyvector.hxx"
-#include "vigra/rgbvalue.hxx"
-#include "vigra/basicimageview.hxx"
-#include "vigra/imageiterator.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/multi_iterator.hxx"
-#include "vigra/metaprogramming.hxx"
-#include "vigra/mathutil.hxx"
+#include "accessor.hxx"
+#include "tinyvector.hxx"
+#include "rgbvalue.hxx"
+#include "basicimageview.hxx"
+#include "imageiterator.hxx"
+#include "numerictraits.hxx"
+#include "multi_iterator.hxx"
+#include "metaprogramming.hxx"
+#include "mathutil.hxx"
 
 namespace vigra
 {
@@ -182,17 +181,6 @@ struct MultiIteratorChooser <UnstridedArrayTag>
 /*                                                      */
 /********************************************************/
 
-template <class DestIterator, class Shape, class T, int N>
-void
-initMultiArrayData(DestIterator d, Shape const & shape, T const & init, MetaInt<N>)
-{    
-    DestIterator dend = d + shape[N];
-    for(; d != dend; ++d)
-    {
-        initMultiArrayData(d.begin(), shape, init, MetaInt<N-1>());
-    }
-}
-
 template <class DestIterator, class Shape, class T>
 void
 initMultiArrayData(DestIterator d, Shape const & shape, T const & init, MetaInt<0>)
@@ -204,14 +192,14 @@ initMultiArrayData(DestIterator d, Shape const & shape, T const & init, MetaInt<
     }
 }
 
-template <class SrcIterator, class Shape, class DestIterator, int N>
+template <class DestIterator, class Shape, class T, int N>
 void
-copyMultiArrayData(SrcIterator s, Shape const & shape, DestIterator d, MetaInt<N>)
+initMultiArrayData(DestIterator d, Shape const & shape, T const & init, MetaInt<N>)
 {    
-    SrcIterator send = s + shape[N];
-    for(; s != send; ++s, ++d)
+    DestIterator dend = d + shape[N];
+    for(; d != dend; ++d)
     {
-        copyMultiArrayData(s.begin(), shape, d.begin(), MetaInt<N-1>());
+        initMultiArrayData(d.begin(), shape, init, MetaInt<N-1>());
     }
 }
 
@@ -226,14 +214,14 @@ copyMultiArrayData(SrcIterator s, Shape const & shape, DestIterator d, MetaInt<0
     }
 }
 
-template <class SrcIterator, class Shape, class T, class ALLOC, int N>
+template <class SrcIterator, class Shape, class DestIterator, int N>
 void
-uninitializedCopyMultiArrayData(SrcIterator s, Shape const & shape, T * & d, ALLOC & a, MetaInt<N>)
+copyMultiArrayData(SrcIterator s, Shape const & shape, DestIterator d, MetaInt<N>)
 {    
     SrcIterator send = s + shape[N];
-    for(; s != send; ++s)
+    for(; s != send; ++s, ++d)
     {
-        uninitializedCopyMultiArrayData(s.begin(), shape, d, a, MetaInt<N-1>());
+        copyMultiArrayData(s.begin(), shape, d.begin(), MetaInt<N-1>());
     }
 }
 
@@ -248,14 +236,14 @@ uninitializedCopyMultiArrayData(SrcIterator s, Shape const & shape, T * & d, ALL
     }
 }
 
-template <class SrcIterator, class Shape, class T, int N>
+template <class SrcIterator, class Shape, class T, class ALLOC, int N>
 void
-squaredNormOfMultiArray(SrcIterator s, Shape const & shape, T & result, MetaInt<N>)
+uninitializedCopyMultiArrayData(SrcIterator s, Shape const & shape, T * & d, ALLOC & a, MetaInt<N>)
 {    
     SrcIterator send = s + shape[N];
     for(; s != send; ++s)
     {
-        squaredNormOfMultiArray(s.begin(), shape, result, MetaInt<N-1>());
+        uninitializedCopyMultiArrayData(s.begin(), shape, d, a, MetaInt<N-1>());
     }
 }
 
@@ -267,6 +255,17 @@ squaredNormOfMultiArray(SrcIterator s, Shape const & shape, T & result, MetaInt<
     for(; s != send; ++s)
     {
         result += *s * *s;
+    }
+}
+
+template <class SrcIterator, class Shape, class T, int N>
+void
+squaredNormOfMultiArray(SrcIterator s, Shape const & shape, T & result, MetaInt<N>)
+{    
+    SrcIterator send = s + shape[N];
+    for(; s != send; ++s)
+    {
+        squaredNormOfMultiArray(s.begin(), shape, result, MetaInt<N-1>());
     }
 }
 
@@ -322,7 +321,7 @@ class MultiArrayView
 public:
 
         /** the array's actual dimensionality.
-            This ensures that MultiArrayView can also be used for 
+            This ensures that MultiArrayView can also be used for
             scalars (that is, when <tt>N == 0</tt>). Calculated as:<br>
             \code
             actual_dimension = (N==0) ? 1 : N
@@ -381,20 +380,20 @@ public:
     typedef typename NormTraits<T>::SquaredNormType SquaredNormType;
 
         /** the norm type (return type of array.norm()).
-        */
+         */
     typedef typename SquareRootTraits<SquaredNormType>::SquareRootResult NormType;
 
 protected:
 
-    static const typename difference_type::value_type diff_zero = 0;
+    typedef typename difference_type::value_type diff_zero_t;
 
         /** the shape of the image pointed to is stored here.
-         */
+	    */
     difference_type m_shape;
 
         /** the strides (offset of a sample to the next) for every dimension
             are stored here.
-         */
+        */
     difference_type m_stride;
 
         /** pointer to the image.
@@ -406,7 +405,7 @@ public:
         /** default constructor: create an empty image of size 0.
          */
     MultiArrayView ()
-        : m_shape (diff_zero), m_stride (diff_zero), m_ptr (0)
+        : m_shape (diff_zero_t(0)), m_stride (diff_zero_t(0)), m_ptr (0)
     {}
 
 
@@ -514,7 +513,7 @@ public:
          */
     template <class U, class CN>
     void copy(const MultiArrayView <N, U, CN>& rhs);
-    
+
         /** bind the M outmost dimensions to certain indices.
             this reduces the dimensionality of the image to
             max { 1, N-M }
@@ -529,7 +528,7 @@ public:
     template <unsigned int M>
     MultiArrayView <N-M, T, StridedArrayTag>
     bindInner (const TinyVector <ptrdiff_t, M> &d) const;
-    
+
         /** bind dimension M to index d.
             this reduces the dimensionality of the image to
             max { 1, N-1 }
@@ -543,7 +542,7 @@ public:
             max { 1, N-1 }
         */
     MultiArrayView <N-1, T, C> bindOuter (int d) const;
-    
+
         /** bind the innermost dimension to a certain index.
             this reduces the dimensionality of the image to
             max { 1, N-1 }
@@ -995,13 +994,13 @@ public:
         /** traverser type
          */
     typedef typename detail::MultiIteratorChooser <
-        UnstridedArrayTag>::template Traverser <N, T, T &, T *>::type 
+        UnstridedArrayTag>::template Traverser <N, T, T &, T *>::type
     traverser;
 
         /** traverser type to const data
          */
     typedef typename detail::MultiIteratorChooser <
-        UnstridedArrayTag>::template Traverser <N, T, T const &, T const *>::type 
+        UnstridedArrayTag>::template Traverser <N, T, T const &, T const *>::type
     const_traverser;
 
         /** sequential (random access) iterator type
@@ -1022,7 +1021,7 @@ public:
 
 protected:
 
-    static const typename difference_type::value_type diff_zero = 0;
+    typedef typename difference_type::value_type diff_zero_t;
 
         /** the allocator used to allocate the memory
          */
@@ -1077,7 +1076,7 @@ public:
         /** copy constructor
          */
     MultiArray (const MultiArray &rhs);
- 
+
         /** construct by copying from a MultiArrayView
          */
     template <class U, class C>
@@ -1116,7 +1115,7 @@ public:
         reshape (shape, NumericTraits <T>::zero ());
     }
 
-        /** change the shape, allocate new memory and initialize it 
+        /** change the shape, allocate new memory and initialize it
             with the given value.<br>
             <em>Note:</em> this operation invalidates all dependent objects
             (array views and iterators)
@@ -1146,7 +1145,7 @@ public:
 
         /** sequential const iterator pointing to the first array element.
          */
-    const_iterator begin () const 
+    const_iterator begin () const
     {
         return this->data();
     }
@@ -1168,14 +1167,14 @@ public:
 
 template <unsigned int N, class T, class A>
 MultiArray <N, T, A>::MultiArray ()
-    : MultiArrayView <N, T> (difference_type (diff_zero), 
-                             difference_type (diff_zero), 0)
+    : MultiArrayView <N, T> (difference_type (diff_zero_t(0)), 
+                             difference_type (diff_zero_t(0)), 0)
 {}
 
 template <unsigned int N, class T, class A>
 MultiArray <N, T, A>::MultiArray (allocator_type const & alloc)
-    : MultiArrayView <N, T> (difference_type (diff_zero), 
-                             difference_type (diff_zero), 0),
+    : MultiArrayView <N, T> (difference_type (diff_zero_t(0)), 
+                             difference_type (diff_zero_t(0)), 0),
       m_alloc(alloc)
 {}
 
@@ -1259,7 +1258,7 @@ MultiArray <N, T, A>::operator= (const MultiArrayView<N, U, C> &rhs)
         this->copy(rhs);
     else
     {
-    pointer new_ptr;
+        pointer new_ptr;
         allocate (new_ptr, rhs);
         deallocate (this->m_ptr, this->elementCount ());
         this->m_shape = rhs.shape();
@@ -1519,7 +1518,7 @@ template <class T>
 BasicImageView <T>
 makeBasicImageView (MultiArray <3, T> const &array)
 {
-    return BasicImageView <T> (array.data (), 
+    return BasicImageView <T> (array.data (),
                                array.shape (0)*array.shape (1), array.shape (2));
 }
 
@@ -1538,7 +1537,7 @@ makeRGBImageView (MultiArray<3, T> const &array)
     vigra_precondition (
         array.shape (0) == 3, "makeRGBImageView(): array.shape(0) must be 3.");
     return BasicImageView <RGBValue<T> > (
-        reinterpret_cast <RGBValue <T> *> (array.data ()), 
+        reinterpret_cast <RGBValue <T> *> (array.data ()),
         array.shape (1), array.shape (2));
 }
 

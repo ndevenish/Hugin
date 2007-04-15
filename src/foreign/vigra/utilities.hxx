@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -39,12 +39,12 @@
 #ifndef VIGRA_BASICS_HXX
 #define VIGRA_BASICS_HXX
 
-#include "vigra/config.hxx"
-#include "vigra/error.hxx"
-#include "vigra/metaprogramming.hxx"
-#include "vigra/tuple.hxx"
-#include "vigra/diff2d.hxx"
-#include "vigra/mathutil.hxx"
+#include "config.hxx"
+#include "error.hxx"
+#include "metaprogramming.hxx"
+#include "tuple.hxx"
+#include "diff2d.hxx"
+#include "mathutil.hxx"
 
 /*! \page Utilities Utilities
     Basic helper functionality needed throughout.
@@ -57,7 +57,7 @@
     <DT>
     <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
      \ref RangesAndPoints
-     <DD><em>2-dimensioanl positions, extents, amd rectangles</em>
+     <DD><em>2-dimensional positions, extents, and rectangles</em>
     <DT>
     <IMG BORDER=0 ALT="-" SRC="documents/bullet.gif">
      \ref PixelNeighborhood

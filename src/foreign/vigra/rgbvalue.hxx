@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -41,11 +41,11 @@
 
 #include <cmath>    // abs(double)
 #include <cstdlib>  // abs(int)
-#include "vigra/config.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/accessor.hxx"
-#include "vigra/tinyvector.hxx"
-#include "vigra/static_assert.hxx"
+#include "config.hxx"
+#include "numerictraits.hxx"
+#include "accessor.hxx"
+#include "tinyvector.hxx"
+#include "static_assert.hxx"
 
 namespace vigra {
 
@@ -355,8 +355,8 @@ operator==(RGBValue<V1, RIDX1, GIDX1, BIDX1> const & l,
            RGBValue<V2, RIDX2, GIDX2, BIDX2> const & r)
 {
     return (l.red() == r.red()) &&
-       (l.green() == r.green()) &&
-       (l.blue() == r.blue());
+           (l.green() == r.green()) &&
+           (l.blue() == r.blue());
 }
 
     /// component-wise not equal
@@ -368,8 +368,8 @@ operator!=(RGBValue<V1, RIDX1, GIDX1, BIDX1> const & l,
            RGBValue<V2, RIDX2, GIDX2, BIDX2> const & r)
 {
     return (l.red() != r.red()) ||
-       (l.green() != r.green()) ||
-       (l.blue() != r.blue());
+           (l.green() != r.green()) ||
+           (l.blue() != r.blue());
 }
 
 
@@ -473,13 +473,13 @@ struct NumericTraits<RGBValue<T, R, G, B> >
     }
     static Type fromPromote(Promote const & v) {
       return Type(NumericTraits<T>::fromPromote(v.red()),
-                           NumericTraits<T>::fromPromote(v.green()),
-                           NumericTraits<T>::fromPromote(v.blue()));
+                  NumericTraits<T>::fromPromote(v.green()),
+                  NumericTraits<T>::fromPromote(v.blue()));
     }
     static Type fromRealPromote(RealPromote const & v) {
         return Type(NumericTraits<T>::fromRealPromote(v.red()),
-                           NumericTraits<T>::fromRealPromote(v.green()),
-                           NumericTraits<T>::fromRealPromote(v.blue()));
+                    NumericTraits<T>::fromRealPromote(v.green()),
+                    NumericTraits<T>::fromRealPromote(v.blue()));
     }
 };
 
@@ -836,8 +836,8 @@ RGBValue<V, RIDX, GIDX, BIDX>
 ceil(RGBValue<V, RIDX, GIDX, BIDX> const & r)
 {
     return RGBValue<V, RIDX, GIDX, BIDX>(ceil(r.red()),
-                       ceil(r.green()),
-                       ceil(r.blue()));
+                                         ceil(r.green()),
+                                         ceil(r.blue()));
 }
 
 using VIGRA_CSTD::floor;
@@ -850,8 +850,8 @@ RGBValue<V, RIDX, GIDX, BIDX>
 floor(RGBValue<V, RIDX, GIDX, BIDX> const & r)
 {
     return RGBValue<V, RIDX, GIDX, BIDX>(floor(r.red()),
-                       floor(r.green()),
-                       floor(r.blue()));
+                                         floor(r.green()),
+                                         floor(r.blue()));
 }
 
 //@}

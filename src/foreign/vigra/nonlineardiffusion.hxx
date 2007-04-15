@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,10 +39,10 @@
 #define VIGRA_NONLINEARDIFFUSION_HXX
 
 #include <vector>
-#include "vigra/stdimage.hxx"
-#include "vigra/stdimagefunctions.hxx"
-#include "vigra/imageiteratoradapter.hxx"
-#include "vigra/functortraits.hxx"
+#include "stdimage.hxx"
+#include "stdimagefunctions.hxx"
+#include "imageiteratoradapter.hxx"
+#include "functortraits.hxx"
 
 namespace vigra {
 
@@ -679,7 +679,7 @@ class DiffusivityFunctor
     {
         Value mag = (gx*gx + gy*gy) / weight_;
                      
-        return (mag == zero_) ? one_ : one_ - exp(-3.315 / mag / mag);
+        return (mag == zero_) ? one_ : one_ - VIGRA_CSTD::exp(-3.315 / mag / mag);
     }
     
          /** calculate diffusivity from RGB arguments
@@ -693,7 +693,7 @@ class DiffusivityFunctor
                      gy.green()*gy.green() +
                      gy.blue()*gy.blue()) / weight_;
 
-        return (mag == zero_) ? one_ : one_ - exp(-3.315 / mag / mag);
+        return (mag == zero_) ? one_ : one_ - VIGRA_CSTD::exp(-3.315 / mag / mag);
     }
     
     result_type weight_;

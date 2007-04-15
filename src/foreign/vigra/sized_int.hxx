@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -97,19 +97,21 @@ typedef IntTypeList<signed char,
         IntTypeList<signed short,
         IntTypeList<signed int,
         IntTypeList<signed long,
-        Int_type_not_supported_on_this_platform > > > > SignedIntTypes;
+        IntTypeList<signed long long,
+        Int_type_not_supported_on_this_platform > > > > > SignedIntTypes;
 typedef IntTypeList<unsigned char, 
         IntTypeList<unsigned short,
         IntTypeList<unsigned int,
         IntTypeList<unsigned long,
-        Int_type_not_supported_on_this_platform > > > > UnsignedIntTypes;
+        IntTypeList<unsigned long long,
+        Int_type_not_supported_on_this_platform > > > > > UnsignedIntTypes;
 
 } // namespace detail
 
 /** \addtogroup FixedSizeInt Fixed Size Integer Types
 
-    Since the C++ standard does only specifiy minimal sizes for the built-in 
-    integer types, one cannot rely on them have a specific size. But
+    Since the C++ standard does only specify minimal sizes for the built-in 
+    integer types, one cannot rely on them to have a specific size. But
     pixel types with a specific size are often required in image processing,
     especially when reading or writing binary files. The VIGRA typedefs
     are guaranteed to have exactly the correct size. If the system

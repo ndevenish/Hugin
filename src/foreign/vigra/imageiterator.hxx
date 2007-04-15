@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,10 +39,10 @@
 #ifndef VIGRA_IMAGEITERATOR_HXX
 #define VIGRA_IMAGEITERATOR_HXX
 
-#include "vigra/utilities.hxx"
-#include "vigra/accessor.hxx"
-#include "vigra/iteratortraits.hxx"
-#include "vigra/metaprogramming.hxx"
+#include "utilities.hxx"
+#include "accessor.hxx"
+#include "iteratortraits.hxx"
+#include "metaprogramming.hxx"
 
 namespace vigra {
 
@@ -504,7 +504,7 @@ class DirectionSelector<UnstridedArrayTag>
 
         T operator()(int d) const
         { return current_ + d; }
-        
+
         T current_;
     };
 };
@@ -527,7 +527,7 @@ class DirectionSelector<StridedArrayTag>
         : stride_(rhs.stride_),
           current_(rhs.current_)
         {}
-        
+
         type & operator=(type const & rhs)
         {
             stride_ = rhs.stride_;
@@ -586,7 +586,7 @@ class LinearIteratorSelector<UnstridedArrayTag>
     {
       public:
         typedef typename IMAGEITERATOR::pointer res;
-        
+
         template <class DirSelect>
         static res construct(typename IMAGEITERATOR::pointer data, DirSelect const &)
         {
@@ -604,7 +604,7 @@ class LinearIteratorSelector<StridedArrayTag>
     {
       public:
         typedef IteratorAdaptor<StridedIteratorPolicy<IMAGEITERATOR> > res;
-        
+
         template <class DirSelect>
         static res construct(typename IMAGEITERATOR::pointer data, DirSelect const & d)
         {
@@ -651,10 +651,10 @@ template <class IMAGEITERATOR,
           class StridedOrUnstrided = UnstridedArrayTag>
 class ImageIteratorBase
 {
-    typedef typename 
+    typedef typename
         detail::LinearIteratorSelector<StridedOrUnstrided>::template type<ImageIteratorBase>
         RowIteratorSelector;
-    typedef typename 
+    typedef typename
         detail::LinearIteratorSelector<StridedArrayTag>::template type<ImageIteratorBase>
         ColumnIteratorSelector;
   public:
@@ -699,12 +699,12 @@ class ImageIteratorBase
 
         /** Let operations act in X direction
         */
-    typedef typename 
+    typedef typename
         detail::DirectionSelector<StridedOrUnstrided>::template type<pointer> MoveX;
 
         /** Let operations act in Y direction
         */
-    typedef typename 
+    typedef typename
         detail::DirectionSelector<StridedArrayTag>::template type<int> MoveY;
 
     /** @name Comparison of Iterators */
@@ -764,9 +764,9 @@ class ImageIteratorBase
 
   protected:
         /** Construct from raw memory with a vertical stride of <TT>ystride</TT>.
-        <TT>ystride</TT> must equal the physical image width (row length), 
+        <TT>ystride</TT> must equal the physical image width (row length),
         even if the iterator will only be used for a sub image. This constructor
-        must only be called for unstrided iterators 
+        must only be called for unstrided iterators
         (<tt>StridedOrUnstrided == UnstridedArrayTag</tt>)
         */
     ImageIteratorBase(pointer base, int ystride)
@@ -775,9 +775,9 @@ class ImageIteratorBase
     {}
 
         /** Construct from raw memory with a horizontal stride of <TT>xstride</TT>
-        and a vertical stride of <TT>ystride</TT>. This constructor 
+        and a vertical stride of <TT>ystride</TT>. This constructor
         may be used for iterators that shall skip pixels. Thus, it
-        must only be called for strided iterators 
+        must only be called for strided iterators
         (<tt>StridedOrUnstrided == StridedArrayTag</tt>)
         */
     ImageIteratorBase(pointer base, int xstride, int ystride)
@@ -896,7 +896,7 @@ class ImageIteratorBase
     //@}
 
     row_iterator rowIterator() const
-    { 
+    {
         return RowIteratorSelector::construct(current(), x);
     }
 
@@ -947,7 +947,7 @@ class ImageIterator
     typedef typename Base::difference_type difference_type;
 
         /** Construct from raw memory with a vertical stride of <TT>ystride</TT>.
-        <TT>ystride</TT> must equal the physical image width (row length), 
+        <TT>ystride</TT> must equal the physical image width (row length),
         even if the iterator will only be used for a sub image.
         If the raw memory is encapsulated in an image object this
         object should have a factory function that constructs the
@@ -993,7 +993,7 @@ class ConstImageIterator
     typedef typename Base::difference_type difference_type;
 
         /** Construct from raw memory with a vertical stride of <TT>ystride</TT>.
-        <TT>ystride</TT> must equal the physical image width (row length), 
+        <TT>ystride</TT> must equal the physical image width (row length),
         even if the iterator will only be used for a sub image.
         If the raw memory is encapsulated in an image object this
         object should have a factory function that constructs the
@@ -1031,20 +1031,20 @@ class ConstImageIterator
     This iterator can be used when some pixels shall be automatically skipped, for example
     if an image is to be sub-sampled: instead of advancing to the next pixel,
     <tt>++iterator.x</tt> jumps to the pixel at a horizontal offset of <tt>xskip</tt>.
-    Likewise with <tt>yskip</tt> in vertical direction. Most functions and local types 
+    Likewise with <tt>yskip</tt> in vertical direction. Most functions and local types
     are inherited from ImageIteratorBase.
-    
+
     <b> Usage:</b>
-    
+
     \code
     BImage img(w,h);
     ...
     int xskip = 2, yskip = 2;
     int wskip = w / xskip + 1, hskip = h / yskip + 1;
-    
+
     StridedImageIterator<BImage::value_type> upperLeft(&img(0,0), w, xskip, yskip);
     StridedImageIterator<BImage::value_type> lowerRight = upperLeft + Diff2D(wskip, hskip);
-    
+
     // now navigation with upperLeft and lowerRight lets the image appear to have half
     // the original resolution in either dimension
     \endcode
@@ -1067,7 +1067,7 @@ class StridedImageIterator
     typedef typename Base::difference_type difference_type;
 
         /** Construct from raw memory with a vertical stride of <TT>ystride</TT>,
-        jumping by <tt>xskip</tt> horizontally and <tt>yskip</tt> vertically. 
+        jumping by <tt>xskip</tt> horizontally and <tt>yskip</tt> vertically.
         <tt>ystride</tt> must be the physical width (row length) of the image.
         */
     StridedImageIterator(pointer base, int ystride, int xskip, int yskip)
@@ -1092,20 +1092,20 @@ class StridedImageIterator
     This iterator can be used when some pixels shall be automatically skipped, for example
     if an image is to be sub-sampled: instead of advancing to the next pixel,
     <tt>++iterator.x</tt> jumps to the pixel at a horizontal offset of <tt>xskip</tt>.
-    Likewise with <tt>yskip</tt> in vertical direction. Most functions and local types 
+    Likewise with <tt>yskip</tt> in vertical direction. Most functions and local types
     are inherited from ImageIteratorBase.
-    
+
     <b> Usage:</b>
-    
+
     \code
     BImage img(w,h);
     ...
     int xskip = 2, yskip = 2;
     int wskip = w / xskip + 1, hskip = h / yskip + 1;
-    
+
     ConstStridedImageIterator<BImage::value_type> upperLeft(&img(0,0), w, xskip, yskip);
     ConstStridedImageIterator<BImage::value_type> lowerRight = upperLeft + Diff2D(wskip, hskip);
-    
+
     // now navigation with upperLeft and lowerRight lets the image appear to have half
     // the original resolution in either dimension
     \endcode
@@ -1130,7 +1130,7 @@ class ConstStridedImageIterator
     typedef typename Base::difference_type difference_type;
 
         /** Construct from raw memory with a vertical stride of <TT>ystride</TT>,
-        jumping by <tt>xskip</tt> horizontally and <tt>yskip</tt> vertically. 
+        jumping by <tt>xskip</tt> horizontally and <tt>yskip</tt> vertically.
         <tt>ystride</tt> must be the physical width (row length) of the image.
         */
     ConstStridedImageIterator(pointer base, int ystride, int xskip, int yskip)

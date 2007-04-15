@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,11 +40,11 @@
 #define VIGRA_STDCONVOLUTION_HXX
 
 #include <cmath>
-#include "vigra/stdimage.hxx"
-#include "vigra/bordertreatment.hxx"
-#include "vigra/separableconvolution.hxx"
-#include "vigra/utilities.hxx"
-#include "vigra/sized_int.hxx"
+#include "stdimage.hxx"
+#include "bordertreatment.hxx"
+#include "separableconvolution.hxx"
+#include "utilities.hxx"
+#include "sized_int.hxx"
 
 namespace vigra {
 
@@ -362,12 +362,12 @@ The functions need a suitable 2D kernel to operate.
     pass arguments explicitly:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor, 
+        template <class SrcIterator, class SrcAccessor,
                   class DestIterator, class DestAccessor,
                   class KernelIterator, class KernelAccessor>
         void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
                            DestIterator dest_ul, DestAccessor dest_acc,
-                           KernelIterator ki, KernelAccessor ak, 
+                           KernelIterator ki, KernelAccessor ak,
                            Diff2D kul, Diff2D klr, BorderTreatmentMode border);
     }
     \endcode
@@ -376,12 +376,12 @@ The functions need a suitable 2D kernel to operate.
     use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor, 
+        template <class SrcIterator, class SrcAccessor,
                   class DestIterator, class DestAccessor,
                   class KernelIterator, class KernelAccessor>
         void convolveImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                            pair<DestIterator, DestAccessor> dest,
-                           tuple5<KernelIterator, KernelAccessor, Diff2D, Diff2D, 
+                           tuple5<KernelIterator, KernelAccessor, Diff2D, Diff2D,
                            BorderTreatmentMode> kernel);
     }
     \endcode
@@ -403,8 +403,8 @@ The functions need a suitable 2D kernel to operate.
                          0.125, 0.0, -0.125,
                          0.25,  0.0, -0.25,
                          0.125, 0.0, -0.125;
-        
-    vigra::convolveImage(srcImageRange(src), destImage(dest), kernel2d(sobel));             
+
+    vigra::convolveImage(srcImageRange(src), destImage(dest), kernel2d(sobel));
     \endcode
 
     <b> Required Interface:</b>
@@ -492,27 +492,23 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
     int h = src_lr.y - src_ul.y;
 
     // calculate width and height of the kernel
-    int kernel_width = klr.x - kul.x + 1;
+    int kernel_width  = klr.x - kul.x + 1;
     int kernel_height = klr.y - kul.y + 1;
 
     vigra_precondition(w >= kernel_width && h >= kernel_height,
                        "convolveImage(): kernel larger than image.");
 
-    int x,y;
-    x = 0;
-    y = 0;
-
     KernelSumType norm = NumericTraits<KernelSumType>::zero();
     if(border == BORDER_TREATMENT_CLIP)
     {
-        // caluclate the sum of the kernel elements for renormalization
+        // calculate the sum of the kernel elements for renormalization
         KernelIterator yk  = ki + klr;
 
-        //Die Summe der Punkte im Kernel wird ermittelt (= norm)
-        for(y=0; y<kernel_height; ++y, --yk.y)
+        // determine sum within kernel (= norm)
+        for(int y = 0; y < kernel_height; ++y, --yk.y)
         {
             KernelIterator xk  = yk;
-            for(x=0; x<kernel_width; ++x, --xk.x)
+            for(int x = 0; x < kernel_width; ++x, --xk.x)
             {
                 norm += ak(xk);
             }
@@ -533,30 +529,30 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
         DestIterator xd(yd);
         SrcIterator xs(ys);
 
-        for(; xs.x < send.x; ++x, ++xs.x, ++xd.x)
+        for(; xs.x < send.x; ++xs.x, ++xd.x)
         {
             // init the sum
             SumType sum = NumericTraits<SumType>::zero();
 
-                SrcIterator yys = xs - klr;
+            SrcIterator yys = xs - klr;
             SrcIterator yyend = xs - kul;
-                KernelIterator yk  = ki + klr;
+            KernelIterator yk  = ki + klr;
 
             for(; yys.y <= yyend.y; ++yys.y, --yk.y)
-                {
+            {
                 typename SrcIterator::row_iterator xxs = yys.rowIterator();
                 typename SrcIterator::row_iterator xxe = xxs + kernel_width;
                 typename KernelIterator::row_iterator xk  = yk.rowIterator();
 
                 for(; xxs < xxe; ++xxs, --xk)
-                    {
-                        sum += ak(xk) * src_acc(xxs);
-                    }
+                {
+                    sum += ak(xk) * src_acc(xxs);
                 }
+            }
 
             // store convolution result in destination pixel
-                dest_acc.set(DestTraits::fromRealPromote(sum), xd);
-            }
+            dest_acc.set(DestTraits::fromRealPromote(sum), xd);
+        }
     }
 
     if(border == BORDER_TREATMENT_AVOID)
@@ -567,7 +563,7 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
     int borderskipy;
     int borderinc;
     if(border == BORDER_TREATMENT_REPEAT)
-            {
+    {
         borderskipx = 0;
         borderskipy = 0;
         borderinc = 0;
@@ -589,9 +585,9 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
     yd = dest_ul;
     ys = src_ul;
 
-    // go over the entire image (but skip the already computed points in the loop)
-    for(y=0; y < h; ++y, ++ys.y, ++yd.y)
-                {
+    // work on entire image (but skip the already computed points in the loop)
+    for(int y = 0; y < h; ++y, ++ys.y, ++yd.y)
+    {
         int top    = std::max(static_cast<IntBiggest>(-klr.y),
                               static_cast<IntBiggest>(src_ul.y - ys.y));
         int bottom = std::min(static_cast<IntBiggest>(-kul.y),
@@ -601,7 +597,7 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
         DestIterator xd(yd);
         SrcIterator xs(ys);
 
-        for(x=0; x < w; ++x, ++xs.x, ++xd.x)
+        for(int x = 0; x < w; ++x, ++xs.x, ++xd.x)
         {
             // check if we are away from the border
             if(y >= klr.y && y < h+kul.y && x == klr.x)
@@ -615,11 +611,11 @@ void convolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
             if (border == BORDER_TREATMENT_CLIP)
             {
                 internalPixelEvaluationByClip(x, y, w, h, xs, src_acc, xd, dest_acc, ki, kul, klr, ak, norm);
-                }
-                else
-                {
-                int left   = std::max(-klr.x, src_ul.x - xs.x);
-                int right  = std::min(-kul.x, src_lr.x - xs.x - 1);
+            }
+            else
+            {
+                int left  = std::max(-klr.x, src_ul.x - xs.x);
+                int right = std::min(-kul.x, src_lr.x - xs.x - 1);
 
                 // init the sum
                 SumType sum = NumericTraits<SumType>::zero();
@@ -671,7 +667,7 @@ void convolveImage(
 {
     convolveImage(src.first, src.second, src.third,
                   dest.first, dest.second,
-                  kernel.first, kernel.second, kernel.third, 
+                  kernel.first, kernel.second, kernel.third,
                   kernel.fourth, kernel.fifth);
 }
 
@@ -717,16 +713,16 @@ void convolveImage(
     pass arguments explicitly:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor, 
+        template <class SrcIterator, class SrcAccessor,
                   class MaskIterator, class MaskAccessor,
                   class DestIterator, class DestAccessor,
                   class KernelIterator, class KernelAccessor>
-        void 
+        void
         normalizedConvolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
-                              MaskIterator mul, MaskAccessor am,
-                              DestIterator dest_ul, DestAccessor dest_acc,
-                              KernelIterator ki, KernelAccessor ak, 
-                              Diff2D kul, Diff2D klr, BorderTreatmentMode border);
+                                MaskIterator mul, MaskAccessor am,
+                                DestIterator dest_ul, DestAccessor dest_acc,
+                                KernelIterator ki, KernelAccessor ak,
+                                Diff2D kul, Diff2D klr, BorderTreatmentMode border);
     }
     \endcode
 
@@ -734,16 +730,16 @@ void convolveImage(
     use argument objects in conjunction with \ref ArgumentObjectFactories:
     \code
     namespace vigra {
-        template <class SrcIterator, class SrcAccessor, 
+        template <class SrcIterator, class SrcAccessor,
                   class MaskIterator, class MaskAccessor,
                   class DestIterator, class DestAccessor,
                   class KernelIterator, class KernelAccessor>
         inline
         void normalizedConvolveImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                                   pair<MaskIterator, MaskAccessor> mask,
-                                   pair<DestIterator, DestAccessor> dest,
-                                   tuple5<KernelIterator, KernelAccessor, Diff2D, Diff2D, 
-                                   BorderTreatmentMode> kernel);
+                                     pair<MaskIterator, MaskAccessor> mask,
+                                     pair<DestIterator, DestAccessor> dest,
+                                     tuple5<KernelIterator, KernelAccessor, Diff2D, Diff2D,
+                                     BorderTreatmentMode> kernel);
     }
     \endcode
 
@@ -765,7 +761,7 @@ void convolveImage(
                          0.0625, 0.125, 0.0625,
                          0.125,  0.25,  0.125,
                          0.0625, 0.125, 0.0625;
-        
+
     vigra::normalizedConvolveImage(srcImageRange(src), maskImage(mask), destImage(dest), kernel2d(binom));
     \endcode
 
@@ -822,10 +818,10 @@ template <class SrcIterator, class SrcAccessor,
           class KernelIterator, class KernelAccessor>
 void
 normalizedConvolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
-                      MaskIterator mul, MaskAccessor am,
-                      DestIterator dest_ul, DestAccessor dest_acc,
-                      KernelIterator ki, KernelAccessor ak,
-                      Diff2D kul, Diff2D klr, BorderTreatmentMode border)
+                        MaskIterator mul, MaskAccessor am,
+                        DestIterator dest_ul, DestAccessor dest_acc,
+                        KernelIterator ki, KernelAccessor ak,
+                        Diff2D kul, Diff2D klr, BorderTreatmentMode border)
 {
     vigra_precondition((border == BORDER_TREATMENT_CLIP  ||
                         border == BORDER_TREATMENT_AVOID),
@@ -868,7 +864,7 @@ normalizedConvolveImage(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_
     for(yy=0; yy<kernel_height; ++yy, --yk.y)
     {
         KernelIterator xk  = yk;
-        
+
         for(xx=0; xx<kernel_width; ++xx, --xk.x)
         {
             norm += ak(xk);
@@ -1029,10 +1025,10 @@ void convolveImageWithMask(
                            BorderTreatmentMode> kernel)
 {
     normalizedConvolveImage(src.first, src.second, src.third,
-                          mask.first, mask.second,
-                          dest.first, dest.second,
-                          kernel.first, kernel.second, kernel.third,
-                          kernel.fourth, kernel.fifth);
+                            mask.first, mask.second,
+                            dest.first, dest.second,
+                            kernel.first, kernel.second, kernel.third,
+                            kernel.fourth, kernel.fifth);
 }
 
 //@}
@@ -1045,42 +1041,42 @@ void convolveImageWithMask(
 
 /** \brief Generic 2 dimensional convolution kernel.
 
-    This kernel may be used for convolution of 2 dimensional signals. 
-    
+    This kernel may be used for convolution of 2 dimensional signals.
+
     Convolution functions access the kernel via an ImageIterator
     which they get by calling \ref center(). This iterator
-    points to the center of the kernel. The kernel's size is given by its upperLeft() 
-    (upperLeft().x <= 0, upperLeft().y <= 0) 
-    and lowerRight() (lowerRight().x >= 0, lowerRight().y >= 0) methods. 
+    points to the center of the kernel. The kernel's size is given by its upperLeft()
+    (upperLeft().x <= 0, upperLeft().y <= 0)
+    and lowerRight() (lowerRight().x >= 0, lowerRight().y >= 0) methods.
     The desired border treatment mode is returned by borderTreatment().
-    (Note that the \ref StandardConvolution "2D convolution functions" don't currently 
+    (Note that the \ref StandardConvolution "2D convolution functions" don't currently
     support all modes.)
-    
+
     The different init functions create a kernel with the specified
-    properties. The requirements for the kernel's value_type depend 
+    properties. The requirements for the kernel's value_type depend
     on the init function used. At least NumericTraits must be defined.
-    
+
     The kernel defines a factory function kernel2d() to create an argument object
     (see \ref KernelArgumentObjectFactories).
-    
+
     <b> Usage:</b>
-    
+
     <b>\#include</b> "<a href="stdconvolution_8hxx-source.html">vigra/stdconvolution.hxx</a>"<br>
     Namespace: vigra
-    
+
     \code
-    vigra::FImage src(w,h), dest(w,h);    
+    vigra::FImage src(w,h), dest(w,h);
     ...
-    
+
     // define horizontal Sobel filter
     vigra::Kernel2D<float> sobel;
-    
+
     sobel.initExplicitly(Diff2D(-1,-1), Diff2D(1,1)) =  // upper left and lower right
                          0.125, 0.0, -0.125,
                          0.25,  0.0, -0.25,
                          0.125, 0.0, -0.125;
-        
-    vigra::convolveImage(srcImageRange(src), destImage(dest), kernel2d(sobel));             
+
+    vigra::convolveImage(srcImageRange(src), destImage(dest), kernel2d(sobel));
     \endcode
 
     <b> Required Interface:</b>
@@ -1215,11 +1211,11 @@ public:
         */
     InitProxy operator=(value_type const & v)
     {
-        int size = (right_.x - left_.x + 1) * 
+        int size = (right_.x - left_.x + 1) *
                    (right_.y - left_.y + 1);
         kernel_ = v;
         norm_ = (double)size*v;
-        
+
         return InitProxy(kernel_.begin(), size, norm_);
     }
 
@@ -1249,15 +1245,15 @@ public:
         int w = right_.x - left_.x + 1;
         int h = right_.y - left_.y + 1;
         kernel_.resize(w, h);
-        
+
         norm_ = kx.norm() * ky.norm();
-        
+
         typedef typename Kernel1D<value_type>::Iterator KIter;
         typename Kernel1D<value_type>::Accessor ka;
-        
+
         KIter kiy = ky.center() + left_.y;
         Iterator iy = center() + left_;
-        
+
         for(int y=left_.y; y<=right_.y; ++y, ++kiy, ++iy.y)
         {
             KIter kix = kx.center() + left_.x;
@@ -1606,14 +1602,14 @@ kernel2d(KernelIterator ik, KernelAccessor ak, Diff2D kul, Diff2D klr,
 
 template <class T>
 inline
-tuple5<typename Kernel2D<T>::ConstIterator, 
+tuple5<typename Kernel2D<T>::ConstIterator,
        typename Kernel2D<T>::ConstAccessor,
        Diff2D, Diff2D, BorderTreatmentMode>
 kernel2d(Kernel2D<T> const & k)
 
 {
     return
-        tuple5<typename Kernel2D<T>::ConstIterator, 
+        tuple5<typename Kernel2D<T>::ConstIterator,
                typename Kernel2D<T>::ConstAccessor,
                Diff2D, Diff2D, BorderTreatmentMode>(
             k.center(),
@@ -1624,14 +1620,14 @@ kernel2d(Kernel2D<T> const & k)
 
 template <class T>
 inline
-tuple5<typename Kernel2D<T>::ConstIterator, 
+tuple5<typename Kernel2D<T>::ConstIterator,
        typename Kernel2D<T>::ConstAccessor,
        Diff2D, Diff2D, BorderTreatmentMode>
 kernel2d(Kernel2D<T> const & k, BorderTreatmentMode border)
 
 {
     return
-        tuple5<typename Kernel2D<T>::ConstIterator, 
+        tuple5<typename Kernel2D<T>::ConstIterator,
                typename Kernel2D<T>::ConstAccessor,
                Diff2D, Diff2D, BorderTreatmentMode>(
             k.center(),

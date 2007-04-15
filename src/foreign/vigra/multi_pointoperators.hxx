@@ -5,7 +5,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,13 +39,13 @@
 #ifndef VIGRA_MULTI_POINTOPERATORS_H
 #define VIGRA_MULTI_POINTOPERATORS_H
 
-#include <vigra/initimage.hxx>
-#include <vigra/copyimage.hxx>
-#include <vigra/transformimage.hxx>
-#include <vigra/combineimages.hxx>
-#include <vigra/inspectimage.hxx>
-#include <vigra/multi_array.hxx>
-#include <vigra/metaprogramming.hxx>
+#include "initimage.hxx"
+#include "copyimage.hxx"
+#include "transformimage.hxx"
+#include "combineimages.hxx"
+#include "inspectimage.hxx"
+#include "multi_array.hxx"
+#include "metaprogramming.hxx"
 
 
 
@@ -1581,7 +1581,7 @@ inspectTwoMultiArrays(triple<Iterator1, Shape, Accessor1> const & s1,
     
 //@}
 
-};	//-- namespace vigra
+}	//-- namespace vigra
 
 
 #endif	//-- VIGRA_MULTI_POINTOPERATORS_H

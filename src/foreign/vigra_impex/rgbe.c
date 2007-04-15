@@ -1,6 +1,36 @@
-/* THIS CODE CARRIES NO GUARANTEE OF USABILITY OR FITNESS FOR ANY PURPOSE.
- * WHILE THE AUTHORS HAVE TRIED TO ENSURE THE PROGRAM WORKS CORRECTLY,
- * IT IS STRICTLY USE AT YOUR OWN RISK.  */
+/************************************************************************/
+/*                                                                      */
+/*    This file is part of the VIGRA computer vision library.           */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
+/*    The VIGRA Website is                                              */
+/*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
+/*    Please direct questions, bug reports, and contributions to        */
+/*        koethe@informatik.uni-hamburg.de          or                  */
+/*        vigra@kogs1.informatik.uni-hamburg.de                         */
+/*                                                                      */
+/*    Permission is hereby granted, free of charge, to any person       */
+/*    obtaining a copy of this software and associated documentation    */
+/*    files (the "Software"), to deal in the Software without           */
+/*    restriction, including without limitation the rights to use,      */
+/*    copy, modify, merge, publish, distribute, sublicense, and/or      */
+/*    sell copies of the Software, and to permit persons to whom the    */
+/*    Software is furnished to do so, subject to the following          */
+/*    conditions:                                                       */
+/*                                                                      */
+/*    The above copyright notice and this permission notice shall be    */
+/*    included in all copies or substantial portions of the             */
+/*    Software.                                                         */
+/*                                                                      */
+/*    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND    */
+/*    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES   */
+/*    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND          */
+/*    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT       */
+/*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
+/*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
+/*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
+/*                                                                      */
+/************************************************************************/
 
 #include "rgbe.h"
 #include <math.h>
@@ -54,15 +84,15 @@ static int rgbe_error(int rgbe_error_code, char *msg)
   case rgbe_memory_error:
     fprintf(stderr,"RGBE error: %s\n",msg);
   }
-  return HRGBE_RETURN_FAILURE;
+  return VIGRA_RGBE_RETURN_FAILURE;
 }
 
 /* standard conversion from float pixels to rgbe pixels */
 /* note: you can remove the "inline"s if your compiler complains about it */
 INLINE void 
-Hfloat2rgbe(unsigned char rgbe[4], float red, float green, float blue)
+VIGRA_float2rgbe(unsigned char rgbe[4], float red, float green, float blue)
 {
-  float v;
+  double v;
   int e;
 
   v = red;
@@ -72,7 +102,7 @@ Hfloat2rgbe(unsigned char rgbe[4], float red, float green, float blue)
     rgbe[0] = rgbe[1] = rgbe[2] = rgbe[3] = 0;
   }
   else {
-    v = (float) frexp(v,&e) * 256.0f/v;
+    v = frexp(v,&e) * 256.0/v;
     rgbe[0] = (unsigned char) (red * v);
     rgbe[1] = (unsigned char) (green * v);
     rgbe[2] = (unsigned char) (blue * v);
@@ -84,12 +114,12 @@ Hfloat2rgbe(unsigned char rgbe[4], float red, float green, float blue)
 /* note: Ward uses ldexp(col+0.5,exp-(128+8)).  However we wanted pixels */
 /*       in the range [0,1] to map back into the range [0,1].            */
 INLINE void 
-Hrgbe2float(float *red, float *green, float *blue, unsigned char rgbe[4])
+VIGRA_rgbe2float(float *red, float *green, float *blue, unsigned char rgbe[4])
 {
   float f;
 
   if (rgbe[3]) {   /*nonzero pixel*/
-    f = (float) ldexp(1.0f,rgbe[3]-(int)(128+8));
+    f = (float)ldexp(1.0,rgbe[3]-(int)(128+8));
     *red = rgbe[0] * f;
     *green = rgbe[1] * f;
     *blue = rgbe[2] * f;
@@ -99,20 +129,20 @@ Hrgbe2float(float *red, float *green, float *blue, unsigned char rgbe[4])
 }
 
 /* default minimal header. modify if you want more information in header */
-int HRGBE_WriteHeader(FILE *fp, int width, int height, hrgbe_header_info *info)
+int VIGRA_RGBE_WriteHeader(FILE *fp, int width, int height, vigra_rgbe_header_info *info)
 {
   char *programtype = "RGBE";
 
-  if (info && (info->valid & HRGBE_VALID_PROGRAMTYPE))
+  if (info && (info->valid & VIGRA_RGBE_VALID_PROGRAMTYPE))
     programtype = info->programtype;
   if (fprintf(fp,"#?%s\n",programtype) < 0)
     return rgbe_error(rgbe_write_error,NULL);
   /* The #? is to identify file type, the programtype is optional. */
-  if (info && (info->valid & HRGBE_VALID_GAMMA)) {
+  if (info && (info->valid & VIGRA_RGBE_VALID_GAMMA)) {
     if (fprintf(fp,"GAMMA=%g\n",info->gamma) < 0)
       return rgbe_error(rgbe_write_error,NULL);
   }
-  if (info && (info->valid & HRGBE_VALID_EXPOSURE)) {
+  if (info && (info->valid & VIGRA_RGBE_VALID_EXPOSURE)) {
     if (fprintf(fp,"EXPOSURE=%g\n",info->exposure) < 0)
       return rgbe_error(rgbe_write_error,NULL);
   }
@@ -120,11 +150,11 @@ int HRGBE_WriteHeader(FILE *fp, int width, int height, hrgbe_header_info *info)
     return rgbe_error(rgbe_write_error,NULL);
   if (fprintf(fp, "-Y %d +X %d\n", height, width) < 0)
     return rgbe_error(rgbe_write_error,NULL);
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 /* minimal header reading.  modify if you want to parse more information */
-int HRGBE_ReadHeader(FILE *fp, int *width, int *height, hrgbe_header_info *info)
+int VIGRA_RGBE_ReadHeader(FILE *fp, int *width, int *height, vigra_rgbe_header_info *info)
 {
   char buf[128];
   int found_format;
@@ -145,7 +175,7 @@ int HRGBE_ReadHeader(FILE *fp, int *width, int *height, hrgbe_header_info *info)
     /*return rgbe_error(rgbe_format_error,"bad initial token"); */
   }
   else if (info) {
-    info->valid |= HRGBE_VALID_PROGRAMTYPE;
+    info->valid |= VIGRA_RGBE_VALID_PROGRAMTYPE;
     for(i=0;i<sizeof(info->programtype)-1;i++) {
       if ((buf[i+2] == 0) || isspace(buf[i+2]))
 	break;
@@ -163,11 +193,11 @@ int HRGBE_ReadHeader(FILE *fp, int *width, int *height, hrgbe_header_info *info)
       break;       /* format found so break out of loop */
     else if (info && (sscanf(buf,"GAMMA=%g",&tempf) == 1)) {
       info->gamma = tempf;
-      info->valid |= HRGBE_VALID_GAMMA;
+      info->valid |= VIGRA_RGBE_VALID_GAMMA;
     }
     else if (info && (sscanf(buf,"EXPOSURE=%g",&tempf) == 1)) {
       info->exposure = tempf;
-      info->valid |= HRGBE_VALID_EXPOSURE;
+      info->valid |= VIGRA_RGBE_VALID_EXPOSURE;
     }
     if (fgets(buf,sizeof(buf)/sizeof(buf[0]),fp) == 0)
       return rgbe_error(rgbe_read_error,NULL);
@@ -189,48 +219,48 @@ int HRGBE_ReadHeader(FILE *fp, int *width, int *height, hrgbe_header_info *info)
       break;
   }
 
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 /* simple write routine that does not use run length encoding */
 /* These routines can be made faster by allocating a larger buffer and
    fread-ing and fwrite-ing the data in larger chunks */
-int HRGBE_WritePixels(FILE *fp, float *data, int numpixels)
+int VIGRA_RGBE_WritePixels(FILE *fp, float *data, int numpixels)
 {
   unsigned char rgbe[4];
 
   while (numpixels-- > 0) {
-    Hfloat2rgbe(rgbe,data[RGBE_DATA_RED],
+    VIGRA_float2rgbe(rgbe,data[RGBE_DATA_RED],
 	       data[RGBE_DATA_GREEN],data[RGBE_DATA_BLUE]);
     data += RGBE_DATA_SIZE;
     if (fwrite(rgbe, sizeof(rgbe), 1, fp) < 1)
       return rgbe_error(rgbe_write_error,NULL);
   }
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 /* simple read routine.  will not correctly handle run length encoding */
-int HRGBE_ReadPixels(FILE *fp, float *data, int numpixels)
+int VIGRA_RGBE_ReadPixels(FILE *fp, float *data, int numpixels)
 {
   unsigned char rgbe[4];
 
   while(numpixels-- > 0) {
     if (fread(rgbe, sizeof(rgbe), 1, fp) < 1)
       return rgbe_error(rgbe_read_error,NULL);
-    Hrgbe2float(&data[RGBE_DATA_RED],&data[RGBE_DATA_GREEN],
+    VIGRA_rgbe2float(&data[RGBE_DATA_RED],&data[RGBE_DATA_GREEN],
 	       &data[RGBE_DATA_BLUE],rgbe);
     data += RGBE_DATA_SIZE;
   }
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 
-int HRGBE_ReadPixels_Raw(FILE *fp, unsigned char *data, int numpixels)
+int VIGRA_RGBE_ReadPixels_Raw(FILE *fp, unsigned char *data, unsigned int numpixels)
 {
-  if ((int) fread(data, 4, numpixels, fp) < numpixels)
+  if (fread(data, 4, numpixels, fp) < numpixels)
     return rgbe_error(rgbe_read_error,NULL);
 
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 
@@ -288,11 +318,11 @@ static int RGBE_WriteBytes_RLE(FILE *fp, unsigned char *data, int numbytes)
       cur += run_count;
     }
   }
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 #undef MINRUNLENGTH
 }
 
-int HRGBE_WritePixels_RLE(FILE *fp, float *data, int scanline_width,
+int VIGRA_RGBE_WritePixels_RLE(FILE *fp, float *data, int scanline_width,
 			 int num_scanlines)
 {
   unsigned char rgbe[4];
@@ -301,11 +331,11 @@ int HRGBE_WritePixels_RLE(FILE *fp, float *data, int scanline_width,
 
   if ((scanline_width < 8)||(scanline_width > 0x7fff))
     /* run length encoding is not allowed so write flat*/
-    return HRGBE_WritePixels(fp,data,scanline_width*num_scanlines);
+    return VIGRA_RGBE_WritePixels(fp,data,scanline_width*num_scanlines);
   buffer = (unsigned char *)malloc(sizeof(unsigned char)*4*scanline_width);
   if (buffer == NULL) 
     /* no buffer space so write flat */
-    return HRGBE_WritePixels(fp,data,scanline_width*num_scanlines);
+    return VIGRA_RGBE_WritePixels(fp,data,scanline_width*num_scanlines);
   while(num_scanlines-- > 0) {
     rgbe[0] = 2;
     rgbe[1] = 2;
@@ -316,7 +346,7 @@ int HRGBE_WritePixels_RLE(FILE *fp, float *data, int scanline_width,
       return rgbe_error(rgbe_write_error,NULL);
     }
     for(i=0;i<scanline_width;i++) {
-      Hfloat2rgbe(rgbe,data[RGBE_DATA_RED],
+      VIGRA_float2rgbe(rgbe,data[RGBE_DATA_RED],
 		 data[RGBE_DATA_GREEN],data[RGBE_DATA_BLUE]);
       buffer[i] = rgbe[0];
       buffer[i+scanline_width] = rgbe[1];
@@ -328,17 +358,17 @@ int HRGBE_WritePixels_RLE(FILE *fp, float *data, int scanline_width,
     /* first red, then green, then blue, then exponent */
     for(i=0;i<4;i++) {
       if ((err = RGBE_WriteBytes_RLE(fp,&buffer[i*scanline_width],
-				     scanline_width)) != HRGBE_RETURN_SUCCESS) {
+				     scanline_width)) != VIGRA_RGBE_RETURN_SUCCESS) {
 	free(buffer);
 	return err;
       }
     }
   }
   free(buffer);
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
       
-int HRGBE_ReadPixels_RLE(FILE *fp, float *data, int scanline_width,
+int VIGRA_RGBE_ReadPixels_RLE(FILE *fp, float *data, int scanline_width,
 			int num_scanlines)
 {
   unsigned char rgbe[4], *scanline_buffer, *ptr, *ptr_end;
@@ -347,7 +377,7 @@ int HRGBE_ReadPixels_RLE(FILE *fp, float *data, int scanline_width,
 
   if ((scanline_width < 8)||(scanline_width > 0x7fff))
     /* run length encoding is not allowed so read flat*/
-    return HRGBE_ReadPixels(fp,data,scanline_width*num_scanlines);
+    return VIGRA_RGBE_ReadPixels(fp,data,scanline_width*num_scanlines);
   scanline_buffer = NULL;
   /* read in each successive scanline */
   while(num_scanlines > 0) {
@@ -357,10 +387,10 @@ int HRGBE_ReadPixels_RLE(FILE *fp, float *data, int scanline_width,
     }
     if ((rgbe[0] != 2)||(rgbe[1] != 2)||(rgbe[2] & 0x80)) {
       /* this file is not run length encoded */
-      Hrgbe2float(&data[0],&data[1],&data[2],rgbe);
+      VIGRA_rgbe2float(&data[0],&data[1],&data[2],rgbe);
       data += RGBE_DATA_SIZE;
       free(scanline_buffer);
-      return HRGBE_ReadPixels(fp,data,scanline_width*num_scanlines-1);
+      return VIGRA_RGBE_ReadPixels(fp,data,scanline_width*num_scanlines-1);
     }
     if ((((int)rgbe[2])<<8 | rgbe[3]) != scanline_width) {
       free(scanline_buffer);
@@ -415,18 +445,18 @@ int HRGBE_ReadPixels_RLE(FILE *fp, float *data, int scanline_width,
       rgbe[1] = scanline_buffer[i+scanline_width];
       rgbe[2] = scanline_buffer[i+2*scanline_width];
       rgbe[3] = scanline_buffer[i+3*scanline_width];
-      Hrgbe2float(&data[RGBE_DATA_RED],&data[RGBE_DATA_GREEN],
+      VIGRA_rgbe2float(&data[RGBE_DATA_RED],&data[RGBE_DATA_GREEN],
 		 &data[RGBE_DATA_BLUE],rgbe);
       data += RGBE_DATA_SIZE;
     }
     num_scanlines--;
   }
   free(scanline_buffer);
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 
 
-int HRGBE_ReadPixels_Raw_RLE(FILE *fp, unsigned char *data, int scanline_width,
+int VIGRA_RGBE_ReadPixels_Raw_RLE(FILE *fp, unsigned char *data, int scanline_width,
 			int num_scanlines)
 {
   unsigned char rgbe[4], *scanline_buffer, *ptr, *ptr_end;
@@ -435,7 +465,7 @@ int HRGBE_ReadPixels_Raw_RLE(FILE *fp, unsigned char *data, int scanline_width,
 
   if ((scanline_width < 8)||(scanline_width > 0x7fff))
     /* run length encoding is not allowed so read flat*/
-    return HRGBE_ReadPixels_Raw(fp,data,scanline_width*num_scanlines);
+    return VIGRA_RGBE_ReadPixels_Raw(fp,data,scanline_width*num_scanlines);
 
   scanline_buffer = NULL;
   /* read in each successive scanline */
@@ -453,7 +483,7 @@ int HRGBE_ReadPixels_Raw_RLE(FILE *fp, unsigned char *data, int scanline_width,
       data[3] = rgbe[3];
       data += RGBE_DATA_SIZE;
       free(scanline_buffer);
-      return HRGBE_ReadPixels_Raw(fp,data,scanline_width*num_scanlines-1);
+      return VIGRA_RGBE_ReadPixels_Raw(fp,data,scanline_width*num_scanlines-1);
     }
 
     if ((((int)rgbe[2])<<8 | rgbe[3]) != scanline_width) {
@@ -515,6 +545,6 @@ int HRGBE_ReadPixels_Raw_RLE(FILE *fp, unsigned char *data, int scanline_width,
     num_scanlines--;
   }
   free(scanline_buffer);
-  return HRGBE_RETURN_SUCCESS;
+  return VIGRA_RGBE_RETURN_SUCCESS;
 }
 

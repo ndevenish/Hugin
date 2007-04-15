@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -41,11 +41,11 @@
 
 #include <vector>
 #include <algorithm>
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/iteratortraits.hxx"
-#include "vigra/functortraits.hxx"
-#include "vigra/rgbvalue.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "iteratortraits.hxx"
+#include "functortraits.hxx"
+#include "rgbvalue.hxx"
 
 namespace vigra {
 
@@ -584,7 +584,7 @@ inspectTwoImagesIf(triple<ImageIterator1, ImageIterator1, Accessor1> img1,
     These functors can also be used in conjunction with
     \ref ArrayOfRegionStatistics to find the extremes of all regions in
     a labeled image.
-
+    
     <b> Traits defined:</b>
     
     <tt>FunctorTraits::isUnaryAnalyser</tt> is true (<tt>VigraTrueType<tt>)

@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -52,10 +52,11 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <map>
 
-#include "vigra/diff2d.hxx"
-#include "vigra/windows.h"
+#include "array_vector.hxx"
+#include "config.hxx"
+#include "diff2d.hxx"
+#include "sized_int.hxx"
 
 // possible pixel types:
 // "undefined", "UINT8", "UINT16", "INT16", "UINT32", "INT32", "FLOAT", "DOUBLE"
@@ -77,55 +78,55 @@ namespace vigra
     {
         static std::string result() { return "undefined"; }
     };
-    
+
     template <>
-    struct TypeAsString<unsigned char>
+    struct TypeAsString<Int8>
+    {
+        static std::string result() { return "INT8"; }
+    };
+
+    template <>
+    struct TypeAsString<UInt8>
     {
         static std::string result() { return "UINT8"; }
     };
-    
+
     template <>
-    struct TypeAsString<short>
+    struct TypeAsString<Int16>
     {
         static std::string result() { return "INT16"; }
     };
-    
+
     template <>
-    struct TypeAsString<unsigned short>
+    struct TypeAsString<UInt16>
     {
         static std::string result() { return "UINT16"; }
     };
-    
+
     template <>
-    struct TypeAsString<int>
+    struct TypeAsString<Int32>
     {
         static std::string result() { return "INT32"; }
     };
-    
+
     template <>
-    struct TypeAsString<unsigned int>
+    struct TypeAsString<UInt32>
     {
         static std::string result() { return "UINT32"; }
     };
-    
-    template <>
-    struct TypeAsString<long>
-    {
-        static std::string result() { return "INT32"; }
-    };
-    
+
     template <>
     struct TypeAsString<float>
     {
         static std::string result() { return "FLOAT"; }
     };
-    
+
     template <>
     struct TypeAsString<double>
     {
         static std::string result() { return "DOUBLE"; }
     };
-    
+
 
     // codec description
     struct CodecDesc
@@ -138,14 +139,8 @@ namespace vigra
         std::vector<int> bandNumbers;
     };
 
-    // Decoder and Encoder are pure virtual types that define a common
+    // Decoder and Encoder are virtual types that define a common
     // interface for all image file formats impex supports.
-    //
-    // dangelo: not pure virtual anymore, because some image formats
-    //          do not offer access to more exotic properties like
-    //          offset, resolution and icc profile.
-    //          This avoid having to implement stubs for these in
-    //          all children
 
     struct Decoder
     {
@@ -175,9 +170,14 @@ namespace vigra
         virtual const void * currentScanlineOfBand( unsigned int ) const = 0;
         virtual void nextScanline() = 0;
 
-        virtual UInt32 getICCProfileLength() const { return 0; }
-        virtual const unsigned char *getICCProfile() const { return NULL; }
+        typedef ArrayVector<unsigned char> ICCProfile;
 
+        const ICCProfile & getICCProfile() const
+        {
+            return iccProfile_;
+        }
+
+        ICCProfile iccProfile_;
     };
 
     struct Encoder
@@ -207,14 +207,16 @@ namespace vigra
         {
         }
 
-        virtual void setICCProfile(const UInt32 length, const unsigned char * const buf)
+        typedef ArrayVector<unsigned char> ICCProfile;
+
+        virtual void setICCProfile(const ICCProfile & /* data */)
         {
         }
 
         virtual void * currentScanlineOfBand( unsigned int ) = 0;
         virtual void nextScanline() = 0;
-        
-        struct TIFFNoLZWException {};
+
+        struct TIFFCompressionException {};
     };
 
     // codec factory for registration at the codec manager
@@ -234,22 +236,22 @@ namespace vigra
     // - (in case of decoders) the file's magic string
     // - the filename extension
 
-    std::auto_ptr<Decoder>
+    VIGRA_EXPORT std::auto_ptr<Decoder>
     getDecoder( const std::string &, const std::string & = "undefined" );
 
-    std::auto_ptr<Encoder>
+    VIGRA_EXPORT std::auto_ptr<Encoder>
     getEncoder( const std::string &, const std::string & = "undefined" );
 
     // functions to query the capabilities of certain codecs
 
-    std::vector<std::string> queryCodecPixelTypes( const std::string & );
+    VIGRA_EXPORT std::vector<std::string> queryCodecPixelTypes( const std::string & );
 
-    bool negotiatePixelType( std::string const & codecname,
+    VIGRA_EXPORT bool negotiatePixelType( std::string const & codecname,
                  std::string const & srcPixeltype, std::string & destPixeltype);
 
-    bool isPixelTypeSupported( const std::string &, const std::string & );
+    VIGRA_EXPORT bool isPixelTypeSupported( const std::string &, const std::string & );
 
-    bool isBandNumberSupported( const std::string &, int bands );
+    VIGRA_EXPORT bool isBandNumberSupported( const std::string &, int bands );
 }
 
 #endif // VIGRA_CODEC_HXX

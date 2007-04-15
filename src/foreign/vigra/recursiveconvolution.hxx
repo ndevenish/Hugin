@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -41,10 +41,10 @@
 
 #include <cmath>
 #include <vector>
-#include "vigra/utilities.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/imageiteratoradapter.hxx"
-#include "vigra/bordertreatment.hxx"
+#include "utilities.hxx"
+#include "numerictraits.hxx"
+#include "imageiteratoradapter.hxx"
+#include "bordertreatment.hxx"
 
 namespace vigra {
 
@@ -213,8 +213,8 @@ void recursiveFilterLine(SrcIterator is, SrcIterator isend, SrcAccessor as,
     {
         is = isend - kernelw; 
         old = (1.0 / (1.0 - b)) * as(is);
-	for(x = 0; x < kernelw; ++x, ++is)
-	    old = as(is) + b * old;
+        for(x = 0; x < kernelw; ++x, ++is)
+            old = as(is) + b * old;
     }
     else if(border == BORDER_TREATMENT_CLIP)
     {
@@ -781,7 +781,7 @@ inline void recursiveFilterX(
     recursiveFilterX(src.first, src.second, src.third,
                       dest.first, dest.second, b, border);
 }
-            
+
 /********************************************************/
 /*                                                      */
 /*            recursiveFilterX (2nd order)              */
@@ -930,9 +930,9 @@ inline void recursiveSmoothX(
         template <class SrcImageIterator, class SrcAccessor,
                   class DestImageIterator, class DestAccessor>
         void recursiveFilterY(SrcImageIterator supperleft, 
-                              SrcImageIterator slowerright, SrcAccessor as,
-                              DestImageIterator dupperleft, DestAccessor ad, 
-                              double b, BorderTreatmentMode border);
+                               SrcImageIterator slowerright, SrcAccessor as,
+                               DestImageIterator dupperleft, DestAccessor ad, 
+                               double b, BorderTreatmentMode border);
 
         // second order filter
         template <class SrcImageIterator, class SrcAccessor,
@@ -963,7 +963,7 @@ inline void recursiveSmoothX(
                     triple<SrcImageIterator, SrcImageIterator, SrcAccessor> src,
                     pair<DestImageIterator, DestAccessor> dest, 
                     double b1, double b2);
-    }
+            }
     \endcode
     
     <b> Usage:</b>

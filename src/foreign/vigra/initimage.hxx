@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -39,9 +39,9 @@
 #ifndef VIGRA_INITIMAGE_HXX
 #define VIGRA_INITIMAGE_HXX
 
-#include "vigra/utilities.hxx"
-#include "vigra/iteratortraits.hxx"
-#include "vigra/functortraits.hxx"
+#include "utilities.hxx"
+#include "iteratortraits.hxx"
+#include "functortraits.hxx"
 
 namespace vigra {
 
@@ -96,7 +96,7 @@ template <class DestIterator, class DestAccessor,
           class VALUETYPE>
 void
 initLineIfImpl(DestIterator d, DestIterator dend, DestAccessor dest,
-           MaskIterator m, MaskAccessor mask,
+               MaskIterator m, MaskAccessor mask,
                VALUETYPE v, VigraFalseType)
 {
     for(; d != dend; ++d, ++m)
@@ -114,7 +114,7 @@ initLineIfImpl(DestIterator d, DestIterator dend, DestAccessor dest,
 {
     for(; d != dend; ++d, ++m)
         if(mask(m))
-        dest.set(f(), d);
+            dest.set(f(), d);
 }
 
 template <class DestIterator, class DestAccessor, 
@@ -133,8 +133,8 @@ template <class DestIterator, class DestAccessor,
           class FUNCTOR>
 void
 initLineFunctorIf(DestIterator d, DestIterator dend, DestAccessor dest,
-           MaskIterator m, MaskAccessor mask,
-           FUNCTOR f)
+                  MaskIterator m, MaskAccessor mask,
+                  FUNCTOR f)
 {
     initLineIfImpl(d, dend, dest, m, mask, f, VigraTrueType());
 }

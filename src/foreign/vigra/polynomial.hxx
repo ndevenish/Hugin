@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,10 +42,11 @@
 #include <cmath>
 #include <complex>
 #include <algorithm>
-#include "vigra/error.hxx"
-#include "vigra/mathutil.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/array_vector.hxx"
+#include <iosfwd>
+#include "error.hxx"
+#include "mathutil.hxx"
+#include "numerictraits.hxx"
+#include "array_vector.hxx"
 
 namespace vigra {
 
@@ -465,7 +466,7 @@ class Polynomial
     : BaseType(epsilon),
       polynomial_(order + 1, T())
     {
-        setCoeffs(&polynomial_[0], order);
+        this->setCoeffs(&polynomial_[0], order);
     }
     
         /** Copy constructor
@@ -474,7 +475,7 @@ class Polynomial
     : BaseType(p.epsilon()),
       polynomial_(p.begin(), p.end())
     {
-        setCoeffs(&polynomial_[0], p.order());
+        this->setCoeffs(&polynomial_[0], p.order());
     }
 
         /** Construct polynomial by copying the given coefficient sequence.
@@ -484,7 +485,7 @@ class Polynomial
     : BaseType(),
       polynomial_(i, i + order + 1)
     {
-        setCoeffs(&polynomial_[0], order);
+        this->setCoeffs(&polynomial_[0], order);
     }
     
         /** Construct polynomial by copying the given coefficient sequence.
@@ -497,7 +498,7 @@ class Polynomial
     : BaseType(epsilon),
       polynomial_(i, i + order + 1)
     {
-        setCoeffs(&polynomial_[0], order);
+        this->setCoeffs(&polynomial_[0], order);
     }
     
         /** Assigment
@@ -508,7 +509,7 @@ class Polynomial
             return *this;
         ArrayVector<T> tmp(p.begin(), p.end());
         polynomial_.swap(tmp);
-        setCoeffs(&polynomial_[0], p.order());
+        this->setCoeffs(&polynomial_[0], p.order());
         this->epsilon_ = p.epsilon_;
         return *this;
     }
@@ -600,7 +601,7 @@ class StaticPolynomial
         vigra_precondition(order <= MAXORDER,
             "StaticPolynomial(): order exceeds MAXORDER.");
         std::fill_n(polynomial_, order+1, T());
-        setCoeffs(polynomial_, order);
+        this->setCoeffs(polynomial_, order);
     }
     
         /** Copy constructor
@@ -609,7 +610,7 @@ class StaticPolynomial
     : BaseType(p.epsilon())
     {
         std::copy(p.begin(), p.end(), polynomial_);
-        setCoeffs(polynomial_, p.order());
+        this->setCoeffs(polynomial_, p.order());
     }
 
         /** Construct polynomial by copying the given coefficient sequence.
@@ -622,7 +623,7 @@ class StaticPolynomial
         vigra_precondition(order <= MAXORDER,
             "StaticPolynomial(): order exceeds MAXORDER.");
         std::copy(i, i + order + 1, polynomial_);
-        setCoeffs(polynomial_, order);
+        this->setCoeffs(polynomial_, order);
     }
     
         /** Construct polynomial by copying the given coefficient sequence.
@@ -637,7 +638,7 @@ class StaticPolynomial
         vigra_precondition(order <= MAXORDER,
             "StaticPolynomial(): order exceeds MAXORDER.");
         std::copy(i, i + order + 1, polynomial_);
-        setCoeffs(polynomial_, order);
+        this->setCoeffs(polynomial_, order);
     }
     
         /** Assigment.
@@ -647,7 +648,7 @@ class StaticPolynomial
         if(this == &p)
             return *this;
         std::copy(p.begin(), p.end(), polynomial_);
-        setCoeffs(polynomial_, p.order());
+        this->setCoeffs(polynomial_, p.order());
         this->epsilon_ = p.epsilon_;
         return *this;
     }
@@ -1097,5 +1098,18 @@ polynomialRealRoots(POLYNOMIAL const & poriginal, VECTOR & roots)
 //@}
 
 } // namespace vigra
+
+namespace std {
+
+template <class T>
+ostream & operator<<(ostream & o, vigra::PolynomialView<T> const & p)
+{
+    for(unsigned int k=0; k < p.order(); ++k)
+        o << p[k] << " ";
+    o << p[p.order()];
+    return o;
+}
+
+} // namespace std 
 
 #endif // VIGRA_POLYNOMIAL_HXX

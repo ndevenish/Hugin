@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,11 +40,11 @@
 #define VIGRA_CONVOLUTION_HXX
 
 #include <functional>
-#include "vigra/stdconvolution.hxx"
-#include "vigra/separableconvolution.hxx"
-#include "vigra/recursiveconvolution.hxx"
-#include "vigra/nonlineardiffusion.hxx"
-#include "vigra/combineimages.hxx"
+#include "stdconvolution.hxx"
+#include "separableconvolution.hxx"
+#include "recursiveconvolution.hxx"
+#include "nonlineardiffusion.hxx"
+#include "combineimages.hxx"
 
 /** \page Convolution Functions to Convolve Images and Signals
 
@@ -109,17 +109,17 @@
 
     \section Kernel1dFactory kernel1d()
 
-	Pass a \ref vigra::Kernel1D to a 1D or separable convolution algorithm.
+        Pass a \ref vigra::Kernel1D to a 1D or separable convolution algorithm.
 
         These factories can be used to create argument objects when we
-	are given instances or subclasses of \ref vigra::Kernel1D
-	(analogous to the \ref ArgumentObjectFactories for images).
-	These factory functions access <TT>kernel.center()</TT>,
+        are given instances or subclasses of \ref vigra::Kernel1D
+        (analogous to the \ref ArgumentObjectFactories for images).
+        These factory functions access <TT>kernel.center()</TT>,
         <TT>kernel.left()</TT>, <TT>kernel.right()</TT>, <TT>kernel.accessor()</TT>,
-	and  <TT>kernel.borderTreatment()</TT> to obtain the necessary
-	information. The following factory functions are provided:
+        and  <TT>kernel.borderTreatment()</TT> to obtain the necessary
+        information. The following factory functions are provided:
 
-	<table>
+        <table>
         <tr><td>
             \htmlonly
             <th bgcolor="#f0e0c0" colspan=2 align=left>
@@ -130,46 +130,46 @@
             \endhtmlonly
         </td></tr>
         <tr><td>
-	<TT>kernel1d(kernel)</TT>
+        <TT>kernel1d(kernel)</TT>
         </td><td>
-	    create argument object from information provided by
-	    kernel
+            create argument object from information provided by
+            kernel
 
         </td></tr>
         <tr><td>
-	<TT>kernel1d(kernel, vigra::BORDER_TREATMENT_CLIP)</TT>
+        <TT>kernel1d(kernel, vigra::BORDER_TREATMENT_CLIP)</TT>
         </td><td>
-	    create argument object from information provided by
-	    kernel, but use given border treatment mode
+            create argument object from information provided by
+            kernel, but use given border treatment mode
 
         </td></tr>
         <tr><td>
-	<TT>kernel1d(kerneliterator, kernelaccessor,</TT><br>
-	<TT>                kernelleft, kernelright,</TT><br>
-	<TT>                vigra::BORDER_TREATMENT_CLIP)</TT>
+        <TT>kernel1d(kerneliterator, kernelaccessor,</TT><br>
+        <TT>                kernelleft, kernelright,</TT><br>
+        <TT>                vigra::BORDER_TREATMENT_CLIP)</TT>
         </td><td>
-	    create argument object from explicitly given iterator
-	    (pointing to the center of th kernel), accessor,
-	    left and right boundaries, and border treatment mode
+            create argument object from explicitly given iterator
+            (pointing to the center of th kernel), accessor,
+            left and right boundaries, and border treatment mode
 
-	</table>
+        </table>
 
-	For usage examples see
-	\ref SeparableConvolution "one-dimensional and separable convolution functions".
+        For usage examples see
+        \ref SeparableConvolution "one-dimensional and separable convolution functions".
 
     \section Kernel2dFactory kernel2d()
 
-	Pass a \ref vigra::Kernel2D to a 2D (non-separable) convolution algorithm.
+        Pass a \ref vigra::Kernel2D to a 2D (non-separable) convolution algorithm.
 
-	These factories can be used to create argument objects when we
-	are given instances or subclasses of \ref vigra::Kernel2D
-	(analogous to the \ref ArgumentObjectFactories for images).
-	These factory functions access <TT>kernel.center()</TT>,
+        These factories can be used to create argument objects when we
+        are given instances or subclasses of \ref vigra::Kernel2D
+        (analogous to the \ref ArgumentObjectFactories for images).
+        These factory functions access <TT>kernel.center()</TT>,
         <TT>kernel.upperLeft()</TT>, <TT>kernel.lowerRight()</TT>, <TT>kernel.accessor()</TT>,
-	and  <TT>kernel.borderTreatment()</TT> to obtain the necessary
-	information. The following factory functions are provided:
+        and  <TT>kernel.borderTreatment()</TT> to obtain the necessary
+        information. The following factory functions are provided:
 
-	<table>
+        <table>
         <tr><td>
             \htmlonly
             <th bgcolor="#f0e0c0" colspan=2 align=left>
@@ -180,31 +180,31 @@
             \endhtmlonly
         </td></tr>
         <tr><td>
-	<TT>kernel2d(kernel)</TT>
+        <TT>kernel2d(kernel)</TT>
         </td><td>
-	    create argument object from information provided by
-	    kernel
+            create argument object from information provided by
+            kernel
 
         </td></tr>
         <tr><td>
-	<TT>kernel2d(kernel, vigra::BORDER_TREATMENT_CLIP)</TT>
+        <TT>kernel2d(kernel, vigra::BORDER_TREATMENT_CLIP)</TT>
         </td><td>
-	    create argument object from information provided by
-	    kernel, but use given border treatment mode
+            create argument object from information provided by
+            kernel, but use given border treatment mode
 
         </td></tr>
         <tr><td>
-	<TT>kernel2d(kerneliterator, kernelaccessor,</TT>
-	<TT>                upperleft, lowerright,</TT>
-	<TT>                vigra::BORDER_TREATMENT_CLIP)</TT>
+        <TT>kernel2d(kerneliterator, kernelaccessor,</TT>
+        <TT>                upperleft, lowerright,</TT>
+        <TT>                vigra::BORDER_TREATMENT_CLIP)</TT>
         </td><td>
-	    create argument object from explicitly given iterator
-	    (pointing to the center of th kernel), accessor,
-	    upper left and lower right corners, and border treatment mode
+            create argument object from explicitly given iterator
+            (pointing to the center of th kernel), accessor,
+            upper left and lower right corners, and border treatment mode
 
-	</table>
+        </table>
 
-	For usage examples see \ref StandardConvolution "two-dimensional convolution functions".
+        For usage examples see \ref StandardConvolution "two-dimensional convolution functions".
 */
 
 namespace vigra {
@@ -362,13 +362,13 @@ convolveImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
       template <class SrcIterator, class SrcAccessor, 
-	        class DestIterator, class DestAccessor>
+                class DestIterator, class DestAccessor>
       inline
       void simpleSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-    	    		    pair<DestIterator, DestAccessor> dest, double sharpening_factor)
+                                    pair<DestIterator, DestAccessor> dest, double sharpening_factor)
       {
-	  simpleSharpening(src.first, src.second, src.third,
-		  	   dest.first, dest.second, sharpening_factor);
+          simpleSharpening(src.first, src.second, src.third,
+                             dest.first, dest.second, sharpening_factor);
       }
 
     }
@@ -390,13 +390,13 @@ convolveImage(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 
 */    
 template <class SrcIterator, class SrcAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 void simpleSharpening(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
                     DestIterator dest_ul, DestAccessor dest_acc, double sharpening_factor)
 {
 
     vigra_precondition(sharpening_factor >= 0.0,
-		       "simpleSharpening(): amount of sharpening must be >= 0.");
+                       "simpleSharpening(): amount of sharpening must be >= 0.");
 
     Kernel2D<double> kernel;
 
@@ -405,18 +405,18 @@ void simpleSharpening(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_ac
                                                         -sharpening_factor/16.0,    -sharpening_factor/8.0,    -sharpening_factor/16.0;
 
     convolveImage(src_ul, src_lr, src_acc, dest_ul, dest_acc, 
-		  kernel.center(), kernel.accessor(), 
-		  kernel.upperLeft(), kernel.lowerRight() , BORDER_TREATMENT_REFLECT );
+                  kernel.center(), kernel.accessor(), 
+                  kernel.upperLeft(), kernel.lowerRight() , BORDER_TREATMENT_REFLECT );
 }
 
 template <class SrcIterator, class SrcAccessor, 
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 inline
 void simpleSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-		    pair<DestIterator, DestAccessor> dest, double sharpening_factor)
+                    pair<DestIterator, DestAccessor> dest, double sharpening_factor)
 {
     simpleSharpening(src.first, src.second, src.third,
-		     dest.first, dest.second, sharpening_factor);
+                     dest.first, dest.second, sharpening_factor);
 }
 
 
@@ -452,10 +452,10 @@ void simpleSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
       template <class SrcIterator, class SrcAccessor,
-	        class DestIterator, class DestAccessor>
+                class DestIterator, class DestAccessor>
       void gaussianSharpening(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
-	  		      DestIterator dest_ul, DestAccessor dest_acc, double sharpening_factor, 
-			      double scale)
+                                DestIterator dest_ul, DestAccessor dest_acc, double sharpening_factor, 
+                              double scale)
     }
     \endcode
 
@@ -464,10 +464,10 @@ void simpleSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     \code
     namespace vigra {
       template <class SrcIterator, class SrcAccessor,
-	        class DestIterator, class DestAccessor>
+                class DestIterator, class DestAccessor>
       void gaussianSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-	 		      pair<DestIterator, DestAccessor> dest, double sharpening_factor, 
-			      double scale)
+                               pair<DestIterator, DestAccessor> dest, double sharpening_factor, 
+                              double scale)
     }
     \endcode
 
@@ -488,49 +488,49 @@ void simpleSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 
 */    
 template <class SrcIterator, class SrcAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 void gaussianSharpening(SrcIterator src_ul, SrcIterator src_lr, SrcAccessor src_acc,
-			DestIterator dest_ul, DestAccessor dest_acc, double sharpening_factor, 
-			double scale)
+                        DestIterator dest_ul, DestAccessor dest_acc, double sharpening_factor, 
+                        double scale)
 {
     vigra_precondition(sharpening_factor >= 0.0,
-		       "gaussianSharpening(): amount of sharpening must be >= 0");
+                       "gaussianSharpening(): amount of sharpening must be >= 0");
     vigra_precondition(scale >= 0.0,
-		       "gaussianSharpening(): scale parameter should be >= 0.");
+                       "gaussianSharpening(): scale parameter should be >= 0.");
 
     typedef typename NumericTraits<typename SrcAccessor::value_type>::RealPromote ValueType;
 
     BasicImage<ValueType> tmp(src_lr - src_ul);
-    typename BasicImage<ValueType>::Accessor tmp_acc(tmp.accessor());
 
-    gaussianSmoothing(src_ul, src_lr, src_acc, tmp.upperLeft(), tmp_acc, scale);
+    gaussianSmoothing(src_ul, src_lr, src_acc, tmp.upperLeft(), tmp.accessor(), scale);
 
     SrcIterator i_src = src_ul;
     DestIterator i_dest = dest_ul;
     typename BasicImage<ValueType>::traverser tmp_ul = tmp.upperLeft();
     typename BasicImage<ValueType>::traverser i_tmp = tmp_ul;
+    typename BasicImage<ValueType>::Accessor tmp_acc = tmp.accessor();
 
     for(; i_src.y != src_lr.y ; i_src.y++, i_dest.y++, i_tmp.y++ )
     {
-	for (;i_src.x != src_lr.x ; i_src.x++, i_dest.x++, i_tmp.x++ )
+        for (;i_src.x != src_lr.x ; i_src.x++, i_dest.x++, i_tmp.x++ )
         {
-	    dest_acc.set((1.0 + sharpening_factor)*src_acc(i_src) - sharpening_factor*tmp_acc(i_tmp), i_dest);
-	}
-	i_src.x = src_ul.x;
-	i_dest.x = dest_ul.x;
-	i_tmp.x = tmp_ul.x;
+            dest_acc.set((1.0 + sharpening_factor)*src_acc(i_src) - sharpening_factor*tmp_acc(i_tmp), i_dest);
+        }
+        i_src.x = src_ul.x;
+        i_dest.x = dest_ul.x;
+        i_tmp.x = tmp_ul.x;
     }
 }
 
 template <class SrcIterator, class SrcAccessor,
-	  class DestIterator, class DestAccessor>
+          class DestIterator, class DestAccessor>
 void gaussianSharpening(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-			pair<DestIterator, DestAccessor> dest, double sharpening_factor, 
-			double scale)
+                        pair<DestIterator, DestAccessor> dest, double sharpening_factor, 
+                        double scale)
 {
     gaussianSharpening(src.first, src.second, src.third,
-		       dest.first, dest.second,
-		       sharpening_factor, scale);
+                       dest.first, dest.second,
+                       sharpening_factor, scale);
 }
 
 
@@ -650,10 +650,10 @@ gaussianSmoothing(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                   class DestIteratorX, class DestAccessorX,
                   class DestIteratorY, class DestAccessorY>
         void gaussianGradient(SrcIterator supperleft,
-                                SrcIterator slowerright, SrcAccessor sa,
-                                DestIteratorX dupperleftx, DestAccessorX dax,
-                                DestIteratorY dupperlefty, DestAccessorY day,
-                                double scale);
+                              SrcIterator slowerright, SrcAccessor sa,
+                              DestIteratorX dupperleftx, DestAccessorX dax,
+                              DestIteratorY dupperlefty, DestAccessorY day,
+                              double scale);
 
         // write x and y component of the gradient into a vector-valued image
         template <class SrcIterator, class SrcAccessor,
@@ -675,9 +675,9 @@ gaussianSmoothing(triple<SrcIterator, SrcIterator, SrcAccessor> src,
                   class DestIteratorY, class DestAccessorY>
         void
         gaussianGradient(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                          pair<DestIteratorX, DestAccessorX> destx,
-                          pair<DestIteratorY, DestAccessorY> desty,
-                          double scale);
+                         pair<DestIteratorX, DestAccessorX> destx,
+                         pair<DestIteratorY, DestAccessorY> desty,
+                         double scale);
 
         // write x and y component of the gradient into a vector-valued image
         template <class SrcIterator, class SrcAccessor,
@@ -750,9 +750,9 @@ template <class SrcIterator, class SrcAccessor,
           class DestIteratorY, class DestAccessorY>
 inline void
 gaussianGradient(triple<SrcIterator, SrcIterator, SrcAccessor> src,
-                  pair<DestIteratorX, DestAccessorX> destx,
-                  pair<DestIteratorY, DestAccessorY> desty,
-                  double scale)
+                 pair<DestIteratorX, DestAccessorX> destx,
+                 pair<DestIteratorY, DestAccessorY> desty,
+                 double scale)
 {
     gaussianGradient(src.first, src.second, src.third,
                  destx.first, destx.second, desty.first, desty.second, scale);
@@ -767,6 +767,83 @@ gaussianGradient(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 {
     gaussianGradient(src.first, src.second, src.third,
                      dest.first, dest.second, scale);
+}
+
+/** \brief Calculate the gradient magnitude by means of a 1st derivatives of
+    Gaussian filter.
+
+    This function calls gaussianGradient() and returns the pixel-wise magnitude of
+    the resulting gradient vectors. If the original image has multiple bands,
+    the squared gradient magnitude is computed for each band separately, and the
+    return value is the square root of the sum of these sqaured magnitudes.
+
+    <b> Declarations:</b>
+
+    pass arguments explicitly:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void gaussianGradientMagnitude(SrcIterator sul,
+                                       SrcIterator slr, SrcAccessor src,
+                                       DestIterator dupperleft, DestAccessor dest,
+                                       double scale);
+    }
+    \endcode
+
+
+    use argument objects in conjunction with \ref ArgumentObjectFactories:
+    \code
+    namespace vigra {
+        template <class SrcIterator, class SrcAccessor,
+                  class DestIterator, class DestAccessor>
+        void
+        gaussianGradientMagnitude(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                                  pair<DestIterator, DestAccessor> dest,
+                                  double scale);
+    }
+    \endcode
+
+    <b> Usage:</b>
+
+    <b>\#include</b> "<a href="convolution_8hxx-source.html">vigra/convolution.hxx</a>"
+
+
+    \code
+    vigra::FImage src(w,h), grad(w,h);
+    ...
+
+    // calculate gradient magnitude at scale = 3.0
+    vigra::gaussianGradientMagnitude(srcImageRange(src), destImage(grad), 3.0);
+
+    \endcode
+
+*/
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+void gaussianGradientMagnitude(SrcIterator sul,
+                               SrcIterator slr, SrcAccessor src,
+                               DestIterator dupperleft, DestAccessor dest,
+                               double scale)
+{
+    typedef typename NumericTraits<typename SrcAccessor::value_type>::RealPromote TmpType;
+    BasicImage<TmpType> gradx(slr-sul), grady(slr-sul);
+
+    gaussianGradient(srcIterRange(sul, slr, src),
+                     destImage(gradx), destImage(grady), scale);
+    combineTwoImages(srcImageRange(gradx), srcImage(grady), destIter(dupperleft, dest),
+                     MagnitudeFunctor<TmpType>());
+}
+
+template <class SrcIterator, class SrcAccessor,
+          class DestIterator, class DestAccessor>
+inline void
+gaussianGradientMagnitude(triple<SrcIterator, SrcIterator, SrcAccessor> src,
+                          pair<DestIterator, DestAccessor> dest,
+                          double scale)
+{
+    gaussianGradientMagnitude(src.first, src.second, src.third,
+                              dest.first, dest.second, scale);
 }
 
 /********************************************************/
@@ -877,13 +954,13 @@ laplacianOfGaussian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
 
     The Hessian matrix is a symmetric matrix defined as:
 
-	    \f[
-                \mbox{\rm Hessian}(I) = \left(
-                \begin{array}{cc}
-                G_{xx} \ast I & G_{xy} \ast I \\
-                G_{xy} \ast I & G_{yy} \ast I
-                \end{array} \right)
-	    \f]
+    \f[
+        \mbox{\rm Hessian}(I) = \left(
+        \begin{array}{cc}
+        G_{xx} \ast I & G_{xy} \ast I \\
+        G_{xy} \ast I & G_{yy} \ast I
+        \end{array} \right)
+    \f]
 
     where \f$G_{xx}, G_{xy}, G_{yy}\f$ denote 2nd derivatives of Gaussians
     at the given scale, and
@@ -1012,17 +1089,17 @@ hessianMatrixOfGaussian(triple<SrcIterator, SrcIterator, SrcAccessor> src,
     The Structure Tensor is is a smoothed version of the Euclidean product
     of the gradient vector with itself. I.e. it's a symmetric matrix defined as:
 
-	    \f[
-                \mbox{\rm StructurTensor}(I) = \left(
-                \begin{array}{cc}
-                G \ast (I_x I_x) & G \ast (I_x I_y) \\
-                G \ast (I_x I_y) & G \ast (I_y I_y)
-                \end{array} \right) = \left(
-                \begin{array}{cc}
-                A & C \\
-                C & B
-                \end{array} \right)
-	    \f]
+    \f[
+        \mbox{\rm StructurTensor}(I) = \left(
+        \begin{array}{cc}
+        G \ast (I_x I_x) & G \ast (I_x I_y) \\
+        G \ast (I_x I_y) & G \ast (I_y I_y)
+        \end{array} \right) = \left(
+        \begin{array}{cc}
+        A & C \\
+        C & B
+        \end{array} \right)
+    \f]
 
     where \f$G\f$ denotes Gaussian smoothing at the <i>outer scale</i>,
     \f$I_x, I_y\f$ are the gradient components taken at the <i>inner scale</i>,

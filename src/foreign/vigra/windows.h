@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,13 +42,13 @@
 // badly named Windows macros
 
 #if defined(_WIN32)
-#define VC_EXTRALEAN
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-#ifdef DIFFERENCE
-# undef DIFFERENCE
-#endif
+# define VC_EXTRALEAN
+# define NOMINMAX
+# include <windows.h>
+# undef NOMINMAX
+# ifdef DIFFERENCE
+#  undef DIFFERENCE
+# endif
 #endif
 
 #endif /* VIGRA_WINDOWS_H */

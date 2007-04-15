@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    It was adapted from the file boost/rational.hpp of the            */
 /*    boost library.                                                    */
 /*    The VIGRA Website is                                              */
@@ -53,10 +53,10 @@
 #include <cmath>
 #include <stdexcept>
 #include <iosfwd>
-#include "vigra/config.hxx"
-#include "vigra/mathutil.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/metaprogramming.hxx"
+#include "config.hxx"
+#include "mathutil.hxx"
+#include "numerictraits.hxx"
+#include "metaprogramming.hxx"
 
 namespace vigra {
 

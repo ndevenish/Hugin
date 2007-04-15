@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -38,7 +38,7 @@
 #ifndef VIGRA_PIXELNEIGHBORHOOD_HXX
 #define VIGRA_PIXELNEIGHBORHOOD_HXX
 
-#include <vigra/utilities.hxx>
+#include "utilities.hxx"
 
 namespace vigra {
 
@@ -155,11 +155,11 @@ class NeighborCode
             <tt>AntiCausalFirst</tt> and <tt>AntiCausalLast</tt> are the opposite.
         */
     enum Direction {
-        Error = -1,    ///< &nbsp;
-        East = 0,      ///< &nbsp;
-        North,         ///< &nbsp;
-        West,          ///< &nbsp;
-        South,         ///< &nbsp;
+        Error = -1,     ///< &nbsp;
+        East = 0,       ///< &nbsp;
+        North,          ///< &nbsp;
+        West,           ///< &nbsp;
+        South,          ///< &nbsp;
         DirectionCount, ///< &nbsp;
         CausalFirst = North,     ///< &nbsp;
         CausalLast  = West,      ///< &nbsp;
@@ -201,7 +201,7 @@ class NeighborCode
                 { East, North, West, Error},
                 { North, West, Error, Error},
                 { East, North, Error, Error}
-    };
+             };
         return c[b][index];
     }
 
@@ -936,7 +936,7 @@ typedef NeighborOffsetCirculator<FourNeighborCode> FourNeighborOffsetCirculator;
     int width  = lowerright.x - upperleft.x;
     int height = lowerright.y - upperleft.y;
 
-    ++upperleft.y; // avoide image border
+    ++upperleft.y; // avoid image border
     for(int y=1; y<height-1; ++y, ++upperleft.y)
     {
         BImage::traverser ix = upperleft + Diff2D(1,0);

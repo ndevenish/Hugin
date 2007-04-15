@@ -6,7 +6,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,14 +40,14 @@
 #ifndef VIGRA_MULTI_CONVOLUTION_H
 #define VIGRA_MULTI_CONVOLUTION_H
 
-#include <vigra/separableconvolution.hxx>
-#include <vigra/array_vector.hxx>
-#include <vigra/multi_array.hxx>
-#include <vigra/accessor.hxx>
-#include <vigra/numerictraits.hxx>
-#include <vigra/navigator.hxx>
-#include <vigra/metaprogramming.hxx>
-#include <vigra/multi_pointoperators.hxx>
+#include "separableconvolution.hxx"
+#include "array_vector.hxx"
+#include "multi_array.hxx"
+#include "accessor.hxx"
+#include "numerictraits.hxx"
+#include "navigator.hxx"
+#include "metaprogramming.hxx"
+#include "multi_pointoperators.hxx"
 
 
 namespace vigra
@@ -213,9 +213,12 @@ internalSeparableConvolveMultiArrayTmp(
     ...
     Kernel1D<float> gauss;
     gauss.initGaussian(sigma);
+    // create 3 Gauss kernels, one for each dimension
+    ArrayVector<Kernel1D<float> > kernels(3, gauss);
 
     // perform Gaussian smoothing on all dimensions
-    separableConvolveMultiArray(srcMultiArrayRange(source), destMultiArray(dest), gauss);
+    separableConvolveMultiArray(srcMultiArrayRange(source), destMultiArray(dest), 
+                                kernels.begin());
     \endcode
 
     \see vigra::Kernel1D, convolveLine()

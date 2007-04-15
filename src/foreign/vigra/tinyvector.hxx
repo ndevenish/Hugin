@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -42,10 +42,10 @@
 #include <cmath>    // abs(double)
 #include <cstdlib>  // abs(int)
 #include <iosfwd>   // ostream
-#include "vigra/config.hxx"
-#include "vigra/error.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/mathutil.hxx"
+#include "config.hxx"
+#include "error.hxx"
+#include "numerictraits.hxx"
+#include "mathutil.hxx"
 
 namespace vigra {
 
@@ -681,7 +681,7 @@ class TinyVector
     TinyVector(TinyVectorBase<U, SIZE, DATA, DERIVED> const & r)
     : BaseType()
     {
-		Loop::assignCast(BaseType::data_, r.begin());
+        Loop::assignCast(BaseType::data_, r.begin());
     }
 
         /** Copy assignment with type conversion.
@@ -689,7 +689,7 @@ class TinyVector
     template <class U, class DATA, class DERIVED>
     TinyVector & operator=(TinyVectorBase<U, SIZE, DATA, DERIVED> const & r)
     {
-		Loop::assignCast(BaseType::data_, r.begin());
+        Loop::assignCast(BaseType::data_, r.begin());
         return *this;
     }
 
@@ -1314,6 +1314,15 @@ template <class V1, int SIZE, class D1, class D2>
 inline
 typename TinyVectorBase<V1, SIZE, D1, D2>::SquaredNormType
 squaredNorm(TinyVectorBase<V1, SIZE, D1, D2> const & t)
+{
+    return t.squaredMagnitude();
+}
+
+    /// squared norm
+template <class V, int SIZE>
+inline
+typename TinyVector<V, SIZE>::SquaredNormType
+squaredNorm(TinyVector<V, SIZE> const & t)
 {
     return t.squaredMagnitude();
 }

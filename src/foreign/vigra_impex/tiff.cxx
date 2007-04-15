@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -31,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 /* Modifications by Pablo d'Angelo
@@ -54,10 +54,13 @@
  */
 
 #ifdef HasTIFF
+
+#ifdef _MSC_VER
 // NB (jbeda): tiffio.h is going to include this anyway.  Let's include
 // it now so that we can control how it comes in.  Namely, we want
 // to get our version that doesn't set the evil min/max macros.
 #include "vigra/windows.h"
+#endif
 
 #include "vigra/sized_int.hxx"
 #include "error.hxx"
@@ -158,8 +161,7 @@ namespace vigra {
         float x_resolution, y_resolution;
         Diff2D position;
 
-        UInt32 iccProfileLength;
-        const unsigned char *iccProfilePtr;
+        Decoder::ICCProfile iccProfile;
 
     public:
 
@@ -180,9 +182,7 @@ namespace vigra {
         x_resolution = 0;
         y_resolution = 0;
         extra_samples_per_pixel = 0;
-        iccProfileLength = 0;
-        iccProfilePtr = NULL;
-    }
+   }
 
     TIFFCodecImpl::~TIFFCodecImpl()
     {
@@ -337,14 +337,14 @@ namespace vigra {
 
         if (extra_samples_per_pixel > 0) {
             for (int i=0; i< extra_samples_per_pixel; i++) {
-		if (extra_sample_types[i] ==  EXTRASAMPLE_ASSOCALPHA)
+                if (extra_sample_types[i] ==  EXTRASAMPLE_ASSOCALPHA)
                 {
                     std::cerr << "WARNING: TIFFDecoderImpl::init(): associated alpha treated"
                                  " as unassociated alpha!" << std::endl;
                 }
             }
         }
-	
+
         // get photometric
         if ( !TIFFGetFieldDefaulted( tiff, TIFFTAG_PHOTOMETRIC,
                                      &photometric ) )
@@ -353,24 +353,24 @@ namespace vigra {
 
         // check photometric preconditions
         if ( photometric == PHOTOMETRIC_MINISWHITE ||
-             photometric == PHOTOMETRIC_MINISBLACK ||
+                                photometric == PHOTOMETRIC_MINISBLACK ||
              photometric == PHOTOMETRIC_PALETTE )
         {
             if ( samples_per_pixel - extra_samples_per_pixel != 1 )
                 vigra_fail("TIFFDecoderImpl::init():"
-                           " Photometric tag does not fit the number of"
-                           " samples per pixel." );
+                                " Photometric tag does not fit the number of"
+                                " samples per pixel." );
         }
         if ( photometric == PHOTOMETRIC_RGB )
         {
-	    if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
-	        // file probably lacks the extra_samples tag
-		extra_samples_per_pixel = samples_per_pixel - 3;
-	    }
+            if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
+                // file probably lacks the extra_samples tag
+                extra_samples_per_pixel = samples_per_pixel - 3;
+            }
             if ( samples_per_pixel - extra_samples_per_pixel != 3 )
                 vigra_fail("TIFFDecoderImpl::init():"
-                           " Photometric tag does not fit the number of"
-                           " samples per pixel." );
+                                " Photometric tag does not fit the number of"
+                                " samples per pixel." );
         }
 
         // get planarconfig
@@ -404,20 +404,20 @@ namespace vigra {
                     // try to guess a suitable one here.
                     switch(bits_per_sample)
                     {
-                    case 8:
-                        pixeltype = "UINT8";
-                        break;
-                    case 16:
-                        pixeltype = "UINT16";
-                        break;
-                    case 32:
+                        case 8:
+                            pixeltype = "UINT8";
+                            break;
+                        case 16:
+                            pixeltype = "UINT16";
+                            break;
+                        case 32:
                             pixeltype = "UINT32"; // prefer int over float
-                        break;
-                    case 64:
-                        pixeltype = "DOUBLE";
-                        break;
-                    default:
-                        vigra_fail( "TIFFDecoderImpl::init(): Sampleformat or Datatype tag undefined and guessing sampletype from Bits per Sample failed." );
+                            break;
+                        case 64:
+                            pixeltype =  "DOUBLE";
+                            break;
+                        default:
+                            vigra_fail( "TIFFDecoderImpl::init(): Sampleformat or Datatype tag undefined and guessing sampletype from Bits per Sample failed." );
                             break;
                     }
                     std::cerr << "Warning: no TIFFTAG_SAMPLEFORMAT or TIFFTAG_DATATYPE, "
@@ -475,7 +475,16 @@ namespace vigra {
         }
 
         // ICC Profile
-        TIFFGetField(tiff, TIFFTAG_ICCPROFILE, &iccProfileLength, &iccProfilePtr);
+        UInt32 iccProfileLength = 0;
+        const unsigned char *iccProfilePtr = NULL;
+        if(TIFFGetField(tiff, TIFFTAG_ICCPROFILE,
+                        &iccProfileLength, &iccProfilePtr)
+           && iccProfileLength)
+        {
+            Decoder::ICCProfile iccData(
+                iccProfilePtr, iccProfilePtr + iccProfileLength);
+            iccProfile.swap(iccData);
+        }
 
         // allocate data buffers
         // mihal 27-10-2004: use scanline interface instead of strip interface
@@ -575,6 +584,7 @@ namespace vigra {
     {
         pimpl = new TIFFDecoderImpl(filename);
         pimpl->init();
+        iccProfile_ = pimpl->iccProfile;
     }
 
     TIFFDecoder::~TIFFDecoder()
@@ -636,16 +646,6 @@ namespace vigra {
     void TIFFDecoder::close() {}
     void TIFFDecoder::abort() {}
 
-    UInt32 TIFFDecoder::getICCProfileLength() const
-    {
-        return pimpl->iccProfileLength;
-    }
-
-    const unsigned char *TIFFDecoder::getICCProfile() const
-    {
-        return pimpl->iccProfilePtr;
-    }
-
     // this encoder always writes interleaved tiff files
     class TIFFEncoderImpl : public TIFFCodecImpl
     {
@@ -701,11 +701,11 @@ namespace vigra {
 
                 int success = TIFFWriteEncodedStrip( tiff, strip++, stripbuffer[0],
                                        TIFFVStripSize( tiff, rows ) );
-                if(success == -1 && tiffcomp == COMPRESSION_LZW)
+                if(success == -1 && tiffcomp != COMPRESSION_NONE)
                 {
-                    throw Encoder::TIFFNoLZWException(); // retry without compression
+                    throw Encoder::TIFFCompressionException(); // retry without compression
                 }
-                
+
                 vigra_postcondition(success != -1,
                         "exportImage(): Unable to write TIFF data.");
             }
@@ -721,7 +721,7 @@ namespace vigra {
             tiffcomp = COMPRESSION_NONE;
         else if ( ( comp == "JPEG" ) && ( quality != -1 ) )
             tiffcomp = COMPRESSION_OJPEG;
-        else if ( comp == "RLE" )
+        else if ( comp == "RLE" || comp == "RunLength")
             tiffcomp = COMPRESSION_CCITTRLE;
         else if ( comp == "LZW" )
             tiffcomp = COMPRESSION_LZW;
@@ -731,22 +731,24 @@ namespace vigra {
 
     void TIFFEncoderImpl::finalizeSettings()
     {
-	// decide if we should write Grey, or RGB files
-	// all additional channels are treated as extra samples
-	if (samples_per_pixel < 3) {
-	    extra_samples_per_pixel = samples_per_pixel - 1;
-	} else {
-	    extra_samples_per_pixel = samples_per_pixel - 3;
-	}
+        // decide if we should write Grey, or RGB files
+        // all additional channels are treated as extra samples
+        if (samples_per_pixel < 3) {
+            extra_samples_per_pixel = samples_per_pixel - 1;
+        } else {
+            extra_samples_per_pixel = samples_per_pixel - 3;
+        }
 
         // set some fields
         TIFFSetField( tiff, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG );
         TIFFSetField( tiff, TIFFTAG_IMAGEWIDTH, width );
         TIFFSetField( tiff, TIFFTAG_IMAGELENGTH, height );
-        //FIXME TIFFDefaultStripSize tries for 8kb strips! Laughable!
+        // TIFFDefaultStripSize tries for 8kb strips! Laughable!
         // This will do a 1MB strip for 8-bit images,
         // 2MB strip for 16-bit, and so forth.
-        unsigned int estimate = std::max(1UL, static_cast<unsigned long>((1<<20) / (width * samples_per_pixel)));
+        unsigned int estimate =
+            std::max(static_cast<UIntBiggest>(1),
+                     (static_cast<UIntBiggest>(1)<<20) / (width * samples_per_pixel));
         TIFFSetField( tiff, TIFFTAG_ROWSPERSTRIP,
                       stripheight = TIFFDefaultStripSize( tiff, estimate ) );
         TIFFSetField( tiff, TIFFTAG_SAMPLESPERPIXEL, samples_per_pixel );
@@ -784,15 +786,15 @@ namespace vigra {
         }
         TIFFSetField( tiff, TIFFTAG_BITSPERSAMPLE, bits_per_sample );
 
-	if (extra_samples_per_pixel > 0) {
-		uint16 * types = new  uint16[extra_samples_per_pixel];
-	    for ( int i=0; i < extra_samples_per_pixel; i++ ) {
-		types[i] = EXTRASAMPLE_UNASSALPHA;
-	    }
-	    TIFFSetField( tiff, TIFFTAG_EXTRASAMPLES, extra_samples_per_pixel,
-			  types );
-		delete[] types;
-	}
+       if (extra_samples_per_pixel > 0) {
+              uint16 * types = new  uint16[extra_samples_per_pixel];
+           for ( int i=0; i < extra_samples_per_pixel; i++ ) {
+              types[i] = EXTRASAMPLE_UNASSALPHA;
+            }
+            TIFFSetField( tiff, TIFFTAG_EXTRASAMPLES, extra_samples_per_pixel,
+                          types );
+                delete[] types;
+        }
 
         // set photometric
         if ( samples_per_pixel - extra_samples_per_pixel == 1 )
@@ -800,28 +802,29 @@ namespace vigra {
         else if ( samples_per_pixel - extra_samples_per_pixel == 3 )
             TIFFSetField( tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB );
 
-	// set resolution
-	if ( x_resolution > 0) {
-	    TIFFSetField( tiff, TIFFTAG_XRESOLUTION, x_resolution );
-	}
-	if ( y_resolution > 0 ) {
-	    TIFFSetField( tiff, TIFFTAG_YRESOLUTION, y_resolution );
-	}
-	if (x_resolution > 0 || y_resolution > 0) {
-	    TIFFSetField( tiff, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH );
-	}
+        // set resolution
+        if ( x_resolution > 0) {
+            TIFFSetField( tiff, TIFFTAG_XRESOLUTION, x_resolution );
+        }
+        if ( y_resolution > 0 ) {
+            TIFFSetField( tiff, TIFFTAG_YRESOLUTION, y_resolution );
+        }
+        if (x_resolution > 0 || y_resolution > 0) {
+            TIFFSetField( tiff, TIFFTAG_RESOLUTIONUNIT, RESUNIT_INCH );
+        }
 
-	// save position, if available
+        // save position, if available
         if (position.x >= 0 && position.y >= 0 &&
-	    x_resolution > 0 && y_resolution > 0)
-	{
-	    TIFFSetField( tiff, TIFFTAG_XPOSITION, position.x / x_resolution);
-	    TIFFSetField( tiff, TIFFTAG_YPOSITION, position.y / y_resolution);
-	}
+            x_resolution > 0 && y_resolution > 0)
+        {
+            TIFFSetField( tiff, TIFFTAG_XPOSITION, position.x / x_resolution);
+            TIFFSetField( tiff, TIFFTAG_YPOSITION, position.y / y_resolution);
+        }
 
         // Set ICC profile, if available.
-        if (iccProfileLength > 0) {
-            TIFFSetField(tiff, TIFFTAG_ICCPROFILE, iccProfileLength, iccProfilePtr);
+        if (iccProfile.size()) {
+            TIFFSetField(tiff, TIFFTAG_ICCPROFILE,
+                         iccProfile.size(), iccProfile.begin());
         }
 
         // alloc memory
@@ -829,7 +832,7 @@ namespace vigra {
         stripbuffer[0] = 0;
         stripbuffer[0] = _TIFFmalloc( TIFFStripSize(tiff) );
         if(stripbuffer[0] == 0)
-            throw std::bad_alloc();  
+            throw std::bad_alloc();
 
         finalized = true;
     }
@@ -883,19 +886,19 @@ namespace vigra {
     void TIFFEncoder::setPosition( const vigra::Diff2D & pos )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-	pimpl->position = pos;
+        pimpl->position = pos;
     }
 
     void TIFFEncoder::setXResolution( float xres )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-	pimpl->x_resolution = xres;
+        pimpl->x_resolution = xres;
     }
 
     void TIFFEncoder::setYResolution( float yres )
     {
         VIGRA_IMPEX_FINALIZED(pimpl->finalized);
-	pimpl->y_resolution = yres;
+        pimpl->y_resolution = yres;
     }
 
     unsigned int TIFFEncoder::getOffset() const
@@ -919,10 +922,9 @@ namespace vigra {
         pimpl->nextScanline();
     }
 
-    void TIFFEncoder::setICCProfile(const UInt32 length, const unsigned char * const buf)
+    void TIFFEncoder::setICCProfile(const ICCProfile & data)
     {
-        pimpl->iccProfileLength = length;
-        pimpl->iccProfilePtr = buf;
+        pimpl->iccProfile = data;
     }
 
     void TIFFEncoder::close() {}

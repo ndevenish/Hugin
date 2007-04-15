@@ -3,6 +3,7 @@
 /*               Copyright 1998-2001 by Pablo d'Angelo                  */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    ( Version 1.4.0, Dec 21 2005 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
@@ -30,7 +31,7 @@
 /*    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,      */
 /*    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING      */
 /*    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR     */
-/*    OTHER DEALINGS IN THE SOFTWARE.                                   */                
+/*    OTHER DEALINGS IN THE SOFTWARE.                                   */
 /*                                                                      */
 /************************************************************************/
 
@@ -108,8 +109,6 @@ namespace vigra {
 
         void * currentScanlineOfBand( unsigned int );
         void nextScanline();
-
-        void setICCProfile(const UInt32 length, const unsigned char * const buf);
 
         void init( const std::string & );
         void close();

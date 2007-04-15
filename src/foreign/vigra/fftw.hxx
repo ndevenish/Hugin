@@ -4,7 +4,7 @@
 /*       Cognitive Systems Group, University of Hamburg, Germany        */
 /*                                                                      */
 /*    This file is part of the VIGRA computer vision library.           */
-/*    ( Version 1.4.0, Dec 21 2005 )                                    */
+/*    ( Version 1.5.0, Dec 07 2006 )                                    */
 /*    The VIGRA Website is                                              */
 /*        http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/      */
 /*    Please direct questions, bug reports, and contributions to        */
@@ -40,12 +40,12 @@
 
 #include <cmath>
 #include <functional>
-#include "vigra/stdimage.hxx"
-#include "vigra/copyimage.hxx"
-#include "vigra/transformimage.hxx"
-#include "vigra/combineimages.hxx"
-#include "vigra/numerictraits.hxx"
-#include "vigra/imagecontainer.hxx"
+#include "stdimage.hxx"
+#include "copyimage.hxx"
+#include "transformimage.hxx"
+#include "combineimages.hxx"
+#include "numerictraits.hxx"
+#include "imagecontainer.hxx"
 #include <fftw.h>
 
 namespace vigra {
@@ -191,16 +191,16 @@ class FFTWComplex
         */
     int size() const
         { return 2; }
-        
+
     iterator begin()
         { return &re; }
-        
+
     iterator end()
         { return &re + 2; }
-        
+
     const_iterator begin() const
         { return &re; }
-        
+
     const_iterator end() const
         { return &re + 2; }
 };
