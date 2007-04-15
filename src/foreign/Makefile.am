@@ -1,4 +1,4 @@
-SUBDIRS= vigra_impex
+SUBDIRS= vigra_impex levmar
 
 dist-hook:
 	rm -rf `find $(distdir)/vigra $(distdir)/getopt -name CVS`

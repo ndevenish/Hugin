@@ -91,6 +91,9 @@
 /* Current Version of Hugin */
 #undef HUGIN_VERSION
 
+/* Define if you have EXR library */
+#undef HasEXR
+
 /* Define if you have JPEG library */
 #undef HasJPEG
 

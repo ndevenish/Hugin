@@ -244,7 +244,7 @@ int main(int argc, char *argv[])
 
         SrcPanoImage srcImg;
         srcImg.setFilename(files[0]);
-        bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+        initImageFromFile(srcImg, focalLength, cropFactor);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             cerr << "Could not decode image: " << files[0] << "Unsupported image file format";
             return 1;
@@ -271,13 +271,13 @@ int main(int argc, char *argv[])
         OptimizeVector optvars(1);
 
         // loop to add images and control points between them.
-        for (int i = 1; i < nFiles; i++) {
+        for (int i = 1; i < (int) nFiles; i++) {
             if (g_verbose > 0) {
                 cout << "Creating control points between " << files[i-1] << " and " << files[i] << endl;
             }
             // add next image.
             srcImg.setFilename(files[i]);
-            bool ok = initImageFromFile(srcImg, focalLength, cropFactor);
+            initImageFromFile(srcImg, focalLength, cropFactor);
             if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
                 cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
                 return 1;
@@ -319,7 +319,7 @@ int main(int argc, char *argv[])
         // remove all points with error higher than a specified threshold
         CPVector cps = pano.getCtrlPoints();
         CPVector newCPs;
-        for (int i=0; i < cps.size(); i++) {
+        for (int i=0; i < (int)cps.size(); i++) {
             if (cps[i].error < cpErrorThreshold) {
                 newCPs.push_back(cps[i]);
             }

@@ -38,6 +38,7 @@
 
 #include "panoinc.h"
 #include "vigra_ext/ImageTransforms.h"
+#include "vigra_ext/utils.h"
 
 #include <tiff.h>
 
@@ -104,6 +105,8 @@ public:
     ZhangCalibData c;
 };
 
+template <class T>
+T NoOp(T x) { return x;}
 
 int main(int argc, char *argv[])
 {
@@ -139,14 +142,14 @@ int main(int argc, char *argv[])
 
     StreamMultiProgressDisplay disp(cout);
 
-    
-    
+    PassThroughFunctor<SrcPixelType> ptfRGB;
     // transform the image using cubic interpolation.
     transformImage(srcImageRange(distorted),
                    destImageRange(undistorted),
                    destImage(alpha),
                    Diff2D(1,1),
                    func,
+                   ptfRGB,
                    false,
                    vigra_ext::INTERP_CUBIC,
                    disp);

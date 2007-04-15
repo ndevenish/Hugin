@@ -6,6 +6,7 @@ INCLUDES = -I$(top_builddir)/src/include -I${top_srcdir}/src/include -I${top_src
 AM_CXXFLAGS = $(GTK_CFLAGS) $(PANO_FLAGS) $(BOOST_CPPFLAGS)
 
 noinst_LTLIBRARIES = libvigra_ext.la
-libvigra_ext_la_SOURCES = MultiThreadOperations.cpp
+libvigra_ext_la_SOURCES = MultiThreadOperations.cpp emor.cpp
 
 EXTRA_DIST = vigra_ext.vcproj
+noinst_HEADERS = Pyramid2.h
