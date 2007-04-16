@@ -24,6 +24,8 @@
 #ifndef VIGRA_EXT_EMOR_H
 #define VIGRA_EXT_EMOR_H
 
+#include <assert.h>
+
 #include <vector>
 
 #include <vigra/numerictraits.hxx>
