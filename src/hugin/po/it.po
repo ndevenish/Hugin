@@ -830,7 +830,7 @@ msgstr "L'errore riportato e' :"
 
 #: src/hugin/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
-msgstr "Tempo trescorso :"
+msgstr "Tempo trascorso :"
 
 #: src/hugin/NonaStitcherPanel.cpp:301
 msgid "Stitching Panorama"
