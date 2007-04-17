@@ -123,8 +123,9 @@ void OptimizePhotometricPanel::OnOptimizeButton(wxCommandEvent & e)
     // run optimizer
     // take the OptimizeVector from somewhere.
 
-    OptimizeVector optvars = getOptimizeVector();
-    m_pano->setOptimizeVector(optvars);
+    //OptimizeVector optvars = getOptimizeVector();
+    //m_pano->setOptimizeVector(optvars);
+
 
     UIntSet imgs;
     if (wxConfigBase::Get()->Read(wxT("/General/UseOnlySelectedImages"),
@@ -482,11 +483,27 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         //wxBusyCursor busyc;
         if (mode != OPT_CUSTOM) {
             // run automatic optimisation
+            // ensure that we have a valid anchor.
+            PanoramaOptions opts = optPano.getOptions();
+            if (opts.colorReferenceImage >= optPano.getNrOfImages()) {
+                opts.colorReferenceImage = 0;
+                optPano.setOptions(opts);
+            }
             smartOptimizePhotometric(optPano, PhotometricOptimizeMode(mode),
                                     m_points, progress, error);
         } else {
+            OptimizeVector optvars = getOptimizeVector();
+            if (optPano.getNrOfImages() != m_pano->getNrOfImages()) {
+                OptimizeVector o = optvars;
+                optvars.clear();
+                for (UIntSet::const_iterator it = imgs.begin();
+                     it != imgs.end(); ++it)
+                {
+                    optvars.push_back(o[*it]);
+                }
+            }
             // optimize selected parameters
-            optimizePhotometric(optPano, getOptimizeVector(),
+            optimizePhotometric(optPano, optvars,
                                 m_points, progress, error);
         }
     }
