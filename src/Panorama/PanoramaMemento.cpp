@@ -912,8 +912,8 @@ public:
         width = -1;
         height = -1;
         f = -2;
-        vigcorrMode = 0;
-        responseType = 0;
+        vigcorrMode = 5;  // default to radial correction by division
+        responseType = 0; // default to EMOR
         for (char ** v = varnames; *v != 0; v++) {
             vars[*v] = 0;
             links[*v] = -2;
