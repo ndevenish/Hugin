@@ -547,16 +547,16 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
                               destImage(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(2)));
                 } else {
                     if (strcmp(pixelType, "INT16") == 0 ) {
-                        importAndConvertImage<Int16> (info, destImage(*imgFloat,
+                        importAndConvertImage<vigra::Int16> (info, destImage(*imgFloat,
                                 VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                        importAndConvertImage<UInt16>(info, destImage(*imgFloat,
+                        importAndConvertImage<vigra::UInt16>(info, destImage(*imgFloat,
                                 VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                        importAndConvertImage<UInt32>(info, destImage(*imgFloat,
-                                VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
+                        importAndConvertImage<vigra::UInt32>(info, destImage(*imgFloat,
+                                VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "INT32") == 0 ) {
-                        importAndConvertImage<Int32>(info, destImage(*imgFloat,
+                        importAndConvertImage<vigra::Int32>(info, destImage(*imgFloat,
                                 VectorComponentAccessor<RGBValue<float> >(0)), pixelType);
                     } else if (strcmp(pixelType, "FLOAT") == 0 ) {
                         importAndConvertImage<float>(info, destImage(*imgFloat,
@@ -578,13 +578,13 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImage(info, destImage(*img8));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertImage<RGBValue<Int16> > (info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertImage<RGBValue<UInt16> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<RGBValue<vigra::UInt16> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertImage<RGBValue<UInt32> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertImage<RGBValue<Int32> >(info, destImage(*imgFloat), pixelType);
+                    importAndConvertImage<RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "FLOAT") == 0 ) {
                     importAndConvertImage<RGBValue<float> >(info, destImage(*imgFloat), pixelType);
                 } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
@@ -921,7 +921,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
         if (e->image8) {
             srcFlat.resize(e->image8->size());
             vigra::copyImage(srcImageRange(*(e->image8),
-                             RGBToGrayAccessor<RGBValue<UInt8> >()),
+                             RGBToGrayAccessor<RGBValue<vigra::UInt8> >()),
                              destImage(srcFlat));
         } else {
             srcFlat.resize(e->imageFloat->size());
