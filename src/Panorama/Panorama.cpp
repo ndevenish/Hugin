@@ -1726,6 +1726,7 @@ SrcPanoImage Panorama::getSrcImage(unsigned imgNr) const
     const Lens & lens = state.lenses[img.getLensNr()];
     const VariableMap & vars = getImageVariables(imgNr);
     SrcPanoImage ret(img.getFilename(), Size2D(img.getWidth(), img.getHeight()));
+    ret.setLensNr(img.getLensNr());
     ret.setProjection((SrcPanoImage::Projection) lens.getProjection());
     ret.setExifCropFactor(lens.getCropFactor());
     ret.setExifFocalLength(lens.getFocalLength());
@@ -1805,6 +1806,7 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     ImageOptions opts = pimg.getOptions();
     Lens & lens = state.lenses[pimg.getLensNr()];
 
+    
     // fill variable map
     // position
     vars.insert(make_pair("v", Variable("v", img.getHFOV())));
@@ -1852,6 +1854,7 @@ void Panorama::setSrcImage(unsigned int imgNr, const SrcPanoImage & img)
     // update image
     pimg.setFilename(img.getFilename());
     pimg.setSize(img.getSize());
+    pimg.setLensNr(img.getLensNr());
 
     // update image options
     if (img.getCropMode() == SrcPanoImage::NO_CROP) {
