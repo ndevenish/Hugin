@@ -172,8 +172,12 @@ void PT::stitchPanorama(const PT::Panorama & pano,
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
         opts.outputPixelType = "FLOAT";
 
-    } else if (opts.outputPixelType.size() == 0) {
-        opts.outputPixelType = pixelType;
+    } else {
+        // get the emor parameters.
+        opts.outputEMoRParams = pano.getSrcImage(0).getEMoRParams();
+        if (opts.outputPixelType.size() == 0) {
+            opts.outputPixelType = pixelType;
+        }
     }
 
 #if 1

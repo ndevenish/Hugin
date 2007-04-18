@@ -580,7 +580,7 @@ private:
 
         const ImageOptions & getOptions() const
             { return options; }
-    
+
         void setOptions(const ImageOptions & opt)
             { options = opt; }
 

@@ -51,7 +51,7 @@
 #include <PT/PanoToolsInterface.h>
 //#include <PT/SpaceTransform.h>
 
-//#define DEBUG_REMAP 1
+#define DEBUG_REMAP 1
 
 #ifdef DEBUG_REMAP
 #ifdef unix
@@ -475,8 +475,8 @@ public:
             // select exposure and response curve for LDR output
             // TODO: use a the same response curve for all output images.
             std::vector<double> outLut;
-            vigra_ext::EMoR::createEMoRLUT(m_srcImg.getEMoRParams(), outLut);
-            invResponse.setOutput(pow(2.0,m_destImg.outputExposureValue), outLut,
+            vigra_ext::EMoR::createEMoRLUT(m_destImg.outputEMoRParams, outLut);
+            invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
                                   vigra_ext::LUTTraits<input_value_type>::max());
         } else {
             invResponse.setHDROutput();
@@ -564,8 +564,8 @@ public:
             // select exposure and response curve for LDR output
             // TODO: use a the same response curve for all output images.
             std::vector<double> outLut;
-            vigra_ext::EMoR::createEMoRLUT(m_srcImg.getEMoRParams(), outLut);
-            invResponse.setOutput(pow(2.0,m_destImg.outputExposureValue), outLut,
+            vigra_ext::EMoR::createEMoRLUT(m_destImg.outputEMoRParams, outLut);
+            invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
                                   vigra_ext::LUTTraits<input_value_type>::max());
         } else {
             invResponse.setHDROutput();
@@ -835,6 +835,7 @@ public:
         double maxv = vigra_ext::getMaxValForPixelType(info.getPixelType());
         if (maxv != vigra_ext::LUTTraits<PixelType>::max()) {
             double scale = ((double)vigra_ext::LUTTraits<PixelType>::max()) /  maxv;
+            std::cout << "Scaling input image (pixel type: " << info.getPixelType() << " with: " << scale << std::endl;
             transformImage(vigra::srcImageRange(srcImg), destImage(srcImg),
                            vigra::functor::Arg1()*vigra::functor::Param(scale));
         }

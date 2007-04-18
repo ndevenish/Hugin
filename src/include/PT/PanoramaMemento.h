@@ -467,6 +467,7 @@ public:
             photometricHuberSigma = 2/255.0;
             photometricSymmetricError = false;
             outputMode = OUTPUT_LDR;
+            outputEMoRParams.resize(5,0.0);
             outputExposureValue = 0.0;
             outputPixelType = "";
         }
@@ -595,6 +596,7 @@ public:
     OutputMode outputMode;
     // select the exposure of the output images in LDR mode.
     double outputExposureValue;
+    std::vector<float> outputEMoRParams;
     // choose pixel type for output images.
     std::string outputPixelType;
 
