@@ -403,6 +403,7 @@ struct ResponseTransform
         m_flatfield = 0;
         m_src = src;
         m_radiusScale = 1.0/sqrt(m_src.getSize().x/2.0*m_src.getSize().x/2.0 + m_src.getSize().y/2.0*m_src.getSize().y/2.0);
+        m_srcExposure = m_src.getExposure();
 
         // build response function lookup table, if required
         if (m_src.getResponseType() != PT::SrcPanoImage::RESPONSE_LINEAR) {
@@ -466,8 +467,8 @@ struct ResponseTransform
         } else if (m_src.getVigCorrMode() & PT::SrcPanoImage::VIGCORR_FLATFIELD) {
             // TODO: implement flatfield
             if (m_flatfield) {
-                int x = std::min(std::max(utils::roundi(d.x),0), m_flatfield->width());;
-                int y = std::min(std::max(utils::roundi(d.y),0), m_flatfield->height());;
+                int x = std::min(std::max(utils::roundi(d.x),0), m_flatfield->width()-1);;
+                int y = std::min(std::max(utils::roundi(d.y),0), m_flatfield->height()-1);;
                 return (*m_flatfield)(x,y);
             } else {
                 return 1;
@@ -484,7 +485,7 @@ struct ResponseTransform
         typename vigra::NumericTraits<VT1>::RealPromote ret = v;
         // first, apply vignetting
 
-        ret = ret*calcVigFactor(pos)*m_src.getExposure();
+        ret = ret*calcVigFactor(pos)*m_srcExposure;
         if (m_lutR.size()) {
             return m_lutRFunc(ret);
         } else {
@@ -498,7 +499,7 @@ struct ResponseTransform
     {
         typename vigra::NumericTraits<vigra::RGBValue<VT1> >::RealPromote ret = v;
         // first, apply vignetting
-        double common = calcVigFactor(pos)*m_src.getExposure();
+        double common = calcVigFactor(pos)*m_srcExposure;
         ret = ret*common;
         // apply white balance factors
         ret.red() = ret.red() * m_src.getWhiteBalanceRed();
@@ -523,6 +524,7 @@ struct ResponseTransform
     LUT m_lutR;
     vigra_ext::LUTFunctor<VT1, LUT> m_lutRFunc;
     const vigra::FImage * m_flatfield;
+    double m_srcExposure;
 
     PT::SrcPanoImage m_src;
 };
@@ -580,16 +582,18 @@ struct InvResponseTransform : public ResponseTransform<VTIn>
     {
         m_hdrMode = hdrMode;
         m_intScale = 1;
+        m_destExposure = 1.0;
     }
 
     // output lut
-    void setOutput(double destExp, const LUTD & destLut, double scale)
+    void setOutput(double destExposure, const LUTD & destLut, double scale)
     {
+        m_hdrMode = false;
         m_destLut = destLut;
         if (m_destLut.size() > 0) {
             m_destLutFunc = vigra_ext::LUTFunctor<VTInCompReal, LUTD>(m_destLut);
         }
-        m_destExposure = destExp;
+        m_destExposure = destExposure;
         m_intScale = scale;
     }
 
@@ -628,7 +632,7 @@ struct InvResponseTransform : public ResponseTransform<VTIn>
             ret = v;
         }
         // inverse vignetting and exposure
-        ret *= m_destExposure/(Base::calcVigFactor(pos)*Base::m_src.getExposure());
+        ret *= m_destExposure / (Base::calcVigFactor(pos) * Base::m_srcExposure);
         // apply output transform if required
         if (m_destLut.size() > 0) {
             ret = m_destLutFunc(ret);
@@ -652,7 +656,7 @@ struct InvResponseTransform : public ResponseTransform<VTIn>
         }
 
         // inverse vignetting and exposure
-        ret *= m_destExposure/(Base::calcVigFactor(pos)*Base::m_src.getExposure());
+        ret *= m_destExposure/(Base::calcVigFactor(pos)*Base::m_srcExposure);
         ret.red() /= Base::m_src.getWhiteBalanceRed();
         ret.blue() /= Base::m_src.getWhiteBalanceBlue();
         // apply output transform if required
