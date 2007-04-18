@@ -71,6 +71,7 @@ static void usage(const char * name)
          << "  -p file   Output .pto file (useful for debugging, or further refinement)" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
          << "  -t num    Remove all control points with an error higher than num (default: 3)" << std::endl
+         << "  -f HFOV   approximate horizontal field of view of input images, uses if EXIF info not complete" << std::endl
          << "  -c num    Harris corner threshold (default: 5)" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
@@ -166,7 +167,7 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "hp:vo:t:c:o:";
+    const char * optstring = "f:hp:vo:t:c:o:";
     int c;
 
     opterr = 0;
@@ -175,6 +176,7 @@ int main(int argc, char *argv[])
     int nPoints = 100;
     double cpErrorThreshold = 3;
     double cornerThreshold = 5;
+    double hfov = 0;
     std::string outputPrefix = "aligned_";
     std::string ptoFile;
     string basename;
@@ -182,6 +184,9 @@ int main(int argc, char *argv[])
         switch (c) {
         case 'c':
             cornerThreshold = atof(optarg);
+            break;
+        case 'f':
+            hfov = atof(optarg);
             break;
         case 't':
             cpErrorThreshold = atof(optarg);
@@ -238,7 +243,7 @@ int main(int argc, char *argv[])
         // add the first image.to the panorama object
         // default settings
         double focalLength = 50;
-        double cropFactor = 1;
+        double cropFactor = 0;
         VariableMap defaultVars;
         fillVariableMap(defaultVars);
 
@@ -249,18 +254,28 @@ int main(int argc, char *argv[])
             cerr << "Could not decode image: " << files[0] << "Unsupported image file format";
             return 1;
         }
+
+        // use hfov specified by user.
+        if (hfov > 0) {
+            srcImg.setHFOV(hfov);
+        } else if (cropFactor == 0) {
+            // could not read HFOV, assuming default: 50
+            srcImg.setHFOV(50);
+        }
+
         PanoImage panoImg(files[0], srcImg.getSize().x, srcImg.getSize().y, 0);
         int imgNr = pano.addImage(panoImg, defaultVars);
         pano.setSrcImage(imgNr, srcImg);
 
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
+        opts.setHFOV(srcImg.getHFOV(), false);
         opts.setWidth(srcImg.getSize().x, false);
         opts.setHeight(srcImg.getSize().y);
-        opts.setHFOV(srcImg.getHFOV(), false);
         opts.setProjection(PanoramaOptions::RECTILINEAR);
             // output to tiff format
         opts.outputFormat = PanoramaOptions::TIFF_m;
+        opts.tiff_saveROI = false;
         opts.outfile = outputPrefix;
         // m estimator, to be more robust against points on moving objects
         opts.huberSigma = 2;
