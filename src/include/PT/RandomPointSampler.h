@@ -424,7 +424,13 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
         if (verbose)
             std::cout << "loading: " << files[i] << std::endl;
 
-        vigra::importImage(info, vigra::destImage(*tImg));
+        if (info.extrabands() == 1) {
+            // dummy mask
+            vigra::BImage mask(info.size());
+            vigra::importImageAlpha(info, vigra::destImage(*tImg), vigra::destImage(mask));
+        } else {
+            vigra::importImage(info, vigra::destImage(*tImg));
+        }
         float div = 1;
         if (strcmp(info.getPixelType(), "UINT8") == 0) {
             div = 255;

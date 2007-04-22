@@ -1,8 +1,8 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file align_image_stack.cpp
+/** @file hugin_merge_images.cpp
  *
- *  @brief program to align a set of well overlapping images (~90%)
+ *  @brief merge images
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -63,139 +63,37 @@ int g_verbose = 0;
 
 static void usage(const char * name)
 {
-    cerr << name << ": align overlapping images for HDR creation" << std::endl
+    cerr << name << ": merge overlapping images" << std::endl
          << std::endl
-         << "Usage: " << name  << " [options] input files" << std::endl
+         << "Usage: " << name  << " [options] -o output.exr input files" << std::endl
          << "Valid options are:" << std::endl
-         << "  -o prefix save aligned images as prefix0000.tif and so on (default: aligned_)" << std::endl
-         << "  -p file   Output .pto file (useful for debugging, or further refinement)" << std::endl
+         << "  -o prefix output file" << std::endl
+         << "  -m mode   merge mode, can be one of: hdr" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
-         << "  -t num    Remove all control points with an error higher than num (default: 3)" << std::endl
-         << "  -f HFOV   approximate horizontal field of view of input images, uses if EXIF info not complete" << std::endl
-         << "  -c num    Harris corner threshold (default: 5)" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
 
 
-template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, double scale, double cornerThreshold)
-{
-    //////////////////////////////////////////////////
-    // find interesting corners using harris corner detector
-
-    BImage leftCorners(leftImg.size(), vigra::UInt8(0));
-    FImage leftCornerResponse(leftImg.size());
-
-    DEBUG_DEBUG("running corner detector threshold: " << cornerThreshold << "  scale: " << scale );
-
-    // find corner response at scale scale
-    vigra::cornerResponseFunction(srcImageRange(leftImg, GreenAccessor<typename ImageType::value_type>()),
-                                  destImage(leftCornerResponse),
-                                  scale);
-
-    //saveScaledImage(leftCornerResponse,"corner_response.png");
-    DEBUG_DEBUG("finding local maxima");
-    // find local maxima of corner response, mark with 1
-    vigra::localMaxima(srcImageRange(leftCornerResponse), destImage(leftCorners), 255);
-
-    if (g_verbose > 5)
-        exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_maxima.png"));
-
-    DEBUG_DEBUG("thresholding corner response");
-    // threshold corner response to keep only strong corners (above 400.0)
-    transformImage(srcImageRange(leftCornerResponse), destImage(leftCornerResponse),
-                   vigra::Threshold<double, double>(
-                           cornerThreshold, DBL_MAX, 0.0, 1.0));
-
-    vigra::combineTwoImages(srcImageRange(leftCorners), srcImage(leftCornerResponse),
-                            destImage(leftCorners), std::multiplies<float>());
-
-    if (g_verbose > 5)
-        exportImage(srcImageRange(leftCorners), vigra::ImageExportInfo("corner_response_threshold.png"));
-
-
-    int nGood = 0;
-    int nBad = 0;
-    // sample grid on img1 and try to add ctrl points
-    for (int x=0; x < leftImg.size().x; x++ ) {
-        for (int y=0; y < leftImg.size().y; y++ ) {
-            if (leftCorners(x,y) > 0) {
-                // we found a corner. correlate with second image
-
-                // load parameters
-
-                long templWidth = 20;
-                long sWidth = 100;
-                double corrThresh = 0.9;
-                double curvThresh = 0.0;
-
-                vigra_ext::CorrelationResult res;
-                vigra::Diff2D roundP1(x, y);
-                vigra::Diff2D roundP2(x, y);
-
-                res = vigra_ext::PointFineTune(leftImg,
-                                               roundP1,
-                                               templWidth,
-                                               rightImg,
-                                               roundP2,
-                                               sWidth
-                                              );
-
-                if (g_verbose > 1) {
-                    cout << "corr coeff: " <<  res.maxi << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
-                }
-                if (res.maxi < corrThresh )
-                {
-                    nBad++;
-                    DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
-                } else {
-                    nGood++;
-                    // add control point
-                    ControlPoint p(img1, roundP1.x, roundP1.y, img2, res.maxpos.x, res.maxpos.y);
-                    pano.addCtrlPoint(p);
-                }
-            }
-        }
-    }
-    if (g_verbose > 0) {
-        cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
-    }
-};
-
-
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "f:hp:vo:t:c:o:";
+    const char * optstring = "hvo:m:";
     int c;
 
     opterr = 0;
 
     g_verbose = 0;
-    int nPoints = 100;
-    double cpErrorThreshold = 3;
-    double cornerThreshold = 5;
-    double hfov = 0;
-    std::string outputPrefix = "aligned_";
-    std::string ptoFile;
+    std::string output = "merged.exr";
+    std::string mode = "hdr";
     string basename;
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c) {
-        case 'c':
-            cornerThreshold = atof(optarg);
-            break;
-        case 'f':
-            hfov = atof(optarg);
-            break;
-        case 't':
-            cpErrorThreshold = atof(optarg);
-            break;
-        case 'p':
-            ptoFile = optarg;
+        case 'm':
+            mode = optarg;
             break;
         case 'o':
-            outputPrefix = optarg;
+            output = optarg;
             break;
         case 'v':
             g_verbose++;
@@ -229,6 +127,8 @@ int main(int argc, char *argv[])
 
     typedef vigra::BRGBImage ImageType;
     try {
+        mergeFunctor
+        reduceOpenEXRFiles(files, output,);
         // load first image
         vigra::ImageImportInfo firstImgInfo(files[0].c_str());
         ImageType * leftImg = new BRGBImage(firstImgInfo.size());

@@ -741,8 +741,8 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.outputExposureValue = p;
+#ifdef HasPANO13
     } else {
-#if HasPANO13
         int nParam = opts.m_projFeatures.numberOfParameters;
         std::vector<double> para = opts.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {
@@ -760,8 +760,8 @@ void PreviewFrame::OnTextCtrlChanged(wxCommandEvent & e)
             }
         }
         opts.setProjectionParameters(para);
-    }
 #endif
+    }
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opts )
                                            );
@@ -783,7 +783,7 @@ void PreviewFrame::OnChangeFOV(wxScrollEvent & e)
         DEBUG_DEBUG("VFOV changed (slider): " << e.GetInt());
         opt.setVFOV(e.GetInt());
     } else {
-#if HasPANO13
+#ifdef HasPANO13
         int nParam = opt.m_projFeatures.numberOfParameters;
         std::vector<double> para = opt.getProjectionParameters();
         for (int i = 0; i < nParam; i++) {

@@ -1,37 +1,5 @@
-- EXIF support:
-  rescaled files with EXIF report wrong HFOV
+- photometric optimisation using multiple lenses does not work.
 
-- Makefile
-  - dependencies do not include local libraries.
-  - ./configure should work for mingw too.
-
-- CPEditor
-  - update doesn work correctly if only one image is loaded
-  - all automatic control point functions only work for rectiliniar
-    input images
-
-hi,
-
-it seems hugin doesn't save optimization state for d, e
-
-btw, there is trouble, also, with "inherit" flag which doesn't change
-the checkboxes on optim page page accordingly
-
-after "new", CPs from last current pair of pages are still displayed
-(in list, and as circles on the blank zone!)
-
-image cache is not actualized when an image is removed and then
-reloaded (after being modified); click second point in grey zone or a
-place that doesn't "exist" any more causes abnormal program
-termination
-
-regards,
-
-philippe
-
-- when clicking "stitch now" you are presented a file save dialog box with file mask *.* instead of *.jpg or the file
-type defined in the stich dialog. Project name without extension should be default the first time, and then the last
-name used.
 
 - trying to stitch a simple TIFF, I got "TIFFOpen error xxx.tif: cannot open" with nona and with PTstitcher the file
 wasn't created and _PTStitcher_tmp_3 not deleted. Multiple TIFF with PTstitcher worked as expected but xxx3 has "unknown
