@@ -32,6 +32,7 @@
 
 #include <vigra/convolution.hxx>
 #include <vigra/impex.hxx>
+#include <vigra_ext/impexalpha.hxx>
 #include <common/math.h>
 
 #include <vigra_ext/VignettingCorrection.h>
@@ -424,7 +425,7 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
         if (verbose)
             std::cout << "loading: " << files[i] << std::endl;
 
-        if (info.extrabands() == 1) {
+        if (info.numExtraBands() == 1) {
             // dummy mask
             vigra::BImage mask(info.size());
             vigra::importImageAlpha(info, vigra::destImage(*tImg), vigra::destImage(mask));
