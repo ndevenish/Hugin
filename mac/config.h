@@ -103,6 +103,9 @@
 /* Define if you have TIFF library */
 #define HasTIFF
 
+/**/
+#define HasEXR
+
 /* Install Location of Hugin */
 #define INSTALL_LOCALE_DIR ""
 

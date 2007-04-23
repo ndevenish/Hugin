@@ -58,6 +58,7 @@
 				57CBEFE206BC853000C43FF5 /* PBXTargetDependency */,
 				57C1707509A1262900FAF325 /* PBXTargetDependency */,
 				5749FA1F067B7E0A00A6EDD4 /* PBXTargetDependency */,
+				5720E49D0BD4578100E63404 /* PBXTargetDependency */,
 				5749FA21067B7E0A00A6EDD4 /* PBXTargetDependency */,
 			);
 			name = lib;
@@ -74,7 +75,15 @@
 		571152F806BC6E4C004F4FA7 /* bmp.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0306BC2301004F4FA7 /* bmp.cxx */; };
 		571152F906BC6E58004F4FA7 /* byteorder.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0506BC2301004F4FA7 /* byteorder.cxx */; };
 		571152FE06BC6E8E004F4FA7 /* codecmanager.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 57114F0706BC2301004F4FA7 /* codecmanager.cxx */; };
-		572B947E06FABE6B004EC7BF /* CPZoomDisplayPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 572B947D06FABE6B004EC7BF /* CPZoomDisplayPanel.cpp */; };
+		5720E4740BD456CD00E63404 /* exif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114FF906BC2302004F4FA7 /* exif.cpp */; };
+		5720E4750BD456CD00E63404 /* jpgfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57114FFB06BC2303004F4FA7 /* jpgfile.cpp */; };
+		5720E4900BD4575000E63404 /* Axb.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E47C0BD4575000E63404 /* Axb.c */; };
+		5720E4920BD4575000E63404 /* lm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4850BD4575000E63404 /* lm.c */; };
+		5720E4940BD4575000E63404 /* lmbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4880BD4575000E63404 /* lmbc.c */; };
+		5720E4970BD4575000E63404 /* lmlec.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48B0BD4575000E63404 /* lmlec.c */; };
+		5720E4990BD4575000E63404 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 5720E48D0BD4575000E63404 /* misc.c */; };
+		5720E49F0BD457B600E63404 /* liblevmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* liblevmar.a */; };
+		5720E4A80BD4584C00E63404 /* emor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5720E4A70BD4584C00E63404 /* emor.cpp */; };
 		573B8FE1067BAC7B00B7B355 /* libpanorama.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F92E067B654900A6EDD4 /* libpanorama.a */; };
 		573B8FE2067BAC8400B7B355 /* libjhead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749F8A3067B60CA00A6EDD4 /* libjhead.a */; };
 		573B8FE3067BAC9000B7B355 /* libcommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5750CC8606774D0300B049DC /* libcommon.a */; };
@@ -128,6 +137,8 @@
 		574F3F20082004870086E561 /* libwxexpat-2.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989545068E2F22009F90BF /* libwxexpat-2.7.a */; };
 		574F3F2F082005980086E561 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3F2E082005980086E561 /* IOKit.framework */; };
 		574F3F30082005980086E561 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 574F3F2E082005980086E561 /* IOKit.framework */; };
+		5751ABF90BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5751ABF80BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp */; };
+		5751BF710BDD4F3A003A7B5C /* PhotometricOptimizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5751BF700BDD4F3A003A7B5C /* PhotometricOptimizer.cpp */; };
 		577092FC06BD7388004058A1 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
 		577092FD06BD7388004058A1 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
 		5770930006BD7424004058A1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
@@ -294,6 +305,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 5749FA15067B7DE400A6EDD4;
 			remoteInfo = lib;
+		};
+		5720E49C0BD4578100E63404 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5720E4720BD456CD00E63404;
+			remoteInfo = levmar;
+		};
+		5720E4A10BD457C900E63404 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5720E4720BD456CD00E63404;
+			remoteInfo = levmar;
 		};
 		573B8FD8067BAC6200B7B355 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -746,6 +771,28 @@
 		57115FB60B7778FE00B522DF /* scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = scripts; sourceTree = "<group>"; };
 		5711F7E6094F3F3800F668CD /* setup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = setup.h; path = "lib/wx/include/mac-unicode-release-static-2.7/wx/setup.h"; sourceTree = "<group>"; };
 		571C78FA09663073007384B8 /* RemappedPanoImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = RemappedPanoImage.h; sourceTree = "<group>"; };
+		5720E47A0BD456CD00E63404 /* liblevmar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblevmar.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5720E47C0BD4575000E63404 /* Axb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb.c; sourceTree = "<group>"; };
+		5720E47D0BD4575000E63404 /* Axb_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = Axb_core.c; sourceTree = "<group>"; };
+		5720E47E0BD4575000E63404 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		5720E47F0BD4575000E63404 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		5720E4800BD4575000E63404 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		5720E4810BD4575000E63404 /* Makefile.icc */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.icc; sourceTree = "<group>"; };
+		5720E4820BD4575000E63404 /* Makefile.vc */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.vc; sourceTree = "<group>"; };
+		5720E4830BD4575000E63404 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		5720E4840BD4575000E63404 /* levmar.vcproj */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = levmar.vcproj; sourceTree = "<group>"; };
+		5720E4850BD4575000E63404 /* lm.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lm.c; sourceTree = "<group>"; };
+		5720E4860BD4575000E63404 /* lm.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lm.h; sourceTree = "<group>"; };
+		5720E4870BD4575000E63404 /* lm_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lm_core.c; sourceTree = "<group>"; };
+		5720E4880BD4575000E63404 /* lmbc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lmbc.c; sourceTree = "<group>"; };
+		5720E4890BD4575000E63404 /* lmbc_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lmbc_core.c; sourceTree = "<group>"; };
+		5720E48A0BD4575000E63404 /* lmdemo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lmdemo.c; sourceTree = "<group>"; };
+		5720E48B0BD4575000E63404 /* lmlec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lmlec.c; sourceTree = "<group>"; };
+		5720E48C0BD4575000E63404 /* lmlec_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = lmlec_core.c; sourceTree = "<group>"; };
+		5720E48D0BD4575000E63404 /* misc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = misc.c; sourceTree = "<group>"; };
+		5720E48E0BD4575000E63404 /* misc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
+		5720E48F0BD4575000E63404 /* misc_core.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = misc_core.c; sourceTree = "<group>"; };
+		5720E4A70BD4584C00E63404 /* emor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = emor.cpp; sourceTree = "<group>"; };
 		572B945606FA525F004EC7BF /* CPFineTuneFrame.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPFineTuneFrame.h; sourceTree = "<group>"; };
 		572B945706FA525F004EC7BF /* CPZoomDisplayPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CPZoomDisplayPanel.h; sourceTree = "<group>"; };
 		572B947D06FABE6B004EC7BF /* CPZoomDisplayPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CPZoomDisplayPanel.cpp; sourceTree = "<group>"; };
@@ -884,6 +931,8 @@
 		574F3EBC081FF2350086E561 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
 		574F3F2E082005980086E561 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
 		5750CC8606774D0300B049DC /* libcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5751ABF80BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OptimizePhotometricPanel.cpp; sourceTree = "<group>"; };
+		5751BF700BDD4F3A003A7B5C /* PhotometricOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PhotometricOptimizer.cpp; sourceTree = "<group>"; };
 		5751D8630939F1E9001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
 		5751D8680939F243001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcode/project.pbxproj; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
@@ -970,6 +1019,8 @@
 		57D5DCD6073FD86D0027E52F /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		57D5DCF2073FE2CF0027E52F /* PreferencesDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreferencesDialog.cpp; sourceTree = "<group>"; };
 		57DA3B55083FA3EF00BE2613 /* wxPlatform.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = wxPlatform.h; sourceTree = "<group>"; };
+		57DD644C0BDD315400F89259 /* align_image_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = align_image_stack.cpp; sourceTree = "<group>"; };
+		57DD644D0BDD315400F89259 /* img2vips.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = img2vips.cpp; sourceTree = "<group>"; };
 		57E7825F068107210070F6AA /* HuginOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57EEC3EE08CD09C900B6A197 /* LocalizedFileTipProvider.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LocalizedFileTipProvider.cpp; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
@@ -1113,6 +1164,7 @@
 				57C1707D09A1268C00FAF325 /* libvigra_ext.a in Frameworks */,
 				57CBEEED06BC7A3E00C43FF5 /* libvigra_impex.a in Frameworks */,
 				57E782820681074B0070F6AA /* libpanorama.a in Frameworks */,
+				5720E49F0BD457B600E63404 /* liblevmar.a in Frameworks */,
 				57DEBDB908E8947B008F6E81 /* libhuginwxutils.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1184,6 +1236,7 @@
 		57114EC106BC2301004F4FA7 /* foreign */ = {
 			isa = PBXGroup;
 			children = (
+				5720E47B0BD4575000E63404 /* levmar */,
 				57114EC306BC2301004F4FA7 /* vigra */,
 				57114F0106BC2301004F4FA7 /* vigra_impex */,
 			);
@@ -1342,6 +1395,7 @@
 				57114F3406BC2301004F4FA7 /* MyProgressDialog.cpp */,
 				57114F3506BC2301004F4FA7 /* NonaStitcherPanel.cpp */,
 				57114F3606BC2301004F4FA7 /* OptimizePanel.cpp */,
+				5751ABF80BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp */,
 				57114F3706BC2301004F4FA7 /* PanoDruid.cpp */,
 				57114F3806BC2301004F4FA7 /* PanoPanel.cpp */,
 				577D3D0E09A0D78E004C6964 /* Plot2D.cpp */,
@@ -1535,6 +1589,7 @@
 				5711504006BC2303004F4FA7 /* Panorama.cpp */,
 				5711504206BC2303004F4FA7 /* PanoramaMemento.cpp */,
 				5711504306BC2303004F4FA7 /* PanoToolsInterface.cpp */,
+				5751BF700BDD4F3A003A7B5C /* PhotometricOptimizer.cpp */,
 				5711504506BC2303004F4FA7 /* PTOptimise.cpp */,
 				5711504606BC2303004F4FA7 /* SpaceTransform.cpp */,
 				5711504706BC2303004F4FA7 /* Stitcher.cpp */,
@@ -1550,12 +1605,14 @@
 		5711505B06BC2303004F4FA7 /* tools */ = {
 			isa = PBXGroup;
 			children = (
-				5711505D06BC2303004F4FA7 /* automatch.cpp */,
+				57DD644C0BDD315400F89259 /* align_image_stack.cpp */,
 				5711505E06BC2303004F4FA7 /* autooptimiser.cpp */,
 				577D3D2009A0D814004C6964 /* color_correct_tiff.cpp */,
 				573F332C09F79F300088B333 /* fulla.cpp */,
 				5711506106BC2303004F4FA7 /* nona.cpp */,
 				570E7B5206FC917900D23E0D /* zhang_undistort.cpp */,
+				5711505D06BC2303004F4FA7 /* automatch.cpp */,
+				57DD644D0BDD315400F89259 /* img2vips.cpp */,
 			);
 			path = tools;
 			sourceTree = "<group>";
@@ -1567,6 +1624,33 @@
 			);
 			name = wx;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		5720E47B0BD4575000E63404 /* levmar */ = {
+			isa = PBXGroup;
+			children = (
+				5720E47C0BD4575000E63404 /* Axb.c */,
+				5720E47D0BD4575000E63404 /* Axb_core.c */,
+				5720E47E0BD4575000E63404 /* CMakeLists.txt */,
+				5720E47F0BD4575000E63404 /* LICENSE */,
+				5720E4800BD4575000E63404 /* Makefile.am */,
+				5720E4810BD4575000E63404 /* Makefile.icc */,
+				5720E4820BD4575000E63404 /* Makefile.vc */,
+				5720E4830BD4575000E63404 /* README.txt */,
+				5720E4840BD4575000E63404 /* levmar.vcproj */,
+				5720E4850BD4575000E63404 /* lm.c */,
+				5720E4860BD4575000E63404 /* lm.h */,
+				5720E4870BD4575000E63404 /* lm_core.c */,
+				5720E4880BD4575000E63404 /* lmbc.c */,
+				5720E4890BD4575000E63404 /* lmbc_core.c */,
+				5720E48A0BD4575000E63404 /* lmdemo.c */,
+				5720E48B0BD4575000E63404 /* lmlec.c */,
+				5720E48C0BD4575000E63404 /* lmlec_core.c */,
+				5720E48D0BD4575000E63404 /* misc.c */,
+				5720E48E0BD4575000E63404 /* misc.h */,
+				5720E48F0BD4575000E63404 /* misc_core.c */,
+			);
+			path = levmar;
 			sourceTree = "<group>";
 		};
 		573B8F3E067BA2EB00B7B355 /* Product */ = {
@@ -1582,6 +1666,7 @@
 		573B8F3F067BA2F900B7B355 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				5720E47A0BD456CD00E63404 /* liblevmar.a */,
 				5749F8A3067B60CA00A6EDD4 /* libjhead.a */,
 				5750CC8606774D0300B049DC /* libcommon.a */,
 				5749F92E067B654900A6EDD4 /* libpanorama.a */,
@@ -1715,6 +1800,7 @@
 		577D3D2F09A0D9F6004C6964 /* vigra_ext */ = {
 			isa = PBXGroup;
 			children = (
+				5720E4A70BD4584C00E63404 /* emor.cpp */,
 				577D3D3309A0D9F6004C6964 /* MultiThreadOperations.cpp */,
 			);
 			path = vigra_ext;
@@ -1821,6 +1907,21 @@
 			name = vigra_impex;
 			productName = vigra_impex;
 			productReference = 5711524A06BC6709004F4FA7 /* libvigra_impex.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5720E4720BD456CD00E63404 /* levmar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5720E4760BD456CD00E63404 /* Build configuration list for PBXNativeTarget "levmar" */;
+			buildPhases = (
+				5720E4730BD456CD00E63404 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = levmar;
+			productName = jhead;
+			productReference = 5720E47A0BD456CD00E63404 /* liblevmar.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		573B8FD5067BAC4600B7B355 /* nona */ = {
@@ -2038,6 +2139,7 @@
 				57C1707709A1263300FAF325 /* PBXTargetDependency */,
 				579354B106EAA70F003F2DE7 /* PBXTargetDependency */,
 				5700FE330681E72A00B01AE2 /* PBXTargetDependency */,
+				5720E4A20BD457C900E63404 /* PBXTargetDependency */,
 				57DEBDAB08E89456008F6E81 /* PBXTargetDependency */,
 			);
 			name = HuginOSX;
@@ -2075,6 +2177,7 @@
 				5711524906BC6709004F4FA7 /* vigra_impex */,
 				57C1705809A125DE00FAF325 /* vigra_ext */,
 				5749F92D067B654900A6EDD4 /* panorama */,
+				5720E4720BD456CD00E63404 /* levmar */,
 				5749F986067B696900A6EDD4 /* huginwxutils */,
 				573B8F54067BA9CF00B7B355 /* apps */,
 				57E7825E068107210070F6AA /* HuginOSX */,
@@ -2142,6 +2245,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5720E4730BD456CD00E63404 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5720E4740BD456CD00E63404 /* exif.cpp in Sources */,
+				5720E4750BD456CD00E63404 /* jpgfile.cpp in Sources */,
+				5720E4900BD4575000E63404 /* Axb.c in Sources */,
+				5720E4920BD4575000E63404 /* lm.c in Sources */,
+				5720E4940BD4575000E63404 /* lmbc.c in Sources */,
+				5720E4970BD4575000E63404 /* lmlec.c in Sources */,
+				5720E4990BD4575000E63404 /* misc.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		573B8FD4067BAC4600B7B355 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2199,6 +2316,7 @@
 				57CBEE6406BC738300C43FF5 /* PanoramaMemento.cpp in Sources */,
 				57CBEE6506BC738E00C43FF5 /* PanoImage.cpp in Sources */,
 				57CBEE6806BC73D200C43FF5 /* PanoToolsInterface.cpp in Sources */,
+				5751BF710BDD4F3A003A7B5C /* PhotometricOptimizer.cpp in Sources */,
 				57CBEE6A06BC73D500C43FF5 /* SpaceTransform.cpp in Sources */,
 				57CBEE6906BC73D300C43FF5 /* PTOptimise.cpp in Sources */,
 				57CBEE6C06BC73EF00C43FF5 /* ImageGraph.cpp in Sources */,
@@ -2252,6 +2370,7 @@
 				57C170A909A12DE400FAF325 /* tss_pe.cpp in Sources */,
 				57C170AA09A12DE400FAF325 /* tss.cpp in Sources */,
 				57C170AB09A12DE400FAF325 /* xtime.cpp in Sources */,
+				5720E4A80BD4584C00E63404 /* emor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2286,7 +2405,6 @@
 				57CBEFD606BC7E8F00C43FF5 /* CPListFrame.cpp in Sources */,
 				57CBEFD706BC7E8F00C43FF5 /* TextKillFocusHandler.cpp in Sources */,
 				57CBEFDA06BC7E8F00C43FF5 /* PanoDruid.cpp in Sources */,
-				572B947E06FABE6B004EC7BF /* CPZoomDisplayPanel.cpp in Sources */,
 				573F330E09F79CE00088B333 /* CPFineTuneFrame.cpp in Sources */,
 				57D5DCF3073FE2CF0027E52F /* PreferencesDialog.cpp in Sources */,
 				57EEC3EF08CD09CA00B6A197 /* LocalizedFileTipProvider.cpp in Sources */,
@@ -2297,6 +2415,7 @@
 				57BF84F20B3CB214006829C2 /* AssistantPanel.cpp in Sources */,
 				57BF84F30B3CB214006829C2 /* CropPanel.cpp in Sources */,
 				57A6048C0B4B6321008F4039 /* HFOVDialog.cpp in Sources */,
+				5751ABF90BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2322,6 +2441,16 @@
 			isa = PBXTargetDependency;
 			target = 5749FA15067B7DE400A6EDD4 /* lib */;
 			targetProxy = 570878D5067BC5770057B4D7 /* PBXContainerItemProxy */;
+		};
+		5720E49D0BD4578100E63404 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5720E4720BD456CD00E63404 /* levmar */;
+			targetProxy = 5720E49C0BD4578100E63404 /* PBXContainerItemProxy */;
+		};
+		5720E4A20BD457C900E63404 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5720E4720BD456CD00E63404 /* levmar */;
+			targetProxy = 5720E4A10BD457C900E63404 /* PBXContainerItemProxy */;
 		};
 		573B8FD9067BAC6200B7B355 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2541,6 +2670,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5720E4770BD456CD00E63404 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = levmar;
+			};
+			name = Debug;
+		};
+		5720E4780BD456CD00E63404 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = levmar;
+			};
+			name = Development;
+		};
+		5720E4790BD456CD00E63404 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = levmar;
+			};
+			name = Release;
+		};
 		573F33A409F7AB110088B333 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2936,12 +3086,8 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -2969,12 +3115,8 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = YES;
 			};
@@ -3517,12 +3659,8 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -3767,6 +3905,7 @@
 		576D277B093B3D4400FC5596 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_CW_ASM_SYNTAX = NO;
@@ -3954,6 +4093,16 @@
 				5745FC2A094E1E6400E6B672 /* Debug */,
 				576D277B093B3D4400FC5596 /* Development */,
 				5745FC2B094E1E6400E6B672 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5720E4760BD456CD00E63404 /* Build configuration list for PBXNativeTarget "levmar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5720E4770BD456CD00E63404 /* Debug */,
+				5720E4780BD456CD00E63404 /* Development */,
+				5720E4790BD456CD00E63404 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
