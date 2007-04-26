@@ -54,6 +54,8 @@
  * license.
  */
 
+#include <config.h>
+
 #ifdef HasJPEG
 
 #include <stdlib.h>			/* define malloc() */

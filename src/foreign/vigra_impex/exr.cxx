@@ -33,6 +33,8 @@
 /*                                                                      */
 /************************************************************************/
 
+#include <config.h>
+
 #ifdef HasEXR
 
 #include "vigra/config.hxx"

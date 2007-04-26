@@ -53,6 +53,8 @@
  * Andrew Mihal's modifications are covered by the VIGRA license.
  */
 
+#include <config.h>
+
 #ifdef HasTIFF
 
 #ifdef _MSC_VER

@@ -40,6 +40,8 @@
  *  - Added ICC support.
  */
 
+#include <config.h>
+
 #ifdef HasJPEG
 
 #include <stdexcept>

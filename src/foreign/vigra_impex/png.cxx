@@ -44,6 +44,7 @@
  *  - Added support for x and y resolution fields.
  */
 
+#include <config.h>
 #ifdef HasPNG
 
 #include "vigra/config.hxx"

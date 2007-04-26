@@ -35,6 +35,8 @@
 /*                                                                      */
 /************************************************************************/
 
+#include <config.h>
+
 #include <fstream>
 #include <algorithm>
 #include <cctype> // std::tolower
