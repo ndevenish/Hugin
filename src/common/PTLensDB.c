@@ -599,7 +599,7 @@ static long processDbFile(PTLDB_DB * db, const char *s)
         if (pLns->vigCoefLB == -1) pLns->vigCoefLB = db->vigCoefIndex;
         pLns->vigCoefUB = db->vigCoefIndex;
         vccoef = &(db->vigCoef[db->vigCoefIndex]);
-        n = sscanf(rhs, "%f %f %f %f %f", &(vccoef->f), &(vccoef->k), &(vccoef->coef[0]), &(vccoef->coef[1]),
+        n = sscanf(rhs, "%f %f %f %f %f %f", &(vccoef->f), &(vccoef->k), &(vccoef->coef[0]), &(vccoef->coef[1]),
                    &(vccoef->coef[2]), &(vccoef->coef[3]));
         if ( n != 6 ) {
             printf( "File %s line %d invalid statement %s\n", fileName, line, s);
@@ -933,7 +933,9 @@ static int inGroups(PTLDB_LnsNode *thisLens, PTLDB_CamNode *thisCamera)
     PTLDB_LnsNode *pDBLens;
     PTLDB_LnsNode *pCamLens;
     PTLDB_LnsNode *pFirstLens = NULL;
-    
+
+    pCamLens = NULL;
+
     pDBLens = db->pLnsHdr;
     while(pDBLens != NULL)
     {
