@@ -54,10 +54,10 @@
 #define DEBUG_REMAP 1
 
 #ifdef DEBUG_REMAP
-#ifdef unix
-#define DEBUG_FILE_PREFIX "/tmp/"
-#else
+#ifdef WIN32
 #define DEBUG_FILE_PREFIX "C:/temp/"
+#else
+#define DEBUG_FILE_PREFIX "/tmp/"
 #endif
 #endif
 
