@@ -1,0 +1,53 @@
+
+============================
+New CMake based build system
+============================
+
+
+Using the CMake build system under Unix
+=======================================
+
+briefly, do the following:
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local .
+make
+make install
+
+alternatively, you can also do an out of source build, if
+you don't want to clutter the hugin source tree with object files etc.
+
+$ cd hugin
+$ mkdir mybild
+$ cd mybuild
+$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
+$ make
+$ make install
+
+
+Please report any problems to the hugin-ptx group at google:
+http://groups.google.com/group/hugin-ptx
+
+Missing dependencies
+=======================
+If cmake failed to pick up some dependencies, make sure you have
+installed the corresponding development packages (often named:
+libjpeg-dev and so on). If cmake still fails to find the libraries,
+for example if you have installed them into a non-standart directory,
+you can specify the path to libraries and include files using the
+ccmake program:
+$ cmake .
+[some failuer]
+$ ccmake .
+
+DEBUG build
+===========
+Just use:
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWANT_DEBUG=1 ../
+
+For distributors:
+=================
+CMake supports the DESTDIR variable during make install, this
+might be helpful to install into a temporary directory:
+
+$ make install DESTDIR=mytmp_package_dir
+
