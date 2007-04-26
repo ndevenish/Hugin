@@ -13,10 +13,14 @@
       <growablerows>0</growablerows>
       <object class="sizeritem">
         <option>1</option>
-        <flag>wxALL|wxGROW|wxADJUST_MINSIZE</flag>
+        <flag>wxALL|wxGROW</flag>
         <border>5</border>
         <object class="wxNotebook" name="controls_notebook">
           <usenotebooksizer>1</usenotebooksizer>
+          <object class="notebookpage">
+            <label>Assistant</label>
+            <object class="unknown" name="assistant_panel_unknown"/>
+          </object>
           <object class="notebookpage">
             <label>Images</label>
             <object class="unknown" name="images_panel_unknown"/>
@@ -24,6 +28,10 @@
           <object class="notebookpage">
             <label>Camera and Lens</label>
             <object class="unknown" name="lens_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
+            <label>Crop</label>
+            <object class="unknown" name="crop_panel_unknown"/>
           </object>
           <object class="notebookpage">
             <label>Control Points</label>
@@ -34,11 +42,14 @@
             <object class="unknown" name="optimizer_panel_unknown"/>
           </object>
           <object class="notebookpage">
+            <label>Exposure</label>
+            <object class="unknown" name="optimizer_photometric_panel_unknown"/>
+          </object>
+          <object class="notebookpage">
             <label>Stitcher</label>
             <object class="unknown" name="panorama_panel_unknown"/>
           </object>
         </object>
-        <minsize>600,490</minsize>
       </object>
     </object>
   </object>

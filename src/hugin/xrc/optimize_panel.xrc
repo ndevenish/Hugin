@@ -82,319 +82,312 @@ Variables which are cleared [ ] will act as references or anchors.</label>
             <size>0,20</size>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxVERTICAL</orient>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <object class="sizeritem">
-                    <object class="wxStaticText">
-                      <label>Image Orientation</label>
-                      <font>
-                        <style platform="mac">normal</style>
-                        <family platform="mac">swiss</family>
-                        <weight>bold</weight>
-                        
-                        <size platform="mac">12</size>
-                      </font>
+            <object class="wxScrolledWindow" name="optimize_controls_panel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Image Orientation</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <flag>wxBOTTOM</flag>
+                      <border>6</border>
                     </object>
-                    <flag>wxBOTTOM</flag>
-                    <border>6</border>
-                  </object>
-                  <orient>wxVERTICAL</orient>
-                  <object class="sizeritem">
-                    <object class="wxGridSizer">
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>yaw (y):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_yaw_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxALL|wxEXPAND</flag>
-                            <border>3</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxGridSizer">
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_yaw_select">
-                                  <label>select</label>
-                                </object>
-                                <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                <border>3</border>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>yaw (y):</label>
                               </object>
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_yaw_clear">
-                                  <label>clear</label>
-                                </object>
-                                <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                <border>3</border>
-                              </object>
-                              <cols>2</cols>
-                              <rows>1</rows>
-                              <hgap>12</hgap>
                             </object>
-                            <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_yaw_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxGridSizer">
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_yaw_select">
+                                    <label>select</label>
+                                  </object>
+                                  <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_yaw_clear">
+                                    <label>clear</label>
+                                  </object>
+                                  <flag>wxRIGHT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                  <border>3</border>
+                                </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
                           </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
                         </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>pitch (p):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_pitch_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxALL|wxEXPAND</flag>
-                            <border>3</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxGridSizer">
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_pitch_select">
-                                  <label>select</label>
-                                </object>
-                                <flag>wxLEFT|wxRIGHT</flag>
-                                <border>3</border>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>pitch (p):</label>
                               </object>
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_pitch_clear">
-                                  <label>clear</label>
-                                </object>
-                                <flag>wxRIGHT</flag>
-                                <border>3</border>
-                              </object>
-                              <cols>2</cols>
-                              <rows>1</rows>
-                              <hgap>12</hgap>
                             </object>
-                            <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_pitch_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxGridSizer">
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_pitch_select">
+                                    <label>select</label>
+                                  </object>
+                                  <flag>wxLEFT|wxRIGHT</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_pitch_clear">
+                                    <label>clear</label>
+                                  </object>
+                                  <flag>wxRIGHT</flag>
+                                  <border>3</border>
+                                </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
                           </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
                         </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>roll (r):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_roll_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxALL|wxEXPAND</flag>
-                            <border>3</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxGridSizer">
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_roll_select">
-                                  <label>select</label>
-                                </object>
-                                <flag>wxLEFT|wxRIGHT</flag>
-                                <border>3</border>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>roll (r):</label>
                               </object>
-                              <object class="sizeritem">
-                                <object class="wxButton" name="opt_roll_clear">
-                                  <label>clear</label>
-                                </object>
-                                <flag>wxRIGHT</flag>
-                                <border>3</border>
-                              </object>
-                              <cols>2</cols>
-                              <rows>1</rows>
-                              <hgap>12</hgap>
                             </object>
-                            <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_roll_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxGridSizer">
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_roll_select">
+                                    <label>select</label>
+                                  </object>
+                                  <flag>wxLEFT|wxRIGHT</flag>
+                                  <border>3</border>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxButton" name="opt_roll_clear">
+                                    <label>clear</label>
+                                  </object>
+                                  <flag>wxRIGHT</flag>
+                                  <border>3</border>
+                                </object>
+                                <cols>2</cols>
+                                <rows>1</rows>
+                                <hgap>12</hgap>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
                           </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
                         </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
+                        <cols>3</cols>
+                        <rows>1</rows>
+                        <hgap>12</hgap>
                       </object>
-                      <cols>3</cols>
-                      <rows>1</rows>
-                      <hgap>12</hgap>
+                      <option>1</option>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
                     </object>
-                    <option>1</option>
-                    <flag>wxLEFT|wxEXPAND</flag>
-                    <border>12</border>
                   </object>
+                  <option>3</option>
+                  <flag>wxEXPAND</flag>
                 </object>
-                <option>3</option>
-                <flag>wxEXPAND</flag>
-              </object>
-              <object class="sizeritem">
-                <object class="wxBoxSizer">
-                  <orient>wxVERTICAL</orient>
-                  <object class="spacer">
-                    <size>0,20</size>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxStaticText">
-                      <label>Lens Parameters</label>
-                      <font>
-                        <style platform="mac">normal</style>
-                        <family platform="mac">swiss</family>
-                        <weight>bold</weight>
-                        
-                        <size platform="mac">12</size>
-                      </font>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="spacer">
+                      <size>0,20</size>
                     </object>
-                    <flag>wxBOTTOM</flag>
-                    <border>6</border>
-                  </object>
-                  <object class="sizeritem">
-                    <object class="wxGridSizer">
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>view (v):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_v_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Lens Parameters</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          
+                          <size platform="mac">12</size>
+                        </font>
                       </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>distortion (a):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_a_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>barrel (b):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_b_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>distortion (c):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_c_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>x shift (d):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_d_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <object class="sizeritem">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxStaticText">
-                              <label>y shift (e):</label>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxCheckList" name="optimizer_e_list">
-                              <content/>
-                            </object>
-                            <option>1</option>
-                            <flag>wxEXPAND</flag>
-                            <minsize>60,20</minsize>
-                          </object>
-                        </object>
-                        <option>1</option>
-                        <flag>wxEXPAND</flag>
-                      </object>
-                      <cols>6</cols>
-                      <rows>1</rows>
-                      <vgap>6</vgap>
-                      <hgap>12</hgap>
+                      <flag>wxBOTTOM</flag>
+                      <border>6</border>
                     </object>
-                    <option>1</option>
-                    <flag>wxLEFT|wxEXPAND</flag>
-                    <border>12</border>
+                    <object class="sizeritem">
+                      <object class="wxGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>view (v):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_v_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>distortion (a):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_a_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>barrel (b):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_b_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>distortion (c):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_c_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>x shift (d):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_d_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>y shift (e):</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckListBox" name="optimizer_e_list">
+                              </object>
+                              <option>1</option>
+                              <flag>wxEXPAND</flag>
+                              <minsize>60,20</minsize>
+                            </object>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <cols>6</cols>
+                        <rows>1</rows>
+                        <vgap>6</vgap>
+                        <hgap>12</hgap>
+                      </object>
+                      <option>1</option>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
+                    </object>
                   </object>
+                  <option>2</option>
+                  <flag>wxEXPAND</flag>
                 </object>
-                <option>2</option>
-                <flag>wxEXPAND</flag>
               </object>
             </object>
             <option>1</option>
