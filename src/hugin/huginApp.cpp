@@ -250,6 +250,8 @@ bool huginApp::OnInit()
     InitXmlResource();
 #else
 
+    std::cout << "INSTALL_XRC_DIR:" << INSTALL_XRC_DIR << std::endl;
+
 #ifdef __WXMAC__
     wxString osxPath = MacGetPathTOBundledResourceFile(CFSTR("xrc"));
 #endif
@@ -284,7 +286,6 @@ bool huginApp::OnInit()
     } else {
         std::cerr << "FATAL error: Could not find data directory, exiting\nTo manually specify the xrc directory open ~/.hugin and add the following\nto the top of the file:\nxrc_path=/my/install/prefix/share/hugin/xrc\n";
         wxMessageBox(wxT("FATAL error: Could not find data directory, exiting\nTo manually specify the xrc directory open ~/.hugin and add the following\nto the top of the file:\nxrc_path=/my/install/prefix/share/hugin/xrc"), wxT("Fatal error"), wxOK | wxICON_ERROR);
-        
         return false;
     }
 
@@ -296,7 +297,6 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("run_optimizer_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("edit_script_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("run_stitcher_frame.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("anchor_orientation.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_menu.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_tool.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("edit_text.xrc"));
@@ -306,23 +306,13 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pref_dialog.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("vig_corr_dlg.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_photo_panel.xrc"));
-#ifdef USE_WX253
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel-2.5.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel-2.5.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lens_panel-2.5.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame-2.5.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel-2.5.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel-2.5.xrc"));
-#else
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lens_panel.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel.xrc"));
-#endif
-
 #endif
 
 #ifdef __WXMAC__

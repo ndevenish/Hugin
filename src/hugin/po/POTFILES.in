@@ -36,17 +36,14 @@ src/hugin/xrc/assistant_panel.xrs
 src/hugin/xrc/about.xrs
 src/hugin/xrc/anchor_orientation.xrs
 src/hugin/xrc/cp_editor_panel.xrs
-src/hugin/xrc/cp_editor_panel-2.5.xrs
 src/hugin/xrc/cp_list_frame.xrs
 src/hugin/xrc/crop_panel.xrs
 src/hugin/xrc/edit_script_dialog.xrs
 src/hugin/xrc/edit_text.xrs
 src/hugin/xrc/help.xrs
 src/hugin/xrc/images_panel.xrs
-src/hugin/xrc/images_panel-2.5.xrs
 src/hugin/xrc/keyboard_help.xrs
 src/hugin/xrc/lens_panel.xrs
-src/hugin/xrc/lens_panel-2.5.xrs
 src/hugin/xrc/main_frame.xrs
 src/hugin/xrc/main_menubar.xrs
 src/hugin/xrc/main_menu.xrs
@@ -54,7 +51,6 @@ src/hugin/xrc/main_tool.xrs
 src/hugin/xrc/nona_panel.xrs
 src/hugin/xrc/optimize_panel.xrs
 src/hugin/xrc/pano_panel.xrs
-src/hugin/xrc/pano_panel-2.5.xrs
 src/hugin/xrc/pref_dialog.xrs
 src/hugin/xrc/preview_frame.xrs
 src/hugin/xrc/ptstitcher_panel.xrs
