@@ -37,6 +37,7 @@
 
 #include <vigra_ext/VignettingCorrection.h>
 #include <vigra_ext/Pyramid.h>
+#include <vigra_ext/impexalpha.hxx>
 
 #include <PT/PanoImage.h>
 #include <PT/PanoToolsInterface.h>
