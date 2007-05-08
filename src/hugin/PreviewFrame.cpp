@@ -63,8 +63,7 @@ enum {
     ID_UPDATE_BUTTON,
     ID_OUTPUTMODE_CHOICE,
     ID_EXPOSURE_TEXT,
-    ID_EXPOSURE_DECREASE,
-    ID_EXPOSURE_INCREASE,
+    ID_EXPOSURE_SPIN,
     ID_EXPOSURE_DEFAULT,
     ID_TOGGLE_BUT = wxID_HIGHEST+100,
     PROJ_PARAM_NAMES_ID = wxID_HIGHEST+1000,
@@ -86,8 +85,8 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_TEXT_ENTER( -1 , PreviewFrame::OnTextCtrlChanged)
 
     EVT_BUTTON(ID_EXPOSURE_DEFAULT, PreviewFrame::OnDefaultExposure)
-    EVT_BUTTON(ID_EXPOSURE_DECREASE, PreviewFrame::OnDecreaseExposure)
-    EVT_BUTTON(ID_EXPOSURE_INCREASE, PreviewFrame::OnIncreaseExposure)
+    EVT_SPIN_DOWN(ID_EXPOSURE_SPIN, PreviewFrame::OnDecreaseExposure)
+    EVT_SPIN_UP(ID_EXPOSURE_SPIN, PreviewFrame::OnIncreaseExposure)
     EVT_CHOICE(ID_BLEND_CHOICE, PreviewFrame::OnBlendChoice)
     EVT_CHOICE(ID_PROJECTION_CHOICE, PreviewFrame::OnProjectionChoice)
     EVT_CHOICE(ID_OUTPUTMODE_CHOICE, PreviewFrame::OnOutputChoice)
@@ -281,18 +280,24 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_defaultExposureBut = new wxBitmapButton(this, ID_EXPOSURE_DEFAULT,
                                               wxArtProvider::GetBitmap(wxART_REDO));
     blendModeSizer->Add(m_defaultExposureBut, 0, wxLEFT | wxRIGHT, 5);
-    m_decExposureBut = new wxBitmapButton(this, ID_EXPOSURE_DECREASE,
-                                          wxArtProvider::GetBitmap(wxART_GO_BACK));
-    blendModeSizer->Add(m_decExposureBut);
+
+//    m_decExposureBut = new wxBitmapButton(this, ID_EXPOSURE_DECREASE,
+//                                          wxArtProvider::GetBitmap(wxART_GO_BACK));
+//    blendModeSizer->Add(m_decExposureBut);
+
     m_exposureTextCtrl = new wxTextCtrl(this, ID_EXPOSURE_TEXT, _("0"),
-                                        wxDefaultPosition,wxSize(30,-1), wxTE_PROCESS_ENTER);
+                                        wxDefaultPosition,wxSize(50,-1), wxTE_PROCESS_ENTER);
     blendModeSizer->Add(m_exposureTextCtrl,
                           0,        // not vertically strechable
-                          wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                          wxLEFT | wxTOP | wxBOTTOM  | wxALIGN_CENTER_VERTICAL, // draw border all around
                           5);       // border width
-    m_incExposureBut = new wxBitmapButton(this, ID_EXPOSURE_INCREASE,
-                                          wxArtProvider::GetBitmap(wxART_GO_FORWARD));
-    blendModeSizer->Add(m_incExposureBut);
+//    m_incExposureBut = new wxBitmapButton(this, ID_EXPOSURE_INCREASE,
+//                                          wxArtProvider::GetBitmap(wxART_GO_FORWARD));
+    m_exposureSpinBut = new wxSpinButton(this, ID_EXPOSURE_SPIN, wxDefaultPosition,
+                                         wxDefaultSize, wxSP_VERTICAL);
+    m_exposureSpinBut->SetRange(-0x8000, 0x7fff);
+    m_exposureSpinBut->SetValue(0);
+    blendModeSizer->Add(m_exposureSpinBut, 0, wxALIGN_CENTER_VERTICAL);
 
     m_topsizer->Add(blendModeSizer, 0, wxEXPAND | wxALL, 5);
 
@@ -432,17 +437,21 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
 
     m_outputModeChoice->SetSelection(opts.outputMode);
     if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
+        /*
         m_exposureTextCtrl->Hide();
         m_defaultExposureBut->Hide();
         m_decExposureBut->Hide();
         m_incExposureBut->Hide();
+        */
     } else {
+        /*
         m_exposureTextCtrl->Show();
         m_defaultExposureBut->Show();
         m_decExposureBut->Show();
         m_incExposureBut->Show();
-        m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,1).c_str(), *wxConvCurrent));
+        */
     }
+    m_exposureTextCtrl->SetValue(wxString(doubleToString(opts.outputExposureValue,2).c_str(), *wxConvCurrent));
 
     // TODO: enable display of parameters and set their limits, if projection has some.
 #ifdef HasPANO13
@@ -834,7 +843,7 @@ void PreviewFrame::OnDefaultExposure( wxCommandEvent & e )
     }
 }
 
-void PreviewFrame::OnIncreaseExposure( wxCommandEvent & e )
+void PreviewFrame::OnIncreaseExposure( wxSpinEvent & e )
 {
     PanoramaOptions opt = m_pano.getOptions();
     opt.outputExposureValue = opt.outputExposureValue + 1.0/3;
@@ -844,7 +853,7 @@ void PreviewFrame::OnIncreaseExposure( wxCommandEvent & e )
     updatePano();
 }
 
-void PreviewFrame::OnDecreaseExposure( wxCommandEvent & e )
+void PreviewFrame::OnDecreaseExposure( wxSpinEvent & e )
 {
     PanoramaOptions opt = m_pano.getOptions();
     opt.outputExposureValue = opt.outputExposureValue - 1.0/3;

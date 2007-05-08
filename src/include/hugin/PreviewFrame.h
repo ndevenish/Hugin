@@ -68,8 +68,8 @@ protected:
     void OnTextCtrlChanged(wxCommandEvent & e);
 
     void OnDefaultExposure( wxCommandEvent & e );
-    void OnDecreaseExposure( wxCommandEvent & e );
-    void OnIncreaseExposure( wxCommandEvent & e );
+    void OnDecreaseExposure( wxSpinEvent & e );
+    void OnIncreaseExposure( wxSpinEvent & e );
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
@@ -90,8 +90,7 @@ private:
     wxChoice * m_outputModeChoice;
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
-    wxBitmapButton * m_incExposureBut;
-    wxBitmapButton * m_decExposureBut;
+    wxSpinButton * m_exposureSpinBut;
 
     wxString m_choices[3];
     int m_oldProjFormat;
