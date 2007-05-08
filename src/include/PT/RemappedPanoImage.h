@@ -51,7 +51,9 @@
 #include <PT/PanoToolsInterface.h>
 //#include <PT/SpaceTransform.h>
 
+#ifdef DEBUG
 #define DEBUG_REMAP 1
+#endif
 
 #ifdef DEBUG_REMAP
 #ifdef WIN32
@@ -104,7 +106,7 @@ void estimateImageAlpha(const SrcPanoImage & src,
     DEBUG_DEBUG("dest rect: " << destRect);
 
     FDiff2D cropCenter;
-    double radius2;
+    double radius2=0;
     if (src.getCropMode() == SrcPanoImage::CROP_CIRCLE) {
         cropCenter.x = src.getCropRect().left() + src.getCropRect().width()/2.0;
         cropCenter.y = src.getCropRect().top() + src.getCropRect().height()/2.0;
