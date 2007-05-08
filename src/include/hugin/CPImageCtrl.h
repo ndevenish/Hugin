@@ -27,6 +27,8 @@
 #include <string>
 #include <vector>
 
+#include <hugin/ImageCache.h>
+
 class CPEditorPanel;
 class CPZoomDisplayPanel;
 /** Events to notify about new point / region / point change
@@ -192,8 +194,9 @@ public:
     wxPoint MaxScrollDelta(wxPoint delta);
 
 protected:
-    void drawPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;
-    void drawHighlightPoint(wxDC & p, const FDiff2D & point, const wxColor & color) const;
+    void drawPoint(wxDC & p, const FDiff2D & point, int i, bool selected = false) const;
+    // draw the magnified view of a selected control point
+    wxBitmap generateMagBitmap(FDiff2D point, wxPoint canvasPos) const;
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);
@@ -391,6 +394,7 @@ private:
 
     // colors for the different points
     std::vector<wxColour> pointColors;
+    std::vector<wxColour> textColours;
     double scaleFactor;
     bool fitToWindow;
 
@@ -415,6 +419,8 @@ private:
 //    CPZoomDisplayPanel * m_zoomDisplay;
 
     ImageRotation m_imgRotation;
+
+    ImageCache::EntryPtr m_img;
 
     DECLARE_EVENT_TABLE();
 };

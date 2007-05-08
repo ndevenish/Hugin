@@ -671,6 +671,8 @@ void CPEditorPanel::SelectLocalPoint(unsigned int LVpointNr)
 
     if ( m_selectedPoint == LVpointNr) {
         DEBUG_DEBUG("already selected");
+        m_leftImg->selectPoint(LVpointNr);
+        m_rightImg->selectPoint(LVpointNr);
         return;
     }
     m_selectedPoint = LVpointNr;
@@ -983,17 +985,10 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const PanoImage & img = m_pano->getImage(subjImgNr);
 
     // fixme: just cutout suitable gray 
-    wxImage wxSubjImg;
-    ImageCache::getInstance().getImageWX(img.getFilename(), wxSubjImg);
-    wxImage wxTmplImg;
-    ImageCache::getInstance().getImageWX( m_pano->getImage(tmplImgNr).getFilename(), wxTmplImg);
-
-    BasicImageView<RGBValue<unsigned char> > subjImg((RGBValue<unsigned char> *)wxSubjImg.GetData(),
-            wxSubjImg.GetWidth(),
-            wxSubjImg.GetHeight());
-    BasicImageView<RGBValue<unsigned char> > tmplImg((RGBValue<unsigned char> *)wxTmplImg.GetData(),
-            wxTmplImg.GetWidth(),
-            wxTmplImg.GetHeight());
+//    wxImage wxSubjImg;
+    ImageCache::EntryPtr subjImg = ImageCache::getInstance().getImage(img.getFilename());
+//    wxImage wxTmplImg;
+    ImageCache::EntryPtr tmplImg = ImageCache::getInstance().getImage( m_pano->getImage(tmplImgNr).getFilename());
 
     wxConfigBase *cfg = wxConfigBase::Get();
     bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
@@ -1008,15 +1003,41 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         {
             wxBusyCursor busy;
-            res = vigra_ext::PointFineTuneRotSearch(tmplImg, tmplPoint, templSize,
-                                                    subjImg, o_subjPoint.toDiff2D(),
-                                                    sWidth,
-                                                    startAngle, stopAngle, nSteps);
+            if (subjImg->image8 && tmplImg->image8) {
+                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
+                                                        tmplPoint, templSize,
+                                                        *(subjImg->image8),
+                                                        o_subjPoint.toDiff2D(),
+                                                        sWidth,
+                                                        startAngle, stopAngle, nSteps);
+            } else if (subjImg->imageFloat && tmplImg->imageFloat) {
+                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
+                                                        tmplPoint, templSize,
+                                                        *(subjImg->imageFloat),
+                                                        o_subjPoint.toDiff2D(),
+                                                        sWidth,
+                                                        startAngle, stopAngle, nSteps);
+            } else if (subjImg->image8 && tmplImg->imageFloat) {
+                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
+                                                        tmplPoint, templSize,
+                                                        *(subjImg->image8),
+                                                        o_subjPoint.toDiff2D(),
+                                                        sWidth,
+                                                        startAngle, stopAngle, nSteps);
+            } else {
+                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
+                                                        tmplPoint, templSize,
+                                                        *(subjImg->imageFloat),
+                                                        o_subjPoint.toDiff2D(),
+                                                        sWidth,
+                                                        startAngle, stopAngle, nSteps);
+
+            }
         }
     } else {
         wxBusyCursor busy;
-        res = vigra_ext::PointFineTune(tmplImg, tmplPoint, templSize,
-                                       subjImg, o_subjPoint.toDiff2D(),
+        res = vigra_ext::PointFineTune(*(tmplImg->image8), tmplPoint, templSize,
+                                       *(subjImg->image8), o_subjPoint.toDiff2D(),
                                        sWidth);
     }
     // invert curvature. we always assume its a maxima, the curvature there is negative
@@ -1448,13 +1469,14 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         selectedCP = i;            // remembers the old selection
       }
     }
-    m_cpList->Hide();
+    m_cpList->Freeze();
     m_cpList->DeleteAllItems();
 
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
         const ControlPoint & p = currentPoints[i].second;
         DEBUG_DEBUG("inserting LVItem " << i);
-        m_cpList->InsertItem(i,wxString::Format(wxT("%d"),currentPoints[i].first));
+//        m_cpList->InsertItem(i,wxString::Format(wxT("%d"),currentPoints[i].first));
+        m_cpList->InsertItem(i,wxString::Format(wxT("%d"),i));
         m_cpList->SetItem(i,1,wxString::Format(wxT("%.2f"),p.x1));
         m_cpList->SetItem(i,2,wxString::Format(wxT("%.2f"),p.y1));
         m_cpList->SetItem(i,3,wxString::Format(wxT("%.2f"),p.x2));
@@ -1512,7 +1534,7 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
             m_cpList->SetColumnWidth(j, width);
     }
 
-    m_cpList->Show();
+    m_cpList->Thaw();
 }
 
 void CPEditorPanel::EnablePointEdit(bool state)
@@ -1673,6 +1695,10 @@ void CPEditorPanel::OnZoom(wxCommandEvent & e)
     }
     m_leftImg->setScale(factor);
     m_rightImg->setScale(factor);
+    // if a point is selected, keep it in view
+    if (m_selectedPoint < UINT_MAX) {
+        SelectLocalPoint(m_selectedPoint);
+    }
 }
 
 void CPEditorPanel::OnKey(wxKeyEvent & e)
