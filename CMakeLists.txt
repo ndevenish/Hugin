@@ -14,41 +14,66 @@ set(V_PATCH 1)
 #FIND_PACKAGE(FLEX REQUIRED)
 
 # find dependencies
-
+FIND_PACKAGE(PkgConfig)
 FIND_PACKAGE(TIFF REQUIRED)
 FIND_PACKAGE(JPEG REQUIRED)
 FIND_PACKAGE(PANO13 REQUIRED)
+FIND_PACKAGE(PNG REQUIRED)
 FIND_PACKAGE(OpenEXR)
 FIND_PACKAGE(Boost REQUIRED)
 
 SET(wxWidgets_USE_LIBS base core xrc)
 FIND_PACKAGE(wxWidgets REQUIRED)
-IF(wxWidgets_FOUND)
-  INCLUDE(${wxWidgets_USE_FILE})
-ENDIF(wxWidgets_FOUND) 
+IF(NOT wxWidgets_FOUND)
+  MESSAGE("wxWidgets was not found, GUI (hugin, nona_gui) disabled")
+ENDIF(NOT wxWidgets_FOUND) 
 
 FIND_PACKAGE(MSGFMT REQUIRED)
 IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
+# check for VIPSvipsCC-7.12
+#PKGCONFIG(vipsCC-7.12 VIPS_INCLUDE_DIR VIPS_LINK_DIR VIPS_LINK_FLAGS VIPS_CFLAGS)
+
+pkg_check_modules(VIPSCC vipsCC-7.12)
+
+MESSAGE("Vips include dir: ${VIPSCC_INCLUDE_DIR}")
+MESSAGE("Vips link dir: ${VIPSCC_LINK_DIR}")
+MESSAGE("Vips link flags: ${VIPSCC_LINK_FLAGS}")
+MESSAGE("Vips cflags: ${VIPSCC_CFLAGS}")
+
+MESSAGE("tiff libraries: ${TIFF_LIBRARIES}")
+MESSAGE("tiff include dir: ${TIFF_INCLUDE_DIR}")
+
 
 #BUILD SETUP
-#None, Debug, Release, or custom ones
-IF(WANT_DEBUG)
-  MESSAGE("Enabled Debug build")
-  SET(CMAKE_BUILD_TYPE Debug)
-  ADD_DEFINITIONS(-DDEBUG)
-ELSE(WANT_DEBUG)
-  SET(CMAKE_BUILD_TYPE Release)
-ENDIF(WANT_DEBUG)
+IF(NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
+      "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
+      FORCE)
+ENDIF(NOT CMAKE_BUILD_TYPE)
 
-IF(UNIX)
-  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
-  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
-  SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -Wall")
-  SET(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -Wall")
-ENDIF(UNIX)
+#None, Debug, Release, or custom ones
+#IF(WANT_DEBUG)
+#  MESSAGE("Enabled Debug build")
+#  SET(CMAKE_BUILD_TYPE Debug)
+#  ADD_DEFINITIONS(-DDEBUG)
+#ELSE(WANT_DEBUG)
+#  SET(CMAKE_BUILD_TYPE Release)
+#ENDIF(WANT_DEBUG)
+
+IF(CMAKE_BUILD_MODE STREQUAL "Debug")
+  MESSAGE("Building in Debug mode, resulting programs will be SLOW")
+  ADD_DEFINITIONS(-DDEBUG)
+ENDIF(CMAKE_BUILD_MODE STREQUAL "Debug")
+
+#IF(UNIX)
+#  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall" CACHE)
+#  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall" CACHE)
+#  SET(CMAKE_CXX_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" CACHE)
+#  SET(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -Wall -DDEBUG" CACHE)
+#ENDIF(UNIX)
 
 IF (UNIX)
   # define destination dirs (relative to prefix)
@@ -71,6 +96,8 @@ ELSEIF (WIN32)
 ELSEIF(APPLE)
   MESSAGE("WARNING: installation for OSX not yet supported")
 ENDIF(UNIX)
+
+set(AAAA "bbbbb")
 
 # create config.h file
 configure_file(src/include/config.h.in.cmake ${CMAKE_BINARY_DIR}/src/include/config.h)
