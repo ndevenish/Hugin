@@ -21,6 +21,8 @@
  *
  */
 
+#include <config.h>
+
 #include <fstream>
 
 #include <vigra_ext/lut.h>
