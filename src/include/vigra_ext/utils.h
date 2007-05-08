@@ -420,13 +420,15 @@ struct PassThroughFunctor
         return a;
     }
 
-    T operator()(const T & a, const FDiff2D & p) const
+    template <class T2>
+    T2 operator()(const T2 & a, const FDiff2D & p) const
     {
         return a;
     }
-    
-    template <class TV, class A>
-    A hdrWeight(TV v, A a) const
+
+    template <class T2, class A>
+    A
+    hdrWeight(T2 v, A a) const
     {
         return a;
     }
