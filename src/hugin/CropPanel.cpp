@@ -178,9 +178,9 @@ void CropPanel::Pano2Display(int imgNr)
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image
     if (m_currentImageFile != newImgFile) {
-        wxImage wximg;
-        ImageCache::getInstance().getImageWX(newImgFile, wximg);
-        m_Canvas->SetImage(wximg);
+//        wxImage wximg;
+        ImageCache::EntryPtr imgV = ImageCache::getInstance().getImage(newImgFile, true);
+        m_Canvas->SetImage(imgV);
         m_currentImageFile == newImgFile;
     }
     m_imgOpts = img.getOptions();
@@ -532,9 +532,10 @@ void CenterCanvas::OnPaint(wxPaintEvent & dc)
     }
 }
 
-void CenterCanvas::SetImage(wxImage & s_img)
+void CenterCanvas::SetImage(ImageCache::EntryPtr s_img)
 {
-    img = s_img;
+    m_imgCacheImg = s_img;
+    img = imageCacheEntry2wxImage(s_img);
 
     wxSizeEvent e;
     Resize (e);

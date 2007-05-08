@@ -35,6 +35,9 @@
 
 class CenterCanvas;
 class ImagesListCrop;
+
+#include <hugin/ImageCache.h>
+
 /** adjustment dialog
  *
  */
@@ -116,7 +119,7 @@ public:
     virtual ~CenterCanvas(void) ;
 
     /** set image and crop parameters */
-    void SetImage(wxImage & img);
+    void SetImage(ImageCache::EntryPtr img);
     void UpdateDisplay(const vigra::Rect2D & crop, bool circle,
                        const vigra::Point2D & center, bool useCenter);
 
@@ -138,6 +141,7 @@ private:
     void OnMouse ( wxMouseEvent & event );
 
     // the image to adjust ( full scale )
+    ImageCache::EntryPtr m_imgCacheImg;
     wxImage img;
     // the scaled image (clear/dirty)
     wxBitmap m_scaled_img;

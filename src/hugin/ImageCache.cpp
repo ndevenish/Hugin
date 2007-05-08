@@ -35,6 +35,7 @@
 #include <vigra/basicimageview.hxx>
 #include <vigra/rgbvalue.hxx>
 #include <vigra/impex.hxx>
+#include <vigra/error.hxx>
 #include <vigra_ext/utils.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <vigra_ext/Pyramid.h>
@@ -108,16 +109,14 @@ ImageCache::~ImageCache()
 
 void ImageCache::removeImage(const std::string & filename)
 {
-    map<string, Entry*>::iterator it = images.find(filename);
+    map<string, EntryPtr>::iterator it = images.find(filename);
     if (it != images.end()) {
-        delete it->second;
         images.erase(it);
     }
 
     string sfilename = filename + string("_small");
     it = images.find(sfilename);
     if (it != images.end()) {
-        delete it->second;
         images.erase(it);
     }
 
@@ -139,12 +138,6 @@ void ImageCache::removeImage(const std::string & filename)
 
 void ImageCache::flush()
 {
-    for (map<string, Entry*>::iterator it = images.begin();
-         it != images.end();
-         ++it)
-    {
-        delete it->second;
-    }
     images.clear();
 
     for (map<string, vigra::BImage*>::iterator it = pyrImages.begin();
@@ -164,7 +157,7 @@ void ImageCache::softFlush()
     // calculate used memory
     long imgMem = 0;
 
-    std::map<std::string, Entry*>::iterator imgIt;
+    std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
@@ -196,7 +189,7 @@ void ImageCache::softFlush()
         // use least recently uses strategy.
         // sort images by their access time
         std::map<int,std::string> accessMap;
-        for (map<string, Entry*>::iterator it = images.begin();
+        for (map<string, EntryPtr>::iterator it = images.begin();
              it != images.end();
              ++it)
         {
@@ -215,7 +208,7 @@ void ImageCache::softFlush()
                 deleted = true;
             } else if (accessMap.size() > 0) {
                 std::map<int,std::string>::iterator accIt = accessMap.begin();
-                map<string, Entry*>::iterator it = images.find(accIt->second);
+                map<string, EntryPtr>::iterator it = images.find(accIt->second);
                 if (it != images.end()) {
                     DEBUG_DEBUG("soft flush: removing image: " << it->first);
                     if (it->second->image8) {
@@ -224,7 +217,6 @@ void ImageCache::softFlush()
                     if (it->second->imageFloat) {
                         purgedMem += it->second->imageFloat->width() * it->second->imageFloat->height()*3*4;
                     }
-                    delete it->second;
                     images.erase(it);
                     accessMap.erase(accIt);
                     deleted = true;
@@ -313,17 +305,12 @@ operator-(const vigra::RGBValue<V1> l, V2 const & r)
 #endif
 
 
-void convertTo8Bit(ImageCache::Entry * entry, wxImage & img)
+void convertTo8Bit(vigra::FRGBImage & src, std::string origType, vigra::BRGBImage & dest)
 {
-    DEBUG_ASSERT(entry->imageFloat);
-
     // code to apply the mapping to 8 bit
     // always scaled from 0..1 for integer images.
 
-    img = wxImage(entry->imageFloat->size().x, entry->imageFloat->size().x, false);
-    BasicImageView<RGBValue<unsigned char> > imgview((RGBValue<unsigned char> *)img.GetData(),
-            img.GetWidth(),
-            img.GetHeight());
+    dest.resize(src.size());
 
     double min=0;
     double max=1;
@@ -331,17 +318,17 @@ void convertTo8Bit(ImageCache::Entry * entry, wxImage & img)
     int mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingInteger"), HUGIN_IMGCACHE_MAPPING_INTEGER);
 
     // float needs to be from min ... max.
-    if (entry->origType == "FLOAT" || entry->origType == "DOUBLE")
+    if (origType == "FLOAT" || origType == "DOUBLE")
     {
         vigra::RGBToGrayAccessor<RGBValue<float> > ga;
         vigra::FindMinMax<float> minmax;   // init functor
-        vigra::inspectImage(srcImageRange(*(entry->imageFloat), ga),
+        vigra::inspectImage(srcImageRange(src, ga),
                             minmax);
         min = minmax.min;
         max = minmax.max;
         mapping = wxConfigBase::Get()->Read(wxT("/ImageCache/MappingFloat"), HUGIN_IMGCACHE_MAPPING_FLOAT);
     }
-    applyMapping(srcImageRange(*(entry->imageFloat)), destImage(imgview), min, max, mapping);
+    applyMapping(srcImageRange(src), destImage(dest), min, max, mapping);
 }
 
 
@@ -490,15 +477,23 @@ void importAndConvertAlphaImage(const ImageImportInfo & info,
     }
 }
 
-ImageCache::Entry* ImageCache::getImage(const std::string & filename)
+ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
+                                        bool integer)
 {
 //    softFlush();
 
-    std::map<std::string, Entry *>::iterator it;
+    std::map<std::string, EntryPtr>::iterator it;
     it = images.find(filename);
     if (it != images.end()) {
         m_accessCounter++;
         it->second->lastAccess = m_accessCounter;
+        if (integer && it->second->image8->width() == 0) {
+            // convert to 8 bit
+            it->second->image8->resize(it->second->imageFloat->size());
+            convertTo8Bit(*(it->second->imageFloat),
+                          it->second->origType,
+                          *(it->second->image8));
+        }
         return it->second;
     } else {
         if (m_progress) {
@@ -508,19 +503,12 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
 #if 1
         // load images with VIGRA impex, and store either 8 bit or float images
         std::string pixelTypeStr;
-        vigra::BRGBImage * img8 = 0;
-        vigra::FRGBImage * imgFloat = 0;
-        vigra::BImage * mask = 0;
+        ImageCacheRGB8Ptr img8(new vigra::BRGBImage);
+        ImageCacheRGBFloatPtr imgFloat(new vigra::FRGBImage);
+        ImageCache8Ptr mask(new vigra::BImage);
+
         try {
             ImageImportInfo info(filename.c_str());
-
-            /*
-            image = new wxImage(info.width(), info.height());
-
-            BasicImageView<RGBValue<unsigned char> > imgview((RGBValue<unsigned char> *)image->GetData(),
-                image->GetWidth(),
-                image->GetHeight());
-            */
 
             int bands = info.numBands();
             int extraBands = info.numExtraBands();
@@ -530,9 +518,9 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
             DEBUG_DEBUG(filename << ": bands: " << bands << "  extra bands: " << extraBands << "  type: " << pixelType);
 
             if (pixelTypeStr == "UINT8") {
-                img8 = new vigra::BRGBImage(info.size());
+                img8->resize(info.size());
             } else {
-                imgFloat = new vigra::FRGBImage(info.size());
+                imgFloat->resize(info.size());
             }
 
             wxString pixelTypeWX(pixelType, *wxConvCurrent);
@@ -594,7 +582,6 @@ ImageCache::Entry* ImageCache::getImage(const std::string & filename)
                 }
             } else if ( bands == 4 && extraBands == 1) {
                 // load and convert image to 8 bit, if needed
-                mask = new vigra::BImage(info.size());
                 if (strcmp(pixelType, "UINT8") == 0 ) {
                     vigra::importImageAlpha(info, destImage(*img8), destImage(*mask));
                 } else if (strcmp(pixelType, "INT16") == 0 ) {
@@ -647,7 +634,7 @@ temporarily disabled
         } catch (std::exception & e) {
             // could not load image..
             wxLogError(wxString::Format(_("Error during image reading: %s"), wxString(e.what(),*wxConvCurrent).c_str()));
-            return 0;
+            throw;
         }
 
 #else
@@ -661,35 +648,22 @@ temporarily disabled
         if (m_progress) {
             m_progress->popTask();
         }
-        Entry * e = new Entry(img8, imgFloat, pixelTypeStr);
+
+        if (integer && img8->width() == 0) {
+            // convert to 8 bit
+            convertTo8Bit(*imgFloat, pixelTypeStr, *img8);
+        }
+        EntryPtr e(new Entry(img8, imgFloat, mask, pixelTypeStr));
         images[filename] = e;
         return e;
     }
 }
 
-ImageCache::Entry * ImageCache::getImageWX(const std::string & filename, wxImage & img)
-{
-    Entry * e = getImage(filename);
-    if (e == 0)
-        return 0;
-    if (e->image8) {
-        // 8 bit image.
-        img = wxImage(e->image8->width(), e->image8->height(), (unsigned char*) &(e->image8->operator()(0,0)), true);
-        return e;
-    } else if (e->imageFloat) {
-        // convert to 8 bit
-        convertTo8Bit(e, img);
-        return e;
-    } else {
-        return 0;
-    }
-}
-
-
-ImageCache::Entry * ImageCache::getSmallImage(const std::string & filename)
+ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
+                                               bool integer)
 {
     softFlush();
-    std::map<std::string, Entry*>::iterator it;
+    std::map<std::string, EntryPtr>::iterator it;
     // "_small" is only used internally
     string name = filename + string(":small");
     it = images.find(name);
@@ -701,83 +675,60 @@ ImageCache::Entry * ImageCache::getSmallImage(const std::string & filename)
             m_progress->pushTask(ProgressTask((const char *)wxString::Format(_("Scaling image %s"),wxString(utils::stripPath(filename).c_str(), *wxConvCurrent).c_str()).mb_str(), "", 0));
         }
         DEBUG_DEBUG("creating small image " << name );
-        Entry * entry = getImage(filename);
-        if (entry) {
-            // && entry->image8
-            size_t w=0;
-            size_t h=0;
-            if (entry->image8) {
-                w = entry->image8->width();
-                h = entry->image8->height();
-            } else if (entry->imageFloat) {
-                w = entry->imageFloat->width();
-                h = entry->imageFloat->height();
-            } else {
-                return 0;
-            }
-
-            size_t sz = w*h;
-            size_t smallImageSize = wxConfigBase::Get()->Read(wxT("/ImageCache/SmallImageSize"), 500 * 500l);
-
-            int nLevel=0;
-            while(sz > smallImageSize) {
-                sz /=4;
-                nLevel++;
-            }
-            Entry * e = new Entry(0, 0, entry->origType);
-            if (entry->image8) {
-                e->image8 = new BRGBImage;
-                if (entry->mask) {
-                    e->mask = new BImage;
-                    reduceNTimes(*(entry->image8), *(entry->mask), *(e->image8), *(e->mask), nLevel);
-                } else {
-                    reduceNTimes(*(entry->image8), *(e->image8), nLevel);
-                }
-            } else {
-                e->imageFloat = new FRGBImage;
-                if (entry->mask) {
-                    e->mask = new BImage;
-                    reduceNTimes(*(entry->imageFloat), *(entry->mask), *(e->imageFloat), *(e->mask), nLevel);
-                } else {
-                    reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
-                }
-            }
-            images[name] = e;
-            DEBUG_INFO ( "created small image: " << name);
-            if (m_progress) {
-                m_progress->popTask();
-            }
-            return e;
+        EntryPtr entry = getImage(filename);
+        // && entry->image8
+        size_t w=0;
+        size_t h=0;
+        if (entry->image8) {
+            w = entry->image8->width();
+            h = entry->image8->height();
+        } else if (entry->imageFloat) {
+            w = entry->imageFloat->width();
+            h = entry->imageFloat->height();
         } else {
-            if (m_progress) {
-                m_progress->popTask();
-            }
-            return 0;
+            vigra_fail("Could not load image");
         }
+
+        size_t sz = w*h;
+        size_t smallImageSize = wxConfigBase::Get()->Read(wxT("/ImageCache/SmallImageSize"), 800 * 800l);
+
+        int nLevel=0;
+        while(sz > smallImageSize) {
+            sz /=4;
+            nLevel++;
+        }
+        EntryPtr e(new Entry);
+        e->origType = entry->origType;
+        if (entry->imageFloat->width() != 0 ) {
+            e->imageFloat = ImageCacheRGBFloatPtr(new FRGBImage);
+            if (entry->mask->width() != 0) {
+                reduceNTimes(*(entry->imageFloat), *(entry->mask), *(e->imageFloat), *(e->mask), nLevel);
+            } else {
+                reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
+            }
+        }
+        if (entry->image8->width() != 0) {
+            e->image8 = ImageCacheRGB8Ptr(new vigra::BRGBImage);
+            if ((entry->mask->width() != 0) && (e->mask->width() == 0)  ) {
+                reduceNTimes(*(entry->image8), *(entry->mask), *(e->image8), *(e->mask), nLevel);
+            } else {
+                reduceNTimes(*(entry->image8), *(e->image8), nLevel);
+            }
+        }
+        if (integer && e->image8->width() == 0) {
+            // convert to 8 bit
+            convertTo8Bit(*(e->imageFloat), e->origType, *(e->image8));
+        }
+        images[name] = e;
+        DEBUG_INFO ( "created small image: " << name);
+        if (m_progress) {
+            m_progress->popTask();
+        }
+        return e;
     }
 }
 
-ImageCache::Entry * ImageCache::getSmallImageWX(const std::string & filename, wxImage & img)
-{
-    Entry * e = getSmallImage(filename);
-    if (e == 0)
-        return 0;
-    if (e->image8) {
-        // 8 bit image.
-        vigra_precondition(e->image8->width()> 0 &&  e->image8->height() > 0, "8 bit small image has zero size");
-        img = wxImage(e->image8->width(), e->image8->height(), (unsigned char*) &(e->image8->operator()(0,0)), true);
-        return e;
-    } else if (e->imageFloat) {
-        // convert to 8 bit
-        vigra_precondition(e->imageFloat->width()> 0 &&  e->imageFloat->height() > 0, "float small image has zero size");
-        convertTo8Bit(e, img);
-        return e;
-    } else {
-        return 0;
-    }
-}
-
-
+#if 0
 const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                                                   int level)
 {
@@ -805,7 +756,7 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
                 if (key.level == 0) {
                     // special case, create first gray image
                     wxImage srcImg;
-                    Entry * e = getImageWX(filename, srcImg);
+                    EntryPtr e = getImageWX(filename, srcImg);
                     if (e == 0) {
                         vigra_fail("Error loading initial pyramid image");
                     }
@@ -846,6 +797,9 @@ const vigra::BImage & ImageCache::getPyramidImage(const std::string & filename,
         return *img;
     }
 }
+
+#endif
+
 
 SmallRemappedImageCache::~SmallRemappedImageCache()
 {
@@ -894,12 +848,12 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     const PanoImage & img = pano.getImage(imgNr);
     const PT::ImageOptions & iopts = img.getOptions();
 
-    ImageCache::Entry * e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
-    if (!e) {
+    ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
+    if ( (e->image8->width() == 0) && (e->imageFloat->width() == 0) ) {
         throw std::runtime_error("could not retrieve small source image for preview generation");
     }
     Size2D srcImgSize;
-    if (e->image8)
+    if (e->image8->width() > 0)
         srcImgSize = e->image8->size();
     else
         srcImgSize = e->imageFloat->size();
@@ -914,11 +868,11 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     BImage srcMask;
 
     if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
-        ImageCache::Entry * e = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
+        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
         if (!e) {
             throw std::runtime_error("could not retrieve flatfield image for preview generation");
         }
-        if (e->image8) {
+        if (e->image8->width()) {
             srcFlat.resize(e->image8->size());
             vigra::copyImage(srcImageRange(*(e->image8),
                              RGBToGrayAccessor<RGBValue<vigra::UInt8> >()),
@@ -932,7 +886,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     }
     progress.pushTask(ProgressTask("remapping", "", 0));
 
-    if (e->imageFloat) {
+    if (e->imageFloat->width()) {
         // remap image
         remapImage(*(e->imageFloat),
                    srcMask,
@@ -981,5 +935,19 @@ void SmallRemappedImageCache::invalidate(unsigned int imgNr)
         m_images.erase(imgNr);
         m_imagesParam.erase(imgNr);
     }
+}
+
+wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e)
+{
+    if (e->image8->width() > 0) {
+        return wxImage(e->image8->width(),
+                       e->image8->height(),
+                       (unsigned char *)e->image8->data(),
+                       true);
+    } else {
+        // invalid wxImage
+        return wxImage();
+    }
+
 }
 

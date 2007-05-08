@@ -30,9 +30,12 @@
 //#include <vigra/stdimage.hxx>
 #include <PT/RemappedPanoImage.h>
 //#include <PT/PanoImage.h>
+#include <boost/shared_ptr.hpp>
 
-typedef vigra::BRGBImage * ImagePtr8Bit;
-typedef vigra::FRGBImage * ImagePtrFloat;
+// use reference counted pointers
+typedef boost::shared_ptr<vigra::BRGBImage> ImageCacheRGB8Ptr;
+typedef boost::shared_ptr<vigra::FRGBImage> ImageCacheRGBFloatPtr;
+typedef boost::shared_ptr<vigra::BImage> ImageCache8Ptr;
 
 
 /** key for an image. used to find images, and to store access information.
@@ -72,34 +75,31 @@ public:
     class Entry
     {
         public:
-            ImagePtr8Bit image8;
-            ImagePtrFloat imageFloat;
-            vigra::BImage * mask;
+            ImageCacheRGB8Ptr image8;
+            ImageCacheRGBFloatPtr imageFloat;
+            ImageCache8Ptr mask;
 
             std::string origType;
             int lastAccess;
 
             Entry()
-            : image8(0), imageFloat(0), mask(0)
+            : image8(ImageCacheRGB8Ptr(new vigra::BRGBImage)),
+              imageFloat(ImageCacheRGBFloatPtr(new vigra::FRGBImage)),
+              mask(ImageCache8Ptr(new vigra::BImage))
             { };
 
-            Entry(ImagePtr8Bit img, ImagePtrFloat imgFloat, std::string typ)
-            : image8(img), imageFloat(imgFloat), mask(0), origType(typ), lastAccess(0)
+            Entry(ImageCacheRGB8Ptr & img, ImageCacheRGBFloatPtr & imgFloat,
+                  ImageCache8Ptr & imgMask, const std::string & typ)
+            : image8(img), imageFloat(imgFloat), mask(imgMask), origType(typ), lastAccess(0)
             { };
 
             ~Entry()
             {
-                if (image8) {
-                    delete image8;
-                }
-                if (imageFloat) {
-                    delete imageFloat;
-                }
-                if (mask) {
-                    delete mask;
-                }
             }
     };
+
+    /** a shared pointer to the entry */
+    typedef boost::shared_ptr<Entry> EntryPtr;
 
     /** dtor.
      */
@@ -112,39 +112,24 @@ public:
      *
      *  it will be loaded if its not already in the cache
      *
-     *  Do not modify this image. Use a copy if it is really needed
+     *  Hold the EntryPtr as long as the image data is needed!
      */
-    Entry * getImage(const std::string & filename);
+    EntryPtr getImage(const std::string & filename, bool forceInteger=false);
 
-    /** get a wxImage
-     *
-     *  This function will just return the 8 bit image, or provide a
-     *  tonemapped image directly.
-     */
-    Entry * getImageWX(const std::string & filename, wxImage & img);
-
-    /** get an small image version.
+    /** get an small image.
      *
      *  This image is 512x512 pixel maximum and can be used for icons
      *  and different previews. It is directly derived from the original.
-     *
-     *  @todo let selfdefined images been added belonging to the original one.
      */
-    Entry * getSmallImage(const std::string & filename);
-
-    /** get a scaled down wxImage
-     *
-     *  This function will just return the 8 bit image, or provide a
-     *  tonemapped image directly.
-     */
-    Entry * getSmallImageWX(const std::string & filename, wxImage & img);
+    EntryPtr getSmallImage(const std::string & filename,
+                           bool forceInteger=false);
 
 
     /** remove a specific image (and dependant images)
      * from the cache 
      */
     void removeImage(const std::string & filename);
-    
+
     /** release all images in the cache.
      *
      *  useful on project load, or maybe before stitching really
@@ -176,8 +161,8 @@ public:
      *         follows: height/(level^2), width/(level^1)
      *
      */
-    const vigra::BImage & getPyramidImage(const std::string & filename,
-                                          int level);
+//    const vigra::BImage & getPyramidImage(const std::string & filename,
+//                                          int level);
 
 private:
     /** ctor. private, nobody execpt us can create an instance.
@@ -186,7 +171,7 @@ private:
 
     static ImageCache * instance;
 
-    std::map<std::string, Entry *> images;
+    std::map<std::string, EntryPtr> images;
 
     // key for your pyramid map.
     struct PyramidKey{
@@ -257,6 +242,8 @@ protected:
     std::map<unsigned, PT::PanoramaOptions> m_panoOpts;
 };
 
-
+/** shallow copy of the 8 bit image contained in \p e
+ */
+wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
 
 #endif // _IMAGECACHE_H

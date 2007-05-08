@@ -455,7 +455,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     // get the small images
     std::vector<vigra::FRGBImage *> srcImgs;
     for (size_t i=0; i < optPano.getNrOfImages(); i++) {
-        ImageCache::Entry * e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
+        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
         vigra::FRGBImage * img = new FRGBImage;
         if (!e) {
             wxMessageBox(_("Error: could not load all images"), _("Error"));

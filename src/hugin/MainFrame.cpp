@@ -1172,6 +1172,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
     pdisp.pushTask(ProgressTask((const char *)wxString(_("Finetuning")).mb_str(),"",1.0/unoptimized.size()));
 
+    ImageCache & imgCache = ImageCache::getInstance();
+
     // do not process the control points in random order,
     // but walk from image to image, to reduce image reloading
     // in low mem situations.
@@ -1184,17 +1186,11 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
                     wxImage wxSearchImg;
-                    ImageCache::getInstance().getImageWX( pano.getImage(cps[*it].image2Nr).getFilename(), wxSearchImg);
+                    ImageCache::EntryPtr searchImg = imgCache.getImage(
+                         pano.getImage(cps[*it].image2Nr).getFilename(), true);
 
-                    wxImage wxTmplImg;
-                    ImageCache::getInstance().getImageWX(pano.getImage(cps[*it].image1Nr).getFilename(), wxTmplImg);
-
-                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > searchImg((vigra::RGBValue<unsigned char> *)wxSearchImg.GetData(),
-                            wxSearchImg.GetWidth(),
-                            wxSearchImg.GetHeight());
-                    vigra::BasicImageView<vigra::RGBValue<unsigned char> > templImg((vigra::RGBValue<unsigned char> *)wxTmplImg.GetData(),
-                            wxTmplImg.GetWidth(),
-                            wxTmplImg.GetHeight());
+                    ImageCache::EntryPtr templImg = imgCache.getImage(
+                         pano.getImage(cps[*it].image1Nr).getFilename(), true);
 
                     // load parameters
                     long templWidth = wxConfigBase::Get()->Read(
@@ -1207,10 +1203,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     if (rotatingFinetune) {
                         res = vigra_ext::PointFineTuneRotSearch(
-                            templImg,
+                            *(templImg->image8),
                             roundP1,
                             templWidth,
-                            searchImg,
+                            *(searchImg->image8),
                             roundP2,
                             sWidth,
                             startAngle, stopAngle, nSteps
@@ -1218,10 +1214,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
 
                     } else {
                         res = vigra_ext::PointFineTune(
-                            templImg,
+                            *(templImg->image8),
                             roundP1,
                             templWidth,
-                            searchImg,
+                            *(searchImg->image8),
                             roundP2,
                             sWidth
                             );

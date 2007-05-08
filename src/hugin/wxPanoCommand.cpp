@@ -48,13 +48,23 @@ void wxAddCtrlPointGridCmd::execute()
 {
     PanoCommand::execute();
 
-
+    // TODO: rewrite, and use same function for modular image creation.
+#if 1
     const PanoImage & i1 = pano.getImage(img1);
     const PanoImage & i2 = pano.getImage(img1);
 
     // run both images through the harris corner detector
-    const vigra::BImage & leftImg = ImageCache::getInstance().getPyramidImage(
-        i1.getFilename(),1);
+    ImageCache::EntryPtr eptr = ImageCache::getInstance().getSmallImage(i1.getFilename(), true);
+    vigra::BImage leftImg(eptr->image8->size());
+
+    vigra::GreenAccessor<vigra::RGBValue<vigra::UInt8> > ga;
+    vigra::copyImage(srcImageRange(*(eptr->image8), ga ),
+                     destImage(leftImg));
+
+    double scale = i1.getWidth() / (double) leftImg.width();
+
+    //const vigra::BImage & leftImg = ImageCache::getInstance().getPyramidImage(
+    //    i1.getFilename(),1);
 
     BImage leftCorners(leftImg.size());
     FImage leftCornerResponse(leftImg.size());
@@ -104,23 +114,25 @@ void wxAddCtrlPointGridCmd::execute()
     int border = 5;
     double sphx, sphy;
     double img2x, img2y;
+    // need to scale the images.
     // sample grid on img1 and try to add ctrl points
-    for (unsigned int x=0; x < i1.getWidth(); x += 2 ) {
-        for (unsigned int y=0; y < i1.getHeight(); y +=2 ) {
-            if (leftCorners(x/2,y/2) > 0) {
-                img1ToSphere.transformImgCoord(sphx, sphy, x, y);
+    for (unsigned int x=0; x < leftImg.width(); x++ ) {
+        for (unsigned int y=0; y < leftImg.height(); y++) {
+            if (leftCorners(x,y) > 0) {
+                img1ToSphere.transformImgCoord(sphx, sphy, scale*x, scale*y);
                 sphereToImg2.transformImgCoord(img2x, img2y, sphx, sphy);
                 // check if it is inside..
                 if (   img2x > border && img2x < i2.getWidth() - border
                     && img2y > border && img2y < i2.getHeight() - border )
                 {
                     // add control point
-                    ControlPoint p(img1,x, y, img2, img2x, img2y);
+                    ControlPoint p(img1, scale*x, scale*y, img2, img2x, img2y);
                     pano.addCtrlPoint(p);
                 }
             }
         }
     }
+#endif
     pano.changeFinished();
 }
 
