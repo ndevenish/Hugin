@@ -160,7 +160,7 @@ void ImageCache::softFlush()
     std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
         cout << "Image: " << imgIt->first << std::endl;
-        cout << "CacheEntry: " << imgIt->second.use_count();
+        cout << "CacheEntry: " << imgIt->second.use_count() << "last access: " << imgIt->second->lastAccess;
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
             cout << " 8bit: " << imgIt->second->image8.use_count();
@@ -184,8 +184,6 @@ void ImageCache::softFlush()
     long usedMem = imgMem + pyrMem;
 
     DEBUG_DEBUG("total: " << (usedMem>>20) << " MB upper bound: " << (purgeToSize>>20) << " MB");
-    cout << "ImageCache::softFlush: normal: " << images.size() << "pyr: " << pyrImages.size() << ", memory: " << (usedMem>>20) << " MB upper bound: " << (purgeToSize>>20) << " MB" << endl;
-
     if (usedMem > upperBound) 
     {
         // we need to remove images.
@@ -202,8 +200,13 @@ void ImageCache::softFlush()
              ++it)
         {
             if (it->first.substr(it->first.size()-6) != ":small") {
-                // only consider full images
-                accessMap.insert(make_pair(it->second->lastAccess, it->first));
+                // only consider full images that are not used elsewhere
+                if (it->second.unique()) {
+                    DEBUG_DEBUG("Considering " << it->first << " for deletion");
+                    accessMap.insert(make_pair(it->second->lastAccess, it->first));
+                } else {
+                    DEBUG_DEBUG(it->first << ", usecount: " << it->second.use_count());
+                }
             }
         }
         while (purgeAmount > purgedMem) {
@@ -224,6 +227,9 @@ void ImageCache::softFlush()
                     }
                     if (it->second->imageFloat) {
                         purgedMem += it->second->imageFloat->width() * it->second->imageFloat->height()*3*4;
+                    }
+                    if (it->second->mask) {
+                        purgedMem += it->second->mask->width() * it->second->mask->height();
                     }
                     images.erase(it);
                     accessMap.erase(accIt);
@@ -489,11 +495,10 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename,
                                         bool integer)
 {
 //    softFlush();
-
+    m_accessCounter++;
     std::map<std::string, EntryPtr>::iterator it;
     it = images.find(filename);
     if (it != images.end()) {
-        m_accessCounter++;
         it->second->lastAccess = m_accessCounter;
         if (integer && it->second->image8->width() == 0) {
             // convert to 8 bit
@@ -663,6 +668,7 @@ temporarily disabled
         }
         EntryPtr e(new Entry(img8, imgFloat, mask, pixelTypeStr));
         images[filename] = e;
+        e->lastAccess = m_accessCounter;
         return e;
     }
 }
@@ -670,6 +676,7 @@ temporarily disabled
 ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
                                                bool integer)
 {
+    m_accessCounter++;
     softFlush();
     std::map<std::string, EntryPtr>::iterator it;
     // "_small" is only used internally
@@ -707,6 +714,7 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename,
         }
         EntryPtr e(new Entry);
         e->origType = entry->origType;
+        e->lastAccess = m_accessCounter;
         if (entry->imageFloat->width() != 0 ) {
             e->imageFloat = ImageCacheRGBFloatPtr(new FRGBImage);
             if (entry->mask->width() != 0) {
