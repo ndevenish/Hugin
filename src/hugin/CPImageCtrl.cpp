@@ -723,6 +723,9 @@ void CPImageCtrl::rescaleImage()
 void CPImageCtrl::setCtrlPoints(const std::vector<FDiff2D> & cps)
 {
     points = cps;
+    if(editState == KNOWN_POINT_SELECTED)
+        editState = NO_SELECTION;
+    selectedPointNr = UINT_MAX;
     // update view
     update();
 }

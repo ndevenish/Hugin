@@ -3657,10 +3657,10 @@ msgstr "Schätze Polynom"
 
 #: src/hugin/xrc/data/tips.txt:3
 msgid ""
-"Welcome to Hugin.\n"
+"Welcome to Hugin."
 " To create a panorama, just follow the sequence shown in the assistant tab."
 msgstr ""
-"Willkommen bei Hugin.\n"
+"Willkommen bei Hugin."
 "Um ein Panorama zu erstellen, folgen sie einfach den 3 Schritten im "
 "\"Assistent\" Reiter"
 

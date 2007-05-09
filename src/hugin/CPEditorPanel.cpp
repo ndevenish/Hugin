@@ -377,6 +377,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         double roll = const_map_get(m_pano->getImageVariables(imgNr),"r").getValue();
         m_leftRot = GetRot(yaw, pitch, roll);
         m_leftImg->setImage(m_pano->getImage(imgNr).getFilename(), m_leftRot);
+        m_leftImageNr = imgNr;
 #ifdef HUGIN_CP_IMG_CHOICE
         if (m_leftChoice->GetSelection() != (int) imgNr) {
             m_leftChoice->SetSelection(imgNr);
@@ -387,7 +388,6 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
             m_leftTabs->SetSelection(imgNr);
         }
 #endif
-        m_leftImageNr = imgNr;
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         changeState(NO_POINT);
 //        if (m_fineTuneFrame) {
