@@ -847,15 +847,16 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
         wxString fname;
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
-                         wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
+                         wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
                          _("Lens Project Files (*.ini)|*.ini|All files (*)|*"),
                          wxSAVE, wxDefaultPosition);
+        dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
             fname = dlg.GetPath();
             if (fname.Right(4) != wxT(".ini")) {
                 fname.Append(wxT(".ini"));
             }
-            wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
             // set numeric locale to C, for correct number output
             char * old_locale = setlocale(LC_NUMERIC,NULL);
             setlocale(LC_NUMERIC,"C");
@@ -974,12 +975,13 @@ bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars
     wxString fname;
     wxFileDialog dlg(parent,
                         _("Load lens parameters"),
-                        wxConfigBase::Get()->Read(wxT("lensPath"),wxT("")), wxT(""),
+                        wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
                         _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
                         wxOPEN, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         fname = dlg.GetPath();
-        wxConfig::Get()->Write(wxT("lensPath"), dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
         // read with with standart C numeric format
         char * old_locale = setlocale(LC_NUMERIC,NULL);
         setlocale(LC_NUMERIC,"C");

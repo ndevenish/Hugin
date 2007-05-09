@@ -570,16 +570,17 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     }
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), scriptName,
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxSAVE, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         m_filename = dlg.GetPath();
 	if (m_filename.Right(4) != wxT(".pto")) {
 	    m_filename.Append(wxT(".pto"));
 	}
         OnSaveProject(e);
-        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
     }
 }
 
@@ -592,9 +593,10 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     }
     wxFileDialog dlg(this,
                      _("Save PTStitcher script file"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")), scriptName,
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
                      _("PTStitcher files (*.txt)|*.txt"),
                      wxSAVE, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxString fname = dlg.GetPath();
         // the project file is just a PTStitcher script...
@@ -634,7 +636,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setOptimizeVector(pano.getOptimizeVector());
         SetStatusText(_("Project opened"));
-        config->Write(wxT("actualPath"), path);  // remember for later
+        config->Write(wxT("/actualPath"), path);  // remember for later
         this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - hugin"));
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
@@ -673,11 +675,13 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         // get the global config object
         wxConfigBase* config = wxConfigBase::Get();
 
+        wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
         wxFileDialog dlg(this,
                          _("Open project file"),
-                         config->Read(wxT("actualPath"),wxT("")), wxT(""),
+                         defaultdir, wxT(""),
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                          wxOPEN, wxDefaultPosition);
+        dlg.SetDirectory(defaultdir);
         if (dlg.ShowModal() == wxID_OK) {
             // remove old images from cache
             ImageCache::getInstance().flush();
@@ -717,10 +721,11 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
     wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
 
-    wxString path = config->Read(wxT("actualPath"), wxT(""));
+    wxString path = config->Read(wxT("/actualPath"), wxT(""));
     wxFileDialog dlg(this,_("Add images"),
                      path, wxT(""),
                      wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+    dlg.SetDirectory(path);
 
     // remember the image extension
     wxString img_ext;
@@ -744,7 +749,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         dlg.GetFilenames(Filenames);
 
         // e safe the current path to config
-        config->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+        config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
 
         std::vector<std::string> filesv;
         for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
@@ -1121,6 +1126,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
                      config->Read(wxT("/templatePath"),wxT("")), wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                      wxOPEN, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/templatePath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/templatePath"), dlg.GetDirectory());  // remember for later

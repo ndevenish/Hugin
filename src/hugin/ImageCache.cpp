@@ -151,7 +151,7 @@ void ImageCache::flush()
 
 void ImageCache::softFlush()
 {
-    long upperBound = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), 75 * 1024 * 1024l);
+    long upperBound = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), 100 * 1024 * 1024l);
     long purgeToSize = long(0.75 * upperBound);
 
     // calculate used memory
@@ -159,11 +159,18 @@ void ImageCache::softFlush()
 
     std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
+        cout << "C: " << imgIt->first << ": ";
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
+            cout << " 8bit: " << imgIt->second->image8.use_count();
         }
         if (imgIt->second->imageFloat) {
             imgMem += imgIt->second->imageFloat->width() * imgIt->second->imageFloat->height() * 3 * 4;
+            cout << " float: " << imgIt->second->imageFloat.use_count() ;
+        }
+        if (imgIt->second->mask) {
+            imgMem += imgIt->second->mask->width() * imgIt->second->mask->height();
+            cout << " mask: " << imgIt->second->mask.use_count() << std:: endl;
         }
     }
 

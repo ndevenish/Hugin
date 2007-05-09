@@ -172,13 +172,14 @@ void VigCorrDialog::OnFlatfieldSelect(wxCommandEvent & e)
 {
     wxString wildcard (_("All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|All files (*)|*"));
     wxFileDialog dlg(this,_("Select flatfield image"),
-                     wxConfigBase::Get()->Read(wxT("flatfieldPath"),wxT("")), wxT(""),
+                     wxConfigBase::Get()->Read(wxT("/flatfieldPath"),wxT("")), wxT(""),
                      wildcard,
                      wxOPEN, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/flatfieldPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         XRCCTRL(*this, "vig_corr_flatfile_edit", wxTextCtrl)->SetValue(
 		dlg.GetPath());
-        wxConfig::Get()->Write(wxT("flatfieldPath"), dlg.GetDirectory());
+        wxConfig::Get()->Write(wxT("/flatfieldPath"), dlg.GetDirectory());
     }
 }
 

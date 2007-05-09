@@ -165,11 +165,12 @@ bool nonaApp::OnInit()
     if( parser.GetParamCount() == 0 && wxIsEmpty(scriptFile)) 
     {
         wxFileDialog dlg(0,_("Specify project source project file"),
-                        wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
+                        wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                         wxT(""), wxT(""),
                         wxOPEN, wxDefaultPosition);
+        dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
-        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
         scriptFile = dlg.GetPath();
         } else { // bail
         return false;
@@ -197,11 +198,12 @@ bool nonaApp::OnInit()
     if ( !parser.Found(wxT("o"), &outname) ) {
         // ask for output.
         wxFileDialog dlg(0,_("Specify output image filename"),
-                         wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
+                         wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                          wxT(""), wxT(""),
                          wxSAVE, wxDefaultPosition);
+        dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
-            wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+            wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
             outname = dlg.GetPath();
         } else { // bail
             wxLogError( _("No project files specified"));

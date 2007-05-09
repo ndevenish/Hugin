@@ -302,6 +302,7 @@ void wxLoadPTProjectCmd::execute()
                 wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                  basedir, fname.GetFullName(),
                                  wildcard, wxOPEN, wxDefaultPosition);
+                dlg.SetDirectory(basedir);
                 if (dlg.ShowModal() == wxID_OK) {
                     pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str());
                             // save used path
@@ -366,6 +367,7 @@ void wxApplyTemplateCmd::execute()
         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                 path, wxT(""),
                 wildcard, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+        dlg.SetDirectory(path);
 
         // remember the image extension
         wxString img_ext;

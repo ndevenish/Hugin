@@ -664,12 +664,13 @@ void PanoPanel::DoStitch()
     wildcard = wildcard + wxT("|") + wildcard;
 
     wxFileDialog dlg(this,_("Create panorama image"),
-                     wxConfigBase::Get()->Read(wxT("actualPath"),wxT("")),
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                      filename, wildcard,
                      wxSAVE, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         // print as optimizer script..
-        wxConfig::Get()->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
         opt.outfile = dlg.GetPath().mb_str();
         std::string outfile = stripExtension(opt.outfile) + std::string(".") + opt.getOutputExtension();
         wxString wxfn(outfile.c_str(), *wxConvCurrent);

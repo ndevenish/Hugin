@@ -318,7 +318,7 @@ void PreferencesDialog::OnAutopanoKolorExe(wxCommandEvent & e)
 
 void PreferencesDialog::OnAutopanoSiftExe(wxCommandEvent & e)
 {
-    wxFileDialog dlg(this,_("Select Autopano"),
+    wxFileDialog dlg(this,_("Select Autopano-SIFT"),
 	             wxT(""), wxT(HUGIN_APSIFT_EXE),
 #ifdef __WXMSW__
 		     _("Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"),

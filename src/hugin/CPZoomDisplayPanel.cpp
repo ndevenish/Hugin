@@ -241,7 +241,7 @@ void CPZoomDisplayPanel::updateInternal()
     const PanoImage & img = m_pano.getImage(m_imgNr);
     string imageFilename = img.getFilename();
     // get source image from image cache
-    ImageCache::Entry * e = ImageCache::getInstance().getImage(imageFilename);
+    ImageCache::EntryPtr e = ImageCache::getInstance().getImage(imageFilename);
     if (!e) {
         DEBUG_ERROR("Could not load image: " << imageFilename);
         throw std::runtime_error("could not retrieve source image for ctrl point zoom view");
