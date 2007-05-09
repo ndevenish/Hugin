@@ -347,7 +347,8 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
         wxPoint tul = p + wxPoint(l-3,l-3);
         wxFont font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
         dc.SetFont(font);
-        wxSize tSize = dc.GetTextExtent(label);
+        wxCoord tw, th;
+        dc.GetTextExtent(label, &tw, &th);
 
         if (drawMag) {
             wxBitmap magBitmap = generateMagBitmap(point, p);
@@ -364,7 +365,7 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
         // draw background
         dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
         dc.SetBrush(wxBrush(bgColor ,wxSOLID));
-        dc.DrawRectangle(tul.x, tul.y, tSize.GetWidth()+2*tB, tSize.GetHeight()+2*tB);
+        dc.DrawRectangle(tul.x, tul.y, tw+2*tB, th+2*tB);
         // draw number
         dc.SetTextForeground(textColor);
         dc.DrawText(label, tul + wxPoint(tB,tB));
@@ -509,11 +510,6 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
         p[2] = ~p[2];
         magImg(hw+1, x) = p;
     }
-{
-    //vigra::ImageExportInfo exI("/tmp/mag2.tif");
-    //vigra::exportImage(srcImageRange(magImg), exI);
-}
-    // paint onto image.
     return wxBitmap (img);
 }
 
@@ -555,7 +551,7 @@ void CPImageCtrl::rescaleImage()
         return;
     }
     wxImage img = imageCacheEntry2wxImage(m_img);
-    if (!img.IsOk()) {
+    if (img.GetWidth() == 0) {
         return;
     }
     imageSize = wxSize(img.GetWidth(), img.GetHeight());
