@@ -203,6 +203,7 @@ protected:
     void OnKeyDown(wxKeyEvent & e);
     void OnMouseLeave(wxMouseEvent & e);
     void OnMouseEnter(wxMouseEvent & e);
+    void OnTimer(wxTimerEvent & e);
 
     /// helper func to emit a region
     bool emit(CPEvent & ev);
@@ -421,6 +422,10 @@ private:
     ImageRotation m_imgRotation;
 
     ImageCache::EntryPtr m_img;
+
+    bool m_mouseInWindow;
+    bool m_forceMagnifier;
+    wxTimer m_timer;
 
     DECLARE_EVENT_TABLE();
 };

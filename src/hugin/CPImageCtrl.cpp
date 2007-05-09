@@ -129,6 +129,7 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
     EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
     EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
+    EVT_TIMER(-1, CPImageCtrl::OnTimer)
 END_EVENT_TABLE()
 
 CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
@@ -160,27 +161,30 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
 
     // TODO: define custom, light background colors.
     pointColors.push_back(wxTheColourDatabase->Find(wxT("BLUE")));
-    textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
+    textColours.push_back(wxTheColourDatabase->Find(wxT("WHITE")));
 
     pointColors.push_back(wxTheColourDatabase->Find(wxT("GREEN")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("WHITE")));
 
     pointColors.push_back(wxTheColourDatabase->Find(wxT("CYAN")));
-    textColours.push_back(wxTheColourDatabase->Find(wxT("WHITE")));
+    textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 //    pointColors.push_back(wxTheColourDatabase->Find(wxT("MAGENTA")));
     pointColors.push_back(wxTheColourDatabase->Find(wxT("GOLD")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 
 //    pointColors.push_back(wxTheColourDatabase->Find(wxT("ORANGE"));
     pointColors.push_back(wxTheColourDatabase->Find(wxT("NAVY")));
-    textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
+    textColours.push_back(wxTheColourDatabase->Find(wxT("WHITE")));
 
 //    pointColors.push_back(wxTheColourDatabase->Find(wxT("FIREBRICK")));
 //    pointColors.push_back(wxTheColourDatabase->Find(wxT("SIENNA")));
+
     pointColors.push_back(wxTheColourDatabase->Find(wxT("DARK TURQUOISE")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 
-//    pointColors.push_back(wxTheColourDatabase->Find(wxT("SALMON")));
+    pointColors.push_back(wxTheColourDatabase->Find(wxT("SALMON")));
+    textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
+
     pointColors.push_back(wxTheColourDatabase->Find(wxT("MAROON")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 
@@ -188,6 +192,9 @@ CPImageCtrl::CPImageCtrl(CPEditorPanel* parent, wxWindowID id,
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 
     m_searchRectWidth = 120;
+    m_mouseInWindow = false;
+    m_forceMagnifier = false;
+    m_timer.SetOwner(this);
 }
 
 CPImageCtrl::~CPImageCtrl()
@@ -302,7 +309,6 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
 void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool selected) const
 {
-    DEBUG_TRACE("")
     FDiff2D point = applyRot(pointIn);
     double f = getScaleFactor();
     if (f < 1) {
@@ -316,7 +322,7 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
     if (editState == KNOWN_POINT_SELECTED && i == selectedPointNr) {
         bgColor = wxTheColourDatabase->Find(wxT("RED"));
         textColor = wxTheColourDatabase->Find(wxT("WHITE"));
-        drawMag = true;
+        drawMag = !m_mouseInWindow || m_forceMagnifier;
     } else if (editState == NEW_POINT_SELECTED && i == -1){
         bgColor = wxTheColourDatabase->Find(wxT("YELLOW"));
         textColor = wxTheColourDatabase->Find(wxT("BLACK"));
@@ -326,12 +332,29 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
 
     int style = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/PointMarkersNumbered"),1l);
     if (style) {
-        dc.SetLogicalFunction(wxAND_REVERSE);
         // TODO: adaptive color
         dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
         dc.SetBrush(wxBrush(wxT("BLACK"),wxTRANSPARENT));
         wxPoint p = roundP(scale(point));
         int l = 6;
+
+        // draw cursor line, choose white or black
+        vigra::Rect2D box(roundi(pointIn.x-l), roundi(pointIn.y-l),
+                   roundi(pointIn.x+l), roundi(pointIn.y+l));
+        // only use part inside.
+        box &= vigra::Rect2D(m_img->image8->size());
+        // calculate mean "luminance value"
+        vigra::FindAverage<vigra::UInt8> average;   // init functor
+        vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> > lumac;
+        vigra::inspectImage(m_img->image8->upperLeft()+ box.upperLeft(),
+                            m_img->image8->upperLeft()+ box.lowerRight(),
+                            lumac, average);
+        if (average() < 128) {
+            dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        } else {
+            dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
+        }
+
         dc.DrawLine(p + wxPoint(-l, 0),
                     p + wxPoint(-1, 0));
         dc.DrawLine(p + wxPoint(2, 0),
@@ -340,32 +363,88 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
                     p + wxPoint(0, -1));
         dc.DrawLine(p + wxPoint(0, 2),
                     p + wxPoint(0, l+1));
-        dc.SetLogicalFunction(wxCOPY);
+        // calculate distance to the image boundaries,
+        // decide where to put the label and magnifier
+
+        // physical size of widget
+        wxSize clientSize = this->GetClientSize();
+        int vx0, vy0;
+        this->GetViewStart(&vx0, &vy0);
+        wxPoint pClient(p.x - vx0, p.y - vy0);
+        // space in upper left, upper right, lower left, lower right
+        int maxDistUL = std::min(pClient.x, pClient.y);
+        int maxDistUR = std::min(clientSize.x - pClient.x, pClient.y);
+        int maxDistLL = std::min(pClient.x, clientSize.y - pClient.y);
+        int maxDistLR = std::min(clientSize.x - pClient.x, clientSize.y - pClient.y);
+
+        // text and magnifier offset
+        int toff = l-1;
+        // default to lower right
+        wxPoint tul = p + wxPoint(toff,toff);
 
         // calculate text position and extend
+        // width of border around text label
         int tB = 2;
-        wxPoint tul = p + wxPoint(l-3,l-3);
         wxFont font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
         dc.SetFont(font);
         wxCoord tw, th;
         dc.GetTextExtent(label, &tw, &th);
 
-        if (drawMag) {
-            wxBitmap magBitmap = generateMagBitmap(point, p);
 
+        if (drawMag) {
+            wxBitmap magBitmap = generateMagBitmap(pointIn, p);
             // TODO: select position depending on visible part of canvas
             wxPoint ulMag = tul;
+            // choose placement of the magnifier
+            int w = toff  + magBitmap.GetWidth()+3;
+            int db = 5;
+            if ( maxDistLR > w + db  ) {
+                ulMag = p + wxPoint(toff,toff);
+            } else if (maxDistLL > w + db) {
+                ulMag = p + wxPoint(-w, toff);
+            } else if (maxDistUR > w + db) {
+                ulMag = p + wxPoint(toff, -w);
+            } else {
+                ulMag = p + wxPoint(-w, -w);
+            }
+
             dc.DrawBitmap(magBitmap, ulMag);
             dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
             dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-            dc.DrawRectangle(ulMag.x-1, ulMag.y-1, magBitmap.GetWidth()+3, magBitmap.GetHeight()+3);
+
+            //dc.DrawRectangle(ulMag.x-1, ulMag.y-1, magBitmap.GetWidth()+3, magBitmap.GetHeight()+3);
+            // draw Bevel
+
+            int bw = magBitmap.GetWidth();
+            int bh = magBitmap.GetHeight();
+            dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
+                        ulMag.x+bw+1, ulMag.y+bh);
+            dc.DrawLine(ulMag.x+bw, ulMag.y+bh, 
+                        ulMag.x+bw, ulMag.y-2);
+            dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+            dc.DrawLine(ulMag.x-1, ulMag.y-1, 
+                        ulMag.x+bw+1, ulMag.y-1);
+            dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
+                        ulMag.x-1, ulMag.y-2);
+        }
+        // choose placement of text.
+        int db = 5;
+        int w = toff+tw+2*tB;
+        if ( maxDistLR > w + db && (!drawMag) ) {
+            tul = p + wxPoint(toff,toff);
+        } else if (maxDistLL > w + db) {
+            tul = p + wxPoint(-w, toff);
+        } else if (maxDistUR > w + db) {
+            tul = p + wxPoint(toff, -(toff) - (th+2*tB));
+        } else {
+            tul = p + wxPoint(-w, -(toff) - (th+2*tB));
         }
 
 
         // draw background
-        dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
+        dc.SetPen(wxPen(textColor, 1, wxSOLID));
         dc.SetBrush(wxBrush(bgColor ,wxSOLID));
-        dc.DrawRectangle(tul.x, tul.y, tw+2*tB, th+2*tB);
+        dc.DrawRectangle(tul.x, tul.y, tw+2*tB+1, th+2*tB);
         // draw number
         dc.SetTextForeground(textColor);
         dc.DrawText(label, tul + wxPoint(tB,tB));
@@ -480,7 +559,7 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
                          ptf,
                          vigra::Diff2D(utils::roundi(mx - hw),
                                        utils::roundi(my - hw)),
-                         vigra_ext::interp_bilin(),
+                         vigra_ext::interp_cubic(),
                          false,
                          progDisp);
 
@@ -500,15 +579,34 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
     // draw cursor
     for(int x=0; x < magWidth; x++) {
         VT p =magImg(x,hw+1);
-        p[0] = ~p[0];
-        p[1] = ~p[1];
-        p[2] = ~p[2];
+        vigra::UInt8 v = 0.3/255*p.red() + 0.6/255*p.green() + 0.1/255*p.blue() < 0.5 ? 255 : 0;
+        p[0] = v;
+        p[1] = v;
+        p[2] = v;
         magImg(x,hw+1) = p;
         p = magImg(hw+1, x);
-        p[0] = ~p[0];
-        p[1] = ~p[1];
-        p[2] = ~p[2];
+        v = 0.3/255*p.red() + 0.6/255*p.green() + 0.1/255*p.blue() < 0.5 ? 255 : 0;
+        p[0] = v;
+        p[1] = v;
+        p[2] = v;
         magImg(hw+1, x) = p;
+    }
+
+    // rotate image according to current display
+    switch(m_imgRotation) {
+        case ROT90:
+            img = img.Rotate90(true);
+            break;
+        case ROT180:
+            // this is slower than it needs to be...
+            img = img.Rotate90(true);
+            img = img.Rotate90(true);
+            break;
+        case ROT270:
+            img = img.Rotate90(false);
+            break;
+        default:
+            break;
     }
     return wxBitmap (img);
 }
@@ -816,6 +914,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
+    DEBUG_DEBUG("LEFT MOUSE DOWN");
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -841,6 +940,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
             point = points[selectedPointNr];
             editState = clickState;
             CPEvent e( this, selectedPointNr);
+            m_forceMagnifier = true;
             emit(e);
         } else if (clickState == NEW_POINT_SELECTED) {
             DEBUG_DEBUG("click on new space, select region/new point");
@@ -858,8 +958,17 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     m_mousePos = mpos;
 }
 
+void CPImageCtrl::OnTimer(wxTimerEvent & e)
+{
+    m_forceMagnifier = false;
+    update();
+}
+
 void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
+    DEBUG_DEBUG("LEFT MOUSE UP");
+    m_timer.Start(2000, true);
+
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -1089,11 +1198,34 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
             ScrollDelta(delta);
         }
     } else if (delta.x != 0 || delta.y != 0 ) {
+
         FDiff2D shift(delta.x/3.0, delta.y/3.0);
+        // rotate shift according to current display
+        double t;
+        switch (m_imgRotation) {
+            case ROT90:
+                t = shift.x;
+                shift.x = shift.y;
+                shift.y = -t;
+                break;
+            case ROT180:
+                shift.x = -shift.x;
+                shift.y = -shift.y;
+                break;
+            case ROT270:
+                t = shift.x;
+                shift.x = -shift.y;
+                shift.y = t;
+            default:
+                break;
+        }
         // move control point by half a pixel, if a point is selected
         if (editState == KNOWN_POINT_SELECTED ) {
             CPEvent e( this, selectedPointNr, points[selectedPointNr] + shift);
             emit(e);
+            m_forceMagnifier = true;
+            m_timer.Stop();
+            m_timer.Start(2000, true);
         } else if (editState == NEW_POINT_SELECTED) {
             newPoint = newPoint + shift;
             // update display.
@@ -1180,6 +1312,7 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 
 void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
 {
+    DEBUG_TRACE("MOUSE LEAVE");
 #if 0
     DEBUG_TRACE("");
     if (m_tempZoom) {
@@ -1188,13 +1321,18 @@ void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
     }
 #endif
     m_mousePos = FDiff2D(-1,-1);
+    m_mouseInWindow = false;
+    update();
+
 //    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
 {
     DEBUG_TRACE("MOUSE Enter, setting focus");
+    m_mouseInWindow = true;
     SetFocus();
+    update();
 }
 
 FDiff2D CPImageCtrl::getNewPoint()

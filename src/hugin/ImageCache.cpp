@@ -159,7 +159,8 @@ void ImageCache::softFlush()
 
     std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
-        cout << "C: " << imgIt->first << ": ";
+        cout << "Image: " << imgIt->first << std::endl;
+        cout << "CacheEntry: " << imgIt->second.use_count();
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
             cout << " 8bit: " << imgIt->second->image8.use_count();
