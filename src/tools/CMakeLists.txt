@@ -1,7 +1,7 @@
 # various command line utilities
 
-add_executable(hugin_merge_images hugin_merge_images.cpp)
-target_link_libraries(hugin_merge_images ${common_libs} ${image_libs})
+#add_executable(hugin_merge_images hugin_merge_images.cpp)
+#target_link_libraries(hugin_merge_images ${common_libs} ${image_libs})
 
 add_executable(nona nona.cpp)
 target_link_libraries(nona ${common_libs} ${image_libs})
