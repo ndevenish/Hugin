@@ -273,8 +273,6 @@ void sampleRandomPanoPoints(const std::vector<Img> imgs,
     
     unsigned nImg = imgs.size();
 
-    vigra::Size2D srcSize = src[0].getSize();
-    double maxr = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
     unsigned nBins = radiusHist.size();
     unsigned pairsPerBin = nPoints / nBins;
 
@@ -283,12 +281,16 @@ void sampleRandomPanoPoints(const std::vector<Img> imgs,
     // create an array of transforms.
     //std::vector<SpaceTransform> transf(imgs.size());
     std::vector<PTools::Transform *> transf(imgs.size());
+    std::vector<double> maxr(imgs.size());
 
     // initialize transforms, and interpolating accessors
     for(unsigned i=0; i < imgs.size(); i++) {
-        vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
+        // same size is not needed?
+//        vigra_precondition(src[i].getSize() == srcSize, "images need to have the same size");
         transf[i] = new PTools::Transform;
         transf[i]->createTransform(src[i], dest);
+        vigra::Size2D srcSize = src[i].getSize();
+        maxr[i] = sqrt(((double)srcSize.x)*srcSize.x + ((double)srcSize.y)*srcSize.y) / 2.0;
     }
     // init random number generator
     boost::mt19937 rng;
@@ -325,7 +327,7 @@ void sampleRandomPanoPoints(const std::vector<Img> imgs,
                     // ignore pixels that are too dark or bright
                     continue;
                 }
-                double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr);
+                double r1 = utils::norm((p1 - src[i].getRadialVigCorrCenter())/maxr[i]);
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     FDiff2D p2;
@@ -344,7 +346,7 @@ void sampleRandomPanoPoints(const std::vector<Img> imgs,
                             continue;
                         }
                         // TODO: add check for gradient radius.
-                        double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr);
+                        double r2 = utils::norm((p2 - src[j].getRadialVigCorrCenter())/maxr[j]);
 #if 0
                         // add pixel
                         if (im1 <= im2) {

@@ -33,7 +33,7 @@
 #include "common/stl_utils.h"
 
 #ifdef DEBUG
-//#define DEBUG_LOG_VIG 1
+#define DEBUG_LOG_VIG 1
 #endif
 
 using namespace PT;

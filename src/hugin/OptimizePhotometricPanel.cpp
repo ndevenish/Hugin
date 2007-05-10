@@ -354,7 +354,7 @@ void OptimizePhotometricPanel::panoramaImagesChanged(PT::Panorama &pano,
 
 void OptimizePhotometricPanel::setOptimizeVector(const OptimizeVector & optvec)
 {
-    DEBUG_ASSERT((int)optvec.size() == m_exp_list->GetCount());
+    DEBUG_ASSERT((int)optvec.size() == (int)m_exp_list->GetCount());
 
     for (int i=0; i < (int) m_pano->getNrOfLenses(); i++) {
         m_vig_list->Check(i,false);
@@ -436,16 +436,17 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     std::vector<vigra_ext::PointPairRGB> m_points;
     // extract points only if not done previously
 
-    int nPoints = wxConfigBase::Get()->Read(wxT("OptimizePhotometric/nRandomPointsPerImage"),200l);
+    long nPoints = 200;
+    wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), & nPoints);
     // get parameters for estimation.
     nPoints = wxGetNumberFromUser(_("The vignetting and exposure correctione is determined by analysing color values in the overlaping areas.\nTo speed up the computation, only a random subset of points is used."),
                                     _("Number of points per image"),
-                                    _("Photometric optimisation"), nPoints, 0, INT_MAX,
+                                    _("Photometric optimisation"), nPoints, 0, 32000,
                                     this);
     if (nPoints < 0) {
         return;
     }
-    wxConfigBase::Get()->Write(wxT("OptimizePhotometric/nRandomPointsPerImage"),nPoints);
+    wxConfigBase::Get()->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"),nPoints);
 
     ProgressReporterDialog progress(5.0, _("Photometric alignment"), wxT("Loading images"));
 

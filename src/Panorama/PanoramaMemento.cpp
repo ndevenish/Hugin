@@ -72,7 +72,7 @@ void PT::fillVariableMap(VariableMap & vars)
     vars.insert(pair<const char*, Variable>("g",Variable("g",0)));
     vars.insert(pair<const char*, Variable>("t",Variable("t",0)));
 
-    vars.insert(pair<const char*, Variable>("Va",Variable("Va",0)));
+    vars.insert(pair<const char*, Variable>("Va",Variable("Va",1)));
     vars.insert(pair<const char*, Variable>("Vb",Variable("Vb",0)));
     vars.insert(pair<const char*, Variable>("Vc",Variable("Vc",0)));
     vars.insert(pair<const char*, Variable>("Vd",Variable("Vd",0)));
@@ -104,7 +104,7 @@ void PT::fillLensVarMap(LensVarMap & variables)
     variables.insert(pair<const char*, LensVariable>("t",LensVariable("t", 0.0, true)));
 
     // vignetting correction variables
-    variables.insert(pair<const char*, LensVariable>("Va",LensVariable("Va", 0.0, true)));
+    variables.insert(pair<const char*, LensVariable>("Va",LensVariable("Va", 1.0, true)));
     variables.insert(pair<const char*, LensVariable>("Vb",LensVariable("Vb", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("Vc",LensVariable("Vc", 0.0, true)));
     variables.insert(pair<const char*, LensVariable>("Vd",LensVariable("Vd", 0.0, true)));
@@ -912,7 +912,8 @@ public:
         width = -1;
         height = -1;
         f = -2;
-        vigcorrMode = 5;  // default to radial correction by division
+        vigcorrMode = 0;  // default to no correction
+                          // is transformed to correction by division later
         responseType = 0; // default to EMOR
         for (char ** v = varnames; *v != 0; v++) {
             vars[*v] = 0;
@@ -943,6 +944,16 @@ public:
         getIntParam(height, line, "h");
 
         getIntParam(vigcorrMode, line, "Vm");
+        // HACK: force Va1, for all images that use the a polynomial vig correction mode.
+        // reset to vignetting correction by division.
+        if (vigcorrMode != 5) {
+            vigcorrMode = 5;
+            vars["Va"] = 1.0;
+            vars["Vb"] = 0.0;
+            vars["Vc"] = 0.0;
+            vars["Vd"] = 0.0;
+        }
+
         getIntParam(responseType, line, "Rt");
         getPTStringParam(flatfieldname,line,"Vf");
 
@@ -965,6 +976,8 @@ public:
                 DEBUG_WARN("Could not parse crop string: " << crop_str);
             }
         }
+
+
     }
 
     static char *varnames[];
@@ -989,9 +1002,9 @@ char * ImgInfo::varnames[] = {"v","a","b","c","d","e","g","t","r","p","y",
                               "Eev", "Er", "Eb",
                               "Ra", "Rb", "Rc", "Rd", "Re",  0};
 double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  0.0, 0.0, 0.0,
-                                      1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
-                                      0.0, 1.0,  1.0, 
-                                      0.0, 0.0, 0.0, 0.0, 0.0};
+                                    1.0, 0.0, 0.0, 0.0,   0.0, 0.0, 
+                                    0.0, 1.0,  1.0, 
+                                    0.0, 0.0, 0.0, 0.0, 0.0};
 
 bool PanoramaMemento::loadPTScript(std::istream &i, const std::string &prefix)
 {
