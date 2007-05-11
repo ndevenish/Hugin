@@ -21,13 +21,13 @@ rm -fR $resdir/xrc/??*/??*/CVS
 rm -f $resdir/xrc/??*/??*/Makefil*
 
 
-echo patching $resdir/xrc/cp_editor_panel-2.5.xrc to use wxChoice instead of wxNotebook
-mv $resdir/xrc/cp_editor_panel-2.5.xrc $resdir/xrc/cp_editor_panel-2.5.xrc-bk
-sed -e s/wxNotebook/wxChoice/ -e s/cp_editor_left_tab/cp_editor_left_choice/ -e s/cp_editor_right_tab/cp_editor_right_choice/ $resdir/xrc/cp_editor_panel-2.5.xrc-bk > $resdir/xrc/cp_editor_panel-2.5.xrc
+echo patching $resdir/xrc/cp_editor_panel.xrc to use wxChoice instead of wxNotebook
+mv $resdir/xrc/cp_editor_panel.xrc $resdir/xrc/cp_editor_panel.xrc-bk
+sed -e s/wxNotebook/wxChoice/ -e s/cp_editor_left_tab/cp_editor_left_choice/ -e s/cp_editor_right_tab/cp_editor_right_choice/ $resdir/xrc/cp_editor_panel.xrc-bk > $resdir/xrc/cp_editor_panel.xrc
 
-echo patching $resdir/xrc/main_frame-2.5.xrc to have no border around the tab control.
-mv $resdir/xrc/main_frame-2.5.xrc $resdir/xrc/main_frame-2.5.xrc-bk
-sed -e s/wxALL// $resdir/xrc/main_frame-2.5.xrc-bk > $resdir/xrc/main_frame-2.5.xrc
+echo patching $resdir/xrc/main_frame.xrc to have no border around the tab control.
+mv $resdir/xrc/main_frame.xrc $resdir/xrc/main_frame.xrc-bk
+sed -e s/wxALL// $resdir/xrc/main_frame.xrc-bk > $resdir/xrc/main_frame.xrc
 
 
 for lang in "en" `cat ../src/hugin/po/LINGUAS|grep -v "#.*"`

@@ -144,6 +144,12 @@
 		5770930006BD7424004058A1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		5770930906BD754A004058A1 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FA06BD7388004058A1 /* libpng.a */; };
 		5770930A06BD754A004058A1 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577092FB06BD7388004058A1 /* libtiff.a */; };
+		577785FD0BF3439D0041F8FF /* exr.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 577785FB0BF3439D0041F8FF /* exr.cxx */; };
+		5777860B0BF3477A0041F8FF /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786090BF347780041F8FF /* libIlmImf.a */; };
+		5777860C0BF3477B0041F8FF /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.a */; };
+		577786120BF347B80041F8FF /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786100BF347B80041F8FF /* libIex.a */; };
+		577786130BF347B80041F8FF /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.a */; };
+		577786190BF348E90041F8FF /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.a */; };
 		577D3D0909A0D759004C6964 /* wxPanoCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D0809A0D759004C6964 /* wxPanoCommand.cpp */; };
 		577D3D0B09A0D76D004C6964 /* VigCorrDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D0A09A0D76D004C6964 /* VigCorrDialog.cpp */; };
 		577D3D1C09A0D7DA004C6964 /* Stitcher1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 577D3D1809A0D7D9004C6964 /* Stitcher1.cpp */; };
@@ -937,6 +943,13 @@
 		5751D8680939F243001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcode/project.pbxproj; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
+		577785FB0BF3439D0041F8FF /* exr.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = exr.cxx; sourceTree = "<group>"; };
+		577785FC0BF3439D0041F8FF /* exr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = exr.hxx; sourceTree = "<group>"; };
+		577786090BF347780041F8FF /* libIlmImf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmImf.a; path = "../../ExternalPrograms/Repository-universal/lib/libIlmImf.a"; sourceTree = SOURCE_ROOT; };
+		5777860A0BF3477A0041F8FF /* libImath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libImath.a; path = "../../ExternalPrograms/Repository-universal/lib/libImath.a"; sourceTree = SOURCE_ROOT; };
+		577786100BF347B80041F8FF /* libIex.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIex.a; path = "../../ExternalPrograms/Repository-universal/lib/libIex.a"; sourceTree = SOURCE_ROOT; };
+		577786110BF347B80041F8FF /* libIlmThread.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIlmThread.a; path = "../../ExternalPrograms/Repository-universal/lib/libIlmThread.a"; sourceTree = SOURCE_ROOT; };
+		577786180BF348E90041F8FF /* libHalf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHalf.a; path = "../../ExternalPrograms/Repository-universal/lib/libHalf.a"; sourceTree = SOURCE_ROOT; };
 		577D3D0809A0D759004C6964 /* wxPanoCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = wxPanoCommand.cpp; sourceTree = "<group>"; };
 		577D3D0A09A0D76D004C6964 /* VigCorrDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = VigCorrDialog.cpp; sourceTree = "<group>"; };
 		577D3D0E09A0D78E004C6964 /* Plot2D.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Plot2D.cpp; sourceTree = "<group>"; };
@@ -1166,6 +1179,11 @@
 				57E782820681074B0070F6AA /* libpanorama.a in Frameworks */,
 				5720E49F0BD457B600E63404 /* liblevmar.a in Frameworks */,
 				57DEBDB908E8947B008F6E81 /* libhuginwxutils.a in Frameworks */,
+				5777860B0BF3477A0041F8FF /* libIlmImf.a in Frameworks */,
+				5777860C0BF3477B0041F8FF /* libImath.a in Frameworks */,
+				577786120BF347B80041F8FF /* libIex.a in Frameworks */,
+				577786130BF347B80041F8FF /* libIlmThread.a in Frameworks */,
+				577786190BF348E90041F8FF /* libHalf.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1344,6 +1362,8 @@
 				57114F0706BC2301004F4FA7 /* codecmanager.cxx */,
 				57114F0806BC2301004F4FA7 /* codecmanager.hxx */,
 				57114F0906BC2301004F4FA7 /* error.hxx */,
+				577785FB0BF3439D0041F8FF /* exr.cxx */,
+				577785FC0BF3439D0041F8FF /* exr.hxx */,
 				57114F0A06BC2301004F4FA7 /* gif.cxx */,
 				57114F0B06BC2301004F4FA7 /* gif.hxx */,
 				573F330409F79BAA0088B333 /* iccjpeg.c */,
@@ -1740,6 +1760,11 @@
 				57989544068E2F22009F90BF /* libwx_macu-2.7.a */,
 				57989545068E2F22009F90BF /* libwxexpat-2.7.a */,
 				57989565068E2FA3009F90BF /* libwxregexu-2.7.a */,
+				577786100BF347B80041F8FF /* libIex.a */,
+				577786090BF347780041F8FF /* libIlmImf.a */,
+				577786110BF347B80041F8FF /* libIlmThread.a */,
+				5777860A0BF3477A0041F8FF /* libImath.a */,
+				577786180BF348E90041F8FF /* libHalf.a */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = repository;
@@ -2242,6 +2267,7 @@
 				573F330509F79BAA0088B333 /* iccjpeg.c in Sources */,
 				578ED0000A8D0C160028A7FB /* hdr.cxx in Sources */,
 				578ED0010A8D0C160028A7FB /* rgbe.c in Sources */,
+				577785FD0BF3439D0041F8FF /* exr.cxx in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3086,8 +3112,10 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -3115,8 +3143,10 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = YES;
 			};
@@ -3518,7 +3548,9 @@
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
 					./ExternalPrograms/repository/include,
+					./ExternalPrograms/repository/include/OpenEXR,
 				);
+				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
@@ -3532,6 +3564,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = all;
 				USER_HEADER_SEARCH_PATHS = "../src/foreign/ ../src/include ";
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = "-Wstrict-aliasing";
 				WX_INCLUDE_DIR = "./ExternalPrograms/repository/include/wx-$(WX_MAJOR_VERSOIN)";
 				WX_INCLUDE_DIR_LIB = "./ExternalPrograms/repository/lib/wx/include/mac-unicode-release-static-$(WX_MAJOR_VERSOIN)";
@@ -3560,7 +3593,9 @@
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
 					./ExternalPrograms/repository/include,
+					./ExternalPrograms/repository/include/OpenEXR,
 				);
+				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
@@ -3657,8 +3692,10 @@
 					"$(LIBRARY_SEARCH_PATHS)",
 					"$(TARGET_BUILD_DIR)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/Repository-universal/lib\"";
 				PRODUCT_NAME = HuginOSX;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -3918,7 +3955,9 @@
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
 					./ExternalPrograms/repository/include,
+					./ExternalPrograms/repository/include/OpenEXR,
 				);
+				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = ./ExternalPrograms/repository/lib;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;

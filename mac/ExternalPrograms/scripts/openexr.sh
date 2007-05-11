@@ -79,7 +79,7 @@ done
 
 # merge
 
-for liba in lib/libIlmThread.a lib/libIlmImf.a lib/libImath.a lib/libIex.a
+for liba in lib/libIlmThread.a lib/libIlmImf.a lib/libImath.a lib/libIex.a lib/libHalf.a
 do
 
  if [ $NUMARCH -eq 1 ]
