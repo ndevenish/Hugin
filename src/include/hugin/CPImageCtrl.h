@@ -194,7 +194,7 @@ public:
     wxPoint MaxScrollDelta(wxPoint delta);
 
 protected:
-    void drawPoint(wxDC & p, const FDiff2D & point, int i, bool selected = false) const;
+    wxRect drawPoint(wxDC & p, const FDiff2D & point, int i, bool selected = false) const;
     // draw the magnified view of a selected control point
     wxBitmap generateMagBitmap(FDiff2D point, wxPoint canvasPos) const;
     void OnDraw(wxDC& dc);
@@ -232,6 +232,9 @@ private:
     wxSize m_realSize;
 
     std::vector<FDiff2D> points;
+
+    // position of the point labels (in screen coordinates)
+    std::vector<wxRect> m_labelPos;
 
     wxCursor * m_CPSelectCursor;
     wxCursor * m_ScrollCursor;
@@ -413,7 +416,7 @@ private:
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point
-    EditorState isOccupied(const FDiff2D &p, unsigned int & pointNr) const;
+    EditorState isOccupied(wxPoint p, const FDiff2D &p, unsigned int & pointNr) const;
 
     CPEditorPanel * m_editPanel;
 

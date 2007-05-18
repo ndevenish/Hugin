@@ -246,10 +246,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
     // draw known points.
     unsigned int i=0;
+    m_labelPos.resize(points.size());
     vector<FDiff2D>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
         if (! (editState == KNOWN_POINT_SELECTED && i==selectedPointNr)) {
-            drawPoint(dc, *it, i);
+            m_labelPos[i] = drawPoint(dc, *it, i);
         }
         i++;
     }
@@ -282,7 +283,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
         break;
     case KNOWN_POINT_SELECTED:
-        drawPoint(dc, points[selectedPointNr], selectedPointNr, true);
+        m_labelPos[selectedPointNr] = drawPoint(dc, points[selectedPointNr], selectedPointNr, true);
         break;
     case NO_SELECTION:
     case NO_IMAGE:
@@ -307,8 +308,10 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 }
 
 
-void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool selected) const
+wxRect CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool selected) const
 {
+    wxRect labelRect;
+
     FDiff2D point = applyRot(pointIn);
     double f = getScaleFactor();
     if (f < 1) {
@@ -445,6 +448,10 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
         dc.SetPen(wxPen(textColor, 1, wxSOLID));
         dc.SetBrush(wxBrush(bgColor ,wxSOLID));
         dc.DrawRectangle(tul.x, tul.y, tw+2*tB+1, th+2*tB);
+        labelRect.SetLeft(tul.x);
+        labelRect.SetTop(tul.y);
+        labelRect.SetWidth(tw+2*tB+1);
+        labelRect.SetHeight(th+2*tB);
         // draw number
         dc.SetTextForeground(textColor);
         dc.DrawText(label, tul + wxPoint(tB,tB));
@@ -460,6 +467,7 @@ void CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool sele
         dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
         //    dc.DrawCircle(scale(point), 4);
     }
+    return labelRect;
 }
 
 #if 0
@@ -784,15 +792,26 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
     }
 }
 
-CPImageCtrl::EditorState CPImageCtrl::isOccupied(const FDiff2D &p, unsigned int & pointNr) const
+CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D &p, unsigned int & pointNr) const
 {
+    // check if mouse is hovering over a label
+    vector<wxRect>::const_iterator itr;
+    if (m_labelPos.size() == points.size() && m_labelPos.size() > 0) {
+        for(int i=m_labelPos.size()-1; i >= 0; i--) {
+            if (m_labelPos[i].Inside(mousePos)) {
+                pointNr = i;
+                return KNOWN_POINT_SELECTED;
+            }
+        }
+    }
+
     // check if mouse is over a known point
     vector<FDiff2D>::const_iterator it;
     for (it = points.begin(); it != points.end(); ++it) {
-        if (p.x < it->x + invScale(15) &&
-            p.x > it->x - invScale(15) &&
-            p.y < it->y + invScale(15) &&
-            p.y > it->y - invScale(15)
+        if (p.x < it->x + invScale(3) &&
+            p.x > it->x - invScale(3) &&
+            p.y < it->y + invScale(3) &&
+            p.y > it->y - invScale(3)
             )
         {
             pointNr = it - points.begin();
@@ -907,6 +926,14 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
         doUpdate = true;
     }
 
+    unsigned int selPointNr;
+    if (isOccupied(mouse.GetPosition(), mpos, selPointNr) == KNOWN_POINT_SELECTED &&
+        (! (editState == KNOWN_POINT_SELECTED && selectedPointNr == selPointNr) ) ) {
+        SetCursor(wxCursor(wxCURSOR_ARROW));
+    } else {
+        SetCursor(*m_CPSelectCursor);
+    }
+
     m_mousePos = mpos;
     // repaint
     if (doUpdate) {
@@ -932,7 +959,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     }
     unsigned int selPointNr = 0;
 //    EditorState oldstate = editState;
-    EditorState clickState = isOccupied(mpos, selPointNr);
+    EditorState clickState = isOccupied(mouse.GetPosition(), mpos, selPointNr);
     if (mouse.LeftDown() && editState != NO_IMAGE
         && mpos.x < m_realSize.x && mpos.y < m_realSize.y)
     {
