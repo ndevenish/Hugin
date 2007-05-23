@@ -1,3 +1,283 @@
+2007-05-23 08:14  dangelo
+
+	* configure.ac: do not try to detect OpenEXR, the codec is still
+	  unfinished
+
+2007-05-21 18:46  dangelo
+
+	* src/hugin/po/nl.po: updated dutch translation (Harry van der
+	  Wolf)
+
+2007-05-21 08:35  dangelo
+
+	* src/foreign/vigra_impex/Makefile.am: do not build unfinished
+	  openexr codec with automake
+
+2007-05-18 23:13  dangelo
+
+	* src/: hugin/CPImageCtrl.cpp, include/hugin/CPImageCtrl.h: better
+	  selection of existing points (only select point if user clicked
+	  on the label), change cursor to indicate possibility to select an
+	  existing point.
+
+2007-05-11 02:17  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj, localised.sh,
+	  ExternalPrograms/scripts/openexr.sh: Mac: keeping up with the
+	  change
+
+2007-05-11 01:53  dangelo
+
+	* src/tools/CMakeLists.txt: removed unfinished program from build
+
+2007-05-11 01:49  dangelo
+
+	* src/hugin/xrc/images_panel-2.5.xrc: removed obselete file
+
+2007-05-11 01:48  dangelo
+
+	* src/hugin/xrc/cp_editor_panel.xrc: forgot to replace with wx 2.5
+	  or later version
+
+2007-05-11 01:47  dangelo
+
+	* src/hugin/xrc/pano_panel.xrc: forgot to replace with wx 2.5 or
+	  later version...
+
+2007-05-10 08:36  dangelo
+
+	* CMakeModules/FindPkgConfig.cmake: forgot to add file
+
+2007-05-10 08:26  dangelo
+
+	* src/: Panorama/PanoramaMemento.cpp,
+	  Panorama/PhotometricOptimizer.cpp,
+	  hugin/OptimizePhotometricPanel.cpp,
+	  include/PT/RandomPointSampler.h: fixed crash when photometrically
+	  optimizing images with different size reset vignetting correction
+	  values when loading old projects
+
+2007-05-09 23:14  dangelo
+
+	* src/: build_msvc/Hugin.sln, hugin/ImageCache.cpp,
+	  tools/autooptimiser.vcproj: purge only unused images from
+	  ImageCache. Actually use access time during cache flush
+
+2007-05-09 22:28  dangelo
+
+	* src/hugin/: CPEditorPanel.cpp, CPImageCtrl.cpp, po/de.po: fixed
+	  crash when selecting control points using the control points list
+	  window
+
+2007-05-09 20:54  dangelo
+
+	* src/: hugin/CPImageCtrl.cpp, hugin/ImageCache.cpp,
+	  include/hugin/CPImageCtrl.h: more work on the magnifier, disable
+	  it when the mouse point is on the same image.
+
+2007-05-09 13:57  dangelo
+
+	* src/: hugin/CPZoomDisplayPanel.cpp, hugin/ImageCache.cpp,
+	  hugin/LensPanel.cpp, hugin/MainFrame.cpp, hugin/PanoPanel.cpp,
+	  hugin/PreferencesDialog.cpp, hugin/VigCorrDialog.cpp,
+	  hugin/wxPanoCommand.cpp, nona_gui/nona_gui.cpp: wx 2.8 does not
+	  respect the path passed to wxFileDialog during construction. set
+	  it explicitly
+
+2007-05-09 13:52  dangelo
+
+	* src/hugin/CPImageCtrl.cpp: use functions compatible with wx 2.6
+
+2007-05-09 01:25  dangelo
+
+	* CMakeLists.txt, src/CMakeLists.txt, src/tools/CMakeLists.txt:
+	  some more playing around with cmake
+
+2007-05-09 01:01  dangelo
+
+	* src/tools_vips/: CMakeLists.txt, hdrmerge_vips.cpp, img2vips.cpp:
+	  experimental stuff for playing around with vips 7.12. Requires my
+	  private, patched version of VIPS
+
+2007-05-09 00:59  dangelo
+
+	* src/include/vigra_ext/utils.h: passthrough functor can also be
+	  used for further stuff.
+
+2007-05-09 00:58  dangelo
+
+	* src/include/vigra_ext/Correlation.h: allow correlation if images
+	  with different types
+
+2007-05-09 00:55  dangelo
+
+	* src/: hugin/AssistantPanel.cpp, hugin/CropPanel.cpp,
+	  hugin/ImageCache.cpp, hugin/ImagesPanel.cpp, hugin/MainFrame.cpp,
+	  hugin/OptimizePhotometricPanel.cpp, hugin/wxPanoCommand.cpp,
+	  include/hugin/CropPanel.h, include/hugin/ImageCache.h: Use
+	  reference counted pointers for images in image cache. Should
+	  avoid solve all dangling image pointer problems.
+
+2007-05-09 00:50  dangelo
+
+	* src/include/PT/RemappedPanoImage.h: disable writing of debug
+	  images in release mode.
+
+2007-05-09 00:48  dangelo
+
+	* src/Panorama/PhotometricOptimizer.cpp: forgot to include config.h
+
+2007-05-09 00:47  dangelo
+
+	* src/: hugin/PreviewFrame.cpp, include/hugin/PreviewFrame.h: use
+	  spin button instead of the ugly bitmap arrow buttons for EV
+	  control disabled automatic hiding of EV control in HDR mode,
+	  doesn't work in wx 2.8
+
+2007-05-09 00:21  dangelo
+
+	* src/: hugin/CPEditorPanel.cpp, hugin/CPImageCtrl.cpp,
+	  include/hugin/CPImageCtrl.h: Added contrast enhancing
+	  "magnifiers" for manual control point placement.  Points can be
+	  moved with the cursor keys by 1/3 pixel.  Changing the zoom keeps
+	  the selected point in the image centre
+
+2007-05-05 16:13  dangelo
+
+	* src/include/config.h.in.cmake: [no log message]
+
+2007-04-26 19:52  dangelo
+
+	* INSTALL_cmake: some very brief CMake documentation
+
+2007-04-26 19:41  dangelo
+
+	* src/common/PTLensDB.c: fixed compiler warnings
+
+2007-04-26 19:39  dangelo
+
+	* src/hugin/: po/POTFILES.in, huginApp.cpp: removed obselete xrc
+	  files
+
+2007-04-26 19:39  dangelo
+
+	* src/include/PT/RandomPointSampler.h: added missing include
+
+2007-04-26 19:01  dangelo
+
+	* src/hugin/xrc/: Makefile.am, cp_editor_panel-2.5.xrc,
+	  images_panel.xrc, lens_panel-2.5.xrc, lens_panel.xrc,
+	  main_frame-2.5.xrc, main_frame.xrc, optimize_panel-2.5.xrc,
+	  optimize_panel.xrc, pano_panel-2.5.xrc: removed old xrc files for
+	  wxWindows 2.4, and replaced them by the respective -2.5 version
+
+2007-04-26 18:35  dangelo
+
+	* src/foreign/vigra_impex/: codecmanager.cxx, exr.cxx, iccjpeg.c,
+	  iccjpeg.h, jpeg.cxx, png.cxx, tiff.cxx: include config.h
+
+2007-04-26 18:27  dangelo
+
+	* src/tools/align_image_stack.cpp: revert to working copy
+	  (accidentally overwrote with a future hdr merge program)
+
+2007-04-26 18:21  dangelo
+
+	* CMakeLists.txt, src/CMakeLists.txt, src/Panorama/CMakeLists.txt,
+	  src/common/CMakeLists.txt, src/foreign/CMakeLists.txt,
+	  src/hugin/CMakeLists.txt, src/jhead/CMakeLists.txt,
+	  src/nona_gui/CMakeLists.txt, CMakeModules/FindMSGFMT.cmake,
+	  CMakeModules/FindOpenEXR.cmake, CMakeModules/FindPANO13.cmake,
+	  src/foreign/levmar/CMakeLists.txt,
+	  src/foreign/vigra_impex/CMakeLists.txt,
+	  src/hugin/po/CMakeLists.txt, src/hugin/xrc/CMakeLists.txt,
+	  src/hugin/xrc/data/CMakeLists.txt, src/tools/CMakeLists.txt,
+	  src/vigra_ext/CMakeLists.txt: initial CMake build system, works
+	  on my machine
+
+2007-04-26 15:56  ippei
+
+	* mac/HuginOSX.xcodeproj/project.pbxproj, mac/HuginOSX-Info.plist,
+	  src/include/PT/RemappedPanoImage.h: Mac: ready for a snapshot?
+
+2007-04-24 01:20  ippei
+
+	* mac/: HuginOSX.xcodeproj/project.pbxproj, config.h,
+	  ExternalPrograms/scripts/openexr.sh: Mac: fixed Xcode compilation
+
+2007-04-23 20:25  ippei
+
+	* src/include/PT/RandomPointSampler.h: Compile fix. Hope this is
+	  the right way.
+
+2007-04-22 12:53  dangelo
+
+	* BUGS, src/foreign/vigra_impex/Makefile.am,
+	  src/hugin/PreviewFrame.cpp, src/include/PT/RandomPointSampler.h,
+	  src/tools/align_image_stack.cpp: fix some compilation issues,
+	  vig_optimize accepts images with alpha channels
+
+2007-04-19 00:26  dangelo
+
+	* src/: Panorama/Stitcher.cpp, include/PT/PanoImage.h,
+	  include/PT/PanoramaMemento.h, include/PT/RemappedPanoImage.h: LDR
+	  mode: use response parameters from first image. fixed white
+	  output if source images have an EV >> 0
+
+2007-04-19 00:25  dangelo
+
+	* src/include/vigra_ext/lut.h: avoid one log2() call for each pixel
+
+2007-04-19 00:21  dangelo
+
+	* src/tools/align_image_stack.cpp: allow specification of HFOV on
+	  the commandline
+
+2007-04-17 22:41  brunopostle
+
+	* src/foreign/levmar/Makefile.am: dist target: add missing file and
+	  case change
+
+2007-04-17 09:26  dangelo
+
+	* src/hugin/OptimizePhotometricPanel.cpp: properly handle cases
+	  when only a subset of images is optimized
+
+2007-04-17 09:25  dangelo
+
+	* src/Panorama/PanoramaMemento.cpp: default to vignetting
+	  correction when loading old project files
+
+2007-04-17 09:25  dangelo
+
+	* src/Panorama/Panorama.cpp: fixed bug that prevented using several
+	  lenses for photometric optimisation
+
+2007-04-17 07:33  dangelo
+
+	* src/hugin/ImageCache.cpp: use vigra::UInt8 etc, fixed compilation
+	  on OSX
+
+2007-04-16 21:17  dangelo
+
+	* src/include/vigra_ext/emor.h: added missing include
+
+2007-04-16 20:26  dangelo
+
+	* src/hugin/po/it.po: updated italian translation (Marco Cucinato)
+
+2007-04-15 23:32  dangelo
+
+	* src/vigra_ext/Makefile.am: removed obslete entry
+
+2007-04-15 23:18  dangelo
+
+	* ChangeLog: updated changelog
+
+2007-04-15 23:18  dangelo
+
+	* NEWS: some more news.
+
 2007-04-15 23:13  dangelo
 
 	* src/include/config.h.in: removed autogenerated file
