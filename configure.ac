@@ -175,12 +175,12 @@ if test "x$have_tiff" != xyes; then
 fi
 
 dnl check for openexr library
-PKG_CHECK_MODULES(OPENEXR, OpenEXR >= 1.0,
-  [AC_DEFINE(HasEXR,1,Define if you have EXR library)
-  have_exr="yes"],[
-AC_MSG_WARN( "OpenEXR support disabled: " $OPENEXR_PKG_ERRORS )
+dnl PKG_CHECK_MODULES(OPENEXR, OpenEXR >= 1.0,
+dnl   [AC_DEFINE(HasEXR,1,Define if you have EXR library)
+dnl   have_exr="yes"],[
+dnl AC_MSG_WARN( "OpenEXR support disabled: " $OPENEXR_PKG_ERRORS )
   have_exr="no"
-]) #end of PKG_CHECK_MODULES
+dnl]) #end of PKG_CHECK_MODULES
 
 dnl AC_SUBST(OPENEXR_LIBS)
 dnl AC_SUBST(OPENEXR_CFLAGS)
