@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: pablo.dangelo@web.de\n"
 "POT-Creation-Date: 2007-02-08 00:19+0100\n"
-"PO-Revision-Date: 2007-05-20 15:29+0100\n"
+"PO-Revision-Date: 2007-05-29 17:47+0100\n"
 "Last-Translator: Harry <harryvanderwolf@xs4all.nl>\n"
 "Language-Team: Dutch <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3846,7 +3846,4 @@ msgstr "Lens parameters kunnen variC+ren bij veranderende focus. De beste result
 #: src/hugin/xrc/data/tips.txt:33
 msgid "Optimisation of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
 msgstr "Optimalisatie van de \"alle vervormingen\" parameter optie \"alles\" hebben alleen zin bij sterk overlappende afbeeldingen met vele goed verspreide controle punten."
-
-
-
 
