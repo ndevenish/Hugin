@@ -940,7 +940,6 @@
 		5751ABF80BDD4EBC003A7B5C /* OptimizePhotometricPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OptimizePhotometricPanel.cpp; sourceTree = "<group>"; };
 		5751BF700BDD4F3A003A7B5C /* PhotometricOptimizer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PhotometricOptimizer.cpp; sourceTree = "<group>"; };
 		5751D8630939F1E9001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcodeproj/project.pbxproj; sourceTree = "<group>"; };
-		5751D8680939F243001477EA /* project.pbxproj */ = {isa = PBXFileReference; lastKnownFileType = text.pbxproject; name = project.pbxproj; path = HuginOSX.xcode/project.pbxproj; sourceTree = "<group>"; };
 		577092FA06BD7388004058A1 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = lib/libpng.a; sourceTree = "<group>"; };
 		577092FB06BD7388004058A1 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = lib/libtiff.a; sourceTree = "<group>"; };
 		577785FB0BF3439D0041F8FF /* exr.cxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = exr.cxx; sourceTree = "<group>"; };
@@ -977,6 +976,7 @@
 		578ECFFD0A8D0C160028A7FB /* hdr.hxx */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.h; path = hdr.hxx; sourceTree = "<group>"; };
 		578ECFFE0A8D0C160028A7FB /* rgbe.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = rgbe.c; sourceTree = "<group>"; };
 		578ECFFF0A8D0C160028A7FB /* rgbe.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = rgbe.h; sourceTree = "<group>"; };
+		57965E6A0C01B2AC004E23DE /* PhotometricOptimizer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PhotometricOptimizer.h; sourceTree = "<group>"; };
 		57989544068E2F22009F90BF /* libwx_macu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwx_macu-2.7.a"; path = "lib/libwx_macu-2.7.a"; sourceTree = "<group>"; };
 		57989545068E2F22009F90BF /* libwxexpat-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxexpat-2.7.a"; path = "lib/libwxexpat-2.7.a"; sourceTree = "<group>"; };
 		57989565068E2FA3009F90BF /* libwxregexu-2.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwxregexu-2.7.a"; path = "lib/libwxregexu-2.7.a"; sourceTree = "<group>"; };
@@ -1215,7 +1215,6 @@
 				573154D6083B9CA500017987 /* PutEnblendToHuginOSX.applescript */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
-				5751D85C0939E92E001477EA /* HuginOSX.xcode (for old Xcode) */,
 				573E2E5C0B76ACDB00E86281 /* build_using_cmdline.txt */,
 				573E2E5B0B76ACDB00E86281 /* build_using_cmdline.sh */,
 				573E2E5D0B76ACDB00E86281 /* install2bundle.sh */,
@@ -1545,6 +1544,7 @@
 				57114FDE06BC2302004F4FA7 /* Panorama.h */,
 				57114FDF06BC2302004F4FA7 /* PanoramaMemento.h */,
 				57114FE006BC2302004F4FA7 /* PanoToolsInterface.h */,
+				57965E6A0C01B2AC004E23DE /* PhotometricOptimizer.h */,
 				57114FE106BC2302004F4FA7 /* Process.h */,
 				57114FE206BC2302004F4FA7 /* PTOptimise.h */,
 				577D3D2509A0D981004C6964 /* RandomPointSampler.h */,
@@ -1804,14 +1804,6 @@
 				5749F84E067B604B00A6EDD4 /* math.h */,
 			);
 			name = math.h;
-			sourceTree = "<group>";
-		};
-		5751D85C0939E92E001477EA /* HuginOSX.xcode (for old Xcode) */ = {
-			isa = PBXGroup;
-			children = (
-				5751D8680939F243001477EA /* project.pbxproj */,
-			);
-			name = "HuginOSX.xcode (for old Xcode)";
 			sourceTree = "<group>";
 		};
 		5751D8600939F1C0001477EA /* HuginOSX.xcodeproj */ = {
