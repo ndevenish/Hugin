@@ -2021,7 +2021,7 @@
 /* Begin PBXProject section */
 		57FC3AC10675E43600C3E0AC /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "HuginOSX" */;
+			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -3946,7 +3946,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "HuginOSX" */ = {
+		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC2A094E1E6400E6B672 /* Debug */,
