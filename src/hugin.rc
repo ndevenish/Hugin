@@ -1,2 +1,0 @@
-AppIcon ICON   "xrc/data/icon.ico"
-#include "wx/msw/wx.rc"
