@@ -1,0 +1,81 @@
+Building hugin using the command line
+=====================================
+
+There are several ways to build hugin. One can use the Xcode project and the
+scripts present in this directory, but it might be cumbersome to install
+the dependencies by hand. See the Documents subdirectory for more information.
+
+It is also possible to build hugin using the unix approach of ./configure and make.
+This will be described in this text file. We will install the libraries required
+using darwinports. The drawback of this approach is that no universal binary will
+be created, and that the resulting hugin bundle depends on the libraries installed
+by darwinport. This means it will not work on another Mac, unless excatly the same
+libraries are installed there.
+
+
+Installation of dependencies
+============================
+
+First one has to install the dependencies for building hugin:
+
+1. install Xcode
+  download .dmg file from apple and install
+
+If you are using Mac OS X 10.3 "Panther", Mac OS X 10.4 "Tiger" or a Bourne shell (bash, zsh), add the following line to your ~/.profile:
+
+export PATH=$PATH:/opt/local/bin
+
+update darwin packages:
+$ port sync
+
+2. install required packages:
+
+This will take some time.
+
+$ sudo port install tiff libpng boost libtool install automake17
+
+Unfortunately, hugin also depends on wxWidgets 2.7, enblend and
+panotools 2.8.4, for which no packages are available in the offical
+darwin repository.
+
+Darwinport ports for these are available at http://hugin.sf.net/darwinports
+To use these, add
+http://hugin.sf.net/dports
+to /opt/local/etc/ports/sources.conf
+
+Install dependencies. This will take a long time.
+$ sudo port install enblend wxWidgets27 panotools
+
+
+Compile and install hugin
+=========================
+
+Get current hugin source from cvs (or at least hugin 0.6.1)
+
+If you are using CVS, the bootstrap file needs to be edited and run. If you are using
+a source tarball, you can skip this step.
+  Edit bootstrap file, replace
+  -libtoolize with -glibtoolize
+  -automake with -automake-17
+  -aclocal with -aclocal-17
+
+  run ./bootstrap to create the ./configure script
+
+Now, the ./configure script can be run:
+
+$ LDFLAGS=-L/opt/local/lib CPPFLAGS="-I/opt/local/include -I/Developer/Headers/FlatCarbon"  ./configure --prefix=/opt/local --with-unicode --with-wx-config=mac-unicode-release-2.7
+
+Build and install hugin using:
+
+$ make
+$ make install
+
+Since hugin is a real OSX application it needs a bundle and cannot be run like the typical unix
+applications. To create an application bundle for hugin and nona_gui, the install2bundle.sh
+script is used. It has to be executed in the mac/ subfolder of the hugin sourcecode.
+
+$ cd mac
+$ ./install2bundle.sh /opt/local /Applications
+
+This will install create a hugin.app and nona_gui.app bundle in /Applications.
+

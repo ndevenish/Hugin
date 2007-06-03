@@ -1,0 +1,29 @@
+How to set up Autopano-SIFT on Mac for HuginOSX
+
+
+Autopano-SIFT is a set of .Net programs that can automatically generate control points from a set of images. There are two ways of using Autopano-SIFT  from HuginOSX. One is very easy, but does not always work, and hence not supported. The other should work as long as you set up autopano-sift correctly, but it involves editing shell script. 
+
+
+Steps:
+
+1. You need to install .Net environment called Mono. You can get its Framework installer package from <http://www.mono-project.com/Downloads>. You need administrator password for your computer.
+
+2. Download Autopano-SIFT compiled for Mono environment from the author's homepage <http://user.cs.tu-berlin.de/~nowozin/autopano-sift/>, and read its readme and license files.
+
+3. Use PutAutopanoSiftToHuginOSX program comes with HuginOSX to put the relevant files into HuginOSX's application package. That's all. If that did not work, you could try the next method, or give up (sorry). 
+
+
+If you tried step 3 and it did not work, you might want to proceed to the alternative installation. From this step, however, I assume you have some knowledge in unix.
+
+4. We have to set up autopano-complete.sh comes with Autopano-SIFT. First, set AUTOPANO_PATH variable so that the script can find the .Net executables where ever the current path is. If you place the script and the executables in the same directory, `dirname "$0"` may work. Next, you need to replace every occurrence of "generatekeys.exe" with "generatekeys-sd.exe". Now the script should be ready. Launch the Terminal and try out the script. Typical usage would be "./autopano-complete.sh -o project.pto image1 image2" (-h option gives you the arguments you can use, but please note the long format with -- is not available on Mac and other BSD systems).
+
+5. If the script works fine with you from any current directory, then it should be ready for hugin as well. Please open hugin's Preferences and in the Autopano tab, specify the path to the script as the custom Autopano-SIFT program.
+
+
+What exactly HuginOSX does:
+
+HuginOSX has a customised script file inside the application bundle. If the custom program is not specified, HuginOSX checks whether all three autopano-sift files (autopano, generatekeys-sd, libsift) are inside the bundle, and calls its own script if they are there. If you specify the custom program, HuginOSX simply uses that one assuming it works.
+
+
+This document was originally written by Ippei UKAI (Copyleft 2006)
+Last Modified: $Id: HOWTO-autopanosift.txt 1703 2006-08-13 10:41:25Z ippei $

@@ -1,0 +1,20 @@
+# PPC:
+
+# has to be the absolute path from /
+#myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
+myREPOSITORYDIR="/Users/ippei/dev/hugin/ExternalPrograms/Repository-ppc";
+
+mkdir -p $myREPOSITORYDIR;
+
+export \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
+ ARCHS="ppc" \
+ ppcTARGET="powerpc-apple-darwin7" \
+ i386TARGET="" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+ i386MACSDKDIR="" \
+ ppcONLYARG="-mcpu=G3 -mtune=G3" \
+ i386ONLYARG="" \
+ OTHERARGs="";
+
+# $Id: SetEnv-ppc.txt 1902 2007-02-04 22:27:47Z ippei $
