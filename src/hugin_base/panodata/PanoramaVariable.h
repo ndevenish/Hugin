@@ -34,48 +34,6 @@
 #include <set>
 #include <math.h>
 
-#ifdef HasPANO13
-extern "C" {
-
-#ifdef __INTEL__
-#define __INTELMEMO__
-#undef __INTEL__
-#endif
-
-#include "pano13/panorama.h"
-
-#ifdef __INTELMEMO__
-#define __INTEL__
-#undef __INTELMEMO__
-#endif
-
-// remove stupid #defines from the evil windows.h
-
-#ifdef DIFFERENCE
-#undef DIFFERENCE
-#endif
-
-#ifdef MIN
-#undef MIN
-#endif
-
-#ifdef MAX
-#undef MAX
-#endif
-
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-}
-#endif
-
-#include "PT/PanoImage.h"
-
-#include "vigra_ext/Interpolators.h"
 
 namespace PT {
 
@@ -132,8 +90,6 @@ protected:
 
 
 
-
-
 /** A lens variable can be linked.
  *
  *  It is only used in the lens class, not directly in the images.
@@ -161,13 +117,10 @@ private:
 /** functor to print a variable. */
 struct PrintVar : public std::unary_function<Variable, void>
 {
-    PrintVar(std::ostream & o) : os(o) { }
-    void operator() (Variable x) const { x.print(os) << " "; }
+    PrintVar(std::ostream & o) : os(o) { };
+    void operator() (Variable x) const { x.print(os) << " "; };
     std::ostream& os;
 };
-
-
-
 
 
 typedef std::map<std::string,Variable> VariableMap;

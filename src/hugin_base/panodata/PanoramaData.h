@@ -1,9 +1,11 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Panorama.h
+/** @file PanoramaData.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  $Id: Panorama.h 1947 2007-04-15 20:46:00Z dangelo $
+ *
+ * !! from Panorama.h 1947 
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -112,6 +114,22 @@ public:
 };
 
 
+/** Memento class for a PanoramaData object
+*
+*  Preserves the internal state of a PanoramaData.
+*  Used when other objects need to get/set the state without
+*  knowing anything about the internals.
+*
+*/
+class PanoramaDataMemento
+{
+public:
+    
+    virtual ~PanoramaMemento();
+    
+    //    virtual PanoramaMemento & operator=(const PanoramaMemento & o);
+    
+};
 
 
 
@@ -190,8 +208,7 @@ public:
     
     
 // -- Observing --
-// 
-    
+
     /** add a panorama observer.
         *
         *  It will recieve all change messages.
@@ -238,12 +255,8 @@ public:
     virtual void markAsOptimized(bool optimized=true);
     
     
-// -- Data Access --
-// query interface, used by the view to get information about
-// the panorama.
+// -- Data Access [TODO: clean up] --
     
-public:
-
     /// number of images.
     virtual  std::size_t getNrOfImages() const;
     
@@ -298,7 +311,6 @@ public:
     /** returns the options for this panorama */
     virtual const PanoramaOptions & getOptions() const;
 
-    
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
         
@@ -380,7 +392,6 @@ public:
      */
     virtual unsigned int addLens(const Lens & lens);
 
-
     /** Change the variable for a single lens
      *
      *  updates a lens variable, copies it into
@@ -388,7 +399,6 @@ public:
      *
      */
     virtual void updateLensVariable(unsigned int lensNr, const LensVariable &var);
-
 
     /** update a lens
      *
@@ -401,7 +411,6 @@ public:
      *  it is only possible when it is not used by any image.
      */
     virtual void removeLens(unsigned int lensNr);
-
 
     /** remove unused lenses.
      *
@@ -448,20 +457,18 @@ public:
 
     
 // -- script interface --
-    
-public:
         
-        /** parse optimzier output
-        *
-        *  @param set of image numbers that where used during by
-        *         printPanoramaScript().
-        *  @param vars will be set the the optimzied variables
-        *  @param ctrlPoints will contain the controlpoints, with distance
-        *         information
-        *
-        *  @return false on error (could not read optimizer output, parse error)
-        */
-        virtual void readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const;
+   /** parse optimzier output
+    *
+    *  @param set of image numbers that where used during by
+    *         printPanoramaScript().
+    *  @param vars will be set the the optimzied variables
+    *  @param ctrlPoints will contain the controlpoints, with distance
+    *         information
+    *
+    *  @return false on error (could not read optimizer output, parse error)
+    */
+    virtual void readOptimizerOutput(const UIntSet & imgs, VariableMapVector & vars, CPVector & ctrlPoints) const;
     
     
     /// read after optimization, fills in control point errors.
@@ -482,78 +489,7 @@ public:
                                      const UIntSet & imgs) const;
     
     
-    
-// -- Algorithms to be modified. --
-    
-TODO:
-    
-    /** update control points distances.
-        *
-        *  updates control distances and position in final panorama
-        *  usually used to set the changes from the optimization.
-        *  The control points must be the same as in
-        */
-    virtual void updateCtrlPointErrors(const CPVector & controlPoints);
-    
-    /** update control points for a subset of images.
-        *
-        *  Usually, the control point subset is created using subset()
-        *  The number and ordering and control points must not be changed
-        *  between the call to subset() and this function.
-        */
-    void updateCtrlPointErrors(const UIntSet & imgs, const CPVector & cps);
-    
-    
-// -- Algorithms to be moved out. --
-    
-TODO:
-        
-    /** calculates the horizontal and vertial FOV of the complete panorama
-    *
-    *  @return HFOV,VFOV
-    */
-    FDiff2D calcFOV() const;
-    
-    /** calculate the HFOV and height so that the whole input
-        *  fits in into the output panorama */
-    void fitPano(double & HFOV, double & height);
-    
-    /** calculate the optimal width for this panorama 
-        *
-        *  Optimal means that the pixel density at the panorama and
-        *  image center of the image with the highest resolution
-        *  are the same.
-        */
-    unsigned calcOptimalWidth() const;
-    
-    /** calculate control point error distance statistics */
-    void calcCtrlPntsErrorStats(double & min, double & max, double & mean, double & std, int imgNr=-1) const;
-    
-    /** calculate control point radial distance statistics. q10 and q90 are the 10% and 90% quantile */
-    void calcCtrlPntsRadiStats(double & min, double & max, double & mean, double & var,
-                               double & q10, double & q90, int imgNr=-1) const;
-    
-    
-    /** center panorama horizontically */
-    void centerHorizontically();
-    
-    /** rotate the complete panorama
-        *
-        *  Will modify the position of all images.
-        */
-    void rotate(double yaw, double pitch, double roll);
-    
-    /** rotate the complete panorama.
-        *
-        *  Will modify the position of all images.
-        */
-    void rotate(const Matrix3 & rot);
-    
-    /** try to automatically straighten the panorama */
-    void straighten();
-    
-    
-// -- document interface (to be moved out) --
+// -- document interface [TODO: to be moved out] --
 
     /** clear dirty flag. call after save */
     void clearDirty()
@@ -568,26 +504,6 @@ TODO:
     
 
 };
-
-
-/** Memento class for a PanoramaData object
- *
- *  Preserves the internal state of a PanoramaData.
- *  Used when other objects need to get/set the state without
- *  knowing anything about the internals.
- *
- */
-class AbstractPanoramaMemento
-{
-public:
-    
-    virtual ~PanoramaMemento();
-    
-//    virtual PanoramaMemento & operator=(const PanoramaMemento & o);
-    
-};
-
-
 
 
 

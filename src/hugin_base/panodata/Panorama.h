@@ -37,116 +37,11 @@
 
 class Matrix3;
 
+
+
 namespace PT {
 
-class Panorama;
-class PanoCommand;
-
-typedef std::set<unsigned int> UIntSet;
-typedef std::vector<unsigned int> UIntVector;
-
-/// helper functions for parsing a script line
-bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
-
-#if 0
-template <class T>
-bool getParam(T & value, const std::string & line, const std::string & name)
-{
-    std::string s;
-    if (!getPTParam(s, line, name)) {
-        return false;
-    }
-    std::istringstream is(s);
-    is >> value;
-    return true;
-}
-#endif
-
-template <class T>
-bool getIntParam(T & value, const std::string & line, const std::string & name)
-{
-    std::string s;
-    if (!getPTParam(s, line, name)) {
-        return false;
-    }
-    std::istringstream is(s);
-    is >> value;
-    return true;
-}
-
-bool readVar(Variable & var, int & link, const std::string & line);
-
-bool getPTStringParam(std::string & output, const std::string & line,
-	              const std::string & parameter);
-
-bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
-
-bool getDoubleParam(double & d, const std::string & line, const std::string & name);
-
-bool getPTDoubleParam(double & value, int & link,
-                      const std::string & line, const std::string & var);
-		
-
-/** this handler class will receive change events from the Panorama.
- *
- *  Maybe a fine grained event interface is better, but it can be
- *  added later.
- */
-
-class PanoramaObserver
-{
-public:
-    virtual ~PanoramaObserver()
-        { };
-    /** Notification about a Panorama change.
-     *
-     *  This function will always be called, even when the
-     *  change could be handled by panoramaImageAdded() or
-     *  other notify functions.
-     *
-     *  This allows lazy observers to just listen to
-     *  panoramaChanged().
-     *
-     */
-    virtual void panoramaChanged(Panorama &pano)
-        { DEBUG_DEBUG("Default panoramaChanged called"); };
-
-    /** notifies about changes to images
-     *
-     *  Images might have been added/removed. to find out
-     *  how many images are still there, use Panorama::getNrOfImages.
-     *
-     *  @param pano the panorama object that changed
-     *  @param changed set of changed images
-     *
-     */
-    virtual void panoramaImagesChanged(Panorama &pano, const UIntSet & changed)
-        { DEBUG_DEBUG("DEFAULT handler method"); };
-
-    /** notification about a new image.
-     *
-     *  It is called whenever an image has been added.
-     */
-//    virtual void panoramaImageAdded(Panorama &pano, unsigned int imgNr)
-//        { DEBUG_WARN("DEFAULT handler method"); };
-
-    /** notifiy about the removal of an image.
-     *
-     *  always called when an image is removed.
-     *  Beware: the image might already destroyed when this is called.
-     */
-//    virtual void panoramaImageRemoved(Panorama &pano, unsigned int imgNr)
-//        { DEBUG_WARN("DEFAULT handler method"); };
-
-    /** notify about an image change.
-     *
-     *  This is called whenever the image (for example the filename)
-     *  or something the image depends on (for example: Lens, Control
-     *  Points) has changed.
-     */
-//    virtual void panoramaImageChanged(Panorama &pano, unsigned int imgNr)
-//        { DEBUG_TRACE(""); };
-};
+class PanoramaObserver;
 
 
 /** Model for a panorama.
@@ -199,7 +94,7 @@ public:
  *  implemented without too much pain.
  */
 
-class Panorama
+class Panorama : PanoramaData, PanoramaDataLegacySupport, AppBase::Document
 {
 public:
 
@@ -682,6 +577,8 @@ private:
 };
 
 
+// -- algorithms [TODO: move out!] --
+
 /** function to calculate the scaling factor so that the distances
     in the input image and panorama image are similar at the panorama center
  */
@@ -689,6 +586,8 @@ double calcOptimalPanoScale(const SrcPanoImage & src,
                             const PanoramaOptions & dest);
 
 double calcMeanExposure(const Panorama & pano);
+
+
 
 // helper functions, workaround for gcc 3.3, which doesn't find
 // the map_get template functions.
@@ -699,14 +598,48 @@ const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string &
 
 
 
+// -- Parsing --
 
+/// helper functions for parsing a script line
+bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
 
-// -- from memento.h --
+#if 0
+template <class T>
+bool getParam(T & value, const std::string & line, const std::string & name)
+{
+    std::string s;
+    if (!getPTParam(s, line, name)) {
+        return false;
+    }
+    std::istringstream is(s);
+    is >> value;
+    return true;
+}
+#endif
 
+template <class T>
+bool getIntParam(T & value, const std::string & line, const std::string & name)
+{
+    std::string s;
+    if (!getPTParam(s, line, name)) {
+        return false;
+    }
+    std::istringstream is(s);
+    is >> value;
+    return true;
+}
 
+bool readVar(Variable & var, int & link, const std::string & line);
 
+bool getPTStringParam(std::string & output, const std::string & line,
+                      const std::string & parameter);
 
+bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
 
+bool getDoubleParam(double & d, const std::string & line, const std::string & name);
+
+bool getPTDoubleParam(double & value, int & link,
+                      const std::string & line, const std::string & var);
 
 
 
@@ -716,7 +649,6 @@ const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string &
 typedef std::vector<PanoImage> ImageVector;
 typedef std::vector<std::set<std::string> > OptimizeVector;
 
-class Panorama;
 /** Memento class for a Panorama object
  *
  *  Holds the internal state of a Panorama.
