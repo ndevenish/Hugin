@@ -45,166 +45,6 @@ using namespace PTools;
 using namespace boost;
 using namespace utils;
 
-// missing prototype in filter.h
-extern "C" {
-int CheckParams( AlignInfo *g );
-}
-
-/*
-void PTools::optimize_PT(const Panorama & pano,
-                               const PT::UIntVector &imgs,
-                               const OptimizeVector & optvec,
-                               VariableMapVector & vars,
-                               CPVector & cps,
-                               int maxIter)
-{
-//    VariableMapVector res;
-    // setup data structures
-    aPrefs    aP;
-    OptInfo   opt;
-
-    SetAdjustDefaults(&aP);
-    AlignInfoWrap aInfo;
-    // copy pano information into libpano data structures
-    if (aInfo.setInfo(pano, imgs, vars, cps, optvec)) {
-        aInfo.setGlobal();
-
-        opt.numVars 		= aInfo.gl.numParam;
-        opt.numData 		= aInfo.gl.numPts;
-        opt.SetVarsToX		= SetLMParams;
-        opt.SetXToVars		= SetAlignParams;
-        opt.fcn			= aInfo.gl.fcn;
-        *opt.message		= 0;
-
-        DEBUG_DEBUG("starting optimizer");
-        ::RunLMOptimizer( &opt );
-        std::ostringstream oss;
-        oss << "optimizing images";
-        for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-            if (it + 1 != imgs.end()) {
-                oss << *it << ",";
-            } else {
-                oss << *it;
-            }
-        }
-        oss << "\n" << opt.message;
-        DEBUG_DEBUG("optimizer finished:" << opt.message);
-
-        vars = aInfo.getVariables();
-        cps = aInfo.getCtrlPoints();
-    }
-}
-*/
-
-void PTools::optimize(Panorama & pano,
-                      const char * userScript)
-{
-    char * script = 0;
-
-    if (userScript == 0) {
-        ostringstream scriptbuf;
-        UIntSet allImg;
-        fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
-        pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), pano.getOptions(), allImg, true);
-        script = strdup(scriptbuf.str().c_str());
-    } else {
-        script = const_cast<char *>(userScript);
-    }
-
-    OptInfo		opt;
-	AlignInfo	ainf;
-
-    if (ParseScript( script, &ainf ) == 0)
-	{
-		if( CheckParams( &ainf ) == 0 )
-		{
-			ainf.fcn	= fcnPano;
-			
-			SetGlobalPtr( &ainf ); 
-			
-			opt.numVars 		= ainf.numParam;
-			opt.numData 		= ainf.numPts;
-			opt.SetVarsToX		= SetLMParams;
-			opt.SetXToVars		= SetAlignParams;
-			opt.fcn			= ainf.fcn;
-			*opt.message		= 0;
-
-			RunLMOptimizer( &opt );
-			ainf.data		= opt.message;
-            // get results from align info.
-#ifdef DEBUG_WRITE_OPTIM_OUTPUT
-            fullPath path;
-            StringtoFullPath(&path, DEBUG_WRITE_OPTIM_OUTPUT_FILE );
-
-		    ainf.data		= opt.message;
-            WriteResults( script, &path, &ainf, distSquared, 0);
-#endif
-            pano.updateVariables(GetAlignInfoVariables(ainf) );
-            pano.updateCtrlPointErrors( GetAlignInfoCtrlPoints(ainf) );
-		}
-		DisposeAlignInfo( &ainf );
-    }
-    if (! userScript) {
-        free(script);
-    }
-}
-
-#if 0
-void PTools::optimize(Panorama & pano,
-                      utils::MultiProgressDisplay & progDisplay,
-                      int maxIter)
-{
-//    VariableMapVector res;
-    // setup data structures
-    aPrefs    aP;
-    OptInfo   opt;
-
-    SetAdjustDefaults(&aP);
-    AlignInfoWrap aInfo;
-    // copy pano information int libpano data structures
-    if (aInfo.setInfo(pano)) {
-        aInfo.setGlobal();
-
-        opt.numVars 		= aInfo.gl.numParam;
-        opt.numData 		= aInfo.gl.numPts;
-        opt.SetVarsToX		= SetLMParams;
-        opt.SetXToVars		= SetAlignParams;
-        opt.fcn			= aInfo.gl.fcn;
-        *opt.message		= 0;
-
-        DEBUG_DEBUG("starting optimizer");
-        RunLMOptimizer( &opt );
-
-#ifdef DEBUG
-        fullPath path;
-        StringtoFullPath(&path, "c:/debug_optimizer.txt");
-
-		aInfo.gl.data		= opt.message;
-        WriteResults( "debug_test", &path, &aInfo.gl, distSquared, 0);
-#endif
-
-
-        std::ostringstream oss;
-        /*
-        oss << "optimizing images";
-        for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-            if (it + 1 != imgs.end()) {
-                oss << *it << ",";
-            } else {
-                oss << *it;
-            }
-        }
-        oss << "\n" << opt.message;
-        progDisplay.setMessage(oss.str());
-        */
-        DEBUG_DEBUG("optimizer finished:" << opt.message);
-
-        pano.updateVariables(aInfo.getVariables());
-        pano.updateCtrlPointErrors( aInfo.getCtrlPoints());
-
-    }
-}
-#endif
 
 /** autooptimise the panorama (does local optimisation first) */
 void PTools::autoOptimise(PT::Panorama & pano)
@@ -457,11 +297,61 @@ void PTools::smartOptimize(PT::Panorama & optPano)
 
 }
 
-
-#ifdef PT_CUSTOM_OPT
-void PTools::stopOptimiser()
+template < typename Vertex, typename Graph >
+void OptimiseVisitor::discover_vertex(Vertex v, const Graph & g)
 {
-    optdata.terminate = true;
-}
+    PT::UIntSet imgs;
+    imgs.insert(v);
+    //        PT::VariableMapVector vars(1);
+#ifdef DEBUG
+    std::cerr << "before optim "<< v << " : ";
+    printVariableMap(std::cerr, m_pano.getImageVariables(v));
+    std::cerr << std::endl;
 #endif
-
+    
+    // collect all optimized neighbours
+    typename boost::graph_traits<PT::CPGraph>::adjacency_iterator ai;
+    typename boost::graph_traits<PT::CPGraph>::adjacency_iterator ai_end;
+    for (tie(ai, ai_end) = adjacent_vertices(v, g);
+         ai != ai_end; ++ai)
+    {
+        if (*ai != v) {
+            if ( (get(boost::vertex_color, g))[*ai] != boost::color_traits<boost::default_color_type>::white()) {
+                // image has been already optimized, use as anchor
+                imgs.insert(unsigned(*ai));
+                DEBUG_DEBUG("non white neighbour " << (*ai));
+            } else {
+                DEBUG_DEBUG("white neighbour " << (*ai));
+            }
+        }
+    }
+    
+    // get pano with neighbouring images.
+    PT::Panorama localPano = m_pano.getSubset(imgs);
+    
+    // find number of current image in subset
+    unsigned currImg = 0;
+    unsigned cnt=0;
+    for (PT::UIntSet::const_iterator it= imgs.begin(); it != imgs.end(); ++it) {
+        if (v == *it) {
+            currImg = cnt;
+        }
+        cnt++;
+    }
+    
+    PT::OptimizeVector optvec(imgs.size());
+    optvec[currImg] = m_opt;
+    localPano.setOptimizeVector(optvec);
+    
+    if ( imgs.size() > 1) {
+        DEBUG_DEBUG("optimising image " << v << ", with " << imgs.size() -1 << " already optimised neighbour imgs.");
+        
+        optimize(localPano);
+        m_pano.updateVariables(unsigned(v), localPano.getImageVariables(currImg));
+#ifdef DEBUG
+        std::cerr << "after optim " << v << " : ";
+        printVariableMap(std::cerr, m_pano.getImageVariables(v));
+        std::cerr << std::endl;
+#endif
+    }
+}
