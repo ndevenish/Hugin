@@ -43,94 +43,8 @@ class Matrix3;
 
 namespace PT {
 
-class PanoramaData;
-
 typedef std::set<unsigned int> UIntSet;
 typedef std::vector<unsigned int> UIntVector;
-
-
-/** this handler class will receive change events from the Panorama.
- *
- *  Maybe a fine grained event interface is better, but it can be
- *  added later.
- */
-
-class PanoramaObserver
-{
-public:
-    
-    virtual ~PanoramaObserver()
-        { };
-    
-    /** Notification about a Panorama change.
-     *
-     *  This function will always be called, even when the
-     *  change could be handled by panoramaImageAdded() or
-     *  other notify functions.
-     *
-     *  This allows lazy observers to just listen to
-     *  panoramaChanged().
-     *
-     */
-    virtual void panoramaChanged(PanoramaData &pano)
-        { DEBUG_DEBUG("Default panoramaChanged called"); };
-
-    /** notifies about changes to images
-     *
-     *  Images might have been added/removed. to find out
-     *  how many images are still there, use Panorama::getNrOfImages.
-     *
-     *  @param pano the panorama object that changed
-     *  @param changed set of changed images
-     *
-     */
-    virtual void panoramaImagesChanged(PanoramaData &pano, const UIntSet & changed)
-        { DEBUG_DEBUG("DEFAULT handler method"); };
-
-    /** notification about a new image.
-     *
-     *  It is called whenever an image has been added.
-     */
-//    virtual void panoramaImageAdded(PanoramaData &pano, unsigned int imgNr)
-//        { DEBUG_WARN("DEFAULT handler method"); };
-
-    /** notifiy about the removal of an image.
-     *
-     *  always called when an image is removed.
-     *  Beware: the image might already destroyed when this is called.
-     */
-//    virtual void panoramaImageRemoved(PanoramaData &pano, unsigned int imgNr)
-//        { DEBUG_WARN("DEFAULT handler method"); };
-
-    /** notify about an image change.
-     *
-     *  This is called whenever the image (for example the filename)
-     *  or something the image depends on (for example: Lens, Control
-     *  Points) has changed.
-     */
-//    virtual void panoramaImageChanged(PanoramaData &pano, unsigned int imgNr)
-//        { DEBUG_TRACE(""); };
-    
-};
-
-
-/** Memento class for a PanoramaData object
-*
-*  Preserves the internal state of a PanoramaData.
-*  Used when other objects need to get/set the state without
-*  knowing anything about the internals.
-*
-*/
-class PanoramaDataMemento
-{
-public:
-    
-    virtual ~PanoramaMemento();
-    
-    //    virtual PanoramaMemento & operator=(const PanoramaMemento & o);
-    
-};
-
 
 
 /** Model for a panorama.
@@ -189,71 +103,6 @@ class PanoramaData
 public:
 
     virtual ~PanoramaData();
-    
-    /** get a subset of the panorama
-        *
-        *  This returns a panorama that contains only the images specified by \imgs
-        *  Useful for operations on a subset of the panorama
-        */
-    virtual Panorama getSubset(const PT::UIntSet & imgs) const;
-    
-    /** duplicate the panorama
-        *
-        *  returns a copy of the pano state, except for the listeners.
-        */
-    virtual Panorama duplicate() const;
-    
-    /** clear the internal state. */
-    virtual void reset();
-    
-    
-// -- Observing --
-
-    /** add a panorama observer.
-        *
-        *  It will recieve all change messages.
-        *  An observer can only be added once. if its added twice,
-        *  the second addObserver() will have no effect.
-        */
-    virtual void addObserver(PanoramaObserver *o);
-    
-    /** remove a panorama observer.
-        *
-        *  Observers must be removed before they are destroyed,
-        *  else Panorama will try to notify them after they have been
-        *  destroyed
-        *
-        *  @return true if observer was known, false otherwise.
-        */
-    virtual bool removeObserver(PanoramaObserver *observer);
-    
-    /** remove all panorama observers.
-        *
-        *  @warning this is a hack. it must not be used on normal Panorama's.
-        */
-    virtual void clearObservers();
-    
-    /** notify observers about changes in this class
-        *
-        *  This needs to be called explicitly by somebody after
-        *  changes have been made.
-        *  Allows to compress multiple changes into one notification.
-        *
-        *  @param keepDirty  do not set dirty flag. useful for changing
-        *                    the dirty flag itself
-        */
-    void changeFinished(bool keepDirty=false);
-    
-    
-// -- Optimization Status --
-    
-    /** true if control points or lens variables
-    *  have been changed after the last optimisation
-    */
-    virtual bool needsOptimization();
-    
-    virtual void markAsOptimized(bool optimized=true);
-    
     
 // -- Data Access [TODO: clean up] --
     
@@ -314,7 +163,6 @@ public:
     // iterator like interface for the images and control points
 //    ImageVector::const_iterator
         
-
 
     /** add an Image to the panorama
      *
@@ -445,15 +293,6 @@ public:
     
     /** get active images */
     UIntSet getActiveImages() const;
-    
-    
-// -- Memento interface --
-    
-    /// get the internal state
-    virtual PanoramaMemento getMemento() const;
-
-    /// set the internal state
-    virtual void setMemento(PanoramaMemento & state);
 
     
 // -- script interface --
@@ -487,10 +326,120 @@ public:
     /// create the stitcher script
     virtual void printStitcherScript(std::ostream & o, const PanoramaOptions & target,
                                      const UIntSet & imgs) const;
-    
-    
-// -- document interface [TODO: to be moved out] --
 
+};
+
+
+
+/** this handler class will receive change events from the Panorama.
+*
+*  Maybe a fine grained event interface is better, but it can be
+*  added later.
+*/
+
+class PanoramaObserver
+{
+public:
+    
+    virtual ~PanoramaObserver()
+    { };
+    
+    /** Notification about a Panorama change.
+    *
+    *  This function will always be called, even when the
+    *  change could be handled by panoramaImageAdded() or
+    *  other notify functions.
+    *
+    *  This allows lazy observers to just listen to
+    *  panoramaChanged().
+    *
+    */
+    virtual void panoramaChanged(PanoramaData &pano)
+    { DEBUG_DEBUG("Default panoramaChanged called"); };
+    
+    /** notifies about changes to images
+        *
+        *  Images might have been added/removed. to find out
+        *  how many images are still there, use Panorama::getNrOfImages.
+        *
+        *  @param pano the panorama object that changed
+        *  @param changed set of changed images
+        *
+        */
+    virtual void panoramaImagesChanged(PanoramaData &pano, const UIntSet & changed)
+    { DEBUG_DEBUG("DEFAULT handler method"); };
+    
+    /** notification about a new image.
+        *
+        *  It is called whenever an image has been added.
+        */
+    //    virtual void panoramaImageAdded(PanoramaData &pano, unsigned int imgNr)
+    //        { DEBUG_WARN("DEFAULT handler method"); };
+    
+    /** notifiy about the removal of an image.
+        *
+        *  always called when an image is removed.
+        *  Beware: the image might already destroyed when this is called.
+        */
+    //    virtual void panoramaImageRemoved(PanoramaData &pano, unsigned int imgNr)
+    //        { DEBUG_WARN("DEFAULT handler method"); };
+    
+    /** notify about an image change.
+        *
+        *  This is called whenever the image (for example the filename)
+        *  or something the image depends on (for example: Lens, Control
+                                              *  Points) has changed.
+        */
+    //    virtual void panoramaImageChanged(PanoramaData &pano, unsigned int imgNr)
+    //        { DEBUG_TRACE(""); };
+    
+};
+
+
+/** Memento class for a PanoramaData object
+*
+*  Preserves the internal state of a PanoramaData.
+*  Used when other objects need to get/set the state without
+*  knowing anything about the internals.
+*
+*/
+class PanoramaDataMemento
+{
+public:
+    
+    virtual ~PanoramaMemento();
+    
+    //    virtual PanoramaMemento & operator=(const PanoramaMemento & o);
+    
+};
+
+
+
+class ManagedPanoramaData : PanoramaData
+{
+public:
+    
+    virtual ~ManagedPanoramaData();
+    
+    /** get a subset of the panorama
+    *
+    *  This returns a panorama that contains only the images specified by \imgs
+    *  Useful for operations on a subset of the panorama
+    */
+    virtual Panorama getSubset(const PT::UIntSet & imgs) const;
+    
+    /** duplicate the panorama
+    *
+    *  returns a copy of the pano state, except for the listeners.
+    */
+    virtual Panorama duplicate() const;
+    
+    /** clear the internal state. */
+    virtual void reset();
+    
+    
+    // -- document interface [TODO: to be moved out] --
+    
     /** clear dirty flag. call after save */
     void clearDirty()
     {
@@ -502,9 +451,63 @@ public:
     bool isDirty() const
     { return dirty; }
     
-
-};
-
+    
+    // -- Observing --
+    
+    /** add a panorama observer.
+        *
+        *  It will recieve all change messages.
+        *  An observer can only be added once. if its added twice,
+        *  the second addObserver() will have no effect.
+        */
+    virtual void addObserver(PanoramaObserver *o);
+    
+    /** remove a panorama observer.
+        *
+        *  Observers must be removed before they are destroyed,
+        *  else Panorama will try to notify them after they have been
+        *  destroyed
+        *
+        *  @return true if observer was known, false otherwise.
+        */
+    virtual bool removeObserver(PanoramaObserver *observer);
+    
+    /** remove all panorama observers.
+        *
+        *  @warning this is a hack. it must not be used on normal Panorama's.
+        */
+    virtual void clearObservers();
+    
+    /** notify observers about changes in this class
+        *
+        *  This needs to be called explicitly by somebody after
+        *  changes have been made.
+        *  Allows to compress multiple changes into one notification.
+        *
+        *  @param keepDirty  do not set dirty flag. useful for changing
+        *                    the dirty flag itself
+        */
+    virtual void changeFinished(bool keepDirty=false);
+    
+    
+    // -- Memento interface --
+    
+    /// get the internal state
+    virtual PanoramaMemento getMemento() const;
+    
+    /// set the internal state
+    virtual void setMemento(PanoramaMemento & state);
+    
+    
+    // -- Optimization Status --
+    
+    /** true if control points or lens variables
+        *  have been changed after the last optimisation
+        */
+    virtual bool needsOptimization();
+    
+    virtual void markAsOptimized(bool optimized=true);
+}
 
 
 } // namespace
