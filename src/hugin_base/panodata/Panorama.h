@@ -598,7 +598,7 @@ const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string &
 
 
 
-// -- Parsing --
+// -- Parsing [TODO: move out] --
 
 /// helper functions for parsing a script line
 bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
