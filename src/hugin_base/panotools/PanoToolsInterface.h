@@ -79,7 +79,7 @@ extern "C" {
 #undef max
 #endif
 
-class wxImage;
+class wxImage; // Why? TODO: remove!
 
 namespace vigra
 {
@@ -241,6 +241,7 @@ private:
     Transform(const Transform &);
     Transform & operator=(const Transform &);
 };
+
 
 /** set an output image, with properties from @p opts,
  *  that points to the bitmap data of @p imgData
