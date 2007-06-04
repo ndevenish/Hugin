@@ -701,6 +701,89 @@ const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string &
 
 
 
+// -- from memento.h --
+
+
+
+
+
+
+
+
+
+
+
+typedef std::vector<PanoImage> ImageVector;
+typedef std::vector<std::set<std::string> > OptimizeVector;
+
+class Panorama;
+/** Memento class for a Panorama object
+ *
+ *  Holds the internal state of a Panorama.
+ *  Used when other objects need to get/set the state without
+ *  knowing anything about the internals.
+ *
+ *  It is also used for saving/loading (the state can be serialized
+ *  to an xml file).
+ *
+ *  @todo xml support
+ */
+class PanoramaMemento
+{
+public:
+    PanoramaMemento()
+     : needsOptimization(false)
+        { };
+    /// copy ctor.
+//    PanoramaMemento(const PanoramaMemento & o);
+    /// assignment operator
+//    PanoramaMemento & operator=(const PanoramaMemento & o);
+    virtual ~PanoramaMemento();
+
+    /** enum for supported PTScript syntax bastards */
+    enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
+
+
+    /** load a PTScript file
+     *
+     *  initializes the PanoramaMemento from a PTScript file
+     */
+    bool loadPTScript(std::istream & i, const std::string & prefix = "");
+
+private:
+
+    enum PTParseState { P_NONE,
+                        P_OUTPUT,
+                        P_MODIFIER,
+                        P_IMAGE,
+                        P_OPTIMIZE,
+                        P_CP
+    };
+
+
+    friend class PT::Panorama;
+    // state members for the state
+
+    ImageVector images;
+    VariableMapVector variables;
+
+    CPVector ctrlPoints;
+
+    std::vector<Lens> lenses;
+    PanoramaOptions options;
+
+    OptimizeVector optvec;
+
+    // indicates that changes have been made to
+    // control points or lens parameters after the
+    // last optimisation
+    bool needsOptimization;
+};
+
+
+
+
+
 } // namespace
 
 
