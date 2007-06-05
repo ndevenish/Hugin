@@ -577,74 +577,6 @@ private:
 };
 
 
-// -- algorithms [TODO: move out!] --
-
-/** function to calculate the scaling factor so that the distances
-    in the input image and panorama image are similar at the panorama center
- */
-double calcOptimalPanoScale(const SrcPanoImage & src,
-                            const PanoramaOptions & dest);
-
-double calcMeanExposure(const Panorama & pano);
-
-
-
-// helper functions, workaround for gcc 3.3, which doesn't find
-// the map_get template functions.
-PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key);
-const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key);
-PT::Variable & map_get(PT::VariableMap &m, const std::string & key);
-const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string & key);
-
-
-
-// -- Parsing [TODO: move out] --
-
-/// helper functions for parsing a script line
-bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
-
-#if 0
-template <class T>
-bool getParam(T & value, const std::string & line, const std::string & name)
-{
-    std::string s;
-    if (!getPTParam(s, line, name)) {
-        return false;
-    }
-    std::istringstream is(s);
-    is >> value;
-    return true;
-}
-#endif
-
-template <class T>
-bool getIntParam(T & value, const std::string & line, const std::string & name)
-{
-    std::string s;
-    if (!getPTParam(s, line, name)) {
-        return false;
-    }
-    std::istringstream is(s);
-    is >> value;
-    return true;
-}
-
-bool readVar(Variable & var, int & link, const std::string & line);
-
-bool getPTStringParam(std::string & output, const std::string & line,
-                      const std::string & parameter);
-
-bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
-
-bool getDoubleParam(double & d, const std::string & line, const std::string & name);
-
-bool getPTDoubleParam(double & value, int & link,
-                      const std::string & line, const std::string & var);
-
-
-
-
-
 
 typedef std::vector<PanoImage> ImageVector;
 typedef std::vector<std::set<std::string> > OptimizeVector;
@@ -662,6 +594,9 @@ typedef std::vector<std::set<std::string> > OptimizeVector;
  */
 class PanoramaMemento
 {
+    
+    friend class PT::Panorama;
+    
 public:
     PanoramaMemento()
      : needsOptimization(false)
@@ -675,14 +610,15 @@ public:
     /** enum for supported PTScript syntax bastards */
     enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
 
-
-    /** load a PTScript file
-     *
-     *  initializes the PanoramaMemento from a PTScript file
-     */
-    bool loadPTScript(std::istream & i, const std::string & prefix = "");
-
+    
 private:
+        
+    /** load a PTScript file
+    *
+    *  initializes the PanoramaMemento from a PTScript file
+    */
+    bool loadPTScript(std::istream & i, const std::string & prefix = "");
+    
 
     enum PTParseState { P_NONE,
                         P_OUTPUT,
@@ -691,10 +627,6 @@ private:
                         P_OPTIMIZE,
                         P_CP
     };
-
-
-    friend class PT::Panorama;
-    // state members for the state
 
     ImageVector images;
     VariableMapVector variables;
@@ -714,6 +646,60 @@ private:
 
 
 
+namespace PTScriptParcing
+{
+        
+    /// helper functions for parsing a script line
+    bool getPTParam(std::string & output, const std::string & line, const std::string & parameter);
+
+    #if 0
+    template <class T>
+    bool getParam(T & value, const std::string & line, const std::string & name)
+    {
+        std::string s;
+        if (!getPTParam(s, line, name)) {
+            return false;
+        }
+        std::istringstream is(s);
+        is >> value;
+        return true;
+    }
+    #endif
+
+    template <class T>
+    bool getIntParam(T & value, const std::string & line, const std::string & name)
+    {
+        std::string s;
+        if (!getPTParam(s, line, name)) {
+            return false;
+        }
+        std::istringstream is(s);
+        is >> value;
+        return true;
+    }
+
+    bool readVar(Variable & var, int & link, const std::string & line);
+
+    bool getPTStringParam(std::string & output, const std::string & line,
+                          const std::string & parameter);
+
+    bool getPTStringParamColon(std::string & output, const std::string & line, const std::string & parameter);
+
+    bool getDoubleParam(double & d, const std::string & line, const std::string & name);
+
+    bool getPTDoubleParam(double & value, int & link,
+                          const std::string & line, const std::string & var);
+
+}
+
+
+
+// helper functions, workaround for gcc 3.3, which doesn't find
+// the map_get template functions.
+PT::LensVariable & map_get(PT::LensVarMap &m, const std::string & key);
+const PT::LensVariable & const_map_get(const PT::LensVarMap &m, const std::string & key);
+PT::Variable & map_get(PT::VariableMap &m, const std::string & key);
+const PT::Variable & const_map_get(const PT::VariableMap &m, const std::string & key);
 
 
 } // namespace

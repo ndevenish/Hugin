@@ -48,7 +48,8 @@ class Panorama;
 class SrcPanoImage
 {
 public:
-
+    
+    
     enum Projection { RECTILINEAR = 0,
                       PANORAMIC = 1,
                       CIRCULAR_FISHEYE = 2,
@@ -75,6 +76,13 @@ public:
         RESPONSE_ICC                     ///< use ICC for transformation into linear data (not implemented yet)
     };
 
+    
+    
+    
+    
+    
+    
+    
     SrcPanoImage()
     {
         setDefaults();
@@ -141,6 +149,11 @@ public:
         m_featherWidth = 10;
         m_morph = false;
     }
+
+    
+    
+    
+    
 
     /** "resize" image,
      *  adjusts all distortion coefficients for usage with a source image
@@ -362,6 +375,23 @@ public:
 
     double getVar(const std::string & name) const;
     void setVar(const std::string & name, double val);
+    
+    
+    
+    /** try to fill out information about the image, by examining the exif data
+        *  focalLength and cropFactor will be updated with the ones read from the exif data
+        *  If no or not enought exif data was found and valid given focalLength and cropFactor
+        *  settings where provided, they will be used for computation of the HFOV.
+        */
+    static bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor);
+    
+    /** calculate hfov of an image given focal length, image size and crop factor */
+    static double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);
+    
+    /** calcualte focal length, given crop factor and hfov */
+    static double calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize);
+    
+    
 
 private:
     std::string m_filename;
@@ -423,21 +453,6 @@ private:
     bool m_morph;
 };
 
-
-// -- [TODO: move out] --
-
-/** try to fill out information about the image, by examining the exif data
- *  focalLength and cropFactor will be updated with the ones read from the exif data
- *  If no or not enought exif data was found and valid given focalLength and cropFactor
- *  settings where provided, they will be used for computation of the HFOV.
- */
-bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor);
-
-/** calculate hfov of an image given focal length, image size and crop factor */
-double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);
-
-/** calcualte focal length, given crop factor and hfov */
-double calcFocalLength(SrcPanoImage::Projection proj, double hfov, double crop, vigra::Size2D imageSize);
 
 
 

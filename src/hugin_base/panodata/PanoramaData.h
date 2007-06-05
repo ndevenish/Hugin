@@ -337,7 +337,8 @@ public:
     virtual void parseOptimizerScript(std::istream & i, const UIntSet & imgs,
                                       VariableMapVector & imgVars,
                                       CPVector & ctrlPoints) const;
-    
+
+        
     /// create an optimizer script
     virtual void printPanoramaScript(std::ostream & o,
                                      const OptimizeVector & optvars,
